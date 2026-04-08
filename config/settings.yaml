@@ -83,6 +83,16 @@ agent_routing:
   dialogue_polish_editor:          { backend: local, model: primary_moe, params: { temperature: 0.4 } }
   worldbuilding_coherence_reviewer: { backend: local, model: primary_moe, params: { temperature: 0.3 } }
   judge_evaluator:                 { backend: cloud, model: primary, params: { temperature: 0.2 } }
+  # Phase A: Concept Workshop
+  concept_workshop:                { backend: cloud, model: primary, params: { temperature: 0.7, max_tokens: 8192 } }
+
+# Concept workshop local fallback (local-only deployment mode)
+concept_workshop_local:
+  model: primary_moe
+  context_size: 131072
+  params:
+    temperature: 0.7
+    min_p: 0.05
 
 # Local inference settings
 local_inference:

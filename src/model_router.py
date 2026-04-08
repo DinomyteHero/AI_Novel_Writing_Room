@@ -215,6 +215,40 @@ class ModelRouter:
         override = routing.get("params", {})
         return {**base_params, **override}
 
+    # ------------------------------------------------------------------ #
+    # Concept Workshop session helpers
+    # ------------------------------------------------------------------ #
+
+    def start_workshop_session(self) -> None:
+        """Prepare the backend for a concept workshop session.
+
+        In local mode this would restart llama-server with the extended
+        context_size from ``concept_workshop_local``.  In cloud/hybrid
+        mode this is a no-op — the cloud API handles context natively.
+        """
+        if self.mode == "local":
+            ws_cfg = self.config.get("concept_workshop_local", {})
+            self._workshop_context_size = ws_cfg.get("context_size", 131072)
+            self._original_context_size = (
+                self.config.get("local_inference", {}).get("context_size", 32768)
+            )
+            # In a real deployment this would restart llama-server with
+            # the new context_size.  For now, record the override so
+            # callers (and tests) can verify the intent.
+            self.config.setdefault("local_inference", {})[
+                "context_size"
+            ] = self._workshop_context_size
+
+    def end_workshop_session(self) -> None:
+        """Restore standard backend settings after a workshop session.
+
+        Reverses the context_size override applied by
+        ``start_workshop_session()``.  No-op in cloud/hybrid mode.
+        """
+        if self.mode == "local":
+            original = getattr(self, "_original_context_size", 32768)
+            self.config.setdefault("local_inference", {})["context_size"] = original
+
     async def close(self):
         """Close HTTP clients."""
         if self._local_client:
