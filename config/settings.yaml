@@ -1,4 +1,4 @@
-deployment_mode: local  # local | cloud | hybrid
+deployment_mode: cloud  # local | cloud | hybrid
 
 models:
   local:
@@ -33,15 +33,34 @@ models:
     base_url: https://openrouter.ai/api/v1
     api_key_env: OPENROUTER_API_KEY
     models:
+      # Named tiers (used by cloud-only agents like voice_checker, judge_evaluator)
       primary: anthropic/claude-sonnet-4-20250514
       premium: anthropic/claude-opus-4-20250514
       budget: anthropic/claude-haiku-4-5-20251001
+      # Free model aliases — map local agent_routing keys to free OpenRouter models
+      # To switch to paid models, comment the free lines and uncomment the paid lines
+      primary_moe: google/gemma-4-31b-it:free       # PlotArchitect, ProseStylist, GateCritic, CraftEditor
+      # primary_moe: deepseek/deepseek-v3.2          # Paid alternative ($0.26/$0.38 per M tokens)
+      fast_moe: google/gemma-4-31b-it:free           # CanonExpert, Orchestrator
+      # fast_moe: deepseek/deepseek-v3.2
+      utility: google/gemma-4-26b-a4b-it:free        # Summarizer
+      # utility: deepseek/deepseek-v3.2
+      prose: google/gemma-4-31b-it:free              # Prose models
+      # prose: deepseek/deepseek-v3.2
     default_params:
       primary:
         temperature: 0.7
         max_tokens: 4096
       premium:
         temperature: 0.9
+        max_tokens: 8192
+      primary_moe:
+        max_tokens: 8192
+      fast_moe:
+        max_tokens: 4096
+      utility:
+        max_tokens: 2048
+      prose:
         max_tokens: 8192
 
 # Agent-to-model mapping
