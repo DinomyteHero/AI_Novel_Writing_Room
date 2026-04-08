@@ -41,6 +41,7 @@ Each agent:
 | Summarizer | `src/agents/summarizer.py` | `summarizer` | Chapter compression to summary + state diff |
 | OutlinePlanner | `src/agents/outline_planner.py` | `outline_planner` | Concept seed -> structured outline |
 | JudgeEvaluator | `src/quality/llm_judge.py` | `judge_evaluator` | LLM-as-judge 5-dimension evaluation |
+| ManuscriptReviewer | `src/agents/manuscript_reviewer.py` | `manuscript_reviewer` | Dual-persona full-manuscript evaluation |
 
 ## Per-Chapter Flow (Orchestrator)
 

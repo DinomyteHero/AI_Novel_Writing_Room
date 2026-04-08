@@ -56,7 +56,7 @@ The pipeline generates chapters through a multi-agent loop:
 
 1. **PlotArchitect** reads a scene card and produces a generation brief
 2. **ProseStylist** drafts prose from the brief + assembled context
-3. **GateCritic** evaluates the draft against a structural rubric (pass/fail with 14 failure codes)
+3. **GateCritic** evaluates the draft against a structural rubric (pass/fail with 19 failure codes)
 4. **CraftEditor** applies non-blocking polish improvements
 5. **RevisionPipeline** runs up to 5 revision passes (structural continuity, scene emotion, line copy, dialogue polish, worldbuilding coherence)
 6. **QualityMetrics** scores the output (repetition, pacing, voice, AI-tell detection)
@@ -69,8 +69,7 @@ Higher phases add more capabilities:
 | 2 | SQLite story state, ChromaDB chapter memory, knowledge layers, canon RAG |
 | 3 | Quality metrics, character specialist, 3-band revision, milestone gates |
 | 4 | Export (md/docx/epub), physics enforcement, adaptive revision, LLM judge, session persistence |
-
-The web interface (Phase 5) provides a real-time dashboard with WebSocket event streaming, milestone approval, quality visualization, and chapter viewing.
+| 5 | Series planning, voice definition, hook/subplot governance, character arcs (Weiland), terminology registry, stress testing, manuscript review, style fingerprinting, web dashboard with WebSocket streaming |
 
 ## Documentation
 
@@ -99,7 +98,7 @@ Historical implementation briefs from each build phase are preserved in [docs/ar
 ## Tests
 
 ```bash
-pytest                    # Run all tests (398)
+pytest                    # Run all tests (616)
 pytest -k "test_orchestrator"   # Run specific tests
 ```
 
