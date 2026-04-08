@@ -187,3 +187,89 @@ class TestModelRouterCompletion:
 
         result = await router.complete_structured("gate_critic", [{"role": "user", "content": "test"}])
         assert result["verdict"] == "pass"
+
+
+class TestConceptWorkshopRouting:
+    """Test concept_workshop agent routing and session helpers."""
+
+    def _make_router(self, temp_dir, mode="hybrid"):
+        import yaml
+        from pathlib import Path
+
+        config_dir = Path(temp_dir) / "config"
+        config_dir.mkdir(exist_ok=True)
+        settings = {
+            "deployment_mode": mode,
+            "models": {
+                "local": {
+                    "base_url": "http://localhost:8080/v1",
+                    "models": {"primary_moe": "local-model"},
+                    "default_params": {"primary_moe": {"temperature": 0.7}},
+                },
+                "cloud": {
+                    "provider": "openrouter",
+                    "base_url": "https://openrouter.ai/api/v1",
+                    "api_key_env": "OPENROUTER_API_KEY",
+                    "models": {"primary": "cloud-model"},
+                    "default_params": {"primary": {"temperature": 0.7, "max_tokens": 4096}},
+                },
+            },
+            "agent_routing": {
+                "concept_workshop": {
+                    "backend": "cloud",
+                    "model": "primary",
+                    "params": {"temperature": 0.7, "max_tokens": 8192},
+                },
+                "voice_checker": {"backend": "cloud", "model": "primary"},
+            },
+            "concept_workshop_local": {
+                "model": "primary_moe",
+                "context_size": 131072,
+                "params": {"temperature": 0.7, "min_p": 0.05},
+            },
+            "local_inference": {"context_size": 32768},
+        }
+        config_path = config_dir / "settings.yaml"
+        with open(config_path, "w") as f:
+            yaml.dump(settings, f)
+        return ModelRouter(str(config_path))
+
+    def test_hybrid_routes_to_cloud(self, temp_dir):
+        router = self._make_router(temp_dir, mode="hybrid")
+        routing = router._get_routing("concept_workshop")
+        assert routing["backend"] == "cloud"
+        assert routing["model"] == "primary"
+
+    def test_cloud_routes_to_cloud(self, temp_dir):
+        router = self._make_router(temp_dir, mode="cloud")
+        routing = router._get_routing("concept_workshop")
+        assert routing["backend"] == "cloud"
+
+    def test_cloud_resolves_params(self, temp_dir):
+        router = self._make_router(temp_dir, mode="cloud")
+        routing = router._get_routing("concept_workshop")
+        assert routing["params"]["temperature"] == 0.7
+        assert routing["params"]["max_tokens"] == 8192
+
+    def test_start_workshop_session_local(self, temp_dir):
+        router = self._make_router(temp_dir, mode="local")
+        assert router.config["local_inference"]["context_size"] == 32768
+        router.start_workshop_session()
+        assert router.config["local_inference"]["context_size"] == 131072
+
+    def test_end_workshop_session_restores(self, temp_dir):
+        router = self._make_router(temp_dir, mode="local")
+        router.start_workshop_session()
+        router.end_workshop_session()
+        assert router.config["local_inference"]["context_size"] == 32768
+
+    def test_start_end_noop_in_cloud(self, temp_dir):
+        router = self._make_router(temp_dir, mode="cloud")
+        # Should not raise.
+        router.start_workshop_session()
+        router.end_workshop_session()
+
+    def test_start_end_noop_in_hybrid(self, temp_dir):
+        router = self._make_router(temp_dir, mode="hybrid")
+        router.start_workshop_session()
+        router.end_workshop_session()
