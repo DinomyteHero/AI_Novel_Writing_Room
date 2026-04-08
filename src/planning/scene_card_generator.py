@@ -68,12 +68,53 @@ class OutlinePlanner(BaseAgent):
             if dims:
                 parts.append(f"  Surface: {dims.get('surface', '')}")
                 parts.append(f"  Inner: {dims.get('backstory_inner_demons', '')}")
+            # Phase 5: Weiland arc info
+            arc = char.get("weiland_arc")
+            if arc:
+                parts.append(f"  Lie: {arc.get('lie_believed', '')}")
+                parts.append(f"  Need: {arc.get('need', '')}")
+                parts.append(f"  Arc type: {arc.get('arc_type', '')}")
             parts.append("")
 
         if structural:
             parts.append("## Structural Notes (Brooks 4-part)")
             for phase, desc in structural.items():
                 parts.append(f"- {phase}: {desc}")
+            parts.append("")
+
+        # Phase 5: Subplot board
+        subplot_board = seed.get("subplot_board", [])
+        if subplot_board:
+            parts.append("## Subplot Board")
+            for sub in subplot_board:
+                parts.append(
+                    f"- [{sub.get('line_type', '?')}-line] {sub.get('subplot_name', sub.get('subplot_id', ''))}: "
+                    f"{sub.get('structural_purpose', '')}"
+                )
+            parts.append("")
+
+        # Phase 5: Hook map
+        hook_map = seed.get("hook_map", [])
+        if hook_map:
+            parts.append("## Hook Map")
+            for hook in hook_map:
+                payoff = hook.get("payoff_chapter", "TBD")
+                parts.append(
+                    f"- [{hook.get('priority', 'soft')}] {hook.get('hook_id', '')}: "
+                    f"{hook.get('description', '')} (plant ch{hook.get('planted_chapter', '?')}, "
+                    f"payoff ch{payoff})"
+                )
+            parts.append("")
+
+        # Phase 5: Revelation schedule
+        revelations = seed.get("revelation_schedule", [])
+        if revelations:
+            parts.append("## Revelation Schedule")
+            for rev in revelations:
+                parts.append(
+                    f"- ch{rev.get('revealed_chapter', '?')}: "
+                    f"{rev.get('content', '')} ({rev.get('significance', '')})"
+                )
             parts.append("")
 
         parts.append(
@@ -97,7 +138,12 @@ class OutlinePlanner(BaseAgent):
             f"- promises_planted (list of strings)\n"
             f"- promises_paid (list of strings)\n"
             f"- canon_elements_needed (list of strings)\n"
-            f"- target_word_count (int)\n\n"
+            f"- target_word_count (int)\n"
+            f"- active_subplots (list of subplot_ids active in this scene)\n"
+            f"- hook_actions (list of {{hook_id, action}} where action is plant/advance/resolve/subvert)\n"
+            f"- revelations (list of info_ids revealed in this scene)\n"
+            f"- pov_arc_phase (current Weiland arc phase for POV character)\n"
+            f"- arc_phase_transition (new phase if this scene triggers a transition, else null)\n\n"
             f"Distribute POV characters using the {meta.get('pov_structure', 'rotating')} pattern.\n"
             f"Ensure pressure escalates toward the climax.\n"
             f"Return ONLY the JSON array, no other text."
@@ -233,6 +279,12 @@ class SceneCardGenerator:
             "canon_elements_needed": [],
             "target_word_count": per_chapter,
             "notes": "",
+            # Phase 5 fields
+            "active_subplots": [],
+            "hook_actions": [],
+            "revelations": [],
+            "pov_arc_phase": None,
+            "arc_phase_transition": None,
         }
 
         result = {**defaults, **card}

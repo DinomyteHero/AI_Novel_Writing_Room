@@ -105,9 +105,9 @@ local_inference:
 
 ## failure_codes.yaml
 
-Defines the 14 failure codes used by GateCritic, organized into 3 categories:
+Defines the 19 failure codes used by GateCritic, organized into 3 categories:
 
-### Structural (7 codes)
+### Structural (10 codes)
 
 | Code | Description |
 |------|-------------|
@@ -118,14 +118,19 @@ Defines the 14 failure codes used by GateCritic, organized into 3 categories:
 | STRUCTURAL_PHASE_VIOLATION | Scene actions violate Brooks phase constraints |
 | PROMISE_BROKEN | Setup or foreshadow contradicted without intentional subversion |
 | MOTIVATION_GAP | Character action lacks traceable motivation |
+| CHARACTER_ARC_STALL | POV character has not progressed Weiland arc phase within expected structural window |
+| HOOK_VIOLATION | Unauthorized hook planted, or required hook advancement missed |
+| SUBPLOT_DRIFT | Active subplot ignored or resolved subplot reopened without justification |
 
-### Voice (3 codes)
+### Voice (5 codes)
 
 | Code | Description |
 |------|-------------|
 | OOC_DIALOGUE | Character speaks inconsistently with voice profile |
 | OOC_ACTION | Character acts inconsistently with established dimensions |
 | TELLING_NOT_SHOWING | Emotional state narrated rather than demonstrated |
+| TERMINOLOGY_DRIFT | Term from registry spelled differently or used inconsistently |
+| VOICE_DEFINITION_VIOLATION | Prose violates voice definition rules (anti-slop, anti-patterns) |
 
 ### Polish (4 codes)
 

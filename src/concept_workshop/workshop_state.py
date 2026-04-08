@@ -17,6 +17,8 @@ from typing import Any, Optional
 
 # Top-level concept seed fields and human-readable labels for open questions.
 _SEED_FIELDS: dict[str, str] = {
+    # Step 0: Project scope
+    "meta.project_scope": "Project scope (standalone / planned_series / continuation)",
     "meta.project_title": "Project title",
     "meta.franchise": "Franchise",
     "meta.canon_status": "Canon status",
@@ -25,6 +27,7 @@ _SEED_FIELDS: dict[str, str] = {
     "meta.target_word_count": "Target word count",
     "meta.target_chapters": "Target chapter count",
     "meta.pov_structure": "POV structure",
+    # Steps 2-3: Premise
     "premise.what_if": "What-if premise hook",
     "premise.central_dramatic_question": "Central dramatic question",
     "premise.logline": "Logline",
@@ -35,14 +38,32 @@ _SEED_FIELDS: dict[str, str] = {
     "theme.thematic_argument": "Thematic argument",
     "theme.how_each_arc_tests_theme": "How each arc tests the theme",
     "protagonist_arc_type": "Protagonist arc type",
+    # Step 4: Characters + Weiland arcs
     "ensemble_cast": "Ensemble cast",
     "force_mechanics": "Force / magic mechanics",
+    # Step 5: Voice definition
+    "voice_definition.pov_approach": "POV approach",
+    "voice_definition.prose_register": "Prose register",
+    "voice_definition.anti_slop": "Anti-slop rules",
+    "voice_definition.anti_patterns": "Anti-pattern rules",
+    "voice_definition.narrative_voice_notes": "Narrative voice notes",
+    # Step 6: Structure
+    "structural_notes.brooks_alignment": "Brooks four-part structure alignment",
+    # Step 7: Subplots + hooks
+    "subplot_board": "Subplot board",
+    "hook_map": "Hook map",
+    "revelation_schedule": "Revelation schedule",
+    # Step 8: Scene cards (generated, not tracked here)
+    # Step 9: Terminology
+    "terminology_registry": "Terminology registry",
+    # Step 10: Stress test
+    "stress_test_results": "Stress test results",
+    # Canon
     "canon_constraints.continuity": "Canon continuity",
     "canon_constraints.divergence_point": "Canon divergence point",
     "canon_constraints.canon_preserved": "Canon preserved",
     "canon_constraints.canon_overridden": "Canon overridden",
     "canon_constraints.style_constraints": "Style constraints",
-    "structural_notes.brooks_alignment": "Brooks four-part structure alignment",
 }
 
 
@@ -59,6 +80,14 @@ class ConceptWorkshopState:
     force_mechanics: dict = field(default_factory=dict)
     canon_constraints: dict = field(default_factory=dict)
     structural_notes: dict = field(default_factory=dict)
+    # Phase 5 fields
+    voice_definition: dict = field(default_factory=dict)
+    subplot_board: list[dict] = field(default_factory=list)
+    hook_map: list[dict] = field(default_factory=list)
+    revelation_schedule: list[dict] = field(default_factory=list)
+    author_only_secrets: Optional[str] = None
+    terminology_registry: list[dict] = field(default_factory=list)
+    stress_test_results: dict = field(default_factory=dict)
     confirmed_fields: set[str] = field(default_factory=set)
 
     # ------------------------------------------------------------------ #
@@ -67,7 +96,7 @@ class ConceptWorkshopState:
 
     def to_dict(self) -> dict:
         """Serialize to a JSON-compatible dict."""
-        return {
+        d = {
             "meta": self.meta,
             "premise": self.premise,
             "conflict": self.conflict,
@@ -79,6 +108,22 @@ class ConceptWorkshopState:
             "structural_notes": self.structural_notes,
             "confirmed_fields": sorted(self.confirmed_fields),
         }
+        # Phase 5 fields — include only when populated
+        if self.voice_definition:
+            d["voice_definition"] = self.voice_definition
+        if self.subplot_board:
+            d["subplot_board"] = self.subplot_board
+        if self.hook_map:
+            d["hook_map"] = self.hook_map
+        if self.revelation_schedule:
+            d["revelation_schedule"] = self.revelation_schedule
+        if self.author_only_secrets:
+            d["author_only_secrets"] = self.author_only_secrets
+        if self.terminology_registry:
+            d["terminology_registry"] = self.terminology_registry
+        if self.stress_test_results:
+            d["stress_test_results"] = self.stress_test_results
+        return d
 
     @classmethod
     def from_dict(cls, data: dict) -> ConceptWorkshopState:
@@ -93,6 +138,13 @@ class ConceptWorkshopState:
             force_mechanics=data.get("force_mechanics", {}),
             canon_constraints=data.get("canon_constraints", {}),
             structural_notes=data.get("structural_notes", {}),
+            voice_definition=data.get("voice_definition", {}),
+            subplot_board=data.get("subplot_board", []),
+            hook_map=data.get("hook_map", []),
+            revelation_schedule=data.get("revelation_schedule", []),
+            author_only_secrets=data.get("author_only_secrets"),
+            terminology_registry=data.get("terminology_registry", []),
+            stress_test_results=data.get("stress_test_results", {}),
             confirmed_fields=set(data.get("confirmed_fields", [])),
         )
 

@@ -14,6 +14,7 @@ The `schemas/` directory contains JSON Schema definitions for the system's core 
 | State Diff | `schemas/state_diff.json` | Post-chapter state mutation document. Describes changes to characters, knowledge, plot threads, timeline, and Chekhov guns after each chapter. |
 | Failure Code | `schemas/failure_code.json` | GateCritic evaluation output. Contains verdict, failure codes, and routing decision. |
 | Canon Evidence | `schemas/canon_evidence.json` | RAG retrieval result with confidence score, source authority class, continuity tag, and divergence safety flag. |
+| Series Seed | `schemas/series_seed.json` | Series-level planning document for multi-book projects. Contains series arc, per-book outlines, cross-book promises, and shared characters. |
 
 ## Data Flow
 
@@ -45,6 +46,7 @@ schemas/
 ├── failure_code.json
 ├── scene_card.json
 ├── state_diff.json
+├── series_seed.json
 ├── story_bible.json
 └── story_physics.json
 ```

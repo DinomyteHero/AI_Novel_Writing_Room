@@ -4,7 +4,7 @@ The system uses a multi-layered memory architecture to maintain story continuity
 
 ## Story State (SQLite)
 
-`src/memory/story_state.py` manages a SQLite database with 7 tables:
+`src/memory/story_state.py` manages a SQLite database with 13 tables (7 original + 6 added in Phase 5). Schema migrations are applied automatically on init via the `schema_migrations` table.
 
 ### characters
 
@@ -82,6 +82,30 @@ Three-layer knowledge system. Each row is a fact known by a character.
 
 Records per-chapter generation metadata (word count, quality scores, etc.).
 
+### character_arcs (Phase 5)
+
+Tracks K.M. Weiland character arc beats per character per book. PK: `(character_id, book_number)`. Fields: `lie_believed`, `ghost`, `want`, `need`, `arc_type` (positive_change/flat/negative/disillusionment), `current_phase` (lie_reinforced through truth_accepted/truth_rejected), `phase_chapter`, `phase_evidence`, `arc_phase_targets` (JSON mapping phases to Brooks structure).
+
+### subplot_board (Phase 5)
+
+Tracks subplot lifecycle. PK: `subplot_id`. Fields: `subplot_name`, `line_type` (A/B/C/D), `characters_involved` (JSON), `start_chapter`, `resolution_chapter`, `structural_purpose`, `interweave_points` (JSON), `current_status`, `book_number`.
+
+### hook_ledger (Phase 5)
+
+Promise/hook governance with admission control. PK: `hook_id`. Fields: `description`, `hook_type`, `planted_chapter`, `payoff_chapter`, `advancement_chapters` (JSON), `priority` (hard/soft/series), `current_status`, `last_advanced_chapter`, `mention_only_count`. Hook budget: `target_chapters / 3` hard hooks max.
+
+### terminology_registry (Phase 5)
+
+Canonical terms for consistency. PK: `term`. Fields: `aliases` (JSON), `definition`, `category`, `first_appearance_chapter`, `book_number`.
+
+### propagation_debts (Phase 5)
+
+Tracks state changes needing propagation to previously-written chapters. Fields: `source_layer`, `change_description`, `affected_chapters` (JSON), `resolved_at`, `resolution_method`.
+
+### style_fingerprint (Phase 5)
+
+Per-source style metrics for voice enforcement. Fields: `source`, `metric_name`, `metric_value` (JSON).
+
 ## Knowledge Layers
 
 `src/memory/knowledge_layers.py` provides a semantic API over the `character_knowledge` table:
@@ -122,6 +146,11 @@ Additional context layers when available:
 - Canon RAG results (franchise knowledge)
 - Character knowledge state (beliefs and truth per character)
 - Voice sheets (character speech patterns)
+- Voice rules — anti-slop/anti-pattern injection from voice definition (Phase 5)
+- Hook agenda — which hooks to plant/advance/resolve this chapter (Phase 5)
+- Arc context — POV character's current Weiland arc phase and targets (Phase 5)
+- Subplot context — active subplots for this scene (Phase 5)
+- Terminology — canonical terms for consistency (Phase 5)
 
 The assembler manages a token budget to fit everything within the model's context window. When Phase 2 dependencies aren't available, it falls back to Phase 1 behavior (simple concatenation of concept seed + scene card + previous chapter text).
 
@@ -130,14 +159,19 @@ The assembler manages a token budget to fit everything within the model's contex
 `src/memory/state_diff.py` manages state mutations:
 
 1. After each chapter, the Summarizer produces a **state diff** (JSON) describing changes:
-   - Character position/state updates
+   - Character position/state updates (with old_value verification in Phase 5)
    - New knowledge acquired
    - Plot thread status changes
    - Timeline entries
    - Chekhov gun status changes
+   - Subplot updates (Phase 5)
+   - Hook updates with admission control (Phase 5)
+   - Arc phase transitions with progression validation (Phase 5)
+   - Terminology updates (Phase 5)
 2. The StateDiffApplier validates and applies the diff to SQLite
-3. A state hash is computed before and after to detect unexpected mutations
-4. All diffs are logged to the RunLedger with before/after hashes
+3. Phase 5: old_value verification — before applying a `modify` operation, the applier checks that the expected old value matches the current DB value. On mismatch, a `state_diff_conflict` event is logged (optimistic strategy: apply anyway, flag for review)
+4. A state hash is computed before and after to detect unexpected mutations
+5. All diffs are logged to the RunLedger with before/after hashes
 
 ## Contradiction Scanner
 

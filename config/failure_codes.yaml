@@ -7,11 +7,16 @@ failure_codes:
     STRUCTURAL_PHASE_VIOLATION: "Scene actions violate Brooks phase constraints"
     PROMISE_BROKEN: "Setup or foreshadow is contradicted without intentional subversion"
     MOTIVATION_GAP: "Character action lacks traceable motivation from state or arc"
+    CHARACTER_ARC_STALL: "POV character has not progressed Weiland arc phase within expected structural window"
+    HOOK_VIOLATION: "Unauthorized hook planted, or required hook advancement missed"
+    SUBPLOT_DRIFT: "Active subplot ignored or resolved subplot reopened without justification"
 
   voice:
     OOC_DIALOGUE: "Character speaks in a way inconsistent with voice profile"
     OOC_ACTION: "Character acts inconsistently with established dimensions"
     TELLING_NOT_SHOWING: "Emotional state narrated rather than demonstrated"
+    TERMINOLOGY_DRIFT: "Term from registry spelled differently or used inconsistently"
+    VOICE_DEFINITION_VIOLATION: "Prose violates voice definition rules (anti-slop, anti-patterns)"
 
   polish:
     EXPOSITION_LEAK: "World-building info dumped outside natural scene flow"

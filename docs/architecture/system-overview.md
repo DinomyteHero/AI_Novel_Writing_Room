@@ -31,7 +31,7 @@ PlotArchitect (scene card -> generation brief)
 ProseStylist (generation brief + context -> draft prose)
     |
     v
-GateCritic (pass/fail with 14 failure codes)
+GateCritic (pass/fail with 19 failure codes)
     |
     +-- fail_structural -> ProseStylist (full rewrite)
     +-- fail_voice -> ProseStylist (targeted revision)
@@ -61,7 +61,7 @@ ai-writers-room/
 ├── requirements.txt
 ├── config/
 │   ├── settings.yaml              # Deployment mode, model routing, pipeline settings
-│   ├── failure_codes.yaml         # 14 failure codes across 3 categories
+│   ├── failure_codes.yaml         # 19 failure codes across 3 categories
 │   ├── negative_constraints.yaml  # Banned phrases, AI-tell detection rules
 │   └── eval_rubric.yaml           # LLM judge evaluation dimensions
 ├── src/

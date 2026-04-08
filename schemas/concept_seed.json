@@ -15,7 +15,20 @@
         "tone": { "type": "string", "enum": ["dark_gritty", "adventurous_hopeful", "political_intrigue", "character_study"] },
         "target_word_count": { "type": "integer", "minimum": 40000, "maximum": 120000 },
         "target_chapters": { "type": "integer", "minimum": 15, "maximum": 40 },
-        "pov_structure": { "type": "string" }
+        "pov_structure": { "type": "string" },
+        "project_scope": {
+          "type": "string",
+          "enum": ["standalone", "planned_series", "continuation"]
+        },
+        "series": {
+          "type": "object",
+          "description": "Reference to series seed (for planned_series or continuation)",
+          "properties": {
+            "series_id": { "type": "string" },
+            "book_number": { "type": "integer", "minimum": 1 }
+          }
+        },
+        "book_number": { "type": "integer", "minimum": 1 }
       }
     },
     "premise": {
@@ -86,7 +99,31 @@
               "action_under_pressure": { "type": "string", "minLength": 50 }
             }
           },
-          "voice_notes": { "type": "string", "minLength": 30 }
+          "voice_notes": { "type": "string", "minLength": 30 },
+          "weiland_arc": {
+            "type": "object",
+            "required": ["lie_believed", "ghost", "want", "need", "arc_type"],
+            "properties": {
+              "lie_believed": { "type": "string", "minLength": 30 },
+              "ghost": { "type": "string", "minLength": 30 },
+              "want": { "type": "string", "minLength": 20 },
+              "need": { "type": "string", "minLength": 20 },
+              "arc_type": {
+                "type": "string",
+                "enum": ["positive_change", "flat", "negative", "disillusionment"]
+              },
+              "arc_phase_targets": {
+                "type": "object",
+                "properties": {
+                  "lie_reinforced": { "type": "string" },
+                  "lie_questioned": { "type": "string" },
+                  "lie_cracking": { "type": "string" },
+                  "lie_confronted": { "type": "string" },
+                  "truth_resolved": { "type": "string" }
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -124,6 +161,116 @@
             "part_4_resolution": { "type": "string" }
           }
         }
+      }
+    },
+    "voice_definition": {
+      "type": "object",
+      "properties": {
+        "pov_approach": { "type": "string" },
+        "prose_register": { "type": "string" },
+        "reference_authors": { "type": "array", "items": { "type": "string" } },
+        "pacing_feel": { "type": "string" },
+        "anti_slop": {
+          "type": "object",
+          "properties": {
+            "banned_words": { "type": "array", "items": { "type": "string" } },
+            "banned_phrases": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "anti_patterns": { "type": "array", "items": { "type": "string" } },
+        "narrative_voice_notes": { "type": "string" }
+      }
+    },
+    "subplot_board": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["subplot_id", "subplot_name", "line_type"],
+        "properties": {
+          "subplot_id": { "type": "string" },
+          "subplot_name": { "type": "string" },
+          "line_type": { "type": "string", "enum": ["A", "B", "C", "D"] },
+          "characters_involved": { "type": "array", "items": { "type": "string" } },
+          "start_chapter": { "type": "integer" },
+          "resolution_chapter": { "type": "integer" },
+          "structural_purpose": { "type": "string" },
+          "interweave_points": { "type": "array", "items": { "type": "integer" } },
+          "current_status": {
+            "type": "string",
+            "enum": ["planned", "active", "climaxing", "resolved", "abandoned"]
+          }
+        }
+      }
+    },
+    "hook_map": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["hook_id", "description", "hook_type", "planted_chapter", "priority"],
+        "properties": {
+          "hook_id": { "type": "string" },
+          "description": { "type": "string" },
+          "hook_type": {
+            "type": "string",
+            "enum": ["chekhov", "foreshadow", "setup_callback", "thematic_echo", "mystery_question"]
+          },
+          "planted_chapter": { "type": "integer" },
+          "payoff_chapter": { "type": "integer" },
+          "payoff_book": { "type": "integer" },
+          "advancement_chapters": { "type": "array", "items": { "type": "integer" } },
+          "priority": { "type": "string", "enum": ["hard", "soft", "series"] },
+          "related_subplot": { "type": "string" },
+          "duplicate_check": { "type": "string" }
+        }
+      }
+    },
+    "revelation_schedule": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "info_id": { "type": "string" },
+          "content": { "type": "string" },
+          "revealed_chapter": { "type": "integer" },
+          "revealed_through_pov": { "type": "string" },
+          "significance": { "type": "string", "enum": ["minor", "moderate", "major", "climactic"] }
+        }
+      }
+    },
+    "author_only_secrets": { "type": "string" },
+    "terminology_registry": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["term", "definition", "category"],
+        "properties": {
+          "term": { "type": "string" },
+          "aliases": { "type": "array", "items": { "type": "string" } },
+          "definition": { "type": "string" },
+          "category": {
+            "type": "string",
+            "enum": ["character_name", "place_name", "faction", "artifact", "concept", "species", "title"]
+          },
+          "first_appearance": { "type": "integer" }
+        }
+      }
+    },
+    "stress_test_results": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "object",
+          "properties": {
+            "premise_strength": { "type": "number", "minimum": 0, "maximum": 10 },
+            "character_depth": { "type": "number", "minimum": 0, "maximum": 10 },
+            "structural_integrity": { "type": "number", "minimum": 0, "maximum": 10 },
+            "hook_coherence": { "type": "number", "minimum": 0, "maximum": 10 },
+            "series_viability": { "type": "number", "minimum": 0, "maximum": 10 }
+          }
+        },
+        "flagged_issues": { "type": "array", "items": { "type": "string" } },
+        "human_approved": { "type": "boolean" },
+        "approval_timestamp": { "type": "string" }
       }
     }
   }

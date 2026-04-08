@@ -60,6 +60,16 @@ class Summarizer(BaseAgent):
             "For character_id values, use lowercase underscore format (e.g., 'ben_skywalker').",
             "For plot_thread_updates, track status changes (planted/active/escalating/resolving/resolved).",
             "For new_knowledge, record what characters learned and how (witnessed/told/inferred).",
+            "",
+            "Phase 5 additional change types (include when applicable):",
+            '     - "subplot_updates": array of {subplot_id, field, old_value, new_value}',
+            '     - "hook_updates": array of {hook_id, field, old_value, new_value}',
+            '     - "arc_phase_updates": array of {character_id, old_phase, new_phase, evidence}',
+            '     - "terminology_updates": array of {term, definition, category}',
+            "",
+            "For arc_phase_updates, old_value must state what you believe the current phase is.",
+            "If you are unsure whether a state change occurred, DO NOT include it.",
+            "False positives are worse than false negatives.",
         ]
 
         return "\n".join(parts)
@@ -107,4 +117,9 @@ class Summarizer(BaseAgent):
         changes.setdefault("character_updates", [])
         changes.setdefault("plot_thread_updates", [])
         changes.setdefault("new_knowledge", [])
+        # Phase 5 change types
+        changes.setdefault("subplot_updates", [])
+        changes.setdefault("hook_updates", [])
+        changes.setdefault("arc_phase_updates", [])
+        changes.setdefault("terminology_updates", [])
         return result

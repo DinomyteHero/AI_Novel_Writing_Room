@@ -27,6 +27,21 @@ class PlotArchitect(BaseAgent):
 
         parts.append(f"## Scene Card\n```json\n{json.dumps(scene_card, indent=2)}\n```")
 
+        # Phase 5: Hook agenda
+        hook_agenda = context.get("hook_agenda")
+        if hook_agenda:
+            parts.append(f"## Hook Agenda\n{hook_agenda}")
+
+        # Phase 5: Arc context for POV character
+        arc_context = context.get("arc_context")
+        if arc_context:
+            parts.append(f"## POV Character Arc\n{arc_context}")
+
+        # Phase 5: Active subplots
+        subplot_context = context.get("subplot_context")
+        if subplot_context:
+            parts.append(f"## Active Subplots\n{subplot_context}")
+
         parts.append(
             "## Task\n"
             "Produce a detailed generation brief for the Prose Stylist. Include:\n"
@@ -38,6 +53,9 @@ class PlotArchitect(BaseAgent):
             "6. **Emotional arc**: The emotional trajectory for the POV character\n"
             "7. **Voice guidance**: Specific notes for this POV character's voice\n"
             "8. **Constraints**: What must NOT happen (structural phase rules, canon limits)\n"
+            "9. **Hook directives**: Which hooks to plant, advance, or resolve (from Hook Agenda)\n"
+            "10. **Subplot directives**: Which subplot lines this scene should touch\n"
+            "11. **Arc phase directive**: Where the POV character should be in their arc after this scene\n"
         )
 
         return "\n\n".join(parts)

@@ -72,7 +72,7 @@ ProseStylist takes the generation brief + assembled context and drafts the chapt
 
 GateCritic evaluates the draft against a structural rubric and returns a structured `CriticFailure` JSON with:
 - Overall verdict: `pass` or `fail`
-- Failure codes from `config/failure_codes.yaml` (14 codes across 3 categories)
+- Failure codes from `config/failure_codes.yaml` (19 codes across 3 categories)
 - Routing decision:
   - `fail_structural` -> full rewrite (back to ProseStylist with failure context)
   - `fail_voice` -> targeted revision (ProseStylist with specific notes)

@@ -3,13 +3,20 @@
 After each chapter generation, the Summarizer produces a state diff.
 This module validates and applies diffs to the SQLite story state,
 computing state hashes and emitting events to the run ledger.
+
+Phase 5 additions:
+- old_value verification on character updates (optimistic: log conflict, still apply)
+- subplot_updates, hook_updates, arc_phase_updates, terminology_updates handlers
 """
 
 import json
+import logging
 
 from src.memory.knowledge_layers import KnowledgeLayers
 from src.memory.story_state import StoryState
 from src.run_ledger import RunLedger
+
+logger = logging.getLogger(__name__)
 
 
 class StateDiffApplier:
@@ -54,6 +61,11 @@ class StateDiffApplier:
         self._apply_character_updates(changes.get("character_updates", []), chapter_number)
         self._apply_plot_thread_updates(changes.get("plot_thread_updates", []))
         self._apply_new_knowledge(changes.get("new_knowledge", []), chapter_number)
+        # Phase 5 change types
+        self._apply_subplot_updates(changes.get("subplot_updates", []))
+        self._apply_hook_updates(changes.get("hook_updates", []), chapter_number)
+        self._apply_arc_phase_updates(changes.get("arc_phase_updates", []), chapter_number)
+        self._apply_terminology_updates(changes.get("terminology_updates", []))
 
         # Compute post-diff state hash
         post_hash = self.state.get_state_hash()
@@ -71,7 +83,7 @@ class StateDiffApplier:
     def _apply_character_updates(
         self, updates: list[dict], chapter_number: int
     ) -> None:
-        """Apply character state updates."""
+        """Apply character state updates with old_value verification."""
         for update in updates:
             char_id = update.get("character_id")
             field = update.get("field")
@@ -84,6 +96,29 @@ class StateDiffApplier:
             character = self.state.get_character(char_id)
             if character is None:
                 continue
+
+            # Phase 5: old_value verification
+            old_value = update.get("old_value")
+            if old_value is not None:
+                current_value = character.get(field)
+                if current_value != old_value:
+                    logger.warning(
+                        "State diff conflict on character '%s' field '%s': "
+                        "expected old_value=%r, actual=%r. Applying anyway (optimistic).",
+                        char_id, field, old_value, current_value,
+                    )
+                    self.ledger.emit(
+                        "state_diff_conflict",
+                        chapter_number=chapter_number,
+                        payload={
+                            "entity_type": "character",
+                            "entity_id": char_id,
+                            "field": field,
+                            "expected_old": old_value,
+                            "actual_current": current_value,
+                            "new_value": new_value,
+                        },
+                    )
 
             kwargs = {field: new_value}
             # Also update last_appearance
@@ -136,6 +171,138 @@ class StateDiffApplier:
                 source=source,
             )
 
+    # ------------------------------------------------------------------
+    # Phase 5 diff handlers
+    # ------------------------------------------------------------------
+
+    def _apply_subplot_updates(self, updates: list[dict]) -> None:
+        """Apply subplot board updates."""
+        for update in updates:
+            subplot_id = update.get("subplot_id")
+            field = update.get("field")
+            new_value = update.get("new_value")
+
+            if not subplot_id or not field:
+                continue
+
+            subplot = self.state.get_subplot(subplot_id)
+            if subplot is None:
+                # Auto-create subplot
+                self.state.add_subplot(
+                    subplot_id=subplot_id,
+                    subplot_name=subplot_id.replace("_", " ").title(),
+                    **{field: new_value},
+                )
+            else:
+                self.state.update_subplot(subplot_id, **{field: new_value})
+
+    def _apply_hook_updates(
+        self, updates: list[dict], chapter_number: int
+    ) -> None:
+        """Apply hook ledger updates with admission control."""
+        for update in updates:
+            hook_id = update.get("hook_id")
+            field = update.get("field")
+            new_value = update.get("new_value")
+
+            if not hook_id:
+                continue
+
+            hook = self.state.get_hook(hook_id)
+            if hook is None:
+                # New hook — check admission control
+                priority = update.get("priority", "soft")
+                # Use a reasonable default target chapters
+                if not self.state.can_admit_hook(priority, target_chapters=30):
+                    logger.warning(
+                        "Hook '%s' at priority '%s' denied admission — budget exceeded. "
+                        "Recording anyway since prose may already reference it.",
+                        hook_id, priority,
+                    )
+                    self.ledger.emit(
+                        "hook_admission_denied",
+                        chapter_number=chapter_number,
+                        payload={"hook_id": hook_id, "priority": priority},
+                    )
+
+                # Auto-create hook with available fields from the update
+                self.state.add_hook(
+                    hook_id=hook_id,
+                    description=update.get("description", hook_id.replace("_", " ")),
+                    hook_type=update.get("hook_type", "foreshadow"),
+                    planted_chapter=chapter_number,
+                    priority=update.get("priority", "soft"),
+                    related_subplot=update.get("related_subplot"),
+                )
+                if field and field != "current_status":
+                    self.state.update_hook(hook_id, **{field: new_value})
+            else:
+                if field:
+                    self.state.update_hook(hook_id, **{field: new_value})
+
+    def _apply_arc_phase_updates(
+        self, updates: list[dict], chapter_number: int
+    ) -> None:
+        """Apply character arc phase transitions with validation."""
+        for update in updates:
+            char_id = update.get("character_id")
+            new_phase = update.get("new_phase")
+            evidence = update.get("evidence")
+
+            if not char_id or not new_phase:
+                continue
+
+            success = self.state.advance_arc_phase(
+                character_id=char_id,
+                new_phase=new_phase,
+                chapter=chapter_number,
+                evidence=evidence,
+            )
+            if not success:
+                old_phase = update.get("old_phase", "unknown")
+                logger.warning(
+                    "Arc phase transition rejected for '%s': %s -> %s. "
+                    "Invalid progression.",
+                    char_id, old_phase, new_phase,
+                )
+                self.ledger.emit(
+                    "arc_phase_transition_rejected",
+                    chapter_number=chapter_number,
+                    payload={
+                        "character_id": char_id,
+                        "old_phase": old_phase,
+                        "new_phase": new_phase,
+                        "evidence": evidence,
+                    },
+                )
+
+    def _apply_terminology_updates(self, updates: list[dict]) -> None:
+        """Apply terminology registry updates."""
+        for update in updates:
+            term = update.get("term")
+            if not term:
+                continue
+
+            existing = self.state.get_term(term)
+            if existing is None:
+                # Auto-create term
+                self.state.add_term(
+                    term=term,
+                    definition=update.get("definition", ""),
+                    category=update.get("category", "concept"),
+                    aliases=update.get("aliases"),
+                    first_appearance_chapter=update.get("first_appearance_chapter"),
+                )
+            else:
+                field = update.get("field")
+                new_value = update.get("new_value")
+                if field and new_value is not None:
+                    self.state.update_term(term, **{field: new_value})
+
+    # ------------------------------------------------------------------
+    # Validation
+    # ------------------------------------------------------------------
+
     def validate_diff(self, diff: dict) -> list[str]:
         """Validate a state diff against expected structure.
 
@@ -169,6 +336,25 @@ class StateDiffApplier:
                 errors.append(f"new_knowledge[{i}]: missing character_id")
             if "fact" not in nk:
                 errors.append(f"new_knowledge[{i}]: missing fact")
+
+        # Phase 5 validation
+        for i, su in enumerate(changes.get("subplot_updates", [])):
+            if "subplot_id" not in su:
+                errors.append(f"subplot_updates[{i}]: missing subplot_id")
+
+        for i, hu in enumerate(changes.get("hook_updates", [])):
+            if "hook_id" not in hu:
+                errors.append(f"hook_updates[{i}]: missing hook_id")
+
+        for i, au in enumerate(changes.get("arc_phase_updates", [])):
+            if "character_id" not in au:
+                errors.append(f"arc_phase_updates[{i}]: missing character_id")
+            if "new_phase" not in au:
+                errors.append(f"arc_phase_updates[{i}]: missing new_phase")
+
+        for i, tu in enumerate(changes.get("terminology_updates", [])):
+            if "term" not in tu:
+                errors.append(f"terminology_updates[{i}]: missing term")
 
         return errors
 
