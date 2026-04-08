@@ -30,6 +30,8 @@ Enforces style constraints from `config/negative_constraints.yaml`:
 - Metaphor cooldown (distance between figurative language)
 - Voice fidelity scoring
 
+In Phase 5, per-project voice definition rules from the concept seed's `voice_definition` field (defined during the Concept Workshop's Voice Discovery step) are merged with the static negative constraints, enabling project-specific anti-slop rules and anti-patterns.
+
 ### SlopDetector (`src/quality/slop_detector.py`)
 
 Identifies AI-typical writing patterns:
@@ -100,6 +102,14 @@ Can be disabled with `--no-milestones`.
 ## LLM Judge (Phase 4)
 
 `src/quality/llm_judge.py` uses a cloud model to evaluate chapters across 5 dimensions defined in `config/eval_rubric.yaml`. This is an expensive evaluation (cloud API call) and is only run when `--judge` is passed.
+
+## Style Fingerprinter (Phase 5)
+
+`src/quality/style_fingerprint.py` extracts quantitative prose metrics (sentence length distribution, dialogue ratio, adverb density, em-dash usage) and compares them against reference fingerprints stored in the `style_fingerprint` SQLite table. This enables voice drift detection across chapters and against reference material.
+
+## Manuscript Reviewer (Phase 5)
+
+`src/agents/manuscript_reviewer.py` performs full-manuscript-level review using dual personas (Literary Critic and Structural Editor). Unlike the per-chapter LLM Judge, the Manuscript Reviewer evaluates the complete work and outputs categorized issues with severity levels (critical/major/minor/suggestion) and an overall recommendation (approve/revise_specific_chapters/major_revision_needed).
 
 ## Gold Evaluation Corpus
 

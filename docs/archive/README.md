@@ -13,3 +13,4 @@ They describe what was **planned** to be built at each phase, not necessarily th
 | `phase-2-brief.md` | `Phase_2_Prompt.md` | Phase 2 implementation brief: Memory, Canon, and Story Physics. |
 | `phase-3-brief.md` | `Phase_3_Prompt.md` | Phase 3 implementation brief: Quality Metrics, Character Specialist, Revision Pipeline. |
 | `phase-4-brief.md` | `Phase_4_Project_Brief.md` | Phase 4 implementation brief: Export, Physics Integration, Adaptive Revision, Scene Cards. |
+| `Phase_5_Changelog.md` | `Phase_5_Changelog.md` | Phase 5 changelog and migration guide: Series support, workshop expansion, character arcs, hook governance, voice definition, style fingerprinting, manuscript review. |

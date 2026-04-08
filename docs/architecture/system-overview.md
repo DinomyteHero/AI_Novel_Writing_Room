@@ -70,7 +70,7 @@ ai-writers-room/
 │   ├── orchestrator.py            # Event-driven pipeline state machine
 │   ├── run_ledger.py              # Append-only SQLite event log
 │   ├── pipeline_session.py        # JSON-based session save/resume
-│   ├── agents/                    # Agent implementations (base + 9 specialized)
+│   ├── agents/                    # Agent implementations (base + 8 specialized)
 │   ├── memory/                    # State management (SQLite, ChromaDB, context assembly)
 │   ├── rag/                       # Canon knowledge retrieval (vector DB, hybrid search)
 │   ├── quality/                   # Quality metrics and milestone gates
@@ -79,12 +79,12 @@ ai-writers-room/
 │   ├── export/                    # Markdown, DOCX, EPUB export
 │   ├── concept_workshop/          # Interactive concept development
 │   └── ui/                        # FastAPI backend + React frontend
-├── tests/                         # 398 tests across 41 files
+├── tests/                         # 616 tests across 59 files
 ├── prompts/
 │   ├── concept_workshop.md        # Workshop facilitator system prompt
-│   ├── agent_system_prompts/      # Per-agent system prompts (9 files)
+│   ├── agent_system_prompts/      # Per-agent system prompts (10 files)
 │   └── revision_prompts/          # Per-band revision prompts (5 files)
-├── schemas/                       # JSON schema definitions (8 schemas)
+├── schemas/                       # JSON schema definitions (9 schemas)
 ├── data/
 │   ├── story_bibles/              # Concept seeds and scene cards per project
 │   ├── manuscripts/               # Generated chapter prose
