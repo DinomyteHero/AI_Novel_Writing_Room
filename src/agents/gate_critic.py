@@ -20,12 +20,19 @@ STRUCTURAL_CODES = {
     "STRUCTURAL_PHASE_VIOLATION",
     "PROMISE_BROKEN",
     "MOTIVATION_GAP",
+    # Phase 5 additions
+    "CHARACTER_ARC_STALL",
+    "HOOK_VIOLATION",
+    "SUBPLOT_DRIFT",
 }
 
 VOICE_CODES = {
     "OOC_DIALOGUE",
     "OOC_ACTION",
     "TELLING_NOT_SHOWING",
+    # Phase 5 additions
+    "TERMINOLOGY_DRIFT",
+    "VOICE_DEFINITION_VIOLATION",
 }
 
 POLISH_CODES = {
@@ -108,8 +115,9 @@ class GateCritic(BaseAgent):
             "Valid failure codes:\n"
             "- Structural: CONTINUITY_CONTRADICTION, WEAK_TURNING_POINT, "
             "MISSING_TURNING_POINT, UNEARNED_RESOLUTION, STRUCTURAL_PHASE_VIOLATION, "
-            "PROMISE_BROKEN, MOTIVATION_GAP\n"
-            "- Voice: OOC_DIALOGUE, OOC_ACTION, TELLING_NOT_SHOWING\n"
+            "PROMISE_BROKEN, MOTIVATION_GAP, CHARACTER_ARC_STALL, HOOK_VIOLATION, SUBPLOT_DRIFT\n"
+            "- Voice: OOC_DIALOGUE, OOC_ACTION, TELLING_NOT_SHOWING, "
+            "TERMINOLOGY_DRIFT, VOICE_DEFINITION_VIOLATION\n"
             "- Polish: EXPOSITION_LEAK, PACING_FLATLINE, PROSE_CLICHE_BURST, CANON_VIOLATION\n\n"
             "Check:\n"
             "1. Does the scene fulfill its mission from the scene card?\n"
@@ -118,6 +126,11 @@ class GateCritic(BaseAgent):
             "4. Does the scene respect structural phase constraints?\n"
             "5. Are characters behaving consistently with their profiles?\n"
             "6. Is the prose quality acceptable (no info dumps, varied pacing)?\n"
+            "7. Has the POV character's arc phase progressed as expected? (CHARACTER_ARC_STALL)\n"
+            "8. Were required hooks planted/advanced/resolved per the hook agenda? (HOOK_VIOLATION)\n"
+            "9. Are active subplots addressed as expected? (SUBPLOT_DRIFT)\n"
+            "10. Are in-universe terms spelled correctly per the terminology registry? (TERMINOLOGY_DRIFT)\n"
+            "11. Does the prose follow voice definition rules (banned words, anti-patterns)? (VOICE_DEFINITION_VIOLATION)\n"
         )
 
         return "\n\n".join(parts)

@@ -1,3 +1,5 @@
+> **Historical document.** This was the project brief used to build Phase 2. It describes the codebase as it existed after Phase 1. For current architecture, see `AI_Writers_Room_Design_Document_v1.1.md` and `Phase_5_Changelog.md`.
+
 # Claude Code Project Brief: AI Writers' Room — Phase 2 (Memory, Canon, and Story Physics)
 
 ## Context

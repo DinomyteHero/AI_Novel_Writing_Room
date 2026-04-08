@@ -27,7 +27,12 @@
               "PROMISE_BROKEN",
               "MOTIVATION_GAP",
               "TELLING_NOT_SHOWING",
-              "STRUCTURAL_PHASE_VIOLATION"
+              "STRUCTURAL_PHASE_VIOLATION",
+              "CHARACTER_ARC_STALL",
+              "HOOK_VIOLATION",
+              "SUBPLOT_DRIFT",
+              "TERMINOLOGY_DRIFT",
+              "VOICE_DEFINITION_VIOLATION"
             ]
           },
           "location": { "type": "string" },

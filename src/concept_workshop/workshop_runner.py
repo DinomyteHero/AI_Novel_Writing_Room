@@ -21,6 +21,7 @@ from pathlib import Path
 from src.model_router import ModelRouter
 from src.concept_workshop.state_writer import ConceptWorkshopStateWriter
 from src.concept_workshop.workshop_summarizer import WorkshopSummarizer
+from src.concept_workshop.series_manager import SeriesManager
 
 logger = logging.getLogger(__name__)
 
@@ -35,12 +36,18 @@ class WorkshopRunner:
         project_name: str,
         router: ModelRouter,
         resume: bool = False,
+        series: bool = False,
+        continue_from: str | None = None,
+        promote_to_series: bool = False,
         input_fn=None,
         print_fn=None,
     ):
         self.project_name = project_name
         self.router = router
         self.resume = resume
+        self.series = series
+        self.continue_from = continue_from
+        self.promote_to_series = promote_to_series
         self._input = input_fn or input
         self._print = print_fn or print
 
@@ -52,10 +59,17 @@ class WorkshopRunner:
         self.state_writer = ConceptWorkshopStateWriter(
             project_name, self.project_dir, router,
         )
+        self.series_manager = SeriesManager(self.project_dir)
         self.summarizer = WorkshopSummarizer(router, self.project_dir)
         self.conversation_history: list[dict] = []
         self.session_id = self._next_session_id(sessions_dir)
         self.transcript_path = sessions_dir / f"{self.session_id}.jsonl"
+
+        # Set project scope based on flags
+        if series:
+            self.state_writer.state.meta["project_scope"] = "planned_series"
+        elif continue_from:
+            self.state_writer.state.meta["project_scope"] = "continuation"
 
     async def run(self) -> None:
         """Run the interactive conversation loop."""
@@ -65,6 +79,21 @@ class WorkshopRunner:
         if self.resume:
             session_ctx = self.state_writer.get_session_context()
             system_prompt = system_prompt + "\n\n" + session_ctx
+
+        # Phase 5: Inject continuation context from transition snapshot
+        if self.continue_from:
+            try:
+                snapshot = self.series_manager.import_transition_snapshot(self.continue_from)
+                system_prompt += (
+                    "\n\n## Inherited State from Previous Book\n"
+                    f"Book {snapshot.get('book_number', '?')} transition snapshot loaded.\n"
+                    f"Characters: {len(snapshot.get('character_end_states', []))}\n"
+                    f"Unresolved threads: {len(snapshot.get('unresolved_threads', []))}\n"
+                    f"Unresolved hooks: {len(snapshot.get('unresolved_hooks', []))}\n"
+                    "Review these inherited elements and confirm which carry forward."
+                )
+            except (FileNotFoundError, ValueError) as e:
+                self._print(f"Warning: Could not load transition snapshot: {e}")
 
         self.conversation_history.append(
             {"role": "system", "content": system_prompt},
@@ -175,6 +204,12 @@ def main() -> None:
     parser.add_argument("--resume", action="store_true", help="Resume existing session")
     parser.add_argument("--mode", default=None, help="Override deployment mode")
     parser.add_argument("--finalize", action="store_true", help="Finalize concept seed")
+    # Phase 5 flags
+    parser.add_argument("--series", action="store_true", help="Planned series mode")
+    parser.add_argument("--continue-from", type=str, default=None,
+                        help="Path to previous book's transition snapshot")
+    parser.add_argument("--promote-to-series", action="store_true",
+                        help="Promote standalone concept to series")
     args = parser.parse_args()
 
     logging.basicConfig(level=logging.INFO)
@@ -190,7 +225,13 @@ def main() -> None:
         print(f"Concept seed finalized → {output_path}")
         return
 
-    runner = WorkshopRunner(args.project, router, resume=args.resume)
+    runner = WorkshopRunner(
+        args.project, router,
+        resume=args.resume,
+        series=args.series,
+        continue_from=getattr(args, "continue_from", None),
+        promote_to_series=getattr(args, "promote_to_series", False),
+    )
     try:
         asyncio.run(runner.run())
     except KeyboardInterrupt:

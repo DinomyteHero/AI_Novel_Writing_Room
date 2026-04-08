@@ -31,6 +31,11 @@ class ProseStylist(BaseAgent):
                 f"## Revision Notes (from previous attempt)\n{failure_context}"
             )
 
+        # Phase 5: Voice rules injection
+        voice_rules = context.get("voice_rules", "")
+        if voice_rules:
+            parts.append(voice_rules)
+
         parts.append(
             "## Task\n"
             "Write the complete scene prose following the generation brief above. "

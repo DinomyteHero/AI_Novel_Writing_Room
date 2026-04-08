@@ -1,0 +1,104 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SeriesConceptSeed",
+  "type": "object",
+  "required": [
+    "series_title", "total_books", "series_dramatic_question",
+    "series_antagonist_escalation", "series_stakes_progression",
+    "series_theme", "per_book_outline", "series_promises"
+  ],
+  "properties": {
+    "series_title": { "type": "string" },
+    "total_books": { "type": "integer", "minimum": 2, "maximum": 5 },
+    "series_dramatic_question": {
+      "type": "string",
+      "description": "The overarching question the full series answers"
+    },
+    "series_antagonist_escalation": {
+      "type": "string",
+      "description": "How the primary antagonistic force escalates across books"
+    },
+    "series_stakes_progression": {
+      "type": "string",
+      "description": "How stakes grow from book to book (personal -> communal -> existential)"
+    },
+    "series_theme": {
+      "type": "object",
+      "required": ["thematic_premise"],
+      "properties": {
+        "thematic_premise": {
+          "type": "string",
+          "description": "The series-level thematic argument"
+        },
+        "per_book_thematic_focus": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Which facet of the series theme each book explores"
+        }
+      }
+    },
+    "per_book_outline": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["book_number", "book_dramatic_question", "book_role_in_series"],
+        "properties": {
+          "book_number": { "type": "integer", "minimum": 1 },
+          "book_dramatic_question": {
+            "type": "string",
+            "description": "Must contribute to series dramatic question"
+          },
+          "book_role_in_series": {
+            "type": "string",
+            "enum": ["setup", "escalation", "resolution"]
+          },
+          "protagonist_arc_phase": {
+            "type": "object",
+            "properties": {
+              "start": { "type": "string" },
+              "end": { "type": "string" }
+            }
+          },
+          "threads_inherited": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "threads_planted_for_later": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      }
+    },
+    "series_promises": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["promise_id", "description", "planted_book", "payoff_book"],
+        "properties": {
+          "promise_id": { "type": "string" },
+          "description": { "type": "string" },
+          "planted_book": { "type": "integer", "minimum": 1 },
+          "payoff_book": { "type": "integer", "minimum": 1 },
+          "type": {
+            "type": "string",
+            "enum": ["setup_payoff", "foreshadow", "chekhov", "thematic"]
+          }
+        }
+      },
+      "minItems": 1
+    },
+    "shared_characters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "role_across_series": { "type": "string" },
+          "appears_in_books": { "type": "array", "items": { "type": "integer" } }
+        }
+      }
+    },
+    "created_at": { "type": "string" }
+  }
+}

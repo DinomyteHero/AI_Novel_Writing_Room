@@ -25,9 +25,15 @@ TOKEN_BUDGETS = {
     "canon_rag": 1000,
     "character_voices": 1000,
     "character_knowledge": 500,
-    "recent_prose": 4000,
+    "recent_prose": 3500,
     "scene_card": 500,
     "negative_constraints": 400,
+    # Phase 5 tiers
+    "voice_rules": 300,
+    "hook_agenda": 400,
+    "arc_context": 300,
+    "subplot_context": 300,
+    "terminology": 200,
 }
 
 
@@ -302,10 +308,196 @@ class ContextAssembler:
         scene_text = json.dumps(scene_card, indent=2)
         components.append(f"## Scene Card\n```json\n{scene_text}\n```")
 
+        # Phase 5: Voice rules (anti-slop + anti-patterns)
+        voice_rules = self._assemble_voice_rules()
+        if voice_rules:
+            components.append(
+                _truncate_to_budget(voice_rules, TOKEN_BUDGETS["voice_rules"])
+            )
+
+        # Phase 5: Hook agenda
+        if self.story_state:
+            chapter_num = scene_card.get("chapter_number", 1)
+            hook_agenda = self._assemble_hook_agenda(chapter_num)
+            if hook_agenda:
+                components.append(
+                    _truncate_to_budget(hook_agenda, TOKEN_BUDGETS["hook_agenda"])
+                )
+
+        # Phase 5: Arc context for POV character
+        if self.story_state:
+            pov = scene_card.get("pov_character", "")
+            arc_context = self._assemble_arc_context(pov)
+            if arc_context:
+                components.append(
+                    _truncate_to_budget(arc_context, TOKEN_BUDGETS["arc_context"])
+                )
+
+        # Phase 5: Active subplots
+        if self.story_state:
+            subplot_context = self._assemble_subplot_context(scene_card)
+            if subplot_context:
+                components.append(
+                    _truncate_to_budget(subplot_context, TOKEN_BUDGETS["subplot_context"])
+                )
+
+        # Phase 5: Terminology
+        if self.story_state:
+            term_context = self._assemble_terminology()
+            if term_context:
+                components.append(
+                    _truncate_to_budget(term_context, TOKEN_BUDGETS["terminology"])
+                )
+
         # Negative constraints
         components.append(f"## Writing Constraints\n{self.negative_constraints}")
 
         return "\n\n".join(components)
+
+    # ------------------------------------------------------------------
+    # Phase 5 context methods
+    # ------------------------------------------------------------------
+
+    def _assemble_voice_rules(self) -> str:
+        """Extract voice definition from concept seed and format for injection."""
+        voice_def = self.concept_seed.get("voice_definition")
+        if not voice_def:
+            return ""
+
+        lines = ["## Voice Rules (MANDATORY)"]
+
+        anti_slop = voice_def.get("anti_slop", {})
+        banned_words = anti_slop.get("banned_words", [])
+        if banned_words:
+            lines.append("\n### Banned Words — Do NOT use these words:")
+            lines.append(", ".join(banned_words))
+
+        banned_phrases = anti_slop.get("banned_phrases", [])
+        if banned_phrases:
+            lines.append("\n### Banned Phrases — Do NOT use these phrases:")
+            for phrase in banned_phrases:
+                lines.append(f"- {phrase}")
+
+        anti_patterns = voice_def.get("anti_patterns", [])
+        if anti_patterns:
+            lines.append("\n### Banned Structural Patterns:")
+            for pattern in anti_patterns:
+                lines.append(f"- {pattern}")
+
+        if voice_def.get("narrative_voice_notes"):
+            lines.append(f"\n### Narrative Voice:\n{voice_def['narrative_voice_notes']}")
+        if voice_def.get("pov_approach"):
+            lines.append(f"**POV**: {voice_def['pov_approach']}")
+        if voice_def.get("prose_register"):
+            lines.append(f"**Register**: {voice_def['prose_register']}")
+
+        return "\n".join(lines)
+
+    def _assemble_hook_agenda(self, chapter_number: int) -> str:
+        """Query story state for the hook agenda for this chapter."""
+        if not self.story_state:
+            return ""
+        try:
+            agenda = self.story_state.get_chapter_hook_agenda(chapter_number)
+        except Exception:
+            return ""
+
+        if not any(agenda.values()):
+            return ""
+
+        lines = ["## Hook Agenda for This Chapter"]
+        if agenda["to_plant"]:
+            lines.append("\n**Hooks to PLANT:**")
+            for h in agenda["to_plant"]:
+                lines.append(f"- [{h['hook_id']}] {h['description']} (priority: {h['priority']})")
+        if agenda["to_advance"]:
+            lines.append("\n**Hooks to ADVANCE (not just mention — real progress):**")
+            for h in agenda["to_advance"]:
+                lines.append(f"- [{h['hook_id']}] {h['description']}")
+        if agenda["to_resolve"]:
+            lines.append("\n**Hooks to RESOLVE:**")
+            for h in agenda["to_resolve"]:
+                lines.append(f"- [{h['hook_id']}] {h['description']}")
+
+        return "\n".join(lines)
+
+    def _assemble_arc_context(self, pov_character: str) -> str:
+        """Get the POV character's Weiland arc state."""
+        if not self.story_state or not pov_character:
+            return ""
+
+        from src.memory.story_state import _slugify
+        char_id = _slugify(pov_character)
+        try:
+            arc = self.story_state.get_character_arc(char_id)
+        except Exception:
+            return ""
+
+        if not arc:
+            return ""
+
+        lines = [
+            f"## POV Character Arc — {pov_character}",
+            f"**Lie Believed**: {arc.get('lie_believed', 'N/A')}",
+            f"**Want**: {arc.get('want', 'N/A')}",
+            f"**Need (Truth)**: {arc.get('need', 'N/A')}",
+            f"**Arc Type**: {arc.get('arc_type', 'N/A')}",
+            f"**Current Phase**: {arc.get('current_phase', 'N/A')}",
+        ]
+
+        targets = arc.get("arc_phase_targets")
+        if targets:
+            lines.append(f"**Phase Targets**: {json.dumps(targets)}")
+
+        return "\n".join(lines)
+
+    def _assemble_subplot_context(self, scene_card: dict) -> str:
+        """Get active subplots relevant to this scene."""
+        if not self.story_state:
+            return ""
+
+        try:
+            active = self.story_state.get_active_subplots()
+        except Exception:
+            return ""
+
+        if not active:
+            return ""
+
+        # Filter to subplots referenced by scene card, or show all active if none specified
+        referenced = set(scene_card.get("active_subplots", []))
+        if referenced:
+            active = [s for s in active if s["subplot_id"] in referenced]
+
+        lines = ["## Active Subplots"]
+        for sub in active[:5]:  # Limit to top 5
+            lines.append(
+                f"- **{sub['subplot_name']}** [{sub['line_type']}-line] — "
+                f"{sub.get('structural_purpose', '')} (status: {sub['current_status']})"
+            )
+
+        return "\n".join(lines)
+
+    def _assemble_terminology(self) -> str:
+        """Format terminology registry for context injection."""
+        if not self.story_state:
+            return ""
+
+        try:
+            terms = self.story_state.get_all_terms()
+        except Exception:
+            return ""
+
+        if not terms:
+            return ""
+
+        lines = ["## Terminology Registry — Use EXACT spellings:"]
+        for t in terms[:20]:  # Limit to 20 most relevant
+            aliases = t.get("aliases", [])
+            alias_str = f" (also: {', '.join(aliases)})" if aliases else ""
+            lines.append(f"- **{t['term']}**{alias_str}: {t.get('definition', '')}")
+
+        return "\n".join(lines)
 
     def _get_act_summary(self, scene_card: dict) -> str:
         """Get a summary of the current act from chapter memory."""

@@ -43,6 +43,61 @@
               "source": { "type": "string" }
             }
           }
+        },
+        "subplot_updates": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "subplot_id": { "type": "string" },
+              "field": { "type": "string" },
+              "old_value": {},
+              "new_value": {}
+            }
+          }
+        },
+        "hook_updates": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "hook_id": { "type": "string" },
+              "field": { "type": "string" },
+              "old_value": {},
+              "new_value": {},
+              "description": { "type": "string" },
+              "hook_type": { "type": "string" },
+              "priority": { "type": "string" },
+              "related_subplot": { "type": "string" }
+            }
+          }
+        },
+        "arc_phase_updates": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "character_id": { "type": "string" },
+              "old_phase": { "type": "string" },
+              "new_phase": { "type": "string" },
+              "evidence": { "type": "string" }
+            }
+          }
+        },
+        "terminology_updates": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "term": { "type": "string" },
+              "field": { "type": "string" },
+              "old_value": {},
+              "new_value": {},
+              "definition": { "type": "string" },
+              "category": { "type": "string" },
+              "aliases": { "type": "array", "items": { "type": "string" } }
+            }
+          }
         }
       }
     }

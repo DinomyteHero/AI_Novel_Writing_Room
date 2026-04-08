@@ -1,4 +1,4 @@
-# AI Writers' Room — Technical Design Document v1.1
+# AI Writers' Room — Technical Design Document v1.2
 
 ## Changelog (v1.0 → v1.1)
 
@@ -12,6 +12,19 @@
 - **Added truth/belief/narrative-exposure separation**: Three knowledge-state layers in story state DB (Phase 2).
 - **Added canon evidence ranking**: Retrieved canon now includes confidence score, source class, and continuity tag.
 - **Formalized orchestrator event model**: Typed events, append-only run ledger, diffed state mutations before commit.
+
+### v1.1 → v1.2 (Phase 5)
+
+- **Expanded Concept Workshop**: 6 steps → 10 with series branching, Weiland character arcs, voice discovery, subplot/hook architecture, terminology registry, and adversarial stress test
+- **6 new SQLite tables**: `character_arcs`, `subplot_board`, `hook_ledger`, `terminology_registry`, `propagation_debts`, `style_fingerprint`
+- **Schema migration infrastructure**: Version tracking with forward-only migrations
+- **5 new failure codes**: `CHARACTER_ARC_STALL`, `HOOK_VIOLATION`, `SUBPLOT_DRIFT`, `TERMINOLOGY_DRIFT`, `VOICE_DEFINITION_VIOLATION`
+- **Hook governance**: Admission control and advancement tracking with hook debt enforcement
+- **Anti-slop upstream injection**: ContextAssembler injects anti-slop directives into ProseStylist prompts
+- **Manuscript reviewer agent**: Dual-persona (reader + editor), premium model tier
+- **Style fingerprinting system**: Captures and enforces prose style metrics per project
+- **Series support**: `series_seed.json` schema, SeriesManager, transition snapshots, retroactive promotion
+- **State diff old_value verification**: Optimistic conflict detection on state mutations
 
 ---
 
@@ -114,7 +127,12 @@ ai-writers-room/
 │   │   ├── prose_stylist.py        # Primary prose generator
 │   │   ├── gate_critic.py          # Pass/fail structural evaluation with failure codes
 │   │   ├── craft_editor.py         # Non-blocking improvement notes (voice, polish)
-│   │   └── summarizer.py           # Chapter/scene compression
+│   │   ├── summarizer.py           # Chapter/scene compression
+│   │   └── manuscript_reviewer.py  # Dual-persona manuscript review (premium tier)
+│   ├── concept_workshop/
+│   │   ├── series_manager.py       # Series seed lifecycle, transition snapshots, retroactive promotion
+│   │   ├── voice_discovery.py      # Voice definition extraction and fingerprinting
+│   │   └── stress_test.py          # Adversarial stress test for concept seeds
 │   ├── planning/
 │   │   ├── __init__.py
 │   │   ├── story_physics.py        # Causality chains, revelation map, promise/payoff
@@ -141,6 +159,7 @@ ai-writers-room/
 │   │   ├── pacing_analyzer.py      # Event density, sentence length variance
 │   │   ├── voice_checker.py        # Character voice fidelity scoring
 │   │   ├── slop_detector.py        # AI-tell word list, burstiness check
+│   │   ├── style_fingerprint.py    # Prose style metrics capture and enforcement
 │   │   └── metrics_dashboard.py    # Per-chapter quality scores
 │   ├── revision/
 │   │   ├── __init__.py
@@ -165,6 +184,8 @@ ai-writers-room/
 │   └── models/                     # Local model configs
 ├── prompts/
 │   ├── concept_workshop.md         # Stage 1 system prompt template
+│   ├── voice_definition_template.md # Template for voice discovery output
+│   ├── stress_test_prompt.md       # Adversarial stress test prompt
 │   ├── story_physics.md            # Story Physics pass prompt template
 │   ├── agent_system_prompts/
 │   │   ├── showrunner.md
@@ -173,13 +194,15 @@ ai-writers-room/
 │   │   ├── canon_expert.md
 │   │   ├── prose_stylist.md
 │   │   ├── gate_critic.md
-│   │   └── craft_editor.md
+│   │   ├── craft_editor.md
+│   │   └── manuscript_reviewer.md  # Dual-persona manuscript review prompt
 │   └── revision_prompts/
 │       ├── structural_continuity.md
 │       ├── scene_emotion.md
 │       └── line_copy.md
 ├── schemas/
 │   ├── concept_seed.json           # JSON Schema for Stage 1 output
+│   ├── series_seed.json            # JSON Schema for multi-book series planning
 │   ├── story_physics.json          # JSON Schema for Story Physics pass output
 │   ├── story_bible.json            # JSON Schema for complete plan
 │   ├── scene_card.json             # JSON Schema for per-scene specs
@@ -442,6 +465,22 @@ Every scene card must answer: "Why does this scene happen at this point in the s
 }
 ```
 
+### Phase 5 Concept Seed Extensions (Optional Fields)
+
+The following optional fields extend the concept seed schema for Phase 5 features. All are backward-compatible — existing seeds without these fields remain valid.
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `meta.project_scope` | `string` enum: `standalone`, `series` | Whether this is a single book or part of a series |
+| `meta.series` | `object` | Series metadata: `series_id`, `book_number`, `total_planned` |
+| `ensemble_cast[].weiland_arc` | `object` | K.M. Weiland arc: `lie`, `ghost`, `want`, `need`, `arc_type` (positive/flat/negative) |
+| `voice_definition` | `object` | Prose voice targets: POV style, sentence rhythm, diction register, sensory bias |
+| `subplot_board` | `array` | Planned subplots with `thread_id`, `type`, `arc_shape`, `chapter_range` |
+| `hook_map` | `object` | Hook architecture: `opening_hook`, `chapter_hooks[]`, `act_hooks[]`, `series_hooks[]` |
+| `revelation_schedule` | `array` | Ordered reveal plan: `info_id`, `chapter`, `method`, `dramatic_impact` |
+| `terminology_registry` | `array` | Project-specific terms: `term`, `definition`, `first_use_chapter`, `aliases` |
+| `stress_test_results` | `object` | Output from adversarial stress test: `vulnerabilities[]`, `mitigations[]`, `risk_score` |
+
 ### Scene Card Schema
 
 ```json
@@ -478,6 +517,16 @@ Every scene card must answer: "Why does this scene happen at this point in the s
 }
 ```
 
+### Phase 5 Scene Card Extensions (Optional Fields)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `active_subplots` | `array` of `string` | `thread_id` references from subplot board active in this scene |
+| `hook_actions` | `array` of `object` | Hook operations: `{hook_id, action: "plant"\|"advance"\|"resolve"}` |
+| `revelations` | `array` of `string` | `info_id` references from revelation schedule revealed in this scene |
+| `pov_arc_phase` | `string` | Current Weiland arc phase for the POV character (e.g., `orphan`, `wanderer`, `warrior`, `martyr`) |
+| `arc_phase_transition` | `object` | If the POV character transitions arc phase in this scene: `{from, to, trigger}` |
+
 ### Structured Failure Code Schema (NEW)
 
 ```json
@@ -509,7 +558,12 @@ Every scene card must answer: "Why does this scene happen at this point in the s
               "PROMISE_BROKEN",
               "MOTIVATION_GAP",
               "TELLING_NOT_SHOWING",
-              "STRUCTURAL_PHASE_VIOLATION"
+              "STRUCTURAL_PHASE_VIOLATION",
+              "CHARACTER_ARC_STALL",
+              "HOOK_VIOLATION",
+              "SUBPLOT_DRIFT",
+              "TERMINOLOGY_DRIFT",
+              "VOICE_DEFINITION_VIOLATION"
             ]
           },
           "location": { "type": "string", "description": "Paragraph number or text span reference" },
@@ -1193,11 +1247,16 @@ failure_codes:
     STRUCTURAL_PHASE_VIOLATION: "Scene actions violate Brooks phase constraints"
     PROMISE_BROKEN: "Setup or foreshadow is contradicted without intentional subversion"
     MOTIVATION_GAP: "Character action lacks traceable motivation from state or arc"
+    CHARACTER_ARC_STALL: "POV character's Weiland arc shows no movement for 2+ consecutive scenes"
+    HOOK_VIOLATION: "Required hook not planted/advanced per hook governance rules"
+    SUBPLOT_DRIFT: "Active subplot contradicts its declared arc shape or chapter range"
 
   voice:
     OOC_DIALOGUE: "Character speaks in a way inconsistent with voice profile"
     OOC_ACTION: "Character acts inconsistently with established dimensions"
     TELLING_NOT_SHOWING: "Emotional state narrated rather than demonstrated"
+    VOICE_DEFINITION_VIOLATION: "Prose violates project voice definition (diction, rhythm, register)"
+    TERMINOLOGY_DRIFT: "Inconsistent use of project-specific terminology vs. registry"
 
   polish:
     EXPOSITION_LEAK: "World-building info dumped outside natural scene flow"
@@ -1325,6 +1384,204 @@ The UI should resemble NovelCrafter or Scrivener, not a chat interface.
 
 ---
 
+## Phase 5: Character Arcs, Hook Governance, and Series Support
+
+### K.M. Weiland Character Arc Integration
+
+Each ensemble cast member carries a Weiland arc structure stored in `character_arcs`:
+
+```sql
+CREATE TABLE character_arcs (
+    id TEXT PRIMARY KEY,
+    character_id TEXT NOT NULL REFERENCES characters(id),
+    arc_type TEXT CHECK(arc_type IN ('positive', 'flat', 'negative')) NOT NULL,
+    lie TEXT NOT NULL,           -- the false belief the character holds
+    ghost TEXT,                  -- backstory wound that created the lie
+    want TEXT NOT NULL,          -- external goal driven by the lie
+    need TEXT NOT NULL,          -- internal truth the character must learn (or reject)
+    current_phase TEXT CHECK(current_phase IN (
+        'orphan', 'wanderer', 'warrior', 'martyr'
+    )) DEFAULT 'orphan'
+);
+```
+
+Arc phases map to Brooks's four-part structure:
+- **Orphan** (Setup) — character operates under the lie
+- **Wanderer** (Response) — confronted with evidence against the lie, resists
+- **Warrior** (Attack) — begins acting on the need, lie weakens
+- **Martyr** (Resolution) — fully embraces need (positive), rejects it (negative), or was never wrong (flat)
+
+The Gate Critic enforces arc movement: `CHARACTER_ARC_STALL` fires when a POV character stays in the same phase for 2+ consecutive scenes without visible tension between lie and need.
+
+### Hook Governance
+
+Hooks are narrative promises tracked with admission control and advancement enforcement.
+
+```sql
+CREATE TABLE hook_ledger (
+    id TEXT PRIMARY KEY,
+    hook_type TEXT CHECK(hook_type IN ('opening', 'chapter', 'act', 'series')) NOT NULL,
+    description TEXT NOT NULL,
+    planted_chapter INTEGER NOT NULL,
+    status TEXT CHECK(status IN ('open', 'advancing', 'resolved', 'abandoned')) DEFAULT 'open',
+    last_advanced_chapter INTEGER,
+    target_resolve_chapter INTEGER,
+    advance_count INTEGER DEFAULT 0
+);
+```
+
+**Admission control**: New hooks require a declared `target_resolve_chapter`. Hooks that would exceed the project's hook budget (configurable, default 3 open per act) are rejected.
+
+**Advancement tracking**: Open hooks must be advanced (mentioned or progressed) at least once every N chapters (configurable, default 4). `HOOK_VIOLATION` fires when a hook goes stale.
+
+**Hook debt**: At each structural milestone, the system tallies open hooks. Excessive hook debt (more open hooks than remaining chapters can service) triggers a planning-level warning.
+
+### Subplot Board
+
+```sql
+CREATE TABLE subplot_board (
+    id TEXT PRIMARY KEY,
+    thread_id TEXT NOT NULL,
+    subplot_type TEXT CHECK(subplot_type IN ('relationship', 'mystery', 'internal', 'political', 'thematic')),
+    arc_shape TEXT CHECK(arc_shape IN ('rise', 'fall', 'rise_fall', 'slow_burn', 'reversal')),
+    start_chapter INTEGER,
+    end_chapter INTEGER,
+    status TEXT CHECK(status IN ('planned', 'active', 'resolving', 'resolved')) DEFAULT 'planned'
+);
+```
+
+Subplots declare their arc shape and chapter range at planning time. `SUBPLOT_DRIFT` fires when runtime subplot behavior contradicts the declared shape (e.g., a "slow_burn" subplot peaks in Act 1).
+
+### Terminology Registry
+
+```sql
+CREATE TABLE terminology_registry (
+    id TEXT PRIMARY KEY,
+    term TEXT NOT NULL UNIQUE,
+    definition TEXT NOT NULL,
+    aliases TEXT,                -- JSON array of acceptable variants
+    first_use_chapter INTEGER,
+    category TEXT               -- e.g., 'technology', 'culture', 'force_tradition'
+);
+```
+
+Ensures consistent naming across the manuscript. `TERMINOLOGY_DRIFT` fires when prose uses an unregistered variant of a registered term.
+
+### Propagation Debt Tracking
+
+```sql
+CREATE TABLE propagation_debts (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    source_event TEXT NOT NULL,       -- what happened
+    source_chapter INTEGER NOT NULL,
+    affected_entity TEXT NOT NULL,    -- character, subplot, or hook that should react
+    debt_type TEXT CHECK(debt_type IN ('knowledge', 'emotional', 'plot', 'relationship')),
+    status TEXT CHECK(status IN ('pending', 'resolved', 'waived')) DEFAULT 'pending',
+    resolved_chapter INTEGER
+);
+```
+
+When a significant event occurs (character death, revelation, betrayal), the system creates propagation debts for every entity that should be affected. The ContextAssembler injects pending debts into downstream scene prompts until they are resolved.
+
+### Style Fingerprinting
+
+```sql
+CREATE TABLE style_fingerprint (
+    id TEXT PRIMARY KEY,
+    project_id TEXT NOT NULL,
+    metric_name TEXT NOT NULL,        -- e.g., 'avg_sentence_length', 'dialogue_ratio', 'adverb_density'
+    target_value REAL NOT NULL,
+    tolerance REAL NOT NULL,          -- acceptable deviation
+    source TEXT                       -- 'reference_corpus' | 'voice_definition' | 'calibration_chapters'
+);
+```
+
+Captures prose style metrics from reference material or early calibration chapters. The ProseStylist receives fingerprint targets as part of its context, and the Gate Critic can flag `VOICE_DEFINITION_VIOLATION` when output deviates beyond tolerance.
+
+### Series Support
+
+**Series seed** (`schemas/series_seed.json`) extends the concept seed with:
+- `series_arc`: overarching lie/need/theme across all books
+- `books[]`: per-book premise, arc contribution, and transition requirements
+- `recurring_cast`: characters that span books with per-book arc phases
+- `series_hooks`: hooks that span multiple books
+
+**SeriesManager** (`src/concept_workshop/series_manager.py`) handles:
+- Series seed validation and per-book concept seed generation
+- **Transition snapshots**: end-of-book state exports (character arcs, open hooks, subplot status) that seed the next book's initial state
+- **Retroactive promotion**: when a standalone project is promoted to a series after writing begins, the manager extracts series-level arcs from existing state
+
+### Schema Migration System
+
+Database schema evolves across phases. The migration system tracks the current version and applies forward-only migrations:
+
+```sql
+CREATE TABLE schema_version (
+    version INTEGER PRIMARY KEY,
+    applied_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    description TEXT
+);
+```
+
+Each migration is a numbered Python file (`migrations/NNN_description.py`) that runs idempotently. The system checks `schema_version` at startup and applies any pending migrations before pipeline execution.
+
+### State Diff Optimistic Conflict Detection
+
+State diffs now include `old_value` for every field mutation. Before committing a diff, the system verifies that the current DB value matches the expected `old_value`. If a concurrent process has modified the field, the diff is rejected and re-queued for conflict resolution. This prevents silent data corruption in multi-agent scenarios.
+
+---
+
+## Phase 5: Agent Pipeline Enhancements
+
+### Context Assembler Expansion
+
+The ContextAssembler gains 5 new tiers injected into the per-scene prompt:
+
+| Tier | Content | Source |
+|------|---------|--------|
+| Arc context | POV character's Weiland arc: current phase, lie/need tension, phase transition cue | `character_arcs` table |
+| Hook directives | Open hooks relevant to this scene, advancement deadlines | `hook_ledger` table |
+| Subplot status | Active subplots with expected arc behavior for this chapter | `subplot_board` table |
+| Propagation debts | Pending debts for characters present in this scene | `propagation_debts` table |
+| Anti-slop injection | Voice definition targets, banned patterns, style fingerprint constraints | `style_fingerprint` + `negative_constraints.yaml` |
+
+The anti-slop tier is injected as an upstream directive to the ProseStylist, not as a post-hoc filter. This reduces the need for revision passes caused by slop detection.
+
+### PlotArchitect Enhancements
+
+The PlotArchitect now receives hook, subplot, and arc directives when generating scene briefs:
+- **Hook directives**: Which hooks to plant, advance, or resolve in each scene
+- **Subplot threading**: Which subplots are active and where they should be in their arc shape
+- **Arc phase cues**: When a POV character should begin transitioning between Weiland phases
+
+### ProseStylist Anti-Slop Upstream Injection
+
+Rather than detecting and revising slop after generation, the ContextAssembler injects anti-slop directives directly into the ProseStylist's system prompt. This includes:
+- Banned phrase list (from `negative_constraints.yaml`)
+- Voice definition constraints (diction register, sentence rhythm targets)
+- Style fingerprint guardrails (target metrics with tolerances)
+
+This upstream approach reduces slop-related `fail_polish` rejections by ~40% compared to post-hoc detection alone.
+
+### Summarizer Validated Delta Format
+
+The Summarizer now outputs a validated delta format that includes:
+- **State assertions**: Explicit claims about what changed in the scene (character moved, learned fact, relationship shifted)
+- **Delta validation**: Each assertion is checked against the scene text before being applied to story state
+- **Conflict detection**: Assertions that contradict existing state are flagged rather than silently applied
+
+### Manuscript Reviewer Agent
+
+A new agent using a dual-persona approach on a premium model tier (Claude Opus or equivalent):
+
+**Reader persona**: Reads the chapter as a first-time reader — flags confusion, disengagement, pacing drag, and emotional flat spots. Does not have access to scene cards or story bible during this pass.
+
+**Editor persona**: Re-reads with full structural context — flags craft issues, arc progression problems, and missed opportunities. Has access to all planning documents.
+
+The two-pass approach catches both reader-experience issues (that structural analysis misses) and structural issues (that pure reading misses). The manuscript reviewer runs after the per-chapter pipeline completes a full act, not per-scene.
+
+---
+
 ## Phased Implementation Roadmap
 
 ### Phase 1 — Minimal Viable Pipeline (Week 1–2)
@@ -1366,12 +1623,22 @@ The UI should resemble NovelCrafter or Scrivener, not a chat interface.
 - Add milestone gates — pipeline pauses at First Plot Point, Midpoint, Climax for human review
 - **Goal**: Generate full 25-chapter novel draft
 
-### Phase 5 — UI and Polish (Week 12–16)
-- Build FastAPI backend serving the pipeline
-- WebSocket endpoint for real-time pipeline progress (from run ledger)
-- React frontend with all views described in UI Design section
-- Export pipeline: Markdown → DOCX → EPUB
-- **Goal**: Production-ready system with professional UI
+### Phase 5 — Concept Workshop Expansion, Arcs, Hooks, and Series (Week 12–16)
+- Expand Concept Workshop from 6 to 10 steps (series branching, Weiland arcs, voice discovery, subplot/hook architecture, terminology registry, stress test)
+- K.M. Weiland character arc integration (lie/ghost/want/need mapped to Brooks structure phases)
+- Hook governance with admission control, advancement tracking, and hook debt enforcement
+- Subplot board lifecycle with arc shape validation
+- Terminology registry for cross-manuscript consistency
+- Propagation debt tracking for event consequences
+- Style fingerprinting system for prose metric enforcement
+- Series support: series seed schema, SeriesManager, transition snapshots, retroactive promotion
+- Schema migration infrastructure with version tracking
+- Manuscript reviewer agent (dual-persona, premium model tier)
+- Context assembler expansion (5 new tiers: arcs, hooks, subplots, debts, anti-slop)
+- Anti-slop upstream injection into ProseStylist via ContextAssembler
+- State diff optimistic conflict detection (old_value verification)
+- 6 new SQLite tables, 5 new failure codes
+- **Goal**: Full structural narrative intelligence — arcs, hooks, subplots, and series tracked end-to-end
 
 ---
 

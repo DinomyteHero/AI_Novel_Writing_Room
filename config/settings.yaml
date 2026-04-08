@@ -85,6 +85,9 @@ agent_routing:
   judge_evaluator:                 { backend: cloud, model: primary, params: { temperature: 0.2 } }
   # Phase A: Concept Workshop
   concept_workshop:                { backend: cloud, model: primary, params: { temperature: 0.7, max_tokens: 8192 } }
+  # Phase 5: Manuscript review and stress testing
+  manuscript_reviewer:             { backend: cloud, model: premium, params: { temperature: 0.4, min_p: 0.05 } }
+  stress_test:                     { backend: cloud, model: primary, params: { temperature: 0.5, min_p: 0.05 } }
 
 # Concept workshop local fallback (local-only deployment mode)
 concept_workshop_local:

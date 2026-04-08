@@ -1,3 +1,5 @@
+> **Historical document.** This was the original project brief (v1.1). For current architecture including Phase 5 changes, see `AI_Writers_Room_Design_Document_v1.1.md` and `Phase_5_Changelog.md`.
+
 # Claude Code Project Brief: AI Writers' Room (v1.1)
 
 ## Changelog (v1.0 → v1.1)

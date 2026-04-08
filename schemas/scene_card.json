@@ -27,6 +27,34 @@
     "promises_paid": { "type": "array", "items": { "type": "string" } },
     "canon_elements_needed": { "type": "array", "items": { "type": "string" } },
     "target_word_count": { "type": "integer" },
-    "notes": { "type": "string" }
+    "notes": { "type": "string" },
+    "active_subplots": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "subplot_ids active in this scene"
+    },
+    "hook_actions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "hook_id": { "type": "string" },
+          "action": { "type": "string", "enum": ["plant", "advance", "resolve", "subvert"] }
+        }
+      }
+    },
+    "revelations": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "info_ids from revelation schedule revealed in this scene"
+    },
+    "pov_arc_phase": {
+      "type": "string",
+      "description": "POV character's current Weiland arc phase"
+    },
+    "arc_phase_transition": {
+      "type": "string",
+      "description": "If this scene triggers a phase change, the new phase"
+    }
   }
 }
