@@ -1,0 +1,106 @@
+# Quality and Revision
+
+The system uses pure-Python quality metrics (no LLM calls) to score chapters, and a multi-band revision pipeline (LLM-powered) to improve them.
+
+## Quality Metrics
+
+`src/quality/metrics_dashboard.py` aggregates 4 independent checkers:
+
+### RepetitionDetector (`src/quality/repetition_detector.py`)
+
+Detects repetitive patterns:
+- Word frequency analysis (over-used words)
+- N-gram repetition (repeated phrases)
+- Paragraph-opening similarity (varied opener diversity)
+- Semantic similarity between paragraphs (via embeddings when available)
+
+### PacingAnalyzer (`src/quality/pacing_analyzer.py`)
+
+Measures prose rhythm:
+- Sentence length variance (monotonous vs. varied)
+- Dialogue ratio (balance of dialogue to narration)
+- Scene type classification
+- Event density (action pacing)
+
+### VoiceChecker (`src/quality/voice_checker.py`)
+
+Enforces style constraints from `config/negative_constraints.yaml`:
+- Banned phrase detection (faux profundity, sensory cliches, magic adverbs, AI tells)
+- Adverb density limits
+- Metaphor cooldown (distance between figurative language)
+- Voice fidelity scoring
+
+### SlopDetector (`src/quality/slop_detector.py`)
+
+Identifies AI-typical writing patterns:
+- AI-tell word lists (from negative constraints)
+- Burstiness scoring (unnatural pattern repetition)
+- Show-don't-tell flagging
+- Filler pattern detection
+
+### Scoring
+
+MetricsDashboard runs all 4 checkers and computes a weighted average:
+- Each checker contributes 0.25 weight
+- Pass threshold: overall score >= 0.6
+- Results are stored in the chapter log
+
+## Revision Pipeline
+
+### Base Pipeline (Phase 3)
+
+`src/revision/pipeline.py` runs 3 sequential editing bands:
+
+| Band | Agent | Prompt | Focus |
+|------|-------|--------|-------|
+| 1 | StructuralContinuity | `prompts/revision_prompts/structural_continuity.md` | Plot holes, arc consistency, timeline validation, knowledge state |
+| 2 | SceneEmotion | `prompts/revision_prompts/scene_emotion.md` | Conflict intensity, turning point impact, emotional arc, show-don't-tell |
+| 3 | LineCopy | `prompts/revision_prompts/line_copy.md` | Prose quality, grammar, AI-tell removal, rhythm, style consistency |
+
+Each band receives the current prose and returns revised prose. The output of one band becomes the input to the next.
+
+### Adaptive Pipeline (Phase 4)
+
+`src/revision/adaptive_revision.py` extends the base pipeline with 2 conditional bands:
+
+| Band | Agent | Prompt | Condition |
+|------|-------|--------|-----------|
+| 4 | DialoguePolish | `prompts/revision_prompts/dialogue_polish.md` | Dialogue-heavy scene + low voice score |
+| 5 | WorldbuildingCoherence | `prompts/revision_prompts/worldbuilding_coherence.md` | Canon elements present + consistency issues |
+
+Bands 4 and 5 only run when quality metrics indicate they're needed, saving LLM calls on chapters that don't need them.
+
+## Milestone Gates
+
+`src/quality/milestone_gates.py` pauses the pipeline at structural checkpoints for user approval:
+
+| Milestone | When |
+|-----------|------|
+| first_plot_point | ~25% through the story |
+| midpoint | ~50% through the story |
+| second_plot_point | ~75% through the story |
+
+At each gate:
+1. The pipeline pauses
+2. New phase constraints are displayed
+3. The user approves or rejects
+4. Events are logged to the RunLedger
+
+In CLI mode, this is an interactive `y/n` prompt. In web mode, a modal appears in the dashboard.
+
+Can be disabled with `--no-milestones`.
+
+## Character Specialist
+
+`src/agents/character_specialist.py` runs out-of-character (OOC) detection on each chapter. It's a supplementary check -- it doesn't block the pipeline. It reports:
+- Characters whose behavior diverges from their established profile
+- Knowledge consistency issues (characters acting on knowledge they shouldn't have)
+- Emotional arc continuity
+
+## LLM Judge (Phase 4)
+
+`src/quality/llm_judge.py` uses a cloud model to evaluate chapters across 5 dimensions defined in `config/eval_rubric.yaml`. This is an expensive evaluation (cloud API call) and is only run when `--judge` is passed.
+
+## Gold Evaluation Corpus
+
+`data/eval_corpus/` contains 3 reference chapters used for calibrating quality metrics. These provide ground-truth baselines for the quality scoring system.
