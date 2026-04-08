@@ -1,0 +1,130 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ConceptSeed",
+  "type": "object",
+  "required": ["meta", "premise", "conflict", "theme", "ensemble_cast", "canon_constraints"],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": ["project_title", "franchise", "canon_status", "era", "tone", "target_word_count"],
+      "properties": {
+        "project_title": { "type": "string" },
+        "franchise": { "type": "string" },
+        "canon_status": { "type": "string", "enum": ["canon_compliant", "AU"] },
+        "era": { "type": "string" },
+        "tone": { "type": "string", "enum": ["dark_gritty", "adventurous_hopeful", "political_intrigue", "character_study"] },
+        "target_word_count": { "type": "integer", "minimum": 40000, "maximum": 120000 },
+        "target_chapters": { "type": "integer", "minimum": 15, "maximum": 40 },
+        "pov_structure": { "type": "string" }
+      }
+    },
+    "premise": {
+      "type": "object",
+      "required": ["what_if", "central_dramatic_question", "logline"],
+      "properties": {
+        "what_if": { "type": "string", "minLength": 50 },
+        "central_dramatic_question": { "type": "string" },
+        "logline": { "type": "string", "maxLength": 500 }
+      }
+    },
+    "conflict": {
+      "type": "object",
+      "required": ["primary_antagonistic_force", "lock_in_mechanism"],
+      "properties": {
+        "primary_antagonistic_force": {
+          "type": "object",
+          "required": ["type", "motivation", "escalation"],
+          "properties": {
+            "type": { "type": "string" },
+            "identity": { "type": "string" },
+            "motivation": { "type": "string", "minLength": 50 },
+            "escalation": { "type": "string", "minLength": 100 }
+          }
+        },
+        "secondary_pressures": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1
+        },
+        "lock_in_mechanism": { "type": "string", "minLength": 30 }
+      }
+    },
+    "theme": {
+      "type": "object",
+      "required": ["thematic_premise", "thematic_argument", "how_each_arc_tests_theme"],
+      "properties": {
+        "thematic_premise": { "type": "string" },
+        "thematic_argument": { "type": "string", "minLength": 100 },
+        "how_each_arc_tests_theme": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        }
+      }
+    },
+    "protagonist_arc_type": {
+      "type": "string",
+      "enum": ["change", "steadfast", "fall", "rise"]
+    },
+    "ensemble_cast": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 6,
+      "items": {
+        "type": "object",
+        "required": ["name", "role", "three_dimensions", "voice_notes"],
+        "properties": {
+          "name": { "type": "string" },
+          "role": { "type": "string" },
+          "age": { "type": "string" },
+          "force_status": { "type": "string" },
+          "three_dimensions": {
+            "type": "object",
+            "required": ["surface", "backstory_inner_demons", "action_under_pressure"],
+            "properties": {
+              "surface": { "type": "string", "minLength": 50 },
+              "backstory_inner_demons": { "type": "string", "minLength": 50 },
+              "action_under_pressure": { "type": "string", "minLength": 50 }
+            }
+          },
+          "voice_notes": { "type": "string", "minLength": 30 }
+        }
+      }
+    },
+    "force_mechanics": {
+      "type": "object",
+      "properties": {
+        "primary_rule": { "type": "string" },
+        "implications": { "type": "array", "items": { "type": "string" } },
+        "canon_grounding": { "type": "string" }
+      }
+    },
+    "canon_constraints": {
+      "type": "object",
+      "required": ["continuity", "canon_preserved", "style_constraints"],
+      "properties": {
+        "continuity": { "type": "string" },
+        "divergence_point": { "type": "string" },
+        "canon_preserved": { "type": "array", "items": { "type": "string" } },
+        "canon_overridden": { "type": "array", "items": { "type": "string" } },
+        "style_constraints": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "structural_notes": {
+      "type": "object",
+      "properties": {
+        "brooks_alignment": {
+          "type": "object",
+          "properties": {
+            "part_1_setup": { "type": "string" },
+            "first_plot_point": { "type": "string" },
+            "part_2_response": { "type": "string" },
+            "midpoint": { "type": "string" },
+            "part_3_attack": { "type": "string" },
+            "second_plot_point": { "type": "string" },
+            "part_4_resolution": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "StoryBible",
+  "description": "Phase 2 — Complete story bible combining concept seed, story physics, and scene cards",
+  "type": "object",
+  "required": ["concept_seed", "scene_cards"],
+  "properties": {
+    "concept_seed": { "$ref": "concept_seed.json" },
+    "story_physics": { "$ref": "story_physics.json" },
+    "scene_cards": {
+      "type": "array",
+      "items": { "$ref": "scene_card.json" }
+    }
+  }
+}

@@ -1,0 +1,82 @@
+deployment_mode: local  # local | cloud | hybrid
+
+models:
+  local:
+    inference_backend: llama-server
+    base_url: http://localhost:8080/v1
+    models:
+      # Phase 1 models
+      primary_moe: Qwen3-30B-A3B-Instruct-2507-Q4_K_M
+      fast_moe: Gemma-4-26B-A4B-Q5_K_M
+      utility: Qwen3.5-9B-Q5_K_M
+      embedding: nomic-embed-text
+
+    default_params:
+      primary_moe:
+        temperature: 0.7
+        min_p: 0.05
+        top_p: 1.0
+        top_k: 0
+        repetition_penalty: 1.1
+      prose:
+        temperature: 1.0
+        min_p: 0.05
+        top_p: 1.0
+        top_k: 0
+        repetition_penalty: 1.08
+      utility:
+        temperature: 0.3
+        min_p: 0.1
+
+  cloud:
+    provider: openrouter
+    base_url: https://openrouter.ai/api/v1
+    api_key_env: OPENROUTER_API_KEY
+    models:
+      primary: anthropic/claude-sonnet-4-20250514
+      premium: anthropic/claude-opus-4-20250514
+      budget: anthropic/claude-haiku-4-5-20251001
+    default_params:
+      primary:
+        temperature: 0.7
+        max_tokens: 4096
+      premium:
+        temperature: 0.9
+        max_tokens: 8192
+
+# Agent-to-model mapping
+agent_routing:
+  orchestrator:          { backend: local, model: fast_moe }
+  plot_architect:        { backend: local, model: primary_moe, params: { temperature: 0.4 } }
+  canon_expert:          { backend: local, model: fast_moe }
+  prose_stylist:         { backend: local, model: primary_moe, params: { temperature: 0.9, min_p: 0.05 } }
+  gate_critic:           { backend: local, model: primary_moe, params: { temperature: 0.3 } }
+  craft_editor:          { backend: local, model: primary_moe, params: { temperature: 0.4 } }
+  character_specialist:  { backend: local, model: primary_moe, params: { temperature: 0.4 } }
+  summarizer:            { backend: local, model: utility, params: { temperature: 0.2 } }
+  voice_checker:         { backend: cloud, model: primary, params: { temperature: 0.3 } }
+  # Phase 3: Revision pipeline agents
+  structural_continuity_reviewer: { backend: local, model: primary_moe, params: { temperature: 0.3 } }
+  scene_emotion_reviewer:         { backend: local, model: primary_moe, params: { temperature: 0.5 } }
+  line_copy_editor:               { backend: local, model: primary_moe, params: { temperature: 0.3 } }
+  # Phase 4: Scene generation, adaptive revision, LLM judge
+  outline_planner:                 { backend: local, model: primary_moe, params: { temperature: 0.5 } }
+  dialogue_polish_editor:          { backend: local, model: primary_moe, params: { temperature: 0.4 } }
+  worldbuilding_coherence_reviewer: { backend: local, model: primary_moe, params: { temperature: 0.3 } }
+  judge_evaluator:                 { backend: cloud, model: primary, params: { temperature: 0.2 } }
+
+# Local inference settings
+local_inference:
+  gpu_layers: 99
+  expert_offload: CPU
+  context_size: 32768
+  batch_size: 512
+  flash_attention: true
+  speculative_model: null
+
+# Pipeline settings
+pipeline:
+  max_structural_retries: 3
+  max_voice_retries: 2
+  chapter_output_dir: data/manuscripts
+  run_ledger_path: data/run_ledger.db

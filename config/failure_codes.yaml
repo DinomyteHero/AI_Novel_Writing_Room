@@ -1,0 +1,25 @@
+failure_codes:
+  structural:
+    CONTINUITY_CONTRADICTION: "Scene contradicts established story state"
+    WEAK_TURNING_POINT: "Scene ends in roughly the same state it began"
+    MISSING_TURNING_POINT: "No identifiable shift in scene dynamics"
+    UNEARNED_RESOLUTION: "Conflict resolved without sufficient buildup or cost"
+    STRUCTURAL_PHASE_VIOLATION: "Scene actions violate Brooks phase constraints"
+    PROMISE_BROKEN: "Setup or foreshadow is contradicted without intentional subversion"
+    MOTIVATION_GAP: "Character action lacks traceable motivation from state or arc"
+
+  voice:
+    OOC_DIALOGUE: "Character speaks in a way inconsistent with voice profile"
+    OOC_ACTION: "Character acts inconsistently with established dimensions"
+    TELLING_NOT_SHOWING: "Emotional state narrated rather than demonstrated"
+
+  polish:
+    EXPOSITION_LEAK: "World-building info dumped outside natural scene flow"
+    PACING_FLATLINE: "Insufficient sentence/event variety across scene"
+    PROSE_CLICHE_BURST: "Multiple banned phrases or AI-tells detected"
+    CANON_VIOLATION: "Scene contradicts established franchise lore"
+
+routing:
+  fail_structural: full_rewrite
+  fail_voice: targeted_revision
+  fail_polish: craft_edit

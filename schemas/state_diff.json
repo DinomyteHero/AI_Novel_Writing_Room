@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "StateDiff",
+  "type": "object",
+  "required": ["chapter_number", "changes"],
+  "properties": {
+    "chapter_number": { "type": "integer" },
+    "scene_number": { "type": "integer" },
+    "changes": {
+      "type": "object",
+      "properties": {
+        "character_updates": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "character_id": { "type": "string" },
+              "field": { "type": "string" },
+              "old_value": {},
+              "new_value": {}
+            }
+          }
+        },
+        "plot_thread_updates": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "thread_id": { "type": "string" },
+              "field": { "type": "string" },
+              "old_value": {},
+              "new_value": {}
+            }
+          }
+        },
+        "new_knowledge": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "character_id": { "type": "string" },
+              "fact": { "type": "string" },
+              "source": { "type": "string" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

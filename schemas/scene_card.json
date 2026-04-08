@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SceneCard",
+  "type": "object",
+  "required": ["chapter_number", "scene_number", "structural_phase", "pov_character", "mission", "conflict", "turning_point"],
+  "properties": {
+    "chapter_number": { "type": "integer" },
+    "scene_number": { "type": "integer" },
+    "structural_phase": {
+      "type": "string",
+      "enum": ["setup", "first_plot_point", "response", "first_pinch", "midpoint", "attack", "second_pinch", "second_plot_point", "resolution", "climax"]
+    },
+    "pov_character": { "type": "string" },
+    "mission": { "type": "string" },
+    "why_now": { "type": "string" },
+    "opening_hook": { "type": "string" },
+    "conflict": { "type": "string" },
+    "conflict_type": { "type": "string", "enum": ["internal", "interpersonal", "external", "environmental"] },
+    "turning_point": { "type": "string" },
+    "closing_hook": { "type": "string" },
+    "characters_present": { "type": "array", "items": { "type": "string" } },
+    "setting": { "type": "string" },
+    "sensory_details": { "type": "string" },
+    "emotional_trajectory": { "type": "string" },
+    "plot_threads_advanced": { "type": "array", "items": { "type": "string" } },
+    "promises_planted": { "type": "array", "items": { "type": "string" } },
+    "promises_paid": { "type": "array", "items": { "type": "string" } },
+    "canon_elements_needed": { "type": "array", "items": { "type": "string" } },
+    "target_word_count": { "type": "integer" },
+    "notes": { "type": "string" }
+  }
+}

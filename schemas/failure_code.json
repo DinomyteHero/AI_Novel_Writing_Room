@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CriticFailure",
+  "type": "object",
+  "required": ["verdict", "failure_codes", "severity"],
+  "properties": {
+    "verdict": { "type": "string", "enum": ["pass", "fail_structural", "fail_voice", "fail_polish"] },
+    "failure_codes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["code", "location", "description"],
+        "properties": {
+          "code": {
+            "type": "string",
+            "enum": [
+              "CONTINUITY_CONTRADICTION",
+              "OOC_DIALOGUE",
+              "OOC_ACTION",
+              "WEAK_TURNING_POINT",
+              "MISSING_TURNING_POINT",
+              "EXPOSITION_LEAK",
+              "PACING_FLATLINE",
+              "PROSE_CLICHE_BURST",
+              "UNEARNED_RESOLUTION",
+              "CANON_VIOLATION",
+              "PROMISE_BROKEN",
+              "MOTIVATION_GAP",
+              "TELLING_NOT_SHOWING",
+              "STRUCTURAL_PHASE_VIOLATION"
+            ]
+          },
+          "location": { "type": "string" },
+          "description": { "type": "string" },
+          "fix_hint": { "type": "string" }
+        }
+      }
+    },
+    "severity": { "type": "string", "enum": ["blocking", "non_blocking"] },
+    "route_to": {
+      "type": "string",
+      "enum": ["full_rewrite", "targeted_revision", "craft_edit", "line_edit"]
+    },
+    "structural_score": { "type": "number", "minimum": 0, "maximum": 1 },
+    "voice_score": { "type": "number", "minimum": 0, "maximum": 1 },
+    "polish_score": { "type": "number", "minimum": 0, "maximum": 1 }
+  }
+}

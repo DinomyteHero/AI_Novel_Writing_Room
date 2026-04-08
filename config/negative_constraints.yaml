@@ -1,0 +1,34 @@
+banned_phrases:
+  faux_profundity:
+    - "It wasn't just X, it was Y"
+    - "A testament to"
+    - "A tapestry of"
+    - "A symphony of"
+    - "It was more than"
+  sensory_cliches:
+    - "The smell of ozone"
+    - "A shiver ran down"
+    - "Eyes flashing with"
+    - "Breath he didn't know he was holding"
+    - "Jaw tightened"
+  magic_adverbs:
+    - "Quietly orchestrated"
+    - "Fundamentally shifted"
+    - "Remarkably"
+    - "Seemingly"
+  ai_tells:
+    - "delve"
+    - "tapestry"
+    - "testament"
+    - "nuanced"
+    - "landscape"
+    - "multifaceted"
+    - "straightforward"
+    - "it's important to note"
+    - "it's worth noting"
+
+structural_rules:
+  max_adverb_density: 0.02
+  min_sentence_length_variance: 0.3
+  max_same_opener_pct: 0.15
+  metaphor_cooldown_paragraphs: 8

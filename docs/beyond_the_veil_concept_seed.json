@@ -1,0 +1,146 @@
+{
+  "meta": {
+    "project_title": "Beyond the Veil",
+    "franchise": "Star Wars (Legends)",
+    "canon_status": "AU — diverges post-Fate of the Jedi series",
+    "era": "Post-FOTJ, approximately 47 ABY (2-3 years after Abeloth crisis)",
+    "tone": "Adventurous / hopeful with earned emotional weight",
+    "target_word_count": 75000,
+    "target_chapters": 25,
+    "pov_structure": "Rotating third-person limited, four POV characters"
+  },
+
+  "premise": {
+    "what_if": "What if the Abeloth crisis left wounds in the Force itself — regions of the Unknown Regions where the Force operates under alien Celestial-era rules — and an expedition to understand these wounds uncovers a betrayal that forces the crew to embody the very collective trust the Force demands?",
+    "central_dramatic_question": "Can people with every reason to distrust each other choose collective action over individual certainty — and is that choice what the Force was always trying to teach?",
+    "logline": "A Jedi-led expedition into Force-altered regions of the Unknown Regions discovers that the Force only responds to collective willpower. When a trusted crew member's secret agenda triggers a chain reaction that threatens to spread the instability across the galaxy, the crew must achieve genuine unity — including with the betrayer — to stop it."
+  },
+
+  "conflict": {
+    "primary_antagonistic_force": {
+      "type": "Internal betrayal",
+      "identity": "The Jedi scholar (crew member), who has been secretly following Celestial markers for years and believes activating a Celestial mechanism will heal the Force wounds — but at a cost the crew would never accept",
+      "motivation": "Grief-driven conviction. Lost a Padawan during the Abeloth crisis. Believes the Celestials built a system to prevent another Abeloth-level event, and that activating it justifies the risk. Not evil — tragic and partially right.",
+      "escalation": "Part 1: trusted ally and expert. Part 2: small inconsistencies Ben notices. Midpoint: evidence of hidden agenda surfaces. Part 3: betrayer acts unilaterally, triggering chain reaction. Second Plot Point: full scope of damage revealed. Part 4: crew must include betrayer in collective meld to fix what was broken."
+    },
+    "secondary_pressures": [
+      "The Unknown Regions themselves — navigation hazards, hostile fauna, unstable hyperspace corridors",
+      "Communication blackout — the crew is cut off from the wider galaxy once deep enough in",
+      "Internal crew tensions — four people from very different backgrounds forced into psychic intimacy by the collective Force mechanic"
+    ],
+    "lock_in_mechanism": "The betrayer's premature activation of a Celestial mechanism has started a chain reaction. The Force-wound regions are expanding. If the crew leaves without completing or reversing the activation, the instability spreads into charted space. They cannot walk away."
+  },
+
+  "theme": {
+    "thematic_premise": "Trust is not the absence of doubt — it is action in the presence of doubt. Individual certainty, no matter how well-intentioned, becomes destructive when it overrides collective agency.",
+    "thematic_argument": "The novel argues that the great recurring failure of Force users (Jedi and Sith alike) is the belief that individual insight justifies unilateral action. The Celestial-era Force rules in the wound regions externalize this argument: the Force literally will not respond to individual will. The resolution demonstrates that genuine collective willpower — which requires vulnerability, trust, and the surrender of private certainty — is both harder and more powerful than any individual's mastery.",
+    "how_each_arc_tests_theme": {
+      "ben_skywalker": "Must confront whether Jacen's unilateral conviction was an aberration or a pattern Ben himself is capable of. Tested when he must choose to include the betrayer in the collective meld rather than exclude them out of justified anger.",
+      "jedi_scholar_betrayer": "Demonstrates the cost of acting on private conviction without consent. Partially vindicated — their understanding of the mechanism was correct — but their method was the Jacen error repeated.",
+      "mandalorian": "Tests the theme from the opposite direction. Already understands collective action culturally, but must overcome deep distrust of the Force to participate in something that feels like surrendering autonomy to mysticism.",
+      "non_force_sensitive": "Proves that the Force's collective nature includes everyone, not just the gifted. Their participation in the meld is what makes it work, challenging the Jedi assumption that the Force is only for the trained."
+    }
+  },
+
+  "protagonist_arc_type": "Steadfast — Ben does not abandon his core values but deepens his understanding of what trust and collective action actually require. His arc is one of maturation, not transformation.",
+
+  "ensemble_cast": [
+    {
+      "name": "Ben Skywalker",
+      "role": "Mission lead, primary POV",
+      "age": "~20",
+      "force_status": "Jedi Knight",
+      "three_dimensions": {
+        "surface": "Competent, dry humor inherited from Han's side of the family, carries authority reluctantly. Tries to be casual but can't escape the weight of his name.",
+        "backstory_inner_demons": "Trained by Luke, exposed to the Aing-Tii's non-binary Force philosophy, fell in love with a Sith (Vestara) who ultimately chose the dark side. Helped bring down Jacen/Darth Caedus. Carries guilt, trust issues, and a quiet terror that the Force might be something bigger and stranger than the Jedi framework admits.",
+        "action_under_pressure": "Leads with instinct and adaptability rather than dogma. When cornered, defaults to protecting people rather than completing objectives. His weakness: he tends to shoulder burdens alone rather than ask for help — the very individualism the mission will challenge."
+      },
+      "voice_notes": "Informal but precise. Uses humor as deflection. Internal monologue is more vulnerable than his spoken dialogue. Avoids Jedi platitudes — he's seen too much for easy wisdom."
+    },
+    {
+      "name": "TBD — Jedi Scholar",
+      "role": "Betrayer, secondary POV",
+      "age": "~40s",
+      "force_status": "Jedi Master, specializing in Celestial archaeology and Force theory",
+      "three_dimensions": {
+        "surface": "Warm, intellectual, the crew's expert on Celestial artifacts. Generous with knowledge. The person everyone goes to with questions.",
+        "backstory_inner_demons": "Lost a Padawan during the Abeloth crisis — a death they believe was preventable if the Jedi had understood the Celestials' containment systems. Has been quietly following Celestial markers for years, building a private theory about how to prevent another Abeloth. Grief has calcified into purpose.",
+        "action_under_pressure": "Calm and methodical, which makes the betrayal feel worse — it wasn't impulsive, it was planned. When confronted, does not apologize or collapse. Defends their reasoning with genuine conviction. This is what makes them dangerous and sympathetic."
+      },
+      "voice_notes": "Precise, academic vocabulary softened by genuine warmth. Does not monologue. Asks questions to deflect scrutiny. Internal POV reveals the weight of what they're hiding."
+    },
+    {
+      "name": "TBD — Mandalorian",
+      "role": "Crew security / pilot, tertiary POV",
+      "age": "~30s",
+      "force_status": "Non-Force-sensitive (initially). Discovers latent collective sensitivity in the wound regions.",
+      "three_dimensions": {
+        "surface": "Professional, laconic, clan-oriented. Views the mission as a contract. Respects competence regardless of faction. Armored — literally and emotionally.",
+        "backstory_inner_demons": "Clan was shattered during the Yuuzhan Vong war and never fully rebuilt. Understands loss of community at a bone-deep level. Distrusts the Force as manipulation dressed up as destiny — but privately envies the sense of connection Force users seem to share.",
+        "action_under_pressure": "Tactical, decisive, puts the group first by training. But 'the group' has always meant 'my people' — extending that instinct to outsiders, especially Force users, is the challenge. When the collective meld requires their participation, they must choose to trust something they've spent a lifetime distrusting."
+      },
+      "voice_notes": "Short sentences. Mando'a terms used sparingly and naturally. Observational — notices what others miss. Humor is bone-dry. Does not explain feelings."
+    },
+    {
+      "name": "TBD — Non-Force-Sensitive Specialist",
+      "role": "Ship engineer / xenobiologist, quaternary POV",
+      "age": "~25",
+      "force_status": "Non-Force-sensitive. Discovers they contribute to collective Force willpower in the wound regions.",
+      "three_dimensions": {
+        "surface": "Curious, talkative, a problem-solver who thinks in systems. The youngest crew member and the most openly excited about the mission. Provides levity.",
+        "backstory_inner_demons": "Grew up on a world where the Jedi were distant legends. Has always felt excluded from the 'important' parts of galactic history — the parts that seem to revolve around Force users. Carries an unspoken inferiority complex about being 'ordinary.'",
+        "action_under_pressure": "Resourceful and brave but tends to freeze when the situation demands decisiveness rather than analysis. Their arc is about discovering that ordinary people aren't passengers in the Force's story — they're participants."
+      },
+      "voice_notes": "Energetic, technical vocabulary mixed with colloquial speech. Asks a lot of questions. Internal monologue is self-deprecating in ways their spoken dialogue isn't. Voice becomes quieter and more grounded as the novel progresses."
+    }
+  ],
+
+  "force_mechanics": {
+    "wound_regions": "Areas of the Unknown Regions where the Abeloth crisis damaged or exposed pre-existing Celestial infrastructure. The Force operates under different rules within these zones.",
+    "primary_rule": "The Force responds only to collective willpower. Individual Force use — telekinesis, precognition, mind tricks — does not function. Force abilities require genuine consensus and shared intent among multiple beings. Faking agreement or coercing participation produces no result.",
+    "implications": [
+      "Jedi trained in individual mastery are initially helpless",
+      "Non-Force-sensitives contribute equally to the collective meld, challenging Jedi exceptionalism",
+      "The Mandalorian's clan-based psychology gives them an unexpected advantage",
+      "The betrayer's unilateral activation of the Celestial mechanism fails partially because they acted alone — but it was powerful enough to start the chain reaction, proving the mechanism works",
+      "The climactic resolution requires the full crew — including the betrayer — acting in genuine unity"
+    ],
+    "canon_grounding": "Consistent with existing collective Force phenomena (Jedi meld, battle meditation, World Brain communion) and the Aing-Tii's non-binary Force philosophy that Ben encountered during FOTJ. Extends rather than contradicts established lore."
+  },
+
+  "canon_constraints": {
+    "continuity": "Legends (post-FOTJ AU)",
+    "divergence_point": "Approximately 45-46 ABY, shortly after the conclusion of Fate of the Jedi: Apocalypse. The AU assumes Abeloth was defeated but not permanently destroyed, and the crisis left lasting damage to the Force in the Unknown Regions.",
+    "canon_preserved": [
+      "All events of FOTJ occurred as published",
+      "Ben's history with Vestara Khai (she is absent but referenced)",
+      "Jaina Solo married to Jagged Fel, leading Imperial Remnant",
+      "Luke Skywalker as Grand Master of the Jedi Order",
+      "Lost Tribe of the Sith shattered but remnants may exist",
+      "Allana Solo hidden under alias Amelia"
+    ],
+    "canon_overridden": [
+      "The Legacy-era timeline (Krayt, One Sith) does not occur in this AU",
+      "The fate of the galaxy diverges based on the events of this novel"
+    ],
+    "style_constraints": [
+      "Capitalize 'Human' per Lucasfilm style guide",
+      "Decapitalize 'galaxy' in all contexts",
+      "American English spellings throughout",
+      "Hyperdrive classifications and planetary names must match Wookieepedia entries",
+      "Technology and ship capabilities must respect established Legends-era specifications"
+    ]
+  },
+
+  "structural_notes": {
+    "brooks_alignment": {
+      "part_1_setup": "Crew assembles, mission briefing, departure into Unknown Regions. Establish Ben's trust issues, the scholar's warmth and expertise, the Mandalorian's skepticism, the specialist's wonder. First encounter with a wound region — the collective Force rule is discovered. Empathy generation and relationship mapping.",
+      "first_plot_point": "The crew discovers the first Celestial marker is part of a much larger system than anyone expected — and the scholar recognizes it immediately, too quickly. Ben notices but doesn't act. The mission transforms from 'investigate a wound' to 'follow a Celestial trail to its source.' No turning back.",
+      "part_2_response": "Deeper into the Unknown Regions. The crew struggles to adapt to the collective Force mechanic. Failed attempts at cooperation. The Mandalorian resists. Ben tries to lead through individual authority and fails. Pinch Point 1: they encounter evidence that someone has been to these markers before — recently. Ben begins watching the scholar.",
+      "midpoint": "The crew reaches a Celestial installation and discovers its purpose: it's part of a containment network that predates Abeloth. The scholar reveals (partially) that they've studied this before. The crew realizes the wounds aren't random damage — they're gaps in a system that was holding something in check. Ben shifts from reactive suspicion to active investigation of the scholar.",
+      "part_3_attack": "Ben confronts the scholar. The scholar defends their position. The crew fractures. Meanwhile, they must continue deeper because the chain reaction has already started — the scholar activated something at the installation during an unguarded moment. Pinch Point 2: the wound regions begin expanding measurably. The crew realizes they cannot leave.",
+      "second_plot_point": "The full scope of the scholar's plan is revealed: they intended to reactivate the entire Celestial containment network, which would stabilize the Force permanently but would require channeling so much collective Force energy that it could kill or permanently diminish everyone involved. The scholar was willing to sacrifice themselves — but also willing to sacrifice the crew without their consent. No new information after this point.",
+      "part_4_resolution": "Ben must choose: exclude the scholar and attempt the collective meld with a fractured, angry crew (which won't work — the Force demands genuine unity), or include the scholar, forgiving the betrayal not because it was justified but because exclusion is just another form of unilateral judgment. The Mandalorian's participation is the unexpected key. The non-Force-sensitive's contribution proves the meld was never meant for Jedi alone. The mechanism is stabilized — not fully activated as the scholar planned, but enough to halt the chain reaction. The climax answers the central dramatic question: yes, collective trust is possible, but it requires accepting that trust is a choice made without guarantees."
+    }
+  }
+}

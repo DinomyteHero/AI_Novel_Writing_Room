@@ -1,0 +1,58 @@
+"""WebSocket-aware RunLedger that bridges events to an asyncio Queue.
+
+Subclasses RunLedger to add real-time event streaming. Every emit() call
+writes to SQLite (inherited) AND pushes the event dict to an asyncio.Queue
+for WebSocket broadcasting. Zero changes to existing pipeline code.
+"""
+
+import asyncio
+from datetime import datetime, timezone
+from typing import Optional
+
+from src.run_ledger import RunLedger
+
+
+class WebSocketLedger(RunLedger):
+    """RunLedger that also pushes events to a broadcast queue."""
+
+    def __init__(self, db_path: str = "data/run_ledger.db", queue: Optional[asyncio.Queue] = None):
+        super().__init__(db_path)
+        self._queue = queue or asyncio.Queue(maxsize=10000)
+
+    @property
+    def queue(self) -> asyncio.Queue:
+        return self._queue
+
+    def emit(
+        self,
+        event_type: str,
+        chapter_number: Optional[int] = None,
+        scene_number: Optional[int] = None,
+        agent_role: Optional[str] = None,
+        payload: Optional[dict] = None,
+    ) -> int:
+        """Emit an event to SQLite and the WebSocket broadcast queue."""
+        event_id = super().emit(
+            event_type,
+            chapter_number=chapter_number,
+            scene_number=scene_number,
+            agent_role=agent_role,
+            payload=payload,
+        )
+
+        event_dict = {
+            "id": event_id,
+            "event_type": event_type,
+            "chapter_number": chapter_number,
+            "scene_number": scene_number,
+            "agent_role": agent_role,
+            "payload": payload,
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+        }
+
+        try:
+            self._queue.put_nowait(event_dict)
+        except asyncio.QueueFull:
+            pass  # Drop event rather than block pipeline
+
+        return event_id

@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CharacterSheet",
+  "description": "Detailed character profile for voice and consistency tracking",
+  "type": "object",
+  "required": ["id", "name", "role", "three_dimensions", "voice_notes"],
+  "properties": {
+    "id": { "type": "string" },
+    "name": { "type": "string" },
+    "role": { "type": "string" },
+    "age": { "type": "string" },
+    "force_status": { "type": "string" },
+    "three_dimensions": {
+      "type": "object",
+      "required": ["surface", "backstory_inner_demons", "action_under_pressure"],
+      "properties": {
+        "surface": { "type": "string" },
+        "backstory_inner_demons": { "type": "string" },
+        "action_under_pressure": { "type": "string" }
+      }
+    },
+    "voice_notes": { "type": "string" },
+    "arc_type": { "type": "string", "enum": ["change", "steadfast", "fall", "rise"] },
+    "thematic_role": { "type": "string" },
+    "avoid_list": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  }
+}

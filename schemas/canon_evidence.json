@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CanonEvidence",
+  "type": "object",
+  "required": ["claim", "source_class", "confidence", "continuity_tag"],
+  "properties": {
+    "claim": { "type": "string" },
+    "source_article": { "type": "string" },
+    "source_section": { "type": "string" },
+    "source_class": {
+      "type": "string",
+      "enum": ["primary_canon", "secondary_canon", "reference_book", "fan_maintained", "ambiguous"]
+    },
+    "confidence": {
+      "type": "number", "minimum": 0, "maximum": 1
+    },
+    "continuity_tag": {
+      "type": "string",
+      "enum": ["canon", "legends", "both", "disputed"]
+    },
+    "divergence_safe": {
+      "type": "boolean"
+    }
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "StoryPhysics",
+  "description": "Phase 2 — Story Physics validation output",
+  "type": "object",
+  "required": ["causality_chains", "revelation_map", "promise_payoff_ledger", "pressure_matrix"],
+  "properties": {
+    "causality_chains": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["event_id", "description", "causes", "consequences"],
+        "properties": {
+          "event_id": { "type": "string" },
+          "description": { "type": "string" },
+          "chapter": { "type": "integer" },
+          "causes": { "type": "array", "items": { "type": "string" } },
+          "consequences": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "revelation_map": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["info_id", "content", "revealed_chapter", "significance"],
+        "properties": {
+          "info_id": { "type": "string" },
+          "content": { "type": "string" },
+          "revealed_chapter": { "type": "integer" },
+          "significance": { "type": "string", "enum": ["minor", "moderate", "major", "climactic"] },
+          "who_learns": { "type": "string" }
+        }
+      }
+    },
+    "promise_payoff_ledger": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["promise_id", "description", "planted_chapter", "type", "status"],
+        "properties": {
+          "promise_id": { "type": "string" },
+          "description": { "type": "string" },
+          "planted_chapter": { "type": "integer" },
+          "payoff_chapter": { "type": "integer" },
+          "type": { "type": "string", "enum": ["setup_payoff", "foreshadow", "chekhov", "thematic"] },
+          "status": { "type": "string", "enum": ["unfulfilled", "fulfilled", "subverted"] }
+        }
+      }
+    },
+    "pressure_matrix": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "chapter": { "type": "integer" },
+            "external_pressure": { "type": "string" },
+            "internal_pressure": { "type": "string" },
+            "pressure_level": { "type": "integer", "minimum": 1, "maximum": 10 }
+          }
+        }
+      }
+    }
+  }
+}

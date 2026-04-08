@@ -1,0 +1,32 @@
+{
+    "description": "Quality metric targets for reference chapters. These represent the floor for 'good' writing.",
+    "metrics": {
+        "repetition_score_target": {"min": 0.7, "max": 1.0},
+        "pacing_score_target": {"min": 0.6, "max": 1.0},
+        "voice_score_target": {"min": 0.7, "max": 1.0},
+        "slop_score_target": {"min": 0.7, "max": 1.0},
+        "overall_score_target": {"min": 0.65, "max": 1.0}
+    },
+    "zero_tolerance": ["ai_tells_found", "banned_phrases_found"],
+    "max_adverb_density": 0.02,
+    "reference_chapters": [
+        {
+            "file": "chapter_01_reference.md",
+            "type": "setup",
+            "structural_phase": "setup",
+            "target_words": 3000
+        },
+        {
+            "file": "chapter_02_reference.md",
+            "type": "action_discovery",
+            "structural_phase": "response",
+            "target_words": 3000
+        },
+        {
+            "file": "chapter_03_reference.md",
+            "type": "dialogue_heavy",
+            "structural_phase": "midpoint",
+            "target_words": 3000
+        }
+    ]
+}
