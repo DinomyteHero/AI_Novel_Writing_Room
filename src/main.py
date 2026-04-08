@@ -385,6 +385,16 @@ async def main():
     print("Initializing AI Writers' Room...")
     router = ModelRouter(args.config)
 
+    # Health check — verify API connectivity before proceeding
+    if router.mode in ("cloud", "hybrid"):
+        ok, msg = await router.health_check()
+        if not ok:
+            print(f"Error: Health check failed — {msg}")
+            print("Ensure OPENROUTER_API_KEY is set and network is available.")
+            await router.close()
+            sys.exit(1)
+        print(f"  {msg}")
+
     import yaml
     with open(args.config) as f:
         config = yaml.safe_load(f)
