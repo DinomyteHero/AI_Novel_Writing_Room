@@ -299,8 +299,12 @@ class Orchestrator:
                 "character_knowledge": "",
                 "character_profiles": self._get_character_profiles(scene_card),
             }
-            character_analysis = await self.character_specialist.run(char_context)
-            print(f"    Character verdict: {character_analysis['verdict']}")
+            try:
+                character_analysis = await self.character_specialist.run(char_context)
+                print(f"    Character verdict: {character_analysis['verdict']}")
+            except (json.JSONDecodeError, KeyError) as e:
+                print(f"    Character specialist: parse error ({e.__class__.__name__}) — skipping")
+                character_analysis = None
 
         # Phase 4: LLM-as-Judge evaluation
         judge_evaluation = None
@@ -530,11 +534,24 @@ class Orchestrator:
                 agent_role="gate_critic",
             )
 
-            evaluation = await self.gate_critic.run({
-                "prose": prose,
-                "scene_card": scene_card,
-                "bible_summary": self.assembler.get_bible_summary(),
-            })
+            try:
+                evaluation = await self.gate_critic.run({
+                    "prose": prose,
+                    "scene_card": scene_card,
+                    "bible_summary": self.assembler.get_bible_summary(),
+                })
+            except (json.JSONDecodeError, KeyError) as e:
+                # JSON parse failure — treat as structural failure to trigger retry
+                print(f"    Gate: JSON parse error ({e.__class__.__name__}) — treating as structural failure")
+                evaluation = {
+                    "verdict": "fail_structural",
+                    "failure_codes": [{"code": "JSON_PARSE_ERROR", "location": "gate_critic", "description": str(e), "fix_hint": "Retry"}],
+                    "severity": "blocking",
+                    "route_to": "full_rewrite",
+                    "structural_score": 0.0,
+                    "voice_score": 0.0,
+                    "polish_score": 0.0,
+                }
 
             duration_ms = int((time.time() - start) * 1000)
             self.ledger.emit(

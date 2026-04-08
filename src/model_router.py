@@ -1,12 +1,18 @@
 """Routes agent LLM calls to the appropriate backend based on config."""
 
+import asyncio
 import json
 import os
+import re
 from pathlib import Path
 from typing import Optional
 
 import httpx
 import yaml
+
+# Regex for stripping markdown code fences: ```json, ```JSON, ``` json, etc.
+_FENCE_OPEN = re.compile(r"^```\s*\w*\s*\n", re.IGNORECASE)
+_FENCE_CLOSE = re.compile(r"\n```\s*$")
 
 
 class ModelRouter:
@@ -65,10 +71,37 @@ class ModelRouter:
         else:
             client = await self._get_cloud_client()
 
-        response = await client.post("/chat/completions", json=payload)
-        response.raise_for_status()
-        data = response.json()
-        return data["choices"][0]["message"]["content"]
+        max_retries = 2
+        for attempt in range(max_retries + 1):
+            try:
+                response = await client.post("/chat/completions", json=payload)
+                if response.status_code == 429 and attempt < max_retries:
+                    retry_after = int(response.headers.get("retry-after", "5"))
+                    await asyncio.sleep(min(retry_after, 30))
+                    continue
+                response.raise_for_status()
+                data = response.json()
+                return data["choices"][0]["message"]["content"]
+            except httpx.HTTPStatusError as e:
+                if e.response.status_code in (502, 503) and attempt < max_retries:
+                    await asyncio.sleep(2 ** attempt)
+                    continue
+                raise
+            except (httpx.ConnectError, httpx.ReadTimeout) as e:
+                if attempt < max_retries:
+                    await asyncio.sleep(2 ** attempt)
+                    continue
+                raise
+        raise RuntimeError("Unreachable: retry loop exhausted")
+
+    @staticmethod
+    def _strip_fences(text: str) -> str:
+        """Strip markdown code fences from a string."""
+        cleaned = text.strip()
+        if _FENCE_OPEN.match(cleaned):
+            cleaned = _FENCE_OPEN.sub("", cleaned, count=1)
+            cleaned = _FENCE_CLOSE.sub("", cleaned)
+        return cleaned.strip()
 
     async def complete_structured(
         self,
@@ -76,7 +109,11 @@ class ModelRouter:
         messages: list[dict],
         override_params: Optional[dict] = None,
     ) -> dict:
-        """Send a completion request expecting structured JSON output."""
+        """Send a completion request expecting structured JSON output.
+
+        Retries once on JSON parse failure with a corrective prompt.
+        On second failure, raises json.JSONDecodeError for callers to handle.
+        """
         json_instruction = {
             "role": "system",
             "content": "Respond with valid JSON only. No markdown, no preamble.",
@@ -84,14 +121,60 @@ class ModelRouter:
         messages_with_json = [json_instruction] + messages
 
         raw = await self.complete(agent_role, messages_with_json, override_params)
+        cleaned = self._strip_fences(raw)
 
-        # Strip markdown fences if present
-        cleaned = raw.strip()
-        if cleaned.startswith("```"):
-            cleaned = cleaned.split("\n", 1)[1]
-            cleaned = cleaned.rsplit("```", 1)[0]
+        try:
+            return json.loads(cleaned)
+        except json.JSONDecodeError:
+            # One retry: send the broken output back with a corrective prompt
+            retry_messages = messages_with_json + [
+                {"role": "assistant", "content": raw},
+                {
+                    "role": "user",
+                    "content": (
+                        "Your previous response was not valid JSON. "
+                        "Return ONLY the corrected JSON object. "
+                        "No markdown fences, no commentary, no explanation."
+                    ),
+                },
+            ]
+            retry_raw = await self.complete(
+                agent_role, retry_messages, override_params
+            )
+            retry_cleaned = self._strip_fences(retry_raw)
+            return json.loads(retry_cleaned)
 
-        return json.loads(cleaned)
+    async def health_check(self) -> tuple[bool, str]:
+        """Verify API connectivity and key validity.
+
+        Returns (success, message).
+        """
+        if self.mode == "local":
+            try:
+                client = await self._get_local_client()
+                response = await client.get("/models")
+                response.raise_for_status()
+                return True, "Local server reachable"
+            except httpx.ConnectError:
+                return False, "Local server unreachable at " + self.config["models"]["local"]["base_url"]
+            except Exception as e:
+                return False, f"Local server error: {e}"
+        else:
+            try:
+                client = await self._get_cloud_client()
+                response = await client.get("/models", params={"limit": 1})
+                if response.status_code == 401:
+                    return False, "Invalid API key (401 Unauthorized)"
+                if response.status_code == 403:
+                    return False, "API key lacks permissions (403 Forbidden)"
+                response.raise_for_status()
+                return True, "Cloud API reachable, key valid"
+            except httpx.ConnectError:
+                return False, "Cannot connect to OpenRouter (network error)"
+            except httpx.TimeoutException:
+                return False, "OpenRouter connection timed out"
+            except Exception as e:
+                return False, f"Health check failed: {e}"
 
     def _get_routing(self, agent_role: str) -> dict:
         if self.mode == "local":
