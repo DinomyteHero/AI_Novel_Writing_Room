@@ -6,11 +6,9 @@ the compliance validator checks semantic completeness: has every eleven-
 step protocol output been formally addressed, are hooks planted AND
 resolved in scene cards, are word counts within target range, etc.
 
-The validator checks the **workshop-native seed format** (with top-level
-``subplots``, ``hooks``, ``stress_test_scores``, ``scene_cards``) as
-specified in the Ruusan Atonement revision task. Legacy canonical field
-names (``subplot_board``, ``hook_map``, ``stress_test_results``) are also
-accepted as fallbacks.
+The validator checks the canonical workshop-native seed format: top-level
+``subplots``, ``hooks``, ``stress_test_scores``, ``scene_cards``,
+``voice_definition``, ``promise_payoff_ledger``, ``extended_metadata``.
 
 Run from the repo root:
     python -m src.concept_workshop.compliance_validator --seed PATH

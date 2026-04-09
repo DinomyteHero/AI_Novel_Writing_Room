@@ -1,4 +1,4 @@
-"""Tests for hook_ledger table and hook governance methods."""
+"""Tests for the hooks table and hook governance methods."""
 
 import pytest
 
@@ -6,7 +6,7 @@ from src.memory.story_state import StoryState
 
 
 class TestHookCRUD:
-    """Tests for basic CRUD on the hook_ledger table."""
+    """Tests for basic CRUD on the hooks table."""
 
     def test_add_and_get_hook(self, story_state):
         """add_hook followed by get_hook round-trips correctly."""

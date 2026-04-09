@@ -1,4 +1,4 @@
-"""Tests for subplot_board table and lifecycle tracking."""
+"""Tests for the subplots table and lifecycle tracking."""
 
 import pytest
 
@@ -6,7 +6,7 @@ from src.memory.story_state import StoryState
 
 
 class TestSubplotCRUD:
-    """Tests for basic CRUD on the subplot_board table."""
+    """Tests for basic CRUD on the subplots table."""
 
     def test_add_and_get_subplot(self, story_state):
         """add_subplot followed by get_subplot round-trips."""

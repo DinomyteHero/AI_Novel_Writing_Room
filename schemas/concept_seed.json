@@ -426,7 +426,7 @@
           },
           "related_hook_id": {
             "type": "string",
-            "description": "Optional cross-reference to a hook in the hooks/hook_map that shares this promise's reader contract."
+            "description": "Optional cross-reference to a hook in the hooks array that shares this promise's reader contract."
           }
         }
       }
