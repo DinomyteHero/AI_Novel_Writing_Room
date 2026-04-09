@@ -10,9 +10,25 @@
       "properties": {
         "project_title": { "type": "string" },
         "franchise": { "type": "string" },
-        "canon_status": { "type": "string", "description": "Canon posture (e.g., canon_compliant, AU, original). Accepts descriptive strings like 'AU — diverges post-Fate of the Jedi series' for clarity." },
+        "canon_status": {
+          "type": "string",
+          "enum": ["canon_compliant", "AU", "original"],
+          "description": "Canon posture. Canonical enum values only. Use 'canon_status_description' for prose context (e.g., 'post-Fate of the Jedi, 47 ABY')."
+        },
+        "canon_status_description": {
+          "type": "string",
+          "description": "Optional descriptive phrase elaborating on the canon_status. Use for era/divergence context."
+        },
         "era": { "type": "string" },
-        "tone": { "type": "string", "description": "Tone of the book. The workshop Step 1 suggests primary registers (dark_gritty, adventurous_hopeful, political_intrigue, character_study) but accepts descriptive blends and custom tones." },
+        "tone": {
+          "type": "string",
+          "enum": ["dark_gritty", "adventurous_hopeful", "political_intrigue", "character_study", "heroic_with_weight"],
+          "description": "Primary tonal register. Use 'tone_description' for descriptive blends that don't fit the enum neatly."
+        },
+        "tone_description": {
+          "type": "string",
+          "description": "Optional descriptive phrase elaborating on the tone (e.g., 'Classic Star Wars adventure layered over genuine moral dilemma — personal stakes, tight cast, archaeological mystery building to cosmic crisis')."
+        },
         "target_word_count": { "type": "integer", "minimum": 40000, "maximum": 120000 },
         "target_chapters": { "type": "integer", "minimum": 15, "maximum": 40 },
         "pov_structure": { "type": "string" },
@@ -76,7 +92,8 @@
     },
     "protagonist_arc_type": {
       "type": "string",
-      "description": "Free-form description of the protagonist's arc type. Per-character structured arc classification lives under ensemble_cast[].weiland_arc.arc_type."
+      "enum": ["change", "steadfast", "fall", "rise"],
+      "description": "Top-level classification of the protagonist's arc. Per-character structured arc classification lives under ensemble_cast[].weiland_arc.arc_type."
     },
     "ensemble_cast": {
       "type": "array",
@@ -113,7 +130,12 @@
               "need": { "type": "string", "minLength": 20 },
               "arc_type": {
                 "type": "string",
-                "description": "Weiland arc type. Canonical values: positive_change, flat, negative, disillusionment. Accepts descriptive phrases like 'Positive change — moves from...' or 'Flat negative — enters certain, exits certain'; the consumer (src/memory/story_state.py:_normalize_arc_type) coerces descriptive strings to the canonical enum at load time."
+                "enum": ["positive_change", "flat", "negative", "disillusionment"],
+                "description": "Weiland arc type — canonical enum only. Use 'arc_summary' for the descriptive phrase."
+              },
+              "arc_summary": {
+                "type": "string",
+                "description": "Optional descriptive phrase elaborating on the arc (e.g., 'moves from the lie (self-reliance as safety) to the truth (collective trust as strength)'). Complements the strict arc_type enum."
               },
               "arc_phase_targets": {
                 "type": "object",

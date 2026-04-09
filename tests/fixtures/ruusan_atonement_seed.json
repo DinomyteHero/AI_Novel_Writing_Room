@@ -5,11 +5,13 @@
     "franchise": "Star Wars (Legends EU)",
     "canon_status": "AU",
     "era": "Legacy Era, post-Fate of the Jedi, 47 ABY",
-    "tone": "Classic Star Wars adventure layered over genuine moral dilemma — personal stakes, tight cast, archaeological mystery building to cosmic crisis",
+    "tone": "heroic_with_weight",
     "target_word_count": 100000,
     "target_chapters": 28,
     "pov_structure": "Single POV — Ben Skywalker throughout",
-    "series_seed_ref": null
+    "series_seed_ref": null,
+    "canon_status_description": "Star Wars Legends (Expanded Universe), post-Fate of the Jedi, 47 ABY",
+    "tone_description": "Classic Star Wars adventure layered over genuine moral dilemma — personal stakes, tight cast, archaeological mystery building to cosmic crisis"
   },
   "premise": {
     "what_if": "What if the Ruusan Reformations were penance for a Jedi war crime — a forbidden technique that tore the boundary between light and dark — and a thousand years later, the seal containing that wound starts to fail?",
@@ -58,7 +60,7 @@
         "ghost": "Jacen's fall. Specifically the realization that Jacen had killed Mara. The wound that taught him trust is dangerous. Compounded by Vestara's betrayal — the second person he let in who chose the dark side.",
         "want": "To prove he's worthy of the Skywalker name on his own terms — independent of his father's shadow and his cousin's legacy.",
         "need": "To learn that 'on his own terms' doesn't mean 'on his own.' True independence isn't isolation — it's the courage to choose who to trust and how to lead differently from those who came before.",
-        "arc_type": "Positive change — moves from the lie (self-reliance as safety) to the truth (collective trust as strength)",
+        "arc_type": "positive_change",
         "arc_phase_map": {
           "lie_established": "Chapter 1",
           "lie_reinforced": "Chapter 5",
@@ -66,7 +68,8 @@
           "moment_of_truth": "Chapter 21",
           "new_truth_demonstrated": "Chapter 25-26",
           "arc_resolved": "Chapter 28"
-        }
+        },
+        "arc_summary": "Positive change — moves from the lie (self-reliance as safety) to the truth (collective trust as strength)"
       }
     },
     {
@@ -83,7 +86,7 @@
         "ghost": "Being sealed in stasis against her will. The moment she realized the man she followed had decided her conviction was less important than his plan.",
         "want": "To finish what she started — seal the wound, honor the people who died at Ruusan, and prove that her way (restraint, principle, discipline) was right all along.",
         "need": "To accept that being right about the principle doesn't mean she has all the answers — and that trusting someone new (Ben) doesn't mean repeating her mistake with Gavran.",
-        "arc_type": "Positive change — moves from rigid certainty to principled flexibility",
+        "arc_type": "positive_change",
         "arc_phase_map": {
           "lie_established": "Chapter 5",
           "lie_reinforced": "Chapter 8-9",
@@ -91,7 +94,8 @@
           "moment_of_truth": "Chapter 14",
           "new_truth_demonstrated": "Chapter 22 / Chapter 25-26",
           "arc_resolved": "Chapter 27"
-        }
+        },
+        "arc_summary": "Positive change — moves from rigid certainty to principled flexibility"
       }
     },
     {
@@ -108,7 +112,7 @@
         "ghost": "His conscription. Being taken from his family as a child and told he should be grateful for the opportunity to serve the Sith. Then watching the Jedi do functionally the same thing with their own recruits.",
         "want": "To be left alone. Genuinely. He didn't ask to be frozen, didn't ask to be woken up, and doesn't want to save the galaxy.",
         "need": "To discover that choosing to care — choosing to fight for something not because an institution demands it but because he decides it matters — is the only way to stop being a tool in someone else's hand. Passivity isn't freedom. It's a different kind of cage.",
-        "arc_type": "Positive change — moves from detachment to chosen commitment",
+        "arc_type": "positive_change",
         "arc_phase_map": {
           "lie_established": "Chapter 5",
           "lie_reinforced": "Chapter 8 / Chapter 10",
@@ -116,7 +120,8 @@
           "moment_of_truth": "Chapter 19",
           "new_truth_demonstrated": "Chapter 23 / Chapter 25-26",
           "arc_resolved": "Chapter 27"
-        }
+        },
+        "arc_summary": "Positive change — moves from detachment to chosen commitment"
       }
     },
     {
@@ -133,7 +138,7 @@
         "ghost": "The first time he used the technique in combat. The boundary between light and dark dissolved, and for one moment it was beautiful — clarity without categories, power without moral friction. That moment of beauty is what he's chasing. Not power. The memory of transcendence.",
         "want": "To use the technique one final time to seal the wound permanently, proving his sacrifice wasn't meaningless.",
         "need": "To accept that his sacrifice was meaningful without needing to repeat it. That stepping back and letting others find a different way isn't cowardice. He never gets there.",
-        "arc_type": "Negative (tragic) — moves deeper into the lie. His inability to let go of the pattern is what breaks him from the group.",
+        "arc_type": "negative",
         "arc_phase_map": {
           "lie_established": "Chapter 5",
           "lie_reinforced": "Chapter 8 / Chapter 9 / Chapter 12",
@@ -142,7 +147,8 @@
           "lie_acted_upon": "Chapter 21",
           "lie_consequence": "Chapter 25-26",
           "arc_resolved_tragic": "Chapter 27"
-        }
+        },
+        "arc_summary": "Negative (tragic) — moves deeper into the lie. His inability to let go of the pattern is what breaks him from the group."
       }
     },
     {
@@ -159,13 +165,14 @@
         "ghost": "Her conversion — the moment the Sith unlocked her Force sensitivity and she felt the light/dark division for the first time, and it struck her as absurd. Everything since has been an effort to prove that first instinct correct.",
         "want": "To open the wound fully and prove her thesis. She genuinely believes this will end war, not cause it.",
         "need": "She never gets there. The story treats her as wrong for the right reasons. Her defeat is external, not internal — she's proven wrong by results she can't dismiss, even if she'll spend years rationalizing them.",
-        "arc_type": "Flat negative — enters certain, exits certain. Defeated but unchanged.",
+        "arc_type": "negative",
         "arc_phase_map": {
           "lie_established": "Chapter 5 (referenced)",
           "lie_reinforced": "Chapter 10 / Chapter 16",
           "lie_tested": "Chapter 25-26",
           "lie_unchanged": "Chapter 27"
-        }
+        },
+        "arc_summary": "Flat negative — enters certain, exits certain. Defeated but unchanged."
       }
     },
     {
@@ -182,7 +189,8 @@
         "ghost": "GAG service under Jacen — shared with Ben.",
         "want": "To help Ben and get home safely.",
         "need": "To choose to be here for the right reasons, not just loyalty — completing the redemption of their shared GAG history.",
-        "arc_type": "Minor positive — from obligation to chosen commitment"
+        "arc_type": "positive_change",
+        "arc_summary": "Minor positive — from obligation to chosen commitment"
       }
     }
   ],

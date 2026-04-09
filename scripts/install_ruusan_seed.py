@@ -630,6 +630,41 @@ def main() -> int:
     print("Task 2: adding voice_definition")
     seed["voice_definition"] = copy.deepcopy(VOICE_DEFINITION)
 
+    # --- Normalize enums: tone + canon_status + weiland_arc.arc_type ---
+    print("Normalize: tone + canon_status + arc_type enums")
+    meta = seed.setdefault("meta", {})
+    current_tone = meta.get("tone", "")
+    if current_tone and current_tone not in (
+        "dark_gritty", "adventurous_hopeful", "political_intrigue",
+        "character_study", "heroic_with_weight",
+    ):
+        meta["tone_description"] = current_tone
+        meta["tone"] = "heroic_with_weight"
+    current_canon = meta.get("canon_status", "")
+    if current_canon and current_canon not in ("canon_compliant", "AU", "original"):
+        meta["canon_status_description"] = current_canon
+        meta["canon_status"] = "AU"
+
+    # Canonicalize weiland_arc.arc_type to the strict enum; move descriptive
+    # prose to arc_summary.
+    ARC_TYPE_CANONICAL = {
+        "Ben Skywalker": "positive_change",
+        "Sera Varik": "positive_change",
+        "Kael Drenn": "positive_change",
+        "Torin Hal": "negative",
+        "Darth Veraine": "negative",
+        "Desh Rolan": "positive_change",
+    }
+    for char in seed.get("ensemble_cast", []):
+        name = char.get("name")
+        weiland = char.setdefault("weiland_arc", {})
+        descriptive = weiland.get("arc_type", "")
+        canonical = ARC_TYPE_CANONICAL.get(name)
+        if canonical:
+            weiland["arc_type"] = canonical
+            if descriptive and descriptive != canonical:
+                weiland["arc_summary"] = descriptive
+
     # --- Task 4: Add arc_phase_map to each main character's weiland_arc ---
     print("Task 4: adding arc_phase_map to main characters")
     for char in seed.get("ensemble_cast", []):
