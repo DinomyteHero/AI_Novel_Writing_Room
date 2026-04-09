@@ -19,7 +19,7 @@
   "promises_paid": [],
   "canon_elements_needed": [],
   "target_word_count": 3750,
-  "notes": "Time: Hours after awakening\nScene type: sequel\nThematic beat: The cycle of failure visible through survivors' eyes\nOriginal scene_outcome: Group oriented, ship loaded, departure. Dynamics rocky but functional. Torin's quiet question about the light/dark boundary seeds his arc.",
+  "notes": "Time: Hours after awakening\nThematic beat: The cycle of failure visible through survivors' eyes\nOriginal scene_outcome: Group oriented, ship loaded, departure. Dynamics rocky but functional. Torin's quiet question about the light/dark boundary seeds his arc.",
   "active_subplots": [
     "SP1",
     "SP2",
@@ -32,5 +32,6 @@
     }
   ],
   "revelations": [],
-  "pov_arc_phase": "Response — group formation under tension"
+  "pov_arc_phase": "Response — group formation under tension",
+  "scene_type": "sequel"
 }

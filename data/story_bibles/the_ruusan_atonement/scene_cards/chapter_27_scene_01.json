@@ -19,7 +19,7 @@
   "promises_paid": [],
   "canon_elements_needed": [],
   "target_word_count": 4250,
-  "notes": "Time: Hours after climax\nScene type: sequel\nThematic beat: Choosing a different path doesn't guarantee a better outcome. It guarantees a better process.\nOriginal scene_outcome: Veraine contained not killed (Ben's choice). Torin alive but diminished — Sera stays. Kael shakes Ben's hand and leaves. Desh and Ben laugh. Ship departs Veranthos.",
+  "notes": "Time: Hours after climax\nThematic beat: Choosing a different path doesn't guarantee a better outcome. It guarantees a better process.\nOriginal scene_outcome: Veraine contained not killed (Ben's choice). Torin alive but diminished — Sera stays. Kael shakes Ben's hand and leaves. Desh and Ben laugh. Ship departs Veranthos.",
   "active_subplots": [
     "SP1",
     "SP2",
@@ -28,5 +28,6 @@
   ],
   "hook_actions": [],
   "revelations": [],
-  "pov_arc_phase": "Resolution — the cost of doing the right thing"
+  "pov_arc_phase": "Resolution — the cost of doing the right thing",
+  "scene_type": "sequel"
 }

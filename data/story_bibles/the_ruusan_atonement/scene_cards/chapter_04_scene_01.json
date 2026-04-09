@@ -19,7 +19,7 @@
   "promises_paid": [],
   "canon_elements_needed": [],
   "target_word_count": 3750,
-  "notes": "Time: Immediately following Ch 3\nScene type: action\nThematic beat: First crack in Ben's assumption that the Order's failures are aberrations\nOriginal scene_outcome: Ben and Desh breach fortress. Encounter the archive's first uncomfortable truths. Detect three life signs in deep stasis.",
+  "notes": "Time: Immediately following Ch 3\nThematic beat: First crack in Ben's assumption that the Order's failures are aberrations\nOriginal scene_outcome: Ben and Desh breach fortress. Encounter the archive's first uncomfortable truths. Detect three life signs in deep stasis.",
   "active_subplots": [
     "SP3",
     "SP4"
@@ -37,5 +37,6 @@
   "revelations": [
     "R03"
   ],
-  "pov_arc_phase": "Setup — the Jedi as institution capable of terrible things"
+  "pov_arc_phase": "Setup — the Jedi as institution capable of terrible things",
+  "scene_type": "action"
 }

@@ -19,7 +19,7 @@
   "promises_paid": [],
   "canon_elements_needed": [],
   "target_word_count": 3250,
-  "notes": "Time: Hours after the breach\nScene type: sequel\nThematic beat: Leadership under uncertainty as a form of faith\nOriginal scene_outcome: Ben sets direct course to Veranthos. Assigns roles. Sera's trust moment: 'Tell me where to stand, Skywalker.' Unity real but fragile. Gavran's resonance note discovered.",
+  "notes": "Time: Hours after the breach\nThematic beat: Leadership under uncertainty as a form of faith\nOriginal scene_outcome: Ben sets direct course to Veranthos. Assigns roles. Sera's trust moment: 'Tell me where to stand, Skywalker.' Unity real but fragile. Gavran's resonance note discovered.",
   "active_subplots": [
     "SP1",
     "SP2",
@@ -32,5 +32,6 @@
     }
   ],
   "revelations": [],
-  "pov_arc_phase": "Attack — Ben assumes leadership"
+  "pov_arc_phase": "Attack — Ben assumes leadership",
+  "scene_type": "sequel"
 }

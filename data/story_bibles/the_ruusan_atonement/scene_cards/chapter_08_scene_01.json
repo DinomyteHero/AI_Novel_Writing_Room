@@ -19,7 +19,7 @@
   "promises_paid": [],
   "canon_elements_needed": [],
   "target_word_count": 3750,
-  "notes": "Time: Continuing journey\nScene type: action\nThematic beat: Same phenomenon means different things depending on training and history\nOriginal scene_outcome: Group exits shaken and more divided. Torin found it peaceful (wrong reaction). Kael found it honest (unsettling implication). Sera refused to enter.",
+  "notes": "Time: Continuing journey\nThematic beat: Same phenomenon means different things depending on training and history\nOriginal scene_outcome: Group exits shaken and more divided. Torin found it peaceful (wrong reaction). Kael found it honest (unsettling implication). Sera refused to enter.",
   "active_subplots": [
     "SP1",
     "SP2"
@@ -33,5 +33,6 @@
   "revelations": [
     "R05"
   ],
-  "pov_arc_phase": "Response — experience divides rather than unites"
+  "pov_arc_phase": "Response — experience divides rather than unites",
+  "scene_type": "action"
 }

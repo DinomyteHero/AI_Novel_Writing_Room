@@ -19,7 +19,7 @@
   "promises_paid": [],
   "canon_elements_needed": [],
   "target_word_count": 4250,
-  "notes": "Time: Days before reaching Veranthos\nScene type: action\nThematic beat: The story takes the antagonist seriously — Ben must answer her best argument, not a straw man\nOriginal scene_outcome: Veraine departs without violence. Group dynamics shifted — Torin heard his own thoughts articulated, Kael felt the pull of recognition. Hours later: the seal lurches. Veraine used the truce to deliver sabotage.",
+  "notes": "Time: Days before reaching Veranthos\nThematic beat: The story takes the antagonist seriously — Ben must answer her best argument, not a straw man\nOriginal scene_outcome: Veraine departs without violence. Group dynamics shifted — Torin heard his own thoughts articulated, Kael felt the pull of recognition. Hours later: the seal lurches. Veraine used the truce to deliver sabotage.",
   "active_subplots": [
     "SP1",
     "SP2",
@@ -39,5 +39,6 @@
   "revelations": [
     "R09"
   ],
-  "pov_arc_phase": "Attack — the counter-argument at full strength"
+  "pov_arc_phase": "Attack — the counter-argument at full strength",
+  "scene_type": "action"
 }

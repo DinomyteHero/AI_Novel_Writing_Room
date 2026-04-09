@@ -19,7 +19,7 @@
   "promises_paid": [],
   "canon_elements_needed": [],
   "target_word_count": 3750,
-  "notes": "Time: Days after thin-place visit\nScene type: sequel\nThematic beat: Four positions, one question, no consensus. Interaction between perspectives is the key.\nOriginal scene_outcome: No consensus — the debate ends without resolution. Shared framework, incompatible interpretations. Ben's willingness to sit with uncertainty established.",
+  "notes": "Time: Days after thin-place visit\nThematic beat: Four positions, one question, no consensus. Interaction between perspectives is the key.\nOriginal scene_outcome: No consensus — the debate ends without resolution. Shared framework, incompatible interpretations. Ben's willingness to sit with uncertainty established.",
   "active_subplots": [
     "SP1",
     "SP2",
@@ -34,5 +34,6 @@
   "revelations": [
     "R06"
   ],
-  "pov_arc_phase": "Response — intellectual framework established"
+  "pov_arc_phase": "Response — intellectual framework established",
+  "scene_type": "sequel"
 }

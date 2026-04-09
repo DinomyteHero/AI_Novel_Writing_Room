@@ -19,7 +19,7 @@
   "promises_paid": [],
   "canon_elements_needed": [],
   "target_word_count": 3750,
-  "notes": "Time: Hours after Torin's departure\nScene type: sequel\nThematic beat: The solution requires living the theme to execute it\nOriginal scene_outcome: Plan established: three practitioners (Sera, Kael, Ben) working in concert; Desh disrupting Veraine's infrastructure. Sera agrees. Kael is the holdout.",
+  "notes": "Time: Hours after Torin's departure\nThematic beat: The solution requires living the theme to execute it\nOriginal scene_outcome: Plan established: three practitioners (Sera, Kael, Ben) working in concert; Desh disrupting Veraine's infrastructure. Sera agrees. Kael is the holdout.",
   "active_subplots": [
     "SP1",
     "SP2",
@@ -38,5 +38,6 @@
   "revelations": [
     "R12"
   ],
-  "pov_arc_phase": "Resolution — the solution is the theme"
+  "pov_arc_phase": "Resolution — the solution is the theme",
+  "scene_type": "sequel"
 }

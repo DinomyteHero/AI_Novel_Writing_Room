@@ -19,7 +19,7 @@
   "promises_paid": [],
   "canon_elements_needed": [],
   "target_word_count": 5000,
-  "notes": "Time: Immediately following Ch 4\nScene type: action\nThematic beat: The cycle of institutional failure made visible. Ben chooses to reject it.\nOriginal scene_outcome: Ben is locked in. Seal failing, Veraine active, survivors are the only ones who understand. Guarded contact with Luke. Ben commits.",
+  "notes": "Time: Immediately following Ch 4\nThematic beat: The cycle of institutional failure made visible. Ben chooses to reject it.\nOriginal scene_outcome: Ben is locked in. Seal failing, Veraine active, survivors are the only ones who understand. Guarded contact with Luke. Ben commits.",
   "active_subplots": [
     "SP1",
     "SP2",
@@ -41,5 +41,6 @@
     "R04",
     "R05"
   ],
-  "pov_arc_phase": "First Plot Point — lock-in"
+  "pov_arc_phase": "First Plot Point — lock-in",
+  "scene_type": "action"
 }

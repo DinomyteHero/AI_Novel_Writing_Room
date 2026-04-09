@@ -2,6 +2,7 @@
   "chapter_number": 1,
   "scene_number": 1,
   "structural_phase": "setup",
+  "scene_type": "sequel",
   "pov_character": "Alex Reyes",
   "mission": "Establish Alex's solitary working style, introduce the personal connection that will ultimately lock them into the case, and seed the first sign that something is being actively hidden from them.",
   "why_now": "This is the opening scene — it must establish the status quo before the First Plot Point disrupts it.",

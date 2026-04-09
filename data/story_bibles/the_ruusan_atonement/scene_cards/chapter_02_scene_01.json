@@ -19,7 +19,7 @@
   "promises_paid": [],
   "canon_elements_needed": [],
   "target_word_count": 3750,
-  "notes": "Time: Days to weeks into the survey\nScene type: action\nThematic beat: Post-war galaxy as institutional exhaustion\nOriginal scene_outcome: Ben identifies wrongness correlating with specific worlds. Finds anomalous ruins with unrecognized markings. Curiosity overriding mission parameters.",
+  "notes": "Time: Days to weeks into the survey\nThematic beat: Post-war galaxy as institutional exhaustion\nOriginal scene_outcome: Ben identifies wrongness correlating with specific worlds. Finds anomalous ruins with unrecognized markings. Curiosity overriding mission parameters.",
   "active_subplots": [
     "SP3"
   ],
@@ -34,5 +34,6 @@
     }
   ],
   "revelations": [],
-  "pov_arc_phase": "Setup — Ben's instincts leading him"
+  "pov_arc_phase": "Setup — Ben's instincts leading him",
+  "scene_type": "action"
 }

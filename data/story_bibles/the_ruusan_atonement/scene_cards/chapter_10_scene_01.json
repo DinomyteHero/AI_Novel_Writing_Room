@@ -19,7 +19,7 @@
   "promises_paid": [],
   "canon_elements_needed": [],
   "target_word_count": 3750,
-  "notes": "Time: Continuing journey\nScene type: action\nThematic beat: The enemy is a mirror. Cross-traditional understanding is necessary and costly.\nOriginal scene_outcome: Group accelerates timeline. Veraine established as methodical, ahead, and physically dangerous. Kael recognizes Sith tradecraft. The Sith outpost humanizes the Brotherhood.",
+  "notes": "Time: Continuing journey\nThematic beat: The enemy is a mirror. Cross-traditional understanding is necessary and costly.\nOriginal scene_outcome: Group accelerates timeline. Veraine established as methodical, ahead, and physically dangerous. Kael recognizes Sith tradecraft. The Sith outpost humanizes the Brotherhood.",
   "active_subplots": [
     "SP2",
     "SP4",
@@ -36,5 +36,6 @@
     }
   ],
   "revelations": [],
-  "pov_arc_phase": "Response — external threat becomes real"
+  "pov_arc_phase": "Response — external threat becomes real",
+  "scene_type": "action"
 }

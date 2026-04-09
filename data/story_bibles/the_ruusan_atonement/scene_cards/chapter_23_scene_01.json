@@ -19,7 +19,7 @@
   "promises_paid": [],
   "canon_elements_needed": [],
   "target_word_count": 3750,
-  "notes": "Time: Hours before climax\nScene type: sequel\nThematic beat: Choosing what your imposed identity means is the most fundamental 'different path'\nOriginal scene_outcome: Kael commits. 'If this kills me, I want it on record that I volunteered. First time for everything.' Sera apologizes to Kael. Desh/Kael farewell. Group moves toward the wound source.",
+  "notes": "Time: Hours before climax\nThematic beat: Choosing what your imposed identity means is the most fundamental 'different path'\nOriginal scene_outcome: Kael commits. 'If this kills me, I want it on record that I volunteered. First time for everything.' Sera apologizes to Kael. Desh/Kael farewell. Group moves toward the wound source.",
   "active_subplots": [
     "SP1",
     "SP2",
@@ -36,5 +36,6 @@
     }
   ],
   "revelations": [],
-  "pov_arc_phase": "Resolution — the quietest, most powerful climax"
+  "pov_arc_phase": "Resolution — the quietest, most powerful climax",
+  "scene_type": "sequel"
 }

@@ -19,7 +19,7 @@
   "promises_paid": [],
   "canon_elements_needed": [],
   "target_word_count": 4500,
-  "notes": "Time: Hours before climax\nScene type: action\nThematic beat: The theme's crisis point. Ben rejects the pattern of unilateral action.\nOriginal scene_outcome: Torin leaves. 'I'm not asking for permission.' Sera's silence. Kael's anger. Desh breaks the silence. Ben's paralysis and recovery: 'We find another way. Together.' Gavran's resonance note crystallizes.",
+  "notes": "Time: Hours before climax\nThematic beat: The theme's crisis point. Ben rejects the pattern of unilateral action.\nOriginal scene_outcome: Torin leaves. 'I'm not asking for permission.' Sera's silence. Kael's anger. Desh breaks the silence. Ben's paralysis and recovery: 'We find another way. Together.' Gavran's resonance note crystallizes.",
   "active_subplots": [
     "SP1",
     "SP2",
@@ -42,5 +42,6 @@
   "revelations": [
     "R11"
   ],
-  "pov_arc_phase": "Second Plot Point — the protagonist chooses the theme"
+  "pov_arc_phase": "Second Plot Point — the protagonist chooses the theme",
+  "scene_type": "action"
 }

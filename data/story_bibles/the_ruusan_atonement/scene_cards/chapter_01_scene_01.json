@@ -19,7 +19,7 @@
   "promises_paid": [],
   "canon_elements_needed": [],
   "target_word_count": 3500,
-  "notes": "Time: 47 ABY, weeks before main action\nScene type: sequel\nThematic beat: The Skywalker shadow — competent, respected, suffocating under a name\nOriginal scene_outcome: Ben requests survey mission, contacts Desh, departs. Discovers the wrongness has a direction — deeper into the Outer Rim.",
+  "notes": "Time: 47 ABY, weeks before main action\nThematic beat: The Skywalker shadow — competent, respected, suffocating under a name\nOriginal scene_outcome: Ben requests survey mission, contacts Desh, departs. Discovers the wrongness has a direction — deeper into the Outer Rim.",
   "active_subplots": [
     "SP3",
     "SP4"
@@ -33,5 +33,6 @@
   "revelations": [
     "R01"
   ],
-  "pov_arc_phase": "Setup — Ben in stasis, defined by avoidance"
+  "pov_arc_phase": "Setup — Ben in stasis, defined by avoidance",
+  "scene_type": "sequel"
 }

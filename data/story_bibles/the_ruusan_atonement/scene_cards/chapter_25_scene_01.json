@@ -19,7 +19,7 @@
   "promises_paid": [],
   "canon_elements_needed": [],
   "target_word_count": 4500,
-  "notes": "Time: The climax — simultaneous operations\nScene type: action\nThematic beat: Collective action is harder and slower but sustainable. The discipline to hold course.\nOriginal scene_outcome: Veraine's ritual disrupted. Torin's technique effective but consuming him. Resonance catches after Ben stops trying to control it. The critical moment: technique wins the sprint, resonance wins the marathon.",
+  "notes": "Time: The climax — simultaneous operations\nThematic beat: Collective action is harder and slower but sustainable. The discipline to hold course.\nOriginal scene_outcome: Veraine's ritual disrupted. Torin's technique effective but consuming him. Resonance catches after Ben stops trying to control it. The critical moment: technique wins the sprint, resonance wins the marathon.",
   "active_subplots": [
     "SP1",
     "SP2",
@@ -37,5 +37,6 @@
     }
   ],
   "revelations": [],
-  "pov_arc_phase": "Resolution — the theme tested under maximum pressure"
+  "pov_arc_phase": "Resolution — the theme tested under maximum pressure",
+  "scene_type": "action"
 }

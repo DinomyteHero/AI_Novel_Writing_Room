@@ -19,7 +19,7 @@
   "promises_paid": [],
   "canon_elements_needed": [],
   "target_word_count": 4500,
-  "notes": "Time: Days after Maetha's facility\nScene type: action\nThematic beat: The abstract becomes visceral. Loss of structure is loss of moral compass.\nOriginal scene_outcome: Group exits fundamentally changed. Ben terrified. Sera shaken. Torin smiled. Kael disturbed by his own comfort. Veraine's deliberate sabotage confirmed. Mission shifts from investigation to urgency.",
+  "notes": "Time: Days after Maetha's facility\nThematic beat: The abstract becomes visceral. Loss of structure is loss of moral compass.\nOriginal scene_outcome: Group exits fundamentally changed. Ben terrified. Sera shaken. Torin smiled. Kael disturbed by his own comfort. Veraine's deliberate sabotage confirmed. Mission shifts from investigation to urgency.",
   "active_subplots": [
     "SP1",
     "SP2",
@@ -43,5 +43,6 @@
   "revelations": [
     "R08"
   ],
-  "pov_arc_phase": "Midpoint — reactive to proactive"
+  "pov_arc_phase": "Midpoint — reactive to proactive",
+  "scene_type": "action"
 }

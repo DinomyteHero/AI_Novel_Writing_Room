@@ -19,7 +19,7 @@
   "promises_paid": [],
   "canon_elements_needed": [],
   "target_word_count": 3750,
-  "notes": "Time: Days after climax\nScene type: sequel\nThematic beat: Choosing a different path isn't betrayal. It's how you honor those who came before — by doing what they couldn't.\nOriginal scene_outcome: Ben tells Luke everything. Luke agrees — the Order will learn the truth. Ben steps out of his father's shadow. Final image: Ben feeling his own frequency in the new seal. A note in a chord. Enough.",
+  "notes": "Time: Days after climax\nThematic beat: Choosing a different path isn't betrayal. It's how you honor those who came before — by doing what they couldn't.\nOriginal scene_outcome: Ben tells Luke everything. Luke agrees — the Order will learn the truth. Ben steps out of his father's shadow. Final image: Ben feeling his own frequency in the new seal. A note in a chord. Enough.",
   "active_subplots": [
     "SP4"
   ],
@@ -27,5 +27,6 @@
   "revelations": [
     "R14"
   ],
-  "pov_arc_phase": "Resolution — legacy is chosen"
+  "pov_arc_phase": "Resolution — legacy is chosen",
+  "scene_type": "sequel"
 }

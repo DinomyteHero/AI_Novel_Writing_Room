@@ -19,7 +19,7 @@
   "promises_paid": [],
   "canon_elements_needed": [],
   "target_word_count": 3750,
-  "notes": "Time: Days after the outpost\nScene type: sequel\nThematic beat: Acknowledgment — not resolution, not forgiveness — is the precondition for trust\nOriginal scene_outcome: Two pivotal conversations. Ben and Desh acknowledge Jacen and GAG honestly for the first time. Kael and Desh form genuine connection. Honesty laid as groundwork for trust.",
+  "notes": "Time: Days after the outpost\nThematic beat: Acknowledgment — not resolution, not forgiveness — is the precondition for trust\nOriginal scene_outcome: Two pivotal conversations. Ben and Desh acknowledge Jacen and GAG honestly for the first time. Kael and Desh form genuine connection. Honesty laid as groundwork for trust.",
   "active_subplots": [
     "SP2",
     "SP3"
@@ -31,5 +31,6 @@
     }
   ],
   "revelations": [],
-  "pov_arc_phase": "Response — honesty precedes change"
+  "pov_arc_phase": "Response — honesty precedes change",
+  "scene_type": "sequel"
 }

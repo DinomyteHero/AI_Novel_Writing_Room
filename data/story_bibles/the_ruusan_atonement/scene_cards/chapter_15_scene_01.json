@@ -19,7 +19,7 @@
   "promises_paid": [],
   "canon_elements_needed": [],
   "target_word_count": 3750,
-  "notes": "Time: Days into direct run toward Veranthos\nScene type: action\nThematic beat: Even the person trying to break the pattern falls into it under pressure\nOriginal scene_outcome: Ben withholds full truth from Luke — tactical but ironic. Veraine confirmed heading to Veranthos with complete calibration data. Ruusan's Valley of the Jedi affected. Torin confronts Ben about his own pattern of information curation.",
+  "notes": "Time: Days into direct run toward Veranthos\nThematic beat: Even the person trying to break the pattern falls into it under pressure\nOriginal scene_outcome: Ben withholds full truth from Luke — tactical but ironic. Veraine confirmed heading to Veranthos with complete calibration data. Ruusan's Valley of the Jedi affected. Torin confronts Ben about his own pattern of information curation.",
   "active_subplots": [
     "SP1",
     "SP4",
@@ -32,5 +32,6 @@
     }
   ],
   "revelations": [],
-  "pov_arc_phase": "Attack — the trap of unilateral action is inescapable"
+  "pov_arc_phase": "Attack — the trap of unilateral action is inescapable",
+  "scene_type": "action"
 }

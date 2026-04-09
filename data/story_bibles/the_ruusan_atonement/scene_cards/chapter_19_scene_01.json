@@ -19,7 +19,7 @@
   "promises_paid": [],
   "canon_elements_needed": [],
   "target_word_count": 3750,
-  "notes": "Time: Days from Veranthos\nScene type: action\nThematic beat: People are hurting. What are you going to do about it?\nOriginal scene_outcome: Ben helps but can't fix the underlying problem. Kael observes that the Knights built their identity on the lattice. Torin's compassion weaponized as justification. Renewed urgency and guilt.",
+  "notes": "Time: Days from Veranthos\nThematic beat: People are hurting. What are you going to do about it?\nOriginal scene_outcome: Ben helps but can't fix the underlying problem. Kael observes that the Knights built their identity on the lattice. Torin's compassion weaponized as justification. Renewed urgency and guilt.",
   "active_subplots": [
     "SP2",
     "SP4"
@@ -31,5 +31,6 @@
     }
   ],
   "revelations": [],
-  "pov_arc_phase": "Attack — the abstract made personal"
+  "pov_arc_phase": "Attack — the abstract made personal",
+  "scene_type": "action"
 }

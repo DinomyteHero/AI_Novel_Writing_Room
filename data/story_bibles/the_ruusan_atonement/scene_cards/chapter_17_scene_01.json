@@ -19,7 +19,7 @@
   "promises_paid": [],
   "canon_elements_needed": [],
   "target_word_count": 3750,
-  "notes": "Time: Immediately following Ch 16\nScene type: action\nThematic beat: Under time constraint, true priorities surface\nOriginal scene_outcome: Emergency protocol. Maximum speed to Veranthos. Torin's hook: 'We need to talk about what happens when we get there.' His voice calm. Decided.",
+  "notes": "Time: Immediately following Ch 16\nThematic beat: Under time constraint, true priorities surface\nOriginal scene_outcome: Emergency protocol. Maximum speed to Veranthos. Torin's hook: 'We need to talk about what happens when we get there.' His voice calm. Decided.",
   "active_subplots": [
     "SP1",
     "SP2",
@@ -37,5 +37,6 @@
     }
   ],
   "revelations": [],
-  "pov_arc_phase": "Attack — pressure reveals character"
+  "pov_arc_phase": "Attack — pressure reveals character",
+  "scene_type": "action"
 }

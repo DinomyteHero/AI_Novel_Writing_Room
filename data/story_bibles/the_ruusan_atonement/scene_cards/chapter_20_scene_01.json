@@ -19,7 +19,7 @@
   "promises_paid": [],
   "canon_elements_needed": [],
   "target_word_count": 3750,
-  "notes": "Time: Hours before climax\nScene type: action\nThematic beat: Every character carrying their full weight into the climax\nOriginal scene_outcome: Group lands on Veranthos. Veraine already at the wound source. Final conversations. Torin's expression: longing. Ben knows the turn is coming — hours, not days.",
+  "notes": "Time: Hours before climax\nThematic beat: Every character carrying their full weight into the climax\nOriginal scene_outcome: Group lands on Veranthos. Veraine already at the wound source. Final conversations. Torin's expression: longing. Ben knows the turn is coming — hours, not days.",
   "active_subplots": [
     "SP1",
     "SP2",
@@ -37,5 +37,6 @@
     }
   ],
   "revelations": [],
-  "pov_arc_phase": "Attack — the final approach"
+  "pov_arc_phase": "Attack — the final approach",
+  "scene_type": "action"
 }

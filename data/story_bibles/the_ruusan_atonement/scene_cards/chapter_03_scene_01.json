@@ -19,7 +19,7 @@
   "promises_paid": [],
   "canon_elements_needed": [],
   "target_word_count": 3750,
-  "notes": "Time: Immediately following Ch 2\nScene type: action\nThematic beat: First assertion of independence from institutional framework\nOriginal scene_outcome: Ben chooses to follow coordinates. Contacts Luke — guarded, incomplete. Desh calculates a blind jump into uncharted space.",
+  "notes": "Time: Immediately following Ch 2\nThematic beat: First assertion of independence from institutional framework\nOriginal scene_outcome: Ben chooses to follow coordinates. Contacts Luke — guarded, incomplete. Desh calculates a blind jump into uncharted space.",
   "active_subplots": [
     "SP3",
     "SP4"
@@ -37,5 +37,6 @@
   "revelations": [
     "R02"
   ],
-  "pov_arc_phase": "Setup — Ben's initiative drives the plot"
+  "pov_arc_phase": "Setup — Ben's initiative drives the plot",
+  "scene_type": "action"
 }

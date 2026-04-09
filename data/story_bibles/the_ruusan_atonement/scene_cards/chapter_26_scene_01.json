@@ -19,7 +19,7 @@
   "promises_paid": [],
   "canon_elements_needed": [],
   "target_word_count": 5000,
-  "notes": "Time: The climax — resolution phase\nScene type: action\nThematic beat: The solution works because of differences, not despite them. Cost is real. Victory is real.\nOriginal scene_outcome: New seal established — dynamic, harmonic, requiring periodic renewal. Veraine's ritual fails (chaos, not liberation). Torin collapses — alive but diminished. Sera contains Veraine. The wound scar remains but is stable.",
+  "notes": "Time: The climax — resolution phase\nThematic beat: The solution works because of differences, not despite them. Cost is real. Victory is real.\nOriginal scene_outcome: New seal established — dynamic, harmonic, requiring periodic renewal. Veraine's ritual fails (chaos, not liberation). Torin collapses — alive but diminished. Sera contains Veraine. The wound scar remains but is stable.",
   "active_subplots": [
     "SP1",
     "SP2",
@@ -35,5 +35,6 @@
   "revelations": [
     "R13"
   ],
-  "pov_arc_phase": "Resolution — the theme proven through action"
+  "pov_arc_phase": "Resolution — the theme proven through action",
+  "scene_type": "action"
 }

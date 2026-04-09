@@ -19,7 +19,7 @@
   "promises_paid": [],
   "canon_elements_needed": [],
   "target_word_count": 3750,
-  "notes": "Time: The climax begins\nScene type: action\nThematic beat: Solitary action vs. collective trust staged as physical convergence\nOriginal scene_outcome: Torin begins the technique. Veraine's ritual building at the epicenter. Ben calls Sera and Kael: 'Now.' They join hands. Three traditions. Ben lets go of control.",
+  "notes": "Time: The climax begins\nThematic beat: Solitary action vs. collective trust staged as physical convergence\nOriginal scene_outcome: Torin begins the technique. Veraine's ritual building at the epicenter. Ben calls Sera and Kael: 'Now.' They join hands. Three traditions. Ben lets go of control.",
   "active_subplots": [
     "SP1",
     "SP5"
@@ -35,5 +35,6 @@
     }
   ],
   "revelations": [],
-  "pov_arc_phase": "Resolution — the last moment of choice"
+  "pov_arc_phase": "Resolution — the last moment of choice",
+  "scene_type": "action"
 }

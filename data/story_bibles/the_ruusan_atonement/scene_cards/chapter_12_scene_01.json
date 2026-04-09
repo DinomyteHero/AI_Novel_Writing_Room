@@ -19,7 +19,7 @@
   "promises_paid": [],
   "canon_elements_needed": [],
   "target_word_count": 3750,
-  "notes": "Time: Continuing journey\nScene type: action\nThematic beat: Every generation thinks they're smarter than the last. The cycle the story will break.\nOriginal scene_outcome: Maetha's warning delivered. Torin argues 'this time will be different.' Veraine has been here too — alchemical notes missing. The wrongness spikes sharply — seal is being deliberately attacked.",
+  "notes": "Time: Continuing journey\nThematic beat: Every generation thinks they're smarter than the last. The cycle the story will break.\nOriginal scene_outcome: Maetha's warning delivered. Torin argues 'this time will be different.' Veraine has been here too — alchemical notes missing. The wrongness spikes sharply — seal is being deliberately attacked.",
   "active_subplots": [
     "SP1",
     "SP4",
@@ -39,5 +39,6 @@
     "R05",
     "R07"
   ],
-  "pov_arc_phase": "Response — foreshadowing made explicit"
+  "pov_arc_phase": "Response — foreshadowing made explicit",
+  "scene_type": "action"
 }

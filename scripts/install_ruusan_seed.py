@@ -567,12 +567,14 @@ def derive_structural_phase(card: dict) -> str:
 
 
 def build_scene_card_notes(seed_card: dict) -> str:
-    """Concatenate time, scene_type, thematic_beat, and the original scene_outcome into notes."""
+    """Concatenate time, thematic_beat, and the original scene_outcome into notes.
+
+    scene_type is extracted into a dedicated schema field (not notes) now
+    that the scene_card.json schema has a scene_type enum.
+    """
     parts = []
     if seed_card.get("time"):
         parts.append(f"Time: {seed_card['time']}")
-    if seed_card.get("scene_type"):
-        parts.append(f"Scene type: {seed_card['scene_type']}")
     if seed_card.get("thematic_beat"):
         parts.append(f"Thematic beat: {seed_card['thematic_beat']}")
     if seed_card.get("scene_outcome"):
@@ -584,7 +586,7 @@ def translate_scene_card(seed_card: dict) -> dict:
     """Translate a workshop-format scene card into the scene_card.json schema format."""
     ch = seed_card["chapter_number"]
     sn = seed_card.get("scene_number", 1)
-    return {
+    card = {
         "chapter_number": ch,
         "scene_number": sn,
         "structural_phase": derive_structural_phase(seed_card),
@@ -611,6 +613,11 @@ def translate_scene_card(seed_card: dict) -> dict:
         "revelations": seed_card.get("revelation_references", []),
         "pov_arc_phase": seed_card.get("arc_phase", ""),
     }
+    # scene_type is optional — include only when the workshop provided it
+    scene_type = seed_card.get("scene_type")
+    if scene_type in ("action", "sequel"):
+        card["scene_type"] = scene_type
+    return card
 
 
 # ---------------------------------------------------------------------------

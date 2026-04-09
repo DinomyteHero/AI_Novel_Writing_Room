@@ -19,7 +19,7 @@
   "promises_paid": [],
   "canon_elements_needed": [],
   "target_word_count": 3750,
-  "notes": "Time: Days from Veranthos\nScene type: sequel\nThematic beat: The pattern repeats through good people doing what they believe is necessary\nOriginal scene_outcome: Ben has named the pattern internally. Desh confirms silently. Ben confronts Torin partially: 'I've watched someone I loved make every argument you're making.' Torin dismisses gently. Kael observes from a conscript's pattern-recognition.",
+  "notes": "Time: Days from Veranthos\nThematic beat: The pattern repeats through good people doing what they believe is necessary\nOriginal scene_outcome: Ben has named the pattern internally. Desh confirms silently. Ben confronts Torin partially: 'I've watched someone I loved make every argument you're making.' Torin dismisses gently. Kael observes from a conscript's pattern-recognition.",
   "active_subplots": [
     "SP1",
     "SP2",
@@ -34,5 +34,6 @@
   "revelations": [
     "R10"
   ],
-  "pov_arc_phase": "Attack — the pattern made text"
+  "pov_arc_phase": "Attack — the pattern made text",
+  "scene_type": "sequel"
 }

@@ -133,6 +133,39 @@ class TestInstalledSeedSchemaValidation:
                 f"Chapter {ch} should be {phase}, got {card['structural_phase']}"
             )
 
+    def test_every_scene_card_has_scene_type(self):
+        """After Commit 5, every extracted scene card has a canonical scene_type."""
+        if not RUUSAN_SCENE_CARDS_DIR.exists():
+            pytest.skip(f"Scene cards directory not present: {RUUSAN_SCENE_CARDS_DIR}")
+        cards = sorted(RUUSAN_SCENE_CARDS_DIR.glob("chapter_*_scene_*.json"))
+        for card_path in cards:
+            card = json.loads(card_path.read_text(encoding="utf-8"))
+            assert card.get("scene_type") in ("action", "sequel"), (
+                f"{card_path.name} missing or has invalid scene_type"
+            )
+
+    def test_scene_type_spot_check(self):
+        """Verify known action/sequel assignments for several chapters."""
+        if not RUUSAN_SCENE_CARDS_DIR.exists():
+            pytest.skip(f"Scene cards directory not present: {RUUSAN_SCENE_CARDS_DIR}")
+        # These assignments are set by the workshop's Step 8 scene_type field.
+        expected = {
+            1: "sequel",      # Ben's departure / emotional opening
+            2: "action",      # Survey rhythm / wrongness pattern
+            5: "action",      # First Plot Point — awakening
+            6: "sequel",      # Response — group orientation
+            13: "action",     # Midpoint — visceral breach
+            21: "action",     # Second Plot Point — Torin's turn
+            26: "action",     # Climax
+        }
+        for ch, expected_type in expected.items():
+            card = json.loads(
+                (RUUSAN_SCENE_CARDS_DIR / f"chapter_{ch:02d}_scene_01.json").read_text(encoding="utf-8")
+            )
+            assert card.get("scene_type") == expected_type, (
+                f"Chapter {ch} should be scene_type={expected_type!r}, got {card.get('scene_type')!r}"
+            )
+
 
 class TestInstalledSeedPipelineLoad:
     """The installed seed must load into story_state and populate all tracked tables."""

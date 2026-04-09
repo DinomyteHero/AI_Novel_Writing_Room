@@ -19,7 +19,7 @@
   "promises_paid": [],
   "canon_elements_needed": [],
   "target_word_count": 3750,
-  "notes": "Time: Days into the journey\nScene type: action\nThematic beat: The cover-up has real victims — ordinary people living with consequences they don't understand\nOriginal scene_outcome: Multiple thin places mapped. Veraine's recent presence detected at one site. The cover-up's real-world cost visible in affected communities.",
+  "notes": "Time: Days into the journey\nThematic beat: The cover-up has real victims — ordinary people living with consequences they don't understand\nOriginal scene_outcome: Multiple thin places mapped. Veraine's recent presence detected at one site. The cover-up's real-world cost visible in affected communities.",
   "active_subplots": [
     "SP1",
     "SP2",
@@ -33,5 +33,6 @@
     }
   ],
   "revelations": [],
-  "pov_arc_phase": "Response — the trail and the scope"
+  "pov_arc_phase": "Response — the trail and the scope",
+  "scene_type": "action"
 }
