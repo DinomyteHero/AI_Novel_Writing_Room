@@ -1,0 +1,47 @@
+{
+  "chapter_number": 13,
+  "scene_number": 1,
+  "structural_phase": "midpoint",
+  "pov_character": "Ben Skywalker",
+  "mission": "MIDPOINT — Direct visceral experience of full de-structuring. Shift from reactive to proactive.",
+  "why_now": "",
+  "opening_hook": "",
+  "conflict": "Ben vs. the de-structured Force — existential, experiential",
+  "conflict_type": "internal",
+  "turning_point": "",
+  "closing_hook": "",
+  "characters_present": [],
+  "setting": "A world where the seal has fully failed locally — complete breach zone",
+  "sensory_details": "",
+  "emotional_trajectory": "",
+  "plot_threads_advanced": [],
+  "promises_planted": [],
+  "promises_paid": [],
+  "canon_elements_needed": [],
+  "target_word_count": 4500,
+  "notes": "Time: Days after Maetha's facility\nScene type: action\nThematic beat: The abstract becomes visceral. Loss of structure is loss of moral compass.\nOriginal scene_outcome: Group exits fundamentally changed. Ben terrified. Sera shaken. Torin smiled. Kael disturbed by his own comfort. Veraine's deliberate sabotage confirmed. Mission shifts from investigation to urgency.",
+  "active_subplots": [
+    "SP1",
+    "SP2",
+    "SP3",
+    "SP5"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "H08",
+      "action": "resolve"
+    },
+    {
+      "hook_id": "H12",
+      "action": "resolve"
+    },
+    {
+      "hook_id": "H13",
+      "action": "plant"
+    }
+  ],
+  "revelations": [
+    "R08"
+  ],
+  "pov_arc_phase": "Midpoint — reactive to proactive"
+}

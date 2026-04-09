@@ -1,0 +1,37 @@
+{
+  "chapter_number": 8,
+  "scene_number": 1,
+  "structural_phase": "response",
+  "pov_character": "Ben Skywalker",
+  "mission": "Direct visceral experience of de-structured Force — preview of midpoint. Divergent character reactions.",
+  "why_now": "",
+  "opening_hook": "",
+  "conflict": "Ben vs. disorientation of localized Force anomaly",
+  "conflict_type": "internal",
+  "turning_point": "",
+  "closing_hook": "",
+  "characters_present": [],
+  "setting": "Former New Sith Wars battlefield world; thin-place valley",
+  "sensory_details": "",
+  "emotional_trajectory": "",
+  "plot_threads_advanced": [],
+  "promises_planted": [],
+  "promises_paid": [],
+  "canon_elements_needed": [],
+  "target_word_count": 3750,
+  "notes": "Time: Continuing journey\nScene type: action\nThematic beat: Same phenomenon means different things depending on training and history\nOriginal scene_outcome: Group exits shaken and more divided. Torin found it peaceful (wrong reaction). Kael found it honest (unsettling implication). Sera refused to enter.",
+  "active_subplots": [
+    "SP1",
+    "SP2"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "H08",
+      "action": "plant"
+    }
+  ],
+  "revelations": [
+    "R05"
+  ],
+  "pov_arc_phase": "Response — experience divides rather than unites"
+}

@@ -1,0 +1,37 @@
+{
+  "chapter_number": 7,
+  "scene_number": 1,
+  "structural_phase": "response",
+  "pov_character": "Ben Skywalker",
+  "mission": "Introduce thin places, establish route as haunted history, first tactical disagreement between survivors",
+  "why_now": "",
+  "opening_hook": "",
+  "conflict": "Ben vs. growing evidence the problem is far larger than one wound site",
+  "conflict_type": "internal",
+  "turning_point": "",
+  "closing_hook": "",
+  "characters_present": [],
+  "setting": "Aboard Steady Returns; stops along the Ruusan Corridor",
+  "sensory_details": "",
+  "emotional_trajectory": "",
+  "plot_threads_advanced": [],
+  "promises_planted": [],
+  "promises_paid": [],
+  "canon_elements_needed": [],
+  "target_word_count": 3750,
+  "notes": "Time: Days into the journey\nScene type: action\nThematic beat: The cover-up has real victims — ordinary people living with consequences they don't understand\nOriginal scene_outcome: Multiple thin places mapped. Veraine's recent presence detected at one site. The cover-up's real-world cost visible in affected communities.",
+  "active_subplots": [
+    "SP1",
+    "SP2",
+    "SP4",
+    "SP5"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "H07",
+      "action": "plant"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "Response — the trail and the scope"
+}

@@ -1,0 +1,36 @@
+{
+  "chapter_number": 6,
+  "scene_number": 1,
+  "structural_phase": "response",
+  "pov_character": "Ben Skywalker",
+  "mission": "Orient survivors, establish group dynamics, Sera notes Ben's youth, depart for Veranthos",
+  "why_now": "",
+  "opening_hook": "",
+  "conflict": "Ben vs. three experienced Force-users who don't recognize his authority or era",
+  "conflict_type": "internal",
+  "turning_point": "",
+  "closing_hook": "",
+  "characters_present": [],
+  "setting": "Gavran's fortress; aboard Steady Returns",
+  "sensory_details": "",
+  "emotional_trajectory": "",
+  "plot_threads_advanced": [],
+  "promises_planted": [],
+  "promises_paid": [],
+  "canon_elements_needed": [],
+  "target_word_count": 3750,
+  "notes": "Time: Hours after awakening\nScene type: sequel\nThematic beat: The cycle of failure visible through survivors' eyes\nOriginal scene_outcome: Group oriented, ship loaded, departure. Dynamics rocky but functional. Torin's quiet question about the light/dark boundary seeds his arc.",
+  "active_subplots": [
+    "SP1",
+    "SP2",
+    "SP3"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "H06",
+      "action": "plant"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "Response — group formation under tension"
+}

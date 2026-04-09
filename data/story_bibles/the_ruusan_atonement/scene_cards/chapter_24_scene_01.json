@@ -1,0 +1,39 @@
+{
+  "chapter_number": 24,
+  "scene_number": 1,
+  "structural_phase": "resolution",
+  "pov_character": "Ben Skywalker",
+  "mission": "All parties at the wound source. Torin already there. Final Ben/Torin exchange. Three-way convergence staged.",
+  "why_now": "",
+  "opening_hook": "",
+  "conflict": "Ben vs. overwhelming scale of the primary wound. Final failed appeal to Torin.",
+  "conflict_type": "internal",
+  "turning_point": "",
+  "closing_hook": "",
+  "characters_present": [],
+  "setting": "Veranthos wound source — outer edge of the valley",
+  "sensory_details": "",
+  "emotional_trajectory": "",
+  "plot_threads_advanced": [],
+  "promises_planted": [],
+  "promises_paid": [],
+  "canon_elements_needed": [],
+  "target_word_count": 3750,
+  "notes": "Time: The climax begins\nScene type: action\nThematic beat: Solitary action vs. collective trust staged as physical convergence\nOriginal scene_outcome: Torin begins the technique. Veraine's ritual building at the epicenter. Ben calls Sera and Kael: 'Now.' They join hands. Three traditions. Ben lets go of control.",
+  "active_subplots": [
+    "SP1",
+    "SP5"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "H23",
+      "action": "resolve"
+    },
+    {
+      "hook_id": "H24",
+      "action": "plant"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "Resolution — the last moment of choice"
+}

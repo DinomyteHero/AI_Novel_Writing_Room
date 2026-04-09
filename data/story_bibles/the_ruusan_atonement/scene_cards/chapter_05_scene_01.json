@@ -1,0 +1,45 @@
+{
+  "chapter_number": 5,
+  "scene_number": 1,
+  "structural_phase": "first_plot_point",
+  "pov_character": "Ben Skywalker",
+  "mission": "FIRST PLOT POINT — Wake survivors, establish personalities, reveal full truth, lock Ben in",
+  "why_now": "",
+  "opening_hook": "",
+  "conflict": "Immediate danger of awakening, emotional devastation of survivors learning millennium has passed, full scope of the technique and wound revealed, Veraine's awakening confirmed",
+  "conflict_type": "internal",
+  "turning_point": "",
+  "closing_hook": "",
+  "characters_present": [],
+  "setting": "Gavran's fortress — stasis chamber and deep archive",
+  "sensory_details": "",
+  "emotional_trajectory": "",
+  "plot_threads_advanced": [],
+  "promises_planted": [],
+  "promises_paid": [],
+  "canon_elements_needed": [],
+  "target_word_count": 5000,
+  "notes": "Time: Immediately following Ch 4\nScene type: action\nThematic beat: The cycle of institutional failure made visible. Ben chooses to reject it.\nOriginal scene_outcome: Ben is locked in. Seal failing, Veraine active, survivors are the only ones who understand. Guarded contact with Luke. Ben commits.",
+  "active_subplots": [
+    "SP1",
+    "SP2",
+    "SP4",
+    "SP5"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "H04",
+      "action": "resolve"
+    },
+    {
+      "hook_id": "H05",
+      "action": "plant"
+    }
+  ],
+  "revelations": [
+    "R03",
+    "R04",
+    "R05"
+  ],
+  "pov_arc_phase": "First Plot Point — lock-in"
+}

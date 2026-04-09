@@ -84,7 +84,7 @@
       "maxItems": 6,
       "items": {
         "type": "object",
-        "required": ["name", "role", "three_dimensions", "voice_notes"],
+        "required": ["name", "role", "three_dimensions"],
         "properties": {
           "name": { "type": "string" },
           "role": { "type": "string" },
@@ -99,7 +99,10 @@
               "action_under_pressure": { "type": "string", "minLength": 50 }
             }
           },
-          "voice_notes": { "type": "string", "minLength": 30 },
+          "voice_notes": {
+            "type": "string",
+            "description": "Per-character voice guidance. Deprecated in favour of voice_definition.character_voices (post-Phase-5); retained for backward compatibility with Phase 5 seeds."
+          },
           "weiland_arc": {
             "type": "object",
             "required": ["lie_believed", "ghost", "want", "need", "arc_type"],
@@ -110,7 +113,7 @@
               "need": { "type": "string", "minLength": 20 },
               "arc_type": {
                 "type": "string",
-                "enum": ["positive_change", "flat", "negative", "disillusionment"]
+                "description": "Weiland arc type. Canonical values: positive_change, flat, negative, disillusionment. Accepts descriptive phrases like 'Positive change — moves from...' or 'Flat negative — enters certain, exits certain'; the consumer (src/memory/story_state.py:_normalize_arc_type) coerces descriptive strings to the canonical enum at load time."
               },
               "arc_phase_targets": {
                 "type": "object",

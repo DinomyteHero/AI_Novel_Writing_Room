@@ -1,0 +1,36 @@
+{
+  "chapter_number": 14,
+  "scene_number": 1,
+  "structural_phase": "attack",
+  "pov_character": "Ben Skywalker",
+  "mission": "Ben takes command. Sera follows. Gavran's note about lattice resonance planted.",
+  "why_now": "",
+  "opening_hook": "",
+  "conflict": "Ben vs. the group's fractured confidence — forging a plan from four incompatible revelations",
+  "conflict_type": "internal",
+  "turning_point": "",
+  "closing_hook": "",
+  "characters_present": [],
+  "setting": "Aboard Steady Returns, in transit toward Veranthos",
+  "sensory_details": "",
+  "emotional_trajectory": "",
+  "plot_threads_advanced": [],
+  "promises_planted": [],
+  "promises_paid": [],
+  "canon_elements_needed": [],
+  "target_word_count": 3250,
+  "notes": "Time: Hours after the breach\nScene type: sequel\nThematic beat: Leadership under uncertainty as a form of faith\nOriginal scene_outcome: Ben sets direct course to Veranthos. Assigns roles. Sera's trust moment: 'Tell me where to stand, Skywalker.' Unity real but fragile. Gavran's resonance note discovered.",
+  "active_subplots": [
+    "SP1",
+    "SP2",
+    "SP3"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "H14",
+      "action": "plant"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "Attack — Ben assumes leadership"
+}

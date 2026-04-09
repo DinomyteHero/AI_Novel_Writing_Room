@@ -1,0 +1,43 @@
+{
+  "chapter_number": 16,
+  "scene_number": 1,
+  "structural_phase": "attack",
+  "pov_character": "Ben Skywalker",
+  "mission": "Veraine on stage — full philosophy delivered. Sera's firsthand counter-argument. Kael's seduction. Torin's dangerous quiet.",
+  "why_now": "",
+  "opening_hook": "",
+  "conflict": "Ben vs. Veraine — ideology, not combat. Her argument is coherent enough to be genuinely unsettling.",
+  "conflict_type": "internal",
+  "turning_point": "",
+  "closing_hook": "",
+  "characters_present": [],
+  "setting": "Rendezvous point in the Outer Rim — neutral space",
+  "sensory_details": "",
+  "emotional_trajectory": "",
+  "plot_threads_advanced": [],
+  "promises_planted": [],
+  "promises_paid": [],
+  "canon_elements_needed": [],
+  "target_word_count": 4250,
+  "notes": "Time: Days before reaching Veranthos\nScene type: action\nThematic beat: The story takes the antagonist seriously — Ben must answer her best argument, not a straw man\nOriginal scene_outcome: Veraine departs without violence. Group dynamics shifted — Torin heard his own thoughts articulated, Kael felt the pull of recognition. Hours later: the seal lurches. Veraine used the truce to deliver sabotage.",
+  "active_subplots": [
+    "SP1",
+    "SP2",
+    "SP4",
+    "SP5"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "H10",
+      "action": "resolve"
+    },
+    {
+      "hook_id": "H16",
+      "action": "plant"
+    }
+  ],
+  "revelations": [
+    "R09"
+  ],
+  "pov_arc_phase": "Attack — the counter-argument at full strength"
+}

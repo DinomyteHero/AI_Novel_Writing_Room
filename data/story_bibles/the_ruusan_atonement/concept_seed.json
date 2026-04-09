@@ -1,0 +1,2230 @@
+{
+  "meta": {
+    "project_title": "The Ruusan Atonement",
+    "project_scope": "standalone",
+    "franchise": "Star Wars (Legends EU)",
+    "canon_status": "AU",
+    "era": "Legacy Era, post-Fate of the Jedi, 47 ABY",
+    "tone": "Classic Star Wars adventure layered over genuine moral dilemma — personal stakes, tight cast, archaeological mystery building to cosmic crisis",
+    "target_word_count": 100000,
+    "target_chapters": 28,
+    "pov_structure": "Single POV — Ben Skywalker throughout",
+    "series_seed_ref": null
+  },
+  "premise": {
+    "what_if": "What if the Ruusan Reformations were penance for a Jedi war crime — a forbidden technique that tore the boundary between light and dark — and a thousand years later, the seal containing that wound starts to fail?",
+    "central_dramatic_question": "Can Ben succeed where the Jedi Lords failed — not by wielding power, but by trusting the people his Order forgot?",
+    "logline": "Ben Skywalker awakens three survivors of a war the Jedi Order erased from history — and discovers they're the only people who understand the wound in the Force that's unraveling the boundary between light and dark. With an ancient Sith racing to exploit the crisis and his most trusted ally turning desperate enough to become the next threat, Ben must do what a thousand years of Jedi couldn't: find an answer that doesn't require becoming the thing he's fighting.",
+    "hook_classification": "hard"
+  },
+  "conflict": {
+    "primary_antagonistic_force": {
+      "type": "External — Ancient Sith survivor",
+      "identity": "Darth Veraine, Brotherhood of Darkness alchemist and strategist, sealed by Lord Kaan before Ruusan",
+      "motivation": "Veraine genuinely believes the wound in the Force is the Force's natural state and that the seal is keeping the galaxy sick. She intends to open the wound fully — not to destroy, but to liberate the Force from the artificial light/dark binary. She has the ideological certainty of a true believer backed by a millennium of Sith knowledge the modern galaxy has forgotten.",
+      "escalation": "Part 1: Invisible — referenced only through intelligence reports of a breached sealed site. Part 2: Evidence of her passage — raided sites, surgical extractions, a deliberate message left for the group. Each site she visits calibrates her approach to the primary seal. Part 3: Direct confrontation during a truce meeting where she presents her philosophy, followed by sabotage that collapses the timeline from weeks to days. Part 4: Full assault on the primary seal at Veranthos — her ritual disrupted by the convergence of Ben's resonance and Torin's technique. Defeated by complexity she couldn't model, contained but unbroken."
+    },
+    "secondary_pressures": [
+      "Torin Hal (internal antagonist) — ally turned antagonist at the second plot point. His pattern mirrors Jacen Solo and the Jedi Lords: the talented, damaged Force-user who decides he alone bears responsibility for the solution. His turn is driven by desperation, not malice.",
+      "The wound itself — semi-aware, reactive. As the seal weakens it amplifies emotional extremes in Force-sensitives nearby. Not possession, but pressurization — every argument hits harder, every fear cuts deeper, every doubt becomes paralyzing.",
+      "The institutional lie — the Jedi Order's thousand-year cover-up of the Reformations' true purpose. Ben carries the weight of knowing the truth, and every step deeper makes it harder to imagine going home and pretending he doesn't know.",
+      "Luke's shadow — not an antagonist but a pressure. Luke sent Ben alone. The irony of that choice — sending one person to solve a problem caused by people who acted alone — becomes increasingly apparent. Ben's reluctance to call for help is both practical and personal."
+    ],
+    "lock_in_mechanism": "Triple-layered: (1) The seal is failing regardless — Ben can't un-know what he's learned and walking away doesn't stop the wound from spreading. (2) The survivors depend on him — they're a thousand years out of time with no resources, no allies, and no understanding of the modern galaxy. (3) Veraine is already moving — even if Ben quits, she doesn't. Someone has to stop her or the wound opens on her terms."
+  },
+  "theme": {
+    "thematic_premise": "Choosing a different path than those who came before isn't betrayal — it's the only way to stop repeating their failures.",
+    "thematic_argument": "The novel tests this through five characters who each represent a different relationship to legacy and tradition. The Jedi Lords failed through unilateral action and institutional secrecy. Jacen Solo failed through unilateral action and moral certainty. Torin fails the same way — noble sacrifice without trust becomes the same old pattern. Ben succeeds by doing the opposite: sharing the burden, trusting flawed people from different traditions, accepting an imperfect solution over a unilateral 'perfect' one. Veraine complicates the argument by demonstrating that 'choosing differently' without moral grounding is equally dangerous — her path is different from her predecessors' but no less destructive. The climactic lattice resonance literally requires the thematic argument (diversity, trust, surrender of control) to function, making the plot resolution and thematic resolution structurally identical.",
+    "how_each_arc_tests_theme": {
+      "Ben Skywalker": "Tests the theme directly. Can he choose a different path from his father, his cousin, and the Jedi Lords — leading through trust and collaboration rather than individual mastery — and still call himself a Jedi? His lie believed ('I have to handle this myself because that's what Skywalkers do') is broken by the discovery that the solution only works collectively.",
+      "Sera Varik": "Tests the theme through grief and rigidity. She must accept that the Order she fought for was wrong, that the commander she followed betrayed her, and that trusting a new leader (Ben) doesn't mean repeating her mistake with Gavran. Her arc from rigid principle to principled flexibility proves that loyalty to an institution and willingness to change aren't contradictions.",
+      "Kael Drenn": "Tests the theme from outside both traditions. He has no inherited path — only imposed identity. His arc argues that choosing to care is itself an act of creation. He proves the theme applies to individuals building from nothing, not just those redefining inherited legacies.",
+      "Torin Hal": "Tests the theme by failing it. He tries to repeat the Jedi Lords' pattern because it's familiar and because the stakes feel too high for untested alternatives. His tragic arc proves the theme through negative example — noble sacrifice without trust becomes the same old failure, regardless of good intentions.",
+      "Darth Veraine": "Tests the theme as the counter-argument. She chose a different path from her Sith predecessors and became something more focused and dangerous. Her defeat demonstrates that 'different' isn't automatically 'better' — it depends on what you choose and whether you can account for what individual brilliance inevitably misses."
+    }
+  },
+  "ensemble_cast": [
+    {
+      "name": "Ben Skywalker",
+      "role": "Protagonist, POV anchor",
+      "age": "20-21",
+      "three_dimensions": {
+        "surface": "Confident, capable young Jedi Knight with a dry wit and his mother's pragmatic edge. Carries himself with an ease that reads as natural talent. People assume everything comes easy to a Skywalker. He lets them think it because correcting the assumption would require vulnerability he can't afford.",
+        "backstory_inner_demons": "Nothing has come easy. He was Jacen's apprentice and watched his cousin become a Sith Lord. His mother Mara was murdered by Jacen. He served in GAG — a secret police force — as a teenager. He fought in a civil war. He helped defeat Abeloth. He loved Vestara Khai, who chose the dark side and betrayed him. He's accomplished more by twenty than most Jedi manage in a lifetime, and he's exhausted by it. Underneath the competence is a young man who has never had the space to figure out who he is apart from crisis and legacy.",
+        "action_under_pressure": "Ben's instinct under pressure is to control — assess, plan, execute. He's his mother's son in that way. His arc forces him to learn that control is the Skywalker trap. The moments where he lets go and trusts others are the moments he wins."
+      },
+      "weiland_arc": {
+        "lie_believed": "I have to handle this myself because that's what Skywalkers do — and because the last time I trusted a mentor figure, he became Darth Caedus. Trust is dangerous. Self-reliance is safety.",
+        "ghost": "Jacen's fall. Specifically the realization that Jacen had killed Mara. The wound that taught him trust is dangerous. Compounded by Vestara's betrayal — the second person he let in who chose the dark side.",
+        "want": "To prove he's worthy of the Skywalker name on his own terms — independent of his father's shadow and his cousin's legacy.",
+        "need": "To learn that 'on his own terms' doesn't mean 'on his own.' True independence isn't isolation — it's the courage to choose who to trust and how to lead differently from those who came before.",
+        "arc_type": "Positive change — moves from the lie (self-reliance as safety) to the truth (collective trust as strength)",
+        "arc_phase_map": {
+          "lie_established": "Chapter 1",
+          "lie_reinforced": "Chapter 5",
+          "lie_challenged": "Chapter 13 (breach experience) / Chapter 18 (Jacen pattern recognized)",
+          "moment_of_truth": "Chapter 21",
+          "new_truth_demonstrated": "Chapter 25-26",
+          "arc_resolved": "Chapter 28"
+        }
+      }
+    },
+    {
+      "name": "Sera Varik",
+      "role": "Conscience of the group, deuteragonist, era-specific expertise",
+      "age": "Late 20s physically, ~1,030 chronologically",
+      "three_dimensions": {
+        "surface": "Disciplined, intense, formal in a way that reads as archaic. She speaks with the gravity of someone who has never lived in peacetime. Assesses everyone tactically before engaging personally. First impression is stern, even cold. Ben initially finds her exhausting.",
+        "backstory_inner_demons": "She was Lord Gavran's most trusted lieutenant and she believed in him. When he developed the forbidden technique, she argued against it but stayed loyal. When he sealed her in stasis 'for her own protection,' it was a betrayal disguised as love. She never got to fight at Ruusan. She never got to stand with her comrades at the end. Underneath the discipline is someone whose deepest wound isn't war — it's that the person she believed in decided she didn't get a voice.",
+        "action_under_pressure": "Sera's instinct is to hold the line — establish a principle and refuse to bend. This makes her reliable and maddening in equal measure. Her flaw is rigidity — she can become so committed to the 'right' answer that she can't see a better one. Her active expertise (Force-lock techniques, era-specific knowledge) makes her indispensable beyond her moral authority."
+      },
+      "weiland_arc": {
+        "lie_believed": "If I had been there — if the Jedi Lord hadn't locked me away — I could have stopped all of this. Loyalty to the right principle is enough.",
+        "ghost": "Being sealed in stasis against her will. The moment she realized the man she followed had decided her conviction was less important than his plan.",
+        "want": "To finish what she started — seal the wound, honor the people who died at Ruusan, and prove that her way (restraint, principle, discipline) was right all along.",
+        "need": "To accept that being right about the principle doesn't mean she has all the answers — and that trusting someone new (Ben) doesn't mean repeating her mistake with Gavran.",
+        "arc_type": "Positive change — moves from rigid certainty to principled flexibility",
+        "arc_phase_map": {
+          "lie_established": "Chapter 5",
+          "lie_reinforced": "Chapter 8-9",
+          "lie_challenged": "Chapter 12 / Chapter 16",
+          "moment_of_truth": "Chapter 14",
+          "new_truth_demonstrated": "Chapter 22 / Chapter 25-26",
+          "arc_resolved": "Chapter 27"
+        }
+      }
+    },
+    {
+      "name": "Kael Drenn",
+      "role": "Wildcard, outsider perspective, essential component of the climactic solution",
+      "age": "Early 20s physically, ~1,020 chronologically",
+      "three_dimensions": {
+        "surface": "Quiet, watchful, dry humor that catches people off guard. Doesn't volunteer opinions — waits until everyone else has committed to a position and then says the thing nobody wanted to hear. Reads as detached, almost lazy.",
+        "backstory_inner_demons": "Didn't choose the Sith. Born on a Sith-controlled world, conscripted into training when he tested Force-sensitive. Never a true believer — learned what they taught because the alternative was death. Captured by Gavran's forces, kept alive for intelligence value, frozen because executing a POW violated Gavran's code. Has spent his entire life being used by institutions. Nobody has ever asked him what he wants.",
+        "action_under_pressure": "Kael's instinct is to survive — find the angle, minimize exposure, keep options open. This reads as cowardice to Sera and calculation to Ben. It's actually the rational response of someone who has never had the luxury of principles. His flaw is passivity — he sees the pattern clearly but defaults to not engaging because engagement has only ever cost him."
+      },
+      "weiland_arc": {
+        "lie_believed": "Conviction is a trap. The people who believe in things are the people who destroy everything. The safest place is outside the fight.",
+        "ghost": "His conscription. Being taken from his family as a child and told he should be grateful for the opportunity to serve the Sith. Then watching the Jedi do functionally the same thing with their own recruits.",
+        "want": "To be left alone. Genuinely. He didn't ask to be frozen, didn't ask to be woken up, and doesn't want to save the galaxy.",
+        "need": "To discover that choosing to care — choosing to fight for something not because an institution demands it but because he decides it matters — is the only way to stop being a tool in someone else's hand. Passivity isn't freedom. It's a different kind of cage.",
+        "arc_type": "Positive change — moves from detachment to chosen commitment",
+        "arc_phase_map": {
+          "lie_established": "Chapter 5",
+          "lie_reinforced": "Chapter 8 / Chapter 10",
+          "lie_challenged": "Chapter 13 / Chapter 16",
+          "moment_of_truth": "Chapter 19",
+          "new_truth_demonstrated": "Chapter 23 / Chapter 25-26",
+          "arc_resolved": "Chapter 27"
+        }
+      }
+    },
+    {
+      "name": "Torin Hal",
+      "role": "Tragic ally, internal antagonist (second plot point turn), thematic mirror",
+      "age": "Mid 40s physically, ~1,045 chronologically",
+      "three_dimensions": {
+        "surface": "Commanding presence, warm in a way that surprises people. Laughs easily, tells stories with self-deprecating humor, treats Ben with genuine paternal affection. He's the one who makes the group feel like a team. First impression is that he's the most stable of the survivors. That impression is wrong.",
+        "backstory_inner_demons": "One of the finest Jedi warriors of his era. When Gavran developed the technique, Torin volunteered to test it — not recklessly, but from duty. It worked. It changed him. The Force feels different around Torin — heavier, blurred, like the boundary between light and dark has gone soft. He sealed himself willingly because he could feel himself slipping toward a certainty that frightened him. A thousand years later, he wakes up and the certainty is still there. Stasis didn't heal it.",
+        "action_under_pressure": "Torin's instinct is to act decisively and bear the cost personally. This sounds noble but is actually a form of control — by taking all the burden on himself, he removes everyone else's agency. Every major decision in his life follows the same pattern: 'I'll handle this so you don't have to.' It's the Jedi Lord pattern. It's Jacen's pattern. And he can't see it."
+      },
+      "weiland_arc": {
+        "lie_believed": "Bearing the cost alone is what makes a true Jedi. The technique changed me, but that sacrifice gives me the right — the responsibility — to use it again when the time comes.",
+        "ghost": "The first time he used the technique in combat. The boundary between light and dark dissolved, and for one moment it was beautiful — clarity without categories, power without moral friction. That moment of beauty is what he's chasing. Not power. The memory of transcendence.",
+        "want": "To use the technique one final time to seal the wound permanently, proving his sacrifice wasn't meaningless.",
+        "need": "To accept that his sacrifice was meaningful without needing to repeat it. That stepping back and letting others find a different way isn't cowardice. He never gets there.",
+        "arc_type": "Negative (tragic) — moves deeper into the lie. His inability to let go of the pattern is what breaks him from the group.",
+        "arc_phase_map": {
+          "lie_established": "Chapter 5",
+          "lie_reinforced": "Chapter 8 / Chapter 9 / Chapter 12",
+          "lie_deepened": "Chapter 15 / Chapter 17",
+          "point_of_no_return": "Chapter 18",
+          "lie_acted_upon": "Chapter 21",
+          "lie_consequence": "Chapter 25-26",
+          "arc_resolved_tragic": "Chapter 27"
+        }
+      }
+    },
+    {
+      "name": "Darth Veraine",
+      "role": "Primary antagonist, ideological counterpoint",
+      "age": "Late 30s physically, ~1,035 chronologically",
+      "three_dimensions": {
+        "surface": "Calm, precise, almost pleasant. Speaks like someone who has already thought through every angle. Academic quality — treats the modern era like a research project. Composure never breaks. Not in combat, not in argument. A formidable warrior underneath the intellectual refinement — Brotherhood of Darkness veterans were trained for total war regardless of specialization.",
+        "backstory_inner_demons": "Not born Sith — was a Republic-world academic whose world fell to the Brotherhood. Forced to serve, discovered latent Force-sensitivity under Sith training. Rose through intellectual capability, not cruelty. Understood the Force at a theoretical level most never reach. Kaan sealed her because he couldn't control what she'd do with her knowledge of the Jedi Lords' technique.",
+        "action_under_pressure": "Veraine doesn't react — she adjusts. Every setback is data. Fights only when it advances her objective. Her flaw is detachment — she has so thoroughly intellectualized the Force that she's lost the ability to feel what it does to living beings. The wound isn't a catastrophe to her because she doesn't experience it as suffering."
+      },
+      "weiland_arc": {
+        "lie_believed": "The Force is a system, not a moral framework. Light and dark are superstitions imposed on a natural phenomenon. Removing the boundary will liberate the galaxy from a false binary that has driven a thousand years of pointless war.",
+        "ghost": "Her conversion — the moment the Sith unlocked her Force sensitivity and she felt the light/dark division for the first time, and it struck her as absurd. Everything since has been an effort to prove that first instinct correct.",
+        "want": "To open the wound fully and prove her thesis. She genuinely believes this will end war, not cause it.",
+        "need": "She never gets there. The story treats her as wrong for the right reasons. Her defeat is external, not internal — she's proven wrong by results she can't dismiss, even if she'll spend years rationalizing them.",
+        "arc_type": "Flat negative — enters certain, exits certain. Defeated but unchanged.",
+        "arc_phase_map": {
+          "lie_established": "Chapter 5 (referenced)",
+          "lie_reinforced": "Chapter 10 / Chapter 16",
+          "lie_tested": "Chapter 25-26",
+          "lie_unchanged": "Chapter 27"
+        }
+      }
+    },
+    {
+      "name": "Desh Rolan",
+      "role": "Supporting character — practical grounding, emotional anchor, GAG parallel",
+      "age": "21-22",
+      "three_dimensions": {
+        "surface": "Practical, calm, dry humor. Former intelligence operative now in private security. Not Force-sensitive. Reads situations through training and instinct rather than mystical perception.",
+        "backstory_inner_demons": "Served in GAG alongside Ben as a teenager under Jacen Solo. Complicit in things he didn't fully understand. Carries shared shame with Ben that neither has processed. Drifted into private security work — not mercenary, but close enough that it stings.",
+        "action_under_pressure": "Operates. Assesses threats, manages logistics, keeps people alive. The non-Force-user who saves Force-users by doing what no Force ability can replicate — hands-on, physical, practical work."
+      },
+      "weiland_arc": {
+        "lie_believed": "Not formally tracked — supporting character arc. His growth is from 'doing a friend a favor' to 'choosing to be part of something that matters.'",
+        "ghost": "GAG service under Jacen — shared with Ben.",
+        "want": "To help Ben and get home safely.",
+        "need": "To choose to be here for the right reasons, not just loyalty — completing the redemption of their shared GAG history.",
+        "arc_type": "Minor positive — from obligation to chosen commitment"
+      }
+    }
+  ],
+  "subplots": [
+    {
+      "subplot_id": "SP1",
+      "name": "The Old War — Sera/Torin Relationship",
+      "function": "Character depth + thematic pressure",
+      "arc_summary": "Sera and Torin's unresolved thousand-year relationship — from professional tension to philosophical conflict to Torin's turn to Sera's choice to stay with his diminished form. Tests whether trust can survive betrayal and whether love can exist without control.",
+      "chapters_active": [
+        5,
+        6,
+        8,
+        9,
+        12,
+        14,
+        17,
+        19,
+        20,
+        21,
+        25,
+        26,
+        27
+      ]
+    },
+    {
+      "subplot_id": "SP2",
+      "name": "The Conscript's Choice — Kael's Identity Arc",
+      "function": "Thematic testing + main plot complication",
+      "arc_summary": "Kael's journey from detachment to chosen commitment. Tests whether choosing a different path works when you have no inherited path — building legacy from nothing. His Sith training becomes the essential missing element in the climactic solution.",
+      "chapters_active": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        13,
+        16,
+        19,
+        21,
+        22,
+        23,
+        25,
+        26,
+        27
+      ]
+    },
+    {
+      "subplot_id": "SP3",
+      "name": "Brothers in Complicity — Ben/Desh GAG Shadow",
+      "function": "Character depth + Jacen parallel reinforcement",
+      "arc_summary": "Ben and Desh's shared GAG history surfaces, is acknowledged, and informs Ben's recognition of the Jacen pattern in Torin. Tests whether people who made terrible choices under institutional pressure can choose differently when the pattern repeats.",
+      "chapters_active": [
+        1,
+        2,
+        3,
+        4,
+        6,
+        11,
+        18,
+        21,
+        25,
+        27
+      ]
+    },
+    {
+      "subplot_id": "SP4",
+      "name": "The Institutional Lie — The Cover-Up Dilemma",
+      "function": "Main plot complication + thematic pressure",
+      "arc_summary": "From Ben's discovery of the Reformations' true purpose through his agonizing decision to withhold the truth from Luke under crisis conditions to his final choice to tell the Order. Tests the theme at the organizational level — transparency vs. institutional self-preservation.",
+      "chapters_active": [
+        3,
+        4,
+        5,
+        7,
+        9,
+        15,
+        16,
+        19,
+        22,
+        28
+      ]
+    },
+    {
+      "subplot_id": "SP5",
+      "name": "The Strategist's Game — Veraine's Parallel Journey",
+      "function": "Main plot pressure + antagonist depth",
+      "arc_summary": "Veraine's activities from awakening to confrontation to defeat — experienced through evidence of her passage rather than her POV. She mirrors Ben's investigation from the Sith perspective, building a comprehensive understanding of the technique and seal through calibration data, alchemical records, and theoretical framework.",
+      "chapters_active": [
+        5,
+        7,
+        10,
+        12,
+        15,
+        16,
+        17,
+        20,
+        24,
+        25,
+        26,
+        27
+      ]
+    }
+  ],
+  "hooks": [
+    {
+      "hook_id": "H01",
+      "hook_type": "hard",
+      "planted_in": "Chapter 1",
+      "resolved_in": "Chapter 3",
+      "description": "The wrongness in the Force has a direction — it's coming from somewhere deep in the Outer Rim, and Ben's survey route runs directly along the bearing"
+    },
+    {
+      "hook_id": "H02",
+      "hook_type": "hard",
+      "planted_in": "Chapter 2",
+      "resolved_in": "Chapter 3",
+      "description": "The pattern of anomalous ruins with unrecognized markings on specific survey worlds — connected to the wrongness"
+    },
+    {
+      "hook_id": "H03",
+      "hook_type": "hard",
+      "planted_in": "Chapter 3",
+      "resolved_in": "Chapter 4-5",
+      "description": "The perimeter facility message: 'the seal is failing' — coordinates to the fortress in uncharted space"
+    },
+    {
+      "hook_id": "H04",
+      "hook_type": "hard",
+      "planted_in": "Chapter 4",
+      "resolved_in": "Chapter 5",
+      "description": "Three figures in stasis — one with a Force presence that feels fundamentally different from anything Ben has encountered"
+    },
+    {
+      "hook_id": "H05",
+      "hook_type": "hard",
+      "planted_in": "Chapter 5",
+      "resolved_in": "Chapter 10-16",
+      "description": "Another sealed site breached — Sith signature. Veraine is awake and moving. The race begins."
+    },
+    {
+      "hook_id": "H06",
+      "hook_type": "soft",
+      "planted_in": "Chapter 6",
+      "resolved_in": "Chapter 21",
+      "description": "Torin's quiet question about the modern Jedi's relationship with the light/dark boundary — 'Gavran thought so too. Before.' — seeds his eventual turn"
+    },
+    {
+      "hook_id": "H07",
+      "hook_type": "hard",
+      "planted_in": "Chapter 7",
+      "resolved_in": "Chapter 10",
+      "description": "Recent markings in ancient ruins — someone has been through the Corridor ahead of them. Veraine's trail goes warm."
+    },
+    {
+      "hook_id": "H08",
+      "hook_type": "soft",
+      "planted_in": "Chapter 8",
+      "resolved_in": "Chapter 13",
+      "description": "Torin's unsettling calm in the thin place — the de-structured Force feels familiar to him. 'Ankhural called it the natural state.'"
+    },
+    {
+      "hook_id": "H09",
+      "hook_type": "hard",
+      "planted_in": "Chapter 9",
+      "resolved_in": "Chapter 10",
+      "description": "Ship alarm — the next planned stop has been breached. Someone is there or has been there. Veraine's trail intensifies."
+    },
+    {
+      "hook_id": "H10",
+      "hook_type": "hard",
+      "planted_in": "Chapter 10",
+      "resolved_in": "Chapter 16",
+      "description": "Desh's analysis: 'She's not just ahead — she's leading us. We're not chasing her.' Why does Veraine want them to follow?"
+    },
+    {
+      "hook_id": "H11",
+      "hook_type": "hard",
+      "planted_in": "Chapter 11",
+      "resolved_in": "Chapter 12",
+      "description": "The Maetha Facility — sealed by Gavran himself with the annotation 'Do not access without direct authorization.' Whatever happened here, even Gavran considered it dangerous."
+    },
+    {
+      "hook_id": "H12",
+      "hook_type": "hard",
+      "planted_in": "Chapter 12",
+      "resolved_in": "Chapter 13",
+      "description": "The wrongness lurches — a sudden sharp spike. The seal is being deliberately attacked. Veraine has moved from research to action."
+    },
+    {
+      "hook_id": "H13",
+      "hook_type": "hard",
+      "planted_in": "Chapter 13",
+      "resolved_in": "Chapter 14-15",
+      "description": "Veraine is heading directly for Veranthos. Based on the rate of seal deterioration, she'll arrive with enough momentum to attempt a full breach."
+    },
+    {
+      "hook_id": "H14",
+      "hook_type": "soft",
+      "planted_in": "Chapter 14",
+      "resolved_in": "Chapter 22",
+      "description": "Gavran's archived note: 'Ankhural theorized that the lattice could be reinforced through harmonic resonance between disparate traditions. We lacked the will or the trust to attempt it.' The seed of the solution."
+    },
+    {
+      "hook_id": "H15",
+      "hook_type": "hard",
+      "planted_in": "Chapter 15",
+      "resolved_in": "Chapter 18",
+      "description": "Torin's devastating observation: 'You're curating reality to manage the outcome you want. You know who else did that?' — naming the pattern Ben is falling into"
+    },
+    {
+      "hook_id": "H16",
+      "hook_type": "hard",
+      "planted_in": "Chapter 16",
+      "resolved_in": "Chapter 17",
+      "description": "The seal lurches again — stronger, sustained. Veraine used the truce to deliver sabotage. The timeline collapses to days."
+    },
+    {
+      "hook_id": "H17",
+      "hook_type": "hard",
+      "planted_in": "Chapter 17",
+      "resolved_in": "Chapter 21",
+      "description": "Torin standing in the doorway: 'We need to talk about what happens when we get there.' His voice calm, warm, decided. Ben's stomach drops."
+    },
+    {
+      "hook_id": "H18",
+      "hook_type": "hard",
+      "planted_in": "Chapter 18",
+      "resolved_in": "Chapter 20",
+      "description": "Long-range sensors detect another ship on parallel course toward Veranthos. Veraine is visible now. The convergence tightens."
+    },
+    {
+      "hook_id": "H19",
+      "hook_type": "hard",
+      "planted_in": "Chapter 19",
+      "resolved_in": "Chapter 20",
+      "description": "Close enough to feel the primary wound — immense, pulling. Torin leans into it. Desh reports: 'She's already there.' Veraine has reached Veranthos."
+    },
+    {
+      "hook_id": "H20",
+      "hook_type": "hard",
+      "planted_in": "Chapter 20",
+      "resolved_in": "Chapter 21",
+      "description": "Torin's expression as they approach the wound source — not certainty or determination, but longing. Ben knows the turn is coming. Hours, not days."
+    },
+    {
+      "hook_id": "H21",
+      "hook_type": "hard",
+      "planted_in": "Chapter 21",
+      "resolved_in": "Chapter 22",
+      "description": "Torin's departure and Ben's crystallizing realization — Gavran's note about lattice resonance. 'I need to show you something in the Codex.'"
+    },
+    {
+      "hook_id": "H22",
+      "hook_type": "hard",
+      "planted_in": "Chapter 22",
+      "resolved_in": "Chapter 23",
+      "description": "Kael's question: 'Why should I believe this one is different?' — the final holdout before the plan can execute"
+    },
+    {
+      "hook_id": "H23",
+      "hook_type": "hard",
+      "planted_in": "Chapter 23",
+      "resolved_in": "Chapter 24-25",
+      "description": "The group moves toward the wound source — three Force-users and one non-Force-user, walking toward something unprecedented. Ben feels Sera's and Kael's Force presences beside him. Different. Complementary. Not yet a chord."
+    },
+    {
+      "hook_id": "H24",
+      "hook_type": "hard",
+      "planted_in": "Chapter 24",
+      "resolved_in": "Chapter 25",
+      "description": "Ben, Sera, and Kael join hands. Three traditions. 'Now.' Ben lets go of control."
+    },
+    {
+      "hook_id": "H25",
+      "hook_type": "hard",
+      "planted_in": "Chapter 25",
+      "resolved_in": "Chapter 26",
+      "description": "Desh disables Veraine's amplification array. The resonance has a foothold. 'Now. Everything. Don't hold back.' The three frequencies align."
+    }
+  ],
+  "revelation_schedule": [
+    {
+      "revelation_id": "R01",
+      "what": "The wrongness in the Force has a direction — it's not ambient, it has a source",
+      "known_by": [
+        "Ben"
+      ],
+      "revealed_to": [
+        "reader"
+      ],
+      "revealed_in": "Chapter 1 (revised ending)",
+      "impact": "Transforms Ben's departure from passive retreat to unconscious pursuit",
+      "setup_required": "Establish the wrongness as ambient in Chapter 1's opening"
+    },
+    {
+      "revelation_id": "R02",
+      "what": "The seal exists and is failing — ancient Jedi military infrastructure with a warning about expiration",
+      "known_by": [
+        "Ben",
+        "Desh"
+      ],
+      "revealed_to": [
+        "reader"
+      ],
+      "revealed_in": "Chapter 3",
+      "impact": "Stakes become real — transforms survey mission into galactic-scale crisis",
+      "setup_required": "Pattern of anomalous ruins established in Chapter 2"
+    },
+    {
+      "revelation_id": "R03",
+      "what": "Three survivors from the New Sith Wars era exist in stasis",
+      "known_by": [
+        "Ben",
+        "Desh"
+      ],
+      "revealed_to": [
+        "reader"
+      ],
+      "revealed_in": "Chapter 4 (discovery), Chapter 5 (awakening)",
+      "impact": "Personal stakes activate — the crisis has living witnesses",
+      "setup_required": "Fortress exploration in Chapter 4"
+    },
+    {
+      "revelation_id": "R04",
+      "what": "The Ruusan Reformations were penance for the Jedi Lords' use of the forbidden technique. Veraine is awake.",
+      "known_by": [
+        "Ben",
+        "Desh",
+        "Sera",
+        "Torin",
+        "Kael"
+      ],
+      "revealed_to": [
+        "reader"
+      ],
+      "revealed_in": "Chapter 5 (First Plot Point)",
+      "impact": "Full scope revealed — dual threat established, lock-in complete",
+      "setup_required": "Archive access with survivors' help"
+    },
+    {
+      "revelation_id": "R05",
+      "what": "The technique's lineage — derived from studying Nathema, Malachor V, Quelling of Tython, Nihil Reach experiments, Ankhural Codex, Drathul IV, Caldera Knights",
+      "known_by": [
+        "Ben",
+        "Sera",
+        "Torin"
+      ],
+      "revealed_to": [
+        "reader"
+      ],
+      "revealed_in": "Chapters 5, 8-9, 12 (progressive)",
+      "impact": "Historical depth — the technique is the culmination of thousands of years of people touching the same fire",
+      "setup_required": "Archive materials loaded from fortress"
+    },
+    {
+      "revelation_id": "R06",
+      "what": "The Ankhural Codex's theory — the Force lattice as imposed structure rather than natural property",
+      "known_by": [
+        "Ben",
+        "Sera",
+        "Torin",
+        "Kael"
+      ],
+      "revealed_to": [
+        "reader"
+      ],
+      "revealed_in": "Chapter 9",
+      "impact": "Intellectual framework for the entire conflict — crystallizes the four philosophical positions",
+      "setup_required": "Codex fragment recovered from fortress or en route"
+    },
+    {
+      "revelation_id": "R07",
+      "what": "Maetha's warning — 'The caldera does not consume you. It replaces you.'",
+      "known_by": [
+        "Ben",
+        "Sera",
+        "Torin",
+        "Kael"
+      ],
+      "revealed_to": [
+        "reader"
+      ],
+      "revealed_in": "Chapter 12",
+      "impact": "Direct foreshadowing of Torin's fate — the most important single line in the book",
+      "setup_required": "Sera cracks Maetha's archive using era-specific Force-lock techniques"
+    },
+    {
+      "revelation_id": "R08",
+      "what": "The full breach — what complete de-structuring actually feels like. Torin smiles.",
+      "known_by": [
+        "Ben",
+        "Sera",
+        "Torin",
+        "Kael"
+      ],
+      "revealed_to": [
+        "reader"
+      ],
+      "revealed_in": "Chapter 13 (Midpoint)",
+      "impact": "Midpoint revelation — experiential, not informational. Stakes become visceral. Torin's reaction is the first real warning.",
+      "setup_required": "Thin place experiences in earlier chapters as preview"
+    },
+    {
+      "revelation_id": "R09",
+      "what": "Veraine's full philosophy — the wound as liberation, the lattice as disease",
+      "known_by": [
+        "Ben",
+        "Sera",
+        "Torin",
+        "Kael",
+        "Desh"
+      ],
+      "revealed_to": [
+        "reader"
+      ],
+      "revealed_in": "Chapter 16",
+      "impact": "The counter-argument articulated at full strength. Sera counters with firsthand evidence.",
+      "setup_required": "Veraine established through evidence of passage in earlier chapters"
+    },
+    {
+      "revelation_id": "R10",
+      "what": "Ben recognizes the Jacen pattern in Torin",
+      "known_by": [
+        "Ben",
+        "Desh"
+      ],
+      "revealed_to": [
+        "reader"
+      ],
+      "revealed_in": "Chapter 18",
+      "impact": "The parallel becomes explicit — Ben has seen this before and knows where it leads",
+      "setup_required": "Ben/Desh Jacen conversation in Chapter 11"
+    },
+    {
+      "revelation_id": "R11",
+      "what": "Torin has decided to act alone — 'I'm not asking for permission'",
+      "known_by": [
+        "Ben",
+        "Sera",
+        "Kael",
+        "Desh"
+      ],
+      "revealed_to": [
+        "reader"
+      ],
+      "revealed_in": "Chapter 21 (Second Plot Point)",
+      "impact": "The emotional gut-punch. The group loses its strongest member. Ben must find another way.",
+      "setup_required": "Twenty chapters of Torin's gradual hardening"
+    },
+    {
+      "revelation_id": "R12",
+      "what": "The lattice resonance — Ankhural's overlooked theory about reinforcing the lattice through disparate traditions working in concert",
+      "known_by": [
+        "Ben",
+        "Sera"
+      ],
+      "revealed_to": [
+        "reader",
+        "Kael",
+        "Desh"
+      ],
+      "revealed_in": "Chapter 22",
+      "impact": "Hope — there's another way. But it requires Kael's full commitment and has never been tested.",
+      "setup_required": "Gavran's note planted in Chapter 14, Ben struggling to find it in Chapter 22's opening"
+    },
+    {
+      "revelation_id": "R13",
+      "what": "Veraine's thesis fails empirically — the wound partially opens and produces chaos, not liberation",
+      "known_by": [
+        "Ben",
+        "Sera",
+        "Kael",
+        "Veraine"
+      ],
+      "revealed_to": [
+        "reader"
+      ],
+      "revealed_in": "Chapter 25-26",
+      "impact": "The counter-argument answered through results, not rhetoric",
+      "setup_required": "Veraine's philosophy established in Chapter 16"
+    },
+    {
+      "revelation_id": "R14",
+      "what": "The Reformations' true history revealed to Luke — the Order will know the truth",
+      "known_by": [
+        "Ben",
+        "Luke"
+      ],
+      "revealed_to": [
+        "reader"
+      ],
+      "revealed_in": "Chapter 28",
+      "impact": "Institutional reckoning — Ben chooses transparency over self-preservation, breaking the thousand-year pattern",
+      "setup_required": "Institutional lie subplot built across the full narrative"
+    }
+  ],
+  "scene_cards": [
+    {
+      "chapter_number": 1,
+      "scene_number": 1,
+      "pov_character": "Ben Skywalker",
+      "location": "Jedi Temple, Coruscant; departure aboard Steady Returns",
+      "time": "47 ABY, weeks before main action",
+      "scene_type": "sequel",
+      "scene_goal": "Establish Ben's emotional state, the wrongness in the Force, Luke/Ben dynamic, departure for survey mission",
+      "scene_conflict": "Ben vs. restlessness and unidentifiable wrongness nobody else perceives",
+      "scene_outcome": "Ben requests survey mission, contacts Desh, departs. Discovers the wrongness has a direction — deeper into the Outer Rim.",
+      "subplot_references": [
+        "SP3",
+        "SP4"
+      ],
+      "hook_references": [
+        {
+          "hook_id": "H01",
+          "action": "plant"
+        }
+      ],
+      "revelation_references": [
+        "R01"
+      ],
+      "arc_phase": "Setup — Ben in stasis, defined by avoidance",
+      "thematic_beat": "The Skywalker shadow — competent, respected, suffocating under a name",
+      "estimated_word_count": 3500
+    },
+    {
+      "chapter_number": 2,
+      "scene_number": 1,
+      "pov_character": "Ben Skywalker",
+      "location": "Multiple Outer Rim survey worlds; aboard Steady Returns",
+      "time": "Days to weeks into the survey",
+      "scene_type": "action",
+      "scene_goal": "Establish survey rhythm, Ben/Desh dynamic, wrongness pattern emerging on specific worlds",
+      "scene_conflict": "Ben vs. emerging pattern he can't explain — professional obligation vs. instinct",
+      "scene_outcome": "Ben identifies wrongness correlating with specific worlds. Finds anomalous ruins with unrecognized markings. Curiosity overriding mission parameters.",
+      "subplot_references": [
+        "SP3"
+      ],
+      "hook_references": [
+        {
+          "hook_id": "H01",
+          "action": "resolve"
+        },
+        {
+          "hook_id": "H02",
+          "action": "plant"
+        }
+      ],
+      "revelation_references": [],
+      "arc_phase": "Setup — Ben's instincts leading him",
+      "thematic_beat": "Post-war galaxy as institutional exhaustion",
+      "estimated_word_count": 3750
+    },
+    {
+      "chapter_number": 3,
+      "scene_number": 1,
+      "pov_character": "Ben Skywalker",
+      "location": "Saturated survey world; perimeter facility",
+      "time": "Immediately following Ch 2",
+      "scene_type": "action",
+      "scene_goal": "Escalate mystery to undeniable — discover perimeter facility, seal warning, fortress coordinates",
+      "scene_conflict": "Ben vs. the scale of what he's discovering",
+      "scene_outcome": "Ben chooses to follow coordinates. Contacts Luke — guarded, incomplete. Desh calculates a blind jump into uncharted space.",
+      "subplot_references": [
+        "SP3",
+        "SP4"
+      ],
+      "hook_references": [
+        {
+          "hook_id": "H02",
+          "action": "resolve"
+        },
+        {
+          "hook_id": "H03",
+          "action": "plant"
+        }
+      ],
+      "revelation_references": [
+        "R02"
+      ],
+      "arc_phase": "Setup — Ben's initiative drives the plot",
+      "thematic_beat": "First assertion of independence from institutional framework",
+      "estimated_word_count": 3750
+    },
+    {
+      "chapter_number": 4,
+      "scene_number": 1,
+      "pov_character": "Ben Skywalker",
+      "location": "Uncharted planet; Gavran's fortress exterior and upper levels",
+      "time": "Immediately following Ch 3",
+      "scene_type": "action",
+      "scene_goal": "Get inside the fortress, deliver first emotional impact of the Jedi Lords, discover stasis chamber",
+      "scene_conflict": "Ben vs. fortress defenses — graduated Force tests, mechanical bypasses",
+      "scene_outcome": "Ben and Desh breach fortress. Encounter the archive's first uncomfortable truths. Detect three life signs in deep stasis.",
+      "subplot_references": [
+        "SP3",
+        "SP4"
+      ],
+      "hook_references": [
+        {
+          "hook_id": "H03",
+          "action": "resolve"
+        },
+        {
+          "hook_id": "H04",
+          "action": "plant"
+        }
+      ],
+      "revelation_references": [
+        "R03"
+      ],
+      "arc_phase": "Setup — the Jedi as institution capable of terrible things",
+      "thematic_beat": "First crack in Ben's assumption that the Order's failures are aberrations",
+      "estimated_word_count": 3750
+    },
+    {
+      "chapter_number": 5,
+      "scene_number": 1,
+      "pov_character": "Ben Skywalker",
+      "location": "Gavran's fortress — stasis chamber and deep archive",
+      "time": "Immediately following Ch 4",
+      "scene_type": "action",
+      "scene_goal": "FIRST PLOT POINT — Wake survivors, establish personalities, reveal full truth, lock Ben in",
+      "scene_conflict": "Immediate danger of awakening, emotional devastation of survivors learning millennium has passed, full scope of the technique and wound revealed, Veraine's awakening confirmed",
+      "scene_outcome": "Ben is locked in. Seal failing, Veraine active, survivors are the only ones who understand. Guarded contact with Luke. Ben commits.",
+      "subplot_references": [
+        "SP1",
+        "SP2",
+        "SP4",
+        "SP5"
+      ],
+      "hook_references": [
+        {
+          "hook_id": "H04",
+          "action": "resolve"
+        },
+        {
+          "hook_id": "H05",
+          "action": "plant"
+        }
+      ],
+      "revelation_references": [
+        "R03",
+        "R04",
+        "R05"
+      ],
+      "arc_phase": "First Plot Point — lock-in",
+      "thematic_beat": "The cycle of institutional failure made visible. Ben chooses to reject it.",
+      "estimated_word_count": 5000
+    },
+    {
+      "chapter_number": 6,
+      "scene_number": 1,
+      "pov_character": "Ben Skywalker",
+      "location": "Gavran's fortress; aboard Steady Returns",
+      "time": "Hours after awakening",
+      "scene_type": "sequel",
+      "scene_goal": "Orient survivors, establish group dynamics, Sera notes Ben's youth, depart for Veranthos",
+      "scene_conflict": "Ben vs. three experienced Force-users who don't recognize his authority or era",
+      "scene_outcome": "Group oriented, ship loaded, departure. Dynamics rocky but functional. Torin's quiet question about the light/dark boundary seeds his arc.",
+      "subplot_references": [
+        "SP1",
+        "SP2",
+        "SP3"
+      ],
+      "hook_references": [
+        {
+          "hook_id": "H06",
+          "action": "plant"
+        }
+      ],
+      "revelation_references": [],
+      "arc_phase": "Response — group formation under tension",
+      "thematic_beat": "The cycle of failure visible through survivors' eyes",
+      "estimated_word_count": 3750
+    },
+    {
+      "chapter_number": 7,
+      "scene_number": 1,
+      "pov_character": "Ben Skywalker",
+      "location": "Aboard Steady Returns; stops along the Ruusan Corridor",
+      "time": "Days into the journey",
+      "scene_type": "action",
+      "scene_goal": "Introduce thin places, establish route as haunted history, first tactical disagreement between survivors",
+      "scene_conflict": "Ben vs. growing evidence the problem is far larger than one wound site",
+      "scene_outcome": "Multiple thin places mapped. Veraine's recent presence detected at one site. The cover-up's real-world cost visible in affected communities.",
+      "subplot_references": [
+        "SP1",
+        "SP2",
+        "SP4",
+        "SP5"
+      ],
+      "hook_references": [
+        {
+          "hook_id": "H07",
+          "action": "plant"
+        }
+      ],
+      "revelation_references": [],
+      "arc_phase": "Response — the trail and the scope",
+      "thematic_beat": "The cover-up has real victims — ordinary people living with consequences they don't understand",
+      "estimated_word_count": 3750
+    },
+    {
+      "chapter_number": 8,
+      "scene_number": 1,
+      "pov_character": "Ben Skywalker",
+      "location": "Former New Sith Wars battlefield world; thin-place valley",
+      "time": "Continuing journey",
+      "scene_type": "action",
+      "scene_goal": "Direct visceral experience of de-structured Force — preview of midpoint. Divergent character reactions.",
+      "scene_conflict": "Ben vs. disorientation of localized Force anomaly",
+      "scene_outcome": "Group exits shaken and more divided. Torin found it peaceful (wrong reaction). Kael found it honest (unsettling implication). Sera refused to enter.",
+      "subplot_references": [
+        "SP1",
+        "SP2"
+      ],
+      "hook_references": [
+        {
+          "hook_id": "H08",
+          "action": "plant"
+        }
+      ],
+      "revelation_references": [
+        "R05"
+      ],
+      "arc_phase": "Response — experience divides rather than unites",
+      "thematic_beat": "Same phenomenon means different things depending on training and history",
+      "estimated_word_count": 3750
+    },
+    {
+      "chapter_number": 9,
+      "scene_number": 1,
+      "pov_character": "Ben Skywalker",
+      "location": "Aboard Steady Returns, in transit",
+      "time": "Days after thin-place visit",
+      "scene_type": "sequel",
+      "scene_goal": "Introduce the Ankhural Codex's theoretical framework. Crystallize four philosophical positions.",
+      "scene_conflict": "Four-way intellectual conflict — Sera (lattice necessary), Torin (lattice artificial), Kael (both projecting), Ben (listening)",
+      "scene_outcome": "No consensus — the debate ends without resolution. Shared framework, incompatible interpretations. Ben's willingness to sit with uncertainty established.",
+      "subplot_references": [
+        "SP1",
+        "SP2",
+        "SP5"
+      ],
+      "hook_references": [
+        {
+          "hook_id": "H09",
+          "action": "plant"
+        }
+      ],
+      "revelation_references": [
+        "R06"
+      ],
+      "arc_phase": "Response — intellectual framework established",
+      "thematic_beat": "Four positions, one question, no consensus. Interaction between perspectives is the key.",
+      "estimated_word_count": 3750
+    },
+    {
+      "chapter_number": 10,
+      "scene_number": 1,
+      "pov_character": "Ben Skywalker",
+      "location": "Former Brotherhood of Darkness outpost, Outer Rim",
+      "time": "Continuing journey",
+      "scene_type": "action",
+      "scene_goal": "Make Veraine tangible — evidence of passage, message, Kael's calibration analysis, combat credibility established",
+      "scene_conflict": "Ben vs. realization they're in a race they're losing",
+      "scene_outcome": "Group accelerates timeline. Veraine established as methodical, ahead, and physically dangerous. Kael recognizes Sith tradecraft. The Sith outpost humanizes the Brotherhood.",
+      "subplot_references": [
+        "SP2",
+        "SP4",
+        "SP5"
+      ],
+      "hook_references": [
+        {
+          "hook_id": "H07",
+          "action": "resolve"
+        },
+        {
+          "hook_id": "H10",
+          "action": "plant"
+        }
+      ],
+      "revelation_references": [],
+      "arc_phase": "Response — external threat becomes real",
+      "thematic_beat": "The enemy is a mirror. Cross-traditional understanding is necessary and costly.",
+      "estimated_word_count": 3750
+    },
+    {
+      "chapter_number": 11,
+      "scene_number": 1,
+      "pov_character": "Ben Skywalker",
+      "location": "Aboard Steady Returns, in transit",
+      "time": "Days after the outpost",
+      "scene_type": "sequel",
+      "scene_goal": "Emotional core of Part 2 — Ben/Desh Jacen conversation, Kael/Desh friendship deepens",
+      "scene_conflict": "Ben vs. his own suppressed history — internal reckoning",
+      "scene_outcome": "Two pivotal conversations. Ben and Desh acknowledge Jacen and GAG honestly for the first time. Kael and Desh form genuine connection. Honesty laid as groundwork for trust.",
+      "subplot_references": [
+        "SP2",
+        "SP3"
+      ],
+      "hook_references": [
+        {
+          "hook_id": "H11",
+          "action": "plant"
+        }
+      ],
+      "revelation_references": [],
+      "arc_phase": "Response — honesty precedes change",
+      "thematic_beat": "Acknowledgment — not resolution, not forgiveness — is the precondition for trust",
+      "estimated_word_count": 3750
+    },
+    {
+      "chapter_number": 12,
+      "scene_number": 1,
+      "pov_character": "Ben Skywalker",
+      "location": "Lord Maetha's training facility, remote world",
+      "time": "Continuing journey",
+      "scene_type": "action",
+      "scene_goal": "Deliver Maetha's warning. Sera cracks the archive. Veraine's presence confirmed. Torin rationalizes.",
+      "scene_conflict": "Group vs. implications of the Caldera Knights' fate — interpretive conflict",
+      "scene_outcome": "Maetha's warning delivered. Torin argues 'this time will be different.' Veraine has been here too — alchemical notes missing. The wrongness spikes sharply — seal is being deliberately attacked.",
+      "subplot_references": [
+        "SP1",
+        "SP4",
+        "SP5"
+      ],
+      "hook_references": [
+        {
+          "hook_id": "H11",
+          "action": "resolve"
+        },
+        {
+          "hook_id": "H12",
+          "action": "plant"
+        }
+      ],
+      "revelation_references": [
+        "R05",
+        "R07"
+      ],
+      "arc_phase": "Response — foreshadowing made explicit",
+      "thematic_beat": "Every generation thinks they're smarter than the last. The cycle the story will break.",
+      "estimated_word_count": 3750
+    },
+    {
+      "chapter_number": 13,
+      "scene_number": 1,
+      "pov_character": "Ben Skywalker",
+      "location": "A world where the seal has fully failed locally — complete breach zone",
+      "time": "Days after Maetha's facility",
+      "scene_type": "action",
+      "scene_goal": "MIDPOINT — Direct visceral experience of full de-structuring. Shift from reactive to proactive.",
+      "scene_conflict": "Ben vs. the de-structured Force — existential, experiential",
+      "scene_outcome": "Group exits fundamentally changed. Ben terrified. Sera shaken. Torin smiled. Kael disturbed by his own comfort. Veraine's deliberate sabotage confirmed. Mission shifts from investigation to urgency.",
+      "subplot_references": [
+        "SP1",
+        "SP2",
+        "SP3",
+        "SP5"
+      ],
+      "hook_references": [
+        {
+          "hook_id": "H08",
+          "action": "resolve"
+        },
+        {
+          "hook_id": "H12",
+          "action": "resolve"
+        },
+        {
+          "hook_id": "H13",
+          "action": "plant"
+        }
+      ],
+      "revelation_references": [
+        "R08"
+      ],
+      "arc_phase": "Midpoint — reactive to proactive",
+      "thematic_beat": "The abstract becomes visceral. Loss of structure is loss of moral compass.",
+      "estimated_word_count": 4500
+    },
+    {
+      "chapter_number": 14,
+      "scene_number": 1,
+      "pov_character": "Ben Skywalker",
+      "location": "Aboard Steady Returns, in transit toward Veranthos",
+      "time": "Hours after the breach",
+      "scene_type": "sequel",
+      "scene_goal": "Ben takes command. Sera follows. Gavran's note about lattice resonance planted.",
+      "scene_conflict": "Ben vs. the group's fractured confidence — forging a plan from four incompatible revelations",
+      "scene_outcome": "Ben sets direct course to Veranthos. Assigns roles. Sera's trust moment: 'Tell me where to stand, Skywalker.' Unity real but fragile. Gavran's resonance note discovered.",
+      "subplot_references": [
+        "SP1",
+        "SP2",
+        "SP3"
+      ],
+      "hook_references": [
+        {
+          "hook_id": "H14",
+          "action": "plant"
+        }
+      ],
+      "revelation_references": [],
+      "arc_phase": "Attack — Ben assumes leadership",
+      "thematic_beat": "Leadership under uncertainty as a form of faith",
+      "estimated_word_count": 3250
+    },
+    {
+      "chapter_number": 15,
+      "scene_number": 1,
+      "pov_character": "Ben Skywalker",
+      "location": "Aboard Steady Returns; communication scenes",
+      "time": "Days into direct run toward Veranthos",
+      "scene_type": "action",
+      "scene_goal": "Escalate urgency — seal deteriorating faster, institutional dilemma at peak pressure, Torin's arguments become pragmatic",
+      "scene_conflict": "Ben vs. compounding pressure of a crisis he can't contain",
+      "scene_outcome": "Ben withholds full truth from Luke — tactical but ironic. Veraine confirmed heading to Veranthos with complete calibration data. Ruusan's Valley of the Jedi affected. Torin confronts Ben about his own pattern of information curation.",
+      "subplot_references": [
+        "SP1",
+        "SP4",
+        "SP5"
+      ],
+      "hook_references": [
+        {
+          "hook_id": "H15",
+          "action": "plant"
+        }
+      ],
+      "revelation_references": [],
+      "arc_phase": "Attack — the trap of unilateral action is inescapable",
+      "thematic_beat": "Even the person trying to break the pattern falls into it under pressure",
+      "estimated_word_count": 3750
+    },
+    {
+      "chapter_number": 16,
+      "scene_number": 1,
+      "pov_character": "Ben Skywalker",
+      "location": "Rendezvous point in the Outer Rim — neutral space",
+      "time": "Days before reaching Veranthos",
+      "scene_type": "action",
+      "scene_goal": "Veraine on stage — full philosophy delivered. Sera's firsthand counter-argument. Kael's seduction. Torin's dangerous quiet.",
+      "scene_conflict": "Ben vs. Veraine — ideology, not combat. Her argument is coherent enough to be genuinely unsettling.",
+      "scene_outcome": "Veraine departs without violence. Group dynamics shifted — Torin heard his own thoughts articulated, Kael felt the pull of recognition. Hours later: the seal lurches. Veraine used the truce to deliver sabotage.",
+      "subplot_references": [
+        "SP1",
+        "SP2",
+        "SP4",
+        "SP5"
+      ],
+      "hook_references": [
+        {
+          "hook_id": "H10",
+          "action": "resolve"
+        },
+        {
+          "hook_id": "H16",
+          "action": "plant"
+        }
+      ],
+      "revelation_references": [
+        "R09"
+      ],
+      "arc_phase": "Attack — the counter-argument at full strength",
+      "thematic_beat": "The story takes the antagonist seriously — Ben must answer her best argument, not a straw man",
+      "estimated_word_count": 4250
+    },
+    {
+      "chapter_number": 17,
+      "scene_number": 1,
+      "pov_character": "Ben Skywalker",
+      "location": "Aboard Steady Returns, urgent transit",
+      "time": "Immediately following Ch 16",
+      "scene_type": "action",
+      "scene_goal": "Timeline collapses — days not weeks. Torin's arguments become rational triage. Desh warns Ben the group is about to fracture.",
+      "scene_conflict": "Ben vs. time. Philosophical differences become operational under pressure.",
+      "scene_outcome": "Emergency protocol. Maximum speed to Veranthos. Torin's hook: 'We need to talk about what happens when we get there.' His voice calm. Decided.",
+      "subplot_references": [
+        "SP1",
+        "SP2",
+        "SP3",
+        "SP5"
+      ],
+      "hook_references": [
+        {
+          "hook_id": "H16",
+          "action": "resolve"
+        },
+        {
+          "hook_id": "H17",
+          "action": "plant"
+        }
+      ],
+      "revelation_references": [],
+      "arc_phase": "Attack — pressure reveals character",
+      "thematic_beat": "Under time constraint, true priorities surface",
+      "estimated_word_count": 3750
+    },
+    {
+      "chapter_number": 18,
+      "scene_number": 1,
+      "pov_character": "Ben Skywalker",
+      "location": "Aboard Steady Returns, in transit",
+      "time": "Days from Veranthos",
+      "scene_type": "sequel",
+      "scene_goal": "Jacen parallel becomes explicit. Ben recognizes the pattern in Torin. Shared look with Desh.",
+      "scene_conflict": "Ben vs. the recognition he can't unsee",
+      "scene_outcome": "Ben has named the pattern internally. Desh confirms silently. Ben confronts Torin partially: 'I've watched someone I loved make every argument you're making.' Torin dismisses gently. Kael observes from a conscript's pattern-recognition.",
+      "subplot_references": [
+        "SP1",
+        "SP2",
+        "SP3"
+      ],
+      "hook_references": [
+        {
+          "hook_id": "H18",
+          "action": "plant"
+        }
+      ],
+      "revelation_references": [
+        "R10"
+      ],
+      "arc_phase": "Attack — the pattern made text",
+      "thematic_beat": "The pattern repeats through good people doing what they believe is necessary",
+      "estimated_word_count": 3750
+    },
+    {
+      "chapter_number": 19,
+      "scene_number": 1,
+      "pov_character": "Ben Skywalker",
+      "location": "Jedi outpost world near Veranthos",
+      "time": "Days from Veranthos",
+      "scene_type": "action",
+      "scene_goal": "Ground cosmic stakes in human suffering. Jedi Knights experiencing breach effects. Torin uses their pain as argument.",
+      "scene_conflict": "Ben vs. consequences of the seal's failure in real time",
+      "scene_outcome": "Ben helps but can't fix the underlying problem. Kael observes that the Knights built their identity on the lattice. Torin's compassion weaponized as justification. Renewed urgency and guilt.",
+      "subplot_references": [
+        "SP2",
+        "SP4"
+      ],
+      "hook_references": [
+        {
+          "hook_id": "H19",
+          "action": "plant"
+        }
+      ],
+      "revelation_references": [],
+      "arc_phase": "Attack — the abstract made personal",
+      "thematic_beat": "People are hurting. What are you going to do about it?",
+      "estimated_word_count": 3750
+    },
+    {
+      "chapter_number": 20,
+      "scene_number": 1,
+      "pov_character": "Ben Skywalker",
+      "location": "Veranthos system; orbit and descent",
+      "time": "Hours before climax",
+      "scene_type": "action",
+      "scene_goal": "Arrive at Veranthos. Establish the wound source physically. Final preparations. Torin's longing visible.",
+      "scene_conflict": "Ben vs. overwhelming scale of the primary wound",
+      "scene_outcome": "Group lands on Veranthos. Veraine already at the wound source. Final conversations. Torin's expression: longing. Ben knows the turn is coming — hours, not days.",
+      "subplot_references": [
+        "SP1",
+        "SP2",
+        "SP3",
+        "SP5"
+      ],
+      "hook_references": [
+        {
+          "hook_id": "H19",
+          "action": "resolve"
+        },
+        {
+          "hook_id": "H20",
+          "action": "plant"
+        }
+      ],
+      "revelation_references": [],
+      "arc_phase": "Attack — the final approach",
+      "thematic_beat": "Every character carrying their full weight into the climax",
+      "estimated_word_count": 3750
+    },
+    {
+      "chapter_number": 21,
+      "scene_number": 1,
+      "pov_character": "Ben Skywalker",
+      "location": "Veranthos surface, near the wound source",
+      "time": "Hours before climax",
+      "scene_type": "action",
+      "scene_goal": "SECOND PLOT POINT — Torin's turn. The emotional gut-punch that reconfigures the final act.",
+      "scene_conflict": "Ben vs. loss of his strongest ally — a conversation both know is a farewell",
+      "scene_outcome": "Torin leaves. 'I'm not asking for permission.' Sera's silence. Kael's anger. Desh breaks the silence. Ben's paralysis and recovery: 'We find another way. Together.' Gavran's resonance note crystallizes.",
+      "subplot_references": [
+        "SP1",
+        "SP2",
+        "SP3"
+      ],
+      "hook_references": [
+        {
+          "hook_id": "H17",
+          "action": "resolve"
+        },
+        {
+          "hook_id": "H20",
+          "action": "resolve"
+        },
+        {
+          "hook_id": "H21",
+          "action": "plant"
+        }
+      ],
+      "revelation_references": [
+        "R11"
+      ],
+      "arc_phase": "Second Plot Point — the protagonist chooses the theme",
+      "thematic_beat": "The theme's crisis point. Ben rejects the pattern of unilateral action.",
+      "estimated_word_count": 4500
+    },
+    {
+      "chapter_number": 22,
+      "scene_number": 1,
+      "pov_character": "Ben Skywalker",
+      "location": "Veranthos surface, group's base position",
+      "time": "Hours after Torin's departure",
+      "scene_type": "sequel",
+      "scene_goal": "Ben and Sera find the lattice resonance solution together through struggle. Plan articulated. Desh's role defined.",
+      "scene_conflict": "Ben vs. the gap between theory and execution — untested, theoretical, desperate last option",
+      "scene_outcome": "Plan established: three practitioners (Sera, Kael, Ben) working in concert; Desh disrupting Veraine's infrastructure. Sera agrees. Kael is the holdout.",
+      "subplot_references": [
+        "SP1",
+        "SP2",
+        "SP4"
+      ],
+      "hook_references": [
+        {
+          "hook_id": "H21",
+          "action": "resolve"
+        },
+        {
+          "hook_id": "H22",
+          "action": "plant"
+        }
+      ],
+      "revelation_references": [
+        "R12"
+      ],
+      "arc_phase": "Resolution — the solution is the theme",
+      "thematic_beat": "The solution requires living the theme to execute it",
+      "estimated_word_count": 3750
+    },
+    {
+      "chapter_number": 23,
+      "scene_number": 1,
+      "pov_character": "Ben Skywalker",
+      "location": "Veranthos surface, group's base position",
+      "time": "Hours before climax",
+      "scene_type": "sequel",
+      "scene_goal": "Kael's arc resolves — Ben convinces him through honesty, not argument. The first free choice of Kael's life.",
+      "scene_conflict": "Ben vs. Kael's entire history — asking him to integrate the identity he resents",
+      "scene_outcome": "Kael commits. 'If this kills me, I want it on record that I volunteered. First time for everything.' Sera apologizes to Kael. Desh/Kael farewell. Group moves toward the wound source.",
+      "subplot_references": [
+        "SP1",
+        "SP2",
+        "SP3"
+      ],
+      "hook_references": [
+        {
+          "hook_id": "H22",
+          "action": "resolve"
+        },
+        {
+          "hook_id": "H23",
+          "action": "plant"
+        }
+      ],
+      "revelation_references": [],
+      "arc_phase": "Resolution — the quietest, most powerful climax",
+      "thematic_beat": "Choosing what your imposed identity means is the most fundamental 'different path'",
+      "estimated_word_count": 3750
+    },
+    {
+      "chapter_number": 24,
+      "scene_number": 1,
+      "pov_character": "Ben Skywalker",
+      "location": "Veranthos wound source — outer edge of the valley",
+      "time": "The climax begins",
+      "scene_type": "action",
+      "scene_goal": "All parties at the wound source. Torin already there. Final Ben/Torin exchange. Three-way convergence staged.",
+      "scene_conflict": "Ben vs. overwhelming scale of the primary wound. Final failed appeal to Torin.",
+      "scene_outcome": "Torin begins the technique. Veraine's ritual building at the epicenter. Ben calls Sera and Kael: 'Now.' They join hands. Three traditions. Ben lets go of control.",
+      "subplot_references": [
+        "SP1",
+        "SP5"
+      ],
+      "hook_references": [
+        {
+          "hook_id": "H23",
+          "action": "resolve"
+        },
+        {
+          "hook_id": "H24",
+          "action": "plant"
+        }
+      ],
+      "revelation_references": [],
+      "arc_phase": "Resolution — the last moment of choice",
+      "thematic_beat": "Solitary action vs. collective trust staged as physical convergence",
+      "estimated_word_count": 3750
+    },
+    {
+      "chapter_number": 25,
+      "scene_number": 1,
+      "pov_character": "Ben Skywalker",
+      "location": "Veranthos wound source — the valley",
+      "time": "The climax — simultaneous operations",
+      "scene_type": "action",
+      "scene_goal": "Three-way collision. Resonance builds slowly. Torin's technique outperforms initially. Desh disrupts Veraine's infrastructure. Resonance catches.",
+      "scene_conflict": "Three interwoven conflicts — resonance vs. lattice, Desh vs. Veraine's equipment, Torin vs. himself",
+      "scene_outcome": "Veraine's ritual disrupted. Torin's technique effective but consuming him. Resonance catches after Ben stops trying to control it. The critical moment: technique wins the sprint, resonance wins the marathon.",
+      "subplot_references": [
+        "SP1",
+        "SP2",
+        "SP3",
+        "SP5"
+      ],
+      "hook_references": [
+        {
+          "hook_id": "H24",
+          "action": "resolve"
+        },
+        {
+          "hook_id": "H25",
+          "action": "plant"
+        }
+      ],
+      "revelation_references": [],
+      "arc_phase": "Resolution — the theme tested under maximum pressure",
+      "thematic_beat": "Collective action is harder and slower but sustainable. The discipline to hold course.",
+      "estimated_word_count": 4500
+    },
+    {
+      "chapter_number": 26,
+      "scene_number": 1,
+      "pov_character": "Ben Skywalker",
+      "location": "Veranthos wound source — the valley epicenter",
+      "time": "The climax — resolution phase",
+      "scene_type": "action",
+      "scene_goal": "Resolve all three operations. Veraine defeated by complexity. Torin diminished by the technique. Lattice resonance stabilizes the seal in a new form.",
+      "scene_conflict": "The final push — resonance demands more trust as it builds. Each practitioner must surrender more control.",
+      "scene_outcome": "New seal established — dynamic, harmonic, requiring periodic renewal. Veraine's ritual fails (chaos, not liberation). Torin collapses — alive but diminished. Sera contains Veraine. The wound scar remains but is stable.",
+      "subplot_references": [
+        "SP1",
+        "SP2",
+        "SP3",
+        "SP5"
+      ],
+      "hook_references": [
+        {
+          "hook_id": "H25",
+          "action": "resolve"
+        }
+      ],
+      "revelation_references": [
+        "R13"
+      ],
+      "arc_phase": "Resolution — the theme proven through action",
+      "thematic_beat": "The solution works because of differences, not despite them. Cost is real. Victory is real.",
+      "estimated_word_count": 5000
+    },
+    {
+      "chapter_number": 27,
+      "scene_number": 1,
+      "pov_character": "Ben Skywalker",
+      "location": "Veranthos surface; aboard Steady Returns",
+      "time": "Hours after climax",
+      "scene_type": "sequel",
+      "scene_goal": "Resolve every character arc. Veraine contained. Torin diminished. Kael departs. Desh farewell. The first laugh.",
+      "scene_conflict": "Ben vs. the weight of consequence — victory real, cost real",
+      "scene_outcome": "Veraine contained not killed (Ben's choice). Torin alive but diminished — Sera stays. Kael shakes Ben's hand and leaves. Desh and Ben laugh. Ship departs Veranthos.",
+      "subplot_references": [
+        "SP1",
+        "SP2",
+        "SP3",
+        "SP5"
+      ],
+      "hook_references": [],
+      "revelation_references": [],
+      "arc_phase": "Resolution — the cost of doing the right thing",
+      "thematic_beat": "Choosing a different path doesn't guarantee a better outcome. It guarantees a better process.",
+      "estimated_word_count": 4250
+    },
+    {
+      "chapter_number": 28,
+      "scene_number": 1,
+      "pov_character": "Ben Skywalker",
+      "location": "Coruscant; Jedi Temple",
+      "time": "Days after climax",
+      "scene_type": "sequel",
+      "scene_goal": "Denouement — Ben tells Luke the truth. The Order will know. Ben's arc resolves. Final image.",
+      "scene_conflict": "Ben vs. the final choice — what to tell, who to be",
+      "scene_outcome": "Ben tells Luke everything. Luke agrees — the Order will learn the truth. Ben steps out of his father's shadow. Final image: Ben feeling his own frequency in the new seal. A note in a chord. Enough.",
+      "subplot_references": [
+        "SP4"
+      ],
+      "hook_references": [],
+      "revelation_references": [
+        "R14"
+      ],
+      "arc_phase": "Resolution — legacy is chosen",
+      "thematic_beat": "Choosing a different path isn't betrayal. It's how you honor those who came before — by doing what they couldn't.",
+      "estimated_word_count": 3750
+    }
+  ],
+  "terminology_registry": [
+    {
+      "canonical_form": "Ben Skywalker",
+      "aliases": [
+        "Ben",
+        "Skywalker"
+      ],
+      "definition": "Jedi Knight, protagonist, son of Luke and Mara Jade Skywalker",
+      "category": "character_name",
+      "first_appearance": "Chapter 1",
+      "usage_notes": "Sera addresses him as 'Skywalker' until late Act 3 when she shifts to 'Ben' — marks her trust arc"
+    },
+    {
+      "canonical_form": "Sera Varik",
+      "aliases": [
+        "Sera",
+        "Varik",
+        "Knight Varik"
+      ],
+      "definition": "New Sith Wars Jedi Knight, Gavran's lieutenant, sealed against her will",
+      "category": "character_name",
+      "first_appearance": "Chapter 5",
+      "usage_notes": "Formal speech — archaic syntax, no contractions early, gradually loosening"
+    },
+    {
+      "canonical_form": "Torin Hal",
+      "aliases": [
+        "Torin",
+        "Hal",
+        "Battle Master Hal"
+      ],
+      "definition": "New Sith Wars Battle Master, used the forbidden technique, bears its consequences",
+      "category": "character_name",
+      "first_appearance": "Chapter 5",
+      "usage_notes": "'Battle Master' is NSW-era rank, not modern Order. He introduces himself with it."
+    },
+    {
+      "canonical_form": "Kael Drenn",
+      "aliases": [
+        "Kael",
+        "Drenn"
+      ],
+      "definition": "Sith-trained conscript from NSW, captured and frozen by Gavran's forces",
+      "category": "character_name",
+      "first_appearance": "Chapter 5",
+      "usage_notes": "Never 'Sith' as a title. Never 'the Sith.' He was conscripted, not converted."
+    },
+    {
+      "canonical_form": "Darth Veraine",
+      "aliases": [
+        "Veraine",
+        "the Strategist"
+      ],
+      "definition": "Brotherhood of Darkness alchemist and strategist, primary antagonist",
+      "category": "character_name",
+      "first_appearance": "Chapter 5 (referenced), Chapter 16 (physical)",
+      "usage_notes": "She introduces herself as 'Veraine' — dropping the Darth is a strategic choice. Group refers to her as 'Veraine.'"
+    },
+    {
+      "canonical_form": "Desh Rolan",
+      "aliases": [
+        "Desh",
+        "Rolan"
+      ],
+      "definition": "Former GAG operative, Ben's friend, non-Force-sensitive",
+      "category": "character_name",
+      "first_appearance": "Chapter 1",
+      "usage_notes": "Never described through Force-perception. He's a warm absence in Ben's Force-awareness."
+    },
+    {
+      "canonical_form": "Lord Gavran",
+      "aliases": [
+        "Gavran",
+        "the Jedi Lord"
+      ],
+      "definition": "NSW Jedi Lord who developed the technique, built the fortress, erased from records",
+      "category": "character_name",
+      "first_appearance": "Chapter 3 (named)",
+      "usage_notes": "Never appears in person. Present through archive voice — meticulous, honest, haunted."
+    },
+    {
+      "canonical_form": "Ankhural",
+      "aliases": [],
+      "definition": "Jedi scholar (~2400 BBY), theorized the Force lattice as imposed structure",
+      "category": "character_name",
+      "first_appearance": "Chapter 9",
+      "usage_notes": "Ghost presence. Single name only. Disappeared — possibly killed, exiled, or hidden."
+    },
+    {
+      "canonical_form": "Lord Maetha",
+      "aliases": [
+        "Maetha"
+      ],
+      "definition": "Jedi Lord (~1200 BBY), developed caldera meditation, disbanded her Knights when she saw consequences",
+      "category": "character_name",
+      "first_appearance": "Chapter 12",
+      "usage_notes": "Referenced through archive. Voice different from Gavran — contemplative, tragic."
+    },
+    {
+      "canonical_form": "Veranthos",
+      "aliases": [
+        "the wound source",
+        "the primary site"
+      ],
+      "definition": "Uninhabited Outer Rim world, site of the Battle of Veranthos, location of primary wound and seal",
+      "category": "place_name",
+      "first_appearance": "Chapter 5 (coordinates), Chapter 20 (arrival)",
+      "usage_notes": "Stress on second syllable: ver-AN-thos"
+    },
+    {
+      "canonical_form": "Gavran's Fortress",
+      "aliases": [
+        "the fortress",
+        "the stronghold"
+      ],
+      "definition": "NSW military installation on uncharted world, contains archive and stasis chamber",
+      "category": "place_name",
+      "first_appearance": "Chapter 3 (coordinates), Chapter 4 (arrival)",
+      "usage_notes": "Never formally named. 'The fortress' in group reference."
+    },
+    {
+      "canonical_form": "The Ruusan Corridor",
+      "aliases": [
+        "the Corridor"
+      ],
+      "definition": "Hyperspace route connecting Core to Ruusan system, now neglected trade route",
+      "category": "place_name",
+      "first_appearance": "Chapter 7",
+      "usage_notes": "Historical lane — once vital, now diminished"
+    },
+    {
+      "canonical_form": "Steady Returns",
+      "aliases": [
+        "the ship",
+        "Desh's ship"
+      ],
+      "definition": "Modified YT-series light freighter, Desh's personal vessel",
+      "category": "technology",
+      "first_appearance": "Chapter 2",
+      "usage_notes": "Italicized as ship name. Desh's domain. Cramped for six."
+    },
+    {
+      "canonical_form": "The Lattice",
+      "aliases": [
+        "lattice structure",
+        "the structure"
+      ],
+      "definition": "The organizational framework of the Force maintaining light/dark distinction — per the Codex, potentially imposed rather than natural",
+      "category": "technology",
+      "first_appearance": "Chapter 9",
+      "usage_notes": "Always lowercase 'l' unless starting sentence. Term of art from the Codex."
+    },
+    {
+      "canonical_form": "The Technique",
+      "aliases": [
+        "the forbidden technique",
+        "Gavran's technique",
+        "the de-structuring technique"
+      ],
+      "definition": "Engineered Force manipulation that suspends the lattice locally, reverting the Force to unstructured state",
+      "category": "technology",
+      "first_appearance": "Chapter 5",
+      "usage_notes": "Never given a formal name. 'The technique' — deliberately vague, clinical. Never capitalize as proper noun."
+    },
+    {
+      "canonical_form": "Lattice Resonance",
+      "aliases": [
+        "the resonance",
+        "harmonic reinforcement",
+        "the collective approach"
+      ],
+      "definition": "Ankhural's theorized method of reinforcing the lattice through multiple Force traditions working in concert",
+      "category": "technology",
+      "first_appearance": "Chapter 14 (note), Chapter 22 (articulated)",
+      "usage_notes": "Coined by Ankhural. 'The resonance' in practice."
+    },
+    {
+      "canonical_form": "De-structuring",
+      "aliases": [
+        "the de-structured state",
+        "the formless state",
+        "the blurred state"
+      ],
+      "definition": "Condition of the Force when the lattice is absent — light/dark indistinguishable, moral intuition disappears",
+      "category": "technology",
+      "first_appearance": "Chapter 8",
+      "usage_notes": "Descriptive, not proper noun. Never 'destruction.'"
+    },
+    {
+      "canonical_form": "Walking the Caldera",
+      "aliases": [
+        "caldera practice",
+        "caldera meditation"
+      ],
+      "definition": "Maetha's technique of touching the light/dark boundary without crossing. Predecessor to Gavran's technique.",
+      "category": "technology",
+      "first_appearance": "Chapter 12",
+      "usage_notes": "Maetha's term. Torin uses it occasionally."
+    },
+    {
+      "canonical_form": "The Seal",
+      "aliases": [
+        "the containment seal",
+        "the lattice seal"
+      ],
+      "definition": "Force construct built by post-Ruusan Masters containing the wound — self-reinforcing lattice restoration maintained by ambient Force energy",
+      "category": "technology",
+      "first_appearance": "Chapter 3",
+      "usage_notes": "Always 'the seal' with definite article. Singular. New seal still 'the seal' but described differently."
+    },
+    {
+      "canonical_form": "The Wound",
+      "aliases": [
+        "the wound in the Force",
+        "the de-structured zone"
+      ],
+      "definition": "Persistent area of Force de-structuring caused by Gavran's technique at Veranthos",
+      "category": "technology",
+      "first_appearance": "Chapter 3",
+      "usage_notes": "Lowercase. Consistent with EU 'wounds in the Force.'"
+    },
+    {
+      "canonical_form": "Thin Places",
+      "aliases": [],
+      "definition": "Localized regions where the seal is weak — mild de-structuring manifested as folk traditions, unreliable abilities, ecological anomalies",
+      "category": "cultural_term",
+      "first_appearance": "Chapter 2 (encountered), Chapter 7 (named)",
+      "usage_notes": "Our coinage from Celtic folklore. Each has local name."
+    },
+    {
+      "canonical_form": "The Wrongness",
+      "aliases": [
+        "the wrong note",
+        "the off-key feeling"
+      ],
+      "definition": "Ben's subjective perception of the seal's deterioration — persistent, low-grade Force distortion only he can fully detect",
+      "category": "technology",
+      "first_appearance": "Chapter 1",
+      "usage_notes": "Ben's personal term. Fades as he understands it. By Part 3, he perceives it as seal deterioration."
+    },
+    {
+      "canonical_form": "The Ankhural Codex",
+      "aliases": [
+        "the Codex"
+      ],
+      "definition": "Theoretical treatise proposing Force lattice as imposed structure, ~2400 BBY. Force-imbued artifact. Two known copies.",
+      "category": "technology",
+      "first_appearance": "Chapter 9",
+      "usage_notes": "Always capitalized. Touching provides experiential flashes."
+    },
+    {
+      "canonical_form": "Maetha's Warning",
+      "aliases": [
+        "the warning",
+        "the caldera warning"
+      ],
+      "definition": "Maetha's final statement: 'The caldera does not consume you. It replaces you...'",
+      "category": "other",
+      "first_appearance": "Chapter 12",
+      "usage_notes": "Full text delivered once. Afterward, fragments echo — especially 'replaces you.'"
+    },
+    {
+      "canonical_form": "The Battle of Veranthos",
+      "aliases": [],
+      "definition": "Decisive NSW engagement where Gavran deployed the technique at maximum scale, creating the primary wound",
+      "category": "other",
+      "first_appearance": "Chapter 5 (archive)",
+      "usage_notes": "Never depicted directly. Known through records."
+    },
+    {
+      "canonical_form": "The Quelling of Tython",
+      "aliases": [
+        "the Quelling"
+      ],
+      "definition": "~3200 BBY civil conflict on Tython — Jedi attempted to harmonize light/dark, created dead zone, final abandonment of Tython",
+      "category": "other",
+      "first_appearance": "Chapter 5 (lineage)",
+      "usage_notes": "Our creation. Tython already declining by this point."
+    },
+    {
+      "canonical_form": "The Nihil Reach Experiments",
+      "aliases": [
+        "the Nihil Reach"
+      ],
+      "definition": "~2800 BBY Sith experiments on captive Force-sensitives, first documented cases of beings in de-structured state",
+      "category": "other",
+      "first_appearance": "Chapter 5 (lineage)",
+      "usage_notes": "Our creation. 'Nihil Reach' is the region name."
+    },
+    {
+      "canonical_form": "The Resonance at Drathul IV",
+      "aliases": [
+        "Drathul IV"
+      ],
+      "definition": "~1800 BBY accidental de-structuring when opposing Force attacks canceled out, creating temporary formless zone",
+      "category": "other",
+      "first_appearance": "Chapter 5 (lineage)",
+      "usage_notes": "Our creation. Accidental proof of concept. 'Drathul' rhymes with 'prattle.'"
+    },
+    {
+      "canonical_form": "The Ruusan Reformations",
+      "aliases": [
+        "the Reformations"
+      ],
+      "definition": "1000 BBY restructuring — EU canon event recontextualized as dual-purpose: public reform + private penance",
+      "category": "other",
+      "first_appearance": "Chapter 5",
+      "usage_notes": "EU canon with our added layer. Both rationales true simultaneously."
+    },
+    {
+      "canonical_form": "The Caldera Knights",
+      "aliases": [
+        "Maetha's Knights"
+      ],
+      "definition": "~1200 BBY Force-users trained in caldera meditation, disbanded when practice's effects became apparent",
+      "category": "organization",
+      "first_appearance": "Chapter 12",
+      "usage_notes": "Our creation. Referenced through archive only. Cautionary tale."
+    }
+  ],
+  "stress_test_scores": {
+    "structural_integrity": 9.0,
+    "character_depth": 9.0,
+    "hook_discipline": 8.5,
+    "thematic_resonance": 9.5,
+    "conflict_architecture": 9.0,
+    "pacing_and_proportion": 8.5,
+    "lore_and_continuity": 8.5,
+    "world_building_coherence": 8.5,
+    "series_coherence": null,
+    "overall": 8.8
+  },
+  "voice_definition": {
+    "pov_approach": "Close third person, locked to Ben Skywalker throughout. The narrative voice has access to Ben's thoughts and perceptions but not other characters' internal states. Other characters are experienced through Ben's observation — their words, actions, expressions, and Force presences as Ben perceives them.",
+    "prose_register": "Commercial genre fiction — accessible, propulsive, emotionally direct. Not literary/experimental. Not YA-simple. The register of the better Star Wars EU novels: clean prose that doesn't draw attention to itself, serves the story's pace, and trusts the reader to track subtext without over-explaining.",
+    "reference_authors": [
+      {
+        "author": "Matthew Stover",
+        "what_to_emulate": "Visceral Force-perception descriptions, intense internal monologue under pressure, the ability to make philosophy feel like action. Stover's Traitor and Shatterpoint are the gold standard for Star Wars novels that are both accessible and intellectually serious.",
+        "what_to_avoid": "Stover's occasional purple prose and his tendency toward sentence fragments as a stylistic tic can become exhausting over 100k words."
+      },
+      {
+        "author": "Timothy Zahn",
+        "what_to_emulate": "Clean, precise plotting. Tactical clarity in action scenes. The ability to make intelligent characters sound intelligent without becoming lecturing. Zahn's dialogue is efficient — every line does work.",
+        "what_to_avoid": "Zahn's prose can be emotionally cool — functional rather than felt. This story needs more emotional warmth than Zahn typically provides, especially in the Sera/Torin and Ben/Desh dynamics."
+      },
+      {
+        "author": "Aaron Allston",
+        "what_to_emulate": "Humor that coexists with genuine stakes. Allston's ability to make characters funny without undermining the drama. Desh's voice in particular should channel Allston's tone — dry, self-aware, grounding.",
+        "what_to_avoid": "Allston occasionally lets humor deflate tension at moments that should land hard. The Torin turn, the breach experience, and the climax need humor-free zones."
+      },
+      {
+        "author": "James Luceno",
+        "what_to_emulate": "Deep lore integration that feels organic rather than encyclopedic. Luceno weaves EU history into narrative without stopping for footnotes. The technique lineage sections should feel like Luceno — rich context delivered through character perspective, not authorial lecture.",
+        "what_to_avoid": "Luceno's pacing can be slow and his prose dense. This story needs to move faster than Luceno typically does, especially in Parts 3-4."
+      }
+    ],
+    "character_voices": {
+      "Ben Skywalker": "Internal voice is sharp, self-aware, occasionally self-deprecating. Thinks in tactical assessments but feels in emotional undercurrents he doesn't always acknowledge. His humor is dry and defensive — he jokes to create distance. His narrative voice matures subtly across the book: more guarded and controlled in Part 1, more open and uncertain in Parts 2-3, more grounded and decisive in Part 4. He does NOT sound like Luke — he's more pragmatic, more skeptical, more his mother's son.",
+      "Sera Varik": "Dialogue is formal, archaic in syntax — no contractions early in the story, gradually loosening as she adapts. She speaks with precision and weight. Short sentences under pressure. Longer, more considered sentences in debate. She does NOT monologue — when she has something to say, she says it once and expects it to land. Her formality should soften specifically with Ben as trust builds — the shift from 'Skywalker' to 'Ben' is a marker the reader should feel.",
+      "Torin Hal": "Warm, easy, disarming. He tells stories. He uses humor to put people at ease. His dialogue should feel like the most *likeable* person in the room — which is what makes his turn devastating. As the story progresses, his warmth thins. The humor becomes slightly mechanical. The ease becomes slightly performed. The shift should be subtle enough that the reader feels it before they can name it. Post-technique in the climax, his voice flattens — still articulate but emotionally hollow.",
+      "Kael Drenn": "Clipped, observational, dry. He doesn't volunteer — he responds. His humor is deadpan and often arrives after a beat of silence, as if he considered not saying anything and then couldn't resist. He speaks less than anyone else in the group. When he does speak, it tends to be the thing nobody wanted to hear. His voice should warm incrementally — not dramatically, just enough that the reader notices he's using more words per sentence by Part 4 than he did in Part 1.",
+      "Darth Veraine": "Precise, academic, unruffled. She speaks in complete, grammatically sophisticated sentences. No contractions ever. She asks questions she already knows the answers to. Her dialogue should feel like a university lecturer who happens to be discussing the fate of the galaxy. She is never sarcastic — sarcasm implies emotional investment. She is occasionally *curious*, which is more unsettling.",
+      "Desh Rolan": "Casual, practical, professionally understated. Ex-intelligence operative who defaults to dry humor under stress. He speaks in shorter sentences than the Force-users because he's thinking about concrete things while they're debating philosophy. His humor is the Allston channel — grounding, well-timed, never at the expense of the moment's weight. He's the character most likely to say something the reader is thinking."
+    },
+    "anti_slop_rules": [
+      "Never use 'a sense of' or 'a feeling of' — describe the sensation directly",
+      "Never use 'couldn't help but' — characters make choices, they don't succumb to narrative inevitability",
+      "Never use 'it was as if' more than once per chapter — prefer direct metaphor or simile",
+      "Never use 'he realized' or 'she realized' as a revelation delivery mechanism — show the realization through reaction and changed behavior",
+      "Never use 'little did he know' or any omniscient narrator intrusion — we are locked in close third",
+      "Never use 'suddenly' — if something is sudden, the sentence structure should convey that through pacing, not adverb",
+      "Never use 'indescribable' or 'beyond words' — if the narrative says something can't be described, the narrative has failed",
+      "Never describe a character's eyes changing color or glowing to indicate emotion (except established Force effects)",
+      "Avoid 'felt a chill run down his spine' and all variants — find original physical responses to fear/dread",
+      "Avoid starting paragraphs with 'And then' — this is a pacing crutch",
+      "Avoid 'the young Jedi' or 'the Skywalker heir' as Ben substitutions — use 'Ben' or 'he', never epithets",
+      "Avoid 'ancient wisdom' or 'timeless knowledge' when describing archive content — be specific about what the knowledge IS",
+      "Avoid adverb-dialogue-tag combinations ('he said quietly', 'she whispered softly') — let the dialogue and context convey tone",
+      "Limit exclamation points to actual exclamations — never in narration, rarely in dialogue",
+      "Never use 'reach out with the Force' more than twice in the entire manuscript — find varied descriptions for Force-perception"
+    ],
+    "anti_patterns": [
+      "No prophecy fulfillment structure — the story is about choices, not destiny. No character should feel 'fated' to do anything.",
+      "No dark side temptation scenes where a character hears whispered voices or sees visions of power. The technique's danger is more subtle and more interesting than standard dark-side temptation.",
+      "No training montages — Ben is already a competent Knight. The survivors don't need to learn modern techniques. Growth happens through experience and relationship, not practice sessions.",
+      "No 'chosen one' framing — Ben's unique Force perception (the wrongness) is a plot mechanism, not a destiny marker. Other Skywalkers could potentially perceive it too; Ben is simply in the right place and state of mind.",
+      "No villainous monologues — Veraine presents arguments, not speeches. She never explains her plan because she doesn't need to justify herself to opponents.",
+      "No redemption-through-combat — no character switches sides because they're defeated in a lightsaber duel. Ideological change comes through evidence and experience, not physical submission.",
+      "No 'the Force wills it' as explanation — the Force in this story is a system with properties, not a sentient guide. Characters may believe the Force guides them, but the narrative never confirms it.",
+      "No convenient timing — if two events coincide, establish the causal or thematic connection. Coincidence is the enemy of earned narrative.",
+      "Avoid the 'wise mentor explains things' pattern — Sera, Torin, and Kael are knowledge sources but they should disagree and be wrong about things. No single character has all the answers.",
+      "Avoid resolution through superior firepower — the climax is won through collaboration and trust, not through being stronger. The lattice resonance is not a superweapon."
+    ],
+    "force_description_guidelines": "The Force in this story has specific phenomenological rules. Structured Force (normal): perceived as textured, directional, with distinguishable aspects (light/dark, intent, emotion). It provides moral intuition — a sense of rightness or wrongness that guides Jedi decisions. De-structured Force (the wound): perceived as formless, directionless, without distinguishable aspects. Abilities still function but without the feedback loop that tells the user whether their action aligns with light or dark. Described as 'losing color vision' — everything is present but meaning has drained out. The technique's activation: perceived as a simplification — the complex texture of the Force collapsing into a single frequency. Efficient but brutal. The lattice resonance: perceived as unprecedented — three different textures interacting, producing an overtone none of them could create alone. Described as a chord building from notes that shouldn't harmonize but do. Beautiful, strange, and overwhelming."
+  },
+  "promise_payoff_ledger": [
+    {
+      "promise_id": "PP01",
+      "promise": "The wrongness in the Force has a source; Ben will find it",
+      "planted_in": "Chapter 1",
+      "payoff_in": "Chapter 5",
+      "type": "plot",
+      "related_hook_id": "H01",
+      "rationale": "The opening mystery — the reader's primary entry hook. Cashes at the First Plot Point when the wound is explained."
+    },
+    {
+      "promise_id": "PP02",
+      "promise": "Ben and Desh share unspoken history from their GAG service under Jacen",
+      "planted_in": "Chapter 1",
+      "payoff_in": "Chapter 11",
+      "type": "character",
+      "rationale": "Reader senses weight between them in early dialogue; the book owes the honest acknowledgment conversation."
+    },
+    {
+      "promise_id": "PP03",
+      "promise": "Sera and Torin's thousand-year unresolved relationship will play out",
+      "planted_in": "Chapter 5",
+      "payoff_in": "Chapter 27",
+      "type": "character",
+      "rationale": "Subplot arc-level promise spanning the entire book — tracked from awakening to Sera choosing to stay with his diminished form."
+    },
+    {
+      "promise_id": "PP04",
+      "promise": "Torin's certainty is dangerous and he will act on it",
+      "planted_in": "Chapter 6",
+      "payoff_in": "Chapter 21",
+      "type": "character",
+      "related_hook_id": "H06",
+      "rationale": "Fifteen-chapter slow burn from 'Gavran thought so too. Before.' to the turn at the Second Plot Point."
+    },
+    {
+      "promise_id": "PP05",
+      "promise": "Maetha's warning ('the caldera does not consume you, it replaces you') will prove true",
+      "planted_in": "Chapter 12",
+      "payoff_in": "Chapter 25-26",
+      "type": "thematic",
+      "rationale": "Direct verbatim foreshadowing — the book owes Torin's diminishment as its fulfillment."
+    },
+    {
+      "promise_id": "PP06",
+      "promise": "Veraine is ahead and methodical; the group will confront and defeat her",
+      "planted_in": "Chapter 5",
+      "payoff_in": "Chapter 25-26",
+      "type": "plot",
+      "related_hook_id": "H05",
+      "rationale": "Primary antagonist arc — reader expects both ideological confrontation (Ch 16) and empirical defeat at the climax."
+    },
+    {
+      "promise_id": "PP07",
+      "promise": "The Jacen Solo parallel will be recognized by Ben, and he will break the pattern",
+      "planted_in": "Chapter 5",
+      "payoff_in": "Chapter 21",
+      "type": "thematic",
+      "rationale": "Ben's personal history resonating with the story's thematic argument — structural throughline across four explicit touchpoints."
+    },
+    {
+      "promise_id": "PP08",
+      "promise": "The institutional lie (the Reformations' true history) must be told to the Order",
+      "planted_in": "Chapter 5",
+      "payoff_in": "Chapter 28",
+      "type": "thematic",
+      "rationale": "SP4 subplot's organizational-level thematic test — reader watches the cover-up's weight build and expects institutional reckoning."
+    },
+    {
+      "promise_id": "PP09",
+      "promise": "Kael's detachment is a defense mechanism; he will choose to commit voluntarily",
+      "planted_in": "Chapter 5",
+      "payoff_in": "Chapter 23",
+      "type": "character",
+      "related_hook_id": "H22",
+      "rationale": "Kael's full arc — reader watches the outsider question his own pattern and wants to see him choose to belong."
+    },
+    {
+      "promise_id": "PP10",
+      "promise": "Gavran's archived note about lattice resonance will matter to the climax",
+      "planted_in": "Chapter 14",
+      "payoff_in": "Chapter 25-26",
+      "type": "plot",
+      "related_hook_id": "H14",
+      "rationale": "Chekhov's gun planted explicitly — 'we lacked the will to attempt it' and the reader expects the attempt."
+    },
+    {
+      "promise_id": "PP11",
+      "promise": "Each generation of technique-developers thought they were smarter; the resonance breaks that cycle",
+      "planted_in": "Chapter 5",
+      "payoff_in": "Chapter 25-26",
+      "type": "thematic",
+      "rationale": "Historical cycle-breaking promise — seven chapters of lineage exposition expect a thematically satisfying break."
+    },
+    {
+      "promise_id": "PP12",
+      "promise": "Ben's unilateral pattern (withholding from Luke) will resolve in transparency",
+      "planted_in": "Chapter 5",
+      "payoff_in": "Chapter 28",
+      "type": "thematic",
+      "rationale": "Ben's Weiland arc resolution — reader watches him make the exact choice the story's theme condemns, then return to undo it."
+    },
+    {
+      "promise_id": "PP13",
+      "promise": "Three different Force traditions can genuinely work in concert",
+      "planted_in": "Chapter 9",
+      "payoff_in": "Chapter 25-26",
+      "type": "thematic",
+      "rationale": "Ankhural Codex debate establishes four incompatible positions in Ch 9; the climax demands the reader see them harmonize."
+    },
+    {
+      "promise_id": "PP14",
+      "promise": "The Ankhural Codex's theoretical framework has a real-world answer",
+      "planted_in": "Chapter 9",
+      "payoff_in": "Chapter 25-26",
+      "type": "thematic",
+      "rationale": "Abstract theoretical framework must be empirically tested — 'does the theory hold?' promise distinct from PP10's engineered solution."
+    },
+    {
+      "promise_id": "PP15",
+      "promise": "Sera's formal distance from Ben will thaw; trust must be earned",
+      "planted_in": "Chapter 5",
+      "payoff_in": "Chapter 14 / Chapter 28",
+      "type": "character",
+      "rationale": "Tracked explicitly in the terminology registry: 'Skywalker' shifts to 'Ben' — micro-promise the reader feels before they can name it."
+    },
+    {
+      "promise_id": "PP16",
+      "promise": "Veraine's philosophy is coherent enough to be genuinely unsettling, not a straw man",
+      "planted_in": "Chapter 8",
+      "payoff_in": "Chapter 16 / Chapter 25-26",
+      "type": "thematic",
+      "rationale": "The story signals early that the antagonist's argument will be taken seriously — reader expects her best case, then a real answer."
+    },
+    {
+      "promise_id": "PP17",
+      "promise": "The full de-structured Force experience will be delivered, not just referenced",
+      "planted_in": "Chapter 8",
+      "payoff_in": "Chapter 13",
+      "type": "atmospheric",
+      "related_hook_id": "H08",
+      "rationale": "Thin-place preview promises the visceral midpoint experience — experiential sensory contract."
+    },
+    {
+      "promise_id": "PP18",
+      "promise": "The primary wound site has a physical presence the reader will experience",
+      "planted_in": "Chapter 3",
+      "payoff_in": "Chapter 20",
+      "type": "atmospheric",
+      "rationale": "The seal is referenced abstractly early; the book promises a spatial/embodied encounter at Veranthos."
+    },
+    {
+      "promise_id": "PP19",
+      "promise": "Desh, the non-Force-user, will matter to the climax",
+      "planted_in": "Chapter 1",
+      "payoff_in": "Chapter 25",
+      "type": "character",
+      "rationale": "Reader sees Desh as practical grounding from Ch 1; the book must deliver his essential role beyond emotional support."
+    },
+    {
+      "promise_id": "PP20",
+      "promise": "Sera's rigidity will break into principled flexibility, not abandonment",
+      "planted_in": "Chapter 5",
+      "payoff_in": "Chapter 14 / Chapter 22 / Chapter 27",
+      "type": "character",
+      "rationale": "Sera's Weiland arc — three payoff moments showing she can adapt without betraying her principles."
+    },
+    {
+      "promise_id": "PP21",
+      "promise": "Ben will find a new relationship with his legacy — not escape from it",
+      "planted_in": "Chapter 1",
+      "payoff_in": "Chapter 28",
+      "type": "character",
+      "rationale": "Opening 'Skywalker shadow' characterization promises a final image where he's at peace with his name."
+    },
+    {
+      "promise_id": "PP22",
+      "promise": "Ben's unique Force perception will resolve into his own frequency",
+      "planted_in": "Chapter 1",
+      "payoff_in": "Chapter 28",
+      "type": "atmospheric",
+      "rationale": "Final image ('a note in a chord. Enough.') is a deliberate sensory callback to the opening wrongness."
+    },
+    {
+      "promise_id": "PP23",
+      "promise": "Mere tactical cooperation will not work; the climax demands genuine unity",
+      "planted_in": "Chapter 6",
+      "payoff_in": "Chapter 25-26",
+      "type": "thematic",
+      "rationale": "Early group fractures set up that functional alliance won't suffice — climax demands something harder than coordination."
+    },
+    {
+      "promise_id": "PP24",
+      "promise": "The seal failure has a hard timeline; the story is racing a clock",
+      "planted_in": "Chapter 3",
+      "payoff_in": "Chapter 25-26",
+      "type": "plot",
+      "rationale": "Ticking-clock promise — timeline compresses across Ch 13 and Ch 16 to days. Reader expects resolution before the seal collapses."
+    },
+    {
+      "promise_id": "PP25",
+      "promise": "The group will reach Veranthos — the primary site must be physically visited",
+      "planted_in": "Chapter 3",
+      "payoff_in": "Chapter 20",
+      "type": "plot",
+      "rationale": "Destination promise — classic quest beat. Coordinates set in Ch 3; reader expects arrival as a plot milestone before climax."
+    }
+  ],
+  "extended_metadata": {
+    "technique_lineage": {
+      "description": "The forbidden technique was not invented from scratch. It represents the culmination of thousands of years of attempts to understand and manipulate the Force's fundamental structure.",
+      "events": [
+        {
+          "name": "Nathema Ritual",
+          "date": "~4999 BBY",
+          "source": "EU canon (SWTOR)",
+          "description": "Vitiate drained all life and Force energy from Nathema. Proved total Force severance was possible. Provided baseline data on Force absence.",
+          "contribution_to_technique": "Theoretical foundation — demonstrated that the Force's normal behavior could be altered in a localized area"
+        },
+        {
+          "name": "Malachor V Wound",
+          "date": "~3960 BBY",
+          "source": "EU canon (KOTOR II)",
+          "description": "Mass Shadow Generator created a wound in the Force. Demonstrated Force damage on a planetary scale through physical trauma combined with mass death.",
+          "contribution_to_technique": "Experiential data — fragmentary records described what the de-structured state felt like from inside"
+        },
+        {
+          "name": "The Quelling of Tython",
+          "date": "~3200 BBY",
+          "source": "Original creation",
+          "description": "Jedi civil conflict on Tython where a faction attempted to harmonize light and dark energies in a localized valley. Worked for eleven years, then inverted into an expanding dead zone. Led to final abandonment of Tython.",
+          "contribution_to_technique": "Proved intentional Force-state alteration was possible but inherently unstable"
+        },
+        {
+          "name": "The Nihil Reach Experiments",
+          "date": "~2800 BBY",
+          "source": "Original creation",
+          "description": "Early NSW-era Sith experiments on captive Force-sensitives, attempting to sever and reconnect their Force relationships. Most subjects died. Survivors existed in an altered state — able to touch the Force but unable to distinguish aspects.",
+          "contribution_to_technique": "First documented cases of living beings in the de-structured state — proof that individuals could survive the transition"
+        },
+        {
+          "name": "The Ankhural Codex",
+          "date": "~2400 BBY",
+          "source": "Original creation",
+          "description": "Theoretical treatise by Jedi scholar Ankhural proposing that light and dark aren't properties of the Force but an imposed structure — a lattice. Declared heretical, suppressed. Author vanished.",
+          "contribution_to_technique": "Theoretical framework — the lattice model that made the technique's design possible. Also contains the overlooked passage about lattice resonance that provides the climactic solution."
+        },
+        {
+          "name": "The Resonance at Drathul IV",
+          "date": "~1800 BBY",
+          "source": "Original creation",
+          "description": "Accidental de-structuring during a NSW battle when opposing Force attacks canceled each other. Temporary zone of formless Force lasted three days before dissipating.",
+          "contribution_to_technique": "Proof of concept — demonstrated that deliberate de-structuring was achievable under controlled conditions"
+        },
+        {
+          "name": "The Caldera Knights",
+          "date": "~1200 BBY",
+          "source": "Original creation",
+          "description": "Lord Maetha developed 'walking the caldera' meditation — touching the light/dark boundary without crossing. Knights became devastatingly effective but gradually lost emotional range and human connection. Maetha disbanded the cadre.",
+          "contribution_to_technique": "Practical predecessor — demonstrated both the potential and the cost. Maetha's warning ('The caldera does not consume you. It replaces you.') is the story's most important piece of foreshadowing."
+        },
+        {
+          "name": "Gavran's Technique",
+          "date": "~1010-1000 BBY",
+          "source": "Original creation",
+          "description": "Lord Gavran's researchers synthesized all prior data into an engineered technique that temporarily suspends the lattice in a localized area. First tested in limited engagements, then deployed at maximum scale at the Battle of Veranthos, creating the permanent wound.",
+          "contribution_to_technique": "The technique itself — the culmination of the lineage. Each previous event contributed a piece. Gavran's innovation was combining them into a weaponizable whole."
+        }
+      ]
+    },
+    "jacen_parallel": {
+      "description": "The Jacen Solo parallel is a structural throughline connecting Ben's personal history to the story's thematic argument. Jacen's fall from idealistic Jedi to Darth Caedus follows the exact pattern the story diagnoses: a talented individual decides they alone understand the threat, acts unilaterally, and becomes the thing they were fighting.",
+      "touchpoints": [
+        {
+          "chapter": 5,
+          "type": "informational",
+          "description": "Jacen mentioned during galactic history briefing — unavoidable context. Ben's tone when discussing his cousin tells the reader everything."
+        },
+        {
+          "chapter": 11,
+          "type": "emotional",
+          "description": "The Ben/Desh conversation about GAG and Jacen. First honest acknowledgment of what they experienced. Emotional excavation that enables pattern recognition later."
+        },
+        {
+          "chapter": 18,
+          "type": "structural",
+          "description": "Ben recognizes Jacen's pattern in Torin — the cadence, the certainty, the reasonable tone. Desh confirms silently. The parallel becomes explicit in Ben's mind."
+        },
+        {
+          "chapter": 21,
+          "type": "payoff",
+          "description": "Torin's turn. 'I'm not asking for permission.' Ben's recognition from Chapter 18 crystallizes into certainty. He's watching history repeat — and this time he chooses to break the cycle."
+        }
+      ]
+    },
+    "workshop_origin": {
+      "source": "claude_ai_simulation",
+      "date": "2026-04-09",
+      "session_type": "full_workshop_steps_0_to_10",
+      "notes": "Concept workshop simulation conducted in Claude.ai for Phase 5 protocol validation. Step 5 (Voice Discovery) was added post-hoc via this installer."
+    }
+  },
+  "canon_constraints": {
+    "continuity": "Star Wars Legends (Expanded Universe), post-Fate of the Jedi, 47 ABY",
+    "divergence_point": "Diverges from published Legends continuity by introducing the Ruusan Atonement thread — the Ruusan Reformations recontextualized as penance for the Jedi Lords' forbidden technique (a localized de-structuring of the Force lattice created at the Battle of Veranthos c. 1000 BBY). The seal containing that wound has been maintained by the Order for a thousand years; in 47 ABY it begins to fail.",
+    "canon_preserved": [
+      "Ben Skywalker as Jedi Knight, son of Luke and Mara Jade Skywalker",
+      "Jacen Solo's fall to Darth Caedus and his murder of Mara Jade",
+      "Ben's service in the Galactic Alliance Guard (GAG) under Jacen as a teenager",
+      "The Abeloth crisis and its resolution in Fate of the Jedi",
+      "Ben's prior relationship with Vestara Khai and her choice of the dark side",
+      "Luke Skywalker as Grand Master of the Jedi Order",
+      "The Ruusan Reformations (1000 BBY) as a real historical event in the EU timeline",
+      "The Brotherhood of Darkness and Lord Kaan as pre-Reformations Sith entities"
+    ],
+    "canon_overridden": [
+      "The true purpose of the Ruusan Reformations: published Legends treats them as a restructuring for military and doctrinal reasons; this AU treats them as a dual-purpose event — public reform plus private penance for the Jedi Lords' forbidden technique",
+      "The existence of the forbidden technique lineage (Nathema study -> Malachor V wound fragmentary records -> Quelling of Tython -> Nihil Reach experiments -> Ankhural Codex -> Drathul IV incident -> Caldera Knights -> Gavran's technique)",
+      "Darth Veraine (Brotherhood of Darkness alchemist) and the three Jedi survivors (Sera Varik, Torin Hal, Kael Drenn) sealed in stasis since the final stage of the New Sith Wars",
+      "The Battle of Veranthos as a decisive (but previously erased) New Sith Wars engagement where Gavran deployed the technique at maximum scale",
+      "Force lattice as a potentially imposed structure rather than a natural property — the Ankhural Codex's heretical theoretical framework"
+    ],
+    "style_constraints": [
+      "Capitalize 'Human' per Lucasfilm style guide",
+      "Decapitalize 'galaxy' in all contexts unless starting a sentence",
+      "American English spellings throughout",
+      "Hyperdrive classifications, ship specifications, and planetary names must match Wookieepedia entries where existing canon applies",
+      "Technology and Force abilities must respect established Legends-era specifications",
+      "'Jedi' is both singular and plural — never 'Jedis'",
+      "'Darth' as a Sith title is capitalized when preceding a name; generic 'the Sith' lowercase"
+    ]
+  }
+}

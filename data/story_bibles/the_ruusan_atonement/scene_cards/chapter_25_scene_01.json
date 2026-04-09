@@ -1,0 +1,41 @@
+{
+  "chapter_number": 25,
+  "scene_number": 1,
+  "structural_phase": "resolution",
+  "pov_character": "Ben Skywalker",
+  "mission": "Three-way collision. Resonance builds slowly. Torin's technique outperforms initially. Desh disrupts Veraine's infrastructure. Resonance catches.",
+  "why_now": "",
+  "opening_hook": "",
+  "conflict": "Three interwoven conflicts — resonance vs. lattice, Desh vs. Veraine's equipment, Torin vs. himself",
+  "conflict_type": "internal",
+  "turning_point": "",
+  "closing_hook": "",
+  "characters_present": [],
+  "setting": "Veranthos wound source — the valley",
+  "sensory_details": "",
+  "emotional_trajectory": "",
+  "plot_threads_advanced": [],
+  "promises_planted": [],
+  "promises_paid": [],
+  "canon_elements_needed": [],
+  "target_word_count": 4500,
+  "notes": "Time: The climax — simultaneous operations\nScene type: action\nThematic beat: Collective action is harder and slower but sustainable. The discipline to hold course.\nOriginal scene_outcome: Veraine's ritual disrupted. Torin's technique effective but consuming him. Resonance catches after Ben stops trying to control it. The critical moment: technique wins the sprint, resonance wins the marathon.",
+  "active_subplots": [
+    "SP1",
+    "SP2",
+    "SP3",
+    "SP5"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "H24",
+      "action": "resolve"
+    },
+    {
+      "hook_id": "H25",
+      "action": "plant"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "Resolution — the theme tested under maximum pressure"
+}
