@@ -22,6 +22,20 @@ def sample_concept_seed():
 
 
 @pytest.fixture
+def ruusan_seed():
+    """Load the Ruusan Atonement concept seed from the fixtures directory.
+
+    This is a stable copy of the fully-enriched Ruusan seed (post voice_definition,
+    arc_phase_map, promise_payoff_ledger, canon_constraints, extended_metadata).
+    Tests that need a negative case should mutate a deep copy rather than the
+    fixture dict itself.
+    """
+    fx_path = Path(__file__).parent / "fixtures" / "ruusan_atonement_seed.json"
+    with open(fx_path, encoding="utf-8") as f:
+        return json.load(f)
+
+
+@pytest.fixture
 def sample_scene_card():
     """Load the Chapter 1 Scene 1 card."""
     card_path = (
