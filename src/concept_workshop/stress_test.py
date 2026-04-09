@@ -19,7 +19,7 @@ logger = logging.getLogger(__name__)
 class StressTestRunner:
     """Runs adversarial stress tests against a concept seed."""
 
-    # Canonical 9-dimension stress test keyset (Ruusan Atonement revision).
+    # 9-dimension stress test keyset (workshop-native format).
     # Two dimensions are nullable: lore_and_continuity (franchise fiction only)
     # and series_coherence (series books only).
     DIMENSIONS = [
@@ -33,25 +33,6 @@ class StressTestRunner:
         "world_building_coherence",
         "series_coherence",
     ]
-
-    # Legacy 5-dimension keyset retained for backward compatibility with
-    # Phase 5 workshop state files. Reading paths accept either keyset.
-    LEGACY_DIMENSIONS = [
-        "premise_strength",
-        "character_depth",
-        "structural_integrity",
-        "hook_coherence",
-        "series_viability",
-    ]
-
-    # Translation map: legacy 5-dim key -> canonical 9-dim key.
-    LEGACY_TO_CANONICAL = {
-        "premise_strength": "conflict_architecture",
-        "character_depth": "character_depth",
-        "structural_integrity": "structural_integrity",
-        "hook_coherence": "hook_discipline",
-        "series_viability": "series_coherence",
-    }
 
     def __init__(self, router=None):
         """Initialize with optional model router for LLM-based testing."""
@@ -151,25 +132,16 @@ class StressTestRunner:
     def _check_hooks(self, seed: dict) -> list[str]:
         """Rule-based hook stress tests.
 
-        Accepts both canonical 'hook_map' and workshop-native 'hooks' formats.
-        In workshop-native format, the 'hook_type' field holds the priority
-        (hard/soft/series) and there is no separate 'priority' field.
+        Uses the workshop-native 'hooks' format. The 'hook_type' field carries
+        the priority (hard/soft/series).
         """
         issues = []
-        hook_map = seed.get("hook_map") or seed.get("hooks") or []
+        hooks = seed.get("hooks") or []
 
-        if not hook_map:
+        if not hooks:
             return issues  # No hooks defined yet — not necessarily an error
 
-        def _priority_of(h: dict) -> str:
-            """Return hook priority from either canonical or workshop-native format."""
-            if "priority" in h:
-                return h["priority"]
-            # Workshop-native: hook_type carries the priority
-            ht = h.get("hook_type", "")
-            return ht if ht in ("hard", "soft", "series") else "soft"
-
-        hard_hooks = [h for h in hook_map if _priority_of(h) == "hard"]
+        hard_hooks = [h for h in hooks if h.get("hook_type") == "hard"]
         target_chapters = seed.get("meta", {}).get("target_chapters", 25)
         budget = max(1, target_chapters // 3)
 
@@ -179,13 +151,9 @@ class StressTestRunner:
                 f"(budget: {budget}). Reader may lose track."
             )
 
-        # Check hard hooks have payoff chapters (accepts both naming conventions)
+        # Check hard hooks have payoff chapters
         for hook in hard_hooks:
-            has_payoff = (
-                hook.get("payoff_chapter")
-                or hook.get("resolved_in")
-            )
-            if not has_payoff:
+            if not hook.get("resolved_in"):
                 issues.append(
                     f"Hard hook '{hook.get('hook_id')}' has no planned payoff chapter"
                 )
@@ -255,32 +223,6 @@ class StressTestRunner:
             "world_building_coherence": _score(world_issues),
             "series_coherence": _score(series_issues) if is_series else None,
         }
-
-    @classmethod
-    def normalize_scores(cls, scores: dict) -> dict:
-        """Normalize a stress test scores dict into the canonical 9-dim keyset.
-
-        Accepts either the legacy 5-dim format, the canonical 9-dim format,
-        or a mix. Legacy keys are translated via LEGACY_TO_CANONICAL. Missing
-        canonical dimensions become None. The 'overall' key is preserved.
-
-        Returns an empty dict if scores is empty or None.
-        """
-        if not scores:
-            return {}
-        normalized: dict = {dim: None for dim in cls.DIMENSIONS}
-        # First, translate any legacy keys into canonical slots.
-        for legacy_key, canonical_key in cls.LEGACY_TO_CANONICAL.items():
-            if legacy_key in scores and scores[legacy_key] is not None:
-                normalized[canonical_key] = scores[legacy_key]
-        # Then, canonical keys take precedence (override legacy translations).
-        for key, value in scores.items():
-            if key in cls.DIMENSIONS:
-                normalized[key] = value
-        # Preserve 'overall' if present (don't compute it here).
-        if "overall" in scores:
-            normalized["overall"] = scores["overall"]
-        return normalized
 
     async def _run_llm_stress_test(self, concept_seed: dict) -> dict | None:
         """Run LLM-based stress test using the model router."""

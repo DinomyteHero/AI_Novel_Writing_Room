@@ -138,7 +138,7 @@ class TestInstalledSeedPipelineLoad:
     """The installed seed must load into story_state and populate all tracked tables."""
 
     def test_loads_into_story_state(self, installed_ruusan_seed):
-        """init_from_concept_seed populates character_arcs, subplot_board, hook_ledger, terminology_registry."""
+        """init_from_concept_seed populates character_arcs, subplots, hooks, terminology_registry."""
         state = StoryState(":memory:")
         state.init_from_concept_seed(installed_ruusan_seed)
 
@@ -153,11 +153,11 @@ class TestInstalledSeedPipelineLoad:
         assert arcs == 6, f"Expected 6 character_arcs, got {arcs}"
 
         # Subplots
-        subs = state.conn.execute("SELECT COUNT(*) FROM subplot_board").fetchone()[0]
+        subs = state.conn.execute("SELECT COUNT(*) FROM subplots").fetchone()[0]
         assert subs == 5, f"Expected 5 subplots, got {subs}"
 
         # Hooks
-        hooks = state.conn.execute("SELECT COUNT(*) FROM hook_ledger").fetchone()[0]
+        hooks = state.conn.execute("SELECT COUNT(*) FROM hooks").fetchone()[0]
         assert hooks == 25, f"Expected 25 hooks, got {hooks}"
 
         # Terminology
@@ -170,7 +170,7 @@ class TestInstalledSeedPipelineLoad:
         state.init_from_concept_seed(installed_ruusan_seed)
         # H05 plants Ch 5, resolves "Chapter 10-16" → should be 10 (earliest)
         row = state.conn.execute(
-            "SELECT hook_id, planted_chapter, payoff_chapter FROM hook_ledger WHERE hook_id = 'H05'"
+            "SELECT hook_id, planted_chapter, payoff_chapter FROM hooks WHERE hook_id = 'H05'"
         ).fetchone()
         assert row is not None
         assert row["planted_chapter"] == 5

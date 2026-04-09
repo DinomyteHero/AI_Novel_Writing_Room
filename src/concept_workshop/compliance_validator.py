@@ -106,25 +106,6 @@ def _parse_chapter_ref(ref: Any) -> int | None:
     return None
 
 
-def _get_subplots(seed: dict) -> list[dict]:
-    """Return the seed's subplot list from either naming convention."""
-    return seed.get("subplots") or seed.get("subplot_board") or []
-
-
-def _get_hooks(seed: dict) -> list[dict]:
-    """Return the seed's hook list from either naming convention."""
-    return seed.get("hooks") or seed.get("hook_map") or []
-
-
-def _get_stress_scores(seed: dict) -> dict:
-    """Return the seed's stress test scores from either naming convention."""
-    scores = seed.get("stress_test_scores")
-    if scores:
-        return scores
-    legacy = seed.get("stress_test_results") or {}
-    return legacy.get("scores", {})
-
-
 def _is_supporting_character(char: dict) -> bool:
     """Heuristic: a character is 'supporting' if their role or arc_type flags it."""
     role = (char.get("role") or "").lower()
@@ -148,38 +129,22 @@ REQUIRED_TOP_LEVEL_FIELDS = [
     "theme",
     "ensemble_cast",
     "voice_definition",
-    "subplots",  # accepts subplot_board fallback
-    "hooks",  # accepts hook_map fallback
+    "subplots",
+    "hooks",
     "revelation_schedule",
     "scene_cards",
     "terminology_registry",
-    "stress_test_scores",  # accepts stress_test_results fallback
+    "stress_test_scores",
 ]
 
 
 def _check_top_level_fields(seed: dict, report: ValidationReport) -> None:
-    """Every top-level field in the canonical list must be present (accepting fallbacks)."""
+    """Every top-level field in the canonical list must be present."""
     for field_name in REQUIRED_TOP_LEVEL_FIELDS:
-        if field_name == "subplots":
-            if _get_subplots(seed):
-                report.add("subplots", CheckStatus.PASS, "present (or via subplot_board)")
-            else:
-                report.add("subplots", CheckStatus.FAIL, "missing (no subplots or subplot_board)")
-        elif field_name == "hooks":
-            if _get_hooks(seed):
-                report.add("hooks", CheckStatus.PASS, "present (or via hook_map)")
-            else:
-                report.add("hooks", CheckStatus.FAIL, "missing (no hooks or hook_map)")
-        elif field_name == "stress_test_scores":
-            if _get_stress_scores(seed):
-                report.add("stress_test_scores", CheckStatus.PASS, "present (or via stress_test_results.scores)")
-            else:
-                report.add("stress_test_scores", CheckStatus.FAIL, "missing (no stress_test_scores or stress_test_results.scores)")
+        if seed.get(field_name):
+            report.add(field_name, CheckStatus.PASS, "present")
         else:
-            if seed.get(field_name):
-                report.add(field_name, CheckStatus.PASS, "present")
-            else:
-                report.add(field_name, CheckStatus.FAIL, "missing top-level field")
+            report.add(field_name, CheckStatus.FAIL, "missing top-level field")
 
 
 META_REQUIRED = [
@@ -371,7 +336,7 @@ def _check_voice_definition(seed: dict, report: ValidationReport) -> None:
 def _check_hooks_and_scene_cards(seed: dict, report: ValidationReport) -> None:
     """Every hard hook must be planted AND resolved in at least one scene card.
     Every revelation must appear in at least one scene card."""
-    hooks = _get_hooks(seed)
+    hooks = seed.get("hooks") or []
     scene_cards = seed.get("scene_cards") or []
     revelations = seed.get("revelation_schedule") or []
 
@@ -517,7 +482,7 @@ def _check_terminology(seed: dict, report: ValidationReport) -> None:
 
 
 def _check_stress_test(seed: dict, report: ValidationReport) -> None:
-    scores = _get_stress_scores(seed)
+    scores = seed.get("stress_test_scores") or {}
     if not scores:
         report.add("stress_test_scores", CheckStatus.FAIL, "missing")
         return
@@ -536,17 +501,6 @@ def _check_stress_test(seed: dict, report: ValidationReport) -> None:
             "stress_test_scores.overall",
             CheckStatus.PASS,
             f"overall={overall}",
-        )
-    # Detect legacy 5-dim format and warn
-    legacy_keys = {"premise_strength", "hook_coherence", "series_viability"}
-    canonical_keys = {"hook_discipline", "thematic_resonance", "conflict_architecture"}
-    has_legacy = any(k in scores for k in legacy_keys)
-    has_canonical = any(k in scores for k in canonical_keys)
-    if has_legacy and not has_canonical:
-        report.add(
-            "stress_test_scores.format",
-            CheckStatus.WARN,
-            "legacy 5-dimension stress test format detected — recommend re-scoring under 9-dimension rubric",
         )
 
 

@@ -12,12 +12,12 @@ class TestWorkshopStatePhase5Fields:
         """New Phase 5 fields are present with correct defaults."""
         state = ConceptWorkshopState()
         assert state.voice_definition == {}
-        assert state.subplot_board == []
-        assert state.hook_map == []
+        assert state.subplots == []
+        assert state.hooks == []
         assert state.revelation_schedule == []
         assert state.author_only_secrets is None
         assert state.terminology_registry == []
-        assert state.stress_test_results == {}
+        assert state.stress_test_scores == {}
         # Post-Phase-5 fields (Ruusan Atonement revision)
         assert state.promise_payoff_ledger == []
         assert state.extended_metadata == {}
@@ -26,22 +26,22 @@ class TestWorkshopStatePhase5Fields:
         """Phase 5 fields survive to_dict → from_dict round-trip."""
         state = ConceptWorkshopState()
         state.voice_definition = {"pov_approach": "close third", "prose_register": "commercial"}
-        state.subplot_board = [{"subplot_id": "trust_arc", "line_type": "B"}]
-        state.hook_map = [{"hook_id": "seal", "priority": "hard"}]
+        state.subplots = [{"subplot_id": "trust_arc", "line_type": "B"}]
+        state.hooks = [{"hook_id": "seal", "hook_type": "hard"}]
         state.revelation_schedule = [{"info_id": "r1", "content": "The truth"}]
         state.terminology_registry = [{"term": "Voidsteel", "definition": "Dark metal"}]
-        state.stress_test_results = {"scores": {"premise_strength": 8.0}}
+        state.stress_test_scores = {"structural_integrity": 8.0, "overall": 8.0}
         state.author_only_secrets = "The mentor is the true villain"
 
         d = state.to_dict()
         restored = ConceptWorkshopState.from_dict(d)
 
         assert restored.voice_definition["pov_approach"] == "close third"
-        assert len(restored.subplot_board) == 1
-        assert len(restored.hook_map) == 1
+        assert len(restored.subplots) == 1
+        assert len(restored.hooks) == 1
         assert len(restored.revelation_schedule) == 1
         assert len(restored.terminology_registry) == 1
-        assert restored.stress_test_results["scores"]["premise_strength"] == 8.0
+        assert restored.stress_test_scores["structural_integrity"] == 8.0
         assert restored.author_only_secrets == "The mentor is the true villain"
 
     def test_round_trip_with_post_phase5_fields(self):
@@ -74,17 +74,17 @@ class TestWorkshopStatePhase5Fields:
         state = ConceptWorkshopState()
         d = state.to_dict()
         assert "voice_definition" not in d
-        assert "subplot_board" not in d
-        assert "hook_map" not in d
+        assert "subplots" not in d
+        assert "hooks" not in d
         assert "terminology_registry" not in d
-        assert "stress_test_results" not in d
+        assert "stress_test_scores" not in d
         # Post-Phase-5 fields should also be omitted when empty
         assert "promise_payoff_ledger" not in d
         assert "extended_metadata" not in d
 
     def test_from_dict_backward_compatible(self):
-        """from_dict works with Phase 4 data (no Phase 5 or post-Phase-5 fields)."""
-        phase4_data = {
+        """from_dict works with minimal data missing optional fields."""
+        minimal_data = {
             "meta": {"project_title": "Test"},
             "premise": {},
             "conflict": {},
@@ -92,46 +92,46 @@ class TestWorkshopStatePhase5Fields:
             "ensemble_cast": [],
             "confirmed_fields": ["meta.project_title"],
         }
-        state = ConceptWorkshopState.from_dict(phase4_data)
+        state = ConceptWorkshopState.from_dict(minimal_data)
         assert state.meta["project_title"] == "Test"
         assert state.voice_definition == {}
-        assert state.subplot_board == []
+        assert state.subplots == []
         # Post-Phase-5 fields default correctly
         assert state.promise_payoff_ledger == []
         assert state.extended_metadata == {}
 
-    def test_from_dict_backward_compatible_phase5_without_ledger(self):
-        """Phase 5-era data (with voice_definition etc. but no promise_payoff_ledger) loads cleanly."""
-        phase5_data = {
-            "meta": {"project_title": "Phase 5 book"},
+    def test_from_dict_without_post_phase5_fields(self):
+        """Data with voice_definition etc. but no promise_payoff_ledger loads cleanly."""
+        data = {
+            "meta": {"project_title": "A book"},
             "premise": {},
             "conflict": {},
             "theme": {},
             "ensemble_cast": [],
             "voice_definition": {"pov_approach": "deep POV"},
-            "subplot_board": [{"subplot_id": "sp1"}],
+            "subplots": [{"subplot_id": "sp1"}],
             "confirmed_fields": ["meta.project_title", "voice_definition.pov_approach"],
         }
-        state = ConceptWorkshopState.from_dict(phase5_data)
+        state = ConceptWorkshopState.from_dict(data)
         assert state.voice_definition == {"pov_approach": "deep POV"}
-        assert len(state.subplot_board) == 1
+        assert len(state.subplots) == 1
         assert state.promise_payoff_ledger == []
         assert state.extended_metadata == {}
 
     def test_seed_fields_includes_phase5_entries(self):
-        """_SEED_FIELDS dict includes Phase 5 and post-Phase-5 field paths."""
+        """_SEED_FIELDS dict includes the canonical top-level entries."""
         from src.concept_workshop.workshop_state import _SEED_FIELDS
-        phase5_fields = [
+        canonical_fields = [
             "meta.project_scope",
             "voice_definition.pov_approach",
             "voice_definition.prose_register",
-            "subplot_board",
-            "hook_map",
+            "subplots",
+            "hooks",
             "terminology_registry",
-            "stress_test_results",
+            "stress_test_scores",
         ]
-        for field in phase5_fields:
-            assert field in _SEED_FIELDS, f"Missing Phase 5 field: {field}"
+        for field in canonical_fields:
+            assert field in _SEED_FIELDS, f"Missing canonical field: {field}"
 
     def test_seed_fields_includes_post_phase5_entries(self):
         """_SEED_FIELDS dict includes the richer voice_definition fields and new top-level entries."""

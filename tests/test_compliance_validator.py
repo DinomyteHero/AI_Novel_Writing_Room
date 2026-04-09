@@ -54,14 +54,13 @@ class TestMissingTopLevelFields:
         voice_fails = [f for f in report.critical_failures if "voice_definition" in f]
         assert len(voice_fails) >= 1
 
-    def test_missing_subplots_with_fallback_subplot_board(self, ruusan_seed):
-        """If 'subplots' is missing but 'subplot_board' is present, validation passes."""
+    def test_missing_subplots_is_critical(self, ruusan_seed):
+        """Missing 'subplots' top-level field is a critical failure."""
         seed = copy.deepcopy(ruusan_seed)
-        seed["subplot_board"] = seed.pop("subplots")
+        del seed["subplots"]
         report = validate_concept_seed(seed)
-        # Should still pass — subplot_board is an accepted fallback
-        subplot_checks = [c for c in report.checks if c.field_path == "subplots"]
-        assert any(c.status == CheckStatus.PASS for c in subplot_checks)
+        assert report.passed is False
+        assert any("subplots" in f for f in report.critical_failures)
 
 
 class TestHookAndRevelationResolution:
@@ -113,22 +112,6 @@ class TestStressTestThreshold:
         # Other checks must still pass too, but the stress test specifically is PASS
         stress_checks = [c for c in report.checks if c.field_path == "stress_test_scores.overall"]
         assert any(c.status == CheckStatus.PASS for c in stress_checks)
-
-    def test_legacy_stress_test_format_warns(self, ruusan_seed):
-        """Legacy 5-dimension scores produce a format warning but not a failure."""
-        seed = copy.deepcopy(ruusan_seed)
-        seed["stress_test_scores"] = {
-            "premise_strength": 8.0,
-            "character_depth": 8.0,
-            "structural_integrity": 9.0,
-            "hook_coherence": 8.0,
-            "series_viability": None,
-            "overall": 8.0,
-        }
-        report = validate_concept_seed(seed)
-        format_warnings = [w for w in report.warnings if "legacy 5-dimension" in w]
-        assert len(format_warnings) == 1
-
 
 class TestArcPhaseMap:
     """arc_phase_map absence on main characters is a warning; on supporting it's a pass."""

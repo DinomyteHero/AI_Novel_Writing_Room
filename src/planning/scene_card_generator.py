@@ -82,44 +82,32 @@ class OutlinePlanner(BaseAgent):
                 parts.append(f"- {phase}: {desc}")
             parts.append("")
 
-        # Phase 5: Subplot board (accept both canonical 'subplot_board' and
-        # workshop-native 'subplots' with either inner structure)
-        subplot_board = seed.get("subplot_board") or seed.get("subplots") or []
-        if subplot_board:
-            parts.append("## Subplot Board")
-            for sub in subplot_board:
+        # Phase 5: Subplots (workshop-native format)
+        subplots = seed.get("subplots") or []
+        if subplots:
+            parts.append("## Subplots")
+            for sub in subplots:
                 line_type = sub.get("line_type", "?")
-                # Canonical uses subplot_name; workshop-native uses 'name'
-                name = sub.get("subplot_name") or sub.get("name") or sub.get("subplot_id", "")
-                # Canonical uses structural_purpose; workshop-native uses 'function'
-                purpose = sub.get("structural_purpose") or sub.get("function") or sub.get("arc_summary", "")
+                name = sub.get("name") or sub.get("subplot_id", "")
+                purpose = sub.get("function") or sub.get("arc_summary", "")
                 parts.append(f"- [{line_type}-line] {name}: {purpose}")
             parts.append("")
 
-        # Phase 5: Hook map (accept both canonical 'hook_map' and
-        # workshop-native 'hooks' with either inner structure)
-        hook_map = seed.get("hook_map") or seed.get("hooks") or []
-        if hook_map:
-            parts.append("## Hook Map")
-            for hook in hook_map:
-                # Workshop-native uses 'hook_type: hard|soft' as the priority;
-                # canonical stores that under 'priority'.
-                priority = hook.get("priority")
-                if not priority:
-                    seed_hook_type = hook.get("hook_type", "")
-                    if seed_hook_type in ("hard", "soft", "series"):
-                        priority = seed_hook_type
-                    else:
-                        priority = "soft"
+        # Phase 5: Hooks (workshop-native format)
+        hooks = seed.get("hooks") or []
+        if hooks:
+            parts.append("## Hooks")
+            for hook in hooks:
+                # Workshop-native format: hook_type carries the priority
+                # (hard/soft/series).
+                priority = hook.get("hook_type", "soft")
                 hook_id = hook.get("hook_id", "")
                 description = hook.get("description", "")
-                # Canonical uses planted_chapter/payoff_chapter (ints);
-                # workshop-native uses planted_in/resolved_in (strings or ints)
-                plant = hook.get("planted_chapter") or hook.get("planted_in") or "?"
-                payoff = hook.get("payoff_chapter") or hook.get("resolved_in") or "TBD"
+                plant = hook.get("planted_in") or "?"
+                payoff = hook.get("resolved_in") or "TBD"
                 parts.append(
                     f"- [{priority}] {hook_id}: {description} "
-                    f"(plant ch{plant}, payoff ch{payoff})"
+                    f"(plant {plant}, payoff {payoff})"
                 )
             parts.append("")
 

@@ -56,8 +56,8 @@ class ManuscriptReviewer(BaseAgent):
     def _format_context(self, context: dict) -> str:
         prose = context["prose"]
         chapter_summaries = context.get("chapter_summaries", [])
-        hook_ledger = context.get("hook_ledger", [])
-        subplot_board = context.get("subplot_board", [])
+        hooks = context.get("hooks", [])
+        subplots = context.get("subplots", [])
         character_arcs = context.get("character_arcs", [])
 
         parts = []
@@ -74,16 +74,16 @@ class ManuscriptReviewer(BaseAgent):
                     parts.append(f"### Chapter {i}\n{summary}")
             parts.append("")
 
-        # Hook ledger
-        if hook_ledger:
+        # Hooks
+        if hooks:
             parts.append(
-                f"## Hook Ledger\n```json\n{json.dumps(hook_ledger, indent=2)}\n```"
+                f"## Hooks\n```json\n{json.dumps(hooks, indent=2)}\n```"
             )
 
-        # Subplot board
-        if subplot_board:
+        # Subplots
+        if subplots:
             parts.append(
-                f"## Subplot Board\n```json\n{json.dumps(subplot_board, indent=2)}\n```"
+                f"## Subplots\n```json\n{json.dumps(subplots, indent=2)}\n```"
             )
 
         # Character arcs

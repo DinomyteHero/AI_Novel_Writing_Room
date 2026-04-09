@@ -213,49 +213,6 @@
         "narrative_voice_notes": { "type": "string" }
       }
     },
-    "subplot_board": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "required": ["subplot_id", "subplot_name", "line_type"],
-        "properties": {
-          "subplot_id": { "type": "string" },
-          "subplot_name": { "type": "string" },
-          "line_type": { "type": "string", "enum": ["A", "B", "C", "D"] },
-          "characters_involved": { "type": "array", "items": { "type": "string" } },
-          "start_chapter": { "type": "integer" },
-          "resolution_chapter": { "type": "integer" },
-          "structural_purpose": { "type": "string" },
-          "interweave_points": { "type": "array", "items": { "type": "integer" } },
-          "current_status": {
-            "type": "string",
-            "enum": ["planned", "active", "climaxing", "resolved", "abandoned"]
-          }
-        }
-      }
-    },
-    "hook_map": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "required": ["hook_id", "description", "hook_type", "planted_chapter", "priority"],
-        "properties": {
-          "hook_id": { "type": "string" },
-          "description": { "type": "string" },
-          "hook_type": {
-            "type": "string",
-            "enum": ["chekhov", "foreshadow", "setup_callback", "thematic_echo", "mystery_question"]
-          },
-          "planted_chapter": { "type": "integer" },
-          "payoff_chapter": { "type": "integer" },
-          "payoff_book": { "type": "integer" },
-          "advancement_chapters": { "type": "array", "items": { "type": "integer" } },
-          "priority": { "type": "string", "enum": ["hard", "soft", "series"] },
-          "related_subplot": { "type": "string" },
-          "duplicate_check": { "type": "string" }
-        }
-      }
-    },
     "revelation_schedule": {
       "type": "array",
       "items": {
@@ -310,28 +267,9 @@
         }
       }
     },
-    "stress_test_results": {
-      "type": "object",
-      "description": "Legacy 5-dimension stress test results. Retained for backward compatibility with Phase 5 workshop state. New seeds should populate 'stress_test_scores' instead.",
-      "properties": {
-        "scores": {
-          "type": "object",
-          "properties": {
-            "premise_strength": { "type": "number", "minimum": 0, "maximum": 10 },
-            "character_depth": { "type": "number", "minimum": 0, "maximum": 10 },
-            "structural_integrity": { "type": "number", "minimum": 0, "maximum": 10 },
-            "hook_coherence": { "type": "number", "minimum": 0, "maximum": 10 },
-            "series_viability": { "type": "number", "minimum": 0, "maximum": 10 }
-          }
-        },
-        "flagged_issues": { "type": "array", "items": { "type": "string" } },
-        "human_approved": { "type": "boolean" },
-        "approval_timestamp": { "type": "string" }
-      }
-    },
     "stress_test_scores": {
       "type": "object",
-      "description": "Expanded 9-dimension stress test scores (seed format). Produced by Step 10 of the concept workshop under the expanded scoring rubric. Replaces legacy stress_test_results.scores for new seeds.",
+      "description": "9-dimension stress test scores. Produced by Step 10 of the concept workshop.",
       "properties": {
         "structural_integrity": { "type": "number", "minimum": 0, "maximum": 10 },
         "character_depth": { "type": "number", "minimum": 0, "maximum": 10 },
@@ -347,7 +285,7 @@
     },
     "subplots": {
       "type": "array",
-      "description": "Seed-format subplot list. Alternative to subplot_board with the workshop's native inner structure. Use this OR subplot_board, not both.",
+      "description": "Subplot list. Each entry describes a subplot arc with an ID, name, narrative function, summary, and the chapters across which it is active.",
       "items": {
         "type": "object",
         "required": ["subplot_id"],
@@ -365,7 +303,7 @@
     },
     "hooks": {
       "type": "array",
-      "description": "Seed-format hook list. Alternative to hook_map with the workshop's native inner structure. Use this OR hook_map, not both.",
+      "description": "Hook list. Each entry describes a narrative hook with an ID, type (hard/soft/series), plant and payoff chapters, and a description of the reader contract.",
       "items": {
         "type": "object",
         "required": ["hook_id"],

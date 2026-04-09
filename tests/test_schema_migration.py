@@ -27,8 +27,8 @@ class TestSchemaMigration:
         tables = {row["name"] for row in cursor.fetchall()}
         phase5_tables = {
             "character_arcs",
-            "subplot_board",
-            "hook_ledger",
+            "subplots",
+            "hooks",
             "terminology_registry",
             "propagation_debts",
             "style_fingerprint",

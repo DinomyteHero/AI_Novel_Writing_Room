@@ -60,10 +60,10 @@ def good_seed():
                 },
             },
         ],
-        "hook_map": [
-            {"hook_id": "void_origin", "priority": "hard", "payoff_chapter": 20},
-            {"hook_id": "mentor_secret", "priority": "hard", "payoff_chapter": 18},
-            {"hook_id": "lyra_past", "priority": "soft"},
+        "hooks": [
+            {"hook_id": "void_origin", "hook_type": "hard", "resolved_in": "Chapter 20"},
+            {"hook_id": "mentor_secret", "hook_type": "hard", "resolved_in": "Chapter 18"},
+            {"hook_id": "lyra_past", "hook_type": "soft"},
         ],
         "theme": {
             "thematic_premise": "True strength requires vulnerability",
@@ -81,10 +81,10 @@ def weak_seed():
         "ensemble_cast": [
             {"name": "Hero"},  # No Weiland arc
         ],
-        "hook_map": [
-            {"hook_id": "h1", "priority": "hard"},  # No payoff chapter
-            {"hook_id": "h2", "priority": "hard"},
-            {"hook_id": "h3", "priority": "hard"},  # Exceeds budget (6/3=2)
+        "hooks": [
+            {"hook_id": "h1", "hook_type": "hard"},  # No payoff chapter
+            {"hook_id": "h2", "hook_type": "hard"},
+            {"hook_id": "h3", "hook_type": "hard"},  # Exceeds budget (6/3=2)
         ],
     }
 
@@ -172,10 +172,10 @@ class TestHookChecks:
         """Too many hard hooks for the chapter count is flagged."""
         issues = runner._check_hooks({
             "meta": {"target_chapters": 6},
-            "hook_map": [
-                {"hook_id": "h1", "priority": "hard", "payoff_chapter": 5},
-                {"hook_id": "h2", "priority": "hard", "payoff_chapter": 6},
-                {"hook_id": "h3", "priority": "hard", "payoff_chapter": 6},
+            "hooks": [
+                {"hook_id": "h1", "hook_type": "hard", "resolved_in": "Chapter 5"},
+                {"hook_id": "h2", "hook_type": "hard", "resolved_in": "Chapter 6"},
+                {"hook_id": "h3", "hook_type": "hard", "resolved_in": "Chapter 6"},
             ],
         })
         assert any("budget" in i.lower() or "too many" in i.lower() for i in issues)
@@ -184,8 +184,8 @@ class TestHookChecks:
         """Hard hook without payoff chapter is flagged."""
         issues = runner._check_hooks({
             "meta": {"target_chapters": 30},
-            "hook_map": [
-                {"hook_id": "h1", "priority": "hard"},  # No payoff_chapter
+            "hooks": [
+                {"hook_id": "h1", "hook_type": "hard"},  # No resolved_in
             ],
         })
         assert any("payoff" in i.lower() for i in issues)
@@ -197,7 +197,7 @@ class TestFormatAndScore:
     def test_format_results_structure(self, runner):
         """format_results produces expected structure."""
         results = runner.format_results(
-            {"premise_strength": 8.0, "character_depth": 7.5},
+            {"structural_integrity": 8.0, "character_depth": 7.5},
             ["Issue 1", "Issue 2"],
         )
         assert "scores" in results
@@ -206,14 +206,14 @@ class TestFormatAndScore:
         assert results["approval_timestamp"] is None
 
     def test_score_average(self, runner):
-        """score computes the average of dimension scores."""
+        """score computes the average of non-null dimension scores."""
         results = {
             "scores": {
-                "premise_strength": 8.0,
+                "structural_integrity": 8.0,
                 "character_depth": 6.0,
-                "structural_integrity": 7.0,
-                "hook_coherence": 9.0,
-                "series_viability": 5.0,
+                "hook_discipline": 9.0,
+                "thematic_resonance": 5.0,
+                "conflict_architecture": 7.0,
             },
         }
         assert runner.score(results) == 7.0

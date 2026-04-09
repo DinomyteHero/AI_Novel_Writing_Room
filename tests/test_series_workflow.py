@@ -84,14 +84,14 @@ class TestSeriesWorkflow:
                     },
                 },
             ],
-            "subplot_board": [
-                {"subplot_id": "main", "subplot_name": "Seal the breach",
-                 "line_type": "A", "start_chapter": 1, "resolution_chapter": 25},
+            "subplots": [
+                {"subplot_id": "main", "name": "Seal the breach",
+                 "line_type": "A", "chapters_active": [1, 25]},
             ],
-            "hook_map": [
+            "hooks": [
                 {"hook_id": "void_origin", "description": "What created the Void",
-                 "hook_type": "mystery_question", "planted_chapter": 2,
-                 "priority": "hard", "payoff_chapter": None},
+                 "hook_type": "hard", "planted_in": "Chapter 2",
+                 "resolved_in": None},
             ],
             "terminology_registry": [
                 {"term": "The Void", "definition": "Corrupting darkness", "category": "concept"},
