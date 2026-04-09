@@ -10,9 +10,9 @@
       "properties": {
         "project_title": { "type": "string" },
         "franchise": { "type": "string" },
-        "canon_status": { "type": "string", "enum": ["canon_compliant", "AU"] },
+        "canon_status": { "type": "string", "description": "Canon posture (e.g., canon_compliant, AU, original). Accepts descriptive strings like 'AU — diverges post-Fate of the Jedi series' for clarity." },
         "era": { "type": "string" },
-        "tone": { "type": "string", "enum": ["dark_gritty", "adventurous_hopeful", "political_intrigue", "character_study"] },
+        "tone": { "type": "string", "description": "Tone of the book. The workshop Step 1 suggests primary registers (dark_gritty, adventurous_hopeful, political_intrigue, character_study) but accepts descriptive blends and custom tones." },
         "target_word_count": { "type": "integer", "minimum": 40000, "maximum": 120000 },
         "target_chapters": { "type": "integer", "minimum": 15, "maximum": 40 },
         "pov_structure": { "type": "string" },
@@ -76,7 +76,7 @@
     },
     "protagonist_arc_type": {
       "type": "string",
-      "enum": ["change", "steadfast", "fall", "rise"]
+      "description": "Free-form description of the protagonist's arc type. Per-character structured arc classification lives under ensemble_cast[].weiland_arc.arc_type."
     },
     "ensemble_cast": {
       "type": "array",
@@ -121,6 +121,11 @@
                   "lie_confronted": { "type": "string" },
                   "truth_resolved": { "type": "string" }
                 }
+              },
+              "arc_phase_map": {
+                "type": "object",
+                "description": "Chapter-level map of Weiland arc progression. Keys are phase names (e.g., lie_established, lie_reinforced, lie_challenged, moment_of_truth, new_truth_demonstrated, arc_resolved). Tragic and flat arcs may use variant names (e.g., lie_deepened, point_of_no_return, lie_tested, lie_unchanged). Values are chapter references. Optional — supporting characters with minor arcs may omit this.",
+                "additionalProperties": { "type": "string" }
               }
             }
           }
@@ -165,19 +170,43 @@
     },
     "voice_definition": {
       "type": "object",
+      "description": "Narrative voice identity for the book. Produced by Step 5 of the concept workshop.",
       "properties": {
         "pov_approach": { "type": "string" },
         "prose_register": { "type": "string" },
-        "reference_authors": { "type": "array", "items": { "type": "string" } },
-        "pacing_feel": { "type": "string" },
-        "anti_slop": {
-          "type": "object",
-          "properties": {
-            "banned_words": { "type": "array", "items": { "type": "string" } },
-            "banned_phrases": { "type": "array", "items": { "type": "string" } }
+        "reference_authors": {
+          "type": "array",
+          "description": "Authors whose prose the book emulates. Each entry is an object with guidance on what to emulate and what to avoid.",
+          "items": {
+            "type": "object",
+            "required": ["author"],
+            "properties": {
+              "author": { "type": "string" },
+              "what_to_emulate": { "type": "string" },
+              "what_to_avoid": { "type": "string" }
+            }
           }
         },
-        "anti_patterns": { "type": "array", "items": { "type": "string" } },
+        "character_voices": {
+          "type": "object",
+          "description": "Per-character voice guidance, keyed by character name. Each value is a free-form description of how the character speaks and thinks.",
+          "additionalProperties": { "type": "string" }
+        },
+        "anti_slop_rules": {
+          "type": "array",
+          "description": "Flat list of slop-avoidance rules. Replaces the legacy nested anti_slop.{banned_words, banned_phrases} structure.",
+          "items": { "type": "string" }
+        },
+        "anti_patterns": {
+          "type": "array",
+          "description": "Structural anti-patterns to avoid (e.g., 'no prophecy fulfillment structure').",
+          "items": { "type": "string" }
+        },
+        "force_description_guidelines": {
+          "type": "string",
+          "description": "Optional — genre-specific phenomenological rules for describing magic, the Force, or other setting-specific systems."
+        },
+        "pacing_feel": { "type": "string" },
         "narrative_voice_notes": { "type": "string" }
       }
     },
@@ -242,21 +271,45 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["term", "definition", "category"],
+        "required": ["definition", "category"],
+        "description": "Each entry must supply either 'term' (canonical form) or 'canonical_form' (workshop-style). Both are accepted for compatibility with different workshop outputs.",
         "properties": {
           "term": { "type": "string" },
+          "canonical_form": { "type": "string" },
           "aliases": { "type": "array", "items": { "type": "string" } },
           "definition": { "type": "string" },
           "category": {
             "type": "string",
-            "enum": ["character_name", "place_name", "faction", "artifact", "concept", "species", "title"]
+            "enum": [
+              "character_name",
+              "place_name",
+              "faction",
+              "organization",
+              "artifact",
+              "concept",
+              "cultural_term",
+              "species",
+              "title",
+              "title_rank",
+              "technology",
+              "magic_system",
+              "other"
+            ]
           },
-          "first_appearance": { "type": "integer" }
+          "first_appearance": {
+            "description": "Chapter of first appearance. Accepts either an integer chapter number or a string reference like 'Chapter 1' or 'Chapter 5 (First Plot Point)'.",
+            "oneOf": [
+              { "type": "integer" },
+              { "type": "string" }
+            ]
+          },
+          "usage_notes": { "type": "string" }
         }
       }
     },
     "stress_test_results": {
       "type": "object",
+      "description": "Legacy 5-dimension stress test results. Retained for backward compatibility with Phase 5 workshop state. New seeds should populate 'stress_test_scores' instead.",
       "properties": {
         "scores": {
           "type": "object",
@@ -272,6 +325,153 @@
         "human_approved": { "type": "boolean" },
         "approval_timestamp": { "type": "string" }
       }
+    },
+    "stress_test_scores": {
+      "type": "object",
+      "description": "Expanded 9-dimension stress test scores (seed format). Produced by Step 10 of the concept workshop under the expanded scoring rubric. Replaces legacy stress_test_results.scores for new seeds.",
+      "properties": {
+        "structural_integrity": { "type": "number", "minimum": 0, "maximum": 10 },
+        "character_depth": { "type": "number", "minimum": 0, "maximum": 10 },
+        "hook_discipline": { "type": "number", "minimum": 0, "maximum": 10 },
+        "thematic_resonance": { "type": "number", "minimum": 0, "maximum": 10 },
+        "conflict_architecture": { "type": "number", "minimum": 0, "maximum": 10 },
+        "pacing_and_proportion": { "type": "number", "minimum": 0, "maximum": 10 },
+        "lore_and_continuity": { "type": "number", "minimum": 0, "maximum": 10 },
+        "world_building_coherence": { "type": "number", "minimum": 0, "maximum": 10 },
+        "series_coherence": { "type": ["number", "null"], "minimum": 0, "maximum": 10 },
+        "overall": { "type": "number", "minimum": 0, "maximum": 10 }
+      }
+    },
+    "subplots": {
+      "type": "array",
+      "description": "Seed-format subplot list. Alternative to subplot_board with the workshop's native inner structure. Use this OR subplot_board, not both.",
+      "items": {
+        "type": "object",
+        "required": ["subplot_id"],
+        "properties": {
+          "subplot_id": { "type": "string" },
+          "name": { "type": "string" },
+          "function": { "type": "string" },
+          "arc_summary": { "type": "string" },
+          "chapters_active": {
+            "type": "array",
+            "items": { "type": "integer" }
+          }
+        }
+      }
+    },
+    "hooks": {
+      "type": "array",
+      "description": "Seed-format hook list. Alternative to hook_map with the workshop's native inner structure. Use this OR hook_map, not both.",
+      "items": {
+        "type": "object",
+        "required": ["hook_id"],
+        "properties": {
+          "hook_id": { "type": "string" },
+          "hook_type": {
+            "type": "string",
+            "enum": ["hard", "soft", "series"]
+          },
+          "planted_in": {
+            "description": "Chapter where the hook is planted. Accepts either integer or string form.",
+            "oneOf": [
+              { "type": "integer" },
+              { "type": "string" }
+            ]
+          },
+          "resolved_in": {
+            "description": "Chapter where the hook is resolved (or 'next_book' for series hooks).",
+            "oneOf": [
+              { "type": "integer" },
+              { "type": "string" }
+            ]
+          },
+          "description": { "type": "string" }
+        }
+      }
+    },
+    "scene_cards": {
+      "type": "array",
+      "description": "Workshop-format scene cards. These are plan-level artifacts produced by Step 8 of the concept workshop. Individual drafting-level scene card files (matching schemas/scene_card.json) are extracted from this list into data/story_bibles/{project}/scene_cards/.",
+      "items": {
+        "type": "object",
+        "required": ["chapter_number", "scene_number", "pov_character"],
+        "properties": {
+          "chapter_number": { "type": "integer" },
+          "scene_number": { "type": "integer" },
+          "pov_character": { "type": "string" },
+          "location": { "type": "string" },
+          "time": { "type": "string" },
+          "scene_type": {
+            "type": "string",
+            "enum": ["action", "sequel"]
+          },
+          "scene_goal": { "type": "string" },
+          "scene_conflict": { "type": "string" },
+          "scene_outcome": { "type": "string" },
+          "subplot_references": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "hook_references": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "hook_id": { "type": "string" },
+                "action": {
+                  "type": "string",
+                  "enum": ["plant", "advance", "resolve", "subvert"]
+                }
+              }
+            }
+          },
+          "revelation_references": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "arc_phase": { "type": "string" },
+          "thematic_beat": { "type": "string" },
+          "estimated_word_count": { "type": "integer" }
+        }
+      }
+    },
+    "promise_payoff_ledger": {
+      "type": "array",
+      "description": "High-level reader-promises tracked across the book. Complements the hook map — hooks are plot-mechanic contracts, promises are thematic/character-level reader expectations that may span multiple beats. Populated during Step 7 or as a post-stress-test enrichment.",
+      "items": {
+        "type": "object",
+        "required": ["promise_id", "promise", "type"],
+        "properties": {
+          "promise_id": { "type": "string" },
+          "promise": { "type": "string" },
+          "planted_in": {
+            "oneOf": [
+              { "type": "integer" },
+              { "type": "string" }
+            ]
+          },
+          "payoff_in": {
+            "oneOf": [
+              { "type": "integer" },
+              { "type": "string" }
+            ]
+          },
+          "type": {
+            "type": "string",
+            "enum": ["plot", "character", "thematic", "atmospheric"]
+          },
+          "related_hook_id": {
+            "type": "string",
+            "description": "Optional cross-reference to a hook in the hooks/hook_map that shares this promise's reader contract."
+          }
+        }
+      }
+    },
+    "extended_metadata": {
+      "type": "object",
+      "description": "Container for project-specific structural data that doesn't belong in the universal schema. Examples: technique_lineage (Star Wars Legends), jacen_parallel, workshop_origin. Arbitrary sub-fields are permitted.",
+      "additionalProperties": true
     }
   }
 }
