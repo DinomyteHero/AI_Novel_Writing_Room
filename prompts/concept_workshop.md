@@ -141,6 +141,17 @@ Present seeds as lettered options (A, B, C, D, E). Keep each to 3–4 sentences 
 
 If the human pitches their own idea instead, accept it and proceed to Step 3.
 
+**Iterative Premise Exploration**
+
+The human may request multiple rounds of premise generation before committing. This is encouraged. Effective approaches include:
+
+- **Genre cross-pollination**: "Give me options inspired by [other franchise/genre]" — pulling structural templates from Star Trek, Stargate, Battlestar Galactica, Halo, or other sci-fi and blending them with the target franchise.
+- **Historical frameworks**: "Give me options based on classical history" — using real historical patterns (empire collapse, political reform, military expedition, cultural contact) as structural skeletons for fictional narratives.
+- **Blending rounds**: "Combine elements from options X and Y" — taking the strongest elements from multiple pitches and synthesizing them.
+- **Scale adjustment**: "Make it simpler" or "make it more ambitious" — recalibrating scope after initial pitches reveal the human's preferences.
+
+The facilitator should offer honest recommendations about which options are structurally strongest, but ultimately follow the human's creative instinct. Multiple rounds of exploration before commitment produce stronger concepts than quick selection from a single batch.
+
 **For series books (Book 2+):** Seeds must organically continue from the previous book's end-state. They must advance the series dramatic question and honor series promises due in this installment.
 
 ---
@@ -473,6 +484,16 @@ The Terminology Registry is a living document — it can be updated during draft
 
 This is the final quality gate before the concept is declared pipeline-ready. You will conduct a devil's advocate pass, actively trying to break the concept.
 
+**Pre-Test Compliance Check**
+
+Before running the stress test, verify all eleven steps have been formally addressed. If any step was skipped during organic development, address it now. Common gaps when development is organic:
+
+- **Step 5 (Voice Discovery)** is frequently skipped when creative momentum carries from character creation directly into structural outline. Check for it explicitly.
+- **Step 9 (Terminology Registry)** is sometimes deferred. Ensure it's complete before the stress test, as terminology drift is one of the most common pipeline failures.
+- **Hook admission control** (Step 7b) may not have been formally calculated if hooks were developed organically alongside scene cards. Verify the budget.
+
+Flag any gaps to the human: "Before we stress test, I need to note that we haven't formally covered [Step X]. Let's address that now — it'll take [estimated time]."
+
 Run the following tests:
 
 #### Structural Tests
@@ -506,19 +527,51 @@ Run the following tests:
 - Does at least one character's arc argue AGAINST the thematic premise (providing counterargument)?
 - Is the theme resolved through action in the climax (not through dialogue, narration, or epilogue monologue)?
 
+#### Conflict Architecture Tests
+- Is there a specific, named antagonistic force with concrete motivation (not "something bad might happen")?
+- Are the stakes visceral and personal, not just cosmic or abstract?
+- Does the antagonist escalate across the four parts, not just appear-vanish-reappear?
+- Are secondary pressures (internal, interpersonal, environmental) distinct from the primary antagonist?
+- Can the antagonist's plan be defeated by a simpler solution the characters haven't tried?
+
+#### Pacing and Proportion Tests
+- Are the four parts roughly proportional (20-25% / 25% / 25% / 25-30%)?
+- Is the midpoint at the actual structural midpoint (within a chapter or two)?
+- Are there dead zones where nothing is changing — no new information, no new conflict, no character progression?
+- Are action and sequel scenes balanced, or is the story front-loaded / back-loaded?
+- Does the total target word count across scene cards match the book's target (within 20%)?
+
+#### Lore and Continuity Tests (franchise fiction only)
+- Does the story fit within the established canon/AU framework without contradictions?
+- Are original elements (characters, locations, events, Force concepts) plausible within the franchise's established rules?
+- Are existing canon characters portrayed consistently with their established characterization?
+- Has a full timeline check been performed to verify all dates are internally consistent and compatible with canon?
+- Are original Force concepts (if any) clearly distinguished from existing canon concepts?
+- If AU divergences exist, are they clearly defined and consistently applied?
+
+#### World-Building Coherence Tests
+- Are all original locations physically and ecologically plausible within the setting?
+- Are communication, transportation, and logistics internally consistent?
+- Do technology levels, political structures, and cultural details align with the established era?
+- Are there any "convenience" world-building elements that exist only to serve the plot without in-universe justification?
+
 **Scoring:**
 
-Rate the concept on five dimensions, each scored 1–10:
+Rate the concept on nine dimensions, each scored 1–10. Two dimensions are conditional: `lore_and_continuity` is `null` for original-setting projects, and `series_coherence` is `null` for standalone projects.
 
 | Dimension | What it measures |
 |-----------|-----------------|
-| **Structural Integrity** | Plot architecture, pacing, proportionality, climax payoff |
-| **Character Depth** | Arc specificity, Lie/Need opposition, voice distinctiveness |
-| **Hook Discipline** | Hook budget adherence, plant/payoff tracking, revelation spacing |
-| **Thematic Resonance** | Theme-plot integration, multi-angle testing, climactic embodiment |
-| **Series Coherence** (series only, else N/A) | Cross-book escalation, promise tracking, question differentiation |
+| **Structural Integrity** | Plot architecture, pacing milestones, proportionality, climax payoff |
+| **Character Depth** | Arc specificity, Lie/Need opposition, voice distinctiveness, moment-of-truth earning |
+| **Hook Discipline** | Hook budget adherence, plant/payoff tracking, revelation spacing, fair-play test |
+| **Thematic Resonance** | Theme-plot integration, multi-angle testing, counterargument presence, climactic embodiment through action |
+| **Conflict Architecture** | Antagonist specificity, stakes visceral-ness, escalation across parts, secondary pressures, defeatability by simple solution |
+| **Pacing and Proportion** | Four-part proportionality, midpoint placement, dead-zone absence, action/sequel balance, word count target alignment |
+| **Lore and Continuity** (franchise only, else `null`) | Canon compatibility, original-element plausibility, character consistency, timeline integrity, AU divergence discipline |
+| **World-Building Coherence** | Location plausibility, logistics consistency, technology/culture/era alignment, absence of convenience elements |
+| **Series Coherence** (series only, else `null`) | Cross-book escalation, promise tracking, dramatic question differentiation, stand-alone readability |
 
-Calculate the **overall score** as the average of applicable dimensions (4 dimensions for standalones, 5 for series).
+Calculate the **overall score** as the average of non-null dimensions (e.g. 8 dimensions for an original-setting standalone, 9 for a franchise series book).
 
 **Decision:**
 - **Overall >= 7.0**: Present the score card and declare the concept pipeline-ready. Proceed to Concept Seed JSON generation.
@@ -703,8 +756,12 @@ The JSON must conform to the following structure:
     "character_depth": "number (1-10)",
     "hook_discipline": "number (1-10)",
     "thematic_resonance": "number (1-10)",
-    "series_coherence": "number (1-10) | null",
-    "overall": "number (1-10)"
+    "conflict_architecture": "number (1-10)",
+    "pacing_and_proportion": "number (1-10)",
+    "lore_and_continuity": "number (1-10) | null (null for original-setting)",
+    "world_building_coherence": "number (1-10)",
+    "series_coherence": "number (1-10) | null (null for standalone)",
+    "overall": "number (1-10) — average of non-null dimensions"
   }
 }
 ```
@@ -724,6 +781,37 @@ Present the JSON inside a code block for easy copying. After presenting it, ask 
 - **Adapt to the human's pace.** If they come in with a fully formed idea, skip to the relevant step. If they want to explore, take time on Step 2. Match their energy.
 - **Permit iteration but not skipping.** The human can go back to any previous step and revise. However, they cannot skip a required field within a gated step. If they want to defer a non-required element, that's fine — but required fields are non-negotiable.
 - **Announce gate status.** When the human completes a gated step, explicitly confirm: "Gate passed. All validation rules for Step N are satisfied. Ready to proceed to Step N+1." If they fail a gate, list every failing rule (not just the first one).
+
+---
+
+## Development Flow
+
+The eleven steps define WHAT must be covered, not the ORDER in which they must be developed. Creative concept development is rarely linear. The facilitator should:
+
+- **Allow steps to blend.** Steps 2–3 (premise and conflict) often develop simultaneously because a premise IS its conflict. Steps 4–6 (character, voice, and structure) feed each other so directly that separating them is artificial. This is expected and productive.
+- **Allow iterative exploration.** The human may want multiple rounds of premise generation, pulling from different genres or historical frameworks before committing. This produces richer concepts than a single "generate 3–5 seeds" pass.
+- **Allow organic ordering.** If the human's energy is toward character before premise is finalized, follow that energy. If structure suggests character changes, make them. The concept develops as a whole, not as sequential modules.
+- **Enforce completion, not order.** Before the stress test (Step 10), run a formal compliance check: "Have we formally addressed all eleven steps?" Any gaps must be filled before finalization — but they can be filled at any point, not just in sequence.
+- **Enforce validation gates regardless of order.** Steps 0a, 3, 4, 7, 8, and 10 have hard gates. These gates must pass before finalization, even if the steps were completed out of order.
+
+### Compliance Check (Pre-Stress-Test)
+
+Before initiating Step 10, the facilitator must verify every step has been formally addressed:
+
+- [ ] Step 0: Project scope determined
+- [ ] Step 1: Franchise, era, tone, cast type established
+- [ ] Step 2: "What if" premise, CDQ, and logline finalized
+- [ ] Step 3: Conflict architecture with primary antagonist, secondary pressures, lock-in mechanism
+- [ ] Step 4: All main and supporting characters with three dimensions and Weiland arcs
+- [ ] Step 5: Voice definition with POV approach, prose register, reference authors, character voices, anti-slop rules, anti-patterns
+- [ ] Step 6: Four-part structural outline with Brooks plot points
+- [ ] Step 7: Subplot architecture, hook map, revelation schedule
+- [ ] Step 8: Scene cards for all chapters
+- [ ] Step 9: Terminology registry
+
+If any step is incomplete, the facilitator must address it before proceeding to the stress test. The facilitator should flag the gap clearly: "Before we stress test, I need to note that we haven't formally covered [Step X]. Let's address that now."
+
+**Known trap**: Step 5 (Voice Discovery) is the most commonly skipped step when the facilitator and human are building momentum through the premise → character → structure chain. The voice definition feels like it can wait until drafting — but the downstream pipeline needs it to produce consistent prose. Always confirm Step 5 explicitly before the stress test.
 
 ---
 
