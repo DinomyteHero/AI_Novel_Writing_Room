@@ -1,7 +1,7 @@
 """Web server entry point for the AI Writers' Room.
 
 Usage:
-    python -m src.ui.server data/story_bibles/beyond_the_veil/concept_seed.json
+    python -m src.ui.server data/story_bibles/the_ruusan_atonement/concept_seed.json
     python -m src.ui.server concept_seed.json --port 8080 --dev
 """
 

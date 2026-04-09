@@ -1,0 +1,167 @@
+{
+  "meta": {
+    "project_title": "Test Story",
+    "franchise": "Original",
+    "canon_status": "original",
+    "era": "Contemporary",
+    "tone": "character_study",
+    "target_word_count": 60000,
+    "target_chapters": 20,
+    "pov_structure": "Close third person, rotating between two POV characters",
+    "project_scope": "standalone"
+  },
+  "premise": {
+    "what_if": "What if a solitary investigator and a principled colleague must work together to solve a case that neither can crack alone?",
+    "central_dramatic_question": "Can two people who fundamentally distrust each other learn to collaborate before the case kills them both?",
+    "logline": "A reluctant lead investigator partners with a by-the-book colleague to uncover a conspiracy that neither can solve alone."
+  },
+  "conflict": {
+    "primary_antagonistic_force": {
+      "type": "Interpersonal — hidden conspiracy",
+      "identity": "A well-placed insider sabotaging the investigation from within",
+      "motivation": "The antagonist believes the truth would destabilize an institution they consider essential to society, and acts to suppress it at any cost. They are convinced their sabotage is a form of protection.",
+      "escalation": "Part 1: subtle obstruction — misfiled documents, missed leads, convenient delays. Part 2: active misdirection and planted evidence. Part 3: direct threats and violence against witnesses. Part 4: final confrontation where the insider's identity and full motive are revealed and challenged."
+    },
+    "secondary_pressures": [
+      "External deadline imposed by a dying witness whose testimony is essential",
+      "Internal tension as the two protagonists' investigative methods fundamentally clash"
+    ],
+    "lock_in_mechanism": "The lead investigator cannot walk away because a personal stake — a family connection to the case — ties them to the outcome, and their only available collaborator refuses to work the case without them."
+  },
+  "theme": {
+    "thematic_premise": "Trust is a choice made in the absence of proof, not the absence of doubt.",
+    "thematic_argument": "The story tests whether two people with incompatible worldviews can build genuine trust under pressure. Its central argument is that real collaboration requires accepting vulnerability, and that vulnerability is only possible when the collaborators choose to extend trust before it has been fully earned. The antagonist represents the opposite position: that trust is a luxury only fools can afford, and that institutions must be protected through any means necessary.",
+    "how_each_arc_tests_theme": {
+      "Alex Reyes": "Must learn to accept help without surrendering autonomy, and to trust someone whose methods they fundamentally disagree with.",
+      "Morgan Kade": "Must learn that rigid principles can become their own form of self-deception, and that bending the rules is sometimes the ethical choice.",
+      "Sam Okafor": "Proves that competence without certainty can be more valuable than expertise without empathy.",
+      "Dr. Elena Voss": "Flat negative arc — demonstrates the cost of certainty, refusing to admit error even as the case unravels around her."
+    }
+  },
+  "protagonist_arc_type": "change",
+  "ensemble_cast": [
+    {
+      "name": "Alex Reyes",
+      "role": "Lead investigator, primary POV",
+      "age": "Early 30s",
+      "three_dimensions": {
+        "surface": "Competent, self-contained, skeptical. Uses dry humor as a defensive perimeter. Reads as easy-going but maintains careful emotional distance from colleagues.",
+        "backstory_inner_demons": "A past mistake — trusting someone who betrayed them professionally — left Alex convinced that isolation is the only safe strategy. They have never fully processed the betrayal, and it colors every professional relationship.",
+        "action_under_pressure": "Takes control and bears the weight alone. Will sacrifice their own safety before letting others share the risk. This is both their strength and their fatal flaw — the story tests whether they can learn to ask for help."
+      },
+      "voice_notes": "Dry, self-deprecating, deflects intimacy with humor. Internal monologue is more vulnerable than spoken dialogue. Rarely uses exclamation marks.",
+      "weiland_arc": {
+        "lie_believed": "I can only trust myself because everyone who has mattered to me has eventually betrayed me.",
+        "ghost": "A prior partnership ended in betrayal that left Alex with a reputation they could not defend against, and taught them that trust is a weapon others use against you.",
+        "want": "To solve this case alone and prove they do not need anyone else.",
+        "need": "To learn that trust is a choice that builds genuine partnership, not a vulnerability to be exploited.",
+        "arc_type": "positive_change"
+      }
+    },
+    {
+      "name": "Morgan Kade",
+      "role": "Principled colleague, secondary POV",
+      "age": "Late 40s",
+      "three_dimensions": {
+        "surface": "Measured, deliberate, institutionally loyal. Believes in doing things by the book because the book was written for good reasons. Dresses conservatively. Keeps a tidy desk.",
+        "backstory_inner_demons": "Lost a former protégé to corruption after bending rules to help them. Has since become rigid about procedure as a form of self-protection against repeating that mistake.",
+        "action_under_pressure": "Defaults to procedure and hierarchy. Considers creative problem-solving a warning sign. Their flaw is that procedure can become a way of avoiding responsibility for outcomes."
+      },
+      "voice_notes": "Formal, precise, measured. Speaks in complete sentences. Rarely interrupts. Uses silence as a response.",
+      "weiland_arc": {
+        "lie_believed": "If I just follow the rules carefully enough, the rules will protect me from making the same mistake twice.",
+        "ghost": "A past incident where Morgan bent the rules to help someone, and that person then hurt other people because of it.",
+        "want": "To close this case without compromising their principles.",
+        "need": "To accept that principles have to be weighed against outcomes, and that sometimes the rules must bend to serve the purpose they were written for.",
+        "arc_type": "positive_change"
+      }
+    },
+    {
+      "name": "Sam Okafor",
+      "role": "Forensic specialist, tertiary POV",
+      "age": "Mid 20s",
+      "three_dimensions": {
+        "surface": "Enthusiastic, technical, genuinely curious. Treats every case like a puzzle to be solved. Often underestimates the emotional weight of what they uncover.",
+        "backstory_inner_demons": "Grew up in a household where logic and evidence were the only permitted currencies of argument. Has never learned how to sit with uncertainty, and defaults to analysis when emotion would be more honest.",
+        "action_under_pressure": "Buries themselves in data. Produces excellent work but sometimes misses the human consequences of what the data shows. Their arc is about learning when to look up from the evidence."
+      },
+      "voice_notes": "Fast-talking, technical vocabulary mixed with colloquial speech. Asks follow-up questions. Uses first-person plural (we, us) when describing the team's work.",
+      "weiland_arc": {
+        "lie_believed": "If the evidence is good enough, it does not matter how I feel about the case or the people in it.",
+        "ghost": "A childhood spent learning that emotional response was a sign of weakness and that only measurable facts were respectable.",
+        "want": "To produce the definitive forensic case file that closes the investigation.",
+        "need": "To discover that competence without empathy is a form of cowardice, and that caring about the outcome does not compromise the work.",
+        "arc_type": "positive_change"
+      }
+    },
+    {
+      "name": "Dr. Elena Voss",
+      "role": "Institutional insider, antagonist",
+      "age": "Mid 50s",
+      "three_dimensions": {
+        "surface": "Respected, articulate, publicly above reproach. Carries herself with the ease of someone whose judgment has never been seriously questioned.",
+        "backstory_inner_demons": "Built her career defending the institution she now serves. Has made hard compromises for what she believed were good reasons, and cannot admit — even to herself — that some of those compromises crossed lines.",
+        "action_under_pressure": "Adjusts, never reacts. Every setback becomes a new opportunity to protect the institution. Her flaw is that she has so thoroughly intellectualised her loyalty that she no longer recognises when the institution is the thing causing harm."
+      },
+      "voice_notes": "Precise, academic, unhurried. Uses qualifiers ('in my view', 'it seems to me') to soften assertions that are actually ironclad. Never raises her voice.",
+      "weiland_arc": {
+        "lie_believed": "Protecting the institution is the same as protecting the people it serves, and any sacrifice made for that protection is therefore justified.",
+        "ghost": "An early career moment where a principled stand cost her a mentor, teaching her that loyalty to ideas loses to loyalty to structures.",
+        "want": "To contain the investigation before it reaches the deepest layer of the conspiracy.",
+        "need": "She never gets there. The story treats her as wrong for the right reasons, defeated by results rather than by argument.",
+        "arc_type": "flat"
+      }
+    }
+  ],
+  "canon_constraints": {
+    "continuity": "Original setting, contemporary realistic fiction",
+    "canon_preserved": [
+      "Modern-day setting",
+      "No supernatural elements",
+      "Plausible investigative procedure"
+    ],
+    "style_constraints": [
+      "American English",
+      "No explicit content",
+      "Sentence-level prose should be clean and purposeful",
+      "Avoid AI-tells and the global negative constraints list"
+    ]
+  },
+  "voice_definition": {
+    "pov_approach": "Close third person, rotating between Alex Reyes (primary) and Morgan Kade (secondary). Alex gets the majority of the POV time; Morgan's chapters provide contrast and institutional perspective.",
+    "prose_register": "Commercial genre fiction — clean, propulsive, emotionally direct. Not literary. Not pulp.",
+    "reference_authors": [],
+    "character_voices": {
+      "Alex Reyes": "Dry, self-deprecating, deflects intimacy with humor.",
+      "Morgan Kade": "Formal, precise, measured. Speaks in complete sentences."
+    },
+    "anti_slop_rules": [
+      "Avoid 'a sense of' and 'a feeling of' — describe sensations directly",
+      "Avoid adverb-dialogue-tag combinations ('she said quietly')"
+    ],
+    "anti_patterns": [
+      "No prophecy or destiny language",
+      "No convenient eavesdropping as a primary information-delivery mechanism"
+    ],
+    "narrative_voice_notes": "Trust the reader to track subtext without explaining it. Keep the prose out of the way of the story."
+  },
+  "subplots": [],
+  "hooks": [],
+  "revelation_schedule": [],
+  "scene_cards": [],
+  "terminology_registry": [],
+  "stress_test_scores": {
+    "structural_integrity": 8.0,
+    "character_depth": 8.0,
+    "hook_discipline": 8.0,
+    "thematic_resonance": 8.0,
+    "conflict_architecture": 8.0,
+    "pacing_and_proportion": 8.0,
+    "lore_and_continuity": null,
+    "world_building_coherence": 8.0,
+    "series_coherence": null,
+    "overall": 8.0
+  },
+  "promise_payoff_ledger": [],
+  "extended_metadata": {}
+}

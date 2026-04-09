@@ -79,14 +79,14 @@ The local base URL defaults to `http://localhost:8080/v1` (configurable in `sett
 
 ## Your First Run
 
-The project includes a test fixture called "Beyond the Veil" with a concept seed and scene cards for 5 chapters.
+The project includes a worked example called "The Ruusan Atonement" with a complete concept seed and scene cards for all 28 chapters.
 
 ### Run a Single Chapter
 
 ```bash
 python -m src.main \
-    data/story_bibles/beyond_the_veil/concept_seed.json \
-    data/story_bibles/beyond_the_veil/scene_cards \
+    data/story_bibles/the_ruusan_atonement/concept_seed.json \
+    data/story_bibles/the_ruusan_atonement/scene_cards \
     --chapter 1 \
     --phase 1
 ```
@@ -97,8 +97,8 @@ This runs the basic pipeline (Phase 1): PlotArchitect, ProseStylist, GateCritic,
 
 ```bash
 python -m src.main \
-    data/story_bibles/beyond_the_veil/concept_seed.json \
-    data/story_bibles/beyond_the_veil/scene_cards \
+    data/story_bibles/the_ruusan_atonement/concept_seed.json \
+    data/story_bibles/the_ruusan_atonement/scene_cards \
     --phase 4
 ```
 
@@ -110,15 +110,15 @@ After generation, export to multiple formats:
 
 ```bash
 python -m src.main \
-    data/story_bibles/beyond_the_veil/concept_seed.json \
-    data/story_bibles/beyond_the_veil/scene_cards \
+    data/story_bibles/the_ruusan_atonement/concept_seed.json \
+    data/story_bibles/the_ruusan_atonement/scene_cards \
     --export-only --export-formats md,docx,epub
 ```
 
 ### Run the Web Interface
 
 ```bash
-python -m src.ui.server data/story_bibles/beyond_the_veil/concept_seed.json
+python -m src.ui.server data/story_bibles/the_ruusan_atonement/concept_seed.json
 ```
 
 Open http://localhost:8000.

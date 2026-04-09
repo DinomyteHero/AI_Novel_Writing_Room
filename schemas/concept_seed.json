@@ -339,7 +339,7 @@
         "thematic_resonance": { "type": "number", "minimum": 0, "maximum": 10 },
         "conflict_architecture": { "type": "number", "minimum": 0, "maximum": 10 },
         "pacing_and_proportion": { "type": "number", "minimum": 0, "maximum": 10 },
-        "lore_and_continuity": { "type": "number", "minimum": 0, "maximum": 10 },
+        "lore_and_continuity": { "type": ["number", "null"], "minimum": 0, "maximum": 10 },
         "world_building_coherence": { "type": "number", "minimum": 0, "maximum": 10 },
         "series_coherence": { "type": ["number", "null"], "minimum": 0, "maximum": 10 },
         "overall": { "type": "number", "minimum": 0, "maximum": 10 }

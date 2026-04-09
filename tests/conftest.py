@@ -15,8 +15,13 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 @pytest.fixture
 def sample_concept_seed():
-    """Load the Beyond the Veil concept seed."""
-    seed_path = Path(__file__).parent.parent / "data" / "story_bibles" / "beyond_the_veil" / "concept_seed.json"
+    """Load a franchise-neutral synthetic concept seed.
+
+    Use this for tests that need a valid, minimal concept seed without
+    being coupled to any real project. For franchise-specific testing
+    (Star Wars Legends), use the ``ruusan_seed`` fixture instead.
+    """
+    seed_path = Path(__file__).parent / "fixtures" / "sample_seed.json"
     with open(seed_path, encoding="utf-8") as f:
         return json.load(f)
 
@@ -37,12 +42,8 @@ def ruusan_seed():
 
 @pytest.fixture
 def sample_scene_card():
-    """Load the Chapter 1 Scene 1 card."""
-    card_path = (
-        Path(__file__).parent.parent
-        / "data" / "story_bibles" / "beyond_the_veil" / "scene_cards"
-        / "chapter_01_scene_01.json"
-    )
+    """Load a minimal synthetic scene card."""
+    card_path = Path(__file__).parent / "fixtures" / "sample_scene_card.json"
     with open(card_path, encoding="utf-8") as f:
         return json.load(f)
 

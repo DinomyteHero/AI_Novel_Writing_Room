@@ -29,7 +29,7 @@ def manuscript_dir(temp_dir):
 def seed():
     return {
         "meta": {
-            "project_title": "Beyond the Veil",
+            "project_title": "Test Story",
             "franchise": "Star Wars",
         },
     }
@@ -59,7 +59,7 @@ class TestExportManager:
         results = mgr.export_all(output_dir=output_dir, formats=["md"])
 
         content = results["md"].read_text(encoding="utf-8")
-        assert "Beyond the Veil" in content
+        assert "Test Story" in content
         assert "Chapter 1" in content
 
     def test_export_unknown_format(self, manuscript_dir, seed, temp_dir):

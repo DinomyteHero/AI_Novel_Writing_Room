@@ -1,6 +1,6 @@
 """Integration test for the full Phase 2 pipeline.
 
-Runs the orchestrator with all 5 scene cards using mock LLM responses.
+Runs the orchestrator with all 28 scene cards using mock LLM responses.
 Verifies chapter generation, run ledger events, chapter memory storage,
 story state chapter logs, and scene card loading.
 """
@@ -31,7 +31,7 @@ SCENE_CARDS_DIR = (
     Path(__file__).parent.parent
     / "data"
     / "story_bibles"
-    / "beyond_the_veil"
+    / "the_ruusan_atonement"
     / "scene_cards"
 )
 
@@ -39,7 +39,7 @@ CONCEPT_SEED_PATH = (
     Path(__file__).parent.parent
     / "data"
     / "story_bibles"
-    / "beyond_the_veil"
+    / "the_ruusan_atonement"
     / "concept_seed.json"
 )
 
@@ -49,7 +49,7 @@ NEGATIVE_CONSTRAINTS_PATH = (
 
 
 def _load_scene_cards() -> list[dict]:
-    """Load all 5 scene cards, sorted by chapter number."""
+    """Load all 28 scene cards, sorted by chapter number."""
     cards = []
     for path in sorted(SCENE_CARDS_DIR.glob("chapter_*_scene_*.json")):
         with open(path, encoding="utf-8") as f:
@@ -158,9 +158,9 @@ def _make_mock_router() -> MagicMock:
 
 @pytest.fixture
 def scene_cards():
-    """Load all 5 scene cards from data directory."""
+    """Load all 28 scene cards from data directory."""
     cards = _load_scene_cards()
-    assert len(cards) == 5, f"Expected 5 scene cards, found {len(cards)}"
+    assert len(cards) == 28, f"Expected 28 scene cards, found {len(cards)}"
     return cards
 
 
@@ -240,12 +240,12 @@ def pipeline_env(tmp_path):
 
 
 class TestSceneCardLoading:
-    """Verify all 5 scene cards load successfully."""
+    """Verify all 28 scene cards load successfully."""
 
     def test_all_scene_cards_exist(self):
         """All 5 scene card files should be present."""
         cards = _load_scene_cards()
-        assert len(cards) == 5
+        assert len(cards) == 28
 
     def test_scene_cards_have_required_fields(self):
         """Each card should have chapter_number, mission, and characters_present."""
@@ -259,10 +259,10 @@ class TestSceneCardLoading:
             )
 
     def test_scene_cards_sequential(self):
-        """Cards should cover chapters 1 through 5."""
+        """Cards should cover chapters 1 through 28."""
         cards = _load_scene_cards()
         chapter_nums = [c["chapter_number"] for c in cards]
-        assert chapter_nums == [1, 2, 3, 4, 5]
+        assert chapter_nums == list(range(1, 29))
 
 
 # ================================================================== #
@@ -272,15 +272,15 @@ class TestSceneCardLoading:
 
 @pytest.mark.asyncio
 class TestPipelineIntegration:
-    """Integration test: run the full Phase 2 pipeline with 5 scene cards."""
+    """Integration test: run the full Phase 2 pipeline with 28 scene cards."""
 
     async def test_pipeline_generates_all_chapters(self, pipeline_env, scene_cards):
-        """Run the pipeline and verify all 5 chapters are generated."""
+        """Run the pipeline and verify all 28 chapters are generated."""
         orch = pipeline_env["orchestrator"]
 
         results = await orch.run_pipeline(scene_cards)
 
-        assert len(results) == 5
+        assert len(results) == 28
         for i, result in enumerate(results, start=1):
             assert result["chapter_number"] == i
             assert result["word_count"] > 0
@@ -303,7 +303,7 @@ class TestPipelineIntegration:
 
         # Each chapter should have chapter_start
         chapter_starts = [e for e in all_events if e["event_type"] == "chapter_start"]
-        assert len(chapter_starts) == 5
+        assert len(chapter_starts) == 28
 
         # Per-chapter agent events: plot_architect, prose_stylist, gate_critic, craft_editor
         for agent_role in ["plot_architect", "prose_stylist", "gate_critic", "craft_editor"]:
@@ -311,46 +311,46 @@ class TestPipelineIntegration:
                 e for e in all_events
                 if e["event_type"] == "agent_start" and e["agent_role"] == agent_role
             ]
-            # Should have at least 5 (one per chapter, possibly more with retries)
-            assert len(agent_starts) >= 5, (
-                f"Expected at least 5 agent_start events for {agent_role}, got {len(agent_starts)}"
+            # Should have at least 28 (one per chapter, possibly more with retries)
+            assert len(agent_starts) >= 28, (
+                f"Expected at least 28 agent_start events for {agent_role}, got {len(agent_starts)}"
             )
 
         # Gate passes (all should pass since mock returns "pass")
         gate_passes = [e for e in all_events if e["event_type"] == "gate_pass"]
-        assert len(gate_passes) == 5
+        assert len(gate_passes) == 28
 
         # Craft edit completions
         craft_edits = [e for e in all_events if e["event_type"] == "craft_edit_complete"]
-        assert len(craft_edits) == 5
+        assert len(craft_edits) == 28
 
         # Phase 2 events
         summarizer_completes = [
             e for e in all_events if e["event_type"] == "summarizer_complete"
         ]
-        assert len(summarizer_completes) == 5
+        assert len(summarizer_completes) == 28
 
         state_diff_proposed = [
             e for e in all_events if e["event_type"] == "state_diff_proposed"
         ]
-        assert len(state_diff_proposed) == 5
+        assert len(state_diff_proposed) == 28
 
         state_diff_committed = [
             e for e in all_events if e["event_type"] == "state_diff_committed"
         ]
-        assert len(state_diff_committed) == 5
+        assert len(state_diff_committed) == 28
 
     async def test_chapter_memory_has_summaries(self, pipeline_env, scene_cards):
-        """After the pipeline, chapter memory should have 5 stored summaries."""
+        """After the pipeline, chapter memory should have 28 stored summaries."""
         orch = pipeline_env["orchestrator"]
         chapter_memory = pipeline_env["chapter_memory"]
 
         await orch.run_pipeline(scene_cards)
 
-        assert chapter_memory.count() == 5
+        assert chapter_memory.count() == 28
 
         # Each chapter summary should be retrievable
-        for ch_num in range(1, 6):
+        for ch_num in range(1, 29):
             summary = chapter_memory.get_summary(ch_num)
             assert summary is not None, f"No summary found for chapter {ch_num}"
             assert len(summary) > 0
