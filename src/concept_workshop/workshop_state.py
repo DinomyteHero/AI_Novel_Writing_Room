@@ -44,20 +44,26 @@ _SEED_FIELDS: dict[str, str] = {
     # Step 5: Voice definition
     "voice_definition.pov_approach": "POV approach",
     "voice_definition.prose_register": "Prose register",
-    "voice_definition.anti_slop": "Anti-slop rules",
+    "voice_definition.reference_authors": "Reference authors",
+    "voice_definition.character_voices": "Per-character voice guidance",
+    "voice_definition.anti_slop_rules": "Anti-slop rules",
     "voice_definition.anti_patterns": "Anti-pattern rules",
+    "voice_definition.force_description_guidelines": "Force / magic description guidelines",
     "voice_definition.narrative_voice_notes": "Narrative voice notes",
     # Step 6: Structure
     "structural_notes.brooks_alignment": "Brooks four-part structure alignment",
     # Step 7: Subplots + hooks
-    "subplot_board": "Subplot board",
-    "hook_map": "Hook map",
+    "subplots": "Subplots",
+    "hooks": "Hooks",
     "revelation_schedule": "Revelation schedule",
+    "promise_payoff_ledger": "Promise / payoff ledger",
     # Step 8: Scene cards (generated, not tracked here)
     # Step 9: Terminology
     "terminology_registry": "Terminology registry",
     # Step 10: Stress test
-    "stress_test_results": "Stress test results",
+    "stress_test_scores": "Stress test scores",
+    # Extended / story-specific metadata
+    "extended_metadata": "Extended metadata (project-specific structural data)",
     # Canon
     "canon_constraints.continuity": "Canon continuity",
     "canon_constraints.divergence_point": "Canon divergence point",
@@ -82,12 +88,15 @@ class ConceptWorkshopState:
     structural_notes: dict = field(default_factory=dict)
     # Phase 5 fields
     voice_definition: dict = field(default_factory=dict)
-    subplot_board: list[dict] = field(default_factory=list)
-    hook_map: list[dict] = field(default_factory=list)
+    subplots: list[dict] = field(default_factory=list)
+    hooks: list[dict] = field(default_factory=list)
     revelation_schedule: list[dict] = field(default_factory=list)
     author_only_secrets: Optional[str] = None
     terminology_registry: list[dict] = field(default_factory=list)
-    stress_test_results: dict = field(default_factory=dict)
+    stress_test_scores: dict = field(default_factory=dict)
+    # Post-Phase-5 fields (Ruusan Atonement revision)
+    promise_payoff_ledger: list[dict] = field(default_factory=list)
+    extended_metadata: dict = field(default_factory=dict)
     confirmed_fields: set[str] = field(default_factory=set)
 
     # ------------------------------------------------------------------ #
@@ -111,18 +120,23 @@ class ConceptWorkshopState:
         # Phase 5 fields — include only when populated
         if self.voice_definition:
             d["voice_definition"] = self.voice_definition
-        if self.subplot_board:
-            d["subplot_board"] = self.subplot_board
-        if self.hook_map:
-            d["hook_map"] = self.hook_map
+        if self.subplots:
+            d["subplots"] = self.subplots
+        if self.hooks:
+            d["hooks"] = self.hooks
         if self.revelation_schedule:
             d["revelation_schedule"] = self.revelation_schedule
         if self.author_only_secrets:
             d["author_only_secrets"] = self.author_only_secrets
         if self.terminology_registry:
             d["terminology_registry"] = self.terminology_registry
-        if self.stress_test_results:
-            d["stress_test_results"] = self.stress_test_results
+        if self.stress_test_scores:
+            d["stress_test_scores"] = self.stress_test_scores
+        # Post-Phase-5 fields (Ruusan Atonement revision)
+        if self.promise_payoff_ledger:
+            d["promise_payoff_ledger"] = self.promise_payoff_ledger
+        if self.extended_metadata:
+            d["extended_metadata"] = self.extended_metadata
         return d
 
     @classmethod
@@ -139,12 +153,14 @@ class ConceptWorkshopState:
             canon_constraints=data.get("canon_constraints", {}),
             structural_notes=data.get("structural_notes", {}),
             voice_definition=data.get("voice_definition", {}),
-            subplot_board=data.get("subplot_board", []),
-            hook_map=data.get("hook_map", []),
+            subplots=data.get("subplots", []),
+            hooks=data.get("hooks", []),
             revelation_schedule=data.get("revelation_schedule", []),
             author_only_secrets=data.get("author_only_secrets"),
             terminology_registry=data.get("terminology_registry", []),
-            stress_test_results=data.get("stress_test_results", {}),
+            stress_test_scores=data.get("stress_test_scores", {}),
+            promise_payoff_ledger=data.get("promise_payoff_ledger", []),
+            extended_metadata=data.get("extended_metadata", {}),
             confirmed_fields=set(data.get("confirmed_fields", [])),
         )
 

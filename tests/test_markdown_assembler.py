@@ -40,7 +40,7 @@ def seed():
     """Minimal concept seed for testing."""
     return {
         "meta": {
-            "project_title": "Beyond the Veil",
+            "project_title": "Test Story",
             "franchise": "Star Wars",
             "target_word_count": 75000,
         },
@@ -67,7 +67,7 @@ class TestMarkdownAssembler:
         assembler = MarkdownAssembler(manuscripts_dir=manuscript_dir, concept_seed=seed)
         result = assembler.assemble()
 
-        assert "# Beyond the Veil" in result
+        assert "# Test Story" in result
         assert "# Chapter 1" in result
         assert "# Chapter 2" in result
         assert "# Chapter 3" in result
@@ -117,7 +117,7 @@ class TestMarkdownAssembler:
 
         assert path.exists()
         content = path.read_text(encoding="utf-8")
-        assert "# Beyond the Veil" in content
+        assert "# Test Story" in content
 
     def test_per_chapter_word_counts(self, manuscript_dir, seed):
         assembler = MarkdownAssembler(manuscripts_dir=manuscript_dir, concept_seed=seed)

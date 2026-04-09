@@ -12,6 +12,7 @@ Schema migrations are applied automatically on init.
 import hashlib
 import json
 import logging
+import re
 import sqlite3
 from pathlib import Path
 from typing import Optional
@@ -22,6 +23,67 @@ logger = logging.getLogger(__name__)
 def _slugify(name: str) -> str:
     """Convert a name to a slug ID. 'Ben Skywalker' -> 'ben_skywalker'"""
     return name.lower().replace(" ", "_").replace("-", "_")
+
+
+_CHAPTER_REF_RE = re.compile(r"(?:chapter\s*)?(\d+)", re.IGNORECASE)
+
+
+def _parse_chapter_ref(ref) -> int | None:
+    """Parse a chapter reference into an integer chapter number.
+
+    Accepts either an integer (returned as-is), None (returned as None),
+    or a string like 'Chapter 1', 'Chapter 4-5', 'Chapter 5 (First Plot Point)',
+    'Chapter 10-16'. For ranges, returns the earliest chapter. For unparseable
+    strings (including 'next_book'), returns None.
+    """
+    if ref is None:
+        return None
+    if isinstance(ref, int):
+        return ref
+    if isinstance(ref, str):
+        match = _CHAPTER_REF_RE.search(ref)
+        if match:
+            return int(match.group(1))
+        return None
+    return None
+
+
+def _normalize_arc_type(raw) -> str | None:
+    """Coerce descriptive arc_type strings to the canonical 4-value enum.
+
+    The concept workshop captures arc types as descriptive phrases like
+    'Positive change — moves from the lie to the truth' or
+    'Flat negative — enters certain, exits certain'. The character_arcs
+    table has a strict enum: positive_change, flat, negative, disillusionment.
+    This helper extracts the canonical form from descriptive prose.
+
+    Order matters: 'flat negative' should map to 'negative' (the tragic
+    'stays in the lie' arc), not 'flat' (the world-changer arc which
+    requires the character to already hold the Truth).
+
+    Returns None if the input is empty or unrecognizable.
+    """
+    if not raw:
+        return None
+    if not isinstance(raw, str):
+        return None
+    lower = raw.strip().lower()
+    if not lower:
+        return None
+    # Exact enum match is the cleanest signal.
+    if lower in ARC_TYPES:
+        return lower
+    # Order matters: disillusionment and negative before flat/positive.
+    if "disillusionment" in lower:
+        return "disillusionment"
+    if "negative" in lower:
+        return "negative"
+    if "positive" in lower:
+        # Catches 'positive change', 'minor positive', etc.
+        return "positive_change"
+    if lower.startswith("flat"):
+        return "flat"
+    return None
 
 
 # Valid Weiland arc phases in progression order.
@@ -142,7 +204,7 @@ CREATE TABLE IF NOT EXISTS schema_migrations (
 # ------------------------------------------------------------------
 
 def _migrate_v1_to_v2(conn: sqlite3.Connection) -> None:
-    """Phase 5 migration: add character_arcs, subplot_board, hook_ledger,
+    """Phase 5 migration: add character_arcs, subplots, hooks,
     terminology_registry, propagation_debts, style_fingerprint tables."""
 
     conn.executescript("""
@@ -168,7 +230,7 @@ def _migrate_v1_to_v2(conn: sqlite3.Connection) -> None:
         FOREIGN KEY (character_id) REFERENCES characters(id)
     );
 
-    CREATE TABLE IF NOT EXISTS subplot_board (
+    CREATE TABLE IF NOT EXISTS subplots (
         subplot_id TEXT PRIMARY KEY,
         subplot_name TEXT NOT NULL,
         line_type TEXT NOT NULL CHECK(line_type IN ('A', 'B', 'C', 'D')),
@@ -184,7 +246,7 @@ def _migrate_v1_to_v2(conn: sqlite3.Connection) -> None:
         book_number INTEGER DEFAULT 1
     );
 
-    CREATE TABLE IF NOT EXISTS hook_ledger (
+    CREATE TABLE IF NOT EXISTS hooks (
         hook_id TEXT PRIMARY KEY,
         description TEXT NOT NULL,
         hook_type TEXT NOT NULL CHECK(hook_type IN (
@@ -204,7 +266,7 @@ def _migrate_v1_to_v2(conn: sqlite3.Connection) -> None:
             )),
         last_advanced_chapter INTEGER,
         mention_only_count INTEGER DEFAULT 0,
-        FOREIGN KEY (related_subplot) REFERENCES subplot_board(subplot_id)
+        FOREIGN KEY (related_subplot) REFERENCES subplots(subplot_id)
     );
 
     CREATE TABLE IF NOT EXISTS terminology_registry (
@@ -398,8 +460,14 @@ class StoryState:
         """Populate tables from a concept seed.
 
         Populates: characters, character_arcs (if weiland_arc present),
-        terminology_registry, subplot_board, hook_ledger.
-        All Phase 5 fields are optional for backward compatibility.
+        terminology_registry, subplots, hooks.
+        All Phase 5 fields are optional for consumers that don't use them.
+
+        Expects the canonical workshop-native seed format: top-level
+        ``subplots`` and ``hooks`` arrays, ``canonical_form`` or ``term``
+        for terminology entries, and chapter references that may be either
+        integers or strings like 'Chapter 1' or 'Chapter 4-5' (parsed via
+        ``_parse_chapter_ref``).
         """
         book_number = concept_seed.get("meta", {}).get("book_number", 1)
 
@@ -414,55 +482,107 @@ class StoryState:
             # Phase 5: Weiland character arc
             weiland = char.get("weiland_arc")
             if weiland:
-                self.add_character_arc(
-                    character_id=char_id,
-                    book_number=book_number,
-                    lie_believed=weiland.get("lie_believed"),
-                    ghost=weiland.get("ghost"),
-                    want=weiland.get("want"),
-                    need=weiland.get("need"),
-                    arc_type=weiland.get("arc_type"),
-                    arc_phase_targets=weiland.get("arc_phase_targets"),
-                )
+                # Normalize descriptive arc_type strings to the canonical
+                # enum (positive_change/flat/negative/disillusionment).
+                # The workshop captures these as prose; the DB has a strict
+                # CHECK constraint.
+                arc_type = _normalize_arc_type(weiland.get("arc_type"))
+                if arc_type is None:
+                    logger.warning(
+                        "Skipping character arc for '%s': arc_type '%s' "
+                        "is not recognizable. Expected one of %s or a "
+                        "descriptive phrase containing one of those keywords.",
+                        char["name"], weiland.get("arc_type"), ARC_TYPES,
+                    )
+                else:
+                    self.add_character_arc(
+                        character_id=char_id,
+                        book_number=book_number,
+                        lie_believed=weiland.get("lie_believed"),
+                        ghost=weiland.get("ghost"),
+                        want=weiland.get("want"),
+                        need=weiland.get("need"),
+                        arc_type=arc_type,
+                        arc_phase_targets=weiland.get("arc_phase_targets")
+                        or weiland.get("arc_phase_map"),
+                    )
 
         # Phase 5: Terminology registry
         for term_entry in concept_seed.get("terminology_registry", []):
+            # Accept both 'term' (canonical) and 'canonical_form' (workshop-native)
+            term_name = term_entry.get("term") or term_entry.get("canonical_form")
+            if not term_name:
+                logger.warning(
+                    "Skipping terminology entry with no 'term' or 'canonical_form': %s",
+                    term_entry,
+                )
+                continue
+            # first_appearance may be int, string ('Chapter 1'), or missing
+            first_appearance_chapter = _parse_chapter_ref(
+                term_entry.get("first_appearance")
+            )
+            # Coerce unknown categories to 'other' rather than failing the insert
+            category = term_entry.get("category", "concept")
+            if category not in TERMINOLOGY_CATEGORIES:
+                logger.debug(
+                    "Terminology category '%s' not in canonical set; storing as 'other'",
+                    category,
+                )
+                category = "other" if "other" in TERMINOLOGY_CATEGORIES else "concept"
             self.add_term(
-                term=term_entry["term"],
+                term=term_name,
                 definition=term_entry.get("definition", ""),
-                category=term_entry.get("category", "concept"),
+                category=category,
                 aliases=term_entry.get("aliases"),
-                first_appearance_chapter=term_entry.get("first_appearance"),
+                first_appearance_chapter=first_appearance_chapter,
                 book_number=book_number,
             )
 
-        # Phase 5: Subplot board
-        for subplot in concept_seed.get("subplot_board", []):
+        # Phase 5: Subplots
+        # Workshop-native format: ``subplots`` array with name/function/
+        # arc_summary/chapters_active fields. start_chapter/resolution_chapter
+        # are derived from chapters_active.
+        for subplot in concept_seed.get("subplots", []):
+            chapters_active = subplot.get("chapters_active") or []
+            start_chapter = min(chapters_active) if chapters_active else None
+            resolution_chapter = max(chapters_active) if chapters_active else None
             self.add_subplot(
                 subplot_id=subplot["subplot_id"],
-                subplot_name=subplot.get("subplot_name", subplot["subplot_id"]),
+                subplot_name=subplot.get("name") or subplot["subplot_id"],
                 line_type=subplot.get("line_type", "B"),
                 characters_involved=subplot.get("characters_involved"),
-                start_chapter=subplot.get("start_chapter"),
-                resolution_chapter=subplot.get("resolution_chapter"),
-                structural_purpose=subplot.get("structural_purpose"),
-                interweave_points=subplot.get("interweave_points"),
+                start_chapter=start_chapter,
+                resolution_chapter=resolution_chapter,
+                structural_purpose=subplot.get("function") or subplot.get("arc_summary"),
+                interweave_points=chapters_active or None,
                 current_status=subplot.get("current_status", "planned"),
                 book_number=book_number,
             )
 
-        # Phase 5: Hook map
-        for hook in concept_seed.get("hook_map", []):
+        # Phase 5: Hooks
+        # Workshop-native format: ``hooks`` array with hook_type field carrying
+        # the priority (hard/soft/series). The DB's hook_type column is a
+        # narrative classification (chekhov/foreshadow/etc.) — we default that
+        # to 'foreshadow' here and derive the DB priority column from the seed's
+        # hook_type value.
+        for hook in concept_seed.get("hooks", []):
+            seed_hook_type = hook.get("hook_type")
+            if seed_hook_type in HOOK_PRIORITIES:
+                priority = seed_hook_type
+            else:
+                priority = "soft"
+            planted_chapter = _parse_chapter_ref(hook.get("planted_in")) or 1
+            payoff_chapter = _parse_chapter_ref(hook.get("resolved_in"))
             self.add_hook(
                 hook_id=hook["hook_id"],
                 description=hook.get("description", ""),
-                hook_type=hook.get("hook_type", "foreshadow"),
-                planted_chapter=hook.get("planted_chapter", 1),
+                hook_type="foreshadow",
+                planted_chapter=planted_chapter,
                 planted_book=book_number,
-                payoff_chapter=hook.get("payoff_chapter"),
+                payoff_chapter=payoff_chapter,
                 payoff_book=hook.get("payoff_book"),
                 advancement_chapters=hook.get("advancement_chapters"),
-                priority=hook.get("priority", "soft"),
+                priority=priority,
                 related_subplot=hook.get("related_subplot"),
             )
 
@@ -934,7 +1054,7 @@ class StoryState:
     ) -> None:
         """Insert a new subplot into the subplot board."""
         self.conn.execute(
-            """INSERT INTO subplot_board
+            """INSERT INTO subplots
                (subplot_id, subplot_name, line_type, characters_involved,
                 start_chapter, resolution_chapter, structural_purpose,
                 interweave_points, current_status, book_number)
@@ -952,7 +1072,7 @@ class StoryState:
     def get_subplot(self, subplot_id: str) -> dict | None:
         """Fetch a single subplot by ID."""
         row = self.conn.execute(
-            "SELECT * FROM subplot_board WHERE subplot_id = ?", (subplot_id,)
+            "SELECT * FROM subplots WHERE subplot_id = ?", (subplot_id,)
         ).fetchone()
         if row is None:
             return None
@@ -974,13 +1094,13 @@ class StoryState:
         set_clause = ", ".join(f"{k} = ?" for k in kwargs)
         values = list(kwargs.values()) + [subplot_id]
         self.conn.execute(
-            f"UPDATE subplot_board SET {set_clause} WHERE subplot_id = ?", values
+            f"UPDATE subplots SET {set_clause} WHERE subplot_id = ?", values
         )
         self.conn.commit()
 
     def get_active_subplots(self, book_number: int | None = None) -> list[dict]:
         """Return subplots that are not resolved or abandoned."""
-        query = "SELECT * FROM subplot_board WHERE current_status NOT IN ('resolved', 'abandoned')"
+        query = "SELECT * FROM subplots WHERE current_status NOT IN ('resolved', 'abandoned')"
         params: list = []
         if book_number is not None:
             query += " AND book_number = ?"
@@ -1000,10 +1120,10 @@ class StoryState:
         """Return all subplots, optionally filtered by book."""
         if book_number is not None:
             rows = self.conn.execute(
-                "SELECT * FROM subplot_board WHERE book_number = ?", (book_number,)
+                "SELECT * FROM subplots WHERE book_number = ?", (book_number,)
             ).fetchall()
         else:
-            rows = self.conn.execute("SELECT * FROM subplot_board").fetchall()
+            rows = self.conn.execute("SELECT * FROM subplots").fetchall()
         results = []
         for row in rows:
             d = dict(row)
@@ -1034,7 +1154,7 @@ class StoryState:
     ) -> None:
         """Insert a new hook into the hook ledger."""
         self.conn.execute(
-            """INSERT INTO hook_ledger
+            """INSERT INTO hooks
                (hook_id, description, hook_type, planted_chapter, planted_book,
                 payoff_chapter, payoff_book, advancement_chapters, priority,
                 related_subplot, current_status, last_advanced_chapter, mention_only_count)
@@ -1051,7 +1171,7 @@ class StoryState:
     def get_hook(self, hook_id: str) -> dict | None:
         """Fetch a single hook by ID."""
         row = self.conn.execute(
-            "SELECT * FROM hook_ledger WHERE hook_id = ?", (hook_id,)
+            "SELECT * FROM hooks WHERE hook_id = ?", (hook_id,)
         ).fetchone()
         if row is None:
             return None
@@ -1069,7 +1189,7 @@ class StoryState:
         set_clause = ", ".join(f"{k} = ?" for k in kwargs)
         values = list(kwargs.values()) + [hook_id]
         self.conn.execute(
-            f"UPDATE hook_ledger SET {set_clause} WHERE hook_id = ?", values
+            f"UPDATE hooks SET {set_clause} WHERE hook_id = ?", values
         )
         self.conn.commit()
 
@@ -1077,10 +1197,10 @@ class StoryState:
         """Return all hooks, optionally filtered by planted_book."""
         if book_number is not None:
             rows = self.conn.execute(
-                "SELECT * FROM hook_ledger WHERE planted_book = ?", (book_number,)
+                "SELECT * FROM hooks WHERE planted_book = ?", (book_number,)
             ).fetchall()
         else:
-            rows = self.conn.execute("SELECT * FROM hook_ledger").fetchall()
+            rows = self.conn.execute("SELECT * FROM hooks").fetchall()
         results = []
         for row in rows:
             d = dict(row)
@@ -1099,7 +1219,7 @@ class StoryState:
             return True
         budget = max(1, target_chapters // 3)
         row = self.conn.execute(
-            "SELECT COUNT(*) as cnt FROM hook_ledger "
+            "SELECT COUNT(*) as cnt FROM hooks "
             "WHERE priority = 'hard' AND current_status NOT IN ('resolved', 'subverted', 'abandoned')"
         ).fetchone()
         return row["cnt"] < budget
@@ -1140,7 +1260,7 @@ class StoryState:
     def get_hook_debt(self, current_chapter: int | None = None) -> list[dict]:
         """Return hard hooks past their expected payoff chapter without resolution."""
         query = (
-            "SELECT * FROM hook_ledger "
+            "SELECT * FROM hooks "
             "WHERE priority = 'hard' "
             "AND current_status NOT IN ('resolved', 'subverted', 'abandoned') "
             "AND payoff_chapter IS NOT NULL"

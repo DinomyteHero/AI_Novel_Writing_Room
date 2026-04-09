@@ -1,0 +1,41 @@
+{
+  "chapter_number": 10,
+  "scene_number": 1,
+  "structural_phase": "response",
+  "pov_character": "Ben Skywalker",
+  "mission": "Make Veraine tangible — evidence of passage, message, Kael's calibration analysis, combat credibility established",
+  "why_now": "",
+  "opening_hook": "",
+  "conflict": "Ben vs. realization they're in a race they're losing",
+  "conflict_type": "internal",
+  "turning_point": "",
+  "closing_hook": "",
+  "characters_present": [],
+  "setting": "Former Brotherhood of Darkness outpost, Outer Rim",
+  "sensory_details": "",
+  "emotional_trajectory": "",
+  "plot_threads_advanced": [],
+  "promises_planted": [],
+  "promises_paid": [],
+  "canon_elements_needed": [],
+  "target_word_count": 3750,
+  "notes": "Time: Continuing journey\nThematic beat: The enemy is a mirror. Cross-traditional understanding is necessary and costly.\nOriginal scene_outcome: Group accelerates timeline. Veraine established as methodical, ahead, and physically dangerous. Kael recognizes Sith tradecraft. The Sith outpost humanizes the Brotherhood.",
+  "active_subplots": [
+    "SP2",
+    "SP4",
+    "SP5"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "H07",
+      "action": "resolve"
+    },
+    {
+      "hook_id": "H10",
+      "action": "plant"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "Response — external threat becomes real",
+  "scene_type": "action"
+}

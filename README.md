@@ -27,8 +27,8 @@ export OPENROUTER_API_KEY=your_key_here
 ### Run the CLI Pipeline
 
 ```bash
-python -m src.main data/story_bibles/beyond_the_veil/concept_seed.json \
-    data/story_bibles/beyond_the_veil/scene_cards \
+python -m src.main data/story_bibles/the_ruusan_atonement/concept_seed.json \
+    data/story_bibles/the_ruusan_atonement/scene_cards \
     --phase 4
 ```
 
@@ -39,7 +39,7 @@ python -m src.main data/story_bibles/beyond_the_veil/concept_seed.json \
 cd src/ui/frontend && npm install && npm run build && cd ../../..
 
 # Start the server
-python -m src.ui.server data/story_bibles/beyond_the_veil/concept_seed.json
+python -m src.ui.server data/story_bibles/the_ruusan_atonement/concept_seed.json
 ```
 
 Open http://localhost:8000 in your browser.

@@ -110,52 +110,43 @@ def phase5_concept_seed(tmp_path):
         "voice_definition": {
             "pov_approach": "rotating close third-person limited",
             "prose_register": "commercial dark fantasy",
-            "anti_slop": {
-                "banned_words": ["delve", "tapestry", "nuanced"],
-                "banned_phrases": ["It wasn't just X, it was Y"],
-            },
+            "anti_slop_rules": [
+                "Never use 'delve', 'tapestry', or 'nuanced'",
+                "Never use 'It wasn't just X, it was Y'",
+            ],
             "anti_patterns": ["Every chapter opening with weather"],
             "narrative_voice_notes": "Lean prose. Short paragraphs in action, longer in introspection.",
         },
-        "subplot_board": [
+        "subplots": [
             {
                 "subplot_id": "main_plot",
-                "subplot_name": "Seal the Void breach",
+                "name": "Seal the Void breach",
                 "line_type": "A",
-                "characters_involved": ["Kael", "Lyra"],
-                "start_chapter": 1,
-                "resolution_chapter": 25,
-                "structural_purpose": "Main dramatic throughline",
-                "interweave_points": [1, 5, 10, 15, 20, 25],
+                "function": "Main dramatic throughline",
+                "chapters_active": [1, 5, 10, 15, 20, 25],
             },
             {
                 "subplot_id": "trust_arc",
-                "subplot_name": "Kael and Lyra's trust",
+                "name": "Kael and Lyra's trust",
                 "line_type": "B",
-                "characters_involved": ["Kael", "Lyra"],
-                "start_chapter": 2,
-                "resolution_chapter": 23,
-                "structural_purpose": "Tests the theme of vulnerability",
-                "interweave_points": [3, 8, 13, 18, 23],
+                "function": "Tests the theme of vulnerability",
+                "chapters_active": [2, 3, 8, 13, 18, 23],
             },
         ],
-        "hook_map": [
+        "hooks": [
             {
                 "hook_id": "morreth_identity",
                 "description": "The herald of the Void is Kael's former mentor",
-                "hook_type": "mystery_question",
-                "planted_chapter": 2,
-                "payoff_chapter": 13,
-                "priority": "hard",
-                "related_subplot": "main_plot",
+                "hook_type": "hard",
+                "planted_in": "Chapter 2",
+                "resolved_in": "Chapter 13",
             },
             {
                 "hook_id": "academy_secret",
                 "description": "The Academy created the original Void breach",
-                "hook_type": "foreshadow",
-                "planted_chapter": 4,
-                "payoff_chapter": 20,
-                "priority": "hard",
+                "hook_type": "hard",
+                "planted_in": "Chapter 4",
+                "resolved_in": "Chapter 20",
             },
         ],
         "terminology_registry": [
@@ -195,7 +186,7 @@ class TestConceptSeedToStoryState:
         state.close()
 
     def test_init_from_seed_creates_subplots(self, phase5_concept_seed, tmp_path):
-        """init_from_concept_seed populates subplot_board table."""
+        """init_from_concept_seed populates subplots table."""
         seed, _ = phase5_concept_seed
         state = StoryState(db_path=str(tmp_path / "state.db"))
         state.init_from_concept_seed(seed)
@@ -205,10 +196,15 @@ class TestConceptSeedToStoryState:
         ids = {s["subplot_id"] for s in subplots}
         assert "main_plot" in ids
         assert "trust_arc" in ids
+        # The main_plot subplot's chapters_active are [1, 5, 10, 15, 20, 25],
+        # so start_chapter should derive to 1 and resolution_chapter to 25.
+        main = state.get_subplot("main_plot")
+        assert main["start_chapter"] == 1
+        assert main["resolution_chapter"] == 25
         state.close()
 
     def test_init_from_seed_creates_hooks(self, phase5_concept_seed, tmp_path):
-        """init_from_concept_seed populates hook_ledger table."""
+        """init_from_concept_seed populates hooks table."""
         seed, _ = phase5_concept_seed
         state = StoryState(db_path=str(tmp_path / "state.db"))
         state.init_from_concept_seed(seed)
@@ -218,6 +214,12 @@ class TestConceptSeedToStoryState:
         ids = {h["hook_id"] for h in hooks}
         assert "morreth_identity" in ids
         assert "academy_secret" in ids
+        # Workshop-native hook_type "hard" maps to DB priority "hard";
+        # DB hook_type defaults to "foreshadow".
+        morreth = state.get_hook("morreth_identity")
+        assert morreth["priority"] == "hard"
+        assert morreth["planted_chapter"] == 2
+        assert morreth["payoff_chapter"] == 13
         state.close()
 
     def test_init_from_seed_creates_terminology(self, phase5_concept_seed, tmp_path):

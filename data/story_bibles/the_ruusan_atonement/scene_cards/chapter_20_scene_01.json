@@ -1,0 +1,42 @@
+{
+  "chapter_number": 20,
+  "scene_number": 1,
+  "structural_phase": "attack",
+  "pov_character": "Ben Skywalker",
+  "mission": "Arrive at Veranthos. Establish the wound source physically. Final preparations. Torin's longing visible.",
+  "why_now": "",
+  "opening_hook": "",
+  "conflict": "Ben vs. overwhelming scale of the primary wound",
+  "conflict_type": "internal",
+  "turning_point": "",
+  "closing_hook": "",
+  "characters_present": [],
+  "setting": "Veranthos system; orbit and descent",
+  "sensory_details": "",
+  "emotional_trajectory": "",
+  "plot_threads_advanced": [],
+  "promises_planted": [],
+  "promises_paid": [],
+  "canon_elements_needed": [],
+  "target_word_count": 3750,
+  "notes": "Time: Hours before climax\nThematic beat: Every character carrying their full weight into the climax\nOriginal scene_outcome: Group lands on Veranthos. Veraine already at the wound source. Final conversations. Torin's expression: longing. Ben knows the turn is coming — hours, not days.",
+  "active_subplots": [
+    "SP1",
+    "SP2",
+    "SP3",
+    "SP5"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "H19",
+      "action": "resolve"
+    },
+    {
+      "hook_id": "H20",
+      "action": "plant"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "Attack — the final approach",
+  "scene_type": "action"
+}

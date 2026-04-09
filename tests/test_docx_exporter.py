@@ -14,7 +14,7 @@ from src.export.docx_exporter import DocxExporter
 def sample_md():
     """Sample assembled markdown for testing."""
     return (
-        "# Beyond the Veil\n\n"
+        "# Test Story\n\n"
         "*A Star Wars Novel*\n\n"
         "---\n\n"
         "## Table of Contents\n\n"
@@ -37,7 +37,7 @@ def sample_md():
 def seed():
     return {
         "meta": {
-            "project_title": "Beyond the Veil",
+            "project_title": "Test Story",
             "franchise": "Star Wars",
         }
     }
@@ -61,7 +61,7 @@ class TestDocxExporter:
         doc = docx.Document(output)
         # Find title in paragraphs
         texts = [p.text for p in doc.paragraphs]
-        assert any("Beyond the Veil" in t for t in texts)
+        assert any("Test Story" in t for t in texts)
 
     def test_docx_has_chapter_headings(self, sample_md, seed, temp_dir):
         exporter = DocxExporter(concept_seed=seed)

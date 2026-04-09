@@ -82,27 +82,32 @@ class OutlinePlanner(BaseAgent):
                 parts.append(f"- {phase}: {desc}")
             parts.append("")
 
-        # Phase 5: Subplot board
-        subplot_board = seed.get("subplot_board", [])
-        if subplot_board:
-            parts.append("## Subplot Board")
-            for sub in subplot_board:
-                parts.append(
-                    f"- [{sub.get('line_type', '?')}-line] {sub.get('subplot_name', sub.get('subplot_id', ''))}: "
-                    f"{sub.get('structural_purpose', '')}"
-                )
+        # Phase 5: Subplots (workshop-native format)
+        subplots = seed.get("subplots") or []
+        if subplots:
+            parts.append("## Subplots")
+            for sub in subplots:
+                line_type = sub.get("line_type", "?")
+                name = sub.get("name") or sub.get("subplot_id", "")
+                purpose = sub.get("function") or sub.get("arc_summary", "")
+                parts.append(f"- [{line_type}-line] {name}: {purpose}")
             parts.append("")
 
-        # Phase 5: Hook map
-        hook_map = seed.get("hook_map", [])
-        if hook_map:
-            parts.append("## Hook Map")
-            for hook in hook_map:
-                payoff = hook.get("payoff_chapter", "TBD")
+        # Phase 5: Hooks (workshop-native format)
+        hooks = seed.get("hooks") or []
+        if hooks:
+            parts.append("## Hooks")
+            for hook in hooks:
+                # Workshop-native format: hook_type carries the priority
+                # (hard/soft/series).
+                priority = hook.get("hook_type", "soft")
+                hook_id = hook.get("hook_id", "")
+                description = hook.get("description", "")
+                plant = hook.get("planted_in") or "?"
+                payoff = hook.get("resolved_in") or "TBD"
                 parts.append(
-                    f"- [{hook.get('priority', 'soft')}] {hook.get('hook_id', '')}: "
-                    f"{hook.get('description', '')} (plant ch{hook.get('planted_chapter', '?')}, "
-                    f"payoff ch{payoff})"
+                    f"- [{priority}] {hook_id}: {description} "
+                    f"(plant {plant}, payoff {payoff})"
                 )
             parts.append("")
 

@@ -141,6 +141,17 @@ Present seeds as lettered options (A, B, C, D, E). Keep each to 3–4 sentences 
 
 If the human pitches their own idea instead, accept it and proceed to Step 3.
 
+**Iterative Premise Exploration**
+
+The human may request multiple rounds of premise generation before committing. This is encouraged. Effective approaches include:
+
+- **Genre cross-pollination**: "Give me options inspired by [other franchise/genre]" — pulling structural templates from Star Trek, Stargate, Battlestar Galactica, Halo, or other sci-fi and blending them with the target franchise.
+- **Historical frameworks**: "Give me options based on classical history" — using real historical patterns (empire collapse, political reform, military expedition, cultural contact) as structural skeletons for fictional narratives.
+- **Blending rounds**: "Combine elements from options X and Y" — taking the strongest elements from multiple pitches and synthesizing them.
+- **Scale adjustment**: "Make it simpler" or "make it more ambitious" — recalibrating scope after initial pitches reveal the human's preferences.
+
+The facilitator should offer honest recommendations about which options are structurally strongest, but ultimately follow the human's creative instinct. Multiple rounds of exploration before commitment produce stronger concepts than quick selection from a single batch.
+
 **For series books (Book 2+):** Seeds must organically continue from the previous book's end-state. They must advance the series dramatic question and honor series promises due in this installment.
 
 ---
@@ -234,30 +245,27 @@ For each POV character, define all of the following:
   - `negative` — Character rejects the Truth and doubles down on the Lie (tragedy/corruption arc)
   - `disillusionment` — Character moves from a positive Lie to a painful Truth (bittersweet arc)
 
-- **arc_phase_targets**: Map the character's arc progression to Brooks's four-part structure:
-  - `part_1_setup`: How the Lie manifests in the character's normal world. What symptoms of the Lie are visible? What does the Want look like in concrete terms?
-  - `first_plot_point`: The event that forces the character into a situation where the Lie will be tested. The character enters the conflict still fully believing the Lie.
-  - `part_2_response`: The character reacts to the new situation through the lens of the Lie. Early failures stem from the Lie. The character begins to encounter evidence against the Lie but resists or rationalizes.
-  - `midpoint`: The Moment of Truth. The character glimpses the Need for the first time. For positive arcs, this is a partial awakening. For negative arcs, this is where the character most clearly sees the Truth and begins to consciously reject it.
-  - `part_3_attack`: The character begins to act on the Need (positive) or actively suppress it (negative). Internal conflict intensifies. The character oscillates between Lie and Truth.
-  - `second_plot_point`: The low point. The character faces the full cost of the Lie. Everything the Want was supposed to achieve has failed or is about to. The character must choose.
-  - `part_4_resolution`: The character either embraces the Need and acts from Truth (positive/flat), or fully commits to the Lie (negative). The climactic choice embodies this decision.
+- **arc_summary** (optional): A descriptive phrase elaborating on the arc — e.g., "moves from self-reliance as safety to collective trust as strength". Complements the strict `arc_type` enum with prose that captures the specific texture of this character's journey.
 
-#### Voice Notes
-Specific instructions for how this character speaks and thinks:
-- Sentence structure tendencies (short and punchy? long and analytical?)
-- Vocabulary constraints (technical jargon? colloquial? formal?)
-- Signature patterns (humor style, verbal tics, internal monologue tendencies)
-- **AVOID list**: What this character would NEVER say or think
+- **arc_phase_map**: Map the character's arc progression to specific chapters. The canonical six-phase keyset is:
+  - `lie_established`: The chapter where the reader first sees the character operating from the Lie. For positive arcs, this is usually the opening chapter.
+  - `lie_reinforced`: A later chapter where an event deepens or validates the Lie — the character doubles down because it "worked".
+  - `lie_challenged`: The chapter where something credible contradicts the Lie for the first time. The character may resist or rationalize, but the evidence lands.
+  - `moment_of_truth`: The Midpoint-adjacent chapter where the character glimpses the Need. For positive arcs, a partial awakening. For negative arcs, a conscious rejection.
+  - `new_truth_demonstrated`: A later chapter where the character acts from the Need (positive) or commits to the Lie (negative). Usually during the Attack phase.
+  - `arc_resolved`: The final chapter where the arc lands. For positive arcs, the character embodies the Truth. For negative arcs, the Lie's consequences come due.
+
+  Tragic and flat arcs may use variant phase names (e.g., `lie_deepened`, `point_of_no_return`, `lie_acted_upon`, `lie_consequence`, `lie_tested`, `lie_unchanged`). The schema accepts any string keys under `arc_phase_map`.
 
 #### Arc-Theme Connection
-How this character's arc tests the thematic premise differently from the other POV characters. Each POV character must test the theme from a unique angle.
+How this character's arc tests the thematic premise differently from the other POV characters. Each POV character must test the theme from a unique angle. (Character-level voice guidance moves to Step 5 under `voice_definition.character_voices`.)
 
 **VALIDATION RULES — Do NOT proceed past Step 4 until ALL of these pass:**
 - Every POV character has `lie_believed`, `need`, `want`, and `arc_type` defined.
+- `arc_type` is one of the canonical enum values: `positive_change`, `flat`, `negative`, `disillusionment`.
 - For each POV character, the Lie and the Need are logically opposed (the Need directly contradicts or resolves the Lie).
 - No two POV characters share the same Lie. (Similar lies in the same thematic territory are acceptable only if they are meaningfully distinct — e.g., "vulnerability is weakness" vs. "vulnerability is manipulation.")
-- Every POV character has `arc_phase_targets` mapped to all seven structural beats.
+- Every POV character has `arc_phase_map` with chapter references for all required phases.
 - For `flat` arc characters: instead of `lie_believed`, define the **truth_held** — the truth they embody — and the **world_lie** — the false belief the world around them holds that the character will challenge.
 - No two POV characters test the theme in the same way.
 
@@ -285,7 +293,7 @@ Define the novel's prose identity. Work through each element:
    - Scene-to-sequel ratio preference (action-heavy vs. reflection-heavy vs. balanced)
    - Cliffhanger frequency (every chapter? only at part boundaries? rarely?)
 
-5. **Anti-slop rules review**: Present the project's anti-slop rules (if defined in the style configuration) and ask the human to review them. These are words, phrases, and patterns that the prose generation agents are forbidden from using. Ask: "Are there any additional words or phrases you find overused or want banned from this project?"
+5. **Anti-slop rules**: Present the project's anti-slop rules (if any are pre-defined in the style configuration) and ask the human to review them. These are a FLAT LIST of rule strings — each entry is a complete instruction like `"Never use 'a sense of' or 'a feeling of' — describe the sensation directly"`. Ask: "Are there any additional rules you want enforced for this project?" Global anti-slop rules from `config/negative_constraints.yaml` are merged in automatically.
 
 6. **Anti-pattern rules**: Define structural anti-patterns for the prose. Examples:
    - No "As you know, Bob" exposition
@@ -294,9 +302,15 @@ Define the novel's prose identity. Work through each element:
    - No convenient eavesdropping as a primary information-delivery mechanism
    Ask the human if they have additional anti-patterns to enforce.
 
-7. **Narrative voice notes**: Compile a free-form voice memo that captures anything not covered above — the *feel* of the prose, specific dos and don'ts, tonal guardrails. This becomes a reference document for all prose-generating agents downstream.
+7. **Character voices**: For each main character, capture a prose-level description of how they speak and think. This is a dict keyed by character name: each value is a free-form description of internal monologue, dialogue cadence, humor style, and verbal tics. This replaces the old per-character `voice_notes` field.
 
-Record all outputs as the **Voice Profile** for this book.
+8. **Reference authors**: Ask for 2–4 authors or specific books whose prose style the human admires or wants to evoke. For each, capture both what to emulate (sentence rhythm? imagery density? dialogue-to-narration ratio?) AND what to avoid (common failure modes of that author). The reference_authors output is a list of objects: `{author, what_to_emulate, what_to_avoid}`.
+
+9. **Force / magic description guidelines** (optional, for Force or magic-system fiction): Capture the phenomenological rules for how the system is described from a character's interior experience. Example: "Structured Force perceived as textured and directional; de-structured Force perceived as formless, 'like losing color vision'." This field is optional for realist/literary fiction.
+
+10. **Narrative voice notes**: Compile a free-form voice memo that captures anything not covered above — the *feel* of the prose, specific dos and don'ts, tonal guardrails.
+
+Record all outputs as the **Voice Definition** for this book (schema field: `voice_definition`).
 
 ---
 
@@ -336,28 +350,29 @@ For each part, define:
 - What the reader knows vs. what the characters know (dramatic irony opportunities)
 - Approximate chapter range
 
-Map each POV character's `arc_phase_targets` from Step 4 onto the structural outline. Verify alignment — if a character's midpoint revelation doesn't coincide with the structural midpoint (within a chapter or two), flag it and discuss with the human.
+Map each POV character's `arc_phase_map` from Step 4 onto the structural outline (schema field: `structural_notes.brooks_alignment`). Verify alignment — if a character's moment of truth doesn't coincide with the structural midpoint (within a chapter or two), flag it and discuss with the human.
 
 ---
 
-### Step 7 — Subplot Architecture + Hook Map
+### Step 7 — Subplots, Hooks, and Revelations
 
 **HARD VALIDATION GATE**
 
-This step builds three interconnected systems that ensure narrative cohesion.
+This step builds three interconnected systems that ensure narrative cohesion. The schema field names are `subplots`, `hooks`, and `revelation_schedule`.
 
-#### 7a — Subplot Board
+#### 7a — Subplots
 
 For each subplot, define:
 - **subplot_id**: Short identifier (e.g., "romance-kael-lira", "political-succession", "mystery-artifact")
+- **name**: Human-readable subplot title.
 - **line_type**: Classify as:
   - **A-line**: The primary plot. There is exactly one. It carries the central dramatic question.
   - **B-line**: Major subplot. Directly entangled with the A-line; its resolution affects the A-line's outcome. Typically 1–2.
   - **C-line**: Supporting subplot. Provides thematic counterpoint, character development, or world-building. May intersect with A/B lines at key moments. Typically 1–3.
   - **D-line**: Minor thread. A running element (recurring joke, background political situation, minor character's side quest) that adds texture. Brief appearances only. Typically 0–2.
-- **characters**: Which characters are involved in this subplot.
-- **lifecycle**: When does this subplot enter the narrative (chapter or part), when does it peak, and when does it resolve? Subplots should not all resolve simultaneously unless that is a deliberate structural choice.
-- **thematic_connection**: How this subplot relates to the book's thematic argument.
+- **function**: Narrative purpose — how this subplot advances the story (e.g., "Main dramatic throughline" for the A-line, "Tests the theme of vulnerability" for a thematic B-line).
+- **arc_summary**: A brief prose description of how the subplot arcs from first appearance to resolution.
+- **chapters_active**: Array of chapter numbers where this subplot is present or advancing. Derive `start_chapter` as `min(chapters_active)` and `resolution_chapter` as `max(chapters_active)`.
 
 **Subplot Validation Rules:**
 - There is exactly one A-line.
@@ -365,15 +380,15 @@ For each subplot, define:
 - No subplot is active for fewer than 3 chapters (if it's that brief, it's a scene element, not a subplot — reclassify or expand it).
 - At least one subplot provides thematic counterpoint to the A-line (tests the theme from the opposite direction).
 
-#### 7b — Hook Map
+#### 7b — Hooks
 
 Define and track all narrative hooks (questions, mysteries, tensions, promises) across the book.
 
 For each hook:
 - **hook_id**: Short identifier
 - **hook_type**: `hard` (must be explicitly resolved), `soft` (tension that may dissipate naturally), or `series` (bridges to next book; series only)
-- **planted_in**: Chapter or scene where the hook is introduced
-- **resolved_in**: Chapter or scene where the hook is paid off (or "next_book" for series hooks)
+- **planted_in**: Chapter where the hook is introduced (integer or string like "Chapter 5")
+- **resolved_in**: Chapter where the hook is paid off (or `"next_book"` for series hooks)
 - **description**: What the hook is
 
 **Hook Budget — Admission Control:**
@@ -382,7 +397,7 @@ The novel has a hard hook budget to prevent hook bloat:
 - Soft hooks have no hard cap but should not exceed 2x the hard hook budget.
 - Series hooks are limited to a maximum of 3 per book.
 
-**Enforcement rule for downstream agents**: The ProseStylist agent (and any other prose-generating agent) **cannot plant new hard hooks** that are not registered in this Hook Map. If a prose agent discovers during drafting that a new hook is needed, it must flag it for registration before planting it.
+**Enforcement rule for downstream agents**: The ProseStylist agent (and any other prose-generating agent) **cannot plant new hard hooks** that are not registered in this list. If a prose agent discovers during drafting that a new hook is needed, it must flag it for registration before planting it.
 
 #### 7c — Revelation Schedule
 
@@ -403,11 +418,11 @@ Order revelations chronologically and verify:
 - Each revelation triggers meaningful consequences (character decisions change, stakes shift, alliances realign).
 
 **VALIDATION RULES — Do NOT proceed past Step 7 until ALL of these pass:**
-- Subplot Board has exactly one A-line.
+- Subplots have exactly one A-line.
 - Every named character (non-cameo) appears in at least one subplot.
 - No subplot is active fewer than 3 chapters.
 - Hook budget is not exceeded.
-- Every hard hook has a defined resolution point.
+- Every hard hook has a defined `resolved_in` chapter.
 - Every series hook (if any) is registered in the series promises.
 - Revelation schedule (if applicable) has no orphaned revelations (revelations that lack necessary prior setup).
 
@@ -430,7 +445,7 @@ Build a scene card for every chapter (or every scene, if the human prefers finer
 - **subplot_references**: Which subplots from the Subplot Board (Step 7a) are active in this scene. List by `subplot_id`.
 - **hook_references**: Which hooks from the Hook Map (Step 7b) are planted or resolved in this scene. List by `hook_id` with action (`plant` or `resolve`).
 - **revelation_references**: Which revelations from the Revelation Schedule (Step 7c) occur in this scene. List by `revelation_id`.
-- **arc_phase**: For the POV character, which phase of their Weiland arc is active in this scene (from Step 4 `arc_phase_targets`).
+- **arc_phase**: For the POV character, which phase of their Weiland arc is active in this scene (from Step 4 `arc_phase_map`).
 - **thematic_beat**: How this scene engages with the thematic argument (even if subtly).
 - **estimated_word_count**: Target word count for this scene/chapter.
 
@@ -473,6 +488,16 @@ The Terminology Registry is a living document — it can be updated during draft
 
 This is the final quality gate before the concept is declared pipeline-ready. You will conduct a devil's advocate pass, actively trying to break the concept.
 
+**Pre-Test Compliance Check**
+
+Before running the stress test, verify all eleven steps have been formally addressed. If any step was skipped during organic development, address it now. Common gaps when development is organic:
+
+- **Step 5 (Voice Discovery)** is frequently skipped when creative momentum carries from character creation directly into structural outline. Check for it explicitly.
+- **Step 9 (Terminology Registry)** is sometimes deferred. Ensure it's complete before the stress test, as terminology drift is one of the most common pipeline failures.
+- **Hook admission control** (Step 7b) may not have been formally calculated if hooks were developed organically alongside scene cards. Verify the budget.
+
+Flag any gaps to the human: "Before we stress test, I need to note that we haven't formally covered [Step X]. Let's address that now — it'll take [estimated time]."
+
 Run the following tests:
 
 #### Structural Tests
@@ -506,19 +531,51 @@ Run the following tests:
 - Does at least one character's arc argue AGAINST the thematic premise (providing counterargument)?
 - Is the theme resolved through action in the climax (not through dialogue, narration, or epilogue monologue)?
 
+#### Conflict Architecture Tests
+- Is there a specific, named antagonistic force with concrete motivation (not "something bad might happen")?
+- Are the stakes visceral and personal, not just cosmic or abstract?
+- Does the antagonist escalate across the four parts, not just appear-vanish-reappear?
+- Are secondary pressures (internal, interpersonal, environmental) distinct from the primary antagonist?
+- Can the antagonist's plan be defeated by a simpler solution the characters haven't tried?
+
+#### Pacing and Proportion Tests
+- Are the four parts roughly proportional (20-25% / 25% / 25% / 25-30%)?
+- Is the midpoint at the actual structural midpoint (within a chapter or two)?
+- Are there dead zones where nothing is changing — no new information, no new conflict, no character progression?
+- Are action and sequel scenes balanced, or is the story front-loaded / back-loaded?
+- Does the total target word count across scene cards match the book's target (within 20%)?
+
+#### Lore and Continuity Tests (franchise fiction only)
+- Does the story fit within the established canon/AU framework without contradictions?
+- Are original elements (characters, locations, events, Force concepts) plausible within the franchise's established rules?
+- Are existing canon characters portrayed consistently with their established characterization?
+- Has a full timeline check been performed to verify all dates are internally consistent and compatible with canon?
+- Are original Force concepts (if any) clearly distinguished from existing canon concepts?
+- If AU divergences exist, are they clearly defined and consistently applied?
+
+#### World-Building Coherence Tests
+- Are all original locations physically and ecologically plausible within the setting?
+- Are communication, transportation, and logistics internally consistent?
+- Do technology levels, political structures, and cultural details align with the established era?
+- Are there any "convenience" world-building elements that exist only to serve the plot without in-universe justification?
+
 **Scoring:**
 
-Rate the concept on five dimensions, each scored 1–10:
+Rate the concept on nine dimensions, each scored 1–10. Two dimensions are conditional: `lore_and_continuity` is `null` for original-setting projects, and `series_coherence` is `null` for standalone projects.
 
 | Dimension | What it measures |
 |-----------|-----------------|
-| **Structural Integrity** | Plot architecture, pacing, proportionality, climax payoff |
-| **Character Depth** | Arc specificity, Lie/Need opposition, voice distinctiveness |
-| **Hook Discipline** | Hook budget adherence, plant/payoff tracking, revelation spacing |
-| **Thematic Resonance** | Theme-plot integration, multi-angle testing, climactic embodiment |
-| **Series Coherence** (series only, else N/A) | Cross-book escalation, promise tracking, question differentiation |
+| **Structural Integrity** | Plot architecture, pacing milestones, proportionality, climax payoff |
+| **Character Depth** | Arc specificity, Lie/Need opposition, voice distinctiveness, moment-of-truth earning |
+| **Hook Discipline** | Hook budget adherence, plant/payoff tracking, revelation spacing, fair-play test |
+| **Thematic Resonance** | Theme-plot integration, multi-angle testing, counterargument presence, climactic embodiment through action |
+| **Conflict Architecture** | Antagonist specificity, stakes visceral-ness, escalation across parts, secondary pressures, defeatability by simple solution |
+| **Pacing and Proportion** | Four-part proportionality, midpoint placement, dead-zone absence, action/sequel balance, word count target alignment |
+| **Lore and Continuity** (franchise only, else `null`) | Canon compatibility, original-element plausibility, character consistency, timeline integrity, AU divergence discipline |
+| **World-Building Coherence** | Location plausibility, logistics consistency, technology/culture/era alignment, absence of convenience elements |
+| **Series Coherence** (series only, else `null`) | Cross-book escalation, promise tracking, dramatic question differentiation, stand-alone readability |
 
-Calculate the **overall score** as the average of applicable dimensions (4 dimensions for standalones, 5 for series).
+Calculate the **overall score** as the average of non-null dimensions (e.g. 8 dimensions for an original-setting standalone, 9 for a franchise series book).
 
 **Decision:**
 - **Overall >= 7.0**: Present the score card and declare the concept pipeline-ready. Proceed to Concept Seed JSON generation.
@@ -541,28 +598,33 @@ The JSON must conform to the following structure:
     "project_scope": "standalone | planned_series | continuation",
     "franchise": "string",
     "canon_status": "canon_compliant | AU | original",
+    "canon_status_description": "string (optional) — descriptive prose elaborating on canon_status",
     "era": "string",
-    "tone": "string",
+    "tone": "dark_gritty | adventurous_hopeful | political_intrigue | character_study | heroic_with_weight",
+    "tone_description": "string (optional) — descriptive prose for tonal blends",
     "target_word_count": "integer (40000-120000)",
     "target_chapters": "integer (15-40)",
     "pov_structure": "string",
-    "series_seed_ref": "string | null (reference to series seed document if applicable)"
+    "book_number": "integer (optional, for series books)",
+    "series": {
+      "series_id": "string (optional)",
+      "book_number": "integer (optional)"
+    }
   },
   "premise": {
     "what_if": "string (min 50 chars)",
     "central_dramatic_question": "string (yes/no answerable)",
-    "logline": "string (max 500 chars)",
-    "hook_classification": "hard | soft | series"
+    "logline": "string (max 500 chars)"
   },
   "conflict": {
     "primary_antagonistic_force": {
       "type": "string",
-      "identity": "string",
+      "identity": "string (optional)",
       "motivation": "string (min 50 chars)",
       "escalation": "string — how the antagonist escalates across 4 parts (min 100 chars)"
     },
-    "secondary_pressures": ["string array"],
-    "lock_in_mechanism": "string — what prevents the protagonist from walking away"
+    "secondary_pressures": ["string array (min 1 entry)"],
+    "lock_in_mechanism": "string — what prevents the protagonist from walking away (min 30 chars)"
   },
   "theme": {
     "thematic_premise": "string — one sentence debatable argument",
@@ -571,47 +633,59 @@ The JSON must conform to the following structure:
       "character_name": "string — how their arc tests the theme"
     }
   },
+  "protagonist_arc_type": "change | steadfast | fall | rise",
   "ensemble_cast": [
     {
       "name": "string",
       "role": "string — their function in the story",
       "age": "string",
+      "force_status": "string (optional, for Force-sensitive fiction)",
       "three_dimensions": {
         "surface": "string (min 50 chars)",
         "backstory_inner_demons": "string (min 50 chars)",
         "action_under_pressure": "string (min 50 chars)"
       },
       "weiland_arc": {
-        "lie_believed": "string (min 50 chars) — or truth_held for flat arcs",
-        "ghost": "string (min 50 chars)",
-        "want": "string (min 30 chars)",
-        "need": "string (min 30 chars) — or world_lie for flat arcs",
+        "lie_believed": "string (min 30 chars) — or truth_held for flat arcs",
+        "ghost": "string (min 30 chars)",
+        "want": "string (min 20 chars)",
+        "need": "string (min 20 chars) — or world_lie for flat arcs",
         "arc_type": "positive_change | flat | negative | disillusionment",
-        "arc_phase_targets": {
-          "part_1_setup": "string",
-          "first_plot_point": "string",
-          "part_2_response": "string",
-          "midpoint": "string",
-          "part_3_attack": "string",
-          "second_plot_point": "string",
-          "part_4_resolution": "string"
+        "arc_summary": "string (optional) — descriptive prose elaborating on the arc",
+        "arc_phase_map": {
+          "lie_established": "string (chapter/part reference)",
+          "lie_reinforced": "string",
+          "lie_challenged": "string",
+          "moment_of_truth": "string",
+          "new_truth_demonstrated": "string",
+          "arc_resolved": "string"
         }
-      },
-      "voice_notes": "string (min 30 chars)"
+      }
     }
   ],
-  "voice_profile": {
+  "force_mechanics": {
+    "primary_rule": "string (optional)",
+    "implications": ["string array (optional)"],
+    "canon_grounding": "string (optional)"
+  },
+  "voice_definition": {
     "pov_approach": "string",
     "prose_register": "string",
-    "reference_authors": ["string array"],
-    "pacing_feel": {
-      "chapter_length_target": "string",
-      "scene_sequel_ratio": "string",
-      "cliffhanger_frequency": "string"
+    "reference_authors": [
+      {
+        "author": "string",
+        "what_to_emulate": "string",
+        "what_to_avoid": "string"
+      }
+    ],
+    "character_voices": {
+      "character_name": "string — how this character speaks and thinks"
     },
-    "anti_slop_additions": ["string array"],
-    "anti_patterns": ["string array"],
-    "narrative_voice_notes": "string"
+    "anti_slop_rules": ["flat list of rule strings"],
+    "anti_patterns": ["flat list of structural anti-patterns"],
+    "force_description_guidelines": "string (optional, for genre-specific phenomenology)",
+    "pacing_feel": "string (optional)",
+    "narrative_voice_notes": "string (optional)"
   },
   "canon_constraints": {
     "continuity": "string",
@@ -620,7 +694,7 @@ The JSON must conform to the following structure:
     "canon_overridden": ["string array (if AU)"],
     "style_constraints": ["string array"]
   },
-  "structural_outline": {
+  "structural_notes": {
     "brooks_alignment": {
       "part_1_setup": "string",
       "first_plot_point": "string",
@@ -631,25 +705,22 @@ The JSON must conform to the following structure:
       "part_4_resolution": "string"
     }
   },
-  "subplot_board": [
+  "subplots": [
     {
       "subplot_id": "string",
+      "name": "string — human-readable subplot title",
       "line_type": "A | B | C | D",
-      "characters": ["string array"],
-      "lifecycle": {
-        "enters": "string (chapter/part)",
-        "peaks": "string (chapter/part)",
-        "resolves": "string (chapter/part)"
-      },
-      "thematic_connection": "string"
+      "function": "string — narrative purpose",
+      "arc_summary": "string — how the subplot arcs across the book",
+      "chapters_active": ["integer array of chapter numbers where the subplot is active"]
     }
   ],
-  "hook_map": [
+  "hooks": [
     {
       "hook_id": "string",
       "hook_type": "hard | soft | series",
-      "planted_in": "string (chapter/scene)",
-      "resolved_in": "string (chapter/scene or next_book)",
+      "planted_in": "integer or string (e.g., 'Chapter 5')",
+      "resolved_in": "integer or string or 'next_book' for series hooks",
       "description": "string"
     }
   ],
@@ -657,9 +728,9 @@ The JSON must conform to the following structure:
     {
       "revelation_id": "string",
       "what": "string",
-      "known_by": ["string array"],
-      "revealed_to": ["string array"],
-      "revealed_in": "string (chapter/scene)",
+      "known_by": ["string array of character names"],
+      "revealed_to": ["string array of character names or 'reader'"],
+      "revealed_in": "integer or string (e.g., 'Chapter 5')",
       "impact": "string",
       "setup_required": "string"
     }
@@ -679,7 +750,7 @@ The JSON must conform to the following structure:
       "hook_references": [
         {
           "hook_id": "string",
-          "action": "plant | resolve"
+          "action": "plant | advance | resolve | subvert"
         }
       ],
       "revelation_references": ["string array of revelation_ids"],
@@ -690,12 +761,22 @@ The JSON must conform to the following structure:
   ],
   "terminology_registry": [
     {
-      "canonical_form": "string",
+      "canonical_form": "string (preferred) or 'term'",
       "aliases": ["string array"],
       "definition": "string",
-      "category": "character_name | place_name | organization | technology | species | title_rank | cultural_term | magic_system | other",
-      "first_appearance": "string (chapter/scene)",
-      "usage_notes": "string"
+      "category": "character_name | place_name | faction | organization | artifact | concept | cultural_term | species | title | title_rank | technology | magic_system | other",
+      "first_appearance": "integer or string",
+      "usage_notes": "string (optional)"
+    }
+  ],
+  "promise_payoff_ledger": [
+    {
+      "promise_id": "string",
+      "promise": "string — description of the reader-level contract",
+      "planted_in": "integer or string",
+      "payoff_in": "integer or string",
+      "type": "plot | character | thematic | atmospheric",
+      "related_hook_id": "string (optional cross-reference)"
     }
   ],
   "stress_test_scores": {
@@ -703,8 +784,15 @@ The JSON must conform to the following structure:
     "character_depth": "number (1-10)",
     "hook_discipline": "number (1-10)",
     "thematic_resonance": "number (1-10)",
-    "series_coherence": "number (1-10) | null",
-    "overall": "number (1-10)"
+    "conflict_architecture": "number (1-10)",
+    "pacing_and_proportion": "number (1-10)",
+    "lore_and_continuity": "number (1-10) | null (null for original-setting)",
+    "world_building_coherence": "number (1-10)",
+    "series_coherence": "number (1-10) | null (null for standalone)",
+    "overall": "number (1-10) — average of non-null dimensions"
+  },
+  "extended_metadata": {
+    "description": "Arbitrary key-value container for project-specific structural data that doesn't belong in the universal schema. Example keys: technique_lineage, jacen_parallel, workshop_origin."
   }
 }
 ```
@@ -724,6 +812,37 @@ Present the JSON inside a code block for easy copying. After presenting it, ask 
 - **Adapt to the human's pace.** If they come in with a fully formed idea, skip to the relevant step. If they want to explore, take time on Step 2. Match their energy.
 - **Permit iteration but not skipping.** The human can go back to any previous step and revise. However, they cannot skip a required field within a gated step. If they want to defer a non-required element, that's fine — but required fields are non-negotiable.
 - **Announce gate status.** When the human completes a gated step, explicitly confirm: "Gate passed. All validation rules for Step N are satisfied. Ready to proceed to Step N+1." If they fail a gate, list every failing rule (not just the first one).
+
+---
+
+## Development Flow
+
+The eleven steps define WHAT must be covered, not the ORDER in which they must be developed. Creative concept development is rarely linear. The facilitator should:
+
+- **Allow steps to blend.** Steps 2–3 (premise and conflict) often develop simultaneously because a premise IS its conflict. Steps 4–6 (character, voice, and structure) feed each other so directly that separating them is artificial. This is expected and productive.
+- **Allow iterative exploration.** The human may want multiple rounds of premise generation, pulling from different genres or historical frameworks before committing. This produces richer concepts than a single "generate 3–5 seeds" pass.
+- **Allow organic ordering.** If the human's energy is toward character before premise is finalized, follow that energy. If structure suggests character changes, make them. The concept develops as a whole, not as sequential modules.
+- **Enforce completion, not order.** Before the stress test (Step 10), run a formal compliance check: "Have we formally addressed all eleven steps?" Any gaps must be filled before finalization — but they can be filled at any point, not just in sequence.
+- **Enforce validation gates regardless of order.** Steps 0a, 3, 4, 7, 8, and 10 have hard gates. These gates must pass before finalization, even if the steps were completed out of order.
+
+### Compliance Check (Pre-Stress-Test)
+
+Before initiating Step 10, the facilitator must verify every step has been formally addressed:
+
+- [ ] Step 0: Project scope determined
+- [ ] Step 1: Franchise, era, tone, cast type established
+- [ ] Step 2: "What if" premise, CDQ, and logline finalized
+- [ ] Step 3: Conflict architecture with primary antagonist, secondary pressures, lock-in mechanism
+- [ ] Step 4: All main and supporting characters with three dimensions and Weiland arcs
+- [ ] Step 5: Voice definition with POV approach, prose register, reference authors, character voices, anti-slop rules, anti-patterns
+- [ ] Step 6: Four-part structural outline with Brooks plot points
+- [ ] Step 7: Subplot architecture, hook map, revelation schedule
+- [ ] Step 8: Scene cards for all chapters
+- [ ] Step 9: Terminology registry
+
+If any step is incomplete, the facilitator must address it before proceeding to the stress test. The facilitator should flag the gap clearly: "Before we stress test, I need to note that we haven't formally covered [Step X]. Let's address that now."
+
+**Known trap**: Step 5 (Voice Discovery) is the most commonly skipped step when the facilitator and human are building momentum through the premise → character → structure chain. The voice definition feels like it can wait until drafting — but the downstream pipeline needs it to produce consistent prose. Always confirm Step 5 explicitly before the stress test.
 
 ---
 

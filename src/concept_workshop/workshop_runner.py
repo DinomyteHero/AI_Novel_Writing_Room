@@ -4,9 +4,9 @@ Manages the conversation loop, state persistence, session transcription,
 and context summarization for multi-session concept development.
 
 Usage:
-    python -m src.concept_workshop.workshop_runner --project beyond_the_veil
-    python -m src.concept_workshop.workshop_runner --project beyond_the_veil --resume
-    python -m src.concept_workshop.workshop_runner --project beyond_the_veil --finalize
+    python -m src.concept_workshop.workshop_runner --project the_ruusan_atonement
+    python -m src.concept_workshop.workshop_runner --project the_ruusan_atonement --resume
+    python -m src.concept_workshop.workshop_runner --project the_ruusan_atonement --finalize
 """
 
 from __future__ import annotations

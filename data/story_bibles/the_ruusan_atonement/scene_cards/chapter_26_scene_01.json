@@ -1,0 +1,40 @@
+{
+  "chapter_number": 26,
+  "scene_number": 1,
+  "structural_phase": "climax",
+  "pov_character": "Ben Skywalker",
+  "mission": "Resolve all three operations. Veraine defeated by complexity. Torin diminished by the technique. Lattice resonance stabilizes the seal in a new form.",
+  "why_now": "",
+  "opening_hook": "",
+  "conflict": "The final push — resonance demands more trust as it builds. Each practitioner must surrender more control.",
+  "conflict_type": "internal",
+  "turning_point": "",
+  "closing_hook": "",
+  "characters_present": [],
+  "setting": "Veranthos wound source — the valley epicenter",
+  "sensory_details": "",
+  "emotional_trajectory": "",
+  "plot_threads_advanced": [],
+  "promises_planted": [],
+  "promises_paid": [],
+  "canon_elements_needed": [],
+  "target_word_count": 5000,
+  "notes": "Time: The climax — resolution phase\nThematic beat: The solution works because of differences, not despite them. Cost is real. Victory is real.\nOriginal scene_outcome: New seal established — dynamic, harmonic, requiring periodic renewal. Veraine's ritual fails (chaos, not liberation). Torin collapses — alive but diminished. Sera contains Veraine. The wound scar remains but is stable.",
+  "active_subplots": [
+    "SP1",
+    "SP2",
+    "SP3",
+    "SP5"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "H25",
+      "action": "resolve"
+    }
+  ],
+  "revelations": [
+    "R13"
+  ],
+  "pov_arc_phase": "Resolution — the theme proven through action",
+  "scene_type": "action"
+}

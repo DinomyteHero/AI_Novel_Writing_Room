@@ -1,0 +1,39 @@
+{
+  "chapter_number": 2,
+  "scene_number": 1,
+  "structural_phase": "setup",
+  "pov_character": "Ben Skywalker",
+  "mission": "Establish survey rhythm, Ben/Desh dynamic, wrongness pattern emerging on specific worlds",
+  "why_now": "",
+  "opening_hook": "",
+  "conflict": "Ben vs. emerging pattern he can't explain — professional obligation vs. instinct",
+  "conflict_type": "internal",
+  "turning_point": "",
+  "closing_hook": "",
+  "characters_present": [],
+  "setting": "Multiple Outer Rim survey worlds; aboard Steady Returns",
+  "sensory_details": "",
+  "emotional_trajectory": "",
+  "plot_threads_advanced": [],
+  "promises_planted": [],
+  "promises_paid": [],
+  "canon_elements_needed": [],
+  "target_word_count": 3750,
+  "notes": "Time: Days to weeks into the survey\nThematic beat: Post-war galaxy as institutional exhaustion\nOriginal scene_outcome: Ben identifies wrongness correlating with specific worlds. Finds anomalous ruins with unrecognized markings. Curiosity overriding mission parameters.",
+  "active_subplots": [
+    "SP3"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "H01",
+      "action": "resolve"
+    },
+    {
+      "hook_id": "H02",
+      "action": "plant"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "Setup — Ben's instincts leading him",
+  "scene_type": "action"
+}

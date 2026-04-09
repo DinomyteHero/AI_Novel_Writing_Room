@@ -23,7 +23,8 @@ docs/
 │   └── schemas.md            # JSON schema definitions
 ├── development/
 │   ├── contributing.md       # Dev setup, testing, code conventions
-│   └── adding-agents.md      # How to create new agents
+│   ├── adding-agents.md      # How to create new agents
+│   └── future-work.md        # Deferred items / known follow-ups backlog
 └── archive/
     └── ...                   # Historical implementation briefs
 ```

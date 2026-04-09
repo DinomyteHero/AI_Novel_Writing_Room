@@ -10,6 +10,11 @@
       "type": "string",
       "enum": ["setup", "first_plot_point", "response", "first_pinch", "midpoint", "attack", "second_pinch", "second_plot_point", "resolution", "climax"]
     },
+    "scene_type": {
+      "type": "string",
+      "enum": ["action", "sequel"],
+      "description": "Bickham Scene & Sequel classification. Action scenes are disaster-driven (goal → conflict → disaster); sequel scenes are decision-driven (reaction → dilemma → decision). Optional — not every scene card needs this labelled, but workshop plan-level scene cards carry it through from Step 8."
+    },
     "pov_character": { "type": "string" },
     "mission": { "type": "string" },
     "why_now": { "type": "string" },

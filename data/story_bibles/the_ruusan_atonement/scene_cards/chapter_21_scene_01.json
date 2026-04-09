@@ -1,0 +1,47 @@
+{
+  "chapter_number": 21,
+  "scene_number": 1,
+  "structural_phase": "second_plot_point",
+  "pov_character": "Ben Skywalker",
+  "mission": "SECOND PLOT POINT — Torin's turn. The emotional gut-punch that reconfigures the final act.",
+  "why_now": "",
+  "opening_hook": "",
+  "conflict": "Ben vs. loss of his strongest ally — a conversation both know is a farewell",
+  "conflict_type": "internal",
+  "turning_point": "",
+  "closing_hook": "",
+  "characters_present": [],
+  "setting": "Veranthos surface, near the wound source",
+  "sensory_details": "",
+  "emotional_trajectory": "",
+  "plot_threads_advanced": [],
+  "promises_planted": [],
+  "promises_paid": [],
+  "canon_elements_needed": [],
+  "target_word_count": 4500,
+  "notes": "Time: Hours before climax\nThematic beat: The theme's crisis point. Ben rejects the pattern of unilateral action.\nOriginal scene_outcome: Torin leaves. 'I'm not asking for permission.' Sera's silence. Kael's anger. Desh breaks the silence. Ben's paralysis and recovery: 'We find another way. Together.' Gavran's resonance note crystallizes.",
+  "active_subplots": [
+    "SP1",
+    "SP2",
+    "SP3"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "H17",
+      "action": "resolve"
+    },
+    {
+      "hook_id": "H20",
+      "action": "resolve"
+    },
+    {
+      "hook_id": "H21",
+      "action": "plant"
+    }
+  ],
+  "revelations": [
+    "R11"
+  ],
+  "pov_arc_phase": "Second Plot Point — the protagonist chooses the theme",
+  "scene_type": "action"
+}

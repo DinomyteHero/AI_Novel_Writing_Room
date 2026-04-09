@@ -34,11 +34,11 @@ class TestManuscriptReviewerFormat:
         formatted = reviewer._format_context(context)
         assert "Setup complete" in formatted
 
-    def test_format_includes_hook_ledger(self, reviewer):
-        """Hook ledger appears when provided."""
+    def test_format_includes_hooks(self, reviewer):
+        """Hooks appear when provided."""
         context = {
             "prose": "Test prose",
-            "hook_ledger": "[{\"hook_id\": \"seal\", \"status\": \"planted\"}]",
+            "hooks": "[{\"hook_id\": \"seal\", \"status\": \"planted\"}]",
         }
         formatted = reviewer._format_context(context)
         assert "seal" in formatted

@@ -42,28 +42,28 @@ class TestBeliefLayer:
     def test_add_accurate_belief(self, knowledge_layers):
         """add_belief stores an accurate belief for a character."""
         knowledge_layers.add_belief(
-            character_id="ben_skywalker",
+            character_id="alex_reyes",
             fact_id="scholar_trustworthy",
             description="The scholar is a trusted ally",
             is_accurate=True,
             chapter=1,
             source="witnessed",
         )
-        beliefs = knowledge_layers.get_beliefs("ben_skywalker")
+        beliefs = knowledge_layers.get_beliefs("alex_reyes")
         assert len(beliefs) == 1
         assert beliefs[0]["is_accurate"] == 1  # SQLite stores as int
 
     def test_add_inaccurate_belief(self, knowledge_layers):
         """add_belief stores an inaccurate belief for a character."""
         knowledge_layers.add_belief(
-            character_id="ben_skywalker",
+            character_id="alex_reyes",
             fact_id="scholar_agenda",
             description="The scholar has no hidden agenda",
             is_accurate=False,
             chapter=2,
             source="inferred",
         )
-        beliefs = knowledge_layers.get_beliefs("ben_skywalker")
+        beliefs = knowledge_layers.get_beliefs("alex_reyes")
         assert len(beliefs) == 1
         assert beliefs[0]["is_accurate"] == 0  # SQLite stores as int
 
@@ -74,12 +74,12 @@ class TestExposureLayer:
     def test_add_exposure(self, knowledge_layers):
         """add_exposure records what the reader has been shown."""
         knowledge_layers.add_exposure(
-            character_id="ben_skywalker",
+            character_id="alex_reyes",
             fact_id="scholar_inconsistency",
             description="Reader sees the scholar recognize a marker too quickly",
             chapter=3,
         )
-        exposures = knowledge_layers.get_exposures("ben_skywalker")
+        exposures = knowledge_layers.get_exposures("alex_reyes")
         assert len(exposures) == 1
         assert exposures[0]["fact_id"] == "scholar_inconsistency"
         assert exposures[0]["layer"] == "narrative_exposure"
@@ -91,7 +91,7 @@ class TestGetBeliefsForCharacters:
     def test_returns_formatted_string(self, knowledge_layers):
         """get_beliefs_for_characters returns a formatted context string."""
         knowledge_layers.add_belief(
-            character_id="ben_skywalker",
+            character_id="alex_reyes",
             fact_id="fact_a",
             description="The Force is collective in wound regions",
             is_accurate=True,
@@ -99,22 +99,22 @@ class TestGetBeliefsForCharacters:
             source="witnessed",
         )
         knowledge_layers.add_belief(
-            character_id="ben_skywalker",
+            character_id="alex_reyes",
             fact_id="fact_b",
             description="The scholar is trustworthy",
             is_accurate=False,
             chapter=1,
             source="inferred",
         )
-        result = knowledge_layers.get_beliefs_for_characters(["ben_skywalker"])
-        assert "### ben_skywalker" in result
+        result = knowledge_layers.get_beliefs_for_characters(["alex_reyes"])
+        assert "### alex_reyes" in result
         assert "[accurate]" in result
         assert "[inaccurate]" in result
         assert "witnessed" in result
 
     def test_returns_no_beliefs_message_when_empty(self, knowledge_layers):
         """Returns a default message when no beliefs exist."""
-        result = knowledge_layers.get_beliefs_for_characters(["ben_skywalker"])
+        result = knowledge_layers.get_beliefs_for_characters(["alex_reyes"])
         assert result == "No character beliefs recorded."
 
 
@@ -124,30 +124,30 @@ class TestCheckBeliefAccuracy:
     def test_returns_true_for_accurate_belief(self, knowledge_layers):
         """check_belief_accuracy returns True for an accurate belief."""
         knowledge_layers.add_belief(
-            character_id="ben_skywalker",
+            character_id="alex_reyes",
             fact_id="force_collective",
             description="Force is collective in wound regions",
             is_accurate=True,
             chapter=2,
             source="witnessed",
         )
-        assert knowledge_layers.check_belief_accuracy("ben_skywalker", "force_collective") is True
+        assert knowledge_layers.check_belief_accuracy("alex_reyes", "force_collective") is True
 
     def test_returns_false_for_inaccurate_belief(self, knowledge_layers):
         """check_belief_accuracy returns False for an inaccurate belief."""
         knowledge_layers.add_belief(
-            character_id="ben_skywalker",
+            character_id="alex_reyes",
             fact_id="scholar_agenda",
             description="The scholar has no hidden agenda",
             is_accurate=False,
             chapter=1,
             source="inferred",
         )
-        assert knowledge_layers.check_belief_accuracy("ben_skywalker", "scholar_agenda") is False
+        assert knowledge_layers.check_belief_accuracy("alex_reyes", "scholar_agenda") is False
 
     def test_returns_none_for_unknown_belief(self, knowledge_layers):
         """check_belief_accuracy returns None when no matching belief exists."""
-        assert knowledge_layers.check_belief_accuracy("ben_skywalker", "nonexistent") is None
+        assert knowledge_layers.check_belief_accuracy("alex_reyes", "nonexistent") is None
 
 
 class TestDramaticIrony:
@@ -163,7 +163,7 @@ class TestDramaticIrony:
         )
         # Character has false belief
         knowledge_layers.add_belief(
-            character_id="ben_skywalker",
+            character_id="alex_reyes",
             fact_id="scholar_agenda",
             description="The scholar is only here to study the wound regions",
             is_accurate=False,
@@ -172,7 +172,7 @@ class TestDramaticIrony:
         )
         # Reader has been exposed to the truth
         knowledge_layers.add_exposure(
-            character_id="ben_skywalker",
+            character_id="alex_reyes",
             fact_id="scholar_agenda",
             description="Reader sees the scholar's secret datacron",
             chapter=2,
@@ -182,7 +182,7 @@ class TestDramaticIrony:
         assert len(ironies) >= 1
 
         irony = ironies[0]
-        assert irony["character_id"] == "ben_skywalker"
+        assert irony["character_id"] == "alex_reyes"
         assert irony["fact_id"] == "scholar_agenda"
         assert irony["irony_type"] == "dramatic_irony"
         assert irony["reader_knows_truth"] is True
@@ -195,7 +195,7 @@ class TestDramaticIrony:
             chapter=0,
         )
         knowledge_layers.add_belief(
-            character_id="ben_skywalker",
+            character_id="alex_reyes",
             fact_id="betrayal_plan",
             description="Everything is fine",
             is_accurate=False,
@@ -217,7 +217,7 @@ class TestDramaticIrony:
             chapter=1,
         )
         knowledge_layers.add_belief(
-            character_id="ben_skywalker",
+            character_id="alex_reyes",
             fact_id="force_collective",
             description="The Force is collective in wound regions",
             is_accurate=True,
@@ -240,7 +240,7 @@ class TestDramaticIrony:
             chapter=0,
         )
         knowledge_layers.add_belief(
-            character_id="ben_skywalker",
+            character_id="alex_reyes",
             fact_id="late_fact",
             description="Wrong belief about late fact",
             is_accurate=False,

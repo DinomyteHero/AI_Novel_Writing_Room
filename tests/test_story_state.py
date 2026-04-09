@@ -91,19 +91,18 @@ class TestInitFromConceptSeed:
     """Tests for bulk init from concept seed."""
 
     def test_init_from_concept_seed(self, story_state, sample_concept_seed):
-        """init_from_concept_seed creates all 4 characters with slugified IDs."""
+        """init_from_concept_seed creates all cast characters with slugified IDs."""
         story_state.init_from_concept_seed(sample_concept_seed)
         all_chars = story_state.get_all_characters()
+        # The synthetic fixture has 4 cast members. get_all_characters()
+        # already excludes the __world__ sentinel.
         assert len(all_chars) == 4
 
-        # The concept seed uses em-dash (\u2014) in TBD names.
-        # _slugify replaces spaces and hyphens but not em-dashes.
-        em = "\u2014"
         expected_ids = {
-            "ben_skywalker",
-            f"tbd_{em}_jedi_scholar",
-            f"tbd_{em}_mandalorian",
-            f"tbd_{em}_non_force_sensitive_specialist",
+            "alex_reyes",
+            "morgan_kade",
+            "sam_okafor",
+            "dr._elena_voss",
         }
         actual_ids = {c["id"] for c in all_chars}
         assert actual_ids == expected_ids
@@ -113,9 +112,9 @@ class TestInitFromConceptSeed:
     ):
         """Each character's role from the seed is stored as arc_position."""
         story_state.init_from_concept_seed(sample_concept_seed)
-        ben = story_state.get_character("ben_skywalker")
-        assert ben is not None
-        assert ben["arc_position"] == "Mission lead, primary POV"
+        lead = story_state.get_character("alex_reyes")
+        assert lead is not None
+        assert lead["arc_position"] == "Lead investigator, primary POV"
 
 
 class TestKnowledge:

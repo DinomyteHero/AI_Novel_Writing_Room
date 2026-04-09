@@ -1,0 +1,32 @@
+{
+  "chapter_number": 28,
+  "scene_number": 1,
+  "structural_phase": "resolution",
+  "pov_character": "Ben Skywalker",
+  "mission": "Denouement — Ben tells Luke the truth. The Order will know. Ben's arc resolves. Final image.",
+  "why_now": "",
+  "opening_hook": "",
+  "conflict": "Ben vs. the final choice — what to tell, who to be",
+  "conflict_type": "internal",
+  "turning_point": "",
+  "closing_hook": "",
+  "characters_present": [],
+  "setting": "Coruscant; Jedi Temple",
+  "sensory_details": "",
+  "emotional_trajectory": "",
+  "plot_threads_advanced": [],
+  "promises_planted": [],
+  "promises_paid": [],
+  "canon_elements_needed": [],
+  "target_word_count": 3750,
+  "notes": "Time: Days after climax\nThematic beat: Choosing a different path isn't betrayal. It's how you honor those who came before — by doing what they couldn't.\nOriginal scene_outcome: Ben tells Luke everything. Luke agrees — the Order will learn the truth. Ben steps out of his father's shadow. Final image: Ben feeling his own frequency in the new seal. A note in a chord. Enough.",
+  "active_subplots": [
+    "SP4"
+  ],
+  "hook_actions": [],
+  "revelations": [
+    "R14"
+  ],
+  "pov_arc_phase": "Resolution — legacy is chosen",
+  "scene_type": "sequel"
+}

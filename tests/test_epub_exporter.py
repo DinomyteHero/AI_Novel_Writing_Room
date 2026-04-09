@@ -15,7 +15,7 @@ from src.export.epub_exporter import EpubExporter
 def sample_md():
     """Sample assembled markdown for testing."""
     return (
-        "# Beyond the Veil\n\n"
+        "# Test Story\n\n"
         "---\n\n"
         "# Chapter 1\n\n"
         "Ben stared at the holographic star chart.\n\n"
@@ -30,7 +30,7 @@ def sample_md():
 def seed():
     return {
         "meta": {
-            "project_title": "Beyond the Veil",
+            "project_title": "Test Story",
             "franchise": "Star Wars",
         },
         "premise": {
@@ -90,7 +90,7 @@ class TestEpubExporter:
         book = epub_mod.read_epub(output)
         title = book.get_metadata("DC", "title")
         assert title
-        assert title[0][0] == "Beyond the Veil"
+        assert title[0][0] == "Test Story"
 
     def test_parse_chapters(self, sample_md, seed):
         exporter = EpubExporter(concept_seed=seed)
