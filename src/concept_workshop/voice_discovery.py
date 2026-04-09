@@ -37,21 +37,30 @@ class VoiceDiscovery:
         self,
         pov_approach: str,
         prose_register: str,
-        reference_authors: list[str] | None = None,
-        pacing_feel: str | None = None,
-        custom_banned_words: list[str] | None = None,
-        custom_banned_phrases: list[str] | None = None,
+        reference_authors: list[dict] | None = None,
+        character_voices: dict | None = None,
+        anti_slop_rules: list[str] | None = None,
         anti_patterns: list[str] | None = None,
+        force_description_guidelines: str | None = None,
+        pacing_feel: str | None = None,
         narrative_voice_notes: str | None = None,
     ) -> dict:
-        """Assemble a complete voice_definition object.
+        """Assemble a complete voice_definition object (post-Phase-5 structure).
 
-        Merges custom anti-slop rules with global negative constraints.
+        The new structure replaces the legacy nested anti_slop dict with a
+        flat anti_slop_rules list, adds character_voices and
+        force_description_guidelines, and treats reference_authors as a list
+        of objects with emulate/avoid guidance.
+
+        reference_authors items should be dicts with keys:
+          {author, what_to_emulate, what_to_avoid}
+
+        anti_slop_rules is a flat list of rule strings. Global negative
+        constraints (from config/negative_constraints.yaml) are merged in
+        as individual rule sentences so the voice checker has a single
+        flat list to enforce.
         """
-        anti_slop = self.merge_anti_slop(
-            custom_banned_words or [],
-            custom_banned_phrases or [],
-        )
+        merged_rules = self.merge_anti_slop_rules(anti_slop_rules or [])
 
         # Default anti-patterns if none provided
         default_anti_patterns = [
@@ -70,40 +79,40 @@ class VoiceDiscovery:
             "pov_approach": pov_approach,
             "prose_register": prose_register,
             "reference_authors": reference_authors or [],
-            "pacing_feel": pacing_feel or "",
-            "anti_slop": anti_slop,
+            "character_voices": character_voices or {},
+            "anti_slop_rules": merged_rules,
             "anti_patterns": final_anti_patterns,
+            "force_description_guidelines": force_description_guidelines or "",
+            "pacing_feel": pacing_feel or "",
             "narrative_voice_notes": narrative_voice_notes or "",
         }
 
-    def merge_anti_slop(
+    def merge_anti_slop_rules(
         self,
-        custom_banned_words: list[str],
-        custom_banned_phrases: list[str],
-    ) -> dict:
+        custom_rules: list[str],
+    ) -> list[str]:
         """Merge custom anti-slop rules with global negative constraints.
 
-        Global banned phrases come from config/negative_constraints.yaml.
-        Custom rules are added on top (no duplicates).
+        Returns a single flat list of rule strings. Global banned phrases
+        and banned words (from config/negative_constraints.yaml) are
+        converted to rule sentences of the form
+        "Never use '<phrase>'" so they can sit alongside the custom
+        hand-written rules. Duplicates (by string equality) are removed.
         """
-        # Extract global banned phrases by category
-        global_phrases = []
+        rules: list[str] = []
+
         banned = self.global_constraints.get("banned_phrases", {})
-        for category, phrases in banned.items():
-            if isinstance(phrases, list):
-                global_phrases.extend(phrases)
+        if isinstance(banned, dict):
+            for category, phrases in banned.items():
+                if isinstance(phrases, list):
+                    for phrase in phrases:
+                        rules.append(f"Never use '{phrase}'")
 
-        # Extract AI tells as banned words
-        global_words = banned.get("ai_tells", []) if isinstance(banned, dict) else []
+        # Append custom rules verbatim — they are already hand-written.
+        rules.extend(custom_rules)
 
-        # Merge with custom (deduplicate)
-        all_words = list(dict.fromkeys(global_words + custom_banned_words))
-        all_phrases = list(dict.fromkeys(global_phrases + custom_banned_phrases))
-
-        return {
-            "banned_words": all_words,
-            "banned_phrases": all_phrases,
-        }
+        # Deduplicate while preserving order.
+        return list(dict.fromkeys(rules))
 
     def validate_voice_definition(self, voice_def: dict) -> list[str]:
         """Validate a voice definition. Returns list of errors (empty = valid)."""

@@ -359,30 +359,75 @@ class ContextAssembler:
     # ------------------------------------------------------------------
 
     def _assemble_voice_rules(self) -> str:
-        """Extract voice definition from concept seed and format for injection."""
+        """Extract voice definition from concept seed and format for injection.
+
+        Accepts both the legacy nested structure
+        (voice_definition.anti_slop.{banned_words, banned_phrases}) and
+        the post-Phase-5 flat structure (voice_definition.anti_slop_rules),
+        plus the new fields: character_voices, force_description_guidelines,
+        and reference_authors as objects.
+        """
         voice_def = self.concept_seed.get("voice_definition")
         if not voice_def:
             return ""
 
         lines = ["## Voice Rules (MANDATORY)"]
 
-        anti_slop = voice_def.get("anti_slop", {})
-        banned_words = anti_slop.get("banned_words", [])
-        if banned_words:
-            lines.append("\n### Banned Words — Do NOT use these words:")
-            lines.append(", ".join(banned_words))
+        # New flat anti_slop_rules (post-Phase-5)
+        anti_slop_rules = voice_def.get("anti_slop_rules")
+        if anti_slop_rules:
+            lines.append("\n### Anti-Slop Rules — Do NOT violate these rules:")
+            for rule in anti_slop_rules:
+                lines.append(f"- {rule}")
+        else:
+            # Legacy nested anti_slop (banned_words + banned_phrases)
+            anti_slop = voice_def.get("anti_slop", {})
+            banned_words = anti_slop.get("banned_words", [])
+            if banned_words:
+                lines.append("\n### Banned Words — Do NOT use these words:")
+                lines.append(", ".join(banned_words))
 
-        banned_phrases = anti_slop.get("banned_phrases", [])
-        if banned_phrases:
-            lines.append("\n### Banned Phrases — Do NOT use these phrases:")
-            for phrase in banned_phrases:
-                lines.append(f"- {phrase}")
+            banned_phrases = anti_slop.get("banned_phrases", [])
+            if banned_phrases:
+                lines.append("\n### Banned Phrases — Do NOT use these phrases:")
+                for phrase in banned_phrases:
+                    lines.append(f"- {phrase}")
 
         anti_patterns = voice_def.get("anti_patterns", [])
         if anti_patterns:
             lines.append("\n### Banned Structural Patterns:")
             for pattern in anti_patterns:
                 lines.append(f"- {pattern}")
+
+        # Per-character voice guidance (post-Phase-5)
+        character_voices = voice_def.get("character_voices", {})
+        if character_voices:
+            lines.append("\n### Character Voices — how each character speaks and thinks:")
+            for char_name, guidance in character_voices.items():
+                lines.append(f"- **{char_name}**: {guidance}")
+
+        # Force / magic description guidelines (post-Phase-5, optional)
+        force_guide = voice_def.get("force_description_guidelines", "")
+        if force_guide:
+            lines.append("\n### Magic / Force Description Guidelines:")
+            lines.append(force_guide)
+
+        # Reference authors (legacy = list of strings; post-Phase-5 = list of objects)
+        ref_authors = voice_def.get("reference_authors", [])
+        if ref_authors:
+            lines.append("\n### Reference Authors:")
+            for entry in ref_authors:
+                if isinstance(entry, dict):
+                    author = entry.get("author", "unknown")
+                    emulate = entry.get("what_to_emulate", "")
+                    avoid = entry.get("what_to_avoid", "")
+                    lines.append(f"- **{author}**")
+                    if emulate:
+                        lines.append(f"  - Emulate: {emulate}")
+                    if avoid:
+                        lines.append(f"  - Avoid: {avoid}")
+                else:
+                    lines.append(f"- {entry}")
 
         if voice_def.get("narrative_voice_notes"):
             lines.append(f"\n### Narrative Voice:\n{voice_def['narrative_voice_notes']}")

@@ -19,13 +19,39 @@ logger = logging.getLogger(__name__)
 class StressTestRunner:
     """Runs adversarial stress tests against a concept seed."""
 
+    # Canonical 9-dimension stress test keyset (Ruusan Atonement revision).
+    # Two dimensions are nullable: lore_and_continuity (franchise fiction only)
+    # and series_coherence (series books only).
     DIMENSIONS = [
+        "structural_integrity",
+        "character_depth",
+        "hook_discipline",
+        "thematic_resonance",
+        "conflict_architecture",
+        "pacing_and_proportion",
+        "lore_and_continuity",
+        "world_building_coherence",
+        "series_coherence",
+    ]
+
+    # Legacy 5-dimension keyset retained for backward compatibility with
+    # Phase 5 workshop state files. Reading paths accept either keyset.
+    LEGACY_DIMENSIONS = [
         "premise_strength",
         "character_depth",
         "structural_integrity",
         "hook_coherence",
         "series_viability",
     ]
+
+    # Translation map: legacy 5-dim key -> canonical 9-dim key.
+    LEGACY_TO_CANONICAL = {
+        "premise_strength": "conflict_architecture",
+        "character_depth": "character_depth",
+        "structural_integrity": "structural_integrity",
+        "hook_coherence": "hook_discipline",
+        "series_viability": "series_coherence",
+    }
 
     def __init__(self, router=None):
         """Initialize with optional model router for LLM-based testing."""
@@ -123,14 +149,27 @@ class StressTestRunner:
         return issues
 
     def _check_hooks(self, seed: dict) -> list[str]:
-        """Rule-based hook stress tests."""
+        """Rule-based hook stress tests.
+
+        Accepts both canonical 'hook_map' and workshop-native 'hooks' formats.
+        In workshop-native format, the 'hook_type' field holds the priority
+        (hard/soft/series) and there is no separate 'priority' field.
+        """
         issues = []
-        hook_map = seed.get("hook_map", [])
+        hook_map = seed.get("hook_map") or seed.get("hooks") or []
 
         if not hook_map:
             return issues  # No hooks defined yet — not necessarily an error
 
-        hard_hooks = [h for h in hook_map if h.get("priority") == "hard"]
+        def _priority_of(h: dict) -> str:
+            """Return hook priority from either canonical or workshop-native format."""
+            if "priority" in h:
+                return h["priority"]
+            # Workshop-native: hook_type carries the priority
+            ht = h.get("hook_type", "")
+            return ht if ht in ("hard", "soft", "series") else "soft"
+
+        hard_hooks = [h for h in hook_map if _priority_of(h) == "hard"]
         target_chapters = seed.get("meta", {}).get("target_chapters", 25)
         budget = max(1, target_chapters // 3)
 
@@ -140,9 +179,13 @@ class StressTestRunner:
                 f"(budget: {budget}). Reader may lose track."
             )
 
-        # Check hard hooks have payoff chapters
+        # Check hard hooks have payoff chapters (accepts both naming conventions)
         for hook in hard_hooks:
-            if not hook.get("payoff_chapter"):
+            has_payoff = (
+                hook.get("payoff_chapter")
+                or hook.get("resolved_in")
+            )
+            if not has_payoff:
                 issues.append(
                     f"Hard hook '{hook.get('hook_id')}' has no planned payoff chapter"
                 )
@@ -165,36 +208,79 @@ class StressTestRunner:
 
     def _compute_rule_scores(
         self, seed: dict, issues: list[str]
-    ) -> dict[str, float]:
-        """Compute heuristic scores based on rule checks."""
+    ) -> dict[str, float | None]:
+        """Compute heuristic scores across all 9 canonical dimensions.
+
+        Inapplicable dimensions return None:
+        - lore_and_continuity: None for original-setting projects
+        - series_coherence: None for standalone projects
+        """
         base = 8.0  # Start optimistic
         penalty_per_issue = 0.5
 
-        # Count issues per dimension
-        structural_issues = sum(
-            1 for i in issues
-            if any(k in i.lower() for k in ["structure", "midpoint", "plot point", "escalation"])
-        )
-        character_issues = sum(
-            1 for i in issues
-            if any(k in i.lower() for k in ["character", "cast", "lie", "arc", "need"])
-        )
-        hook_issues = sum(
-            1 for i in issues
-            if any(k in i.lower() for k in ["hook", "payoff", "budget"])
-        )
-        series_issues = sum(
-            1 for i in issues
-            if any(k in i.lower() for k in ["series", "book"])
-        )
+        def _count(keywords: list[str]) -> int:
+            return sum(
+                1 for i in issues
+                if any(k in i.lower() for k in keywords)
+            )
+
+        structural_issues = _count(["structure", "midpoint", "plot point", "escalation"])
+        character_issues = _count(["character", "cast", "lie", "arc", "need"])
+        hook_issues = _count(["hook", "payoff", "budget"])
+        thematic_issues = _count(["theme", "thematic"])
+        conflict_issues = _count(["antagonist", "conflict", "stakes", "lock"])
+        pacing_issues = _count(["pacing", "proportion", "rhythm"])
+        lore_issues = _count(["lore", "canon", "continuity", "timeline"])
+        world_issues = _count(["world", "setting", "geography", "logistic"])
+        series_issues = _count(["series", "book"])
+
+        # Dimension applicability heuristics
+        meta = seed.get("meta", {}) or {}
+        canon_status = (meta.get("canon_status") or "").lower()
+        is_franchise = bool(meta.get("franchise")) and "original" not in canon_status
+        scope = meta.get("project_scope", "standalone")
+        is_series = scope in ("planned_series", "continuation")
+
+        def _score(n: int) -> float:
+            return max(1.0, base - n * penalty_per_issue)
 
         return {
-            "premise_strength": max(1.0, base - structural_issues * penalty_per_issue),
-            "character_depth": max(1.0, base - character_issues * penalty_per_issue),
-            "structural_integrity": max(1.0, base - structural_issues * penalty_per_issue),
-            "hook_coherence": max(1.0, base - hook_issues * penalty_per_issue),
-            "series_viability": max(1.0, base - series_issues * penalty_per_issue),
+            "structural_integrity": _score(structural_issues),
+            "character_depth": _score(character_issues),
+            "hook_discipline": _score(hook_issues),
+            "thematic_resonance": _score(thematic_issues),
+            "conflict_architecture": _score(conflict_issues),
+            "pacing_and_proportion": _score(pacing_issues),
+            "lore_and_continuity": _score(lore_issues) if is_franchise else None,
+            "world_building_coherence": _score(world_issues),
+            "series_coherence": _score(series_issues) if is_series else None,
         }
+
+    @classmethod
+    def normalize_scores(cls, scores: dict) -> dict:
+        """Normalize a stress test scores dict into the canonical 9-dim keyset.
+
+        Accepts either the legacy 5-dim format, the canonical 9-dim format,
+        or a mix. Legacy keys are translated via LEGACY_TO_CANONICAL. Missing
+        canonical dimensions become None. The 'overall' key is preserved.
+
+        Returns an empty dict if scores is empty or None.
+        """
+        if not scores:
+            return {}
+        normalized: dict = {dim: None for dim in cls.DIMENSIONS}
+        # First, translate any legacy keys into canonical slots.
+        for legacy_key, canonical_key in cls.LEGACY_TO_CANONICAL.items():
+            if legacy_key in scores and scores[legacy_key] is not None:
+                normalized[canonical_key] = scores[legacy_key]
+        # Then, canonical keys take precedence (override legacy translations).
+        for key, value in scores.items():
+            if key in cls.DIMENSIONS:
+                normalized[key] = value
+        # Preserve 'overall' if present (don't compute it here).
+        if "overall" in scores:
+            normalized["overall"] = scores["overall"]
+        return normalized
 
     async def _run_llm_stress_test(self, concept_seed: dict) -> dict | None:
         """Run LLM-based stress test using the model router."""
@@ -205,15 +291,16 @@ class StressTestRunner:
             else:
                 system_prompt = "You are an adversarial concept evaluator."
 
+            dim_list = ", ".join(self.DIMENSIONS)
             messages = [
                 {"role": "system", "content": system_prompt},
                 {
                     "role": "user",
                     "content": (
-                        "Evaluate this concept seed. Return JSON with 'scores' "
-                        "(premise_strength, character_depth, structural_integrity, "
-                        "hook_coherence, series_viability — each 1-10) and "
-                        "'flagged_issues' (array of strings).\n\n"
+                        f"Evaluate this concept seed. Return JSON with 'scores' "
+                        f"(9 dimensions: {dim_list}, plus 'overall' — each 1-10, "
+                        f"or null for inapplicable dimensions) and 'flagged_issues' "
+                        f"(array of strings).\n\n"
                         f"```json\n{json.dumps(concept_seed, indent=2)}\n```"
                     ),
                 },
@@ -226,10 +313,22 @@ class StressTestRunner:
 
     def format_results(
         self,
-        scores: dict[str, float],
+        scores: dict[str, float | None],
         issues: list[str],
     ) -> dict:
-        """Format stress test results for inclusion in concept seed."""
+        """Format stress test results for inclusion in concept seed.
+
+        Automatically computes the 'overall' score as the mean of non-null
+        dimension values (excluding the 'overall' key itself if present).
+        """
+        # Compute overall if not already supplied by the LLM.
+        if "overall" not in scores or scores.get("overall") is None:
+            values = [
+                v for k, v in scores.items()
+                if k != "overall" and isinstance(v, (int, float))
+            ]
+            overall = sum(values) / len(values) if values else 0.0
+            scores = {**scores, "overall": round(overall, 2)}
         return {
             "scores": scores,
             "flagged_issues": issues,
@@ -238,9 +337,16 @@ class StressTestRunner:
         }
 
     def score(self, results: dict) -> float:
-        """Compute overall score (average of dimension scores)."""
+        """Compute overall score (average of non-null dimension scores).
+
+        Excludes the 'overall' key itself to avoid double-counting when the
+        scores dict has been pre-populated by format_results.
+        """
         scores = results.get("scores", {})
         if not scores:
             return 0.0
-        values = [v for v in scores.values() if isinstance(v, (int, float))]
+        values = [
+            v for k, v in scores.items()
+            if k != "overall" and isinstance(v, (int, float))
+        ]
         return sum(values) / len(values) if values else 0.0

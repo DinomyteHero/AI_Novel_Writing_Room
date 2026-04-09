@@ -82,27 +82,44 @@ class OutlinePlanner(BaseAgent):
                 parts.append(f"- {phase}: {desc}")
             parts.append("")
 
-        # Phase 5: Subplot board
-        subplot_board = seed.get("subplot_board", [])
+        # Phase 5: Subplot board (accept both canonical 'subplot_board' and
+        # workshop-native 'subplots' with either inner structure)
+        subplot_board = seed.get("subplot_board") or seed.get("subplots") or []
         if subplot_board:
             parts.append("## Subplot Board")
             for sub in subplot_board:
-                parts.append(
-                    f"- [{sub.get('line_type', '?')}-line] {sub.get('subplot_name', sub.get('subplot_id', ''))}: "
-                    f"{sub.get('structural_purpose', '')}"
-                )
+                line_type = sub.get("line_type", "?")
+                # Canonical uses subplot_name; workshop-native uses 'name'
+                name = sub.get("subplot_name") or sub.get("name") or sub.get("subplot_id", "")
+                # Canonical uses structural_purpose; workshop-native uses 'function'
+                purpose = sub.get("structural_purpose") or sub.get("function") or sub.get("arc_summary", "")
+                parts.append(f"- [{line_type}-line] {name}: {purpose}")
             parts.append("")
 
-        # Phase 5: Hook map
-        hook_map = seed.get("hook_map", [])
+        # Phase 5: Hook map (accept both canonical 'hook_map' and
+        # workshop-native 'hooks' with either inner structure)
+        hook_map = seed.get("hook_map") or seed.get("hooks") or []
         if hook_map:
             parts.append("## Hook Map")
             for hook in hook_map:
-                payoff = hook.get("payoff_chapter", "TBD")
+                # Workshop-native uses 'hook_type: hard|soft' as the priority;
+                # canonical stores that under 'priority'.
+                priority = hook.get("priority")
+                if not priority:
+                    seed_hook_type = hook.get("hook_type", "")
+                    if seed_hook_type in ("hard", "soft", "series"):
+                        priority = seed_hook_type
+                    else:
+                        priority = "soft"
+                hook_id = hook.get("hook_id", "")
+                description = hook.get("description", "")
+                # Canonical uses planted_chapter/payoff_chapter (ints);
+                # workshop-native uses planted_in/resolved_in (strings or ints)
+                plant = hook.get("planted_chapter") or hook.get("planted_in") or "?"
+                payoff = hook.get("payoff_chapter") or hook.get("resolved_in") or "TBD"
                 parts.append(
-                    f"- [{hook.get('priority', 'soft')}] {hook.get('hook_id', '')}: "
-                    f"{hook.get('description', '')} (plant ch{hook.get('planted_chapter', '?')}, "
-                    f"payoff ch{payoff})"
+                    f"- [{priority}] {hook_id}: {description} "
+                    f"(plant ch{plant}, payoff ch{payoff})"
                 )
             parts.append("")
 

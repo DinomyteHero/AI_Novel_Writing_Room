@@ -12,6 +12,7 @@ Schema migrations are applied automatically on init.
 import hashlib
 import json
 import logging
+import re
 import sqlite3
 from pathlib import Path
 from typing import Optional
@@ -22,6 +23,67 @@ logger = logging.getLogger(__name__)
 def _slugify(name: str) -> str:
     """Convert a name to a slug ID. 'Ben Skywalker' -> 'ben_skywalker'"""
     return name.lower().replace(" ", "_").replace("-", "_")
+
+
+_CHAPTER_REF_RE = re.compile(r"(?:chapter\s*)?(\d+)", re.IGNORECASE)
+
+
+def _parse_chapter_ref(ref) -> int | None:
+    """Parse a chapter reference into an integer chapter number.
+
+    Accepts either an integer (returned as-is), None (returned as None),
+    or a string like 'Chapter 1', 'Chapter 4-5', 'Chapter 5 (First Plot Point)',
+    'Chapter 10-16'. For ranges, returns the earliest chapter. For unparseable
+    strings (including 'next_book'), returns None.
+    """
+    if ref is None:
+        return None
+    if isinstance(ref, int):
+        return ref
+    if isinstance(ref, str):
+        match = _CHAPTER_REF_RE.search(ref)
+        if match:
+            return int(match.group(1))
+        return None
+    return None
+
+
+def _normalize_arc_type(raw) -> str | None:
+    """Coerce descriptive arc_type strings to the canonical 4-value enum.
+
+    The concept workshop captures arc types as descriptive phrases like
+    'Positive change — moves from the lie to the truth' or
+    'Flat negative — enters certain, exits certain'. The character_arcs
+    table has a strict enum: positive_change, flat, negative, disillusionment.
+    This helper extracts the canonical form from descriptive prose.
+
+    Order matters: 'flat negative' should map to 'negative' (the tragic
+    'stays in the lie' arc), not 'flat' (the world-changer arc which
+    requires the character to already hold the Truth).
+
+    Returns None if the input is empty or unrecognizable.
+    """
+    if not raw:
+        return None
+    if not isinstance(raw, str):
+        return None
+    lower = raw.strip().lower()
+    if not lower:
+        return None
+    # Exact enum match is the cleanest signal.
+    if lower in ARC_TYPES:
+        return lower
+    # Order matters: disillusionment and negative before flat/positive.
+    if "disillusionment" in lower:
+        return "disillusionment"
+    if "negative" in lower:
+        return "negative"
+    if "positive" in lower:
+        # Catches 'positive change', 'minor positive', etc.
+        return "positive_change"
+    if lower.startswith("flat"):
+        return "flat"
+    return None
 
 
 # Valid Weiland arc phases in progression order.
@@ -400,6 +462,11 @@ class StoryState:
         Populates: characters, character_arcs (if weiland_arc present),
         terminology_registry, subplot_board, hook_ledger.
         All Phase 5 fields are optional for backward compatibility.
+
+        Accepts both the legacy canonical field names (subplot_board,
+        hook_map, term, integer chapter refs) and the workshop-native
+        seed format (subplots, hooks, canonical_form, string chapter
+        refs like 'Chapter 4-5'). Normalization happens at read time.
         """
         book_number = concept_seed.get("meta", {}).get("book_number", 1)
 
@@ -414,55 +481,136 @@ class StoryState:
             # Phase 5: Weiland character arc
             weiland = char.get("weiland_arc")
             if weiland:
-                self.add_character_arc(
-                    character_id=char_id,
-                    book_number=book_number,
-                    lie_believed=weiland.get("lie_believed"),
-                    ghost=weiland.get("ghost"),
-                    want=weiland.get("want"),
-                    need=weiland.get("need"),
-                    arc_type=weiland.get("arc_type"),
-                    arc_phase_targets=weiland.get("arc_phase_targets"),
-                )
+                # Normalize descriptive arc_type strings to the canonical
+                # enum (positive_change/flat/negative/disillusionment).
+                # The workshop captures these as prose; the DB has a strict
+                # CHECK constraint.
+                arc_type = _normalize_arc_type(weiland.get("arc_type"))
+                if arc_type is None:
+                    logger.warning(
+                        "Skipping character arc for '%s': arc_type '%s' "
+                        "is not recognizable. Expected one of %s or a "
+                        "descriptive phrase containing one of those keywords.",
+                        char["name"], weiland.get("arc_type"), ARC_TYPES,
+                    )
+                else:
+                    self.add_character_arc(
+                        character_id=char_id,
+                        book_number=book_number,
+                        lie_believed=weiland.get("lie_believed"),
+                        ghost=weiland.get("ghost"),
+                        want=weiland.get("want"),
+                        need=weiland.get("need"),
+                        arc_type=arc_type,
+                        arc_phase_targets=weiland.get("arc_phase_targets")
+                        or weiland.get("arc_phase_map"),
+                    )
 
         # Phase 5: Terminology registry
         for term_entry in concept_seed.get("terminology_registry", []):
+            # Accept both 'term' (canonical) and 'canonical_form' (workshop-native)
+            term_name = term_entry.get("term") or term_entry.get("canonical_form")
+            if not term_name:
+                logger.warning(
+                    "Skipping terminology entry with no 'term' or 'canonical_form': %s",
+                    term_entry,
+                )
+                continue
+            # first_appearance may be int, string ('Chapter 1'), or missing
+            first_appearance_chapter = _parse_chapter_ref(
+                term_entry.get("first_appearance")
+            )
+            # Coerce unknown categories to 'other' rather than failing the insert
+            category = term_entry.get("category", "concept")
+            if category not in TERMINOLOGY_CATEGORIES:
+                logger.debug(
+                    "Terminology category '%s' not in canonical set; storing as 'other'",
+                    category,
+                )
+                category = "other" if "other" in TERMINOLOGY_CATEGORIES else "concept"
             self.add_term(
-                term=term_entry["term"],
+                term=term_name,
                 definition=term_entry.get("definition", ""),
-                category=term_entry.get("category", "concept"),
+                category=category,
                 aliases=term_entry.get("aliases"),
-                first_appearance_chapter=term_entry.get("first_appearance"),
+                first_appearance_chapter=first_appearance_chapter,
                 book_number=book_number,
             )
 
         # Phase 5: Subplot board
-        for subplot in concept_seed.get("subplot_board", []):
+        # Accept both 'subplot_board' (canonical) and 'subplots' (workshop-native)
+        subplot_data = concept_seed.get("subplot_board") or concept_seed.get("subplots") or []
+        for subplot in subplot_data:
+            # Workshop-native uses 'name', canonical uses 'subplot_name'
+            subplot_name = (
+                subplot.get("subplot_name")
+                or subplot.get("name")
+                or subplot["subplot_id"]
+            )
+            # Workshop-native uses 'chapters_active' (list of ints);
+            # canonical uses 'start_chapter'/'resolution_chapter'
+            chapters_active = subplot.get("chapters_active") or []
+            start_chapter = subplot.get("start_chapter")
+            resolution_chapter = subplot.get("resolution_chapter")
+            if chapters_active and not start_chapter:
+                start_chapter = min(chapters_active)
+            if chapters_active and not resolution_chapter:
+                resolution_chapter = max(chapters_active)
+            # Workshop-native uses 'function' as structural_purpose analog
+            structural_purpose = (
+                subplot.get("structural_purpose")
+                or subplot.get("function")
+                or subplot.get("arc_summary")
+            )
             self.add_subplot(
                 subplot_id=subplot["subplot_id"],
-                subplot_name=subplot.get("subplot_name", subplot["subplot_id"]),
+                subplot_name=subplot_name,
                 line_type=subplot.get("line_type", "B"),
                 characters_involved=subplot.get("characters_involved"),
-                start_chapter=subplot.get("start_chapter"),
-                resolution_chapter=subplot.get("resolution_chapter"),
-                structural_purpose=subplot.get("structural_purpose"),
-                interweave_points=subplot.get("interweave_points"),
+                start_chapter=start_chapter,
+                resolution_chapter=resolution_chapter,
+                structural_purpose=structural_purpose,
+                interweave_points=subplot.get("interweave_points") or chapters_active or None,
                 current_status=subplot.get("current_status", "planned"),
                 book_number=book_number,
             )
 
         # Phase 5: Hook map
-        for hook in concept_seed.get("hook_map", []):
+        # Accept both 'hook_map' (canonical) and 'hooks' (workshop-native)
+        hook_data = concept_seed.get("hook_map") or concept_seed.get("hooks") or []
+        for hook in hook_data:
+            # Workshop-native uses 'hook_type: hard|soft' which maps to canonical 'priority'.
+            # Canonical 'hook_type' is one of (chekhov, foreshadow, ...) — default when
+            # the seed only provides the hard/soft classification.
+            seed_hook_type = hook.get("hook_type")
+            if seed_hook_type in HOOK_PRIORITIES:
+                # Workshop-native format: hook_type is actually the priority
+                priority = seed_hook_type
+                hook_type = "foreshadow"
+            else:
+                # Canonical format: hook_type is a narrative category, priority is separate
+                hook_type = seed_hook_type or "foreshadow"
+                priority = hook.get("priority", "soft")
+            # Parse chapter references (int or string)
+            planted_chapter = (
+                _parse_chapter_ref(hook.get("planted_chapter"))
+                or _parse_chapter_ref(hook.get("planted_in"))
+                or 1
+            )
+            payoff_chapter = (
+                _parse_chapter_ref(hook.get("payoff_chapter"))
+                or _parse_chapter_ref(hook.get("resolved_in"))
+            )
             self.add_hook(
                 hook_id=hook["hook_id"],
                 description=hook.get("description", ""),
-                hook_type=hook.get("hook_type", "foreshadow"),
-                planted_chapter=hook.get("planted_chapter", 1),
+                hook_type=hook_type,
+                planted_chapter=planted_chapter,
                 planted_book=book_number,
-                payoff_chapter=hook.get("payoff_chapter"),
+                payoff_chapter=payoff_chapter,
                 payoff_book=hook.get("payoff_book"),
                 advancement_chapters=hook.get("advancement_chapters"),
-                priority=hook.get("priority", "soft"),
+                priority=priority,
                 related_subplot=hook.get("related_subplot"),
             )
 
