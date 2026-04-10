@@ -37,7 +37,7 @@ pytest -k "test_gate_critic"
 pytest -s
 ```
 
-The test suite has 616 tests across 59 files covering all major components. Tests use pytest with pytest-asyncio for async test support.
+The test suite has ~553 tests across 62 files covering all major components. Tests use pytest with pytest-asyncio for async test support.
 
 ### Test Fixtures
 
@@ -70,7 +70,7 @@ src/
 ├── revision/            # Revision pipeline (6 files)
 ├── planning/            # Story physics (6 files)
 ├── export/              # Export formats (5 files)
-├── concept_workshop/    # Interactive concept dev (9 files)
+├── concept_workshop/    # Interactive concept dev (10 files)
 └── ui/                  # Web interface
     ├── app.py           # FastAPI app factory
     ├── server.py        # Uvicorn entry point

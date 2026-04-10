@@ -79,7 +79,7 @@ ai-writers-room/
 │   ├── export/                    # Markdown, DOCX, EPUB export
 │   ├── concept_workshop/          # Interactive concept development
 │   └── ui/                        # FastAPI backend + React frontend
-├── tests/                         # 616 tests across 59 files
+├── tests/                         # ~553 tests across 62 files
 ├── prompts/
 │   ├── concept_workshop.md        # Workshop facilitator system prompt
 │   ├── agent_system_prompts/      # Per-agent system prompts (10 files)
