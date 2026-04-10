@@ -126,3 +126,8 @@ class ChapterMemory:
     def count(self) -> int:
         """Return the number of stored summaries."""
         return self.collection.count()
+
+    def close(self) -> None:
+        """Release ChromaDB client resources."""
+        self.collection = None
+        self.client = None

@@ -8,6 +8,7 @@ import hashlib
 import json
 import os
 import secrets
+import tempfile
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -36,7 +37,19 @@ class PipelineSession:
         """
         path = self.session_dir / f"{session_id}.json"
         state["updated_at"] = datetime.now(timezone.utc).isoformat()
-        path.write_text(json.dumps(state, indent=2, default=str), encoding="utf-8")
+        # Atomic write: write to temp file then rename, so a crash during
+        # write never corrupts the session file.
+        fd, tmp = tempfile.mkstemp(dir=str(self.session_dir), suffix=".tmp")
+        try:
+            with os.fdopen(fd, "w", encoding="utf-8") as f:
+                json.dump(state, f, indent=2, default=str)
+            os.replace(tmp, str(path))
+        except BaseException:
+            try:
+                os.unlink(tmp)
+            except OSError:
+                pass
+            raise
         return path
 
     def load(self, session_id: str) -> dict | None:

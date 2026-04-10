@@ -20,6 +20,17 @@ from typing import Optional
 logger = logging.getLogger(__name__)
 
 
+def _safe_json_loads(value, default=None, context: str = ""):
+    """Parse JSON from a database field, returning *default* on failure."""
+    if value is None:
+        return default
+    try:
+        return json.loads(value)
+    except (json.JSONDecodeError, TypeError):
+        logger.warning("Corrupt JSON in %s: %.80s", context or "field", value)
+        return default if default is not None else value
+
+
 def _slugify(name: str) -> str:
     """Convert a name to a slug ID. 'Ben Skywalker' -> 'ben_skywalker'"""
     return name.lower().replace(" ", "_").replace("-", "_")
@@ -317,6 +328,8 @@ class StoryState:
         self.conn = sqlite3.connect(str(path))
         self.conn.row_factory = sqlite3.Row
         self.conn.execute("PRAGMA foreign_keys = ON")
+        self.conn.execute("PRAGMA journal_mode = WAL")
+        self.conn.execute("PRAGMA busy_timeout = 5000")
         self.conn.executescript(_SCHEMA_SQL)
         self.conn.commit()
 
@@ -422,13 +435,22 @@ class StoryState:
             return None
         d = dict(row)
         if d["inventory"] is not None:
-            d["inventory"] = json.loads(d["inventory"])
+            d["inventory"] = _safe_json_loads(d["inventory"], [], "inventory")
         return d
+
+    _CHARACTER_COLUMNS = {
+        "name", "current_location", "emotional_state",
+        "arc_position", "inventory",
+        "last_appearance_chapter", "last_appearance_scene",
+    }
 
     def update_character(self, id: str, **kwargs: object) -> None:
         """Update only the provided fields for a character."""
         if not kwargs:
             return
+        invalid = set(kwargs) - self._CHARACTER_COLUMNS
+        if invalid:
+            raise ValueError(f"Invalid column(s) for characters: {invalid}")
         if "inventory" in kwargs and kwargs["inventory"] is not None:
             kwargs["inventory"] = json.dumps(kwargs["inventory"])
 
@@ -448,7 +470,7 @@ class StoryState:
         for row in rows:
             d = dict(row)
             if d["inventory"] is not None:
-                d["inventory"] = json.loads(d["inventory"])
+                d["inventory"] = _safe_json_loads(d["inventory"], [], "inventory")
             results.append(d)
         return results
 
@@ -675,12 +697,19 @@ class StoryState:
         ).fetchall()
         return self._rows_to_dicts(rows)
 
+    _RELATIONSHIP_COLUMNS = {
+        "relationship_type", "status", "last_updated_chapter",
+    }
+
     def update_relationship(
         self, character_a: str, character_b: str, **kwargs: object
     ) -> None:
         """Update fields on an existing relationship."""
         if not kwargs:
             return
+        invalid = set(kwargs) - self._RELATIONSHIP_COLUMNS
+        if invalid:
+            raise ValueError(f"Invalid column(s) for character_relationships: {invalid}")
         set_clause = ", ".join(f"{k} = ?" for k in kwargs)
         values = list(kwargs.values()) + [character_a, character_b]
         self.conn.execute(
@@ -731,13 +760,21 @@ class StoryState:
             return None
         d = dict(row)
         if d["related_characters"] is not None:
-            d["related_characters"] = json.loads(d["related_characters"])
+            d["related_characters"] = _safe_json_loads(d["related_characters"], [], "related_characters")
         return d
+
+    _PLOT_THREAD_COLUMNS = {
+        "description", "status", "planted_chapter",
+        "urgency", "related_characters", "resolution_notes",
+    }
 
     def update_plot_thread(self, id: str, **kwargs: object) -> None:
         """Update only the provided fields for a plot thread."""
         if not kwargs:
             return
+        invalid = set(kwargs) - self._PLOT_THREAD_COLUMNS
+        if invalid:
+            raise ValueError(f"Invalid column(s) for plot_threads: {invalid}")
         if "related_characters" in kwargs and kwargs["related_characters"] is not None:
             kwargs["related_characters"] = json.dumps(kwargs["related_characters"])
 
@@ -757,7 +794,7 @@ class StoryState:
         for row in rows:
             d = dict(row)
             if d["related_characters"] is not None:
-                d["related_characters"] = json.loads(d["related_characters"])
+                d["related_characters"] = _safe_json_loads(d["related_characters"], [], "related_characters")
             results.append(d)
         return results
 
@@ -804,7 +841,7 @@ class StoryState:
         for row in rows:
             d = dict(row)
             if d["key_events"] is not None:
-                d["key_events"] = json.loads(d["key_events"])
+                d["key_events"] = _safe_json_loads(d["key_events"], [], "key_events")
             results.append(d)
         return results
 
@@ -889,9 +926,9 @@ class StoryState:
             return None
         d = dict(row)
         if d["quality_scores"] is not None:
-            d["quality_scores"] = json.loads(d["quality_scores"])
+            d["quality_scores"] = _safe_json_loads(d["quality_scores"], {}, "quality_scores")
         if d["failure_codes"] is not None:
-            d["failure_codes"] = json.loads(d["failure_codes"])
+            d["failure_codes"] = _safe_json_loads(d["failure_codes"], [], "failure_codes")
         return d
 
     def update_chapter_log(self, chapter_number: int, **kwargs: object) -> None:
@@ -955,7 +992,7 @@ class StoryState:
             return None
         d = dict(row)
         if d["arc_phase_targets"] is not None:
-            d["arc_phase_targets"] = json.loads(d["arc_phase_targets"])
+            d["arc_phase_targets"] = _safe_json_loads(d["arc_phase_targets"], {}, "arc_phase_targets")
         return d
 
     def update_character_arc(
@@ -987,7 +1024,7 @@ class StoryState:
         for row in rows:
             d = dict(row)
             if d["arc_phase_targets"] is not None:
-                d["arc_phase_targets"] = json.loads(d["arc_phase_targets"])
+                d["arc_phase_targets"] = _safe_json_loads(d["arc_phase_targets"], {}, "arc_phase_targets")
             results.append(d)
         return results
 
@@ -1078,9 +1115,9 @@ class StoryState:
             return None
         d = dict(row)
         if d["characters_involved"] is not None:
-            d["characters_involved"] = json.loads(d["characters_involved"])
+            d["characters_involved"] = _safe_json_loads(d["characters_involved"], [], "characters_involved")
         if d["interweave_points"] is not None:
-            d["interweave_points"] = json.loads(d["interweave_points"])
+            d["interweave_points"] = _safe_json_loads(d["interweave_points"], [], "interweave_points")
         return d
 
     def update_subplot(self, subplot_id: str, **kwargs: object) -> None:
@@ -1110,9 +1147,9 @@ class StoryState:
         for row in rows:
             d = dict(row)
             if d["characters_involved"] is not None:
-                d["characters_involved"] = json.loads(d["characters_involved"])
+                d["characters_involved"] = _safe_json_loads(d["characters_involved"], [], "characters_involved")
             if d["interweave_points"] is not None:
-                d["interweave_points"] = json.loads(d["interweave_points"])
+                d["interweave_points"] = _safe_json_loads(d["interweave_points"], [], "interweave_points")
             results.append(d)
         return results
 
@@ -1128,9 +1165,9 @@ class StoryState:
         for row in rows:
             d = dict(row)
             if d["characters_involved"] is not None:
-                d["characters_involved"] = json.loads(d["characters_involved"])
+                d["characters_involved"] = _safe_json_loads(d["characters_involved"], [], "characters_involved")
             if d["interweave_points"] is not None:
-                d["interweave_points"] = json.loads(d["interweave_points"])
+                d["interweave_points"] = _safe_json_loads(d["interweave_points"], [], "interweave_points")
             results.append(d)
         return results
 
@@ -1177,7 +1214,7 @@ class StoryState:
             return None
         d = dict(row)
         if d["advancement_chapters"] is not None:
-            d["advancement_chapters"] = json.loads(d["advancement_chapters"])
+            d["advancement_chapters"] = _safe_json_loads(d["advancement_chapters"], [], "advancement_chapters")
         return d
 
     def update_hook(self, hook_id: str, **kwargs: object) -> None:
@@ -1205,7 +1242,7 @@ class StoryState:
         for row in rows:
             d = dict(row)
             if d["advancement_chapters"] is not None:
-                d["advancement_chapters"] = json.loads(d["advancement_chapters"])
+                d["advancement_chapters"] = _safe_json_loads(d["advancement_chapters"], [], "advancement_chapters")
             results.append(d)
         return results
 
@@ -1274,7 +1311,7 @@ class StoryState:
         for row in rows:
             d = dict(row)
             if d["advancement_chapters"] is not None:
-                d["advancement_chapters"] = json.loads(d["advancement_chapters"])
+                d["advancement_chapters"] = _safe_json_loads(d["advancement_chapters"], [], "advancement_chapters")
             results.append(d)
         return results
 
@@ -1355,7 +1392,7 @@ class StoryState:
             return None
         d = dict(row)
         if d["aliases"] is not None:
-            d["aliases"] = json.loads(d["aliases"])
+            d["aliases"] = _safe_json_loads(d["aliases"], [], "aliases")
         return d
 
     def update_term(self, term: str, **kwargs: object) -> None:
@@ -1384,7 +1421,7 @@ class StoryState:
         for row in rows:
             d = dict(row)
             if d["aliases"] is not None:
-                d["aliases"] = json.loads(d["aliases"])
+                d["aliases"] = _safe_json_loads(d["aliases"], [], "aliases")
             results.append(d)
         return results
 
@@ -1401,10 +1438,10 @@ class StoryState:
             d = dict(row)
             if d["term"].lower() == search_lower:
                 if d["aliases"] is not None:
-                    d["aliases"] = json.loads(d["aliases"])
+                    d["aliases"] = _safe_json_loads(d["aliases"], [], "aliases")
                 return d
             if d["aliases"]:
-                aliases = json.loads(d["aliases"])
+                aliases = _safe_json_loads(d["aliases"], [], "aliases")
                 if any(a.lower() == search_lower for a in aliases):
                     d["aliases"] = aliases
                     return d
@@ -1440,7 +1477,7 @@ class StoryState:
             return None
         d = dict(row)
         if d["affected_chapters"] is not None:
-            d["affected_chapters"] = json.loads(d["affected_chapters"])
+            d["affected_chapters"] = _safe_json_loads(d["affected_chapters"], [], "affected_chapters")
         return d
 
     def get_pending_debts(self) -> list[dict]:
@@ -1452,7 +1489,7 @@ class StoryState:
         for row in rows:
             d = dict(row)
             if d["affected_chapters"] is not None:
-                d["affected_chapters"] = json.loads(d["affected_chapters"])
+                d["affected_chapters"] = _safe_json_loads(d["affected_chapters"], [], "affected_chapters")
             results.append(d)
         return results
 
@@ -1496,7 +1533,7 @@ class StoryState:
         results = []
         for row in rows:
             d = dict(row)
-            d["metric_value"] = json.loads(d["metric_value"])
+            d["metric_value"] = _safe_json_loads(d["metric_value"], "", "metric_value")
             results.append(d)
         return results
 
