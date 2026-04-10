@@ -45,7 +45,7 @@ CraftEditor (voice/polish improvements)
 RevisionPipeline (up to 5 bands)
     |
     v
-Save -> Summarizer -> StateDiff -> ContradictionScanner
+Save -> Summarizer -> StateDiff -> ContradictionScanner -> WorldbuildingExtraction
     |
     v
 QualityMetrics -> CharacterSpecialist -> MilestoneGate
@@ -72,6 +72,7 @@ ai-writers-room/
 │   ├── pipeline_session.py        # JSON-based session save/resume
 │   ├── agents/                    # Agent implementations (base + 8 specialized)
 │   ├── memory/                    # State management (SQLite, ChromaDB, context assembly)
+│   ├── worldbuilding/             # Cross-project universe & lore persistence (SQLite + ChromaDB)
 │   ├── rag/                       # Canon knowledge retrieval (vector DB, hybrid search)
 │   ├── quality/                   # Quality metrics and milestone gates
 │   ├── revision/                  # Multi-band revision pipeline
@@ -79,7 +80,7 @@ ai-writers-room/
 │   ├── export/                    # Markdown, DOCX, EPUB export
 │   ├── concept_workshop/          # Interactive concept development
 │   └── ui/                        # FastAPI backend + React frontend
-├── tests/                         # ~553 tests across 62 files
+├── tests/                         # ~780+ tests across 68+ files
 ├── prompts/
 │   ├── concept_workshop.md        # Workshop facilitator system prompt
 │   ├── agent_system_prompts/      # Per-agent system prompts (10 files)
@@ -88,6 +89,8 @@ ai-writers-room/
 ├── data/
 │   ├── story_bibles/              # Concept seeds and scene cards per project
 │   ├── manuscripts/               # Generated chapter prose
+│   ├── worldbuilding.db           # Cross-project worldbuilding state (SQLite)
+│   ├── worldbuilding_vectors/     # Worldbuilding lore embeddings (ChromaDB)
 │   ├── eval_corpus/               # Reference chapters for quality calibration
 │   └── export/                    # Exported manuscripts
 └── docs/                          # Documentation
@@ -128,8 +131,8 @@ Set via `deployment_mode` in `config/settings.yaml`.
 |-------|-----------|
 | Core | Python 3.10+ |
 | LLM Integration | httpx -> llama-server / OpenRouter |
-| Persistent State | SQLite (story state, run ledger) |
-| Vector Memory | ChromaDB (chapter summaries, canon DB) |
+| Persistent State | SQLite (story state, run ledger, worldbuilding) |
+| Vector Memory | ChromaDB (chapter summaries, canon DB, worldbuilding lore) |
 | Quality Metrics | NLTK, scikit-learn (pure Python) |
 | Export | python-docx, ebooklib |
 | Web Backend | FastAPI, uvicorn, WebSockets |

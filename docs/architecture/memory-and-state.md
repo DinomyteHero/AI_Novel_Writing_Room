@@ -106,6 +106,123 @@ Tracks state changes needing propagation to previously-written chapters. Fields:
 
 Per-source style metrics for voice enforcement. Fields: `source`, `metric_name`, `metric_value` (JSON).
 
+## Worldbuilding Persistence Layer
+
+`src/worldbuilding/` provides a cross-project worldbuilding persistence system in a separate database (`data/worldbuilding.db`) because universes span multiple projects.
+
+### Architecture
+
+| Component | File | Storage |
+|-----------|------|---------|
+| WorldbuildingDB | `worldbuilding_db.py` | SQLite (universes, lore entries, relations, affiliations) |
+| LoreVectorStore | `lore_vectorstore.py` | ChromaDB (one collection per universe) |
+| LoreService | `lore_service.py` | Orchestrates dual-write with write-ahead sync |
+| LoreExtractor | `lore_extractor.py` | LLM prompt templates for extraction |
+
+### universes
+
+Shared worldbuilding namespaces with optional parent inheritance.
+
+| Column | Type | Description |
+|--------|------|-------------|
+| universe_id | TEXT PK | Slug identifier |
+| display_name | TEXT | Human-readable name |
+| parent_universe_id | TEXT FK | Inheritance chain parent |
+| franchise | TEXT | Base franchise (or "original") |
+| timeline_system | TEXT | `forward`, `bby_aby`, `chapter_based`, `custom` |
+| embedding_model | TEXT | Model used for ChromaDB collection |
+
+### lore_entries
+
+Individual worldbuilding knowledge units.
+
+| Column | Type | Description |
+|--------|------|-------------|
+| entry_id | TEXT PK | UUID |
+| universe_id | TEXT FK | Which universe |
+| category | TEXT | faction, location, character_background, political_system, force_mechanic, technology, species_culture, historical_event, terminology, custom |
+| title | TEXT | Entry name |
+| content | TEXT | Full lore description (markdown) |
+| status | TEXT | `canonical`, `provisional`, `deprecated` |
+| visibility | TEXT | `public`, `faction_internal`, `secret` |
+| valid_from / valid_until | TEXT | In-universe timeline bounds (display strings) |
+| timeline_sort_start / timeline_sort_end | INTEGER | Numeric sort keys for comparison |
+| thematic_notes | TEXT | How this should FEEL in prose |
+| speech_patterns | TEXT | How characters from this group talk |
+| canon_override | BOOLEAN | Intentionally contradicts parent/canon |
+| extraction_source | TEXT | `author`, `concept_seed_import`, `prose_extraction`, `workshop` |
+| introduced_in_project_id | TEXT | For spoiler isolation |
+
+### lore_relations
+
+Relationships between lore entries with dialogue implications.
+
+| Column | Type | Description |
+|--------|------|-------------|
+| source_entry_id | TEXT FK | Source entry |
+| target_entry_id | TEXT FK | Target entry |
+| relation_type | TEXT | located_in, member_of, caused_by, allied_with, enemy_of, succeeded_by, part_of, references |
+| dialogue_implications | TEXT | How this relation affects dialogue tone |
+
+### character_lore_affiliations
+
+Maps characters to factions/cultures for knowledge-gated dialogue.
+
+| Column | Type | Description |
+|--------|------|-------------|
+| character_id | TEXT | Character slug (references story_state) |
+| entry_id | TEXT FK | The faction/culture lore entry |
+| affiliation_type | TEXT | `member`, `ally`, `aware` |
+
+### project_universe_binding
+
+Binds projects to universes with reading order for spoiler isolation.
+
+| Column | Type | Description |
+|--------|------|-------------|
+| project_id | TEXT PK | Project identifier |
+| universe_id | TEXT FK | Bound universe |
+| reading_order | INTEGER | Position in reading sequence |
+| timeline_start / timeline_end | TEXT | Project's in-universe time span |
+
+### Write-Ahead Sync Pattern
+
+ChromaDB does not support transactions. The LoreService uses a write-ahead pattern:
+
+1. Begin SQLite transaction
+2. Write to SQLite
+3. Write to ChromaDB
+4. If ChromaDB fails -> roll back SQLite (no orphans)
+5. If SQLite commit fails after ChromaDB success -> orphan in ChromaDB
+
+For case 5, `reconcile_chromadb_orphans()` periodically compares SQLite entry IDs against ChromaDB IDs and cleans up mismatches.
+
+### Context Assembly Integration
+
+The context assembler adds three worldbuilding tiers between canon RAG and character voices:
+
+1. **Worldbuilding Lore** (800 tokens) -- Semantic retrieval from universe chain, filtered by timeline, spoiler isolation, and status
+2. **Worldbuilding Terminology** (300 tokens) -- Always-include glossary, not top-K
+3. **Worldbuilding Dialogue Context** (300 tokens) -- Knowledge-gated speech patterns for characters in the scene
+
+### Knowledge-Gated Dialogue
+
+Speech patterns are filtered by character knowledge:
+
+- `public` entries: included for all characters
+- `faction_internal` entries: only if the character is affiliated with that faction (via `character_lore_affiliations`)
+- `secret` entries: only if the character has a belief-layer fact (`lore:{entry_id}`) in the knowledge layers
+
+The `sync_lore_to_beliefs()` method bridges worldbuilding into the Truth/Belief system, creating truth-layer facts for canonical entries and belief-layer facts for affiliated characters.
+
+### Timeline Sort Keys
+
+Timeline filtering uses numeric sort keys (`timeline_sort_start`/`timeline_sort_end`) for correct comparison across all calendar systems. For backward-counting systems like BBY, the sort key inverts the sign (3600 BBY = -3600). The `timeline_system` field on the universe declares the calendar convention.
+
+### Post-Chapter Extraction
+
+After each chapter, the orchestrator optionally runs an LLM-assisted worldbuilding extraction pass. Extracted entries are created as `provisional` with `extraction_source = "prose_extraction"` and quarantined from the context assembler until the author promotes them to `canonical`.
+
 ## Knowledge Layers
 
 `src/memory/knowledge_layers.py` provides a semantic API over the `character_knowledge` table:
@@ -144,6 +261,9 @@ This provides associative recall -- the system can pull in summaries from non-ad
 
 Additional context layers when available:
 - Canon RAG results (franchise knowledge)
+- Worldbuilding lore — semantic retrieval from universe chain with timeline/spoiler filtering
+- Worldbuilding terminology — always-include glossary from universe chain
+- Worldbuilding dialogue — knowledge-gated speech patterns and inter-faction dynamics
 - Character knowledge state (beliefs and truth per character)
 - Voice sheets (character speech patterns)
 - Voice rules — anti-slop/anti-pattern injection from voice definition (Phase 5)

@@ -105,3 +105,33 @@ consumes `scene_type` directly, and wire it into the pipeline quality
 gate or the concept workshop's Step 8 validation rules.
 
 ---
+
+## Worldbuilding Persistence Layer — follow-up items
+
+The worldbuilding persistence layer (branch `claude/youthful-lederberg`)
+added cross-project universe management, lore entries, vector search,
+knowledge-gated dialogue, timeline sort keys, and LLM-assisted extraction.
+Several follow-up items were deferred:
+
+### UI: Universe Browser, Terminology Manager, Extraction Review Queue
+
+The React frontend has no worldbuilding UI yet. Planned components:
+
+- **Universe Browser**: browse/search lore by universe and category, create/edit entries with markdown editor, visualize lore relations as a graph, bind projects to universes
+- **Terminology Manager**: view/edit the glossary for a universe, see inherited terms from parent universes
+- **Extraction Review Queue**: after chapter generation or concept seed import, show provisional entries with approve/edit/reject controls
+- **Timeline Viewer**: visualize lore entries along the in-universe timeline
+
+### Auto-compute timeline sort keys from display dates
+
+Currently, authors must manually provide `timeline_sort_start`/`timeline_sort_end` integer values alongside display strings like "3500 BBY". A helper function that reads the universe's `timeline_system` and auto-converts display dates to sort keys would reduce friction. For `bby_aby`: negate the number. For `forward`: parse the number directly.
+
+### Public-visibility belief sync for all project characters
+
+`sync_lore_to_beliefs()` creates belief-layer facts only for characters registered via `character_lore_affiliations`. For `public` visibility entries, ideally ALL characters in the project should receive beliefs. This requires cross-referencing the story_state character list (separate DB) at sync time.
+
+### Reconciliation on startup
+
+The `worldbuilding.reconciliation.run_on_startup` config flag is defined but not wired into the app lifespan. The `_init_worldbuilding` function should check this flag and call `reconcile_chromadb_orphans()` during startup.
+
+---
