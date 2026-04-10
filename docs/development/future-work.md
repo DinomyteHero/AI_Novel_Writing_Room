@@ -11,7 +11,7 @@ letting the list grow — this is a backlog, not a permanent list.
 
 ## Concept workshop / schema cleanup (flagged during the post-Ruusan cleanup)
 
-The post-Ruusan cleanup (branch `claude/nice-babbage`, PR to come) committed
+The post-Ruusan cleanup (branch `claude/nice-babbage`, merged via PR #8) committed
 fully to the new workshop-native schema and architecture — deleting
 `beyond_the_veil`, renaming `subplot_board`/`hook_map`/`stress_test_results`
 to their canonical workshop-native names, tightening schema enums, splitting

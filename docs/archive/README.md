@@ -1,5 +1,11 @@
 # Archive
 
+> **These are historical artifacts.** The documents below were written as
+> build instructions for each development phase and reflect what was
+> *planned* at the time, not the current state of the code. Field names,
+> file paths, test counts, and feature descriptions may be outdated.
+> For current documentation, see the parent [docs/](../) directory.
+
 This directory contains historical implementation briefs used during the development of the AI Writers' Room. These documents were written as instructions for Claude Code to follow during each build phase and are preserved here for reference.
 
 They describe what was **planned** to be built at each phase, not necessarily the final state of the code. For current documentation, see the parent `docs/` directory.

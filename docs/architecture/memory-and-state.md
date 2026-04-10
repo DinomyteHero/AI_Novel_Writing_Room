@@ -86,7 +86,7 @@ Records per-chapter generation metadata (word count, quality scores, etc.).
 
 Tracks K.M. Weiland character arc beats per character per book. PK: `(character_id, book_number)`. Fields: `lie_believed`, `ghost`, `want`, `need`, `arc_type` (positive_change/flat/negative/disillusionment), `current_phase` (lie_reinforced through truth_accepted/truth_rejected), `phase_chapter`, `phase_evidence`, `arc_phase_targets` (JSON mapping phases to Brooks structure).
 
-### subplot_board (Phase 5)
+### subplots (Phase 5)
 
 Tracks subplot lifecycle. PK: `subplot_id`. Fields: `subplot_name`, `line_type` (A/B/C/D), `characters_involved` (JSON), `start_chapter`, `resolution_chapter`, `structural_purpose`, `interweave_points` (JSON), `current_status`, `book_number`.
 

@@ -6,8 +6,8 @@ The `schemas/` directory contains JSON Schema definitions for the system's core 
 
 | Schema | File | Description |
 |--------|------|-------------|
-| Concept Seed | `schemas/concept_seed.json` | The complete story plan output from the Concept Workshop. Contains metadata, characters, structural outline, story physics, and scene cards. Phase 5 added optional fields: `voice_definition`, `subplot_board`, `hook_map`, `revelation_schedule`, `terminology_registry`, `stress_test_results`, series metadata, and Weiland arc beats per character. |
-| Scene Card | `schemas/scene_card.json` | Per-chapter/scene planning document. Contains chapter number, scene number, mission objectives, characters present, location, and structural constraints. Phase 5 added optional fields: `active_subplots`, `hook_actions`, `revelations`, `pov_arc_phase`, `arc_phase_transition`. |
+| Concept Seed | `schemas/concept_seed.json` | The complete story plan output from the Concept Workshop. Contains metadata, characters, structural outline, story physics, and scene cards. Phase 5 added optional fields: `voice_definition`, `subplots`, `hooks`, `revelation_schedule`, `terminology_registry`, `stress_test_scores`, series metadata, and Weiland arc beats per character. |
+| Scene Card | `schemas/scene_card.json` | Per-chapter/scene planning document. Contains chapter number, scene number, scene type (action/sequel), mission objectives, characters present, location, and structural constraints. Phase 5 added optional fields: `active_subplots`, `hook_actions`, `revelations`, `pov_arc_phase`, `arc_phase_transition`. |
 | Story Physics | `schemas/story_physics.json` | Causality chains, revelation maps, promise/payoff ledger, and character pressure matrices. |
 | Story Bible | `schemas/story_bible.json` | The combined planning document linking concept seed, structural outline, and scene cards. |
 | Character Sheet | `schemas/character_sheet.json` | Detailed character profile with physical description, personality dimensions, speech patterns, relationships, arc, and motivation. |

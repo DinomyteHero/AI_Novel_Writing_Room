@@ -131,7 +131,7 @@ Run the test suite to confirm everything is installed correctly:
 pytest
 ```
 
-All 398 tests should pass. If some tests fail due to missing optional dependencies, that's expected -- the tests for those phases will be skipped.
+All ~553 tests should pass. If some tests fail due to missing optional dependencies (chromadb, sentence-transformers, fastapi), that's expected -- the tests for those phases will be skipped.
 
 ## Next Steps
 
