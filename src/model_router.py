@@ -2,6 +2,7 @@
 
 import asyncio
 import json
+import logging
 import os
 import re
 from pathlib import Path
@@ -9,6 +10,8 @@ from typing import Optional
 
 import httpx
 import yaml
+
+logger = logging.getLogger(__name__)
 
 # Regex for stripping markdown code fences: ```json, ```JSON, ``` json, etc.
 _FENCE_OPEN = re.compile(r"^```\s*\w*\s*\n", re.IGNORECASE)
@@ -25,6 +28,11 @@ class ModelRouter:
     def __init__(self, config_path: str = "config/settings.yaml"):
         with open(config_path) as f:
             self.config = yaml.safe_load(f)
+        for key in ("deployment_mode", "models"):
+            if key not in self.config:
+                raise ValueError(
+                    f"Missing required config key '{key}' in {config_path}"
+                )
         self.mode = self.config["deployment_mode"]
         self._local_client: Optional[httpx.AsyncClient] = None
         self._cloud_client: Optional[httpx.AsyncClient] = None
@@ -41,6 +49,11 @@ class ModelRouter:
         if self._cloud_client is None:
             cloud_cfg = self.config["models"]["cloud"]
             api_key = os.environ.get(cloud_cfg["api_key_env"], "")
+            if not api_key:
+                logger.warning(
+                    "Cloud API key env var '%s' is empty — cloud requests will fail",
+                    cloud_cfg["api_key_env"],
+                )
             self._cloud_client = httpx.AsyncClient(
                 base_url=cloud_cfg["base_url"],
                 headers={"Authorization": f"Bearer {api_key}"},

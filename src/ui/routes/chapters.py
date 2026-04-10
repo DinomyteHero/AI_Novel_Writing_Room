@@ -37,7 +37,10 @@ async def list_chapters(request: Request):
 
         chapter_num = int(match.group(1))
         scene_num = int(match.group(2))
-        text = path.read_text(encoding="utf-8")
+        try:
+            text = path.read_text(encoding="utf-8")
+        except (FileNotFoundError, OSError):
+            continue
         word_count = len(text.split())
 
         entry = {
@@ -54,7 +57,10 @@ async def list_chapters(request: Request):
                 scores = log["quality_scores"]
                 if isinstance(scores, str):
                     import json
-                    scores = json.loads(scores)
+                    try:
+                        scores = json.loads(scores)
+                    except json.JSONDecodeError:
+                        scores = {}
                 entry["quality_scores"] = scores
 
         chapters.append(entry)

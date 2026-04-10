@@ -128,3 +128,10 @@ class CanonDB:
                 "metadata": results["metadatas"][i] if results["metadatas"] else {},
             })
         return output
+
+    def close(self) -> None:
+        """Release ChromaDB client resources."""
+        # PersistentClient doesn't expose a close() method, but we can
+        # delete our reference so the GC can reclaim file handles.
+        self._collection = None
+        self._client = None

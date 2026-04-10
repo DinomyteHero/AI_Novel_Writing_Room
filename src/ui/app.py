@@ -109,12 +109,30 @@ def create_app(
 
         yield
 
-        # Shutdown
-        await state.connection_manager.stop_broadcaster()
-        await state.router.close()
-        state.ledger.close()
-        if state.story_state:
-            state.story_state.close()
+        # Shutdown — each component wrapped individually so one failure
+        # doesn't prevent the rest from cleaning up.
+        state.pipeline_manager.reset()
+
+        for label, closer in [
+            ("connection_manager", state.connection_manager.stop_broadcaster),
+            ("router", state.router.close),
+        ]:
+            try:
+                await closer()
+            except Exception:
+                logger.exception("Error shutting down %s", label)
+
+        for label, obj in [
+            ("ledger", state.ledger),
+            ("story_state", state.story_state),
+            ("chapter_memory", state.chapter_memory),
+        ]:
+            if obj is not None and hasattr(obj, "close"):
+                try:
+                    obj.close()
+                except Exception:
+                    logger.exception("Error closing %s", label)
+
         logger.info("Application shut down")
 
     app = FastAPI(

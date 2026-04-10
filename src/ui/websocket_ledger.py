@@ -6,10 +6,13 @@ for WebSocket broadcasting. Zero changes to existing pipeline code.
 """
 
 import asyncio
+import logging
 from datetime import datetime, timezone
 from typing import Optional
 
 from src.run_ledger import RunLedger
+
+logger = logging.getLogger(__name__)
 
 
 class WebSocketLedger(RunLedger):
@@ -18,6 +21,7 @@ class WebSocketLedger(RunLedger):
     def __init__(self, db_path: str = "data/run_ledger.db", queue: Optional[asyncio.Queue] = None):
         super().__init__(db_path)
         self._queue = queue or asyncio.Queue(maxsize=10000)
+        self._dropped_count = 0
 
     @property
     def queue(self) -> asyncio.Queue:
@@ -53,6 +57,10 @@ class WebSocketLedger(RunLedger):
         try:
             self._queue.put_nowait(event_dict)
         except asyncio.QueueFull:
-            pass  # Drop event rather than block pipeline
+            self._dropped_count += 1
+            if self._dropped_count % 100 == 1:
+                logger.warning(
+                    "Event queue full — %d event(s) dropped so far", self._dropped_count
+                )
 
         return event_id

@@ -23,8 +23,11 @@ async def list_scene_cards(request: Request):
 
     cards = []
     for card_file in sorted(cards_dir.glob("*.json")):
-        with open(card_file, encoding="utf-8") as f:
-            cards.append(json.load(f))
+        try:
+            with open(card_file, encoding="utf-8") as f:
+                cards.append(json.load(f))
+        except (json.JSONDecodeError, OSError) as e:
+            raise HTTPException(422, f"Invalid scene card file {card_file.name}: {e}")
 
     return {"scene_cards": cards}
 
@@ -41,8 +44,11 @@ async def get_scene_card(chapter_num: int, scene_num: int, request: Request):
     if not path.exists():
         raise HTTPException(404, f"Scene card not found: {filename}")
 
-    with open(path, encoding="utf-8") as f:
-        return json.load(f)
+    try:
+        with open(path, encoding="utf-8") as f:
+            return json.load(f)
+    except json.JSONDecodeError as e:
+        raise HTTPException(422, f"Invalid JSON in scene card {filename}: {e}")
 
 
 @router.post("/scene-cards/generate")

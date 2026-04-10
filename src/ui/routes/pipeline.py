@@ -50,8 +50,11 @@ async def start_pipeline(body: PipelineStartRequest, request: Request):
         raise HTTPException(400, f"Scene cards directory not found: {scene_cards_dir}")
 
     # Load concept seed
-    with open(concept_seed_path, encoding="utf-8") as f:
-        concept_seed = json.load(f)
+    try:
+        with open(concept_seed_path, encoding="utf-8") as f:
+            concept_seed = json.load(f)
+    except json.JSONDecodeError as e:
+        raise HTTPException(400, f"Invalid JSON in concept seed: {e}")
 
     # Load scene cards
     cards = _load_scene_cards(scene_cards_dir, body.chapter)
@@ -133,10 +136,13 @@ def _load_scene_cards(scene_cards_dir: str, chapter: Optional[int] = None) -> li
     cards_path = Path(scene_cards_dir)
     cards = []
     for card_file in sorted(cards_path.glob("*.json")):
-        with open(card_file, encoding="utf-8") as f:
-            card = json.load(f)
-            if chapter is None or card.get("chapter_number") == chapter:
-                cards.append(card)
+        try:
+            with open(card_file, encoding="utf-8") as f:
+                card = json.load(f)
+        except (json.JSONDecodeError, OSError):
+            continue
+        if chapter is None or card.get("chapter_number") == chapter:
+            cards.append(card)
     return cards
 
 
