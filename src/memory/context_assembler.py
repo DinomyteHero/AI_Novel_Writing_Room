@@ -15,6 +15,7 @@ if TYPE_CHECKING:
     from src.memory.knowledge_layers import KnowledgeLayers
     from src.memory.story_state import StoryState
     from src.rag.canon_db import CanonDB
+    from src.worldbuilding.lore_service import LoreService
 
 
 # Token budget per tier (approximate: 1 token ~ 0.75 words)
@@ -34,6 +35,10 @@ TOKEN_BUDGETS = {
     "arc_context": 300,
     "subplot_context": 300,
     "terminology": 200,
+    # Worldbuilding tiers
+    "worldbuilding_lore": 800,
+    "worldbuilding_terminology": 300,
+    "worldbuilding_dialogue": 300,
 }
 
 
@@ -61,6 +66,10 @@ class ContextAssembler:
         knowledge_layers: Optional["KnowledgeLayers"] = None,
         chapter_memory: Optional["ChapterMemory"] = None,
         canon_db: Optional["CanonDB"] = None,
+        # Worldbuilding dependency:
+        lore_service: Optional["LoreService"] = None,
+        universe_id: Optional[str] = None,
+        project_id: Optional[str] = None,
     ):
         self.concept_seed = self._load_json(concept_seed_path)
         self.negative_constraints = self._load_constraints(negative_constraints_path)
@@ -72,6 +81,11 @@ class ContextAssembler:
         self.chapter_memory = chapter_memory
         self.canon_db = canon_db
 
+        # Worldbuilding dependencies (None = skip worldbuilding tier)
+        self.lore_service = lore_service
+        self.universe_id = universe_id
+        self.project_id = project_id
+
     @property
     def _phase2_enabled(self) -> bool:
         """Check if any Phase 2 dependencies are available."""
@@ -80,6 +94,7 @@ class ContextAssembler:
             self.knowledge_layers,
             self.chapter_memory,
             self.canon_db,
+            self.lore_service,
         ])
 
     def _load_json(self, path: str) -> dict:
@@ -262,13 +277,46 @@ class ContextAssembler:
                     )
                 )
 
-        # Canon RAG results
+        # Canon RAG results (with worldbuilding override resolution)
         canon_context = self._get_canon_context(scene_card)
         if canon_context:
             components.append(
                 f"## Canon Reference\n"
                 + _truncate_to_budget(canon_context, TOKEN_BUDGETS["canon_rag"])
             )
+
+        # Worldbuilding lore (semantic retrieval from universe chain)
+        if self.lore_service and self.universe_id:
+            wb_lore = self._assemble_worldbuilding_lore(scene_card)
+            if wb_lore:
+                components.append(
+                    f"## Worldbuilding Lore\n"
+                    + _truncate_to_budget(
+                        wb_lore, TOKEN_BUDGETS["worldbuilding_lore"]
+                    )
+                )
+
+        # Worldbuilding terminology glossary (always-include)
+        if self.lore_service and self.universe_id:
+            wb_terms = self._assemble_worldbuilding_terminology()
+            if wb_terms:
+                components.append(
+                    _truncate_to_budget(
+                        wb_terms, TOKEN_BUDGETS["worldbuilding_terminology"]
+                    )
+                )
+
+        # Worldbuilding dialogue context (speech patterns)
+        if self.lore_service and self.universe_id:
+            wb_dialogue = self._assemble_worldbuilding_dialogue(
+                scene_card.get("characters_present", [])
+            )
+            if wb_dialogue:
+                components.append(
+                    _truncate_to_budget(
+                        wb_dialogue, TOKEN_BUDGETS["worldbuilding_dialogue"]
+                    )
+                )
 
         # Character voice sheets
         characters_present = scene_card.get("characters_present", [])
@@ -541,6 +589,128 @@ class ContextAssembler:
             aliases = t.get("aliases", [])
             alias_str = f" (also: {', '.join(aliases)})" if aliases else ""
             lines.append(f"- **{t['term']}**{alias_str}: {t.get('definition', '')}")
+
+        return "\n".join(lines)
+
+    # ------------------------------------------------------------------
+    # Worldbuilding context methods
+    # ------------------------------------------------------------------
+
+    def _assemble_worldbuilding_lore(self, scene_card: dict) -> str:
+        """Retrieve relevant worldbuilding lore for this scene."""
+        if not self.lore_service or not self.universe_id:
+            return ""
+
+        # Build query from scene card context
+        query_parts = []
+        if scene_card.get("location"):
+            query_parts.append(scene_card["location"])
+        if scene_card.get("title"):
+            query_parts.append(scene_card["title"])
+        characters = scene_card.get("characters_present", [])
+        if characters:
+            query_parts.extend(characters[:3])
+        if scene_card.get("task"):
+            query_parts.append(scene_card["task"])
+
+        if not query_parts:
+            return ""
+
+        query_text = " ".join(query_parts)
+
+        try:
+            # Get project reading order for spoiler isolation
+            project_reading_order = None
+            if self.project_id:
+                project_reading_order = self.lore_service.db.get_project_reading_order(
+                    self.project_id
+                )
+
+            results = self.lore_service.get_lore_for_context(
+                universe_id=self.universe_id,
+                query_text=query_text,
+                top_k=5,
+                project_reading_order=project_reading_order,
+            )
+        except Exception:
+            return ""
+
+        if not results:
+            return ""
+
+        lines = []
+        for r in results:
+            meta = r.get("metadata", {})
+            title = meta.get("title", "Unknown")
+            category = meta.get("category", "")
+            status = meta.get("status", "")
+            text = r.get("text", "")[:400]
+
+            status_tag = ""
+            if status == "provisional":
+                status_tag = " [PROVISIONAL — not yet author-confirmed]"
+
+            lines.append(f"### {title} ({category}){status_tag}\n{text}")
+
+        return "\n\n".join(lines)
+
+    def _assemble_worldbuilding_terminology(self) -> str:
+        """Get worldbuilding terminology glossary (always-include)."""
+        if not self.lore_service or not self.universe_id:
+            return ""
+
+        try:
+            terms = self.lore_service.get_terminology(self.universe_id)
+        except Exception:
+            return ""
+
+        if not terms:
+            return ""
+
+        lines = ["## Worldbuilding Terminology — Use EXACT terms:"]
+        for t in terms:
+            tags = t.get("tags", [])
+            tag_str = f" [{', '.join(tags)}]" if tags and isinstance(tags, list) else ""
+            lines.append(f"- **{t['title']}**{tag_str}: {t['content'][:200]}")
+
+        return "\n".join(lines)
+
+    def _assemble_worldbuilding_dialogue(self, characters_present: list[str]) -> str:
+        """Get knowledge-gated speech patterns and dialogue implications."""
+        if not self.lore_service or not self.universe_id:
+            return ""
+
+        try:
+            context = self.lore_service.get_dialogue_context(
+                self.universe_id,
+                character_ids=characters_present or None,
+                knowledge_layers=self.knowledge_layers,
+            )
+        except Exception:
+            return ""
+
+        speech = context.get("speech_patterns", [])
+        implications = context.get("dialogue_implications", [])
+
+        if not speech and not implications:
+            return ""
+
+        lines = ["## Worldbuilding Dialogue Context"]
+
+        if speech:
+            lines.append("\n### Speech Patterns:")
+            for s in speech:
+                lines.append(
+                    f"- **{s['title']}** ({s['category']}): {s['speech_patterns']}"
+                )
+
+        if implications:
+            lines.append("\n### Inter-Faction Dialogue Dynamics:")
+            for imp in implications:
+                lines.append(
+                    f"- {imp.get('source_entry_id', '?')} ↔ {imp.get('target_entry_id', '?')} "
+                    f"({imp.get('relation_type', '?')}): {imp.get('dialogue_implications', '')}"
+                )
 
         return "\n".join(lines)
 

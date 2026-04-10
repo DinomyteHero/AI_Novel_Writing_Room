@@ -313,6 +313,77 @@ Event types match those logged to the RunLedger (see [Agent Pipeline](../archite
 
 ---
 
+## Worldbuilding
+
+All worldbuilding endpoints are prefixed with `/api/worldbuilding/` and return 503 if the worldbuilding service isn't initialized.
+
+### Universes
+
+```
+POST   /api/worldbuilding/universes                    # Create universe
+GET    /api/worldbuilding/universes                    # List all (with entry counts)
+GET    /api/worldbuilding/universes/{id}               # Get detail + inheritance chain
+DELETE /api/worldbuilding/universes/{id}               # Delete (cascade)
+```
+
+### Lore Entries
+
+```
+GET    /api/worldbuilding/universes/{id}/lore          # List/search (?category=&status=&search=)
+POST   /api/worldbuilding/universes/{id}/lore          # Create entry
+GET    /api/worldbuilding/lore/{entry_id}              # Get entry + relations
+PUT    /api/worldbuilding/lore/{entry_id}              # Update entry
+DELETE /api/worldbuilding/lore/{entry_id}              # Delete entry
+POST   /api/worldbuilding/lore/{entry_id}/promote      # Promote provisional -> canonical
+POST   /api/worldbuilding/lore/{entry_id}/deprecate    # Mark deprecated
+POST   /api/worldbuilding/lore/bulk-promote            # Promote multiple (body: {entry_ids: [...]})
+```
+
+### Relations
+
+```
+POST   /api/worldbuilding/lore/relations                                   # Create relation
+GET    /api/worldbuilding/lore/{entry_id}/relations                        # Get relations
+DELETE /api/worldbuilding/lore/relations/{source_id}/{target_id}/{type}    # Delete relation
+```
+
+### Character Affiliations
+
+```
+POST   /api/worldbuilding/lore/affiliations                          # Create affiliation
+GET    /api/worldbuilding/lore/affiliations/{character_id}           # Get affiliations
+DELETE /api/worldbuilding/lore/affiliations/{character_id}/{entry_id} # Remove affiliation
+```
+
+### Terminology
+
+```
+GET    /api/worldbuilding/universes/{id}/terminology   # Full glossary (walks parent chain)
+```
+
+### Project Binding
+
+```
+POST   /api/worldbuilding/projects/{project_id}/bind-universe  # Bind project to universe
+GET    /api/worldbuilding/projects/{project_id}/universe        # Get bound universe
+```
+
+### Import & Extraction
+
+```
+POST   /api/worldbuilding/universes/{id}/import-seed       # LLM-assisted concept seed import
+POST   /api/worldbuilding/universes/{id}/extract-chapter   # LLM-assisted chapter extraction
+GET    /api/worldbuilding/universes/{id}/pending            # List provisional entries for review
+```
+
+### Maintenance
+
+```
+POST   /api/worldbuilding/admin/reconcile?universe_id=     # Trigger orphan reconciliation
+```
+
+---
+
 ## CORS
 
 The server allows requests from:

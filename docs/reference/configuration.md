@@ -101,6 +101,32 @@ local_inference:
   flash_attention: true
 ```
 
+### Worldbuilding Settings
+
+```yaml
+worldbuilding:
+  db_path: data/worldbuilding.db              # SQLite database for universes/lore
+  vectors_dir: data/worldbuilding_vectors     # ChromaDB persistent directory
+  default_top_k: 5                            # Default semantic retrieval limit
+  walk_parents: true                          # Walk universe inheritance chain
+  include_provisional_in_context: false       # Include provisional entries (flagged)
+  auto_extraction:
+    enabled: true                             # Run extraction after each chapter
+    auto_promote: false                       # Skip quarantine on extracted entries
+  terminology:
+    always_include: true                      # Bypass top-K for terminology
+  reconciliation:
+    run_on_startup: true                      # Run SQLite/ChromaDB reconciliation at startup
+    interval_minutes: 60                      # Periodic reconciliation (0 = disabled)
+```
+
+The `lore_extractor` agent routing is also defined in `agent_routing`:
+
+```yaml
+agent_routing:
+  lore_extractor: { backend: local, model: utility, params: { temperature: 0.2 } }
+```
+
 ---
 
 ## failure_codes.yaml

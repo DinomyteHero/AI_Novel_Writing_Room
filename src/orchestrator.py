@@ -45,6 +45,7 @@ if TYPE_CHECKING:
     from src.planning.physics_enforcer import PhysicsEnforcer
     from src.pipeline_session import PipelineSession
     from src.quality.llm_judge import JudgeEvaluator
+    from src.worldbuilding.lore_service import LoreService
 
 
 class Orchestrator:
@@ -84,6 +85,11 @@ class Orchestrator:
         pipeline_session: Optional["PipelineSession"] = None,
         session_id: Optional[str] = None,
         judge_evaluator: Optional["JudgeEvaluator"] = None,
+        # Worldbuilding optional dependency:
+        lore_service: Optional["LoreService"] = None,
+        universe_id: Optional[str] = None,
+        project_id: Optional[str] = None,
+        worldbuilding_auto_extract: bool = False,
     ):
         self.router = router
         self.assembler = context_assembler
@@ -118,6 +124,12 @@ class Orchestrator:
         self.pipeline_session = pipeline_session
         self.session_id = session_id
         self.judge_evaluator = judge_evaluator
+
+        # Worldbuilding optional components
+        self.lore_service = lore_service
+        self._universe_id = universe_id
+        self._project_id = project_id
+        self._worldbuilding_auto_extract = worldbuilding_auto_extract
 
     async def run_pipeline(self, scene_cards: list[dict]) -> list[dict]:
         """Run the full pipeline for a list of scene cards."""
@@ -450,6 +462,24 @@ class Orchestrator:
                 )
             else:
                 print(f"  [P2-5] Contradiction scanner: clean")
+
+        # Step 10: Worldbuilding extraction (if enabled)
+        if (self.lore_service and self._worldbuilding_auto_extract
+                and self._universe_id and self._project_id):
+            import logging as _log
+            _logger = _log.getLogger(__name__)
+            try:
+                new_entry_ids = await self.lore_service.extract_worldbuilding_from_chapter(
+                    chapter_text=prose,
+                    scene_card=scene_card,
+                    universe_id=self._universe_id,
+                    project_id=self._project_id,
+                    router=self.router,
+                )
+                if new_entry_ids:
+                    print(f"  [WB] Extracted {len(new_entry_ids)} provisional lore entries")
+            except Exception as e:
+                _logger.warning("Worldbuilding extraction failed: %s", e)
 
         return summary_text, contradiction_flags
 

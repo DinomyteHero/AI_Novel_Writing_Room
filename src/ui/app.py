@@ -47,6 +47,7 @@ class AppState:
         self.export_manager = None
         self.scene_card_generator = None
         self.embedding_function = None
+        self.lore_service = None
 
 
 def get_app_state(request: Request) -> AppState:
@@ -101,6 +102,9 @@ def create_app(
         if phase >= 4:
             _init_phase4_components(state)
 
+        # Initialize worldbuilding service
+        _init_worldbuilding(state, state.config)
+
         # Start connection manager and broadcaster
         state.connection_manager = ConnectionManager(state.event_queue)
         await state.connection_manager.start_broadcaster()
@@ -126,6 +130,7 @@ def create_app(
             ("ledger", state.ledger),
             ("story_state", state.story_state),
             ("chapter_memory", state.chapter_memory),
+            ("lore_service", state.lore_service),
         ]:
             if obj is not None and hasattr(obj, "close"):
                 try:
@@ -177,6 +182,7 @@ def create_app(
     from src.ui.routes.scene_cards import router as scene_cards_router
     from src.ui.routes.ledger import router as ledger_router
     from src.ui.routes.websocket import router as websocket_router
+    from src.ui.routes.worldbuilding import router as worldbuilding_router
 
     app.include_router(pipeline_router, prefix="/api")
     app.include_router(chapters_router, prefix="/api")
@@ -184,6 +190,7 @@ def create_app(
     app.include_router(scene_cards_router, prefix="/api")
     app.include_router(ledger_router, prefix="/api")
     app.include_router(websocket_router, prefix="/api")
+    app.include_router(worldbuilding_router, prefix="/api")
 
     # Serve static files (React build) if available
     static_dir = Path(__file__).parent / "static"
@@ -221,6 +228,27 @@ def _init_story_state(state: AppState, concept_seed_path: str, pipeline_cfg: dic
 
     except ImportError as e:
         logger.warning("Phase 2 components not available: %s", e)
+
+
+def _init_worldbuilding(state: AppState, config: dict) -> None:
+    """Initialize the worldbuilding persistence layer."""
+    try:
+        from src.worldbuilding.worldbuilding_db import WorldbuildingDB
+        from src.worldbuilding.lore_vectorstore import LoreVectorStore
+        from src.worldbuilding.lore_service import LoreService
+
+        wb_config = config.get("worldbuilding", {})
+        db_path = wb_config.get("db_path", "data/worldbuilding.db")
+        vectors_dir = wb_config.get("vectors_dir", "data/worldbuilding_vectors")
+
+        ef = state.embedding_function
+        wb_db = WorldbuildingDB(db_path=db_path)
+        wb_vs = LoreVectorStore(persist_directory=vectors_dir, embedding_function=ef)
+        state.lore_service = LoreService(db=wb_db, vectorstore=wb_vs)
+
+        logger.info("Worldbuilding service initialized (db=%s)", db_path)
+    except (ImportError, Exception) as e:
+        logger.warning("Worldbuilding service not available: %s", e)
 
 
 def _init_phase4_components(state: AppState) -> None:

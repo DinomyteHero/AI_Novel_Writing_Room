@@ -88,6 +88,8 @@ agent_routing:
   # Phase 5: Manuscript review and stress testing
   manuscript_reviewer:             { backend: cloud, model: premium, params: { temperature: 0.4, min_p: 0.05 } }
   stress_test:                     { backend: cloud, model: primary, params: { temperature: 0.5, min_p: 0.05 } }
+  # Worldbuilding extraction agent
+  lore_extractor:                  { backend: local, model: utility, params: { temperature: 0.2 } }
 
 # Concept workshop local fallback (local-only deployment mode)
 concept_workshop_local:
@@ -112,3 +114,19 @@ pipeline:
   max_voice_retries: 2
   chapter_output_dir: data/manuscripts
   run_ledger_path: data/run_ledger.db
+
+# Worldbuilding persistence
+worldbuilding:
+  db_path: data/worldbuilding.db
+  vectors_dir: data/worldbuilding_vectors
+  default_top_k: 5
+  walk_parents: true
+  include_provisional_in_context: false
+  auto_extraction:
+    enabled: true
+    auto_promote: false
+  terminology:
+    always_include: true
+  reconciliation:
+    run_on_startup: true
+    interval_minutes: 60
