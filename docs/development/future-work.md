@@ -134,4 +134,10 @@ Currently, authors must manually provide `timeline_sort_start`/`timeline_sort_en
 
 The `worldbuilding.reconciliation.run_on_startup` config flag is defined but not wired into the app lifespan. The `_init_worldbuilding` function should check this flag and call `reconcile_chromadb_orphans()` during startup.
 
+### Per-universe subdirectories
+
+Currently `data/universes/` is a flat directory with a single `worldbuilding.db` and `worldbuilding_vectors/`. The `--universe-id` flag scopes queries at the application level, but all universes share one database. This works for single-universe setups but will cause lore collisions when running multiple universes (e.g., Star Wars Legends + an original fantasy setting).
+
+**Suggested approach**: add per-universe subdirectories (`data/universes/<universe-slug>/worldbuilding.db`), similar to how `ProjectPaths` scopes per-project state. Either extend `ProjectPaths` with universe-level path resolution or create a dedicated `UniversePaths` helper. The `--universe-id` flag would map to the slug for path resolution.
+
 ---
