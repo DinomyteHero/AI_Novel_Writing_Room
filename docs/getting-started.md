@@ -85,8 +85,8 @@ The project includes a worked example called "The Ruusan Atonement" with a compl
 
 ```bash
 python -m src.main \
-    data/story_bibles/the_ruusan_atonement/concept_seed.json \
-    data/story_bibles/the_ruusan_atonement/scene_cards \
+    data/projects/the-ruusan-atonement/concept_seed.json \
+    data/projects/the-ruusan-atonement/scene_cards \
     --chapter 1 \
     --phase 1
 ```
@@ -99,8 +99,8 @@ All state data is automatically scoped under `data/projects/the-ruusan-atonement
 
 ```bash
 python -m src.main \
-    data/story_bibles/the_ruusan_atonement/concept_seed.json \
-    data/story_bibles/the_ruusan_atonement/scene_cards \
+    data/projects/the-ruusan-atonement/concept_seed.json \
+    data/projects/the-ruusan-atonement/scene_cards \
     --phase 4
 ```
 
@@ -112,15 +112,15 @@ After generation, export to multiple formats:
 
 ```bash
 python -m src.main \
-    data/story_bibles/the_ruusan_atonement/concept_seed.json \
-    data/story_bibles/the_ruusan_atonement/scene_cards \
+    data/projects/the-ruusan-atonement/concept_seed.json \
+    data/projects/the-ruusan-atonement/scene_cards \
     --export-only --export-formats md,docx,epub
 ```
 
 ### Run the Web Interface
 
 ```bash
-python -m src.ui.server data/story_bibles/the_ruusan_atonement/concept_seed.json
+python -m src.ui.server data/projects/the-ruusan-atonement/concept_seed.json
 ```
 
 Open http://localhost:8000.
@@ -142,7 +142,7 @@ Run the test suite to confirm everything is installed correctly:
 pytest
 ```
 
-All ~553 tests should pass. If some tests fail due to missing optional dependencies (chromadb, sentence-transformers, fastapi), that's expected -- the tests for those phases will be skipped.
+All ~677 tests should pass. If some tests fail due to missing optional dependencies (chromadb, sentence-transformers, fastapi), that's expected -- the tests for those phases will be skipped.
 
 ## Next Steps
 

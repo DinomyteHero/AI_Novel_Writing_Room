@@ -86,8 +86,8 @@ When `deployment_mode` is `cloud`, the `backend` field in agent routing is overr
 pipeline:
   max_structural_retries: 3
   max_voice_retries: 2
-  chapter_output_dir: data/manuscripts
-  run_ledger_path: data/run_ledger.db
+  # chapter_output_dir: defaults to output/{project-slug}/chapters/
+  # run_ledger_path: auto-resolved per-project at data/projects/<slug>/state/run_ledger.db
 ```
 
 ### Local Inference Settings

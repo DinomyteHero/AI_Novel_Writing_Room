@@ -10,7 +10,7 @@ python -m src.concept_workshop.workshop_runner --project <project_name>
 
 | Flag | Description |
 |------|-------------|
-| `--project NAME` | Project name (creates `data/story_bibles/<NAME>/` directory) |
+| `--project NAME` | Project name (creates `data/projects/<NAME>/` directory) |
 | `--resume` | Resume a previous session with saved state context |
 | `--finalize` | Finalize the concept and generate the seed document |
 | `--series` | Planned series mode (activates Step 0a: Series Seed Workshop) |
@@ -39,7 +39,7 @@ The workshop facilitator walks you through these steps:
 
 ## Session Persistence
 
-Workshop state is saved automatically to `data/story_bibles/<project>/`:
+Workshop state is saved automatically to `data/projects/<project>/`:
 
 - `workshop_sessions/` -- JSONL transcripts for each session
 - `workshop_state.json` -- The evolving concept seed state with confirmation tracking
@@ -82,7 +82,7 @@ python -m src.concept_workshop.workshop_runner --project void_chronicles --serie
 
 # Continue from Book 1
 python -m src.concept_workshop.workshop_runner --project void_chronicles_book2 \
-    --continue-from data/story_bibles/void_chronicles/book_1_transition.json
+    --continue-from data/projects/void-chronicles/book_1_transition.json
 
 # Resume later
 python -m src.concept_workshop.workshop_runner --project my_novel --resume

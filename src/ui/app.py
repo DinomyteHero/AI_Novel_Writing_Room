@@ -101,7 +101,7 @@ def create_app(
         state.router = ModelRouter(config_path)
 
         # Initialize WebSocketLedger (project-scoped)
-        ledger_path = pipeline_cfg.get("run_ledger_path", str(paths.run_ledger_db))
+        ledger_path = str(paths.run_ledger_db)
         state.ledger = WebSocketLedger(db_path=ledger_path, queue=state.event_queue)
 
         # Initialize Phase 2+ components if available

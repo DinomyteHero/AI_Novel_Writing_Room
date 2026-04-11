@@ -3,8 +3,8 @@
 Loads the workshop output from Downloads, applies all enrichments
 (voice_definition, arc_phase_map, promise_payoff_ledger, canon_constraints,
 extended_metadata restructure), writes the final seed to
-data/story_bibles/the_ruusan_atonement/concept_seed.json, and extracts
-28 individual scene cards to data/story_bibles/the_ruusan_atonement/scene_cards/.
+data/projects/the-ruusan-atonement/concept_seed.json, and extracts
+28 individual scene cards to data/projects/the-ruusan-atonement/scene_cards/.
 
 Validates the final seed against schemas/concept_seed.json and each
 extracted scene card against schemas/scene_card.json.
@@ -25,7 +25,7 @@ import jsonschema
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 SOURCE_SEED = Path("C:/Users/LouisBouwer/Downloads/the_ruusan_atonement_concept_seed.json")
-TARGET_DIR = REPO_ROOT / "data" / "story_bibles" / "the_ruusan_atonement"
+TARGET_DIR = REPO_ROOT / "data" / "projects" / "the-ruusan-atonement"
 TARGET_SEED = TARGET_DIR / "concept_seed.json"
 SCENE_CARDS_DIR = TARGET_DIR / "scene_cards"
 CONCEPT_SEED_SCHEMA = REPO_ROOT / "schemas" / "concept_seed.json"

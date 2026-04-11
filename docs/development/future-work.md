@@ -30,7 +30,7 @@ questions, and narrative summaries.
 **Deferred**: full per-turn conversation transcript capture (every assistant
 and user message with timestamps) as either Markdown logs or structured JSON.
 Requires a new per-turn writer hook in `workshop_runner.py` and a policy on
-where transcripts live (`data/story_bibles/{project}/workshop_sessions/`
+where transcripts live (`data/projects/{project}/workshop_sessions/`
 already exists as a target directory convention).
 
 **Why deferred**: structured summaries already cover the use cases we have

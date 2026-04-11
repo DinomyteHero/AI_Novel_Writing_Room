@@ -4,9 +4,9 @@ Manages the conversation loop, state persistence, session transcription,
 and context summarization for multi-session concept development.
 
 Usage:
-    python -m src.concept_workshop.workshop_runner --project the_ruusan_atonement
-    python -m src.concept_workshop.workshop_runner --project the_ruusan_atonement --resume
-    python -m src.concept_workshop.workshop_runner --project the_ruusan_atonement --finalize
+    python -m src.concept_workshop.workshop_runner --project the-ruusan-atonement
+    python -m src.concept_workshop.workshop_runner --project the-ruusan-atonement --resume
+    python -m src.concept_workshop.workshop_runner --project the-ruusan-atonement --finalize
 """
 
 from __future__ import annotations
@@ -19,6 +19,7 @@ import sys
 from pathlib import Path
 
 from src.model_router import ModelRouter
+from src.project_paths import ProjectPaths, slugify_title
 from src.concept_workshop.state_writer import ConceptWorkshopStateWriter
 from src.concept_workshop.workshop_summarizer import WorkshopSummarizer
 from src.concept_workshop.series_manager import SeriesManager
@@ -51,7 +52,7 @@ class WorkshopRunner:
         self._input = input_fn or input
         self._print = print_fn or print
 
-        self.project_dir = Path(f"data/story_bibles/{project_name}")
+        self.project_dir = ProjectPaths(slugify_title(project_name)).project_root
         self.project_dir.mkdir(parents=True, exist_ok=True)
         sessions_dir = self.project_dir / "workshop_sessions"
         sessions_dir.mkdir(exist_ok=True)
@@ -218,7 +219,7 @@ def main() -> None:
     router = ModelRouter(config_path)
 
     if args.finalize:
-        project_dir = Path(f"data/story_bibles/{args.project}")
+        project_dir = ProjectPaths(slugify_title(args.project)).project_root
         writer = ConceptWorkshopStateWriter(args.project, project_dir, router)
         output_path = str(project_dir / "book_1_seed.json")
         writer.finalize(output_path)

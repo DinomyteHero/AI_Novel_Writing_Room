@@ -32,16 +32,16 @@ from src.run_ledger import RunLedger
 SCENE_CARDS_DIR = (
     Path(__file__).parent.parent
     / "data"
-    / "story_bibles"
-    / "the_ruusan_atonement"
+    / "projects"
+    / "the-ruusan-atonement"
     / "scene_cards"
 )
 
 CONCEPT_SEED_PATH = (
     Path(__file__).parent.parent
     / "data"
-    / "story_bibles"
-    / "the_ruusan_atonement"
+    / "projects"
+    / "the-ruusan-atonement"
     / "concept_seed.json"
 )
 

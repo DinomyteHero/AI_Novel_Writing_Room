@@ -17,8 +17,8 @@ from pathlib import Path
 # Paths
 # ---------------------------------------------------------------------------
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
-CONCEPT_SEED_PATH = PROJECT_ROOT / "data" / "story_bibles" / "the_ruusan_atonement" / "concept_seed.json"
-SCENE_CARDS_DIR = PROJECT_ROOT / "data" / "story_bibles" / "the_ruusan_atonement" / "scene_cards"
+CONCEPT_SEED_PATH = PROJECT_ROOT / "data" / "projects" / "the-ruusan-atonement" / "concept_seed.json"
+SCENE_CARDS_DIR = PROJECT_ROOT / "data" / "projects" / "the-ruusan-atonement" / "scene_cards"
 
 # ---------------------------------------------------------------------------
 # Enum definitions (from schemas)

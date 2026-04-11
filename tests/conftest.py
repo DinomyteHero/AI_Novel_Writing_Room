@@ -117,7 +117,6 @@ def settings_yaml(temp_dir):
             "max_structural_retries": 3,
             "max_voice_retries": 2,
             "chapter_output_dir": "data/manuscripts",
-            "run_ledger_path": "data/run_ledger.db",
         },
     }
 

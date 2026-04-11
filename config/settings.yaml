@@ -73,7 +73,7 @@ pipeline:
   max_voice_retries: 2
   # chapter_output_dir: defaults to output/{project-slug}/chapters/
   # Override here or with --output-dir to use a custom path.
-  run_ledger_path: data/run_ledger.db
+  # run_ledger_path: auto-resolved per-project at data/projects/<slug>/state/run_ledger.db
 
 # Worldbuilding persistence
 worldbuilding:

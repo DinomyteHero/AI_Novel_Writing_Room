@@ -84,8 +84,8 @@ python -m src.main <concept_seed> <scene_cards_dir> [options]
 
 ```bash
 python -m src.main \
-    data/story_bibles/the_ruusan_atonement/concept_seed.json \
-    data/story_bibles/the_ruusan_atonement/scene_cards \
+    data/projects/the-ruusan-atonement/concept_seed.json \
+    data/projects/the-ruusan-atonement/scene_cards \
     --chapter 1 --phase 1
 ```
 
@@ -93,8 +93,8 @@ python -m src.main \
 
 ```bash
 python -m src.main \
-    data/story_bibles/the_ruusan_atonement/concept_seed.json \
-    data/story_bibles/the_ruusan_atonement/scene_cards \
+    data/projects/the-ruusan-atonement/concept_seed.json \
+    data/projects/the-ruusan-atonement/scene_cards \
     --phase 3
 ```
 
@@ -102,8 +102,8 @@ python -m src.main \
 
 ```bash
 python -m src.main \
-    data/story_bibles/the_ruusan_atonement/concept_seed.json \
-    data/story_bibles/the_ruusan_atonement/scene_cards \
+    data/projects/the-ruusan-atonement/concept_seed.json \
+    data/projects/the-ruusan-atonement/scene_cards \
     --phase 4 --export --judge
 ```
 
@@ -111,8 +111,8 @@ python -m src.main \
 
 ```bash
 python -m src.main \
-    data/story_bibles/the_ruusan_atonement/concept_seed.json \
-    data/story_bibles/the_ruusan_atonement/scene_cards \
+    data/projects/the-ruusan-atonement/concept_seed.json \
+    data/projects/the-ruusan-atonement/scene_cards \
     --export-only --export-formats docx,epub
 ```
 
@@ -120,8 +120,8 @@ python -m src.main \
 
 ```bash
 python -m src.main \
-    data/story_bibles/the_ruusan_atonement/concept_seed.json \
-    data/story_bibles/the_ruusan_atonement/scene_cards \
+    data/projects/the-ruusan-atonement/concept_seed.json \
+    data/projects/the-ruusan-atonement/scene_cards \
     --phase 4 --generate-outline
 ```
 
@@ -129,8 +129,8 @@ python -m src.main \
 
 ```bash
 python -m src.main \
-    data/story_bibles/the_ruusan_atonement/concept_seed.json \
-    data/story_bibles/the_ruusan_atonement/scene_cards \
+    data/projects/the-ruusan-atonement/concept_seed.json \
+    data/projects/the-ruusan-atonement/scene_cards \
     --phase 4 --resume
 ```
 
@@ -138,23 +138,28 @@ python -m src.main \
 
 ```bash
 python -m src.main \
-    data/story_bibles/the_ruusan_atonement/concept_seed.json \
-    data/story_bibles/the_ruusan_atonement/scene_cards \
+    data/projects/the-ruusan-atonement/concept_seed.json \
+    data/projects/the-ruusan-atonement/scene_cards \
     --server --port 8080
 ```
 
 ## Output
 
-Generated chapters are saved as Markdown files in the manuscripts directory (default: `data/manuscripts/`):
+Generated chapters are saved as Markdown files in the project output directory (default: `output/<project-slug>/chapters/`):
 
 ```
-data/manuscripts/
-├── chapter_01_scene_01.md
-├── chapter_02_scene_01.md
-└── ...
+output/the-ruusan-atonement/
+├── chapters/
+│   ├── chapter_01_scene_01.md
+│   ├── chapter_02_scene_01.md
+│   └── ...
+└── export/
+    ├── manuscript.md
+    ├── manuscript.docx
+    └── manuscript.epub
 ```
 
-Exports are saved to `data/export/`.
+Exports are saved to `output/<project-slug>/export/`.
 
 ## Pipeline Output Summary
 

@@ -80,7 +80,7 @@ ai-writers-room/
 │   ├── export/                    # Markdown, DOCX, EPUB export
 │   ├── concept_workshop/          # Interactive concept development
 │   └── ui/                        # FastAPI backend + React frontend
-├── tests/                         # ~780+ tests across 68+ files
+├── tests/                         # ~677 tests across 62+ files
 ├── prompts/
 │   ├── concept_workshop.md        # Workshop facilitator system prompt
 │   ├── agent_system_prompts/      # Per-agent system prompts (10 files)
@@ -96,8 +96,7 @@ ai-writers-room/
 │   │   ├── worldbuilding.db
 │   │   └── worldbuilding_vectors/
 │   ├── canon_dbs/                 # Franchise RAG databases (shared)
-│   ├── eval_corpus/               # Reference chapters for quality calibration
-│   └── story_bibles/              # Legacy layout (use --project for new projects)
+│   └── eval_corpus/               # Reference chapters for quality calibration
 ├── output/
 │   └── <project-slug>/
 │       ├── chapters/              # Generated chapter prose

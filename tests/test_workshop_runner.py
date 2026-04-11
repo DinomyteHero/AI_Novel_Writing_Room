@@ -100,10 +100,10 @@ class TestWorkshopRunnerIntegration:
         input_iter = iter(user_inputs)
 
         # Patch data directory into tmp_path.
-        project_dir = tmp_path / "data" / "story_bibles" / "test_session"
+        project_dir = tmp_path / "data" / "projects" / "test-session"
 
         with patch("src.concept_workshop.workshop_runner.Path") as MockPath:
-            # Make Path("data/story_bibles/test_session") resolve to tmp_path.
+            # Make Path("data/projects/test-session") resolve to tmp_path.
             # Easier: just monkey-patch the runner after creation.
             pass
 

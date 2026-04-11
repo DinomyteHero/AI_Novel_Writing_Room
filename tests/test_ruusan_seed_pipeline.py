@@ -1,7 +1,7 @@
 """Golden end-to-end tests for the installed Ruusan Atonement concept seed.
 
 These tests verify that the actual installed seed at
-data/story_bibles/the_ruusan_atonement/concept_seed.json loads through the
+data/projects/the-ruusan-atonement/concept_seed.json loads through the
 full Phase 5 pipeline (story_state + compliance validator) with expected
 counts and passes schema validation. If the installed seed drifts from its
 expected shape — or if the downstream consumers regress — one of these
@@ -22,10 +22,10 @@ from src.memory.story_state import StoryState
 
 REPO_ROOT = Path(__file__).parent.parent
 RUUSAN_SEED_PATH = (
-    REPO_ROOT / "data" / "story_bibles" / "the_ruusan_atonement" / "concept_seed.json"
+    REPO_ROOT / "data" / "projects" / "the-ruusan-atonement" / "concept_seed.json"
 )
 RUUSAN_SCENE_CARDS_DIR = (
-    REPO_ROOT / "data" / "story_bibles" / "the_ruusan_atonement" / "scene_cards"
+    REPO_ROOT / "data" / "projects" / "the-ruusan-atonement" / "scene_cards"
 )
 CONCEPT_SEED_SCHEMA = REPO_ROOT / "schemas" / "concept_seed.json"
 SCENE_CARD_SCHEMA = REPO_ROOT / "schemas" / "scene_card.json"
