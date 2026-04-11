@@ -312,9 +312,32 @@ def _migrate_v1_to_v2(conn: sqlite3.Connection) -> None:
     """)
 
 
+def _migrate_v2_to_v3(conn: sqlite3.Connection) -> None:
+    """Multi-scene migration: add scene_log table with composite PK."""
+    conn.executescript("""
+    CREATE TABLE IF NOT EXISTS scene_log (
+        chapter_number INTEGER NOT NULL,
+        scene_number INTEGER NOT NULL,
+        word_count INTEGER,
+        structural_phase TEXT,
+        pov_character TEXT,
+        summary TEXT,
+        quality_scores TEXT,
+        failure_codes TEXT,
+        revision_status TEXT CHECK(revision_status IN (
+            'draft', 'gate_failed', 'gate_passed', 'craft_edited', 'revised', 'approved'
+        )),
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        revised_at TIMESTAMP,
+        PRIMARY KEY (chapter_number, scene_number)
+    );
+    """)
+
+
 # Ordered list of migrations. Each entry is (version, description, callable).
 _MIGRATIONS: list[tuple[int, str, callable]] = [
     (2, "Phase 5: character arcs, subplot board, hook ledger, terminology, propagation debts, style fingerprint", _migrate_v1_to_v2),
+    (3, "Multi-scene: scene_log table with composite PK", _migrate_v2_to_v3),
 ]
 
 
@@ -899,7 +922,7 @@ class StoryState:
     ) -> None:
         """Insert a new chapter log entry."""
         self.conn.execute(
-            """INSERT INTO chapter_log
+            """INSERT OR REPLACE INTO chapter_log
                (chapter_number, word_count, structural_phase, pov_character,
                 summary, quality_scores, failure_codes, revision_status)
                VALUES (?, ?, ?, ?, ?, ?, ?, ?)""",
@@ -944,6 +967,100 @@ class StoryState:
         values = list(kwargs.values()) + [chapter_number]
         self.conn.execute(
             f"UPDATE chapter_log SET {set_clause} WHERE chapter_number = ?",
+            values,
+        )
+        self.conn.commit()
+
+    # ------------------------------------------------------------------
+    # Scene Log (multi-scene chapter support)
+    # ------------------------------------------------------------------
+
+    def add_scene_log(
+        self,
+        chapter_number: int,
+        scene_number: int,
+        word_count: int | None = None,
+        structural_phase: str | None = None,
+        pov_character: str | None = None,
+        summary: str | None = None,
+        quality_scores: dict | None = None,
+        failure_codes: list | None = None,
+        revision_status: str = "draft",
+    ) -> None:
+        """Insert or replace a scene log entry."""
+        self.conn.execute(
+            """INSERT OR REPLACE INTO scene_log
+               (chapter_number, scene_number, word_count, structural_phase,
+                pov_character, summary, quality_scores, failure_codes,
+                revision_status)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+            (
+                chapter_number,
+                scene_number,
+                word_count,
+                structural_phase,
+                pov_character,
+                summary,
+                json.dumps(quality_scores) if quality_scores is not None else None,
+                json.dumps(failure_codes) if failure_codes is not None else None,
+                revision_status,
+            ),
+        )
+        self.conn.commit()
+
+    def get_scene_log(self, chapter_number: int, scene_number: int) -> dict | None:
+        """Fetch a single scene log entry by (chapter, scene)."""
+        row = self.conn.execute(
+            "SELECT * FROM scene_log WHERE chapter_number = ? AND scene_number = ?",
+            (chapter_number, scene_number),
+        ).fetchone()
+        if row is None:
+            return None
+        d = dict(row)
+        if d["quality_scores"] is not None:
+            d["quality_scores"] = _safe_json_loads(d["quality_scores"], {}, "quality_scores")
+        if d["failure_codes"] is not None:
+            d["failure_codes"] = _safe_json_loads(d["failure_codes"], [], "failure_codes")
+        return d
+
+    def get_chapter_scenes(self, chapter_number: int) -> list[dict]:
+        """Return all scene logs for a chapter, ordered by scene_number."""
+        rows = self.conn.execute(
+            "SELECT * FROM scene_log WHERE chapter_number = ? ORDER BY scene_number",
+            (chapter_number,),
+        ).fetchall()
+        results = []
+        for row in rows:
+            d = dict(row)
+            if d["quality_scores"] is not None:
+                d["quality_scores"] = _safe_json_loads(d["quality_scores"], {}, "quality_scores")
+            if d["failure_codes"] is not None:
+                d["failure_codes"] = _safe_json_loads(d["failure_codes"], [], "failure_codes")
+            results.append(d)
+        return results
+
+    def get_chapter_aggregate(self, chapter_number: int) -> dict:
+        """Return aggregated stats for a chapter: total_word_count, scene_count."""
+        row = self.conn.execute(
+            """SELECT COUNT(*) as scene_count, COALESCE(SUM(word_count), 0) as total_word_count
+               FROM scene_log WHERE chapter_number = ?""",
+            (chapter_number,),
+        ).fetchone()
+        return dict(row)
+
+    def update_scene_log(self, chapter_number: int, scene_number: int, **kwargs: object) -> None:
+        """Update only the provided fields for a scene log entry."""
+        if not kwargs:
+            return
+        if "quality_scores" in kwargs and kwargs["quality_scores"] is not None:
+            kwargs["quality_scores"] = json.dumps(kwargs["quality_scores"])
+        if "failure_codes" in kwargs and kwargs["failure_codes"] is not None:
+            kwargs["failure_codes"] = json.dumps(kwargs["failure_codes"])
+
+        set_clause = ", ".join(f"{k} = ?" for k in kwargs)
+        values = list(kwargs.values()) + [chapter_number, scene_number]
+        self.conn.execute(
+            f"UPDATE scene_log SET {set_clause} WHERE chapter_number = ? AND scene_number = ?",
             values,
         )
         self.conn.commit()
