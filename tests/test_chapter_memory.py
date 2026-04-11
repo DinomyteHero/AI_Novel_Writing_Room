@@ -2,6 +2,8 @@
 
 import pytest
 
+chromadb = pytest.importorskip("chromadb", reason="chromadb not installed")
+
 from src.memory.chapter_memory import ChapterMemory
 
 

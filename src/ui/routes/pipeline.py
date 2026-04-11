@@ -21,6 +21,8 @@ class PipelineStartRequest(BaseModel):
     no_milestones: bool = False
     judge: bool = False
     chapter: Optional[int] = None
+    universe_id: Optional[str] = None
+    project_id: Optional[str] = None
 
 
 class MilestoneApproveRequest(BaseModel):
@@ -153,12 +155,18 @@ def _create_web_orchestrator(state, concept_seed_path, concept_seed, body):
 
     pipeline_cfg = state.config.get("pipeline", {})
 
+    universe_id = body.universe_id
+    project_id = body.project_id
+
     assembler = ContextAssembler(
         concept_seed_path=concept_seed_path,
         manuscripts_dir=state.manuscripts_dir,
         story_state=state.story_state,
         knowledge_layers=state.knowledge_layers,
         chapter_memory=state.chapter_memory,
+        lore_service=state.lore_service,
+        universe_id=universe_id,
+        project_id=project_id,
     )
 
     # Optional Phase 3/4 components
@@ -258,4 +266,8 @@ def _create_web_orchestrator(state, concept_seed_path, concept_seed, body):
         physics_enforcer=physics_enforcer,
         judge_evaluator=judge_evaluator,
         pipeline_manager=state.pipeline_manager,
+        lore_service=state.lore_service,
+        universe_id=universe_id,
+        project_id=project_id,
+        worldbuilding_auto_extract=bool(state.lore_service and universe_id),
     )

@@ -139,3 +139,39 @@ class TestPhysicsEnforcer:
             i.get("promise_id") == "gun_on_wall" and i["issue_type"] == "overdue"
             for i in result["issues"]
         )
+
+
+class TestStrictMode:
+    """Strict mode raises PhysicsViolationError on critical issues."""
+
+    def test_strict_raises_on_missing_why_now(self, concept_seed_with_physics):
+        from src.planning.physics_enforcer import PhysicsViolationError
+
+        enforcer = PhysicsEnforcer(concept_seed_with_physics, strict_mode=True)
+        card = {"chapter_number": 1, "scene_number": 1}  # no why_now
+        with pytest.raises(PhysicsViolationError) as exc_info:
+            enforcer.validate_pre_chapter(card)
+        assert len(exc_info.value.violations) >= 1
+        assert exc_info.value.violations[0]["issue_type"] == "missing_why_now"
+
+    def test_strict_raises_on_overdue_promise(self, concept_seed_with_physics):
+        from src.planning.physics_enforcer import PhysicsViolationError
+
+        enforcer = PhysicsEnforcer(concept_seed_with_physics, strict_mode=True)
+        card = {"chapter_number": 9, "scene_number": 1, "why_now": "Valid."}
+        with pytest.raises(PhysicsViolationError) as exc_info:
+            enforcer.validate_pre_chapter(card)
+        assert any(v["issue_type"] == "overdue" for v in exc_info.value.violations)
+
+    def test_advisory_mode_does_not_raise(self, concept_seed_with_physics):
+        """Default advisory mode returns issues without raising."""
+        enforcer = PhysicsEnforcer(concept_seed_with_physics, strict_mode=False)
+        card = {"chapter_number": 1, "scene_number": 1}  # no why_now
+        result = enforcer.validate_pre_chapter(card)
+        assert result["passed"] is False  # issues exist, but no exception
+
+    def test_strict_passes_valid_card(self, concept_seed_with_physics, scene_card_valid):
+        """Strict mode does not raise when card is valid."""
+        enforcer = PhysicsEnforcer(concept_seed_with_physics, strict_mode=True)
+        result = enforcer.validate_pre_chapter(scene_card_valid)
+        assert result["passed"] is True

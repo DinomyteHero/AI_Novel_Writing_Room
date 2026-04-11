@@ -16,20 +16,35 @@ from src.planning.story_physics import (
 )
 
 
+class PhysicsViolationError(Exception):
+    """Raised when strict_mode is enabled and critical physics violations are found."""
+
+    def __init__(self, message: str, violations: list[dict] | None = None):
+        super().__init__(message)
+        self.violations = violations or []
+
+
 class PhysicsEnforcer:
     """Validates story physics at key pipeline moments.
 
-    Advisory only — produces warnings and recommendations but does not
-    block generation. Issues are logged and can be fed into generation
-    context as guidance notes.
+    By default advisory-only — produces warnings and recommendations but
+    does not block generation. When ``strict_mode=True``, raises
+    ``PhysicsViolationError`` for critical issues (missing ``why_now``,
+    overdue hard promises).
     """
 
-    def __init__(self, concept_seed: dict, scene_cards: list[dict] = None):
+    def __init__(
+        self,
+        concept_seed: dict,
+        scene_cards: list[dict] = None,
+        strict_mode: bool = False,
+    ):
         physics = concept_seed.get("story_physics", {})
         meta = concept_seed.get("meta", {})
 
         self.total_chapters = meta.get("target_chapters", 20)
         self.scene_cards = scene_cards or []
+        self.strict_mode = strict_mode
 
         # Initialize validators from story physics data
         self.scene_economics = SceneEconomics()
@@ -102,6 +117,19 @@ class PhysicsEnforcer:
                 f"Consider addressing promise '{issue['promise_id']}': "
                 f"{issue['description']}"
             )
+
+        # Strict mode: raise on critical violations
+        if self.strict_mode and issues:
+            _CRITICAL_TYPES = {"missing_why_now", "generic_why_now", "overdue"}
+            critical = [
+                i for i in issues if i.get("issue_type") in _CRITICAL_TYPES
+            ]
+            if critical:
+                raise PhysicsViolationError(
+                    f"{len(critical)} critical physics violation(s) in "
+                    f"chapter {chapter_num}",
+                    violations=critical,
+                )
 
         return {
             "passed": len(issues) == 0,

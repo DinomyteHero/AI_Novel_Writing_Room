@@ -5,6 +5,8 @@ from pathlib import Path
 
 import pytest
 
+chromadb = pytest.importorskip("chromadb", reason="chromadb not installed")
+
 from src.memory.context_assembler import ContextAssembler, TOKEN_BUDGETS
 from src.rag.embedding import MockEmbeddingFunction
 from src.worldbuilding.worldbuilding_db import WorldbuildingDB

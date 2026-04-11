@@ -333,6 +333,16 @@ async def main():
         help="Run LLM-as-judge evaluation after generation",
     )
     parser.add_argument(
+        "--universe-id",
+        default=None,
+        help="Worldbuilding universe ID (enables lore context injection and extraction)",
+    )
+    parser.add_argument(
+        "--project-id",
+        default=None,
+        help="Worldbuilding project ID (for spoiler-isolated reading order)",
+    )
+    parser.add_argument(
         "--server",
         action="store_true",
         help="Launch the web server instead of the CLI pipeline",
@@ -430,6 +440,7 @@ async def main():
     summarizer = None
     state_diff_applier = None
     contradiction_scanner = None
+    canon_expert = None
 
     if args.phase >= 2:
         print("Initializing Phase 2 components...")
@@ -452,11 +463,25 @@ async def main():
             summarizer = Summarizer(router)
             state_diff_applier = StateDiffApplier(story_state, knowledge_layers, ledger)
             contradiction_scanner = ContradictionScanner(story_state, knowledge_layers, ledger)
+
+            # Canon expert (requires canon_db + chromadb)
+            if canon_db:
+                try:
+                    from src.agents.canon_expert import CanonExpert
+                    from src.rag.canon_evidence import CanonEvidenceRanker
+                    from src.rag.hybrid_search import HybridSearch
+
+                    hybrid = HybridSearch(canon_db)
+                    ranker = CanonEvidenceRanker(hybrid)
+                    canon_expert = CanonExpert(router, canon_evidence=ranker)
+                except (ImportError, Exception) as e:
+                    print(f"  Warning: CanonExpert not available: {e}")
+
             print("  Phase 2 components initialized")
         else:
             print("  Phase 2 initialization incomplete — running in Phase 1 mode")
 
-    # Initialize context assembler
+    # Initialize context assembler (lore_service wired later if --universe-id given)
     assembler = ContextAssembler(
         concept_seed_path=args.concept_seed,
         manuscripts_dir=manuscripts_dir,
@@ -552,6 +577,37 @@ async def main():
         except Exception as e:
             print(f"  Phase 4 initialization error: {e}")
 
+    # Worldbuilding service (optional, requires --universe-id)
+    lore_service = None
+    if args.universe_id:
+        try:
+            from src.worldbuilding.worldbuilding_db import WorldbuildingDB
+            from src.worldbuilding.lore_vectorstore import LoreVectorStore
+            from src.worldbuilding.lore_service import LoreService
+
+            wb_config = config.get("worldbuilding", {})
+            wb_db_path = wb_config.get("db_path", "data/worldbuilding.db")
+            wb_vectors_dir = wb_config.get("vectors_dir", "data/worldbuilding_vectors")
+
+            ef_wb = None
+            try:
+                from src.rag.embedding import get_embedding_function
+                ef_wb = get_embedding_function(use_mock=True)
+            except Exception:
+                pass
+
+            wb_db = WorldbuildingDB(db_path=wb_db_path)
+            wb_vs = LoreVectorStore(persist_directory=wb_vectors_dir, embedding_function=ef_wb)
+            lore_service = LoreService(db=wb_db, vectorstore=wb_vs)
+            print(f"  Worldbuilding service initialized (universe={args.universe_id})")
+
+            # Wire lore into context assembler
+            assembler.lore_service = lore_service
+            assembler.universe_id = args.universe_id
+            assembler.project_id = args.project_id
+        except (ImportError, Exception) as e:
+            print(f"  Warning: Worldbuilding service not available: {e}")
+
     # Phase 4: Generate scene cards from concept seed if requested
     if args.generate_outline and scene_card_generator:
         print("Generating scene cards from concept seed...")
@@ -589,6 +645,7 @@ async def main():
         contradiction_scanner=contradiction_scanner,
         chapter_memory=chapter_memory,
         story_state=story_state,
+        canon_expert=canon_expert,
         revision_pipeline=revision_pipeline,
         metrics_dashboard=metrics_dashboard,
         character_specialist=character_specialist,
@@ -597,6 +654,10 @@ async def main():
         pipeline_session=pipeline_session,
         session_id=session_id,
         judge_evaluator=judge_evaluator,
+        lore_service=lore_service,
+        universe_id=args.universe_id,
+        project_id=args.project_id,
+        worldbuilding_auto_extract=bool(lore_service and args.universe_id),
     )
 
     # Create session if Phase 4

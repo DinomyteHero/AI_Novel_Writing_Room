@@ -11,6 +11,8 @@ from unittest.mock import AsyncMock, MagicMock
 
 import pytest
 
+chromadb = pytest.importorskip("chromadb", reason="chromadb not installed")
+
 from src.agents.summarizer import Summarizer
 from src.memory.chapter_memory import ChapterMemory
 from src.memory.context_assembler import ContextAssembler
