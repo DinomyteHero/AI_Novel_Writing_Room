@@ -2,24 +2,39 @@
   "chapter_number": 18,
   "scene_number": 1,
   "structural_phase": "attack",
+  "scene_type": "sequel",
   "pov_character": "Ben Skywalker",
-  "mission": "Jacen parallel becomes explicit. Ben recognizes the pattern in Torin. Shared look with Desh.",
-  "why_now": "",
+  "mission": "Name the Jacen pattern in Torin and attempt to break through before the turn becomes inevitable.",
+  "why_now": "The Jacen pattern in Torin has crystallized after seventeen chapters of evidence. Ben's GAG conversation with Desh (Ch 11) provided the emotional framework to name what he's seeing.",
   "opening_hook": "",
   "conflict": "Ben vs. the recognition he can't unsee",
   "conflict_type": "internal",
-  "turning_point": "",
+  "turning_point": "Ben names the pattern: 'I've watched someone I loved make every argument you're making.' Torin dismisses gently. Desh confirms with a look. The turn is coming.",
   "closing_hook": "",
-  "characters_present": [],
+  "characters_present": [
+    "Ben Skywalker",
+    "Desh Rolan",
+    "Sera Varik",
+    "Torin Hal",
+    "Kael Drenn"
+  ],
   "setting": "Aboard Steady Returns, in transit",
   "sensory_details": "",
-  "emotional_trajectory": "",
-  "plot_threads_advanced": [],
-  "promises_planted": [],
-  "promises_paid": [],
+  "emotional_trajectory": "The pattern repeats through good people doing what they believe is necessary",
+  "plot_threads_advanced": [
+    "SP1",
+    "SP2",
+    "SP3"
+  ],
+  "promises_planted": [
+    "H18"
+  ],
+  "promises_paid": [
+    "H15"
+  ],
   "canon_elements_needed": [],
   "target_word_count": 3750,
-  "notes": "Time: Days from Veranthos\nThematic beat: The pattern repeats through good people doing what they believe is necessary\nOriginal scene_outcome: Ben has named the pattern internally. Desh confirms silently. Ben confronts Torin partially: 'I've watched someone I loved make every argument you're making.' Torin dismisses gently. Kael observes from a conscript's pattern-recognition.",
+  "notes": "Ben has named the pattern internally. Desh confirms silently. Ben confronts Torin partially: 'I've watched someone I loved make every argument you're making.' Torin dismisses gently. Kael observes from a conscript's pattern-recognition.",
   "active_subplots": [
     "SP1",
     "SP2",
@@ -29,11 +44,15 @@
     {
       "hook_id": "H18",
       "action": "plant"
+    },
+    {
+      "hook_id": "H15",
+      "action": "resolve"
     }
   ],
   "revelations": [
     "R10"
   ],
-  "pov_arc_phase": "Attack — the pattern made text",
-  "scene_type": "sequel"
+  "pov_arc_phase": "lie_challenged",
+  "arc_phase_transition": ""
 }

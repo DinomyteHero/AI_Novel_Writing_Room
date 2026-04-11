@@ -1,25 +1,41 @@
 {
   "chapter_number": 10,
   "scene_number": 1,
-  "structural_phase": "response",
+  "structural_phase": "first_pinch",
+  "scene_type": "action",
   "pov_character": "Ben Skywalker",
-  "mission": "Make Veraine tangible — evidence of passage, message, Kael's calibration analysis, combat credibility established",
-  "why_now": "",
+  "mission": "Investigate the Brotherhood outpost for intelligence on Veraine's methodology and close the gap in the race.",
+  "why_now": "Veraine's trail has gone warm at the Brotherhood outpost. She is methodically ahead and the group must understand her methodology to anticipate her next move.",
   "opening_hook": "",
   "conflict": "Ben vs. realization they're in a race they're losing",
-  "conflict_type": "internal",
-  "turning_point": "",
+  "conflict_type": "external",
+  "turning_point": "Desh's analysis: 'She's not just ahead — she's leading us. We're not chasing her.' Veraine wants them to follow. The race reframes as a trap.",
   "closing_hook": "",
-  "characters_present": [],
+  "characters_present": [
+    "Ben Skywalker",
+    "Desh Rolan",
+    "Sera Varik",
+    "Torin Hal",
+    "Kael Drenn"
+  ],
   "setting": "Former Brotherhood of Darkness outpost, Outer Rim",
   "sensory_details": "",
-  "emotional_trajectory": "",
-  "plot_threads_advanced": [],
-  "promises_planted": [],
-  "promises_paid": [],
+  "emotional_trajectory": "The enemy is a mirror. Cross-traditional understanding is necessary and costly.",
+  "plot_threads_advanced": [
+    "SP2",
+    "SP4",
+    "SP5"
+  ],
+  "promises_planted": [
+    "H10"
+  ],
+  "promises_paid": [
+    "H07",
+    "H09"
+  ],
   "canon_elements_needed": [],
   "target_word_count": 3750,
-  "notes": "Time: Continuing journey\nThematic beat: The enemy is a mirror. Cross-traditional understanding is necessary and costly.\nOriginal scene_outcome: Group accelerates timeline. Veraine established as methodical, ahead, and physically dangerous. Kael recognizes Sith tradecraft. The Sith outpost humanizes the Brotherhood.",
+  "notes": "Group accelerates timeline. Veraine established as methodical, ahead, and physically dangerous. Kael recognizes Sith tradecraft. The Sith outpost humanizes the Brotherhood.",
   "active_subplots": [
     "SP2",
     "SP4",
@@ -33,9 +49,13 @@
     {
       "hook_id": "H10",
       "action": "plant"
+    },
+    {
+      "hook_id": "H09",
+      "action": "resolve"
     }
   ],
   "revelations": [],
-  "pov_arc_phase": "Response — external threat becomes real",
-  "scene_type": "action"
+  "pov_arc_phase": "lie_reinforced",
+  "arc_phase_transition": ""
 }

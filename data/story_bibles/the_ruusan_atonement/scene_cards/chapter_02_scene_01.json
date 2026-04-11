@@ -2,31 +2,39 @@
   "chapter_number": 2,
   "scene_number": 1,
   "structural_phase": "setup",
+  "scene_type": "action",
   "pov_character": "Ben Skywalker",
-  "mission": "Establish survey rhythm, Ben/Desh dynamic, wrongness pattern emerging on specific worlds",
-  "why_now": "",
+  "mission": "Complete the Outer Rim survey while investigating the emerging correlation between the wrongness and anomalous ruins on specific worlds.",
+  "why_now": "The survey route puts Ben on worlds where the wrongness correlates with specific anomalous ruins. The pattern is emerging and his training compels investigation.",
   "opening_hook": "",
   "conflict": "Ben vs. emerging pattern he can't explain — professional obligation vs. instinct",
-  "conflict_type": "internal",
-  "turning_point": "",
+  "conflict_type": "external",
+  "turning_point": "Ben identifies anomalous ruins with unrecognized markings on multiple survey worlds, correlating with the wrongness. Curiosity overrides mission parameters.",
   "closing_hook": "",
-  "characters_present": [],
+  "characters_present": [
+    "Ben Skywalker",
+    "Desh Rolan"
+  ],
   "setting": "Multiple Outer Rim survey worlds; aboard Steady Returns",
   "sensory_details": "",
-  "emotional_trajectory": "",
-  "plot_threads_advanced": [],
-  "promises_planted": [],
+  "emotional_trajectory": "Post-war galaxy as institutional exhaustion",
+  "plot_threads_advanced": [
+    "SP3"
+  ],
+  "promises_planted": [
+    "H02"
+  ],
   "promises_paid": [],
   "canon_elements_needed": [],
   "target_word_count": 3750,
-  "notes": "Time: Days to weeks into the survey\nThematic beat: Post-war galaxy as institutional exhaustion\nOriginal scene_outcome: Ben identifies wrongness correlating with specific worlds. Finds anomalous ruins with unrecognized markings. Curiosity overriding mission parameters.",
+  "notes": "Ben identifies wrongness correlating with specific worlds. Finds anomalous ruins with unrecognized markings. Curiosity overriding mission parameters.",
   "active_subplots": [
     "SP3"
   ],
   "hook_actions": [
     {
       "hook_id": "H01",
-      "action": "resolve"
+      "action": "advance"
     },
     {
       "hook_id": "H02",
@@ -34,6 +42,6 @@
     }
   ],
   "revelations": [],
-  "pov_arc_phase": "Setup — Ben's instincts leading him",
-  "scene_type": "action"
+  "pov_arc_phase": "lie_established",
+  "arc_phase_transition": ""
 }

@@ -2,24 +2,37 @@
   "chapter_number": 9,
   "scene_number": 1,
   "structural_phase": "response",
+  "scene_type": "sequel",
   "pov_character": "Ben Skywalker",
-  "mission": "Introduce the Ankhural Codex's theoretical framework. Crystallize four philosophical positions.",
-  "why_now": "",
+  "mission": "Establish a shared theoretical framework from the Ankhural Codex that the group can use to plan their approach to the wound.",
+  "why_now": "The Ankhural Codex has been recovered and the thin-place experience has divided the group. The theoretical framework must be addressed before the disagreements calcify into factional positions.",
   "opening_hook": "",
   "conflict": "Four-way intellectual conflict — Sera (lattice necessary), Torin (lattice artificial), Kael (both projecting), Ben (listening)",
-  "conflict_type": "internal",
-  "turning_point": "",
+  "conflict_type": "interpersonal",
+  "turning_point": "The Ankhural Codex debate ends without consensus — four incompatible interpretations of the same evidence. Ben's willingness to sit with uncertainty distinguishes him.",
   "closing_hook": "",
-  "characters_present": [],
+  "characters_present": [
+    "Ben Skywalker",
+    "Desh Rolan",
+    "Sera Varik",
+    "Torin Hal",
+    "Kael Drenn"
+  ],
   "setting": "Aboard Steady Returns, in transit",
   "sensory_details": "",
-  "emotional_trajectory": "",
-  "plot_threads_advanced": [],
-  "promises_planted": [],
+  "emotional_trajectory": "Four positions, one question, no consensus. Interaction between perspectives is the key.",
+  "plot_threads_advanced": [
+    "SP1",
+    "SP2",
+    "SP5"
+  ],
+  "promises_planted": [
+    "H09"
+  ],
   "promises_paid": [],
   "canon_elements_needed": [],
   "target_word_count": 3750,
-  "notes": "Time: Days after thin-place visit\nThematic beat: Four positions, one question, no consensus. Interaction between perspectives is the key.\nOriginal scene_outcome: No consensus — the debate ends without resolution. Shared framework, incompatible interpretations. Ben's willingness to sit with uncertainty established.",
+  "notes": "No consensus — the debate ends without resolution. Shared framework, incompatible interpretations. Ben's willingness to sit with uncertainty established.",
   "active_subplots": [
     "SP1",
     "SP2",
@@ -34,6 +47,6 @@
   "revelations": [
     "R06"
   ],
-  "pov_arc_phase": "Response — intellectual framework established",
-  "scene_type": "sequel"
+  "pov_arc_phase": "lie_reinforced",
+  "arc_phase_transition": ""
 }

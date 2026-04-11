@@ -2,24 +2,39 @@
   "chapter_number": 12,
   "scene_number": 1,
   "structural_phase": "response",
+  "scene_type": "action",
   "pov_character": "Ben Skywalker",
-  "mission": "Deliver Maetha's warning. Sera cracks the archive. Veraine's presence confirmed. Torin rationalizes.",
-  "why_now": "",
+  "mission": "Access Maetha's sealed archive for intelligence on the technique's practical effects and assess why the seal spiked.",
+  "why_now": "Maetha's facility is the next chronological site in the technique lineage. Sera's era-specific expertise makes her the only person who can crack the archive. The wrongness spikes — the seal is being actively attacked.",
   "opening_hook": "",
   "conflict": "Group vs. implications of the Caldera Knights' fate — interpretive conflict",
-  "conflict_type": "internal",
-  "turning_point": "",
+  "conflict_type": "interpersonal",
+  "turning_point": "Maetha's warning delivered: 'The caldera does not consume you. It replaces you.' The wrongness spikes — the seal is being deliberately attacked.",
   "closing_hook": "",
-  "characters_present": [],
+  "characters_present": [
+    "Ben Skywalker",
+    "Desh Rolan",
+    "Sera Varik",
+    "Torin Hal",
+    "Kael Drenn"
+  ],
   "setting": "Lord Maetha's training facility, remote world",
   "sensory_details": "",
-  "emotional_trajectory": "",
-  "plot_threads_advanced": [],
-  "promises_planted": [],
-  "promises_paid": [],
+  "emotional_trajectory": "Every generation thinks they're smarter than the last. The cycle the story will break.",
+  "plot_threads_advanced": [
+    "SP1",
+    "SP4",
+    "SP5"
+  ],
+  "promises_planted": [
+    "H12"
+  ],
+  "promises_paid": [
+    "H11"
+  ],
   "canon_elements_needed": [],
   "target_word_count": 3750,
-  "notes": "Time: Continuing journey\nThematic beat: Every generation thinks they're smarter than the last. The cycle the story will break.\nOriginal scene_outcome: Maetha's warning delivered. Torin argues 'this time will be different.' Veraine has been here too — alchemical notes missing. The wrongness spikes sharply — seal is being deliberately attacked.",
+  "notes": "Maetha's warning delivered. Torin argues 'this time will be different.' Veraine has been here too — alchemical notes missing. The wrongness spikes sharply — seal is being deliberately attacked.",
   "active_subplots": [
     "SP1",
     "SP4",
@@ -39,6 +54,6 @@
     "R05",
     "R07"
   ],
-  "pov_arc_phase": "Response — foreshadowing made explicit",
-  "scene_type": "action"
+  "pov_arc_phase": "lie_reinforced",
+  "arc_phase_transition": ""
 }

@@ -2,24 +2,40 @@
   "chapter_number": 5,
   "scene_number": 1,
   "structural_phase": "first_plot_point",
+  "scene_type": "action",
   "pov_character": "Ben Skywalker",
-  "mission": "FIRST PLOT POINT — Wake survivors, establish personalities, reveal full truth, lock Ben in",
-  "why_now": "",
+  "mission": "Awaken and orient the survivors, extract the full truth about the wound and the technique, and determine the threat level of Veraine's confirmed awakening.",
+  "why_now": "The stasis chamber occupants represent the only living witnesses to what created the wound. Awakening them is the only way to understand the crisis. Veraine's awakening is confirmed — the race begins.",
   "opening_hook": "",
   "conflict": "Immediate danger of awakening, emotional devastation of survivors learning millennium has passed, full scope of the technique and wound revealed, Veraine's awakening confirmed",
-  "conflict_type": "internal",
-  "turning_point": "",
+  "conflict_type": "external",
+  "turning_point": "Full scope revealed: the Reformations were penance, the technique created the wound, Veraine is awake and moving. Ben commits. Lock-in is complete.",
   "closing_hook": "",
-  "characters_present": [],
+  "characters_present": [
+    "Ben Skywalker",
+    "Desh Rolan",
+    "Sera Varik",
+    "Torin Hal",
+    "Kael Drenn"
+  ],
   "setting": "Gavran's fortress — stasis chamber and deep archive",
   "sensory_details": "",
-  "emotional_trajectory": "",
-  "plot_threads_advanced": [],
-  "promises_planted": [],
-  "promises_paid": [],
+  "emotional_trajectory": "The cycle of institutional failure made visible. Ben chooses to reject it.",
+  "plot_threads_advanced": [
+    "SP1",
+    "SP2",
+    "SP4",
+    "SP5"
+  ],
+  "promises_planted": [
+    "H05"
+  ],
+  "promises_paid": [
+    "H04"
+  ],
   "canon_elements_needed": [],
   "target_word_count": 5000,
-  "notes": "Time: Immediately following Ch 4\nThematic beat: The cycle of institutional failure made visible. Ben chooses to reject it.\nOriginal scene_outcome: Ben is locked in. Seal failing, Veraine active, survivors are the only ones who understand. Guarded contact with Luke. Ben commits.",
+  "notes": "Ben is locked in. Seal failing, Veraine active, survivors are the only ones who understand. Guarded contact with Luke. Ben commits.",
   "active_subplots": [
     "SP1",
     "SP2",
@@ -41,6 +57,6 @@
     "R04",
     "R05"
   ],
-  "pov_arc_phase": "First Plot Point — lock-in",
-  "scene_type": "action"
+  "pov_arc_phase": "lie_reinforced",
+  "arc_phase_transition": "lie_reinforced"
 }

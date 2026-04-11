@@ -2,24 +2,38 @@
   "chapter_number": 15,
   "scene_number": 1,
   "structural_phase": "attack",
+  "scene_type": "action",
   "pov_character": "Ben Skywalker",
-  "mission": "Escalate urgency — seal deteriorating faster, institutional dilemma at peak pressure, Torin's arguments become pragmatic",
-  "why_now": "",
+  "mission": "Update Luke on the crisis without triggering institutional intervention that would complicate an already impossible situation.",
+  "why_now": "The seal is deteriorating faster post-sabotage. Ben must update Luke but the full truth would trigger institutional intervention that could make things worse. The irony of his information curation is peaking.",
   "opening_hook": "",
   "conflict": "Ben vs. compounding pressure of a crisis he can't contain",
-  "conflict_type": "internal",
-  "turning_point": "",
+  "conflict_type": "interpersonal",
+  "turning_point": "Torin confronts Ben: 'You're curating reality to manage the outcome you want. You know who else did that?' Ben is falling into the pattern he's trying to break.",
   "closing_hook": "",
-  "characters_present": [],
+  "characters_present": [
+    "Ben Skywalker",
+    "Desh Rolan",
+    "Sera Varik",
+    "Torin Hal",
+    "Kael Drenn",
+    "Luke Skywalker"
+  ],
   "setting": "Aboard Steady Returns; communication scenes",
   "sensory_details": "",
-  "emotional_trajectory": "",
-  "plot_threads_advanced": [],
-  "promises_planted": [],
+  "emotional_trajectory": "Even the person trying to break the pattern falls into it under pressure",
+  "plot_threads_advanced": [
+    "SP1",
+    "SP4",
+    "SP5"
+  ],
+  "promises_planted": [
+    "H15"
+  ],
   "promises_paid": [],
   "canon_elements_needed": [],
   "target_word_count": 3750,
-  "notes": "Time: Days into direct run toward Veranthos\nThematic beat: Even the person trying to break the pattern falls into it under pressure\nOriginal scene_outcome: Ben withholds full truth from Luke — tactical but ironic. Veraine confirmed heading to Veranthos with complete calibration data. Ruusan's Valley of the Jedi affected. Torin confronts Ben about his own pattern of information curation.",
+  "notes": "Ben withholds full truth from Luke — tactical but ironic. Veraine confirmed heading to Veranthos with complete calibration data. Ruusan's Valley of the Jedi affected. Torin confronts Ben about his own pattern of information curation.",
   "active_subplots": [
     "SP1",
     "SP4",
@@ -32,6 +46,6 @@
     }
   ],
   "revelations": [],
-  "pov_arc_phase": "Attack — the trap of unilateral action is inescapable",
-  "scene_type": "action"
+  "pov_arc_phase": "lie_challenged",
+  "arc_phase_transition": ""
 }

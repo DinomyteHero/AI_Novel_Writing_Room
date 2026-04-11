@@ -2,24 +2,35 @@
   "chapter_number": 4,
   "scene_number": 1,
   "structural_phase": "setup",
+  "scene_type": "action",
   "pov_character": "Ben Skywalker",
-  "mission": "Get inside the fortress, deliver first emotional impact of the Jedi Lords, discover stasis chamber",
-  "why_now": "",
+  "mission": "Breach Gavran's fortress, navigate its defenses, and reach whatever is generating the three life signs in deep stasis.",
+  "why_now": "The coordinates from the perimeter facility lead to an uncharted system. The fortress must be investigated now because the seal warning implies time pressure.",
   "opening_hook": "",
   "conflict": "Ben vs. fortress defenses — graduated Force tests, mechanical bypasses",
-  "conflict_type": "internal",
-  "turning_point": "",
+  "conflict_type": "environmental",
+  "turning_point": "Three life signs detected in deep stasis — one with a Force presence fundamentally different from anything Ben has encountered.",
   "closing_hook": "",
-  "characters_present": [],
+  "characters_present": [
+    "Ben Skywalker",
+    "Desh Rolan"
+  ],
   "setting": "Uncharted planet; Gavran's fortress exterior and upper levels",
   "sensory_details": "",
-  "emotional_trajectory": "",
-  "plot_threads_advanced": [],
-  "promises_planted": [],
-  "promises_paid": [],
+  "emotional_trajectory": "First crack in Ben's assumption that the Order's failures are aberrations",
+  "plot_threads_advanced": [
+    "SP3",
+    "SP4"
+  ],
+  "promises_planted": [
+    "H04"
+  ],
+  "promises_paid": [
+    "H03"
+  ],
   "canon_elements_needed": [],
   "target_word_count": 3750,
-  "notes": "Time: Immediately following Ch 3\nThematic beat: First crack in Ben's assumption that the Order's failures are aberrations\nOriginal scene_outcome: Ben and Desh breach fortress. Encounter the archive's first uncomfortable truths. Detect three life signs in deep stasis.",
+  "notes": "Ben and Desh breach fortress. Encounter the archive's first uncomfortable truths. Detect three life signs in deep stasis.",
   "active_subplots": [
     "SP3",
     "SP4"
@@ -37,6 +48,6 @@
   "revelations": [
     "R03"
   ],
-  "pov_arc_phase": "Setup — the Jedi as institution capable of terrible things",
-  "scene_type": "action"
+  "pov_arc_phase": "lie_established",
+  "arc_phase_transition": ""
 }

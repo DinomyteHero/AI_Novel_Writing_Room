@@ -2,24 +2,36 @@
   "chapter_number": 8,
   "scene_number": 1,
   "structural_phase": "response",
+  "scene_type": "action",
   "pov_character": "Ben Skywalker",
-  "mission": "Direct visceral experience of de-structured Force — preview of midpoint. Divergent character reactions.",
-  "why_now": "",
+  "mission": "Enter the thin-place valley and experience localized de-structuring firsthand to understand what the group will face at Veranthos.",
+  "why_now": "The thin-place valley is on their route and represents the first opportunity to directly experience localized de-structuring before reaching the primary wound. Preparation requires understanding.",
   "opening_hook": "",
   "conflict": "Ben vs. disorientation of localized Force anomaly",
-  "conflict_type": "internal",
-  "turning_point": "",
+  "conflict_type": "environmental",
+  "turning_point": "Divergent reactions to the thin place fracture the group along philosophical lines: Torin found it peaceful, Kael found it honest, Sera refused to enter.",
   "closing_hook": "",
-  "characters_present": [],
+  "characters_present": [
+    "Ben Skywalker",
+    "Desh Rolan",
+    "Sera Varik",
+    "Torin Hal",
+    "Kael Drenn"
+  ],
   "setting": "Former New Sith Wars battlefield world; thin-place valley",
   "sensory_details": "",
-  "emotional_trajectory": "",
-  "plot_threads_advanced": [],
-  "promises_planted": [],
+  "emotional_trajectory": "Same phenomenon means different things depending on training and history",
+  "plot_threads_advanced": [
+    "SP1",
+    "SP2"
+  ],
+  "promises_planted": [
+    "H08"
+  ],
   "promises_paid": [],
   "canon_elements_needed": [],
   "target_word_count": 3750,
-  "notes": "Time: Continuing journey\nThematic beat: Same phenomenon means different things depending on training and history\nOriginal scene_outcome: Group exits shaken and more divided. Torin found it peaceful (wrong reaction). Kael found it honest (unsettling implication). Sera refused to enter.",
+  "notes": "Group exits shaken and more divided. Torin found it peaceful (wrong reaction). Kael found it honest (unsettling implication). Sera refused to enter.",
   "active_subplots": [
     "SP1",
     "SP2"
@@ -33,6 +45,6 @@
   "revelations": [
     "R05"
   ],
-  "pov_arc_phase": "Response — experience divides rather than unites",
-  "scene_type": "action"
+  "pov_arc_phase": "lie_reinforced",
+  "arc_phase_transition": ""
 }
