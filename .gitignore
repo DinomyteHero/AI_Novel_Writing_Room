@@ -33,6 +33,11 @@ dist/
 build/
 *.egg-info/
 
+# Generated output (manuscripts, exports)
+output/
+data/manuscripts/
+data/export/
+
 # Environment variables
 .env
 .env.local

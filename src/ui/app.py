@@ -7,6 +7,7 @@ lifespan management, and all API routes.
 import asyncio
 import json
 import logging
+import re
 from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import Optional
@@ -39,6 +40,7 @@ class AppState:
         self.concept_seed_path: str = ""
         self.scene_cards_dir: str = ""
         self.manuscripts_dir: str = "data/manuscripts"
+        self.export_dir: str = "data/export"
         self.phase: int = 4
         self.pipeline_manager: PipelineManager = PipelineManager()
         self.connection_manager: Optional[ConnectionManager] = None
@@ -73,7 +75,6 @@ def create_app(
 
         state.phase = phase
         pipeline_cfg = state.config.get("pipeline", {})
-        state.manuscripts_dir = pipeline_cfg.get("chapter_output_dir", "data/manuscripts")
 
         # Load concept seed if provided
         if concept_seed_path:
@@ -86,6 +87,18 @@ def create_app(
             scene_cards_dir = seed_dir / "scene_cards"
             if scene_cards_dir.exists():
                 state.scene_cards_dir = str(scene_cards_dir)
+
+        # Derive project-scoped output directories
+        project_title = state.concept_seed.get("meta", {}).get(
+            "project_title", "untitled"
+        )
+        slug = re.sub(r"[^a-z0-9\s-]", "", project_title.lower().strip())
+        slug = re.sub(r"[\s_]+", "-", slug).strip("-")
+        default_chapters_dir = f"output/{slug}/chapters"
+        state.manuscripts_dir = pipeline_cfg.get(
+            "chapter_output_dir", default_chapters_dir
+        )
+        state.export_dir = f"output/{slug}/export"
 
         # Initialize ModelRouter
         state.router = ModelRouter(config_path)

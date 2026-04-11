@@ -36,13 +36,23 @@ class ProseStylist(BaseAgent):
         if voice_rules:
             parts.append(voice_rules)
 
-        parts.append(
-            "## Task\n"
-            "Write the complete scene prose following the generation brief above. "
-            "Write in third-person limited POV. Focus on showing, not telling. "
-            "Vary sentence length and structure. Avoid the banned phrases listed in constraints. "
-            "The scene must contain the turning point specified in the brief."
-        )
+        scene_card = context.get("scene_card", {})
+        target_words = scene_card.get("target_word_count")
+
+        task_lines = [
+            "## Task",
+            "Write the complete scene prose following the generation brief above.",
+            "Write in third-person limited POV. Focus on showing, not telling.",
+            "Vary sentence length and structure. Avoid the banned phrases listed in constraints.",
+            "The scene must contain the turning point specified in the brief.",
+        ]
+        if target_words:
+            task_lines.append(
+                f"Target length: approximately {target_words} words. "
+                "Do not pad to reach the target — write the scene the story needs."
+            )
+
+        parts.append("\n".join(task_lines))
 
         return "\n\n".join(parts)
 

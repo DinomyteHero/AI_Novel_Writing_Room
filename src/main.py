@@ -10,10 +10,21 @@ from dotenv import load_dotenv
 
 load_dotenv()  # Load .env before any module reads os.environ
 
+import re
+
 from src.memory.context_assembler import ContextAssembler
 from src.model_router import ModelRouter
 from src.orchestrator import Orchestrator
 from src.run_ledger import RunLedger
+
+
+def _slugify_title(title: str) -> str:
+    """Convert a project title to a kebab-case directory slug."""
+    slug = title.lower().strip()
+    slug = re.sub(r"[^a-z0-9\s-]", "", slug)
+    slug = re.sub(r"[\s_]+", "-", slug)
+    slug = re.sub(r"-+", "-", slug)
+    return slug.strip("-")
 
 
 def load_scene_cards(scene_cards_dir: str, chapter: int | None = None) -> list[dict]:
@@ -414,8 +425,17 @@ async def main():
         config = yaml.safe_load(f)
 
     pipeline_cfg = config.get("pipeline", {})
-    manuscripts_dir = args.output_dir or pipeline_cfg.get("chapter_output_dir", "data/manuscripts")
     ledger_path = pipeline_cfg.get("run_ledger_path", "data/run_ledger.db")
+
+    # Derive project-scoped output directories
+    project_slug = _slugify_title(
+        concept_seed.get("meta", {}).get("project_title", "untitled")
+    )
+    default_chapters_dir = f"output/{project_slug}/chapters"
+    manuscripts_dir = args.output_dir or pipeline_cfg.get(
+        "chapter_output_dir", default_chapters_dir
+    )
+    export_dir = f"output/{project_slug}/export"
 
     # Phase 4: Export-only mode — skip everything else
     if args.export_only:
@@ -424,7 +444,7 @@ async def main():
             export_manager = ExportManager(manuscripts_dir, concept_seed)
             formats = [f.strip() for f in args.export_formats.split(",")]
             print(f"Exporting to: {', '.join(formats)}")
-            results = export_manager.export_all(output_dir="data/export", formats=formats)
+            results = export_manager.export_all(output_dir=export_dir, formats=formats)
             for fmt, path in results.items():
                 if path:
                     print(f"  {fmt}: {path}")
@@ -710,7 +730,7 @@ async def main():
         if args.export and export_manager:
             print(f"\nExporting manuscript...")
             formats = [f.strip() for f in args.export_formats.split(",")]
-            export_results = export_manager.export_all(output_dir="data/export", formats=formats)
+            export_results = export_manager.export_all(output_dir=export_dir, formats=formats)
             for fmt, path in export_results.items():
                 if path:
                     print(f"  {fmt}: {path}")

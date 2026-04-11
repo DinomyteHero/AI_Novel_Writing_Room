@@ -243,6 +243,13 @@ class ContextAssembler:
             f"## Scene Card\n```json\n{json.dumps(scene_card, indent=2)}\n```"
         )
 
+        # Voice rules (reads from concept_seed only — no Phase 2 dependencies)
+        voice_rules = self._assemble_voice_rules()
+        if voice_rules:
+            components.append(
+                _truncate_to_budget(voice_rules, TOKEN_BUDGETS["voice_rules"])
+            )
+
         # Negative constraints
         components.append(f"## Writing Constraints\n{self.negative_constraints}")
 

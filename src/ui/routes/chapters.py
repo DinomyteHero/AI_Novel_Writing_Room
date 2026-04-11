@@ -15,7 +15,7 @@ router = APIRouter(tags=["chapters"])
 
 class ExportRequest(BaseModel):
     formats: list[str] = ["md", "docx", "epub"]
-    output_dir: str = "data/export"
+    output_dir: Optional[str] = None
 
 
 @router.get("/chapters")
@@ -171,7 +171,7 @@ async def export_manuscript(body: ExportRequest, request: Request):
         raise HTTPException(503, "Export manager not available")
 
     results = state.export_manager.export_all(
-        output_dir=body.output_dir,
+        output_dir=body.output_dir or state.export_dir,
         formats=body.formats,
     )
 
@@ -185,7 +185,8 @@ async def download_export(fmt: str, request: Request):
     if fmt not in ("md", "docx", "epub"):
         raise HTTPException(400, f"Invalid format: {fmt}")
 
-    export_dir = Path("data/export")
+    state = get_app_state(request)
+    export_dir = Path(state.export_dir)
     if not export_dir.exists():
         raise HTTPException(404, "No exports found. Run export first.")
 

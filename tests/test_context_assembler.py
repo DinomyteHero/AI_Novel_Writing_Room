@@ -82,3 +82,14 @@ class TestContextAssembler:
     def test_no_previous_chapter_for_chapter_1(self, assembler, sample_scene_card):
         prev = assembler.get_previous_chapter(1)
         assert prev is None
+
+    def test_phase1_includes_voice_rules(self, assembler, sample_scene_card):
+        """Phase 1 assembly must inject voice_definition from the concept seed."""
+        context = assembler._assemble_phase1(sample_scene_card)
+        assert "Voice Rules (MANDATORY)" in context
+        # Anti-slop rules from the sample seed
+        assert "a sense of" in context.lower()
+        # Character voice guidance
+        assert "Alex Reyes" in context
+        # Anti-patterns
+        assert "prophecy" in context.lower() or "destiny" in context.lower()
