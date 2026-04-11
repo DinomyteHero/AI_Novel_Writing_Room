@@ -4,113 +4,68 @@ models:
   local:
     inference_backend: llama-server
     base_url: http://localhost:8080/v1
-    models:
-      # Phase 1 models
-      primary_moe: Qwen3-30B-A3B-Instruct-2507-Q4_K_M
-      fast_moe: Gemma-4-26B-A4B-Q5_K_M
-      utility: Qwen3.5-9B-Q5_K_M
-      embedding: nomic-embed-text
-
-    default_params:
-      primary_moe:
-        temperature: 0.7
-        min_p: 0.05
-        top_p: 1.0
-        top_k: 0
-        repetition_penalty: 1.1
-      prose:
-        temperature: 1.0
-        min_p: 0.05
-        top_p: 1.0
-        top_k: 0
-        repetition_penalty: 1.08
-      utility:
-        temperature: 0.3
-        min_p: 0.1
+    models: {}
+    default_params: {}
 
   cloud:
     provider: openrouter
     base_url: https://openrouter.ai/api/v1
     api_key_env: OPENROUTER_API_KEY
     models:
-      # Named tiers (used by cloud-only agents like voice_checker, judge_evaluator)
-      primary: anthropic/claude-sonnet-4-20250514
-      premium: anthropic/claude-opus-4-20250514
-      budget: anthropic/claude-haiku-4-5-20251001
-      # Free model aliases — map local agent_routing keys to free OpenRouter models
-      # To switch to paid models, comment the free lines and uncomment the paid lines
-      primary_moe: google/gemma-4-31b-it:free       # PlotArchitect, ProseStylist, GateCritic, CraftEditor
-      # primary_moe: deepseek/deepseek-v3.2          # Paid alternative ($0.26/$0.38 per M tokens)
-      fast_moe: google/gemma-4-31b-it:free           # CanonExpert, Orchestrator
-      # fast_moe: deepseek/deepseek-v3.2
-      utility: google/gemma-4-26b-a4b-it:free        # Summarizer
-      # utility: deepseek/deepseek-v3.2
-      prose: google/gemma-4-31b-it:free              # Prose models
-      # prose: deepseek/deepseek-v3.2
+      # Gemini 3.1 Pro — workshop, prose, and quality-sensitive agents
+      primary: google/gemini-3.1-pro-preview
+      # DeepSeek V3.2 — bulk pipeline agents (cheap)
+      budget: deepseek/deepseek-v3.2
+      # Claude Sonnet 4 — high-stakes evaluation
+      premium: anthropic/claude-sonnet-4-20250514
     default_params:
       primary:
         temperature: 0.7
+        max_tokens: 8192
+      budget:
+        temperature: 0.4
         max_tokens: 4096
       premium:
-        temperature: 0.9
-        max_tokens: 8192
-      primary_moe:
-        max_tokens: 8192
-      fast_moe:
+        temperature: 0.3
         max_tokens: 4096
-      utility:
-        max_tokens: 2048
-      prose:
-        max_tokens: 8192
 
 # Agent-to-model mapping
-# NOTE: The 'backend' field in each entry below is ONLY honoured in
-# 'hybrid' deployment_mode.  In 'local' or 'cloud' mode, ALL agents
-# use the deployment_mode backend regardless of per-agent settings.
-# The 'model' and 'params' fields are always honoured.
+# NOTE: The 'backend' field is ONLY honoured in 'hybrid' deployment_mode.
+# In 'local' or 'cloud' mode, ALL agents use the deployment_mode backend.
 agent_routing:
-  orchestrator:          { backend: local, model: fast_moe }
-  plot_architect:        { backend: local, model: primary_moe, params: { temperature: 0.4 } }
-  canon_expert:          { backend: local, model: fast_moe }
-  prose_stylist:         { backend: local, model: primary_moe, params: { temperature: 0.9, min_p: 0.05 } }
-  gate_critic:           { backend: local, model: primary_moe, params: { temperature: 0.3 } }
-  craft_editor:          { backend: local, model: primary_moe, params: { temperature: 0.4 } }
-  character_specialist:  { backend: local, model: primary_moe, params: { temperature: 0.4 } }
-  summarizer:            { backend: local, model: utility, params: { temperature: 0.2 } }
-  voice_checker:         { backend: cloud, model: primary, params: { temperature: 0.3 } }
-  # Phase 3: Revision pipeline agents
-  structural_continuity_reviewer: { backend: local, model: primary_moe, params: { temperature: 0.3 } }
-  scene_emotion_reviewer:         { backend: local, model: primary_moe, params: { temperature: 0.5 } }
-  line_copy_editor:               { backend: local, model: primary_moe, params: { temperature: 0.3 } }
-  # Phase 4: Scene generation, adaptive revision, LLM judge
-  outline_planner:                 { backend: local, model: primary_moe, params: { temperature: 0.5 } }
-  dialogue_polish_editor:          { backend: local, model: primary_moe, params: { temperature: 0.4 } }
-  worldbuilding_coherence_reviewer: { backend: local, model: primary_moe, params: { temperature: 0.3 } }
-  judge_evaluator:                 { backend: cloud, model: primary, params: { temperature: 0.2 } }
-  # Phase A: Concept Workshop
-  concept_workshop:                { backend: cloud, model: primary, params: { temperature: 0.7, max_tokens: 8192 } }
-  # Phase 5: Manuscript review and stress testing
-  manuscript_reviewer:             { backend: cloud, model: premium, params: { temperature: 0.4, min_p: 0.05 } }
-  stress_test:                     { backend: cloud, model: primary, params: { temperature: 0.5, min_p: 0.05 } }
-  # Worldbuilding extraction agent
-  lore_extractor:                  { backend: local, model: utility, params: { temperature: 0.2 } }
+  # --- Workshop: Gemini 3.1 Pro (franchise knowledge + reasoning) ---
+  concept_workshop:       { backend: cloud, model: primary, params: { temperature: 0.7, max_tokens: 8192 } }
 
-# Concept workshop local fallback (local-only deployment mode)
-concept_workshop_local:
-  model: primary_moe
-  context_size: 131072
-  params:
-    temperature: 0.7
-    min_p: 0.05
+  # --- Prose generation: Gemini 3.1 Pro (quality-visible, writes the novel) ---
+  prose_stylist:          { backend: cloud, model: primary, params: { temperature: 0.9 } }
 
-# Local inference settings
-local_inference:
-  gpu_layers: 99
-  expert_offload: CPU
-  context_size: 32768
-  batch_size: 512
-  flash_attention: true
-  speculative_model: null
+  # --- Pipeline agents: DeepSeek V3.2 (structured tasks, cheap) ---
+  orchestrator:           { backend: cloud, model: budget }
+  plot_architect:         { backend: cloud, model: budget, params: { temperature: 0.4 } }
+  gate_critic:            { backend: cloud, model: budget, params: { temperature: 0.3 } }
+  craft_editor:           { backend: cloud, model: budget, params: { temperature: 0.4 } }
+  canon_expert:           { backend: cloud, model: budget }
+  summarizer:             { backend: cloud, model: budget, params: { temperature: 0.2 } }
+  character_specialist:   { backend: cloud, model: budget, params: { temperature: 0.4 } }
+  lore_extractor:         { backend: cloud, model: budget, params: { temperature: 0.2 } }
+
+  # --- Phase 3: Revision pipeline (DeepSeek V3.2) ---
+  structural_continuity_reviewer: { backend: cloud, model: budget, params: { temperature: 0.3 } }
+  scene_emotion_reviewer:         { backend: cloud, model: budget, params: { temperature: 0.5 } }
+  line_copy_editor:               { backend: cloud, model: budget, params: { temperature: 0.3 } }
+
+  # --- Phase 4: Planning & polish (DeepSeek V3.2) ---
+  outline_planner:                 { backend: cloud, model: budget, params: { temperature: 0.5 } }
+  dialogue_polish_editor:          { backend: cloud, model: budget, params: { temperature: 0.4 } }
+  worldbuilding_coherence_reviewer: { backend: cloud, model: budget, params: { temperature: 0.3 } }
+
+  # --- Quality-sensitive: Gemini 3.1 Pro (needs better judgment) ---
+  voice_checker:          { backend: cloud, model: primary, params: { temperature: 0.3 } }
+  stress_test:            { backend: cloud, model: primary, params: { temperature: 0.5 } }
+
+  # --- Evaluation: Claude Sonnet 4 (high-stakes judgment) ---
+  judge_evaluator:        { backend: cloud, model: premium, params: { temperature: 0.2 } }
+  manuscript_reviewer:    { backend: cloud, model: premium, params: { temperature: 0.3 } }
 
 # Pipeline settings
 pipeline:

@@ -6,6 +6,10 @@ import json
 import sys
 from pathlib import Path
 
+from dotenv import load_dotenv
+
+load_dotenv()  # Load .env before any module reads os.environ
+
 from src.memory.context_assembler import ContextAssembler
 from src.model_router import ModelRouter
 from src.orchestrator import Orchestrator
