@@ -193,7 +193,7 @@ class ContextAssembler:
         return "\n\n".join(voices)
 
     def get_previous_chapter(self, chapter_number: int) -> Optional[str]:
-        """Load the previous chapter's text for context."""
+        """Load the previous chapter's text for context (deprecated: use get_previous_scene)."""
         prev_chapter = chapter_number - 1
         if prev_chapter < 1:
             return None
@@ -204,6 +204,48 @@ class ContextAssembler:
         if matches:
             return matches[0].read_text(encoding="utf-8")
         return None
+
+    def get_previous_scene(self, chapter_number: int, scene_number: int) -> Optional[str]:
+        """Get the prose from the immediately preceding scene.
+
+        Within-chapter: ch N scene (M-1).
+        Cross-chapter: last scene file of chapter (N-1).
+        """
+        if scene_number > 1:
+            path = self.manuscripts_dir / f"chapter_{chapter_number:02d}_scene_{scene_number - 1:02d}.md"
+            if path.exists():
+                return path.read_text(encoding="utf-8")
+            return None
+
+        if chapter_number <= 1:
+            return None
+
+        # First scene of a new chapter: find the LAST scene of the previous chapter
+        prev_chapter = chapter_number - 1
+        pattern = f"chapter_{prev_chapter:02d}_scene_*.md"
+        matches = sorted(self.manuscripts_dir.glob(pattern))
+        if matches:
+            return matches[-1].read_text(encoding="utf-8")
+        return None
+
+    def _load_prior_scenes(self, chapter_number: int, scene_number: int, n: int = 3) -> list[str]:
+        """Load the last N scene files before the current (chapter, scene)."""
+        all_files = sorted(self.manuscripts_dir.glob("chapter_*_scene_*.md"))
+
+        current_key = (chapter_number, scene_number)
+        prior_files = []
+        for f in all_files:
+            parts = f.stem.split("_")  # chapter_01_scene_02 -> ["chapter", "01", "scene", "02"]
+            try:
+                ch = int(parts[1])
+                sc = int(parts[3])
+            except (IndexError, ValueError):
+                continue
+            if (ch, sc) < current_key:
+                prior_files.append(f)
+
+        recent = prior_files[-n:]
+        return [f.read_text(encoding="utf-8") for f in recent]
 
     def assemble(self, scene_card: dict) -> str:
         """Assemble the full context for a scene generation call.
@@ -229,14 +271,15 @@ class ContextAssembler:
             if voices:
                 components.append(f"## Character Voices\n{voices}")
 
-        # Previous chapter context
+        # Previous scene context
         chapter_num = scene_card.get("chapter_number", 1)
-        prev_chapter = self.get_previous_chapter(chapter_num)
-        if prev_chapter:
+        scene_num = scene_card.get("scene_number", 1)
+        prev_prose = self.get_previous_scene(chapter_num, scene_num)
+        if prev_prose:
             # Truncate to last ~3000 chars for Phase 1
-            if len(prev_chapter) > 3000:
-                prev_chapter = "...\n" + prev_chapter[-3000:]
-            components.append(f"## Previous Chapter (ending)\n{prev_chapter}")
+            if len(prev_prose) > 3000:
+                prev_prose = "...\n" + prev_prose[-3000:]
+            components.append(f"## Previous Scene (ending)\n{prev_prose}")
 
         # Scene card
         components.append(
@@ -352,12 +395,13 @@ class ContextAssembler:
 
         # Tier 4: Recent prose context
         chapter_num = scene_card.get("chapter_number", 1)
-        prev_chapter = self.get_previous_chapter(chapter_num)
-        if prev_chapter:
+        scene_num = scene_card.get("scene_number", 1)
+        prev_prose = self.get_previous_scene(chapter_num, scene_num)
+        if prev_prose:
             budget_chars = int(TOKEN_BUDGETS["recent_prose"] / 0.75)
-            if len(prev_chapter) > budget_chars:
-                prev_chapter = "...\n" + prev_chapter[-budget_chars:]
-            components.append(f"## Recent Prose\n{prev_chapter}")
+            if len(prev_prose) > budget_chars:
+                prev_prose = "...\n" + prev_prose[-budget_chars:]
+            components.append(f"## Recent Prose\n{prev_prose}")
 
         # Scene card
         scene_text = json.dumps(scene_card, indent=2)

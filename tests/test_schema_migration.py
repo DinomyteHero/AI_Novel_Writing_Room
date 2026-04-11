@@ -10,11 +10,11 @@ from src.memory.story_state import StoryState
 class TestSchemaMigration:
     """Tests for the migration system."""
 
-    def test_new_db_has_version_2(self, temp_dir):
-        """A fresh database is initialized at schema version 2."""
+    def test_new_db_has_version_3(self, temp_dir):
+        """A fresh database is initialized at schema version 3."""
         db_path = str(Path(temp_dir) / "test.db")
         state = StoryState(db_path=db_path)
-        assert state.get_schema_version() == 2
+        assert state.get_schema_version() == 3
         state.close()
 
     def test_migration_creates_phase5_tables(self, temp_dir):
@@ -58,9 +58,9 @@ class TestSchemaMigration:
         rows = state2.conn.execute(
             "SELECT version FROM schema_migrations ORDER BY version"
         ).fetchall()
-        # Should still have exactly 2 migration entries, not duplicates
+        # Should still have exactly 3 migration entries, not duplicates
         versions = [r["version"] for r in rows]
-        assert versions == [1, 2]
+        assert versions == [1, 2, 3]
         state2.close()
 
     def test_existing_data_preserved_after_migration(self, temp_dir):

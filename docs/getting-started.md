@@ -93,6 +93,8 @@ python -m src.main \
 
 This runs the basic pipeline (Phase 1): PlotArchitect, ProseStylist, GateCritic, CraftEditor.
 
+All state data is automatically scoped under `data/projects/the-ruusan-atonement/` and output goes to `output/the-ruusan-atonement/chapters/`.
+
 ### Run with Full Features
 
 ```bash
@@ -122,6 +124,15 @@ python -m src.ui.server data/story_bibles/the_ruusan_atonement/concept_seed.json
 ```
 
 Open http://localhost:8000.
+
+### Migrate Existing Data
+
+If you have data from before the project-scoped layout, run the migration:
+
+```bash
+python scripts/migrate_to_project_dirs.py --dry-run  # preview
+python scripts/migrate_to_project_dirs.py             # execute
+```
 
 ## Verify Your Setup
 

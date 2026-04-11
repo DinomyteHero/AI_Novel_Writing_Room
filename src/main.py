@@ -15,16 +15,16 @@ import re
 from src.memory.context_assembler import ContextAssembler
 from src.model_router import ModelRouter
 from src.orchestrator import Orchestrator
+from src.project_paths import ProjectPaths, slugify_title
 from src.run_ledger import RunLedger
 
 
 def _slugify_title(title: str) -> str:
-    """Convert a project title to a kebab-case directory slug."""
-    slug = title.lower().strip()
-    slug = re.sub(r"[^a-z0-9\s-]", "", slug)
-    slug = re.sub(r"[\s_]+", "-", slug)
-    slug = re.sub(r"-+", "-", slug)
-    return slug.strip("-")
+    """Convert a project title to a kebab-case directory slug.
+
+    Deprecated: use project_paths.slugify_title instead.
+    """
+    return slugify_title(title)
 
 
 def load_scene_cards(scene_cards_dir: str, chapter: int | None = None) -> list[dict]:
@@ -50,7 +50,8 @@ def load_scene_cards(scene_cards_dir: str, chapter: int | None = None) -> list[d
     return cards
 
 
-def _init_phase2(concept_seed_path: str, config: dict, manuscripts_dir: str):
+def _init_phase2(concept_seed_path: str, config: dict, manuscripts_dir: str,
+                  paths: "ProjectPaths | None" = None):
     """Initialize Phase 2 components. Returns (story_state, knowledge_layers,
     chapter_memory, canon_db, summarizer, state_diff_applier, contradiction_scanner)
     or all Nones if imports fail."""
@@ -66,10 +67,10 @@ def _init_phase2(concept_seed_path: str, config: dict, manuscripts_dir: str):
         print(f"Warning: Phase 2 dependencies not available: {e}")
         return None, None, None, None, None, None, None
 
-    # Initialize SQLite story state
-    state_db_path = config.get("pipeline", {}).get(
-        "story_state_path", "data/story_state.db"
-    )
+    # Initialize SQLite story state (project-scoped via ProjectPaths)
+    state_db_path = str(paths.story_state_db) if paths else config.get(
+        "pipeline", {}
+    ).get("story_state_path", "data/story_state.db")
     story_state = StoryState(db_path=state_db_path)
 
     # Initialize from concept seed
@@ -80,10 +81,10 @@ def _init_phase2(concept_seed_path: str, config: dict, manuscripts_dir: str):
     # Knowledge layers
     knowledge_layers = KnowledgeLayers(story_state)
 
-    # Chapter memory (ChromaDB)
-    chapter_memory_dir = config.get("pipeline", {}).get(
-        "chapter_memory_dir", "data/chapter_memory"
-    )
+    # Chapter memory (ChromaDB, project-scoped via ProjectPaths)
+    chapter_memory_dir = str(paths.chapter_memory_dir) if paths else config.get(
+        "pipeline", {}
+    ).get("chapter_memory_dir", "data/chapter_memory")
     try:
         ef = get_embedding_function(use_mock=True)  # Use mock by default; set use_mock=False for real embeddings
         chapter_memory = ChapterMemory(
@@ -96,9 +97,9 @@ def _init_phase2(concept_seed_path: str, config: dict, manuscripts_dir: str):
 
     # Canon DB (optional, only if data exists)
     canon_db = None
-    canon_db_dir = config.get("pipeline", {}).get(
-        "canon_db_dir", "data/canon_dbs"
-    )
+    canon_db_dir = str(paths.canon_dbs_dir) if paths else config.get(
+        "pipeline", {}
+    ).get("canon_db_dir", "data/canon_dbs")
     if Path(canon_db_dir).exists():
         try:
             from src.rag.canon_db import CanonDB
@@ -358,6 +359,13 @@ async def main():
         help="Worldbuilding project ID (for spoiler-isolated reading order)",
     )
     parser.add_argument(
+        "--project",
+        default=None,
+        help="Project slug (e.g., 'the-ruusan-atonement'). "
+             "Auto-derived from concept seed project_title if not provided. "
+             "Scopes all state data under data/projects/<slug>/.",
+    )
+    parser.add_argument(
         "--server",
         action="store_true",
         help="Launch the web server instead of the CLI pipeline",
@@ -425,17 +433,19 @@ async def main():
         config = yaml.safe_load(f)
 
     pipeline_cfg = config.get("pipeline", {})
-    ledger_path = pipeline_cfg.get("run_ledger_path", "data/run_ledger.db")
 
-    # Derive project-scoped output directories
-    project_slug = _slugify_title(
-        concept_seed.get("meta", {}).get("project_title", "untitled")
-    )
-    default_chapters_dir = f"output/{project_slug}/chapters"
+    # Resolve project paths (project-scoped data isolation)
+    if args.project:
+        paths = ProjectPaths(args.project)
+    else:
+        paths = ProjectPaths.from_concept_seed(concept_seed)
+    paths.ensure_dirs()
+
+    ledger_path = str(paths.run_ledger_db)
     manuscripts_dir = args.output_dir or pipeline_cfg.get(
-        "chapter_output_dir", default_chapters_dir
+        "chapter_output_dir", str(paths.manuscripts_dir)
     )
-    export_dir = f"output/{project_slug}/export"
+    export_dir = str(paths.export_dir)
 
     # Phase 4: Export-only mode — skip everything else
     if args.export_only:
@@ -476,7 +486,7 @@ async def main():
             _,
             _,
             _,
-        ) = _init_phase2(args.concept_seed, config, manuscripts_dir)
+        ) = _init_phase2(args.concept_seed, config, manuscripts_dir, paths=paths)
 
         if story_state and knowledge_layers:
             from src.agents.summarizer import Summarizer
@@ -610,8 +620,8 @@ async def main():
             from src.worldbuilding.lore_service import LoreService
 
             wb_config = config.get("worldbuilding", {})
-            wb_db_path = wb_config.get("db_path", "data/worldbuilding.db")
-            wb_vectors_dir = wb_config.get("vectors_dir", "data/worldbuilding_vectors")
+            wb_db_path = wb_config.get("db_path", str(paths.worldbuilding_db))
+            wb_vectors_dir = wb_config.get("vectors_dir", str(paths.worldbuilding_vectors_dir))
 
             ef_wb = None
             try:

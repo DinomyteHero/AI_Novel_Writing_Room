@@ -19,6 +19,7 @@ from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 
 from src.model_router import ModelRouter
+from src.project_paths import ProjectPaths
 from src.ui.connection_manager import ConnectionManager
 from src.ui.pipeline_manager import PipelineManager
 from src.ui.websocket_ledger import WebSocketLedger
@@ -88,35 +89,31 @@ def create_app(
             if scene_cards_dir.exists():
                 state.scene_cards_dir = str(scene_cards_dir)
 
-        # Derive project-scoped output directories
-        project_title = state.concept_seed.get("meta", {}).get(
-            "project_title", "untitled"
-        )
-        slug = re.sub(r"[^a-z0-9\s-]", "", project_title.lower().strip())
-        slug = re.sub(r"[\s_]+", "-", slug).strip("-")
-        default_chapters_dir = f"output/{slug}/chapters"
+        # Resolve project-scoped paths
+        paths = ProjectPaths.from_concept_seed(state.concept_seed)
+        paths.ensure_dirs()
         state.manuscripts_dir = pipeline_cfg.get(
-            "chapter_output_dir", default_chapters_dir
+            "chapter_output_dir", str(paths.manuscripts_dir)
         )
-        state.export_dir = f"output/{slug}/export"
+        state.export_dir = str(paths.export_dir)
 
         # Initialize ModelRouter
         state.router = ModelRouter(config_path)
 
-        # Initialize WebSocketLedger
-        ledger_path = pipeline_cfg.get("run_ledger_path", "data/run_ledger.db")
+        # Initialize WebSocketLedger (project-scoped)
+        ledger_path = pipeline_cfg.get("run_ledger_path", str(paths.run_ledger_db))
         state.ledger = WebSocketLedger(db_path=ledger_path, queue=state.event_queue)
 
         # Initialize Phase 2+ components if available
         if phase >= 2 and concept_seed_path:
-            _init_story_state(state, concept_seed_path, pipeline_cfg)
+            _init_story_state(state, concept_seed_path, pipeline_cfg, paths=paths)
 
         # Initialize Phase 4 components if available
         if phase >= 4:
             _init_phase4_components(state)
 
         # Initialize worldbuilding service
-        _init_worldbuilding(state, state.config)
+        _init_worldbuilding(state, state.config, paths=paths)
 
         # Start connection manager and broadcaster
         state.connection_manager = ConnectionManager(state.event_queue)
@@ -213,13 +210,16 @@ def create_app(
     return app
 
 
-def _init_story_state(state: AppState, concept_seed_path: str, pipeline_cfg: dict) -> None:
+def _init_story_state(state: AppState, concept_seed_path: str, pipeline_cfg: dict,
+                      paths: "ProjectPaths | None" = None) -> None:
     """Initialize Phase 2 story state components."""
     try:
         from src.memory.story_state import StoryState
         from src.memory.knowledge_layers import KnowledgeLayers
 
-        state_db_path = pipeline_cfg.get("story_state_path", "data/story_state.db")
+        state_db_path = str(paths.story_state_db) if paths else pipeline_cfg.get(
+            "story_state_path", "data/story_state.db"
+        )
         state.story_state = StoryState(db_path=state_db_path)
         state.story_state.init_from_concept_seed(state.concept_seed)
         state.knowledge_layers = KnowledgeLayers(state.story_state)
@@ -231,7 +231,9 @@ def _init_story_state(state: AppState, concept_seed_path: str, pipeline_cfg: dic
 
             ef = get_embedding_function(use_mock=True)
             state.embedding_function = ef
-            chapter_memory_dir = pipeline_cfg.get("chapter_memory_dir", "data/chapter_memory")
+            chapter_memory_dir = str(paths.chapter_memory_dir) if paths else pipeline_cfg.get(
+                "chapter_memory_dir", "data/chapter_memory"
+            )
             state.chapter_memory = ChapterMemory(
                 persist_directory=chapter_memory_dir,
                 embedding_function=ef,
@@ -243,7 +245,8 @@ def _init_story_state(state: AppState, concept_seed_path: str, pipeline_cfg: dic
         logger.warning("Phase 2 components not available: %s", e)
 
 
-def _init_worldbuilding(state: AppState, config: dict) -> None:
+def _init_worldbuilding(state: AppState, config: dict,
+                        paths: "ProjectPaths | None" = None) -> None:
     """Initialize the worldbuilding persistence layer."""
     try:
         from src.worldbuilding.worldbuilding_db import WorldbuildingDB
@@ -251,8 +254,10 @@ def _init_worldbuilding(state: AppState, config: dict) -> None:
         from src.worldbuilding.lore_service import LoreService
 
         wb_config = config.get("worldbuilding", {})
-        db_path = wb_config.get("db_path", "data/worldbuilding.db")
-        vectors_dir = wb_config.get("vectors_dir", "data/worldbuilding_vectors")
+        db_path = wb_config.get("db_path", str(paths.worldbuilding_db) if paths else "data/worldbuilding.db")
+        vectors_dir = wb_config.get(
+            "vectors_dir", str(paths.worldbuilding_vectors_dir) if paths else "data/worldbuilding_vectors"
+        )
 
         ef = state.embedding_function
         wb_db = WorldbuildingDB(db_path=db_path)

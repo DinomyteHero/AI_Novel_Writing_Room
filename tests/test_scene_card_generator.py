@@ -151,7 +151,7 @@ class TestSceneCardGenerator:
 
         assert cards[0]["scene_number"] == 1
         assert cards[0]["structural_phase"] == "setup"
-        assert cards[0]["target_word_count"] == 3000  # 9000 / 3
+        assert cards[0]["target_word_count"] == 1000  # (9000 / 3) / 3 = per-scene
 
     @pytest.mark.asyncio
     async def test_generate_no_physics(self, mock_router, seed, mock_outline_response):

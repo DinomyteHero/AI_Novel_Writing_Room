@@ -122,33 +122,58 @@ class OutlinePlanner(BaseAgent):
                 )
             parts.append("")
 
+        total_words = meta.get("target_word_count", 75000)
+        per_chapter = total_words // target_chapters
+        per_scene_target = per_chapter // 3
+
         parts.append(
             f"## Task\n"
-            f"Generate a complete {target_chapters}-chapter outline.\n"
+            f"Generate a complete {target_chapters}-chapter outline with MULTIPLE SCENES PER CHAPTER.\n\n"
+            f"SCENE COUNT RULES:\n"
+            f"- Each chapter MUST contain 2-4 scenes (default 3).\n"
+            f"- Single-scene chapters are allowed ONLY for high-impact set-piece moments "
+            f"(climax, major plot points) — maximum 3 single-scene chapters in the entire novel.\n"
+            f"- Per-scene target word count: ~{per_scene_target} words.\n"
+            f"- Sum of scene target_word_counts per chapter must be within 90-110% "
+            f"of {per_chapter} words.\n\n"
+            f"SCENE VARIETY RULES:\n"
+            f"- Alternate scene_type where possible: action -> sequel -> action.\n"
+            f"- No chapter may have all scenes with the same conflict_type.\n"
+            f"- Each scene MUST have a distinct mission — no two scenes in the same chapter "
+            f"may have semantically equivalent missions.\n"
+            f"- Each scene MUST end with a closing_hook that creates a question, complication, "
+            f"or urgent decision that the next scene must address.\n"
+            f"- Within a chapter, pressure must escalate or transform — the final scene "
+            f"should not be the lowest-pressure scene.\n\n"
             f"Return a JSON array of scene card objects. Each object must have:\n"
             f"- chapter_number (int)\n"
-            f"- scene_number (int, usually 1)\n"
+            f"- scene_number (int, starting at 1 within each chapter)\n"
+            f"- scene_type (one of: action, sequel)\n"
+            f"- scene_role (one of: hook, escalation, reveal, decision, aftermath)\n"
             f"- structural_phase (one of: setup, first_plot_point, response, "
             f"first_pinch, midpoint, attack, second_pinch, second_plot_point, "
             f"resolution, climax)\n"
             f"- pov_character (string)\n"
-            f"- mission (string, what this scene accomplishes)\n"
-            f"- why_now (string, specific causal justification)\n"
+            f"- mission (string, what this scene uniquely accomplishes)\n"
+            f"- why_now (string, specific causal justification — no generic filler)\n"
             f"- conflict (string)\n"
             f"- conflict_type (one of: internal, interpersonal, external, environmental)\n"
             f"- turning_point (string)\n"
+            f"- opening_hook (string, how this scene opens with engagement)\n"
+            f"- closing_hook (string, the question/complication/decision at scene end)\n"
             f"- emotional_trajectory (string)\n"
             f"- characters_present (list of strings)\n"
+            f"- setting (string, location and time)\n"
             f"- plot_threads_advanced (list of strings)\n"
             f"- promises_planted (list of strings)\n"
             f"- promises_paid (list of strings)\n"
             f"- canon_elements_needed (list of strings)\n"
-            f"- target_word_count (int)\n"
-            f"- active_subplots (list of subplot_ids active in this scene)\n"
+            f"- target_word_count (int, per scene — NOT per chapter)\n"
+            f"- active_subplots (list of subplot_ids)\n"
             f"- hook_actions (list of {{hook_id, action}} where action is plant/advance/resolve/subvert)\n"
-            f"- revelations (list of info_ids revealed in this scene)\n"
+            f"- revelations (list of info_ids)\n"
             f"- pov_arc_phase (current Weiland arc phase for POV character)\n"
-            f"- arc_phase_transition (new phase if this scene triggers a transition, else null)\n\n"
+            f"- arc_phase_transition (new phase if transition occurs, else null)\n\n"
             f"Distribute POV characters using the {meta.get('pov_structure', 'rotating')} pattern.\n"
             f"Ensure pressure escalates toward the climax.\n"
             f"Return ONLY the JSON array, no other text."
@@ -220,6 +245,14 @@ class SceneCardGenerator:
 
         # Ensure required fields with defaults
         scene_cards = [self._ensure_defaults(card, concept_seed) for card in scene_cards]
+
+        # Validate chapter composition (multi-scene structure)
+        composition_warnings = self._validate_chapter_composition(scene_cards)
+        if composition_warnings:
+            import logging
+            logger = logging.getLogger(__name__)
+            for w in composition_warnings:
+                logger.warning("Chapter composition: %s", w)
 
         # Validate: semantic completeness + physics enforcer
         scene_cards = await self._validate_and_fix(
@@ -306,19 +339,24 @@ class SceneCardGenerator:
             "chapter_number": 1,
             "scene_number": 1,
             "structural_phase": "setup",
+            "scene_type": "action",
+            "scene_role": "escalation",
             "pov_character": "",
             "mission": "",
             "why_now": "",
             "conflict": "",
             "conflict_type": "internal",
             "turning_point": "",
+            "opening_hook": "",
+            "closing_hook": "",
+            "setting": "",
             "emotional_trajectory": "",
             "characters_present": [],
             "plot_threads_advanced": [],
             "promises_planted": [],
             "promises_paid": [],
             "canon_elements_needed": [],
-            "target_word_count": per_chapter,
+            "target_word_count": per_chapter // 3,  # Per-scene, not per-chapter
             "notes": "",
             # Phase 5 fields
             "active_subplots": [],
@@ -330,6 +368,43 @@ class SceneCardGenerator:
 
         result = {**defaults, **card}
         return result
+
+    @staticmethod
+    def _validate_chapter_composition(scene_cards: list[dict]) -> list[str]:
+        """Validate multi-scene chapter composition. Returns list of warnings."""
+        from itertools import groupby
+
+        warnings = []
+        sorted_cards = sorted(scene_cards, key=lambda c: c.get("chapter_number", 0))
+
+        for ch_num, group in groupby(sorted_cards, key=lambda c: c.get("chapter_number", 0)):
+            scenes = list(group)
+
+            if len(scenes) < 2:
+                warnings.append(f"Chapter {ch_num}: only {len(scenes)} scene(s) — expected 2-4")
+            if len(scenes) > 5:
+                warnings.append(f"Chapter {ch_num}: {len(scenes)} scenes — exceeds maximum of 5")
+
+            # Conflict variety check (for chapters with 3+ scenes)
+            if len(scenes) >= 3:
+                conflict_types = {s.get("conflict_type") for s in scenes}
+                if len(conflict_types) < 2:
+                    ct = conflict_types.pop() if conflict_types else "unknown"
+                    warnings.append(
+                        f"Chapter {ch_num}: all {len(scenes)} scenes have "
+                        f"conflict_type '{ct}' — need variety"
+                    )
+
+            # Per-scene word count minimum check
+            for s in scenes:
+                wc = s.get("target_word_count", 0)
+                if wc < 500:
+                    warnings.append(
+                        f"Chapter {ch_num} scene {s.get('scene_number', '?')}: "
+                        f"target_word_count {wc} is below minimum (500)"
+                    )
+
+        return warnings
 
     def save_scene_cards(
         self, scene_cards: list[dict], output_dir: str

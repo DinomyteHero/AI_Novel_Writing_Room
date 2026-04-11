@@ -87,12 +87,21 @@ ai-writers-room/
 │   └── revision_prompts/          # Per-band revision prompts (5 files)
 ├── schemas/                       # JSON schema definitions (9 schemas)
 ├── data/
-│   ├── story_bibles/              # Concept seeds and scene cards per project
-│   ├── manuscripts/               # Generated chapter prose
-│   ├── worldbuilding.db           # Cross-project worldbuilding state (SQLite)
-│   ├── worldbuilding_vectors/     # Worldbuilding lore embeddings (ChromaDB)
+│   ├── projects/                  # Per-project state (project-scoped)
+│   │   └── <project-slug>/
+│   │       ├── concept_seed.json
+│   │       ├── scene_cards/
+│   │       └── state/             # story_state.db, chapter_memory/, run_ledger.db, sessions/
+│   ├── universes/                 # Cross-project worldbuilding
+│   │   ├── worldbuilding.db
+│   │   └── worldbuilding_vectors/
+│   ├── canon_dbs/                 # Franchise RAG databases (shared)
 │   ├── eval_corpus/               # Reference chapters for quality calibration
-│   └── export/                    # Exported manuscripts
+│   └── story_bibles/              # Legacy layout (use --project for new projects)
+├── output/
+│   └── <project-slug>/
+│       ├── chapters/              # Generated chapter prose
+│       └── export/                # Exported manuscripts
 └── docs/                          # Documentation
 ```
 

@@ -37,10 +37,11 @@ class ChapterMemory:
         chapter_number: int,
         summary_text: str,
         metadata: dict | None = None,
+        scene_number: int = 1,
     ) -> None:
-        """Embed and store a chapter summary."""
-        doc_id = f"chapter_{chapter_number:03d}"
-        meta = {"chapter_number": chapter_number}
+        """Embed and store a chapter/scene summary."""
+        doc_id = f"chapter_{chapter_number:03d}_scene_{scene_number:02d}"
+        meta = {"chapter_number": chapter_number, "scene_number": scene_number}
         if metadata:
             meta.update(metadata)
 
@@ -63,22 +64,26 @@ class ChapterMemory:
         if not result["ids"]:
             return "No previous chapter summaries available."
 
-        # Pair up and sort by chapter number
+        # Pair up and sort by (chapter_number, scene_number)
         entries = []
         for doc_id, doc, meta in zip(
             result["ids"], result["documents"], result["metadatas"]
         ):
             chapter_num = meta.get("chapter_number", 0)
-            entries.append((chapter_num, doc))
+            scene_num = meta.get("scene_number", 1)
+            entries.append((chapter_num, scene_num, doc))
 
-        entries.sort(key=lambda x: x[0])
+        entries.sort(key=lambda x: (x[0], x[1]))
 
         # Take the last N
         recent = entries[-n:]
 
         lines = []
-        for chapter_num, summary in recent:
-            lines.append(f"### Chapter {chapter_num}")
+        for chapter_num, scene_num, summary in recent:
+            if scene_num > 1:
+                lines.append(f"### Chapter {chapter_num}, Scene {scene_num}")
+            else:
+                lines.append(f"### Chapter {chapter_num}")
             lines.append(summary)
             lines.append("")
 
@@ -112,9 +117,9 @@ class ChapterMemory:
 
         return matches
 
-    def get_summary(self, chapter_number: int) -> str | None:
-        """Get the summary for a specific chapter."""
-        doc_id = f"chapter_{chapter_number:03d}"
+    def get_summary(self, chapter_number: int, scene_number: int = 1) -> str | None:
+        """Get the summary for a specific chapter/scene."""
+        doc_id = f"chapter_{chapter_number:03d}_scene_{scene_number:02d}"
         result = self.collection.get(
             ids=[doc_id],
             include=["documents"],
