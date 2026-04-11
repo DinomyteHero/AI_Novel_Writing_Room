@@ -147,6 +147,12 @@ class Orchestrator:
                     payload={"session_id": self.session_id, "skipped": skipped},
                 )
 
+        # Sort scene cards by (chapter_number, scene_number) for correct ordering
+        active_cards = sorted(
+            active_cards,
+            key=lambda c: (c["chapter_number"], c.get("scene_number", 1)),
+        )
+
         self.ledger.emit("pipeline_start", payload={"total_scenes": len(active_cards)})
         results = []
 
@@ -440,6 +446,7 @@ class Orchestrator:
                     "structural_phase": scene_card.get("structural_phase", ""),
                     "pov_character": scene_card.get("pov_character", ""),
                 },
+                scene_number=scene_num,
             )
             print(f"  [P2-2] Summary stored in ChromaDB")
 
@@ -448,7 +455,7 @@ class Orchestrator:
             self.state_diff_applier.apply_diff(state_diff, chapter_num, scene_num)
             print(f"  [P2-3] State diff applied")
 
-        # Step 8: Update chapter log
+        # Step 8: Update chapter log and scene log
         if self.story_state:
             scores = {
                 "structural": evaluation.get("structural_score", 0),
@@ -458,17 +465,30 @@ class Orchestrator:
             failure_codes = [
                 fc["code"] for fc in evaluation.get("failure_codes", [])
             ]
+            word_count = len(prose.split())
+            revision_status = "craft_edited" if evaluation.get("verdict") != "pass" else "approved"
             self.story_state.add_chapter_log(
                 chapter_number=chapter_num,
-                word_count=len(prose.split()),
+                word_count=word_count,
                 structural_phase=scene_card.get("structural_phase", ""),
                 pov_character=scene_card.get("pov_character", ""),
                 summary=summary_text,
                 quality_scores=scores,
                 failure_codes=failure_codes,
-                revision_status="craft_edited" if evaluation.get("verdict") != "pass" else "approved",
+                revision_status=revision_status,
             )
-            print(f"  [P2-4] Chapter log updated")
+            self.story_state.add_scene_log(
+                chapter_number=chapter_num,
+                scene_number=scene_num,
+                word_count=word_count,
+                structural_phase=scene_card.get("structural_phase", ""),
+                pov_character=scene_card.get("pov_character", ""),
+                summary=summary_text,
+                quality_scores=scores,
+                failure_codes=failure_codes,
+                revision_status=revision_status,
+            )
+            print(f"  [P2-4] Chapter/scene log updated")
 
         # Step 9: Contradiction scanner
         if self.contradiction_scanner:
@@ -746,10 +766,11 @@ class Orchestrator:
         """Load prose from prior chapters for cross-chapter analysis."""
         prior = []
         for ch in range(max(1, current_chapter - 3), current_chapter):
-            # Try scene 1 of each prior chapter
-            path = self.manuscripts_dir / f"chapter_{ch:02d}_scene_01.md"
-            if path.exists():
-                prior.append(path.read_text(encoding="utf-8"))
+            # Load all scenes of each prior chapter
+            pattern = f"chapter_{ch:02d}_scene_*.md"
+            scene_files = sorted(self.manuscripts_dir.glob(pattern))
+            for sf in scene_files:
+                prior.append(sf.read_text(encoding="utf-8"))
         return prior
 
     def _get_prior_summary(self, scene_card: dict) -> str:
