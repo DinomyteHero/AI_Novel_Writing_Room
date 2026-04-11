@@ -57,11 +57,11 @@ class TestInstalledSeedShape:
         """Seed has the expected number of entries for each tracked artifact."""
         seed = installed_ruusan_seed
         assert len(seed["ensemble_cast"]) == 6, "Expected 6 cast members"
-        assert len(seed["subplots"]) == 5, "Expected 5 subplots"
+        assert len(seed["subplots"]) == 6, "Expected 6 subplots (including SP-A)"
         assert len(seed["hooks"]) == 25, "Expected 25 hooks"
         assert len(seed["revelation_schedule"]) == 14, "Expected 14 revelations"
         assert len(seed["scene_cards"]) == 28, "Expected 28 scene cards"
-        assert len(seed["terminology_registry"]) == 30, "Expected 30 terminology entries"
+        assert len(seed["terminology_registry"]) == 38, "Expected 38 terminology entries"
         assert len(seed["promise_payoff_ledger"]) == 25, "Expected 25 promise ledger entries"
 
     def test_extended_metadata_contains_story_specific_fields(self, installed_ruusan_seed):
@@ -86,15 +86,11 @@ class TestInstalledSeedShape:
         # Old nested structure should be absent
         assert "anti_slop" not in voice or not isinstance(voice.get("anti_slop"), dict) or "banned_words" not in voice.get("anti_slop", {})
 
-    def test_main_characters_have_arc_phase_map(self, installed_ruusan_seed):
-        """All 5 main characters have arc_phase_map; Desh (supporting) does not."""
-        main = {"Ben Skywalker", "Sera Varik", "Kael Drenn", "Torin Hal", "Darth Veraine"}
+    def test_all_characters_have_arc_phase_map(self, installed_ruusan_seed):
+        """All 6 ensemble cast members have arc_phase_map (including Desh's minor arc)."""
         for char in installed_ruusan_seed["ensemble_cast"]:
             apm = char.get("weiland_arc", {}).get("arc_phase_map")
-            if char["name"] in main:
-                assert apm, f"Main character {char['name']} missing arc_phase_map"
-            elif char["name"] == "Desh Rolan":
-                assert not apm, "Supporting character Desh should not have arc_phase_map"
+            assert apm, f"{char['name']} missing arc_phase_map"
 
 
 class TestInstalledSeedSchemaValidation:
@@ -105,12 +101,10 @@ class TestInstalledSeedSchemaValidation:
         jsonschema.validate(installed_ruusan_seed, schema)  # raises on failure
 
     def test_all_28_scene_cards_validate(self):
-        """All 28 Ruusan scene cards exist but are legacy artifacts with known gaps.
+        """All 28 Ruusan scene cards must pass schema validation.
 
-        The tightened schema (minLength: 1 on turning_point, why_now, etc.)
-        correctly rejects these cards because the install_ruusan_seed extractor
-        writes those fields as empty strings.  This test verifies the cards
-        exist and that the schema *does* catch the known gaps.
+        Scene cards are fully populated with mission, turning_point, conflict,
+        and all other required fields.
         """
         if not RUUSAN_SCENE_CARDS_DIR.exists():
             pytest.skip(f"Scene cards directory not present: {RUUSAN_SCENE_CARDS_DIR}")
@@ -118,19 +112,9 @@ class TestInstalledSeedSchemaValidation:
         cards = sorted(RUUSAN_SCENE_CARDS_DIR.glob("chapter_*_scene_*.json"))
         assert len(cards) == 28, f"Expected 28 scene card files, found {len(cards)}"
 
-        failing = 0
         for card_path in cards:
             card = json.loads(card_path.read_text(encoding="utf-8"))
-            try:
-                jsonschema.validate(card, schema)
-            except jsonschema.ValidationError:
-                failing += 1
-
-        # Every Ruusan card has empty turning_point — all 28 should fail
-        assert failing == 28, (
-            f"Expected all 28 legacy Ruusan cards to fail schema validation "
-            f"(empty required fields), but {28 - failing} passed"
-        )
+            jsonschema.validate(card, schema)  # raises on failure
 
     def test_critical_structural_phases_correct(self):
         """The plot-point chapters have the correct structural_phase labels."""
@@ -204,7 +188,7 @@ class TestInstalledSeedPipelineLoad:
 
         # Subplots
         subs = state.conn.execute("SELECT COUNT(*) FROM subplots").fetchone()[0]
-        assert subs == 5, f"Expected 5 subplots, got {subs}"
+        assert subs == 6, f"Expected 6 subplots (including SP-A), got {subs}"
 
         # Hooks
         hooks = state.conn.execute("SELECT COUNT(*) FROM hooks").fetchone()[0]
@@ -212,7 +196,7 @@ class TestInstalledSeedPipelineLoad:
 
         # Terminology
         terms = state.conn.execute("SELECT COUNT(*) FROM terminology_registry").fetchone()[0]
-        assert terms == 30, f"Expected 30 terminology entries, got {terms}"
+        assert terms == 38, f"Expected 38 terminology entries, got {terms}"
 
     def test_hook_chapter_strings_parsed_to_ints(self, installed_ruusan_seed):
         """Hook planted_chapter and payoff_chapter are ints after dual-format parsing."""
