@@ -230,37 +230,33 @@ class Orchestrator:
         print("  [3/4] Gate Critic evaluating...")
         evaluation, prose = await self._gate_loop(scene_card, prose, generation_brief)
 
+        # Canon Expert validation (after gate, before craft edit)
+        canon_notes = ""
+        if self.canon_expert and scene_card.get("canon_elements_needed"):
+            print("  [Canon] Canon expert validating...")
+            try:
+                canon_result = await self.canon_expert.run({
+                    "prose": prose,
+                    "scene_card": scene_card,
+                })
+                canon_notes = canon_result.get("canon_notes", "")
+                self.ledger.emit(
+                    "agent_complete",
+                    chapter_number=chapter_num,
+                    scene_number=scene_num,
+                    agent_role="canon_expert",
+                )
+            except Exception as e:
+                print(f"    Canon expert: error ({e.__class__.__name__}) — skipping")
+
         # Step 4: Craft Editor polishes
         print("  [4/4] Craft Editor polishing...")
-        final_prose = await self._run_craft_editor(scene_card, prose, evaluation)
+        final_prose = await self._run_craft_editor(scene_card, prose, evaluation, canon_notes)
 
-        # Phase 3: Revision Pipeline (after CraftEditor, before save)
-        revision_result = None
-        if self.revision_pipeline:
-            print("  [P3-1] Revision pipeline running (3 bands)...")
-            revision_context = {
-                "scene_card": scene_card,
-                "story_state_summary": "",
-                "prior_chapter_summary": "",
-                "character_voices": self.assembler.get_character_voices(
-                    scene_card.get("characters_present", [])
-                ),
-                "negative_constraints": self.assembler.get_negative_constraints(),
-                "quality_flags": [],
-            }
-            revision_result = await self.revision_pipeline.run(final_prose, revision_context)
-            final_prose = revision_result["prose"]
-            bands = ", ".join(revision_result["bands_applied"])
-            print(f"    Revision complete: {bands}")
-
-        # Save the chapter
-        output_path = self._save_chapter(chapter_num, scene_num, final_prose)
-        print(f"  Saved: {output_path}")
-
-        # Phase 3: Quality Metrics (after save)
+        # Phase 3: Quality Metrics (before revision so flags feed into it)
         quality_metrics = None
         if self.metrics_dashboard:
-            print("  [P3-2] Quality metrics running...")
+            print("  [P3-1] Quality metrics running...")
             prior_chapters = self._load_prior_chapters(chapter_num)
             voice_notes = self._get_pov_voice_notes(scene_card)
             quality_metrics = self.metrics_dashboard.analyze_chapter(
@@ -274,6 +270,30 @@ class Orchestrator:
             if quality_metrics["flags"]:
                 for flag in quality_metrics["flags"][:5]:
                     print(f"    - {flag}")
+
+        # Phase 3: Revision Pipeline (after quality metrics, before save)
+        revision_result = None
+        if self.revision_pipeline:
+            print("  [P3-2] Revision pipeline running (3 bands)...")
+            revision_context = {
+                "scene_card": scene_card,
+                "story_state_summary": self.assembler.get_bible_summary(),
+                "prior_chapter_summary": self._get_prior_summary(scene_card),
+                "character_voices": self.assembler.get_character_voices(
+                    scene_card.get("characters_present", [])
+                ),
+                "negative_constraints": self.assembler.get_negative_constraints(),
+                "quality_flags": quality_metrics.get("flags", []) if quality_metrics else [],
+                "quality_metrics": quality_metrics,
+            }
+            revision_result = await self.revision_pipeline.run(final_prose, revision_context)
+            final_prose = revision_result["prose"]
+            bands = ", ".join(revision_result["bands_applied"])
+            print(f"    Revision complete: {bands}")
+
+        # Save the chapter
+        output_path = self._save_chapter(chapter_num, scene_num, final_prose)
+        print(f"  Saved: {output_path}")
 
         # Phase 4: Post-chapter physics validation
         physics_post = None
@@ -665,6 +685,7 @@ class Orchestrator:
         scene_card: dict,
         prose: str,
         evaluation: dict,
+        canon_notes: str = "",
     ) -> str:
         """Run the Craft Editor for non-blocking improvements."""
         start = time.time()
@@ -682,6 +703,8 @@ class Orchestrator:
                 craft_notes += f"- {fc['code']}: {fc['description']}\n"
                 if fc.get("fix_hint"):
                     craft_notes += f"  Suggestion: {fc['fix_hint']}\n"
+        if canon_notes:
+            craft_notes += f"\n## Canon Notes\n{canon_notes}\n"
 
         result = await self.craft_editor.run({
             "prose": prose,
@@ -728,6 +751,19 @@ class Orchestrator:
             if path.exists():
                 prior.append(path.read_text(encoding="utf-8"))
         return prior
+
+    def _get_prior_summary(self, scene_card: dict) -> str:
+        """Get a summary of recent chapters for revision context."""
+        chapter_num = scene_card.get("chapter_number", 1)
+        if self.chapter_memory:
+            recent = self.chapter_memory.get_recent_summaries(n=2)
+            if recent and "No previous" not in recent:
+                return recent
+        # Fallback: truncated tail of previous chapter prose
+        prev = self.assembler.get_previous_chapter(chapter_num)
+        if prev:
+            return prev[-1500:] if len(prev) > 1500 else prev
+        return ""
 
     def _get_pov_voice_notes(self, scene_card: dict) -> str:
         """Extract POV character's voice notes from the concept seed."""

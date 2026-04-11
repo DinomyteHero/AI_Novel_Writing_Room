@@ -4,6 +4,9 @@ import json
 from pathlib import Path
 
 import pytest
+
+chromadb = pytest.importorskip("chromadb", reason="chromadb not installed")
+
 from fastapi.testclient import TestClient
 
 from src.rag.embedding import MockEmbeddingFunction

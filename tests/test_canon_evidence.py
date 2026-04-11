@@ -7,6 +7,8 @@ keyword search, and the full HybridSearch.search pipeline.
 
 import pytest
 
+chromadb = pytest.importorskip("chromadb", reason="chromadb not installed")
+
 from src.rag.canon_db import CanonDB
 from src.rag.canon_evidence import CanonEvidenceRanker, SOURCE_AUTHORITY
 from src.rag.embedding import MockEmbeddingFunction

@@ -2,6 +2,8 @@
 
 import pytest
 
+chromadb = pytest.importorskip("chromadb", reason="chromadb not installed")
+
 from src.rag.embedding import MockEmbeddingFunction
 from src.worldbuilding.lore_vectorstore import LoreVectorStore
 

@@ -64,6 +64,10 @@ models:
         max_tokens: 8192
 
 # Agent-to-model mapping
+# NOTE: The 'backend' field in each entry below is ONLY honoured in
+# 'hybrid' deployment_mode.  In 'local' or 'cloud' mode, ALL agents
+# use the deployment_mode backend regardless of per-agent settings.
+# The 'model' and 'params' fields are always honoured.
 agent_routing:
   orchestrator:          { backend: local, model: fast_moe }
   plot_architect:        { backend: local, model: primary_moe, params: { temperature: 0.4 } }

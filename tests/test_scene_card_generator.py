@@ -138,12 +138,16 @@ class TestSceneCardGenerator:
 
     @pytest.mark.asyncio
     async def test_generate_fills_defaults(self, mock_router, seed):
+        """A minimal card gets defaults filled.  Since critical fields are
+        empty the generator retries — the second call returns the same
+        minimal card, so after max_retries it returns with defaults applied."""
+        minimal = {"chapter_number": 1}
         mock_router.complete_structured = AsyncMock(return_value={
-            "scene_cards": [{"chapter_number": 1}],
+            "scene_cards": [minimal],
         })
 
         generator = SceneCardGenerator(mock_router)
-        cards = await generator.generate(seed)
+        cards = await generator.generate(seed, max_retries=1)
 
         assert cards[0]["scene_number"] == 1
         assert cards[0]["structural_phase"] == "setup"
@@ -175,18 +179,58 @@ class TestSceneCardGenerator:
         data = json.loads(paths[0].read_text())
         assert data["chapter_number"] == 1
 
+    def test_semantic_completeness_detects_empty_fields(self, mock_router):
+        """Cards with empty critical fields are flagged by semantic check."""
+        empty_card = {
+            "chapter_number": 1, "scene_number": 1,
+            "structural_phase": "setup",
+            "pov_character": "", "mission": "",
+            "conflict": "", "turning_point": "",
+            "characters_present": [],
+        }
+        warnings = SceneCardGenerator._check_semantic_completeness(empty_card)
+        assert len(warnings) == 5  # 4 string fields + characters_present
+
+    def test_semantic_completeness_passes_complete_card(self, mock_router, mock_outline_response):
+        """A fully populated card passes semantic check."""
+        warnings = SceneCardGenerator._check_semantic_completeness(mock_outline_response[0])
+        assert warnings == []
+
+    @pytest.mark.asyncio
+    async def test_generate_retries_on_empty_fields(self, mock_router, seed, mock_outline_response):
+        """Incomplete cards trigger retry; complete cards are accepted."""
+        empty_card = {"chapter_number": 1, "scene_number": 1}
+
+        mock_router.complete_structured = AsyncMock(side_effect=[
+            {"scene_cards": [empty_card]},
+            {"scene_cards": mock_outline_response[:1]},  # complete card on retry
+        ])
+
+        generator = SceneCardGenerator(mock_router)
+        cards = await generator.generate(seed, max_retries=2)
+
+        # Should have called LLM twice (initial + 1 retry)
+        assert mock_router.complete_structured.call_count == 2
+        # Final card should have content
+        assert cards[0]["mission"] != ""
+
     @pytest.mark.asyncio
     async def test_generate_with_physics_retry(self, mock_router, seed):
         """PhysicsEnforcer rejects first attempt, generator retries."""
-        bad_card = {"chapter_number": 1}  # Missing why_now
-        good_card = {
-            "chapter_number": 1, "why_now": "Good reason",
-            "scene_number": 1, "structural_phase": "setup",
+        # Card that passes semantic check but fails physics (no why_now)
+        sem_ok_card = {
+            "chapter_number": 1, "scene_number": 1,
+            "structural_phase": "setup",
+            "pov_character": "Ben", "mission": "Test",
+            "conflict": "Test conflict", "turning_point": "Test turn",
+            "characters_present": ["Ben"],
         }
+        # Card that passes both
+        good_card = {**sem_ok_card, "why_now": "Good reason"}
 
-        # First call returns bad card, second returns good card
+        # First call returns physics-failing card, second returns good card
         mock_router.complete_structured = AsyncMock(side_effect=[
-            {"scene_cards": [bad_card]},
+            {"scene_cards": [sem_ok_card]},
             {"scene_cards": [good_card]},
         ])
 
@@ -200,3 +244,4 @@ class TestSceneCardGenerator:
         cards = await generator.generate(seed, max_retries=2)
 
         assert len(cards) >= 1
+        assert mock_physics.validate_pre_chapter.call_count == 2

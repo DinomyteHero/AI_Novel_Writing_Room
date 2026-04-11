@@ -221,24 +221,31 @@ class SceneCardGenerator:
         # Ensure required fields with defaults
         scene_cards = [self._ensure_defaults(card, concept_seed) for card in scene_cards]
 
-        # Validate with physics enforcer if available
-        if self.physics and scene_cards:
-            scene_cards = await self._validate_and_fix(
-                scene_cards, concept_seed, max_retries
-            )
+        # Validate: semantic completeness + physics enforcer
+        scene_cards = await self._validate_and_fix(
+            scene_cards, concept_seed, max_retries
+        )
 
         return scene_cards
 
     async def _validate_and_fix(
         self, scene_cards: list[dict], concept_seed: dict, max_retries: int
     ) -> list[dict]:
-        """Validate scene cards with physics enforcer and retry failures."""
+        """Validate scene cards for semantic completeness and physics, retry failures."""
         for attempt in range(max_retries):
             failed_indices = []
             for i, card in enumerate(scene_cards):
-                result = self.physics.validate_pre_chapter(card)
-                if not result["passed"]:
+                # Semantic completeness check (always runs)
+                warnings = self._check_semantic_completeness(card)
+                if warnings:
                     failed_indices.append(i)
+                    continue
+
+                # Physics validation (if enforcer available)
+                if self.physics:
+                    result = self.physics.validate_pre_chapter(card)
+                    if not result["passed"]:
+                        failed_indices.append(i)
 
             if not failed_indices:
                 break
@@ -258,6 +265,35 @@ class SceneCardGenerator:
                     scene_cards[idx] = new_cards[idx]
 
         return scene_cards
+
+    # Fields that must be non-empty for a scene card to be pipeline-ready.
+    _CRITICAL_FIELDS = ("mission", "conflict", "turning_point", "pov_character")
+
+    @staticmethod
+    def _check_semantic_completeness(card: dict) -> list[str]:
+        """Check that critical fields have substantive (non-empty) content.
+
+        Returns a list of warning strings for each empty critical field.
+        An empty list means the card is semantically complete.
+        """
+        warnings = []
+        for field in SceneCardGenerator._CRITICAL_FIELDS:
+            value = card.get(field, "")
+            if not value or not str(value).strip():
+                warnings.append(
+                    f"Chapter {card.get('chapter_number', '?')}, "
+                    f"scene {card.get('scene_number', '?')}: "
+                    f"'{field}' is empty"
+                )
+
+        if not card.get("characters_present"):
+            warnings.append(
+                f"Chapter {card.get('chapter_number', '?')}, "
+                f"scene {card.get('scene_number', '?')}: "
+                f"'characters_present' is empty"
+            )
+
+        return warnings
 
     def _ensure_defaults(self, card: dict, concept_seed: dict) -> dict:
         """Ensure a scene card has all required fields with sensible defaults."""

@@ -37,6 +37,20 @@ class ModelRouter:
         self._local_client: Optional[httpx.AsyncClient] = None
         self._cloud_client: Optional[httpx.AsyncClient] = None
 
+        # Warn when per-agent backend overrides are present but will be ignored
+        if self.mode in ("local", "cloud"):
+            backends = {
+                v.get("backend")
+                for v in self.config.get("agent_routing", {}).values()
+                if isinstance(v, dict) and v.get("backend")
+            }
+            if len(backends) > 1 or (backends and backends != {self.mode}):
+                logger.info(
+                    "deployment_mode=%s — per-agent 'backend' overrides in "
+                    "agent_routing are ignored (use 'hybrid' to honour them)",
+                    self.mode,
+                )
+
     async def _get_local_client(self) -> httpx.AsyncClient:
         if self._local_client is None:
             self._local_client = httpx.AsyncClient(
