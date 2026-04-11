@@ -24,7 +24,8 @@ python -m src.main <concept_seed> <scene_cards_dir> [options]
 | `--phase {1,2,3,4}` | 1 | Pipeline phase. Higher phases enable more features (see below) |
 | `--chapter N` | all | Generate only this chapter number |
 | `--config PATH` | `config/settings.yaml` | Path to the configuration file |
-| `--output-dir PATH` | `data/manuscripts` | Override the manuscript output directory |
+| `--output-dir PATH` | auto | Override the manuscript output directory |
+| `--project SLUG` | auto | Project slug for project-scoped data isolation (auto-derived from concept seed title) |
 
 ### Phase Features
 
