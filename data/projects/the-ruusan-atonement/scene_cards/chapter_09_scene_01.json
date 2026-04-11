@@ -1,0 +1,52 @@
+{
+  "chapter_number": 9,
+  "scene_number": 1,
+  "structural_phase": "response",
+  "scene_type": "sequel",
+  "pov_character": "Ben Skywalker",
+  "mission": "Establish a shared theoretical framework from the Ankhural Codex that the group can use to plan their approach to the wound.",
+  "why_now": "The Ankhural Codex has been recovered and the thin-place experience has divided the group. The theoretical framework must be addressed before the disagreements calcify into factional positions.",
+  "opening_hook": "",
+  "conflict": "Four-way intellectual conflict — Sera (lattice necessary), Torin (lattice artificial), Kael (both projecting), Ben (listening)",
+  "conflict_type": "interpersonal",
+  "turning_point": "The Ankhural Codex debate ends without consensus — four incompatible interpretations of the same evidence. Ben's willingness to sit with uncertainty distinguishes him.",
+  "closing_hook": "",
+  "characters_present": [
+    "Ben Skywalker",
+    "Desh Rolan",
+    "Sera Varik",
+    "Torin Hal",
+    "Kael Drenn"
+  ],
+  "setting": "Aboard Steady Returns, in transit",
+  "sensory_details": "",
+  "emotional_trajectory": "Four positions, one question, no consensus. Interaction between perspectives is the key.",
+  "plot_threads_advanced": [
+    "SP1",
+    "SP2",
+    "SP5"
+  ],
+  "promises_planted": [
+    "H09"
+  ],
+  "promises_paid": [],
+  "canon_elements_needed": [],
+  "target_word_count": 3750,
+  "notes": "No consensus — the debate ends without resolution. Shared framework, incompatible interpretations. Ben's willingness to sit with uncertainty established.",
+  "active_subplots": [
+    "SP1",
+    "SP2",
+    "SP5"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "H09",
+      "action": "plant"
+    }
+  ],
+  "revelations": [
+    "R06"
+  ],
+  "pov_arc_phase": "lie_reinforced",
+  "arc_phase_transition": ""
+}

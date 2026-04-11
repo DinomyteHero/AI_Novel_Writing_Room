@@ -1,0 +1,55 @@
+{
+  "chapter_number": 26,
+  "scene_number": 1,
+  "structural_phase": "climax",
+  "scene_type": "action",
+  "pov_character": "Ben Skywalker",
+  "mission": "Surrender control and trust the resonance to build beyond what any individual could achieve, sealing the wound in a new form.",
+  "why_now": "The resonance has caught but demands more trust to sustain. Veraine's ritual is failing. Torin is being consumed. The final push determines which approach prevails.",
+  "opening_hook": "",
+  "conflict": "The final push — resonance demands more trust as it builds. Each practitioner must surrender more control.",
+  "conflict_type": "external",
+  "turning_point": "New seal established: dynamic, harmonic, requiring periodic renewal. Veraine's ritual produces chaos, not liberation — her thesis fails empirically. Torin collapses, diminished but alive.",
+  "closing_hook": "",
+  "characters_present": [
+    "Ben Skywalker",
+    "Desh Rolan",
+    "Sera Varik",
+    "Kael Drenn",
+    "Torin Hal",
+    "Darth Veraine"
+  ],
+  "setting": "Veranthos wound source — the valley epicenter",
+  "sensory_details": "",
+  "emotional_trajectory": "The solution works because of differences, not despite them. Cost is real. Victory is real.",
+  "plot_threads_advanced": [
+    "SP1",
+    "SP2",
+    "SP3",
+    "SP5"
+  ],
+  "promises_planted": [],
+  "promises_paid": [
+    "H25"
+  ],
+  "canon_elements_needed": [],
+  "target_word_count": 5000,
+  "notes": "New seal established — dynamic, harmonic, requiring periodic renewal. Veraine's ritual fails (chaos, not liberation). Torin collapses — alive but diminished. Sera contains Veraine. The wound scar remains but is stable.",
+  "active_subplots": [
+    "SP1",
+    "SP2",
+    "SP3",
+    "SP5"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "H25",
+      "action": "resolve"
+    }
+  ],
+  "revelations": [
+    "R13"
+  ],
+  "pov_arc_phase": "new_truth_demonstrated",
+  "arc_phase_transition": ""
+}

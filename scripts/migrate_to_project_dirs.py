@@ -67,8 +67,11 @@ def migrate_project(project: dict, data_dir: Path, dry_run: bool) -> list[str]:
     # 3. Copy scene_cards/
     src_cards = project["source_dir"] / "scene_cards"
     dst_cards = paths.scene_cards_dir
-    if src_cards.exists() and not dst_cards.exists():
+    dst_empty = not dst_cards.exists() or not any(dst_cards.iterdir())
+    if src_cards.exists() and dst_empty:
         if not dry_run:
+            if dst_cards.exists():
+                shutil.rmtree(dst_cards)
             shutil.copytree(src_cards, dst_cards)
         actions.append(f"  copy {src_cards}/ -> {dst_cards}/")
 
@@ -104,8 +107,11 @@ def migrate_flat_state(data_dir: Path, slug: str, dry_run: bool) -> list[str]:
         (data_dir / "sessions", paths.sessions_dir),
     ]
     for src, dst in flat_dirs:
-        if src.exists() and not dst.exists():
+        dst_empty = not dst.exists() or not any(dst.iterdir())
+        if src.exists() and dst_empty:
             if not dry_run:
+                if dst.exists():
+                    shutil.rmtree(dst)
                 shutil.copytree(src, dst)
             actions.append(f"  copy {src}/ -> {dst}/")
 

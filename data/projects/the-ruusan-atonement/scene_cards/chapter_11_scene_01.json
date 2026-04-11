@@ -1,0 +1,48 @@
+{
+  "chapter_number": 11,
+  "scene_number": 1,
+  "structural_phase": "response",
+  "scene_type": "sequel",
+  "pov_character": "Ben Skywalker",
+  "mission": "Process the emotional weight of the Jacen/GAG history with Desh honestly enough to enable the trust the mission requires.",
+  "why_now": "The emotional weight of the Ben/Desh shared history has been building since Chapter 1. The outpost visit — humanizing the Brotherhood — has created the opening for honest reckoning.",
+  "opening_hook": "",
+  "conflict": "Ben vs. his own suppressed history — internal reckoning",
+  "conflict_type": "internal",
+  "turning_point": "Ben and Desh acknowledge Jacen and GAG honestly for the first time. The emotional groundwork for pattern recognition is laid.",
+  "closing_hook": "",
+  "characters_present": [
+    "Ben Skywalker",
+    "Desh Rolan",
+    "Sera Varik",
+    "Torin Hal",
+    "Kael Drenn"
+  ],
+  "setting": "Aboard Steady Returns, in transit",
+  "sensory_details": "",
+  "emotional_trajectory": "Acknowledgment — not resolution, not forgiveness — is the precondition for trust",
+  "plot_threads_advanced": [
+    "SP2",
+    "SP3"
+  ],
+  "promises_planted": [
+    "H11"
+  ],
+  "promises_paid": [],
+  "canon_elements_needed": [],
+  "target_word_count": 3750,
+  "notes": "Two pivotal conversations. Ben and Desh acknowledge Jacen and GAG honestly for the first time. Kael and Desh form genuine connection. Honesty laid as groundwork for trust.",
+  "active_subplots": [
+    "SP2",
+    "SP3"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "H11",
+      "action": "plant"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "lie_reinforced",
+  "arc_phase_transition": ""
+}

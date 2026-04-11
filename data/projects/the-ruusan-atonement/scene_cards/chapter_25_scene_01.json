@@ -1,0 +1,59 @@
+{
+  "chapter_number": 25,
+  "scene_number": 1,
+  "structural_phase": "climax",
+  "scene_type": "action",
+  "pov_character": "Ben Skywalker",
+  "mission": "Sustain the lattice resonance while Desh disables Veraine's amplification array and Torin's competing technique threatens to overwhelm the harmonic.",
+  "why_now": "Three simultaneous operations must execute: resonance trio at the wound, Desh at Veraine's amplification array, Torin's technique competing with the resonance. The climax is now.",
+  "opening_hook": "",
+  "conflict": "Three interwoven conflicts — resonance vs. lattice, Desh vs. Veraine's equipment, Torin vs. himself",
+  "conflict_type": "external",
+  "turning_point": "Desh disables Veraine's amplification array. The resonance catches — the technique wins the sprint, the resonance wins the marathon. Ben stops trying to control it.",
+  "closing_hook": "",
+  "characters_present": [
+    "Ben Skywalker",
+    "Desh Rolan",
+    "Sera Varik",
+    "Kael Drenn",
+    "Torin Hal",
+    "Darth Veraine"
+  ],
+  "setting": "Veranthos wound source — the valley",
+  "sensory_details": "",
+  "emotional_trajectory": "Collective action is harder and slower but sustainable. The discipline to hold course.",
+  "plot_threads_advanced": [
+    "SP1",
+    "SP2",
+    "SP3",
+    "SP5"
+  ],
+  "promises_planted": [
+    "H25"
+  ],
+  "promises_paid": [
+    "H24"
+  ],
+  "canon_elements_needed": [],
+  "target_word_count": 4500,
+  "notes": "Veraine's ritual disrupted. Torin's technique effective but consuming him. Resonance catches after Ben stops trying to control it. The critical moment: technique wins the sprint, resonance wins the marathon.",
+  "active_subplots": [
+    "SP1",
+    "SP2",
+    "SP3",
+    "SP5"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "H24",
+      "action": "resolve"
+    },
+    {
+      "hook_id": "H25",
+      "action": "plant"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "new_truth_demonstrated",
+  "arc_phase_transition": ""
+}

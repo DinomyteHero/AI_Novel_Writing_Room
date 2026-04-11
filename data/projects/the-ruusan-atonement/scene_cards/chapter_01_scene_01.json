@@ -1,0 +1,48 @@
+{
+  "chapter_number": 1,
+  "scene_number": 1,
+  "structural_phase": "setup",
+  "scene_type": "sequel",
+  "pov_character": "Ben Skywalker",
+  "mission": "Identify the source of the wrongness in the Force and find a reason to leave Coruscant before the weight of the Skywalker name crushes what's left of his independence.",
+  "why_now": "The wrongness in the Force has been building for weeks and Ben's restlessness has reached the point where staying at the Temple is no longer tenable. Luke sees it and provides the opportunity.",
+  "opening_hook": "",
+  "conflict": "Ben vs. restlessness and unidentifiable wrongness nobody else perceives",
+  "conflict_type": "internal",
+  "turning_point": "Ben discovers the wrongness has a direction — it's not ambient, it's coming from deep in the Outer Rim, and his survey route runs directly along the bearing.",
+  "closing_hook": "",
+  "characters_present": [
+    "Ben Skywalker",
+    "Desh Rolan",
+    "Luke Skywalker"
+  ],
+  "setting": "Jedi Temple, Coruscant; departure aboard Steady Returns",
+  "sensory_details": "",
+  "emotional_trajectory": "The Skywalker shadow — competent, respected, suffocating under a name",
+  "plot_threads_advanced": [
+    "SP3",
+    "SP4"
+  ],
+  "promises_planted": [
+    "H01"
+  ],
+  "promises_paid": [],
+  "canon_elements_needed": [],
+  "target_word_count": 3500,
+  "notes": "Ben requests survey mission, contacts Desh, departs. Discovers the wrongness has a direction — deeper into the Outer Rim.",
+  "active_subplots": [
+    "SP3",
+    "SP4"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "H01",
+      "action": "plant"
+    }
+  ],
+  "revelations": [
+    "R01"
+  ],
+  "pov_arc_phase": "lie_established",
+  "arc_phase_transition": ""
+}
