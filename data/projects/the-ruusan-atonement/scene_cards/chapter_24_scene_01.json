@@ -1,0 +1,55 @@
+{
+  "chapter_number": 24,
+  "scene_number": 1,
+  "structural_phase": "climax",
+  "scene_type": "action",
+  "pov_character": "Ben Skywalker",
+  "mission": "Position the resonance trio at the wound source and initiate the operation before Veraine's ritual reaches critical mass.",
+  "why_now": "All parties have converged on the wound source. Torin is already there. Veraine's ritual is building. Delay means the wound opens on Veraine's terms.",
+  "opening_hook": "",
+  "conflict": "Ben vs. overwhelming scale of the primary wound. Final failed appeal to Torin.",
+  "conflict_type": "external",
+  "turning_point": "Three traditions join hands. Ben lets go of control. The resonance begins — three notes that shouldn't harmonize reaching for a chord.",
+  "closing_hook": "",
+  "characters_present": [
+    "Ben Skywalker",
+    "Desh Rolan",
+    "Sera Varik",
+    "Kael Drenn",
+    "Torin Hal",
+    "Darth Veraine"
+  ],
+  "setting": "Veranthos wound source — outer edge of the valley",
+  "sensory_details": "",
+  "emotional_trajectory": "Solitary action vs. collective trust staged as physical convergence",
+  "plot_threads_advanced": [
+    "SP1",
+    "SP5"
+  ],
+  "promises_planted": [
+    "H24"
+  ],
+  "promises_paid": [
+    "H23"
+  ],
+  "canon_elements_needed": [],
+  "target_word_count": 3750,
+  "notes": "Torin begins the technique. Veraine's ritual building at the epicenter. Ben calls Sera and Kael: 'Now.' They join hands. Three traditions. Ben lets go of control.",
+  "active_subplots": [
+    "SP1",
+    "SP5"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "H23",
+      "action": "resolve"
+    },
+    {
+      "hook_id": "H24",
+      "action": "plant"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "new_truth_demonstrated",
+  "arc_phase_transition": ""
+}
