@@ -157,6 +157,20 @@
         }
       }
     },
+    "referenced_characters": {
+      "type": "array",
+      "description": "Characters who appear in scene cards but are not in the ensemble cast. Registered with minimal state (no arc tracking). Franchise-agnostic way to prevent 'unknown character' warnings.",
+      "items": {
+        "type": "object",
+        "required": ["name"],
+        "properties": {
+          "name": { "type": "string" },
+          "role": { "type": "string", "description": "Brief role description for context." },
+          "initial_location": { "type": "string" },
+          "initial_emotional_state": { "type": "string" }
+        }
+      }
+    },
     "force_mechanics": {
       "type": "object",
       "properties": {
@@ -450,6 +464,28 @@
             "type": "string",
             "description": "Optional cross-reference to a hook in the hooks array that shares this promise's reader contract."
           }
+        }
+      }
+    },
+    "quality_overrides": {
+      "type": "object",
+      "description": "Per-project overrides for quality metric thresholds. Prevents franchise-specific false positives (e.g., 'Force' flagged as overused in Star Wars).",
+      "properties": {
+        "word_frequency_allowlist": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Words that should not be flagged as overused. Case-insensitive."
+        },
+        "semantic_similarity_threshold": {
+          "type": "number",
+          "minimum": 0.5,
+          "maximum": 1.0,
+          "description": "Cosine similarity above which paragraph pairs are flagged. Default: 0.85."
+        },
+        "max_similar_pairs_per_1k_words": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Maximum similar paragraph pairs per 1000 words before triggering alert."
         }
       }
     },

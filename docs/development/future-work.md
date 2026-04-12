@@ -134,10 +134,10 @@ Currently, authors must manually provide `timeline_sort_start`/`timeline_sort_en
 
 The `worldbuilding.reconciliation.run_on_startup` config flag is defined but not wired into the app lifespan. The `_init_worldbuilding` function should check this flag and call `reconcile_chromadb_orphans()` during startup.
 
-### Per-universe subdirectories
+### Per-universe subdirectories (partially implemented)
 
-Currently `data/universes/` is a flat directory with a single `worldbuilding.db` and `worldbuilding_vectors/`. The `--universe-id` flag scopes queries at the application level, but all universes share one database. This works for single-universe setups but will cause lore collisions when running multiple universes (e.g., Star Wars Legends + an original fantasy setting).
+`ProjectPaths` now supports an optional `universe_slug` parameter that scopes project data under `data/projects/<universe>/<book>/` and shared universe resources under `data/universes/<universe>/`. A `universe_meta.json` schema (`schemas/universe_meta.json`) is auto-created on first pipeline run. The migration script supports `--universe-scope` to reorganize existing flat projects.
 
-**Suggested approach**: add per-universe subdirectories (`data/universes/<universe-slug>/worldbuilding.db`), similar to how `ProjectPaths` scopes per-project state. Either extend `ProjectPaths` with universe-level path resolution or create a dedicated `UniversePaths` helper. The `--universe-id` flag would map to the slug for path resolution.
+**Remaining work**: The worldbuilding layer (`data/universes/worldbuilding.db`) still uses a single shared database with application-level `--universe-id` scoping. For full physical isolation, each universe's worldbuilding DB should live at `data/universes/<universe-slug>/worldbuilding.db` (the path is now resolved correctly by `ProjectPaths`, but the worldbuilding init code needs updating to use the universe-scoped path instead of the config-level `worldbuilding.db_path`).
 
 ---

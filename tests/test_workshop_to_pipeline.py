@@ -177,7 +177,7 @@ class TestConceptSeedToStoryState:
         assert arc is not None
         assert arc["lie_believed"].startswith("Showing vulnerability")
         assert arc["arc_type"] == "positive_change"
-        assert arc["current_phase"] == "lie_reinforced"
+        assert arc["current_phase"] == "lie_established"
         assert "Part 1" in arc["arc_phase_targets"]["lie_reinforced"]
 
         lyra_arc = state.get_character_arc("lyra")

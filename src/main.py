@@ -517,6 +517,9 @@ async def main():
     else:
         paths = ProjectPaths.from_concept_seed(concept_seed)
     paths.ensure_dirs()
+    # Create universe metadata on first run if universe-scoped
+    paths.ensure_universe_meta(concept_seed)
+    print(f"  Project: [{paths.display_name}]")
 
     ledger_path = str(paths.run_ledger_db)
     manuscripts_dir = args.output_dir or pipeline_cfg.get(

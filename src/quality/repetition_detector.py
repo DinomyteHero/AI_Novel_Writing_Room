@@ -43,9 +43,23 @@ def _cosine_similarity(a: list[float], b: list[float]) -> float:
 class RepetitionDetector:
     """Detect repetitive patterns at word, n-gram, opener, and semantic levels."""
 
-    def __init__(self, embedding_function=None, stop_words: set[str] | None = None):
+    def __init__(
+        self,
+        embedding_function=None,
+        stop_words: set[str] | None = None,
+        word_frequency_allowlist: list[str] | None = None,
+        semantic_similarity_threshold: float = 0.85,
+        adjacency_window: int | None = None,
+    ):
         self.embedding_function = embedding_function
         self.stop_words = stop_words if stop_words is not None else STOP_WORDS
+        # Case-insensitive allowlist of words that should not be flagged as overused
+        self.word_frequency_allowlist: set[str] = set()
+        if word_frequency_allowlist:
+            self.word_frequency_allowlist = {w.lower() for w in word_frequency_allowlist}
+        self.semantic_similarity_threshold = semantic_similarity_threshold
+        # If set, only flag paragraph pairs within N paragraphs of each other
+        self.adjacency_window = adjacency_window
 
     def analyze(
         self,
@@ -104,10 +118,13 @@ class RepetitionDetector:
         self, tokens: list[str], name_words: set[str]
     ) -> list[dict]:
         """Flag words appearing >3 std devs above expected frequency."""
-        # Filter out stop words and character names
+        # Filter out stop words, character names, and allowlisted words
         content_words = [
             t for t in tokens
-            if t not in self.stop_words and t not in name_words and len(t) > 2
+            if t not in self.stop_words
+            and t not in name_words
+            and t not in self.word_frequency_allowlist
+            and len(t) > 2
         ]
         if len(content_words) < 10:
             return []
@@ -231,7 +248,7 @@ class RepetitionDetector:
         return flags
 
     def _check_paragraph_similarity(self, paragraphs: list[str]) -> list[dict]:
-        """Flag paragraph pairs with cosine similarity >0.85."""
+        """Flag paragraph pairs with cosine similarity above threshold."""
         if self.embedding_function is None or len(paragraphs) < 2:
             return []
 
@@ -242,9 +259,12 @@ class RepetitionDetector:
             return []
 
         flags = []
-        threshold = 0.85
+        threshold = self.semantic_similarity_threshold
         for i in range(len(embeddings)):
             for j in range(i + 1, len(embeddings)):
+                # Adjacency filtering: only compare paragraphs within window
+                if self.adjacency_window is not None and (j - i) > self.adjacency_window:
+                    continue
                 sim = _cosine_similarity(embeddings[i], embeddings[j])
                 if sim > threshold:
                     flags.append({

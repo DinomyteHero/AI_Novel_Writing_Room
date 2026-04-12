@@ -82,7 +82,12 @@ For each scene, provide:
 - `revelations` — list of revelation IDs revealed in this scene (e.g., ["R03", "R04"])
 
 ### Character Arc Tracking
-- `pov_arc_phase` — current Weiland arc phase (e.g., "lie_reinforced", "lie_challenged", "moment_of_truth")
+- `pov_arc_phase` — current Weiland arc phase. Valid phases depend on the POV character's arc type:
+  - **positive_change**: lie_established, lie_reinforced, lie_questioned, lie_cracking, lie_confronted, truth_accepted
+  - **negative**: lie_established, lie_reinforced, lie_deepened, point_of_no_return, lie_acted_upon, lie_consequence, truth_rejected
+  - **flat**: lie_established, truth_tested, truth_pressured, truth_reaffirmed
+  - **disillusionment**: lie_established, lie_reinforced, lie_questioned, truth_glimpsed, truth_rejected, disillusionment_accepted
+  - Concept seed planning labels (e.g., "lie_challenged", "moment_of_truth") are auto-mapped to DB phases via `CONCEPT_SEED_PHASE_MAP`.
 - `arc_phase_transition` — new phase if this scene triggers a transition, else null
 
 ### Word Budget
@@ -123,7 +128,7 @@ For each scene, provide:
     {"hook_id": "H06", "action": "plant"}
   ],
   "revelations": ["R04"],
-  "pov_arc_phase": "lie_reinforced",
+  "pov_arc_phase": "lie_established",
   "arc_phase_transition": null,
   "notes": "This scene establishes that Gavran was not purely noble — seeds doubt about institutional authority"
 }

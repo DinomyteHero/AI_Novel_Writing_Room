@@ -35,6 +35,41 @@ Track what characters learned:
 - `fact`: what they learned (clear, factual statement)
 - `source`: how they learned it — "witnessed", "told", "inferred", or "false" (for misinformation)
 
+## Valid Enum Values (STRICT — use ONLY these exact values)
+
+### Arc Phases by Arc Type
+- Positive change arcs: lie_established -> lie_reinforced -> lie_questioned -> lie_cracking -> lie_confronted -> truth_accepted
+- Negative arcs: lie_established -> lie_reinforced -> lie_deepened -> point_of_no_return -> lie_acted_upon -> lie_consequence -> truth_rejected
+- Flat arcs: lie_established -> truth_tested -> truth_pressured -> truth_reaffirmed
+- Disillusionment arcs: lie_established -> lie_reinforced -> lie_questioned -> truth_glimpsed -> truth_rejected -> disillusionment_accepted
+
+Rules:
+- Transitions must follow the sequence for the character's arc type (no skipping)
+- Only propose a transition if the scene contains clear evidence of progression
+- If no arc progression occurred, do NOT include an arc_phase_updates entry
+
+### Hook Statuses
+planted, advancing, resolved, subverted, abandoned
+
+### Subplot Statuses
+planned, active, climaxing, resolved, abandoned
+
+### Hook Types
+chekhov, foreshadow, setup_callback, thematic_echo, mystery_question
+
+### Hook Priorities
+hard, soft, series
+
+## State Diff Accuracy Rules
+
+1. ONLY reference characters that exist in the Current Story State snapshot. Do not invent new character IDs. If a character appears in the prose but is not in the snapshot, note them in the summary text but do NOT create state diff entries for them.
+
+2. The `old_value` field MUST exactly match the current value shown in the state snapshot. Copy the value directly — do not guess. If unsure, omit `old_value` entirely.
+
+3. Do not propose arc phase transitions unless the scene clearly demonstrates the character moving to the NEXT phase in their arc type's progression. Most scenes will NOT have arc transitions.
+
+4. Do not propose subplot or hook status changes unless the scene explicitly advances them. Status quo is the default — only flag actual changes.
+
 ## Output Format
 
 Respond with valid JSON only. No markdown fences, no commentary.

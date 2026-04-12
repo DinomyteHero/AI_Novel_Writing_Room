@@ -142,10 +142,60 @@ def migrate_worldbuilding(data_dir: Path, dry_run: bool) -> list[str]:
     return actions
 
 
+def migrate_to_universe_scoping(data_dir: Path, dry_run: bool) -> list[str]:
+    """Migrate flat data/projects/<slug>/ to data/projects/<universe>/<slug>/.
+
+    Reads each project's concept_seed.json to determine the universe slug
+    from meta.franchise.
+    """
+    from src.project_paths import _slugify_franchise
+
+    projects_dir = data_dir / "projects"
+    if not projects_dir.exists():
+        return []
+
+    actions = []
+    for proj_dir in sorted(projects_dir.iterdir()):
+        if not proj_dir.is_dir():
+            continue
+        seed_path = proj_dir / "concept_seed.json"
+        if not seed_path.exists():
+            continue
+        # Skip if this already looks like a universe parent (contains subdirectories with seeds)
+        sub_seeds = list(proj_dir.glob("*/concept_seed.json"))
+        if sub_seeds:
+            continue
+
+        try:
+            with open(seed_path, encoding="utf-8") as f:
+                seed = json.load(f)
+        except (json.JSONDecodeError, FileNotFoundError):
+            continue
+
+        franchise = seed.get("meta", {}).get("franchise", "")
+        if not franchise:
+            continue
+
+        universe_slug = _slugify_franchise(franchise)
+        target_dir = projects_dir / universe_slug / proj_dir.name
+
+        if target_dir.exists():
+            continue
+
+        if not dry_run:
+            target_dir.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copytree(proj_dir, target_dir)
+        actions.append(f"  copy {proj_dir}/ -> {target_dir}/")
+
+    return actions
+
+
 def main():
     parser = argparse.ArgumentParser(description="Migrate to project-scoped data layout")
     parser.add_argument("--dry-run", action="store_true", help="Show what would be done without moving files")
     parser.add_argument("--data-dir", default="data", help="Path to data directory (default: data)")
+    parser.add_argument("--universe-scope", action="store_true",
+                        help="Migrate flat projects to universe-scoped layout")
     args = parser.parse_args()
 
     data_dir = Path(args.data_dir)
@@ -209,6 +259,16 @@ def main():
         print(a)
     if not actions:
         print("  (no worldbuilding files to migrate)")
+
+    # Universe-scope migration (optional)
+    if args.universe_scope:
+        print("\nMigrating projects to universe-scoped layout:")
+        actions = migrate_to_universe_scoping(data_dir, args.dry_run)
+        all_actions.extend(actions)
+        for a in actions:
+            print(a)
+        if not actions:
+            print("  (no projects to universe-scope)")
 
     # Summary
     print(f"\n{'='*50}")
