@@ -79,7 +79,41 @@ class RevelationMap:
     """Tracks information revelations and validates their timing."""
 
     def __init__(self, revelations: list[dict]) -> None:
-        self._revelations = revelations
+        self._revelations = [self._normalize(r) for r in revelations]
+
+    @staticmethod
+    def _normalize(rev: dict) -> dict:
+        """Normalize revelation dict to canonical field names.
+
+        Accepts both legacy (info_id, content, revealed_chapter) and revised
+        (revelation_id, what, revealed_in) field names.
+        """
+        import re
+
+        n = dict(rev)
+
+        # ID: prefer revelation_id, fall back to info_id
+        if "info_id" not in n:
+            n["info_id"] = n.get("revelation_id", "unknown")
+
+        # Chapter: prefer revealed_chapter (int), parse revealed_in (str) as fallback
+        if "revealed_chapter" not in n:
+            revealed_in = n.get("revealed_in", 0)
+            if isinstance(revealed_in, int):
+                n["revealed_chapter"] = revealed_in
+            elif isinstance(revealed_in, str):
+                match = re.search(r"(\d+)", revealed_in)
+                n["revealed_chapter"] = int(match.group(1)) if match else 0
+            else:
+                n["revealed_chapter"] = 0
+
+        # Significance: fall back to impact -> "moderate" default
+        if "significance" not in n:
+            impact = n.get("impact", "")
+            if impact:
+                n["significance"] = "moderate"
+
+        return n
 
     def validate_ordering(self) -> list[dict]:
         """Flag mis-timed revelations.

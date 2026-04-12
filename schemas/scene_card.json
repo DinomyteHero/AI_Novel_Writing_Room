@@ -15,6 +15,11 @@
       "enum": ["action", "sequel"],
       "description": "Bickham Scene & Sequel classification. Action scenes are disaster-driven (goal → conflict → disaster); sequel scenes are decision-driven (reaction → dilemma → decision). Optional — not every scene card needs this labelled, but workshop plan-level scene cards carry it through from Step 8."
     },
+    "scene_role": {
+      "type": "string",
+      "enum": ["hook", "escalation", "reveal", "decision", "aftermath"],
+      "description": "Narrative function of this scene within its chapter."
+    },
     "pov_character": { "type": "string", "minLength": 1 },
     "mission": { "type": "string", "minLength": 1 },
     "why_now": { "type": "string", "minLength": 1 },
@@ -27,6 +32,15 @@
     "setting": { "type": "string" },
     "sensory_details": { "type": "string" },
     "emotional_trajectory": { "type": "string" },
+    "stakes": {
+      "type": "object",
+      "description": "What is at risk in this scene across three dimensions.",
+      "properties": {
+        "personal": { "type": "string", "description": "What the POV character personally stands to lose or gain." },
+        "interpersonal": { "type": "string", "description": "What is at risk in relationships between characters." },
+        "external": { "type": "string", "description": "What is at risk in the wider story world." }
+      }
+    },
     "plot_threads_advanced": { "type": "array", "items": { "type": "string" } },
     "promises_planted": { "type": "array", "items": { "type": "string" } },
     "promises_paid": { "type": "array", "items": { "type": "string" } },
@@ -51,7 +65,7 @@
     "revelations": {
       "type": "array",
       "items": { "type": "string" },
-      "description": "info_ids from revelation schedule revealed in this scene"
+      "description": "revelation_ids (or legacy info_ids) from the concept seed's revelation_schedule"
     },
     "pov_arc_phase": {
       "type": "string",

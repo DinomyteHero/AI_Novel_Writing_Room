@@ -159,6 +159,54 @@ class MetricsDashboard:
             "worst_chapters": worst_chapters,
         }
 
+    def analyze_chapter_multi_scene(self, scene_results: list[dict]) -> dict:
+        """Aggregate per-scene analysis results into a chapter-level report.
+
+        Args:
+            scene_results: List of dicts from analyze_chapter(), one per scene.
+
+        Returns:
+            Chapter aggregate with min/max/avg scores, per-scene detail,
+            pass/fail determination, and weakest scene identification.
+        """
+        if not scene_results:
+            return {
+                "chapter_number": 0,
+                "scene_count": 0,
+                "aggregate_score": 0.0,
+                "min_score": 0.0,
+                "max_score": 0.0,
+                "avg_score": 0.0,
+                "per_scene": [],
+                "passed": False,
+                "weakest_scene": 0,
+            }
+
+        scores = [r["overall_score"] for r in scene_results]
+        ch = scene_results[0].get("chapter_number", 0)
+
+        min_score = min(scores)
+        max_score = max(scores)
+        avg_score = sum(scores) / len(scores)
+
+        # Chapter passes if avg >= 0.6 AND no single scene below 0.4
+        passed = avg_score >= 0.6 and min_score >= 0.4
+
+        weakest_idx = scores.index(min_score)
+        weakest_scene = scene_results[weakest_idx].get("scene_number", 0)
+
+        return {
+            "chapter_number": ch,
+            "scene_count": len(scene_results),
+            "aggregate_score": round(avg_score, 3),
+            "min_score": round(min_score, 3),
+            "max_score": round(max_score, 3),
+            "avg_score": round(avg_score, 3),
+            "per_scene": scene_results,
+            "passed": passed,
+            "weakest_scene": weakest_scene,
+        }
+
     def _collect_flags(
         self,
         rep: dict,

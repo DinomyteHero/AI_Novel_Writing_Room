@@ -58,7 +58,7 @@ class StateDiffApplier:
 
         # Apply changes
         changes = diff.get("changes", {})
-        self._apply_character_updates(changes.get("character_updates", []), chapter_number)
+        self._apply_character_updates(changes.get("character_updates", []), chapter_number, scene_number)
         self._apply_plot_thread_updates(changes.get("plot_thread_updates", []))
         self._apply_new_knowledge(changes.get("new_knowledge", []), chapter_number)
         # Phase 5 change types
@@ -81,7 +81,7 @@ class StateDiffApplier:
         return post_hash
 
     def _apply_character_updates(
-        self, updates: list[dict], chapter_number: int
+        self, updates: list[dict], chapter_number: int, scene_number: int = 1
     ) -> None:
         """Apply character state updates with old_value verification."""
         for update in updates:
@@ -123,6 +123,7 @@ class StateDiffApplier:
             kwargs = {field: new_value}
             # Also update last_appearance
             kwargs["last_appearance_chapter"] = chapter_number
+            kwargs["last_appearance_scene"] = scene_number
             self.state.update_character(char_id, **kwargs)
 
     def _apply_plot_thread_updates(self, updates: list[dict]) -> None:

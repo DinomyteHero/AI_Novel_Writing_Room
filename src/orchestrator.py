@@ -33,6 +33,7 @@ from src.run_ledger import RunLedger
 
 if TYPE_CHECKING:
     from src.agents.canon_expert import CanonExpert
+    from src.agents.chapter_gate_critic import ChapterGateCritic
     from src.agents.character_specialist import CharacterSpecialist
     from src.agents.summarizer import Summarizer
     from src.memory.chapter_memory import ChapterMemory
@@ -85,6 +86,8 @@ class Orchestrator:
         pipeline_session: Optional["PipelineSession"] = None,
         session_id: Optional[str] = None,
         judge_evaluator: Optional["JudgeEvaluator"] = None,
+        # Chapter-level evaluation:
+        chapter_gate_critic: Optional["ChapterGateCritic"] = None,
         # Worldbuilding optional dependency:
         lore_service: Optional["LoreService"] = None,
         universe_id: Optional[str] = None,
@@ -125,11 +128,53 @@ class Orchestrator:
         self.session_id = session_id
         self.judge_evaluator = judge_evaluator
 
+        # Chapter-level evaluation
+        self.chapter_gate_critic = chapter_gate_critic
+
         # Worldbuilding optional components
         self.lore_service = lore_service
         self._universe_id = universe_id
         self._project_id = project_id
         self._worldbuilding_auto_extract = worldbuilding_auto_extract
+
+    @staticmethod
+    def _is_last_scene_in_chapter(current_index: int, sorted_cards: list[dict]) -> bool:
+        """Check if the current card is the last scene in its chapter."""
+        if current_index >= len(sorted_cards) - 1:
+            return True  # Last card overall
+        current_ch = sorted_cards[current_index]["chapter_number"]
+        next_ch = sorted_cards[current_index + 1]["chapter_number"]
+        return current_ch != next_ch
+
+    async def _run_chapter_gate(
+        self,
+        chapter_number: int,
+        chapter_cards: list[dict],
+        chapter_results: list[dict],
+    ) -> dict:
+        """Run the chapter-level gate critic after the last scene in a chapter."""
+        scene_prose = []
+        for result in chapter_results:
+            path = Path(result["output_path"])
+            if path.exists():
+                scene_prose.append(path.read_text(encoding="utf-8"))
+
+        evaluation = await self.chapter_gate_critic.run({
+            "scene_cards": chapter_cards,
+            "scene_prose": scene_prose,
+            "chapter_number": chapter_number,
+        })
+
+        self.ledger.emit(
+            "chapter_gate_complete",
+            chapter_number=chapter_number,
+            payload={
+                "passed": evaluation["chapter_passed"],
+                "failure_count": len(evaluation.get("chapter_level_failures", [])),
+            },
+        )
+
+        return evaluation
 
     async def run_pipeline(self, scene_cards: list[dict]) -> list[dict]:
         """Run the full pipeline for a list of scene cards."""
@@ -157,7 +202,7 @@ class Orchestrator:
         results = []
 
         try:
-            for scene_card in active_cards:
+            for i, scene_card in enumerate(active_cards):
                 chapter_num = scene_card["chapter_number"]
                 scene_num = scene_card.get("scene_number", 1)
                 print(f"\n{'='*60}")
@@ -172,6 +217,16 @@ class Orchestrator:
                     self.pipeline_session.mark_chapter_complete(
                         self.session_id, chapter_num, scene_num, result
                     )
+
+                # Chapter-level gate: run after last scene in chapter
+                if self.chapter_gate_critic and self._is_last_scene_in_chapter(i, active_cards):
+                    ch_cards = [c for c in active_cards if c["chapter_number"] == chapter_num]
+                    ch_results = [r for r in results if r.get("chapter_number") == chapter_num]
+                    ch_eval = await self._run_chapter_gate(chapter_num, ch_cards, ch_results)
+                    results[-1]["chapter_gate"] = ch_eval
+                    if not ch_eval["chapter_passed"]:
+                        failures = len(ch_eval.get("chapter_level_failures", []))
+                        print(f"  Chapter {chapter_num} failed chapter-level gate ({failures} issue(s))")
 
                 # Check if milestone gate aborted the pipeline
                 if result.get("milestone_abort"):
@@ -493,7 +548,7 @@ class Orchestrator:
         # Step 9: Contradiction scanner
         if self.contradiction_scanner:
             contradiction_flags = self.contradiction_scanner.scan(
-                chapter_num, prose, scene_card
+                chapter_num, prose, scene_card, scene_num
             )
             if contradiction_flags:
                 print(
@@ -781,7 +836,7 @@ class Orchestrator:
             if recent and "No previous" not in recent:
                 return recent
         # Fallback: truncated tail of previous chapter prose
-        prev = self.assembler.get_previous_chapter(chapter_num)
+        prev = self.assembler.get_previous_scene(chapter_num, 1)
         if prev:
             return prev[-1500:] if len(prev) > 1500 else prev
         return ""

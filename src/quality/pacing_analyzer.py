@@ -301,3 +301,55 @@ class PacingAnalyzer:
         if density_flag:
             score -= 0.15
         return max(0.0, round(score, 3))
+
+    def analyze_chapter_pacing(self, scene_analyses: list[dict]) -> dict:
+        """Aggregate pacing metrics across a chapter's scenes.
+
+        Args:
+            scene_analyses: List of per-scene pacing analysis dicts.
+
+        Returns:
+            Chapter-level pacing summary with variety index and flags.
+        """
+        if not scene_analyses:
+            return {
+                "avg_sentence_variance": 0.0,
+                "scene_type_distribution_chapter": {},
+                "variety_index": 0.0,
+                "flags": [],
+            }
+
+        # Average sentence variance
+        variances = [sa.get("sentence_length_variance", 0.0) for sa in scene_analyses]
+        avg_variance = sum(variances) / len(variances)
+
+        # Aggregate scene type distribution across chapter
+        from collections import Counter
+        type_counts: Counter = Counter()
+        total_scenes = len(scene_analyses)
+        for sa in scene_analyses:
+            dist = sa.get("scene_type_distribution", {})
+            for stype, ratio in dist.items():
+                type_counts[stype] += ratio
+
+        chapter_dist = {
+            k: round(v / total_scenes, 3) for k, v in type_counts.items()
+        } if total_scenes else {}
+
+        # Variety index: 1 - max_proportion
+        max_prop = max(chapter_dist.values()) if chapter_dist else 0.0
+        variety_index = round(1.0 - max_prop, 3) if chapter_dist else 0.0
+
+        flags = []
+        if variety_index < 0.2 and chapter_dist:
+            dominant = max(chapter_dist, key=chapter_dist.get)
+            flags.append(
+                f"Low scene variety ({variety_index:.2f}): chapter dominated by '{dominant}'"
+            )
+
+        return {
+            "avg_sentence_variance": round(avg_variance, 3),
+            "scene_type_distribution_chapter": chapter_dist,
+            "variety_index": variety_index,
+            "flags": flags,
+        }

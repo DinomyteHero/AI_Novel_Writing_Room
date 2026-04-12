@@ -80,10 +80,7 @@ class ChapterMemory:
 
         lines = []
         for chapter_num, scene_num, summary in recent:
-            if scene_num > 1:
-                lines.append(f"### Chapter {chapter_num}, Scene {scene_num}")
-            else:
-                lines.append(f"### Chapter {chapter_num}")
+            lines.append(f"### Chapter {chapter_num}, Scene {scene_num}")
             lines.append(summary)
             lines.append("")
 

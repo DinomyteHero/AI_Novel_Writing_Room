@@ -193,17 +193,17 @@ class ContextAssembler:
         return "\n\n".join(voices)
 
     def get_previous_chapter(self, chapter_number: int) -> Optional[str]:
-        """Load the previous chapter's text for context (deprecated: use get_previous_scene)."""
-        prev_chapter = chapter_number - 1
-        if prev_chapter < 1:
-            return None
+        """Load the previous chapter's text for context.
 
-        # Look for the chapter file
-        pattern = f"chapter_{prev_chapter:02d}*.md"
-        matches = list(self.manuscripts_dir.glob(pattern))
-        if matches:
-            return matches[0].read_text(encoding="utf-8")
-        return None
+        .. deprecated:: Use :meth:`get_previous_scene` instead.
+        """
+        import warnings
+        warnings.warn(
+            "get_previous_chapter is deprecated. Use get_previous_scene instead.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+        return self.get_previous_scene(chapter_number, 1)
 
     def get_previous_scene(self, chapter_number: int, scene_number: int) -> Optional[str]:
         """Get the prose from the immediately preceding scene.

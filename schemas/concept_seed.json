@@ -240,10 +240,20 @@
       "items": {
         "type": "object",
         "properties": {
-          "info_id": { "type": "string" },
-          "content": { "type": "string" },
-          "revealed_chapter": { "type": "integer" },
-          "revealed_through_pov": { "type": "string" },
+          "revelation_id": { "type": "string" },
+          "info_id": { "type": "string", "description": "Legacy alias for revelation_id. Accepted for backward compatibility." },
+          "what": { "type": "string" },
+          "content": { "type": "string", "description": "Legacy alias for 'what'. Accepted for backward compatibility." },
+          "known_by": { "type": "array", "items": { "type": "string" } },
+          "revealed_to": { "type": "array", "items": { "type": "string" } },
+          "revealed_in": {
+            "description": "Chapter where this is revealed. Accepts integer or string reference.",
+            "oneOf": [{ "type": "integer" }, { "type": "string" }]
+          },
+          "revealed_chapter": { "type": "integer", "description": "Legacy alias for revealed_in (integer only). Accepted for backward compatibility." },
+          "revealed_through_pov": { "type": "string", "description": "Legacy field. Use revealed_to instead." },
+          "impact": { "type": "string" },
+          "setup_required": { "type": "string" },
           "significance": { "type": "string", "enum": ["minor", "moderate", "major", "climactic"] }
         }
       }
@@ -368,6 +378,18 @@
           "scene_type": {
             "type": "string",
             "enum": ["action", "sequel"]
+          },
+          "scene_role": {
+            "type": "string",
+            "enum": ["hook", "escalation", "reveal", "decision", "aftermath"]
+          },
+          "stakes": {
+            "type": "object",
+            "properties": {
+              "personal": { "type": "string" },
+              "interpersonal": { "type": "string" },
+              "external": { "type": "string" }
+            }
           },
           "scene_goal": { "type": "string" },
           "scene_conflict": { "type": "string" },

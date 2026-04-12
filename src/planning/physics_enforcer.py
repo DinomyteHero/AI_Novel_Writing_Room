@@ -219,3 +219,86 @@ class PhysicsEnforcer:
             "issues": issues,
             "summary": summary,
         }
+
+    @staticmethod
+    def validate_chapter_pressure_progression(scene_cards: list[dict]) -> list[dict]:
+        """Validate pressure progression within a single chapter's scenes.
+
+        Args:
+            scene_cards: All scene cards for ONE chapter, sorted by scene_number.
+
+        Returns:
+            List of issue dicts.
+        """
+        issues: list[dict] = []
+        if len(scene_cards) < 2:
+            return issues
+
+        ch = scene_cards[0].get("chapter_number", "?")
+
+        # Heuristic pressure scores
+        pressure_scores = []
+        for card in scene_cards:
+            score = PhysicsEnforcer._estimate_scene_pressure(card)
+            pressure_scores.append((card.get("scene_number", 0), score))
+
+        # Final scene should not be lowest-pressure
+        final_scene, final_pressure = pressure_scores[-1]
+        min_pressure = min(p for _, p in pressure_scores)
+        max_pressure = max(p for _, p in pressure_scores)
+        if final_pressure == min_pressure and final_pressure < max_pressure:
+            issues.append({
+                "issue_type": "weak_chapter_ending",
+                "chapter": ch,
+                "description": (
+                    f"Chapter {ch}: final scene (scene {final_scene}) has the lowest "
+                    f"pressure score ({final_pressure}). The chapter ending should not be "
+                    f"the lowest-pressure moment."
+                ),
+            })
+
+        # All same conflict_type with 3+ scenes
+        conflict_types = [c.get("conflict_type") for c in scene_cards]
+        if len(set(conflict_types)) == 1 and len(scene_cards) >= 3:
+            issues.append({
+                "issue_type": "monotone_conflict",
+                "chapter": ch,
+                "description": (
+                    f"Chapter {ch}: all {len(scene_cards)} scenes have conflict_type "
+                    f"'{conflict_types[0]}'. Vary conflict types for richer chapters."
+                ),
+            })
+
+        # Flat pressure (all identical scores)
+        scores_only = [p for _, p in pressure_scores]
+        if len(set(scores_only)) == 1 and len(scene_cards) >= 3:
+            issues.append({
+                "issue_type": "flat_pressure",
+                "chapter": ch,
+                "description": (
+                    f"Chapter {ch}: all scenes have identical estimated pressure "
+                    f"({scores_only[0]}). Vary intensity across scenes."
+                ),
+            })
+
+        return issues
+
+    @staticmethod
+    def _estimate_scene_pressure(card: dict) -> int:
+        """Heuristic pressure score (1-10) for a scene card."""
+        score = 3  # baseline
+        ct = card.get("conflict_type", "")
+        if ct == "external":
+            score += 2
+        elif ct == "interpersonal":
+            score += 1
+
+        stakes = card.get("stakes", {})
+        if stakes.get("external", "").strip():
+            score += 2
+        if stakes.get("interpersonal", "").strip():
+            score += 1
+        if stakes.get("personal", "").strip():
+            score += 1
+
+        return min(score, 10)

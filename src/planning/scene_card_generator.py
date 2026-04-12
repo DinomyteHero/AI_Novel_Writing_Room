@@ -18,6 +18,35 @@ if TYPE_CHECKING:
     from src.planning.physics_enforcer import PhysicsEnforcer
 
 
+def _jaccard_similarity(tokens_a: list[str], tokens_b: list[str]) -> float:
+    """Compute Jaccard similarity between two token lists."""
+    set_a, set_b = set(tokens_a), set(tokens_b)
+    if not set_a and not set_b:
+        return 0.0
+    union = set_a | set_b
+    return len(set_a & set_b) / len(union) if union else 0.0
+
+
+def _estimate_scene_pressure(card: dict) -> int:
+    """Heuristic pressure score (1-10) for a scene card."""
+    score = 3  # baseline
+    ct = card.get("conflict_type", "")
+    if ct == "external":
+        score += 2
+    elif ct == "interpersonal":
+        score += 1
+
+    stakes = card.get("stakes", {})
+    if stakes.get("external", "").strip():
+        score += 2
+    if stakes.get("interpersonal", "").strip():
+        score += 1
+    if stakes.get("personal", "").strip():
+        score += 1
+
+    return min(score, 10)
+
+
 class OutlinePlanner(BaseAgent):
     """Agent that generates a chapter-by-chapter outline from a concept seed.
 
@@ -117,8 +146,9 @@ class OutlinePlanner(BaseAgent):
             parts.append("## Revelation Schedule")
             for rev in revelations:
                 parts.append(
-                    f"- ch{rev.get('revealed_chapter', '?')}: "
-                    f"{rev.get('content', '')} ({rev.get('significance', '')})"
+                    f"- ch{rev.get('revealed_in', rev.get('revealed_chapter', '?'))}: "
+                    f"{rev.get('what', rev.get('content', ''))} "
+                    f"({rev.get('significance', rev.get('impact', ''))})"
                 )
             parts.append("")
 
@@ -162,6 +192,7 @@ class OutlinePlanner(BaseAgent):
             f"- opening_hook (string, how this scene opens with engagement)\n"
             f"- closing_hook (string, the question/complication/decision at scene end)\n"
             f"- emotional_trajectory (string)\n"
+            f"- stakes (object with personal, interpersonal, external strings)\n"
             f"- characters_present (list of strings)\n"
             f"- setting (string, location and time)\n"
             f"- plot_threads_advanced (list of strings)\n"
@@ -171,7 +202,7 @@ class OutlinePlanner(BaseAgent):
             f"- target_word_count (int, per scene — NOT per chapter)\n"
             f"- active_subplots (list of subplot_ids)\n"
             f"- hook_actions (list of {{hook_id, action}} where action is plant/advance/resolve/subvert)\n"
-            f"- revelations (list of info_ids)\n"
+            f"- revelations (list of revelation_ids)\n"
             f"- pov_arc_phase (current Weiland arc phase for POV character)\n"
             f"- arc_phase_transition (new phase if transition occurs, else null)\n\n"
             f"Distribute POV characters using the {meta.get('pov_structure', 'rotating')} pattern.\n"
@@ -268,8 +299,11 @@ class SceneCardGenerator:
         for attempt in range(max_retries):
             failed_indices = []
             for i, card in enumerate(scene_cards):
-                # Semantic completeness check (always runs)
+                # Semantic completeness + scene quality checks
                 warnings = self._check_semantic_completeness(card)
+                warnings.extend(self._check_beat_coverage(card))
+                warnings.extend(self._check_hook_requirements(card))
+                warnings.extend(self._check_stakes(card))
                 if warnings:
                     failed_indices.append(i)
                     continue
@@ -328,6 +362,68 @@ class SceneCardGenerator:
 
         return warnings
 
+    @staticmethod
+    def _check_beat_coverage(card: dict) -> list[str]:
+        """Check that scene cards have appropriate beats for their scene_type.
+
+        Action scenes (Bickham): require non-empty mission (goal), conflict
+        (obstacle), and turning_point (outcome/setback).
+        Sequel scenes: require non-empty emotional_trajectory (reaction),
+        conflict (dilemma), and turning_point (decision).
+        """
+        warnings = []
+        scene_type = card.get("scene_type", "")
+        ch = card.get("chapter_number", "?")
+        sc = card.get("scene_number", "?")
+
+        if scene_type == "action":
+            for field, beat in [("mission", "goal"), ("conflict", "obstacle"), ("turning_point", "outcome/setback")]:
+                if not card.get(field, "").strip():
+                    warnings.append(f"Ch{ch} Sc{sc}: action scene missing {beat} ('{field}' is empty)")
+        elif scene_type == "sequel":
+            for field, beat in [("emotional_trajectory", "reaction"), ("conflict", "dilemma"), ("turning_point", "decision")]:
+                if not card.get(field, "").strip():
+                    warnings.append(f"Ch{ch} Sc{sc}: sequel scene missing {beat} ('{field}' is empty)")
+
+        return warnings
+
+    @staticmethod
+    def _check_hook_requirements(card: dict) -> list[str]:
+        """Enforce hook field requirements.
+
+        - Chapters 1-3: both opening_hook and closing_hook must be non-empty.
+        - All chapters: closing_hook must be non-empty.
+        """
+        warnings = []
+        ch = card.get("chapter_number", 0)
+        sc = card.get("scene_number", "?")
+
+        if not card.get("closing_hook", "").strip():
+            warnings.append(f"Ch{ch} Sc{sc}: closing_hook is empty (required for all scenes)")
+
+        if ch <= 3 and not card.get("opening_hook", "").strip():
+            warnings.append(f"Ch{ch} Sc{sc}: opening_hook is empty (required for chapters 1-3)")
+
+        return warnings
+
+    @staticmethod
+    def _check_stakes(card: dict) -> list[str]:
+        """Require at least personal stakes plus one of interpersonal or external."""
+        warnings = []
+        stakes = card.get("stakes", {})
+        ch = card.get("chapter_number", "?")
+        sc = card.get("scene_number", "?")
+
+        if not stakes.get("personal", "").strip():
+            warnings.append(f"Ch{ch} Sc{sc}: personal stakes not defined")
+
+        has_interpersonal = bool(stakes.get("interpersonal", "").strip())
+        has_external = bool(stakes.get("external", "").strip())
+        if not has_interpersonal and not has_external:
+            warnings.append(f"Ch{ch} Sc{sc}: needs at least one of interpersonal or external stakes")
+
+        return warnings
+
     def _ensure_defaults(self, card: dict, concept_seed: dict) -> dict:
         """Ensure a scene card has all required fields with sensible defaults."""
         meta = concept_seed.get("meta", {})
@@ -351,6 +447,7 @@ class SceneCardGenerator:
             "closing_hook": "",
             "setting": "",
             "emotional_trajectory": "",
+            "stakes": {"personal": "", "interpersonal": "", "external": ""},
             "characters_present": [],
             "plot_threads_advanced": [],
             "promises_planted": [],
@@ -402,6 +499,34 @@ class SceneCardGenerator:
                     warnings.append(
                         f"Chapter {ch_num} scene {s.get('scene_number', '?')}: "
                         f"target_word_count {wc} is below minimum (500)"
+                    )
+
+            # Mission uniqueness check (Jaccard similarity)
+            missions = [(s.get("scene_number", 0), s.get("mission", "")) for s in scenes]
+            for i, (sc_a, m_a) in enumerate(missions):
+                for sc_b, m_b in missions[i + 1:]:
+                    if m_a and m_b:
+                        similarity = _jaccard_similarity(m_a.lower().split(), m_b.lower().split())
+                        if similarity > 0.6:
+                            warnings.append(
+                                f"Chapter {ch_num}: scene {sc_a} and scene {sc_b} have "
+                                f"similar missions (Jaccard={similarity:.2f}) — each scene "
+                                f"needs a distinct mission"
+                            )
+
+            # Within-chapter pressure progression check
+            if len(scenes) >= 2:
+                pressure_scores = [
+                    (s.get("scene_number", 0), _estimate_scene_pressure(s))
+                    for s in scenes
+                ]
+                final_sc, final_p = pressure_scores[-1]
+                min_p = min(p for _, p in pressure_scores)
+                max_p = max(p for _, p in pressure_scores)
+                if final_p == min_p and final_p < max_p:
+                    warnings.append(
+                        f"Chapter {ch_num}: final scene (scene {final_sc}) has the lowest "
+                        f"pressure — chapter endings should not be the weakest moment"
                     )
 
         return warnings

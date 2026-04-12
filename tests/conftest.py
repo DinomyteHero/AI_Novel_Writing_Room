@@ -49,6 +49,14 @@ def sample_scene_card():
 
 
 @pytest.fixture
+def multi_scene_chapter_cards():
+    """Load a 3-scene chapter fixture for chapter-level testing."""
+    cards_path = Path(__file__).parent / "fixtures" / "multi_scene_chapter_cards.json"
+    with open(cards_path, encoding="utf-8") as f:
+        return json.load(f)
+
+
+@pytest.fixture
 def temp_dir():
     """Create a temporary directory for test outputs."""
     with tempfile.TemporaryDirectory() as d:

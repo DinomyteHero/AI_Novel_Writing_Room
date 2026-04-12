@@ -34,7 +34,8 @@ class ContradictionScanner:
         self.ledger = ledger
 
     def scan(
-        self, chapter_number: int, prose: str, scene_card: dict
+        self, chapter_number: int, prose: str, scene_card: dict,
+        scene_number: int = 1,
     ) -> list[dict]:
         """Run all scans and return combined contradiction flags.
 
@@ -49,7 +50,7 @@ class ContradictionScanner:
 
         # Log all flags to the run ledger
         if flags:
-            self.log_flags(flags, chapter_number)
+            self.log_flags(flags, chapter_number, scene_number)
 
         return flags
 
@@ -251,12 +252,12 @@ class ContradictionScanner:
 
         return flags
 
-    def log_flags(self, flags: list[dict], chapter_number: int) -> None:
+    def log_flags(self, flags: list[dict], chapter_number: int, scene_number: int = 1) -> None:
         """Emit contradiction flags to the run ledger."""
         self.ledger.emit(
             "contradiction_scan",
             chapter_number=chapter_number,
-            payload={
+            payload={"scene_number": scene_number,
                 "flag_count": len(flags),
                 "flags": flags,
                 "blocking_count": sum(

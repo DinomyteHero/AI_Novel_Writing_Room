@@ -226,3 +226,108 @@ class TestSceneCardGeneratorMultiScene:
         assert card["target_word_count"] < per_chapter
         assert card["target_word_count"] >= 500
         assert card["target_word_count"] <= 1500
+
+
+class TestSceneCardValidationEnhancements:
+    """Test the new validation checks added in Phase B."""
+
+    def test_beat_coverage_action_scene_missing_conflict(self):
+        from src.planning.scene_card_generator import SceneCardGenerator
+        card = {
+            "chapter_number": 1, "scene_number": 1,
+            "scene_type": "action", "mission": "do something",
+            "conflict": "", "turning_point": "tp",
+        }
+        warnings = SceneCardGenerator._check_beat_coverage(card)
+        assert any("obstacle" in w for w in warnings)
+
+    def test_beat_coverage_sequel_missing_emotional_trajectory(self):
+        from src.planning.scene_card_generator import SceneCardGenerator
+        card = {
+            "chapter_number": 1, "scene_number": 1,
+            "scene_type": "sequel", "emotional_trajectory": "",
+            "conflict": "dilemma", "turning_point": "decision",
+        }
+        warnings = SceneCardGenerator._check_beat_coverage(card)
+        assert any("reaction" in w for w in warnings)
+
+    def test_beat_coverage_action_complete_passes(self):
+        from src.planning.scene_card_generator import SceneCardGenerator
+        card = {
+            "chapter_number": 1, "scene_number": 1,
+            "scene_type": "action", "mission": "goal",
+            "conflict": "obstacle", "turning_point": "setback",
+        }
+        warnings = SceneCardGenerator._check_beat_coverage(card)
+        assert warnings == []
+
+    def test_hook_requirements_chapter_1_needs_opening_hook(self):
+        from src.planning.scene_card_generator import SceneCardGenerator
+        card = {
+            "chapter_number": 1, "scene_number": 1,
+            "opening_hook": "", "closing_hook": "end hook",
+        }
+        warnings = SceneCardGenerator._check_hook_requirements(card)
+        assert any("opening_hook" in w for w in warnings)
+
+    def test_hook_requirements_all_chapters_need_closing_hook(self):
+        from src.planning.scene_card_generator import SceneCardGenerator
+        card = {
+            "chapter_number": 15, "scene_number": 2,
+            "opening_hook": "start", "closing_hook": "",
+        }
+        warnings = SceneCardGenerator._check_hook_requirements(card)
+        assert any("closing_hook" in w for w in warnings)
+
+    def test_stakes_validation_missing_personal(self):
+        from src.planning.scene_card_generator import SceneCardGenerator
+        card = {
+            "chapter_number": 1, "scene_number": 1,
+            "stakes": {"personal": "", "interpersonal": "yes", "external": ""},
+        }
+        warnings = SceneCardGenerator._check_stakes(card)
+        assert any("personal" in w for w in warnings)
+
+    def test_stakes_validation_needs_interpersonal_or_external(self):
+        from src.planning.scene_card_generator import SceneCardGenerator
+        card = {
+            "chapter_number": 1, "scene_number": 1,
+            "stakes": {"personal": "yes", "interpersonal": "", "external": ""},
+        }
+        warnings = SceneCardGenerator._check_stakes(card)
+        assert any("interpersonal or external" in w for w in warnings)
+
+    def test_stakes_validation_complete_passes(self):
+        from src.planning.scene_card_generator import SceneCardGenerator
+        card = {
+            "chapter_number": 1, "scene_number": 1,
+            "stakes": {"personal": "career", "interpersonal": "", "external": "case"},
+        }
+        warnings = SceneCardGenerator._check_stakes(card)
+        assert warnings == []
+
+
+class TestMissionUniqueness:
+    """Test Jaccard similarity-based mission uniqueness check."""
+
+    def test_similar_missions_flagged(self):
+        from src.planning.scene_card_generator import SceneCardGenerator
+        cards = [
+            {"chapter_number": 1, "scene_number": 1, "mission": "establish the threat and danger",
+             "conflict_type": "internal", "target_word_count": 1200, "stakes": {}},
+            {"chapter_number": 1, "scene_number": 2, "mission": "establish the danger and threat",
+             "conflict_type": "external", "target_word_count": 1200, "stakes": {}},
+        ]
+        warnings = SceneCardGenerator._validate_chapter_composition(cards)
+        assert any("similar missions" in w.lower() for w in warnings)
+
+    def test_different_missions_pass(self):
+        from src.planning.scene_card_generator import SceneCardGenerator
+        cards = [
+            {"chapter_number": 1, "scene_number": 1, "mission": "Alex confronts Jordan about the evidence",
+             "conflict_type": "interpersonal", "target_word_count": 1200, "stakes": {}},
+            {"chapter_number": 1, "scene_number": 2, "mission": "Alex opens the sealed envelope alone",
+             "conflict_type": "internal", "target_word_count": 1200, "stakes": {}},
+        ]
+        warnings = SceneCardGenerator._validate_chapter_composition(cards)
+        assert not any("similar missions" in w.lower() for w in warnings)
