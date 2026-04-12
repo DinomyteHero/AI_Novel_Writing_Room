@@ -11,6 +11,7 @@ Phase 5 additions:
 
 import json
 import logging
+import sqlite3
 
 from src.memory.knowledge_layers import KnowledgeLayers
 from src.memory.story_state import StoryState
@@ -150,7 +151,13 @@ class StateDiffApplier:
             # Also update last_appearance
             kwargs["last_appearance_chapter"] = chapter_number
             kwargs["last_appearance_scene"] = scene_number
-            self.state.update_character(char_id, **kwargs)
+            try:
+                self.state.update_character(char_id, **kwargs)
+            except (sqlite3.IntegrityError, sqlite3.OperationalError) as e:
+                logger.warning(
+                    "Character update rejected for '%s' field '%s' = %r: %s",
+                    char_id, field, new_value, e,
+                )
 
     def _apply_plot_thread_updates(self, updates: list[dict]) -> None:
         """Apply plot thread status updates."""
@@ -163,15 +170,21 @@ class StateDiffApplier:
                 continue
 
             thread = self.state.get_plot_thread(thread_id)
-            if thread is None:
-                # Auto-create the thread if it doesn't exist
-                self.state.add_plot_thread(
-                    id=thread_id,
-                    description=thread_id.replace("_", " ").title(),
-                    **{field: new_value},
+            try:
+                if thread is None:
+                    # Auto-create the thread if it doesn't exist
+                    self.state.add_plot_thread(
+                        id=thread_id,
+                        description=thread_id.replace("_", " ").title(),
+                        **{field: new_value},
+                    )
+                else:
+                    self.state.update_plot_thread(thread_id, **{field: new_value})
+            except (sqlite3.IntegrityError, sqlite3.OperationalError) as e:
+                logger.warning(
+                    "Plot thread update rejected for '%s' field '%s' = %r: %s",
+                    thread_id, field, new_value, e,
                 )
-            else:
-                self.state.update_plot_thread(thread_id, **{field: new_value})
 
     def _apply_new_knowledge(
         self, knowledge_entries: list[dict], chapter_number: int
@@ -196,14 +209,20 @@ class StateDiffApplier:
             fact_id = _make_fact_id(fact)
 
             # Add as a belief (default to accurate unless we know otherwise)
-            self.knowledge.add_belief(
-                character_id=char_id,
-                fact_id=fact_id,
-                description=fact,
-                is_accurate=True,
-                chapter=chapter_number,
-                source=source,
-            )
+            try:
+                self.knowledge.add_belief(
+                    character_id=char_id,
+                    fact_id=fact_id,
+                    description=fact,
+                    is_accurate=True,
+                    chapter=chapter_number,
+                    source=source,
+                )
+            except (sqlite3.IntegrityError, sqlite3.OperationalError) as e:
+                logger.warning(
+                    "Knowledge entry rejected for '%s' fact '%s': %s",
+                    char_id, fact_id, e,
+                )
 
     # ------------------------------------------------------------------
     # Phase 5 diff handlers
@@ -222,15 +241,21 @@ class StateDiffApplier:
             field = self._normalise_field("subplot", field)
 
             subplot = self.state.get_subplot(subplot_id)
-            if subplot is None:
-                # Auto-create subplot
-                self.state.add_subplot(
-                    subplot_id=subplot_id,
-                    subplot_name=subplot_id.replace("_", " ").title(),
-                    **{field: new_value},
+            try:
+                if subplot is None:
+                    # Auto-create subplot
+                    self.state.add_subplot(
+                        subplot_id=subplot_id,
+                        subplot_name=subplot_id.replace("_", " ").title(),
+                        **{field: new_value},
+                    )
+                else:
+                    self.state.update_subplot(subplot_id, **{field: new_value})
+            except (sqlite3.IntegrityError, sqlite3.OperationalError) as e:
+                logger.warning(
+                    "Subplot update rejected for '%s' field '%s' = %r: %s",
+                    subplot_id, field, new_value, e,
                 )
-            else:
-                self.state.update_subplot(subplot_id, **{field: new_value})
 
     def _apply_hook_updates(
         self, updates: list[dict], chapter_number: int
@@ -266,19 +291,30 @@ class StateDiffApplier:
                     )
 
                 # Auto-create hook with available fields from the update
-                self.state.add_hook(
-                    hook_id=hook_id,
-                    description=update.get("description", hook_id.replace("_", " ")),
-                    hook_type=update.get("hook_type", "foreshadow"),
-                    planted_chapter=chapter_number,
-                    priority=update.get("priority", "soft"),
-                    related_subplot=update.get("related_subplot"),
-                )
-                if field and field != "current_status":
-                    self.state.update_hook(hook_id, **{field: new_value})
+                try:
+                    self.state.add_hook(
+                        hook_id=hook_id,
+                        description=update.get("description", hook_id.replace("_", " ")),
+                        hook_type=update.get("hook_type", "foreshadow"),
+                        planted_chapter=chapter_number,
+                        priority=update.get("priority", "soft"),
+                        related_subplot=update.get("related_subplot"),
+                    )
+                    if field and field != "current_status":
+                        self.state.update_hook(hook_id, **{field: new_value})
+                except (sqlite3.IntegrityError, sqlite3.OperationalError) as e:
+                    logger.warning(
+                        "Hook create/update rejected for '%s': %s", hook_id, e,
+                    )
             else:
                 if field:
-                    self.state.update_hook(hook_id, **{field: new_value})
+                    try:
+                        self.state.update_hook(hook_id, **{field: new_value})
+                    except (sqlite3.IntegrityError, sqlite3.OperationalError) as e:
+                        logger.warning(
+                            "Hook update rejected for '%s' field '%s' = %r: %s",
+                            hook_id, field, new_value, e,
+                        )
 
     def _apply_arc_phase_updates(
         self, updates: list[dict], chapter_number: int
@@ -292,12 +328,19 @@ class StateDiffApplier:
             if not char_id or not new_phase:
                 continue
 
-            success = self.state.advance_arc_phase(
-                character_id=char_id,
-                new_phase=new_phase,
-                chapter=chapter_number,
-                evidence=evidence,
-            )
+            try:
+                success = self.state.advance_arc_phase(
+                    character_id=char_id,
+                    new_phase=new_phase,
+                    chapter=chapter_number,
+                    evidence=evidence,
+                )
+            except (sqlite3.IntegrityError, sqlite3.OperationalError) as e:
+                logger.warning(
+                    "Arc phase update rejected for '%s' phase '%s': %s",
+                    char_id, new_phase, e,
+                )
+                continue
             if not success:
                 old_phase = update.get("old_phase", "unknown")
                 logger.warning(
@@ -324,20 +367,25 @@ class StateDiffApplier:
                 continue
 
             existing = self.state.get_term(term)
-            if existing is None:
-                # Auto-create term
-                self.state.add_term(
-                    term=term,
-                    definition=update.get("definition", ""),
-                    category=update.get("category", "concept"),
-                    aliases=update.get("aliases"),
-                    first_appearance_chapter=update.get("first_appearance_chapter"),
+            try:
+                if existing is None:
+                    # Auto-create term
+                    self.state.add_term(
+                        term=term,
+                        definition=update.get("definition", ""),
+                        category=update.get("category", "concept"),
+                        aliases=update.get("aliases"),
+                        first_appearance_chapter=update.get("first_appearance_chapter"),
+                    )
+                else:
+                    field = update.get("field")
+                    new_value = update.get("new_value")
+                    if field and new_value is not None:
+                        self.state.update_term(term, **{field: new_value})
+            except (sqlite3.IntegrityError, sqlite3.OperationalError) as e:
+                logger.warning(
+                    "Terminology update rejected for '%s': %s", term, e,
                 )
-            else:
-                field = update.get("field")
-                new_value = update.get("new_value")
-                if field and new_value is not None:
-                    self.state.update_term(term, **{field: new_value})
 
     # ------------------------------------------------------------------
     # Validation
