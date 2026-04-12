@@ -57,7 +57,7 @@ agent_routing:
   line_copy_editor:               { backend: cloud, model: budget, params: { temperature: 0.3 } }
 
   # --- Phase 4: Planning & polish (DeepSeek V3.2) ---
-  outline_planner:                 { backend: cloud, model: primary, params: { temperature: 0.5, max_tokens: 16384 } }
+  outline_planner:                 { backend: cloud, model: primary, params: { temperature: 0.5, max_tokens: 32768 } }
   dialogue_polish_editor:          { backend: cloud, model: budget, params: { temperature: 0.4 } }
   worldbuilding_coherence_reviewer: { backend: cloud, model: budget, params: { temperature: 0.3 } }
 
