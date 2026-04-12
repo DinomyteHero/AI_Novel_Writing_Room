@@ -27,6 +27,7 @@ class LineCopyEditor(BaseAgent):
         prose = context["prose"]
         negative_constraints = context.get("negative_constraints", "")
         quality_flags = context.get("quality_flags", [])
+        quality_metrics = context.get("quality_metrics", {})
 
         parts = []
 
@@ -38,6 +39,37 @@ class LineCopyEditor(BaseAgent):
             for flag in quality_flags:
                 parts.append(f"- {flag}")
             parts.append("")
+
+        # Structured quality data for targeted revision
+        if quality_metrics:
+            for scene_result in quality_metrics.get("per_scene", []):
+                rep = scene_result.get("repetition", {})
+                flagged_words = rep.get("flagged_words", [])
+                if flagged_words:
+                    word_list = ", ".join(
+                        f'"{w["word"]}" (appears {w["count"]}x, expected max {w["expected_max"]})'
+                        for w in flagged_words
+                    )
+                    parts.append(
+                        f"## OVERUSED WORDS\n"
+                        f"Replace or eliminate each of the following. Do not simply swap synonyms; "
+                        f"restructure sentences to remove dependence on these words:\n{word_list}"
+                    )
+
+                pacing = scene_result.get("pacing", {})
+                show_dont_tell = 0
+                for flag_entry in pacing.get("flags", []):
+                    if flag_entry.get("type") == "scene_type_imbalance":
+                        show_dont_tell += 1
+                slop = scene_result.get("slop", {})
+                tell_count = slop.get("tell_not_show_count", 0) if slop else 0
+                if tell_count > 0:
+                    parts.append(
+                        f"## SHOW-DON'T-TELL\n"
+                        f"This scene has {tell_count} flagged violations. Find passages that state "
+                        f"emotions or reactions directly and rewrite them to convey the same "
+                        f"information through action, sensation, or dialogue."
+                    )
 
         parts.append(f"## Current Prose\n{prose}")
 

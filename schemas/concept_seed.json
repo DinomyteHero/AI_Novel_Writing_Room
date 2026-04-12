@@ -44,7 +44,11 @@
             "book_number": { "type": "integer", "minimum": 1 }
           }
         },
-        "book_number": { "type": "integer", "minimum": 1 }
+        "book_number": { "type": "integer", "minimum": 1 },
+        "series_id": {
+          "type": "string",
+          "description": "Top-level series ID for shared state across books. Books with the same series_id share story state (characters, arcs, plot threads). Leave empty for standalone books. Also accessible via meta.series.series_id for backward compat."
+        }
       }
     },
     "premise": {
@@ -146,6 +150,11 @@
                   "lie_confronted": { "type": "string" },
                   "truth_resolved": { "type": "string" }
                 }
+              },
+              "initial_phase": {
+                "type": "string",
+                "default": "lie_established",
+                "description": "The arc phase this character starts the story in. Defaults to 'lie_established' for all arc types. Must be a valid phase for the character's arc_type."
               },
               "arc_phase_map": {
                 "type": "object",
@@ -486,6 +495,54 @@
           "type": "integer",
           "minimum": 1,
           "description": "Maximum similar paragraph pairs per 1000 words before triggering alert."
+        }
+      }
+    },
+    "canon_profile": {
+      "type": "object",
+      "description": "Franchise canon and continuity profile for the canon expert agent. All specialization for canon validation comes from this section — the agent code contains zero franchise-specific content.",
+      "properties": {
+        "franchise": {
+          "type": "string",
+          "description": "The franchise or world this story belongs to. Use 'original' for original fiction."
+        },
+        "continuity": {
+          "type": "string",
+          "description": "Which continuity or canon tier applies. For original worlds, use 'primary'."
+        },
+        "continuity_description": {
+          "type": "string",
+          "description": "Human-readable explanation of the continuity scope — what counts as valid source material and what doesn't."
+        },
+        "era_description": {
+          "type": "string",
+          "description": "When this story is set within the franchise timeline, including key context about the state of the world."
+        },
+        "narrative_register": {
+          "type": "string",
+          "description": "The expected prose tone and voice — space opera, grimdark medieval, literary fantasy, hard sci-fi, etc."
+        },
+        "cross_continuity_violations": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Specific terms, characters, or concepts from OTHER continuities that should be flagged if they appear."
+        },
+        "anachronistic_terms": {
+          "type": "object",
+          "description": "Real-world terms that break the franchise voice, mapped to their in-universe replacements.",
+          "additionalProperties": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        },
+        "meta_reference_rules": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Out-of-universe reference systems or fan terminology that should never appear in prose."
+        },
+        "franchise_terminology_notes": {
+          "type": "string",
+          "description": "Any additional franchise-specific voice or terminology guidance."
         }
       }
     },

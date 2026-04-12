@@ -1,0 +1,45 @@
+{
+  "chapter_number": 6,
+  "scene_number": 3,
+  "structural_phase": "response",
+  "scene_type": "sequel",
+  "scene_role": "decision",
+  "pov_character": "Ben Skywalker",
+  "mission": "The group decides to pursue Veraine along the Ruusan Corridor — practical planning session that reveals each character's approach to problem-solving",
+  "why_now": "Emotional aftermath processed; now tactical planning. The group needs a direction.",
+  "conflict": "Sera wants systematic node-by-node assessment. Torin wants to go directly to Veranthos. Kael points out that they don't know what Veraine is doing or why — maybe they should find out before chasing. Ben must choose.",
+  "conflict_type": "interpersonal",
+  "turning_point": "Ben chooses the Corridor route — Sera's approach — but for Kael's reason: they need intelligence before confrontation. First moment of synthesis rather than unilateral decision.",
+  "opening_hook": "Desh lays out the Corridor route on the nav display — fourteen nodes, most reading dead or degraded. Three show recent energy signatures. Someone has been visiting.",
+  "closing_hook": "First node on approach. The wrongness sharpens. The Force ahead of them feels thin, like fabric worn through. Ben reaches for the familiar handrail of Force perception and finds it six inches further than it should be.",
+  "emotional_trajectory": "Practical focus -> animated disagreement -> tentative consensus",
+  "stakes": {
+    "personal": "Ben's leadership approach — synthesis vs. command",
+    "interpersonal": "Whether the group can function through disagreement",
+    "external": "The route choice determines whether they catch Veraine or miss her entirely"
+  },
+  "characters_present": [
+    "Ben Skywalker",
+    "Desh Rolan",
+    "Sera Varik",
+    "Torin Hal",
+    "Kael Drenn"
+  ],
+  "setting": "Aboard the Steady Returns — cockpit, nav display active",
+  "sensory_details": "Holographic Corridor route glowing blue in the cockpit; each node's status color-coded — red (dead), amber (degraded), green (active), one flashing white (recent activity); Desh's professional assessment overlaid on the mystics' Force debate",
+  "target_word_count": 1100,
+  "active_subplots": [
+    "SP-A",
+    "SP5"
+  ],
+  "plot_threads_advanced": [
+    "corridor_route_chosen",
+    "first_synthesis_leadership"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "hook_actions": [],
+  "revelations": [],
+  "pov_arc_phase": "lie_reinforced",
+  "notes": "The first thin place preview as they approach — very mild, just enough to establish the handrail metaphor for normal Force perception and the parallax error of mild de-structuring."
+}

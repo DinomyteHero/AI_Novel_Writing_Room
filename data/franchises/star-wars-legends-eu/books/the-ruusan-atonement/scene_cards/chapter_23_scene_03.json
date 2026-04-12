@@ -1,0 +1,57 @@
+{
+  "chapter_number": 23,
+  "scene_number": 3,
+  "structural_phase": "resolution",
+  "scene_type": "action",
+  "scene_role": "decision",
+  "pov_character": "Ben Skywalker",
+  "mission": "Kael commits — 'If this kills me, I want it on record that I volunteered. First time for everything.' The resonance trio is complete. The plan can execute.",
+  "why_now": "Kael's decision — the final character commitment before the climax",
+  "conflict": "The commitment is real — and so is the vulnerability. Kael has never voluntarily put himself at risk for others. The humor covers the magnitude of what he's doing.",
+  "conflict_type": "interpersonal",
+  "turning_point": "Kael's line: 'If this kills me, I want it on record that I volunteered. First time for everything.' Dry, self-aware, and the most important thing he's ever said. He's choosing. Not conscripted, not captured, not sealed. Choosing.",
+  "opening_hook": "Kael walks back to the group. His stride is different — less careful, more deliberate. Ben watches him approach and knows the answer before he speaks.",
+  "closing_hook": "The group moves toward the wound source — three Force-users and one non-Force-user, walking toward something unprecedented. Ben feels Sera's and Kael's Force presences beside him. Different. Complementary. Not yet a chord. But the notes are there.",
+  "emotional_trajectory": "The commitment -> group relief and resolve -> the march toward the endgame",
+  "stakes": {
+    "personal": "Kael's arc payoff — chosen commitment, the antithesis of his Lie",
+    "interpersonal": "The resonance trio formed — Ben, Sera, Kael. Three traditions, three wounds, one attempt.",
+    "external": "The climax is imminent"
+  },
+  "characters_present": [
+    "Ben Skywalker",
+    "Sera Varik",
+    "Kael Drenn",
+    "Desh Rolan"
+  ],
+  "setting": "Veranthos — camp, then movement toward the valley",
+  "sensory_details": "Kael's stride — deliberate, not careful; his voice delivering the line — dry, level, the humor covering something raw; three Force presences aligning — not harmonized yet but adjacent, complementary; the valley below, waiting",
+  "target_word_count": 1250,
+  "active_subplots": [
+    "SP-A",
+    "SP2",
+    "SP3"
+  ],
+  "plot_threads_advanced": [
+    "kael_commits",
+    "resonance_trio_formed",
+    "march_to_endgame"
+  ],
+  "promises_planted": [],
+  "promises_paid": [
+    "Kael's detachment breaks into chosen commitment (PP09)"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "H22",
+      "action": "resolve"
+    },
+    {
+      "hook_id": "H23",
+      "action": "plant"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "moment_of_truth",
+  "notes": "Kael's arc: new_truth_demonstrated. Kael/Veraine parallel resolution — same wound as Veraine, opposite choice. She chose destruction; he chooses participation. The 'first time for everything' line should be one of the book's most memorable."
+}

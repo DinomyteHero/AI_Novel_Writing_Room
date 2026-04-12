@@ -49,6 +49,7 @@ class MilestoneGates:
     ):
         self.ledger = ledger
         self.on_pause_callback = on_pause_callback
+        self._fired_milestones: set[str] = set()
 
     def check(self, scene_card: dict) -> Optional[dict]:
         """Check if the current scene is at a milestone phase.
@@ -58,6 +59,8 @@ class MilestoneGates:
         """
         structural_phase = scene_card.get("structural_phase", "")
         if structural_phase not in MILESTONE_PHASES:
+            return None
+        if structural_phase in self._fired_milestones:
             return None
 
         chapter_num = scene_card.get("chapter_number", 0)
@@ -70,6 +73,8 @@ class MilestoneGates:
             "chapter_number": chapter_num,
             "constraints": constraints,
         }
+
+        self._fired_milestones.add(structural_phase)
 
         # Emit milestone_reached event
         self.ledger.emit(

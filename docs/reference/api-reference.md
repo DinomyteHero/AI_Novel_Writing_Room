@@ -2,6 +2,34 @@
 
 The web interface exposes a REST API at `/api/` and a WebSocket endpoint for real-time events. The backend is built with FastAPI (`src/ui/app.py`).
 
+## ProjectPaths
+
+`src/project_paths.py` (or equivalent) resolves all file paths for a project. Key properties:
+
+| Property | Description |
+|----------|-------------|
+| `franchise_slug` | Franchise namespace (e.g., `star-wars`). Resolves to `data/franchises/<franchise>/`. |
+| `book_slug` | Book identifier within a franchise. Resolves to `data/franchises/<franchise>/books/<book>/`. |
+| `series_slug` | Optional series identifier. When set, shared state resolves to `output/<franchise>/<series>/state/`. |
+| `run_id` | Per-run identifier (auto-timestamped or custom via `--run-name`). Resolves to `output/<franchise>/<book>/runs/<run_id>/`. |
+| `concept_seed_path` | Path to concept_seed.json (franchise-scoped or legacy flat). |
+| `scene_cards_dir` | Path to scene_cards/ directory. |
+| `state_dir` | Path to state databases (output-level, or series-level if `series_slug` is set). |
+| `run_chapters_dir` | Path to `output/<franchise>/<book>/runs/<run_id>/chapters/`. |
+| `canon_db_dir` | Path to franchise-level canon DB at `data/franchises/<franchise>/canon_db/`. |
+| `worldbuilding_db_path` | Path to franchise-level worldbuilding DB at `data/franchises/<franchise>/worldbuilding.db`. |
+
+### CLI Flags
+
+| Flag | Description |
+|------|-------------|
+| `--franchise` | Franchise namespace (replaces deprecated `--universe-id`) |
+| `--book` | Book identifier (replaces deprecated `--project-id`) |
+| `--series` | Series identifier for cross-book shared state |
+| `--run-name` | Custom run ID (default: auto-timestamped) |
+
+The deprecated `--universe-id` and `--project-id` flags still work but emit a deprecation warning.
+
 ## Health Check
 
 ```
@@ -33,6 +61,10 @@ Start a pipeline run as a background task.
 | no_milestones | bool | false | Skip milestone gates |
 | judge | bool | false | Run LLM judge evaluation |
 | chapter | int? | null | Generate only this chapter |
+| franchise | string? | null | Franchise namespace |
+| book | string? | null | Book identifier |
+| series | string? | null | Series identifier for shared state |
+| run_name | string? | null | Custom run ID (default: auto-timestamped) |
 
 **Response:** `{ session_id, status, total_chapters }`
 

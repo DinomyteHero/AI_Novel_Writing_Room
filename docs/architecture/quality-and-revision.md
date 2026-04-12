@@ -25,7 +25,7 @@ Measures prose rhythm:
 - Sentence length variance (monotonous vs. varied)
 - Dialogue ratio (balance of dialogue to narration)
 - Scene type classification
-- Event density (action pacing)
+- Event density (action pacing) -- thresholds recalibrated from (2-10)/1k words to (20-65)/1k words to better reflect the density of well-paced fiction
 
 ### VoiceChecker (`src/quality/voice_checker.py`)
 
@@ -52,6 +52,17 @@ MetricsDashboard runs all 4 checkers and computes a weighted average:
 - Pass threshold: overall score >= 0.6
 - Results are stored in the chapter log
 
+### Structured Quality Flags
+
+Quality metrics now produce structured flags that are passed downstream to revision bands, enabling targeted fixes:
+
+- **flagged_words**: A dictionary of overused words with their counts (e.g., `{"whispered": 7, "nodded": 5}`). Passed to Band 3 (LineCopyEditor) so it can target specific word replacements with count context.
+- **description_ratio**: The ratio of descriptive narration to total prose. When this exceeds 0.60 (60% description), it is passed to Band 2 (SceneEmotionReviewer) to trigger description rebalancing.
+
+### Cross-Scene Overused Word Tracker
+
+A manuscript-level tracker aggregates overused words across all generated scenes (not just per-chapter). After each chapter, newly flagged words are merged into the tracker. These accumulated overused words are dynamically injected into the Prose Stylist prompt for subsequent scenes, helping the drafting agent proactively avoid manuscript-level repetition patterns.
+
 ## Revision Pipeline
 
 ### Base Pipeline (Phase 3)
@@ -61,8 +72,8 @@ MetricsDashboard runs all 4 checkers and computes a weighted average:
 | Band | Agent | Prompt | Focus |
 |------|-------|--------|-------|
 | 1 | StructuralContinuity | `prompts/revision_prompts/structural_continuity.md` | Plot holes, arc consistency, timeline validation, knowledge state |
-| 2 | SceneEmotion | `prompts/revision_prompts/scene_emotion.md` | Conflict intensity, turning point impact, emotional arc, show-don't-tell |
-| 3 | LineCopy | `prompts/revision_prompts/line_copy.md` | Prose quality, grammar, AI-tell removal, rhythm, style consistency |
+| 2 | SceneEmotion | `prompts/revision_prompts/scene_emotion.md` | Conflict intensity, turning point impact, emotional arc, show-don't-tell. Also performs description rebalancing when the structured quality flag `description_ratio` exceeds 60%. |
+| 3 | LineCopy | `prompts/revision_prompts/line_copy.md` | Prose quality, grammar, AI-tell removal, rhythm, style consistency. Receives overused word details with counts from structured quality flags for targeted replacement. |
 
 Each band receives the current prose and returns revised prose. The output of one band becomes the input to the next.
 
@@ -92,6 +103,8 @@ At each gate:
 2. New phase constraints are displayed
 3. The user approves or rejects
 4. Events are logged to the RunLedger
+
+Milestone gates fire once per structural phase. A `_fired_milestones` set tracks which milestones have already been triggered, preventing duplicate gates when multiple chapters fall within the same structural window (dedup).
 
 In CLI mode, this is an interactive `y/n` prompt. In web mode, a modal appears in the dashboard.
 

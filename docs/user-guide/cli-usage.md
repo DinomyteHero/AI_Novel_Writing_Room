@@ -27,11 +27,29 @@ python -m src.main <concept_seed> <scene_cards_dir> [options]
 | `--output-dir PATH` | auto | Override the manuscript output directory |
 | `--project SLUG` | auto | Project slug for project-scoped data isolation (auto-derived from concept seed title) |
 
+### Franchise and Book Scoping
+
+| Flag | Default | Description |
+|------|---------|-------------|
+| `--franchise SLUG` | none | Franchise identifier. Scopes input data under `data/franchises/<franchise>/books/<book>/` and output under `output/<franchise>/<book>/runs/<run_id>/` |
+| `--book SLUG` | auto | Book identifier within a franchise (auto-derived from concept seed title if not provided) |
+| `--series SLUG` | none | Series identifier for series-level state sharing between books. When set, shared state is written to `output/<franchise>/<series>/state/` |
+| `--run-name NAME` | auto-timestamped | Name for this pipeline run. Each run creates an isolated directory under `runs/` containing chapters, a config snapshot, and session data |
+
+**Deprecated aliases (still accepted):**
+
+| Deprecated Flag | Replacement |
+|-----------------|-------------|
+| `--universe-id` | `--franchise` |
+| `--project-id` | `--book` |
+
+**Backward compatibility:** The flat `data/projects/<slug>/` layout is still supported. When `--franchise` is not provided, the pipeline falls back to the project-scoped directory structure.
+
 ### Phase Features
 
 | Phase | What It Adds |
 |-------|-------------|
-| 1 | Core pipeline: PlotArchitect, ProseStylist, GateCritic, CraftEditor |
+| 1 | Core pipeline: PlotArchitect, ProseStylist, CanonExpert, GateCritic, CraftEditor |
 | 2 | SQLite story state, ChromaDB chapter memory, knowledge layers, canon RAG, contradiction scanner |
 | 3 | Quality metrics (repetition, pacing, voice, slop), character specialist, 3-band revision, milestone gates |
 | 4 | Physics enforcement, adaptive 5-band revision, export, session persistence, LLM judge, scene card generation |
@@ -91,7 +109,7 @@ Note: `--import-summary` does not require the positional `concept_seed` and `sce
 
 ## Examples
 
-### Generate one chapter at Phase 1
+### Generate one chapter at Phase 1 (flat project layout)
 
 ```bash
 python -m src.main \
@@ -99,6 +117,40 @@ python -m src.main \
     data/projects/the-ruusan-atonement/scene_cards \
     --chapter 1 --phase 1
 ```
+
+### Generate using franchise-scoped layout
+
+```bash
+python -m src.main \
+    data/franchises/star-wars/books/the-ruusan-atonement/concept_seed.json \
+    data/franchises/star-wars/books/the-ruusan-atonement/scene_cards \
+    --franchise star-wars --book the-ruusan-atonement \
+    --phase 4
+```
+
+### Named run for output isolation
+
+```bash
+python -m src.main \
+    data/franchises/star-wars/books/the-ruusan-atonement/concept_seed.json \
+    data/franchises/star-wars/books/the-ruusan-atonement/scene_cards \
+    --franchise star-wars --book the-ruusan-atonement \
+    --run-name draft-2 --phase 4
+```
+
+Output goes to `output/star-wars/the-ruusan-atonement/runs/draft-2/chapters/`. When `--run-name` is omitted, a timestamped run ID is generated automatically.
+
+### Series-level state sharing
+
+```bash
+python -m src.main \
+    data/franchises/star-wars/books/the-ruusan-atonement/concept_seed.json \
+    data/franchises/star-wars/books/the-ruusan-atonement/scene_cards \
+    --franchise star-wars --book the-ruusan-atonement \
+    --series old-republic-trilogy --phase 4
+```
+
+Shared series state is written to `output/star-wars/old-republic-trilogy/state/`, accessible by other books in the same series.
 
 ### Generate all chapters with quality metrics and revision
 
@@ -173,10 +225,40 @@ python -m src.main \
 
 ## Output
 
-Generated chapters are saved as Markdown files in the project output directory (default: `output/<project-slug>/chapters/`):
+### Franchise-scoped layout (when `--franchise` is used)
+
+Each run produces an isolated output directory:
 
 ```
-output/the-ruusan-atonement/
+output/<franchise>/<book>/
+├── runs/
+│   ├── <run_id>/
+│   │   ├── chapters/
+│   │   │   ├── chapter_01_scene_01.md
+│   │   │   ├── chapter_02_scene_01.md
+│   │   │   └── ...
+│   │   ├── config_snapshot.yaml
+│   │   └── session/
+│   └── <run_id_2>/
+│       └── ...
+└── export/
+    ├── manuscript.md
+    ├── manuscript.docx
+    └── manuscript.epub
+```
+
+When `--series` is set, shared state is written alongside the book output:
+
+```
+output/<franchise>/<series>/state/
+```
+
+### Flat project layout (backward compatible)
+
+When `--franchise` is not provided, output uses the legacy flat layout:
+
+```
+output/<project-slug>/
 ├── chapters/
 │   ├── chapter_01_scene_01.md
 │   ├── chapter_02_scene_01.md
@@ -187,7 +269,7 @@ output/the-ruusan-atonement/
     └── manuscript.epub
 ```
 
-Exports are saved to `output/<project-slug>/export/`.
+Exports are saved to the `export/` directory under the book or project output root.
 
 ## Pipeline Output Summary
 

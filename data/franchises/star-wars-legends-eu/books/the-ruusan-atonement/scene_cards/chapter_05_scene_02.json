@@ -1,0 +1,56 @@
+{
+  "chapter_number": 5,
+  "scene_number": 2,
+  "structural_phase": "first_plot_point",
+  "scene_type": "action",
+  "scene_role": "reveal",
+  "pov_character": "Ben Skywalker",
+  "mission": "The full scope reveals: the Ruusan Reformations as penance, the forbidden technique, the wound at Veranthos, the anchor system, the Brotherhood's lattice inversion attempt",
+  "why_now": "Sera and Torin recognize the archive and can interpret what Ben couldn't — the conceptual vocabulary returns with its original speakers",
+  "conflict": "The information is staggering in scope — Ben's understanding of Jedi history is being rewritten in real time. Sera and Torin disagree on emphasis; Kael corrects details from the Sith perspective that neither expected.",
+  "conflict_type": "interpersonal",
+  "turning_point": "The Reformations — the foundation of modern Jedi identity, the thing Ben grew up being told was principled reform — were penance. Damage control. The Order has been built on institutional amnesia.",
+  "opening_hook": "Sera's voice fills the archive level like she belongs there. She does. She was the one who organized half of it.",
+  "closing_hook": "The technique. The wound. The seal. The anchors. Twelve Force-sensitives used as structural rebar in a containment system. Nine dead. Three just woken. One escaped.",
+  "emotional_trajectory": "Absorbing shock -> intellectual vertigo -> moral reckoning with institutional history",
+  "stakes": {
+    "personal": "Ben's identity as a Jedi is built on the Reformations' narrative — that narrative is a lie",
+    "interpersonal": "The survivors' conflicting accounts reveal they weren't all willing participants",
+    "external": "The wound exists, the seal is failing, and the Order doesn't know any of this"
+  },
+  "characters_present": [
+    "Ben Skywalker",
+    "Desh Rolan",
+    "Sera Varik",
+    "Torin Hal",
+    "Kael Drenn"
+  ],
+  "setting": "Fortress Level 2 (Archive) — survivors navigating familiar territory with thousand-year-old muscle memory",
+  "sensory_details": "Archive media activating under Sera's touch; holographic displays showing maps of the wound's expansion over centuries; Torin's hand brushing a console with familiarity that makes Ben's skin crawl; the Codex fragment glowing faintly in its sealed case",
+  "target_word_count": 1400,
+  "active_subplots": [
+    "SP-A",
+    "SP1",
+    "SP2",
+    "SP4"
+  ],
+  "plot_threads_advanced": [
+    "reformations_truth_revealed",
+    "technique_explained",
+    "wound_explained",
+    "anchor_system_explained"
+  ],
+  "promises_planted": [
+    "The institutional lie must be told to the Order (PP08)",
+    "The Jacen parallel will be recognized (PP07)"
+  ],
+  "promises_paid": [
+    "The wrongness has a source (PP01)"
+  ],
+  "hook_actions": [],
+  "revelations": [
+    "R04"
+  ],
+  "pov_arc_phase": "lie_reinforced",
+  "notes": "R04 is the major First Plot Point revelation. Dense information delivery but through character perspective, not lecture — Sera's precision, Torin's narrative warmth, Kael's dry corrections. Jacen mentioned during galactic history briefing — Ben's tone tells the reader everything."
+}

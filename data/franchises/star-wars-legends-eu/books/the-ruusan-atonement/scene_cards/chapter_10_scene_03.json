@@ -1,0 +1,43 @@
+{
+  "chapter_number": 10,
+  "scene_number": 3,
+  "structural_phase": "response",
+  "scene_type": "sequel",
+  "scene_role": "decision",
+  "pov_character": "Ben Skywalker",
+  "mission": "Ben talks to Kael about Veraine's message. Kael doesn't share its contents but acknowledges the parallel — same wound, different response. The institutional lie subplot deepens as Ben sees how the Jedi and Sith both used Kael.",
+  "why_now": "Kael walked out — Ben goes after him. The Kael/Veraine parallel needs its first explicit acknowledgment.",
+  "conflict": "Kael doesn't want to discuss the message but is honest about the parallel when pressed — both he and Veraine were conscripted, captured, and used as infrastructure. The only difference is that she broke out and he didn't.",
+  "conflict_type": "interpersonal",
+  "turning_point": "Ben says something that surprises Kael — acknowledges that the Jedi using Sith captives as seal infrastructure was wrong, not just tactically questionable but morally indefensible. Kael isn't used to Jedi conceding points.",
+  "opening_hook": "Kael is sitting outside the outpost, staring at stars he doesn't recognize. A thousand years changes constellations.",
+  "closing_hook": "Kael, after a long silence: 'She'll come for me. At some point. She'll try to recruit me.' Beat. 'She might have a point.' He doesn't say which point.",
+  "emotional_trajectory": "Careful approach -> honest vulnerability (both characters) -> ambiguous warning",
+  "stakes": {
+    "personal": "Ben treating Kael as a person — breaking the institutional pattern",
+    "interpersonal": "First real trust between Ben and Kael",
+    "external": "Kael's vulnerability to Veraine's pitch is a real strategic risk"
+  },
+  "characters_present": [
+    "Ben Skywalker",
+    "Kael Drenn"
+  ],
+  "setting": "Outside the Brotherhood Outpost — night sky, alien stars, thin place ambience",
+  "sensory_details": "Unfamiliar constellations; cold air; the outpost's dark-side ambience muted by distance; Kael's Force presence — guarded but not hostile, more open than Ben has felt it",
+  "target_word_count": 1100,
+  "active_subplots": [
+    "SP-A",
+    "SP2"
+  ],
+  "plot_threads_advanced": [
+    "kael_veraine_parallel_explicit",
+    "ben_kael_first_trust",
+    "kael_recruitment_risk"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "hook_actions": [],
+  "revelations": [],
+  "pov_arc_phase": "lie_reinforced",
+  "notes": "Kael's arc: lie_questioned (first touch) — Ben treating him as a person, not a tool, challenges his assumption that conviction is always a trap. But it's early; the questioning is tentative."
+}

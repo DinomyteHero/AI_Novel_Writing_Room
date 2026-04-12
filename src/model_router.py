@@ -4,6 +4,7 @@ import asyncio
 import json
 import logging
 import os
+import random
 import re
 from pathlib import Path
 from typing import Optional
@@ -100,7 +101,7 @@ class ModelRouter:
         else:
             client = await self._get_cloud_client()
 
-        max_retries = 2
+        max_retries = self.config.get("pipeline", {}).get("max_http_retries", 2)
         for attempt in range(max_retries + 1):
             try:
                 response = await client.post("/chat/completions", json=payload)
@@ -113,12 +114,12 @@ class ModelRouter:
                 return data["choices"][0]["message"]["content"]
             except httpx.HTTPStatusError as e:
                 if e.response.status_code in (502, 503) and attempt < max_retries:
-                    await asyncio.sleep(2 ** attempt)
+                    await asyncio.sleep((2 ** attempt) + random.uniform(0, 1))
                     continue
                 raise
             except (httpx.ConnectError, httpx.ReadTimeout) as e:
                 if attempt < max_retries:
-                    await asyncio.sleep(2 ** attempt)
+                    await asyncio.sleep((2 ** attempt) + random.uniform(0, 1))
                     continue
                 raise
             except asyncio.CancelledError:
@@ -127,7 +128,7 @@ class ModelRouter:
                         "Request cancelled (timeout) on attempt %d/%d for %s — retrying",
                         attempt + 1, max_retries + 1, agent_role,
                     )
-                    await asyncio.sleep(2 ** attempt)
+                    await asyncio.sleep((2 ** attempt) + random.uniform(0, 1))
                     continue
                 raise
         raise RuntimeError("Unreachable: retry loop exhausted")

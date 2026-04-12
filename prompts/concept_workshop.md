@@ -127,6 +127,43 @@ Gather the minimum required inputs:
 
 If the human provides some of these upfront, acknowledge what you have and ask only for what's missing. If they provide all of them in their first message, skip directly to Step 2.
 
+#### Canon Profile (for franchise fiction and original worlds)
+
+After establishing franchise, era, tone, and canon status, build a `canon_profile` object in the concept seed using targeted questions:
+
+1. **Continuity scope** (franchise fiction): "Which continuity are we working in? For example, Star Wars has Legends EU and Disney Canon. Game of Thrones has book canon and show canon. Which is authoritative for this project, and what should be excluded?"
+
+2. **Cross-continuity risks** (franchise fiction): "What terms, characters, or concepts from OTHER continuities might an AI accidentally use? These are the things we need to watch for — terms that exist in the franchise but belong to the wrong version of it."
+
+3. **Terminology rules** (all projects): "Are there real-world terms that should never appear in the prose? Every franchise has its own vocabulary for technology, communication, measurement, etc. For original worlds, what modern Earth terms would be anachronistic?"
+
+4. **Meta-reference rules** (franchise fiction): "Are there fan conventions or out-of-universe reference systems that characters should never use in dialogue or narration?"
+
+5. **Era context** (all projects): "What is the state of the world at this point in the timeline? Who is alive, who is dead, what governments exist, what recent events have occurred?"
+
+Build the responses into a `canon_profile` object in the concept seed using the schema defined in `schemas/concept_seed.json`. Structure:
+
+```json
+{
+  "canon_profile": {
+    "franchise": "star_wars | game_of_thrones | original | ...",
+    "continuity": "legends_eu | disney_canon | book_canon | primary | ...",
+    "continuity_description": "Human-readable scope of valid source material",
+    "era_description": "Timeline position and world state",
+    "narrative_register": "Expected prose tone and voice",
+    "cross_continuity_violations": ["known contamination risks"],
+    "anachronistic_terms": {"real_world_term": ["in_universe_replacement_1"]},
+    "meta_reference_rules": ["out-of-universe references to flag"],
+    "franchise_terminology_notes": "Additional voice/terminology guidance"
+  }
+}
+```
+
+For **original fiction** projects (no external franchise), set `franchise: "original"` and `continuity: "primary"`. Focus the profile on:
+- The narrative register and voice expectations
+- Any real-world terminology anachronistic to the world (e.g., a medieval fantasy shouldn't use "computer" or "DNA")
+- Internal consistency rules specific to the magic system, technology level, or political structure
+
 ---
 
 ### Step 2 — "What If" Seed Generation

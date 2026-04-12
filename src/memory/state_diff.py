@@ -208,8 +208,13 @@ class StateDiffApplier:
         # Phase 5 change types
         self._apply_subplot_updates(changes.get("subplot_updates", []))
         self._apply_hook_updates(changes.get("hook_updates", []), chapter_number)
-        self._apply_arc_phase_updates(changes.get("arc_phase_updates", []), chapter_number)
+        rejected_transitions = self._apply_arc_phase_updates(
+            changes.get("arc_phase_updates", []), chapter_number
+        )
         self._apply_terminology_updates(changes.get("terminology_updates", []))
+
+        # Store rejected transitions for Summarizer feedback
+        self.last_rejected_transitions = rejected_transitions
 
         # Compute post-diff state hash
         post_hash = self.state.get_state_hash()
@@ -446,8 +451,12 @@ class StateDiffApplier:
 
     def _apply_arc_phase_updates(
         self, updates: list[dict], chapter_number: int
-    ) -> None:
-        """Apply character arc phase transitions with validation."""
+    ) -> list[dict]:
+        """Apply character arc phase transitions with validation.
+
+        Returns a list of rejected transition dicts for feedback to the Summarizer.
+        """
+        rejected = []
         for update in updates:
             char_id = update.get("character_id")
             new_phase = update.get("new_phase")
@@ -486,6 +495,12 @@ class StateDiffApplier:
                         "evidence": evidence,
                     },
                 )
+                rejected.append({
+                    "character_id": char_id,
+                    "old_phase": old_phase,
+                    "attempted_phase": new_phase,
+                })
+        return rejected
 
     def _apply_terminology_updates(self, updates: list[dict]) -> None:
         """Apply terminology registry updates."""

@@ -113,15 +113,20 @@ class TestArcPhaseProgression:
         result = story_state.advance_arc_phase("hero3", "lie_cracking", chapter=5)
         assert result is False
 
-    def test_advance_arc_phase_same_rejected(self, story_state):
-        """Cannot 'advance' to the same phase."""
+    def test_advance_arc_phase_self_transition_allowed(self, story_state):
+        """Self-transition (same phase) is allowed — updates evidence without changing phase."""
         story_state.add_character(id="hero4", name="Hero4")
         story_state.add_character_arc(
             character_id="hero4", arc_type="positive_change",
             lie_believed="x", ghost="x", want="x", need="x",
         )
-        result = story_state.advance_arc_phase("hero4", "lie_established", chapter=2)
-        assert result is False
+        result = story_state.advance_arc_phase(
+            "hero4", "lie_established", chapter=2, evidence="reinforcing scene"
+        )
+        assert result is True
+        arc = story_state.get_character_arc("hero4")
+        assert arc["current_phase"] == "lie_established"
+        assert arc["phase_chapter"] == 2
 
     def test_truth_accepted_from_lie_confronted(self, story_state):
         """Can advance from lie_confronted to truth_accepted."""

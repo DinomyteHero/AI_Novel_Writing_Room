@@ -1,0 +1,44 @@
+{
+  "chapter_number": 9,
+  "scene_number": 2,
+  "structural_phase": "response",
+  "scene_type": "sequel",
+  "scene_role": "decision",
+  "pov_character": "Ben Skywalker",
+  "mission": "Each character processes the Codex differently — the four positions deepen. Torin's rationalization begins in earnest: if the lattice is imposed, the technique isn't violation but correction.",
+  "why_now": "The Codex has provided intellectual ammunition for all positions — the group must process before the next crisis",
+  "conflict": "Torin's interpretation of the Codex is seductive and logically sound. Sera counters with experience — she's felt de-structuring and knows what it costs. Kael observes that both sides prove his point: conviction is a trap.",
+  "conflict_type": "interpersonal",
+  "turning_point": "Torin makes an argument so elegant that Ben catches himself agreeing before he pulls back. The technique's danger isn't that it's obviously wrong — it's that it's intellectually beautiful.",
+  "opening_hook": "Torin holds the Codex fragment and doesn't flinch. Everyone else did.",
+  "closing_hook": "Sera, very quietly to Ben: 'I have heard that argument before. From a man I followed into a war.' She doesn't say Gavran's name. She doesn't need to.",
+  "emotional_trajectory": "Intellectual engagement -> seductive logic -> Sera's cold water",
+  "stakes": {
+    "personal": "Ben nearly seduced by Torin's interpretation — a warning about his own susceptibility",
+    "interpersonal": "Sera beginning to trust Ben enough to warn him privately",
+    "external": "Torin's relationship with the technique is deepening, not weakening"
+  },
+  "characters_present": [
+    "Ben Skywalker",
+    "Sera Varik",
+    "Torin Hal",
+    "Kael Drenn"
+  ],
+  "setting": "Aboard the Steady Returns — common area, then private corridor exchange",
+  "sensory_details": "Torin's Force presence when he holds the Codex — the heaviness lifting, something lighter and more dangerous replacing it; Sera's jaw tight; Kael's expression: 'I told you so' without saying it",
+  "target_word_count": 1100,
+  "active_subplots": [
+    "SP-A",
+    "SP1"
+  ],
+  "plot_threads_advanced": [
+    "torin_rationalization_deepening",
+    "sera_warning_ben"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "hook_actions": [],
+  "revelations": [],
+  "pov_arc_phase": "lie_reinforced",
+  "notes": "Torin's arc: lie_reinforced — each intellectual justification strengthens his conviction. Sera's arc: lie_reinforced — her rigid certainty feels validated by Torin's drift. She's right about the danger but rigid about the response."
+}

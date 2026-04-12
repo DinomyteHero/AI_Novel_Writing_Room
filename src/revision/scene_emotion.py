@@ -27,11 +27,30 @@ class SceneEmotionReviewer(BaseAgent):
         prose = context["prose"]
         scene_card = context["scene_card"]
         character_voices = context.get("character_voices", "")
+        quality_metrics = context.get("quality_metrics", {})
 
         parts = []
 
         if character_voices:
             parts.append(f"## Character Voice Profiles\n{character_voices}")
+
+        # Description rebalancing when quality metrics show imbalance
+        if quality_metrics:
+            for scene_result in quality_metrics.get("per_scene", []):
+                pacing = scene_result.get("pacing", {})
+                dist = pacing.get("scene_type_distribution", {})
+                desc_ratio = dist.get("description", 0) + dist.get("introspection", 0)
+                if desc_ratio > 0.60:
+                    ratio_pct = int(desc_ratio * 100)
+                    parts.append(
+                        f"## DESCRIPTION IMBALANCE\n"
+                        f"This scene is {ratio_pct}% description/interiority. "
+                        f"Target balance is roughly 40-50% description, 20-30% action, 20-30% dialogue. Rebalance by:\n"
+                        f"- Converting internal observations into character action or dialogue that reveals the same information\n"
+                        f"- Breaking long descriptive passages with brief exchanges, physical movement, or sensory interruption\n"
+                        f"- Replacing narrated emotion ('he felt angry') with behavioral indicators ('his jaw set', 'he turned the mug too hard')\n"
+                        f"Do not add filler dialogue. Convert existing description into more active modes of storytelling."
+                    )
 
         parts.append(f"## Scene Card\n```json\n{json.dumps(scene_card, indent=2)}\n```")
         parts.append(f"## Current Prose\n{prose}")

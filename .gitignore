@@ -39,6 +39,8 @@ data/export/
 
 # Pipeline runtime artifacts (generated per-run, not source-controlled)
 data/projects/*/state/sessions/
+output/*/*/runs/
+output/*/*/state/
 *.db-journal
 *.db-wal
 *.db-shm
