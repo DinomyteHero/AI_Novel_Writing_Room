@@ -5,17 +5,17 @@
   "scene_type": "sequel",
   "scene_role": "aftermath",
   "pov_character": "Ben Skywalker",
-  "mission": "Torin diminished, Sera stays. The quiet devastation of partial victory \u2014 Torin is alive but reduced. Sera's choice to remain with him is the Sera/Torin relationship's final note: love without control, loyalty without blindness.",
-  "why_now": "Character arc resolution \u2014 Torin and Sera's thousand-year story concluding",
-  "conflict": "Torin is present but smaller \u2014 his warmth muted, his humor gone quiet, his Force presence lighter in a way that should be liberating and is instead devastating. Sera doesn't try to fix him. She sits beside him.",
+  "mission": "Torin diminished, Sera stays. The quiet devastation of partial victory — Torin is alive but reduced. Sera's choice to remain with him is the Sera/Torin relationship's final note: love without control, loyalty without blindness.",
+  "why_now": "Character arc resolution — Torin and Sera's thousand-year story concluding",
+  "conflict": "Torin is present but smaller — his warmth muted, his humor gone quiet, his Force presence lighter in a way that should be liberating and is instead devastating. Sera doesn't try to fix him. She sits beside him.",
   "conflict_type": "interpersonal",
-  "turning_point": "Sera's choice: she stays. Not from obligation, not from guilt, not from rigid loyalty to a principle. From love \u2014 flexible, principled, open-eyed. She knows what he is now. She stays anyway.",
+  "turning_point": "Sera's choice: she stays. Not from obligation, not from guilt, not from rigid loyalty to a principle. From love — flexible, principled, open-eyed. She knows what he is now. She stays anyway.",
   "opening_hook": "Torin sits on the ridgeline, looking at the valley. He's been sitting there since they pulled him free. His posture is the same as before. Everything else is different.",
   "closing_hook": "Sera sits beside Torin. She doesn't speak. He doesn't either. After a long time, his hand finds hers. The grip is lighter than it was. But it's there.",
   "emotional_trajectory": "Quiet grief -> the devastation of partial success -> the grace of staying",
   "stakes": {
     "personal": "Sera's arc resolved: principled flexibility expressed through chosen presence",
-    "interpersonal": "The Sera/Torin relationship's final note \u2014 love as presence, not as fixing",
+    "interpersonal": "The Sera/Torin relationship's final note — love as presence, not as fixing",
     "external": "Torin's diminished survival as the book's living warning"
   },
   "characters_present": [
@@ -23,8 +23,8 @@
     "Sera Varik",
     "Torin Hal"
   ],
-  "setting": "Veranthos \u2014 ridgeline, overlooking the valley where the new seal hums",
-  "sensory_details": "Torin's diminished presence \u2014 lighter, quieter, the heavy warmth gone; Sera's face \u2014 grief and peace coexisting; their hands touching \u2014 lighter than before; the new seal humming in the valley below, three-part harmony audible in the Force",
+  "setting": "Veranthos — ridgeline, overlooking the valley where the new seal hums",
+  "sensory_details": "Torin's diminished presence — lighter, quieter, the heavy warmth gone; Sera's face — grief and peace coexisting; their hands touching — lighter than before; the new seal humming in the valley below, three-part harmony audible in the Force",
   "target_word_count": 1300,
   "active_subplots": [
     "SP1"
@@ -39,6 +39,5 @@
   "hook_actions": [],
   "revelations": [],
   "pov_arc_phase": "new_truth_demonstrated",
-  "arc_phase_transition": null,
-  "notes": "Sera's arc: arc_resolved \u2014 principled flexibility, love without control. Torin's arc: arc_resolved_tragic \u2014 his diminished survival embodies the cost. Kael's arc resolved through this scene's observation: the group chose differently, and the result is this \u2014 imperfect, painful, but honest."
+  "notes": "Sera's arc: arc_resolved — principled flexibility, love without control. Torin's arc: arc_resolved_tragic — his diminished survival embodies the cost. Kael's arc resolved through this scene's observation: the group chose differently, and the result is this — imperfect, painful, but honest."
 }

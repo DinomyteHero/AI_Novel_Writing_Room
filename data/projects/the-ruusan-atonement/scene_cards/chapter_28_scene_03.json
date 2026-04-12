@@ -5,24 +5,24 @@
   "scene_type": "sequel",
   "scene_role": "aftermath",
   "pov_character": "Ben Skywalker",
-  "mission": "Final image \u2014 Ben walks the Temple corridors. The Force hums differently now. The new seal's resonance is part of his perception \u2014 a note in a chord. He's at peace with his name. Not because he's earned it, but because he's redefined what it means.",
-  "why_now": "The novel's closing beat \u2014 the emotional and thematic resolution in a single image",
-  "conflict": "None \u2014 this is resolution. The conflict is behind him. What remains is the new equilibrium: a Ben Skywalker who knows the truth, carries the resonance, and has learned that leadership is orchestration, not possession.",
+  "mission": "Final image — Ben walks the Temple corridors. The Force hums differently now. The new seal's resonance is part of his perception — a note in a chord. He's at peace with his name. Not because he's earned it, but because he's redefined what it means.",
+  "why_now": "The novel's closing beat — the emotional and thematic resolution in a single image",
+  "conflict": "None — this is resolution. The conflict is behind him. What remains is the new equilibrium: a Ben Skywalker who knows the truth, carries the resonance, and has learned that leadership is orchestration, not possession.",
   "conflict_type": "internal",
-  "turning_point": "The final sensory callback: the wrongness from Chapter 1 is gone. In its place, the resonance \u2014 the three-part harmony of the new seal humming at the edge of perception. A note he's part of. A chord he helped build. Not enough by itself. Enough as part of something larger.",
+  "turning_point": "The final sensory callback: the wrongness from Chapter 1 is gone. In its place, the resonance — the three-part harmony of the new seal humming at the edge of perception. A note he's part of. A chord he helped build. Not enough by itself. Enough as part of something larger.",
   "opening_hook": "The Temple corridors in evening light. The same walk he took in Chapter 1, when the wrongness was everything he could hear and no one else would listen.",
   "closing_hook": "A note in a chord. Enough.",
   "emotional_trajectory": "Reflective peace -> the new perception -> acceptance and forward motion",
   "stakes": {
-    "personal": "Ben's relationship with his legacy \u2014 at peace, redefined",
-    "interpersonal": "His place in the Order \u2014 changed, honest, ongoing",
+    "personal": "Ben's relationship with his legacy — at peace, redefined",
+    "interpersonal": "His place in the Order — changed, honest, ongoing",
     "external": "The new seal humming, the truth told, the work continuing"
   },
   "characters_present": [
     "Ben Skywalker"
   ],
-  "setting": "Jedi Temple, Coruscant \u2014 corridors, evening light, the same walk as Chapter 1",
-  "sensory_details": "Evening light through Temple windows; the corridor's familiar Force harmonics \u2014 warmer now, or maybe Ben is warmer; the resonance humming at the edge of perception \u2014 not wrongness but harmony; his footsteps steady, unhurried; the future open",
+  "setting": "Jedi Temple, Coruscant — corridors, evening light, the same walk as Chapter 1",
+  "sensory_details": "Evening light through Temple windows; the corridor's familiar Force harmonics — warmer now, or maybe Ben is warmer; the resonance humming at the edge of perception — not wrongness but harmony; his footsteps steady, unhurried; the future open",
   "target_word_count": 1150,
   "active_subplots": [
     "SP-A"
@@ -39,6 +39,5 @@
   "hook_actions": [],
   "revelations": [],
   "pov_arc_phase": "arc_resolved",
-  "arc_phase_transition": null,
   "notes": "Final image: 'A note in a chord. Enough.' Deliberate sensory callback to the opening wrongness. The wrongness became understanding became harmony. Ben's arc complete. The book ends not with triumph but with belonging."
 }

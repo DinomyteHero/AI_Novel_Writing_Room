@@ -5,11 +5,11 @@
   "scene_type": "action",
   "scene_role": "escalation",
   "pov_character": "Ben Skywalker",
-  "mission": "The seal's deterioration reaches beyond the Corridor \u2014 reports filter in of disturbances at known Force nexuses. The Valley of the Jedi at Ruusan is affected. The crisis is no longer local.",
-  "why_now": "Escalation \u2014 the wound's effects are spreading. What was contained is leaking into the wider galaxy.",
-  "conflict": "Ben receives fragmentary reports through the Steady Returns' limited comms. Jedi outposts reporting anomalous Force behavior. The Valley of the Jedi \u2014 the most symbolically important Force site connected to the Reformations \u2014 is destabilizing.",
+  "mission": "The seal's deterioration reaches beyond the Corridor — reports filter in of disturbances at known Force nexuses. The Valley of the Jedi at Ruusan is affected. The crisis is no longer local.",
+  "why_now": "Escalation — the wound's effects are spreading. What was contained is leaking into the wider galaxy.",
+  "conflict": "Ben receives fragmentary reports through the Steady Returns' limited comms. Jedi outposts reporting anomalous Force behavior. The Valley of the Jedi — the most symbolically important Force site connected to the Reformations — is destabilizing.",
   "conflict_type": "external",
-  "turning_point": "The Valley's destabilization is directly connected to the seal \u2014 the Reformations and the seal were built on the same historical event. As the seal fails, the Valley's trapped Force energy is responding.",
+  "turning_point": "The Valley's destabilization is directly connected to the seal — the Reformations and the seal were built on the same historical event. As the seal fails, the Valley's trapped Force energy is responding.",
   "opening_hook": "The comm channels are chattering with reports Ben can only half-intercept. Something is happening in the wider galaxy. The wrongness isn't just here anymore.",
   "closing_hook": "Luke's personal message, brief and coded: 'Sensing disturbances at multiple nexuses. Report status.' Ben stares at the message for a long time. He doesn't answer.",
   "emotional_trajectory": "Strategic alarm -> scope expanding -> the weight of withholding from Luke deepening",
@@ -24,8 +24,8 @@
     "Sera Varik",
     "Torin Hal"
   ],
-  "setting": "Aboard the Steady Returns \u2014 comm station, hyperspace transit",
-  "sensory_details": "Static-filled comm intercepts; Luke's message \u2014 brief, controlled, concerned; Ben's datapad with the unanswered reply draft; the wrongness now a constant background note, no longer surprising but permanent",
+  "setting": "Aboard the Steady Returns — comm station, hyperspace transit",
+  "sensory_details": "Static-filled comm intercepts; Luke's message — brief, controlled, concerned; Ben's datapad with the unanswered reply draft; the wrongness now a constant background note, no longer surprising but permanent",
   "target_word_count": 1200,
   "active_subplots": [
     "SP-A",
@@ -46,6 +46,5 @@
   ],
   "revelations": [],
   "pov_arc_phase": "lie_challenged",
-  "arc_phase_transition": null,
-  "notes": "SP4 (institutional lie) intensifying \u2014 Ben's withholding from Luke is becoming active deception as the crisis expands. The parallel to Gavran's secrecy should be felt by the reader."
+  "notes": "SP4 (institutional lie) intensifying — Ben's withholding from Luke is becoming active deception as the crisis expands. The parallel to Gavran's secrecy should be felt by the reader."
 }

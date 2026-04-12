@@ -5,12 +5,12 @@
   "scene_type": "action",
   "scene_role": "escalation",
   "pov_character": "Ben Skywalker",
-  "mission": "Approach to Maetha's Training Facility \u2014 Gavran's records flag it with a personal annotation: 'Do not access without direct authorization.' Even the man who built the seal considered this place dangerous.",
-  "why_now": "The next stop requires setup \u2014 Maetha's Facility is different from previous nodes in severity and significance",
-  "conflict": "Sera recognizes the notation \u2014 Gavran sealed this facility himself, separate from the anchor system. Whatever happened here, he wanted it contained even from his own people.",
+  "mission": "Approach to Maetha's Training Facility — Gavran's records flag it with a personal annotation: 'Do not access without direct authorization.' Even the man who built the seal considered this place dangerous.",
+  "why_now": "The next stop requires setup — Maetha's Facility is different from previous nodes in severity and significance",
+  "conflict": "Sera recognizes the notation — Gavran sealed this facility himself, separate from the anchor system. Whatever happened here, he wanted it contained even from his own people.",
   "conflict_type": "external",
-  "turning_point": "Sera can crack the seal \u2014 it's her era's lock work \u2014 but hesitates. This is the first time she's shown reluctance. Whatever Gavran sealed here, she has a guess about what it is.",
-  "opening_hook": "The Corridor narrows \u2014 figuratively and literally. The Force ahead is strange in a way that doesn't match previous nodes. Not thinned. Flexible.",
+  "turning_point": "Sera can crack the seal — it's her era's lock work — but hesitates. This is the first time she's shown reluctance. Whatever Gavran sealed here, she has a guess about what it is.",
+  "opening_hook": "The Corridor narrows — figuratively and literally. The Force ahead is strange in a way that doesn't match previous nodes. Not thinned. Flexible.",
   "closing_hook": "Sera looks at the sealed entrance and says, very quietly: 'This was Maetha's.' The name means nothing to Ben. Sera's expression says it should.",
   "emotional_trajectory": "Professional approach -> growing concern -> Sera's charged recognition",
   "stakes": {
@@ -25,8 +25,8 @@
     "Torin Hal",
     "Kael Drenn"
   ],
-  "setting": "Approach to Maetha's world \u2014 remote, deliberately isolated, high-altitude compound",
-  "sensory_details": "The Force here isn't thinned \u2014 it's flexible, the boundary between light and dark shifting while watched; sharp clear air; austere architecture visible from approach \u2014 disciplined, geometric, beautiful and cold",
+  "setting": "Approach to Maetha's world — remote, deliberately isolated, high-altitude compound",
+  "sensory_details": "The Force here isn't thinned — it's flexible, the boundary between light and dark shifting while watched; sharp clear air; austere architecture visible from approach — disciplined, geometric, beautiful and cold",
   "target_word_count": 1100,
   "active_subplots": [
     "SP-A",
@@ -46,6 +46,5 @@
   ],
   "revelations": [],
   "pov_arc_phase": "lie_reinforced",
-  "arc_phase_transition": null,
-  "notes": "H11 planted \u2014 the facility sealed by Gavran with personal authorization warning. The flexible lattice at Maetha's location should feel different from previous thin places \u2014 seductive rather than disorienting. A preview of what the technique does at smaller scale."
+  "notes": "H11 planted — the facility sealed by Gavran with personal authorization warning. The flexible lattice at Maetha's location should feel different from previous thin places — seductive rather than disorienting. A preview of what the technique does at smaller scale."
 }

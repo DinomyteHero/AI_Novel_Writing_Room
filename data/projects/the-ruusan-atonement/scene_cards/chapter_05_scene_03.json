@@ -5,17 +5,17 @@
   "scene_type": "action",
   "scene_role": "escalation",
   "pov_character": "Ben Skywalker",
-  "mission": "The empty chamber investigation \u2014 monitoring logs identify the escapee: Darth Veraine, a high-risk Sith-trained prisoner. She escaped weeks ago. She's already moving.",
+  "mission": "The empty chamber investigation — monitoring logs identify the escapee: Darth Veraine, a high-risk Sith-trained prisoner. She escaped weeks ago. She's already moving.",
   "why_now": "The dual threat crystallizes: the seal is failing AND someone who understands the technique is loose",
-  "conflict": "Veraine wasn't just a prisoner \u2014 she was a Brotherhood alchemist and strategist, flagged by Gavran himself as the highest-risk anchor. Her escape accelerated the cascade that woke the other three.",
+  "conflict": "Veraine wasn't just a prisoner — she was a Brotherhood alchemist and strategist, flagged by Gavran himself as the highest-risk anchor. Her escape accelerated the cascade that woke the other three.",
   "conflict_type": "external",
-  "turning_point": "Desh finds evidence that Veraine spent days in the fortress after waking \u2014 she accessed the archive, studied the system, understood what she was, and then left with a plan",
-  "opening_hook": "The monitoring logs for the empty chamber tell a story of centuries of resistance \u2014 a slow, patient erosion from inside, like water through stone",
-  "closing_hook": "Veraine escaped weeks ago. She's had time to recover, acquire resources, and start moving along the Corridor. The race has already begun \u2014 and they're behind.",
+  "turning_point": "Desh finds evidence that Veraine spent days in the fortress after waking — she accessed the archive, studied the system, understood what she was, and then left with a plan",
+  "opening_hook": "The monitoring logs for the empty chamber tell a story of centuries of resistance — a slow, patient erosion from inside, like water through stone",
+  "closing_hook": "Veraine escaped weeks ago. She's had time to recover, acquire resources, and start moving along the Corridor. The race has already begun — and they're behind.",
   "emotional_trajectory": "Investigative tension -> dawning horror at Veraine's capabilities -> urgency",
   "stakes": {
     "personal": "Ben is now responsible for stopping someone with a thousand years of Sith knowledge",
-    "interpersonal": "Kael's reaction to Veraine's file \u2014 recognition, then studied blankness. He knew her. Or knew of her.",
+    "interpersonal": "Kael's reaction to Veraine's file — recognition, then studied blankness. He knew her. Or knew of her.",
     "external": "A Sith alchemist with knowledge of the forbidden technique is already exploiting the seal's failure"
   },
   "characters_present": [
@@ -25,8 +25,8 @@
     "Torin Hal",
     "Kael Drenn"
   ],
-  "setting": "Fortress Level 3 \u2014 the empty chamber, then monitoring station on Level 1",
-  "sensory_details": "Damage marks on the chamber walls \u2014 not frantic but systematic, deliberate erosion over centuries; Gavran's monitoring flags: red, urgent, unanswered; Veraine's stasis field residue \u2014 a different texture in the Force, analytical and hungry",
+  "setting": "Fortress Level 3 — the empty chamber, then monitoring station on Level 1",
+  "sensory_details": "Damage marks on the chamber walls — not frantic but systematic, deliberate erosion over centuries; Gavran's monitoring flags: red, urgent, unanswered; Veraine's stasis field residue — a different texture in the Force, analytical and hungry",
   "target_word_count": 1200,
   "active_subplots": [
     "SP-A",
@@ -51,6 +51,5 @@
   ],
   "revelations": [],
   "pov_arc_phase": "lie_reinforced",
-  "arc_phase_transition": null,
-  "notes": "H05 is a hard hook \u2014 the race against Veraine begins. Kael/Veraine parallel seeded: Ben notices Kael's reaction to her file but doesn't understand it yet."
+  "notes": "H05 is a hard hook — the race against Veraine begins. Kael/Veraine parallel seeded: Ben notices Kael's reaction to her file but doesn't understand it yet."
 }

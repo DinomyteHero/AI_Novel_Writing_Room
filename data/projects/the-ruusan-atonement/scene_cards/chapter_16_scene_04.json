@@ -5,17 +5,17 @@
   "scene_type": "action",
   "scene_role": "escalation",
   "pov_character": "Ben Skywalker",
-  "mission": "Aftermath \u2014 the sabotage discovered. Veraine used the truce to deliver a final act of infrastructure damage. The seal lurches. The timeline collapses from weeks to days.",
+  "mission": "Aftermath — the sabotage discovered. Veraine used the truce to deliver a final act of infrastructure damage. The seal lurches. The timeline collapses from weeks to days.",
   "why_now": "Veraine's four objectives completed: she pitched her philosophy, attempted Kael's recruitment, gathered intelligence on the group's capabilities, and sabotaged the seal's infrastructure under cover of conversation",
-  "conflict": "The timeline has been cut dramatically. Veraine used the meeting's cover \u2014 when Ben's group was focused on dialogue \u2014 to trigger a pre-positioned sabotage package at a critical node. The seal's cascade accelerates.",
+  "conflict": "The timeline has been cut dramatically. Veraine used the meeting's cover — when Ben's group was focused on dialogue — to trigger a pre-positioned sabotage package at a critical node. The seal's cascade accelerates.",
   "conflict_type": "external",
-  "turning_point": "Desh: 'She played us. Every minute of that meeting, her crew was executing a pre-staged operation.' The truce was real \u2014 Veraine genuinely wanted to present her argument. The sabotage was simultaneous, not contradictory. She can believe in dialogue and destruction at the same time.",
+  "turning_point": "Desh: 'She played us. Every minute of that meeting, her crew was executing a pre-staged operation.' The truce was real — Veraine genuinely wanted to present her argument. The sabotage was simultaneous, not contradictory. She can believe in dialogue and destruction at the same time.",
   "opening_hook": "The wrongness doesn't lurch. It drops. Like the floor of the Force just gave way by another meter.",
   "closing_hook": "Days. Not weeks, not months. Days until Veraine reaches Veranthos with a compromised seal and a functioning amplification array. The race has become a sprint.",
   "emotional_trajectory": "Post-meeting processing -> alarm at the sabotage -> urgent compression",
   "stakes": {
-    "personal": "Ben outmaneuvered \u2014 his intelligence-gathering gambit cost them critical time",
-    "interpersonal": "Group trust shaken \u2014 did Ben make the wrong call accepting the meeting?",
+    "personal": "Ben outmaneuvered — his intelligence-gathering gambit cost them critical time",
+    "interpersonal": "Group trust shaken — did Ben make the wrong call accepting the meeting?",
     "external": "Timeline collapsed to days. The seal cannot hold much longer."
   },
   "characters_present": [
@@ -25,8 +25,8 @@
     "Torin Hal",
     "Kael Drenn"
   ],
-  "setting": "Aboard the Steady Returns \u2014 departure from the meeting point, tactical assessment",
-  "sensory_details": "The Force dropping \u2014 not a spike but a collapse, a new lower floor; Desh's damage assessment scrolling on displays; Sera's face: 'I told you so' without the satisfaction; Torin's expression: calm, certain, his argument strengthened",
+  "setting": "Aboard the Steady Returns — departure from the meeting point, tactical assessment",
+  "sensory_details": "The Force dropping — not a spike but a collapse, a new lower floor; Desh's damage assessment scrolling on displays; Sera's face: 'I told you so' without the satisfaction; Torin's expression: calm, certain, his argument strengthened",
   "target_word_count": 800,
   "active_subplots": [
     "SP-A",
@@ -47,6 +47,5 @@
   ],
   "revelations": [],
   "pov_arc_phase": "lie_challenged",
-  "arc_phase_transition": null,
-  "notes": "H16 planted \u2014 timeline collapse. Veraine's ability to be intellectually honest AND ruthlessly strategic simultaneously makes her the most dangerous kind of antagonist. She's not lying about her beliefs. She's just also willing to destroy things while explaining them."
+  "notes": "H16 planted — timeline collapse. Veraine's ability to be intellectually honest AND ruthlessly strategic simultaneously makes her the most dangerous kind of antagonist. She's not lying about her beliefs. She's just also willing to destroy things while explaining them."
 }

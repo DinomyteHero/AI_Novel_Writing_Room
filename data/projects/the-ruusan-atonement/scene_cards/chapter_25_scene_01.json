@@ -5,17 +5,17 @@
   "scene_type": "action",
   "scene_role": "hook",
   "pov_character": "Ben Skywalker",
-  "mission": "The resonance catches \u2014 Ben stops trying to control it. The breakthrough comes when he lets go and listens instead of leading. The three notes find their own relationship \u2014 emergent, not commanded.",
-  "why_now": "The climactic breakthrough \u2014 Ben's arc completing through action. The new truth demonstrated: trust, surrender of control, orchestration rather than possession.",
+  "mission": "The resonance catches — Ben stops trying to control it. The breakthrough comes when he lets go and listens instead of leading. The three notes find their own relationship — emergent, not commanded.",
+  "why_now": "The climactic breakthrough — Ben's arc completing through action. The new truth demonstrated: trust, surrender of control, orchestration rather than possession.",
   "conflict": "Ben's internal battle: every Skywalker instinct screams to take control, to force the harmony. His need demands the opposite. He lets go.",
   "conflict_type": "internal",
-  "turning_point": "Ben stops leading and starts listening. The three traditions \u2014 instead of being forced into alignment \u2014 find their own relationship. An emergent harmony, a chord built from notes that shouldn't fit but do. The resonance catches. Warmth after cold.",
-  "opening_hook": "The discordance is reaching critical. Sera's jaw is set. Kael's hands are trembling. Ben is trying everything he knows and nothing is working. Then he thinks of Desh \u2014 the man who leads by making space for other people's competence. And he lets go.",
-  "closing_hook": "The resonance catches. The warmth is physical \u2014 not metaphorical. After the bone-deep cold of de-structuring, after months of the wrongness, the return of structure feels like hearing a note you didn't know you were part of. Relief, not triumph.",
+  "turning_point": "Ben stops leading and starts listening. The three traditions — instead of being forced into alignment — find their own relationship. An emergent harmony, a chord built from notes that shouldn't fit but do. The resonance catches. Warmth after cold.",
+  "opening_hook": "The discordance is reaching critical. Sera's jaw is set. Kael's hands are trembling. Ben is trying everything he knows and nothing is working. Then he thinks of Desh — the man who leads by making space for other people's competence. And he lets go.",
+  "closing_hook": "The resonance catches. The warmth is physical — not metaphorical. After the bone-deep cold of de-structuring, after months of the wrongness, the return of structure feels like hearing a note you didn't know you were part of. Relief, not triumph.",
   "emotional_trajectory": "Desperate control -> the moment of surrender -> the breakthrough warmth",
   "stakes": {
-    "personal": "Ben's arc culminating \u2014 trust and surrender as strength",
-    "interpersonal": "Three traditions harmonizing \u2014 the thematic argument made physical",
+    "personal": "Ben's arc culminating — trust and surrender as strength",
+    "interpersonal": "Three traditions harmonizing — the thematic argument made physical",
     "external": "The resonance works. The question is whether it's enough."
   },
   "characters_present": [
@@ -23,8 +23,8 @@
     "Sera Varik",
     "Kael Drenn"
   ],
-  "setting": "Veranthos \u2014 mid-valley, hands linked, the resonance catching",
-  "sensory_details": "The three notes finding their relationship \u2014 not any single tradition's structure but something emergent; warmth returning through the Force after cold; the lattice reforming not as rigid grid but as living tissue \u2014 flexible, dynamic; relief like breathing after nearly drowning",
+  "setting": "Veranthos — mid-valley, hands linked, the resonance catching",
+  "sensory_details": "The three notes finding their relationship — not any single tradition's structure but something emergent; warmth returning through the Force after cold; the lattice reforming not as rigid grid but as living tissue — flexible, dynamic; relief like breathing after nearly drowning",
   "target_word_count": 1400,
   "active_subplots": [
     "SP-A"
@@ -48,6 +48,5 @@
   ],
   "revelations": [],
   "pov_arc_phase": "new_truth_demonstrated",
-  "arc_phase_transition": null,
   "notes": "THE climactic moment. Use the full lattice resonance sensory vocabulary from the concept seed. The warmth returning after cold is the emotional climax. Ben letting go of control = his arc resolution in action = the thematic argument embodied = the plot resolution. All four are the same moment."
 }

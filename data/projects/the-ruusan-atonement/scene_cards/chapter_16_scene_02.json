@@ -5,18 +5,18 @@
   "scene_type": "action",
   "scene_role": "reveal",
   "pov_character": "Ben Skywalker",
-  "mission": "The truce meeting \u2014 Veraine's full philosophy delivered. The wound as liberation, the lattice as disease. She presents her argument at full strength with academic precision and genuine conviction.",
-  "why_now": "R09 \u2014 the antagonist's position articulated at maximum strength. The counter-argument the story must take seriously.",
-  "conflict": "Veraine's argument is genuinely compelling. The lattice IS arguably imposed. The light/dark binary HAS driven a thousand years of war. Her logic is rigorous. Her tone is respectful. She's not a cackling villain \u2014 she's a theorist with a thesis and the means to test it.",
+  "mission": "The truce meeting — Veraine's full philosophy delivered. The wound as liberation, the lattice as disease. She presents her argument at full strength with academic precision and genuine conviction.",
+  "why_now": "R09 — the antagonist's position articulated at maximum strength. The counter-argument the story must take seriously.",
+  "conflict": "Veraine's argument is genuinely compelling. The lattice IS arguably imposed. The light/dark binary HAS driven a thousand years of war. Her logic is rigorous. Her tone is respectful. She's not a cackling villain — she's a theorist with a thesis and the means to test it.",
   "conflict_type": "interpersonal",
-  "turning_point": "Veraine makes her pitch directly to Kael: 'They used us identically, you and I. The only difference is which wall we were sealed into. Why defend the framework that treated us as building material?' The pull is real \u2014 the reader should feel it.",
+  "turning_point": "Veraine makes her pitch directly to Kael: 'They used us identically, you and I. The only difference is which wall we were sealed into. Why defend the framework that treated us as building material?' The pull is real — the reader should feel it.",
   "opening_hook": "Veraine in person is worse than Veraine as concept. She's calm, precise, and treats Ben with genuine intellectual respect. Ben would prefer a monster. Monsters are easier to fight.",
   "closing_hook": "Veraine's final question before the meeting ends: 'What if I'm right?' She doesn't need an answer. She needs the question to sit in Kael's mind.",
   "emotional_trajectory": "Guarded assessment -> intellectual engagement despite themselves -> the genuine pull of her argument",
   "stakes": {
     "personal": "Ben's worldview tested by a coherent counter-argument he can't dismiss",
-    "interpersonal": "Kael's recruitment \u2014 the parallel at its most dangerous",
-    "external": "Veraine's philosophy isn't wrong about the problem \u2014 only about the solution"
+    "interpersonal": "Kael's recruitment — the parallel at its most dangerous",
+    "external": "Veraine's philosophy isn't wrong about the problem — only about the solution"
   },
   "characters_present": [
     "Ben Skywalker",
@@ -26,8 +26,8 @@
     "Desh Rolan",
     "Darth Veraine"
   ],
-  "setting": "Neutral meeting point \u2014 possibly a cleared area on a minor world between positions",
-  "sensory_details": "Veraine's physical presence \u2014 calm, composed, military bearing underneath academic refinement; her Force presence: analytical, precise, not radiating dark-side malice but something more unsettling \u2014 certainty without heat; her small crew at distance",
+  "setting": "Neutral meeting point — possibly a cleared area on a minor world between positions",
+  "sensory_details": "Veraine's physical presence — calm, composed, military bearing underneath academic refinement; her Force presence: analytical, precise, not radiating dark-side malice but something more unsettling — certainty without heat; her small crew at distance",
   "target_word_count": 1200,
   "active_subplots": [
     "SP-A",
@@ -47,6 +47,5 @@
     "R09"
   ],
   "pov_arc_phase": "lie_challenged",
-  "arc_phase_transition": null,
-  "notes": "R09 \u2014 Veraine's full philosophy. Must be genuinely compelling. The reader should understand why someone with her experience would reach her conclusions. She never monologues \u2014 she asks questions she already knows the answers to. Kael's arc: lie_challenged \u2014 her pitch targets his wound directly."
+  "notes": "R09 — Veraine's full philosophy. Must be genuinely compelling. The reader should understand why someone with her experience would reach her conclusions. She never monologues — she asks questions she already knows the answers to. Kael's arc: lie_challenged — her pitch targets his wound directly."
 }

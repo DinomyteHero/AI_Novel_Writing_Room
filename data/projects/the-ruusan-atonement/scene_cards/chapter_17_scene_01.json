@@ -5,16 +5,16 @@
   "scene_type": "action",
   "scene_role": "hook",
   "pov_character": "Ben Skywalker",
-  "mission": "Assessing the damage \u2014 the timeline is now days. The group under extreme pressure. Tactical reality: they cannot stop Veraine by following. They must get to Veranthos first or simultaneously.",
-  "why_now": "H16 resolution \u2014 the timeline collapse forces immediate tactical recalculation",
-  "conflict": "The pressure intensifies every group friction. The wound's effect on nearby Force-sensitives amplifies emotional extremes \u2014 arguments hit harder, fear cuts deeper, doubt paralyzes.",
+  "mission": "Assessing the damage — the timeline is now days. The group under extreme pressure. Tactical reality: they cannot stop Veraine by following. They must get to Veranthos first or simultaneously.",
+  "why_now": "H16 resolution — the timeline collapse forces immediate tactical recalculation",
+  "conflict": "The pressure intensifies every group friction. The wound's effect on nearby Force-sensitives amplifies emotional extremes — arguments hit harder, fear cuts deeper, doubt paralyzes.",
   "conflict_type": "external",
   "turning_point": "Torin standing in the doorway: 'We need to talk about what happens when we get there.' His voice calm, warm, decided. Ben's stomach drops.",
   "opening_hook": "The seal's new baseline reads like a countdown. Desh converts the degradation rate to hours. The number is small enough to memorize.",
-  "closing_hook": "Torin's tone. Ben has heard that tone before. Jacen used it in the weeks before the worst things happened \u2014 the certainty of someone who has already decided and is now only negotiating the announcement.",
+  "closing_hook": "Torin's tone. Ben has heard that tone before. Jacen used it in the weeks before the worst things happened — the certainty of someone who has already decided and is now only negotiating the announcement.",
   "emotional_trajectory": "Urgent tactical focus -> group pressure cracking -> Torin's ominous calm",
   "stakes": {
-    "personal": "Ben hearing the Jacen pattern in Torin's voice \u2014 the recognition crystallizing",
+    "personal": "Ben hearing the Jacen pattern in Torin's voice — the recognition crystallizing",
     "interpersonal": "Torin separating from the group emotionally even while physically present",
     "external": "Days until Veraine reaches Veranthos"
   },
@@ -25,8 +25,8 @@
     "Torin Hal",
     "Kael Drenn"
   ],
-  "setting": "Aboard the Steady Returns \u2014 cockpit and common area, hyperspace toward Veranthos",
-  "sensory_details": "Desh's countdown display; the wrongness now a constant pressure, like altitude sickness; arguments flaring hotter than they should \u2014 the wound amplifying emotional extremes; Torin's silhouette in the doorway",
+  "setting": "Aboard the Steady Returns — cockpit and common area, hyperspace toward Veranthos",
+  "sensory_details": "Desh's countdown display; the wrongness now a constant pressure, like altitude sickness; arguments flaring hotter than they should — the wound amplifying emotional extremes; Torin's silhouette in the doorway",
   "target_word_count": 1200,
   "active_subplots": [
     "SP-A",
@@ -52,6 +52,5 @@
   ],
   "revelations": [],
   "pov_arc_phase": "lie_challenged",
-  "arc_phase_transition": null,
-  "notes": "H17 planted \u2014 Torin's 'We need to talk.' The most ominous hook in the book because it's delivered with warmth. Torin's arc: lie_deepened \u2014 his certainty is now a decision, not just a philosophy."
+  "notes": "H17 planted — Torin's 'We need to talk.' The most ominous hook in the book because it's delivered with warmth. Torin's arc: lie_deepened — his certainty is now a decision, not just a philosophy."
 }

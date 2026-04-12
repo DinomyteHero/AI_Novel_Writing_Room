@@ -5,25 +5,25 @@
   "scene_type": "action",
   "scene_role": "escalation",
   "pov_character": "Ben Skywalker",
-  "mission": "Desh's sabotage mission \u2014 cutting to his operation against Veraine's crew-guarded amplification nodes. Former GAG operative vs. mundane opposition under extreme time pressure.",
+  "mission": "Desh's sabotage mission — cutting to his operation against Veraine's crew-guarded amplification nodes. Former GAG operative vs. mundane opposition under extreme time pressure.",
   "why_now": "Two-stage defeat of Veraine: Stage 1 is physical/tactical. Desh removes the amplification that makes Veraine's ritual viable.",
-  "conflict": "Desh against armed crew guards at critical nodes. He's outnumbered but outclasses them \u2014 former intelligence operative with combat training against salvagers and true believers. The challenge is time: he needs to disable three nodes before the resonance fails.",
+  "conflict": "Desh against armed crew guards at critical nodes. He's outnumbered but outclasses them — former intelligence operative with combat training against salvagers and true believers. The challenge is time: he needs to disable three nodes before the resonance fails.",
   "conflict_type": "external",
-  "turning_point": "Desh disables the third critical node. Veraine's amplification drops below threshold. She's strong alone \u2014 but not strong enough alone. The seal was the work of thirteen anchors. She was always depending on the array.",
-  "opening_hook": "Desh at the first node. Two guards. The approach is textbook GAG \u2014 silent, efficient, nonlethal. He's not here to kill anyone. He's here to break three pieces of equipment.",
-  "closing_hook": "The third node goes dark. Desh's comm: 'Array's down. Whatever you're doing \u2014 do it now. Everything. Don't hold back.'",
+  "turning_point": "Desh disables the third critical node. Veraine's amplification drops below threshold. She's strong alone — but not strong enough alone. The seal was the work of thirteen anchors. She was always depending on the array.",
+  "opening_hook": "Desh at the first node. Two guards. The approach is textbook GAG — silent, efficient, nonlethal. He's not here to kill anyone. He's here to break three pieces of equipment.",
+  "closing_hook": "The third node goes dark. Desh's comm: 'Array's down. Whatever you're doing — do it now. Everything. Don't hold back.'",
   "emotional_trajectory": "Professional focus -> escalating physical danger -> triumph through competence",
   "stakes": {
     "personal": "Desh proving that non-Force-users are essential, not auxiliary",
-    "interpersonal": "Desh and Ben's partnership \u2014 one handling the mystical, one handling the physical",
+    "interpersonal": "Desh and Ben's partnership — one handling the mystical, one handling the physical",
     "external": "Without the array, Veraine cannot breach the wound. Stage 1 of her defeat."
   },
   "characters_present": [
     "Ben Skywalker",
     "Desh Rolan"
   ],
-  "setting": "Veranthos \u2014 amplification node sites, guarded positions, Desh operating solo",
-  "sensory_details": "Desh in his element \u2014 silent movement, tactical assessment, controlled violence; node equipment sparking as he disables it; Veraine's crew \u2014 scared, outmatched, not villains; the comm connection to Ben \u2014 Desh's steady voice against the chaos",
+  "setting": "Veranthos — amplification node sites, guarded positions, Desh operating solo",
+  "sensory_details": "Desh in his element — silent movement, tactical assessment, controlled violence; node equipment sparking as he disables it; Veraine's crew — scared, outmatched, not villains; the comm connection to Ben — Desh's steady voice against the chaos",
   "target_word_count": 1200,
   "active_subplots": [
     "SP-A",
@@ -45,6 +45,5 @@
   ],
   "revelations": [],
   "pov_arc_phase": "new_truth_demonstrated",
-  "arc_phase_transition": null,
-  "notes": "Desh's climax contribution. The non-Force-user saving Force-users by doing what no Force ability can \u2014 hands-on, physical, practical work. His GAG training turned to genuinely good purpose. Redemption of their shared history."
+  "notes": "Desh's climax contribution. The non-Force-user saving Force-users by doing what no Force ability can — hands-on, physical, practical work. His GAG training turned to genuinely good purpose. Redemption of their shared history."
 }

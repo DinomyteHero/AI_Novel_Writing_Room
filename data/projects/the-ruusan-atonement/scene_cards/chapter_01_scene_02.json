@@ -5,12 +5,12 @@
   "scene_type": "action",
   "scene_role": "reveal",
   "pov_character": "Ben Skywalker",
-  "mission": "Luke assigns Ben the survey mission along the Outer Rim \u2014 both father and son feel the wrongness, but Ben's interpretation differs",
-  "why_now": "Luke has been monitoring the wrongness independently; the survey is his response \u2014 but sending Ben alone is a choice the narrative will interrogate",
-  "conflict": "Ben wants autonomy; Luke offers the mission as both genuine need and a way to give Ben space. Underneath: Luke's shadow \u2014 he chose to send one person to investigate a problem that might require more",
+  "mission": "Luke assigns Ben the survey mission along the Outer Rim — both father and son feel the wrongness, but Ben's interpretation differs",
+  "why_now": "Luke has been monitoring the wrongness independently; the survey is his response — but sending Ben alone is a choice the narrative will interrogate",
+  "conflict": "Ben wants autonomy; Luke offers the mission as both genuine need and a way to give Ben space. Underneath: Luke's shadow — he chose to send one person to investigate a problem that might require more",
   "conflict_type": "interpersonal",
-  "turning_point": "Luke admits he feels the wrongness too but interprets it differently \u2014 Ben's experiential pattern recognition from Jacen, Abeloth, and Vestara gives him a sharper read",
-  "opening_hook": "Luke's datapad shows a string of survey reports flagged with the same anomaly \u2014 Force readings that don't match any known phenomenon",
+  "turning_point": "Luke admits he feels the wrongness too but interprets it differently — Ben's experiential pattern recognition from Jacen, Abeloth, and Vestara gives him a sharper read",
+  "opening_hook": "Luke's datapad shows a string of survey reports flagged with the same anomaly — Force readings that don't match any known phenomenon",
   "closing_hook": "Ben accepts the mission without suggesting a partner. Luke doesn't push. Neither acknowledges what that choice means.",
   "emotional_trajectory": "Guarded attentiveness -> brief connection with Luke -> deliberate distance",
   "stakes": {
@@ -22,8 +22,8 @@
     "Ben Skywalker",
     "Luke Skywalker"
   ],
-  "setting": "Luke's office in the Jedi Temple, Coruscant \u2014 functional, lived-in, holocomm on the desk",
-  "sensory_details": "Luke's Force presence \u2014 vast, warm, familiar; the datapad's blue glow; the wrongness present even here, a faint sourness under the Temple's harmonics",
+  "setting": "Luke's office in the Jedi Temple, Coruscant — functional, lived-in, holocomm on the desk",
+  "sensory_details": "Luke's Force presence — vast, warm, familiar; the datapad's blue glow; the wrongness present even here, a faint sourness under the Temple's harmonics",
   "target_word_count": 1250,
   "active_subplots": [
     "SP-A",
@@ -34,7 +34,7 @@
     "luke_shadow_established"
   ],
   "promises_planted": [
-    "Luke sent Ben alone \u2014 the irony will become apparent (PP12)",
+    "Luke sent Ben alone — the irony will become apparent (PP12)",
     "Ben's unique Force perception will resolve into something meaningful (PP22)"
   ],
   "promises_paid": [],
@@ -46,6 +46,5 @@
   ],
   "revelations": [],
   "pov_arc_phase": "lie_established",
-  "arc_phase_transition": null,
-  "notes": "Luke should feel warm but slightly distant \u2014 they love each other but communicate through mission briefings. Ben thinks 'Dad' internally but acts like a professional."
+  "notes": "Luke should feel warm but slightly distant — they love each other but communicate through mission briefings. Ben thinks 'Dad' internally but acts like a professional."
 }

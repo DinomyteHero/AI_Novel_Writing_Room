@@ -5,17 +5,17 @@
   "scene_type": "action",
   "scene_role": "hook",
   "pov_character": "Ben Skywalker",
-  "mission": "Contact from Veraine \u2014 she proposes a meeting under truce. The group debates whether to accept. Desh and Sera argue against; Torin argues for; Kael says nothing.",
-  "why_now": "Veraine has been invisible \u2014 now she chooses to appear. H10 resolving: she wanted them to follow because she needed an audience for her pitch.",
+  "mission": "Contact from Veraine — she proposes a meeting under truce. The group debates whether to accept. Desh and Sera argue against; Torin argues for; Kael says nothing.",
+  "why_now": "Veraine has been invisible — now she chooses to appear. H10 resolving: she wanted them to follow because she needed an audience for her pitch.",
   "conflict": "The trap question: is the truce genuine or a setup? Desh's tactical analysis says it could be either. Veraine is too smart for a straightforward ambush but too strategic to offer a meeting without an objective.",
   "conflict_type": "interpersonal",
-  "turning_point": "Ben decides to accept \u2014 not because he trusts Veraine, but because he needs to understand her plan. Intelligence gathering. Sera objects but follows his lead. The conditional trust holding.",
+  "turning_point": "Ben decides to accept — not because he trusts Veraine, but because he needs to understand her plan. Intelligence gathering. Sera objects but follows his lead. The conditional trust holding.",
   "opening_hook": "The comm signal is clean, polite, and uses Kael's name. 'I would prefer to speak rather than be spoken about. I suspect you would as well.'",
   "closing_hook": "The meeting location: a neutral point between their position and Veranthos. Veraine's ship is already there. One vessel, minimal crew. Either she's supremely confident or supremely prepared. Probably both.",
   "emotional_trajectory": "Sharp alarm at contact -> heated debate -> calculated acceptance",
   "stakes": {
     "personal": "Ben choosing to face the primary antagonist directly",
-    "interpersonal": "The group's trust architecture tested \u2014 Ben overriding objections",
+    "interpersonal": "The group's trust architecture tested — Ben overriding objections",
     "external": "Veraine has four objectives for this meeting; Ben knows about zero of them"
   },
   "characters_present": [
@@ -25,8 +25,8 @@
     "Torin Hal",
     "Kael Drenn"
   ],
-  "setting": "Aboard the Steady Returns \u2014 cockpit, comm active",
-  "sensory_details": "Veraine's voice \u2014 calm, precise, academic; the comm signal encrypted in a Sith-era protocol Kael recognizes; Desh running counter-intelligence scenarios on his datapad; Sera's jaw muscles working",
+  "setting": "Aboard the Steady Returns — cockpit, comm active",
+  "sensory_details": "Veraine's voice — calm, precise, academic; the comm signal encrypted in a Sith-era protocol Kael recognizes; Desh running counter-intelligence scenarios on his datapad; Sera's jaw muscles working",
   "target_word_count": 1000,
   "active_subplots": [
     "SP-A",
@@ -46,6 +46,5 @@
   ],
   "revelations": [],
   "pov_arc_phase": "lie_challenged",
-  "arc_phase_transition": null,
   "notes": "Veraine's four objectives for the meeting: (1) ideological pitch, (2) Kael recruitment attempt, (3) sabotage cover, (4) intelligence gathering. The group knows none of these."
 }

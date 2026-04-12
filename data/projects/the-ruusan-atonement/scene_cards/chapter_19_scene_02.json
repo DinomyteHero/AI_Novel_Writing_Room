@@ -5,17 +5,17 @@
   "scene_type": "action",
   "scene_role": "escalation",
   "pov_character": "Ben Skywalker",
-  "mission": "Torin weaponizes the Knights' suffering as argument \u2014 uses their pain to press his case for immediate, decisive action (i.e., his unilateral sacrifice). Sera watches and sees the Gavran pattern completing.",
+  "mission": "Torin weaponizes the Knights' suffering as argument — uses their pain to press his case for immediate, decisive action (i.e., his unilateral sacrifice). Sera watches and sees the Gavran pattern completing.",
   "why_now": "The human cost provides emotional ammunition for Torin's argument. The group is watching real people suffer.",
-  "conflict": "Torin argues that these Knights are proof the seal cannot be maintained incrementally \u2014 it needs a permanent solution, now, and he's the only one qualified to provide it. His compassion is genuine. His conclusion is wrong.",
+  "conflict": "Torin argues that these Knights are proof the seal cannot be maintained incrementally — it needs a permanent solution, now, and he's the only one qualified to provide it. His compassion is genuine. His conclusion is wrong.",
   "conflict_type": "interpersonal",
-  "turning_point": "Sera's moment of truth: watching the outpost Knights suffer from lattice distortion, she recognizes that principled certainty alone \u2014 being right about the lattice \u2014 doesn't protect anyone. Ben's response to helplessness (leading without controlling) shows her a kind of leadership Gavran never demonstrated.",
+  "turning_point": "Sera's moment of truth: watching the outpost Knights suffer from lattice distortion, she recognizes that principled certainty alone — being right about the lattice — doesn't protect anyone. Ben's response to helplessness (leading without controlling) shows her a kind of leadership Gavran never demonstrated.",
   "opening_hook": "Torin kneels beside the young Knight who can't meditate. His hand on the Knight's shoulder is tender, genuine. His eyes, over the Knight's head, are cold with decision.",
-  "closing_hook": "Sera doesn't argue with Torin this time. She turns to Ben instead. 'What is your plan, Skywalker?' Not conditional trust \u2014 a genuine question. She's stopped following Torin's framework. She's asking Ben to provide an alternative.",
+  "closing_hook": "Sera doesn't argue with Torin this time. She turns to Ben instead. 'What is your plan, Skywalker?' Not conditional trust — a genuine question. She's stopped following Torin's framework. She's asking Ben to provide an alternative.",
   "emotional_trajectory": "Torin's compassion-as-argument -> Sera's recognition -> the shift from Torin to Ben",
   "stakes": {
-    "personal": "Sera's arc moment of truth \u2014 she sees that rigidity isn't protection",
-    "interpersonal": "The leadership dynamic shifting \u2014 Sera breaking from Torin's orbit",
+    "personal": "Sera's arc moment of truth — she sees that rigidity isn't protection",
+    "interpersonal": "The leadership dynamic shifting — Sera breaking from Torin's orbit",
     "external": "The Knights' suffering is real and demands response"
   },
   "characters_present": [
@@ -25,8 +25,8 @@
     "Kael Drenn",
     "Desh Rolan"
   ],
-  "setting": "Jedi outpost \u2014 common area, the suffering Knights visible",
-  "sensory_details": "Torin's hand on the Knight's shoulder \u2014 warm, steady, a commander's touch; his eyes cold over the gesture; Sera's jaw working as she processes; Ben's helplessness \u2014 he can't fix these Knights any more than he could fix the breach zone",
+  "setting": "Jedi outpost — common area, the suffering Knights visible",
+  "sensory_details": "Torin's hand on the Knight's shoulder — warm, steady, a commander's touch; his eyes cold over the gesture; Sera's jaw working as she processes; Ben's helplessness — he can't fix these Knights any more than he could fix the breach zone",
   "target_word_count": 1200,
   "active_subplots": [
     "SP-A",
@@ -44,6 +44,5 @@
   "hook_actions": [],
   "revelations": [],
   "pov_arc_phase": "lie_challenged",
-  "arc_phase_transition": null,
-  "notes": "Sera's arc: moment_of_truth. Her rigid principle (being right) fails to protect these Knights. Ben's response (honest helplessness rather than false authority) shows her something Gavran never did \u2014 a leader who admits he doesn't have the answer but won't stop looking."
+  "notes": "Sera's arc: moment_of_truth. Her rigid principle (being right) fails to protect these Knights. Ben's response (honest helplessness rather than false authority) shows her something Gavran never did — a leader who admits he doesn't have the answer but won't stop looking."
 }

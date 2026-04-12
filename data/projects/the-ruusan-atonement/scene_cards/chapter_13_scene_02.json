@@ -5,16 +5,16 @@
   "scene_type": "action",
   "scene_role": "reveal",
   "pov_character": "Ben Skywalker",
-  "mission": "Inside the breach zone, each character's response reveals their truth. Torin smiles. This is the first real warning \u2014 the thing that should terrify everyone.",
-  "why_now": "The breach strips away personas \u2014 each character's response to de-structuring is their unfiltered truth",
+  "mission": "Inside the breach zone, each character's response reveals their truth. Torin smiles. This is the first real warning — the thing that should terrify everyone.",
+  "why_now": "The breach strips away personas — each character's response to de-structuring is their unfiltered truth",
   "conflict": "Sera fights to maintain discipline. Kael withdraws into survival mode. Desh operates on training and instinct, reporting environmental data. Torin... relaxes. His Force presence stops being heavy. He smiles with recognition, not fear.",
   "conflict_type": "interpersonal",
-  "turning_point": "Torin smiles. In the place where the Force is broken, where everyone else is fighting to hold themselves together, Torin Hal looks at peace. Ben remembers Jacen in the moments before the worst decisions \u2014 the certainty, the calm.",
-  "opening_hook": "The de-structured zone strips pretense. Sera holds her discipline like a physical thing, hands clenched, jaw set. Kael folds into himself \u2014 survival posture, ancient and instinctive. Torin unfolds.",
+  "turning_point": "Torin smiles. In the place where the Force is broken, where everyone else is fighting to hold themselves together, Torin Hal looks at peace. Ben remembers Jacen in the moments before the worst decisions — the certainty, the calm.",
+  "opening_hook": "The de-structured zone strips pretense. Sera holds her discipline like a physical thing, hands clenched, jaw set. Kael folds into himself — survival posture, ancient and instinctive. Torin unfolds.",
   "closing_hook": "They leave the zone. The lattice returns like blood flow after a tourniquet. The relief is physical. Ben looks at Torin and sees someone who is already planning to come back.",
   "emotional_trajectory": "Group distress -> focus on Torin's anomalous calm -> deep unease on departure",
   "stakes": {
-    "personal": "Ben's pattern recognition firing \u2014 Torin's peace in the breach echoes Jacen's certainty",
+    "personal": "Ben's pattern recognition firing — Torin's peace in the breach echoes Jacen's certainty",
     "interpersonal": "The group has seen Torin's true relationship with de-structuring. It can't be unseen.",
     "external": "If the wound opens fully, this is what the galaxy feels"
   },
@@ -25,8 +25,8 @@
     "Kael Drenn",
     "Desh Rolan"
   ],
-  "setting": "Breach Zone \u2014 deep inside the de-structured area, then retreat to the perimeter",
-  "sensory_details": "The lattice returning on exit \u2014 relief like warmth after cold; Torin's face changing as they leave \u2014 the peace draining, replaced by something heavier and hungrier; Sera watching Torin with the expression of someone watching a prediction come true",
+  "setting": "Breach Zone — deep inside the de-structured area, then retreat to the perimeter",
+  "sensory_details": "The lattice returning on exit — relief like warmth after cold; Torin's face changing as they leave — the peace draining, replaced by something heavier and hungrier; Sera watching Torin with the expression of someone watching a prediction come true",
   "target_word_count": 1500,
   "active_subplots": [
     "SP-A",
@@ -49,6 +49,5 @@
   ],
   "revelations": [],
   "pov_arc_phase": "lie_challenged",
-  "arc_phase_transition": null,
-  "notes": "The critical Torin moment. His smile should be specific and human \u2014 not villainous, not dark-side. Recognition. Relief. A man feeling something he's been missing for a thousand years. The horror is in its normalcy. Torin's arc: lie_deepened \u2014 the breach confirmed his memory of the technique's beauty."
+  "notes": "The critical Torin moment. His smile should be specific and human — not villainous, not dark-side. Recognition. Relief. A man feeling something he's been missing for a thousand years. The horror is in its normalcy. Torin's arc: lie_deepened — the breach confirmed his memory of the technique's beauty."
 }

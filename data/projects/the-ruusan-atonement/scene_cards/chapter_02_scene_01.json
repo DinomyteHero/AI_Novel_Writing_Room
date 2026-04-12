@@ -5,16 +5,16 @@
   "scene_type": "sequel",
   "scene_role": "hook",
   "pov_character": "Ben Skywalker",
-  "mission": "Establish the Ben/Desh dynamic aboard the Steady Returns \u2014 the easy rhythm of old friends who don't discuss the elephant in the cockpit",
+  "mission": "Establish the Ben/Desh dynamic aboard the Steady Returns — the easy rhythm of old friends who don't discuss the elephant in the cockpit",
   "why_now": "Transit to first survey world; the reader needs to see the relationship baseline before it's tested",
-  "conflict": "The unspoken GAG history hangs between them \u2014 they're comfortable but careful, bonded by shared shame neither names",
+  "conflict": "The unspoken GAG history hangs between them — they're comfortable but careful, bonded by shared shame neither names",
   "conflict_type": "interpersonal",
-  "turning_point": "Desh makes a dry observation about the ship's sensors reading the wrongness as instrument error \u2014 the practical man acknowledging the mystical problem",
-  "opening_hook": "The Steady Returns handles like a ship that's been repaired more times than it was originally built, and Desh flies it the same way \u2014 compensation through experience",
+  "turning_point": "Desh makes a dry observation about the ship's sensors reading the wrongness as instrument error — the practical man acknowledging the mystical problem",
+  "opening_hook": "The Steady Returns handles like a ship that's been repaired more times than it was originally built, and Desh flies it the same way — compensation through experience",
   "closing_hook": "First survey world on scanners. The wrongness intensifies. Ben's hands tighten on the copilot's armrest.",
   "emotional_trajectory": "Comfortable familiarity -> careful humor -> growing tension",
   "stakes": {
-    "personal": "Ben's reliance on Desh as a safe relationship \u2014 no Force, no betrayal risk",
+    "personal": "Ben's reliance on Desh as a safe relationship — no Force, no betrayal risk",
     "interpersonal": "The unprocessed GAG history between them",
     "external": "The wrongness is getting stronger as they move along the bearing"
   },
@@ -22,7 +22,7 @@
     "Ben Skywalker",
     "Desh Rolan"
   ],
-  "setting": "Aboard the Steady Returns in hyperspace \u2014 cramped cockpit, lived-in freighter",
+  "setting": "Aboard the Steady Returns in hyperspace — cramped cockpit, lived-in freighter",
   "sensory_details": "Recycled air smell; Desh's coffee; instrument panels jury-rigged with non-standard components; hyperspace blue through the viewport",
   "target_word_count": 1200,
   "active_subplots": [
@@ -38,6 +38,5 @@
   "hook_actions": [],
   "revelations": [],
   "pov_arc_phase": "lie_established",
-  "arc_phase_transition": null,
-  "notes": "Allston-channel humor. Desh is a warm absence in Ben's Force-awareness \u2014 the first time the reader experiences what it's like for Ben to be around someone who doesn't register in the Force."
+  "notes": "Allston-channel humor. Desh is a warm absence in Ben's Force-awareness — the first time the reader experiences what it's like for Ben to be around someone who doesn't register in the Force."
 }

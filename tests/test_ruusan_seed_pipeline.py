@@ -115,17 +115,23 @@ class TestInstalledSeedSchemaValidation:
         schema = json.loads(CONCEPT_SEED_SCHEMA.read_text(encoding="utf-8"))
         jsonschema.validate(seed, schema)  # raises on failure
 
-    def test_all_28_scene_cards_validate(self):
-        """All 28 Ruusan scene cards must pass schema validation.
+    def test_all_scene_cards_validate(self):
+        """All Ruusan scene cards must pass schema validation.
 
         Scene cards are fully populated with mission, turning_point, conflict,
-        and all other required fields.
+        and all other required fields.  Multiple scenes per chapter are expected.
         """
         if not RUUSAN_SCENE_CARDS_DIR.exists():
             pytest.skip(f"Scene cards directory not present: {RUUSAN_SCENE_CARDS_DIR}")
         schema = json.loads(SCENE_CARD_SCHEMA.read_text(encoding="utf-8"))
         cards = sorted(RUUSAN_SCENE_CARDS_DIR.glob("chapter_*_scene_*.json"))
-        assert len(cards) == 28, f"Expected 28 scene card files, found {len(cards)}"
+        chapters_covered = {
+            json.loads(p.read_text(encoding="utf-8"))["chapter_number"]
+            for p in cards
+        }
+        assert chapters_covered == set(range(1, 29)), (
+            f"Expected chapters 1-28 covered, got {sorted(chapters_covered)}"
+        )
 
         for card_path in cards:
             card = json.loads(card_path.read_text(encoding="utf-8"))
@@ -167,7 +173,7 @@ class TestInstalledSeedSchemaValidation:
         # These assignments are set by the workshop's Step 8 scene_type field.
         expected = {
             1: "sequel",      # Ben's departure / emotional opening
-            2: "action",      # Survey rhythm / wrongness pattern
+            2: "sequel",      # Survey rhythm / processing wrongness pattern
             5: "action",      # First Plot Point — awakening
             6: "sequel",      # Response — group orientation
             13: "action",     # Midpoint — visceral breach

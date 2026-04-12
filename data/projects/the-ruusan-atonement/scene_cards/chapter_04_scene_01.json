@@ -5,13 +5,13 @@
   "scene_type": "action",
   "scene_role": "hook",
   "pov_character": "Ben Skywalker",
-  "mission": "Arrival at the uncharted world and first approach to Gavran's Fortress \u2014 establishing the fortress as environmental storytelling before anyone explains it",
+  "mission": "Arrival at the uncharted world and first approach to Gavran's Fortress — establishing the fortress as environmental storytelling before anyone explains it",
   "why_now": "The coordinates have led them here; the wrongness is centered on this world",
-  "conflict": "The fortress's Force-recognition entry mechanism is calibrated for Jedi Lords-era signatures \u2014 Ben's modern Jedi training barely registers, requiring adaptation",
+  "conflict": "The fortress's Force-recognition entry mechanism is calibrated for Jedi Lords-era signatures — Ben's modern Jedi training barely registers, requiring adaptation",
   "conflict_type": "environmental",
-  "turning_point": "The entry mechanism responds not to Ben's technique but to his lineage \u2014 something in the Skywalker Force presence triggers ancient recognition protocols",
+  "turning_point": "The entry mechanism responds not to Ben's technique but to his lineage — something in the Skywalker Force presence triggers ancient recognition protocols",
   "opening_hook": "The world is cold, thin-atmosphered, and geologically inhospitable. The fortress is built into the mountainside so precisely that from a distance it reads as geology. Up close, the geometry is too regular.",
-  "closing_hook": "The entry opens. Inside, the air is still. The wrongness is overwhelming \u2014 not chaotic but structured, as if channeled through the mountain itself. Something is alive in here.",
+  "closing_hook": "The entry opens. Inside, the air is still. The wrongness is overwhelming — not chaotic but structured, as if channeled through the mountain itself. Something is alive in here.",
   "emotional_trajectory": "Awed caution -> frustration with the lock -> unsettled recognition as it opens",
   "stakes": {
     "personal": "Ben is entering a tomb that's been sealed for a millennium",
@@ -22,7 +22,7 @@
     "Ben Skywalker",
     "Desh Rolan"
   ],
-  "setting": "Uncharted world \u2014 cold mountain plateau, thin air, sharp light. Fortress exterior: weathered stone and metal alloy, no Jedi symbols visible",
+  "setting": "Uncharted world — cold mountain plateau, thin air, sharp light. Fortress exterior: weathered stone and metal alloy, no Jedi symbols visible",
   "sensory_details": "Thin atmosphere burning lungs slightly; wind cutting across the plateau; fortress stone with a thousand-year patina; the wrongness channeled and concentrated like sound through a pipe",
   "target_word_count": 1200,
   "active_subplots": [
@@ -41,6 +41,5 @@
   ],
   "revelations": [],
   "pov_arc_phase": "lie_established",
-  "arc_phase_transition": null,
   "notes": "The fortress should feel like a tomb before anyone says it is one. Environmental storytelling: the design speaks of urgency, permanence, and secrecy. No beauty, only endurance."
 }

@@ -5,17 +5,17 @@
   "scene_type": "sequel",
   "scene_role": "hook",
   "pov_character": "Ben Skywalker",
-  "mission": "Ben and Sera work through the resonance theory \u2014 translating Ankhural's abstract framework into a practical approach. The lattice can be reinforced through harmonic resonance between disparate Force traditions working in concert.",
-  "why_now": "H21 resolution \u2014 the Codex note becomes a plan. The intellectual heart of Part 4.",
-  "conflict": "The theory requires three distinct Force traditions to create resonance \u2014 Jedi (Sera), modern Jedi with Skywalker lineage perception (Ben), and Sith-trained (Kael). It has never been tested. It might kill them. And it requires Kael's full, willing participation.",
+  "mission": "Ben and Sera work through the resonance theory — translating Ankhural's abstract framework into a practical approach. The lattice can be reinforced through harmonic resonance between disparate Force traditions working in concert.",
+  "why_now": "H21 resolution — the Codex note becomes a plan. The intellectual heart of Part 4.",
+  "conflict": "The theory requires three distinct Force traditions to create resonance — Jedi (Sera), modern Jedi with Skywalker lineage perception (Ben), and Sith-trained (Kael). It has never been tested. It might kill them. And it requires Kael's full, willing participation.",
   "conflict_type": "interpersonal",
-  "turning_point": "Sera's new truth demonstrated: instead of insisting on the traditional Jedi approach, she engages with the resonance theory on its own terms. Principled flexibility \u2014 adapting her framework without abandoning her principles.",
+  "turning_point": "Sera's new truth demonstrated: instead of insisting on the traditional Jedi approach, she engages with the resonance theory on its own terms. Principled flexibility — adapting her framework without abandoning her principles.",
   "opening_hook": "The Codex notes spread between them, Ben and Sera work through the theory with the focused intensity of two people building a bomb they intend to defuse themselves.",
-  "closing_hook": "The plan works \u2014 in theory. It requires three Force traditions. They have two who are willing. Kael is the variable. Without him, there is no resonance. Without resonance, there is only Torin's sacrifice or Veraine's destruction.",
+  "closing_hook": "The plan works — in theory. It requires three Force traditions. They have two who are willing. Kael is the variable. Without him, there is no resonance. Without resonance, there is only Torin's sacrifice or Veraine's destruction.",
   "emotional_trajectory": "Intense intellectual work -> breakthrough -> the dependency on Kael's choice",
   "stakes": {
     "personal": "Ben and Sera working as true partners for the first time",
-    "interpersonal": "Sera's arc advancing \u2014 flexibility without abandonment of principle",
+    "interpersonal": "Sera's arc advancing — flexibility without abandonment of principle",
     "external": "The resonance theory is the only alternative to Torin's unilateral sacrifice"
   },
   "characters_present": [
@@ -23,8 +23,8 @@
     "Sera Varik",
     "Desh Rolan"
   ],
-  "setting": "Veranthos \u2014 camp, working through the night with Codex materials",
-  "sensory_details": "Codex fragments and archive data spread across every surface; the wound's pull from below \u2014 constant, patient; Sera's archaic notation alongside Ben's modern analysis; Desh providing logistical reality checks",
+  "setting": "Veranthos — camp, working through the night with Codex materials",
+  "sensory_details": "Codex fragments and archive data spread across every surface; the wound's pull from below — constant, patient; Sera's archaic notation alongside Ben's modern analysis; Desh providing logistical reality checks",
   "target_word_count": 1300,
   "active_subplots": [
     "SP-A",
@@ -49,6 +49,5 @@
     "R12"
   ],
   "pov_arc_phase": "moment_of_truth",
-  "arc_phase_transition": null,
-  "notes": "R12 \u2014 the lattice resonance solution articulated. Sera's arc: new_truth_demonstrated \u2014 she's adapting, not abandoning. The shift from 'Skywalker' to 'Ben' may begin here, subtle."
+  "notes": "R12 — the lattice resonance solution articulated. Sera's arc: new_truth_demonstrated — she's adapting, not abandoning. The shift from 'Skywalker' to 'Ben' may begin here, subtle."
 }

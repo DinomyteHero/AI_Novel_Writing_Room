@@ -5,17 +5,17 @@
   "scene_type": "sequel",
   "scene_role": "decision",
   "pov_character": "Ben Skywalker",
-  "mission": "Lock-in: Ben commits to pursuing Veraine and addressing the seal. The triple-layered lock-in mechanism activates \u2014 he can't walk away.",
+  "mission": "Lock-in: Ben commits to pursuing Veraine and addressing the seal. The triple-layered lock-in mechanism activates — he can't walk away.",
   "why_now": "All information is on the table; the choice must be made",
-  "conflict": "Ben's Lie drives his response: he takes ownership of the crisis because that's what Skywalkers do. The survivors depend on him. The seal is failing. Veraine is moving. Someone has to act, and Ben decides it's him \u2014 alone with his small group, without calling the Order.",
+  "conflict": "Ben's Lie drives his response: he takes ownership of the crisis because that's what Skywalkers do. The survivors depend on him. The seal is failing. Veraine is moving. Someone has to act, and Ben decides it's him — alone with his small group, without calling the Order.",
   "conflict_type": "internal",
-  "turning_point": "Torin asks a quiet question about the modern Jedi's relationship with the light/dark boundary. 'Gavran thought so too. Before.' \u2014 seeds his eventual turn. Ben files it away but doesn't process it.",
+  "turning_point": "Torin asks a quiet question about the modern Jedi's relationship with the light/dark boundary. 'Gavran thought so too. Before.' — seeds his eventual turn. Ben files it away but doesn't process it.",
   "opening_hook": "Five people in a thousand-year-old tomb, looking at each other across an era that destroyed everything the three oldest ones knew",
-  "closing_hook": "Ben sends a partial report to Luke \u2014 enough to explain the delay, not enough to reveal the scope. The institutional lie grows. The Steady Returns lifts off the plateau, pointed along the Corridor toward the first anchor node. The wrongness has a name now. It has coordinates. And someone else is following them.",
+  "closing_hook": "Ben sends a partial report to Luke — enough to explain the delay, not enough to reveal the scope. The institutional lie grows. The Steady Returns lifts off the plateau, pointed along the Corridor toward the first anchor node. The wrongness has a name now. It has coordinates. And someone else is following them.",
   "emotional_trajectory": "Overwhelmed assessment -> grim determination -> the quiet cost of choosing to carry this alone",
   "stakes": {
-    "personal": "Ben's self-imposed burden \u2014 his Lie fully operational",
-    "interpersonal": "The fragile group dynamic \u2014 Sera's conditional respect, Torin's warmth, Kael's distance, Desh's pragmatism",
+    "personal": "Ben's self-imposed burden — his Lie fully operational",
+    "interpersonal": "The fragile group dynamic — Sera's conditional respect, Torin's warmth, Kael's distance, Desh's pragmatism",
     "external": "The clock is ticking on three fronts: seal degradation, Veraine's progress, and the Order's ignorance"
   },
   "characters_present": [
@@ -26,7 +26,7 @@
     "Kael Drenn"
   ],
   "setting": "Fortress upper level -> departure from the uncharted world",
-  "sensory_details": "The fortress shrinking below as they lift off; the wrongness receding behind but not disappearing \u2014 it's everywhere now, just concentrated there; five people in a ship built for two",
+  "sensory_details": "The fortress shrinking below as they lift off; the wrongness receding behind but not disappearing — it's everywhere now, just concentrated there; five people in a ship built for two",
   "target_word_count": 1000,
   "active_subplots": [
     "SP-A",
@@ -52,6 +52,5 @@
     "R05"
   ],
   "pov_arc_phase": "lie_reinforced",
-  "arc_phase_transition": null,
-  "notes": "R05 partial \u2014 technique lineage first mentioned. H06 planted: Torin's quiet question seeds his turn fifteen chapters later. This is the most important hook plant in the chapter \u2014 understated, easy to miss on first read. Ben's lie_reinforced: the lock-in convinces him the burden is his because only he brought the survivors together."
+  "notes": "R05 partial — technique lineage first mentioned. H06 planted: Torin's quiet question seeds his turn fifteen chapters later. This is the most important hook plant in the chapter — understated, easy to miss on first read. Ben's lie_reinforced: the lock-in convinces him the burden is his because only he brought the survivors together."
 }

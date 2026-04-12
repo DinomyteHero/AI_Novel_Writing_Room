@@ -5,16 +5,16 @@
   "scene_type": "action",
   "scene_role": "escalation",
   "pov_character": "Ben Skywalker",
-  "mission": "Veraine contained \u2014 Sera locks her down using Force-containment techniques. Not killed \u2014 contained. Veraine is defeated by results but unbroken. The battle isn't over \u2014 Torin is still active.",
+  "mission": "Veraine contained — Sera locks her down using Force-containment techniques. Not killed — contained. Veraine is defeated by results but unbroken. The battle isn't over — Torin is still active.",
   "why_now": "Veraine handled; Torin crisis remaining. The climax has two stages.",
-  "conflict": "Veraine's containment \u2014 she fights but the amplification is gone and the resonance has changed the local Force dynamics. Sera's Force-lock expertise repurposed as containment. Veraine, contained, is intellectually furious but physically outmatched.",
+  "conflict": "Veraine's containment — she fights but the amplification is gone and the resonance has changed the local Force dynamics. Sera's Force-lock expertise repurposed as containment. Veraine, contained, is intellectually furious but physically outmatched.",
   "conflict_type": "external",
-  "turning_point": "Veraine contained. But the technique \u2014 Torin's technique \u2014 is still active. He's still descending. The void around him is still expanding. The resonance stabilized the wound from Veraine's assault, but Torin is a different problem entirely.",
-  "opening_hook": "Sera moves before Ben can speak. Ancient containment protocols \u2014 the same techniques that held Veraine in stasis for a millennium, adapted to field conditions.",
-  "closing_hook": "Torin. Still descending. His technique has created a zone of perfect de-structuring around him, expanding as he approaches the Scar. He's not fighting the resonance \u2014 he's ignoring it. He has his own solution. And it's working. Maetha's warning echoes: 'It replaces you.'",
+  "turning_point": "Veraine contained. But the technique — Torin's technique — is still active. He's still descending. The void around him is still expanding. The resonance stabilized the wound from Veraine's assault, but Torin is a different problem entirely.",
+  "opening_hook": "Sera moves before Ben can speak. Ancient containment protocols — the same techniques that held Veraine in stasis for a millennium, adapted to field conditions.",
+  "closing_hook": "Torin. Still descending. His technique has created a zone of perfect de-structuring around him, expanding as he approaches the Scar. He's not fighting the resonance — he's ignoring it. He has his own solution. And it's working. Maetha's warning echoes: 'It replaces you.'",
   "emotional_trajectory": "Relief at Veraine's containment -> immediate dread at Torin's continuing descent",
   "stakes": {
-    "personal": "Ben must now face Torin \u2014 the person he couldn't save",
+    "personal": "Ben must now face Torin — the person he couldn't save",
     "interpersonal": "Sera's role: containing Veraine while her heart breaks watching Torin",
     "external": "Torin's technique works but at catastrophic personal cost"
   },
@@ -24,8 +24,8 @@
     "Kael Drenn",
     "Darth Veraine"
   ],
-  "setting": "Veranthos \u2014 the valley, Veraine's position, then attention to Torin's descent",
-  "sensory_details": "Sera's containment techniques \u2014 ancient, precise, efficient; Veraine's face in containment \u2014 fury and intellectual violation; Torin's void visible \u2014 a zone of absence moving down the ridgeline toward the Scar; the wrongness around Torin \u2014 not the formless void of the breach zone but structured absence, deliberate, the technique at full expression",
+  "setting": "Veranthos — the valley, Veraine's position, then attention to Torin's descent",
+  "sensory_details": "Sera's containment techniques — ancient, precise, efficient; Veraine's face in containment — fury and intellectual violation; Torin's void visible — a zone of absence moving down the ridgeline toward the Scar; the wrongness around Torin — not the formless void of the breach zone but structured absence, deliberate, the technique at full expression",
   "target_word_count": 1000,
   "active_subplots": [
     "SP-A",
@@ -43,6 +43,5 @@
   "hook_actions": [],
   "revelations": [],
   "pov_arc_phase": "new_truth_demonstrated",
-  "arc_phase_transition": null,
-  "notes": "The transition from Veraine to Torin as the final crisis. Maetha's warning paying off \u2014 'It replaces you' echoing as Torin descends."
+  "notes": "The transition from Veraine to Torin as the final crisis. Maetha's warning paying off — 'It replaces you' echoing as Torin descends."
 }

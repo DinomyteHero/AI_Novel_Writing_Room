@@ -51,7 +51,7 @@ NEGATIVE_CONSTRAINTS_PATH = (
 
 
 def _load_scene_cards() -> list[dict]:
-    """Load all 28 scene cards, sorted by chapter number."""
+    """Load all scene cards, sorted by chapter and scene number."""
     cards = []
     for path in sorted(SCENE_CARDS_DIR.glob("chapter_*_scene_*.json")):
         with open(path, encoding="utf-8") as f:
@@ -242,12 +242,13 @@ def pipeline_env(tmp_path):
 
 
 class TestSceneCardLoading:
-    """Verify all 28 scene cards load successfully."""
+    """Verify all scene cards load successfully."""
 
     def test_all_scene_cards_exist(self):
-        """All 5 scene card files should be present."""
+        """All scene card files should be present, covering chapters 1-28."""
         cards = _load_scene_cards()
-        assert len(cards) == 28
+        chapters = {c["chapter_number"] for c in cards}
+        assert chapters == set(range(1, 29))
 
     def test_scene_cards_have_required_fields(self):
         """Each card should have chapter_number, mission, and characters_present."""
@@ -261,9 +262,9 @@ class TestSceneCardLoading:
             )
 
     def test_scene_cards_sequential(self):
-        """Cards should cover chapters 1 through 28."""
+        """Cards should cover chapters 1 through 28 in order."""
         cards = _load_scene_cards()
-        chapter_nums = [c["chapter_number"] for c in cards]
+        chapter_nums = sorted({c["chapter_number"] for c in cards})
         assert chapter_nums == list(range(1, 29))
 
 
