@@ -704,7 +704,7 @@ class StoryState:
     ) -> None:
         """Insert a new relationship between two characters."""
         self.conn.execute(
-            """INSERT INTO character_relationships
+            """INSERT OR IGNORE INTO character_relationships
                (character_a, character_b, relationship_type, status, last_updated_chapter)
                VALUES (?, ?, ?, ?, ?)""",
             (character_a, character_b, relationship_type, status, last_updated_chapter),
@@ -758,7 +758,7 @@ class StoryState:
     ) -> None:
         """Insert a new plot thread."""
         self.conn.execute(
-            """INSERT INTO plot_threads
+            """INSERT OR IGNORE INTO plot_threads
                (id, description, status, planted_chapter, urgency,
                 related_characters, resolution_notes)
                VALUES (?, ?, ?, ?, ?, ?, ?)""",
@@ -835,7 +835,7 @@ class StoryState:
     ) -> None:
         """Insert a new timeline entry."""
         self.conn.execute(
-            """INSERT INTO timeline
+            """INSERT OR IGNORE INTO timeline
                (chapter_number, scene_number, story_date, elapsed_time, key_events)
                VALUES (?, ?, ?, ?, ?)""",
             (
@@ -881,7 +881,7 @@ class StoryState:
     ) -> None:
         """Register a new Chekhov gun (defaults to unfired)."""
         self.conn.execute(
-            """INSERT INTO chekhov_guns
+            """INSERT OR IGNORE INTO chekhov_guns
                (id, item_description, planted_chapter, planted_context)
                VALUES (?, ?, ?, ?)""",
             (id, item_description, planted_chapter, planted_context),
@@ -1085,7 +1085,7 @@ class StoryState:
     ) -> None:
         """Insert a Weiland character arc entry."""
         self.conn.execute(
-            """INSERT INTO character_arcs
+            """INSERT OR IGNORE INTO character_arcs
                (character_id, book_number, lie_believed, ghost, want, need,
                 arc_type, current_phase, phase_chapter, phase_evidence, arc_phase_targets)
                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
@@ -1208,7 +1208,7 @@ class StoryState:
     ) -> None:
         """Insert a new subplot into the subplot board."""
         self.conn.execute(
-            """INSERT INTO subplots
+            """INSERT OR IGNORE INTO subplots
                (subplot_id, subplot_name, line_type, characters_involved,
                 start_chapter, resolution_chapter, structural_purpose,
                 interweave_points, current_status, book_number)
@@ -1308,7 +1308,7 @@ class StoryState:
     ) -> None:
         """Insert a new hook into the hook ledger."""
         self.conn.execute(
-            """INSERT INTO hooks
+            """INSERT OR IGNORE INTO hooks
                (hook_id, description, hook_type, planted_chapter, planted_book,
                 payoff_chapter, payoff_book, advancement_chapters, priority,
                 related_subplot, current_status, last_advanced_chapter, mention_only_count)
@@ -1489,7 +1489,7 @@ class StoryState:
     ) -> None:
         """Insert a new term into the terminology registry."""
         self.conn.execute(
-            """INSERT INTO terminology_registry
+            """INSERT OR IGNORE INTO terminology_registry
                (term, aliases, definition, category, first_appearance_chapter, book_number)
                VALUES (?, ?, ?, ?, ?, ?)""",
             (
@@ -1577,7 +1577,7 @@ class StoryState:
     ) -> int:
         """Insert a propagation debt. Returns the new debt ID."""
         cursor = self.conn.execute(
-            """INSERT INTO propagation_debts
+            """INSERT OR IGNORE INTO propagation_debts
                (source_layer, change_description, affected_chapters, resolution_method)
                VALUES (?, ?, ?, ?)""",
             (source_layer, change_description, json.dumps(affected_chapters), resolution_method),
@@ -1632,7 +1632,7 @@ class StoryState:
     ) -> int:
         """Insert a style fingerprint metric. Returns the new ID."""
         cursor = self.conn.execute(
-            """INSERT INTO style_fingerprint (source, metric_name, metric_value)
+            """INSERT OR IGNORE INTO style_fingerprint (source, metric_name, metric_value)
                VALUES (?, ?, ?)""",
             (source, metric_name, json.dumps(metric_value)),
         )
