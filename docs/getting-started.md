@@ -144,31 +144,41 @@ pytest
 
 All ~677 tests should pass. If some tests fail due to missing optional dependencies (chromadb, sentence-transformers, fastapi), that's expected -- the tests for those phases will be skipped.
 
-## Two Ways to Create Your Story
+## Three Workflows
 
-### Mode 1: Interactive Concept Workshop (API-driven)
+### Workflow A: Fully Automated
 
-Run the built-in workshop CLI for a guided, step-by-step concept development:
+Use the built-in workshop CLI to develop your concept, then auto-generate scene cards and run the pipeline:
 
 ```bash
 python -m src.concept_workshop.workshop_runner --project my-novel
+python -m src.main data/projects/my-novel/concept_seed.json data/projects/my-novel/scene_cards --generate-outline --phase 4
 ```
 
-Best for: structured concept development with validation gates at each step.
+Best for: structured, guided development with validation gates at each step.
 
-See [Concept Workshop](user-guide/concept-workshop.md) for the full ten-step protocol.
+### Workflow B: External Concept, Auto Outline
 
-### Mode 2: External Chat + Import
-
-Develop your concept in any LLM chat (Claude, ChatGPT, Gemini, etc.) using the [planning manuscript template](workshop-summary-template.md), then import the result:
+Develop your concept in any LLM chat (Claude, ChatGPT, Gemini), import it, then auto-generate scene cards:
 
 ```bash
-python -m src.main --import-summary path/to/manuscript.md --project my-novel --phase 4
+python -m src.main --import-summary manuscript.md --project my-novel --phase 4
+python -m src.main data/projects/my-novel/concept_seed.json data/projects/my-novel/scene_cards --generate-outline --phase 4
 ```
 
-Best for: deep creative exploration in a conversational environment, then structured extraction into the pipeline format. The Seed Builder agent applies Weiland character arcs and Brooks four-part structure during conversion.
+Best for: creative freedom during concept development, with automated scene card generation. See the [planning manuscript template](workshop-summary-template.md).
 
-See [Concept Workshop: Mode 2](user-guide/concept-workshop.md#mode-2-external-chat--import) for details.
+### Workflow C: Fully External
+
+Develop both your concept seed AND scene cards in an external LLM chat, then run the pipeline directly:
+
+```bash
+python -m src.main data/projects/my-novel/concept_seed.json data/projects/my-novel/scene_cards --phase 4
+```
+
+Best for: maximum creative control over every scene. Skip `--generate-outline` entirely — just place your concept seed and scene card JSON files in the project directory. See the [scene card template](scene-card-template.md).
+
+See [Concept Workshop](user-guide/concept-workshop.md) for detailed guides on all three workflows.
 
 ## Next Steps
 

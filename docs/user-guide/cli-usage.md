@@ -57,6 +57,8 @@ python -m src.main <concept_seed> <scene_cards_dir> [options]
 |------|-------------|
 | `--generate-outline` | Generate scene cards from concept seed before running the pipeline |
 
+**Alternative:** You can generate scene cards externally (in Claude Chat, ChatGPT, etc.) and save them directly to the `scene_cards/` directory as `chapter_NN_scene_NN.json` files. Skip `--generate-outline` and run the pipeline directly. See the [scene card template](../scene-card-template.md) for the required fields and generation rules.
+
 ### Summary Import and Validation
 
 | Flag | Description |

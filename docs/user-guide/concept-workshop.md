@@ -135,3 +135,45 @@ python -m src.main data/projects/my-novel/concept_seed.json --validate-seed
 ```
 
 This runs the compliance validator and prints a pass/fail report with specific failures and warnings.
+
+## Mode 3: External Scene Card Generation
+
+You can also generate scene cards in an external LLM chat instead of using `--generate-outline`. This gives you full creative control over every scene in your novel.
+
+### Step 1: Prepare Your Concept Seed
+
+You need a completed concept seed first (via Mode 1 or Mode 2). The scene cards reference characters, hooks, revelations, and subplots defined in the seed.
+
+### Step 2: Generate Scene Cards in Your LLM Chat
+
+Use the [scene card generation template](../scene-card-template.md) as a guide. Feed your concept seed to the LLM and ask it to generate scene cards in batches of 7 chapters at a time.
+
+Key rules to follow:
+- 2-4 scenes per chapter (average 3)
+- Alternate action and sequel scene types (Bickham framework)
+- Each scene needs a distinct mission, closing hook, and stakes
+- Pressure escalates within each chapter
+
+### Step 3: Save Scene Card Files
+
+Save each scene card as an individual JSON file:
+
+```
+data/projects/my-novel/scene_cards/
+  chapter_01_scene_01.json
+  chapter_01_scene_02.json
+  chapter_01_scene_03.json
+  chapter_02_scene_01.json
+  ...
+```
+
+### Step 4: Run the Pipeline Directly
+
+Skip `--generate-outline` — your scene cards are already in place:
+
+```bash
+python -m src.main \
+    data/projects/my-novel/concept_seed.json \
+    data/projects/my-novel/scene_cards \
+    --phase 4
+```
