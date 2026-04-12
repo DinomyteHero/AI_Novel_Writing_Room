@@ -656,6 +656,7 @@ class StoryState:
                         want=weiland.get("want"),
                         need=weiland.get("need"),
                         arc_type=arc_type,
+                        current_phase=weiland.get("initial_phase", "lie_established"),
                         arc_phase_targets=weiland.get("arc_phase_targets")
                         or weiland.get("arc_phase_map"),
                     )
@@ -1264,6 +1265,27 @@ class StoryState:
             results.append(d)
         return results
 
+    def get_valid_next_phases(
+        self, character_id: str, book_number: int = 1
+    ) -> list[str]:
+        """Return valid next phases for a character: [current_phase, next_phase].
+
+        Self-transitions (staying at current phase) are always valid.
+        """
+        arc = self.get_character_arc(character_id, book_number)
+        if arc is None:
+            return []
+        current = arc["current_phase"]
+        arc_type = arc.get("arc_type")
+        progression = ARC_PHASE_PROGRESSIONS.get(arc_type)
+        if progression is None or current not in progression:
+            return [current]
+        idx = progression.index(current)
+        valid = [current]  # Self-transition always valid
+        if idx + 1 < len(progression):
+            valid.append(progression[idx + 1])
+        return valid
+
     def advance_arc_phase(
         self,
         character_id: str,
@@ -1301,8 +1323,8 @@ class StoryState:
         current_idx = progression.index(current)
         new_idx = progression.index(new_phase)
 
-        # Cannot go backwards
-        if new_idx <= current_idx:
+        # Cannot go backwards (self-transitions are allowed to update evidence)
+        if new_idx < current_idx:
             return False
 
         # Cannot skip more than one phase ahead

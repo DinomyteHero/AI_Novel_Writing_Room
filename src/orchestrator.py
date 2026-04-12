@@ -287,20 +287,42 @@ class Orchestrator:
         print("  [2/4] Prose Stylist drafting...")
         prose = await self._run_prose_stylist(scene_card, generation_brief)
 
-        # Step 3: Gate Critic evaluates
-        print("  [3/4] Gate Critic evaluating...")
-        evaluation, prose = await self._gate_loop(scene_card, prose, generation_brief)
-
-        # Canon Expert validation (after gate, before craft edit)
+        # Step 2.5: Canon Expert validates prose (before Gate Critic)
         canon_notes = ""
-        if self.canon_expert and scene_card.get("canon_elements_needed"):
+        canon_result = None
+        if self.canon_expert:
             print("  [Canon] Canon expert validating...")
             try:
+                # Build a scene card with canon elements if not already populated
+                run_card = dict(scene_card)
+                if not run_card.get("canon_elements_needed"):
+                    elements = []
+                    if run_card.get("setting"):
+                        elements.append({"type": "location", "name": run_card["setting"]})
+                    for char in run_card.get("characters_present", []):
+                        elements.append({"type": "character", "name": char})
+                    elements.append({"type": "general", "name": "franchise_voice_and_terminology"})
+                    run_card["canon_elements_needed"] = elements
+
                 canon_result = await self.canon_expert.run({
                     "prose": prose,
-                    "scene_card": scene_card,
+                    "scene_card": run_card,
+                    "concept_seed": getattr(self, "concept_seed", {}),
                 })
                 canon_notes = canon_result.get("canon_notes", "")
+                # If canon expert returned corrected prose, use it
+                if canon_result.get("verdict") == "fail" and canon_result.get("corrected_prose"):
+                    prose = canon_result["corrected_prose"]
+                    violations = canon_result.get("violations", [])
+                    for v in violations:
+                        print(f"    Canon fix: [{v.get('category', '?')}] \"{v.get('text', '')}\" → {v.get('suggestion', '')}")
+                elif canon_result.get("violations"):
+                    violation_lines = []
+                    for v in canon_result["violations"]:
+                        violation_lines.append(
+                            f"- CANON: [{v.get('category', '?')}] \"{v.get('text', '')}\" → {v.get('suggestion', '')}"
+                        )
+                    canon_notes = "\n".join(violation_lines)
                 self.ledger.emit(
                     "agent_complete",
                     chapter_number=chapter_num,
@@ -310,9 +332,20 @@ class Orchestrator:
             except Exception as e:
                 print(f"    Canon expert: error ({e.__class__.__name__}) — skipping")
 
+        # Step 3: Gate Critic evaluates (with canon violations context)
+        print("  [3/4] Gate Critic evaluating...")
+        evaluation, prose = await self._gate_loop(scene_card, prose, generation_brief)
+
         # Step 4: Craft Editor polishes
         print("  [4/4] Craft Editor polishing...")
         final_prose = await self._run_craft_editor(scene_card, prose, evaluation, canon_notes)
+
+        # Post-craft canon re-check: verify no violations reintroduced
+        if canon_result and canon_result.get("violations"):
+            for v in canon_result["violations"]:
+                offending = v.get("text", "")
+                if offending and offending.lower() in final_prose.lower():
+                    print(f"    Warning: Canon violation reintroduced after craft edit: \"{offending}\"")
 
         # Phase 3: Quality Metrics (before revision so flags feed into it)
         quality_metrics = None
@@ -331,6 +364,21 @@ class Orchestrator:
             if quality_metrics["flags"]:
                 for flag in quality_metrics["flags"][:5]:
                     print(f"    - {flag}")
+            # Accumulate overused words for dynamic Prose Stylist constraints
+            if not hasattr(self, "_chapter_overused_words"):
+                self._chapter_overused_words = set()
+            for scene_result in quality_metrics.get("per_scene", []):
+                rep = scene_result.get("repetition", {})
+                for w in rep.get("flagged_words", []):
+                    self._chapter_overused_words.add(w["word"])
+            # Track description ratio for cross-scene feedback
+            if not hasattr(self, "_scene_description_ratios"):
+                self._scene_description_ratios = []
+            for scene_result in quality_metrics.get("per_scene", []):
+                pacing = scene_result.get("pacing", {})
+                dist = pacing.get("scene_type_distribution", {})
+                desc_ratio = dist.get("description", 0) + dist.get("introspection", 0)
+                self._scene_description_ratios.append(desc_ratio)
 
         # Phase 3: Revision Pipeline (after quality metrics, before save)
         revision_result = None
@@ -482,6 +530,19 @@ class Orchestrator:
         # Inject current story state so the Summarizer can produce accurate old_value fields
         if self.story_state:
             summarizer_context["state_snapshot"] = self.story_state.get_state_snapshot()
+            # Build arc state guidance so the Summarizer knows valid next phases
+            arc_lines = []
+            for arc in self.story_state.get_all_character_arcs():
+                char_id = arc["character_id"]
+                current = arc["current_phase"]
+                valid = self.story_state.get_valid_next_phases(char_id)
+                arc_lines.append(f"- {char_id}: currently '{current}', valid next: {valid}")
+            if arc_lines:
+                summarizer_context["arc_state_guidance"] = "\n".join(arc_lines)
+        # Include any rejected transitions from prior scenes
+        if hasattr(self, "_rejected_transitions") and self._rejected_transitions:
+            summarizer_context["rejected_transitions"] = self._rejected_transitions
+            self._rejected_transitions = []
 
         summary_result = await self.summarizer.run(summarizer_context)
 
@@ -513,6 +574,12 @@ class Orchestrator:
         # Step 7: Apply state diff to SQLite
         if self.state_diff_applier and state_diff.get("changes"):
             self.state_diff_applier.apply_diff(state_diff, chapter_num, scene_num)
+            # Capture rejected transitions for Summarizer feedback on next scene
+            rejected = getattr(self.state_diff_applier, "last_rejected_transitions", [])
+            if rejected:
+                if not hasattr(self, "_rejected_transitions"):
+                    self._rejected_transitions = []
+                self._rejected_transitions.extend(rejected)
             print(f"  [P2-3] State diff applied")
 
         # Step 8: Update chapter log and scene log
@@ -644,10 +711,25 @@ class Orchestrator:
 
         assembled_context = self.assembler.assemble(scene_card)
 
+        # Build negative constraints with dynamic cross-scene feedback
+        neg_constraints = self.assembler.get_negative_constraints()
+        if hasattr(self, "_chapter_overused_words") and self._chapter_overused_words:
+            neg_constraints += (
+                f"\n\nAvoid overusing these words (flagged in prior scenes): "
+                f"{', '.join(sorted(self._chapter_overused_words))}"
+            )
+        if hasattr(self, "_scene_description_ratios") and self._scene_description_ratios:
+            avg_desc = sum(self._scene_description_ratios) / len(self._scene_description_ratios)
+            if avg_desc > 0.55:
+                neg_constraints += (
+                    f"\n\nPrior scenes averaged {int(avg_desc * 100)}% description/interiority. "
+                    "Increase dialogue and action beats. Avoid long unbroken passages of interiority or observation."
+                )
+
         result = await self.prose_stylist.run({
             "generation_brief": generation_brief,
             "assembled_context": assembled_context,
-            "negative_constraints": self.assembler.get_negative_constraints(),
+            "negative_constraints": neg_constraints,
             "failure_context": failure_context or "",
             "scene_card": scene_card,
         })

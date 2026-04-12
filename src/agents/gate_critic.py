@@ -20,6 +20,7 @@ STRUCTURAL_CODES = {
     "STRUCTURAL_PHASE_VIOLATION",
     "PROMISE_BROKEN",
     "MOTIVATION_GAP",
+    "CANON_VIOLATION",
     # Phase 5 additions
     "CHARACTER_ARC_STALL",
     "HOOK_VIOLATION",
@@ -39,7 +40,6 @@ POLISH_CODES = {
     "EXPOSITION_LEAK",
     "PACING_FLATLINE",
     "PROSE_CLICHE_BURST",
-    "CANON_VIOLATION",
 }
 
 ALL_CODES = STRUCTURAL_CODES | VOICE_CODES | POLISH_CODES
@@ -92,10 +92,40 @@ class GateCritic(BaseAgent):
 
         parts.append(
             "## Task\n"
-            "Evaluate this drafted prose against the scene card requirements. "
+            "Evaluate this drafted prose against the scene card requirements.\n\n"
+            "## Scoring Instructions\n\n"
+            "Before assigning scores, list 3-5 specific issues you found in the prose. "
+            "For each issue, note the severity (minor/moderate/major) and which score it affects.\n\n"
+            "Then assign scores using these calibration anchors:\n"
+            "- 0.60-0.69: Significant issues — structural gaps, voice inconsistencies, or multiple polish problems\n"
+            "- 0.70-0.79: Acceptable first draft — minor structural issues, some voice drift, typical AI-generated prose patterns\n"
+            "- 0.80-0.89: Strong draft — structure is sound, voice is consistent, only minor polish issues remain\n"
+            "- 0.90-1.00: Exceptional — reserved for prose that reads as polished, published-quality fiction with no detectable AI patterns\n\n"
+            "Most AI-generated first drafts should score in the 0.70-0.79 range. "
+            "A score above 0.90 on any dimension should be rare and justified by the absence of specific issues.\n\n"
+            "## Check List\n"
+            "1. Does the scene fulfill its mission from the scene card?\n"
+            "2. Does the turning point land as specified?\n"
+            "3. Are there continuity contradictions?\n"
+            "4. Does the scene respect structural phase constraints?\n"
+            "5. Are characters behaving consistently with their profiles?\n"
+            "6. Is the prose quality acceptable (no info dumps, varied pacing)?\n"
+            "7. Has the POV character's arc phase progressed as expected? (CHARACTER_ARC_STALL)\n"
+            "8. Were required hooks planted/advanced/resolved per the hook agenda? (HOOK_VIOLATION)\n"
+            "9. Are active subplots addressed as expected? (SUBPLOT_DRIFT)\n"
+            "10. Are in-universe terms spelled correctly per the terminology registry? (TERMINOLOGY_DRIFT)\n"
+            "11. Does the prose follow voice definition rules (banned words, anti-patterns)? (VOICE_DEFINITION_VIOLATION)\n\n"
+            "Valid failure codes:\n"
+            "- Structural: CONTINUITY_CONTRADICTION, WEAK_TURNING_POINT, "
+            "MISSING_TURNING_POINT, UNEARNED_RESOLUTION, STRUCTURAL_PHASE_VIOLATION, "
+            "PROMISE_BROKEN, MOTIVATION_GAP, CHARACTER_ARC_STALL, HOOK_VIOLATION, SUBPLOT_DRIFT, CANON_VIOLATION\n"
+            "- Voice: OOC_DIALOGUE, OOC_ACTION, TELLING_NOT_SHOWING, "
+            "TERMINOLOGY_DRIFT, VOICE_DEFINITION_VIOLATION\n"
+            "- Polish: EXPOSITION_LEAK, PACING_FLATLINE, PROSE_CLICHE_BURST\n\n"
             "Return a JSON object with the following structure:\n"
             "```json\n"
             "{\n"
+            '  "reasoning": "List 3-5 specific issues found, each with severity (minor/moderate/major) and affected dimension",\n'
             '  "verdict": "pass | fail_structural | fail_voice | fail_polish",\n'
             '  "failure_codes": [\n'
             "    {\n"
@@ -111,26 +141,7 @@ class GateCritic(BaseAgent):
             '  "voice_score": 0.0-1.0,\n'
             '  "polish_score": 0.0-1.0\n'
             "}\n"
-            "```\n\n"
-            "Valid failure codes:\n"
-            "- Structural: CONTINUITY_CONTRADICTION, WEAK_TURNING_POINT, "
-            "MISSING_TURNING_POINT, UNEARNED_RESOLUTION, STRUCTURAL_PHASE_VIOLATION, "
-            "PROMISE_BROKEN, MOTIVATION_GAP, CHARACTER_ARC_STALL, HOOK_VIOLATION, SUBPLOT_DRIFT\n"
-            "- Voice: OOC_DIALOGUE, OOC_ACTION, TELLING_NOT_SHOWING, "
-            "TERMINOLOGY_DRIFT, VOICE_DEFINITION_VIOLATION\n"
-            "- Polish: EXPOSITION_LEAK, PACING_FLATLINE, PROSE_CLICHE_BURST, CANON_VIOLATION\n\n"
-            "Check:\n"
-            "1. Does the scene fulfill its mission from the scene card?\n"
-            "2. Does the turning point land as specified?\n"
-            "3. Are there continuity contradictions?\n"
-            "4. Does the scene respect structural phase constraints?\n"
-            "5. Are characters behaving consistently with their profiles?\n"
-            "6. Is the prose quality acceptable (no info dumps, varied pacing)?\n"
-            "7. Has the POV character's arc phase progressed as expected? (CHARACTER_ARC_STALL)\n"
-            "8. Were required hooks planted/advanced/resolved per the hook agenda? (HOOK_VIOLATION)\n"
-            "9. Are active subplots addressed as expected? (SUBPLOT_DRIFT)\n"
-            "10. Are in-universe terms spelled correctly per the terminology registry? (TERMINOLOGY_DRIFT)\n"
-            "11. Does the prose follow voice definition rules (banned words, anti-patterns)? (VOICE_DEFINITION_VIOLATION)\n"
+            "```\n"
         )
 
         return "\n\n".join(parts)

@@ -33,7 +33,11 @@ class TestFailureCodeClassification:
         assert "EXPOSITION_LEAK" in POLISH_CODES
         assert "PACING_FLATLINE" in POLISH_CODES
         assert "PROSE_CLICHE_BURST" in POLISH_CODES
-        assert "CANON_VIOLATION" in POLISH_CODES
+
+    def test_canon_violation_is_structural(self):
+        """CANON_VIOLATION was promoted from polish to structural."""
+        assert "CANON_VIOLATION" in STRUCTURAL_CODES
+        assert "CANON_VIOLATION" not in POLISH_CODES
 
     def test_no_overlap_between_categories(self):
         assert not (STRUCTURAL_CODES & VOICE_CODES)

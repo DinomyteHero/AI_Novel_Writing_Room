@@ -60,6 +60,7 @@
         "want": "To prove he's worthy of the Skywalker name on his own terms — independent of his father's shadow and his cousin's legacy.",
         "need": "To learn that 'on his own terms' doesn't mean 'on his own.' True independence isn't isolation — it's the courage to choose who to trust and how to lead differently from those who came before.",
         "arc_type": "positive_change",
+        "initial_phase": "lie_established",
         "arc_summary": "Positive change — moves from the lie (self-reliance as safety) to the truth (collective trust as strength)",
         "arc_phase_map": {
           "lie_established": "Chapter 1",
@@ -93,6 +94,7 @@
         "want": "To finish what she started — seal the wound, honor the people who died at Ruusan, and prove that her way (restraint, principle, discipline) was right all along.",
         "need": "To accept that being right about the principle doesn't mean she has all the answers — and that trusting someone new (Ben) doesn't mean repeating her mistake with Gavran.",
         "arc_type": "positive_change",
+        "initial_phase": "lie_established",
         "arc_summary": "Positive change — moves from rigid certainty to principled flexibility",
         "arc_phase_map": {
           "lie_established": "Chapter 5",
@@ -126,6 +128,7 @@
         "want": "To be left alone. Genuinely. He didn't ask to be frozen, didn't ask to be woken up, and doesn't want to save the galaxy.",
         "need": "To discover that choosing to care — choosing to fight for something not because an institution demands it but because he decides it matters — is the only way to stop being a tool in someone else's hand. Passivity isn't freedom. It's a different kind of cage.",
         "arc_type": "positive_change",
+        "initial_phase": "lie_established",
         "arc_summary": "Positive change — moves from detachment to chosen commitment",
         "arc_phase_map": {
           "lie_established": "Chapter 5",
@@ -159,6 +162,7 @@
         "want": "To use the technique one final time to seal the wound permanently, proving his sacrifice wasn't meaningless.",
         "need": "To accept that his sacrifice was meaningful without needing to repeat it. That stepping back and letting others find a different way isn't cowardice. He never gets there.",
         "arc_type": "negative",
+        "initial_phase": "lie_established",
         "arc_summary": "Negative (tragic) — moves deeper into the lie. His inability to let go of the pattern is what breaks him from the group.",
         "arc_phase_map": {
           "lie_established": "Chapter 5",
@@ -193,6 +197,7 @@
         "want": "To open the wound fully and prove her thesis. She genuinely believes this will end war, not cause it.",
         "need": "She never gets there. The story treats her as wrong for the right reasons. Her defeat is external, not internal — she's proven wrong by results she can't dismiss, even if she'll spend years rationalizing them.",
         "arc_type": "negative",
+        "initial_phase": "lie_established",
         "arc_summary": "Flat negative — enters certain, exits certain. Defeated but unchanged.",
         "arc_phase_map": {
           "lie_established": "Chapter 5 (referenced)",
@@ -217,6 +222,7 @@
         "want": "To help Ben and get home safely.",
         "need": "To choose to be here for the right reasons, not just loyalty — completing the redemption of their shared GAG history.",
         "arc_type": "positive_change",
+        "initial_phase": "lie_established",
         "arc_summary": "Minor positive — from obligation to chosen commitment",
         "arc_phase_map": {
           "lie_established": "Chapter 1 — arrives as a favor to Ben, framing the mission as obligation rather than purpose",
@@ -1892,5 +1898,37 @@
       "Chapter 16 is high-density — carries Veraine's four-objective operation, Sera/Veraine confrontation, Kael/Veraine parallel's most direct moment, lie_challenged beats for both Sera and Kael. Needs room to breathe; may need to be the longest chapter or spill into adjacent chapters."
     ]
   },
-  "scene_cards_note": "Scene cards removed pending regeneration in a separate session. All structural decisions, location designs, character arc phase maps, hook/revelation schedules, and subplot architectures are current and should be used as the basis for new scene card generation."
+  "scene_cards_note": "Scene cards removed pending regeneration in a separate session. All structural decisions, location designs, character arc phase maps, hook/revelation schedules, and subplot architectures are current and should be used as the basis for new scene card generation.",
+  "canon_profile": {
+    "franchise": "star_wars",
+    "continuity": "legends_eu",
+    "continuity_description": "Star Wars Legends EU (pre-April 2014 Expanded Universe). All Legends-published material is valid canon. Anything introduced exclusively in Disney Canon (post-April 2014 \u2014 sequel trilogy, High Republic initiative, Disney+ series original content) is invalid unless it also appeared in Legends sources.",
+    "era_description": "Post-Abeloth Crisis, approximately 47 ABY in the Legends timeline. The Galactic Alliance is the primary galactic government. The Jedi Order operates from the Coruscant Temple under Grand Master Luke Skywalker. The Empire has been reduced to a remnant state. The Yuuzhan Vong War ended decades ago. Abeloth has been defeated but the Force is still settling.",
+    "narrative_register": "Space opera with literary sensibility. The prose should feel like a continuation of the Fate of the Jedi or Legacy of the Force novel series \u2014 grounded character interiority, political complexity, mystical Force elements described through intuitive and experiential language rather than scientific framing.",
+    "cross_continuity_violations": [
+      "High Republic (Disney Canon publishing initiative \u2014 does not exist in Legends)",
+      "World Between Worlds (Disney Canon Force concept from Rebels)",
+      "Inquisitorius as a formal post-Imperial organization (Disney Canon structure)",
+      "Ahsoka Tano post-Rebels appearances (some Legends material exists but most characterization is Disney Canon)",
+      "Starkiller Base, First Order, Resistance (sequel trilogy \u2014 does not exist in Legends)",
+      "Kyber crystal bleeding (Disney Canon lore \u2014 Legends uses synthetic crystals for Sith)"
+    ],
+    "anachronistic_terms": {
+      "LIDAR": ["laser rangefinder", "topographic scanner", "sensor sweep"],
+      "DNA": ["genetic material", "bioscan", "gene-print"],
+      "radio": ["comlink", "comm channel", "frequency"],
+      "sonar": ["echo-scan", "ping sweep"],
+      "laptop": ["datapad", "terminal"],
+      "computer": ["navicomputer", "terminal", "console", "datapad"],
+      "missile": ["concussion missile", "proton torpedo"],
+      "gun": ["blaster", "blaster pistol", "blaster rifle", "slugthrower"]
+    },
+    "meta_reference_rules": [
+      "ABY/BBY dating system \u2014 fan and sourcebook convention, never used by characters in-universe. Characters reference events directly: 'during the Vong War', 'after Endor', 'before the Clone Wars'",
+      "'Legends' or 'Canon' as terms \u2014 these are publishing classifications, not in-universe concepts",
+      "Wookieepedia-style taxonomic descriptions \u2014 a character in-universe would not narrate their own species taxonomy",
+      "Referencing 'the prequels', 'the original trilogy', or any film/book as a source"
+    ],
+    "franchise_terminology_notes": "The Force should be described through experiential and mystical language, not clinical or scientific framing. Avoid 'energy field' \u2014 Luke's generation understands the Force as a living presence, not a measurable phenomenon. Technology should use Star Wars vocabulary consistently: datapads not tablets, transparisteel not glass, durasteel not steel, turbolifts not elevators."
+  }
 }
