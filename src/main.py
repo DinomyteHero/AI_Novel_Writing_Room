@@ -444,7 +444,6 @@ async def main():
             print(f"  {msg}")
 
         from src.agents.seed_builder import SeedBuilder
-        from src.project_paths import ProjectPaths
 
         paths = ProjectPaths(args.project)
         paths.ensure_dirs()
