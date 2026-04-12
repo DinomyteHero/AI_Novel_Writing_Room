@@ -3,6 +3,27 @@
 Runs after each approved chapter to detect contradictions against
 the story state database. Non-blocking — logs warnings but does
 not reject chapters.
+
+Investigation notes (Phase 4 diagnostic):
+- The scanner returned "clean" across 25 scenes and 8 chapters.
+- This is NOT a stub — it has 5 real scanning dimensions.
+- Reasons for zero detections in a short run:
+  1. Truth layer: 200-char window around character names is too narrow for
+     detecting location contradictions in literary prose. Consider widening
+     to 500+ chars or using paragraph-level context.
+  2. Belief layer: Depends on knowledge_layers having recorded beliefs.
+     If the state diff doesn't populate beliefs, nothing fires.
+  3. Promises: 10-chapter threshold means an 8-chapter run can't trigger it.
+     Consider making the threshold configurable.
+  4. Timeline: Requires story_date data in the timeline table. If the
+     summarizer doesn't extract dates, this scan is inert.
+  5. Relationships: 5-chapter staleness threshold is reasonable but won't
+     fire until chapters 6+.
+- TODO: Consider an LLM-powered contradiction check that receives the
+  current scene prose + last 2-3 scene summaries from ChromaDB and checks
+  for character state, object continuity, and timeline contradictions.
+  This would catch semantic contradictions that heuristic pattern-matching
+  misses. Run on a fast/cheap model (Gemini Flash or Haiku).
 """
 
 import re

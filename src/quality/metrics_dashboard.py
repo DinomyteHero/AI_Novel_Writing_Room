@@ -1,5 +1,6 @@
 """Unified quality metrics dashboard aggregating all quality checkers."""
 
+from collections import Counter
 from pathlib import Path
 
 import yaml
@@ -29,6 +30,11 @@ class MetricsDashboard:
         self.pacing = PacingAnalyzer()
         self.voice = VoiceChecker(self.negative_constraints)
         self.slop = SlopDetector(self.negative_constraints)
+
+        # Cross-scene overused word tracking
+        self._manuscript_word_freq: Counter = Counter()
+        self._manuscript_scene_count: int = 0
+        self._word_scene_appearances: Counter = Counter()  # tracks how many scenes each word was flagged in
 
     def analyze_chapter(
         self,
@@ -264,5 +270,22 @@ class MetricsDashboard:
             flags.append(f"{count} filler pattern(s) detected")
         if slop["burstiness_score"] > 0.5:
             flags.append(f"High burstiness score ({slop['burstiness_score']:.2f})")
+
+        # Cross-scene manuscript-level tracking
+        self._manuscript_scene_count += 1
+        if rep["flagged_words"]:
+            for w in rep["flagged_words"]:
+                self._manuscript_word_freq[w["word"]] += w["count"]
+                self._word_scene_appearances[w["word"]] += 1
+
+        # Flag words that appear in overused lists across 3+ scenes
+        manuscript_flags = []
+        for word, scene_count in self._word_scene_appearances.items():
+            if scene_count >= 3:
+                total = self._manuscript_word_freq[word]
+                manuscript_flags.append(
+                    f"Manuscript-level overused: '{word}' ({total}x across {scene_count} scenes)"
+                )
+        flags.extend(manuscript_flags)
 
         return flags

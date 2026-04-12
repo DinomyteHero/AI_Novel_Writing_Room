@@ -86,7 +86,9 @@ def _init_phase2(concept_seed_path: str, config: dict, manuscripts_dir: str,
         "pipeline", {}
     ).get("chapter_memory_dir", "data/chapter_memory")
     try:
-        ef = get_embedding_function(use_mock=True)  # Use mock by default; set use_mock=False for real embeddings
+        embed_cfg = config.get("pipeline", {}).get("embeddings", {})
+        use_mock = embed_cfg.get("use_mock", True)
+        ef = get_embedding_function(use_mock=use_mock)
         chapter_memory = ChapterMemory(
             persist_directory=chapter_memory_dir,
             embedding_function=ef,
@@ -625,7 +627,8 @@ async def main():
             ef = None
             try:
                 from src.rag.embedding import get_embedding_function
-                ef = get_embedding_function(use_mock=True)
+                embed_cfg = config.get("pipeline", {}).get("embeddings", {})
+                ef = get_embedding_function(use_mock=embed_cfg.get("use_mock", True))
             except Exception:
                 pass
 
@@ -663,7 +666,8 @@ async def main():
             ef = None
             try:
                 from src.rag.embedding import get_embedding_function
-                ef = get_embedding_function(use_mock=True)
+                embed_cfg = config.get("pipeline", {}).get("embeddings", {})
+                ef = get_embedding_function(use_mock=embed_cfg.get("use_mock", True))
             except Exception:
                 pass
 
@@ -832,11 +836,25 @@ async def main():
                     print(f"  {fmt}: skipped")
             ledger.emit("export_complete", payload={"formats": formats})
 
+    except KeyboardInterrupt:
+        print("\nPipeline interrupted.")
     finally:
-        await router.close()
-        ledger.close()
-        if story_state:
-            story_state.close()
+        # Sync-safe cleanup — ledger and story_state are synchronous
+        try:
+            ledger.close()
+        except Exception:
+            pass
+        try:
+            if story_state:
+                story_state.close()
+        except Exception:
+            pass
+        # Async client cleanup — skip on interrupt to avoid event loop teardown errors
+        if not isinstance(sys.exc_info()[1], KeyboardInterrupt):
+            try:
+                await router.close()
+            except Exception:
+                pass
 
 
 def cli():

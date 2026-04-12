@@ -102,7 +102,7 @@ agent_routing:
   # =========================================================================
   orchestrator:           { backend: cloud, model: gemini_flash }
   plot_architect:         { backend: cloud, model: gemini_flash, params: { temperature: 0.4 } }
-  canon_expert:           { backend: cloud, model: gemini_flash }
+  canon_expert:           { backend: cloud, model: gemini_flash, params: { temperature: 0.2 } }
   summarizer:             { backend: cloud, model: gemini_flash, params: { temperature: 0.2 } }
   character_specialist:   { backend: cloud, model: gemini_flash, params: { temperature: 0.4 } }
   lore_extractor:         { backend: cloud, model: gemini_flash, params: { temperature: 0.2 } }
@@ -113,6 +113,10 @@ agent_routing:
 pipeline:
   max_structural_retries: 3
   max_voice_retries: 2
+  max_http_retries: 2
+  embeddings:
+    use_mock: true  # Set to false for real semantic similarity (requires sentence-transformers)
+    model: nomic-ai/nomic-embed-text-v1.5
 
 # Worldbuilding persistence
 worldbuilding:
