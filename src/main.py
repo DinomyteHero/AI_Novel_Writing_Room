@@ -525,7 +525,11 @@ async def main():
         canon_db=canon_db,
     )
 
-    if args.phase < 2:
+    # Ensure ledger exists — Phase 2 may have created it above, but if
+    # Phase 2 init failed (e.g., chromadb missing), it won't exist yet.
+    try:
+        ledger
+    except UnboundLocalError:
         ledger = RunLedger(db_path=ledger_path)
 
     # Initialize Phase 3 components if requested
