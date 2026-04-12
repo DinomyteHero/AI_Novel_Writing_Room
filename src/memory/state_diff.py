@@ -204,6 +204,11 @@ class StateDiffApplier:
             else:
                 self.state.update_subplot(subplot_id, **{field: new_value})
 
+    # Map common LLM field-name variations to actual DB column names
+    _HOOK_FIELD_ALIASES: dict[str, str] = {
+        "status": "current_status",
+    }
+
     def _apply_hook_updates(
         self, updates: list[dict], chapter_number: int
     ) -> None:
@@ -212,6 +217,10 @@ class StateDiffApplier:
             hook_id = update.get("hook_id")
             field = update.get("field")
             new_value = update.get("new_value")
+
+            # Normalise LLM field names to actual DB columns
+            if field:
+                field = self._HOOK_FIELD_ALIASES.get(field, field)
 
             if not hook_id:
                 continue

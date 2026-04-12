@@ -14,71 +14,105 @@ models:
     api_key_env: OPENROUTER_API_KEY
     timeout_seconds: 300
     models:
-      # Gemini 3.1 Pro — workshop, prose, and quality-sensitive agents
-      primary: google/gemini-3.1-pro-preview
-      # DeepSeek V3.2 — bulk pipeline agents (cheap)
-      budget: deepseek/deepseek-v3.2
-      # Claude Sonnet 4 — high-stakes evaluation
-      premium: anthropic/claude-sonnet-4-20250514
+      gemini: google/gemini-3.1-pro-preview
+      gemini_flash: google/gemini-3-flash-preview
+      deepseek: deepseek/deepseek-v3.2
+      claude: anthropic/claude-sonnet-4.6
+      haiku: anthropic/claude-haiku-4.5
+      # --- Test alternatives for prose_stylist ---
+      glm: z-ai/glm-5.1
+      qwen: qwen/qwen3.6-plus
+      kimi: moonshotai/kimi-k2
     default_params:
-      primary:
-        temperature: 0.7
+      gemini:
+        temperature: 0.6
         max_tokens: 8192
-      budget:
-        temperature: 0.4
-        max_tokens: 4096
-      premium:
+      gemini_flash:
+        temperature: 0.5
+        max_tokens: 8192
+      deepseek:
         temperature: 0.3
+        max_tokens: 4096
+      claude:
+        temperature: 0.4
+        max_tokens: 8192
+      haiku:
+        temperature: 0.4
         max_tokens: 4096
 
 # Agent-to-model mapping
 # NOTE: The 'backend' field is ONLY honoured in 'hybrid' deployment_mode.
 # In 'local' or 'cloud' mode, ALL agents use the deployment_mode backend.
 agent_routing:
-  # --- Workshop: Gemini 3.1 Pro (franchise knowledge + reasoning) ---
-  concept_workshop:       { backend: cloud, model: primary, params: { temperature: 0.7, max_tokens: 8192 } }
 
-  # --- Prose generation: Gemini 3.1 Pro (quality-visible, writes the novel) ---
-  prose_stylist:          { backend: cloud, model: primary, params: { temperature: 0.9 } }
+  # =========================================================================
+  # PROSE GENERATION — Claude Sonnet 4
+  # Highest-impact slot. The agent the reader actually sees.
+  # To test alternatives, swap 'claude' for 'kimi', 'glm', 'qwen', or 'gemini'
+  # =========================================================================
+  prose_stylist:          { backend: cloud, model: claude, params: { temperature: 0.85, max_tokens: 8192 } }
 
-  # --- Pipeline agents: DeepSeek V3.2 (structured tasks, cheap) ---
-  orchestrator:           { backend: cloud, model: budget }
-  plot_architect:         { backend: cloud, model: budget, params: { temperature: 0.4 } }
-  gate_critic:            { backend: cloud, model: budget, params: { temperature: 0.3 } }
-  craft_editor:           { backend: cloud, model: budget, params: { temperature: 0.4 } }
-  canon_expert:           { backend: cloud, model: budget }
-  summarizer:             { backend: cloud, model: budget, params: { temperature: 0.2 } }
-  character_specialist:   { backend: cloud, model: budget, params: { temperature: 0.4 } }
-  lore_extractor:         { backend: cloud, model: budget, params: { temperature: 0.2 } }
+  # =========================================================================
+  # GATE CRITIC — Claude Sonnet 4
+  # Single chokepoint deciding pass/fail on scenes. Needs the best judgment
+  # available. Cross-model check: Claude judging Claude-written prose.
+  # =========================================================================
+  gate_critic:            { backend: cloud, model: claude, params: { temperature: 0.3 } }
 
-  # --- Phase 3: Revision pipeline (DeepSeek V3.2) ---
-  structural_continuity_reviewer: { backend: cloud, model: budget, params: { temperature: 0.3 } }
-  scene_emotion_reviewer:         { backend: cloud, model: budget, params: { temperature: 0.5 } }
-  line_copy_editor:               { backend: cloud, model: budget, params: { temperature: 0.3 } }
+  # =========================================================================
+  # EVALUATION — Claude Sonnet 4
+  # High-stakes final judgment. Runs infrequently, quality justifies cost.
+  # =========================================================================
+  judge_evaluator:        { backend: cloud, model: claude, params: { temperature: 0.2 } }
+  manuscript_reviewer:    { backend: cloud, model: claude, params: { temperature: 0.3 } }
 
-  # --- Phase 4: Planning & polish (DeepSeek V3.2) ---
-  outline_planner:                 { backend: cloud, model: primary, params: { temperature: 0.5, max_tokens: 32768 } }
-  dialogue_polish_editor:          { backend: cloud, model: budget, params: { temperature: 0.4 } }
-  worldbuilding_coherence_reviewer: { backend: cloud, model: budget, params: { temperature: 0.3 } }
+  # =========================================================================
+  # WORKSHOP & PLANNING — Gemini 3.1 Pro
+  # Deep reasoning, franchise knowledge, long creative sessions.
+  # These run infrequently — Pro-tier cost is justified.
+  # =========================================================================
+  concept_workshop:       { backend: cloud, model: gemini, params: { temperature: 0.7, max_tokens: 8192 } }
+  outline_planner:        { backend: cloud, model: gemini, params: { temperature: 0.5, max_tokens: 32768 } }
+  seed_builder:           { backend: cloud, model: gemini, params: { temperature: 0.3, max_tokens: 16384 } }
 
-  # --- Seed Builder: Gemini 3.1 Pro (structured extraction from manuscripts) ---
-  seed_builder:                    { backend: cloud, model: primary, params: { temperature: 0.3, max_tokens: 16384 } }
+  # =========================================================================
+  # PROSE-SENSITIVE REVISION — Claude Haiku 4.5
+  # Agents that need to hear voice drift, cadence issues, and emotional
+  # flatness. Same model family as the prose_stylist — shares Claude's
+  # prose instincts at 1/3 the cost of Sonnet.
+  # =========================================================================
+  craft_editor:           { backend: cloud, model: haiku, params: { temperature: 0.4 } }
+  scene_emotion_reviewer: { backend: cloud, model: haiku, params: { temperature: 0.5 } }
+  dialogue_polish_editor: { backend: cloud, model: haiku, params: { temperature: 0.4 } }
 
-  # --- Quality-sensitive: Gemini 3.1 Pro (needs better judgment) ---
-  voice_checker:          { backend: cloud, model: primary, params: { temperature: 0.3 } }
-  stress_test:            { backend: cloud, model: primary, params: { temperature: 0.5 } }
+  # =========================================================================
+  # STRUCTURAL REVISION — Gemini 3 Flash
+  # Mechanical/structural checks where speed and cost matter more than
+  # prose sensitivity. Near-Pro quality at 1/4 the cost.
+  # =========================================================================
+  line_copy_editor:       { backend: cloud, model: gemini_flash, params: { temperature: 0.3 } }
+  voice_checker:          { backend: cloud, model: gemini_flash, params: { temperature: 0.3 } }
+  stress_test:            { backend: cloud, model: gemini_flash, params: { temperature: 0.5 } }
 
-  # --- Evaluation: Claude Sonnet 4 (high-stakes judgment) ---
-  judge_evaluator:        { backend: cloud, model: premium, params: { temperature: 0.2 } }
-  manuscript_reviewer:    { backend: cloud, model: premium, params: { temperature: 0.3 } }
+  # =========================================================================
+  # PIPELINE UTILITY — Gemini 3 Flash
+  # Structured tasks, pattern-matching, extraction. Fast iteration.
+  # To test MiniMax M2.7 as cheaper/faster alternative, swap to 'minimax'
+  # To revert to cost-optimized production, swap to 'deepseek'
+  # =========================================================================
+  orchestrator:           { backend: cloud, model: gemini_flash }
+  plot_architect:         { backend: cloud, model: gemini_flash, params: { temperature: 0.4 } }
+  canon_expert:           { backend: cloud, model: gemini_flash }
+  summarizer:             { backend: cloud, model: gemini_flash, params: { temperature: 0.2 } }
+  character_specialist:   { backend: cloud, model: gemini_flash, params: { temperature: 0.4 } }
+  lore_extractor:         { backend: cloud, model: gemini_flash, params: { temperature: 0.2 } }
+  structural_continuity_reviewer: { backend: cloud, model: gemini_flash, params: { temperature: 0.3 } }
+  worldbuilding_coherence_reviewer: { backend: cloud, model: gemini_flash, params: { temperature: 0.3 } }
 
 # Pipeline settings
 pipeline:
   max_structural_retries: 3
   max_voice_retries: 2
-  # chapter_output_dir: defaults to output/{project-slug}/chapters/
-  # Override here or with --output-dir to use a custom path.
-  # run_ledger_path: auto-resolved per-project at data/projects/<slug>/state/run_ledger.db
 
 # Worldbuilding persistence
 worldbuilding:
