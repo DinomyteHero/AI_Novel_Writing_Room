@@ -13,8 +13,12 @@ For each significant character, extract or infer:
 - `want` — what the character consciously pursues
 - `need` — what the character actually needs (often contradicts the want)
 - `arc_type` — one of: `positive_change`, `flat`, `negative`, `disillusionment`
-- `arc_phase_map` — chapter-level mapping of arc progression (lie_established, lie_reinforced, lie_challenged, moment_of_truth, new_truth_demonstrated, arc_resolved)
-- `arc_phase_targets` — what each phase accomplishes narratively
+- `arc_phase_map` — chapter-level mapping of arc progression. Keys depend on `arc_type`:
+  - positive_change: lie_established, lie_reinforced, lie_challenged, moment_of_truth, new_truth_demonstrated, arc_resolved
+  - negative: lie_established, lie_reinforced, lie_deepened, point_of_no_return, lie_acted_upon, lie_consequence, arc_resolved_tragic
+  - flat: lie_established, lie_reinforced, lie_tested, lie_unchanged
+  - disillusionment: lie_established, lie_reinforced, lie_challenged, moment_of_truth, truth_rejected, disillusionment_accepted
+- `arc_phase_targets` — what each phase accomplishes narratively (optional)
 
 ### Brooks Four-Part Structure
 Map the story outline to Larry Brooks' four-part structure:
@@ -49,6 +53,8 @@ hooks: [ { hook_id (H01, H02...), hook_type (hard/soft/series), planted_in, reso
 revelation_schedule: [ { revelation_id (R01, R02...), what, known_by: [strings], revealed_to: [strings], revealed_in, impact, setup_required } ]
 terminology_registry: [ { canonical_form, aliases: [strings], definition, category (character_name/place_name/faction/concept/artifact/technology/etc), first_appearance, usage_notes } ]
 promise_payoff_ledger: [ { promise_id (PP01...), promise, planted_in, payoff_in, type (plot/character/thematic/atmospheric), rationale } ]
+referenced_characters: [ { name, role, initial_location (optional), initial_emotional_state (optional) } ] — non-ensemble characters who appear in scene cards (e.g., mentors, off-screen rulers, family members)
+quality_overrides: { word_frequency_allowlist: [strings — franchise-essential words], semantic_similarity_threshold: number (default 0.85), max_similar_pairs_per_1k_words: integer (default 10) }
 scene_cards: [] (leave empty — scene cards are generated separately)
 stress_test_scores: null values (scored separately)
 ```

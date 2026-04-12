@@ -174,38 +174,40 @@ class TestArcPhaseUpdates:
     def test_valid_arc_phase_transition(self, diff_setup):
         """Valid arc phase transition is applied."""
         state, _, _, applier = diff_setup
+        # Hero starts at lie_established; advance to lie_reinforced (next step)
         diff = {
             "chapter_number": 5,
             "changes": {
                 "arc_phase_updates": [{
                     "character_id": "hero",
-                    "old_phase": "lie_reinforced",
-                    "new_phase": "lie_questioned",
-                    "evidence": "Hero doubted the lie for the first time",
+                    "old_phase": "lie_established",
+                    "new_phase": "lie_reinforced",
+                    "evidence": "Hero doubled down on the lie",
                 }],
             },
         }
         applier.apply_diff(diff, chapter_number=5)
         arc = state.get_character_arc("hero")
-        assert arc["current_phase"] == "lie_questioned"
-        assert arc["phase_evidence"] == "Hero doubted the lie for the first time"
+        assert arc["current_phase"] == "lie_reinforced"
+        assert arc["phase_evidence"] == "Hero doubled down on the lie"
 
     def test_invalid_arc_phase_transition_rejected(self, diff_setup):
         """Invalid arc phase transition is rejected (phase unchanged)."""
         state, _, _, applier = diff_setup
+        # Hero starts at lie_established; try to skip to lie_questioned
         diff = {
             "chapter_number": 3,
             "changes": {
                 "arc_phase_updates": [{
                     "character_id": "hero",
-                    "old_phase": "lie_reinforced",
-                    "new_phase": "lie_cracking",  # Skips lie_questioned
+                    "old_phase": "lie_established",
+                    "new_phase": "lie_questioned",  # Skips lie_reinforced
                 }],
             },
         }
         applier.apply_diff(diff, chapter_number=3)
         arc = state.get_character_arc("hero")
-        assert arc["current_phase"] == "lie_reinforced"  # Unchanged
+        assert arc["current_phase"] == "lie_established"  # Unchanged
 
 
 class TestTerminologyUpdates:

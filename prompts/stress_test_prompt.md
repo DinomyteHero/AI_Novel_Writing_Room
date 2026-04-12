@@ -21,10 +21,11 @@ Evaluate the concept seed below across nine dimensions. For each, score 1-10 and
 - At the Midpoint, is each character's Moment of Truth earned by preceding events?
 - Does the climactic choice force each POV character to choose between Lie and Need with real costs?
 - Could any two characters be merged without losing narrative function?
+- Does each character's `arc_phase_map` use the correct phase keys for their `arc_type`? (positive_change: 6 phases, negative: 7 phases, flat: 4 phases, disillusionment: 6 phases)
 
 ### 3. Hook Discipline (1-10)
-- Are all hard hooks resolved by the final chapter (or registered as series hooks)?
-- Is the hook budget respected? (Rule of thumb: hard hooks ≤ target_chapters / 3)
+- Are all hard hooks resolved by the final chapter (or registered as series hooks with priority "series")?
+- Is the hook budget respected? (Rule of thumb: hard hooks ≤ target_chapters / 3; series hooks are exempt)
 - Do revelations have adequate foreshadowing (the "fair play" test)?
 - Are there coincidence plot points where the protagonist succeeds through luck rather than agency?
 - Does every hard hook have a planned payoff, and do hooks serve distinct narrative purposes?

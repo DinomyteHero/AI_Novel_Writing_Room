@@ -475,10 +475,15 @@ class Orchestrator:
             agent_role="summarizer",
         )
 
-        summary_result = await self.summarizer.run({
+        summarizer_context = {
             "prose": prose,
             "scene_card": scene_card,
-        })
+        }
+        # Inject current story state so the Summarizer can produce accurate old_value fields
+        if self.story_state:
+            summarizer_context["state_snapshot"] = self.story_state.get_state_snapshot()
+
+        summary_result = await self.summarizer.run(summarizer_context)
 
         duration_ms = int((time.time() - start) * 1000)
         self.ledger.emit(
@@ -588,10 +593,28 @@ class Orchestrator:
             agent_role="plot_architect",
         )
 
-        result = await self.plot_architect.run({
+        pa_context = {
             "scene_card": scene_card,
             "bible_summary": self.assembler.get_bible_summary(),
-        })
+        }
+        # Inject current character state for more accurate scene briefs
+        if self.story_state:
+            snapshot = self.story_state.get_state_snapshot()
+            # Format character states as context
+            char_lines = []
+            for c in snapshot.get("characters", []):
+                arc_info = ""
+                if c.get("arc"):
+                    arc_info = f" | arc: {c['arc']['arc_type']} @ {c['arc']['current_phase']}"
+                char_lines.append(
+                    f"- {c['name']} ({c['id']}): "
+                    f"location={c.get('current_location', 'unknown')}, "
+                    f"emotional_state={c.get('emotional_state', 'unknown')}{arc_info}"
+                )
+            if char_lines:
+                pa_context["arc_context"] = "## Current Character States\n" + "\n".join(char_lines)
+
+        result = await self.plot_architect.run(pa_context)
 
         duration_ms = int((time.time() - start) * 1000)
         self.ledger.emit(

@@ -97,17 +97,86 @@ def _normalize_arc_type(raw) -> str | None:
     return None
 
 
-# Valid Weiland arc phases in progression order.
-ARC_PHASES = [
-    "lie_reinforced",
-    "lie_questioned",
-    "lie_cracking",
-    "lie_confronted",
-    "truth_accepted",
-    "truth_rejected",
-]
+# Per-arc-type Weiland phase progressions.
+ARC_PHASE_PROGRESSIONS: dict[str, list[str]] = {
+    "positive_change": [
+        "lie_established",
+        "lie_reinforced",
+        "lie_questioned",
+        "lie_cracking",
+        "lie_confronted",
+        "truth_accepted",
+    ],
+    "flat": [
+        "lie_established",
+        "truth_tested",
+        "truth_pressured",
+        "truth_reaffirmed",
+    ],
+    "negative": [
+        "lie_established",
+        "lie_reinforced",
+        "lie_deepened",
+        "point_of_no_return",
+        "lie_acted_upon",
+        "lie_consequence",
+        "truth_rejected",
+    ],
+    "disillusionment": [
+        "lie_established",
+        "lie_reinforced",
+        "lie_questioned",
+        "truth_glimpsed",
+        "truth_rejected",
+        "disillusionment_accepted",
+    ],
+}
+
+# Flatten for CHECK constraint / general validation.
+ALL_ARC_PHASES = sorted(set(
+    phase for phases in ARC_PHASE_PROGRESSIONS.values() for phase in phases
+))
+
+# Backward-compatible alias — existing code that references ARC_PHASES will
+# still work, but new code should use ARC_PHASE_PROGRESSIONS.
+ARC_PHASES = ALL_ARC_PHASES
 
 ARC_TYPES = ["positive_change", "flat", "negative", "disillusionment"]
+
+# Maps concept-seed planning labels to DB tracking phases.
+# Used by init_from_concept_seed() and scene card processing.
+CONCEPT_SEED_PHASE_MAP: dict[str, str] = {
+    # Positive arc planning labels
+    "lie_established": "lie_established",
+    "lie_reinforced": "lie_reinforced",
+    "lie_challenged": "lie_questioned",
+    "moment_of_truth": "lie_confronted",
+    "new_truth_demonstrated": "truth_accepted",
+    "arc_resolved": "truth_accepted",
+    # Negative arc planning labels
+    "lie_deepened": "lie_deepened",
+    "point_of_no_return": "point_of_no_return",
+    "lie_acted_upon": "lie_acted_upon",
+    "lie_consequence": "lie_consequence",
+    "arc_resolved_tragic": "truth_rejected",
+    # Flat arc planning labels
+    "lie_tested": "truth_tested",
+    "lie_unchanged": "truth_rejected",
+    # Direct matches (no mapping needed)
+    "lie_questioned": "lie_questioned",
+    "lie_cracking": "lie_cracking",
+    "lie_confronted": "lie_confronted",
+    "truth_accepted": "truth_accepted",
+    "truth_rejected": "truth_rejected",
+    "truth_resolved": "truth_accepted",
+    # Flat arc direct phases
+    "truth_tested": "truth_tested",
+    "truth_pressured": "truth_pressured",
+    "truth_reaffirmed": "truth_reaffirmed",
+    # Disillusionment arc direct phases
+    "truth_glimpsed": "truth_glimpsed",
+    "disillusionment_accepted": "disillusionment_accepted",
+}
 
 HOOK_TYPES = ["chekhov", "foreshadow", "setup_callback", "thematic_echo", "mystery_question"]
 
@@ -334,10 +403,49 @@ def _migrate_v2_to_v3(conn: sqlite3.Connection) -> None:
     """)
 
 
+def _migrate_v3_to_v4(conn: sqlite3.Connection) -> None:
+    """Expand character_arcs.current_phase CHECK to support all arc types.
+
+    SQLite does not support ALTER TABLE … DROP/ADD CHECK, so we recreate
+    the table with the broader constraint and copy existing rows.
+    """
+    # Build the new CHECK expression from ALL_ARC_PHASES
+    phase_list = ", ".join(f"'{p}'" for p in ALL_ARC_PHASES)
+
+    conn.executescript(f"""
+    CREATE TABLE IF NOT EXISTS character_arcs_new (
+        character_id TEXT NOT NULL,
+        book_number INTEGER NOT NULL DEFAULT 1,
+        lie_believed TEXT,
+        ghost TEXT,
+        want TEXT,
+        need TEXT,
+        arc_type TEXT CHECK(arc_type IN (
+            'positive_change', 'flat', 'negative', 'disillusionment'
+        )),
+        current_phase TEXT NOT NULL DEFAULT 'lie_established'
+            CHECK(current_phase IN ({phase_list})),
+        phase_chapter INTEGER,
+        phase_evidence TEXT,
+        arc_phase_targets TEXT,
+        PRIMARY KEY (character_id, book_number),
+        FOREIGN KEY (character_id) REFERENCES characters(id)
+    );
+
+    INSERT OR IGNORE INTO character_arcs_new
+        SELECT * FROM character_arcs;
+
+    DROP TABLE character_arcs;
+
+    ALTER TABLE character_arcs_new RENAME TO character_arcs;
+    """)
+
+
 # Ordered list of migrations. Each entry is (version, description, callable).
 _MIGRATIONS: list[tuple[int, str, callable]] = [
     (2, "Phase 5: character arcs, subplot board, hook ledger, terminology, propagation debts, style fingerprint", _migrate_v1_to_v2),
     (3, "Multi-scene: scene_log table with composite PK", _migrate_v2_to_v3),
+    (4, "Expand character_arcs.current_phase for all arc types", _migrate_v3_to_v4),
 ]
 
 
@@ -551,6 +659,17 @@ class StoryState:
                         arc_phase_targets=weiland.get("arc_phase_targets")
                         or weiland.get("arc_phase_map"),
                     )
+
+        # Referenced characters (non-ensemble, e.g. mentors, off-screen figures)
+        for ref_char in concept_seed.get("referenced_characters", []):
+            ref_id = _slugify(ref_char["name"])
+            self.add_character(
+                id=ref_id,
+                name=ref_char["name"],
+                current_location=ref_char.get("initial_location"),
+                emotional_state=ref_char.get("initial_emotional_state"),
+                arc_position=ref_char.get("role", "referenced"),
+            )
 
         # Phase 5: Terminology registry
         for term_entry in concept_seed.get("terminology_registry", []):
@@ -1078,7 +1197,7 @@ class StoryState:
         want: str | None = None,
         need: str | None = None,
         arc_type: str | None = None,
-        current_phase: str = "lie_reinforced",
+        current_phase: str = "lie_established",
         phase_chapter: int | None = None,
         phase_evidence: str | None = None,
         arc_phase_targets: dict | None = None,
@@ -1155,20 +1274,32 @@ class StoryState:
     ) -> bool:
         """Advance a character's arc phase. Returns False if transition is invalid.
 
-        Valid transitions follow ARC_PHASES order. Negative arcs may end at
-        truth_rejected instead of truth_accepted. Phase cannot go backwards
-        or skip more than one step ahead.
+        Valid transitions follow the phase progression for the character's
+        specific arc type.  A transition is valid if *new_phase* is the NEXT
+        phase after *current_phase* in the progression.  Phase cannot go
+        backwards or skip steps.
         """
         arc = self.get_character_arc(character_id, book_number)
         if arc is None:
             return False
 
         current = arc["current_phase"]
-        if current not in ARC_PHASES or new_phase not in ARC_PHASES:
+        arc_type = arc.get("arc_type")
+
+        # Look up the progression for this arc type
+        progression = ARC_PHASE_PROGRESSIONS.get(arc_type)
+        if progression is None:
+            # Unknown arc type — fall back to validating against ALL_ARC_PHASES
+            if new_phase not in ALL_ARC_PHASES:
+                return False
+            # Allow any forward movement when arc_type is unknown
+            progression = ALL_ARC_PHASES
+
+        if current not in progression or new_phase not in progression:
             return False
 
-        current_idx = ARC_PHASES.index(current)
-        new_idx = ARC_PHASES.index(new_phase)
+        current_idx = progression.index(current)
+        new_idx = progression.index(new_phase)
 
         # Cannot go backwards
         if new_idx <= current_idx:
@@ -1176,9 +1307,7 @@ class StoryState:
 
         # Cannot skip more than one phase ahead
         if new_idx > current_idx + 1:
-            # Exception: truth_accepted and truth_rejected are peers (both index 4/5)
-            if not (current_idx == 3 and new_idx in (4, 5)):
-                return False
+            return False
 
         self.update_character_arc(
             character_id,
@@ -1662,6 +1791,58 @@ class StoryState:
     # ------------------------------------------------------------------
     # Utility
     # ------------------------------------------------------------------
+
+    def get_state_snapshot(self) -> dict:
+        """Return a structured snapshot of the current story state.
+
+        Used by the Summarizer and Plot Architect to inject current state
+        into their prompt context, so LLM-produced state diffs can include
+        accurate old_value fields.
+        """
+        characters = self.get_all_characters()
+        arcs = self.get_all_character_arcs()
+        subplots = self.get_all_subplots()
+        hooks = self.get_all_hooks()
+
+        # Build arc lookup keyed by character_id
+        arc_by_char = {}
+        for arc in arcs:
+            arc_by_char[arc["character_id"]] = {
+                "arc_type": arc.get("arc_type"),
+                "current_phase": arc.get("current_phase"),
+            }
+
+        return {
+            "characters": [
+                {
+                    "id": c["id"],
+                    "name": c["name"],
+                    "current_location": c.get("current_location"),
+                    "emotional_state": c.get("emotional_state"),
+                    "arc_position": c.get("arc_position"),
+                    "arc": arc_by_char.get(c["id"]),
+                }
+                for c in characters
+            ],
+            "subplots": [
+                {
+                    "subplot_id": s["subplot_id"],
+                    "subplot_name": s["subplot_name"],
+                    "current_status": s["current_status"],
+                    "line_type": s["line_type"],
+                }
+                for s in subplots
+            ],
+            "hooks": [
+                {
+                    "hook_id": h["hook_id"],
+                    "current_status": h["current_status"],
+                    "priority": h["priority"],
+                    "description": h.get("description", ""),
+                }
+                for h in hooks
+            ],
+        }
 
     def get_state_hash(self) -> str:
         """Return a SHA-256 hash of the current state across all tracked tables.

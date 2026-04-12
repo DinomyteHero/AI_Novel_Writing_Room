@@ -33,7 +33,7 @@ class TestCharacterArcsCRUD:
         assert arc["want"] == "To become the strongest warrior in the guild"
         assert arc["need"] == "To accept help from others"
         assert arc["arc_type"] == "positive_change"
-        assert arc["current_phase"] == "lie_reinforced"
+        assert arc["current_phase"] == "lie_established"
         assert arc["arc_phase_targets"]["lie_reinforced"] == "Part 1 - Setup"
 
     def test_get_missing_arc_returns_none(self, story_state):
@@ -83,10 +83,10 @@ class TestArcPhaseProgression:
             character_id="hero", arc_type="positive_change",
             lie_believed="x", ghost="x", want="x", need="x",
         )
-        result = story_state.advance_arc_phase("hero", "lie_questioned", chapter=3)
+        result = story_state.advance_arc_phase("hero", "lie_reinforced", chapter=3)
         assert result is True
         arc = story_state.get_character_arc("hero")
-        assert arc["current_phase"] == "lie_questioned"
+        assert arc["current_phase"] == "lie_reinforced"
         assert arc["phase_chapter"] == 3
 
     def test_advance_arc_phase_backwards_rejected(self, story_state):
@@ -109,7 +109,7 @@ class TestArcPhaseProgression:
             character_id="hero3", arc_type="positive_change",
             lie_believed="x", ghost="x", want="x", need="x",
         )
-        # Try to skip from lie_reinforced to lie_cracking (skipping lie_questioned)
+        # Try to skip from lie_established to lie_cracking (skipping lie_reinforced & lie_questioned)
         result = story_state.advance_arc_phase("hero3", "lie_cracking", chapter=5)
         assert result is False
 
@@ -120,7 +120,7 @@ class TestArcPhaseProgression:
             character_id="hero4", arc_type="positive_change",
             lie_believed="x", ghost="x", want="x", need="x",
         )
-        result = story_state.advance_arc_phase("hero4", "lie_reinforced", chapter=2)
+        result = story_state.advance_arc_phase("hero4", "lie_established", chapter=2)
         assert result is False
 
     def test_truth_accepted_from_lie_confronted(self, story_state):
@@ -139,13 +139,13 @@ class TestArcPhaseProgression:
         assert arc["current_phase"] == "truth_accepted"
         assert arc["phase_evidence"] == "Chose truth over lie"
 
-    def test_truth_rejected_from_lie_confronted(self, story_state):
-        """Negative arcs can reach truth_rejected from lie_confronted."""
+    def test_truth_rejected_from_lie_consequence(self, story_state):
+        """Negative arcs can reach truth_rejected from lie_consequence."""
         story_state.add_character(id="villain", name="Villain")
         story_state.add_character_arc(
             character_id="villain", arc_type="negative",
             lie_believed="x", ghost="x", want="x", need="x",
-            current_phase="lie_confronted",
+            current_phase="lie_consequence",
         )
         result = story_state.advance_arc_phase("villain", "truth_rejected", chapter=20)
         assert result is True
@@ -158,13 +158,13 @@ class TestArcPhaseProgression:
         assert result is False
 
     def test_full_positive_arc_progression(self, story_state):
-        """Full positive arc: lie_reinforced -> ... -> truth_accepted."""
+        """Full positive arc: lie_established -> ... -> truth_accepted."""
         story_state.add_character(id="protag", name="Protagonist")
         story_state.add_character_arc(
             character_id="protag", arc_type="positive_change",
             lie_believed="x", ghost="x", want="x", need="x",
         )
-        phases = ["lie_questioned", "lie_cracking", "lie_confronted", "truth_accepted"]
+        phases = ["lie_reinforced", "lie_questioned", "lie_cracking", "lie_confronted", "truth_accepted"]
         for i, phase in enumerate(phases, start=1):
             assert story_state.advance_arc_phase("protag", phase, chapter=i * 5)
         arc = story_state.get_character_arc("protag")

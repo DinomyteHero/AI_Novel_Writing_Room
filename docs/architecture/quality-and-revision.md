@@ -14,6 +14,11 @@ Detects repetitive patterns:
 - Paragraph-opening similarity (varied opener diversity)
 - Semantic similarity between paragraphs (via embeddings when available)
 
+Configurable parameters (set via constructor or loaded from concept seed `quality_overrides`):
+- `word_frequency_allowlist` — franchise-specific words excluded from overuse detection (e.g., "Force", "lightsaber" for Star Wars). Case-insensitive.
+- `semantic_similarity_threshold` — cosine similarity above which paragraph pairs are flagged (default: 0.85). Raise for franchise-dense prose.
+- `adjacency_window` — when set, only compares paragraphs within N positions of each other, reducing false positives from distant thematic echoes.
+
 ### PacingAnalyzer (`src/quality/pacing_analyzer.py`)
 
 Measures prose rhythm:

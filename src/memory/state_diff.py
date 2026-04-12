@@ -14,10 +14,39 @@ import logging
 import sqlite3
 
 from src.memory.knowledge_layers import KnowledgeLayers
-from src.memory.story_state import StoryState
+from src.memory.story_state import (
+    ALL_ARC_PHASES,
+    ARC_PHASE_PROGRESSIONS,
+    CONCEPT_SEED_PHASE_MAP,
+    HOOK_STATUSES,
+    SUBPLOT_STATUSES,
+    StoryState,
+)
 from src.run_ledger import RunLedger
 
 logger = logging.getLogger(__name__)
+
+# Fuzzy-match mappings for common LLM synonym errors.
+HOOK_STATUS_FUZZY: dict[str, str] = {
+    "active": "advancing",
+    "advanced": "advancing",
+    "progressing": "advancing",
+    "complete": "resolved",
+    "completed": "resolved",
+    "dropped": "abandoned",
+    "paid_off": "resolved",
+    "foreshadowed": "planted",
+}
+
+SUBPLOT_STATUS_FUZZY: dict[str, str] = {
+    "escalating": "climaxing",
+    "rising": "active",
+    "complete": "resolved",
+    "completed": "resolved",
+    "dropped": "abandoned",
+    "introduced": "planned",
+    "started": "active",
+}
 
 
 class StateDiffApplier:
@@ -57,6 +86,91 @@ class StateDiffApplier:
         self.knowledge = knowledge_layers
         self.ledger = ledger
 
+    def sanitize_diff(self, diff: dict) -> tuple[dict, list[str]]:
+        """Validate and auto-correct a state diff before applying.
+
+        Returns (sanitized_diff, list_of_warnings).
+        """
+        warnings: list[str] = []
+        changes = diff.get("changes", {})
+
+        # --- Fuzzy-match hook statuses ---
+        for hu in changes.get("hook_updates", []):
+            field = self._normalise_field("hook", hu.get("field", ""))
+            if field == "current_status":
+                val = hu.get("new_value", "")
+                if val and val not in HOOK_STATUSES:
+                    corrected = HOOK_STATUS_FUZZY.get(val.lower())
+                    if corrected:
+                        warnings.append(
+                            f"Hook '{hu.get('hook_id')}' status '{val}' -> '{corrected}' (fuzzy)"
+                        )
+                        hu["new_value"] = corrected
+                    else:
+                        warnings.append(
+                            f"Hook '{hu.get('hook_id')}' status '{val}' is invalid and unfixable"
+                        )
+
+        # --- Fuzzy-match subplot statuses ---
+        for su in changes.get("subplot_updates", []):
+            field = self._normalise_field("subplot", su.get("field", ""))
+            if field == "current_status":
+                val = su.get("new_value", "")
+                if val and val not in SUBPLOT_STATUSES:
+                    corrected = SUBPLOT_STATUS_FUZZY.get(val.lower())
+                    if corrected:
+                        warnings.append(
+                            f"Subplot '{su.get('subplot_id')}' status '{val}' -> '{corrected}' (fuzzy)"
+                        )
+                        su["new_value"] = corrected
+                    else:
+                        warnings.append(
+                            f"Subplot '{su.get('subplot_id')}' status '{val}' is invalid and unfixable"
+                        )
+
+        # --- Map concept-seed planning labels in arc phase updates ---
+        for au in changes.get("arc_phase_updates", []):
+            new_phase = au.get("new_phase", "")
+            if new_phase and new_phase not in ALL_ARC_PHASES:
+                mapped = CONCEPT_SEED_PHASE_MAP.get(new_phase)
+                if mapped:
+                    warnings.append(
+                        f"Arc phase '{new_phase}' -> '{mapped}' (concept-seed label mapping)"
+                    )
+                    au["new_phase"] = mapped
+
+        # --- Fix old_value mismatches for character updates ---
+        for cu in changes.get("character_updates", []):
+            char_id = cu.get("character_id")
+            field = self._normalise_field("character", cu.get("field", ""))
+            old_value = cu.get("old_value")
+            if char_id and old_value is not None:
+                character = self.state.get_character(char_id)
+                if character is not None:
+                    actual = character.get(field)
+                    if actual != old_value:
+                        warnings.append(
+                            f"Character '{char_id}' field '{field}': "
+                            f"old_value corrected from '{old_value}' to '{actual}'"
+                        )
+                        cu["old_value"] = actual
+
+        # --- Strip no-ops (old_value == new_value) ---
+        for key in ("character_updates", "subplot_updates", "hook_updates"):
+            entries = changes.get(key, [])
+            filtered = [
+                e for e in entries
+                if e.get("old_value") != e.get("new_value")
+                or e.get("old_value") is None
+            ]
+            if len(filtered) < len(entries):
+                warnings.append(
+                    f"Stripped {len(entries) - len(filtered)} no-op(s) from {key}"
+                )
+                changes[key] = filtered
+
+        return diff, warnings
+
     def apply_diff(
         self, diff: dict, chapter_number: int, scene_number: int = 1
     ) -> str:
@@ -70,6 +184,11 @@ class StateDiffApplier:
         Returns:
             The new state hash after applying the diff.
         """
+        # Sanitize before applying
+        diff, sanitize_warnings = self.sanitize_diff(diff)
+        for w in sanitize_warnings:
+            logger.info("sanitize_diff: %s", w)
+
         # Compute pre-diff state hash
         pre_hash = self.state.get_state_hash()
 
@@ -198,12 +317,21 @@ class StateDiffApplier:
             if not char_id or not fact:
                 continue
 
-            # Guard: skip if character doesn't exist in the DB (FK constraint)
+            # Guard: auto-register unknown characters as a safety net
             if self.state.get_character(char_id) is None:
                 logger.warning(
-                    "Skipping new_knowledge for unknown character '%s'", char_id
+                    "Auto-registering unknown character '%s' from state diff. "
+                    "Consider adding them to the concept seed's "
+                    "referenced_characters array.",
+                    char_id,
                 )
-                continue
+                self.state.add_character(
+                    id=char_id,
+                    name=char_id.replace("_", " ").title(),
+                    current_location="unknown",
+                    emotional_state="unknown",
+                    arc_position="untracked",
+                )
 
             # Generate a fact_id from the fact text
             fact_id = _make_fact_id(fact)

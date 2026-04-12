@@ -38,6 +38,34 @@ class Summarizer(BaseAgent):
             "## Scene Card",
             json.dumps(scene_card, indent=2),
             "",
+        ]
+
+        # Inject current story state snapshot so LLM can produce accurate old_value fields
+        state_snapshot = context.get("state_snapshot")
+        if state_snapshot:
+            parts.append("## Current Story State")
+            parts.append("Use these EXACT values as old_value in your state diff entries.")
+            parts.append("")
+            parts.append("### Characters")
+            for c in state_snapshot.get("characters", []):
+                arc_info = ""
+                if c.get("arc"):
+                    arc_info = f" | arc_type={c['arc']['arc_type']}, phase={c['arc']['current_phase']}"
+                parts.append(
+                    f"- {c['id']}: location={c.get('current_location', 'unknown')}, "
+                    f"emotional_state={c.get('emotional_state', 'unknown')}{arc_info}"
+                )
+            parts.append("")
+            parts.append("### Subplots")
+            for s in state_snapshot.get("subplots", []):
+                parts.append(f"- {s['subplot_id']} [{s['line_type']}-line]: status={s['current_status']}")
+            parts.append("")
+            parts.append("### Hooks")
+            for h in state_snapshot.get("hooks", []):
+                parts.append(f"- {h['hook_id']} ({h['priority']}): status={h['current_status']}")
+            parts.append("")
+
+        parts.extend([
             "## Chapter Prose",
             prose,
             "",
@@ -70,7 +98,7 @@ class Summarizer(BaseAgent):
             "For arc_phase_updates, old_value must state what you believe the current phase is.",
             "If you are unsure whether a state change occurred, DO NOT include it.",
             "False positives are worse than false negatives.",
-        ]
+        ])
 
         return "\n".join(parts)
 

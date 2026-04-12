@@ -63,7 +63,7 @@ ContextAssembler (`src/memory/context_assembler.py`) builds the prompt payload w
 
 ### 3. Generation Brief
 
-PlotArchitect reads the scene card and produces a generation brief -- a structured document that translates the scene card's structural requirements into actionable writing instructions.
+PlotArchitect reads the scene card and produces a generation brief -- a structured document that translates the scene card's structural requirements into actionable writing instructions. The orchestrator injects a current character state snapshot (locations, emotional states, arc phases) so the brief reflects accurate story state.
 
 ### 4. Prose Draft
 
@@ -107,9 +107,9 @@ Each band's revision prompt is in `prompts/revision_prompts/`.
 ### 8. Post-Save Pipeline (Phase 2+)
 
 After the chapter is saved:
-1. **Summarizer** compresses the chapter to a summary + state diff JSON
+1. **Summarizer** compresses the chapter to a summary + state diff JSON. The orchestrator injects a current state snapshot (characters, subplots, hooks with their exact current values) so the Summarizer can produce accurate `old_value` fields. The Summarizer prompt includes all valid enum values and arc-type-specific phase progressions.
 2. **ChapterMemory** stores the summary in ChromaDB
-3. **StateDiffApplier** applies the state diff to SQLite (character positions, knowledge, plot threads, timeline)
+3. **StateDiffApplier** sanitizes the diff (fuzzy-matching near-miss enum values, correcting `old_value` mismatches, stripping no-ops) then applies it to SQLite
 4. **ContradictionScanner** checks the new state against prior state for inconsistencies (5 scan types: truth, belief, promises, timeline, relationships)
 
 ### 9. Quality and Milestones (Phase 3+)

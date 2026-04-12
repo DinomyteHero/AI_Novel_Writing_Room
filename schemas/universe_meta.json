@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "UniverseMeta",
+  "description": "Metadata for a story universe. Each universe may contain multiple book projects.",
+  "type": "object",
+  "required": ["universe_name", "franchise"],
+  "properties": {
+    "universe_name": {
+      "type": "string",
+      "description": "Human-readable name for the universe."
+    },
+    "franchise": {
+      "type": "string",
+      "description": "Franchise identifier (e.g., 'star_wars_legends', 'original', 'game_of_thrones')."
+    },
+    "canon_status": {
+      "type": "string",
+      "enum": ["canon_compliant", "AU", "original"],
+      "description": "Overall canon posture for this universe."
+    },
+    "notes": {
+      "type": "string",
+      "description": "Free-text notes about the universe context."
+    }
+  }
+}

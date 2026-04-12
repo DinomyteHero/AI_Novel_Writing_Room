@@ -84,7 +84,15 @@ Records per-chapter generation metadata (word count, quality scores, etc.).
 
 ### character_arcs (Phase 5)
 
-Tracks K.M. Weiland character arc beats per character per book. PK: `(character_id, book_number)`. Fields: `lie_believed`, `ghost`, `want`, `need`, `arc_type` (positive_change/flat/negative/disillusionment), `current_phase` (lie_reinforced through truth_accepted/truth_rejected), `phase_chapter`, `phase_evidence`, `arc_phase_targets` (JSON mapping phases to Brooks structure).
+Tracks K.M. Weiland character arc beats per character per book. PK: `(character_id, book_number)`. Fields: `lie_believed`, `ghost`, `want`, `need`, `arc_type` (positive_change/flat/negative/disillusionment), `current_phase`, `phase_chapter`, `phase_evidence`, `arc_phase_targets` (JSON mapping phases to Brooks structure).
+
+Arc phase progressions are type-specific (defined in `ARC_PHASE_PROGRESSIONS`):
+- **positive_change**: lie_established → lie_reinforced → lie_questioned → lie_cracking → lie_confronted → truth_accepted
+- **negative**: lie_established → lie_reinforced → lie_deepened → point_of_no_return → lie_acted_upon → lie_consequence → truth_rejected
+- **flat**: lie_established → truth_tested → truth_pressured → truth_reaffirmed
+- **disillusionment**: lie_established → lie_reinforced → lie_questioned → truth_glimpsed → truth_rejected → disillusionment_accepted
+
+All arcs start at `lie_established` (the universal initial phase). `advance_arc_phase()` validates transitions against the character's specific arc type — no skipping steps, no cross-type phases. `CONCEPT_SEED_PHASE_MAP` maps planning labels from the concept seed (e.g., `lie_challenged`, `moment_of_truth`) to their corresponding DB tracking phases.
 
 ### subplots (Phase 5)
 
@@ -288,10 +296,16 @@ The assembler manages a token budget to fit everything within the model's contex
    - Hook updates with admission control (Phase 5)
    - Arc phase transitions with progression validation (Phase 5)
    - Terminology updates (Phase 5)
-2. The StateDiffApplier validates and applies the diff to SQLite
-3. Phase 5: old_value verification — before applying a `modify` operation, the applier checks that the expected old value matches the current DB value. On mismatch, a `state_diff_conflict` event is logged (optimistic strategy: apply anyway, flag for review)
-4. A state hash is computed before and after to detect unexpected mutations
-5. All diffs are logged to the RunLedger with before/after hashes
+2. `sanitize_diff()` runs before application — auto-corrects common LLM errors:
+   - Fuzzy-matches near-miss enum values (e.g., hook status `"active"` → `"advancing"`, subplot status `"escalating"` → `"climaxing"`)
+   - Maps concept-seed planning labels to DB phases via `CONCEPT_SEED_PHASE_MAP`
+   - Corrects `old_value` mismatches by replacing with the actual current DB value
+   - Strips no-op entries where `old_value == new_value`
+3. The StateDiffApplier validates and applies the sanitized diff to SQLite
+4. Phase 5: old_value verification — before applying a `modify` operation, the applier checks that the expected old value matches the current DB value. On mismatch, a `state_diff_conflict` event is logged (optimistic strategy: apply anyway, flag for review)
+5. Unknown characters referenced in `new_knowledge` entries are auto-registered with default state (`location: "unknown"`, `emotional_state: "unknown"`, `arc_position: "untracked"`) and a warning is logged
+6. A state hash is computed before and after to detect unexpected mutations
+7. All diffs are logged to the RunLedger with before/after hashes
 
 ## Contradiction Scanner
 

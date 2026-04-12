@@ -118,7 +118,10 @@ class TestSeriesWorkflow:
             want="Solo power", need="Connection",
         )
 
-        # Simulate progression through chapters
+        # Simulate progression through chapters (positive_change arc phases
+        # must advance sequentially: lie_established -> lie_reinforced ->
+        # lie_questioned -> lie_cracking -> lie_confronted -> truth_accepted)
+        assert state.advance_arc_phase("kael", "lie_reinforced", chapter=3)
         assert state.advance_arc_phase("kael", "lie_questioned", chapter=5)
         assert state.advance_arc_phase("kael", "lie_cracking", chapter=13)
         assert state.advance_arc_phase("kael", "lie_confronted", chapter=20)

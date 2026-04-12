@@ -247,15 +247,40 @@ For each POV character, define all of the following:
 
 - **arc_summary** (optional): A descriptive phrase elaborating on the arc — e.g., "moves from self-reliance as safety to collective trust as strength". Complements the strict `arc_type` enum with prose that captures the specific texture of this character's journey.
 
-- **arc_phase_map**: Map the character's arc progression to specific chapters. The canonical six-phase keyset is:
-  - `lie_established`: The chapter where the reader first sees the character operating from the Lie. For positive arcs, this is usually the opening chapter.
+- **arc_phase_map**: Map the character's arc progression to specific chapters. **All arcs begin at `lie_established`.** Select the planning label set that matches the character's `arc_type`:
+
+  **Positive change arc** (`positive_change`):
+  - `lie_established`: The chapter where the reader first sees the character operating from the Lie. Usually the opening chapter.
   - `lie_reinforced`: A later chapter where an event deepens or validates the Lie — the character doubles down because it "worked".
   - `lie_challenged`: The chapter where something credible contradicts the Lie for the first time. The character may resist or rationalize, but the evidence lands.
-  - `moment_of_truth`: The Midpoint-adjacent chapter where the character glimpses the Need. For positive arcs, a partial awakening. For negative arcs, a conscious rejection.
-  - `new_truth_demonstrated`: A later chapter where the character acts from the Need (positive) or commits to the Lie (negative). Usually during the Attack phase.
-  - `arc_resolved`: The final chapter where the arc lands. For positive arcs, the character embodies the Truth. For negative arcs, the Lie's consequences come due.
+  - `moment_of_truth`: The Midpoint-adjacent chapter where the character glimpses the Need — a partial awakening.
+  - `new_truth_demonstrated`: A later chapter where the character acts from the Need. Usually during the Attack phase.
+  - `arc_resolved`: The final chapter where the character embodies the Truth.
 
-  Tragic and flat arcs may use variant phase names (e.g., `lie_deepened`, `point_of_no_return`, `lie_acted_upon`, `lie_consequence`, `lie_tested`, `lie_unchanged`). The schema accepts any string keys under `arc_phase_map`.
+  **Negative arc** (`negative`):
+  - `lie_established`: The character's starting belief, often sympathetic or seemingly justified.
+  - `lie_reinforced`: An event validates the Lie, making it feel like the right path.
+  - `lie_deepened`: The character doubles down on the Lie when challenged, actively choosing it over alternatives.
+  - `point_of_no_return`: A Midpoint-adjacent chapter where the character consciously rejects the Truth and commits to the Lie.
+  - `lie_acted_upon`: The character takes a decisive action driven by the Lie — usually during the Attack phase. This action harms others or closes off escape routes.
+  - `lie_consequence`: The Lie's costs come due. The character faces the consequences of their commitment to the Lie.
+  - `arc_resolved_tragic`: The final chapter where the Lie destroys or diminishes the character.
+
+  **Flat arc** (`flat`):
+  - `lie_established`: The chapter where the world around the character operates from a false belief. The character already holds the Truth.
+  - `lie_reinforced`: The world pressures the character to abandon the Truth — the Lie seems to "work" for everyone else.
+  - `lie_tested`: A credible challenge to the character's Truth. The character is tempted or pressured but holds firm.
+  - `lie_unchanged`: The resolution — the character's Truth has changed the world, or they have weathered the world's resistance unchanged.
+
+  **Disillusionment arc** (`disillusionment`):
+  - `lie_established`: The character begins with a positive, comforting belief — but it's ultimately false.
+  - `lie_reinforced`: Events seem to confirm the comforting belief. The character feels secure.
+  - `lie_challenged`: Cracks appear in the belief. The character encounters evidence that their worldview is wrong.
+  - `moment_of_truth`: The character glimpses the painful reality behind their belief — but may try to retreat.
+  - `truth_rejected`: The character cannot accept the painful truth and attempts to cling to the old belief.
+  - `disillusionment_accepted`: The character finally accepts the harsh truth. Bittersweet — growth through loss of innocence.
+
+  The schema accepts any string keys under `arc_phase_map` — the pipeline maps these planning labels to database tracking phases automatically.
 
 #### Arc-Theme Connection
 How this character's arc tests the thematic premise differently from the other POV characters. Each POV character must test the theme from a unique angle. (Character-level voice guidance moves to Step 5 under `voice_definition.character_voices`.)
@@ -265,7 +290,7 @@ How this character's arc tests the thematic premise differently from the other P
 - `arc_type` is one of the canonical enum values: `positive_change`, `flat`, `negative`, `disillusionment`.
 - For each POV character, the Lie and the Need are logically opposed (the Need directly contradicts or resolves the Lie).
 - No two POV characters share the same Lie. (Similar lies in the same thematic territory are acceptable only if they are meaningfully distinct — e.g., "vulnerability is weakness" vs. "vulnerability is manipulation.")
-- Every POV character has `arc_phase_map` with chapter references for all required phases.
+- Every POV character has `arc_phase_map` with chapter references for all phases matching their `arc_type` (positive_change: 6 phases, negative: 7 phases, flat: 4 phases, disillusionment: 6 phases).
 - For `flat` arc characters: instead of `lie_believed`, define the **truth_held** — the truth they embody — and the **world_lie** — the false belief the world around them holds that the character will challenge.
 - No two POV characters test the theme in the same way.
 
@@ -653,12 +678,9 @@ The JSON must conform to the following structure:
         "arc_type": "positive_change | flat | negative | disillusionment",
         "arc_summary": "string (optional) — descriptive prose elaborating on the arc",
         "arc_phase_map": {
+          "// Keys depend on arc_type. Use the planning labels defined in Step 4.": "",
           "lie_established": "string (chapter/part reference)",
-          "lie_reinforced": "string",
-          "lie_challenged": "string",
-          "moment_of_truth": "string",
-          "new_truth_demonstrated": "string",
-          "arc_resolved": "string"
+          "...": "remaining phases for this character's arc_type"
         }
       }
     }
@@ -790,6 +812,19 @@ The JSON must conform to the following structure:
     "world_building_coherence": "number (1-10)",
     "series_coherence": "number (1-10) | null (null for standalone)",
     "overall": "number (1-10) — average of non-null dimensions"
+  },
+  "referenced_characters": [
+    {
+      "name": "string — non-ensemble character who appears in scene cards",
+      "role": "string — brief role description",
+      "initial_location": "string (optional)",
+      "initial_emotional_state": "string (optional)"
+    }
+  ],
+  "quality_overrides": {
+    "word_frequency_allowlist": ["string — franchise-essential words that should not be flagged as overused (e.g., Force, lightsaber for Star Wars)"],
+    "semantic_similarity_threshold": "number (0.5-1.0, default 0.85) — raise for franchise-dense prose",
+    "max_similar_pairs_per_1k_words": "integer (default 10)"
   },
   "extended_metadata": {
     "description": "Arbitrary key-value container for project-specific structural data that doesn't belong in the universal schema. Example keys: technique_lineage, jacen_parallel, workshop_origin."

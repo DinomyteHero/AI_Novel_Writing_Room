@@ -85,22 +85,27 @@ ai-writers-room/
 │   ├── concept_workshop.md        # Workshop facilitator system prompt
 │   ├── agent_system_prompts/      # Per-agent system prompts (10 files)
 │   └── revision_prompts/          # Per-band revision prompts (5 files)
-├── schemas/                       # JSON schema definitions (9 schemas)
+├── schemas/                       # JSON schema definitions (10 schemas)
 ├── data/
 │   ├── projects/                  # Per-project state (project-scoped)
-│   │   └── <project-slug>/
-│   │       ├── concept_seed.json
-│   │       ├── scene_cards/
-│   │       └── state/             # story_state.db, chapter_memory/, run_ledger.db, sessions/
-│   ├── universes/                 # Cross-project worldbuilding
-│   │   ├── worldbuilding.db
-│   │   └── worldbuilding_vectors/
-│   ├── canon_dbs/                 # Franchise RAG databases (shared)
+│   │   └── [<universe-slug>/]     # Optional universe grouping (via ProjectPaths.universe_slug)
+│   │       └── <project-slug>/
+│   │           ├── concept_seed.json
+│   │           ├── scene_cards/
+│   │           └── state/         # story_state.db, chapter_memory/, run_ledger.db, sessions/
+│   ├── universes/                 # Per-universe shared resources
+│   │   └── [<universe-slug>/]     # Optional per-universe isolation
+│   │       ├── universe_meta.json # Universe metadata (auto-created on first run)
+│   │       ├── worldbuilding.db
+│   │       ├── worldbuilding_vectors/
+│   │       └── canon_db/          # Franchise RAG database
+│   ├── canon_dbs/                 # Legacy: flat franchise RAG databases (backward compat)
 │   └── eval_corpus/               # Reference chapters for quality calibration
 ├── output/
-│   └── <project-slug>/
-│       ├── chapters/              # Generated chapter prose
-│       └── export/                # Exported manuscripts
+│   └── [<universe-slug>/]         # Optional universe grouping
+│       └── <project-slug>/
+│           ├── chapters/          # Generated chapter prose
+│           └── export/            # Exported manuscripts
 └── docs/                          # Documentation
 ```
 
