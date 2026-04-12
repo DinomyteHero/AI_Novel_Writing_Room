@@ -90,3 +90,48 @@ python -m src.concept_workshop.workshop_runner --project my_novel --resume
 # Finalize
 python -m src.concept_workshop.workshop_runner --project my_novel --finalize
 ```
+
+## Mode 2: External Chat + Import
+
+If you prefer to develop your concept in an external LLM chat (Claude, ChatGPT, Gemini, etc.) rather than the API-driven workshop, you can import the results directly.
+
+### Step 1: Brainstorm in Your Preferred Chat
+
+Use the [planning manuscript template](../workshop-summary-template.md) as a guide. Work through each section with the LLM — premise, conflict, theme, characters (with Weiland arcs), voice, Brooks structure, subplots, hooks, revelations, and terminology.
+
+### Step 2: Export the Manuscript
+
+Ask the LLM to compile all decisions into a single comprehensive summary. Save it as a markdown file.
+
+### Step 3: Import and Convert
+
+```bash
+python -m src.main --import-summary path/to/manuscript.md --project my-novel --phase 4
+```
+
+The Seed Builder agent reads your manuscript and extracts it into a structured `concept_seed.json`, applying both the Weiland character arc framework and Brooks four-part structure. It validates the result with the compliance validator and retries if there are issues.
+
+### Step 4: Review the Report
+
+The import prints a compliance report. If there are critical failures, you can:
+- Edit the concept seed JSON directly to fix gaps
+- Go back to the chat and develop the missing sections, then re-import
+- Run `--validate-seed` to re-check after manual edits
+
+### Step 5: Generate Scene Cards
+
+Once the concept seed passes validation:
+
+```bash
+python -m src.main data/projects/my-novel/concept_seed.json data/projects/my-novel/scene_cards --generate-outline --phase 4
+```
+
+### Validating an Existing Concept Seed
+
+To check a concept seed without importing:
+
+```bash
+python -m src.main data/projects/my-novel/concept_seed.json --validate-seed
+```
+
+This runs the compliance validator and prints a pass/fail report with specific failures and warnings.

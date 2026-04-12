@@ -53,9 +53,10 @@ class ModelRouter:
 
     async def _get_local_client(self) -> httpx.AsyncClient:
         if self._local_client is None:
+            timeout = self.config["models"]["local"].get("timeout_seconds", 300.0)
             self._local_client = httpx.AsyncClient(
                 base_url=self.config["models"]["local"]["base_url"],
-                timeout=300.0,
+                timeout=float(timeout),
             )
         return self._local_client
 
@@ -68,10 +69,11 @@ class ModelRouter:
                     "Cloud API key env var '%s' is empty — cloud requests will fail",
                     cloud_cfg["api_key_env"],
                 )
+            timeout = cloud_cfg.get("timeout_seconds", 300.0)
             self._cloud_client = httpx.AsyncClient(
                 base_url=cloud_cfg["base_url"],
                 headers={"Authorization": f"Bearer {api_key}"},
-                timeout=120.0,
+                timeout=float(timeout),
             )
         return self._cloud_client
 
@@ -116,6 +118,15 @@ class ModelRouter:
                 raise
             except (httpx.ConnectError, httpx.ReadTimeout) as e:
                 if attempt < max_retries:
+                    await asyncio.sleep(2 ** attempt)
+                    continue
+                raise
+            except asyncio.CancelledError:
+                if attempt < max_retries:
+                    logger.warning(
+                        "Request cancelled (timeout) on attempt %d/%d for %s — retrying",
+                        attempt + 1, max_retries + 1, agent_role,
+                    )
                     await asyncio.sleep(2 ** attempt)
                     continue
                 raise

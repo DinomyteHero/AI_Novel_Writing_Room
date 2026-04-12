@@ -57,6 +57,15 @@ python -m src.main <concept_seed> <scene_cards_dir> [options]
 |------|-------------|
 | `--generate-outline` | Generate scene cards from concept seed before running the pipeline |
 
+### Summary Import and Validation
+
+| Flag | Description |
+|------|-------------|
+| `--import-summary PATH` | Import a planning manuscript and convert it to a concept seed (requires `--project`) |
+| `--validate-seed` | Run compliance validation on the concept seed and print a pass/fail report |
+
+Note: `--import-summary` does not require the positional `concept_seed` and `scene_cards_dir` arguments.
+
 ### Session Management (Phase 4)
 
 | Flag | Description |
@@ -123,6 +132,23 @@ python -m src.main \
     data/projects/the-ruusan-atonement/concept_seed.json \
     data/projects/the-ruusan-atonement/scene_cards \
     --phase 4 --generate-outline
+```
+
+### Import a planning manuscript as concept seed
+
+```bash
+python -m src.main \
+    --import-summary path/to/manuscript.md \
+    --project my-novel \
+    --phase 4
+```
+
+### Validate an existing concept seed
+
+```bash
+python -m src.main \
+    data/projects/my-novel/concept_seed.json \
+    --validate-seed
 ```
 
 ### Resume a previous session

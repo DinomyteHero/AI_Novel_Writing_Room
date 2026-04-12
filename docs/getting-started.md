@@ -144,6 +144,32 @@ pytest
 
 All ~677 tests should pass. If some tests fail due to missing optional dependencies (chromadb, sentence-transformers, fastapi), that's expected -- the tests for those phases will be skipped.
 
+## Two Ways to Create Your Story
+
+### Mode 1: Interactive Concept Workshop (API-driven)
+
+Run the built-in workshop CLI for a guided, step-by-step concept development:
+
+```bash
+python -m src.concept_workshop.workshop_runner --project my-novel
+```
+
+Best for: structured concept development with validation gates at each step.
+
+See [Concept Workshop](user-guide/concept-workshop.md) for the full ten-step protocol.
+
+### Mode 2: External Chat + Import
+
+Develop your concept in any LLM chat (Claude, ChatGPT, Gemini, etc.) using the [planning manuscript template](workshop-summary-template.md), then import the result:
+
+```bash
+python -m src.main --import-summary path/to/manuscript.md --project my-novel --phase 4
+```
+
+Best for: deep creative exploration in a conversational environment, then structured extraction into the pipeline format. The Seed Builder agent applies Weiland character arcs and Brooks four-part structure during conversion.
+
+See [Concept Workshop: Mode 2](user-guide/concept-workshop.md#mode-2-external-chat--import) for details.
+
 ## Next Steps
 
 - [CLI Usage](user-guide/cli-usage.md) -- All CLI flags and workflows

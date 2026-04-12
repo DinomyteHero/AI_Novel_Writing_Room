@@ -59,6 +59,20 @@ models:
 
 The cloud section includes both free and paid model alternatives (paid options are commented out).
 
+### Timeout Settings
+
+Both local and cloud model sections accept a `timeout_seconds` field controlling the HTTP client timeout for API calls:
+
+```yaml
+models:
+  local:
+    timeout_seconds: 300   # Default: 300 seconds
+  cloud:
+    timeout_seconds: 300   # Default: 300 seconds
+```
+
+Increase this value if you experience timeouts during large requests (e.g., scene card generation for novels with 25+ chapters). The cloud timeout was previously hardcoded at 120 seconds, which was insufficient for multi-scene outline generation.
+
 ### Agent Routing
 
 Maps each agent role to a backend, model tier, and optional parameter overrides:
@@ -75,7 +89,9 @@ agent_routing:
   voice_checker:     { backend: cloud, model: primary, params: { temperature: 0.3 } }
   judge_evaluator:   { backend: cloud, model: primary, params: { temperature: 0.2 } }
   concept_workshop:  { backend: cloud, model: primary, params: { temperature: 0.7 } }
-  # Revision agents, outline planner, etc. also defined here
+  outline_planner:   { backend: cloud, model: primary, params: { temperature: 0.5, max_tokens: 16384 } }
+  seed_builder:      { backend: cloud, model: primary, params: { temperature: 0.3, max_tokens: 16384 } }
+  # Revision agents, dialogue polish, etc. also defined here
 ```
 
 When `deployment_mode` is `cloud`, the `backend` field in agent routing is overridden -- all agents use cloud models.

@@ -4,6 +4,7 @@ models:
   local:
     inference_backend: llama-server
     base_url: http://localhost:8080/v1
+    timeout_seconds: 300
     models: {}
     default_params: {}
 
@@ -11,6 +12,7 @@ models:
     provider: openrouter
     base_url: https://openrouter.ai/api/v1
     api_key_env: OPENROUTER_API_KEY
+    timeout_seconds: 300
     models:
       # Gemini 3.1 Pro — workshop, prose, and quality-sensitive agents
       primary: google/gemini-3.1-pro-preview
@@ -55,9 +57,12 @@ agent_routing:
   line_copy_editor:               { backend: cloud, model: budget, params: { temperature: 0.3 } }
 
   # --- Phase 4: Planning & polish (DeepSeek V3.2) ---
-  outline_planner:                 { backend: cloud, model: budget, params: { temperature: 0.5 } }
+  outline_planner:                 { backend: cloud, model: primary, params: { temperature: 0.5, max_tokens: 16384 } }
   dialogue_polish_editor:          { backend: cloud, model: budget, params: { temperature: 0.4 } }
   worldbuilding_coherence_reviewer: { backend: cloud, model: budget, params: { temperature: 0.3 } }
+
+  # --- Seed Builder: Gemini 3.1 Pro (structured extraction from manuscripts) ---
+  seed_builder:                    { backend: cloud, model: primary, params: { temperature: 0.3, max_tokens: 16384 } }
 
   # --- Quality-sensitive: Gemini 3.1 Pro (needs better judgment) ---
   voice_checker:          { backend: cloud, model: primary, params: { temperature: 0.3 } }

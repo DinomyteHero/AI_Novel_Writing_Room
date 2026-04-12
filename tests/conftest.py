@@ -93,6 +93,7 @@ def settings_yaml(temp_dir):
             "local": {
                 "inference_backend": "llama-server",
                 "base_url": "http://localhost:8080/v1",
+                "timeout_seconds": 300,
                 "models": {
                     "primary_moe": "test-model",
                     "fast_moe": "test-fast-model",
@@ -106,6 +107,7 @@ def settings_yaml(temp_dir):
                 "provider": "openrouter",
                 "base_url": "https://openrouter.ai/api/v1",
                 "api_key_env": "OPENROUTER_API_KEY",
+                "timeout_seconds": 300,
                 "models": {
                     "primary": "anthropic/claude-sonnet-4-20250514",
                 },

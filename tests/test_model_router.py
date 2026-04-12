@@ -463,3 +463,44 @@ class TestConceptWorkshopRouting:
         router = self._make_router(temp_dir, mode="hybrid")
         router.start_workshop_session()
         router.end_workshop_session()
+
+
+class TestTimeoutConfiguration:
+    """Test configurable timeout and CancelledError retry."""
+
+    def test_cloud_timeout_from_config(self, settings_yaml):
+        """Cloud client should use timeout_seconds from config."""
+        router = ModelRouter(settings_yaml)
+        # The config fixture has timeout_seconds: 300
+        cloud_cfg = router.config["models"]["cloud"]
+        assert cloud_cfg.get("timeout_seconds") == 300
+
+    def test_local_timeout_from_config(self, settings_yaml):
+        """Local client should use timeout_seconds from config."""
+        router = ModelRouter(settings_yaml)
+        local_cfg = router.config["models"]["local"]
+        assert local_cfg.get("timeout_seconds") == 300
+
+    @pytest.mark.asyncio
+    async def test_complete_retries_on_cancelled_error(self, settings_yaml):
+        """asyncio.CancelledError should be retried like a timeout."""
+        import asyncio
+
+        router = ModelRouter(settings_yaml)
+
+        ok_response = MagicMock()
+        ok_response.status_code = 200
+        ok_response.json.return_value = {
+            "choices": [{"message": {"content": "ok"}}]
+        }
+        ok_response.raise_for_status = MagicMock()
+
+        mock_client = AsyncMock()
+        mock_client.post = AsyncMock(
+            side_effect=[asyncio.CancelledError(), ok_response]
+        )
+        router._local_client = mock_client
+
+        result = await router.complete("prose_stylist", [{"role": "user", "content": "test"}])
+        assert result == "ok"
+        assert mock_client.post.call_count == 2

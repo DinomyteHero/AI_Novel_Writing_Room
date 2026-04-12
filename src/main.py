@@ -273,10 +273,14 @@ async def main():
     )
     parser.add_argument(
         "concept_seed",
+        nargs="?",
+        default=None,
         help="Path to the concept seed JSON file",
     )
     parser.add_argument(
         "scene_cards_dir",
+        nargs="?",
+        default=None,
         help="Path to the directory containing scene card JSON files",
     )
     parser.add_argument(
@@ -332,6 +336,19 @@ async def main():
         "--generate-outline",
         action="store_true",
         help="Generate scene cards from concept seed before running pipeline",
+    )
+    parser.add_argument(
+        "--import-summary",
+        type=str,
+        default=None,
+        metavar="PATH",
+        help="Import a planning manuscript and convert it to a concept seed. "
+             "Requires --project. Positional args not needed.",
+    )
+    parser.add_argument(
+        "--validate-seed",
+        action="store_true",
+        help="Run compliance validation on the concept seed and print report.",
     )
     parser.add_argument(
         "--resume",
@@ -401,7 +418,61 @@ async def main():
             sys.exit(1)
         return
 
-    # Validate inputs
+    # Import summary mode — build concept seed from a planning manuscript
+    if args.import_summary:
+        if not Path(args.config).exists():
+            print(f"Error: Config not found: {args.config}")
+            sys.exit(1)
+        if not args.project:
+            print("Error: --project is required with --import-summary")
+            sys.exit(1)
+        summary_path = Path(args.import_summary)
+        if not summary_path.exists():
+            print(f"Error: Summary file not found: {args.import_summary}")
+            sys.exit(1)
+
+        summary_text = summary_path.read_text(encoding="utf-8")
+        print("Initializing AI Writers' Room...")
+        router = ModelRouter(args.config)
+
+        if router.mode in ("cloud", "hybrid"):
+            ok, msg = await router.health_check()
+            if not ok:
+                print(f"Error: Health check failed — {msg}")
+                await router.close()
+                sys.exit(1)
+            print(f"  {msg}")
+
+        from src.agents.seed_builder import SeedBuilder
+        from src.project_paths import ProjectPaths
+
+        paths = ProjectPaths(args.project)
+        paths.ensure_dirs()
+
+        print(f"Building concept seed from manuscript: {args.import_summary}")
+        seed_builder = SeedBuilder(router)
+        seed, report = await seed_builder.build_seed(summary_text)
+
+        print(report.format())
+
+        if report.passed:
+            seed_path = paths.concept_seed_path
+            seed_path.write_text(
+                json.dumps(seed, indent=2, ensure_ascii=False),
+                encoding="utf-8",
+            )
+            print(f"Concept seed saved to: {seed_path}")
+        else:
+            print("Seed has critical failures. Review the report above.")
+            print("You can manually fix the JSON and re-validate with --validate-seed.")
+
+        await router.close()
+        return
+
+    # Validate inputs — required for all non-import modes
+    if not args.concept_seed:
+        print("Error: concept_seed path is required (unless using --import-summary)")
+        sys.exit(1)
     if not Path(args.concept_seed).exists():
         print(f"Error: Concept seed not found: {args.concept_seed}")
         sys.exit(1)
@@ -413,6 +484,13 @@ async def main():
     # Load concept seed early (needed for Phase 4)
     with open(args.concept_seed, encoding="utf-8") as f:
         concept_seed = json.load(f)
+
+    # Validate-seed mode — run compliance validation and exit
+    if args.validate_seed:
+        from src.concept_workshop.compliance_validator import validate_concept_seed
+        report = validate_concept_seed(concept_seed)
+        print(report.format())
+        sys.exit(0 if report.passed else 1)
 
     # Load config
     print("Initializing AI Writers' Room...")
