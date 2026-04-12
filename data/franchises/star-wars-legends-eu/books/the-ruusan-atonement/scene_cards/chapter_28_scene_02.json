@@ -1,0 +1,46 @@
+{
+  "chapter_number": 28,
+  "scene_number": 2,
+  "structural_phase": "resolution",
+  "scene_type": "action",
+  "scene_role": "reveal",
+  "pov_character": "Ben Skywalker",
+  "mission": "Ben tells Luke everything — the fortress, the survivors, the wound, Veraine, the technique, the Reformations' true history, the resonance, and the new seal. The Order will know the truth.",
+  "why_now": "R14 — the institutional lie resolved. The thousand-year cover-up broken. Ben choosing transparency over self-preservation.",
+  "conflict": "Luke's response to the truth — not anger but something harder to bear: sadness. The Grand Master learning that his Order's foundational narrative was built on amnesia. That the Reformations he's cited as proof of institutional integrity were penance for a war crime.",
+  "conflict_type": "interpersonal",
+  "turning_point": "Luke's question, after a long silence: 'And you didn't call me.' Not accusatory. Understanding. Sad. Because he knows why Ben didn't call — the same reason Gavran didn't tell his successors. The same reason the Order lost the knowledge. The pattern of self-reliance runs in the blood.",
+  "opening_hook": "Luke's office. The same room where this started — the mission briefing, the datapad, the survey route. Ben sits where he sat before. Everything is different.",
+  "closing_hook": "Luke: 'We'll tell the Council. All of it.' The institutional lie ends. Not with a battle or a crisis. With two people in a room, choosing honesty because someone has to go first.",
+  "emotional_trajectory": "The weight of telling -> Luke's sadness -> the shared commitment to truth",
+  "stakes": {
+    "personal": "Ben and Luke's relationship transformed by honesty",
+    "interpersonal": "Father and son choosing truth together",
+    "external": "The Jedi Order's self-understanding about to be fundamentally rewritten"
+  },
+  "characters_present": [
+    "Ben Skywalker",
+    "Luke Skywalker"
+  ],
+  "setting": "Jedi Temple, Coruscant — Luke's office, same room as Chapter 1",
+  "sensory_details": "The same office — everything familiar, everything changed; Luke's Force presence — vast, warm, sad; the afternoon light through the window; two chairs, two Skywalkers, the truth between them",
+  "target_word_count": 1400,
+  "active_subplots": [
+    "SP4"
+  ],
+  "plot_threads_advanced": [
+    "institutional_truth_delivered",
+    "order_will_know"
+  ],
+  "promises_planted": [],
+  "promises_paid": [
+    "The institutional lie told to the Order (PP08)",
+    "Ben's unilateral pattern resolves in transparency (PP12)"
+  ],
+  "hook_actions": [],
+  "revelations": [
+    "R14"
+  ],
+  "pov_arc_phase": "arc_resolved",
+  "notes": "R14 — the Reformations' true history revealed to Luke. The scene should mirror Chapter 1's Ben/Luke scene but with everything changed. Luke's sadness — not at being lied to by Ben, but at the institutional pattern that Ben broke. The irony: Luke sent Ben alone, and Ben learned that the problem was acting alone."
+}

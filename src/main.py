@@ -368,21 +368,47 @@ async def main():
         help="Run LLM-as-judge evaluation after generation",
     )
     parser.add_argument(
+        "--franchise",
+        default=None,
+        dest="franchise",
+        help="Franchise slug (e.g., 'star-wars-legends-eu'). "
+             "Auto-derived from concept seed meta.franchise if not provided.",
+    )
+    parser.add_argument(
         "--universe-id",
         default=None,
-        help="Worldbuilding universe ID (enables lore context injection and extraction)",
+        dest="franchise_legacy",
+        help="Deprecated: use --franchise instead.",
+    )
+    parser.add_argument(
+        "--series",
+        default=None,
+        help="Series slug for shared state across books (e.g., 'ruusan-verse'). "
+             "Books with the same series share story state, character arcs, and plot threads.",
+    )
+    parser.add_argument(
+        "--book",
+        default=None,
+        dest="book",
+        help="Book/project ID for worldbuilding spoiler isolation.",
     )
     parser.add_argument(
         "--project-id",
         default=None,
-        help="Worldbuilding project ID (for spoiler-isolated reading order)",
+        dest="book_legacy",
+        help="Deprecated: use --book instead.",
+    )
+    parser.add_argument(
+        "--run-name",
+        default=None,
+        help="Custom run name (default: auto-generated timestamp). "
+             "Each pipeline run creates an isolated output directory.",
     )
     parser.add_argument(
         "--project",
         default=None,
         help="Project slug (e.g., 'the-ruusan-atonement'). "
-             "Auto-derived from concept seed project_title if not provided. "
-             "Scopes all state data under data/projects/<slug>/.",
+             "Auto-derived from concept seed project_title if not provided.",
     )
     parser.add_argument(
         "--server",
@@ -513,15 +539,41 @@ async def main():
 
     pipeline_cfg = config.get("pipeline", {})
 
-    # Resolve project paths (project-scoped data isolation)
+    # Resolve franchise/series/run parameters (support deprecated aliases)
+    franchise_slug = args.franchise or args.franchise_legacy
+    book_id = args.book or args.book_legacy
+    from src.project_paths import generate_run_id
+    run_id = args.run_name or generate_run_id()
+    series_slug = args.series
+
+    # Resolve project paths (franchise/book/series/run scoping)
     if args.project:
-        paths = ProjectPaths(args.project)
+        paths = ProjectPaths(
+            args.project,
+            franchise_slug=franchise_slug,
+            series_slug=series_slug,
+            run_id=run_id,
+        )
     else:
-        paths = ProjectPaths.from_concept_seed(concept_seed)
+        paths = ProjectPaths.from_concept_seed(concept_seed, run_id=run_id)
+        # CLI overrides for franchise/series
+        if franchise_slug:
+            paths.franchise_slug = franchise_slug
+        if series_slug:
+            paths.series_slug = series_slug
     paths.ensure_dirs()
-    # Create universe metadata on first run if universe-scoped
-    paths.ensure_universe_meta(concept_seed)
+    paths.ensure_franchise_meta(concept_seed)
     print(f"  Project: [{paths.display_name}]")
+
+    # Save config snapshot for this run
+    if paths.config_snapshot_path:
+        import yaml as _yaml_snap
+        paths.config_snapshot_path.parent.mkdir(parents=True, exist_ok=True)
+        paths.config_snapshot_path.write_text(
+            _yaml_snap.dump(config, default_flow_style=False),
+            encoding="utf-8",
+        )
+        print(f"  Config snapshot: {paths.config_snapshot_path}")
 
     ledger_path = str(paths.run_ledger_db)
     manuscripts_dir = args.output_dir or pipeline_cfg.get(
@@ -575,7 +627,7 @@ async def main():
             from src.memory.contradiction_scanner import ContradictionScanner
             from src.memory.state_diff import StateDiffApplier
 
-            ledger = RunLedger(db_path=ledger_path)
+            ledger = RunLedger(db_path=ledger_path, run_id=run_id)
             summarizer = Summarizer(router)
             state_diff_applier = StateDiffApplier(story_state, knowledge_layers, ledger)
             contradiction_scanner = ContradictionScanner(story_state, knowledge_layers, ledger)
@@ -612,7 +664,7 @@ async def main():
     try:
         ledger
     except UnboundLocalError:
-        ledger = RunLedger(db_path=ledger_path)
+        ledger = RunLedger(db_path=ledger_path, run_id=run_id)
 
     # Initialize Phase 3 components if requested
     metrics_dashboard = None
@@ -701,7 +753,7 @@ async def main():
 
     # Worldbuilding service (optional, requires --universe-id)
     lore_service = None
-    if args.universe_id:
+    if franchise_slug:
         try:
             from src.worldbuilding.worldbuilding_db import WorldbuildingDB
             from src.worldbuilding.lore_vectorstore import LoreVectorStore
@@ -721,12 +773,12 @@ async def main():
             wb_db = WorldbuildingDB(db_path=wb_db_path)
             wb_vs = LoreVectorStore(persist_directory=wb_vectors_dir, embedding_function=ef_wb)
             lore_service = LoreService(db=wb_db, vectorstore=wb_vs)
-            print(f"  Worldbuilding service initialized (universe={args.universe_id})")
+            print(f"  Worldbuilding service initialized (universe={franchise_slug})")
 
             # Wire lore into context assembler
             assembler.lore_service = lore_service
-            assembler.universe_id = args.universe_id
-            assembler.project_id = args.project_id
+            assembler.universe_id = franchise_slug
+            assembler.project_id = book_id
         except (ImportError, Exception) as e:
             print(f"  Warning: Worldbuilding service not available: {e}")
 
@@ -777,9 +829,9 @@ async def main():
         session_id=session_id,
         judge_evaluator=judge_evaluator,
         lore_service=lore_service,
-        universe_id=args.universe_id,
-        project_id=args.project_id,
-        worldbuilding_auto_extract=bool(lore_service and args.universe_id),
+        universe_id=franchise_slug,
+        project_id=book_id,
+        worldbuilding_auto_extract=bool(lore_service and franchise_slug),
     )
 
     # Create session if Phase 4

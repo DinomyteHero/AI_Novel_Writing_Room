@@ -44,7 +44,11 @@
             "book_number": { "type": "integer", "minimum": 1 }
           }
         },
-        "book_number": { "type": "integer", "minimum": 1 }
+        "book_number": { "type": "integer", "minimum": 1 },
+        "series_id": {
+          "type": "string",
+          "description": "Top-level series ID for shared state across books. Books with the same series_id share story state (characters, arcs, plot threads). Leave empty for standalone books. Also accessible via meta.series.series_id for backward compat."
+        }
       }
     },
     "premise": {

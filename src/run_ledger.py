@@ -44,20 +44,23 @@ EVENT_TYPES = [
 class RunLedger:
     """Append-only event log for pipeline execution."""
 
-    def __init__(self, db_path: str = "data/run_ledger.db"):
+    def __init__(self, db_path: str = "data/run_ledger.db", run_id: str | None = None):
         self.db_path = Path(db_path)
         self.db_path.parent.mkdir(parents=True, exist_ok=True)
+        self.run_id = run_id
         self.conn = sqlite3.connect(str(self.db_path))
         self.conn.row_factory = sqlite3.Row
         self.conn.execute("PRAGMA journal_mode = WAL")
         self.conn.execute("PRAGMA busy_timeout = 5000")
         self._create_table()
+        self._migrate_schema()
 
     def _create_table(self):
         self.conn.execute("""
             CREATE TABLE IF NOT EXISTS run_ledger (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                run_id TEXT,
                 event_type TEXT NOT NULL,
                 chapter_number INTEGER,
                 scene_number INTEGER,
@@ -67,6 +70,15 @@ class RunLedger:
             )
         """)
         self.conn.commit()
+
+    def _migrate_schema(self):
+        """Add run_id column if migrating from an older schema."""
+        columns = [
+            row[1] for row in self.conn.execute("PRAGMA table_info(run_ledger)").fetchall()
+        ]
+        if "run_id" not in columns:
+            self.conn.execute("ALTER TABLE run_ledger ADD COLUMN run_id TEXT")
+            self.conn.commit()
 
     def emit(
         self,
@@ -83,11 +95,12 @@ class RunLedger:
         cursor = self.conn.execute(
             """
             INSERT INTO run_ledger
-                (timestamp, event_type, chapter_number, scene_number, agent_role, payload, state_hash)
-            VALUES (?, ?, ?, ?, ?, ?, ?)
+                (timestamp, run_id, event_type, chapter_number, scene_number, agent_role, payload, state_hash)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
             """,
             (
                 datetime.now(timezone.utc).isoformat(),
+                self.run_id,
                 event_type,
                 chapter_number,
                 scene_number,

@@ -83,7 +83,7 @@ agent_routing:
   prose_stylist:     { backend: local, model: primary_moe, params: { temperature: 0.9 } }
   gate_critic:       { backend: local, model: primary_moe, params: { temperature: 0.3 } }
   craft_editor:      { backend: local, model: primary_moe, params: { temperature: 0.4 } }
-  canon_expert:      { backend: local, model: fast_moe }
+  canon_expert:      { backend: local, model: fast_moe, params: { temperature: 0.2 } }
   summarizer:        { backend: local, model: utility, params: { temperature: 0.2 } }
   character_specialist: { backend: local, model: primary_moe, params: { temperature: 0.4 } }
   voice_checker:     { backend: cloud, model: primary, params: { temperature: 0.3 } }
@@ -102,9 +102,22 @@ When `deployment_mode` is `cloud`, the `backend` field in agent routing is overr
 pipeline:
   max_structural_retries: 3
   max_voice_retries: 2
-  # chapter_output_dir: defaults to output/{project-slug}/chapters/
-  # run_ledger_path: auto-resolved per-project at data/projects/<slug>/state/run_ledger.db
+  max_http_retries: 3              # Max retries for failed HTTP requests (with jitter)
+  # chapter_output_dir: defaults to output/<franchise>/<book>/runs/<run_id>/chapters/
+  # run_ledger_path: auto-resolved at output/<franchise>/<book>/state/run_ledger.db
 ```
+
+### Embeddings Settings
+
+```yaml
+embeddings:
+  use_mock: false                  # When true, uses mock embeddings (deterministic, no model needed)
+                                   # Useful for testing or environments without an embedding model
+```
+
+### Per-Run Config Snapshot
+
+Each pipeline run saves a frozen copy of the active `settings.yaml` to `output/<franchise>/<book>/runs/<run_id>/config_snapshot.yaml`. This ensures that results are reproducible even if settings change between runs.
 
 ### Local Inference Settings
 
@@ -149,7 +162,7 @@ agent_routing:
 
 Defines the 19 failure codes used by GateCritic, organized into 3 categories:
 
-### Structural (10 codes)
+### Structural (11 codes)
 
 | Code | Description |
 |------|-------------|
@@ -163,6 +176,7 @@ Defines the 19 failure codes used by GateCritic, organized into 3 categories:
 | CHARACTER_ARC_STALL | POV character has not progressed Weiland arc phase within expected structural window |
 | HOOK_VIOLATION | Unauthorized hook planted, or required hook advancement missed |
 | SUBPLOT_DRIFT | Active subplot ignored or resolved subplot reopened without justification |
+| CANON_VIOLATION | Scene contradicts established franchise lore (promoted from Polish to Structural) |
 
 ### Voice (5 codes)
 
@@ -174,14 +188,13 @@ Defines the 19 failure codes used by GateCritic, organized into 3 categories:
 | TERMINOLOGY_DRIFT | Term from registry spelled differently or used inconsistently |
 | VOICE_DEFINITION_VIOLATION | Prose violates voice definition rules (anti-slop, anti-patterns) |
 
-### Polish (4 codes)
+### Polish (3 codes)
 
 | Code | Description |
 |------|-------------|
 | EXPOSITION_LEAK | World-building info dumped outside natural scene flow |
 | PACING_FLATLINE | Insufficient sentence/event variety |
 | PROSE_CLICHE_BURST | Multiple banned phrases or AI-tells detected |
-| CANON_VIOLATION | Scene contradicts established franchise lore |
 
 ### Routing
 

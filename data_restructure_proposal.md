@@ -1,6 +1,10 @@
 # Data Restructure Proposal: Multi-Franchise, Multi-Run Support
 
-## 1. Current Layout
+**Status: IMPLEMENTED** — All structural changes have been applied. See `src/project_paths.py` for the new path resolver, `scripts/migrate_to_franchise_layout.py` for the migration tool, and the concept seed's `series_id` field for series linkage.
+
+**Addition: Series Linkage** — Books with the same `series_id` (in `meta.series_id` or `meta.series.series_id`) share accumulated story state (characters, arcs, plot threads, Chekhov's guns). State directory resolves to `output/<franchise>/<series>/state/` when series_slug is set. This enables multi-book series within a franchise to share characters and dropped plot points.
+
+## 1. Current Layout (Pre-Migration)
 
 ```
 data/

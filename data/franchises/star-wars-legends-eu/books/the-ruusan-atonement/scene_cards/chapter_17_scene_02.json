@@ -1,0 +1,47 @@
+{
+  "chapter_number": 17,
+  "scene_number": 2,
+  "structural_phase": "attack",
+  "scene_type": "sequel",
+  "scene_role": "escalation",
+  "pov_character": "Ben Skywalker",
+  "mission": "The group under pressure — tempers flare as the wound amplifies tensions. Sera and Kael clash over tactics. Desh mediates practically. The small ship feels like a pressure cooker.",
+  "why_now": "The wound's amplification effect on nearby Force-sensitives turns normal disagreements into potential fractures",
+  "conflict": "Sera wants to reinforce the seal with traditional Jedi methods. Kael points out those methods were built by the people who created the problem. The argument escalates beyond what either would normally say — the wound pushing.",
+  "conflict_type": "interpersonal",
+  "turning_point": "Ben feels the amplification effect for the first time — his own anger at Kael's cynicism is disproportionate, and he catches himself mid-sentence. The wound isn't just a cosmic problem. It's in this room.",
+  "opening_hook": "The argument starts about hyperspace routes. It stops being about hyperspace routes within thirty seconds.",
+  "closing_hook": "After the fight, silence. Desh brings everyone something to eat without being asked. Nobody thanks him. He doesn't expect them to. The silence after the argument is more informative than the argument itself.",
+  "emotional_trajectory": "Simmering tension -> explosive argument -> exhausted silence",
+  "stakes": {
+    "personal": "Ben recognizing the wound's influence on his own emotional state",
+    "interpersonal": "Group cohesion fracturing under external psychic pressure",
+    "external": "If the wound can amplify their tensions, it's doing the same to every Force-sensitive in range"
+  },
+  "characters_present": [
+    "Ben Skywalker",
+    "Sera Varik",
+    "Kael Drenn",
+    "Desh Rolan",
+    "Torin Hal"
+  ],
+  "setting": "Aboard the Steady Returns — common area, cramped and overheated",
+  "sensory_details": "The ship too warm; recycled air stale; voices bouncing off metal walls; Ben's own anger — hot, disproportionate, recognizably amplified; Desh's food offerings — practical kindness in the absence of resolution",
+  "target_word_count": 1200,
+  "active_subplots": [
+    "SP-A",
+    "SP1",
+    "SP2"
+  ],
+  "plot_threads_advanced": [
+    "wound_amplification_experienced",
+    "group_fracturing",
+    "desh_practical_care"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "hook_actions": [],
+  "revelations": [],
+  "pov_arc_phase": "lie_challenged",
+  "notes": "The wound's amplification effect is critical — it makes the interpersonal drama physically real, not just character conflict. Arguments are louder, fears deeper, doubts more paralyzing. This isn't possession — it's pressurization."
+}

@@ -1,0 +1,43 @@
+{
+  "chapter_number": 27,
+  "scene_number": 2,
+  "structural_phase": "resolution",
+  "scene_type": "sequel",
+  "scene_role": "aftermath",
+  "pov_character": "Ben Skywalker",
+  "mission": "Torin diminished, Sera stays. The quiet devastation of partial victory — Torin is alive but reduced. Sera's choice to remain with him is the Sera/Torin relationship's final note: love without control, loyalty without blindness.",
+  "why_now": "Character arc resolution — Torin and Sera's thousand-year story concluding",
+  "conflict": "Torin is present but smaller — his warmth muted, his humor gone quiet, his Force presence lighter in a way that should be liberating and is instead devastating. Sera doesn't try to fix him. She sits beside him.",
+  "conflict_type": "interpersonal",
+  "turning_point": "Sera's choice: she stays. Not from obligation, not from guilt, not from rigid loyalty to a principle. From love — flexible, principled, open-eyed. She knows what he is now. She stays anyway.",
+  "opening_hook": "Torin sits on the ridgeline, looking at the valley. He's been sitting there since they pulled him free. His posture is the same as before. Everything else is different.",
+  "closing_hook": "Sera sits beside Torin. She doesn't speak. He doesn't either. After a long time, his hand finds hers. The grip is lighter than it was. But it's there.",
+  "emotional_trajectory": "Quiet grief -> the devastation of partial success -> the grace of staying",
+  "stakes": {
+    "personal": "Sera's arc resolved: principled flexibility expressed through chosen presence",
+    "interpersonal": "The Sera/Torin relationship's final note — love as presence, not as fixing",
+    "external": "Torin's diminished survival as the book's living warning"
+  },
+  "characters_present": [
+    "Ben Skywalker",
+    "Sera Varik",
+    "Torin Hal"
+  ],
+  "setting": "Veranthos — ridgeline, overlooking the valley where the new seal hums",
+  "sensory_details": "Torin's diminished presence — lighter, quieter, the heavy warmth gone; Sera's face — grief and peace coexisting; their hands touching — lighter than before; the new seal humming in the valley below, three-part harmony audible in the Force",
+  "target_word_count": 1300,
+  "active_subplots": [
+    "SP1"
+  ],
+  "plot_threads_advanced": [
+    "torin_diminished_survival",
+    "sera_stays",
+    "sera_arc_resolved"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "hook_actions": [],
+  "revelations": [],
+  "pov_arc_phase": "new_truth_demonstrated",
+  "notes": "Sera's arc: arc_resolved — principled flexibility, love without control. Torin's arc: arc_resolved_tragic — his diminished survival embodies the cost. Kael's arc resolved through this scene's observation: the group chose differently, and the result is this — imperfect, painful, but honest."
+}

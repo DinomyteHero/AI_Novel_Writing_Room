@@ -36,7 +36,7 @@ Each agent:
 | ProseStylist | `src/agents/prose_stylist.py` | `prose_stylist` | Generation brief + context -> draft prose |
 | GateCritic | `src/agents/gate_critic.py` | `gate_critic` | Prose -> structured pass/fail evaluation |
 | CraftEditor | `src/agents/craft_editor.py` | `craft_editor` | Non-blocking voice/polish improvements |
-| CanonExpert | `src/agents/canon_expert.py` | `canon_expert` | RAG-powered franchise lore validation |
+| CanonExpert | `src/agents/canon_expert.py` | `canon_expert` | Franchise-agnostic, template-driven lore validation (reads canon_profile from concept seed) |
 | CharacterSpecialist | `src/agents/character_specialist.py` | `character_specialist` | Out-of-character detection (supplementary) |
 | Summarizer | `src/agents/summarizer.py` | `summarizer` | Chapter compression to summary + state diff |
 | OutlinePlanner | `src/planning/scene_card_generator.py` | `outline_planner` | Concept seed -> structured outline |
@@ -67,25 +67,33 @@ PlotArchitect reads the scene card and produces a generation brief -- a structur
 
 ### 4. Prose Draft
 
-ProseStylist takes the generation brief + assembled context and drafts the chapter prose.
+ProseStylist takes the generation brief + assembled context and drafts the chapter prose. Dynamic overused words from the cross-scene tracker (see [Quality and Revision](quality-and-revision.md#cross-scene-overused-word-tracker)) are injected into the Prose Stylist prompt for subsequent scenes, helping avoid manuscript-level repetition.
 
-### 5. Gate Evaluation
+### 5. Canon Validation
+
+CanonExpert runs before the Gate Critic to validate franchise lore compliance. The canon expert has been rewritten as a franchise-agnostic, template-driven agent: it reads the `canon_profile` section from the concept seed (franchise name, continuity rules, cross-continuity violations, anachronistic terms) and uses those to drive validation. There are zero franchise-specific strings hardcoded in the agent -- all franchise knowledge comes from the concept seed and RAG retrieval.
+
+### 6. Gate Evaluation
 
 GateCritic evaluates the draft against a structural rubric and returns a structured `CriticFailure` JSON with:
 - Overall verdict: `pass` or `fail`
 - Failure codes from `config/failure_codes.yaml` (19 codes across 3 categories)
+- **Calibration anchors**: scores use a 0.60-1.00 scale with defined anchor points
+- **Chain-of-thought reasoning**: the critic includes a `reasoning` field explaining its evaluation logic
 - Routing decision:
   - `fail_structural` -> full rewrite (back to ProseStylist with failure context)
   - `fail_voice` -> targeted revision (ProseStylist with specific notes)
   - `fail_polish` -> non-blocking (CraftEditor only)
 
+Note: `CANON_VIOLATION` has been promoted from `POLISH_CODES` to `STRUCTURAL_CODES`, meaning canon violations now trigger full rewrites rather than non-blocking edits.
+
 The orchestrator retries structural failures up to `max_structural_retries` (default: 3) and voice failures up to `max_voice_retries` (default: 2).
 
-### 6. Craft Editing
+### 7. Craft Editing
 
 CraftEditor applies non-blocking improvements: voice consistency, prose polish, rhythm, and readability.
 
-### 7. Revision Pipeline (Phase 3+)
+### 8. Revision Pipeline (Phase 3+)
 
 The RevisionPipeline runs sequential editing passes. The base pipeline has 3 bands:
 
@@ -104,7 +112,7 @@ Phase 4's AdaptiveRevisionPipeline (`src/revision/adaptive_revision.py`) extends
 
 Each band's revision prompt is in `prompts/revision_prompts/`.
 
-### 8. Post-Save Pipeline (Phase 2+)
+### 9. Post-Save Pipeline (Phase 2+)
 
 After the chapter is saved:
 1. **Summarizer** compresses the chapter to a summary + state diff JSON. The orchestrator injects a current state snapshot (characters, subplots, hooks with their exact current values) so the Summarizer can produce accurate `old_value` fields. The Summarizer prompt includes all valid enum values and arc-type-specific phase progressions.
@@ -112,7 +120,7 @@ After the chapter is saved:
 3. **StateDiffApplier** sanitizes the diff (fuzzy-matching near-miss enum values, correcting `old_value` mismatches, stripping no-ops) then applies it to SQLite
 4. **ContradictionScanner** checks the new state against prior state for inconsistencies (5 scan types: truth, belief, promises, timeline, relationships)
 
-### 9. Quality and Milestones (Phase 3+)
+### 10. Quality and Milestones (Phase 3+)
 
 1. **MetricsDashboard** runs 4 pure-Python checkers (no LLM calls):
    - RepetitionDetector, PacingAnalyzer, VoiceChecker, SlopDetector
@@ -120,7 +128,7 @@ After the chapter is saved:
 2. **CharacterSpecialist** detects out-of-character behavior (supplementary, non-blocking)
 3. **MilestoneGates** pause the pipeline at structural checkpoints (first plot point, midpoint, second plot point) for user approval
 
-### 10. LLM Judge (Phase 4, optional)
+### 11. LLM Judge (Phase 4, optional)
 
 JudgeEvaluator uses a cloud model to score the chapter across 5 dimensions defined in `config/eval_rubric.yaml`.
 

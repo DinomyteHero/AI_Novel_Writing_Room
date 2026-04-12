@@ -85,6 +85,19 @@ If the agent should run as part of the per-chapter pipeline:
 
 Follow the optional dependency pattern -- always check for `None` so lower phases still work.
 
+## Template-Driven Agent Pattern
+
+For agents that need to work across multiple franchises without hardcoded franchise-specific strings, use the **template-driven agent pattern**. The Canon Expert agent is the reference implementation of this approach.
+
+Key principles:
+
+- The agent's system prompt is franchise-agnostic -- it contains no hardcoded franchise names, lore, or terminology
+- All franchise-specific context is read from the concept seed's `canon_profile` at runtime and injected into the prompt template
+- The `canon_profile` (constructed during Step 1 of the Concept Workshop) provides franchise name, continuity rules, key canon elements, cross-continuity violations to avoid, and canon-specific terminology
+- This makes the agent automatically work for any franchise without code changes
+
+When building a new agent that needs franchise awareness, follow the Canon Expert's pattern: define a generic prompt template with placeholder sections, and populate them from the concept seed's structured data at runtime. Avoid embedding franchise-specific knowledge in the prompt file itself.
+
 ## Step 5: Add a Revision Prompt (If Applicable)
 
 If the agent is a revision-band agent:

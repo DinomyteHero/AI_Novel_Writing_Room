@@ -81,6 +81,38 @@ The local base URL defaults to `http://localhost:8080/v1` (configurable in `sett
 
 The project includes a worked example called "The Ruusan Atonement" with a complete concept seed and scene cards for all 28 chapters.
 
+### Directory Layout
+
+The pipeline supports two input layouts:
+
+**Franchise-scoped (recommended for new projects):**
+```
+data/franchises/<franchise>/books/<book>/
+├── concept_seed.json
+└── scene_cards/
+    ├── chapter_01_scene_01.json
+    └── ...
+```
+
+**Flat project-scoped (backward compatible):**
+```
+data/projects/<slug>/
+├── concept_seed.json
+└── scene_cards/
+    ├── chapter_01_scene_01.json
+    └── ...
+```
+
+Output is run-scoped when using `--franchise`:
+```
+output/<franchise>/<book>/runs/<run_id>/chapters/
+```
+
+Or flat when using the legacy layout:
+```
+output/<project-slug>/chapters/
+```
+
 ### Run a Single Chapter
 
 ```bash
@@ -91,9 +123,21 @@ python -m src.main \
     --phase 1
 ```
 
-This runs the basic pipeline (Phase 1): PlotArchitect, ProseStylist, GateCritic, CraftEditor.
+This runs the basic pipeline (Phase 1): PlotArchitect, ProseStylist, CanonExpert, GateCritic, CraftEditor.
 
 All state data is automatically scoped under `data/projects/the-ruusan-atonement/` and output goes to `output/the-ruusan-atonement/chapters/`.
+
+### Run with Franchise Scoping
+
+```bash
+python -m src.main \
+    data/franchises/star-wars/books/the-ruusan-atonement/concept_seed.json \
+    data/franchises/star-wars/books/the-ruusan-atonement/scene_cards \
+    --franchise star-wars --book the-ruusan-atonement \
+    --run-name first-draft --phase 4
+```
+
+Output goes to `output/star-wars/the-ruusan-atonement/runs/first-draft/chapters/`. Each run is fully isolated with its own chapters, config snapshot, and session data.
 
 ### Run with Full Features
 
@@ -155,6 +199,16 @@ python -m src.concept_workshop.workshop_runner --project my-novel
 python -m src.main data/projects/my-novel/concept_seed.json data/projects/my-novel/scene_cards --generate-outline --phase 4
 ```
 
+Or with franchise scoping:
+
+```bash
+python -m src.main \
+    data/franchises/my-franchise/books/my-novel/concept_seed.json \
+    data/franchises/my-franchise/books/my-novel/scene_cards \
+    --franchise my-franchise --book my-novel \
+    --generate-outline --phase 4
+```
+
 Best for: structured, guided development with validation gates at each step.
 
 ### Workflow B: External Concept, Auto Outline
@@ -176,7 +230,7 @@ Develop both your concept seed AND scene cards in an external LLM chat, then run
 python -m src.main data/projects/my-novel/concept_seed.json data/projects/my-novel/scene_cards --phase 4
 ```
 
-Best for: maximum creative control over every scene. Skip `--generate-outline` entirely — just place your concept seed and scene card JSON files in the project directory. See the [scene card template](scene-card-template.md).
+Best for: maximum creative control over every scene. Skip `--generate-outline` entirely -- just place your concept seed and scene card JSON files in the project directory. See the [scene card template](scene-card-template.md).
 
 See [Concept Workshop](user-guide/concept-workshop.md) for detailed guides on all three workflows.
 

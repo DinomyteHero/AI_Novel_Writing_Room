@@ -24,7 +24,7 @@ The workshop facilitator walks you through these steps:
 0. **Project Scope** -- Choose standalone, planned series, or continuation
    - 0a. **Series Seed Workshop** *(series only)* -- Define series arc, stakes progression, cross-book promises
    - 0b. **Retroactive Series Promotion** *(optional)* -- Promote a completed standalone to series
-1. **Fandom, Era, Tone, Cast Type** -- Choose franchise, timeline, tone. Series continuations show inherited constraints.
+1. **Fandom, Era, Tone, Cast Type + Canon Profile** -- Choose franchise, timeline, tone. Series continuations show inherited constraints. This step also constructs a **Canon Profile** through 5 targeted questions covering franchise name, continuity era/rules, key canon elements the story must respect, cross-continuity violations to avoid, and canon-specific terminology. The canon profile is embedded in the concept seed as `canon_profile` and drives the template-driven Canon Expert agent during pipeline execution.
 2. **"What If" Seed Generation** -- The AI generates 3-5 premise seeds based on your inputs
 3. **Premise Development** -- Central dramatic question, conflict stress test, hook classification (hard/soft/series)
 4. **Character Creation + Weiland Arc Beats** -- Three-dimensional profiles plus lie/ghost/want/need/arc_type for each POV character, mapped to Brooks structural phases
@@ -60,6 +60,7 @@ The facilitator is designed to push back on weak premises and enforce structural
 When finalized, the workshop produces a concept seed JSON (`book_1_seed.json`) that contains:
 
 - Story metadata (franchise, era, tone, project scope)
+- Canon profile (franchise name, continuity rules, key canon elements, cross-continuity violations, canon terminology)
 - Characters with three-dimensional profiles and Weiland arc definitions
 - Voice definition (POV, register, anti-slop rules, anti-patterns)
 - Four-part structural outline

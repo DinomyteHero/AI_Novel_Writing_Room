@@ -1,0 +1,41 @@
+{
+  "chapter_number": 18,
+  "scene_number": 3,
+  "structural_phase": "second_pinch",
+  "scene_type": "sequel",
+  "scene_role": "decision",
+  "pov_character": "Ben Skywalker",
+  "mission": "Ben processes the Jacen recognition and Desh's warning. The Lie is cracking — solitary control may be the disease, not the cure. But Ben doesn't yet have an alternative.",
+  "why_now": "End of second pinch point — Ben must carry the recognition into the final chapters before the second plot point",
+  "conflict": "Internal reckoning: Ben's Lie (self-reliance as safety) is being challenged by evidence that his approach mirrors the failing pattern. He needs to lead differently — but how?",
+  "conflict_type": "internal",
+  "turning_point": "Ben thinks about his mother. Not Mara the Jedi, Mara the pragmatist — the woman who would have said 'stop thinking about whether you're worthy and start thinking about what works.' The thought doesn't solve anything. It changes the angle.",
+  "opening_hook": "Alone in the corridor, back against the bulkhead. The first time on this trip Ben has let himself feel how tired he is.",
+  "closing_hook": "The resonance note in the Codex files. Gavran wrote: 'We lacked the will or the trust.' Ben has been reading this as 'we weren't brave enough.' He re-reads it now: 'We couldn't trust each other enough.' Different emphasis. Different problem. Maybe a different solution.",
+  "emotional_trajectory": "Exhausted honesty -> memory of Mara -> the angle shift on the resonance note",
+  "stakes": {
+    "personal": "Ben's arc approaching moment of truth — the Lie cracking but not yet broken",
+    "interpersonal": "The memory of Mara as a different model of leadership",
+    "external": "The resonance note becoming important — the solution's shape emerging"
+  },
+  "characters_present": [
+    "Ben Skywalker"
+  ],
+  "setting": "Aboard the Steady Returns — corridor, alone, night cycle",
+  "sensory_details": "Cold metal against his back; the ship's ambient hum; the datapad with the Codex notes; Mara's memory — not mystical, just a mother's pragmatism; the resonance note's words rearranging themselves in his mind",
+  "target_word_count": 1100,
+  "active_subplots": [
+    "SP-A"
+  ],
+  "plot_threads_advanced": [
+    "lie_cracking",
+    "resonance_note_reinterpreted",
+    "mara_memory"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "hook_actions": [],
+  "revelations": [],
+  "pov_arc_phase": "lie_challenged",
+  "notes": "The Mara reference should be brief and practical — not mystical dead-parent wisdom. Just: 'What would Mom do? Stop philosophizing and solve the problem.' Ben's re-reading of the resonance note is the critical micro-turn."
+}

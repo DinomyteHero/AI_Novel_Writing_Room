@@ -2,6 +2,21 @@
 
 The system uses a multi-layered memory architecture to maintain story continuity across chapters. No state is stored in the LLM's context window -- all persistence is external.
 
+## State File Locations
+
+State databases have moved from project-level inputs to output-level paths:
+
+| Resource | Old Location | New Location |
+|----------|-------------|-------------|
+| story_state.db | `data/projects/.../state/` | `output/<franchise>/<book>/state/` |
+| chapter_memory/ | `data/projects/.../state/` | `output/<franchise>/<book>/state/` |
+| run_ledger.db | `data/projects/.../state/` | `output/<franchise>/<book>/state/` |
+| sessions/ | `data/projects/.../state/` | `output/<franchise>/<book>/state/` |
+
+**Series-shared state**: When books share a `series_id`, their state is shared at `output/<franchise>/<series>/state/`. This enables cross-book continuity -- character arcs, plot threads, and knowledge carry over between books in the same series.
+
+**Per-run isolation**: Each pipeline run writes chapters to `output/<franchise>/<book>/runs/<run_id>/chapters/` with a frozen config snapshot for reproducibility. State databases remain at the book (or series) level and accumulate across runs.
+
 ## Story State (SQLite)
 
 `src/memory/story_state.py` manages a SQLite database with 13 tables (7 original + 6 added in Phase 5). Schema migrations are applied automatically on init via the `schema_migrations` table.
@@ -84,7 +99,7 @@ Records per-chapter generation metadata (word count, quality scores, etc.).
 
 ### character_arcs (Phase 5)
 
-Tracks K.M. Weiland character arc beats per character per book. PK: `(character_id, book_number)`. Fields: `lie_believed`, `ghost`, `want`, `need`, `arc_type` (positive_change/flat/negative/disillusionment), `current_phase`, `phase_chapter`, `phase_evidence`, `arc_phase_targets` (JSON mapping phases to Brooks structure).
+Tracks K.M. Weiland character arc beats per character per book. PK: `(character_id, book_number)`. Fields: `lie_believed`, `ghost`, `want`, `need`, `arc_type` (positive_change/flat/negative/disillusionment), `current_phase`, `phase_chapter`, `phase_evidence`, `arc_phase_targets` (JSON mapping phases to Brooks structure), `initial_phase` (optional starting phase from the concept seed's `ensemble_cast` Weiland arc definition -- allows characters to begin mid-arc, e.g., for sequels).
 
 Arc phase progressions are type-specific (defined in `ARC_PHASE_PROGRESSIONS`):
 - **positive_change**: lie_established → lie_reinforced → lie_questioned → lie_cracking → lie_confronted → truth_accepted
@@ -92,7 +107,11 @@ Arc phase progressions are type-specific (defined in `ARC_PHASE_PROGRESSIONS`):
 - **flat**: lie_established → truth_tested → truth_pressured → truth_reaffirmed
 - **disillusionment**: lie_established → lie_reinforced → lie_questioned → truth_glimpsed → truth_rejected → disillusionment_accepted
 
-All arcs start at `lie_established` (the universal initial phase). `advance_arc_phase()` validates transitions against the character's specific arc type — no skipping steps, no cross-type phases. `CONCEPT_SEED_PHASE_MAP` maps planning labels from the concept seed (e.g., `lie_challenged`, `moment_of_truth`) to their corresponding DB tracking phases.
+All arcs start at `lie_established` (the universal initial phase). `advance_arc_phase()` validates transitions against the character's specific arc type -- no skipping steps, no cross-type phases. `CONCEPT_SEED_PHASE_MAP` maps planning labels from the concept seed (e.g., `lie_challenged`, `moment_of_truth`) to their corresponding DB tracking phases.
+
+**Arc self-transitions** are now allowed: a character can transition from a phase to the same phase (e.g., `lie_reinforced` -> `lie_reinforced`). This prevents false rejection of scenes that reinforce the current arc phase without advancing it. The state diff applier treats self-transitions as valid no-ops for the phase column while still recording updated evidence.
+
+**Rejected transition feedback**: When an arc phase transition is rejected (e.g., attempting to skip a phase), the rejection reason is included in the feedback context passed back to the Prose Stylist for the next revision attempt.
 
 ### subplots (Phase 5)
 
@@ -116,7 +135,7 @@ Per-source style metrics for voice enforcement. Fields: `source`, `metric_name`,
 
 ## Worldbuilding Persistence Layer
 
-`src/worldbuilding/` provides a cross-project worldbuilding persistence system in a separate database (`data/worldbuilding.db`) because universes span multiple projects.
+`src/worldbuilding/` provides a cross-project worldbuilding persistence system in a separate database because universes span multiple projects. For franchise-scoped projects, the database lives at `data/franchises/<franchise>/worldbuilding.db`; for legacy flat projects, at `data/worldbuilding.db`.
 
 ### Architecture
 

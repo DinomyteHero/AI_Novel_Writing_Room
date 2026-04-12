@@ -31,7 +31,10 @@ PlotArchitect (scene card -> generation brief)
 ProseStylist (generation brief + context -> draft prose)
     |
     v
-GateCritic (pass/fail with 19 failure codes)
+CanonExpert (franchise lore validation, template-driven)
+    |
+    v
+GateCritic (pass/fail with 19 failure codes, calibrated 0.60-1.00)
     |
     +-- fail_structural -> ProseStylist (full rewrite)
     +-- fail_voice -> ProseStylist (targeted revision)
@@ -87,27 +90,45 @@ ai-writers-room/
 │   └── revision_prompts/          # Per-band revision prompts (5 files)
 ├── schemas/                       # JSON schema definitions (10 schemas)
 ├── data/
-│   ├── projects/                  # Per-project state (project-scoped)
-│   │   └── [<universe-slug>/]     # Optional universe grouping (via ProjectPaths.universe_slug)
-│   │       └── <project-slug>/
-│   │           ├── concept_seed.json
-│   │           ├── scene_cards/
-│   │           └── state/         # story_state.db, chapter_memory/, run_ledger.db, sessions/
-│   ├── universes/                 # Per-universe shared resources
-│   │   └── [<universe-slug>/]     # Optional per-universe isolation
-│   │       ├── universe_meta.json # Universe metadata (auto-created on first run)
-│   │       ├── worldbuilding.db
+│   ├── franchises/                # Franchise-scoped projects and shared resources
+│   │   └── <franchise>/
+│   │       ├── canon_db/          # Franchise RAG database (shared across books)
+│   │       ├── worldbuilding.db   # Universe/lore persistence (shared across books)
 │   │       ├── worldbuilding_vectors/
-│   │       └── canon_db/          # Franchise RAG database
+│   │       └── books/
+│   │           └── <book>/
+│   │               ├── concept_seed.json
+│   │               └── scene_cards/
+│   ├── projects/                  # Legacy: flat project layout (backward compat)
+│   │   └── <project-slug>/        # Still works for projects without franchise scoping
+│   │       ├── concept_seed.json
+│   │       ├── scene_cards/
+│   │       └── state/             # (legacy location for state)
 │   ├── canon_dbs/                 # Legacy: flat franchise RAG databases (backward compat)
 │   └── eval_corpus/               # Reference chapters for quality calibration
 ├── output/
-│   └── [<universe-slug>/]         # Optional universe grouping
-│       └── <project-slug>/
-│           ├── chapters/          # Generated chapter prose
+│   └── <franchise>/
+│       └── <book>/
+│           ├── runs/              # Per-run isolation
+│           │   └── <run_id>/
+│           │       ├── config_snapshot.yaml  # Frozen settings for reproducibility
+│           │       └── chapters/  # Generated chapter prose for this run
+│           ├── state/             # story_state.db, chapter_memory/, run_ledger.db, sessions/
 │           └── export/            # Exported manuscripts
+│       └── <series>/              # Series-level shared state (when series_id is set)
+│           └── state/             # Shared state across books in the same series
 └── docs/                          # Documentation
 ```
+
+### Franchise and Series Concepts
+
+**Franchise scoping** organizes projects under a franchise namespace. Shared resources (canon databases, worldbuilding) live at the franchise level and are shared across all books within that franchise. Book-specific inputs (concept seed, scene cards) live under `data/franchises/<franchise>/books/<book>/`.
+
+**Series linkage** allows multiple books with the same `series_id` in their concept seed metadata to share state at `output/<franchise>/<series>/state/`. This enables cross-book continuity (e.g., character arcs spanning a trilogy).
+
+**Per-run isolation** ensures each pipeline execution gets its own output directory at `output/<franchise>/<book>/runs/<run_id>/chapters/`. A frozen config snapshot is saved alongside run output for reproducibility. The `--run-name` CLI flag allows custom run IDs; the default is auto-timestamped.
+
+**Backward compatibility**: Flat `data/projects/<slug>/` layouts continue to work for projects without franchise scoping. The system detects the project structure and adapts path resolution accordingly.
 
 ## Key Abstractions
 

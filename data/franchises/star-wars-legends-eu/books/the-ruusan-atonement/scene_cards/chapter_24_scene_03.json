@@ -1,0 +1,42 @@
+{
+  "chapter_number": 24,
+  "scene_number": 3,
+  "structural_phase": "resolution",
+  "scene_type": "action",
+  "scene_role": "escalation",
+  "pov_character": "Ben Skywalker",
+  "mission": "The resonance starts discordant — three traditions that have never combined. Ben, Sera, Kael join hands. Three notes that don't form a chord. It feels clumsy, unstable.",
+  "why_now": "The resonance attempt's first moments — failure before success, earned difficulty",
+  "conflict": "The three Force traditions resist combination — not because of hostility but because they're structurally incompatible. Jedi lattice-work, pre-Ruusan Jedi discipline, and Sith-trained Force manipulation operate on different frequencies.",
+  "conflict_type": "environmental",
+  "turning_point": "The discordance is overwhelming. Ben's instinct to control kicks in — he tries to lead, to harmonize the three notes by force of will. It doesn't work. His Lie, again: control as safety. The resonance resists being commanded.",
+  "opening_hook": "Three hands linked. Three Force traditions touching. The sound of it — in the Force — is like three instruments playing in different keys simultaneously.",
+  "closing_hook": "It's not working. The discordance is worsening. Veraine's ritual is building power. Torin's void is expanding. And the resonance is falling apart. Ben is trying too hard. He's leading when he should be listening.",
+  "emotional_trajectory": "Determined attempt -> frustration at failure -> the recognition that control is the problem",
+  "stakes": {
+    "personal": "Ben's Lie making one last stand — his instinct to control sabotaging the resonance",
+    "interpersonal": "Three people failing to harmonize because one of them is trying to dominate",
+    "external": "The other two operations are succeeding while theirs fails"
+  },
+  "characters_present": [
+    "Ben Skywalker",
+    "Sera Varik",
+    "Kael Drenn"
+  ],
+  "setting": "Veranthos — mid-valley, hands linked, the Scar visible, the valley in chaos",
+  "sensory_details": "The discordance — three Force textures clashing; Ben's instinct to control manifesting as Force pressure; Sera's tradition rigid and defined; Kael's tradition fluid and sharp; the three failing to combine; sweat, strain, the wound pressing",
+  "target_word_count": 1250,
+  "active_subplots": [
+    "SP-A"
+  ],
+  "plot_threads_advanced": [
+    "resonance_discordant",
+    "control_as_problem"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "hook_actions": [],
+  "revelations": [],
+  "pov_arc_phase": "moment_of_truth",
+  "notes": "The failure-before-success is essential. The resonance CAN'T work while Ben is trying to control it. His Lie making one last attempt. The breakthrough comes in Chapter 25 when he lets go."
+}

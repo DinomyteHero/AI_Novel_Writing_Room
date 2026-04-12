@@ -1,0 +1,49 @@
+{
+  "chapter_number": 7,
+  "scene_number": 2,
+  "structural_phase": "response",
+  "scene_type": "action",
+  "scene_role": "reveal",
+  "pov_character": "Ben Skywalker",
+  "mission": "Explore the bunker's records — partial anchor system data, fragments of the technique lineage. Sera uses Force-lock expertise to access sealed records. First real demonstration of her era-specific value.",
+  "why_now": "The bunker's records provide context the fortress archive was missing — each node holds a piece of the picture",
+  "conflict": "The records reference events and concepts Ben has no framework for — the technique lineage is deeper than he expected. Sera translates but her explanation reveals the Jedi Lords were more militaristic and morally compromised than modern Jedi history suggests.",
+  "conflict_type": "interpersonal",
+  "turning_point": "Sera cracks a Force-lock in seconds that would take modern Jedi years — her value to the mission becomes undeniable, and Ben's respect shifts from reluctant to genuine",
+  "opening_hook": "Sera's hands move over the ancient lock mechanism with the ease of someone unlocking their own front door. A thousand years, and her muscle memory is still better than Ben's training.",
+  "closing_hook": "The records mention Veranthos by name — coordinates, purpose, and a warning notation that Ben can now read. The wound is real. It has a location. And Veraine knows where it is.",
+  "emotional_trajectory": "Intellectual curiosity -> uncomfortable historical reckoning -> focused urgency",
+  "stakes": {
+    "personal": "Ben's growing understanding that modern Jedi education is radically incomplete",
+    "interpersonal": "Sera earning her place through competence, not just historical authority",
+    "external": "Each fragment of lineage data makes the wound more comprehensible — and more frightening"
+  },
+  "characters_present": [
+    "Ben Skywalker",
+    "Sera Varik",
+    "Desh Rolan"
+  ],
+  "setting": "Battlefield Node bunker — records room, Force-locked archive",
+  "sensory_details": "The Force-lock dissolving under Sera's touch — a technique Ben has never seen; holographic records in an older data format; the thin place making concentration harder — like reading through slightly wrong glasses",
+  "target_word_count": 1200,
+  "active_subplots": [
+    "SP-A",
+    "SP4"
+  ],
+  "plot_threads_advanced": [
+    "sera_demonstrates_value",
+    "technique_lineage_deepened",
+    "veranthos_confirmed"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "hook_actions": [
+    {
+      "hook_id": "H07",
+      "action": "advance"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "lie_reinforced",
+  "notes": "R05 continues (technique lineage progressive revelation). Sera's Force-lock skill is her primary tactical contribution — it provides natural pacing control for archive access and demonstrates her era-specific value beyond moral authority."
+}

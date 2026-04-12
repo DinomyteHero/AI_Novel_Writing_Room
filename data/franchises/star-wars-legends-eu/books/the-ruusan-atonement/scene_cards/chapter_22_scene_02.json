@@ -1,0 +1,50 @@
+{
+  "chapter_number": 22,
+  "scene_number": 2,
+  "structural_phase": "resolution",
+  "scene_type": "action",
+  "scene_role": "reveal",
+  "pov_character": "Ben Skywalker",
+  "mission": "The amplification array understood — Desh realizes what Veraine has been building across the Corridor. Each repurposed node is an antenna in a network aimed at the Scar. The group didn't recognize the pattern because they were looking at nodes individually.",
+  "why_now": "The tactical picture completes — understanding both Veraine's plan and how to counter it",
+  "conflict": "The array requires a critical mass of approximately eight repurposed nodes to function. If Desh can disable three critical nodes, Veraine drops below threshold. But the nodes are guarded by her crew, and Desh would have to operate solo.",
+  "conflict_type": "external",
+  "turning_point": "Desh volunteers for the sabotage mission before anyone asks. 'That's my job. Let the Force-users do the Force thing. I'll handle the part that requires hands.' His arc completing — from obligation to chosen commitment.",
+  "opening_hook": "Desh stares at the Corridor map with the amplification overlay and his expression goes very still. 'I know what she built. I know how to break it.'",
+  "closing_hook": "Two plans, both dependent on trust: the resonance trio needs Kael; the sabotage needs Desh alone against armed opposition. Both plans fail without both parts.",
+  "emotional_trajectory": "Tactical revelation -> Desh's willing commitment -> the interlocking dependency",
+  "stakes": {
+    "personal": "Desh's arc payoff — choosing the dangerous task freely",
+    "interpersonal": "The group becoming a genuine team through voluntary specialization",
+    "external": "The two-pronged plan is the only path to defeating Veraine AND saving the seal"
+  },
+  "characters_present": [
+    "Ben Skywalker",
+    "Desh Rolan",
+    "Sera Varik"
+  ],
+  "setting": "Veranthos — camp, tactical planning with Corridor data",
+  "sensory_details": "The amplification array visible on the map — a web of repurposed nodes pointing at Veranthos; Desh's professional assessment overlaid with personal resolve; dawn approaching — they're running out of darkness",
+  "target_word_count": 1200,
+  "active_subplots": [
+    "SP-A",
+    "SP3",
+    "SP5"
+  ],
+  "plot_threads_advanced": [
+    "amplification_array_understood",
+    "desh_volunteers",
+    "two_pronged_plan"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "hook_actions": [
+    {
+      "hook_id": "H14",
+      "action": "resolve"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "moment_of_truth",
+  "notes": "Desh's arc: new_truth_demonstrated — volunteers for the most dangerous physical task without being asked. The former GAG operative finding genuine purpose."
+}

@@ -1,6 +1,6 @@
 # AI Writers' Room
 
-A multi-agent fiction generation system that produces novel-length (60-80K word) franchise fanfiction. The system uses a two-phase workflow: human-collaborative planning followed by autonomous multi-agent drafting, critique, revision, and export.
+A multi-agent fiction generation system that produces novel-length (60-80K word) franchise fanfiction. The system uses a two-phase workflow: human-collaborative planning (with canon profile construction) followed by autonomous multi-agent drafting, canon validation, critique, revision, and export. Projects are organized by franchise and book, with per-run output isolation and optional series-level state sharing.
 
 ## Quick Start
 
@@ -26,10 +26,22 @@ export OPENROUTER_API_KEY=your_key_here
 
 ### Run the CLI Pipeline
 
+Using the flat project layout (backward compatible):
+
 ```bash
 python -m src.main data/projects/the-ruusan-atonement/concept_seed.json \
     data/projects/the-ruusan-atonement/scene_cards \
     --phase 4
+```
+
+Using franchise-scoped layout with per-run isolation:
+
+```bash
+python -m src.main \
+    data/franchises/star-wars/books/the-ruusan-atonement/concept_seed.json \
+    data/franchises/star-wars/books/the-ruusan-atonement/scene_cards \
+    --franchise star-wars --book the-ruusan-atonement \
+    --run-name first-draft --phase 4
 ```
 
 ### Run the Web Interface
@@ -56,10 +68,11 @@ The pipeline generates chapters through a multi-agent loop:
 
 1. **PlotArchitect** reads a scene card and produces a generation brief
 2. **ProseStylist** drafts prose from the brief + assembled context
-3. **GateCritic** evaluates the draft against a structural rubric (pass/fail with 19 failure codes)
-4. **CraftEditor** applies non-blocking polish improvements
-5. **RevisionPipeline** runs up to 5 revision passes (structural continuity, scene emotion, line copy, dialogue polish, worldbuilding coherence)
-6. **QualityMetrics** scores the output (repetition, pacing, voice, AI-tell detection)
+3. **CanonExpert** validates franchise canon compliance using a template-driven approach (reads `canon_profile` from the concept seed -- franchise-agnostic, zero hardcoded franchise strings)
+4. **GateCritic** evaluates the draft against a structural rubric (pass/fail with 19 failure codes, calibration anchors, chain-of-thought reasoning)
+5. **CraftEditor** applies non-blocking polish improvements
+6. **RevisionPipeline** runs up to 5 revision passes (structural continuity, scene emotion, line copy, dialogue polish, worldbuilding coherence)
+7. **QualityMetrics** scores the output (repetition, pacing, voice, AI-tell detection)
 
 Higher phases add more capabilities:
 
@@ -70,6 +83,35 @@ Higher phases add more capabilities:
 | 3 | Quality metrics, character specialist, 3-band revision, milestone gates |
 | 4 | Export (md/docx/epub), physics enforcement, adaptive revision, LLM judge, session persistence |
 | 5 | Series planning, voice definition, hook/subplot governance, character arcs (Weiland), terminology registry, stress testing, manuscript review, style fingerprinting, web dashboard with WebSocket streaming |
+
+## Directory Structure
+
+**Input data (franchise-scoped):**
+```
+data/franchises/<franchise>/books/<book>/
+├── concept_seed.json          # Story concept with canon_profile
+└── scene_cards/               # Per-chapter scene cards
+```
+
+**Input data (flat, backward compatible):**
+```
+data/projects/<slug>/
+├── concept_seed.json
+└── scene_cards/
+```
+
+**Output (run-scoped):**
+```
+output/<franchise>/<book>/runs/<run_id>/
+├── chapters/                  # Generated chapter markdown
+├── config_snapshot.yaml       # Settings used for this run
+└── session/                   # Session persistence data
+```
+
+**Series shared state (when `--series` is set):**
+```
+output/<franchise>/<series>/state/
+```
 
 ## Documentation
 
@@ -92,6 +134,7 @@ Higher phases add more capabilities:
 | **Development** | |
 | [Contributing](docs/development/contributing.md) | Dev setup, testing, code style |
 | [Adding Agents](docs/development/adding-agents.md) | How to extend the agent system |
+| [Future Work](docs/development/future-work.md) | Deferred items and known follow-ups |
 
 Historical implementation briefs from each build phase are preserved in [docs/archive/](docs/archive/).
 

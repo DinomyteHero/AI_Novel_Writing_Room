@@ -141,3 +141,31 @@ The `worldbuilding.reconciliation.run_on_startup` config flag is defined but not
 **Remaining work**: The worldbuilding layer (`data/universes/worldbuilding.db`) still uses a single shared database with application-level `--universe-id` scoping. For full physical isolation, each universe's worldbuilding DB should live at `data/universes/<universe-slug>/worldbuilding.db` (the path is now resolved correctly by `ProjectPaths`, but the worldbuilding init code needs updating to use the universe-scoped path instead of the config-level `worldbuilding.db_path`).
 
 ---
+
+## Canon and Contradiction System (flagged during canon expert / pipeline resequencing work)
+
+### Contradiction scanner: LLM upgrade for heuristic-based detection
+
+The contradiction scanner currently identifies 5 real dimensions of potential contradictions (timeline, character state, spatial, lore, and causal) but frequently returns clean results due to narrow heuristics that miss subtle or context-dependent violations. The rule-based approach catches only surface-level contradictions (e.g., explicit name mismatches) but misses semantic contradictions that require deeper reasoning.
+
+**TODO**: Replace or augment the heuristic-based scanner with an LLM-powered contradiction detection pass. The LLM would receive the current chapter draft alongside accumulated story state and canon profile, then flag contradictions that require contextual understanding -- e.g., a character knowing information they shouldn't yet have, or timeline inconsistencies that span multiple chapters.
+
+**Suggested approach**: Add an LLM-based contradiction detection stage that runs after the heuristic scanner, using the same 5 dimensions as a structured output schema. Keep the fast heuristic scanner as a first pass for obvious violations, with the LLM pass catching what the heuristics miss.
+
+### Cross-model canon validation
+
+Currently, canon validation is performed by a single LLM during pipeline execution. For high-stakes franchise work, cross-model validation would increase confidence by having multiple models independently verify canon compliance.
+
+**TODO**: Implement a cross-model canon validation mode where 2-3 different LLMs independently evaluate canon compliance for each chapter, with a consensus mechanism to flag disagreements for human review.
+
+**Suggested approach**: Add an optional `--canon-cross-validate` flag that routes the canon check to multiple models (e.g., local + cloud, or two different cloud models) and compares their verdicts. Disagreements above a threshold trigger a warning in the pipeline output.
+
+### Description rebalancing improvements
+
+The current description-handling logic in the prose generation pipeline can produce uneven results -- some scenes are over-described while others lack sufficient grounding detail. The balance between action, dialogue, and description varies inconsistently across chapters.
+
+**TODO**: Improve description rebalancing to enforce more consistent prose density across scenes. The revision pipeline should detect and correct scenes where description density falls outside target ranges, taking into account scene type (action scenes need less description, sequel scenes need more).
+
+**Suggested approach**: Extend the quality metrics to include a description density score per scene, and add a revision band that specifically targets description rebalancing. The target ranges should be configurable per scene type in the concept seed or settings.
+
+---
