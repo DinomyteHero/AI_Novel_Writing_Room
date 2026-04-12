@@ -195,7 +195,7 @@ class TestInstalledSeedPipelineLoad:
         cast_count = state.conn.execute(
             "SELECT COUNT(*) FROM characters WHERE id != '__world__'"
         ).fetchone()[0]
-        assert cast_count == 6, f"Expected 6 cast characters in DB, got {cast_count}"
+        assert cast_count == 8, f"Expected 8 characters in DB (6 ensemble + 2 referenced), got {cast_count}"
 
         # Character arcs — all 6 including Desh (positive_change)
         arcs = state.conn.execute("SELECT COUNT(*) FROM character_arcs").fetchone()[0]

@@ -1,0 +1,36 @@
+{
+  "chapter_number": 1,
+  "scene_number": 2,
+  "structural_phase": "setup",
+  "scene_type": "action",
+  "scene_role": "escalation",
+  "pov_character": "Ben Skywalker",
+  "mission": "Ben reports to Luke — the reader sees their relationship dynamic and Ben's decision to investigate independently rather than wait for the Order",
+  "why_now": "Ben's adjusted route has brought him closer to the source. Protocol requires reporting anomalous Force readings to the Grand Master. Ben does report — but frames it as a reason to extend his survey, not as a request for backup.",
+  "opening_hook": "Ben contacts Luke via holocomm. The conversation is warm but guarded — father and son who love each other but navigate around the weight of what they've both survived.",
+  "conflict": "Interpersonal: Luke senses Ben is minimizing the wrongness. Ben senses Luke wants to pull him back. Neither says it directly. The Skywalker pattern — handle it yourself, protect the other person from worry — operates in both directions.",
+  "conflict_type": "interpersonal",
+  "turning_point": "Luke gives Ben operational latitude but asks him to take a partner. Ben agrees — then immediately decides to call Desh instead of another Jedi. A non-Force-user he can lead, not a peer who might challenge his control.",
+  "closing_hook": "Ben ends the call and pulls up Desh Rolan's contact. The choice of Desh over a Jedi partner is the Lie's first visible action — and the reader should feel it as a smart, practical decision.",
+  "characters_present": ["Ben Skywalker", "Luke Skywalker"],
+  "setting": "Split between Ben's ship cockpit and Luke's office at the Jedi Temple, Coruscant — holocomm conversation with the visual warmth of familiar faces and the distance of light-years",
+  "sensory_details": "Holocomm blue tint on Luke's face. The slight delay in transmission. Luke's office behind him — organized, lived-in. Ben's cockpit is spartan by comparison.",
+  "emotional_trajectory": "Warmth -> careful navigation -> quiet defiance -> resolve",
+  "stakes": {
+    "personal": "Ben's need for autonomy vs. Luke's protective instincts",
+    "interpersonal": "The father-son dynamic — Ben needs to prove himself, Luke needs to let him",
+    "external": "The wrongness is real enough that Luke takes it seriously — raising the reader's stakes"
+  },
+  "plot_threads_advanced": ["force_wrongness", "skywalker_legacy"],
+  "promises_planted": ["PP02", "PP21"],
+  "promises_paid": [],
+  "canon_elements_needed": ["Luke Skywalker as Grand Master", "Ben-Luke relationship post-FotJ", "Jedi Order operational structure"],
+  "target_word_count": 1300,
+  "active_subplots": [],
+  "hook_actions": [
+    {"hook_id": "H01", "action": "advance"}
+  ],
+  "revelations": [],
+  "pov_arc_phase": "lie_established",
+  "notes": "Luke should feel like a real father, not an exposition device. The conversation plants PP02 (shared history with Desh) through what Ben DOESN'T say to Luke about why he's choosing a non-Jedi partner. The Lie operates through a reasonable-sounding decision."
+}
