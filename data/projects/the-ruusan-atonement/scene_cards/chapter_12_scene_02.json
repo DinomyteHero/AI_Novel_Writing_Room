@@ -1,0 +1,49 @@
+{
+  "chapter_number": 12,
+  "scene_number": 2,
+  "structural_phase": "response",
+  "scene_type": "action",
+  "scene_role": "reveal",
+  "pov_character": "Ben Skywalker",
+  "mission": "Maetha's warning delivered \u2014 'The caldera does not consume you. It replaces you.' The most important single line in the book. Sera reads it aloud and the temperature in the room drops.",
+  "why_now": "The archive unlocked \u2014 Maetha's final testament, the reason she disbanded the Caldera Knights",
+  "conflict": "Maetha's warning is unambiguous about the cost. Torin reads it as challenge rather than prohibition \u2014 'She couldn't handle it. That doesn't mean no one can.' Sera hears Gavran in Torin's rationalization.",
+  "conflict_type": "interpersonal",
+  "turning_point": "Torin's response to the warning: not denial but reframing. He treats Maetha's failure as evidence of her limitations, not the technique's danger. Ben watches Sera's face as Torin speaks and sees something break in her expression \u2014 she's seen this pattern before.",
+  "opening_hook": "Maetha's archive voice is different from Gavran's \u2014 contemplative where he was meticulous, tragic where he was haunted. A woman who had time to think about what she'd done.",
+  "closing_hook": "'It replaces you.' The words hang in the archive like dust. Torin walks out first. His stride is steady, certain. Sera watches him go, and her hand finds the wall for support.",
+  "emotional_trajectory": "Reverent attention -> the impact of the warning -> horror at Torin's response",
+  "stakes": {
+    "personal": "Ben hearing the warning that describes what will happen to Torin",
+    "interpersonal": "Sera recognizing the Gavran pattern in Torin \u2014 and being unable to stop it",
+    "external": "Foreshadowing of Torin's fate \u2014 the most important promise in the book"
+  },
+  "characters_present": [
+    "Ben Skywalker",
+    "Sera Varik",
+    "Torin Hal",
+    "Kael Drenn"
+  ],
+  "setting": "Maetha's Training Facility \u2014 archive chamber, sealed personal records",
+  "sensory_details": "Maetha's voice from the archive \u2014 quiet, precise, grieving; the warning's words seeming to resonate in the flexible lattice; Torin's face as he listens \u2014 attentive, respectful, unmoved; Sera's hand trembling on the wall",
+  "target_word_count": 1200,
+  "active_subplots": [
+    "SP-A",
+    "SP1"
+  ],
+  "plot_threads_advanced": [
+    "maetha_warning_delivered",
+    "torin_reads_as_challenge"
+  ],
+  "promises_planted": [
+    "Maetha's warning will prove true (PP05)"
+  ],
+  "promises_paid": [],
+  "hook_actions": [],
+  "revelations": [
+    "R07"
+  ],
+  "pov_arc_phase": "lie_reinforced",
+  "arc_phase_transition": null,
+  "notes": "R07 \u2014 the most important piece of foreshadowing in the book. 'The caldera does not consume you. It replaces you.' Full text delivered once; afterward, fragments echo. Torin's arc: lie_reinforced \u2014 he reads the warning as proof that previous practitioners lacked his resolve."
+}

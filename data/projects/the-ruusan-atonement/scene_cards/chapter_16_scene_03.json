@@ -1,0 +1,49 @@
+{
+  "chapter_number": 16,
+  "scene_number": 3,
+  "structural_phase": "attack",
+  "scene_type": "action",
+  "scene_role": "escalation",
+  "pov_character": "Ben Skywalker",
+  "mission": "Sera counters Veraine with firsthand testimony \u2014 she's felt de-structuring, she was used as an anchor, and the liberation Veraine promises is a theory. The reality is what happened to Maetha's Knights. What happened to Torin.",
+  "why_now": "The counter-argument must match Veraine's pitch in force \u2014 Sera provides the experiential evidence Veraine's theory lacks",
+  "conflict": "Sera vs. Veraine \u2014 two women who were both sealed as anchors, both used as infrastructure, reaching opposite conclusions. Sera's counter is personal where Veraine's is theoretical: 'I have been where you want to take the galaxy. There is nothing there.'",
+  "conflict_type": "interpersonal",
+  "turning_point": "Veraine's composure cracks \u2014 once, briefly \u2014 when Sera describes the experience of being sealed. Not anger. Recognition. They share the wound. They disagree about the scar tissue.",
+  "opening_hook": "Sera steps forward. She's been silent throughout Veraine's pitch. When she speaks, her archaic syntax carries the weight of a thousand years of waiting to say this.",
+  "closing_hook": "Veraine recovers composure. 'I appreciate the testimony. But testimony is not evidence.' She excuses herself. The meeting is over. Something changed during her departure \u2014 Ben feels it in the Force. Something at the seal just shifted.",
+  "emotional_trajectory": "Sera's controlled fury -> Veraine's brief vulnerability -> the horror of the closing shift",
+  "stakes": {
+    "personal": "Sera using her deepest wound as a weapon \u2014 the cost of testimony",
+    "interpersonal": "Veraine and Sera's parallel exposed \u2014 same wound, opposite conclusions",
+    "external": "Something happened during the meeting. Veraine used the conversation as cover."
+  },
+  "characters_present": [
+    "Ben Skywalker",
+    "Sera Varik",
+    "Darth Veraine",
+    "Torin Hal",
+    "Kael Drenn",
+    "Desh Rolan"
+  ],
+  "setting": "Neutral meeting point \u2014 same location",
+  "sensory_details": "Sera's voice \u2014 formal, precise, trembling with controlled emotion; Veraine's brief crack \u2014 her eyes changing, something raw behind the composure; the Force shifting during Veraine's departure \u2014 the wrongness lurching",
+  "target_word_count": 1000,
+  "active_subplots": [
+    "SP-A",
+    "SP1",
+    "SP5"
+  ],
+  "plot_threads_advanced": [
+    "sera_counter_argument",
+    "veraine_sera_parallel",
+    "sabotage_executed"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "hook_actions": [],
+  "revelations": [],
+  "pov_arc_phase": "lie_challenged",
+  "arc_phase_transition": null,
+  "notes": "Sera's arc: lie_challenged \u2014 she's using her principle (the lattice matters, de-structuring is violation) as a weapon, but the confrontation with Veraine shows her that principle alone doesn't protect. Veraine's sabotage objective executing under cover of the conversation."
+}

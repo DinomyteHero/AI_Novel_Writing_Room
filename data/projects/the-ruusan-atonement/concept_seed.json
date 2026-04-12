@@ -171,10 +171,10 @@
         },
         "arc_phase_targets": {
           "lie_reinforced": "Each worsening breach and each sign of Veraine's progress convinces him only sacrifice can work.",
-          "lie_questioned": "Ben's collective instincts and Sera's resistance briefly offer him another path.",
-          "lie_cracking": "The resonance theory reveals a solution that would require him to relinquish authorship.",
-          "lie_confronted": "Torin chooses unilateral transcendence over shared uncertainty.",
-          "truth_resolved": "His diminished survival embodies the cost of mistaking self-sacrifice for moral authority."
+          "lie_deepened": "Ben's collective instincts and Sera's resistance briefly offer him another path, but he doubles down on the lone-sacrifice pattern.",
+          "point_of_no_return": "The resonance theory reveals a solution that would require him to relinquish authorship — he consciously rejects it.",
+          "lie_acted_upon": "Torin chooses unilateral transcendence over shared uncertainty, enacting the technique alone.",
+          "lie_consequence": "His diminished survival embodies the cost of mistaking self-sacrifice for moral authority."
         }
       }
     },
@@ -229,6 +229,29 @@
       }
     }
   ],
+  "referenced_characters": [
+    {
+      "name": "Luke Skywalker",
+      "role": "Jedi Grand Master, Ben's father — appears in Chapters 1-2 and 28",
+      "initial_location": "Jedi Temple, Coruscant",
+      "initial_emotional_state": "concerned vigilance"
+    },
+    {
+      "name": "Jacen Solo",
+      "role": "Deceased — referenced in backstory, GAG parallel, thematic shadow",
+      "initial_location": "deceased",
+      "initial_emotional_state": "n/a"
+    }
+  ],
+  "quality_overrides": {
+    "word_frequency_allowlist": [
+      "Force", "Jedi", "Sith", "lightsaber", "hyperspace",
+      "durasteel", "transparisteel", "Skywalker", "Coruscant",
+      "holocron", "stasis", "dark side"
+    ],
+    "semantic_similarity_threshold": 0.88,
+    "max_similar_pairs_per_1k_words": 12
+  },
   "force_mechanics": {
     "primary_rule": "The Force has a lattice structure — an organizational framework that maintains the light/dark distinction and provides moral intuition to Force-sensitives. This structure may be imposed rather than natural (per the Ankhural Codex). The lattice can be locally suspended by a technique derived from studying historical Force wounds (Nathema, Malachor V), creating a de-structured zone where moral intuition and Force-feedback disappear while raw ability persists. The technique removes rather than destroys — silence, not violence. It pulls the lattice out, leaving the Force present but unstructured, like pulling oxygen from a room.",
     "implications": [

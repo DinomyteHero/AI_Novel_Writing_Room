@@ -1,0 +1,52 @@
+{
+  "chapter_number": 12,
+  "scene_number": 3,
+  "structural_phase": "response",
+  "scene_type": "action",
+  "scene_role": "escalation",
+  "pov_character": "Ben Skywalker",
+  "mission": "The wrongness lurches \u2014 a sudden sharp spike. The seal is being deliberately attacked. Veraine has moved from research to action. Evidence that she spent extended time at this facility, not just repurposing but studying.",
+  "why_now": "Escalation before the midpoint \u2014 the timeline is compressing. Veraine's trace at Maetha's reveals a pilgrimage, not just logistics.",
+  "conflict": "The spike in the wrongness means the situation is deteriorating faster than expected. Veraine isn't just ahead \u2014 she's actively accelerating the seal's failure.",
+  "conflict_type": "external",
+  "turning_point": "Desh's analysis of Veraine's time here: she sat where the Knights trained. A pilgrimage. Maetha's work is part of Veraine's intellectual lineage. She came here for understanding, not just components.",
+  "opening_hook": "The wrongness hits like a physical blow. Ben staggers. Sera grabs the wall. Torin... Torin tilts his head, as if listening to music.",
+  "closing_hook": "The spike stabilizes at a new, higher baseline. The seal is weakening faster. And the next node on the Corridor \u2014 the one Desh flagged with the most recent energy signatures \u2014 is a settlement world. Civilians lived there. Possibly still do.",
+  "emotional_trajectory": "Physical shock -> urgent assessment -> grim realization of acceleration",
+  "stakes": {
+    "personal": "Ben feeling the seal's failure in real time \u2014 visceral, not abstract",
+    "interpersonal": "Torin's reaction to the spike vs. everyone else's \u2014 the gap widening",
+    "external": "The seal is failing faster. Days have become critical."
+  },
+  "characters_present": [
+    "Ben Skywalker",
+    "Sera Varik",
+    "Torin Hal",
+    "Kael Drenn",
+    "Desh Rolan"
+  ],
+  "setting": "Maetha's Training Facility exterior, then departure aboard the Steady Returns",
+  "sensory_details": "The wrongness spiking \u2014 like a bass note dropping below hearing into physical vibration; the flexible lattice at Maetha's location snapping briefly into chaos before stabilizing; Torin's tilted-head listening posture \u2014 attentive to something no one else wants to hear",
+  "target_word_count": 1000,
+  "active_subplots": [
+    "SP-A",
+    "SP5"
+  ],
+  "plot_threads_advanced": [
+    "seal_actively_attacked",
+    "veraine_pilgrimage_to_maetha",
+    "timeline_compressing"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "hook_actions": [
+    {
+      "hook_id": "H12",
+      "action": "plant"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "lie_reinforced",
+  "arc_phase_transition": null,
+  "notes": "H12 planted \u2014 the wrongness lurches, seal deliberately attacked. Transition chapter from Part 2 Response toward the Midpoint. Veraine's extended time at Maetha's reveals her as more complex than a simple villain \u2014 she has an intellectual genealogy."
+}

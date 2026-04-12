@@ -1,0 +1,50 @@
+{
+  "chapter_number": 21,
+  "scene_number": 3,
+  "structural_phase": "second_plot_point",
+  "scene_type": "sequel",
+  "scene_role": "decision",
+  "pov_character": "Ben Skywalker",
+  "mission": "Ben's crystallizing realization \u2014 Gavran's note about lattice resonance. 'I need to show you something in the Codex.' The Lie breaks open: 'We find another way. Together.'",
+  "why_now": "The second plot point's decision: Ben must choose between his Lie (seize control, act alone) and his Need (trust others, find a collective solution). He chooses the Need.",
+  "conflict": "Ben's desperation to find an alternative before Torin reaches the Scar drives him back to the resonance note he bookmarked in Chapter 14. The re-reading \u2014 with new understanding from Kael's Chapter 19 insight \u2014 transforms the theoretical note into a plan.",
+  "conflict_type": "internal",
+  "turning_point": "'We find another way. Together.' Ben's Lie breaks open. Not completely \u2014 he'll carry self-reliance instincts into the climax. But the fundamental shift happens here: from 'I must handle this' to 'we must handle this.'",
+  "opening_hook": "Ben pulls up the Codex notes with hands that are shaking. Gavran's marginalia. Ankhural's theory. The resonance note.",
+  "closing_hook": "'I need to show you something.' Ben's voice is different. Sera hears it. Kael hears it. Desh, who can't feel the Force, hears it most clearly of all. Something in Ben has changed.",
+  "emotional_trajectory": "Desperate searching -> the note recontextualized -> breakthrough -> the new truth spoken",
+  "stakes": {
+    "personal": "Ben's arc moment of truth \u2014 the Lie giving way to the Need",
+    "interpersonal": "The remaining group becoming a genuine collective \u2014 not a team under command but a partnership",
+    "external": "The resonance solution is theoretical, untested, and requires trust between traditions that have never cooperated"
+  },
+  "characters_present": [
+    "Ben Skywalker",
+    "Sera Varik",
+    "Kael Drenn",
+    "Desh Rolan"
+  ],
+  "setting": "Veranthos \u2014 camp, Ben's workspace, the Codex notes on display",
+  "sensory_details": "The Codex notes glowing on the datapad; Gavran's handwriting \u2014 the words 'we lacked the will or the trust' in a different light; Ben's hands steadying; the group's faces turning toward him \u2014 three people waiting for a reason to stay",
+  "target_word_count": 1400,
+  "active_subplots": [
+    "SP-A"
+  ],
+  "plot_threads_advanced": [
+    "resonance_solution_found",
+    "lie_breaks_open",
+    "new_truth_spoken"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "hook_actions": [
+    {
+      "hook_id": "H21",
+      "action": "plant"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "moment_of_truth",
+  "arc_phase_transition": null,
+  "notes": "H21 planted \u2014 Ben's breakthrough and the pivot to the resonance solution. The Lie cracking should feel earned \u2014 twenty chapters of building pressure, recognized patterns, and failed control leading to the realization that control itself is the problem."
+}

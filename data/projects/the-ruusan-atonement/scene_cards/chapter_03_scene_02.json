@@ -1,0 +1,48 @@
+{
+  "chapter_number": 3,
+  "scene_number": 2,
+  "structural_phase": "setup",
+  "scene_type": "sequel",
+  "scene_role": "reveal",
+  "pov_character": "Ben Skywalker",
+  "mission": "Ben and Desh access the facility's navigation data \u2014 it contains coordinates to a fortress in uncharted space, and partial context about a containment system",
+  "why_now": "The warning message demands investigation; the facility's data provides the next breadcrumb",
+  "conflict": "The data is fragmentary \u2014 enough to understand that something is contained, not enough to understand what. Ben must decide whether to report to Luke or follow the coordinates.",
+  "conflict_type": "internal",
+  "turning_point": "The navigation data includes a route \u2014 the Ruusan Corridor \u2014 that connects multiple installations in a perimeter pattern. This isn't one facility. It's a network.",
+  "opening_hook": "The facility's data core is damaged but not dead \u2014 Desh coaxes partial records from storage media older than the Galactic Alliance",
+  "closing_hook": "Coordinates resolve on the nav computer. The destination is deep in uncharted space \u2014 no hyperspace lane, no Republic survey, nothing. Something was deliberately hidden there.",
+  "emotional_trajectory": "Analytical focus -> dawning scope -> the weight of decision",
+  "stakes": {
+    "personal": "Ben's growing investment \u2014 this is becoming his mission, not Luke's survey",
+    "interpersonal": "Desh raises the professional question: do they report this and wait for backup?",
+    "external": "A thousand-year-old containment system is failing and nobody knows"
+  },
+  "characters_present": [
+    "Ben Skywalker",
+    "Desh Rolan"
+  ],
+  "setting": "Inside the perimeter facility \u2014 data core room, emergency lighting, ancient consoles",
+  "sensory_details": "Flickering holographic displays showing star maps that don't match modern charts; the hum of ancient power cells; cold \u2014 the facility's environmental systems are minimal",
+  "target_word_count": 1200,
+  "active_subplots": [
+    "SP-A",
+    "SP4"
+  ],
+  "plot_threads_advanced": [
+    "fortress_coordinates_acquired",
+    "corridor_network_glimpsed"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "hook_actions": [
+    {
+      "hook_id": "H03",
+      "action": "advance"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "lie_established",
+  "arc_phase_transition": null,
+  "notes": "Desh's intelligence training kicks in \u2014 he reads the installation as military infrastructure, recognizes a command-and-control architecture. His professional assessment carries weight Ben respects."
+}

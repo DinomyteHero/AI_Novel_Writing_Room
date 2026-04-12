@@ -1,0 +1,51 @@
+{
+  "chapter_number": 20,
+  "scene_number": 3,
+  "structural_phase": "attack",
+  "scene_type": "sequel",
+  "scene_role": "decision",
+  "pov_character": "Ben Skywalker",
+  "mission": "The group establishes position on Veranthos. Torin's expression as they approach the wound source \u2014 not certainty or determination, but longing. Ben knows the turn is coming. Hours, not days.",
+  "why_now": "Final positioning before the second plot point. The stage is set.",
+  "conflict": "Ben watching Torin watch the Scar. The longing on Torin's face is unmistakable \u2014 not power-hunger, not madness. Longing. For the moment of transcendence he felt when he first used the technique a thousand years ago.",
+  "conflict_type": "internal",
+  "turning_point": "Torin leans into the wrongness \u2014 his Force presence softening, the heaviness easing. He looks younger. More alive. More dangerous.",
+  "opening_hook": "They make camp at the valley's edge. The Scar is visible from here \u2014 a thin line in the air that shouldn't be there. Torin stares at it the way other people stare at sunsets.",
+  "closing_hook": "Night on Veranthos. The Scar visible against the stars \u2014 a line of absence in the sky. Torin standing at the camp's edge, looking down at the valley. His expression: peaceful, decided, already gone. Ben watches from the tent and knows: tomorrow.",
+  "emotional_trajectory": "Grim preparation -> watching Torin -> the terrible certainty of what's coming",
+  "stakes": {
+    "personal": "Ben's last hours before the second plot point \u2014 the dread of recognition",
+    "interpersonal": "The group's fragile cohesion about to break",
+    "external": "Veraine at the epicenter, Torin about to move, the clock at zero"
+  },
+  "characters_present": [
+    "Ben Skywalker",
+    "Desh Rolan",
+    "Sera Varik",
+    "Torin Hal",
+    "Kael Drenn"
+  ],
+  "setting": "Veranthos \u2014 valley edge camp, night, the Scar visible",
+  "sensory_details": "The Scar against stars \u2014 absence outlined by light; Torin's silhouette at the camp edge; the wound's pull \u2014 constant, gravitational; Veranthos's wrong night sounds \u2014 silence where there should be insects, a hum where there should be wind",
+  "target_word_count": 1000,
+  "active_subplots": [
+    "SP-A",
+    "SP1"
+  ],
+  "plot_threads_advanced": [
+    "torin_longing_visible",
+    "tomorrow_is_the_day"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "hook_actions": [
+    {
+      "hook_id": "H20",
+      "action": "plant"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "lie_challenged",
+  "arc_phase_transition": null,
+  "notes": "H20 planted \u2014 Torin's longing expression. The chapter's final image. Everything converges tomorrow."
+}

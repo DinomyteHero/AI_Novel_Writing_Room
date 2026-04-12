@@ -33,10 +33,18 @@ dist/
 build/
 *.egg-info/
 
-# Generated output (manuscripts, exports)
-output/
+# Legacy flat output paths (superseded by output/<project>/)
 data/manuscripts/
 data/export/
+
+# Pipeline runtime artifacts (generated per-run, not source-controlled)
+data/projects/*/state/sessions/
+*.db-journal
+*.db-wal
+*.db-shm
+
+# Claude Code worktrees
+.claude/worktrees/
 
 # Environment variables
 .env

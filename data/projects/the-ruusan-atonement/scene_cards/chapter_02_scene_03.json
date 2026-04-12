@@ -1,0 +1,47 @@
+{
+  "chapter_number": 2,
+  "scene_number": 3,
+  "structural_phase": "setup",
+  "scene_type": "action",
+  "scene_role": "escalation",
+  "pov_character": "Ben Skywalker",
+  "mission": "Second survey world confirms the pattern \u2014 multiple sites with the same markings, and the wrongness grows stronger along their route",
+  "why_now": "One site is curiosity; two is a pattern. Ben can no longer dismiss this as random anomaly.",
+  "conflict": "The survey route Luke designed runs exactly along the wrongness's bearing \u2014 coincidence or design? Ben doesn't know if Luke planned this.",
+  "conflict_type": "internal",
+  "turning_point": "Desh maps the anomalous sites and the wrongness bearing together \u2014 they form a line pointing deeper into the Outer Rim toward uncharted space",
+  "opening_hook": "The second world has the same markings. Different climate, different geology, same hand.",
+  "closing_hook": "The bearing points to a cluster of systems that don't appear on any navigation chart Ben has ever seen. Something is out there.",
+  "emotional_trajectory": "Confirmation dread -> analytical focus -> determined pursuit",
+  "stakes": {
+    "personal": "Ben's growing certainty that this is bigger than a survey mission",
+    "interpersonal": "Desh is reading Ben's tension \u2014 the professional friendship being tested by an unknown scope",
+    "external": "The pattern points toward something deliberately hidden from modern records"
+  },
+  "characters_present": [
+    "Ben Skywalker",
+    "Desh Rolan"
+  ],
+  "setting": "Second survey world \u2014 different biome, same era of ruins \u2014 then back aboard the Steady Returns for analysis",
+  "sensory_details": "The wrongness stronger here \u2014 Force-perception parallax error beginning; vegetation patterns slightly off; Desh's navigation console showing the bearing line",
+  "target_word_count": 1250,
+  "active_subplots": [
+    "SP-A"
+  ],
+  "plot_threads_advanced": [
+    "pattern_confirmed",
+    "bearing_toward_uncharted_space"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "hook_actions": [
+    {
+      "hook_id": "H02",
+      "action": "advance"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "lie_established",
+  "arc_phase_transition": null,
+  "notes": "Thin place effects slightly stronger than first world. Desh might notice temperature inconsistencies or sounds carrying oddly \u2014 non-Force-sensitive baseline establishing."
+}

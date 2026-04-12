@@ -1,0 +1,49 @@
+{
+  "chapter_number": 10,
+  "scene_number": 2,
+  "structural_phase": "response",
+  "scene_type": "sequel",
+  "scene_role": "reveal",
+  "pov_character": "Ben Skywalker",
+  "mission": "Desh's tactical analysis of Veraine's activities \u2014 she's not just researching, she's repurposing equipment. And her pattern isn't random \u2014 she's leading them. Why?",
+  "why_now": "Desh's intelligence training reads the physical evidence that Force-users missed \u2014 the practical man sees the tactical picture",
+  "conflict": "Desh's conclusion challenges the group's assumption: 'She's not just ahead \u2014 she's leading us. We're not chasing her.' Veraine wants them following.",
+  "conflict_type": "interpersonal",
+  "turning_point": "Desh lays out the evidence: Veraine left the message for Kael, left equipment she could have destroyed, took only specific components. She's curating their experience of the Corridor. Why?",
+  "opening_hook": "Desh has been cataloguing what Veraine took and what she left. The pattern is as clear to him as a Force vision \u2014 and more reliable.",
+  "closing_hook": "If Veraine wants them to follow, then pursuing her along the Corridor is either an opportunity or a trap. Either way, they need to understand what she's building.",
+  "emotional_trajectory": "Analytical focus -> uncomfortable realization -> strategic uncertainty",
+  "stakes": {
+    "personal": "Desh proving his essential value \u2014 intelligence that Force-perception misses",
+    "interpersonal": "The group forced to reconsider their assumptions about the pursuit",
+    "external": "Veraine is methodical and has a plan they don't understand"
+  },
+  "characters_present": [
+    "Ben Skywalker",
+    "Desh Rolan",
+    "Sera Varik"
+  ],
+  "setting": "Brotherhood Outpost \u2014 operations area, Veraine's activity evidence spread on tables",
+  "sensory_details": "Equipment manifests; disassembly marks on Sith-era machinery; Desh's maps showing Veraine's route and timing; the outpost's dark-side pressure making concentration harder",
+  "target_word_count": 1100,
+  "active_subplots": [
+    "SP-A",
+    "SP5"
+  ],
+  "plot_threads_advanced": [
+    "veraine_leading_them",
+    "desh_tactical_value"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "hook_actions": [
+    {
+      "hook_id": "H10",
+      "action": "advance"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "lie_reinforced",
+  "arc_phase_transition": null,
+  "notes": "Desh's moment of essential contribution. His non-Force perspective sees what Force-users miss \u2014 Veraine is running an intelligence operation, not a retreat."
+}
