@@ -159,6 +159,13 @@ class StateDiffApplier:
             if not char_id or not fact:
                 continue
 
+            # Guard: skip if character doesn't exist in the DB (FK constraint)
+            if self.state.get_character(char_id) is None:
+                logger.warning(
+                    "Skipping new_knowledge for unknown character '%s'", char_id
+                )
+                continue
+
             # Generate a fact_id from the fact text
             fact_id = _make_fact_id(fact)
 
