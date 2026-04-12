@@ -5,32 +5,41 @@
   "scene_type": "sequel",
   "scene_role": "hook",
   "pov_character": "Ben Skywalker",
-  "mission": "Establish Ben's restlessness and the wrongness in the Force — the reader must feel both his competence and his isolation before the story asks him to change",
-  "why_now": "Opening scene. The wrongness has been building for weeks. Ben's survey route along the Outer Rim puts him in proximity to the source, but he doesn't know that yet.",
-  "opening_hook": "Ben feels the wrongness in the Force during a routine Jedi survey — not a disturbance, but a texture change, like the Force itself has gone slightly out of tune",
-  "conflict": "Internal: Ben senses something wrong in the Force but can't articulate it. His instinct is to investigate alone rather than report it — the Lie operating before the reader knows it's a Lie.",
+  "mission": "Establish Ben's restlessness and the persistent wrongness in the Force that no one else seems to notice at the same intensity",
+  "why_now": "Opening scene \u2014 introduces protagonist, central mystery, and emotional baseline before the plot launches",
+  "conflict": "Ben feels something wrong in the Force but cannot articulate it to anyone, and the Order treats it as background noise from recent crises",
   "conflict_type": "internal",
-  "turning_point": "Ben decides not to flag the wrongness to the Order. Instead, he adjusts his survey route toward the bearing — a control choice disguised as initiative.",
-  "closing_hook": "The wrongness has a direction. It's not ambient — it's coming from somewhere deep in the Outer Rim, and Ben's adjusted route runs directly along the bearing.",
-  "characters_present": ["Ben Skywalker"],
-  "setting": "Ben's ship in the Outer Rim — the cockpit, the loneliness of deep space, survey instruments showing normal readings while the Force says otherwise",
-  "sensory_details": "The Force feels like a note held too long — not dissonant, but subtly wrong. Instrument panels glow normally. The contrast between what the instruments say and what Ben feels is the scene's central tension.",
-  "emotional_trajectory": "Routine competence -> unease -> quiet determination",
+  "turning_point": "Ben acknowledges privately that the wrongness has a quality he recognizes from his years around Jacen and Abeloth \u2014 something structural, not emotional",
+  "opening_hook": "The Force has been off-key for three months, and Ben Skywalker is the only person in the Temple who can't stop hearing it",
+  "closing_hook": "Luke appears in the doorway with a datapad and an expression Ben knows means a mission",
+  "emotional_trajectory": "Restless unease -> frustrated isolation -> reluctant hope",
   "stakes": {
-    "personal": "Ben's self-image as someone who handles things — the wrongness is the first thing in months that doesn't fit his framework",
-    "interpersonal": "None yet — Ben is alone, which is the point",
-    "external": "The wrongness in the Force is real and growing, but no one else has noticed it yet"
+    "personal": "Ben's sense of his own Force perception \u2014 is he reliable or traumatized?",
+    "interpersonal": "His distance from other Knights who don't share his concern",
+    "external": "The wrongness itself \u2014 something is happening to the Force"
   },
-  "plot_threads_advanced": ["force_wrongness"],
-  "promises_planted": ["PP01", "PP22"],
-  "promises_paid": [],
-  "canon_elements_needed": ["Ben Skywalker post-FotJ characterization", "Jedi survey missions in the Outer Rim"],
-  "target_word_count": 1200,
-  "active_subplots": [],
-  "hook_actions": [
-    {"hook_id": "H01", "action": "plant"}
+  "characters_present": [
+    "Ben Skywalker"
   ],
+  "setting": "Jedi Temple, Coruscant \u2014 meditation chamber, late evening",
+  "sensory_details": "Temple hum of ambient Force presences; the wrongness like a note played slightly flat in an orchestra only Ben can fully hear; cool stone under his hands",
+  "target_word_count": 1250,
+  "active_subplots": [
+    "SP-A",
+    "SP4"
+  ],
+  "plot_threads_advanced": [
+    "wrongness_established",
+    "ben_isolation"
+  ],
+  "promises_planted": [
+    "The wrongness has a source Ben will find (PP01)",
+    "Ben's Skywalker shadow \u2014 he measures himself against legacy (PP21)"
+  ],
+  "promises_paid": [],
+  "hook_actions": [],
   "revelations": [],
   "pov_arc_phase": "lie_established",
-  "notes": "This scene must establish Ben as capable and likeable BEFORE revealing his flaw. The Lie (self-reliance as safety) should operate invisibly — the reader should admire his initiative, not recognize it as avoidance. The wrongness in the Force is experiential, not expositional."
+  "arc_phase_transition": null,
+  "notes": "Establish Ben's Lie: self-reliance as safety. He's handling the wrongness alone because that's what Skywalkers do. Internal monologue should be sharp, self-aware, slightly defensive."
 }

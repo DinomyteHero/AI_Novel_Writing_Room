@@ -1,0 +1,48 @@
+{
+  "chapter_number": 22,
+  "scene_number": 3,
+  "structural_phase": "resolution",
+  "scene_type": "sequel",
+  "scene_role": "decision",
+  "pov_character": "Ben Skywalker",
+  "mission": "Ben must now convince Kael. The plan requires three traditions \u2014 and Kael's Sith-trained contribution is the piece that can't be substituted. Ben knows he can't command this. Kael must choose freely.",
+  "why_now": "The plan is built but incomplete without Kael. The thematic argument demands that Kael's participation be voluntary.",
+  "conflict": "Ben prepares to ask Kael \u2014 not command, not manipulate, not guilt-trip. Ask. The hardest thing for a Skywalker: trusting someone else's free choice when everything depends on it.",
+  "conflict_type": "internal",
+  "turning_point": "Ben acknowledges to himself: if Kael says no, the plan fails. And that has to be acceptable. Forcing Kael would repeat every institution that ever used him. The answer has to be free or it isn't an answer.",
+  "opening_hook": "Kael is sitting at the camp's edge, facing the valley. The wrongness settles around him like weather he's adapted to. He knows Ben is coming before Ben arrives.",
+  "closing_hook": "Kael's question: 'Why should I believe this one is different?' Not hostile. Not cynical. Genuine. The final holdout before the plan can execute.",
+  "emotional_trajectory": "Steeling resolve -> the approach -> Kael's devastating question",
+  "stakes": {
+    "personal": "Ben learning to lead through invitation rather than command",
+    "interpersonal": "Ben and Kael \u2014 the Jedi and the Sith-trained, asking each other for trust",
+    "external": "Without Kael, no resonance. Without resonance, Torin's sacrifice or Veraine's destruction."
+  },
+  "characters_present": [
+    "Ben Skywalker",
+    "Kael Drenn"
+  ],
+  "setting": "Veranthos \u2014 camp edge, overlooking the valley and the Scar",
+  "sensory_details": "The Scar visible below \u2014 a seam in reality; Kael's Force presence \u2014 guarded but not hostile; the wrongness between them, making the conversation harder than it should be; first light touching the ridgelines",
+  "target_word_count": 1250,
+  "active_subplots": [
+    "SP-A",
+    "SP2"
+  ],
+  "plot_threads_advanced": [
+    "kael_approached",
+    "trust_not_command"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "hook_actions": [
+    {
+      "hook_id": "H22",
+      "action": "plant"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "moment_of_truth",
+  "arc_phase_transition": null,
+  "notes": "H22 planted \u2014 Kael's question: 'Why should I believe this one is different?' The final character holdout. Ben's leadership through invitation, not command, is the thematic argument in action."
+}

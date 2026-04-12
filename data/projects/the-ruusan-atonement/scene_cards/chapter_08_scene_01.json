@@ -1,0 +1,52 @@
+{
+  "chapter_number": 8,
+  "scene_number": 1,
+  "structural_phase": "response",
+  "scene_type": "action",
+  "scene_role": "escalation",
+  "pov_character": "Ben Skywalker",
+  "mission": "En route to the next node, the group enters a moderately degraded zone. Torin's unsettling calm in the thin place \u2014 the de-structured Force feels familiar to him. He quotes Ankhural: 'the natural state.'",
+  "why_now": "Torin's comfort in thin places is the first clear warning sign \u2014 he shouldn't be at ease where the lattice is damaged",
+  "conflict": "Torin's reaction to the thin place contradicts everyone else's discomfort. Sera notices and grows tense. Ben files it away. Kael watches Torin with the alertness of someone who recognizes a specific kind of danger.",
+  "conflict_type": "interpersonal",
+  "turning_point": "Torin says 'Ankhural called it the natural state' with a tone that isn't academic \u2014 it's nostalgic. Ben's stomach drops for a reason he can't articulate yet.",
+  "opening_hook": "The Force thins between jumps. Not the momentary silence of hyperspace transition \u2014 a thinning, like fabric stretched too far.",
+  "closing_hook": "Sera catches Ben alone: 'Watch him. In the thin places. Watch what happens to his face.' She doesn't say Torin's name. She doesn't need to.",
+  "emotional_trajectory": "Group unease -> focused alarm at Torin's comfort -> private warning from Sera",
+  "stakes": {
+    "personal": "Ben's ability to read his allies \u2014 he missed warning signs with Jacen",
+    "interpersonal": "Sera and Torin's thousand-year history surfacing as tactical concern",
+    "external": "If Torin is drawn to de-structuring, the team's strongest member is also a vulnerability"
+  },
+  "characters_present": [
+    "Ben Skywalker",
+    "Sera Varik",
+    "Torin Hal",
+    "Kael Drenn",
+    "Desh Rolan"
+  ],
+  "setting": "Aboard the Steady Returns traversing a moderately degraded zone between nodes",
+  "sensory_details": "The Force has gaps \u2014 moments where reaching gets nothing, then it's back; Torin's Force presence subtly different in the thin zone \u2014 the heaviness easing; Sera's face like stone; Kael's eyes tracking Torin",
+  "target_word_count": 1200,
+  "active_subplots": [
+    "SP-A",
+    "SP1",
+    "SP2"
+  ],
+  "plot_threads_advanced": [
+    "torin_thin_place_comfort",
+    "sera_private_warning"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "hook_actions": [
+    {
+      "hook_id": "H08",
+      "action": "plant"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "lie_reinforced",
+  "arc_phase_transition": null,
+  "notes": "H08 planted \u2014 Torin's comfort in the thin place. Torin's arc: lie_reinforced. His unsettling ease convinces him his experience with the technique is an asset, not a liability. Kael's arc: lie_reinforced \u2014 watching Torin confirms that believers are dangerous."
+}

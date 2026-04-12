@@ -33,8 +33,7 @@ dist/
 build/
 *.egg-info/
 
-# Generated output (manuscripts, exports)
-output/
+# Legacy flat output paths (superseded by output/<project>/)
 data/manuscripts/
 data/export/
 

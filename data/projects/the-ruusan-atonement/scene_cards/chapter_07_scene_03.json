@@ -1,0 +1,44 @@
+{
+  "chapter_number": 7,
+  "scene_number": 3,
+  "structural_phase": "response",
+  "scene_type": "sequel",
+  "scene_role": "decision",
+  "pov_character": "Ben Skywalker",
+  "mission": "Departure from the Battlefield Node \u2014 group processes what they've learned, decides next stop. Ben grapples privately with the institutional lie's growing weight.",
+  "why_now": "Each Corridor stop adds to the moral burden \u2014 Ben must carry both the crisis and the cover-up",
+  "conflict": "Ben drafts another partial report to Luke \u2014 more context, still not the full truth. The gap between what he knows and what he reports widens.",
+  "conflict_type": "internal",
+  "turning_point": "Torin finds Ben composing the report and asks simply: 'What will you tell them?' Not accusatory \u2014 curious. Ben changes the subject. The question hangs.",
+  "opening_hook": "Back aboard the Steady Returns, the thin place's lingering effects fade slowly \u2014 like adjusting from a dark room to daylight, but in reverse",
+  "closing_hook": "Next node on approach. This one's degradation is worse \u2014 the Force ahead feels intermittent rather than merely offset. And the energy signature Desh flagged? It's stronger here. Much stronger. Someone spent time.",
+  "emotional_trajectory": "Reflective processing -> the weight of withholding -> renewed determination",
+  "stakes": {
+    "personal": "Ben's integrity eroding with each incomplete report",
+    "interpersonal": "Torin's question about honesty \u2014 foreshadowing his own relationship with truth",
+    "external": "The next stop shows heavier Veraine activity"
+  },
+  "characters_present": [
+    "Ben Skywalker",
+    "Torin Hal",
+    "Desh Rolan"
+  ],
+  "setting": "Aboard the Steady Returns \u2014 Ben's makeshift workspace, then cockpit",
+  "sensory_details": "The datapad with Luke's comm frequency; Torin's presence in the doorway \u2014 warm, heavy, his Force signature slightly wrong in a way Ben can't name; nav display showing the next node's degraded readings",
+  "target_word_count": 1100,
+  "active_subplots": [
+    "SP-A",
+    "SP4"
+  ],
+  "plot_threads_advanced": [
+    "institutional_lie_deepening",
+    "torin_foreshadowing"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "hook_actions": [],
+  "revelations": [],
+  "pov_arc_phase": "lie_reinforced",
+  "arc_phase_transition": null,
+  "notes": "SP4 (institutional lie) advancing \u2014 Ben's withholding from Luke is a mirror of the Order's thousand-year amnesia. Torin's question is a soft hook-adjacent moment \u2014 not registered as a formal hook but adds to his long-burn characterization."
+}

@@ -1,0 +1,50 @@
+{
+  "chapter_number": 19,
+  "scene_number": 3,
+  "structural_phase": "attack",
+  "scene_type": "sequel",
+  "scene_role": "decision",
+  "pov_character": "Ben Skywalker",
+  "mission": "Kael's moment of truth \u2014 observing the Knights, he notes they 'built their identity on a single framework.' His perspective diverges from Veraine's: she'd say the lattice is the problem; Kael says the dependence is the problem.",
+  "why_now": "Kael's arc: moment_of_truth \u2014 he arrives at the resonance answer before Ben articulates it",
+  "conflict": "Kael's observation is the insight Ben needs but can't reach from inside his own tradition. The outsider sees what the insider can't.",
+  "conflict_type": "internal",
+  "turning_point": "Kael, watching the Knights: 'They built everything on one thing. Take it away and they don't know how to stand.' Beat. 'That's not a lattice problem. That's a design problem.' He's describing the resonance solution without knowing it.",
+  "opening_hook": "Kael has been silent through the outpost. Watching. He watches the Knights the way he watches everything \u2014 from outside, measuring.",
+  "closing_hook": "Departure from the outpost. Close enough to feel the primary wound now \u2014 immense, pulling. Veranthos is ahead. The endgame approaches.",
+  "emotional_trajectory": "Kael's quiet observation -> the insight landing -> grim departure",
+  "stakes": {
+    "personal": "Kael arriving at insight through outsider perspective",
+    "interpersonal": "Kael engaging with the group's problem \u2014 not from obligation but from genuine observation",
+    "external": "Veranthos approaching"
+  },
+  "characters_present": [
+    "Ben Skywalker",
+    "Kael Drenn",
+    "Sera Varik",
+    "Desh Rolan"
+  ],
+  "setting": "Jedi outpost -> departure, approach toward Veranthos",
+  "sensory_details": "The outpost shrinking behind them; the wound ahead \u2014 pulling, immense, the wrongness concentrated into a gravity well of absence; Kael's voice \u2014 quiet, precise, the most words he's spoken at once in days; Veranthos's star visible on the nav display",
+  "target_word_count": 1100,
+  "active_subplots": [
+    "SP-A",
+    "SP2"
+  ],
+  "plot_threads_advanced": [
+    "kael_framework_insight",
+    "veranthos_approach"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "hook_actions": [
+    {
+      "hook_id": "H19",
+      "action": "plant"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "lie_challenged",
+  "arc_phase_transition": null,
+  "notes": "Kael's arc: moment_of_truth \u2014 his outsider perspective provides the critical insight. He's not converted to caring; he's demonstrating that his detached observation has value. The 'design problem' observation is the resonance answer in embryonic form."
+}

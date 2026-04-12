@@ -1,0 +1,52 @@
+{
+  "chapter_number": 12,
+  "scene_number": 1,
+  "structural_phase": "response",
+  "scene_type": "action",
+  "scene_role": "hook",
+  "pov_character": "Ben Skywalker",
+  "mission": "Enter Maetha's Training Facility \u2014 Sera cracks Gavran's seal using era-specific Force-lock techniques. The facility is the Caldera Knights' training compound: austere, beautiful, and the thin place character is fundamentally different \u2014 flexible lattice, not thinned.",
+  "why_now": "H11 resolution \u2014 entering the sealed facility. The most psychologically intense Corridor stop.",
+  "conflict": "The flexible lattice is seductive \u2014 the Force here offers freedom from the rigid light/dark binary. It feels like possibility. Ben has to resist the pull while investigating. Torin doesn't resist.",
+  "conflict_type": "environmental",
+  "turning_point": "In the central training ground \u2014 a flat cleared circle \u2014 the lattice flexes visibly in the Force. Ben feels both light and dark simultaneously without contradiction. For one moment, it's beautiful. He understands why the Caldera Knights kept coming back.",
+  "opening_hook": "Sera works the lock for twelve minutes. When it opens, the air that flows out smells like time \u2014 dust, stone, and something underneath that isn't physical. Memory.",
+  "closing_hook": "The archive chamber. Sera recognizes the seal pattern \u2014 personal, not military. Maetha sealed her own records. The final message of a woman who disbanding her own creation.",
+  "emotional_trajectory": "Cautious entry -> the seduction of the flexible lattice -> sobered focus at the archive",
+  "stakes": {
+    "personal": "Ben experiencing the technique's seduction firsthand \u2014 understanding the temptation intellectually won't protect him",
+    "interpersonal": "Torin's reaction in the training ground \u2014 more at ease than anywhere else on the journey",
+    "external": "Maetha's records contain the last piece of foreshadowing before the midpoint"
+  },
+  "characters_present": [
+    "Ben Skywalker",
+    "Sera Varik",
+    "Torin Hal",
+    "Kael Drenn",
+    "Desh Rolan"
+  ],
+  "setting": "Maetha's Training Facility \u2014 compound of structures around central training ground, high-altitude, thin forests",
+  "sensory_details": "The flexible lattice \u2014 light and dark present but the boundary shimmers; the training ground's cleared circle still resonant with centuries of practice; austere geometric architecture; Desh: persistent low-level headache that started on arrival",
+  "target_word_count": 1300,
+  "active_subplots": [
+    "SP-A",
+    "SP1"
+  ],
+  "plot_threads_advanced": [
+    "maetha_facility_entered",
+    "flexible_lattice_experienced",
+    "torin_at_ease"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "hook_actions": [
+    {
+      "hook_id": "H11",
+      "action": "resolve"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "lie_reinforced",
+  "arc_phase_transition": null,
+  "notes": "The seductive quality of the flexible lattice is the most important sensory note in this chapter. It should feel genuinely appealing \u2014 the reader needs to understand why intelligent people kept pursuing this. Torin's arc: lie_reinforced."
+}

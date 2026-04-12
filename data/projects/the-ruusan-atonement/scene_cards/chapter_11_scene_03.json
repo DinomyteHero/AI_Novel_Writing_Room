@@ -1,0 +1,51 @@
+{
+  "chapter_number": 11,
+  "scene_number": 3,
+  "structural_phase": "response",
+  "scene_type": "action",
+  "scene_role": "escalation",
+  "pov_character": "Ben Skywalker",
+  "mission": "Approach to Maetha's Training Facility \u2014 Gavran's records flag it with a personal annotation: 'Do not access without direct authorization.' Even the man who built the seal considered this place dangerous.",
+  "why_now": "The next stop requires setup \u2014 Maetha's Facility is different from previous nodes in severity and significance",
+  "conflict": "Sera recognizes the notation \u2014 Gavran sealed this facility himself, separate from the anchor system. Whatever happened here, he wanted it contained even from his own people.",
+  "conflict_type": "external",
+  "turning_point": "Sera can crack the seal \u2014 it's her era's lock work \u2014 but hesitates. This is the first time she's shown reluctance. Whatever Gavran sealed here, she has a guess about what it is.",
+  "opening_hook": "The Corridor narrows \u2014 figuratively and literally. The Force ahead is strange in a way that doesn't match previous nodes. Not thinned. Flexible.",
+  "closing_hook": "Sera looks at the sealed entrance and says, very quietly: 'This was Maetha's.' The name means nothing to Ben. Sera's expression says it should.",
+  "emotional_trajectory": "Professional approach -> growing concern -> Sera's charged recognition",
+  "stakes": {
+    "personal": "Sera confronting a piece of history she knows and dreads",
+    "interpersonal": "The group trusting Sera's expertise vs. her visible fear",
+    "external": "Gavran considered this place dangerous enough to seal separately"
+  },
+  "characters_present": [
+    "Ben Skywalker",
+    "Sera Varik",
+    "Desh Rolan",
+    "Torin Hal",
+    "Kael Drenn"
+  ],
+  "setting": "Approach to Maetha's world \u2014 remote, deliberately isolated, high-altitude compound",
+  "sensory_details": "The Force here isn't thinned \u2014 it's flexible, the boundary between light and dark shifting while watched; sharp clear air; austere architecture visible from approach \u2014 disciplined, geometric, beautiful and cold",
+  "target_word_count": 1100,
+  "active_subplots": [
+    "SP-A",
+    "SP1"
+  ],
+  "plot_threads_advanced": [
+    "maetha_facility_approach",
+    "sera_recognizes_maetha"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "hook_actions": [
+    {
+      "hook_id": "H11",
+      "action": "plant"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "lie_reinforced",
+  "arc_phase_transition": null,
+  "notes": "H11 planted \u2014 the facility sealed by Gavran with personal authorization warning. The flexible lattice at Maetha's location should feel different from previous thin places \u2014 seductive rather than disorienting. A preview of what the technique does at smaller scale."
+}

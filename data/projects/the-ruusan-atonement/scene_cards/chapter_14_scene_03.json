@@ -1,0 +1,49 @@
+{
+  "chapter_number": 14,
+  "scene_number": 3,
+  "structural_phase": "attack",
+  "scene_type": "action",
+  "scene_role": "reveal",
+  "pov_character": "Ben Skywalker",
+  "mission": "Gavran's archived note discovered \u2014 'Ankhural theorized that the lattice could be reinforced through harmonic resonance between disparate traditions. We lacked the will or the trust to attempt it.' The seed of the climactic solution.",
+  "why_now": "Deep in the archive data loaded from the fortress \u2014 Ben finds it while searching for counter-measures to Veraine's array",
+  "conflict": "The note describes a theoretical solution no one has ever tested \u2014 and it requires exactly what the group lacks: trust between incompatible traditions. Ben notes it but doesn't understand its significance yet.",
+  "conflict_type": "internal",
+  "turning_point": "Gavran's admission: 'We lacked the will or the trust.' The man who built the seal \u2014 the most powerful Jedi Lord of his era \u2014 couldn't do this. And Ben is supposed to succeed where he failed?",
+  "opening_hook": "The note is buried in Gavran's personal annotations \u2014 marginalia on the Codex fragment, cross-referenced with a passage Ankhural marked as 'untested, requires conditions we cannot create.'",
+  "closing_hook": "Ben bookmarks the note and moves on. He'll come back to it. He doesn't know yet that this is the most important thing he'll read on the entire journey.",
+  "emotional_trajectory": "Discovery -> intrigued uncertainty -> filed away for later",
+  "stakes": {
+    "personal": "Ben holding the solution without recognizing it \u2014 dramatic irony for the reader",
+    "interpersonal": "The note's requirement (trust between traditions) is exactly what the group is struggling to build",
+    "external": "Chekhov's gun planted \u2014 the resonance theory will define the climax"
+  },
+  "characters_present": [
+    "Ben Skywalker",
+    "Sera Varik"
+  ],
+  "setting": "Aboard the Steady Returns \u2014 Ben's workspace, archive data on displays",
+  "sensory_details": "Archive text in old script; Gavran's handwriting \u2014 precise but rushed; the note's passage highlighted against the Codex framework; Sera looking over Ben's shoulder, frowning at Ankhural's name",
+  "target_word_count": 1200,
+  "active_subplots": [
+    "SP-A"
+  ],
+  "plot_threads_advanced": [
+    "resonance_note_planted",
+    "solution_seed_present"
+  ],
+  "promises_planted": [
+    "Gavran's note about lattice resonance will matter (PP10)"
+  ],
+  "promises_paid": [],
+  "hook_actions": [
+    {
+      "hook_id": "H14",
+      "action": "plant"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "lie_challenged",
+  "arc_phase_transition": null,
+  "notes": "H14 planted \u2014 the resonance note. Chekhov's gun. The reader should register this as important even if Ben doesn't yet. Sera's reaction to Ankhural's name is significant \u2014 she knew the scholar's reputation as a heretic."
+}

@@ -1,0 +1,48 @@
+{
+  "chapter_number": 26,
+  "scene_number": 1,
+  "structural_phase": "climax",
+  "scene_type": "action",
+  "scene_role": "hook",
+  "pov_character": "Ben Skywalker",
+  "mission": "Torin's technique works \u2014 the void around him reaches the Scar. The wound begins to close. His plan is functioning. And the cost is visible: Torin is diminishing. The technique is replacing him.",
+  "why_now": "The climax's second crisis \u2014 Torin succeeding at the cost of himself",
+  "conflict": "Torin's plan works: the technique applied at the Scar is closing the wound. But Maetha's warning is proving true in real time \u2014 prolonged use is erasing Torin's emotional range, his personality, his humanity. The caldera doesn't consume. It replaces.",
+  "conflict_type": "external",
+  "turning_point": "Torin's voice, from inside the void: still articulate but emotionally hollow. He's speaking with the precision of someone who remembers how to form sentences but has forgotten why they matter. He's becoming infrastructure \u2014 exactly what Gavran's seal was.",
+  "opening_hook": "The wound is closing. Torin is winning. And Sera is screaming his name.",
+  "closing_hook": "Sera moves toward the void. Ben reaches for her \u2014 'Sera, don't\u2014' She looks back. 'I was sealed once. I will not watch it happen to someone else and do nothing.' She enters the void.",
+  "emotional_trajectory": "Horror at Torin's diminishment -> Sera's desperate determination -> the choice to save him",
+  "stakes": {
+    "personal": "Torin being consumed by the technique \u2014 Maetha's prophecy fulfilling",
+    "interpersonal": "Sera choosing to save Torin despite everything \u2014 love without control",
+    "external": "The wound closing but at the cost of another living person becoming infrastructure"
+  },
+  "characters_present": [
+    "Ben Skywalker",
+    "Sera Varik",
+    "Kael Drenn",
+    "Torin Hal"
+  ],
+  "setting": "Veranthos \u2014 the Scar, Torin's void expanding, the wound closing",
+  "sensory_details": "Torin's void \u2014 the lattice absent around him, a zone of formless Force; his voice: still speaking but the warmth gone, the humor gone, just words without person; Sera's face \u2014 grief and iron; the wound visibly closing \u2014 the Scar narrowing",
+  "target_word_count": 1700,
+  "active_subplots": [
+    "SP-A",
+    "SP1"
+  ],
+  "plot_threads_advanced": [
+    "torin_diminishing",
+    "maetha_warning_fulfilled",
+    "sera_enters_void"
+  ],
+  "promises_planted": [],
+  "promises_paid": [
+    "Maetha's warning proves true (PP05)"
+  ],
+  "hook_actions": [],
+  "revelations": [],
+  "pov_arc_phase": "new_truth_demonstrated",
+  "arc_phase_transition": null,
+  "notes": "Maetha's warning payoff \u2014 the most important promise in the book. Torin's diminishment should be specific and terrible: not dramatic dark-side corruption but the slow subtraction of personality. He's becoming what Gavran became \u2014 infrastructure."
+}

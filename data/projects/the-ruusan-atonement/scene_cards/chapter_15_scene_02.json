@@ -1,0 +1,49 @@
+{
+  "chapter_number": 15,
+  "scene_number": 2,
+  "structural_phase": "attack",
+  "scene_type": "sequel",
+  "scene_role": "escalation",
+  "pov_character": "Ben Skywalker",
+  "mission": "Torin's philosophy hardens \u2014 he uses the Valley's destabilization as evidence that the seal was always a temporary measure. His argument: the only permanent solution is someone who understands the technique becoming the new seal. Himself.",
+  "why_now": "The widening crisis provides Torin with ammunition. His argument becomes harder to dismiss as the stakes rise.",
+  "conflict": "Torin presents his position with devastating logic and genuine warmth. He's not trying to seize power \u2014 he's offering to sacrifice himself. The horror is in the nobility. This is Jacen's pattern wearing a better mask.",
+  "conflict_type": "interpersonal",
+  "turning_point": "Torin makes a devastating observation to Ben: 'You're curating reality to manage the outcome you want. You know who else did that?' \u2014 naming the pattern Ben is falling into with his withholding from Luke.",
+  "opening_hook": "Torin brings it up over food. He always brings the worst things up over food \u2014 it's a disarming technique Ben is starting to recognize.",
+  "closing_hook": "The observation about curating reality lands like a blade. Ben can't dismiss it because Torin is right \u2014 Ben IS withholding, controlling information, managing the narrative. The question is whether recognizing the pattern is enough to break it.",
+  "emotional_trajectory": "Engaged debate -> seductive logic -> the devastating personal parallel",
+  "stakes": {
+    "personal": "Ben's own pattern of control exposed by the person repeating it at larger scale",
+    "interpersonal": "Torin and Ben \u2014 mutual respect making the disagreement more painful",
+    "external": "Torin's 'solution' would work but at the cost of everything the theme argues against"
+  },
+  "characters_present": [
+    "Ben Skywalker",
+    "Torin Hal",
+    "Sera Varik"
+  ],
+  "setting": "Aboard the Steady Returns \u2014 common area, meal time",
+  "sensory_details": "Food cooling as the conversation heats; Torin's warmth slightly mechanical \u2014 the humor arriving on schedule; Sera's silence \u2014 she's heard this argument before, from Gavran; Ben's hands under the table, gripping his knees",
+  "target_word_count": 1200,
+  "active_subplots": [
+    "SP-A",
+    "SP1"
+  ],
+  "plot_threads_advanced": [
+    "torin_sacrifice_argument",
+    "ben_pattern_exposed"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "hook_actions": [
+    {
+      "hook_id": "H15",
+      "action": "plant"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "lie_challenged",
+  "arc_phase_transition": null,
+  "notes": "H15 planted \u2014 Torin's devastating observation about curating reality. This names the Jacen pattern before Ben formally recognizes it in Chapter 18. Torin's arc: lie_deepened \u2014 his certainty growing as the crisis validates his analysis."
+}
