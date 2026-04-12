@@ -347,10 +347,17 @@ class SceneCardGenerator:
         }
 
         result = await self.planner.run_structured(context)
-        cards = result.get("scene_cards", result.get("outline", []))
+        # Result may be a list (JSON array returned directly) or a dict wrapper
+        if isinstance(result, list):
+            cards = result
+        else:
+            cards = result.get("scene_cards", result.get("outline", []))
         if not cards:
             result = await self.planner.run(context)
-            cards = result.get("scene_cards", result.get("outline", []))
+            if isinstance(result, list):
+                cards = result
+            else:
+                cards = result.get("scene_cards", result.get("outline", []))
 
         # Filter to only the requested chapter range (model may overshoot)
         cards = [c for c in cards if ch_start <= c.get("chapter_number", 0) <= ch_end]
