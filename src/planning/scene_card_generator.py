@@ -156,9 +156,29 @@ class OutlinePlanner(BaseAgent):
         per_chapter = total_words // target_chapters
         per_scene_target = per_chapter // 3
 
+        # Chunked generation: chapter range and prior cards
+        chapter_range = context.get("chapter_range")
+        prior_summary = context.get("prior_cards_summary", "")
+
+        if prior_summary:
+            parts.append(prior_summary)
+            parts.append("")
+
+        if chapter_range:
+            ch_start, ch_end = chapter_range
+            range_label = f"chapters {ch_start}-{ch_end}"
+            range_instruction = (
+                f"Generate scene cards for {range_label} ONLY.\n"
+                f"Do NOT generate scenes outside this range.\n\n"
+            )
+        else:
+            range_label = f"all {target_chapters} chapters"
+            range_instruction = ""
+
         parts.append(
             f"## Task\n"
-            f"Generate a complete {target_chapters}-chapter outline with MULTIPLE SCENES PER CHAPTER.\n\n"
+            f"Generate scene cards for {range_label} with MULTIPLE SCENES PER CHAPTER.\n"
+            f"{range_instruction}\n"
             f"SCENE COUNT RULES:\n"
             f"- Each chapter MUST contain 2-4 scenes (default 3).\n"
             f"- Single-scene chapters are allowed ONLY for high-impact set-piece moments "
@@ -252,45 +272,108 @@ class SceneCardGenerator:
         self.physics = physics_enforcer
 
     async def generate(
-        self, concept_seed: dict, max_retries: int = 3
+        self, concept_seed: dict, max_retries: int = 3,
+        chunk_size: int = 7,
     ) -> list[dict]:
-        """Generate all scene cards for a novel.
+        """Generate all scene cards for a novel in chunks.
+
+        Splits the novel into chapter ranges (default: 7 chapters per chunk)
+        to avoid LLM output token limits. Each chunk is generated in a
+        separate API call with the full concept seed as context.
 
         Args:
             concept_seed: The concept seed dict.
             max_retries: Maximum validation retry attempts.
+            chunk_size: Number of chapters per generation call.
 
         Returns:
             List of scene card dicts matching schemas/scene_card.json.
         """
-        # Generate initial outline
-        result = await self.planner.run_structured(
-            {"concept_seed": concept_seed}
-        )
+        import logging
+        logger = logging.getLogger(__name__)
 
-        scene_cards = result.get("scene_cards", result.get("outline", []))
-        if not scene_cards:
-            # Fallback to non-structured run
-            result = await self.planner.run({"concept_seed": concept_seed})
-            scene_cards = result.get("scene_cards", result.get("outline", []))
+        target_chapters = concept_seed.get("meta", {}).get("target_chapters", 20)
+        all_cards: list[dict] = []
 
-        # Ensure required fields with defaults
-        scene_cards = [self._ensure_defaults(card, concept_seed) for card in scene_cards]
+        # Build chapter ranges (e.g., 1-7, 8-14, 15-21, 22-28)
+        ranges = []
+        for start in range(1, target_chapters + 1, chunk_size):
+            end = min(start + chunk_size - 1, target_chapters)
+            ranges.append((start, end))
+
+        for i, (ch_start, ch_end) in enumerate(ranges):
+            label = f"chapters {ch_start}-{ch_end}"
+            logger.info("Generating scene cards for %s (batch %d/%d)", label, i + 1, len(ranges))
+            print(f"  Generating {label} (batch {i + 1}/{len(ranges)})...")
+
+            chunk_cards = await self._generate_chunk(
+                concept_seed, ch_start, ch_end, all_cards
+            )
+            if chunk_cards:
+                chunk_cards = [self._ensure_defaults(card, concept_seed) for card in chunk_cards]
+                all_cards.extend(chunk_cards)
+            else:
+                logger.warning("No cards generated for %s", label)
 
         # Validate chapter composition (multi-scene structure)
-        composition_warnings = self._validate_chapter_composition(scene_cards)
+        composition_warnings = self._validate_chapter_composition(all_cards)
         if composition_warnings:
-            import logging
-            logger = logging.getLogger(__name__)
             for w in composition_warnings:
                 logger.warning("Chapter composition: %s", w)
 
         # Validate: semantic completeness + physics enforcer
-        scene_cards = await self._validate_and_fix(
-            scene_cards, concept_seed, max_retries
+        all_cards = await self._validate_and_fix(
+            all_cards, concept_seed, max_retries
         )
 
-        return scene_cards
+        return all_cards
+
+    async def _generate_chunk(
+        self,
+        concept_seed: dict,
+        ch_start: int,
+        ch_end: int,
+        prior_cards: list[dict],
+    ) -> list[dict]:
+        """Generate scene cards for a range of chapters.
+
+        Includes a summary of prior cards so the model maintains continuity.
+        """
+        # Build a chunk-specific context with chapter range constraint
+        context = {
+            "concept_seed": concept_seed,
+            "chapter_range": (ch_start, ch_end),
+            "prior_cards_summary": self._summarize_prior_cards(prior_cards),
+        }
+
+        result = await self.planner.run_structured(context)
+        cards = result.get("scene_cards", result.get("outline", []))
+        if not cards:
+            result = await self.planner.run(context)
+            cards = result.get("scene_cards", result.get("outline", []))
+
+        # Filter to only the requested chapter range (model may overshoot)
+        cards = [c for c in cards if ch_start <= c.get("chapter_number", 0) <= ch_end]
+        return cards
+
+    @staticmethod
+    def _summarize_prior_cards(cards: list[dict]) -> str:
+        """Create a compact summary of previously generated cards for continuity."""
+        if not cards:
+            return ""
+        lines = ["## Previously Generated Scenes (for continuity)"]
+        from itertools import groupby
+        sorted_cards = sorted(cards, key=lambda c: (c.get("chapter_number", 0), c.get("scene_number", 0)))
+        for ch_num, group in groupby(sorted_cards, key=lambda c: c.get("chapter_number", 0)):
+            scenes = list(group)
+            missions = [s.get("mission", "?") for s in scenes]
+            hooks = scenes[-1].get("closing_hook", "")
+            lines.append(
+                f"- Ch{ch_num} ({len(scenes)} scene{'s' if len(scenes) > 1 else ''}): "
+                f"{'; '.join(missions)}"
+                + (f" -> Hook: {hooks}" if hooks else "")
+            )
+        return "\n".join(lines)
 
     async def _validate_and_fix(
         self, scene_cards: list[dict], concept_seed: dict, max_retries: int
