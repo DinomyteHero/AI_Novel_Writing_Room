@@ -22,6 +22,30 @@ logger = logging.getLogger(__name__)
 class StateDiffApplier:
     """Validates and applies state diffs to the story state database."""
 
+    # Per-entity alias maps: remap common LLM field-name variations to
+    # actual DB column names.  Only tables where the column name differs
+    # from the "obvious" short form need entries here.
+    _FIELD_ALIASES: dict[str, dict[str, str]] = {
+        "character": {
+            "location": "current_location",
+            "emotion": "emotional_state",
+            "arc": "arc_position",
+        },
+        "subplot": {
+            "status": "current_status",
+        },
+        "hook": {
+            "status": "current_status",
+        },
+        # plot_threads actually uses "status" — no remapping needed
+    }
+
+    @classmethod
+    def _normalise_field(cls, entity_type: str, field: str) -> str:
+        """Remap an LLM-generated field name to its actual DB column."""
+        aliases = cls._FIELD_ALIASES.get(entity_type, {})
+        return aliases.get(field, field)
+
     def __init__(
         self,
         story_state: StoryState,
@@ -91,6 +115,8 @@ class StateDiffApplier:
 
             if not char_id or not field:
                 continue
+
+            field = self._normalise_field("character", field)
 
             # Check if character exists
             character = self.state.get_character(char_id)
@@ -193,6 +219,8 @@ class StateDiffApplier:
             if not subplot_id or not field:
                 continue
 
+            field = self._normalise_field("subplot", field)
+
             subplot = self.state.get_subplot(subplot_id)
             if subplot is None:
                 # Auto-create subplot
@@ -203,11 +231,6 @@ class StateDiffApplier:
                 )
             else:
                 self.state.update_subplot(subplot_id, **{field: new_value})
-
-    # Map common LLM field-name variations to actual DB column names
-    _HOOK_FIELD_ALIASES: dict[str, str] = {
-        "status": "current_status",
-    }
 
     def _apply_hook_updates(
         self, updates: list[dict], chapter_number: int
@@ -220,7 +243,7 @@ class StateDiffApplier:
 
             # Normalise LLM field names to actual DB columns
             if field:
-                field = self._HOOK_FIELD_ALIASES.get(field, field)
+                field = self._normalise_field("hook", field)
 
             if not hook_id:
                 continue
