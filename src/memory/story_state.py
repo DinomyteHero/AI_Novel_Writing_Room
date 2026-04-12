@@ -435,7 +435,7 @@ class StoryState:
     ) -> None:
         """Insert a new character into the characters table."""
         self.conn.execute(
-            """INSERT INTO characters
+            """INSERT OR IGNORE INTO characters
                (id, name, current_location, emotional_state, arc_position, inventory)
                VALUES (?, ?, ?, ?, ?, ?)""",
             (
