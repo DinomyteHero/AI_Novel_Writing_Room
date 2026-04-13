@@ -26,6 +26,11 @@
   "setting": "Aboard the Steady Returns — cockpit, sensor displays",
   "sensory_details": "Sensor contact on the display — a small bright dot on a parallel trajectory; Desh's professional calm masking concern; Torin's reflection in the viewport, watching the stars with anticipation",
   "target_word_count": 1100,
+  "action_beats": [
+    "Desh tracks the sensor contact — a bright dot on the display, parallel course, Veraine's ship signature confirmed",
+    "Ben leans over the nav console and overlays both trajectories — they converge at Veranthos within hours of each other",
+    "Torin watches the nav display with the expression of a man coming home and doesn't try to hide it"
+  ],
   "active_subplots": [
     "SP-A",
     "SP5"

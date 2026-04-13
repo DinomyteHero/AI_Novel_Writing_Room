@@ -10,7 +10,7 @@
   "conflict": "The pressure intensifies every group friction. The wound's effect on nearby Force-sensitives amplifies emotional extremes — arguments hit harder, fear cuts deeper, doubt paralyzes.",
   "conflict_type": "external",
   "turning_point": "Torin standing in the doorway: 'We need to talk about what happens when we get there.' His voice calm, warm, decided. Ben's stomach drops.",
-  "opening_hook": "The seal's new baseline reads like a countdown. Desh converts the degradation rate to hours. The number is small enough to memorize.",
+  "opening_hook": "Desh converts the seal degradation rate to hours and posts the number on the cockpit display. It's small enough to memorize. Nobody wants to.",
   "closing_hook": "Torin's tone. Ben has heard that tone before. Jacen used it in the weeks before the worst things happened — the certainty of someone who has already decided and is now only negotiating the announcement.",
   "emotional_trajectory": "Urgent tactical focus -> group pressure cracking -> Torin's ominous calm",
   "stakes": {
@@ -28,6 +28,11 @@
   "setting": "Aboard the Steady Returns — cockpit and common area, hyperspace toward Veranthos",
   "sensory_details": "Desh's countdown display; the wrongness now a constant pressure, like altitude sickness; arguments flaring hotter than they should — the wound amplifying emotional extremes; Torin's silhouette in the doorway",
   "target_word_count": 1200,
+  "action_beats": [
+    "Desh converts the seal degradation rate to hours and posts the countdown on the cockpit display",
+    "Ben paces the common area while assigning approach tasks — nerves converting to motion",
+    "Torin stands in the doorway and speaks with the calm warm tone that drops Ben's stomach"
+  ],
   "active_subplots": [
     "SP-A",
     "SP1",

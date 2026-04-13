@@ -10,7 +10,7 @@
   "conflict": "Kael's observation is the insight Ben needs but can't reach from inside his own tradition. The outsider sees what the insider can't.",
   "conflict_type": "internal",
   "turning_point": "Kael, watching the Knights: 'They built everything on one thing. Take it away and they don't know how to stand.' Beat. 'That's not a lattice problem. That's a design problem.' He's describing the resonance solution without knowing it.",
-  "opening_hook": "Kael has been silent through the outpost. Watching. He watches the Knights the way he watches everything — from outside, measuring.",
+  "opening_hook": "Kael leans against the outpost wall with arms folded and watches the struggling Knights the way he watches everything — from outside, measuring, cataloging",
   "closing_hook": "Departure from the outpost. Close enough to feel the primary wound now — immense, pulling. Veranthos is ahead. The endgame approaches.",
   "emotional_trajectory": "Kael's quiet observation -> the insight landing -> grim departure",
   "stakes": {
@@ -27,6 +27,11 @@
   "setting": "Jedi outpost -> departure, approach toward Veranthos",
   "sensory_details": "The outpost shrinking behind them; the wound ahead — pulling, immense, the wrongness concentrated into a gravity well of absence; Kael's voice — quiet, precise, the most words he's spoken at once in days; Veranthos's star visible on the nav display",
   "target_word_count": 1100,
+  "action_beats": [
+    "Kael leans against the outpost wall with arms folded, watching the struggling Knights from the outside",
+    "Kael speaks the most words he's strung together in days — quiet, precise, the outsider naming what insiders can't see",
+    "The group boards the Steady Returns for departure as the primary wound's pull grows ahead of them"
+  ],
   "active_subplots": [
     "SP-A",
     "SP2"

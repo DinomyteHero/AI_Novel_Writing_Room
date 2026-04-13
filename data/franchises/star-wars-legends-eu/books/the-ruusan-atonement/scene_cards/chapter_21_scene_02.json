@@ -27,6 +27,11 @@
   "setting": "Veranthos — camp, watching Torin walk away down the ridgeline",
   "sensory_details": "Torin's receding figure — steady, unhurried; the wrongness parting around him; Sera's face — grief and iron; Kael's hands loose at his sides — the posture of someone refusing to grab; Desh's voice — the first sound after too much silence: 'So. What now?'",
   "target_word_count": 1500,
+  "action_beats": [
+    "Torin turns and walks down the ridgeline toward the valley — stride steady, Force presence trailing behind him",
+    "Sera stands motionless as Torin descends, her hands clenched at her sides — refusing to seal another",
+    "Desh breaks the silence: 'So. What now?' — the first sound after too long"
+  ],
   "active_subplots": [
     "SP-A",
     "SP1",

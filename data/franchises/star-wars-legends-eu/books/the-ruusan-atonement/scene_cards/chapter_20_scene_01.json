@@ -10,7 +10,7 @@
   "conflict": "The wrongness from orbit is overwhelming — Ben's Force perception flattened by proximity to the wound source. Professional assessment battles visceral dread.",
   "conflict_type": "environmental",
   "turning_point": "The seal boundary from orbit — visible in the Force as a membrane, a pressure change. Inside it, the world is wrong. Outside it, almost normal. The boundary is failing. Patches of wrongness bleed through.",
-  "opening_hook": "Veranthos is beautiful from orbit. The beauty is the first warning.",
+  "opening_hook": "Ben presses his hand against the viewport as Veranthos fills the frame — blue-green oceans, temperate forests, beautiful. The beauty is the first warning.",
   "closing_hook": "Desh: 'Her ship is on the surface. Valley coordinates. She's already there.'",
   "emotional_trajectory": "Awed dread -> the wrongness made planetary -> urgent tactical alarm",
   "stakes": {
@@ -28,6 +28,11 @@
   "setting": "Aboard the Steady Returns — orbit over Veranthos",
   "sensory_details": "Veranthos from space: lush, blue-green, inviting; scan data: wrong patterns, impossible biology, reversed currents; the Force: the seal membrane visible as a shimmer in perception; beyond it, the wound — immense, pulling, silent",
   "target_word_count": 1200,
+  "action_beats": [
+    "Ben presses his hand against the viewport as Veranthos fills the frame — beautiful, blue-green, wrong",
+    "Desh reads scan data aloud: weather patterns contradicting rotation, vegetation defying sunlight, ocean currents reversing",
+    "Desh zooms the sensor display to valley coordinates and confirms Veraine's ship is already on the surface"
+  ],
   "active_subplots": [
     "SP-A",
     "SP5"

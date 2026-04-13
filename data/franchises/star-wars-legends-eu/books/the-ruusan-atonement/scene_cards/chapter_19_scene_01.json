@@ -28,6 +28,11 @@
   "setting": "Modern Jedi outpost — small installation, Outer Rim, near Veranthos",
   "sensory_details": "The outpost Knight's too-still hands; the Force here: unreliable, flickering; practice drills abandoned; the wrongness thicker than anywhere except the breach zone; young faces wearing expressions too old for them",
   "target_word_count": 1200,
+  "action_beats": [
+    "The Steady Returns touches down and a young Knight meets them at the landing pad with too-wide eyes and too-still hands",
+    "Ben walks through the outpost's training area where practice drills have been abandoned mid-exercise",
+    "Torin kneels beside a frightened Knight and places a hand on her shoulder — tender over the gesture, cold in the eyes"
+  ],
   "active_subplots": [
     "SP-A",
     "SP4"

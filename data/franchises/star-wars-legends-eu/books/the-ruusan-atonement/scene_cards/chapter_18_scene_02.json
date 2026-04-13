@@ -25,6 +25,11 @@
   "setting": "Aboard the Steady Returns — cockpit, night cycle",
   "sensory_details": "Instrument lights; Desh's voice — steady, professional, and for the first time openly emotional; the nav display showing Veranthos's system approaching; countdown timer Desh posted on the bulkhead",
   "target_word_count": 1200,
+  "action_beats": [
+    "Desh pulls out his datapad and walks Ben through each team member's status — clinical, precise, devastating",
+    "Desh taps the countdown timer he posted on the bulkhead without looking at it",
+    "Ben stares at the Codex file bookmark on his datapad after Desh leaves — the resonance note waiting"
+  ],
   "active_subplots": [
     "SP3"
   ],

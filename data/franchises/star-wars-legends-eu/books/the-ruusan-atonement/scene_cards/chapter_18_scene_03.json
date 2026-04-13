@@ -10,7 +10,7 @@
   "conflict": "Internal reckoning: Ben's Lie (self-reliance as safety) is being challenged by evidence that his approach mirrors the failing pattern. He needs to lead differently — but how?",
   "conflict_type": "internal",
   "turning_point": "Ben thinks about his mother. Not Mara the Jedi, Mara the pragmatist — the woman who would have said 'stop thinking about whether you're worthy and start thinking about what works.' The thought doesn't solve anything. It changes the angle.",
-  "opening_hook": "Alone in the corridor, back against the bulkhead. The first time on this trip Ben has let himself feel how tired he is.",
+  "opening_hook": "Ben slides down the corridor bulkhead until he's sitting on the deck plates, legs stretched across the narrow passage — the first time on this trip he's let his body admit how tired he is",
   "closing_hook": "The resonance note in the Codex files. Gavran wrote: 'We lacked the will or the trust.' Ben has been reading this as 'we weren't brave enough.' He re-reads it now: 'We couldn't trust each other enough.' Different emphasis. Different problem. Maybe a different solution.",
   "emotional_trajectory": "Exhausted honesty -> memory of Mara -> the angle shift on the resonance note",
   "stakes": {
@@ -22,8 +22,13 @@
     "Ben Skywalker"
   ],
   "setting": "Aboard the Steady Returns — corridor, alone, night cycle",
-  "sensory_details": "Cold metal against his back; the ship's ambient hum; the datapad with the Codex notes; Mara's memory — not mystical, just a mother's pragmatism; the resonance note's words rearranging themselves in his mind",
+  "sensory_details": "Cold deck plates through his trousers; the bulkhead's vibration against his spine; the ship's ambient hum; the datapad balanced on his knees with the Codex notes glowing; Mara's memory — not mystical, just a mother's pragmatism; the resonance note's words rearranging themselves in his mind",
   "target_word_count": 1100,
+  "action_beats": [
+    "Ben slides down the corridor bulkhead and sits on the cold deck plates, legs stretched across the narrow passage",
+    "Ben pulls up the Codex notes on his datapad and scrolls to Gavran's resonance annotation",
+    "Ben reads the note again — 'we lacked the will or the trust' — and the emphasis shifts under his eyes"
+  ],
   "active_subplots": [
     "SP-A"
   ],

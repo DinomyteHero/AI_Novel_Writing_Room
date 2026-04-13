@@ -28,6 +28,11 @@
   "setting": "Veranthos — valley edge camp, night, the Scar visible",
   "sensory_details": "The Scar against stars — absence outlined by light; Torin's silhouette at the camp edge; the wound's pull — constant, gravitational; Veranthos's wrong night sounds — silence where there should be insects, a hum where there should be wind",
   "target_word_count": 1000,
+  "action_beats": [
+    "The group sets up camp at the valley's edge with the Scar visible below — a thin line of absence in the air",
+    "Torin stands at the camp perimeter and stares at the Scar with an expression that isn't fear but longing",
+    "Ben watches from the tent as Torin's silhouette stays motionless at the ridge edge through the falling dark"
+  ],
   "active_subplots": [
     "SP-A",
     "SP1"

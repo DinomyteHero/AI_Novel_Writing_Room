@@ -10,7 +10,7 @@
   "conflict": "The city is overwhelming — buildings standing but wrong, vegetation growing without biological logic, the silence where birds should be. The wrongness cumulative, building chest pressure by the fifth street.",
   "conflict_type": "environmental",
   "turning_point": "The city. Homes, shops, a school. Evidence of life that simply... stopped. Not destroyed. Emptied and left to drift. The horror isn't violence — it's abandonment by the logic of the universe.",
-  "opening_hook": "Crossing the seal boundary feels like walking from a stagnant room into a faint breeze — except it's the reverse. The breeze was the Force. Now there's nothing but stagnant air.",
+  "opening_hook": "Ben steps through the seal boundary and the Force drops away — like walking from a faint breeze into stagnant air, except the breeze was the Force and now there's nothing",
   "closing_hook": "Ahead, in the valley between ridgelines: the Scar. A roughly three-meter vertical line in the air where the Force was torn and never fully healed. Not glowing. Not pulsing. A visual distortion like heat shimmer without heat. Ben stares at the seam in reality and feels the full weight of what Gavran did.",
   "emotional_trajectory": "Controlled descent -> escalating wrongness -> the devastating beauty of drift -> awe and horror at the Scar",
   "stakes": {
@@ -28,6 +28,11 @@
   "setting": "Veranthos surface — descending through rings: seal boundary, evacuation zone, city, approaching the valley",
   "sensory_details": "Ring 3: doors standing open, vehicles pointed away, a thousand years of overgrowth; Ring 2: the city — vines climbing then reversing, trees splitting buildings horizontally, flowers on shadow sides, no birds; Desh: grief-without-an-object settling in; the Scar: heat shimmer without heat, barely visible straight on, unmistakable from an angle",
   "target_word_count": 1300,
+  "action_beats": [
+    "Ben steps through the seal boundary and stumbles as the Force drops away entirely",
+    "The group moves through the city's empty streets — buildings standing but wrong, vines reversing direction, flowers in shadow",
+    "Ben stops at the valley ridge and stares at the Scar — a three-meter vertical distortion where reality was torn and never healed"
+  ],
   "active_subplots": [
     "SP-A"
   ],

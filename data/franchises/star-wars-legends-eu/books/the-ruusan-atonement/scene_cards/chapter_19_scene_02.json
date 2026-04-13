@@ -28,6 +28,11 @@
   "setting": "Jedi outpost — common area, the suffering Knights visible",
   "sensory_details": "Torin's hand on the Knight's shoulder — warm, steady, a commander's touch; his eyes cold over the gesture; Sera's jaw working as she processes; Ben's helplessness — he can't fix these Knights any more than he could fix the breach zone",
   "target_word_count": 1200,
+  "action_beats": [
+    "Torin kneels beside the young Knight and steadies her with a hand on her shoulder — tender, genuine, calculated",
+    "Sera's jaw works as she watches Torin weaponize the Knight's suffering into his argument",
+    "Sera turns away from Torin and faces Ben directly — her posture shifting from bystander to questioner"
+  ],
   "active_subplots": [
     "SP-A",
     "SP1"

@@ -25,6 +25,11 @@
   "setting": "Veranthos \u2014 camp at valley edge, dawn, the Scar visible below",
   "sensory_details": "Dawn light on Veranthos \u2014 golden but the shadows fall at slightly wrong angles; Torin's Force presence: lighter, sharper, the heaviness that has defined him since awakening \u2014 gone; his voice: calm, warm, certain. The certainty is the danger.",
   "target_word_count": 1600,
+  "action_beats": [
+    "Ben emerges from the tent at dawn to find Torin standing in the same spot — rested, lighter, his Force presence changed overnight",
+    "Ben confronts Torin at the ridgeline and Torin turns without shifting his weight — already grounded, already decided",
+    "Torin speaks five words and the temperature between them drops to absolute zero"
+  ],
   "active_subplots": [
     "SP-A",
     "SP1"

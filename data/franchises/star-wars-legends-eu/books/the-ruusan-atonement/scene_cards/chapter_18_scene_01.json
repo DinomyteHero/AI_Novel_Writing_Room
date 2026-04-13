@@ -26,6 +26,11 @@
   "setting": "Aboard the Steady Returns — common area, then cockpit",
   "sensory_details": "Torin's laughter — well-timed, well-modulated; his Force presence — warm but wrong, the heaviness returning after the thin place ease; Desh's eyes — steady, confirming; the taste of dread",
   "target_word_count": 1200,
+  "action_beats": [
+    "Torin laughs at Desh's joke — warm, easy, the timing perfect — and Ben catalogs the performance",
+    "Torin tells a battle story and gestures with practiced ease while Ben tracks the structural pattern underneath",
+    "Ben meets Desh's eyes across the cockpit and the silent confirmation passes between them without a word"
+  ],
   "active_subplots": [
     "SP-A",
     "SP1",

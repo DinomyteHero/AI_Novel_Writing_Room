@@ -28,6 +28,11 @@
   "setting": "Aboard the Steady Returns — common area, cramped and overheated",
   "sensory_details": "The ship too warm; recycled air stale; voices bouncing off metal walls; Ben's own anger — hot, disproportionate, recognizably amplified; Desh's food offerings — practical kindness in the absence of resolution",
   "target_word_count": 1200,
+  "action_beats": [
+    "Sera slams her palm on the nav console mid-argument — the sound silencing the cockpit for a breath",
+    "Ben catches himself mid-sentence as his own anger spikes disproportionate — the wound pushing",
+    "Desh brings food to each person without being asked, navigating the silent aftermath"
+  ],
   "active_subplots": [
     "SP-A",
     "SP1",

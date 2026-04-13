@@ -27,6 +27,11 @@
   "setting": "Veranthos — camp, Ben's workspace, the Codex notes on display",
   "sensory_details": "The Codex notes glowing on the datapad; Gavran's handwriting — the words 'we lacked the will or the trust' in a different light; Ben's hands steadying; the group's faces turning toward him — three people waiting for a reason to stay",
   "target_word_count": 1400,
+  "action_beats": [
+    "Ben pulls up the Codex notes with shaking hands and scrolls to Gavran's marginalia on the resonance theory",
+    "Ben spreads relevant files across three datapads — Kael's framework insight, Gavran's theory, the technique data — and connects the pieces",
+    "Ben turns to the remaining group and speaks with a voice that has changed: 'I need to show you something'"
+  ],
   "active_subplots": [
     "SP-A"
   ],
