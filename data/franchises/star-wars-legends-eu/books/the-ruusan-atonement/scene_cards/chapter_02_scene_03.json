@@ -31,6 +31,11 @@
     "Jedi Lords era outpost distribution patterns"
   ],
   "target_word_count": 1250,
+  "action_beats": [
+    "Ben crouches to examine identical markings carved into different-composition stone on a different world",
+    "Desh overlays the two anomalous sites on the nav chart, drawing a line through uncharted space",
+    "Ben punches the bearing coordinates into the nav computer and stares at the empty chart sector beyond"
+  ],
   "active_subplots": [
     "SP-A"
   ],

@@ -35,6 +35,12 @@
     "Stasis revival procedures and physiological recovery"
   ],
   "target_word_count": 1400,
+  "action_beats": [
+    "Ben pulls the stasis release lever — the first chamber's field dissolves with an audible hiss of released pressure",
+    "Sera Varik opens her eyes and immediately assumes a combat crouch before orientation hits",
+    "Torin Hal emerges from the second chamber, staggers, catches himself on the doorframe with one hand",
+    "Kael Drenn exits the third chamber in silence, back against the wall, scanning the room and cataloguing exits"
+  ],
   "active_subplots": [
     "SP-A",
     "SP1",

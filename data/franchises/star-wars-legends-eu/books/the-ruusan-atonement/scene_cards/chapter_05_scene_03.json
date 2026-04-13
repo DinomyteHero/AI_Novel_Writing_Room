@@ -35,6 +35,12 @@
     "Darth title usage and Sith identity in the Brotherhood era"
   ],
   "target_word_count": 1200,
+  "action_beats": [
+    "Ben pulls up Veraine's chamber monitoring logs on the flickering display",
+    "Desh catalogues signs of Veraine's post-escape activity — accessed terminals, moved equipment, supplies taken",
+    "Kael picks up Veraine's abandoned data tablet, examines it, then sets it down with deliberate care",
+    "Ben overlays Veraine's activity timestamps on the fortress map, tracing her methodical movements through every level"
+  ],
   "active_subplots": [
     "SP-A",
     "SP5",

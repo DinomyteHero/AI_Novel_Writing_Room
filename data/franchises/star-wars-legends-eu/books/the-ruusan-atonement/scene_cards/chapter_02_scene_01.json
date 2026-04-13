@@ -10,7 +10,7 @@
   "conflict": "The unspoken GAG history hangs between them — they're comfortable but careful, bonded by shared shame neither names",
   "conflict_type": "interpersonal",
   "turning_point": "Desh makes a dry observation about the ship's sensors reading the wrongness as instrument error — the practical man acknowledging the mystical problem",
-  "opening_hook": "The Steady Returns handles like a ship that's been repaired more times than it was originally built, and Desh flies it the same way — compensation through experience",
+  "opening_hook": "Desh drops the Steady Returns out of hyperspace for a nav recalibration and the ship shudders hard enough to spill Ben's caf across the copilot's console",
   "closing_hook": "First survey world on scanners. The wrongness intensifies. Ben's hands tighten on the copilot's armrest.",
   "emotional_trajectory": "Comfortable familiarity -> careful humor -> growing tension",
   "stakes": {
@@ -31,6 +31,11 @@
     "Non-Force-sensitive perception of ambient Force phenomena"
   ],
   "target_word_count": 1200,
+  "action_beats": [
+    "Desh yanks the Steady Returns through a rough hyperspace reversion that rattles the cockpit",
+    "Ben mops spilled caf off the copilot instruments with his sleeve",
+    "Desh taps a sensor panel showing instrument anomalies along the route that match the wrongness bearing"
+  ],
   "active_subplots": [
     "SP-A",
     "SP3"

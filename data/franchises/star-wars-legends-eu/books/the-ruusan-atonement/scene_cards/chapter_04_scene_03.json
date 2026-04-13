@@ -32,6 +32,12 @@
     "Jedi Lords era command decisions and moral compromises"
   ],
   "target_word_count": 1250,
+  "action_beats": [
+    "Ben walks the circumference of the Stasis Ring, counting dark chambers and flickering active ones",
+    "Desh inspects the empty chamber's damage marks — systematic scoring gouged from the inside",
+    "Ben descends to Level 4 and finds Gavran's body seated at the control nexus, hands still on the surfaces",
+    "Ben touches one of the three active chamber controls and the stasis field hums in response"
+  ],
   "active_subplots": [
     "SP-A"
   ],

@@ -7,10 +7,10 @@
   "pov_character": "Ben Skywalker",
   "mission": "Establish Ben's restlessness and the persistent wrongness in the Force that no one else seems to notice at the same intensity",
   "why_now": "Opening scene — introduces protagonist, central mystery, and emotional baseline before the plot launches",
-  "conflict": "Ben feels something wrong in the Force but cannot articulate it to anyone, and the Order treats it as background noise from recent crises",
-  "conflict_type": "internal",
+  "conflict": "Ben's combat focus fractures mid-spar when the wrongness spikes — his body fails him in a way he can't explain, and the Order treats the underlying cause as background noise from recent crises",
+  "conflict_type": "interpersonal",
   "turning_point": "Ben acknowledges privately that the wrongness has a quality he recognizes from his years around Jacen and Abeloth — something structural, not emotional",
-  "opening_hook": "The Force has been off-key for three months, and Ben Skywalker is the only person in the Temple who can't stop hearing it",
+  "opening_hook": "Ben's guard drops a half-second late and his sparring partner's training blade catches him across the shoulder — the third time this week the wrongness in the Force has cost him a beat he should never miss",
   "closing_hook": "Luke appears in the doorway with a datapad and an expression Ben knows means a mission",
   "emotional_trajectory": "Restless unease -> frustrated isolation -> reluctant hope",
   "stakes": {
@@ -19,10 +19,11 @@
     "external": "The wrongness itself — something is happening to the Force"
   },
   "characters_present": [
-    "Ben Skywalker"
+    "Ben Skywalker",
+    "Jedi Knight (sparring partner)"
   ],
-  "setting": "Jedi Temple, Coruscant — meditation chamber, late evening",
-  "sensory_details": "Temple hum of ambient Force presences; the wrongness like a note played slightly flat in an orchestra only Ben can fully hear; cool stone under his hands",
+  "setting": "Jedi Temple, Coruscant — training salle, late evening session",
+  "sensory_details": "Training sabers humming; the wrongness like a note played slightly flat that disrupts Ben's combat timing; sweat on his palms, the sound of boots on the salle floor; Temple hum of ambient Force presences",
   "canon_elements_needed": [
     "Force meditation techniques and Jedi contemplative practice",
     "Jedi Temple architecture on Coruscant, meditation chambers",
@@ -31,6 +32,12 @@
     "Jedi Knight rank responsibilities and daily life circa 47 ABY"
   ],
   "target_word_count": 1250,
+  "action_beats": [
+    "Ben's guard drops and his sparring partner scores a training-blade hit across his shoulder",
+    "Ben deactivates his training saber and waves off a rematch, claiming fatigue",
+    "Ben paces the empty salle alone, running through forms without igniting the blade — testing whether the wrongness disrupts muscle memory or Force timing",
+    "Luke appears in the doorway with a datapad and mission-ready posture"
+  ],
   "active_subplots": [
     "SP-A",
     "SP4"
@@ -47,5 +54,5 @@
   "hook_actions": [],
   "revelations": [],
   "pov_arc_phase": "lie_established",
-  "notes": "Establish Ben's Lie: self-reliance as safety. He's handling the wrongness alone because that's what Skywalkers do. Internal monologue should be sharp, self-aware, slightly defensive. Voice markers: Zahn-style tight third-person interiority. Ben's internal voice should be sharp and self-deprecating, never melodramatic. Anti-pattern: avoid describing the Force wrongness in terms of color or visible phenomena — keep it auditory/vibrational."
+  "notes": "RESTRUCTURED: Opens with training spar to ground the wrongness in physical failure rather than meditation. Establish Ben's Lie: self-reliance as safety. He's handling the wrongness alone because that's what Skywalkers do. The spar loss makes the wrongness concrete for the reader — it's not just perception, it's costing him combat effectiveness. Internal monologue should be sharp, self-aware, slightly defensive. Voice markers: Zahn-style tight third-person interiority. Ben's internal voice should be sharp and self-deprecating, never melodramatic. Anti-pattern: avoid describing the Force wrongness in terms of color or visible phenomena — keep it auditory/vibrational. The sparring partner is a background character — minimal characterization, exists to provide the physical context."
 }

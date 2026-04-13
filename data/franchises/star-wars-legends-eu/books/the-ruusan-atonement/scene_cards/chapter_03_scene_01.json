@@ -32,6 +32,12 @@
     "Force-powered ambient energy systems"
   ],
   "target_word_count": 1300,
+  "action_beats": [
+    "Ben and Desh approach the powered facility on foot across barren terrain, blasters holstered but hands near grips",
+    "The facility's Force-recognition mechanism scans Ben with a blue pulse of light that crawls across his body",
+    "Automated systems activate — displays flickering to life, centuries-old warning message cycling through dead frequencies",
+    "Desh draws his sidearm and sweeps the entry corridor while Ben reads the warning resolving into Basic"
+  ],
   "active_subplots": [
     "SP-A",
     "SP4"
