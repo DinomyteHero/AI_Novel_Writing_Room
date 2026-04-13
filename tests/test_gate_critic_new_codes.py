@@ -34,8 +34,8 @@ class TestNewFailureCodeSets:
         assert new_codes.issubset(ALL_CODES)
 
     def test_total_code_count(self):
-        """Total should be 19 (14 original + 5 new)."""
-        assert len(ALL_CODES) == 19
+        """Total should be 23 (14 original + 5 Phase 5 + 4 scene card compliance)."""
+        assert len(ALL_CODES) == 23
 
 
 class TestNewCodeVerdicts:

@@ -38,6 +38,8 @@ class ProseStylist(BaseAgent):
 
         scene_card = context.get("scene_card", {})
         target_words = scene_card.get("target_word_count")
+        closing_hook = scene_card.get("closing_hook", "")
+        characters_present = scene_card.get("characters_present", [])
 
         task_lines = [
             "## Task",
@@ -50,6 +52,19 @@ class ProseStylist(BaseAgent):
             task_lines.append(
                 f"Target length: approximately {target_words} words. "
                 "Do not pad to reach the target — write the scene the story needs."
+            )
+        if closing_hook:
+            task_lines.append(
+                f"SCENE BOUNDARY: The scene ENDS at the closing hook: \"{closing_hook}\". "
+                "Do not write any content beyond this moment. Do not advance into "
+                "the next scene's territory."
+            )
+        if characters_present:
+            task_lines.append(
+                "CHARACTERS PRESENT: Only the following characters may have dialogue "
+                f"or significant action in this scene: {', '.join(characters_present)}. "
+                "Characters not in this list may only appear in the closing hook "
+                "if specified there."
             )
 
         parts.append("\n".join(task_lines))

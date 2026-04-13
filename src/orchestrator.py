@@ -340,12 +340,20 @@ class Orchestrator:
         print("  [4/4] Craft Editor polishing...")
         final_prose = await self._run_craft_editor(scene_card, prose, evaluation, canon_notes)
 
-        # Post-craft canon re-check: verify no violations reintroduced
+        # Post-craft canon re-check: fix any violations reintroduced
         if canon_result and canon_result.get("violations"):
+            reintroduced = []
             for v in canon_result["violations"]:
                 offending = v.get("text", "")
                 if offending and offending.lower() in final_prose.lower():
-                    print(f"    Warning: Canon violation reintroduced after craft edit: \"{offending}\"")
+                    reintroduced.append(v)
+            if reintroduced:
+                print(f"    Canon: {len(reintroduced)} violation(s) reintroduced — applying targeted fixes")
+                for v in reintroduced:
+                    offending = v.get("text", "")
+                    suggestion = v.get("suggestion", "")
+                    if offending and suggestion:
+                        final_prose = final_prose.replace(offending, suggestion)
 
         # Phase 3: Quality Metrics (before revision so flags feed into it)
         quality_metrics = None
@@ -557,16 +565,29 @@ class Orchestrator:
 
         summary_text = summary_result.get("summary", "")
         state_diff = summary_result.get("state_diff", {})
+        established_concepts = summary_result.get("established_concepts", [])
+
+        # Validate summarizer output completeness
+        if not summary_text:
+            print(f"  [WARN] Summarizer returned empty summary — downstream context will be degraded")
+        if not state_diff or not state_diff.get("changes"):
+            print(f"  [WARN] Summarizer returned empty state_diff — story state will not update")
+        if not established_concepts:
+            print(f"  [WARN] Summarizer returned no established_concepts — concept maturity tracking inactive for this scene")
 
         # Step 6: Store summary in ChromaDB
         if self.chapter_memory and summary_text:
+            meta = {
+                "structural_phase": scene_card.get("structural_phase", ""),
+                "pov_character": scene_card.get("pov_character", ""),
+            }
+            # Store established concepts as JSON string in metadata
+            if established_concepts:
+                meta["established_concepts"] = json.dumps(established_concepts)
             self.chapter_memory.add_summary(
                 chapter_num,
                 summary_text,
-                metadata={
-                    "structural_phase": scene_card.get("structural_phase", ""),
-                    "pov_character": scene_card.get("pov_character", ""),
-                },
+                metadata=meta,
                 scene_number=scene_num,
             )
             print(f"  [P2-2] Summary stored in ChromaDB")
@@ -645,7 +666,10 @@ class Orchestrator:
                 )
                 if new_entry_ids:
                     print(f"  [WB] Extracted {len(new_entry_ids)} provisional lore entries")
+                else:
+                    print(f"  [WARN] Worldbuilding extraction returned 0 entries — check lore_extractor JSON parsing or universe FK")
             except Exception as e:
+                print(f"  [WARN] Worldbuilding extraction failed: {e.__class__.__name__}: {e}")
                 _logger.warning("Worldbuilding extraction failed: %s", e)
 
         return summary_text, contradiction_flags
@@ -811,6 +835,17 @@ class Orchestrator:
             )
 
             verdict = evaluation["verdict"]
+            s_score = evaluation.get("structural_score", 0)
+            v_score = evaluation.get("voice_score", 0)
+            p_score = evaluation.get("polish_score", 0)
+            fc_codes = [fc["code"] for fc in evaluation.get("failure_codes", [])]
+
+            print(f"    Gate: {verdict} | structural={s_score:.2f} voice={v_score:.2f} polish={p_score:.2f}")
+            if fc_codes:
+                print(f"    Gate failures: {', '.join(fc_codes)}")
+            # Alert if any score is suspiciously perfect on first draft
+            if s_score >= 0.95 and v_score >= 0.95 and structural_retries == 0:
+                print(f"    [WARN] All gate scores >= 0.95 on first draft — critic may not be evaluating rigorously")
 
             if verdict == "pass" or verdict == "fail_polish":
                 # Pass or polish-only failure — proceed to craft editor
@@ -855,6 +890,20 @@ class Orchestrator:
                 failure_context = self._format_failure_context(evaluation)
                 print(f"    Gate: {verdict} — full rewrite (attempt {structural_retries}/{self.max_structural_retries})")
                 prose = await self._run_prose_stylist(scene_card, generation_brief, failure_context)
+
+                # Re-validate canon on rewritten prose (fixes are lost on full rewrite)
+                if self.canon_expert:
+                    try:
+                        rewrite_canon = await self.canon_expert.run({
+                            "prose": prose,
+                            "scene_card": scene_card,
+                            "concept_seed": getattr(self, "concept_seed", {}),
+                        })
+                        if rewrite_canon.get("verdict") == "fail" and rewrite_canon.get("corrected_prose"):
+                            prose = rewrite_canon["corrected_prose"]
+                            print(f"    Canon: re-applied {len(rewrite_canon.get('violations', []))} fix(es) after rewrite")
+                    except Exception as e:
+                        print(f"    Canon re-check after rewrite: error ({e.__class__.__name__}) — skipping")
 
             elif verdict == "fail_voice":
                 voice_retries += 1

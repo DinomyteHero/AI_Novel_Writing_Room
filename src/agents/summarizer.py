@@ -70,7 +70,7 @@ class Summarizer(BaseAgent):
             prose,
             "",
             "## Task",
-            "Analyze the chapter prose above and produce a JSON object with exactly two keys:",
+            "Analyze the chapter prose above and produce a JSON object with these keys:",
             "",
             '1. "summary": A natural language summary (200-400 tokens) capturing:',
             "   - Key events that occurred",
@@ -78,7 +78,15 @@ class Summarizer(BaseAgent):
             "   - Plot threads advanced or introduced",
             "   - The emotional arc of the scene",
             "",
-            '2. "state_diff": A structured diff object with:',
+            '2. "established_concepts": An array of significant concepts/motifs introduced or '
+            "developed in this scene. Each entry has:",
+            '   - "concept_id": stable snake_case identifier',
+            '   - "label": human-readable name',
+            '   - "maturity": one of "introduced", "developing", "established", "evolved"',
+            '   - "scenes_present": array of scene identifiers where this concept appeared',
+            '   - "guidance_for_next": one-line instruction for future scenes (never "restate from scratch")',
+            "",
+            '3. "state_diff": A structured diff object with:',
             '   - "chapter_number": integer',
             '   - "changes": object containing:',
             '     - "character_updates": array of {character_id, field, old_value, new_value}',
@@ -131,6 +139,7 @@ class Summarizer(BaseAgent):
         """Ensure the result has the expected structure."""
         if "summary" not in result:
             result["summary"] = ""
+        result.setdefault("established_concepts", [])
         if "state_diff" not in result:
             result["state_diff"] = {
                 "chapter_number": 0,

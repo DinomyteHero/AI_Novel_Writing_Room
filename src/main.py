@@ -773,6 +773,13 @@ async def main():
             wb_db = WorldbuildingDB(db_path=wb_db_path)
             wb_vs = LoreVectorStore(persist_directory=wb_vectors_dir, embedding_function=ef_wb)
             lore_service = LoreService(db=wb_db, vectorstore=wb_vs)
+
+            # Ensure universe record exists for this franchise
+            lore_service.ensure_universe(
+                universe_id=franchise_slug,
+                display_name=franchise_slug.replace("-", " ").title(),
+                franchise=franchise_slug,
+            )
             print(f"  Worldbuilding service initialized (universe={franchise_slug})")
 
             # Wire lore into context assembler
