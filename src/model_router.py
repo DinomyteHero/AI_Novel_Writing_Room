@@ -111,7 +111,15 @@ class ModelRouter:
                     continue
                 response.raise_for_status()
                 data = response.json()
-                return data["choices"][0]["message"]["content"]
+                content = data["choices"][0]["message"]["content"]
+                if content is None:
+                    logger.warning(
+                        "LLM returned null content for %s (finish_reason=%s)",
+                        agent_role,
+                        data["choices"][0].get("finish_reason", "unknown"),
+                    )
+                    return ""
+                return content
             except httpx.HTTPStatusError as e:
                 if e.response.status_code in (502, 503) and attempt < max_retries:
                     await asyncio.sleep((2 ** attempt) + random.uniform(0, 1))
