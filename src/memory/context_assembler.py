@@ -7,8 +7,11 @@ When Phase 2 dependencies are not provided (None), falls back to Phase 1 behavio
 """
 
 import json
+import logging
 from pathlib import Path
 from typing import Optional, TYPE_CHECKING
+
+logger = logging.getLogger(__name__)
 
 if TYPE_CHECKING:
     from src.memory.chapter_memory import ChapterMemory
@@ -326,6 +329,11 @@ class ContextAssembler:
                         recent, TOKEN_BUDGETS["chapter_summaries"]
                     )
                 )
+
+            # Tier 3b: Established concepts from recent summaries
+            concepts_text = self._get_established_concepts()
+            if concepts_text:
+                components.append(concepts_text)
 
         # Canon RAG results (with worldbuilding override resolution)
         canon_context = self._get_canon_context(scene_card)
@@ -762,6 +770,75 @@ class ContextAssembler:
                     f"- {imp.get('source_entry_id', '?')} ↔ {imp.get('target_entry_id', '?')} "
                     f"({imp.get('relation_type', '?')}): {imp.get('dialogue_implications', '')}"
                 )
+
+        return "\n".join(lines)
+
+    def _get_established_concepts(self) -> str:
+        """Extract established concepts from recent summary metadata.
+
+        Merges concepts across recent scenes, advancing maturity for
+        concepts that appear multiple times. Returns formatted context
+        text or empty string if no concepts found.
+        """
+        if not self.chapter_memory:
+            return ""
+
+        result = self.chapter_memory.collection.get(
+            include=["metadatas"],
+        )
+        if not result["ids"]:
+            return ""
+
+        # Collect all concepts from recent summaries (keyed by concept_id)
+        merged: dict[str, dict] = {}
+        for meta in result["metadatas"]:
+            raw = meta.get("established_concepts", "")
+            if not raw:
+                continue
+            try:
+                concepts = json.loads(raw)
+            except (ValueError, TypeError):
+                continue
+            for c in concepts:
+                cid = c.get("concept_id", "")
+                if not cid:
+                    continue
+                if cid in merged:
+                    # Merge: advance maturity and extend scenes_present
+                    existing = merged[cid]
+                    new_scenes = c.get("scenes_present", [])
+                    for s in new_scenes:
+                        if s not in existing.get("scenes_present", []):
+                            existing.setdefault("scenes_present", []).append(s)
+                    # Keep the higher maturity and latest guidance
+                    maturity_order = ["introduced", "developing", "established", "evolved"]
+                    old_idx = maturity_order.index(existing.get("maturity", "introduced")) if existing.get("maturity") in maturity_order else 0
+                    new_idx = maturity_order.index(c.get("maturity", "introduced")) if c.get("maturity") in maturity_order else 0
+                    if new_idx > old_idx:
+                        existing["maturity"] = c["maturity"]
+                    existing["guidance_for_next"] = c.get("guidance_for_next", existing.get("guidance_for_next", ""))
+                else:
+                    merged[cid] = dict(c)
+
+        if not merged:
+            if len(result["ids"]) > 0:
+                logger.info(
+                    "Context assembler: %d summaries in memory but none contain "
+                    "established_concepts — concept maturity tracking not active",
+                    len(result["ids"]),
+                )
+            return ""
+
+        logger.info("Context assembler: injecting %d established concepts into context", len(merged))
+        lines = ["## Established Concepts (Do Not Restate)"]
+        lines.append("These concepts have already been introduced to the reader. Do NOT re-explain them from scratch.")
+        lines.append("")
+        for c in merged.values():
+            scenes = ", ".join(c.get("scenes_present", []))
+            lines.append(f"- **{c.get('label', c.get('concept_id', '?'))}** [{c.get('maturity', '?')}] (scenes: {scenes})")
+            guidance = c.get("guidance_for_next", "")
+            if guidance:
+                lines.append(f"  → {guidance}")
 
         return "\n".join(lines)
 

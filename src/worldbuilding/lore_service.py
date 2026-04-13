@@ -56,6 +56,21 @@ class LoreService:
             franchise, description, embedding_model, timeline_system,
         )
 
+    def ensure_universe(
+        self,
+        universe_id: str,
+        display_name: str,
+        franchise: Optional[str] = None,
+    ) -> None:
+        """Create the universe record if it doesn't already exist."""
+        existing = self.db.get_universe(universe_id)
+        if not existing:
+            self.db.create_universe(
+                universe_id=universe_id,
+                display_name=display_name,
+                franchise=franchise,
+            )
+
     def delete_universe(self, universe_id: str) -> None:
         """Delete universe from SQLite and its ChromaDB collection."""
         self.db.delete_universe(universe_id)
@@ -627,6 +642,11 @@ class LoreService:
             build_chapter_extraction_prompt,
             parse_extraction_result,
         )
+
+        # Verify universe exists before attempting extraction
+        if not self.db.get_universe(universe_id):
+            logger.error("Universe '%s' not found in worldbuilding DB — cannot extract", universe_id)
+            return []
 
         # Get existing titles to prevent duplicates
         existing_entries = self.db.list_lore_entries(universe_id)

@@ -45,7 +45,12 @@ class CraftEditor(BaseAgent):
             "3. **Prose cliche reduction** — eliminate AI-tell phrases and cliches "
             "from the constraints list\n"
             "4. **Pacing variety** — vary sentence length and structure\n"
-            "5. **Sensory grounding** — ensure the setting is felt, not just described\n\n"
+            "5. **Sensory grounding** — ensure the setting is felt, not just described\n"
+            "6. **Canon compliance** — if Canon Notes are provided in the Specific "
+            "Improvement Notes section, treat every canon correction as a HARD "
+            "CONSTRAINT. Do not revert corrected terminology, names, or "
+            "universe-specific references to their pre-correction forms. These "
+            "corrections have been validated by the Canon Expert.\n\n"
             "Return the COMPLETE revised prose. Do not add commentary or notes — "
             "output only the improved prose text."
         )

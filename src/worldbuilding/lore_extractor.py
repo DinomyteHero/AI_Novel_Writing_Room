@@ -136,13 +136,37 @@ def parse_extraction_result(raw_result: str) -> list[dict]:
     try:
         # Strip markdown fences if present
         text = raw_result.strip()
-        if text.startswith("```"):
+        had_fences = text.startswith("```")
+        if had_fences:
             text = re.sub(r"^```\w*\s*\n?", "", text)
             text = re.sub(r"\n?```\s*$", "", text)
 
+        # Strip preamble text before JSON (e.g. "Here are the entries:")
+        first_brace = -1
+        for ch in ('{', '['):
+            pos = text.find(ch)
+            if pos != -1 and (first_brace == -1 or pos < first_brace):
+                first_brace = pos
+        had_preamble = first_brace > 0
+        if had_preamble:
+            logger.info("Lore extractor: stripped %d chars of preamble before JSON", first_brace)
+            text = text[first_brace:]
+
+        # Strip postamble text after JSON
+        last_brace = max(text.rfind('}'), text.rfind(']'))
+        if last_brace != -1:
+            text = text[:last_brace + 1]
+
+        if had_fences or had_preamble:
+            logger.info("Lore extractor: model output required cleanup (fences=%s, preamble=%s)",
+                        had_fences, had_preamble)
+
         data = json.loads(text)
     except json.JSONDecodeError:
-        logger.warning("Failed to parse extraction result as JSON")
+        logger.warning(
+            "Failed to parse extraction result as JSON. Raw (first 500 chars): %s",
+            raw_result[:500],
+        )
         return []
 
     # Handle LLM returning a bare list instead of the expected wrapper dict
