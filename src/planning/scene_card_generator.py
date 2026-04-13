@@ -186,6 +186,13 @@ class OutlinePlanner(BaseAgent):
             f"- Per-scene target word count: ~{per_scene_target} words.\n"
             f"- Sum of scene target_word_counts per chapter must be within 90-110% "
             f"of {per_chapter} words.\n\n"
+            f"OPENING ENERGY RULES:\n"
+            f"- Chapter 1, Scene 1 must NOT open with the protagonist alone and thinking. "
+            f"It must open in medias res, with dialogue, or with physical action.\n"
+            f"- No scene's opening_hook should describe a character sitting, waiting, "
+            f"or passively observing. Opening hooks must involve motion, conflict, or arrival.\n"
+            f"- Each opening_hook should establish a physical situation that demands response, "
+            f"not a mood or internal state.\n\n"
             f"SCENE VARIETY RULES:\n"
             f"- Alternate scene_type where possible: action -> sequel -> action.\n"
             f"- No chapter may have all scenes with the same conflict_type.\n"
@@ -220,6 +227,7 @@ class OutlinePlanner(BaseAgent):
             f"- promises_paid (list of strings)\n"
             f"- canon_elements_needed (list of strings)\n"
             f"- target_word_count (int, per scene — NOT per chapter)\n"
+            f"- action_beats (list of 2-4 physical actions/state changes, NOT internal thoughts — e.g. 'draws lightsaber', 'ship drops from hyperspace')\n"
             f"- active_subplots (list of subplot_ids)\n"
             f"- hook_actions (list of {{hook_id, action}} where action is plant/advance/resolve/subvert)\n"
             f"- revelations (list of revelation_ids)\n"
@@ -544,6 +552,7 @@ class SceneCardGenerator:
             "promises_paid": [],
             "canon_elements_needed": [],
             "target_word_count": per_chapter // 3,  # Per-scene, not per-chapter
+            "action_beats": [],
             "notes": "",
             # Phase 5 fields
             "active_subplots": [],

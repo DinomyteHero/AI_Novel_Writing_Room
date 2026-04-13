@@ -796,6 +796,9 @@ class Orchestrator:
         """Run the Gate Critic loop with retries on failure."""
         structural_retries = 0
         voice_retries = 0
+        best_prose = prose
+        best_eval = None
+        best_score = -1.0
 
         while True:
             start = time.time()
@@ -840,6 +843,13 @@ class Orchestrator:
             p_score = evaluation.get("polish_score", 0)
             fc_codes = [fc["code"] for fc in evaluation.get("failure_codes", [])]
 
+            # Track the best attempt across retries
+            composite = (s_score * 0.5) + (v_score * 0.3) + (p_score * 0.2)
+            if composite > best_score:
+                best_score = composite
+                best_prose = prose
+                best_eval = evaluation
+
             print(f"    Gate: {verdict} | structural={s_score:.2f} voice={v_score:.2f} polish={p_score:.2f}")
             if fc_codes:
                 print(f"    Gate failures: {', '.join(fc_codes)}")
@@ -883,8 +893,8 @@ class Orchestrator:
                 )
 
                 if structural_retries > self.max_structural_retries:
-                    print(f"    Gate: {verdict} — max retries reached, proceeding anyway")
-                    return evaluation, prose
+                    print(f"    Gate: {verdict} — max retries reached, using best attempt (score={best_score:.2f})")
+                    return best_eval or evaluation, best_prose
 
                 # Build failure context for rewrite
                 failure_context = self._format_failure_context(evaluation)
@@ -919,8 +929,8 @@ class Orchestrator:
                 )
 
                 if voice_retries > self.max_voice_retries:
-                    print(f"    Gate: {verdict} — max retries reached, proceeding anyway")
-                    return evaluation, prose
+                    print(f"    Gate: {verdict} — max retries reached, using best attempt (score={best_score:.2f})")
+                    return best_eval or evaluation, best_prose
 
                 # Build targeted voice revision notes
                 failure_context = self._format_failure_context(evaluation)

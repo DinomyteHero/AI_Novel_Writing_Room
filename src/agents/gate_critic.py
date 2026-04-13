@@ -26,7 +26,6 @@ STRUCTURAL_CODES = {
     "HOOK_VIOLATION",
     "SUBPLOT_DRIFT",
     # Scene card compliance
-    "WORD_COUNT_VIOLATION",
     "CLOSING_HOOK_VIOLATION",
     "CHARACTER_PRESENCE_VIOLATION",
     "OPENING_HOOK_MISMATCH",
@@ -45,6 +44,7 @@ POLISH_CODES = {
     "EXPOSITION_LEAK",
     "PACING_FLATLINE",
     "PROSE_CLICHE_BURST",
+    "WORD_COUNT_VIOLATION",
 }
 
 ALL_CODES = STRUCTURAL_CODES | VOICE_CODES | POLISH_CODES
@@ -95,6 +95,17 @@ class GateCritic(BaseAgent):
         parts.append(f"## Scene Card\n```json\n{json.dumps(scene_card, indent=2)}\n```")
         parts.append(f"## Drafted Prose\n{prose}")
 
+        # Pre-compute word count so the LLM doesn't have to count
+        word_count = len(prose.split())
+        target = scene_card.get("target_word_count", 0)
+        if target:
+            pct = (word_count / target * 100) if target else 0
+            parts.append(
+                f"## Word Count (pre-computed)\n"
+                f"Actual: {word_count} words | Target: {target} words | "
+                f"Ratio: {pct:.0f}% | Tolerance: +/- 20%"
+            )
+
         parts.append(
             "## Task\n"
             "Evaluate this drafted prose against the scene card requirements.\n\n"
@@ -120,7 +131,7 @@ class GateCritic(BaseAgent):
             "9. Are active subplots addressed as expected? (SUBPLOT_DRIFT)\n"
             "10. Are in-universe terms spelled correctly per the terminology registry? (TERMINOLOGY_DRIFT)\n"
             "11. Does the prose follow voice definition rules (banned words, anti-patterns)? (VOICE_DEFINITION_VIOLATION)\n"
-            "12. Is the prose within +/- 15% of the scene card's target_word_count? Count words carefully. (WORD_COUNT_VIOLATION)\n"
+            "12. Is the prose within +/- 20% of the target_word_count? Use the pre-computed word count above — do NOT count words yourself. (WORD_COUNT_VIOLATION)\n"
             "13. Does the scene end at or near the closing_hook? Does any content extend past it into the next scene? (CLOSING_HOOK_VIOLATION)\n"
             "14. Do only characters in characters_present have dialogue or significant action? (CHARACTER_PRESENCE_VIOLATION)\n"
             "15. Does the scene open consistent with the opening_hook if specified? (OPENING_HOOK_MISMATCH)\n\n"
@@ -128,10 +139,10 @@ class GateCritic(BaseAgent):
             "- Structural: CONTINUITY_CONTRADICTION, WEAK_TURNING_POINT, "
             "MISSING_TURNING_POINT, UNEARNED_RESOLUTION, STRUCTURAL_PHASE_VIOLATION, "
             "PROMISE_BROKEN, MOTIVATION_GAP, CHARACTER_ARC_STALL, HOOK_VIOLATION, SUBPLOT_DRIFT, CANON_VIOLATION, "
-            "WORD_COUNT_VIOLATION, CLOSING_HOOK_VIOLATION, CHARACTER_PRESENCE_VIOLATION, OPENING_HOOK_MISMATCH\n"
+            "CLOSING_HOOK_VIOLATION, CHARACTER_PRESENCE_VIOLATION, OPENING_HOOK_MISMATCH\n"
             "- Voice: OOC_DIALOGUE, OOC_ACTION, TELLING_NOT_SHOWING, "
             "TERMINOLOGY_DRIFT, VOICE_DEFINITION_VIOLATION\n"
-            "- Polish: EXPOSITION_LEAK, PACING_FLATLINE, PROSE_CLICHE_BURST\n\n"
+            "- Polish: EXPOSITION_LEAK, PACING_FLATLINE, PROSE_CLICHE_BURST, WORD_COUNT_VIOLATION\n\n"
             "Return a JSON object with the following structure:\n"
             "```json\n"
             "{\n"

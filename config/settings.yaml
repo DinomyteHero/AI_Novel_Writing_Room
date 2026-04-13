@@ -19,11 +19,13 @@ models:
       deepseek: deepseek/deepseek-v3.2
       claude: anthropic/claude-sonnet-4.6
       haiku: anthropic/claude-haiku-4.5
-      # --- Test alternatives for prose_stylist ---
+      # --- Additional models ---
       glm: z-ai/glm-5.1
       qwen: qwen/qwen3.6-plus
       kimi: moonshotai/kimi-k2
       grok420: x-ai/grok-4.20
+      grok41fast: x-ai/grok-4.1-fast
+      mistral_small4: mistralai/mistral-small-2603
       minimax: minimax/minimax-m2.7
     default_params:
       gemini:
@@ -44,6 +46,15 @@ models:
       grok420:
         temperature: 0.3
         max_tokens: 8192
+      grok41fast:
+        temperature: 0.3
+        max_tokens: 8192
+      kimi:
+        temperature: 0.4
+        max_tokens: 8192
+      mistral_small4:
+        temperature: 0.3
+        max_tokens: 4096
       minimax:
         temperature: 0.3
         max_tokens: 4096
@@ -52,13 +63,13 @@ models:
 # NOTE: The 'backend' field is ONLY honoured in 'hybrid' deployment_mode.
 # In 'local' or 'cloud' mode, ALL agents use the deployment_mode backend.
 agent_routing:
-  # PROSE — Sonnet, lower temp for structural compliance
-  prose_stylist:          { backend: cloud, model: claude, params: { temperature: 0.72, max_tokens: 8192 } }
+  # PROSE — Sonnet at 0.80: midpoint between Run 1's energy (0.85) and Run 6's control (0.72)
+  prose_stylist:          { backend: cloud, model: claude, params: { temperature: 0.80, max_tokens: 8192 } }
 
-  # GATE/EVAL — Grok 4.20: cross-vendor, strict adherence, $6 output vs Sonnet's $15
-  gate_critic:            { backend: cloud, model: grok420, params: { temperature: 0.3 } }
+  # GATE/EVAL — Haiku for gate (precise, cheap), Claude for judge, Kimi K2 for manuscript review (87% of Claude at 1/6 price)
+  gate_critic:            { backend: cloud, model: haiku, params: { temperature: 0.3 } }
   judge_evaluator:        { backend: cloud, model: claude, params: { temperature: 0.2 } }
-  manuscript_reviewer:    { backend: cloud, model: claude, params: { temperature: 0.3 } }
+  manuscript_reviewer:    { backend: cloud, model: kimi, params: { temperature: 0.3 } }
 
   # PLANNING — Gemini Pro (unchanged), plot_architect UPGRADED from Flash
   concept_workshop:       { backend: cloud, model: gemini, params: { temperature: 0.7, max_tokens: 8192 } }
@@ -66,24 +77,24 @@ agent_routing:
   seed_builder:           { backend: cloud, model: gemini, params: { temperature: 0.3, max_tokens: 16384 } }
   plot_architect:         { backend: cloud, model: gemini, params: { temperature: 0.4 } }
 
-  # PROSE-SENSITIVE REVISION
-  craft_editor:           { backend: cloud, model: claude, params: { temperature: 0.35, max_tokens: 8192 } }
+  # PROSE-SENSITIVE REVISION — Haiku for craft/emotion, Kimi K2 for dialogue polish (stronger creative awareness)
+  craft_editor:           { backend: cloud, model: haiku, params: { temperature: 0.4, max_tokens: 8192 } }
   scene_emotion_reviewer: { backend: cloud, model: haiku, params: { temperature: 0.5 } }
-  dialogue_polish_editor: { backend: cloud, model: haiku, params: { temperature: 0.4 } }
+  dialogue_polish_editor: { backend: cloud, model: kimi, params: { temperature: 0.4 } }
 
-  # STRUCTURAL REVISION — Flash (unchanged)
-  line_copy_editor:       { backend: cloud, model: gemini_flash, params: { temperature: 0.3 } }
-  voice_checker:          { backend: cloud, model: gemini_flash, params: { temperature: 0.3 } }
-  stress_test:            { backend: cloud, model: gemini_flash, params: { temperature: 0.5 } }
+  # STRUCTURAL REVISION — Mistral Small 4 for copy/voice (pattern-matching, $0.15/$0.60), DeepSeek for stress test
+  line_copy_editor:       { backend: cloud, model: mistral_small4, params: { temperature: 0.3 } }
+  voice_checker:          { backend: cloud, model: mistral_small4, params: { temperature: 0.3 } }
+  stress_test:            { backend: cloud, model: deepseek, params: { temperature: 0.5 } }
 
-  # UTILITY — MiniMax M2.7 for bulk extraction/checks, DeepSeek for cheapest structured tasks
-  orchestrator:           { backend: cloud, model: gemini_flash }
+  # UTILITY — Grok 4.1 Fast for orchestration, DeepSeek for analytics, Grok 4.20 for franchise knowledge
+  orchestrator:           { backend: cloud, model: grok41fast }
   canon_expert:           { backend: cloud, model: grok420, params: { temperature: 0.2 } }
-  summarizer:             { backend: cloud, model: minimax, params: { temperature: 0.2 } }
-  character_specialist:   { backend: cloud, model: minimax, params: { temperature: 0.4 } }
-  lore_extractor:         { backend: cloud, model: minimax, params: { temperature: 0.2 } }
-  structural_continuity_reviewer: { backend: cloud, model: minimax, params: { temperature: 0.3 } }
-  worldbuilding_coherence_reviewer: { backend: cloud, model: minimax, params: { temperature: 0.3 } }
+  summarizer:             { backend: cloud, model: deepseek, params: { temperature: 0.2 } }
+  character_specialist:   { backend: cloud, model: deepseek, params: { temperature: 0.3 } }
+  lore_extractor:         { backend: cloud, model: deepseek, params: { temperature: 0.2, max_tokens: 8192 } }
+  structural_continuity_reviewer: { backend: cloud, model: deepseek, params: { temperature: 0.3 } }
+  worldbuilding_coherence_reviewer: { backend: cloud, model: grok420, params: { temperature: 0.3 } }
 
 # Pipeline settings
 pipeline:

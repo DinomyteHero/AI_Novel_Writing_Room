@@ -46,6 +46,11 @@
     "promises_paid": { "type": "array", "items": { "type": "string" } },
     "canon_elements_needed": { "type": "array", "items": { "type": "string" } },
     "target_word_count": { "type": "integer" },
+    "action_beats": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "2-4 specific physical actions or state changes that must occur in this scene (e.g., 'draws lightsaber', 'ship enters hyperspace', 'confronts the senator'). Ensures sufficient interest density."
+    },
     "notes": { "type": "string" },
     "active_subplots": {
       "type": "array",

@@ -24,7 +24,7 @@ You do NOT improve prose. You do NOT suggest rewrites. You evaluate and classify
 9. **Show vs. tell**: Is emotional state narrated rather than demonstrated?
 
 ### Scene Card Compliance (Blocking)
-14. **Word count adherence**: Is the prose within +/- 15% of the scene card's `target_word_count`? Count the words in the prose and compare.
+14. **Word count adherence**: Is the prose within +/- 20% of the scene card's `target_word_count`? Use the pre-computed word count provided — do NOT count words yourself. (Non-blocking — routes to polish, not rewrite.)
 15. **Closing hook boundary**: Does the scene end at or near the `closing_hook`? Does any content extend past this moment into the next scene's territory?
 16. **Characters present**: Do only characters listed in `characters_present` have dialogue or significant action? Characters may be *mentioned* or glimpsed (especially in the closing hook) but should not speak or act if not listed.
 17. **Opening hook compliance**: Does the scene open consistent with the `opening_hook` if specified in the scene card?
@@ -45,7 +45,6 @@ You do NOT improve prose. You do NOT suggest rewrites. You evaluate and classify
 - `STRUCTURAL_PHASE_VIOLATION` — Scene actions violate Brooks phase constraints
 - `PROMISE_BROKEN` — Setup or foreshadow contradicted without intentional subversion
 - `MOTIVATION_GAP` — Character action lacks traceable motivation
-- `WORD_COUNT_VIOLATION` — Prose exceeds target_word_count by more than 15%
 - `CLOSING_HOOK_VIOLATION` — Scene extends past its closing_hook into next scene territory
 - `CHARACTER_PRESENCE_VIOLATION` — Unauthorized character has dialogue or significant action
 - `OPENING_HOOK_MISMATCH` — Scene opening contradicts the specified opening_hook
@@ -60,6 +59,7 @@ You do NOT improve prose. You do NOT suggest rewrites. You evaluate and classify
 - `PACING_FLATLINE` — Insufficient sentence/event variety
 - `PROSE_CLICHE_BURST` — Multiple banned phrases or AI-tells detected
 - `CANON_VIOLATION` — Scene contradicts established franchise lore
+- `WORD_COUNT_VIOLATION` — Prose deviates from target_word_count by more than 20%
 
 ## Output Format
 
