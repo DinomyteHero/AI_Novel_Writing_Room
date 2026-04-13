@@ -26,6 +26,11 @@
   "setting": "Veranthos — mid-valley, hands linked, the Scar visible, the valley in chaos",
   "sensory_details": "The discordance — three Force textures clashing; Ben's instinct to control manifesting as Force pressure; Sera's tradition rigid and defined; Kael's tradition fluid and sharp; the three failing to combine; sweat, strain, the wound pressing",
   "target_word_count": 1250,
+  "action_beats": [
+    "Ben links hands with Sera and Kael and the three Force traditions collide — discordant, unstable, wrong",
+    "Ben tries to lead the resonance by force of will and feels it resist — his control instinct sabotaging the harmony",
+    "Sweat rolls down Ben's temples as the discordance worsens and the other two operations grow stronger around them"
+  ],
   "active_subplots": [
     "SP-A"
   ],

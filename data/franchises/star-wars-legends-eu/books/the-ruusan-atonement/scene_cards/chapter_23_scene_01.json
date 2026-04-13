@@ -25,6 +25,11 @@
   "setting": "Veranthos — camp edge, dawn fully established now",
   "sensory_details": "Morning light on the valley — beautiful and wrong; the Scar visible below; Kael's face — the careful blankness of someone who is feeling too much to show any of it; Ben's open hands — no weapons, no manipulation, just the plan",
   "target_word_count": 1300,
+  "action_beats": [
+    "Ben lays out the resonance theory on a datapad between them — the math, the requirements, the untested risk",
+    "Ben holds his hands open while presenting — no weapons, no manipulation, just the plan",
+    "Kael's face shifts from careful blankness to something new when Ben admits the odds"
+  ],
   "active_subplots": [
     "SP-A",
     "SP2"

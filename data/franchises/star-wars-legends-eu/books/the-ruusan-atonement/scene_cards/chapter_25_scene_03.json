@@ -27,6 +27,11 @@
   "setting": "Veranthos — the valley, Scar, Veraine's position at the epicenter",
   "sensory_details": "Veraine's ritual collapsing — the amplification gone, her personal power insufficient; the resonance's emergent pattern — warm, complex, three textures creating an overtone; Veraine's face — confusion, then something harder: realization without acceptance",
   "target_word_count": 1400,
+  "action_beats": [
+    "Veraine's ritual staggers as the amplification drops and she compensates with raw personal power",
+    "The resonance grows and produces an emergent pattern — confusion crossing Veraine's face for the first time in a thousand years",
+    "Veraine's ritual collapses — not defeated by superior power but by unmodelable complexity"
+  ],
   "active_subplots": [
     "SP-A",
     "SP5"

@@ -10,7 +10,7 @@
   "conflict": "Ben prepares to ask Kael — not command, not manipulate, not guilt-trip. Ask. The hardest thing for a Skywalker: trusting someone else's free choice when everything depends on it.",
   "conflict_type": "internal",
   "turning_point": "Ben acknowledges to himself: if Kael says no, the plan fails. And that has to be acceptable. Forcing Kael would repeat every institution that ever used him. The answer has to be free or it isn't an answer.",
-  "opening_hook": "Kael is sitting at the camp's edge, facing the valley. The wrongness settles around him like weather he's adapted to. He knows Ben is coming before Ben arrives.",
+  "opening_hook": "Kael sits at the camp's edge with his legs over the ridgeline, facing the valley and the Scar below. He doesn't turn when Ben approaches — he felt him coming.",
   "closing_hook": "Kael's question: 'Why should I believe this one is different?' Not hostile. Not cynical. Genuine. The final holdout before the plan can execute.",
   "emotional_trajectory": "Steeling resolve -> the approach -> Kael's devastating question",
   "stakes": {
@@ -25,6 +25,11 @@
   "setting": "Veranthos — camp edge, overlooking the valley and the Scar",
   "sensory_details": "The Scar visible below — a seam in reality; Kael's Force presence — guarded but not hostile; the wrongness between them, making the conversation harder than it should be; first light touching the ridgelines",
   "target_word_count": 1250,
+  "action_beats": [
+    "Kael sits at the camp's edge with legs over the ridgeline, facing the Scar below",
+    "Ben sits down beside Kael and presents the resonance plan — theory, requirements, risks, his specific role — holding nothing back",
+    "Kael turns the question over in silence, his fingers pulling at the grass beside him"
+  ],
   "active_subplots": [
     "SP-A",
     "SP2"

@@ -28,6 +28,11 @@
   "setting": "Veranthos — the camp, departure preparations, morning",
   "sensory_details": "Kael's packed bag — light, everything he owns in the galaxy; his handshake with Ben — firm, brief, the most Kael gesture possible; Desh's joke — whatever it is, it's Allston-channel; the laugh — genuine, earned, the sound of survival",
   "target_word_count": 1250,
+  "action_beats": [
+    "Kael finds Ben at the ship with his bag packed — everything he owns slung over one shoulder",
+    "Kael shakes Ben's hand — firm, brief, the most Kael gesture possible — and turns toward his transport",
+    "Desh says something that shouldn't be funny and Ben laughs — the sound carrying across the ridge"
+  ],
   "active_subplots": [
     "SP2",
     "SP3"

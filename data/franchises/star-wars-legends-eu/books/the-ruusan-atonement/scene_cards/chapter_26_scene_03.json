@@ -10,7 +10,7 @@
   "conflict": "The new seal is imperfect — it requires renewal, monitoring, institutional attention. It's not the permanent fix Torin offered or the liberation Veraine promised. It's a third option: ongoing relationship with a problem that can be managed but never fully solved.",
   "conflict_type": "environmental",
   "turning_point": "The lattice reforms around the wound — not as rigid grid but as living tissue. Flexible, dynamic, responsive. The resonance's character embedded in the new seal. It requires renewal because it's alive. Dead seals fail. Living ones need tending.",
-  "opening_hook": "The warmth spreads outward from the resonance point. The wrongness — the constant background note Ben has been hearing for months — begins to quiet. Not silence. A chord resolving.",
+  "opening_hook": "Ben feels the warmth spread outward from the resonance point and the wrongness — the constant background note he's been hearing for months — begins to quiet. Not silence. A chord resolving.",
   "closing_hook": "The Scar is still there. Thinner. The wound is contained, not erased. The new seal hums with the resonance's three-part harmony. Ben feels it — and realizes he will always feel it. The seal responds to relational harmony. He's part of it now. Not a prisoner. A note in a chord.",
   "emotional_trajectory": "The quiet after storm -> the new seal forming -> the bittersweet realization of ongoing connection",
   "stakes": {
@@ -28,6 +28,11 @@
   "setting": "Veranthos — the valley, the Scar, the new seal forming",
   "sensory_details": "The wrongness quieting — the background note resolving; the new seal's character — living tissue not rigid grid, flexible and warm; the Scar thinning but persisting; Desh: the grief-without-an-object lifting, the chrono running correctly, the temperature consistent; the place feeling right in a way it didn't before",
   "target_word_count": 1600,
+  "action_beats": [
+    "Ben feels the warmth spread outward from the resonance point as the new seal forms — living tissue, not rigid grid",
+    "The Scar thins but persists — the wound contained, not erased, the new seal humming with three-part harmony",
+    "Desh checks his chrono and it runs correctly for the first time since arrival — the grief-without-an-object lifting"
+  ],
   "active_subplots": [
     "SP-A"
   ],

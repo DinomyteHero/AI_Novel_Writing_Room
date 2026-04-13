@@ -26,6 +26,11 @@
   "setting": "Veranthos — camp, tactical planning with Corridor data",
   "sensory_details": "The amplification array visible on the map — a web of repurposed nodes pointing at Veranthos; Desh's professional assessment overlaid with personal resolve; dawn approaching — they're running out of darkness",
   "target_word_count": 1200,
+  "action_beats": [
+    "Desh stares at the Corridor map with the amplification overlay and his expression goes clinical — intelligence analyst, not friend",
+    "Desh traces the three critical nodes on the map and outlines his solo sabotage approach",
+    "Desh volunteers before anyone asks — straightening from the map table with his decision already made"
+  ],
   "active_subplots": [
     "SP-A",
     "SP3",

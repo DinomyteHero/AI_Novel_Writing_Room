@@ -10,7 +10,7 @@
   "conflict": "Ben's institutional lie \u2014 the thing he's been carrying since Chapter 3 \u2014 must now be resolved. He will tell Luke everything. Not because it's easy or safe, but because the story's theme demands institutional truth.",
   "conflict_type": "internal",
   "turning_point": "Ben stops drafting the report. He deletes every previous draft \u2014 the partial reports, the deleted full report, everything. He'll tell Luke in person. Some truths shouldn't be delivered through datapad.",
-  "opening_hook": "Hyperspace home. The wrongness is quieter now \u2014 not gone but changed. The new seal's three-part harmony hums at the edge of Ben's perception. A note he's part of. It should feel like a burden. It feels like belonging.",
+  "opening_hook": "Ben leans back in the copilot's chair as hyperspace streams past \u2014 the wrongness quieter now, not gone but changed, the new seal's three-part harmony humming at the edge of his perception. It should feel like a burden. It feels like belonging.",
   "closing_hook": "Coruscant on approach. The Temple visible from orbit. Ben's father somewhere inside, waiting for a report. He's about to get more than a report.",
   "emotional_trajectory": "Reflective processing -> determined resolution -> the courage of institutional honesty",
   "stakes": {
@@ -25,6 +25,11 @@
   "setting": "Aboard the Steady Returns \u2014 hyperspace to Coruscant, then approach",
   "sensory_details": "Hyperspace blue; the new seal's resonance humming at the edge of perception; Desh in the pilot's chair, steady as always; the Temple from orbit \u2014 familiar, home, about to be changed by what Ben carries",
   "target_word_count": 1200,
+  "action_beats": [
+    "Ben leans back in the copilot's chair and listens to the new seal's resonance humming at the edge of perception",
+    "Ben deletes every previous draft report on his datapad — the partials, the deleted full report, everything",
+    "Coruscant fills the viewport on approach and the Temple is visible from orbit"
+  ],
   "active_subplots": [
     "SP-A",
     "SP4"

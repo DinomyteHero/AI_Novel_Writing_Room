@@ -25,6 +25,11 @@
   "setting": "Veranthos — improvised containment area, guarded",
   "sensory_details": "Veraine's containment — Force-locked, Sera's design; Veraine's composure — unbroken, academic, writing equations; her voice — precise, unruffled, genuinely curious about the emergence; dust motes in the containment light",
   "target_word_count": 1200,
+  "action_beats": [
+    "Veraine sits cross-legged in Sera's containment field, composed, writing equations in the dust with one finger",
+    "Ben stands outside the containment and listens to Veraine's assessment — precise, unruffled, genuinely curious",
+    "Ben turns and walks away from the containment without looking back at the equations still being written"
+  ],
   "active_subplots": [
     "SP-A",
     "SP5"

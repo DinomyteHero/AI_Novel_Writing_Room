@@ -25,6 +25,11 @@
   "setting": "Veranthos — amplification node sites, guarded positions, Desh operating solo",
   "sensory_details": "Desh in his element — silent movement, tactical assessment, controlled violence; node equipment sparking as he disables it; Veraine's crew — scared, outmatched, not villains; the comm connection to Ben — Desh's steady voice against the chaos",
   "target_word_count": 1200,
+  "action_beats": [
+    "Desh approaches the first node in textbook GAG silence — low, fast, nonlethal takedowns on the guards",
+    "Desh disables the first amplification node with three precise strikes to the control housing",
+    "Desh's comm crackles as the third node goes dark: 'Array's down. Do it now. Everything.'"
+  ],
   "active_subplots": [
     "SP-A",
     "SP3"

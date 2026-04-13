@@ -27,6 +27,11 @@
   "setting": "Veranthos — the Scar, inside the void, Torin's position",
   "sensory_details": "The void from inside — formless Force, no direction, no texture; Torin's hands on the Scar — his Force presence being drawn into the wound; Sera's extraction technique — the Force-locks reversed, unsealing rather than sealing; Torin's eyes — finding Sera, the warmth returning briefly, then settling into something quieter",
   "target_word_count": 1700,
+  "action_beats": [
+    "Sera reaches Torin inside the void and places her hands over his — Force-lock expertise reversing, unsealing instead of sealing",
+    "Sera pulls Torin free from the technique — his Force presence separating from the wound like tearing adhesive",
+    "Torin's eyes find Sera's face and the warmth returns for a moment before fading to something quieter"
+  ],
   "active_subplots": [
     "SP-A",
     "SP1"

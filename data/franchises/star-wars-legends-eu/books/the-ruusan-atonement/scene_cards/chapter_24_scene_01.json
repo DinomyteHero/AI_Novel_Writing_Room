@@ -27,6 +27,11 @@
   "setting": "Veranthos — valley approach, ridgeline visible, the Scar at the valley floor",
   "sensory_details": "The valley's geometry — ridgelines, slopes, the Scar at the lowest point; Torin's descending figure; the technique activating — the lattice leaning toward Torin, dissolving, a cliff edge between structured and unstructured Force; Veraine's ritual visible at the Scar as distant distortion",
   "target_word_count": 1300,
+  "action_beats": [
+    "The group descends into the valley in formation while Desh splits off toward the first amplification node",
+    "Ben calls across the valley to Torin and Torin pauses on the ridgeline, turning to listen",
+    "Torin begins the technique and the lattice near him leans inward and dissolves — a pulling, a suction"
+  ],
   "active_subplots": [
     "SP-A",
     "SP1"

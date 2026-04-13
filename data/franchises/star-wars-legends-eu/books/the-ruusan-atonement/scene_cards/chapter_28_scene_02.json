@@ -25,6 +25,11 @@
   "setting": "Jedi Temple, Coruscant — Luke's office, same room as Chapter 1",
   "sensory_details": "The same office — everything familiar, everything changed; Luke's Force presence — vast, warm, sad; the afternoon light through the window; two chairs, two Skywalkers, the truth between them",
   "target_word_count": 1400,
+  "action_beats": [
+    "Ben sits in the same chair in Luke's office where the mission started and begins talking — everything",
+    "Luke listens in silence, his hands still on the desk, his Force presence vast and sad",
+    "Luke speaks after a long silence: 'We'll tell the Council. All of it.'"
+  ],
   "active_subplots": [
     "SP4"
   ],

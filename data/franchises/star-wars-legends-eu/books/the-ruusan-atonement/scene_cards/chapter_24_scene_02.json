@@ -10,7 +10,7 @@
   "conflict": "The physical environment deteriorating as all three operations stress the lattice. The wrongness becoming acute — not just uncomfortable but dangerous. The wound amplifying emotions, making concentration nearly impossible.",
   "conflict_type": "environmental",
   "turning_point": "Ben feels all three operations in the Force simultaneously: Veraine's ritual (calculated, amplified, aimed at the Scar), Torin's technique (personal, immediate, the lattice dissolving around him), and the beginning of their own resonance (discordant, uncertain). Three operations pulling the Force in three different directions.",
-  "opening_hook": "The Scar widens. Not dramatically — a centimeter, maybe two. Enough to be visible. Enough to be terrifying.",
+  "opening_hook": "Ben watches the Scar widen — a centimeter, maybe two. Enough to be visible. Enough to be terrifying.",
   "closing_hook": "Ben: 'Now.' He reaches for Sera and Kael through the Force. Three traditions. Three wounds. One chance.",
   "emotional_trajectory": "Environmental overwhelm -> focus through chaos -> the call to begin",
   "stakes": {
@@ -26,6 +26,11 @@
   "setting": "Veranthos — mid-valley position, Scar visible, Torin visible, Veraine's ritual visible",
   "sensory_details": "The Scar widening; Veraine's ritual — a distortion at the Scar's base, calculated and focused; Torin's technique — the lattice dissolving around him as he descends, a moving void; the resonance starting point — three Force presences reaching for each other, discordant",
   "target_word_count": 1200,
+  "action_beats": [
+    "Ben watches the Scar widen by centimeters and feels all three operations pulling the Force in different directions",
+    "Sera and Kael take positions flanking Ben, hands outstretched, the resonance formation assembling",
+    "Ben reaches for Sera and Kael through the Force and speaks the word: 'Now.'"
+  ],
   "active_subplots": [
     "SP-A",
     "SP5"

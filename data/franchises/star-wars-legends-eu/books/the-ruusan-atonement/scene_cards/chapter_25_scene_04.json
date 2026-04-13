@@ -27,6 +27,11 @@
   "setting": "Veranthos — the valley, Veraine's position, then attention to Torin's descent",
   "sensory_details": "Sera's containment techniques — ancient, precise, efficient; Veraine's face in containment — fury and intellectual violation; Torin's void visible — a zone of absence moving down the ridgeline toward the Scar; the wrongness around Torin — not the formless void of the breach zone but structured absence, deliberate, the technique at full expression",
   "target_word_count": 1000,
+  "action_beats": [
+    "Sera moves before Ben can speak — activating ancient containment protocols adapted to field conditions",
+    "Sera locks Veraine in a Force-containment field using techniques that held her in stasis for a millennium",
+    "Ben turns from the contained Veraine to look down the valley where Torin's void continues to expand"
+  ],
   "active_subplots": [
     "SP-A",
     "SP1"

@@ -27,6 +27,11 @@
   "setting": "Veranthos — camp, then movement toward the valley",
   "sensory_details": "Kael's stride — deliberate, not careful; his voice delivering the line — dry, level, the humor covering something raw; three Force presences aligning — not harmonized yet but adjacent, complementary; the valley below, waiting",
   "target_word_count": 1250,
+  "action_beats": [
+    "Kael walks back to the group with a stride that's changed — less careful, more deliberate, decided",
+    "Kael delivers his line with the driest voice Ben has heard — the humor covering something enormous",
+    "The group moves together toward the valley — three Force-users and one non-Force-user walking toward something unprecedented"
+  ],
   "active_subplots": [
     "SP-A",
     "SP2",

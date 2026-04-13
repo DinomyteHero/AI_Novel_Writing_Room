@@ -27,6 +27,11 @@
   "setting": "Veranthos — the Scar, Torin's void expanding, the wound closing",
   "sensory_details": "Torin's void — the lattice absent around him, a zone of formless Force; his voice: still speaking but the warmth gone, the humor gone, just words without person; Sera's face — grief and iron; the wound visibly closing — the Scar narrowing",
   "target_word_count": 1700,
+  "action_beats": [
+    "Torin stands at the Scar with his hands on the wound, holding it closed with his own Force presence — eyes open, unseeing",
+    "Sera screams Torin's name and moves toward the void — Ben reaches for her and she shakes him off",
+    "Sera enters the void and her Force presence flares against the de-structuring"
+  ],
   "active_subplots": [
     "SP-A",
     "SP1"

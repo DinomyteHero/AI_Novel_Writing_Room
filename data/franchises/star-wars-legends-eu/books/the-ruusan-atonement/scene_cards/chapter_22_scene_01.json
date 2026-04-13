@@ -26,6 +26,11 @@
   "setting": "Veranthos — camp, working through the night with Codex materials",
   "sensory_details": "Codex fragments and archive data spread across every surface; the wound's pull from below — constant, patient; Sera's archaic notation alongside Ben's modern analysis; Desh providing logistical reality checks",
   "target_word_count": 1300,
+  "action_beats": [
+    "Ben and Sera spread Codex notes across every flat surface in the camp workspace and work through the resonance theory side by side",
+    "Sera adapts archaic notation to match Ben's modern Force framework — her handwriting flowing alongside his on the same datapad",
+    "Desh provides logistical reality checks from the supply manifest while they calculate resonance requirements"
+  ],
   "active_subplots": [
     "SP-A",
     "SP1"

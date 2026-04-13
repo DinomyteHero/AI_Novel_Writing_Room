@@ -10,7 +10,7 @@
   "conflict": "None — this is resolution. The conflict is behind him. What remains is the new equilibrium: a Ben Skywalker who knows the truth, carries the resonance, and has learned that leadership is orchestration, not possession.",
   "conflict_type": "internal",
   "turning_point": "The final sensory callback: the wrongness from Chapter 1 is gone. In its place, the resonance — the three-part harmony of the new seal humming at the edge of perception. A note he's part of. A chord he helped build. Not enough by itself. Enough as part of something larger.",
-  "opening_hook": "The Temple corridors in evening light. The same walk he took in Chapter 1, when the wrongness was everything he could hear and no one else would listen.",
+  "opening_hook": "Ben walks the Temple corridors in evening light \u2014 the same route he took in Chapter 1, when the wrongness was everything he could hear and no one else would listen.",
   "closing_hook": "A note in a chord. Enough.",
   "emotional_trajectory": "Reflective peace -> the new perception -> acceptance and forward motion",
   "stakes": {
@@ -24,6 +24,11 @@
   "setting": "Jedi Temple, Coruscant — corridors, evening light, the same walk as Chapter 1",
   "sensory_details": "Evening light through Temple windows; the corridor's familiar Force harmonics — warmer now, or maybe Ben is warmer; the resonance humming at the edge of perception — not wrongness but harmony; his footsteps steady, unhurried; the future open",
   "target_word_count": 1150,
+  "action_beats": [
+    "Ben walks the Temple corridors in evening light — the same route, different man",
+    "Ben pauses at the training salle where the wrongness first cost him a sparring match and listens — resonance where wrongness used to be",
+    "Ben's footsteps continue down the corridor, steady and unhurried — a note in a chord"
+  ],
   "active_subplots": [
     "SP-A"
   ],

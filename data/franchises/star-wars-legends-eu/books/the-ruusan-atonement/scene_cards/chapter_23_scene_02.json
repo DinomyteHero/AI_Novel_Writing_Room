@@ -26,6 +26,11 @@
   "setting": "Veranthos — camp, Kael walking to the edge, looking down at the Scar, looking at Desh, looking inward",
   "sensory_details": "Kael's Force presence — shifting, the guarded walls lowering for the first time; Desh working on equipment, unaware he's being watched; the Scar below, patient, waiting; Kael's footsteps returning",
   "target_word_count": 1200,
+  "action_beats": [
+    "Kael walks away from Ben toward the ridge edge — not leaving, processing",
+    "Kael watches Desh working on equipment from a distance — the non-Force-user who chose to be here",
+    "Kael turns back toward the group, his stride different — less careful, more deliberate"
+  ],
   "active_subplots": [
     "SP-A",
     "SP2"
