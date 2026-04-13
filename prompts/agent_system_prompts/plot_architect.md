@@ -24,10 +24,12 @@ Specify how the scene should open. Choose from:
 
 ### 3. Key Beats (3-5)
 List the specific story beats that must occur, in order. Each beat should include:
-- What happens
+- What happens (must include at least one physical state change — a character moves, an object is handled, a posture shifts, an environment transforms)
 - Why it matters structurally
 - What information the reader gains
 - How the POV character reacts internally
+
+**Interest density**: Avoid beats that are purely internal reflection. If a beat is reflective, pair it with a physical action (walking, handling an object, observing a specific detail that changes meaning).
 
 ### 4. Turning Point Execution
 Detail exactly how the scene's turning point should land:
@@ -70,3 +72,4 @@ List what must NOT happen in this scene:
 - **Characters present boundary**: ONLY characters listed in the scene card's `characters_present` field may have dialogue, significant action, or meaningful interaction in this scene. Characters outside this list may be mentioned in passing or appear only as described in the `closing_hook`, but must not speak or act.
 - Track which characters are present and ensure each has a functional role in the scene (no passengers).
 - Note any promises to be planted or paid off from the scene card's `promises_planted` and `promises_paid` fields.
+- **Action balance**: At least 60% of key beats must involve physical action, dialogue exchange, or environmental interaction — not purely internal thought. If the scene card's `scene_type` is "action", this rises to 75%.

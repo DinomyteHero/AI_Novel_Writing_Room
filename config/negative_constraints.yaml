@@ -26,6 +26,14 @@ banned_phrases:
     - "straightforward"
     - "it's important to note"
     - "it's worth noting"
+  overwriting:
+    - "With a fluid motion"
+    - "Could not help but notice"
+    - "Found himself"
+    - "Found herself"
+    - "Couldn't help but"
+    - "In that moment"
+    - "Something shifted within"
 
 structural_rules:
   max_adverb_density: 0.02
