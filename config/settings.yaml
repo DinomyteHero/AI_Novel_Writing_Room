@@ -104,6 +104,9 @@ pipeline:
   embeddings:
     use_mock: true  # Set to false for real semantic similarity (requires sentence-transformers)
     model: nomic-ai/nomic-embed-text-v1.5
+  prompt_caching:
+    enabled: true  # Enable prompt caching for supported providers (reduces input costs)
+    anthropic_ttl: 1h  # Cache TTL for Anthropic models: "5m" (1.25x write) or "1h" (2x write, better for sequential pipelines)
 
 # Worldbuilding persistence
 worldbuilding:

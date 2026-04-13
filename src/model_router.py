@@ -96,6 +96,15 @@ class ModelRouter:
             **params,
         }
 
+        # Prompt caching for Anthropic models (OpenRouter top-level cache_control)
+        caching_cfg = self.config.get("pipeline", {}).get("prompt_caching", {})
+        if caching_cfg.get("enabled", False) and model.startswith("anthropic/"):
+            ttl = str(caching_cfg.get("anthropic_ttl", "1h"))
+            cache_control = {"type": "ephemeral"}
+            if ttl == "1h":
+                cache_control["ttl"] = "1h"
+            payload["cache_control"] = cache_control
+
         if backend == "local":
             client = await self._get_local_client()
         else:
