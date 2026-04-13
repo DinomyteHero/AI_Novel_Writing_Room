@@ -6,6 +6,7 @@ lore entries from unstructured text via the ModelRouter.
 
 import json
 import logging
+import re
 from typing import Optional
 
 from src.worldbuilding.worldbuilding_db import LORE_CATEGORIES
@@ -136,16 +137,22 @@ def parse_extraction_result(raw_result: str) -> list[dict]:
         # Strip markdown fences if present
         text = raw_result.strip()
         if text.startswith("```"):
-            lines = text.split("\n")
-            lines = [l for l in lines if not l.strip().startswith("```")]
-            text = "\n".join(lines)
+            text = re.sub(r"^```\w*\s*\n?", "", text)
+            text = re.sub(r"\n?```\s*$", "", text)
 
         data = json.loads(text)
     except json.JSONDecodeError:
         logger.warning("Failed to parse extraction result as JSON")
         return []
 
-    entries_raw = data.get("extracted_entries", [])
+    # Handle LLM returning a bare list instead of the expected wrapper dict
+    if isinstance(data, list):
+        entries_raw = data
+    elif isinstance(data, dict):
+        entries_raw = data.get("extracted_entries", [])
+    else:
+        return []
+
     if not isinstance(entries_raw, list):
         return []
 

@@ -92,13 +92,16 @@ class CanonExpert(BaseAgent):
     def _format_context(self, context: dict) -> str:
         """Build the user prompt for the legacy run() path.
 
-        Extracts prose from the scene card's draft_prose or
-        scene_description, then delegates to _build_evaluation_prompt.
+        Checks for prose passed directly (from orchestrator), then falls
+        back to extracting from the scene card's draft_prose or
+        scene_description.
         """
-        scene_card = context.get("scene_card", {})
-        prose = scene_card.get("draft_prose", "") or scene_card.get(
-            "scene_description", ""
-        )
+        prose = context.get("prose", "")
+        if not prose:
+            scene_card = context.get("scene_card", {})
+            prose = scene_card.get("draft_prose", "") or scene_card.get(
+                "scene_description", ""
+            )
         concept_seed = context.get("concept_seed", {})
 
         prompt = self._build_evaluation_prompt(prose, concept_seed)

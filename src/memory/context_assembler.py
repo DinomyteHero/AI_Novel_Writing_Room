@@ -26,7 +26,7 @@ TOKEN_BUDGETS = {
     "canon_rag": 1000,
     "character_voices": 1000,
     "character_knowledge": 500,
-    "recent_prose": 3500,
+    "recent_prose": 8000,
     "scene_card": 500,
     "negative_constraints": 400,
     # Phase 5 tiers
@@ -276,9 +276,9 @@ class ContextAssembler:
         scene_num = scene_card.get("scene_number", 1)
         prev_prose = self.get_previous_scene(chapter_num, scene_num)
         if prev_prose:
-            # Truncate to last ~3000 chars for Phase 1
-            if len(prev_prose) > 3000:
-                prev_prose = "...\n" + prev_prose[-3000:]
+            budget_chars = int(TOKEN_BUDGETS["recent_prose"] / 0.75)
+            if len(prev_prose) > budget_chars:
+                prev_prose = "...\n" + prev_prose[-budget_chars:]
             components.append(f"## Previous Scene (ending)\n{prev_prose}")
 
         # Scene card

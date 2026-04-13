@@ -172,7 +172,8 @@ class StateDiffApplier:
         return diff, warnings
 
     def apply_diff(
-        self, diff: dict, chapter_number: int, scene_number: int = 1
+        self, diff: dict, chapter_number: int, scene_number: int = 1,
+        scene_card: dict | None = None,
     ) -> str:
         """Apply a state diff and emit ledger events.
 
@@ -180,6 +181,7 @@ class StateDiffApplier:
             diff: State diff conforming to schemas/state_diff.json.
             chapter_number: Current chapter number.
             scene_number: Current scene number.
+            scene_card: Optional scene card for arc phase clamping.
 
         Returns:
             The new state hash after applying the diff.
@@ -209,7 +211,7 @@ class StateDiffApplier:
         self._apply_subplot_updates(changes.get("subplot_updates", []))
         self._apply_hook_updates(changes.get("hook_updates", []), chapter_number)
         rejected_transitions = self._apply_arc_phase_updates(
-            changes.get("arc_phase_updates", []), chapter_number
+            changes.get("arc_phase_updates", []), chapter_number, scene_card
         )
         self._apply_terminology_updates(changes.get("terminology_updates", []))
 
@@ -450,12 +452,20 @@ class StateDiffApplier:
                         )
 
     def _apply_arc_phase_updates(
-        self, updates: list[dict], chapter_number: int
+        self, updates: list[dict], chapter_number: int,
+        scene_card: dict | None = None,
     ) -> list[dict]:
         """Apply character arc phase transitions with validation.
 
+        When *scene_card* declares a ``pov_arc_phase``, the POV character's
+        arc phase is clamped to the card's value — preventing the summarizer
+        from hallucinating forward leaps that desync the DB.
+
         Returns a list of rejected transition dicts for feedback to the Summarizer.
         """
+        card_phase = scene_card.get("pov_arc_phase") if scene_card else None
+        pov_char = scene_card.get("pov_character", "") if scene_card else ""
+
         rejected = []
         for update in updates:
             char_id = update.get("character_id")
@@ -464,6 +474,15 @@ class StateDiffApplier:
 
             if not char_id or not new_phase:
                 continue
+
+            # Clamp: scene card's pov_arc_phase is authoritative for the POV character
+            if card_phase and char_id == pov_char and new_phase != card_phase:
+                logger.info(
+                    "Arc phase for '%s' clamped from summarizer's '%s' to "
+                    "scene card's '%s'.",
+                    char_id, new_phase, card_phase,
+                )
+                new_phase = card_phase
 
             try:
                 success = self.state.advance_arc_phase(

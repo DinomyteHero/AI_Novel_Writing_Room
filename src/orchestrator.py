@@ -573,7 +573,7 @@ class Orchestrator:
 
         # Step 7: Apply state diff to SQLite
         if self.state_diff_applier and state_diff.get("changes"):
-            self.state_diff_applier.apply_diff(state_diff, chapter_num, scene_num)
+            self.state_diff_applier.apply_diff(state_diff, chapter_num, scene_num, scene_card=scene_card)
             # Capture rejected transitions for Summarizer feedback on next scene
             rejected = getattr(self.state_diff_applier, "last_rejected_transitions", [])
             if rejected:
@@ -664,6 +664,13 @@ class Orchestrator:
             "scene_card": scene_card,
             "bible_summary": self.assembler.get_bible_summary(),
         }
+
+        # Previous chapter summary so the brief has narrative continuity
+        if self.chapter_memory:
+            prev_summary = self.chapter_memory.get_recent_summaries(n=2)
+            if prev_summary and "No previous" not in prev_summary:
+                pa_context["previous_chapter_summary"] = prev_summary
+
         # Inject current character state for more accurate scene briefs
         if self.story_state:
             snapshot = self.story_state.get_state_snapshot()
@@ -680,6 +687,17 @@ class Orchestrator:
                 )
             if char_lines:
                 pa_context["arc_context"] = "## Current Character States\n" + "\n".join(char_lines)
+
+        # Hook agenda — which hooks to plant, advance, or resolve in this scene
+        chapter_num = scene_card.get("chapter_number", 1)
+        hook_agenda = self.assembler._assemble_hook_agenda(chapter_num)
+        if hook_agenda:
+            pa_context["hook_agenda"] = hook_agenda
+
+        # Active subplots relevant to this scene
+        subplot_context = self.assembler._assemble_subplot_context(scene_card)
+        if subplot_context:
+            pa_context["subplot_context"] = subplot_context
 
         result = await self.plot_architect.run(pa_context)
 
