@@ -10,7 +10,7 @@
   "conflict": "The information is staggering in scope — Ben's understanding of Jedi history is being rewritten in real time. Sera and Torin disagree on emphasis; Kael corrects details from the Sith perspective that neither expected.",
   "conflict_type": "interpersonal",
   "turning_point": "The Reformations — the foundation of modern Jedi identity, the thing Ben grew up being told was principled reform — were penance. Damage control. The Order has been built on institutional amnesia.",
-  "opening_hook": "Sera's voice fills the archive level like she belongs there. She does. She was the one who organized half of it.",
+  "opening_hook": "Sera crosses to the archive console and her fingers find the activation sequence from muscle memory — a thousand years old and still faster than Ben's modern training",
   "closing_hook": "The technique. The wound. The seal. The anchors. Twelve Force-sensitives used as structural rebar in a containment system. Nine dead. Three just woken. One escaped.",
   "emotional_trajectory": "Absorbing shock -> intellectual vertigo -> moral reckoning with institutional history",
   "stakes": {
@@ -36,6 +36,12 @@
     "Light and dark side boundary theory in Legends metaphysics"
   ],
   "target_word_count": 1400,
+  "action_beats": [
+    "Sera activates the archive console with an ancient access code from muscle memory",
+    "Holographic displays bloom showing the wound's expansion over centuries — red zones growing across the map",
+    "Torin pulls the sealed Codex fragment from its housing and opens the case",
+    "Kael reaches past Sera to correct a detail on the projection map — his first voluntary contribution"
+  ],
   "active_subplots": [
     "SP-A",
     "SP1",

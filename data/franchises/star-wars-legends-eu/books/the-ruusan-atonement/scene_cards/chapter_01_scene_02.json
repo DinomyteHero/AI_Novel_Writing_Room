@@ -32,6 +32,11 @@
     "Jedi Temple Grand Master administrative spaces"
   ],
   "target_word_count": 1250,
+  "action_beats": [
+    "Luke slides the datapad across the desk showing seventeen flagged survey reports",
+    "Ben scrolls through the anomaly data, zooming on three readings that match his own perception",
+    "Ben sets the datapad down and moves to the window — body language of someone accepting a solo mission"
+  ],
   "active_subplots": [
     "SP-A",
     "SP4"

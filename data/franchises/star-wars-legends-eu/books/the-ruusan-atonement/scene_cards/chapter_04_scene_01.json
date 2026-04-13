@@ -32,6 +32,12 @@
     "Thin place effects on Force-sensitive perception"
   ],
   "target_word_count": 1200,
+  "action_beats": [
+    "Ben and Desh trek across the thin-atmosphere plateau toward the fortress, breath steaming in the cold",
+    "Ben presses his palm against the entry mechanism — it resists, pulses amber, then recognizes his lineage and shifts to green",
+    "The fortress door grinds open, releasing sealed air that hasn't circulated in a thousand years",
+    "Desh sweeps the entry corridor with a glow rod while Ben reaches into the Force ahead of them"
+  ],
   "active_subplots": [
     "SP-A"
   ],

@@ -32,6 +32,12 @@
     "Living Force signatures detection and differentiation"
   ],
   "target_word_count": 1300,
+  "action_beats": [
+    "Ben activates residual power on the monitoring stations with a targeted Force pulse",
+    "A display screen flickers alive showing the containment network map — nodes in red, amber, and one flashing BREACH",
+    "Desh photographs every console and catalogues exit routes on his datapad",
+    "Ben descends the stairwell toward Level 3, the blue-tinged emergency lighting intensifying below"
+  ],
   "active_subplots": [
     "SP-A"
   ],

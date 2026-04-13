@@ -10,7 +10,7 @@
   "conflict": "Ben rationalizes the decision as urgency — the seal is failing, there isn't time to wait for committee — but it's his Lie operating: self-reliance as safety, control as protection",
   "conflict_type": "internal",
   "turning_point": "Desh agrees to go but makes Ben acknowledge the choice out loud: 'You're not reporting this.' Ben's answer — 'Not yet' — is the first institutional withholding.",
-  "opening_hook": "Ben drafts a report to Luke three times. Deletes each one. The coordinates burn on the nav screen.",
+  "opening_hook": "Ben's fingers are typing the report to Luke for the third time when Desh leans over the copilot's shoulder and reads the first line — 'You're not sending that'",
   "closing_hook": "Hyperspace entry toward uncharted coordinates. The wrongness doesn't diminish in hyperspace. It intensifies. They're heading toward the source.",
   "emotional_trajectory": "Deliberation -> rationalized certainty -> suppressed doubt",
   "stakes": {
@@ -32,6 +32,12 @@
     "Institutional withholding and secrecy in Jedi history"
   ],
   "target_word_count": 1250,
+  "action_beats": [
+    "Ben types and deletes his third draft of the report to Luke",
+    "Desh reads over Ben's shoulder and reaches across to the nav computer",
+    "Desh enters the uncharted fortress coordinates — the nav computer begins calculating a route through unmapped space",
+    "The Steady Returns jumps to hyperspace; the wrongness intensifies through the transition instead of fading"
+  ],
   "active_subplots": [
     "SP-A",
     "SP3",

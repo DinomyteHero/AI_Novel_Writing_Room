@@ -10,7 +10,7 @@
   "conflict": "The data is fragmentary — enough to understand that something is contained, not enough to understand what. Ben must decide whether to report to Luke or follow the coordinates.",
   "conflict_type": "internal",
   "turning_point": "The navigation data includes a route — the Ruusan Corridor — that connects multiple installations in a perimeter pattern. This isn't one facility. It's a network.",
-  "opening_hook": "The facility's data core is damaged but not dead — Desh coaxes partial records from storage media older than the Galactic Alliance",
+  "opening_hook": "Desh pries open a corroded access panel and jams a modern data coupler into storage media older than the Galactic Alliance — the connection sparks twice before holding",
   "closing_hook": "Coordinates resolve on the nav computer. The destination is deep in uncharted space — no hyperspace lane, no Republic survey, nothing. Something was deliberately hidden there.",
   "emotional_trajectory": "Analytical focus -> dawning scope -> the weight of decision",
   "stakes": {
@@ -32,6 +32,11 @@
     "Ancient data storage media in Star Wars Legends"
   ],
   "target_word_count": 1200,
+  "action_beats": [
+    "Desh pries open a corroded access panel and rigs a modern data coupler to ancient storage media",
+    "Holographic star maps flicker to life showing the Ruusan Corridor network — multiple installations in a perimeter pattern",
+    "Ben copies the fortress coordinates and route data onto the Steady Returns nav computer"
+  ],
   "active_subplots": [
     "SP-A",
     "SP4"
