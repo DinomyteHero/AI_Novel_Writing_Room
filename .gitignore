@@ -39,7 +39,10 @@ data/export/
 
 # Pipeline runtime artifacts (generated per-run, not source-controlled)
 data/projects/*/state/sessions/
-output/*/*/runs/
+data/sessions/
+data/worldbuilding.db
+data/worldbuilding_vectors/
+**/canon_db/
 output/*/*/state/
 *.db-journal
 *.db-wal
