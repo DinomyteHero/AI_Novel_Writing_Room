@@ -22,6 +22,9 @@ Thumbs.db
 # Claude Code local settings
 .claude/settings.local.json
 
+# Codex auto-generated files
+.codex/
+
 # pytest / coverage
 .pytest_cache/
 htmlcov/
