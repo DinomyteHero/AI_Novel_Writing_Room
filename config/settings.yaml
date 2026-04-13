@@ -63,12 +63,12 @@ models:
 # NOTE: The 'backend' field is ONLY honoured in 'hybrid' deployment_mode.
 # In 'local' or 'cloud' mode, ALL agents use the deployment_mode backend.
 agent_routing:
-  # PROSE — Sonnet at 0.80: midpoint between Run 1's energy (0.85) and Run 6's control (0.72)
-  prose_stylist:          { backend: cloud, model: claude, params: { temperature: 0.80, max_tokens: 8192 } }
+  # PROSE — Gemini 3 Flash: Arena CW #8 (beats Sonnet #19), 80% cheaper. Prompt improvements compensate.
+  prose_stylist:          { backend: cloud, model: gemini_flash, params: { temperature: 0.80, max_tokens: 8192 } }
 
-  # GATE/EVAL — Haiku for gate (precise, cheap), Claude for judge, Kimi K2 for manuscript review (87% of Claude at 1/6 price)
+  # GATE/EVAL — Haiku for gate (precise, cheap), Grok 4.20 for judge (Arena CW #4, understands prose quality), Kimi K2 for manuscript review
   gate_critic:            { backend: cloud, model: haiku, params: { temperature: 0.3 } }
-  judge_evaluator:        { backend: cloud, model: claude, params: { temperature: 0.2 } }
+  judge_evaluator:        { backend: cloud, model: grok420, params: { temperature: 0.2 } }
   manuscript_reviewer:    { backend: cloud, model: kimi, params: { temperature: 0.3 } }
 
   # PLANNING — Gemini Pro (unchanged), plot_architect UPGRADED from Flash
@@ -77,9 +77,9 @@ agent_routing:
   seed_builder:           { backend: cloud, model: gemini, params: { temperature: 0.3, max_tokens: 16384 } }
   plot_architect:         { backend: cloud, model: gemini, params: { temperature: 0.4 } }
 
-  # PROSE-SENSITIVE REVISION — Haiku for craft/emotion, Kimi K2 for dialogue polish (stronger creative awareness)
-  craft_editor:           { backend: cloud, model: haiku, params: { temperature: 0.4, max_tokens: 8192 } }
-  scene_emotion_reviewer: { backend: cloud, model: haiku, params: { temperature: 0.5 } }
+  # PROSE-SENSITIVE REVISION — Kimi K2 for craft/emotion (cheaper than Haiku, better CW: EQ-Bench #9), Kimi K2 for dialogue polish
+  craft_editor:           { backend: cloud, model: kimi, params: { temperature: 0.4, max_tokens: 8192 } }
+  scene_emotion_reviewer: { backend: cloud, model: kimi, params: { temperature: 0.5 } }
   dialogue_polish_editor: { backend: cloud, model: kimi, params: { temperature: 0.4 } }
 
   # STRUCTURAL REVISION — Mistral Small 4 for copy/voice (pattern-matching, $0.15/$0.60), DeepSeek for stress test

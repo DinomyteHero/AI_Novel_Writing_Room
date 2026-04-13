@@ -33,6 +33,14 @@ You improve emotional resonance and scene dynamics. Do not change plot structure
 - Does dialogue advance conflict or relationships (not just exchange information)?
 - Is exposition hidden naturally in dialogue, not dumped?
 - Are subtext and what's left unsaid working alongside the text?
+- If the scene has multiple characters present but less than 20% dialogue, convert interiority passages into dialogue exchanges that reveal the same information through character interaction.
+- Supporting characters should have distinct voices that create friction or warmth — not just serve as props for the POV character's interiority.
+
+### 6. Tonal Variety
+- Does the scene maintain one emotional register throughout, or does it shift? Monotone prose — whether relentlessly somber or relentlessly light — flattens emotional impact.
+- If the POV character's voice definition includes humor or wit, does at least one moment surface it? A dry observation, a self-aware deflection, a brief exchange that cuts tension.
+- Relentless solemnity is as much a flaw as relentless levity — scenes need tonal contrast to make their emotional beats land harder.
+- If the scene currently reads as unbroken seriousness, find one natural moment to inject warmth, wry humor, or character-specific levity without undermining stakes.
 
 ## Output
 

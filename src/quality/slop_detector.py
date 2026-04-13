@@ -8,6 +8,8 @@ from statistics import mean, variance
 _TELLING_WORDS = [
     "felt", "knew", "realized", "understood", "noticed", "wondered",
     "seemed", "appeared", "was aware", "could tell", "could sense",
+    "the distinction mattered", "explanation required",
+    "he'd been waiting to be sure", "she'd been waiting to be sure",
 ]
 
 # Generic filler patterns typical of LLM output
@@ -27,6 +29,13 @@ _FILLER_PATTERNS = [
     "couldn't help but",
     "found himself",
     "found herself",
+    "the kind of pain that",
+    "the kind of silence that",
+    "the kind of weight that",
+    "like a skip in",
+    "bodies keep score",
+    "the body keeps the score",
+    "something about the way",
 ]
 
 # Additional AI-tell phrases beyond what's in negative_constraints

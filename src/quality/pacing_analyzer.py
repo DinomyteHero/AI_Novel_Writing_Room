@@ -133,6 +133,26 @@ class PacingAnalyzer:
                 "threshold": 0.6,
             })
 
+        # Combined description+introspection check (stricter threshold)
+        desc_intro_ratio = distribution.get("description", 0) + distribution.get("introspection", 0)
+        if desc_intro_ratio > 0.55 and not scene_type_flag:
+            scene_type_flag = "description+introspection"
+            flags.append({
+                "type": "scene_type_imbalance",
+                "description": f"Description+introspection combined at {desc_intro_ratio:.0%}, exceeds 55% threshold",
+                "value": desc_intro_ratio,
+                "threshold": 0.55,
+            })
+
+        # Low dialogue ratio flag
+        if dialogue_ratio < 0.15:
+            flags.append({
+                "type": "low_dialogue",
+                "description": f"Dialogue ratio {dialogue_ratio:.1%} below 15% minimum",
+                "value": dialogue_ratio,
+                "threshold": 0.15,
+            })
+
         # Event density
         density, expected_range, density_flag = self._compute_event_density(
             prose, word_count, structural_phase
@@ -148,7 +168,8 @@ class PacingAnalyzer:
                 "threshold": expected_range,
             })
 
-        score = self._compute_score(variance_flag, scene_type_flag, density_flag)
+        low_dialogue = dialogue_ratio < 0.15
+        score = self._compute_score(variance_flag, scene_type_flag, density_flag, low_dialogue)
 
         return {
             "pacing_score": score,
@@ -296,15 +317,18 @@ class PacingAnalyzer:
         variance_flag: bool,
         scene_type_flag: str | None,
         density_flag: bool,
+        low_dialogue: bool = False,
     ) -> float:
         """Compute pacing score from flags."""
         score = 1.0
         if variance_flag:
             score -= 0.20
         if scene_type_flag:
-            score -= 0.20
+            score -= 0.25
         if density_flag:
             score -= 0.15
+        if low_dialogue:
+            score -= 0.10
         return max(0.0, round(score, 3))
 
     def analyze_chapter_pacing(self, scene_analyses: list[dict]) -> dict:

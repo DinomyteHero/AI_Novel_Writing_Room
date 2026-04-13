@@ -34,9 +34,29 @@ banned_phrases:
     - "Couldn't help but"
     - "In that moment"
     - "Something shifted within"
+    - "The kind of pain that"
+    - "The kind of silence that"
+    - "The kind of weight that"
+    - "Like a skip in a recording"
+    - "Something about the way"
+    - "There was something about"
+  book_title_phrases:
+    - "Bodies keep score"
+    - "The body keeps the score"
+    - "Quiet desperation"
+    - "The road not taken"
+    - "Sound and fury"
+  force_over_explanation:
+    - "Ambient hum of the"
+    - "The Force's structural"
+    - "A frequency that"
+    - "The harmonic of the"
 
 structural_rules:
   max_adverb_density: 0.02
   min_sentence_length_variance: 0.3
   max_same_opener_pct: 0.15
   metaphor_cooldown_paragraphs: 8
+  max_description_introspection_pct: 0.55
+  min_dialogue_ratio: 0.15
+  max_metaphor_same_domain: 2
