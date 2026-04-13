@@ -10,7 +10,7 @@
   "conflict": "Sera challenges Ben's authority by expertise — she knows the seal system, he doesn't. Torin mediates with easy warmth that makes the group feel like a team. Kael says almost nothing.",
   "conflict_type": "interpersonal",
   "turning_point": "Sera tests Ben with a tactical question about the Corridor route. His answer is pragmatic rather than doctrinal — she didn't expect a modern Jedi to think like an intelligence operative. First grudging respect.",
-  "opening_hook": "Six people on a ship built for two. The Steady Returns creaks with the overcrowding, and so does the social fabric.",
+  "opening_hook": "Ben wedges himself between a supply crate and the bulkhead to check the nav chart — six people in a ship built for two, and the social fabric creaking as loud as the hull",
   "closing_hook": "Torin finds Ben alone in the corridor and says something warm about Luke — 'Your father's name carries weight even in our time.' The compliment feels genuine. It also feels like an assessment.",
   "emotional_trajectory": "Tension and territorial friction -> unexpected competence demonstration -> uneasy truce",
   "stakes": {
@@ -28,6 +28,11 @@
   "setting": "Aboard the Steady Returns in hyperspace — cramped common area, corridor, cockpit",
   "sensory_details": "The ship straining with extra passengers; Sera's discomfort with modern technology — she reaches for controls that don't exist; Torin's ease in small spaces (military veteran); Kael folded into a corner, watching",
   "target_word_count": 1200,
+  "action_beats": [
+    "Sera reaches for a cockpit control that doesn't exist on a modern ship — her hand closing on blank hull plating",
+    "Ben pulls up the Corridor nav chart and traces the route while answering Sera's tactical question",
+    "Torin clasps Ben's shoulder in the corridor — a commander's measured grip of acknowledgment"
+  ],
   "active_subplots": [
     "SP-A",
     "SP1",

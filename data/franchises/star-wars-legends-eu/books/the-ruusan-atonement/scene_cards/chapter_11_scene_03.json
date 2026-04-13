@@ -10,7 +10,7 @@
   "conflict": "Sera recognizes the notation — Gavran sealed this facility himself, separate from the anchor system. Whatever happened here, he wanted it contained even from his own people.",
   "conflict_type": "external",
   "turning_point": "Sera can crack the seal — it's her era's lock work — but hesitates. This is the first time she's shown reluctance. Whatever Gavran sealed here, she has a guess about what it is.",
-  "opening_hook": "The Corridor narrows — figuratively and literally. The Force ahead is strange in a way that doesn't match previous nodes. Not thinned. Flexible.",
+  "opening_hook": "Desh adjusts the approach vector and frowns — the sensor readings ahead don't match any previous node. The Force registering as something new: not thinned but flexible, the boundary shimmering",
   "closing_hook": "Sera looks at the sealed entrance and says, very quietly: 'This was Maetha's.' The name means nothing to Ben. Sera's expression says it should.",
   "emotional_trajectory": "Professional approach -> growing concern -> Sera's charged recognition",
   "stakes": {
@@ -28,6 +28,11 @@
   "setting": "Approach to Maetha's world — remote, deliberately isolated, high-altitude compound",
   "sensory_details": "The Force here isn't thinned — it's flexible, the boundary between light and dark shifting while watched; sharp clear air; austere architecture visible from approach — disciplined, geometric, beautiful and cold",
   "target_word_count": 1100,
+  "action_beats": [
+    "Desh adjusts the approach vector as sensor readings spike with unfamiliar energy patterns",
+    "Sera pulls her hands back from the console when she recognizes Gavran's personal seal notation on the facility scan",
+    "The group gathers at the viewport as the high-altitude compound materializes — geometric, austere, cold"
+  ],
   "active_subplots": [
     "SP-A",
     "SP1"

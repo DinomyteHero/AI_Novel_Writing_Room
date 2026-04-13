@@ -10,7 +10,7 @@
   "conflict": "The outpost is deeply unsettling — dark-side residue leaks emotional impressions from past experiments. The Force has gaps. Sera's discipline holds but strains. Ben feels cruelty that isn't his — emotional textures without sources.",
   "conflict_type": "environmental",
   "turning_point": "Veraine left a deliberate message at the outpost — not for the group generally, but aimed specifically at Kael. She recognized the Brotherhood's research infrastructure and left a message in Sith-tradition notation that only someone trained in that tradition would read.",
-  "opening_hook": "The Brotherhood Outpost looks like what it was — a laboratory. Not the dramatic Sith temple of holovid imagination. Something worse: a workplace.",
+  "opening_hook": "Ben steps through the outpost entrance and stops — clinical Sith architecture, prefabricated and functional. Not the dramatic temple of holovid imagination. Something worse: a workplace.",
   "closing_hook": "Kael reads the message. His face doesn't change. But he puts the data tablet down with the care of someone handling something that might explode, and walks out of the room without speaking.",
   "emotional_trajectory": "Professional assessment -> dark-side contamination pressure -> shock at Veraine's targeted message",
   "stakes": {
@@ -28,6 +28,11 @@
   "setting": "Brotherhood Outpost world — prefabricated structures, landing pads, underground laboratories",
   "sensory_details": "Clinical Sith architecture — functional, not theatrical; dark-side emotional residue bleeding through lattice gaps; equipment partly disassembled — Veraine took components; Kael's face when he reads the message — controlled blankness that costs effort",
   "target_word_count": 1300,
+  "action_beats": [
+    "Ben steps through the outpost entrance into clinical Sith architecture — prefabricated corridors stripped of theatrics",
+    "Sera tightens her jaw as dark-side emotional residue bleeds through lattice gaps in each room they clear",
+    "Kael picks up the data tablet with Veraine's message, reads it, sets it down with explosive-handler care, and walks out without a word"
+  ],
   "active_subplots": [
     "SP-A",
     "SP2",

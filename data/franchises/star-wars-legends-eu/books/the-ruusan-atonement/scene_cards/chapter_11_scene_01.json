@@ -28,6 +28,11 @@
   "setting": "Aboard the Steady Returns — various locations, hyperspace transit",
   "sensory_details": "Recycled air getting stale; Desh's coffee supply dwindling; Kael's laugh — unexpected, genuine, quickly cut short; Torin telling a story from the NSW with too-perfect timing",
   "target_word_count": 1100,
+  "action_beats": [
+    "Desh marks another tally on his datapad argument tracker as Sera and Torin disagree about galley rotation",
+    "Kael laughs at something Desh says — a short, genuine sound that stops every conversation on the ship",
+    "Desh drops into the co-pilot seat beside Ben with studied casualness and waits until the cockpit door closes"
+  ],
   "active_subplots": [
     "SP-A",
     "SP2",

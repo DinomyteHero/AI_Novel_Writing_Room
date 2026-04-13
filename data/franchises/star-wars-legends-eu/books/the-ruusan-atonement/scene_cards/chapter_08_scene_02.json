@@ -28,6 +28,11 @@
   "setting": "Aboard the Steady Returns — cramped common area, everyone too close together",
   "sensory_details": "Food cooling on plates; Sera's formal diction sharpening; Torin's warmth thinning for the first time; Kael's voice — dry, flat, cutting; Desh watching from the galley like an intelligence analyst reading a room",
   "target_word_count": 1200,
+  "action_beats": [
+    "Sera puts down her fork with controlled precision when Torin raises the technique over their meal",
+    "Torin spreads his hands on the table — a gesture of measured reasonableness that makes his argument feel inevitable",
+    "Kael speaks last, his words landing in the silence after everyone else has committed their positions"
+  ],
   "active_subplots": [
     "SP-A",
     "SP1",

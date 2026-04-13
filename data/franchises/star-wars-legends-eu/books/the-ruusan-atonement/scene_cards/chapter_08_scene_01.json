@@ -10,7 +10,7 @@
   "conflict": "Torin's reaction to the thin place contradicts everyone else's discomfort. Sera notices and grows tense. Ben files it away. Kael watches Torin with the alertness of someone who recognizes a specific kind of danger.",
   "conflict_type": "interpersonal",
   "turning_point": "Torin says 'Ankhural called it the natural state' with a tone that isn't academic — it's nostalgic. Ben's stomach drops for a reason he can't articulate yet.",
-  "opening_hook": "The Force thins between jumps. Not the momentary silence of hyperspace transition — a thinning, like fabric stretched too far.",
+  "opening_hook": "Ben grips the cockpit armrest as the Force thins between jumps — not the momentary silence of hyperspace transition but a thinning, presence flickering like a connection going bad",
   "closing_hook": "Sera catches Ben alone: 'Watch him. In the thin places. Watch what happens to his face.' She doesn't say Torin's name. She doesn't need to.",
   "emotional_trajectory": "Group unease -> focused alarm at Torin's comfort -> private warning from Sera",
   "stakes": {
@@ -28,6 +28,11 @@
   "setting": "Aboard the Steady Returns traversing a moderately degraded zone between nodes",
   "sensory_details": "The Force has gaps — moments where reaching gets nothing, then it's back; Torin's Force presence subtly different in the thin zone — the heaviness easing; Sera's face like stone; Kael's eyes tracking Torin",
   "target_word_count": 1200,
+  "action_beats": [
+    "Ben grips the cockpit armrest as the Force stutters mid-transit — presence flickering like a bad connection",
+    "Torin settles into his seat and tilts his head, listening to the thin zone with an ease that tenses everyone else",
+    "Sera catches Ben in the corridor and grips his arm hard enough to leave marks"
+  ],
   "active_subplots": [
     "SP-A",
     "SP1",

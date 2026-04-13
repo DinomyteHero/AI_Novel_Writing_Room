@@ -25,6 +25,11 @@
   "setting": "Outside the Brotherhood Outpost — night sky, alien stars, thin place ambience",
   "sensory_details": "Unfamiliar constellations; cold air; the outpost's dark-side ambience muted by distance; Kael's Force presence — guarded but not hostile, more open than Ben has felt it",
   "target_word_count": 1100,
+  "action_beats": [
+    "Ben finds Kael on the outpost's exterior steps, face tilted toward constellations that shifted while he slept a thousand years",
+    "Ben sits down on the cold stone beside Kael, leaving a deliberate arm's length of space",
+    "Kael turns Veraine's data tablet over in his hands before pocketing it without showing Ben the message"
+  ],
   "active_subplots": [
     "SP-A",
     "SP2"

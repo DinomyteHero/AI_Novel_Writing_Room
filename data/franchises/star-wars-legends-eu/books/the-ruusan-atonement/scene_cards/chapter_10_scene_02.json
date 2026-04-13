@@ -26,6 +26,11 @@
   "setting": "Brotherhood Outpost — operations area, Veraine's activity evidence spread on tables",
   "sensory_details": "Equipment manifests; disassembly marks on Sith-era machinery; Desh's maps showing Veraine's route and timing; the outpost's dark-side pressure making concentration harder",
   "target_word_count": 1100,
+  "action_beats": [
+    "Desh spreads equipment manifests and disassembly photos across the operations table",
+    "Desh traces Veraine's route on his tactical map, marking each item she took and each she deliberately left",
+    "Ben leans over the evidence layout as the pattern clicks — deliberate curation, not random scavenging"
+  ],
   "active_subplots": [
     "SP-A",
     "SP5"

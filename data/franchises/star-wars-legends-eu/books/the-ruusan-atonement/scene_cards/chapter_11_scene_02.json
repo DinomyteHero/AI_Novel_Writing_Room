@@ -25,6 +25,11 @@
   "setting": "Aboard the Steady Returns — cockpit, night cycle, dim lighting",
   "sensory_details": "Dim instrument lights; the quiet of a ship where everyone else is sleeping; Desh's hands on the controls — steady, the way they always are; the weight of shared memory making the cockpit feel smaller",
   "target_word_count": 1300,
+  "action_beats": [
+    "Desh keeps his hands steady on the flight controls while describing the raid they both remember",
+    "Ben's fingers tighten on the armrest when Desh names the pattern — Torin sounding like the good version of Jacen",
+    "Both men stare at instrument readouts they aren't reading through a long silence"
+  ],
   "active_subplots": [
     "SP3"
   ],

@@ -27,6 +27,11 @@
   "setting": "Aboard the Steady Returns — common area, then private corridor exchange",
   "sensory_details": "Torin's Force presence when he holds the Codex — the heaviness lifting, something lighter and more dangerous replacing it; Sera's jaw tight; Kael's expression: 'I told you so' without saying it",
   "target_word_count": 1100,
+  "action_beats": [
+    "Torin lifts the Codex fragment and holds it steady while the others watch for a reaction that doesn't come",
+    "Sera steps close enough to place her hand flat on the table between Torin and the artifact",
+    "Sera pulls Ben into the corridor and speaks with her back to the common area door"
+  ],
   "active_subplots": [
     "SP-A",
     "SP1"

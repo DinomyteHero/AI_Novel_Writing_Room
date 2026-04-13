@@ -28,6 +28,11 @@
   "setting": "Aboard the Steady Returns — cockpit, nav display active",
   "sensory_details": "Holographic Corridor route glowing blue in the cockpit; each node's status color-coded — red (dead), amber (degraded), green (active), one flashing white (recent activity); Desh's professional assessment overlaid on the mystics' Force debate",
   "target_word_count": 1100,
+  "action_beats": [
+    "Desh activates the nav display and lays out the fourteen-node Corridor route with color-coded status markers",
+    "Sera traces the systematic node-by-node path on the holographic map while arguing for methodical assessment",
+    "Ben keys the selected route into the nav computer — Sera's approach, Kael's reasoning"
+  ],
   "active_subplots": [
     "SP-A",
     "SP5"

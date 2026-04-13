@@ -10,7 +10,7 @@
   "conflict": "Ben drafts another partial report to Luke — more context, still not the full truth. The gap between what he knows and what he reports widens.",
   "conflict_type": "internal",
   "turning_point": "Torin finds Ben composing the report and asks simply: 'What will you tell them?' Not accusatory — curious. Ben changes the subject. The question hangs.",
-  "opening_hook": "Back aboard the Steady Returns, the thin place's lingering effects fade slowly — like adjusting from a dark room to daylight, but in reverse",
+  "opening_hook": "Ben hunches over his datapad composing the second partial report to Luke — enough to explain the delay, not enough to reveal the scope — while the thin place's effects fade like a headache lifting",
   "closing_hook": "Next node on approach. This one's degradation is worse — the Force ahead feels intermittent rather than merely offset. And the energy signature Desh flagged? It's stronger here. Much stronger. Someone spent time.",
   "emotional_trajectory": "Reflective processing -> the weight of withholding -> renewed determination",
   "stakes": {
@@ -26,6 +26,11 @@
   "setting": "Aboard the Steady Returns — Ben's makeshift workspace, then cockpit",
   "sensory_details": "The datapad with Luke's comm frequency; Torin's presence in the doorway — warm, heavy, his Force signature slightly wrong in a way Ben can't name; nav display showing the next node's degraded readings",
   "target_word_count": 1100,
+  "action_beats": [
+    "Ben drafts another partial report to Luke on his datapad, editing out the full scope before transmitting",
+    "Torin leans against the doorframe of Ben's makeshift workspace and watches him compose the message",
+    "Desh pulls up the next node's readings on the nav display — energy signature registering stronger than the last"
+  ],
   "active_subplots": [
     "SP-A",
     "SP4"

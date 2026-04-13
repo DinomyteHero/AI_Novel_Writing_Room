@@ -28,6 +28,11 @@
   "setting": "Maetha's Training Facility — compound of structures around central training ground, high-altitude, thin forests",
   "sensory_details": "The flexible lattice — light and dark present but the boundary shimmers; the training ground's cleared circle still resonant with centuries of practice; austere geometric architecture; Desh: persistent low-level headache that started on arrival",
   "target_word_count": 1300,
+  "action_beats": [
+    "Sera presses her palms against Gavran's seal and works the Force-lock for twelve unbroken minutes while the group waits in silence",
+    "Ben steps into the central training circle and feels the lattice flex — light and dark present simultaneously",
+    "Torin walks to the center of the training ground and stands perfectly still, his Force presence settling like someone arriving home"
+  ],
   "active_subplots": [
     "SP-A",
     "SP1"

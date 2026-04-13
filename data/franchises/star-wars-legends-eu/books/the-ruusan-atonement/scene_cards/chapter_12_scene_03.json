@@ -28,6 +28,12 @@
   "setting": "Maetha's Training Facility exterior, then departure aboard the Steady Returns",
   "sensory_details": "The wrongness spiking — like a bass note dropping below hearing into physical vibration; the flexible lattice at Maetha's location snapping briefly into chaos before stabilizing; Torin's tilted-head listening posture — attentive to something no one else wants to hear",
   "target_word_count": 1000,
+  "action_beats": [
+    "Ben staggers as the wrongness spikes — his hand catching the doorframe to stay upright",
+    "Sera braces against the wall with both palms as the Force destabilizes around them",
+    "Torin tilts his head toward the spike with an attentive listening posture while everyone else recoils",
+    "Desh punches the nav display to life and plots their course to the next node — a settlement world"
+  ],
   "active_subplots": [
     "SP-A",
     "SP5"

@@ -25,6 +25,11 @@
   "setting": "Aboard the Steady Returns — engineering crawlspace, Desh's domain",
   "sensory_details": "The ship's mechanical complaints; Desh's competent hands on familiar systems; Kael folded into an uncomfortable space designed for one person; the hydrospanner warm from Kael's grip",
   "target_word_count": 1100,
+  "action_beats": [
+    "Desh bangs on a malfunctioning conduit and crawls into the engineering crawlspace with his toolkit",
+    "Kael folds himself into the crawlspace beside Desh and begins handing tools without being asked",
+    "Kael passes the hydrospanner after a beat of deliberate stillness — the first thing anyone has asked him for that wasn't about the Force"
+  ],
   "active_subplots": [
     "SP2",
     "SP3"

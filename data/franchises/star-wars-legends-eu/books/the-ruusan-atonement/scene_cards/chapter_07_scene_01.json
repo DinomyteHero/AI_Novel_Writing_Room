@@ -10,7 +10,7 @@
   "conflict": "The thin place is mild but real — Ben's Force perception has a parallax error, distances wrong. The survivors react differently: Sera tightens, Torin relaxes, Kael goes blank.",
   "conflict_type": "environmental",
   "turning_point": "Inside the bunker, the stasis chamber is empty — anchor died centuries ago. But the installation records show someone accessed them recently. Fresh marks in ancient dust.",
-  "opening_hook": "The battlefield world looks peaceful from orbit. On the ground, the rolling terrain is still shaped by trenches a thousand years old, eroded into gentle valleys that nature made beautiful and war made first.",
+  "opening_hook": "Ben's boots hit soil still shaped by thousand-year-old trenches — eroded into gentle valleys that nature made beautiful and war made first — and the Force shifts six inches sideways in his perception",
   "closing_hook": "Fresh boot prints in dust that hasn't been disturbed in centuries. Someone walked these corridors weeks ago.",
   "emotional_trajectory": "Archaeological curiosity -> the wrongness making itself felt -> alertness at recent evidence",
   "stakes": {
@@ -28,6 +28,11 @@
   "setting": "Battlefield Node world — rolling terrain with ancient military earthworks, bunker-style anchor installation",
   "sensory_details": "Corroded war machinery half-buried in grass; depressions that were trenches now gentle dips; inside the bunker: cold, dry, preserved; the thin place's effect on Force-senses — reaching for the handrail and finding it six inches further away",
   "target_word_count": 1200,
+  "action_beats": [
+    "The Steady Returns sets down on terrain still shaped by thousand-year-old trenches eroded into gentle valleys",
+    "Ben reaches for the Force as they exit the ship and finds his perception offset — distances wrong by inches",
+    "Inside the bunker, Ben sweeps dust from an empty stasis chamber and finds fresh tool marks on the access panel"
+  ],
   "active_subplots": [
     "SP-A",
     "SP5"

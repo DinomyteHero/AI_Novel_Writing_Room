@@ -28,6 +28,11 @@
   "setting": "Aboard the Steady Returns — cockpit, approach to Brotherhood Outpost world",
   "sensory_details": "Alarm klaxon; Desh's hands on controls with professional calm; the Force ahead — dark-side residue bleeding through gaps in the lattice like oil through cracked pavement; scan data scrolling with recent activity signatures",
   "target_word_count": 1100,
+  "action_beats": [
+    "Desh drops into the pilot's seat and pulls up sensor data on the Brotherhood Outpost with practiced speed",
+    "Ben braces against the cockpit doorframe as Desh adjusts their approach vector",
+    "Desh highlights the residual energy signatures on the scanner — days old, not active"
+  ],
   "active_subplots": [
     "SP-A",
     "SP5"

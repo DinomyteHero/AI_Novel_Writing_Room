@@ -28,6 +28,11 @@
   "setting": "Aboard the Steady Returns — common area, cramped and intimate",
   "sensory_details": "Desh's food supplies — modern field rations that taste different from anything the survivors know; the datapad with galactic history scrolling; Kael's silence filling the small space",
   "target_word_count": 1200,
+  "action_beats": [
+    "Ben pulls up a galactic history archive on the datapad and slides it across the table to Sera",
+    "Kael asks about his homeworld and Ben searches the database — the screen returning nothing, the planet too small for surviving records",
+    "Torin nods across the common area with a commander's acknowledgment that Ben can't tell is approval or assessment"
+  ],
   "active_subplots": [
     "SP-A",
     "SP1",

@@ -26,6 +26,11 @@
   "setting": "Battlefield Node bunker — records room, Force-locked archive",
   "sensory_details": "The Force-lock dissolving under Sera's touch — a technique Ben has never seen; holographic records in an older data format; the thin place making concentration harder — like reading through slightly wrong glasses",
   "target_word_count": 1200,
+  "action_beats": [
+    "Sera places her palms on the ancient Force-lock and dissolves it in seconds — muscle memory from a thousand years ago",
+    "Ben scrolls through holographic records in an archaic data format while Sera translates the terminology",
+    "Sera pulls up the Veranthos entry — coordinates, purpose, and a warning notation glowing on the display"
+  ],
   "active_subplots": [
     "SP-A",
     "SP4"

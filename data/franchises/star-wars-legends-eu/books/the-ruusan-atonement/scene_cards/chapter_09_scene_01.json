@@ -28,6 +28,11 @@
   "setting": "Aboard the Steady Returns — common area, the Codex fragment on the table between them",
   "sensory_details": "The Codex glowing faintly; experiential flash when Ben touches it — the Force present but unstructured, like hearing music with all the notes but no melody; each character's Force presence reacting differently to the artifact",
   "target_word_count": 1300,
+  "action_beats": [
+    "Sera breaks the seal on the Codex case and lifts the fragment onto the common area table",
+    "Ben touches the Codex and his hand jerks back — the experiential flash of unstructured Force hitting like sensory overload",
+    "The ship alarm cuts through the discussion and Desh clears the common area to reach the cockpit in three seconds"
+  ],
   "active_subplots": [
     "SP-A",
     "SP1",

@@ -10,7 +10,7 @@
   "conflict": "Maetha's warning is unambiguous about the cost. Torin reads it as challenge rather than prohibition — 'She couldn't handle it. That doesn't mean no one can.' Sera hears Gavran in Torin's rationalization.",
   "conflict_type": "interpersonal",
   "turning_point": "Torin's response to the warning: not denial but reframing. He treats Maetha's failure as evidence of her limitations, not the technique's danger. Ben watches Sera's face as Torin speaks and sees something break in her expression — she's seen this pattern before.",
-  "opening_hook": "Maetha's archive voice is different from Gavran's — contemplative where he was meticulous, tragic where he was haunted. A woman who had time to think about what she'd done.",
+  "opening_hook": "Sera activates the archive and a woman's voice fills the sealed chamber — contemplative where Gavran was meticulous, tragic where he was haunted",
   "closing_hook": "'It replaces you.' The words hang in the archive like dust. Torin walks out first. His stride is steady, certain. Sera watches him go, and her hand finds the wall for support.",
   "emotional_trajectory": "Reverent attention -> the impact of the warning -> horror at Torin's response",
   "stakes": {
@@ -27,6 +27,11 @@
   "setting": "Maetha's Training Facility — archive chamber, sealed personal records",
   "sensory_details": "Maetha's voice from the archive — quiet, precise, grieving; the warning's words seeming to resonate in the flexible lattice; Torin's face as he listens — attentive, respectful, unmoved; Sera's hand trembling on the wall",
   "target_word_count": 1200,
+  "action_beats": [
+    "Sera activates Maetha's archive and the recording fills the sealed chamber with a woman's voice",
+    "Torin walks out of the archive first — stride steady, certain, without a backward glance",
+    "Sera's hand finds the wall for support as Torin's footsteps fade down the corridor"
+  ],
   "active_subplots": [
     "SP-A",
     "SP1"
