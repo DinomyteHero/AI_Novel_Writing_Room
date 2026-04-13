@@ -23,6 +23,8 @@ models:
       glm: z-ai/glm-5.1
       qwen: qwen/qwen3.6-plus
       kimi: moonshotai/kimi-k2
+      grok420: x-ai/grok-4.20
+      minimax: minimax/minimax-m2.7
     default_params:
       gemini:
         temperature: 0.6
@@ -39,75 +41,49 @@ models:
       haiku:
         temperature: 0.4
         max_tokens: 4096
+      grok420:
+        temperature: 0.3
+        max_tokens: 8192
+      minimax:
+        temperature: 0.3
+        max_tokens: 4096
 
 # Agent-to-model mapping
 # NOTE: The 'backend' field is ONLY honoured in 'hybrid' deployment_mode.
 # In 'local' or 'cloud' mode, ALL agents use the deployment_mode backend.
 agent_routing:
+  # PROSE — Sonnet, lower temp for structural compliance
+  prose_stylist:          { backend: cloud, model: claude, params: { temperature: 0.72, max_tokens: 8192 } }
 
-  # =========================================================================
-  # PROSE GENERATION — Claude Sonnet 4
-  # Highest-impact slot. The agent the reader actually sees.
-  # To test alternatives, swap 'claude' for 'kimi', 'glm', 'qwen', or 'gemini'
-  # =========================================================================
-  prose_stylist:          { backend: cloud, model: claude, params: { temperature: 0.85, max_tokens: 8192 } }
-
-  # =========================================================================
-  # GATE CRITIC — Claude Sonnet 4
-  # Single chokepoint deciding pass/fail on scenes. Needs the best judgment
-  # available. Cross-model check: Claude judging Claude-written prose.
-  # =========================================================================
-  gate_critic:            { backend: cloud, model: claude, params: { temperature: 0.3 } }
-
-  # =========================================================================
-  # EVALUATION — Claude Sonnet 4
-  # High-stakes final judgment. Runs infrequently, quality justifies cost.
-  # =========================================================================
+  # GATE/EVAL — Grok 4.20: cross-vendor, strict adherence, $6 output vs Sonnet's $15
+  gate_critic:            { backend: cloud, model: grok420, params: { temperature: 0.3 } }
   judge_evaluator:        { backend: cloud, model: claude, params: { temperature: 0.2 } }
   manuscript_reviewer:    { backend: cloud, model: claude, params: { temperature: 0.3 } }
 
-  # =========================================================================
-  # WORKSHOP & PLANNING — Gemini 3.1 Pro
-  # Deep reasoning, franchise knowledge, long creative sessions.
-  # These run infrequently — Pro-tier cost is justified.
-  # =========================================================================
+  # PLANNING — Gemini Pro (unchanged), plot_architect UPGRADED from Flash
   concept_workshop:       { backend: cloud, model: gemini, params: { temperature: 0.7, max_tokens: 8192 } }
   outline_planner:        { backend: cloud, model: gemini, params: { temperature: 0.5, max_tokens: 32768 } }
   seed_builder:           { backend: cloud, model: gemini, params: { temperature: 0.3, max_tokens: 16384 } }
+  plot_architect:         { backend: cloud, model: gemini, params: { temperature: 0.4 } }
 
-  # =========================================================================
-  # PROSE-SENSITIVE REVISION — Claude Haiku 4.5
-  # Agents that need to hear voice drift, cadence issues, and emotional
-  # flatness. Same model family as the prose_stylist — shares Claude's
-  # prose instincts at 1/3 the cost of Sonnet.
-  # =========================================================================
-  craft_editor:           { backend: cloud, model: haiku, params: { temperature: 0.4 } }
+  # PROSE-SENSITIVE REVISION
+  craft_editor:           { backend: cloud, model: claude, params: { temperature: 0.35, max_tokens: 8192 } }
   scene_emotion_reviewer: { backend: cloud, model: haiku, params: { temperature: 0.5 } }
   dialogue_polish_editor: { backend: cloud, model: haiku, params: { temperature: 0.4 } }
 
-  # =========================================================================
-  # STRUCTURAL REVISION — Gemini 3 Flash
-  # Mechanical/structural checks where speed and cost matter more than
-  # prose sensitivity. Near-Pro quality at 1/4 the cost.
-  # =========================================================================
+  # STRUCTURAL REVISION — Flash (unchanged)
   line_copy_editor:       { backend: cloud, model: gemini_flash, params: { temperature: 0.3 } }
   voice_checker:          { backend: cloud, model: gemini_flash, params: { temperature: 0.3 } }
   stress_test:            { backend: cloud, model: gemini_flash, params: { temperature: 0.5 } }
 
-  # =========================================================================
-  # PIPELINE UTILITY — Gemini 3 Flash
-  # Structured tasks, pattern-matching, extraction. Fast iteration.
-  # To test MiniMax M2.7 as cheaper/faster alternative, swap to 'minimax'
-  # To revert to cost-optimized production, swap to 'deepseek'
-  # =========================================================================
+  # UTILITY — MiniMax M2.7 for bulk extraction/checks, DeepSeek for cheapest structured tasks
   orchestrator:           { backend: cloud, model: gemini_flash }
-  plot_architect:         { backend: cloud, model: gemini_flash, params: { temperature: 0.4 } }
-  canon_expert:           { backend: cloud, model: gemini_flash, params: { temperature: 0.2 } }
-  summarizer:             { backend: cloud, model: gemini_flash, params: { temperature: 0.2 } }
-  character_specialist:   { backend: cloud, model: gemini_flash, params: { temperature: 0.4 } }
-  lore_extractor:         { backend: cloud, model: gemini_flash, params: { temperature: 0.2 } }
-  structural_continuity_reviewer: { backend: cloud, model: gemini_flash, params: { temperature: 0.3 } }
-  worldbuilding_coherence_reviewer: { backend: cloud, model: gemini_flash, params: { temperature: 0.3 } }
+  canon_expert:           { backend: cloud, model: grok420, params: { temperature: 0.2 } }
+  summarizer:             { backend: cloud, model: minimax, params: { temperature: 0.2 } }
+  character_specialist:   { backend: cloud, model: minimax, params: { temperature: 0.4 } }
+  lore_extractor:         { backend: cloud, model: minimax, params: { temperature: 0.2 } }
+  structural_continuity_reviewer: { backend: cloud, model: minimax, params: { temperature: 0.3 } }
+  worldbuilding_coherence_reviewer: { backend: cloud, model: minimax, params: { temperature: 0.3 } }
 
 # Pipeline settings
 pipeline:

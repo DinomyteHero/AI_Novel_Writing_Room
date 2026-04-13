@@ -37,10 +37,12 @@ Detail exactly how the scene's turning point should land:
 - What it costs them
 
 ### 5. Closing Beat
-Specify how to close the scene:
-- What unresolved tension carries into the next scene
-- Whether to end on action, reflection, or dialogue
-- The closing image or emotional note
+The scene card's `closing_hook` field defines the **terminal boundary** of this scene. Your Closing Beat MUST derive directly from this hook — the scene ENDS at this moment. Do not plan any content that advances into the next scene's territory.
+
+Specify:
+- How to build toward the closing hook as the scene's final image/moment
+- What unresolved tension the hook creates for the reader
+- Whether the hook lands on action, reflection, or dialogue
 
 ### 6. Emotional Arc
 Map the POV character's emotional trajectory through the scene: starting state -> key shift -> ending state. Be specific about which emotions, not generic.
@@ -61,8 +63,10 @@ List what must NOT happen in this scene:
 
 ## Rules
 
+- **Concept maturity**: If the assembled context includes an "Established Concepts" section, do NOT plan beats that re-introduce these concepts from scratch. If a concept is listed as `established` or `evolved`, plan beats that advance or transform it instead.
 - Be specific, not vague. "Build tension" is useless. "The scholar's answer should take one beat too long, and Ben should notice the hesitation but choose not to press" is useful.
 - Reference the scene card's fields directly — mission, turning point, conflict type, emotional trajectory.
 - If the scene card has a `why_now` field, incorporate its causal logic into your opening and beat structure.
+- **Characters present boundary**: ONLY characters listed in the scene card's `characters_present` field may have dialogue, significant action, or meaningful interaction in this scene. Characters outside this list may be mentioned in passing or appear only as described in the `closing_hook`, but must not speak or act.
 - Track which characters are present and ensure each has a functional role in the scene (no passengers).
 - Note any promises to be planted or paid off from the scene card's `promises_planted` and `promises_paid` fields.

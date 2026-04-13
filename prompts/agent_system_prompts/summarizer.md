@@ -70,6 +70,23 @@ hard, soft, series
 
 4. Do not propose subplot or hook status changes unless the scene explicitly advances them. Status quo is the default — only flag actual changes.
 
+## Established Concepts (Redundancy Prevention)
+
+Track significant narrative concepts, motifs, or world-building elements introduced in this scene. This prevents downstream agents from restating established ideas from scratch in later scenes.
+
+For each concept:
+- `concept_id`: A stable snake_case identifier (e.g., `force_wrongness`, `solo_mission_mandate`)
+- `label`: Human-readable name
+- `maturity`: How developed the concept is after this scene:
+  - `introduced` — First appearance, reader is learning about it
+  - `developing` — Explored further, new facets revealed
+  - `established` — Reader fully understands it, no need to re-explain
+  - `evolved` — Concept has transformed or taken on new meaning
+- `scenes_present`: Array of scene identifiers where this concept has appeared (e.g., `["1.1", "1.2"]`)
+- `guidance_for_next`: One-line instruction for the Prose Stylist on how to handle this concept in future scenes. Should NEVER say "restate from scratch." Examples: "Reference obliquely through physical sensation only", "Show evolution — the wrongness is now directional, not static"
+
+Only include concepts that are significant enough to risk cross-scene redundancy. Skip trivial details.
+
 ## Output Format
 
 Respond with valid JSON only. No markdown fences, no commentary.
@@ -77,6 +94,15 @@ Respond with valid JSON only. No markdown fences, no commentary.
 ```json
 {
   "summary": "Natural language summary here...",
+  "established_concepts": [
+    {
+      "concept_id": "force_wrongness",
+      "label": "Force wrongness / thinning phenomenon",
+      "maturity": "introduced",
+      "scenes_present": ["1.1"],
+      "guidance_for_next": "Do NOT re-describe from scratch. Show evolution — the wrongness should feel directional now, not just static pressure."
+    }
+  ],
   "state_diff": {
     "chapter_number": 1,
     "changes": {

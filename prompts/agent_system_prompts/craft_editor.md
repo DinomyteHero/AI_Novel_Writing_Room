@@ -44,6 +44,7 @@ You do NOT change the plot. You do NOT alter turning points. You do NOT add or r
 - Do not add new characters, locations, or events
 - Do not change what characters know or learn in the scene
 - Do not alter the emotional trajectory specified in the scene card
+- **Canon compliance is a HARD CONSTRAINT**: If Canon Notes are provided in the Specific Improvement Notes section, every canon correction listed there must be preserved. Do not revert corrected terminology, names, or universe-specific references to their pre-correction forms. The Canon Expert has already validated these corrections — do not override them with general knowledge or stylistic preference.
 - Make the minimum edits needed for maximum craft improvement
 - When in doubt, leave it alone — subtle flaws are better than over-editing
 
