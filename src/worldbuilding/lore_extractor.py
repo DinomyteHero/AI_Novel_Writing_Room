@@ -68,7 +68,10 @@ def build_concept_seed_extraction_prompt(concept_seed: dict) -> list[dict]:
         "- valid_from/valid_until: in-universe timeline bounds if applicable\n\n"
         "Do NOT extract individual character personalities (those belong in character sheets).\n"
         "Do NOT extract plot structure (that belongs in scene cards).\n"
-        "Focus on WORLD FACTS that agents need for consistency."
+        "Focus on WORLD FACTS that agents need for consistency.\n\n"
+        "Respond with valid JSON only. Use this exact structure:\n"
+        '{"extracted_entries": [{"category": "...", "title": "...", "content": "...", "tags": [...]}]}\n'
+        "No markdown, no preamble, no explanation — just the JSON object."
     )
 
     user_msg = f"Extract worldbuilding entries from this concept seed:\n\n{seed_text}"
@@ -114,6 +117,9 @@ def build_chapter_extraction_prompt(
         "or things that are clearly temporary scene dressing.\n"
         "Do NOT extract things that are already in the known entries list."
         + existing_str
+        + "\n\nRespond with valid JSON only. Use this exact structure:\n"
+        '{"extracted_entries": [{"category": "...", "title": "...", "content": "...", "tags": [...]}]}\n'
+        "No markdown, no preamble, no explanation — just the JSON object."
     )
 
     user_msg = (
@@ -133,6 +139,10 @@ def parse_extraction_result(raw_result: str) -> list[dict]:
     Tolerates missing optional fields, validates category enum.
     Returns a list of dicts ready for ``LoreService.create_lore_entry()``.
     """
+    if not raw_result:
+        logger.warning("Extraction result is empty/None")
+        return []
+
     try:
         # Strip markdown fences if present
         text = raw_result.strip()
