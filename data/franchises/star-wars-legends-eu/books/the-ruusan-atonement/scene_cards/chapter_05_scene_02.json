@@ -27,6 +27,14 @@
   ],
   "setting": "Fortress Level 2 (Archive) — survivors navigating familiar territory with thousand-year-old muscle memory",
   "sensory_details": "Archive media activating under Sera's touch; holographic displays showing maps of the wound's expansion over centuries; Torin's hand brushing a console with familiarity that makes Ben's skin crawl; the Codex fragment glowing faintly in its sealed case",
+  "canon_elements_needed": [
+    "Ruusan Reformations true historical purpose and aftermath",
+    "Brotherhood of Darkness organization and military doctrine",
+    "Force wound theory with Nihilus and Malachor V precedent",
+    "Institutional memory loss and generational knowledge gaps in the Jedi Order",
+    "Jedi Lords era Force techniques and capabilities",
+    "Light and dark side boundary theory in Legends metaphysics"
+  ],
   "target_word_count": 1400,
   "active_subplots": [
     "SP-A",
@@ -52,5 +60,5 @@
     "R04"
   ],
   "pov_arc_phase": "lie_reinforced",
-  "notes": "R04 is the major First Plot Point revelation. Dense information delivery but through character perspective, not lecture — Sera's precision, Torin's narrative warmth, Kael's dry corrections. Jacen mentioned during galactic history briefing — Ben's tone tells the reader everything."
+  "notes": "R04 is the major First Plot Point revelation. Dense information delivery but through character perspective, not lecture — Sera's precision, Torin's narrative warmth, Kael's dry corrections. Jacen mentioned during galactic history briefing — Ben's tone tells the reader everything. Anti-pattern WARNING: this is the highest info-dump risk scene in the novel. Every piece of exposition must be earned through character reaction. If Sera explains something, Ben's internal response tells the reader why it matters. If Torin narrates, his warmth makes the history feel personal, not academic. Kael's corrections should be brief, surprising, and slightly uncomfortable — he knows things from the other side."
 }

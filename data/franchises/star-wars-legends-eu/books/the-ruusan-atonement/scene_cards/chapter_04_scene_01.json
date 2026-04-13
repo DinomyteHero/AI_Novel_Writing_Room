@@ -24,6 +24,13 @@
   ],
   "setting": "Uncharted world — cold mountain plateau, thin air, sharp light. Fortress exterior: weathered stone and metal alloy, no Jedi symbols visible",
   "sensory_details": "Thin atmosphere burning lungs slightly; wind cutting across the plateau; fortress stone with a thousand-year patina; the wrongness channeled and concentrated like sound through a pipe",
+  "canon_elements_needed": [
+    "Force-locked ancient Jedi facilities and bio-metric entry",
+    "Skywalker bloodline Force signature and hereditary recognition",
+    "Uncharted Outer Rim planetary environments and geology",
+    "Jedi Lords era fortress construction and defensive architecture",
+    "Thin place effects on Force-sensitive perception"
+  ],
   "target_word_count": 1200,
   "active_subplots": [
     "SP-A"

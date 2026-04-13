@@ -26,7 +26,14 @@
     "Kael Drenn"
   ],
   "setting": "Fortress upper level -> departure from the uncharted world",
-  "sensory_details": "The fortress shrinking below as they lift off; the wrongness receding behind but not disappearing — it's everywhere now, just concentrated there; five people in a ship built for two",
+  "sensory_details": "The fortress shrinking below as they lift off; the wrongness receding behind but not disappearing — it's everywhere now, just concentrated there; five people in a ship built for two; the survivors' unfamiliarity with modern cockpit interfaces — Sera's fingers hovering over controls she doesn't recognize, Torin's careful observation, Kael's deliberate stillness",
+  "canon_elements_needed": [
+    "Ben Skywalker communication protocols with Luke and the Jedi Order",
+    "Jedi Order institutional hierarchy for crisis reporting",
+    "Ruusan Corridor strategic geography and anchor node network",
+    "Post-Fate of the Jedi era Jedi Order operational capacity",
+    "Force technique lineage and transmission across eras"
+  ],
   "target_word_count": 1000,
   "active_subplots": [
     "SP-A",

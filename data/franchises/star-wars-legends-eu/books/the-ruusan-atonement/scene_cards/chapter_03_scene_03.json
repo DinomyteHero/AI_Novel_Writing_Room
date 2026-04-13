@@ -24,6 +24,13 @@
   ],
   "setting": "Aboard the Steady Returns — cockpit, then hyperspace",
   "sensory_details": "The nav computer calculating a route through unmapped space; Ben's deleted report drafts; hyperspace blue intensifying the wrongness — like trying to meditate in a room where someone is playing music slightly out of tune",
+  "canon_elements_needed": [
+    "Ben Skywalker institutional relationship with the Jedi Order",
+    "Post-Jacen Solo trust dynamics within the Skywalker family",
+    "Jedi mission reporting protocols and chain of command",
+    "Hyperspace travel through unmapped regions",
+    "Institutional withholding and secrecy in Jedi history"
+  ],
   "target_word_count": 1250,
   "active_subplots": [
     "SP-A",

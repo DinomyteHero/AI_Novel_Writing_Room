@@ -24,6 +24,13 @@
   ],
   "setting": "Luke's office in the Jedi Temple, Coruscant — functional, lived-in, holocomm on the desk",
   "sensory_details": "Luke's Force presence — vast, warm, familiar; the datapad's blue glow; the wrongness present even here, a faint sourness under the Temple's harmonics",
+  "canon_elements_needed": [
+    "Luke Skywalker as Grand Master of the Jedi Order",
+    "Jedi Order survey mission protocols and assignment hierarchy",
+    "Luke and Ben Skywalker relationship post-Lost Tribe crisis",
+    "Force perception differences between Skywalker bloodline practitioners",
+    "Jedi Temple Grand Master administrative spaces"
+  ],
   "target_word_count": 1250,
   "active_subplots": [
     "SP-A",

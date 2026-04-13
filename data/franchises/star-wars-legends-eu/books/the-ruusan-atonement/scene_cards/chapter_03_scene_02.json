@@ -23,7 +23,14 @@
     "Desh Rolan"
   ],
   "setting": "Inside the perimeter facility — data core room, emergency lighting, ancient consoles",
-  "sensory_details": "Flickering holographic displays showing star maps that don't match modern charts; the hum of ancient power cells; cold — the facility's environmental systems are minimal",
+  "sensory_details": "Flickering holographic displays showing star maps that don't match modern charts; the hum of ancient power cells; cold — the facility's environmental systems are minimal; the Force here has a quality of recording, as if the walls remember who walked these corridors",
+  "canon_elements_needed": [
+    "Pre-Ruusan Jedi military command structure and ranks",
+    "Ancient hyperspace navigation charts and star mapping",
+    "Jedi containment and monitoring system architecture",
+    "Ruusan Corridor and Outer Rim strategic geography",
+    "Ancient data storage media in Star Wars Legends"
+  ],
   "target_word_count": 1200,
   "active_subplots": [
     "SP-A",

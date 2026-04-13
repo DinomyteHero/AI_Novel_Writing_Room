@@ -24,6 +24,13 @@
   ],
   "setting": "Unnamed Outer Rim survey world — arid, rocky terrain, ruins half-buried in wind-erosion",
   "sensory_details": "Dry wind; markings carved into stone with unfamiliar tools; the wrongness like standing near a speaker playing a frequency just below hearing; Desh's boots crunching on gravel",
+  "canon_elements_needed": [
+    "Outer Rim archaeological survey procedures for Force anomalies",
+    "Force interaction with ancient artifacts and ruins",
+    "Jedi record-keeping and reporting hierarchy to the Council",
+    "Pre-Republic and Jedi Lords era construction styles",
+    "Thin place theory and Force-strong locations in Legends EU"
+  ],
   "target_word_count": 1300,
   "active_subplots": [
     "SP-A",
@@ -43,5 +50,5 @@
   ],
   "revelations": [],
   "pov_arc_phase": "lie_established",
-  "notes": "First thin place encounter — very mild. The Force responds but distances are wrong. Ben notices; Desh feels nothing overt, maybe unease without a source."
+  "notes": "First thin place encounter — very mild. The Force responds but distances are wrong. Ben notices; Desh feels nothing overt, maybe unease without a source. Voice note: Zahn-precision in the archaeological observation — Ben catalogs before he hypothesizes. Allston-rhythm in the Desh dialogue — banter that masks growing concern."
 }

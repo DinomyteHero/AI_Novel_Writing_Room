@@ -27,6 +27,13 @@
   ],
   "setting": "Fortress Level 3 — the empty chamber, then monitoring station on Level 1",
   "sensory_details": "Damage marks on the chamber walls — not frantic but systematic, deliberate erosion over centuries; Gavran's monitoring flags: red, urgent, unanswered; Veraine's stasis field residue — a different texture in the Force, analytical and hungry",
+  "canon_elements_needed": [
+    "Sith alchemy in Legends EU tradition and capabilities",
+    "Force-user containment and imprisonment methods",
+    "Brotherhood of Darkness era Sith training and specializations",
+    "Stasis chamber escape mechanics and Force erosion techniques",
+    "Darth title usage and Sith identity in the Brotherhood era"
+  ],
   "target_word_count": 1200,
   "active_subplots": [
     "SP-A",
@@ -51,5 +58,5 @@
   ],
   "revelations": [],
   "pov_arc_phase": "lie_reinforced",
-  "notes": "H05 is a hard hook — the race against Veraine begins. Kael/Veraine parallel seeded: Ben notices Kael's reaction to her file but doesn't understand it yet."
+  "notes": "H05 is a hard hook — the race against Veraine begins. Kael/Veraine parallel seeded: Ben notices Kael's reaction to her file but doesn't understand it yet. Kael's reaction to Veraine's file is the most important beat in this scene besides the threat establishment. It must be noticeable but not explained. The reader should register it and wonder. Do not resolve it here."
 }

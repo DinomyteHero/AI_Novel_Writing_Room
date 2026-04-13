@@ -23,6 +23,13 @@
   ],
   "setting": "Jedi Temple, Coruscant — meditation chamber, late evening",
   "sensory_details": "Temple hum of ambient Force presences; the wrongness like a note played slightly flat in an orchestra only Ben can fully hear; cool stone under his hands",
+  "canon_elements_needed": [
+    "Force meditation techniques and Jedi contemplative practice",
+    "Jedi Temple architecture on Coruscant, meditation chambers",
+    "Post-Abeloth era Force sensitivity and lingering disturbances",
+    "Ben Skywalker training history and Force abilities",
+    "Jedi Knight rank responsibilities and daily life circa 47 ABY"
+  ],
   "target_word_count": 1250,
   "active_subplots": [
     "SP-A",
@@ -40,5 +47,5 @@
   "hook_actions": [],
   "revelations": [],
   "pov_arc_phase": "lie_established",
-  "notes": "Establish Ben's Lie: self-reliance as safety. He's handling the wrongness alone because that's what Skywalkers do. Internal monologue should be sharp, self-aware, slightly defensive."
+  "notes": "Establish Ben's Lie: self-reliance as safety. He's handling the wrongness alone because that's what Skywalkers do. Internal monologue should be sharp, self-aware, slightly defensive. Voice markers: Zahn-style tight third-person interiority. Ben's internal voice should be sharp and self-deprecating, never melodramatic. Anti-pattern: avoid describing the Force wrongness in terms of color or visible phenomena — keep it auditory/vibrational."
 }

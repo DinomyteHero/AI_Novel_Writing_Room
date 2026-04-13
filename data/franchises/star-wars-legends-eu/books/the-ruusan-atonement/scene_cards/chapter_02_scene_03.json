@@ -23,7 +23,13 @@
     "Desh Rolan"
   ],
   "setting": "Second survey world — different biome, same era of ruins — then back aboard the Steady Returns for analysis",
-  "sensory_details": "The wrongness stronger here — Force-perception parallax error beginning; vegetation patterns slightly off; Desh's navigation console showing the bearing line",
+  "sensory_details": "The wrongness stronger here — Force-perception parallax error beginning, distances feeling unreliable; vegetation patterns slightly off, as if seasons are out of sync; Desh's navigation console showing the bearing line cutting through empty chart-space; the second world's ruins carry the same tactile resonance as the first, a faint vibration in ancient stone that has no physical source",
+  "canon_elements_needed": [
+    "Outer Rim uncharted space navigation and hazards",
+    "Force bearing and direction perception techniques",
+    "Hyperspace route calculation without established lanes",
+    "Jedi Lords era outpost distribution patterns"
+  ],
   "target_word_count": 1250,
   "active_subplots": [
     "SP-A"
@@ -42,5 +48,5 @@
   ],
   "revelations": [],
   "pov_arc_phase": "lie_established",
-  "notes": "Thin place effects slightly stronger than first world. Desh might notice temperature inconsistencies or sounds carrying oddly — non-Force-sensitive baseline establishing."
+  "notes": "Thin place effects slightly stronger than first world. Desh might notice temperature inconsistencies or sounds carrying oddly — non-Force-sensitive baseline establishing. Pacing note: this is the fastest scene in Act 1 — confirm-and-move. Keep it tight. The reader already understands the pattern from ch2_s2; this scene exists to establish that the pattern is deliberate, not coincidental."
 }

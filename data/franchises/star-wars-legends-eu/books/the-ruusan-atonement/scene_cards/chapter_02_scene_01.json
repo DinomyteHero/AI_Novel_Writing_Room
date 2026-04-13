@@ -24,6 +24,12 @@
   ],
   "setting": "Aboard the Steady Returns in hyperspace — cramped cockpit, lived-in freighter",
   "sensory_details": "Recycled air smell; Desh's coffee; instrument panels jury-rigged with non-standard components; hyperspace blue through the viewport",
+  "canon_elements_needed": [
+    "Light freighter cockpit operations and crew dynamics",
+    "Hyperspace travel sensory experience for Force-sensitives",
+    "Post-Second Galactic Civil War Outer Rim conditions",
+    "Non-Force-sensitive perception of ambient Force phenomena"
+  ],
   "target_word_count": 1200,
   "active_subplots": [
     "SP-A",

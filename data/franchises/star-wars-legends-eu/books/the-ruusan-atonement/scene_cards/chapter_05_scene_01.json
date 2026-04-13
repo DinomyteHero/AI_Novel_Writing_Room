@@ -27,6 +27,13 @@
   ],
   "setting": "Fortress Level 3 \u2014 Stasis Ring, emergency lighting, the three active chambers",
   "sensory_details": "Stasis fields collapsing with a sound like held breath released; Sera's Force presence \u2014 sharp, disciplined, ancient-feeling; Torin's \u2014 warm but heavy, something wrong underneath; Kael's \u2014 clipped, guarded, trained differently; the wrongness resonating through them all",
+  "canon_elements_needed": [
+    "Millennium of temporal displacement effects on Force-sensitives",
+    "Jedi Lords era training versus modern Jedi training differences",
+    "Force presence perception of ancient practitioners by modern Jedi",
+    "Archaic Basic language and communication across eras",
+    "Stasis revival procedures and physiological recovery"
+  ],
   "target_word_count": 1400,
   "active_subplots": [
     "SP-A",
@@ -51,5 +58,5 @@
   "revelations": [],
   "pov_arc_phase": "lie_reinforced",
   "arc_phase_transition": "lie_reinforced",
-  "notes": "Arc transition for Ben: his lie_reinforced phase begins \u2014 the survivors' dependence on him confirms his belief that the burden is his to carry. Sera, Torin, Kael arcs all begin at lie_established."
+  "notes": "Arc transition for Ben: his lie_reinforced phase begins \u2014 the survivors' dependence on him confirms his belief that the burden is his to carry. Sera, Torin, Kael arcs all begin at lie_established. Survivor speech patterns: Sera speaks in complete sentences under stress — formal, precise, military. Torin's warmth has an archaic courtesy to it. Kael waits to be addressed — his silence is itself archaic."
 }

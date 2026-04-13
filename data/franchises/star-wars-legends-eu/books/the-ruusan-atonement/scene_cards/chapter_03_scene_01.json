@@ -24,6 +24,13 @@
   ],
   "setting": "Unnamed Outer Rim world — the perimeter facility, partially underground, Jedi Lords-era construction",
   "sensory_details": "Humming power cells; dust on consoles that haven't been touched in centuries; the wrongness much stronger here — moderate thin place; Desh's chrono running two seconds fast",
+  "canon_elements_needed": [
+    "Jedi Lords era military infrastructure and construction",
+    "Ancient Jedi Force-recognition technology and bio-locks",
+    "Ruusan-era communication protocols and frequencies",
+    "Pre-Ruusan Reformation Jedi Order military operations",
+    "Force-powered ambient energy systems"
+  ],
   "target_word_count": 1300,
   "active_subplots": [
     "SP-A",
@@ -56,5 +63,5 @@
     "R02"
   ],
   "pov_arc_phase": "lie_established",
-  "notes": "R02 lands here — the seal exists and is failing. Stakes become real. The wrongness and anomalous ruins converge into a single crisis. Lord Gavran first named — the facility references him."
+  "notes": "R02 lands here — the seal exists and is failing. Stakes become real. The wrongness and anomalous ruins converge into a single crisis. Lord Gavran first named — do not over-explain him. Let the facility do the characterization work. The reader should infer Gavran's personality from what he built and how he organized it."
 }

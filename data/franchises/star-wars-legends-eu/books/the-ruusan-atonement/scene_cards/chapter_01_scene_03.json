@@ -24,6 +24,13 @@
   ],
   "setting": "Jedi Temple hangar bay -> comm call to Desh -> departure from Coruscant",
   "sensory_details": "Hangar echoes; Desh's voice tinny over long-range comm; hyperspace entry — the wrongness persists through hyperspace, which it shouldn't",
+  "canon_elements_needed": [
+    "Galactic Alliance Guard history, dissolution, and legacy",
+    "Non-Force-sensitive relationships with Jedi in post-war era",
+    "Coruscant to Outer Rim hyperspace travel routes and duration",
+    "Jedi Temple hangar bay layout and departure protocols",
+    "Force perception during hyperspace travel"
+  ],
   "target_word_count": 1250,
   "active_subplots": [
     "SP-A",
@@ -48,5 +55,5 @@
     "R01"
   ],
   "pov_arc_phase": "lie_established",
-  "notes": "R01 lands at end of scene — the wrongness has a direction. This transforms Ben's departure from passive retreat to unconscious pursuit. Desh's arc starts here: lie_established — arrives as a favor, obligation not purpose."
+  "notes": "R01 lands at end of scene — the wrongness has a direction. This transforms Ben's departure from passive retreat to unconscious pursuit. Desh's arc starts here: lie_established — arrives as a favor, obligation not purpose. Anti-pattern: do not info-dump the GAG backstory here. Show it through avoidance — the things Ben and Desh don't say."
 }

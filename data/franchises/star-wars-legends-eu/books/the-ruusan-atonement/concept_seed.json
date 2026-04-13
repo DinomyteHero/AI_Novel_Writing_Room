@@ -614,7 +614,7 @@
     {
       "hook_id": "H06",
       "hook_type": "soft",
-      "planted_in": "Chapter 6",
+      "planted_in": "Chapter 5",
       "resolved_in": "Chapter 21",
       "description": "Torin's quiet question about the modern Jedi's relationship with the light/dark boundary — 'Gavran thought so too. Before.' — seeds his eventual turn"
     },
@@ -1470,7 +1470,7 @@
     {
       "promise_id": "PP04",
       "promise": "Torin's certainty is dangerous and he will act on it",
-      "planted_in": "Chapter 6",
+      "planted_in": "Chapter 5",
       "payoff_in": "Chapter 21",
       "type": "character",
       "related_hook_id": "H06",

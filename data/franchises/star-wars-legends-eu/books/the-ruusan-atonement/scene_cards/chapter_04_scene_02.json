@@ -24,6 +24,13 @@
   ],
   "setting": "Fortress interior — Level 1 (Operations) through Level 2 (Archive), descending corridor to Level 3",
   "sensory_details": "Residual power humming in walls; dust on surfaces undisturbed for centuries; archive media — holocrons, data tablets, vacuum-sealed documents; the transition from dead air above to something charged below",
+  "canon_elements_needed": [
+    "Jedi holocron and archive storage technology",
+    "Ancient Force-monitoring and containment systems",
+    "Pre-Ruusan Jedi military record-keeping practices",
+    "Force-lock mechanisms and access hierarchies",
+    "Living Force signatures detection and differentiation"
+  ],
   "target_word_count": 1300,
   "active_subplots": [
     "SP-A"

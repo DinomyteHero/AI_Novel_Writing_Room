@@ -24,6 +24,13 @@
   ],
   "setting": "Fortress Level 3 (Stasis Ring) and Level 4 (Gavran's Chamber) — emergency lighting, twelve chambers, central shaft",
   "sensory_details": "Flickering blue stasis fields; the different Force signatures of the three living occupants — one disciplined, one heavy, one clipped; the empty chamber's damage marks like claw marks from inside; Gavran's body preserved but clearly dead, hands on controls, face peaceful",
+  "canon_elements_needed": [
+    "Force stasis technology in Star Wars Legends",
+    "Sith-trained prisoners in Jedi custody and containment",
+    "Death and preservation of Force-sensitives in stasis",
+    "Force-sensitives used as structural components",
+    "Jedi Lords era command decisions and moral compromises"
+  ],
   "target_word_count": 1250,
   "active_subplots": [
     "SP-A"
@@ -45,5 +52,5 @@
     "R03"
   ],
   "pov_arc_phase": "lie_established",
-  "notes": "R03 lands here — the fortress is a tomb with three living people. The empty chamber is the threat. Gavran's body at the nexus tells the story without words — he held on until he died. End chapter with Ben and Desh looking at the three active chambers. Decision: wake them?"
+  "notes": "R03 lands here — the fortress is a tomb with three living people. The empty chamber is the threat. Gavran's body at the nexus tells the story without words — he held on until he died. End chapter with Ben and Desh looking at the three active chambers. Decision: wake them? Anti-pattern: do not make Gavran's death maudlin. The grief should come from Ben's recognition of the duty, not from emotional description. Understated is stronger here."
 }
