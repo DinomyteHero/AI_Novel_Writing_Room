@@ -10,7 +10,7 @@
   "conflict": "Ben receives fragmentary reports through the Steady Returns' limited comms. Jedi outposts reporting anomalous Force behavior. The Valley of the Jedi — the most symbolically important Force site connected to the Reformations — is destabilizing.",
   "conflict_type": "external",
   "turning_point": "The Valley's destabilization is directly connected to the seal — the Reformations and the seal were built on the same historical event. As the seal fails, the Valley's trapped Force energy is responding.",
-  "opening_hook": "The comm channels are chattering with reports Ben can only half-intercept. Something is happening in the wider galaxy. The wrongness isn't just here anymore.",
+  "opening_hook": "Ben cycles through comm channels and catches fragmentary reports he can only half-decrypt — Jedi outposts at multiple nexuses reporting anomalous Force behavior. The wrongness isn't just here anymore.",
   "closing_hook": "Luke's personal message, brief and coded: 'Sensing disturbances at multiple nexuses. Report status.' Ben stares at the message for a long time. He doesn't answer.",
   "emotional_trajectory": "Strategic alarm -> scope expanding -> the weight of withholding from Luke deepening",
   "stakes": {
@@ -27,6 +27,11 @@
   "setting": "Aboard the Steady Returns — comm station, hyperspace transit",
   "sensory_details": "Static-filled comm intercepts; Luke's message — brief, controlled, concerned; Ben's datapad with the unanswered reply draft; the wrongness now a constant background note, no longer surprising but permanent",
   "target_word_count": 1200,
+  "action_beats": [
+    "Ben cycles through comm frequencies and catches fragmentary distress reports from Jedi outposts across the galaxy",
+    "Desh pulls up a galactic map and plots each reported disturbance — the pattern radiating outward from the Corridor",
+    "Luke's coded message arrives on Ben's personal frequency and Ben stares at the reply field without typing"
+  ],
   "active_subplots": [
     "SP-A",
     "SP4"

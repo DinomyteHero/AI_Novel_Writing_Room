@@ -26,6 +26,11 @@
   "setting": "Aboard the Steady Returns — common area, meal time",
   "sensory_details": "Food cooling as the conversation heats; Torin's warmth slightly mechanical — the humor arriving on schedule; Sera's silence — she's heard this argument before, from Gavran; Ben's hands under the table, gripping his knees",
   "target_word_count": 1200,
+  "action_beats": [
+    "Torin pushes his plate aside and pulls the tactical display between them as he makes his argument",
+    "Ben's hands grip his knees under the table as Torin names the pattern — curating reality to manage outcomes",
+    "Sera sits motionless through the exchange, her silence carrying the weight of having heard this argument before"
+  ],
   "active_subplots": [
     "SP-A",
     "SP1"

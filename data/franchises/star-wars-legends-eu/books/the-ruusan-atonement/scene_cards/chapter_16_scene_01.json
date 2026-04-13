@@ -28,6 +28,11 @@
   "setting": "Aboard the Steady Returns — cockpit, comm active",
   "sensory_details": "Veraine's voice — calm, precise, academic; the comm signal encrypted in a Sith-era protocol Kael recognizes; Desh running counter-intelligence scenarios on his datapad; Sera's jaw muscles working",
   "target_word_count": 1000,
+  "action_beats": [
+    "Veraine's comm signal cuts through the cockpit speakers — clean, encrypted in a Sith-era protocol Kael recognizes",
+    "Desh runs counter-intelligence scenarios on his datapad while the group debates the truce offer",
+    "Ben keys the acceptance into the comm and transmits before the debate can reopen"
+  ],
   "active_subplots": [
     "SP-A",
     "SP5"

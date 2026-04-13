@@ -28,6 +28,11 @@
   "setting": "Aboard the Steady Returns — cockpit, departure from the breach zone",
   "sensory_details": "Ben's hands shaking on the copilot's controls; the lattice restored but feeling fragile now — he knows what its absence feels like; Desh's steady hands contrasting Ben's; the five faces around the small cockpit",
   "target_word_count": 1400,
+  "action_beats": [
+    "Ben grips the copilot's controls with shaking hands as the breach zone shrinks in the viewport behind them",
+    "Ben pulls up the Corridor map and traces a new route — not following Veraine's trail but cutting ahead to intercept",
+    "Ben turns to face the five people crammed into the cockpit and speaks the first proactive order of the mission"
+  ],
   "active_subplots": [
     "SP-A",
     "SP5"

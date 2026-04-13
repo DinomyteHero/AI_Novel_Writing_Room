@@ -10,7 +10,7 @@
   "conflict": "The note describes a theoretical solution no one has ever tested — and it requires exactly what the group lacks: trust between incompatible traditions. Ben notes it but doesn't understand its significance yet.",
   "conflict_type": "internal",
   "turning_point": "Gavran's admission: 'We lacked the will or the trust.' The man who built the seal — the most powerful Jedi Lord of his era — couldn't do this. And Ben is supposed to succeed where he failed?",
-  "opening_hook": "The note is buried in Gavran's personal annotations — marginalia on the Codex fragment, cross-referenced with a passage Ankhural marked as 'untested, requires conditions we cannot create.'",
+  "opening_hook": "Ben scrolls through Gavran's personal annotations on the Codex data and stops — marginalia cross-referenced with a passage Ankhural marked as 'untested, requires conditions we cannot create'",
   "closing_hook": "Ben bookmarks the note and moves on. He'll come back to it. He doesn't know yet that this is the most important thing he'll read on the entire journey.",
   "emotional_trajectory": "Discovery -> intrigued uncertainty -> filed away for later",
   "stakes": {
@@ -25,6 +25,11 @@
   "setting": "Aboard the Steady Returns — Ben's workspace, archive data on displays",
   "sensory_details": "Archive text in old script; Gavran's handwriting — precise but rushed; the note's passage highlighted against the Codex framework; Sera looking over Ben's shoulder, frowning at Ankhural's name",
   "target_word_count": 1200,
+  "action_beats": [
+    "Ben scrolls through Gavran's marginalia on the archive data while searching for counter-measures to the array",
+    "Sera leans over Ben's shoulder and frowns at Ankhural's name on the display",
+    "Ben bookmarks the resonance note on his datapad and moves on to the next file"
+  ],
   "active_subplots": [
     "SP-A"
   ],

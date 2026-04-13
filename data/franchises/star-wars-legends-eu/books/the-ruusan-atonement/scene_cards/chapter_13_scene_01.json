@@ -10,7 +10,7 @@
   "conflict": "Full de-structuring. The Force is present but formless. Every Force instinct fires into nothing. Ben's moral intuition \u2014 the Force-mediated layer of moral perception \u2014 goes completely silent.",
   "conflict_type": "environmental",
   "turning_point": "Entering the fully de-structured zone. The handrail is gone. Ben reaches for the Force and finds something \u2014 energy, presence, potential \u2014 but no structure. No direction. No light or dark. No texture.",
-  "opening_hook": "The settlement world looks normal from orbit. Green, blue, temperate. The scan data is not normal. And on the surface, the birds are wrong.",
+  "opening_hook": "Ben watches the settlement world fill the viewport — green, blue, temperate — while Desh reads scan data that contradicts everything the eyes report. On the surface, the birds are wrong.",
   "closing_hook": "In the silence of the de-structured Force, Ben hears himself think without the safety net of Force intuition for the first time. The thoughts are his. All of them. Including the ones the Force usually softens.",
   "emotional_trajectory": "Professional assessment -> escalating wrongness -> existential disorientation",
   "stakes": {
@@ -28,6 +28,11 @@
   "setting": "Breach Zone world \u2014 former settlement. Buildings standing, streets traceable, wrong-growing vegetation. Fresh drift \u2014 things changing while watched.",
   "sensory_details": "Buildings intact but growing vegetation on wrong sides; flowers in shadow; vines reversing direction; no birds; the Force \u2014 present but formless, like trying to see in a world where light exists but nothing reflects it; Desh: chrono drift measurable, grief-without-an-object settling in",
   "target_word_count": 1600,
+  "action_beats": [
+    "The Steady Returns breaks orbit and Ben watches the settlement world through the viewport — green, blue, temperate, wrong",
+    "Ben steps onto the surface and reaches for the Force — his perception fires into formless nothing, the handrail gone entirely",
+    "Desh pulls out his chrono and watches the second hand skip — measurable drift in a de-structured zone"
+  ],
   "active_subplots": [
     "SP-A",
     "SP5"

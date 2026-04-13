@@ -10,7 +10,7 @@
   "conflict": "Veraine's argument is genuinely compelling. The lattice IS arguably imposed. The light/dark binary HAS driven a thousand years of war. Her logic is rigorous. Her tone is respectful. She's not a cackling villain — she's a theorist with a thesis and the means to test it.",
   "conflict_type": "interpersonal",
   "turning_point": "Veraine makes her pitch directly to Kael: 'They used us identically, you and I. The only difference is which wall we were sealed into. Why defend the framework that treated us as building material?' The pull is real — the reader should feel it.",
-  "opening_hook": "Veraine in person is worse than Veraine as concept. She's calm, precise, and treats Ben with genuine intellectual respect. Ben would prefer a monster. Monsters are easier to fight.",
+  "opening_hook": "Veraine steps forward and extends a hand — calm, precise, the gesture of someone who treats negotiation as professional courtesy. Ben would prefer a monster. Monsters are easier to fight.",
   "closing_hook": "Veraine's final question before the meeting ends: 'What if I'm right?' She doesn't need an answer. She needs the question to sit in Kael's mind.",
   "emotional_trajectory": "Guarded assessment -> intellectual engagement despite themselves -> the genuine pull of her argument",
   "stakes": {
@@ -29,6 +29,11 @@
   "setting": "Neutral meeting point — possibly a cleared area on a minor world between positions",
   "sensory_details": "Veraine's physical presence — calm, composed, military bearing underneath academic refinement; her Force presence: analytical, precise, not radiating dark-side malice but something more unsettling — certainty without heat; her small crew at distance",
   "target_word_count": 1200,
+  "action_beats": [
+    "Veraine steps forward and extends a hand in greeting — calm, composed, military bearing beneath academic refinement",
+    "Veraine turns to Kael and addresses him by name, her voice shifting to something raw and specific",
+    "Kael stands motionless through the recruitment pitch, his face a mask that costs visible effort to maintain"
+  ],
   "active_subplots": [
     "SP-A",
     "SP2",

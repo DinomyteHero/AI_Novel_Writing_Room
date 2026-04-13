@@ -28,6 +28,11 @@
   "setting": "Breach Zone — deep inside the de-structured area, then retreat to the perimeter",
   "sensory_details": "The lattice returning on exit — relief like warmth after cold; Torin's face changing as they leave — the peace draining, replaced by something heavier and hungrier; Sera watching Torin with the expression of someone watching a prediction come true",
   "target_word_count": 1500,
+  "action_beats": [
+    "Sera clenches her fists and sets her jaw — holding discipline as a physical act against the formless Force",
+    "Kael folds into a survival crouch, ancient and instinctive, his Force presence pulling inward",
+    "Torin smiles and spreads his arms slightly — his Force presence expanding where everyone else's contracts"
+  ],
   "active_subplots": [
     "SP-A",
     "SP1",

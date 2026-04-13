@@ -28,6 +28,11 @@
   "setting": "Aboard the Steady Returns — every surface covered with evidence and analysis",
   "sensory_details": "Tactical displays, archive data, environmental readings all overlaid; Desh's intelligence-analyst mode — visual connections, pattern recognition; the Corridor map resolving into a weapon's diagram",
   "target_word_count": 1100,
+  "action_beats": [
+    "Desh spreads evidence from every node across every flat surface on the ship — datapads, manifests, sensor logs",
+    "Sera pins Corridor maps to the bulkhead and draws connections between node modifications in archaic notation",
+    "Ben traces the amplification array's shape on the tactical display as the pattern resolves"
+  ],
   "active_subplots": [
     "SP-A",
     "SP5"

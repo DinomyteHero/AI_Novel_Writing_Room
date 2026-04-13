@@ -28,6 +28,11 @@
   "setting": "Aboard the Steady Returns — common area reconfigured as tactical briefing space",
   "sensory_details": "Desh's tactical displays; Sera's posture shifting — from adversarial to subordinate, spine straightening; Torin nodding with approval that should feel reassuring and doesn't; Kael leaning against the wall, arms crossed, evaluating",
   "target_word_count": 1200,
+  "action_beats": [
+    "Ben stands in the center of the common area and lays out the intercept strategy on Desh's tactical display",
+    "Sera straightens her spine and shifts her posture from adversarial to subordinate — a soldier accepting command",
+    "Kael leans against the wall with arms crossed, evaluating Ben's plan from the outside"
+  ],
   "active_subplots": [
     "SP-A",
     "SP1"
