@@ -44,6 +44,12 @@ _DIALOGUE_TAG_RE = re.compile(
     re.IGNORECASE,
 )
 
+# Quote characters that delimit dialogue. Includes ASCII " and Unicode
+# curly quotes U+201C (left) and U+201D (right). Saved LLM output almost
+# always uses smart quotes, so ASCII-only matching returned ~0 dialogue
+# ratio on real prose — see adaptive_revision.py for the established pattern.
+_QUOTE_CHARS = frozenset({'"', '\u201c', '\u201d'})
+
 
 def _split_sentences(text: str) -> list[str]:
     """Split text into sentences using regex heuristics."""
@@ -76,6 +82,7 @@ class PacingAnalyzer:
         prose: str,
         structural_phase: str = "setup",
         characters_present: list[str] | None = None,
+        dialogue_expectation: str | None = None,
     ) -> dict:
         """Run all pacing analyses.
 
@@ -83,8 +90,14 @@ class PacingAnalyzer:
             prose: Scene prose text.
             structural_phase: Brooks phase for event density expectations.
             characters_present: List of characters in scene (from scene card).
-                Used to context-aware dialogue ratio threshold: multi-char scenes
-                require higher dialogue floor (35%) vs solo scenes (15%).
+                Retained for backward compatibility; used as a fallback proxy
+                when `dialogue_expectation` is not provided.
+            dialogue_expectation: One of "dialogue_led", "balanced",
+                "interior". Preferred — derived from the scene card via
+                src.quality.dialogue_expectation.derive(). Drives the
+                dialogue-floor threshold and the commercial register target.
+                Replaces the previous `len(characters_present) >= 2` proxy,
+                which misfired on scenes with background second characters.
 
         Returns:
             {
@@ -103,7 +116,16 @@ class PacingAnalyzer:
                 "flags": list,
             }
         """
-        is_multichar = bool(characters_present and len(characters_present) >= 2)
+        # Resolve dialogue expectation: explicit argument wins; otherwise
+        # fall back to the legacy character-count proxy so callers that
+        # haven't migrated keep their current behavior. Callers using a
+        # scene card should pass dialogue_expectation=derive(scene_card).
+        if dialogue_expectation in ("dialogue_led", "balanced", "interior"):
+            expectation = dialogue_expectation
+        else:
+            expectation = "dialogue_led" if (
+                characters_present and len(characters_present) >= 2
+            ) else "interior"
 
         if not prose or not prose.strip():
             return {
@@ -164,16 +186,22 @@ class PacingAnalyzer:
                 "threshold": 0.55,
             })
 
-        # Low dialogue ratio flag (context-aware: multi-char scenes need 35%+, solo 15%+)
-        dialogue_floor = 0.35 if is_multichar else 0.15
-        low_dialogue = dialogue_ratio < dialogue_floor
+        # Low-dialogue flag gated by dialogue_expectation. `interior` has
+        # no floor (POV-isolation scenes shouldn't be pushed toward
+        # dialogue); `balanced` uses the old solo-scene floor; `dialogue_led`
+        # uses the strict multi-char floor.
+        dialogue_floor = {
+            "dialogue_led": 0.35,
+            "balanced": 0.15,
+            "interior": 0.0,
+        }[expectation]
+        low_dialogue = dialogue_floor > 0 and dialogue_ratio < dialogue_floor
         if low_dialogue:
-            scene_context = "multi-character" if is_multichar else "solo"
             flags.append({
                 "type": "low_dialogue",
                 "description": (
                     f"Dialogue ratio {dialogue_ratio:.1%} below {dialogue_floor:.0%} "
-                    f"minimum for {scene_context} scene"
+                    f"minimum for {expectation} scene"
                 ),
                 "value": dialogue_ratio,
                 "threshold": dialogue_floor,
@@ -216,7 +244,7 @@ class PacingAnalyzer:
             dialogue_ratio=dialogue_ratio,
             avg_para_sentences=avg_para_sentences,
             desc_intro_ratio=desc_intro_ratio,
-            is_multichar=is_multichar,
+            dialogue_expectation=expectation,
         )
 
         return {
@@ -252,14 +280,18 @@ class PacingAnalyzer:
         return (cv, cv < 0.3)
 
     def _compute_dialogue_ratio(self, prose: str) -> float:
-        """Measure percentage of text that is dialogue (inside quotes)."""
-        # Count characters inside double quotes
+        """Measure percentage of text that is dialogue (inside quotes).
+
+        Recognizes ASCII `"` and Unicode curly quotes U+201C/U+201D.
+        Toggle-based: treats any quote char as an open/close boundary,
+        which handles well-formed prose regardless of which style is used.
+        """
         in_dialogue = False
         dialogue_chars = 0
         total_chars = 0
 
         for char in prose:
-            if char == '"':
+            if char in _QUOTE_CHARS:
                 in_dialogue = not in_dialogue
                 continue
             if char.isalpha() or char == ' ':
@@ -308,8 +340,8 @@ class PacingAnalyzer:
         words = para.lower().split()
         word_set = set(words)
 
-        # Dialogue: more than 50% of text in quotes
-        quote_chars = sum(1 for c in para if c == '"')
+        # Dialogue: more than 50% of text in quotes (ASCII or curly)
+        quote_chars = sum(1 for c in para if c in _QUOTE_CHARS)
         if quote_chars >= 2:
             # Rough check: if quotes present and dialogue tags found
             if _DIALOGUE_TAG_RE.search(para):
@@ -318,7 +350,7 @@ class PacingAnalyzer:
             in_q = False
             q_len = 0
             for c in para:
-                if c == '"':
+                if c in _QUOTE_CHARS:
                     in_q = not in_q
                 elif in_q:
                     q_len += 1
@@ -413,27 +445,30 @@ class PacingAnalyzer:
         dialogue_ratio: float,
         avg_para_sentences: float,
         desc_intro_ratio: float,
-        is_multichar: bool,
+        dialogue_expectation: str = "balanced",
     ) -> float:
         """Compute composite score for commercial register adherence.
 
         Returns 0.0 (literary register) to 1.0 (commercial register).
         Factors: dialogue ratio vs target, paragraph length, description imbalance.
         Observability metric - doesn't block, but informs.
+
+        `dialogue_expectation` drives the dialogue target: `dialogue_led`
+        targets 40%+, `balanced` targets 15%+, `interior` has no dialogue
+        target (interior scenes are not penalized for low dialogue).
         """
         score = 1.0
 
-        # Dialogue ratio: target 0.40-0.55 for multi-char, 0.15+ for solo
-        if is_multichar:
+        # Dialogue ratio: target driven by expectation
+        if dialogue_expectation == "dialogue_led":
             target_dialogue = 0.40
             if dialogue_ratio < target_dialogue:
-                # Linear penalty up to 0.40 missing
                 gap = target_dialogue - dialogue_ratio
                 score -= min(0.40, gap * 1.0)
-        else:
-            # Solo scenes just need minimum 15%
+        elif dialogue_expectation == "balanced":
             if dialogue_ratio < 0.15:
                 score -= 0.15
+        # "interior" — no dialogue penalty
 
         # Paragraph length: target avg 2-3, penalty above 4
         if avg_para_sentences > 4.0:

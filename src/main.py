@@ -3,7 +3,10 @@
 import argparse
 import asyncio
 import json
+import shutil
+import subprocess
 import sys
+from datetime import datetime, timezone
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -25,6 +28,71 @@ def _slugify_title(title: str) -> str:
     Deprecated: use project_paths.slugify_title instead.
     """
     return slugify_title(title)
+
+
+def _git_info() -> tuple[str | None, bool | None]:
+    """Return (HEAD SHA, is_dirty) for the current repo, or (None, None) if git is unavailable.
+
+    Used for run reproducibility. A run produced on a dirty tree is less
+    reproducible than one on a clean tree, so both facts are captured.
+    """
+    try:
+        sha = subprocess.run(
+            ["git", "rev-parse", "HEAD"],
+            capture_output=True, text=True, timeout=5, check=True,
+        ).stdout.strip()
+    except (subprocess.SubprocessError, FileNotFoundError, subprocess.TimeoutExpired):
+        return None, None
+    try:
+        status = subprocess.run(
+            ["git", "status", "--porcelain"],
+            capture_output=True, text=True, timeout=5, check=True,
+        ).stdout
+        is_dirty = bool(status.strip())
+    except (subprocess.SubprocessError, FileNotFoundError, subprocess.TimeoutExpired):
+        is_dirty = None
+    return sha, is_dirty
+
+
+def _write_reproducibility_snapshot(
+    run_dir: Path,
+    args: argparse.Namespace,
+    pipeline_variant: str,
+) -> None:
+    """Snapshot prompt files and invocation metadata into the run directory.
+
+    Config alone is insufficient for reproducibility: prompt file contents
+    and CLI flags (e.g. --no-revision) both materially change generation
+    behavior. Two runs with identical `config_snapshot.yaml` can produce
+    systematically different prose if either differs. This captures both.
+
+    Writes:
+      - run_dir/prompts_snapshot/  — copy of the entire prompts/ tree
+      - run_dir/invocation.json    — CLI args + timestamp + git SHA + pipeline_variant
+    """
+    run_dir.mkdir(parents=True, exist_ok=True)
+
+    # Copy prompts tree (small — ~19 markdown files, negligible disk cost)
+    prompts_src = Path("prompts")
+    if prompts_src.exists():
+        prompts_dest = run_dir / "prompts_snapshot"
+        # dirs_exist_ok=True so reruns of the same run_id don't crash
+        shutil.copytree(prompts_src, prompts_dest, dirs_exist_ok=True)
+
+    # Invocation metadata
+    sha, dirty = _git_info()
+    invocation = {
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "git_sha": sha,
+        "git_dirty": dirty,
+        "python_version": sys.version,
+        "pipeline_variant": pipeline_variant,
+        "cli_args": {k: v for k, v in vars(args).items() if not k.startswith("_")},
+    }
+    (run_dir / "invocation.json").write_text(
+        json.dumps(invocation, indent=2, default=str),
+        encoding="utf-8",
+    )
 
 
 def load_scene_cards(scene_cards_dir: str, chapter: int | None = None) -> list[dict]:
@@ -574,6 +642,29 @@ async def main():
             encoding="utf-8",
         )
         print(f"  Config snapshot: {paths.config_snapshot_path}")
+
+    # Reproducibility snapshot: prompt files + CLI args + git SHA.
+    # Config alone isn't enough — run13 and run14 had byte-identical
+    # config_snapshot.yaml but produced materially different prose because
+    # prompt text changed between them.
+    if paths.run_dir is not None:
+        # Determine which revision pipeline variant is going to load so the
+        # snapshot records it alongside the flags. Mirrors the try/except
+        # import fallback used later in main().
+        if args.no_revision or args.phase < 3:
+            _pipeline_variant = "disabled"
+        else:
+            try:
+                import src.revision.adaptive_revision  # noqa: F401
+                _pipeline_variant = "adaptive"
+            except ImportError:
+                try:
+                    import src.revision.pipeline  # noqa: F401
+                    _pipeline_variant = "base"
+                except ImportError:
+                    _pipeline_variant = "disabled"
+        _write_reproducibility_snapshot(paths.run_dir, args, _pipeline_variant)
+        print(f"  Prompt + invocation snapshot: {paths.run_dir}")
 
     ledger_path = str(paths.run_ledger_db)
     manuscripts_dir = args.output_dir or pipeline_cfg.get(

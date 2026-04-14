@@ -5,6 +5,7 @@ from pathlib import Path
 
 import yaml
 
+from src.quality.dialogue_expectation import derive as derive_dialogue_expectation
 from src.quality.pacing_analyzer import PacingAnalyzer
 from src.quality.repetition_detector import RepetitionDetector
 from src.quality.slop_detector import SlopDetector
@@ -57,7 +58,17 @@ class MetricsDashboard:
                 "overall_score": float,
                 "passed": bool,
                 "flags": list[str],
+                "per_scene": list[dict],  # single-item list wrapping this result
             }
+
+        `per_scene` is present so downstream consumers that iterate
+        `quality_metrics["per_scene"]` (orchestrator, scene_emotion,
+        line_copy) receive a non-empty list without the orchestrator
+        having to switch to `analyze_chapter_multi_scene`. The inner dict
+        shares structure with the top-level fields; the same rep/pacing/
+        voice/slop dicts are referenced from both places, so consumers
+        that read flat fields and consumers that iterate per_scene see
+        the same underlying data.
         """
         chapter_num = scene_card.get("chapter_number", 0)
         scene_num = scene_card.get("scene_number", 1)
@@ -76,6 +87,7 @@ class MetricsDashboard:
             prose,
             structural_phase=structural_phase,
             characters_present=character_names,
+            dialogue_expectation=derive_dialogue_expectation(scene_card),
         )
         voice_result = self.voice.analyze(
             prose,
@@ -96,7 +108,11 @@ class MetricsDashboard:
         # Collect human-readable flags
         flags = self._collect_flags(rep_result, pacing_result, voice_result, slop_result)
 
-        return {
+        # Build the per-scene payload once and expose it both at the top
+        # level (legacy flat access) and inside `per_scene` (list-iterating
+        # consumers). Shared references — not deep-copied — so there's no
+        # risk of the two views drifting.
+        scene_payload = {
             "chapter_number": chapter_num,
             "scene_number": scene_num,
             "word_count": word_count,
@@ -107,6 +123,10 @@ class MetricsDashboard:
             "overall_score": overall_score,
             "passed": overall_score >= 0.6,
             "flags": flags,
+        }
+        return {
+            **scene_payload,
+            "per_scene": [scene_payload],
         }
 
     def analyze_manuscript(self, chapter_results: list[dict]) -> dict:
