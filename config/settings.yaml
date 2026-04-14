@@ -66,8 +66,8 @@ models:
 # NOTE: The 'backend' field is ONLY honoured in 'hybrid' deployment_mode.
 # In 'local' or 'cloud' mode, ALL agents use the deployment_mode backend.
 agent_routing:
-  # PROSE — Sonnet restored: Gemini Flash failed on structured constraints (word count, closing hooks). Prompt improvements from run8 apply.
-  prose_stylist:          { backend: cloud, model: glm, params: { temperature: 0.80, max_tokens: 8192 } }
+  # PROSE — Sonnet with softened constraints (untested combo): Sonnet's obedience + room to breathe. Plot architect on Gemini Pro.
+  prose_stylist:          { backend: cloud, model: claude, params: { temperature: 0.80, max_tokens: 8192 } }
 
   # GATE/EVAL — Haiku for gate (precise, cheap), Grok 4.20 for judge (Arena CW #4, understands prose quality), Kimi K2 for manuscript review
   gate_critic:            { backend: cloud, model: haiku, params: { temperature: 0.3 } }
