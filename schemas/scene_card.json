@@ -26,6 +26,11 @@
     "opening_hook": { "type": "string" },
     "conflict": { "type": "string", "minLength": 1 },
     "conflict_type": { "type": "string", "enum": ["internal", "interpersonal", "external", "environmental"] },
+    "dialogue_expectation": {
+      "type": "string",
+      "enum": ["dialogue_led", "balanced", "interior"],
+      "description": "Expected dialogue mode for this scene. Drives drafter/revision behavior. `dialogue_led` = 40-55% dialogue target, back-and-forth exchange carries the scene. `balanced` = no hard floor, dialogue and interiority share weight. `interior` = POV-isolation scene, interior monologue and observation dominate even if additional characters are physically present. When omitted, derive() in src/quality/dialogue_expectation.py infers a safe default from scene_type/conflict_type/characters_present. Explicit override is the escape hatch for scenes where a second character is background (e.g. sparring partner in a sequel scene)."
+    },
     "turning_point": { "type": "string", "minLength": 1 },
     "closing_hook": { "type": "string" },
     "characters_present": { "type": "array", "items": { "type": "string" } },

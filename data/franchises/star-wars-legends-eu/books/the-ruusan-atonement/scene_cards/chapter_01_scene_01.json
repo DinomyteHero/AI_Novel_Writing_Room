@@ -22,6 +22,7 @@
     "Ben Skywalker",
     "Jedi Knight (sparring partner)"
   ],
+  "dialogue_expectation": "interior",
   "setting": "Jedi Temple, Coruscant — training salle, late evening session",
   "sensory_details": "Training sabers humming; the wrongness like a note played slightly flat that disrupts Ben's combat timing; sweat on his palms, the sound of boots on the salle floor; Temple hum of ambient Force presences",
   "canon_elements_needed": [

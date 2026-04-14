@@ -17,6 +17,21 @@ class TestMetricsDashboard:
         assert "flags" in result
         assert isinstance(result["flags"], list)
 
+    def test_analyze_chapter_includes_per_scene(self, metrics_dashboard, sample_prose, sample_scene_card):
+        # Consumers (orchestrator, scene_emotion, line_copy) iterate
+        # `quality_metrics["per_scene"]`. The key must be present as a
+        # single-item list wrapping this scene's result, so those loops
+        # actually fire instead of silently no-opping.
+        result = metrics_dashboard.analyze_chapter(sample_prose, sample_scene_card)
+        assert "per_scene" in result
+        assert isinstance(result["per_scene"], list)
+        assert len(result["per_scene"]) == 1
+        scene = result["per_scene"][0]
+        # Inner scene payload must carry the fields consumers actually read.
+        assert "pacing" in scene
+        assert "repetition" in scene
+        assert scene["pacing"] is result["pacing"]  # shared reference, not a copy
+
     def test_clean_prose_passes(self, metrics_dashboard, sample_prose, sample_scene_card):
         result = metrics_dashboard.analyze_chapter(sample_prose, sample_scene_card)
         assert result["overall_score"] >= 0.5

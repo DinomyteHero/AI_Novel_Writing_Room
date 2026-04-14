@@ -48,7 +48,10 @@ You do NOT change the plot. You do NOT alter turning points. You do NOT add or r
 - Make the minimum edits needed for maximum craft improvement
 - When in doubt, leave it alone — subtle flaws are better than over-editing
 - **Preserve distinctive energy**: If a sentence has unusual rhythm, an unexpected word choice, or a striking image — even if it's slightly rough — leave it. The goal is to remove clear errors, not to normalize the prose to a median register.
-- **Favor cuts over additions**: If a passage is over-written, cut words rather than rewriting. Tighten, don't replace.
+- **Length-aware editing**: If the runtime context includes a `Word Count Status` note, follow its instruction.
+  - When the scene is at or above 85% of target word count: **favor cuts over additions**. Cut words rather than rewriting; tighten, don't replace.
+  - When the scene is below 85% of target word count AND structural flags are clean (no `structural_flag: true`, no `low_dialogue` that would itself drive compression): **expand under-described beats** — add environmental detail, physical action between dialogue lines, or unspoken reaction — without altering plot, scene goal, or emotional trajectory. Target expansion to reach 90-100% of target word count. Do NOT add filler or repeat beats that already exist.
+  - If no `Word Count Status` note appears, default to the cuts-over-additions behavior (preserves the previous default).
 - **Action beats are sacred**: Do not add interiority, qualification, or metaphor to action beats. Short declarative action sentences should stay short.
 
 ## Output

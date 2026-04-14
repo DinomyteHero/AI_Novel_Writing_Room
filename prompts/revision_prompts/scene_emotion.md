@@ -35,13 +35,13 @@ You improve emotional resonance and scene dynamics. Do not change plot structure
 - Are subtext and what's left unsaid working alongside the text?
 - Supporting characters should have distinct voices that create friction or warmth — not just serve as props for the POV character's interiority.
 
-### 5a. Commercial Register Conversion (Band 2 Priority)
-The target register is **commercial Star Wars EU** (Zahn/Allston/Golden) — dialogue-led, short paragraphs, propulsive pacing. Not literary/experimental.
+### 5a. Commercial Register (Band 2 Context)
+The target register is **commercial Star Wars EU** (Zahn/Allston/Golden) — short paragraphs, propulsive pacing, not literary/experimental. How much dialogue a scene should carry depends on the scene card's `dialogue_expectation` field, not on character count.
 
-- If quality metrics show dialogue_ratio below 35% for a multi-character scene, **actively rewrite at least 2 interiority passages as dialogue exchanges**. Don't flag — convert.
-- Long descriptive paragraphs (>4 sentences) should be broken with a line of dialogue, a physical action, or an environmental interruption.
-- Worldbuilding delivered by the narrator should be converted into character dialogue where characters plausibly have reason to discuss it.
-- When converting interiority to dialogue, preserve the information but deliver it through a character reaction, question, or observation.
+- **If the Runtime Notes section below flags specific imbalance, act on it** (description imbalance, dialogue-led scene with low dialogue ratio, etc.). The runtime block is metric-gated and only appears when intervention is genuinely warranted.
+- **If no runtime flag appears, do NOT preemptively rewrite interiority into dialogue.** The scene card may legitimately call for `interior` or `balanced` — forcing dialogue on a POV-isolation scene is a regression, not a fix. In that case, flag observations about register mismatch in your output for the orchestrator to surface rather than rewriting.
+- Long descriptive paragraphs (>4 sentences) should be broken with a line of dialogue, a physical action, or an environmental interruption — but only when the scene card's `dialogue_expectation` is `dialogue_led` or `balanced`. For `interior` scenes, break with physical action or sensory detail instead.
+- Worldbuilding delivered by the narrator can be converted into character dialogue only when (a) the scene has multiple actively-engaged characters AND (b) the scene card's `dialogue_expectation` is not `interior`.
 - Aim for paragraph lengths averaging 2-3 sentences. Six-sentence paragraphs should be rare and reserved for deliberate slow moments.
 
 ### 6. Tonal Variety
