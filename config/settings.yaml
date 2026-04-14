@@ -74,11 +74,11 @@ agent_routing:
   judge_evaluator:        { backend: cloud, model: grok420, params: { temperature: 0.2 } }
   manuscript_reviewer:    { backend: cloud, model: kimi, params: { temperature: 0.3 } }
 
-  # PLANNING — Gemini Pro for workshop/outline/seed, GLM-5.1 for plot_architect (structured briefs, 59% cheaper than Gemini Pro)
+  # PLANNING — Gemini Pro for workshop/outline/seed, Gemini Flash for plot_architect (structured briefs, 75% cheaper than Pro)
   concept_workshop:       { backend: cloud, model: gemini, params: { temperature: 0.7, max_tokens: 8192 } }
   outline_planner:        { backend: cloud, model: gemini, params: { temperature: 0.5, max_tokens: 32768 } }
   seed_builder:           { backend: cloud, model: gemini, params: { temperature: 0.3, max_tokens: 16384 } }
-  plot_architect:         { backend: cloud, model: glm, params: { temperature: 0.4 } }
+  plot_architect:         { backend: cloud, model: gemini_flash, params: { temperature: 0.4 } }
 
   # PROSE-SENSITIVE REVISION — Kimi K2 for craft/emotion (cheaper than Haiku, better CW: EQ-Bench #9), Kimi K2 for dialogue polish
   craft_editor:           { backend: cloud, model: kimi, params: { temperature: 0.4, max_tokens: 8192 } }
