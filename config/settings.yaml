@@ -43,6 +43,9 @@ models:
       haiku:
         temperature: 0.4
         max_tokens: 4096
+      glm:
+        temperature: 0.4
+        max_tokens: 8192
       grok420:
         temperature: 0.3
         max_tokens: 8192
