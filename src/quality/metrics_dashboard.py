@@ -72,7 +72,11 @@ class MetricsDashboard:
             character_names=character_names,
             prior_chapters=prior_chapters,
         )
-        pacing_result = self.pacing.analyze(prose, structural_phase=structural_phase)
+        pacing_result = self.pacing.analyze(
+            prose,
+            structural_phase=structural_phase,
+            characters_present=character_names,
+        )
         voice_result = self.voice.analyze(
             prose,
             voice_notes=voice_notes,

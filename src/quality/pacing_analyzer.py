@@ -71,8 +71,20 @@ def _split_sentences(text: str) -> list[str]:
 class PacingAnalyzer:
     """Measure narrative pacing characteristics."""
 
-    def analyze(self, prose: str, structural_phase: str = "setup") -> dict:
+    def analyze(
+        self,
+        prose: str,
+        structural_phase: str = "setup",
+        characters_present: list[str] | None = None,
+    ) -> dict:
         """Run all pacing analyses.
+
+        Args:
+            prose: Scene prose text.
+            structural_phase: Brooks phase for event density expectations.
+            characters_present: List of characters in scene (from scene card).
+                Used to context-aware dialogue ratio threshold: multi-char scenes
+                require higher dialogue floor (35%) vs solo scenes (15%).
 
         Returns:
             {
@@ -85,9 +97,14 @@ class PacingAnalyzer:
                 "event_density_per_1k": float,
                 "expected_density_range": list,
                 "density_flag": bool,
+                "avg_paragraph_sentences": float,
+                "paragraph_length_flag": bool,
+                "commercial_register_score": float,
                 "flags": list,
             }
         """
+        is_multichar = bool(characters_present and len(characters_present) >= 2)
+
         if not prose or not prose.strip():
             return {
                 "pacing_score": 1.0,
@@ -102,6 +119,9 @@ class PacingAnalyzer:
                 "event_density_per_1k": 0.0,
                 "expected_density_range": list(PHASE_DENSITY.get(structural_phase, (2.0, 5.0))),
                 "density_flag": False,
+                "avg_paragraph_sentences": 0.0,
+                "paragraph_length_flag": False,
+                "commercial_register_score": 1.0,
                 "flags": [],
             }
 
@@ -144,13 +164,32 @@ class PacingAnalyzer:
                 "threshold": 0.55,
             })
 
-        # Low dialogue ratio flag
-        if dialogue_ratio < 0.15:
+        # Low dialogue ratio flag (context-aware: multi-char scenes need 35%+, solo 15%+)
+        dialogue_floor = 0.35 if is_multichar else 0.15
+        low_dialogue = dialogue_ratio < dialogue_floor
+        if low_dialogue:
+            scene_context = "multi-character" if is_multichar else "solo"
             flags.append({
                 "type": "low_dialogue",
-                "description": f"Dialogue ratio {dialogue_ratio:.1%} below 15% minimum",
+                "description": (
+                    f"Dialogue ratio {dialogue_ratio:.1%} below {dialogue_floor:.0%} "
+                    f"minimum for {scene_context} scene"
+                ),
                 "value": dialogue_ratio,
-                "threshold": 0.15,
+                "threshold": dialogue_floor,
+            })
+
+        # Paragraph length check (commercial register: short paragraphs)
+        avg_para_sentences, para_length_flag = self._compute_paragraph_length(paragraphs)
+        if para_length_flag:
+            flags.append({
+                "type": "paragraph_length",
+                "description": (
+                    f"Average paragraph length {avg_para_sentences:.1f} sentences exceeds "
+                    f"commercial register target (avg 2-3, max ~4)"
+                ),
+                "value": avg_para_sentences,
+                "threshold": 4.0,
             })
 
         # Event density
@@ -168,8 +207,17 @@ class PacingAnalyzer:
                 "threshold": expected_range,
             })
 
-        low_dialogue = dialogue_ratio < 0.15
-        score = self._compute_score(variance_flag, scene_type_flag, density_flag, low_dialogue)
+        score = self._compute_score(
+            variance_flag, scene_type_flag, density_flag,
+            low_dialogue, para_length_flag,
+        )
+
+        commercial_score = self._compute_commercial_register_score(
+            dialogue_ratio=dialogue_ratio,
+            avg_para_sentences=avg_para_sentences,
+            desc_intro_ratio=desc_intro_ratio,
+            is_multichar=is_multichar,
+        )
 
         return {
             "pacing_score": score,
@@ -181,6 +229,9 @@ class PacingAnalyzer:
             "event_density_per_1k": round(density, 1),
             "expected_density_range": list(expected_range),
             "density_flag": density_flag,
+            "avg_paragraph_sentences": round(avg_para_sentences, 2),
+            "paragraph_length_flag": para_length_flag,
+            "commercial_register_score": round(commercial_score, 3),
             "flags": flags,
         }
 
@@ -318,6 +369,7 @@ class PacingAnalyzer:
         scene_type_flag: str | None,
         density_flag: bool,
         low_dialogue: bool = False,
+        para_length_flag: bool = False,
     ) -> float:
         """Compute pacing score from flags."""
         score = 1.0
@@ -329,7 +381,72 @@ class PacingAnalyzer:
             score -= 0.15
         if low_dialogue:
             score -= 0.10
+        if para_length_flag:
+            score -= 0.10
         return max(0.0, round(score, 3))
+
+    def _compute_paragraph_length(
+        self, paragraphs: list[str]
+    ) -> tuple[float, bool]:
+        """Compute average sentences per paragraph.
+
+        Commercial register prefers short paragraphs (avg 2-3 sentences).
+        Flag if average exceeds 4 sentences per paragraph.
+        """
+        if not paragraphs:
+            return (0.0, False)
+
+        sentence_counts = []
+        for para in paragraphs:
+            sentences = _split_sentences(para)
+            if sentences:
+                sentence_counts.append(len(sentences))
+
+        if not sentence_counts:
+            return (0.0, False)
+
+        avg = sum(sentence_counts) / len(sentence_counts)
+        return (avg, avg > 4.0)
+
+    def _compute_commercial_register_score(
+        self,
+        dialogue_ratio: float,
+        avg_para_sentences: float,
+        desc_intro_ratio: float,
+        is_multichar: bool,
+    ) -> float:
+        """Compute composite score for commercial register adherence.
+
+        Returns 0.0 (literary register) to 1.0 (commercial register).
+        Factors: dialogue ratio vs target, paragraph length, description imbalance.
+        Observability metric - doesn't block, but informs.
+        """
+        score = 1.0
+
+        # Dialogue ratio: target 0.40-0.55 for multi-char, 0.15+ for solo
+        if is_multichar:
+            target_dialogue = 0.40
+            if dialogue_ratio < target_dialogue:
+                # Linear penalty up to 0.40 missing
+                gap = target_dialogue - dialogue_ratio
+                score -= min(0.40, gap * 1.0)
+        else:
+            # Solo scenes just need minimum 15%
+            if dialogue_ratio < 0.15:
+                score -= 0.15
+
+        # Paragraph length: target avg 2-3, penalty above 4
+        if avg_para_sentences > 4.0:
+            # Scale penalty: 4.0 -> 0, 6.0 -> -0.20, 8.0+ -> -0.30
+            excess = avg_para_sentences - 4.0
+            score -= min(0.30, excess * 0.10)
+
+        # Description imbalance: target < 0.55 combined desc+intro
+        if desc_intro_ratio > 0.55:
+            excess = desc_intro_ratio - 0.55
+            score -= min(0.30, excess * 1.0)
+
+        return max(0.0, score)
 
     def analyze_chapter_pacing(self, scene_analyses: list[dict]) -> dict:
         """Aggregate pacing metrics across a chapter's scenes.

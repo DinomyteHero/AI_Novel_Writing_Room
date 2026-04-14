@@ -58,5 +58,8 @@ structural_rules:
   max_same_opener_pct: 0.15
   metaphor_cooldown_paragraphs: 8
   max_description_introspection_pct: 0.55
-  min_dialogue_ratio: 0.15
+  min_dialogue_ratio_solo: 0.15
+  min_dialogue_ratio_multichar: 0.35
   max_metaphor_same_domain: 2
+  max_paragraph_avg_sentences: 4
+  max_consecutive_interiority_paragraphs: 3

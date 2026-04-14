@@ -33,8 +33,16 @@ You improve emotional resonance and scene dynamics. Do not change plot structure
 - Does dialogue advance conflict or relationships (not just exchange information)?
 - Is exposition hidden naturally in dialogue, not dumped?
 - Are subtext and what's left unsaid working alongside the text?
-- If the scene has multiple characters present but less than 20% dialogue, convert interiority passages into dialogue exchanges that reveal the same information through character interaction.
 - Supporting characters should have distinct voices that create friction or warmth — not just serve as props for the POV character's interiority.
+
+### 5a. Commercial Register Conversion (Band 2 Priority)
+The target register is **commercial Star Wars EU** (Zahn/Allston/Golden) — dialogue-led, short paragraphs, propulsive pacing. Not literary/experimental.
+
+- If quality metrics show dialogue_ratio below 35% for a multi-character scene, **actively rewrite at least 2 interiority passages as dialogue exchanges**. Don't flag — convert.
+- Long descriptive paragraphs (>4 sentences) should be broken with a line of dialogue, a physical action, or an environmental interruption.
+- Worldbuilding delivered by the narrator should be converted into character dialogue where characters plausibly have reason to discuss it.
+- When converting interiority to dialogue, preserve the information but deliver it through a character reaction, question, or observation.
+- Aim for paragraph lengths averaging 2-3 sentences. Six-sentence paragraphs should be rare and reserved for deliberate slow moments.
 
 ### 6. Tonal Variety
 - Does the scene maintain one emotional register throughout, or does it shift? Monotone prose — whether relentlessly somber or relentlessly light — flattens emotional impact.
