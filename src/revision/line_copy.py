@@ -25,6 +25,7 @@ class LineCopyEditor(BaseAgent):
 
     def _format_context(self, context: dict) -> str:
         prose = context["prose"]
+        scene_card = context.get("scene_card", {})
         negative_constraints = context.get("negative_constraints", "")
         quality_flags = context.get("quality_flags", [])
         quality_metrics = context.get("quality_metrics", {})
@@ -70,6 +71,34 @@ class LineCopyEditor(BaseAgent):
                         f"emotions or reactions directly and rewrite them to convey the same "
                         f"information through action, sensation, or dialogue."
                     )
+
+        # Word Count Status — gated at the target boundary (ratio >= 1.0),
+        # not the craft-editor expansion trigger (0.85). Revision bands come
+        # after craft editor and should not undo its work by compressing a
+        # scene that is already inside the target range. The ledger on run16
+        # showed Band 3 removing 210 words from scene 1 (entered at 92% of
+        # target, exited at 75%) — that cut would have been prevented here.
+        target_wc = scene_card.get("target_word_count")
+        current_wc = len(prose.split()) if prose else 0
+        if target_wc and target_wc > 0:
+            ratio = current_wc / target_wc
+            if ratio >= 1.0:
+                status = (
+                    f"Current: {current_wc} words / Target: {target_wc} "
+                    f"({ratio:.0%}). Scene is at or above target — standard "
+                    f"cutting behavior applies."
+                )
+            else:
+                status = (
+                    f"Current: {current_wc} words / Target: {target_wc} "
+                    f"({ratio:.0%}). Scene is under target. Do not reduce "
+                    f"word count further: restrict cuts to clear errors only "
+                    f"(AI-tells, banned phrases, exact duplicates, grammar, "
+                    f"typos). Achieve rhythm, variety, and paragraph-length "
+                    f"improvements through rewriting at equal-or-greater "
+                    f"length, not through cutting."
+                )
+            parts.append(f"## Word Count Status\n{status}")
 
         parts.append(f"## Current Prose\n{prose}")
 

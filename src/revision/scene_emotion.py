@@ -82,6 +82,33 @@ class SceneEmotionReviewer(BaseAgent):
                         f"the narrator here can plausibly be moved into character dialogue."
                     )
 
+        # Word Count Status — gated at the target boundary (ratio >= 1.0),
+        # not the craft-editor expansion trigger (0.85). Revision bands come
+        # after craft editor and should not undo its work by compressing a
+        # scene that is already inside the target range. Run16 scene 2
+        # showed Band 2 trimming 32 words from prose already under target.
+        target_wc = scene_card.get("target_word_count")
+        current_wc = len(prose.split()) if prose else 0
+        if target_wc and target_wc > 0:
+            ratio = current_wc / target_wc
+            if ratio >= 1.0:
+                status = (
+                    f"Current: {current_wc} words / Target: {target_wc} "
+                    f"({ratio:.0%}). Scene is at or above target — standard "
+                    f"emotional-dynamics improvements apply."
+                )
+            else:
+                status = (
+                    f"Current: {current_wc} words / Target: {target_wc} "
+                    f"({ratio:.0%}). Scene is under target. Do not reduce "
+                    f"word count further. Improve emotional dynamics and "
+                    f"conflict quality as rewrites of equal or slightly "
+                    f"greater length. Description-imbalance rebalancing (if "
+                    f"flagged) must transform mode without reducing word "
+                    f"count."
+                )
+            parts.append(f"## Word Count Status\n{status}")
+
         parts.append(f"## Scene Card\n```json\n{json.dumps(scene_card, indent=2)}\n```")
         parts.append(f"## Current Prose\n{prose}")
 
