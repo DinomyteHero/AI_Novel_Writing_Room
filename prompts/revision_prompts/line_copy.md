@@ -31,6 +31,7 @@ You make precise, surgical edits to improve prose quality. Do not change plot, c
 - Fix dangling modifiers and misplaced phrases
 - Ensure pronoun references are clear
 - Maintain consistent capitalization conventions (follow franchise style)
+- Catch typos and spelling errors — especially in multi-syllable franchise-specific terminology where a model may insert or drop a letter (e.g. doubled consonants, missing vowels)
 
 ### 5. Rhythm and Flow
 - Vary paragraph lengths: mix 1-2 sentence paragraphs with longer blocks
