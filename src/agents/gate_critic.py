@@ -168,15 +168,39 @@ class GateCritic(BaseAgent):
         return "\n\n".join(parts)
 
     async def run(self, context: dict) -> dict:
-        """Run the gate critic and return structured evaluation."""
+        """Run the gate critic and return structured evaluation.
+
+        Verdict and route are always derived from `failure_codes` — the model's
+        stated verdict is not trusted for routing. This prevents the contract
+        inconsistency where `verdict="pass"` could coexist with a structural
+        failure code and cause the orchestrator to skip the rewrite loop.
+        Disagreements between the model's stated verdict and the derived one
+        are logged for prompt-tuning diagnostics.
+        """
         messages = self._build_messages(context)
         result = await self.router.complete_structured(self.role, messages)
 
-        # Validate and normalize the result
-        failure_codes = result.get("failure_codes", [])
-        verdict = result.get("verdict", determine_verdict(failure_codes))
-        route_to = result.get("route_to", determine_route(verdict))
+        # Drop unknown codes rather than silently widening the taxonomy.
+        raw_failure_codes = result.get("failure_codes", [])
+        failure_codes = []
+        for fc in raw_failure_codes:
+            if isinstance(fc, dict) and fc.get("code") in ALL_CODES:
+                failure_codes.append(fc)
+            else:
+                bad = fc.get("code") if isinstance(fc, dict) else fc
+                print(f"    Gate: dropping unknown failure_code {bad!r}")
+
+        verdict = determine_verdict(failure_codes)
+        route_to = determine_route(verdict)
         severity = "blocking" if verdict in ("fail_structural", "fail_voice") else "non_blocking"
+
+        model_verdict = result.get("verdict")
+        if model_verdict and model_verdict != verdict:
+            codes_list = [fc["code"] for fc in failure_codes]
+            print(
+                f"    Gate: model verdict '{model_verdict}' overridden to "
+                f"'{verdict}' based on failure codes {codes_list}"
+            )
 
         return {
             "verdict": verdict,

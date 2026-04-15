@@ -179,6 +179,11 @@ def _init_phase2(concept_seed_path: str, config: dict, manuscripts_dir: str,
             )
         except Exception as e:
             print(f"Warning: CanonDB init failed: {e}")
+    else:
+        print(
+            f"Warning: Canon DB directory not found at {canon_db_dir} — "
+            f"canon validation will be skipped for this run"
+        )
 
     return (
         story_state,
@@ -735,6 +740,11 @@ async def main():
                     canon_expert = CanonExpert(router, canon_evidence=ranker)
                 except (ImportError, Exception) as e:
                     print(f"  Warning: CanonExpert not available: {e}")
+            else:
+                print(
+                    "  Warning: CanonExpert skipped — no canon_db available. "
+                    "See earlier Phase 2 init warnings for root cause."
+                )
 
             print("  Phase 2 components initialized")
         else:
