@@ -387,6 +387,13 @@ async def main():
         help="Skip the revision pipeline (Phase 3/4 only)",
     )
     parser.add_argument(
+        "--raw-draft",
+        action="store_true",
+        help="Baseline mode: skip Craft Editor and revision pipeline. "
+             "Saves the gate-passed draft directly. Use this to measure "
+             "the writer+gate loop in isolation before post-gate stages.",
+    )
+    parser.add_argument(
         "--no-milestones",
         action="store_true",
         help="Skip milestone gate pausing (Phase 3/4 only)",
@@ -501,6 +508,10 @@ async def main():
     )
 
     args = parser.parse_args()
+
+    # --raw-draft implies --no-revision (baseline mode)
+    if args.raw_draft:
+        args.no_revision = True
 
     # Web server mode
     if args.server:
@@ -940,6 +951,7 @@ async def main():
         universe_id=franchise_slug,
         project_id=book_id,
         worldbuilding_auto_extract=bool(lore_service and franchise_slug),
+        raw_draft=args.raw_draft,
     )
 
     # Create session if Phase 4

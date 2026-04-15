@@ -93,6 +93,7 @@ class Orchestrator:
         universe_id: Optional[str] = None,
         project_id: Optional[str] = None,
         worldbuilding_auto_extract: bool = False,
+        raw_draft: bool = False,
     ):
         self.router = router
         self.assembler = context_assembler
@@ -101,6 +102,7 @@ class Orchestrator:
         self.manuscripts_dir.mkdir(parents=True, exist_ok=True)
         self.max_structural_retries = max_structural_retries
         self.max_voice_retries = max_voice_retries
+        self.raw_draft = raw_draft
 
         # Initialize Phase 1 agents
         self.plot_architect = PlotArchitect(router)
@@ -336,9 +338,13 @@ class Orchestrator:
         print("  [3/4] Gate Critic evaluating...")
         evaluation, prose = await self._gate_loop(scene_card, prose, generation_brief)
 
-        # Step 4: Craft Editor polishes
-        print("  [4/4] Craft Editor polishing...")
-        final_prose = await self._run_craft_editor(scene_card, prose, evaluation, canon_notes)
+        # Step 4: Craft Editor polishes (skipped in --raw-draft baseline mode)
+        if self.raw_draft:
+            print("  [4/4] Craft Editor skipped (--raw-draft baseline mode)")
+            final_prose = prose
+        else:
+            print("  [4/4] Craft Editor polishing...")
+            final_prose = await self._run_craft_editor(scene_card, prose, evaluation, canon_notes)
 
         # Post-craft canon re-check: fix any violations reintroduced
         if canon_result and canon_result.get("violations"):
