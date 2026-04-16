@@ -20,11 +20,12 @@ EVENT_TYPES = [
     "agent_complete",
     "gate_pass",
     "gate_fail",
-    "craft_edit_complete",
+    # Final Gate / Quality Polish events (Phase 1 pipeline redesign)
+    "final_gate_complete",
+    "final_gate_rejection",
+    "compression_guard_fired",
     "state_diff_proposed",
     "state_diff_committed",
-    "revision_band_start",
-    "revision_band_complete",
     "milestone_reached",
     "milestone_gate_paused",
     "pipeline_complete",
@@ -44,7 +45,7 @@ EVENT_TYPES = [
 class RunLedger:
     """Append-only event log for pipeline execution."""
 
-    def __init__(self, db_path: str = "data/run_ledger.db", run_id: str | None = None):
+    def __init__(self, db_path: str = "output/_fallback/run_ledger.db", run_id: str | None = None):
         self.db_path = Path(db_path)
         self.db_path.parent.mkdir(parents=True, exist_ok=True)
         self.run_id = run_id

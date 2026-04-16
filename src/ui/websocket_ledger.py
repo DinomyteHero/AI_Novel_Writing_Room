@@ -18,7 +18,7 @@ logger = logging.getLogger(__name__)
 class WebSocketLedger(RunLedger):
     """RunLedger that also pushes events to a broadcast queue."""
 
-    def __init__(self, db_path: str = "data/run_ledger.db", queue: Optional[asyncio.Queue] = None):
+    def __init__(self, db_path: str = "output/_fallback/run_ledger.db", queue: Optional[asyncio.Queue] = None):
         super().__init__(db_path)
         self._queue = queue or asyncio.Queue(maxsize=10000)
         self._dropped_count = 0

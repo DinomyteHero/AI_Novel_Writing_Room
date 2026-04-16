@@ -151,7 +151,7 @@ _MIGRATIONS: list[tuple[int, str, callable]] = [
 class WorldbuildingDB:
     """SQLite-backed persistence for universes, lore entries, and relations."""
 
-    def __init__(self, db_path: str = "data/worldbuilding.db") -> None:
+    def __init__(self, db_path: str = "output/_fallback/worldbuilding.db") -> None:
         path = Path(db_path)
         path.parent.mkdir(parents=True, exist_ok=True)
 

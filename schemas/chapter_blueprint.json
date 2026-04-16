@@ -1,0 +1,125 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ChapterBlueprint",
+  "description": "Chapter-level planning artifact. Sits between concept_seed (story-wide truth) and scene_card (scene-level contract). Owns chapter mission, turn, reveal schedule, subplot obligations, pacing, and exit vector. Phase 2 defines the schema; Phase 3 wires the Chapter Gate Critic to consume it.",
+  "type": "object",
+  "required": ["chapter_number", "chapter_mission", "chapter_turn", "structural_phase", "scene_count", "scene_plan", "chapter_word_target"],
+  "properties": {
+    "chapter_number": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "1-indexed chapter number."
+    },
+    "chapter_mission": {
+      "type": "string",
+      "minLength": 1,
+      "description": "What this chapter must accomplish structurally. One or two sentences."
+    },
+    "chapter_turn": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The chapter-level turning point — how the POV character's or the story's state shifts across the chapter as a whole, distinct from any single scene's turn."
+    },
+    "structural_phase": {
+      "type": "string",
+      "enum": ["setup", "first_plot_point", "response", "first_pinch", "midpoint", "attack", "second_pinch", "second_plot_point", "resolution", "climax"],
+      "description": "Larger-scale structural phase this chapter belongs to. Matches scene_card.structural_phase enum."
+    },
+    "pov_allocation": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "POV characters that carry scenes in this chapter, in appearance order."
+    },
+    "scene_count": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Number of scenes in the chapter."
+    },
+    "scene_plan": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Per-scene skeleton. Each item is the chapter-level intent for a scene; the full drafting contract lives in the matching scene_card file.",
+      "items": {
+        "type": "object",
+        "required": ["scene_number", "role", "target_word_count", "purpose"],
+        "properties": {
+          "scene_number": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "1-indexed scene number within the chapter."
+          },
+          "role": {
+            "type": "string",
+            "enum": ["hook", "escalation", "reveal", "decision", "aftermath"],
+            "description": "Narrative function within the chapter. Matches scene_card.scene_role."
+          },
+          "dialogue_expectation": {
+            "type": "string",
+            "enum": ["dialogue_led", "balanced", "interior"],
+            "description": "Expected dialogue mode. Matches scene_card.dialogue_expectation."
+          },
+          "target_word_count": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Target word count for this scene. Should match the paired scene_card.target_word_count."
+          },
+          "purpose": {
+            "type": "string",
+            "minLength": 1,
+            "description": "One-sentence statement of what the scene does for the chapter's mission."
+          }
+        }
+      }
+    },
+    "reveal_payload": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Revelation IDs (from concept_seed.revelations) that land in this chapter."
+    },
+    "hook_movements": {
+      "type": "object",
+      "description": "Chapter-level hook agenda. Each array holds hook_ids from concept_seed.hooks.",
+      "properties": {
+        "planted": { "type": "array", "items": { "type": "string" } },
+        "advanced": { "type": "array", "items": { "type": "string" } },
+        "resolved": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "subplot_obligations": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Subplot IDs (from concept_seed.subplots) this chapter must touch."
+    },
+    "relationship_turns": {
+      "type": "array",
+      "description": "Relationship-level state changes that must land in this chapter.",
+      "items": {
+        "type": "object",
+        "required": ["dyad", "from", "to"],
+        "properties": {
+          "dyad": { "type": "string", "minLength": 1, "description": "Character-pair identifier, e.g., 'Ben/Luke'." },
+          "from": { "type": "string", "minLength": 1, "description": "Prior relationship state." },
+          "to": { "type": "string", "minLength": 1, "description": "New relationship state at chapter end." }
+        }
+      }
+    },
+    "pacing_curve": {
+      "type": "string",
+      "enum": ["rising", "falling", "steady", "mixed"],
+      "description": "Shape of the chapter's pressure curve across its scenes."
+    },
+    "exit_vector": {
+      "type": "string",
+      "description": "The energy and direction the chapter should leave the reader with. Informs the final scene's closing hook."
+    },
+    "chapter_word_target": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Target total word count for the chapter. Sum of scene target_word_counts typically matches this."
+    },
+    "notes": {
+      "type": "string",
+      "description": "Planner-level notes about the chapter. Parallel to scene_card.notes for scene-level."
+    }
+  }
+}

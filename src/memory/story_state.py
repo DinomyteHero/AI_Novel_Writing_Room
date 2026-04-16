@@ -452,7 +452,7 @@ _MIGRATIONS: list[tuple[int, str, callable]] = [
 class StoryState:
     """SQLite-backed persistent story state for the novel pipeline."""
 
-    def __init__(self, db_path: str = "data/story_state.db") -> None:
+    def __init__(self, db_path: str = "output/_fallback/story_state.db") -> None:
         path = Path(db_path)
         path.parent.mkdir(parents=True, exist_ok=True)
 

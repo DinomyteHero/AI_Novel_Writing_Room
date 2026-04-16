@@ -1,0 +1,111 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "GenerationBrief",
+  "description": "Typed planner-to-drafter contract. Emitted by Plot Architect, consumed by Prose Stylist. Replaces the 8-section free-text brief with structured fields. Free text lives at the leaves; orchestration shape is typed at the top.",
+  "type": "object",
+  "required": ["scene_objective", "turning_point", "closing_beat", "emotional_arc", "target_word_count"],
+  "properties": {
+    "scene_objective": {
+      "type": "string",
+      "minLength": 1,
+      "description": "What this scene must accomplish structurally. One or two sentences. Derived from scene_card.mission plus context."
+    },
+    "opening_mode": {
+      "type": "string",
+      "enum": ["in_medias_res", "sensory_hook", "dialogue_hook", "contrast"],
+      "description": "How the scene should open. Drives Prose Stylist's first-paragraph choices."
+    },
+    "key_beats": {
+      "type": "array",
+      "description": "3-5 specific story beats the scene must execute, in order.",
+      "items": {
+        "type": "object",
+        "required": ["beat_description", "state_change", "pov_reaction"],
+        "properties": {
+          "beat_description": { "type": "string", "minLength": 1, "description": "Physical or dialogic event." },
+          "state_change": { "type": "string", "description": "What changes as a result of this beat." },
+          "pov_reaction": { "type": "string", "description": "POV character's internal response (thought, sensation, or impulse — not narrated emotion)." }
+        }
+      }
+    },
+    "turning_point": {
+      "type": "object",
+      "description": "How the scene's turning point lands. Every required field surfaces as a separate prompt section for Prose Stylist.",
+      "required": ["trigger", "shift", "cost"],
+      "properties": {
+        "trigger": { "type": "string", "minLength": 1, "description": "What causes the turn." },
+        "shift": { "type": "string", "minLength": 1, "description": "How scene dynamics change after the trigger." },
+        "cost": { "type": "string", "minLength": 1, "description": "What the turn costs the POV character — emotional, relational, or strategic." }
+      }
+    },
+    "closing_beat": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The scene's final beat. Must land on or near scene_card.closing_hook — Prose Stylist treats this as a hard boundary."
+    },
+    "emotional_arc": {
+      "type": "object",
+      "description": "POV character's emotional trajectory across the scene. Start and end are named states; shift is the transition.",
+      "required": ["start", "shift", "end"],
+      "properties": {
+        "start": { "type": "string", "minLength": 1, "description": "Starting emotional state." },
+        "shift": { "type": "string", "minLength": 1, "description": "The pivot — what changes and why." },
+        "end": { "type": "string", "minLength": 1, "description": "Ending emotional state." }
+      }
+    },
+    "voice_guidance": {
+      "type": "string",
+      "description": "Sentence rhythm, vocabulary choices, tonal palette. Reference register (e.g., Zahn/Allston/Golden) lives here if applicable."
+    },
+    "forbidden_moves": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Things that MUST NOT happen in this scene. Typically structural phase violations or canon limits."
+    },
+    "delivery_preferences": {
+      "type": "object",
+      "description": "How the scene's information should reach the reader. Controls reveal pacing and exposition density.",
+      "properties": {
+        "reveal_mode": {
+          "type": "string",
+          "enum": ["direct", "gradual", "subtext"],
+          "description": "How revelations land. `direct` = stated on the page; `gradual` = layered across beats; `subtext` = implied, reader reconstructs."
+        },
+        "exposition_budget": {
+          "type": "string",
+          "enum": ["concise", "moderate", "none"],
+          "description": "How much worldbuilding/backstory prose is allowed. `none` = scene must carry zero exposition."
+        },
+        "register_override": {
+          "type": ["string", "null"],
+          "description": "If this scene departs from the concept seed's default voice register, name the override (e.g., 'clinical' for an autopsy scene). Null otherwise."
+        }
+      }
+    },
+    "required_hooks": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Hook IDs (from concept_seed.hooks) to plant, advance, or resolve. Must match scene_card.hook_actions."
+    },
+    "required_subplots": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Subplot IDs (from concept_seed.subplots) to touch in this scene."
+    },
+    "required_revelations": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Revelation IDs (from concept_seed.revelations) to deliver in this scene."
+    },
+    "anti_patterns": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Moves the drafter must avoid. Extracted from scene_card.notes by the Plot Architect — surfacing them explicitly raises their salience in the Prose Stylist's prompt."
+    },
+    "target_word_count": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Target word count for the scene. Must match scene_card.target_word_count — the brief echoes it so Prose Stylist does not have to cross-reference."
+    }
+  }
+}

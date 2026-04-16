@@ -46,16 +46,18 @@ class TestPlotArchitectPhase5Context:
         assert "Active Subplots" in formatted
         assert "Trust Arc" in formatted
 
-    def test_generation_brief_requests_new_sections(self, architect):
-        """The task prompt includes Hook/Subplot/Arc directives."""
+    def test_generation_brief_requests_hook_subplot_revelation_fields(self, architect):
+        """The task prompt names the typed brief fields for hooks/subplots/revelations."""
         context = {
             "scene_card": {"chapter_number": 1, "pov_character": "Hero",
                            "mission": "Test", "conflict": "X", "turning_point": "Y"},
         }
         formatted = architect._format_context(context)
-        assert "Hook directives" in formatted
-        assert "Subplot directives" in formatted
-        assert "Arc phase directive" in formatted
+        # The Phase 2 typed brief surfaces these as dedicated array fields
+        # instead of prose "directive" sections.
+        assert "required_hooks" in formatted
+        assert "required_subplots" in formatted
+        assert "required_revelations" in formatted
 
     def test_no_phase5_context_still_works(self, architect):
         """Without Phase 5 context, formatting still works (backward compat)."""

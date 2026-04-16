@@ -25,7 +25,7 @@ class EpubExporter:
     def export(
         self,
         manuscript_md: str,
-        output_path: str = "data/export/manuscript.epub",
+        output_path: str = "output/_fallback/export/manuscript.epub",
     ) -> Path:
         """Convert markdown manuscript to EPUB.
 

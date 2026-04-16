@@ -1,13 +1,31 @@
-"""Plot Architect agent — reads a scene card and produces a generation brief."""
+"""Plot Architect agent — reads a scene card and produces a typed generation brief.
+
+Emits JSON matching `schemas/generation_brief.json`. Consumed by Prose Stylist,
+which surfaces the typed fields as labeled prompt sections.
+"""
 
 import json
 
 from src.agents.base_agent import BaseAgent
 
 
+# Required fields per schemas/generation_brief.json. Used for the semantic
+# check after the LLM response returns — missing required fields log a
+# warning but do not hard-fail (the orchestrator still needs a brief to
+# continue; missing fields surface as reduced Prose Stylist guidance, which
+# Final Gate catches downstream).
+REQUIRED_BRIEF_FIELDS = [
+    "scene_objective",
+    "turning_point",
+    "closing_beat",
+    "emotional_arc",
+    "target_word_count",
+]
+
+
 class PlotArchitect(BaseAgent):
-    """Reads a scene card + story bible essentials and produces a generation
-    brief with structured directions for the Prose Stylist."""
+    """Reads a scene card + story bible essentials and produces a typed
+    generation brief for the Prose Stylist."""
 
     def __init__(self, router, role: str = "plot_architect"):
         super().__init__(router, role)
@@ -44,24 +62,54 @@ class PlotArchitect(BaseAgent):
 
         parts.append(
             "## Task\n"
-            "Produce a detailed generation brief for the Prose Stylist. Include:\n"
-            "1. **Scene objective**: What this scene must accomplish structurally\n"
-            "2. **Opening beat**: How to open (hook, image, dialogue)\n"
-            "3. **Key beats**: 3-5 specific beats that must occur in order\n"
-            "4. **Turning point execution**: How the turning point should land\n"
-            "5. **Closing beat**: How to close (hook into next scene)\n"
-            "6. **Emotional arc**: The emotional trajectory for the POV character\n"
-            "7. **Voice guidance**: Specific notes for this POV character's voice\n"
-            "8. **Constraints**: What must NOT happen (structural phase rules, canon limits)\n"
-            "9. **Hook directives**: Which hooks to plant, advance, or resolve (from Hook Agenda)\n"
-            "10. **Subplot directives**: Which subplot lines this scene should touch\n"
-            "11. **Arc phase directive**: Where the POV character should be in their arc after this scene\n"
+            "Produce a typed generation brief as a JSON object matching the "
+            "GenerationBrief schema. Required fields: scene_objective, "
+            "turning_point (with trigger/shift/cost), closing_beat, "
+            "emotional_arc (with start/shift/end), target_word_count.\n\n"
+            "Optional fields: opening_mode (in_medias_res | sensory_hook | "
+            "dialogue_hook | contrast), key_beats (3-5 items each with "
+            "beat_description/state_change/pov_reaction), voice_guidance, "
+            "forbidden_moves, delivery_preferences (reveal_mode: "
+            "direct|gradual|subtext; exposition_budget: concise|moderate|none; "
+            "register_override: string or null), required_hooks, "
+            "required_subplots, required_revelations, anti_patterns.\n\n"
+            "**Anti-pattern extraction (IMPORTANT):** scan the scene card's "
+            "`notes` field for forbidden-move language ('do not open with a "
+            "flashback', 'avoid exposition dump', etc.) and populate the "
+            "`anti_patterns` array. Surfacing them explicitly in the brief "
+            "raises their salience for the drafter; they would otherwise be "
+            "buried in the raw scene card.\n\n"
+            "**target_word_count** must equal scene_card.target_word_count — "
+            "echo it so Prose Stylist does not have to cross-reference.\n\n"
+            "Return JSON only. No surrounding prose or markdown fences."
         )
 
         return "\n\n".join(parts)
 
-    def _parse_response(self, response: str, context: dict) -> dict:
+    async def run(self, context: dict) -> dict:
+        """Run the Plot Architect and return a typed generation brief.
+
+        Uses `complete_structured` so the LLM output is parsed as JSON with
+        one automatic retry on parse failure. Semantic validation checks
+        required fields; missing fields are logged but do not raise — the
+        pipeline continues with a partial brief, and Final Gate catches
+        downstream contract violations.
+        """
+        messages = self._build_messages(context)
+        brief = await self.router.complete_structured(self.role, messages)
+
+        missing = [f for f in REQUIRED_BRIEF_FIELDS if f not in brief]
+        if missing:
+            print(
+                f"    PlotArchitect: generation_brief missing required fields "
+                f"{missing} — Prose Stylist will render with reduced guidance"
+            )
+
         return {
-            "generation_brief": response,
+            "generation_brief": brief,
             "scene_card": context["scene_card"],
         }
+
+    def _parse_response(self, response: str, context: dict) -> dict:
+        # Not used — run() overrides the flow to use complete_structured
+        return {}

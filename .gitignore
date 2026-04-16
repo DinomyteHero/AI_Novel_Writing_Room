@@ -36,17 +36,33 @@ dist/
 build/
 *.egg-info/
 
-# Legacy flat output paths (superseded by output/<project>/)
+# Pipeline runtime — canonical per-project output (franchise-scoped).
+# See data/README.md for the full layout.
+output/*/*/state/
+
+# Fallback runtime dirs, used when ProjectPaths isn't supplied (ad-hoc
+# scripts, tests, UI fallbacks). Updated defaults in src/ route here.
+output/_fallback/
+
+# Legacy root-level data/ dirs (pre-franchise). The code no longer writes
+# to these; patterns remain so existing user checkouts don't show stray
+# runtime files in git status. Safe to delete — see data/README.md.
 data/manuscripts/
 data/export/
-
-# Pipeline runtime artifacts (generated per-run, not source-controlled)
-data/projects/*/state/sessions/
 data/sessions/
+data/projects/
+data/universes/
+data/models/
+data/canon_dbs/
 data/worldbuilding.db
 data/worldbuilding_vectors/
+data/projects/*/state/sessions/
+
+# Runtime databases anywhere under data/ (franchise-scoped worldbuilding
+# and canon DBs live under data/franchises/{franchise}/, still gitignored).
+data/franchises/*/worldbuilding.db
+data/franchises/*/worldbuilding_vectors/
 **/canon_db/
-output/*/*/state/
 *.db-journal
 *.db-wal
 *.db-shm

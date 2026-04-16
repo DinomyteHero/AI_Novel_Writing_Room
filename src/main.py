@@ -138,7 +138,7 @@ def _init_phase2(concept_seed_path: str, config: dict, manuscripts_dir: str,
     # Initialize SQLite story state (project-scoped via ProjectPaths)
     state_db_path = str(paths.story_state_db) if paths else config.get(
         "pipeline", {}
-    ).get("story_state_path", "data/story_state.db")
+    ).get("story_state_path", "output/_fallback/story_state.db")
     story_state = StoryState(db_path=state_db_path)
 
     # Initialize from concept seed
@@ -152,7 +152,7 @@ def _init_phase2(concept_seed_path: str, config: dict, manuscripts_dir: str,
     # Chapter memory (ChromaDB, project-scoped via ProjectPaths)
     chapter_memory_dir = str(paths.chapter_memory_dir) if paths else config.get(
         "pipeline", {}
-    ).get("chapter_memory_dir", "data/chapter_memory")
+    ).get("chapter_memory_dir", "output/_fallback/chapter_memory")
     try:
         embed_cfg = config.get("pipeline", {}).get("embeddings", {})
         use_mock = embed_cfg.get("use_mock", True)
@@ -169,7 +169,7 @@ def _init_phase2(concept_seed_path: str, config: dict, manuscripts_dir: str,
     canon_db = None
     canon_db_dir = str(paths.canon_dbs_dir) if paths else config.get(
         "pipeline", {}
-    ).get("canon_db_dir", "data/canon_dbs")
+    ).get("canon_db_dir", "output/_fallback/canon_dbs")
     if Path(canon_db_dir).exists():
         try:
             from src.rag.canon_db import CanonDB
@@ -210,16 +210,15 @@ def _cli_milestone_prompt(milestone_info: dict) -> bool:
 
 
 def _init_phase4(router, ledger, config, concept_seed, embedding_function,
-                  no_revision=False, no_milestones=False, judge=False):
+                  no_milestones=False, judge=False):
     """Initialize Phase 4 components.
 
-    Returns (physics_enforcer, revision_pipeline, metrics_dashboard,
-             character_specialist, milestone_gates, pipeline_session,
-             scene_card_generator, export_manager, judge_evaluator)
+    Returns (physics_enforcer, metrics_dashboard, character_specialist,
+             milestone_gates, pipeline_session, scene_card_generator,
+             export_manager, judge_evaluator)
     or Nones for unavailable components.
     """
     physics_enforcer = None
-    revision_pipeline = None
     metrics_dashboard = None
     character_specialist = None
     milestone_gates = None
@@ -234,20 +233,6 @@ def _init_phase4(router, ledger, config, concept_seed, embedding_function,
         physics_enforcer = PhysicsEnforcer(concept_seed)
     except ImportError as e:
         print(f"  Warning: PhysicsEnforcer not available: {e}")
-
-    # Adaptive revision (replaces base RevisionPipeline)
-    try:
-        if not no_revision:
-            from src.revision.adaptive_revision import AdaptiveRevisionPipeline
-            revision_pipeline = AdaptiveRevisionPipeline(router, ledger)
-    except ImportError:
-        # Fall back to base RevisionPipeline
-        try:
-            from src.revision.pipeline import RevisionPipeline
-            if not no_revision:
-                revision_pipeline = RevisionPipeline(router, ledger)
-        except ImportError:
-            pass
 
     # Quality metrics and character specialist (same as Phase 3)
     try:
@@ -286,7 +271,7 @@ def _init_phase4(router, ledger, config, concept_seed, embedding_function,
     # Export manager
     try:
         from src.export.export_manager import ExportManager
-        manuscripts_dir = config.get("pipeline", {}).get("chapter_output_dir", "data/manuscripts")
+        manuscripts_dir = config.get("pipeline", {}).get("chapter_output_dir", "output/_fallback/manuscripts")
         export_manager = ExportManager(manuscripts_dir, concept_seed)
     except ImportError:
         pass
@@ -300,26 +285,25 @@ def _init_phase4(router, ledger, config, concept_seed, embedding_function,
             print(f"  Warning: JudgeEvaluator not available: {e}")
 
     return (
-        physics_enforcer, revision_pipeline, metrics_dashboard,
+        physics_enforcer, metrics_dashboard,
         character_specialist, milestone_gates, pipeline_session,
         scene_card_generator, export_manager, judge_evaluator,
     )
 
 
-def _init_phase3(router, ledger, config, embedding_function, no_revision=False, no_milestones=False):
+def _init_phase3(router, ledger, config, embedding_function, no_milestones=False):
     """Initialize Phase 3 components.
 
-    Returns (metrics_dashboard, character_specialist, revision_pipeline, milestone_gates)
+    Returns (metrics_dashboard, character_specialist, milestone_gates)
     or all Nones if imports fail.
     """
     try:
         from src.agents.character_specialist import CharacterSpecialist
         from src.quality.metrics_dashboard import MetricsDashboard
         from src.quality.milestone_gates import MilestoneGates
-        from src.revision.pipeline import RevisionPipeline
     except ImportError as e:
         print(f"Warning: Phase 3 dependencies not available: {e}")
-        return None, None, None, None
+        return None, None, None
 
     metrics_dashboard = MetricsDashboard(
         negative_constraints_path=str(Path("config") / "negative_constraints.yaml"),
@@ -328,10 +312,6 @@ def _init_phase3(router, ledger, config, embedding_function, no_revision=False, 
 
     character_specialist = CharacterSpecialist(router)
 
-    revision_pipeline = None
-    if not no_revision:
-        revision_pipeline = RevisionPipeline(router, ledger)
-
     milestone_gates = None
     if not no_milestones:
         milestone_gates = MilestoneGates(
@@ -339,7 +319,7 @@ def _init_phase3(router, ledger, config, embedding_function, no_revision=False, 
             on_pause_callback=_cli_milestone_prompt,
         )
 
-    return metrics_dashboard, character_specialist, revision_pipeline, milestone_gates
+    return metrics_dashboard, character_specialist, milestone_gates
 
 
 async def main():
@@ -384,14 +364,15 @@ async def main():
     parser.add_argument(
         "--no-revision",
         action="store_true",
-        help="Skip the revision pipeline (Phase 3/4 only)",
+        help="Deprecated: the revision pipeline has been removed. Flag is a no-op. "
+             "Use --raw-draft for the baseline (no post-gate) mode.",
     )
     parser.add_argument(
         "--raw-draft",
         action="store_true",
-        help="Baseline mode: skip Craft Editor and revision pipeline. "
-             "Saves the gate-passed draft directly. Use this to measure "
-             "the writer+gate loop in isolation before post-gate stages.",
+        help="Baseline mode: skip Quality Polish and Final Gate. "
+             "Saves the Scene-Gate-passed draft directly. Use this to measure "
+             "the writer+gate loop in isolation before the polish stage.",
     )
     parser.add_argument(
         "--no-milestones",
@@ -509,9 +490,11 @@ async def main():
 
     args = parser.parse_args()
 
-    # --raw-draft implies --no-revision (baseline mode)
-    if args.raw_draft:
-        args.no_revision = True
+    if args.no_revision:
+        print(
+            "  Warning: --no-revision is deprecated. The 3-band revision pipeline has been "
+            "removed; the flag is a no-op. Use --raw-draft for pre-polish baseline mode."
+        )
 
     # Web server mode
     if args.server:
@@ -664,21 +647,9 @@ async def main():
     # config_snapshot.yaml but produced materially different prose because
     # prompt text changed between them.
     if paths.run_dir is not None:
-        # Determine which revision pipeline variant is going to load so the
-        # snapshot records it alongside the flags. Mirrors the try/except
-        # import fallback used later in main().
-        if args.no_revision or args.phase < 3:
-            _pipeline_variant = "disabled"
-        else:
-            try:
-                import src.revision.adaptive_revision  # noqa: F401
-                _pipeline_variant = "adaptive"
-            except ImportError:
-                try:
-                    import src.revision.pipeline  # noqa: F401
-                    _pipeline_variant = "base"
-                except ImportError:
-                    _pipeline_variant = "disabled"
+        # Record which post-gate variant ran: the pipeline has one canonical
+        # polish stage now (Quality Polish + Final Gate). Raw-draft skips it.
+        _pipeline_variant = "raw_draft" if args.raw_draft else "quality_polish"
         _write_reproducibility_snapshot(paths.run_dir, args, _pipeline_variant)
         print(f"  Prompt + invocation snapshot: {paths.run_dir}")
 
@@ -781,7 +752,6 @@ async def main():
     # Initialize Phase 3 components if requested
     metrics_dashboard = None
     character_specialist = None
-    revision_pipeline = None
     milestone_gates = None
 
     if args.phase >= 3:
@@ -796,10 +766,9 @@ async def main():
             except Exception:
                 pass
 
-            metrics_dashboard, character_specialist, revision_pipeline, milestone_gates = (
+            metrics_dashboard, character_specialist, milestone_gates = (
                 _init_phase3(
                     router, ledger, config, ef,
-                    no_revision=args.no_revision,
                     no_milestones=args.no_milestones,
                 )
             )
@@ -808,8 +777,6 @@ async def main():
                 components.append("quality metrics")
             if character_specialist:
                 components.append("character specialist")
-            if revision_pipeline:
-                components.append("revision pipeline")
             if milestone_gates:
                 components.append("milestone gates")
             print(f"  Phase 3 components: {', '.join(components) or 'none'}")
@@ -836,12 +803,11 @@ async def main():
                 pass
 
             (
-                physics_enforcer, revision_pipeline, metrics_dashboard,
+                physics_enforcer, metrics_dashboard,
                 character_specialist, milestone_gates, pipeline_session,
                 scene_card_generator, export_manager, judge_evaluator,
             ) = _init_phase4(
                 router, ledger, config, concept_seed, ef,
-                no_revision=args.no_revision,
                 no_milestones=args.no_milestones,
                 judge=args.judge,
             )
@@ -849,8 +815,6 @@ async def main():
             components = []
             if physics_enforcer:
                 components.append("physics enforcer")
-            if revision_pipeline:
-                components.append("adaptive revision")
             if pipeline_session:
                 components.append("session persistence")
             if scene_card_generator:
@@ -939,7 +903,6 @@ async def main():
         chapter_memory=chapter_memory,
         story_state=story_state,
         canon_expert=canon_expert,
-        revision_pipeline=revision_pipeline,
         metrics_dashboard=metrics_dashboard,
         character_specialist=character_specialist,
         milestone_gates=milestone_gates,

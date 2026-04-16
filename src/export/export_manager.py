@@ -19,7 +19,7 @@ class ExportManager:
 
     def __init__(
         self,
-        manuscripts_dir: str = "data/manuscripts",
+        manuscripts_dir: str = "output/_fallback/manuscripts",
         concept_seed: dict = None,
     ):
         self.manuscripts_dir = manuscripts_dir
@@ -28,7 +28,7 @@ class ExportManager:
 
     def export_all(
         self,
-        output_dir: str = "data/export",
+        output_dir: str = "output/_fallback/export",
         formats: list[str] = None,
     ) -> dict:
         """Export manuscript to all requested formats.
@@ -71,17 +71,17 @@ class ExportManager:
 
         return results
 
-    def export_markdown(self, output_dir: str = "data/export") -> Path:
+    def export_markdown(self, output_dir: str = "output/_fallback/export") -> Path:
         """Export manuscript as markdown."""
         manuscript_md = self._assembler.assemble(include_stats=True)
         return self._export_md(manuscript_md, output_dir)
 
-    def export_docx(self, output_dir: str = "data/export") -> Path:
+    def export_docx(self, output_dir: str = "output/_fallback/export") -> Path:
         """Export manuscript as DOCX."""
         manuscript_md = self._assembler.assemble(include_stats=True)
         return self._export_docx(manuscript_md, output_dir)
 
-    def export_epub(self, output_dir: str = "data/export") -> Path:
+    def export_epub(self, output_dir: str = "output/_fallback/export") -> Path:
         """Export manuscript as EPUB."""
         manuscript_md = self._assembler.assemble(include_stats=True)
         return self._export_epub(manuscript_md, output_dir)

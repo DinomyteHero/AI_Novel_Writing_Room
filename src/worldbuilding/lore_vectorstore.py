@@ -25,7 +25,7 @@ class LoreVectorStore:
 
     def __init__(
         self,
-        persist_directory: str = "data/worldbuilding_vectors",
+        persist_directory: str = "output/_fallback/worldbuilding_vectors",
         embedding_function: Optional[object] = None,
     ):
         persist_path = Path(persist_directory)

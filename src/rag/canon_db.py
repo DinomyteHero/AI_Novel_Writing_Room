@@ -23,7 +23,7 @@ class CanonDB:
 
     def __init__(
         self,
-        persist_directory: str = "data/canon_dbs",
+        persist_directory: str = "output/_fallback/canon_dbs",
         collection_name: str = "canon",
         embedding_function: Optional[object] = None,
     ):
