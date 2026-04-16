@@ -17,7 +17,6 @@ class PipelineStartRequest(BaseModel):
     concept_seed_path: Optional[str] = None
     scene_cards_dir: Optional[str] = None
     phase: int = 4
-    no_revision: bool = False  # Deprecated; no-op since Phase 1 redesign
     no_milestones: bool = False
     judge: bool = False
     chapter: Optional[int] = None

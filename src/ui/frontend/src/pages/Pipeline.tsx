@@ -20,7 +20,6 @@ export default function Pipeline() {
   const [conceptSeed, setConceptSeed] = useState("");
   const [sceneCardsDir, setSceneCardsDir] = useState("");
   const [phase, setPhase] = useState(4);
-  const [noRevision, setNoRevision] = useState(false);
   const [noMilestones, setNoMilestones] = useState(false);
   const [judge, setJudge] = useState(false);
 
@@ -40,7 +39,6 @@ export default function Pipeline() {
         concept_seed_path: conceptSeed || undefined,
         scene_cards_dir: sceneCardsDir || undefined,
         phase,
-        no_revision: noRevision,
         no_milestones: noMilestones,
         judge,
       });
@@ -116,10 +114,6 @@ export default function Pipeline() {
               ))}
             </select>
           </div>
-          <label className="flex items-center gap-1.5 text-sm">
-            <input type="checkbox" checked={noRevision} onChange={(e) => setNoRevision(e.target.checked)} />
-            Skip Revision
-          </label>
           <label className="flex items-center gap-1.5 text-sm">
             <input type="checkbox" checked={noMilestones} onChange={(e) => setNoMilestones(e.target.checked)} />
             Skip Milestones

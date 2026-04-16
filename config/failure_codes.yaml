@@ -7,9 +7,13 @@ failure_codes:
     STRUCTURAL_PHASE_VIOLATION: "Scene actions violate Brooks phase constraints"
     PROMISE_BROKEN: "Setup or foreshadow is contradicted without intentional subversion"
     MOTIVATION_GAP: "Character action lacks traceable motivation from state or arc"
+    CANON_VIOLATION: "Scene contradicts established franchise lore"
     CHARACTER_ARC_STALL: "POV character has not progressed Weiland arc phase within expected structural window"
     HOOK_VIOLATION: "Unauthorized hook planted, or required hook advancement missed"
     SUBPLOT_DRIFT: "Active subplot ignored or resolved subplot reopened without justification"
+    CLOSING_HOOK_VIOLATION: "Final Gate: polished prose does not honor the scene card's closing hook boundary"
+    CHARACTER_PRESENCE_VIOLATION: "Final Gate: required characters absent from polished prose"
+    OPENING_HOOK_MISMATCH: "Final Gate: opening prose does not align with the scene card's opening hook"
 
   voice:
     OOC_DIALOGUE: "Character speaks in a way inconsistent with voice profile"
@@ -22,9 +26,12 @@ failure_codes:
     EXPOSITION_LEAK: "World-building info dumped outside natural scene flow"
     PACING_FLATLINE: "Insufficient sentence/event variety across scene"
     PROSE_CLICHE_BURST: "Multiple banned phrases or AI-tells detected"
-    CANON_VIOLATION: "Scene contradicts established franchise lore"
+    WORD_COUNT_VIOLATION: "Scene prose falls outside the target word count range"
 
+# Post-Phase 1 pipeline redesign: fail_polish no longer routes to a craft_edit pass.
+# Polish issues are caught by the compression guard and the Final Gate, which reject
+# the polish output and keep the Gate-passed draft instead. See orchestrator.py.
 routing:
   fail_structural: full_rewrite
   fail_voice: targeted_revision
-  fail_polish: craft_edit
+  fail_polish: revert_to_gate_passed_draft

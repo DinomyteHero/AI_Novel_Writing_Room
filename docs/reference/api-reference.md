@@ -57,7 +57,7 @@ Start a pipeline run as a background task.
 | concept_seed_path | string? | null | Override concept seed path |
 | scene_cards_dir | string? | null | Override scene cards directory |
 | phase | int | 4 | Pipeline phase (1-4) |
-| no_revision | bool | false | Skip revision pipeline |
+| raw_draft | bool | false | Skip Quality Polish + Final Gate; save the Scene-Gate-passed draft |
 | no_milestones | bool | false | Skip milestone gates |
 | judge | bool | false | Run LLM judge evaluation |
 | chapter | int? | null | Generate only this chapter |

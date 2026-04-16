@@ -1,6 +1,8 @@
 # Quality and Revision
 
-The system uses pure-Python quality metrics (no LLM calls) to score chapters, and a multi-band revision pipeline (LLM-powered) to improve them.
+The system uses pure-Python quality metrics (no LLM calls) to score scenes, then runs a bounded LLM refinement pass (QualityPolish) whose output must pass a compression guard and a Final Gate before it is saved. If polish is rejected, the Scene-Gate-passed draft is saved instead — so the saved file is always a validated artifact.
+
+> **Note — pipeline redesign.** Earlier builds ran a multi-band revision pipeline (StructuralContinuity → SceneEmotion → LineCopy → optional DialoguePolish / WorldbuildingCoherence) after the Gate. That pipeline has been removed. Polish is now a single pass bounded by the compression guard and the Final Gate. Prompts under `prompts/revision_prompts/` and code under `src/revision/` are legacy and are not invoked by the current orchestrator.
 
 ## Quality Metrics
 
@@ -54,39 +56,48 @@ MetricsDashboard runs all 4 checkers and computes a weighted average:
 
 ### Structured Quality Flags
 
-Quality metrics now produce structured flags that are passed downstream to revision bands, enabling targeted fixes:
+Quality metrics produce structured flags that are passed to QualityPolish so the refinement pass can target specific issues instead of rewriting broadly:
 
-- **flagged_words**: A dictionary of overused words with their counts (e.g., `{"whispered": 7, "nodded": 5}`). Passed to Band 3 (LineCopyEditor) so it can target specific word replacements with count context.
-- **description_ratio**: The ratio of descriptive narration to total prose. When this exceeds 0.60 (60% description), it is passed to Band 2 (SceneEmotionReviewer) to trigger description rebalancing.
+- **flagged_words**: A dictionary of overused words with counts (e.g., `{"whispered": 7, "nodded": 5}`). Passed to QualityPolish for targeted replacement with count context.
+- **description_ratio**: The ratio of descriptive narration to total prose. When this exceeds 0.60 (60% description), it is passed to QualityPolish to trigger description rebalancing.
 
 ### Cross-Scene Overused Word Tracker
 
 A manuscript-level tracker aggregates overused words across all generated scenes (not just per-chapter). After each chapter, newly flagged words are merged into the tracker. These accumulated overused words are dynamically injected into the Prose Stylist prompt for subsequent scenes, helping the drafting agent proactively avoid manuscript-level repetition patterns.
 
-## Revision Pipeline
+## Refinement Path: QualityPolish → Compression Guard → Final Gate
 
-### Base Pipeline (Phase 3)
+After a draft passes the Scene Gate, the orchestrator runs a single bounded refinement pass and validates its output before saving.
 
-`src/revision/pipeline.py` runs 3 sequential editing bands:
+### QualityPolish (`src/agents/quality_polish.py`)
 
-| Band | Agent | Prompt | Focus |
-|------|-------|--------|-------|
-| 1 | StructuralContinuity | `prompts/revision_prompts/structural_continuity.md` | Plot holes, arc consistency, timeline validation, knowledge state |
-| 2 | SceneEmotion | `prompts/revision_prompts/scene_emotion.md` | Conflict intensity, turning point impact, emotional arc, show-don't-tell. Also performs description rebalancing when the structured quality flag `description_ratio` exceeds 60%. |
-| 3 | LineCopy | `prompts/revision_prompts/line_copy.md` | Prose quality, grammar, AI-tell removal, rhythm, style consistency. Receives overused word details with counts from structured quality flags for targeted replacement. |
+A single LLM pass that receives the Gate-passed draft plus the structured quality flags (flagged_words, description_ratio, etc.) and produces a refined version. Unlike the old multi-band pipeline, QualityPolish does not recursively re-edit — it makes one pass and hands off.
 
-Each band receives the current prose and returns revised prose. The output of one band becomes the input to the next.
+### Compression Guard
 
-### Adaptive Pipeline (Phase 4)
+The orchestrator rejects polish output that significantly drops or compresses material relative to the Gate-passed draft. This is one of two mechanisms that keep QualityPolish bounded: if it tries to over-edit, the output is discarded.
 
-`src/revision/adaptive_revision.py` extends the base pipeline with 2 conditional bands:
+### Final Gate (`src/agents/final_gate.py`)
 
-| Band | Agent | Prompt | Condition |
-|------|-------|--------|-----------|
-| 4 | DialoguePolish | `prompts/revision_prompts/dialogue_polish.md` | Dialogue-heavy scene + low voice score |
-| 5 | WorldbuildingCoherence | `prompts/revision_prompts/worldbuilding_coherence.md` | Canon elements present + consistency issues |
+Validates the polished prose against the scene card contract:
 
-Bands 4 and 5 only run when quality metrics indicate they're needed, saving LLM calls on chapters that don't need them.
+- Character presence (all required characters are on-page)
+- Closing-hook boundary (the scene ends where the card says it should)
+- Opening-hook alignment (the scene opens where the card says it should)
+- Word-count floor
+- Turning point is identifiable in the final prose
+
+Final Gate emits structural failure codes (`CLOSING_HOOK_VIOLATION`, `CHARACTER_PRESENCE_VIOLATION`, `OPENING_HOOK_MISMATCH`) — see [`config/failure_codes.yaml`](../../config/failure_codes.yaml). If it rejects the polish, the orchestrator reverts to the Scene-Gate-passed draft and saves that instead. No stage can silently rewrite a saved scene.
+
+### Rewrite Retry Loop (Scene Gate only)
+
+The Scene Gate runs before QualityPolish and drives a bounded retry loop back to the ProseStylist when structural or voice failures occur. Failure routing (see [`config/failure_codes.yaml`](../../config/failure_codes.yaml)):
+
+- `fail_structural` → full rewrite (ProseStylist with corrective brief)
+- `fail_voice` → targeted revision (ProseStylist with voice notes)
+- `fail_polish` → revert to Gate-passed draft (caught at compression guard / Final Gate, not routed back to a polish retry)
+
+Max retries: `max_structural_retries` (default 3) and `max_voice_retries` (default 2), configurable via `config/settings.yaml`.
 
 ## Milestone Gates
 

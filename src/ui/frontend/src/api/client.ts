@@ -40,8 +40,6 @@ export const startPipeline = (opts: {
   concept_seed_path?: string;
   scene_cards_dir?: string;
   phase?: number;
-  /** @deprecated no-op since the Phase 1 pipeline redesign. Use raw_draft instead. */
-  no_revision?: boolean;
   /** Skip Quality Polish + Final Gate; save the Scene-Gate-passed draft directly. */
   raw_draft?: boolean;
   no_milestones?: boolean;

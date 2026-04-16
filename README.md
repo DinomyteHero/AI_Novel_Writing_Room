@@ -64,25 +64,38 @@ python -m src.concept_workshop.workshop_runner --project my_novel
 
 ## How It Works
 
-The pipeline generates chapters through a multi-agent loop:
+Each scene runs through an event-driven per-scene loop, with additional layers activating at higher pipeline depths:
 
 1. **PlotArchitect** reads a scene card and produces a generation brief
 2. **ProseStylist** drafts prose from the brief + assembled context
-3. **CanonExpert** validates franchise canon compliance using a template-driven approach (reads `canon_profile` from the concept seed -- franchise-agnostic, zero hardcoded franchise strings)
-4. **GateCritic** evaluates the draft against a structural rubric (pass/fail with 19 failure codes, calibration anchors, chain-of-thought reasoning)
-5. **CraftEditor** applies non-blocking polish improvements
-6. **RevisionPipeline** runs up to 5 revision passes (structural continuity, scene emotion, line copy, dialogue polish, worldbuilding coherence)
-7. **QualityMetrics** scores the output (repetition, pacing, voice, AI-tell detection)
+3. **GateCritic** evaluates the draft against a structural rubric (pass/fail with failure codes, calibration anchors, chain-of-thought reasoning); failures trigger a bounded retry loop back to the ProseStylist
+4. **QualityMetrics** scores the Gate-passed draft (repetition, pacing, voice, AI-tell detection) via pure-Python checkers, no LLM call
+5. **QualityPolish** makes a single bounded refinement pass targeting the flagged metrics
+6. **Compression guard** rejects polish output that significantly compresses or drops material
+7. **FinalGate** validates the polished prose against the scene card contract (character presence, closing-hook boundary, word-count floor, turning point); if it rejects the polish, the Gate-passed draft is saved instead
 
-Higher phases add more capabilities:
+The saved file is always either polish-accepted-by-Final-Gate or the Gate-passed draft, never an unvalidated rewrite. Every step emits typed events to the RunLedger for reproducibility.
 
-| Phase | Features |
-|-------|----------|
-| 1 | Core 4-agent pipeline, failure codes, retry logic |
-| 2 | SQLite story state, ChromaDB chapter memory, knowledge layers, canon RAG |
-| 3 | Quality metrics, character specialist, 3-band revision, milestone gates |
-| 4 | Export (md/docx/epub), physics enforcement, adaptive revision, LLM judge, session persistence |
-| 5 | Series planning, voice definition, hook/subplot governance, character arcs (Weiland), terminology registry, stress testing, manuscript review, style fingerprinting, web dashboard with WebSocket streaming |
+Depending on the pipeline depth selected (`--phase 1..4`), additional layers activate after the scene is saved:
+
+| Pipeline depth | Adds |
+|----------------|------|
+| 1 | Per-scene loop only (PlotArchitect → ProseStylist → GateCritic → QualityMetrics → QualityPolish → compression guard → FinalGate → save) |
+| 2 | Summarizer + StateDiff + ContradictionScanner (chapter memory, SQLite story state, ChromaDB, canon RAG) |
+| 3 | CharacterSpecialist (OOC detection) + MilestoneGates (structural checkpoints at 25/50/75%) |
+| 4 | PhysicsEnforcer (pre/post validation) + PipelineSession (save/resume) + optional LLM judge (`--judge`) |
+
+Orthogonal feature sets available at any depth:
+
+- **Series planning** (`--series`, `--continue-from`) — shared state across books, character arc carryover
+- **Voice definition + hook/subplot/terminology governance** — drives VoiceChecker, GateCritic, and the manuscript-level review
+- **Character arcs (K.M. Weiland model)** — lie/ghost/want/need tracked through structural phases
+- **Style fingerprinting** — prose-style drift detection across chapters
+- **Manuscript review** — full-work dual-persona critique (Literary Critic + Structural Editor)
+- **Web dashboard** — live pipeline control, event stream over WebSocket, chapter/quality/state inspectors
+- **Export** — markdown, DOCX, EPUB
+
+See the [implementation roadmap](docs/development/implementation-roadmap.md) for the rollout-phase plan (not to be confused with `--phase 1..4`, which controls runtime depth).
 
 ## Directory Structure
 
@@ -126,7 +139,7 @@ output/<franchise>/<series>/state/
 | [System Overview](docs/architecture/system-overview.md) | Components, data flow, directory structure |
 | [Agent Pipeline](docs/architecture/agent-pipeline.md) | Multi-agent generation loop |
 | [Memory & State](docs/architecture/memory-and-state.md) | SQLite, ChromaDB, knowledge layers |
-| [Quality & Revision](docs/architecture/quality-and-revision.md) | Metrics, revision bands, milestone gates |
+| [Quality & Revision](docs/architecture/quality-and-revision.md) | Metrics, QualityPolish, compression guard, Final Gate, milestone gates |
 | **Reference** | |
 | [API Reference](docs/reference/api-reference.md) | FastAPI endpoints and WebSocket events |
 | [Configuration](docs/reference/configuration.md) | settings.yaml, failure codes, constraints |
