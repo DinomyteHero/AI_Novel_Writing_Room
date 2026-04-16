@@ -71,6 +71,34 @@ class LoreService:
                 franchise=franchise,
             )
 
+    def ensure_cosmology(
+        self,
+        cosmology_id: str,
+        display_name: str,
+        description: Optional[str] = None,
+    ) -> None:
+        """Create a parentless top-level universe representing a cosmology.
+
+        A cosmology is the optional meta-universe layer above franchise
+        (Sanderson-style shared-cosmology projects). Member franchises set
+        their ``parent_universe_id`` to this cosmology's id so the existing
+        chain walk in ``get_lore_for_context(walk_parents=True)`` returns
+        cosmology-wide shared lore alongside franchise-specific lore.
+
+        This method is a thin semantic wrapper over ``create_universe``
+        using the existing universe hierarchy; no new tables or columns are
+        introduced.
+        """
+        existing = self.db.get_universe(cosmology_id)
+        if not existing:
+            self.db.create_universe(
+                universe_id=cosmology_id,
+                display_name=display_name,
+                parent_universe_id=None,
+                franchise=None,
+                description=description,
+            )
+
     def delete_universe(self, universe_id: str) -> None:
         """Delete universe from SQLite and its ChromaDB collection."""
         self.db.delete_universe(universe_id)

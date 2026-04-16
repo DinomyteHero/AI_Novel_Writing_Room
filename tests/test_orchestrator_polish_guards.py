@@ -227,6 +227,39 @@ class TestFinalGateRejection:
         assert saved == polished_prose
         assert not result.get("polish_rejected")
 
+    async def test_final_gate_pass_prints_console_line(
+        self, mock_router, mock_assembler, ledger, temp_dir, sample_scene_card, capsys
+    ):
+        """Phase 1.5: Final Gate pass must print an explicit console line so the
+        run output self-documents (mirrors the existing rejection print)."""
+        gate_prose = " ".join(["gate"] * 100)
+        polished_prose = " ".join(["polished"] * 95)
+
+        async def fake_complete(agent_role, messages, *args, **kwargs):
+            if agent_role == "prose_stylist":
+                return gate_prose
+            if agent_role == "quality_polish":
+                return polished_prose
+            return "mock"
+
+        mock_router.complete = AsyncMock(side_effect=fake_complete)
+        mock_router.complete_structured = AsyncMock(return_value=_make_gate_pass_dict())
+
+        orchestrator = Orchestrator(
+            router=mock_router,
+            context_assembler=mock_assembler,
+            ledger=ledger,
+            manuscripts_dir=str(Path(temp_dir) / "manuscripts"),
+        )
+
+        await orchestrator.run_chapter(sample_scene_card)
+
+        captured = capsys.readouterr()
+        assert "Final Gate: pass" in captured.out, (
+            "Phase 1.5 regression: orchestrator must print an explicit "
+            "'Final Gate: pass' line on success to match the rejection print."
+        )
+
 
 class TestRawDraftBypass:
     async def test_raw_draft_skips_polish_and_final_gate(

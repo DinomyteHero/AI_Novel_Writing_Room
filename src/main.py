@@ -581,8 +581,16 @@ async def main():
 
     # Validate-seed mode — run compliance validation and exit
     if args.validate_seed:
-        from src.concept_workshop.compliance_validator import validate_concept_seed
-        report = validate_concept_seed(concept_seed)
+        from src.concept_workshop.compliance_validator import (
+            derive_slugs_from_path,
+            validate_concept_seed,
+        )
+        franchise_slug, book_slug = derive_slugs_from_path(Path(args.concept_seed))
+        report = validate_concept_seed(
+            concept_seed,
+            franchise_slug=franchise_slug,
+            book_slug=book_slug,
+        )
         print(report.format())
         sys.exit(0 if report.passed else 1)
 
@@ -941,6 +949,21 @@ async def main():
         print(f"Total word count: {total_words:,}")
         for r in results:
             verdict = r["evaluation"]["verdict"]
+            # Build gate status string: include Final Gate verdict and any
+            # polish rejection reason when they apply, so the summary reflects
+            # the saved-file contract, not just the pre-polish Scene Gate.
+            if "final_gate" in r:
+                fg_verdict = r["final_gate"].get("verdict", "?")
+                if r.get("polish_rejected"):
+                    reason = r.get("polish_rejection_reason", "unknown")
+                    gate_str = (
+                        f"gate={verdict}, final={fg_verdict} "
+                        f"(polish rejected: {reason})"
+                    )
+                else:
+                    gate_str = f"gate={verdict}, final={fg_verdict}"
+            else:
+                gate_str = f"gate={verdict}"
             flags = len(r.get("contradiction_flags", []))
             flag_str = f", flags={flags}" if flags else ""
             quality_str = ""
@@ -956,7 +979,7 @@ async def main():
                 judge_str = f", judge={js:.1f}/10"
             print(
                 f"  Chapter {r['chapter_number']}.{r['scene_number']}: "
-                f"{r['word_count']:,} words, gate={verdict}{flag_str}{quality_str}{char_str}{judge_str}"
+                f"{r['word_count']:,} words, {gate_str}{flag_str}{quality_str}{char_str}{judge_str}"
             )
 
         # Phase 4: Export after pipeline

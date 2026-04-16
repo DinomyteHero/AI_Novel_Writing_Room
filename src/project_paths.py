@@ -98,11 +98,13 @@ class ProjectPaths:
         base_dir: str = ".",
         franchise_slug: str | None = None,
         series_slug: str | None = None,
+        cosmology_slug: str | None = None,
         run_id: str | None = None,
     ):
         self.project_slug = project_slug
         self.franchise_slug = franchise_slug
         self.series_slug = series_slug
+        self.cosmology_slug = cosmology_slug
         self.run_id = run_id
         self.base = Path(base_dir)
 
@@ -122,6 +124,7 @@ class ProjectPaths:
 
         Derives franchise_slug from meta.franchise (slugified).
         Derives series_slug from meta.series_id (slugified) if present.
+        Derives cosmology_slug from meta.cosmology_id (slugified) if present.
         """
         meta = concept_seed.get("meta", {})
         title = meta.get("project_title", "untitled")
@@ -132,11 +135,14 @@ class ProjectPaths:
         if not series_id:
             series_id = meta.get("series", {}).get("series_id", "")
         series_slug = slugify_title(series_id) if series_id else None
+        cosmology_id = meta.get("cosmology_id", "")
+        cosmology_slug = slugify_title(cosmology_id) if cosmology_id else None
         return cls(
             slugify_title(title),
             base_dir,
             franchise_slug=franchise_slug,
             series_slug=series_slug,
+            cosmology_slug=cosmology_slug,
             run_id=run_id,
         )
 
@@ -160,19 +166,23 @@ class ProjectPaths:
         ):
             franchise_slug = p.parent.parent.parent.name
             project_slug = p.parent.name
-            # Read series_id from the seed if present
+            # Read series_id and cosmology_id from the seed if present
             series_slug = None
+            cosmology_slug = None
             try:
                 with open(path, encoding="utf-8") as f:
                     seed = json.load(f)
                 series_id = seed.get("meta", {}).get("series_id", "")
                 series_slug = slugify_title(series_id) if series_id else None
+                cosmology_id = seed.get("meta", {}).get("cosmology_id", "")
+                cosmology_slug = slugify_title(cosmology_id) if cosmology_id else None
             except (json.JSONDecodeError, FileNotFoundError):
                 pass
             return cls(
                 project_slug, base_dir,
                 franchise_slug=franchise_slug,
                 series_slug=series_slug,
+                cosmology_slug=cosmology_slug,
                 run_id=run_id,
             )
 
@@ -196,13 +206,17 @@ class ProjectPaths:
                 franchise_slug = _slugify_franchise(franchise) if franchise else None
                 series_id = seed.get("meta", {}).get("series_id", "")
                 series_slug = slugify_title(series_id) if series_id else None
+                cosmology_id = seed.get("meta", {}).get("cosmology_id", "")
+                cosmology_slug = slugify_title(cosmology_id) if cosmology_id else None
             except (json.JSONDecodeError, FileNotFoundError, KeyError):
                 franchise_slug = None
                 series_slug = None
+                cosmology_slug = None
             return cls(
                 p.parent.name, base_dir,
                 franchise_slug=franchise_slug,
                 series_slug=series_slug,
+                cosmology_slug=cosmology_slug,
                 run_id=run_id,
             )
 
@@ -210,6 +224,29 @@ class ProjectPaths:
         with open(path, encoding="utf-8") as f:
             seed = json.load(f)
         return cls.from_concept_seed(seed, base_dir, run_id=run_id)
+
+    # --- Cosmology-level paths (optional meta-universe layer) ---
+
+    @property
+    def cosmology_dir(self) -> Path | None:
+        """Optional top-level cosmology directory (shared meta-universe).
+
+        Sibling of ``franchises/`` in the data layout, not a parent. Multiple
+        franchises reference a cosmology by id via ``universe_meta.cosmology_id``
+        and via ``concept_seed.meta.cosmology_id``; this directory hosts the
+        cosmology_meta.json registry.
+
+        Returns ``None`` when this project has no cosmology_slug, so callers
+        can treat cosmology as lazy/optional.
+        """
+        if self.cosmology_slug:
+            return self.base / "data" / "cosmologies" / self.cosmology_slug
+        return None
+
+    @property
+    def cosmology_meta_path(self) -> Path | None:
+        d = self.cosmology_dir
+        return d / "cosmology_meta.json" if d else None
 
     # --- Franchise-level paths ---
 
@@ -372,6 +409,8 @@ class ProjectPaths:
     def display_name(self) -> str:
         """Human-readable project identifier for log lines."""
         parts = []
+        if self.cosmology_slug:
+            parts.append(f"({self.cosmology_slug})")
         if self.franchise_slug:
             parts.append(self.franchise_slug)
         if self.series_slug:
@@ -396,6 +435,8 @@ class ProjectPaths:
             dirs.append(self.franchise_dir)
             dirs.append(self.worldbuilding_db.parent)
             dirs.append(self.worldbuilding_vectors_dir)
+        if self.cosmology_dir:
+            dirs.append(self.cosmology_dir)
         if self.run_dir:
             dirs.append(self.run_dir)
         for dir_path in dirs:
@@ -424,3 +465,27 @@ class ProjectPaths:
     # Backward-compat alias
     def ensure_universe_meta(self, concept_seed: dict | None = None) -> None:
         return self.ensure_franchise_meta(concept_seed)
+
+    def ensure_cosmology_meta(
+        self,
+        cosmology_name: str | None = None,
+        description: str | None = None,
+    ) -> None:
+        """Create cosmology_meta.json if it doesn't exist yet.
+
+        No-op when this project has no cosmology_slug. Consumed lazily —
+        the presence of cosmology_meta.json does not change engine behaviour
+        in Phase 2; it provides a registry file for cross-universe shared
+        lore and rules.
+        """
+        meta_path = self.cosmology_meta_path
+        if meta_path is None or meta_path.exists():
+            return
+        meta_path.parent.mkdir(parents=True, exist_ok=True)
+        meta = {
+            "cosmology_id": self.cosmology_slug,
+            "cosmology_name": cosmology_name or self.cosmology_slug or "unnamed",
+        }
+        if description:
+            meta["description"] = description
+        meta_path.write_text(json.dumps(meta, indent=2), encoding="utf-8")

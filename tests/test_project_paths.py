@@ -1,5 +1,6 @@
 """Tests for ProjectPaths helper."""
 
+import json
 from pathlib import Path
 
 import pytest
@@ -94,3 +95,132 @@ class TestProjectPaths:
         p = ProjectPaths("my-novel", base_dir=str(tmp_path))
         assert p.project_root == tmp_path / "data" / "projects" / "my-novel"
         assert p.project_root == p.book_dir
+
+
+class TestCosmologyLayer:
+    """Phase 2: optional cosmology layer above franchise (meta-universe for
+    Sanderson-style shared cosmology). Purely additive — existing layouts are
+    unchanged."""
+
+    def test_cosmology_slug_constructor_exposes_paths(self, tmp_path):
+        p = ProjectPaths(
+            "book-a",
+            base_dir=str(tmp_path),
+            franchise_slug="sw",
+            cosmology_slug="my-cosmo",
+        )
+        assert p.cosmology_slug == "my-cosmo"
+        assert p.cosmology_dir == tmp_path / "data" / "cosmologies" / "my-cosmo"
+        assert p.cosmology_meta_path == (
+            tmp_path / "data" / "cosmologies" / "my-cosmo" / "cosmology_meta.json"
+        )
+
+    def test_no_cosmology_returns_none(self, tmp_path):
+        """Back-compat: projects without cosmology_slug get None, not a default path."""
+        p = ProjectPaths("book-a", base_dir=str(tmp_path), franchise_slug="sw")
+        assert p.cosmology_slug is None
+        assert p.cosmology_dir is None
+        assert p.cosmology_meta_path is None
+
+    def test_cosmology_leaves_book_level_paths_unchanged(self, tmp_path):
+        """Adding cosmology must not disturb franchise/book/manuscripts layout."""
+        p_with = ProjectPaths(
+            "book-a",
+            base_dir=str(tmp_path),
+            franchise_slug="sw",
+            cosmology_slug="my-cosmo",
+        )
+        p_without = ProjectPaths(
+            "book-a",
+            base_dir=str(tmp_path),
+            franchise_slug="sw",
+        )
+        assert p_with.book_dir == p_without.book_dir
+        assert p_with.manuscripts_dir == p_without.manuscripts_dir
+        assert p_with.state_dir == p_without.state_dir
+        assert p_with.canon_dbs_dir == p_without.canon_dbs_dir
+
+    def test_from_concept_seed_with_cosmology_id(self):
+        seed = {
+            "meta": {
+                "project_title": "Way of Kings",
+                "franchise": "stormlight-archive",
+                "cosmology_id": "The Cosmere",
+            }
+        }
+        p = ProjectPaths.from_concept_seed(seed, base_dir="/tmp")
+        assert p.cosmology_slug == "the-cosmere"
+        assert p.franchise_slug == "stormlight-archive"
+
+    def test_from_concept_seed_without_cosmology_is_back_compat(self):
+        """Ruusan-shaped seed (no cosmology_id) yields cosmology_slug=None."""
+        seed = {
+            "meta": {
+                "project_title": "The Ruusan Atonement",
+                "franchise": "star-wars-legends-eu",
+            }
+        }
+        p = ProjectPaths.from_concept_seed(seed, base_dir="/tmp")
+        assert p.cosmology_slug is None
+        assert p.franchise_slug == "star-wars-legends-eu"
+        assert p.project_slug == "the-ruusan-atonement"
+
+    def test_from_concept_seed_path_franchise_layout_extracts_cosmology(self, tmp_path):
+        seed_dir = (
+            tmp_path / "data" / "franchises" / "stormlight-archive"
+            / "books" / "way-of-kings"
+        )
+        seed_dir.mkdir(parents=True)
+        seed_path = seed_dir / "concept_seed.json"
+        seed_path.write_text(
+            json.dumps({"meta": {"cosmology_id": "the-cosmere"}}),
+            encoding="utf-8",
+        )
+        p = ProjectPaths.from_concept_seed_path(str(seed_path), base_dir=str(tmp_path))
+        assert p.cosmology_slug == "the-cosmere"
+        assert p.franchise_slug == "stormlight-archive"
+
+    def test_ensure_dirs_creates_cosmology_dir(self, tmp_path):
+        p = ProjectPaths(
+            "book-a",
+            base_dir=str(tmp_path),
+            franchise_slug="sw",
+            cosmology_slug="my-cosmo",
+        )
+        p.ensure_dirs()
+        assert p.cosmology_dir.exists()
+
+    def test_ensure_cosmology_meta_writes_file_when_missing(self, tmp_path):
+        p = ProjectPaths(
+            "book-a",
+            base_dir=str(tmp_path),
+            franchise_slug="sw",
+            cosmology_slug="my-cosmo",
+        )
+        p.ensure_cosmology_meta(
+            cosmology_name="My Cosmology",
+            description="test description",
+        )
+        meta = json.loads(p.cosmology_meta_path.read_text(encoding="utf-8"))
+        assert meta["cosmology_id"] == "my-cosmo"
+        assert meta["cosmology_name"] == "My Cosmology"
+        assert meta["description"] == "test description"
+
+    def test_ensure_cosmology_meta_no_op_without_cosmology_slug(self, tmp_path):
+        """ensure_cosmology_meta must be inert when there's no cosmology_slug."""
+        p = ProjectPaths("book-a", base_dir=str(tmp_path), franchise_slug="sw")
+        # Should not raise, should not create anything.
+        p.ensure_cosmology_meta(cosmology_name="Irrelevant")
+        # No cosmologies directory should be created.
+        assert not (tmp_path / "data" / "cosmologies").exists()
+
+    def test_display_name_includes_cosmology(self, tmp_path):
+        p = ProjectPaths(
+            "book-a",
+            base_dir=str(tmp_path),
+            franchise_slug="sw",
+            cosmology_slug="my-cosmo",
+        )
+        assert "my-cosmo" in p.display_name
+        assert "sw" in p.display_name
+        assert "book-a" in p.display_name

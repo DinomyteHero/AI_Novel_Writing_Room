@@ -594,6 +594,31 @@ def _check_stress_test(seed: dict, report: ValidationReport) -> None:
 # ---------------------------------------------------------------------------
 
 
+def derive_slugs_from_path(
+    seed_path: Path,
+) -> tuple[str | None, str | None]:
+    """Infer ``(franchise_slug, book_slug)`` from a franchise-layout seed path.
+
+    Recognises paths of the shape
+    ``.../data/franchises/<franchise>/books/<book>/concept_seed.json``.
+    Paths that don't match this layout (e.g. flat ``data/projects/<slug>/``)
+    return ``(None, None)`` so the validator falls back to its non-scoped
+    behaviour.
+    """
+    try:
+        parts = seed_path.resolve().parts
+    except (OSError, RuntimeError):
+        return (None, None)
+    if "franchises" not in parts or "books" not in parts:
+        return (None, None)
+    try:
+        fi = parts.index("franchises")
+        bi = parts.index("books")
+        return (parts[fi + 1], parts[bi + 1])
+    except (ValueError, IndexError):
+        return (None, None)
+
+
 def validate_concept_seed(
     seed: dict,
     franchise_slug: str | None = None,
@@ -699,15 +724,9 @@ def main() -> int:
     book_slug = args.book
     # Auto-derive franchise/book from the seed path layout when not given
     if not (franchise_slug and book_slug):
-        parts = args.seed.resolve().parts
-        if "franchises" in parts and "books" in parts:
-            try:
-                fi = parts.index("franchises")
-                bi = parts.index("books")
-                franchise_slug = franchise_slug or parts[fi + 1]
-                book_slug = book_slug or parts[bi + 1]
-            except (ValueError, IndexError):
-                pass
+        derived_franchise, derived_book = derive_slugs_from_path(args.seed)
+        franchise_slug = franchise_slug or derived_franchise
+        book_slug = book_slug or derived_book
 
     seed = json.loads(args.seed.read_text(encoding="utf-8"))
     report = validate_concept_seed(
