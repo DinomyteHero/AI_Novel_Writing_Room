@@ -5,17 +5,17 @@
   "scene_type": "sequel",
   "scene_role": "decision",
   "pov_character": "Ben Skywalker",
-  "mission": "Kael's moment of truth — observing the Knights, he notes they 'built their identity on a single framework.' His perspective diverges from Veraine's: she'd say the lattice is the problem; Kael says the dependence is the problem.",
-  "why_now": "Kael's arc: moment_of_truth — he arrives at the resonance answer before Ben articulates it",
+  "mission": "Kael's moment of truth â€” observing the Knights, he notes they 'built their identity on a single framework.' His perspective diverges from Veraine's: she'd say the lattice is the problem; Kael says the dependence is the problem.",
+  "why_now": "Kael's arc: moment_of_truth â€” he arrives at the resonance answer before Ben articulates it",
   "conflict": "Kael's observation is the insight Ben needs but can't reach from inside his own tradition. The outsider sees what the insider can't.",
   "conflict_type": "internal",
   "turning_point": "Kael, watching the Knights: 'They built everything on one thing. Take it away and they don't know how to stand.' Beat. 'That's not a lattice problem. That's a design problem.' He's describing the resonance solution without knowing it.",
-  "opening_hook": "Kael leans against the outpost wall with arms folded and watches the struggling Knights the way he watches everything — from outside, measuring, cataloging",
-  "closing_hook": "Departure from the outpost. Close enough to feel the primary wound now — immense, pulling. Veranthos is ahead. The endgame approaches.",
+  "opening_hook": "Kael leans against the outpost wall with arms folded and watches the struggling Knights the way he watches everything â€” from outside, measuring, cataloging",
+  "closing_hook": "Departure from the outpost. Close enough to feel the primary wound now â€” immense, pulling. Veranthos is ahead. The endgame approaches.",
   "emotional_trajectory": "Kael's quiet observation -> the insight landing -> grim departure",
   "stakes": {
     "personal": "Kael arriving at insight through outsider perspective",
-    "interpersonal": "Kael engaging with the group's problem — not from obligation but from genuine observation",
+    "interpersonal": "Kael engaging with the group's problem â€” not from obligation but from genuine observation",
     "external": "Veranthos approaching"
   },
   "characters_present": [
@@ -25,11 +25,12 @@
     "Desh Rolan"
   ],
   "setting": "Jedi outpost -> departure, approach toward Veranthos",
-  "sensory_details": "The outpost shrinking behind them; the wound ahead — pulling, immense, the wrongness concentrated into a gravity well of absence; Kael's voice — quiet, precise, the most words he's spoken at once in days; Veranthos's star visible on the nav display",
+  "sensory_details": "The outpost shrinking behind them; the wound ahead â€” pulling, immense, the wrongness concentrated into a gravity well of absence; Kael's voice â€” quiet, precise, the most words he's spoken at once in days; Veranthos's star visible on the nav display",
+  "canon_elements_needed": [],
   "target_word_count": 1100,
   "action_beats": [
     "Kael leans against the outpost wall with arms folded, watching the struggling Knights from the outside",
-    "Kael speaks the most words he's strung together in days — quiet, precise, the outsider naming what insiders can't see",
+    "Kael speaks the most words he's strung together in days â€” quiet, precise, the outsider naming what insiders can't see",
     "The group boards the Steady Returns for departure as the primary wound's pull grows ahead of them"
   ],
   "active_subplots": [
@@ -50,5 +51,5 @@
   ],
   "revelations": [],
   "pov_arc_phase": "lie_challenged",
-  "notes": "Kael's arc: moment_of_truth — his outsider perspective provides the critical insight. He's not converted to caring; he's demonstrating that his detached observation has value. The 'design problem' observation is the resonance answer in embryonic form."
+  "notes": "Kael's arc: moment_of_truth â€” his outsider perspective provides the critical insight. He's not converted to caring; he's demonstrating that his detached observation has value. The 'design problem' observation is the resonance answer in embryonic form."
 }

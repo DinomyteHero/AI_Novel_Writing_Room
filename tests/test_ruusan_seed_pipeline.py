@@ -201,11 +201,15 @@ class TestInstalledSeedPipelineLoad:
         state = StoryState(":memory:")
         state.init_from_concept_seed(installed_ruusan_seed)
 
-        # Characters (excluding the __world__ placeholder)
+        # Characters (excluding the __world__ placeholder).
+        # 6 ensemble cast + 10 referenced (Luke, Jacen, Ch1 sparring partner,
+        # 3 Ch19 Jedi, 4 Veraine crew).
         cast_count = state.conn.execute(
             "SELECT COUNT(*) FROM characters WHERE id != '__world__'"
         ).fetchone()[0]
-        assert cast_count == 8, f"Expected 8 characters in DB (6 ensemble + 2 referenced), got {cast_count}"
+        assert cast_count == 16, (
+            f"Expected 16 characters in DB (6 ensemble + 10 referenced), got {cast_count}"
+        )
 
         # Character arcs — all 6 including Desh (positive_change)
         arcs = state.conn.execute("SELECT COUNT(*) FROM character_arcs").fetchone()[0]

@@ -53,7 +53,17 @@ from scripts.install_seed import install_seed  # noqa: E402
 from src.concept_workshop.seed_transforms import (  # noqa: E402
     apply_arc_phase_maps,
     apply_canon_constraints,
+    apply_canon_profile,
+    apply_force_mechanics,
+    apply_hooks,
     apply_promise_payoff_ledger,
+    apply_quality_overrides,
+    apply_referenced_characters,
+    apply_relationship_arcs,
+    apply_revelation_schedule,
+    apply_stress_test_scores,
+    apply_subplots,
+    apply_terminology_registry,
     apply_voice_definition,
     apply_workshop_origin,
     move_to_extended_metadata,
@@ -62,11 +72,13 @@ from src.concept_workshop.seed_transforms import (  # noqa: E402
 
 
 def _replay_legacy_transforms(raw: dict, patch: dict) -> dict:
-    """Reconstruct the pre-Phase-3 installer's transform sequence inline.
+    """Reconstruct the installer's full transform sequence inline.
 
-    This mirrors exactly what scripts/install_ruusan_seed.py.main() used
-    to do before it became a thin wrapper. If install_seed._apply_workshop_patch
-    ever drifts from this order, the parity test fails.
+    This mirrors exactly what ``scripts/install_seed.py._apply_workshop_patch``
+    does. Originally this replay covered only the pre-Phase-3 transforms
+    (the parity guard for the Ruusan wrapper refactor); the drift-closure
+    work extended both ``_apply_workshop_patch`` and this replay in lock-step.
+    If the two sequences drift, the parity test below fails.
     """
     seed = copy.deepcopy(raw)
     apply_voice_definition(seed, patch.get("voice_definition"))
@@ -78,9 +90,22 @@ def _replay_legacy_transforms(raw: dict, patch: dict) -> dict:
     )
     apply_arc_phase_maps(seed, patch.get("arc_phase_maps"))
     apply_promise_payoff_ledger(seed, patch.get("promise_payoff_ledger"))
-    move_to_extended_metadata(seed, patch.get("extended_metadata_fields"))
-    apply_workshop_origin(seed, patch.get("workshop_origin"))
+    apply_subplots(seed, patch.get("subplots"))
+    apply_hooks(seed, patch.get("hooks"))
+    apply_revelation_schedule(seed, patch.get("revelation_schedule"))
+    apply_terminology_registry(seed, patch.get("terminology_registry"))
+    apply_relationship_arcs(seed, patch.get("relationship_arcs"))
+    apply_canon_profile(seed, patch.get("canon_profile"))
+    apply_force_mechanics(seed, patch.get("force_mechanics"))
     apply_canon_constraints(seed, patch.get("canon_constraints"))
+    apply_referenced_characters(seed, patch.get("referenced_characters"))
+    apply_quality_overrides(seed, patch.get("quality_overrides"))
+    apply_workshop_origin(seed, patch.get("workshop_origin"))
+    apply_stress_test_scores(seed, patch.get("stress_test_scores"))
+    move_to_extended_metadata(seed, patch.get("extended_metadata_fields"))
+    # install_seed also clears embedded scene_cards after extraction.
+    if "scene_cards" in seed:
+        seed["scene_cards"] = []
     return seed
 
 
@@ -103,14 +128,16 @@ class TestRuusanReinstallParity:
             "sequence — workshop_patch contract likely regressed"
         )
 
-    def test_reinstall_produces_28_scene_cards(self, tmp_path):
+    def test_reinstall_produces_87_scene_cards(self, tmp_path):
+        """Raw carries 87 per-scene canonical cards (post-drift-closure
+        expansion). The installer writes one file per card."""
         result = install_seed(
             input_path=RUUSAN_RAW,
             workshop_patch_path=RUUSAN_PATCH,
             base_dir=str(tmp_path),
             validate_scene_cards=False,
         )
-        assert result.scene_card_count == 28
+        assert result.scene_card_count == 87
 
     def test_reinstall_extracts_all_28_chapters(self, tmp_path):
         install_seed(
@@ -137,10 +164,10 @@ class TestRuusanReinstallParity:
             f"expected chapters 1..28, got {sorted(chapters)}"
         )
 
-    def test_chapter_26_override_applied(self, tmp_path):
-        """workshop_patch.json ships structural_overrides={'26': 'climax'}
-        and the translator must respect it — chapter 26 scene cards
-        should all have structural_phase == 'climax'."""
+    def test_structural_overrides_applied(self, tmp_path):
+        """workshop_patch.json ships structural_overrides for Ch10-11
+        ('first_pinch') and Ch26 ('climax'). The translator must respect
+        all of them regardless of what the raw scene card declared."""
         install_seed(
             input_path=RUUSAN_RAW,
             workshop_patch_path=RUUSAN_PATCH,
@@ -156,9 +183,20 @@ class TestRuusanReinstallParity:
             / "the-ruusan-atonement"
             / "scene_cards"
         )
-        for path in scene_cards_dir.glob("chapter_26_scene_*.json"):
-            card = json.loads(path.read_text(encoding="utf-8"))
-            assert card["structural_phase"] == "climax"
+        expected = {
+            10: "first_pinch",
+            11: "first_pinch",
+            26: "climax",
+        }
+        for chapter, expected_phase in expected.items():
+            matches = list(scene_cards_dir.glob(f"chapter_{chapter:02d}_scene_*.json"))
+            assert matches, f"no scene cards extracted for chapter {chapter}"
+            for path in matches:
+                card = json.loads(path.read_text(encoding="utf-8"))
+                assert card["structural_phase"] == expected_phase, (
+                    f"{path.name} structural_phase={card['structural_phase']!r} "
+                    f"(expected {expected_phase!r})"
+                )
 
     def test_voice_definition_injected_from_patch(self, tmp_path):
         result = install_seed(

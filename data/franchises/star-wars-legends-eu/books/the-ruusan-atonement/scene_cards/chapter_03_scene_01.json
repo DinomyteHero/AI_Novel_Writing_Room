@@ -5,13 +5,13 @@
   "scene_type": "action",
   "scene_role": "hook",
   "pov_character": "Ben Skywalker",
-  "mission": "Arrive at the next survey point to find a structure that isn't ruins — it's a perimeter facility, still partially functional, with Jedi Lords-era technology",
-  "why_now": "The bearing has led them to the edge of a system that shouldn't have any Jedi presence — but does",
+  "mission": "Arrive at the next survey point to find a structure that isn't ruins â€” it's a perimeter facility, still partially functional, with Jedi Lords-era technology",
+  "why_now": "The bearing has led them to the edge of a system that shouldn't have any Jedi presence â€” but does",
   "conflict": "The facility's Force-recognition mechanism responds to Ben's Jedi signature but reluctantly, as if calibrated for a different era's practitioners",
   "conflict_type": "environmental",
   "turning_point": "The facility's automated systems activate and display a warning message that has been broadcasting on a dead frequency for centuries",
   "opening_hook": "The structure isn't ruins. It has power.",
-  "closing_hook": "The message resolves into Basic — archaic but readable. Two words: 'SEAL FAILING.'",
+  "closing_hook": "The message resolves into Basic â€” archaic but readable. Two words: 'SEAL FAILING.'",
   "emotional_trajectory": "Cautious exploration -> growing awe -> sharp alarm",
   "stakes": {
     "personal": "Ben is standing in front of something the modern Jedi Order doesn't know exists",
@@ -22,8 +22,8 @@
     "Ben Skywalker",
     "Desh Rolan"
   ],
-  "setting": "Unnamed Outer Rim world — the perimeter facility, partially underground, Jedi Lords-era construction",
-  "sensory_details": "Humming power cells; dust on consoles that haven't been touched in centuries; the wrongness much stronger here — moderate thin place; Desh's chrono running two seconds fast",
+  "setting": "Unnamed Outer Rim world â€” the perimeter facility, partially underground, Jedi Lords-era construction",
+  "sensory_details": "Humming power cells; dust on consoles that haven't been touched in centuries; the wrongness much stronger here â€” moderate thin place; Desh's chrono running two seconds fast",
   "canon_elements_needed": [
     "Jedi Lords era military infrastructure and construction",
     "Ancient Jedi Force-recognition technology and bio-locks",
@@ -35,7 +35,7 @@
   "action_beats": [
     "Ben and Desh approach the powered facility on foot across barren terrain, blasters holstered but hands near grips",
     "The facility's Force-recognition mechanism scans Ben with a blue pulse of light that crawls across his body",
-    "Automated systems activate — displays flickering to life, centuries-old warning message cycling through dead frequencies",
+    "Automated systems activate â€” displays flickering to life, centuries-old warning message cycling through dead frequencies",
     "Desh draws his sidearm and sweeps the entry corridor while Ben reads the warning resolving into Basic"
   ],
   "active_subplots": [
@@ -69,5 +69,5 @@
     "R02"
   ],
   "pov_arc_phase": "lie_established",
-  "notes": "R02 lands here — the seal exists and is failing. Stakes become real. The wrongness and anomalous ruins converge into a single crisis. Lord Gavran first named — do not over-explain him. Let the facility do the characterization work. The reader should infer Gavran's personality from what he built and how he organized it."
+  "notes": "R02 lands here â€” the seal exists and is failing. Stakes become real. The wrongness and anomalous ruins converge into a single crisis. Lord Gavran first named â€” do not over-explain him. Let the facility do the characterization work. The reader should infer Gavran's personality from what he built and how he organized it."
 }

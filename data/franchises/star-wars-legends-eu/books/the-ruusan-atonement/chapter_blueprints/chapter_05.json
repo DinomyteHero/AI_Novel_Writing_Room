@@ -1,0 +1,66 @@
+{
+  "chapter_number": 5,
+  "chapter_mission": "Awaken the three survivors, deliver the First Plot Point revelation (Reformations-as-penance, the wound, the anchor system, Veraine's empty chamber), and lock Ben into the mission — the seal is failing AND someone who understands the technique is already moving.",
+  "chapter_turn": "Ben shifts from investigator to custodian. He arrived expecting a ruin; he leaves responsible for three strangers whose presence rewrites his Order's foundational narrative and whose survival depends on him getting the next move right.",
+  "structural_phase": "first_plot_point",
+  "pov_allocation": ["Ben Skywalker"],
+  "scene_count": 4,
+  "scene_plan": [
+    {
+      "scene_number": 1,
+      "role": "hook",
+      "dialogue_expectation": "interior",
+      "target_word_count": 1350,
+      "purpose": "Ben and Desh cross the fortress threshold into the stasis ring. The environment carries the story: twelve chambers, nine dark with preserved bodies, three dimly active, one empty and broken open from inside. Establish Veraine's escape through physical evidence before anyone names her."
+    },
+    {
+      "scene_number": 2,
+      "role": "reveal",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 1400,
+      "purpose": "Sera, Torin, Kael wake. Archive access restores the Ruusan Reformations as dual-purpose event (public reform + private penance). The technique, the wound, the anchor system, and the Brotherhood inversion attempt all land in one staggering delivery — filtered through Sera's precision, Torin's warmth, Kael's dry corrections. R04 lands."
+    },
+    {
+      "scene_number": 3,
+      "role": "reveal",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 1350,
+      "purpose": "Monitoring logs identify the empty chamber's occupant: Darth Veraine, Brotherhood alchemist, flagged by Gavran himself as high-risk. She broke out from inside, weeks ago. The race now has a name. R05 lineage-start lands; Torin's first unsettling line (H06) plants."
+    },
+    {
+      "scene_number": 4,
+      "role": "decision",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 1150,
+      "purpose": "The group forms. Ben does not ask them to follow; they form because no alternative exists. Coordinates for Veraine's presumed trail (the Corridor). Lock-in complete: seal failing AND Veraine already moving. Exit vector: the Steady Returns departing the fortress with six people aboard."
+    }
+  ],
+  "reveal_payload": ["R04", "R05"],
+  "hook_movements": {
+    "planted": ["H04", "H05", "H06"],
+    "advanced": ["H03"],
+    "resolved": []
+  },
+  "subplot_obligations": ["SP-A", "SP1", "SP2", "SP3", "SP4", "SP5"],
+  "relationship_turns": [
+    {
+      "dyad": "Sera/Torin",
+      "from": "dormant — thousand-year stasis, last met at Veranthos",
+      "to": "awake and present — recognition, thousand-year ache in the body, no language yet for what's been lost"
+    },
+    {
+      "dyad": "Kael/Group",
+      "from": "non-existent — Kael has no place",
+      "to": "adjacent — conscripted into proximity without being asked if he wanted it"
+    },
+    {
+      "dyad": "Ben/Desh",
+      "from": "operational partnership — survey team, Ch1 dynamic",
+      "to": "co-witnesses — both now hold the same impossible knowledge and neither yet knows what to do with it"
+    }
+  ],
+  "pacing_curve": "rising",
+  "exit_vector": "The Steady Returns lifts from Gavran's fortress with six aboard. Ben at the viewport. The wrongness, no longer ambient, has a destination. Veraine has a weeks-old head start. The clock is running.",
+  "chapter_word_target": 5250,
+  "notes": "Highest info-dump risk chapter in the book — s2 must deliver R04 through character reaction, not lecture. Sera's precision, Torin's narrative warmth, Kael's dry corrections carry the exposition. Every piece of archive content must be filtered through how it lands on Ben. The sparring partner of Ch1 is forgotten; the Order's foundational narrative just broke. Jacen is referenced during historical briefing — Ben's tone tells the reader everything. Voice: Zahn-tight, propulsive; allow one Stover-interior beat per scene at most. Anti-pattern: do not resolve the Sera/Torin thousand-year distance; seed it. Ch5 is the novel's longest chapter — budget 5,250 words distributed across four scenes per the structural spike in voice_definition.pacing_feel."
+}

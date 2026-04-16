@@ -5,25 +5,25 @@
   "scene_type": "action",
   "scene_role": "escalation",
   "pov_character": "Ben Skywalker",
-  "mission": "Second survey world confirms the pattern — multiple sites with the same markings, and the wrongness grows stronger along their route",
+  "mission": "Second survey world confirms the pattern â€” multiple sites with the same markings, and the wrongness grows stronger along their route",
   "why_now": "One site is curiosity; two is a pattern. Ben can no longer dismiss this as random anomaly.",
-  "conflict": "The survey route Luke designed runs exactly along the wrongness's bearing — coincidence or design? Ben doesn't know if Luke planned this.",
+  "conflict": "The survey route Luke designed runs exactly along the wrongness's bearing â€” coincidence or design? Ben doesn't know if Luke planned this.",
   "conflict_type": "internal",
-  "turning_point": "Desh maps the anomalous sites and the wrongness bearing together — they form a line pointing deeper into the Outer Rim toward uncharted space",
+  "turning_point": "Desh maps the anomalous sites and the wrongness bearing together â€” they form a line pointing deeper into the Outer Rim toward uncharted space",
   "opening_hook": "The second world has the same markings. Different climate, different geology, same hand.",
   "closing_hook": "The bearing points to a cluster of systems that don't appear on any navigation chart Ben has ever seen. Something is out there.",
   "emotional_trajectory": "Confirmation dread -> analytical focus -> determined pursuit",
   "stakes": {
     "personal": "Ben's growing certainty that this is bigger than a survey mission",
-    "interpersonal": "Desh is reading Ben's tension — the professional friendship being tested by an unknown scope",
+    "interpersonal": "Desh is reading Ben's tension â€” the professional friendship being tested by an unknown scope",
     "external": "The pattern points toward something deliberately hidden from modern records"
   },
   "characters_present": [
     "Ben Skywalker",
     "Desh Rolan"
   ],
-  "setting": "Second survey world — different biome, same era of ruins — then back aboard the Steady Returns for analysis",
-  "sensory_details": "The wrongness stronger here — Force-perception parallax error beginning, distances feeling unreliable; vegetation patterns slightly off, as if seasons are out of sync; Desh's navigation console showing the bearing line cutting through empty chart-space; the second world's ruins carry the same tactile resonance as the first, a faint vibration in ancient stone that has no physical source",
+  "setting": "Second survey world â€” different biome, same era of ruins â€” then back aboard the Steady Returns for analysis",
+  "sensory_details": "The wrongness stronger here â€” Force-perception parallax error beginning, distances feeling unreliable; vegetation patterns slightly off, as if seasons are out of sync; Desh's navigation console showing the bearing line cutting through empty chart-space; the second world's ruins carry the same tactile resonance as the first, a faint vibration in ancient stone that has no physical source",
   "canon_elements_needed": [
     "Outer Rim uncharted space navigation and hazards",
     "Force bearing and direction perception techniques",
@@ -53,5 +53,5 @@
   ],
   "revelations": [],
   "pov_arc_phase": "lie_established",
-  "notes": "Thin place effects slightly stronger than first world. Desh might notice temperature inconsistencies or sounds carrying oddly — non-Force-sensitive baseline establishing. Pacing note: this is the fastest scene in Act 1 — confirm-and-move. Keep it tight. The reader already understands the pattern from ch2_s2; this scene exists to establish that the pattern is deliberate, not coincidental."
+  "notes": "Thin place effects slightly stronger than first world. Desh might notice temperature inconsistencies or sounds carrying oddly â€” non-Force-sensitive baseline establishing. Pacing note: this is the fastest scene in Act 1 â€” confirm-and-move. Keep it tight. The reader already understands the pattern from ch2_s2; this scene exists to establish that the pattern is deliberate, not coincidental."
 }

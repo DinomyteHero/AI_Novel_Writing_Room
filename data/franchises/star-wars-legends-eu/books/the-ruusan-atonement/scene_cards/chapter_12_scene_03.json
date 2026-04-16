@@ -5,17 +5,17 @@
   "scene_type": "action",
   "scene_role": "escalation",
   "pov_character": "Ben Skywalker",
-  "mission": "The wrongness lurches — a sudden sharp spike. The seal is being deliberately attacked. Veraine has moved from research to action. Evidence that she spent extended time at this facility, not just repurposing but studying.",
-  "why_now": "Escalation before the midpoint — the timeline is compressing. Veraine's trace at Maetha's reveals a pilgrimage, not just logistics.",
-  "conflict": "The spike in the wrongness means the situation is deteriorating faster than expected. Veraine isn't just ahead — she's actively accelerating the seal's failure.",
+  "mission": "The wrongness lurches â€” a sudden sharp spike. The seal is being deliberately attacked. Veraine has moved from research to action. Evidence that she spent extended time at this facility, not just repurposing but studying.",
+  "why_now": "Escalation before the midpoint â€” the timeline is compressing. Veraine's trace at Maetha's reveals a pilgrimage, not just logistics.",
+  "conflict": "The spike in the wrongness means the situation is deteriorating faster than expected. Veraine isn't just ahead â€” she's actively accelerating the seal's failure.",
   "conflict_type": "external",
   "turning_point": "Desh's analysis of Veraine's time here: she sat where the Knights trained. A pilgrimage. Maetha's work is part of Veraine's intellectual lineage. She came here for understanding, not just components.",
   "opening_hook": "The wrongness hits like a physical blow. Ben staggers. Sera grabs the wall. Torin... Torin tilts his head, as if listening to music.",
-  "closing_hook": "The spike stabilizes at a new, higher baseline. The seal is weakening faster. And the next node on the Corridor — the one Desh flagged with the most recent energy signatures — is a settlement world. Civilians lived there. Possibly still do.",
+  "closing_hook": "The spike stabilizes at a new, higher baseline. The seal is weakening faster. And the next node on the Corridor â€” the one Desh flagged with the most recent energy signatures â€” is a settlement world. Civilians lived there. Possibly still do.",
   "emotional_trajectory": "Physical shock -> urgent assessment -> grim realization of acceleration",
   "stakes": {
-    "personal": "Ben feeling the seal's failure in real time — visceral, not abstract",
-    "interpersonal": "Torin's reaction to the spike vs. everyone else's — the gap widening",
+    "personal": "Ben feeling the seal's failure in real time â€” visceral, not abstract",
+    "interpersonal": "Torin's reaction to the spike vs. everyone else's â€” the gap widening",
     "external": "The seal is failing faster. Days have become critical."
   },
   "characters_present": [
@@ -26,13 +26,14 @@
     "Desh Rolan"
   ],
   "setting": "Maetha's Training Facility exterior, then departure aboard the Steady Returns",
-  "sensory_details": "The wrongness spiking — like a bass note dropping below hearing into physical vibration; the flexible lattice at Maetha's location snapping briefly into chaos before stabilizing; Torin's tilted-head listening posture — attentive to something no one else wants to hear",
+  "sensory_details": "The wrongness spiking â€” like a bass note dropping below hearing into physical vibration; the flexible lattice at Maetha's location snapping briefly into chaos before stabilizing; Torin's tilted-head listening posture â€” attentive to something no one else wants to hear",
+  "canon_elements_needed": [],
   "target_word_count": 1000,
   "action_beats": [
-    "Ben staggers as the wrongness spikes — his hand catching the doorframe to stay upright",
+    "Ben staggers as the wrongness spikes â€” his hand catching the doorframe to stay upright",
     "Sera braces against the wall with both palms as the Force destabilizes around them",
     "Torin tilts his head toward the spike with an attentive listening posture while everyone else recoils",
-    "Desh punches the nav display to life and plots their course to the next node — a settlement world"
+    "Desh punches the nav display to life and plots their course to the next node â€” a settlement world"
   ],
   "active_subplots": [
     "SP-A",
@@ -53,5 +54,5 @@
   ],
   "revelations": [],
   "pov_arc_phase": "lie_reinforced",
-  "notes": "H12 planted — the wrongness lurches, seal deliberately attacked. Transition chapter from Part 2 Response toward the Midpoint. Veraine's extended time at Maetha's reveals her as more complex than a simple villain — she has an intellectual genealogy."
+  "notes": "H12 planted â€” the wrongness lurches, seal deliberately attacked. Transition chapter from Part 2 Response toward the Midpoint. Veraine's extended time at Maetha's reveals her as more complex than a simple villain â€” she has an intellectual genealogy."
 }

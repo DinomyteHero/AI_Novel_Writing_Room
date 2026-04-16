@@ -138,8 +138,8 @@
               "need": { "type": "string", "minLength": 20 },
               "arc_type": {
                 "type": "string",
-                "enum": ["positive_change", "flat", "negative", "disillusionment"],
-                "description": "Weiland arc type — canonical enum only. Use 'arc_summary' for the descriptive phrase."
+                "enum": ["positive_change", "flat", "negative", "disillusionment", "corruption", "fall"],
+                "description": "Weiland arc type — canonical enum only. Use 'arc_summary' for the descriptive phrase. Negative-arc variants: 'disillusionment' = Lie to bleaker Truth; 'corruption' = glimpses Truth, consciously rejects it for Lie; 'fall' = never sees Truth, buried deeper in Lie. Use the bare 'negative' bucket only when the variant is intentionally ambiguous."
               },
               "arc_summary": {
                 "type": "string",
@@ -147,6 +147,7 @@
               },
               "arc_phase_targets": {
                 "type": "object",
+                "description": "Legacy phase-target vocabulary (lie_reinforced/lie_questioned/lie_cracking/lie_confronted/truth_resolved). Retained for backward compatibility. New seeds should prefer 'arc_phase_map' with the 6-phase vocabulary documented on that field.",
                 "properties": {
                   "lie_reinforced": { "type": "string" },
                   "lie_questioned": { "type": "string" },
@@ -162,7 +163,7 @@
               },
               "arc_phase_map": {
                 "type": "object",
-                "description": "Chapter-level map of Weiland arc progression. Keys are phase names (e.g., lie_established, lie_reinforced, lie_challenged, moment_of_truth, new_truth_demonstrated, arc_resolved). Tragic and flat arcs may use variant names (e.g., lie_deepened, point_of_no_return, lie_tested, lie_unchanged). Values are chapter references. Optional — supporting characters with minor arcs may omit this.",
+                "description": "Chapter-level map of Weiland arc progression. Keys are phase names; values are chapter references. Canonical vocabularies per arc_type: positive_change / flat use [lie_established, lie_reinforced, lie_challenged, moment_of_truth, new_truth_demonstrated, arc_resolved]; corruption / fall use [lie_established, lie_reinforced, lie_deepened, point_of_no_return, lie_acted_upon, lie_consequence, arc_resolved_tragic]; disillusionment uses [lie_established, lie_reinforced, lie_challenged, truth_glimpsed, bleaker_truth_accepted, arc_resolved_bleak]; static negative (villain flat-lie) uses [lie_established, lie_reinforced, lie_tested, lie_unchanged]. Optional — supporting characters with minor arcs may omit this.",
                 "additionalProperties": { "type": "string" }
               }
             }
@@ -181,6 +182,39 @@
           "role": { "type": "string", "description": "Brief role description for context." },
           "initial_location": { "type": "string" },
           "initial_emotional_state": { "type": "string" }
+        }
+      }
+    },
+    "relationship_arcs": {
+      "type": "array",
+      "description": "Dyad-level arc planning parallel to ensemble_cast[].weiland_arc. Tracks how each important relationship evolves across the book. Applies Weiland's Lie/Ghost/Want/Need rubric to the relationship itself rather than to an individual character. Optional — only populate for relationships whose evolution is load-bearing for the story.",
+      "items": {
+        "type": "object",
+        "required": ["dyad", "arc_type"],
+        "properties": {
+          "dyad": {
+            "type": "string",
+            "description": "Character-pair identifier in 'Name/Name' form (matches chapter_blueprint.relationship_turns.dyad). For one-to-group relationships use 'Name/Group' form."
+          },
+          "arc_type": {
+            "type": "string",
+            "enum": ["deepening", "rupturing", "reconciling", "transactional", "static"],
+            "description": "deepening = grows closer; rupturing = breaks down; reconciling = breaks then mends; transactional = operational only, no emotional change; static = intentionally unchanging for thematic contrast."
+          },
+          "arc_summary": { "type": "string", "description": "One-sentence description of the arc's shape." },
+          "ghost": { "type": "string", "description": "The prior event or wound that defines the relationship's starting state." },
+          "lie": { "type": "string", "description": "The unspoken belief the relationship operates on that must be exposed or changed." },
+          "want": { "type": "string", "description": "What the relationship pursues on the surface." },
+          "need": { "type": "string", "description": "What the relationship actually requires to resolve healthily." },
+          "arc_phase_map": {
+            "type": "object",
+            "description": "Chapter-level map of relationship progression. Suggested phases: initial_state, first_strain, deepening_trust or first_crack, breaking_point or mutual_recognition, resolved_state. Values are chapter references.",
+            "additionalProperties": { "type": "string" }
+          },
+          "payoff_chapter": {
+            "description": "Chapter where the relationship reaches its resolved state.",
+            "oneOf": [{ "type": "integer" }, { "type": "string" }]
+          }
         }
       }
     },
@@ -208,14 +242,19 @@
       "properties": {
         "brooks_alignment": {
           "type": "object",
+          "description": "Larry Brooks's Story Engineering beat map. Optional beats (inciting_incident, first_pinch_point, second_pinch_point, climax) supplement the four-part phase segmentation — use when the beat is distinct from its enclosing phase. Brooks places the inciting incident at ~12%, first pinch at ~37.5%, second pinch at ~62.5%, and climax near the end of part_4_resolution.",
           "properties": {
             "part_1_setup": { "type": "string" },
+            "inciting_incident": { "type": "string", "description": "Optional. The ~12% beat where the disturbance first meaningfully touches the protagonist, distinct from but preceding the First Plot Point." },
             "first_plot_point": { "type": "string" },
             "part_2_response": { "type": "string" },
+            "first_pinch_point": { "type": "string", "description": "Optional. The ~37.5% beat that reminds the reader of the antagonist force's active threat without advancing the plot skeleton." },
             "midpoint": { "type": "string" },
             "part_3_attack": { "type": "string" },
+            "second_pinch_point": { "type": "string", "description": "Optional. The ~62.5% beat that escalates antagonist pressure as the protagonist attacks but begins to fail." },
             "second_plot_point": { "type": "string" },
-            "part_4_resolution": { "type": "string" }
+            "part_4_resolution": { "type": "string" },
+            "climax": { "type": "string", "description": "Optional. The final confrontation beat, typically the last ~10-15% of the book, distinct from the denouement that may follow." }
           }
         }
       }
@@ -328,18 +367,18 @@
     },
     "stress_test_scores": {
       "type": "object",
-      "description": "9-dimension stress test scores. Produced by Step 10 of the concept workshop.",
+      "description": "9-dimension stress test scores. Produced by Step 10 of the concept workshop. All scores may be null when scoring has not yet been run or is intentionally deferred (common for draft concepts pre-assessment or between revisions).",
       "properties": {
-        "structural_integrity": { "type": "number", "minimum": 0, "maximum": 10 },
-        "character_depth": { "type": "number", "minimum": 0, "maximum": 10 },
-        "hook_discipline": { "type": "number", "minimum": 0, "maximum": 10 },
-        "thematic_resonance": { "type": "number", "minimum": 0, "maximum": 10 },
-        "conflict_architecture": { "type": "number", "minimum": 0, "maximum": 10 },
-        "pacing_and_proportion": { "type": "number", "minimum": 0, "maximum": 10 },
+        "structural_integrity": { "type": ["number", "null"], "minimum": 0, "maximum": 10 },
+        "character_depth": { "type": ["number", "null"], "minimum": 0, "maximum": 10 },
+        "hook_discipline": { "type": ["number", "null"], "minimum": 0, "maximum": 10 },
+        "thematic_resonance": { "type": ["number", "null"], "minimum": 0, "maximum": 10 },
+        "conflict_architecture": { "type": ["number", "null"], "minimum": 0, "maximum": 10 },
+        "pacing_and_proportion": { "type": ["number", "null"], "minimum": 0, "maximum": 10 },
         "lore_and_continuity": { "type": ["number", "null"], "minimum": 0, "maximum": 10 },
-        "world_building_coherence": { "type": "number", "minimum": 0, "maximum": 10 },
+        "world_building_coherence": { "type": ["number", "null"], "minimum": 0, "maximum": 10 },
         "series_coherence": { "type": ["number", "null"], "minimum": 0, "maximum": 10 },
-        "overall": { "type": "number", "minimum": 0, "maximum": 10 }
+        "overall": { "type": ["number", "null"], "minimum": 0, "maximum": 10 }
       }
     },
     "subplots": {

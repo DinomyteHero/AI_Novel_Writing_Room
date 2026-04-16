@@ -15,10 +15,21 @@ import copy
 from src.concept_workshop.seed_transforms import (
     ARC_TYPE_ENUM,
     CANON_STATUS_ENUM,
+    RELATIONSHIP_ARC_TYPE_ENUM,
     TONE_ENUM,
     apply_arc_phase_maps,
     apply_canon_constraints,
+    apply_canon_profile,
+    apply_force_mechanics,
+    apply_hooks,
     apply_promise_payoff_ledger,
+    apply_quality_overrides,
+    apply_referenced_characters,
+    apply_relationship_arcs,
+    apply_revelation_schedule,
+    apply_stress_test_scores,
+    apply_subplots,
+    apply_terminology_registry,
     apply_voice_definition,
     apply_workshop_origin,
     move_to_extended_metadata,
@@ -404,3 +415,218 @@ class TestRuusanTransformSequenceRegression:
         assert seed["voice_definition"] == {"pov_approach": "close third"}
         assert seed["promise_payoff_ledger"] == [{"promise_id": "PP01"}]
         assert seed["canon_constraints"] == {"continuity": "Legends EU"}
+
+
+# ---------------------------------------------------------------------------
+# Drift-closure transforms — one test each covering no-op behaviour and
+# deep-copy isolation. A single composite test covers the full per-section
+# injection path since every drift-closure transform follows the same
+# minimal pattern (None => no-op, dict/list => deep-copied top-level set).
+# ---------------------------------------------------------------------------
+
+
+class TestDriftClosureTransforms:
+    """Exercise the ten transforms added to close the pre-Phase-3 drift.
+
+    Each transform is a minimal mutate-if-truthy injector; the suite below
+    verifies both the happy path and the no-op branch, plus deep-copy
+    isolation so mutating the installed seed cannot leak back into the
+    caller's patch dict.
+    """
+
+    def test_apply_canon_profile_noop_on_none(self):
+        seed = {"meta": {}}
+        apply_canon_profile(seed, None)
+        assert "canon_profile" not in seed
+
+    def test_apply_canon_profile_injects(self):
+        seed = {"meta": {}}
+        profile = {"franchise": "star_wars", "continuity": "legends_eu"}
+        apply_canon_profile(seed, profile)
+        assert seed["canon_profile"] == profile
+
+    def test_apply_canon_profile_deep_copies(self):
+        seed = {"meta": {}}
+        profile = {"franchise": "star_wars", "anachronistic_terms": {"LIDAR": ["sensor sweep"]}}
+        apply_canon_profile(seed, profile)
+        seed["canon_profile"]["anachronistic_terms"]["LIDAR"].append("mutated")
+        assert profile["anachronistic_terms"]["LIDAR"] == ["sensor sweep"]
+
+    def test_apply_force_mechanics_noop_on_none(self):
+        seed = {"meta": {}}
+        apply_force_mechanics(seed, None)
+        assert "force_mechanics" not in seed
+
+    def test_apply_force_mechanics_injects(self):
+        seed = {"meta": {}}
+        mechanics = {
+            "primary_rule": "The lattice maintains light/dark distinction.",
+            "sensory_vocabulary": {"normal_lattice": {"force_sensitive": "handrail"}},
+        }
+        apply_force_mechanics(seed, mechanics)
+        assert seed["force_mechanics"] == mechanics
+
+    def test_apply_quality_overrides_noop_on_none(self):
+        seed = {"meta": {}}
+        apply_quality_overrides(seed, None)
+        assert "quality_overrides" not in seed
+
+    def test_apply_quality_overrides_injects(self):
+        seed = {"meta": {}}
+        overrides = {
+            "word_frequency_allowlist": ["Force", "Jedi"],
+            "semantic_similarity_threshold": 0.88,
+        }
+        apply_quality_overrides(seed, overrides)
+        assert seed["quality_overrides"] == overrides
+
+    def test_apply_referenced_characters_noop_on_none(self):
+        seed = {"meta": {}}
+        apply_referenced_characters(seed, None)
+        assert "referenced_characters" not in seed
+
+    def test_apply_referenced_characters_noop_on_empty(self):
+        seed = {"meta": {}}
+        apply_referenced_characters(seed, [])
+        assert "referenced_characters" not in seed
+
+    def test_apply_referenced_characters_injects(self):
+        seed = {"meta": {}}
+        minors = [
+            {"name": "Luke Skywalker", "role": "Grand Master"},
+            {"name": "Jori Teth", "role": "Sparring partner"},
+        ]
+        apply_referenced_characters(seed, minors)
+        assert seed["referenced_characters"] == minors
+
+    def test_apply_subplots_noop_on_none(self):
+        seed = {"meta": {}}
+        apply_subplots(seed, None)
+        assert "subplots" not in seed
+
+    def test_apply_subplots_injects(self):
+        seed = {"meta": {}}
+        subplots = [{"subplot_id": "SP-A", "name": "Main throughline"}]
+        apply_subplots(seed, subplots)
+        assert seed["subplots"] == subplots
+
+    def test_apply_hooks_noop_on_none(self):
+        seed = {"meta": {}}
+        apply_hooks(seed, None)
+        assert "hooks" not in seed
+
+    def test_apply_hooks_injects(self):
+        seed = {"meta": {}}
+        hooks = [{"hook_id": "H01", "hook_type": "soft"}]
+        apply_hooks(seed, hooks)
+        assert seed["hooks"] == hooks
+
+    def test_apply_revelation_schedule_noop_on_none(self):
+        seed = {"meta": {}}
+        apply_revelation_schedule(seed, None)
+        assert "revelation_schedule" not in seed
+
+    def test_apply_revelation_schedule_injects(self):
+        seed = {"meta": {}}
+        revs = [{"revelation_id": "R01", "what": "the wrongness has a source"}]
+        apply_revelation_schedule(seed, revs)
+        assert seed["revelation_schedule"] == revs
+
+    def test_apply_terminology_registry_noop_on_none(self):
+        seed = {"meta": {}}
+        apply_terminology_registry(seed, None)
+        assert "terminology_registry" not in seed
+
+    def test_apply_terminology_registry_injects(self):
+        seed = {"meta": {}}
+        terms = [{"canonical_form": "Veranthos", "category": "place_name", "definition": "A planet."}]
+        apply_terminology_registry(seed, terms)
+        assert seed["terminology_registry"] == terms
+
+    def test_apply_relationship_arcs_noop_on_none(self):
+        seed = {"meta": {}}
+        apply_relationship_arcs(seed, None)
+        assert "relationship_arcs" not in seed
+
+    def test_apply_relationship_arcs_injects(self):
+        seed = {"meta": {}}
+        arcs = [
+            {
+                "dyad": "Ben/Luke",
+                "arc_type": "reconciling",
+                "arc_summary": "distance to candor",
+            }
+        ]
+        apply_relationship_arcs(seed, arcs)
+        assert seed["relationship_arcs"] == arcs
+
+    def test_apply_relationship_arcs_deep_copies(self):
+        seed = {"meta": {}}
+        arcs = [{"dyad": "Ben/Desh", "arc_type": "deepening", "arc_phase_map": {"a": "b"}}]
+        apply_relationship_arcs(seed, arcs)
+        seed["relationship_arcs"][0]["arc_phase_map"]["a"] = "mutated"
+        assert arcs[0]["arc_phase_map"]["a"] == "b"
+
+    def test_apply_stress_test_scores_noop_on_none(self):
+        seed = {"meta": {}}
+        apply_stress_test_scores(seed, None)
+        assert "stress_test_scores" not in seed
+
+    def test_apply_stress_test_scores_injects(self):
+        seed = {"meta": {}}
+        scores = {
+            "structural_integrity": 9.2,
+            "character_depth": 9.0,
+            "overall": 9.0,
+        }
+        apply_stress_test_scores(seed, scores)
+        assert seed["stress_test_scores"] == scores
+
+    def test_apply_stress_test_scores_injects_nulls(self):
+        """Null-valued score objects are valid pre-assessment placeholders."""
+        seed = {"meta": {}}
+        scores = {"structural_integrity": None, "overall": None}
+        apply_stress_test_scores(seed, scores)
+        assert seed["stress_test_scores"] == scores
+
+
+class TestNormalizeEnumsCorruptionArc:
+    """Torin's corruption arc is a new canonical arc_type. normalize_enums
+    must treat corruption as a valid enum member when supplied via
+    arc_type_map, and must not clobber an existing prose arc_summary when
+    the current arc_type is already canonical."""
+
+    def test_corruption_mapped_without_stomping_existing_arc_summary(self):
+        seed = {
+            "meta": {},
+            "ensemble_cast": [
+                {
+                    "name": "Torin Hal",
+                    "weiland_arc": {
+                        "arc_type": "negative",
+                        "arc_summary": "Negative (tragic) - moves deeper into the lie.",
+                    },
+                }
+            ],
+        }
+        normalize_enums(seed, arc_type_map={"Torin Hal": "corruption"})
+        torin = seed["ensemble_cast"][0]["weiland_arc"]
+        assert torin["arc_type"] == "corruption"
+        assert torin["arc_summary"] == (
+            "Negative (tragic) - moves deeper into the lie."
+        )
+
+    def test_corruption_enum_is_recognized(self):
+        assert "corruption" in ARC_TYPE_ENUM
+        assert "fall" in ARC_TYPE_ENUM
+
+
+class TestRelationshipArcTypeEnum:
+    def test_expected_values(self):
+        assert RELATIONSHIP_ARC_TYPE_ENUM == {
+            "deepening",
+            "rupturing",
+            "reconciling",
+            "transactional",
+            "static",
+        }

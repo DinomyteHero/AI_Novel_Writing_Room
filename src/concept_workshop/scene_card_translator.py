@@ -1,17 +1,31 @@
-"""Translate workshop-format scene cards into the ``schemas/scene_card.json``
-shape.
+"""Translate workshop-format OR canonical-format scene cards into the
+``schemas/scene_card.json`` shape.
 
-The workshop-authored scene cards embedded in concept_seed.json carry
-different field names than the canonical per-file scene card schema
-introduced with the pipeline redesign. This module owns the translation
-so both the Ruusan installer and any future franchise installer produce
-consistent per-file cards.
+The translator accepts a mixed shape because concept seeds can arrive in
+two forms:
 
-Structural phase derivation uses three inputs, in order of precedence:
+1. **Workshop-compressed** — legacy workshop output with field names
+   like ``scene_goal``, ``scene_conflict``, ``location``, one card per
+   chapter, minimal detail. Each field gets translated to its canonical
+   counterpart (``mission``, ``conflict``, ``setting``).
+
+2. **Canonical-detailed** — per-scene entries that already carry the
+   ``schemas/scene_card.json`` field names with full hand-authored
+   content (``mission``, ``turning_point``, ``opening_hook``,
+   ``closing_hook``, ``action_beats``, ``stakes``, ``sensory_details``
+   etc.). These pass through unchanged except for structural_phase
+   override application.
+
+The translator uses canonical-first / workshop-fallback merging: every
+canonical field is read directly; if absent, its workshop counterpart is
+substituted. Seeds can mix the two forms card-by-card.
+
+Structural phase precedence (highest to lowest):
     1. Caller-supplied ``structural_overrides`` keyed by chapter_number.
-    2. Uppercase markers in ``scene_goal`` (e.g. 'FIRST PLOT POINT').
-    3. Arc-phase prefix in ``arc_phase`` (e.g. 'Setup: establish…').
-    4. Fallback to 'setup'.
+    2. Canonical ``structural_phase`` already on the seed card.
+    3. Uppercase markers in ``scene_goal`` (e.g. 'FIRST PLOT POINT').
+    4. Arc-phase prefix in ``arc_phase`` (e.g. 'Setup: establish…').
+    5. Fallback to 'setup'.
 
 This module is intentionally pure — no IO, no schema validation — so it
 can be reused by the generic install_seed.py, the Ruusan wrapper, and
@@ -61,18 +75,22 @@ def derive_structural_phase(
     card: dict,
     structural_overrides: dict[int, str] | None = None,
 ) -> str:
-    """Return the canonical structural_phase for a workshop-format card.
+    """Return the canonical structural_phase for a scene card.
 
     Precedence:
         1. Override for this chapter_number, if provided.
-        2. Uppercase marker in scene_goal (FIRST PLOT POINT, etc.).
-        3. Arc-phase prefix (Setup, Response, Midpoint, …).
-        4. Fallback: 'setup'.
+        2. Canonical ``structural_phase`` already on the card.
+        3. Uppercase marker in scene_goal (FIRST PLOT POINT, etc.).
+        4. Arc-phase prefix (Setup, Response, Midpoint, …).
+        5. Fallback: 'setup'.
     """
     overrides = _coerce_override_keys(structural_overrides)
     chapter = card.get("chapter_number")
     if chapter in overrides:
         return overrides[chapter]
+    existing = card.get("structural_phase")
+    if existing:
+        return existing
     scene_goal = card.get("scene_goal", "")
     for marker, phase in UPPERCASE_MARKERS.items():
         if marker in scene_goal:
@@ -108,56 +126,114 @@ def translate_scene_card(
     default_conflict_type: str = "internal",
     default_target_word_count: int = 3500,
 ) -> dict:
-    """Translate a workshop-format scene card to canonical scene_card.json shape.
+    """Translate a scene card (workshop-format OR canonical) to the
+    ``schemas/scene_card.json`` shape.
 
-    Defaults are intentionally conservative:
-        - conflict_type defaults to 'internal' because the canonical
-          scene_card schema requires a member of the conflict_type enum
-          when present; 'internal' is the broadest fit for pre-authored
-          scenes whose conflict type has not been explicitly categorised.
-        - target_word_count defaults to 3500 — mid-range for commercial
-          novel scenes. Override per-project via canon_profile or
-          per-card in the workshop output.
+    Canonical fields win over workshop fields: ``mission`` beats
+    ``scene_goal``, ``conflict`` beats ``scene_conflict``, ``setting``
+    beats ``location``, ``target_word_count`` beats
+    ``estimated_word_count``, ``active_subplots`` beats
+    ``subplot_references``, ``hook_actions`` beats ``hook_references``,
+    ``revelations`` beats ``revelation_references``, ``pov_arc_phase``
+    beats ``arc_phase``. This lets a seed ship per-scene canonical cards
+    and have them pass through essentially unchanged.
 
-    ``scene_type`` is passed through only when the workshop provided a
-    valid enum value ('action' or 'sequel'); otherwise it is omitted so
+    Defaults are intentionally conservative and only apply when neither
+    canonical nor workshop input is present:
+        - conflict_type defaults to 'internal' (broadest fit for
+          uncategorised scenes).
+        - target_word_count defaults to 3500 (mid-range commercial).
+
+    Optional canonical-only fields (``stakes``, ``action_beats``,
+    ``scene_role``, ``dialogue_expectation``, ``arc_phase_transition``)
+    are passed through when present and omitted otherwise — they have no
+    workshop equivalent.
+
+    ``scene_type`` is passed through only when a valid enum value
+    ('action' or 'sequel') is supplied; otherwise it is omitted so
     dialogue_expectation.py can derive a safe default.
     """
     chapter = seed_card["chapter_number"]
     scene = seed_card.get("scene_number", 1)
 
-    card = {
-        "chapter_number": chapter,
-        "scene_number": scene,
-        "structural_phase": derive_structural_phase(seed_card, structural_overrides),
-        "pov_character": seed_card.get("pov_character", ""),
-        "mission": seed_card.get("scene_goal", ""),
-        "why_now": "",
-        "opening_hook": "",
-        "conflict": seed_card.get("scene_conflict", ""),
-        "conflict_type": default_conflict_type,
-        "turning_point": "",
-        "closing_hook": "",
-        "characters_present": [],
-        "setting": seed_card.get("location", ""),
-        "sensory_details": "",
-        "emotional_trajectory": "",
-        "plot_threads_advanced": [],
-        "promises_planted": [],
-        "promises_paid": [],
-        "canon_elements_needed": [],
-        "target_word_count": seed_card.get(
-            "estimated_word_count", default_target_word_count
-        ),
-        "notes": build_scene_card_notes(seed_card),
-        "active_subplots": seed_card.get("subplot_references", []),
-        "hook_actions": seed_card.get("hook_references", []),
-        "revelations": seed_card.get("revelation_references", []),
-        "pov_arc_phase": seed_card.get("arc_phase", ""),
-    }
+    # Helper: prefer canonical key, fall back to workshop key, else default.
+    def pick(canonical_key: str, workshop_key: str | None = None, default=""):
+        if canonical_key in seed_card and seed_card[canonical_key] not in (None, ""):
+            return seed_card[canonical_key]
+        if workshop_key and workshop_key in seed_card and seed_card[workshop_key] not in (None, ""):
+            return seed_card[workshop_key]
+        return default
+
+    def pick_list(canonical_key: str, workshop_key: str | None = None):
+        if canonical_key in seed_card and seed_card[canonical_key]:
+            return seed_card[canonical_key]
+        if workshop_key and workshop_key in seed_card and seed_card[workshop_key]:
+            return seed_card[workshop_key]
+        return []
+
+    card: dict = {}
+
+    # Build in natural reading order. Required identifiers first,
+    # then structural phase, optional scene_type/scene_role, then the
+    # canonical body fields. Optional fields appear at their natural
+    # position rather than appended, so diffs against hand-authored
+    # cards stay order-stable.
+    card["chapter_number"] = chapter
+    card["scene_number"] = scene
+    card["structural_phase"] = derive_structural_phase(
+        seed_card, structural_overrides
+    )
 
     scene_type = seed_card.get("scene_type")
     if scene_type in ("action", "sequel"):
         card["scene_type"] = scene_type
+
+    if "scene_role" in seed_card:
+        card["scene_role"] = seed_card["scene_role"]
+
+    card["pov_character"] = seed_card.get("pov_character", "")
+    card["mission"] = pick("mission", "scene_goal")
+    card["why_now"] = seed_card.get("why_now", "")
+    card["conflict"] = pick("conflict", "scene_conflict")
+    card["conflict_type"] = seed_card.get("conflict_type", default_conflict_type)
+    card["turning_point"] = seed_card.get("turning_point", "")
+    card["opening_hook"] = seed_card.get("opening_hook", "")
+    card["closing_hook"] = seed_card.get("closing_hook", "")
+    card["emotional_trajectory"] = seed_card.get("emotional_trajectory", "")
+
+    if "stakes" in seed_card:
+        card["stakes"] = seed_card["stakes"]
+
+    card["characters_present"] = seed_card.get("characters_present", [])
+
+    if "dialogue_expectation" in seed_card:
+        card["dialogue_expectation"] = seed_card["dialogue_expectation"]
+
+    card["setting"] = pick("setting", "location")
+    card["sensory_details"] = seed_card.get("sensory_details", "")
+    card["canon_elements_needed"] = seed_card.get("canon_elements_needed", [])
+    card["target_word_count"] = pick(
+        "target_word_count", "estimated_word_count", default_target_word_count
+    )
+
+    if "action_beats" in seed_card:
+        card["action_beats"] = seed_card["action_beats"]
+
+    card["active_subplots"] = pick_list("active_subplots", "subplot_references")
+    card["plot_threads_advanced"] = seed_card.get("plot_threads_advanced", [])
+    card["promises_planted"] = seed_card.get("promises_planted", [])
+    card["promises_paid"] = seed_card.get("promises_paid", [])
+    card["hook_actions"] = pick_list("hook_actions", "hook_references")
+    card["revelations"] = pick_list("revelations", "revelation_references")
+    card["pov_arc_phase"] = pick("pov_arc_phase", "arc_phase")
+
+    if "arc_phase_transition" in seed_card:
+        card["arc_phase_transition"] = seed_card["arc_phase_transition"]
+
+    card["notes"] = (
+        seed_card["notes"]
+        if seed_card.get("notes")
+        else build_scene_card_notes(seed_card)
+    )
 
     return card

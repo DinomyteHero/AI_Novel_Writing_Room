@@ -1,22 +1,22 @@
 {
   "chapter_number": 11,
   "scene_number": 1,
-  "structural_phase": "response",
+  "structural_phase": "first_pinch",
   "scene_type": "sequel",
   "scene_role": "hook",
   "pov_character": "Ben Skywalker",
-  "mission": "Transit chapter aboard the Steady Returns — tension building as the group approaches Maetha's Facility. Kael and Desh's friendship develops through proximity and shared outsider status.",
+  "mission": "Transit chapter aboard the Steady Returns â€” tension building as the group approaches Maetha's Facility. Kael and Desh's friendship develops through proximity and shared outsider status.",
   "why_now": "Breathing room between nodes; the Kael/Desh friendship needs development time before the midpoint pressure",
-  "conflict": "Low-level interpersonal friction from overcrowding. Sera's formality grating against Desh's casualness. Torin's warmth slightly mechanical — the first time it reads as performance rather than genuine.",
+  "conflict": "Low-level interpersonal friction from overcrowding. Sera's formality grating against Desh's casualness. Torin's warmth slightly mechanical â€” the first time it reads as performance rather than genuine.",
   "conflict_type": "interpersonal",
   "turning_point": "Kael laughs at something Desh says. It's the first time anyone has heard him laugh. The whole ship notices.",
   "opening_hook": "Day four in hyperspace. The ship smells like six people who've been living in a space designed for two. Desh has started keeping score of arguments.",
   "closing_hook": "Desh catches Ben alone in the cockpit. 'Can we talk about something that isn't the Force?' His voice is too casual. Whatever he wants to discuss, he's been working up to it.",
   "emotional_trajectory": "Cramped humor -> interpersonal warmth (Kael's laugh) -> Desh's deliberate opening",
   "stakes": {
-    "personal": "Kael allowing himself to enjoy company — small but significant",
+    "personal": "Kael allowing himself to enjoy company â€” small but significant",
     "interpersonal": "Group bonds forming through proximity and shared adversity",
-    "external": "Low — character development chapter"
+    "external": "Low â€” character development chapter"
   },
   "characters_present": [
     "Ben Skywalker",
@@ -25,12 +25,13 @@
     "Torin Hal",
     "Kael Drenn"
   ],
-  "setting": "Aboard the Steady Returns — various locations, hyperspace transit",
-  "sensory_details": "Recycled air getting stale; Desh's coffee supply dwindling; Kael's laugh — unexpected, genuine, quickly cut short; Torin telling a story from the NSW with too-perfect timing",
+  "setting": "Aboard the Steady Returns â€” various locations, hyperspace transit",
+  "sensory_details": "Recycled air getting stale; Desh's coffee supply dwindling; Kael's laugh â€” unexpected, genuine, quickly cut short; Torin telling a story from the NSW with too-perfect timing",
+  "canon_elements_needed": [],
   "target_word_count": 1100,
   "action_beats": [
     "Desh marks another tally on his datapad argument tracker as Sera and Torin disagree about galley rotation",
-    "Kael laughs at something Desh says — a short, genuine sound that stops every conversation on the ship",
+    "Kael laughs at something Desh says â€” a short, genuine sound that stops every conversation on the ship",
     "Desh drops into the co-pilot seat beside Ben with studied casualness and waits until the cockpit door closes"
   ],
   "active_subplots": [
@@ -47,5 +48,5 @@
   "hook_actions": [],
   "revelations": [],
   "pov_arc_phase": "lie_reinforced",
-  "notes": "Torin's humor becoming slightly mechanical — subtle, not obvious. The reader should feel it without being told. Kael's laugh is a character milestone tracked through his arc."
+  "notes": "Torin's humor becoming slightly mechanical â€” subtle, not obvious. The reader should feel it without being told. Kael's laugh is a character milestone tracked through his arc."
 }

@@ -5,17 +5,17 @@
   "scene_type": "action",
   "scene_role": "hook",
   "pov_character": "Ben Skywalker",
-  "mission": "Approach to the valley epicenter. Torin visible on the ridgeline — already descending, already deploying the technique at personal scale. Final Ben/Torin exchange across distance.",
-  "why_now": "The three-way convergence beginning — all parties moving toward the Scar simultaneously",
-  "conflict": "Ben's last attempt to reach Torin across the distance — through the Force, through words, through shared experience. Torin hears him. Responds with genuine affection. And keeps walking.",
+  "mission": "Approach to the valley epicenter. Torin visible on the ridgeline â€” already descending, already deploying the technique at personal scale. Final Ben/Torin exchange across distance.",
+  "why_now": "The three-way convergence beginning â€” all parties moving toward the Scar simultaneously",
+  "conflict": "Ben's last attempt to reach Torin across the distance â€” through the Force, through words, through shared experience. Torin hears him. Responds with genuine affection. And keeps walking.",
   "conflict_type": "interpersonal",
-  "turning_point": "Torin's voice, carried across the valley: 'I understand what you're trying to do, Ben. It's the right impulse. But some problems only have one solution.' The use of 'Ben' — not 'Skywalker' — carries warmth that makes it worse.",
-  "opening_hook": "The valley opens below them. Three-way geometry: Veraine at the Scar, Torin descending the ridgeline, the resonance group at mid-valley. Desh already gone — heading to the first amplification node.",
-  "closing_hook": "Torin begins the technique. Ben feels it — the lattice near Torin leaning toward him and dissolving. A pulling, a suction. Like standing next to a drain. The climax begins.",
+  "turning_point": "Torin's voice, carried across the valley: 'I understand what you're trying to do, Ben. It's the right impulse. But some problems only have one solution.' The use of 'Ben' â€” not 'Skywalker' â€” carries warmth that makes it worse.",
+  "opening_hook": "The valley opens below them. Three-way geometry: Veraine at the Scar, Torin descending the ridgeline, the resonance group at mid-valley. Desh already gone â€” heading to the first amplification node.",
+  "closing_hook": "Torin begins the technique. Ben feels it â€” the lattice near Torin leaning toward him and dissolving. A pulling, a suction. Like standing next to a drain. The climax begins.",
   "emotional_trajectory": "Desperate hope for Torin -> the failed appeal's grief -> the technique activating",
   "stakes": {
-    "personal": "Ben's last chance to save Torin — and the acceptance that he can't force it",
-    "interpersonal": "The Ben/Torin relationship's final exchange — genuine love across irreconcilable choices",
+    "personal": "Ben's last chance to save Torin â€” and the acceptance that he can't force it",
+    "interpersonal": "The Ben/Torin relationship's final exchange â€” genuine love across irreconcilable choices",
     "external": "The three-way convergence at the Scar is about to collide"
   },
   "characters_present": [
@@ -24,13 +24,14 @@
     "Kael Drenn",
     "Torin Hal"
   ],
-  "setting": "Veranthos — valley approach, ridgeline visible, the Scar at the valley floor",
-  "sensory_details": "The valley's geometry — ridgelines, slopes, the Scar at the lowest point; Torin's descending figure; the technique activating — the lattice leaning toward Torin, dissolving, a cliff edge between structured and unstructured Force; Veraine's ritual visible at the Scar as distant distortion",
+  "setting": "Veranthos â€” valley approach, ridgeline visible, the Scar at the valley floor",
+  "sensory_details": "The valley's geometry â€” ridgelines, slopes, the Scar at the lowest point; Torin's descending figure; the technique activating â€” the lattice leaning toward Torin, dissolving, a cliff edge between structured and unstructured Force; Veraine's ritual visible at the Scar as distant distortion",
+  "canon_elements_needed": [],
   "target_word_count": 1300,
   "action_beats": [
     "The group descends into the valley in formation while Desh splits off toward the first amplification node",
     "Ben calls across the valley to Torin and Torin pauses on the ridgeline, turning to listen",
-    "Torin begins the technique and the lattice near him leans inward and dissolves — a pulling, a suction"
+    "Torin begins the technique and the lattice near him leans inward and dissolves â€” a pulling, a suction"
   ],
   "active_subplots": [
     "SP-A",
@@ -56,5 +57,5 @@
   "revelations": [],
   "pov_arc_phase": "moment_of_truth",
   "arc_phase_transition": "new_truth_demonstrated",
-  "notes": "Torin using 'Ben' instead of a title or surname carries enormous weight. The failed appeal should hurt because it comes from love, not conflict. Torin isn't rejecting Ben — he's rejecting Ben's approach while admiring Ben's character."
+  "notes": "Torin using 'Ben' instead of a title or surname carries enormous weight. The failed appeal should hurt because it comes from love, not conflict. Torin isn't rejecting Ben â€” he's rejecting Ben's approach while admiring Ben's character."
 }

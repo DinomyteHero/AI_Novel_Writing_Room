@@ -5,30 +5,31 @@
   "scene_type": "sequel",
   "scene_role": "aftermath",
   "pov_character": "Ben Skywalker",
-  "mission": "Aftermath of the debate — Kael and Desh's first real interaction. Kael watches Desh work on the ship and makes a dry observation. The non-Force friendship begins.",
-  "why_now": "The Force-users have been arguing about the Force. Desh — the only person who can't feel any of it — and Kael — the person most cynical about all of it — find unexpected common ground.",
-  "conflict": "Kael's detachment vs. Desh's practical engagement. Kael expects Desh to be a tool of Ben's, like he was a tool of the Sith. Instead, Desh is here by choice — a concept Kael is still processing.",
+  "mission": "Aftermath of the debate â€” Kael and Desh's first real interaction. Kael watches Desh work on the ship and makes a dry observation. The non-Force friendship begins.",
+  "why_now": "The Force-users have been arguing about the Force. Desh â€” the only person who can't feel any of it â€” and Kael â€” the person most cynical about all of it â€” find unexpected common ground.",
+  "conflict": "Kael's detachment vs. Desh's practical engagement. Kael expects Desh to be a tool of Ben's, like he was a tool of the Sith. Instead, Desh is here by choice â€” a concept Kael is still processing.",
   "conflict_type": "interpersonal",
-  "turning_point": "Desh asks Kael to hand him a hydrospanner without any philosophical freight — just one person asking another for help. Kael stares for a beat, then hands it over. Smallest gesture. Biggest meaning.",
+  "turning_point": "Desh asks Kael to hand him a hydrospanner without any philosophical freight â€” just one person asking another for help. Kael stares for a beat, then hands it over. Smallest gesture. Biggest meaning.",
   "opening_hook": "The silence after the debate is louder than the debate. Desh breaks it by banging on a conduit that's been cycling wrong since the extra passengers came aboard.",
   "closing_hook": "Kael, watching Desh work: 'You don't feel any of it. The wrongness.' Desh: 'I feel the ship shaking and four Force-users arguing about why.' Kael almost smiles. Almost.",
   "emotional_trajectory": "Residual tension -> quiet observation -> the smallest warmth",
   "stakes": {
     "personal": "Kael's first experience of being treated as a person rather than a category",
-    "interpersonal": "Kael/Desh friendship beginning — the outsider and the practical man",
-    "external": "Low — this is character breathing room"
+    "interpersonal": "Kael/Desh friendship beginning â€” the outsider and the practical man",
+    "external": "Low â€” this is character breathing room"
   },
   "characters_present": [
     "Kael Drenn",
     "Desh Rolan"
   ],
-  "setting": "Aboard the Steady Returns — engineering crawlspace, Desh's domain",
+  "setting": "Aboard the Steady Returns â€” engineering crawlspace, Desh's domain",
   "sensory_details": "The ship's mechanical complaints; Desh's competent hands on familiar systems; Kael folded into an uncomfortable space designed for one person; the hydrospanner warm from Kael's grip",
+  "canon_elements_needed": [],
   "target_word_count": 1100,
   "action_beats": [
     "Desh bangs on a malfunctioning conduit and crawls into the engineering crawlspace with his toolkit",
     "Kael folds himself into the crawlspace beside Desh and begins handing tools without being asked",
-    "Kael passes the hydrospanner after a beat of deliberate stillness — the first thing anyone has asked him for that wasn't about the Force"
+    "Kael passes the hydrospanner after a beat of deliberate stillness â€” the first thing anyone has asked him for that wasn't about the Force"
   ],
   "active_subplots": [
     "SP2",
@@ -42,5 +43,5 @@
   "hook_actions": [],
   "revelations": [],
   "pov_arc_phase": "lie_reinforced",
-  "notes": "Small but critical character scene. Ben observes from outside — close-third limited to watching the interaction, reading Kael's surprise at being treated normally. Allston-channel humor through Desh."
+  "notes": "Small but critical character scene. Ben observes from outside â€” close-third limited to watching the interaction, reading Kael's surprise at being treated normally. Allston-channel humor through Desh."
 }

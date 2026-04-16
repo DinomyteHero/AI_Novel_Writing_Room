@@ -1,0 +1,64 @@
+{
+  "chapter_number": 21,
+  "chapter_mission": "Torin leaves. The group lets him go. Ben's Lie cracks open — the Jacen pattern recognised and refused. The chapter's turning point is not a confrontation but a principled inaction: each character's silence has its own texture, rooted in their Weiland arc.",
+  "chapter_turn": "Ben moves from 'I have to stop him' to 'We find another way. Together.' The Lie of self-reliance fractures publicly. Sera articulates the moral architecture of the book out loud for the first time: 'I was the one they sealed. I cannot seal another.'",
+  "structural_phase": "second_plot_point",
+  "pov_allocation": ["Ben Skywalker"],
+  "scene_count": 3,
+  "scene_plan": [
+    {
+      "scene_number": 1,
+      "role": "reveal",
+      "dialogue_expectation": "dialogue_led",
+      "target_word_count": 1500,
+      "purpose": "Torin stands in the doorway and says he is not asking for permission. The final appeal fails — Ben tries every argument he has. Torin counters each with the quiet certainty of a man who has already decided. R11 lands. The crisis is inside the group, not outside it."
+    },
+    {
+      "scene_number": 2,
+      "role": "decision",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 1500,
+      "purpose": "Torin walks down the ridgeline toward the valley. The group watches. Each silence has distinct texture: Ben (failed to stop this pattern with Jacen, has no alternative yet), Sera (was the person whose agency was overridden), Kael (spent his life being stopped), Desh (breaks the silence first with operational pragmatism). Sera's line: 'I was the one they sealed. I cannot seal another.' H06 resolves."
+    },
+    {
+      "scene_number": 3,
+      "role": "decision",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 1500,
+      "purpose": "The Lie cracks. Ben says 'We find another way. Together.' He remembers Gavran's archived note from Ch14 about lattice resonance. The plan is not yet formed, but the pattern is broken — Ben is no longer reaching for individual mastery. H21 plants. Exit vector toward the resonance solution."
+    }
+  ],
+  "reveal_payload": ["R11"],
+  "hook_movements": {
+    "planted": ["H21"],
+    "advanced": [],
+    "resolved": ["H06", "H17"]
+  },
+  "subplot_obligations": ["SP-A", "SP1", "SP2", "SP3", "SP4", "SP5"],
+  "relationship_turns": [
+    {
+      "dyad": "Sera/Torin",
+      "from": "irreconcilable difference — Sera named the pattern in Ch15",
+      "to": "departed — Torin walks. Sera does not move to stop him and does not look away. The dynamic ends; the grief begins"
+    },
+    {
+      "dyad": "Ben/Jacen-shadow",
+      "from": "latent — Ben has been carrying the parallel privately since Ch18",
+      "to": "broken — Ben publicly refuses to repeat it. Jacen was the ghost. Breaking the pattern is the answer"
+    },
+    {
+      "dyad": "Ben/Sera",
+      "from": "conditional trust ('Tell me where to stand, Skywalker') from Ch14",
+      "to": "earned trust — Sera has seen Ben refuse the old pattern; she will follow him on his terms now, not because he is the senior officer but because he proved incompatible with Gavran"
+    },
+    {
+      "dyad": "Kael/Group",
+      "from": "articulated critique from Ch19 outpost",
+      "to": "witnessing commitment — Kael watches the group not seal Torin. He sees what it costs them. His lie_cracking phase advances"
+    }
+  ],
+  "pacing_curve": "falling",
+  "exit_vector": "Camp silent on the ridge. Torin a diminishing figure in the valley below. Ben lowers the datapad, looks at Sera, Kael, Desh. 'We find another way. Together.' The Lie is not healed — but for the first time, it is no longer the loudest voice in the room.",
+  "chapter_word_target": 4500,
+  "notes": "The emotional centre of the book. Ben's public refusal to repeat the Jacen pattern is the thematic pivot — the story's argument (collective trust over individual mastery) lands here experientially, not as dialogue. Every character's silence in s2 is authored, not described: we should feel Ben's held breath, Sera's iron composure, Kael's refusal-to-grab, Desh's breaking of the silence. Jacen parallel touchpoint 4 (payoff per extended_metadata.jacen_parallel). Voice: Stover-interior for Ben throughout; permit sentence fragments. Anti-patterns: (a) do not physically restrain Torin — that would repeat Gavran's pattern and collapse the thematic point; (b) no one gives a speech; the decision is a silence; (c) do not name 'the Lie' or 'the Jacen pattern' explicitly — those are concepts the reader holds, not the characters. The word 'together' should land only once in the chapter and only at the end."
+}

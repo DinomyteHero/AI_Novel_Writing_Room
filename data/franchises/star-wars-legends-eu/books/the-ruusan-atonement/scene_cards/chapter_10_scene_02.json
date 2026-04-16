@@ -1,20 +1,20 @@
 {
   "chapter_number": 10,
   "scene_number": 2,
-  "structural_phase": "response",
+  "structural_phase": "first_pinch",
   "scene_type": "sequel",
   "scene_role": "reveal",
   "pov_character": "Ben Skywalker",
-  "mission": "Desh's tactical analysis of Veraine's activities — she's not just researching, she's repurposing equipment. And her pattern isn't random — she's leading them. Why?",
-  "why_now": "Desh's intelligence training reads the physical evidence that Force-users missed — the practical man sees the tactical picture",
-  "conflict": "Desh's conclusion challenges the group's assumption: 'She's not just ahead — she's leading us. We're not chasing her.' Veraine wants them following.",
+  "mission": "Desh's tactical analysis of Veraine's activities â€” she's not just researching, she's repurposing equipment. And her pattern isn't random â€” she's leading them. Why?",
+  "why_now": "Desh's intelligence training reads the physical evidence that Force-users missed â€” the practical man sees the tactical picture",
+  "conflict": "Desh's conclusion challenges the group's assumption: 'She's not just ahead â€” she's leading us. We're not chasing her.' Veraine wants them following.",
   "conflict_type": "interpersonal",
   "turning_point": "Desh lays out the evidence: Veraine left the message for Kael, left equipment she could have destroyed, took only specific components. She's curating their experience of the Corridor. Why?",
-  "opening_hook": "Desh has been cataloguing what Veraine took and what she left. The pattern is as clear to him as a Force vision — and more reliable.",
+  "opening_hook": "Desh has been cataloguing what Veraine took and what she left. The pattern is as clear to him as a Force vision â€” and more reliable.",
   "closing_hook": "If Veraine wants them to follow, then pursuing her along the Corridor is either an opportunity or a trap. Either way, they need to understand what she's building.",
   "emotional_trajectory": "Analytical focus -> uncomfortable realization -> strategic uncertainty",
   "stakes": {
-    "personal": "Desh proving his essential value — intelligence that Force-perception misses",
+    "personal": "Desh proving his essential value â€” intelligence that Force-perception misses",
     "interpersonal": "The group forced to reconsider their assumptions about the pursuit",
     "external": "Veraine is methodical and has a plan they don't understand"
   },
@@ -23,13 +23,14 @@
     "Desh Rolan",
     "Sera Varik"
   ],
-  "setting": "Brotherhood Outpost — operations area, Veraine's activity evidence spread on tables",
+  "setting": "Brotherhood Outpost â€” operations area, Veraine's activity evidence spread on tables",
   "sensory_details": "Equipment manifests; disassembly marks on Sith-era machinery; Desh's maps showing Veraine's route and timing; the outpost's dark-side pressure making concentration harder",
+  "canon_elements_needed": [],
   "target_word_count": 1100,
   "action_beats": [
     "Desh spreads equipment manifests and disassembly photos across the operations table",
     "Desh traces Veraine's route on his tactical map, marking each item she took and each she deliberately left",
-    "Ben leans over the evidence layout as the pattern clicks — deliberate curation, not random scavenging"
+    "Ben leans over the evidence layout as the pattern clicks â€” deliberate curation, not random scavenging"
   ],
   "active_subplots": [
     "SP-A",
@@ -49,5 +50,5 @@
   ],
   "revelations": [],
   "pov_arc_phase": "lie_reinforced",
-  "notes": "Desh's moment of essential contribution. His non-Force perspective sees what Force-users miss — Veraine is running an intelligence operation, not a retreat."
+  "notes": "Desh's moment of essential contribution. His non-Force perspective sees what Force-users miss â€” Veraine is running an intelligence operation, not a retreat."
 }
