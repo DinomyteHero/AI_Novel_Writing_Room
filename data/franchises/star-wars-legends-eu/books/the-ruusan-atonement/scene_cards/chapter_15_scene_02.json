@@ -5,17 +5,17 @@
   "scene_type": "sequel",
   "scene_role": "escalation",
   "pov_character": "Ben Skywalker",
-  "mission": "Torin's philosophy hardens â€” he uses the Valley's destabilization as evidence that the seal was always a temporary measure. His argument: the only permanent solution is someone who understands the technique becoming the new seal. Himself.",
+  "mission": "Torin's philosophy hardens — he uses the Valley's destabilization as evidence that the seal was always a temporary measure. His argument: the only permanent solution is someone who understands the technique becoming the new seal. Himself.",
   "why_now": "The widening crisis provides Torin with ammunition. His argument becomes harder to dismiss as the stakes rise.",
-  "conflict": "Torin presents his position with devastating logic and genuine warmth. He's not trying to seize power â€” he's offering to sacrifice himself. The horror is in the nobility. This is Jacen's pattern wearing a better mask.",
+  "conflict": "Torin presents his position with devastating logic and genuine warmth. He's not trying to seize power — he's offering to sacrifice himself. The horror is in the nobility. This is Jacen's pattern wearing a better mask.",
   "conflict_type": "interpersonal",
-  "turning_point": "Torin makes a devastating observation to Ben: 'You're curating reality to manage the outcome you want. You know who else did that?' â€” naming the pattern Ben is falling into with his withholding from Luke.",
-  "opening_hook": "Torin brings it up over food. He always brings the worst things up over food â€” it's a disarming technique Ben is starting to recognize.",
-  "closing_hook": "The observation about curating reality lands like a blade. Ben can't dismiss it because Torin is right â€” Ben IS withholding, controlling information, managing the narrative. The question is whether recognizing the pattern is enough to break it.",
+  "turning_point": "Torin makes a devastating observation to Ben: 'You're curating reality to manage the outcome you want. You know who else did that?' — naming the pattern Ben is falling into with his withholding from Luke.",
+  "opening_hook": "Torin brings it up over food. He always brings the worst things up over food — it's a disarming technique Ben is starting to recognize.",
+  "closing_hook": "The observation about curating reality lands like a blade. Ben can't dismiss it because Torin is right — Ben IS withholding, controlling information, managing the narrative. The question is whether recognizing the pattern is enough to break it.",
   "emotional_trajectory": "Engaged debate -> seductive logic -> the devastating personal parallel",
   "stakes": {
     "personal": "Ben's own pattern of control exposed by the person repeating it at larger scale",
-    "interpersonal": "Torin and Ben â€” mutual respect making the disagreement more painful",
+    "interpersonal": "Torin and Ben — mutual respect making the disagreement more painful",
     "external": "Torin's 'solution' would work but at the cost of everything the theme argues against"
   },
   "characters_present": [
@@ -23,13 +23,13 @@
     "Torin Hal",
     "Sera Varik"
   ],
-  "setting": "Aboard the Steady Returns â€” common area, meal time",
-  "sensory_details": "Food cooling as the conversation heats; Torin's warmth slightly mechanical â€” the humor arriving on schedule; Sera's silence â€” she's heard this argument before, from Gavran; Ben's hands under the table, gripping his knees",
+  "setting": "Aboard the Steady Returns — common area, meal time",
+  "sensory_details": "Food cooling as the conversation heats; Torin's warmth slightly mechanical — the humor arriving on schedule; Sera's silence — she's heard this argument before, from Gavran; Ben's hands under the table, gripping his knees",
   "canon_elements_needed": [],
   "target_word_count": 1200,
   "action_beats": [
     "Torin pushes his plate aside and pulls the tactical display between them as he makes his argument",
-    "Ben's hands grip his knees under the table as Torin names the pattern â€” curating reality to manage outcomes",
+    "Ben's hands grip his knees under the table as Torin names the pattern — curating reality to manage outcomes",
     "Sera sits motionless through the exchange, her silence carrying the weight of having heard this argument before"
   ],
   "active_subplots": [
@@ -50,5 +50,5 @@
   ],
   "revelations": [],
   "pov_arc_phase": "lie_challenged",
-  "notes": "H15 planted â€” Torin's devastating observation about curating reality. This names the Jacen pattern before Ben formally recognizes it in Chapter 18. Torin's arc: lie_deepened â€” his certainty growing as the crisis validates his analysis."
+  "notes": "H15 planted — Torin's devastating observation about curating reality. This names the Jacen pattern before Ben formally recognizes it in Chapter 18. Torin's arc: lie_deepened — his certainty growing as the crisis validates his analysis."
 }

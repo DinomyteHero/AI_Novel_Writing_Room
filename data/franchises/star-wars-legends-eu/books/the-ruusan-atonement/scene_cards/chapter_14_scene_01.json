@@ -5,17 +5,17 @@
   "scene_type": "action",
   "scene_role": "hook",
   "pov_character": "Ben Skywalker",
-  "mission": "Ben asserts leadership. Sera's conditional trust â€” 'Tell me where to stand, Skywalker' â€” reinforces her Lie: she's following someone again because she believes they're right, repeating the Gavran pattern.",
-  "why_now": "Post-midpoint â€” Part 3 begins. Ben takes the initiative for the first time. The group needs direction after the breach's trauma.",
-  "conflict": "Ben lays out a strategy: instead of following Veraine node by node, they'll skip ahead to intercept. Sera accepts his authority conditionally â€” she'll follow orders as long as she judges them sound. Torin supports Ben but for his own reasons.",
+  "mission": "Ben asserts leadership. Sera's conditional trust — 'Tell me where to stand, Skywalker' — reinforces her Lie: she's following someone again because she believes they're right, repeating the Gavran pattern.",
+  "why_now": "Post-midpoint — Part 3 begins. Ben takes the initiative for the first time. The group needs direction after the breach's trauma.",
+  "conflict": "Ben lays out a strategy: instead of following Veraine node by node, they'll skip ahead to intercept. Sera accepts his authority conditionally — she'll follow orders as long as she judges them sound. Torin supports Ben but for his own reasons.",
   "conflict_type": "interpersonal",
-  "turning_point": "'Tell me where to stand, Skywalker.' Sera's offer of trust. It's genuine â€” and it's also her Lie repeating. She's choosing to follow a leader she believes is right, the same pattern as Gavran. Ben feels the weight of it.",
-  "opening_hook": "Ben stands in the center of the common area and speaks with a authority he doesn't fully feel. His mother's voice in his cadence â€” tactical, clear, pragmatic. Mara would have been proud. The thought hurts.",
-  "closing_hook": "Sera calls him 'Skywalker' with something that wasn't there before. Not warmth â€” investment. She has chosen to follow him. The last person she chose to follow sealed her in a wall.",
+  "turning_point": "'Tell me where to stand, Skywalker.' Sera's offer of trust. It's genuine — and it's also her Lie repeating. She's choosing to follow a leader she believes is right, the same pattern as Gavran. Ben feels the weight of it.",
+  "opening_hook": "Ben stands in the center of the common area and speaks with a authority he doesn't fully feel. His mother's voice in his cadence — tactical, clear, pragmatic. Mara would have been proud. The thought hurts.",
+  "closing_hook": "Sera calls him 'Skywalker' with something that wasn't there before. Not warmth — investment. She has chosen to follow him. The last person she chose to follow sealed her in a wall.",
   "emotional_trajectory": "Assumed authority -> the test of command -> the burden of earned trust",
   "stakes": {
     "personal": "Ben assuming a leadership role he's not sure he deserves",
-    "interpersonal": "Sera's trust is a gift and a weapon â€” it puts Gavran's shadow on Ben",
+    "interpersonal": "Sera's trust is a gift and a weapon — it puts Gavran's shadow on Ben",
     "external": "The strategy to intercept Veraine must work or they lose the race"
   },
   "characters_present": [
@@ -25,13 +25,13 @@
     "Kael Drenn",
     "Desh Rolan"
   ],
-  "setting": "Aboard the Steady Returns â€” common area reconfigured as tactical briefing space",
-  "sensory_details": "Desh's tactical displays; Sera's posture shifting â€” from adversarial to subordinate, spine straightening; Torin nodding with approval that should feel reassuring and doesn't; Kael leaning against the wall, arms crossed, evaluating",
+  "setting": "Aboard the Steady Returns — common area reconfigured as tactical briefing space",
+  "sensory_details": "Desh's tactical displays; Sera's posture shifting — from adversarial to subordinate, spine straightening; Torin nodding with approval that should feel reassuring and doesn't; Kael leaning against the wall, arms crossed, evaluating",
   "canon_elements_needed": [],
   "target_word_count": 1200,
   "action_beats": [
     "Ben stands in the center of the common area and lays out the intercept strategy on Desh's tactical display",
-    "Sera straightens her spine and shifts her posture from adversarial to subordinate â€” a soldier accepting command",
+    "Sera straightens her spine and shifts her posture from adversarial to subordinate — a soldier accepting command",
     "Kael leans against the wall with arms crossed, evaluating Ben's plan from the outside"
   ],
   "active_subplots": [
@@ -53,5 +53,5 @@
   ],
   "revelations": [],
   "pov_arc_phase": "lie_challenged",
-  "notes": "Sera's arc: lie_reinforced â€” 'Tell me where to stand, Skywalker' reinforces her Lie by repeating the Gavran pattern without examining it. She's following someone she believes is right. That's exactly what she did before."
+  "notes": "Sera's arc: lie_reinforced — 'Tell me where to stand, Skywalker' reinforces her Lie by repeating the Gavran pattern without examining it. She's following someone she believes is right. That's exactly what she did before."
 }

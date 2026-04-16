@@ -5,17 +5,17 @@
   "scene_type": "action",
   "scene_role": "hook",
   "pov_character": "Ben Skywalker",
-  "mission": "Arrival at the Breach Zone â€” a former settlement world where Veraine deliberately collapsed the node as a field test. The group expected another damaged node. They find total collapse.",
-  "why_now": "Midpoint â€” the story shifts from reactive to proactive through experiential revelation, not information",
-  "conflict": "Full de-structuring. The Force is present but formless. Every Force instinct fires into nothing. Ben's moral intuition â€” the Force-mediated layer of moral perception â€” goes completely silent.",
+  "mission": "Arrival at the Breach Zone — a former settlement world where Veraine deliberately collapsed the node as a field test. The group expected another damaged node. They find total collapse.",
+  "why_now": "Midpoint — the story shifts from reactive to proactive through experiential revelation, not information",
+  "conflict": "Full de-structuring. The Force is present but formless. Every Force instinct fires into nothing. Ben's moral intuition — the Force-mediated layer of moral perception — goes completely silent.",
   "conflict_type": "environmental",
-  "turning_point": "Entering the fully de-structured zone. The handrail is gone. Ben reaches for the Force and finds something â€” energy, presence, potential â€” but no structure. No direction. No light or dark. No texture.",
-  "opening_hook": "Ben watches the settlement world fill the viewport â€” green, blue, temperate â€” while Desh reads scan data that contradicts everything the eyes report. On the surface, the birds are wrong.",
+  "turning_point": "Entering the fully de-structured zone. The handrail is gone. Ben reaches for the Force and finds something — energy, presence, potential — but no structure. No direction. No light or dark. No texture.",
+  "opening_hook": "Ben watches the settlement world fill the viewport — green, blue, temperate — while Desh reads scan data that contradicts everything the eyes report. On the surface, the birds are wrong.",
   "closing_hook": "In the silence of the de-structured Force, Ben hears himself think without the safety net of Force intuition for the first time. The thoughts are his. All of them. Including the ones the Force usually softens.",
   "emotional_trajectory": "Professional assessment -> escalating wrongness -> existential disorientation",
   "stakes": {
-    "personal": "Ben experiencing the wound's full effect â€” what it does to a Force-sensitive to lose the lattice entirely",
-    "interpersonal": "Every group member affected differently â€” the pressure amplifies tensions",
+    "personal": "Ben experiencing the wound's full effect — what it does to a Force-sensitive to lose the lattice entirely",
+    "interpersonal": "Every group member affected differently — the pressure amplifies tensions",
     "external": "If Veraine can do this to a settlement world as a test, she can do it at Veranthos at full scale"
   },
   "characters_present": [
@@ -25,14 +25,14 @@
     "Kael Drenn",
     "Desh Rolan"
   ],
-  "setting": "Breach Zone world â€” former settlement. Buildings standing, streets traceable, wrong-growing vegetation. Fresh drift â€” things changing while watched.",
-  "sensory_details": "Buildings intact but growing vegetation on wrong sides; flowers in shadow; vines reversing direction; no birds; the Force â€” present but formless, like trying to see in a world where light exists but nothing reflects it; Desh: chrono drift measurable, grief-without-an-object settling in",
+  "setting": "Breach Zone world — former settlement. Buildings standing, streets traceable, wrong-growing vegetation. Fresh drift — things changing while watched.",
+  "sensory_details": "Buildings intact but growing vegetation on wrong sides; flowers in shadow; vines reversing direction; no birds; the Force — present but formless, like trying to see in a world where light exists but nothing reflects it; Desh: chrono drift measurable, grief-without-an-object settling in",
   "canon_elements_needed": [],
   "target_word_count": 1600,
   "action_beats": [
-    "The Steady Returns breaks orbit and Ben watches the settlement world through the viewport â€” green, blue, temperate, wrong",
-    "Ben steps onto the surface and reaches for the Force â€” his perception fires into formless nothing, the handrail gone entirely",
-    "Desh pulls out his chrono and watches the second hand skip â€” measurable drift in a de-structured zone"
+    "The Steady Returns breaks orbit and Ben watches the settlement world through the viewport — green, blue, temperate, wrong",
+    "Ben steps onto the surface and reaches for the Force — his perception fires into formless nothing, the handrail gone entirely",
+    "Desh pulls out his chrono and watches the second hand skip — measurable drift in a de-structured zone"
   ],
   "active_subplots": [
     "SP-A",
@@ -61,5 +61,5 @@
   ],
   "pov_arc_phase": "lie_challenged",
   "arc_phase_transition": "lie_challenged",
-  "notes": "R08 â€” experiential, not informational. The midpoint revelation is what de-structuring FEELS like. Use the full sensory vocabulary from the concept seed. Desh's non-Force experience validates that the lattice matters to everyone â€” grief-without-an-object."
+  "notes": "R08 — experiential, not informational. The midpoint revelation is what de-structuring FEELS like. Use the full sensory vocabulary from the concept seed. Desh's non-Force experience validates that the lattice matters to everyone — grief-without-an-object."
 }

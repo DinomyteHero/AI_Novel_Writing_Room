@@ -5,18 +5,18 @@
   "scene_type": "action",
   "scene_role": "reveal",
   "pov_character": "Ben Skywalker",
-  "mission": "Torin leaves. The group lets him go â€” each character's silence has distinct texture. They cannot physically override his agency without repeating the exact pattern the book condemns.",
-  "why_now": "The turn completes â€” Torin departing the group. The moral architecture prevents forcible intervention.",
+  "mission": "Torin leaves. The group lets him go — each character's silence has distinct texture. They cannot physically override his agency without repeating the exact pattern the book condemns.",
+  "why_now": "The turn completes — Torin departing the group. The moral architecture prevents forcible intervention.",
   "conflict": "The group faces an impossible choice: stop Torin by force (repeating Gavran's pattern of overriding agency) or let him go (losing their strongest member to a dangerous plan). They choose to let him go, each for different reasons.",
   "conflict_type": "interpersonal",
-  "turning_point": "Each character's silence: Ben (failed to stop Jacen, has no alternative yet), Sera (was the person whose agency was overridden â€” cannot do to Torin what Gavran did to her), Kael (spent his life being stopped â€” won't do it to someone else), Desh (breaks the silence with operational pragmatism).",
-  "opening_hook": "Torin walks down the ridgeline toward the valley. His stride is steady. His Force presence trails behind him like a cape â€” lighter than it's been since he woke up. The wrongness parts around him like water.",
+  "turning_point": "Each character's silence: Ben (failed to stop Jacen, has no alternative yet), Sera (was the person whose agency was overridden — cannot do to Torin what Gavran did to her), Kael (spent his life being stopped — won't do it to someone else), Desh (breaks the silence with operational pragmatism).",
+  "opening_hook": "Torin walks down the ridgeline toward the valley. His stride is steady. His Force presence trails behind him like a cape — lighter than it's been since he woke up. The wrongness parts around him like water.",
   "closing_hook": "Sera's voice, barely above a whisper: 'I was the one they sealed. I cannot seal another.' The moral architecture of the story spoken aloud. Ben nods. He understands. And now he must find another way.",
   "emotional_trajectory": "Helpless watching -> the agony of principled inaction -> Sera's devastating clarity",
   "stakes": {
     "personal": "Each character confronting their deepest wound through the choice to let Torin go",
-    "interpersonal": "The group diminished â€” their strongest member gone",
-    "external": "Torin heading toward the Scar to become the new seal â€” his plan will work but at terrible cost"
+    "interpersonal": "The group diminished — their strongest member gone",
+    "external": "Torin heading toward the Scar to become the new seal — his plan will work but at terrible cost"
   },
   "characters_present": [
     "Ben Skywalker",
@@ -24,14 +24,14 @@
     "Kael Drenn",
     "Desh Rolan"
   ],
-  "setting": "Veranthos â€” camp, watching Torin walk away down the ridgeline",
-  "sensory_details": "Torin's receding figure â€” steady, unhurried; the wrongness parting around him; Sera's face â€” grief and iron; Kael's hands loose at his sides â€” the posture of someone refusing to grab; Desh's voice â€” the first sound after too much silence: 'So. What now?'",
+  "setting": "Veranthos — camp, watching Torin walk away down the ridgeline",
+  "sensory_details": "Torin's receding figure — steady, unhurried; the wrongness parting around him; Sera's face — grief and iron; Kael's hands loose at his sides — the posture of someone refusing to grab; Desh's voice — the first sound after too much silence: 'So. What now?'",
   "canon_elements_needed": [],
   "target_word_count": 1500,
   "action_beats": [
-    "Torin turns and walks down the ridgeline toward the valley â€” stride steady, Force presence trailing behind him",
-    "Sera stands motionless as Torin descends, her hands clenched at her sides â€” refusing to seal another",
-    "Desh breaks the silence: 'So. What now?' â€” the first sound after too long"
+    "Torin turns and walks down the ridgeline toward the valley — stride steady, Force presence trailing behind him",
+    "Sera stands motionless as Torin descends, her hands clenched at her sides — refusing to seal another",
+    "Desh breaks the silence: 'So. What now?' — the first sound after too long"
   ],
   "active_subplots": [
     "SP-A",
@@ -56,5 +56,5 @@
   ],
   "revelations": [],
   "pov_arc_phase": "moment_of_truth",
-  "notes": "Jacen parallel touchpoint 4 (payoff). Ben has seen this before â€” and this time he chooses differently. He doesn't chase, he doesn't fight, he doesn't try to force Torin back. He lets him go and looks for another way. The Lie cracks open."
+  "notes": "Jacen parallel touchpoint 4 (payoff). Ben has seen this before — and this time he chooses differently. He doesn't chase, he doesn't fight, he doesn't try to force Torin back. He lets him go and looks for another way. The Lie cracks open."
 }

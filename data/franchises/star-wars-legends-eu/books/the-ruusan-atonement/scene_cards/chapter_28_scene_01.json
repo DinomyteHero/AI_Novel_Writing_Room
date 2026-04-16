@@ -5,16 +5,16 @@
   "scene_type": "sequel",
   "scene_role": "hook",
   "pov_character": "Ben Skywalker",
-  "mission": "Return journey â€” Ben alone with Desh and his thoughts. Processing everything. Preparing for the hardest conversation: telling Luke the truth.",
-  "why_now": "The journey home â€” time for reflection before the final scene",
-  "conflict": "Ben's institutional lie â€” the thing he's been carrying since Chapter 3 â€” must now be resolved. He will tell Luke everything. Not because it's easy or safe, but because the story's theme demands institutional truth.",
+  "mission": "Return journey — Ben alone with Desh and his thoughts. Processing everything. Preparing for the hardest conversation: telling Luke the truth.",
+  "why_now": "The journey home — time for reflection before the final scene",
+  "conflict": "Ben's institutional lie — the thing he's been carrying since Chapter 3 — must now be resolved. He will tell Luke everything. Not because it's easy or safe, but because the story's theme demands institutional truth.",
   "conflict_type": "internal",
-  "turning_point": "Ben stops drafting the report. He deletes every previous draft â€” the partial reports, the deleted full report, everything. He'll tell Luke in person. Some truths shouldn't be delivered through datapad.",
-  "opening_hook": "Ben leans back in the copilot's chair as hyperspace streams past â€” the wrongness quieter now, not gone but changed, the new seal's three-part harmony humming at the edge of his perception. It should feel like a burden. It feels like belonging.",
+  "turning_point": "Ben stops drafting the report. He deletes every previous draft — the partial reports, the deleted full report, everything. He'll tell Luke in person. Some truths shouldn't be delivered through datapad.",
+  "opening_hook": "Ben leans back in the copilot's chair as hyperspace streams past — the wrongness quieter now, not gone but changed, the new seal's three-part harmony humming at the edge of his perception. It should feel like a burden. It feels like belonging.",
   "closing_hook": "Coruscant on approach. The Temple visible from orbit. Ben's father somewhere inside, waiting for a report. He's about to get more than a report.",
   "emotional_trajectory": "Reflective processing -> determined resolution -> the courage of institutional honesty",
   "stakes": {
-    "personal": "Ben choosing transparency â€” breaking the thousand-year pattern of institutional secrecy",
+    "personal": "Ben choosing transparency — breaking the thousand-year pattern of institutional secrecy",
     "interpersonal": "The Ben/Luke relationship facing its most honest moment",
     "external": "The Order's self-understanding about to change"
   },
@@ -22,13 +22,13 @@
     "Ben Skywalker",
     "Desh Rolan"
   ],
-  "setting": "Aboard the Steady Returns â€” hyperspace to Coruscant, then approach",
-  "sensory_details": "Hyperspace blue; the new seal's resonance humming at the edge of perception; Desh in the pilot's chair, steady as always; the Temple from orbit â€” familiar, home, about to be changed by what Ben carries",
+  "setting": "Aboard the Steady Returns — hyperspace to Coruscant, then approach",
+  "sensory_details": "Hyperspace blue; the new seal's resonance humming at the edge of perception; Desh in the pilot's chair, steady as always; the Temple from orbit — familiar, home, about to be changed by what Ben carries",
   "canon_elements_needed": [],
   "target_word_count": 1200,
   "action_beats": [
     "Ben leans back in the copilot's chair and listens to the new seal's resonance humming at the edge of perception",
-    "Ben deletes every previous draft report on his datapad â€” the partials, the deleted full report, everything",
+    "Ben deletes every previous draft report on his datapad — the partials, the deleted full report, everything",
     "Coruscant fills the viewport on approach and the Temple is visible from orbit"
   ],
   "active_subplots": [
@@ -45,5 +45,5 @@
   "revelations": [],
   "pov_arc_phase": "arc_resolved",
   "arc_phase_transition": "arc_resolved",
-  "notes": "Ben's arc transition to arc_resolved. The resonance hum as a permanent sensation â€” the 'note in a chord' that will be the book's final image. The deleted drafts: honesty requires presence, not documents."
+  "notes": "Ben's arc transition to arc_resolved. The resonance hum as a permanent sensation — the 'note in a chord' that will be the book's final image. The deleted drafts: honesty requires presence, not documents."
 }

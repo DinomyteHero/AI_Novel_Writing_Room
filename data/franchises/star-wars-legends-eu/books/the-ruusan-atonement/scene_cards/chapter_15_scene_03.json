@@ -5,29 +5,29 @@
   "scene_type": "sequel",
   "scene_role": "decision",
   "pov_character": "Ben Skywalker",
-  "mission": "Ben wrestles with the institutional lie â€” the growing gap between what he knows and what the Order knows. He almost calls Luke. Almost.",
+  "mission": "Ben wrestles with the institutional lie — the growing gap between what he knows and what the Order knows. He almost calls Luke. Almost.",
   "why_now": "Torin's observation about curating reality hit home. Ben must confront his own version of the pattern.",
-  "conflict": "Internal: Ben knows he should tell Luke everything. But telling Luke means the Order mobilizes â€” and the Order doesn't have the conceptual vocabulary to understand the threat. They'd send Knights into thin places unprepared. More people could be hurt.",
+  "conflict": "Internal: Ben knows he should tell Luke everything. But telling Luke means the Order mobilizes — and the Order doesn't have the conceptual vocabulary to understand the threat. They'd send Knights into thin places unprepared. More people could be hurt.",
   "conflict_type": "internal",
-  "turning_point": "Ben drafts a full report â€” everything: the fortress, the survivors, the wound, Veraine. He reads it through. Then he deletes it. Not because it's wrong, but because he doesn't trust the Order to respond correctly. He's decided he knows better. The Lie deepens even as he recognizes it.",
-  "opening_hook": "Ben strips his lightsaber to component parts on the sleeping nook's fold-down shelf â€” a mindless maintenance ritual that frees his hands while his thoughts circle the comm field's blinking cursor",
+  "turning_point": "Ben drafts a full report — everything: the fortress, the survivors, the wound, Veraine. He reads it through. Then he deletes it. Not because it's wrong, but because he doesn't trust the Order to respond correctly. He's decided he knows better. The Lie deepens even as he recognizes it.",
+  "opening_hook": "Ben strips his lightsaber to component parts on the sleeping nook's fold-down shelf — a mindless maintenance ritual that frees his hands while his thoughts circle the comm field's blinking cursor",
   "closing_hook": "The deleted report leaves a ghost in Ben's datapad memory. He doesn't clear the ghost. Part of him knows he'll need proof later that he tried.",
   "emotional_trajectory": "Agonized deliberation -> attempted honesty -> rationalized secrecy",
   "stakes": {
-    "personal": "Ben becoming the thing he recognizes â€” the person who decides what everyone else should know",
+    "personal": "Ben becoming the thing he recognizes — the person who decides what everyone else should know",
     "interpersonal": "His relationship with Luke deteriorating through silence",
     "external": "The Order remains ignorant while the crisis widens"
   },
   "characters_present": [
     "Ben Skywalker"
   ],
-  "setting": "Aboard the Steady Returns â€” Ben's sleeping nook, night cycle",
-  "sensory_details": "Lightsaber components laid out in precise order â€” the familiar maintenance ritual grounding restless hands; the comm field's cursor blinking; the report's words â€” honest, complete, damning; the delete action; the ghost file in datapad memory; the wrongness like a migraine that won't break",
+  "setting": "Aboard the Steady Returns — Ben's sleeping nook, night cycle",
+  "sensory_details": "Lightsaber components laid out in precise order — the familiar maintenance ritual grounding restless hands; the comm field's cursor blinking; the report's words — honest, complete, damning; the delete action; the ghost file in datapad memory; the wrongness like a migraine that won't break",
   "canon_elements_needed": [],
   "target_word_count": 1100,
   "action_beats": [
     "Ben strips his lightsaber to component parts and lays them on the sleeping nook's fold-down shelf",
-    "Ben types the full report â€” fortress, survivors, wound, Veraine â€” reads it through twice on the datapad",
+    "Ben types the full report — fortress, survivors, wound, Veraine — reads it through twice on the datapad",
     "Ben deletes the report with a single keystroke and reassembles his lightsaber with hands that aren't quite steady"
   ],
   "active_subplots": [
@@ -42,5 +42,5 @@
   "hook_actions": [],
   "revelations": [],
   "pov_arc_phase": "lie_challenged",
-  "notes": "SP4 climax within Part 3 â€” Ben's institutional withholding reaches its peak. The irony is sharp: he's doing exactly what Gavran did, and Torin just told him so. The Lie is challenged but winning."
+  "notes": "SP4 climax within Part 3 — Ben's institutional withholding reaches its peak. The irony is sharp: he's doing exactly what Gavran did, and Torin just told him so. The Lie is challenged but winning."
 }

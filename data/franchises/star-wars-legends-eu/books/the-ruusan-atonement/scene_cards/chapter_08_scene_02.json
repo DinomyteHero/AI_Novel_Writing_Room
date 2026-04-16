@@ -5,16 +5,16 @@
   "scene_type": "sequel",
   "scene_role": "reveal",
   "pov_character": "Ben Skywalker",
-  "mission": "Group debate about the technique's nature â€” Sera argues it's an abomination, Torin argues it's a tool that was misused, Kael argues both sides are deluded. The four philosophical positions crystallize.",
-  "why_now": "The thin place has forced the underlying disagreement into the open â€” they can't proceed without confronting what they believe about the Force",
+  "mission": "Group debate about the technique's nature — Sera argues it's an abomination, Torin argues it's a tool that was misused, Kael argues both sides are deluded. The four philosophical positions crystallize.",
+  "why_now": "The thin place has forced the underlying disagreement into the open — they can't proceed without confronting what they believe about the Force",
   "conflict": "Three irreconcilable positions: Sera (the lattice is sacred, the technique is violation), Torin (the lattice is structure, the technique is engineering), Kael (both frameworks are institutional propaganda)",
   "conflict_type": "interpersonal",
-  "turning_point": "Ben realizes he doesn't have a position â€” he's been taught the Force is one way, and everything he's seen on this trip contradicts the teaching. He doesn't resolve the debate. He tables it. The unresolved tension is the point.",
+  "turning_point": "Ben realizes he doesn't have a position — he's been taught the Force is one way, and everything he's seen on this trip contradicts the teaching. He doesn't resolve the debate. He tables it. The unresolved tension is the point.",
   "opening_hook": "It starts over food. Torin says something about the technique that makes Sera put down her fork with precision that is itself a warning.",
   "closing_hook": "Kael speaks last, after everyone else has committed: 'You're all arguing about whose cage has nicer bars.' Nobody answers. Because nobody has a good response.",
   "emotional_trajectory": "Simmering tension -> heated philosophical collision -> uncomfortable silence",
   "stakes": {
-    "personal": "Ben's worldview destabilizing â€” he doesn't know what the Force is anymore",
+    "personal": "Ben's worldview destabilizing — he doesn't know what the Force is anymore",
     "interpersonal": "The group's ideological fault lines exposed",
     "external": "Their ability to act together depends on some resolution or at least coexistence"
   },
@@ -25,13 +25,13 @@
     "Kael Drenn",
     "Desh Rolan"
   ],
-  "setting": "Aboard the Steady Returns â€” cramped common area, everyone too close together",
-  "sensory_details": "Food cooling on plates; Sera's formal diction sharpening; Torin's warmth thinning for the first time; Kael's voice â€” dry, flat, cutting; Desh watching from the galley like an intelligence analyst reading a room",
+  "setting": "Aboard the Steady Returns — cramped common area, everyone too close together",
+  "sensory_details": "Food cooling on plates; Sera's formal diction sharpening; Torin's warmth thinning for the first time; Kael's voice — dry, flat, cutting; Desh watching from the galley like an intelligence analyst reading a room",
   "canon_elements_needed": [],
   "target_word_count": 1200,
   "action_beats": [
     "Sera puts down her fork with controlled precision when Torin raises the technique over their meal",
-    "Torin spreads his hands on the table â€” a gesture of measured reasonableness that makes his argument feel inevitable",
+    "Torin spreads his hands on the table — a gesture of measured reasonableness that makes his argument feel inevitable",
     "Kael speaks last, his words landing in the silence after everyone else has committed their positions"
   ],
   "active_subplots": [
@@ -50,5 +50,5 @@
   "hook_actions": [],
   "revelations": [],
   "pov_arc_phase": "lie_reinforced",
-  "notes": "Veraine's philosophy previewed through absence â€” her position (lattice as disease) is the missing fourth voice. Kael's 'whose cage has nicer bars' should be the line readers remember from this chapter."
+  "notes": "Veraine's philosophy previewed through absence — her position (lattice as disease) is the missing fourth voice. Kael's 'whose cage has nicer bars' should be the line readers remember from this chapter."
 }

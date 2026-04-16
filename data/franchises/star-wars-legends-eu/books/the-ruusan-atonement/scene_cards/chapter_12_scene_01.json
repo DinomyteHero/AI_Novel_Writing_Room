@@ -5,17 +5,17 @@
   "scene_type": "action",
   "scene_role": "hook",
   "pov_character": "Ben Skywalker",
-  "mission": "Enter Maetha's Training Facility â€” Sera cracks Gavran's seal using era-specific Force-lock techniques. The facility is the Caldera Knights' training compound: austere, beautiful, and the thin place character is fundamentally different â€” flexible lattice, not thinned.",
-  "why_now": "H11 resolution â€” entering the sealed facility. The most psychologically intense Corridor stop.",
-  "conflict": "The flexible lattice is seductive â€” the Force here offers freedom from the rigid light/dark binary. It feels like possibility. Ben has to resist the pull while investigating. Torin doesn't resist.",
+  "mission": "Enter Maetha's Training Facility — Sera cracks Gavran's seal using era-specific Force-lock techniques. The facility is the Caldera Knights' training compound: austere, beautiful, and the thin place character is fundamentally different — flexible lattice, not thinned.",
+  "why_now": "H11 resolution — entering the sealed facility. The most psychologically intense Corridor stop.",
+  "conflict": "The flexible lattice is seductive — the Force here offers freedom from the rigid light/dark binary. It feels like possibility. Ben has to resist the pull while investigating. Torin doesn't resist.",
   "conflict_type": "environmental",
-  "turning_point": "In the central training ground â€” a flat cleared circle â€” the lattice flexes visibly in the Force. Ben feels both light and dark simultaneously without contradiction. For one moment, it's beautiful. He understands why the Caldera Knights kept coming back.",
-  "opening_hook": "Sera works the lock for twelve minutes. When it opens, the air that flows out smells like time â€” dust, stone, and something underneath that isn't physical. Memory.",
-  "closing_hook": "The archive chamber. Sera recognizes the seal pattern â€” personal, not military. Maetha sealed her own records. The final message of a woman who disbanding her own creation.",
+  "turning_point": "In the central training ground — a flat cleared circle — the lattice flexes visibly in the Force. Ben feels both light and dark simultaneously without contradiction. For one moment, it's beautiful. He understands why the Caldera Knights kept coming back.",
+  "opening_hook": "Sera works the lock for twelve minutes. When it opens, the air that flows out smells like time — dust, stone, and something underneath that isn't physical. Memory.",
+  "closing_hook": "The archive chamber. Sera recognizes the seal pattern — personal, not military. Maetha sealed her own records. The final message of a woman who disbanding her own creation.",
   "emotional_trajectory": "Cautious entry -> the seduction of the flexible lattice -> sobered focus at the archive",
   "stakes": {
-    "personal": "Ben experiencing the technique's seduction firsthand â€” understanding the temptation intellectually won't protect him",
-    "interpersonal": "Torin's reaction in the training ground â€” more at ease than anywhere else on the journey",
+    "personal": "Ben experiencing the technique's seduction firsthand — understanding the temptation intellectually won't protect him",
+    "interpersonal": "Torin's reaction in the training ground — more at ease than anywhere else on the journey",
     "external": "Maetha's records contain the last piece of foreshadowing before the midpoint"
   },
   "characters_present": [
@@ -25,13 +25,13 @@
     "Kael Drenn",
     "Desh Rolan"
   ],
-  "setting": "Maetha's Training Facility â€” compound of structures around central training ground, high-altitude, thin forests",
-  "sensory_details": "The flexible lattice â€” light and dark present but the boundary shimmers; the training ground's cleared circle still resonant with centuries of practice; austere geometric architecture; Desh: persistent low-level headache that started on arrival",
+  "setting": "Maetha's Training Facility — compound of structures around central training ground, high-altitude, thin forests",
+  "sensory_details": "The flexible lattice — light and dark present but the boundary shimmers; the training ground's cleared circle still resonant with centuries of practice; austere geometric architecture; Desh: persistent low-level headache that started on arrival",
   "canon_elements_needed": [],
   "target_word_count": 1300,
   "action_beats": [
     "Sera presses her palms against Gavran's seal and works the Force-lock for twelve unbroken minutes while the group waits in silence",
-    "Ben steps into the central training circle and feels the lattice flex â€” light and dark present simultaneously",
+    "Ben steps into the central training circle and feels the lattice flex — light and dark present simultaneously",
     "Torin walks to the center of the training ground and stands perfectly still, his Force presence settling like someone arriving home"
   ],
   "active_subplots": [
@@ -53,5 +53,5 @@
   ],
   "revelations": [],
   "pov_arc_phase": "lie_reinforced",
-  "notes": "The seductive quality of the flexible lattice is the most important sensory note in this chapter. It should feel genuinely appealing â€” the reader needs to understand why intelligent people kept pursuing this. Torin's arc: lie_reinforced."
+  "notes": "The seductive quality of the flexible lattice is the most important sensory note in this chapter. It should feel genuinely appealing — the reader needs to understand why intelligent people kept pursuing this. Torin's arc: lie_reinforced."
 }

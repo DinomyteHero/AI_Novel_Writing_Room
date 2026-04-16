@@ -5,13 +5,13 @@
   "scene_type": "sequel",
   "scene_role": "decision",
   "pov_character": "Ben Skywalker",
-  "mission": "Ben shifts from reactive to proactive. The breach was a field test â€” Veraine is heading for Veranthos. Based on seal deterioration rate, she'll arrive with enough momentum to attempt a full breach.",
-  "why_now": "Midpoint turn â€” Ben must stop following and start leading. The breach made the threat visceral rather than abstract.",
-  "conflict": "Ben's Lie is challenged â€” his solitary control approach isn't enough for this crisis. He can't handle this alone. But the alternative (trusting this fractured group) feels equally dangerous.",
+  "mission": "Ben shifts from reactive to proactive. The breach was a field test — Veraine is heading for Veranthos. Based on seal deterioration rate, she'll arrive with enough momentum to attempt a full breach.",
+  "why_now": "Midpoint turn — Ben must stop following and start leading. The breach made the threat visceral rather than abstract.",
+  "conflict": "Ben's Lie is challenged — his solitary control approach isn't enough for this crisis. He can't handle this alone. But the alternative (trusting this fractured group) feels equally dangerous.",
   "conflict_type": "internal",
-  "turning_point": "Ben makes a proactive decision for the first time â€” instead of following Veraine's trail, he plans to get ahead of her. The shift from detective to commander.",
+  "turning_point": "Ben makes a proactive decision for the first time — instead of following Veraine's trail, he plans to get ahead of her. The shift from detective to commander.",
   "opening_hook": "Back aboard the Steady Returns, the breach zone shrinking behind them, Ben's hands are shaking. Not from the de-structuring. From the decision forming in his mind.",
-  "closing_hook": "Veraine is heading for Veranthos. She's days ahead. But Ben has something she doesn't: three people who understand the seal from inside, and a fourth who can see what Force-users miss. He looks at his crew â€” battered, frightened, argumentative, and the only people in the galaxy who can stop this. 'We need a plan.'",
+  "closing_hook": "Veraine is heading for Veranthos. She's days ahead. But Ben has something she doesn't: three people who understand the seal from inside, and a fourth who can see what Force-users miss. He looks at his crew — battered, frightened, argumentative, and the only people in the galaxy who can stop this. 'We need a plan.'",
   "emotional_trajectory": "Shaken aftermath -> crystallizing resolve -> first proactive leadership",
   "stakes": {
     "personal": "Ben's identity shifting from Skywalker scion to genuine leader",
@@ -25,13 +25,13 @@
     "Torin Hal",
     "Kael Drenn"
   ],
-  "setting": "Aboard the Steady Returns â€” cockpit, departure from the breach zone",
-  "sensory_details": "Ben's hands shaking on the copilot's controls; the lattice restored but feeling fragile now â€” he knows what its absence feels like; Desh's steady hands contrasting Ben's; the five faces around the small cockpit",
+  "setting": "Aboard the Steady Returns — cockpit, departure from the breach zone",
+  "sensory_details": "Ben's hands shaking on the copilot's controls; the lattice restored but feeling fragile now — he knows what its absence feels like; Desh's steady hands contrasting Ben's; the five faces around the small cockpit",
   "canon_elements_needed": [],
   "target_word_count": 1400,
   "action_beats": [
     "Ben grips the copilot's controls with shaking hands as the breach zone shrinks in the viewport behind them",
-    "Ben pulls up the Corridor map and traces a new route â€” not following Veraine's trail but cutting ahead to intercept",
+    "Ben pulls up the Corridor map and traces a new route — not following Veraine's trail but cutting ahead to intercept",
     "Ben turns to face the five people crammed into the cockpit and speaks the first proactive order of the mission"
   ],
   "active_subplots": [
@@ -53,5 +53,5 @@
   ],
   "revelations": [],
   "pov_arc_phase": "lie_challenged",
-  "notes": "H13 planted â€” Veraine heading for Veranthos. Midpoint turn complete. Ben's Lie is challenged but not broken â€” he's still thinking in terms of 'I need a plan' rather than 'we need a plan together.' The shift is happening but isn't complete."
+  "notes": "H13 planted — Veraine heading for Veranthos. Midpoint turn complete. Ben's Lie is challenged but not broken — he's still thinking in terms of 'I need a plan' rather than 'we need a plan together.' The shift is happening but isn't complete."
 }

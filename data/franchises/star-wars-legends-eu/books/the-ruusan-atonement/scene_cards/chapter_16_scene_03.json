@@ -5,17 +5,17 @@
   "scene_type": "action",
   "scene_role": "escalation",
   "pov_character": "Ben Skywalker",
-  "mission": "Sera counters Veraine with firsthand testimony â€” she's felt de-structuring, she was used as an anchor, and the liberation Veraine promises is a theory. The reality is what happened to Maetha's Knights. What happened to Torin.",
-  "why_now": "The counter-argument must match Veraine's pitch in force â€” Sera provides the experiential evidence Veraine's theory lacks",
-  "conflict": "Sera vs. Veraine â€” two women who were both sealed as anchors, both used as infrastructure, reaching opposite conclusions. Sera's counter is personal where Veraine's is theoretical: 'I have been where you want to take the galaxy. There is nothing there.'",
+  "mission": "Sera counters Veraine with firsthand testimony — she's felt de-structuring, she was used as an anchor, and the liberation Veraine promises is a theory. The reality is what happened to Maetha's Knights. What happened to Torin.",
+  "why_now": "The counter-argument must match Veraine's pitch in force — Sera provides the experiential evidence Veraine's theory lacks",
+  "conflict": "Sera vs. Veraine — two women who were both sealed as anchors, both used as infrastructure, reaching opposite conclusions. Sera's counter is personal where Veraine's is theoretical: 'I have been where you want to take the galaxy. There is nothing there.'",
   "conflict_type": "interpersonal",
-  "turning_point": "Veraine's composure cracks â€” once, briefly â€” when Sera describes the experience of being sealed. Not anger. Recognition. They share the wound. They disagree about the scar tissue.",
+  "turning_point": "Veraine's composure cracks — once, briefly — when Sera describes the experience of being sealed. Not anger. Recognition. They share the wound. They disagree about the scar tissue.",
   "opening_hook": "Sera steps forward. She's been silent throughout Veraine's pitch. When she speaks, her archaic syntax carries the weight of a thousand years of waiting to say this.",
-  "closing_hook": "Veraine recovers composure. 'I appreciate the testimony. But testimony is not evidence.' She excuses herself. The meeting is over. Something changed during her departure â€” Ben feels it in the Force. Something at the seal just shifted.",
+  "closing_hook": "Veraine recovers composure. 'I appreciate the testimony. But testimony is not evidence.' She excuses herself. The meeting is over. Something changed during her departure — Ben feels it in the Force. Something at the seal just shifted.",
   "emotional_trajectory": "Sera's controlled fury -> Veraine's brief vulnerability -> the horror of the closing shift",
   "stakes": {
-    "personal": "Sera using her deepest wound as a weapon â€” the cost of testimony",
-    "interpersonal": "Veraine and Sera's parallel exposed â€” same wound, opposite conclusions",
+    "personal": "Sera using her deepest wound as a weapon — the cost of testimony",
+    "interpersonal": "Veraine and Sera's parallel exposed — same wound, opposite conclusions",
     "external": "Something happened during the meeting. Veraine used the conversation as cover."
   },
   "characters_present": [
@@ -26,13 +26,13 @@
     "Kael Drenn",
     "Desh Rolan"
   ],
-  "setting": "Neutral meeting point â€” same location",
-  "sensory_details": "Sera's voice â€” formal, precise, trembling with controlled emotion; Veraine's brief crack â€” her eyes changing, something raw behind the composure; the Force shifting during Veraine's departure â€” the wrongness lurching",
+  "setting": "Neutral meeting point — same location",
+  "sensory_details": "Sera's voice — formal, precise, trembling with controlled emotion; Veraine's brief crack — her eyes changing, something raw behind the composure; the Force shifting during Veraine's departure — the wrongness lurching",
   "canon_elements_needed": [],
   "target_word_count": 1000,
   "action_beats": [
     "Sera steps forward from the group's line and faces Veraine at arm's length",
-    "Veraine flinches â€” quickly controlled â€” when Sera describes the experience of being sealed",
+    "Veraine flinches — quickly controlled — when Sera describes the experience of being sealed",
     "Veraine turns and walks back toward her ship with measured steps, her crew falling in behind her"
   ],
   "active_subplots": [
@@ -50,5 +50,5 @@
   "hook_actions": [],
   "revelations": [],
   "pov_arc_phase": "lie_challenged",
-  "notes": "Sera's arc: lie_challenged â€” she's using her principle (the lattice matters, de-structuring is violation) as a weapon, but the confrontation with Veraine shows her that principle alone doesn't protect. Veraine's sabotage objective executing under cover of the conversation."
+  "notes": "Sera's arc: lie_challenged — she's using her principle (the lattice matters, de-structuring is violation) as a weapon, but the confrontation with Veraine shows her that principle alone doesn't protect. Veraine's sabotage objective executing under cover of the conversation."
 }

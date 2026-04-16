@@ -5,17 +5,17 @@
   "scene_type": "sequel",
   "scene_role": "aftermath",
   "pov_character": "Ben Skywalker",
-  "mission": "Process the revelations â€” group tensions surface as survivors adjust to their situation and Ben adjusts to leading people who outrank him by a millennium",
-  "why_now": "First transit chapter after the First Plot Point â€” the group must establish a working dynamic under pressure",
-  "conflict": "Sera challenges Ben's authority by expertise â€” she knows the seal system, he doesn't. Torin mediates with easy warmth that makes the group feel like a team. Kael says almost nothing.",
+  "mission": "Process the revelations — group tensions surface as survivors adjust to their situation and Ben adjusts to leading people who outrank him by a millennium",
+  "why_now": "First transit chapter after the First Plot Point — the group must establish a working dynamic under pressure",
+  "conflict": "Sera challenges Ben's authority by expertise — she knows the seal system, he doesn't. Torin mediates with easy warmth that makes the group feel like a team. Kael says almost nothing.",
   "conflict_type": "interpersonal",
-  "turning_point": "Sera tests Ben with a tactical question about the Corridor route. His answer is pragmatic rather than doctrinal â€” she didn't expect a modern Jedi to think like an intelligence operative. First grudging respect.",
-  "opening_hook": "Ben wedges himself between a supply crate and the bulkhead to check the nav chart â€” six people in a ship built for two, and the social fabric creaking as loud as the hull",
-  "closing_hook": "Torin finds Ben alone in the corridor and says something warm about Luke â€” 'Your father's name carries weight even in our time.' The compliment feels genuine. It also feels like an assessment.",
+  "turning_point": "Sera tests Ben with a tactical question about the Corridor route. His answer is pragmatic rather than doctrinal — she didn't expect a modern Jedi to think like an intelligence operative. First grudging respect.",
+  "opening_hook": "Ben wedges himself between a supply crate and the bulkhead to check the nav chart — six people in a ship built for two, and the social fabric creaking as loud as the hull",
+  "closing_hook": "Torin finds Ben alone in the corridor and says something warm about Luke — 'Your father's name carries weight even in our time.' The compliment feels genuine. It also feels like an assessment.",
   "emotional_trajectory": "Tension and territorial friction -> unexpected competence demonstration -> uneasy truce",
   "stakes": {
     "personal": "Ben's leadership credibility with people who fought wars before he was born",
-    "interpersonal": "The group's ability to function â€” fracture here means failure everywhere",
+    "interpersonal": "The group's ability to function — fracture here means failure everywhere",
     "external": "Every moment of internal friction is time Veraine is using to get further ahead"
   },
   "characters_present": [
@@ -25,14 +25,14 @@
     "Torin Hal",
     "Kael Drenn"
   ],
-  "setting": "Aboard the Steady Returns in hyperspace â€” cramped common area, corridor, cockpit",
-  "sensory_details": "The ship straining with extra passengers; Sera's discomfort with modern technology â€” she reaches for controls that don't exist; Torin's ease in small spaces (military veteran); Kael folded into a corner, watching",
+  "setting": "Aboard the Steady Returns in hyperspace — cramped common area, corridor, cockpit",
+  "sensory_details": "The ship straining with extra passengers; Sera's discomfort with modern technology — she reaches for controls that don't exist; Torin's ease in small spaces (military veteran); Kael folded into a corner, watching",
   "canon_elements_needed": [],
   "target_word_count": 1200,
   "action_beats": [
-    "Sera reaches for a cockpit control that doesn't exist on a modern ship â€” her hand closing on blank hull plating",
+    "Sera reaches for a cockpit control that doesn't exist on a modern ship — her hand closing on blank hull plating",
     "Ben pulls up the Corridor nav chart and traces the route while answering Sera's tactical question",
-    "Torin clasps Ben's shoulder in the corridor â€” a commander's measured grip of acknowledgment"
+    "Torin clasps Ben's shoulder in the corridor — a commander's measured grip of acknowledgment"
   ],
   "active_subplots": [
     "SP-A",
@@ -50,5 +50,5 @@
   "hook_actions": [],
   "revelations": [],
   "pov_arc_phase": "lie_reinforced",
-  "notes": "Survivor displacement texture â€” Sera, Torin, Kael's disorientation with modern tech, cultural shifts. Source of conflict, humor, worldbuilding, and pathos. Desh's arc: lie_reinforced â€” professionally competent but emotionally uninvested."
+  "notes": "Survivor displacement texture — Sera, Torin, Kael's disorientation with modern tech, cultural shifts. Source of conflict, humor, worldbuilding, and pathos. Desh's arc: lie_reinforced — professionally competent but emotionally uninvested."
 }

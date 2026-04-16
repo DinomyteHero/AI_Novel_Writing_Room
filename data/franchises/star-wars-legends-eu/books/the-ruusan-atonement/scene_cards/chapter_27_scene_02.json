@@ -5,17 +5,17 @@
   "scene_type": "sequel",
   "scene_role": "aftermath",
   "pov_character": "Ben Skywalker",
-  "mission": "Torin diminished, Sera stays. The quiet devastation of partial victory â€” Torin is alive but reduced. Sera's choice to remain with him is the Sera/Torin relationship's final note: love without control, loyalty without blindness.",
-  "why_now": "Character arc resolution â€” Torin and Sera's thousand-year story concluding",
-  "conflict": "Torin is present but smaller â€” his warmth muted, his humor gone quiet, his Force presence lighter in a way that should be liberating and is instead devastating. Sera doesn't try to fix him. She sits beside him.",
+  "mission": "Torin diminished, Sera stays. The quiet devastation of partial victory — Torin is alive but reduced. Sera's choice to remain with him is the Sera/Torin relationship's final note: love without control, loyalty without blindness.",
+  "why_now": "Character arc resolution — Torin and Sera's thousand-year story concluding",
+  "conflict": "Torin is present but smaller — his warmth muted, his humor gone quiet, his Force presence lighter in a way that should be liberating and is instead devastating. Sera doesn't try to fix him. She sits beside him.",
   "conflict_type": "interpersonal",
-  "turning_point": "Sera's choice: she stays. Not from obligation, not from guilt, not from rigid loyalty to a principle. From love â€” flexible, principled, open-eyed. She knows what he is now. She stays anyway.",
+  "turning_point": "Sera's choice: she stays. Not from obligation, not from guilt, not from rigid loyalty to a principle. From love — flexible, principled, open-eyed. She knows what he is now. She stays anyway.",
   "opening_hook": "Torin sits on the ridgeline with his hands resting on his knees, facing the valley where the new seal hums. His posture is the same as before. Everything else is different.",
   "closing_hook": "Sera sits beside Torin. She doesn't speak. He doesn't either. After a long time, his hand finds hers. The grip is lighter than it was. But it's there.",
   "emotional_trajectory": "Quiet grief -> the devastation of partial success -> the grace of staying",
   "stakes": {
     "personal": "Sera's arc resolved: principled flexibility expressed through chosen presence",
-    "interpersonal": "The Sera/Torin relationship's final note â€” love as presence, not as fixing",
+    "interpersonal": "The Sera/Torin relationship's final note — love as presence, not as fixing",
     "external": "Torin's diminished survival as the book's living warning"
   },
   "characters_present": [
@@ -23,14 +23,14 @@
     "Sera Varik",
     "Torin Hal"
   ],
-  "setting": "Veranthos â€” ridgeline, overlooking the valley where the new seal hums",
-  "sensory_details": "Torin's diminished presence â€” lighter, quieter, the heavy warmth gone; Sera's face â€” grief and peace coexisting; their hands touching â€” lighter than before; the new seal humming in the valley below, three-part harmony audible in the Force",
+  "setting": "Veranthos — ridgeline, overlooking the valley where the new seal hums",
+  "sensory_details": "Torin's diminished presence — lighter, quieter, the heavy warmth gone; Sera's face — grief and peace coexisting; their hands touching — lighter than before; the new seal humming in the valley below, three-part harmony audible in the Force",
   "canon_elements_needed": [],
   "target_word_count": 1300,
   "action_beats": [
-    "Torin sits on the ridgeline with hands on his knees, facing the valley â€” posture unchanged, presence diminished",
+    "Torin sits on the ridgeline with hands on his knees, facing the valley — posture unchanged, presence diminished",
     "Sera walks to the ridgeline and sits beside Torin without speaking",
-    "Torin's hand finds Sera's after a long silence â€” the grip lighter than it was, but there"
+    "Torin's hand finds Sera's after a long silence — the grip lighter than it was, but there"
   ],
   "active_subplots": [
     "SP1"
@@ -45,5 +45,5 @@
   "hook_actions": [],
   "revelations": [],
   "pov_arc_phase": "new_truth_demonstrated",
-  "notes": "Sera's arc: arc_resolved â€” principled flexibility, love without control. Torin's arc: arc_resolved_tragic â€” his diminished survival embodies the cost. Kael's arc resolved through this scene's observation: the group chose differently, and the result is this â€” imperfect, painful, but honest."
+  "notes": "Sera's arc: arc_resolved — principled flexibility, love without control. Torin's arc: arc_resolved_tragic — his diminished survival embodies the cost. Kael's arc resolved through this scene's observation: the group chose differently, and the result is this — imperfect, painful, but honest."
 }

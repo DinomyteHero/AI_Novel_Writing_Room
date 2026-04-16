@@ -6,7 +6,7 @@
   "scene_role": "decision",
   "pov_character": "Ben Skywalker",
   "mission": "Long-range sensors detect another ship on parallel course toward Veranthos. Veraine is visible now. The convergence tightens.",
-  "why_now": "Transition toward Chapter 18 â€” the physical convergence of all parties toward Veranthos begins",
+  "why_now": "Transition toward Chapter 18 — the physical convergence of all parties toward Veranthos begins",
   "conflict": "The tactical situation is now a race to a fixed point. Veraine is on approach. The group must decide their approach vector and what they'll do when they arrive.",
   "conflict_type": "external",
   "turning_point": "Desh confirms: Veraine's ship is running a course that will arrive at Veranthos roughly simultaneously with them. She's not fleeing. She's not waiting. She timed this. She wants them there for the endgame.",
@@ -14,7 +14,7 @@
   "closing_hook": "Two ships converging on a world where the Force was torn a thousand years ago. Torin watches the nav display with the expression of a man coming home.",
   "emotional_trajectory": "Tactical alertness -> grim inevitability -> Torin's unsettling anticipation",
   "stakes": {
-    "personal": "The endgame approaching â€” no more preparation time",
+    "personal": "The endgame approaching — no more preparation time",
     "interpersonal": "Torin's anticipation contrasting with everyone else's dread",
     "external": "Convergence at Veranthos imminent"
   },
@@ -23,13 +23,13 @@
     "Desh Rolan",
     "Torin Hal"
   ],
-  "setting": "Aboard the Steady Returns â€” cockpit, sensor displays",
-  "sensory_details": "Sensor contact on the display â€” a small bright dot on a parallel trajectory; Desh's professional calm masking concern; Torin's reflection in the viewport, watching the stars with anticipation",
+  "setting": "Aboard the Steady Returns — cockpit, sensor displays",
+  "sensory_details": "Sensor contact on the display — a small bright dot on a parallel trajectory; Desh's professional calm masking concern; Torin's reflection in the viewport, watching the stars with anticipation",
   "canon_elements_needed": [],
   "target_word_count": 1100,
   "action_beats": [
-    "Desh tracks the sensor contact â€” a bright dot on the display, parallel course, Veraine's ship signature confirmed",
-    "Ben leans over the nav console and overlays both trajectories â€” they converge at Veranthos within hours of each other",
+    "Desh tracks the sensor contact — a bright dot on the display, parallel course, Veraine's ship signature confirmed",
+    "Ben leans over the nav console and overlays both trajectories — they converge at Veranthos within hours of each other",
     "Torin watches the nav display with the expression of a man coming home and doesn't try to hide it"
   ],
   "active_subplots": [
@@ -50,5 +50,5 @@
   ],
   "revelations": [],
   "pov_arc_phase": "lie_challenged",
-  "notes": "H18 planted â€” parallel course to Veranthos. The physical convergence mirrors the thematic convergence. Torin's expression should be the chapter's final image â€” a man looking forward to something that should terrify him."
+  "notes": "H18 planted — parallel course to Veranthos. The physical convergence mirrors the thematic convergence. Torin's expression should be the chapter's final image — a man looking forward to something that should terrify him."
 }

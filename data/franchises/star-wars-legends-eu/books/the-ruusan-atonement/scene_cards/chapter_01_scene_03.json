@@ -5,25 +5,25 @@
   "scene_type": "action",
   "scene_role": "decision",
   "pov_character": "Ben Skywalker",
-  "mission": "Ben considers and rejects a Jedi partner, instead calling Desh Rolan â€” establishing the Lie (self-reliance) through a control choice disguised as practicality",
+  "mission": "Ben considers and rejects a Jedi partner, instead calling Desh Rolan — establishing the Lie (self-reliance) through a control choice disguised as practicality",
   "why_now": "The mission requires a partner; Ben's choice of Desh over a Jedi reveals his trust architecture",
-  "conflict": "Ben rationalizes choosing a non-Force-sensitive friend over a Jedi colleague as 'practical' â€” but it's actually about control and the danger of trusting Force-users after Jacen and Vestara",
+  "conflict": "Ben rationalizes choosing a non-Force-sensitive friend over a Jedi colleague as 'practical' — but it's actually about control and the danger of trusting Force-users after Jacen and Vestara",
   "conflict_type": "internal",
   "turning_point": "Desh answers the comm with dry humor and agrees to the job without asking why Ben didn't call a Jedi. They both know why.",
-  "opening_hook": "Ben's thumb hovers over the Jedi partner roster on his datapad, then slides past it to his personal contacts â€” his ship already fueled in the hangar below",
-  "closing_hook": "The wrongness in the Force shifts as Ben leaves Coruscant â€” not diminishing but acquiring direction, like a compass needle settling",
+  "opening_hook": "Ben's thumb hovers over the Jedi partner roster on his datapad, then slides past it to his personal contacts — his ship already fueled in the hangar below",
+  "closing_hook": "The wrongness in the Force shifts as Ben leaves Coruscant — not diminishing but acquiring direction, like a compass needle settling",
   "emotional_trajectory": "Calculated avoidance -> familiar comfort with Desh -> unsettled recognition that the wrongness is guiding him",
   "stakes": {
     "personal": "Ben's self-deception about why he chooses isolation over Jedi partnership",
-    "interpersonal": "The Ben/Desh dynamic â€” friendship built on shared history neither discusses",
-    "external": "The wrongness has a direction â€” it's pulling Ben somewhere specific"
+    "interpersonal": "The Ben/Desh dynamic — friendship built on shared history neither discusses",
+    "external": "The wrongness has a direction — it's pulling Ben somewhere specific"
   },
   "characters_present": [
     "Ben Skywalker",
     "Desh Rolan"
   ],
   "setting": "Jedi Temple hangar bay -> comm call to Desh -> departure from Coruscant",
-  "sensory_details": "Hangar echoes; Desh's voice tinny over long-range comm; hyperspace entry â€” the wrongness persists through hyperspace, which it shouldn't",
+  "sensory_details": "Hangar echoes; Desh's voice tinny over long-range comm; hyperspace entry — the wrongness persists through hyperspace, which it shouldn't",
   "canon_elements_needed": [
     "Galactic Alliance Guard history, dissolution, and legacy",
     "Non-Force-sensitive relationships with Jedi in post-war era",
@@ -34,7 +34,7 @@
   "target_word_count": 1250,
   "action_beats": [
     "Ben bypasses three Jedi Knight contacts on his datapad and opens his personal list",
-    "Desh's voice crackles over long-range comm â€” dry greeting, no questions asked",
+    "Desh's voice crackles over long-range comm — dry greeting, no questions asked",
     "Ben's ship lifts from the Temple hangar bay and angles toward orbit",
     "The ship punches into hyperspace; Ben's instruments flicker as the wrongness persists through the jump"
   ],
@@ -61,5 +61,5 @@
     "R01"
   ],
   "pov_arc_phase": "lie_established",
-  "notes": "R01 lands at end of scene â€” the wrongness has a direction. This transforms Ben's departure from passive retreat to unconscious pursuit. Desh's arc starts here: lie_established â€” arrives as a favor, obligation not purpose. GAG backstory: Zahn-style integration â€” 2-3 concise sentences threaded through Ben's reaction when he registers Desh's unspoken understanding, not a standalone exposition paragraph. Give the reader enough context to feel the weight of shared history (GAG as a post-war Alliance security force whose work blurred ethical lines) without stopping the scene's forward motion. The information belongs here, but must ride on top of a beat â€” Ben's physical action, Desh's tone, a specific memory â€” rather than interrupting the scene as narrator commentary."
+  "notes": "R01 lands at end of scene — the wrongness has a direction. This transforms Ben's departure from passive retreat to unconscious pursuit. Desh's arc starts here: lie_established — arrives as a favor, obligation not purpose. GAG backstory: Zahn-style integration — 2-3 concise sentences threaded through Ben's reaction when he registers Desh's unspoken understanding, not a standalone exposition paragraph. Give the reader enough context to feel the weight of shared history (GAG as a post-war Alliance security force whose work blurred ethical lines) without stopping the scene's forward motion. The information belongs here, but must ride on top of a beat — Ben's physical action, Desh's tone, a specific memory — rather than interrupting the scene as narrator commentary."
 }

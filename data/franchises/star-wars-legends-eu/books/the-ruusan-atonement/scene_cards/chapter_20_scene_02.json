@@ -5,16 +5,16 @@
   "scene_type": "action",
   "scene_role": "escalation",
   "pov_character": "Ben Skywalker",
-  "mission": "Descent to the surface â€” passing through the ring structure. Ring 4 (seal boundary), Ring 3 (evacuation zone), Ring 2 (the city). Each ring escalates the wrongness. Veranthos didn't die â€” it drifted.",
-  "why_now": "Physical approach to the wound â€” each ring escalation builds the sensory and emotional pressure",
-  "conflict": "The city is overwhelming â€” buildings standing but wrong, vegetation growing without biological logic, the silence where birds should be. The wrongness cumulative, building chest pressure by the fifth street.",
+  "mission": "Descent to the surface — passing through the ring structure. Ring 4 (seal boundary), Ring 3 (evacuation zone), Ring 2 (the city). Each ring escalates the wrongness. Veranthos didn't die — it drifted.",
+  "why_now": "Physical approach to the wound — each ring escalation builds the sensory and emotional pressure",
+  "conflict": "The city is overwhelming — buildings standing but wrong, vegetation growing without biological logic, the silence where birds should be. The wrongness cumulative, building chest pressure by the fifth street.",
   "conflict_type": "environmental",
-  "turning_point": "The city. Homes, shops, a school. Evidence of life that simply... stopped. Not destroyed. Emptied and left to drift. The horror isn't violence â€” it's abandonment by the logic of the universe.",
-  "opening_hook": "Ben steps through the seal boundary and the Force drops away â€” like walking from a faint breeze into stagnant air, except the breeze was the Force and now there's nothing",
+  "turning_point": "The city. Homes, shops, a school. Evidence of life that simply... stopped. Not destroyed. Emptied and left to drift. The horror isn't violence — it's abandonment by the logic of the universe.",
+  "opening_hook": "Ben steps through the seal boundary and the Force drops away — like walking from a faint breeze into stagnant air, except the breeze was the Force and now there's nothing",
   "closing_hook": "Ahead, in the valley between ridgelines: the Scar. A roughly three-meter vertical line in the air where the Force was torn and never fully healed. Not glowing. Not pulsing. A visual distortion like heat shimmer without heat. Ben stares at the seam in reality and feels the full weight of what Gavran did.",
   "emotional_trajectory": "Controlled descent -> escalating wrongness -> the devastating beauty of drift -> awe and horror at the Scar",
   "stakes": {
-    "personal": "Ben experiencing the wound source â€” the thing his whole journey has been leading to",
+    "personal": "Ben experiencing the wound source — the thing his whole journey has been leading to",
     "interpersonal": "Each group member's reaction at different ring levels",
     "external": "Veraine is at the epicenter. Torin is moving toward it. The stage is being set."
   },
@@ -25,14 +25,14 @@
     "Torin Hal",
     "Kael Drenn"
   ],
-  "setting": "Veranthos surface â€” descending through rings: seal boundary, evacuation zone, city, approaching the valley",
-  "sensory_details": "Ring 3: doors standing open, vehicles pointed away, a thousand years of overgrowth; Ring 2: the city â€” vines climbing then reversing, trees splitting buildings horizontally, flowers on shadow sides, no birds; Desh: grief-without-an-object settling in; the Scar: heat shimmer without heat, barely visible straight on, unmistakable from an angle",
+  "setting": "Veranthos surface — descending through rings: seal boundary, evacuation zone, city, approaching the valley",
+  "sensory_details": "Ring 3: doors standing open, vehicles pointed away, a thousand years of overgrowth; Ring 2: the city — vines climbing then reversing, trees splitting buildings horizontally, flowers on shadow sides, no birds; Desh: grief-without-an-object settling in; the Scar: heat shimmer without heat, barely visible straight on, unmistakable from an angle",
   "canon_elements_needed": [],
   "target_word_count": 1300,
   "action_beats": [
     "Ben steps through the seal boundary and stumbles as the Force drops away entirely",
-    "The group moves through the city's empty streets â€” buildings standing but wrong, vines reversing direction, flowers in shadow",
-    "Ben stops at the valley ridge and stares at the Scar â€” a three-meter vertical distortion where reality was torn and never healed"
+    "The group moves through the city's empty streets — buildings standing but wrong, vines reversing direction, flowers in shadow",
+    "Ben stops at the valley ridge and stares at the Scar — a three-meter vertical distortion where reality was torn and never healed"
   ],
   "active_subplots": [
     "SP-A"
@@ -46,5 +46,5 @@
   "hook_actions": [],
   "revelations": [],
   "pov_arc_phase": "lie_challenged",
-  "notes": "Use the full Veranthos world-building â€” ring structure, the city's oppressive wrongness, the Scar. Desh's non-Force experience: grief-without-an-object, chrono drift, wrong vegetation. This is the atmospheric payoff promised since Chapter 3."
+  "notes": "Use the full Veranthos world-building — ring structure, the city's oppressive wrongness, the Scar. Desh's non-Force experience: grief-without-an-object, chrono drift, wrong vegetation. This is the atmospheric payoff promised since Chapter 3."
 }

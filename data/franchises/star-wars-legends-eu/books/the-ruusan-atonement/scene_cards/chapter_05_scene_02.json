@@ -6,15 +6,15 @@
   "scene_role": "reveal",
   "pov_character": "Ben Skywalker",
   "mission": "The full scope reveals: the Ruusan Reformations as penance, the forbidden technique, the wound at Veranthos, the anchor system, the Brotherhood's lattice inversion attempt",
-  "why_now": "Sera and Torin recognize the archive and can interpret what Ben couldn't â€” the conceptual vocabulary returns with its original speakers",
-  "conflict": "The information is staggering in scope â€” Ben's understanding of Jedi history is being rewritten in real time. Sera and Torin disagree on emphasis; Kael corrects details from the Sith perspective that neither expected.",
+  "why_now": "Sera and Torin recognize the archive and can interpret what Ben couldn't — the conceptual vocabulary returns with its original speakers",
+  "conflict": "The information is staggering in scope — Ben's understanding of Jedi history is being rewritten in real time. Sera and Torin disagree on emphasis; Kael corrects details from the Sith perspective that neither expected.",
   "conflict_type": "interpersonal",
-  "turning_point": "The Reformations â€” the foundation of modern Jedi identity, the thing Ben grew up being told was principled reform â€” were penance. Damage control. The Order has been built on institutional amnesia.",
-  "opening_hook": "Sera crosses to the archive console and her fingers find the activation sequence from muscle memory â€” a thousand years old and still faster than Ben's modern training",
+  "turning_point": "The Reformations — the foundation of modern Jedi identity, the thing Ben grew up being told was principled reform — were penance. Damage control. The Order has been built on institutional amnesia.",
+  "opening_hook": "Sera crosses to the archive console and her fingers find the activation sequence from muscle memory — a thousand years old and still faster than Ben's modern training",
   "closing_hook": "The technique. The wound. The seal. The anchors. Twelve Force-sensitives used as structural rebar in a containment system. Nine dead. Three just woken. One escaped.",
   "emotional_trajectory": "Absorbing shock -> intellectual vertigo -> moral reckoning with institutional history",
   "stakes": {
-    "personal": "Ben's identity as a Jedi is built on the Reformations' narrative â€” that narrative is a lie",
+    "personal": "Ben's identity as a Jedi is built on the Reformations' narrative — that narrative is a lie",
     "interpersonal": "The survivors' conflicting accounts reveal they weren't all willing participants",
     "external": "The wound exists, the seal is failing, and the Order doesn't know any of this"
   },
@@ -25,7 +25,7 @@
     "Torin Hal",
     "Kael Drenn"
   ],
-  "setting": "Fortress Level 2 (Archive) â€” survivors navigating familiar territory with thousand-year-old muscle memory",
+  "setting": "Fortress Level 2 (Archive) — survivors navigating familiar territory with thousand-year-old muscle memory",
   "sensory_details": "Archive media activating under Sera's touch; holographic displays showing maps of the wound's expansion over centuries; Torin's hand brushing a console with familiarity that makes Ben's skin crawl; the Codex fragment glowing faintly in its sealed case",
   "canon_elements_needed": [
     "Ruusan Reformations true historical purpose and aftermath",
@@ -38,9 +38,9 @@
   "target_word_count": 1400,
   "action_beats": [
     "Sera activates the archive console with an ancient access code from muscle memory",
-    "Holographic displays bloom showing the wound's expansion over centuries â€” red zones growing across the map",
+    "Holographic displays bloom showing the wound's expansion over centuries — red zones growing across the map",
     "Torin pulls the sealed Codex fragment from its housing and opens the case",
-    "Kael reaches past Sera to correct a detail on the projection map â€” his first voluntary contribution"
+    "Kael reaches past Sera to correct a detail on the projection map — his first voluntary contribution"
   ],
   "active_subplots": [
     "SP-A",
@@ -66,5 +66,5 @@
     "R04"
   ],
   "pov_arc_phase": "lie_reinforced",
-  "notes": "R04 is the major First Plot Point revelation. Dense information delivery but through character perspective, not lecture â€” Sera's precision, Torin's narrative warmth, Kael's dry corrections. Jacen mentioned during galactic history briefing â€” Ben's tone tells the reader everything. Anti-pattern WARNING: this is the highest info-dump risk scene in the novel. Every piece of exposition must be earned through character reaction. If Sera explains something, Ben's internal response tells the reader why it matters. If Torin narrates, his warmth makes the history feel personal, not academic. Kael's corrections should be brief, surprising, and slightly uncomfortable â€” he knows things from the other side."
+  "notes": "R04 is the major First Plot Point revelation. Dense information delivery but through character perspective, not lecture — Sera's precision, Torin's narrative warmth, Kael's dry corrections. Jacen mentioned during galactic history briefing — Ben's tone tells the reader everything. Anti-pattern WARNING: this is the highest info-dump risk scene in the novel. Every piece of exposition must be earned through character reaction. If Sera explains something, Ben's internal response tells the reader why it matters. If Torin narrates, his warmth makes the history feel personal, not academic. Kael's corrections should be brief, surprising, and slightly uncomfortable — he knows things from the other side."
 }

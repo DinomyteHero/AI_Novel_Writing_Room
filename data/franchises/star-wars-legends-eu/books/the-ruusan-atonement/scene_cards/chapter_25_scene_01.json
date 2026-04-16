@@ -5,17 +5,17 @@
   "scene_type": "action",
   "scene_role": "hook",
   "pov_character": "Ben Skywalker",
-  "mission": "The resonance catches â€” Ben stops trying to control it. The breakthrough comes when he lets go and listens instead of leading. The three notes find their own relationship â€” emergent, not commanded.",
-  "why_now": "The climactic breakthrough â€” Ben's arc completing through action. The new truth demonstrated: trust, surrender of control, orchestration rather than possession.",
+  "mission": "The resonance catches — Ben stops trying to control it. The breakthrough comes when he lets go and listens instead of leading. The three notes find their own relationship — emergent, not commanded.",
+  "why_now": "The climactic breakthrough — Ben's arc completing through action. The new truth demonstrated: trust, surrender of control, orchestration rather than possession.",
   "conflict": "Ben's internal battle: every Skywalker instinct screams to take control, to force the harmony. His need demands the opposite. He lets go.",
   "conflict_type": "internal",
-  "turning_point": "Ben stops leading and starts listening. The three traditions â€” instead of being forced into alignment â€” find their own relationship. An emergent harmony, a chord built from notes that shouldn't fit but do. The resonance catches. Warmth after cold.",
-  "opening_hook": "The discordance is reaching critical. Sera's jaw is set. Kael's hands are trembling. Ben is trying everything he knows and nothing is working. Then he thinks of Desh â€” the man who leads by making space for other people's competence. And he lets go.",
-  "closing_hook": "The resonance catches. The warmth is physical â€” not metaphorical. After the bone-deep cold of de-structuring, after months of the wrongness, the return of structure feels like hearing a note you didn't know you were part of. Relief, not triumph.",
+  "turning_point": "Ben stops leading and starts listening. The three traditions — instead of being forced into alignment — find their own relationship. An emergent harmony, a chord built from notes that shouldn't fit but do. The resonance catches. Warmth after cold.",
+  "opening_hook": "The discordance is reaching critical. Sera's jaw is set. Kael's hands are trembling. Ben is trying everything he knows and nothing is working. Then he thinks of Desh — the man who leads by making space for other people's competence. And he lets go.",
+  "closing_hook": "The resonance catches. The warmth is physical — not metaphorical. After the bone-deep cold of de-structuring, after months of the wrongness, the return of structure feels like hearing a note you didn't know you were part of. Relief, not triumph.",
   "emotional_trajectory": "Desperate control -> the moment of surrender -> the breakthrough warmth",
   "stakes": {
-    "personal": "Ben's arc culminating â€” trust and surrender as strength",
-    "interpersonal": "Three traditions harmonizing â€” the thematic argument made physical",
+    "personal": "Ben's arc culminating — trust and surrender as strength",
+    "interpersonal": "Three traditions harmonizing — the thematic argument made physical",
     "external": "The resonance works. The question is whether it's enough."
   },
   "characters_present": [
@@ -23,14 +23,14 @@
     "Sera Varik",
     "Kael Drenn"
   ],
-  "setting": "Veranthos â€” mid-valley, hands linked, the resonance catching",
-  "sensory_details": "The three notes finding their relationship â€” not any single tradition's structure but something emergent; warmth returning through the Force after cold; the lattice reforming not as rigid grid but as living tissue â€” flexible, dynamic; relief like breathing after nearly drowning",
+  "setting": "Veranthos — mid-valley, hands linked, the resonance catching",
+  "sensory_details": "The three notes finding their relationship — not any single tradition's structure but something emergent; warmth returning through the Force after cold; the lattice reforming not as rigid grid but as living tissue — flexible, dynamic; relief like breathing after nearly drowning",
   "canon_elements_needed": [],
   "target_word_count": 1400,
   "action_beats": [
-    "Sera sets her jaw and Kael's hands tremble as the discordance reaches critical â€” the resonance failing",
-    "Ben releases his grip on control â€” stops leading, starts listening â€” and the three traditions find their own relationship",
-    "The resonance catches and warmth floods through their linked hands â€” physical, not metaphorical, after months of cold"
+    "Sera sets her jaw and Kael's hands tremble as the discordance reaches critical — the resonance failing",
+    "Ben releases his grip on control — stops leading, starts listening — and the three traditions find their own relationship",
+    "The resonance catches and warmth floods through their linked hands — physical, not metaphorical, after months of cold"
   ],
   "active_subplots": [
     "SP-A"

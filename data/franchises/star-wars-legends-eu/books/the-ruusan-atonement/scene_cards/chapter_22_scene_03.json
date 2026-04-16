@@ -5,30 +5,30 @@
   "scene_type": "sequel",
   "scene_role": "decision",
   "pov_character": "Ben Skywalker",
-  "mission": "Ben must now convince Kael. The plan requires three traditions â€” and Kael's Sith-trained contribution is the piece that can't be substituted. Ben knows he can't command this. Kael must choose freely.",
+  "mission": "Ben must now convince Kael. The plan requires three traditions — and Kael's Sith-trained contribution is the piece that can't be substituted. Ben knows he can't command this. Kael must choose freely.",
   "why_now": "The plan is built but incomplete without Kael. The thematic argument demands that Kael's participation be voluntary.",
-  "conflict": "Ben prepares to ask Kael â€” not command, not manipulate, not guilt-trip. Ask. The hardest thing for a Skywalker: trusting someone else's free choice when everything depends on it.",
+  "conflict": "Ben prepares to ask Kael — not command, not manipulate, not guilt-trip. Ask. The hardest thing for a Skywalker: trusting someone else's free choice when everything depends on it.",
   "conflict_type": "internal",
   "turning_point": "Ben acknowledges to himself: if Kael says no, the plan fails. And that has to be acceptable. Forcing Kael would repeat every institution that ever used him. The answer has to be free or it isn't an answer.",
-  "opening_hook": "Kael sits at the camp's edge with his legs over the ridgeline, facing the valley and the Scar below. He doesn't turn when Ben approaches â€” he felt him coming.",
+  "opening_hook": "Kael sits at the camp's edge with his legs over the ridgeline, facing the valley and the Scar below. He doesn't turn when Ben approaches — he felt him coming.",
   "closing_hook": "Kael's question: 'Why should I believe this one is different?' Not hostile. Not cynical. Genuine. The final holdout before the plan can execute.",
   "emotional_trajectory": "Steeling resolve -> the approach -> Kael's devastating question",
   "stakes": {
     "personal": "Ben learning to lead through invitation rather than command",
-    "interpersonal": "Ben and Kael â€” the Jedi and the Sith-trained, asking each other for trust",
+    "interpersonal": "Ben and Kael — the Jedi and the Sith-trained, asking each other for trust",
     "external": "Without Kael, no resonance. Without resonance, Torin's sacrifice or Veraine's destruction."
   },
   "characters_present": [
     "Ben Skywalker",
     "Kael Drenn"
   ],
-  "setting": "Veranthos â€” camp edge, overlooking the valley and the Scar",
-  "sensory_details": "The Scar visible below â€” a seam in reality; Kael's Force presence â€” guarded but not hostile; the wrongness between them, making the conversation harder than it should be; first light touching the ridgelines",
+  "setting": "Veranthos — camp edge, overlooking the valley and the Scar",
+  "sensory_details": "The Scar visible below — a seam in reality; Kael's Force presence — guarded but not hostile; the wrongness between them, making the conversation harder than it should be; first light touching the ridgelines",
   "canon_elements_needed": [],
   "target_word_count": 1250,
   "action_beats": [
     "Kael sits at the camp's edge with legs over the ridgeline, facing the Scar below",
-    "Ben sits down beside Kael and presents the resonance plan â€” theory, requirements, risks, his specific role â€” holding nothing back",
+    "Ben sits down beside Kael and presents the resonance plan — theory, requirements, risks, his specific role — holding nothing back",
     "Kael turns the question over in silence, his fingers pulling at the grass beside him"
   ],
   "active_subplots": [
@@ -49,5 +49,5 @@
   ],
   "revelations": [],
   "pov_arc_phase": "moment_of_truth",
-  "notes": "H22 planted â€” Kael's question: 'Why should I believe this one is different?' The final character holdout. Ben's leadership through invitation, not command, is the thematic argument in action."
+  "notes": "H22 planted — Kael's question: 'Why should I believe this one is different?' The final character holdout. Ben's leadership through invitation, not command, is the thematic argument in action."
 }

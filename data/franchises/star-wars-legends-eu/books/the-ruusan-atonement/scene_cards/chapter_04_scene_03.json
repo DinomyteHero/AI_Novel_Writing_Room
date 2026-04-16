@@ -5,16 +5,16 @@
   "scene_type": "action",
   "scene_role": "reveal",
   "pov_character": "Ben Skywalker",
-  "mission": "Discovery of the Stasis Ring â€” twelve chambers in a ring: nine dark with bodies, three active with living occupants, one empty and broken open from inside. Gavran's body in the central chamber below.",
-  "why_now": "The fortress's deepest secret â€” the living core of the containment system",
+  "mission": "Discovery of the Stasis Ring — twelve chambers in a ring: nine dark with bodies, three active with living occupants, one empty and broken open from inside. Gavran's body in the central chamber below.",
+  "why_now": "The fortress's deepest secret — the living core of the containment system",
   "conflict": "The visual horror of nine dead in failing chambers, three alive in flickering stasis, and one chamber violently opened from inside. Something got out.",
   "conflict_type": "environmental",
-  "turning_point": "The empty chamber. Damage marks on the walls, emergency flags in the monitoring system â€” and the breach happened weeks ago. Whatever was in there is already gone.",
+  "turning_point": "The empty chamber. Damage marks on the walls, emergency flags in the monitoring system — and the breach happened weeks ago. Whatever was in there is already gone.",
   "opening_hook": "Level 3 opens into a ring. Twelve chambers arranged around a central shaft. Most of them are dark.",
   "closing_hook": "Below the ring, in Level 4, Gavran's body sits at the nexus of the conduit network. His hands are on the control surfaces. His last monitoring log entry trails off mid-sentence. He held this together until he couldn't.",
   "emotional_trajectory": "Horror at the dead chambers -> awe at the living ones -> dread at the empty one -> grief at Gavran's vigil",
   "stakes": {
-    "personal": "Ben is looking at people who were sealed as living infrastructure â€” used",
+    "personal": "Ben is looking at people who were sealed as living infrastructure — used",
     "interpersonal": "Desh's reaction grounds the horror practically: 'Someone broke out. Recently.'",
     "external": "Three survivors to wake, one escapee already loose, a dead guardian at the center"
   },
@@ -22,8 +22,8 @@
     "Ben Skywalker",
     "Desh Rolan"
   ],
-  "setting": "Fortress Level 3 (Stasis Ring) and Level 4 (Gavran's Chamber) â€” emergency lighting, twelve chambers, central shaft",
-  "sensory_details": "Flickering blue stasis fields; the different Force signatures of the three living occupants â€” one disciplined, one heavy, one clipped; the empty chamber's damage marks like claw marks from inside; Gavran's body preserved but clearly dead, hands on controls, face peaceful",
+  "setting": "Fortress Level 3 (Stasis Ring) and Level 4 (Gavran's Chamber) — emergency lighting, twelve chambers, central shaft",
+  "sensory_details": "Flickering blue stasis fields; the different Force signatures of the three living occupants — one disciplined, one heavy, one clipped; the empty chamber's damage marks like claw marks from inside; Gavran's body preserved but clearly dead, hands on controls, face peaceful",
   "canon_elements_needed": [
     "Force stasis technology in Star Wars Legends",
     "Sith-trained prisoners in Jedi custody and containment",
@@ -34,7 +34,7 @@
   "target_word_count": 1250,
   "action_beats": [
     "Ben walks the circumference of the Stasis Ring, counting dark chambers and flickering active ones",
-    "Desh inspects the empty chamber's damage marks â€” systematic scoring gouged from the inside",
+    "Desh inspects the empty chamber's damage marks — systematic scoring gouged from the inside",
     "Ben descends to Level 4 and finds Gavran's body seated at the control nexus, hands still on the surfaces",
     "Ben touches one of the three active chamber controls and the stasis field hums in response"
   ],
@@ -58,5 +58,5 @@
     "R03"
   ],
   "pov_arc_phase": "lie_established",
-  "notes": "R03 lands here â€” the fortress is a tomb with three living people. The empty chamber is the threat. Gavran's body at the nexus tells the story without words â€” he held on until he died. End chapter with Ben and Desh looking at the three active chambers. Decision: wake them? Anti-pattern: do not make Gavran's death maudlin. The grief should come from Ben's recognition of the duty, not from emotional description. Understated is stronger here."
+  "notes": "R03 lands here — the fortress is a tomb with three living people. The empty chamber is the threat. Gavran's body at the nexus tells the story without words — he held on until he died. End chapter with Ben and Desh looking at the three active chambers. Decision: wake them? Anti-pattern: do not make Gavran's death maudlin. The grief should come from Ben's recognition of the duty, not from emotional description. Understated is stronger here."
 }

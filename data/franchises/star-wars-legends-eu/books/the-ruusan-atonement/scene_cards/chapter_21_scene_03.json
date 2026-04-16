@@ -5,17 +5,17 @@
   "scene_type": "sequel",
   "scene_role": "decision",
   "pov_character": "Ben Skywalker",
-  "mission": "Ben's crystallizing realization â€” Gavran's note about lattice resonance. 'I need to show you something in the Codex.' The Lie breaks open: 'We find another way. Together.'",
+  "mission": "Ben's crystallizing realization — Gavran's note about lattice resonance. 'I need to show you something in the Codex.' The Lie breaks open: 'We find another way. Together.'",
   "why_now": "The second plot point's decision: Ben must choose between his Lie (seize control, act alone) and his Need (trust others, find a collective solution). He chooses the Need.",
-  "conflict": "Ben's desperation to find an alternative before Torin reaches the Scar drives him back to the resonance note he bookmarked in Chapter 14. The re-reading â€” with new understanding from Kael's Chapter 19 insight â€” transforms the theoretical note into a plan.",
+  "conflict": "Ben's desperation to find an alternative before Torin reaches the Scar drives him back to the resonance note he bookmarked in Chapter 14. The re-reading — with new understanding from Kael's Chapter 19 insight — transforms the theoretical note into a plan.",
   "conflict_type": "internal",
-  "turning_point": "'We find another way. Together.' Ben's Lie breaks open. Not completely â€” he'll carry self-reliance instincts into the climax. But the fundamental shift happens here: from 'I must handle this' to 'we must handle this.'",
+  "turning_point": "'We find another way. Together.' Ben's Lie breaks open. Not completely — he'll carry self-reliance instincts into the climax. But the fundamental shift happens here: from 'I must handle this' to 'we must handle this.'",
   "opening_hook": "Ben pulls up the Codex notes with hands that are shaking. Gavran's marginalia. Ankhural's theory. The resonance note.",
   "closing_hook": "'I need to show you something.' Ben's voice is different. Sera hears it. Kael hears it. Desh, who can't feel the Force, hears it most clearly of all. Something in Ben has changed.",
   "emotional_trajectory": "Desperate searching -> the note recontextualized -> breakthrough -> the new truth spoken",
   "stakes": {
-    "personal": "Ben's arc moment of truth â€” the Lie giving way to the Need",
-    "interpersonal": "The remaining group becoming a genuine collective â€” not a team under command but a partnership",
+    "personal": "Ben's arc moment of truth — the Lie giving way to the Need",
+    "interpersonal": "The remaining group becoming a genuine collective — not a team under command but a partnership",
     "external": "The resonance solution is theoretical, untested, and requires trust between traditions that have never cooperated"
   },
   "characters_present": [
@@ -24,13 +24,13 @@
     "Kael Drenn",
     "Desh Rolan"
   ],
-  "setting": "Veranthos â€” camp, Ben's workspace, the Codex notes on display",
-  "sensory_details": "The Codex notes glowing on the datapad; Gavran's handwriting â€” the words 'we lacked the will or the trust' in a different light; Ben's hands steadying; the group's faces turning toward him â€” three people waiting for a reason to stay",
+  "setting": "Veranthos — camp, Ben's workspace, the Codex notes on display",
+  "sensory_details": "The Codex notes glowing on the datapad; Gavran's handwriting — the words 'we lacked the will or the trust' in a different light; Ben's hands steadying; the group's faces turning toward him — three people waiting for a reason to stay",
   "canon_elements_needed": [],
   "target_word_count": 1400,
   "action_beats": [
     "Ben pulls up the Codex notes with shaking hands and scrolls to Gavran's marginalia on the resonance theory",
-    "Ben spreads relevant files across three datapads â€” Kael's framework insight, Gavran's theory, the technique data â€” and connects the pieces",
+    "Ben spreads relevant files across three datapads — Kael's framework insight, Gavran's theory, the technique data — and connects the pieces",
     "Ben turns to the remaining group and speaks with a voice that has changed: 'I need to show you something'"
   ],
   "active_subplots": [
@@ -51,5 +51,5 @@
   ],
   "revelations": [],
   "pov_arc_phase": "moment_of_truth",
-  "notes": "H21 planted â€” Ben's breakthrough and the pivot to the resonance solution. The Lie cracking should feel earned â€” twenty chapters of building pressure, recognized patterns, and failed control leading to the realization that control itself is the problem."
+  "notes": "H21 planted — Ben's breakthrough and the pivot to the resonance solution. The Lie cracking should feel earned — twenty chapters of building pressure, recognized patterns, and failed control leading to the realization that control itself is the problem."
 }

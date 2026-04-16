@@ -5,30 +5,30 @@
   "scene_type": "action",
   "scene_role": "escalation",
   "pov_character": "Ben Skywalker",
-  "mission": "Morning on Veranthos. Final tension â€” Torin's behavior overnight. He's been meditating near the Scar. His Force presence has changed â€” lighter, sharper, the heaviness gone. He's already using the technique at personal scale.",
+  "mission": "Morning on Veranthos. Final tension — Torin's behavior overnight. He's been meditating near the Scar. His Force presence has changed — lighter, sharper, the heaviness gone. He's already using the technique at personal scale.",
   "why_now": "The turn's morning-after. Torin has been preparing overnight. The signs are unmistakable.",
-  "conflict": "Ben confronts Torin about his overnight meditation near the Scar. Torin is honest â€” disarmingly, devastatingly honest. He's not hiding. He's not manipulating. He believes this is right.",
+  "conflict": "Ben confronts Torin about his overnight meditation near the Scar. Torin is honest — disarmingly, devastatingly honest. He's not hiding. He's not manipulating. He believes this is right.",
   "conflict_type": "interpersonal",
-  "turning_point": "Torin tells Ben about the first time he used the technique â€” the moment of beauty, clarity without categories. 'It was the truest thing I've ever felt.' His voice is that of a man talking about the love of his life. Ben's horror is not that Torin is lying. It's that he's telling the truth.",
+  "turning_point": "Torin tells Ben about the first time he used the technique — the moment of beauty, clarity without categories. 'It was the truest thing I've ever felt.' His voice is that of a man talking about the love of his life. Ben's horror is not that Torin is lying. It's that he's telling the truth.",
   "opening_hook": "Torin is already awake when Ben emerges. He's standing in the same spot as last night. But something is different. He looks... rested. In a place where no one sleeps well.",
   "closing_hook": "Torin: 'I'm not asking for permission.' Five words. The temperature of the conversation drops to absolute zero.",
   "emotional_trajectory": "Concerned confrontation -> Torin's devastating honesty -> the five words that break everything",
   "stakes": {
-    "personal": "Ben watching history repeat â€” Jacen's pattern completing in real time",
+    "personal": "Ben watching history repeat — Jacen's pattern completing in real time",
     "interpersonal": "The group's strongest member declaring independence",
-    "external": "Torin's plan (become the new seal) would work â€” and would repeat every failure that got them here"
+    "external": "Torin's plan (become the new seal) would work — and would repeat every failure that got them here"
   },
   "characters_present": [
     "Ben Skywalker",
     "Torin Hal"
   ],
-  "setting": "Veranthos â€” camp at valley edge, dawn, the Scar visible below",
-  "sensory_details": "Dawn light on Veranthos â€” golden but the shadows fall at slightly wrong angles; Torin's Force presence: lighter, sharper, the heaviness that has defined him since awakening â€” gone; his voice: calm, warm, certain. The certainty is the danger.",
+  "setting": "Veranthos — camp at valley edge, dawn, the Scar visible below",
+  "sensory_details": "Dawn light on Veranthos — golden but the shadows fall at slightly wrong angles; Torin's Force presence: lighter, sharper, the heaviness that has defined him since awakening — gone; his voice: calm, warm, certain. The certainty is the danger.",
   "canon_elements_needed": [],
   "target_word_count": 1600,
   "action_beats": [
-    "Ben emerges from the tent at dawn to find Torin standing in the same spot â€” rested, lighter, his Force presence changed overnight",
-    "Ben confronts Torin at the ridgeline and Torin turns without shifting his weight â€” already grounded, already decided",
+    "Ben emerges from the tent at dawn to find Torin standing in the same spot — rested, lighter, his Force presence changed overnight",
+    "Ben confronts Torin at the ridgeline and Torin turns without shifting his weight — already grounded, already decided",
     "Torin speaks five words and the temperature between them drops to absolute zero"
   ],
   "active_subplots": [
@@ -58,5 +58,5 @@
   ],
   "pov_arc_phase": "moment_of_truth",
   "arc_phase_transition": "moment_of_truth",
-  "notes": "R11 â€” 'I'm not asking for permission.' The emotional gut-punch. Torin's arc: point_of_no_return. The turn must be devastating BECAUSE of its warmth, not despite it. He's not a villain. He's a hero making the wrong choice for the right reasons."
+  "notes": "R11 — 'I'm not asking for permission.' The emotional gut-punch. Torin's arc: point_of_no_return. The turn must be devastating BECAUSE of its warmth, not despite it. He's not a villain. He's a hero making the wrong choice for the right reasons."
 }

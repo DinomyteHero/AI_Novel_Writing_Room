@@ -5,18 +5,18 @@
   "scene_type": "action",
   "scene_role": "escalation",
   "pov_character": "Ben Skywalker",
-  "mission": "Survivor displacement â€” the three confront the modern galaxy's changes. The Jedi Order restructured, the Republic transformed, everything they fought for either succeeded or was rewritten. Emotional cost of waking up in a future that doesn't remember you.",
-  "why_now": "Before they can function as a team, they need to grieve what they've lost â€” and Ben needs to see them as people, not assets",
+  "mission": "Survivor displacement — the three confront the modern galaxy's changes. The Jedi Order restructured, the Republic transformed, everything they fought for either succeeded or was rewritten. Emotional cost of waking up in a future that doesn't remember you.",
+  "why_now": "Before they can function as a team, they need to grieve what they've lost — and Ben needs to see them as people, not assets",
   "conflict": "Each survivor processes the displacement differently: Sera with rigid focus on the mission (avoiding grief), Torin with genuine curiosity and apparent adaptation (too easy), Kael with sardonic detachment",
   "conflict_type": "interpersonal",
   "turning_point": "Kael asks what happened to the Sith world he was taken from. Ben doesn't know. Nobody knows. It was too small to be in the records that survived. Kael's expression doesn't change, but something behind it does.",
-  "opening_hook": "Sera asks about the Ruusan Reformations â€” what the galaxy was told they were for. Ben answers honestly. She goes very still.",
-  "closing_hook": "Torin catches Ben's eye across the common area and nods â€” the nod of a commander acknowledging a subordinate who handled something difficult well. Ben isn't sure if he should be reassured or concerned that Torin is already thinking in command structure.",
+  "opening_hook": "Sera asks about the Ruusan Reformations — what the galaxy was told they were for. Ben answers honestly. She goes very still.",
+  "closing_hook": "Torin catches Ben's eye across the common area and nods — the nod of a commander acknowledging a subordinate who handled something difficult well. Ben isn't sure if he should be reassured or concerned that Torin is already thinking in command structure.",
   "emotional_trajectory": "Awkward information exchange -> raw grief (Kael's moment) -> fragile group empathy",
   "stakes": {
     "personal": "Ben seeing the human cost of what was done to these people",
     "interpersonal": "Building real connection vs. mission-focused alliance",
-    "external": "The survivors' displacement is also an intelligence gap â€” they don't understand the modern galaxy's politics"
+    "external": "The survivors' displacement is also an intelligence gap — they don't understand the modern galaxy's politics"
   },
   "characters_present": [
     "Ben Skywalker",
@@ -25,13 +25,13 @@
     "Torin Hal",
     "Kael Drenn"
   ],
-  "setting": "Aboard the Steady Returns â€” common area, cramped and intimate",
-  "sensory_details": "Desh's food supplies â€” modern field rations that taste different from anything the survivors know; the datapad with galactic history scrolling; Kael's silence filling the small space",
+  "setting": "Aboard the Steady Returns — common area, cramped and intimate",
+  "sensory_details": "Desh's food supplies — modern field rations that taste different from anything the survivors know; the datapad with galactic history scrolling; Kael's silence filling the small space",
   "canon_elements_needed": [],
   "target_word_count": 1200,
   "action_beats": [
     "Ben pulls up a galactic history archive on the datapad and slides it across the table to Sera",
-    "Kael asks about his homeworld and Ben searches the database â€” the screen returning nothing, the planet too small for surviving records",
+    "Kael asks about his homeworld and Ben searches the database — the screen returning nothing, the planet too small for surviving records",
     "Torin nods across the common area with a commander's acknowledgment that Ben can't tell is approval or assessment"
   ],
   "active_subplots": [
@@ -50,5 +50,5 @@
   "hook_actions": [],
   "revelations": [],
   "pov_arc_phase": "lie_reinforced",
-  "notes": "Kael's moment about his homeworld is small but crucial â€” plants his arc. He's not detached because he doesn't care; he's detached because caring cost him everything and nobody ever asked."
+  "notes": "Kael's moment about his homeworld is small but crucial — plants his arc. He's not detached because he doesn't care; he's detached because caring cost him everything and nobody ever asked."
 }

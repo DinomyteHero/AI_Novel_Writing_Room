@@ -5,12 +5,12 @@
   "scene_type": "action",
   "scene_role": "escalation",
   "pov_character": "Ben Skywalker",
-  "mission": "Approach to Maetha's Training Facility â€” Gavran's records flag it with a personal annotation: 'Do not access without direct authorization.' Even the man who built the seal considered this place dangerous.",
-  "why_now": "The next stop requires setup â€” Maetha's Facility is different from previous nodes in severity and significance",
-  "conflict": "Sera recognizes the notation â€” Gavran sealed this facility himself, separate from the anchor system. Whatever happened here, he wanted it contained even from his own people.",
+  "mission": "Approach to Maetha's Training Facility — Gavran's records flag it with a personal annotation: 'Do not access without direct authorization.' Even the man who built the seal considered this place dangerous.",
+  "why_now": "The next stop requires setup — Maetha's Facility is different from previous nodes in severity and significance",
+  "conflict": "Sera recognizes the notation — Gavran sealed this facility himself, separate from the anchor system. Whatever happened here, he wanted it contained even from his own people.",
   "conflict_type": "external",
-  "turning_point": "Sera can crack the seal â€” it's her era's lock work â€” but hesitates. This is the first time she's shown reluctance. Whatever Gavran sealed here, she has a guess about what it is.",
-  "opening_hook": "Desh adjusts the approach vector and frowns â€” the sensor readings ahead don't match any previous node. The Force registering as something new: not thinned but flexible, the boundary shimmering",
+  "turning_point": "Sera can crack the seal — it's her era's lock work — but hesitates. This is the first time she's shown reluctance. Whatever Gavran sealed here, she has a guess about what it is.",
+  "opening_hook": "Desh adjusts the approach vector and frowns — the sensor readings ahead don't match any previous node. The Force registering as something new: not thinned but flexible, the boundary shimmering",
   "closing_hook": "Sera looks at the sealed entrance and says, very quietly: 'This was Maetha's.' The name means nothing to Ben. Sera's expression says it should.",
   "emotional_trajectory": "Professional approach -> growing concern -> Sera's charged recognition",
   "stakes": {
@@ -25,14 +25,14 @@
     "Torin Hal",
     "Kael Drenn"
   ],
-  "setting": "Approach to Maetha's world â€” remote, deliberately isolated, high-altitude compound",
-  "sensory_details": "The Force here isn't thinned â€” it's flexible, the boundary between light and dark shifting while watched; sharp clear air; austere architecture visible from approach â€” disciplined, geometric, beautiful and cold",
+  "setting": "Approach to Maetha's world — remote, deliberately isolated, high-altitude compound",
+  "sensory_details": "The Force here isn't thinned — it's flexible, the boundary between light and dark shifting while watched; sharp clear air; austere architecture visible from approach — disciplined, geometric, beautiful and cold",
   "canon_elements_needed": [],
   "target_word_count": 1100,
   "action_beats": [
     "Desh adjusts the approach vector as sensor readings spike with unfamiliar energy patterns",
     "Sera pulls her hands back from the console when she recognizes Gavran's personal seal notation on the facility scan",
-    "The group gathers at the viewport as the high-altitude compound materializes â€” geometric, austere, cold"
+    "The group gathers at the viewport as the high-altitude compound materializes — geometric, austere, cold"
   ],
   "active_subplots": [
     "SP-A",
@@ -52,5 +52,5 @@
   ],
   "revelations": [],
   "pov_arc_phase": "lie_reinforced",
-  "notes": "H11 planted â€” the facility sealed by Gavran with personal authorization warning. The flexible lattice at Maetha's location should feel different from previous thin places â€” seductive rather than disorienting. A preview of what the technique does at smaller scale."
+  "notes": "H11 planted — the facility sealed by Gavran with personal authorization warning. The flexible lattice at Maetha's location should feel different from previous thin places — seductive rather than disorienting. A preview of what the technique does at smaller scale."
 }

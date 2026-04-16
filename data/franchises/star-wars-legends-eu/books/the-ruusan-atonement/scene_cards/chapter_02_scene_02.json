@@ -5,24 +5,24 @@
   "scene_type": "action",
   "scene_role": "reveal",
   "pov_character": "Ben Skywalker",
-  "mission": "First survey world reveals anomalous ruins with unrecognized markings â€” the pattern that will lead to the fortress",
+  "mission": "First survey world reveals anomalous ruins with unrecognized markings — the pattern that will lead to the fortress",
   "why_now": "The survey mission's overt purpose (cataloging post-crisis Force anomalies) collides with the covert pattern Ben is unconsciously following",
   "conflict": "The ruins don't match any known Jedi, Sith, or pre-Republic tradition in Ben's training. Standard survey protocols can't categorize them.",
   "conflict_type": "environmental",
-  "turning_point": "Ben touches one of the markings and feels the wrongness spike â€” these ruins are connected to whatever is causing the disturbance",
+  "turning_point": "Ben touches one of the markings and feels the wrongness spike — these ruins are connected to whatever is causing the disturbance",
   "opening_hook": "The ruins are older than they should be on a world that was surveyed sixty years ago and recorded as uninhabited",
-  "closing_hook": "Ben records the markings and sends the data to Luke â€” but holds back his Force impression. First withholding.",
+  "closing_hook": "Ben records the markings and sends the data to Luke — but holds back his Force impression. First withholding.",
   "emotional_trajectory": "Professional curiosity -> growing unease -> quiet alarm",
   "stakes": {
     "personal": "Ben's trust in his own perception vs. the official record",
-    "interpersonal": "His first moment of withholding from Luke â€” the institutional lie subplot seeds",
+    "interpersonal": "His first moment of withholding from Luke — the institutional lie subplot seeds",
     "external": "Something older and stranger than the recent crises left these marks"
   },
   "characters_present": [
     "Ben Skywalker",
     "Desh Rolan"
   ],
-  "setting": "Unnamed Outer Rim survey world â€” arid, rocky terrain, ruins half-buried in wind-erosion",
+  "setting": "Unnamed Outer Rim survey world — arid, rocky terrain, ruins half-buried in wind-erosion",
   "sensory_details": "Dry wind; markings carved into stone with unfamiliar tools; the wrongness like standing near a speaker playing a frequency just below hearing; Desh's boots crunching on gravel",
   "canon_elements_needed": [
     "Outer Rim archaeological survey procedures for Force anomalies",
@@ -35,7 +35,7 @@
   "action_beats": [
     "Ben and Desh hike across rocky terrain toward half-buried ruins",
     "Ben crouches to examine carved markings and his fingers brush the stone surface",
-    "Ben recoils from the Force spike when he touches the marking â€” physical jolt",
+    "Ben recoils from the Force spike when he touches the marking — physical jolt",
     "Ben records the markings with his datapad scanner, deliberately omitting his Force impression from the transmitted data"
   ],
   "active_subplots": [
@@ -56,5 +56,5 @@
   ],
   "revelations": [],
   "pov_arc_phase": "lie_established",
-  "notes": "First thin place encounter â€” very mild. The Force responds but distances are wrong. Ben notices; Desh feels nothing overt, maybe unease without a source. Voice note: Zahn-precision in the archaeological observation â€” Ben catalogs before he hypothesizes. Allston-rhythm in the Desh dialogue â€” banter that masks growing concern."
+  "notes": "First thin place encounter — very mild. The Force responds but distances are wrong. Ben notices; Desh feels nothing overt, maybe unease without a source. Voice note: Zahn-precision in the archaeological observation — Ben catalogs before he hypothesizes. Allston-rhythm in the Desh dialogue — banter that masks growing concern."
 }

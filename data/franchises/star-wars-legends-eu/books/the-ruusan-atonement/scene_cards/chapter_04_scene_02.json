@@ -5,25 +5,25 @@
   "scene_type": "action",
   "scene_role": "escalation",
   "pov_character": "Ben Skywalker",
-  "mission": "Descent through Levels 1 and 2 â€” Operations and Archive â€” the fortress tells its story through environment. Monitoring systems, dead comms, archive media from an era the modern Order has forgotten.",
-  "why_now": "Sequential exploration â€” each level reveals more of the fortress's purpose",
-  "conflict": "The archive is partially organized, partially chaotic â€” stored under time pressure. Ben can read fragments but lacks the conceptual vocabulary to understand what he's reading. Force-locks block deeper access.",
+  "mission": "Descent through Levels 1 and 2 — Operations and Archive — the fortress tells its story through environment. Monitoring systems, dead comms, archive media from an era the modern Order has forgotten.",
+  "why_now": "Sequential exploration — each level reveals more of the fortress's purpose",
+  "conflict": "The archive is partially organized, partially chaotic — stored under time pressure. Ben can read fragments but lacks the conceptual vocabulary to understand what he's reading. Force-locks block deeper access.",
   "conflict_type": "environmental",
-  "turning_point": "A monitoring display still functions â€” showing a network of nodes across the Outer Rim, most reading dead, three reading active, one reading BREACH. The network is a containment system.",
-  "opening_hook": "Level 1 is a command post. The communications equipment died centuries ago but the monitoring stations retain residual power â€” and they're tracking something.",
-  "closing_hook": "The stairwell to Level 3 descends into blue-tinged emergency lighting. The Force down there is different â€” not wrong but alive, pulsing with three distinct rhythms. People. Living people, sealed below.",
+  "turning_point": "A monitoring display still functions — showing a network of nodes across the Outer Rim, most reading dead, three reading active, one reading BREACH. The network is a containment system.",
+  "opening_hook": "Level 1 is a command post. The communications equipment died centuries ago but the monitoring stations retain residual power — and they're tracking something.",
+  "closing_hook": "The stairwell to Level 3 descends into blue-tinged emergency lighting. The Force down there is different — not wrong but alive, pulsing with three distinct rhythms. People. Living people, sealed below.",
   "emotional_trajectory": "Archaeological wonder -> growing dread -> shock at the living Force signatures",
   "stakes": {
     "personal": "Ben is descending into something he doesn't understand",
-    "interpersonal": "Desh catalogues exits and escape routes â€” his instincts say this is wrong",
+    "interpersonal": "Desh catalogues exits and escape routes — his instincts say this is wrong",
     "external": "The monitoring system reveals a network in cascading failure"
   },
   "characters_present": [
     "Ben Skywalker",
     "Desh Rolan"
   ],
-  "setting": "Fortress interior â€” Level 1 (Operations) through Level 2 (Archive), descending corridor to Level 3",
-  "sensory_details": "Residual power humming in walls; dust on surfaces undisturbed for centuries; archive media â€” holocrons, data tablets, vacuum-sealed documents; the transition from dead air above to something charged below",
+  "setting": "Fortress interior — Level 1 (Operations) through Level 2 (Archive), descending corridor to Level 3",
+  "sensory_details": "Residual power humming in walls; dust on surfaces undisturbed for centuries; archive media — holocrons, data tablets, vacuum-sealed documents; the transition from dead air above to something charged below",
   "canon_elements_needed": [
     "Jedi holocron and archive storage technology",
     "Ancient Force-monitoring and containment systems",
@@ -34,7 +34,7 @@
   "target_word_count": 1300,
   "action_beats": [
     "Ben activates residual power on the monitoring stations with a targeted Force pulse",
-    "A display screen flickers alive showing the containment network map â€” nodes in red, amber, and one flashing BREACH",
+    "A display screen flickers alive showing the containment network map — nodes in red, amber, and one flashing BREACH",
     "Desh photographs every console and catalogues exit routes on his datapad",
     "Ben descends the stairwell toward Level 3, the blue-tinged emergency lighting intensifying below"
   ],
@@ -55,5 +55,5 @@
   ],
   "revelations": [],
   "pov_arc_phase": "lie_established",
-  "notes": "Gavran's archive voice should be felt through what he chose to keep and how he organized it â€” meticulous where time allowed, frantic where it didn't. The monitoring display is the bridge to Level 3."
+  "notes": "Gavran's archive voice should be felt through what he chose to keep and how he organized it — meticulous where time allowed, frantic where it didn't. The monitoring display is the bridge to Level 3."
 }
