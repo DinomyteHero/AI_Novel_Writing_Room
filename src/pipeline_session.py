@@ -21,7 +21,7 @@ class PipelineSession:
     continuity verification.
     """
 
-    def __init__(self, session_dir: str = "data/sessions"):
+    def __init__(self, session_dir: str = "output/_fallback/sessions"):
         self.session_dir = Path(session_dir)
         self.session_dir.mkdir(parents=True, exist_ok=True)
 

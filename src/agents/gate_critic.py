@@ -190,6 +190,33 @@ class GateCritic(BaseAgent):
                 bad = fc.get("code") if isinstance(fc, dict) else fc
                 print(f"    Gate: dropping unknown failure_code {bad!r}")
 
+        # Programmatic WORD_COUNT_VIOLATION injection: deterministic enforcement
+        # so the verdict does not depend on the model remembering to emit the code.
+        prose = context.get("prose", "")
+        scene_card = context.get("scene_card", {})
+        target = scene_card.get("target_word_count", 0)
+        if target:
+            word_count = len(prose.split())
+            if abs(word_count - target) / target > 0.20:
+                already_present = any(
+                    fc.get("code") == "WORD_COUNT_VIOLATION" for fc in failure_codes
+                )
+                if not already_present:
+                    pct = (word_count / target * 100) if target else 0
+                    failure_codes.append({
+                        "code": "WORD_COUNT_VIOLATION",
+                        "location": "scene prose",
+                        "description": (
+                            f"Prose is {word_count} words; target is {target} "
+                            f"({pct:.0f}% of target, tolerance +/- 20%)."
+                        ),
+                        "fix_hint": "Expand or compress to within 80-120% of target_word_count.",
+                    })
+                    print(
+                        f"    Gate: injecting WORD_COUNT_VIOLATION "
+                        f"({word_count}/{target} words, {pct:.0f}%)"
+                    )
+
         verdict = determine_verdict(failure_codes)
         route_to = determine_route(verdict)
         severity = "blocking" if verdict in ("fail_structural", "fail_voice") else "non_blocking"

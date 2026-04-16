@@ -9,7 +9,9 @@ const typeColors: Record<string, string> = {
   agent_complete: "text-gray-600",
   gate_pass: "text-green-600",
   gate_fail: "text-red-600",
-  craft_edit_complete: "text-teal-600",
+  final_gate_complete: "text-teal-600",
+  final_gate_rejection: "text-red-500",
+  compression_guard_fired: "text-orange-600",
   milestone_reached: "text-purple-600",
   milestone_gate_paused: "text-purple-700",
 };

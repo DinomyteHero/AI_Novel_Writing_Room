@@ -27,7 +27,7 @@ class DocxExporter:
     def export(
         self,
         manuscript_md: str,
-        output_path: str = "data/export/manuscript.docx",
+        output_path: str = "output/_fallback/export/manuscript.docx",
     ) -> Path:
         """Convert markdown manuscript to DOCX.
 

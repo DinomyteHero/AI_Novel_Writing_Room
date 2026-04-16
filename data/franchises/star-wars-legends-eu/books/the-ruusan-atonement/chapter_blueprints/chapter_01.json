@@ -1,0 +1,54 @@
+{
+  "chapter_number": 1,
+  "chapter_mission": "Establish Ben's restlessness and the wrongness in the Force, launch the investigation via Luke's survey assignment, and depart Coruscant with the wrongness now directional.",
+  "chapter_turn": "Ben moves from passive unease to active pursuit with institutional cover — the wrongness transforms from ambient background to a compass needle.",
+  "structural_phase": "setup",
+  "pov_allocation": ["Ben Skywalker"],
+  "scene_count": 3,
+  "scene_plan": [
+    {
+      "scene_number": 1,
+      "role": "hook",
+      "dialogue_expectation": "interior",
+      "target_word_count": 1250,
+      "purpose": "Establish the wrongness through physical failure in sparring — make it concrete and costly, not abstract meditation. Ground Ben's Lie (self-reliance as safety) in observable behavior."
+    },
+    {
+      "scene_number": 2,
+      "role": "reveal",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 1250,
+      "purpose": "Luke validates Ben's read of the wrongness and assigns the survey mission. Father and son communicate through mission briefings; neither acknowledges the choice to send Ben alone."
+    },
+    {
+      "scene_number": 3,
+      "role": "decision",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 1250,
+      "purpose": "Ben bypasses the Jedi partner roster for Desh Rolan — self-reliance dressed as practicality. Departure turns the wrongness from ambient to directional, transforming retreat into unconscious pursuit."
+    }
+  ],
+  "reveal_payload": ["R01"],
+  "hook_movements": {
+    "planted": ["H01"],
+    "advanced": ["H01"],
+    "resolved": []
+  },
+  "subplot_obligations": ["SP-A", "SP3", "SP4"],
+  "relationship_turns": [
+    {
+      "dyad": "Ben/Luke",
+      "from": "institutional distance — father-son filtered through rank and mission",
+      "to": "private alliance — Luke entrusts Ben with the wrongness investigation without closing the distance"
+    },
+    {
+      "dyad": "Ben/Desh",
+      "from": "dormant contact — shared GAG history neither discusses",
+      "to": "operational partnership — Desh accepts the job without asking why Ben didn't call a Jedi"
+    }
+  ],
+  "pacing_curve": "rising",
+  "exit_vector": "Ben in hyperspace, wrongness pulling not just pointing — active, not ambient. The chapter ends on unconscious pursuit disguised as a routine survey.",
+  "chapter_word_target": 3750,
+  "notes": "H01 is planted in scene 2 (Luke's mission brief) and advanced in scene 3 (Ben acts on it by departing). R01 lands at the close of scene 3 — the wrongness acquires direction during hyperspace transit, which it shouldn't. The chapter's emotional spine is Ben's Lie (self-reliance as control) expressed through three escalating isolation choices: sparring alone, accepting the mission without suggesting backup, calling Desh instead of a Jedi. SP-A runs through all three scenes; SP4 lives in scenes 1-2 (Ben's institutional distance from the Order); SP3 enters in scene 3 with Desh. Voice anchor: Zahn-style tight third-person interiority throughout; Ben's internal voice sharp and self-deprecating, never melodramatic. Anti-patterns at chapter level: do not describe the wrongness in visual/color terms (keep auditory/vibrational); do not resolve the father-son distance (that's the novel's long arc)."
+}

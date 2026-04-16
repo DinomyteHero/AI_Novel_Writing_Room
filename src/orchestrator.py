@@ -1,15 +1,21 @@
 """Event-driven orchestrator for the chapter generation pipeline.
 
 Phase 1 flow (per scene card):
-  PlotArchitect -> ProseStylist -> GateCritic -> (retry loop) -> CraftEditor -> save
+  PlotArchitect -> ProseStylist -> GateCritic -> (retry loop)
+  -> QualityMetrics -> QualityPolish -> compression guard -> FinalGate -> save
 All steps emit typed events to the RunLedger.
+
+The Final Gate validates the actual polished text against the scene-card contract
+(character presence, closing-hook boundary, word-count floor, turning point). If
+it rejects the polish, the Scene-Gate-passed draft is saved instead. This makes
+the final saved prose the unit of truth — no post-gate stage can silently rewrite
+a scene without validation.
 
 Phase 2 additions (when dependencies provided):
   After save: Summarizer -> ChromaDB storage -> StateDiff -> ContradictionScanner
 
 Phase 3 additions (when dependencies provided):
-  After CraftEditor: RevisionPipeline (3 bands) -> replaces CraftEditor output
-  After save: QualityMetrics -> CharacterSpecialist -> MilestoneGate check
+  After save: CharacterSpecialist -> MilestoneGate check
 
 Phase 4 additions (when dependencies provided):
   Before PlotArchitect: PhysicsEnforcer pre-chapter validation
@@ -23,10 +29,11 @@ import time
 from pathlib import Path
 from typing import Callable, Optional, TYPE_CHECKING
 
-from src.agents.craft_editor import CraftEditor
+from src.agents.final_gate import FinalGate
 from src.agents.gate_critic import GateCritic
 from src.agents.plot_architect import PlotArchitect
 from src.agents.prose_stylist import ProseStylist
+from src.agents.quality_polish import QualityPolish
 from src.memory.context_assembler import ContextAssembler
 from src.model_router import ModelRouter
 from src.run_ledger import RunLedger
@@ -42,7 +49,6 @@ if TYPE_CHECKING:
     from src.memory.story_state import StoryState
     from src.quality.metrics_dashboard import MetricsDashboard
     from src.quality.milestone_gates import MilestoneGates
-    from src.revision.pipeline import RevisionPipeline
     from src.planning.physics_enforcer import PhysicsEnforcer
     from src.pipeline_session import PipelineSession
     from src.quality.llm_judge import JudgeEvaluator
@@ -53,11 +59,13 @@ class Orchestrator:
     """Event-driven pipeline orchestrator.
 
     Manages the per-chapter generation loop:
-    PlotArchitect -> ProseStylist -> GateCritic -> CraftEditor -> save
-    with failure-driven retry logic.
+    PlotArchitect -> ProseStylist -> GateCritic -> (retry loop)
+      -> QualityMetrics -> QualityPolish -> compression guard -> FinalGate -> save
+    with failure-driven retry logic. Final Gate rejection reverts to the
+    Scene-Gate-passed draft so the saved file is always a validated artifact.
 
     Phase 2 (optional): After save, runs Summarizer -> state diff -> contradiction scan.
-    Phase 3 (optional): Revision pipeline, quality metrics, character specialist, milestones.
+    Phase 3 (optional): Quality metrics, character specialist, milestones.
     Phase 4 (optional): Physics enforcement, session persistence, LLM judge.
     """
 
@@ -66,7 +74,7 @@ class Orchestrator:
         router: ModelRouter,
         context_assembler: ContextAssembler,
         ledger: RunLedger,
-        manuscripts_dir: str = "data/manuscripts",
+        manuscripts_dir: str = "output/_fallback/manuscripts",
         max_structural_retries: int = 3,
         max_voice_retries: int = 2,
         # Phase 2 optional dependencies:
@@ -77,7 +85,6 @@ class Orchestrator:
         story_state: Optional["StoryState"] = None,
         canon_expert: Optional["CanonExpert"] = None,
         # Phase 3 optional dependencies:
-        revision_pipeline: Optional["RevisionPipeline"] = None,
         metrics_dashboard: Optional["MetricsDashboard"] = None,
         character_specialist: Optional["CharacterSpecialist"] = None,
         milestone_gates: Optional["MilestoneGates"] = None,
@@ -108,7 +115,8 @@ class Orchestrator:
         self.plot_architect = PlotArchitect(router)
         self.prose_stylist = ProseStylist(router)
         self.gate_critic = GateCritic(router)
-        self.craft_editor = CraftEditor(router)
+        self.quality_polish = QualityPolish(router)
+        self.final_gate = FinalGate(router)
 
         # Phase 2 optional components
         self.summarizer = summarizer
@@ -119,7 +127,6 @@ class Orchestrator:
         self.canon_expert = canon_expert
 
         # Phase 3 optional components
-        self.revision_pipeline = revision_pipeline
         self.metrics_dashboard = metrics_dashboard
         self.character_specialist = character_specialist
         self.milestone_gates = milestone_gates
@@ -282,11 +289,11 @@ class Orchestrator:
                     print(f"    Physics: {rec}")
 
         # Step 1: Plot Architect generates the brief
-        print("  [1/4] Plot Architect generating brief...")
+        print("  [1/5] Plot Architect generating brief...")
         generation_brief = await self._run_plot_architect(scene_card)
 
         # Step 2: Prose Stylist drafts the scene
-        print("  [2/4] Prose Stylist drafting...")
+        print("  [2/5] Prose Stylist drafting...")
         prose = await self._run_prose_stylist(scene_card, generation_brief)
 
         # Step 2.5: Canon Expert validates prose (before Gate Critic)
@@ -335,40 +342,20 @@ class Orchestrator:
                 print(f"    Canon expert: error ({e.__class__.__name__}) — skipping")
 
         # Step 3: Gate Critic evaluates (with canon violations context)
-        print("  [3/4] Gate Critic evaluating...")
+        print("  [3/5] Gate Critic evaluating...")
         evaluation, prose = await self._gate_loop(scene_card, prose, generation_brief)
+        gate_passed_prose = prose
+        gate_passed_wc = len(gate_passed_prose.split())
 
-        # Step 4: Craft Editor polishes (skipped in --raw-draft baseline mode)
-        if self.raw_draft:
-            print("  [4/4] Craft Editor skipped (--raw-draft baseline mode)")
-            final_prose = prose
-        else:
-            print("  [4/4] Craft Editor polishing...")
-            final_prose = await self._run_craft_editor(scene_card, prose, evaluation, canon_notes)
-
-        # Post-craft canon re-check: fix any violations reintroduced
-        if canon_result and canon_result.get("violations"):
-            reintroduced = []
-            for v in canon_result["violations"]:
-                offending = v.get("text", "")
-                if offending and offending.lower() in final_prose.lower():
-                    reintroduced.append(v)
-            if reintroduced:
-                print(f"    Canon: {len(reintroduced)} violation(s) reintroduced — applying targeted fixes")
-                for v in reintroduced:
-                    offending = v.get("text", "")
-                    suggestion = v.get("suggestion", "")
-                    if offending and suggestion:
-                        final_prose = final_prose.replace(offending, suggestion)
-
-        # Phase 3: Quality Metrics (before revision so flags feed into it)
+        # Quality Metrics run on gate-passed prose so flags can feed Quality Polish
+        # and the cross-scene overused-words accumulator stays consistent.
         quality_metrics = None
         if self.metrics_dashboard:
-            print("  [P3-1] Quality metrics running...")
+            print("  [3.5/5] Quality metrics running...")
             prior_chapters = self._load_prior_chapters(chapter_num)
             voice_notes = self._get_pov_voice_notes(scene_card)
             quality_metrics = self.metrics_dashboard.analyze_chapter(
-                final_prose,
+                gate_passed_prose,
                 scene_card,
                 prior_chapters=prior_chapters,
                 voice_notes=voice_notes,
@@ -394,25 +381,97 @@ class Orchestrator:
                 desc_ratio = dist.get("description", 0) + dist.get("introspection", 0)
                 self._scene_description_ratios.append(desc_ratio)
 
-        # Phase 3: Revision Pipeline (after quality metrics, before save)
-        revision_result = None
-        if self.revision_pipeline:
-            print("  [P3-2] Revision pipeline running (3 bands)...")
-            revision_context = {
+        # Steps 4-5: Quality Polish + compression guard + Final Gate
+        # (skipped in --raw-draft baseline mode — save gate-passed prose directly)
+        final_gate_result: Optional[dict] = None
+        polish_rejected = False
+        rejection_reason: Optional[str] = None
+        if self.raw_draft:
+            print("  [4/5] Quality Polish skipped (--raw-draft baseline mode)")
+            print("  [5/5] Final Gate skipped (--raw-draft baseline mode)")
+            final_prose = gate_passed_prose
+        else:
+            # Step 4: Quality Polish — single bounded expression-level pass
+            print("  [4/5] Quality Polish running...")
+            polish_result = await self.quality_polish.run({
+                "prose": gate_passed_prose,
                 "scene_card": scene_card,
-                "story_state_summary": self.assembler.get_bible_summary(),
-                "prior_chapter_summary": self._get_prior_summary(scene_card),
-                "character_voices": self.assembler.get_character_voices(
-                    scene_card.get("characters_present", [])
-                ),
-                "negative_constraints": self.assembler.get_negative_constraints(),
-                "quality_flags": quality_metrics.get("flags", []) if quality_metrics else [],
                 "quality_metrics": quality_metrics,
-            }
-            revision_result = await self.revision_pipeline.run(final_prose, revision_context)
-            final_prose = revision_result["prose"]
-            bands = ", ".join(revision_result["bands_applied"])
-            print(f"    Revision complete: {bands}")
+                "negative_constraints": self.assembler.get_negative_constraints(),
+                "canon_notes": canon_notes,
+            })
+            polished_prose = polish_result["prose"]
+
+            # Canon re-check on polished prose: re-apply any corrections the
+            # polish may have reverted.
+            if canon_result and canon_result.get("violations"):
+                reintroduced = []
+                for v in canon_result["violations"]:
+                    offending = v.get("text", "")
+                    if offending and offending.lower() in polished_prose.lower():
+                        reintroduced.append(v)
+                if reintroduced:
+                    print(f"    Canon: {len(reintroduced)} violation(s) reintroduced in polish — applying fixes")
+                    for v in reintroduced:
+                        offending = v.get("text", "")
+                        suggestion = v.get("suggestion", "")
+                        if offending and suggestion:
+                            polished_prose = polished_prose.replace(offending, suggestion)
+
+            # Step D: Compression guard — cheap numeric floor check before Final Gate
+            polished_wc = len(polished_prose.split())
+            if gate_passed_wc and polished_wc < 0.8 * gate_passed_wc:
+                pct = polished_wc / gate_passed_wc * 100
+                print(
+                    f"    Compression guard: polish cut {gate_passed_wc} -> {polished_wc} "
+                    f"({pct:.0f}%) — reverting to gate-passed draft"
+                )
+                self.ledger.emit(
+                    "compression_guard_fired",
+                    chapter_number=chapter_num,
+                    scene_number=scene_num,
+                    payload={
+                        "gate_word_count": gate_passed_wc,
+                        "polish_word_count": polished_wc,
+                    },
+                )
+                final_prose = gate_passed_prose
+                polish_rejected = True
+                rejection_reason = "compression_guard"
+            else:
+                # Step 5: Final Gate — contract check on actual polished text
+                print("  [5/5] Final Gate evaluating polish output...")
+                final_gate_result = await self.final_gate.run({
+                    "prose": polished_prose,
+                    "scene_card": scene_card,
+                    "gate_passed_word_count": gate_passed_wc,
+                })
+                if final_gate_result["verdict"] != "pass":
+                    failure_codes = [fc["code"] for fc in final_gate_result.get("failure_codes", [])]
+                    print(
+                        f"    Final Gate: polish rejected (verdict={final_gate_result['verdict']}, "
+                        f"codes={failure_codes}) — reverting to gate-passed draft"
+                    )
+                    self.ledger.emit(
+                        "final_gate_rejection",
+                        chapter_number=chapter_num,
+                        scene_number=scene_num,
+                        payload={
+                            "verdict": final_gate_result["verdict"],
+                            "failure_codes": failure_codes,
+                        },
+                    )
+                    final_prose = gate_passed_prose
+                    polish_rejected = True
+                    rejection_reason = "final_gate"
+                else:
+                    self.ledger.emit(
+                        "final_gate_complete",
+                        chapter_number=chapter_num,
+                        scene_number=scene_num,
+                        payload={"verdict": "pass"},
+                    )
+                    final_prose = polished_prose
 
         # Save the chapter
         output_path = self._save_chapter(chapter_num, scene_num, final_prose)
@@ -489,11 +548,11 @@ class Orchestrator:
             result["summary"] = summary_text
         if contradiction_flags:
             result["contradiction_flags"] = contradiction_flags
-        if revision_result:
-            result["revision"] = {
-                "bands_applied": revision_result["bands_applied"],
-                "band_results": revision_result["band_results"],
-            }
+        if final_gate_result is not None:
+            result["final_gate"] = final_gate_result
+        if polish_rejected:
+            result["polish_rejected"] = True
+            result["polish_rejection_reason"] = rejection_reason
         if quality_metrics:
             result["quality_metrics"] = quality_metrics
         if character_analysis:
@@ -680,8 +739,12 @@ class Orchestrator:
 
         return summary_text, contradiction_flags
 
-    async def _run_plot_architect(self, scene_card: dict) -> str:
-        """Run the Plot Architect to generate a brief."""
+    async def _run_plot_architect(self, scene_card: dict) -> dict:
+        """Run the Plot Architect to generate a typed generation brief.
+
+        Returns a dict matching schemas/generation_brief.json. The agent uses
+        `complete_structured` for JSON output with one retry on parse failure.
+        """
         start = time.time()
         self.ledger.emit(
             "agent_start",
@@ -730,25 +793,36 @@ class Orchestrator:
             pa_context["subplot_context"] = subplot_context
 
         result = await self.plot_architect.run(pa_context)
+        brief = result["generation_brief"]
 
         duration_ms = int((time.time() - start) * 1000)
+        # Log observability fields — target word count + truncated scene objective.
+        # Full brief is too large for the ledger; key fields surface drift.
+        scene_objective = brief.get("scene_objective", "") if isinstance(brief, dict) else ""
         self.ledger.emit(
             "agent_complete",
             chapter_number=scene_card["chapter_number"],
             scene_number=scene_card.get("scene_number", 1),
             agent_role="plot_architect",
-            payload={"duration_ms": duration_ms},
+            payload={
+                "duration_ms": duration_ms,
+                "target_word_count": brief.get("target_word_count") if isinstance(brief, dict) else None,
+                "scene_objective": scene_objective[:160] if scene_objective else "",
+            },
         )
 
-        return result["generation_brief"]
+        return brief
 
     async def _run_prose_stylist(
         self,
         scene_card: dict,
-        generation_brief: str,
+        generation_brief: dict,
         failure_context: Optional[str] = None,
     ) -> str:
-        """Run the Prose Stylist to draft prose."""
+        """Run the Prose Stylist to draft prose.
+
+        `generation_brief` is a dict matching schemas/generation_brief.json.
+        """
         start = time.time()
         self.ledger.emit(
             "agent_start",
@@ -797,9 +871,13 @@ class Orchestrator:
         self,
         scene_card: dict,
         prose: str,
-        generation_brief: str,
+        generation_brief: dict,
     ) -> tuple[dict, str]:
-        """Run the Gate Critic loop with retries on failure."""
+        """Run the Gate Critic loop with retries on failure.
+
+        `generation_brief` is the typed dict from Plot Architect; rewrites reuse
+        the same brief and only vary the failure_context passed to Prose Stylist.
+        """
         structural_retries = 0
         voice_retries = 0
         best_prose = prose
@@ -942,50 +1020,6 @@ class Orchestrator:
                 failure_context = self._format_failure_context(evaluation)
                 print(f"    Gate: {verdict} — targeted revision (attempt {voice_retries}/{self.max_voice_retries})")
                 prose = await self._run_prose_stylist(scene_card, generation_brief, failure_context)
-
-    async def _run_craft_editor(
-        self,
-        scene_card: dict,
-        prose: str,
-        evaluation: dict,
-        canon_notes: str = "",
-    ) -> str:
-        """Run the Craft Editor for non-blocking improvements."""
-        start = time.time()
-        self.ledger.emit(
-            "agent_start",
-            chapter_number=scene_card["chapter_number"],
-            scene_number=scene_card.get("scene_number", 1),
-            agent_role="craft_editor",
-        )
-
-        # Build craft notes from any polish failures
-        craft_notes = ""
-        for fc in evaluation.get("failure_codes", []):
-            if fc["code"] in {"EXPOSITION_LEAK", "PACING_FLATLINE", "PROSE_CLICHE_BURST"}:
-                craft_notes += f"- {fc['code']}: {fc['description']}\n"
-                if fc.get("fix_hint"):
-                    craft_notes += f"  Suggestion: {fc['fix_hint']}\n"
-        if canon_notes:
-            craft_notes += f"\n## Canon Notes\n{canon_notes}\n"
-
-        result = await self.craft_editor.run({
-            "prose": prose,
-            "scene_card": scene_card,
-            "negative_constraints": self.assembler.get_negative_constraints(),
-            "craft_notes": craft_notes,
-        })
-
-        duration_ms = int((time.time() - start) * 1000)
-        self.ledger.emit(
-            "craft_edit_complete",
-            chapter_number=scene_card["chapter_number"],
-            scene_number=scene_card.get("scene_number", 1),
-            agent_role="craft_editor",
-            payload={"duration_ms": duration_ms},
-        )
-
-        return result["prose"]
 
     def _format_failure_context(self, evaluation: dict) -> str:
         """Format failure codes into revision notes for the Prose Stylist."""

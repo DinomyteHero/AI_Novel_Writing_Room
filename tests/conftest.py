@@ -120,7 +120,8 @@ def settings_yaml(temp_dir):
             "plot_architect": {"backend": "local", "model": "primary_moe", "params": {"temperature": 0.4}},
             "prose_stylist": {"backend": "local", "model": "primary_moe", "params": {"temperature": 0.9}},
             "gate_critic": {"backend": "local", "model": "primary_moe", "params": {"temperature": 0.3}},
-            "craft_editor": {"backend": "local", "model": "primary_moe", "params": {"temperature": 0.4}},
+            "quality_polish": {"backend": "local", "model": "primary_moe", "params": {"temperature": 0.4}},
+            "final_gate": {"backend": "local", "model": "primary_moe", "params": {"temperature": 0.3}},
             "voice_checker": {"backend": "cloud", "model": "primary", "params": {"temperature": 0.3}},
         },
         "pipeline": {

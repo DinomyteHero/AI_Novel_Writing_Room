@@ -18,7 +18,7 @@ class MarkdownAssembler:
 
     def __init__(
         self,
-        manuscripts_dir: str = "data/manuscripts",
+        manuscripts_dir: str = "output/_fallback/manuscripts",
         concept_seed: dict = None,
     ):
         self.manuscripts_dir = Path(manuscripts_dir)
@@ -142,7 +142,7 @@ class MarkdownAssembler:
 
     def save(
         self,
-        output_path: str = "data/export/manuscript.md",
+        output_path: str = "output/_fallback/export/manuscript.md",
         include_stats: bool = True,
     ) -> Path:
         """Assemble and save the manuscript to a file."""

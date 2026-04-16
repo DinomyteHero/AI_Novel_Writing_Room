@@ -63,7 +63,7 @@ class ContextAssembler:
         self,
         concept_seed_path: str,
         negative_constraints_path: str = "config/negative_constraints.yaml",
-        manuscripts_dir: str = "data/manuscripts",
+        manuscripts_dir: str = "output/_fallback/manuscripts",
         # Phase 2 optional dependencies:
         story_state: Optional["StoryState"] = None,
         knowledge_layers: Optional["KnowledgeLayers"] = None,

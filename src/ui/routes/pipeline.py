@@ -17,12 +17,13 @@ class PipelineStartRequest(BaseModel):
     concept_seed_path: Optional[str] = None
     scene_cards_dir: Optional[str] = None
     phase: int = 4
-    no_revision: bool = False
+    no_revision: bool = False  # Deprecated; no-op since Phase 1 redesign
     no_milestones: bool = False
     judge: bool = False
     chapter: Optional[int] = None
     universe_id: Optional[str] = None
     project_id: Optional[str] = None
+    raw_draft: bool = False
 
 
 class MilestoneApproveRequest(BaseModel):
@@ -170,7 +171,6 @@ def _create_web_orchestrator(state, concept_seed_path, concept_seed, body):
     )
 
     # Optional Phase 3/4 components
-    revision_pipeline = None
     metrics_dashboard = None
     character_specialist = None
     milestone_gates = None
@@ -190,17 +190,6 @@ def _create_web_orchestrator(state, concept_seed_path, concept_seed, body):
             character_specialist = CharacterSpecialist(state.router)
         except ImportError:
             pass
-
-        if not body.no_revision:
-            try:
-                from src.revision.adaptive_revision import AdaptiveRevisionPipeline
-                revision_pipeline = AdaptiveRevisionPipeline(state.router, state.ledger)
-            except ImportError:
-                try:
-                    from src.revision.pipeline import RevisionPipeline
-                    revision_pipeline = RevisionPipeline(state.router, state.ledger)
-                except ImportError:
-                    pass
 
         if not body.no_milestones:
             try:
@@ -259,7 +248,6 @@ def _create_web_orchestrator(state, concept_seed_path, concept_seed, body):
         contradiction_scanner=contradiction_scanner,
         chapter_memory=state.chapter_memory,
         story_state=state.story_state,
-        revision_pipeline=revision_pipeline,
         metrics_dashboard=metrics_dashboard,
         character_specialist=character_specialist,
         milestone_gates=milestone_gates,
@@ -270,4 +258,5 @@ def _create_web_orchestrator(state, concept_seed_path, concept_seed, body):
         universe_id=universe_id,
         project_id=project_id,
         worldbuilding_auto_extract=bool(state.lore_service and universe_id),
+        raw_draft=body.raw_draft,
     )

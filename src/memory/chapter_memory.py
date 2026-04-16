@@ -16,7 +16,7 @@ class ChapterMemory:
 
     def __init__(
         self,
-        persist_directory: str = "data/chapter_memory",
+        persist_directory: str = "output/_fallback/chapter_memory",
         embedding_function=None,
         collection_name: str = "chapter_summaries",
     ):

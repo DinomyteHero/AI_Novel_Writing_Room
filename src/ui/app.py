@@ -40,8 +40,8 @@ class AppState:
         self.concept_seed: dict = {}
         self.concept_seed_path: str = ""
         self.scene_cards_dir: str = ""
-        self.manuscripts_dir: str = "data/manuscripts"
-        self.export_dir: str = "data/export"
+        self.manuscripts_dir: str = "output/_fallback/manuscripts"
+        self.export_dir: str = "output/_fallback/export"
         self.phase: int = 4
         self.pipeline_manager: PipelineManager = PipelineManager()
         self.connection_manager: Optional[ConnectionManager] = None
@@ -218,7 +218,7 @@ def _init_story_state(state: AppState, concept_seed_path: str, pipeline_cfg: dic
         from src.memory.knowledge_layers import KnowledgeLayers
 
         state_db_path = str(paths.story_state_db) if paths else pipeline_cfg.get(
-            "story_state_path", "data/story_state.db"
+            "story_state_path", "output/_fallback/story_state.db"
         )
         state.story_state = StoryState(db_path=state_db_path)
         state.story_state.init_from_concept_seed(state.concept_seed)
@@ -232,7 +232,7 @@ def _init_story_state(state: AppState, concept_seed_path: str, pipeline_cfg: dic
             ef = get_embedding_function(use_mock=True)
             state.embedding_function = ef
             chapter_memory_dir = str(paths.chapter_memory_dir) if paths else pipeline_cfg.get(
-                "chapter_memory_dir", "data/chapter_memory"
+                "chapter_memory_dir", "output/_fallback/chapter_memory"
             )
             state.chapter_memory = ChapterMemory(
                 persist_directory=chapter_memory_dir,
@@ -254,9 +254,9 @@ def _init_worldbuilding(state: AppState, config: dict,
         from src.worldbuilding.lore_service import LoreService
 
         wb_config = config.get("worldbuilding", {})
-        db_path = wb_config.get("db_path", str(paths.worldbuilding_db) if paths else "data/worldbuilding.db")
+        db_path = wb_config.get("db_path", str(paths.worldbuilding_db) if paths else "output/_fallback/worldbuilding.db")
         vectors_dir = wb_config.get(
-            "vectors_dir", str(paths.worldbuilding_vectors_dir) if paths else "data/worldbuilding_vectors"
+            "vectors_dir", str(paths.worldbuilding_vectors_dir) if paths else "output/_fallback/worldbuilding_vectors"
         )
 
         ef = state.embedding_function

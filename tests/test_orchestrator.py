@@ -10,6 +10,21 @@ from src.orchestrator import Orchestrator
 from src.run_ledger import RunLedger
 
 
+def _well_formed_brief() -> dict:
+    """Minimal generation brief satisfying every required field.
+
+    Used in side_effect lists where Plot Architect is the first structured
+    call and the test focuses on downstream gate/polish behavior.
+    """
+    return {
+        "scene_objective": "Mock objective.",
+        "turning_point": {"trigger": "t", "shift": "s", "cost": "c"},
+        "closing_beat": "Mock closing beat.",
+        "emotional_arc": {"start": "a", "shift": "b", "end": "c"},
+        "target_word_count": 1000,
+    }
+
+
 class TestOrchestratorPipeline:
     """Test the orchestrator's pipeline flow."""
 
@@ -68,7 +83,9 @@ class TestOrchestratorPipeline:
         assert "agent_start" in event_types
         assert "agent_complete" in event_types
         assert "gate_pass" in event_types
-        assert "craft_edit_complete" in event_types
+        # Final Gate replaces the craft-edit completion event as the
+        # final pre-save validation marker.
+        assert "final_gate_complete" in event_types
 
     @pytest.mark.asyncio
     async def test_pipeline_saves_chapter(self, orchestrator, sample_scene_card, temp_dir):
@@ -113,8 +130,10 @@ class TestOrchestratorRetryLogic:
 
     @pytest.mark.asyncio
     async def test_structural_failure_triggers_rewrite(self, mock_router, mock_assembler, ledger, temp_dir, sample_scene_card):
-        # First call: fail_structural, second call: pass
+        # Sequence: Plot Architect brief, Scene Gate fail_structural, Scene Gate pass, Final Gate pass
         mock_router.complete_structured = AsyncMock(side_effect=[
+            # Plot Architect typed brief (first structured call in the pipeline)
+            _well_formed_brief(),
             {
                 "verdict": "fail_structural",
                 "failure_codes": [{"code": "WEAK_TURNING_POINT", "location": "para 5", "description": "No shift"}],
@@ -133,6 +152,8 @@ class TestOrchestratorRetryLogic:
                 "voice_score": 0.80,
                 "polish_score": 0.75,
             },
+            # Final Gate verdict on polished prose
+            {"verdict": "pass", "failure_codes": []},
         ])
 
         orchestrator = Orchestrator(
@@ -181,8 +202,9 @@ class TestOrchestratorRetryLogic:
 
     @pytest.mark.asyncio
     async def test_voice_failure_triggers_targeted_revision(self, mock_router, mock_assembler, ledger, temp_dir, sample_scene_card):
-        # First: fail_voice, second: pass
+        # Sequence: Plot Architect brief, Scene Gate fail_voice, Scene Gate pass, Final Gate pass
         mock_router.complete_structured = AsyncMock(side_effect=[
+            _well_formed_brief(),
             {
                 "verdict": "fail_voice",
                 "failure_codes": [{"code": "OOC_DIALOGUE", "location": "para 3", "description": "Voice mismatch"}],
@@ -201,6 +223,8 @@ class TestOrchestratorRetryLogic:
                 "voice_score": 0.80,
                 "polish_score": 0.75,
             },
+            # Final Gate verdict on polished prose
+            {"verdict": "pass", "failure_codes": []},
         ])
 
         orchestrator = Orchestrator(
@@ -214,7 +238,11 @@ class TestOrchestratorRetryLogic:
         assert result["evaluation"]["verdict"] == "pass"
 
     @pytest.mark.asyncio
-    async def test_polish_failure_goes_to_craft_editor(self, mock_router, mock_assembler, ledger, temp_dir, sample_scene_card):
+    async def test_polish_failure_proceeds_to_quality_polish_and_final_gate(
+        self, mock_router, mock_assembler, ledger, temp_dir, sample_scene_card
+    ):
+        """A fail_polish gate verdict does not retry — it proceeds to Quality
+        Polish, which is then validated by Final Gate."""
         mock_router.complete_structured = AsyncMock(return_value={
             "verdict": "fail_polish",
             "failure_codes": [{"code": "PACING_FLATLINE", "location": "whole scene", "description": "Flat pacing"}],
@@ -232,8 +260,10 @@ class TestOrchestratorRetryLogic:
             manuscripts_dir=str(Path(temp_dir) / "manuscripts"),
         )
 
-        result = await orchestrator.run_chapter(sample_scene_card)
-        # Polish failures proceed to craft editor without retry
-        assert "craft_edit_complete" in [
-            e["event_type"] for e in ledger.get_events()
-        ]
+        await orchestrator.run_chapter(sample_scene_card)
+        # Polish failures do not retry; Final Gate still runs on the polish output.
+        event_types = [e["event_type"] for e in ledger.get_events()]
+        # Final Gate should emit either a pass (final_gate_complete) or a
+        # rejection (final_gate_rejection) — never neither — since the pipeline
+        # proceeds past the gate failure.
+        assert "final_gate_complete" in event_types or "final_gate_rejection" in event_types
