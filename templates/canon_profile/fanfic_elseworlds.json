@@ -1,0 +1,22 @@
+{
+  "_template_notes": "Elseworlds / What-If fanfic — the primary AU mode. Franchise terminology is preserved; canon_expert enforces internal consistency of the AU's own canon, not the source franchise. Drift from the source is declared via universe_meta.branch_point. Edit <EDIT_ME> placeholders with the source franchise's continuity tier, era, and the specific cross-continuity violations that would break this AU's voice.",
+  "franchise": "<EDIT_ME>",
+  "continuity": "<EDIT_ME>",
+  "continuity_description": "<EDIT_ME — describe which continuity or canon tier applies and what counts as valid source material. Example: 'Legends EU only — anything introduced exclusively in the post-2014 reboot is invalid unless it also appeared in the earlier continuity.'>",
+  "era_description": "<EDIT_ME — when and where within the franchise timeline this story is set, including any key context (political regime, state of the world, major ongoing conflicts).>",
+  "narrative_register": "<EDIT_ME — the expected prose tone and voice. Example: 'Space opera with literary sensibility' or 'Grounded character-driven epic fantasy'.>",
+  "cross_continuity_violations": [
+    "<EDIT_ME — concept, term, character, or event from a parallel continuity that must never appear here>",
+    "<EDIT_ME — another cross-continuity violation, e.g. 'characters from the sequel reboot who don't exist in this line'>"
+  ],
+  "anachronistic_terms": {
+    "<modern-term-to-flag>": ["<in-universe-replacement-1>", "<in-universe-replacement-2>"],
+    "<another-modern-term>": ["<in-universe-replacement>"]
+  },
+  "meta_reference_rules": [
+    "No real-world pop-culture references the in-universe characters could not know",
+    "No fan-community terminology (e.g. 'the Big Three', 'Legends canon tier') appearing in-prose",
+    "No out-of-universe citations of sourcebooks, episode numbers, or chapter titles"
+  ],
+  "franchise_terminology_notes": "<EDIT_ME — any franchise-specific voice or terminology guidance the canon expert should enforce. Example: capitalization rules for in-universe proper nouns, singular/plural conventions for faction names, preferred spellings.>"
+}

@@ -1,0 +1,22 @@
+{
+  "_template_notes": "Sanderson/Tolkien-style original fiction with deep worldbuilding. No external franchise to diverge from. canon_expert enforces the book's own invented canon rigorously — invented terminology, magic-system rules, geography, political structures, languages. Terminology rigor is the main concern: the story must feel like a consistent secondary world. If this book is part of a shared cosmology (Sanderson-style), set meta.cosmology_id in the concept seed.",
+  "franchise": "original",
+  "continuity": "primary",
+  "continuity_description": "Original fiction — no external canon applies. The book's own invented lore, magic system, geography, and history are the sole source of truth. canon_expert enforces internal consistency: terminology introduced in chapter 3 must match terminology in chapter 20; invented rules cannot be silently broken.",
+  "era_description": "<EDIT_ME — the in-world era and context. Example: 'Late Fourth Age of the Shattered Realms, two generations after the Weaving Wars. The Covenant cities have re-formed as independent polities but the old trade routes are still abandoned.'>",
+  "narrative_register": "<EDIT_ME — the tone of the prose. Example: 'Epic fantasy with a grounded POV — third-person limited, modern sentence rhythms, but vocabulary weighted toward the formal and archaic for in-world speech. Sanderson's Stormlight as a reference point: propulsive pacing without sacrificing worldbuilding depth.'>",
+  "cross_continuity_violations": [],
+  "anachronistic_terms": {
+    "email": ["letter", "dispatch", "sending"],
+    "okay": ["aye", "very well", "as you say"],
+    "radio": ["<EDIT_ME — your invented comms term>"],
+    "gun": ["<EDIT_ME — your invented ranged-weapon term>"]
+  },
+  "meta_reference_rules": [
+    "No real-world idiom tied to earth history ('Waterloo', 'Trojan horse', 'Pyrrhic victory') unless the world has an in-universe equivalent",
+    "No out-of-universe citation of invented works by title (the author's reference bible is for the author, not the prose)",
+    "No fourth-wall breaks or narrator commentary on worldbuilding",
+    "No terminology introduced in later chapters contradicting earlier usage — consult the terminology_registry"
+  ],
+  "franchise_terminology_notes": "<EDIT_ME — set the conventions for invented proper nouns. Capitalize invented faction names, languages, religions. Use consistent spelling for invented terms across the book. Define the naming conventions for different cultures (e.g. 'Northern names are single-syllable harsh consonants; Southern names use Italianate vowel patterns').>"
+}

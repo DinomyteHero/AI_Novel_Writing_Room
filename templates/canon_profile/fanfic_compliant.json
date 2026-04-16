@@ -1,0 +1,25 @@
+{
+  "_template_notes": "Strict-canon fanfic. Aims to slot into existing published canon as plausibly as possible. canon_expert enforces against both the source franchise's continuity and this book's internal consistency. Use this when the goal is 'could pass for an official tie-in novel'. Cross-continuity list is typically larger than Elseworlds because drift is not permitted.",
+  "franchise": "<EDIT_ME>",
+  "continuity": "<EDIT_ME — the strict canon tier, e.g. 'main-continuity-only' or 'primary-canon'.>",
+  "continuity_description": "<EDIT_ME — describe the strict canon boundary. Example: 'Only main-line published works count as valid source material. Expanded-universe side material, non-canon spinoffs, and parallel continuities are all out of bounds.'>",
+  "era_description": "<EDIT_ME — narrow era window. Example: 'Set in the canonical three-year gap between Book X and Book Y; characters must be in the state the canon leaves them at the end of X and must arrive at the state canon requires them to be in by the start of Y.'>",
+  "narrative_register": "<EDIT_ME — should match the established franchise voice closely. Example: 'The register of the better mainline franchise novels — clean prose that serves the story's pace, emotionally direct without being melodramatic, matches the published house style.'>",
+  "cross_continuity_violations": [
+    "<EDIT_ME — a concept from a parallel continuity that does not exist in this canon>",
+    "<EDIT_ME — a character from a non-canon spinoff who must not appear>",
+    "<EDIT_ME — lore from a side-material work that contradicts main-line canon>",
+    "<EDIT_ME — a technology/magic rule established differently in a parallel continuity>",
+    "<EDIT_ME — an event from an alternate timeline that did not happen here>"
+  ],
+  "anachronistic_terms": {
+    "<modern-term>": ["<in-universe-replacement>"]
+  },
+  "meta_reference_rules": [
+    "No real-world pop-culture references",
+    "No fan-community terminology in-prose",
+    "No retconning or contradicting established canon facts",
+    "No inventing new lore that would override existing published material — only extend or fill gaps"
+  ],
+  "franchise_terminology_notes": "<EDIT_ME — hew close to the franchise's official style guide. Capitalization, hyphenation, proper-noun spellings must match published sources.>"
+}
