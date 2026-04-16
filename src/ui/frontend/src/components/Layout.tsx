@@ -41,7 +41,18 @@ export default function Layout({ children }: { children: ReactNode }) {
       </nav>
 
       {/* Main content */}
-      <main className="flex-1 p-6 overflow-auto">{children}</main>
+      <div className="flex-1 flex flex-col overflow-hidden">
+        <div
+          role="alert"
+          className="bg-amber-100 border-b border-amber-300 text-amber-900 text-xs px-4 py-2"
+        >
+          <span className="font-semibold">Preview mode.</span>{" "}
+          Web runs are not run-isolated — consecutive runs can overwrite chapter
+          output. Use the CLI (<code className="font-mono">python src/main.py</code>)
+          for production runs until run isolation is wired in a later phase.
+        </div>
+        <main className="flex-1 p-6 overflow-auto">{children}</main>
+      </div>
     </div>
   );
 }

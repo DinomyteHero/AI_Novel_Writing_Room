@@ -10,6 +10,7 @@ from src.concept_workshop.compliance_validator import (
     CheckStatus,
     ValidationReport,
     _iter_extracted_scene_cards,
+    derive_slugs_from_path,
     validate_concept_seed,
 )
 
@@ -429,3 +430,62 @@ class TestExtractedSchemaFieldAliases:
             if c.field_path == "revelation_schedule" and c.status == CheckStatus.PASS
         ]
         assert rev_passes
+
+
+class TestCosmologyIdOptionalField:
+    """Phase 2: meta.cosmology_id is optional and additive. Seeds with or
+    without it must validate identically (compliance validator treats it as
+    an optional metadata field — like series_id)."""
+
+    def test_ruusan_seed_without_cosmology_still_passes(self, ruusan_seed):
+        """Back-compat: existing seed has no cosmology_id, validation unchanged."""
+        seed = copy.deepcopy(ruusan_seed)
+        assert "cosmology_id" not in seed.get("meta", {})
+        report = validate_concept_seed(seed)
+        assert report.passed is True
+        assert report.critical_failures == []
+
+    def test_seed_with_cosmology_id_still_passes(self, ruusan_seed):
+        """Adding optional meta.cosmology_id does not introduce new failures."""
+        seed = copy.deepcopy(ruusan_seed)
+        seed["meta"]["cosmology_id"] = "the-cosmere"
+        report = validate_concept_seed(seed)
+        assert report.passed is True
+        assert report.critical_failures == []
+
+
+class TestDeriveSlugsFromPath:
+    """Phase 0: the shared path-to-slugs helper used by both the standalone
+    compliance validator CLI and ``src/main.py --validate-seed``."""
+
+    def test_franchise_layout_returns_both_slugs(self, tmp_path):
+        seed_path = (
+            tmp_path / "data" / "franchises" / "sw-legends" / "books"
+            / "ruusan" / "concept_seed.json"
+        )
+        seed_path.parent.mkdir(parents=True, exist_ok=True)
+        seed_path.write_text("{}", encoding="utf-8")
+
+        assert derive_slugs_from_path(seed_path) == ("sw-legends", "ruusan")
+
+    def test_flat_project_layout_returns_nones(self, tmp_path):
+        seed_path = tmp_path / "data" / "projects" / "solo-project" / "concept_seed.json"
+        seed_path.parent.mkdir(parents=True, exist_ok=True)
+        seed_path.write_text("{}", encoding="utf-8")
+
+        assert derive_slugs_from_path(seed_path) == (None, None)
+
+    def test_unrelated_path_returns_nones(self, tmp_path):
+        seed_path = tmp_path / "some" / "other" / "place" / "seed.json"
+        seed_path.parent.mkdir(parents=True, exist_ok=True)
+        seed_path.write_text("{}", encoding="utf-8")
+
+        assert derive_slugs_from_path(seed_path) == (None, None)
+
+    def test_missing_segment_after_franchises_returns_nones(self, tmp_path):
+        # A path with "franchises" but no "books" marker must not misinfer.
+        seed_path = tmp_path / "data" / "franchises" / "sw-legends" / "concept_seed.json"
+        seed_path.parent.mkdir(parents=True, exist_ok=True)
+        seed_path.write_text("{}", encoding="utf-8")
+
+        assert derive_slugs_from_path(seed_path) == (None, None)

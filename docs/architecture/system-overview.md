@@ -36,22 +36,27 @@ CanonExpert (franchise lore validation, template-driven)
     v
 GateCritic (pass/fail with 19 failure codes, calibrated 0.60-1.00)
     |
-    +-- fail_structural -> ProseStylist (full rewrite)
-    +-- fail_voice -> ProseStylist (targeted revision)
-    +-- fail_polish -> CraftEditor (non-blocking)
-    +-- pass -> CraftEditor
+    +-- fail_structural -> ProseStylist (full rewrite; rewrite loop)
+    +-- fail_voice -> ProseStylist (targeted revision; rewrite loop)
+    +-- pass / fail_polish -> continue
     |
     v
-CraftEditor (voice/polish improvements)
+QualityMetrics (code-based flags feeding polish)
     |
     v
-RevisionPipeline (up to 5 bands)
+QualityPolish (bounded expression-level polish; cannot change beats/characters)
+    |
+    v
+Compression guard (reject polish if < 80% of gate-passed word count)
+    |
+    v
+FinalGate (contract check on polished text; reverts to gate-passed draft on fail)
     |
     v
 Save -> Summarizer -> StateDiff -> ContradictionScanner -> WorldbuildingExtraction
     |
     v
-QualityMetrics -> CharacterSpecialist -> MilestoneGate
+CharacterSpecialist -> MilestoneGate -> ChapterGateCritic (optional)
 ```
 
 Not all steps are active at every phase level. The pipeline gracefully degrades when optional components are `None`.

@@ -18,6 +18,40 @@
       "enum": ["canon_compliant", "AU", "original"],
       "description": "Overall canon posture for this universe."
     },
+    "cosmology_id": {
+      "type": "string",
+      "description": "Optional reference to a cosmology_meta.json at data/cosmologies/<cosmology_id>/. When set, this universe belongs to a meta-universe that it shares with other franchises (Sanderson-style shared cosmology). Consumed lazily — engine behaviour with this field set is identical to without until a later phase wires cross-universe lore resolution."
+    },
+    "branch_point": {
+      "type": "object",
+      "description": "Optional AU divergence metadata. When set, declares how this universe diverges from a source canon. Consumed by canon_expert in Phase 6; in Phase 2 this is descriptive only.",
+      "properties": {
+        "source_canon": {
+          "type": "string",
+          "description": "Name of the canon this universe diverges from (e.g., 'Star Wars Legends EU', 'Tolkien Middle-earth')."
+        },
+        "divergence_point": {
+          "type": "string",
+          "description": "When/where the divergence occurs (e.g., 'post-Lost Tribe crisis, circa 44 ABY')."
+        },
+        "divergence_description": {
+          "type": "string",
+          "description": "Narrative description of how this universe differs from source canon from the divergence point forward."
+        }
+      }
+    },
+    "commercial_intent": {
+      "type": "string",
+      "enum": [
+        "fanfiction_noncommercial",
+        "fanfiction_monetized",
+        "commercial_original",
+        "commercial_licensed",
+        "private"
+      ],
+      "default": "fanfiction_noncommercial",
+      "description": "How the generated prose is intended to be used. Schema-level tag in Phase 2; guardrails tied to this value (canon_expert strictness, entity-remap validators, export-manifest license blocks) are wired in later phases."
+    },
     "notes": {
       "type": "string",
       "description": "Free-text notes about the universe context."

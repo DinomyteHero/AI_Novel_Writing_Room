@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CosmologyMeta",
+  "description": "Optional meta-universe layer above franchise. A cosmology groups multiple universes under a shared creation myth / magic theorem / physics (Sanderson-style). Member universes reference this file via universe_meta.cosmology_id. Consumed lazily: presence of this file does not change any engine behaviour by itself; it provides a registry for cross-universe shared lore and rules.",
+  "type": "object",
+  "required": ["cosmology_id", "cosmology_name"],
+  "properties": {
+    "cosmology_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-_]*$",
+      "description": "Kebab-case identifier. Must match the directory name under data/cosmologies/."
+    },
+    "cosmology_name": {
+      "type": "string",
+      "description": "Human-readable name (e.g., 'The Cosmere')."
+    },
+    "description": {
+      "type": "string",
+      "description": "Summary of the cosmology's premise and what the member universes share."
+    },
+    "shared_lore": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Cosmology-wide lore entries that every member universe inherits (e.g., 'Investiture', 'The Shattering'). String references; actual lore records live in the worldbuilding store under a parentless universe whose id equals cosmology_id."
+    },
+    "shared_rules": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Rules that apply across member universes (e.g., 'magic stems from Investiture', 'Shards cannot fully die'). Advisory; engine enforcement is deferred."
+    },
+    "member_universes": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Universe ids that belong to this cosmology. Each member universe's universe_meta.cosmology_id should point back here."
+    },
+    "notes": {
+      "type": "string",
+      "description": "Free-text notes."
+    }
+  }
+}

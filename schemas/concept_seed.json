@@ -48,6 +48,10 @@
         "series_id": {
           "type": "string",
           "description": "Top-level series ID for shared state across books. Books with the same series_id share story state (characters, arcs, plot threads). Leave empty for standalone books. Also accessible via meta.series.series_id for backward compat."
+        },
+        "cosmology_id": {
+          "type": "string",
+          "description": "Optional reference to a cosmology_meta.json at data/cosmologies/<cosmology_id>/. When set, this book's universe belongs to a shared meta-universe (Sanderson-style). Consumed lazily in Phase 2 — engine behaviour with or without this field is identical until a later phase wires cross-universe lore resolution."
         }
       }
     },
@@ -388,7 +392,7 @@
     },
     "scene_cards": {
       "type": "array",
-      "description": "WORKSHOP-ONLY intermediate. Produced by Step 8 of the concept workshop and consumed by the extraction step. Drafting-time canonical scene cards live at data/franchises/{franchise}/books/{book}/chapters/chapter_{NN}/scene_cards/*.json (matching schemas/scene_card.json). The compliance validator and pipeline prefer the extracted files when a franchise/book context is provided and only fall back to this embedded list as a degraded alternative.",
+      "description": "WORKSHOP-ONLY intermediate (marker: workshop_only=true). Produced by Step 8 of the concept workshop and consumed exclusively by the extraction step. The drafting pipeline MUST NOT read this list directly — canonical scene cards live at data/franchises/{franchise}/books/{book}/scene_cards/*.json (matching schemas/scene_card.json) and are the sole source of truth at drafting time. The compliance validator accepts an empty scene_cards array (including zero items) when extracted canonical cards are present for the given franchise/book context. Leaving entries here after extraction is a protocol violation, not a second source of truth.",
       "items": {
         "type": "object",
         "required": ["chapter_number", "scene_number", "pov_character"],

@@ -328,7 +328,7 @@ class Orchestrator:
                 canon_result = await self.canon_expert.run({
                     "prose": prose,
                     "scene_card": run_card,
-                    "concept_seed": getattr(self, "concept_seed", {}),
+                    "concept_seed": getattr(self.assembler, "concept_seed", {}),
                 })
                 canon_notes = canon_result.get("canon_notes", "")
                 # If canon expert returned corrected prose, use it
@@ -477,6 +477,7 @@ class Orchestrator:
                     polish_rejected = True
                     rejection_reason = "final_gate"
                 else:
+                    print("    Final Gate: pass")
                     self.ledger.emit(
                         "final_gate_complete",
                         chapter_number=chapter_num,
@@ -1033,7 +1034,7 @@ class Orchestrator:
                         rewrite_canon = await self.canon_expert.run({
                             "prose": prose,
                             "scene_card": scene_card,
-                            "concept_seed": getattr(self, "concept_seed", {}),
+                            "concept_seed": getattr(self.assembler, "concept_seed", {}),
                         })
                         if rewrite_canon.get("verdict") == "fail" and rewrite_canon.get("corrected_prose"):
                             prose = rewrite_canon["corrected_prose"]

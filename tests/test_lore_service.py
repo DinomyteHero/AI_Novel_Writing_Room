@@ -415,3 +415,54 @@ class TestReconciliation:
         )
         fixes = service.reconcile_chromadb_orphans("u1")
         assert fixes == 0
+
+
+class TestCosmologyWrapper:
+    """Phase 2: ensure_cosmology is a thin semantic wrapper around the existing
+    universe hierarchy. A cosmology is a parentless universe; member universes
+    set parent_universe_id to its id and inherit its lore via the existing
+    chain walk in get_lore_for_context(walk_parents=True).
+    """
+
+    def test_ensure_cosmology_creates_parentless_universe(self, service):
+        service.ensure_cosmology(
+            cosmology_id="test-cosmo",
+            display_name="Test Cosmology",
+            description="Cross-franchise shared creation myth",
+        )
+        record = service.db.get_universe("test-cosmo")
+        assert record is not None
+        assert record["parent_universe_id"] is None
+
+    def test_ensure_cosmology_is_idempotent(self, service):
+        service.ensure_cosmology("test-cosmo", "Test Cosmology")
+        service.ensure_cosmology("test-cosmo", "Different Name")
+        # Second call must not error; original record stays.
+        record = service.db.get_universe("test-cosmo")
+        assert record["display_name"] == "Test Cosmology"
+
+    def test_member_universe_inherits_cosmology_lore_via_chain(self, service):
+        """A universe with parent_universe_id pointing at the cosmology sees
+        cosmology lore alongside its own via the existing chain walk.
+        This proves Phase 2 reuses infrastructure rather than adding new."""
+        service.ensure_cosmology("test-cosmo", "Test Cosmology")
+        service.create_universe(
+            "member-universe",
+            "Member Universe",
+            parent_universe_id="test-cosmo",
+        )
+        # Cosmology-wide lore
+        service.create_lore_entry(
+            universe_id="test-cosmo", category="terminology",
+            title="Investiture", content="Spiritual energy permeating all worlds",
+        )
+        # Member-universe lore
+        service.create_lore_entry(
+            universe_id="member-universe", category="terminology",
+            title="Stormlight", content="Local manifestation of investiture on Roshar",
+        )
+        # Chain walk should surface both. get_universe_chain returns a list
+        # of universe_id strings, ordered from the leaf up to the root.
+        chain = service.db.get_universe_chain("member-universe")
+        assert "member-universe" in chain
+        assert "test-cosmo" in chain

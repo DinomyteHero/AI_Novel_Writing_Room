@@ -49,10 +49,10 @@ python -m src.main <concept_seed> <scene_cards_dir> [options]
 
 | Phase | What It Adds |
 |-------|-------------|
-| 1 | Core pipeline: PlotArchitect, ProseStylist, CanonExpert, GateCritic, CraftEditor |
-| 2 | SQLite story state, ChromaDB chapter memory, knowledge layers, canon RAG, contradiction scanner |
-| 3 | Quality metrics (repetition, pacing, voice, slop), character specialist, 3-band revision, milestone gates |
-| 4 | Physics enforcement, adaptive 5-band revision, export, session persistence, LLM judge, scene card generation |
+| 1 | Core pipeline: PlotArchitect, ProseStylist, GateCritic, QualityPolish, FinalGate |
+| 2 | SQLite story state, ChromaDB chapter memory, knowledge layers, canon RAG, CanonExpert, contradiction scanner |
+| 3 | Quality metrics (repetition, pacing, voice, slop), character specialist, milestone gates |
+| 4 | Physics enforcement, export, session persistence, LLM judge, scene card generation |
 
 ### Revision and Milestones (Phase 3+)
 

@@ -267,3 +267,72 @@ class TestOrchestratorRetryLogic:
         # rejection (final_gate_rejection) — never neither — since the pipeline
         # proceeds past the gate failure.
         assert "final_gate_complete" in event_types or "final_gate_rejection" in event_types
+
+
+class TestOrchestratorCanonContext:
+    """Phase 0 regression: orchestrator must pass a non-empty concept_seed to
+    CanonExpert, read from the ContextAssembler rather than the previously
+    absent ``self.concept_seed`` attribute."""
+
+    @pytest.fixture
+    def ledger(self, temp_dir):
+        _ledger = RunLedger(db_path=str(Path(temp_dir) / "test_ledger.db"))
+        yield _ledger
+        _ledger.close()
+
+    @pytest.fixture
+    def mock_assembler_with_seed(self):
+        assembler = MagicMock()
+        assembler.get_bible_summary.return_value = "Test bible summary"
+        assembler.assemble.return_value = "Test assembled context"
+        assembler.get_negative_constraints.return_value = "Test constraints"
+        # The load-bearing assertion target for this test class.
+        assembler.concept_seed = {
+            "meta": {"project_title": "Canon Context Test"},
+            "premise": {"logline": "Testing canon context flow"},
+        }
+        return assembler
+
+    @pytest.mark.asyncio
+    async def test_canon_expert_receives_non_empty_concept_seed(
+        self,
+        mock_router,
+        mock_assembler_with_seed,
+        ledger,
+        temp_dir,
+        sample_scene_card,
+    ):
+        mock_router.complete = AsyncMock(return_value="Mock prose output for the scene.")
+        mock_router.complete_structured = AsyncMock(return_value={
+            "verdict": "pass",
+            "failure_codes": [],
+            "severity": "non_blocking",
+            "route_to": None,
+            "structural_score": 0.85,
+            "voice_score": 0.80,
+            "polish_score": 0.75,
+        })
+
+        canon_expert = MagicMock()
+        canon_expert.run = AsyncMock(return_value={
+            "verdict": "pass",
+            "canon_notes": "",
+            "violations": [],
+        })
+
+        orchestrator = Orchestrator(
+            router=mock_router,
+            context_assembler=mock_assembler_with_seed,
+            ledger=ledger,
+            manuscripts_dir=str(Path(temp_dir) / "manuscripts"),
+            canon_expert=canon_expert,
+        )
+
+        await orchestrator.run_chapter(sample_scene_card)
+
+        assert canon_expert.run.await_count >= 1, "CanonExpert should have been invoked"
+        first_call_context = canon_expert.run.await_args_list[0].args[0]
+        assert first_call_context["concept_seed"] == mock_assembler_with_seed.concept_seed, (
+            "CanonExpert received an empty concept_seed — the orchestrator must "
+            "read it from the assembler, not from a never-set self.concept_seed."
+        )
