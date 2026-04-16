@@ -17,13 +17,27 @@ from __future__ import annotations
 
 import copy
 import json
-import re
 import sys
 from pathlib import Path
 
 import jsonschema
 
+# Make ``src`` importable when this script is run directly from the repo root.
 REPO_ROOT = Path(__file__).resolve().parent.parent
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+from src.concept_workshop.scene_card_translator import translate_scene_card  # noqa: E402
+from src.concept_workshop.seed_transforms import (  # noqa: E402
+    apply_arc_phase_maps,
+    apply_canon_constraints,
+    apply_promise_payoff_ledger,
+    apply_voice_definition,
+    apply_workshop_origin,
+    move_to_extended_metadata,
+    normalize_enums,
+)
+
 SOURCE_SEED = Path("C:/Users/LouisBouwer/Downloads/the_ruusan_atonement_concept_seed.json")
 TARGET_DIR = REPO_ROOT / "data" / "projects" / "the-ruusan-atonement"
 TARGET_SEED = TARGET_DIR / "concept_seed.json"
@@ -526,98 +540,24 @@ CANON_CONSTRAINTS = {
 
 
 # ---------------------------------------------------------------------------
-# Scene card derivation helpers
+# Ruusan-specific scene card overrides
 # ---------------------------------------------------------------------------
 
-UPPERCASE_MARKERS = {
-    "FIRST PLOT POINT": "first_plot_point",
-    "SECOND PLOT POINT": "second_plot_point",
-    "MIDPOINT": "midpoint",
-}
-
-ARC_PHASE_PREFIX = {
-    "Setup": "setup",
-    "Response": "response",
-    "Attack": "attack",
-    "Resolution": "resolution",
-    "First Plot Point": "first_plot_point",
-    "Midpoint": "midpoint",
-    "Second Plot Point": "second_plot_point",
-}
-
-# Manual override: Chapter 26 is the structural climax even though arc_phase says "Resolution"
-MANUAL_STRUCTURAL_OVERRIDES = {
+# Chapter 26 is the structural climax even though its arc_phase says "Resolution".
+# The generic translator accepts structural_overrides as a kwarg.
+MANUAL_STRUCTURAL_OVERRIDES: dict[int, str] = {
     26: "climax",
 }
 
-
-def derive_structural_phase(card: dict) -> str:
-    ch = card.get("chapter_number")
-    if ch in MANUAL_STRUCTURAL_OVERRIDES:
-        return MANUAL_STRUCTURAL_OVERRIDES[ch]
-    scene_goal = card.get("scene_goal", "")
-    for marker, phase in UPPERCASE_MARKERS.items():
-        if marker in scene_goal:
-            return phase
-    arc_phase = card.get("arc_phase", "")
-    for prefix, phase in ARC_PHASE_PREFIX.items():
-        if arc_phase.startswith(prefix):
-            return phase
-    return "setup"  # Fallback
-
-
-def build_scene_card_notes(seed_card: dict) -> str:
-    """Concatenate time, thematic_beat, and the original scene_outcome into notes.
-
-    scene_type is extracted into a dedicated schema field (not notes) now
-    that the scene_card.json schema has a scene_type enum.
-    """
-    parts = []
-    if seed_card.get("time"):
-        parts.append(f"Time: {seed_card['time']}")
-    if seed_card.get("thematic_beat"):
-        parts.append(f"Thematic beat: {seed_card['thematic_beat']}")
-    if seed_card.get("scene_outcome"):
-        parts.append(f"Original scene_outcome: {seed_card['scene_outcome']}")
-    return "\n".join(parts)
-
-
-def translate_scene_card(seed_card: dict) -> dict:
-    """Translate a workshop-format scene card into the scene_card.json schema format."""
-    ch = seed_card["chapter_number"]
-    sn = seed_card.get("scene_number", 1)
-    card = {
-        "chapter_number": ch,
-        "scene_number": sn,
-        "structural_phase": derive_structural_phase(seed_card),
-        "pov_character": seed_card.get("pov_character", ""),
-        "mission": seed_card.get("scene_goal", ""),
-        "why_now": "",
-        "opening_hook": "",
-        "conflict": seed_card.get("scene_conflict", ""),
-        "conflict_type": "internal",  # default; schema requires enum when present
-        "turning_point": "",
-        "closing_hook": "",
-        "characters_present": [],
-        "setting": seed_card.get("location", ""),
-        "sensory_details": "",
-        "emotional_trajectory": "",
-        "plot_threads_advanced": [],
-        "promises_planted": [],
-        "promises_paid": [],
-        "canon_elements_needed": [],
-        "target_word_count": seed_card.get("estimated_word_count", 3500),
-        "notes": build_scene_card_notes(seed_card),
-        "active_subplots": seed_card.get("subplot_references", []),
-        "hook_actions": seed_card.get("hook_references", []),
-        "revelations": seed_card.get("revelation_references", []),
-        "pov_arc_phase": seed_card.get("arc_phase", ""),
-    }
-    # scene_type is optional — include only when the workshop provided it
-    scene_type = seed_card.get("scene_type")
-    if scene_type in ("action", "sequel"):
-        card["scene_type"] = scene_type
-    return card
+# Canonical arc_type per main character — fed to normalize_enums.
+ARC_TYPE_MAP: dict[str, str] = {
+    "Ben Skywalker": "positive_change",
+    "Sera Varik": "positive_change",
+    "Kael Drenn": "positive_change",
+    "Torin Hal": "negative",
+    "Darth Veraine": "negative",
+    "Desh Rolan": "positive_change",
+}
 
 
 # ---------------------------------------------------------------------------
@@ -635,73 +575,45 @@ def main() -> int:
 
     # --- Task 2: Inject voice_definition ---
     print("Task 2: adding voice_definition")
-    seed["voice_definition"] = copy.deepcopy(VOICE_DEFINITION)
+    apply_voice_definition(seed, VOICE_DEFINITION)
 
     # --- Normalize enums: tone + canon_status + weiland_arc.arc_type ---
     print("Normalize: tone + canon_status + arc_type enums")
-    meta = seed.setdefault("meta", {})
-    current_tone = meta.get("tone", "")
-    if current_tone and current_tone not in (
-        "dark_gritty", "adventurous_hopeful", "political_intrigue",
-        "character_study", "heroic_with_weight",
-    ):
-        meta["tone_description"] = current_tone
-        meta["tone"] = "heroic_with_weight"
-    current_canon = meta.get("canon_status", "")
-    if current_canon and current_canon not in ("canon_compliant", "AU", "original"):
-        meta["canon_status_description"] = current_canon
-        meta["canon_status"] = "AU"
-
-    # Canonicalize weiland_arc.arc_type to the strict enum; move descriptive
-    # prose to arc_summary.
-    ARC_TYPE_CANONICAL = {
-        "Ben Skywalker": "positive_change",
-        "Sera Varik": "positive_change",
-        "Kael Drenn": "positive_change",
-        "Torin Hal": "negative",
-        "Darth Veraine": "negative",
-        "Desh Rolan": "positive_change",
-    }
-    for char in seed.get("ensemble_cast", []):
-        name = char.get("name")
-        weiland = char.setdefault("weiland_arc", {})
-        descriptive = weiland.get("arc_type", "")
-        canonical = ARC_TYPE_CANONICAL.get(name)
-        if canonical:
-            weiland["arc_type"] = canonical
-            if descriptive and descriptive != canonical:
-                weiland["arc_summary"] = descriptive
+    normalize_enums(
+        seed,
+        tone_fallback="heroic_with_weight",
+        canon_status_fallback="AU",
+        arc_type_map=ARC_TYPE_MAP,
+    )
 
     # --- Task 4: Add arc_phase_map to each main character's weiland_arc ---
     print("Task 4: adding arc_phase_map to main characters")
-    for char in seed.get("ensemble_cast", []):
-        name = char.get("name")
-        if name in ARC_PHASE_MAPS:
-            char.setdefault("weiland_arc", {})
-            char["weiland_arc"]["arc_phase_map"] = copy.deepcopy(ARC_PHASE_MAPS[name])
+    apply_arc_phase_maps(seed, ARC_PHASE_MAPS)
 
     # --- Task 5: Add promise/payoff ledger ---
     print("Task 5: adding promise_payoff_ledger (25 entries)")
-    seed["promise_payoff_ledger"] = copy.deepcopy(PROMISE_PAYOFF_LEDGER)
+    apply_promise_payoff_ledger(seed, PROMISE_PAYOFF_LEDGER)
 
     # --- Restructure: move technique_lineage + jacen_parallel under extended_metadata ---
     print("Restructure: moving technique_lineage and jacen_parallel under extended_metadata")
-    extended_metadata = {}
-    if "technique_lineage" in seed:
-        extended_metadata["technique_lineage"] = seed.pop("technique_lineage")
-    if "jacen_parallel" in seed:
-        extended_metadata["jacen_parallel"] = seed.pop("jacen_parallel")
-    extended_metadata["workshop_origin"] = {
-        "source": "claude_ai_simulation",
-        "date": "2026-04-09",
-        "session_type": "full_workshop_steps_0_to_10",
-        "notes": "Concept workshop simulation conducted in Claude.ai for Phase 5 protocol validation. Step 5 (Voice Discovery) was added post-hoc via this installer.",
-    }
-    seed["extended_metadata"] = extended_metadata
+    move_to_extended_metadata(seed, ["technique_lineage", "jacen_parallel"])
+    apply_workshop_origin(
+        seed,
+        {
+            "source": "claude_ai_simulation",
+            "date": "2026-04-09",
+            "session_type": "full_workshop_steps_0_to_10",
+            "notes": (
+                "Concept workshop simulation conducted in Claude.ai for Phase 5 "
+                "protocol validation. Step 5 (Voice Discovery) was added post-hoc "
+                "via this installer."
+            ),
+        },
+    )
 
     # --- Task 1: add canon_constraints (derived from seed content) ---
     print("Task 1: adding canon_constraints")
-    seed["canon_constraints"] = copy.deepcopy(CANON_CONSTRAINTS)
+    apply_canon_constraints(seed, CANON_CONSTRAINTS)
 
     # --- Write the enriched seed ---
     TARGET_DIR.mkdir(parents=True, exist_ok=True)
@@ -717,7 +629,9 @@ def main() -> int:
     scene_card_schema = json.loads(CONCEPT_SEED_SCHEMA.read_text(encoding="utf-8"))  # for reference
     scene_card_draft_schema = json.loads(SCENE_CARD_SCHEMA.read_text(encoding="utf-8"))
     for card in seed["scene_cards"]:
-        translated = translate_scene_card(card)
+        translated = translate_scene_card(
+            card, structural_overrides=MANUAL_STRUCTURAL_OVERRIDES
+        )
         ch = translated["chapter_number"]
         sn = translated["scene_number"]
         filename = f"chapter_{ch:02d}_scene_{sn:02d}.json"
