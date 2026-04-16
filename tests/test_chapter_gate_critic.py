@@ -1,12 +1,37 @@
 """Tests for the ChapterGateCritic agent and orchestrator chapter detection."""
 
 import json
+from pathlib import Path
 from unittest.mock import AsyncMock, MagicMock
 
 import pytest
 
-from src.agents.chapter_gate_critic import ChapterGateCritic
+from src.agents.chapter_gate_critic import (
+    BLUEPRINT_CHECK_CODES,
+    ChapterGateCritic,
+    _load_blueprint,
+    _resolve_blueprint_path,
+)
 from src.orchestrator import Orchestrator
+
+
+SAMPLE_BLUEPRINT = {
+    "chapter_number": 1,
+    "chapter_mission": "Establish restlessness and launch the investigation.",
+    "chapter_turn": "Protagonist moves from passive unease to active pursuit.",
+    "structural_phase": "setup",
+    "scene_count": 3,
+    "scene_plan": [
+        {"scene_number": 1, "role": "hook", "dialogue_expectation": "interior", "target_word_count": 1250, "purpose": "establish wrongness"},
+        {"scene_number": 2, "role": "reveal", "dialogue_expectation": "balanced", "target_word_count": 1250, "purpose": "validate and assign"},
+        {"scene_number": 3, "role": "decision", "dialogue_expectation": "balanced", "target_word_count": 1250, "purpose": "depart"},
+    ],
+    "reveal_payload": ["R01"],
+    "subplot_obligations": ["SP-A", "SP3"],
+    "pacing_curve": "rising",
+    "exit_vector": "Ben in hyperspace, wrongness now directional",
+    "chapter_word_target": 3750,
+}
 
 
 class TestIsLastSceneInChapter:
@@ -101,3 +126,201 @@ class TestChapterGateCriticFormatting:
         assert result["chapter_passed"] is False
         assert len(result["chapter_level_failures"]) > 0
         assert result["chapter_level_failures"][0]["check"] == "parse_error"
+
+
+class TestBlueprintPathResolution:
+    """Tests for the _resolve_blueprint_path helper."""
+
+    def test_explicit_path_wins(self):
+        path = _resolve_blueprint_path({
+            "blueprint_path": "/explicit/path/chapter_07.json",
+            "franchise_slug": "sw",
+            "book_slug": "ra",
+            "chapter_number": 1,
+        })
+        assert str(path).endswith("chapter_07.json")
+
+    def test_derives_from_identifiers(self, tmp_path):
+        path = _resolve_blueprint_path({
+            "franchise_slug": "star-wars-legends-eu",
+            "book_slug": "the-ruusan-atonement",
+            "chapter_number": 1,
+            "base_dir": str(tmp_path),
+        })
+        assert path is not None
+        assert path.parts[-4:] == (
+            "star-wars-legends-eu",
+            "books",
+            "the-ruusan-atonement",
+            "chapter_blueprints",
+        ) or path.name == "chapter_01.json"
+        assert path.name == "chapter_01.json"
+
+    def test_returns_none_when_identifiers_missing(self):
+        assert _resolve_blueprint_path({"chapter_number": 1}) is None
+        assert _resolve_blueprint_path({"franchise_slug": "x", "book_slug": "y"}) is None
+
+
+class TestBlueprintLoading:
+    """Tests for the _load_blueprint helper."""
+
+    def test_preloaded_blueprint_returned_unchanged(self):
+        assert _load_blueprint({"chapter_blueprint": SAMPLE_BLUEPRINT}) is SAMPLE_BLUEPRINT
+
+    def test_reads_json_from_disk(self, tmp_path):
+        blueprint_dir = tmp_path / "data" / "franchises" / "sw" / "books" / "rb" / "chapter_blueprints"
+        blueprint_dir.mkdir(parents=True)
+        (blueprint_dir / "chapter_01.json").write_text(json.dumps(SAMPLE_BLUEPRINT), encoding="utf-8")
+
+        loaded = _load_blueprint({
+            "franchise_slug": "sw",
+            "book_slug": "rb",
+            "chapter_number": 1,
+            "base_dir": str(tmp_path),
+        })
+        assert loaded == SAMPLE_BLUEPRINT
+
+    def test_missing_file_returns_none(self, tmp_path):
+        assert (
+            _load_blueprint({
+                "franchise_slug": "sw",
+                "book_slug": "rb",
+                "chapter_number": 99,
+                "base_dir": str(tmp_path),
+            })
+            is None
+        )
+
+    def test_unparseable_file_returns_none(self, tmp_path, caplog):
+        blueprint_dir = tmp_path / "data" / "franchises" / "sw" / "books" / "rb" / "chapter_blueprints"
+        blueprint_dir.mkdir(parents=True)
+        (blueprint_dir / "chapter_01.json").write_text("{ not valid json", encoding="utf-8")
+
+        result = _load_blueprint({
+            "franchise_slug": "sw",
+            "book_slug": "rb",
+            "chapter_number": 1,
+            "base_dir": str(tmp_path),
+        })
+        assert result is None
+
+
+class TestBlueprintAwarePrompt:
+    """Tests that verify blueprint-aware checks appear in the prompt context."""
+
+    def test_blueprint_section_present_when_loaded(
+        self, multi_scene_chapter_cards, mock_router
+    ):
+        critic = ChapterGateCritic(mock_router)
+        formatted = critic._format_context({
+            "scene_cards": multi_scene_chapter_cards,
+            "scene_prose": ["p1", "p2", "p3"],
+            "chapter_number": 1,
+            "chapter_blueprint": SAMPLE_BLUEPRINT,
+        })
+        assert "## Chapter Blueprint" in formatted
+        assert SAMPLE_BLUEPRINT["chapter_mission"] in formatted
+        assert "exit_vector" in formatted
+
+    def test_blueprint_check_codes_listed_in_prompt(
+        self, multi_scene_chapter_cards, mock_router
+    ):
+        critic = ChapterGateCritic(mock_router)
+        formatted = critic._format_context({
+            "scene_cards": multi_scene_chapter_cards,
+            "scene_prose": ["p1", "p2", "p3"],
+            "chapter_number": 1,
+            "chapter_blueprint": SAMPLE_BLUEPRINT,
+        })
+        for code in BLUEPRINT_CHECK_CODES:
+            assert code in formatted, f"check code {code!r} missing from prompt"
+
+    def test_blueprint_absent_leaves_prompt_unchanged(
+        self, multi_scene_chapter_cards, mock_router
+    ):
+        critic = ChapterGateCritic(mock_router)
+        formatted = critic._format_context({
+            "scene_cards": multi_scene_chapter_cards,
+            "scene_prose": ["p1", "p2", "p3"],
+            "chapter_number": 1,
+        })
+        assert "## Chapter Blueprint" not in formatted
+        for code in BLUEPRINT_CHECK_CODES:
+            assert code not in formatted
+        # The six composition-only checks must still be in place
+        assert "mission_distinctness" in formatted
+        assert "stakes_escalation" in formatted
+        assert "pressure_progression" in formatted
+
+
+class TestBlueprintAwareEvaluation:
+    """Tests that blueprint-check failures and the blueprint_used flag flow
+    through to the run() return value."""
+
+    @pytest.mark.asyncio
+    async def test_blueprint_used_flag_true_when_loaded(
+        self, multi_scene_chapter_cards
+    ):
+        router = MagicMock()
+        router.complete_structured = AsyncMock(return_value={
+            "chapter_passed": True,
+            "chapter_level_failures": [],
+            "scene_level_flags": [],
+            "metrics": {},
+        })
+        critic = ChapterGateCritic(router)
+        result = await critic.run({
+            "scene_cards": multi_scene_chapter_cards,
+            "scene_prose": ["p1", "p2", "p3"],
+            "chapter_number": 1,
+            "chapter_blueprint": SAMPLE_BLUEPRINT,
+        })
+        assert result["blueprint_used"] is True
+
+    @pytest.mark.asyncio
+    async def test_blueprint_used_flag_false_when_absent(
+        self, multi_scene_chapter_cards
+    ):
+        router = MagicMock()
+        router.complete_structured = AsyncMock(return_value={
+            "chapter_passed": True,
+            "chapter_level_failures": [],
+            "scene_level_flags": [],
+            "metrics": {},
+        })
+        critic = ChapterGateCritic(router)
+        result = await critic.run({
+            "scene_cards": multi_scene_chapter_cards,
+            "scene_prose": ["p1", "p2", "p3"],
+            "chapter_number": 1,
+        })
+        assert result["blueprint_used"] is False
+
+    @pytest.mark.asyncio
+    async def test_blueprint_failure_code_surfaces(
+        self, multi_scene_chapter_cards
+    ):
+        """A reveal_payload_delivered failure from the critic surfaces in
+        chapter_level_failures."""
+        router = MagicMock()
+        router.complete_structured = AsyncMock(return_value={
+            "chapter_passed": False,
+            "chapter_level_failures": [
+                {
+                    "check": "reveal_payload_delivered",
+                    "description": "R01 is never surfaced in scene 3.",
+                },
+            ],
+            "scene_level_flags": [],
+            "metrics": {},
+        })
+        critic = ChapterGateCritic(router)
+        result = await critic.run({
+            "scene_cards": multi_scene_chapter_cards,
+            "scene_prose": ["p1", "p2", "p3"],
+            "chapter_number": 1,
+            "chapter_blueprint": SAMPLE_BLUEPRINT,
+        })
+        codes = [f["check"] for f in result["chapter_level_failures"]]
+        assert "reveal_payload_delivered" in codes
+        assert result["chapter_passed"] is False

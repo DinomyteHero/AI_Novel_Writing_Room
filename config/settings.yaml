@@ -69,8 +69,10 @@ agent_routing:
   # PROSE — Sonnet with softened constraints (untested combo): Sonnet's obedience + room to breathe. Plot architect on Gemini Pro.
   prose_stylist:          { backend: cloud, model: claude, params: { temperature: 0.80, max_tokens: 8192 } }
 
-  # GATE/EVAL — Haiku for gate (precise, cheap), Grok 4.20 for judge (Arena CW #4, understands prose quality), Kimi K2 for manuscript review
+  # GATE/EVAL — Haiku for gate + final gate (precise, cheap), Grok 4.20 for judge (Arena CW #4, understands prose quality), Kimi K2 for manuscript review
   gate_critic:            { backend: cloud, model: haiku, params: { temperature: 0.3 } }
+  chapter_gate_critic:    { backend: cloud, model: haiku, params: { temperature: 0.3 } }
+  final_gate:             { backend: cloud, model: haiku, params: { temperature: 0.2 } }
   judge_evaluator:        { backend: cloud, model: grok420, params: { temperature: 0.2 } }
   manuscript_reviewer:    { backend: cloud, model: kimi, params: { temperature: 0.3 } }
 
@@ -80,13 +82,10 @@ agent_routing:
   seed_builder:           { backend: cloud, model: gemini, params: { temperature: 0.3, max_tokens: 16384 } }
   plot_architect:         { backend: cloud, model: gemini, params: { temperature: 0.4 } }
 
-  # PROSE-SENSITIVE REVISION — Kimi K2 for craft/emotion (cheaper than Haiku, better CW: EQ-Bench #9), Kimi K2 for dialogue polish
-  craft_editor:           { backend: cloud, model: kimi, params: { temperature: 0.4, max_tokens: 8192 } }
-  scene_emotion_reviewer: { backend: cloud, model: kimi, params: { temperature: 0.5 } }
-  dialogue_polish_editor: { backend: cloud, model: kimi, params: { temperature: 0.4 } }
+  # POLISH — single bounded pass on same family as writer (minimises style drift per pipeline-redesign.md)
+  quality_polish:         { backend: cloud, model: claude, params: { temperature: 0.5, max_tokens: 8192 } }
 
-  # STRUCTURAL REVISION — Mistral Small 4 for copy/voice (pattern-matching, $0.15/$0.60), DeepSeek for stress test
-  line_copy_editor:       { backend: cloud, model: mistral_small4, params: { temperature: 0.3 } }
+  # STRUCTURAL REVISION — Mistral Small 4 for voice check, DeepSeek for stress test
   voice_checker:          { backend: cloud, model: mistral_small4, params: { temperature: 0.3 } }
   stress_test:            { backend: cloud, model: deepseek, params: { temperature: 0.5 } }
 
@@ -96,7 +95,6 @@ agent_routing:
   summarizer:             { backend: cloud, model: deepseek, params: { temperature: 0.2 } }
   character_specialist:   { backend: cloud, model: deepseek, params: { temperature: 0.3 } }
   lore_extractor:         { backend: cloud, model: deepseek, params: { temperature: 0.2, max_tokens: 8192 } }
-  structural_continuity_reviewer: { backend: cloud, model: deepseek, params: { temperature: 0.3 } }
   worldbuilding_coherence_reviewer: { backend: cloud, model: grok420, params: { temperature: 0.3 } }
 
 # Pipeline settings

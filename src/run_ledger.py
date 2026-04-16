@@ -65,6 +65,7 @@ class RunLedger:
                 event_type TEXT NOT NULL,
                 chapter_number INTEGER,
                 scene_number INTEGER,
+                attempt_id TEXT,
                 agent_role TEXT,
                 payload TEXT,
                 state_hash TEXT
@@ -73,12 +74,17 @@ class RunLedger:
         self.conn.commit()
 
     def _migrate_schema(self):
-        """Add run_id column if migrating from an older schema."""
+        """Add missing columns when migrating from older schemas."""
         columns = [
             row[1] for row in self.conn.execute("PRAGMA table_info(run_ledger)").fetchall()
         ]
         if "run_id" not in columns:
             self.conn.execute("ALTER TABLE run_ledger ADD COLUMN run_id TEXT")
+            self.conn.commit()
+        if "attempt_id" not in columns:
+            # Attempt scoping lets consumers distinguish rewrite attempts
+            # inside the Scene Gate loop. Older rows get NULL attempt_id.
+            self.conn.execute("ALTER TABLE run_ledger ADD COLUMN attempt_id TEXT")
             self.conn.commit()
 
     def emit(
@@ -88,16 +94,23 @@ class RunLedger:
         scene_number: Optional[int] = None,
         agent_role: Optional[str] = None,
         payload: Optional[dict] = None,
+        attempt_id: Optional[str] = None,
     ) -> int:
-        """Emit an event to the ledger. Returns the event ID."""
+        """Emit an event to the ledger. Returns the event ID.
+
+        attempt_id scopes events within a single scene's rewrite loop so
+        consumers can distinguish retry iterations. Events outside the
+        gate loop leave it None.
+        """
         state_hash = self._compute_hash(payload) if payload else None
         payload_json = json.dumps(payload) if payload else None
 
         cursor = self.conn.execute(
             """
             INSERT INTO run_ledger
-                (timestamp, run_id, event_type, chapter_number, scene_number, agent_role, payload, state_hash)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                (timestamp, run_id, event_type, chapter_number, scene_number,
+                 attempt_id, agent_role, payload, state_hash)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
             """,
             (
                 datetime.now(timezone.utc).isoformat(),
@@ -105,6 +118,7 @@ class RunLedger:
                 event_type,
                 chapter_number,
                 scene_number,
+                attempt_id,
                 agent_role,
                 payload_json,
                 state_hash,
@@ -118,6 +132,7 @@ class RunLedger:
         chapter_number: Optional[int] = None,
         event_type: Optional[str] = None,
         agent_role: Optional[str] = None,
+        attempt_id: Optional[str] = None,
         limit: int = 100,
     ) -> list[dict]:
         """Query events from the ledger."""
@@ -133,6 +148,9 @@ class RunLedger:
         if agent_role is not None:
             conditions.append("agent_role = ?")
             params.append(agent_role)
+        if attempt_id is not None:
+            conditions.append("attempt_id = ?")
+            params.append(attempt_id)
 
         where = f" WHERE {' AND '.join(conditions)}" if conditions else ""
         query = f"SELECT * FROM run_ledger{where} ORDER BY id DESC LIMIT ?"

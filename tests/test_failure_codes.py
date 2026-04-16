@@ -97,5 +97,8 @@ class TestRouteMapping:
     def test_voice_routes_to_targeted_revision(self):
         assert determine_route("fail_voice") == "targeted_revision"
 
-    def test_polish_routes_to_craft_edit(self):
-        assert determine_route("fail_polish") == "craft_edit"
+    def test_polish_routes_nowhere(self):
+        """Post-Phase 1 pipeline redesign: fail_polish does NOT trigger a rewrite.
+        Polish issues are caught by the compression guard and Final Gate, which
+        reject the polish and keep the gate-passed draft."""
+        assert determine_route("fail_polish") is None

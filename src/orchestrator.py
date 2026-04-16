@@ -161,18 +161,29 @@ class Orchestrator:
         chapter_cards: list[dict],
         chapter_results: list[dict],
     ) -> dict:
-        """Run the chapter-level gate critic after the last scene in a chapter."""
+        """Run the chapter-level gate critic after the last scene in a chapter.
+
+        Passes franchise/book identifiers so ChapterGateCritic can locate the
+        matching chapter_blueprint.json. Absent or unparseable blueprint
+        falls back gracefully to composition-only checks.
+        """
         scene_prose = []
         for result in chapter_results:
             path = Path(result["output_path"])
             if path.exists():
                 scene_prose.append(path.read_text(encoding="utf-8"))
 
-        evaluation = await self.chapter_gate_critic.run({
+        context = {
             "scene_cards": chapter_cards,
             "scene_prose": scene_prose,
             "chapter_number": chapter_number,
-        })
+        }
+        if self._universe_id:
+            context["franchise_slug"] = self._universe_id
+        if self._project_id:
+            context["book_slug"] = self._project_id
+
+        evaluation = await self.chapter_gate_critic.run(context)
 
         self.ledger.emit(
             "chapter_gate_complete",
@@ -180,6 +191,7 @@ class Orchestrator:
             payload={
                 "passed": evaluation["chapter_passed"],
                 "failure_count": len(evaluation.get("chapter_level_failures", [])),
+                "blueprint_used": evaluation.get("blueprint_used", False),
             },
         )
 
@@ -497,7 +509,8 @@ class Orchestrator:
         contradiction_flags = []
         if self.summarizer:
             summary_text, contradiction_flags = await self._run_post_save(
-                scene_card, final_prose, evaluation
+                scene_card, final_prose, evaluation,
+                polish_rejected=polish_rejected,
             )
 
         # Phase 3: Character Specialist (supplementary, after Phase 2)
@@ -579,6 +592,8 @@ class Orchestrator:
         scene_card: dict,
         prose: str,
         evaluation: dict,
+        *,
+        polish_rejected: bool = False,
     ) -> tuple[Optional[str], list[dict]]:
         """Phase 2 post-save processing: summarize, update state, scan."""
         chapter_num = scene_card["chapter_number"]
@@ -679,7 +694,21 @@ class Orchestrator:
                 fc["code"] for fc in evaluation.get("failure_codes", [])
             ]
             word_count = len(prose.split())
-            revision_status = "craft_edited" if evaluation.get("verdict") != "pass" else "approved"
+            # Post-Phase-1 pipeline status derivation. The saved prose is:
+            #   - 'approved' when it survived Quality Polish + Final Gate
+            #   - 'final_gate_rejected' when polish was reverted (compression
+            #     guard fired or Final Gate rejected the polish)
+            #   - 'gate_passed' in --raw-draft mode (polish/final gate skipped)
+            #   - 'gate_failed' if the scene-level verdict never reached pass
+            #     (edge case: gate loop exited early)
+            if polish_rejected:
+                revision_status = "final_gate_rejected"
+            elif self.raw_draft:
+                revision_status = "gate_passed"
+            elif evaluation.get("verdict") == "pass":
+                revision_status = "approved"
+            else:
+                revision_status = "gate_failed"
             self.story_state.add_chapter_log(
                 chapter_number=chapter_num,
                 word_count=word_count,
@@ -883,14 +912,22 @@ class Orchestrator:
         best_prose = prose
         best_eval = None
         best_score = -1.0
+        chapter_num = scene_card["chapter_number"]
+        scene_num = scene_card.get("scene_number", 1)
 
         while True:
+            # attempt_id scopes every event inside this rewrite loop so
+            # consumers can distinguish retry iterations after the fact.
+            attempt_number = structural_retries + voice_retries + 1
+            attempt_id = f"ch{chapter_num}_scene{scene_num}_attempt_{attempt_number}"
+
             start = time.time()
             self.ledger.emit(
                 "agent_start",
-                chapter_number=scene_card["chapter_number"],
-                scene_number=scene_card.get("scene_number", 1),
+                chapter_number=chapter_num,
+                scene_number=scene_num,
                 agent_role="gate_critic",
+                attempt_id=attempt_id,
             )
 
             try:
@@ -915,10 +952,11 @@ class Orchestrator:
             duration_ms = int((time.time() - start) * 1000)
             self.ledger.emit(
                 "agent_complete",
-                chapter_number=scene_card["chapter_number"],
-                scene_number=scene_card.get("scene_number", 1),
+                chapter_number=chapter_num,
+                scene_number=scene_num,
                 agent_role="gate_critic",
                 payload={"duration_ms": duration_ms},
+                attempt_id=attempt_id,
             )
 
             verdict = evaluation["verdict"]
@@ -942,12 +980,14 @@ class Orchestrator:
                 print(f"    [WARN] All gate scores >= 0.95 on first draft — critic may not be evaluating rigorously")
 
             if verdict == "pass" or verdict == "fail_polish":
-                # Pass or polish-only failure — proceed to craft editor
+                # Pass or polish-only failure — proceed to Quality Polish
+                # (polish issues are caught by the compression guard + Final Gate,
+                # not by looping back to a rewrite)
                 event_type = "gate_pass" if verdict == "pass" else "gate_fail"
                 self.ledger.emit(
                     event_type,
-                    chapter_number=scene_card["chapter_number"],
-                    scene_number=scene_card.get("scene_number", 1),
+                    chapter_number=chapter_num,
+                    scene_number=scene_num,
                     payload={
                         "verdict": verdict,
                         "scores": {
@@ -957,6 +997,7 @@ class Orchestrator:
                         },
                         "failure_codes": [fc["code"] for fc in evaluation.get("failure_codes", [])],
                     },
+                    attempt_id=attempt_id,
                 )
                 print(f"    Gate: {verdict} (structural={evaluation.get('structural_score', 0):.2f}, "
                       f"voice={evaluation.get('voice_score', 0):.2f}, "
@@ -967,13 +1008,14 @@ class Orchestrator:
                 structural_retries += 1
                 self.ledger.emit(
                     "gate_fail",
-                    chapter_number=scene_card["chapter_number"],
-                    scene_number=scene_card.get("scene_number", 1),
+                    chapter_number=chapter_num,
+                    scene_number=scene_num,
                     payload={
                         "verdict": verdict,
                         "retry": structural_retries,
                         "failure_codes": [fc["code"] for fc in evaluation.get("failure_codes", [])],
                     },
+                    attempt_id=attempt_id,
                 )
 
                 if structural_retries > self.max_structural_retries:
@@ -1003,13 +1045,14 @@ class Orchestrator:
                 voice_retries += 1
                 self.ledger.emit(
                     "gate_fail",
-                    chapter_number=scene_card["chapter_number"],
-                    scene_number=scene_card.get("scene_number", 1),
+                    chapter_number=chapter_num,
+                    scene_number=scene_num,
                     payload={
                         "verdict": verdict,
                         "retry": voice_retries,
                         "failure_codes": [fc["code"] for fc in evaluation.get("failure_codes", [])],
                     },
+                    attempt_id=attempt_id,
                 )
 
                 if voice_retries > self.max_voice_retries:

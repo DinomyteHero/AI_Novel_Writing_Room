@@ -6,6 +6,8 @@ from statistics import mean, stdev
 
 import numpy as np
 
+from src.quality._para_util import paragraph_indices_for_word
+
 
 # Common English stop words to exclude from frequency analysis
 STOP_WORDS = frozenset({
@@ -98,6 +100,11 @@ class RepetitionDetector:
         paragraphs = [p.strip() for p in prose.split("\n\n") if p.strip()]
 
         flagged_words = self._check_word_frequency(tokens, name_words)
+        # Annotate flagged words with the paragraph indices they appear in
+        # so Quality Polish can target specific paragraphs instead of
+        # re-reading the whole scene to find them.
+        for flag in flagged_words:
+            flag["paragraph_indices"] = paragraph_indices_for_word(prose, flag["word"])
         repeated_ngrams = self._check_ngrams(prose, prior_chapters)
         opener_violations = self._check_openers(paragraphs)
         similar_paragraphs = self._check_paragraph_similarity(paragraphs)
