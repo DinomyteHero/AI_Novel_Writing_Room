@@ -1,0 +1,15 @@
+{
+  "_template_notes": "Literary or contemporary fiction with near-empty canon — no magic system, no invented world, no franchise to hew to. The 'canon' is essentially real-world plausibility and the book's own internal character/plot facts. canon_expert's main job is narrative consistency rather than lore enforcement. Keep cross_continuity_violations and anachronistic_terms empty; keep meta_reference_rules to just the style discipline rules.",
+  "franchise": "original",
+  "continuity": "primary",
+  "continuity_description": "Contemporary/literary fiction. The story's world is the real world (or close to it); no invented lore applies. Canon enforcement is narrative consistency: characters' established biography, relationships, and stated facts must hold across the book.",
+  "era_description": "<EDIT_ME — when and where. Example: 'Summer 2019, a small university town in the American Midwest.'>",
+  "narrative_register": "<EDIT_ME — literary voice or commercial? Example: 'Literary contemporary — close third-person limited, observational, interior-weighted, sentence-level precision over plot propulsion.'>",
+  "cross_continuity_violations": [],
+  "anachronistic_terms": {},
+  "meta_reference_rules": [
+    "Internal character facts (age, biography, stated history) stay consistent across the book",
+    "Real-world details (places, historical events, technology of the era) must be accurate to the era in which the story is set"
+  ],
+  "franchise_terminology_notes": ""
+}

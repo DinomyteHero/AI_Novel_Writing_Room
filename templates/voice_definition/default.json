@@ -1,0 +1,21 @@
+{
+  "_template_notes": "Universal voice_definition scaffold. Replace <EDIT_ME> placeholders by hand or via the concept workshop's voice-discovery surface. The anti_slop_rules below are franchise-agnostic AI-prose-tells that apply to nearly any English commercial or literary fiction. Keep them and add project-specific rules; do not replace them wholesale unless your project has a deliberate reason (e.g. a POV voice that intentionally uses 'suddenly' as a rhythm beat). reference_authors, character_voices, and anti_patterns start empty — the concept workshop or author fills them in.",
+  "pov_approach": "<EDIT_ME — describe the POV mode (first person, close third, omniscient, multi-POV) and any locked-POV rules (e.g., 'Close third locked to a single protagonist; no access to other characters' interior state').>",
+  "prose_register": "<EDIT_ME — describe the register the prose should sit in. Example: 'Commercial genre fiction — accessible, propulsive, emotionally direct. Clean prose that doesn't draw attention to itself and trusts the reader to track subtext.' or 'Literary — close observation, rhythmic sentence variation, occasional free indirect discourse.'>",
+  "reference_authors": [],
+  "character_voices": {},
+  "anti_slop_rules": [
+    "Never use 'suddenly' — if something is sudden, the sentence structure should convey that through pacing, not adverb",
+    "Never use 'he realized' or 'she realized' as a revelation delivery mechanism — show the realization through reaction and changed behaviour",
+    "Never use 'a sense of' or 'a feeling of' — describe the sensation directly",
+    "Never use 'couldn't help but' — characters make choices, not narrative inevitabilities",
+    "Never use 'indescribable' or 'beyond words' — if narration says something cannot be described, narration has failed",
+    "Never use 'little did he know' or any omniscient narrator intrusion when the POV is close",
+    "Avoid adverb-dialogue-tag combinations ('he said quietly', 'she whispered softly') — let the dialogue and action beats carry tone",
+    "Avoid starting paragraphs with 'And then' — this is a pacing crutch",
+    "Limit exclamation points to actual exclamations — never in narration, rarely in dialogue"
+  ],
+  "anti_patterns": [],
+  "pacing_feel": "<EDIT_ME — the target pacing signature. Example: 'Rising — short, concrete early scenes; longer reflective passages deferred until Part 2.' or 'Breathing — alternate action chapters with sequel/recovery chapters'.>",
+  "narrative_voice_notes": "<EDIT_ME — any additional voice rules the story-writing agents should internalize. Examples: 'No character epithets — use names or pronouns, never \"the young Jedi\" or \"the detective\".' or 'Keep sentences under 30 words except in deliberately slowed introspective beats.'>"
+}

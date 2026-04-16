@@ -1,0 +1,15 @@
+{
+  "_template_notes": "Original genre fiction with light worldbuilding — contemporary thrillers, cozy mysteries, commercial genre romances, near-future SF, urban fantasy. The setting is either close to the real world or invented with a light touch; the reader does not need a glossary to follow the story. Minimal canon constraints; canon_expert mostly tracks internal character and plot consistency.",
+  "franchise": "original",
+  "continuity": "primary",
+  "continuity_description": "Original fiction with light worldbuilding. The story's world is either a lightly-adjusted version of ours or an invented setting whose rules the reader absorbs implicitly from context. Canon enforcement focuses on internal character and plot consistency (a character's stated age in chapter 2 must match chapter 15; the magic system's stated limits must hold).",
+  "era_description": "<EDIT_ME — when and where the story is set. Example: 'Contemporary, a mid-sized American city, present day' or 'Near-future, roughly 2045, Earth-orbital settlements are routine but Mars is still five years away'.>",
+  "narrative_register": "<EDIT_ME — the genre's typical voice. Example: 'Commercial thriller — propulsive prose, short paragraphs, cliffhanger chapter endings' or 'Cozy romance — warm third-person limited, present-day colloquial register, emotional transparency'.>",
+  "cross_continuity_violations": [],
+  "anachronistic_terms": {},
+  "meta_reference_rules": [
+    "Internal character and plot facts stay consistent across the book",
+    "Any invented setting element (a fictional town, a made-up corporation, a genre-specific mechanism) stays consistent once introduced"
+  ],
+  "franchise_terminology_notes": "<EDIT_ME — any capitalization or style conventions that matter. For contemporary fiction this is usually just proper-noun spellings of invented towns/companies/characters. Otherwise leave brief.>"
+}
