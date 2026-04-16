@@ -43,7 +43,22 @@ TONE_ENUM = {
 
 CANON_STATUS_ENUM = {"canon_compliant", "AU", "original"}
 
-ARC_TYPE_ENUM = {"positive_change", "flat", "negative", "disillusionment"}
+ARC_TYPE_ENUM = {
+    "positive_change",
+    "flat",
+    "negative",
+    "disillusionment",
+    "corruption",
+    "fall",
+}
+
+RELATIONSHIP_ARC_TYPE_ENUM = {
+    "deepening",
+    "rupturing",
+    "reconciling",
+    "transactional",
+    "static",
+}
 
 
 # ---------------------------------------------------------------------------
@@ -96,7 +111,19 @@ def normalize_enums(
             descriptive = weiland.get("arc_type", "")
             canonical = arc_type_map[name]
             weiland["arc_type"] = canonical
-            if descriptive and descriptive != canonical:
+            # Only promote the displaced arc_type string into arc_summary
+            # when it carries real descriptive content — i.e. the original
+            # arc_type was a free-text phrase rather than another canonical
+            # enum value. If the seed already has a prose arc_summary, never
+            # overwrite it; canonical-to-canonical remaps (e.g. seed author
+            # refining 'negative' to 'corruption') should not clobber the
+            # human-authored arc_summary.
+            if (
+                descriptive
+                and descriptive != canonical
+                and descriptive not in ARC_TYPE_ENUM
+                and not weiland.get("arc_summary")
+            ):
                 weiland["arc_summary"] = descriptive
 
 
@@ -176,3 +203,116 @@ def move_to_extended_metadata(seed: dict, field_names: list[str] | None) -> None
     for name in field_names:
         if name in seed:
             ext[name] = seed.pop(name)
+
+
+# ---------------------------------------------------------------------------
+# Drift-closure transforms
+#
+# These transforms inject content that the pre-Phase-3 installer used to
+# leave as hand-edits on top of its output. Closing that drift means the
+# installer now produces the full enriched seed from raw + patch.
+# ---------------------------------------------------------------------------
+
+
+def apply_canon_profile(seed: dict, canon_profile: dict | None) -> None:
+    """Set seed['canon_profile'] to a deep copy of ``canon_profile``.
+
+    The canon_profile drives franchise-specific validation in canon_expert
+    (continuity, cross-continuity violations, anachronistic terms,
+    meta-reference rules). Replaces any existing canon_profile wholesale.
+    """
+    if not canon_profile:
+        return
+    seed["canon_profile"] = copy.deepcopy(canon_profile)
+
+
+def apply_force_mechanics(seed: dict, force_mechanics: dict | None) -> None:
+    """Set seed['force_mechanics'] to a deep copy of ``force_mechanics``.
+
+    Includes primary_rule, implications, canon_grounding, and any
+    franchise-specific sensory_vocabulary the drafter needs for consistent
+    magic/Force description.
+    """
+    if not force_mechanics:
+        return
+    seed["force_mechanics"] = copy.deepcopy(force_mechanics)
+
+
+def apply_quality_overrides(seed: dict, overrides: dict | None) -> None:
+    """Set seed['quality_overrides'] to a deep copy of ``overrides``.
+
+    Per-project overrides for quality metric thresholds (word-frequency
+    allowlist for franchise vocabulary, semantic similarity threshold,
+    max similar pairs per 1k words).
+    """
+    if not overrides:
+        return
+    seed["quality_overrides"] = copy.deepcopy(overrides)
+
+
+def apply_referenced_characters(
+    seed: dict, referenced_characters: list | None
+) -> None:
+    """Set seed['referenced_characters'] to a deep copy of the list.
+
+    Characters who appear in scene cards but are not in the ensemble cast —
+    registered with minimal state so compliance validation doesn't flag
+    'unknown character' warnings.
+    """
+    if not referenced_characters:
+        return
+    seed["referenced_characters"] = copy.deepcopy(referenced_characters)
+
+
+def apply_subplots(seed: dict, subplots: list | None) -> None:
+    """Set seed['subplots'] to a deep copy of ``subplots``."""
+    if not subplots:
+        return
+    seed["subplots"] = copy.deepcopy(subplots)
+
+
+def apply_hooks(seed: dict, hooks: list | None) -> None:
+    """Set seed['hooks'] to a deep copy of ``hooks``."""
+    if not hooks:
+        return
+    seed["hooks"] = copy.deepcopy(hooks)
+
+
+def apply_revelation_schedule(seed: dict, revelations: list | None) -> None:
+    """Set seed['revelation_schedule'] to a deep copy of ``revelations``."""
+    if not revelations:
+        return
+    seed["revelation_schedule"] = copy.deepcopy(revelations)
+
+
+def apply_terminology_registry(seed: dict, terminology: list | None) -> None:
+    """Set seed['terminology_registry'] to a deep copy of ``terminology``."""
+    if not terminology:
+        return
+    seed["terminology_registry"] = copy.deepcopy(terminology)
+
+
+def apply_relationship_arcs(
+    seed: dict, relationship_arcs: list | None
+) -> None:
+    """Set seed['relationship_arcs'] to a deep copy of ``relationship_arcs``.
+
+    Dyad-level arc planning parallel to ensemble_cast[].weiland_arc. Each
+    item tracks one relationship's evolution across the book (dyad,
+    arc_type, lie/ghost/want/need, arc_phase_map, payoff_chapter).
+    """
+    if not relationship_arcs:
+        return
+    seed["relationship_arcs"] = copy.deepcopy(relationship_arcs)
+
+
+def apply_stress_test_scores(seed: dict, scores: dict | None) -> None:
+    """Set seed['stress_test_scores'] to a deep copy of ``scores``.
+
+    9-dimension stress test scores produced by the concept workshop's
+    stress-test step. Overwrites any existing scores (including null
+    placeholders left by prior workshop sessions).
+    """
+    if not scores:
+        return
+    seed["stress_test_scores"] = copy.deepcopy(scores)

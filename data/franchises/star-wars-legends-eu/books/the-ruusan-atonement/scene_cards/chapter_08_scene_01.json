@@ -5,16 +5,16 @@
   "scene_type": "action",
   "scene_role": "escalation",
   "pov_character": "Ben Skywalker",
-  "mission": "En route to the next node, the group enters a moderately degraded zone. Torin's unsettling calm in the thin place — the de-structured Force feels familiar to him. He quotes Ankhural: 'the natural state.'",
-  "why_now": "Torin's comfort in thin places is the first clear warning sign — he shouldn't be at ease where the lattice is damaged",
+  "mission": "En route to the next node, the group enters a moderately degraded zone. Torin's unsettling calm in the thin place â€” the de-structured Force feels familiar to him. He quotes Ankhural: 'the natural state.'",
+  "why_now": "Torin's comfort in thin places is the first clear warning sign â€” he shouldn't be at ease where the lattice is damaged",
   "conflict": "Torin's reaction to the thin place contradicts everyone else's discomfort. Sera notices and grows tense. Ben files it away. Kael watches Torin with the alertness of someone who recognizes a specific kind of danger.",
   "conflict_type": "interpersonal",
-  "turning_point": "Torin says 'Ankhural called it the natural state' with a tone that isn't academic — it's nostalgic. Ben's stomach drops for a reason he can't articulate yet.",
-  "opening_hook": "Ben grips the cockpit armrest as the Force thins between jumps — not the momentary silence of hyperspace transition but a thinning, presence flickering like a connection going bad",
+  "turning_point": "Torin says 'Ankhural called it the natural state' with a tone that isn't academic â€” it's nostalgic. Ben's stomach drops for a reason he can't articulate yet.",
+  "opening_hook": "Ben grips the cockpit armrest as the Force thins between jumps â€” not the momentary silence of hyperspace transition but a thinning, presence flickering like a connection going bad",
   "closing_hook": "Sera catches Ben alone: 'Watch him. In the thin places. Watch what happens to his face.' She doesn't say Torin's name. She doesn't need to.",
   "emotional_trajectory": "Group unease -> focused alarm at Torin's comfort -> private warning from Sera",
   "stakes": {
-    "personal": "Ben's ability to read his allies — he missed warning signs with Jacen",
+    "personal": "Ben's ability to read his allies â€” he missed warning signs with Jacen",
     "interpersonal": "Sera and Torin's thousand-year history surfacing as tactical concern",
     "external": "If Torin is drawn to de-structuring, the team's strongest member is also a vulnerability"
   },
@@ -26,10 +26,11 @@
     "Desh Rolan"
   ],
   "setting": "Aboard the Steady Returns traversing a moderately degraded zone between nodes",
-  "sensory_details": "The Force has gaps — moments where reaching gets nothing, then it's back; Torin's Force presence subtly different in the thin zone — the heaviness easing; Sera's face like stone; Kael's eyes tracking Torin",
+  "sensory_details": "The Force has gaps â€” moments where reaching gets nothing, then it's back; Torin's Force presence subtly different in the thin zone â€” the heaviness easing; Sera's face like stone; Kael's eyes tracking Torin",
+  "canon_elements_needed": [],
   "target_word_count": 1200,
   "action_beats": [
-    "Ben grips the cockpit armrest as the Force stutters mid-transit — presence flickering like a bad connection",
+    "Ben grips the cockpit armrest as the Force stutters mid-transit â€” presence flickering like a bad connection",
     "Torin settles into his seat and tilts his head, listening to the thin zone with an ease that tenses everyone else",
     "Sera catches Ben in the corridor and grips his arm hard enough to leave marks"
   ],
@@ -52,5 +53,5 @@
   ],
   "revelations": [],
   "pov_arc_phase": "lie_reinforced",
-  "notes": "H08 planted — Torin's comfort in the thin place. Torin's arc: lie_reinforced. His unsettling ease convinces him his experience with the technique is an asset, not a liability. Kael's arc: lie_reinforced — watching Torin confirms that believers are dangerous."
+  "notes": "H08 planted â€” Torin's comfort in the thin place. Torin's arc: lie_reinforced. His unsettling ease convinces him his experience with the technique is an asset, not a liability. Kael's arc: lie_reinforced â€” watching Torin confirms that believers are dangerous."
 }

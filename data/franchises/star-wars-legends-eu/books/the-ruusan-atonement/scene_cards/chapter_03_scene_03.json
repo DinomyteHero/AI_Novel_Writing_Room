@@ -5,25 +5,25 @@
   "scene_type": "sequel",
   "scene_role": "decision",
   "pov_character": "Ben Skywalker",
-  "mission": "Ben decides to follow the coordinates to the fortress rather than reporting back to Luke — his Lie in action (I'll handle this myself)",
+  "mission": "Ben decides to follow the coordinates to the fortress rather than reporting back to Luke â€” his Lie in action (I'll handle this myself)",
   "why_now": "The decision point: report and wait for the Order's response (weeks), or follow the coordinates now while the seal continues failing",
-  "conflict": "Ben rationalizes the decision as urgency — the seal is failing, there isn't time to wait for committee — but it's his Lie operating: self-reliance as safety, control as protection",
+  "conflict": "Ben rationalizes the decision as urgency â€” the seal is failing, there isn't time to wait for committee â€” but it's his Lie operating: self-reliance as safety, control as protection",
   "conflict_type": "internal",
-  "turning_point": "Desh agrees to go but makes Ben acknowledge the choice out loud: 'You're not reporting this.' Ben's answer — 'Not yet' — is the first institutional withholding.",
-  "opening_hook": "Ben's fingers are typing the report to Luke for the third time when Desh leans over the copilot's shoulder and reads the first line — 'You're not sending that'",
+  "turning_point": "Desh agrees to go but makes Ben acknowledge the choice out loud: 'You're not reporting this.' Ben's answer â€” 'Not yet' â€” is the first institutional withholding.",
+  "opening_hook": "Ben's fingers are typing the report to Luke for the third time when Desh leans over the copilot's shoulder and reads the first line â€” 'You're not sending that'",
   "closing_hook": "Hyperspace entry toward uncharted coordinates. The wrongness doesn't diminish in hyperspace. It intensifies. They're heading toward the source.",
   "emotional_trajectory": "Deliberation -> rationalized certainty -> suppressed doubt",
   "stakes": {
-    "personal": "Ben is choosing his Lie — acting alone because trust is dangerous",
-    "interpersonal": "Desh sees the pattern but follows anyway — loyalty enabling avoidance",
+    "personal": "Ben is choosing his Lie â€” acting alone because trust is dangerous",
+    "interpersonal": "Desh sees the pattern but follows anyway â€” loyalty enabling avoidance",
     "external": "Every hour of delay means more seal degradation"
   },
   "characters_present": [
     "Ben Skywalker",
     "Desh Rolan"
   ],
-  "setting": "Aboard the Steady Returns — cockpit, then hyperspace",
-  "sensory_details": "The nav computer calculating a route through unmapped space; Ben's deleted report drafts; hyperspace blue intensifying the wrongness — like trying to meditate in a room where someone is playing music slightly out of tune",
+  "setting": "Aboard the Steady Returns â€” cockpit, then hyperspace",
+  "sensory_details": "The nav computer calculating a route through unmapped space; Ben's deleted report drafts; hyperspace blue intensifying the wrongness â€” like trying to meditate in a room where someone is playing music slightly out of tune",
   "canon_elements_needed": [
     "Ben Skywalker institutional relationship with the Jedi Order",
     "Post-Jacen Solo trust dynamics within the Skywalker family",
@@ -35,7 +35,7 @@
   "action_beats": [
     "Ben types and deletes his third draft of the report to Luke",
     "Desh reads over Ben's shoulder and reaches across to the nav computer",
-    "Desh enters the uncharted fortress coordinates — the nav computer begins calculating a route through unmapped space",
+    "Desh enters the uncharted fortress coordinates â€” the nav computer begins calculating a route through unmapped space",
     "The Steady Returns jumps to hyperspace; the wrongness intensifies through the transition instead of fading"
   ],
   "active_subplots": [
@@ -57,5 +57,5 @@
   ],
   "revelations": [],
   "pov_arc_phase": "lie_established",
-  "notes": "Ben's Lie is fully operational here — self-reliance disguised as urgency. Desh's quiet 'You're not reporting this' should land with the weight of someone who recognizes institutional avoidance from their GAG days."
+  "notes": "Ben's Lie is fully operational here â€” self-reliance disguised as urgency. Desh's quiet 'You're not reporting this' should land with the weight of someone who recognizes institutional avoidance from their GAG days."
 }

@@ -5,12 +5,12 @@
   "scene_type": "action",
   "scene_role": "reveal",
   "pov_character": "Ben Skywalker",
-  "mission": "Luke assigns Ben the survey mission along the Outer Rim — both father and son feel the wrongness, but Ben's interpretation differs",
-  "why_now": "Luke has been monitoring the wrongness independently; the survey is his response — but sending Ben alone is a choice the narrative will interrogate",
-  "conflict": "Ben wants autonomy; Luke offers the mission as both genuine need and a way to give Ben space. Underneath: Luke's shadow — he chose to send one person to investigate a problem that might require more",
+  "mission": "Luke assigns Ben the survey mission along the Outer Rim â€” both father and son feel the wrongness, but Ben's interpretation differs",
+  "why_now": "Luke has been monitoring the wrongness independently; the survey is his response â€” but sending Ben alone is a choice the narrative will interrogate",
+  "conflict": "Ben wants autonomy; Luke offers the mission as both genuine need and a way to give Ben space. Underneath: Luke's shadow â€” he chose to send one person to investigate a problem that might require more",
   "conflict_type": "interpersonal",
-  "turning_point": "Luke admits he feels the wrongness too but interprets it differently — Ben's experiential pattern recognition from Jacen, Abeloth, and Vestara gives him a sharper read",
-  "opening_hook": "Luke's datapad shows a string of survey reports flagged with the same anomaly — Force readings that don't match any known phenomenon",
+  "turning_point": "Luke admits he feels the wrongness too but interprets it differently â€” Ben's experiential pattern recognition from Jacen, Abeloth, and Vestara gives him a sharper read",
+  "opening_hook": "Luke's datapad shows a string of survey reports flagged with the same anomaly â€” Force readings that don't match any known phenomenon",
   "closing_hook": "Ben accepts the mission without suggesting a partner. Luke doesn't push. Neither acknowledges what that choice means.",
   "emotional_trajectory": "Guarded attentiveness -> brief connection with Luke -> deliberate distance",
   "stakes": {
@@ -22,8 +22,8 @@
     "Ben Skywalker",
     "Luke Skywalker"
   ],
-  "setting": "Luke's office in the Jedi Temple, Coruscant — functional, lived-in, holocomm on the desk",
-  "sensory_details": "Luke's Force presence — vast, warm, familiar; the datapad's blue glow; the wrongness present even here, a faint sourness under the Temple's harmonics",
+  "setting": "Luke's office in the Jedi Temple, Coruscant â€” functional, lived-in, holocomm on the desk",
+  "sensory_details": "Luke's Force presence â€” vast, warm, familiar; the datapad's blue glow; the wrongness present even here, a faint sourness under the Temple's harmonics",
   "canon_elements_needed": [
     "Luke Skywalker as Grand Master of the Jedi Order",
     "Jedi Order survey mission protocols and assignment hierarchy",
@@ -35,7 +35,7 @@
   "action_beats": [
     "Luke slides the datapad across the desk showing seventeen flagged survey reports",
     "Ben scrolls through the anomaly data, zooming on three readings that match his own perception",
-    "Ben sets the datapad down and moves to the window — body language of someone accepting a solo mission"
+    "Ben sets the datapad down and moves to the window â€” body language of someone accepting a solo mission"
   ],
   "active_subplots": [
     "SP-A",
@@ -46,7 +46,7 @@
     "luke_shadow_established"
   ],
   "promises_planted": [
-    "Luke sent Ben alone — the irony will become apparent (PP12)",
+    "Luke sent Ben alone â€” the irony will become apparent (PP12)",
     "Ben's unique Force perception will resolve into something meaningful (PP22)"
   ],
   "promises_paid": [],
@@ -58,5 +58,5 @@
   ],
   "revelations": [],
   "pov_arc_phase": "lie_established",
-  "notes": "Luke should feel warm but slightly distant — they love each other but communicate through mission briefings. Ben thinks 'Dad' internally but acts like a professional."
+  "notes": "Luke should feel warm but slightly distant â€” they love each other but communicate through mission briefings. Ben thinks 'Dad' internally but acts like a professional."
 }

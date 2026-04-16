@@ -15,7 +15,7 @@
   "emotional_trajectory": "Tense anticipation -> the shock of contact across centuries -> growing dread as scope becomes apparent",
   "stakes": {
     "personal": "Ben has just assumed responsibility for three people a millennium out of time",
-    "interpersonal": "The survivors' immediate trust dynamics \u2014 Sera demanding, Torin assessing, Kael retreating",
+    "interpersonal": "The survivors' immediate trust dynamics â€” Sera demanding, Torin assessing, Kael retreating",
     "external": "These people are the only ones who understand what the fortress contains"
   },
   "characters_present": [
@@ -25,8 +25,8 @@
     "Torin Hal",
     "Kael Drenn"
   ],
-  "setting": "Fortress Level 3 \u2014 Stasis Ring, emergency lighting, the three active chambers",
-  "sensory_details": "Stasis fields collapsing with a sound like held breath released; Sera's Force presence \u2014 sharp, disciplined, ancient-feeling; Torin's \u2014 warm but heavy, something wrong underneath; Kael's \u2014 clipped, guarded, trained differently; the wrongness resonating through them all",
+  "setting": "Fortress Level 3 â€” Stasis Ring, emergency lighting, the three active chambers",
+  "sensory_details": "Stasis fields collapsing with a sound like held breath released; Sera's Force presence â€” sharp, disciplined, ancient-feeling; Torin's â€” warm but heavy, something wrong underneath; Kael's â€” clipped, guarded, trained differently; the wrongness resonating through them all",
   "canon_elements_needed": [
     "Millennium of temporal displacement effects on Force-sensitives",
     "Jedi Lords era training versus modern Jedi training differences",
@@ -36,7 +36,7 @@
   ],
   "target_word_count": 1400,
   "action_beats": [
-    "Ben pulls the stasis release lever — the first chamber's field dissolves with an audible hiss of released pressure",
+    "Ben pulls the stasis release lever â€” the first chamber's field dissolves with an audible hiss of released pressure",
     "Sera Varik opens her eyes and immediately assumes a combat crouch before orientation hits",
     "Torin Hal emerges from the second chamber, staggers, catches himself on the doorframe with one hand",
     "Kael Drenn exits the third chamber in silence, back against the wall, scanning the room and cataloguing exits"
@@ -64,5 +64,5 @@
   "revelations": [],
   "pov_arc_phase": "lie_reinforced",
   "arc_phase_transition": "lie_reinforced",
-  "notes": "Arc transition for Ben: his lie_reinforced phase begins \u2014 the survivors' dependence on him confirms his belief that the burden is his to carry. Sera, Torin, Kael arcs all begin at lie_established. Survivor speech patterns: Sera speaks in complete sentences under stress — formal, precise, military. Torin's warmth has an archaic courtesy to it. Kael waits to be addressed — his silence is itself archaic."
+  "notes": "Arc transition for Ben: his lie_reinforced phase begins â€” the survivors' dependence on him confirms his belief that the burden is his to carry. Sera, Torin, Kael arcs all begin at lie_established. Survivor speech patterns: Sera speaks in complete sentences under stress â€” formal, precise, military. Torin's warmth has an archaic courtesy to it. Kael waits to be addressed â€” his silence is itself archaic."
 }

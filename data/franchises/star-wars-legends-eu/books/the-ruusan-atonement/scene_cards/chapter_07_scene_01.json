@@ -5,18 +5,18 @@
   "scene_type": "action",
   "scene_role": "hook",
   "pov_character": "Ben Skywalker",
-  "mission": "Arrival at the Battlefield Node — first Corridor stop. NSW battlefield world, rolling terrain, weathered military history. The anchor installation is a bunker with an empty stasis chamber.",
-  "why_now": "First node exploration establishes the pattern for subsequent stops — baseline for thin places and Veraine's trail",
-  "conflict": "The thin place is mild but real — Ben's Force perception has a parallax error, distances wrong. The survivors react differently: Sera tightens, Torin relaxes, Kael goes blank.",
+  "mission": "Arrival at the Battlefield Node â€” first Corridor stop. NSW battlefield world, rolling terrain, weathered military history. The anchor installation is a bunker with an empty stasis chamber.",
+  "why_now": "First node exploration establishes the pattern for subsequent stops â€” baseline for thin places and Veraine's trail",
+  "conflict": "The thin place is mild but real â€” Ben's Force perception has a parallax error, distances wrong. The survivors react differently: Sera tightens, Torin relaxes, Kael goes blank.",
   "conflict_type": "environmental",
-  "turning_point": "Inside the bunker, the stasis chamber is empty — anchor died centuries ago. But the installation records show someone accessed them recently. Fresh marks in ancient dust.",
-  "opening_hook": "Ben's boots hit soil still shaped by thousand-year-old trenches — eroded into gentle valleys that nature made beautiful and war made first — and the Force shifts six inches sideways in his perception",
+  "turning_point": "Inside the bunker, the stasis chamber is empty â€” anchor died centuries ago. But the installation records show someone accessed them recently. Fresh marks in ancient dust.",
+  "opening_hook": "Ben's boots hit soil still shaped by thousand-year-old trenches â€” eroded into gentle valleys that nature made beautiful and war made first â€” and the Force shifts six inches sideways in his perception",
   "closing_hook": "Fresh boot prints in dust that hasn't been disturbed in centuries. Someone walked these corridors weeks ago.",
   "emotional_trajectory": "Archaeological curiosity -> the wrongness making itself felt -> alertness at recent evidence",
   "stakes": {
-    "personal": "Ben's first experience of a thin place — his Force perception becoming unreliable",
+    "personal": "Ben's first experience of a thin place â€” his Force perception becoming unreliable",
     "interpersonal": "The survivors' different reactions to thin places reveal their inner states",
-    "external": "Veraine was here — the trail goes warm"
+    "external": "Veraine was here â€” the trail goes warm"
   },
   "characters_present": [
     "Ben Skywalker",
@@ -25,12 +25,13 @@
     "Torin Hal",
     "Kael Drenn"
   ],
-  "setting": "Battlefield Node world — rolling terrain with ancient military earthworks, bunker-style anchor installation",
-  "sensory_details": "Corroded war machinery half-buried in grass; depressions that were trenches now gentle dips; inside the bunker: cold, dry, preserved; the thin place's effect on Force-senses — reaching for the handrail and finding it six inches further away",
+  "setting": "Battlefield Node world â€” rolling terrain with ancient military earthworks, bunker-style anchor installation",
+  "sensory_details": "Corroded war machinery half-buried in grass; depressions that were trenches now gentle dips; inside the bunker: cold, dry, preserved; the thin place's effect on Force-senses â€” reaching for the handrail and finding it six inches further away",
+  "canon_elements_needed": [],
   "target_word_count": 1200,
   "action_beats": [
     "The Steady Returns sets down on terrain still shaped by thousand-year-old trenches eroded into gentle valleys",
-    "Ben reaches for the Force as they exit the ship and finds his perception offset — distances wrong by inches",
+    "Ben reaches for the Force as they exit the ship and finds his perception offset â€” distances wrong by inches",
     "Inside the bunker, Ben sweeps dust from an empty stasis chamber and finds fresh tool marks on the access panel"
   ],
   "active_subplots": [
@@ -54,5 +55,5 @@
   ],
   "revelations": [],
   "pov_arc_phase": "lie_reinforced",
-  "notes": "Establish the Corridor as a trail of thin places. Torin's relaxation in the thin place is a subtle warning — he shouldn't be comfortable here. The institutional lie subplot threads: Ben notices the Corridor isn't in any modern Jedi record."
+  "notes": "Establish the Corridor as a trail of thin places. Torin's relaxation in the thin place is a subtle warning â€” he shouldn't be comfortable here. The institutional lie subplot threads: Ben notices the Corridor isn't in any modern Jedi record."
 }

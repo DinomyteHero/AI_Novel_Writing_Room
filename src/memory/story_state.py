@@ -60,13 +60,21 @@ def _parse_chapter_ref(ref) -> int | None:
 
 
 def _normalize_arc_type(raw) -> str | None:
-    """Coerce descriptive arc_type strings to the canonical 4-value enum.
+    """Coerce descriptive arc_type strings to the canonical 4-value DB enum.
 
     The concept workshop captures arc types as descriptive phrases like
     'Positive change — moves from the lie to the truth' or
     'Flat negative — enters certain, exits certain'. The character_arcs
     table has a strict enum: positive_change, flat, negative, disillusionment.
     This helper extracts the canonical form from descriptive prose.
+
+    The concept_seed schema supports two extended Weiland negative variants
+    ('corruption' = glimpses Truth, consciously rejects it; 'fall' = never
+    sees Truth, buried deeper in Lie) that are not DB-level distinct —
+    they both track as 'negative' at the runtime state layer because the
+    downstream phase progression, subplot behaviour, and metric shaping
+    are identical. Preserve the finer distinction via the seed's
+    arc_summary / arc_phase_map; collapse here for DB storage.
 
     Order matters: 'flat negative' should map to 'negative' (the tragic
     'stays in the lie' arc), not 'flat' (the world-changer arc which
@@ -84,9 +92,14 @@ def _normalize_arc_type(raw) -> str | None:
     # Exact enum match is the cleanest signal.
     if lower in ARC_TYPES:
         return lower
+    # Weiland negative-arc variants collapse to 'negative' at DB layer.
+    if lower in ("corruption", "fall"):
+        return "negative"
     # Order matters: disillusionment and negative before flat/positive.
     if "disillusionment" in lower:
         return "disillusionment"
+    if "corruption" in lower or "fall" in lower:
+        return "negative"
     if "negative" in lower:
         return "negative"
     if "positive" in lower:

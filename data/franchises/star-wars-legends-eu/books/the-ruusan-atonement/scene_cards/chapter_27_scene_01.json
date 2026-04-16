@@ -5,29 +5,30 @@
   "scene_type": "sequel",
   "scene_role": "aftermath",
   "pov_character": "Ben Skywalker",
-  "mission": "Aftermath — Veraine contained, not killed. Her ideology intact but her thesis empirically disproven. She'll spend years rationalizing the failure. She is the book's living counterargument, preserved.",
-  "why_now": "The antagonist's fate — contained but unchanged. A different kind of resolution than death.",
-  "conflict": "Veraine in containment — conscious, intellectually active, already reframing the failure. She tells Ben: 'The emergence you produced was interesting. I will think about it.' Not concession. Not conversion. Intellectual engagement from behind bars.",
+  "mission": "Aftermath â€” Veraine contained, not killed. Her ideology intact but her thesis empirically disproven. She'll spend years rationalizing the failure. She is the book's living counterargument, preserved.",
+  "why_now": "The antagonist's fate â€” contained but unchanged. A different kind of resolution than death.",
+  "conflict": "Veraine in containment â€” conscious, intellectually active, already reframing the failure. She tells Ben: 'The emergence you produced was interesting. I will think about it.' Not concession. Not conversion. Intellectual engagement from behind bars.",
   "conflict_type": "interpersonal",
-  "turning_point": "Ben realizes Veraine will never accept she was wrong through argument alone — only through results she can't dismiss. And even then, she'll adapt the theory rather than abandon it. She is the permanent cost of intellectual certainty without empathy.",
-  "opening_hook": "Veraine in the containment Sera built — clean, functional, inescapable. She sits cross-legged, composed, already writing equations in the dust with one finger.",
+  "turning_point": "Ben realizes Veraine will never accept she was wrong through argument alone â€” only through results she can't dismiss. And even then, she'll adapt the theory rather than abandon it. She is the permanent cost of intellectual certainty without empathy.",
+  "opening_hook": "Veraine in the containment Sera built â€” clean, functional, inescapable. She sits cross-legged, composed, already writing equations in the dust with one finger.",
   "closing_hook": "Ben leaves Veraine's containment. Behind him, she's still writing. The equations might be important. He doesn't look back.",
   "emotional_trajectory": "The weight of the antagonist's survival -> the unsatisfying reality of intellectual enemies -> acceptance",
   "stakes": {
     "personal": "Ben accepting that some enemies cannot be redeemed, only contained",
-    "interpersonal": "Veraine's final interaction with Ben — respect without surrender",
+    "interpersonal": "Veraine's final interaction with Ben â€” respect without surrender",
     "external": "Veraine alive and thinking is a long-term consideration, not an immediate threat"
   },
   "characters_present": [
     "Ben Skywalker",
     "Darth Veraine"
   ],
-  "setting": "Veranthos — improvised containment area, guarded",
-  "sensory_details": "Veraine's containment — Force-locked, Sera's design; Veraine's composure — unbroken, academic, writing equations; her voice — precise, unruffled, genuinely curious about the emergence; dust motes in the containment light",
+  "setting": "Veranthos â€” improvised containment area, guarded",
+  "sensory_details": "Veraine's containment â€” Force-locked, Sera's design; Veraine's composure â€” unbroken, academic, writing equations; her voice â€” precise, unruffled, genuinely curious about the emergence; dust motes in the containment light",
+  "canon_elements_needed": [],
   "target_word_count": 1200,
   "action_beats": [
     "Veraine sits cross-legged in Sera's containment field, composed, writing equations in the dust with one finger",
-    "Ben stands outside the containment and listens to Veraine's assessment — precise, unruffled, genuinely curious",
+    "Ben stands outside the containment and listens to Veraine's assessment â€” precise, unruffled, genuinely curious",
     "Ben turns and walks away from the containment without looking back at the equations still being written"
   ],
   "active_subplots": [

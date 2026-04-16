@@ -1,0 +1,59 @@
+{
+  "chapter_number": 13,
+  "chapter_mission": "Deliver the Midpoint viscerally, not informationally. The group enters a node Veraine deliberately collapsed as a field test — complete de-structuring. Ben's moral intuition goes silent. Desh's environmental wrongness crosses into undeniable. Torin smiles. Ben flips from reactive to proactive.",
+  "chapter_turn": "Ben stops reading the threat and starts setting the terms. The wrongness is not something happening to the group; it is something a person deliberately engineered and signed. The midpoint is an experience, not a revelation — the reader has to feel the Force-as-handrail disappear.",
+  "structural_phase": "midpoint",
+  "pov_allocation": ["Ben Skywalker"],
+  "scene_count": 3,
+  "scene_plan": [
+    {
+      "scene_number": 1,
+      "role": "escalation",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 1500,
+      "purpose": "Approach and entry. The Steady Returns lands at the breach zone (Kolven). Desh's chrono-drift reading, temperature inconsistencies, wrong-growing vegetation. The group crosses the boundary into the de-structured zone. Ben's Force-sense reaches for the handrail and finds nothing."
+    },
+    {
+      "scene_number": 2,
+      "role": "reveal",
+      "dialogue_expectation": "interior",
+      "target_word_count": 1600,
+      "purpose": "Full experience. The Force present but formless — no direction, no light/dark distinction, no moral feedback loop. Visceral for Ben. Kael calm in a way that frightens Sera. Torin walks into the worst of it and smiles. Desh's grief-without-an-object hits. R08 lands — experientially, not expositionally."
+    },
+    {
+      "scene_number": 3,
+      "role": "decision",
+      "dialogue_expectation": "dialogue_led",
+      "target_word_count": 1400,
+      "purpose": "On the way out — back in structured Force, but changed. The group names what Veraine has been doing: this was a test. She is engineering, not studying. Ben stops deferring and sets the new agenda — pace, priority, route. The seal lurch from Ch12 is now a direction of travel, and Ben is choosing it."
+    }
+  ],
+  "reveal_payload": ["R08"],
+  "hook_movements": {
+    "planted": [],
+    "advanced": ["H08"],
+    "resolved": ["H08", "H12"]
+  },
+  "subplot_obligations": ["SP-A", "SP1", "SP2", "SP3", "SP5"],
+  "relationship_turns": [
+    {
+      "dyad": "Kael/Group",
+      "from": "adjacent observer — participates when addressed",
+      "to": "shared witness — the breach zone is the first thing Kael and the Force-trained group experience on equivalent terms (the Force is not trustworthy for any of them here)"
+    },
+    {
+      "dyad": "Sera/Torin",
+      "from": "philosophical tension — archive disagreements, sharp edges",
+      "to": "irreconcilable difference — Torin's smile in the breach is unforgettable for Sera; she stops defending him in her own head"
+    },
+    {
+      "dyad": "Ben/Desh",
+      "from": "co-witnesses — same knowledge, different languages",
+      "to": "verified partners — Desh's non-Force-sensitive confirmation of the wrongness validates Ben's perception and closes the loop of doubt Ben has been carrying since Ch1"
+    }
+  ],
+  "pacing_curve": "rising",
+  "exit_vector": "The Steady Returns lifts away from Kolven with the wrongness now mapped as enemy action. Ben is no longer asking what happened; he is deciding what to do. Every pressure dial crosses into red. Next stop: the third act.",
+  "chapter_word_target": 4500,
+  "notes": "The most important experiential chapter in the book and the hardest to write. Use full de-structuring sensory vocabulary from concept_seed.force_mechanics.sensory_vocabulary.full_de_structuring — the Force as formless pressure, the missing handrail, the silent moral feedback. Desh's grief-without-an-object must land on a non-Force-sensitive reader without mysticism. Torin's smile is the pivot — do not overexplain; trust the reader to feel it. Voice: Stover-dense interior allowed in s2 specifically; Zahn-tight elsewhere. Anti-pattern: do not intellectualise the experience. Absolutely no metaphor like 'it was as if the Force had—'. The Force does not have 'as if'; it has 'is' or 'is not.' Maetha's warning from Ch12 should echo in Ben's head at least once."
+}

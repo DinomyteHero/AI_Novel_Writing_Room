@@ -5,17 +5,17 @@
   "scene_type": "sequel",
   "scene_role": "hook",
   "pov_character": "Ben Skywalker",
-  "mission": "Ben watching Torin with new eyes — the pattern recognition from the Desh conversation (Ch 11) crystallizing. The cadence, the certainty, the reasonable tone. He's seen this before.",
+  "mission": "Ben watching Torin with new eyes â€” the pattern recognition from the Desh conversation (Ch 11) crystallizing. The cadence, the certainty, the reasonable tone. He's seen this before.",
   "why_now": "The Jacen conversation with Desh planted the pattern recognition; the crisis pressure is making the parallel undeniable",
-  "conflict": "Ben sees Jacen in Torin — not the evil, but the process. The talented person who decides they alone understand the threat. The warmth that becomes performance. The certainty that becomes imperative.",
+  "conflict": "Ben sees Jacen in Torin â€” not the evil, but the process. The talented person who decides they alone understand the threat. The warmth that becomes performance. The certainty that becomes imperative.",
   "conflict_type": "internal",
-  "turning_point": "Torin tells a story about the NSW — a battle where he saved people by acting alone. The story is warm, self-deprecating, heroic. Ben realizes every story Torin tells has the same structure: 'I decided, I acted, I bore the cost.' It's not stories. It's a pattern.",
-  "opening_hook": "Torin is laughing at something Desh said. The laugh is perfect — warm, easy, generous. Ben wonders when he started analyzing Torin's laughter for authenticity, and then he wonders why he stopped doing it with Jacen too late.",
+  "turning_point": "Torin tells a story about the NSW â€” a battle where he saved people by acting alone. The story is warm, self-deprecating, heroic. Ben realizes every story Torin tells has the same structure: 'I decided, I acted, I bore the cost.' It's not stories. It's a pattern.",
+  "opening_hook": "Torin is laughing at something Desh said. The laugh is perfect â€” warm, easy, generous. Ben wonders when he started analyzing Torin's laughter for authenticity, and then he wonders why he stopped doing it with Jacen too late.",
   "closing_hook": "Ben looks at Desh across the cockpit. Desh meets his eyes. Neither says Jacen's name. They don't need to. The confirmation is silent and mutual.",
   "emotional_trajectory": "Watchful analysis -> dawning recognition -> the sick weight of confirmed suspicion",
   "stakes": {
-    "personal": "Ben confronting his worst fear — watching someone he cares about walk Jacen's path",
-    "interpersonal": "Ben and Desh's shared recognition — the GAG-forged bond serving its purpose",
+    "personal": "Ben confronting his worst fear â€” watching someone he cares about walk Jacen's path",
+    "interpersonal": "Ben and Desh's shared recognition â€” the GAG-forged bond serving its purpose",
     "external": "Torin is the group's strongest combatant and may be becoming its greatest threat"
   },
   "characters_present": [
@@ -23,11 +23,12 @@
     "Torin Hal",
     "Desh Rolan"
   ],
-  "setting": "Aboard the Steady Returns — common area, then cockpit",
-  "sensory_details": "Torin's laughter — well-timed, well-modulated; his Force presence — warm but wrong, the heaviness returning after the thin place ease; Desh's eyes — steady, confirming; the taste of dread",
+  "setting": "Aboard the Steady Returns â€” common area, then cockpit",
+  "sensory_details": "Torin's laughter â€” well-timed, well-modulated; his Force presence â€” warm but wrong, the heaviness returning after the thin place ease; Desh's eyes â€” steady, confirming; the taste of dread",
+  "canon_elements_needed": [],
   "target_word_count": 1200,
   "action_beats": [
-    "Torin laughs at Desh's joke — warm, easy, the timing perfect — and Ben catalogs the performance",
+    "Torin laughs at Desh's joke â€” warm, easy, the timing perfect â€” and Ben catalogs the performance",
     "Torin tells a battle story and gestures with practiced ease while Ben tracks the structural pattern underneath",
     "Ben meets Desh's eyes across the cockpit and the silent confirmation passes between them without a word"
   ],
@@ -52,5 +53,5 @@
     "R10"
   ],
   "pov_arc_phase": "lie_challenged",
-  "notes": "R10 — Ben recognizes the Jacen pattern in Torin. Jacen parallel touchpoint 3 (structural). The parallel must be specific — not 'Torin is becoming evil' but 'Torin is using the same process Jacen used.' The distinction matters."
+  "notes": "R10 â€” Ben recognizes the Jacen pattern in Torin. Jacen parallel touchpoint 3 (structural). The parallel must be specific â€” not 'Torin is becoming evil' but 'Torin is using the same process Jacen used.' The distinction matters."
 }

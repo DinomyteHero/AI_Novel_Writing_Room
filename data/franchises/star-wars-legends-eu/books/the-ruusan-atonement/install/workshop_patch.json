@@ -25,12 +25,12 @@
       }
     ],
     "character_voices": {
-      "Ben Skywalker": "Internal voice is sharp, self-aware, occasionally self-deprecating. Thinks in tactical assessments but feels in emotional undercurrents he doesn't always acknowledge. His humor is dry and defensive — he jokes to create distance. His narrative voice matures subtly across the book: more guarded and controlled in Part 1, more open and uncertain in Parts 2-3, more grounded and decisive in Part 4. He does NOT sound like Luke — he's more pragmatic, more skeptical, more his mother's son.",
-      "Sera Varik": "Dialogue is formal, archaic in syntax — no contractions early in the story, gradually loosening as she adapts. She speaks with precision and weight. Short sentences under pressure. Longer, more considered sentences in debate. She does NOT monologue — when she has something to say, she says it once and expects it to land. Her formality should soften specifically with Ben as trust builds — the shift from 'Skywalker' to 'Ben' is a marker the reader should feel.",
-      "Torin Hal": "Warm, easy, disarming. He tells stories. He uses humor to put people at ease. His dialogue should feel like the most *likeable* person in the room — which is what makes his turn devastating. As the story progresses, his warmth thins. The humor becomes slightly mechanical. The ease becomes slightly performed. The shift should be subtle enough that the reader feels it before they can name it. Post-technique in the climax, his voice flattens — still articulate but emotionally hollow.",
-      "Kael Drenn": "Clipped, observational, dry. He doesn't volunteer — he responds. His humor is deadpan and often arrives after a beat of silence, as if he considered not saying anything and then couldn't resist. He speaks less than anyone else in the group. When he does speak, it tends to be the thing nobody wanted to hear. His voice should warm incrementally — not dramatically, just enough that the reader notices he's using more words per sentence by Part 4 than he did in Part 1.",
-      "Darth Veraine": "Precise, academic, unruffled. She speaks in complete, grammatically sophisticated sentences. No contractions ever. She asks questions she already knows the answers to. Her dialogue should feel like a university lecturer who happens to be discussing the fate of the galaxy. She is never sarcastic — sarcasm implies emotional investment. She is occasionally *curious*, which is more unsettling.",
-      "Desh Rolan": "Casual, practical, professionally understated. Ex-intelligence operative who defaults to dry humor under stress. He speaks in shorter sentences than the Force-users because he's thinking about concrete things while they're debating philosophy. His humor is the Allston channel — grounding, well-timed, never at the expense of the moment's weight. He's the character most likely to say something the reader is thinking."
+      "Ben Skywalker": "Internal voice is sharp, self-aware, occasionally self-deprecating. Thinks in tactical assessments but feels in emotional undercurrents he doesn't always acknowledge. His humor is dry and defensive — he jokes to create distance. His narrative voice matures subtly across the book: more guarded and controlled in Part 1, more open and uncertain in Parts 2-3, more grounded and decisive in Part 4. He does NOT sound like Luke — he's more pragmatic, more skeptical, more his mother's son.\n\nSpecimens:\n- \"Desh. I need you for a survey run.\" / \"How bad?\" / \"I do not know yet. That is the problem.\"\n- He didn't reach for the Force. Not yet. The Force was the problem.\n- \"Fine. Keep your secrets. I will find them anyway.\"",
+      "Sera Varik": "Dialogue is formal, archaic in syntax — no contractions early in the story, gradually loosening as she adapts. She speaks with precision and weight. Short sentences under pressure. Longer, more considered sentences in debate. She does NOT monologue — when she has something to say, she says it once and expects it to land. Her formality should soften specifically with Ben as trust builds — the shift from 'Skywalker' to 'Ben' is a marker the reader should feel.\n\nSpecimens:\n- \"Skywalker. The seal held for a thousand years because thirteen of us were the seal. Do not lecture me on containment.\"\n- \"I have fought beside people I did not trust. I have died with them. Trust and competence are separate questions.\"\n- She touched the cut at her temple, considered it, and said nothing.",
+      "Torin Hal": "Warm, easy, disarming. He tells stories. He uses humor to put people at ease. His dialogue should feel like the most *likeable* person in the room — which is what makes his turn devastating. As the story progresses, his warmth thins. The humor becomes slightly mechanical. The ease becomes slightly performed. The shift should be subtle enough that the reader feels it before they can name it. Post-technique in the climax, his voice flattens — still articulate but emotionally hollow.\n\nSpecimens:\n- \"You know what I love about modern Jedi? You still believe the dark side is a place you can choose not to go.\"\n- \"I sealed myself because I knew what I was becoming. Stasis was supposed to hold it. It did not.\"\n- He smiled. He was always smiling by the end. It was one of the things that frightened Ben most.",
+      "Kael Drenn": "Clipped, observational, dry. He doesn't volunteer — he responds. His humor is deadpan and often arrives after a beat of silence, as if he considered not saying anything and then couldn't resist. He speaks less than anyone else in the group. When he does speak, it tends to be the thing nobody wanted to hear. His voice should warm incrementally — not dramatically, just enough that the reader notices he's using more words per sentence by Part 4 than he did in Part 1.\n\nSpecimens:\n- \"Is this the part where I pick a side?\" / \"No.\" / \"Good. I have not decided which one is lying yet.\"\n- \"Conviction costs more than anyone tells you when they are conscripting you.\"\n- He did not volunteer. He waited, the way he always waited, until the room forgot he was there.",
+      "Darth Veraine": "Precise, academic, unruffled. She speaks in complete, grammatically sophisticated sentences. No contractions ever. She asks questions she already knows the answers to. Her dialogue should feel like a university lecturer who happens to be discussing the fate of the galaxy. She is never sarcastic — sarcasm implies emotional investment. She is occasionally *curious*, which is more unsettling.\n\nSpecimens:\n- \"Consider what you have been taught to fear, Skywalker. Then consider who benefited from teaching it to you.\"\n- \"I am not interested in whether the wound hurts. Hurt is a small argument. I am interested in whether it is true.\"\n- \"You have two options. You may listen, or you may refuse to listen. Your decision does not alter the lattice.\"",
+      "Desh Rolan": "Casual, practical, professionally understated. Ex-intelligence operative who defaults to dry humor under stress. He speaks in shorter sentences than the Force-users because he's thinking about concrete things while they're debating philosophy. His humor is the Allston channel — grounding, well-timed, never at the expense of the moment's weight. He's the character most likely to say something the reader is thinking.\n\nSpecimens:\n- \"You are quiet.\" / \"Mm.\" / \"That is the bad kind of quiet.\" / \"Yeah.\"\n- \"I used to carry a badge that said I was the law. Now I carry a charter that says I am insured. I prefer the charter.\"\n- He checked the loading, checked it again, and then did the thing he always did before a firefight — cracked his neck and said nothing."
     },
     "anti_slop_rules": [
       "Never use 'a sense of' or 'a feeling of' — describe the sensation directly",
@@ -61,7 +61,9 @@
       "Avoid the 'wise mentor explains things' pattern — Sera, Torin, and Kael are knowledge sources but they should disagree and be wrong about things. No single character has all the answers.",
       "Avoid resolution through superior firepower — the climax is won through collaboration and trust, not through being stronger. The lattice resonance is not a superweapon."
     ],
-    "force_description_guidelines": "The Force in this story has specific phenomenological rules. Structured Force (normal): perceived as textured, directional, with distinguishable aspects (light/dark, intent, emotion). It provides moral intuition — a sense of rightness or wrongness that guides Jedi decisions. De-structured Force (the wound): perceived as formless, directionless, without distinguishable aspects. Abilities still function but without the feedback loop that tells the user whether their action aligns with light or dark. Described as 'losing color vision' — everything is present but meaning has drained out. The technique's activation: perceived as a simplification — the complex texture of the Force collapsing into a single frequency. Efficient but brutal. The lattice resonance: perceived as unprecedented — three different textures interacting, producing an overtone none of them could create alone. Described as a chord building from notes that shouldn't harmonize but do. Beautiful, strange, and overwhelming."
+    "force_description_guidelines": "The Force in this story has specific phenomenological rules defined in the force_mechanics.sensory_vocabulary section. Key principles: (1) Structured Force (normal) is perceived as textured, directional, with distinguishable aspects — like a handrail in the dark, always where expected. (2) De-structured Force (the wound) is perceived as formless, directionless — the handrail is gone but the wall is still there, somewhere. Abilities function without the feedback loop. 'Losing color vision' — everything present but meaning drained. (3) The technique's activation is perceived as active structural violence — a pulling, a suction, the lattice leaning toward the practitioner and dissolving. Like standing next to a drain. (4) The lattice resonance is perceived as unprecedented — three textures interacting, producing an overtone none could create alone. Starts discordant, catches when the practitioner stops trying to lead. Warmth returning after cold. A chord building from notes that shouldn't harmonize but do. (5) Desh's non-Force-sensitive experience escalates from environmental unease through physical wrongness (chrono drift, temperature shifts, wrong vegetation) to grief-without-an-object at full de-structuring — validating that the lattice matters to everyone, not just Force-users.",
+    "pacing_feel": "Balanced but pressure-ramping. Early chapters should feel exploratory and haunted, middle chapters increasingly compressed by debate and discovery, and Parts 3-4 should tighten into urgent forward motion without losing sequel beats for moral consequence. Most chapters should land between 3,250 and 4,250 words, with structural spikes at Chapters 5, 13, 21, 25, and 26.",
+    "narrative_voice_notes": "This should read like high-end Legends adventure fiction that takes psychology and metaphysics seriously. The prose must remain clear enough for propulsive plot consumption while letting Force phenomenology feel strange, tactile, and emotionally expensive. Ben's close-third filter is the anchor: if a sentence could not plausibly arise from his perception, suspicion, training, or emotional blind spots, it probably does not belong on the page."
   },
   "arc_phase_maps": {
     "Ben Skywalker": {
@@ -74,9 +76,9 @@
     },
     "Sera Varik": {
       "lie_established": "Chapter 5",
-      "lie_reinforced": "Chapter 8-9",
+      "lie_reinforced": "Chapter 8-9 / Chapter 14",
       "lie_challenged": "Chapter 12 / Chapter 16",
-      "moment_of_truth": "Chapter 14",
+      "moment_of_truth": "Chapter 19",
       "new_truth_demonstrated": "Chapter 22 / Chapter 25-26",
       "arc_resolved": "Chapter 27"
     },
@@ -102,6 +104,14 @@
       "lie_reinforced": "Chapter 10 / Chapter 16",
       "lie_tested": "Chapter 25-26",
       "lie_unchanged": "Chapter 27"
+    },
+    "Desh Rolan": {
+      "lie_established": "Chapter 1 — arrives as a favor to Ben, framing the mission as obligation rather than purpose",
+      "lie_reinforced": "Chapter 6 — operates in support role, professionally competent but emotionally uninvested in the larger crisis",
+      "lie_challenged": "Chapter 11 — the Jacen/GAG conversation with Ben forces honest reckoning with their shared history",
+      "moment_of_truth": "Chapter 18 — warns Ben the group is fracturing; his operational concern reveals he cares about more than logistics",
+      "new_truth_demonstrated": "Chapter 25 — volunteers for the most dangerous physical task (disabling Veraine's array) without being asked",
+      "arc_resolved": "Chapter 27 — stays by choice. The laugh with Ben is between equals, not employer and contractor"
     }
   },
   "promise_payoff_ledger": [
@@ -133,7 +143,7 @@
     {
       "promise_id": "PP04",
       "promise": "Torin's certainty is dangerous and he will act on it",
-      "planted_in": "Chapter 6",
+      "planted_in": "Chapter 5",
       "payoff_in": "Chapter 21",
       "type": "character",
       "related_hook_id": "H06",
@@ -226,9 +236,9 @@
       "promise_id": "PP15",
       "promise": "Sera's formal distance from Ben will thaw; trust must be earned",
       "planted_in": "Chapter 5",
-      "payoff_in": "Chapter 14 / Chapter 28",
+      "payoff_in": "Chapter 19 / Chapter 28",
       "type": "character",
-      "rationale": "Tracked explicitly in the terminology registry: 'Skywalker' shifts to 'Ben' — micro-promise the reader feels before they can name it."
+      "rationale": "Tracked explicitly in the terminology registry: 'Skywalker' shifts to 'Ben' — micro-promise the reader feels before they can name it. Payoff begins at the Jedi outpost (Chapter 19) where Sera's moment of truth occurs."
     },
     {
       "promise_id": "PP16",
@@ -267,9 +277,9 @@
       "promise_id": "PP20",
       "promise": "Sera's rigidity will break into principled flexibility, not abandonment",
       "planted_in": "Chapter 5",
-      "payoff_in": "Chapter 14 / Chapter 22 / Chapter 27",
+      "payoff_in": "Chapter 19 / Chapter 22 / Chapter 27",
       "type": "character",
-      "rationale": "Sera's Weiland arc — three payoff moments showing she can adapt without betraying her principles."
+      "rationale": "Sera's Weiland arc — three payoff moments showing she can adapt without betraying her principles. Moment of truth at the Jedi outpost (Chapter 19), demonstrated in the resonance (Chapter 22), resolved when she stays with Torin (Chapter 27)."
     },
     {
       "promise_id": "PP21",
@@ -328,9 +338,10 @@
     "canon_overridden": [
       "The true purpose of the Ruusan Reformations: published Legends treats them as a restructuring for military and doctrinal reasons; this AU treats them as a dual-purpose event — public reform plus private penance for the Jedi Lords' forbidden technique",
       "The existence of the forbidden technique lineage (Nathema study -> Malachor V wound fragmentary records -> Quelling of Tython -> Nihil Reach experiments -> Ankhural Codex -> Drathul IV incident -> Caldera Knights -> Gavran's technique)",
-      "Darth Veraine (Brotherhood of Darkness alchemist) and the three Jedi survivors (Sera Varik, Torin Hal, Kael Drenn) sealed in stasis since the final stage of the New Sith Wars",
+      "Darth Veraine (Brotherhood of Darkness alchemist) and the three Jedi survivors (Sera Varik, Torin Hal, Kael Drenn) sealed as Force-sensitive anchors in the containment infrastructure since the final stage of the New Sith Wars, along with nine other anchors who died over the millennium",
       "The Battle of Veranthos as a decisive (but previously erased) New Sith Wars engagement where Gavran deployed the technique at maximum scale",
-      "Force lattice as a potentially imposed structure rather than a natural property — the Ankhural Codex's heretical theoretical framework"
+      "Force lattice as a potentially imposed structure rather than a natural property — the Ankhural Codex's heretical theoretical framework",
+      "The Brotherhood of Darkness's operation at Veranthos: a lattice inversion attempt at a natural convergence point, which would have permanently shifted the Force's structural baseline toward the dark side. Gavran deployed the technique to counter the inversion — stopped it but created the permanent wound. The tragic symmetry: inversion vs. removal, with removal proving worse because structure, even wrong structure, is better than no structure."
     ],
     "style_constraints": [
       "Capitalize 'Human' per Lucasfilm style guide",
@@ -350,19 +361,228 @@
   },
   "extended_metadata_fields": [
     "technique_lineage",
-    "jacen_parallel"
+    "jacen_parallel",
+    "world_building",
+    "author_only_secrets",
+    "backstory_architecture",
+    "climax_mechanics",
+    "drafting_enrichment_flags",
+    "kael_veraine_parallel",
+    "political_landscape",
+    "drafting_specimens",
+    "calendar"
   ],
   "structural_overrides": {
-    "26": "climax"
+    "26": "climax",
+    "10": "first_pinch",
+    "11": "first_pinch"
   },
   "arc_type_map": {
     "Ben Skywalker": "positive_change",
     "Sera Varik": "positive_change",
     "Kael Drenn": "positive_change",
-    "Torin Hal": "negative",
+    "Torin Hal": "corruption",
     "Darth Veraine": "negative",
     "Desh Rolan": "positive_change"
   },
   "tone_fallback": "heroic_with_weight",
-  "canon_status_fallback": "AU"
+  "canon_status_fallback": "AU",
+  "canon_profile": {
+    "franchise": "star_wars",
+    "continuity": "legends_eu",
+    "continuity_description": "Star Wars Legends EU (pre-April 2014 Expanded Universe). All Legends-published material is valid canon. Anything introduced exclusively in Disney Canon (post-April 2014 — sequel trilogy, High Republic initiative, Disney+ series original content) is invalid unless it also appeared in Legends sources.",
+    "era_description": "Post-Abeloth Crisis, approximately 47 ABY in the Legends timeline. The Galactic Alliance is the primary galactic government. The Jedi Order operates from the Coruscant Temple under Grand Master Luke Skywalker. The Empire has been reduced to a remnant state. The Yuuzhan Vong War ended decades ago. Abeloth has been defeated but the Force is still settling.",
+    "narrative_register": "Space opera with literary sensibility. The prose should feel like a continuation of the Fate of the Jedi or Legacy of the Force novel series — grounded character interiority, political complexity, mystical Force elements described through intuitive and experiential language rather than scientific framing.",
+    "cross_continuity_violations": [
+      "High Republic (Disney Canon publishing initiative — does not exist in Legends)",
+      "World Between Worlds (Disney Canon Force concept from Rebels)",
+      "Inquisitorius as a formal post-Imperial organization (Disney Canon structure)",
+      "Ahsoka Tano post-Rebels appearances (some Legends material exists but most characterization is Disney Canon)",
+      "Starkiller Base, First Order, Resistance (sequel trilogy — does not exist in Legends)",
+      "Kyber crystal bleeding (Disney Canon lore — Legends uses synthetic crystals for Sith)"
+    ],
+    "anachronistic_terms": {
+      "LIDAR": [
+        "laser rangefinder",
+        "topographic scanner",
+        "sensor sweep"
+      ],
+      "DNA": [
+        "genetic material",
+        "bioscan",
+        "gene-print"
+      ],
+      "radio": [
+        "comlink",
+        "comm channel",
+        "frequency"
+      ],
+      "sonar": [
+        "echo-scan",
+        "ping sweep"
+      ],
+      "laptop": [
+        "datapad",
+        "terminal"
+      ],
+      "computer": [
+        "navicomputer",
+        "terminal",
+        "console",
+        "datapad"
+      ],
+      "missile": [
+        "concussion missile",
+        "proton torpedo"
+      ],
+      "gun": [
+        "blaster",
+        "blaster pistol",
+        "blaster rifle",
+        "slugthrower"
+      ]
+    },
+    "meta_reference_rules": [
+      "ABY/BBY dating system — fan and sourcebook convention, never used by characters in-universe. Characters reference events directly: 'during the Vong War', 'after Endor', 'before the Clone Wars'",
+      "'Legends' or 'Canon' as terms — these are publishing classifications, not in-universe concepts",
+      "Wookieepedia-style taxonomic descriptions — a character in-universe would not narrate their own species taxonomy",
+      "Referencing 'the prequels', 'the original trilogy', or any film/book as a source"
+    ],
+    "franchise_terminology_notes": "The Force should be described through experiential and mystical language, not clinical or scientific framing. Avoid 'energy field' — Luke's generation understands the Force as a living presence, not a measurable phenomenon. Technology should use Star Wars vocabulary consistently: datapads not tablets, transparisteel not glass, durasteel not steel, turbolifts not elevators."
+  },
+  "force_mechanics": {
+    "primary_rule": "The Force has a lattice structure — an organizational framework that maintains the light/dark distinction and provides moral intuition to Force-sensitives. This structure may be imposed rather than natural (per the Ankhural Codex). The lattice can be locally suspended by a technique derived from studying historical Force wounds (Nathema, Malachor V), creating a de-structured zone where moral intuition and Force-feedback disappear while raw ability persists. The technique removes rather than destroys — silence, not violence. It pulls the lattice out, leaving the Force present but unstructured, like pulling oxygen from a room.",
+    "implications": [
+      "De-structuring does not remove Force ability — it removes the feedback loop that tells a user whether their action aligns with light or dark. Abilities function but without moral compass.",
+      "Prolonged exposure to de-structured Force erodes emotional range and replaces identity rather than consuming it ('The caldera does not consume you. It replaces you.').",
+      "The lattice can be reinforced through harmonic resonance between disparate Force traditions working in concert — a theoretical solution never tested before the climax.",
+      "The wound amplifies emotional extremes in nearby Force-sensitives. Not possession, but pressurization — arguments hit harder, fear cuts deeper, doubt paralyzes.",
+      "The seal containing the wound was maintained by twelve Force-sensitive anchors embedded in its infrastructure as living structural components. As anchors died over centuries, the seal degraded progressively until cascading failure.",
+      "Veranthos sits on a natural lattice convergence point — a place where the Force's structural framework is unusually dense and accessible. The convergence point's properties explain both the Brotherhood's interest and the wound's severity.",
+      "The technique exists at different scales: personal (Caldera Knights, Torin — meters), battlefield (Gavran at Veranthos — kilometers), and the expanding wound (planetary, over centuries)."
+    ],
+    "canon_grounding": "Builds on established Legends precedents: Nathema (KOTOR/TOR — world stripped of Force by Vitiate's ritual), Malachor V (KOTOR II — wound in the Force from mass death via Mass Shadow Generator), and the concept of Force wounds as persistent phenomena. The lattice structure, de-structuring technique, convergence points, and anchor system are original extrapolations from these canon foundations. The Ankhural Codex and technique lineage are entirely original.",
+    "sensory_vocabulary": {
+      "normal_lattice": {
+        "force_sensitive": "The Force as a continuous, directional field. Reaching out provides coherent feedback — spatial awareness, emotional resonance from nearby beings, a sense of flow and direction. Light and dark distinguishable the way warm and cool are — immediate sensation, not analysis. The Force has texture: dense near living things, thin in dead space, flowing along paths with almost-gravitational logic. Reaching for the Force feels like reaching for a handrail in the dark and finding it exactly where expected.",
+        "non_force_sensitive": "Nothing. The lattice is invisible to non-Force-sensitives in normal conditions."
+      },
+      "thin_places_mild": {
+        "force_sensitive": "The Force responds but the distances are wrong. Reaching for the handrail and finding it six inches further than expected — not gone, but misplaced. Spatial awareness through the Force develops a slight parallax error. Emotional resonance from nearby beings is blurred. Light and dark distinguishable but the boundary is fuzzy, like looking through frosted glass. Persistent low-grade disorientation, like the early stages of an ear infection affecting balance.",
+        "non_force_sensitive": "Nothing overt. Maybe a sense that the light is wrong, or sounds carry differently. Unease without a source."
+      },
+      "thin_places_moderate": {
+        "force_sensitive": "The parallax error is worse. The Force has gaps — moments where reaching gets nothing, then it's back. Intermittent rather than consistent. Dark-side residue bleeds through because the lattice that normally contains it has holes. Emotional impressions from the past leak through — not visions, not ghosts, but emotional textures without sources. A flash of cruelty that isn't his. A wave of fear from no one present. The Force is becoming unreliable as a sensory organ.",
+        "non_force_sensitive": "Temperature inconsistencies, sounds carrying oddly, a persistent sense of being watched that training identifies as environmental rather than tactical."
+      },
+      "thin_places_high": {
+        "force_sensitive": "The boundary between light and dark shifts while watched — not gone but mobile. The lattice is flexible rather than thinned. The Force responds differently depending on micro-positioning. Like a room where the acoustics change from corner to corner. A seductive quality — the flexible lattice offers freedom from the rigid light/dark binary. It feels like possibility. That seduction is part of the danger.",
+        "non_force_sensitive": "Chrono drift (timepiece and subjective time disagree). Light behaving subtly wrong — shadows at slightly incorrect angles. Persistent low-level headache that starts on arrival and stops on departure."
+      },
+      "full_de_structuring": {
+        "force_sensitive": "The handrail is gone. Reaching for the Force and finding something — energy, presence, potential — but no structure. No direction. No light or dark. No texture. Like trying to see in a world where light exists but nothing reflects it. The Force becomes a vast, formless pressure. Not hostile. Not empty. Undifferentiated. Every Force instinct fires into nothing. The emotional component is worst: the Force-mediated layer of moral perception goes silent. Not overridden by the dark side — absent. Navigation by judgment alone, without the safety net of Force intuition. For a Skywalker, existential.",
+        "non_force_sensitive": "Gravity feels subtly inconsistent. Temperature changes block to block without explanation. Chrono drifts measurably. Biological wrongness visible: wrong-growing vegetation, animals without pattern, silence where birds should be. Underneath, a persistent emotional undertone — not Force-mediated, but the biological effect of losing ambient organizational framework. Feels like grief without an object. A sadness about nothing that doesn't lift until leaving the zone. Validates that de-structuring affects everyone, not just Force-sensitives."
+      },
+      "active_technique": {
+        "force_sensitive": "Different from passive breach zones. The lattice is being pulled apart in real time — structural violence, not absence. A pulling, a suction — the lattice near the practitioner leaning toward them and dissolving. Like standing next to a drain. The practitioner becomes a void in Force perception — not empty but hungry. Their Force presence transforms into something that consumes structure. The boundary of the de-structured zone is sharp — one step in structured Force, the next step nothing. A cliff edge, not a gradient."
+      },
+      "lattice_resonance": {
+        "force_sensitive": "Starts discordant — three notes that don't form a chord. Three traditions trying to combine approaches that have never been combined. Feels clumsy, unstable. The breakthrough comes when the practitioner stops trying to lead and listens instead. The three notes find their own relationship — not any single tradition's structure, but something emergent. Once caught: warmth. Not metaphorical — physical perception of warmth through the Force after the bone-deep cold of de-structuring. The lattice reforms not as rigid grid but as living tissue — flexible, dynamic, responsive. Feels like hearing a note you didn't know you were part of. Relief, not triumph. The return of structure after its absence.",
+        "non_force_sensitive": "The environmental wrongness lifts. Chrono runs correctly. Temperature consistent. The grief-without-an-object dissipates. The place feels right in a way it didn't before. No mystical experience — just the absence of wrongness."
+      }
+    }
+  },
+  "quality_overrides": {
+    "word_frequency_allowlist": [
+      "Force",
+      "Jedi",
+      "Sith",
+      "lightsaber",
+      "hyperspace",
+      "durasteel",
+      "transparisteel",
+      "Skywalker",
+      "Coruscant",
+      "holocron",
+      "stasis",
+      "dark side"
+    ],
+    "semantic_similarity_threshold": 0.88,
+    "max_similar_pairs_per_1k_words": 12
+  },
+  "referenced_characters": [
+    {
+      "name": "Luke Skywalker",
+      "role": "Jedi Grand Master, Ben's father — appears in Chapters 1-2 and 28",
+      "initial_location": "Jedi Temple, Coruscant",
+      "initial_emotional_state": "concerned vigilance"
+    },
+    {
+      "name": "Jacen Solo",
+      "role": "Deceased — referenced in backstory, GAG parallel, thematic shadow",
+      "initial_location": "deceased",
+      "initial_emotional_state": "n/a"
+    },
+    {
+      "name": "Jori Teth",
+      "role": "Jedi Knight, Ben's sparring partner in Ch1 training salle. Background character — exists to provide the physical context of Ben's combat slip; not characterized beyond a brief interaction.",
+      "initial_location": "Jedi Temple training salle, Coruscant",
+      "initial_emotional_state": "professional focus"
+    },
+    {
+      "name": "Master Ava Renn",
+      "role": "Modern Jedi Knight stationed at the Outer Rim outpost (Ch19). Primary instructor at the outpost's junior training program. Her meditative practices have been failing for weeks as the seal weakens.",
+      "initial_location": "Outer Rim Jedi outpost (within two jumps of Veranthos)",
+      "initial_emotional_state": "disoriented, quietly frightened"
+    },
+    {
+      "name": "Knight Tell Maran",
+      "role": "Modern Jedi Knight at the Ch19 outpost. Newly Knighted, posted there as rotation. Has been sending increasingly urgent reports that read like stress complaints because he has no framework for lattice distortion.",
+      "initial_location": "Outer Rim Jedi outpost",
+      "initial_emotional_state": "unreliable instincts, underconfident"
+    },
+    {
+      "name": "Knight Drevin Los",
+      "role": "Modern Jedi Knight at the Ch19 outpost. Older, senior of the three. His meditation failing has shaken him most — he built his identity around disciplined Force contemplation.",
+      "initial_location": "Outer Rim Jedi outpost",
+      "initial_emotional_state": "grounded but unsettled, senior-responsible"
+    },
+    {
+      "name": "Vess Oran",
+      "role": "Outer Rim salvager hired by Veraine after her escape. Ship captain, non-Force-sensitive. Accepts the well-paying job without examining Veraine's philosophy; treats her as an eccentric employer.",
+      "initial_location": "mobile — wherever Veraine's ship is",
+      "initial_emotional_state": "professional, mercenary-pragmatic"
+    },
+    {
+      "name": "Pira Kul",
+      "role": "Outer Rim spacer and technician on Veraine's crew. Handles the repurposing of anchor node infrastructure — practical labor, not ideology. One of the mercenary majority.",
+      "initial_location": "mobile",
+      "initial_emotional_state": "detached competence"
+    },
+    {
+      "name": "Serran Voth",
+      "role": "Convert to Veraine's philosophy — one of the two true believers on her crew. Previously a fringe theologian on a Sith-tradition-influenced world; Veraine's anti-binary message resonated with his own heterodox ideas.",
+      "initial_location": "mobile",
+      "initial_emotional_state": "zealous, intellectually aligned with Veraine"
+    },
+    {
+      "name": "Mira Dann",
+      "role": "Second true believer on Veraine's crew. Former student of a Sith-adjacent academy who survived the faction's collapse; came to Veraine for ideological continuity. Provides low-level Force sensitivity when the crew needs it.",
+      "initial_location": "mobile",
+      "initial_emotional_state": "devoted but green, deferential to Veraine"
+    }
+  ],
+  "stress_test_scores": {
+    "structural_integrity": 9.1,
+    "character_depth": 9.0,
+    "hook_discipline": 8.9,
+    "thematic_resonance": 9.0,
+    "conflict_architecture": 9.0,
+    "pacing_and_proportion": 8.8,
+    "lore_and_continuity": 9.0,
+    "world_building_coherence": 9.0,
+    "series_coherence": null,
+    "overall": 9.0,
+    "note": "Post-2026-04-16-revision estimate. Structural basis: Brooks pinch points now tagged on Ch10-11 (first_pinch) and Ch26 (climax); Torin re-classified as Weiland corruption arc; relationship_arcs authored for 5 dyads; chapter blueprints in place for Ch1/5/13/21; 87 canonical scene cards flow through installer (zero scene-card drift). Previous overall: 8.8. Formal re-scoring via workshop Step 10 still recommended before next baseline run."
+  }
 }

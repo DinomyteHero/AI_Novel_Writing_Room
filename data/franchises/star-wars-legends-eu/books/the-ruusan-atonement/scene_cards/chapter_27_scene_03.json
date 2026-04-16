@@ -5,11 +5,11 @@
   "scene_type": "sequel",
   "scene_role": "aftermath",
   "pov_character": "Ben Skywalker",
-  "mission": "Kael departs freely — choosing to leave on his own terms, not sealed or conscripted. Desh and Ben laugh. The final group beats: each person's departure or continuation chosen, not imposed.",
-  "why_now": "Cast resolution — each character's endpoint established before Ben's final chapter",
-  "conflict": "Kael's departure is not a rejection — it's the exercise of freedom the entire story argued for. He leaves because he can, and the ability to leave is the point.",
+  "mission": "Kael departs freely â€” choosing to leave on his own terms, not sealed or conscripted. Desh and Ben laugh. The final group beats: each person's departure or continuation chosen, not imposed.",
+  "why_now": "Cast resolution â€” each character's endpoint established before Ben's final chapter",
+  "conflict": "Kael's departure is not a rejection â€” it's the exercise of freedom the entire story argued for. He leaves because he can, and the ability to leave is the point.",
   "conflict_type": "interpersonal",
-  "turning_point": "The laugh between Ben and Desh. After everything — Jacen, GAG, the fortress, the Corridor, the climax — they laugh. Not at anything in particular. At the fact of being alive, of having come through, of being equals who chose to be here.",
+  "turning_point": "The laugh between Ben and Desh. After everything â€” Jacen, GAG, the fortress, the Corridor, the climax â€” they laugh. Not at anything in particular. At the fact of being alive, of having come through, of being equals who chose to be here.",
   "opening_hook": "Kael has his bag packed before anyone wakes. He finds Ben at the ship, already knowing.",
   "closing_hook": "Desh says something that shouldn't be funny. Ben laughs. Desh laughs. The laugh carries across the ridge where Sera sits with Torin. For a moment, even Torin's eyes crinkle. The laugh between Ben and Desh is between equals, not employer and contractor. Something has changed. Something good.",
   "emotional_trajectory": "Kael's farewell -> the grace of free departure -> the healing laugh",
@@ -25,13 +25,14 @@
     "Sera Varik",
     "Torin Hal"
   ],
-  "setting": "Veranthos — the camp, departure preparations, morning",
-  "sensory_details": "Kael's packed bag — light, everything he owns in the galaxy; his handshake with Ben — firm, brief, the most Kael gesture possible; Desh's joke — whatever it is, it's Allston-channel; the laugh — genuine, earned, the sound of survival",
+  "setting": "Veranthos â€” the camp, departure preparations, morning",
+  "sensory_details": "Kael's packed bag â€” light, everything he owns in the galaxy; his handshake with Ben â€” firm, brief, the most Kael gesture possible; Desh's joke â€” whatever it is, it's Allston-channel; the laugh â€” genuine, earned, the sound of survival",
+  "canon_elements_needed": [],
   "target_word_count": 1250,
   "action_beats": [
-    "Kael finds Ben at the ship with his bag packed — everything he owns slung over one shoulder",
-    "Kael shakes Ben's hand — firm, brief, the most Kael gesture possible — and turns toward his transport",
-    "Desh says something that shouldn't be funny and Ben laughs — the sound carrying across the ridge"
+    "Kael finds Ben at the ship with his bag packed â€” everything he owns slung over one shoulder",
+    "Kael shakes Ben's hand â€” firm, brief, the most Kael gesture possible â€” and turns toward his transport",
+    "Desh says something that shouldn't be funny and Ben laughs â€” the sound carrying across the ridge"
   ],
   "active_subplots": [
     "SP2",
@@ -47,5 +48,5 @@
   "hook_actions": [],
   "revelations": [],
   "pov_arc_phase": "new_truth_demonstrated",
-  "notes": "Kael's arc: arc_resolved — he leaves freely. The ability to leave is the proof that this was different. Desh's arc: arc_resolved — the laugh between equals. Ben stays to handle the consequences: Chapter 28."
+  "notes": "Kael's arc: arc_resolved â€” he leaves freely. The ability to leave is the proof that this was different. Desh's arc: arc_resolved â€” the laugh between equals. Ben stays to handle the consequences: Chapter 28."
 }

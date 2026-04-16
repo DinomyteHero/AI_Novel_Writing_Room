@@ -5,17 +5,17 @@
   "scene_type": "action",
   "scene_role": "reveal",
   "pov_character": "Ben Skywalker",
-  "mission": "Veraine's ritual fails — two-stage defeat completing. The resonance produces emergent complexity her analytical framework cannot model. She planned for opposition from a single tradition; she didn't plan for synthesis.",
-  "why_now": "Stage 2 of Veraine's defeat — philosophical/structural. The resonance does something her framework can't compute.",
-  "conflict": "Veraine identifies the Jedi and pre-Ruusan components and starts building a counter-pattern. She's brilliant — she can adapt in real time. But Kael's Sith-trained component adds the unintegrable variable. Three traditions produce something none could alone.",
+  "mission": "Veraine's ritual fails â€” two-stage defeat completing. The resonance produces emergent complexity her analytical framework cannot model. She planned for opposition from a single tradition; she didn't plan for synthesis.",
+  "why_now": "Stage 2 of Veraine's defeat â€” philosophical/structural. The resonance does something her framework can't compute.",
+  "conflict": "Veraine identifies the Jedi and pre-Ruusan components and starts building a counter-pattern. She's brilliant â€” she can adapt in real time. But Kael's Sith-trained component adds the unintegrable variable. Three traditions produce something none could alone.",
   "conflict_type": "external",
-  "turning_point": "Veraine's face when the resonance produces an emergent pattern she can't model. Not fear — confusion. Genuine intellectual confusion. She hasn't been confused in a thousand years. The emergence is something her analytical framework literally cannot process.",
-  "opening_hook": "With the array down, Veraine's ritual staggers. She compensates — she's powerful alone, just not powerful enough for a full breach. But the resonance is growing. And it's doing something she doesn't recognize.",
-  "closing_hook": "Veraine's ritual collapses. Not defeated by superior power — defeated by unmodelable complexity. She was right about the problem. She was catastrophically wrong about the solution. Harmonize, don't eliminate.",
+  "turning_point": "Veraine's face when the resonance produces an emergent pattern she can't model. Not fear â€” confusion. Genuine intellectual confusion. She hasn't been confused in a thousand years. The emergence is something her analytical framework literally cannot process.",
+  "opening_hook": "With the array down, Veraine's ritual staggers. She compensates â€” she's powerful alone, just not powerful enough for a full breach. But the resonance is growing. And it's doing something she doesn't recognize.",
+  "closing_hook": "Veraine's ritual collapses. Not defeated by superior power â€” defeated by unmodelable complexity. She was right about the problem. She was catastrophically wrong about the solution. Harmonize, don't eliminate.",
   "emotional_trajectory": "The resonance growing -> Veraine adapting -> Veraine failing to compute -> the collapse of her thesis",
   "stakes": {
-    "personal": "The thematic argument proven through action — synthesis over destruction",
-    "interpersonal": "Kael's Sith-trained contribution the critical variable — his choice validated",
+    "personal": "The thematic argument proven through action â€” synthesis over destruction",
+    "interpersonal": "Kael's Sith-trained contribution the critical variable â€” his choice validated",
     "external": "Veraine defeated. The wound stopped from opening."
   },
   "characters_present": [
@@ -24,13 +24,14 @@
     "Kael Drenn",
     "Darth Veraine"
   ],
-  "setting": "Veranthos — the valley, Scar, Veraine's position at the epicenter",
-  "sensory_details": "Veraine's ritual collapsing — the amplification gone, her personal power insufficient; the resonance's emergent pattern — warm, complex, three textures creating an overtone; Veraine's face — confusion, then something harder: realization without acceptance",
+  "setting": "Veranthos â€” the valley, Scar, Veraine's position at the epicenter",
+  "sensory_details": "Veraine's ritual collapsing â€” the amplification gone, her personal power insufficient; the resonance's emergent pattern â€” warm, complex, three textures creating an overtone; Veraine's face â€” confusion, then something harder: realization without acceptance",
+  "canon_elements_needed": [],
   "target_word_count": 1400,
   "action_beats": [
     "Veraine's ritual staggers as the amplification drops and she compensates with raw personal power",
-    "The resonance grows and produces an emergent pattern — confusion crossing Veraine's face for the first time in a thousand years",
-    "Veraine's ritual collapses — not defeated by superior power but by unmodelable complexity"
+    "The resonance grows and produces an emergent pattern â€” confusion crossing Veraine's face for the first time in a thousand years",
+    "Veraine's ritual collapses â€” not defeated by superior power but by unmodelable complexity"
   ],
   "active_subplots": [
     "SP-A",
@@ -56,5 +57,5 @@
     "R13"
   ],
   "pov_arc_phase": "new_truth_demonstrated",
-  "notes": "R13 — Veraine's thesis fails empirically. She was right that the binary is limiting. Wrong that elimination is the answer. The resonance proves that synthesis — messy, difficult, requiring trust — works where both tradition and destruction fail."
+  "notes": "R13 â€” Veraine's thesis fails empirically. She was right that the binary is limiting. Wrong that elimination is the answer. The resonance proves that synthesis â€” messy, difficult, requiring trust â€” works where both tradition and destruction fail."
 }

@@ -5,17 +5,17 @@
   "scene_type": "action",
   "scene_role": "escalation",
   "pov_character": "Ben Skywalker",
-  "mission": "Aftermath — the sabotage discovered. Veraine used the truce to deliver a final act of infrastructure damage. The seal lurches. The timeline collapses from weeks to days.",
+  "mission": "Aftermath â€” the sabotage discovered. Veraine used the truce to deliver a final act of infrastructure damage. The seal lurches. The timeline collapses from weeks to days.",
   "why_now": "Veraine's four objectives completed: she pitched her philosophy, attempted Kael's recruitment, gathered intelligence on the group's capabilities, and sabotaged the seal's infrastructure under cover of conversation",
-  "conflict": "The timeline has been cut dramatically. Veraine used the meeting's cover — when Ben's group was focused on dialogue — to trigger a pre-positioned sabotage package at a critical node. The seal's cascade accelerates.",
+  "conflict": "The timeline has been cut dramatically. Veraine used the meeting's cover â€” when Ben's group was focused on dialogue â€” to trigger a pre-positioned sabotage package at a critical node. The seal's cascade accelerates.",
   "conflict_type": "external",
-  "turning_point": "Desh: 'She played us. Every minute of that meeting, her crew was executing a pre-staged operation.' The truce was real — Veraine genuinely wanted to present her argument. The sabotage was simultaneous, not contradictory. She can believe in dialogue and destruction at the same time.",
-  "opening_hook": "Ben doubles over in the cockpit as the wrongness drops — not a lurch but a collapse, the floor of the Force giving way by another meter",
+  "turning_point": "Desh: 'She played us. Every minute of that meeting, her crew was executing a pre-staged operation.' The truce was real â€” Veraine genuinely wanted to present her argument. The sabotage was simultaneous, not contradictory. She can believe in dialogue and destruction at the same time.",
+  "opening_hook": "Ben doubles over in the cockpit as the wrongness drops â€” not a lurch but a collapse, the floor of the Force giving way by another meter",
   "closing_hook": "Days. Not weeks, not months. Days until Veraine reaches Veranthos with a compromised seal and a functioning amplification array. The race has become a sprint.",
   "emotional_trajectory": "Post-meeting processing -> alarm at the sabotage -> urgent compression",
   "stakes": {
-    "personal": "Ben outmaneuvered — his intelligence-gathering gambit cost them critical time",
-    "interpersonal": "Group trust shaken — did Ben make the wrong call accepting the meeting?",
+    "personal": "Ben outmaneuvered â€” his intelligence-gathering gambit cost them critical time",
+    "interpersonal": "Group trust shaken â€” did Ben make the wrong call accepting the meeting?",
     "external": "Timeline collapsed to days. The seal cannot hold much longer."
   },
   "characters_present": [
@@ -25,13 +25,14 @@
     "Torin Hal",
     "Kael Drenn"
   ],
-  "setting": "Aboard the Steady Returns — departure from the meeting point, tactical assessment",
-  "sensory_details": "The Force dropping — not a spike but a collapse, a new lower floor; Desh's damage assessment scrolling on displays; Sera's face: 'I told you so' without the satisfaction; Torin's expression: calm, certain, his argument strengthened",
+  "setting": "Aboard the Steady Returns â€” departure from the meeting point, tactical assessment",
+  "sensory_details": "The Force dropping â€” not a spike but a collapse, a new lower floor; Desh's damage assessment scrolling on displays; Sera's face: 'I told you so' without the satisfaction; Torin's expression: calm, certain, his argument strengthened",
+  "canon_elements_needed": [],
   "target_word_count": 800,
   "action_beats": [
     "Ben doubles over in the cockpit as the Force drops to a new, lower baseline",
     "Desh pulls up damage assessment data and scrolls through the cascade reports",
-    "Ben punches the nav computer and plots a direct course to Veranthos — no more stops"
+    "Ben punches the nav computer and plots a direct course to Veranthos â€” no more stops"
   ],
   "active_subplots": [
     "SP-A",
@@ -52,5 +53,5 @@
   ],
   "revelations": [],
   "pov_arc_phase": "lie_challenged",
-  "notes": "H16 planted — timeline collapse. Veraine's ability to be intellectually honest AND ruthlessly strategic simultaneously makes her the most dangerous kind of antagonist. She's not lying about her beliefs. She's just also willing to destroy things while explaining them."
+  "notes": "H16 planted â€” timeline collapse. Veraine's ability to be intellectually honest AND ruthlessly strategic simultaneously makes her the most dangerous kind of antagonist. She's not lying about her beliefs. She's just also willing to destroy things while explaining them."
 }

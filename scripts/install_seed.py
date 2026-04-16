@@ -10,31 +10,34 @@ enriched seed to ``data/franchises/<slug>/books/<slug>/concept_seed.json``.
 The workshop_patch.json format is a named-section dict:
 
     {
-      "voice_definition":    { ... },                 optional
-      "arc_phase_maps":      { "<name>": { ... } },   optional
-      "promise_payoff_ledger": [ ... ],               optional
-      "canon_constraints":   { ... },                 optional
-      "workshop_origin":     { ... },                 optional
-      "extended_metadata_fields": [ "field_a", ... ], optional
-      "structural_overrides": { "26": "climax" },     optional
-      "arc_type_map":        { "<name>": "enum" }     optional
+      "voice_definition":        { ... },               optional
+      "arc_phase_maps":          { "<name>": { ... } }, optional
+      "promise_payoff_ledger":   [ ... ],               optional
+      "subplots":                [ ... ],               optional
+      "hooks":                   [ ... ],               optional
+      "revelation_schedule":     [ ... ],               optional
+      "terminology_registry":    [ ... ],               optional
+      "relationship_arcs":       [ ... ],               optional
+      "canon_profile":           { ... },               optional
+      "force_mechanics":         { ... },               optional
+      "canon_constraints":       { ... },               optional
+      "referenced_characters":   [ ... ],               optional
+      "quality_overrides":       { ... },               optional
+      "workshop_origin":         { ... },               optional
+      "stress_test_scores":      { ... },               optional
+      "extended_metadata_fields": [ "field_a", ... ],   optional
+      "structural_overrides":    { "26": "climax" },    optional
+      "arc_type_map":            { "<name>": "enum" },  optional
+      "tone_fallback":           "<enum>",              optional
+      "canon_status_fallback":   "<enum>"               optional
     }
 
 Every section is optional — a patch that supplies only ``voice_definition``
 adds voice and leaves the rest of the seed untouched.
 
-Order of transform application is fixed and mirrors the original Ruusan
-installer so parity is preserved byte-for-byte:
-    1. apply_voice_definition
-    2. normalize_enums (with arc_type_map)
-    3. apply_arc_phase_maps
-    4. apply_promise_payoff_ledger
-    5. move_to_extended_metadata
-    6. apply_workshop_origin
-    7. apply_canon_constraints
-
-Scene cards are then extracted and written via translate_scene_card with
-the patch's structural_overrides.
+Order of transform application is fixed (see _apply_workshop_patch). Scene
+cards are then extracted and written via translate_scene_card with the
+patch's structural_overrides.
 
 Path resolution uses ``ProjectPaths.from_concept_seed``; the target
 directory is derived from the seed's ``meta.franchise`` and
@@ -60,7 +63,17 @@ from src.concept_workshop.scene_card_translator import translate_scene_card  # n
 from src.concept_workshop.seed_transforms import (  # noqa: E402
     apply_arc_phase_maps,
     apply_canon_constraints,
+    apply_canon_profile,
+    apply_force_mechanics,
+    apply_hooks,
     apply_promise_payoff_ledger,
+    apply_quality_overrides,
+    apply_referenced_characters,
+    apply_relationship_arcs,
+    apply_revelation_schedule,
+    apply_stress_test_scores,
+    apply_subplots,
+    apply_terminology_registry,
     apply_voice_definition,
     apply_workshop_origin,
     move_to_extended_metadata,
@@ -82,7 +95,16 @@ class InstallResult:
 
 
 def _apply_workshop_patch(seed: dict, patch: dict) -> None:
-    """Apply a workshop_patch dict's named sections to the seed in fixed order."""
+    """Apply a workshop_patch dict's named sections to the seed in fixed order.
+
+    Ordering: enum normalization first (so downstream transforms see
+    canonical values), then structural injections (arc maps, promises,
+    subplots, hooks, revelations, terminology, relationship_arcs),
+    then franchise profile (canon_profile, force_mechanics, canon_constraints),
+    then peripheral (referenced_characters, quality_overrides, workshop_origin,
+    stress_test_scores). move_to_extended_metadata runs last so any top-level
+    fields targeted for relocation are captured after the injection phase.
+    """
     apply_voice_definition(seed, patch.get("voice_definition"))
     normalize_enums(
         seed,
@@ -92,9 +114,19 @@ def _apply_workshop_patch(seed: dict, patch: dict) -> None:
     )
     apply_arc_phase_maps(seed, patch.get("arc_phase_maps"))
     apply_promise_payoff_ledger(seed, patch.get("promise_payoff_ledger"))
-    move_to_extended_metadata(seed, patch.get("extended_metadata_fields"))
-    apply_workshop_origin(seed, patch.get("workshop_origin"))
+    apply_subplots(seed, patch.get("subplots"))
+    apply_hooks(seed, patch.get("hooks"))
+    apply_revelation_schedule(seed, patch.get("revelation_schedule"))
+    apply_terminology_registry(seed, patch.get("terminology_registry"))
+    apply_relationship_arcs(seed, patch.get("relationship_arcs"))
+    apply_canon_profile(seed, patch.get("canon_profile"))
+    apply_force_mechanics(seed, patch.get("force_mechanics"))
     apply_canon_constraints(seed, patch.get("canon_constraints"))
+    apply_referenced_characters(seed, patch.get("referenced_characters"))
+    apply_quality_overrides(seed, patch.get("quality_overrides"))
+    apply_workshop_origin(seed, patch.get("workshop_origin"))
+    apply_stress_test_scores(seed, patch.get("stress_test_scores"))
+    move_to_extended_metadata(seed, patch.get("extended_metadata_fields"))
 
 
 def install_seed(
@@ -161,7 +193,7 @@ def install_seed(
         filename = f"chapter_{ch:02d}_scene_{sn:02d}.json"
         path = paths.scene_cards_dir / filename
         path.write_text(
-            json.dumps(translated, indent=2, ensure_ascii=False),
+            json.dumps(translated, indent=2, ensure_ascii=False) + "\n",
             encoding="utf-8",
         )
         scene_card_paths.append(path)
@@ -173,8 +205,17 @@ def install_seed(
                     f"scene card {filename} fails schema: {exc.message}"
                 )
 
+    # Clear the embedded scene_cards array in the final seed — per the
+    # workshop protocol documented in schemas/concept_seed.json:395, embedded
+    # scene_cards are a workshop-only intermediate. The drafting pipeline
+    # MUST NOT read them; canonical scene cards live at the per-file path
+    # we just populated above. Emitting an empty list signals "embedded
+    # cards consumed, extracted to files."
+    if "scene_cards" in seed:
+        seed["scene_cards"] = []
+
     paths.concept_seed_path.write_text(
-        json.dumps(seed, indent=2, ensure_ascii=False),
+        json.dumps(seed, indent=2, ensure_ascii=False) + "\n",
         encoding="utf-8",
     )
 
