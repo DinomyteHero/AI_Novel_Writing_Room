@@ -388,7 +388,7 @@
     },
     "scene_cards": {
       "type": "array",
-      "description": "Workshop-format scene cards. These are plan-level artifacts produced by Step 8 of the concept workshop. Individual drafting-level scene card files (matching schemas/scene_card.json) are extracted from this list into data/story_bibles/{project}/scene_cards/.",
+      "description": "WORKSHOP-ONLY intermediate. Produced by Step 8 of the concept workshop and consumed by the extraction step. Drafting-time canonical scene cards live at data/franchises/{franchise}/books/{book}/chapters/chapter_{NN}/scene_cards/*.json (matching schemas/scene_card.json). The compliance validator and pipeline prefer the extracted files when a franchise/book context is provided and only fall back to this embedded list as a degraded alternative.",
       "items": {
         "type": "object",
         "required": ["chapter_number", "scene_number", "pov_character"],

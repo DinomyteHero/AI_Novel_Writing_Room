@@ -249,8 +249,17 @@ class MetricsDashboard:
 
         # Repetition flags
         if rep["flagged_words"]:
-            words = ", ".join(f["word"] for f in rep["flagged_words"][:3])
-            flags.append(f"Overused words: {words}")
+            # Surface per-word paragraph indices when we have them so
+            # Quality Polish can target the right paragraphs directly.
+            word_summaries = []
+            for f in rep["flagged_words"][:3]:
+                paras = f.get("paragraph_indices") or []
+                if paras:
+                    paras_str = ", ".join(f"¶{i}" for i in paras)
+                    word_summaries.append(f"{f['word']} ({paras_str})")
+                else:
+                    word_summaries.append(f["word"])
+            flags.append(f"Overused words: {', '.join(word_summaries)}")
         if rep["repeated_ngrams"]:
             count = len(rep["repeated_ngrams"])
             flags.append(f"{count} repeated n-gram(s) detected")

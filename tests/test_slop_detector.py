@@ -65,3 +65,44 @@ class TestSlopDetector:
         assert "tell_not_show" in result
         assert "filler_patterns" in result
         assert 0.0 <= result["slop_score"] <= 1.0
+
+
+class TestParagraphLocations:
+    """Show-don't-tell and filler violations carry a paragraph index so
+    Quality Polish can target the right paragraph directly."""
+
+    def test_show_dont_tell_reports_paragraph(self, negative_constraints):
+        prose = (
+            "She walked into the room.\n"
+            "The lights were dim.\n"
+            "\n"
+            "He felt angry.\n"
+            "\n"
+            "He drew a breath and held it."
+        )
+        detector = SlopDetector(negative_constraints)
+        result = detector.analyze(prose)
+
+        felt_hits = [h for h in result["tell_not_show"] if h["phrase"] == "felt"]
+        assert felt_hits, "expected 'felt' violation"
+        # 'He felt angry.' is the middle paragraph → index 1
+        assert felt_hits[0]["paragraph"] == 1
+        # Legacy location field still present
+        assert "line" in felt_hits[0]["location"]
+
+    def test_filler_pattern_reports_paragraph(self, negative_constraints):
+        prose = (
+            "Opening paragraph.\n"
+            "\n"
+            "In that moment, everything changed.\n"
+            "\n"
+            "Closing paragraph."
+        )
+        detector = SlopDetector(negative_constraints)
+        result = detector.analyze(prose)
+
+        in_that_moment_hits = [
+            h for h in result["filler_patterns"] if h["phrase"] == "in that moment"
+        ]
+        assert in_that_moment_hits
+        assert in_that_moment_hits[0]["paragraph"] == 1

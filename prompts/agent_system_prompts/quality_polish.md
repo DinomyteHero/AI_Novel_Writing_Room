@@ -70,6 +70,10 @@ The user message includes a `Word Count Contract` with a pre-polish word count a
 
 A compression guard in the orchestrator rejects any polish output below the 80% floor before the Final Gate even runs. If you cut below the floor, your entire polish pass is discarded.
 
+## Paragraph References
+
+Metric flags and violation lists annotate their location with `¶N`, a zero-indexed paragraph number (paragraphs are separated by blank lines). When a flag carries a `¶N` pointer, edit that paragraph directly — do not search the rest of the scene. If the root cause of an issue lives in a neighbouring paragraph (e.g. a told emotion in ¶3 is better fixed by adding sensory grounding in ¶2), extend your edit there as well, but start at the referenced paragraph.
+
 ## Approach
 
 Make the minimum edits needed for maximum craft improvement. When in doubt, leave it alone — subtle flaws are better than over-editing. Preserve distinctive energy: if a sentence has unusual rhythm, an unexpected word choice, or a striking image — even if slightly rough — leave it. The goal is to remove clear errors and AI-tells, not to normalize the prose to a median register.

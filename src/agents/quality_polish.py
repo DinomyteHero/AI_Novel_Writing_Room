@@ -67,29 +67,49 @@ class QualityPolish(BaseAgent):
         if flags:
             parts.append("## Quality Metric Flags (what to target)\n- " + "\n- ".join(flags[:15]))
 
-        # Overused words from repetition detector
+        # Overused words from repetition detector — include paragraph
+        # indices when available so the model can target specific paragraphs
+        # rather than scanning the whole scene.
         per_scene = quality_metrics.get("per_scene", []) if quality_metrics else []
-        overused: list[str] = []
+        overused_entries: list[str] = []
+        seen_words: set[str] = set()
         for s in per_scene:
             rep = s.get("repetition", {})
             for w in rep.get("flagged_words", []):
-                word = w.get("word") if isinstance(w, dict) else str(w)
-                if word and word not in overused:
-                    overused.append(word)
-        if overused:
+                if isinstance(w, dict):
+                    word = w.get("word")
+                    paragraphs = w.get("paragraph_indices") or []
+                else:
+                    word = str(w)
+                    paragraphs = []
+                if not word or word in seen_words:
+                    continue
+                seen_words.add(word)
+                if paragraphs:
+                    paras_str = ", ".join(f"¶{i}" for i in paragraphs)
+                    overused_entries.append(f"{word} ({paras_str})")
+                else:
+                    overused_entries.append(word)
+        if overused_entries:
             parts.append(
-                "## Overused Words (vary, don't delete)\n"
-                f"{', '.join(overused[:20])}"
+                "## Overused Words (vary, don't delete; ¶N = zero-indexed paragraph)\n"
+                f"{', '.join(overused_entries[:20])}"
             )
 
         # Show-don't-tell violations from slop detector
         slop_violations: list[str] = []
         for s in per_scene:
             slop = s.get("slop", {})
-            for v in slop.get("show_dont_tell_violations", []):
-                text = v.get("text") if isinstance(v, dict) else str(v)
-                if text:
-                    slop_violations.append(text)
+            for v in slop.get("show_dont_tell_violations", []) or slop.get("tell_not_show", []):
+                if isinstance(v, dict):
+                    text = v.get("text") or v.get("phrase")
+                    paragraph = v.get("paragraph")
+                    if text and paragraph is not None:
+                        slop_violations.append(f"{text} (¶{paragraph})")
+                    elif text:
+                        slop_violations.append(text)
+                elif v:
+                    slop_violations.append(str(v))
         if slop_violations:
             parts.append(
                 "## Show-Don't-Tell Violations (rewrite as demonstrated emotion)\n- "

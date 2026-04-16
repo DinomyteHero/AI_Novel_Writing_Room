@@ -1,12 +1,15 @@
 """Tests for the concept seed compliance validator."""
 
 import copy
+import json
+from pathlib import Path
 
 import pytest
 
 from src.concept_workshop.compliance_validator import (
     CheckStatus,
     ValidationReport,
+    _iter_extracted_scene_cards,
     validate_concept_seed,
 )
 
@@ -165,3 +168,264 @@ class TestReportFormat:
         report = validate_concept_seed(seed)
         formatted = report.format()
         assert "Warnings" in formatted
+
+
+# ---------------------------------------------------------------------------
+# Phase 3 source-of-truth cleanup: extracted scene cards are canonical
+# ---------------------------------------------------------------------------
+
+
+def _minimal_seed_for_extracted_tests() -> dict:
+    """Skeleton seed populated only with fields required to exercise the
+    hook/coverage checks. Other section checks will fail, but the
+    assertions in these tests only inspect the specific checks we care
+    about."""
+    return {
+        "meta": {
+            "project_title": "Test Book",
+            "project_scope": "single novel",
+            "franchise": "Test Franchise",
+            "canon_status": "original",
+            "era": "present day",
+            "tone": "noir",
+            "target_word_count": 3000,
+            "target_chapters": 2,
+            "pov_structure": "third_limited",
+        },
+        "hooks": [
+            {"hook_id": "H01", "hook_type": "hard"},
+            {"hook_id": "H02", "hook_type": "hard"},
+        ],
+        "revelation_schedule": [{"revelation_id": "R01"}],
+        "scene_cards": [
+            # Embedded workshop card — must be ignored when extracted are found
+            {
+                "chapter_number": 1,
+                "scene_number": 1,
+                "pov_character": "Protagonist",
+                "hook_references": [{"hook_id": "EMBEDDED_ONLY", "action": "plant"}],
+                "estimated_word_count": 1500,
+            },
+        ],
+    }
+
+
+def _write_extracted_card(dir_path: Path, chapter: int, scene: int, card: dict) -> None:
+    dir_path.mkdir(parents=True, exist_ok=True)
+    (dir_path / f"chapter_{chapter:02d}_scene_{scene:02d}.json").write_text(
+        json.dumps(card), encoding="utf-8"
+    )
+
+
+class TestIterExtractedSceneCards:
+    """Unit tests for the extracted-cards iterator."""
+
+    def test_returns_empty_when_directory_absent(self, tmp_path):
+        assert _iter_extracted_scene_cards("sw", "rb", str(tmp_path)) == []
+
+    def test_loads_every_card_in_sorted_order(self, tmp_path):
+        cards_dir = (
+            tmp_path / "data" / "franchises" / "sw" / "books" / "rb" / "scene_cards"
+        )
+        _write_extracted_card(cards_dir, 2, 1, {"chapter_number": 2, "scene_number": 1})
+        _write_extracted_card(cards_dir, 1, 1, {"chapter_number": 1, "scene_number": 1})
+        _write_extracted_card(cards_dir, 1, 2, {"chapter_number": 1, "scene_number": 2})
+
+        cards = _iter_extracted_scene_cards("sw", "rb", str(tmp_path))
+        assert [(c["chapter_number"], c["scene_number"]) for c in cards] == [
+            (1, 1),
+            (1, 2),
+            (2, 1),
+        ]
+
+    def test_skips_unparseable_file(self, tmp_path):
+        cards_dir = (
+            tmp_path / "data" / "franchises" / "sw" / "books" / "rb" / "scene_cards"
+        )
+        cards_dir.mkdir(parents=True)
+        (cards_dir / "good.json").write_text(
+            json.dumps({"chapter_number": 1, "scene_number": 1}), encoding="utf-8"
+        )
+        (cards_dir / "bad.json").write_text("{ not valid", encoding="utf-8")
+
+        cards = _iter_extracted_scene_cards("sw", "rb", str(tmp_path))
+        assert len(cards) == 1
+        assert cards[0]["chapter_number"] == 1
+
+
+class TestValidateUsesExtractedCards:
+    """End-to-end: validate_concept_seed prefers extracted cards over embedded."""
+
+    def _setup_extracted_cards(self, tmp_path: Path) -> None:
+        """Write extracted canonical cards: H01 planted in ch1/sc1 and
+        resolved in ch2/sc1; H02 planted in ch2/sc1 but never resolved
+        (so the orphan-resolve branch still fires)."""
+        cards_dir = (
+            tmp_path / "data" / "franchises" / "sw" / "books" / "rb" / "scene_cards"
+        )
+        _write_extracted_card(
+            cards_dir, 1, 1,
+            {
+                "chapter_number": 1,
+                "scene_number": 1,
+                "hook_actions": [{"hook_id": "H01", "action": "plant"}],
+                "revelations": ["R01"],
+                "target_word_count": 1500,
+            },
+        )
+        _write_extracted_card(
+            cards_dir, 2, 1,
+            {
+                "chapter_number": 2,
+                "scene_number": 1,
+                "hook_actions": [
+                    {"hook_id": "H01", "action": "resolve"},
+                    {"hook_id": "H02", "action": "plant"},
+                ],
+                "target_word_count": 1500,
+            },
+        )
+
+    def test_marks_source_as_extracted_when_directory_present(self, tmp_path):
+        self._setup_extracted_cards(tmp_path)
+        seed = _minimal_seed_for_extracted_tests()
+        report = validate_concept_seed(seed, "sw", "rb", base_dir=str(tmp_path))
+
+        source_checks = [c for c in report.checks if c.field_path == "scene_cards.source"]
+        assert len(source_checks) == 1
+        assert source_checks[0].status == CheckStatus.PASS
+        assert "extracted" in source_checks[0].message
+
+    def test_extracted_hook_plants_are_credited(self, tmp_path):
+        """H01 is planted in extracted cards. The validator must not flag
+        H01 as an unplanted hook just because the embedded cards list
+        a different hook (EMBEDDED_ONLY)."""
+        self._setup_extracted_cards(tmp_path)
+        seed = _minimal_seed_for_extracted_tests()
+        report = validate_concept_seed(seed, "sw", "rb", base_dir=str(tmp_path))
+
+        # H01 is planted in extracted cards → no "never planted" warning for H01
+        plant_warnings = [w for w in report.warnings if "never planted" in w]
+        assert not any("H01" in w for w in plant_warnings)
+        # EMBEDDED_ONLY (from the embedded cards) must NOT be canonical
+        assert not any("EMBEDDED_ONLY" in w for w in plant_warnings)
+
+    def test_extracted_coverage_honoured(self, tmp_path):
+        """Two extracted cards covering chapters 1 and 2 satisfy target_chapters=2."""
+        self._setup_extracted_cards(tmp_path)
+        seed = _minimal_seed_for_extracted_tests()
+        report = validate_concept_seed(seed, "sw", "rb", base_dir=str(tmp_path))
+
+        coverage = [c for c in report.checks if c.field_path == "scene_cards.coverage"]
+        assert coverage and coverage[0].status == CheckStatus.PASS
+
+    def test_extracted_target_word_count_used(self, tmp_path):
+        """Extracted cards carry ``target_word_count``; embedded cards carry
+        ``estimated_word_count``. Coverage should sum the extracted field."""
+        self._setup_extracted_cards(tmp_path)
+        seed = _minimal_seed_for_extracted_tests()
+        report = validate_concept_seed(seed, "sw", "rb", base_dir=str(tmp_path))
+
+        wc_checks = [c for c in report.checks if c.field_path == "scene_cards.word_count"]
+        # 2 extracted cards * 1500 = 3000 target; deviation = 0% → PASS
+        assert wc_checks and wc_checks[0].status == CheckStatus.PASS
+
+
+class TestValidateFallsBackToEmbedded:
+    """When extracted cards are unavailable, fall back to embedded with a WARN."""
+
+    def test_warns_when_franchise_path_missing(self, tmp_path):
+        seed = _minimal_seed_for_extracted_tests()
+        report = validate_concept_seed(seed, "sw", "rb", base_dir=str(tmp_path))
+
+        source_checks = [c for c in report.checks if c.field_path == "scene_cards.source"]
+        assert source_checks[0].status == CheckStatus.WARN
+        assert "falling back" in source_checks[0].message
+
+    def test_embedded_hook_still_credited_in_fallback(self, tmp_path):
+        """In fallback mode, embedded EMBEDDED_ONLY hook is treated as planted."""
+        seed = _minimal_seed_for_extracted_tests()
+        # Register a hard hook that matches the embedded card so the
+        # plant/resolve bookkeeping has something to correlate.
+        seed["hooks"].append({"hook_id": "EMBEDDED_ONLY", "hook_type": "hard"})
+        report = validate_concept_seed(seed, "sw", "rb", base_dir=str(tmp_path))
+
+        plant_warnings = [w for w in report.warnings if "never planted" in w]
+        assert not any("EMBEDDED_ONLY" in w for w in plant_warnings)
+
+    def test_no_identifiers_keeps_legacy_embedded_behaviour(self):
+        """Legacy API (no franchise/book) still works and reads embedded cards."""
+        seed = _minimal_seed_for_extracted_tests()
+        seed["hooks"].append({"hook_id": "EMBEDDED_ONLY", "hook_type": "hard"})
+        report = validate_concept_seed(seed)
+
+        # No scene_cards.source annotation is produced in the legacy path
+        source_checks = [c for c in report.checks if c.field_path == "scene_cards.source"]
+        assert source_checks == []
+
+
+class TestExtractedSchemaFieldAliases:
+    """Extracted cards use `hook_actions` / `revelations`; embedded use
+    `hook_references` / `revelation_references`. The validator must accept both."""
+
+    def test_extracted_hook_actions_recognised(self, tmp_path):
+        cards_dir = (
+            tmp_path / "data" / "franchises" / "sw" / "books" / "rb" / "scene_cards"
+        )
+        _write_extracted_card(
+            cards_dir, 1, 1,
+            {
+                "chapter_number": 1,
+                "scene_number": 1,
+                "hook_actions": [{"hook_id": "H01", "action": "plant"}],
+                "target_word_count": 1500,
+            },
+        )
+        _write_extracted_card(
+            cards_dir, 2, 1,
+            {
+                "chapter_number": 2,
+                "scene_number": 1,
+                "hook_actions": [{"hook_id": "H01", "action": "resolve"}],
+                "target_word_count": 1500,
+            },
+        )
+        seed = _minimal_seed_for_extracted_tests()
+        seed["hooks"] = [{"hook_id": "H01", "hook_type": "hard"}]
+        report = validate_concept_seed(seed, "sw", "rb", base_dir=str(tmp_path))
+
+        hook_passes = [
+            c for c in report.checks
+            if c.field_path == "hooks" and c.status == CheckStatus.PASS
+        ]
+        assert hook_passes
+
+    def test_extracted_revelations_recognised(self, tmp_path):
+        cards_dir = (
+            tmp_path / "data" / "franchises" / "sw" / "books" / "rb" / "scene_cards"
+        )
+        _write_extracted_card(
+            cards_dir, 1, 1,
+            {
+                "chapter_number": 1,
+                "scene_number": 1,
+                "revelations": ["R01"],
+                "target_word_count": 1500,
+            },
+        )
+        _write_extracted_card(
+            cards_dir, 2, 1,
+            {
+                "chapter_number": 2,
+                "scene_number": 1,
+                "target_word_count": 1500,
+            },
+        )
+        seed = _minimal_seed_for_extracted_tests()
+        report = validate_concept_seed(seed, "sw", "rb", base_dir=str(tmp_path))
+
+        rev_passes = [
+            c for c in report.checks
+            if c.field_path == "revelation_schedule" and c.status == CheckStatus.PASS
+        ]
+        assert rev_passes

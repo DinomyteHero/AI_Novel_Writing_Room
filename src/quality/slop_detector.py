@@ -4,6 +4,8 @@ import re
 from collections import Counter
 from statistics import mean, variance
 
+from src.quality._para_util import line_to_paragraph_index
+
 # Show-don't-tell words to flag outside dialogue
 _TELLING_WORDS = [
     "felt", "knew", "realized", "understood", "noticed", "wondered",
@@ -202,6 +204,7 @@ class SlopDetector:
                     hits.append({
                         "phrase": telling_word,
                         "location": f"line {line_num}",
+                        "paragraph": line_to_paragraph_index(prose, line_num),
                         "context": context,
                     })
 
@@ -223,6 +226,7 @@ class SlopDetector:
                 hits.append({
                     "phrase": filler,
                     "location": f"line {line_num}",
+                    "paragraph": line_to_paragraph_index(prose, line_num),
                 })
                 idx = pos + 1
 

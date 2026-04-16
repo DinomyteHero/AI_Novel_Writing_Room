@@ -65,12 +65,17 @@ def determine_verdict(failure_codes: list[dict]) -> str:
 
 
 def determine_route(verdict: str) -> Optional[str]:
-    """Map verdict to routing destination."""
+    """Map verdict to routing destination.
+
+    Post-Phase 1 pipeline redesign: fail_polish no longer routes to craft_edit.
+    Polish issues are caught by the compression guard and Final Gate, which
+    reject the polish output and keep the gate-passed draft instead.
+    """
     routing = {
         "pass": None,
         "fail_structural": "full_rewrite",
         "fail_voice": "targeted_revision",
-        "fail_polish": "craft_edit",
+        "fail_polish": None,
     }
     return routing.get(verdict)
 
@@ -157,7 +162,7 @@ class GateCritic(BaseAgent):
             "    }\n"
             "  ],\n"
             '  "severity": "blocking | non_blocking",\n'
-            '  "route_to": "full_rewrite | targeted_revision | craft_edit | null",\n'
+            '  "route_to": "full_rewrite | targeted_revision | null",\n'
             '  "structural_score": 0.0-1.0,\n'
             '  "voice_score": 0.0-1.0,\n'
             '  "polish_score": 0.0-1.0\n'

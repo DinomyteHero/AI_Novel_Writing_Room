@@ -403,3 +403,196 @@ class TestCloseAndReopen:
         assert char["name"] == "Ben Skywalker"
         assert thread is not None
         assert thread["description"] == "Secret agenda"
+
+
+class TestRevisionStatusEnum:
+    """Tests for the revision_status CHECK constraint post-Phase-1 redesign.
+
+    The legacy enum accepted 'craft_edited' and 'revised'. The pipeline no
+    longer produces those states — Craft Editor and the 3-band revision
+    pipeline were replaced by a single Quality Polish pass whose outcomes
+    are approved / final_gate_rejected / gate_passed.
+    """
+
+    @pytest.mark.parametrize(
+        "status",
+        ["draft", "gate_failed", "gate_passed", "polished", "final_gate_rejected", "approved"],
+    )
+    def test_accepts_new_enum_values_on_chapter_log(self, story_state, status):
+        """Fresh databases accept every post-redesign revision_status value."""
+        story_state.add_chapter_log(
+            chapter_number=hash(status) % 1000,  # unique PK per status
+            word_count=100,
+            revision_status=status,
+        )
+
+    @pytest.mark.parametrize(
+        "status",
+        ["draft", "gate_failed", "gate_passed", "polished", "final_gate_rejected", "approved"],
+    )
+    def test_accepts_new_enum_values_on_scene_log(self, story_state, status):
+        """Fresh databases accept every post-redesign revision_status value on scene_log."""
+        story_state.add_scene_log(
+            chapter_number=hash(status) % 1000,
+            scene_number=1,
+            word_count=100,
+            revision_status=status,
+        )
+
+    def test_rejects_legacy_craft_edited(self, story_state):
+        """'craft_edited' is no longer a valid state."""
+        with pytest.raises(sqlite3.IntegrityError):
+            story_state.add_chapter_log(
+                chapter_number=42,
+                word_count=100,
+                revision_status="craft_edited",
+            )
+
+    def test_rejects_legacy_revised(self, story_state):
+        """'revised' is no longer a valid state."""
+        with pytest.raises(sqlite3.IntegrityError):
+            story_state.add_chapter_log(
+                chapter_number=43,
+                word_count=100,
+                revision_status="revised",
+            )
+
+
+class TestV5Migration:
+    """Tests for the v4→v5 migration that remaps legacy revision_status."""
+
+    def _seed_v4_database(self, db_path: str) -> None:
+        """Create a database that looks like v4: old CHECK constraint with
+        legacy enum values, schema_migrations pinned at version 4, and one
+        row per legacy label so the migration has something to remap."""
+        conn = sqlite3.connect(db_path)
+        conn.row_factory = sqlite3.Row
+        conn.execute("PRAGMA foreign_keys = ON")
+        conn.executescript("""
+            CREATE TABLE schema_migrations (
+                version INTEGER PRIMARY KEY,
+                applied_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                description TEXT
+            );
+            CREATE TABLE chapter_log (
+                chapter_number INTEGER PRIMARY KEY,
+                word_count INTEGER,
+                structural_phase TEXT,
+                pov_character TEXT,
+                summary TEXT,
+                quality_scores TEXT,
+                failure_codes TEXT,
+                revision_status TEXT CHECK(revision_status IN (
+                    'draft', 'gate_failed', 'gate_passed', 'craft_edited', 'revised', 'approved'
+                )),
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                revised_at TIMESTAMP
+            );
+            CREATE TABLE scene_log (
+                chapter_number INTEGER NOT NULL,
+                scene_number INTEGER NOT NULL,
+                word_count INTEGER,
+                structural_phase TEXT,
+                pov_character TEXT,
+                summary TEXT,
+                quality_scores TEXT,
+                failure_codes TEXT,
+                revision_status TEXT CHECK(revision_status IN (
+                    'draft', 'gate_failed', 'gate_passed', 'craft_edited', 'revised', 'approved'
+                )),
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                revised_at TIMESTAMP,
+                PRIMARY KEY (chapter_number, scene_number)
+            );
+            CREATE TABLE characters (
+                id TEXT PRIMARY KEY,
+                name TEXT
+            );
+        """)
+        for v in (1, 2, 3, 4):
+            conn.execute(
+                "INSERT INTO schema_migrations (version, description) VALUES (?, ?)",
+                (v, f"seeded v{v}"),
+            )
+        conn.execute(
+            "INSERT INTO chapter_log (chapter_number, word_count, revision_status) VALUES (?, ?, ?)",
+            (1, 3500, "craft_edited"),
+        )
+        conn.execute(
+            "INSERT INTO chapter_log (chapter_number, word_count, revision_status) VALUES (?, ?, ?)",
+            (2, 3700, "revised"),
+        )
+        conn.execute(
+            "INSERT INTO chapter_log (chapter_number, word_count, revision_status) VALUES (?, ?, ?)",
+            (3, 3800, "approved"),
+        )
+        conn.execute(
+            "INSERT INTO scene_log (chapter_number, scene_number, word_count, revision_status) VALUES (?, ?, ?, ?)",
+            (1, 1, 1200, "craft_edited"),
+        )
+        conn.execute(
+            "INSERT INTO scene_log (chapter_number, scene_number, word_count, revision_status) VALUES (?, ?, ?, ?)",
+            (1, 2, 1100, "revised"),
+        )
+        conn.commit()
+        conn.close()
+
+    def test_migration_remaps_legacy_labels(self, temp_dir):
+        """Opening a v4 database through StoryState runs the v5 migration,
+        which remaps legacy labels to 'polished' while leaving other values
+        untouched."""
+        db_path = str(Path(temp_dir) / "v4_legacy.db")
+        self._seed_v4_database(db_path)
+
+        state = StoryState(db_path=db_path)
+        try:
+            ch1 = state.conn.execute(
+                "SELECT revision_status FROM chapter_log WHERE chapter_number=1"
+            ).fetchone()
+            ch2 = state.conn.execute(
+                "SELECT revision_status FROM chapter_log WHERE chapter_number=2"
+            ).fetchone()
+            ch3 = state.conn.execute(
+                "SELECT revision_status FROM chapter_log WHERE chapter_number=3"
+            ).fetchone()
+            sc11 = state.conn.execute(
+                "SELECT revision_status FROM scene_log WHERE chapter_number=1 AND scene_number=1"
+            ).fetchone()
+            sc12 = state.conn.execute(
+                "SELECT revision_status FROM scene_log WHERE chapter_number=1 AND scene_number=2"
+            ).fetchone()
+            version = state.conn.execute(
+                "SELECT MAX(version) as v FROM schema_migrations"
+            ).fetchone()["v"]
+        finally:
+            state.close()
+
+        assert ch1["revision_status"] == "polished"  # craft_edited -> polished
+        assert ch2["revision_status"] == "polished"  # revised -> polished
+        assert ch3["revision_status"] == "approved"  # unchanged
+        assert sc11["revision_status"] == "polished"
+        assert sc12["revision_status"] == "polished"
+        assert version >= 5
+
+    def test_migration_is_idempotent(self, temp_dir):
+        """Running StoryState twice on the same database does not re-run
+        the migration or lose data."""
+        db_path = str(Path(temp_dir) / "v4_legacy_idempotent.db")
+        self._seed_v4_database(db_path)
+
+        state = StoryState(db_path=db_path)
+        state.close()
+
+        state2 = StoryState(db_path=db_path)
+        try:
+            ch1 = state2.conn.execute(
+                "SELECT revision_status FROM chapter_log WHERE chapter_number=1"
+            ).fetchone()
+            count = state2.conn.execute(
+                "SELECT COUNT(*) AS n FROM chapter_log"
+            ).fetchone()["n"]
+        finally:
+            state2.close()
+
+        assert ch1["revision_status"] == "polished"
+        assert count == 3  # no duplicates

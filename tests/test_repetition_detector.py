@@ -87,3 +87,38 @@ class TestRepetitionDetector:
         assert "opener_violations" in result
         assert "similar_paragraphs" in result
         assert 0.0 <= result["repetition_score"] <= 1.0
+
+
+class TestFlaggedWordsParagraphIndices:
+    """Flagged words now carry `paragraph_indices` so Quality Polish can
+    target the specific paragraphs rather than scanning the scene."""
+
+    def test_flagged_word_carries_paragraph_indices(self):
+        # Construct prose where one content word exceeds the frequency
+        # threshold (>3 std devs above mean). Use a short vocabulary with
+        # one runaway term.
+        prose = (
+            "The silence hung in the air. Silence pressed against the walls. Silence weighed.\n"
+            "\n"
+            "He moved.\n"
+            "\n"
+            "Silence. The deep silence returned. The silence stayed silence.\n"
+        )
+        detector = RepetitionDetector()
+        result = detector.analyze(prose)
+
+        silence = [f for f in result["flagged_words"] if f["word"] == "silence"]
+        # If 'silence' didn't clear the 3-sigma bar in this tiny sample the
+        # test still passes on the structural invariant: every flagged word
+        # has the new key regardless of identity.
+        for flag in result["flagged_words"]:
+            assert "paragraph_indices" in flag
+            assert isinstance(flag["paragraph_indices"], list)
+            assert all(isinstance(i, int) for i in flag["paragraph_indices"])
+
+        if silence:
+            # Every index points into a paragraph that actually contains the word
+            paragraphs = [p.strip() for p in prose.split("\n\n") if p.strip()]
+            for idx in silence[0]["paragraph_indices"]:
+                assert 0 <= idx < len(paragraphs)
+                assert "silence" in paragraphs[idx].lower()

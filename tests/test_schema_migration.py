@@ -10,11 +10,16 @@ from src.memory.story_state import StoryState
 class TestSchemaMigration:
     """Tests for the migration system."""
 
-    def test_new_db_has_version_4(self, temp_dir):
-        """A fresh database is initialized at schema version 4."""
+    def test_new_db_has_latest_version(self, temp_dir):
+        """A fresh database is initialized at the latest schema version.
+
+        Schema v5 was added by the pipeline redesign (retires
+        craft_edited/revised revision_status labels and introduces
+        polished / final_gate_rejected).
+        """
         db_path = str(Path(temp_dir) / "test.db")
         state = StoryState(db_path=db_path)
-        assert state.get_schema_version() == 4
+        assert state.get_schema_version() == 5
         state.close()
 
     def test_migration_creates_phase5_tables(self, temp_dir):
@@ -58,9 +63,9 @@ class TestSchemaMigration:
         rows = state2.conn.execute(
             "SELECT version FROM schema_migrations ORDER BY version"
         ).fetchall()
-        # Should still have exactly 4 migration entries, not duplicates
+        # Should have exactly one entry per migration, no duplicates
         versions = [r["version"] for r in rows]
-        assert versions == [1, 2, 3, 4]
+        assert versions == [1, 2, 3, 4, 5]
         state2.close()
 
     def test_existing_data_preserved_after_migration(self, temp_dir):

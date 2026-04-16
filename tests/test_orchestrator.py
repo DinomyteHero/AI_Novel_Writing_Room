@@ -247,7 +247,7 @@ class TestOrchestratorRetryLogic:
             "verdict": "fail_polish",
             "failure_codes": [{"code": "PACING_FLATLINE", "location": "whole scene", "description": "Flat pacing"}],
             "severity": "non_blocking",
-            "route_to": "craft_edit",
+            "route_to": None,
             "structural_score": 0.85,
             "voice_score": 0.80,
             "polish_score": 0.4,

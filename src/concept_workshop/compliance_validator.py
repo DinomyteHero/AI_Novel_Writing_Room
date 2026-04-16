@@ -115,6 +115,54 @@ def _is_supporting_character(char: dict) -> bool:
     )
 
 
+def _iter_extracted_scene_cards(
+    franchise_slug: str,
+    book_slug: str,
+    base_dir: str = ".",
+) -> list[dict]:
+    """Iterate extracted canonical scene cards for a franchise/book.
+
+    Canonical drafting-time scene cards live at
+    ``data/franchises/{franchise}/books/{book}/scene_cards/*.json``. Each
+    file is a single scene card. Returns an empty list if the directory is
+    absent — callers should treat that as "no extracted cards available"
+    and fall back to embedded cards with a warning.
+    """
+    cards_dir = (
+        Path(base_dir) / "data" / "franchises" / franchise_slug
+        / "books" / book_slug / "scene_cards"
+    )
+    if not cards_dir.is_dir():
+        return []
+
+    cards: list[dict] = []
+    for path in sorted(cards_dir.glob("*.json")):
+        try:
+            with path.open(encoding="utf-8") as fh:
+                cards.append(json.load(fh))
+        except (json.JSONDecodeError, OSError) as exc:
+            logger.warning(
+                "compliance_validator: skipping unreadable extracted scene card %s (%s)",
+                path, exc,
+            )
+    return cards
+
+
+def _card_hook_actions(card: dict) -> list[dict]:
+    """Return the hook action list for a scene card, accepting both schemas.
+
+    Workshop-embedded cards use ``hook_references``. Extracted canonical
+    cards use ``hook_actions``. Both carry the same ``{hook_id, action}``
+    shape under different keys, so this helper normalises the lookup.
+    """
+    return card.get("hook_actions") or card.get("hook_references") or []
+
+
+def _card_revelation_ids(card: dict) -> list[str]:
+    """Return the revelation ID list for a scene card, accepting both schemas."""
+    return card.get("revelations") or card.get("revelation_references") or []
+
+
 # ---------------------------------------------------------------------------
 # Section checks
 # ---------------------------------------------------------------------------
@@ -136,11 +184,28 @@ REQUIRED_TOP_LEVEL_FIELDS = [
 ]
 
 
-def _check_top_level_fields(seed: dict, report: ValidationReport) -> None:
-    """Every top-level field in the canonical list must be present."""
+def _check_top_level_fields(
+    seed: dict,
+    report: ValidationReport,
+    extracted_cards_available: bool = False,
+) -> None:
+    """Every top-level field in the canonical list must be present.
+
+    ``scene_cards`` is a special case: it is WORKSHOP-ONLY. After the
+    extraction step produces canonical per-scene files, the embedded list
+    is intentionally empty. If the caller supplied a franchise/book
+    context and extracted cards exist, an empty embedded list is
+    expected and recorded as PASS.
+    """
     for field_name in REQUIRED_TOP_LEVEL_FIELDS:
         if seed.get(field_name):
             report.add(field_name, CheckStatus.PASS, "present")
+        elif field_name == "scene_cards" and extracted_cards_available:
+            report.add(
+                field_name,
+                CheckStatus.PASS,
+                "empty embedded list (canonical source is extracted per-scene files)",
+            )
         else:
             report.add(field_name, CheckStatus.FAIL, "missing top-level field")
 
@@ -331,19 +396,28 @@ def _check_voice_definition(seed: dict, report: ValidationReport) -> None:
         )
 
 
-def _check_hooks_and_scene_cards(seed: dict, report: ValidationReport) -> None:
+def _check_hooks_and_scene_cards(
+    seed: dict,
+    report: ValidationReport,
+    scene_cards: list[dict] | None = None,
+) -> None:
     """Every hard hook must be planted AND resolved in at least one scene card.
-    Every revelation must appear in at least one scene card."""
+    Every revelation must appear in at least one scene card.
+
+    ``scene_cards`` overrides the embedded ``seed["scene_cards"]`` list. The
+    entrypoint injects extracted canonical cards when a franchise/book
+    context is provided; the embedded list is a degraded fallback.
+    """
     hooks = seed.get("hooks") or []
-    scene_cards = seed.get("scene_cards") or []
+    cards = scene_cards if scene_cards is not None else (seed.get("scene_cards") or [])
     revelations = seed.get("revelation_schedule") or []
 
     # Collect hook actions across all scene cards
     hook_plants: set[str] = set()
     hook_resolves: set[str] = set()
     scene_revelations: set[str] = set()
-    for card in scene_cards:
-        for action_entry in card.get("hook_references", []) or []:
+    for card in cards:
+        for action_entry in _card_hook_actions(card):
             hook_id = action_entry.get("hook_id")
             action = action_entry.get("action")
             if not hook_id:
@@ -352,7 +426,7 @@ def _check_hooks_and_scene_cards(seed: dict, report: ValidationReport) -> None:
                 hook_plants.add(hook_id)
             elif action == "resolve":
                 hook_resolves.add(hook_id)
-        for rev_id in card.get("revelation_references", []) or []:
+        for rev_id in _card_revelation_ids(card):
             scene_revelations.add(rev_id)
 
     # Check hard hooks — some workshop formats put priority in hook_type
@@ -402,16 +476,24 @@ def _check_hooks_and_scene_cards(seed: dict, report: ValidationReport) -> None:
         )
 
 
-def _check_scene_cards_coverage(seed: dict, report: ValidationReport) -> None:
-    """Scene cards should cover every chapter from 1 to target_chapters."""
+def _check_scene_cards_coverage(
+    seed: dict,
+    report: ValidationReport,
+    scene_cards: list[dict] | None = None,
+) -> None:
+    """Scene cards should cover every chapter from 1 to target_chapters.
+
+    ``scene_cards`` overrides the embedded list (see
+    ``_check_hooks_and_scene_cards``).
+    """
     meta = seed.get("meta") or {}
     target_chapters = meta.get("target_chapters")
-    scene_cards = seed.get("scene_cards") or []
+    cards = scene_cards if scene_cards is not None else (seed.get("scene_cards") or [])
     if not target_chapters:
         report.add("scene_cards.coverage", CheckStatus.WARN, "no target_chapters set; skipping coverage check")
         return
     chapters_with_cards: set[int] = set()
-    for card in scene_cards:
+    for card in cards:
         ch = card.get("chapter_number")
         if isinstance(ch, int):
             chapters_with_cards.add(ch)
@@ -432,7 +514,12 @@ def _check_scene_cards_coverage(seed: dict, report: ValidationReport) -> None:
     # Word count check: total scene card word count should be within ±20% of target
     target_word_count = meta.get("target_word_count")
     if target_word_count:
-        total = sum(card.get("estimated_word_count", 0) for card in scene_cards)
+        # Extracted canonical cards carry ``target_word_count`` per scene;
+        # embedded workshop cards carry ``estimated_word_count``. Accept either.
+        total = sum(
+            card.get("target_word_count") or card.get("estimated_word_count", 0)
+            for card in cards
+        )
         deviation = abs(total - target_word_count) / target_word_count
         if deviation > 0.20:
             report.add(
@@ -507,18 +594,63 @@ def _check_stress_test(seed: dict, report: ValidationReport) -> None:
 # ---------------------------------------------------------------------------
 
 
-def validate_concept_seed(seed: dict) -> ValidationReport:
-    """Run the full compliance validation suite against a concept seed dict."""
+def validate_concept_seed(
+    seed: dict,
+    franchise_slug: str | None = None,
+    book_slug: str | None = None,
+    base_dir: str = ".",
+) -> ValidationReport:
+    """Run the full compliance validation suite against a concept seed dict.
+
+    When ``franchise_slug`` and ``book_slug`` are supplied, hook/coverage
+    checks read the canonical extracted scene cards at
+    ``data/franchises/{franchise}/books/{book}/scene_cards/*.json``. The
+    embedded ``seed["scene_cards"]`` list becomes a workshop-only artifact.
+    When the extracted directory is missing or empty, validation falls
+    back to the embedded list and records a WARN so the caller knows they
+    are running against the degraded (pre-extraction) shape.
+    """
     report = ValidationReport()
-    _check_top_level_fields(seed, report)
+
+    # Resolve extracted cards first so the top-level field check knows
+    # whether an empty embedded ``scene_cards`` list is expected
+    # (post-extraction) or a failure (pre-extraction with missing workshop
+    # output).
+    scene_cards_for_checks: list[dict] | None = None
+    extracted_cards_available = False
+    if franchise_slug and book_slug:
+        extracted = _iter_extracted_scene_cards(franchise_slug, book_slug, base_dir)
+        if extracted:
+            scene_cards_for_checks = extracted
+            extracted_cards_available = True
+
+    _check_top_level_fields(seed, report, extracted_cards_available=extracted_cards_available)
     _check_meta(seed, report)
     _check_premise(seed, report)
     _check_conflict(seed, report)
     _check_theme(seed, report)
     _check_ensemble_cast(seed, report)
     _check_voice_definition(seed, report)
-    _check_hooks_and_scene_cards(seed, report)
-    _check_scene_cards_coverage(seed, report)
+
+    if franchise_slug and book_slug:
+        if extracted_cards_available:
+            report.add(
+                "scene_cards.source",
+                CheckStatus.PASS,
+                f"using {len(scene_cards_for_checks)} extracted canonical scene card(s) from "
+                f"data/franchises/{franchise_slug}/books/{book_slug}/scene_cards/",
+            )
+        else:
+            report.add(
+                "scene_cards.source",
+                CheckStatus.WARN,
+                f"no extracted scene cards at data/franchises/{franchise_slug}/"
+                f"books/{book_slug}/scene_cards/ — falling back to embedded "
+                "workshop cards (pre-extraction shape)",
+            )
+
+    _check_hooks_and_scene_cards(seed, report, scene_cards=scene_cards_for_checks)
+    _check_scene_cards_coverage(seed, report, scene_cards=scene_cards_for_checks)
     _check_terminology(seed, report)
     _check_stress_test(seed, report)
     return report
@@ -535,6 +667,24 @@ def main() -> int:
         help="Path to the concept seed JSON file",
     )
     parser.add_argument(
+        "--franchise",
+        dest="franchise",
+        default=None,
+        help=(
+            "Franchise slug (e.g. 'star-wars-legends-eu'). When provided "
+            "together with --book, hook/coverage checks read extracted "
+            "canonical scene cards instead of the embedded workshop list. "
+            "Auto-derived from the seed path when it lives under "
+            "data/franchises/<franchise>/books/<book>/concept_seed.json."
+        ),
+    )
+    parser.add_argument(
+        "--book",
+        dest="book",
+        default=None,
+        help="Book slug (e.g. 'the-ruusan-atonement'). Requires --franchise.",
+    )
+    parser.add_argument(
         "-v", "--verbose",
         action="store_true",
         help="Print all check results (pass and fail); by default only failures and warnings are shown",
@@ -545,8 +695,26 @@ def main() -> int:
         print(f"ERROR: seed file not found: {args.seed}", file=sys.stderr)
         return 1
 
+    franchise_slug = args.franchise
+    book_slug = args.book
+    # Auto-derive franchise/book from the seed path layout when not given
+    if not (franchise_slug and book_slug):
+        parts = args.seed.resolve().parts
+        if "franchises" in parts and "books" in parts:
+            try:
+                fi = parts.index("franchises")
+                bi = parts.index("books")
+                franchise_slug = franchise_slug or parts[fi + 1]
+                book_slug = book_slug or parts[bi + 1]
+            except (ValueError, IndexError):
+                pass
+
     seed = json.loads(args.seed.read_text(encoding="utf-8"))
-    report = validate_concept_seed(seed)
+    report = validate_concept_seed(
+        seed,
+        franchise_slug=franchise_slug,
+        book_slug=book_slug,
+    )
 
     print(report.format())
     if args.verbose:

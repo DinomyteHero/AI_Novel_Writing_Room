@@ -265,7 +265,7 @@ CREATE TABLE IF NOT EXISTS chapter_log (
     quality_scores TEXT,
     failure_codes TEXT,
     revision_status TEXT CHECK(revision_status IN (
-        'draft', 'gate_failed', 'gate_passed', 'craft_edited', 'revised', 'approved'
+        'draft', 'gate_failed', 'gate_passed', 'polished', 'final_gate_rejected', 'approved'
     )),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     revised_at TIMESTAMP
@@ -382,7 +382,14 @@ def _migrate_v1_to_v2(conn: sqlite3.Connection) -> None:
 
 
 def _migrate_v2_to_v3(conn: sqlite3.Connection) -> None:
-    """Multi-scene migration: add scene_log table with composite PK."""
+    """Multi-scene migration: add scene_log table with composite PK.
+
+    Note: this table was originally created with the legacy revision_status
+    CHECK constraint ('craft_edited', 'revised'). The v5 migration remaps
+    those values and updates the CHECK. Fresh databases get the updated
+    constraint directly because _SCHEMA_SQL (applied before migrations
+    run) carries the new definition.
+    """
     conn.executescript("""
     CREATE TABLE IF NOT EXISTS scene_log (
         chapter_number INTEGER NOT NULL,
@@ -394,7 +401,7 @@ def _migrate_v2_to_v3(conn: sqlite3.Connection) -> None:
         quality_scores TEXT,
         failure_codes TEXT,
         revision_status TEXT CHECK(revision_status IN (
-            'draft', 'gate_failed', 'gate_passed', 'craft_edited', 'revised', 'approved'
+            'draft', 'gate_failed', 'gate_passed', 'polished', 'final_gate_rejected', 'approved'
         )),
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         revised_at TIMESTAMP,
@@ -441,11 +448,109 @@ def _migrate_v3_to_v4(conn: sqlite3.Connection) -> None:
     """)
 
 
+def _migrate_v4_to_v5(conn: sqlite3.Connection) -> None:
+    """Pipeline redesign: retire craft_edited/revised revision_status labels.
+
+    The post-Phase-1 pipeline no longer produces those states — the Craft
+    Editor and 3-band revision pipeline were collapsed into a single
+    Quality Polish pass, whose output is either saved (approved), reverted
+    (final_gate_rejected), or never attempted (gate_passed, --raw-draft).
+
+    SQLite cannot ALTER a CHECK constraint in place, so we recreate both
+    log tables and copy rows through, remapping legacy values:
+      'craft_edited' -> 'polished'
+      'revised'      -> 'polished'
+    """
+    new_status_check = (
+        "revision_status TEXT CHECK(revision_status IN ("
+        "'draft', 'gate_failed', 'gate_passed', 'polished', "
+        "'final_gate_rejected', 'approved'))"
+    )
+
+    # --- chapter_log ---
+    conn.executescript(f"""
+    CREATE TABLE IF NOT EXISTS chapter_log_new (
+        chapter_number INTEGER PRIMARY KEY,
+        word_count INTEGER,
+        structural_phase TEXT,
+        pov_character TEXT,
+        summary TEXT,
+        quality_scores TEXT,
+        failure_codes TEXT,
+        {new_status_check},
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        revised_at TIMESTAMP
+    );
+
+    INSERT OR IGNORE INTO chapter_log_new
+    SELECT
+        chapter_number,
+        word_count,
+        structural_phase,
+        pov_character,
+        summary,
+        quality_scores,
+        failure_codes,
+        CASE revision_status
+            WHEN 'craft_edited' THEN 'polished'
+            WHEN 'revised' THEN 'polished'
+            ELSE revision_status
+        END AS revision_status,
+        created_at,
+        revised_at
+    FROM chapter_log;
+
+    DROP TABLE chapter_log;
+    ALTER TABLE chapter_log_new RENAME TO chapter_log;
+    """)
+
+    # --- scene_log ---
+    conn.executescript(f"""
+    CREATE TABLE IF NOT EXISTS scene_log_new (
+        chapter_number INTEGER NOT NULL,
+        scene_number INTEGER NOT NULL,
+        word_count INTEGER,
+        structural_phase TEXT,
+        pov_character TEXT,
+        summary TEXT,
+        quality_scores TEXT,
+        failure_codes TEXT,
+        {new_status_check},
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        revised_at TIMESTAMP,
+        PRIMARY KEY (chapter_number, scene_number)
+    );
+
+    INSERT OR IGNORE INTO scene_log_new
+    SELECT
+        chapter_number,
+        scene_number,
+        word_count,
+        structural_phase,
+        pov_character,
+        summary,
+        quality_scores,
+        failure_codes,
+        CASE revision_status
+            WHEN 'craft_edited' THEN 'polished'
+            WHEN 'revised' THEN 'polished'
+            ELSE revision_status
+        END AS revision_status,
+        created_at,
+        revised_at
+    FROM scene_log;
+
+    DROP TABLE scene_log;
+    ALTER TABLE scene_log_new RENAME TO scene_log;
+    """)
+
+
 # Ordered list of migrations. Each entry is (version, description, callable).
 _MIGRATIONS: list[tuple[int, str, callable]] = [
     (2, "Phase 5: character arcs, subplot board, hook ledger, terminology, propagation debts, style fingerprint", _migrate_v1_to_v2),
     (3, "Multi-scene: scene_log table with composite PK", _migrate_v2_to_v3),
     (4, "Expand character_arcs.current_phase for all arc types", _migrate_v3_to_v4),
+    (5, "Pipeline redesign: retire craft_edited/revised; add polished and final_gate_rejected", _migrate_v4_to_v5),
 ]
 
 
