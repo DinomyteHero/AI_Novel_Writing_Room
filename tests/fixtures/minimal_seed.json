@@ -1,0 +1,109 @@
+{
+  "meta": {
+    "project_title": "Test Novel",
+    "franchise": "Test Franchise",
+    "canon_status": "original",
+    "era": "Contemporary, 2026",
+    "tone": "character_study",
+    "target_word_count": 80000
+  },
+  "premise": {
+    "what_if": "What if the protagonist discovers a family secret that reshapes their understanding of belonging?",
+    "central_dramatic_question": "Can Alice reconcile her idea of her family with the truth?",
+    "logline": "A reluctant archivist finds a decades-old letter that unwinds the life she thought she knew."
+  },
+  "conflict": {
+    "primary_antagonistic_force": {
+      "type": "relational silence",
+      "motivation": "The family's decades-long commitment to protecting its own peace by withholding the truth from its youngest members",
+      "escalation": "As Alice pushes closer to the letter's author, the family closes ranks — each relative offering a different, softer half-truth — until the silence becomes active resistance rather than ambient absence"
+    },
+    "secondary_pressures": [
+      "Alice's own instinct to preserve the family's comfort"
+    ],
+    "lock_in_mechanism": "Alice commits to the search the moment she reads the letter's closing paragraph"
+  },
+  "theme": {
+    "thematic_premise": "The stories we inherit shape us whether we examine them or not",
+    "thematic_argument": "Choosing to confront an inherited narrative honestly is more costly, and more liberating, than living comfortably inside it — even when the cost is the narrative itself",
+    "how_each_arc_tests_theme": {
+      "Alice": "Alice must decide whether to protect the family's comfort or pursue the truth",
+      "Bob": "Bob defends the silence; his arc tests whether protection becomes possession"
+    }
+  },
+  "ensemble_cast": [
+    {
+      "name": "Alice",
+      "role": "protagonist",
+      "three_dimensions": {
+        "surface": "A quiet, precise archivist who prefers written records to live conversations",
+        "backstory_inner_demons": "Lost her mother young; inherited a family whose stories she could never fully trust",
+        "action_under_pressure": "Investigates rather than confronts; retreats into research when pressed"
+      },
+      "weiland_arc": {
+        "lie_believed": "If I don't ask, nothing has to change",
+        "ghost": "The day her mother left the archive incomplete and unexplained",
+        "want": "To finish her mother's catalogue before she forgets",
+        "need": "To separate her life from the family's unresolved inheritance",
+        "arc_type": "positive_change"
+      }
+    },
+    {
+      "name": "Bob",
+      "role": "antagonist",
+      "three_dimensions": {
+        "surface": "The steady uncle, always ready with a reassuring explanation that smooths the room",
+        "backstory_inner_demons": "Sealed the archive decades ago and has defended the decision ever since",
+        "action_under_pressure": "Intellectualizes, explains, deflects — never raises his voice, never lets a silence settle"
+      },
+      "weiland_arc": {
+        "lie_believed": "Protection is the deepest form of love",
+        "ghost": "The letter he wrote and never sent, still folded in his desk",
+        "want": "To keep the family's peace intact for one more generation",
+        "need": "To trust that Alice can hold the truth without breaking",
+        "arc_type": "negative"
+      }
+    }
+  ],
+  "scene_cards": [
+    {
+      "chapter_number": 1,
+      "scene_number": 1,
+      "pov_character": "Alice",
+      "scene_goal": "Alice discovers the sealed letter in the back of the archive",
+      "scene_conflict": "Alice must decide whether to open the envelope before logging it",
+      "location": "The family archive, basement level",
+      "arc_phase": "Setup: establish Alice's relationship to the archive",
+      "estimated_word_count": 1200,
+      "time": "late evening",
+      "thematic_beat": "inheritance as choice",
+      "scene_outcome": "Alice pockets the letter unopened and leaves",
+      "scene_type": "action"
+    },
+    {
+      "chapter_number": 1,
+      "scene_number": 2,
+      "pov_character": "Alice",
+      "scene_goal": "Alice reads the letter at home and decides to investigate",
+      "scene_conflict": "The letter's closing line forces a reckoning Alice cannot undo",
+      "location": "Alice's apartment",
+      "arc_phase": "Setup: lock-in moment",
+      "estimated_word_count": 1100,
+      "time": "midnight",
+      "thematic_beat": "the first choice",
+      "scene_outcome": "Alice commits to finding the author",
+      "scene_type": "sequel"
+    }
+  ],
+  "canon_constraints": {
+    "continuity": "Contemporary realism; Test Franchise's own internal consistency is the only canon",
+    "canon_preserved": [
+      "Contemporary mid-sized American city",
+      "Present-day technology and communications"
+    ],
+    "style_constraints": [
+      "American English",
+      "Close third-person limited on Alice"
+    ]
+  }
+}

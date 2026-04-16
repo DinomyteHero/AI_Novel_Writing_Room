@@ -1,0 +1,51 @@
+{
+  "voice_definition": {
+    "pov_approach": "Close third limited, locked to Alice",
+    "prose_register": "Literary contemporary — observational, interior-weighted",
+    "reference_authors": [],
+    "character_voices": {
+      "Alice": "Measured, interior, prone to examining her own thinking",
+      "Bob": "Warm exterior, always smoothing over"
+    },
+    "anti_slop_rules": [
+      "Never use 'suddenly'",
+      "Avoid adverb-dialogue tags"
+    ],
+    "anti_patterns": [],
+    "pacing_feel": "Breathing — contemplative early, tightening in the middle",
+    "narrative_voice_notes": "Keep Alice's interiority on the page without italicizing thought."
+  },
+  "arc_phase_maps": {
+    "Alice": {
+      "lie_established": "Chapter 1",
+      "lie_challenged": "Chapter 3",
+      "moment_of_truth": "Chapter 7",
+      "arc_resolved": "Chapter 10"
+    }
+  },
+  "promise_payoff_ledger": [
+    {
+      "promise_id": "PP01",
+      "promise": "The letter reveals the family's hidden story",
+      "planted_in": "Chapter 1",
+      "payoff_in": "Chapter 7"
+    }
+  ],
+  "canon_constraints": {
+    "continuity": "Contemporary realism with this book's own internal consistency",
+    "canon_preserved": ["present-day technology", "real-world geography"],
+    "style_constraints": ["American English", "close third on Alice"]
+  },
+  "workshop_origin": {
+    "source": "test_fixture",
+    "date": "2026-04-16",
+    "session_type": "unit_test",
+    "notes": "Synthetic fixture for tests/test_install_seed.py"
+  },
+  "extended_metadata_fields": [],
+  "structural_overrides": {},
+  "arc_type_map": {
+    "Alice": "positive_change",
+    "Bob": "negative"
+  }
+}
