@@ -322,6 +322,74 @@ def _init_phase3(router, ledger, config, embedding_function, no_milestones=False
     return metrics_dashboard, character_specialist, milestone_gates
 
 
+async def _ensure_chapter_blueprints(
+    router,
+    ledger,
+    concept_seed: dict,
+    scene_cards: list[dict],
+    franchise_slug: str,
+    book_slug: str,
+    regenerate: bool = False,
+) -> None:
+    """Phase 5: fill in missing chapter blueprints.
+
+    Detects which chapters in ``scene_cards`` have no blueprint at the
+    canonical path and generates them. Hand-authored blueprints are
+    preserved unless ``regenerate=True``. Emits the
+    ``chapter_blueprints_generated`` ledger event.
+
+    No-op when ``scene_cards`` is empty or no chapters need blueprints.
+    """
+    if not scene_cards:
+        return
+
+    print("Checking chapter blueprints...")
+    bp_dir = (
+        Path("data") / "franchises" / franchise_slug / "books" / book_slug
+        / "chapter_blueprints"
+    )
+    existing_chapters: set[int] = set()
+    if bp_dir.exists():
+        for path in bp_dir.glob("chapter_*.json"):
+            try:
+                existing_chapters.add(int(path.stem.split("_")[1]))
+            except (IndexError, ValueError):
+                continue
+
+    chapters_in_cards = {
+        c["chapter_number"] for c in scene_cards if "chapter_number" in c
+    }
+    needed_chapters = chapters_in_cards - existing_chapters
+
+    if not needed_chapters and not regenerate:
+        print(f"  All {len(chapters_in_cards)} chapter(s) have blueprints — skipping generation")
+        return
+
+    from src.planning.chapter_blueprint_generator import (
+        ChapterBlueprintGenerator,
+        save_blueprints,
+    )
+
+    if regenerate:
+        target_cards = scene_cards
+        print(f"  Regenerating blueprints for {len(chapters_in_cards)} chapter(s)")
+    else:
+        target_cards = [c for c in scene_cards if c["chapter_number"] in needed_chapters]
+        print(f"  Generating blueprints for {len(needed_chapters)} chapter(s) "
+              f"(preserving {len(existing_chapters & chapters_in_cards)} hand-authored)")
+
+    generator = ChapterBlueprintGenerator(router)
+    new_blueprints = await generator.generate(concept_seed, target_cards)
+    saved = save_blueprints(
+        new_blueprints, franchise_slug, book_slug, force=regenerate,
+    )
+    ledger.emit(
+        "chapter_blueprints_generated",
+        payload={"count": len(saved), "regenerated": regenerate},
+    )
+    print(f"  Wrote {len(saved)} chapter blueprint file(s)")
+
+
 async def main():
     parser = argparse.ArgumentParser(
         description="AI Writers' Room — Multi-agent fiction generation pipeline"
@@ -358,8 +426,21 @@ async def main():
         "--phase",
         type=int,
         default=1,
-        choices=[1, 2, 3, 4],
-        help="Pipeline phase: 1 = basic, 2 = memory/canon, 3 = quality/revision, 4 = full (default: 1)",
+        choices=[1, 2, 3, 4, 5],
+        help="Pipeline phase: 1 = basic, 2 = memory/canon, 3 = quality/revision, 4 = full, 5 = chapter blueprints + chapter gate critic (default: 1)",
+    )
+    parser.add_argument(
+        "--no-blueprints",
+        action="store_true",
+        help="Phase 5: skip chapter blueprint auto-generation. "
+             "Hand-authored blueprints at data/franchises/<fr>/books/<bk>/chapter_blueprints/ "
+             "are still loaded by ChapterGateCritic if present.",
+    )
+    parser.add_argument(
+        "--regenerate-blueprints",
+        action="store_true",
+        help="Phase 5: overwrite existing chapter blueprints. "
+             "Default behaviour preserves hand-authored blueprints (skip-if-exists).",
     )
     parser.add_argument(
         "--no-revision",
@@ -835,6 +916,18 @@ async def main():
         except Exception as e:
             print(f"  Phase 4 initialization error: {e}")
 
+    # Phase 5: Chapter Gate Critic (chapter-level evaluation, blueprint-aware
+    # when chapter_blueprints/chapter_NN.json files are present).
+    chapter_gate_critic = None
+    if args.phase >= 5:
+        print("Initializing Phase 5 components...")
+        try:
+            from src.agents.chapter_gate_critic import ChapterGateCritic
+            chapter_gate_critic = ChapterGateCritic(router)
+            print("  Phase 5 components: chapter gate critic")
+        except ImportError as e:
+            print(f"  Warning: ChapterGateCritic not available: {e}")
+
     # Worldbuilding service (optional, requires --universe-id)
     lore_service = None
     if franchise_slug:
@@ -882,6 +975,24 @@ async def main():
             paths = scene_card_generator.save_scene_cards(generated_cards, output_dir)
             print(f"Generated {len(paths)} scene card(s) in {output_dir}")
             ledger.emit("outline_generated", payload={"count": len(paths)})
+
+            # Phase 5.4: emit chapter blueprint drafts alongside the new scene
+            # cards so the planning artifact is complete in one step.
+            if (
+                args.phase >= 5
+                and not args.no_blueprints
+                and franchise_slug
+                and book_id
+            ):
+                await _ensure_chapter_blueprints(
+                    router=router,
+                    ledger=ledger,
+                    concept_seed=concept_seed,
+                    scene_cards=generated_cards,
+                    franchise_slug=franchise_slug,
+                    book_slug=book_id,
+                    regenerate=args.regenerate_blueprints,
+                )
         else:
             print("Warning: No scene cards generated")
 
@@ -918,6 +1029,7 @@ async def main():
         pipeline_session=pipeline_session,
         session_id=session_id,
         judge_evaluator=judge_evaluator,
+        chapter_gate_critic=chapter_gate_critic,
         lore_service=lore_service,
         universe_id=franchise_slug,
         project_id=book_id,
@@ -936,6 +1048,26 @@ async def main():
     print(f"Deployment mode: {router.mode}")
     print(f"Pipeline phase: {args.phase}")
     print(f"Output directory: {manuscripts_dir}")
+
+    # Phase 5: ensure chapter blueprints exist for every chapter being run.
+    # Hand-authored blueprints take precedence (skip-if-exists). Requires
+    # franchise_slug and book_id so blueprints land at the canonical path
+    # ChapterGateCritic loads from.
+    if (
+        args.phase >= 5
+        and not args.no_blueprints
+        and franchise_slug
+        and book_id
+    ):
+        await _ensure_chapter_blueprints(
+            router=router,
+            ledger=ledger,
+            concept_seed=concept_seed,
+            scene_cards=scene_cards,
+            franchise_slug=franchise_slug,
+            book_slug=book_id,
+            regenerate=args.regenerate_blueprints,
+        )
 
     try:
         results = await orchestrator.run_pipeline(scene_cards)

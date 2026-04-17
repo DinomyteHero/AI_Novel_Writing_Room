@@ -47,7 +47,7 @@ class WebOrchestrator(Orchestrator):
         results = []
 
         try:
-            for scene_card in active_cards:
+            for i, scene_card in enumerate(active_cards):
                 # Pause gate: blocks here if paused
                 await pm.pause_event.wait()
 
@@ -68,6 +68,9 @@ class WebOrchestrator(Orchestrator):
                     self.pipeline_session.mark_chapter_complete(
                         self.session_id, chapter_num, scene_num, result
                     )
+
+                # Phase 5: chapter-level gate after last scene in chapter
+                await self.maybe_run_chapter_gate_after_scene(i, active_cards, results)
 
                 # Async milestone approval
                 if result.get("milestone") and pm._milestone_pending:

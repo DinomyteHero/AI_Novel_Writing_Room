@@ -81,6 +81,7 @@ agent_routing:
   outline_planner:        { backend: cloud, model: gemini, params: { temperature: 0.5, max_tokens: 32768 } }
   seed_builder:           { backend: cloud, model: gemini, params: { temperature: 0.3, max_tokens: 16384 } }
   plot_architect:         { backend: cloud, model: gemini, params: { temperature: 0.4 } }
+  chapter_blueprint_synthesizer: { backend: cloud, model: gemini, params: { temperature: 0.4, max_tokens: 8192 } }
 
   # POLISH — single bounded pass on same family as writer (minimises style drift per pipeline-redesign.md)
   quality_polish:         { backend: cloud, model: claude, params: { temperature: 0.5, max_tokens: 8192 } }

@@ -334,6 +334,31 @@ specified but did not fully implement.
 - Full 28-chapter Ruusan run produces blueprints for all chapters;
   ChapterGateCritic enforces against them.
 
+**Status: complete.** Implementation summary:
+- `src/planning/chapter_blueprint_generator.py` — hybrid generator. Deterministic
+  rollups (`_compute_pov_allocation`, `_compute_scene_plan_skeleton`,
+  `_compute_chapter_word_target`, `_compute_reveal_payload`,
+  `_compute_hook_movements`, `_compute_subplot_obligations`,
+  `_compute_structural_phase`) preserve ID fidelity from scene cards.
+  `ChapterBlueprintSynthesizer` (LLM agent on `gemini` /
+  `chapter_blueprint_synthesizer` role) produces narrative fields. `save_blueprints`
+  writes to the canonical path with skip-if-exists semantics.
+- `src/main.py` — `--phase 5`, `--no-blueprints`, `--regenerate-blueprints`
+  flags. Phase 5 init instantiates `ChapterGateCritic`. `_ensure_chapter_blueprints`
+  helper fills missing blueprints from the `--generate-outline` path AND from
+  the runtime path before `run_pipeline`. Both call sites share the same
+  generator.
+- `src/ui/routes/pipeline.py` — `PipelineStartRequest.generate_blueprints` /
+  `regenerate_blueprints` fields, parallel `_ensure_chapter_blueprints` helper,
+  `ChapterGateCritic` instantiated in `_create_web_orchestrator` when
+  `phase >= 5`.
+- `src/orchestrator.py` — extracted `maybe_run_chapter_gate_after_scene`
+  helper so `WebOrchestrator.run_pipeline` honours the chapter gate (parent
+  override previously skipped it).
+- Tests: `tests/test_chapter_blueprint_generator.py` (47 tests including
+  Ruusan ch1 deterministic equivalence), `tests/test_main_blueprint_wiring.py`
+  (12 tests), `tests/test_ui_pipeline_blueprint_wiring.py` (12 tests).
+
 ---
 
 ### Phase 6 — Series continuation
@@ -453,7 +478,7 @@ Phase 0 --> Phase 1 --> Phase 1.5 --+--> Phase 2 --+--> Phase 3 ---> Phase 4 (3-
 |---|---|
 | Exact form of `branch_point` schema fields | Phase 2 |
 | Which external formats warrant first-class importers beyond `legacy_seed` and `plain_markdown` | Phase 4 |
-| Whether ChapterGateCritic should be blocking or advisory by default | Phase 5 |
+| ~~Whether ChapterGateCritic should be blocking or advisory by default~~ | **Resolved (Phase 5): advisory by default.** The critic emits failures into `chapter_level_failures` for diagnostics but does not block the save. Revisit blocking once we have failure-rate data from real runs. |
 | Book-to-book state carryover: full StoryState serialization vs. minimal snapshot | Phase 6 |
 | Conflict detector strictness (advisory vs. blocking) | Phase 7 |
 | Whether to keep SKILL.md as a thin wrapper or delete it entirely post-Phase-8 | Phase 8 |
