@@ -1,0 +1,151 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "UniverseBuilderArtifact",
+  "description": "Output of the universe-builder surface. Carries the project meta block (mirrors concept_seed.meta) and the standalone universe_meta block (mirrors schemas/universe_meta.json). The bundle compiler injects meta into concept_seed.json and writes universe_meta.json to the franchise directory.",
+  "type": "object",
+  "required": ["meta", "universe_meta"],
+  "properties": {
+    "surface": { "type": "string", "const": "universe-builder" },
+    "schema_version": { "type": "string", "const": "1.0" },
+    "premise": {
+      "type": "object",
+      "description": "Step 2 — the project's What If, central dramatic question, and logline. Required at compile time.",
+      "properties": {
+        "what_if": { "type": "string", "minLength": 50 },
+        "central_dramatic_question": { "type": "string" },
+        "logline": { "type": "string", "maxLength": 500 }
+      }
+    },
+    "conflict": {
+      "type": "object",
+      "description": "Step 3 — primary antagonistic force, secondary pressures, lock-in mechanism.",
+      "properties": {
+        "primary_antagonistic_force": {
+          "type": "object",
+          "properties": {
+            "type": { "type": "string" },
+            "identity": { "type": "string" },
+            "motivation": { "type": "string", "minLength": 50 },
+            "escalation": { "type": "string", "minLength": 100 }
+          }
+        },
+        "secondary_pressures": { "type": "array", "items": { "type": "string" } },
+        "lock_in_mechanism": { "type": "string", "minLength": 30 }
+      }
+    },
+    "theme": {
+      "type": "object",
+      "description": "Step 2/3 — thematic premise, argument, and per-arc thematic mapping.",
+      "properties": {
+        "thematic_premise": { "type": "string" },
+        "thematic_argument": { "type": "string", "minLength": 100 },
+        "how_each_arc_tests_theme": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        }
+      }
+    },
+    "protagonist_arc_type": {
+      "type": "string",
+      "enum": ["change", "steadfast", "fall", "rise"]
+    },
+    "stress_test_scores": {
+      "type": "object",
+      "description": "Step 10 — 9-dimension stress test scores. Optional; nulls allowed when scoring deferred.",
+      "properties": {
+        "structural_integrity": { "type": ["number", "null"], "minimum": 0, "maximum": 10 },
+        "character_depth": { "type": ["number", "null"], "minimum": 0, "maximum": 10 },
+        "hook_discipline": { "type": ["number", "null"], "minimum": 0, "maximum": 10 },
+        "thematic_resonance": { "type": ["number", "null"], "minimum": 0, "maximum": 10 },
+        "conflict_architecture": { "type": ["number", "null"], "minimum": 0, "maximum": 10 },
+        "pacing_and_proportion": { "type": ["number", "null"], "minimum": 0, "maximum": 10 },
+        "lore_and_continuity": { "type": ["number", "null"], "minimum": 0, "maximum": 10 },
+        "world_building_coherence": { "type": ["number", "null"], "minimum": 0, "maximum": 10 },
+        "series_coherence": { "type": ["number", "null"], "minimum": 0, "maximum": 10 },
+        "overall": { "type": ["number", "null"], "minimum": 0, "maximum": 10 }
+      }
+    },
+    "quality_overrides": {
+      "type": "object",
+      "description": "Optional per-project overrides for quality metric thresholds (allow franchise vocabulary, similarity threshold tweaks).",
+      "properties": {
+        "word_frequency_allowlist": { "type": "array", "items": { "type": "string" } },
+        "semantic_similarity_threshold": { "type": "number", "minimum": 0.5, "maximum": 1.0 },
+        "max_similar_pairs_per_1k_words": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "extended_metadata": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "meta": {
+      "type": "object",
+      "required": ["project_title", "franchise", "canon_status", "era", "tone", "target_word_count"],
+      "properties": {
+        "project_title": { "type": "string" },
+        "franchise": { "type": "string" },
+        "canon_status": {
+          "type": "string",
+          "enum": ["canon_compliant", "AU", "original"]
+        },
+        "canon_status_description": { "type": "string" },
+        "era": { "type": "string" },
+        "tone": {
+          "type": "string",
+          "enum": ["dark_gritty", "adventurous_hopeful", "political_intrigue", "character_study", "heroic_with_weight"]
+        },
+        "tone_description": { "type": "string" },
+        "target_word_count": { "type": "integer", "minimum": 40000, "maximum": 120000 },
+        "target_chapters": { "type": "integer", "minimum": 15, "maximum": 40 },
+        "pov_structure": { "type": "string" },
+        "project_scope": {
+          "type": "string",
+          "enum": ["standalone", "planned_series", "continuation"]
+        },
+        "series": {
+          "type": "object",
+          "properties": {
+            "series_id": { "type": "string" },
+            "book_number": { "type": "integer", "minimum": 1 }
+          }
+        },
+        "book_number": { "type": "integer", "minimum": 1 },
+        "series_id": { "type": "string" },
+        "cosmology_id": { "type": "string" }
+      }
+    },
+    "universe_meta": {
+      "type": "object",
+      "required": ["universe_name", "franchise"],
+      "properties": {
+        "universe_name": { "type": "string" },
+        "franchise": { "type": "string" },
+        "canon_status": {
+          "type": "string",
+          "enum": ["canon_compliant", "AU", "original"]
+        },
+        "cosmology_id": { "type": "string" },
+        "branch_point": {
+          "type": "object",
+          "properties": {
+            "source_canon": { "type": "string" },
+            "divergence_point": { "type": "string" },
+            "divergence_description": { "type": "string" }
+          }
+        },
+        "commercial_intent": {
+          "type": "string",
+          "enum": [
+            "fanfiction_noncommercial",
+            "fanfiction_monetized",
+            "commercial_original",
+            "commercial_licensed",
+            "private"
+          ],
+          "default": "fanfiction_noncommercial"
+        },
+        "notes": { "type": "string" }
+      }
+    }
+  }
+}

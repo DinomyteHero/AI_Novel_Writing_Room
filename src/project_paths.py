@@ -279,6 +279,19 @@ class ProjectPaths:
     def scene_cards_dir(self) -> Path:
         return self.book_dir / "scene_cards"
 
+    @property
+    def workflows_dir(self) -> Path:
+        """Per-surface artifact directory (Phase 4 workflow kit).
+
+        Hosts ``universe.json``, ``canon.json``, ``voice.json``,
+        ``characters.json``, ``outline.json`` and a ``scene_cards/``
+        subdirectory written by each surface's ``api.py``. The bundle
+        compiler at ``scripts/compile_bundle.py`` reads from here and
+        writes the merged ``concept_seed.json`` + ``scene_cards/`` at
+        the book root.
+        """
+        return self.book_dir / "workflows"
+
     # --- Output base paths ---
 
     @property

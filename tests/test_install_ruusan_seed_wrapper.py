@@ -267,6 +267,22 @@ class TestRuusanWrapperScript:
         (tmp_path / "src" / "__init__.py").touch()
         (tmp_path / "src" / "concept_workshop" / "__init__.py").touch()
 
+        # The concept_workshop modules above are Phase-4 back-compat shims
+        # that re-export from workflows/_shared/. Mirror that package so
+        # the wrapper's import chain resolves inside the isolated tree.
+        shared_dst = tmp_path / "workflows" / "_shared"
+        shared_dst.mkdir(parents=True)
+        (tmp_path / "workflows" / "__init__.py").touch()
+        (shared_dst / "__init__.py").touch()
+        shutil.copy(
+            REPO_ROOT / "workflows" / "_shared" / "seed_transforms.py",
+            shared_dst,
+        )
+        shutil.copy(
+            REPO_ROOT / "workflows" / "_shared" / "scene_card_translator.py",
+            shared_dst,
+        )
+
         # Copy schemas.
         shutil.copytree(REPO_ROOT / "schemas", tmp_path / "schemas")
 

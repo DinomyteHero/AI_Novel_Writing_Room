@@ -74,6 +74,15 @@ class WorkshopRunner:
 
     async def run(self) -> None:
         """Run the interactive conversation loop."""
+        self._print(
+            "NOTE: workshop_runner is deprecated as of Phase 4. "
+            "New projects should use the per-surface workflow kit "
+            "(workflows/<surface>/SKILL.md or .claude/skills/<surface>/) "
+            "and assemble via 'python scripts/compile_bundle.py'. "
+            "Existing in-flight workshops are still supported; "
+            "migrate finished projects with 'python scripts/migrate_workshop.py'. "
+            "See docs/user-guide/workflow-kit.md."
+        )
         self.router.start_workshop_session()
 
         system_prompt = self._load_system_prompt()
