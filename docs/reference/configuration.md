@@ -14,30 +14,19 @@ deployment_mode: cloud  # local | cloud | hybrid
 
 ### Local Models
 
+When `deployment_mode: local` (or `hybrid` with specific agents on the local backend), the router talks to a local `llama-server` instance via its OpenAI-compatible API. Populate `models.local.models` with your installed quantized checkpoints and point `base_url` at the server:
+
 ```yaml
 models:
   local:
     inference_backend: llama-server
     base_url: http://localhost:8080/v1
-    models:
-      primary_moe: Qwen3-30B-A3B-Instruct-2507-Q4_K_M
-      fast_moe: Gemma-4-26B-A4B-Q5_K_M
-      utility: Qwen3.5-9B-Q5_K_M
-      embedding: nomic-embed-text
-    default_params:
-      primary_moe:
-        temperature: 0.7
-        min_p: 0.05
-        top_p: 1.0
-        top_k: 0
-        repetition_penalty: 1.1
-      prose:
-        temperature: 1.0
-        min_p: 0.05
-      utility:
-        temperature: 0.3
-        min_p: 0.1
+    timeout_seconds: 300
+    models: {}          # {short_alias: full_model_filename} — filled by the operator
+    default_params: {}  # {short_alias: {temperature: ..., max_tokens: ...}}
 ```
+
+The shipped cloud-mode `config/settings.yaml` leaves `models.local` empty; the local map is only populated on machines that run inference locally.
 
 ### Cloud Models
 
@@ -47,17 +36,33 @@ models:
     provider: openrouter
     base_url: https://openrouter.ai/api/v1
     api_key_env: OPENROUTER_API_KEY    # Environment variable name
+    timeout_seconds: 300
     models:
-      primary: anthropic/claude-sonnet-4-20250514
-      premium: anthropic/claude-opus-4-20250514
-      budget: anthropic/claude-haiku-4-5-20251001
-      primary_moe: google/gemma-4-31b-it:free
-      fast_moe: google/gemma-4-31b-it:free
-      utility: google/gemma-4-26b-a4b-it:free
-      prose: google/gemma-4-31b-it:free
+      # Short alias -> full OpenRouter slug
+      gemini:         google/gemini-3.1-pro-preview
+      gemini_flash:   google/gemini-3-flash-preview
+      deepseek:       deepseek/deepseek-v3.2
+      claude:         anthropic/claude-sonnet-4.6
+      haiku:          anthropic/claude-haiku-4.5
+      glm:            z-ai/glm-5.1
+      qwen:           qwen/qwen3.6-plus
+      kimi:           moonshotai/kimi-k2
+      grok420:        x-ai/grok-4.20
+      grok41fast:     x-ai/grok-4.1-fast
+      mistral_small4: mistralai/mistral-small-2603
+      minimax:        minimax/minimax-m2.7
+    default_params:
+      # Per-alias defaults (temperature, max_tokens) applied when an agent
+      # routing entry does not override them.
+      gemini:         { temperature: 0.6, max_tokens: 8192 }
+      gemini_flash:   { temperature: 0.5, max_tokens: 8192 }
+      deepseek:       { temperature: 0.3, max_tokens: 4096 }
+      claude:         { temperature: 0.4, max_tokens: 8192 }
+      haiku:          { temperature: 0.4, max_tokens: 4096 }
+      # ...
 ```
 
-The cloud section includes both free and paid model alternatives (paid options are commented out).
+Add more aliases as needed. The bench configs (`settings.bench.sonnet.yaml`, `settings.bench.gpt.yaml`) also register `gpt54: openai/gpt-5.4` when benchmarking OpenAI prose models.
 
 ### Timeout Settings
 
@@ -75,26 +80,66 @@ Increase this value if you experience timeouts during large requests (e.g., scen
 
 ### Agent Routing
 
-Maps each agent role to a backend, model tier, and optional parameter overrides:
+Maps each agent role to a backend, model tier, and optional parameter overrides. The live production routing in `config/settings.yaml` uses a mixed-model strategy informed by the prose-model bench (see [Benchmarking](../development/benchmarking.md)):
 
 ```yaml
 agent_routing:
-  plot_architect:    { backend: local, model: primary_moe, params: { temperature: 0.4 } }
-  prose_stylist:     { backend: local, model: primary_moe, params: { temperature: 0.9 } }
-  gate_critic:       { backend: local, model: primary_moe, params: { temperature: 0.3 } }
-  craft_editor:      { backend: local, model: primary_moe, params: { temperature: 0.4 } }
-  canon_expert:      { backend: local, model: fast_moe, params: { temperature: 0.2 } }
-  summarizer:        { backend: local, model: utility, params: { temperature: 0.2 } }
-  character_specialist: { backend: local, model: primary_moe, params: { temperature: 0.4 } }
-  voice_checker:     { backend: cloud, model: primary, params: { temperature: 0.3 } }
-  judge_evaluator:   { backend: cloud, model: primary, params: { temperature: 0.2 } }
-  concept_workshop:  { backend: cloud, model: primary, params: { temperature: 0.7 } }
-  outline_planner:   { backend: cloud, model: primary, params: { temperature: 0.5, max_tokens: 16384 } }
-  seed_builder:      { backend: cloud, model: primary, params: { temperature: 0.3, max_tokens: 16384 } }
-  # Revision agents, dialogue polish, etc. also defined here
+  # PROSE — premium voice under current live config
+  prose_stylist:   { backend: cloud, model: claude,   params: { temperature: 0.80, max_tokens: 8192 } }
+
+  # GATES / EVAL — cheap, precise
+  gate_critic:         { backend: cloud, model: haiku,   params: { temperature: 0.3 } }
+  chapter_gate_critic: { backend: cloud, model: haiku,   params: { temperature: 0.3 } }
+  final_gate:          { backend: cloud, model: haiku,   params: { temperature: 0.2 } }
+  judge_evaluator:     { backend: cloud, model: grok420, params: { temperature: 0.2 } }
+  manuscript_reviewer: { backend: cloud, model: kimi,    params: { temperature: 0.3 } }
+
+  # PLANNING — Gemini Pro for outline/seed/brief generation
+  concept_workshop: { backend: cloud, model: gemini, params: { temperature: 0.7, max_tokens: 8192 } }
+  outline_planner:  { backend: cloud, model: gemini, params: { temperature: 0.5, max_tokens: 32768 } }
+  seed_builder:     { backend: cloud, model: gemini, params: { temperature: 0.3, max_tokens: 16384 } }
+  plot_architect:   { backend: cloud, model: gemini, params: { temperature: 0.4 } }
+  chapter_blueprint_synthesizer: { backend: cloud, model: gemini, params: { temperature: 0.4, max_tokens: 8192 } }
+
+  # POLISH — single bounded expression-level pass
+  quality_polish: { backend: cloud, model: claude, params: { temperature: 0.5, max_tokens: 8192 } }
+
+  # STRUCTURAL REVISION / UTILITY
+  voice_checker:        { backend: cloud, model: mistral_small4, params: { temperature: 0.3 } }
+  stress_test:          { backend: cloud, model: deepseek,       params: { temperature: 0.5 } }
+  orchestrator:         { backend: cloud, model: grok41fast }
+  canon_expert:         { backend: cloud, model: grok420, params: { temperature: 0.2 } }
+  summarizer:           { backend: cloud, model: deepseek, params: { temperature: 0.2 } }
+  character_specialist: { backend: cloud, model: deepseek, params: { temperature: 0.3 } }
+  lore_extractor:       { backend: cloud, model: deepseek, params: { temperature: 0.2, max_tokens: 8192 } }
+  worldbuilding_coherence_reviewer: { backend: cloud, model: grok420, params: { temperature: 0.3 } }
 ```
 
-When `deployment_mode` is `cloud`, the `backend` field in agent routing is overridden -- all agents use cloud models.
+**Deployment mode override**: When `deployment_mode` is `cloud`, the `backend` field on every agent routing entry is overridden — all agents use cloud models. When `local`, all use local. `hybrid` is the only mode that honours the per-agent `backend` field.
+
+**There is no `craft_editor` role.** The 3-band revision pipeline was collapsed into a single `quality_polish` agent in the [pipeline redesign](../architecture/pipeline-redesign.md). Any `craft_editor` routing entry inherited from an older config is ignored.
+
+### Prompt Caching
+
+Anthropic prompt caching is enabled by default for supported providers:
+
+```yaml
+pipeline:
+  prompt_caching:
+    enabled: true
+    anthropic_ttl: 1h  # "5m" (1.25x write cost) or "1h" (2x write, cheaper for sequential pipelines)
+```
+
+The 1h TTL is the right choice for chapter-level batches — the `anthropic` provider amortizes the Sonnet input cost across many scene-level calls within a run.
+
+### Bench Configs
+
+Two frozen routing snapshots live alongside `settings.yaml` for benchmarking:
+
+- `config/settings.bench.sonnet.yaml` — `prose_stylist` on Sonnet 4.6 @ t=0.70, `plot_architect` on Grok 4.20, `quality_polish` on Haiku 4.5.
+- `config/settings.bench.gpt.yaml` — same pipeline but `prose_stylist` on GPT 5.4 @ t=0.70, and registers `gpt54: openai/gpt-5.4` in the cloud models map.
+
+Run with `--config config/settings.bench.sonnet.yaml` or `--config config/settings.bench.gpt.yaml`. See [Benchmarking](../development/benchmarking.md) for the A/B methodology and the pre-built analyses in `output/…/runs/BENCH_*.md`.
 
 ### Pipeline Settings
 
@@ -200,9 +245,11 @@ Defines the 19 failure codes used by GateCritic, organized into 3 categories:
 
 | Category | Action |
 |----------|--------|
-| fail_structural | full_rewrite (back to ProseStylist with failure context) |
-| fail_voice | targeted_revision (ProseStylist with specific notes) |
-| fail_polish | craft_edit (CraftEditor, non-blocking) |
+| fail_structural | full_rewrite (back to ProseStylist with failure context; up to `max_structural_retries`) |
+| fail_voice | targeted_revision (ProseStylist with specific notes; up to `max_voice_retries`) |
+| fail_polish | no rewrite — the Scene-Gate-passed draft passes through to QualityPolish + compression guard + FinalGate, which either accept the polish or revert to the Gate-passed draft |
+
+> **Note**: `fail_polish` no longer routes to a CraftEditor. The 3-band revision pipeline was collapsed into a single bounded `quality_polish` pass guarded by a compression check and the Final Gate. See [pipeline-redesign.md](../architecture/pipeline-redesign.md).
 
 ---
 

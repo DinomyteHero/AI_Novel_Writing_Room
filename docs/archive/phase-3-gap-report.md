@@ -4,6 +4,8 @@
 **Scope:** Drift and loose ends found after Phase 3 (Generic Bootstrap) closure and the comprehensive scene card refresh.
 **Source evidence:** Direct reads of the files listed inline. All claims are code-verified, not inferred.
 
+> **Archived 2026-04-17.** This report was a point-in-time drift snapshot. The P0 items (stale README, `failure_codes.yaml` routing, `--no-revision` flag behavior, CraftEditor references) have all been closed by Phases 4–7 and the docs-refresh pass on 2026-04-17. Kept for historical context — do not treat as a live TODO list. Current deferred work is tracked in [`docs/development/future-work.md`](../development/future-work.md) and [`docs/architecture/deferred-work.md`](../architecture/deferred-work.md).
+
 Phase 3 shipped correctly. The generic installer, templates, and 87-card scene refresh all work as designed. This report catalogs the *residue* — docs, config, UI, and data that didn't get updated alongside the runtime changes.
 
 ---

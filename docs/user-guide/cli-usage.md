@@ -21,11 +21,28 @@ python -m src.main <concept_seed> <scene_cards_dir> [options]
 
 | Flag | Default | Description |
 |------|---------|-------------|
-| `--phase {1,2,3,4}` | 1 | Pipeline phase. Higher phases enable more features (see below) |
+| `--phase {1,2,3,4,5}` | 1 | Pipeline depth. Higher phases enable more subsystems (see below). Phases 6–7 are runtime-orthogonal and available at any depth. |
 | `--chapter N` | all | Generate only this chapter number |
 | `--config PATH` | `config/settings.yaml` | Path to the configuration file |
 | `--output-dir PATH` | auto | Override the manuscript output directory |
 | `--project SLUG` | auto | Project slug for project-scoped data isolation (auto-derived from concept seed title) |
+
+### Pipeline Mode Flags
+
+| Flag | Description |
+|------|-------------|
+| `--raw-draft` | Baseline mode: skip QualityPolish and FinalGate. Saves the Scene-Gate-passed draft directly. Use this to measure the writer+gate loop in isolation. |
+| `--skip-gate-loop` | Short-circuit the GateCritic rewrite loop. Accept the first ProseStylist output without retries. QualityPolish and FinalGate still run (unless combined with `--raw-draft`). Use to isolate prose-stylist output quality from the gate refinement loop — primarily for [benchmarking](../development/benchmarking.md). |
+| `--no-revision` | **Deprecated**: the 3-band revision pipeline has been removed. Flag is a no-op and emits a warning. Use `--raw-draft` for pre-polish baseline mode. |
+| `--strict-lore` | Phase 7: promote high-severity `LoreConflictDetector` flags to blocking status. Default is advisory — flags land in the run ledger under `lore_conflicts` and the scene is still saved. |
+| `--no-milestones` | Skip milestone gate pausing (Phase 3/4 only) |
+
+### Phase 5 Blueprint Flags
+
+| Flag | Description |
+|------|-------------|
+| `--no-blueprints` | Phase 5: skip chapter blueprint auto-generation. Hand-authored blueprints at `data/franchises/<fr>/books/<bk>/chapter_blueprints/` are still loaded by `ChapterGateCritic` if present. |
+| `--regenerate-blueprints` | Phase 5: overwrite existing chapter blueprints. Default behaviour preserves hand-authored blueprints (skip-if-exists). |
 
 ### Franchise and Book Scoping
 
@@ -49,13 +66,18 @@ python -m src.main <concept_seed> <scene_cards_dir> [options]
 
 | Phase | What It Adds |
 |-------|-------------|
-| 1 | Core pipeline: PlotArchitect, ProseStylist, GateCritic, QualityPolish, FinalGate |
-| 2 | SQLite story state, ChromaDB chapter memory, knowledge layers, canon RAG, CanonExpert, contradiction scanner |
-| 3 | Quality metrics (repetition, pacing, voice, slop), character specialist, milestone gates |
-| 4 | Physics enforcement, export, session persistence, LLM judge, scene card generation |
-| 5 | Chapter blueprint generation + ChapterGateCritic (advisory by default) |
-| 6 | Series continuation (`spawn_next_book.py`), `branch_point` consumed by canon_expert |
-| 7 | Closed-loop lore: post-save lore extraction to the `provisional` bucket, conflict detector, `promote_lore.py` CLI, canonical lore consulted by ChapterGateCritic |
+| 1 | Core per-scene loop: PlotArchitect → ProseStylist → GateCritic (retry loop) → QualityMetrics → QualityPolish → compression guard → FinalGate → save |
+| 2 | SQLite story state, ChromaDB chapter memory, knowledge layers, canon RAG, CanonExpert, Summarizer, StateDiff, ContradictionScanner |
+| 3 | Quality metrics (repetition, pacing, voice, slop), CharacterSpecialist, milestone gates at 25/50/75% |
+| 4 | PhysicsEnforcer, export, session persistence (save/resume), optional LLM judge (`--judge`), scene card generation (`--generate-outline`) |
+| 5 | Chapter blueprint generation + `ChapterGateCritic` (advisory by default) |
+
+Phases 6 and 7 are orthogonal runtime features — they activate when their corresponding CLI flags or scripts are used, at any `--phase` depth.
+
+| Orthogonal | What It Adds |
+|------------|-------------|
+| 6 | Series continuation (`scripts/spawn_next_book.py`), `branch_point` consumed by `canon_expert`, series-level shared state via `--series` |
+| 7 | Closed-loop lore: post-save `lore_extractor` writes `provisional` entries, `LoreConflictDetector` flags (advisory; blocking with `--strict-lore`), `scripts/promote_lore.py` CLI, canonical lore consulted by `ChapterGateCritic` |
 
 ### Closed-loop lore (Phase 7)
 
@@ -75,13 +97,6 @@ for lore-consistency checks. Pass `--strict-lore` to the pipeline to
 make high-severity conflict flags blocking (default is advisory —
 flags land in the run ledger under `lore_conflicts` and the scene is
 still saved).
-
-### Revision and Milestones (Phase 3+)
-
-| Flag | Description |
-|------|-------------|
-| `--no-revision` | Skip the revision pipeline |
-| `--no-milestones` | Skip milestone gate pausing (gates at first plot point, midpoint, second plot point) |
 
 ### Export (Phase 4)
 
@@ -131,73 +146,83 @@ Note: `--import-summary` does not require the positional `concept_seed` and `sce
 
 ## Examples
 
-### Generate one chapter at Phase 1 (flat project layout)
+All examples below use the shipped worked example at `data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/`. Substitute your own `--franchise`/`--book` slugs for your own projects.
+
+### Generate one chapter at Phase 1
 
 ```bash
 python -m src.main \
-    data/projects/the-ruusan-atonement/concept_seed.json \
-    data/projects/the-ruusan-atonement/scene_cards \
+    data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/concept_seed.json \
+    data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/scene_cards \
+    --franchise star-wars-legends-eu --book the-ruusan-atonement \
     --chapter 1 --phase 1
-```
-
-### Generate using franchise-scoped layout
-
-```bash
-python -m src.main \
-    data/franchises/star-wars/books/the-ruusan-atonement/concept_seed.json \
-    data/franchises/star-wars/books/the-ruusan-atonement/scene_cards \
-    --franchise star-wars --book the-ruusan-atonement \
-    --phase 4
 ```
 
 ### Named run for output isolation
 
 ```bash
 python -m src.main \
-    data/franchises/star-wars/books/the-ruusan-atonement/concept_seed.json \
-    data/franchises/star-wars/books/the-ruusan-atonement/scene_cards \
-    --franchise star-wars --book the-ruusan-atonement \
-    --run-name draft-2 --phase 4
+    data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/concept_seed.json \
+    data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/scene_cards \
+    --franchise star-wars-legends-eu --book the-ruusan-atonement \
+    --run-name draft-2 --phase 5
 ```
 
-Output goes to `output/star-wars/the-ruusan-atonement/runs/draft-2/chapters/`. When `--run-name` is omitted, a timestamped run ID is generated automatically.
+Output goes to `output/star-wars-legends-eu/the-ruusan-atonement/runs/draft-2/chapters/`. When `--run-name` is omitted, a timestamped run ID is generated automatically.
+
+### Raw-draft baseline (skip polish and final gate)
+
+```bash
+python -m src.main \
+    data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/concept_seed.json \
+    data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/scene_cards \
+    --franchise star-wars-legends-eu --book the-ruusan-atonement \
+    --chapter 1 --phase 1 --raw-draft --run-name ch1-raw
+```
+
+Useful for isolating the writer+gate loop before evaluating polish. See [Benchmarking](../development/benchmarking.md).
+
+### Skip the gate rewrite loop (no retries)
+
+```bash
+python -m src.main \
+    data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/concept_seed.json \
+    data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/scene_cards \
+    --franchise star-wars-legends-eu --book the-ruusan-atonement \
+    --chapter 1 --skip-gate-loop --run-name ch1-no-gate-loop
+```
+
+Accept the first ProseStylist output without gate retries. Polish and Final Gate still run. Primarily used in benchmarking to isolate prose quality from the gate-driven refinement loop.
 
 ### Series-level state sharing
 
 ```bash
 python -m src.main \
-    data/franchises/star-wars/books/the-ruusan-atonement/concept_seed.json \
-    data/franchises/star-wars/books/the-ruusan-atonement/scene_cards \
-    --franchise star-wars --book the-ruusan-atonement \
-    --series old-republic-trilogy --phase 4
+    data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/concept_seed.json \
+    data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/scene_cards \
+    --franchise star-wars-legends-eu --book the-ruusan-atonement \
+    --series old-republic-trilogy --phase 5
 ```
 
-Shared series state is written to `output/star-wars/old-republic-trilogy/state/`, accessible by other books in the same series.
-
-### Generate all chapters with quality metrics and revision
-
-```bash
-python -m src.main \
-    data/projects/the-ruusan-atonement/concept_seed.json \
-    data/projects/the-ruusan-atonement/scene_cards \
-    --phase 3
-```
+Shared series state is written to `output/star-wars-legends-eu/old-republic-trilogy/state/`, accessible by other books with the same `--series` slug.
 
 ### Full pipeline with export and LLM judge
 
 ```bash
 python -m src.main \
-    data/projects/the-ruusan-atonement/concept_seed.json \
-    data/projects/the-ruusan-atonement/scene_cards \
-    --phase 4 --export --judge
+    data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/concept_seed.json \
+    data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/scene_cards \
+    --franchise star-wars-legends-eu --book the-ruusan-atonement \
+    --phase 5 --export --judge
 ```
 
 ### Export-only (no generation)
 
 ```bash
 python -m src.main \
-    data/projects/the-ruusan-atonement/concept_seed.json \
-    data/projects/the-ruusan-atonement/scene_cards \
+    data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/concept_seed.json \
+    data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/scene_cards \
+    --franchise star-wars-legends-eu --book the-ruusan-atonement \
     --export-only --export-formats docx,epub
 ```
 
@@ -205,9 +230,10 @@ python -m src.main \
 
 ```bash
 python -m src.main \
-    data/projects/the-ruusan-atonement/concept_seed.json \
-    data/projects/the-ruusan-atonement/scene_cards \
-    --phase 4 --generate-outline
+    data/franchises/my-franchise/books/my-novel/concept_seed.json \
+    data/franchises/my-franchise/books/my-novel/scene_cards \
+    --franchise my-franchise --book my-novel \
+    --phase 5 --generate-outline
 ```
 
 ### Import a planning manuscript as concept seed
@@ -216,14 +242,15 @@ python -m src.main \
 python -m src.main \
     --import-summary path/to/manuscript.md \
     --project my-novel \
-    --phase 4
+    --phase 5
 ```
 
 ### Validate an existing concept seed
 
 ```bash
 python -m src.main \
-    data/projects/my-novel/concept_seed.json \
+    data/franchises/my-franchise/books/my-novel/concept_seed.json \
+    --franchise my-franchise --book my-novel \
     --validate-seed
 ```
 
@@ -231,17 +258,19 @@ python -m src.main \
 
 ```bash
 python -m src.main \
-    data/projects/the-ruusan-atonement/concept_seed.json \
-    data/projects/the-ruusan-atonement/scene_cards \
-    --phase 4 --resume
+    data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/concept_seed.json \
+    data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/scene_cards \
+    --franchise star-wars-legends-eu --book the-ruusan-atonement \
+    --phase 5 --resume
 ```
 
 ### Start the web server from main.py
 
 ```bash
 python -m src.main \
-    data/projects/the-ruusan-atonement/concept_seed.json \
-    data/projects/the-ruusan-atonement/scene_cards \
+    data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/concept_seed.json \
+    data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/scene_cards \
+    --franchise star-wars-legends-eu --book the-ruusan-atonement \
     --server --port 8080
 ```
 

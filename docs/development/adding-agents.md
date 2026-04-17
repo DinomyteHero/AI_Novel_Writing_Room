@@ -98,20 +98,11 @@ Key principles:
 
 When building a new agent that needs franchise awareness, follow the Canon Expert's pattern: define a generic prompt template with placeholder sections, and populate them from the concept seed's structured data at runtime. Avoid embedding franchise-specific knowledge in the prompt file itself.
 
-## Step 5: Add a Revision Prompt (If Applicable)
+## Step 5: Legacy — Revision Band Prompts
 
-If the agent is a revision-band agent:
-
-1. Create the prompt in `prompts/revision_prompts/{name}.md`
-2. Override `_load_system_prompt()` to load from the revision directory:
-   ```python
-   def _load_system_prompt(self) -> str:
-       prompt_path = Path("prompts/revision_prompts/my_revision.md")
-       if prompt_path.exists():
-           return prompt_path.read_text(encoding="utf-8")
-       return f"You are the {self.role} agent."
-   ```
-3. Add the band to `AdaptiveRevisionPipeline` in `src/revision/adaptive_revision.py`
+> **Deprecated.** The 3-band revision pipeline and `src/revision/` module were removed in the [pipeline redesign](../architecture/pipeline-redesign.md). Polish is now a single bounded `quality_polish` pass guarded by a compression check and the Final Gate.
+>
+> New "polish-like" behaviors should extend [`src/agents/quality_polish.py`](../../src/agents/quality_polish.py) or add a new agent that runs alongside it — not a revision band. The `prompts/revision_prompts/` directory and any `AdaptiveRevisionPipeline` references in older docs describe a dead code path.
 
 ## Step 6: Write Tests
 

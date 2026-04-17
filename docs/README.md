@@ -22,18 +22,20 @@ docs/
 │   ├── configuration.md      # YAML configuration files
 │   └── schemas.md            # JSON schema definitions
 ├── development/
-│   ├── contributing.md       # Dev setup, testing, code conventions
-│   ├── adding-agents.md      # How to create new agents
-│   └── future-work.md        # Deferred items / known follow-ups backlog
+│   ├── contributing.md          # Dev setup, testing, code conventions
+│   ├── adding-agents.md         # How to create new agents
+│   ├── benchmarking.md          # Prose-model bench, bench configs, A/B methodology
+│   ├── implementation-roadmap.md # Phase-by-phase rebuild roadmap (Phases 0-8)
+│   └── future-work.md           # Deferred items / known follow-ups backlog
 └── archive/
-    └── ...                   # Historical implementation briefs
+    └── ...                      # Historical implementation briefs + drift reports
 ```
 
 ## Categories
 
-- **Getting Started** -- Installation and your first pipeline run
-- **User Guides** -- Task-oriented guides for each interface (CLI, web, workshop)
-- **Architecture** -- How the system is designed and why
-- **Reference** -- Lookup material (API endpoints, config options, schemas)
-- **Development** -- How to contribute and extend the system
-- **Archive** -- Historical implementation briefs from the build phases (not current documentation)
+- **Getting Started** — Installation and your first pipeline run
+- **User Guides** — Task-oriented guides for each interface (CLI, web, workshop, workflow kit)
+- **Architecture** — How the system is designed and why
+- **Reference** — Lookup material (API endpoints, config options, schemas)
+- **Development** — How to contribute, extend, and evaluate the system (including benchmarking)
+- **Archive** — Historical implementation briefs and point-in-time drift reports (not current documentation)

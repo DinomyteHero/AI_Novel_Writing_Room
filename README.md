@@ -26,23 +26,17 @@ export OPENROUTER_API_KEY=your_key_here
 
 ### Run the CLI Pipeline
 
-Using the flat project layout (backward compatible):
-
-```bash
-python -m src.main data/projects/the-ruusan-atonement/concept_seed.json \
-    data/projects/the-ruusan-atonement/scene_cards \
-    --phase 4
-```
-
-Using franchise-scoped layout with per-run isolation:
+Using the franchise-scoped layout with per-run isolation (the shipped worked example):
 
 ```bash
 python -m src.main \
-    data/franchises/star-wars/books/the-ruusan-atonement/concept_seed.json \
-    data/franchises/star-wars/books/the-ruusan-atonement/scene_cards \
-    --franchise star-wars --book the-ruusan-atonement \
-    --run-name first-draft --phase 4
+    data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/concept_seed.json \
+    data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/scene_cards \
+    --franchise star-wars-legends-eu --book the-ruusan-atonement \
+    --run-name first-draft --phase 5
 ```
+
+The flat `data/projects/<slug>/` layout is still supported by the code for ad-hoc projects, but the shipped worked example now lives under `data/franchises/`.
 
 ### Run the Web Interface
 
@@ -51,7 +45,8 @@ python -m src.main \
 cd src/ui/frontend && npm install && npm run build && cd ../../..
 
 # Start the server
-python -m src.ui.server data/projects/the-ruusan-atonement/concept_seed.json
+python -m src.ui.server \
+    data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/concept_seed.json
 ```
 
 Open http://localhost:8000 in your browser.
@@ -61,6 +56,8 @@ Open http://localhost:8000 in your browser.
 ```bash
 python -m src.concept_workshop.workshop_runner --project my_novel
 ```
+
+Or start a new project from templates via the workflow kit — see [Workflow Kit](docs/user-guide/workflow-kit.md).
 
 ## How It Works
 
@@ -76,7 +73,7 @@ Each scene runs through an event-driven per-scene loop, with additional layers a
 
 The saved file is always either polish-accepted-by-Final-Gate or the Gate-passed draft, never an unvalidated rewrite. Every step emits typed events to the RunLedger for reproducibility.
 
-Depending on the pipeline depth selected (`--phase 1..4`), additional layers activate after the scene is saved:
+Depending on the pipeline depth selected (`--phase 1..5`), additional layers activate after the scene is saved:
 
 | Pipeline depth | Adds |
 |----------------|------|
@@ -84,18 +81,24 @@ Depending on the pipeline depth selected (`--phase 1..4`), additional layers act
 | 2 | Summarizer + StateDiff + ContradictionScanner (chapter memory, SQLite story state, ChromaDB, canon RAG) |
 | 3 | CharacterSpecialist (OOC detection) + MilestoneGates (structural checkpoints at 25/50/75%) |
 | 4 | PhysicsEnforcer (pre/post validation) + PipelineSession (save/resume) + optional LLM judge (`--judge`) |
+| 5 | Chapter blueprint generation + ChapterGateCritic (advisory by default) |
+
+Closed-loop lore (Phases 6–7, available at any depth with `--franchise`/`--book`):
+
+- **Series continuation** — `scripts/spawn_next_book.py`, `branch_point` context in `canon_expert`, series-level shared state
+- **Post-save lore extraction** — `lore_extractor` writes provisional lore after each scene; `scripts/promote_lore.py` reviews/promotes; `ChapterGateCritic` reads canonical lore; `--strict-lore` makes high-severity conflict flags blocking
 
 Orthogonal feature sets available at any depth:
 
-- **Series planning** (`--series`, `--continue-from`) — shared state across books, character arc carryover
 - **Voice definition + hook/subplot/terminology governance** — drives VoiceChecker, GateCritic, and the manuscript-level review
 - **Character arcs (K.M. Weiland model)** — lie/ghost/want/need tracked through structural phases
 - **Style fingerprinting** — prose-style drift detection across chapters
 - **Manuscript review** — full-work dual-persona critique (Literary Critic + Structural Editor)
 - **Web dashboard** — live pipeline control, event stream over WebSocket, chapter/quality/state inspectors
 - **Export** — markdown, DOCX, EPUB
+- **Prose model bench** — single-scene, same-brief A/B/C comparison across 10+ models via `scripts/bench_prose_models.py`; see [Benchmarking](docs/development/benchmarking.md)
 
-See the [implementation roadmap](docs/development/implementation-roadmap.md) for the rollout-phase plan (not to be confused with `--phase 1..4`, which controls runtime depth).
+See the [implementation roadmap](docs/development/implementation-roadmap.md) for the rollout-phase plan (not to be confused with `--phase 1..5`, which controls runtime depth).
 
 ## Directory Structure
 
@@ -133,8 +136,9 @@ output/<franchise>/<series>/state/
 | [Getting Started](docs/getting-started.md) | Installation, configuration, first run |
 | **User Guides** | |
 | [CLI Usage](docs/user-guide/cli-usage.md) | All CLI flags and examples |
+| [Workflow Kit](docs/user-guide/workflow-kit.md) | Six-surface concept authoring (universe/canon/voice/characters/outline/scene-cards) |
 | [Web Interface](docs/user-guide/web-interface.md) | Dashboard walkthrough |
-| [Concept Workshop](docs/user-guide/concept-workshop.md) | Interactive story planning |
+| [Concept Workshop](docs/user-guide/concept-workshop.md) | Legacy 11-step story planning CLI |
 | **Architecture** | |
 | [System Overview](docs/architecture/system-overview.md) | Components, data flow, directory structure |
 | [Agent Pipeline](docs/architecture/agent-pipeline.md) | Multi-agent generation loop |
@@ -147,6 +151,7 @@ output/<franchise>/<series>/state/
 | **Development** | |
 | [Contributing](docs/development/contributing.md) | Dev setup, testing, code style |
 | [Adding Agents](docs/development/adding-agents.md) | How to extend the agent system |
+| [Benchmarking](docs/development/benchmarking.md) | Prose-model bench, bench configs, pipeline A/B methodology |
 | [Future Work](docs/development/future-work.md) | Deferred items and known follow-ups |
 
 Historical implementation briefs from each build phase are preserved in [docs/archive/](docs/archive/).
@@ -154,8 +159,8 @@ Historical implementation briefs from each build phase are preserved in [docs/ar
 ## Tests
 
 ```bash
-pytest                    # Run all tests (~677 collected)
-pytest -k "test_orchestrator"   # Run specific tests
+pytest                              # Run all tests (~1,457 collected)
+pytest -k "test_orchestrator"       # Run specific tests
 ```
 
 ## License
