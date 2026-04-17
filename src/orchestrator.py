@@ -102,6 +102,7 @@ class Orchestrator:
         worldbuilding_auto_extract: bool = False,
         strict_lore: bool = False,
         raw_draft: bool = False,
+        skip_gate_loop: bool = False,
     ):
         self.router = router
         self.assembler = context_assembler
@@ -111,6 +112,7 @@ class Orchestrator:
         self.max_structural_retries = max_structural_retries
         self.max_voice_retries = max_voice_retries
         self.raw_draft = raw_draft
+        self.skip_gate_loop = skip_gate_loop
 
         # Initialize Phase 1 agents
         self.plot_architect = PlotArchitect(router)
@@ -734,6 +736,8 @@ class Orchestrator:
                 revision_status = "gate_passed"
             elif evaluation.get("verdict") == "pass":
                 revision_status = "approved"
+            elif evaluation.get("verdict") == "skipped":
+                revision_status = "gate_skipped"
             else:
                 revision_status = "gate_failed"
             self.story_state.add_chapter_log(
@@ -990,6 +994,30 @@ class Orchestrator:
         `generation_brief` is the typed dict from Plot Architect; rewrites reuse
         the same brief and only vary the failure_context passed to Prose Stylist.
         """
+        if self.skip_gate_loop:
+            # Accept the first draft without running gate_critic at all.
+            # Synthesize a "skipped" evaluation compatible with downstream
+            # consumers (all score accesses use .get() with defaults).
+            chapter_num = scene_card["chapter_number"]
+            scene_num = scene_card.get("scene_number", 1)
+            print(f"  [3/5] Gate Critic skipped (--skip-gate-loop)")
+            self.ledger.emit(
+                "gate_critic_skipped",
+                chapter_number=chapter_num,
+                scene_number=scene_num,
+                payload={"reason": "skip_gate_loop flag"},
+            )
+            evaluation = {
+                "verdict": "skipped",
+                "structural_score": None,
+                "voice_score": None,
+                "polish_score": None,
+                "failure_codes": [],
+                "severity": None,
+                "route_to": None,
+            }
+            return evaluation, prose
+
         structural_retries = 0
         voice_retries = 0
         best_prose = prose
