@@ -62,6 +62,7 @@ if str(REPO_ROOT) not in sys.path:
 from src.concept_workshop.scene_card_translator import translate_scene_card  # noqa: E402
 from src.concept_workshop.seed_transforms import (  # noqa: E402
     apply_arc_phase_maps,
+    apply_branch_point,
     apply_canon_constraints,
     apply_canon_profile,
     apply_force_mechanics,
@@ -171,6 +172,22 @@ def install_seed(
     paths = ProjectPaths.from_concept_seed(seed, base_dir=base_dir)
     paths.ensure_dirs()
     paths.ensure_franchise_meta(seed)
+
+    # Phase 6.3b: copy branch_point from universe_meta into the seed so
+    # canon_expert can read it from context at runtime (see D4 in the Phase
+    # 6/7 plan). Runs AFTER ensure_franchise_meta so that a freshly-written
+    # meta file still reflects any universe the user pre-populated. No-op
+    # when no branch_point is declared — back-compat safe.
+    universe_meta_path = paths.universe_meta_path
+    if universe_meta_path and universe_meta_path.exists():
+        try:
+            universe_meta = json.loads(
+                universe_meta_path.read_text(encoding="utf-8")
+            )
+            apply_branch_point(seed, universe_meta)
+        except (OSError, json.JSONDecodeError):
+            # Non-fatal: installer continues without divergence context.
+            pass
 
     structural_overrides = patch.get("structural_overrides") or None
 

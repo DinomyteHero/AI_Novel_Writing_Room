@@ -16,9 +16,12 @@ from __future__ import annotations
 import json
 import logging
 from pathlib import Path
-from typing import Optional
+from typing import TYPE_CHECKING, Optional
 
 from src.agents.base_agent import BaseAgent
+
+if TYPE_CHECKING:
+    from src.worldbuilding.lore_service import LoreService
 
 logger = logging.getLogger(__name__)
 
@@ -33,6 +36,11 @@ BLUEPRINT_CHECK_CODES = (
     "pacing_curve_matches",
     "exit_vector_reached",
 )
+
+# Phase 7.4 — lore_consistency_check code. Included in the enum when a
+# lore_service + universe_id are wired at construction time; omitted
+# otherwise so pre-Phase-7 deployments don't see a dangling enum member.
+LORE_CHECK_CODE = "lore_consistency_check"
 
 
 def _resolve_blueprint_path(context: dict) -> Optional[Path]:
@@ -104,14 +112,71 @@ class ChapterGateCritic(BaseAgent):
     """Chapter-level quality gate. Evaluates the entire chapter after all
     scenes have individually passed the scene-level GateCritic."""
 
-    def __init__(self, router, role: str = "chapter_gate_critic"):
+    def __init__(
+        self,
+        router,
+        role: str = "chapter_gate_critic",
+        *,
+        lore_service: Optional["LoreService"] = None,
+        universe_id: Optional[str] = None,
+        lore_top_k: int = 8,
+    ):
+        """
+        Phase 7.4: ``lore_service`` + ``universe_id`` are optional wiring
+        points. When both are supplied, the critic retrieves the top-K
+        canonical lore entries relevant to the chapter's scenes and adds
+        a ``lore_consistency_check`` to its evaluation. Advisory by
+        default — failures land in ``chapter_level_failures`` but don't
+        hard-fail the save. See Phase 6/7 plan decision D3.
+        """
         super().__init__(router, role)
+        self.lore_service = lore_service
+        self._universe_id = universe_id
+        self._lore_top_k = max(1, int(lore_top_k))
+
+    # ------------------------------------------------------------------
+    # Phase 7.4 — lore retrieval helper
+    # ------------------------------------------------------------------
+
+    def _retrieve_lore_context(self, scene_cards: list[dict]) -> list[dict]:
+        """Fetch canonical lore relevant to the chapter's scenes.
+
+        Returns an empty list when lore_service / universe_id are not
+        configured, or when retrieval fails (the critic degrades to
+        composition-only + blueprint checks).
+        """
+        if not self.lore_service or not self._universe_id:
+            return []
+        query_terms: list[str] = []
+        for card in scene_cards:
+            for key in (
+                "scene_goal", "scene_description", "scene_conflict",
+                "thematic_beat", "location", "pov_character",
+            ):
+                val = card.get(key)
+                if isinstance(val, str) and val.strip():
+                    query_terms.append(val.strip())
+        query_text = " ".join(query_terms) or "chapter"
+        try:
+            return self.lore_service.get_lore_for_context(
+                universe_id=self._universe_id,
+                query_text=query_text,
+                top_k=self._lore_top_k,
+                include_provisional=False,
+            )
+        except Exception as exc:
+            logger.warning(
+                "ChapterGateCritic: lore retrieval failed (%s) — "
+                "falling back to no-lore checks", exc,
+            )
+            return []
 
     def _format_context(self, context: dict) -> str:
         scene_cards = context["scene_cards"]
         scene_prose = context["scene_prose"]
         chapter_number = context["chapter_number"]
         blueprint = _load_blueprint(context)
+        lore_entries = self._retrieve_lore_context(scene_cards)
 
         parts = [f"## Chapter {chapter_number} — Full Chapter Evaluation"]
 
@@ -122,6 +187,26 @@ class ChapterGateCritic(BaseAgent):
                 "whether the scenes collectively honour it.\n\n"
                 f"```json\n{json.dumps(blueprint, indent=2)}\n```"
             )
+
+        if lore_entries:
+            # Compact representation — title + category + short content
+            # excerpt. Full content can be long; we truncate to 300 chars
+            # per entry to keep the prompt focused.
+            lore_lines = ["## Lore Context (canonical, for consistency checks)"]
+            for entry in lore_entries:
+                meta = entry.get("metadata") or {}
+                title = meta.get("title") or entry.get("title") or "<untitled>"
+                category = meta.get("category") or entry.get("category") or "?"
+                content = (
+                    entry.get("content")
+                    or meta.get("content_preview")
+                    or meta.get("content")
+                    or ""
+                )
+                if len(content) > 300:
+                    content = content[:297] + "..."
+                lore_lines.append(f"- [{category}] {title}: {content}")
+            parts.append("\n".join(lore_lines))
 
         # Include each scene card + prose pair
         for i, (card, prose) in enumerate(zip(scene_cards, scene_prose)):
@@ -155,6 +240,15 @@ class ChapterGateCritic(BaseAgent):
                 "12. exit_vector_reached: final scene lands on `exit_vector`.",
             ])
             check_enum += "|" + "|".join(BLUEPRINT_CHECK_CODES)
+
+        if lore_entries:
+            next_no = len(check_list) + 1
+            check_list.append(
+                f"{next_no}. {LORE_CHECK_CODE}: prose must not contradict any "
+                f"fact in the 'Lore Context' section above. Flag per-fact "
+                f"contradictions with concrete quote evidence."
+            )
+            check_enum += f"|{LORE_CHECK_CODE}"
 
         parts.append(
             "## Task\n"
@@ -227,6 +321,7 @@ class ChapterGateCritic(BaseAgent):
             }
         """
         blueprint = _load_blueprint(context)
+        lore_entries = self._retrieve_lore_context(context.get("scene_cards", []))
         messages = self._build_messages(context)
         result = await self.router.complete_structured(self.role, messages)
 
@@ -266,5 +361,7 @@ class ChapterGateCritic(BaseAgent):
         evaluation.setdefault("scene_level_flags", [])
         evaluation.setdefault("metrics", {})
         evaluation["blueprint_used"] = blueprint is not None
+        evaluation["lore_used"] = bool(lore_entries)
+        evaluation["lore_entry_count"] = len(lore_entries)
 
         return evaluation

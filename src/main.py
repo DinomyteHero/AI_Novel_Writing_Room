@@ -456,6 +456,13 @@ async def main():
              "the writer+gate loop in isolation before the polish stage.",
     )
     parser.add_argument(
+        "--strict-lore",
+        action="store_true",
+        help="Phase 7.2: promote high-severity LoreConflictDetector flags "
+             "to blocking status (default is advisory — flags are recorded "
+             "in the run ledger but do not fail the scene).",
+    )
+    parser.add_argument(
         "--no-milestones",
         action="store_true",
         help="Skip milestone gate pausing (Phase 3/4 only)",
@@ -916,17 +923,11 @@ async def main():
         except Exception as e:
             print(f"  Phase 4 initialization error: {e}")
 
-    # Phase 5: Chapter Gate Critic (chapter-level evaluation, blueprint-aware
-    # when chapter_blueprints/chapter_NN.json files are present).
+    # Phase 5: Chapter Gate Critic — constructed below AFTER the
+    # worldbuilding lore_service is built, so Phase 7.4 can pass
+    # lore_service + universe_id into the critic for lore-consistency
+    # checks.
     chapter_gate_critic = None
-    if args.phase >= 5:
-        print("Initializing Phase 5 components...")
-        try:
-            from src.agents.chapter_gate_critic import ChapterGateCritic
-            chapter_gate_critic = ChapterGateCritic(router)
-            print("  Phase 5 components: chapter gate critic")
-        except ImportError as e:
-            print(f"  Warning: ChapterGateCritic not available: {e}")
 
     # Worldbuilding service (optional, requires --universe-id)
     lore_service = None
@@ -965,6 +966,24 @@ async def main():
             assembler.project_id = book_id
         except (ImportError, Exception) as e:
             print(f"  Warning: Worldbuilding service not available: {e}")
+
+    # Phase 5: instantiate ChapterGateCritic. Wired to lore_service +
+    # universe_id when available so Phase 7.4 lore_consistency_check runs.
+    if args.phase >= 5:
+        print("Initializing Phase 5 components...")
+        try:
+            from src.agents.chapter_gate_critic import ChapterGateCritic
+            chapter_gate_critic = ChapterGateCritic(
+                router,
+                lore_service=lore_service,
+                universe_id=franchise_slug,
+            )
+            if lore_service and franchise_slug:
+                print("  Phase 5 components: chapter gate critic (lore-aware)")
+            else:
+                print("  Phase 5 components: chapter gate critic")
+        except ImportError as e:
+            print(f"  Warning: ChapterGateCritic not available: {e}")
 
     # Phase 4: Generate scene cards from concept seed if requested
     if args.generate_outline and scene_card_generator:
@@ -1034,6 +1053,7 @@ async def main():
         universe_id=franchise_slug,
         project_id=book_id,
         worldbuilding_auto_extract=bool(lore_service and franchise_slug),
+        strict_lore=bool(getattr(args, "strict_lore", False)),
         raw_draft=args.raw_draft,
     )
 

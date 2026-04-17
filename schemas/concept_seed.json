@@ -52,6 +52,24 @@
         "cosmology_id": {
           "type": "string",
           "description": "Optional reference to a cosmology_meta.json at data/cosmologies/<cosmology_id>/. When set, this book's universe belongs to a shared meta-universe (Sanderson-style). Consumed lazily in Phase 2 — engine behaviour with or without this field is identical until a later phase wires cross-universe lore resolution."
+        },
+        "branch_point": {
+          "type": "object",
+          "description": "Optional AU divergence metadata, copied from universe_meta.branch_point by the bundle compiler / installer so canon_expert can read it from the concept_seed at runtime. When set, canon_expert reclassifies cross-continuity / era-accuracy violations that relate to facts past the declared divergence_point as 'post_divergence_drift' with reduced severity rather than 'critical'. Descriptive when absent.",
+          "properties": {
+            "source_canon": {
+              "type": "string",
+              "description": "Name of the canon this universe diverges from (e.g., 'Star Wars Legends EU', 'Tolkien Middle-earth')."
+            },
+            "divergence_point": {
+              "type": "string",
+              "description": "When/where the divergence occurs (e.g., 'post-Lost Tribe crisis, circa 44 ABY')."
+            },
+            "divergence_description": {
+              "type": "string",
+              "description": "Narrative description of how this universe differs from source canon from the divergence point forward."
+            }
+          }
         }
       }
     },

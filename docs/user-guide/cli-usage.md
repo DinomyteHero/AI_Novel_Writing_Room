@@ -53,6 +53,28 @@ python -m src.main <concept_seed> <scene_cards_dir> [options]
 | 2 | SQLite story state, ChromaDB chapter memory, knowledge layers, canon RAG, CanonExpert, contradiction scanner |
 | 3 | Quality metrics (repetition, pacing, voice, slop), character specialist, milestone gates |
 | 4 | Physics enforcement, export, session persistence, LLM judge, scene card generation |
+| 5 | Chapter blueprint generation + ChapterGateCritic (advisory by default) |
+| 6 | Series continuation (`spawn_next_book.py`), `branch_point` consumed by canon_expert |
+| 7 | Closed-loop lore: post-save lore extraction to the `provisional` bucket, conflict detector, `promote_lore.py` CLI, canonical lore consulted by ChapterGateCritic |
+
+### Closed-loop lore (Phase 7)
+
+Each saved scene runs the `lore_extractor` agent against the prose and
+creates `provisional` lore entries in the franchise-scoped
+worldbuilding DB (`data/franchises/<fr>/worldbuilding.db`). To enable:
+
+- Pass `--franchise` and `--book` (both required so `lore_service` has a
+  universe + project binding).
+- Pass `--worldbuilding-auto-extract` (or set it in config) to flip the
+  orchestrator's `worldbuilding_auto_extract` flag on.
+
+Provisional entries don't affect generation until promoted. Use
+`scripts/promote_lore.py` to review and promote provisional entries to
+`canonical`; canonical entries are then available to `ChapterGateCritic`
+for lore-consistency checks. Pass `--strict-lore` to the pipeline to
+make high-severity conflict flags blocking (default is advisory —
+flags land in the run ledger under `lore_conflicts` and the scene is
+still saved).
 
 ### Revision and Milestones (Phase 3+)
 

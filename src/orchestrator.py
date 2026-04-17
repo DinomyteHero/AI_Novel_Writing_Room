@@ -100,6 +100,7 @@ class Orchestrator:
         universe_id: Optional[str] = None,
         project_id: Optional[str] = None,
         worldbuilding_auto_extract: bool = False,
+        strict_lore: bool = False,
         raw_draft: bool = False,
     ):
         self.router = router
@@ -145,6 +146,10 @@ class Orchestrator:
         self._universe_id = universe_id
         self._project_id = project_id
         self._worldbuilding_auto_extract = worldbuilding_auto_extract
+        # Phase 7.2 — advisory by default (decision D3). Strict mode marks
+        # high-severity lore_conflicts flags on the scene result so callers
+        # can treat them as failures.
+        self._strict_lore = strict_lore
 
     @staticmethod
     def _is_last_scene_in_chapter(current_index: int, sorted_cards: list[dict]) -> bool:
@@ -787,6 +792,62 @@ class Orchestrator:
             except Exception as e:
                 print(f"  [WARN] Worldbuilding extraction failed: {e.__class__.__name__}: {e}")
                 _logger.warning("Worldbuilding extraction failed: %s", e)
+                new_entry_ids = []
+
+            # Step 10b (Phase 7.2): conflict detection on the new provisional
+            # entries. Advisory-by-default — flags go to the run ledger under
+            # event `lore_conflicts`; strict mode (`--strict-lore`) promotes
+            # severity=high flags to blocking, which _run_post_save surfaces
+            # via the `contradiction_flags` return value.
+            if new_entry_ids:
+                try:
+                    from src.worldbuilding.lore_conflict_detector import (
+                        LoreConflictDetector,
+                    )
+                    concept_seed = getattr(self.assembler, "concept_seed", {}) or {}
+                    canon_profile = concept_seed.get("canon_profile")
+                    detector = LoreConflictDetector(
+                        self.lore_service, canon_profile=canon_profile,
+                    )
+                    scan = detector.scan_provisional_batch(
+                        entry_ids=new_entry_ids,
+                        universe_id=self._universe_id,
+                    )
+                    if scan.flags:
+                        print(
+                            f"  [WB] LoreConflictDetector: "
+                            f"{len(scan.flags)} flag(s) "
+                            f"({len(scan.high_severity_flags)} high)"
+                        )
+                    self.ledger.emit(
+                        "lore_conflicts",
+                        chapter_number=chapter_num,
+                        scene_number=scene_num,
+                        payload={
+                            "flag_count": len(scan.flags),
+                            "high_severity_count": len(scan.high_severity_flags),
+                            "flags": scan.to_payload(),
+                            "strict_mode": self._strict_lore,
+                        },
+                    )
+                    if self._strict_lore and scan.high_severity_flags:
+                        # In strict mode, promote high-severity lore flags to
+                        # the scene's contradiction_flags list so the caller's
+                        # gate-loop treats them as blocking.
+                        for f in scan.high_severity_flags:
+                            contradiction_flags.append({
+                                "source": "lore_conflict_detector",
+                                "entry_id": f.entry_id,
+                                "conflict_type": f.conflict_type,
+                                "severity": f.severity,
+                                "rationale": f.rationale,
+                            })
+                except Exception as e:
+                    print(
+                        f"  [WARN] Lore conflict scan failed: "
+                        f"{e.__class__.__name__}: {e}"
+                    )
+                    _logger.warning("Lore conflict scan failed: %s", e)
 
         return summary_text, contradiction_flags
 

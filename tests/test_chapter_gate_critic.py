@@ -324,3 +324,210 @@ class TestBlueprintAwareEvaluation:
         codes = [f["check"] for f in result["chapter_level_failures"]]
         assert "reveal_payload_delivered" in codes
         assert result["chapter_passed"] is False
+
+
+# ---------------------------------------------------------------------------
+# Phase 7.4 — ChapterGateCritic lore wiring
+# ---------------------------------------------------------------------------
+
+
+def _mock_lore_service(entries: list[dict]) -> MagicMock:
+    """Build a lore service whose get_lore_for_context returns ``entries``."""
+    svc = MagicMock()
+    svc.get_lore_for_context = MagicMock(return_value=entries)
+    return svc
+
+
+CANONICAL_LORE = [
+    {
+        "title": "Ruusan Memorial",
+        "category": "location",
+        "content": (
+            "A long ridge on the planet Ruusan marked by seven obelisks, "
+            "each commemorating a Jedi who fell during the Seventh Battle."
+        ),
+        "metadata": {},
+    },
+    {
+        "title": "Thought Bomb",
+        "category": "force_mechanic",
+        "content": (
+            "A Sith technique that consumes all Force-users within range, "
+            "binding their essence to a single crystalline core."
+        ),
+        "metadata": {},
+    },
+]
+
+
+class TestChapterGateCriticLoreWiring:
+    """Phase 7.4 — when lore_service + universe_id are supplied, the
+    critic retrieves canonical lore and adds lore_consistency_check to
+    its evaluation."""
+
+    def test_lore_section_absent_when_service_missing(
+        self, multi_scene_chapter_cards, mock_router
+    ):
+        critic = ChapterGateCritic(mock_router)  # no lore_service
+        context = {
+            "scene_cards": multi_scene_chapter_cards,
+            "scene_prose": ["p1", "p2", "p3"],
+            "chapter_number": 1,
+        }
+        formatted = critic._format_context(context)
+        assert "Lore Context" not in formatted
+        assert "lore_consistency_check" not in formatted
+
+    def test_lore_section_present_when_service_supplied(
+        self, multi_scene_chapter_cards, mock_router
+    ):
+        lore = _mock_lore_service(CANONICAL_LORE)
+        critic = ChapterGateCritic(
+            mock_router, lore_service=lore, universe_id="fr-test"
+        )
+        formatted = critic._format_context({
+            "scene_cards": multi_scene_chapter_cards,
+            "scene_prose": ["p1", "p2", "p3"],
+            "chapter_number": 1,
+        })
+        assert "Lore Context" in formatted
+        assert "Ruusan Memorial" in formatted
+        assert "Thought Bomb" in formatted
+        assert "lore_consistency_check" in formatted
+        # Retrieval was called with the top_k default and only canonical.
+        call = lore.get_lore_for_context.call_args
+        assert call.kwargs["universe_id"] == "fr-test"
+        assert call.kwargs["include_provisional"] is False
+
+    def test_lore_section_omits_when_universe_id_missing(
+        self, multi_scene_chapter_cards, mock_router
+    ):
+        lore = _mock_lore_service(CANONICAL_LORE)
+        # lore_service is set but universe_id is None — retrieval skipped.
+        critic = ChapterGateCritic(mock_router, lore_service=lore, universe_id=None)
+        formatted = critic._format_context({
+            "scene_cards": multi_scene_chapter_cards,
+            "scene_prose": ["p1", "p2", "p3"],
+            "chapter_number": 1,
+        })
+        assert "Lore Context" not in formatted
+        lore.get_lore_for_context.assert_not_called()
+
+    def test_empty_lore_result_hides_section(
+        self, multi_scene_chapter_cards, mock_router
+    ):
+        """No canonical entries returned — section omitted, no lore check."""
+        lore = _mock_lore_service([])
+        critic = ChapterGateCritic(mock_router, lore_service=lore, universe_id="fr")
+        formatted = critic._format_context({
+            "scene_cards": multi_scene_chapter_cards,
+            "scene_prose": ["p1", "p2", "p3"],
+            "chapter_number": 1,
+        })
+        assert "Lore Context" not in formatted
+        assert "lore_consistency_check" not in formatted
+
+    def test_lore_retrieval_failure_degrades_gracefully(
+        self, multi_scene_chapter_cards, mock_router
+    ):
+        """An exception from lore_service.get_lore_for_context is caught —
+        the critic still formats a valid prompt without the lore section."""
+        lore = MagicMock()
+        lore.get_lore_for_context = MagicMock(side_effect=RuntimeError("db offline"))
+        critic = ChapterGateCritic(mock_router, lore_service=lore, universe_id="fr")
+        formatted = critic._format_context({
+            "scene_cards": multi_scene_chapter_cards,
+            "scene_prose": ["p1", "p2", "p3"],
+            "chapter_number": 1,
+        })
+        assert "Lore Context" not in formatted
+        # Must still have the baseline checks so the prompt is usable.
+        assert "mission_distinctness" in formatted
+
+    def test_long_content_is_truncated(self, multi_scene_chapter_cards, mock_router):
+        """Content over 300 chars gets an ellipsis so the prompt stays tight."""
+        big = "X" * 500
+        entries = [{"title": "Big Entry", "category": "faction", "content": big, "metadata": {}}]
+        lore = _mock_lore_service(entries)
+        critic = ChapterGateCritic(mock_router, lore_service=lore, universe_id="fr")
+        formatted = critic._format_context({
+            "scene_cards": multi_scene_chapter_cards,
+            "scene_prose": ["p1", "p2", "p3"],
+            "chapter_number": 1,
+        })
+        assert "..." in formatted
+        # Full 500-char payload should NOT be in the prompt.
+        assert big not in formatted
+
+    @pytest.mark.asyncio
+    async def test_lore_used_flag_surfaces_in_evaluation(
+        self, multi_scene_chapter_cards
+    ):
+        """The evaluation dict gets lore_used=True plus lore_entry_count."""
+        router = MagicMock()
+        router.complete_structured = AsyncMock(return_value={
+            "chapter_passed": True,
+            "chapter_level_failures": [],
+            "scene_level_flags": [],
+            "metrics": {},
+        })
+        lore = _mock_lore_service(CANONICAL_LORE)
+        critic = ChapterGateCritic(router, lore_service=lore, universe_id="fr")
+        result = await critic.run({
+            "scene_cards": multi_scene_chapter_cards,
+            "scene_prose": ["p1", "p2", "p3"],
+            "chapter_number": 1,
+        })
+        assert result["lore_used"] is True
+        assert result["lore_entry_count"] == 2
+
+    @pytest.mark.asyncio
+    async def test_lore_used_false_when_service_absent(
+        self, multi_scene_chapter_cards
+    ):
+        router = MagicMock()
+        router.complete_structured = AsyncMock(return_value={
+            "chapter_passed": True,
+            "chapter_level_failures": [],
+            "scene_level_flags": [],
+            "metrics": {},
+        })
+        critic = ChapterGateCritic(router)  # no lore_service
+        result = await critic.run({
+            "scene_cards": multi_scene_chapter_cards,
+            "scene_prose": ["p1", "p2", "p3"],
+            "chapter_number": 1,
+        })
+        assert result["lore_used"] is False
+        assert result["lore_entry_count"] == 0
+
+    @pytest.mark.asyncio
+    async def test_lore_consistency_failure_surfaces(
+        self, multi_scene_chapter_cards
+    ):
+        """When the LLM emits a lore_consistency_check failure, it
+        propagates to chapter_level_failures."""
+        router = MagicMock()
+        router.complete_structured = AsyncMock(return_value={
+            "chapter_passed": False,
+            "chapter_level_failures": [
+                {
+                    "check": "lore_consistency_check",
+                    "description": (
+                        "Prose says the Ruusan Memorial has 12 obelisks; "
+                        "canon specifies 7."
+                    ),
+                }
+            ],
+            "scene_level_flags": [],
+            "metrics": {},
+        })
+        lore = _mock_lore_service(CANONICAL_LORE)
+        critic = ChapterGateCritic(router, lore_service=lore, universe_id="fr")
+        result = await critic.run({
+            "scene_cards": multi_scene_chapter_cards,
+            "scene_prose": ["twelve obelisks stood at ruusan", "p2", "p3"],
+            "chapter_number": 1,
+        })
+        codes = [f["check"] for f in result["chapter_level_failures"]]
+        assert "lore_consistency_check" in codes

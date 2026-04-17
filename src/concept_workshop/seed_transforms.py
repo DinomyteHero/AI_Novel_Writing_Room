@@ -13,6 +13,7 @@ from workflows._shared.seed_transforms import (  # noqa: F401
     RELATIONSHIP_ARC_TYPE_ENUM,
     TONE_ENUM,
     apply_arc_phase_maps,
+    apply_branch_point,
     apply_canon_constraints,
     apply_canon_profile,
     apply_force_mechanics,
