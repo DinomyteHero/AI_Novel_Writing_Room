@@ -1,0 +1,35 @@
+{
+  "scene_card_path": "data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/scene_cards/chapter_13_scene_01.json",
+  "scene_label": "Ch13S1",
+  "pov_character": "Ben Skywalker",
+  "target_word_count": 1600,
+  "plot_architect_duration_s": 0.0,
+  "results": [
+    {
+      "label": "grok-420-t070",
+      "model_short": "grok420",
+      "model_full": "x-ai/grok-4.20",
+      "temperature": 0.7,
+      "duration_s": 21.3,
+      "word_count": 1401,
+      "char_count": 8559,
+      "est_in_tokens": 6276,
+      "est_out_tokens": 2139,
+      "est_cost_usd": 0.0254,
+      "output_file": "output\\star-wars-legends-eu\\the-ruusan-atonement\\runs\\bench-2026-04-17-ch13s1-grok-glm\\grok-420-t070.md"
+    },
+    {
+      "label": "glm-51-t070",
+      "model_short": "glm",
+      "model_full": "z-ai/glm-5.1",
+      "temperature": 0.7,
+      "duration_s": 189.8,
+      "word_count": 1087,
+      "char_count": 6728,
+      "est_in_tokens": 6276,
+      "est_out_tokens": 1682,
+      "est_cost_usd": 0.0113,
+      "output_file": "output\\star-wars-legends-eu\\the-ruusan-atonement\\runs\\bench-2026-04-17-ch13s1-grok-glm\\glm-51-t070.md"
+    }
+  ]
+}

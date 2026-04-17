@@ -1,0 +1,48 @@
+{
+  "scene_card_path": "data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/scene_cards/chapter_01_scene_01.json",
+  "scene_label": "Ch1S1",
+  "pov_character": "Ben Skywalker",
+  "target_word_count": 1250,
+  "plot_architect_duration_s": 52.7,
+  "results": [
+    {
+      "label": "claude-sonnet-46-t080",
+      "model_short": "claude",
+      "model_full": "anthropic/claude-sonnet-4.6",
+      "temperature": 0.8,
+      "duration_s": 42.8,
+      "word_count": 1089,
+      "char_count": 6464,
+      "est_in_tokens": 5487,
+      "est_out_tokens": 1616,
+      "est_cost_usd": 0.0407,
+      "output_file": "output\\star-wars-legends-eu\\the-ruusan-atonement\\runs\\bench-2026-04-17-prose\\claude-sonnet-46-t080.md"
+    },
+    {
+      "label": "deepseek-v32-t070",
+      "model_short": "deepseek",
+      "model_full": "deepseek/deepseek-v3.2",
+      "temperature": 0.7,
+      "duration_s": 50.4,
+      "word_count": 1106,
+      "char_count": 6406,
+      "est_in_tokens": 5487,
+      "est_out_tokens": 1601,
+      "est_cost_usd": 0.002,
+      "output_file": "output\\star-wars-legends-eu\\the-ruusan-atonement\\runs\\bench-2026-04-17-prose\\deepseek-v32-t070.md"
+    },
+    {
+      "label": "kimi-k2-t070",
+      "model_short": "kimi",
+      "model_full": "moonshotai/kimi-k2",
+      "temperature": 0.7,
+      "duration_s": 48.9,
+      "word_count": 1010,
+      "char_count": 6246,
+      "est_in_tokens": 5487,
+      "est_out_tokens": 1561,
+      "est_cost_usd": 0.0067,
+      "output_file": "output\\star-wars-legends-eu\\the-ruusan-atonement\\runs\\bench-2026-04-17-prose\\kimi-k2-t070.md"
+    }
+  ]
+}

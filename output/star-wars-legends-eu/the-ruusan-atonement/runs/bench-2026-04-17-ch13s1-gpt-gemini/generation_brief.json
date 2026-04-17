@@ -1,0 +1,69 @@
+{
+  "scene_objective": "Midpoint structural phase: Shift the story from reactive to proactive by forcing Ben to directly experience the terrifying reality of Veraine's endgame. The scene must establish exactly what a fully de-structured Force feels like, proving the stakes are existential.",
+  "turning_point": {
+    "trigger": "Ben steps onto the surface of the Breach Zone and instinctively reaches for the Force to assess the environment.",
+    "shift": "The realization that the Force is not dead or gone, but completely stripped of its lattice—energy and potential exist, but structure, direction, and moral intuition are entirely absent.",
+    "cost": "Total loss of the Force 'handrail.' Ben loses his moral intuition and the comforting filter of the light side, leaving him existentially vulnerable to his own raw, unmediated thoughts."
+  },
+  "closing_beat": "Ben stands in the silence of the de-structured Force, hearing his own unfiltered thoughts without the safety net of Force intuition for the first time. The thoughts are entirely his own, including the dark, hard ones the Force usually softens.",
+  "emotional_arc": {
+    "start": "Professional assessment",
+    "shift": "Escalating wrongness",
+    "end": "Existential disorientation"
+  },
+  "target_word_count": 1600,
+  "opening_mode": "contrast",
+  "key_beats": [
+    {
+      "beat_description": "Aboard the Steady Returns, Ben watches the temperate, green-and-blue settlement world fill the viewport, while Desh reads out scan data that violently contradicts the visual feed.",
+      "state_change": "Transition from routine orbital arrival to heightened, contradictory alert.",
+      "pov_reaction": "Analytical focus, trying to logically reconcile the impossible gap between what his eyes see and what the ship's sensors report."
+    },
+    {
+      "beat_description": "The group disembarks onto the surface. Ben observes the physical wrongness of the environment: vegetation growing backward, flowers blooming in deep shadow, and a complete absence of bird calls or animal life.",
+      "state_change": "Environmental anomaly confirmed physically; the illusion of a normal world shatters.",
+      "pov_reaction": "Creeping unease and a physical chill at the unnatural, surreal ecosystem."
+    },
+    {
+      "beat_description": "Ben actively reaches out to the Force. Instead of the familiar currents, his perception fires into formless nothing—the energy is there, like light in a room with nothing to reflect it, but the structure is gone.",
+      "state_change": "Loss of the Force lattice; the fundamental rules of Ben's reality are suspended.",
+      "pov_reaction": "Profound vertigo and disorientation, feeling as though he is falling inward without a tether."
+    },
+    {
+      "beat_description": "Desh pulls out his chrono, showing the group the skipping second hand to prove measurable chronological drift, and reports a sudden, heavy sensation of 'grief-without-an-object.'",
+      "state_change": "Confirmation that the de-structuring affects non-Force sensitives and physical reality, not just Jedi.",
+      "pov_reaction": "Horror at the scale of the threat, realizing Veraine is breaking the fundamental fabric of reality for everyone, not just Force users."
+    },
+    {
+      "beat_description": "Ben tries to center himself using traditional Jedi techniques, but the void offers no feedback. He is left entirely alone with his own mind.",
+      "state_change": "Internal isolation; the barrier between Ben and his darkest impulses dissolves.",
+      "pov_reaction": "Fear of his own unmediated mind, realizing the true, terrifying cost of Veraine's liberation of the Force."
+    }
+  ],
+  "voice_guidance": "Channel Stover's existential weight mixed with Allston's grounded team dynamics. Use sensory, slightly surreal vocabulary for the environment (e.g., 'wrong-growing vegetation'). Internal monologue should become increasingly stark, unbuffered, and isolated as the scene progresses.",
+  "forbidden_moves": [
+    "Do not describe the Force as 'gone', 'dead', or 'empty'—it is present but formless.",
+    "Do not include any physical combat or action sequences; the conflict is entirely environmental and internal.",
+    "Do not let any characters outside the specified 'characters_present' list speak or act."
+  ],
+  "delivery_preferences": {
+    "reveal_mode": "gradual",
+    "exposition_budget": "none",
+    "register_override": "surreal_dread"
+  },
+  "required_hooks": [
+    "H08",
+    "H12"
+  ],
+  "required_subplots": [
+    "SP-A",
+    "SP5"
+  ],
+  "required_revelations": [
+    "R08"
+  ],
+  "anti_patterns": [
+    "Do not deliver R08 as informational exposition; it must be purely experiential.",
+    "Avoid explaining the de-structuring through dialogue dumps; show it through sensory wrongness and Desh's non-Force experience."
+  ]
+}
