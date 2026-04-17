@@ -456,6 +456,14 @@ async def main():
              "the writer+gate loop in isolation before the polish stage.",
     )
     parser.add_argument(
+        "--skip-gate-loop",
+        action="store_true",
+        help="Short-circuit the Gate Critic rewrite loop. Accept the first "
+             "Prose Stylist output without retries. Quality Polish and Final "
+             "Gate still run (unless --raw-draft is also set). Use to measure "
+             "prose_stylist output quality before gate refinement.",
+    )
+    parser.add_argument(
         "--strict-lore",
         action="store_true",
         help="Phase 7.2: promote high-severity LoreConflictDetector flags "
@@ -1055,6 +1063,7 @@ async def main():
         worldbuilding_auto_extract=bool(lore_service and franchise_slug),
         strict_lore=bool(getattr(args, "strict_lore", False)),
         raw_draft=args.raw_draft,
+        skip_gate_loop=args.skip_gate_loop,
     )
 
     # Create session if Phase 4
