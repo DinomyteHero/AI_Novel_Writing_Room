@@ -1,0 +1,63 @@
+Initializing AI Writers' Room...
+  Cloud API reachable, key valid
+  Project: [star-wars-legends-eu/the-ruusan-atonement/@smoke-ch01]
+  Config snapshot: output\star-wars-legends-eu\the-ruusan-atonement\runs\smoke-ch01\config_snapshot.yaml
+  Prompt + invocation snapshot: output\star-wars-legends-eu\the-ruusan-atonement\runs\smoke-ch01
+  Worldbuilding service initialized (universe=star-wars-legends-eu)
+Loaded 3 scene card(s)
+Deployment mode: cloud
+Pipeline phase: 1
+Output directory: output\star-wars-legends-eu\the-ruusan-atonement\runs\smoke-ch01\chapters
+
+============================================================
+Chapter 1, Scene 1
+============================================================
+  [1/5] Plot Architect generating brief...
+  [2/5] Prose Stylist drafting...
+  [3/5] Gate Critic evaluating...
+    Gate: pass | structural=0.82 voice=0.78 polish=0.80
+    Gate: pass (structural=0.82, voice=0.78, polish=0.80)
+  [4/5] Quality Polish skipped (--raw-draft baseline mode)
+  [5/5] Final Gate skipped (--raw-draft baseline mode)
+  Saved: output\star-wars-legends-eu\the-ruusan-atonement\runs\smoke-ch01\chapters\chapter_01_scene_01.md
+
+============================================================
+Chapter 1, Scene 2
+============================================================
+  [1/5] Plot Architect generating brief...
+  [2/5] Prose Stylist drafting...
+  [3/5] Gate Critic evaluating...
+    Gate: pass | structural=0.82 voice=0.84 polish=0.76
+    Gate: pass (structural=0.82, voice=0.84, polish=0.76)
+  [4/5] Quality Polish skipped (--raw-draft baseline mode)
+  [5/5] Final Gate skipped (--raw-draft baseline mode)
+  Saved: output\star-wars-legends-eu\the-ruusan-atonement\runs\smoke-ch01\chapters\chapter_01_scene_02.md
+
+============================================================
+Chapter 1, Scene 3
+============================================================
+  [1/5] Plot Architect generating brief...
+  [2/5] Prose Stylist drafting...
+  [3/5] Gate Critic evaluating...
+    Gate: fail_structural | structural=0.72 voice=0.78 polish=0.81
+    Gate failures: CLOSING_HOOK_VIOLATION, EXPOSITION_LEAK, WEAK_TURNING_POINT, VOICE_DEFINITION_VIOLATION
+    Gate: fail_structural — full rewrite (attempt 1/3)
+    Gate: dropping 1 spurious WORD_COUNT_VIOLATION code(s) (1170/1250 words, 94%, within +/-20%)
+    Gate: model verdict 'pass' overridden to 'fail_voice' based on failure codes ['EXPOSITION_LEAK', 'TELLING_NOT_SHOWING']
+    Gate: fail_voice | structural=0.92 voice=0.87 polish=0.82
+    Gate failures: EXPOSITION_LEAK, TELLING_NOT_SHOWING
+    Gate: fail_voice — targeted revision (attempt 1/2)
+    Gate: pass | structural=0.88 voice=0.90 polish=0.82
+    Gate: pass (structural=0.88, voice=0.90, polish=0.82)
+  [4/5] Quality Polish skipped (--raw-draft baseline mode)
+  [5/5] Final Gate skipped (--raw-draft baseline mode)
+  Saved: output\star-wars-legends-eu\the-ruusan-atonement\runs\smoke-ch01\chapters\chapter_01_scene_03.md
+
+============================================================
+Pipeline Complete
+============================================================
+Chapters generated: 3
+Total word count: 3,594
+  Chapter 1.1: 1,207 words, gate=pass
+  Chapter 1.2: 1,214 words, gate=pass
+  Chapter 1.3: 1,173 words, gate=pass
