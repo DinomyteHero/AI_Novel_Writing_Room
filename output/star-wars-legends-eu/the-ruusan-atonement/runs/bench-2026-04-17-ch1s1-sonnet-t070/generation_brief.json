@@ -1,0 +1,58 @@
+{
+  "scene_objective": "Setup phase: Establish Ben's baseline restlessness and introduce the central mystery—a structural wrongness in the Force that disrupts his physical combat timing but goes unnoticed by the rest of the Order.",
+  "turning_point": {
+    "trigger": "Ben runs through his combat forms alone without a blade, isolating his muscle memory from his Force perception.",
+    "shift": "He confirms the physical failure isn't his body, but a structural stutter in the Force itself, reminiscent of the Jacen/Abeloth eras.",
+    "cost": "Emotional isolation—he must accept that he is alone in feeling this severity and cannot rely on the Order's consensus that it's just background noise."
+  },
+  "closing_beat": "Luke appears in the doorway with a datapad and a mission-ready posture, offering an external distraction.",
+  "emotional_arc": {
+    "start": "Restless unease and frustration at his failing combat timing.",
+    "shift": "Frustrated isolation upon realizing the severity of the structural wrongness.",
+    "end": "Reluctant hope as a tangible, external problem arrives."
+  },
+  "target_word_count": 1250,
+  "opening_mode": "in_medias_res",
+  "key_beats": [
+    {
+      "beat_description": "Ben's guard drops a half-second late during an intense spar. The sparring partner's training blade catches him across the shoulder just as the Force feels like a flat, discordant note.",
+      "state_change": "Ben loses the spar due to a sensory glitch, marking his third failure this week.",
+      "pov_reaction": "Sharp, self-deprecating frustration at his own reflexes; a defensive instinct to hide the true cause."
+    },
+    {
+      "beat_description": "Ben deactivates his training saber, waves off a rematch by claiming physical fatigue, and the unnamed Knight departs, leaving Ben alone in the humming salle.",
+      "state_change": "Transition from social sparring to physical isolation.",
+      "pov_reaction": "Relief at being alone, mixed with a stubborn reliance on himself to figure out what just happened."
+    },
+    {
+      "beat_description": "Sweating and pacing the empty salle, Ben runs through physical combat forms without igniting his blade, testing his raw muscle memory against his Force timing.",
+      "state_change": "Physical exertion isolates the variable—his body is fine, proving the Force itself is what's stuttering.",
+      "pov_reaction": "A chilling realization that the wrongness is structural, echoing the deep, foundational wrongness of Jacen or Abeloth, rather than mere post-crisis trauma."
+    },
+    {
+      "beat_description": "The ambient hum of the Temple is interrupted by boots at the door. Luke Skywalker stands in the doorway holding a datapad, wearing an expression that means a mission.",
+      "state_change": "The isolation is broken by a call to action.",
+      "pov_reaction": "A pivot from internal dread to reluctant hope for a tangible, solvable problem."
+    }
+  ],
+  "voice_guidance": "Channel Zahn's tight third-person interiority. Ben's internal voice should be sharp, self-aware, and self-deprecating, never melodramatic. Keep sentences efficient during combat and slightly more rhythmic during solitary pacing.",
+  "forbidden_moves": [
+    "Do not give the sparring partner a name or significant characterization.",
+    "Do not let Ben voice his concerns about the Force out loud to the sparring partner.",
+    "Do not resolve the mystery of the wrongness; only establish its symptoms.",
+    "Do not have Luke speak; the scene ends on his appearance."
+  ],
+  "delivery_preferences": {
+    "reveal_mode": "gradual",
+    "exposition_budget": "concise",
+    "register_override": null
+  },
+  "required_subplots": [
+    "SP-A",
+    "SP4"
+  ],
+  "anti_patterns": [
+    "Avoid describing the Force wrongness in terms of color or visible phenomena — keep it auditory/vibrational.",
+    "Do not open with meditation; must open with the physical training spar."
+  ]
+}

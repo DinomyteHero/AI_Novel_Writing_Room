@@ -1,0 +1,69 @@
+{
+  "scene_objective": "Midpoint shift from reactive investigation to proactive confrontation: deliver the experiential revelation of full de-structuring so Ben internalizes that the lattice is not optional and that Veraine's test on a populated world proves she will scale it to Veranthos, locking the group into stopping her on her terms rather than the Order's.",
+  "turning_point": {
+    "trigger": "Ben steps off the ramp into the settlement and deliberately reaches for the Force, expecting the familiar lattice texture of moral intuition and directional feedback.",
+    "shift": "The Force is present as raw energy and potential but entirely formless—no light/dark valence, no moral handrail, no intuitive guidance—turning the environment from merely visually wrong to existentially unmoored for every Force-sensitive present.",
+    "cost": "Ben loses the lifelong internal editor the lattice provided; he must now hear his own unfiltered thoughts, including the ones the Force previously softened or redirected, forcing him to own them without Jedi absolution."
+  },
+  "closing_beat": "In the silence of the de-structured Force, Ben hears himself think without the safety net of Force intuition for the first time. The thoughts are his. All of them. Including the ones the Force usually softens.",
+  "emotional_arc": {
+    "start": "professional assessment and calibrated caution",
+    "shift": "escalating visceral wrongness as instincts fire into void",
+    "end": "existential disorientation bordering on vertigo"
+  },
+  "target_word_count": 1600,
+  "opening_mode": "contrast",
+  "key_beats": [
+    {
+      "beat_description": "The Steady Returns breaks orbit; Ben stands at the viewport watching the deceptively perfect green-blue temperate world swell while Desh reads contradictory scan data aloud and Sera notes the orbital sensor ghosts.",
+      "state_change": "visual promise of normalcy collides with instrument anomalies; ship transitions from orbit to descent",
+      "pov_reaction": "Ben's hands tighten on the rail as his gut insists something is off even before boots hit dirt; the professional mask slips a fraction when the first bird flock appears to fly in mirrored pairs that shouldn't exist."
+    },
+    {
+      "beat_description": "Ramp lowers onto the settlement street; the group fans out among intact buildings with vines growing on the shadowed sides and flowers blooming only where light should not reach; Ben takes a deliberate step forward and opens himself to the Force.",
+      "state_change": "physical transition from ship interior to planetary surface; the lattice abruptly vanishes",
+      "pov_reaction": "The reach fires into formless nothing—energy without direction, presence without texture—producing an immediate physical lurch in his chest as though the galaxy's gravity had shifted axis."
+    },
+    {
+      "beat_description": "Desh pulls his chrono, stares at the second hand visibly skipping, then looks up with dawning grief-without-an-object; Torin mutters about the wrongness in the air while Kael tests a vine that recoils from his touch.",
+      "state_change": "measurable chrono drift confirms the effect extends beyond Force-sensitives; group cohesion frays under amplified interpersonal tension",
+      "pov_reaction": "Ben registers Sera's sharp inhale and Torin's defensive posture as data points rather than intuitive warnings; the absence of the usual moral softening lets an unbidden flash of resentment toward the Order's historical arrogance surface raw."
+    },
+    {
+      "beat_description": "Ben moves deeper into the square, testing the environment by lifting a fallen permacrete fragment that should feel light yet drags as though weighted by invisible lattice residue; the group debates in clipped exchanges what Veraine learned from this test run.",
+      "state_change": "environmental interaction reveals secondary effects—objects behave with inconsistent inertia; dialogue surfaces the field-test implication",
+      "pov_reaction": "Each word spoken lands without Force-tempered diplomacy; Ben feels the full weight of his own strategic calculus and the cold recognition that this world was a calibration shot for Veranthos."
+    },
+    {
+      "beat_description": "The group falls silent as the full realization settles; Ben stands motionless while the de-structured silence presses in, forcing him to hear his own thoughts without the Jedi lattice's filtering.",
+      "state_change": "scene momentum halts; the hook resolves into personal commitment",
+      "pov_reaction": "Unsoftened thoughts—anger at the ancient Jedi Lords, fear for Sera and the others, a pragmatic willingness to use any tool including the survivors—echo clearly, costing him the illusion of moral certainty."
+    }
+  ],
+  "voice_guidance": "Channel Zahn's efficient dialogue and Allston's humor-under-stress; keep internal monologue clipped, pragmatic, and laced with dry self-awareness. Ben's thoughts should carry the commercial SW EU rhythm—short sentences during action, slightly longer during realization—never descending into Stover-style literary density. Surface Ben's dry wit once when reacting to the mirrored birds.",
+  "forbidden_moves": [
+    "No re-introduction of the lattice concept from scratch—treat it as established and focus on its total absence.",
+    "Do not allow any character outside the listed five to speak or act.",
+    "No flashback to Ruusan or ancient events.",
+    "Do not resolve the larger seal collapse or Veraine's location—keep focus on this test world's experiential impact."
+  ],
+  "delivery_preferences": {
+    "reveal_mode": "experiential",
+    "exposition_budget": "concise",
+    "register_override": null
+  },
+  "required_hooks": [
+    "H08",
+    "H12"
+  ],
+  "required_subplots": [
+    "SP-A",
+    "SP5"
+  ],
+  "required_revelations": [
+    "R08"
+  ],
+  "anti_patterns": [
+    "avoid exposition dump"
+  ]
+}
