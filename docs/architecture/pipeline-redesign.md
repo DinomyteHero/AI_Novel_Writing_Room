@@ -343,7 +343,7 @@ Most urgent. Fixes the "validates wrong artifact" problem.
 
 8. **Wire Plot Architect to emit typed brief.** Update `plot_architect.py` and `plot_architect.md`. ~60 lines.
 
-9. **Wire Chapter Gate Critic to consume blueprints.** Update `chapter_gate_critic.py` to optionally load and validate against blueprint. ~80 lines.
+9. **Wire Chapter Gate Critic to consume blueprints.** Update `chapter_gate_critic.py` to optionally load and validate against blueprint. ~80 lines. **Landed in Phase 5** of the implementation roadmap (see `docs/development/implementation-roadmap.md`); also added `src/planning/chapter_blueprint_generator.py` so blueprints auto-generate from scene cards when none exist on disk. Critic remains advisory.
 
 10. **Source-of-truth cleanup.** Update `compliance_validator.py` to stop reading embedded concept-seed scene cards as canonical. Mark embedded scene_cards in schema as workshop-only. ~30 lines.
 

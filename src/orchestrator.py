@@ -155,6 +155,34 @@ class Orchestrator:
         next_ch = sorted_cards[current_index + 1]["chapter_number"]
         return current_ch != next_ch
 
+    async def maybe_run_chapter_gate_after_scene(
+        self,
+        scene_index: int,
+        active_cards: list[dict],
+        results: list[dict],
+    ) -> None:
+        """Run the chapter-level gate after the last scene in a chapter.
+
+        Shared between Orchestrator.run_pipeline and WebOrchestrator.run_pipeline
+        so both surfaces honour the same Phase 5 chapter-gate semantics. No-op
+        when ``self.chapter_gate_critic`` is unset or the scene is not the last
+        in its chapter. Mutates the most recent result entry in-place to attach
+        the ``chapter_gate`` evaluation.
+        """
+        if not self.chapter_gate_critic:
+            return
+        if not self._is_last_scene_in_chapter(scene_index, active_cards):
+            return
+
+        chapter_num = active_cards[scene_index]["chapter_number"]
+        ch_cards = [c for c in active_cards if c["chapter_number"] == chapter_num]
+        ch_results = [r for r in results if r.get("chapter_number") == chapter_num]
+        ch_eval = await self._run_chapter_gate(chapter_num, ch_cards, ch_results)
+        results[-1]["chapter_gate"] = ch_eval
+        if not ch_eval["chapter_passed"]:
+            failures = len(ch_eval.get("chapter_level_failures", []))
+            print(f"  Chapter {chapter_num} failed chapter-level gate ({failures} issue(s))")
+
     async def _run_chapter_gate(
         self,
         chapter_number: int,
@@ -240,14 +268,7 @@ class Orchestrator:
                     )
 
                 # Chapter-level gate: run after last scene in chapter
-                if self.chapter_gate_critic and self._is_last_scene_in_chapter(i, active_cards):
-                    ch_cards = [c for c in active_cards if c["chapter_number"] == chapter_num]
-                    ch_results = [r for r in results if r.get("chapter_number") == chapter_num]
-                    ch_eval = await self._run_chapter_gate(chapter_num, ch_cards, ch_results)
-                    results[-1]["chapter_gate"] = ch_eval
-                    if not ch_eval["chapter_passed"]:
-                        failures = len(ch_eval.get("chapter_level_failures", []))
-                        print(f"  Chapter {chapter_num} failed chapter-level gate ({failures} issue(s))")
+                await self.maybe_run_chapter_gate_after_scene(i, active_cards, results)
 
                 # Check if milestone gate aborted the pipeline
                 if result.get("milestone_abort"):

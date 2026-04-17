@@ -23,6 +23,10 @@ class PipelineStartRequest(BaseModel):
     universe_id: Optional[str] = None
     project_id: Optional[str] = None
     raw_draft: bool = False
+    # Phase 5: chapter blueprint controls. Auto-fill missing blueprints by
+    # default when phase >= 5; set false to skip generation.
+    generate_blueprints: bool = True
+    regenerate_blueprints: bool = False
 
 
 class MilestoneApproveRequest(BaseModel):
@@ -62,6 +66,26 @@ async def start_pipeline(body: PipelineStartRequest, request: Request):
     cards = _load_scene_cards(scene_cards_dir, body.chapter)
     if not cards:
         raise HTTPException(400, "No scene cards found")
+
+    # Phase 5: ensure chapter blueprints exist for every chapter being run.
+    # Hand-authored blueprints take precedence (skip-if-exists). Requires
+    # universe_id and project_id so blueprints land at the canonical path
+    # ChapterGateCritic loads from.
+    if (
+        body.phase >= 5
+        and body.generate_blueprints
+        and body.universe_id
+        and body.project_id
+    ):
+        await _ensure_chapter_blueprints(
+            router=state.router,
+            ledger=state.ledger,
+            concept_seed=concept_seed,
+            scene_cards=cards,
+            franchise_slug=body.universe_id,
+            book_slug=body.project_id,
+            regenerate=body.regenerate_blueprints,
+        )
 
     # Build the orchestrator and start pipeline
     orchestrator = _create_web_orchestrator(state, concept_seed_path, concept_seed, body)
@@ -148,6 +172,65 @@ def _load_scene_cards(scene_cards_dir: str, chapter: Optional[int] = None) -> li
     return cards
 
 
+async def _ensure_chapter_blueprints(
+    router,
+    ledger,
+    concept_seed: dict,
+    scene_cards: list[dict],
+    franchise_slug: str,
+    book_slug: str,
+    regenerate: bool = False,
+) -> None:
+    """Phase 5: fill in missing chapter blueprints (UI route variant).
+
+    Mirrors the CLI helper in src/main.py. Detects which chapters in
+    ``scene_cards`` have no blueprint at the canonical path and generates
+    them. Hand-authored blueprints are preserved unless ``regenerate=True``.
+    Emits the ``chapter_blueprints_generated`` ledger event.
+    """
+    if not scene_cards:
+        return
+
+    bp_dir = (
+        Path("data") / "franchises" / franchise_slug / "books" / book_slug
+        / "chapter_blueprints"
+    )
+    existing_chapters: set[int] = set()
+    if bp_dir.exists():
+        for path in bp_dir.glob("chapter_*.json"):
+            try:
+                existing_chapters.add(int(path.stem.split("_")[1]))
+            except (IndexError, ValueError):
+                continue
+
+    chapters_in_cards = {
+        c["chapter_number"] for c in scene_cards if "chapter_number" in c
+    }
+    needed_chapters = chapters_in_cards - existing_chapters
+
+    if not needed_chapters and not regenerate:
+        return
+
+    from src.planning.chapter_blueprint_generator import (
+        ChapterBlueprintGenerator,
+        save_blueprints,
+    )
+
+    target_cards = (
+        scene_cards if regenerate
+        else [c for c in scene_cards if c["chapter_number"] in needed_chapters]
+    )
+    generator = ChapterBlueprintGenerator(router)
+    new_blueprints = await generator.generate(concept_seed, target_cards)
+    saved = save_blueprints(
+        new_blueprints, franchise_slug, book_slug, force=regenerate,
+    )
+    ledger.emit(
+        "chapter_blueprints_generated",
+        payload={"count": len(saved), "regenerated": regenerate},
+    )
+
+
 def _create_web_orchestrator(state, concept_seed_path, concept_seed, body):
     """Create a WebOrchestrator with all configured components."""
     from src.memory.context_assembler import ContextAssembler
@@ -214,6 +297,16 @@ def _create_web_orchestrator(state, concept_seed_path, concept_seed, body):
             except ImportError:
                 pass
 
+    # Phase 5: chapter-level gate critic. Always instantiate when phase >= 5;
+    # the critic falls back to composition-only checks if no blueprint exists.
+    chapter_gate_critic = None
+    if body.phase >= 5:
+        try:
+            from src.agents.chapter_gate_critic import ChapterGateCritic
+            chapter_gate_critic = ChapterGateCritic(state.router)
+        except ImportError:
+            pass
+
     # Phase 2 components
     summarizer = None
     state_diff_applier = None
@@ -252,6 +345,7 @@ def _create_web_orchestrator(state, concept_seed_path, concept_seed, body):
         milestone_gates=milestone_gates,
         physics_enforcer=physics_enforcer,
         judge_evaluator=judge_evaluator,
+        chapter_gate_critic=chapter_gate_critic,
         pipeline_manager=state.pipeline_manager,
         lore_service=state.lore_service,
         universe_id=universe_id,
