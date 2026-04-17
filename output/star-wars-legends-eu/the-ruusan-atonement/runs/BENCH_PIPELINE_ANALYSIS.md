@@ -32,15 +32,21 @@ The Grok 4.20 Ch13S1 brief is **better than Gemini's** on voice direction:
 
 That's a better `voice_guidance` field than anything in the Gemini briefs. Grok also added `forbidden_moves` that actually fire ("No re-introduction of the lattice concept from scratch—treat it as established"; "Do not allow any character outside the listed five to speak or act"). That's useful brief hygiene the Gemini versions omitted.
 
-### The canon-drift issue
+### A false-alarm that turned into a real signal
 
-The Ch13S1 Grok brief introduces **"ancient Jedi Lords"** in beat 5's `pov_reaction`:
+**Correction (added after user review):** The initial draft of this analysis flagged "ancient Jedi Lords" in beat 5's `pov_reaction` as canon drift:
 
 > *"Unsoftened thoughts—anger at the **ancient Jedi Lords**, fear for Sera and the others..."*
 
-"Jedi Lords" is not a canonical Legends EU title. Standard terms are "Jedi Masters", "the High Council", or specific era labels like "Old Republic Jedi." Both Sonnet and GPT **faithfully carried this into the prose** because they were following the brief — that's correct agent behavior, but it surfaces the risk: **Grok 4.20 on plot_architect needs `canon_expert` downstream to catch drift**. That agent already exists in the pipeline (it's routed to Grok 4.20 itself, which is a problem — same-family self-check).
+The user pointed out that **"Jedi Lords" is canonical Legends EU** — it's the title used for Jedi leaders in the New Sith Wars era (approximately 2,000-1,000 BBY), abolished by the Ruusan Reformation. Since *The Ruusan Atonement* is explicitly set in a timeline where those ancient Jedi Lords' earlier actions (building the seal) have downstream consequences, Grok 4.20 using the term here is **canon-correct deep-cut knowledge**, not drift.
 
-Recommendation: If you adopt Grok for plot_architect, switch `canon_expert` to a different family (Haiku 4.5 or DeepSeek V3.2) so one family can't write and then approve its own franchise term.
+That changes the framing. What this actually shows:
+
+1. **Grok 4.20 has strong Legends EU canon recall** — it pulled a correct pre-Reformation title spontaneously in a context where it fit. This is *evidence for* Grok as plot_architect, not against.
+2. **The same-family self-check argument still stands on principle** but loses its best empirical example. There's no observed evidence here that Grok-on-Grok canon_expert review failed. The theoretical concern remains — one family confirming its own canon choices is still weaker than a cross-family check — but the weight on "must move canon_expert off Grok" drops from "bench demonstrated a miss" to "general architectural hygiene."
+3. **The v2 summary's "Gemini 3 Flash franchise drift" claim for the same term also needs revision** — Flash was likely drawing from the same correct canon pool, not hallucinating.
+
+Updated recommendation: Moving `canon_expert` to a different family is still reasonable for cross-family hygiene, but it's no longer urgent. If keeping Grok on both is more convenient, the bench did not produce a specific failure against it.
 
 ---
 
@@ -74,7 +80,7 @@ That structural repetition is Sonnet at its best — tight, musical, carrying th
 
 Almost identical coverage. The prose is at the same quality level.
 
-But I note **one meaningful drift from the Gemini-brief version**: the closing beat in this run *enumerates* the unfiltered thoughts (anger at the Jedi Lords, fear for the crew, willingness to use survivors as tools), where the Gemini-brief version was more philosophical ("*how much of the time he'd been relying on it to make him careful*").
+But I note **one meaningful change from the Gemini-brief version**: the closing beat in this run *enumerates* the unfiltered thoughts (anger at the ancient Jedi Lords, fear for the crew, willingness to use survivors as tools), where the Gemini-brief version was more philosophical ("*how much of the time he'd been relying on it to make him careful*").
 
 Both are strong. The Grok-brief version is slightly closer to GPT 5.4's enumerated style (because the Grok brief's `pov_reaction` explicitly enumerated those three thoughts). The Gemini-brief version was broader, more original.
 
@@ -180,7 +186,7 @@ Haiku 4.5 does what it's asked to do — surgical line-level edits when needed, 
 | Ensemble voice distinction | All 5 characters present, distinct | All 5 characters present, distinct | Tie |
 | Arc beat (`lie_challenged`) | Enumerated + philosophical | Enumerated + sharper humor | Close, GPT slightly more striking sentence-by-sentence |
 | Anti-pattern compliance | Clean | Clean | Tie |
-| Canon fidelity | "Jedi Lords" from brief | "Jedi Lords" from brief | Both blame the brief |
+| Canon fidelity | "ancient Jedi Lords" from brief (canon-correct) | "ancient Jedi Lords" from brief (canon-correct) | Both followed a canon-correct brief |
 | Cost / scene | $0.054 | $0.066 | Sonnet 18% cheaper |
 
 **Sonnet wins on discipline; GPT wins on single-sentence impact; Sonnet is cheaper.**
@@ -234,14 +240,16 @@ canon_expert:     { backend: cloud, model: haiku, params: { temperature: 0.2 } }
 
 ### The key new finding from this bench
 
-**`canon_expert` must move off Grok 4.20 now that `plot_architect` is on Grok.** Same-family self-check failed the "Jedi Lords" term — it passed through without flag. Move `canon_expert` to Haiku 4.5 (cheap, different family, strong instruction-following for structured checks).
+**[Revised after user correction]** My original claim that `canon_expert` must move off Grok 4.20 was based on a mistaken reading of "ancient Jedi Lords" as canon drift. The term is actually correct Legends EU for pre-Ruusan-Reformation Jedi leaders — exactly the deep canon this book's setting traffics in.
+
+Moving `canon_expert` to a different family remains defensible on cross-family-hygiene grounds (one family grading its own canon recall is still weaker than cross-family review in principle), but the bench did not produce an empirical failure that forces the change. If you prefer to keep both Grok, that's reasonable.
 
 ### What's left to decide
 
 1. Commit the pipeline config above?
 2. Run Chapter 1 end-to-end with the new pipeline and check:
-   - Does `canon_expert` on Haiku catch "Jedi Lords"?
    - Do gate_critic false-rejections change when prose_stylist switches from Claude to DeepSeek?
    - Total chapter cost vs archived Sonnet baseline?
+   - Does a cross-family `canon_expert` catch any actual drift, or is it adding latency for no yield?
 
 Total bench spend across all rounds so far: **~$0.69** across 25 model-scene runs.

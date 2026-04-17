@@ -80,7 +80,7 @@ At $0.50/$3.00, Gemini 3 Flash is the **second-cheapest model in the bench after
 
 But two real issues:
 
-1. **Franchise drift.** Invented the term "Jedi Lords" on Ch13S1 — not a canon term in Legends EU. "*Torin had spent his life believing in the nobility of the Jedi Lords*" — this kind of low-confidence canon slip is what the `canon_expert` agent is supposed to catch, but it's more work for the gate chain.
+1. ~~**Franchise drift.** Invented the term "Jedi Lords" on Ch13S1~~ **Correction after user review:** "Jedi Lords" is canon Legends EU — the title for Jedi leaders in the New Sith Wars era, abolished by the Ruusan Reformation. Using it in a novel set around Ruusan-era aftermath is a correct deep-canon pull, not drift. Flash doesn't lose points on this axis.
 
 2. **Echoes the closing_hook verbatim.** Both scenes ended with the literal scene-card `closing_hook` sentence, present-tense:
    > *"In the silence of the de-structured Force, Ben hears himself think without the safety net of Force intuition for the first time. The thoughts are his. All of them. Including the ones the Force usually softens."*
@@ -96,7 +96,7 @@ But two real issues:
 | Word-count discipline | ★★ (over) | ★ (bloat) | ★ (trunc) | ★★★★ | ★★★★★ | ★★★★ | ★★★ | ★★ | ★★★★ |
 | Arc phase fidelity (Weiland) | ★★★★★ | ★★★★ | — | ★★★ | ★★★★★ | ★★★★★ | — | ★★ wrong | — |
 | Ensemble handling | ★★★★★ | ★★★★★ | — | ★★★★ | ★★★★★ | ★★★★★ | — | ★★ | — |
-| Anti-pattern compliance | ★★★★★ | ★★★★ | — | ★★★ (canon drift) | ★★★★★ | ★★★★★ | ★★★★★ | ★★★ | ★★★★ |
+| Anti-pattern compliance | ★★★★★ | ★★★★ | — | ★★★★ | ★★★★★ | ★★★★★ | ★★★★★ | ★★★ | ★★★★ |
 | Brief compliance (dramatizes hook) | ★★ (literal) | ★★ (literal) | — | ★★ (literal) | ★★★★★ | ★★★★★ | ★★★★★ | ★★★★ | ★★★★★ |
 | Commercial register fit | ★★★★ | ★★★★ | — | ★★★★ | ★★★★★ | ★★★★★ | ★★★★ | ★★★★ | ★★★ |
 | Cost / scene (Ch13S1) | $0.063 | $0.025 | $0.025 broken | $0.009 | $0.003 | $0.025 | $0.011 trunc | $0.007 trunc | ~$0.06 est |

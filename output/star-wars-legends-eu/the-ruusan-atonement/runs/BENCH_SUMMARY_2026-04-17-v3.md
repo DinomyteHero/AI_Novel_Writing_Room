@@ -74,7 +74,7 @@ The user's revision of the scene cards toward commercial register is matched muc
 4. **DeepSeek V3.2 @ t=0.70** — cheapest, reliable, never fails. Less warmth-per-paragraph than Sonnet/GPT/Grok. Cost: $0.003 / scene.
 
 ### Tier 3 — cheap-and-fast, caveated
-5. **Gemini 3 Flash** — $0.009/scene, 90% coverage, but canon drift + verbatim closing-hook issue.
+5. **Gemini 3 Flash** — $0.009/scene, 90% coverage. The "Jedi Lords" term I initially flagged as canon drift is actually canon-correct (pre-Ruusan Reformation title). Real remaining issue: closing-hook echoed verbatim from the brief.
 
 ### Tier 4 — structurally disqualified
 6. Kimi K2 — truncates on ensemble (53%).
