@@ -236,7 +236,7 @@ scaffolding.
 
 ---
 
-### Phase 4 — Workflow kit (three ingress modes)
+### Phase 4 — Workflow kit (three ingress modes) — COMPLETE
 
 The centerpiece of the rebuild. Each surface is a self-contained module:
 
@@ -284,6 +284,33 @@ This is the single entry point the pipeline consumes.
 - Pipeline runs clean on the compiled bundle with no manual artifact editing.
 - Ruusan project, re-extracted via `legacy_seed.py` importers, produces a
   bundle equivalent to the current installer output.
+
+**Status (delivered):**
+- `workflows/<surface>/` tree with all six surfaces: `universe_builder`,
+  `canon_drafter`, `voice_discovery`, `character_forge`, `outline_planner`,
+  `scene_card_authoring`. Each ships `schema.json`, `SKILL.md`, `api.py`,
+  `validate.py`, `importers/{legacy_seed,plain_markdown}.py` plus a
+  per-importer `README.md`.
+- Shared helpers at `workflows/_shared/`: `seed_transforms.py` and
+  `scene_card_translator.py` moved here from `src/concept_workshop/` (with
+  back-compat re-export shims at the original paths), plus new
+  `markdown_parser.py`, `legacy_seed_loader.py`, `schema_loader.py`,
+  `io.py`, and `SKILL_preamble.md`.
+- `scripts/compile_bundle.py` — bundle compiler mirroring
+  `scripts/install_seed.py::_apply_workshop_patch` ordering; idempotent;
+  emits `compile_report.json`.
+- `scripts/migrate_workshop.py` — forward migration helper that splits an
+  existing `concept_seed.json` into the six surface artifacts.
+- `.claude/skills/<surface>/SKILL.md` × 6 — Claude Code wrappers that
+  reference `workflows/<surface>/SKILL.md` for auto-discovery.
+- `workshop_runner.py` prints a deprecation banner pointing to the
+  workflow kit; the existing 11-step CLI keeps working for in-flight
+  workshops.
+- Acceptance gates green:
+  `tests/test_compile_bundle_ruusan_equivalence.py` (5 tests) +
+  `tests/test_workflow_kit_empty_to_bundle.py` (3 tests) +
+  `tests/test_compile_bundle_pipeline_clean.py` (1 test).
+- See `docs/user-guide/workflow-kit.md` for end-to-end usage.
 
 ---
 

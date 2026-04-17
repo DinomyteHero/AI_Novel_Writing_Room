@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "VoiceDiscoveryArtifact",
+  "description": "Output of the voice-discovery surface. Mirrors templates/voice_definition/default.json plus the concept_seed.voice_definition contract: pov_approach, prose_register, reference_authors[], character_voices{}, anti_slop_rules[], anti_patterns[], force_description_guidelines, pacing_feel, narrative_voice_notes.",
+  "type": "object",
+  "required": ["voice_definition"],
+  "properties": {
+    "surface": { "type": "string", "const": "voice-discovery" },
+    "schema_version": { "type": "string", "const": "1.0" },
+    "voice_definition": {
+      "type": "object",
+      "required": ["pov_approach", "prose_register"],
+      "properties": {
+        "pov_approach": { "type": "string", "minLength": 1 },
+        "prose_register": { "type": "string", "minLength": 1 },
+        "reference_authors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["author"],
+            "properties": {
+              "author": { "type": "string" },
+              "what_to_emulate": { "type": "string" },
+              "what_to_avoid": { "type": "string" }
+            }
+          }
+        },
+        "character_voices": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        },
+        "anti_slop_rules": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "anti_patterns": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "force_description_guidelines": { "type": "string" },
+        "pacing_feel": { "type": "string" },
+        "narrative_voice_notes": { "type": "string" }
+      }
+    }
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CanonDrafterArtifact",
+  "description": "Output of the canon-drafter surface. Carries canon_profile (franchise/continuity/era/voice rules), canon_constraints (continuity, divergence, preserved/overridden canon, style constraints), terminology_registry (canonical terms with aliases and categories), and force_mechanics (magic-system rules). Mirrors the corresponding sections of schemas/concept_seed.json.",
+  "type": "object",
+  "required": ["canon_constraints"],
+  "properties": {
+    "surface": { "type": "string", "const": "canon-drafter" },
+    "schema_version": { "type": "string", "const": "1.0" },
+    "canon_profile": {
+      "type": "object",
+      "properties": {
+        "franchise": { "type": "string" },
+        "continuity": { "type": "string" },
+        "continuity_description": { "type": "string" },
+        "era_description": { "type": "string" },
+        "narrative_register": { "type": "string" },
+        "cross_continuity_violations": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "anachronistic_terms": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        },
+        "meta_reference_rules": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "franchise_terminology_notes": { "type": "string" }
+      }
+    },
+    "canon_constraints": {
+      "type": "object",
+      "required": ["continuity", "canon_preserved", "style_constraints"],
+      "properties": {
+        "continuity": { "type": "string" },
+        "divergence_point": { "type": "string" },
+        "canon_preserved": { "type": "array", "items": { "type": "string" } },
+        "canon_overridden": { "type": "array", "items": { "type": "string" } },
+        "style_constraints": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "force_mechanics": {
+      "type": "object",
+      "properties": {
+        "primary_rule": { "type": "string" },
+        "implications": { "type": "array", "items": { "type": "string" } },
+        "canon_grounding": { "type": "string" }
+      }
+    },
+    "terminology_registry": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["definition", "category"],
+        "properties": {
+          "term": { "type": "string" },
+          "canonical_form": { "type": "string" },
+          "aliases": { "type": "array", "items": { "type": "string" } },
+          "definition": { "type": "string" },
+          "category": {
+            "type": "string",
+            "enum": [
+              "character_name",
+              "place_name",
+              "faction",
+              "organization",
+              "artifact",
+              "concept",
+              "cultural_term",
+              "species",
+              "title",
+              "title_rank",
+              "technology",
+              "magic_system",
+              "other"
+            ]
+          },
+          "first_appearance": {
+            "oneOf": [
+              { "type": "integer" },
+              { "type": "string" }
+            ]
+          },
+          "usage_notes": { "type": "string" }
+        }
+      }
+    }
+  }
+}

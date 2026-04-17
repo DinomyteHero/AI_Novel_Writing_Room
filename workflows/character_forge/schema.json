@@ -1,0 +1,105 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CharacterForgeArtifact",
+  "description": "Output of the character-forge surface. The ensemble_cast array (2-6 items) plus optional referenced_characters and relationship_arcs slices. Mirrors concept_seed.json#/properties/ensemble_cast (item shape with three_dimensions and weiland_arc), referenced_characters, and relationship_arcs.",
+  "type": "object",
+  "required": ["ensemble_cast"],
+  "properties": {
+    "surface": { "type": "string", "const": "character-forge" },
+    "schema_version": { "type": "string", "const": "1.0" },
+    "ensemble_cast": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 6,
+      "items": {
+        "type": "object",
+        "required": ["name", "role", "three_dimensions"],
+        "properties": {
+          "name": { "type": "string" },
+          "role": { "type": "string" },
+          "age": { "type": "string" },
+          "force_status": { "type": "string" },
+          "three_dimensions": {
+            "type": "object",
+            "required": ["surface", "backstory_inner_demons", "action_under_pressure"],
+            "properties": {
+              "surface": { "type": "string", "minLength": 50 },
+              "backstory_inner_demons": { "type": "string", "minLength": 50 },
+              "action_under_pressure": { "type": "string", "minLength": 50 }
+            }
+          },
+          "voice_notes": { "type": "string" },
+          "weiland_arc": {
+            "type": "object",
+            "required": ["lie_believed", "ghost", "want", "need", "arc_type"],
+            "properties": {
+              "lie_believed": { "type": "string", "minLength": 30 },
+              "ghost": { "type": "string", "minLength": 30 },
+              "want": { "type": "string", "minLength": 20 },
+              "need": { "type": "string", "minLength": 20 },
+              "arc_type": {
+                "type": "string",
+                "enum": ["positive_change", "flat", "negative", "disillusionment", "corruption", "fall"]
+              },
+              "arc_summary": { "type": "string" },
+              "initial_phase": { "type": "string", "default": "lie_established" },
+              "arc_phase_targets": {
+                "type": "object",
+                "properties": {
+                  "lie_reinforced": { "type": "string" },
+                  "lie_questioned": { "type": "string" },
+                  "lie_cracking": { "type": "string" },
+                  "lie_confronted": { "type": "string" },
+                  "truth_resolved": { "type": "string" }
+                }
+              },
+              "arc_phase_map": {
+                "type": "object",
+                "additionalProperties": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "referenced_characters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name"],
+        "properties": {
+          "name": { "type": "string" },
+          "role": { "type": "string" },
+          "initial_location": { "type": "string" },
+          "initial_emotional_state": { "type": "string" }
+        }
+      }
+    },
+    "relationship_arcs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["dyad", "arc_type"],
+        "properties": {
+          "dyad": { "type": "string" },
+          "arc_type": {
+            "type": "string",
+            "enum": ["deepening", "rupturing", "reconciling", "transactional", "static"]
+          },
+          "arc_summary": { "type": "string" },
+          "ghost": { "type": "string" },
+          "lie": { "type": "string" },
+          "want": { "type": "string" },
+          "need": { "type": "string" },
+          "arc_phase_map": {
+            "type": "object",
+            "additionalProperties": { "type": "string" }
+          },
+          "payoff_chapter": {
+            "oneOf": [{ "type": "integer" }, { "type": "string" }]
+          }
+        }
+      }
+    }
+  }
+}
