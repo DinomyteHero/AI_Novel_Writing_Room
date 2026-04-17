@@ -1391,27 +1391,27 @@
   ],
   "voice_definition": {
     "pov_approach": "Close third person, locked to Ben Skywalker throughout. The narrative voice has access to Ben's thoughts and perceptions but not other characters' internal states. Other characters are experienced through Ben's observation — their words, actions, expressions, and Force presences as Ben perceives them.",
-    "prose_register": "Commercial genre fiction — accessible, propulsive, emotionally direct. Not literary/experimental. Not YA-simple. The register of the better Star Wars EU novels: clean prose that doesn't draw attention to itself, serves the story's pace, and trusts the reader to track subtext without over-explaining.",
+    "prose_register": "Commercial tie-in fiction — the kind of Star Wars novel a reader picks up in an airport bookstore. Reads fast. Dialogue-driven. Emotionally direct. NOT literary fiction. NOT experimental or award-seeking. The prose is transparent: the reader looks through it to the story, not at it. If a sentence calls attention to its own craft, it is wrong for this book. Aim for prose that disappears — clean, propulsive, and trusting.",
     "reference_authors": [
       {
-        "author": "Matthew Stover",
-        "what_to_emulate": "Visceral Force-perception descriptions, intense internal monologue under pressure, the ability to make philosophy feel like action. Stover's Traitor and Shatterpoint are the gold standard for Star Wars novels that are both accessible and intellectually serious.",
-        "what_to_avoid": "Stover's occasional purple prose and his tendency toward sentence fragments as a stylistic tic can become exhausting over 100k words."
-      },
-      {
         "author": "Timothy Zahn",
-        "what_to_emulate": "Clean, precise plotting. Tactical clarity in action scenes. The ability to make intelligent characters sound intelligent without becoming lecturing. Zahn's dialogue is efficient — every line does work.",
-        "what_to_avoid": "Zahn's prose can be emotionally cool — functional rather than felt. This story needs more emotional warmth than Zahn typically provides, especially in the Sera/Torin and Ben/Desh dynamics."
+        "what_to_emulate": "PRIMARY ANCHOR for this book's register. Clean, precise, efficient prose. Dialogue that advances plot and reveals character simultaneously. Intelligent characters who sound intelligent without lecturing. Sentences that do their work and get out of the way. Short paragraphs. Action scenes with tactical clarity. When in doubt about prose choices, ask 'would this sentence appear in a Zahn novel?' — if it is ornate or introspective beyond a line or two, the answer is no.",
+        "what_to_avoid": "Zahn's prose can be emotionally cool — functional rather than felt. This story needs more emotional warmth than Zahn typically provides, especially in the Sera/Torin and Ben/Desh dynamics. Use these examples as a register anchor, not as gospel — do not mimic Zahn verbatim."
       },
       {
         "author": "Aaron Allston",
-        "what_to_emulate": "Humor that coexists with genuine stakes. Allston's ability to make characters funny without undermining the drama. Desh's voice in particular should channel Allston's tone — dry, self-aware, grounding.",
-        "what_to_avoid": "Allston occasionally lets humor deflate tension at moments that should land hard. The Torin turn, the breach experience, and the climax need humor-free zones."
+        "what_to_emulate": "CO-ANCHOR for dialogue rhythm and scene tightness. Humor that coexists with genuine stakes. Characters who are funny without undermining drama. Scenes that move — no scene overstays its welcome. Desh's voice in particular should channel Allston's tone — dry, self-aware, grounding.",
+        "what_to_avoid": "Allston occasionally lets humor deflate tension at moments that should land hard. The Torin turn, the breach experience, and the climax need humor-free zones. Use as a register anchor, not as gospel."
       },
       {
         "author": "James Luceno",
-        "what_to_emulate": "Deep lore integration that feels organic rather than encyclopedic. Luceno weaves EU history into narrative without stopping for footnotes. The technique lineage sections should feel like Luceno — rich context delivered through character perspective, not authorial lecture.",
-        "what_to_avoid": "Luceno's pacing can be slow and his prose dense. This story needs to move faster than Luceno typically does, especially in Parts 3-4."
+        "what_to_emulate": "Lore integration that feels organic rather than encyclopedic. Luceno weaves EU history into narrative without stopping for footnotes. The technique lineage sections should feel like Luceno — rich context delivered through character perspective, not authorial lecture.",
+        "what_to_avoid": "Luceno's pacing can be slow and his prose dense. This story needs to move faster than Luceno typically does. Do not adopt Luceno's sentence length — borrow only his lore-delivery technique."
+      },
+      {
+        "author": "Matthew Stover",
+        "what_to_emulate": "USE SPARINGLY. Stover's Traitor and Shatterpoint are outliers in Star Wars fiction — more literary than the shelf standard. Borrow from him ONLY for rare, high-stakes Force-perception moments (the climax, the technique activation). Do NOT borrow his everyday register.",
+        "what_to_avoid": "Stover's purple prose, extended introspective passages, and sentence-fragment stylistic tic. These are exactly the patterns this book must avoid. A chapter that reads like Stover's general voice is a chapter that needs to be rewritten toward Zahn."
       }
     ],
     "character_voices": {
@@ -1437,7 +1437,17 @@
       "Avoid 'ancient wisdom' or 'timeless knowledge' when describing archive content — be specific about what the knowledge IS",
       "Avoid adverb-dialogue-tag combinations ('he said quietly', 'she whispered softly') — let the dialogue and context convey tone",
       "Limit exclamation points to actual exclamations — never in narration, rarely in dialogue",
-      "Never use 'reach out with the Force' more than twice in the entire manuscript — find varied descriptions for Force-perception"
+      "Never use 'reach out with the Force' more than twice in the entire manuscript — find varied descriptions for Force-perception",
+      "Never write 'the particular quality of X', 'the specific kind of Y', or 'a certain quality of Z' — these are AI-typical literary hedges that delay the actual observation",
+      "Never use 'the way X does Y' or 'the way X did Y' as a simile construction ('comfortable the way old furniture is comfortable', 'the way a door that doesn't latch is wrong'). This is a literary-fiction tic. Prefer direct description or a clean simile with 'like' — but still sparingly",
+      "No more than ONE simile per paragraph. Do not develop a simile across multiple sentences or paragraphs. Pick the image and move on",
+      "Do not describe one sensation with multiple stacked metaphors in the same scene. If the wrongness is a missing note, it is not also a seam, a missing tooth, and a gap. One metaphor, used consistently",
+      "No more than 2 consecutive paragraphs of pure internal monologue before dialogue, action, or concrete external observation. Interiority is salt, not the dish",
+      "Keep paragraphs short. Aim for 2-3 sentences average. A six-sentence introspective paragraph is a warning sign — break it up with dialogue, action, or environment",
+      "Open scenes with action, dialogue, or concrete observation — not with an atmospheric multi-clause sentence or mood-setting simile",
+      "Prefer short sentences. When in doubt, cut the subordinate clause. Ornate syntax is not the voice of this book",
+      "Do not use sentence fragments as a literary stylistic tic. A fragment for emphasis once or twice per scene is fine; a pattern of fragments is wrong for this register",
+      "Dialogue should carry more of the scene than interior monologue. If a scene is 70% inside Ben's head and 30% exterior, rebalance toward dialogue and action"
     ],
     "anti_patterns": [
       "No prophecy fulfillment structure — the story is about choices, not destiny. No character should feel 'fated' to do anything.",
@@ -1453,7 +1463,7 @@
     ],
     "force_description_guidelines": "The Force in this story has specific phenomenological rules defined in the force_mechanics.sensory_vocabulary section. Key principles: (1) Structured Force (normal) is perceived as textured, directional, with distinguishable aspects — like a handrail in the dark, always where expected. (2) De-structured Force (the wound) is perceived as formless, directionless — the handrail is gone but the wall is still there, somewhere. Abilities function without the feedback loop. 'Losing color vision' — everything present but meaning drained. (3) The technique's activation is perceived as active structural violence — a pulling, a suction, the lattice leaning toward the practitioner and dissolving. Like standing next to a drain. (4) The lattice resonance is perceived as unprecedented — three textures interacting, producing an overtone none could create alone. Starts discordant, catches when the practitioner stops trying to lead. Warmth returning after cold. A chord building from notes that shouldn't harmonize but do. (5) Desh's non-Force-sensitive experience escalates from environmental unease through physical wrongness (chrono drift, temperature shifts, wrong vegetation) to grief-without-an-object at full de-structuring — validating that the lattice matters to everyone, not just Force-users.",
     "pacing_feel": "Balanced but pressure-ramping. Early chapters should feel exploratory and haunted, middle chapters increasingly compressed by debate and discovery, and Parts 3-4 should tighten into urgent forward motion without losing sequel beats for moral consequence. Most chapters should land between 3,250 and 4,250 words, with structural spikes at Chapters 5, 13, 21, 25, and 26.",
-    "narrative_voice_notes": "This should read like high-end Legends adventure fiction that takes psychology and metaphysics seriously. The prose must remain clear enough for propulsive plot consumption while letting Force phenomenology feel strange, tactile, and emotionally expensive. Ben's close-third filter is the anchor: if a sentence could not plausibly arise from his perception, suspicion, training, or emotional blind spots, it probably does not belong on the page."
+    "narrative_voice_notes": "This is commercial Legends adventure fiction. The target reader is someone picking up the book in a bookstore expecting a propulsive Star Wars story — not a literary-fiction reader. Interior monologue is brief and functional; dialogue and action carry the scene. When Ben reflects, he reflects in one or two sentences, then the scene moves. Force phenomenology is experiential and sensory, not analytical — one sharp image beats a paragraph of metaphorical excavation. Ben's close-third filter is the anchor: if a sentence could not plausibly arise from his perception in real time, it probably does not belong on the page. Prose that disappears is the goal; prose the reader admires is the warning sign."
   },
   "promise_payoff_ledger": [
     {
