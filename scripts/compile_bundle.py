@@ -45,6 +45,7 @@ from src.project_paths import ProjectPaths  # noqa: E402
 from workflows._shared.scene_card_translator import translate_scene_card  # noqa: E402
 from workflows._shared.seed_transforms import (  # noqa: E402
     apply_arc_phase_maps,
+    apply_branch_point,
     apply_canon_constraints,
     apply_canon_profile,
     apply_force_mechanics,
@@ -316,6 +317,22 @@ def compile_bundle(
         characters=surfaces["characters"] or {},
         outline=surfaces["outline"] or {},
     )
+
+    # Phase 6.3b: copy branch_point from the on-disk universe_meta into the
+    # seed's meta so canon_expert can read it at runtime from context alone.
+    # No-op when the universe_meta file doesn't exist yet (fresh project) or
+    # has no populated branch_point block (non-AU franchises).
+    universe_meta_path = paths.universe_meta_path
+    if universe_meta_path and universe_meta_path.exists():
+        try:
+            universe_meta = json.loads(
+                universe_meta_path.read_text(encoding="utf-8")
+            )
+            apply_branch_point(seed, universe_meta)
+        except (OSError, json.JSONDecodeError) as exc:
+            report.warnings.append(
+                f"branch_point copy from {universe_meta_path.name} skipped: {exc}"
+            )
 
     # Schema validation — collect all errors rather than raising on first.
     seed_schema = json.loads(CONCEPT_SEED_SCHEMA_PATH.read_text(encoding="utf-8"))

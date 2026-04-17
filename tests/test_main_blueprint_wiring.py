@@ -228,9 +228,13 @@ class TestPhase5Plumbing:
 
     def test_phase_5_init_block_present(self):
         main_src = (Path(__file__).parent.parent / "src" / "main.py").read_text(encoding="utf-8")
-        # Phase 5 init must instantiate the critic gated on phase >= 5
+        # Phase 5 init must instantiate the critic gated on phase >= 5.
+        # Phase 7.4 extended the constructor to accept lore_service +
+        # universe_id, so the call is multi-arg — match the signature
+        # start rather than the exact single-arg form.
         assert "if args.phase >= 5:" in main_src
-        assert "ChapterGateCritic(router)" in main_src
+        assert "ChapterGateCritic(" in main_src
+        assert "router" in main_src
 
     def test_blueprint_helper_called_for_runtime_path(self):
         main_src = (Path(__file__).parent.parent / "src" / "main.py").read_text(encoding="utf-8")

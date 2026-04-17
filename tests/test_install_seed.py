@@ -247,3 +247,114 @@ class TestInstallSeedSchemaValidation:
             validate_seed=True,
         )
         assert any("enriched seed fails" in w for w in result.warnings)
+
+
+class TestBranchPointCarryover:
+    """Phase 6.3b — install_seed copies branch_point from the franchise-
+    scoped universe_meta into the concept_seed's meta block.
+
+    Back-compat: when no universe_meta exists, or the file has no
+    branch_point, behaviour is identical to pre-Phase-6 installs.
+    """
+
+    POPULATED_BRANCH_POINT = {
+        "source_canon": "Star Wars Legends EU",
+        "divergence_point": "post-Lost Tribe crisis, circa 44 ABY",
+        "divergence_description": "Ruusan-style reformation path.",
+    }
+
+    @staticmethod
+    def _write_universe_meta(tmp_path: Path, franchise_slug: str, meta: dict) -> Path:
+        """Pre-create data/franchises/<slug>/franchise_meta.json."""
+        path = (
+            tmp_path / "data" / "franchises" / franchise_slug / "franchise_meta.json"
+        )
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps(meta, indent=2), encoding="utf-8")
+        return path
+
+    def test_branch_point_propagates_when_universe_meta_has_it(
+        self, tmp_path, minimal_seed_path
+    ):
+        # Pre-create universe_meta with a populated branch_point.
+        self._write_universe_meta(
+            tmp_path,
+            "test-franchise",
+            {
+                "franchise_name": "test-franchise",
+                "franchise": "Test Franchise",
+                "canon_status": "AU",
+                "branch_point": self.POPULATED_BRANCH_POINT,
+            },
+        )
+        install_seed(
+            input_path=minimal_seed_path,
+            base_dir=str(tmp_path),
+            validate_scene_cards=False,
+        )
+        installed = _load_installed_seed(tmp_path)
+        assert installed["meta"]["branch_point"] == self.POPULATED_BRANCH_POINT
+
+    def test_no_branch_point_when_universe_meta_missing(
+        self, tmp_path, minimal_seed_path
+    ):
+        """Fresh-install path: install_seed auto-creates franchise_meta.json
+        via ensure_franchise_meta, but without any branch_point content."""
+        install_seed(
+            input_path=minimal_seed_path,
+            base_dir=str(tmp_path),
+            validate_scene_cards=False,
+        )
+        installed = _load_installed_seed(tmp_path)
+        assert "branch_point" not in installed["meta"]
+
+    def test_no_branch_point_when_universe_meta_has_empty_block(
+        self, tmp_path, minimal_seed_path
+    ):
+        self._write_universe_meta(
+            tmp_path,
+            "test-franchise",
+            {
+                "franchise_name": "test-franchise",
+                "franchise": "Test Franchise",
+                "canon_status": "original",
+                "branch_point": {},
+            },
+        )
+        install_seed(
+            input_path=minimal_seed_path,
+            base_dir=str(tmp_path),
+            validate_scene_cards=False,
+        )
+        installed = _load_installed_seed(tmp_path)
+        assert "branch_point" not in installed["meta"]
+
+    def test_seed_level_branch_point_wins_over_universe_default(
+        self, tmp_path, minimal_seed_path
+    ):
+        """If the source seed already declares branch_point, the installer
+        must not overwrite it with the universe_meta default."""
+        self._write_universe_meta(
+            tmp_path,
+            "test-franchise",
+            {
+                "franchise_name": "test-franchise",
+                "franchise": "Test Franchise",
+                "canon_status": "AU",
+                "branch_point": self.POPULATED_BRANCH_POINT,
+            },
+        )
+        # Author a variant seed with an explicit branch_point override.
+        base_seed = json.loads(minimal_seed_path.read_text(encoding="utf-8"))
+        override = {"source_canon": "Override Canon"}
+        base_seed["meta"]["branch_point"] = override
+        override_path = tmp_path / "seed_with_override.json"
+        override_path.write_text(json.dumps(base_seed), encoding="utf-8")
+
+        install_seed(
+            input_path=override_path,
+            base_dir=str(tmp_path),
+            validate_scene_cards=False,
+        )
+        installed = _load_installed_seed(tmp_path)
+        assert installed["meta"]["branch_point"] == override

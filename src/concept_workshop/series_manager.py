@@ -195,6 +195,114 @@ class SeriesManager:
 
         return snapshot
 
+    # ------------------------------------------------------------------
+    # Phase 6.1: transition application (consume a snapshot in Book N+1)
+    # ------------------------------------------------------------------
+
+    @staticmethod
+    def apply_transition_to_seed(seed: dict, snapshot: dict) -> dict:
+        """Mutate a Book N+1 concept seed in-place with inherited state.
+
+        Decision D1 (Phase 6/7 plan): the snapshot carries the minimal
+        contract — character end states, unresolved threads, open hooks,
+        unfired Chekhov guns. This method reflects that state into the new
+        book's concept seed at the level the seed can represent:
+
+        1. Unresolved hooks are prepended to ``seed.hooks`` with an
+           ``inherited_from_book`` tag so planner-level tooling (subplot
+           audit, blueprint generator, chapter gate) sees them as existing
+           contracts rather than fresh plants.
+        2. A ``book_transition`` block is added under ``seed.extended_metadata``
+           recording what was carried over — character IDs, inherited plot
+           threads, unfired guns. This is visible to humans and to
+           downstream tools without breaking the concept_seed schema.
+        3. ``seed.meta.book_number`` and ``seed.meta.project_scope`` are
+           set to reflect continuation when not already set by the caller.
+
+        Character runtime state (location, emotional_state, arc_position,
+        arc current_phase) is out of scope for the concept seed — it is
+        loaded into the Book N+1 StoryState by
+        ``StoryState.initialize_from_transition``.
+
+        Idempotent on hooks: a hook_id already present in ``seed.hooks`` is
+        not duplicated (the caller's explicit hook entry wins).
+
+        Returns the mutated seed (same object) for fluent use.
+        """
+        source_book_number = int(snapshot.get("book_number", 0) or 0)
+        if source_book_number < 1:
+            raise ValueError(
+                "transition snapshot missing or invalid 'book_number'; "
+                "cannot apply to continuation seed"
+            )
+
+        # 1. Seed metadata — mark as continuation.
+        meta = seed.setdefault("meta", {})
+        if not meta.get("book_number"):
+            meta["book_number"] = source_book_number + 1
+        if not meta.get("project_scope"):
+            meta["project_scope"] = "continuation"
+
+        # 2. Prepend unresolved hooks (de-duplicate by hook_id).
+        existing_hooks = list(seed.get("hooks") or [])
+        existing_hook_ids = {h.get("hook_id") for h in existing_hooks if h.get("hook_id")}
+        inherited_hooks: list[dict] = []
+        for h in snapshot.get("unresolved_hooks") or []:
+            hook_id = h.get("hook_id")
+            if hook_id and hook_id in existing_hook_ids:
+                continue  # caller's explicit entry wins
+            entry = {
+                "hook_id": hook_id or f"inherited_hook_{len(inherited_hooks) + 1}",
+                "description": h.get("description", ""),
+                "planted_in": f"book_{source_book_number}",
+                "inherited_from_book": source_book_number,
+                "priority": h.get("priority"),
+                "current_status": h.get("current_status"),
+            }
+            # hook_type is required by the schema's enum; map from priority
+            # when the snapshot is silent, defaulting to "series" (the
+            # closest match for cross-book carryover).
+            entry["hook_type"] = (
+                "hard" if (h.get("priority") == "hard") else "series"
+            )
+            inherited_hooks.append(entry)
+        if inherited_hooks:
+            seed["hooks"] = inherited_hooks + existing_hooks
+
+        # 3. Record an audit trail under extended_metadata.book_transition.
+        transition_record = {
+            "inherited_from_book": source_book_number,
+            "imported_at": datetime.now(timezone.utc).isoformat(),
+            "carried_character_ids": [
+                c["id"] for c in snapshot.get("character_end_states") or []
+                if c.get("id")
+            ],
+            "inherited_plot_threads": [
+                {
+                    "id": t.get("id"),
+                    "description": t.get("description", ""),
+                    "status": t.get("status"),
+                    "urgency": t.get("urgency"),
+                }
+                for t in snapshot.get("unresolved_threads") or []
+            ],
+            "inherited_chekhov_guns": [
+                {
+                    "id": g.get("id"),
+                    "description": g.get("description", ""),
+                    "planted_chapter": g.get("planted_chapter"),
+                }
+                for g in snapshot.get("unfired_chekhov_guns") or []
+            ],
+            "inherited_hook_ids": [
+                h["hook_id"] for h in inherited_hooks
+            ],
+        }
+        extended = seed.setdefault("extended_metadata", {})
+        extended["book_transition"] = transition_record
+
+        return seed
+
     def promote_to_series(
         self,
         concept_seed: dict,

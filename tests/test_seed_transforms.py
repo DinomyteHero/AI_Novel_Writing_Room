@@ -18,6 +18,7 @@ from src.concept_workshop.seed_transforms import (
     RELATIONSHIP_ARC_TYPE_ENUM,
     TONE_ENUM,
     apply_arc_phase_maps,
+    apply_branch_point,
     apply_canon_constraints,
     apply_canon_profile,
     apply_force_mechanics,
@@ -630,3 +631,90 @@ class TestRelationshipArcTypeEnum:
             "transactional",
             "static",
         }
+
+
+# ---------------------------------------------------------------------------
+# apply_branch_point (Phase 6.3b)
+# ---------------------------------------------------------------------------
+
+
+class TestApplyBranchPoint:
+    """Phase 6.3b — copy universe_meta.branch_point into concept_seed.meta.
+
+    Decision D4: concept_seed.meta is the authoritative runtime source. The
+    installer / bundle compiler mirrors it from universe_meta at build time.
+    """
+
+    def _populated_branch_point(self) -> dict:
+        return {
+            "source_canon": "Star Wars Legends EU",
+            "divergence_point": "post-Lost Tribe crisis, circa 44 ABY",
+            "divergence_description": "Jedi take a Ruusan-style reformation path.",
+        }
+
+    def test_noop_on_none(self):
+        seed = _blank_seed()
+        apply_branch_point(seed, None)
+        assert "branch_point" not in seed["meta"]
+
+    def test_noop_on_missing_key(self):
+        seed = _blank_seed()
+        apply_branch_point(seed, {"franchise": "Some Franchise"})
+        assert "branch_point" not in seed["meta"]
+
+    def test_noop_on_empty_branch_point_dict(self):
+        """Empty dict matches canon_expert's 'not declarative' treatment."""
+        seed = _blank_seed()
+        apply_branch_point(seed, {"branch_point": {}})
+        assert "branch_point" not in seed["meta"]
+
+    def test_noop_when_all_fields_blank(self):
+        """A branch_point with all-empty values is treated as absent."""
+        seed = _blank_seed()
+        apply_branch_point(
+            seed,
+            {"branch_point": {"source_canon": "", "divergence_point": ""}},
+        )
+        assert "branch_point" not in seed["meta"]
+
+    def test_populated_branch_point_is_copied(self):
+        seed = _blank_seed()
+        universe_meta = {"branch_point": self._populated_branch_point()}
+        apply_branch_point(seed, universe_meta)
+        assert seed["meta"]["branch_point"] == self._populated_branch_point()
+
+    def test_partial_branch_point_is_copied(self):
+        """Just source_canon set is enough to be declarative."""
+        seed = _blank_seed()
+        universe_meta = {"branch_point": {"source_canon": "X"}}
+        apply_branch_point(seed, universe_meta)
+        assert seed["meta"]["branch_point"] == {"source_canon": "X"}
+
+    def test_existing_branch_point_is_preserved(self):
+        """Caller-supplied branch_point wins over universe-level default."""
+        seed = _blank_seed()
+        seed["meta"]["branch_point"] = {"source_canon": "caller_value"}
+        universe_meta = {"branch_point": self._populated_branch_point()}
+        apply_branch_point(seed, universe_meta)
+        assert seed["meta"]["branch_point"] == {"source_canon": "caller_value"}
+
+    def test_deep_copies_so_mutation_does_not_leak(self):
+        seed = _blank_seed()
+        source = {"branch_point": self._populated_branch_point()}
+        apply_branch_point(seed, source)
+        seed["meta"]["branch_point"]["source_canon"] = "mutated"
+        assert source["branch_point"]["source_canon"] == "Star Wars Legends EU"
+
+    def test_non_dict_branch_point_is_ignored(self):
+        """Defensive: don't crash if universe_meta schema is violated."""
+        seed = _blank_seed()
+        apply_branch_point(seed, {"branch_point": "not a dict"})
+        assert "branch_point" not in seed["meta"]
+
+    def test_seed_without_meta_gets_meta_created(self):
+        seed = {}
+        apply_branch_point(
+            seed, {"branch_point": self._populated_branch_point()}
+        )
+        assert "meta" in seed
+        assert seed["meta"]["branch_point"] == self._populated_branch_point()

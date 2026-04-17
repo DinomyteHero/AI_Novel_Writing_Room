@@ -316,3 +316,39 @@ def apply_stress_test_scores(seed: dict, scores: dict | None) -> None:
     if not scores:
         return
     seed["stress_test_scores"] = copy.deepcopy(scores)
+
+
+def apply_branch_point(seed: dict, universe_meta: dict | None) -> None:
+    """Copy ``universe_meta.branch_point`` into ``seed.meta.branch_point``.
+
+    Phase 6.3b — canon_expert reads ``branch_point`` from the concept seed at
+    runtime (decision D4 in the Phase 6/7 plan: concept_seed.meta is the
+    single authoritative source). The installer / bundle compiler invokes
+    this after the seed's ``meta`` block is in place so the canon expert's
+    context dict carries the divergence declaration without a separate disk
+    read.
+
+    No-op when:
+    - ``universe_meta`` is None or missing ``branch_point``
+    - ``branch_point`` is an empty dict (matches canon_expert's "not
+      declarative" treatment in _section_branch_point)
+    - ``seed.meta.branch_point`` is already set (caller-supplied value wins;
+      this lets spawn_next_book or a manually-authored seed override the
+      universe default)
+    """
+    if not universe_meta:
+        return
+    branch_point = universe_meta.get("branch_point")
+    if not branch_point:
+        return
+    if not isinstance(branch_point, dict):
+        return
+    # Only populate if at least one of the three declarative fields is set.
+    meaningful_keys = ("source_canon", "divergence_point", "divergence_description")
+    if not any(branch_point.get(k) for k in meaningful_keys):
+        return
+    meta = seed.setdefault("meta", {})
+    if meta.get("branch_point"):
+        # Caller-supplied value wins.
+        return
+    meta["branch_point"] = copy.deepcopy(branch_point)

@@ -27,6 +27,10 @@ class PipelineStartRequest(BaseModel):
     # default when phase >= 5; set false to skip generation.
     generate_blueprints: bool = True
     regenerate_blueprints: bool = False
+    # Phase 7.2: promote high-severity LoreConflictDetector flags to
+    # blocking status. Advisory by default — flags land in the run ledger
+    # but don't fail the scene. Mirrors the --strict-lore CLI flag.
+    strict_lore: bool = False
 
 
 class MilestoneApproveRequest(BaseModel):
@@ -299,11 +303,17 @@ def _create_web_orchestrator(state, concept_seed_path, concept_seed, body):
 
     # Phase 5: chapter-level gate critic. Always instantiate when phase >= 5;
     # the critic falls back to composition-only checks if no blueprint exists.
+    # Phase 7.4: when lore_service + universe_id are available, the critic
+    # retrieves canonical lore for a lore_consistency_check.
     chapter_gate_critic = None
     if body.phase >= 5:
         try:
             from src.agents.chapter_gate_critic import ChapterGateCritic
-            chapter_gate_critic = ChapterGateCritic(state.router)
+            chapter_gate_critic = ChapterGateCritic(
+                state.router,
+                lore_service=state.lore_service,
+                universe_id=universe_id,
+            )
         except ImportError:
             pass
 
@@ -351,5 +361,6 @@ def _create_web_orchestrator(state, concept_seed_path, concept_seed, body):
         universe_id=universe_id,
         project_id=project_id,
         worldbuilding_auto_extract=bool(state.lore_service and universe_id),
+        strict_lore=body.strict_lore,
         raw_draft=body.raw_draft,
     )

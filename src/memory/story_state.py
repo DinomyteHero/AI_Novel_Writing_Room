@@ -2007,6 +2007,174 @@ class StoryState:
         serialized = json.dumps(state, sort_keys=True, default=str)
         return hashlib.sha256(serialized.encode("utf-8")).hexdigest()
 
+    # ------------------------------------------------------------------
+    # Phase 6.1 — cross-book carryover
+    # ------------------------------------------------------------------
+
+    def initialize_from_transition(
+        self,
+        snapshot: dict,
+        *,
+        target_book_number: int | None = None,
+    ) -> dict:
+        """Seed Book N+1 runtime state from a Book N transition snapshot.
+
+        The snapshot contract matches
+        ``SeriesManager.generate_transition_snapshot``:
+
+        - ``character_end_states``: id, name, location, emotional_state,
+          arc_position
+        - ``character_arc_states``: character_id, current_phase, arc_type,
+          lie_believed, need
+        - ``unresolved_threads``: id, description, status, urgency
+        - ``unresolved_hooks``: hook_id, description, priority, current_status
+        - ``unfired_chekhov_guns``: id, description, planted_chapter
+
+        All writes use INSERT OR IGNORE so re-applying the snapshot to an
+        already-seeded StoryState is safe (the existing row wins). This
+        means the method can be called once at book-spawn time or again as
+        a repair step without corrupting in-progress state.
+
+        Returns a counts dict:
+            {"characters": N, "arcs": N, "threads": N, "hooks": N, "guns": N}
+
+        which callers (spawn_next_book.py) use to print a human summary of
+        what was inherited.
+        """
+        if target_book_number is None:
+            source_bn = int(snapshot.get("book_number", 0) or 0)
+            target_book_number = source_bn + 1 if source_bn >= 1 else 1
+
+        counts = {"characters": 0, "arcs": 0, "threads": 0, "hooks": 0, "guns": 0}
+
+        # Characters — add_character uses INSERT OR IGNORE so existing
+        # characters (registered by concept_seed import) are preserved.
+        for char in snapshot.get("character_end_states") or []:
+            if not char.get("id") or not char.get("name"):
+                continue
+            self.add_character(
+                id=char["id"],
+                name=char["name"],
+                current_location=char.get("location"),
+                emotional_state=char.get("emotional_state"),
+                arc_position=char.get("arc_position"),
+            )
+            counts["characters"] += 1
+
+        # Character arcs — scoped by book_number so Book N+1 arcs do not
+        # clobber Book N history if both books share a StoryState DB.
+        # The DB's current_phase column has a hard CHECK against
+        # ALL_ARC_PHASES; if a hand-edited snapshot uses a concept-seed
+        # planning label, map through CONCEPT_SEED_PHASE_MAP and fall back
+        # to "lie_established" so the row is not silently dropped.
+        for arc in snapshot.get("character_arc_states") or []:
+            if not arc.get("character_id"):
+                continue
+            raw_phase = arc.get("current_phase") or "lie_established"
+            if raw_phase in ALL_ARC_PHASES:
+                phase = raw_phase
+            elif raw_phase in CONCEPT_SEED_PHASE_MAP:
+                phase = CONCEPT_SEED_PHASE_MAP[raw_phase]
+            else:
+                phase = "lie_established"
+            self.add_character_arc(
+                character_id=arc["character_id"],
+                book_number=target_book_number,
+                lie_believed=arc.get("lie_believed"),
+                need=arc.get("need"),
+                arc_type=arc.get("arc_type"),
+                current_phase=phase,
+            )
+            counts["arcs"] += 1
+
+        # Plot threads — carry over unresolved ones. Urgency is CHECK-ed by
+        # the DB against {background, rising, critical, climactic}; fall
+        # back to "rising" when the snapshot value is outside the enum so
+        # hand-edited snapshots don't silently drop rows.
+        _urgency_enum = {"background", "rising", "critical", "climactic"}
+        for thread in snapshot.get("unresolved_threads") or []:
+            if not thread.get("id"):
+                continue
+            raw_urgency = thread.get("urgency")
+            urgency = raw_urgency if raw_urgency in _urgency_enum else "rising"
+            self.add_plot_thread(
+                id=thread["id"],
+                description=thread.get("description", ""),
+                status=thread.get("status", "planted"),
+                urgency=urgency,
+            )
+            counts["threads"] += 1
+
+        # Hooks — carry over unresolved ones. planted_book references the
+        # source book; payoff stays open until resolved in Book N+1 or later.
+        #
+        # Note on the two hook_type namespaces:
+        # - The **concept seed** schema uses hook_type in {hard, soft, series}
+        #   (really a priority label inherited from the old schema).
+        # - The **DB** hooks table uses hook_type in {chekhov, foreshadow,
+        #   setup_callback, thematic_echo, mystery_question} — a narrative
+        #   classification. The DB also has a dedicated priority column for
+        #   hard/soft/series.
+        # Inherited hooks default to "setup_callback" on the DB side (that's
+        # what a cross-book hook most closely resembles) and preserve the
+        # snapshot's priority verbatim. The init_from_concept_seed path at
+        # line ~850 uses the same convention.
+        source_book = int(snapshot.get("book_number", 0) or 0)
+        for hook in snapshot.get("unresolved_hooks") or []:
+            if not hook.get("hook_id"):
+                continue
+            priority = hook.get("priority") or "soft"
+            if priority not in HOOK_PRIORITIES:
+                priority = "soft"
+            # Only honour snapshot-supplied hook_type if it's a valid DB enum.
+            snapshot_hook_type = hook.get("hook_type")
+            if snapshot_hook_type in HOOK_TYPES:
+                hook_type = snapshot_hook_type
+            else:
+                hook_type = "setup_callback"
+            # current_status CHECK: planted|advancing|resolved|subverted|abandoned.
+            # Accept common synonyms from hand-edited snapshots.
+            _status_enum = {"planted", "advancing", "resolved", "subverted", "abandoned"}
+            _status_synonyms = {"advanced": "advancing", "active": "advancing"}
+            raw_status = hook.get("current_status") or "planted"
+            if raw_status in _status_enum:
+                current_status = raw_status
+            elif raw_status in _status_synonyms:
+                current_status = _status_synonyms[raw_status]
+            else:
+                current_status = "planted"
+            # Inherited hooks are by definition unresolved — never carry
+            # over a resolved/subverted/abandoned state from the snapshot,
+            # since generate_transition_snapshot already filters those out.
+            if current_status in ("resolved", "subverted", "abandoned"):
+                current_status = "planted"
+            self.add_hook(
+                hook_id=hook["hook_id"],
+                description=hook.get("description", ""),
+                hook_type=hook_type,
+                planted_chapter=hook.get("planted_chapter", 0) or 0,
+                planted_book=source_book if source_book >= 1 else 1,
+                priority=priority,
+                current_status=current_status,
+            )
+            counts["hooks"] += 1
+
+        # Chekhov guns — unfired guns carry over. Planted-chapter is from
+        # the source book; there is no per-book scoping on the guns table
+        # today, so naming collisions between books fall back to INSERT OR
+        # IGNORE (first write wins).
+        for gun in snapshot.get("unfired_chekhov_guns") or []:
+            if not gun.get("id"):
+                continue
+            self.add_chekhov_gun(
+                id=gun["id"],
+                item_description=gun.get("description", ""),
+                planted_chapter=gun.get("planted_chapter"),
+            )
+            counts["guns"] += 1
+
+        return counts
+
     def close(self) -> None:
         """Close the database connection."""
         self.conn.close()

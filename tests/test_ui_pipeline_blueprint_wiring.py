@@ -152,7 +152,11 @@ class TestUiPhase5Plumbing:
     def test_pipeline_py_initializes_critic_when_phase_5(self):
         src = (Path(__file__).parent.parent / "src" / "ui" / "routes" / "pipeline.py").read_text(encoding="utf-8")
         assert "if body.phase >= 5:" in src
-        assert "ChapterGateCritic(state.router)" in src
+        # Phase 7.4 extended the constructor to accept lore_service +
+        # universe_id, so match the call site start rather than the exact
+        # single-arg form.
+        assert "ChapterGateCritic(" in src
+        assert "state.router" in src
 
     def test_pipeline_py_passes_critic_to_web_orchestrator(self):
         src = (Path(__file__).parent.parent / "src" / "ui" / "routes" / "pipeline.py").read_text(encoding="utf-8")

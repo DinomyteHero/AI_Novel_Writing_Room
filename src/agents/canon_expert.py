@@ -22,12 +22,17 @@ from src.rag.canon_evidence import CanonEvidenceRanker
 logger = logging.getLogger(__name__)
 
 # Categories used in structured violation output.
+# ``post_divergence_drift`` is the Phase 6 AU-aware category: a violation that
+# WOULD have been ``cross_continuity`` or ``era_accuracy`` but refers to a fact
+# that falls past the universe's declared ``branch_point.divergence_point``.
+# These are emitted with reduced severity (see _normalize_output).
 VIOLATION_CATEGORIES = (
     "cross_continuity",
     "anachronism",
     "meta_reference",
     "era_accuracy",
     "franchise_voice",
+    "post_divergence_drift",
 )
 
 SEVERITY_LEVELS = ("critical", "moderate", "minor")
@@ -138,14 +143,22 @@ class CanonExpert(BaseAgent):
         generic internal-consistency checks.
         """
         canon_profile = concept_seed.get("canon_profile")
+        branch_point = (concept_seed.get("meta") or {}).get("branch_point")
         sections: list[str] = []
 
         # Header with franchise/continuity context (if available)
         sections.append(self._section_header(canon_profile))
 
+        # Optional AU divergence context — when present, cross-continuity and
+        # era-accuracy checks downstream should reclassify post-divergence
+        # facts as post_divergence_drift rather than critical violations.
+        branch_section = self._section_branch_point(branch_point)
+        if branch_section:
+            sections.append(branch_section)
+
         # --- Check 1: Cross-continuity contamination ---
         sections.append(
-            self._section_cross_continuity(canon_profile)
+            self._section_cross_continuity(canon_profile, branch_point)
         )
 
         # --- Check 2: Anachronistic terms ---
@@ -155,7 +168,7 @@ class CanonExpert(BaseAgent):
         sections.append(self._section_meta_references(canon_profile))
 
         # --- Check 4: Era accuracy ---
-        sections.append(self._section_era_accuracy(canon_profile))
+        sections.append(self._section_era_accuracy(canon_profile, branch_point))
 
         # --- Check 5: Franchise voice ---
         sections.append(self._section_franchise_voice(canon_profile))
@@ -194,7 +207,40 @@ class CanonExpert(BaseAgent):
             )
         return "\n".join(parts)
 
-    def _section_cross_continuity(self, canon_profile: Optional[dict]) -> str:
+    def _section_branch_point(self, branch_point: Optional[dict]) -> str:
+        """Emit the AU divergence context block when a branch_point is declared.
+
+        Returns an empty string when no branch_point is set so the caller can
+        skip the section entirely.
+        """
+        if not branch_point:
+            return ""
+        parts = ["## Branch Point (AU Divergence)"]
+        source_canon = branch_point.get("source_canon")
+        divergence_point = branch_point.get("divergence_point")
+        divergence_description = branch_point.get("divergence_description")
+        if source_canon:
+            parts.append(f"Source canon: {source_canon}")
+        if divergence_point:
+            parts.append(f"Divergence point: {divergence_point}")
+        if divergence_description:
+            parts.append(f"Divergence description: {divergence_description}")
+        parts.append(
+            "This universe intentionally diverges from the source canon at "
+            "the divergence point above. When a potential violation concerns "
+            "a fact drawn from source canon that falls AFTER the divergence "
+            "point, tag it with category \"post_divergence_drift\" and "
+            "severity \"minor\" rather than \"cross_continuity\" / "
+            "\"era_accuracy\" at higher severity. The flag stays visible for "
+            "audit but does not hard-fail the scene."
+        )
+        return "\n".join(parts)
+
+    def _section_cross_continuity(
+        self,
+        canon_profile: Optional[dict],
+        branch_point: Optional[dict] = None,
+    ) -> str:
         heading = "### Check 1 -- Cross-Continuity Contamination"
         if canon_profile is None:
             return (
@@ -204,19 +250,27 @@ class CanonExpert(BaseAgent):
             )
         violations_list = canon_profile.get("cross_continuity_violations", [])
         if not violations_list:
-            return (
+            base = (
                 f"{heading}\n"
                 "No explicit cross-continuity violations were listed in "
                 "the canon profile. Check for any references that clearly "
                 "belong to a different continuity or timeline than the one "
                 "specified above."
             )
-        items = "\n".join(f"- {v}" for v in violations_list)
-        return (
-            f"{heading}\n"
-            f"The following elements are OFF-LIMITS for this continuity. "
-            f"Flag any occurrence as a cross-continuity violation:\n{items}"
-        )
+        else:
+            items = "\n".join(f"- {v}" for v in violations_list)
+            base = (
+                f"{heading}\n"
+                f"The following elements are OFF-LIMITS for this continuity. "
+                f"Flag any occurrence as a cross-continuity violation:\n{items}"
+            )
+        if branch_point:
+            base += (
+                "\n\nNote: if a flagged element derives from source canon "
+                "AFTER the declared divergence point, reclassify it as "
+                "category \"post_divergence_drift\", severity \"minor\"."
+            )
+        return base
 
     def _section_anachronistic_terms(self, canon_profile: Optional[dict]) -> str:
         heading = "### Check 2 -- Anachronistic Terms"
@@ -271,30 +325,44 @@ class CanonExpert(BaseAgent):
             f"Apply the following meta-reference rules:\n{items}"
         )
 
-    def _section_era_accuracy(self, canon_profile: Optional[dict]) -> str:
+    def _section_era_accuracy(
+        self,
+        canon_profile: Optional[dict],
+        branch_point: Optional[dict] = None,
+    ) -> str:
         heading = "### Check 4 -- Era Accuracy"
         if canon_profile is None:
-            return (
+            base = (
                 f"{heading}\n"
                 "Check that all events, technology, and cultural details "
                 "are internally consistent with the time period "
                 "established in the text."
             )
-        era = canon_profile.get("era_description", "")
-        if not era:
-            return (
-                f"{heading}\n"
-                "No era description was provided. Check that technology, "
-                "events, and cultural details are consistent with what "
-                "has been established in the continuity."
+        else:
+            era = canon_profile.get("era_description", "")
+            if not era:
+                base = (
+                    f"{heading}\n"
+                    "No era description was provided. Check that technology, "
+                    "events, and cultural details are consistent with what "
+                    "has been established in the continuity."
+                )
+            else:
+                base = (
+                    f"{heading}\n"
+                    f"The story is set in the following era:\n{era}\n\n"
+                    f"Flag any technology, events, organizations, or cultural "
+                    f"details that belong to a different era within this "
+                    f"franchise's timeline."
+                )
+        if branch_point:
+            base += (
+                "\n\nNote: era facts that belong to source canon AFTER the "
+                "declared divergence point are intentional AU drift — "
+                "reclassify as category \"post_divergence_drift\", "
+                "severity \"minor\"."
             )
-        return (
-            f"{heading}\n"
-            f"The story is set in the following era:\n{era}\n\n"
-            f"Flag any technology, events, organizations, or cultural "
-            f"details that belong to a different era within this "
-            f"franchise's timeline."
-        )
+        return base
 
     def _section_franchise_voice(self, canon_profile: Optional[dict]) -> str:
         heading = "### Check 5 -- Franchise Voice"
@@ -330,13 +398,16 @@ class CanonExpert(BaseAgent):
             "Return your analysis as a single JSON object with these keys:\n"
             "- **violations**: a list of objects, each with:\n"
             "  - category: one of cross_continuity, anachronism, "
-            "meta_reference, era_accuracy, franchise_voice\n"
-            "  - severity: one of critical, moderate, minor\n"
+            "meta_reference, era_accuracy, franchise_voice, "
+            "post_divergence_drift\n"
+            "  - severity: one of critical, moderate, minor. "
+            "post_divergence_drift entries MUST use severity \"minor\".\n"
             "  - text: the offending phrase from the prose\n"
             "  - explanation: why this is a violation\n"
             "  - suggestion: a suggested fix\n"
             "- **verdict**: \"pass\" if no critical or moderate violations, "
-            "\"fail\" otherwise\n"
+            "\"fail\" otherwise. post_divergence_drift entries never cause "
+            "a \"fail\" verdict on their own.\n"
             "- **summary**: one-sentence assessment\n"
             "- **corrected_prose**: the full prose with all violations "
             "fixed (include ONLY when verdict is \"fail\")\n\n"
@@ -450,16 +521,28 @@ class CanonExpert(BaseAgent):
 
     @staticmethod
     def _normalize_output(parsed: dict) -> dict:
-        """Ensure the parsed dict conforms to the expected schema."""
+        """Ensure the parsed dict conforms to the expected schema.
+
+        Also enforces two invariants for ``post_divergence_drift`` flags that
+        the prompt asks the LLM to honour — we do not trust the LLM:
+        1. Severity is clamped to ``minor`` regardless of what the LLM emits.
+        2. These flags never contribute to a ``fail`` verdict when the
+           verdict has to be derived from the violations list.
+        """
         violations = parsed.get("violations", [])
         normalized_violations = []
         for v in violations:
             if not isinstance(v, dict):
                 continue
+            category = v.get("category", "franchise_voice")
+            severity = v.get("severity", "minor")
+            # Invariant 1: post_divergence_drift is always minor.
+            if category == "post_divergence_drift":
+                severity = "minor"
             normalized_violations.append(
                 {
-                    "category": v.get("category", "franchise_voice"),
-                    "severity": v.get("severity", "minor"),
+                    "category": category,
+                    "severity": severity,
                     "text": v.get("text", ""),
                     "explanation": v.get("explanation", ""),
                     "suggestion": v.get("suggestion", ""),
@@ -468,8 +551,13 @@ class CanonExpert(BaseAgent):
 
         verdict = parsed.get("verdict", "pass")
         if verdict not in VERDICT_VALUES:
-            # Derive verdict from violations
-            severities = {v["severity"] for v in normalized_violations}
+            # Derive verdict from violations, ignoring post_divergence_drift
+            # (invariant 2).
+            severities = {
+                v["severity"]
+                for v in normalized_violations
+                if v["category"] != "post_divergence_drift"
+            }
             verdict = (
                 "fail"
                 if severities & {"critical", "moderate"}
