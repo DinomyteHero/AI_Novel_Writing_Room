@@ -147,14 +147,23 @@ For each batch after the first, provide a summary of the previous batch's key ev
 
 ## Saving Scene Cards
 
-Save each scene card as an individual JSON file in your project's `scene_cards/` directory:
+Save each scene card as an individual JSON file in your project's `scene_cards/` directory. The franchise-scoped layout is canonical for new projects; the flat layout is still supported for ad-hoc use.
+
+**Franchise-scoped (recommended):**
+
+```
+data/franchises/<franchise>/books/<book>/scene_cards/
+  chapter_01_scene_01.json
+  chapter_01_scene_02.json
+  chapter_02_scene_01.json
+  ...
+```
+
+**Flat (legacy, still works):**
 
 ```
 data/projects/<your-project>/scene_cards/
   chapter_01_scene_01.json
-  chapter_01_scene_02.json
-  chapter_01_scene_03.json
-  chapter_02_scene_01.json
   ...
 ```
 
@@ -166,16 +175,18 @@ Once scene cards are saved, skip `--generate-outline` and run the pipeline direc
 
 ```bash
 python -m src.main \
-    data/projects/<your-project>/concept_seed.json \
-    data/projects/<your-project>/scene_cards \
-    --phase 4
+    data/franchises/<franchise>/books/<book>/concept_seed.json \
+    data/franchises/<franchise>/books/<book>/scene_cards \
+    --franchise <franchise> --book <book> \
+    --phase 5
 ```
 
 Test with a single chapter first:
 
 ```bash
 python -m src.main \
-    data/projects/<your-project>/concept_seed.json \
-    data/projects/<your-project>/scene_cards \
-    --chapter 1 --phase 4
+    data/franchises/<franchise>/books/<book>/concept_seed.json \
+    data/franchises/<franchise>/books/<book>/scene_cards \
+    --franchise <franchise> --book <book> \
+    --chapter 1 --phase 5
 ```

@@ -20,3 +20,4 @@ They describe what was **planned** to be built at each phase, not necessarily th
 | `phase-3-brief.md` | `Phase_3_Prompt.md` | Phase 3 implementation brief: Quality Metrics, Character Specialist, Revision Pipeline. |
 | `phase-4-brief.md` | `Phase_4_Project_Brief.md` | Phase 4 implementation brief: Export, Physics Integration, Adaptive Revision, Scene Cards. |
 | `Phase_5_Changelog.md` | `Phase_5_Changelog.md` | Phase 5 changelog and migration guide: Series support, workshop expansion, character arcs, hook governance, voice definition, style fingerprinting, manuscript review. |
+| `phase-3-gap-report.md` | `docs/development/phase-3-gap-report.md` | 2026-04-16 point-in-time drift report after Phase 3 closed. All P0 items have since been resolved; retained for historical context. |

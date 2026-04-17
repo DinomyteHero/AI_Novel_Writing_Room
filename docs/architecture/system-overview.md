@@ -78,24 +78,42 @@ ai-writers-room/
 │   ├── orchestrator.py            # Event-driven pipeline state machine
 │   ├── run_ledger.py              # Append-only SQLite event log
 │   ├── pipeline_session.py        # JSON-based session save/resume
-│   ├── agents/                    # Agent implementations (base + 8 specialized)
+│   ├── project_paths.py           # Franchise/book/series/run path resolution
+│   ├── agents/                    # Agent implementations (base + 12 specialized)
 │   ├── memory/                    # State management (SQLite, ChromaDB, context assembly)
 │   ├── worldbuilding/             # Cross-project universe & lore persistence (SQLite + ChromaDB)
 │   ├── rag/                       # Canon knowledge retrieval (vector DB, hybrid search)
-│   ├── quality/                   # Quality metrics and milestone gates
-│   ├── revision/                  # Multi-band revision pipeline
-│   ├── planning/                  # Story physics and scene card generation
+│   ├── quality/                   # Quality metrics, milestone gates, style fingerprinting, LLM judge
+│   ├── planning/                  # Story physics, scene cards, chapter blueprint generator
 │   ├── export/                    # Markdown, DOCX, EPUB export
-│   ├── concept_workshop/          # Interactive concept development
+│   ├── concept_workshop/          # Legacy 11-step workshop runner + shared shims
 │   └── ui/                        # FastAPI backend + React frontend
-├── tests/                         # ~677 tests across 62+ files
+├── workflows/                     # Six-surface workflow kit
+│   ├── _shared/                   # Shared helpers: seed_transforms, scene_card_translator, etc.
+│   ├── universe_builder/          # meta + universe_meta + premise + conflict + theme
+│   ├── canon_drafter/             # canon_profile + canon_constraints + force_mechanics + terminology
+│   ├── voice_discovery/           # voice_definition
+│   ├── character_forge/           # ensemble_cast + relationship_arcs + referenced_characters
+│   ├── outline_planner/           # structural_notes + outline + subplots + hooks + revelations
+│   └── scene_card_authoring/      # per-scene cards
+├── tests/                         # ~1,457 tests across 110+ files
 ├── prompts/
-│   ├── concept_workshop.md        # Workshop facilitator system prompt
-│   ├── agent_system_prompts/      # Per-agent system prompts (10 files)
-│   └── revision_prompts/          # Per-band revision prompts (5 files)
-├── schemas/                       # JSON schema definitions (10 schemas)
+│   ├── concept_workshop.md        # Legacy workshop facilitator system prompt
+│   ├── stress_test_prompt.md      # Adversarial stress-test harness
+│   ├── voice_definition_template.md
+│   ├── agent_system_prompts/      # Per-agent system prompts
+│   └── revision_prompts/          # Legacy revision-band prompts (not invoked by current orchestrator)
+├── schemas/                       # JSON schema definitions
+├── templates/                     # canon_profile and voice_definition scaffolds (init_project.py)
+├── config/
+│   ├── settings.yaml              # Production routing
+│   ├── settings.bench.sonnet.yaml # Bench config: Sonnet prose
+│   ├── settings.bench.gpt.yaml    # Bench config: GPT prose
+│   ├── failure_codes.yaml
+│   ├── negative_constraints.yaml
+│   └── eval_rubric.yaml
 ├── data/
-│   ├── franchises/                # Franchise-scoped projects and shared resources
+│   ├── franchises/                # Franchise-scoped projects and shared resources (active)
 │   │   └── <franchise>/
 │   │       ├── canon_db/          # Franchise RAG database (shared across books)
 │   │       ├── worldbuilding.db   # Universe/lore persistence (shared across books)
@@ -103,13 +121,8 @@ ai-writers-room/
 │   │       └── books/
 │   │           └── <book>/
 │   │               ├── concept_seed.json
-│   │               └── scene_cards/
-│   ├── projects/                  # Legacy: flat project layout (backward compat)
-│   │   └── <project-slug>/        # Still works for projects without franchise scoping
-│   │       ├── concept_seed.json
-│   │       ├── scene_cards/
-│   │       └── state/             # (legacy location for state)
-│   ├── canon_dbs/                 # Legacy: flat franchise RAG databases (backward compat)
+│   │               ├── scene_cards/
+│   │               └── chapter_blueprints/
 │   └── eval_corpus/               # Reference chapters for quality calibration
 ├── output/
 │   └── <franchise>/
@@ -117,13 +130,17 @@ ai-writers-room/
 │           ├── runs/              # Per-run isolation
 │           │   └── <run_id>/
 │           │       ├── config_snapshot.yaml  # Frozen settings for reproducibility
-│           │       └── chapters/  # Generated chapter prose for this run
+│           │       ├── invocation.json       # CLI args + git SHA + timestamp
+│           │       ├── prompts_snapshot/     # Frozen prompts for this run
+│           │       └── chapters/             # Generated chapter prose
 │           ├── state/             # story_state.db, chapter_memory/, run_ledger.db, sessions/
 │           └── export/            # Exported manuscripts
-│       └── <series>/              # Series-level shared state (when series_id is set)
+│       └── <series>/              # Series-level shared state (when `--series` is set)
 │           └── state/             # Shared state across books in the same series
 └── docs/                          # Documentation
 ```
+
+> **Note — legacy flat layout.** The code path in `src/project_paths.py` still resolves flat `data/projects/<slug>/` directories for ad-hoc projects and backward compatibility. No data currently ships under `data/projects/`; the shipped worked example lives under `data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/`.
 
 ### Franchise and Series Concepts
 
@@ -133,7 +150,7 @@ ai-writers-room/
 
 **Per-run isolation** ensures each pipeline execution gets its own output directory at `output/<franchise>/<book>/runs/<run_id>/chapters/`. A frozen config snapshot is saved alongside run output for reproducibility. The `--run-name` CLI flag allows custom run IDs; the default is auto-timestamped.
 
-**Backward compatibility**: Flat `data/projects/<slug>/` layouts continue to work for projects without franchise scoping. The system detects the project structure and adapts path resolution accordingly.
+**Backward compatibility**: The CLI still resolves the flat `data/projects/<slug>/` layout for ad-hoc projects. `src/project_paths.py` detects whether `--franchise` was passed and adapts path resolution accordingly. No data currently ships under `data/projects/`.
 
 ## Key Abstractions
 

@@ -30,7 +30,7 @@ Not all dependencies are required. The pipeline gracefully degrades when optiona
 | chromadb, sentence-transformers, numpy | Phase 2 (memory, canon, RAG) |
 | nltk, scikit-learn | Phase 3 (quality metrics) |
 | python-docx, ebooklib | Phase 4 (DOCX/EPUB export) |
-| fastapi, uvicorn, websockets | Phase 5 (web interface) |
+| fastapi, uvicorn, websockets | Web dashboard |
 
 ### Frontend Setup (Optional)
 
@@ -79,22 +79,24 @@ The local base URL defaults to `http://localhost:8080/v1` (configurable in `sett
 
 ## Your First Run
 
-The project includes a worked example called "The Ruusan Atonement" with a complete concept seed and scene cards for all 28 chapters.
+The project includes a worked example called "The Ruusan Atonement" — a 28-chapter Star Wars Legends EU novel — shipped under the franchise-scoped layout. The example's scene cards, concept seed, canon profile, chapter blueprints, and worldbuilding DB are all in-tree and used by the test suite.
 
 ### Directory Layout
 
-The pipeline supports two input layouts:
+The pipeline supports two input layouts. The shipped worked example uses the franchise-scoped layout; the flat layout is retained for ad-hoc projects.
 
-**Franchise-scoped (recommended for new projects):**
+**Franchise-scoped (used by the shipped worked example and recommended for new work):**
 ```
 data/franchises/<franchise>/books/<book>/
 ├── concept_seed.json
-└── scene_cards/
-    ├── chapter_01_scene_01.json
-    └── ...
+├── scene_cards/
+│   ├── chapter_01_scene_01.json
+│   └── ...
+├── chapter_blueprints/          # (optional, auto-generated when --phase 5)
+└── worldbuilding.db             # shared across books in the franchise
 ```
 
-**Flat project-scoped (backward compatible):**
+**Flat project-scoped (still supported by the CLI for ad-hoc use):**
 ```
 data/projects/<slug>/
 ├── concept_seed.json
@@ -113,42 +115,43 @@ Or flat when using the legacy layout:
 output/<project-slug>/chapters/
 ```
 
-### Run a Single Chapter
+### Run a Single Chapter (franchise-scoped, the shipped example)
 
 ```bash
 python -m src.main \
-    data/projects/the-ruusan-atonement/concept_seed.json \
-    data/projects/the-ruusan-atonement/scene_cards \
-    --chapter 1 \
-    --phase 1
+    data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/concept_seed.json \
+    data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/scene_cards \
+    --franchise star-wars-legends-eu --book the-ruusan-atonement \
+    --chapter 1 --phase 1
 ```
 
-This runs the basic pipeline (Phase 1): PlotArchitect, ProseStylist, CanonExpert, GateCritic, CraftEditor.
+This runs the basic pipeline (Phase 1): `PlotArchitect → ProseStylist → GateCritic (retry loop) → QualityMetrics → QualityPolish → compression guard → FinalGate → save`. CanonExpert is added at Phase 2+ when the canon RAG database is present.
 
-All state data is automatically scoped under `data/projects/the-ruusan-atonement/` and output goes to `output/the-ruusan-atonement/chapters/`.
+Output goes to `output/star-wars-legends-eu/the-ruusan-atonement/runs/<auto-timestamp>/chapters/`.
 
-### Run with Franchise Scoping
+### Run with Named Run Isolation
 
 ```bash
 python -m src.main \
-    data/franchises/star-wars/books/the-ruusan-atonement/concept_seed.json \
-    data/franchises/star-wars/books/the-ruusan-atonement/scene_cards \
-    --franchise star-wars --book the-ruusan-atonement \
-    --run-name first-draft --phase 4
+    data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/concept_seed.json \
+    data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/scene_cards \
+    --franchise star-wars-legends-eu --book the-ruusan-atonement \
+    --run-name first-draft --phase 5
 ```
 
-Output goes to `output/star-wars/the-ruusan-atonement/runs/first-draft/chapters/`. Each run is fully isolated with its own chapters, config snapshot, and session data.
+Output goes to `output/star-wars-legends-eu/the-ruusan-atonement/runs/first-draft/chapters/`. Each run is fully isolated with its own chapters, config snapshot, prompts snapshot, and session data.
 
 ### Run with Full Features
 
 ```bash
 python -m src.main \
-    data/projects/the-ruusan-atonement/concept_seed.json \
-    data/projects/the-ruusan-atonement/scene_cards \
-    --phase 4
+    data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/concept_seed.json \
+    data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/scene_cards \
+    --franchise star-wars-legends-eu --book the-ruusan-atonement \
+    --phase 5
 ```
 
-Phase 4 enables all features: story state tracking, quality metrics, adaptive revision, physics enforcement, and session persistence.
+Phase 5 layers all available subsystems: story state, quality metrics, milestone gates, physics enforcement, session persistence, chapter blueprint generation, and the `ChapterGateCritic` (advisory by default).
 
 ### Export the Manuscript
 
@@ -156,27 +159,31 @@ After generation, export to multiple formats:
 
 ```bash
 python -m src.main \
-    data/projects/the-ruusan-atonement/concept_seed.json \
-    data/projects/the-ruusan-atonement/scene_cards \
+    data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/concept_seed.json \
+    data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/scene_cards \
+    --franchise star-wars-legends-eu --book the-ruusan-atonement \
     --export-only --export-formats md,docx,epub
 ```
 
 ### Run the Web Interface
 
 ```bash
-python -m src.ui.server data/projects/the-ruusan-atonement/concept_seed.json
+python -m src.ui.server \
+    data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/concept_seed.json
 ```
 
 Open http://localhost:8000.
 
 ### Migrate Existing Data
 
-If you have data from before the project-scoped layout, run the migration:
+If you have legacy data in the flat `data/projects/<slug>/` layout and want to move it to the franchise-scoped layout:
 
 ```bash
-python scripts/migrate_to_project_dirs.py --dry-run  # preview
-python scripts/migrate_to_project_dirs.py             # execute
+python scripts/migrate_to_franchise_layout.py --dry-run   # preview
+python scripts/migrate_to_franchise_layout.py             # execute
 ```
+
+The older `scripts/migrate_to_project_dirs.py` (flat-to-flat reorganization) is also preserved for historical migrations.
 
 ## Verify Your Setup
 
@@ -186,38 +193,40 @@ Run the test suite to confirm everything is installed correctly:
 pytest
 ```
 
-All ~677 tests should pass. If some tests fail due to missing optional dependencies (chromadb, sentence-transformers, fastapi), that's expected -- the tests for those phases will be skipped.
+Approximately 1,457 tests are collected. If some tests are skipped due to missing optional dependencies (chromadb, sentence-transformers, fastapi), that's expected — the tests for those subsystems are skipped when their dependencies aren't installed.
 
 ## Three Workflows
 
-### Workflow A: Fully Automated
+### Workflow A: Fully Automated (workflow kit, recommended)
 
-Use the built-in workshop CLI to develop your concept, then auto-generate scene cards and run the pipeline:
+Scaffold a fresh project from templates, author each surface, then compile and run:
+
+```bash
+python scripts/init_project.py --title "My Novel" --franchise "My Franchise" --depth original_light
+# Author via workflow kit surfaces (chat skills, api.py, or markdown importers)
+python scripts/compile_bundle.py --franchise my-franchise --book my-novel
+python -m src.main --franchise my-franchise --book my-novel --phase 5
+```
+
+See [Workflow Kit](user-guide/workflow-kit.md) for the six-surface breakdown.
+
+The legacy `workshop_runner.py` 11-step protocol still works for in-flight workshops and now prints a deprecation banner:
 
 ```bash
 python -m src.concept_workshop.workshop_runner --project my-novel
-python -m src.main data/projects/my-novel/concept_seed.json data/projects/my-novel/scene_cards --generate-outline --phase 4
 ```
-
-Or with franchise scoping:
-
-```bash
-python -m src.main \
-    data/franchises/my-franchise/books/my-novel/concept_seed.json \
-    data/franchises/my-franchise/books/my-novel/scene_cards \
-    --franchise my-franchise --book my-novel \
-    --generate-outline --phase 4
-```
-
-Best for: structured, guided development with validation gates at each step.
 
 ### Workflow B: External Concept, Auto Outline
 
 Develop your concept in any LLM chat (Claude, ChatGPT, Gemini), import it, then auto-generate scene cards:
 
 ```bash
-python -m src.main --import-summary manuscript.md --project my-novel --phase 4
-python -m src.main data/projects/my-novel/concept_seed.json data/projects/my-novel/scene_cards --generate-outline --phase 4
+python -m src.main --import-summary manuscript.md --project my-novel --phase 5
+python -m src.main \
+    data/franchises/my-franchise/books/my-novel/concept_seed.json \
+    data/franchises/my-franchise/books/my-novel/scene_cards \
+    --franchise my-franchise --book my-novel \
+    --generate-outline --phase 5
 ```
 
 Best for: creative freedom during concept development, with automated scene card generation. See the [planning manuscript template](workshop-summary-template.md).
@@ -227,16 +236,21 @@ Best for: creative freedom during concept development, with automated scene card
 Develop both your concept seed AND scene cards in an external LLM chat, then run the pipeline directly:
 
 ```bash
-python -m src.main data/projects/my-novel/concept_seed.json data/projects/my-novel/scene_cards --phase 4
+python -m src.main \
+    data/franchises/my-franchise/books/my-novel/concept_seed.json \
+    data/franchises/my-franchise/books/my-novel/scene_cards \
+    --franchise my-franchise --book my-novel --phase 5
 ```
 
-Best for: maximum creative control over every scene. Skip `--generate-outline` entirely -- just place your concept seed and scene card JSON files in the project directory. See the [scene card template](scene-card-template.md).
+Best for: maximum creative control over every scene. Skip `--generate-outline` entirely — just place your concept seed and scene card JSON files in the book directory. See the [scene card template](scene-card-template.md).
 
-See [Concept Workshop](user-guide/concept-workshop.md) for detailed guides on all three workflows.
+See [Concept Workshop](user-guide/concept-workshop.md) and [Workflow Kit](user-guide/workflow-kit.md) for detailed guides.
 
 ## Next Steps
 
-- [CLI Usage](user-guide/cli-usage.md) -- All CLI flags and workflows
-- [Web Interface](user-guide/web-interface.md) -- Dashboard walkthrough
-- [Concept Workshop](user-guide/concept-workshop.md) -- Create your own story from scratch
-- [System Overview](architecture/system-overview.md) -- How the system works
+- [CLI Usage](user-guide/cli-usage.md) — All CLI flags and workflows
+- [Workflow Kit](user-guide/workflow-kit.md) — Six-surface concept authoring
+- [Web Interface](user-guide/web-interface.md) — Dashboard walkthrough
+- [Concept Workshop](user-guide/concept-workshop.md) — Legacy 11-step protocol
+- [Benchmarking](development/benchmarking.md) — A/B model and pipeline evaluation
+- [System Overview](architecture/system-overview.md) — How the system works
