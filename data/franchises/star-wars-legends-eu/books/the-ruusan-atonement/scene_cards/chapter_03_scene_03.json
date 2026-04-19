@@ -5,17 +5,17 @@
   "scene_type": "sequel",
   "scene_role": "decision",
   "pov_character": "Ben Skywalker",
-  "mission": "Ben decides to follow the coordinates to the fortress rather than reporting back to Luke — his Lie in action (I'll handle this myself)",
-  "why_now": "The decision point: report and wait for the Order's response (weeks), or follow the coordinates now while the seal continues failing",
-  "conflict": "Ben rationalizes the decision as urgency — the seal is failing, there isn't time to wait for committee — but it's his Lie operating: self-reliance as safety, control as protection",
+  "mission": "Ben decides to follow the coordinates rather than report. The withholding he began with one omitted Force impression becomes a choice someone else names out loud.",
+  "why_now": "The report to Luke is overdue. A seal is failing on an unreported clock. Wait for a committee or close the distance — the choice will not survive another day's delay.",
+  "conflict": "Ben writes the honest report three times and deletes it three times. He can frame the delay as urgency — the seal will not wait — but what he is actually doing is closing the report before it leaves the ship. Desh watches him do it and will not let the choice stay unnamed.",
   "conflict_type": "internal",
-  "turning_point": "Desh agrees to go but makes Ben acknowledge the choice out loud: 'You're not reporting this.' Ben's answer — 'Not yet' — is the first institutional withholding.",
+  "turning_point": "Desh leans over the copilot's shoulder, reads the first line, and says 'You're not sending that.' Ben's answer — 'Not yet' — is the first time the withholding is spoken aloud.",
   "opening_hook": "Ben's fingers are typing the report to Luke for the third time when Desh leans over the copilot's shoulder and reads the first line — 'You're not sending that'",
-  "closing_hook": "Hyperspace entry toward uncharted coordinates. The wrongness doesn't diminish in hyperspace. It intensifies. They're heading toward the source.",
+  "closing_hook": "Hyperspace entry toward uncharted coordinates. The wrongness does not diminish in hyperspace. It intensifies. They are heading toward the source.",
   "emotional_trajectory": "Deliberation -> rationalized certainty -> suppressed doubt",
   "stakes": {
-    "personal": "Ben is choosing his Lie — acting alone because trust is dangerous",
-    "interpersonal": "Desh sees the pattern but follows anyway — loyalty enabling avoidance",
+    "personal": "Ben chooses to act alone under cover of urgency — the pattern becomes visible to Desh before it becomes visible to Ben",
+    "interpersonal": "Desh sees the pattern and follows anyway — loyalty enabling avoidance",
     "external": "Every hour of delay means more seal degradation"
   },
   "characters_present": [
@@ -23,7 +23,7 @@
     "Desh Rolan"
   ],
   "setting": "Aboard the Steady Returns — cockpit, then hyperspace",
-  "sensory_details": "The nav computer calculating a route through unmapped space; Ben's deleted report drafts; hyperspace blue intensifying the wrongness — like trying to meditate in a room where someone is playing music slightly out of tune",
+  "sensory_details": "The nav computer calculating a route through unmapped space; three deleted report drafts in the buffer; hyperspace blue through the viewport; the wrongness in the jump arriving as pressure against the bulkheads rather than fading with distance — it does not behave the way distance should",
   "canon_elements_needed": [
     "Ben Skywalker institutional relationship with the Jedi Order",
     "Post-Jacen Solo trust dynamics within the Skywalker family",
@@ -57,5 +57,5 @@
   ],
   "revelations": [],
   "pov_arc_phase": "lie_established",
-  "notes": "Ben's Lie is fully operational here — self-reliance disguised as urgency. Desh's quiet 'You're not reporting this' should land with the weight of someone who recognizes institutional avoidance from their GAG days."
+  "notes": "Desh's quiet 'You're not reporting this' lands with the weight of someone who recognises institutional avoidance from inside. The two of them served in the same machine; he knows the signature. The withholding should be shown through action (deleted drafts, Desh's observation, hyperspace jump), not through an interior monologue explaining why Ben will not send it. Diagnostic-voice trap — if Ben reaches for an analysis of his own motives here, cut it. The reader should feel the omission before Ben names it to himself. Rotate the Force-wrongness metaphor for the hyperspace transition — not the handrail, not the note-played-flat; this scene's register is spatial (pressure against the bulkheads, the distance not behaving the way distance should)."
 }

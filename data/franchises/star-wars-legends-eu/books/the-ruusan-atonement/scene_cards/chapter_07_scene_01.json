@@ -5,13 +5,13 @@
   "scene_type": "action",
   "scene_role": "hook",
   "pov_character": "Ben Skywalker",
-  "mission": "Arrival at the Battlefield Node — first Corridor stop. NSW battlefield world, rolling terrain, weathered military history. The anchor installation is a bunker with an empty stasis chamber.",
-  "why_now": "First node exploration establishes the pattern for subsequent stops — baseline for thin places and Veraine's trail",
-  "conflict": "The thin place is mild but real — Ben's Force perception has a parallax error, distances wrong. The survivors react differently: Sera tightens, Torin relaxes, Kael goes blank.",
+  "mission": "Landing on the Battlefield Node. A thousand-year-old NSW battlefield eroded into gentle terrain; the anchor installation is a bunker with an empty stasis chamber. First thin place on foot, and the survivors react differently to it.",
+  "why_now": "First Corridor stop. The node's degradation baseline has to be set before any subsequent node can escalate against it, and Veraine's trail goes from archived to present-tense here.",
+  "conflict": "The thin place is mild but real. Ben's footing in the Force is fractionally off. Sera tightens; Torin relaxes; Kael goes flat. The bunker preserves everything and explains nothing — until the dust gives up its recent traffic.",
   "conflict_type": "environmental",
-  "turning_point": "Inside the bunker, the stasis chamber is empty — anchor died centuries ago. But the installation records show someone accessed them recently. Fresh marks in ancient dust.",
-  "opening_hook": "Ben's boots hit soil still shaped by thousand-year-old trenches — and the Force shifts six inches sideways in his perception.",
-  "closing_hook": "Fresh boot prints in dust that hasn't been disturbed in centuries. Someone walked these corridors weeks ago.",
+  "turning_point": "Inside the bunker, the stasis chamber is empty — its anchor died centuries ago. The installation records show a recent access. Fresh marks sit on top of ancient dust.",
+  "opening_hook": "Ben's boots hit soil still shaped by thousand-year-old trenches — and the Force answers his attention from a step further off than it should.",
+  "closing_hook": "Fresh boot prints in dust that has not been disturbed in centuries. Someone walked these corridors weeks ago.",
   "emotional_trajectory": "Archaeological curiosity -> the wrongness making itself felt -> alertness at recent evidence",
   "stakes": {
     "personal": "Ben's first experience of a thin place — his Force perception becoming unreliable",
@@ -26,7 +26,7 @@
     "Kael Drenn"
   ],
   "setting": "Battlefield Node world — rolling terrain with ancient military earthworks, bunker-style anchor installation",
-  "sensory_details": "Corroded war machinery half-buried in grass; depressions that were trenches now gentle dips; inside the bunker: cold, dry, preserved; the thin place's effect on Force-senses — reaching for the handrail and finding it six inches further away",
+  "sensory_details": "Corroded war machinery half-buried in grass; depressions that were trenches now gentle dips; inside the bunker: cold, dry, preserved air; the thin place manifesting as a body-level offset — footing fractionally wrong, balance reading the ground one note late",
   "canon_elements_needed": [],
   "target_word_count": 1200,
   "action_beats": [
@@ -55,5 +55,5 @@
   ],
   "revelations": [],
   "pov_arc_phase": "lie_reinforced",
-  "notes": "Establish the Corridor as a trail of thin places. Torin's relaxation in the thin place is a subtle warning — he shouldn't be comfortable here. The institutional lie subplot threads: Ben notices the Corridor isn't in any modern Jedi record."
+  "notes": "Establish the Corridor as a trail of thin places. Torin's ease in the thin place is a subtle warning — he should not be comfortable here; plant without naming. Rotate the Force-wrongness metaphor for this scene: not the handrail, not the note-played-flat. Use a footing/balance register (the ground's answer arriving late, the body reading a tilt that the eyes cannot see). Diagnostic-voice trap — Ben should not, in this scene, articulate the thin place as 'structural' or 'lattice-weak'. He registers the offset physically; interpretation waits. Institutional-lie subplot threads through Ben's private note that the Corridor appears in no modern Jedi record he has ever seen."
 }

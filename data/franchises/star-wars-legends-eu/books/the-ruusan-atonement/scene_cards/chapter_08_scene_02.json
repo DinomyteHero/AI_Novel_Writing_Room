@@ -5,16 +5,16 @@
   "scene_type": "sequel",
   "scene_role": "reveal",
   "pov_character": "Ben Skywalker",
-  "mission": "Group debate about the technique's nature — Sera argues it's an abomination, Torin argues it's a tool that was misused, Kael argues both sides are deluded. The four philosophical positions crystallize.",
-  "why_now": "The thin place has forced the underlying disagreement into the open — they can't proceed without confronting what they believe about the Force",
-  "conflict": "Three irreconcilable positions: Sera (the lattice is sacred, the technique is violation), Torin (the lattice is structure, the technique is engineering), Kael (both frameworks are institutional propaganda)",
+  "mission": "The galley. Sera sets down her fork with precision that is itself a warning. Torin puts reasonable hands on the table. Four positions surface — Sera's, Torin's, Kael's, and Ben's (absent). Ben tables the debate; Kael closes it with a line that no one has an answer to.",
+  "why_now": "The thinning in the previous scene pushed the underlying disagreement into the room. Proceed without naming the positions and the group fractures on the next Corridor stop instead of at a table.",
+  "conflict": "Three irreconcilable readings of the same history. Sera treats the lattice as something sacred and the technique as a violation. Torin treats the lattice as structure and the technique as a tool. Kael treats both frameworks as institutional propaganda. Ben does not have a position, and that is the problem.",
   "conflict_type": "interpersonal",
-  "turning_point": "Ben realizes he doesn't have a position — he's been taught the Force is one way, and everything he's seen on this trip contradicts the teaching. He doesn't resolve the debate. He tables it. The unresolved tension is the point.",
+  "turning_point": "Kael speaks last. 'You're all arguing about whose cage has nicer bars.' Nobody answers, because nobody has a good answer.",
   "opening_hook": "It starts over food. Torin says something about the technique that makes Sera put down her fork with precision that is itself a warning.",
   "closing_hook": "Kael speaks last, after everyone else has committed: 'You're all arguing about whose cage has nicer bars.' Nobody answers. Because nobody has a good response.",
   "emotional_trajectory": "Simmering tension -> heated philosophical collision -> uncomfortable silence",
   "stakes": {
-    "personal": "Ben's worldview destabilizing — he doesn't know what the Force is anymore",
+    "personal": "Ben's worldview destabilising — the Force he was taught does not match the room he is standing in",
     "interpersonal": "The group's ideological fault lines exposed",
     "external": "Their ability to act together depends on some resolution or at least coexistence"
   },
@@ -26,7 +26,7 @@
     "Desh Rolan"
   ],
   "setting": "Aboard the Steady Returns — cramped common area, everyone too close together",
-  "sensory_details": "Food cooling on plates; Sera's formal diction sharpening; Torin's warmth thinning for the first time; Kael's voice — dry, flat, cutting; Desh watching from the galley like an intelligence analyst reading a room",
+  "sensory_details": "Food cooling on plates; Sera's diction sharpening; Torin's warmth thinning for the first time in front of all of them; Kael's voice flat and cutting; Desh watching from the galley like an intelligence analyst reading a room",
   "canon_elements_needed": [],
   "target_word_count": 1200,
   "action_beats": [
@@ -50,5 +50,5 @@
   "hook_actions": [],
   "revelations": [],
   "pov_arc_phase": "lie_reinforced",
-  "notes": "Veraine's philosophy previewed through absence — her position (lattice as disease) is the missing fourth voice. Kael's 'whose cage has nicer bars' should be the line readers remember from this chapter."
+  "notes": "Veraine's position (lattice as disease) is present by absence — the missing fourth voice, audible in its shape around the three that speak. Kael's 'whose cage has nicer bars' is the line readers should remember from this chapter — plant it and leave. Diagnostic-voice trap — Ben should not, in this scene, internally synthesise all four positions into a framework. He is the one person at the table without a settled answer; the scene's value is that his not-knowing is visible through what he does not say, not through an interior monologue labelling his own destabilisation. Anti-patterns: no monologues; Torin's reasonableness must be genuinely compelling on the page, not a strawman; Sera's anger should register in posture and diction, not in a speech."
 }

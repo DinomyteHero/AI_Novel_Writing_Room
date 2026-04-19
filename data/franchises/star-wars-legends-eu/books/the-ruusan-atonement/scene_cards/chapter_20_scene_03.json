@@ -5,11 +5,11 @@
   "scene_type": "sequel",
   "scene_role": "decision",
   "pov_character": "Ben Skywalker",
-  "mission": "The group establishes position on Veranthos. Torin's expression as they approach the wound source — not certainty or determination, but longing. Ben knows the turn is coming. Hours, not days.",
-  "why_now": "Final positioning before the second plot point. The stage is set.",
-  "conflict": "Ben watching Torin watch the Scar. The longing on Torin's face is unmistakable — not power-hunger, not madness. Longing. For the moment of transcendence he felt when he first used the technique a thousand years ago.",
+  "mission": "Camp at the valley's edge. Night. The Scar visible against the stars — a line of absence outlined by light. Torin stands at the camp perimeter and has not looked away from the valley since they arrived. His Force presence has softened. He looks younger. More alive. More dangerous.",
+  "why_now": "Final positioning before the second plot point. The chapter has shown arrival and the city; it has to end on the image that announces tomorrow without a word.",
+  "conflict": "Nothing to do tonight but watch and wait. Ben watches Torin. Torin watches the Scar. Both of them know what the watching means, and neither says so.",
   "conflict_type": "internal",
-  "turning_point": "Torin leans into the wrongness — his Force presence softening, the heaviness easing. He looks younger. More alive. More dangerous.",
+  "turning_point": "Torin's expression. Not certainty, not determination — longing. Ben sees that longing and understands the timing of the next day without a single word being spoken.",
   "opening_hook": "They make camp at the valley's edge. The Scar is visible from here — a thin line in the air that shouldn't be there. Torin hasn't looked away from it since they arrived.",
   "closing_hook": "Night on Veranthos. The Scar visible against the stars — a line of absence in the sky. Torin standing at the camp's edge, looking down at the valley. His expression: peaceful, decided, already gone. Ben watches from the tent and knows: tomorrow.",
   "emotional_trajectory": "Grim preparation -> watching Torin -> the terrible certainty of what's coming",
@@ -26,7 +26,7 @@
     "Kael Drenn"
   ],
   "setting": "Veranthos — valley edge camp, night, the Scar visible",
-  "sensory_details": "The Scar against stars — absence outlined by light; Torin's silhouette at the camp edge; the wound's pull — constant, gravitational; Veranthos's wrong night sounds — silence where there should be insects, a hum where there should be wind",
+  "sensory_details": "The Scar outlined against the stars — a line of absence in the sky; Torin's silhouette at the camp edge, motionless; the wound's pull constant and gravitational at close range; Veranthos's wrong night sounds — silence where there should be insects, a hum where there should be wind",
   "canon_elements_needed": [],
   "target_word_count": 1000,
   "action_beats": [
@@ -52,5 +52,5 @@
   ],
   "revelations": [],
   "pov_arc_phase": "lie_challenged",
-  "notes": "H20 planted — Torin's longing expression. The chapter's final image. Everything converges tomorrow."
+  "notes": "H20 planted — Torin's longing expression. The chapter's final image must be held — no dialogue in this scene. Ben watches, Torin watches, the Scar is a line of absence outlined by light. Diagnostic-voice trap — Ben should not, in this scene, interior-paragraph his certainty about tomorrow. He watches, and the chapter ends on 'tomorrow.' One word of interiority; no explanation. Anti-pattern: no combat, no confrontation, no spoken argument; this is the chapter of the held breath."
 }

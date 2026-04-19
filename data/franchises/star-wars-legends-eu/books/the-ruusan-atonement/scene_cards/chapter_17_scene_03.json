@@ -5,17 +5,17 @@
   "scene_type": "sequel",
   "scene_role": "decision",
   "pov_character": "Ben Skywalker",
-  "mission": "Long-range sensors detect another ship on parallel course toward Veranthos. Veraine is visible now. The convergence tightens.",
-  "why_now": "Transition toward Chapter 18 — the physical convergence of all parties toward Veranthos begins",
-  "conflict": "The tactical situation is now a race to a fixed point. Veraine is on approach. The group must decide their approach vector and what they'll do when they arrive.",
+  "mission": "Cockpit, night cycle. Desh at the long-range sensor display: 'Contact. Bearing three-one-five, parallel course. It's her.' Ben overlays both trajectories — convergence at Veranthos within hours of each other. She is not fleeing; she timed this. Torin watches the nav display with the expression of a man coming home and does not try to hide it.",
+  "why_now": "The chapter needs a closing beat that sets the physical clock against the emotional one. Veraine visible, Torin orientating, countdown running — all three pressures converge at the same sensor dot.",
+  "conflict": "There is nothing left to do except arrive. The group has spent seventeen chapters preparing for a confrontation that is now on a vector they cannot reshape. The scene is about who is watching what on the display.",
   "conflict_type": "external",
-  "turning_point": "Desh confirms: Veraine's ship is running a course that will arrive at Veranthos roughly simultaneously with them. She's not fleeing. She's not waiting. She timed this. She wants them there for the endgame.",
+  "turning_point": "The two trajectories lock on the display. Ben sees Veraine is not fleeing — she timed this. The endgame is a date, not a guess.",
   "opening_hook": "Desh: 'Contact. Bearing three-one-five, parallel course.' A pause. 'It's her.'",
   "closing_hook": "Two ships converging on a world where the Force was torn a thousand years ago. Torin watches the nav display with the expression of a man coming home.",
   "emotional_trajectory": "Tactical alertness -> grim inevitability -> Torin's unsettling anticipation",
   "stakes": {
     "personal": "The endgame approaching — no more preparation time",
-    "interpersonal": "Torin's anticipation contrasting with everyone else's dread",
+    "interpersonal": "Torin's anticipation against everyone else's dread",
     "external": "Convergence at Veranthos imminent"
   },
   "characters_present": [
@@ -24,7 +24,7 @@
     "Torin Hal"
   ],
   "setting": "Aboard the Steady Returns — cockpit, sensor displays",
-  "sensory_details": "Sensor contact on the display — a small bright dot on a parallel trajectory; Desh's professional calm masking concern; Torin's reflection in the viewport, watching the stars with anticipation",
+  "sensory_details": "A single bright dot on a parallel trajectory; Desh's professional calm holding its shape over concern; Torin's reflection overlaid on the viewport, the expression of a man coming home and not hiding it",
   "canon_elements_needed": [],
   "target_word_count": 1100,
   "action_beats": [
@@ -50,5 +50,5 @@
   ],
   "revelations": [],
   "pov_arc_phase": "lie_challenged",
-  "notes": "H18 planted — parallel course to Veranthos. The physical convergence mirrors the thematic convergence. Torin's expression should be the chapter's final image — a man looking forward to something that should terrify him."
+  "notes": "H18 planted — parallel course to Veranthos. Torin's expression is the chapter's final image. Anti-pattern: do not show Veraine directly; a sensor dot and a course overlay are enough. Diagnostic-voice trap — Ben should not, in this scene, articulate 'convergence mirrors the thematic convergence' or any equivalent meta-sentence. He watches the overlay; he watches Torin's reflection; the chapter ends."
 }

@@ -5,17 +5,17 @@
   "scene_type": "sequel",
   "scene_role": "hook",
   "pov_character": "Ben Skywalker",
-  "mission": "Ben and Sera work through the resonance theory — translating Ankhural's abstract framework into a practical approach. The lattice can be reinforced through harmonic resonance between disparate Force traditions working in concert.",
-  "why_now": "H21 resolution — the Codex note becomes a plan. The intellectual heart of Part 4.",
-  "conflict": "The theory requires three distinct Force traditions to create resonance — Jedi (Sera), modern Jedi with Skywalker lineage perception (Ben), and Sith-trained (Kael). It has never been tested. It might kill them. And it requires Kael's full, willing participation.",
+  "mission": "Camp workspace, before dawn. Ben and Sera spread Codex notes between them and translate Ankhural's abstract framework into a practical approach — three Force traditions producing an emergent structure no single one can achieve. Sera's archaic notation flows alongside Ben's modern Force analysis. Desh provides logistical reality checks.",
+  "why_now": "The plan has to be built before sunrise or the timeline does not hold. The resonance note has to move from theory to tactics in the same room with the two people who will execute it.",
+  "conflict": "The theory requires three distinct traditions — Sera's NSW discipline, Ben's modern-Jedi perception with Skywalker lineage, Kael's Sith training — combining without cancelling. It has never been tested, it might kill them, and it depends on a fourth person whose answer is not yet in.",
   "conflict_type": "interpersonal",
-  "turning_point": "Sera's new truth demonstrated: instead of insisting on the traditional Jedi approach, she engages with the resonance theory on its own terms. Principled flexibility — adapting her framework without abandoning her principles.",
+  "turning_point": "Sera adapts her archaic notation onto the resonance framework on its own terms. She is not translating Ankhural into her discipline; she is working his framework as a live system. Principled flexibility made visible.",
   "opening_hook": "Ben and Sera spread the Codex notes between them and work through the theory — both of them trying to stay ahead of what they're about to do.",
   "closing_hook": "The plan works — in theory. It requires three Force traditions. They have two who are willing. Kael is the variable. Without him, there is no resonance. Without resonance, there is only Torin's sacrifice or Veraine's destruction.",
   "emotional_trajectory": "Intense intellectual work -> breakthrough -> the dependency on Kael's choice",
   "stakes": {
     "personal": "Ben and Sera working as true partners for the first time",
-    "interpersonal": "Sera's arc advancing — flexibility without abandonment of principle",
+    "interpersonal": "Sera moving from rigid certainty into principled flexibility",
     "external": "The resonance theory is the only alternative to Torin's unilateral sacrifice"
   },
   "characters_present": [
@@ -24,7 +24,7 @@
     "Desh Rolan"
   ],
   "setting": "Veranthos — camp, working through the night with Codex materials",
-  "sensory_details": "Codex fragments and archive data spread across every surface; the wound's pull from below — constant, patient; Sera's archaic notation alongside Ben's modern analysis; Desh providing logistical reality checks",
+  "sensory_details": "Codex fragments and archive data spread across every surface; the wound's pull from below — constant, patient, gravitational; Sera's archaic notation flowing alongside Ben's modern analysis on the same datapad; Desh providing logistical reality checks from the supply manifest",
   "canon_elements_needed": [],
   "target_word_count": 1300,
   "action_beats": [
@@ -55,5 +55,5 @@
     "R12"
   ],
   "pov_arc_phase": "moment_of_truth",
-  "notes": "R12 — the lattice resonance solution articulated. Sera's arc: new_truth_demonstrated — she's adapting, not abandoning. The shift from 'Skywalker' to 'Ben' may begin here, subtle."
+  "notes": "R12 — the lattice resonance articulated as plan. Sera's new-truth beat lands here through action, not narration. The shift from 'Skywalker' to 'Ben' may begin here — a single line of dialogue, no commentary around it, subtle and earned. Diagnostic-voice trap — Ben should not, in this scene, narrate Sera's arc as 'principled flexibility'; the phrase is for the scene card, not the prose. The reader registers the shift through her handwriting on his datapad and her willingness to work Ankhural's framework on its own terms. Voice: Zahn-procedural, engineer-quiet."
 }

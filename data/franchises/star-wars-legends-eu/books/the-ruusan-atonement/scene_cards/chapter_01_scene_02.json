@@ -5,16 +5,16 @@
   "scene_type": "action",
   "scene_role": "reveal",
   "pov_character": "Ben Skywalker",
-  "mission": "Luke assigns Ben the survey mission along the Outer Rim — both father and son feel the wrongness, but Ben's interpretation differs",
-  "why_now": "Luke has been monitoring the wrongness independently; the survey is his response — but sending Ben alone is a choice the narrative will interrogate",
-  "conflict": "Ben wants autonomy; Luke offers the mission as both genuine need and a way to give Ben space. Underneath: Luke's shadow — he chose to send one person to investigate a problem that might require more",
+  "mission": "Luke assigns Ben the Outer Rim survey — the institutional cover for a disturbance father and son have been reading independently. Both feel the wrongness; only Ben carries the years of exposure that tell him what kind of trouble it is.",
+  "why_now": "Luke has been sitting on flagged survey reports for weeks. He hands Ben the mission the morning after the sparring loss, because the private problem has begun to surface where others could see it.",
+  "conflict": "Luke frames the survey as a practical assignment — a Knight and a skilled pilot, not a war. Ben wants the assignment without naming what it costs him to be trusted with it alone. Neither of them opens the roster.",
   "conflict_type": "interpersonal",
-  "turning_point": "Luke admits he feels the wrongness too but interprets it differently — Ben's experiential pattern recognition from Jacen, Abeloth, and Vestara gives him a sharper read",
-  "opening_hook": "Luke's datapad shows a string of survey reports flagged with the same anomaly — Force readings that don't match any known phenomenon",
-  "closing_hook": "Ben accepts the mission without suggesting a partner. Luke doesn't push. Neither acknowledges what that choice means.",
+  "turning_point": "Luke sets the datapad down and says, evenly, that he has felt something too. Ben hears the difference — his father is describing an anomaly; Ben is recognising a register he has lived inside since he was a boy.",
+  "opening_hook": "Luke's datapad shows a string of survey reports flagged with the same anomaly — Force readings that do not match any known phenomenon",
+  "closing_hook": "Ben accepts the mission without suggesting a partner. Luke does not push. Neither of them acknowledges what that choice means.",
   "emotional_trajectory": "Guarded attentiveness -> brief connection with Luke -> deliberate distance",
   "stakes": {
-    "personal": "Ben's need to prove himself independently of Luke's shadow",
+    "personal": "Ben's need to prove himself independently of the Skywalker name",
     "interpersonal": "The careful, love-laden distance between father and son",
     "external": "The survey route runs directly along the wrongness's bearing"
   },
@@ -23,7 +23,7 @@
     "Luke Skywalker"
   ],
   "setting": "Luke's office in the Jedi Temple, Coruscant — functional, lived-in, holocomm on the desk",
-  "sensory_details": "Luke's Force presence — vast, warm, familiar; the datapad's blue glow; the wrongness present even here, a faint sourness under the Temple's harmonics",
+  "sensory_details": "Luke's Force presence warm and familiar at close range; the datapad's blue glow on the desk between them; the wrongness carried even into this room as a faint sourness under the Temple's usual harmonics; ambient Coruscant traffic audible through the office window as a continuous low wash",
   "canon_elements_needed": [
     "Luke Skywalker as Grand Master of the Jedi Order",
     "Jedi Order survey mission protocols and assignment hierarchy",
@@ -58,5 +58,5 @@
   ],
   "revelations": [],
   "pov_arc_phase": "lie_established",
-  "notes": "Luke should feel warm but slightly distant — they love each other but communicate through mission briefings. Ben thinks 'Dad' internally but acts like a professional."
+  "notes": "The relationship turn here is Ben/Luke from institutional distance toward private alliance without yet closing the distance. Luke should feel warm but slightly formal — they love each other and communicate through mission briefings. Ben thinks 'Dad' internally and speaks to his father as a Knight addressing the Grand Master. Onboarding — if Mara or Jacen surfaces in this scene, each earns one grounding phrase (Mara as 'his mother', Jacen as a weighted name that does not stop for a recap) and the sentence moves. No flashback paragraph. Diagnostic-voice trap — Ben's interior read of Luke should stay reactive (what the man in front of him does and does not say, the pause before the pad slides across the desk), not an essay on the Skywalker shadow. If a line of interiority could stand alone as a thesis sentence about trust or legacy, cut it. Lived-galaxy texture — the office is in a working building on a working planet; Coruscant traffic and Order admin life can bleed through the edges of the scene without needing a set-piece."
 }

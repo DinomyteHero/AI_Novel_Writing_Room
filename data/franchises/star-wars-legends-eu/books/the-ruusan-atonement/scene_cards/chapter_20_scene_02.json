@@ -5,18 +5,18 @@
   "scene_type": "action",
   "scene_role": "escalation",
   "pov_character": "Ben Skywalker",
-  "mission": "Descent to the surface — passing through the ring structure. Ring 4 (seal boundary), Ring 3 (evacuation zone), Ring 2 (the city). Each ring escalates the wrongness. Veranthos didn't die — it drifted.",
-  "why_now": "Physical approach to the wound — each ring escalation builds the sensory and emotional pressure",
-  "conflict": "The city is overwhelming — buildings standing but wrong, vegetation growing without biological logic, the silence where birds should be. The wrongness cumulative, building chest pressure by the fifth street.",
+  "mission": "Descent through the ring structure. Ring 4: seal boundary — Ben crosses it and his Force-sense drops away entirely. Ring 3: evacuation zone — doors standing open, vehicles pointed away. Ring 2: the city — homes, shops, a school, a child's toy on a step, vines reversing, flowers on shadow faces. The ridgeline opens on the valley and the Scar is visible below.",
+  "why_now": "The Veranthos world-building pays off here. The ring structure is the book's most ambitious environmental design and it has to deliver in one chapter.",
+  "conflict": "The city is not a disaster zone. That is the horror. It is intact, overgrown, and wrong in the specific way a room is wrong when the furniture is right but the gravity is off. Desh's non-Force grief lands; Ben's Force-sense does not register his own hand reaching into a space that refuses to answer.",
   "conflict_type": "environmental",
-  "turning_point": "The city. Homes, shops, a school. Evidence of life that simply... stopped. Not destroyed. Emptied and left to drift. The horror isn't violence — it's abandonment by the logic of the universe.",
+  "turning_point": "Ben stops walking at the ridgeline. The Scar is visible below — a three-meter vertical distortion of air where the Force was torn and never fully healed. Sight arrives before concept.",
   "opening_hook": "Ben steps through the seal boundary and the Force drops away — not thinned, not shifted. Gone.",
   "closing_hook": "Ahead, in the valley between ridgelines: the Scar. A roughly three-meter vertical line in the air where the Force was torn and never fully healed. Not glowing. Not pulsing. A visual distortion — wrong in the way that things are wrong when the eye can see them but the brain can't parse them. Ben stops walking.",
   "emotional_trajectory": "Controlled descent -> escalating wrongness -> the devastating beauty of drift -> awe and horror at the Scar",
   "stakes": {
-    "personal": "Ben experiencing the wound source — the thing his whole journey has been leading to",
+    "personal": "Ben experiencing the wound source — the thing the whole book has been leading to",
     "interpersonal": "Each group member's reaction at different ring levels",
-    "external": "Veraine is at the epicenter. Torin is moving toward it. The stage is being set."
+    "external": "Veraine is at the epicenter. Torin is orientating toward it. The stage is set."
   },
   "characters_present": [
     "Ben Skywalker",
@@ -26,7 +26,7 @@
     "Kael Drenn"
   ],
   "setting": "Veranthos surface — descending through rings: seal boundary, evacuation zone, city, approaching the valley",
-  "sensory_details": "Ring 3: doors standing open, vehicles pointed away, a thousand years of overgrowth; Ring 2: the city — vines climbing then reversing, trees splitting buildings horizontally, flowers on shadow sides, no birds; Desh: grief-without-an-object settling in; the Scar: heat shimmer without heat, barely visible straight on, unmistakable from an angle",
+  "sensory_details": "Ring 3: doors standing open, vehicles pointed away, a thousand years of overgrowth; Ring 2: the city — vines climbing and reversing, horizontal tree splits through walls, flowers blooming on shadow faces, no birds; Desh's grief-without-an-object settling in below the sternum without ever finding its object; the Scar: heat shimmer without heat, barely visible straight on, unmistakable at an angle",
   "canon_elements_needed": [],
   "target_word_count": 1300,
   "action_beats": [
@@ -46,5 +46,5 @@
   "hook_actions": [],
   "revelations": [],
   "pov_arc_phase": "lie_challenged",
-  "notes": "Use the full Veranthos world-building — ring structure, the city's oppressive wrongness, the Scar. Desh's non-Force experience: grief-without-an-object, chrono drift, wrong vegetation. This is the atmospheric payoff promised since Chapter 3."
+  "notes": "Use the full Veranthos world-building from the concept seed extensively. The Scar is the reader's first direct look at the thing the book has been describing indirectly since Ch1; it must feel like sight, not concept. Rotate Force-wrongness metaphor for Ben's seal-boundary crossing: a hand reaching into space that refuses to register the hand; do not reuse the 'ground dropping out' phrasing from Ch13 nor the handrail family. Desh's non-Force grief must land without mysticism — the register is a sadness about nothing that will not lift until they leave the zone. Anti-pattern: the city is not rendered as disaster; the point is that it is intact and still wrong. Diagnostic-voice trap — Ben should not, in this scene, narrate the phenomenology as theory. He sees, he cannot Force-sense, he stops walking."
 }

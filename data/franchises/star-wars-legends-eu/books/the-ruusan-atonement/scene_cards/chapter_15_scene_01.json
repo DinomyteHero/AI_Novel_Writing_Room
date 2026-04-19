@@ -5,18 +5,18 @@
   "scene_type": "action",
   "scene_role": "escalation",
   "pov_character": "Ben Skywalker",
-  "mission": "The seal's deterioration reaches beyond the Corridor — reports filter in of disturbances at known Force nexuses. The Valley of the Jedi at Ruusan is affected. The crisis is no longer local.",
-  "why_now": "Escalation — the wound's effects are spreading. What was contained is leaking into the wider galaxy.",
-  "conflict": "Ben receives fragmentary reports through the Steady Returns' limited comms. Jedi outposts reporting anomalous Force behavior. The Valley of the Jedi — the most symbolically important Force site connected to the Reformations — is destabilizing.",
+  "mission": "Comm station. Ben cycles frequencies and catches fragmentary Jedi outpost reports — anomalous Force behaviour at multiple nexuses, the Valley of the Jedi destabilising. Desh plots the disturbances radiating outward from the Corridor. Luke's coded message arrives: 'Sensing disturbances at multiple nexuses. Report status.' Ben stares at the reply field without typing.",
+  "why_now": "The crisis has to go galactic on the page for Torin's Scene 2 argument to have the stakes it needs. The Order now knows something is wrong, and Ben now has to decide what to say about it.",
+  "conflict": "The reports match the pattern the group has been mapping. The Valley of the Jedi — the place where the Reformations began — is responding to the seal's failure. Ben has the vocabulary for what he is seeing; Luke has a question he has earned the right to ask.",
   "conflict_type": "external",
-  "turning_point": "The Valley's destabilization is directly connected to the seal — the Reformations and the seal were built on the same historical event. As the seal fails, the Valley's trapped Force energy is responding.",
+  "turning_point": "Luke's coded message arrives on Ben's personal frequency. Ben stares at the reply field without typing. H13 resolves — Veraine heading for Veranthos is no longer a private problem.",
   "opening_hook": "Ben cycles through comm channels and catches fragmentary reports he can only half-decrypt — Jedi outposts at multiple nexuses reporting anomalous Force behavior. The wrongness isn't just here anymore.",
   "closing_hook": "Luke's personal message, brief and coded: 'Sensing disturbances at multiple nexuses. Report status.' Ben stares at the message for a long time. He doesn't answer.",
   "emotional_trajectory": "Strategic alarm -> scope expanding -> the weight of withholding from Luke deepening",
   "stakes": {
-    "personal": "Ben's institutional lie becoming harder to maintain as the crisis affects the broader Order",
-    "interpersonal": "The group recognizing that their local mission has galaxy-wide consequences",
-    "external": "The seal's failure is affecting Force nexuses across the galaxy"
+    "personal": "Ben's withholding becoming harder to maintain as the crisis affects the broader Order",
+    "interpersonal": "The group recognising that their local mission has galaxy-wide consequences",
+    "external": "The seal's failure is reaching Force nexuses across the galaxy"
   },
   "characters_present": [
     "Ben Skywalker",
@@ -25,7 +25,7 @@
     "Torin Hal"
   ],
   "setting": "Aboard the Steady Returns — comm station, hyperspace transit",
-  "sensory_details": "Static-filled comm intercepts; Luke's message — brief, controlled, concerned; Ben's datapad with the unanswered reply draft; the wrongness now a constant background note, no longer surprising but permanent",
+  "sensory_details": "Static-filled comm intercepts from multiple sectors; Luke's message coded but readable, brief and controlled; Ben's datapad holding an empty reply draft; the wrongness a permanent background pressure now, no longer surprising — weather rather than event",
   "canon_elements_needed": [],
   "target_word_count": 1200,
   "action_beats": [
@@ -52,5 +52,5 @@
   ],
   "revelations": [],
   "pov_arc_phase": "lie_challenged",
-  "notes": "SP4 (institutional lie) intensifying — Ben's withholding from Luke is becoming active deception as the crisis expands. The parallel to Gavran's secrecy should be felt by the reader."
+  "notes": "SP4 intensifying — Ben's withholding moves from editorial discretion toward disobedience as the crisis expands. The parallel to Gavran's secrecy should be felt by the reader without being named by Ben. Anti-pattern: do not stage Luke on comm as a speaking voice; his presence is a coded line and an empty reply field. Rotate Force-wrongness metaphor family: weather/pressure (a migraine that does not break, pressure at altitude, a front pushing through) rather than acoustic or navigational registers. Diagnostic-voice trap — Ben should not, in this scene, construct an explanation to himself for why he is not replying. The not-replying is the scene; the justification is Ch15 sc3's work."
 }

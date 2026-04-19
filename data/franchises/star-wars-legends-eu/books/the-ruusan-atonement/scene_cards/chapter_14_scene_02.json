@@ -5,16 +5,16 @@
   "scene_type": "sequel",
   "scene_role": "decision",
   "pov_character": "Ben Skywalker",
-  "mission": "Review of remaining Corridor intel — tactical planning session. The group pieces together Veraine's methodology. Desh's analysis becomes strategic.",
-  "why_now": "Ben is leading proactively; the group needs a complete picture of Veraine's activities before intercepting",
-  "conflict": "Different analytical approaches collide productively: Sera's historical knowledge, Desh's tactical eye, Torin's Force-theoretical expertise. For the first time, the disagreements produce synthesis rather than paralysis.",
+  "mission": "Evidence from every node spread across every flat surface. Sera pins Corridor maps to the bulkhead. Desh's tactical eye, Sera's historical vocabulary, Torin's Force-theoretical expertise, Kael's dry corrections — for the first time, the group synthesises rather than stalemates. The pattern resolves: each repurposed node is another antenna. Veraine is not attacking the seal; she is inverting its architecture.",
+  "why_now": "Ben's leadership needs its first shared result. The intercept strategy is the frame; the amplification-array recognition is what makes the frame necessary.",
+  "conflict": "Three traditions' worth of reading the same evidence could deadlock the room. The scene's work is that it does not. The synthesis is quiet, uneven, and productive — Desh connects nodes, Sera annotates the connections, Torin places them in Force theory, Kael pulls two of the conclusions apart with a single sentence and improves the rest.",
   "conflict_type": "interpersonal",
-  "turning_point": "The combined analysis reveals Veraine isn't just traveling the Corridor — she's repurposing each node. The pattern becomes clear: she's building an amplification array, turning the seal's own infrastructure against itself.",
+  "turning_point": "The Corridor map stops reading as a route and starts reading as a diagram. Veraine is not attacking the seal — she is inverting its architecture. The answer arrives as a group observation; no single speaker gets to own it.",
   "opening_hook": "Desh spreads every piece of evidence from every node across every flat surface on the ship. 'Let's see what she's actually doing.'",
   "closing_hook": "The amplification array. They can see the shape of it now — each repurposed node another antenna in a network aimed at Veranthos. Veraine isn't planning to attack the seal. She's planning to invert its own architecture.",
   "emotional_trajectory": "Analytical collaboration -> dawning understanding -> strategic alarm",
   "stakes": {
-    "personal": "Ben synthesizing multiple perspectives — leadership through integration, not command",
+    "personal": "Ben runs the room and the room produces an answer none of them could reach alone",
     "interpersonal": "The group functioning as a team for the first time",
     "external": "Veraine's plan is more sophisticated and more dangerous than they assumed"
   },
@@ -26,7 +26,7 @@
     "Kael Drenn"
   ],
   "setting": "Aboard the Steady Returns — every surface covered with evidence and analysis",
-  "sensory_details": "Tactical displays, archive data, environmental readings all overlaid; Desh's intelligence-analyst mode — visual connections, pattern recognition; the Corridor map resolving into a weapon's diagram",
+  "sensory_details": "Tactical displays, archive data, environmental readings all overlaid; Desh's analyst-mode quiet; the Corridor map resolving into a weapon's diagram as the group's eyes move across it",
   "canon_elements_needed": [],
   "target_word_count": 1100,
   "action_beats": [
@@ -47,5 +47,5 @@
   "hook_actions": [],
   "revelations": [],
   "pov_arc_phase": "lie_challenged",
-  "notes": "First moment of genuine team function — not just cooperation but synthesis. This is what the climax will require at a cosmic scale."
+  "notes": "First moment of genuine team function — not just cooperation but synthesis. Scene-level foreshadow of the climactic solution: disparate traditions producing an answer none could reach alone. Do not italicise the parallel. Diagnostic-voice trap — Ben should not, in this scene, articulate 'this is leadership through integration.' He runs the room and lets the room run itself; the synthesis is visible in the action and dialogue, not in his head. Voice: Zahn-procedural, short exchanges, one Allston-warm Desh line permitted near the close."
 }

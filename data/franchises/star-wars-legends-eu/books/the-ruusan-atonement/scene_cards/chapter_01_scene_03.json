@@ -5,25 +5,25 @@
   "scene_type": "action",
   "scene_role": "decision",
   "pov_character": "Ben Skywalker",
-  "mission": "Ben considers and rejects a Jedi partner, instead calling Desh Rolan — establishing the Lie (self-reliance) through a control choice disguised as practicality",
-  "why_now": "The mission requires a partner; Ben's choice of Desh over a Jedi reveals his trust architecture",
-  "conflict": "Ben rationalizes choosing a non-Force-sensitive friend over a Jedi colleague as 'practical' — but it's actually about control and the danger of trusting Force-users after Jacen and Vestara",
+  "mission": "Ben bypasses the Jedi partner roster and calls Desh Rolan. The choice looks pragmatic and is; it is also the third solo move of the evening.",
+  "why_now": "The mission needs a second body before departure. Ben has the comm in his hand and the roster one tap away. The decision happens quickly enough that it could be reflex — which is the problem.",
+  "conflict": "Ben tells himself Desh is the right call — quiet, deniable, experienced. The Knight on the roster would be a better fit on paper. Ben does not open the roster.",
   "conflict_type": "internal",
-  "turning_point": "Desh answers the comm with dry humor and agrees to the job without asking why Ben didn't call a Jedi. They both know why.",
+  "turning_point": "Desh answers the comm with dry humor and agrees to the job without asking why Ben did not call a Jedi. They both know why, and neither says so.",
   "opening_hook": "Ben sits in his ship's cockpit with the preflight complete and his thumb sliding past the Jedi partner roster to open his personal contacts instead",
   "closing_hook": "The wrongness in the Force shifts as Ben leaves Coruscant — not diminishing but acquiring direction, like a compass needle settling",
   "emotional_trajectory": "Calculated avoidance -> familiar comfort with Desh -> unsettled recognition that the wrongness is guiding him",
   "stakes": {
     "personal": "Ben's self-deception about why he chooses isolation over Jedi partnership",
     "interpersonal": "The Ben/Desh dynamic — friendship built on shared history neither discusses",
-    "external": "The wrongness has a direction — it's pulling Ben somewhere specific"
+    "external": "The wrongness has a direction — it is pulling Ben somewhere specific"
   },
   "characters_present": [
     "Ben Skywalker",
     "Desh Rolan"
   ],
   "setting": "Jedi Temple hangar bay -> comm call to Desh -> departure from Coruscant",
-  "sensory_details": "Hangar echoes; Desh's voice tinny over long-range comm; hyperspace entry — the wrongness persists through hyperspace, which it shouldn't",
+  "sensory_details": "Hangar echoes and service-tech chatter in the background; Desh's voice tinny over long-range comm, warm under the static; hyperspace entry — the wrongness persists through the jump, which it should not",
   "canon_elements_needed": [
     "Galactic Alliance Guard history, dissolution, and legacy",
     "Non-Force-sensitive relationships with Jedi in post-war era",
@@ -61,5 +61,5 @@
     "R01"
   ],
   "pov_arc_phase": "lie_established",
-  "notes": "R01 lands at end of scene — the wrongness has a direction. This transforms Ben's departure from passive retreat to unconscious pursuit. Desh's arc starts here: lie_established — arrives as a favor, obligation not purpose. GAG backstory: Zahn-style integration — 2-3 concise sentences threaded through Ben's reaction when he registers Desh's unspoken understanding, not a standalone exposition paragraph. Give the reader enough context to feel the weight of shared history (GAG as a post-war Alliance security force whose work blurred ethical lines) without stopping the scene's forward motion. The information belongs here, but must ride on top of a beat — Ben's physical action, Desh's tone, a specific memory — rather than interrupting the scene as narrator commentary."
+  "notes": "R01 lands at the close of the scene — the wrongness acquires direction during hyperspace transit, which it should not. This is the chapter's turn: the disturbance stops being ambient and starts being a compass. Relationship turn: Ben/Desh from dormant contact to operational partnership — Desh takes the job without asking for the rationale Ben cannot give. GAG onboarding — two beats and no more: that Ben served in it as a teenager, and that it is the thing he and Desh share. Handle this in Zahn-style integration — a concise phrase or two threaded through Ben's reaction when he registers Desh's unspoken understanding, not a standalone exposition paragraph. The information rides on top of a beat (Ben's physical action, Desh's tone, a specific memory) rather than pausing the scene as narrator commentary. Diagnostic-voice trap — Ben should not, in this scene, articulate a 'self-reliance is safety' frame. The choice is behavioural. If his interiority reaches for a thesis sentence about Jacen, Vestara, or trust, cut it; the scene earns its weight through what he does, not what he says about what he does. Desh's arc starts here: he arrives as a favor, obligation not yet purpose."
 }

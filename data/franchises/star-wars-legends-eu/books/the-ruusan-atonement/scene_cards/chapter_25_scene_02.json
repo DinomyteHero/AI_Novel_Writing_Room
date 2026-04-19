@@ -5,25 +5,25 @@
   "scene_type": "action",
   "scene_role": "escalation",
   "pov_character": "Ben Skywalker",
-  "mission": "Desh's sabotage mission — cutting to his operation against Veraine's crew-guarded amplification nodes. Former GAG operative vs. mundane opposition under extreme time pressure.",
-  "why_now": "Two-stage defeat of Veraine: Stage 1 is physical/tactical. Desh removes the amplification that makes Veraine's ritual viable.",
-  "conflict": "Desh against armed crew guards at critical nodes. He's outnumbered but outclasses them — former intelligence operative with combat training against salvagers and true believers. The challenge is time: he needs to disable three nodes before the resonance fails.",
+  "mission": "Cut to Desh. First amplification node, two guards, GAG silence: low, fast, nonlethal. He is not here to kill; he is here to break three pieces of equipment. Second node. Third node. The array goes dark. His comm: 'Array's down. Whatever you're doing — do it now. Everything. Don't hold back.'",
+  "why_now": "Stage one of Veraine's defeat. The resonance cannot defeat the amplified ritual alone; Desh strips the amplification and the physics change. The two-pronged plan works because both hands are on it.",
+  "conflict": "Desh against armed crew guards. Outnumbered and outclassed in numbers, he outclasses them in training. The pressure is time — three nodes before the resonance fails, and no margin for any of the three to take longer than the others.",
   "conflict_type": "external",
-  "turning_point": "Desh disables the third critical node. Veraine's amplification drops below threshold. She's strong alone — but not strong enough alone. The seal was the work of thirteen anchors. She was always depending on the array.",
+  "turning_point": "Third node dark. The array drops below threshold. Desh's comm open to Ben: do it now, everything, don't hold back.",
   "opening_hook": "Desh at the first node. Two guards. The approach is textbook GAG — silent, efficient, nonlethal. He's not here to kill anyone. He's here to break three pieces of equipment.",
   "closing_hook": "The third node goes dark. Desh's comm: 'Array's down. Whatever you're doing — do it now. Everything. Don't hold back.'",
   "emotional_trajectory": "Professional focus -> escalating physical danger -> triumph through competence",
   "stakes": {
-    "personal": "Desh proving that non-Force-users are essential, not auxiliary",
-    "interpersonal": "Desh and Ben's partnership — one handling the mystical, one handling the physical",
-    "external": "Without the array, Veraine cannot breach the wound. Stage 1 of her defeat."
+    "personal": "The former GAG operative turning the old skill to a chosen purpose",
+    "interpersonal": "Desh and Ben's partnership — the mystical and the practical on the same operation",
+    "external": "Without the array, Veraine cannot breach. Stage one of her defeat complete."
   },
   "characters_present": [
     "Ben Skywalker",
     "Desh Rolan"
   ],
   "setting": "Veranthos — amplification node sites, guarded positions, Desh operating solo",
-  "sensory_details": "Desh in his element — silent movement, tactical assessment, controlled violence; node equipment sparking as he disables it; Veraine's crew — scared, outmatched, not villains; the comm connection to Ben — Desh's steady voice against the chaos",
+  "sensory_details": "Desh in his element — silent movement, tactical assessment, controlled nonlethal violence; node equipment sparking as precise strikes disable the control housings; Veraine's crew frightened and outmatched, not villains; the comm connection to Ben as Desh's one steady line of audio against the valley's chaos",
   "canon_elements_needed": [],
   "target_word_count": 1200,
   "action_beats": [
@@ -51,5 +51,5 @@
   ],
   "revelations": [],
   "pov_arc_phase": "new_truth_demonstrated",
-  "notes": "Desh's climax contribution. The non-Force-user saving Force-users by doing what no Force ability can — hands-on, physical, practical work. His GAG training turned to genuinely good purpose. Redemption of their shared history."
+  "notes": "The chapter's only tactical scene. Keep it tight, competent, understated — Desh in his element, the old skill turned to a better purpose. The GAG history is present as technique, not as memory paragraph. Voice: Zahn-compact, Allston-rhythm where appropriate (one dry line before the first takedown, maybe). Anti-pattern: no lethal kills unless the scene absolutely requires it — Desh's read is 'break equipment, not kill people,' and the nonlethal choice is the chapter's quiet moral."
 }

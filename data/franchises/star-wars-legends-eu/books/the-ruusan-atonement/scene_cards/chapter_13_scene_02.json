@@ -5,17 +5,17 @@
   "scene_type": "action",
   "scene_role": "reveal",
   "pov_character": "Ben Skywalker",
-  "mission": "Inside the breach zone, each character's response reveals their truth. Torin smiles. This is the first real warning — the thing that should terrify everyone.",
-  "why_now": "The breach strips away personas — each character's response to de-structuring is their unfiltered truth",
-  "conflict": "Sera fights to maintain discipline. Kael withdraws into survival mode. Desh operates on training and instinct, reporting environmental data. Torin... relaxes. His Force presence stops being heavy. He smiles with recognition, not fear.",
+  "mission": "Inside the breach zone, each character's response reveals their truth. Sera's hands clench, jaw set. Kael folds into himself. Torin relaxes — and smiles. The first real warning lands on a group that had eleven chapters to prepare for it.",
+  "why_now": "The de-structured zone strips performance off everyone in it. Each character's honest register surfaces when the Force can no longer mediate, and Torin's register is the one the reader needs to see now.",
+  "conflict": "Sera fights to hold discipline. Kael retreats into survival. Desh reports environmental data the way he always reports environmental data. Torin's Force presence stops being heavy. He smiles with recognition, not fear, and the smile is the answer to fifteen chapters' worth of questions.",
   "conflict_type": "interpersonal",
-  "turning_point": "Torin smiles. In the place where the Force is broken, where everyone else is fighting to hold themselves together, Torin Hal looks at peace. Ben remembers Jacen in the moments before the worst decisions — the certainty, the calm.",
+  "turning_point": "Torin smiles. In the place where the Force is broken, where everyone else is holding themselves together, Torin Hal looks at peace. Ben sees Jacen in the moments before the worst decisions — the certainty, the calm — and does not yet say the name aloud.",
   "opening_hook": "Inside the de-structured zone: Sera's hands clench, jaw set. Kael folds into himself. Torin relaxes.",
   "closing_hook": "They leave the zone. The lattice snaps back — the relief is immediate and physical. Ben looks at Torin and sees someone who is already planning to come back.",
   "emotional_trajectory": "Group distress -> focus on Torin's anomalous calm -> deep unease on departure",
   "stakes": {
-    "personal": "Ben's pattern recognition firing — Torin's peace in the breach echoes Jacen's certainty",
-    "interpersonal": "The group has seen Torin's true relationship with de-structuring. It can't be unseen.",
+    "personal": "Ben's pattern recognition firing — Torin's peace in the breach echoes the Jacen memory Desh named the scene before",
+    "interpersonal": "The group has seen Torin's true relationship with de-structuring. It cannot be unseen.",
     "external": "If the wound opens fully, this is what the galaxy feels"
   },
   "characters_present": [
@@ -26,7 +26,7 @@
     "Desh Rolan"
   ],
   "setting": "Breach Zone — deep inside the de-structured area, then retreat to the perimeter",
-  "sensory_details": "The lattice returning on exit — relief like warmth after cold; Torin's face changing as they leave — the peace draining, replaced by something heavier and hungrier; Sera watching Torin with the expression of someone watching a prediction come true",
+  "sensory_details": "The lattice returning on exit with the relief of warmth after cold; Torin's face changing as the group leaves — the peace draining slowly, replaced by a weight that was not there before Kolven; Sera's expression on Torin, the look of someone watching a forecast become weather",
   "canon_elements_needed": [],
   "target_word_count": 1500,
   "action_beats": [
@@ -55,5 +55,5 @@
   ],
   "revelations": [],
   "pov_arc_phase": "lie_challenged",
-  "notes": "The critical Torin moment. His smile should be specific and human — not villainous, not dark-side. Recognition. Relief. A man feeling something he's been missing for a thousand years. The horror is in its normalcy. Torin's arc: lie_deepened — the breach confirmed his memory of the technique's beauty."
+  "notes": "Torin's smile is the load-bearing image of the midpoint. Keep it specific and human — not villainous, not dark-side. Recognition. Relief. A man feeling something he has been missing for a thousand years. The horror is in its normalcy. Torin's arc shifts deeper — the breach confirms his memory of the technique's beauty. Diagnostic-voice trap — Ben should not, in this scene, articulate the Jacen parallel in interiority. The recognition is a flash; the word 'Jacen' belongs to Chapter 18. Write Ben's recognition as a body-response (a cold that lives below the sternum, a step he does not take toward Torin) and trust the reader to hold the echo. Maetha's 'replaces you' should surface once in Ben's memory, fragment only, not in quotation."
 }

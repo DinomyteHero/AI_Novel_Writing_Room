@@ -5,17 +5,17 @@
   "scene_type": "action",
   "scene_role": "hook",
   "pov_character": "Ben Skywalker",
-  "mission": "Torin's technique works — the void around him reaches the Scar. The wound begins to close. His plan is functioning. And the cost is visible: Torin is diminishing. The technique is replacing him.",
-  "why_now": "The climax's second crisis — Torin succeeding at the cost of himself",
-  "conflict": "Torin's plan works: the technique applied at the Scar is closing the wound. But Maetha's warning is proving true in real time — prolonged use is erasing Torin's emotional range, his personality, his humanity. The caldera doesn't consume. It replaces.",
+  "mission": "The wound is closing. Torin is winning. And his voice from inside the void is articulate and emotionally hollow — the precision of someone who remembers how to form sentences but has forgotten why they matter. The caldera does not consume. It replaces. Sera screams his name. She enters the void. Maetha's warning lands, fulfilled.",
+  "why_now": "Maetha's warning from Ch12 has been waiting fourteen chapters for this payoff. The wound closing under Torin's hands is victory that looks like loss, and the reader has to see the shape of the replacement before Sera makes her choice.",
+  "conflict": "Torin's plan works. The wound is narrowing. But his speech is a man's sentences delivered by someone who has forgotten what sentences are for. Sera sees it and will not watch. Ben is still across the valley.",
   "conflict_type": "external",
-  "turning_point": "Torin's voice, from inside the void: still articulate but emotionally hollow. He's speaking with the precision of someone who remembers how to form sentences but has forgotten why they matter. He's becoming infrastructure — exactly what Gavran's seal was.",
+  "turning_point": "Sera's line: 'I was sealed once. I will not watch it happen to someone else and do nothing.' She enters the void.",
   "opening_hook": "The wound is closing. Torin is winning. And Sera is screaming his name.",
   "closing_hook": "Sera moves toward the void. Ben reaches for her — 'Sera, don't—' She looks back. 'I was sealed once. I will not watch it happen to someone else and do nothing.' She enters the void.",
   "emotional_trajectory": "Horror at Torin's diminishment -> Sera's desperate determination -> the choice to save him",
   "stakes": {
-    "personal": "Torin being consumed by the technique — Maetha's prophecy fulfilling",
-    "interpersonal": "Sera choosing to save Torin despite everything — love without control",
+    "personal": "Torin being replaced by the technique — Maetha's prophecy fulfilling",
+    "interpersonal": "Sera choosing to save Torin even at the risk of losing her principle",
     "external": "The wound closing but at the cost of another living person becoming infrastructure"
   },
   "characters_present": [
@@ -25,7 +25,7 @@
     "Torin Hal"
   ],
   "setting": "Veranthos — the Scar, Torin's void expanding, the wound closing",
-  "sensory_details": "Torin's void — the lattice absent around him, a zone of formless Force; his voice: still speaking but the warmth gone, the humor gone, just words without person; Sera's face — grief and iron; the wound visibly closing — the Scar narrowing",
+  "sensory_details": "Torin's void around him — the lattice absent, a zone of formless Force; his voice still articulate, the warmth gone, the humor gone, the specific idioms of affection absent — words without the person behind them; Sera's face holding grief on iron; the Scar visibly narrowing as the technique works",
   "canon_elements_needed": [],
   "target_word_count": 1700,
   "action_beats": [
@@ -49,5 +49,5 @@
   "hook_actions": [],
   "revelations": [],
   "pov_arc_phase": "new_truth_demonstrated",
-  "notes": "Maetha's warning payoff — the most important promise in the book. Torin's diminishment should be specific and terrible: not dramatic dark-side corruption but the slow subtraction of personality. He's becoming what Gavran became — infrastructure."
+  "notes": "Maetha's warning payoff. Torin's diminishment must be specific and terrible — not dramatic dark-side corruption but the slow subtraction of the parts that made him Torin (warmth, humor, the specific idioms of affection). His voice in the void is articulate and empty; not sinister, just less. Anti-pattern: no altered eyes, no altered voice in the villainous sense; the cost is reduction. Rotate Force-wrongness metaphor here: the structured-absence register (Torin's void as deliberate, directional, the technique at full expression) rather than handrail or pressure."
 }

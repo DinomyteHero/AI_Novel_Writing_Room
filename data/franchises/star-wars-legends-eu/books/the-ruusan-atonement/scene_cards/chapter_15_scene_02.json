@@ -5,18 +5,18 @@
   "scene_type": "sequel",
   "scene_role": "escalation",
   "pov_character": "Ben Skywalker",
-  "mission": "Torin's philosophy hardens — he uses the Valley's destabilization as evidence that the seal was always a temporary measure. His argument: the only permanent solution is someone who understands the technique becoming the new seal. Himself.",
-  "why_now": "The widening crisis provides Torin with ammunition. His argument becomes harder to dismiss as the stakes rise.",
-  "conflict": "Torin presents his position with devastating logic and genuine warmth. He's not trying to seize power — he's offering to sacrifice himself. The horror is in the nobility. This is Jacen's pattern wearing a better mask.",
+  "mission": "Galley. Torin brings up the bad thing over food, as he always does. He uses the Valley's destabilisation as evidence the seal was always temporary. The only permanent answer, he argues, is someone who understands the technique becoming the new seal. Then: 'You're curating reality to manage the outcome you want. You know who else did that?'",
+  "why_now": "The widening crisis gives Torin the argument he has been waiting to make. It also gives Ben no room to dismiss the observation that comes with it, because the observation is accurate.",
+  "conflict": "Torin makes his argument with warmth and devastating specificity. He is not trying to seize power; he is offering to pay a price. The horror is in the nobility of it — Jacen's pattern wearing a better mask — and in the line Torin says next, which describes Ben's own behaviour without naming Jacen.",
   "conflict_type": "interpersonal",
-  "turning_point": "Torin makes a devastating observation to Ben: 'You're curating reality to manage the outcome you want. You know who else did that?' — naming the pattern Ben is falling into with his withholding from Luke.",
+  "turning_point": "Torin's observation about curating reality lands. Ben cannot dismiss it because it is true. The question the chapter will answer in sc3 is whether recognising the pattern is enough to break it.",
   "opening_hook": "Torin brings it up over food. He always brings the worst things up over food — it's a disarming technique Ben is starting to recognize.",
   "closing_hook": "The observation about curating reality lands like a blade. Ben can't dismiss it because Torin is right — Ben IS withholding, controlling information, managing the narrative. The question is whether recognizing the pattern is enough to break it.",
   "emotional_trajectory": "Engaged debate -> seductive logic -> the devastating personal parallel",
   "stakes": {
-    "personal": "Ben's own pattern of control exposed by the person repeating it at larger scale",
+    "personal": "Ben's own pattern of control named by the person repeating it at larger scale",
     "interpersonal": "Torin and Ben — mutual respect making the disagreement more painful",
-    "external": "Torin's 'solution' would work but at the cost of everything the theme argues against"
+    "external": "Torin's 'solution' would work but at the cost of everything the group has been building"
   },
   "characters_present": [
     "Ben Skywalker",
@@ -24,7 +24,7 @@
     "Sera Varik"
   ],
   "setting": "Aboard the Steady Returns — common area, meal time",
-  "sensory_details": "Food cooling as the conversation heats; Torin's warmth slightly mechanical — the humor arriving on schedule; Sera's silence — she's heard this argument before, from Gavran; Ben's hands under the table, gripping his knees",
+  "sensory_details": "Food cooling between them as the argument sharpens; Torin's warmth carrying on schedule rather than by weather; Sera's silence with the weight of having heard this argument before; Ben's hands under the table, finding his own knees",
   "canon_elements_needed": [],
   "target_word_count": 1200,
   "action_beats": [
@@ -50,5 +50,5 @@
   ],
   "revelations": [],
   "pov_arc_phase": "lie_challenged",
-  "notes": "H15 planted — Torin's devastating observation about curating reality. This names the Jacen pattern before Ben formally recognizes it in Chapter 18. Torin's arc: lie_deepened — his certainty growing as the crisis validates his analysis."
+  "notes": "H15 planted — Torin's observation about curating reality. It must land as true, not melodramatic — warmth, timing, and specific accuracy. Torin's arc: lie_deepened — his certainty growing as the crisis validates his analysis. Anti-pattern: Torin's 'you know who else did that' must stop there. No one names Jacen in this scene; Ben does the naming in Ch18. Diagnostic-voice trap — Ben should not, in this scene, inwardly complete the Jacen identification. His hands grip his knees; the sentence sits on the air; Sera's silence carries it. Interiority paragraphing the recognition would give back everything the chapter is trying to keep tight."
 }

@@ -5,24 +5,24 @@
   "scene_type": "sequel",
   "scene_role": "decision",
   "pov_character": "Ben Skywalker",
-  "mission": "Ben processes the Jacen recognition and Desh's warning. The Lie is cracking — solitary control may be the disease, not the cure. But Ben doesn't yet have an alternative.",
-  "why_now": "End of second pinch point — Ben must carry the recognition into the final chapters before the second plot point",
-  "conflict": "Internal reckoning: Ben's Lie (self-reliance as safety) is being challenged by evidence that his approach mirrors the failing pattern. He needs to lead differently — but how?",
+  "mission": "Corridor, alone, night cycle. Ben slides down the bulkhead until he is sitting on cold deck plates. He pulls up Gavran's resonance note on his datapad: 'We lacked the will or the trust to attempt it.' He has been reading it as 'we weren't brave enough.' He re-reads: 'We couldn't trust each other enough.' Different emphasis. Different problem.",
+  "why_now": "The recognition in Scenes 1-2 has to translate into a concrete shift before Ch19's Sera/Kael payoffs can land. Ben cannot arrive at the Jedi outpost still reading the note the old way.",
+  "conflict": "Ben's body finally admits what it has been carrying. Interiority crowds in — self-reproach, the Jacen recognition, the Desh sentence. Mara's voice arrives as pragmatist, not myth: stop wondering if you are worthy and figure out what works.",
   "conflict_type": "internal",
-  "turning_point": "Ben thinks about his mother. Not Mara the Jedi, Mara the pragmatist — the woman who would have said 'stop thinking about whether you're worthy and start thinking about what works.' The thought doesn't solve anything. It changes the angle.",
+  "turning_point": "The resonance note's emphasis shifts under Ben's eyes. 'Will or trust' becomes two problems, not one. The trust problem is the problem he has been avoiding. It is also the one he has any chance of solving.",
   "opening_hook": "Ben slides down the corridor bulkhead until he's sitting on the deck plates, legs stretched across the narrow passage — the first time on this trip he's let his body admit how tired he is",
   "closing_hook": "The resonance note in the Codex files. Gavran wrote: 'We lacked the will or the trust.' Ben has been reading this as 'we weren't brave enough.' He re-reads it now: 'We couldn't trust each other enough.' Different emphasis. Different problem. Maybe a different solution.",
   "emotional_trajectory": "Exhausted honesty -> memory of Mara -> the angle shift on the resonance note",
   "stakes": {
-    "personal": "Ben's arc approaching moment of truth — the Lie cracking but not yet broken",
-    "interpersonal": "The memory of Mara as a different model of leadership",
-    "external": "The resonance note becoming important — the solution's shape emerging"
+    "personal": "Ben moves one file from the archive folder to the open one",
+    "interpersonal": "The memory of Mara as a different model of leadership — pragmatist, not icon",
+    "external": "The resonance note becomes the shape of a possible solution"
   },
   "characters_present": [
     "Ben Skywalker"
   ],
   "setting": "Aboard the Steady Returns — corridor, alone, night cycle",
-  "sensory_details": "Cold deck plates through his trousers; the bulkhead's vibration against his spine; the ship's ambient hum; the datapad balanced on his knees with the Codex notes glowing; Mara's memory — not mystical, just a mother's pragmatism; the resonance note's words rearranging themselves in his mind",
+  "sensory_details": "Cold deck plates through his trousers; the bulkhead's low vibration against his spine; the ship's ambient hum; the datapad on his knees with the Codex notes glowing; the memory of his mother's voice, pragmatic, not a Force-ghost but a sentence she would have said; the resonance note's emphasis rearranging on a second read",
   "canon_elements_needed": [],
   "target_word_count": 1100,
   "action_beats": [
@@ -43,5 +43,5 @@
   "hook_actions": [],
   "revelations": [],
   "pov_arc_phase": "lie_challenged",
-  "notes": "The Mara reference should be brief and practical — not mystical dead-parent wisdom. Just: 'What would Mom do? Stop philosophizing and solve the problem.' Ben's re-reading of the resonance note is the critical micro-turn."
+  "notes": "Mara must remain the pragmatist. No mystical visitation, no reassuring dream, no Force-ghost. A memory of how she would have said it. One short sentence, and move. This is a micro-turn, not a breakthrough — Ben has not yet committed to a different approach; he has moved one file from 'return later' to 'open.' Diagnostic-voice trap — Ben should not, in this scene, articulate the Skywalker-trap framework in interiority. The scene is the physical ritual of being tired, the datapad, the second read. The shift happens silently."
 }

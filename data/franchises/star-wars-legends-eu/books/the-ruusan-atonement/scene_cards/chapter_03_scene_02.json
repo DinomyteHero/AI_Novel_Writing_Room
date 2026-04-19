@@ -5,11 +5,11 @@
   "scene_type": "sequel",
   "scene_role": "reveal",
   "pov_character": "Ben Skywalker",
-  "mission": "Ben and Desh access the facility's navigation data — it contains coordinates to a fortress in uncharted space, and partial context about a containment system",
-  "why_now": "The warning message demands investigation; the facility's data provides the next breadcrumb",
-  "conflict": "The data is fragmentary — enough to understand that something is contained, not enough to understand what. Ben must decide whether to report to Luke or follow the coordinates.",
+  "mission": "Inside the facility's data core. Desh jury-rigs a coupler to thousand-year-old storage. The star map resolves into a network of installations — the Ruusan Corridor — arranged in a perimeter pattern around a central fortress. Ben copies coordinates.",
+  "why_now": "The warning message is only two words. The data core is where the scope of the problem becomes legible. The scale Ben has been reading alone stops being survey-sized.",
+  "conflict": "The data is fragmentary — enough to show that something is contained, not enough to say what. The longer Ben reads, the smaller his original assignment looks, and Luke's chain of command is still expecting a standard report.",
   "conflict_type": "internal",
-  "turning_point": "The navigation data includes a route — the Ruusan Corridor — that connects multiple installations in a perimeter pattern. This isn't one facility. It's a network.",
+  "turning_point": "The navigation data includes a route — the Corridor — connecting multiple installations in a perimeter pattern around a central fortress. This is not one facility; it is a network.",
   "opening_hook": "Desh pries open a corroded access panel and jams a modern data coupler into storage media older than the Galactic Alliance — the connection sparks twice before holding",
   "closing_hook": "Coordinates resolve on the nav computer. The destination is deep in uncharted space — no hyperspace lane, no Republic survey, nothing. Something was deliberately hidden there.",
   "emotional_trajectory": "Analytical focus -> dawning scope -> the weight of decision",
@@ -23,7 +23,7 @@
     "Desh Rolan"
   ],
   "setting": "Inside the perimeter facility — data core room, emergency lighting, ancient consoles",
-  "sensory_details": "Flickering holographic displays showing star maps that don't match modern charts; the hum of ancient power cells; cold — the facility's environmental systems are minimal; the Force here has a quality of recording, as if the walls remember who walked these corridors",
+  "sensory_details": "Flickering holographic displays showing star maps that do not match modern charts; the hum of ancient power cells; cold enough that Ben's breath catches visible; the Force here has a quality of recording, as if the walls remember who walked these corridors",
   "canon_elements_needed": [
     "Pre-Ruusan Jedi military command structure and ranks",
     "Ancient hyperspace navigation charts and star mapping",
@@ -55,5 +55,5 @@
   ],
   "revelations": [],
   "pov_arc_phase": "lie_established",
-  "notes": "Desh's intelligence training kicks in — he reads the installation as military infrastructure, recognizes a command-and-control architecture. His professional assessment carries weight Ben respects."
+  "notes": "Desh's intelligence training kicks in — he reads the installation as military infrastructure and recognises a command-and-control architecture. His professional assessment carries weight Ben respects. First mention of Gavran's name — a signature on a monitoring log or an authorization line, never a formal introduction. Diagnostic-voice trap — Ben should read the network without constructing a theory about its builders in this scene. He copies the coordinates; interpretation waits for later. Keep Force-perception register consistent with Ch3 sc1 — pressure rather than pitch or navigation metaphor."
 }

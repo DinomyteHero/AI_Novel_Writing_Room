@@ -5,13 +5,13 @@
   "scene_type": "action",
   "scene_role": "reveal",
   "pov_character": "Ben Skywalker",
-  "mission": "Explore the bunker's records — partial anchor system data, fragments of the technique lineage. Sera uses Force-lock expertise to access sealed records. First real demonstration of her era-specific value.",
-  "why_now": "The bunker's records provide context the fortress archive was missing — each node holds a piece of the picture",
-  "conflict": "The records reference events and concepts Ben has no framework for — the technique lineage is deeper than he expected. Sera translates but her explanation reveals the Jedi Lords were more militaristic and morally compromised than modern Jedi history suggests.",
+  "mission": "Archive room, Force-locked. Sera's palms on the mechanism; the lock dissolves in seconds from a thousand-year-deep muscle memory. Partial technique lineage fragments; Veranthos named by coordinate and warning notation.",
+  "why_now": "Each node holds a piece of the picture the fortress archive was missing. This node pays off Sera's era-specific expertise as tactical, not just moral.",
+  "conflict": "The records reference events and framings Ben has no vocabulary for. Sera translates, and her translation implies a militarised and morally compromised Jedi Lords era that modern Jedi history has quietly trimmed.",
   "conflict_type": "interpersonal",
-  "turning_point": "Sera cracks a Force-lock in seconds that would take modern Jedi years — her value to the mission becomes undeniable, and Ben's respect shifts from reluctant to genuine",
+  "turning_point": "Sera cracks a Force-lock in seconds that would take modern Jedi years. Her value to the mission becomes undeniable, and Ben's respect shifts from reluctant to genuine.",
   "opening_hook": "Sera's hands move over the ancient lock mechanism with the ease of someone unlocking their own front door. A thousand years, and her muscle memory is still better than Ben's training.",
-  "closing_hook": "The records mention Veranthos by name — coordinates, purpose, and a warning notation that Ben can now read. The wound is real. It has a location. And Veraine knows where it is.",
+  "closing_hook": "The records name Veranthos — coordinates, purpose, and a warning notation Ben can now read. The wound is real. It has a location. And Veraine knows where it is.",
   "emotional_trajectory": "Intellectual curiosity -> uncomfortable historical reckoning -> focused urgency",
   "stakes": {
     "personal": "Ben's growing understanding that modern Jedi education is radically incomplete",
@@ -24,7 +24,7 @@
     "Desh Rolan"
   ],
   "setting": "Battlefield Node bunker — records room, Force-locked archive",
-  "sensory_details": "The Force-lock dissolving under Sera's touch — a technique Ben has never seen; holographic records in an older data format; the thin place making concentration harder — like reading through slightly wrong glasses",
+  "sensory_details": "The Force-lock dissolving under Sera's touch with the domestic ease of a household latch; holographic records in an older data format; the thin place making concentration work — vision and attention pulling at a slight angle",
   "canon_elements_needed": [],
   "target_word_count": 1200,
   "action_beats": [
@@ -51,5 +51,5 @@
   ],
   "revelations": [],
   "pov_arc_phase": "lie_reinforced",
-  "notes": "R05 continues (technique lineage progressive revelation). Sera's Force-lock skill is her primary tactical contribution — it provides natural pacing control for archive access and demonstrates her era-specific value beyond moral authority."
+  "notes": "R05 continues — technique lineage progressive revelation. Sera's Force-lock skill is her primary tactical contribution — keep it understated, almost domestic; the point is that the lock submits to muscle memory that predates modern Jedi training. Diagnostic-voice trap — Ben should not, in this scene, theorise why the modern Order has forgotten this material. He notices the missing registers and keeps moving. Voice: Zahn-procedural in the archive, one permitted Stover-interior beat when Ben reads the Veranthos warning notation and recognises the place-name in his body before his brain catches up. Anti-pattern: do not have Sera narrate what the Jedi Lords were — the record excerpts should imply it."
 }

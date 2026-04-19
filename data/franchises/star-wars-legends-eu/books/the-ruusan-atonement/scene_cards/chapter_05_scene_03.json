@@ -5,17 +5,17 @@
   "scene_type": "action",
   "scene_role": "escalation",
   "pov_character": "Ben Skywalker",
-  "mission": "The empty chamber investigation — monitoring logs identify the escapee: Darth Veraine, a high-risk Sith-trained prisoner. She escaped weeks ago. She's already moving.",
-  "why_now": "The dual threat crystallizes: the seal is failing AND someone who understands the technique is loose",
-  "conflict": "Veraine wasn't just a prisoner — she was a Brotherhood alchemist and strategist, flagged by Gavran himself as the highest-risk anchor. Her escape accelerated the cascade that woke the other three.",
+  "mission": "The empty chamber investigation. Monitoring logs identify the escapee: Darth Veraine, Brotherhood alchemist and strategist, flagged by Gavran as the highest-risk anchor. She escaped weeks ago. She is already moving.",
+  "why_now": "The dual threat becomes legible here — a failing seal and someone who understands the technique. The race starts in this scene.",
+  "conflict": "Veraine was not merely a prisoner. She was a strategist. The logs show she spent days in the fortress after she woke, read the archive, understood the system, and left with a plan. The evidence of her patience is the thing that frightens Sera and Torin worst.",
   "conflict_type": "external",
-  "turning_point": "Desh finds evidence that Veraine spent days in the fortress after waking — she accessed the archive, studied the system, understood what she was, and then left with a plan",
+  "turning_point": "Desh maps Veraine's post-escape movement through the fortress — she accessed every relevant terminal before she left. Kael's reaction when her name resolves on the display is the scene's quietest and most important beat.",
   "opening_hook": "The monitoring logs for the empty chamber span centuries — a slow, patient record of something working its way out from inside.",
-  "closing_hook": "Veraine escaped weeks ago. She's had time to recover, acquire resources, and start moving along the Corridor. The race has already begun — and they're behind.",
+  "closing_hook": "Veraine escaped weeks ago. She has had time to recover, acquire resources, and start moving along the Corridor. The race has already begun — and they are behind.",
   "emotional_trajectory": "Investigative tension -> dawning horror at Veraine's capabilities -> urgency",
   "stakes": {
     "personal": "Ben is now responsible for stopping someone with a thousand years of Sith knowledge",
-    "interpersonal": "Kael's reaction to Veraine's file — recognition, then studied blankness. He knew her. Or knew of her.",
+    "interpersonal": "Kael's reaction to Veraine's file — recognition, then studied blankness. He knew her, or knew of her.",
     "external": "A Sith alchemist with knowledge of the forbidden technique is already exploiting the seal's failure"
   },
   "characters_present": [
@@ -26,7 +26,7 @@
     "Kael Drenn"
   ],
   "setting": "Fortress Level 3 — the empty chamber, then monitoring station on Level 1",
-  "sensory_details": "Damage marks on the chamber walls — not frantic but systematic, deliberate erosion over centuries; Gavran's monitoring flags: red, urgent, unanswered; Veraine's stasis field residue — a different texture in the Force, analytical and hungry",
+  "sensory_details": "Damage inside the empty chamber not frantic but systematic — deliberate erosion carried on for centuries; Gavran's monitoring flags lit red and unanswered; the residue Veraine left in the Force different in quality from the three survivors — still, analytical, patient in a way that makes Ben's shoulders tighten",
   "canon_elements_needed": [
     "Sith alchemy in Legends EU tradition and capabilities",
     "Force-user containment and imprisonment methods",
@@ -64,5 +64,5 @@
   ],
   "revelations": [],
   "pov_arc_phase": "lie_reinforced",
-  "notes": "H05 is a hard hook — the race against Veraine begins. Kael/Veraine parallel seeded: Ben notices Kael's reaction to her file but doesn't understand it yet. Kael's reaction to Veraine's file is the most important beat in this scene besides the threat establishment. It must be noticeable but not explained. The reader should register it and wonder. Do not resolve it here."
+  "notes": "H05 is hard — the race begins. Kael's reaction to Veraine's file is the load-bearing small beat of this scene: noticeable but unexplained, he recognises her without saying so. Ben notices and files it and does not yet have a place to put it. Do not resolve it here. Diagnostic-voice trap — Ben should not, in this scene, construct Veraine's philosophy from her activity pattern. He reads behaviour (she studied, she planned, she moved methodically) and feels the patience in the residue she left behind. Articulating her thesis is Ch16's work, not Ch5's."
 }

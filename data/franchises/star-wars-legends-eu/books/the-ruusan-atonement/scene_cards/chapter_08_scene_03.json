@@ -5,11 +5,11 @@
   "scene_type": "sequel",
   "scene_role": "aftermath",
   "pov_character": "Ben Skywalker",
-  "mission": "Aftermath of the debate — Kael and Desh's first real interaction. Kael watches Desh work on the ship and makes a dry observation. The non-Force friendship begins.",
-  "why_now": "The Force-users have been arguing about the Force. Desh — the only person who can't feel any of it — and Kael — the person most cynical about all of it — find unexpected common ground.",
-  "conflict": "Kael's detachment vs. Desh's practical engagement. Kael expects Desh to be a tool of Ben's, like he was a tool of the Sith. Instead, Desh is here by choice — a concept Kael is still processing.",
+  "mission": "Engineering crawlspace. Desh bangs on a conduit that has been cycling wrong since the extra passengers came aboard. Kael folds himself into the tight space beside him and hands tools without being asked. The smallest warmth between the outsider and the practical man.",
+  "why_now": "The philosophical scene needed an exit. The ship needs its conduit fixed and the coalition needs a beat that is not an argument. The quietest scene in the chapter does the most lasting work.",
+  "conflict": "Kael has spent his life being used by institutions. Desh does not use him. Desh asks him for a hydrospanner and Kael has to decide, in the space of one breath, whether being asked is a trap.",
   "conflict_type": "interpersonal",
-  "turning_point": "Desh asks Kael to hand him a hydrospanner without any philosophical freight — just one person asking another for help. Kael stares for a beat, then hands it over. Smallest gesture. Biggest meaning.",
+  "turning_point": "Kael passes the hydrospanner after a beat of deliberate stillness. Smallest gesture, biggest meaning — first thing anyone has asked him for that was not about the Force.",
   "opening_hook": "Desh breaks the silence by banging on a conduit that's been cycling wrong since the extra passengers came aboard.",
   "closing_hook": "Kael, watching Desh work: 'You don't feel any of it. The wrongness.' Desh: 'I feel the ship shaking and four Force-users arguing about why.' Kael almost smiles. Almost.",
   "emotional_trajectory": "Residual tension -> quiet observation -> the smallest warmth",
@@ -23,7 +23,7 @@
     "Desh Rolan"
   ],
   "setting": "Aboard the Steady Returns — engineering crawlspace, Desh's domain",
-  "sensory_details": "The ship's mechanical complaints; Desh's competent hands on familiar systems; Kael folded into an uncomfortable space designed for one person; the hydrospanner warm from Kael's grip",
+  "sensory_details": "The ship's mechanical complaints; Desh's competent hands on familiar systems; Kael folded into an uncomfortable space designed for one person; the hydrospanner warm from Kael's grip before he passes it",
   "canon_elements_needed": [],
   "target_word_count": 1100,
   "action_beats": [
@@ -43,5 +43,5 @@
   "hook_actions": [],
   "revelations": [],
   "pov_arc_phase": "lie_reinforced",
-  "notes": "Small but critical character scene. Ben observes from outside — close-third limited to watching the interaction, reading Kael's surprise at being treated normally. Allston-channel humor through Desh."
+  "notes": "Small but load-bearing character scene. Ben is not on stage — the POV stays close to Kael through Ben's absence, observed from the galley or the corridor afterward if needed. Voice: Allston-channel warmth through Desh. Let the hydrospanner do what words would spoil. Anti-pattern: no interiority paragraph explaining Kael's first experience of being asked for help — the gesture is the exposition."
 }

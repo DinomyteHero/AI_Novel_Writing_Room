@@ -5,11 +5,11 @@
   "scene_type": "sequel",
   "scene_role": "aftermath",
   "pov_character": "Ben Skywalker",
-  "mission": "Aftermath — Veraine contained, not killed. Her ideology intact but her thesis empirically disproven. She'll spend years rationalizing the failure. She is the book's living counterargument, preserved.",
-  "why_now": "The antagonist's fate — contained but unchanged. A different kind of resolution than death.",
-  "conflict": "Veraine in containment — conscious, intellectually active, already reframing the failure. She tells Ben: 'The emergence you produced was interesting. I will think about it.' Not concession. Not conversion. Intellectual engagement from behind bars.",
+  "mission": "Ben at Veraine's containment. She sits cross-legged in Sera's Force-lock field, already writing equations in the dust with one finger. Composed. Academic. Genuinely curious about the emergent pattern the group produced. 'The emergence you produced was interesting. I will think about it.' Not concession. Not conversion. Ben leaves. She keeps writing.",
+  "why_now": "The antagonist's fate has to resolve as the book's philosophical note before the character farewells begin. Veraine contained and unconverted is the book's honesty about people you cannot argue out of a framework.",
+  "conflict": "Ben wants a concession he is not going to get. Veraine's dignity is that she does not give one. She will adapt the theory rather than abandon it, and she is polite to him while she does it.",
   "conflict_type": "interpersonal",
-  "turning_point": "Ben realizes Veraine will never accept she was wrong through argument alone — only through results she can't dismiss. And even then, she'll adapt the theory rather than abandon it. She is the permanent cost of intellectual certainty without empathy.",
+  "turning_point": "Ben realises the shape of the enemy he has defeated. Veraine was not convinced by arguments; she was not convinced by results either, only interrupted by them. She will spend years rationalising. He leaves before he is tempted to argue.",
   "opening_hook": "Veraine in the containment Sera built — clean, functional, inescapable. She sits cross-legged, composed, already writing equations in the dust with one finger.",
   "closing_hook": "Ben leaves Veraine's containment. Behind him, she's still writing. The equations might be important. He doesn't look back.",
   "emotional_trajectory": "The weight of the antagonist's survival -> the unsatisfying reality of intellectual enemies -> acceptance",
@@ -23,7 +23,7 @@
     "Darth Veraine"
   ],
   "setting": "Veranthos — improvised containment area, guarded",
-  "sensory_details": "Veraine's containment — Force-locked, Sera's design; Veraine's composure — unbroken, academic, writing equations; her voice — precise, unruffled, genuinely curious about the emergence; dust motes in the containment light",
+  "sensory_details": "Veraine's containment — Force-locked, Sera's design, quiet; Veraine's composure unbroken, academic, unhurried; her voice precise, unruffled, genuinely curious about the emergence; dust motes in the containment light; her finger drawing equations that might or might not be important",
   "canon_elements_needed": [],
   "target_word_count": 1200,
   "action_beats": [
@@ -44,5 +44,5 @@
   "hook_actions": [],
   "revelations": [],
   "pov_arc_phase": "new_truth_demonstrated",
-  "notes": "Veraine's arc: lie_unchanged. Defeated but unbroken. The story treats her as wrong for the right reasons. Her survival keeps the philosophical question open."
+  "notes": "Veraine's arc lands as lie_unchanged — defeated but unbroken. The equations in the dust are the book's lingering image: she will go on thinking, and the book does not tell us what she will produce. Anti-pattern: do not give Veraine a softening or concession. Her dignity is the refusal, and the book's honesty is that it holds her as an open question rather than a closed one."
 }

@@ -5,17 +5,17 @@
   "scene_type": "sequel",
   "scene_role": "hook",
   "pov_character": "Ben Skywalker",
-  "mission": "Establish Ben's restlessness and the persistent wrongness in the Force that no one else seems to notice at the same intensity",
-  "why_now": "Opening scene — introduces protagonist, central mystery, and emotional baseline before the plot launches",
-  "conflict": "Ben's combat focus fractures mid-spar when the wrongness spikes — his body fails him in a way he can't explain, and the Order treats the underlying cause as background noise from recent crises",
+  "mission": "Ben loses a sparring exchange he should not have lost, and the wrongness in the Force is the reason. The reader meets him on the night a problem he has been handling privately becomes a problem someone else could see.",
+  "why_now": "The wrongness has been costing Ben since the week started. Tonight is the first time it has cost him in front of another Knight.",
+  "conflict": "Ben's timing fractures mid-spar when the wrongness pulls at his attention, and the Order has been treating the background disturbance as residue from recent crises. His body fails him in a way he cannot blame on the week, and he still does not want to say so aloud.",
   "conflict_type": "interpersonal",
-  "turning_point": "Ben acknowledges privately that the wrongness has a quality he recognizes from his years around Jacen and Abeloth — something structural, not emotional",
+  "turning_point": "Alone in the salle afterward, Ben runs a form through without igniting the blade and feels the wrongness steal a beat he cannot spare. He stops pretending it is fatigue.",
   "opening_hook": "Ben's guard drops a half-second late and his sparring partner's training blade catches him across the shoulder — the third time this week the wrongness in the Force has cost him a beat he should never miss",
   "closing_hook": "Luke appears in the doorway with a datapad and an expression Ben knows means a mission",
   "emotional_trajectory": "Restless unease -> frustrated isolation -> reluctant hope",
   "stakes": {
     "personal": "Ben's sense of his own Force perception — is he reliable or traumatized?",
-    "interpersonal": "His distance from other Knights who don't share his concern",
+    "interpersonal": "His distance from other Knights who do not share his concern",
     "external": "The wrongness itself — something is happening to the Force"
   },
   "characters_present": [
@@ -24,7 +24,7 @@
   ],
   "dialogue_expectation": "interior",
   "setting": "Jedi Temple, Coruscant — training salle, late evening session",
-  "sensory_details": "Training sabers humming; the wrongness like a note played slightly flat that disrupts Ben's combat timing; sweat on his palms, the sound of boots on the salle floor; Temple hum of ambient Force presences",
+  "sensory_details": "Training sabers humming; the salle's ambient Force presence arriving a half-beat behind the rhythm Ben's body has known by reflex for years; sweat on his palms, the sound of boots on the salle floor; distant Temple corridors still carrying the foot traffic of the late shift",
   "canon_elements_needed": [
     "Force meditation techniques and Jedi contemplative practice",
     "Jedi Temple architecture on Coruscant, meditation chambers",
@@ -55,5 +55,5 @@
   "hook_actions": [],
   "revelations": [],
   "pov_arc_phase": "lie_established",
-  "notes": "RESTRUCTURED: Opens with training spar to ground the wrongness in physical failure rather than meditation. Establish Ben's Lie: self-reliance as safety. He's handling the wrongness alone because that's what Skywalkers do. The spar loss makes the wrongness concrete for the reader — it's not just perception, it's costing him combat effectiveness. Internal monologue should be sharp, self-aware, slightly defensive. Voice markers: Zahn-style tight third-person interiority. Ben's internal voice should be sharp and self-deprecating, never melodramatic. Anti-pattern: avoid describing the Force wrongness in terms of color or visible phenomena — keep it auditory/vibrational. The sparring partner is a background character — minimal characterization, exists to provide the physical context."
+  "notes": "Opens with a training spar so the wrongness costs Ben something concrete before any interiority names it. Ben should read as a Knight handling a private problem privately, not as a character having a character arc in public. Voice anchor: Zahn-style close third; interior voice sharp and self-deprecating, never melodramatic. Diagnostic-voice trap — he should not, in this scene, arrive at any clinical articulation of what the wrongness is. He feels it before he can name it; the 'structural, not emotional' framing is a Part 3-4 voice, earned later. If a sentence of his interiority could be lifted into a mission debrief, it is too composed for this scene. Anti-pattern: do not describe the wrongness in visual or color terms — keep it auditory and vibrational, and use one consistent metaphor for this scene (the half-beat lag in the ambient field). The sparring partner is a background character — minimal characterization, exists to provide the physical context. Temple life at this hour can surface in the edges (late-shift foot traffic, a cleaning droid, lift chimes in the corridor) — Coruscant is a place people live in, not only a backdrop Ben moves through."
 }

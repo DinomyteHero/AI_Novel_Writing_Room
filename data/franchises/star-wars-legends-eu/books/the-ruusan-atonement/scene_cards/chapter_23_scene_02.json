@@ -5,17 +5,17 @@
   "scene_type": "sequel",
   "scene_role": "decision",
   "pov_character": "Ben Skywalker",
-  "mission": "Kael's internal processing — Ben watches but gives him space. Kael walks to the edge and stares at the Scar. His decision is not about the plan's probability of success. It's about whether choosing is different from being chosen.",
-  "why_now": "The space between the ask and the answer — Kael must process this without pressure",
-  "conflict": "Kael's Lie (conviction is a trap, the safest place is outside the fight) vs. his Need (choosing to care is the only way to stop being a tool). The crisis has made neutrality impossible — refusal to choose has become complicity.",
+  "mission": "Kael walks. Not leaving — thinking. Ben stays where he is and does not follow. Kael stops at the ridge edge, looks at the Scar, then at Desh working on equipment in the camp. The non-Force-user who chose to be here, without destiny or conviction, just purpose. Kael recognises what he is looking at — the freest person in the group.",
+  "why_now": "The space between the ask and the answer is where the arc turns. Ben has to demonstrate, not tell, that refusing to follow Kael is itself the answer to Kael's question.",
+  "conflict": "The scene's argument is silent. Kael has never had the space to choose. The space is the gift. Whether he uses it for a yes or a no, the offer of it is the thing the book has been arguing for.",
   "conflict_type": "internal",
-  "turning_point": "Kael looks at Desh working on equipment — the non-Force-user who chose to be here, who chose danger for reasons that aren't about power or destiny or conviction. Just... purpose. Kael realizes that Desh is the freest person in the group.",
+  "turning_point": "Kael looks at Desh and understands: Desh chose this. No destiny, no institution, no conviction. Just purpose. Kael is looking at the shape of a chosen life for the first time, and he recognises it.",
   "opening_hook": "Kael walks away. Not leaving — thinking. Ben forces himself not to follow.",
   "closing_hook": "Kael turns back. His face is different — not the careful blankness, not the dry detachment. Something new. Something that looks, against all odds, like choice.",
   "emotional_trajectory": "Waiting -> Kael's internal processing (observed externally) -> the visible change",
   "stakes": {
     "personal": "Kael's arc climax — choosing to care after a lifetime of enforced indifference",
-    "interpersonal": "The Kael/Desh parallel — the non-Force-user modeling genuine freedom",
+    "interpersonal": "The Kael/Desh parallel — the non-Force-user modelling a life Kael has never inhabited",
     "external": "Without Kael's commitment, the resonance fails"
   },
   "characters_present": [
@@ -24,7 +24,7 @@
     "Desh Rolan"
   ],
   "setting": "Veranthos — camp, Kael walking to the edge, looking down at the Scar, looking at Desh, looking inward",
-  "sensory_details": "Kael's Force presence — shifting, the guarded walls lowering for the first time; Desh working on equipment, unaware he's being watched; the Scar below, patient, waiting; Kael's footsteps returning",
+  "sensory_details": "Kael's Force presence shifting — the guarded walls easing for the first time since Ch5; Desh working on equipment unaware he is being watched; the Scar below, patient, waiting; Kael's footsteps returning changed",
   "canon_elements_needed": [],
   "target_word_count": 1200,
   "action_beats": [
@@ -45,5 +45,5 @@
   "hook_actions": [],
   "revelations": [],
   "pov_arc_phase": "moment_of_truth",
-  "notes": "Kael's arc: lie_confronted — the crisis forces the choice. His observation of Desh is the key: chosen commitment is different from conscripted service. Desh models what Kael has never experienced."
+  "notes": "Kael's arc: lie_confronted — the space Ben does not fill with pressure is the space Kael uses to choose. Anti-pattern: do not narrate Kael's realisation; stay in Ben's close-third and let the reader watch Kael's face change through Ben's eyes. Ben's instinct is to follow; the scene's work is that he stays. Voice: Allston-quiet — Ben observes, the chapter does not annotate."
 }

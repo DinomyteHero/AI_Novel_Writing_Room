@@ -5,11 +5,11 @@
   "scene_type": "action",
   "scene_role": "reveal",
   "pov_character": "Ben Skywalker",
-  "mission": "Ben wakes the three survivors. First impressions: Sera (disciplined, intense, formal), Torin (warm, commanding, disarming), Kael (quiet, watchful, wary). The disorientation of waking after a thousand years.",
-  "why_now": "The containment system is failing; the survivors are the only source of context for what the fortress contains and why",
-  "conflict": "The survivors are disoriented, hostile to varying degrees, and speak in archaic patterns. Sera demands identification and chain of command. Torin assesses Ben tactically. Kael says nothing and watches everyone.",
+  "mission": "Ben wakes the three survivors. Sera orients first — disciplined and formal; Torin second — warm, commanding, steady; Kael last — quiet, watchful, saying nothing yet. Three people a thousand years out of their own time.",
+  "why_now": "The containment is failing and the fortress is running out of vigil. The survivors are the only living source of context for what Gavran built and why.",
+  "conflict": "The survivors are disoriented and wary in different ways. Sera demands identification and chain of command. Torin assesses Ben tactically with an ease that surprises him. Kael says nothing, and his silence is the loudest thing in the room.",
   "conflict_type": "interpersonal",
-  "turning_point": "Sera recognizes Ben's Jedi training but not his era. 'What year is it?' The answer staggers all three.",
+  "turning_point": "Sera recognises Ben as Jedi-trained but not of her era. 'What year is it?' Ben answers. The room holds its breath. All three register the number differently, and all three begin the private math of what a thousand years has cost them.",
   "opening_hook": "Ben's hand on the stasis release feels like a choice he can't take back. The first chamber's field dissolves, and a woman with the bearing of a soldier opens eyes that have been closed for a thousand years.",
   "closing_hook": "Torin is the last to orient. He looks at the nine dark chambers, the empty one, and says quietly: 'Who got out?'",
   "emotional_trajectory": "Tense anticipation -> the shock of contact across centuries -> growing dread as scope becomes apparent",
@@ -26,7 +26,7 @@
     "Kael Drenn"
   ],
   "setting": "Fortress Level 3 — Stasis Ring, emergency lighting, the three active chambers",
-  "sensory_details": "Stasis fields collapsing with a sound like held breath released; Sera's Force presence — sharp, disciplined, ancient-feeling; Torin's — warm but heavy, something wrong underneath; Kael's — clipped, guarded, trained differently; the wrongness resonating through them all",
+  "sensory_details": "Stasis fields collapsing with a sound like held breath released; Sera's Force presence — sharp and disciplined, a signature shaped by an older training; Torin's — warm and heavy, something settled deep that Ben does not yet have a name for; Kael's — clipped and guarded, trained in a register Ben has not encountered before",
   "canon_elements_needed": [
     "Millennium of temporal displacement effects on Force-sensitives",
     "Jedi Lords era training versus modern Jedi training differences",
@@ -64,5 +64,5 @@
   "revelations": [],
   "pov_arc_phase": "lie_reinforced",
   "arc_phase_transition": "lie_reinforced",
-  "notes": "Arc transition for Ben: his lie_reinforced phase begins — the survivors' dependence on him confirms his belief that the burden is his to carry. Sera, Torin, Kael arcs all begin at lie_established. Survivor speech patterns: Sera speaks in complete sentences under stress — formal, precise, military. Torin's warmth has an archaic courtesy to it. Kael waits to be addressed — his silence is itself archaic."
+  "notes": "Ben's phase shifts here — the survivors' dependence gives his sense-of-burden a surface to land on. Sera, Torin, Kael all enter at their own lie_established. Survivor speech patterns: Sera speaks in complete sentences under stress — formal, precise, military. Torin's warmth has an archaic courtesy to it. Kael waits to be addressed; the silence itself is archaic. Diagnostic-voice trap — Ben should not, in this scene, read Torin's signature as 'something slipping toward dark' or narrate the anchor architecture. He registers each survivor's presence as a body does: tone, weight, clipped edge. Interpretation waits for the archive. Note the three-signature contrast is the chapter's load-bearing image; keep it unhurried and specific, one line apiece, and do not stack metaphors on it."
 }

@@ -5,17 +5,17 @@
   "scene_type": "action",
   "scene_role": "escalation",
   "pov_character": "Ben Skywalker",
-  "mission": "The wrongness lurches — a sudden sharp spike. The seal is being deliberately attacked. Veraine has moved from research to action. Evidence that she spent extended time at this facility, not just repurposing but studying.",
-  "why_now": "Escalation before the midpoint — the timeline is compressing. Veraine's trace at Maetha's reveals a pilgrimage, not just logistics.",
-  "conflict": "The spike in the wrongness means the situation is deteriorating faster than expected. Veraine isn't just ahead — she's actively accelerating the seal's failure.",
+  "mission": "Exterior. The wrongness spikes without warning. Ben staggers; Torin tilts his head toward the spike with attentive listening. It stabilises at a higher baseline. Desh's scan: Veraine spent extended time at Maetha's — studying, not repurposing. A pilgrimage. The next Corridor stop is a settlement world.",
+  "why_now": "Timeline compression before the midpoint. The wrongness has to move from 'background' to 'actively attacked' in a way the reader feels physically, and the chapter needs to deliver the settlement-world cue so Ch13's population stakes land without exposition.",
+  "conflict": "Veraine is no longer only ahead — she is accelerating. Torin is no longer only philosophically comfortable — he is orientating to her signal. The next stop on the Corridor is a populated world, and that will either be the group's first civilian encounter or a scene they will not recover from.",
   "conflict_type": "external",
-  "turning_point": "Desh's analysis of Veraine's time here: she sat where the Knights trained. A pilgrimage. Maetha's work is part of Veraine's intellectual lineage. She came here for understanding, not just components.",
+  "turning_point": "Desh's read of Veraine's time at Maetha's: she sat where the Knights trained. Not logistics, pilgrimage. Her lineage acquires an ancestor, and her project gains a shape the group can begin to map.",
   "opening_hook": "The wrongness spikes without warning. Ben staggers. Torin doesn't — he turns toward it.",
   "closing_hook": "The spike stabilizes at a new, higher baseline. The seal is weakening faster. And the next node on the Corridor — the one Desh flagged with the most recent energy signatures — is a settlement world. Civilians lived there. Possibly still do.",
   "emotional_trajectory": "Physical shock -> urgent assessment -> grim realization of acceleration",
   "stakes": {
     "personal": "Ben feeling the seal's failure in real time — visceral, not abstract",
-    "interpersonal": "Torin's reaction to the spike vs. everyone else's — the gap widening",
+    "interpersonal": "Torin's reaction to the spike against everyone else's — the gap widening",
     "external": "The seal is failing faster. Days have become critical."
   },
   "characters_present": [
@@ -26,7 +26,7 @@
     "Desh Rolan"
   ],
   "setting": "Maetha's Training Facility exterior, then departure aboard the Steady Returns",
-  "sensory_details": "The wrongness spiking — like a bass note dropping below hearing into physical vibration; the flexible lattice at Maetha's location snapping briefly into chaos before stabilizing; Torin's tilted-head listening posture — attentive to something no one else wants to hear",
+  "sensory_details": "The wrongness spiking as a sudden pressure drop in the body — knees registering it before the ears do; the flexible lattice at Maetha's location snapping briefly into chaos before settling; Torin's tilted-head listening, attentive to something no one else wants to hear; Desh's chrono running one second fast against Ben's",
   "canon_elements_needed": [],
   "target_word_count": 1000,
   "action_beats": [
@@ -54,5 +54,5 @@
   ],
   "revelations": [],
   "pov_arc_phase": "lie_reinforced",
-  "notes": "H12 planted — the wrongness lurches, seal deliberately attacked. Transition chapter from Part 2 Response toward the Midpoint. Veraine's extended time at Maetha's reveals her as more complex than a simple villain — she has an intellectual genealogy."
+  "notes": "H12 planted — the wrongness lurches, the seal is being deliberately attacked. Rotate Force-wrongness metaphor: not handrail, not flat-note, not bass-below-hearing. Here the register is pressure-drop in the body, a physical wobble the knees catch before the ears do. One consistent image, carried through the scene. Diagnostic-voice trap — Ben should not, in this scene, narrate 'the seal is being actively attacked' as an interior realisation sentence. His body registers the spike; Desh's scan reads the pattern; the group's collective shift does the work. Settlement-world cue at the close prepares Ch13 (Kolven) — the horror of the midpoint is that it was populated, and Ch12 gives the reader the breath of knowing that before the chapter ends."
 }

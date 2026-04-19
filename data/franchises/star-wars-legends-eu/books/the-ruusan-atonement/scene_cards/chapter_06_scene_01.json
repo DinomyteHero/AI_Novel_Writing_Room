@@ -5,11 +5,11 @@
   "scene_type": "sequel",
   "scene_role": "aftermath",
   "pov_character": "Ben Skywalker",
-  "mission": "Process the revelations — group tensions surface as survivors adjust to their situation and Ben adjusts to leading people who outrank him by a millennium",
-  "why_now": "First transit chapter after the First Plot Point — the group must establish a working dynamic under pressure",
-  "conflict": "Sera challenges Ben's authority by expertise — she knows the seal system, he doesn't. Torin mediates with easy warmth that makes the group feel like a team. Kael says almost nothing.",
+  "mission": "Six people in a ship built for two. Sera reaches for controls that do not exist. Torin's warmth fills small spaces. Sera tests Ben with a tactical question about the Corridor route; his intelligence-operative answer earns the first grudging respect.",
+  "why_now": "First transit chapter after the lock-in. The crew has to make itself into a crew before the Corridor teaches them what they cost one another.",
+  "conflict": "Sera measures Ben against a standard he cannot yet name — the commander she followed and lost. Torin mediates with easy warmth that makes the small space feel like a team room. Kael says almost nothing, and it costs the air.",
   "conflict_type": "interpersonal",
-  "turning_point": "Sera tests Ben with a tactical question about the Corridor route. His answer is pragmatic rather than doctrinal — she didn't expect a modern Jedi to think like an intelligence operative. First grudging respect.",
+  "turning_point": "Sera tests Ben with a tactical question about the route. His answer is pragmatic rather than doctrinal — the kind of reading she did not expect from a modern Jedi. Her posture shifts half a degree.",
   "opening_hook": "Ben wedges himself between a supply crate and the bulkhead to check the nav chart — six people in a ship built for two, and the social fabric creaking as loud as the hull",
   "closing_hook": "Torin finds Ben alone in the corridor and says something warm about Luke — 'Your father's name carries weight even in our time.' The compliment feels genuine. It also feels like an assessment.",
   "emotional_trajectory": "Tension and territorial friction -> unexpected competence demonstration -> uneasy truce",
@@ -26,7 +26,7 @@
     "Kael Drenn"
   ],
   "setting": "Aboard the Steady Returns in hyperspace — cramped common area, corridor, cockpit",
-  "sensory_details": "The ship straining with extra passengers; Sera's discomfort with modern technology — she reaches for controls that don't exist; Torin's ease in small spaces (military veteran); Kael folded into a corner, watching",
+  "sensory_details": "The ship straining with extra passengers; Sera's hand closing on blank hull plating where a console used to be; Torin's ease in small spaces and the old-soldier instinct of standing where he will not block a door; Kael folded into a corner, watching",
   "canon_elements_needed": [],
   "target_word_count": 1200,
   "action_beats": [
@@ -50,5 +50,5 @@
   "hook_actions": [],
   "revelations": [],
   "pov_arc_phase": "lie_reinforced",
-  "notes": "Survivor displacement texture — Sera, Torin, Kael's disorientation with modern tech, cultural shifts. Source of conflict, humor, worldbuilding, and pathos. Desh's arc: lie_reinforced — professionally competent but emotionally uninvested."
+  "notes": "Survivor-displacement texture is the free worldbuilding of this chapter — Sera's reach into empty hull, Torin's adaptive courtesy that is slightly too easy, Kael's silence. Honour the lived-galaxy-texture obligation by letting the modern galaxy feel unfamiliar to three of the characters. Voice: Allston-channel humor in the cramped common area, tightening when Kael's presence changes the room. Diagnostic-voice trap — Ben should not, in this scene, narrate the synthesis-leadership concept. He answers Sera's question, he registers Torin's approval-and-assessment, he notices Kael without approaching him. The phrase 'leading as coordinator of an unstable coalition' is the chapter's structural description, not a line Ben thinks in. Desh in this scene: lie_reinforced in his own arc — professionally competent, emotionally still at arm's length from the larger crisis."
 }

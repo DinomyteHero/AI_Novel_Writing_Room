@@ -5,11 +5,11 @@
   "scene_type": "action",
   "scene_role": "escalation",
   "pov_character": "Ben Skywalker",
-  "mission": "Sera counters Veraine with firsthand testimony — she's felt de-structuring, she was used as an anchor, and the liberation Veraine promises is a theory. The reality is what happened to Maetha's Knights. What happened to Torin.",
-  "why_now": "The counter-argument must match Veraine's pitch in force — Sera provides the experiential evidence Veraine's theory lacks",
-  "conflict": "Sera vs. Veraine — two women who were both sealed as anchors, both used as infrastructure, reaching opposite conclusions. Sera's counter is personal where Veraine's is theoretical: 'I have been where you want to take the galaxy. There is nothing there.'",
+  "mission": "Sera steps forward. Her archaic syntax carries a thousand years of waiting to say this. She counters Veraine with the one thing theory cannot answer: 'I have been where you want to take the galaxy. There is nothing there.' Veraine's composure cracks once — recognition, not anger — and recovers.",
+  "why_now": "Veraine's pitch cannot be left standing without a response that matches its weight. Sera is the only character in the circle whose history can produce the answer, and she has been waiting a thousand years for the chance.",
+  "conflict": "Two women with the same wound and opposite scars. Veraine's argument is academic; Sera's is experiential. The scene is whether experience can out-weigh theory in a room where the theorist has the floor.",
   "conflict_type": "interpersonal",
-  "turning_point": "Veraine's composure cracks — once, briefly — when Sera describes the experience of being sealed. Not anger. Recognition. They share the wound. They disagree about the scar tissue.",
+  "turning_point": "Veraine's composure cracks — not anger, recognition — when Sera names the experience of being sealed. Veraine recovers: 'I appreciate the testimony. But testimony is not evidence.' She turns and walks back to her ship.",
   "opening_hook": "Sera steps forward. She's been silent throughout Veraine's pitch. When she speaks, her archaic syntax carries the weight of a thousand years of waiting to say this.",
   "closing_hook": "Veraine recovers composure. 'I appreciate the testimony. But testimony is not evidence.' She excuses herself. The meeting is over. Something changed during her departure — Ben feels it in the Force. Something at the seal just shifted.",
   "emotional_trajectory": "Sera's controlled fury -> Veraine's brief vulnerability -> the horror of the closing shift",
@@ -27,7 +27,7 @@
     "Desh Rolan"
   ],
   "setting": "Neutral meeting point — same location",
-  "sensory_details": "Sera's voice — formal, precise, trembling with controlled emotion; Veraine's brief crack — her eyes changing, something raw behind the composure; the Force shifting during Veraine's departure — the wrongness lurching",
+  "sensory_details": "Sera's voice — formal, precise, trembling with controlled emotion at the edges; Veraine's brief crack — a change behind the eyes, raw for a second, then gone; the Force shifting during Veraine's departure — a pressure drop that arrives in the body before the mind locates it",
   "canon_elements_needed": [],
   "target_word_count": 1000,
   "action_beats": [
@@ -50,5 +50,5 @@
   "hook_actions": [],
   "revelations": [],
   "pov_arc_phase": "lie_challenged",
-  "notes": "Sera's arc: lie_challenged — she's using her principle (the lattice matters, de-structuring is violation) as a weapon, but the confrontation with Veraine shows her that principle alone doesn't protect. Veraine's sabotage objective executing under cover of the conversation."
+  "notes": "Sera's line 'I have been where you want to take the galaxy. There is nothing there.' is a chapter-anchor — deliver once and leave. Sera's arc: lie_challenged — she uses her principle as a weapon, but watching Veraine walk away intact shows her that principle alone does not protect. Diagnostic-voice trap — Ben should not, in this scene, narrate Sera's rhetorical victory. He registers the crack in Veraine; he feels the Force-shift at her departure; he does not yet have a name for what just happened. Force phenomenology in the closing shift: pressure drop in the body, felt before understood — rotate away from acoustic or navigational metaphors."
 }

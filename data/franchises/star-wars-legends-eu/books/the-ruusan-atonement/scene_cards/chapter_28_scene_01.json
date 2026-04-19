@@ -5,16 +5,16 @@
   "scene_type": "sequel",
   "scene_role": "hook",
   "pov_character": "Ben Skywalker",
-  "mission": "Return journey — Ben alone with Desh and his thoughts. Processing everything. Preparing for the hardest conversation: telling Luke the truth.",
-  "why_now": "The journey home — time for reflection before the final scene",
-  "conflict": "Ben's institutional lie — the thing he's been carrying since Chapter 3 — must now be resolved. He will tell Luke everything. Not because it's easy or safe, but because the story's theme demands institutional truth.",
+  "mission": "Aboard the Steady Returns, hyperspace to Coruscant. Ben leans back in the copilot's seat and listens to the new seal's resonance humming at the edge of perception — the wrongness of Chapter 1 transformed into chord. He deletes every previous draft of the report to Luke — the partials from Ch7, the full deleted report from Ch15, the ghost files. Some truths require presence. Coruscant on approach.",
+  "why_now": "The return has to give Ben one last private chapter-opening before the Luke conversation. The deletion of the drafts is the action that commits him to telling the truth in person.",
+  "conflict": "Ben can still write a report. A well-crafted one would protect him, Luke, and the survivors. The scene's quiet work is that he does not. Presence is the thing; documents are avoidance.",
   "conflict_type": "internal",
-  "turning_point": "Ben stops drafting the report. He deletes every previous draft — the partial reports, the deleted full report, everything. He'll tell Luke in person. Some truths shouldn't be delivered through datapad.",
+  "turning_point": "Ben deletes every previous draft. The action commits him. The Temple is visible on approach.",
   "opening_hook": "Ben leans back in the copilot's chair as hyperspace streams past — the wrongness quieter now, not gone but changed, the new seal's three-part harmony humming at the edge of his perception. It should feel like a burden. It feels like belonging.",
   "closing_hook": "Coruscant on approach. The Temple visible from orbit. Ben's father somewhere inside, waiting for a report. He's about to get more than a report.",
   "emotional_trajectory": "Reflective processing -> determined resolution -> the courage of institutional honesty",
   "stakes": {
-    "personal": "Ben choosing transparency — breaking the thousand-year pattern of institutional secrecy",
+    "personal": "Ben choosing transparency — breaking the thousand-year pattern",
     "interpersonal": "The Ben/Luke relationship facing its most honest moment",
     "external": "The Order's self-understanding about to change"
   },
@@ -23,7 +23,7 @@
     "Desh Rolan"
   ],
   "setting": "Aboard the Steady Returns — hyperspace to Coruscant, then approach",
-  "sensory_details": "Hyperspace blue; the new seal's resonance humming at the edge of perception; Desh in the pilot's chair, steady as always; the Temple from orbit — familiar, home, about to be changed by what Ben carries",
+  "sensory_details": "Hyperspace blue through the viewport; the new seal's resonance at the edge of Ben's perception — the thing that was wrongness for a whole book now a chord; Desh in the pilot's chair, steady as always; the Temple from orbit familiar in a way that is about to change",
   "canon_elements_needed": [],
   "target_word_count": 1200,
   "action_beats": [
@@ -45,5 +45,5 @@
   "revelations": [],
   "pov_arc_phase": "arc_resolved",
   "arc_phase_transition": "arc_resolved",
-  "notes": "Ben's arc transition to arc_resolved. The resonance hum as a permanent sensation — the 'note in a chord' that will be the book's final image. The deleted drafts: honesty requires presence, not documents."
+  "notes": "Ben's arc transitions to arc_resolved. The resonance hum has become a permanent edge-of-perception chord; this is the Ch28 sc3 image in its first register. Diagnostic-voice trap — Ben should not, in this scene, narrate the Ch1 comparison as an explicit callback. The reader feels it through the hum; interiority stays quiet. Voice: Zahn-tight-reflective. Lived-galaxy texture on approach: Coruscant traffic, the Temple in its working capital, the orbital approach unremarkable except to Ben."
 }

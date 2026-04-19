@@ -5,16 +5,16 @@
   "scene_type": "action",
   "scene_role": "escalation",
   "pov_character": "Ben Skywalker",
-  "mission": "Descent through Levels 1 and 2 — Operations and Archive — the fortress tells its story through environment. Monitoring systems, dead comms, archive media from an era the modern Order has forgotten.",
-  "why_now": "Sequential exploration — each level reveals more of the fortress's purpose",
-  "conflict": "The archive is partially organized, partially chaotic — stored under time pressure. Ben can read fragments but lacks the conceptual vocabulary to understand what he's reading. Force-locks block deeper access.",
+  "mission": "Descent through Levels 1 and 2 — Operations and Archive. The fortress tells its own story through the equipment Gavran left running and the records he ordered. A monitoring panel still tracks a network of nodes, most dark, one flashing BREACH.",
+  "why_now": "Sequential exploration — each level deepens the scope of the emergency. Reading the building is how the reader learns what it is for.",
+  "conflict": "The archive is meticulously organized where time allowed and frantically stacked where it did not. Ben can read fragments but has no vocabulary for what the fragments imply. Force-locks refuse the deeper material to a modern signature.",
   "conflict_type": "environmental",
-  "turning_point": "A monitoring display still functions — showing a network of nodes across the Outer Rim, most reading dead, three reading active, one reading BREACH. The network is a containment system.",
+  "turning_point": "A monitoring display still functions — a network of nodes spread across the Outer Rim, most reading dead, three reading active, one reading BREACH. The network is a containment system, and it is losing.",
   "opening_hook": "Level 1 is a command post. The communications equipment died centuries ago but the monitoring stations retain residual power — and they're tracking something.",
   "closing_hook": "The stairwell to Level 3 descends into blue-tinged emergency lighting. The Force down there is different — not wrong but alive, pulsing with three distinct rhythms. People. Living people, sealed below.",
   "emotional_trajectory": "Archaeological wonder -> growing dread -> shock at the living Force signatures",
   "stakes": {
-    "personal": "Ben is descending into something he doesn't understand",
+    "personal": "Ben is descending into something he does not understand",
     "interpersonal": "Desh catalogues exits and escape routes — his instincts say this is wrong",
     "external": "The monitoring system reveals a network in cascading failure"
   },
@@ -23,7 +23,7 @@
     "Desh Rolan"
   ],
   "setting": "Fortress interior — Level 1 (Operations) through Level 2 (Archive), descending corridor to Level 3",
-  "sensory_details": "Residual power humming in walls; dust on surfaces undisturbed for centuries; archive media — holocrons, data tablets, vacuum-sealed documents; the transition from dead air above to something charged below",
+  "sensory_details": "Residual power humming in the walls; dust on surfaces undisturbed for centuries; archive media — holocrons, data tablets, vacuum-sealed documents; the air growing warmer and more charged the lower they go, the fortress breathing again after a millennium",
   "canon_elements_needed": [
     "Jedi holocron and archive storage technology",
     "Ancient Force-monitoring and containment systems",
@@ -55,5 +55,5 @@
   ],
   "revelations": [],
   "pov_arc_phase": "lie_established",
-  "notes": "Gavran's archive voice should be felt through what he chose to keep and how he organized it — meticulous where time allowed, frantic where it didn't. The monitoring display is the bridge to Level 3."
+  "notes": "Gavran's voice should be felt through what he chose to keep and how he organised it — meticulous where time allowed, frantic where it did not. The monitoring display is the bridge to Level 3. Diagnostic-voice trap — Ben should not, in this scene, reconstruct what the network is for; he registers the red, the amber, the one flashing BREACH, and moves. The three living rhythms in the closing hook should be perceived, not interpreted: 'one disciplined, one heavy, one clipped' is the level of detail Ben can carry here. Names and histories wait for Ch5."
 }

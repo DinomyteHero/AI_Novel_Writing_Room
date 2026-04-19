@@ -5,11 +5,11 @@
   "scene_type": "action",
   "scene_role": "hook",
   "pov_character": "Ben Skywalker",
-  "mission": "The Ankhural Codex fragment recovered from the fortress — Sera unlocks it, and the group confronts the heretical framework: the Force lattice as imposed structure rather than natural property",
-  "why_now": "The debate in Chapter 8 created the intellectual space; the Codex provides the theoretical framework that crystallizes the conflict",
-  "conflict": "The Codex's argument is philosophically devastating — if the lattice is imposed, then light and dark aren't properties of the Force but a framework someone built. Everything the Jedi believe about moral intuition through the Force could be wrong.",
+  "mission": "Common area. Sera breaks the seal on the Codex case and every Force-sensitive in the room feels the artifact's resonance before anyone speaks. Ben touches the fragment; the experiential flash of unstructured Force lands as sensation, not paragraph. Four different reactions around the table.",
+  "why_now": "Chapter 8's debate made the intellectual space. The Codex now provides the sensation that the concept alone could not — this is where the Ankhural framework stops being archive text and starts being something the reader feels.",
+  "conflict": "The Codex's argument is devastating to hold as experience. If the lattice is an imposed structure, the moral intuition the Jedi have trusted for millennia may be a feature of the structure rather than a property of the Force. Four Force-users hold the same artifact and take four different readings from it.",
   "conflict_type": "internal",
-  "turning_point": "Touching the Codex provides experiential flashes — not information but sensation. Ben feels a moment of the Force without the lattice. It's not hostile. It's formless. The absence of moral intuition is terrifying not because it's dark, but because there's nothing there at all.",
+  "turning_point": "Ben touches the Codex. For a handful of seconds the Force is present and unshaped — no direction, no texture, no moral register. His hand jerks back before his mind arrives.",
   "opening_hook": "The Codex fragment has been sealed in its case since the fortress. When Sera opens it, the air in the common area changes — everyone Force-sensitive feels the artifact's resonance simultaneously.",
   "closing_hook": "Ship alarm. The next planned stop — the Brotherhood Outpost — has been breached. Energy readings spiking. Someone is there, or has been there very recently.",
   "emotional_trajectory": "Intellectual engagement -> existential vertigo -> sharp alarm",
@@ -26,7 +26,7 @@
     "Desh Rolan"
   ],
   "setting": "Aboard the Steady Returns — common area, the Codex fragment on the table between them",
-  "sensory_details": "The Codex glowing faintly; experiential flash when Ben touches it — the Force present but unstructured, like hearing music with all the notes but no melody; each character's Force presence reacting differently to the artifact",
+  "sensory_details": "The Codex faintly lit inside its case; the experiential flash arriving as a sudden emptying — sound without body, weight without direction, the moral register gone from the Force and nothing replacing it; each character's Force presence reacting differently to the artifact",
   "canon_elements_needed": [],
   "target_word_count": 1300,
   "action_beats": [
@@ -57,5 +57,5 @@
     "R06"
   ],
   "pov_arc_phase": "lie_reinforced",
-  "notes": "R06 — the Codex's core argument. This is the intellectual heart of the novel. The four philosophical positions (Sera: lattice is natural/sacred, Torin: lattice is structure/tool, Kael: both sides are impositions, Veraine [absent]: lattice is disease) all have Codex-level support. The debate should feel genuinely unresolved."
+  "notes": "R06 is the intellectual heart of the book and the highest didactic-risk delivery in the manuscript. It must be received as sensation, not explained as thesis. The flash of unstructured Force is the reader's first taste of what Ch13's full de-structured zone will deliver at scale — keep this one mild and somatic. Use a somatic or acoustic vocabulary family (the emptying, the quick retreat, the body's refusal); do not use the handrail phrasing or the flat-note phrasing from earlier chapters. Diagnostic-voice trap — Ben should not, in this scene, articulate the lattice-as-imposed-structure as a thesis. He feels the flash and pulls his hand back. Sera, Torin, Kael take the ideas; Ben holds the experience. Anti-pattern: no character quotes the Codex at length — it is received through reaction."
 }

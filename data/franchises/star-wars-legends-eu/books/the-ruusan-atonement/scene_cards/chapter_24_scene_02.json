@@ -5,11 +5,11 @@
   "scene_type": "action",
   "scene_role": "escalation",
   "pov_character": "Ben Skywalker",
-  "mission": "Veraine's ritual building at the Scar — amplified by the repurposed node network. The wound responding, the Scar widening. The three forces converging: Veraine at the epicenter, Torin descending, the resonance trio at mid-valley.",
-  "why_now": "The climax infrastructure is in motion — all three forces active simultaneously",
-  "conflict": "The physical environment deteriorating as all three operations stress the lattice. The wrongness becoming acute — not just uncomfortable but dangerous. The wound amplifying emotions, making concentration nearly impossible.",
+  "mission": "Mid-valley. Ben feels all three operations simultaneously — Veraine's calculated amplified ritual, Torin's expanding personal void, their own resonance not yet begun. Three operations pulling the Force in three directions. The Scar widens by a visible centimetre. Sera and Kael take positions flanking Ben; he speaks the word that starts their attempt.",
+  "why_now": "The climax's physical geometry has to be rendered here before the discordance of sc3 can land. All three operations competing on the same wound, and the trio has to begin before the sun moves.",
+  "conflict": "The environmental pressure is cumulative. The wound amplifies emotion; concentration is a physical cost. The Scar widens as two of the three operations build momentum. The group's operation is the one not yet running.",
   "conflict_type": "environmental",
-  "turning_point": "Ben feels all three operations in the Force simultaneously: Veraine's ritual (calculated, amplified, aimed at the Scar), Torin's technique (personal, immediate, the lattice dissolving around him), and the beginning of their own resonance (discordant, uncertain). Three operations pulling the Force in three different directions.",
+  "turning_point": "Ben says 'Now.' The trio reaches for each other through the Force. The operation begins.",
   "opening_hook": "Ben watches the Scar widen — a centimeter, maybe two. Enough to be visible. Enough to be terrifying.",
   "closing_hook": "Ben: 'Now.' He reaches for Sera and Kael through the Force. Three traditions. Three wounds. One chance.",
   "emotional_trajectory": "Environmental overwhelm -> focus through chaos -> the call to begin",
@@ -24,7 +24,7 @@
     "Kael Drenn"
   ],
   "setting": "Veranthos — mid-valley position, Scar visible, Torin visible, Veraine's ritual visible",
-  "sensory_details": "The Scar widening; Veraine's ritual — a distortion at the Scar's base, calculated and focused; Torin's technique — the lattice dissolving around him as he descends, a moving void; the resonance starting point — three Force presences reaching for each other, discordant",
+  "sensory_details": "The Scar widening as a visible seam; Veraine's ritual an organised distortion at the Scar's base; Torin's technique a moving void descending the ridgeline; the trio's position a triangle of reaching without yet combining; sweat, wind, the smell of air that has been sealed for a thousand years",
   "canon_elements_needed": [],
   "target_word_count": 1200,
   "action_beats": [
@@ -51,5 +51,5 @@
   ],
   "revelations": [],
   "pov_arc_phase": "moment_of_truth",
-  "notes": "The three operations coexisting creates the climax's physical texture. Each is a different type of Force manipulation, and Ben can feel all three. The sensory vocabulary should be at maximum density here."
+  "notes": "The three simultaneous operations are the highest-density sensory passage in the book. Render each as a distinct Force-texture — Veraine's calculated and directed, Torin's personal and expanding, the trio's three-toned and not yet chord. Rotate vocabulary into acoustic (keys, notes) and hydraulic (currents, counter-currents) families rather than handrail or cage; lean on the force_mechanics active_technique vocabulary for Torin's void. Diagnostic-voice trap — Ben should not, in this scene, narrate the phenomenology as theory. He feels three directions at once; he says 'Now.'"
 }

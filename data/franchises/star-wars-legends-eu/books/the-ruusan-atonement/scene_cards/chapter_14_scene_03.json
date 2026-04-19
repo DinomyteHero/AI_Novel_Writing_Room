@@ -5,25 +5,25 @@
   "scene_type": "action",
   "scene_role": "reveal",
   "pov_character": "Ben Skywalker",
-  "mission": "Gavran's archived note discovered — 'Ankhural theorized that the lattice could be reinforced through harmonic resonance between disparate traditions. We lacked the will or the trust to attempt it.' The seed of the climactic solution.",
-  "why_now": "Deep in the archive data loaded from the fortress — Ben finds it while searching for counter-measures to Veraine's array",
-  "conflict": "The note describes a theoretical solution no one has ever tested — and it requires exactly what the group lacks: trust between incompatible traditions. Ben notes it but doesn't understand its significance yet.",
+  "mission": "Ben's workspace. Scrolling Gavran's marginalia on the Codex data, searching for counter-measures, he finds the sentence: 'Ankhural theorised that the lattice could be reinforced through harmonic resonance between disparate traditions. We lacked the will or the trust to attempt it.' Ben bookmarks it and moves on.",
+  "why_now": "The chapter has been about Ben's command and the group's synthesis. The solution belongs here as a footnote Ben does not yet read as a solution — so the climactic rediscovery in Ch22 lands as earned rather than invented.",
+  "conflict": "The note describes a solution no one has tested. The requirement is exactly what the group has only partially assembled: trust between incompatible traditions. Ben does not yet know he has just read the climax of his own book.",
   "conflict_type": "internal",
-  "turning_point": "Gavran's admission: 'We lacked the will or the trust.' The man who built the seal — the most powerful Jedi Lord of his era — couldn't do this. And Ben is supposed to succeed where he failed?",
+  "turning_point": "Gavran's admission: 'We lacked the will or the trust.' The most powerful Jedi Lord of his era conceded he could not do this. Ben bookmarks it.",
   "opening_hook": "Ben scrolls through Gavran's personal annotations on the Codex data and stops — marginalia cross-referenced with a passage Ankhural marked as 'untested, requires conditions we cannot create'",
   "closing_hook": "Ben bookmarks the note and moves on. He'll come back to it.",
   "emotional_trajectory": "Discovery -> intrigued uncertainty -> filed away for later",
   "stakes": {
-    "personal": "Ben holding the solution without recognizing it — dramatic irony for the reader",
-    "interpersonal": "The note's requirement (trust between traditions) is exactly what the group is struggling to build",
-    "external": "Chekhov's gun planted — the resonance theory will define the climax"
+    "personal": "Ben holding the solution without recognising it",
+    "interpersonal": "The requirement (trust between traditions) is exactly what the group has only partially built",
+    "external": "Chekhov at full tension — the resonance theory will define the climax"
   },
   "characters_present": [
     "Ben Skywalker",
     "Sera Varik"
   ],
   "setting": "Aboard the Steady Returns — Ben's workspace, archive data on displays",
-  "sensory_details": "Archive text in old script; Gavran's handwriting — precise but rushed; the note's passage highlighted against the Codex framework; Sera looking over Ben's shoulder, frowning at Ankhural's name",
+  "sensory_details": "Archive text in old script; Gavran's handwriting precise but rushed, the ink of a man working against time; the note highlighted against the Codex framework; Sera's frown at Ankhural's name, the frown of someone recognising an old heretic's voice",
   "canon_elements_needed": [],
   "target_word_count": 1200,
   "action_beats": [
@@ -50,5 +50,5 @@
   ],
   "revelations": [],
   "pov_arc_phase": "lie_challenged",
-  "notes": "H14 planted — the resonance note. Chekhov's gun. The reader should register this as important even if Ben doesn't yet. Sera's reaction to Ankhural's name is significant — she knew the scholar's reputation as a heretic."
+  "notes": "H14 planted — Ankhural's resonance theory, filed by Ben under 'return later.' Chekhov at full tension. The reader must register the weight of the sentence before Ben does. Anti-pattern: no character reads the note aloud — Ben's eyes on the page, a silent file. Sera's reaction to Ankhural's name is a single frown and a pause, not a paragraph of backstory. Diagnostic-voice trap — Ben should not, in this scene, think 'this could be the answer' or narrate his recognition of the pattern. He bookmarks it with the attention of a man who has a dozen other files to read, and the scene trusts the reader to hold the weight."
 }

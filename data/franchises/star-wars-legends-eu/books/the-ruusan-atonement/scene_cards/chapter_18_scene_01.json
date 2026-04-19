@@ -5,17 +5,17 @@
   "scene_type": "sequel",
   "scene_role": "hook",
   "pov_character": "Ben Skywalker",
-  "mission": "Ben watching Torin with new eyes — the pattern recognition from the Desh conversation (Ch 11) crystallizing. The cadence, the certainty, the reasonable tone. He's seen this before.",
-  "why_now": "The Jacen conversation with Desh planted the pattern recognition; the crisis pressure is making the parallel undeniable",
-  "conflict": "Ben sees Jacen in Torin — not the evil, but the process. The talented person who decides they alone understand the threat. The warmth that becomes performance. The certainty that becomes imperative.",
+  "mission": "Common area. Torin tells an NSW battle story with self-deprecating warmth. Ben watches the structure underneath: I decided, I acted, I bore the cost. Every story has the same architecture. Across the cockpit, Ben's eyes find Desh's. Neither says Jacen's name.",
+  "why_now": "The Ch11 conversation with Desh planted the pattern; the Ch17 doorway line delivered the cadence. The recognition crystallises here because the evidence is a laugh and a story — two things Ben has been watching and not cataloguing.",
+  "conflict": "Ben has been watching Torin for chapters without naming what he is watching. The laugh is perfect, the stories are warm, the cadence is Jacen's. The scene is about whether Ben can keep watching without either confronting Torin or looking away.",
   "conflict_type": "internal",
-  "turning_point": "Torin tells a story about the NSW — a battle where he saved people by acting alone. The story is warm, self-deprecating, heroic. Ben realizes every story Torin tells has the same structure: 'I decided, I acted, I bore the cost.' It's not stories. It's a pattern.",
+  "turning_point": "Torin tells a battle story where he saved people by acting alone. Every story he has told has the same architecture. Ben catches the pattern.",
   "opening_hook": "Torin is laughing at something Desh said. The laugh is perfect — warm, easy, generous. Ben wonders when he started analyzing Torin's laughter for authenticity, and then he wonders why he stopped doing it with Jacen too late.",
   "closing_hook": "Ben looks at Desh across the cockpit. Desh meets his eyes. Neither says Jacen's name. They don't need to. The confirmation is silent and mutual.",
   "emotional_trajectory": "Watchful analysis -> dawning recognition -> the sick weight of confirmed suspicion",
   "stakes": {
-    "personal": "Ben confronting his worst fear — watching someone he cares about walk Jacen's path",
-    "interpersonal": "Ben and Desh's shared recognition — the GAG-forged bond serving its purpose",
+    "personal": "Ben watching a path he has seen before, on a person he has come to rely on",
+    "interpersonal": "Ben and Desh's shared recognition — the GAG-forged bond doing the work it was forged for",
     "external": "Torin is the group's strongest combatant and may be becoming its greatest threat"
   },
   "characters_present": [
@@ -24,7 +24,7 @@
     "Desh Rolan"
   ],
   "setting": "Aboard the Steady Returns — common area, then cockpit",
-  "sensory_details": "Torin's laughter — well-timed, well-modulated; his Force presence — warm but wrong, the heaviness returning after the thin place ease; Desh's eyes — steady, confirming; the taste of dread",
+  "sensory_details": "Torin's laughter well-timed, well-modulated, landing cleanly on its beats; his Force presence warm and heavy, the post-breach stillness now replaced by something denser; Desh's eyes steady across the cockpit; Ben's mouth dry",
   "canon_elements_needed": [],
   "target_word_count": 1200,
   "action_beats": [
@@ -53,5 +53,5 @@
     "R10"
   ],
   "pov_arc_phase": "lie_challenged",
-  "notes": "R10 — Ben recognizes the Jacen pattern in Torin. Jacen parallel touchpoint 3 (structural). The parallel must be specific — not 'Torin is becoming evil' but 'Torin is using the same process Jacen used.' The distinction matters."
+  "notes": "R10 — Ben recognises the Jacen pattern in Torin explicitly to himself. Anti-pattern: Jacen is not named aloud by anyone in this scene; the scene's power is that everyone in the cockpit is deciding not to say the name. Diagnostic-voice trap — Ben should not, in this scene, write the comparison in interior paragraphing. The recognition is carried through the laugh he watches and the story he analyses; his interiority tracks structure, not thesis. Voice: Zahn-observation, Ben as analyst of Torin's surface; one permitted Stover beat for the silent eye-meet with Desh."
 }

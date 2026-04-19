@@ -5,11 +5,11 @@
   "scene_type": "action",
   "scene_role": "reveal",
   "pov_character": "Ben Skywalker",
-  "mission": "Ben tells Luke everything — the fortress, the survivors, the wound, Veraine, the technique, the Reformations' true history, the resonance, and the new seal. The Order will know the truth.",
-  "why_now": "R14 — the institutional lie resolved. The thousand-year cover-up broken. Ben choosing transparency over self-preservation.",
-  "conflict": "Luke's response to the truth — not anger but something harder to bear: sadness. The Grand Master learning that his Order's foundational narrative was built on amnesia. That the Reformations he's cited as proof of institutional integrity were penance for a war crime.",
+  "mission": "Luke's office — the same room where this started. Ben sits where he sat in Ch1. Everything is different. He tells Luke everything. Sera, Kael, Torin, Veraine, the technique, the Reformations' true history, the resonance, the new seal's living character. Luke listens in silence. When he speaks, it is not accusation — it is sadness.",
+  "why_now": "The book's opening scene was a mission briefing in this office. The book's closing scene has to return here with the relationship changed. The callback is geographical, not narrated.",
+  "conflict": "Ben is telling a story that rewrites the foundational narrative of Luke's Order. Luke listens. His sadness is not at being lied to but at the pattern he recognises — the pattern that runs in the blood. His response is not anger; it is a question.",
   "conflict_type": "interpersonal",
-  "turning_point": "Luke's question, after a long silence: 'And you didn't call me.' Not accusatory. Understanding. Sad. Because he knows why Ben didn't call — the same reason Gavran didn't tell his successors. The same reason the Order lost the knowledge. The pattern of self-reliance runs in the blood.",
+  "turning_point": "Luke's question after a long silence: 'And you didn't call me.' Not accusation. Understanding. He knows why Ben did not call — the same reason Gavran did not tell his successors. Luke's follow, after another silence: 'We'll tell the Council. All of it.'",
   "opening_hook": "Luke's office. The same room where this started — the mission briefing, the datapad, the survey route. Ben sits where he sat before. Everything is different.",
   "closing_hook": "Luke: 'We'll tell the Council. All of it.' Neither of them speaks for a moment after that.",
   "emotional_trajectory": "The weight of telling -> Luke's sadness -> the shared commitment to truth",
@@ -23,7 +23,7 @@
     "Luke Skywalker"
   ],
   "setting": "Jedi Temple, Coruscant — Luke's office, same room as Chapter 1",
-  "sensory_details": "The same office — everything familiar, everything changed; Luke's Force presence — vast, warm, sad; the afternoon light through the window; two chairs, two Skywalkers, the truth between them",
+  "sensory_details": "The same office — the same furniture, the same light through the window, the same datapad on the desk; Luke's Force presence vast and warm and holding sadness without performing it; afternoon light; two chairs, two Skywalkers, the truth between them",
   "canon_elements_needed": [],
   "target_word_count": 1400,
   "action_beats": [
@@ -48,5 +48,5 @@
     "R14"
   ],
   "pov_arc_phase": "arc_resolved",
-  "notes": "R14 — the Reformations' true history revealed to Luke. The scene should mirror Chapter 1's Ben/Luke scene but with everything changed. Luke's sadness — not at being lied to by Ben, but at the institutional pattern that Ben broke. The irony: Luke sent Ben alone, and Ben learned that the problem was acting alone."
+  "notes": "R14 — the Reformations' true history told. The scene mirrors Ch1's Ben/Luke scene; deliver the callback through geography (same office, same chair, same light) rather than narrated parallel. Luke's sadness is not at being lied to by Ben; it is at the institutional pattern that Ben broke. The irony is that Luke sent Ben alone, and Ben learned that acting alone was the problem; do not name the irony on-page — Luke's question does the work. Luke's 'We'll tell the Council. All of it' is a decision, not a platitude. Anti-pattern: no speech from either. The silences carry the scene."
 }

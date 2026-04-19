@@ -5,25 +5,25 @@
   "scene_type": "sequel",
   "scene_role": "reveal",
   "pov_character": "Ben Skywalker",
-  "mission": "The Ben/Desh conversation about Jacen and GAG — the first honest acknowledgment of what they experienced. Emotional excavation of shared trauma.",
-  "why_now": "Desh has been building to this since Chapter 1. The Corridor's pressure and the historical parallels have made it unavoidable.",
-  "conflict": "Both men have been carrying GAG shame for years without discussing it. Desh forces the conversation because the pattern is repeating: an authoritative figure (now Torin) whose certainty feels familiar in a way that should be alarming.",
+  "mission": "Cockpit, night cycle. Desh does not start with Jacen. He starts with a specific day — a raid they both remember, an arrest that went wrong, a face Ben sees when he cannot sleep. The GAG history named. Then: 'He sounds like Jacen. The good version. Before.'",
+  "why_now": "Torin's warmth-on-a-beat in the previous scene has put the pattern into the air. The conversation Desh has been carrying since Chapter 1 finally has a door to go through.",
+  "conflict": "Both men have carried the same shame for years. Desh forces the conversation not because he wants to talk about Jacen but because Torin has begun to sound like the good version of him, and Desh recognises the voice. Ben is not ready to hear that sentence. Desh says it anyway.",
   "conflict_type": "interpersonal",
-  "turning_point": "Desh names it: 'He sounds like Jacen. The good version. Before.' Ben's stomach drops because Desh just said what Ben has been refusing to think.",
+  "turning_point": "Desh names it: 'He sounds like Jacen. The good version. Before.' Ben's stomach drops because Desh has just said what Ben has been refusing to think.",
   "opening_hook": "Desh doesn't start with Jacen. He starts with a specific day — a raid they both remember, an arrest that went wrong, a face Ben sees when he can't sleep.",
   "closing_hook": "Neither of them says 'we should watch Torin.' They don't need to.",
   "emotional_trajectory": "Careful approach -> painful honesty -> shared understanding without resolution",
   "stakes": {
     "personal": "Ben confronting the worst chapter of his life with the only person who shared it",
-    "interpersonal": "Ben/Desh relationship deepening from friendship to genuine trust forged in acknowledged shame",
-    "external": "The Jacen pattern recognition will become critical tactical intelligence"
+    "interpersonal": "Ben/Desh relationship deepening from friendship to trust forged in acknowledged shame",
+    "external": "The Jacen pattern recognition will become tactical intelligence"
   },
   "characters_present": [
     "Ben Skywalker",
     "Desh Rolan"
   ],
   "setting": "Aboard the Steady Returns — cockpit, night cycle, dim lighting",
-  "sensory_details": "Dim instrument lights; the quiet of a ship where everyone else is sleeping; Desh's hands on the controls — steady, the way they always are; the weight of shared memory making the cockpit feel smaller",
+  "sensory_details": "Dim instrument lights; the quiet of a ship where everyone else is sleeping; Desh's hands on the controls, steady the way they always are; the weight of shared memory pressing the cockpit smaller",
   "canon_elements_needed": [],
   "target_word_count": 1300,
   "action_beats": [
@@ -45,5 +45,5 @@
   "hook_actions": [],
   "revelations": [],
   "pov_arc_phase": "lie_reinforced",
-  "notes": "Critical emotional scene. Jacen parallel touchpoint 2 (emotional). The conversation enables Ben's pattern recognition in Ch 18. Desh's arc: lie_challenged — the honest reckoning with their shared history shows him he cares about more than a favor."
+  "notes": "Load-bearing scene. The specificity of Desh's opening — a specific raid, a specific arrest, a specific face — is more affecting than any general grief. Keep it quiet: dim cockpit, controls they are not watching, long pauses. Do not spell out the GAG raid in paragraph form — fragments only, the way the memory returns. Diagnostic-voice trap — Ben should not, in this scene, construct a framework for the Jacen parallel. He absorbs Desh's sentence and says nothing that resolves it. The reader must feel the drop in his stomach; interiority paragraphing it would dilute the hit. Voice: Stover-interior-permitted for a single paragraph at most; Zahn-restraint elsewhere. Desh's arc: lie_challenged — the honest reckoning shows him he is here for more than a favor. Anti-patterns: (a) no single character speaks the phrase 'the Jacen pattern' — 'he sounds like Jacen' is the whole permitted expression; (b) no one resolves the scene; it ends on silence."
 }

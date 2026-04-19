@@ -5,17 +5,17 @@
   "scene_type": "action",
   "scene_role": "hook",
   "pov_character": "Ben Skywalker",
-  "mission": "Ben asserts leadership. Sera's conditional trust — 'Tell me where to stand, Skywalker' — reinforces her Lie: she's following someone again because she believes they're right, repeating the Gavran pattern.",
-  "why_now": "Post-midpoint — Part 3 begins. Ben takes the initiative for the first time. The group needs direction after the breach's trauma.",
-  "conflict": "Ben lays out a strategy: instead of following Veraine node by node, they'll skip ahead to intercept. Sera accepts his authority conditionally — she'll follow orders as long as she judges them sound. Torin supports Ben but for his own reasons.",
+  "mission": "Common area reconfigured as tactical briefing. Ben lays out the intercept strategy — skip ahead of Veraine rather than follow. His mother's cadence in his voice without him meaning it. Sera straightens her spine and shifts from adversarial to subordinate. 'Tell me where to stand, Skywalker.' The last person she chose to follow sealed her in a wall.",
+  "why_now": "Post-midpoint. Part 3 opens, and Ben's proactive shift from Ch13 needs its visible first move. Sera has to offer him something she does not yet realise she is offering in the pattern of how she offers it.",
+  "conflict": "Ben takes the room by assembling the facts, not by asserting rank. Sera accepts his authority conditionally — she will follow orders as long as she judges them sound. That is also the sentence she said a thousand years ago to the last commander she trusted, and she cannot yet see the rhyme.",
   "conflict_type": "interpersonal",
-  "turning_point": "'Tell me where to stand, Skywalker.' Sera's offer of trust. It's genuine — and it's also her Lie repeating. She's choosing to follow a leader she believes is right, the same pattern as Gavran. Ben feels the weight of it.",
+  "turning_point": "Sera shifts from adversarial to subordinate and calls Ben 'Skywalker' with something new inside the word — investment, not warmth. The gift is also the test.",
   "opening_hook": "Ben stands in the center of the common area and lays out the plan — his mother's voice in his cadence without him meaning it to be.",
   "closing_hook": "Sera calls him 'Skywalker' with something that wasn't there before. Not warmth — investment. She has chosen to follow him. The last person she chose to follow sealed her in a wall.",
   "emotional_trajectory": "Assumed authority -> the test of command -> the burden of earned trust",
   "stakes": {
-    "personal": "Ben assuming a leadership role he's not sure he deserves",
-    "interpersonal": "Sera's trust is a gift and a weapon — it puts Gavran's shadow on Ben",
+    "personal": "Ben assuming a leadership role he is not sure he deserves",
+    "interpersonal": "Sera's trust is a gift and a warning — it places Gavran's shadow on Ben without Ben naming it",
     "external": "The strategy to intercept Veraine must work or they lose the race"
   },
   "characters_present": [
@@ -26,7 +26,7 @@
     "Desh Rolan"
   ],
   "setting": "Aboard the Steady Returns — common area reconfigured as tactical briefing space",
-  "sensory_details": "Desh's tactical displays; Sera's posture shifting — from adversarial to subordinate, spine straightening; Torin nodding with approval that should feel reassuring and doesn't; Kael leaning against the wall, arms crossed, evaluating",
+  "sensory_details": "Desh's tactical displays; Sera's posture shifting — spine straightening, feet resettling; Torin nodding with an approval that should feel reassuring and does not; Kael against the wall, arms crossed, evaluating",
   "canon_elements_needed": [],
   "target_word_count": 1200,
   "action_beats": [
@@ -53,5 +53,5 @@
   ],
   "revelations": [],
   "pov_arc_phase": "lie_challenged",
-  "notes": "Sera's arc: lie_reinforced — 'Tell me where to stand, Skywalker' reinforces her Lie by repeating the Gavran pattern without examining it. She's following someone she believes is right. That's exactly what she did before."
+  "notes": "Sera's gift of 'Tell me where to stand, Skywalker' is the Gavran pattern in miniature — she does not see the repetition yet and the book does not yet let her. The reader feels the weight because the line mirrors her ghost. Diagnostic-voice trap — Ben should not, in this scene, narrate that Sera is repeating her past. He feels the weight of the sentence without placing it; the placement is the Ch19 recognition. Voice: Zahn-procedural, clipped orders, the kind of briefing where the silences hold as much as the sentences. Anti-pattern: Ben does not explicitly notice his mother's cadence in his own voice — the reader hears Mara through the rhythm of the sentences, not through a line of interiority."
 }

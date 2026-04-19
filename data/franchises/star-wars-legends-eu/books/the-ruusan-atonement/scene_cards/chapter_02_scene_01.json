@@ -5,13 +5,13 @@
   "scene_type": "sequel",
   "scene_role": "hook",
   "pov_character": "Ben Skywalker",
-  "mission": "Establish the Ben/Desh dynamic aboard the Steady Returns — the easy rhythm of old friends who don't discuss the elephant in the cockpit",
-  "why_now": "Transit to first survey world; the reader needs to see the relationship baseline before it's tested",
-  "conflict": "The unspoken GAG history hangs between them — they're comfortable but careful, bonded by shared shame neither names",
+  "mission": "Ben and Desh aboard the Steady Returns in hyperspace. The easy rhythm of two people who do not discuss the thing they share. Desh's instruments flag the anomaly before Ben names it — the non-Force-user reads it through sensor drift.",
+  "why_now": "Transit to the first survey world. The relationship baseline gets set now, before the investigation starts finding evidence.",
+  "conflict": "The unspoken GAG history sits in the cockpit with them — comfortable, careful, bonded by shared shame neither names. Desh's sensor readings do not match the charts and will not stop drifting; Ben's silence about why is its own answer.",
   "conflict_type": "interpersonal",
-  "turning_point": "Desh makes a dry observation about the ship's sensors reading the wrongness as instrument error — the practical man acknowledging the mystical problem",
+  "turning_point": "Desh taps the sensor panel with dry patience and says the drift has a bearing, not a pattern. Ben recognises the bearing is the one he has been carrying since Coruscant.",
   "opening_hook": "Desh drops the Steady Returns out of hyperspace for a nav recalibration and the ship shudders hard enough to spill Ben's caf across the copilot's console",
-  "closing_hook": "First survey world on scanners. The wrongness intensifies. Ben's hands tighten on the copilot's armrest.",
+  "closing_hook": "First survey world on scanners. The drift intensifies. Ben's hands tighten on the copilot's armrest.",
   "emotional_trajectory": "Comfortable familiarity -> careful humor -> growing tension",
   "stakes": {
     "personal": "Ben's reliance on Desh as a safe relationship — no Force, no betrayal risk",
@@ -23,7 +23,7 @@
     "Desh Rolan"
   ],
   "setting": "Aboard the Steady Returns in hyperspace — cramped cockpit, lived-in freighter",
-  "sensory_details": "Recycled air smell; Desh's coffee; instrument panels jury-rigged with non-standard components; hyperspace blue through the viewport",
+  "sensory_details": "Recycled air and the cabin smell of an old ship that has carried people for a long time; Desh's caf in a spare cup wedged against the console; instrument panels jury-rigged with non-standard components; hyperspace blue through the viewport; the drift on the sensors keeps returning to the same bearing every time Desh resets it",
   "canon_elements_needed": [
     "Light freighter cockpit operations and crew dynamics",
     "Hyperspace travel sensory experience for Force-sensitives",
@@ -49,5 +49,5 @@
   "hook_actions": [],
   "revelations": [],
   "pov_arc_phase": "lie_established",
-  "notes": "Allston-channel humor. Desh is a warm absence in Ben's Force-awareness — the first time the reader experiences what it's like for Ben to be around someone who doesn't register in the Force."
+  "notes": "Allston-channel humor in the cockpit banter, Zahn-precision in how Desh reads the instruments. Desh is a warm absence in Ben's Force-awareness — the first time the reader experiences what it is like for Ben to be around someone who does not register in the Force. The relationship turn is Ben/Desh from operational partnership toward co-investigators; Desh's instruments give the problem its first external witness. Diagnostic-voice trap — Ben should not, in this scene, articulate the 'structural vs. emotional' read of the wrongness. He recognises the drift's bearing because it matches what his body has been telling him since Coruscant; he should not have vocabulary for it yet. If his interiority reaches for a thesis sentence about the Force, cut it and put the sentence back in his body. Prior-EU onboarding — GAG sits between them on a single phrase, not a paragraph; the reader should feel the weight of shared history without a recap. No flashback."
 }

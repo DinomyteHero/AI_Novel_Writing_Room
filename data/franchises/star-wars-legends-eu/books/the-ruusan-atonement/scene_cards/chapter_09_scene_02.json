@@ -5,18 +5,18 @@
   "scene_type": "sequel",
   "scene_role": "decision",
   "pov_character": "Ben Skywalker",
-  "mission": "Each character processes the Codex differently — the four positions deepen. Torin's rationalization begins in earnest: if the lattice is imposed, the technique isn't violation but correction.",
-  "why_now": "The Codex has provided intellectual ammunition for all positions — the group must process before the next crisis",
-  "conflict": "Torin's interpretation of the Codex is seductive and logically sound. Sera counters with experience — she's felt de-structuring and knows what it costs. Kael observes that both sides prove his point: conviction is a trap.",
+  "mission": "Torin lifts the Codex without flinching and holds it steady. His rationalisation crystallises into a coherent argument. Ben catches his own head nodding before he stops it. In the corridor afterward, Sera's hand on Ben's arm, back to the door: 'I have heard that argument before. From a man I followed into a war.'",
+  "why_now": "The Codex's framework is now on the table. The group needs a beat to show what each of them does with it, and Torin's ease has to land on Ben without the scene pausing for analysis.",
+  "conflict": "Torin's reading of the Codex is intellectually beautiful. If the lattice is imposed, the technique is correction rather than violation. The argument is seductive in proportion to how well it fits the evidence. Ben's susceptibility is the reader's warning, not his speech.",
   "conflict_type": "interpersonal",
-  "turning_point": "Torin makes an argument so elegant that Ben catches himself agreeing before he pulls back. The technique's danger isn't that it's obviously wrong — it's that it's intellectually beautiful.",
+  "turning_point": "Ben catches the motion of his own head nodding to Torin's last sentence. He stops it. Sera sees him catch it, and pulls him aside.",
   "opening_hook": "Torin holds the Codex fragment and doesn't flinch. Everyone else did.",
   "closing_hook": "Sera, very quietly to Ben: 'I have heard that argument before. From a man I followed into a war.' She doesn't say Gavran's name. She doesn't need to.",
   "emotional_trajectory": "Intellectual engagement -> seductive logic -> Sera's cold water",
   "stakes": {
     "personal": "Ben nearly seduced by Torin's interpretation — a warning about his own susceptibility",
-    "interpersonal": "Sera beginning to trust Ben enough to warn him privately",
-    "external": "Torin's relationship with the technique is deepening, not weakening"
+    "interpersonal": "Sera trusting Ben enough to name Gavran in the same breath as Torin, even without the name",
+    "external": "Torin's relationship with the technique is deepening"
   },
   "characters_present": [
     "Ben Skywalker",
@@ -25,7 +25,7 @@
     "Kael Drenn"
   ],
   "setting": "Aboard the Steady Returns — common area, then private corridor exchange",
-  "sensory_details": "Torin's Force presence when he holds the Codex — the heaviness lifting, something lighter and more dangerous replacing it; Sera's jaw tight; Kael's expression: 'I told you so' without saying it",
+  "sensory_details": "Torin's Force presence when he holds the Codex — the heaviness lifting into something lighter and more dangerous; Sera's jaw tight; Kael's expression saying without saying that both positions prove his point",
   "canon_elements_needed": [],
   "target_word_count": 1100,
   "action_beats": [
@@ -46,5 +46,5 @@
   "hook_actions": [],
   "revelations": [],
   "pov_arc_phase": "lie_reinforced",
-  "notes": "Torin's arc: lie_reinforced — each intellectual justification strengthens his conviction. Sera's arc: lie_reinforced — her rigid certainty feels validated by Torin's drift. She's right about the danger but rigid about the response."
+  "notes": "Torin's rationalisation has to be genuinely compelling on the page — the reader who finishes the scene thinking 'Torin is obviously wrong' is the reader the book has already lost. Sera's warning is a single line and a hand on an arm, not a monologue. Diagnostic-voice trap — Ben should not, in this scene, narrate his 'near-seduction' as a self-analysis. The nod catches in his body, he stops it, Sera sees him catch it. The reader registers the danger through the beat, not through interiority labelling it. Torin's lie_reinforced: each justification strengthens him further. Sera's lie_reinforced: her rigid certainty feels validated by Torin's drift; she is right about the danger and not yet flexible about the response."
 }

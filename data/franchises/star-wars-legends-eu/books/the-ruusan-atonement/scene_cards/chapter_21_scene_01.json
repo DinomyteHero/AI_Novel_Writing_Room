@@ -5,25 +5,25 @@
   "scene_type": "action",
   "scene_role": "escalation",
   "pov_character": "Ben Skywalker",
-  "mission": "Morning on Veranthos. Final tension — Torin's behavior overnight. He's been meditating near the Scar. His Force presence has changed — lighter, sharper, the heaviness gone. He's already using the technique at personal scale.",
-  "why_now": "The turn's morning-after. Torin has been preparing overnight. The signs are unmistakable.",
-  "conflict": "Ben confronts Torin about his overnight meditation near the Scar. Torin is honest — disarmingly, devastatingly honest. He's not hiding. He's not manipulating. He believes this is right.",
+  "mission": "Morning on Veranthos. Torin is already awake in the spot where Ben left him last night. His Force presence is lighter, sharper — the heaviness that has defined him since awakening is gone. He has been meditating near the Scar overnight and is not hiding it. Ben confronts him. Torin is honest in a way that makes the truth worse.",
+  "why_now": "The ridgeline vigil of Ch20 needed its morning. The turn has to happen in daylight, in conversation, not as an ambush — so the choice to let him go in sc2 has weight.",
+  "conflict": "Ben is trying to prevent something he cannot stop by talking. Torin is not hiding. He is not manipulating. He is telling Ben the honest shape of a decision made a thousand years ago and confirmed in the breach zone. The horror is in the warmth.",
   "conflict_type": "interpersonal",
-  "turning_point": "Torin tells Ben about the first time he used the technique — the moment of beauty, clarity without categories. 'It was the truest thing I've ever felt.' His voice is that of a man talking about the love of his life. Ben's horror is not that Torin is lying. It's that he's telling the truth.",
+  "turning_point": "Torin describes the first time he used the technique — the moment of beauty, clarity without categories. 'It was the truest thing I've ever felt.' Then: 'I'm not asking for permission.' Five words. Nobody moves.",
   "opening_hook": "Torin is already awake when Ben emerges. He's standing in the same spot as last night. But something is different. He looks... rested. In a place where no one sleeps well.",
   "closing_hook": "Torin: 'I'm not asking for permission.' Five words. Nobody moves.",
   "emotional_trajectory": "Concerned confrontation -> Torin's devastating honesty -> the five words that break everything",
   "stakes": {
-    "personal": "Ben watching history repeat — Jacen's pattern completing in real time",
+    "personal": "Ben watching a pattern he has seen before complete in front of him",
     "interpersonal": "The group's strongest member declaring independence",
-    "external": "Torin's plan (become the new seal) would work — and would repeat every failure that got them here"
+    "external": "Torin's plan would work, at the cost of every principle the book has been arguing for"
   },
   "characters_present": [
     "Ben Skywalker",
     "Torin Hal"
   ],
   "setting": "Veranthos — camp at valley edge, dawn, the Scar visible below",
-  "sensory_details": "Dawn light on Veranthos — golden but the shadows fall at slightly wrong angles; Torin's Force presence: lighter, sharper, the heaviness that has defined him since awakening — gone; his voice: calm, warm, certain. The certainty is the danger.",
+  "sensory_details": "Dawn light on Veranthos — golden but the shadows fall at slightly wrong angles; Torin's Force presence lighter and sharper, the heaviness that has defined him gone; his voice calm and warm and certain; the Scar below, outlined now by sunrise as it was outlined last night by stars",
   "canon_elements_needed": [],
   "target_word_count": 1600,
   "action_beats": [
@@ -58,5 +58,5 @@
   ],
   "pov_arc_phase": "moment_of_truth",
   "arc_phase_transition": "moment_of_truth",
-  "notes": "R11 — 'I'm not asking for permission.' The emotional gut-punch. Torin's arc: point_of_no_return. The turn must be devastating BECAUSE of its warmth, not despite it. He's not a villain. He's a hero making the wrong choice for the right reasons."
+  "notes": "R11 — 'I'm not asking for permission.' The turn must be devastating because of its warmth, not despite it. Torin is not a villain. He is a hero making the wrong choice for reasons he can defend. Diagnostic-voice trap — Ben should not, in this scene, interior-paragraph Torin's pattern as a thesis about corruption arcs. He argues, he watches the argument not work, he registers the five-word line. Torin's arc crosses its point-of-no-return here. Voice: dialogue-drama precision; permitted Stover-interior beat at the end of the scene, a sentence fragment at most, as Ben absorbs the refusal."
 }

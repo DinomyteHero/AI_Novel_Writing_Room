@@ -5,16 +5,16 @@
   "scene_type": "sequel",
   "scene_role": "decision",
   "pov_character": "Ben Skywalker",
-  "mission": "Ben must now convince Kael. The plan requires three traditions — and Kael's Sith-trained contribution is the piece that can't be substituted. Ben knows he can't command this. Kael must choose freely.",
-  "why_now": "The plan is built but incomplete without Kael. The thematic argument demands that Kael's participation be voluntary.",
-  "conflict": "Ben prepares to ask Kael — not command, not manipulate, not guilt-trip. Ask. The hardest thing for a Skywalker: trusting someone else's free choice when everything depends on it.",
+  "mission": "Ben at the camp edge, first light on the ridgeline. Kael sits with his legs over the ridge, facing the valley and the Scar. He felt Ben coming. Ben sits beside him at arm's length. The conversation the book has been building toward. Ben does not order, manipulate, or guilt. He asks.",
+  "why_now": "The plan is now three commitments and one open question. Kael has to be asked in a way that leaves room for 'no.' This is the hardest Skywalker move — the one the book has been arguing for.",
+  "conflict": "The plan depends on Kael. Forcing him would repeat every institution that has used him and would collapse the book's thesis. Ben has to invite in a way Kael has never been invited. Whatever he has learned in the last twenty-one chapters has to arrive here as the shape of a sentence.",
   "conflict_type": "internal",
-  "turning_point": "Ben acknowledges to himself: if Kael says no, the plan fails. And that has to be acceptable. Forcing Kael would repeat every institution that ever used him. The answer has to be free or it isn't an answer.",
+  "turning_point": "Ben asks. Kael's response is the book's final question: 'Why should I believe this one is different?' Not hostile. Not cynical. Genuine.",
   "opening_hook": "Kael sits at the camp's edge with his legs over the ridgeline, facing the valley and the Scar below. He doesn't turn when Ben approaches — he felt him coming.",
   "closing_hook": "Kael's question: 'Why should I believe this one is different?' Not hostile. Not cynical. Genuine. The final holdout before the plan can execute.",
   "emotional_trajectory": "Steeling resolve -> the approach -> Kael's devastating question",
   "stakes": {
-    "personal": "Ben learning to lead through invitation rather than command",
+    "personal": "Ben leading through invitation rather than command",
     "interpersonal": "Ben and Kael — the Jedi and the Sith-trained, asking each other for trust",
     "external": "Without Kael, no resonance. Without resonance, Torin's sacrifice or Veraine's destruction."
   },
@@ -23,7 +23,7 @@
     "Kael Drenn"
   ],
   "setting": "Veranthos — camp edge, overlooking the valley and the Scar",
-  "sensory_details": "The Scar visible below — a seam in reality; Kael's Force presence — guarded but not hostile; the wrongness between them, making the conversation harder than it should be; first light touching the ridgelines",
+  "sensory_details": "The Scar visible below as a seam in the air; Kael's Force presence guarded but not hostile; first light on the far ridgelines, the valley still in shadow; the wrongness between them making the conversation harder than it should be",
   "canon_elements_needed": [],
   "target_word_count": 1250,
   "action_beats": [
@@ -49,5 +49,5 @@
   ],
   "revelations": [],
   "pov_arc_phase": "moment_of_truth",
-  "notes": "H22 planted — Kael's question: 'Why should I believe this one is different?' The final character holdout. Ben's leadership through invitation, not command, is the thematic argument in action."
+  "notes": "H22 planted — Kael's question. Ben's leadership through invitation is the thematic argument in action. Anti-pattern: Ben does not give a speech about trust; the ask is structural, not rhetorical. The pitch's content is the persuasion. Diagnostic-voice trap — Ben should not, in this scene, narrate to himself that forcing Kael would repeat institutional harm. The restraint is behavioural; the interiority that matters is the thirty seconds of quiet where Ben waits for the question. Voice: Zahn-quiet, one permitted Stover-interior beat as Ben sits. Kael's question ends the scene; the answer belongs to Ch23."
 }

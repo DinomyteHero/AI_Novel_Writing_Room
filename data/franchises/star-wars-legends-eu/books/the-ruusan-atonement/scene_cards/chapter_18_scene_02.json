@@ -5,16 +5,16 @@
   "scene_type": "sequel",
   "scene_role": "reveal",
   "pov_character": "Ben Skywalker",
-  "mission": "Desh warns Ben explicitly: the group is fracturing. His operational concern reveals he cares about more than logistics — he's invested in these people and their mission.",
-  "why_now": "Desh's arc: moment_of_truth — his concern goes beyond professional obligation to genuine investment",
-  "conflict": "Desh delivers the assessment Ben needs but doesn't want: Torin is separating. Sera is rigid. Kael is watching for the exit. The group will not survive another crisis as currently configured.",
+  "mission": "Cockpit, night cycle. Desh walks Ben through the team status as a debrief: Torin is separating, Sera is rigid, Kael is watching the exit, Ben is carrying too much alone. The diagnosis is clinical until it is not: 'I didn't come here to watch another good person convince themselves they're the only answer.'",
+  "why_now": "The Jacen recognition has to be met with a sentence from someone who was there. Desh is the only person on the ship who can speak this one, and the scene earns his arc-moment-of-truth.",
+  "conflict": "The assessment Ben needs is the assessment he does not want. Desh delivers it as professional debrief until the last sentence, which he delivers as himself. Ben cannot argue with any part of it.",
   "conflict_type": "interpersonal",
-  "turning_point": "Desh: 'I didn't come here to watch another good person convince themselves they're the only answer.' He means Jacen. He means Torin. He means Ben, if Ben doesn't change course.",
+  "turning_point": "Desh: 'I didn't come here to watch another good person convince themselves they're the only answer.' Ben hears Jacen, he hears Torin, and he hears himself. Desh does not have to specify.",
   "opening_hook": "Desh doesn't frame it as a warning. He frames it as a debrief. 'Let me walk you through the team status.' It's the most frightening sentence Ben has heard on this trip.",
   "closing_hook": "Desh's final assessment: 'You need to give them a reason to stay that isn't you telling them to.' Ben doesn't have that reason yet. But he knows where to look — somewhere in the Codex notes he bookmarked and hasn't revisited.",
   "emotional_trajectory": "Professional assessment -> personal investment revealed -> the challenge to Ben's leadership approach",
   "stakes": {
-    "personal": "Desh's arc transition — from obligation to chosen commitment",
+    "personal": "Desh's arc turning — obligation becoming investment",
     "interpersonal": "The group's survival as a functioning unit",
     "external": "A fractured group cannot face Veraine at Veranthos"
   },
@@ -23,7 +23,7 @@
     "Desh Rolan"
   ],
   "setting": "Aboard the Steady Returns — cockpit, night cycle",
-  "sensory_details": "Instrument lights; Desh's voice — steady, professional, and for the first time openly emotional; the nav display showing Veranthos's system approaching; countdown timer Desh posted on the bulkhead",
+  "sensory_details": "Instrument lights; Desh's voice steady and professional until the last line, when it is not; the nav display showing Veranthos's system approaching; the countdown timer Desh posted on the bulkhead, smaller every time Ben reads it",
   "canon_elements_needed": [],
   "target_word_count": 1200,
   "action_beats": [
@@ -44,5 +44,5 @@
   "hook_actions": [],
   "revelations": [],
   "pov_arc_phase": "lie_challenged",
-  "notes": "Desh's arc: moment_of_truth — his operational concern revealing genuine care. The Jacen reference is powerful because Desh is the only person who was there with Ben, watching it happen in real time."
+  "notes": "Desh's arc-moment-of-truth — operational concern revealing genuine investment. The Jacen reference is powerful because Desh is the only person who watched it happen in real time beside Ben. Diagnostic-voice trap — Ben should not, in this scene, write a paragraph identifying himself in Desh's sentence. The identification is registered through what Ben does after Desh leaves (stares at the Codex bookmark) rather than through an explicit interior line. Voice: dialogue-precision; the debrief carries the scene, the personal line lands and the scene ends shortly after."
 }

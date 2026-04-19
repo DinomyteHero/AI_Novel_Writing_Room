@@ -5,18 +5,18 @@
   "scene_type": "action",
   "scene_role": "reveal",
   "pov_character": "Ben Skywalker",
-  "mission": "The truce meeting — Veraine's full philosophy delivered. The wound as liberation, the lattice as disease. She presents her argument at full strength with academic precision and genuine conviction.",
-  "why_now": "R09 — the antagonist's position articulated at maximum strength. The counter-argument the story must take seriously.",
-  "conflict": "Veraine's argument is genuinely compelling. The lattice IS arguably imposed. The light/dark binary HAS driven a thousand years of war. Her logic is rigorous. Her tone is respectful. She's not a cackling villain — she's a theorist with a thesis and the means to test it.",
+  "mission": "The meeting point. Veraine steps forward with the bearing of someone treating negotiation as professional courtesy. Her philosophy delivered in full: the lattice as imposed framework, the wound as liberation, the light/dark binary as a thousand years of pointless war. She never monologues; she asks questions with answers she already knows. Then the turn toward Kael.",
+  "why_now": "The antagonist steps forward on the page for the first time in the book. Her argument has to land at full strength here or the climactic defeat becomes victory over a strawman.",
+  "conflict": "Veraine's argument is genuinely compelling. The lattice is arguably imposed; the binary has driven a thousand years of war; her logic is rigorous and her tone is respectful. She is not a cackling villain — she is a theorist with a thesis and the means to test it, and she has brought her pitch specifically tailored to the one person in the circle whose history matches hers.",
   "conflict_type": "interpersonal",
-  "turning_point": "Veraine makes her pitch directly to Kael: 'They used us identically, you and I. The only difference is which wall we were sealed into. Why defend the framework that treated us as building material?' The pull is real — the reader should feel it.",
+  "turning_point": "Veraine turns toward Kael. 'They used us identically, you and I. The only difference is which wall we were sealed into. Why defend the framework that treated us as building material?' The pull is real. The reader should feel it.",
   "opening_hook": "Veraine steps forward and extends a hand — calm, precise, the gesture of someone who treats negotiation as professional courtesy. Ben would prefer a monster. Monsters are easier to fight.",
   "closing_hook": "Veraine's final question before the meeting ends: 'What if I'm right?' She doesn't need an answer. She needs the question to sit in Kael's mind.",
   "emotional_trajectory": "Guarded assessment -> intellectual engagement despite themselves -> the genuine pull of her argument",
   "stakes": {
-    "personal": "Ben's worldview tested by a coherent counter-argument he can't dismiss",
+    "personal": "Ben's worldview tested by a coherent counter-argument he cannot dismiss",
     "interpersonal": "Kael's recruitment — the parallel at its most dangerous",
-    "external": "Veraine's philosophy isn't wrong about the problem — only about the solution"
+    "external": "Veraine's philosophy is not wrong about the problem — only about the solution"
   },
   "characters_present": [
     "Ben Skywalker",
@@ -26,8 +26,8 @@
     "Desh Rolan",
     "Darth Veraine"
   ],
-  "setting": "Neutral meeting point — possibly a cleared area on a minor world between positions",
-  "sensory_details": "Veraine's physical presence — calm, composed, military bearing underneath academic refinement; her Force presence: analytical, precise, not radiating dark-side malice but something more unsettling — certainty without heat; her small crew at distance",
+  "setting": "Neutral meeting point — a cleared area on a minor world between positions",
+  "sensory_details": "Veraine's physical presence — calm composure carried on a military bearing underneath the academic refinement; her Force presence analytical and precise, not radiating dark-side malice but something more unsettling — certainty without heat; her small crew at distance, unarmed by posture rather than by fact",
   "canon_elements_needed": [],
   "target_word_count": 1200,
   "action_beats": [
@@ -53,5 +53,5 @@
     "R09"
   ],
   "pov_arc_phase": "lie_challenged",
-  "notes": "R09 — Veraine's full philosophy. Must be genuinely compelling. The reader should understand why someone with her experience would reach her conclusions. She never monologues — she asks questions she already knows the answers to. Kael's arc: lie_challenged — her pitch targets his wound directly."
+  "notes": "R09 — Veraine's philosophy at full strength. The highest-risk scene for villain-monologue failure in the book. She never raises her voice. She never makes threats. She asks questions with answers she already knows. Her diction: no contractions, complete grammatically sophisticated sentences, academic syntax; her rhythm: measured. Her pitch to Kael must be specifically tailored to his wound — not generic Sith recruitment. Kael's arc: lie_challenged — the pitch lands on his exact history. Diagnostic-voice trap — Ben should not, in this scene, refute Veraine internally. He listens and he feels the argument working on him and he does not interrupt. The refutation belongs to Sera in sc3. Anti-pattern: no weapons drawn; the encounter is a knife-fight in ideas."
 }

@@ -5,16 +5,16 @@
   "scene_type": "sequel",
   "scene_role": "reveal",
   "pov_character": "Ben Skywalker",
-  "mission": "The new seal stabilizes — dynamic, harmonic, requiring periodic renewal. Not permanent. Not a prison. A living containment maintained by relationship rather than sacrifice.",
-  "why_now": "The climax's resolution — the wound contained, the battle won, the cost apparent",
-  "conflict": "The new seal is imperfect — it requires renewal, monitoring, institutional attention. It's not the permanent fix Torin offered or the liberation Veraine promised. It's a third option: ongoing relationship with a problem that can be managed but never fully solved.",
+  "mission": "The new seal stabilises. Not permanent, not a prison — living tissue embedded with the resonance's character. Three-part harmony at the Scar's base, flexible and dynamic, requiring renewal. The wound is contained, not erased. Ben feels the warmth spread outward; the wrongness resolves into a chord. Desh's chrono runs correctly for the first time since arrival.",
+  "why_now": "The climax needs its final image. Not a victory monument — a living containment. The book has argued for ongoing relationship over permanent fix across twenty-six chapters, and the seal has to demonstrate that argument in its behaviour.",
+  "conflict": "The new seal is imperfect. It requires renewal, monitoring, institutional attention. It is not the permanent fix Torin offered or the liberation Veraine promised. It is a third option: ongoing relationship with a problem that can be managed but not solved.",
   "conflict_type": "environmental",
-  "turning_point": "The lattice reforms around the wound — not as rigid grid but as living tissue. Flexible, dynamic, responsive. The resonance's character embedded in the new seal. It requires renewal because it's alive. Dead seals fail. Living ones need tending.",
+  "turning_point": "The lattice reforms around the wound as living tissue rather than rigid grid. The resonance's character stays embedded. The seal needs tending because it is alive.",
   "opening_hook": "Ben feels the warmth spread outward from the resonance point and the wrongness — the constant background note he's been hearing for months — begins to quiet. Not silence. A chord resolving.",
   "closing_hook": "The Scar is still there. Thinner. The wound is contained, not erased. The new seal hums with three distinct frequencies — and Ben can feel all of them. He's part of it now. Not a prisoner. A note in a chord.",
   "emotional_trajectory": "The quiet after storm -> the new seal forming -> the bittersweet realization of ongoing connection",
   "stakes": {
-    "personal": "Ben permanently connected to the new seal — not imprisonment but relationship",
+    "personal": "Ben permanently connected to the new seal — relationship, not imprisonment",
     "interpersonal": "The resonance trio's bond made structural — their harmony is the seal's foundation",
     "external": "The wound contained. The galaxy safe. For now. With conditions."
   },
@@ -26,7 +26,7 @@
     "Torin Hal"
   ],
   "setting": "Veranthos — the valley, the Scar, the new seal forming",
-  "sensory_details": "The wrongness quieting — the background note resolving; the new seal's character — living tissue not rigid grid, flexible and warm; the Scar thinning but persisting; Desh: the grief-without-an-object lifting, the chrono running correctly, the temperature consistent; the place feeling right in a way it didn't before",
+  "sensory_details": "The wrongness quieting — the long background note resolving into a chord; the new seal's character arriving as living tissue, flexible and warm; the Scar thinning but persisting; Desh's grief-without-an-object lifting, chrono running correctly, temperature consistent; the valley quiet in a way it has not been since the book began",
   "canon_elements_needed": [],
   "target_word_count": 1600,
   "action_beats": [
@@ -50,5 +50,5 @@
   "hook_actions": [],
   "revelations": [],
   "pov_arc_phase": "new_truth_demonstrated",
-  "notes": "The new seal's living quality is the author_only_secret made visible: it responds to relational harmony, meaning Ben's final sensation is real, not poetic flourish. Desh's experience validates: the lattice matters to everyone."
+  "notes": "The new seal's living quality is the book's structural argument made physical — it responds to relational harmony, which means Ben's sensation is literal rather than poetic. Rotate Force-wrongness / resonance vocabulary fully into the living-tissue and chord family for this scene; do not reuse handrail or flat-note. Desh's chrono running right is the non-Force-user's validation of the lattice's return — small, specific, visible. Anti-pattern: no speech from Ben about the seal's meaning; the reader has earned the recognition."
 }

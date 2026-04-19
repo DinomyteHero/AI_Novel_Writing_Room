@@ -5,18 +5,18 @@
   "scene_type": "action",
   "scene_role": "escalation",
   "pov_character": "Ben Skywalker",
-  "mission": "Sera pulls Torin free from the technique — using their thousand-year bond, their shared history, her Force-lock expertise repurposed as an extraction tool. Torin is pulled free: alive but diminished.",
-  "why_now": "The emotional climax — Sera saving Torin through love and skill combined",
-  "conflict": "The technique resists Sera's extraction — Torin has become partially integrated with the wound's containment. Pulling him free risks destabilizing the new seal. Sera doesn't care. She won't leave him.",
+  "mission": "Inside the void. Sera finds Torin at the Scar's edge, hands on the wound, Force presence being drawn into the lattice. His eyes are open. They do not see her. Sera places her hands over his and reverses a thousand years of technique: Force-locks unseal instead of seal. She pulls his presence free — a separation like tearing adhesive. They come out of the void together. His eyes find her face. Warmth returns. Then settles into something quieter.",
+  "why_now": "The relationship's final act. Sera's entire arc has been building toward the use of her most specific training for a purpose opposite to the one it was built for.",
+  "conflict": "The technique resists. Torin is partially integrated with the containment; pulling him free risks destabilising the new seal. Sera does not care. She has spent a thousand years waiting to refuse this pattern. She will not refuse it now.",
   "conflict_type": "external",
-  "turning_point": "Sera's Force-lock expertise — designed to seal and unseal — repurposed as extraction. She doesn't seal Torin in. She unseals him out. The technique that imprisoned her for a thousand years becomes the tool that saves the person she loves.",
+  "turning_point": "Sera's hands on Torin's hands. The Force-lock training used backwards. He separates from the wound. Her principle, her training, and her love in the same action.",
   "opening_hook": "Inside the void, Sera finds Torin. He's standing at the Scar's edge, his hands on the wound, holding it closed with his own Force presence. His eyes are open. They don't see her.",
   "closing_hook": "Torin pulled free. Alive. His eyes find Sera's face. For a moment — just a moment — the warmth returns. Then it fades to something quieter. He knows her. But the way he knows her is different. Diminished. Present but smaller. The caldera didn't consume him. It replaced the parts that made him Torin.",
   "emotional_trajectory": "Desperate rescue -> the fight against the technique -> the devastating partial success",
   "stakes": {
-    "personal": "Sera's arc: choosing principle + love. She won't let another person become infrastructure.",
+    "personal": "Sera's arc completing — the skill that imprisoned her now frees the person she loves",
     "interpersonal": "The Sera/Torin relationship's final act — saving him at the cost of what he was",
-    "external": "The wound contained by the resonance, Torin freed but diminished"
+    "external": "The wound contained by the resonance; Torin freed but diminished"
   },
   "characters_present": [
     "Ben Skywalker",
@@ -25,7 +25,7 @@
     "Kael Drenn"
   ],
   "setting": "Veranthos — the Scar, inside the void, Torin's position",
-  "sensory_details": "The void from inside — formless Force, no direction, no texture; Torin's hands on the Scar — his Force presence being drawn into the wound; Sera's extraction technique — the Force-locks reversed, unsealing rather than sealing; Torin's eyes — finding Sera, the warmth returning briefly, then settling into something quieter",
+  "sensory_details": "The void from inside — formless Force, no direction, no texture; Torin's hands on the Scar, his Force presence being drawn into the wound; Sera's extraction — the Force-locks reversed, the discipline turned the other way; Torin's eyes finding Sera's face, the warmth returning briefly and settling into something smaller",
   "canon_elements_needed": [],
   "target_word_count": 1700,
   "action_beats": [
@@ -49,5 +49,5 @@
   "hook_actions": [],
   "revelations": [],
   "pov_arc_phase": "new_truth_demonstrated",
-  "notes": "Torin's arc: lie_consequence — his diminished survival embodies the cost of mistaking self-sacrifice for moral authority. Sera's arc: new_truth_demonstrated — she saves him through principled flexibility: Force-lock expertise adapted, love without control."
+  "notes": "Torin's arc reaches its lie_consequence beat — the diminished survival embodies the cost of mistaking self-sacrifice for moral authority. Sera's arc lands in the new-truth beat: principled flexibility, love without control, the discipline used the other way. Anti-pattern: Sera and Torin do not speak inside the void; no dialogue with the void-voice. The scene is render-through-Ben — Ben watches from outside, Sera and Torin are felt through Ben's close-third. Voice: Stover-permitted density; the void is the book's most interior sensory passage, but the interiority belongs to Ben observing, not to a POV shift."
 }

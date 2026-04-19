@@ -5,17 +5,17 @@
   "scene_type": "action",
   "scene_role": "escalation",
   "pov_character": "Ben Skywalker",
-  "mission": "Second survey world confirms the pattern — multiple sites with the same markings, and the wrongness grows stronger along their route",
-  "why_now": "One site is curiosity; two is a pattern. Ben can no longer dismiss this as random anomaly.",
-  "conflict": "The survey route Luke designed runs exactly along the wrongness's bearing — coincidence or design? Ben doesn't know if Luke planned this.",
+  "mission": "Second survey world, same markings cut by the same hand into different stone. Desh overlays the two sites on the nav chart and draws the line. The bearing points into uncharted space.",
+  "why_now": "One site is curiosity; two is a pattern the survey route can no longer absorb. Ben either folds the second world into the official report or he follows the line Desh has just drawn.",
+  "conflict": "The survey route Luke designed runs exactly along the wrongness's bearing — coincidence or design. Ben does not know if Luke planned this, and he does not want to know yet.",
   "conflict_type": "internal",
-  "turning_point": "Desh maps the anomalous sites and the wrongness bearing together — they form a line pointing deeper into the Outer Rim toward uncharted space",
+  "turning_point": "Desh lays the two anomalous sites on the nav chart and extends the line into a chart-sector that does not officially exist. Ben punches the coordinates and the empty sector stares back.",
   "opening_hook": "The second world has the same markings. Different climate, different geology, same hand.",
-  "closing_hook": "The bearing points to a cluster of systems that don't appear on any navigation chart Ben has ever seen. Something is out there.",
+  "closing_hook": "The bearing points to a cluster of systems that do not appear on any navigation chart Ben has ever seen. Something is out there.",
   "emotional_trajectory": "Confirmation dread -> analytical focus -> determined pursuit",
   "stakes": {
     "personal": "Ben's growing certainty that this is bigger than a survey mission",
-    "interpersonal": "Desh is reading Ben's tension — the professional friendship being tested by an unknown scope",
+    "interpersonal": "Desh reads Ben's tension; the friendship holds while the scope outgrows the job",
     "external": "The pattern points toward something deliberately hidden from modern records"
   },
   "characters_present": [
@@ -23,7 +23,7 @@
     "Desh Rolan"
   ],
   "setting": "Second survey world — different biome, same era of ruins — then back aboard the Steady Returns for analysis",
-  "sensory_details": "The wrongness stronger here — Force-perception parallax error beginning, distances feeling unreliable; vegetation patterns slightly off, as if seasons are out of sync; Desh's navigation console showing the bearing line cutting through empty chart-space; the second world's ruins carry the same tactile resonance as the first, a faint vibration in ancient stone that has no physical source",
+  "sensory_details": "The wrongness stronger here — Force-perception arriving at a slight parallax to the body, distances feeling fractionally unreliable; local vegetation patterns seasonally out of phase; Desh's navigation console showing the bearing line cutting through empty chart-space; the second world's ruins carry the same vibration in ancient stone that has no physical source",
   "canon_elements_needed": [
     "Outer Rim uncharted space navigation and hazards",
     "Force bearing and direction perception techniques",
@@ -53,5 +53,5 @@
   ],
   "revelations": [],
   "pov_arc_phase": "lie_established",
-  "notes": "Thin place effects slightly stronger than first world. Desh might notice temperature inconsistencies or sounds carrying oddly — non-Force-sensitive baseline establishing. Pacing note: this is the fastest scene in Act 1 — confirm-and-move. Keep it tight. The reader already understands the pattern from ch2_s2; this scene exists to establish that the pattern is deliberate, not coincidental."
+  "notes": "Thin-place effects slightly stronger than at the first world. Desh might notice temperature inconsistencies or sound carrying oddly — non-Force-sensitive baseline establishing. Pacing: this is the fastest scene in Act 1 — confirm and move. Keep it tight. The reader already understands the pattern from the previous scene; this scene establishes that it is deliberate. Diagnostic-voice trap — Ben should not, in this scene, articulate the pattern as a thesis about who built it or why. He recognises the hand and punches the coordinates. Interpretation belongs to Ch3 when the perimeter facility does the explaining."
 }
