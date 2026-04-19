@@ -130,19 +130,26 @@ class ProseStylist(BaseAgent):
     def _format_context(self, context: dict) -> str:
         generation_brief = context["generation_brief"]
         assembled_context = context.get("assembled_context", "")
-        negative_constraints = context.get("negative_constraints", "")
+        dynamic_feedback = context.get("dynamic_feedback", "")
         failure_context = context.get("failure_context", "")
 
         parts = []
 
+        # assembled_context already includes the "## Writing Constraints" block
+        # produced by ContextAssembler (the base banned-phrase list from
+        # config/negative_constraints.yaml). The orchestrator may add
+        # cross-scene dynamic feedback (overused words, description ratio
+        # trends) via dynamic_feedback — that stays in its own section.
         if assembled_context:
             parts.append(assembled_context)
 
         # Typed brief rendered as labeled sections
         parts.append("## Generation Brief\n" + _render_brief(generation_brief))
 
-        if negative_constraints:
-            parts.append(f"## Writing Constraints\n{negative_constraints}")
+        if dynamic_feedback:
+            parts.append(
+                f"## Cross-Scene Feedback (from prior scenes in this chapter)\n{dynamic_feedback}"
+            )
 
         if failure_context:
             parts.append(
@@ -158,18 +165,21 @@ class ProseStylist(BaseAgent):
         target_words = scene_card.get("target_word_count") or generation_brief.get("target_word_count")
         closing_hook = scene_card.get("closing_hook", "")
         characters_present = scene_card.get("characters_present", [])
+        pov_approach = context.get("pov_approach") or "third-person limited"
 
         task_lines = [
             "## Task",
             "Write the complete scene prose following the typed generation brief above.",
-            "Write in third-person limited POV. Focus on showing, not telling.",
+            f"Write in {pov_approach} POV. Focus on showing, not telling.",
             "Vary sentence length and structure. Avoid the banned phrases listed in constraints.",
             "The scene must contain the turning point specified in the brief.",
         ]
         if target_words:
             task_lines.append(
                 f"Target length: approximately {target_words} words. "
-                "Do not pad to reach the target — write the scene the story needs."
+                "Treat this as guidance, not a hard limit — write the scene the "
+                "story needs. The downstream pipeline no longer rejects scenes "
+                "for being off-target by a scene-level word count."
             )
         if closing_hook:
             task_lines.append(

@@ -279,8 +279,10 @@ For each POV character, define all of the following:
 - **arc_type**: One of:
   - `positive_change` — Character moves from Lie to Truth (classic growth arc)
   - `flat` — Character already holds the Truth and uses it to change the world around them
-  - `negative` — Character rejects the Truth and doubles down on the Lie (tragedy/corruption arc)
-  - `disillusionment` — Character moves from a positive Lie to a painful Truth (bittersweet arc)
+  - `negative` — Character rejects the Truth and doubles down on the Lie. Use this bare label only when the variant is intentionally ambiguous; otherwise prefer `corruption`, `fall`, or `disillusionment`.
+  - `corruption` — Character glimpses the Truth and consciously rejects it for the Lie (tragedy of awareness).
+  - `fall` — Character never sees the Truth and is buried deeper in the Lie (tragedy of blindness).
+  - `disillusionment` — Character moves from a comforting Lie to a painful Truth (bittersweet arc).
 
 - **arc_summary** (optional): A descriptive phrase elaborating on the arc — e.g., "moves from self-reliance as safety to collective trust as strength". Complements the strict `arc_type` enum with prose that captures the specific texture of this character's journey.
 
@@ -294,11 +296,11 @@ For each POV character, define all of the following:
   - `new_truth_demonstrated`: A later chapter where the character acts from the Need. Usually during the Attack phase.
   - `arc_resolved`: The final chapter where the character embodies the Truth.
 
-  **Negative arc** (`negative`):
+  **Negative arc** (`negative`, `corruption`, `fall`):
   - `lie_established`: The character's starting belief, often sympathetic or seemingly justified.
   - `lie_reinforced`: An event validates the Lie, making it feel like the right path.
   - `lie_deepened`: The character doubles down on the Lie when challenged, actively choosing it over alternatives.
-  - `point_of_no_return`: A Midpoint-adjacent chapter where the character consciously rejects the Truth and commits to the Lie.
+  - `point_of_no_return`: A Midpoint-adjacent chapter where the character consciously rejects the Truth and commits to the Lie. For `corruption`, this is where the Truth was glimpsed and rejected. For `fall`, the character never sees the Truth clearly here; the "no return" is structural, not conscious.
   - `lie_acted_upon`: The character takes a decisive action driven by the Lie — usually during the Attack phase. This action harms others or closes off escape routes.
   - `lie_consequence`: The Lie's costs come due. The character faces the consequences of their commitment to the Lie.
   - `arc_resolved_tragic`: The final chapter where the Lie destroys or diminishes the character.
@@ -324,10 +326,10 @@ How this character's arc tests the thematic premise differently from the other P
 
 **VALIDATION RULES — Do NOT proceed past Step 4 until ALL of these pass:**
 - Every POV character has `lie_believed`, `need`, `want`, and `arc_type` defined.
-- `arc_type` is one of the canonical enum values: `positive_change`, `flat`, `negative`, `disillusionment`.
+- `arc_type` is one of the canonical enum values: `positive_change`, `flat`, `negative`, `corruption`, `fall`, `disillusionment`.
 - For each POV character, the Lie and the Need are logically opposed (the Need directly contradicts or resolves the Lie).
 - No two POV characters share the same Lie. (Similar lies in the same thematic territory are acceptable only if they are meaningfully distinct — e.g., "vulnerability is weakness" vs. "vulnerability is manipulation.")
-- Every POV character has `arc_phase_map` with chapter references for all phases matching their `arc_type` (positive_change: 6 phases, negative: 7 phases, flat: 4 phases, disillusionment: 6 phases).
+- Every POV character has `arc_phase_map` with chapter references for all phases matching their `arc_type` (positive_change: 6 phases; negative/corruption/fall: 7 phases [share the negative phase map]; flat: 4 phases; disillusionment: 6 phases).
 - For `flat` arc characters: instead of `lie_believed`, define the **truth_held** — the truth they embody — and the **world_lie** — the false belief the world around them holds that the character will challenge.
 - No two POV characters test the theme in the same way.
 

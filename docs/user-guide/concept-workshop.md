@@ -1,180 +1,19 @@
-# Concept Workshop
+# Concept Workshop — REMOVED
 
-The Concept Workshop is an interactive CLI tool for developing a story concept from initial spark to pipeline-ready seed document. It guides you through a structured ten-step protocol (Steps 0-10) with an AI facilitator, including series support and adversarial stress testing.
+The interactive concept-workshop CLI (`src.concept_workshop.workshop_runner`) has been removed.
 
-## Starting a Workshop
+Start new projects through the **workflow kit** instead:
 
-```bash
-python -m src.concept_workshop.workshop_runner --project <project_name>
-```
+- Per-surface skills under `.claude/skills/<surface>/` and `workflows/<surface>/SKILL.md`.
+- Compile the per-surface outputs into a single `concept_seed.json` with `python scripts/compile_bundle.py`.
 
-| Flag | Description |
-|------|-------------|
-| `--project NAME` | Project name (creates `data/projects/<NAME>/` directory) |
-| `--resume` | Resume a previous session with saved state context |
-| `--finalize` | Finalize the concept and generate the seed document |
-| `--series` | Planned series mode (activates Step 0a: Series Seed Workshop) |
-| `--continue-from PATH` | Continue from a previous book's transition snapshot |
-| `--promote-to-series` | Retroactively promote a standalone concept to series |
+See [Workflow Kit](workflow-kit.md) for the current end-to-end workflow.
 
-## The Ten-Step Protocol
+## Why this was removed
 
-The workshop facilitator walks you through these steps:
+The workshop runner's system prompt was silently dropped after context-window summarization, making long sessions drift out of the 11-step protocol exactly when context pressure was highest. Rather than preserve a bug-prone CLI with a limited user base, the project standardized on the workflow-kit path, which is the current and supported entry point.
 
-0. **Project Scope** -- Choose standalone, planned series, or continuation
-   - 0a. **Series Seed Workshop** *(series only)* -- Define series arc, stakes progression, cross-book promises
-   - 0b. **Retroactive Series Promotion** *(optional)* -- Promote a completed standalone to series
-1. **Fandom, Era, Tone, Cast Type + Canon Profile** -- Choose franchise, timeline, tone. Series continuations show inherited constraints. This step also constructs a **Canon Profile** through 5 targeted questions covering franchise name, continuity era/rules, key canon elements the story must respect, cross-continuity violations to avoid, and canon-specific terminology. The canon profile is embedded in the concept seed as `canon_profile` and drives the template-driven Canon Expert agent during pipeline execution.
-2. **"What If" Seed Generation** -- The AI generates 3-5 premise seeds based on your inputs
-3. **Premise Development** -- Central dramatic question, conflict stress test, hook classification (hard/soft/series)
-4. **Character Creation + Weiland Arc Beats** -- Three-dimensional profiles plus lie/ghost/want/need/arc_type for each POV character, mapped to Brooks structural phases
-5. **Narrative Voice Discovery** -- POV approach, prose register, reference authors, anti-slop rules, anti-patterns
-6. **Structural Outline** -- Map to Brooks's four-part structure (Setup/Response/Attack/Resolution)
-7. **Subplot Architecture + Hook Map** -- Subplot board (A/B/C/D lines), hook map with admission control, revelation schedule
-8. **Scene Cards** -- Chapter-level cards referencing subplots, hooks, revelations, and arc phases
-9. **Terminology Registry** -- Canonical terms, aliases, and definitions for consistency
-10. **Adversarial Stress Test** -- Devil's advocate evaluation across 5 dimensions (premise, character, structure, hooks, series). Must score >= 7.0 or address flagged issues.
+## If you have an in-flight workshop session
 
-**Validation gates** at Steps 0a, 3, 4, 7, 8, and 10 prevent advancing until requirements are met.
-
-## Session Persistence
-
-Workshop state is saved automatically to `data/projects/<project>/`:
-
-- `workshop_sessions/` -- JSONL transcripts for each session
-- `workshop_state.json` -- The evolving concept seed state with confirmation tracking
-- `series_seed.json` -- Series-level seed (planned series mode only)
-- Workshop state tracks decisions made so far, so you can resume across multiple sessions
-
-## Conversation Commands
-
-During the workshop, type:
-
-- Your response to the facilitator's questions
-- `exit`, `done`, or `finalize` to end the session
-
-The facilitator is designed to push back on weak premises and enforce structural rigor. It won't advance past validation gates until the concept is sound.
-
-## Output
-
-When finalized, the workshop produces a concept seed JSON (`book_1_seed.json`) that contains:
-
-- Story metadata (franchise, era, tone, project scope)
-- Canon profile (franchise name, continuity rules, key canon elements, cross-continuity violations, canon terminology)
-- Characters with three-dimensional profiles and Weiland arc definitions
-- Voice definition (POV, register, anti-slop rules, anti-patterns)
-- Four-part structural outline
-- Subplot board and hook map with admission control
-- Terminology registry
-- Adversarial stress test scores
-- Story physics (causality chains, revelations, promises)
-- Scene cards for the pipeline
-
-For series projects, a `series_seed.json` is also produced with the series-level arc, cross-book promises, and per-book outlines.
-
-## Example
-
-```bash
-# Start a new standalone project
-python -m src.concept_workshop.workshop_runner --project my_novel
-
-# Start a planned series
-python -m src.concept_workshop.workshop_runner --project void_chronicles --series
-
-# Continue from Book 1
-python -m src.concept_workshop.workshop_runner --project void_chronicles_book2 \
-    --continue-from data/projects/void-chronicles/book_1_transition.json
-
-# Resume later
-python -m src.concept_workshop.workshop_runner --project my_novel --resume
-
-# Finalize
-python -m src.concept_workshop.workshop_runner --project my_novel --finalize
-```
-
-## Mode 2: External Chat + Import
-
-If you prefer to develop your concept in an external LLM chat (Claude, ChatGPT, Gemini, etc.) rather than the API-driven workshop, you can import the results directly.
-
-### Step 1: Brainstorm in Your Preferred Chat
-
-Use the [planning manuscript template](../workshop-summary-template.md) as a guide. Work through each section with the LLM — premise, conflict, theme, characters (with Weiland arcs), voice, Brooks structure, subplots, hooks, revelations, and terminology.
-
-### Step 2: Export the Manuscript
-
-Ask the LLM to compile all decisions into a single comprehensive summary. Save it as a markdown file.
-
-### Step 3: Import and Convert
-
-```bash
-python -m src.main --import-summary path/to/manuscript.md --project my-novel --phase 4
-```
-
-The Seed Builder agent reads your manuscript and extracts it into a structured `concept_seed.json`, applying both the Weiland character arc framework and Brooks four-part structure. It validates the result with the compliance validator and retries if there are issues.
-
-### Step 4: Review the Report
-
-The import prints a compliance report. If there are critical failures, you can:
-- Edit the concept seed JSON directly to fix gaps
-- Go back to the chat and develop the missing sections, then re-import
-- Run `--validate-seed` to re-check after manual edits
-
-### Step 5: Generate Scene Cards
-
-Once the concept seed passes validation:
-
-```bash
-python -m src.main data/projects/my-novel/concept_seed.json data/projects/my-novel/scene_cards --generate-outline --phase 4
-```
-
-### Validating an Existing Concept Seed
-
-To check a concept seed without importing:
-
-```bash
-python -m src.main data/projects/my-novel/concept_seed.json --validate-seed
-```
-
-This runs the compliance validator and prints a pass/fail report with specific failures and warnings.
-
-## Mode 3: External Scene Card Generation
-
-You can also generate scene cards in an external LLM chat instead of using `--generate-outline`. This gives you full creative control over every scene in your novel.
-
-### Step 1: Prepare Your Concept Seed
-
-You need a completed concept seed first (via Mode 1 or Mode 2). The scene cards reference characters, hooks, revelations, and subplots defined in the seed.
-
-### Step 2: Generate Scene Cards in Your LLM Chat
-
-Use the [scene card generation template](../scene-card-template.md) as a guide. Feed your concept seed to the LLM and ask it to generate scene cards in batches of 7 chapters at a time.
-
-Key rules to follow:
-- 2-4 scenes per chapter (average 3)
-- Alternate action and sequel scene types (Bickham framework)
-- Each scene needs a distinct mission, closing hook, and stakes
-- Pressure escalates within each chapter
-
-### Step 3: Save Scene Card Files
-
-Save each scene card as an individual JSON file:
-
-```
-data/projects/my-novel/scene_cards/
-  chapter_01_scene_01.json
-  chapter_01_scene_02.json
-  chapter_01_scene_03.json
-  chapter_02_scene_01.json
-  ...
-```
-
-### Step 4: Run the Pipeline Directly
-
-Skip `--generate-outline` — your scene cards are already in place:
-
-```bash
-python -m src.main \
-    data/projects/my-novel/concept_seed.json \
-    data/projects/my-novel/scene_cards \
-    --phase 4
-```
+- Any concept_seed.json already produced is untouched — proceed straight to scene-card authoring via the workflow kit.
+- Raw transcripts and `workshop_state.json` files under `data/projects/<NAME>/workshop_sessions/` remain readable but are no longer executed by any tooling. Keep them for historical reference or delete them.

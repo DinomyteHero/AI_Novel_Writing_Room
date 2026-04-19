@@ -10,7 +10,8 @@
     "target_chapters": 28,
     "pov_structure": "Single POV — Ben Skywalker throughout",
     "tone_description": "Classic Star Wars adventure layered over genuine moral dilemma — personal stakes, tight cast, archaeological mystery building to cosmic crisis",
-    "canon_status_description": "Legends AU anchored in 47 ABY after Fate of the Jedi. Published EU continuity is preserved unless explicitly altered by the hidden Ruusan Atonement history, Veranthos, the wound, and the survivor cohort."
+    "canon_status_description": "Legends AU anchored in 47 ABY after Fate of the Jedi. Published EU continuity is preserved unless explicitly altered by the hidden Ruusan Atonement history, Veranthos, the wound, and the survivor cohort.",
+    "franchise_profile": "star-wars-eu"
   },
   "premise": {
     "what_if": "What if the Ruusan Reformations were penance for a Jedi war crime — a forbidden technique that tore the boundary between light and dark — and a thousand years later, the seal containing that wound starts to fail?",
@@ -1390,7 +1391,7 @@
     }
   ],
   "voice_definition": {
-    "pov_approach": "Close third person, locked to Ben Skywalker throughout. The narrative voice has access to Ben's thoughts and perceptions but not other characters' internal states. Other characters are experienced through Ben's observation — their words, actions, expressions, and Force presences as Ben perceives them.",
+    "pov_approach": "close third-person limited, locked to Ben Skywalker throughout",
     "prose_register": "Commercial tie-in fiction — the kind of Star Wars novel a reader picks up in an airport bookstore. Reads fast. Dialogue-driven. Emotionally direct. NOT literary fiction. NOT experimental or award-seeking. The prose is transparent: the reader looks through it to the story, not at it. If a sentence calls attention to its own craft, it is wrong for this book. Aim for prose that disappears — clean, propulsive, and trusting.",
     "reference_authors": [
       {
@@ -1809,12 +1810,56 @@
     "vocabulary_variation": {
       "purpose": "Across a hundred-thousand-word single-POV novel, one dominant metaphor becomes a drumbeat. The lattice/handrail/frequency family defined above is the canonical conceptual model — but on the page it must be expressed through rotating sensory vocabularies so the reader never notices the same image twice in a row.",
       "rotation_families": {
-        "structural": ["scaffolding", "bones", "framework", "grain", "weave", "seam", "armature"],
-        "acoustic": ["chord", "note", "pitch", "key", "tuning", "register", "harmonic", "overtone"],
-        "architectural": ["load-bearing", "keystone", "buttress", "vault", "threshold", "span"],
-        "textile": ["warp and weft", "thread", "fabric", "stitch", "seam"],
-        "hydraulic": ["current", "pressure", "tide", "pull", "drain", "eddy"],
-        "somatic": ["balance", "footing", "grip", "handhold", "bearing", "orientation"]
+        "structural": [
+          "scaffolding",
+          "bones",
+          "framework",
+          "grain",
+          "weave",
+          "seam",
+          "armature"
+        ],
+        "acoustic": [
+          "chord",
+          "note",
+          "pitch",
+          "key",
+          "tuning",
+          "register",
+          "harmonic",
+          "overtone"
+        ],
+        "architectural": [
+          "load-bearing",
+          "keystone",
+          "buttress",
+          "vault",
+          "threshold",
+          "span"
+        ],
+        "textile": [
+          "warp and weft",
+          "thread",
+          "fabric",
+          "stitch",
+          "seam"
+        ],
+        "hydraulic": [
+          "current",
+          "pressure",
+          "tide",
+          "pull",
+          "drain",
+          "eddy"
+        ],
+        "somatic": [
+          "balance",
+          "footing",
+          "grip",
+          "handhold",
+          "bearing",
+          "orientation"
+        ]
       },
       "rules": [
         "The word 'lattice' is a concept term — use it sparingly (a handful of times across the manuscript) and never twice in the same scene.",

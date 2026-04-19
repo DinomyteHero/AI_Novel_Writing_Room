@@ -58,7 +58,7 @@ The script benches the ten configurations listed in `BENCH_CONFIGS` by default. 
 | `claude` | `anthropic/claude-sonnet-4.6` | Production prose |
 | `haiku` | `anthropic/claude-haiku-4.5` | Production polish + gates |
 | `deepseek` | `deepseek/deepseek-v3.2` | Summarizer, lore_extractor |
-| `kimi` | `moonshotai/kimi-k2` | Manuscript reviewer |
+| `kimi` | `moonshotai/kimi-k2.5` | Manuscript reviewer |
 | `grok420` | `x-ai/grok-4.20` | Canon expert, judge_evaluator |
 | `grok41fast` | `x-ai/grok-4.1-fast` | Orchestrator |
 | `glm` | `z-ai/glm-5.1` | Bench-only |

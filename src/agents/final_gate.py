@@ -14,10 +14,23 @@ import json
 
 from src.agents.base_agent import BaseAgent
 from src.agents.gate_critic import (
-    ALL_CODES,
     determine_route,
     determine_verdict,
 )
+
+
+# Only these five failure codes are in scope for the Final Gate per
+# prompts/agent_system_prompts/final_gate.md. Out-of-scope codes (VOICE_VIOLATION,
+# pacing codes, anti-pattern codes from the broader Scene Gate taxonomy) must
+# be dropped — the prompt explicitly promises the model they will be, and
+# historically the implementation was accepting them via ALL_CODES.
+FINAL_GATE_CODES = {
+    "CHARACTER_PRESENCE_VIOLATION",
+    "CLOSING_HOOK_VIOLATION",
+    "WORD_COUNT_VIOLATION",
+    "MISSING_TURNING_POINT",
+    "WEAK_TURNING_POINT",
+}
 
 
 class FinalGate(BaseAgent):
@@ -115,11 +128,11 @@ class FinalGate(BaseAgent):
         raw_failure_codes = result.get("failure_codes", [])
         failure_codes = []
         for fc in raw_failure_codes:
-            if isinstance(fc, dict) and fc.get("code") in ALL_CODES:
+            if isinstance(fc, dict) and fc.get("code") in FINAL_GATE_CODES:
                 failure_codes.append(fc)
             else:
                 bad = fc.get("code") if isinstance(fc, dict) else fc
-                print(f"    FinalGate: dropping unknown failure_code {bad!r}")
+                print(f"    FinalGate: dropping out-of-scope failure_code {bad!r}")
 
         # Programmatic word-count floor enforcement (belt-and-suspenders with the
         # compression guard in the orchestrator, which runs before this gate).

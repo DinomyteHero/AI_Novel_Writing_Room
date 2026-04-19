@@ -36,10 +36,17 @@ class BaseAgent(ABC):
         return await self.router.complete_structured(self.role, messages)
 
     def _build_messages(self, context: dict) -> list[dict]:
-        return [
-            {"role": "system", "content": self.system_prompt},
-            {"role": "user", "content": self._format_context(context)},
-        ]
+        messages = [{"role": "system", "content": self.system_prompt}]
+        franchise_profile = context.get("franchise_profile_text", "")
+        if franchise_profile:
+            # Loaded from prompts/franchise_profiles/<slug>.md based on
+            # concept_seed.meta.franchise_profile. Injected as a second
+            # system message so franchise-specific register, author
+            # references, and magic-system rules can be swapped per-project
+            # without editing the agent prompts.
+            messages.append({"role": "system", "content": franchise_profile})
+        messages.append({"role": "user", "content": self._format_context(context)})
+        return messages
 
     @abstractmethod
     def _format_context(self, context: dict) -> str:

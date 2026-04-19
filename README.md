@@ -51,13 +51,9 @@ python -m src.ui.server \
 
 Open http://localhost:8000 in your browser.
 
-### Run the Concept Workshop
+### Start a new project
 
-```bash
-python -m src.concept_workshop.workshop_runner --project my_novel
-```
-
-Or start a new project from templates via the workflow kit — see [Workflow Kit](docs/user-guide/workflow-kit.md).
+Use the workflow kit to scaffold a new project from templates — see [Workflow Kit](docs/user-guide/workflow-kit.md). The earlier interactive `src.concept_workshop.workshop_runner` CLI has been removed; all new projects flow through the per-surface workflow kit and are compiled via `scripts/compile_bundle.py`.
 
 ## How It Works
 

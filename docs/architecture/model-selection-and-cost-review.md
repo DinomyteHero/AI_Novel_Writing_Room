@@ -1,5 +1,7 @@
 # Model Selection & Cost Review — 2026-04-17
 
+> **Update 2026-04-19:** The `kimi` alias in [config/settings.yaml](../../config/settings.yaml) now points at `moonshotai/kimi-k2.5` (released 2026-01-27, $0.38/$1.72 per M in/out). Historical analysis below references Kimi K2-Instruct (`moonshotai/kimi-k2`), which previously tested better for *prose drafting* than K2.5. The live config only uses `kimi` for `manuscript_reviewer` (a review role, not a drafter), so the prose-quality concern does not apply to the production routing. If a future Kimi-as-drafter experiment is run, re-bench K2.5 against K2-Instruct first.
+
 Evaluation of model routing in [config/settings.yaml](../../config/settings.yaml) in light of Ruusan Atonement's commercial-style register revision and the Chapter 1 credit burn.
 
 Sources consulted: [OpenRouter Rankings](https://openrouter.ai/rankings) (overall + Roleplay + Marketing categories), [EQ-Bench Creative Writing v3](https://eqbench.com/creative_writing.html), [EVY aggregated benchmarks](https://evy.so/compare/best-llms-for-writing/), and multi-agent critique research from [Multi-Agent LLM Systems](https://www.emergentmind.com/topics/multi-agent-large-language-model-llm) / [arxiv 2603.19282](https://arxiv.org/abs/2603.19282).
@@ -107,7 +109,7 @@ Conclusion: **cross-family is a real but small quality lift**; the **main reason
 Pick one Ruusan Chapter 1 scene that already ran on Sonnet. Run it three times with `--model-override prose_stylist=<candidate>` at temperature 0.80:
 
 - `deepseek/deepseek-v3.2`
-- `moonshotai/kimi-k2` (at 0.7, since K2 is less steerable at high temp)
+- `moonshotai/kimi-k2.5` (at 0.7, since K2.5 is less steerable at high temp)
 - `google/gemini-3-flash-preview` (reference — cheapest possible)
 
 Feed the three outputs through the existing gate_critic + judge_evaluator pipeline and compare Elo/rubric side-by-side. **Do not change config yet.** This is the decision data.
@@ -123,7 +125,7 @@ prose_stylist: { backend: cloud, model: deepseek, params: { temperature: 0.70, m
 Note the temperature drop from 0.80 → 0.70. DeepSeek at 0.80 starts producing the choppy/robotic prose users complained about post-Feb-2026. **If DeepSeek's cliché tendency hurts voice**, fall back to Kimi K2 at 0.7:
 
 ```yaml
-prose_stylist: { backend: cloud, model: kimi, params: { temperature: 0.7, max_tokens: 8192 } }
+prose_stylist: { backend: cloud, model: kimi, params: { temperature: 0.7, max_tokens: 8192 } }  # kimi now routes to moonshotai/kimi-k2.5 — bench before committing
 ```
 
 Kimi is still ~6.5× cheaper on output than Sonnet (~$2.30/M vs $15/M). Avoid Kimi for scenes targeting >3,000 words — use scene-card length to route.

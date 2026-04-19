@@ -46,7 +46,7 @@ models:
       haiku:          anthropic/claude-haiku-4.5
       glm:            z-ai/glm-5.1
       qwen:           qwen/qwen3.6-plus
-      kimi:           moonshotai/kimi-k2
+      kimi:           moonshotai/kimi-k2.5
       grok420:        x-ai/grok-4.20
       grok41fast:     x-ai/grok-4.1-fast
       mistral_small4: mistralai/mistral-small-2603

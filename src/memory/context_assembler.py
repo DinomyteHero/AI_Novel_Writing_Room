@@ -177,6 +177,33 @@ class ContextAssembler:
 
         return "\n".join(parts)
 
+    def get_pov_approach(self) -> str:
+        """Return the narrative POV declared in voice_definition, or a sensible default.
+
+        Default is "third-person limited" because that is the register the prior
+        scene_cards were planned against. Projects configured for other POVs
+        (first-person, rotating limited, deep POV, omniscient) surface whatever
+        they declared in concept_seed.voice_definition.pov_approach.
+        """
+        voice_def = self.concept_seed.get("voice_definition") or {}
+        return voice_def.get("pov_approach") or "third-person limited"
+
+    def get_franchise_profile_text(self) -> str:
+        """Load the franchise-profile markdown file declared in concept_seed.meta.franchise_profile.
+
+        Returns empty string when no profile is declared (original-fiction
+        projects, or projects that predate the franchise-profile system).
+        The loaded text is injected as a second system message by BaseAgent.
+        """
+        meta = self.concept_seed.get("meta") or {}
+        slug = meta.get("franchise_profile")
+        if not slug:
+            return ""
+        profile_path = Path(f"prompts/franchise_profiles/{slug}.md")
+        if not profile_path.exists():
+            return ""
+        return profile_path.read_text(encoding="utf-8")
+
     def get_character_voices(self, characters: list[str]) -> str:
         """Get voice notes for specific characters."""
         cast = self.concept_seed.get("ensemble_cast", [])

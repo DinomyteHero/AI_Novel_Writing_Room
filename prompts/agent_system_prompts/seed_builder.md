@@ -12,10 +12,10 @@ For each significant character, extract or infer:
 - `ghost` — the wound/event that created the lie
 - `want` — what the character consciously pursues
 - `need` — what the character actually needs (often contradicts the want)
-- `arc_type` — one of: `positive_change`, `flat`, `negative`, `disillusionment`
+- `arc_type` — one of: `positive_change`, `flat`, `negative`, `corruption`, `fall`, `disillusionment`. `corruption` and `fall` are refinements of `negative` — use the specific label when it fits and reserve bare `negative` for the intentionally ambiguous case.
 - `arc_phase_map` — chapter-level mapping of arc progression. Keys depend on `arc_type`:
   - positive_change: lie_established, lie_reinforced, lie_challenged, moment_of_truth, new_truth_demonstrated, arc_resolved
-  - negative: lie_established, lie_reinforced, lie_deepened, point_of_no_return, lie_acted_upon, lie_consequence, arc_resolved_tragic
+  - negative / corruption / fall (share phase map): lie_established, lie_reinforced, lie_deepened, point_of_no_return, lie_acted_upon, lie_consequence, arc_resolved_tragic
   - flat: lie_established, lie_reinforced, lie_tested, lie_unchanged
   - disillusionment: lie_established, lie_reinforced, lie_challenged, moment_of_truth, truth_rejected, disillusionment_accepted
 - `arc_phase_targets` — what each phase accomplishes narratively (optional)

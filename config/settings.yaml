@@ -22,7 +22,7 @@ models:
       # --- Additional models ---
       glm: z-ai/glm-5.1
       qwen: qwen/qwen3.6-plus
-      kimi: moonshotai/kimi-k2
+      kimi: moonshotai/kimi-k2.5
       grok420: x-ai/grok-4.20
       grok41fast: x-ai/grok-4.1-fast
       mistral_small4: mistralai/mistral-small-2603
@@ -69,7 +69,7 @@ agent_routing:
   # PROSE — Sonnet with softened constraints (untested combo): Sonnet's obedience + room to breathe. Plot architect on Gemini Pro.
   prose_stylist:          { backend: cloud, model: claude, params: { temperature: 0.80, max_tokens: 8192 } }
 
-  # GATE/EVAL — Haiku for gate + final gate (precise, cheap), Grok 4.20 for judge (Arena CW #4, understands prose quality), Kimi K2 for manuscript review
+  # GATE/EVAL — Haiku for gate + final gate (precise, cheap), Grok 4.20 for judge (Arena CW #4, understands prose quality), Kimi K2.5 for manuscript review
   gate_critic:            { backend: cloud, model: haiku, params: { temperature: 0.3 } }
   chapter_gate_critic:    { backend: cloud, model: haiku, params: { temperature: 0.3 } }
   final_gate:             { backend: cloud, model: haiku, params: { temperature: 0.2 } }
@@ -100,8 +100,10 @@ agent_routing:
 
 # Pipeline settings
 pipeline:
-  max_structural_retries: 3
-  max_voice_retries: 2
+  # Relay refactor (Stage 1e): retries zeroed. Orchestrator is forward-only.
+  # Keys retained as a rollback valve — raise to re-enable gate-driven rewrites.
+  max_structural_retries: 0
+  max_voice_retries: 0
   max_http_retries: 2
   embeddings:
     use_mock: true  # Set to false for real semantic similarity (requires sentence-transformers)

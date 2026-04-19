@@ -10,7 +10,7 @@ Usage:
         --scene-card data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/scene_cards/chapter_01_scene_01.json \\
         --run-name bench-2026-04-17-prose
 
-By default benches three configurations (Sonnet control, DeepSeek, Kimi K2).
+By default benches three configurations (Sonnet control, DeepSeek, Kimi K2.5).
 Models are mutated in-memory on the ModelRouter's config between calls.
 
 Costs: ~$0.08 per full bench (1 Gemini-Pro brief + 3 prose calls).
@@ -45,7 +45,7 @@ PRICING = {
     "anthropic/claude-sonnet-4.6": (3.00, 15.00),
     "anthropic/claude-haiku-4.5": (1.00, 5.00),
     "deepseek/deepseek-v3.2": (0.26, 0.38),
-    "moonshotai/kimi-k2": (0.57, 2.30),
+    "moonshotai/kimi-k2.5": (0.38, 1.72),
     "google/gemini-3.1-pro-preview": (2.00, 12.00),
     "google/gemini-3-flash-preview": (0.50, 3.00),
     "x-ai/grok-4.20": (2.00, 6.00),
@@ -76,6 +76,12 @@ BENCH_CONFIGS = [
         "temperature": 0.80,
     },
     {
+        "label": "claude-sonnet-46-t075",
+        "model_short": "claude",
+        "model_full": "anthropic/claude-sonnet-4.6",
+        "temperature": 0.75,
+    },
+    {
         "label": "claude-sonnet-46-t070",
         "model_short": "claude",
         "model_full": "anthropic/claude-sonnet-4.6",
@@ -88,9 +94,9 @@ BENCH_CONFIGS = [
         "temperature": 0.70,
     },
     {
-        "label": "kimi-k2-t070",
+        "label": "kimi-k25-t070",
         "model_short": "kimi",
-        "model_full": "moonshotai/kimi-k2",
+        "model_full": "moonshotai/kimi-k2.5",
         "temperature": 0.70,
     },
     {
@@ -110,6 +116,18 @@ BENCH_CONFIGS = [
         "model_short": "gpt54",
         "model_full": "openai/gpt-5.4",
         "temperature": 0.70,
+    },
+    {
+        "label": "gpt-54-t075",
+        "model_short": "gpt54",
+        "model_full": "openai/gpt-5.4",
+        "temperature": 0.75,
+    },
+    {
+        "label": "gpt-54-t080",
+        "model_short": "gpt54",
+        "model_full": "openai/gpt-5.4",
+        "temperature": 0.80,
     },
     {
         "label": "gpt-54-mini-t070",
@@ -138,7 +156,7 @@ MODEL_ALIASES = {
     "claude":       "anthropic/claude-sonnet-4.6",
     "haiku":        "anthropic/claude-haiku-4.5",
     "deepseek":     "deepseek/deepseek-v3.2",
-    "kimi":         "moonshotai/kimi-k2",
+    "kimi":         "moonshotai/kimi-k2.5",
     "grok420":      "x-ai/grok-4.20",
     "grok41fast":   "x-ai/grok-4.1-fast",
     "glm":          "z-ai/glm-5.1",
@@ -230,6 +248,7 @@ async def run_bench(
         pa_context = {
             "scene_card": scene_card,
             "bible_summary": assembler.get_bible_summary(),
+            "franchise_profile_text": assembler.get_franchise_profile_text(),
         }
         try:
             pa_result = await plot_architect.run(pa_context)
@@ -256,12 +275,15 @@ async def run_bench(
     # Assemble prose context once — same input for each prose call
     assembled_context = assembler.assemble(scene_card)
     neg_constraints = assembler.get_negative_constraints()
+    franchise_profile_text = assembler.get_franchise_profile_text()
     prose_input = {
         "generation_brief": brief,
         "assembled_context": assembled_context,
-        "negative_constraints": neg_constraints,
+        "dynamic_feedback": "",
         "failure_context": "",
         "scene_card": scene_card,
+        "pov_approach": assembler.get_pov_approach(),
+        "franchise_profile_text": franchise_profile_text,
     }
 
     # Preserve original routing so we can restore it at the end

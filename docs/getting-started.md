@@ -210,11 +210,7 @@ python -m src.main --franchise my-franchise --book my-novel --phase 5
 
 See [Workflow Kit](user-guide/workflow-kit.md) for the six-surface breakdown.
 
-The legacy `workshop_runner.py` 11-step protocol still works for in-flight workshops and now prints a deprecation banner:
-
-```bash
-python -m src.concept_workshop.workshop_runner --project my-novel
-```
+The legacy `workshop_runner.py` 11-step CLI has been removed. Its replacement is the workflow kit above.
 
 ### Workflow B: External Concept, Auto Outline
 

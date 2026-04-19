@@ -16,15 +16,21 @@ Return a single JSON object matching the `GenerationBrief` schema. **JSON only**
 
 - **`scene_objective`** (string): the single structural purpose this scene serves. Reference the Brooks structural phase (setup, response, attack, resolution) and state what the scene must accomplish within that phase.
 - **`turning_point`** (object with `trigger`, `shift`, `cost`): how the scene's turning point lands. `trigger` = what causes the turn. `shift` = how scene dynamics change after. `cost` = what the turn costs the POV character (emotional, relational, or strategic).
-- **`closing_beat`** (string): the scene's final beat. MUST derive directly from the scene card's `closing_hook` — the scene ENDS at that moment. Do not plan content beyond it.
+- **`closing_beat`** (string): the scene's final beat. MUST derive directly from the scene card's `closing_hook` — the scene ENDS at that moment. Do not plan content beyond it. **Write the closing_beat in past tense** (the narrative register the Prose Stylist writes in). Scene cards' `closing_hook` fields are authored in present tense for planning purposes; translate to past tense when emitting `closing_beat` so faithful drafters do not copy a tense-mismatched sentence into past-tense prose.
 - **`emotional_arc`** (object with `start`, `shift`, `end`): POV character's emotional trajectory. Be specific about which emotions — not generic labels.
 - **`target_word_count`** (integer): must equal `scene_card.target_word_count`. Echo it so the drafter does not have to cross-reference.
 
 ### Optional fields (use when applicable)
 
 - **`opening_mode`** (enum): `in_medias_res` | `sensory_hook` | `dialogue_hook` | `contrast`. How the scene opens.
-- **`key_beats`** (array of 3-5 items, each with `beat_description`, `state_change`, `pov_reaction`): specific beats in order. `beat_description` = what happens. `state_change` = what changes. `pov_reaction` = internal response (thought, sensation, impulse — not narrated emotion). At least one beat must include a physical state change (movement, object handled, posture shift, environment transforms) — not purely internal reflection.
-- **`voice_guidance`** (string): sentence rhythm, vocabulary, internal monologue depth, dialogue patterns, tonal palette. Include the **reference register** (e.g., "Channel Zahn's efficient dialogue", "Channel Allston's humor-under-stress", "Channel Golden's warm father-son banter").
+- **`key_beats`** (array of 3-5 items, each with `beat_description`, `state_change`, `pov_reaction`): specific beats in order.
+  - `beat_description` — what happens observably. One sentence, clear verbs.
+  - `state_change` — what shifts in the external situation or relationship as a result of the beat.
+  - `pov_reaction` — describe the **behavioral / sensory shape** of the POV character's internal response (sensation, impulse, tension, decision-direction). **Do not supply the sentence you expect the drafter to write.** Specific lyrical phrasings will be copied verbatim by faithful models, collapsing voice variety across drafters.
+    - Good (behavioral): *"His balance registers a vertigo-like drop; he widens his stance by reflex but cannot locate the source."*
+    - Bad (phrasing): *"Every trained instinct echoes in a room with no walls."* ← This reads as prose to paste. The drafter will paste it.
+  - At least one beat must include a physical state change (movement, object handled, posture shift, environment transforms) — not purely internal reflection.
+- **`voice_guidance`** (string): sentence rhythm, vocabulary, internal monologue depth, dialogue patterns, tonal palette. Include the **reference register** drawn from the project's `voice_definition.reference_authors` and the loaded Franchise Profile (when one is present in the system messages). Use author-channeling language when the project supplies reference authors.
 - **`forbidden_moves`** (array of strings): what must NOT happen — structural phase violations, canon limits, character behavior boundaries, promises that should not resolve yet.
 - **`delivery_preferences`** (object): `reveal_mode` (direct | gradual | subtext), `exposition_budget` (concise | moderate | none), `register_override` (string or null).
 - **`required_hooks`** (array): hook_ids to plant/advance/resolve, from the Hook Agenda context.
@@ -45,7 +51,7 @@ Scan the scene card's `notes` field for forbidden-move language — phrases like
 - **Promises and causality**: note any promises from `promises_planted` / `promises_paid`. If the scene card has a `why_now` field, let its causal logic shape the opening and beat structure.
 - **Pacing shape**: the brief should support whether this scene accelerates (slow open → fast close), decelerates (action open → reflective close), or pulses (alternating tempo). Adjacent scenes within a chapter should contrast in pacing shape where possible.
 - **Action balance**: at least 60% of key beats must involve physical action, dialogue exchange, or environmental interaction — not purely internal thought. If the scene card's `scene_type` is "action", this rises to 75%.
-- **Commercial register**: the brief must support commercial SW EU pacing (Zahn/Allston/Golden, not Stover-literary). Calibrate `key_beats` to the scene card's `dialogue_expectation`:
+- **Commercial register**: the brief must support the project's declared register — commercial page-turner pacing by default, calibrated by the loaded Franchise Profile and the project's `voice_definition.prose_register`. Calibrate `key_beats` to the scene card's `dialogue_expectation`:
   - `dialogue_led`: at least **3 of 5 key beats** must be dialogue-driven exchanges — actual back-and-forth, not one character delivering a line. Physical action should accompany or frame dialogue, not replace it.
   - `balanced`: beats can mix modes freely; no hard dialogue minimum, but avoid designing all 5 beats as pure interior.
   - `interior`: POV-isolation scene. At least 2 beats must involve physical interaction with the environment (movement, sensory contact, action without partner). Do not design dialogue-heavy beats even if `characters_present` lists multiple names — the listed extras may be background presences. Respect the isolation.

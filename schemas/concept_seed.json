@@ -10,6 +10,10 @@
       "properties": {
         "project_title": { "type": "string" },
         "franchise": { "type": "string" },
+        "franchise_profile": {
+          "type": "string",
+          "description": "Optional slug selecting a file under prompts/franchise_profiles/<slug>.md. The file is loaded as a second system message by every agent that has been wired for franchise-aware prompting (plot_architect, prose_stylist, and any agent whose context dict carries franchise_profile_text). Leave unset for original fiction or projects that do not need franchise-specific register/canon rules."
+        },
         "canon_status": {
           "type": "string",
           "enum": ["canon_compliant", "AU", "original"],

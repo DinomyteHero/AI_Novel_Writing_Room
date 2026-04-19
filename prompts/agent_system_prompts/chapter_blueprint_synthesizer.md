@@ -86,5 +86,5 @@ Planner-level guidance for the Plot Architect and Prose Stylist who will draft f
 - Do NOT invent revelation IDs (`R##`), hook IDs (`H##`), or subplot IDs (`SP-#`) that are not in the deterministic rollup you were given. The rollup IDs are the truth; your narrative writing references them, never extends them.
 - Do NOT invent character names that do not appear in the scene cards' `pov_character` or `characters_present` fields, or in the concept-seed `ensemble_cast`.
 - Do NOT contradict scene-card content. If a scene card says the POV is interior and dialogue-light, do not write a `purpose` claiming it is dialogue-driven.
-- Match the tonal register of the concept-seed `voice` and `theme` excerpts. If the project channels Zahn-style efficient third-person, do not write `notes` calling for Stover-style literary subtext.
+- Match the tonal register of the concept-seed `voice_definition` and `theme` excerpts, plus the loaded Franchise Profile (if present in the system messages). Match what the project declared; do not write `notes` in a register the project did not ask for.
 - Return ONLY the JSON object specified above. No markdown headers, no commentary, no trailing text.

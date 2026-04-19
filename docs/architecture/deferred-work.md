@@ -78,9 +78,9 @@ The current concept seed holds premise, cast, arcs, voice, revelations, terminol
 
 ---
 
-## 7. Kimi K2 style-drift monitoring — **S** (recurring)
+## 7. Kimi K2.5 style-drift monitoring — **S** (recurring)
 
-`config/settings.yaml` routes `craft_editor`, `scene_emotion_reviewer`, and `dialogue_polish_editor` to Kimi K2, which is a different prose family than the drafter (Claude Sonnet 4.6). Cumulative style drift across bands is a plausible risk.
+`config/settings.yaml` routes `craft_editor`, `scene_emotion_reviewer`, and `dialogue_polish_editor` to Kimi K2.5, which is a different prose family than the drafter (Claude Sonnet 4.6). Cumulative style drift across bands is a plausible risk.
 
 **Why it matters.** No code fix required, but it is worth establishing a monitoring practice — periodic A/B spot-checks of intermediate band outputs for stylistic tells (word choice, rhythm, punctuation preferences) that reveal cross-model drift.
 
