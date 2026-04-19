@@ -1,15 +1,19 @@
 """Tests for the post-polish guards in Orchestrator.run_chapter.
 
-Two guards protect the final saved prose from bad polish output:
+Post-relay-refactor (Stages 1b and 1c): both guards run as telemetry and do
+NOT revert the saved prose. Polished output is always kept; the ledger
+records advisories that humans review downstream.
 
-1. **Compression guard** (numeric, cheap): if the polish output dropped below
-   80% of the gate-passed word count, revert to the gate-passed draft and skip
-   Final Gate.
+1. **Compression advisory**: polish output below 60% of gate-passed word count
+   emits a `compression_guard_fired` ledger event with `advisory_only: True`.
+   The polished prose is still saved — nothing reverts.
 
-2. **Final Gate** (LLM, slower): if the Final Gate verdict is not `pass`,
-   revert to the gate-passed draft and log a rejection event.
+2. **Final Gate advisory**: non-pass verdicts emit `final_gate_rejection`
+   with `advisory_only: True`. The polished prose is still saved.
 
-These tests exercise the orchestrator wiring directly with mocked agents.
+Save-blocker enforcement (distinct from these gates, covered by save_blockers
+tests) handles the three hard-blocking categories: character-presence
+violation, canon critical/moderate failure, and POV violation.
 """
 
 from pathlib import Path
@@ -50,18 +54,15 @@ def _make_gate_pass_dict() -> dict:
 
 
 class TestCompressionGuard:
-    async def test_fires_when_polish_cuts_below_80_percent(
+    async def test_advisory_fires_below_60_percent_without_reverting(
         self, mock_router, mock_assembler, ledger, temp_dir, sample_scene_card
     ):
-        """Polish output below 80% of gate-passed -> revert, emit ledger event, skip Final Gate."""
-        # Prose Stylist returns 100 words; Quality Polish returns 60 words (60% of gate-passed)
+        """Polish < 60% of gate-passed emits advisory but DOES NOT revert the saved prose."""
+        # Prose Stylist: 100 words. Quality Polish: 50 words (50% — clearly below the 60% advisory threshold)
         gate_prose = " ".join(["word"] * 100)
-        polished_prose = " ".join(["word"] * 60)
-
-        call_count = {"n": 0}
+        polished_prose = " ".join(["polish"] * 50)
 
         async def fake_complete(agent_role, messages, *args, **kwargs):
-            call_count["n"] += 1
             if agent_role == "prose_stylist":
                 return gate_prose
             if agent_role == "quality_polish":
@@ -80,27 +81,28 @@ class TestCompressionGuard:
 
         result = await orchestrator.run_chapter(sample_scene_card)
 
-        # Compression guard event was emitted
+        # Advisory event emitted with the advisory_only flag set.
         event_types = [e["event_type"] for e in ledger.get_events()]
         assert "compression_guard_fired" in event_types
-        # Final Gate should have been skipped — no final_gate_* event
-        assert "final_gate_complete" not in event_types
-        assert "final_gate_rejection" not in event_types
+        compression_events = [e for e in ledger.get_events() if e["event_type"] == "compression_guard_fired"]
+        assert compression_events[0]["payload"].get("advisory_only") is True
 
-        # The saved file should contain the gate-passed prose, not the polished prose
+        # Final Gate still runs (advisory now, not skipped on compression fire).
+        assert "final_gate_complete" in event_types or "final_gate_rejection" in event_types
+
+        # SAVED PROSE IS THE POLISHED OUTPUT — relay refactor: no reversion.
         output_path = Path(result["output_path"])
         saved_text = output_path.read_text(encoding="utf-8")
-        assert saved_text == gate_prose
-        # Result flag surfaces the rejection
-        assert result.get("polish_rejected") is True
-        assert result.get("polish_rejection_reason") == "compression_guard"
+        assert saved_text == polished_prose, "Relay refactor: compression advisory must not revert to pre-polish prose."
+        # polish_rejected flag is not set; compression is advisory only.
+        assert not result.get("polish_rejected")
 
-    async def test_does_not_fire_when_polish_stays_above_floor(
+    async def test_advisory_does_not_fire_above_threshold(
         self, mock_router, mock_assembler, ledger, temp_dir, sample_scene_card
     ):
-        """Polish output at 90% of gate-passed -> proceed to Final Gate."""
+        """Polish at 90% of gate-passed stays above the 60% advisory threshold."""
         gate_prose = " ".join(["word"] * 100)
-        polished_prose = " ".join(["word"] * 90)
+        polished_prose = " ".join(["polish"] * 90)
 
         async def fake_complete(agent_role, messages, *args, **kwargs):
             if agent_role == "prose_stylist":
@@ -123,18 +125,17 @@ class TestCompressionGuard:
 
         event_types = [e["event_type"] for e in ledger.get_events()]
         assert "compression_guard_fired" not in event_types
-        # Final Gate should have been invoked and passed (mock always returns pass)
         assert "final_gate_complete" in event_types
         assert not result.get("polish_rejected")
 
 
 class TestFinalGateRejection:
-    async def test_rejects_polish_on_structural_failure(
+    async def test_final_gate_advisory_logs_without_reverting(
         self, mock_router, mock_assembler, ledger, temp_dir, sample_scene_card
     ):
-        """Final Gate returns non-pass -> revert to gate-passed draft, emit rejection event."""
+        """Final Gate non-pass emits advisory; polished prose is still saved (relay refactor)."""
         gate_prose = " ".join(["word"] * 100)
-        polished_prose = " ".join(["word"] * 95)  # above compression floor
+        polished_prose = " ".join(["polish"] * 95)  # above compression floor
 
         async def fake_complete(agent_role, messages, *args, **kwargs):
             if agent_role == "prose_stylist":
@@ -173,24 +174,23 @@ class TestFinalGateRejection:
 
         result = await orchestrator.run_chapter(sample_scene_card)
 
+        # Advisory event emitted.
         event_types = [e["event_type"] for e in ledger.get_events()]
         assert "final_gate_rejection" in event_types
         assert "final_gate_complete" not in event_types
 
-        # Saved file is the gate-passed prose
-        saved = Path(result["output_path"]).read_text(encoding="utf-8")
-        assert saved == gate_prose
-
-        # Result flag surfaces the rejection and reason
-        assert result.get("polish_rejected") is True
-        assert result.get("polish_rejection_reason") == "final_gate"
-
-        # Rejection payload logs the failure codes
-        rejections = [
-            e for e in ledger.get_events() if e["event_type"] == "final_gate_rejection"
-        ]
+        # Rejection payload is flagged advisory_only.
+        rejections = [e for e in ledger.get_events() if e["event_type"] == "final_gate_rejection"]
         assert len(rejections) == 1
+        assert rejections[0]["payload"].get("advisory_only") is True
         assert "CHARACTER_PRESENCE_VIOLATION" in rejections[0]["payload"]["failure_codes"]
+
+        # SAVED PROSE IS THE POLISHED OUTPUT — no reversion in forward-only pipeline.
+        # Save-blocker layer (Stage 1f) handles CHARACTER_PRESENCE via a distinct
+        # enforcement path; final_gate is telemetry only under the relay.
+        saved = Path(result["output_path"]).read_text(encoding="utf-8")
+        assert saved == polished_prose, "Relay refactor: final_gate advisory must not revert to pre-polish prose."
+        assert not result.get("polish_rejected")
 
     async def test_accepts_polish_when_final_gate_passes(
         self, mock_router, mock_assembler, ledger, temp_dir, sample_scene_card

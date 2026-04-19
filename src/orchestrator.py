@@ -458,13 +458,17 @@ class Orchestrator:
                         if offending and suggestion:
                             polished_prose = polished_prose.replace(offending, suggestion)
 
-            # Step D: Compression guard — cheap numeric floor check before Final Gate
+            # Compression telemetry — Stage 1b of the relay refactor.
+            # Historically this block reverted polished_prose to gate_passed_prose
+            # when polish cut below 80%. Under the relay, polish output is kept
+            # unconditionally; a warn-level ledger event fires at <60% so humans
+            # can spot aggressive compressions without auto-reverting.
             polished_wc = len(polished_prose.split())
-            if gate_passed_wc and polished_wc < 0.8 * gate_passed_wc:
+            if gate_passed_wc and polished_wc < 0.6 * gate_passed_wc:
                 pct = polished_wc / gate_passed_wc * 100
                 print(
-                    f"    Compression guard: polish cut {gate_passed_wc} -> {polished_wc} "
-                    f"({pct:.0f}%) — reverting to gate-passed draft"
+                    f"    Compression advisory: polish cut {gate_passed_wc} -> {polished_wc} "
+                    f"({pct:.0f}%) — kept polished output; human review recommended"
                 )
                 self.ledger.emit(
                     "compression_guard_fired",
@@ -473,46 +477,45 @@ class Orchestrator:
                     payload={
                         "gate_word_count": gate_passed_wc,
                         "polish_word_count": polished_wc,
+                        "advisory_only": True,
                     },
                 )
-                final_prose = gate_passed_prose
-                polish_rejected = True
-                rejection_reason = "compression_guard"
+
+            # Final Gate — Stage 1c of the relay refactor.
+            # Runs as telemetry. Its verdict is logged but does NOT control the
+            # save path; polished_prose is always the saved prose unless a
+            # save-blocker fires (Stage 1f) downstream.
+            print("  [5/5] Final Gate evaluating polish output (advisory)...")
+            final_gate_result = await self.final_gate.run({
+                "prose": polished_prose,
+                "scene_card": scene_card,
+                "gate_passed_word_count": gate_passed_wc,
+            })
+            if final_gate_result["verdict"] != "pass":
+                failure_codes = [fc["code"] for fc in final_gate_result.get("failure_codes", [])]
+                print(
+                    f"    Final Gate advisory: verdict={final_gate_result['verdict']}, "
+                    f"codes={failure_codes} — kept polished output (forward-only)"
+                )
+                self.ledger.emit(
+                    "final_gate_rejection",
+                    chapter_number=chapter_num,
+                    scene_number=scene_num,
+                    payload={
+                        "verdict": final_gate_result["verdict"],
+                        "failure_codes": failure_codes,
+                        "advisory_only": True,
+                    },
+                )
             else:
-                # Step 5: Final Gate — contract check on actual polished text
-                print("  [5/5] Final Gate evaluating polish output...")
-                final_gate_result = await self.final_gate.run({
-                    "prose": polished_prose,
-                    "scene_card": scene_card,
-                    "gate_passed_word_count": gate_passed_wc,
-                })
-                if final_gate_result["verdict"] != "pass":
-                    failure_codes = [fc["code"] for fc in final_gate_result.get("failure_codes", [])]
-                    print(
-                        f"    Final Gate: polish rejected (verdict={final_gate_result['verdict']}, "
-                        f"codes={failure_codes}) — reverting to gate-passed draft"
-                    )
-                    self.ledger.emit(
-                        "final_gate_rejection",
-                        chapter_number=chapter_num,
-                        scene_number=scene_num,
-                        payload={
-                            "verdict": final_gate_result["verdict"],
-                            "failure_codes": failure_codes,
-                        },
-                    )
-                    final_prose = gate_passed_prose
-                    polish_rejected = True
-                    rejection_reason = "final_gate"
-                else:
-                    print("    Final Gate: pass")
-                    self.ledger.emit(
-                        "final_gate_complete",
-                        chapter_number=chapter_num,
-                        scene_number=scene_num,
-                        payload={"verdict": "pass"},
-                    )
-                    final_prose = polished_prose
+                print("    Final Gate: pass")
+                self.ledger.emit(
+                    "final_gate_complete",
+                    chapter_number=chapter_num,
+                    scene_number=scene_num,
+                    payload={"verdict": "pass"},
+                )
+            final_prose = polished_prose
 
         # Save the chapter
         output_path = self._save_chapter(chapter_num, scene_num, final_prose)
@@ -908,6 +911,9 @@ class Orchestrator:
         if subplot_context:
             pa_context["subplot_context"] = subplot_context
 
+        # Franchise profile (system-level register + canonical rules)
+        pa_context["franchise_profile_text"] = self.assembler.get_franchise_profile_text()
+
         result = await self.plot_architect.run(pa_context)
         brief = result["generation_brief"]
 
@@ -949,27 +955,32 @@ class Orchestrator:
 
         assembled_context = self.assembler.assemble(scene_card)
 
-        # Build negative constraints with dynamic cross-scene feedback
-        neg_constraints = self.assembler.get_negative_constraints()
+        # Build dynamic cross-scene feedback. The base banned-phrase list
+        # from config/negative_constraints.yaml is already baked into
+        # assembled_context — we only build the *dynamic* addendum here.
+        dynamic_parts = []
         if hasattr(self, "_chapter_overused_words") and self._chapter_overused_words:
-            neg_constraints += (
-                f"\n\nAvoid overusing these words (flagged in prior scenes): "
-                f"{', '.join(sorted(self._chapter_overused_words))}"
+            dynamic_parts.append(
+                f"Avoid overusing these words (flagged in prior scenes): "
+                f"{', '.join(sorted(self._chapter_overused_words))}."
             )
         if hasattr(self, "_scene_description_ratios") and self._scene_description_ratios:
             avg_desc = sum(self._scene_description_ratios) / len(self._scene_description_ratios)
             if avg_desc > 0.55:
-                neg_constraints += (
-                    f"\n\nPrior scenes averaged {int(avg_desc * 100)}% description/interiority. "
+                dynamic_parts.append(
+                    f"Prior scenes averaged {int(avg_desc * 100)}% description/interiority. "
                     "Increase dialogue and action beats. Avoid long unbroken passages of interiority or observation."
                 )
+        dynamic_feedback = "\n\n".join(dynamic_parts)
 
         result = await self.prose_stylist.run({
             "generation_brief": generation_brief,
             "assembled_context": assembled_context,
-            "negative_constraints": neg_constraints,
+            "dynamic_feedback": dynamic_feedback,
             "failure_context": failure_context or "",
             "scene_card": scene_card,
+            "pov_approach": self.assembler.get_pov_approach(),
+            "franchise_profile_text": self.assembler.get_franchise_profile_text(),
         })
 
         duration_ms = int((time.time() - start) * 1000)
@@ -1018,162 +1029,86 @@ class Orchestrator:
             }
             return evaluation, prose
 
-        structural_retries = 0
-        voice_retries = 0
-        best_prose = prose
-        best_eval = None
-        best_score = -1.0
+        # Relay v1 (Stage 1a): Gate Critic runs ONCE as telemetry.
+        # No retries — the pipeline is forward-only. Gate findings are logged
+        # to the ledger so humans can review; they do not control save flow.
+        # Failed verdicts get advisory logs; the original prose is always
+        # returned and the pipeline proceeds to copy editor / save-blocker.
         chapter_num = scene_card["chapter_number"]
         scene_num = scene_card.get("scene_number", 1)
+        attempt_id = f"ch{chapter_num}_scene{scene_num}_gate"
 
-        while True:
-            # attempt_id scopes every event inside this rewrite loop so
-            # consumers can distinguish retry iterations after the fact.
-            attempt_number = structural_retries + voice_retries + 1
-            attempt_id = f"ch{chapter_num}_scene{scene_num}_attempt_{attempt_number}"
+        start = time.time()
+        self.ledger.emit(
+            "agent_start",
+            chapter_number=chapter_num,
+            scene_number=scene_num,
+            agent_role="gate_critic",
+            attempt_id=attempt_id,
+        )
 
-            start = time.time()
-            self.ledger.emit(
-                "agent_start",
-                chapter_number=chapter_num,
-                scene_number=scene_num,
-                agent_role="gate_critic",
-                attempt_id=attempt_id,
-            )
+        try:
+            evaluation = await self.gate_critic.run({
+                "prose": prose,
+                "scene_card": scene_card,
+                "bible_summary": self.assembler.get_bible_summary(),
+            })
+        except (json.JSONDecodeError, KeyError) as e:
+            # JSON parse failure — emit an advisory and synthesize a neutral evaluation.
+            # Under the relay we do not retry; downstream stages handle the prose as-is.
+            print(f"    Gate: JSON parse error ({e.__class__.__name__}) — continuing without verdict (advisory)")
+            evaluation = {
+                "verdict": "skipped",
+                "failure_codes": [{"code": "JSON_PARSE_ERROR", "location": "gate_critic", "description": str(e), "fix_hint": "N/A under forward-only relay"}],
+                "severity": None,
+                "route_to": None,
+                "structural_score": None,
+                "voice_score": None,
+                "polish_score": None,
+            }
 
-            try:
-                evaluation = await self.gate_critic.run({
-                    "prose": prose,
-                    "scene_card": scene_card,
-                    "bible_summary": self.assembler.get_bible_summary(),
-                })
-            except (json.JSONDecodeError, KeyError) as e:
-                # JSON parse failure — treat as structural failure to trigger retry
-                print(f"    Gate: JSON parse error ({e.__class__.__name__}) — treating as structural failure")
-                evaluation = {
-                    "verdict": "fail_structural",
-                    "failure_codes": [{"code": "JSON_PARSE_ERROR", "location": "gate_critic", "description": str(e), "fix_hint": "Retry"}],
-                    "severity": "blocking",
-                    "route_to": "full_rewrite",
-                    "structural_score": 0.0,
-                    "voice_score": 0.0,
-                    "polish_score": 0.0,
-                }
+        duration_ms = int((time.time() - start) * 1000)
+        self.ledger.emit(
+            "agent_complete",
+            chapter_number=chapter_num,
+            scene_number=scene_num,
+            agent_role="gate_critic",
+            payload={"duration_ms": duration_ms},
+            attempt_id=attempt_id,
+        )
 
-            duration_ms = int((time.time() - start) * 1000)
-            self.ledger.emit(
-                "agent_complete",
-                chapter_number=chapter_num,
-                scene_number=scene_num,
-                agent_role="gate_critic",
-                payload={"duration_ms": duration_ms},
-                attempt_id=attempt_id,
-            )
+        verdict = evaluation.get("verdict", "unknown")
+        s_score = evaluation.get("structural_score") or 0
+        v_score = evaluation.get("voice_score") or 0
+        p_score = evaluation.get("polish_score") or 0
+        fc_codes = [fc["code"] for fc in evaluation.get("failure_codes", [])]
 
-            verdict = evaluation["verdict"]
-            s_score = evaluation.get("structural_score", 0)
-            v_score = evaluation.get("voice_score", 0)
-            p_score = evaluation.get("polish_score", 0)
-            fc_codes = [fc["code"] for fc in evaluation.get("failure_codes", [])]
-
-            # Track the best attempt across retries
-            composite = (s_score * 0.5) + (v_score * 0.3) + (p_score * 0.2)
-            if composite > best_score:
-                best_score = composite
-                best_prose = prose
-                best_eval = evaluation
-
+        # Single telemetry event. Event-type names are left as-is in Stage 1a;
+        # vocabulary migration lands in Stage 1i.
+        event_type = "gate_pass" if verdict == "pass" else "gate_fail"
+        self.ledger.emit(
+            event_type,
+            chapter_number=chapter_num,
+            scene_number=scene_num,
+            payload={
+                "verdict": verdict,
+                "scores": {
+                    "structural": s_score,
+                    "voice": v_score,
+                    "polish": p_score,
+                },
+                "failure_codes": fc_codes,
+                "forward_only": True,
+            },
+            attempt_id=attempt_id,
+        )
+        if fc_codes:
+            print(f"    Gate: {verdict} | structural={s_score:.2f} voice={v_score:.2f} polish={p_score:.2f} | {', '.join(fc_codes)} (advisory — no retry)")
+        else:
             print(f"    Gate: {verdict} | structural={s_score:.2f} voice={v_score:.2f} polish={p_score:.2f}")
-            if fc_codes:
-                print(f"    Gate failures: {', '.join(fc_codes)}")
-            # Alert if any score is suspiciously perfect on first draft
-            if s_score >= 0.95 and v_score >= 0.95 and structural_retries == 0:
-                print(f"    [WARN] All gate scores >= 0.95 on first draft — critic may not be evaluating rigorously")
 
-            if verdict == "pass" or verdict == "fail_polish":
-                # Pass or polish-only failure — proceed to Quality Polish
-                # (polish issues are caught by the compression guard + Final Gate,
-                # not by looping back to a rewrite)
-                event_type = "gate_pass" if verdict == "pass" else "gate_fail"
-                self.ledger.emit(
-                    event_type,
-                    chapter_number=chapter_num,
-                    scene_number=scene_num,
-                    payload={
-                        "verdict": verdict,
-                        "scores": {
-                            "structural": evaluation.get("structural_score", 0),
-                            "voice": evaluation.get("voice_score", 0),
-                            "polish": evaluation.get("polish_score", 0),
-                        },
-                        "failure_codes": [fc["code"] for fc in evaluation.get("failure_codes", [])],
-                    },
-                    attempt_id=attempt_id,
-                )
-                print(f"    Gate: {verdict} (structural={evaluation.get('structural_score', 0):.2f}, "
-                      f"voice={evaluation.get('voice_score', 0):.2f}, "
-                      f"polish={evaluation.get('polish_score', 0):.2f})")
-                return evaluation, prose
-
-            elif verdict == "fail_structural":
-                structural_retries += 1
-                self.ledger.emit(
-                    "gate_fail",
-                    chapter_number=chapter_num,
-                    scene_number=scene_num,
-                    payload={
-                        "verdict": verdict,
-                        "retry": structural_retries,
-                        "failure_codes": [fc["code"] for fc in evaluation.get("failure_codes", [])],
-                    },
-                    attempt_id=attempt_id,
-                )
-
-                if structural_retries > self.max_structural_retries:
-                    print(f"    Gate: {verdict} — max retries reached, using best attempt (score={best_score:.2f})")
-                    return best_eval or evaluation, best_prose
-
-                # Build failure context for rewrite
-                failure_context = self._format_failure_context(evaluation)
-                print(f"    Gate: {verdict} — full rewrite (attempt {structural_retries}/{self.max_structural_retries})")
-                prose = await self._run_prose_stylist(scene_card, generation_brief, failure_context)
-
-                # Re-validate canon on rewritten prose (fixes are lost on full rewrite)
-                if self.canon_expert:
-                    try:
-                        rewrite_canon = await self.canon_expert.run({
-                            "prose": prose,
-                            "scene_card": scene_card,
-                            "concept_seed": getattr(self.assembler, "concept_seed", {}),
-                        })
-                        if rewrite_canon.get("verdict") == "fail" and rewrite_canon.get("corrected_prose"):
-                            prose = rewrite_canon["corrected_prose"]
-                            print(f"    Canon: re-applied {len(rewrite_canon.get('violations', []))} fix(es) after rewrite")
-                    except Exception as e:
-                        print(f"    Canon re-check after rewrite: error ({e.__class__.__name__}) — skipping")
-
-            elif verdict == "fail_voice":
-                voice_retries += 1
-                self.ledger.emit(
-                    "gate_fail",
-                    chapter_number=chapter_num,
-                    scene_number=scene_num,
-                    payload={
-                        "verdict": verdict,
-                        "retry": voice_retries,
-                        "failure_codes": [fc["code"] for fc in evaluation.get("failure_codes", [])],
-                    },
-                    attempt_id=attempt_id,
-                )
-
-                if voice_retries > self.max_voice_retries:
-                    print(f"    Gate: {verdict} — max retries reached, using best attempt (score={best_score:.2f})")
-                    return best_eval or evaluation, best_prose
-
-                # Build targeted voice revision notes
-                failure_context = self._format_failure_context(evaluation)
-                print(f"    Gate: {verdict} — targeted revision (attempt {voice_retries}/{self.max_voice_retries})")
-                prose = await self._run_prose_stylist(scene_card, generation_brief, failure_context)
+        # Forward-only: always return the original prose regardless of verdict.
+        return evaluation, prose
 
     def _format_failure_context(self, evaluation: dict) -> str:
         """Format failure codes into revision notes for the Prose Stylist."""

@@ -111,8 +111,13 @@ class TestOrchestratorPipeline:
         assert "pipeline_complete" in event_types
 
 
-class TestOrchestratorRetryLogic:
-    """Test the gate critic retry behavior."""
+class TestOrchestratorGateTelemetry:
+    """Relay refactor (Stage 1a): Gate Critic runs once as telemetry.
+
+    The orchestrator no longer retries on fail_structural or fail_voice
+    verdicts; it logs them and proceeds. These tests pin the new
+    forward-only behavior so the retry path cannot regress in silently.
+    """
 
     @pytest.fixture
     def ledger(self, temp_dir):
@@ -129,10 +134,10 @@ class TestOrchestratorRetryLogic:
         return assembler
 
     @pytest.mark.asyncio
-    async def test_structural_failure_triggers_rewrite(self, mock_router, mock_assembler, ledger, temp_dir, sample_scene_card):
-        # Sequence: Plot Architect brief, Scene Gate fail_structural, Scene Gate pass, Final Gate pass
+    async def test_structural_fail_logs_advisory_without_retry(self, mock_router, mock_assembler, ledger, temp_dir, sample_scene_card):
+        # Sequence: Plot Architect brief, Gate fail_structural, Final Gate advisory pass.
+        # No retry → exactly one gate call, one final gate call.
         mock_router.complete_structured = AsyncMock(side_effect=[
-            # Plot Architect typed brief (first structured call in the pipeline)
             _well_formed_brief(),
             {
                 "verdict": "fail_structural",
@@ -143,16 +148,6 @@ class TestOrchestratorRetryLogic:
                 "voice_score": 0.7,
                 "polish_score": 0.7,
             },
-            {
-                "verdict": "pass",
-                "failure_codes": [],
-                "severity": "non_blocking",
-                "route_to": None,
-                "structural_score": 0.85,
-                "voice_score": 0.80,
-                "polish_score": 0.75,
-            },
-            # Final Gate verdict on polished prose
             {"verdict": "pass", "failure_codes": []},
         ])
 
@@ -164,16 +159,20 @@ class TestOrchestratorRetryLogic:
         )
 
         result = await orchestrator.run_chapter(sample_scene_card)
-        assert result["evaluation"]["verdict"] == "pass"
 
-        # Verify gate_fail event was emitted
-        events = ledger.get_events(event_type="gate_fail")
-        assert len(events) == 1
-        assert events[0]["payload"]["verdict"] == "fail_structural"
+        # Verdict is preserved as-is (no retry to bump it to pass).
+        assert result["evaluation"]["verdict"] == "fail_structural"
+
+        # Exactly one gate_fail advisory — not a retry loop's worth.
+        fail_events = ledger.get_events(event_type="gate_fail")
+        assert len(fail_events) == 1
+        assert fail_events[0]["payload"]["verdict"] == "fail_structural"
+        assert fail_events[0]["payload"].get("forward_only") is True
 
     @pytest.mark.asyncio
-    async def test_max_retries_exceeded(self, mock_router, mock_assembler, ledger, temp_dir, sample_scene_card):
-        # Always fail structural
+    async def test_repeated_structural_fail_still_runs_once(self, mock_router, mock_assembler, ledger, temp_dir, sample_scene_card):
+        """max_structural_retries still accepted as a kwarg for backward compat,
+        but the orchestrator is forward-only regardless of its value."""
         mock_router.complete_structured = AsyncMock(return_value={
             "verdict": "fail_structural",
             "failure_codes": [{"code": "WEAK_TURNING_POINT", "location": "para 5", "description": "No shift"}],
@@ -189,20 +188,19 @@ class TestOrchestratorRetryLogic:
             context_assembler=mock_assembler,
             ledger=ledger,
             manuscripts_dir=str(Path(temp_dir) / "manuscripts"),
-            max_structural_retries=2,
+            max_structural_retries=2,  # kwarg accepted but ignored by forward-only loop
         )
 
         result = await orchestrator.run_chapter(sample_scene_card)
-        # Should proceed anyway after max retries
-        assert result["evaluation"]["verdict"] == "fail_structural"
 
-        # Should have 3 gate_fail events (initial + 2 retries)
-        events = ledger.get_events(event_type="gate_fail")
-        assert len(events) == 3
+        # Verdict passes through; one gate event, not three.
+        assert result["evaluation"]["verdict"] == "fail_structural"
+        fail_events = ledger.get_events(event_type="gate_fail")
+        assert len(fail_events) == 1
 
     @pytest.mark.asyncio
-    async def test_voice_failure_triggers_targeted_revision(self, mock_router, mock_assembler, ledger, temp_dir, sample_scene_card):
-        # Sequence: Plot Architect brief, Scene Gate fail_voice, Scene Gate pass, Final Gate pass
+    async def test_voice_fail_logs_advisory_without_retry(self, mock_router, mock_assembler, ledger, temp_dir, sample_scene_card):
+        # Gate fail_voice, no retry — same pattern as fail_structural under the relay.
         mock_router.complete_structured = AsyncMock(side_effect=[
             _well_formed_brief(),
             {
@@ -214,16 +212,6 @@ class TestOrchestratorRetryLogic:
                 "voice_score": 0.3,
                 "polish_score": 0.7,
             },
-            {
-                "verdict": "pass",
-                "failure_codes": [],
-                "severity": "non_blocking",
-                "route_to": None,
-                "structural_score": 0.85,
-                "voice_score": 0.80,
-                "polish_score": 0.75,
-            },
-            # Final Gate verdict on polished prose
             {"verdict": "pass", "failure_codes": []},
         ])
 
@@ -235,7 +223,9 @@ class TestOrchestratorRetryLogic:
         )
 
         result = await orchestrator.run_chapter(sample_scene_card)
-        assert result["evaluation"]["verdict"] == "pass"
+        assert result["evaluation"]["verdict"] == "fail_voice"
+        fail_events = ledger.get_events(event_type="gate_fail")
+        assert len(fail_events) == 1
 
     @pytest.mark.asyncio
     async def test_polish_failure_proceeds_to_quality_polish_and_final_gate(
