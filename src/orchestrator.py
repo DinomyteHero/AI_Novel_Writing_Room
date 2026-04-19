@@ -42,6 +42,7 @@ if TYPE_CHECKING:
     from src.agents.canon_expert import CanonExpert
     from src.agents.chapter_gate_critic import ChapterGateCritic
     from src.agents.character_specialist import CharacterSpecialist
+    from src.agents.presence_checker import PresenceChecker
     from src.agents.summarizer import Summarizer
     from src.memory.chapter_memory import ChapterMemory
     from src.memory.contradiction_scanner import ContradictionScanner
@@ -84,6 +85,7 @@ class Orchestrator:
         chapter_memory: Optional["ChapterMemory"] = None,
         story_state: Optional["StoryState"] = None,
         canon_expert: Optional["CanonExpert"] = None,
+        presence_checker: Optional["PresenceChecker"] = None,
         # Phase 3 optional dependencies:
         metrics_dashboard: Optional["MetricsDashboard"] = None,
         character_specialist: Optional["CharacterSpecialist"] = None,
@@ -109,6 +111,11 @@ class Orchestrator:
         self.ledger = ledger
         self.manuscripts_dir = Path(manuscripts_dir)
         self.manuscripts_dir.mkdir(parents=True, exist_ok=True)
+        # Quarantine directory sits beside manuscripts so the project layout
+        # keeps saved chapters and save-blocker artifacts side-by-side:
+        #   <run_output>/chapters/   — saved prose
+        #   <run_output>/quarantine/ — scenes that tripped save-blockers
+        self.quarantine_dir = self.manuscripts_dir.parent / "quarantine"
         self.max_structural_retries = max_structural_retries
         self.max_voice_retries = max_voice_retries
         self.raw_draft = raw_draft
@@ -128,6 +135,7 @@ class Orchestrator:
         self.chapter_memory = chapter_memory
         self.story_state = story_state
         self.canon_expert = canon_expert
+        self.presence_checker = presence_checker
 
         # Phase 3 optional components
         self.metrics_dashboard = metrics_dashboard
@@ -168,27 +176,50 @@ class Orchestrator:
         active_cards: list[dict],
         results: list[dict],
     ) -> None:
-        """Run the chapter-level gate after the last scene in a chapter.
+        """Run chapter-close hooks after the last scene in a chapter.
 
         Shared between Orchestrator.run_pipeline and WebOrchestrator.run_pipeline
-        so both surfaces honour the same Phase 5 chapter-gate semantics. No-op
-        when ``self.chapter_gate_critic`` is unset or the scene is not the last
-        in its chapter. Mutates the most recent result entry in-place to attach
-        the ``chapter_gate`` evaluation.
+        so both surfaces honour the same semantics. No-op when the scene is not
+        the last in its chapter. Two close-hooks run here:
+
+        1. Chapter-level gate (if ``self.chapter_gate_critic`` is wired). Mutates
+           the most recent result in-place with ``chapter_gate``.
+        2. Word-count telemetry (Stage 1h). Always runs; never blocks.
         """
-        if not self.chapter_gate_critic:
-            return
         if not self._is_last_scene_in_chapter(scene_index, active_cards):
             return
 
         chapter_num = active_cards[scene_index]["chapter_number"]
         ch_cards = [c for c in active_cards if c["chapter_number"] == chapter_num]
         ch_results = [r for r in results if r.get("chapter_number") == chapter_num]
-        ch_eval = await self._run_chapter_gate(chapter_num, ch_cards, ch_results)
-        results[-1]["chapter_gate"] = ch_eval
-        if not ch_eval["chapter_passed"]:
-            failures = len(ch_eval.get("chapter_level_failures", []))
-            print(f"  Chapter {chapter_num} failed chapter-level gate ({failures} issue(s))")
+
+        if self.chapter_gate_critic:
+            ch_eval = await self._run_chapter_gate(chapter_num, ch_cards, ch_results)
+            results[-1]["chapter_gate"] = ch_eval
+            if not ch_eval["chapter_passed"]:
+                failures = len(ch_eval.get("chapter_level_failures", []))
+                print(
+                    f"  Chapter {chapter_num} failed chapter-level gate "
+                    f"({failures} issue(s))"
+                )
+
+        # Word-count telemetry — chapter-level drift only, never blocks.
+        from src.pipeline.word_count_telemetry import (
+            emit_chapter_word_count_telemetry,
+        )
+        try:
+            emit_chapter_word_count_telemetry(
+                self.ledger,
+                chapter_number=chapter_num,
+                chapter_results=ch_results,
+                franchise_slug=self._universe_id,
+                book_slug=self._project_id,
+            )
+        except Exception as e:
+            # Telemetry failure must never block chapter completion.
+            print(
+                f"  [WARN] word-count telemetry failed: {e.__class__.__name__}: {e}"
+            )
 
     async def _run_chapter_gate(
         self,
@@ -257,6 +288,10 @@ class Orchestrator:
         self.ledger.emit("pipeline_start", payload={"total_scenes": len(active_cards)})
         results = []
 
+        # Lazy import to avoid circular concerns and keep the pipeline package
+        # optional for callers that don't exercise save-blockers.
+        from src.pipeline.save_blockers import SaveBlockedError
+
         try:
             for i, scene_card in enumerate(active_cards):
                 chapter_num = scene_card["chapter_number"]
@@ -265,7 +300,18 @@ class Orchestrator:
                 print(f"Chapter {chapter_num}, Scene {scene_num}")
                 print(f"{'='*60}")
 
-                result = await self.run_chapter(scene_card)
+                try:
+                    result = await self.run_chapter(scene_card)
+                except SaveBlockedError as e:
+                    # Relay v1 quarantine policy: abort the entire run on the
+                    # first blocker. No partial chapters, no silent skips —
+                    # human reviewer fixes the quarantined scene and re-runs.
+                    print(f"\n{'=' * 60}")
+                    print("PIPELINE ABORTED — save-blocker fired")
+                    print(f"{'=' * 60}")
+                    print(str(e))
+                    break
+
                 results.append(result)
 
                 # Phase 4: Save session progress after each chapter
@@ -336,52 +382,11 @@ class Orchestrator:
         print("  [2/5] Prose Stylist drafting...")
         prose = await self._run_prose_stylist(scene_card, generation_brief)
 
-        # Step 2.5: Canon Expert validates prose (before Gate Critic)
-        canon_notes = ""
-        canon_result = None
-        if self.canon_expert:
-            print("  [Canon] Canon expert validating...")
-            try:
-                # Build a scene card with canon elements if not already populated
-                run_card = dict(scene_card)
-                if not run_card.get("canon_elements_needed"):
-                    elements = []
-                    if run_card.get("setting"):
-                        elements.append({"type": "location", "name": run_card["setting"]})
-                    for char in run_card.get("characters_present", []):
-                        elements.append({"type": "character", "name": char})
-                    elements.append({"type": "general", "name": "franchise_voice_and_terminology"})
-                    run_card["canon_elements_needed"] = elements
+        # Relay v3 (Stage 1f): Canon expert no longer runs mid-stream — it
+        # moves to the LAST reader position (continuity_editor) just before
+        # the save-blocker check. See below.
 
-                canon_result = await self.canon_expert.run({
-                    "prose": prose,
-                    "scene_card": run_card,
-                    "concept_seed": getattr(self.assembler, "concept_seed", {}),
-                })
-                canon_notes = canon_result.get("canon_notes", "")
-                # If canon expert returned corrected prose, use it
-                if canon_result.get("verdict") == "fail" and canon_result.get("corrected_prose"):
-                    prose = canon_result["corrected_prose"]
-                    violations = canon_result.get("violations", [])
-                    for v in violations:
-                        print(f"    Canon fix: [{v.get('category', '?')}] \"{v.get('text', '')}\" → {v.get('suggestion', '')}")
-                elif canon_result.get("violations"):
-                    violation_lines = []
-                    for v in canon_result["violations"]:
-                        violation_lines.append(
-                            f"- CANON: [{v.get('category', '?')}] \"{v.get('text', '')}\" → {v.get('suggestion', '')}"
-                        )
-                    canon_notes = "\n".join(violation_lines)
-                self.ledger.emit(
-                    "agent_complete",
-                    chapter_number=chapter_num,
-                    scene_number=scene_num,
-                    agent_role="canon_expert",
-                )
-            except Exception as e:
-                print(f"    Canon expert: error ({e.__class__.__name__}) — skipping")
-
-        # Step 3: Gate Critic evaluates (with canon violations context)
+        # Step 3: Gate Critic evaluates
         print("  [3/5] Gate Critic evaluating...")
         evaluation, prose = await self._gate_loop(scene_card, prose, generation_brief)
         gate_passed_prose = prose
@@ -431,32 +436,19 @@ class Orchestrator:
             print("  [5/5] Final Gate skipped (--raw-draft baseline mode)")
             final_prose = gate_passed_prose
         else:
-            # Step 4: Quality Polish — single bounded expression-level pass
+            # Step 4: Quality Polish — single bounded expression-level pass.
+            # Relay v3 (Stage 1f): canon_notes is always empty here because
+            # the canon expert now runs post-polish as the continuity editor.
+            # Quality Polish remains a pure copy-editing pass.
             print("  [4/5] Quality Polish running...")
             polish_result = await self.quality_polish.run({
                 "prose": gate_passed_prose,
                 "scene_card": scene_card,
                 "quality_metrics": quality_metrics,
                 "negative_constraints": self.assembler.get_negative_constraints(),
-                "canon_notes": canon_notes,
+                "canon_notes": "",
             })
             polished_prose = polish_result["prose"]
-
-            # Canon re-check on polished prose: re-apply any corrections the
-            # polish may have reverted.
-            if canon_result and canon_result.get("violations"):
-                reintroduced = []
-                for v in canon_result["violations"]:
-                    offending = v.get("text", "")
-                    if offending and offending.lower() in polished_prose.lower():
-                        reintroduced.append(v)
-                if reintroduced:
-                    print(f"    Canon: {len(reintroduced)} violation(s) reintroduced in polish — applying fixes")
-                    for v in reintroduced:
-                        offending = v.get("text", "")
-                        suggestion = v.get("suggestion", "")
-                        if offending and suggestion:
-                            polished_prose = polished_prose.replace(offending, suggestion)
 
             # Compression telemetry — Stage 1b of the relay refactor.
             # Historically this block reverted polished_prose to gate_passed_prose
@@ -516,6 +508,98 @@ class Orchestrator:
                     payload={"verdict": "pass"},
                 )
             final_prose = polished_prose
+
+        # Relay v3 (Stage 1f): Continuity Editor runs on FINAL prose.
+        # Canon expert is now the last reader before save-blockers — this is
+        # the only position where its verdict can reflect the saved artifact.
+        continuity_report: Optional[dict] = None
+        if self.canon_expert:
+            print("  [Continuity] Canon expert validating FINAL prose...")
+            try:
+                continuity_report = await self.canon_expert.run({
+                    "prose": final_prose,
+                    "scene_card": scene_card,
+                    "concept_seed": getattr(self.assembler, "concept_seed", {}),
+                })
+                verdict_str = continuity_report.get("verdict", "pass")
+                n_violations = len(continuity_report.get("violations", []) or [])
+                print(f"    Continuity: {verdict_str} ({n_violations} finding(s))")
+                self.ledger.emit(
+                    "continuity_editor_complete",
+                    chapter_number=chapter_num,
+                    scene_number=scene_num,
+                    payload={
+                        "verdict": verdict_str,
+                        "violation_count": n_violations,
+                    },
+                )
+            except Exception as e:
+                print(f"    Continuity editor: error ({e.__class__.__name__}) — skipping")
+                continuity_report = None
+
+        # Relay v3 (Stage 1f): Save-blocker check. Three categories —
+        #   CHARACTER_PRESENCE_BLOCKER (PresenceChecker agent)
+        #   CANON_BLOCKER             (continuity_report verdict + severity)
+        #   POV_ADVISORY              (heuristic; logs but never blocks in v1)
+        # Abort-on-first-blocker: quarantine the scene and raise
+        # SaveBlockedError so run_pipeline halts the whole run.
+        from src.pipeline.save_blockers import (
+            SaveBlockedError,
+            check_save_blockers,
+            detect_pov_advisory,
+            write_quarantine,
+        )
+
+        pov_hits = detect_pov_advisory(final_prose, scene_card)
+        if pov_hits:
+            self.ledger.emit(
+                "pov_advisory",
+                chapter_number=chapter_num,
+                scene_number=scene_num,
+                payload={
+                    "hit_count": len(pov_hits),
+                    "hits": pov_hits[:10],
+                    "advisory_only": True,
+                },
+            )
+            print(f"  [POV] Advisory: {len(pov_hits)} suspect span(s) — no block in v1")
+
+        blockers = await check_save_blockers(
+            prose=final_prose,
+            scene_card=scene_card,
+            continuity_report=continuity_report,
+            presence_checker=self.presence_checker,
+        )
+
+        if blockers:
+            scene_dir = write_quarantine(
+                quarantine_root=self.quarantine_dir,
+                chapter_number=chapter_num,
+                scene_number=scene_num,
+                prose=final_prose,
+                blockers=blockers,
+                brief=generation_brief,
+                scene_card=scene_card,
+            )
+            self.ledger.emit(
+                "save_blocked",
+                chapter_number=chapter_num,
+                scene_number=scene_num,
+                payload={
+                    "blocker_count": len(blockers),
+                    "blocker_codes": [b.code for b in blockers],
+                    "quarantine_path": str(scene_dir),
+                },
+            )
+            print(
+                f"  [SAVE-BLOCKED] {len(blockers)} blocker(s) — scene quarantined at {scene_dir}"
+            )
+            raise SaveBlockedError(
+                blockers=blockers,
+                quarantine_path=scene_dir,
+                chapter_number=chapter_num,
+                scene_number=scene_num,
+            )
 
         # Save the chapter
         output_path = self._save_chapter(chapter_num, scene_num, final_prose)
@@ -595,6 +679,8 @@ class Orchestrator:
             result["contradiction_flags"] = contradiction_flags
         if final_gate_result is not None:
             result["final_gate"] = final_gate_result
+        if continuity_report is not None:
+            result["continuity_report"] = continuity_report
         if polish_rejected:
             result["polish_rejected"] = True
             result["polish_rejection_reason"] = rejection_reason
@@ -726,23 +812,26 @@ class Orchestrator:
                 fc["code"] for fc in evaluation.get("failure_codes", [])
             ]
             word_count = len(prose.split())
-            # Post-Phase-1 pipeline status derivation. The saved prose is:
-            #   - 'approved' when it survived Quality Polish + Final Gate
-            #   - 'final_gate_rejected' when polish was reverted (compression
-            #     guard fired or Final Gate rejected the polish)
-            #   - 'gate_passed' in --raw-draft mode (polish/final gate skipped)
-            #   - 'gate_failed' if the scene-level verdict never reached pass
-            #     (edge case: gate loop exited early)
-            if polish_rejected:
-                revision_status = "final_gate_rejected"
-            elif self.raw_draft:
-                revision_status = "gate_passed"
-            elif evaluation.get("verdict") == "pass":
-                revision_status = "approved"
-            elif evaluation.get("verdict") == "skipped":
-                revision_status = "gate_skipped"
+            # Relay v3 (Stage 1i) — status vocabulary collapsed to three
+            # saved-scene states:
+            #   - 'saved_clean'          — all gates green
+            #   - 'saved_with_advisory'  — any gate fired advisory-level signal
+            #   - 'quarantined'          — scene blocked pre-save (not written
+            #                              through this path; reserved for
+            #                              manual quarantine flags)
+            #
+            # Scene-gate verdict drives the distinction: any non-pass verdict
+            # (fail_*, skipped) plus any polish_rejected flag degrades the
+            # save to 'saved_with_advisory'. --raw-draft saves as
+            # 'saved_clean' because the user explicitly opted out of gates.
+            advisory_fired = (
+                polish_rejected
+                or (not self.raw_draft and evaluation.get("verdict") != "pass")
+            )
+            if advisory_fired:
+                revision_status = "saved_with_advisory"
             else:
-                revision_status = "gate_failed"
+                revision_status = "saved_clean"
             self.story_state.add_chapter_log(
                 chapter_number=chapter_num,
                 word_count=word_count,

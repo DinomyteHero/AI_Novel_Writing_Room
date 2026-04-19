@@ -39,6 +39,13 @@ EVENT_TYPES = [
     "session_resume",
     "outline_generated",
     "export_complete",
+    # Relay refactor Stage 1f: save-blocker / continuity-editor events
+    "continuity_editor_complete",
+    "save_blocked",
+    "pov_advisory",
+    "presence_check_error",
+    # Relay refactor Stage 1h: chapter-level word-count telemetry
+    "chapter_word_count_telemetry",
 ]
 
 
@@ -126,6 +133,88 @@ class RunLedger:
         )
         self.conn.commit()
         return cursor.lastrowid
+
+    # Relay v3 (Stage 1i) — level helpers inject a ``level`` key into the
+    # payload so UI/CLI consumers can filter or colour-code events without
+    # special-casing event_type. The helpers are thin wrappers around
+    # ``emit`` to keep the schema backward-compatible.
+    def _emit_with_level(
+        self,
+        level: str,
+        event_type: str,
+        chapter_number: Optional[int] = None,
+        scene_number: Optional[int] = None,
+        agent_role: Optional[str] = None,
+        payload: Optional[dict] = None,
+        attempt_id: Optional[str] = None,
+    ) -> int:
+        payload_with_level = dict(payload) if payload else {}
+        payload_with_level.setdefault("level", level)
+        return self.emit(
+            event_type,
+            chapter_number=chapter_number,
+            scene_number=scene_number,
+            agent_role=agent_role,
+            payload=payload_with_level,
+            attempt_id=attempt_id,
+        )
+
+    def emit_info(
+        self,
+        event_type: str,
+        chapter_number: Optional[int] = None,
+        scene_number: Optional[int] = None,
+        agent_role: Optional[str] = None,
+        payload: Optional[dict] = None,
+        attempt_id: Optional[str] = None,
+    ) -> int:
+        return self._emit_with_level(
+            "info",
+            event_type,
+            chapter_number=chapter_number,
+            scene_number=scene_number,
+            agent_role=agent_role,
+            payload=payload,
+            attempt_id=attempt_id,
+        )
+
+    def emit_warn(
+        self,
+        event_type: str,
+        chapter_number: Optional[int] = None,
+        scene_number: Optional[int] = None,
+        agent_role: Optional[str] = None,
+        payload: Optional[dict] = None,
+        attempt_id: Optional[str] = None,
+    ) -> int:
+        return self._emit_with_level(
+            "warn",
+            event_type,
+            chapter_number=chapter_number,
+            scene_number=scene_number,
+            agent_role=agent_role,
+            payload=payload,
+            attempt_id=attempt_id,
+        )
+
+    def emit_error(
+        self,
+        event_type: str,
+        chapter_number: Optional[int] = None,
+        scene_number: Optional[int] = None,
+        agent_role: Optional[str] = None,
+        payload: Optional[dict] = None,
+        attempt_id: Optional[str] = None,
+    ) -> int:
+        return self._emit_with_level(
+            "error",
+            event_type,
+            chapter_number=chapter_number,
+            scene_number=scene_number,
+            agent_role=agent_role,
+            payload=payload,
+            attempt_id=attempt_id,
+        )
 
     def get_events(
         self,

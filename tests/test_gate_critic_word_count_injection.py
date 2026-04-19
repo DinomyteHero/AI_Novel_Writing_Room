@@ -1,13 +1,20 @@
-"""Tests for programmatic WORD_COUNT_VIOLATION injection in GateCritic.run().
+"""Tests for the v3 relay refactor: WORD_COUNT_VIOLATION leaves the gate.
 
-Word-count enforcement must not depend on the LLM remembering to emit the code.
-If prose is outside +/- 20% of target_word_count, the orchestrator injects the
-failure code deterministically before verdict derivation.
+Under Stage 1h, scene-level word count is no longer enforced at the gate.
+The constant ``WORD_COUNT_VIOLATION`` still exists for historical ledger
+compatibility but is NOT in ``ALL_CODES``, so:
+
+- GateCritic never injects WORD_COUNT_VIOLATION programmatically.
+- Any WORD_COUNT_VIOLATION the LLM emits is dropped by the
+  unknown-code filter, same as any hallucinated or typo'd code.
+
+Chapter-level drift is tracked in src/pipeline/word_count_telemetry.py
+and emitted as info/warn/error events that never block a save.
 """
 
 from unittest.mock import AsyncMock, MagicMock
 
-from src.agents.gate_critic import GateCritic
+from src.agents.gate_critic import GateCritic, WORD_COUNT_VIOLATION
 
 
 def _make_prose(word_count: int) -> str:
@@ -34,74 +41,49 @@ async def _run(prose: str, model_codes: list[dict], target: int | None = 1000) -
     return await critic.run(_make_context(prose, target))
 
 
-class TestWordCountInjection:
-    async def test_injected_when_below_tolerance_and_llm_silent(self):
-        """Prose at 70% of target + no model code -> WORD_COUNT_VIOLATION injected."""
-        # 700 words / 1000 target = 70%, outside -20% tolerance
+class TestWordCountNotInjected:
+    async def test_constant_still_importable(self):
+        """Historical-compat: the name is still exported."""
+        assert WORD_COUNT_VIOLATION == "WORD_COUNT_VIOLATION"
+
+    async def test_not_injected_when_below_tolerance(self):
+        """Prose at 70% of target no longer triggers injection."""
         result = await _run(_make_prose(700), model_codes=[])
-
-        codes = [fc["code"] for fc in result["failure_codes"]]
-        assert "WORD_COUNT_VIOLATION" in codes
-        assert result["verdict"] == "fail_polish"
-
-    async def test_injected_when_above_tolerance_and_llm_silent(self):
-        """Prose at 130% of target + no model code -> WORD_COUNT_VIOLATION injected."""
-        result = await _run(_make_prose(1300), model_codes=[])
-
-        codes = [fc["code"] for fc in result["failure_codes"]]
-        assert "WORD_COUNT_VIOLATION" in codes
-
-    async def test_not_injected_when_within_tolerance(self):
-        """Prose at 90% of target (within +/- 20%) -> no injection."""
-        result = await _run(_make_prose(900), model_codes=[])
-
         codes = [fc["code"] for fc in result["failure_codes"]]
         assert "WORD_COUNT_VIOLATION" not in codes
         assert result["verdict"] == "pass"
 
-    async def test_not_injected_at_exact_boundary(self):
-        """Prose at exactly 80% (1000 - 200) or 120% should not trigger; uses strict >20%."""
-        # 800 words / 1000 = 80%, delta = 20%, boundary case (strict >)
-        result_low = await _run(_make_prose(800), model_codes=[])
-        codes_low = [fc["code"] for fc in result_low["failure_codes"]]
-        assert "WORD_COUNT_VIOLATION" not in codes_low
+    async def test_not_injected_when_above_tolerance(self):
+        """Prose at 130% of target no longer triggers injection."""
+        result = await _run(_make_prose(1300), model_codes=[])
+        codes = [fc["code"] for fc in result["failure_codes"]]
+        assert "WORD_COUNT_VIOLATION" not in codes
 
-        # 1200 / 1000 = 120%, delta = 20%, boundary case (strict >)
-        result_high = await _run(_make_prose(1200), model_codes=[])
-        codes_high = [fc["code"] for fc in result_high["failure_codes"]]
-        assert "WORD_COUNT_VIOLATION" not in codes_high
+    async def test_not_injected_when_within_tolerance(self):
+        """Prose at 90% of target — no injection (same as before)."""
+        result = await _run(_make_prose(900), model_codes=[])
+        codes = [fc["code"] for fc in result["failure_codes"]]
+        assert "WORD_COUNT_VIOLATION" not in codes
 
-    async def test_not_duplicated_when_llm_already_emitted(self):
-        """If the LLM already emitted WORD_COUNT_VIOLATION, we don't append a duplicate."""
+    async def test_llm_emitted_code_is_dropped(self, capsys):
+        """If the LLM emits WORD_COUNT_VIOLATION it's dropped by the
+        unknown-code filter, because the code is no longer in ALL_CODES."""
         existing_code = {
             "code": "WORD_COUNT_VIOLATION",
             "location": "whole scene",
-            "description": "too short per LLM check",
+            "description": "LLM thinks it's short",
             "fix_hint": "expand",
         }
         result = await _run(_make_prose(700), model_codes=[existing_code])
-
-        wc_codes = [fc for fc in result["failure_codes"] if fc["code"] == "WORD_COUNT_VIOLATION"]
-        assert len(wc_codes) == 1
-        # The LLM-provided description is preserved (we don't overwrite)
-        assert wc_codes[0]["description"] == "too short per LLM check"
-
-    async def test_no_target_word_count_means_no_injection(self):
-        """If scene card lacks target_word_count, never inject."""
-        result = await _run(_make_prose(500), model_codes=[], target=None)
-
         codes = [fc["code"] for fc in result["failure_codes"]]
         assert "WORD_COUNT_VIOLATION" not in codes
 
-    async def test_zero_target_word_count_does_not_divide_by_zero(self):
-        """target_word_count == 0 is treated as 'no target', not an error."""
-        result = await _run(_make_prose(500), model_codes=[], target=0)
+        captured = capsys.readouterr()
+        assert "dropping unknown failure_code" in captured.out
+        assert "WORD_COUNT_VIOLATION" in captured.out
 
-        codes = [fc["code"] for fc in result["failure_codes"]]
-        assert "WORD_COUNT_VIOLATION" not in codes
-
-    async def test_injected_code_coexists_with_structural_code(self):
-        """A structural failure still dominates verdict even if word count also fires."""
+    async def test_other_codes_still_work(self):
+        """Removing word-count injection does not affect other codes."""
         result = await _run(
             _make_prose(500),
             model_codes=[{
@@ -111,87 +93,6 @@ class TestWordCountInjection:
                 "fix_hint": "build resistance",
             }],
         )
-
         codes = [fc["code"] for fc in result["failure_codes"]]
         assert "WEAK_TURNING_POINT" in codes
-        assert "WORD_COUNT_VIOLATION" in codes
-        # Structural dominates polish
         assert result["verdict"] == "fail_structural"
-
-    async def test_injection_is_logged(self, capsys):
-        """A line is printed so the rejection is visible in orchestrator output."""
-        await _run(_make_prose(500), model_codes=[])
-
-        captured = capsys.readouterr()
-        assert "WORD_COUNT_VIOLATION" in captured.out
-        assert "500/1000" in captured.out
-
-
-class TestWordCountFilter:
-    """Phase 1.5: the programmatic tolerance check is authoritative; spurious
-    LLM-emitted WORD_COUNT_VIOLATION within tolerance must be dropped so the
-    verdict does not depend on the model pattern-matching on the raw numbers.
-    """
-
-    async def test_spurious_llm_code_dropped_when_within_tolerance(self, capsys):
-        """LLM emits WORD_COUNT_VIOLATION at 92% of target (inside +/-20%) -> dropped."""
-        existing_code = {
-            "code": "WORD_COUNT_VIOLATION",
-            "location": "whole scene",
-            "description": "LLM thinks it's short",
-            "fix_hint": "expand",
-        }
-        # 920 words / 1000 target = 92% (within +/-20% tolerance)
-        result = await _run(_make_prose(920), model_codes=[existing_code])
-
-        codes = [fc["code"] for fc in result["failure_codes"]]
-        assert "WORD_COUNT_VIOLATION" not in codes, (
-            "Spurious LLM-emitted WORD_COUNT_VIOLATION must be dropped when the "
-            "programmatic tolerance check passes."
-        )
-        # A drop notice should be logged for diagnosability.
-        captured = capsys.readouterr()
-        assert "dropping" in captured.out
-        assert "WORD_COUNT_VIOLATION" in captured.out
-
-    async def test_non_spurious_codes_preserved_when_within_tolerance(self):
-        """Other failure codes survive even when word-count filter fires."""
-        mixed = [
-            {"code": "WORD_COUNT_VIOLATION", "location": "x", "description": "spurious", "fix_hint": "."},
-            {"code": "WEAK_TURNING_POINT", "location": "y", "description": "real issue", "fix_hint": "."},
-        ]
-        result = await _run(_make_prose(920), model_codes=mixed)
-
-        codes = [fc["code"] for fc in result["failure_codes"]]
-        assert "WORD_COUNT_VIOLATION" not in codes
-        assert "WEAK_TURNING_POINT" in codes
-
-    async def test_llm_code_kept_when_outside_tolerance(self):
-        """If word count is genuinely off-target, the LLM code is not dropped."""
-        existing_code = {
-            "code": "WORD_COUNT_VIOLATION",
-            "location": "whole scene",
-            "description": "LLM flagged; really is short",
-            "fix_hint": "expand",
-        }
-        # 500 words / 1000 target = 50% (outside -20% tolerance)
-        result = await _run(_make_prose(500), model_codes=[existing_code])
-
-        wc_codes = [fc for fc in result["failure_codes"] if fc["code"] == "WORD_COUNT_VIOLATION"]
-        assert len(wc_codes) == 1
-        # LLM description preserved (no duplicate injection).
-        assert wc_codes[0]["description"] == "LLM flagged; really is short"
-
-    async def test_no_filter_applied_without_target(self):
-        """Without target_word_count, the filter is inert (like the injector)."""
-        existing_code = {
-            "code": "WORD_COUNT_VIOLATION",
-            "location": "whole scene",
-            "description": "LLM self-referential check",
-            "fix_hint": "expand",
-        }
-        result = await _run(_make_prose(500), model_codes=[existing_code], target=None)
-
-        # No target -> neither injection nor filtering; LLM code passes through.
-        codes = [fc["code"] for fc in result["failure_codes"]]
-        assert "WORD_COUNT_VIOLATION" in codes

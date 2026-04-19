@@ -46,6 +46,10 @@ class WebOrchestrator(Orchestrator):
         self.ledger.emit("pipeline_start", payload={"total_scenes": len(active_cards)})
         results = []
 
+        # Lazy import to match Orchestrator.run_pipeline; the pipeline package is
+        # optional for callers that don't exercise save-blockers.
+        from src.pipeline.save_blockers import SaveBlockedError
+
         try:
             for i, scene_card in enumerate(active_cards):
                 # Pause gate: blocks here if paused
@@ -59,7 +63,20 @@ class WebOrchestrator(Orchestrator):
                 print(f"Chapter {chapter_num}, Scene {scene_num}")
                 print(f"{'='*60}")
 
-                result = await self.run_chapter(scene_card)
+                try:
+                    result = await self.run_chapter(scene_card)
+                except SaveBlockedError as e:
+                    # Relay v1 quarantine policy: abort the entire run on the
+                    # first blocker. Web UI surfaces the abort through the
+                    # pipeline_manager state the same way a KeyboardInterrupt
+                    # would — downstream UI telemetry reads the save_blocked
+                    # ledger event.
+                    print(f"\n{'=' * 60}")
+                    print("PIPELINE ABORTED — save-blocker fired")
+                    print(f"{'=' * 60}")
+                    print(str(e))
+                    break
+
                 results.append(result)
                 pm.results = results
 

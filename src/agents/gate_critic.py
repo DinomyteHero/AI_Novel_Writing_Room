@@ -44,8 +44,14 @@ POLISH_CODES = {
     "EXPOSITION_LEAK",
     "PACING_FLATLINE",
     "PROSE_CLICHE_BURST",
-    "WORD_COUNT_VIOLATION",
 }
+
+# Relay v3 (Stage 1h): WORD_COUNT_VIOLATION is no longer in the gate taxonomy.
+# Scene-level word count is advisory; chapter/book-level drift is tracked in
+# src/pipeline/word_count_telemetry.py. The constant is retained as a public
+# name for historical ledger-compat imports but is NOT in ALL_CODES, so the
+# gate's failure_code validator drops any instance the LLM emits.
+WORD_COUNT_VIOLATION = "WORD_COUNT_VIOLATION"
 
 ALL_CODES = STRUCTURAL_CODES | VOICE_CODES | POLISH_CODES
 
@@ -100,16 +106,9 @@ class GateCritic(BaseAgent):
         parts.append(f"## Scene Card\n```json\n{json.dumps(scene_card, indent=2)}\n```")
         parts.append(f"## Drafted Prose\n{prose}")
 
-        # Pre-compute word count so the LLM doesn't have to count
-        word_count = len(prose.split())
-        target = scene_card.get("target_word_count", 0)
-        if target:
-            pct = (word_count / target * 100) if target else 0
-            parts.append(
-                f"## Word Count (pre-computed)\n"
-                f"Actual: {word_count} words | Target: {target} words | "
-                f"Ratio: {pct:.0f}% | Tolerance: +/- 20%"
-            )
+        # Relay v3 (Stage 1h): no per-scene word-count block. Chapter-level
+        # drift is tracked by pipeline/word_count_telemetry.py at chapter
+        # close and never blocks a save.
 
         parts.append(
             "## Task\n"
@@ -136,10 +135,9 @@ class GateCritic(BaseAgent):
             "9. Are active subplots addressed as expected? (SUBPLOT_DRIFT)\n"
             "10. Are in-universe terms spelled correctly per the terminology registry? (TERMINOLOGY_DRIFT)\n"
             "11. Does the prose follow voice definition rules (banned words, anti-patterns)? (VOICE_DEFINITION_VIOLATION)\n"
-            "12. Is the prose within +/- 20% of the target_word_count? Use the pre-computed word count above — do NOT count words yourself. (WORD_COUNT_VIOLATION)\n"
-            "13. Does the scene end at or near the closing_hook? Does any content extend past it into the next scene? (CLOSING_HOOK_VIOLATION)\n"
-            "14. Do only characters in characters_present have dialogue or significant action? (CHARACTER_PRESENCE_VIOLATION)\n"
-            "15. Does the scene open consistent with the opening_hook if specified? (OPENING_HOOK_MISMATCH)\n\n"
+            "12. Does the scene end at or near the closing_hook? Does any content extend past it into the next scene? (CLOSING_HOOK_VIOLATION)\n"
+            "13. Do only characters in characters_present have dialogue or significant action? (CHARACTER_PRESENCE_VIOLATION)\n"
+            "14. Does the scene open consistent with the opening_hook if specified? (OPENING_HOOK_MISMATCH)\n\n"
             "Valid failure codes:\n"
             "- Structural: CONTINUITY_CONTRADICTION, WEAK_TURNING_POINT, "
             "MISSING_TURNING_POINT, UNEARNED_RESOLUTION, STRUCTURAL_PHASE_VIOLATION, "
@@ -147,7 +145,7 @@ class GateCritic(BaseAgent):
             "CLOSING_HOOK_VIOLATION, CHARACTER_PRESENCE_VIOLATION, OPENING_HOOK_MISMATCH\n"
             "- Voice: OOC_DIALOGUE, OOC_ACTION, TELLING_NOT_SHOWING, "
             "TERMINOLOGY_DRIFT, VOICE_DEFINITION_VIOLATION\n"
-            "- Polish: EXPOSITION_LEAK, PACING_FLATLINE, PROSE_CLICHE_BURST, WORD_COUNT_VIOLATION\n\n"
+            "- Polish: EXPOSITION_LEAK, PACING_FLATLINE, PROSE_CLICHE_BURST\n\n"
             "Return a JSON object with the following structure:\n"
             "```json\n"
             "{\n"
@@ -186,6 +184,9 @@ class GateCritic(BaseAgent):
         result = await self.router.complete_structured(self.role, messages)
 
         # Drop unknown codes rather than silently widening the taxonomy.
+        # WORD_COUNT_VIOLATION is intentionally outside ALL_CODES as of the
+        # Stage 1h relay refactor, so any instance the model emits is dropped
+        # here by the same mechanism that drops typos or hallucinated codes.
         raw_failure_codes = result.get("failure_codes", [])
         failure_codes = []
         for fc in raw_failure_codes:
@@ -194,52 +195,6 @@ class GateCritic(BaseAgent):
             else:
                 bad = fc.get("code") if isinstance(fc, dict) else fc
                 print(f"    Gate: dropping unknown failure_code {bad!r}")
-
-        # Programmatic WORD_COUNT_VIOLATION enforcement.
-        #
-        # The programmatic word-count check is authoritative. If the actual
-        # word count is outside the ±20% tolerance, inject the code when the
-        # model did not emit it. If the actual word count is *within* the
-        # tolerance, drop any LLM-emitted WORD_COUNT_VIOLATION — the gate
-        # model occasionally pattern-matches on the numbers and emits this
-        # code even when the programmatic check would not fire.
-        prose = context.get("prose", "")
-        scene_card = context.get("scene_card", {})
-        target = scene_card.get("target_word_count", 0)
-        if target:
-            word_count = len(prose.split())
-            deviation = abs(word_count - target) / target
-            pct = (word_count / target * 100) if target else 0
-            if deviation > 0.20:
-                already_present = any(
-                    fc.get("code") == "WORD_COUNT_VIOLATION" for fc in failure_codes
-                )
-                if not already_present:
-                    failure_codes.append({
-                        "code": "WORD_COUNT_VIOLATION",
-                        "location": "scene prose",
-                        "description": (
-                            f"Prose is {word_count} words; target is {target} "
-                            f"({pct:.0f}% of target, tolerance +/- 20%)."
-                        ),
-                        "fix_hint": "Expand or compress to within 80-120% of target_word_count.",
-                    })
-                    print(
-                        f"    Gate: injecting WORD_COUNT_VIOLATION "
-                        f"({word_count}/{target} words, {pct:.0f}%)"
-                    )
-            else:
-                before = len(failure_codes)
-                failure_codes = [
-                    fc for fc in failure_codes
-                    if fc.get("code") != "WORD_COUNT_VIOLATION"
-                ]
-                dropped = before - len(failure_codes)
-                if dropped:
-                    print(
-                        f"    Gate: dropping {dropped} spurious WORD_COUNT_VIOLATION "
-                        f"code(s) ({word_count}/{target} words, {pct:.0f}%, within +/-20%)"
-                    )
 
         verdict = determine_verdict(failure_codes)
         route_to = determine_route(verdict)

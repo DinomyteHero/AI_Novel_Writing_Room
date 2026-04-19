@@ -3,8 +3,8 @@
 The Scene Gate evaluates the Prose Stylist draft. The Final Gate evaluates the
 Quality Polish output against the same scene-card contract, catching violations
 the polish pass may have introduced (wrong characters, closing-hook drift,
-compression beyond the 80% floor). If Final Gate fails, the orchestrator
-rejects the polish and saves the Scene-Gate-passed draft.
+structural regression). Under the relay v3 refactor, Final Gate runs as
+telemetry only — its verdict is logged but does not control the save path.
 
 Reuses the verdict-derivation machinery and failure-code taxonomy from
 `gate_critic` so both gates speak the same vocabulary.
@@ -19,15 +19,13 @@ from src.agents.gate_critic import (
 )
 
 
-# Only these five failure codes are in scope for the Final Gate per
-# prompts/agent_system_prompts/final_gate.md. Out-of-scope codes (VOICE_VIOLATION,
-# pacing codes, anti-pattern codes from the broader Scene Gate taxonomy) must
-# be dropped — the prompt explicitly promises the model they will be, and
-# historically the implementation was accepting them via ALL_CODES.
+# Relay v3 (Stage 1h): word-count enforcement has been removed from the gate
+# taxonomy — chapter-level telemetry tracks drift in
+# src/pipeline/word_count_telemetry.py. Only the four structural contract
+# checks remain. Out-of-scope codes emitted by the model are dropped.
 FINAL_GATE_CODES = {
     "CHARACTER_PRESENCE_VIOLATION",
     "CLOSING_HOOK_VIOLATION",
-    "WORD_COUNT_VIOLATION",
     "MISSING_TURNING_POINT",
     "WEAK_TURNING_POINT",
 }
@@ -45,15 +43,10 @@ class FinalGate(BaseAgent):
     def _format_context(self, context: dict) -> str:
         prose = context["prose"]
         scene_card = context["scene_card"]
-        gate_passed_word_count = context.get("gate_passed_word_count", 0)
-
-        polished_wc = len(prose.split())
-        floor = int(gate_passed_word_count * 0.80) if gate_passed_word_count else 0
 
         hard_constraints = {
             "characters_present": scene_card.get("characters_present", []),
             "closing_hook": scene_card.get("closing_hook", ""),
-            "target_word_count": scene_card.get("target_word_count", 0),
         }
 
         parts = []
@@ -62,13 +55,6 @@ class FinalGate(BaseAgent):
             f"```json\n{json.dumps(hard_constraints, indent=2)}\n```"
         )
         parts.append(f"## Scene Card (reference)\n```json\n{json.dumps(scene_card, indent=2)}\n```")
-        parts.append(
-            f"## Word Count Status\n"
-            f"Gate-passed word count (pre-polish): {gate_passed_word_count}\n"
-            f"Polished word count: {polished_wc}\n"
-            f"Minimum floor (80% of gate-passed): {floor}\n"
-            f"Polished is {'ABOVE' if polished_wc >= floor else 'BELOW'} the floor."
-        )
         parts.append(f"## Polished Prose (to validate)\n{prose}")
 
         parts.append(
@@ -84,17 +70,15 @@ class FinalGate(BaseAgent):
             "2. **Closing hook boundary** — The scene should end at or near the "
             "`closing_hook`. If content extends past it into the next scene's "
             "territory, emit `CLOSING_HOOK_VIOLATION`.\n"
-            "3. **Word count floor** — Polished prose must be >= 80% of gate-passed "
-            "word count. If below, emit `WORD_COUNT_VIOLATION`.\n"
-            "4. **Structural regression** — Turning point must still be present and "
+            "3. **Structural regression** — Turning point must still be present and "
             "executed. If the polish removed or flattened it, emit "
             "`MISSING_TURNING_POINT` or `WEAK_TURNING_POINT`.\n\n"
-            "Do NOT re-evaluate voice, AI-tells, pacing, or other polish-level "
-            "concerns — those are out of scope for Final Gate.\n\n"
+            "Do NOT re-evaluate word count, voice, AI-tells, pacing, or other "
+            "polish-level concerns — those are out of scope for Final Gate. "
+            "Chapter-level word-count drift is tracked separately as telemetry.\n\n"
             "Valid failure codes for this gate:\n"
             "- CHARACTER_PRESENCE_VIOLATION\n"
             "- CLOSING_HOOK_VIOLATION\n"
-            "- WORD_COUNT_VIOLATION\n"
             "- MISSING_TURNING_POINT\n"
             "- WEAK_TURNING_POINT\n\n"
             "Return JSON:\n"
@@ -116,11 +100,12 @@ class FinalGate(BaseAgent):
         return "\n\n".join(parts)
 
     async def run(self, context: dict) -> dict:
-        """Run the Final Gate. Verdict is derived from failure codes, same as Scene Gate.
+        """Run the Final Gate. Verdict is derived from failure codes.
 
-        Also performs a programmatic word-count floor check: if polished prose is
-        below 80% of gate-passed word count, inject WORD_COUNT_VIOLATION
-        deterministically (same mechanism as Scene Gate's programmatic injection).
+        Relay v3 (Stage 1h): the 80% word-count floor enforcement was removed —
+        chapter-level drift is now telemetry, not a gate. Out-of-scope codes
+        emitted by the model (including any lingering WORD_COUNT_VIOLATION)
+        are dropped by the FINAL_GATE_CODES allowlist below.
         """
         messages = self._build_messages(context)
         result = await self.router.complete_structured(self.role, messages)
@@ -133,34 +118,6 @@ class FinalGate(BaseAgent):
             else:
                 bad = fc.get("code") if isinstance(fc, dict) else fc
                 print(f"    FinalGate: dropping out-of-scope failure_code {bad!r}")
-
-        # Programmatic word-count floor enforcement (belt-and-suspenders with the
-        # compression guard in the orchestrator, which runs before this gate).
-        prose = context.get("prose", "")
-        gate_passed_wc = context.get("gate_passed_word_count", 0)
-        if gate_passed_wc:
-            polished_wc = len(prose.split())
-            if polished_wc < 0.80 * gate_passed_wc:
-                already_present = any(
-                    fc.get("code") == "WORD_COUNT_VIOLATION" for fc in failure_codes
-                )
-                if not already_present:
-                    pct = (polished_wc / gate_passed_wc * 100) if gate_passed_wc else 0
-                    failure_codes.append({
-                        "code": "WORD_COUNT_VIOLATION",
-                        "location": "whole scene",
-                        "description": (
-                            f"Polished prose is {polished_wc} words; gate-passed was "
-                            f"{gate_passed_wc} ({pct:.0f}% of gate-passed, floor is 80%)."
-                        ),
-                        "fix_hint": (
-                            "Rewrite polish in place rather than compressing below the floor."
-                        ),
-                    })
-                    print(
-                        f"    FinalGate: injecting WORD_COUNT_VIOLATION "
-                        f"({polished_wc}/{gate_passed_wc} words, {pct:.0f}%)"
-                    )
 
         verdict = determine_verdict(failure_codes)
         route_to = determine_route(verdict)

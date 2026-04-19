@@ -118,10 +118,16 @@ class TestBenignCases:
     """Sanity checks: when model and derived verdict agree, no spurious logs."""
 
     async def test_no_disagreement_log_when_verdicts_match(self, capsys):
+        """When model verdict matches the derived verdict, no override log fires.
+
+        Pre-v3 this used WORD_COUNT_VIOLATION (a polish code) to exercise the
+        fail_polish verdict path. Post-Stage-1h that code is out of the
+        taxonomy, so we use PROSE_CLICHE_BURST (still a polish code) instead.
+        """
         await _run_with_model_result({
             "verdict": "fail_polish",
-            "failure_codes": [{"code": "WORD_COUNT_VIOLATION", "location": "all",
-                               "description": "short", "fix_hint": "expand"}],
+            "failure_codes": [{"code": "PROSE_CLICHE_BURST", "location": "all",
+                               "description": "purple prose", "fix_hint": "tighten"}],
         })
 
         captured = capsys.readouterr()

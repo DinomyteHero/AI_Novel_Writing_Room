@@ -34,8 +34,16 @@ class TestNewFailureCodeSets:
         assert new_codes.issubset(ALL_CODES)
 
     def test_total_code_count(self):
-        """Total should be 23 (14 original + 5 Phase 5 + 4 scene card compliance)."""
-        assert len(ALL_CODES) == 23
+        """Relay v3 (Stage 1h): WORD_COUNT_VIOLATION left the taxonomy.
+
+        14 original + 5 Phase 5 + 4 scene card compliance - 1 (WORD_COUNT)
+        = 22.
+        """
+        assert len(ALL_CODES) == 22
+
+    def test_word_count_violation_not_in_all_codes(self):
+        """Relay v3 (Stage 1h): word-count enforcement no longer lives in the gate."""
+        assert "WORD_COUNT_VIOLATION" not in ALL_CODES
 
 
 class TestNewCodeVerdicts:

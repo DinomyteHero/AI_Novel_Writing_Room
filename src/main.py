@@ -95,6 +95,49 @@ def _write_reproducibility_snapshot(
     )
 
 
+def _scene_had_advisory(result: dict) -> bool:
+    """Return True if any advisory gate fired for a saved scene.
+
+    Relay v3 (Stage 1i): a scene is considered 'saved_with_advisory' when
+    the scene-level gate verdict was not 'pass', when Final Gate rejected
+    the polish, when the legacy polish_rejected flag was set, or when the
+    continuity editor returned a non-pass verdict (any canon finding).
+    'saved_clean' means all gates green.
+    """
+    if result.get("polish_rejected"):
+        return True
+    evaluation = result.get("evaluation") or {}
+    gate_verdict = evaluation.get("verdict")
+    if gate_verdict not in (None, "pass", "skipped"):
+        return True
+    if gate_verdict == "skipped":
+        # Skipped-gate scenes have no verdict; treat as advisory because the
+        # save path did not go through a full gate check.
+        return True
+    final_gate = result.get("final_gate") or {}
+    if final_gate and final_gate.get("verdict") not in (None, "pass"):
+        return True
+    continuity = result.get("continuity_report") or {}
+    if continuity and continuity.get("verdict") == "fail":
+        return True
+    return False
+
+
+def _count_quarantined_scenes(ledger) -> int:
+    """Count 'save_blocked' events in the ledger.
+
+    Used for the three-count CLI summary. Each save_blocked event corresponds
+    to one quarantined scene (the orchestrator aborts after the first one).
+    """
+    if ledger is None:
+        return 0
+    try:
+        events = ledger.get_events(event_type="save_blocked", limit=1000)
+    except Exception:
+        return 0
+    return len(events)
+
+
 def load_scene_cards(scene_cards_dir: str, chapter: int | None = None) -> list[dict]:
     """Load scene cards from a directory, optionally filtering by chapter."""
     cards_path = Path(scene_cards_dir)
@@ -791,6 +834,10 @@ async def main():
     state_diff_applier = None
     contradiction_scanner = None
     canon_expert = None
+    # Relay Stage 1g — presence_checker is a cheap Haiku agent; instantiate
+    # eagerly so the save-blocker layer always has it available.
+    from src.agents.presence_checker import PresenceChecker
+    presence_checker = PresenceChecker(router)
 
     if args.phase >= 2:
         print("Initializing Phase 2 components...")
@@ -1049,6 +1096,7 @@ async def main():
         chapter_memory=chapter_memory,
         story_state=story_state,
         canon_expert=canon_expert,
+        presence_checker=presence_checker,
         metrics_dashboard=metrics_dashboard,
         character_specialist=character_specialist,
         milestone_gates=milestone_gates,
@@ -1106,25 +1154,30 @@ async def main():
         print("Pipeline Complete")
         print(f"{'='*60}")
         total_words = sum(r["word_count"] for r in results)
-        print(f"Chapters generated: {len(results)}")
+        print(f"Scenes saved: {len(results)}")
         print(f"Total word count: {total_words:,}")
+
+        # Relay v3 (Stage 1i): three-count summary reflecting the new status
+        # vocabulary. Scenes whose saved prose survived all gates are
+        # 'saved_clean'; any advisory signal (compression, final-gate,
+        # continuity/pov advisory) degrades to 'saved_with_advisory'. The
+        # 'quarantined' count comes from save_blocked ledger events, not the
+        # results list — quarantined scenes never reach the results array
+        # because run_pipeline aborts on the first blocker.
+        scenes_saved_clean = 0
+        scenes_saved_with_advisory = 0
         for r in results:
-            verdict = r["evaluation"]["verdict"]
-            # Build gate status string: include Final Gate verdict and any
-            # polish rejection reason when they apply, so the summary reflects
-            # the saved-file contract, not just the pre-polish Scene Gate.
-            if "final_gate" in r:
-                fg_verdict = r["final_gate"].get("verdict", "?")
-                if r.get("polish_rejected"):
-                    reason = r.get("polish_rejection_reason", "unknown")
-                    gate_str = (
-                        f"gate={verdict}, final={fg_verdict} "
-                        f"(polish rejected: {reason})"
-                    )
-                else:
-                    gate_str = f"gate={verdict}, final={fg_verdict}"
+            if _scene_had_advisory(r):
+                scenes_saved_with_advisory += 1
             else:
-                gate_str = f"gate={verdict}"
+                scenes_saved_clean += 1
+        scenes_quarantined = _count_quarantined_scenes(ledger)
+        print(f"  saved_clean:          {scenes_saved_clean}")
+        print(f"  saved_with_advisory:  {scenes_saved_with_advisory}")
+        print(f"  quarantined:          {scenes_quarantined}")
+
+        for r in results:
+            status = "saved_with_advisory" if _scene_had_advisory(r) else "saved_clean"
             flags = len(r.get("contradiction_flags", []))
             flag_str = f", flags={flags}" if flags else ""
             quality_str = ""
@@ -1140,7 +1193,8 @@ async def main():
                 judge_str = f", judge={js:.1f}/10"
             print(
                 f"  Chapter {r['chapter_number']}.{r['scene_number']}: "
-                f"{r['word_count']:,} words, {gate_str}{flag_str}{quality_str}{char_str}{judge_str}"
+                f"{r['word_count']:,} words, status={status}"
+                f"{flag_str}{quality_str}{char_str}{judge_str}"
             )
 
         # Phase 4: Export after pipeline

@@ -91,8 +91,9 @@ class TestFinalGateFailures:
         )
         assert result["verdict"] == "fail_structural"
 
-    async def test_llm_emitted_word_count_violation_passes_through(self):
-        """LLM can emit WORD_COUNT_VIOLATION itself."""
+    async def test_llm_emitted_word_count_violation_is_dropped(self, capsys):
+        """Relay v3 (Stage 1h): WORD_COUNT_VIOLATION left FINAL_GATE_CODES, so
+        any instance the LLM emits is dropped by the out-of-scope filter."""
         result, _ = await _run_gate(
             _make_context(prose=_make_prose(100), gate_passed_word_count=100),
             {
@@ -105,52 +106,33 @@ class TestFinalGateFailures:
                 }],
             },
         )
-        assert result["verdict"] == "fail_polish"
+        codes = [fc["code"] for fc in result["failure_codes"]]
+        assert "WORD_COUNT_VIOLATION" not in codes
+        # With no in-scope failure codes, the derived verdict is pass.
+        assert result["verdict"] == "pass"
+        captured = capsys.readouterr()
+        assert "dropping out-of-scope failure_code" in captured.out
 
 
-class TestFinalGateProgrammaticWordCountFloor:
-    async def test_injected_when_below_80_percent_floor(self):
-        """Polished prose < 80% of gate-passed -> WORD_COUNT_VIOLATION injected."""
-        # 60 polished words vs 100 gate-passed = 60%, below 80% floor
+class TestFinalGateWordCountNotEnforced:
+    """Relay v3 (Stage 1h): the 80% word-count floor is no longer enforced
+    at FinalGate. Chapter-level drift is telemetry in
+    src/pipeline/word_count_telemetry.py."""
+
+    async def test_no_injection_below_old_floor(self):
+        """Polished 60% of gate-passed — no code is injected."""
         result, _ = await _run_gate(
             _make_context(prose=_make_prose(60), gate_passed_word_count=100),
-            {"verdict": "pass", "failure_codes": []},
-        )
-        codes = [fc["code"] for fc in result["failure_codes"]]
-        assert "WORD_COUNT_VIOLATION" in codes
-        assert result["verdict"] == "fail_polish"
-
-    async def test_not_injected_when_above_floor(self):
-        """Polished prose >= 80% of gate-passed -> no injection."""
-        # 85 polished vs 100 gate-passed = 85%, above floor
-        result, _ = await _run_gate(
-            _make_context(prose=_make_prose(85), gate_passed_word_count=100),
             {"verdict": "pass", "failure_codes": []},
         )
         codes = [fc["code"] for fc in result["failure_codes"]]
         assert "WORD_COUNT_VIOLATION" not in codes
         assert result["verdict"] == "pass"
 
-    async def test_not_injected_when_llm_already_emitted(self):
-        """If LLM already emitted WORD_COUNT_VIOLATION, do not duplicate."""
-        existing = {
-            "code": "WORD_COUNT_VIOLATION",
-            "location": "scene",
-            "description": "LLM-detected",
-            "fix_hint": "expand",
-        }
+    async def test_no_injection_at_any_ratio(self):
+        """Even at 10% of gate-passed, there is no injection."""
         result, _ = await _run_gate(
-            _make_context(prose=_make_prose(60), gate_passed_word_count=100),
-            {"verdict": "fail_polish", "failure_codes": [existing]},
-        )
-        wc_codes = [fc for fc in result["failure_codes"] if fc["code"] == "WORD_COUNT_VIOLATION"]
-        assert len(wc_codes) == 1
-        assert wc_codes[0]["description"] == "LLM-detected"
-
-    async def test_no_gate_passed_word_count_skips_injection(self):
-        """If gate_passed_word_count is 0, skip programmatic check."""
-        result, _ = await _run_gate(
-            _make_context(prose=_make_prose(10), gate_passed_word_count=0),
+            _make_context(prose=_make_prose(10), gate_passed_word_count=100),
             {"verdict": "pass", "failure_codes": []},
         )
         codes = [fc["code"] for fc in result["failure_codes"]]

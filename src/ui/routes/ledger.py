@@ -57,6 +57,9 @@ async def get_ledger_summary(request: Request):
     gate_pass = type_counts.get("gate_pass", 0)
     gate_fail = type_counts.get("gate_fail", 0)
     gate_total = gate_pass + gate_fail
+    # Relay v3 (Stage 1i): save_blocked event count maps 1:1 to quarantined
+    # scenes, since the orchestrator aborts on the first blocker.
+    save_blocked_count = type_counts.get("save_blocked", 0)
 
     return {
         "total_events": len(all_events),
@@ -64,6 +67,7 @@ async def get_ledger_summary(request: Request):
         "gate_pass_count": gate_pass,
         "gate_fail_count": gate_fail,
         "gate_pass_rate": gate_pass / gate_total if gate_total > 0 else None,
+        "save_blocked_count": save_blocked_count,
     }
 
 

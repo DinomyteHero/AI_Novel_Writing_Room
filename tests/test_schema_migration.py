@@ -13,13 +13,13 @@ class TestSchemaMigration:
     def test_new_db_has_latest_version(self, temp_dir):
         """A fresh database is initialized at the latest schema version.
 
-        Schema v5 was added by the pipeline redesign (retires
-        craft_edited/revised revision_status labels and introduces
-        polished / final_gate_rejected).
+        Schema v6 was added by the relay v3 refactor (collapses the
+        revision_status enum to draft / saved_clean / saved_with_advisory
+        / quarantined).
         """
         db_path = str(Path(temp_dir) / "test.db")
         state = StoryState(db_path=db_path)
-        assert state.get_schema_version() == 5
+        assert state.get_schema_version() == 6
         state.close()
 
     def test_migration_creates_phase5_tables(self, temp_dir):
@@ -65,7 +65,7 @@ class TestSchemaMigration:
         ).fetchall()
         # Should have exactly one entry per migration, no duplicates
         versions = [r["version"] for r in rows]
-        assert versions == [1, 2, 3, 4, 5]
+        assert versions == [1, 2, 3, 4, 5, 6]
         state2.close()
 
     def test_existing_data_preserved_after_migration(self, temp_dir):

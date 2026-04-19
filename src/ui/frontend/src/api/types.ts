@@ -1,5 +1,21 @@
 /** TypeScript interfaces matching all backend API response shapes. */
 
+/**
+ * Saved-scene status vocabulary. Relay v3 (Stage 1i) collapsed the legacy
+ * six-value enum (gate_failed / gate_passed / polished / final_gate_rejected
+ * / approved) into these three terminal states plus the pre-save 'draft'.
+ *
+ * - `saved_clean`         — all gates green
+ * - `saved_with_advisory` — any gate fired advisory-level signal
+ * - `quarantined`         — save blocked; scene never wrote to manuscripts
+ * - `draft`               — pre-save state (rare in API responses)
+ */
+export type SceneSavedStatus =
+  | "saved_clean"
+  | "saved_with_advisory"
+  | "quarantined"
+  | "draft";
+
 export interface PipelineStatus {
   state: "idle" | "running" | "paused" | "milestone_pending" | "completed" | "failed";
   session_id: string | null;
@@ -140,9 +156,17 @@ export interface ManuscriptSummary {
 export interface LedgerSummary {
   total_events: number;
   events_by_type: Record<string, number>;
+  // Relay v3 (Stage 1i): gate_pass/gate_fail are retained for historical
+  // event names but the surfaces now show advisory/blocked aggregates
+  // alongside. Frontends should compute saved_clean / saved_with_advisory /
+  // quarantined from the revision_status stored on each chapter_log row,
+  // not from these fields, which predate the status-vocab migration.
   gate_pass_count: number;
   gate_fail_count: number;
   gate_pass_rate: number | null;
+  // Relay v3 save-blocker telemetry. Counts 'save_blocked' events; each
+  // maps one-to-one to a quarantined scene.
+  save_blocked_count?: number;
 }
 
 export interface HealthResponse {

@@ -277,8 +277,11 @@ CREATE TABLE IF NOT EXISTS chapter_log (
     summary TEXT,
     quality_scores TEXT,
     failure_codes TEXT,
+    -- Relay v3 (Stage 1i): status vocabulary reduced to three saved-scene
+    -- states plus the pre-save 'draft'. The v5→v6 migration remaps the old
+    -- five-value enum; see _migrate_v5_to_v6 below.
     revision_status TEXT CHECK(revision_status IN (
-        'draft', 'gate_failed', 'gate_passed', 'polished', 'final_gate_rejected', 'approved'
+        'draft', 'saved_clean', 'saved_with_advisory', 'quarantined'
     )),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     revised_at TIMESTAMP
@@ -558,12 +561,123 @@ def _migrate_v4_to_v5(conn: sqlite3.Connection) -> None:
     """)
 
 
+def _migrate_v5_to_v6(conn: sqlite3.Connection) -> None:
+    """Relay v3 (Stage 1i): collapse revision_status enum to the new vocab.
+
+    Replaces the six-value enum
+        {draft, gate_failed, gate_passed, polished, final_gate_rejected, approved}
+    with the four-value enum
+        {draft, saved_clean, saved_with_advisory, quarantined}.
+
+    Remapping rules:
+      - 'gate_passed' / 'polished' / 'approved'                  -> 'saved_clean'
+      - 'gate_failed' / 'final_gate_rejected' / 'gate_skipped'   -> 'saved_with_advisory'
+      - 'draft'                                                  -> 'draft'
+      - any other legacy value                                   -> 'saved_with_advisory'
+        (conservative: unknown non-draft rows are assumed to have fired at
+        least one advisory signal)
+
+    SQLite cannot ALTER a CHECK constraint in place, so we recreate both
+    log tables and copy rows through.
+    """
+    new_status_check = (
+        "revision_status TEXT CHECK(revision_status IN ("
+        "'draft', 'saved_clean', 'saved_with_advisory', 'quarantined'))"
+    )
+
+    remap_case = """
+        CASE revision_status
+            WHEN 'gate_passed'          THEN 'saved_clean'
+            WHEN 'polished'             THEN 'saved_clean'
+            WHEN 'approved'             THEN 'saved_clean'
+            WHEN 'gate_failed'          THEN 'saved_with_advisory'
+            WHEN 'final_gate_rejected'  THEN 'saved_with_advisory'
+            WHEN 'gate_skipped'         THEN 'saved_with_advisory'
+            WHEN 'draft'                THEN 'draft'
+            WHEN 'saved_clean'          THEN 'saved_clean'
+            WHEN 'saved_with_advisory'  THEN 'saved_with_advisory'
+            WHEN 'quarantined'          THEN 'quarantined'
+            ELSE 'saved_with_advisory'
+        END AS revision_status
+    """
+
+    # --- chapter_log ---
+    conn.executescript(f"""
+    CREATE TABLE IF NOT EXISTS chapter_log_new (
+        chapter_number INTEGER PRIMARY KEY,
+        word_count INTEGER,
+        structural_phase TEXT,
+        pov_character TEXT,
+        summary TEXT,
+        quality_scores TEXT,
+        failure_codes TEXT,
+        {new_status_check},
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        revised_at TIMESTAMP
+    );
+
+    INSERT OR IGNORE INTO chapter_log_new
+    SELECT
+        chapter_number,
+        word_count,
+        structural_phase,
+        pov_character,
+        summary,
+        quality_scores,
+        failure_codes,
+        {remap_case},
+        created_at,
+        revised_at
+    FROM chapter_log;
+
+    DROP TABLE chapter_log;
+    ALTER TABLE chapter_log_new RENAME TO chapter_log;
+    """)
+
+    # --- scene_log ---
+    conn.executescript(f"""
+    CREATE TABLE IF NOT EXISTS scene_log_new (
+        chapter_number INTEGER NOT NULL,
+        scene_number INTEGER NOT NULL,
+        word_count INTEGER,
+        structural_phase TEXT,
+        pov_character TEXT,
+        summary TEXT,
+        quality_scores TEXT,
+        failure_codes TEXT,
+        {new_status_check},
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        revised_at TIMESTAMP,
+        PRIMARY KEY (chapter_number, scene_number)
+    );
+
+    INSERT OR IGNORE INTO scene_log_new
+    SELECT
+        chapter_number,
+        scene_number,
+        word_count,
+        structural_phase,
+        pov_character,
+        summary,
+        quality_scores,
+        failure_codes,
+        {remap_case},
+        created_at,
+        revised_at
+    FROM scene_log;
+
+    DROP TABLE scene_log;
+    ALTER TABLE scene_log_new RENAME TO scene_log;
+    """)
+
+
 # Ordered list of migrations. Each entry is (version, description, callable).
 _MIGRATIONS: list[tuple[int, str, callable]] = [
     (2, "Phase 5: character arcs, subplot board, hook ledger, terminology, propagation debts, style fingerprint", _migrate_v1_to_v2),
     (3, "Multi-scene: scene_log table with composite PK", _migrate_v2_to_v3),
     (4, "Expand character_arcs.current_phase for all arc types", _migrate_v3_to_v4),
     (5, "Pipeline redesign: retire craft_edited/revised; add polished and final_gate_rejected", _migrate_v4_to_v5),
+    (6, "Relay v3: collapse revision_status to saved_clean/saved_with_advisory/quarantined", _migrate_v5_to_v6),
 ]
 
 
