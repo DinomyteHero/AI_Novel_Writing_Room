@@ -2,6 +2,10 @@
 
 Working implementation brief for the execution pipeline, planning layer, and validation contract redesign. Supersedes the current post-gate rewrite stack and adds the missing chapter-level planning artifact.
 
+> **Amendment (2026-04-19, Relay v3):** the gate-driven rewrite stack has been retired. Retry loops are neutered (`max_structural_retries: 0`, `max_voice_retries: 0`), gates run as telemetry only, and the save-blocker layer (`src/pipeline/save_blockers.py`) is the single hard-failure path. The relay order is
+> `drafter → [line_writer] → gate_critic → copy_editor → continuity_editor → save_blocker → save`
+> with `canon_expert` as the last reader on FINAL polished prose. Scene-level word count has left the gate taxonomy entirely; chapter-level drift is tracked by `src/pipeline/word_count_telemetry.py`. Saved-scene status vocabulary is now `{saved_clean, saved_with_advisory, quarantined}`. See commits `65e4eee`, `186d1fc`, and the Stage 3 LineWriter promotion for the full rollout.
+
 ## Problem statement
 
 ### The core contract violation

@@ -57,27 +57,30 @@ Use the workflow kit to scaffold a new project from templates — see [Workflow 
 
 ## How It Works
 
-Each scene runs through an event-driven per-scene loop, with additional layers activating at higher pipeline depths:
+Each scene runs through a forward-only relay (post-v3 refactor — no retry loops, gates are telemetry, save-blocker is the only hard-failure path):
 
 1. **PlotArchitect** reads a scene card and produces a generation brief
-2. **ProseStylist** drafts prose from the brief + assembled context
-3. **GateCritic** evaluates the draft against a structural rubric (pass/fail with failure codes, calibration anchors, chain-of-thought reasoning); failures trigger a bounded retry loop back to the ProseStylist
-4. **QualityMetrics** scores the Gate-passed draft (repetition, pacing, voice, AI-tell detection) via pure-Python checkers, no LLM call
-5. **QualityPolish** makes a single bounded refinement pass targeting the flagged metrics
-6. **Compression guard** rejects polish output that significantly compresses or drops material
-7. **FinalGate** validates the polished prose against the scene card contract (character presence, closing-hook boundary, word-count floor, turning point); if it rejects the polish, the Gate-passed draft is saved instead
+2. **ProseStylist (drafter)** drafts prose from the brief + assembled context
+3. **LineWriter** — optional line-editing pass (GPT 5.4 @ t=0.8) that preserves beats, turning point, POV, characters_present, and canon while rewriting sentence-level rhythm, imagery, and voice texture. Skipped in `--raw-draft` mode and when no `line_writer` routing entry is configured.
+4. **GateCritic** evaluates the draft against a structural rubric (pass/fail with failure codes); runs as telemetry under the relay — verdicts are logged but do not block the pipeline
+5. **QualityMetrics** scores the draft (repetition, pacing, voice, AI-tell detection) via pure-Python checkers, no LLM call
+6. **QualityPolish (copy editor)** makes a single bounded refinement pass targeting the flagged metrics
+7. **Compression advisory** logs a ledger event when polish cuts below 60% of pre-polish word count; kept for telemetry, no longer reverts
+8. **FinalGate** validates polished prose against the scene contract (character presence, closing-hook boundary, turning point); advisory only
+9. **Continuity Editor (canon_expert)** runs on FINAL polished prose — the last reader before save
+10. **Save-blocker layer** — three blocker categories can abort the run: `CHARACTER_PRESENCE_BLOCKER` (dedicated PresenceChecker agent), `CANON_BLOCKER` (continuity_report verdict=fail + severity in {critical, moderate}), and `POV_ADVISORY` (advisory-only in v1). Quarantine-on-first-blocker policy: the run aborts, the offending scene lands at `<project>/quarantine/chNN_scMM/{prose.md, blockers.json, brief.json}`, and no partial chapters ship.
 
-The saved file is always either polish-accepted-by-Final-Gate or the Gate-passed draft, never an unvalidated rewrite. Every step emits typed events to the RunLedger for reproducibility.
+The saved file is the polished, continuity-checked prose. Scenes save as `saved_clean` (all gates green), `saved_with_advisory` (any gate fired advisory-level signal), or never save at all if the save-blocker fires. Every step emits typed events (with level: info/warn/error) to the RunLedger. Chapter-level word-count drift is tracked as telemetry at chapter close (±15% / ±15-30% / >30% thresholds); scene-level word count is no longer enforced at any gate.
 
 Depending on the pipeline depth selected (`--phase 1..5`), additional layers activate after the scene is saved:
 
 | Pipeline depth | Adds |
 |----------------|------|
-| 1 | Per-scene loop only (PlotArchitect → ProseStylist → GateCritic → QualityMetrics → QualityPolish → compression guard → FinalGate → save) |
+| 1 | Per-scene relay only (PlotArchitect → ProseStylist → [LineWriter] → GateCritic → QualityMetrics → QualityPolish → compression advisory → FinalGate → Continuity Editor → Save-Blocker → save) |
 | 2 | Summarizer + StateDiff + ContradictionScanner (chapter memory, SQLite story state, ChromaDB, canon RAG) |
 | 3 | CharacterSpecialist (OOC detection) + MilestoneGates (structural checkpoints at 25/50/75%) |
 | 4 | PhysicsEnforcer (pre/post validation) + PipelineSession (save/resume) + optional LLM judge (`--judge`) |
-| 5 | Chapter blueprint generation + ChapterGateCritic (advisory by default) |
+| 5 | Chapter blueprint generation + ChapterGateCritic (advisory by default) + chapter word-count telemetry |
 
 Closed-loop lore (Phases 6–7, available at any depth with `--franchise`/`--book`):
 

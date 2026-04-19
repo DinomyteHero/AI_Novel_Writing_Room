@@ -2,6 +2,12 @@
 
 > **Update 2026-04-19:** The `kimi` alias in [config/settings.yaml](../../config/settings.yaml) now points at `moonshotai/kimi-k2.5` (released 2026-01-27, $0.38/$1.72 per M in/out). Historical analysis below references Kimi K2-Instruct (`moonshotai/kimi-k2`), which previously tested better for *prose drafting* than K2.5. The live config only uses `kimi` for `manuscript_reviewer` (a review role, not a drafter), so the prose-quality concern does not apply to the production routing. If a future Kimi-as-drafter experiment is run, re-bench K2.5 against K2-Instruct first.
 
+> **Relay v3 addendum (2026-04-19):** Two new agents joined the routing table:
+> - `presence_checker` — Haiku 4.5 @ t=0.1, binary character-presence check feeding the save-blocker layer. Cheap and precise; one call per saved scene.
+> - `line_writer` — GPT 5.4 @ t=0.8, line-editing pass between drafter and gate. `max_tokens: 12000` because GPT benefits from headroom on an edit pass. Adds one LLM call per scene; skipped in `--raw-draft` mode. Expect a Stage 2 bench at 3 scenes × 2 arms ≈ $0.40 before wide rollout — the routing entry is live but the bench evidence lives separately.
+>
+> The gate stack is now forward-only telemetry (no rewrites), so the retry-driven cost variance documented below for Chapter 1 no longer applies — scenes take exactly one drafter call, one optional line-writer call, one gate call, one polish call, one continuity call, and one presence-checker call. Total cost per saved scene is predictable within a 10% band.
+
 Evaluation of model routing in [config/settings.yaml](../../config/settings.yaml) in light of Ruusan Atonement's commercial-style register revision and the Chapter 1 credit burn.
 
 Sources consulted: [OpenRouter Rankings](https://openrouter.ai/rankings) (overall + Roleplay + Marketing categories), [EQ-Bench Creative Writing v3](https://eqbench.com/creative_writing.html), [EVY aggregated benchmarks](https://evy.so/compare/best-llms-for-writing/), and multi-agent critique research from [Multi-Agent LLM Systems](https://www.emergentmind.com/topics/multi-agent-large-language-model-llm) / [arxiv 2603.19282](https://arxiv.org/abs/2603.19282).

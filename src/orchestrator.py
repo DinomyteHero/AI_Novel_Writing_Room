@@ -42,6 +42,7 @@ if TYPE_CHECKING:
     from src.agents.canon_expert import CanonExpert
     from src.agents.chapter_gate_critic import ChapterGateCritic
     from src.agents.character_specialist import CharacterSpecialist
+    from src.agents.line_writer import LineWriter
     from src.agents.presence_checker import PresenceChecker
     from src.agents.summarizer import Summarizer
     from src.memory.chapter_memory import ChapterMemory
@@ -86,6 +87,7 @@ class Orchestrator:
         story_state: Optional["StoryState"] = None,
         canon_expert: Optional["CanonExpert"] = None,
         presence_checker: Optional["PresenceChecker"] = None,
+        line_writer: Optional["LineWriter"] = None,
         # Phase 3 optional dependencies:
         metrics_dashboard: Optional["MetricsDashboard"] = None,
         character_specialist: Optional["CharacterSpecialist"] = None,
@@ -136,6 +138,7 @@ class Orchestrator:
         self.story_state = story_state
         self.canon_expert = canon_expert
         self.presence_checker = presence_checker
+        self.line_writer = line_writer
 
         # Phase 3 optional components
         self.metrics_dashboard = metrics_dashboard
@@ -385,6 +388,15 @@ class Orchestrator:
         # Relay v3 (Stage 1f): Canon expert no longer runs mid-stream — it
         # moves to the LAST reader position (continuity_editor) just before
         # the save-blocker check. See below.
+
+        # Relay v3 (Stage 3): optional LineWriter pass between drafter and
+        # gate. Preserves structure/POV/canon/characters_present; rewrites
+        # for sentence-level rhythm, imagery, and voice texture. Gate_critic
+        # and downstream stages evaluate the line-edited prose.
+        if self.line_writer and not self.raw_draft:
+            prose = await self._run_line_writer(
+                scene_card, generation_brief, prose
+            )
 
         # Step 3: Gate Critic evaluates
         print("  [3/5] Gate Critic evaluating...")
@@ -1082,6 +1094,93 @@ class Orchestrator:
         )
 
         return result["prose"]
+
+    async def _run_line_writer(
+        self,
+        scene_card: dict,
+        generation_brief: dict,
+        source_prose: str,
+    ) -> str:
+        """Run the LineWriter pass between drafter and gate_critic.
+
+        Preservation-critical context (scene_card, generation_brief,
+        characters_present, franchise_profile_text, pov_approach) is passed
+        EXPLICITLY — the agent does not reach back into the ambient assembler
+        for those. Failures degrade to the source prose with a warn-level
+        ledger event; they never block the pipeline.
+        """
+        chapter_num = scene_card["chapter_number"]
+        scene_num = scene_card.get("scene_number", 1)
+        start = time.time()
+        print("  [2.5/5] Line Writer editing...")
+        self.ledger.emit(
+            "agent_start",
+            chapter_number=chapter_num,
+            scene_number=scene_num,
+            agent_role="line_writer",
+        )
+
+        try:
+            result = await self.line_writer.run({
+                "source_prose": source_prose,
+                "scene_card": scene_card,
+                "generation_brief": generation_brief,
+                "characters_present": scene_card.get("characters_present", []),
+                "pov_approach": self.assembler.get_pov_approach(),
+                "franchise_profile_text": self.assembler.get_franchise_profile_text(),
+            })
+            revised = result.get("prose", "") or ""
+        except Exception as e:
+            print(
+                f"    Line Writer: error ({e.__class__.__name__}) — "
+                f"keeping drafter output"
+            )
+            self.ledger.emit_warn(
+                "line_writer_error",
+                chapter_number=chapter_num,
+                scene_number=scene_num,
+                payload={"error_class": e.__class__.__name__, "error": str(e)},
+            )
+            return source_prose
+
+        # Guardrail: if the edit collapsed below a sane floor, keep the
+        # drafter prose rather than saving a degraded scene. 40% is a wide
+        # lower bound — most edits land in the 70-110% range of source word
+        # count. Below 40% is almost certainly a model failure (partial
+        # output, refusal, or collapsed-to-summary).
+        source_wc = len(source_prose.split())
+        revised_wc = len(revised.split())
+        if source_wc and revised_wc < 0.40 * source_wc:
+            pct = (revised_wc / source_wc * 100) if source_wc else 0
+            print(
+                f"    Line Writer: output at {pct:.0f}% of source "
+                f"({revised_wc}/{source_wc} words) — falling back to drafter"
+            )
+            self.ledger.emit_warn(
+                "line_writer_collapsed",
+                chapter_number=chapter_num,
+                scene_number=scene_num,
+                payload={
+                    "source_word_count": source_wc,
+                    "revised_word_count": revised_wc,
+                    "ratio": revised_wc / source_wc if source_wc else 0,
+                },
+            )
+            return source_prose
+
+        duration_ms = int((time.time() - start) * 1000)
+        self.ledger.emit(
+            "agent_complete",
+            chapter_number=chapter_num,
+            scene_number=scene_num,
+            agent_role="line_writer",
+            payload={
+                "duration_ms": duration_ms,
+                "source_word_count": source_wc,
+                "revised_word_count": revised_wc,
+            },
+        )
+        return revised
 
     async def _gate_loop(
         self,

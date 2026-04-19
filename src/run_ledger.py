@@ -46,6 +46,9 @@ EVENT_TYPES = [
     "presence_check_error",
     # Relay refactor Stage 1h: chapter-level word-count telemetry
     "chapter_word_count_telemetry",
+    # Relay refactor Stage 3: LineWriter telemetry
+    "line_writer_error",
+    "line_writer_collapsed",
 ]
 
 

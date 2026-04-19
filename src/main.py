@@ -839,6 +839,15 @@ async def main():
     from src.agents.presence_checker import PresenceChecker
     presence_checker = PresenceChecker(router)
 
+    # Relay Stage 3 — LineWriter runs as the line-editing pass after the
+    # drafter. Only instantiate when agent_routing.line_writer is configured
+    # (bench configs and cheap-run configs can omit it to keep runs light).
+    # In raw-draft mode the orchestrator also skips the call.
+    line_writer = None
+    if config.get("agent_routing", {}).get("line_writer"):
+        from src.agents.line_writer import LineWriter
+        line_writer = LineWriter(router)
+
     if args.phase >= 2:
         print("Initializing Phase 2 components...")
         (
@@ -1097,6 +1106,7 @@ async def main():
         story_state=story_state,
         canon_expert=canon_expert,
         presence_checker=presence_checker,
+        line_writer=line_writer,
         metrics_dashboard=metrics_dashboard,
         character_specialist=character_specialist,
         milestone_gates=milestone_gates,
