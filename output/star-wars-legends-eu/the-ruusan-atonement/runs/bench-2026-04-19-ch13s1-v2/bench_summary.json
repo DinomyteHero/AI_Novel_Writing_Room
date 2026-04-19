@@ -1,0 +1,57 @@
+{
+  "scene_card_path": "data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/scene_cards/chapter_13_scene_01.json",
+  "scene_label": "Ch13S1",
+  "pov_character": "Ben Skywalker",
+  "target_word_count": 1600,
+  "plot_architect_duration_s": 0.0,
+  "results": [
+    {
+      "label": "kimi-k25-t070",
+      "model_short": "kimi",
+      "model_full": "moonshotai/kimi-k2.5",
+      "temperature": 0.7,
+      "duration_s": 227.1,
+      "word_count": 1640,
+      "char_count": 10106,
+      "est_in_tokens": 6954,
+      "est_out_tokens": 2526,
+      "est_cost_usd": 0.007,
+      "output_file": "output\\star-wars-legends-eu\\the-ruusan-atonement\\runs\\bench-2026-04-19-ch13s1-v2\\kimi-k25-t070.md",
+      "polish": {
+        "model_short": "haiku",
+        "model_full": "anthropic/claude-haiku-4.5",
+        "duration_s": 29.1,
+        "word_count": 1640,
+        "char_count": 10106,
+        "est_in_tokens": 4147,
+        "est_out_tokens": 2526,
+        "est_cost_usd": 0.0168,
+        "output_file": "output\\star-wars-legends-eu\\the-ruusan-atonement\\runs\\bench-2026-04-19-ch13s1-v2\\kimi-k25-t070__POLISHED.md"
+      }
+    },
+    {
+      "label": "glm-51-t070",
+      "model_short": "glm",
+      "model_full": "z-ai/glm-5.1",
+      "temperature": 0.7,
+      "duration_s": 140.5,
+      "word_count": 1225,
+      "char_count": 7610,
+      "est_in_tokens": 6954,
+      "est_out_tokens": 1902,
+      "est_cost_usd": 0.0126,
+      "output_file": "output\\star-wars-legends-eu\\the-ruusan-atonement\\runs\\bench-2026-04-19-ch13s1-v2\\glm-51-t070.md",
+      "polish": {
+        "model_short": "haiku",
+        "model_full": "anthropic/claude-haiku-4.5",
+        "duration_s": 23.3,
+        "word_count": 1249,
+        "char_count": 7751,
+        "est_in_tokens": 3523,
+        "est_out_tokens": 1937,
+        "est_cost_usd": 0.0132,
+        "output_file": "output\\star-wars-legends-eu\\the-ruusan-atonement\\runs\\bench-2026-04-19-ch13s1-v2\\glm-51-t070__POLISHED.md"
+      }
+    }
+  ]
+}

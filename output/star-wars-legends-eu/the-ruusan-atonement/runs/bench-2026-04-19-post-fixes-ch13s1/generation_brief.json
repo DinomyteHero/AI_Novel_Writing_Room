@@ -1,0 +1,69 @@
+{
+  "scene_objective": "Midpoint attack phase: deliver the first full-scale experience of a de-structured zone on Kolven so that Ben and the group move from abstract discussion of the wound to visceral, inescapable knowledge of its reality, forcing Ben to confront that the lattice he has always relied upon can simply be removed.",
+  "turning_point": {
+    "trigger": "Ben deliberately reaches for the Force while standing in the settlement's central square amid visibly reversing vines and a drifting chrono.",
+    "shift": "The Force answers with raw presence and potential but supplies no moral axis, no light/dark register, and no intuitive guidance, collapsing every trained Jedi instinct into formless silence.",
+    "cost": "Ben loses the lifelong safety net of moral intuition; he must now hear his own uncushioned thoughts, including those the lattice previously softened, while carrying the knowledge that Veraine can scale this effect to Veranthos."
+  },
+  "closing_beat": "In the silence of the de-structured Force, Ben heard himself think without the safety net of Force intuition for the first time. The thoughts were his. All of them. Including the ones the Force usually softened.",
+  "emotional_arc": {
+    "start": "professional assessment of the contradictory scan data and outwardly intact settlement",
+    "shift": "escalating visceral wrongness as vegetation reverses direction in plain sight and the Force returns only unstructured potential",
+    "end": "existential disorientation at the total silence of moral intuition and the sudden exposure of his own unfiltered thoughts"
+  },
+  "target_word_count": 1600,
+  "opening_mode": "contrast",
+  "key_beats": [
+    {
+      "beat_description": "The Steady Returns breaks orbit; Ben studies the green-blue temperate world filling the viewport while Desh recites scan data that directly contradicts the visual.",
+      "state_change": "The ship crosses the boundary into the de-structured zone; environmental readings begin to slip out of calibration.",
+      "pov_reaction": "Ben's hands tighten on the co-pilot yoke; a faint metallic taste registers at the back of his tongue though nothing in the recycled air explains it."
+    },
+    {
+      "beat_description": "The group disembarks onto the surface; Sera points out vines climbing the shadowed sides of intact buildings while flowers bloom only where sunlight should not reach.",
+      "state_change": "The visible environment confirms the scans: growth patterns violate planetary biology yet remain physically present.",
+      "pov_reaction": "A low steady pressure builds behind Ben's sternum; his balance registers a vertigo-like drop though the duracrete under his boots stays level."
+    },
+    {
+      "beat_description": "Ben stops in the central square, deliberately reaches for the Force, and encounters raw energy without lattice, axis, or comparative register.",
+      "state_change": "The structured Force Ben has known his entire life simply is not there; moral intuition falls silent.",
+      "pov_reaction": "His trained instincts fire into nothing; the absence lands as a physical hollowness in the bones of his arms and a sudden loudness of his own unmediated thoughts."
+    },
+    {
+      "beat_description": "Desh pulls out his chrono and watches the second hand visibly skip; Kael mutters that the grief in his chest has no object and no reason.",
+      "state_change": "Non-Force-sensitive members register the zone's effect as measurable temporal drift and objectless grief, confirming the phenomenon is not limited to Jedi perception.",
+      "pov_reaction": "Ben's stomach clenches at the realization that the lattice's removal hurts living beings whether they can name the mechanism or not; he forces his hands to stay at his sides instead of reaching again."
+    }
+  ],
+  "voice_guidance": "Channel Zahn's efficient dialogue and tight third-person interiority — sharp, self-deprecating observations grounded in physical sensation; every line and thought must move plot or reveal character. Use franchise-native sensory palette: ozone, recycled air, durasteel cold, reversed vegetation. Keep Force descriptions experiential and concise; one consistent image of 'the ground of sense dropping out' or 'no axis' per scene. Rotate away from handrail or flat-note metaphors. Allow Allston-style humor-under-stress to surface once in group reaction but never undercut the weight.",
+  "forbidden_moves": [
+    "Ben must not deliver any diagnostic paragraph analyzing the lattice as a concept or its phenomenology",
+    "No character outside the listed five may speak or act",
+    "Do not resolve or pay off any subplot beyond SP-A and SP5",
+    "No re-introduction of established lattice or wound concepts; advance only",
+    "Characters outside the listed five may be mentioned in passing but must not speak or act"
+  ],
+  "delivery_preferences": {
+    "reveal_mode": "gradual",
+    "exposition_budget": "concise",
+    "register_override": null
+  },
+  "required_hooks": [
+    "H08",
+    "H12"
+  ],
+  "required_subplots": [
+    "SP-A",
+    "SP5"
+  ],
+  "required_revelations": [
+    "R08"
+  ],
+  "anti_patterns": [
+    "absolutely no 'it was as if the Force had —' constructions",
+    "The Force does not have 'as if' here; it has 'is' or 'is not'",
+    "Diagnostic-voice trap — Ben should not analyse the phenomenology as concept",
+    "R08 is experiential, not informational; it has to land on the reader's body, not their reading memory",
+    "Rotate Force-wrongness metaphor for this scene: not handrail, not flat-note"
+  ]
+}

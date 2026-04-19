@@ -1,0 +1,66 @@
+{
+  "scene_objective": "Midpoint hook in the Attack phase: deliver the first full-scale experience of a de-structured zone so the reader and Ben physically feel the wound's reality, shifting the story from conceptual discussion to irreversible commitment and proving Veraine's capability at planetary scale.",
+  "turning_point": {
+    "trigger": "Ben deliberately reaches for the Force upon stepping onto Kolven's surface after the visual and chrono anomalies accumulate.",
+    "shift": "The Force answers with raw presence and potential but supplies no lattice, no moral axis, no light/dark register — every trained instinct fires into formless nothing, removing the ground of perception.",
+    "cost": "Loss of the intuitive safety net that has shaped Ben's identity since childhood; he must now hear his own uncushioned thoughts, including those the Force previously softened, while carrying the knowledge that Veraine can weaponize this absence across the galaxy."
+  },
+  "closing_beat": "In the silence of the de-structured Force, Ben hears himself think without the safety net of Force intuition for the first time. The thoughts are his. All of them. Including the ones the Force usually softens.",
+  "emotional_arc": {
+    "start": "professional assessment of the landing site and scan contradictions",
+    "shift": "escalating visceral wrongness as vegetation, birds, and chrono behave impossibly",
+    "end": "existential disorientation when moral intuition goes completely silent"
+  },
+  "target_word_count": 1600,
+  "opening_mode": "contrast",
+  "key_beats": [
+    {
+      "beat_description": "The Steady Returns breaks orbit; Ben watches the deceptively perfect green-blue temperate world fill the viewport while Desh reads contradictory scan data aloud to the group.",
+      "state_change": "visual promise of a normal settlement world collides with instrument readings showing impossible temperature gradients and vegetation signatures",
+      "pov_reaction": "Ben's hands tighten on the co-pilot yoke; a professional calm holds but the first thread of unease coils behind his sternum as the eyes and the instruments refuse to agree."
+    },
+    {
+      "beat_description": "The ship settles onto cracked but intact landing pads; the group disembarks into streets still traceable between standing buildings while vines visibly reverse growth direction under direct observation.",
+      "state_change": "physical transition from ship interior to planetary surface; environment itself demonstrates ongoing, observable drift",
+      "pov_reaction": "Ben's boots register normal duracrete yet his balance feels unmoored; he instinctively reaches for the Force to steady himself and encounters only raw potential without axis."
+    },
+    {
+      "beat_description": "Sera and Torin fan out to examine shadowed flowers blooming on the wrong sides of walls; Kael mutters about the wrongness of the silence while Desh pulls his chrono and watches the second hand stutter and skip.",
+      "state_change": "group formation fragments under individual reactions; measurable time distortion becomes visible to non-Force-sensitives",
+      "pov_reaction": "A grief-without-object presses under Ben's ribs that is not his own; he registers it as Desh's but cannot offer the usual Jedi reassurance because the moral shape that would let him respond is absent."
+    },
+    {
+      "beat_description": "Ben deliberately widens his stance, plants his feet, and reaches again — this time on purpose — into the Force while the others watch.",
+      "state_change": "the full de-structuring is experienced at personal scale; the lattice is confirmed gone rather than degraded",
+      "pov_reaction": "His perception fires but finds no structure to compare against; the absence lands in his body as a drop in the ground of sense, leaving every trained instinct echoing in a room with no walls."
+    }
+  ],
+  "voice_guidance": "Channel Zahn's efficient dialogue and Allston's humor-under-stress; keep internal monologue clipped, sensory-first, and commercial-SW-EU paced. Let Ben's dry wit surface once in a wry observation about the birds before the silence swallows it. Prioritize physical verbs and short sentences once the lattice drops; no diagnostic paragraphs.",
+  "forbidden_moves": [
+    "No re-introduction or conceptual explanation of the lattice — treat it as already established and simply absent.",
+    "Only the five listed characters may speak or take significant action; no external characters.",
+    "Do not resolve any planted promises beyond PP17; do not introduce new ones.",
+    "Ben must not analyze the phenomenology as a concept or deliver an expository paragraph on what the lattice is."
+  ],
+  "delivery_preferences": {
+    "reveal_mode": "gradual",
+    "exposition_budget": "concise",
+    "register_override": null
+  },
+  "required_hooks": [
+    "H08",
+    "H12"
+  ],
+  "required_subplots": [
+    "SP-A",
+    "SP5"
+  ],
+  "required_revelations": [
+    "R08"
+  ],
+  "anti_patterns": [
+    "absolutely no 'it was as if the Force had —' constructions",
+    "The Force does not have 'as if' here; it has 'is' or 'is not'",
+    "Diagnostic-voice trap — Ben should not analyse the phenomenology as concept"
+  ]
+}

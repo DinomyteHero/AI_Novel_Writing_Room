@@ -1,0 +1,135 @@
+Ben's guard came up late.
+
+The training blade cracked across his right shoulder with a hard blue flare and a sting that punched through muscle. He hissed and stepped back on instinct, saber already dropping out of line as the point passed his chest by a handspan.
+
+A handspan because his body had answered a half-beat after it should have. Again.
+
+His sparring partner lowered his own blade at once. "Point."
+
+"Yeah, I noticed." Ben thumbed his training saber off. The hum cut out, leaving the salle too open for a second. "Nice shot."
+
+The other Knight tipped his head, not quite buying the easy tone. They'd been working at half-speed forms a minute ago. Ben was supposed to be the one correcting footwork, not eating a shoulder hit like a first-year who'd wandered into the wrong session.
+
+"You want another pass?"
+
+Ben rolled the struck shoulder once. The nerve burn faded to a dull complaint. "Not unless you're collecting favors from the med center."
+
+That got a brief snort. "You're not hurt."
+
+"My dignity's limping."
+
+The Knight clipped his saber to his belt. "You sure?"
+
+There it was. Casual words, sharper edge under them. Not concern, exactly. More the mild surprise of someone who had just watched a competent mechanic drop a hydrospanner on his own foot.
+
+Ben bent to scoop up the practice marker they'd knocked to the floor. "Long week."
+
+"Join the club."
+
+"Planning to, right after I stop losing to people I'm trying to instruct."
+
+The Knight's mouth twitched. "That bad?"
+
+Ben straightened and tossed the marker back to the rack. "Go home before I demand a rematch and ruin your evening."
+
+A beat. Then the other man spread his hands in surrender. "Tomorrow, then."
+
+"If I survive my wounded pride."
+
+The Knight headed for the door, boots thudding over the salle floor. The doors hissed open, then shut behind him. Footsteps retreated into the corridor, blending with the Temple's late-hour traffic: distant voices, the chime of a lift, the soft whir of a service cart somewhere beyond the wall.
+
+Silence settled back over the room in layers.
+
+Ben stood where he was for a moment, flexing his fingers around the deactivated hilt. Sweat had slicked his palms. Not much. Just enough to make the metal shift against his skin.
+
+Long week, he'd said.
+
+Reasonable excuse. Respectable. Safe. Also bantha feed.
+
+He crossed to the edge of the practice circle and set the marker back in line with the others. The salle lights were dimmed for evening use, bright enough over the sparring floor, softer at the walls. Reflections slid over polished stone and the dark glass of the observation strip. The Temple never really slept; even now he could hear people moving beyond the chamber, Jedi on late duty, initiates being herded someplace they were meant to be, the life of the place carrying on with no interest in one Knight missing his timing.
+
+That should have helped.
+
+Instead it made the room feel off by another fraction. The air recyclers whispered overhead. His own breathing matched them for two cycles, then drifted. Under it all sat that same wrongness that had been dogging him since the start of the week: not loud, not dramatic, just the steady impression that everything around him arrived a half-step after his body had already committed.
+
+He had tried meditation. Walking drills. Sleeping more, which had been ambitious on Coruscant and almost funny in the Temple. He'd tried telling himself the aftershocks from the last few years had left everyone a little touchy where the Force was concerned. The Order had enough recent disasters to choose from if anyone wanted a reason to wave at the background static and call it residue.
+
+Residue usually didn't get a blade across your shoulder.
+
+Ben moved back to the center of the salle and thumbed his saber into his left hand. He didn't ignite it.
+
+If this was muscle memory, he could strip the rest away and catch it. If it wasn't, that answer would be its own problem.
+
+He settled into the opening stance of Shii-Cho, feet planted on the line marks worn smooth by years of practice. Weight balanced. Elbows loose. The first cut was simple and clean, the second turning into the third with the old familiar ease that training had carved into him before he was old enough to complain about it properly.
+
+He pivoted, drew the hilt across in a guard transition, stepped through to Soresu.
+
+The beat slipped.
+
+Not in his arms. Not in his feet. The movement itself stayed true, but the room around it lagged, as if the salle had decided to agree with him a breath late. His next turn checked short. The hilt bumped against his forearm, and he had to catch the line before it unraveled.
+
+Ben stopped.
+
+"Great," he muttered to the empty room. "That's new."
+
+The room offered no defense.
+
+He reset and started again, slower this time. One cut. Recover. Angle shift. Advance. He kept his attention on the places where habit usually met that quiet current under everything. For years he'd moved with it without thinking, same as breathing, same as balance. Tonight it kept hanging back from him. Not gone. Worse than gone. Present and late.
+
+He pushed into a faster sequence.
+
+The lag caught him on the transfer. His right foot landed, the next turn asked for support that wasn't there yet, and he stumbled hard enough to slap his free hand against empty air to steady himself. The hilt nearly flew from his grip.
+
+He froze, shoulder blades tight, pulse knocking in his throat.
+
+So there it was.
+
+Not fatigue. Not a bad session. Not the week chewing around the edges.
+
+Something was taking pieces out of his timing.
+
+He lowered the hilt by degrees and listened.
+
+Not with his ears. Those gave him the lights, the vents, a cleaning droid humming past in the corridor outside. The other thing sat underneath. Usually the Temple held a rhythm he could drop into without effort, the collected lives and focus of thousands of beings, the old stone itself steeped in use and memory. Tonight that rhythm kept landing after the count. Half a beat late. Enough to miss. Enough to bleed for, if the blade in his hand had been real.
+
+His mouth flattened.
+
+He was a Jedi Knight. He had led field missions, tracked people across worlds, fought things that should have stayed in nightmare stories, and somehow the problem that had him off balance looked ridiculous when he tried to frame it in words. Hi, Master, the Force is late. No, I don't mean metaphorically.
+
+That would go over well.
+
+He paced to the wall and back, saber hilt tapping once against his palm. The shoulder hit from the spar had settled into a deeper ache. It would bruise by morning. Nice visible reminder, in case his memory failed him too.
+
+Ben halted near the observation strip and looked at his reflection without much interest. Sweat darkened his collar. His hair had gone the usual uneven direction training always gave it, as if gravity had singled him out for a private joke. Son of Luke Skywalker, heir to generations of heroic composure, defeated at last by bad timing and his own refusal to sound strange in public.
+
+He almost laughed at that. Almost.
+
+The problem with growing up around legends was that nobody mentioned how often they probably looked ridiculous in the middle of things. They got statues after. Ben got a training welt and a private argument with the room.
+
+He pushed away from the glass and took his stance again.
+
+One more pass. No tricks. No pretending.
+
+He moved through the opening form with care, blade still dark in his hand. The first sequence held. So did the second. On the third, where body and instinct were meant to braid together without conscious thought, the drag came back—small, maddening, enough to pull the count out from under him. His left shoulder turned before the rest of him had support to match it. The form broke apart in his hands.
+
+Ben cut the motion dead.
+
+For a second he stayed there, one foot forward, saber half-raised, chest working harder than the exercise deserved. Sweat cooled along his spine. The whole salle seemed to wait that extra fraction before settling around him.
+
+He let the stance go and leaned one shoulder against the wall.
+
+Fine. Not fine, actually, but fine enough to stop lying to himself.
+
+This was real. It had been real the first time he noticed it and real the second, and now it had tagged him in front of another Knight. Maybe nobody would think much of one bad exchange. Maybe tomorrow somebody would. Maybe they already had. The part he liked least was the small, tired wish that one of them would walk in, watch him miss a step, and save him the trouble of explaining.
+
+No such luck.
+
+The corridor sounds drifted in and out beyond the door: passing boots, a lift chime, the cleaning droid making another patient circuit. Temple life. Ordinary, steady, intact. Ben listened past it anyway, to that half-late answer under the floor and walls, and felt irritation work deeper than the bruised shoulder.
+
+If this kept up, it wasn't only his pride on the line. A half-beat was the space between blocking and getting cut. Between catching someone and watching them fall. Between good judgment and a funeral report.
+
+He pushed off the wall.
+
+The salle doors stood open.
+
+Luke appeared in the doorway with a datapad and an expression Ben knew meant a mission.

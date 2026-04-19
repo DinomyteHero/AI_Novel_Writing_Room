@@ -1,0 +1,153 @@
+{
+  "scene_card_path": "data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/scene_cards/chapter_13_scene_01.json",
+  "scene_label": "Ch13S1",
+  "pov_character": "Ben Skywalker",
+  "target_word_count": 1600,
+  "plot_architect_duration_s": 9.4,
+  "results": [
+    {
+      "label": "claude-sonnet-46-t080",
+      "model_short": "claude",
+      "model_full": "anthropic/claude-sonnet-4.6",
+      "temperature": 0.8,
+      "duration_s": 50.1,
+      "word_count": 1380,
+      "char_count": 7995,
+      "est_in_tokens": 7041,
+      "est_out_tokens": 1998,
+      "est_cost_usd": 0.0511,
+      "output_file": "output\\star-wars-legends-eu\\the-ruusan-atonement\\runs\\bench-2026-04-19-post-fixes-ch13s1\\claude-sonnet-46-t080.md",
+      "polish": {
+        "model_short": "haiku",
+        "model_full": "anthropic/claude-haiku-4.5",
+        "duration_s": 22.0,
+        "word_count": 1380,
+        "char_count": 7993,
+        "est_in_tokens": 3620,
+        "est_out_tokens": 1998,
+        "est_cost_usd": 0.0136,
+        "output_file": "output\\star-wars-legends-eu\\the-ruusan-atonement\\runs\\bench-2026-04-19-post-fixes-ch13s1\\claude-sonnet-46-t080__POLISHED.md"
+      }
+    },
+    {
+      "label": "claude-sonnet-46-t075",
+      "model_short": "claude",
+      "model_full": "anthropic/claude-sonnet-4.6",
+      "temperature": 0.75,
+      "duration_s": 52.5,
+      "word_count": 1491,
+      "char_count": 8934,
+      "est_in_tokens": 7041,
+      "est_out_tokens": 2233,
+      "est_cost_usd": 0.0546,
+      "output_file": "output\\star-wars-legends-eu\\the-ruusan-atonement\\runs\\bench-2026-04-19-post-fixes-ch13s1\\claude-sonnet-46-t075.md",
+      "polish": {
+        "model_short": "haiku",
+        "model_full": "anthropic/claude-haiku-4.5",
+        "duration_s": 23.8,
+        "word_count": 1475,
+        "char_count": 8834,
+        "est_in_tokens": 3854,
+        "est_out_tokens": 2208,
+        "est_cost_usd": 0.0149,
+        "output_file": "output\\star-wars-legends-eu\\the-ruusan-atonement\\runs\\bench-2026-04-19-post-fixes-ch13s1\\claude-sonnet-46-t075__POLISHED.md"
+      }
+    },
+    {
+      "label": "claude-sonnet-46-t070",
+      "model_short": "claude",
+      "model_full": "anthropic/claude-sonnet-4.6",
+      "temperature": 0.7,
+      "duration_s": 52.8,
+      "word_count": 1464,
+      "char_count": 8504,
+      "est_in_tokens": 7041,
+      "est_out_tokens": 2126,
+      "est_cost_usd": 0.053,
+      "output_file": "output\\star-wars-legends-eu\\the-ruusan-atonement\\runs\\bench-2026-04-19-post-fixes-ch13s1\\claude-sonnet-46-t070.md",
+      "polish": {
+        "model_short": "haiku",
+        "model_full": "anthropic/claude-haiku-4.5",
+        "duration_s": 23.3,
+        "word_count": 1464,
+        "char_count": 8504,
+        "est_in_tokens": 3747,
+        "est_out_tokens": 2126,
+        "est_cost_usd": 0.0144,
+        "output_file": "output\\star-wars-legends-eu\\the-ruusan-atonement\\runs\\bench-2026-04-19-post-fixes-ch13s1\\claude-sonnet-46-t070__POLISHED.md"
+      }
+    },
+    {
+      "label": "gpt-54-t070",
+      "model_short": "gpt54",
+      "model_full": "openai/gpt-5.4",
+      "temperature": 0.7,
+      "duration_s": 80.5,
+      "word_count": 2061,
+      "char_count": 12247,
+      "est_in_tokens": 7041,
+      "est_out_tokens": 3061,
+      "est_cost_usd": 0.0635,
+      "output_file": "output\\star-wars-legends-eu\\the-ruusan-atonement\\runs\\bench-2026-04-19-post-fixes-ch13s1\\gpt-54-t070.md",
+      "polish": {
+        "model_short": "haiku",
+        "model_full": "anthropic/claude-haiku-4.5",
+        "duration_s": 43.5,
+        "word_count": 2057,
+        "char_count": 12229,
+        "est_in_tokens": 4683,
+        "est_out_tokens": 3057,
+        "est_cost_usd": 0.02,
+        "output_file": "output\\star-wars-legends-eu\\the-ruusan-atonement\\runs\\bench-2026-04-19-post-fixes-ch13s1\\gpt-54-t070__POLISHED.md"
+      }
+    },
+    {
+      "label": "gpt-54-t075",
+      "model_short": "gpt54",
+      "model_full": "openai/gpt-5.4",
+      "temperature": 0.75,
+      "duration_s": 83.0,
+      "word_count": 2158,
+      "char_count": 12622,
+      "est_in_tokens": 7041,
+      "est_out_tokens": 3155,
+      "est_cost_usd": 0.0649,
+      "output_file": "output\\star-wars-legends-eu\\the-ruusan-atonement\\runs\\bench-2026-04-19-post-fixes-ch13s1\\gpt-54-t075.md",
+      "polish": {
+        "model_short": "haiku",
+        "model_full": "anthropic/claude-haiku-4.5",
+        "duration_s": 43.9,
+        "word_count": 2155,
+        "char_count": 12603,
+        "est_in_tokens": 4776,
+        "est_out_tokens": 3150,
+        "est_cost_usd": 0.0205,
+        "output_file": "output\\star-wars-legends-eu\\the-ruusan-atonement\\runs\\bench-2026-04-19-post-fixes-ch13s1\\gpt-54-t075__POLISHED.md"
+      }
+    },
+    {
+      "label": "gpt-54-t080",
+      "model_short": "gpt54",
+      "model_full": "openai/gpt-5.4",
+      "temperature": 0.8,
+      "duration_s": 84.9,
+      "word_count": 2307,
+      "char_count": 13549,
+      "est_in_tokens": 7041,
+      "est_out_tokens": 3387,
+      "est_cost_usd": 0.0684,
+      "output_file": "output\\star-wars-legends-eu\\the-ruusan-atonement\\runs\\bench-2026-04-19-post-fixes-ch13s1\\gpt-54-t080.md",
+      "polish": {
+        "model_short": "haiku",
+        "model_full": "anthropic/claude-haiku-4.5",
+        "duration_s": 46.6,
+        "word_count": 2306,
+        "char_count": 13540,
+        "est_in_tokens": 5008,
+        "est_out_tokens": 3385,
+        "est_cost_usd": 0.0219,
+        "output_file": "output\\star-wars-legends-eu\\the-ruusan-atonement\\runs\\bench-2026-04-19-post-fixes-ch13s1\\gpt-54-t080__POLISHED.md"
+      }
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+The training blade caught Ben across the shoulder before his guard came up.
+
+The impact wasn't hard—practice settings, safety first—but the sting tracked across his collarbone and settled into the muscle underneath. He'd been slow. Half a second, maybe less. Enough.
+
+His sparring partner lowered her blade. A Corellian Knight whose name he should have remembered. "You're off tonight."
+
+"I'm fine." Ben deactivated his training saber. The hum died, and the salle felt larger without it. "Long week."
+
+She waited a beat, probably expecting him to request another round. When he didn't, she gave a short nod and crossed to the equipment rack. Her footsteps echoed off the high ceiling. The cleaning droid in the far corner hummed along the baseboard, indifferent to either of them.
+
+Ben rolled his shoulder where the blade had connected. The sting was already fading. The lag wasn't.
+
+It had started four days ago. Maybe five. A delay between the ambient field and his expectations—like hearing your own footsteps arrive a half-beat after your boots hit the floor. The Force was still there. Still responsive. Just late. And the lag had been growing.
+
+"Another round?" his partner asked from the rack, stowing her gear.
+
+"Rain check." He kept his voice level. "I need to cool down."
+
+She left without pressing. The door slid shut behind her, and the salle went quiet except for the droid and the distant rumble of a lift in the corridor outside.
+
+Ben stood in the center of the training floor. Sweat cooled on his neck. His tunic clung to his back. The training saber hung heavy in his right hand.
+
+He should have blocked that strike. He'd seen the opening in her form, registered the angle, started the parry. His body knew the response. Twenty years of drilling didn't forget. But the Force had arrived late to the exchange, and his timing had fractured along the seam.
+
+Three times this week. Three beats he should never miss.
+
+He clipped the saber to his belt and started pacing. The salle's floor was scored with decades of footwork—thousands of Knights before him, working through the same forms, building the same reflexes. His boots found the familiar paths without effort.
+
+The wrongness tugged at his attention again. Not a sound, exactly. Not a presence. More like standing near a speaker playing a note just below the threshold of hearing. You couldn't identify the pitch, but your inner ear registered the vibration. Something in the room was out of sync.
+
+He stopped pacing. Drew a breath. Moved into the first form without igniting the blade.
+
+His body knew the sequence. The opening stance. The lateral step. The high guard transitioning into the downward strike. Every Knight learned these patterns early, repeated them until the movements lived in muscle and bone rather than conscious thought.
+
+The third transition required a specific shift of weight—back foot pivoting, shoulders rotating, blade arm extending. He'd done it ten thousand times. He could execute it in his sleep.
+
+His body moved. The Force followed a half-beat behind.
+
+His pivot stuck. His weight distributed wrong. He stumbled—one step, two—before catching himself against the salle's far wall.
+
+Ben pressed his palm flat against the cool stone. His heart hammered. Not from exertion. From the gap between what he'd expected and what had happened.
+
+The form was muscle memory. It shouldn't require Force timing at all. That was the point of drilling—embedding the patterns so deeply that conscious thought became optional. But the Force threaded through everything a Jedi did, even the movements they'd stopped thinking about. And when the thread arrived late, the whole pattern frayed.
+
+He straightened. Pushed off the wall. Stood in the center of the salle with his arms at his sides and listened.
+
+The Temple's ambient presence settled around him. The accumulated weight of decades of meditation, training, quiet service. It should have felt like home. Instead it arrived a half-beat behind the rhythm his body had known since childhood. The lag was subtle. Anyone else might have missed it.
+
+Anyone else wasn't a Skywalker.
+
+The thought surfaced before he could stop it, and he swatted it away. That wasn't helpful. Measuring himself against his family's legacy was a trap he'd fallen into often enough to recognize the edge.
+
+He moved through the form again. Slower this time. Deliberate. The blade stayed clipped to his belt. He tracked each movement—stance, step, pivot, extension—and waited for the lag to steal another beat.
+
+It did. The fourth transition. The Force arrived late, and his body compensated, but the compensation was clumsy. Visible. If anyone had been watching, they'd have seen him stutter.
+
+Ben stopped mid-form. His arms hung at his sides. Sweat cooled on his forehead and tracked down his temple.
+
+This wasn't fatigue. He'd been tired before—exhausted, injured, pushed past his limits. This was different. Fatigue slowed the body. This slowed the space between his body and the Force. The timing gap wasn't in his muscles. It was in the field itself.
+
+He walked to the center of the salle. His boots tracked the old footwork patterns scored into the floor.
+
+He didn't want to say it aloud. Saying it aloud would make it real in a way that reporting it to the Council couldn't take back. The Order had spent months cataloging residual disturbances from the Abeloth crisis. Everyone agreed the Force was still settling. No one agreed on what that meant or how long it would take. His observations would be filed alongside a dozen other Knights' reports and forgotten.
+
+But this wasn't residue. Residue faded. This was growing.
+
+He leaned against the salle wall and stared at the far door. The cleaning droid had finished its circuit and docked itself in the alcove. Lift chimes sounded in the corridor outside—late-shift staff moving between levels. The Temple never fully slept. Somewhere above him, a hundred Jedi were meditating, training, reading, resting. Living their lives inside the same ambient field that kept arriving late to his.
+
+None of them had mentioned a lag.
+
+Ben closed his eyes. The wrongness pulsed at the edge of his perception—not painful, not dark, just wrong. A vibration out of phase with everything around it. He could almost reach it, almost name the quality that made it distinct from ordinary disturbance.
+
+Almost.
+
+His eyes opened. The door at the far end of the salle slid aside.
+
+Luke stood in the doorway with a datapad in one hand and an expression Ben knew meant a mission.
