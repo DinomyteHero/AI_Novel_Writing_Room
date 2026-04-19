@@ -1,0 +1,66 @@
+{
+  "chapter_number": 25,
+  "chapter_mission": "The climax reversal. Ben lets go of control and the resonance catches — warmth after the bone-deep cold of Part 4. Desh's sabotage strips Veraine's amplification. Her ritual staggers and collapses under emergent complexity her framework cannot model. Sera contains Veraine with the same Force-lock discipline that once held her captive. Torin is still active.",
+  "chapter_turn": "Ben's Lie breaks at the instant of its last stand. He stops leading and the chord forms; the book's thematic argument, plot resolution, and Ben's arc all coincide in a single letting-go. Two of the three climactic threats resolve — Veraine's ritual and Veraine herself — and the reader learns that the climax has a second stage.",
+  "structural_phase": "climax",
+  "pov_allocation": ["Ben Skywalker"],
+  "scene_count": 4,
+  "scene_plan": [
+    {
+      "scene_number": 1,
+      "role": "hook",
+      "dialogue_expectation": "interior",
+      "target_word_count": 1400,
+      "purpose": "The discordance is at critical. Sera's jaw set, Kael's hands shaking, Ben's fist around three traditions refusing to combine. Every Skywalker instinct screams control. Ben — one breath, one decision — lets go. Stops leading. Listens. The three notes find their own relationship. The chord forms. Warmth — real, not metaphor — floods through their linked hands. The wrongness he has heard for months goes quiet. H24 resolves."
+    },
+    {
+      "scene_number": 2,
+      "role": "escalation",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 1200,
+      "purpose": "Cut to Desh. First amplification node, two guards, GAG silence: low, fast, nonlethal. He is not here to kill; he is here to break three pieces of equipment. Second node; third node. The array goes dark. His comm crackles through to Ben: 'Array's down. Whatever you're doing — do it now. Everything. Don't hold back.' H25 plants."
+    },
+    {
+      "scene_number": 3,
+      "role": "reveal",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 1400,
+      "purpose": "Veraine at the Scar. Her ritual staggers as the amplification drops; she compensates with raw personal power. She is formidable alone — not formidable enough for a full breach. The resonance grows beside her and produces an emergent pattern. Veraine's face shifts — confusion, genuine intellectual confusion, for the first time in a thousand years. Her framework cannot model it. The ritual collapses. R13 lands. H25 resolves."
+    },
+    {
+      "scene_number": 4,
+      "role": "escalation",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 1000,
+      "purpose": "Sera moves before Ben can speak. Ancient containment protocols — the same techniques that sealed her in a wall for a thousand years — adapted to field conditions. Veraine in containment: conscious, intellectually furious, physically outmatched. Ben turns from the contained antagonist to the valley below, where Torin's void is still expanding and the wound is still closing and Maetha's warning is echoing in everyone's head."
+    }
+  ],
+  "reveal_payload": ["R13"],
+  "hook_movements": {
+    "planted": ["H25"],
+    "advanced": [],
+    "resolved": ["H24", "H25"]
+  },
+  "subplot_obligations": ["SP-A", "SP1", "SP3", "SP5"],
+  "relationship_turns": [
+    {
+      "dyad": "Ben/Resonance",
+      "from": "failed attempt under command (Ch24)",
+      "to": "surrendered leadership — Ben's arc new-truth demonstrated in a single action. The letting-go is the answer his Lie has been refusing for twenty-three years"
+    },
+    {
+      "dyad": "Ben/Desh",
+      "from": "verified partners",
+      "to": "proven team — Desh's sabotage is the non-Force-user's contribution the resonance cannot function without. The two-pronged plan works because both hands are on it. The laugh they share in Ch27 is purchased here"
+    },
+    {
+      "dyad": "Veraine/Sera",
+      "from": "parallel wound (Ch16)",
+      "to": "containment by counterpart — Sera uses the exact discipline that sealed her against the woman who understands that discipline better than anyone. Veraine's containment is the book's only physical-capture victory, and the person who performs it is the person Veraine's history would predict would refuse to"
+    }
+  ],
+  "pacing_curve": "rising",
+  "exit_vector": "Veraine in containment, equations already forming in her fingers. The resonance humming. The wrongness quieted into a chord. Desh's comm open. Ben turning from the defeated antagonist to the valley where Torin's void is still growing and the wound is still closing and the climax is not yet done.",
+  "chapter_word_target": 5000,
+  "notes": "The book's structural spike. Four scenes, 5,000 words, the single most important chapter after Ch5 and Ch21. The s1 letting-go is the novel's thematic pivot expressed as a physical action — Ben opens his hands, the three traditions find each other, the warmth returns. Use force_mechanics.sensory_vocabulary.lattice_resonance verbatim for the register: discordant start, the breakthrough coming when the practitioner stops trying to lead, three notes finding their own relationship, living tissue not rigid grid. Desh's sabotage in s2 is the chapter's only tactical scene — keep it tight, competent, understated; former GAG operative in his element. Veraine's defeat in s3 is the book's intellectual climax: she is proven wrong by results she cannot dismiss (concept seed's thesis_failed_empirically). Her confusion must land as genuine; she is not a cartoon. Sera's containment in s4 is the book's only physical-capture victory and must feel like discipline, not vengeance. Voice: Stover-dense-permitted interior density for s1 (the letting-go is interior); Zahn-compact in s2 (Desh is action); Zahn-precise in s3 with one Stover beat as Veraine's composure cracks; Zahn-quiet in s4. Force phenomenology: use the full vocabulary variation — acoustic (chord, overtone), somatic (warmth, relief), architectural (living tissue, load-bearing). Anti-patterns: (a) Ben's letting-go must not be narrated as an insight paragraph — it is an action (hands open, breath out, weight forward); (b) Veraine does not monologue or concede — she is confused, and that is the most dignified defeat she can receive; (c) Torin is not on-page in this chapter — his presence is the expanding void and the unresolved threat."
+}

@@ -1,0 +1,59 @@
+{
+  "chapter_number": 7,
+  "chapter_mission": "First Corridor stop. The Battlefield Node establishes the thin-place baseline — mild parallax, fresh boot prints in ancient dust. Sera's Force-lock work demonstrates her era-specific value. Ben files another partial report to Luke, and Torin asks the soft question that will echo across three chapters.",
+  "chapter_turn": "The trail becomes present-tense. Veraine stops being an archived note and starts being a person who walked the same corridor weeks ago, and Ben's withholding from the Order now has a named antagonist it is protecting against. Sera stops being rescued cargo and becomes the crew's most valuable specialist.",
+  "structural_phase": "response",
+  "pov_allocation": ["Ben Skywalker"],
+  "scene_count": 3,
+  "scene_plan": [
+    {
+      "scene_number": 1,
+      "role": "hook",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 1200,
+      "purpose": "Landing on the Battlefield Node. A thousand-year-old NSW battlefield now eroded into gentle terrain. Ben's first experience of a thin place on foot — his Force-sense reaches for the expected handrail and finds it fractionally offset. The survivors' reactions differ: Sera tightens, Torin relaxes, Kael goes flat. Inside the bunker installation, fresh boot prints on centuries of dust. H07 plants."
+    },
+    {
+      "scene_number": 2,
+      "role": "reveal",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 1200,
+      "purpose": "Archive room, Force-locked. Sera's palms on the mechanism; the lock dissolves in seconds — muscle memory a thousand years deep. Ben scrolls holographic records in an archaic data format while Sera translates the terminology. The Jedi Lords were more militarised and more compromised than modern history admits. Veranthos named by coordinate and warning notation. H07 advances."
+    },
+    {
+      "scene_number": 3,
+      "role": "decision",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 1100,
+      "purpose": "Aboard the Steady Returns. Ben drafts his second partial report to Luke — more context, still not the full truth. Torin leans in the doorway and asks, without accusation: 'What will you tell them?' Ben changes the subject. The next node's readings register worse — degradation heavier, Veraine's energy signature stronger. The caravan presses on."
+    }
+  ],
+  "reveal_payload": [],
+  "hook_movements": {
+    "planted": ["H07"],
+    "advanced": ["H07"],
+    "resolved": []
+  },
+  "subplot_obligations": ["SP-A", "SP4", "SP5"],
+  "relationship_turns": [
+    {
+      "dyad": "Ben/Sera",
+      "from": "grudging respect from Ch6",
+      "to": "operational trust — Sera's archive work is the kind of competence Ben respects without qualifier; she has earned her seat at the cockpit"
+    },
+    {
+      "dyad": "Ben/Torin",
+      "from": "commander's assessment (Ch6)",
+      "to": "soft pressure — Torin's question about the report is the first time anyone has named Ben's withholding. He does not push. He does not need to"
+    },
+    {
+      "dyad": "Ben/Luke",
+      "from": "active omission (Ch3)",
+      "to": "structured omission — the partial report is now a practice, not a one-off choice. Each transmission teaches Ben how to be two people at once"
+    }
+  ],
+  "pacing_curve": "rising",
+  "exit_vector": "The Steady Returns lifting from the Battlefield Node, course set for the second Corridor stop. Veraine's trail visibly warmer. Torin's question unanswered in the air between Ben and the report he did not send. The wrongness no longer just follows the bearing — it has a hand in it.",
+  "chapter_word_target": 3500,
+  "notes": "Thin-place phenomenology at the mild level — use the vocabulary_variation families, not the handrail simile from Ch1. Consider a balance/footing vocabulary (the body's read of a slightly tilted floor) or a hydraulic metaphor (current running fractionally off true). Sera's Force-lock technique is her first on-page expertise demonstration — keep it understated, almost domestic; the point is that the lock submits to muscle memory that predates modern Jedi training. Voice: Zahn-procedural in the archive; Allston-brief in the banter; single Stover-interior beat reserved for Ben's second deleted paragraph in the report. Anti-patterns: (a) no exposition about Ankhural here — that belongs to Ch11-14; (b) Torin's question is not a confrontation; warmth must remain on the surface; (c) do not name what Sera knows about the Jedi Lords' compromises — let the record excerpts imply it."
+}

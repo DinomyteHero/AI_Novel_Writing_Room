@@ -1,0 +1,59 @@
+{
+  "chapter_number": 24,
+  "chapter_mission": "The climax's opening. Ben's last appeal to Torin fails across distance — genuine love, irreconcilable choice. Torin activates the technique and the lattice near him leans in and dissolves. Three operations now converge at the Scar: Veraine's amplified ritual, Torin's unilateral sacrifice, the resonance trio at mid-valley. The trio links hands and the resonance is discordant. Ben is trying to lead. Ben is still wrong.",
+  "chapter_turn": "The book's central Lie makes its last stand. The resonance will not harmonise under Ben's control, and the book will not permit him to succeed until he lets go. Everything Part 4 has assembled now meets the problem it was assembled to solve, and the first thing it meets is failure.",
+  "structural_phase": "resolution",
+  "pov_allocation": ["Ben Skywalker"],
+  "scene_count": 3,
+  "scene_plan": [
+    {
+      "scene_number": 1,
+      "role": "hook",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 1300,
+      "purpose": "The valley opens below. Three-way geometry: Veraine's ritual distortion at the Scar's base, Torin descending the far ridgeline, the resonance group at mid-valley. Desh already split off toward the first amplification node. Ben calls across the distance to Torin. Torin pauses on the slope and responds — genuine affection, the use of 'Ben' instead of a title. 'I understand what you're trying to do, Ben. It's the right impulse. But some problems only have one solution.' He begins the technique. The lattice near him leans in and dissolves — a pulling, a suction. H23 resolves. H24 plants."
+    },
+    {
+      "scene_number": 2,
+      "role": "escalation",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 1200,
+      "purpose": "Mid-valley. Ben feels all three operations simultaneously — Veraine's calculated ritual, Torin's personal void, their own resonance not yet begun. Three operations pulling the Force in three different directions. The Scar widens by a visible centimeter. Sera and Kael take positions flanking Ben, hands outstretched. Ben reaches for both through the Force. 'Now.' H24 advances."
+    },
+    {
+      "scene_number": 3,
+      "role": "escalation",
+      "dialogue_expectation": "interior",
+      "target_word_count": 1250,
+      "purpose": "Three hands linked. Three Force traditions colliding. The sound of it in the Force is three instruments playing in three different keys. Ben's instinct kicks in — lead, harmonise, impose order by will. The resonance resists. The discordance worsens. Sweat on his temples, Sera's presence rigid and defined, Kael's fluid and sharp, neither combining under Ben's hand. Veraine's ritual is building; Torin's void is expanding; the resonance is falling apart. He is trying too hard. He has been trying too hard for twenty-eight years."
+    }
+  ],
+  "reveal_payload": [],
+  "hook_movements": {
+    "planted": ["H24"],
+    "advanced": ["H24"],
+    "resolved": ["H23"]
+  },
+  "subplot_obligations": ["SP-A", "SP1", "SP5"],
+  "relationship_turns": [
+    {
+      "dyad": "Ben/Torin",
+      "from": "named pattern (Ch18)",
+      "to": "final exchange — Torin's use of 'Ben' across the valley carries warmth that makes the refusal worse. He is not rejecting Ben; he is rejecting Ben's approach while admiring his character. The relationship ends in affection"
+    },
+    {
+      "dyad": "Ben/Resonance",
+      "from": "theoretical plan",
+      "to": "failed first attempt — the resonance resists Ben's instinct to command it. His Lie's last stand is structural, not psychological: he tries to make three incompatible traditions combine by force of will, and they will not. The book's thesis gets one scene of failure before it gets its answer"
+    },
+    {
+      "dyad": "Sera/Kael",
+      "from": "allies in a coalition",
+      "to": "fellow notes — both are present, both are committed, both are reachable through the Force, and both are waiting for Ben to stop leading so they can begin. The discordance is not their fault"
+    }
+  ],
+  "pacing_curve": "rising",
+  "exit_vector": "Three hands linked, Force discordant, sweat and strain, Veraine's ritual building, Torin's void expanding, Desh running the guarded route between amplification nodes and not yet visible to Ben. The chapter closes on the inside of a failure in motion. Ch25 is one step away — the step Ben has not yet taken.",
+  "chapter_word_target": 3750,
+  "notes": "The climax's opening chapter is failure by design. The breakthrough belongs to Ch25 and must be earned by this chapter's struggle. Do not let the resonance start to cohere on-page yet; the discordance holds through the closing. Torin's single line in s1 — 'I understand what you're trying to do, Ben' — is the book's most affectionate refusal and must land as love across distance. Force phenomenology: all three operations rendered simultaneously is the highest-density sensory passage in the book (use force_mechanics.sensory_vocabulary.active_technique and lattice_resonance). Ben's instinct-to-control in s3 must be shown as action (force, will, impose) rather than narrated as insight; the reader must feel him trying to drive, not be told he is. Rotate vocabulary away from the 'handrail' and 'cage' families; lean on acoustic (three keys, three notes) and hydraulic (currents, counter-currents, competing flows). Voice: Zahn-procedural-urgent in s1-s2; Stover-permitted interior density for s3 but under half the scene — the hands, the positions, the three presences anchor the body. Anti-patterns: (a) no resolution here; the chapter must close on failure; (b) Torin does not deliver a speech — one line across distance; (c) Ben does not recognise his Lie on-page in s3 (that is Ch25's break); the reader recognises it through the failure's shape."
+}

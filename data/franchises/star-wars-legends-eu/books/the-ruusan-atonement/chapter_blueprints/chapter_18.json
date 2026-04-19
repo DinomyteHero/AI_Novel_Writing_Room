@@ -1,0 +1,59 @@
+{
+  "chapter_number": 18,
+  "chapter_mission": "Second Pinch Point. Ben sees the Jacen pattern in Torin explicitly — cadence, structure of every story Torin tells, the process of unilateral decision disguised as compassion. Desh's team-status debrief reveals operational concern as genuine investment; he names Jacen by implication. Ben re-reads Gavran's resonance note with different emphasis and the meaning shifts under him.",
+  "chapter_turn": "The recognition becomes fully conscious. Ben has a name for what he is watching in Torin and a mirror for what he is doing himself. He does not yet have an alternative — but he has begun looking in the right file.",
+  "structural_phase": "second_pinch",
+  "pov_allocation": ["Ben Skywalker"],
+  "scene_count": 3,
+  "scene_plan": [
+    {
+      "scene_number": 1,
+      "role": "hook",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 1200,
+      "purpose": "Common area. Torin tells an NSW battle story with self-deprecating warmth. Ben watches the structure underneath: I decided, I acted, I bore the cost. Every story has the same architecture. The laughter is warm and perfectly timed and Ben has seen this before — he wonders when he started analysing Torin's laughter, and then when he stopped doing it with Jacen too late. Across the cockpit, Ben's eyes find Desh's. Neither says Jacen's name. R10 lands. H15 resolves."
+    },
+    {
+      "scene_number": 2,
+      "role": "reveal",
+      "dialogue_expectation": "dialogue_led",
+      "target_word_count": 1200,
+      "purpose": "Cockpit, night cycle. Desh walks Ben through the team status as a debrief: Torin is separating, Sera is rigid, Kael is watching the exit, Ben is carrying too much alone. The diagnosis is clinical until it is not: 'I didn't come here to watch another good person convince themselves they're the only answer.' Desh does not need to name who 'another' is. The arc-moment-of-truth for Desh — obligation becomes investment."
+    },
+    {
+      "scene_number": 3,
+      "role": "decision",
+      "dialogue_expectation": "interior",
+      "target_word_count": 1100,
+      "purpose": "Corridor, alone, night cycle. Ben slides down the bulkhead until he is sitting on the cold deck plates. Body finally admitting the trip. He pulls up Gavran's resonance note on his datapad: 'We lacked the will or the trust to attempt it.' Ben has been reading it as 'we weren't brave enough.' He re-reads: 'We couldn't trust each other enough.' Different emphasis. Different problem. Mara's voice, pragmatic: stop wondering if you're worthy and figure out what works. The micro-turn."
+    }
+  ],
+  "reveal_payload": ["R10"],
+  "hook_movements": {
+    "planted": [],
+    "advanced": [],
+    "resolved": ["H15"]
+  },
+  "subplot_obligations": ["SP-A", "SP1", "SP3"],
+  "relationship_turns": [
+    {
+      "dyad": "Ben/Torin",
+      "from": "decided man in a doorway (Ch17)",
+      "to": "named pattern — Ben now holds a specific framework for what is happening in Torin and will act from it. No confrontation yet; the naming happens in private with Desh"
+    },
+    {
+      "dyad": "Ben/Desh",
+      "from": "partners in the work",
+      "to": "mutual anchor — Desh's debrief is the first time someone on the ship has assessed Ben honestly without asking anything of him. The GAG-forged bond is now doing the work it was forged for"
+    },
+    {
+      "dyad": "Ben/Mara",
+      "from": "grief in the background",
+      "to": "useful memory — Ben's mother as pragmatist, not myth. The Mara who would have told him to stop philosophising and solve the problem. First time in the book her memory has done work instead of pain"
+    }
+  ],
+  "pacing_curve": "steady",
+  "exit_vector": "Ben on the deck plates with Gavran's note on his datapad. The resonance passage read under different emphasis, the memory of his mother's pragmatism quieting the interior noise. Torin three compartments away, unaware he has been named. Desh in the cockpit with the countdown. Veranthos one jump away. The Lie is cracking. Not yet broken.",
+  "chapter_word_target": 3500,
+  "notes": "Jacen parallel touchpoint 3 (structural). R10 is the book's second-most important revelation (after R07) and the highest-risk — the reader must feel the pattern through Torin's laughter and story structure, not through Ben narrating the comparison to them. Keep Jacen's name unsaid in s1; it is the absence that makes the scene land. Desh's debrief in s2 is the third book-critical scene for him (after Ch11 GAG conversation and Ch17 food delivery); it earns his arc-moment-of-truth. The s3 interior scene is a quiet micro-turn, not a breakthrough — Ben has not yet committed to a different approach. He has moved one file from the 'archive' folder to the 'open' folder. Voice: Zahn-observation in s1 (Ben as analyst of Torin's surface), dialogue-precision in s2, Stover-permitted density for s3 but under half the scene in interiority — the deck plates, the datapad, the lightsaber on his hip anchor the body. Anti-patterns: (a) Jacen is never named aloud by anyone in this chapter; (b) Ben does not articulate his own Gavran-pattern on-page yet — he reads Gavran's note and the emphasis shifts, that is enough; (c) Mara must remain the pragmatist — no mystical visitation, no reassuring dream. A memory of how she'd have said it, and nothing more."
+}

@@ -1,0 +1,59 @@
+{
+  "chapter_number": 10,
+  "chapter_mission": "First Pinch Point. The Brotherhood Outpost confirms Veraine as an active, strategic adversary: she left a deliberate message aimed at Kael, curated which components she took and which she left, and Desh's tactical reading names the truth — the pursuit is a following, not a chase. Ben sits with Kael under alien stars and offers the first Jedi admission of institutional harm.",
+  "chapter_turn": "Veraine stops being a target and becomes a planner. The group shifts from pursuers to participants in an operation whose purpose they do not understand. Ben's leadership takes its first step away from Skywalker competence: he acknowledges Jedi wrong out loud to a man who has never been owed an apology.",
+  "structural_phase": "first_pinch",
+  "pov_allocation": ["Ben Skywalker"],
+  "scene_count": 3,
+  "scene_plan": [
+    {
+      "scene_number": 1,
+      "role": "hook",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 1300,
+      "purpose": "Entering the outpost. Clinical Sith architecture — prefabricated, functional, not theatrical. Dark-side emotional residue bleeds through lattice gaps; Ben feels cruelty that is not his. Sera's discipline holds but strains. Equipment partially disassembled — Veraine took only specific components. Kael picks up a data tablet with her message in Sith-tradition notation, reads it, sets it down with the care of someone handling something that might explode, walks out without a word. H07 and H09 resolve; H10 plants."
+    },
+    {
+      "scene_number": 2,
+      "role": "reveal",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 1100,
+      "purpose": "Operations room. Desh has been cataloguing what she took and what she left. He spreads the evidence across the table: manifests, disassembly photos, a tactical map with her route and timing. His conclusion lands flat: 'She's not just ahead. She's leading us. We're not chasing her.' The Force-users recalibrate. The dark-side pressure makes concentration work. H10 advances."
+    },
+    {
+      "scene_number": 3,
+      "role": "decision",
+      "dialogue_expectation": "dialogue_led",
+      "target_word_count": 1100,
+      "purpose": "Outside the outpost at night. Kael on the exterior steps, head tilted toward constellations that shifted while he slept a thousand years. Ben sits down with a deliberate arm's length. Ben acknowledges, without qualifying, that sealing a Sith captive as living infrastructure was morally indefensible. Kael is not used to Jedi conceding points. He turns the data tablet over in his hands, does not show Ben the message, and says only: 'She'll come for me. She might have a point.' He does not say which point."
+    }
+  ],
+  "reveal_payload": [],
+  "hook_movements": {
+    "planted": ["H10"],
+    "advanced": ["H10"],
+    "resolved": ["H07", "H09"]
+  },
+  "subplot_obligations": ["SP-A", "SP2", "SP4", "SP5"],
+  "relationship_turns": [
+    {
+      "dyad": "Veraine/Kael",
+      "from": "archived name; abstract parallel",
+      "to": "named recognition — Veraine has written to Kael specifically. The parallel has become a channel, and she has opened it"
+    },
+    {
+      "dyad": "Ben/Kael",
+      "from": "conscripted proximity (Ch5-8)",
+      "to": "first trust — Ben's admission of Jedi wrong is the first time Kael has been treated as a person to whom something is owed, not a category to be handled. His lie_questioned phase begins here"
+    },
+    {
+      "dyad": "Desh/Group",
+      "from": "support professional",
+      "to": "essential intelligence — Desh's tactical reading of Veraine's curation is the reading Force-users could not deliver. His value stops being operational and becomes analytical"
+    }
+  ],
+  "pacing_curve": "rising",
+  "exit_vector": "Ben and Kael on the outpost steps under alien stars, data tablet closed. Veraine's plan has a direction even if the group does not know it yet. Torin and Sera inside, on opposite sides of an argument neither has named. Desh in the cockpit, running the nav for a transit they now know is being authored by someone other than them.",
+  "chapter_word_target": 3500,
+  "notes": "First pinch point: the antagonist's active hand without plot advancement. Nothing mechanically changes in the hook structure (Veraine is not in the room), but the reader's understanding flips — the pursuit is not a pursuit. Desh's tactical scene in s2 is where the non-Force-user's value becomes irreversible in the book's architecture; write it so that the Force-users visibly recalibrate. Kael's message in s1 is never shown to the reader; its content is whatever makes Kael's face do what it does. The ch10 stars scene in s3 earns part of the lived_galaxy_texture obligation — alien constellations that moved a thousand years, the outside world observing the book's emotional work. Voice: Zahn-procedural in s2; Stover-permitted single interior beat when Ben watches Kael read the message. Anti-patterns: (a) do not reveal the message's text; (b) Ben's admission to Kael is one sentence, not a speech — the apology's power is its brevity; (c) do not have Torin or Sera on-page in s3; this scene belongs to Ben and Kael."
+}

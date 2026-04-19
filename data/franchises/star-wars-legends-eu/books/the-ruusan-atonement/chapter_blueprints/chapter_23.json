@@ -1,0 +1,59 @@
+{
+  "chapter_number": 23,
+  "chapter_mission": "Kael's decision. Ben delivers the full, honest briefing — theory, math, risk, his specific contribution, the odds. Kael processes alone at the ridge, watching Desh, and finds the shape of choice. He returns with a line: 'If this kills me, I want it on record that I volunteered. First time for everything.' The resonance trio is complete.",
+  "chapter_turn": "The last character holdout becomes the last character commitment. The book's thematic argument is now assembled on a ridge above Veranthos: Ben, Sera, Kael, Desh — three traditions and one hands-on operator, all here by choice. The climax can execute.",
+  "structural_phase": "resolution",
+  "pov_allocation": ["Ben Skywalker"],
+  "scene_count": 3,
+  "scene_plan": [
+    {
+      "scene_number": 1,
+      "role": "hook",
+      "dialogue_expectation": "dialogue_led",
+      "target_word_count": 1300,
+      "purpose": "Dawn fully established. Ben lays out the resonance plan in total on a datapad between himself and Kael — theory, math, requirements, untested status, the risk that it might kill them, the point where it will not work without him. No manipulation, no half-truths. When Kael asks how sure Ben is that it will work, Ben answers: 'Not very.' Kael: 'Points for honesty.' The honest answer doing what rhetoric could not. H22 advances."
+    },
+    {
+      "scene_number": 2,
+      "role": "decision",
+      "dialogue_expectation": "interior",
+      "target_word_count": 1200,
+      "purpose": "Kael walks. Not leaving — thinking. Ben stays where he is and does not follow. Kael stops at the ridge edge, looks at the Scar below, then at Desh working on equipment in the camp. The non-Force-user who chose to be here, without destiny or conviction, just purpose. Kael recognises what he is looking at — the freest person in the group — and his face changes. Careful blankness loosens into something new."
+    },
+    {
+      "scene_number": 3,
+      "role": "decision",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 1250,
+      "purpose": "Kael returns. His stride is different — less careful, more deliberate. Ben knows the answer before he speaks it. 'If this kills me, I want it on record that I volunteered. First time for everything.' Dry, level, the humor covering something raw. The group moves down toward the valley — three Force-users and one operator walking toward something unprecedented. Ben feels Sera's and Kael's Force presences beside him. Different. Complementary. Three notes arranged but not yet a chord. H22 resolves. H23 plants."
+    }
+  ],
+  "reveal_payload": [],
+  "hook_movements": {
+    "planted": ["H23"],
+    "advanced": ["H22"],
+    "resolved": ["H22"]
+  },
+  "subplot_obligations": ["SP-A", "SP2", "SP3"],
+  "relationship_turns": [
+    {
+      "dyad": "Ben/Kael",
+      "from": "invitation offered (Ch22)",
+      "to": "invitation accepted — Kael's commitment is the thematic spine of the book answered. Ben has led by asking; Kael has answered by choosing. The Gavran pattern is not the only pattern available"
+    },
+    {
+      "dyad": "Kael/Desh",
+      "from": "small friendship (Ch8 hydrospanner, Ch11 laugh)",
+      "to": "model and pupil — Desh did not know he was showing Kael anything; Kael sees in him a version of freedom he has never inhabited. No scene between them in this chapter; the relationship lands across distance"
+    },
+    {
+      "dyad": "Kael/Veraine",
+      "from": "parallel wound, parallel recruit (Ch10, Ch16)",
+      "to": "divergent choice — Veraine reached the same ridge and chose destruction; Kael reaches it and chooses participation. The parallel resolves without Veraine on-page"
+    }
+  ],
+  "pacing_curve": "steady",
+  "exit_vector": "The group moving down the valley slope in formation. Desh split off toward the first amplification node. Sera, Ben, Kael abreast. Three Force presences adjacent, not yet harmonised. Torin a figure on the far ridgeline descending toward the Scar. Veraine's ritual's distortion visible at the base. The clock at minutes.",
+  "chapter_word_target": 3750,
+  "notes": "'First time for everything' is the chapter's exit line and one of the book's memorable lines. Deliver once, dry, understated; do not reprise. The Kael-watches-Desh beat in s2 is the chapter's emotional pivot — Kael sees the working non-Force-user and recognises what chosen commitment looks like from the outside. Do not narrate Kael's realisation; stay in Ben's close-third and let the reader watch Kael's face change through Ben's eyes. Ben's 'Not very' in s1 is the second critical line — the honest answer working because it is honest. Kael has been lied to by experts; the truth is what he does not expect. Voice: dialogue-drama precision in s1; Allston-quiet-permitted for s2 (Ben observes, does not narrate); Zahn-tight for s3 with a single understated beat for Kael's line. Anti-patterns: (a) do not have Kael and Desh share a scene in this chapter — the friendship's work is now done through observation; (b) Ben must not rhetorically persuade Kael in s1 — the content of the pitch is the persuasion; (c) no group cheer or emotional reconciliation at Kael's commitment — he delivers the line, the group registers it, they move."
+}

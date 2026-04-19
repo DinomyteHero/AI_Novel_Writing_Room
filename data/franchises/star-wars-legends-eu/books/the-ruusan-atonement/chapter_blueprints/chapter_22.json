@@ -1,0 +1,59 @@
+{
+  "chapter_number": 22,
+  "chapter_mission": "Build the plan. Ben and Sera translate Ankhural's resonance theory into a practical approach. Desh sees the shape of Veraine's amplification array and volunteers for the sabotage before anyone asks. Ben prepares the hardest Skywalker move — inviting rather than commanding — as he sets out to approach Kael.",
+  "chapter_turn": "The solution has shape. Two plans that only work together, and three commitments already given — Ben, Sera, Desh. Ben stops leading by decree and starts leading by assembly. The gap between him and Gavran is narrowing into a question of how he asks the one person whose 'no' would end the book.",
+  "structural_phase": "resolution",
+  "pov_allocation": ["Ben Skywalker"],
+  "scene_count": 3,
+  "scene_plan": [
+    {
+      "scene_number": 1,
+      "role": "hook",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 1300,
+      "purpose": "Camp workspace, before dawn. Ben and Sera spread Codex notes between them and translate Ankhural's abstract framework into a practical approach — three Force traditions producing an emergent structure no single one can achieve. Sera's archaic notation flows alongside Ben's modern Force analysis. Sera's arc lands its new-truth beat: principled flexibility, adapting without abandoning. Desh provides logistical reality checks. R12 delivered. H21 resolves. The plan requires Kael."
+    },
+    {
+      "scene_number": 2,
+      "role": "reveal",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 1200,
+      "purpose": "Desh staring at the Corridor map with the amplification overlay. His expression goes clinical. 'I know what she built. I know how to break it.' Three critical nodes, a solo sabotage against Veraine's small crew guards, an amplification threshold that will collapse under the failure of three carefully chosen antennas. Before anyone can ask, he volunteers: 'That's my job. Let the Force-users do the Force thing. I'll handle the part that requires hands.' H14 resolves."
+    },
+    {
+      "scene_number": 3,
+      "role": "decision",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 1250,
+      "purpose": "Ben at the camp edge, first light on the ridgeline. Kael sits with his legs over the ridge, facing the valley and the Scar. He felt Ben coming. Ben sits beside him at arm's length. The conversation the book has been building toward. Ben does not order, manipulate, or guilt. He asks. Kael's response is the book's final question: 'Why should I believe this one is different?' Not hostile. Not cynical. Genuine. H22 plants."
+    }
+  ],
+  "reveal_payload": ["R12"],
+  "hook_movements": {
+    "planted": ["H22"],
+    "advanced": [],
+    "resolved": ["H14", "H21"]
+  },
+  "subplot_obligations": ["SP-A", "SP1", "SP2", "SP3", "SP5"],
+  "relationship_turns": [
+    {
+      "dyad": "Ben/Sera",
+      "from": "conditional command (Ch14) → genuine request (Ch19)",
+      "to": "true partners — Sera's handwriting on Ben's datapad, side by side. She may begin addressing him as 'Ben' once in this chapter, small, earned, not underlined"
+    },
+    {
+      "dyad": "Desh/Mission",
+      "from": "essential intelligence (Ch10)",
+      "to": "chosen commitment — Desh's volunteer move is his arc's new-truth moment. The former GAG operative choosing the dangerous task without being asked. The laugh Ben and Desh will share in Ch27 is purchased here"
+    },
+    {
+      "dyad": "Ben/Kael",
+      "from": "earned respect (Ch10 stars scene, Ch19 outpost)",
+      "to": "invitation — Ben approaches with an ask that allows refusal. The hardest Skywalker move. Whether Ben has become someone different from his predecessors depends on whether he can mean it"
+    }
+  ],
+  "pacing_curve": "rising",
+  "exit_vector": "First light on the ridgeline. Ben and Kael on the edge with the Scar below. Sera and Desh inside the camp, plans ready, waiting on the answer. Torin somewhere — not in this scene. Kael's question hanging in the air between them: why should I believe this one is different? Ben does not yet have the sentence that answers it.",
+  "chapter_word_target": 3750,
+  "notes": "The planning chapter has the highest risk of procedural drag — keep each scene's emotional engine visible. S1 is the Ben/Sera partnership landing; s2 is Desh's arc payoff; s3 is the book's moral centerpiece compressed into a single question. Sera's first use of 'Ben' (if it lands here) is a single beat — one line of dialogue, no commentary. Desh's volunteer in s2 must not be prompted by request; he beats anyone to the ask. Ben's approach to Kael in s3 is the highest-risk scene in the third act — a wrong word from Ben and the book tips into command. Voice: Zahn-procedural in s1 and s2; Zahn-quiet for s3 with permitted Stover-interior for one short beat on Ben's approach; dialogue-led at close. Lived_galaxy_texture obligation: the camp is on a dead world, but the tactics discussions can register Desh's pragmatic framing (supply manifest, extraction options, real logistics) rather than abstract strategy. Anti-patterns: (a) Ben does not explain the resonance theory to Kael in this chapter — that belongs to Ch23; (b) no speech about trust from Ben in s3; the ask is structural, not rhetorical; (c) Sera's new-truth beat must not be narrated — it lives in her willingness to work the resonance framework on its own terms."
+}

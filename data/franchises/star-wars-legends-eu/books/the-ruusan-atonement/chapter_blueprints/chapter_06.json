@@ -1,0 +1,64 @@
+{
+  "chapter_number": 6,
+  "chapter_mission": "Establish the group as a working crew on a ship built for two. Three survivors face the grief of waking into a galaxy that no longer remembers them. Ben negotiates leadership over people who outrank him by a thousand years, and the Corridor route is chosen through synthesis rather than command.",
+  "chapter_turn": "Ben stops leading as a Jedi Knight briefing a team and starts leading as the coordinator of an unstable coalition. Each survivor has a different way of grieving their own century, and Ben's value is that he can hold the coalition steady without owning it — a skill he does not yet recognize as the answer to his Lie.",
+  "structural_phase": "response",
+  "pov_allocation": ["Ben Skywalker"],
+  "scene_count": 3,
+  "scene_plan": [
+    {
+      "scene_number": 1,
+      "role": "aftermath",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 1200,
+      "purpose": "Six people in a ship built for two. Sera reaches for controls that do not exist on a modern console. Torin's warmth fills small spaces; his commander's hand on Ben's shoulder in the corridor is both compliment and assessment. Sera tests Ben with a tactical question about the Corridor route; his intelligence-operative answer earns the first grudging respect. The social fabric creaks but holds."
+    },
+    {
+      "scene_number": 2,
+      "role": "escalation",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 1200,
+      "purpose": "The Ruusan Reformations question — what the galaxy was told they were for. Ben answers honestly; Sera goes very still. Survivor displacement lands: Sera's rigid focus, Torin's adaptive curiosity (too easy), Kael's sardonic detachment. Kael asks about his Sith homeworld — Ben searches the database, the planet too small for surviving records. Kael's face does not change, but something behind it does. First humanization."
+    },
+    {
+      "scene_number": 3,
+      "role": "decision",
+      "dialogue_expectation": "dialogue_led",
+      "target_word_count": 1100,
+      "purpose": "Cockpit, nav display. Fourteen Corridor nodes color-coded — red, amber, green, one flashing white for recent activity. Sera wants systematic assessment; Torin wants a direct run at Veranthos; Kael points out they do not know why Veraine is moving, let alone where. Ben chooses Sera's route for Kael's reason. First synthesis leadership. Approach to the first node; the Force ahead feels six inches further away than it should."
+    }
+  ],
+  "reveal_payload": [],
+  "hook_movements": {
+    "planted": [],
+    "advanced": [],
+    "resolved": []
+  },
+  "subplot_obligations": ["SP-A", "SP1", "SP2", "SP3", "SP5"],
+  "relationship_turns": [
+    {
+      "dyad": "Ben/Sera",
+      "from": "wary proximity — a stranger a thousand years older, no reason to follow him",
+      "to": "grudging respect — Ben's pragmatic route answer surprises her; first moment of room to trust"
+    },
+    {
+      "dyad": "Ben/Torin",
+      "from": "rescued stranger — paternal warmth as first impression",
+      "to": "commander recognizing commander — Torin's shoulder-grip and nod read as approval and assessment simultaneously, a duality Ben files without solving"
+    },
+    {
+      "dyad": "Kael/Group",
+      "from": "conscripted into proximity (Ch5 close)",
+      "to": "seen for the first time — the empty database entry for his homeworld does what no one's words could"
+    },
+    {
+      "dyad": "Ben/Desh",
+      "from": "co-witnesses to Ch5's revelations",
+      "to": "steady partners — Desh now runs galley, engineering, and nav display while the Force-users argue about what the universe is; his footing is unglamorous and essential"
+    }
+  ],
+  "pacing_curve": "rising",
+  "exit_vector": "The Steady Returns on approach to the first Corridor node. The Force ahead feels fractionally wrong — distances off by inches. Ben's hand on the armrest, the crew settling into quarters that do not fit them. The investigation has become a caravan.",
+  "chapter_word_target": 3500,
+  "notes": "Survivor displacement is the texture engine for this chapter — Sera's hand closing on blank hull where a console used to be, Torin's easy adaptation that is slightly too easy, Kael's silence. Use this to honour the lived_galaxy_texture obligation: the modern galaxy is an unfamiliar country to three of the characters, and their disorientation is free worldbuilding. Voice: Allston-channel humor carries the early beats (cramped ship, small frictions); register tightens when Kael's homeworld scene lands — permit silence to do the work, do not describe his face breaking. Anti-patterns: (a) do not let Ben resolve the philosophical tensions here — the debate belongs to Ch8; (b) do not name Torin's comfort in thin places yet (Ch8 planting); (c) Sera's respect shift should be a single line of changed address or a hand withheld, not a monologue."
+}

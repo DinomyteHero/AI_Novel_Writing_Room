@@ -1,0 +1,59 @@
+{
+  "chapter_number": 15,
+  "chapter_mission": "The crisis goes galactic. Fragmentary reports reach the Steady Returns from Force nexuses across the galaxy. Luke sends a coded message asking for status; Ben does not answer. Torin weaponises the widening crisis into his self-sacrifice argument and names Ben's own pattern out loud. Ben drafts a full report to Luke, reads it through twice, and deletes it.",
+  "chapter_turn": "Torin says the sentence about Ben that Ben has been refusing to say about himself. The recognition is accurate. The change it produces is not yet action — Ben sees the pattern, names it privately, and chooses secrecy anyway. The Lie is challenged and, for one more chapter, winning.",
+  "structural_phase": "attack",
+  "pov_allocation": ["Ben Skywalker"],
+  "scene_count": 3,
+  "scene_plan": [
+    {
+      "scene_number": 1,
+      "role": "escalation",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 1200,
+      "purpose": "Comm station. Ben cycles frequencies and catches fragmentary Jedi outpost reports — anomalous Force behaviour at multiple nexuses, the Valley of the Jedi destabilising. Desh plots the disturbances radiating outward from the Corridor. Luke's coded personal message arrives: 'Sensing disturbances at multiple nexuses. Report status.' Ben stares at the reply field without typing. H13 resolves."
+    },
+    {
+      "scene_number": 2,
+      "role": "escalation",
+      "dialogue_expectation": "dialogue_led",
+      "target_word_count": 1200,
+      "purpose": "Galley. Torin brings up the bad thing over food, as he always does. He uses the Valley's destabilisation as evidence the seal was always temporary. The only permanent answer: someone who understands the technique becoming the new seal. Himself. His argument has warmth and devastating logic. Then: 'You're curating reality to manage the outcome you want. You know who else did that?' Ben's hands under the table grip his knees. Sera sits motionless — she has heard this argument before. H15 plants."
+    },
+    {
+      "scene_number": 3,
+      "role": "decision",
+      "dialogue_expectation": "interior",
+      "target_word_count": 1100,
+      "purpose": "Sleeping nook, night cycle. Ben strips his lightsaber to component parts on the fold-down shelf — familiar maintenance to free his hands while his thoughts work. He types the full report to Luke — fortress, survivors, wound, Veraine. He reads it through twice. He deletes it with a single keystroke. Not because it's wrong. Because he doesn't trust the Order to respond correctly. The ghost file stays in memory; he does not clear it. Part of him knows he will need proof later that he tried."
+    }
+  ],
+  "reveal_payload": [],
+  "hook_movements": {
+    "planted": ["H15"],
+    "advanced": [],
+    "resolved": ["H13"]
+  },
+  "subplot_obligations": ["SP-A", "SP1", "SP4"],
+  "relationship_turns": [
+    {
+      "dyad": "Ben/Luke",
+      "from": "structured omission (Ch7-9)",
+      "to": "active deception — Ben has now received a direct request for status and elected not to answer. The withholding has moved from editorial discretion to disobedience. He will feel it later; he does not feel it yet"
+    },
+    {
+      "dyad": "Ben/Torin",
+      "from": "active susceptibility (Ch9)",
+      "to": "mirrored pattern — Torin has just used Ben's own behaviour as the proof of his argument. Ben cannot dismiss it because Torin is accurate. The tactical alliance holds; the ground under it has moved"
+    },
+    {
+      "dyad": "Ben/himself",
+      "from": "the Lie operating in the background",
+      "to": "the Lie recognised and chosen — Ben sees the Gavran pattern in himself and commits to it one more day. Recognition is not yet change. The book's engine runs on the gap"
+    }
+  ],
+  "pacing_curve": "rising",
+  "exit_vector": "Ship in transit toward the intercept point. Ben's datapad holding a deleted full report and an unanswered coded message from Luke. Torin's observation sitting in the space between Ben and the work surface he is not using. Sera three compartments away, silent. The institutional lie subplot at its deepest point; the Jacen-parallel recognition now fully available for when Ben chooses to use it.",
+  "chapter_word_target": 3500,
+  "notes": "SP4's climax inside Part 3 — this is the chapter where Ben becomes, for a few hours, exactly what he is fighting against. The irony is sharp but never underlined. Torin's observation in s2 must land as true, not melodramatic — warmth, timing, and specific accuracy. The s3 solo scene is the book's quietest chapter-closer in Part 3 and must hold — use the lightsaber maintenance as physical architecture so the interiority has something to lean on. Voice: Zahn-procedural in s1; dialogue-drama precision in s2 (the Torin observation is a line that must land without italics); Stover-permitted interior density for s3, but no more than half the scene in Ben's head — the physical ritual carries the rest. Force phenomenology: the wrongness is now a permanent background note, no longer surprising — use somatic/pressure vocabulary (migraine that won't break, weather, pressure at altitude) rather than the acoustic/lattice families. Anti-patterns: (a) do not stage Luke-speaking on comm; his presence is a coded line and an empty reply field; (b) Torin's 'you know who else did that' must stop there — no one names Jacen; (c) Ben's deletion of the report is an action, not a confession to himself in prose."
+}

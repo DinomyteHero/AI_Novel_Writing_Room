@@ -1,0 +1,54 @@
+{
+  "chapter_number": 4,
+  "chapter_mission": "Descend the fortress. Environmental storytelling across four levels (entry, operations, archive, stasis ring) delivers what Gavran built, what it costs to maintain, and what has already escaped. End with Ben's hand above an active stasis control. The door to the First Plot Point stands open.",
+  "chapter_turn": "Ben shifts from reading an archaeological site to standing inside an ongoing emergency. The fortress is not history — it is a millennium-long vigil someone kept until they couldn't, and the monitoring panel is still flashing BREACH. His investigator distance collapses into responsibility before he names it.",
+  "structural_phase": "setup",
+  "pov_allocation": ["Ben Skywalker"],
+  "scene_count": 3,
+  "scene_plan": [
+    {
+      "scene_number": 1,
+      "role": "hook",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 1200,
+      "purpose": "Approach across the cold mountain plateau. The fortress reads as geology until the angles give it away. The Force-recognition mechanism is calibrated for Jedi Lords-era signatures — Ben's modern training barely triggers it until something older in his lineage does. The entry grinds open on air that has not moved for a thousand years. H03 resolves."
+    },
+    {
+      "scene_number": 2,
+      "role": "escalation",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 1300,
+      "purpose": "Levels 1 and 2 — Operations and Archive. Residual power under Ben's Force pulse. A monitoring display still tracks: most nodes dark, three amber, one flashing BREACH in red. Gavran's archive is meticulous where time allowed, frantic where it did not. Desh catalogs exits and records consoles. The stairwell to Level 3 descends into blue-tinged emergency light that is not emergency — it is life support."
+    },
+    {
+      "scene_number": 3,
+      "role": "reveal",
+      "dialogue_expectation": "interior",
+      "target_word_count": 1250,
+      "purpose": "Level 3 opens onto the Stasis Ring. Twelve chambers: nine dark with preserved bodies, three active with flickering occupants, one empty and broken open from inside — scoring gouged from within. Level 4 below: Gavran's body at the control nexus, hands still on the surfaces, a last log entry trailing off mid-sentence. He held it together until he couldn't. Ben's hand passes over an active chamber control; the field hums in response. R03 lands. Decision to wake the three is implicit; the chapter ends before it is made. H04 plants and advances."
+    }
+  ],
+  "reveal_payload": ["R03"],
+  "hook_movements": {
+    "planted": ["H04"],
+    "advanced": ["H04"],
+    "resolved": ["H03"]
+  },
+  "subplot_obligations": ["SP-A"],
+  "relationship_turns": [
+    {
+      "dyad": "Ben/Desh",
+      "from": "co-conspirators — the withholding has been chosen",
+      "to": "operational verification — Desh names the empty chamber in practical terms ('someone broke out, recently') before Ben names its meaning. The non-Force-user's reading of scored durasteel becomes the chapter's anchor"
+    },
+    {
+      "dyad": "Ben/the Order",
+      "from": "active omission toward Luke",
+      "to": "accidental inheritance — Ben is standing inside the emergency his Order built and hid, and he has not yet reported it. The Lie now has institutional weight"
+    }
+  ],
+  "pacing_curve": "rising",
+  "exit_vector": "Ben and Desh at the Stasis Ring, the three active chambers flickering. One empty chamber behind them, scored from inside. Gavran a level below, preserved and finished. Ben's hand above the nearest active control. The chapter closes before the decision — the First Plot Point belongs to Ch5.",
+  "chapter_word_target": 3750,
+  "notes": "Architecture as exposition. The fortress should tell its own story across three scenes — operations → archive → stasis ring — without a character explaining the containment. Gavran's body in s3 is characterization, not sentiment: understated posture, last log trailing mid-sentence, hands still on controls. Do not grieve him; let the grief be the reader's recognition. Voice: Zahn-procedural through the descent, permit a single Stover-interior beat when Ben reads the empty chamber's damage marks. Force phenomenology: the wrongness here is concentrated and directional, like sound through a pipe (force_mechanics moderate thin place, tipping toward high). Use the vocabulary_variation families — not the handrail simile from Ch1, not the frequency-below-pitch line. Something new: weight, pressure, the shape of a held note. Anti-pattern: do not let the three active Force signatures register as named characters (Sera, Torin, Kael) yet — Ben perceives them as 'one disciplined, one heavy, one clipped' and stops there. Names belong to Ch5."
+}

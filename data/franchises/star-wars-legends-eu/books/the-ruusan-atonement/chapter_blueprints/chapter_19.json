@@ -1,0 +1,59 @@
+{
+  "chapter_number": 19,
+  "chapter_mission": "A modern Jedi outpost near Veranthos — three young Knights, their Force contemplative practices failing as the lattice thins. Torin weaponises their suffering. Sera's moment of truth: rigid principle alone does not protect. Kael, watching the Knights, names the design problem — the resonance answer in embryonic form.",
+  "chapter_turn": "Three arcs hit their moment of truth in one chapter. Sera turns from Torin's framework to Ben's. Kael says more than he has said in days. Ben acquires the insight he does not yet recognise as the solution. The book's alternative answer is now in the room, spoken aloud by its most unexpected voice.",
+  "structural_phase": "attack",
+  "pov_allocation": ["Ben Skywalker"],
+  "scene_count": 3,
+  "scene_plan": [
+    {
+      "scene_number": 1,
+      "role": "hook",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 1200,
+      "purpose": "The outpost reads normal from approach. The Knight who meets them at the pad does not — eyes too wide, hands too still. Ben and the group move through training halls where drills have been abandoned mid-exercise. A young Knight describes losing the ability to meditate: 'The Force is there but I can't find the shape of it anymore.' Ben recognises the description — the parallax error from the Battlefield Node, now permanent here. Torin kneels beside the Knight with a commander's hand on her shoulder; the tenderness is real, the eyes over her head are calculating."
+    },
+    {
+      "scene_number": 2,
+      "role": "escalation",
+      "dialogue_expectation": "dialogue_led",
+      "target_word_count": 1200,
+      "purpose": "Outpost common area. Torin uses the Knights' suffering as argument — these are proof the seal cannot be maintained incrementally. His compassion is genuine and his conclusion is the old one. Sera watches the exchange. Her rigid certainty has not protected these Knights. Ben's response to helplessness — honest, no false authority — shows her a kind of leadership Gavran never demonstrated. She turns away from Torin and faces Ben directly: 'What is your plan, Skywalker?' Not conditional. A genuine question."
+    },
+    {
+      "scene_number": 3,
+      "role": "decision",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 1100,
+      "purpose": "Outpost wall, exterior. Kael leans with arms folded, watching the Knights from outside. He speaks more than he has spoken in days — quiet, precise, the outsider naming what insiders cannot see: 'They built everything on one thing. Take it away and they don't know how to stand. That's not a lattice problem. That's a design problem.' He does not know what he has just said. Ben does not yet either. Departure; close enough to feel the primary wound's pull on approach. H19 plants."
+    }
+  ],
+  "reveal_payload": [],
+  "hook_movements": {
+    "planted": ["H19"],
+    "advanced": [],
+    "resolved": []
+  },
+  "subplot_obligations": ["SP-A", "SP1", "SP2", "SP4"],
+  "relationship_turns": [
+    {
+      "dyad": "Sera/Ben",
+      "from": "conditional trust (Ch14)",
+      "to": "genuine request — 'What is your plan, Skywalker?' is the chapter's most important line from her. She has moved her hand from Gavran's orbit to Ben's. Her arc moment of truth landed"
+    },
+    {
+      "dyad": "Torin/Young Knights",
+      "from": "stranger from a thousand years ago",
+      "to": "compassionate operator — his warmth with the suffering Knight is genuine; his use of her as argument is also real. The two coexist. He is not a monster yet. He may never be"
+    },
+    {
+      "dyad": "Kael/Group",
+      "from": "watching from the edge (Ch16-17)",
+      "to": "naming the problem — Kael's 'design problem' observation is the most work his voice has done in the book. His arc moment of truth landed. The fact that he does not know he has said the answer is the point"
+    }
+  ],
+  "pacing_curve": "rising",
+  "exit_vector": "The Steady Returns lifting from the outpost, course set direct to Veranthos. The primary wound's pull visible in the sensor fields — immense, gravitational. The young Knights behind them in a compound whose contemplative practices will not function again until the seal is mended. Ben with two sentences he did not have an hour ago: Sera's request, Kael's observation. The resonance note one scroll away.",
+  "chapter_word_target": 3500,
+  "notes": "The book's lived_galaxy_texture obligation lands hardest in this chapter — the modern Jedi outpost is where cosmic stakes acquire faces. Three young Knights with specific disoriented gestures (too-still hands, a meditation drill abandoned mid-breath, a disciplined-senior who has built his identity on contemplation and can no longer do it) should appear. They are Ben's peers; they are not named at length but each is specific. Torin's compassion-as-weapon in s2 is the most dangerous ethical manoeuvre in his arc — the warmth must remain real, the calculation must remain visible over the head of the person he is touching. Sera's line 'What is your plan, Skywalker?' is a chapter anchor; deliver once and leave. Kael's 'design problem' observation is the other. Both are small lines doing immense work. Voice: Zahn-empathy in s1 (the failing Knights); dialogue-drama precision in s2; Allston-understatement for Kael in s3. Anti-patterns: (a) do not have Ben recognise Kael's observation as the resonance answer on-page — the reader recognises it; Ben does not yet; (b) Torin's compassion must not tip into parody — the scene fails if he is obviously manipulating; (c) the outpost Knights are not named-and-characterised at length; they are specific faces and specific failings, nothing more."
+}

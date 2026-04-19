@@ -1,0 +1,59 @@
+{
+  "chapter_number": 17,
+  "chapter_mission": "The timeline has collapsed. Days, not weeks. The wound's amplification of emotional extremes cracks the group's composure for the first time. Torin appears in a doorway with a calm warm voice — 'We need to talk about what happens when we get there' — and the argument it announces will happen later. Veraine's ship registers on long-range sensors, parallel course to Veranthos.",
+  "chapter_turn": "Torin stops being an ally with a worrying framework and becomes a man who has decided. Ben does not know the content of the conversation yet. He knows the cadence. The doorway announcement is how Jacen used to open the worst conversations.",
+  "structural_phase": "attack",
+  "pov_allocation": ["Ben Skywalker"],
+  "scene_count": 3,
+  "scene_plan": [
+    {
+      "scene_number": 1,
+      "role": "hook",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 1200,
+      "purpose": "Cockpit. Desh converts the seal degradation rate into hours and posts the countdown on the bulkhead in a number small enough to memorise. Nobody wants to. Ben paces the common area assigning approach tasks. Torin appears in the doorway: 'We need to talk about what happens when we get there.' His voice is calm and warm and decided. Ben's stomach drops for a reason he already recognises. H16 resolves; H17 plants."
+    },
+    {
+      "scene_number": 2,
+      "role": "escalation",
+      "dialogue_expectation": "dialogue_led",
+      "target_word_count": 1200,
+      "purpose": "Common area. An argument about hyperspace routes stops being about hyperspace routes within thirty seconds. The wound's amplification effect hits the room — arguments louder than they should be, Sera and Kael saying sentences that are not quite theirs, Ben catching his own disproportionate anger and stopping mid-sentence. The wound is in this room now, not cosmic. Desh brings food to each of them afterward without being asked."
+    },
+    {
+      "scene_number": 3,
+      "role": "decision",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 1100,
+      "purpose": "Cockpit, night cycle. Desh at the long-range sensor display: 'Contact. Bearing three-one-five, parallel course. It's her.' Ben overlays both trajectories — convergence at Veranthos within hours of each other. She is not fleeing; she timed this. She wants them there for the endgame. Torin watches the nav display with the expression of a man coming home and does not try to hide it. H18 plants."
+    }
+  ],
+  "reveal_payload": [],
+  "hook_movements": {
+    "planted": ["H17", "H18"],
+    "advanced": [],
+    "resolved": ["H16"]
+  },
+  "subplot_obligations": ["SP-A", "SP1", "SP2", "SP5"],
+  "relationship_turns": [
+    {
+      "dyad": "Ben/Torin",
+      "from": "mirrored pattern (Ch15)",
+      "to": "decided man — Torin's doorway announcement uses the specific cadence Jacen used before the worst conversations. Ben has the pattern now. The question is what he will do with it"
+    },
+    {
+      "dyad": "Group/Wound",
+      "from": "external threat to pursue",
+      "to": "internal pressure — the amplification effect is in the room. Every argument will be louder than its subject from here on. The wound is pressurising the coalition from inside"
+    },
+    {
+      "dyad": "Ben/Desh",
+      "from": "acknowledged partners",
+      "to": "working in concert — Desh's food delivery after the argument is the first time he acts as emotional infrastructure for the whole group, not just Ben's plus-one. His minor arc is accelerating"
+    }
+  ],
+  "pacing_curve": "rising",
+  "exit_vector": "Two ships converging on Veranthos. Torin's silhouette in the cockpit viewport, reflection overlaid on a sensor dot that will arrive when he does. Desh's countdown timer at hours. The group in their quarters with a pressure in their chests none of them can name. The second pinch point's clock is set.",
+  "chapter_word_target": 3500,
+  "notes": "The wound's amplification of emotional extremes is this chapter's sensory engine. It must be felt as physical — arguments louder than they ought to be, fear cutting deeper, disproportionate emotion that catches its owner mid-sentence. Not possession, pressurisation (force_mechanics.implications). Torin's doorway line is the chapter's echo line; deliver once, at a quiet moment, and let its cadence do the work. Do not have Ben articulate 'that is how Jacen talked' on-page — the reader hears it through the doorway. Voice: Zahn-tight throughout; single Stover-permitted interior beat when Ben catches his own amplified anger in s2. Force phenomenology: use pressure/altitude/weather vocabulary for the amplification — the wound as atmospheric condition, not mystical force. Anti-patterns: (a) the doorway announcement is not followed by Torin's actual argument in this chapter — it is the hook for Ch21; (b) the argument in s2 should be about something trivial on the surface (routes, rotation, ration cycles) and catastrophic underneath; (c) do not show Veraine's ship directly — a sensor dot and a course overlay are enough."
+}

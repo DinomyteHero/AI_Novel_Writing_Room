@@ -1,0 +1,54 @@
+{
+  "chapter_number": 2,
+  "chapter_mission": "Translate the wrongness from a bearing into evidence. First and second survey worlds both carry the same unknown markings; the bearing that runs through them points into uncharted space. Ben makes his first quiet withholding from Luke — omitting his Force impression from the report.",
+  "chapter_turn": "The wrongness becomes data. What Ben was carrying alone as an unreliable perception gains two corroborating sites and a direction. The survey rhythm stops being cover and starts being pursuit — the bearing is moving him, not the other way around.",
+  "structural_phase": "setup",
+  "pov_allocation": ["Ben Skywalker"],
+  "scene_count": 3,
+  "scene_plan": [
+    {
+      "scene_number": 1,
+      "role": "hook",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 1200,
+      "purpose": "Ben and Desh aboard the Steady Returns in hyperspace. Establish the professional ease of two people who do not discuss the thing they share. Desh's practical read on the instruments flags the wrongness before Ben does — the non-Force-user detects it through sensor drift. First survey world on scanners at the close."
+    },
+    {
+      "scene_number": 2,
+      "role": "reveal",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 1300,
+      "purpose": "Planetside at the first survey world. Ruins older than the surveyed record, with markings that match no tradition Ben knows. His hand to the stone, the wrongness spikes — mild thin-place phenomenology. Back aboard, he files the report to Luke and leaves the Force impression out of the transmission. First institutional withholding, quiet, not yet named by either of them."
+    },
+    {
+      "scene_number": 3,
+      "role": "escalation",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 1250,
+      "purpose": "Second survey world: same markings, different world, same hand. Desh overlays the two sites on the nav chart and draws the line. The bearing points into uncharted space. Ben punches the coordinates into the nav computer and the empty chart-sector stares back. The survey is no longer a survey."
+    }
+  ],
+  "reveal_payload": [],
+  "hook_movements": {
+    "planted": ["H02"],
+    "advanced": ["H01", "H02"],
+    "resolved": []
+  },
+  "subplot_obligations": ["SP-A", "SP3", "SP4"],
+  "relationship_turns": [
+    {
+      "dyad": "Ben/Desh",
+      "from": "operational partnership — survey team, Ch1 baseline",
+      "to": "co-investigators — Desh's instruments validate what Ben's Force-sense has been telling him; the partnership shifts from favor-to-a-friend toward shared reading of the same problem"
+    },
+    {
+      "dyad": "Ben/Luke",
+      "from": "private alliance — Luke entrusted the investigation",
+      "to": "first withholding — Ben files the report and leaves the Force impression out. The withholding is small enough that neither father nor son would name it"
+    }
+  ],
+  "pacing_curve": "rising",
+  "exit_vector": "The Steady Returns in hyperspace, pointed at uncharted coordinates. The wrongness, now anchored to a bearing, has teeth. Ben closes the chapter knowing the survey route was the corridor he was already following.",
+  "chapter_word_target": 3750,
+  "notes": "Thin-place phenomenology at the first-worlds level only — distances feel fractionally wrong, chrono drifts a second, never mystical. Desh as warm absence in Ben's Force-awareness is a register to hold onto — he reads the sensor anomaly because he does not feel it. Voice: Allston-rhythm in the cockpit banter, Zahn-precision in the archaeological observation. Lived-galaxy texture obligation: Ch2 is the earliest chance to seed civilian/economic life. One survey world should register inhabitants or recent traffic even if the ruins are isolated — a supply freighter on sensors, a trader's tracks on the approach, a line of dialogue from a passing traffic controller. The chapter should not feel airlocked. Anti-pattern: do not let Ben diagnose the markings or the pattern — he catalogs, Desh connects. The interpretation is held back for Ch3."
+}

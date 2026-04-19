@@ -1,0 +1,59 @@
+{
+  "chapter_number": 8,
+  "chapter_mission": "Expose the group's philosophical fault lines. Torin's unsettling ease in a degraded Force zone; a three-cornered debate over the technique's nature; a small and quiet friendship beginning between Kael and Desh. The chapter surfaces problems the book will not solve until Parts 3 and 4.",
+  "chapter_turn": "Ben notices Torin is comfortable where he should not be. He cannot yet name what it means, but the shape of it is filed — and Sera names it for him in a corridor, in private. The crew stops being 'the group we rescued' and starts being 'a coalition with visible fault lines.'",
+  "structural_phase": "response",
+  "pov_allocation": ["Ben Skywalker"],
+  "scene_count": 3,
+  "scene_plan": [
+    {
+      "scene_number": 1,
+      "role": "escalation",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 1200,
+      "purpose": "In transit through a moderately degraded zone. The Force stutters — presence flickering like a bad connection. Sera tightens. Kael goes still. Torin tilts his head and listens to the thinning, and something in his posture eases. He murmurs 'Ankhural called it the natural state' in a tone that isn't academic — it's nostalgic. After they clear the zone, Sera finds Ben in the corridor and grips his arm: 'Watch him. In the thin places. Watch what happens to his face.' H08 plants."
+    },
+    {
+      "scene_number": 2,
+      "role": "reveal",
+      "dialogue_expectation": "dialogue_led",
+      "target_word_count": 1200,
+      "purpose": "The galley. Sera puts down her fork with precision that is itself a warning. Torin's reasonable hands on the table. Four positions surface: Sera (the lattice is sacred; the technique is violation), Torin (the lattice is structure; the technique is engineering), Kael (both frameworks are institutional propaganda). Ben realises he does not have a position and tables the debate. Kael speaks last: 'You're all arguing about whose cage has nicer bars.' The silence after is the answer."
+    },
+    {
+      "scene_number": 3,
+      "role": "aftermath",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 1100,
+      "purpose": "Engineering crawlspace. Desh bangs on a conduit that has been cycling wrong since the extra passengers came aboard. Kael folds himself into the tight space beside him and begins handing tools without being asked. The smallest warmth between the outsider and the practical man. Kael, watching Desh work: 'You don't feel any of it. The wrongness.' Desh: 'I feel the ship shaking and four Force-users arguing about why.' Kael almost smiles. Almost."
+    }
+  ],
+  "reveal_payload": [],
+  "hook_movements": {
+    "planted": ["H08"],
+    "advanced": [],
+    "resolved": []
+  },
+  "subplot_obligations": ["SP-A", "SP1", "SP2", "SP3"],
+  "relationship_turns": [
+    {
+      "dyad": "Sera/Torin",
+      "from": "thousand-year-old comradeship re-surfacing (Ch5-6)",
+      "to": "first philosophical fracture — the galley debate is the first time Sera visibly distrusts Torin's premises. She leaves the table without finishing. The wound they did not get to speak about in 1000 BBY is now a disagreement they are having in 47 ABY"
+    },
+    {
+      "dyad": "Ben/Sera",
+      "from": "operational trust (Ch7)",
+      "to": "private alliance — her warning in the corridor is the first thing she has trusted Ben with that is not the mission. Conditional, but real"
+    },
+    {
+      "dyad": "Kael/Desh",
+      "from": "strangers on the same ship",
+      "to": "first warmth — the hydrospanner passed in silence is the smallest handshake in the book. Both arcs register it differently; Ben observes without narrating"
+    }
+  ],
+  "pacing_curve": "rising",
+  "exit_vector": "Ship steady toward the next Corridor node. Torin's reasonable voice still in Ben's head. Sera's grip on his arm still in the muscle memory. Kael almost-smiling in the engineering bay behind Desh's shoulder. Nothing has changed tactically; everything has changed in the room.",
+  "chapter_word_target": 3500,
+  "notes": "The chapter's register pivots between three sensibilities — Zahn for the transit opening, debate-drama precision for the galley, Allston-channel warmth for the engineering bay — and the pivots must feel earned, not whiplash. The galley debate is the highest-risk philosophical scene in the book; every line must move the conflict or reveal a speaker. No character should monologue. Kael's 'whose cage has nicer bars' is the chapter's exit line in the reader's memory — plant it and leave. Force phenomenology: moderate thin place in s1 (use force_mechanics.sensory_vocabulary.thin_places_moderate). Desh's environmental unease should register by instrument, not by intuition — chrono drift, a fitting that will not seal, a deck plate that sits one millimeter off true. Anti-patterns: (a) do not let Ben reach a position in s2 — his lack of position is the point; (b) do not make Torin explicitly quote Veraine's philosophy; Ankhural is enough; (c) Kael/Desh warmth must remain physical, not verbal — the hydrospanner does what words cannot."
+}

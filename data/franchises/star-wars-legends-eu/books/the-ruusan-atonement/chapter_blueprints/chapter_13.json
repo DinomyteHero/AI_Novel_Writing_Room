@@ -30,7 +30,7 @@
   ],
   "reveal_payload": ["R08"],
   "hook_movements": {
-    "planted": [],
+    "planted": ["H13"],
     "advanced": ["H08"],
     "resolved": ["H08", "H12"]
   },

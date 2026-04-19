@@ -37,9 +37,9 @@
   ],
   "reveal_payload": ["R04", "R05"],
   "hook_movements": {
-    "planted": ["H04", "H05", "H06"],
-    "advanced": ["H03"],
-    "resolved": []
+    "planted": ["H05", "H06"],
+    "advanced": ["H03", "H04"],
+    "resolved": ["H04"]
   },
   "subplot_obligations": ["SP-A", "SP1", "SP2", "SP3", "SP4", "SP5"],
   "relationship_turns": [

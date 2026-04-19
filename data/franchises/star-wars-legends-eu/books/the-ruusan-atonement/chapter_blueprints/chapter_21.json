@@ -32,7 +32,7 @@
   "hook_movements": {
     "planted": ["H21"],
     "advanced": [],
-    "resolved": ["H06", "H17"]
+    "resolved": ["H06", "H17", "H20"]
   },
   "subplot_obligations": ["SP-A", "SP1", "SP2", "SP3", "SP4", "SP5"],
   "relationship_turns": [

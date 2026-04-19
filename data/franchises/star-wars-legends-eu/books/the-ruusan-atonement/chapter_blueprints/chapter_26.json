@@ -1,0 +1,59 @@
+{
+  "chapter_number": 26,
+  "chapter_mission": "Torin's technique closes the wound — and Maetha's warning fulfils itself in real time. Torin is diminishing, becoming infrastructure. Sera enters the void and pulls him free, using her Force-lock discipline backwards — unsealing what a thousand years taught her to seal. The new seal stabilises as living tissue, dynamic and harmonic, requiring renewal. Ben is a note in a chord.",
+  "chapter_turn": "The story's central love relationship refuses the technique's cost. Sera's arc completes through an extraction rather than a preservation. The solution is not permanent; it is alive, and it has people in it who chose to be in it. Ben stops being the Jedi who stopped a crisis and becomes a part of the containment that continues.",
+  "structural_phase": "climax",
+  "pov_allocation": ["Ben Skywalker"],
+  "scene_count": 3,
+  "scene_plan": [
+    {
+      "scene_number": 1,
+      "role": "hook",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 1700,
+      "purpose": "The wound is closing. Torin is winning. And his voice from inside the void is still articulate and emotionally hollow — speaking with the precision of someone who remembers how to form sentences but has forgotten why they matter. The caldera does not consume. It replaces. Sera screams his name. Ben reaches for her — 'Sera, don't—' She looks back: 'I was sealed once. I will not watch it happen to someone else and do nothing.' She enters the void. Maetha's warning lands, fulfilled."
+    },
+    {
+      "scene_number": 2,
+      "role": "escalation",
+      "dialogue_expectation": "interior",
+      "target_word_count": 1700,
+      "purpose": "Inside the void. Sera finds Torin at the Scar's edge, hands on the wound, Force presence being drawn into the lattice. His eyes are open. They do not see her. Sera places her hands over his and reverses a thousand years of technique: Force-locks unseal instead of seal. She pulls his presence free — a separation like tearing adhesive. They come out of the void together. His eyes find her face. For a moment, warmth returns. Then it settles into something quieter. He knows her. The way he knows her is different. Diminished. Present but smaller."
+    },
+    {
+      "scene_number": 3,
+      "role": "reveal",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 1600,
+      "purpose": "The new seal stabilises. Not permanent, not a prison — living tissue embedded with the resonance's character. Three-part harmony at the Scar's base, flexible and dynamic, requiring renewal. The wound is contained, not erased. Ben feels the warmth spread outward; the wrongness that has been with him for months resolves into a chord. The Scar thins but persists. Desh's chrono runs correctly for the first time since arrival; grief-without-an-object lifts. Ben is part of the new seal. Not a prisoner. A note."
+    }
+  ],
+  "reveal_payload": [],
+  "hook_movements": {
+    "planted": [],
+    "advanced": [],
+    "resolved": []
+  },
+  "subplot_obligations": ["SP-A", "SP1"],
+  "relationship_turns": [
+    {
+      "dyad": "Sera/Torin",
+      "from": "the argument was love all along",
+      "to": "saved at a cost — Sera refuses to let the pattern that broke her break someone else. She pulls him free; what comes back is not entirely the man she followed into a war. The relationship's final note is love without control and love without fixing"
+    },
+    {
+      "dyad": "Torin/Technique",
+      "from": "chosen sacrifice",
+      "to": "fulfilled prophecy — Maetha's warning has landed on its subject exactly as described. He is alive; the parts of him that were Torin are not all there. His corruption-arc ends in diminishment, the lie_consequence phase made flesh"
+    },
+    {
+      "dyad": "Ben/New Seal",
+      "from": "the problem to solve",
+      "to": "a note in the answer — the new seal hums three-part harmony at the Scar's base, and Ben can feel it in his perception. He is inside the containment. Not a prisoner; a voice. The resonance is now the closest thing to a permanent Force-perception he has ever had"
+    }
+  ],
+  "pacing_curve": "rising",
+  "exit_vector": "The Scar thinned but still there. Torin on the valley floor, diminished, Sera beside him with one hand on his shoulder. Kael exhausted and upright. Desh arriving from the amplification route with his kit. Ben in the centre of the valley feeling a chord where wrongness used to be. The climax has resolved. The costs are visible.",
+  "chapter_word_target": 5000,
+  "notes": "The book's second structural spike and its emotional climax. Three scenes, 5,000 words, the full lattice-resonance sensory vocabulary deployed. Maetha's warning must pay off as specific diminishment rather than dramatic dark-side corruption — the slow subtraction of the parts that made Torin Torin (warmth, humor, specific idioms of affection). His s2 voice must be articulate and empty; he is not possessed, he is less. Sera's extraction is the novel's most affirmative use of a technique originally built for imprisonment; the irony must land as grace, not cleverness. Voice: Zahn-tight-horror for s1 (the wound closing is victory that looks like loss); Stover-permitted interior for s2 (Sera inside the void, Ben observing from outside — stay in Ben's close third, render Sera's extraction through what Ben can perceive); Zahn-quiet-resolution for s3. Force phenomenology: rotate among all sensory_vocabulary categories — active_technique (Torin's void), full_de_structuring (inside with Sera), lattice_resonance (s3's new seal formation). Use vocabulary_variation families — the resonance as living tissue, chord, three-part harmony; avoid the handrail image entirely (Ben has moved past that vocabulary). Anti-patterns: (a) Torin's diminishment is not a dark-side transformation — no altered eyes, no altered voice in the sinister sense; only reduction; (b) Sera's extraction is not dramatised through dialogue with the void; she and Torin do not speak in s2; (c) the chapter must not close with Ben narrating the thematic victory — the closing image is sensory (chord in his perception, chrono running right on Desh's wrist) and the reader draws the conclusion."
+}
