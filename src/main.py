@@ -123,6 +123,43 @@ def _scene_had_advisory(result: dict) -> bool:
     return False
 
 
+def check_plan_approval(
+    concept_seed: dict,
+    *,
+    allow_unapproved: bool,
+    seed_path: str = "",
+) -> tuple[bool, str]:
+    """Return (approved, error_message).
+
+    A plan is approved when ``compile_metadata.plan_approved`` is True or
+    when the caller passes ``allow_unapproved=True`` (the override flag).
+    ``error_message`` is empty on approval, a user-facing diagnostic on
+    rejection.
+    """
+    if allow_unapproved:
+        return True, ""
+    meta = concept_seed.get("compile_metadata", {}) or {}
+    if meta.get("plan_approved") is True:
+        return True, ""
+    physics_flag = meta.get("physics_validated")
+    physics_note = (
+        "physics_validated=True" if physics_flag is True
+        else f"physics_validated={physics_flag!r}"
+    )
+    msg = (
+        "Error: plan has not been approved for drafting.\n"
+        f"  concept_seed: {seed_path or '<unspecified>'}\n"
+        f"  compile_metadata: {physics_note}, plan_approved="
+        f"{meta.get('plan_approved')!r}\n"
+        "\n"
+        "Approve via:\n"
+        "  python scripts/approve_plan.py --franchise <slug> --book <slug>\n"
+        "\n"
+        "Or bypass this gate with --allow-unapproved-plan (not recommended)."
+    )
+    return False, msg
+
+
 def _count_quarantined_scenes(ledger) -> int:
     """Count 'save_blocked' events in the ledger.
 
@@ -553,6 +590,15 @@ async def main():
         help="Run compliance validation on the concept seed and print report.",
     )
     parser.add_argument(
+        "--allow-unapproved-plan",
+        action="store_true",
+        help=(
+            "Bypass the compile_metadata.plan_approved gate. By default the "
+            "pipeline refuses to run on a seed whose plan has not been "
+            "explicitly approved via scripts/approve_plan.py."
+        ),
+    )
+    parser.add_argument(
         "--resume",
         action="store_true",
         help="Resume from a saved pipeline session",
@@ -732,6 +778,16 @@ async def main():
         )
         print(report.format())
         sys.exit(0 if report.passed else 1)
+
+    # Plan-approval gate — enforces the planning/drafting separation.
+    approved, gate_msg = check_plan_approval(
+        concept_seed,
+        allow_unapproved=args.allow_unapproved_plan,
+        seed_path=args.concept_seed,
+    )
+    if not approved:
+        print(gate_msg)
+        sys.exit(1)
 
     # Load config
     print("Initializing AI Writers' Room...")

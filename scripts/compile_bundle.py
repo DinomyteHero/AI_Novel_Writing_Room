@@ -28,19 +28,25 @@ scene_cards-empty case (pipeline auto-generates downstream).
 from __future__ import annotations
 
 import argparse
+import asyncio
 import json
 import sys
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from pathlib import Path
+from typing import TYPE_CHECKING
 
 import jsonschema
+
+if TYPE_CHECKING:
+    from src.model_router import ModelRouter
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from src.concept_workshop.compliance_validator import validate_concept_seed  # noqa: E402
+from src.planning.physics_enforcer import PhysicsEnforcer  # noqa: E402
 from src.project_paths import ProjectPaths  # noqa: E402
 from workflows._shared.scene_card_translator import translate_scene_card  # noqa: E402
 from workflows._shared.seed_transforms import (  # noqa: E402
@@ -81,6 +87,8 @@ class CompileReport:
     schema_errors: list[str] = field(default_factory=list)
     scene_card_count: int = 0
     scene_card_errors: list[str] = field(default_factory=list)
+    physics: dict = field(default_factory=dict)
+    editorial: dict = field(default_factory=dict)
     warnings: list[str] = field(default_factory=list)
     generated_at: str = ""
 
@@ -94,6 +102,8 @@ class CompileReport:
             "schema_errors": self.schema_errors,
             "scene_card_count": self.scene_card_count,
             "scene_card_errors": self.scene_card_errors,
+            "physics": self.physics,
+            "editorial": self.editorial,
             "warnings": self.warnings,
             "generated_at": self.generated_at,
         }
@@ -270,6 +280,7 @@ def compile_bundle(
     base_dir: str = ".",
     strict: bool = False,
     validate_scene_cards: bool = True,
+    editorial_router: "ModelRouter | None" = None,
 ) -> CompileReport:
     """Compile the bundle for one (franchise, book) pair.
 
@@ -364,7 +375,48 @@ def compile_bundle(
         report=report,
     )
 
-    # Persist seed.
+    # Plan-time physics validation. Runs on the translated cards that were
+    # just written to disk so the check reflects the exact artifacts the
+    # pipeline will consume. Criticals always block exit; warnings only
+    # block under --strict (mirrors compliance semantics).
+    translated_cards: list[dict] = []
+    for path in sorted(paths.scene_cards_dir.glob("chapter_*_scene_*.json")):
+        try:
+            translated_cards.append(
+                json.loads(path.read_text(encoding="utf-8"))
+            )
+        except (OSError, json.JSONDecodeError) as exc:
+            report.warnings.append(
+                f"physics: could not read {path.name} for validation: {exc}"
+            )
+
+    if translated_cards:
+        enforcer = PhysicsEnforcer(seed, translated_cards)
+        physics_result = enforcer.validate_plan(translated_cards)
+        report.physics = {
+            "passed": physics_result["passed"],
+            "critical_count": physics_result["critical_count"],
+            "warn_count": physics_result["warn_count"],
+            "issues": physics_result["issues"],
+            "by_category": physics_result["by_category"],
+        }
+        # Stamp the plan-validated marker so the pipeline can trust the
+        # upstream check and skip its own pre-chapter physics pass.
+        if physics_result["passed"]:
+            seed.setdefault("compile_metadata", {})["physics_validated"] = True
+        else:
+            seed.setdefault("compile_metadata", {})["physics_validated"] = False
+    else:
+        report.physics = {
+            "passed": True,
+            "critical_count": 0,
+            "warn_count": 0,
+            "issues": [],
+            "by_category": {},
+            "skipped": "no scene cards on disk",
+        }
+
+    # Persist seed (after physics stamping so the flag lands in the written file).
     paths.concept_seed_path.write_text(
         json.dumps(seed, indent=2, ensure_ascii=False) + "\n",
         encoding="utf-8",
@@ -381,8 +433,79 @@ def compile_bundle(
         "warnings": list(compliance.warnings),
     }
 
+    # Editorial consultant — advisory qualitative review. Runs only when a
+    # router is supplied (CLI: --editorial-review) and there are scene cards
+    # to review. Writes the markdown report to the book tree; approval is a
+    # separate explicit step via scripts/approve_plan.py.
+    if editorial_router is not None and translated_cards:
+        try:
+            review = _run_editorial_review(
+                router=editorial_router,
+                paths=paths,
+                seed=seed,
+                translated_cards=translated_cards,
+                physics_report=report.physics,
+            )
+            report.editorial = review
+        except Exception as exc:  # noqa: BLE001 — surface, don't block
+            report.editorial = {
+                "skipped": f"editorial_review_failed: {type(exc).__name__}: {exc}",
+            }
+
     _write_report(paths, report)
     return report
+
+
+def _run_editorial_review(
+    *,
+    router: "ModelRouter",
+    paths: ProjectPaths,
+    seed: dict,
+    translated_cards: list[dict],
+    physics_report: dict,
+) -> dict:
+    """Invoke EditorialConsultant and persist the markdown report.
+
+    Returns a summary dict suitable for ``report.editorial``.
+    """
+    from src.agents.editorial_consultant import EditorialConsultant
+
+    # Load chapter blueprints if present in the book tree.
+    blueprints: list[dict] = []
+    blueprints_dir = paths.book_dir / "chapter_blueprints"
+    if blueprints_dir.exists():
+        for path in sorted(blueprints_dir.glob("chapter_*.json")):
+            try:
+                blueprints.append(json.loads(path.read_text(encoding="utf-8")))
+            except (OSError, json.JSONDecodeError):
+                continue
+
+    agent = EditorialConsultant(router)
+    context = {
+        "concept_seed": seed,
+        "chapter_blueprints": blueprints,
+        "scene_cards": translated_cards,
+        "physics_report": physics_report,
+    }
+
+    result = asyncio.run(agent.run(context))
+    report_md: str = result.get("report_markdown", "")
+    verdict: str = result.get("verdict", "unknown")
+
+    # Persist review to the book tree.
+    reviews_dir = paths.book_dir / "editorial_reviews"
+    reviews_dir.mkdir(parents=True, exist_ok=True)
+    ts = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+    review_path = reviews_dir / f"review_{ts}.md"
+    review_path.write_text(report_md, encoding="utf-8")
+
+    return {
+        "verdict": verdict,
+        "review_path": str(review_path.relative_to(paths.book_dir.parent.parent.parent)) if review_path.is_absolute() else str(review_path),
+        "sections_found": sorted((result.get("sections") or {}).keys()),
+        "blueprint_count": len(blueprints),
+        "scene_card_count": len(translated_cards),
+    }
 
 
 def _write_report(paths: ProjectPaths, report: CompileReport) -> Path:
@@ -405,6 +528,10 @@ def report_has_failures(report: CompileReport, *, strict: bool) -> bool:
     if report.scene_card_errors:
         return True
     if not report.compliance.get("passed", True):
+        return True
+    if report.physics.get("critical_count", 0) > 0:
+        return True
+    if strict and report.physics.get("warn_count", 0) > 0:
         return True
     if strict and report.warnings:
         return True
@@ -440,6 +567,32 @@ def _format_summary(report: CompileReport) -> str:
             lines.append(f"    - critical: {failure}")
         if len(crit) > 5:
             lines.append(f"    ... and {len(crit) - 5} more critical failures")
+    physics = report.physics
+    if physics:
+        crit = physics.get("critical_count", 0)
+        warn = physics.get("warn_count", 0)
+        passed = physics.get("passed", True)
+        marker = "PASS" if passed else "FAIL"
+        lines.append(
+            f"  physics: {marker} ({crit} critical, {warn} warnings)"
+        )
+        for issue in (physics.get("issues") or [])[:5]:
+            it = issue.get("issue_type", "?")
+            desc = issue.get("description", "")
+            lines.append(f"    - {it}: {desc}")
+        total = len(physics.get("issues") or [])
+        if total > 5:
+            lines.append(f"    ... and {total - 5} more issues")
+    editorial = report.editorial
+    if editorial:
+        if "skipped" in editorial:
+            lines.append(f"  editorial: skipped ({editorial['skipped']})")
+        else:
+            verdict = editorial.get("verdict", "unknown")
+            review_path = editorial.get("review_path", "?")
+            lines.append(
+                f"  editorial: verdict={verdict} (review: {review_path})"
+            )
     if report.warnings:
         lines.append(f"  warnings ({len(report.warnings)}):")
         for w in report.warnings:
@@ -464,17 +617,36 @@ def _parse_args(argv: list[str]) -> argparse.Namespace:
         action="store_true",
         help="Skip per-card jsonschema.validate (matches install_seed --no-validate-scene-cards).",
     )
+    parser.add_argument(
+        "--editorial-review",
+        action="store_true",
+        help=(
+            "Run the EditorialConsultant agent after physics validation. "
+            "Writes an advisory markdown report to editorial_reviews/ in "
+            "the book tree. Costs one LLM call per compile."
+        ),
+    )
+    parser.add_argument(
+        "--config",
+        default="config/settings.yaml",
+        help="ModelRouter config path (only used with --editorial-review).",
+    )
     return parser.parse_args(argv)
 
 
 def main(argv: list[str] | None = None) -> int:
     args = _parse_args(argv if argv is not None else sys.argv[1:])
+    editorial_router = None
+    if args.editorial_review:
+        from src.model_router import ModelRouter
+        editorial_router = ModelRouter(args.config)
     report = compile_bundle(
         franchise_slug=args.franchise,
         book_slug=args.book,
         base_dir=args.base_dir,
         strict=args.strict,
         validate_scene_cards=not args.no_validate_scene_cards,
+        editorial_router=editorial_router,
     )
     print(_format_summary(report))
     return 1 if report_has_failures(report, strict=args.strict) else 0

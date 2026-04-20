@@ -81,7 +81,7 @@ Canonical helpers live under `workflows/_shared/` (`seed_transforms.py`, `scene_
 
 ### Windows: do not call `python` directly
 
-The bare `python` alias routes to the Microsoft Store installer stub on this machine. Use `py -3` or the explicit interpreter at `/c/Users/lbouw/AppData/Local/Programs/Python/Python312/python.exe`. Do not run commands that hit the store stub.
+The bare `python` alias routes to the Microsoft Store installer stub on this machine. Use `py -3` (resolves to Python 3.12.0) or the explicit interpreter at `/c/Users/lbouw/AppData/Local/Programs/Python/Python312/python.exe`. Do not run commands that hit the store stub. Verified working: `py -3 --version` → `Python 3.12.0`.
 
 ## Benchmarking
 

@@ -33,6 +33,16 @@ class PhysicsEnforcer:
     overdue hard promises).
     """
 
+    # Issue types that indicate a structurally broken plan. These fail the
+    # compile-time gate in ``scripts/compile_bundle.py`` under ``--strict``.
+    # Non-critical issues surface as warnings only.
+    CRITICAL_ISSUE_TYPES: frozenset[str] = frozenset({
+        "missing_why_now",
+        "generic_why_now",
+        "overdue",
+        "too_early",
+    })
+
     def __init__(
         self,
         concept_seed: dict,
@@ -282,6 +292,142 @@ class PhysicsEnforcer:
             })
 
         return issues
+
+    def validate_plan(
+        self, scene_cards: list[dict] | None = None
+    ) -> dict:
+        """Corpus-level plan validation.
+
+        Runs every structural check against the full scene-card set plus
+        the story-physics artifacts from the concept seed. Intended to be
+        invoked at compile time, before any drafting, so structural
+        problems fail the plan rather than the pipeline.
+
+        Returns:
+            {
+                "passed": bool,              # True iff zero critical issues
+                "critical_count": int,
+                "warn_count": int,
+                "issues": list[dict],        # every issue, flat
+                "recommendations": list[str],
+                "by_category": {
+                    "economics":           [...],
+                    "causality":           [...],
+                    "revelations":         [...],
+                    "promises":            [...],
+                    "pressure":            [...],
+                    "chapter_progression": [...],
+                },
+            }
+        """
+        cards = scene_cards if scene_cards is not None else self.scene_cards
+
+        # Per-card economics (why_now).
+        economics_issues = self.scene_economics.validate_scene_cards(cards)
+
+        # Causality graph.
+        causality_issues = self.causality_validator.validate()
+
+        # Revelation timing.
+        revelation_issues = self.revelation_map.validate_ordering()
+
+        # Promise ledger — plan-time semantics. The milestone check assumes a
+        # running book where "unfulfilled" means the draft hasn't paid off
+        # yet; at plan time every promise is unfulfilled by definition, so
+        # that check would flag all of them. Instead, we check structural
+        # completeness: every promise needs a scheduled payoff, and the
+        # payoff must land inside the story.
+        promise_issues: list[dict] = []
+        for p in self.promise_ledger._promises.values():
+            pid = p.get("promise_id", "?")
+            payoff = p.get("payoff_chapter")
+            planted = p.get("planted_chapter")
+            if payoff is None:
+                if p.get("type") == "chekhov":
+                    promise_issues.append({
+                        "promise_id": pid,
+                        "issue_type": "no_payoff_planned",
+                        "description": (
+                            f"Chekhov promise '{pid}' has no planned "
+                            f"payoff_chapter."
+                        ),
+                    })
+                continue
+            if isinstance(payoff, int) and payoff > self.total_chapters:
+                promise_issues.append({
+                    "promise_id": pid,
+                    "issue_type": "overdue",
+                    "description": (
+                        f"Promise '{pid}' has payoff_chapter {payoff} which "
+                        f"exceeds the planned story length "
+                        f"({self.total_chapters} chapters)."
+                    ),
+                })
+            if (
+                isinstance(payoff, int)
+                and isinstance(planted, int)
+                and payoff < planted
+            ):
+                promise_issues.append({
+                    "promise_id": pid,
+                    "issue_type": "overdue",
+                    "description": (
+                        f"Promise '{pid}' has payoff_chapter {payoff} "
+                        f"scheduled before planted_chapter {planted}."
+                    ),
+                })
+
+        # Pressure escalation across chapters.
+        pressure_issues = self.pressure_matrix.validate_escalation()
+
+        # Per-chapter pressure progression across scenes.
+        chapter_progression_issues: list[dict] = []
+        by_chapter: dict[int, list[dict]] = {}
+        for card in cards:
+            ch = card.get("chapter_number")
+            if isinstance(ch, int):
+                by_chapter.setdefault(ch, []).append(card)
+        for ch in sorted(by_chapter):
+            scenes_sorted = sorted(
+                by_chapter[ch], key=lambda c: c.get("scene_number", 0)
+            )
+            chapter_progression_issues.extend(
+                PhysicsEnforcer.validate_chapter_pressure_progression(
+                    scenes_sorted
+                )
+            )
+
+        by_category = {
+            "economics": economics_issues,
+            "causality": causality_issues,
+            "revelations": revelation_issues,
+            "promises": promise_issues,
+            "pressure": pressure_issues,
+            "chapter_progression": chapter_progression_issues,
+        }
+
+        issues: list[dict] = []
+        for bucket in by_category.values():
+            issues.extend(bucket)
+
+        critical_count = sum(
+            1 for i in issues
+            if i.get("issue_type") in PhysicsEnforcer.CRITICAL_ISSUE_TYPES
+        )
+        warn_count = len(issues) - critical_count
+
+        recommendations: list[str] = [
+            i["description"] for i in issues if "description" in i
+        ]
+
+        return {
+            "passed": critical_count == 0,
+            "critical_count": critical_count,
+            "warn_count": warn_count,
+            "issues": issues,
+            "recommendations": recommendations,
+            "by_category": by_category,
+        }
 
     @staticmethod
     def _estimate_scene_pressure(card: dict) -> int:

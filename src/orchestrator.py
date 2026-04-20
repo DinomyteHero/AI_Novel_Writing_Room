@@ -362,9 +362,28 @@ class Orchestrator:
             payload={"mission": scene_card.get("mission", "")},
         )
 
-        # Phase 4: Pre-chapter physics validation
+        # Phase 4: Pre-chapter physics validation.
+        # Demoted to a sanity net: when the concept_seed carries
+        # ``compile_metadata.physics_validated = True`` the compile-time
+        # validator in ``scripts/compile_bundle.py`` has already covered the
+        # full corpus, so re-running per-scene here would duplicate work and
+        # catch nothing new. Skip with an info event in that case. When the
+        # flag is absent or False, fall through to the advisory check so
+        # hand-edited seeds or legacy projects still get coverage.
         physics_pre = None
-        if self.physics_enforcer:
+        upstream_seed = getattr(self.assembler, "concept_seed", {}) or {}
+        upstream_validated = (
+            upstream_seed.get("compile_metadata", {}).get("physics_validated")
+            is True
+        )
+        if self.physics_enforcer and upstream_validated:
+            self.ledger.emit(
+                "physics_pre_skipped_upstream_validated",
+                chapter_number=chapter_num,
+                scene_number=scene_num,
+                payload={"reason": "compile_metadata.physics_validated=True"},
+            )
+        elif self.physics_enforcer:
             print("  [P4] Physics pre-check...")
             physics_pre = self.physics_enforcer.validate_pre_chapter(scene_card)
             self.ledger.emit(

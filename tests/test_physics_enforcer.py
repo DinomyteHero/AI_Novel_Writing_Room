@@ -175,3 +175,92 @@ class TestStrictMode:
         enforcer = PhysicsEnforcer(concept_seed_with_physics, strict_mode=True)
         result = enforcer.validate_pre_chapter(scene_card_valid)
         assert result["passed"] is True
+
+
+class TestValidatePlan:
+    """Corpus-level plan validation — the compile-time gate."""
+
+    def _cards(self, **overrides) -> list[dict]:
+        base = [
+            {
+                "chapter_number": 1, "scene_number": 1,
+                "why_now": "Opening establishes the hero's routine disruption.",
+                "conflict_type": "internal",
+                "stakes": {"personal": "loss of safety"},
+                "pov_character": "protagonist",
+            },
+            {
+                "chapter_number": 1, "scene_number": 2,
+                "why_now": "Mentor arrives and catalyzes departure.",
+                "conflict_type": "interpersonal",
+                "stakes": {"interpersonal": "trust"},
+                "pov_character": "protagonist",
+            },
+        ]
+        return overrides.get("cards", base)
+
+    def test_clean_plan_passes(self, concept_seed_with_physics):
+        enforcer = PhysicsEnforcer(concept_seed_with_physics)
+        result = enforcer.validate_plan(self._cards())
+        assert result["passed"] is True
+        assert result["critical_count"] == 0
+
+    def test_missing_why_now_is_critical(self, concept_seed_with_physics):
+        cards = self._cards() + [
+            {"chapter_number": 2, "scene_number": 1, "pov_character": "protagonist"},
+        ]
+        enforcer = PhysicsEnforcer(concept_seed_with_physics)
+        result = enforcer.validate_plan(cards)
+        assert result["passed"] is False
+        assert result["critical_count"] >= 1
+        assert any(
+            i["issue_type"] == "missing_why_now" for i in result["issues"]
+        )
+
+    def test_generic_why_now_is_critical(self, concept_seed_with_physics):
+        cards = self._cards() + [
+            {
+                "chapter_number": 2, "scene_number": 1,
+                "why_now": "because the outline says so",
+                "pov_character": "protagonist",
+            },
+        ]
+        enforcer = PhysicsEnforcer(concept_seed_with_physics)
+        result = enforcer.validate_plan(cards)
+        assert result["critical_count"] >= 1
+        assert any(
+            i["issue_type"] == "generic_why_now" for i in result["issues"]
+        )
+
+    def test_by_category_populated(self, concept_seed_with_physics):
+        enforcer = PhysicsEnforcer(concept_seed_with_physics)
+        result = enforcer.validate_plan(self._cards())
+        assert set(result["by_category"].keys()) == {
+            "economics", "causality", "revelations",
+            "promises", "pressure", "chapter_progression",
+        }
+
+    def test_uses_self_scene_cards_when_none_passed(self, concept_seed_with_physics):
+        enforcer = PhysicsEnforcer(concept_seed_with_physics, self._cards())
+        result = enforcer.validate_plan()
+        assert result["passed"] is True
+
+    def test_early_climactic_reveal_is_critical(self):
+        seed = {
+            "meta": {"target_chapters": 10},
+            "story_physics": {
+                "causality_chains": [],
+                "promise_payoff_ledger": [],
+                "revelation_map": [
+                    {"info_id": "twist", "revealed_chapter": 2, "significance": "climactic"},
+                    {"info_id": "small", "revealed_chapter": 10, "significance": "climactic"},
+                ],
+                "pressure_matrix": {},
+            },
+        }
+        enforcer = PhysicsEnforcer(seed)
+        result = enforcer.validate_plan([
+            {"chapter_number": 1, "scene_number": 1, "why_now": "ok"},
+        ])
+        assert any(i["issue_type"] == "too_early" for i in result["issues"])
+        assert result["critical_count"] >= 1
