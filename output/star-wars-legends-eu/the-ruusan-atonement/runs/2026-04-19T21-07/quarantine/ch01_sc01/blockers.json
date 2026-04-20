@@ -1,0 +1,13 @@
+{
+  "chapter_number": 1,
+  "scene_number": 1,
+  "blockers": [
+    {
+      "code": "CHARACTER_PRESENCE_BLOCKER",
+      "severity": "critical",
+      "description": "Character 'Luke Skywalker' speaks or acts in the scene but is not listed in characters_present.",
+      "evidence": "Luke stood in the doorway with a datapad and an expression Ben knew meant a mission."
+    }
+  ],
+  "scene_card_id": "ch1_sc1"
+}

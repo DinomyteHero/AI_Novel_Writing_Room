@@ -1,0 +1,74 @@
+{
+  "scene_objective": "Setup phase, hook role: establish Ben's private struggle with a Force wrongness that has been costing him for a week, culminating in a visible failure during sparring that forces him to stop denying the problem. The scene plants the central dramatic question (what is the wrongness and where is it coming from) while positioning Ben as a Knight handling crisis privately, not broadcasting distress. Luke's arrival at the close pivots the scene from isolation to mission, signaling that the private problem is about to become shared.",
+  "turning_point": {
+    "trigger": "Alone in the salle after dismissing his sparring partner, Ben runs a form without igniting the blade and the wrongness steals a beat he cannot spare\u2014the moment he stops pretending it is fatigue and admits the problem is real.",
+    "shift": "Ben moves from denial (treating the wrongness as residual stress from recent crises) to acknowledgment (the wrongness is structural, not emotional, and it is degrading his Force timing in measurable ways). His internal stance shifts from 'this will pass' to 'something is wrong with the Force itself.'",
+    "cost": "The cost is the loss of his last refuge\u2014solitude and routine were his way of containing the problem. Admitting it aloud (even to himself, in the empty salle) means he can no longer pretend it is private or temporary. The wrongness is now undeniable, which means it is now real in a way that demands action."
+  },
+  "closing_beat": "Luke appeared in the doorway with a datapad and an expression Ben knew meant a mission.",
+  "emotional_arc": {
+    "start": "Restless unease\u2014Ben is aware something is wrong but treating it as manageable, a problem he can contain through discipline and routine.",
+    "shift": "Frustrated isolation\u2014the sparring failure forces him to stop compartmentalizing. Alone in the salle, he confronts the wrongness directly and feels the weight of carrying it alone, without naming it to anyone else.",
+    "end": "Reluctant hope\u2014Luke's arrival offers a pivot point. Ben does not yet know what the mission is, but the appearance of external structure (a task, a direction, someone else's authority) breaks the isolation and suggests the problem might be larger than his private struggle. Hope is reluctant because it means the wrongness is about to stop being his secret."
+  },
+  "target_word_count": 1250,
+  "opening_mode": "in_medias_res",
+  "key_beats": [
+    {
+      "beat_description": "Ben's guard drops a half-second late during sparring; his partner's training blade catches him across the shoulder\u2014the third time this week the wrongness has cost him a beat he should never miss.",
+      "state_change": "Ben is now visibly compromised in front of another Knight. The wrongness has moved from private problem to public failure.",
+      "pov_reaction": "A spike of frustration that Ben channels into acceptance\u2014he deactivates his blade and waves off a rematch, claiming fatigue. Internally, his body registers the wrongness as a lag in the ambient field, a half-beat delay in the Force's response to his intention. The sensation is not painful but deeply wrong, like a note played slightly flat in a piece he has known by reflex for years."
+    },
+    {
+      "beat_description": "Ben paces the empty salle alone after his partner leaves, running through a form without igniting the blade\u2014testing whether the wrongness disrupts muscle memory or Force timing.",
+      "state_change": "Ben moves from denial to active investigation. He is no longer pretending the problem will resolve on its own; he is gathering evidence.",
+      "pov_reaction": "His body moves through the form with precision, but the Force arrives a half-beat behind his intention. The wrongness is not in his technique\u2014it is in the ambient field itself. Ben's internal voice sharpens: he is no longer asking 'is this real?' but 'what is this?' His breathing steadies as he settles into the problem like a Knight settling into a puzzle. There is a grim satisfaction in the clarity, even as the wrongness pulls at his attention."
+    },
+    {
+      "beat_description": "Ben stops mid-form when the wrongness steals a beat he cannot spare\u2014a moment where the lag in the ambient field costs him a transition he has executed ten thousand times without thought.",
+      "state_change": "The wrongness is no longer background noise or residual stress. It is a structural problem in the Force itself, measurable and undeniable.",
+      "pov_reaction": "Ben's body goes still. The wrongness is not diminishing; it is consistent, directional, and it is costing him. His internal voice drops into a register that sounds like his father's\u2014sharp, self-aware, refusing melodrama: this is real. The half-beat lag is not fatigue. It is not psychological. It is the Force itself arriving wrong. Ben's shoulders drop slightly; the tension he has been carrying all week settles into something heavier and more honest."
+    },
+    {
+      "beat_description": "Luke appears in the doorway with a datapad and mission-ready posture, his expression carrying the weight of something that needs Ben's attention.",
+      "state_change": "Ben's isolation breaks. The private problem is about to become shared, and external structure (a mission, a direction, someone else's authority) is about to impose itself on his private struggle.",
+      "pov_reaction": "Ben's first instinct is relief\u2014the wrongness is no longer his alone to carry. His second instinct is caution: Luke's expression suggests the mission is not routine. Ben's body language shifts from introspection to readiness, but his internal voice carries a note of dread. The wrongness has just become someone else's problem too, which means it is larger than he has been allowing himself to believe."
+    }
+  ],
+  "voice_guidance": "Channel Zahn-style close third-person interiority: sharp, self-deprecating, never melodramatic. Ben's internal voice should sound like a Knight who has been trained to observe himself without sentiment\u2014he notices the wrongness the way a pilot notices an engine lag, with precision and without flinching. His self-awareness is dry and practical, not introspective. When he admits the wrongness is real, the admission should come as a small, clear thought, not a revelation. Use sensory detail to ground his awareness: the hum of training sabers, the lag in the ambient Force field (consistent metaphor: the half-beat delay), the physical sensation of his body moving through forms. Dialogue is minimal (interior scene); when his sparring partner speaks, keep it brief and functional. Temple life should surface in the edges\u2014late-shift foot traffic in distant corridors, a cleaning droid, lift chimes\u2014to establish Coruscant as a place people live in, not only a backdrop. Avoid any diagnostic-voice articulation of what the wrongness is; Ben feels it before he can name it. The 'structural, not emotional' framing is a Part 3-4 voice, earned later.",
+  "forbidden_moves": [
+    "Do not describe the wrongness in visual or color terms\u2014keep it auditory and vibrational",
+    "Do not arrive at any clinical articulation of what the wrongness is\u2014Ben feels it before he can name it",
+    "Do not use diagnostic-voice framing ('the structural lattice', 'a frequency that resonates')\u2014this is a Part 3-4 voice, earned later",
+    "Do not characterize the sparring partner beyond minimal background presence\u2014he exists to provide physical context, not personality",
+    "Do not open with a flashback or exposition about recent crises\u2014open in medias res with the sparring failure",
+    "Do not have Ben's interiority sound like mission debrief language\u2014if a sentence could be lifted into a briefing, it is too composed for this scene"
+  ],
+  "anti_patterns": [
+    "Do not describe the wrongness in visual or color terms",
+    "Do not arrive at any clinical articulation of what the wrongness is",
+    "Do not use diagnostic-voice framing",
+    "Do not characterize the sparring partner beyond minimal background presence",
+    "Do not open with a flashback or exposition about recent crises",
+    "Do not have Ben's interiority sound like mission debrief language"
+  ],
+  "delivery_preferences": {
+    "reveal_mode": "gradual",
+    "exposition_budget": "none",
+    "register_override": null
+  },
+  "required_hooks": [
+    "H01"
+  ],
+  "required_subplots": [
+    "SP-A",
+    "SP3"
+  ],
+  "required_revelations": [],
+  "action_balance_note": "Scene is interior (dialogue_expectation: interior), so at least 2 of 4 key beats must involve physical interaction with the environment. Beats 1, 2, and 3 all involve physical action (sparring, pacing, running forms); beat 4 is Luke's arrival. Physical action dominates; internal reflection is woven through action, not replacing it. This supports the scene card's directive that Ben should read as a Knight handling a private problem privately, not as a character having a character arc in public.",
+  "pacing_shape": "slow open (sparring failure, denial) \u2192 accelerating close (active investigation, admission, Luke's arrival). The scene pulses between action and reflection but trends toward acceleration as Ben moves from denial to acknowledgment to readiness. This contrasts well with a subsequent scene that might be dialogue-led or exposition-heavy.",
+  "promise_tracking": {
+    "PP01_wrongness_source": "Planted in this scene\u2014the wrongness has a direction and a source Ben will find. The half-beat lag is consistent and directional; it is not random.",
+    "PP21_skywalker_shadow": "Planted subtly\u2014Ben's internal voice carries echoes of his father's precision and self-awareness. He measures himself against the standard of a Knight who does not miss beats, and the wrongness costs him that standard."
+  }
+}
