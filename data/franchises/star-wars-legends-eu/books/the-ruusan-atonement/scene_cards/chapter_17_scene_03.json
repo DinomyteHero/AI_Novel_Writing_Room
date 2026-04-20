@@ -10,7 +10,7 @@
   "conflict": "There is nothing left to do except arrive. The group has spent seventeen chapters preparing for a confrontation that is now on a vector they cannot reshape. The scene is about who is watching what on the display. The ledger-fragment produces a second kind of observation: Veraine as working mind, rendered in her own diction, adjacent to the sensor-dot that is the version of her the group must arrive at.",
   "conflict_type": "external",
   "turning_point": "The two trajectories lock on the display. Ben sees Veraine is not fleeing — she timed this. The endgame is a date, not a guess. In the margin, the ledger-fragment lands a parallel certainty: she thinks the way her movements track; her mind and her ship are the same shape.",
-  "opening_hook": "Desh: 'Contact. Bearing three-one-five, parallel course.' A pause. 'It's her.'",
+  "opening_hook": "Desh at the long-range sensor display calls the contact — a parallel-course vector, then the one-beat confirmation that it is Veraine's ship",
   "closing_hook": "Two ships converging on a world where the Force was torn a thousand years ago. Torin watches the nav display with the expression of a man coming home. On Ben's datapad, the recovered ledger-fragment: a line in her hand about the work of the day, undramatic, precise, as if the sentence and the sabotage were the same activity",
   "emotional_trajectory": "Tactical alertness -> grim inevitability -> Torin's unsettling anticipation -> the ledger-fragment's quiet adjacency",
   "stakes": {
@@ -31,7 +31,7 @@
   ],
   "target_word_count": 1100,
   "action_beats": [
-    "Desh tracks the sensor contact — a bright dot on the display, parallel course, Veraine's ship signature confirmed",
+    "Desh tracks the sensor contact on the long-range display and confirms Veraine's ship signature on a parallel course",
     "Ben leans over the nav console and overlays both trajectories — they converge at Veranthos within hours of each other",
     "Torin watches the nav display with the expression of a man coming home and doesn't try to hide it",
     "Ben reads the recovered ledger-fragment on his datapad — a short working note in Veraine's voice, no address to any reader, the residue of a mind that thinks at night"

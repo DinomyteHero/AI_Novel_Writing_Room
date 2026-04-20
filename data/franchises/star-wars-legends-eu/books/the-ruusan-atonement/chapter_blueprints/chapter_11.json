@@ -3,7 +3,9 @@
   "chapter_mission": "Breathing room chapter. Day four in hyperspace, six people in a ship for two. Kael laughs for the first time anyone has heard. Ben and Desh finally name what they did in GAG and what Jacen became. Approach to Maetha's Training Facility; Sera recognises Gavran's personal seal notation on the scan. Per D8, R04d lands here: the Brotherhood inversion attempt — why the seal system was built the way it was, and why Gavran's removal-technique was a right-about-the-emergency, catastrophically-wrong-about-the-cost decision. Per D7 counter-current 2, Torin does something on the corruption trajectory he would genuinely not do — a refusal of a Veraine-adjacent opportunity or an unexpected warmth toward Kael, registered by Ben but not explained.",
   "chapter_turn": "Two pieces of silent history become speech. Kael's laugh announces that he is present, not just aboard; Ben and Desh's GAG conversation surfaces the pattern-recognition that will later let Ben see through Torin. The book's moral geometry also completes: the Jedi Lords were not corrupt — they were competent people under catastrophic pressure who made the wrong emergency choice. The chapter's pace slows so the book's emotional infrastructure can set.",
   "structural_phase": "first_pinch",
-  "pov_allocation": ["Ben Skywalker"],
+  "pov_allocation": [
+    "Ben Skywalker"
+  ],
   "scene_count": 3,
   "scene_plan": [
     {
@@ -24,17 +26,26 @@
       "scene_number": 3,
       "role": "escalation",
       "dialogue_expectation": "balanced",
-      "target_word_count": 1050,
+      "target_word_count": 1100,
       "purpose": "Approach to Maetha's Training Facility. Desh adjusts the vector; sensor readings spike with a pattern no previous node has shown. The Force ahead is not thinned — it is flexible, boundary shimmering. Sera pulls her hands back from the console when she sees Gavran's personal seal notation. 'This was Maetha's.' The name means nothing to Ben. Her expression says it should. H11 plants."
     }
   ],
-  "reveal_payload": ["R04d"],
+  "reveal_payload": [
+    "R04d"
+  ],
   "hook_movements": {
-    "planted": ["H11"],
+    "planted": [
+      "H11"
+    ],
     "advanced": [],
     "resolved": []
   },
-  "subplot_obligations": ["SP-A", "SP1", "SP2", "SP3"],
+  "subplot_obligations": [
+    "SP-A",
+    "SP1",
+    "SP2",
+    "SP3"
+  ],
   "relationship_turns": [
     {
       "dyad": "Ben/Desh",
@@ -59,6 +70,6 @@
   ],
   "pacing_curve": "steady",
   "exit_vector": "Maetha's compound materialising in the viewport — geometric, austere, high-altitude. The Force ahead is flexible rather than thinned. Sera at the sensor panel, her hand off the controls. Gavran's seal notation glowing where no modern symbol would register. The caravan's next stop is the one the man who built the seal sealed separately.",
-  "chapter_word_target": 3500,
+  "chapter_word_target": 3550,
   "notes": "Jacen parallel touchpoint 2 (emotional, subtextual per R13). The Ben/Desh conversation is one of the book's load-bearing scenes; it is the only way the Ch 18 pattern-recognition has earned ground to stand on. Keep it quiet — dim cockpit, controls they are not watching, long pauses. Avoid melodrama. The specificity of Desh's opening (a particular raid, a particular arrest, a particular face) is more affecting than any general grief. R04d is delivered *alongside* the GAG conversation on Desh's datapad — the Brotherhood inversion reconstruction is discovered during the scene, not announced; Ben and Desh land on the Jedi Lords' tragic right-about-emergency-wrong-about-cost at the same moment they are reckoning with their own version of the same pattern. Use the adjacency; do not underline it. Kael's laugh in s1 is a single line and a cut — do not describe him smiling at length. Torin's warmth-becoming-mechanical is the subtlest note in the chapter; it must be felt before named — a story that hits its beats slightly too cleanly, a compliment landed slightly too perfectly. Voice: Allston-warm throughout s1, Bujold-interior permitted for the Ben/Desh scene (single paragraph max), Zahn-procedural in s3. ANTI-PATTERNS: (a) do not spell out the GAG raid — fragments only; (b) no one on-page names 'the Jacen pattern' yet except as 'he sounds like Jacen'; per R13 the single explicit naming budget lives at Ch 18, not here; (c) Sera's recognition of Maetha in s3 is a charged silence, not a backstory dump; (d) per D7 counter-current 2 guardrail, Torin's refusal in s1 is rendered at ground level — no narrator commentary that it is unusual. The reader holds it as texture; (e) R04d is not lectured. Ben and Desh hold it in a shared silence after the Jacen beat — the framework completes itself as the conversation settles."
 }

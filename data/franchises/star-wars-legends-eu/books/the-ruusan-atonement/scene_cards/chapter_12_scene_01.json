@@ -51,7 +51,9 @@
       "action": "resolve"
     }
   ],
-  "revelations": [],
+  "revelations": [
+    "R05b"
+  ],
   "pov_arc_phase": "lie_reinforced",
   "notes": "The flexible Weave must feel genuinely appealing on the page — the reader needs to understand why intelligent people kept coming back to it. Rotate Force-wrongness metaphor family for this scene: gravity/pull/shimmer registers rather than handrail or flat-note. One consistent image per scene (the shimmer at the boundary), no stacked metaphors. Diagnostic-voice trap — Ben should not, in this scene, articulate why the Weave here is seductive. He steps in, he feels it, he notices his body enjoying it, he steps out. The reader experiences the one-second beauty without an interior paragraph explaining it. Torin's arc: lie_reinforced — the ease here is the chapter's quietest warning."
 }

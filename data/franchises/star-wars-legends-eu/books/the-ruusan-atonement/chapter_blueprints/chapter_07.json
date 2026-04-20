@@ -3,7 +3,9 @@
   "chapter_mission": "First Corridor stop. The Battlefield Node establishes the thin-place baseline — mild parallax, fresh boot prints in ancient dust. Sera's Force-lock work demonstrates her era-specific value. Per D8, R04b lands here: the forbidden technique is named as a specific discipline (unweaving as a trained Force-lock-adjacent practice), not a metaphor. Per W1 Plant 1, Kael makes his first unprompted self-driven move — an archive request to Desh, in the margins of the scene. Ben files another partial report to Luke, and Torin asks the soft question that will echo across three chapters.",
   "chapter_turn": "The trail becomes present-tense. Veraine stops being an archived note and starts being a person who walked the same corridor weeks ago. The forbidden technique also acquires a name — the Order has been given vocabulary for what Gavran built, what Torin did, and what Veraine studies. Sera stops being rescued cargo and becomes the crew's most valuable specialist. Kael, unasked, begins choosing what he wants to know.",
   "structural_phase": "response",
-  "pov_allocation": ["Ben Skywalker"],
+  "pov_allocation": [
+    "Ben Skywalker"
+  ],
   "scene_count": 3,
   "scene_plan": [
     {
@@ -17,24 +19,34 @@
       "scene_number": 2,
       "role": "reveal",
       "dialogue_expectation": "balanced",
-      "target_word_count": 1250,
+      "target_word_count": 1200,
       "purpose": "Archive room, Force-locked. Sera's palms on the mechanism; the lock dissolves in seconds — muscle memory a thousand years deep. Ben scrolls holographic records in an archaic data format while Sera translates the terminology. Per D8 R04b: the records name the forbidden technique — unweaving, the specific Force-lock-adjacent discipline Gavran developed by synthesising study of Nathema, Malachor V, and earlier precedents; a trained practice with a known mechanism, not a metaphorical 'dark power.' The Jedi Lords were more militarised and more compromised than modern history admits. Veranthos named by coordinate and warning notation. Ben has the vocabulary the narrative has been withholding; Sera confirms Torin's familiarity with the technique without Torin speaking. H07 advances."
     },
     {
       "scene_number": 3,
       "role": "decision",
       "dialogue_expectation": "balanced",
-      "target_word_count": 1050,
+      "target_word_count": 1100,
       "purpose": "Aboard the Steady Returns. Ben drafts his second partial report to Luke — more context, still not the full truth. Torin leans in the doorway and asks, without accusation: 'What will you tell them?' Ben changes the subject. Per W1 Plant 1: in the margins of the scene — after the technique-records have been read, before the report is drafted — Kael approaches Desh (not the Force-users) and requests specific archive records. Kolven-era disciplinary logs, or equivalent era-specific material. Unprompted. No explanation. Desh complies, nods, and says something dry. No one else sees what Kael reads. Ben registers from the side and moves on. The reader holds the beat as texture, not plot-signal. The next node's readings register worse — degradation heavier, Veraine's energy signature stronger. The caravan presses on."
     }
   ],
-  "reveal_payload": ["R04b"],
+  "reveal_payload": [
+    "R04b"
+  ],
   "hook_movements": {
-    "planted": ["H07"],
-    "advanced": ["H07"],
+    "planted": [
+      "H07"
+    ],
+    "advanced": [
+      "H07"
+    ],
     "resolved": []
   },
-  "subplot_obligations": ["SP-A", "SP2", "SP3"],
+  "subplot_obligations": [
+    "SP-A",
+    "SP2",
+    "SP3"
+  ],
   "relationship_turns": [
     {
       "dyad": "Ben/Sera",
@@ -59,6 +71,6 @@
   ],
   "pacing_curve": "rising",
   "exit_vector": "The Steady Returns lifting from the Battlefield Node, course set for the second Corridor stop. Veraine's trail visibly warmer. Torin's question unanswered in the air between Ben and the report he did not send. The wrongness no longer just follows the bearing — it has a hand in it, and that hand has now been named as a technique.",
-  "chapter_word_target": 3600,
+  "chapter_word_target": 3500,
   "notes": "Thin-place phenomenology at the mild level — use the vocabulary_variation families, not the handrail simile from Ch 1. Consider a balance/footing vocabulary (the body's read of a slightly tilted floor) or a hydraulic metaphor (current running fractionally off true). Sera's Force-lock technique is her first on-page expertise demonstration — keep it understated, almost domestic; the point is that the lock submits to muscle memory that predates modern Jedi training. Voice: Zahn-procedural in the archive; Allston-brief in the banter; single Bujold-interior beat reserved for Ben's second deleted paragraph in the report. ANTI-PATTERNS: (a) no exposition about Ankhural here — that belongs to Ch 9; (b) Torin's question is not a confrontation; warmth must remain on the surface; (c) do not name what Sera knows about the Jedi Lords' compromises — let the record excerpts imply it; (d) per W1 Plant 1 guardrails, Kael's archive request is not underlined. No 'Kael had been acting differently lately' narration. Ben registers and moves on. The beat lives in a sentence or two. The reader does not yet know what Kael reads; only that he chose to. (e) R04b is named-and-grounded but not yet theorised — Ankhural Codex framework arrives at Ch 9 (R06), wound mechanics at Ch 9 (R04c), Brotherhood inversion at Ch 11 (R04d)."
 }
