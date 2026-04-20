@@ -3,8 +3,13 @@
 The Quality Polish pass is the only post-gate stage that touches prose. It applies
 expression-level edits (show-don't-tell, word choice, AI-tell removal, sentence
 rhythm, grammar) within an explicit contract: it CANNOT add or remove beats,
-characters, or story content. The Final Gate validates the polish output and
-rejects it if the contract is violated.
+characters, or story content.
+
+Under the forward-only relay, Final Gate and the compression advisory both run
+downstream of polish as telemetry only — they log advisory events but never
+revert the polish. The save-blocker layer (character presence, canon verdict
+at critical/moderate severity) is the sole hard-failure path. Polish output
+is always saved otherwise.
 
 Replaces: craft_editor, revision/pipeline (3 bands: structural_continuity,
 scene_emotion, line_copy).
@@ -19,8 +24,11 @@ class QualityPolish(BaseAgent):
     """Single bounded polish pass. Expression-only edits; structure untouched.
 
     Receives gate-passed prose plus scene card hard constraints, quality metric
-    flags, and an explicit word-count floor (polished text must not drop below
-    80% of pre-polish count). The Final Gate verifies the contract on output.
+    flags, and an explicit 80% word-count floor as an instructed target to the
+    model. Under the forward-only relay, the floor is advisory: the runtime
+    compression guard emits a warn-level `compression_guard_fired` event when
+    polish cuts below 60% of pre-polish word count, but the polished output is
+    always kept. Final Gate runs afterwards as telemetry and never reverts.
     """
 
     def __init__(self, router, role: str = "quality_polish"):
@@ -59,7 +67,9 @@ class QualityPolish(BaseAgent):
             f"Target: {target_wc}\n"
             f"**Your polished output MUST be >= {min_floor} words.** "
             f"If you would cut below the floor, stop cutting and rewrite in place "
-            f"instead. A compression guard will reject polish output below the floor."
+            f"instead. Polish that compresses aggressively (below 60% of pre-polish) "
+            f"fires an advisory event for human review — polish is still saved, but "
+            f"aggressive compression is flagged as quality risk."
         )
 
         # Quality metric flags drive the polish agenda — what actually needs fixing.

@@ -538,10 +538,12 @@ async def main():
     parser.add_argument(
         "--skip-gate-loop",
         action="store_true",
-        help="Short-circuit the Gate Critic rewrite loop. Accept the first "
-             "Prose Stylist output without retries. Quality Polish and Final "
-             "Gate still run (unless --raw-draft is also set). Use to measure "
-             "prose_stylist output quality before gate refinement.",
+        help="Skip the Gate Critic stage entirely and synthesize a 'skipped' "
+             "verdict. The forward-only relay has no rewrite loop anymore, so "
+             "this flag only bypasses the gate-critic LLM call; Quality Polish "
+             "and Final Gate still run (unless --raw-draft is also set). Useful "
+             "for bench configs and cheap runs where gate telemetry is not needed. "
+             "Flag name is historical from the retry-era pipeline.",
     )
     parser.add_argument(
         "--strict-lore",

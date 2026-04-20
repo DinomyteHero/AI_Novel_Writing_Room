@@ -1,10 +1,28 @@
 # Pipeline Redesign
 
-Working implementation brief for the execution pipeline, planning layer, and validation contract redesign. Supersedes the current post-gate rewrite stack and adds the missing chapter-level planning artifact.
+> ## ⚠️ STATUS: HISTORICAL DESIGN BRIEF
+>
+> This document is the **planning brief** that drove the redesign — not a description of the shipped system. Retained for design-decision history and traceability, but **do not rely on the body below as current documentation**.
+>
+> **For current pipeline behavior, see [`docs/architecture/agent-pipeline.md`](./agent-pipeline.md).**
+>
+> What the shipped system actually does (Relay v3, 2026-04-19+):
+>
+> - **Forward-only relay, no retries.** `max_structural_retries` and `max_voice_retries` are pinned to `0` in `config/settings.yaml`. Retry branches were removed, not disabled.
+> - **Gates run as telemetry.** Both `GateCritic` and `FinalGate` log verdicts to the ledger but never block, revert, or loop. Their verdicts feed the `saved_with_advisory` status, not save/reject control flow.
+> - **Compression advisory, not compression guard.** Polish output that compresses below 60% of pre-polish word count emits a `compression_guard_fired` warn event but is saved anyway. The 80% floor remains as a soft instruction to the polish model; runtime never reverts.
+> - **Save-blocker layer is the single hard-failure path** (`src/pipeline/save_blockers.py`). Three categories: `CHARACTER_PRESENCE_BLOCKER`, `CANON_BLOCKER` (critical or moderate), POV advisory (non-blocking in v1). When a blocker fires, the scene quarantines to `<run>/quarantine/chNN_scMM/{prose.md, blockers.json, brief.json}` and the run aborts.
+> - **Canonical relay order:** `PlotArchitect → ProseStylist → [LineWriter] → GateCritic → QualityMetrics → QualityPolish → compression advisory → FinalGate → CanonExpert → save-blocker layer → save | quarantine`. CanonExpert is the continuity editor on final polished prose.
+> - **Saved-scene status vocabulary:** `saved_clean`, `saved_with_advisory`, `quarantined`. The five-value legacy vocabulary (`gate_passed`, `polished`, `approved`, `gate_failed`, `gate_skipped`, `final_gate_rejected`) is gone; `scripts/migrate_status_vocab.py` auto-migrates existing databases.
+> - **Chapter-level word-count drift** is tracked by `src/pipeline/word_count_telemetry.py` (±15% info, 15–30% warn, >30% error) and is not part of the scene gate taxonomy.
+>
+> The design intent captured below (single bounded polisher, typed generation brief, chapter blueprints, scene cards as contract, "final saved prose is the unit of truth") is the foundation of the shipped relay — but the enforcement model shifted from retry-and-reject to telemetry-and-quarantine during Stages 1a–1f. Sections that still describe retry loops, polish rejection, or Final Gate as binding are **superseded** and should be read as historical intent, not current behavior.
 
-> **Amendment (2026-04-19, Relay v3):** the gate-driven rewrite stack has been retired. Retry loops are neutered (`max_structural_retries: 0`, `max_voice_retries: 0`), gates run as telemetry only, and the save-blocker layer (`src/pipeline/save_blockers.py`) is the single hard-failure path. The relay order is
-> `drafter → [line_writer] → gate_critic → copy_editor → continuity_editor → save_blocker → save`
-> with `canon_expert` as the last reader on FINAL polished prose. Scene-level word count has left the gate taxonomy entirely; chapter-level drift is tracked by `src/pipeline/word_count_telemetry.py`. Saved-scene status vocabulary is now `{saved_clean, saved_with_advisory, quarantined}`. See commits `65e4eee`, `186d1fc`, and the Stage 3 LineWriter promotion for the full rollout.
+---
+
+## Original brief (historical)
+
+Working implementation brief for the execution pipeline, planning layer, and validation contract redesign. Supersedes the current post-gate rewrite stack and adds the missing chapter-level planning artifact.
 
 ## Problem statement
 
@@ -232,6 +250,8 @@ This makes the planner-to-drafter handoff reproducible and diffable. Anti-patter
 
 ### Pipeline contract
 
+> **Historical — superseded by relay v3.** The table below describes the retry-and-reject model that was planned. The shipped pipeline is forward-only: gate verdicts and Final Gate rejections are logged as telemetry but never loop back to Prose Stylist and never revert polish. Enforcement moved to the save-blocker layer. See `docs/architecture/agent-pipeline.md` for the current per-stage contracts.
+
 Each step has an explicit scope: what it owns, what it cannot change, and how violations are enforced.
 
 | Step | Agent | Owns | Cannot change | Enforcement |
@@ -247,6 +267,8 @@ Each step has an explicit scope: what it owns, what it cannot change, and how vi
 | 9 | CODE | Save + summarize | — | — |
 
 ### Quality polish contract
+
+> **Historical on enforcement, accurate on scope.** The CAN/CANNOT lists below still describe what QualityPolish is allowed to do. But the **enforcement row is superseded**: Final Gate no longer rejects polish output (it is advisory only), and the compression guard no longer reverts to the gate-passed draft (it fires a warn-level event at <60% and keeps the polish anyway). The prompt still instructs the model to respect the 80% floor.
 
 The single post-gate polish pass replaces Craft Editor + 3 revision bands.
 
@@ -302,6 +324,8 @@ Evaluates the Prose Stylist's draft against:
 Programmatic word-count enforcement: if `abs(actual - target) / target > 0.20`, inject `WORD_COUNT_VIOLATION` into `failure_codes` before `determine_verdict()` runs. This is deterministic and cannot be ignored by the gate model.
 
 ### Final Gate
+
+> **Historical — Final Gate is now advisory.** In the shipped relay, Final Gate still evaluates the polish output against the scene card contract, but it does not reject or revert. Rejections emit `final_gate_rejection` with `advisory_only=True` and the polished prose is saved. The "save the gate-passed draft instead" branch described below never executes. The character-presence check migrated to a dedicated `PresenceChecker` agent inside the save-blocker layer, which is the only hard blocker.
 
 Evaluates the Quality Polish output against:
 - Scene card contract (same checks as Scene Gate)

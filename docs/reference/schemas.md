@@ -52,15 +52,33 @@ Pipeline (per chapter):
     Scene Card -> ContextAssembler -> prompt payload
         Context tiers: story bible, act summary, chapter summaries, recent prose
         Phase 5 tiers: voice_rules, hook_agenda, arc_context, subplot_context, terminology
-    Prompt payload -> PlotArchitect -> generation brief
-    Generation brief -> ProseStylist -> prose
-    Prose -> CanonExpert -> canon violations (reads canon_profile from seed)
-    Prose -> GateCritic -> Failure Code schema (receives canon violation context)
-    Prose -> Summarizer -> State Diff schema
+    Prompt payload -> PlotArchitect -> generation_brief (Generation Brief schema)
+    generation_brief + context -> ProseStylist -> prose (drafted)
+    prose -> LineWriter -> prose (line-edited, optional; explicit context wiring)
+    prose -> GateCritic -> Failure Code schema (advisory under forward-only relay)
+    prose -> MetricsDashboard -> per-scene metrics (repetition, pacing, voice, slop)
+    prose + metrics -> QualityPolish -> polished prose (expression-only)
+    polished prose -> compression advisory (warn at <60%; never reverts)
+    polished prose -> FinalGate -> Failure Code schema (advisory_only=True)
+    polished prose -> CanonExpert -> continuity report (reads canon_profile from seed)
+    polished prose + continuity report -> save-blocker layer
+        CHARACTER_PRESENCE_BLOCKER | CANON_BLOCKER | POV advisory (non-blocking v1)
+        -> save or quarantine (+ abort run on blocker)
+
+Post-save (Phase 2+):
+    Saved prose -> Summarizer -> State Diff schema
         Phase 5 deltas: subplot_updates, hook_updates, arc_phase_updates, terminology_updates
+    State Diff -> StateDiffApplier (sanitizes + applies to SQLite)
+    Saved prose -> ChapterMemory (ChromaDB)
+    ContradictionScanner runs on updated state
+
+Chapter close:
+    All scenes saved -> word_count_telemetry (advisory: ±15% / 15-30% / >30%)
+    All scenes saved -> ChapterGateCritic (blueprint-aware when present)
 
 RAG queries:
     Query -> CanonDB -> Canon Evidence schema
+    Query -> LoreService -> worldbuilding lore entries
 ```
 
 ## Using Schemas
