@@ -1,0 +1,63 @@
+{
+  "chapter_number": 24,
+  "scene_number": 2,
+  "structural_phase": "attack",
+  "scene_type": "sequel",
+  "scene_role": "aftermath",
+  "pov_character": "Ben Skywalker",
+  "mission": "Ben at home with the folio; Jacen drops by — the conversation is unsettlingly brief.",
+  "why_now": "Ben is turning the folio over on his apartment's low table when Jacen arrives.",
+  "opening_hook": "Ben at the apartment's low table with the folio open and a cup of cold water next to it.",
+  "conflict": "Ben's uncertainty vs. Jacen's calm, non-directive encouragement that Ben consider the offer.",
+  "conflict_type": "interpersonal",
+  "dialogue_expectation": "balanced",
+  "turning_point": "Jacen's 'consider it' carries more weight in Ben than any Council directive would — an asymmetry of influence the scene registers without naming.",
+  "closing_hook": "Jacen leaving; Ben still at the table with the folio.",
+  "characters_present": [
+    "Ben Skywalker",
+    "Jacen Solo"
+  ],
+  "setting": "Ben's family apartment, Coruscant.",
+  "sensory_details": "Low-table lamp light; cold-water cup; Jacen's calm departure.",
+  "emotional_trajectory": "Solitary consideration → influenced consideration → held-open decision.",
+  "stakes": {
+    "personal": "Ben's apprentice identity.",
+    "interpersonal": "Jacen's shadow-mentorship of Ben.",
+    "external": "The GAG's recruitment of a Skywalker."
+  },
+  "plot_threads_advanced": [
+    "sub_jacen_ben_apprenticeship",
+    "sub_lumiya_seduction",
+    "sub_corellian_crisis"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "canon_elements_needed": [
+    "Skywalker-family Coruscant apartment"
+  ],
+  "target_word_count": 1857,
+  "action_beats": [
+    "Ben at the table with the folio",
+    "Jacen arrives",
+    "Jacen says 'consider it'",
+    "Jacen departs"
+  ],
+  "notes": "Jacen's shadow mentorship becomes operationally visible to the reader.",
+  "active_subplots": [
+    "sub_jacen_ben_apprenticeship",
+    "sub_lumiya_seduction",
+    "sub_corellian_crisis"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "hook_ben_gag_offer",
+      "action": "advance"
+    },
+    {
+      "hook_id": "hook_dark_hooded_enemy",
+      "action": "advance"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "want_defined"
+}

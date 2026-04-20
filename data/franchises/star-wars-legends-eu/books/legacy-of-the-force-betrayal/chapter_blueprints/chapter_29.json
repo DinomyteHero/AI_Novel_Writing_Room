@@ -1,0 +1,54 @@
+{
+  "chapter_number": 29,
+  "chapter_mission": "Vectivus asteroid arrival; the visions of Darth Vectivus confirm the Sith-lineage explicitly; Jacen's philosophical frame aligns with what the asteroid is teaching.",
+  "chapter_turn": "The setting reframes Lumiya's argument — seeing Vectivus's life in the Force makes the Sith-with-love thesis feel like inheritance rather than theory.",
+  "structural_phase": "climax",
+  "pov_allocation": [
+    "Jacen Solo",
+    "Ben Skywalker"
+  ],
+  "scene_count": 2,
+  "scene_plan": [
+    {
+      "scene_number": 1,
+      "role": "escalation",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 2400,
+      "purpose": "Arrival at the asteroid; first tour of the chambers; Vectivus visions begin."
+    },
+    {
+      "scene_number": 2,
+      "role": "escalation",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 2007,
+      "purpose": "Ben's child's-eye-view of the asteroid; unease without identification."
+    }
+  ],
+  "reveal_payload": [
+    "rev_vectivus_sith"
+  ],
+  "hook_movements": {
+    "planted": [],
+    "advanced": [
+      "hook_vectivus_asteroid",
+      "hook_lumiya_identity"
+    ],
+    "resolved": []
+  },
+  "subplot_obligations": [
+    "sub_vectivus_asteroid",
+    "sub_lumiya_seduction",
+    "sub_jacen_ben_apprenticeship"
+  ],
+  "relationship_turns": [
+    {
+      "dyad": "Jacen/Lumiya",
+      "from": "student_and_teacher_en_route_to_the_lesson",
+      "to": "student_and_teacher_at_the_lesson"
+    }
+  ],
+  "pacing_curve": "rising",
+  "exit_vector": "Jacen standing at the threshold of the asteroid's inner chambers, Ben beside him, the next step a choice.",
+  "chapter_word_target": 4407,
+  "notes": "The asteroid's architecture and Vectivus's Force-echoes do philosophical work the dialogue cannot."
+}

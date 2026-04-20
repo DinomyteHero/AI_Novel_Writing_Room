@@ -1,0 +1,69 @@
+{
+  "chapter_number": 5,
+  "scene_number": 1,
+  "structural_phase": "setup",
+  "scene_type": "action",
+  "scene_role": "escalation",
+  "pov_character": "Jacen Solo",
+  "mission": "The Hapan royal wedding ceremony; assassination attempt on the royal party intercepted by Jacen.",
+  "why_now": "The wedding is the political venue the assassins have chosen.",
+  "opening_hook": "Jacen at the edge of a receiving line in Hapan dress, Tenel Ka three meters away in ceremonial regalia, both of them acting strangers.",
+  "conflict": "Assassin cell moving on the royal party; Jacen intercepting in a venue that forbids overt violence.",
+  "conflict_type": "external",
+  "dialogue_expectation": "balanced",
+  "turning_point": "Jacen dispatches the assassins without drawing his saber — a flex of trained violence that ends the threat before the wedding ceremony registers it.",
+  "closing_hook": "The ceremony resuming with the assassin bodies already cleared; Tenel Ka's eye catching Jacen's for one beat.",
+  "characters_present": [
+    "Jacen Solo",
+    "Tenel Ka",
+    "Ta'a Chume",
+    "assassin cell"
+  ],
+  "setting": "Hapan royal wedding chamber, Hapes Cluster; ceremonial formality.",
+  "sensory_details": "Hapan silks; the chamber's polished ceremonial marble; the subsonic hum of a Force-shield the Hapan Royal Guard maintains.",
+  "emotional_trajectory": "Controlled ceremonial presence → flashpoint combat → restored decorum.",
+  "stakes": {
+    "personal": "Jacen's cover as a ceremonial guest.",
+    "interpersonal": "Jacen/Tenel Ka's secret relationship's cover.",
+    "external": "The Hapan royal line itself."
+  },
+  "plot_threads_advanced": [
+    "sub_hapan_wedding",
+    "sub_corellian_crisis",
+    "sub_jacen_ben_apprenticeship"
+  ],
+  "promises_planted": [
+    "hook_hapan_wedding_attempt"
+  ],
+  "promises_paid": [],
+  "canon_elements_needed": [
+    "Hapan ceremonial register",
+    "Tenel Ka as Queen Mother with secret child",
+    "Jacen's surgical close-combat style"
+  ],
+  "target_word_count": 2000,
+  "action_beats": [
+    "Ceremonial procession begins",
+    "Jacen notices the assassin cell",
+    "Jacen dispatches the cell without drawing saber",
+    "Ceremony resumes"
+  ],
+  "notes": "Allana never on-page or named. Tenel Ka peripheral.",
+  "active_subplots": [
+    "sub_hapan_wedding",
+    "sub_corellian_crisis",
+    "sub_jacen_ben_apprenticeship"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "hook_hapan_wedding_attempt",
+      "action": "plant"
+    },
+    {
+      "hook_id": "hook_corellian_insurgency",
+      "action": "advance"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "lie_established"
+}

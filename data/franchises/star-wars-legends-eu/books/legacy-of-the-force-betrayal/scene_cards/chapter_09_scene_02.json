@@ -1,0 +1,70 @@
+{
+  "chapter_number": 9,
+  "scene_number": 2,
+  "structural_phase": "response",
+  "scene_type": "sequel",
+  "scene_role": "escalation",
+  "pov_character": "Aidel Saxan",
+  "mission": "Saxan under political pressure on Corellia; the book's first daylight glimpse of Lumiya (tasseled hem) passes through a Corellian checkpoint.",
+  "why_now": "The Alliance operation's existence is leaking into Corellian political channels.",
+  "opening_hook": "Saxan in her private office with Thrackan's representatives refusing her briefing requests.",
+  "conflict": "Saxan's authority against Thrackan's shadow faction's obstruction.",
+  "conflict_type": "interpersonal",
+  "dialogue_expectation": "balanced",
+  "turning_point": "Saxan's aide, on the way out, passes a tasseled figure in a corridor — the reader's first daylight glimpse of Lumiya on Corellia.",
+  "closing_hook": "The tasseled hem disappearing around a corridor corner; the aide not remarking on it.",
+  "characters_present": [
+    "Aidel Saxan",
+    "Saxan aides",
+    "Thrackan's representatives",
+    "Lumiya (unnamed, only tassels visible)"
+  ],
+  "setting": "Corellian Prime Minister's office and adjacent corridors, Coronet City.",
+  "sensory_details": "Office's polished desk; representatives' refusal of refreshment; tasseled hem moving out of frame.",
+  "emotional_trajectory": "Political confrontation → political obstruction → uncanny peripheral glimpse.",
+  "stakes": {
+    "personal": "Saxan's political survival.",
+    "interpersonal": "Saxan's diminishing circle of trustworthy aides.",
+    "external": "Lumiya's infiltration of the Corellian political apparatus."
+  },
+  "plot_threads_advanced": [
+    "sub_lumiya_seduction",
+    "sub_corellian_crisis"
+  ],
+  "promises_planted": [
+    "hook_lumiya_tassels"
+  ],
+  "promises_paid": [],
+  "canon_elements_needed": [
+    "Corellian Prime Minister's office architecture",
+    "Lumiya's tasseled robe as signature visual"
+  ],
+  "target_word_count": 1934,
+  "action_beats": [
+    "Representatives refuse Saxan's briefing",
+    "Aide leaves the office",
+    "Aide passes Lumiya in the corridor",
+    "Tasseled hem disappears"
+  ],
+  "notes": "The book's first daylight Lumiya sighting.",
+  "active_subplots": [
+    "sub_lumiya_seduction",
+    "sub_corellian_crisis"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "hook_lumiya_tassels",
+      "action": "plant"
+    },
+    {
+      "hook_id": "hook_saxan_assassination",
+      "action": "advance"
+    },
+    {
+      "hook_id": "hook_dark_hooded_enemy",
+      "action": "advance"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "flat_arc_stable_truth"
+}

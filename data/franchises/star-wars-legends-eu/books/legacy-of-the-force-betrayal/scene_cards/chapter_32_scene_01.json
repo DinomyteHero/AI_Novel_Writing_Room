@@ -1,0 +1,68 @@
+{
+  "chapter_number": 32,
+  "scene_number": 1,
+  "structural_phase": "climax",
+  "scene_type": "sequel",
+  "scene_role": "reveal",
+  "pov_character": "Nelani Dinn",
+  "mission": "Nelani Dinn arrives at the Vectivus asteroid with her investigation in hand; she states the case against Jacen.",
+  "why_now": "Nelani has tracked the ship; she is making her move while Jacen is still at the asteroid.",
+  "opening_hook": "Nelani's ship at the asteroid's external dock; Nelani stepping off alone with her saber at her belt.",
+  "conflict": "Nelani's Jedi-regulation mandate to confront a compromised Jedi vs. Jacen's settled posture that she will not persuade him.",
+  "conflict_type": "interpersonal",
+  "dialogue_expectation": "dialogue_led",
+  "turning_point": "Nelani states the case in full — with evidence — in the main chamber.",
+  "closing_hook": "Nelani at the chamber's center, lightsaber still on her belt, waiting for Jacen's reply.",
+  "characters_present": [
+    "Nelani Dinn",
+    "Jacen Solo",
+    "Ben Skywalker",
+    "Lumiya"
+  ],
+  "setting": "Vectivus asteroid main chamber.",
+  "sensory_details": "Chamber's acoustics; Nelani's Jedi robe; the audience of Vectivus echoes in the background.",
+  "emotional_trajectory": "Resolute arrival → investigation presented → held breath.",
+  "stakes": {
+    "personal": "Nelani's mission.",
+    "interpersonal": "The Jedi-to-Jedi professional frame now cracking.",
+    "external": "The corruption arc's moral reckoning."
+  },
+  "plot_threads_advanced": [
+    "sub_vectivus_asteroid",
+    "sub_jacen_ben_apprenticeship",
+    "sub_lumiya_seduction"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "canon_elements_needed": [
+    "Vectivus asteroid external dock",
+    "Jedi-regulation confrontation protocols"
+  ],
+  "target_word_count": 3000,
+  "action_beats": [
+    "Nelani docks alone",
+    "Enters the chamber",
+    "States the case",
+    "Waits for Jacen"
+  ],
+  "notes": "Allston gives Nelani the book's strongest moral case.",
+  "active_subplots": [
+    "sub_vectivus_asteroid",
+    "sub_jacen_ben_apprenticeship",
+    "sub_lumiya_seduction"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "hook_nelani_tracks_jacen",
+      "action": "advance"
+    },
+    {
+      "hook_id": "hook_vectivus_asteroid",
+      "action": "advance"
+    }
+  ],
+  "revelations": [
+    "rev_nelani_tracks_jacen"
+  ],
+  "pov_arc_phase": "flat_arc_stable_truth"
+}

@@ -1,0 +1,76 @@
+{
+  "chapter_number": 16,
+  "scene_number": 1,
+  "structural_phase": "midpoint",
+  "scene_type": "action",
+  "scene_role": "reveal",
+  "pov_character": "Admiral Klauskin",
+  "mission": "The Centerpoint commando operation is executed; station reactivation is disabled; Klauskin collapses operationally on the flagship bridge.",
+  "why_now": "The operation has just reached its decisive phase.",
+  "opening_hook": "The commandos in the station's control node, charges set and timed.",
+  "conflict": "The operation's tactical success against Klauskin's interior collapse as the command officer.",
+  "conflict_type": "external",
+  "dialogue_expectation": "balanced",
+  "turning_point": "The charges succeed; the station goes dark; Klauskin sits down in his bridge chair and does not get up.",
+  "closing_hook": "The flagship bridge crew looking at each other as Klauskin fails to deliver the after-action signal.",
+  "characters_present": [
+    "Admiral Klauskin",
+    "Alliance commandos",
+    "flagship bridge crew"
+  ],
+  "setting": "Flagship bridge and Centerpoint Station control node; parallel cuts.",
+  "sensory_details": "Charge pre-detonation tones; the flagship bridge's shift lighting; Klauskin's empty hands.",
+  "emotional_trajectory": "Operational tension → tactical success → command collapse.",
+  "stakes": {
+    "personal": "Klauskin's career and his sanity.",
+    "interpersonal": "The commando team's and bridge crew's reliance on their commander.",
+    "external": "Centerpoint's active status."
+  },
+  "plot_threads_advanced": [
+    "sub_centerpoint_sabotage",
+    "sub_operation_roundabout",
+    "sub_klauskin_breakdown",
+    "sub_corellian_crisis"
+  ],
+  "promises_planted": [],
+  "promises_paid": [
+    "hook_centerpoint_reactivation",
+    "hook_klauskin_strain"
+  ],
+  "canon_elements_needed": [
+    "Centerpoint Station control architecture",
+    "Alliance commando breaching doctrine"
+  ],
+  "target_word_count": 2500,
+  "action_beats": [
+    "Commandos set charges",
+    "Charges detonate",
+    "Station goes dark",
+    "Klauskin sits down without signaling"
+  ],
+  "notes": "Brooks Midpoint. The station goes dark; Klauskin does too.",
+  "active_subplots": [
+    "sub_centerpoint_sabotage",
+    "sub_operation_roundabout",
+    "sub_klauskin_breakdown",
+    "sub_corellian_crisis"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "hook_centerpoint_reactivation",
+      "action": "resolve"
+    },
+    {
+      "hook_id": "hook_klauskin_strain",
+      "action": "resolve"
+    },
+    {
+      "hook_id": "hook_corellian_insurgency",
+      "action": "advance"
+    }
+  ],
+  "revelations": [
+    "rev_centerpoint_disabled"
+  ],
+  "pov_arc_phase": "ghost_defined"
+}

@@ -1,0 +1,64 @@
+{
+  "chapter_number": 15,
+  "scene_number": 1,
+  "structural_phase": "midpoint",
+  "scene_type": "sequel",
+  "scene_role": "escalation",
+  "pov_character": "Admiral Klauskin",
+  "mission": "Pre-Centerpoint-operation command briefing — Klauskin runs through the operational sequence while the ghost of his dead wife whispers.",
+  "why_now": "The Centerpoint commando operation is imminent.",
+  "opening_hook": "Klauskin at a briefing lectern on the flagship with officers arrayed in front of him.",
+  "conflict": "Klauskin's professional composure against the hallucination pressure.",
+  "conflict_type": "internal",
+  "dialogue_expectation": "balanced",
+  "turning_point": "Klauskin holds the briefing together; only the reader sees how close he is to collapse.",
+  "closing_hook": "Klauskin leaving the briefing room, passing the chair his wife is, in his private mind, seated in.",
+  "characters_present": [
+    "Admiral Klauskin",
+    "Alliance flagship officers"
+  ],
+  "setting": "Flagship briefing room, en route to Corellian space.",
+  "sensory_details": "Briefing holos; officers' shined boots; the chair in Klauskin's head.",
+  "emotional_trajectory": "Professional composure → near-collapse → professional exit.",
+  "stakes": {
+    "personal": "Klauskin's command fitness.",
+    "interpersonal": "The officers' trust in his composure.",
+    "external": "The imminent operation."
+  },
+  "plot_threads_advanced": [
+    "sub_klauskin_breakdown",
+    "sub_operation_roundabout",
+    "sub_centerpoint_sabotage"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "canon_elements_needed": [
+    "Alliance flagship briefing room",
+    "Klauskin's hallucinated-wife motif"
+  ],
+  "target_word_count": 2100,
+  "action_beats": [
+    "Klauskin opens the briefing",
+    "Runs the operational sequence",
+    "Private hallucination pressure peaks",
+    "Klauskin exits"
+  ],
+  "notes": "The chapter's first half builds Klauskin's fragility.",
+  "active_subplots": [
+    "sub_klauskin_breakdown",
+    "sub_operation_roundabout",
+    "sub_centerpoint_sabotage"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "hook_klauskin_strain",
+      "action": "advance"
+    },
+    {
+      "hook_id": "hook_centerpoint_reactivation",
+      "action": "advance"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "ghost_defined"
+}

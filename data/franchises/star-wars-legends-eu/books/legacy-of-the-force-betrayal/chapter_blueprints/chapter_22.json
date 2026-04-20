@@ -1,0 +1,51 @@
+{
+  "chapter_number": 22,
+  "chapter_mission": "Han and Leia's operational-strain scene culminates in a de-facto separation: Han will go to Corellia; Leia will operate from the Falcon as an independent. Jedi Order factional conflict surfaces on Coruscant in parallel.",
+  "chapter_turn": "The marriage arc lands on its operational rupture without emotional rupture — and the Jedi Order factional lines harden.",
+  "structural_phase": "attack",
+  "pov_allocation": [
+    "Han Solo",
+    "Luke Skywalker"
+  ],
+  "scene_count": 2,
+  "scene_plan": [
+    {
+      "scene_number": 1,
+      "role": "escalation",
+      "dialogue_expectation": "dialogue_led",
+      "target_word_count": 2400,
+      "purpose": "Han and Leia on a Coruscant terrace; the operational separation is named and agreed."
+    },
+    {
+      "scene_number": 2,
+      "role": "escalation",
+      "dialogue_expectation": "dialogue_led",
+      "target_word_count": 2420,
+      "purpose": "Parallel Jedi Council session — Corran Horn against GAG cooperation; Luke holds."
+    }
+  ],
+  "reveal_payload": [],
+  "hook_movements": {
+    "planted": [],
+    "advanced": [
+      "hook_han_leia_split",
+      "hook_corellian_insurgency"
+    ],
+    "resolved": []
+  },
+  "subplot_obligations": [
+    "sub_han_leia_corellia",
+    "sub_corellian_crisis"
+  ],
+  "relationship_turns": [
+    {
+      "dyad": "Han/Leia",
+      "from": "marriage_aligned_with_operational_separation_agreed",
+      "to": "marriage_in_operational_separation_enacted"
+    }
+  ],
+  "pacing_curve": "rising",
+  "exit_vector": "Han boarding a Corellian-bound freighter alone; Leia watching from the gantry.",
+  "chapter_word_target": 4820,
+  "notes": "The book's longest chapter until Ch 23 (4820 words). Allston takes his time with the separation."
+}

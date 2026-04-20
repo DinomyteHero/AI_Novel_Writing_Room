@@ -1,0 +1,70 @@
+{
+  "chapter_number": 3,
+  "scene_number": 1,
+  "structural_phase": "setup",
+  "scene_type": "sequel",
+  "scene_role": "escalation",
+  "pov_character": "Luke Skywalker",
+  "mission": "Jedi Council convenes to hear the Adumar report; Corran Horn voices Order-neutrality concerns; Luke holds.",
+  "why_now": "Jacen's Adumar report is formally before the Council for institutional decision.",
+  "opening_hook": "Luke at the head of the Council chamber table, the Adumar report datapad face-down in front of him.",
+  "conflict": "Corran Horn's insistence that the Order cannot act as an Alliance enforcement arm versus Luke's posture that the Order must respond to paramilitary threats regardless of politics.",
+  "conflict_type": "interpersonal",
+  "dialogue_expectation": "dialogue_led",
+  "turning_point": "Luke names the Council's policy: Jedi will investigate and interdict; Jedi will not yet enlist in the Alliance chain of command.",
+  "closing_hook": "Luke left alone in the chamber after dismissal, the datapad still face-down.",
+  "characters_present": [
+    "Luke Skywalker",
+    "Corran Horn",
+    "Mara Jade Skywalker",
+    "Kyp Durron",
+    "Kyle Katarn",
+    "Saba Sebatyne",
+    "Cilghal",
+    "Kenth Hamner",
+    "Tresina Lobi"
+  ],
+  "setting": "Jedi Council chamber, Jedi Temple, Coruscant; afternoon light through the chamber's tall panels.",
+  "sensory_details": "The chamber's particular resonance; the rustle of robes; a faint smell of council-chamber polish.",
+  "emotional_trajectory": "Measured briefing → philosophical pushback → held posture.",
+  "stakes": {
+    "personal": "Luke's leadership authority at a hinge moment for the Order.",
+    "interpersonal": "Luke/Corran's working-partnership register within the Council.",
+    "external": "The Order's institutional posture toward the developing Corellian crisis."
+  },
+  "plot_threads_advanced": [
+    "sub_corellian_crisis",
+    "sub_luke_dream_line"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "canon_elements_needed": [
+    "Jedi Council membership circa 40 ABY",
+    "Corran Horn as principled Council voice",
+    "Post-NJO Order institutional structure"
+  ],
+  "target_word_count": 1500,
+  "action_beats": [
+    "Luke opens the session",
+    "Jacen's Adumar findings summarized",
+    "Corran Horn raises Order-neutrality concerns",
+    "Luke states the Order's policy"
+  ],
+  "notes": "The book's cleanest institutional scene for Luke.",
+  "active_subplots": [
+    "sub_corellian_crisis",
+    "sub_luke_dream_line"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "hook_corellian_insurgency",
+      "action": "advance"
+    },
+    {
+      "hook_id": "hook_dark_hooded_enemy",
+      "action": "advance"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "flat_arc_stable_truth"
+}

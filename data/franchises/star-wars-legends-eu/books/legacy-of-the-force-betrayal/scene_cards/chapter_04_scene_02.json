@@ -1,0 +1,58 @@
+{
+  "chapter_number": 4,
+  "scene_number": 2,
+  "structural_phase": "setup",
+  "scene_type": "sequel",
+  "scene_role": "escalation",
+  "pov_character": "Han Solo",
+  "mission": "Han and Leia on the Falcon tracking the Corellian political pressure; the marriage strain articulates one more step.",
+  "why_now": "Saxan's speech has gone public; Han watches it from the Falcon.",
+  "opening_hook": "Han in the cockpit with the speech replay paused on a small screen, Leia behind him in the hatchway.",
+  "conflict": "Han's sympathy with Saxan's line versus Leia's institutional grasp of what the Alliance will now do.",
+  "conflict_type": "interpersonal",
+  "dialogue_expectation": "dialogue_led",
+  "turning_point": "Han says he would have voted with Saxan; Leia tells him an Alliance vote is not the question.",
+  "closing_hook": "Han rewinding the speech to watch it again.",
+  "characters_present": [
+    "Han Solo",
+    "Leia Organa Solo"
+  ],
+  "setting": "Millennium Falcon cockpit; night pad lighting.",
+  "sensory_details": "Cockpit glow from the replay screen; the Falcon's off-watch hum; Leia's hand on the hatch frame.",
+  "emotional_trajectory": "Shared attention → disagreement named → silent replay.",
+  "stakes": {
+    "personal": "Han's political identity articulating.",
+    "interpersonal": "The marriage's open-disagreement register activating.",
+    "external": "The Corellian situation as domestic-Solo question."
+  },
+  "plot_threads_advanced": [
+    "sub_han_leia_corellia",
+    "sub_corellian_crisis"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "canon_elements_needed": [
+    "Millennium Falcon cockpit interior",
+    "Han/Leia's long marriage register"
+  ],
+  "target_word_count": 1950,
+  "action_beats": [
+    "Han watches the speech replay",
+    "Leia enters the cockpit",
+    "They disagree on the vote",
+    "Han replays the speech alone"
+  ],
+  "notes": "The book builds the split by small domestic increments.",
+  "active_subplots": [
+    "sub_han_leia_corellia",
+    "sub_corellian_crisis"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "hook_corellian_insurgency",
+      "action": "advance"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "flat_arc_stable_truth"
+}

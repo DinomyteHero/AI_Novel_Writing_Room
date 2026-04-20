@@ -1,0 +1,56 @@
+{
+  "chapter_number": 13,
+  "scene_number": 1,
+  "structural_phase": "first_pinch",
+  "scene_type": "sequel",
+  "scene_role": "decision",
+  "pov_character": "Aidel Saxan",
+  "mission": "Saxan's last scene — a brief exchange with her aides before the off-page assassination.",
+  "why_now": "The assassination is hours away; Saxan is doing last-minute scheduling.",
+  "opening_hook": "Saxan in her study signing off on a week of official appearances.",
+  "conflict": "Saxan's institutional duty vs. the sense — not articulated but present — that her political position is increasingly isolated.",
+  "conflict_type": "internal",
+  "dialogue_expectation": "balanced",
+  "turning_point": "Saxan declines additional security for a routine appearance — a choice the reader will remember.",
+  "closing_hook": "Saxan's office door closing behind her as she leaves for the appearance.",
+  "characters_present": [
+    "Aidel Saxan",
+    "Saxan aides"
+  ],
+  "setting": "Corellian Prime Minister's study, Coronet City.",
+  "sensory_details": "Study's warmer lighting; official paper; the door's quiet close.",
+  "emotional_trajectory": "Measured administrative work → declined security → exit.",
+  "stakes": {
+    "personal": "Saxan's life.",
+    "interpersonal": "Her aides' professional loyalties.",
+    "external": "The Corellian leadership transition."
+  },
+  "plot_threads_advanced": [
+    "sub_corellian_crisis"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "canon_elements_needed": [
+    "Corellian PM's study",
+    "Corellian protective-detail protocols"
+  ],
+  "target_word_count": 1500,
+  "action_beats": [
+    "Saxan signs appearance schedule",
+    "Aide offers security detail",
+    "Saxan declines",
+    "Saxan leaves the study"
+  ],
+  "notes": "The assassination is off-page; the scene is a farewell.",
+  "active_subplots": [
+    "sub_corellian_crisis"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "hook_saxan_assassination",
+      "action": "advance"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "flat_arc_stable_truth"
+}

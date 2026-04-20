@@ -1,0 +1,71 @@
+{
+  "chapter_number": 2,
+  "scene_number": 1,
+  "structural_phase": "setup",
+  "scene_type": "action",
+  "scene_role": "decision",
+  "pov_character": "Jacen Solo",
+  "mission": "Execute the Adumar raid — dispatch the Dammant Killers cell and destroy the missile stockpile. Establish Jacen's surgical lethality as a data point the reader and Nelani both notice.",
+  "why_now": "The team is at the hatch; once they commit, the raid is on.",
+  "opening_hook": "Nelani's blue blade comes up through the hatch-plate in a clean vertical cut.",
+  "conflict": "Dammant Killers cell defending the stockpile versus a three-Jedi strike team applying escalating force.",
+  "conflict_type": "external",
+  "dialogue_expectation": "balanced",
+  "turning_point": "Jacen's one-and-done dispatch of the cell leader — efficient past the bounds of Jedi preference — is visible to Nelani without being speakable.",
+  "closing_hook": "The stockpile burning behind them as they leave through a service tunnel; Nelani glancing once at Jacen and not asking.",
+  "characters_present": [
+    "Jacen Solo",
+    "Ben Skywalker",
+    "Nelani Dinn",
+    "Dammant Killers cell members"
+  ],
+  "setting": "Interior of the Dammant Killers missile factory — stockpile bay, adjoining offices, service corridors; Adumar.",
+  "sensory_details": "Smoke from thermite charges; the particular resinous smell of missile propellant; the hum of Nelani's blue saber against the hiss of Jacen's green.",
+  "emotional_trajectory": "Controlled assault → brief surprise at Jacen's lethality → operational withdrawal.",
+  "stakes": {
+    "personal": "Jacen's self-image as a Jedi who still uses only necessary force.",
+    "interpersonal": "Nelani's trust in Jacen as a field partner.",
+    "external": "The missile stockpile and the Dammant Killers cell carrying it."
+  },
+  "plot_threads_advanced": [
+    "sub_adumar_investigation",
+    "sub_corellian_crisis",
+    "sub_jacen_ben_apprenticeship"
+  ],
+  "promises_planted": [],
+  "promises_paid": [
+    "hook_adumar_investigation"
+  ],
+  "canon_elements_needed": [
+    "Jedi lightsaber combat choreography",
+    "Corellian paramilitary equipment register",
+    "Allston's operational action prose"
+  ],
+  "target_word_count": 2786,
+  "action_beats": [
+    "Nelani breaches the hatch",
+    "Three Jedi engage the cell",
+    "Jacen dispatches the cell leader one-and-done",
+    "The team fires the stockpile and withdraws"
+  ],
+  "notes": "The cell leader kill is the reader's first specific data point on Jacen's moral slide.",
+  "active_subplots": [
+    "sub_adumar_investigation",
+    "sub_corellian_crisis",
+    "sub_jacen_ben_apprenticeship"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "hook_adumar_investigation",
+      "action": "resolve"
+    },
+    {
+      "hook_id": "hook_corellian_insurgency",
+      "action": "advance"
+    }
+  ],
+  "revelations": [
+    "rev_jacen_moral_slide"
+  ],
+  "pov_arc_phase": "lie_established"
+}

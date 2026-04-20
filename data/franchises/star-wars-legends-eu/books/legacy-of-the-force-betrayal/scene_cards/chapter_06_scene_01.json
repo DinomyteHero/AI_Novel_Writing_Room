@@ -1,0 +1,60 @@
+{
+  "chapter_number": 6,
+  "scene_number": 1,
+  "structural_phase": "response",
+  "scene_type": "sequel",
+  "scene_role": "escalation",
+  "pov_character": "Wedge Antilles",
+  "mission": "Wedge Antilles, offered a Corellian military commission, declines — establishing the book's 'principled holdout' figure.",
+  "why_now": "Corellia is re-commissioning veteran officers in advance of the Alliance pressure.",
+  "opening_hook": "Wedge in civilian clothes in a Corellian officers' club, the commission papers face-down between him and a Corellian general.",
+  "conflict": "Corellian recruitment pressure against Wedge's refusal to take sides in a war he thinks both sides have chosen badly.",
+  "conflict_type": "interpersonal",
+  "dialogue_expectation": "balanced",
+  "turning_point": "Wedge names his refusal not as loyalty to the Alliance but as refusal to be conscripted by the conflict's momentum.",
+  "closing_hook": "Wedge sliding the commission papers back across the table unsigned.",
+  "characters_present": [
+    "Wedge Antilles",
+    "Corellian general",
+    "club waitstaff"
+  ],
+  "setting": "Corellian officers' club, Coronet City; late afternoon.",
+  "sensory_details": "Corellian whiskey glasses; the club's low wood tones; a Corellian signal corps insignia on the general's uniform.",
+  "emotional_trajectory": "Polite reception → pointed conversation → refusal.",
+  "stakes": {
+    "personal": "Wedge's non-combatant status.",
+    "interpersonal": "Wedge's relationship with his home-world military.",
+    "external": "One more veteran officer on one side or the other of the war."
+  },
+  "plot_threads_advanced": [
+    "sub_wedge_syal",
+    "sub_corellian_crisis"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "canon_elements_needed": [
+    "Wedge Antilles' post-retirement status",
+    "Corellian officers' club culture",
+    "Corellian commission paperwork"
+  ],
+  "target_word_count": 1800,
+  "action_beats": [
+    "Commission papers placed between them",
+    "General makes the pitch",
+    "Wedge explains the refusal",
+    "Papers slide back unsigned"
+  ],
+  "notes": "Establishes the book's 'Wedge holds the center' thematic register.",
+  "active_subplots": [
+    "sub_wedge_syal",
+    "sub_corellian_crisis"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "hook_corellian_insurgency",
+      "action": "advance"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "flat_arc_stable_truth"
+}

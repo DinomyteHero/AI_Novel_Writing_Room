@@ -1,0 +1,61 @@
+{
+  "chapter_number": 10,
+  "scene_number": 1,
+  "structural_phase": "first_pinch",
+  "scene_type": "sequel",
+  "scene_role": "reveal",
+  "pov_character": "Admiral Klauskin",
+  "mission": "Admiral Klauskin in his flagship cabin — combat-stress symptoms surface; he speaks to the chair his dead wife used to sit in.",
+  "why_now": "The fleet is en route to Corellian space; the command load is now constant.",
+  "opening_hook": "Klauskin alone in his cabin with a cold tea and a chair angled toward an empty seat.",
+  "conflict": "Klauskin's professional self-image against the grief that the command load is cracking open.",
+  "conflict_type": "internal",
+  "dialogue_expectation": "interior",
+  "turning_point": "Klauskin speaks aloud to his dead wife — the first on-page break in his professional composure.",
+  "closing_hook": "Klauskin putting the tea down beside the empty chair.",
+  "characters_present": [
+    "Admiral Klauskin"
+  ],
+  "setting": "Flagship cabin, Alliance command cruiser en route to Corellian space.",
+  "sensory_details": "Cold tea smell; the cabin's dimmed lighting; the chair angled toward the empty seat.",
+  "emotional_trajectory": "Professional isolation → grief leak → whispered exchange with the absent.",
+  "stakes": {
+    "personal": "Klauskin's command fitness.",
+    "interpersonal": "Klauskin's relationship with his dead wife continuing in hallucinated form.",
+    "external": "The fleet's operational integrity."
+  },
+  "plot_threads_advanced": [
+    "sub_klauskin_breakdown"
+  ],
+  "promises_planted": [
+    "hook_klauskin_strain"
+  ],
+  "promises_paid": [],
+  "canon_elements_needed": [
+    "Alliance command cruiser flagship quarters",
+    "Admiral Klauskin's backstory (widowed)"
+  ],
+  "target_word_count": 2000,
+  "action_beats": [
+    "Klauskin enters the cabin alone",
+    "He sets down the cold tea",
+    "He speaks to the empty chair",
+    "He sits in silence"
+  ],
+  "notes": "The book's cleanest single-character interior collapse scene.",
+  "active_subplots": [
+    "sub_klauskin_breakdown"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "hook_klauskin_strain",
+      "action": "plant"
+    },
+    {
+      "hook_id": "hook_centerpoint_reactivation",
+      "action": "advance"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "ghost_defined"
+}

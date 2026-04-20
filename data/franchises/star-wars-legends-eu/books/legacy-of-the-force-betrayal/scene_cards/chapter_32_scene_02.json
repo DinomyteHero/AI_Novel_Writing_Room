@@ -1,0 +1,61 @@
+{
+  "chapter_number": 32,
+  "scene_number": 2,
+  "structural_phase": "climax",
+  "scene_type": "sequel",
+  "scene_role": "escalation",
+  "pov_character": "Jacen Solo",
+  "mission": "Jacen's reply; he runs the fork-vision technique once — he sees, in one future, Nelani alive and Luke dead at his hand, and in the other, Nelani dead and Luke alive.",
+  "why_now": "Nelani has just finished her case.",
+  "opening_hook": "Jacen across from Nelani, reaching interior for the fork-vision technique.",
+  "conflict": "Jacen's two visible futures — Nelani alive and Luke dead vs. Nelani dead and Luke alive — as a direct ethical calculus.",
+  "conflict_type": "internal",
+  "dialogue_expectation": "dialogue_led",
+  "turning_point": "Jacen chooses the future in which Luke lives.",
+  "closing_hook": "Jacen reaching for his lightsaber hilt; Nelani, reading his posture, doing the same.",
+  "characters_present": [
+    "Jacen Solo",
+    "Nelani Dinn",
+    "Ben Skywalker",
+    "Lumiya"
+  ],
+  "setting": "Vectivus asteroid main chamber.",
+  "sensory_details": "Chamber's hush; fork-vision's subjective pressure; the saber hilts settling in each Jedi's hand.",
+  "emotional_trajectory": "Received case → fork-vision run → chosen future.",
+  "stakes": {
+    "personal": "Jacen's crossed moral line.",
+    "interpersonal": "Nelani's life, Luke's life.",
+    "external": "The corruption arc's irrevocable step."
+  },
+  "plot_threads_advanced": [
+    "sub_vectivus_asteroid",
+    "sub_lumiya_seduction",
+    "sub_jacen_ben_apprenticeship"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "canon_elements_needed": [
+    "Fork-vision technique in combat context"
+  ],
+  "target_word_count": 2773,
+  "action_beats": [
+    "Jacen runs fork-vision",
+    "Sees two futures",
+    "Chooses the future with Luke alive",
+    "Both Jedi reach for sabers"
+  ],
+  "notes": "The book's ethical-calculus moment.",
+  "active_subplots": [
+    "sub_vectivus_asteroid",
+    "sub_lumiya_seduction",
+    "sub_jacen_ben_apprenticeship"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "hook_nelani_tracks_jacen",
+      "action": "advance"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "lie_chosen"
+}

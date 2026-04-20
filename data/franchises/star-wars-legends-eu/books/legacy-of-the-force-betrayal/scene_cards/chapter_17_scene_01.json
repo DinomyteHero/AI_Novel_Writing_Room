@@ -1,0 +1,72 @@
+{
+  "chapter_number": 17,
+  "scene_number": 1,
+  "structural_phase": "attack",
+  "scene_type": "sequel",
+  "scene_role": "reveal",
+  "pov_character": "Cal Omas",
+  "mission": "Cal Omas authorizes the Galactic Alliance Guard over private objections; Toryaz Station peace summit announced.",
+  "why_now": "Post-Centerpoint, the Alliance is under political pressure to both secure the core and to offer a diplomatic off-ramp.",
+  "opening_hook": "Cal Omas at his desk with a GAG charter document in front of him.",
+  "conflict": "Omas's political calculation vs. the constitutional concerns of his advisors.",
+  "conflict_type": "interpersonal",
+  "dialogue_expectation": "dialogue_led",
+  "turning_point": "Omas signs the GAG charter and announces the Toryaz summit in the same hour.",
+  "closing_hook": "Omas handing both chips to different aides for announcement.",
+  "characters_present": [
+    "Cal Omas",
+    "political advisors",
+    "Fleet Admiral Niathal",
+    "Senator Viqi Shesh-type aides"
+  ],
+  "setting": "Cal Omas's Chief of State office, Senate district, Coruscant.",
+  "sensory_details": "GAG charter's formal wax; Niathal's attentive silence; advisors' tense posture.",
+  "emotional_trajectory": "Political pressure → pragmatic signing → announcement.",
+  "stakes": {
+    "personal": "Omas's political future.",
+    "interpersonal": "Advisors' constitutional loyalties.",
+    "external": "The Alliance's internal-security architecture."
+  },
+  "plot_threads_advanced": [
+    "sub_toryaz_diplomacy",
+    "sub_corellian_crisis"
+  ],
+  "promises_planted": [
+    "hook_gag_formation",
+    "hook_toryaz_summit"
+  ],
+  "promises_paid": [],
+  "canon_elements_needed": [
+    "Galactic Alliance Guard founding charter",
+    "Toryaz Station as diplomatic venue",
+    "Cal Omas's political staff"
+  ],
+  "target_word_count": 1600,
+  "action_beats": [
+    "GAG charter presented",
+    "Advisors' objections voiced",
+    "Omas signs",
+    "Toryaz summit announced"
+  ],
+  "notes": "The Alliance militarizes internally while announcing peace — the book's cleanest institutional irony.",
+  "active_subplots": [
+    "sub_toryaz_diplomacy",
+    "sub_corellian_crisis"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "hook_gag_formation",
+      "action": "plant"
+    },
+    {
+      "hook_id": "hook_toryaz_summit",
+      "action": "plant"
+    },
+    {
+      "hook_id": "hook_corellian_insurgency",
+      "action": "advance"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "flat_arc_stable_truth"
+}

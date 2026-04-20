@@ -1,0 +1,59 @@
+{
+  "chapter_number": 14,
+  "scene_number": 2,
+  "structural_phase": "response",
+  "scene_type": "sequel",
+  "scene_role": "escalation",
+  "pov_character": "Cal Omas",
+  "mission": "Alliance fleet acceleration order issued; Pellaeon and Niathal in the room with Cal Omas; the war's kinetic tempo climbs.",
+  "why_now": "Thrackan's ascension has changed the Alliance's calculus.",
+  "opening_hook": "Pellaeon and Niathal standing on opposite sides of Cal Omas's desk.",
+  "conflict": "Pellaeon's preference for one more diplomatic cycle vs. Niathal's preference for immediate acceleration.",
+  "conflict_type": "interpersonal",
+  "dialogue_expectation": "balanced",
+  "turning_point": "Cal Omas chooses acceleration.",
+  "closing_hook": "Niathal's hand over the order chip as Pellaeon takes his leave.",
+  "characters_present": [
+    "Cal Omas",
+    "Admiral Pellaeon",
+    "Admiral Niathal"
+  ],
+  "setting": "Cal Omas's office, Senate district, Coruscant.",
+  "sensory_details": "Desk's polished chromium; Niathal's clicks; Pellaeon's silence.",
+  "emotional_trajectory": "Strategic disagreement → political decision → disciplined compliance.",
+  "stakes": {
+    "personal": "Each commander's strategic reputation.",
+    "interpersonal": "The joint-chiefs working relationship.",
+    "external": "The fleet's deployment tempo."
+  },
+  "plot_threads_advanced": [
+    "sub_corellian_crisis",
+    "sub_operation_roundabout"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "canon_elements_needed": [
+    "Alliance senior command protocols",
+    "Pellaeon's Imperial-era professional register"
+  ],
+  "target_word_count": 1792,
+  "action_beats": [
+    "Pellaeon presents restraint option",
+    "Niathal presents acceleration option",
+    "Omas signs acceleration",
+    "Pellaeon departs"
+  ],
+  "notes": "The joint chiefs scene counterweights the Solo scene.",
+  "active_subplots": [
+    "sub_corellian_crisis",
+    "sub_operation_roundabout"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "hook_corellian_insurgency",
+      "action": "advance"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "flat_arc_stable_truth"
+}

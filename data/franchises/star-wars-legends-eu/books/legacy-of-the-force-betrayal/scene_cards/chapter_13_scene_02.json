@@ -1,0 +1,65 @@
+{
+  "chapter_number": 13,
+  "scene_number": 2,
+  "structural_phase": "first_pinch",
+  "scene_type": "sequel",
+  "scene_role": "reveal",
+  "pov_character": "Thrackan Sal-Solo",
+  "mission": "Thrackan Sal-Solo's installation as Governor-General of Corellia and public address.",
+  "why_now": "Saxan is dead; the Corellian system has moved to succession.",
+  "opening_hook": "Thrackan taking the oath of office in Coronet City's Parliament chamber.",
+  "conflict": "Thrackan's ambition as he settles into the office vs. the sympathetic-to-Saxan faction's grief and skepticism.",
+  "conflict_type": "interpersonal",
+  "dialogue_expectation": "dialogue_led",
+  "turning_point": "Thrackan delivers his first public address — explicitly naming the Alliance as Corellia's enemy.",
+  "closing_hook": "Thrackan on the Parliament balcony with the Corellian flag behind him.",
+  "characters_present": [
+    "Thrackan Sal-Solo",
+    "Dur Gejjen",
+    "Corellian parliamentary witnesses"
+  ],
+  "setting": "Corellian Parliament chamber, Coronet City; high ceremonial.",
+  "sensory_details": "Parliament chamber's resonance; Thrackan's swearing-in hand on Corellian ceremonial book; Gejjen visible in the first row.",
+  "emotional_trajectory": "Ceremonial gravity → political consolidation → explicit antagonism.",
+  "stakes": {
+    "personal": "Thrackan's restored political power.",
+    "interpersonal": "Thrackan/Gejjen's provisional alliance.",
+    "external": "Corellia's formal war posture."
+  },
+  "plot_threads_advanced": [
+    "sub_corellian_crisis"
+  ],
+  "promises_planted": [],
+  "promises_paid": [
+    "hook_saxan_assassination"
+  ],
+  "canon_elements_needed": [
+    "Thrackan Sal-Solo as Governor-General 40 ABY",
+    "Corellian oath-of-office protocols"
+  ],
+  "target_word_count": 1804,
+  "action_beats": [
+    "Oath of office taken",
+    "Public address delivered",
+    "Alliance named as enemy",
+    "Thrackan on balcony"
+  ],
+  "notes": "Brooks First Pinch landed through succession rather than battle.",
+  "active_subplots": [
+    "sub_corellian_crisis"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "hook_saxan_assassination",
+      "action": "resolve"
+    },
+    {
+      "hook_id": "hook_corellian_insurgency",
+      "action": "advance"
+    }
+  ],
+  "revelations": [
+    "rev_aidel_saxan_assassinated"
+  ],
+  "pov_arc_phase": "flat_arc_stable_truth"
+}

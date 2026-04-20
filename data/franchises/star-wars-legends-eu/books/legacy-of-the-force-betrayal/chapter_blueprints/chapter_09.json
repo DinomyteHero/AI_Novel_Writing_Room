@@ -1,0 +1,49 @@
+{
+  "chapter_number": 9,
+  "chapter_mission": "Begin Operation Roundabout planning in earnest; Saxan under growing political pressure; Lumiya's tasseled hem first glimpsed in the peripheral visuals.",
+  "chapter_turn": "The Alliance's operational planning accelerates; the shadow antagonist enters the book's visible frame for the first time, even if unnamed.",
+  "structural_phase": "response",
+  "pov_allocation": [
+    "Cal Omas",
+    "Aidel Saxan"
+  ],
+  "scene_count": 2,
+  "scene_plan": [
+    {
+      "scene_number": 1,
+      "role": "escalation",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 1800,
+      "purpose": "Operation Roundabout planning session; Pellaeon and Niathal set kinetic parameters."
+    },
+    {
+      "scene_number": 2,
+      "role": "escalation",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 1934,
+      "purpose": "Saxan under political pressure; tasseled figure glimpsed peripherally at a Corellian checkpoint."
+    }
+  ],
+  "reveal_payload": [],
+  "hook_movements": {
+    "planted": [
+      "hook_lumiya_tassels"
+    ],
+    "advanced": [
+      "hook_saxan_assassination",
+      "hook_corellian_insurgency",
+      "hook_dark_hooded_enemy"
+    ],
+    "resolved": []
+  },
+  "subplot_obligations": [
+    "sub_operation_roundabout",
+    "sub_corellian_crisis",
+    "sub_lumiya_seduction"
+  ],
+  "relationship_turns": [],
+  "pacing_curve": "rising",
+  "exit_vector": "A silent figure in tasseled robes moving past a Corellian security checkpoint — the book's first glimpse of Lumiya in daylight.",
+  "chapter_word_target": 3734,
+  "notes": "First Pinch window opens. Dur Gejjen reappears. The 'tassels' glimpse is structurally the reader's first identification of the dark enemy."
+}

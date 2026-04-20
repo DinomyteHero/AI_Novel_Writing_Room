@@ -1,0 +1,55 @@
+{
+  "chapter_number": 33,
+  "chapter_mission": "Jacen murders Nelani Dinn. Brooks Climax — thematic, not kinetic.",
+  "chapter_turn": "The corruption arc crosses from inclination to enactment; Jacen takes the step from which no re-tread is possible.",
+  "structural_phase": "climax",
+  "pov_allocation": [
+    "Jacen Solo"
+  ],
+  "scene_count": 2,
+  "scene_plan": [
+    {
+      "scene_number": 1,
+      "role": "decision",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 2000,
+      "purpose": "The fight itself — brief, precise; Nelani killed."
+    },
+    {
+      "scene_number": 2,
+      "role": "aftermath",
+      "dialogue_expectation": "interior",
+      "target_word_count": 1838,
+      "purpose": "Ben in the doorway; Jacen standing over the body; the interior reckoning begins."
+    }
+  ],
+  "reveal_payload": [
+    "rev_jacen_kills_nelani"
+  ],
+  "hook_movements": {
+    "planted": [
+      "hook_ben_memory_edit"
+    ],
+    "advanced": [],
+    "resolved": [
+      "hook_vectivus_asteroid",
+      "hook_nelani_tracks_jacen"
+    ]
+  },
+  "subplot_obligations": [
+    "sub_vectivus_asteroid",
+    "sub_lumiya_seduction",
+    "sub_jacen_ben_apprenticeship"
+  ],
+  "relationship_turns": [
+    {
+      "dyad": "Jacen/Ben",
+      "from": "mentor_pair_with_cognitive_gap_opened",
+      "to": "mentor_pair_with_a_buried_secret"
+    }
+  ],
+  "pacing_curve": "rising",
+  "exit_vector": "Nelani's body on the chamber floor; Ben in the doorway; Jacen's face registering a calculation he will not describe even to himself.",
+  "chapter_word_target": 3838,
+  "notes": "The book's thematic climax. Allston does not dwell — the fight is short, the moment after it is the chapter."
+}

@@ -1,0 +1,67 @@
+{
+  "chapter_number": 6,
+  "scene_number": 2,
+  "structural_phase": "response",
+  "scene_type": "sequel",
+  "scene_role": "aftermath",
+  "pov_character": "Wedge Antilles",
+  "mission": "Wedge observes a squadron departing a Corellian field; Syal/Lysa glimpsed among the pilots without being identified to the reader.",
+  "why_now": "The squadron's launch is the first visible sign that the Corellian side is already militarizing.",
+  "opening_hook": "Wedge at a hangar window watching a squadron of Corellian fighters pre-flight.",
+  "conflict": "Wedge's detached observer posture against the personal resonance of seeing a particular pilot he can't quite place.",
+  "conflict_type": "internal",
+  "dialogue_expectation": "balanced",
+  "turning_point": "Wedge almost recognizes a pilot (Syal/Lysa) and then files the half-recognition away.",
+  "closing_hook": "The squadron launching; Wedge still at the window.",
+  "characters_present": [
+    "Wedge Antilles",
+    "Syal Antilles (as Lysa)",
+    "ground crew"
+  ],
+  "setting": "Corellian squadron hangar observation deck, evening.",
+  "sensory_details": "Ion-drive spool-up hum; hangar lighting; Wedge's hand on the window rail.",
+  "emotional_trajectory": "Detached observation → unplaced recognition → filed-away disquiet.",
+  "stakes": {
+    "personal": "Wedge's private family disquiet.",
+    "interpersonal": "The Antilles-family fracture that will eventually land.",
+    "external": "The squadron's mission."
+  },
+  "plot_threads_advanced": [
+    "sub_wedge_syal",
+    "sub_corellian_crisis"
+  ],
+  "promises_planted": [
+    "hook_syal_identity"
+  ],
+  "promises_paid": [
+    "hook_hapan_wedding_attempt"
+  ],
+  "canon_elements_needed": [
+    "Syal Antilles using cover name 'Lysa'",
+    "Corellian squadron hangar protocols"
+  ],
+  "target_word_count": 1456,
+  "action_beats": [
+    "Squadron pre-flight visible through the window",
+    "Wedge almost recognizes a pilot",
+    "Wedge files the recognition away",
+    "Squadron launches"
+  ],
+  "notes": "The Syal-identity hook is planted here, in an almost-recognition the reader will later decode.",
+  "active_subplots": [
+    "sub_wedge_syal",
+    "sub_corellian_crisis"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "hook_syal_identity",
+      "action": "plant"
+    },
+    {
+      "hook_id": "hook_hapan_wedding_attempt",
+      "action": "resolve"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "flat_arc_stable_truth"
+}

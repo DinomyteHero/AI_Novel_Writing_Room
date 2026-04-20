@@ -1,0 +1,52 @@
+{
+  "chapter_number": 5,
+  "chapter_mission": "Stage the Hapan royal wedding: Jacen present in his dual role as Jedi and as Tenel Ka's secret partner; an assassination attempt is made on the Hapan royal party.",
+  "chapter_turn": "The Corellian crisis escalates from political to kinetic at an ostensibly peripheral venue — the Hapan wedding — which commits the Jedi and Alliance to operational responses.",
+  "structural_phase": "setup",
+  "pov_allocation": [
+    "Jacen Solo"
+  ],
+  "scene_count": 2,
+  "scene_plan": [
+    {
+      "scene_number": 1,
+      "role": "escalation",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 2000,
+      "purpose": "The wedding ceremony; assassins move on the royal party; Jacen intercepts."
+    },
+    {
+      "scene_number": 2,
+      "role": "decision",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 1626,
+      "purpose": "Aftermath — identification of the cell; Tenel Ka brief moment; commitment to the broader Corellian investigation."
+    }
+  ],
+  "reveal_payload": [],
+  "hook_movements": {
+    "planted": [
+      "hook_hapan_wedding_attempt"
+    ],
+    "advanced": [
+      "hook_corellian_insurgency"
+    ],
+    "resolved": []
+  },
+  "subplot_obligations": [
+    "sub_hapan_wedding",
+    "sub_corellian_crisis",
+    "sub_jacen_ben_apprenticeship"
+  ],
+  "relationship_turns": [
+    {
+      "dyad": "Jacen/Tenel Ka",
+      "from": "secret_partnership_at_distance",
+      "to": "secret_partnership_under_crisis_pressure"
+    }
+  ],
+  "pacing_curve": "rising",
+  "exit_vector": "Assassination attempt interrupted; Jacen's presence pivotal; the Hapan/Alliance/Corellian lines of communication cross-hatched by the incident.",
+  "chapter_word_target": 3626,
+  "notes": "Tenel Ka peripheral on-page. Allana unnamed and unpresent. Jacen's efficiency in the combat is again slightly more surgical than a conventional Jedi's would be."
+}

@@ -1,0 +1,54 @@
+{
+  "chapter_number": 32,
+  "chapter_mission": "Nelani Dinn arrives at the asteroid; she has assembled enough evidence to accuse Jacen of consorting with a Sith; the confrontation is set.",
+  "chapter_turn": "The book's moral argument made flesh — another Jedi, doing what Jacen would have done six months ago, walks through the door.",
+  "structural_phase": "climax",
+  "pov_allocation": [
+    "Nelani Dinn",
+    "Jacen Solo"
+  ],
+  "scene_count": 2,
+  "scene_plan": [
+    {
+      "scene_number": 1,
+      "role": "reveal",
+      "dialogue_expectation": "dialogue_led",
+      "target_word_count": 3000,
+      "purpose": "Nelani arrives at the asteroid with her investigation in hand; she states the case."
+    },
+    {
+      "scene_number": 2,
+      "role": "escalation",
+      "dialogue_expectation": "dialogue_led",
+      "target_word_count": 2773,
+      "purpose": "Jacen's reply; the fork-vision technique used once — he sees, in one future, Nelani alive and Luke dead at his hand."
+    }
+  ],
+  "reveal_payload": [
+    "rev_nelani_tracks_jacen"
+  ],
+  "hook_movements": {
+    "planted": [],
+    "advanced": [
+      "hook_nelani_tracks_jacen",
+      "hook_vectivus_asteroid"
+    ],
+    "resolved": []
+  },
+  "subplot_obligations": [
+    "sub_vectivus_asteroid",
+    "sub_jacen_ben_apprenticeship",
+    "sub_lumiya_seduction"
+  ],
+  "relationship_turns": [
+    {
+      "dyad": "Jacen/Nelani",
+      "from": "professional_partnership_with_philosophical_friction",
+      "to": "Jedi_confronting_compromised_Jedi"
+    }
+  ],
+  "pacing_curve": "rising",
+  "exit_vector": "Nelani standing in the asteroid's main chamber with her lightsaber drawn, Jacen across from her, Ben watching from the threshold.",
+  "chapter_word_target": 5773,
+  "notes": "The longest Ch 32+ chapter (5773 words). Most of the chapter is Nelani's case — Allston lets her speak."
+}

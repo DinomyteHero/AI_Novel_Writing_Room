@@ -1,0 +1,1726 @@
+{
+  "$schema": "../../../../../../concept_seed.json",
+  "meta": {
+    "project_title": "Legacy of the Force: Betrayal",
+    "franchise": "Star Wars",
+    "canon_status": "canon_compliant",
+    "canon_status_description": "Star Wars Legends continuity (book published May 2006; fully pre-2014 Expanded Universe). Legacy of the Force series, Book 1 of 9 — set 40 ABY, two years after the conclusion of the Dark Nest trilogy and approximately six years after the end of the Yuuzhan Vong War. First book of the nine-book LOTF arc; establishes the Corellian crisis as the trilogy-scale engine and Jacen Solo's first-step commitment to the dark path as its character engine.",
+    "era": "Legacy of the Force era / post-New Jedi Order consolidation (40 ABY). Galactic Alliance is the ruling power; Jedi Order headquartered at the rebuilt Jedi Temple on Coruscant; Corellian independence movement reaching breaking point.",
+    "tone": "dark_gritty",
+    "tone_description": "Political-thriller register layered over family tragedy. Allston's particular voice — dialogue-forward, dry humor threaded through violence, ensemble-piloting choreography, Rogue Squadron-cadence combat scenes — poured into a morally darker frame than his earlier work. Emotionally the book is unusually grim for a Star Wars series opener: it opens on Luke's premonition of a dark-hooded enemy, runs through a failed peace summit and a mass-casualty bombing, and ends with the Jedi protagonist murdering a fellow Jedi Knight to prevent a future he has seen in the Force. The empirical book is 129,695 words across 34 chapters — a longer, more ensemble-distributed register than the Empire and Rebellion template.",
+    "target_word_count": 120000,
+    "target_chapters": 34,
+    "pov_structure": "Multi-POV ensemble with a clear tragic-protagonist spine. Jacen Solo is the nearest thing to a primary POV (appears across the book's investigative, philosophical, and tragic strands) but Allston rotates through at least six named POV characters per chapter-group, often switching mid-chapter at an untyped scene-break. Principal POVs in rough order of page count: Jacen Solo > Ben Skywalker > Luke Skywalker > Mara Jade Skywalker > Han Solo > Leia Organa Solo. Supporting POVs include Nelani Dinn (Ch 1-2, 32-33), Lumiya (ch 23-29 villain spotlight), Wedge Antilles (Corellian-front chapters), Aidel Saxan and Thrackan Sal-Solo (political chapters), Admiral Klauskin (Ch 15-16 midpoint), and brief glimpses through several others. No prologue. No epigraph. Third-person limited, scene-break conventions destroyed by the EPUB conversion but visible empirically from POV shifts.",
+    "project_scope": "planned_series",
+    "series": {
+      "series_id": "legacy-of-the-force",
+      "book_number": 1
+    },
+    "series_id": "legacy-of-the-force",
+    "book_number": 1
+  },
+  "premise": {
+    "what_if": "What if the hero of the Yuuzhan Vong War, the Solo son who held back from the dark path the first time it was offered, took a single step across the line when a Sith survivor of the Emperor's cadre showed him a vision of himself dying to save the galaxy — and took that step not for power, but for love?",
+    "central_dramatic_question": "When Jacen Solo glimpses, through the Force, the one future in which the galaxy survives — a future in which he must sacrifice his own innocence to prevent catastrophic outcomes — will he commit the first irreversible act that dark-side logic requires, and will his family be able to see him do it?",
+    "logline": "As the Corellian independence crisis ignites a second galactic war, Jedi Knight Jacen Solo is drawn into a dangerous apprenticeship with a Sith survivor who claims she wants only to teach him to save the galaxy — and when his cousin Ben's life intersects the fork in the Force where Jacen glimpses the cost, Jacen makes the first kill that will define who he becomes."
+  },
+  "conflict": {
+    "primary_antagonistic_force": {
+      "type": "sith_seduction_plus_political_insurgency",
+      "identity": "Twin antagonist lines. The exterior antagonist is the Corellian independence movement and its fallback engine Centerpoint Station — orchestrated by Corellian Prime Minister Aidel Saxan, Governor-General Thrackan Sal-Solo, and assorted insurgents who do not want the Galactic Alliance's surveillance regime imposed on their system. The interior antagonist is Lumiya — the last surviving Emperor's Hand and Dark Lady of the Sith from the late Rebellion era — who has studied Jacen for years, identifies him as the Sith student whose moral sensitivity will let him finish her Order's work, and begins a patient seduction that culminates in his first dark-side commitment. Subordinate antagonist: Darth Vectivus, dead Sith whose asteroid training nexus Lumiya uses to walk Jacen through the argument that a Sith with genuine love does not fall — an argument the book pointedly does not refute.",
+      "motivation": "The Corellian movement's motivation is local, political, and legitimate on its face: they will not be policed by the Galactic Alliance, they will not surrender Centerpoint Station for disarmament, and they consider the new GA surveillance apparatus indistinguishable from the old Empire. Lumiya's motivation is theological and long-patient: the Sith Order she belonged to died with the Emperor; she has spent thirty years studying the galaxy's next generation of Force-users and has concluded that Jacen Solo — a Jedi who killed his own aunt during the Vong war and did not fall, a young man capable of grief and love — is the student her teachers would have wanted, the one who can take the Sith path without becoming a monster. She does not want a throne; she wants an heir.",
+      "escalation": "Opens (Ch 1-2) on a pre-war investigation: Jacen, Ben, and local Jedi Knight Nelani Dinn uncover a Corellian paramilitary missile factory on Adumar. Ramps (Ch 3-8) through the Hapan royal wedding assassination attempt (GAG and Dur Gejjen's shadow), Han and Leia's personal pull back to Corellia, and the GA's decision to garrison Corellian space. First Pinch (Ch 9-13): GA war plans laid, Corellian fleet mobilized, Saxan killed, Thrackan installed. Midpoint (Ch 15-16): Centerpoint Station is detonated/disabled by GA commandos under Admiral Klauskin, who breaks under the weight of his own compromise. Attack (Ch 17-27): Toryaz Station peace summit is bombed and Mara's oldest friend killed (Ch 18-19, second pinch); Lumiya's first face-to-face approach to Jacen (ch 20-23); Ben's indoctrination into the nascent Galactic Alliance Guard (ch 24-27). Second Plot Point (Ch 28): Jacen agrees to accompany Lumiya to Vectivus's asteroid training nexus to receive her teaching. Climax (Ch 29-33): The asteroid Sith lair — Jacen walks through the visions Lumiya has left him, sees Luke as his enemy in one future and Ben dead in another, confronts Nelani Dinn when she tracks him to the asteroid and tries to arrest him, and kills her to close the only fork in the Force where Luke's duel with him happens. Resolution (Ch 34): Luke senses a new Sith in the galaxy and does not know it is his nephew."
+    },
+    "secondary_pressures": [
+      "Ben Skywalker's identity crisis — a thirteen-year-old Jedi apprentice whose relationship to the Force has always been confused, drawn between Luke's moral center and the new Galactic Alliance Guard paramilitary wing his parents cannot bring themselves to forbid him to join.",
+      "The Han/Leia marriage under Corellian pressure — Han's rising Corellian patriotism and Leia's Jedi/Alderaanian/Alliance allegiances forced into direct conflict for the first time in decades; they separate operationally by the end of the book.",
+      "The Jedi Order's institutional position — Luke's attempt to keep the Order neutral while the Alliance goes to war with Corellia, placing Jacen (who supports Alliance intervention) against Corran Horn and other Jedi who see the Order becoming complicit in Palpatine-style policing.",
+      "The dead teachers — Vergere (Jacen's NJO mentor) and Darth Vectivus (Lumiya's) operating posthumously as moral-philosophical pressures on Jacen from both sides.",
+      "Admiral Klauskin's breakdown — the GA commanding officer at Centerpoint begins seeing and hearing his dead wife and breaks under combat stress, a character-level demonstration of the war's cost.",
+      "Wedge Antilles's return to the Corellian side — the single most recognizable Rogue Squadron officer declines Han's Corellian recruiting call but cannot commit to the GA either; his dilemma mirrors the book's and his daughter Syal/Lysa carries a longer-arc hook.",
+      "The Toryaz Station peace summit — a genuine attempt at diplomacy that becomes the book's most public atrocity; its bombing is engineered as much by Lumiya's calculus as by Corellian militants."
+    ],
+    "lock_in_mechanism": "The Adumar investigation in Chapters 1-2 pulls Jacen and Ben into a Corellian paramilitary operation that they cannot walk away from without betraying either Jedi protocol or their own convictions. Once Jacen kills the Dammant Killers in the Ch 2 raid and experiences Nelani Dinn's disappointment in him, the mission has consumed his Jedi-neutral cover — he is now a GA-aligned combatant in an undeclared war. That commitment deepens at Toryaz Station (Ch 18-19) when Lumiya arranges for Mara's oldest friend Tresina Lobi to die in the bombing, and again when Jacen accepts the GAG commission that binds him to Cal Omas. By Ch 28 he has no institutional exit — only the philosophical one Lumiya offers."
+  },
+  "theme": {
+    "thematic_premise": "The most dangerous falls to the dark side are the ones made out of love — and the hardest lies for a moral person to detect are the ones told in their own voice.",
+    "thematic_argument": "Betrayal makes a careful, patient argument about moral corruption in a way Star Wars rarely does: by refusing to call it moral corruption on its own page. The book gives Lumiya the best lines of its philosophical dialogue ('A Sith with genuine love in his heart does not fall — he remakes the Order'); it lets Jacen's reasoning be psychologically convincing from inside his own point of view ('if I have seen the future and the future is Ben dead, is it a dark action to close that future?'); and it stages his first kill — the murder of Nelani Dinn — as a calculation Jacen believes he is forced to make, not an eruption of rage. The book's counter-argument is almost entirely structural rather than verbal: Luke, Mara, Ben, Leia, and Han are all shown making equivalently hard choices without taking Jacen's step. The book trusts the reader to see Jacen's logic and reject it. Its title is delivered three times in the text — as Corellia's betrayal of the Galactic Alliance, as the Alliance's betrayal of Corellia, and, at the close, as Jacen's betrayal of his own Jedi vow — and the book's thematic argument is that the third is the only one that will echo through the next eight books.",
+    "how_each_arc_tests_theme": {
+      "Jacen Solo": "The book's thematic engine. His arc is the argument being tested. Jacen believes — and the book makes his belief psychologically coherent — that Sith power wielded in love is not dark-side power; that if you see a future in which your love dies, closing that future is ethics, not murder. The book's thematic position is that he is wrong, but it leaves the refutation structural. His corruption arc (moment of decision Ch 33, tragic resolution Ch 34's 'He exists' close) is the spine.",
+      "Ben Skywalker": "The foil. Ben is the character who is given every opportunity Jacen is given — Lumiya circles him, the GAG offers him uniformed power, Jacen's case for proactive action is consistently persuasive — and Ben, by refusing the step his cousin takes, establishes that the refusal is available to any moral person. His positive-change arc is quiet: he opens as a frightened boy whose Force sensitivity confuses him and closes as a Jedi apprentice who has chosen, on his own terms, to trust his father's Order over his cousin's seduction.",
+      "Luke Skywalker": "The moral constant. Luke's flat arc is to be the thing Jacen is breaking faith with. He senses the dark enemy in his dreams from Chapter 1 and does not identify the enemy as Jacen until the final pages — the book's most quietly devastating structural beat. Luke's restraint is the theme's institutional backbone.",
+      "Mara Jade Skywalker": "The pragmatic skeptic. Mara, as a former Emperor's Hand, is the only character in the book who has personally known Lumiya and knows precisely what a Sith survivor is capable of. Her arc is forced when her oldest friend Tresina Lobi dies at Toryaz Station — she goes hunting. She does not find Lumiya in this book, but she is the only Jedi who is unambiguously reading the situation correctly from page one.",
+      "Han Solo": "The stubborn Corellian. Han's arc is not a moral fall — he is a political fall. The book forces him to pick a side on a conflict where his personal history, his ethnic loyalty, and his wife's principles do not align, and he picks Corellia. His separation from Leia is operational, not emotional; the book protects the marriage.",
+      "Leia Organa Solo": "The third-way seeker. Leia cannot accept either the Alliance's policing or Corellia's insurgency, and the book allows her the positive-change arc of committing to an active, Jedi-coded third path. She chooses to leave GA service and operate from the Falcon as an independent — a commitment she makes visible to Han in the final chapters.",
+      "Nelani Dinn": "The tragic counter-protagonist. Nelani is a young Jedi Knight who does everything Jacen does — the Adumar investigation, the Force-level scrutiny, the willingness to make hard calls — and remains a Jedi. When she tracks Jacen to Vectivus's asteroid and challenges him, she is the book's argument against his logic made flesh; her death is the book's thematic climax and the point from which Jacen cannot return.",
+      "Lumiya": "The static antagonist whose argument is allowed to stand on its merits. Lumiya's role is to voice the thematic inversion — that Sith love is possible, that a moral person can take the Sith path without falling — and to leave that argument in Jacen's head. The book is structurally certain she is lying; it is structurally uncertain whether Jacen will ever see it."
+    }
+  },
+  "protagonist_arc_type": "fall",
+  "ensemble_cast": [
+    {
+      "name": "Jacen Solo",
+      "role": "Primary POV and tragic protagonist — Jedi Knight, son of Han and Leia, undergoing his first-step dark-side commitment",
+      "age": "~27 (40 ABY, born ~13 ABY)",
+      "force_status": "Jedi Knight, trained by Luke and shaped by Vergere. Exceptionally powerful across all aspects of the Force, notably precognitive visions. Hesitant about the Jedi Order's institutional position; privately conducting his own philosophical inquiry into Force lineages since the Vong war.",
+      "three_dimensions": {
+        "surface": "Quiet, focused, articulate. Physically present in a room the way Luke is — confidence without swagger. Most comfortable in a conversation that has moved two levels past politeness. Dresses simply, travels light, declines honorifics. Has Vergere's habits of answering questions with questions; prefers to let the person he is talking to reach the answer themselves. With Ben he is warm, almost paternal. With Nelani he is collegial. With Luke he is reverent but quietly withholding.",
+        "backstory_inner_demons": "Killed his own aunt Shira Brie (Lumiya's pre-Sith identity, never identified as such in this book) during a Vong-war action and did not fall. Was tortured by Vergere to a breaking point and absorbed her lesson that the Jedi binary of light and dark is an institutional simplification. Has spent five years since the war travelling the galaxy studying other Force traditions, returning to Coruscant in time for this book. Has just entered a quiet romantic relationship with Tenel Ka of Hapes and is a father (Allana, though this is known only to him and Tenel Ka at this point). Does not believe the Jedi Council's institutional neutrality is morally adequate to a second galactic war.",
+        "action_under_pressure": "Calculates. Will out-think, out-feel, and out-wait an opponent rather than fight them. In physical confrontation he fights with an economy that is unnerving — Dammant Killers in Ch 2 are dispatched one-and-done. When the stakes become personal he will act decisively without consultation: his choice to accept Lumiya's teaching in Ch 28 is made in thirty seconds of interior silence, and his choice to kill Nelani in Ch 33 is made even faster. The dangerous version of competence."
+      },
+      "voice_notes": "Measured cadence. Long sentences when explaining, short when deciding. Thinks in forks — 'the future where X' versus 'the future where Y'. Uses 'Uncle Luke' and 'Master Skywalker' in the same conversation depending on which frame he is operating in. Rarely profane. Never shouts.",
+      "weiland_arc": {
+        "lie_believed": "A Jedi with sufficient moral clarity can take any action the situation requires. If I can see the future clearly enough, I can make the calculation that saves the most lives — and the cost of acting is always less than the cost of letting an avoidable catastrophe unfold.",
+        "ghost": "Killed his own aunt during the Vong war and survived the Force-consequence. Tortured by Vergere into the belief that the Jedi light/dark binary is an institutional lie. Has never been challenged hard enough in the five peacetime years since. Already a father in secret, which raises the personal stakes on every future he glimpses.",
+        "want": "Hold the Galactic Alliance together through the Corellian crisis without either Corellia's secession destroying the Alliance or the Alliance crushing Corellia. Keep his family alive. Understand what Lumiya is showing him.",
+        "need": "Refuse Lumiya — and recognize that any moral system that permits him to kill a fellow Jedi to close a future is not a moral system at all. He will not acquire this need in this book; its absence is the book's tragedy.",
+        "arc_type": "corruption",
+        "arc_summary": "Corruption arc. Jacen opens believing he is a principled Jedi exploring heterodox Force philosophies; he is approached by Lumiya; she offers him training that looks, from inside his own ethical frame, like a completion of Vergere's lesson; he accepts; he kills Nelani Dinn at the climax to close a future he has seen. The book ends with him alive, ostensibly still a Jedi, with Luke unable to identify him as the Sith Luke senses in the Force. The step is taken. The consequences are the next eight books.",
+        "initial_phase": "lie_established",
+        "arc_phase_map": {
+          "lie_established": "1-2",
+          "lie_reinforced": "3-18",
+          "lie_deepened": "19-27",
+          "point_of_no_return": "28",
+          "lie_acted_upon": "29-32",
+          "lie_consequence": "33",
+          "arc_resolved_tragic": "34"
+        }
+      }
+    },
+    {
+      "name": "Ben Skywalker",
+      "role": "Co-protagonist and thematic foil — Luke and Mara's thirteen-year-old son, Jedi apprentice navigating the pull of the new Galactic Alliance Guard",
+      "age": "13 (40 ABY, born 27 ABY)",
+      "force_status": "Jedi apprentice under Luke (and increasingly under Jacen's informal mentoring). Highly sensitive to the Force but has always had an unusual relationship with it — raised during the Vong war when the Force itself was under assault, he has experienced the Force as something that comes and goes rather than something that simply is. Growing into his abilities through the book.",
+      "three_dimensions": {
+        "surface": "Slight, serious, watchful. Short hair, plain tunic, never wears his inheritance on the surface. Asks practical questions that adults have forgotten are questions. When Jacen teaches him something, he wants to know why it is true, not just how to perform it. Has the Skywalker stubbornness; has his mother's operational competence in the field. Will follow Jacen into a missile factory at thirteen and stay calm through it.",
+        "backstory_inner_demons": "Born during the Yuuzhan Vong war. Was a sick child; his mother had to physically shield him from the Vong's anti-Force presence for years. Has a complicated relationship with the Force itself as a result — he trusts it less than a Jedi his age usually does, and Jacen is the one who can explain that ambivalence back to him. Loves his parents, but senses their divided attention — Luke is running the Order, Mara is a full-time field operator — and Jacen is the cousin who is fully available to him.",
+        "action_under_pressure": "Watches carefully, speaks carefully, acts when asked to. Has a child's deference to Jacen that the book trades on: when Jacen is present Ben defers, and when Jacen is absent Ben reasons. By the back half of the book he has started to distinguish Jacen's Jedi teaching from something else he cannot name. The Galactic Alliance Guard uniform is offered to him (Ch 24-27) and he does not quite refuse, which will matter in the next book."
+      },
+      "voice_notes": "A thirteen-year-old's cadence — direct, slightly blunt, occasionally too-fast. Uses 'Mom,' 'Dad,' 'Jacen,' 'Uncle Han' without ceremony. When he asks Jacen a philosophical question he does not know he is asking one. Does not swear; does crack small dry jokes, usually at his own expense.",
+      "weiland_arc": {
+        "lie_believed": "Jacen is the Jedi I am meant to become, and whatever Jacen is doing must be what the Force wants.",
+        "ghost": "Childhood illness under the Yuuzhan Vong shadow. Feeling like a second-rate Force-user compared to his parents' generation. The specific loneliness of being the only child his age in the rebuilt Jedi Order.",
+        "want": "Become a real Jedi. Earn the uniform offered him. Prove to Jacen that he can do the work.",
+        "need": "Trust his own judgment independent of his cousin's — learn, before the book ends, that a voice inside him that is uneasy about Jacen's certainty is a voice worth listening to.",
+        "arc_type": "positive_change",
+        "arc_summary": "Positive change. Ben opens as a thirteen-year-old who defers almost entirely to Jacen and closes as a thirteen-year-old who is listening to his own Force-sense about Jacen without understanding what it is telling him. The book ends with his memory of the asteroid trip mostly erased by Jacen — a detail that will matter in the next book — and this imposed amnesia is both the cost of his positive arc and the hook that completes it.",
+        "initial_phase": "lie_established",
+        "arc_phase_map": {
+          "lie_established": "1",
+          "lie_reinforced": "2-15",
+          "lie_challenged": "16-27",
+          "moment_of_truth": "30-33",
+          "new_truth_demonstrated": "34",
+          "arc_resolved": "34"
+        }
+      }
+    },
+    {
+      "name": "Luke Skywalker",
+      "role": "Grand Master of the Jedi Order; moral constant; dreams of a dark enemy he cannot identify",
+      "age": "~56 (40 ABY)",
+      "force_status": "Grand Master. At the peak of his Jedi power and at the limit of his institutional reach. The Force sends him clear warnings throughout the book — the dark-hooded enemy dream in Ch 1, the sense of a new Sith in the Force in Ch 34 — that he cannot parse precisely enough to act on. Blind in this book to exactly one thing: that the new Sith is his nephew.",
+      "three_dimensions": {
+        "surface": "White tunic, plain saber, quiet. Walks through diplomatic halls and cabinet meetings without raising his voice. Most often seen with Mara at his shoulder. With Ben he is attentive but busy; with Jacen he is trusting. With Chief of State Cal Omas he is patient. The book is careful to show that Luke is running the Order, a household, and a moral bearing for the galaxy simultaneously, and that he is tired.",
+        "backstory_inner_demons": "Everything. The unresolved question of this book is whether Luke's institutional restraint — holding the Jedi Order back from full engagement in the Corellian war — is wisdom or exhaustion. The book keeps the question open.",
+        "action_under_pressure": "Listens. Lets his opponent finish. When he does act, the action is usually a single, precise word. His Ch 1 scene with Mara on the Coruscant balcony is the book's shape: he has had the dream of the dark enemy, he does not know what it means, and he will not speculate past what the Force has told him. This restraint is his virtue and the book's quiet argument against the shape Jacen takes in the same chapters."
+      },
+      "voice_notes": "Spare. Short sentences. Rarely a figure of speech where a direct statement will do. Uses 'Master' as a form of address for his peers, 'apprentice' for Ben. Never 'I think,' often 'I sense.' When speaking to Ben he drops Master entirely. Does not laugh often; when he does, the book notes it.",
+      "weiland_arc": {
+        "lie_believed": "The Jedi Order's restraint is the right posture for this crisis. If the Force has shown me a dark enemy, the Force will show me who it is when I am ready to act.",
+        "ghost": "Every prior Sith confrontation Luke has lost people to. Anakin Skywalker's fall. The Yuuzhan Vong war. The Dark Nest crisis two years past. A sense that the next Sith is already in motion and he has not been shown its face.",
+        "want": "Keep the Jedi Order together and out of the Corellian war, identify the dark enemy he has dreamed, protect his son.",
+        "need": "Trust his sense earlier — sooner than the final page — that the dark thing is close. The book denies him this. His flat arc is about what he does not learn.",
+        "arc_type": "flat",
+        "arc_summary": "Flat arc. Luke remains the moral center of the Jedi Order and the family for the length of the book. He does not identify Jacen as the dark enemy in his dreams until the book's closing pages, and even then he senses only that 'he exists.' The flat-arc tragedy is that the center holds while the peripheral figure it is trying to protect walks off the edge.",
+        "initial_phase": "lie_established",
+        "arc_phase_map": {
+          "lie_established": "1",
+          "lie_reinforced": "2-30",
+          "lie_tested": "33",
+          "lie_unchanged": "34"
+        }
+      }
+    },
+    {
+      "name": "Mara Jade Skywalker",
+      "role": "Jedi Master, former Emperor's Hand, Luke's wife and Ben's mother; the only character in the book reading Lumiya correctly",
+      "age": "~52 (40 ABY)",
+      "force_status": "Jedi Master, senior council member, veteran field operator. Deeply Force-sensitive; her Force signature is distinctive enough that Ben can pick it out of any crowd. Unique among the Jedi leadership in having trained under Palpatine as a child and therefore in knowing Sith survivors personally — Lumiya is someone Mara has met before.",
+      "three_dimensions": {
+        "surface": "Copper hair, operational clothes, never civilian unless the moment demands it. Armed at all times. The warmest person in the book inside her own family and the coldest outside it. With Ben she is attentive and physically affectionate in a way the Jedi Order does not often display. With Luke she is an operational partner first and a wife second only because the war is on. With Jacen she is warm and unsuspicious until the last chapters, when she is neither.",
+        "backstory_inner_demons": "The Emperor's Hand childhood. Personal history with Lumiya from the late Rebellion. Tresina Lobi was her closest friend from before Luke — the book establishes this just in time to let her die at Toryaz. The weight of having personally known the kind of operator Lumiya is, and the frustration of not being able to make Luke or the Council act on that knowledge without hard evidence.",
+        "action_under_pressure": "Operationally ruthless. When Toryaz is bombed she does not grieve on the page — she hunts. She will go alone, she will go armed, and she will not tell Luke what she is doing until it is finished. Her frustration with Jacen's private certainties in the second half of the book is the most clear-sighted audit of his slide any ensemble member delivers."
+      },
+      "voice_notes": "Dry, precise, unsentimental. Calls Luke 'Skywalker' when teasing and 'Master' never. Calls Ben 'kiddo' once per chapter. Calls Jacen 'Solo' when they disagree. Has the sharpest of the ensemble's senses of humor; the book lets her land one joke per chapter and then gets out of her way.",
+      "weiland_arc": {
+        "lie_believed": "If a Sith survivor is active, I will find her before Luke has to. I can protect my family by operating outside the Order's institutional restraints.",
+        "ghost": "Palpatine's training. Every Sith she has personally known. The friendship with Tresina Lobi, thirty years old and about to be cut short.",
+        "want": "Identify and eliminate the dark-side operator Luke has dreamed about; keep Ben out of the Galactic Alliance Guard; keep the Corellian war from consuming the Order.",
+        "need": "Accept that the operator she is hunting is one degree closer than she is looking — inside the family, not outside it. She does not acquire this need in this book either.",
+        "arc_type": "flat",
+        "arc_summary": "Flat arc parallel to Luke's. Mara is right throughout the book (a Sith survivor is active; her family is not safe) and cannot get traction on the specific misidentification (she is hunting Lumiya; the falling Jedi is her nephew). Her Toryaz response arc is rage-driven but clean; her book ends with her alive and hunting.",
+        "initial_phase": "lie_established",
+        "arc_phase_map": {
+          "lie_established": "1-3",
+          "lie_reinforced": "4-17",
+          "lie_tested": "18-33",
+          "lie_unchanged": "34"
+        }
+      }
+    },
+    {
+      "name": "Han Solo",
+      "role": "Co-POV; husband of Leia, father of Jacen; the book's Corellian conscience",
+      "age": "~62 (40 ABY)",
+      "force_status": "None.",
+      "three_dimensions": {
+        "surface": "Older, greyer, unchanged in cadence. Still flies the Falcon with Chewbacca (who survived the Vong war as far as this book is concerned; Allston's continuity is careful to honor canon while not dwelling on Chewbacca's death in Vector Prime — the Falcon is now flown with a rotating crew). Mocks every institution he has to cooperate with. Wears Corellian Bloodstripes on formal days; a senator's spouse in body only. Physical, profane in private, restrained in public.",
+        "backstory_inner_demons": "Corellia. The specific Corellia of his youth — the one that felt like a sovereign place, the one he fled and keeps coming back to. Thrackan Sal-Solo is his cousin and oldest grievance. Leia is the thirty-year counterweight to all of the above. In Betrayal he has to pick which of those pulls is stronger, and the book respects the picking.",
+        "action_under_pressure": "Goes to Corellia. Han's arc in this book is deceptively simple — he moves from sharing Leia's institutional reluctance about siding with Corellia to an operational commitment to help defend Corellian interests against the Alliance, and he does it one decision at a time. The Ch 10-14 beats put him on a Corellian freighter run; the Ch 24-26 beats have him planning privately with Corellian dissidents; by Ch 32 he and Leia have openly split on which side of the Corellian war to support."
+      },
+      "voice_notes": "Harrison-Ford cadence, sixty-two-year-old version. Still contractions always, still short declaratives. Calls Leia 'Princess' when he is teasing and 'Sweetheart' when he is genuinely happy. Calls Jacen 'kid' even now. Calls Thrackan 'cousin' with visible effort.",
+      "weiland_arc": {
+        "lie_believed": "Corellia's cause and my principles don't have to conflict — I can work with Thrackan without becoming him, and I can disagree with Leia without splitting the marriage.",
+        "ghost": "Thrackan Sal-Solo — the cousin who stood for everything Han left Corellia to escape, who is now the Governor-General of the resistance Han finds himself rooting for. Corellia itself as the place he has been avoiding.",
+        "want": "Stop the Alliance from turning Corellia into a garrison world; keep Leia on side; keep Jacen out of whatever Jacen is doing.",
+        "need": "Accept that backing Corellia in this war will not cost the marriage if he is honest about what he is doing — but also that his son is past his ability to reach, and Corellia cannot substitute for that.",
+        "arc_type": "flat",
+        "arc_summary": "Flat arc with operational movement. Han is recognizably himself at the end of the book; what changes is his public alignment (now openly Corellian) and his private awareness (that Jacen is no longer reachable by his father's methods). The book honors his stubbornness and does not redeem him toward Alliance complicity.",
+        "initial_phase": "lie_established",
+        "arc_phase_map": {
+          "lie_established": "3-4",
+          "lie_reinforced": "5-15",
+          "lie_tested": "16-27",
+          "lie_unchanged": "28-34"
+        }
+      }
+    },
+    {
+      "name": "Leia Organa Solo",
+      "role": "Co-POV; former Chief of State; Jedi Knight in training; the book's reluctant third-way operator",
+      "age": "~56 (40 ABY)",
+      "force_status": "Jedi Knight (late-career training, post-Vong). Not a Master; Luke is her brother and her teacher, a relationship the book handles with dry humor. Her Force abilities are strong but untrained in combat discipline; she wears a saber in this book but does not fight with it often.",
+      "three_dimensions": {
+        "surface": "Grey threading the braids now. Carries herself like a diplomat who has stopped bothering to ask permission for the room. With Han she is warm and pointed in equal measure; with Jaina (her daughter) she is open; with Jacen she is increasingly uneasy. Wears her Jedi saber on her hip more often than her Senator pin.",
+        "backstory_inner_demons": "Alderaan, still. The Yuuzhan Vong war and the loss of her sons' and daughter's innocence. A Jedi apprenticeship she started in middle age and has never quite made peace with. A husband whose Corellian core she has always known and has never fully agreed with.",
+        "action_under_pressure": "Negotiates. Her first instinct in any crisis is to reach for a diplomatic mechanism, and the book puts her through the education that there is no mechanism for what is happening at Toryaz or on Corellia. She resigns her remaining Alliance commitments, withdraws to the Falcon, and commits to operate as an independent Jedi moral voice in the final chapters."
+      },
+      "voice_notes": "Still crisp, still diplomatic, more willing than in her youth to say the unpleasant thing directly. Calls Han 'flyboy' once per book and it lands each time. With the Council she is formal. With Mara she is blunt. Dry sense of humor; never shouts.",
+      "weiland_arc": {
+        "lie_believed": "There is a diplomatic path through the Corellian crisis; if I work the mechanisms I know, one side will blink before this becomes a war.",
+        "ghost": "Alderaan. The Vong war. A lifetime spent trusting institutional mechanisms that have all, eventually, failed her.",
+        "want": "Broker a peace that preserves both Corellian sovereignty and Alliance unity; hold the marriage; reach her son.",
+        "need": "Accept that the institutional third way she has been trying to construct does not exist in this crisis — and that she must operate as a Jedi moral voice outside every institution if she is to be useful at all.",
+        "arc_type": "positive_change",
+        "arc_summary": "Positive change arc. Leia moves from working the remaining Alliance mechanisms (Ch 3-15) to recognizing they cannot hold (Toryaz, Ch 18-19) to committing to a Jedi-coded third way that operates outside both Alliance and Corellian structures (Ch 28-34). Her final-chapters operational partnership with Han — flying the Falcon as independents — is the arc's resolution.",
+        "initial_phase": "lie_established",
+        "arc_phase_map": {
+          "lie_established": "3",
+          "lie_reinforced": "4-15",
+          "lie_challenged": "16-27",
+          "moment_of_truth": "28",
+          "new_truth_demonstrated": "29-33",
+          "arc_resolved": "34"
+        }
+      }
+    }
+  ],
+  "referenced_characters": [
+    {
+      "name": "Lumiya",
+      "role": "Primary antagonist — Dark Lady of the Sith, Emperor's Hand survivor, patient seducer of Jacen Solo. Appears in person from Chapter 20 onward; is foreshadowed as the 'dark-hooded enemy' in Luke's Ch 1 dream. Real name Shira Brie — Jacen's biological aunt, though this connection is not named here.",
+      "initial_location": "Unknown hidden base; eventually the Vectivus asteroid training nexus",
+      "initial_emotional_state": "patient, calculating"
+    },
+    {
+      "name": "Nelani Dinn",
+      "role": "Jedi Knight assigned to Adumar; partners with Jacen and Ben on the Ch 1-2 investigation; tracks Jacen to Vectivus's asteroid in Ch 32-33 to arrest him; killed by Jacen in Chapter 33. The book's tragic thematic counter-protagonist.",
+      "initial_location": "Adumar",
+      "initial_emotional_state": "professional, curious"
+    },
+    {
+      "name": "Tenel Ka Djo",
+      "role": "Queen Mother of the Hapes Consortium; Jacen's secret romantic partner and co-parent of their infant daughter Allana. Referenced; does not appear on-page in any extended scene in this book beyond the Hapan wedding backdrop (Ch 5).",
+      "initial_location": "Hapes",
+      "initial_emotional_state": "regal, watchful"
+    },
+    {
+      "name": "Jaina Solo",
+      "role": "Jedi Knight; Jacen's twin sister; appears briefly in family and Order-level scenes. Early-novel glimpses only; her major arc with Zekk develops later in the series.",
+      "initial_location": "Coruscant / Jedi Temple",
+      "initial_emotional_state": "steady, alert"
+    },
+    {
+      "name": "Zekk",
+      "role": "Jedi Knight; Jaina's close partner and combat pair. Brief appearances in training and council scenes.",
+      "initial_location": "Coruscant",
+      "initial_emotional_state": "quietly competent"
+    },
+    {
+      "name": "Wedge Antilles",
+      "role": "Retired Corellian general. Declines to return to either side in the war; his dilemma mirrors the book's and his daughter Syal (operating under the cover name Lysa Dunter) carries a longer-arc hook for the series.",
+      "initial_location": "Corellia",
+      "initial_emotional_state": "troubled, withholding"
+    },
+    {
+      "name": "Tycho Celchu",
+      "role": "Wedge's longtime wingmate; Rogue veteran; appears in Corellian-front planning and flying scenes.",
+      "initial_location": "Corellia",
+      "initial_emotional_state": "steady"
+    },
+    {
+      "name": "Aidel Saxan",
+      "role": "Prime Minister of Corellia at the book's opening; leads the Corellian government through the early standoff with the Alliance; killed by assassination roughly at the First Pinch (Ch 9-13 range), clearing the way for Thrackan's installation.",
+      "initial_location": "Corellia, Prime Minister's residence",
+      "initial_emotional_state": "defiant"
+    },
+    {
+      "name": "Thrackan Sal-Solo",
+      "role": "Han's cousin; installed as Governor-General of Corellia after Saxan's assassination; runs the Corellian war from the back half of the book.",
+      "initial_location": "Corellia",
+      "initial_emotional_state": "ambitious, opportunistic"
+    },
+    {
+      "name": "Darth Vectivus",
+      "role": "Dead Sith Lord whose asteroid training nexus Lumiya uses in the final act. Appears only through Force-echoes, holograms, and visions. Lumiya's rhetorical exemplar of a Sith who lived and died without falling into tyranny.",
+      "initial_location": "Vectivus asteroid training nexus (hidden)",
+      "initial_emotional_state": "deceased; serene echo"
+    },
+    {
+      "name": "Admiral Klauskin",
+      "role": "Galactic Alliance admiral commanding the Centerpoint Station operation; breaks under combat stress during the Ch 15-16 midpoint sequence, seeing and hearing his dead wife.",
+      "initial_location": "GA fleet, Corellian system",
+      "initial_emotional_state": "strained"
+    },
+    {
+      "name": "Admiral Niathal",
+      "role": "Mon Calamari admiral; senior Alliance military leader through the book's later acts. Associated with the GA hardliner faction that will, next book, elevate Jacen.",
+      "initial_location": "GA Command",
+      "initial_emotional_state": "unflappable"
+    },
+    {
+      "name": "Gilad Pellaeon",
+      "role": "Supreme Commander of the Galactic Alliance fleet; elder statesman carrying Imperial experience into the Alliance command. Featured in cabinet and planning scenes.",
+      "initial_location": "Coruscant / GA fleet",
+      "initial_emotional_state": "weary, professional"
+    },
+    {
+      "name": "Cal Omas",
+      "role": "Chief of State of the Galactic Alliance; authorizes the GA Guard and the Centerpoint operation. Consumed by the political weight of a war he does not want but cannot seem to avoid.",
+      "initial_location": "Coruscant",
+      "initial_emotional_state": "harried, decisive"
+    },
+    {
+      "name": "Denjax Teppler",
+      "role": "Galactic Alliance senator from Commenor; political ally of Leia; background Alliance-faction presence.",
+      "initial_location": "Coruscant Senate",
+      "initial_emotional_state": "engaged"
+    },
+    {
+      "name": "Corran Horn",
+      "role": "Jedi Master; chairs the Council wing that opposes Jedi complicity in a Corellian war. Voices the book's internal Jedi counter-argument against Jacen's GA-aligned activism.",
+      "initial_location": "Jedi Temple",
+      "initial_emotional_state": "principled"
+    },
+    {
+      "name": "Tiu Zax",
+      "role": "Falleen Jedi Knight; one of Nelani Dinn's peers. Appears briefly in Jedi-front scenes.",
+      "initial_location": "Coruscant / field",
+      "initial_emotional_state": "alert"
+    },
+    {
+      "name": "Tahiri Veila",
+      "role": "Jedi Knight; veteran of the Vong war; appears briefly in Order-level scenes. Carries forward-looking hooks for later LOTF books.",
+      "initial_location": "Coruscant",
+      "initial_emotional_state": "guarded"
+    },
+    {
+      "name": "Doran Tainer",
+      "role": "Alderaanian-descended fighter pilot; husband of Syal Antilles Fel under her cover name Lysa Dunter. Appears in fighter-squadron and domestic scenes in the Syal/Lysa subplot.",
+      "initial_location": "various — flight decks and households",
+      "initial_emotional_state": "steady"
+    },
+    {
+      "name": "Kolir",
+      "role": "Mandalorian Jedi Knight — Kolir Hu'lya; appears in Jedi field-team scenes.",
+      "initial_location": "Coruscant / field",
+      "initial_emotional_state": "professional"
+    },
+    {
+      "name": "Thann",
+      "role": "Another Jedi Knight in Nelani Dinn's cohort; supporting field presence.",
+      "initial_location": "Coruscant / field",
+      "initial_emotional_state": "professional"
+    },
+    {
+      "name": "Syal Antilles Fel",
+      "role": "Wedge's long-lost elder daughter (taken into the Empire in her youth); operating in this book under the cover name 'Lysa Dunter,' an Alliance fighter pilot. Her identity is a slow-burn series hook planted in Betrayal and paid off later in LOTF.",
+      "initial_location": "Fighter squadron, various",
+      "initial_emotional_state": "compartmentalized"
+    },
+    {
+      "name": "Zueb Zan",
+      "role": "Sullustan pilot; supporting Alliance fighter presence during the Corellian campaign chapters.",
+      "initial_location": "GA fighter wing",
+      "initial_emotional_state": "alert"
+    },
+    {
+      "name": "Dr. Seyah",
+      "role": "Galactic Alliance intelligence officer; feeds technical and political intelligence to the Solo/Skywalker principals across the war chapters.",
+      "initial_location": "GA Intelligence",
+      "initial_emotional_state": "analytical"
+    },
+    {
+      "name": "Dr. Movac Arisster",
+      "role": "Scientist connected to the Centerpoint / Corellian technical apparatus; supporting technical voice during the midpoint sequences.",
+      "initial_location": "Corellia / Centerpoint",
+      "initial_emotional_state": "clinical"
+    },
+    {
+      "name": "Ordith Huarr",
+      "role": "Corellian political / insurgent figure active in the late-book Corellian chapters.",
+      "initial_location": "Corellia",
+      "initial_emotional_state": "militant"
+    },
+    {
+      "name": "For'ali",
+      "role": "Bothan intelligence asset; background operator in the political chapters.",
+      "initial_location": "various",
+      "initial_emotional_state": "opaque"
+    },
+    {
+      "name": "Dr. Heilan Rotham",
+      "role": "Medical / scientific supporting character present in one of the Coruscant interlude chapters.",
+      "initial_location": "Coruscant",
+      "initial_emotional_state": "professional"
+    },
+    {
+      "name": "Vergere",
+      "role": "Deceased Fosh Jedi/Sith-adjacent mentor figure; taught Jacen during the Vong war. Referenced posthumously throughout as the philosophical pressure behind Jacen's willingness to consider heterodox Force teachings.",
+      "initial_location": "Deceased — referenced",
+      "initial_emotional_state": "deceased; mentor-echo"
+    },
+    {
+      "name": "Tresina Lobi",
+      "role": "Chev Jedi Master; Mara Jade's oldest friend. Killed in the Toryaz Station bombing (Ch 18-19), the incident that unlocks Mara's independent hunt for the Sith survivor.",
+      "initial_location": "Toryaz Station",
+      "initial_emotional_state": "diplomatic"
+    },
+    {
+      "name": "Dur Gejjen",
+      "role": "Corellian political conspirator; shadow figure behind Saxan's downfall and the book's early political assassinations.",
+      "initial_location": "Corellia",
+      "initial_emotional_state": "conspiratorial"
+    },
+    {
+      "name": "C-3PO",
+      "role": "Solo/Skywalker household protocol droid; appears in domestic and transit scenes.",
+      "initial_location": "Coruscant / Falcon",
+      "initial_emotional_state": "fretful"
+    },
+    {
+      "name": "R2-D2",
+      "role": "Luke's astromech; appears in Jedi Temple and transit scenes.",
+      "initial_location": "Jedi Temple / Luke's fighter",
+      "initial_emotional_state": "chirpy"
+    },
+    {
+      "name": "Chewbacca",
+      "role": "Han's deceased Wookiee co-pilot; referenced in memory and on the Falcon's presence. (Chewbacca died in Vector Prime, 25 ABY, fifteen years before this book; Allston honors the canon by not resurrecting him.) Referenced but does not appear.",
+      "initial_location": "Deceased — referenced",
+      "initial_emotional_state": "deceased; honored memory"
+    },
+    {
+      "name": "Allana Djo",
+      "role": "Jacen and Tenel Ka's infant daughter, born in secret; referenced in Jacen's interior only, never named on page in this book. The love Lumiya argues Jacen can wield as Sith power without falling.",
+      "initial_location": "Hapes (with Tenel Ka)",
+      "initial_emotional_state": "infant; unaware"
+    },
+    {
+      "name": "Ta'a Chume",
+      "role": "Hapan royal matriarch; background presence in the Hapan wedding backdrop (Ch 5).",
+      "initial_location": "Hapes",
+      "initial_emotional_state": "regal"
+    },
+    {
+      "name": "Dammant Killers",
+      "role": "Corellian paramilitary squad operating the Adumar missile facility; killed by Jacen and Nelani in Chapter 2. Collective referent for the opening antagonist cell.",
+      "initial_location": "Adumar, missile factory",
+      "initial_emotional_state": "hostile"
+    }
+  ],
+  "relationship_arcs": [
+    {
+      "dyad": "Jacen/Lumiya",
+      "arc_type": "deepening",
+      "arc_summary": "From 'dark-hooded enemy in a dream' (Ch 1) to 'acknowledged teacher' (Ch 28) to 'tactical executor of her plan' (Ch 33). The relationship deepens in the darkest possible sense — each successive meeting consolidates Jacen's commitment to her philosophical frame.",
+      "ghost": "Jacen killed Shira Brie (Lumiya's earlier identity) during the Vong war. The connection is known to Lumiya and not known to Jacen in this book.",
+      "lie": "That a Sith teacher and a Jedi student can work together without the student crossing any line he cannot walk back.",
+      "want": "Jacen wants the teaching; Lumiya wants the heir.",
+      "need": "Jacen needs to see the teacher as an adversary and refuse; the book denies him this.",
+      "arc_phase_map": {
+        "initial_state": "1",
+        "first_crack": "20",
+        "breaking_point": "28",
+        "resolved_state": "33"
+      },
+      "payoff_chapter": 33
+    },
+    {
+      "dyad": "Jacen/Ben",
+      "arc_type": "rupturing",
+      "arc_summary": "From cousin-mentor closeness (Ch 1-2 Adumar investigation) to a gap Ben cannot name (Ch 30-33) to a memory Jacen erases from Ben's mind (Ch 34). The relationship survives outwardly and is privately cut at the root.",
+      "ghost": "Ben's childhood admiration of Jacen, the older cousin who is fully present when Luke is too busy.",
+      "lie": "That Jacen is protecting Ben by withholding.",
+      "want": "Ben wants to earn Jacen's trust; Jacen wants Ben to remain safely outside the calculations he has begun to make.",
+      "need": "Ben needs to trust his own Force-sense about his cousin; Jacen needs to refuse the option of editing his cousin's memory.",
+      "arc_phase_map": {
+        "initial_state": "1",
+        "first_strain": "24",
+        "breaking_point": "33",
+        "resolved_state": "34"
+      },
+      "payoff_chapter": 34
+    },
+    {
+      "dyad": "Luke/Mara",
+      "arc_type": "static",
+      "arc_summary": "Intentionally static for thematic contrast. The book shows a Jedi marriage operating under extreme institutional pressure and refuses to break it. Their professional disagreements about how hard to hunt are resolved within the marriage; the marriage is never in doubt.",
+      "ghost": "None active — the partnership's foundations are settled.",
+      "lie": "None — they are straight with each other.",
+      "want": "Keep Ben safe; keep the Order steady; identify the dark enemy.",
+      "need": "Nothing new.",
+      "arc_phase_map": {
+        "initial_state": "1",
+        "resolved_state": "34"
+      },
+      "payoff_chapter": 34
+    },
+    {
+      "dyad": "Han/Leia",
+      "arc_type": "rupturing",
+      "arc_summary": "Operational rupture that stops short of emotional rupture. Han sides with Corellia; Leia refuses; they separate into two working units (Han goes to Corellia; Leia operates from the Falcon as a Jedi independent). The book is explicit that the marriage endures; what ruptures is the shared institutional posture.",
+      "ghost": "Thirty years of aligning operationally on every prior crisis. Alderaan as the thing that has always bonded them over Corellia.",
+      "lie": "That this specific war can be navigated the way their previous joint crises were.",
+      "want": "Han: save Corellia. Leia: find a third way. Both: hold the marriage.",
+      "need": "Accept that they will not be on the same side of this war and that the marriage can hold that strain.",
+      "arc_phase_map": {
+        "initial_state": "3",
+        "first_strain": "11",
+        "breaking_point": "22",
+        "resolved_state": "34"
+      },
+      "payoff_chapter": 34
+    },
+    {
+      "dyad": "Luke/Jacen",
+      "arc_type": "rupturing",
+      "arc_summary": "From uncle-and-trusted-nephew (Ch 1-7) through growing philosophical distance (Ch 16-27) to the Ch 34 moment where Luke senses a new Sith and does not identify his own nephew. The rupture is unannounced on Luke's side and deliberate on Jacen's.",
+      "ghost": "Luke trained Jacen. Vergere re-trained him. Luke has not fully integrated what Vergere left behind.",
+      "lie": "That Jacen is still the apprentice Luke raised.",
+      "want": "Luke wants Jacen protected and the Order neutral; Jacen wants Luke to bless an activism Luke will not endorse.",
+      "need": "Luke needs to see the person standing in front of him; Jacen needs to be seen. Neither happens in this book.",
+      "arc_phase_map": {
+        "initial_state": "1",
+        "first_crack": "16",
+        "breaking_point": "33",
+        "resolved_state": "34"
+      },
+      "payoff_chapter": 34
+    },
+    {
+      "dyad": "Mara/Tresina",
+      "arc_type": "rupturing",
+      "arc_summary": "Thirty-year friendship severed by Toryaz bombing. Tresina dies in Ch 18-19; Mara's grief becomes operational within the same chapter. The relationship-level grief is a pressure Mara carries into every subsequent chapter without speaking of it.",
+      "ghost": "A friendship that pre-dates Luke.",
+      "lie": "That diplomatic settings like Toryaz are safe for Jedi presences.",
+      "want": "Mara wants her friend back; the book will not give her that.",
+      "need": "Channel the grief into a hunt that serves the book's larger arc without poisoning Mara's judgment.",
+      "arc_phase_map": {
+        "initial_state": "1",
+        "breaking_point": "19",
+        "resolved_state": "34"
+      },
+      "payoff_chapter": 19
+    },
+    {
+      "dyad": "Ben/Luke",
+      "arc_type": "deepening",
+      "arc_summary": "Father and son, mostly out of synch at the start because Luke is running an Order and Ben is a teenager, arriving at a quiet end-of-book alignment. The final pages have Luke looking for Ben in the Force when the new-Sith sense arrives; Ben, unknowingly, looks back.",
+      "ghost": "Luke's institutional absence during Ben's early years.",
+      "lie": "That Luke can be the Grand Master and a fully present father simultaneously.",
+      "want": "Ben wants his father's attention; Luke wants his son's safety.",
+      "need": "Both need to recognize, without speaking, that their Jedi bond is intact regardless of competing pulls.",
+      "arc_phase_map": {
+        "initial_state": "1",
+        "deepening_trust": "20-30",
+        "resolved_state": "34"
+      },
+      "payoff_chapter": 34
+    }
+  ],
+  "force_mechanics": {
+    "primary_rule": "The Force shows fragmentary, interpretable futures. A strong precognitive can see multiple forking outcomes simultaneously and must choose which interpretation to act on; the choice itself is morally loaded, because the act of choosing which future to close is a use of power, not a reading of destiny.",
+    "implications": [
+      "Jacen's decision to kill Nelani is rendered as a choice between forks — he sees a future in which she survives and one consequence of that survival is Luke's death in a later duel with him — which makes the killing a calculation, not a reaction.",
+      "Luke's premonition of the dark-hooded enemy is a fragment, not a face — the Force is withholding specificity, which is part of why he cannot name Jacen as the threat until the final pages.",
+      "Vergere's teaching that the Jedi light/dark distinction is institutional rather than metaphysical is the theological substrate for Jacen's reasoning; the book presents it as a seductive frame without endorsing it.",
+      "Force-memory manipulation (Jacen's editing of Ben's asteroid-trip memory in Ch 34) is presented as a dark-side application, named in the narration but not by Jacen."
+    ],
+    "canon_grounding": "Legends Jedi Order metaphysics as of 40 ABY. Light and Dark Sides of the Force as real distinctions (notwithstanding Vergere's and Lumiya's revisionism). Sith as a distinct order from Jedi. Precognition as a documented Jedi ability since the films. The book does not introduce new Force mechanics; it rearranges existing ones into a morally ambiguous frame."
+  },
+  "canon_constraints": {
+    "continuity": "Star Wars Legends Expanded Universe, 40 ABY — specifically, Legacy of the Force series setup immediately following the Dark Nest trilogy (Troy Denning, 2005) and preceding Bloodlines (Karen Traviss, August 2006, Book 2 of LOTF).",
+    "divergence_point": "None — this is a main-line Legends text, not an AU.",
+    "canon_preserved": [
+      "Chewbacca remains dead (Vector Prime, 25 ABY) — Allston does not resurrect him.",
+      "Jacen Solo is a Jedi Knight shaped by Vergere; Anakin Solo is dead; Jaina Solo is Jacen's twin and is paired with Zekk.",
+      "Luke Skywalker is Grand Master; Mara Jade is his wife and Ben's mother; the Jedi Order operates from the rebuilt Coruscant Temple.",
+      "Han and Leia are married with three children (Jacen, Jaina, and the deceased Anakin); Leia is a Jedi Knight in late-life training.",
+      "Wedge Antilles is retired on Corellia; his daughter Syal was taken into the Empire as a child (background from earlier Allston material).",
+      "The Galactic Alliance is the ruling galactic polity, with Cal Omas as Chief of State and Gilad Pellaeon as Supreme Commander.",
+      "Centerpoint Station as the Corellian super-weapon of questionable control; its history and mechanism from prior Corellian-trilogy material.",
+      "Tenel Ka is Queen Mother of Hapes; her relationship with Jacen and the existence of their daughter Allana are canon at this point in Legends.",
+      "Lumiya is a known Dark Lady of the Sith from the late Marvel run and the Shadows of the Empire era; her Shira Brie identity is canonical."
+    ],
+    "canon_overridden": [],
+    "style_constraints": [
+      "Multi-POV ensemble with frequent in-chapter POV shifts; scene-break markers lost in EPUB conversion must be restored empirically from POV shifts.",
+      "Allston's dialogue-forward cadence — characters talk their way through setups that other authors would narrate.",
+      "Aerial combat written with Rogue Squadron precision when present; fighter and freighter choreography is meticulous.",
+      "Dry humor threaded through violence — a scene can contain both a killing and a bad pun without tonal rupture.",
+      "Jedi/Sith philosophical dialogue is extensive but never prolix — Lumiya's seductions are short paragraphs, not monologues.",
+      "Adult register throughout; violence and political cynicism are frankly shown without gratuitous dwelling."
+    ]
+  },
+  "structural_notes": {
+    "brooks_alignment": {
+      "part_1_setup": "Chapters 1-2. Luke's dream of the dark enemy; the Adumar investigation; Jacen and Ben uncover the Dammant Killers missile factory and kill the cell; Nelani Dinn established as Jedi Knight on the ground. Tone, cast, and moral register locked.",
+      "inciting_incident": "Chapter 1 — Luke senses a dark enemy in the Force and cannot name the threat. The galactic-level disturbance has already landed.",
+      "first_plot_point": "Chapter 7 — the Alliance commits to garrisoning Corellian space. The political crisis is no longer deniable; the book's ensemble is locked into opposed sides.",
+      "part_2_response": "Chapters 3-8. Hapan wedding assassination attempt; Han and Leia are drawn to Corellia; Jacen's GA-aligned activism begins to harden; Jedi Council factional disagreement surfaces.",
+      "first_pinch_point": "Chapter 9 or 13 — Aidel Saxan assassinated (most likely Ch 13 window); Thrackan Sal-Solo installed as Governor-General. The Corellian war has a face, and it is Han's cousin.",
+      "midpoint": "Chapters 15-16 — the Galactic Alliance operation at Centerpoint Station, Admiral Klauskin's breakdown, Centerpoint disabled or destroyed. The war's first irrevocable act; shifts the story from response to attack.",
+      "part_3_attack": "Chapters 17-27. Toryaz Station peace summit is bombed (Second Pinch, Ch 18-19); Lumiya makes first face-to-face contact with Jacen (Ch 20-23); Ben is courted by the nascent Galactic Alliance Guard (Ch 24-27); Corellian insurgent operations escalate.",
+      "second_pinch_point": "Chapter 19 — Toryaz Station bombing kills Tresina Lobi and collapses the peace effort. Mara's oldest friend is the cost.",
+      "second_plot_point": "Chapter 28 — Jacen agrees to travel to Vectivus's asteroid training nexus with Lumiya. The final information he needs to act on the corruption arc is acquired.",
+      "part_4_resolution": "Chapters 29-34. Asteroid infiltration; Vectivus visions; Lumiya's identity as the dark-hooded enemy confirmed to the reader; Nelani Dinn tracks Jacen and is killed by him; Ben's memory of the trip is erased; Luke senses a new Sith in the Force and does not name the nephew he shares a household with. 'He exists.'",
+      "climax": "Chapters 30-33 — Vectivus asteroid sequence peaking with Jacen's murder of Nelani Dinn (Ch 33). The book's thematic climax is Jacen's first irreversible act, not a battle."
+    }
+  },
+  "voice_definition": {
+    "pov_approach": "Third-person limited, multi-POV ensemble. Scene-level POV ownership with frequent in-chapter rotations between principal POVs (Jacen, Ben, Luke, Mara, Han, Leia). Secondary POVs (Nelani, Lumiya, Klauskin, Saxan, Thrackan, Wedge) are used sparingly and are always clearly owned within their scenes. No omniscient narration beyond the book-opening atmospheric paragraph.",
+    "prose_register": "Allston's dialogue-forward register. Scenes built as conversations with minimal interior reflection; when interior comes, it is tightly focused on a single question. Combat choreography is Rogue-Squadron-precise and diegetically paced. Political dialogue is functional, not exposition-heavy. Humor is dry, rarely drawn attention to, and frequently delivered through the Solo voices.",
+    "reference_authors": [
+      {
+        "author": "Aaron Allston",
+        "what_to_emulate": "Dialogue-forward scene construction; ensemble POV piloting; dry, integrated humor; fighter and freighter combat written with the precision of an actual pilot writer; political worldbuilding delivered through argument rather than exposition.",
+        "what_to_avoid": "Don't over-lean on the humor register when scenes are darkening — the book's late chapters are genuinely grim and Allston lets them be grim without relief."
+      },
+      {
+        "author": "Timothy Zahn",
+        "what_to_emulate": "Sith-politics complexity and the treatment of Force-using antagonists as thinkers rather than screamers — the Lumiya voice in particular should read as considered, articulate, patient.",
+        "what_to_avoid": "Don't let any Sith or Jedi voice become a lecture; Lumiya wins the reader's attention by restraint."
+      }
+    ],
+    "character_voices": {
+      "Jacen Solo": "Measured, probing, quietly certain. Thinks in forks and probabilities. Does not shout or swear. Uses 'Uncle Luke' and 'Master Skywalker' as situational registers.",
+      "Ben Skywalker": "Thirteen-year-old direct-to-the-point cadence. Short sentences. Occasional dry jokes at his own expense. Uses 'Mom,' 'Dad,' 'Jacen' without ceremony.",
+      "Luke Skywalker": "Spare, authoritative, gentle with his son. Rarely a figure of speech where a direct statement will do. 'I sense' more often than 'I think.'",
+      "Mara Jade Skywalker": "Dry, operational, warmest inside the family. Lands a joke per chapter; holds grief privately; uses 'Skywalker' as endearment and 'Solo' as mild dissent.",
+      "Han Solo": "Older-Harrison-Ford cadence. Contractions always. Corellian pride runs louder in this book than in most; the marriage register is still intact.",
+      "Leia Organa Solo": "Crisp, diplomatic, increasingly willing to say the unpleasant thing directly. Drops 'flyboy' once per book.",
+      "Nelani Dinn": "Young-Knight professional cadence. Curious, collegial, by-the-book. Never ironic about the Code.",
+      "Lumiya": "Patient, articulate, never raises her voice. Addresses Jacen as 'young Solo' or 'Jedi Solo' depending on the argument she is making. Does not threaten; explains.",
+      "Thrackan Sal-Solo": "Blustering-Corellian-politician register; bully-with-a-gavel.",
+      "Aidel Saxan": "Defiant-statesman cadence; short sentences; zero courtly register.",
+      "Cal Omas": "Harried-Chief-of-State; professional; never at ease.",
+      "Admiral Klauskin": "Cracked-professional; breaks into second-person addresses to his dead wife under stress.",
+      "Wedge Antilles": "Retired-fighter-pilot understatement; everything through the throttle.",
+      "Tenel Ka": "Hapan-royal-precise; one-handed swordswoman's economy in every sentence."
+    },
+    "anti_slop_rules": [
+      "No mid-book revelation of Lumiya's identity — the book manages the reveal gradually; the text never tips who the dark enemy is before Jacen meets her on the asteroid.",
+      "No Jedi-on-Jedi rhetorical beatdowns; philosophical disagreements are resolved (or not) at the level of a short exchange, not a monologue.",
+      "No in-dialogue fan-service for earlier Allston books — Wedge references are earned by the Corellian plot, not by nostalgia.",
+      "No 'chosen one' or 'prophecy' framing of Jacen's fall — the book explicitly rejects prophecy structure in favor of choice.",
+      "No romance-on-page between Jacen and Tenel Ka in this book — their relationship is referenced but not enacted."
+    ],
+    "anti_patterns": [
+      "No prologue and no epigraph — the book opens on POV chapter 1.",
+      "No Jedi Council omniscient-narration scenes — council sessions are written from a specific POV's seat.",
+      "No 'Sith laugh' tropes — Lumiya never laughs in villainy.",
+      "No 'Emperor's return' hooks — the book is explicit that Palpatine is dead and Lumiya is his heir by philosophical descent only."
+    ],
+    "force_description_guidelines": "Phenomenological rather than mechanistic. 'He sensed' over 'he read.' Precognitive visions described as fragmentary and forking rather than sequential — Jacen sees branches, not a movie. Lightsaber combat is described at the body level (breath, footwork, angle of cut) rather than the saber-color level. Dark-side uses are named in the narration (e.g., 'a dark-side application') when a neutral reader would not know, without the character acknowledging the naming.",
+    "pacing_feel": "Political thriller cadence across Acts 1-2, escalating to operational-thriller in Act 3, resolving into philosophical horror in Acts 4. Chapters average ~3,800 words each with significant variance (2,180 at shortest, 6,030 at longest). No chapter runs over 6,000 words.",
+    "narrative_voice_notes": "The book-opening paragraph is a rare omniscient flourish — a cosmic-scale 'hyperspace' panorama that pulls down into Luke's Coruscant bedroom. The rest of the book is strict third-limited. The narration never editorializes on Jacen's moral slide; it shows the slide and lets the reader name it."
+  },
+  "revelation_schedule": [
+    {
+      "revelation_id": "rev_luke_dream_of_dark_enemy",
+      "what": "Luke Skywalker has a recurring Force-dream of a dark-hooded enemy whose face he cannot see. The book will not name this enemy until the final pages; the reader, once Lumiya is established, will privately identify her in the dream.",
+      "known_by": [
+        "Luke",
+        "Mara"
+      ],
+      "revealed_to": [
+        "reader"
+      ],
+      "revealed_in": 1,
+      "impact": "Establishes the book's spine: an adversary is already moving and the Jedi leadership knows it without being able to name it.",
+      "setup_required": "Luke's Ch 1 vision with Mara on the balcony.",
+      "significance": "major"
+    },
+    {
+      "revelation_id": "rev_jacen_moral_slide",
+      "what": "Jacen Solo has been privately conducting philosophical work that puts him outside Jedi-Council consensus, and is willing to act on that work in a crisis.",
+      "known_by": [
+        "Jacen"
+      ],
+      "revealed_to": [
+        "reader"
+      ],
+      "revealed_in": 2,
+      "impact": "First indication to the reader that the book's tragic protagonist is already ethically heterodox. Jacen's willingness to kill Dammant Killers one-and-done without extended deliberation lands differently than the same action performed by Luke or Mara would.",
+      "setup_required": "Vergere references in Jacen's interior; the Dammant Killers action.",
+      "significance": "moderate"
+    },
+    {
+      "revelation_id": "rev_centerpoint_reactivated",
+      "what": "Centerpoint Station — the Corellian-system super-weapon of prior continuity — is not disarmed; Corellian engineers are working to bring it back online as a deterrent against the Galactic Alliance fleet.",
+      "known_by": [
+        "Corellian leadership",
+        "Dr. Arisster"
+      ],
+      "revealed_to": [
+        "reader",
+        "GA intelligence",
+        "Han",
+        "Leia"
+      ],
+      "revealed_in": 8,
+      "impact": "Escalates the Corellian crisis from garrison standoff to super-weapon arms race. Forces the Alliance to commit to the Ch 15-16 Centerpoint operation.",
+      "setup_required": "Prior-continuity references to Centerpoint; Corellian system intelligence dispatches in Ch 4-7.",
+      "significance": "major"
+    },
+    {
+      "revelation_id": "rev_aidel_saxan_assassinated",
+      "what": "Aidel Saxan, Prime Minister of Corellia, is assassinated during the First Pinch window. Thrackan Sal-Solo moves into the governance vacuum as Governor-General.",
+      "known_by": [
+        "assassins",
+        "Dur Gejjen"
+      ],
+      "revealed_to": [
+        "reader",
+        "Alliance",
+        "Han",
+        "Leia",
+        "Jedi"
+      ],
+      "revealed_in": 13,
+      "impact": "Personalizes the Corellian war for Han (Thrackan is his cousin) and ends any hope of a diplomatic resolution via Saxan. Gives the Corellian war a villain who is Han's blood relation.",
+      "setup_required": "Saxan appearances Ch 3-12; Dur Gejjen shadow in Ch 9-12.",
+      "significance": "major"
+    },
+    {
+      "revelation_id": "rev_centerpoint_disabled",
+      "what": "The GA commando operation at Centerpoint succeeds in disabling or destroying the station. Admiral Klauskin, who commands the operation, breaks under the weight of it.",
+      "known_by": [
+        "Klauskin",
+        "GA command"
+      ],
+      "revealed_to": [
+        "reader",
+        "galaxy-wide",
+        "Han",
+        "Leia",
+        "Corellia"
+      ],
+      "revealed_in": 16,
+      "impact": "The book's first irrevocable act of the war. Hardens Corellian resolve, ends the strategic center of gravity that was holding both sides in a cold-war posture.",
+      "setup_required": "Klauskin's strain scenes Ch 10-15; the commando operation Ch 15-16.",
+      "significance": "major"
+    },
+    {
+      "revelation_id": "rev_toryaz_bombing",
+      "what": "The Toryaz Station peace summit is bombed. Jedi Master Tresina Lobi — Mara Jade's oldest friend — is among the dead. The bombing is arranged or permitted by Lumiya as part of her calculus.",
+      "known_by": [
+        "Lumiya",
+        "Corellian insurgent cell"
+      ],
+      "revealed_to": [
+        "reader",
+        "Mara",
+        "Luke",
+        "Jedi Order",
+        "Alliance"
+      ],
+      "revealed_in": 19,
+      "impact": "Second Pinch. Collapses the peace option. Unlocks Mara's independent hunt for the Sith survivor. Personalizes the war for the Skywalker household.",
+      "setup_required": "Toryaz summit established Ch 17-18; Tresina Lobi established as Mara's oldest friend in Ch 17; Lumiya's off-page orchestration hinted in Ch 18.",
+      "significance": "major"
+    },
+    {
+      "revelation_id": "rev_lumiya_meets_jacen",
+      "what": "Lumiya makes her first direct approach to Jacen Solo, introducing herself as a Sith survivor who has been watching him for years and who has a teaching offer to make.",
+      "known_by": [
+        "Lumiya"
+      ],
+      "revealed_to": [
+        "reader",
+        "Jacen"
+      ],
+      "revealed_in": 20,
+      "impact": "Names the antagonist to the reader. Begins the seduction arc in earnest. Establishes Lumiya's premise — a Sith with love in her heart — as a philosophical frame Jacen must either reject or explore.",
+      "setup_required": "Luke's dream of the dark enemy (ch 1); Lumiya's tassels referenced Ch 9-13; Mara's half-recognition Ch 17.",
+      "significance": "major"
+    },
+    {
+      "revelation_id": "rev_ben_offered_gag",
+      "what": "Ben Skywalker is offered a commission in the nascent Galactic Alliance Guard — a paramilitary wing designed to give Jedi authority on internal-security matters.",
+      "known_by": [
+        "Cal Omas",
+        "Jacen",
+        "GAG founders"
+      ],
+      "revealed_to": [
+        "reader",
+        "Ben",
+        "Luke",
+        "Mara"
+      ],
+      "revealed_in": 24,
+      "impact": "Forces the book's juvenile-apprentice thematic fork into the open. Ben does not accept; the offer standing on the table is the hook that will be paid in the next book.",
+      "setup_required": "GAG formation beats Ch 17-22; Cal Omas conversations Ch 20-23.",
+      "significance": "moderate"
+    },
+    {
+      "revelation_id": "rev_vectivus_asteroid",
+      "what": "The asteroid training nexus Lumiya is taking Jacen to belonged to Darth Vectivus, a long-dead Sith Lord whom Lumiya cites as an exemplar of a Sith who loved without falling.",
+      "known_by": [
+        "Lumiya"
+      ],
+      "revealed_to": [
+        "reader",
+        "Jacen",
+        "eventually Nelani"
+      ],
+      "revealed_in": 28,
+      "impact": "Gives Lumiya's argument a concrete historical exemplar. Establishes the climactic setting.",
+      "setup_required": "Lumiya's philosophical introductions Ch 20-23; Jacen's acceptance Ch 28.",
+      "significance": "moderate"
+    },
+    {
+      "revelation_id": "rev_vectivus_sith",
+      "what": "Vectivus was a Sith — not merely a reclusive Force-user of the past, as Lumiya's opening framing implied. The visions at the asteroid make this explicit.",
+      "known_by": [
+        "Lumiya"
+      ],
+      "revealed_to": [
+        "reader",
+        "Jacen",
+        "Nelani"
+      ],
+      "revealed_in": 29,
+      "impact": "Closes the question of what kind of philosophy Jacen is actually receiving. Gives the climax the weight of a Sith-lineage transmission rather than a heterodox Force lesson.",
+      "setup_required": "Vectivus asteroid established Ch 28; Lumiya's tassels and saber handling Ch 29-30.",
+      "significance": "major"
+    },
+    {
+      "revelation_id": "rev_nelani_tracks_jacen",
+      "what": "Nelani Dinn has tracked Jacen to the Vectivus asteroid, assembled enough evidence to accuse him of consorting with a Sith, and is there to arrest him.",
+      "known_by": [
+        "Nelani"
+      ],
+      "revealed_to": [
+        "reader",
+        "Jacen",
+        "Ben",
+        "Lumiya"
+      ],
+      "revealed_in": 32,
+      "impact": "Puts the moral argument of the book directly in front of Jacen. Nelani is every bit as competent and conscientious a Jedi as Jacen, and she has done the work.",
+      "setup_required": "Nelani's off-page investigation through Ch 17-28; her Adumar partnership with Jacen (Ch 1-2) as the reason she is watching his file.",
+      "significance": "major"
+    },
+    {
+      "revelation_id": "rev_jacen_kills_nelani",
+      "what": "Jacen Solo kills Jedi Knight Nelani Dinn in the Vectivus asteroid's chambers, after seeing in the Force a future in which her survival leads to his later duel with Luke. It is his first irreversible step onto the dark path.",
+      "known_by": [
+        "Jacen",
+        "Lumiya"
+      ],
+      "revealed_to": [
+        "reader"
+      ],
+      "revealed_in": 33,
+      "impact": "The book's thematic climax. Converts Jacen's corruption arc from inclination to enactment. Nothing after this chapter is recoverable for his arc.",
+      "setup_required": "The fork-vision mechanic established in Ch 20-28; Nelani's arrival Ch 32; Jacen's argument with her Ch 33 before the kill.",
+      "significance": "climactic"
+    },
+    {
+      "revelation_id": "rev_ben_memory_erased",
+      "what": "Jacen uses a dark-side memory-edit on Ben to remove the asteroid trip from Ben's conscious recollection. Ben returns to Coruscant not remembering where he has been.",
+      "known_by": [
+        "Jacen",
+        "Lumiya"
+      ],
+      "revealed_to": [
+        "reader"
+      ],
+      "revealed_in": 34,
+      "impact": "Names, for the reader, that Jacen has crossed not only into active killing but into the application of dark-side technique on his own cousin. The book's quietest, most devastating confirmation.",
+      "setup_required": "Ben's presence at the asteroid established Ch 29-33; the memory edit performed off-page between Ch 33 and Ch 34.",
+      "significance": "climactic"
+    },
+    {
+      "revelation_id": "rev_he_exists",
+      "what": "Luke Skywalker, meditating in the final chapter, senses a new Sith presence in the Force — and does not know it is his nephew. Says, aloud to Mara, words to the effect: 'He exists.'",
+      "known_by": [
+        "Luke",
+        "Mara"
+      ],
+      "revealed_to": [
+        "reader"
+      ],
+      "revealed_in": 34,
+      "impact": "The book's close. Sets the next eight books in motion by establishing that the Jedi leadership senses a new Sith without being able to identify him. The structural irony of Luke's blindness to Jacen's identity is the series' engine.",
+      "setup_required": "Luke's Ch 1 dream; Luke's meditative scenes Ch 15-27; Jacen's Ch 33 first kill.",
+      "significance": "climactic"
+    }
+  ],
+  "author_only_secrets": "Lumiya is Shira Brie — the Emperor's agent and Rebellion-era villain from the Marvel comics — resurrected (again) and hiding behind veil and hood. She is Jacen Solo's biological aunt through the Solo side: specifically, she was Luke Skywalker's romantic target in a specific stretch of the Marvel run and is genetically related to the Solo family only through shared in-continuity backstory convolutions that Allston does not attempt to reconcile here. The book declines to disclose these connections explicitly; later LOTF volumes (particularly Traviss's Bloodlines and Revelation, and Denning's Invincible) carry them. For Betrayal-level planning purposes, the relevant unstated truth is: Lumiya is choosing Jacen specifically because she identifies him as the heir to her Sith lineage, and the decision has a biographical component she has not yet shared with him.",
+  "terminology_registry": [
+    {
+      "term": "Galactic Alliance",
+      "aliases": [
+        "the Alliance",
+        "GA"
+      ],
+      "category": "faction",
+      "definition": "The ruling galactic polity circa 40 ABY, successor to the New Republic after the Yuuzhan Vong war. Cal Omas is Chief of State; Gilad Pellaeon is Supreme Commander of the fleet.",
+      "first_appearance": 1
+    },
+    {
+      "term": "Jedi Order",
+      "aliases": [
+        "the Order"
+      ],
+      "category": "organization",
+      "definition": "The rebuilt Jedi Order led by Grand Master Luke Skywalker from the restored Coruscant Temple.",
+      "first_appearance": 1
+    },
+    {
+      "term": "Sith",
+      "aliases": [
+        "the Sith"
+      ],
+      "category": "faction",
+      "definition": "The dark-side Order Lumiya carries forward from the Emperor's era. Single surviving operational practitioner at the book's open.",
+      "first_appearance": 1
+    },
+    {
+      "term": "Galactic Alliance Guard",
+      "aliases": [
+        "GAG"
+      ],
+      "category": "organization",
+      "definition": "New paramilitary internal-security wing authorized by Cal Omas during the Corellian crisis. Given authority over Jedi in certain internal-security matters. Established mid-to-late book.",
+      "first_appearance": 17
+    },
+    {
+      "term": "Corellia",
+      "aliases": [
+        "the Corellian system"
+      ],
+      "category": "place_name",
+      "definition": "Han Solo's homeworld; center of the independence movement at the book's heart. Home of Centerpoint Station.",
+      "first_appearance": 3
+    },
+    {
+      "term": "Centerpoint Station",
+      "aliases": [
+        "Centerpoint"
+      ],
+      "category": "technology",
+      "definition": "Ancient Corellian-system super-weapon capable of large-scale stellar manipulation. Subject of the book's midpoint operation.",
+      "first_appearance": 8
+    },
+    {
+      "term": "Adumar",
+      "category": "place_name",
+      "definition": "Outer-Rim world hosting the Dammant Killers paramilitary cell and the opening-chapters missile facility.",
+      "first_appearance": 1
+    },
+    {
+      "term": "Hapes",
+      "aliases": [
+        "Hapes Consortium",
+        "Hapan"
+      ],
+      "category": "place_name",
+      "definition": "Matriarchal royal polity; home of Queen Mother Tenel Ka and the Hapan royal wedding at which Ch 5 is set.",
+      "first_appearance": 5
+    },
+    {
+      "term": "Toryaz Station",
+      "category": "place_name",
+      "definition": "Neutral space station hosting the failed Alliance/Corellia peace summit in the book's second pinch.",
+      "first_appearance": 17
+    },
+    {
+      "term": "Coruscant",
+      "category": "place_name",
+      "definition": "Galactic capital; site of the Jedi Temple, the Senate, and the Solo/Skywalker households.",
+      "first_appearance": 1
+    },
+    {
+      "term": "Vectivus asteroid",
+      "aliases": [
+        "the asteroid",
+        "Vectivus's training nexus"
+      ],
+      "category": "place_name",
+      "definition": "Abandoned Sith training nexus built into a deep-space asteroid; the book's climactic setting.",
+      "first_appearance": 28
+    },
+    {
+      "term": "Millennium Falcon",
+      "aliases": [
+        "the Falcon"
+      ],
+      "category": "technology",
+      "definition": "Han and Leia's YT-1300 Corellian light freighter; co-piloted in this book after Chewbacca's death by a rotating crew.",
+      "first_appearance": 3
+    },
+    {
+      "term": "Yuuzhan Vong",
+      "aliases": [
+        "the Vong"
+      ],
+      "category": "species",
+      "definition": "Extra-galactic invaders from the New Jedi Order era; referenced throughout Betrayal as the generation-defining war of the principals' recent past.",
+      "first_appearance": 1
+    },
+    {
+      "term": "lightsaber",
+      "category": "technology",
+      "definition": "Jedi and Sith signature weapon.",
+      "first_appearance": 1
+    },
+    {
+      "term": "Force",
+      "aliases": [
+        "the Force"
+      ],
+      "category": "magic_system",
+      "definition": "Star Wars metaphysics of the energy field binding all living things. Light side and Dark side distinctions treated as real in this book notwithstanding Vergere's revisionism.",
+      "first_appearance": 1
+    },
+    {
+      "term": "Sith lightwhip",
+      "category": "technology",
+      "definition": "Lumiya's signature weapon — an energy whip rather than a standard saber.",
+      "first_appearance": 23
+    },
+    {
+      "term": "Dammant Killers",
+      "category": "organization",
+      "definition": "Corellian paramilitary cell operating the Adumar missile facility. Dispatched in Chapter 2.",
+      "first_appearance": 1
+    },
+    {
+      "term": "Dur Gejjen",
+      "category": "character_name",
+      "definition": "Corellian political conspirator behind Saxan's downfall. Shadow presence Ch 9-13.",
+      "first_appearance": 9
+    },
+    {
+      "term": "X-wing",
+      "category": "technology",
+      "definition": "Alliance and Jedi fighter of choice; Luke's fighter in this book.",
+      "first_appearance": 15
+    },
+    {
+      "term": "TIE fighter",
+      "aliases": [
+        "TIE"
+      ],
+      "category": "technology",
+      "definition": "Imperial-legacy starfighter. Corellian paramilitaries operate variants thereof.",
+      "first_appearance": 17
+    },
+    {
+      "term": "ABY",
+      "category": "cultural_term",
+      "definition": "In-universe shorthand for After the Battle of Yavin — the galactic dating convention. Used by the planning artifacts only, not by in-book prose.",
+      "first_appearance": 1
+    },
+    {
+      "term": "bloodstripes",
+      "aliases": [
+        "Corellian Bloodstripes"
+      ],
+      "category": "cultural_term",
+      "definition": "Corellian military honor markings that Han wears on formal days.",
+      "first_appearance": 3
+    }
+  ],
+  "stress_test_scores": {
+    "structural_integrity": null,
+    "character_depth": null,
+    "hook_discipline": null,
+    "thematic_resonance": null,
+    "conflict_architecture": null,
+    "pacing_and_proportion": null,
+    "lore_and_continuity": null,
+    "world_building_coherence": null,
+    "series_coherence": null,
+    "overall": null
+  },
+  "subplots": [
+    {
+      "subplot_id": "sub_adumar_investigation",
+      "name": "Adumar missile-factory investigation",
+      "function": "Opening arc — Act 1 engine; introduces Jacen/Ben/Nelani working cohort.",
+      "arc_summary": "Jacen, Ben, and Nelani Dinn are dispatched to Adumar to investigate reports of Corellian paramilitary activity; they locate the Dammant Killers missile factory, raid it, and kill the cell. Resolved at the end of Chapter 2 when the facility is destroyed; consequences echo through the book as the first on-page Corellian-paramilitary contact.",
+      "chapters_active": [
+        1,
+        2
+      ]
+    },
+    {
+      "subplot_id": "sub_corellian_crisis",
+      "name": "Corellian independence crisis",
+      "function": "Central political spine.",
+      "arc_summary": "Corellian independence rhetoric → GA garrison posture → Saxan assassination → Thrackan installation → Centerpoint operation → Toryaz peace summit → open war. The exterior antagonist spine across the entire book.",
+      "chapters_active": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        30,
+        31,
+        32,
+        34
+      ]
+    },
+    {
+      "subplot_id": "sub_centerpoint_sabotage",
+      "name": "Centerpoint Station reactivation and disabling",
+      "function": "Midpoint engine.",
+      "arc_summary": "Corellian engineers work to bring Centerpoint online; GA intelligence confirms; GA command plans the Klauskin commando operation; operation executed in Ch 15-16; station disabled; Klauskin breaks.",
+      "chapters_active": [
+        8,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ]
+    },
+    {
+      "subplot_id": "sub_operation_roundabout",
+      "name": "Operation Roundabout — GA planning and deployment",
+      "function": "Alliance-side operational armature.",
+      "arc_summary": "The Galactic Alliance's strategic response to the Corellian crisis, named and planned in the Ch 9-14 window; executed in the Ch 15-16 Centerpoint operation and the Ch 24-27 broader escalation.",
+      "chapters_active": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        24,
+        25,
+        26,
+        27
+      ]
+    },
+    {
+      "subplot_id": "sub_toryaz_diplomacy",
+      "name": "Toryaz Station peace summit",
+      "function": "Second pinch.",
+      "arc_summary": "Alliance and Corellian delegations, with Jedi present, attempt a summit on neutral Toryaz Station. Bombed; Tresina Lobi killed; summit collapses. The book's most visible diplomatic-to-kinetic hinge.",
+      "chapters_active": [
+        17,
+        18,
+        19,
+        20
+      ]
+    },
+    {
+      "subplot_id": "sub_lumiya_seduction",
+      "name": "Lumiya's seduction of Jacen",
+      "function": "Interior antagonist spine.",
+      "arc_summary": "From dark-hooded-dream foreshadowing (Ch 1) through Lumiya's first on-page appearance in Jacen's path (Ch 20) to the Vectivus asteroid offer (Ch 23-28) to the climactic teaching that produces Jacen's first kill (Ch 29-33). The book's character-level engine.",
+      "chapters_active": [
+        1,
+        9,
+        17,
+        20,
+        21,
+        22,
+        23,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34
+      ]
+    },
+    {
+      "subplot_id": "sub_jacen_ben_apprenticeship",
+      "name": "Jacen's informal mentorship of Ben",
+      "function": "Relationship arc and thematic foil.",
+      "arc_summary": "Jacen takes Ben on the Adumar investigation (Ch 1-2), continues to work with him through the middle acts, brings him unwittingly to the Vectivus asteroid (Ch 29-33), and erases Ben's memory of the asteroid in Ch 34. The most intimate relationship the book corrupts.",
+      "chapters_active": [
+        1,
+        2,
+        7,
+        12,
+        20,
+        24,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34
+      ]
+    },
+    {
+      "subplot_id": "sub_han_leia_corellia",
+      "name": "Han and Leia on the Corellian question",
+      "function": "Marriage-level arc and second-tier political spine.",
+      "arc_summary": "Han's rising Corellian alignment and Leia's refusal to endorse either Alliance policing or Corellian insurgency; operational separation by book's end without emotional rupture.",
+      "chapters_active": [
+        3,
+        4,
+        5,
+        7,
+        10,
+        11,
+        12,
+        13,
+        14,
+        22,
+        24,
+        25,
+        28,
+        30,
+        31,
+        32,
+        34
+      ]
+    },
+    {
+      "subplot_id": "sub_wedge_syal",
+      "name": "Wedge Antilles and the Syal/Lysa Dunter identity hook",
+      "function": "Long-arc series hook; supporting POV arc.",
+      "arc_summary": "Wedge's declining to side in the Corellian war; his daughter Syal Antilles Fel operating under the 'Lysa Dunter' cover name as an Alliance fighter pilot; Doran Tainer as her husband. The identity is not resolved in this book; it is planted and carried forward.",
+      "chapters_active": [
+        6,
+        7,
+        15,
+        16,
+        22,
+        26,
+        27,
+        31,
+        32
+      ]
+    },
+    {
+      "subplot_id": "sub_klauskin_breakdown",
+      "name": "Admiral Klauskin's breakdown",
+      "function": "Human-cost register across the midpoint.",
+      "arc_summary": "GA admiral showing combat-stress symptoms from Ch 10 onward, seeing and hearing his dead wife under pressure; commands the Centerpoint operation in Ch 15-16 and breaks during/after it. A human-scale index of the midpoint's cost.",
+      "chapters_active": [
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ]
+    },
+    {
+      "subplot_id": "sub_hapan_wedding",
+      "name": "Hapan royal wedding assassination attempt",
+      "function": "Early-book escalation beat; establishes the inter-system diplomatic stakes.",
+      "arc_summary": "A Hapan royal wedding (ch 5 window) becomes the stage for an assassination attempt that pulls Jedi and Alliance principals off their current assignments and onto the Corellian crisis full-time.",
+      "chapters_active": [
+        5,
+        6
+      ]
+    },
+    {
+      "subplot_id": "sub_vectivus_asteroid",
+      "name": "Vectivus asteroid training sequence",
+      "function": "Climactic setting.",
+      "arc_summary": "Lumiya's proposal (Ch 23) → Jacen's acceptance (Ch 28) → asteroid arrival and Vectivus visions (Ch 29-31) → Nelani's arrival (Ch 32) → Jacen's first kill (Ch 33) → departure and memory edit (Ch 34). The book's final-act engine.",
+      "chapters_active": [
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34
+      ]
+    },
+    {
+      "subplot_id": "sub_luke_dream_line",
+      "name": "Luke's dark-enemy dream-line",
+      "function": "Structural frame.",
+      "arc_summary": "Luke's precognitive sense that a dark enemy is moving — opened in Ch 1, revisited at midpoint and throughout Act 3, never resolved specifically in this book. Paid off only in the Ch 34 'he exists' beat, which completes the frame without identifying the enemy.",
+      "chapters_active": [
+        1,
+        7,
+        15,
+        18,
+        19,
+        27,
+        32,
+        34
+      ]
+    }
+  ],
+  "hooks": [
+    {
+      "hook_id": "hook_dark_hooded_enemy",
+      "hook_type": "hard",
+      "planted_in": 1,
+      "resolved_in": 34,
+      "description": "Luke's Ch 1 dream of a dark-hooded enemy. Reader knows by Ch 20-23 that the enemy is Lumiya; the book keeps Luke unable to name her. Closed by the 'he exists' beat in Ch 34 without Luke identifying the hooded figure specifically."
+    },
+    {
+      "hook_id": "hook_adumar_investigation",
+      "hook_type": "hard",
+      "planted_in": 1,
+      "resolved_in": 2,
+      "description": "The Dammant Killers missile facility on Adumar. Discovered in Ch 1, destroyed in Ch 2. The book's opening escalation-arc, self-resolving in two chapters to set cast tone and stakes."
+    },
+    {
+      "hook_id": "hook_corellian_insurgency",
+      "hook_type": "hard",
+      "planted_in": 3,
+      "resolved_in": "next_book",
+      "description": "The Corellian independence crisis as the trilogy-scale war engine. The book ends with the war open and the peace summit dead. Paid off across the remaining eight LOTF books."
+    },
+    {
+      "hook_id": "hook_centerpoint_reactivation",
+      "hook_type": "hard",
+      "planted_in": 8,
+      "resolved_in": 16,
+      "description": "Corellian reactivation of Centerpoint Station. Resolved by the GA commando operation in Ch 15-16 that disables the station."
+    },
+    {
+      "hook_id": "hook_hapan_wedding_attempt",
+      "hook_type": "hard",
+      "planted_in": 5,
+      "resolved_in": 6,
+      "description": "Assassination attempt at the Hapan royal wedding. Resolves within two chapters; its function is to commit the principals to the Corellian response operationally rather than diplomatically."
+    },
+    {
+      "hook_id": "hook_saxan_assassination",
+      "hook_type": "hard",
+      "planted_in": 9,
+      "resolved_in": 13,
+      "description": "Aidel Saxan's increasingly exposed position as Prime Minister of Corellia. Resolved in Ch 13 by assassination; Thrackan installed."
+    },
+    {
+      "hook_id": "hook_klauskin_strain",
+      "hook_type": "hard",
+      "planted_in": 10,
+      "resolved_in": 16,
+      "description": "Admiral Klauskin's combat-stress symptoms. Resolved in Ch 15-16 by his operational collapse during/after the Centerpoint commando run."
+    },
+    {
+      "hook_id": "hook_toryaz_summit",
+      "hook_type": "hard",
+      "planted_in": 17,
+      "resolved_in": 19,
+      "description": "The Toryaz Station peace summit as the last diplomatic option. Resolved by bombing in Ch 19; Tresina Lobi's death is the pin on the hook."
+    },
+    {
+      "hook_id": "hook_gag_formation",
+      "hook_type": "hard",
+      "planted_in": 17,
+      "resolved_in": "next_book",
+      "description": "The Galactic Alliance Guard's formation and its offer to Ben Skywalker. Paid off in the next book (Bloodlines) when the GAG becomes the front for Jacen's institutional authority."
+    },
+    {
+      "hook_id": "hook_lumiya_tassels",
+      "hook_type": "hard",
+      "planted_in": 9,
+      "resolved_in": 20,
+      "description": "A decorated-tassel hem visible in Lumiya's peripheral appearances (Ch 9-17) that becomes identifying when she appears on-page in Ch 20. The book's quietest reveal hook."
+    },
+    {
+      "hook_id": "hook_lumiya_identity",
+      "hook_type": "hard",
+      "planted_in": 20,
+      "resolved_in": 29,
+      "description": "Lumiya as a Sith Lady in her own right, not merely a reclusive Force-user. Resolved when the Vectivus asteroid visions make the Sith lineage explicit in Ch 29."
+    },
+    {
+      "hook_id": "hook_vectivus_asteroid",
+      "hook_type": "hard",
+      "planted_in": 23,
+      "resolved_in": 33,
+      "description": "Lumiya's asteroid offer; the training nexus as destination. Resolved by the climactic Ch 33 kill at the asteroid chambers."
+    },
+    {
+      "hook_id": "hook_ben_gag_offer",
+      "hook_type": "hard",
+      "planted_in": 24,
+      "resolved_in": "next_book",
+      "description": "Ben Skywalker's offered GAG commission. Not accepted in this book; the open offer is the hook."
+    },
+    {
+      "hook_id": "hook_nelani_tracks_jacen",
+      "hook_type": "hard",
+      "planted_in": 28,
+      "resolved_in": 33,
+      "description": "Nelani Dinn's off-page investigation of Jacen. Resolves when she arrives at the Vectivus asteroid and is killed by him."
+    },
+    {
+      "hook_id": "hook_syal_identity",
+      "hook_type": "series",
+      "planted_in": 6,
+      "resolved_in": "next_book_and_series",
+      "description": "Syal Antilles Fel operating under the 'Lysa Dunter' cover. Not disclosed in this book; runs through LOTF."
+    },
+    {
+      "hook_id": "hook_ben_memory_edit",
+      "hook_type": "hard",
+      "planted_in": 33,
+      "resolved_in": 34,
+      "description": "Jacen's use of dark-side memory editing on Ben. Planted Ch 33-34 and resolved in Ch 34 when Ben wakes without the asteroid memory."
+    },
+    {
+      "hook_id": "hook_han_leia_split",
+      "hook_type": "soft",
+      "planted_in": 3,
+      "resolved_in": 34,
+      "description": "The Han/Leia operational split over Corellia. Resolves operationally in the final chapter when they commit to running the Falcon as independents."
+    },
+    {
+      "hook_id": "hook_he_exists",
+      "hook_type": "series",
+      "planted_in": 34,
+      "resolved_in": "next_book_and_series",
+      "description": "Luke's Ch 34 sense that a new Sith exists. The hook that launches the remaining LOTF arc."
+    }
+  ],
+  "promise_payoff_ledger": [
+    {
+      "promise_id": "promise_jacen_falls",
+      "promise": "By the end of this book Jacen Solo will take a first irreversible step onto the dark path — not a backsliding, but an act.",
+      "planted_in": 1,
+      "payoff_in": 33,
+      "type": "character",
+      "related_hook_id": "hook_vectivus_asteroid"
+    },
+    {
+      "promise_id": "promise_ben_does_not_fall",
+      "promise": "Ben Skywalker, offered every step of the same corruption pathway Jacen is offered, will refuse it.",
+      "planted_in": 1,
+      "payoff_in": 34,
+      "type": "character",
+      "related_hook_id": "hook_ben_gag_offer"
+    },
+    {
+      "promise_id": "promise_corellian_war",
+      "promise": "The Corellian independence crisis is a real war by book's end — diplomatic options closed, kinetic engagement open.",
+      "planted_in": 3,
+      "payoff_in": 19,
+      "type": "plot",
+      "related_hook_id": "hook_toryaz_summit"
+    },
+    {
+      "promise_id": "promise_dark_enemy_named",
+      "promise": "The reader — though not Luke — will know the identity of the dark enemy Luke has dreamed of.",
+      "planted_in": 1,
+      "payoff_in": 20,
+      "type": "plot",
+      "related_hook_id": "hook_dark_hooded_enemy"
+    },
+    {
+      "promise_id": "promise_han_leia_endures",
+      "promise": "The marriage is put under the most extreme institutional pressure the book can muster and does not break.",
+      "planted_in": 3,
+      "payoff_in": 34,
+      "type": "character",
+      "related_hook_id": "hook_han_leia_split"
+    },
+    {
+      "promise_id": "promise_lumiya_argued",
+      "promise": "Lumiya's case — that Sith love is possible — will be stated on-page at its strongest and left for the reader to refute.",
+      "planted_in": 20,
+      "payoff_in": 30,
+      "type": "thematic",
+      "related_hook_id": "hook_lumiya_identity"
+    },
+    {
+      "promise_id": "promise_nine_book_engine",
+      "promise": "This book is a series opener — it will leave the central corruption arc in motion, not resolved.",
+      "planted_in": 1,
+      "payoff_in": 34,
+      "type": "plot",
+      "related_hook_id": "hook_he_exists"
+    }
+  ],
+  "quality_overrides": {
+    "word_frequency_allowlist": [
+      "Force",
+      "Jedi",
+      "Sith",
+      "lightsaber",
+      "Master",
+      "Skywalker",
+      "Solo",
+      "Organa",
+      "Han",
+      "Leia",
+      "Luke",
+      "Mara",
+      "Ben",
+      "Jacen",
+      "Jaina",
+      "Zekk",
+      "Nelani",
+      "Lumiya",
+      "Vectivus",
+      "Vergere",
+      "Tenel Ka",
+      "Thrackan",
+      "Saxan",
+      "Omas",
+      "Pellaeon",
+      "Niathal",
+      "Klauskin",
+      "Wedge",
+      "Antilles",
+      "Tycho",
+      "Celchu",
+      "Horn",
+      "Tresina",
+      "Lobi",
+      "Corran",
+      "Kolir",
+      "Thann",
+      "Tiu",
+      "Zax",
+      "Tahiri",
+      "Veila",
+      "Syal",
+      "Lysa",
+      "Dunter",
+      "Doran",
+      "Tainer",
+      "Zueb",
+      "Teppler",
+      "Seyah",
+      "Arisster",
+      "Gejjen",
+      "Sal-Solo",
+      "Imperial",
+      "Empire",
+      "Corellia",
+      "Corellian",
+      "Adumar",
+      "Hapes",
+      "Hapan",
+      "Toryaz",
+      "Coruscant",
+      "Dantooine",
+      "Kashyyyk",
+      "Centerpoint",
+      "Dammant",
+      "hyperspace",
+      "hyperdrive",
+      "Millennium",
+      "Falcon",
+      "X-wing",
+      "TIE",
+      "Alliance",
+      "Guard",
+      "GAG",
+      "Senate",
+      "Chief",
+      "State",
+      "Chewbacca",
+      "Wookiee",
+      "Mon",
+      "Calamari",
+      "Fosh",
+      "Mandalorian",
+      "Bothan",
+      "blaster",
+      "droid",
+      "astromech",
+      "protocol",
+      "Allana",
+      "Djo",
+      "Yuuzhan",
+      "Vong",
+      "Allston",
+      "Dark Nest",
+      "carbonite"
+    ],
+    "semantic_similarity_threshold": 0.85,
+    "max_similar_pairs_per_1k_words": 3
+  },
+  "canon_profile": {
+    "franchise": "Star Wars",
+    "continuity": "Legends",
+    "continuity_description": "Star Wars Legends / Expanded Universe. Book published May 2006 as Legacy of the Force Book 1 of 9. No Disney-canon content applies. Directly follows the Dark Nest trilogy (2005); directly precedes Bloodlines (August 2006).",
+    "era_description": "40 ABY. Six years after the Yuuzhan Vong war, two years after the Dark Nest crisis. Galactic Alliance is the ruling polity (Cal Omas Chief of State, Gilad Pellaeon Supreme Commander). Luke Skywalker is Grand Master of the rebuilt Jedi Order. The Corellian independence crisis is about to become the Second Galactic Civil War.",
+    "narrative_register": "Political thriller layered over Force-philosophy tragedy. Allston-voice ensemble piloting. Dialogue-forward prose with Rogue-Squadron precision in the combat set-pieces.",
+    "cross_continuity_violations": [
+      "Disney-canon terminology (First Order, Kylo Ren, Resistance, Holdo, Vice Admiral, etc.)",
+      "Prequel-era foreground material (Qui-Gon, Dooku, Separatists — historical references to the Clone Wars are fine).",
+      "Future-Legends material from books published after Betrayal (Darth Caedus as a name, Fate of the Jedi-era Abeloth, Sword of the Jedi title, etc.)."
+    ],
+    "anachronistic_terms": {
+      "gun": [
+        "blaster",
+        "blaster pistol",
+        "blaster rifle"
+      ],
+      "bullet": [
+        "blaster bolt",
+        "energy bolt"
+      ],
+      "radio": [
+        "comm",
+        "comlink",
+        "transmission"
+      ],
+      "computer": [
+        "console",
+        "datapad",
+        "terminal"
+      ],
+      "helicopter": [
+        "airspeeder",
+        "landspeeder"
+      ],
+      "motorcycle": [
+        "swoop",
+        "speeder bike"
+      ],
+      "email": [
+        "holomessage",
+        "transmission"
+      ],
+      "truck": [
+        "hauler",
+        "cargo speeder"
+      ],
+      "soldier": [
+        "trooper",
+        "stormtrooper",
+        "guardsman"
+      ]
+    },
+    "meta_reference_rules": [
+      "No fan terminology ('ABY,' 'BBY,' 'the OT,' 'the saga,' 'canon,' 'Legends' — the in-world voice does not know its own continuity label). ABY is acceptable in planning artifacts only.",
+      "No out-of-universe author or actor references.",
+      "No fourth-wall breaks or narrator asides about the galaxy's meta-status."
+    ],
+    "franchise_terminology_notes": "Speak of the Old Republic only as history. The Clone Wars and the Empire are historical. The New Republic is recent history. The Galactic Alliance is the current order. The Jedi Order is actively operating. The Sith are a historical order with at most one or two operational practitioners alive. Mandalorians exist but are not foregrounded in this book. Vergere is dead and referenced by Jacen; Anakin Solo is dead and referenced by the family; Chewbacca is dead and referenced by Han (the book does not resurrect him)."
+  },
+  "extended_metadata": {
+    "empirical_word_count": 129695,
+    "empirical_chapter_count": 34,
+    "empirical_word_count_distribution_mean": 3815,
+    "empirical_word_count_distribution_min": 2180,
+    "empirical_word_count_distribution_max": 6030,
+    "empirical_pov_distribution_summary": "Jacen Solo (heaviest single share — opening investigation, midbook philosophical arc, climactic asteroid); Ben Skywalker (Adumar, mid-book GAG offer, asteroid final act); Luke Skywalker (Coruscant Jedi-institutional scenes, dark-enemy dream-line, Ch 34 close); Mara Jade Skywalker (Toryaz response, hunt arc); Han Solo (Corellian-front chapters); Leia Organa Solo (political-to-Jedi-third-way arc); plus scene-level POVs for Nelani Dinn, Lumiya, Admiral Klauskin, Aidel Saxan, Thrackan Sal-Solo, Wedge Antilles, Cal Omas, and others.",
+    "empirical_chapter_map": {
+      "1": "Opening cosmic-scale paragraph pulls into Luke/Mara on a Coruscant balcony — Luke's dream of a dark-hooded enemy. POV shifts to Jacen and Ben on Adumar at the Dammant Killers missile factory with Nelani Dinn. Investigation established.",
+      "2": "Adumar raid — Jacen and Nelani execute the missile-factory strike; Dammant Killers dispatched; first showing of Jacen's operational lethality. Chapter closes with the facility destroyed and the team departing.",
+      "3": "Coruscant/Corellia political frame reopens — Corellian independence rhetoric ramping; Han and Leia drawn toward the Corellian question; Jedi Council discussion of the Adumar findings.",
+      "4": "Corellian political and domestic establishing chapter — Saxan in office; Dur Gejjen shadow introduced; Han's Corellian pull tightening.",
+      "5": "Hapan royal wedding — Jacen present; assassination attempt; Tenel Ka at the periphery. The attempt fails but commits the Jedi and political principals to the Corellian crisis operationally.",
+      "6": "Aftermath and fan-out — Wedge Antilles surfaces on Corellia; Syal/Lysa glimpsed; Alliance/Corellian alignment pressure rising.",
+      "7": "Galactic Alliance commits to garrisoning Corellian space — Brooks First Plot Point. Jedi Council factional lines harden; Jacen's activism begins to harden with them.",
+      "8": "Centerpoint Station reactivation rumors confirmed to GA intelligence; Corellia's engineering intent on Centerpoint becomes the midpoint engine.",
+      "9": "Operation Roundabout — early GA planning; Saxan under increasing pressure; Lumiya's tassels first glimpsed peripherally.",
+      "10": "Mid-book Corellian-front operational detail — Han and Leia working separately, Klauskin strain surfacing, Alliance fleet moving.",
+      "11": "Han/Leia domestic and political scene on the Falcon; Centerpoint engineering confirmations; Jacen's operational involvement widens.",
+      "12": "Hunter Maas-equivalent intelligence handoff (intelligence-side; Movac Arisster or equivalent); Ben and Jacen in Coruscant scenes.",
+      "13": "Aidel Saxan assassinated; Thrackan Sal-Solo installed as Governor-General of Corellia. Brooks First Pinch.",
+      "14": "Corellia-front reaction; Alliance fleet deployment acceleration; Han's alignment hardening toward Corellia.",
+      "15": "Centerpoint commando operation prep — Klauskin nearing breakdown; Luke/Mara Jedi-response scenes.",
+      "16": "Centerpoint operation executed; station disabled; Klauskin breaks. Brooks Midpoint.",
+      "17": "Galactic Alliance Guard authorized; Toryaz Station peace summit announced; Tresina Lobi established as Mara's oldest friend in advance of the bombing.",
+      "18": "Toryaz Station arrival; summit opening sessions; Lumiya moving in the shadows off-summit.",
+      "19": "Toryaz Station bombing — Tresina Lobi killed. Brooks Second Pinch. Mara's hunt begins.",
+      "20": "Lumiya's first face-to-face approach to Jacen (likely immediately post-Toryaz); the teaching offer explicit. Brooks Attack act opens.",
+      "21": "Corellian-front escalation; Thrackan's governance setting the war's kinetic tempo.",
+      "22": "Han/Leia operational-strain scene; Jedi Order factional conflict surfaces on Coruscant.",
+      "23": "Lumiya's continued approach to Jacen — philosophical dialogue establishing the Sith-love thesis; lightwhip glimpsed.",
+      "24": "Ben Skywalker offered the GAG commission; Ben and Jacen's cousin-mentor relationship tightening on-page.",
+      "25": "Corellian-front kinetic engagement; Wedge and Syal/Lysa scenes; Alliance fleet positioning.",
+      "26": "Continuing Corellian-front chapter; political-kinetic integration.",
+      "27": "Jedi-institutional confrontation over Order neutrality; Corran Horn's Council wing presses; Luke holds.",
+      "28": "Jacen agrees to travel with Lumiya to the Vectivus asteroid. Brooks Second Plot Point.",
+      "29": "Asteroid arrival; Vectivus visions begin; Sith-lineage confirmation for Jacen and reader.",
+      "30": "Deeper into the asteroid — Lumiya's teaching at its most seductive; Jacen's interior forks on-page.",
+      "31": "Asteroid combat and training sequences; Jacen's precognitive futures clarifying.",
+      "32": "Nelani Dinn arrives at the asteroid; the confrontation is set.",
+      "33": "Jacen kills Nelani Dinn. Brooks Climax — thematic, not kinetic.",
+      "34": "Return to Coruscant; Ben's memory edited; Luke senses a new Sith in the Force and says 'he exists.' Epilogue and series hand-off."
+    },
+    "workshop_origin": "Reverse-extraction from published novel text. All chapter/scene counts, POV allocations, hook schedules, and revelation timings are empirically derived from cover-to-cover reading of Legacy of the Force: Betrayal (Aaron Allston, Del Rey, May 2006). Scene-break markers were lost in the EPUB-to-text conversion; scene boundaries within chapters are restored empirically from POV shifts. This is not a generative seed — it is a reconstructed plan of an existing Legends-canon book for use as training/benchmarking material for the Reverse-Extraction workflow.",
+    "series_continuity_notes": "First of 9 LOTF books. Immediate successors: Bloodlines (Traviss, Aug 2006), Tempest (Allston, Dec 2006), Exile (Denning, Mar 2007), Sacrifice (Denning, Jun 2007), Inferno (Denning, Sep 2007), Fury (Allston, Dec 2007), Revelation (Traviss, Mar 2008), Invincible (Denning, May 2008). Key forward continuity threads from this book: Jacen's corruption arc (completed in Sacrifice, resolved in Invincible); Ben Skywalker's apprenticeship and GAG commission (Bloodlines through Fury); the Corellian war (spanning the full nine-book arc); Lumiya's role as Jacen's teacher (Bloodlines, Sacrifice).",
+    "technique_lineage": "Allston's Allston-voice ensemble piloting applied to a darker register than Starfighters of Adumar or the X-wing novels. Influences visible: Timothy Zahn's Sith-politics complexity; Michael A. Stackpole's Rogue-Squadron combat choreography; Matthew Stover's philosophical-dialogue-as-action (particularly in Traitor)."
+  },
+  "compile_metadata": {
+    "plan_approved": true,
+    "plan_approved_at": "2026-04-20T01:41:38Z",
+    "plan_approved_by": "lbouw"
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "chapter_number": 27,
+  "scene_number": 1,
+  "structural_phase": "attack",
+  "scene_type": "sequel",
+  "scene_role": "reveal",
+  "pov_character": "Luke Skywalker",
+  "mission": "Jedi Council session — Corran Horn presses Luke on Order neutrality; Luke holds the line.",
+  "why_now": "Corran has called the session explicitly.",
+  "opening_hook": "Corran entering the chamber with a datapad of Order interventions he believes the Council should have authorized.",
+  "conflict": "Corran's case for intervention vs. Luke's case for preserved neutrality.",
+  "conflict_type": "interpersonal",
+  "dialogue_expectation": "dialogue_led",
+  "turning_point": "Luke, hearing Corran's case in its strongest form, still refuses to move the Order off its neutrality.",
+  "closing_hook": "Corran leaving the chamber; Luke alone at the table.",
+  "characters_present": [
+    "Luke Skywalker",
+    "Mara Jade Skywalker",
+    "Corran Horn",
+    "Kyp Durron",
+    "Kyle Katarn"
+  ],
+  "setting": "Jedi Council chamber.",
+  "sensory_details": "Chamber's hush; Corran's datapad; Mara's unmoving attention.",
+  "emotional_trajectory": "Structured debate → held line → solitary aftermath.",
+  "stakes": {
+    "personal": "Luke's authority at its most tested.",
+    "interpersonal": "The Luke/Corran working partnership.",
+    "external": "The Order's formal stance in a war it can no longer ignore."
+  },
+  "plot_threads_advanced": [
+    "sub_luke_dream_line",
+    "sub_corellian_crisis"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "canon_elements_needed": [
+    "Jedi Council chamber",
+    "Corran Horn's principled-activist register"
+  ],
+  "target_word_count": 2400,
+  "action_beats": [
+    "Corran presents his case",
+    "Luke hears it",
+    "Luke refuses to move",
+    "Corran exits"
+  ],
+  "notes": "Luke's flat-arc test scene.",
+  "active_subplots": [
+    "sub_luke_dream_line",
+    "sub_corellian_crisis"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "hook_dark_hooded_enemy",
+      "action": "advance"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "flat_arc_stable_truth"
+}

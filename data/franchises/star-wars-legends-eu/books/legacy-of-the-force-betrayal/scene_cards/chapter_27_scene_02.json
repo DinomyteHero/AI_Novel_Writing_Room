@@ -1,0 +1,54 @@
+{
+  "chapter_number": 27,
+  "scene_number": 2,
+  "structural_phase": "attack",
+  "scene_type": "sequel",
+  "scene_role": "aftermath",
+  "pov_character": "Luke Skywalker",
+  "mission": "Luke alone post-session; the dark-enemy dream sharpens to a visible interior image.",
+  "why_now": "The session is over; Luke is alone in the chamber at dusk.",
+  "opening_hook": "Luke still at the table with the chamber lights lowering automatically for dusk.",
+  "conflict": "Luke's Force-sight's sharpening insistence vs. his inability to yet name the enemy.",
+  "conflict_type": "internal",
+  "dialogue_expectation": "interior",
+  "turning_point": "Luke sees, in the inner eye, the dark-hooded figure more sharply than he has before — but still cannot name him.",
+  "closing_hook": "Luke standing and leaving the chamber without a conclusion.",
+  "characters_present": [
+    "Luke Skywalker"
+  ],
+  "setting": "Jedi Council chamber, dusk.",
+  "sensory_details": "Chamber's lowered lighting; Luke's breathing; the empty chairs.",
+  "emotional_trajectory": "Quiet reset → Force-sight sharpening → unresolved departure.",
+  "stakes": {
+    "personal": "Luke's Force-reading capacity.",
+    "interpersonal": "Luke's relationship with the Order's crisis.",
+    "external": "The unnamed enemy moving in the Force."
+  },
+  "plot_threads_advanced": [
+    "sub_luke_dream_line"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "canon_elements_needed": [
+    "Jedi Council chamber dusk-lighting protocol"
+  ],
+  "target_word_count": 1836,
+  "action_beats": [
+    "Luke remains in the chamber",
+    "Chamber lights lower for dusk",
+    "Dream sharpens",
+    "Luke exits"
+  ],
+  "notes": "The book's last Luke interior before the asteroid climax.",
+  "active_subplots": [
+    "sub_luke_dream_line"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "hook_dark_hooded_enemy",
+      "action": "advance"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "flat_arc_stable_truth"
+}

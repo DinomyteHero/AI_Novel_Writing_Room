@@ -1,0 +1,64 @@
+{
+  "chapter_number": 17,
+  "scene_number": 2,
+  "structural_phase": "attack",
+  "scene_type": "sequel",
+  "scene_role": "escalation",
+  "pov_character": "Mara Jade Skywalker",
+  "mission": "Mara and Tresina Lobi plan their Toryaz meeting — the on-page establishment of a thirty-year friendship.",
+  "why_now": "Tresina is attending Toryaz as Jedi observer and has asked Mara to come along.",
+  "opening_hook": "Mara and Tresina on a Coruscant balcony with afternoon caf between them.",
+  "conflict": "Mara's operational instincts (something is off) vs. Tresina's long-standing insistence on treating Mara as a friend rather than a weapon.",
+  "conflict_type": "interpersonal",
+  "dialogue_expectation": "dialogue_led",
+  "turning_point": "Mara agrees to attend Toryaz — for Tresina's company as much as for the summit.",
+  "closing_hook": "Tresina laughing at a joke of Mara's — a rare sound in the book.",
+  "characters_present": [
+    "Mara Jade Skywalker",
+    "Tresina Lobi"
+  ],
+  "setting": "Coruscant terrace (Jedi Temple observation deck), afternoon.",
+  "sensory_details": "Late-afternoon light on the Temple spires; caf cups on a low table; Tresina's warm laugh.",
+  "emotional_trajectory": "Professional exchange → personal warmth → committed attendance.",
+  "stakes": {
+    "personal": "Mara's rare on-page friendship register.",
+    "interpersonal": "The thirty-year Mara/Tresina friendship.",
+    "external": "The Toryaz summit's Jedi representation."
+  },
+  "plot_threads_advanced": [
+    "sub_toryaz_diplomacy",
+    "sub_lumiya_seduction",
+    "sub_luke_dream_line"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "canon_elements_needed": [
+    "Jedi Temple observation terrace",
+    "Tresina Lobi as Chalactan Jedi Master"
+  ],
+  "target_word_count": 1568,
+  "action_beats": [
+    "Mara and Tresina meet on the terrace",
+    "They plan Toryaz logistics",
+    "They share a laugh",
+    "Mara agrees to attend"
+  ],
+  "notes": "Allston plants the friendship exactly as long as the bombing will require.",
+  "active_subplots": [
+    "sub_toryaz_diplomacy",
+    "sub_lumiya_seduction",
+    "sub_luke_dream_line"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "hook_toryaz_summit",
+      "action": "advance"
+    },
+    {
+      "hook_id": "hook_dark_hooded_enemy",
+      "action": "advance"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "flat_arc_stable_truth"
+}

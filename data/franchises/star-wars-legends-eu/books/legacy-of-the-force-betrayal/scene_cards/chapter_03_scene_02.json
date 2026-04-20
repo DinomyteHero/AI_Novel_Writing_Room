@@ -1,0 +1,61 @@
+{
+  "chapter_number": 3,
+  "scene_number": 2,
+  "structural_phase": "setup",
+  "scene_type": "sequel",
+  "scene_role": "escalation",
+  "pov_character": "Han Solo",
+  "mission": "Han and Leia at home on the Falcon processing the day's news; the Corellian pull tightens on Han for the first time on-page.",
+  "why_now": "They have just heard about Adumar through Leia's channels; they are alone in the Falcon's galley.",
+  "opening_hook": "Han at the galley table turning a Corellian caf cup while Leia works through the day's briefings on a datapad.",
+  "conflict": "Han's Corellian identity against his long habit of refusing to let it drive his decisions.",
+  "conflict_type": "interpersonal",
+  "dialogue_expectation": "dialogue_led",
+  "turning_point": "Han says aloud, for the first time on-page, 'It's still my homeworld' — and Leia does not correct him.",
+  "closing_hook": "Leia putting the datapad aside; both of them looking at the galley's dim bulkhead.",
+  "characters_present": [
+    "Han Solo",
+    "Leia Organa Solo"
+  ],
+  "setting": "Millennium Falcon galley, docked at a Coruscant private pad; evening.",
+  "sensory_details": "Corellian caf bitterness; the Falcon's habitual low hum; galley lighting tuned down.",
+  "emotional_trajectory": "Domestic settled → quiet articulation of a political pull → mutual non-correction.",
+  "stakes": {
+    "personal": "Han's unresolved Corellian identity.",
+    "interpersonal": "The Solo marriage's first on-page alignment fracture.",
+    "external": "The developing Corellian crisis now visible inside the family."
+  },
+  "plot_threads_advanced": [
+    "sub_han_leia_corellia",
+    "sub_corellian_crisis"
+  ],
+  "promises_planted": [
+    "hook_han_leia_split"
+  ],
+  "promises_paid": [],
+  "canon_elements_needed": [
+    "Millennium Falcon galley interior",
+    "Han Solo's Corellian heritage",
+    "Han/Leia's long marriage register"
+  ],
+  "target_word_count": 1472,
+  "action_beats": [
+    "Han pours caf for both of them",
+    "Leia skims the day's briefings",
+    "Han names the Corellian pull",
+    "Leia does not correct him"
+  ],
+  "notes": "Allston's marriage-scene register — quiet, observational, refusing melodrama.",
+  "active_subplots": [
+    "sub_han_leia_corellia",
+    "sub_corellian_crisis"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "hook_han_leia_split",
+      "action": "plant"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "flat_arc_stable_truth"
+}

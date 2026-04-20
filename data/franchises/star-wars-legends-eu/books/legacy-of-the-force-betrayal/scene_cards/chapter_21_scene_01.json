@@ -1,0 +1,60 @@
+{
+  "chapter_number": 21,
+  "scene_number": 1,
+  "structural_phase": "attack",
+  "scene_type": "sequel",
+  "scene_role": "escalation",
+  "pov_character": "Thrackan Sal-Solo",
+  "mission": "Thrackan running the Corellian war administration; fleet orders and political theater in a single operational chapter.",
+  "why_now": "Thrackan is now consolidating into the Governor-Generalship.",
+  "opening_hook": "Thrackan at a Corellian strategic-operations room surrounded by aides and fleet officers.",
+  "conflict": "Thrackan's ambition vs. the practical constraints of running a war administration.",
+  "conflict_type": "interpersonal",
+  "dialogue_expectation": "balanced",
+  "turning_point": "Thrackan issues fleet orders and a political appointment in the same hour — the war machine becomes his habit.",
+  "closing_hook": "Thrackan leaving the operations room with a smaller cabinet than he arrived with.",
+  "characters_present": [
+    "Thrackan Sal-Solo",
+    "Corellian fleet officers",
+    "administrative aides",
+    "Dur Gejjen"
+  ],
+  "setting": "Corellian Governor-General's strategic operations room, Coronet City.",
+  "sensory_details": "Strategic-map glow; fleet-officer uniforms; Thrackan's heavy Corellian boots on the polished floor.",
+  "emotional_trajectory": "Command authority asserted → operational decisions → consolidated rule.",
+  "stakes": {
+    "personal": "Thrackan's political survival.",
+    "interpersonal": "The Corellian high command's political alignment.",
+    "external": "The Corellian war administration."
+  },
+  "plot_threads_advanced": [
+    "sub_corellian_crisis",
+    "sub_operation_roundabout"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "canon_elements_needed": [
+    "Corellian Governor-General's operations architecture",
+    "Corellian fleet order protocols"
+  ],
+  "target_word_count": 3531,
+  "action_beats": [
+    "Thrackan enters operations room",
+    "Fleet orders issued",
+    "Political appointment made",
+    "Cabinet reduced"
+  ],
+  "notes": "Single-scene operational chapter.",
+  "active_subplots": [
+    "sub_corellian_crisis",
+    "sub_operation_roundabout"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "hook_corellian_insurgency",
+      "action": "advance"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "flat_arc_stable_truth"
+}

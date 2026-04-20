@@ -1,0 +1,51 @@
+{
+  "chapter_number": 20,
+  "scene_number": 2,
+  "structural_phase": "attack",
+  "scene_type": "sequel",
+  "scene_role": "decision",
+  "pov_character": "Jacen Solo",
+  "mission": "Jacen alone turning the offer over — interior consolidation toward acceptance.",
+  "why_now": "The offer is new; Jacen has the rest of the evening to sit with it.",
+  "opening_hook": "Jacen at a window watching Coruscant speeder traffic with the offer still fresh.",
+  "conflict": "Jacen's Jedi training demanding refusal on principle vs. his conviction that the Order is insufficient and therefore the offer might not be.",
+  "conflict_type": "internal",
+  "dialogue_expectation": "interior",
+  "turning_point": "Jacen does not accept the offer — and does not reject it either.",
+  "closing_hook": "Jacen setting his saber on the table and sitting down.",
+  "characters_present": [
+    "Jacen Solo"
+  ],
+  "setting": "Jacen's Coruscant apartment, late evening.",
+  "sensory_details": "Speeder-lane glow through the window; saber on the table; the room's low light.",
+  "emotional_trajectory": "Interior argument → refusal of immediate decision → held-open stance.",
+  "stakes": {
+    "personal": "Jacen's Jedi standing.",
+    "interpersonal": "Jacen's relationship with the Order.",
+    "external": "The corruption arc's trajectory."
+  },
+  "plot_threads_advanced": [
+    "sub_lumiya_seduction",
+    "sub_jacen_ben_apprenticeship"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "canon_elements_needed": [
+    "Jacen's Coruscant apartment layout"
+  ],
+  "target_word_count": 1534,
+  "action_beats": [
+    "Jacen at the window",
+    "Interior argument",
+    "Saber placed on table",
+    "Jacen sits"
+  ],
+  "notes": "The corruption arc's open-door interior beat.",
+  "active_subplots": [
+    "sub_lumiya_seduction",
+    "sub_jacen_ben_apprenticeship"
+  ],
+  "hook_actions": [],
+  "revelations": [],
+  "pov_arc_phase": "need_resisted"
+}

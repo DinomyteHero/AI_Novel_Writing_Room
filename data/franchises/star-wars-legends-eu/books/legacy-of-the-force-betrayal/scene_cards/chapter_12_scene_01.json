@@ -1,0 +1,56 @@
+{
+  "chapter_number": 12,
+  "scene_number": 1,
+  "structural_phase": "first_pinch",
+  "scene_type": "sequel",
+  "scene_role": "escalation",
+  "pov_character": "Ben Skywalker",
+  "mission": "Jedi Temple training session — Jacen teaches Ben a kata; Ben trusts; Jacen watches with something not quite pride.",
+  "why_now": "Jacen uses training sessions as one-on-one time with Ben that sits outside the Order's formal apprenticeship structure.",
+  "opening_hook": "Jacen demonstrating the kata while Ben copies from three meters away.",
+  "conflict": "Ben's apprentice uncertainty vs. Jacen's gentle authority (external calm masking interior priorities).",
+  "conflict_type": "interpersonal",
+  "dialogue_expectation": "balanced",
+  "turning_point": "Ben completes the kata clean; Jacen watches and says 'good' — and the compliment lands more heavily on Ben than Jacen's interior registers.",
+  "closing_hook": "Jacen racking his saber; Ben standing at the training room's center holding his own saber carefully.",
+  "characters_present": [
+    "Jacen Solo",
+    "Ben Skywalker"
+  ],
+  "setting": "Jedi Temple training room, Coruscant; empty.",
+  "sensory_details": "Saber hum; rubberized floor; Ben's breath after the kata.",
+  "emotional_trajectory": "Focused training → landed compliment → quiet deference.",
+  "stakes": {
+    "personal": "Ben's apprentice standing.",
+    "interpersonal": "The mentor bond tightening.",
+    "external": "The developing interior asymmetry that will bend Ben."
+  },
+  "plot_threads_advanced": [
+    "sub_jacen_ben_apprenticeship"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "canon_elements_needed": [
+    "Jedi Temple training rooms",
+    "Jacen's Vergere-era Force philosophy"
+  ],
+  "target_word_count": 2761,
+  "action_beats": [
+    "Jacen demonstrates kata",
+    "Ben copies the form",
+    "Ben completes clean",
+    "Jacen racks saber"
+  ],
+  "notes": "Ben's positive-change arc is inside Jacen's corruption arc.",
+  "active_subplots": [
+    "sub_jacen_ben_apprenticeship"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "hook_dark_hooded_enemy",
+      "action": "advance"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "want_defined"
+}

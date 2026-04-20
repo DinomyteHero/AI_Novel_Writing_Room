@@ -1,0 +1,77 @@
+{
+  "chapter_number": 34,
+  "scene_number": 2,
+  "structural_phase": "resolution",
+  "scene_type": "sequel",
+  "scene_role": "decision",
+  "pov_character": "Luke Skywalker",
+  "mission": "Luke in the Temple meditating; the new-Sith presence is sensed; 'He exists.'",
+  "why_now": "Jacen's crossing has changed the Force.",
+  "opening_hook": "Luke in the meditation chamber with Mara seated opposite him.",
+  "conflict": "Luke's Force-perception confirming a new Sith presence vs. his inability to identify the Sith as Jacen.",
+  "conflict_type": "internal",
+  "dialogue_expectation": "balanced",
+  "turning_point": "Luke says 'he exists'; Mara agrees without requiring further clarification.",
+  "closing_hook": "Luke and Mara sitting together with the news settled between them.",
+  "characters_present": [
+    "Luke Skywalker",
+    "Mara Jade Skywalker"
+  ],
+  "setting": "Jedi Temple meditation chamber, Coruscant.",
+  "sensory_details": "Chamber's incense; low light; Mara's steady face.",
+  "emotional_trajectory": "Settled perception → named confirmation → shared knowledge.",
+  "stakes": {
+    "personal": "Luke's Force-reading integrity.",
+    "interpersonal": "The Luke/Mara partnership at its most complete.",
+    "external": "The series' engine — the new Sith is in the Force and the Skywalkers know it without naming him."
+  },
+  "plot_threads_advanced": [
+    "sub_luke_dream_line",
+    "sub_lumiya_seduction",
+    "sub_corellian_crisis",
+    "sub_han_leia_corellia"
+  ],
+  "promises_planted": [
+    "hook_he_exists"
+  ],
+  "promises_paid": [
+    "hook_dark_hooded_enemy",
+    "hook_han_leia_split"
+  ],
+  "canon_elements_needed": [
+    "Jedi Temple meditation chamber",
+    "Force-signature perception of new Sith"
+  ],
+  "target_word_count": 1180,
+  "action_beats": [
+    "Luke meditates",
+    "Force-signature registers",
+    "'He exists' spoken",
+    "Mara agrees"
+  ],
+  "notes": "The book's final line lands the series engine fully wound.",
+  "active_subplots": [
+    "sub_luke_dream_line",
+    "sub_lumiya_seduction",
+    "sub_corellian_crisis",
+    "sub_han_leia_corellia"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "hook_he_exists",
+      "action": "plant"
+    },
+    {
+      "hook_id": "hook_dark_hooded_enemy",
+      "action": "resolve"
+    },
+    {
+      "hook_id": "hook_han_leia_split",
+      "action": "resolve"
+    }
+  ],
+  "revelations": [
+    "rev_he_exists"
+  ],
+  "pov_arc_phase": "flat_arc_stable_truth"
+}

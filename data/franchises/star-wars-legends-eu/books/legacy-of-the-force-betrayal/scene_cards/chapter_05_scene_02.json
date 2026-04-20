@@ -1,0 +1,61 @@
+{
+  "chapter_number": 5,
+  "scene_number": 2,
+  "structural_phase": "setup",
+  "scene_type": "sequel",
+  "scene_role": "decision",
+  "pov_character": "Jacen Solo",
+  "mission": "Wedding aftermath — identification of the assassin cell; Jacen's commitment to the broader Corellian investigation hardens.",
+  "why_now": "The assassins' bodies are now evidence.",
+  "opening_hook": "Jacen in a Hapan security antechamber looking at the assassins' IDs laid out on a table.",
+  "conflict": "Jacen's Jedi mandate (investigate and report) against his growing private conviction that reporting alone is insufficient.",
+  "conflict_type": "internal",
+  "dialogue_expectation": "balanced",
+  "turning_point": "Jacen commits to following the cell's supply chain personally rather than handing it to Alliance intelligence.",
+  "closing_hook": "Jacen leaving the antechamber with the datachips tucked into his sleeve.",
+  "characters_present": [
+    "Jacen Solo",
+    "Tenel Ka",
+    "Hapan security officers"
+  ],
+  "setting": "Hapan palace security antechamber; late evening.",
+  "sensory_details": "The IDs' cool plastoid; Tenel Ka's brief proximity; security-chamber hush.",
+  "emotional_trajectory": "Forensic focus → private commitment → withdrawal with evidence.",
+  "stakes": {
+    "personal": "Jacen's Jedi-regulation posture.",
+    "interpersonal": "Tenel Ka's patience with his operational independence.",
+    "external": "The Corellian supply chain behind the assassination."
+  },
+  "plot_threads_advanced": [
+    "sub_hapan_wedding",
+    "sub_corellian_crisis",
+    "sub_jacen_ben_apprenticeship"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "canon_elements_needed": [
+    "Hapan palace security architecture",
+    "Jacen's independent operational register"
+  ],
+  "target_word_count": 1626,
+  "action_beats": [
+    "IDs laid out on the table",
+    "Tenel Ka briefly present",
+    "Jacen pockets the datachips",
+    "Jacen leaves alone"
+  ],
+  "notes": "The scene registers Jacen's shift from Jedi-reporter to Jedi-operator.",
+  "active_subplots": [
+    "sub_hapan_wedding",
+    "sub_corellian_crisis",
+    "sub_jacen_ben_apprenticeship"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "hook_hapan_wedding_attempt",
+      "action": "advance"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "lie_established"
+}

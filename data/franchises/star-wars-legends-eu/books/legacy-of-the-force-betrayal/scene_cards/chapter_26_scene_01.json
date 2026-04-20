@@ -1,0 +1,62 @@
+{
+  "chapter_number": 26,
+  "scene_number": 1,
+  "structural_phase": "attack",
+  "scene_type": "sequel",
+  "scene_role": "escalation",
+  "pov_character": "Han Solo",
+  "mission": "Han Solo on Corellia — operational meetings with Corellian administration; conscience visible in the margins.",
+  "why_now": "Han is now in Corellian service, small ways.",
+  "opening_hook": "Han in a Coronet City warehouse district office meeting a Corellian administrator about a logistics task.",
+  "conflict": "Han's loyalty to Corellia vs. the small operational details that would normally not have crossed his conscience.",
+  "conflict_type": "internal",
+  "dialogue_expectation": "dialogue_led",
+  "turning_point": "Han agrees to the task without pressing the question he would normally press.",
+  "closing_hook": "Han walking out onto a Coronet City bridge at dusk.",
+  "characters_present": [
+    "Han Solo",
+    "Corellian administrator",
+    "warehouse staff",
+    "Ordith Huarr (background)"
+  ],
+  "setting": "Coronet City warehouse district office, then Coronet bridge at dusk.",
+  "sensory_details": "Warehouse light; Corellian dialect cadences; bridge-side wind.",
+  "emotional_trajectory": "Professional engagement → suppressed conscience → exit onto bridge.",
+  "stakes": {
+    "personal": "Han's long-standing register of small moral lines.",
+    "interpersonal": "Han's Corellian working relationships.",
+    "external": "The Corellian war administration's routine business."
+  },
+  "plot_threads_advanced": [
+    "sub_han_leia_corellia",
+    "sub_corellian_crisis",
+    "sub_wedge_syal"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "canon_elements_needed": [
+    "Coronet City warehouse district",
+    "Corellian civilian-administration protocols"
+  ],
+  "target_word_count": 3792,
+  "action_beats": [
+    "Warehouse meeting",
+    "Task agreed",
+    "Administrator thanks Han",
+    "Han walks out on the bridge"
+  ],
+  "notes": "The chapter's conscience-register scene.",
+  "active_subplots": [
+    "sub_han_leia_corellia",
+    "sub_corellian_crisis",
+    "sub_wedge_syal"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "hook_corellian_insurgency",
+      "action": "advance"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "flat_arc_stable_truth"
+}

@@ -1,0 +1,60 @@
+{
+  "chapter_number": 15,
+  "scene_number": 2,
+  "structural_phase": "midpoint",
+  "scene_type": "sequel",
+  "scene_role": "escalation",
+  "pov_character": "Luke Skywalker",
+  "mission": "Luke and Mara in the Jedi Temple sense a Force-ripple from the Corellian system; they cannot yet identify the source.",
+  "why_now": "The Centerpoint operation is in its final-approach phase; the Force notices.",
+  "opening_hook": "Luke and Mara in a Temple meditation chamber, both of them going still at once.",
+  "conflict": "Luke and Mara's attempt to read the ripple vs. the ripple's refusal to resolve into detail.",
+  "conflict_type": "internal",
+  "dialogue_expectation": "balanced",
+  "turning_point": "Luke names the ripple to Mara: 'something is about to change.'",
+  "closing_hook": "Mara opening her eyes; both of them sitting with the news.",
+  "characters_present": [
+    "Luke Skywalker",
+    "Mara Jade Skywalker"
+  ],
+  "setting": "Jedi Temple meditation chamber, Coruscant; evening.",
+  "sensory_details": "Chamber's incense; low light; the pair's shared breathing.",
+  "emotional_trajectory": "Shared meditation → shared alarm → shared waiting.",
+  "stakes": {
+    "personal": "Luke's ongoing Force-reading of the Corellian crisis.",
+    "interpersonal": "The Luke/Mara working partnership.",
+    "external": "The Force-scale event about to unfold."
+  },
+  "plot_threads_advanced": [
+    "sub_luke_dream_line",
+    "sub_centerpoint_sabotage",
+    "sub_operation_roundabout"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "canon_elements_needed": [
+    "Jedi Temple meditation chambers",
+    "Force-ripple perception at galactic distance"
+  ],
+  "target_word_count": 1889,
+  "action_beats": [
+    "Luke and Mara in meditation",
+    "Both go still simultaneously",
+    "Luke names the ripple",
+    "They wait"
+  ],
+  "notes": "Luke and Mara's Force-perception register; they do not identify Lumiya yet.",
+  "active_subplots": [
+    "sub_luke_dream_line",
+    "sub_centerpoint_sabotage",
+    "sub_operation_roundabout"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "hook_dark_hooded_enemy",
+      "action": "advance"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "flat_arc_stable_truth"
+}

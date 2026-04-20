@@ -1,0 +1,64 @@
+{
+  "chapter_number": 23,
+  "scene_number": 1,
+  "structural_phase": "attack",
+  "scene_type": "sequel",
+  "scene_role": "escalation",
+  "pov_character": "Jacen Solo",
+  "mission": "Lumiya delivers her philosophical teaching to Jacen at length; a Sith lightwhip is glimpsed; the Sith-with-love argument is stated in its most persuasive form.",
+  "why_now": "Jacen has returned to Lumiya voluntarily.",
+  "opening_hook": "Lumiya seated in a low Coruscant chamber with Jacen across from her; an unlit lightwhip coiled on the low table between them.",
+  "conflict": "Lumiya's argument that Jedi love-for-the-galaxy is insufficient without Sith operational willingness vs. Jacen's lifelong Jedi training.",
+  "conflict_type": "interpersonal",
+  "dialogue_expectation": "dialogue_led",
+  "turning_point": "Jacen asks the question Lumiya has been waiting for: 'if I accept this, how do I not become what my grandfather became?' Lumiya answers with Vectivus.",
+  "closing_hook": "Lumiya letting the lightwhip's active mode flare briefly — a single visible data point — and then extinguishing it.",
+  "characters_present": [
+    "Jacen Solo",
+    "Lumiya"
+  ],
+  "setting": "Low-ceilinged Coruscant chamber (Lumiya's Coruscant base); evening, single lamp.",
+  "sensory_details": "Lightwhip's subsonic hum; chamber's reddish light; the low table between them.",
+  "emotional_trajectory": "Measured exchange → asked question → provisional answer.",
+  "stakes": {
+    "personal": "Jacen's moral frame.",
+    "interpersonal": "The Jacen/Lumiya teacher-student register now live.",
+    "external": "The corruption arc's philosophical scaffolding."
+  },
+  "plot_threads_advanced": [
+    "sub_lumiya_seduction",
+    "sub_vectivus_asteroid"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "canon_elements_needed": [
+    "Lumiya's lightwhip",
+    "Sith-order philosophical register",
+    "Darth Vectivus as named historical Sith"
+  ],
+  "target_word_count": 3500,
+  "action_beats": [
+    "Lumiya presents the teaching",
+    "Lightwhip briefly glimpsed",
+    "Jacen asks the Vader-question",
+    "Lumiya names Vectivus"
+  ],
+  "notes": "The book's most philosophically dense scene — Allston trusts the dialogue.",
+  "active_subplots": [
+    "sub_lumiya_seduction",
+    "sub_vectivus_asteroid"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "hook_lumiya_identity",
+      "action": "advance"
+    },
+    {
+      "hook_id": "hook_dark_hooded_enemy",
+      "action": "advance"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "need_resisted",
+  "arc_phase_transition": "need_glimpsed"
+}

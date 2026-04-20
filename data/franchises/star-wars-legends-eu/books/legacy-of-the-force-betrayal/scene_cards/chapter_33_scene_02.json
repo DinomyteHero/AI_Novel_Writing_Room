@@ -1,0 +1,62 @@
+{
+  "chapter_number": 33,
+  "scene_number": 2,
+  "structural_phase": "climax",
+  "scene_type": "sequel",
+  "scene_role": "aftermath",
+  "pov_character": "Jacen Solo",
+  "mission": "Jacen stands over Nelani's body with Ben in the doorway; the interior reckoning begins.",
+  "why_now": "The fight is over; Jacen has to decide what he does now.",
+  "opening_hook": "Jacen's saber extinguishing; the chamber quiet except for breath.",
+  "conflict": "Jacen's interior reckoning with what he has just done vs. his decision to protect Ben from the memory.",
+  "conflict_type": "internal",
+  "dialogue_expectation": "interior",
+  "turning_point": "Jacen decides he will erase Ben's memory of the asteroid trip.",
+  "closing_hook": "Jacen turning toward Ben with his Force-hand already moving.",
+  "characters_present": [
+    "Jacen Solo",
+    "Ben Skywalker",
+    "Lumiya"
+  ],
+  "setting": "Vectivus asteroid main chamber post-combat.",
+  "sensory_details": "Post-combat hush; Nelani's body on the floor; Ben's small figure in the doorway.",
+  "emotional_trajectory": "Interior reckoning → decided protection-by-erasure → move toward Ben.",
+  "stakes": {
+    "personal": "Jacen's interior accounting of what he just did.",
+    "interpersonal": "Ben's memory and innocence.",
+    "external": "The cover-up's opening move."
+  },
+  "plot_threads_advanced": [
+    "sub_vectivus_asteroid",
+    "sub_lumiya_seduction",
+    "sub_jacen_ben_apprenticeship"
+  ],
+  "promises_planted": [
+    "hook_ben_memory_edit"
+  ],
+  "promises_paid": [],
+  "canon_elements_needed": [
+    "Force-based memory manipulation"
+  ],
+  "target_word_count": 1838,
+  "action_beats": [
+    "Saber extinguishes",
+    "Jacen looks at Ben",
+    "Decision to erase Ben's memory",
+    "Jacen moves toward Ben"
+  ],
+  "notes": "The interior reckoning is present but does not pause the corruption.",
+  "active_subplots": [
+    "sub_vectivus_asteroid",
+    "sub_lumiya_seduction",
+    "sub_jacen_ben_apprenticeship"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "hook_ben_memory_edit",
+      "action": "plant"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "lie_chosen"
+}

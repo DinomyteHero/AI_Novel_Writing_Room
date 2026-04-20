@@ -1,0 +1,36 @@
+{
+  "chapter_number": 21,
+  "chapter_mission": "Corellian-front escalation — Thrackan's governance setting the war's kinetic tempo; Alliance/Corellian fleet exchanges intensify.",
+  "chapter_turn": "The war stops being about peace summits and becomes about fleet dispositions — the kinetic phase is live.",
+  "structural_phase": "attack",
+  "pov_allocation": [
+    "Thrackan Sal-Solo"
+  ],
+  "scene_count": 1,
+  "scene_plan": [
+    {
+      "scene_number": 1,
+      "role": "escalation",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 3531,
+      "purpose": "Thrackan running the Corellian war administration; fleet orders and political theater in one scene."
+    }
+  ],
+  "reveal_payload": [],
+  "hook_movements": {
+    "planted": [],
+    "advanced": [
+      "hook_corellian_insurgency"
+    ],
+    "resolved": []
+  },
+  "subplot_obligations": [
+    "sub_corellian_crisis",
+    "sub_operation_roundabout"
+  ],
+  "relationship_turns": [],
+  "pacing_curve": "rising",
+  "exit_vector": "A Corellian squadron pulling out of a skirmish in high orbit over a contested world, returning to Thrackan's administration with fresh casualties.",
+  "chapter_word_target": 3531,
+  "notes": "Operational chapter — the book's war-register holds its breath before the next character beat."
+}

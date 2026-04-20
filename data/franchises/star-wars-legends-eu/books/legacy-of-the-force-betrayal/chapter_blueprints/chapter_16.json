@@ -1,0 +1,51 @@
+{
+  "chapter_number": 16,
+  "chapter_mission": "Execute the Centerpoint operation — the station is disabled or destroyed and Klauskin collapses operationally. Brooks Midpoint.",
+  "chapter_turn": "The first irrevocable act of the war is taken, and its commanding officer breaks under the weight of it.",
+  "structural_phase": "midpoint",
+  "pov_allocation": [
+    "Admiral Klauskin",
+    "Leia Organa Solo"
+  ],
+  "scene_count": 2,
+  "scene_plan": [
+    {
+      "scene_number": 1,
+      "role": "reveal",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 2500,
+      "purpose": "Centerpoint operation executed; commandos succeed; Klauskin's breakdown on the bridge."
+    },
+    {
+      "scene_number": 2,
+      "role": "aftermath",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 1990,
+      "purpose": "Leia and Han learn of Centerpoint — Leia begins her private pivot away from Alliance service."
+    }
+  ],
+  "reveal_payload": [
+    "rev_centerpoint_disabled"
+  ],
+  "hook_movements": {
+    "planted": [],
+    "advanced": [
+      "hook_corellian_insurgency"
+    ],
+    "resolved": [
+      "hook_centerpoint_reactivation",
+      "hook_klauskin_strain"
+    ]
+  },
+  "subplot_obligations": [
+    "sub_centerpoint_sabotage",
+    "sub_klauskin_breakdown",
+    "sub_operation_roundabout",
+    "sub_corellian_crisis"
+  ],
+  "relationship_turns": [],
+  "pacing_curve": "rising",
+  "exit_vector": "Klauskin sitting alone on the flagship bridge after the operation's success, unable to deliver the after-action signal.",
+  "chapter_word_target": 4490,
+  "notes": "The midpoint is not a battle for the principals — it is something they hear about while the marriage arc continues. Klauskin carries the chapter."
+}

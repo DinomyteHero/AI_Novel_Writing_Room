@@ -1,0 +1,57 @@
+{
+  "chapter_number": 10,
+  "scene_number": 2,
+  "structural_phase": "first_pinch",
+  "scene_type": "sequel",
+  "scene_role": "escalation",
+  "pov_character": "Han Solo",
+  "mission": "Han and Leia on the Falcon — first overt disagreement about whose side of this war to back.",
+  "why_now": "The fleet's deployment has made the question operational.",
+  "opening_hook": "Han running a hyperdrive diagnostic on the Falcon while Leia reads fleet manifests.",
+  "conflict": "Han's Corellian alignment forming vs. Leia's institutional/pragmatic alignment with the Alliance.",
+  "conflict_type": "interpersonal",
+  "dialogue_expectation": "dialogue_led",
+  "turning_point": "Han names the disagreement as a disagreement and refuses to pretend otherwise.",
+  "closing_hook": "Han continuing the diagnostic in silence.",
+  "characters_present": [
+    "Han Solo",
+    "Leia Organa Solo",
+    "C-3PO"
+  ],
+  "setting": "Millennium Falcon engineering bay and galley, docked.",
+  "sensory_details": "Hyperdrive coolant smell; Falcon galley light; C-3PO politely retreating.",
+  "emotional_trajectory": "Working companionship → open disagreement → separate silences.",
+  "stakes": {
+    "personal": "The marriage's long habit of working through disagreements.",
+    "interpersonal": "The Solo marriage on-page.",
+    "external": "The political question that now divides them."
+  },
+  "plot_threads_advanced": [
+    "sub_han_leia_corellia"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "canon_elements_needed": [
+    "Millennium Falcon engineering access",
+    "C-3PO's Solo-household presence"
+  ],
+  "target_word_count": 2054,
+  "action_beats": [
+    "Han runs hyperdrive diagnostic",
+    "Leia reads manifests",
+    "Han names the disagreement",
+    "Silence"
+  ],
+  "notes": "Allston's marriage register — open disagreement without a break.",
+  "active_subplots": [
+    "sub_han_leia_corellia"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "hook_centerpoint_reactivation",
+      "action": "advance"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "flat_arc_stable_truth"
+}

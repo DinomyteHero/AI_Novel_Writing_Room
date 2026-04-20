@@ -1,0 +1,52 @@
+{
+  "chapter_number": 7,
+  "chapter_mission": "Deliver the book's First Plot Point — the Galactic Alliance commits to garrisoning Corellian space, which locks both sides into a war posture. Jedi Council factional lines harden; Jacen's activism hardens with them.",
+  "chapter_turn": "The crisis crosses from negotiation into deployment — the Alliance will now put fleet elements over Corellia, and the Order will be asked whose side it is on.",
+  "structural_phase": "first_plot_point",
+  "pov_allocation": [
+    "Luke Skywalker",
+    "Jacen Solo"
+  ],
+  "scene_count": 2,
+  "scene_plan": [
+    {
+      "scene_number": 1,
+      "role": "reveal",
+      "dialogue_expectation": "dialogue_led",
+      "target_word_count": 2000,
+      "purpose": "Jedi Council session — Corran Horn against Order complicity; Luke holds; Alliance announces garrison posture."
+    },
+    {
+      "scene_number": 2,
+      "role": "decision",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 1870,
+      "purpose": "Jacen alone post-session — interior commitment that the Order's neutrality is morally inadequate."
+    }
+  ],
+  "reveal_payload": [],
+  "hook_movements": {
+    "planted": [],
+    "advanced": [
+      "hook_corellian_insurgency",
+      "hook_dark_hooded_enemy"
+    ],
+    "resolved": []
+  },
+  "subplot_obligations": [
+    "sub_corellian_crisis",
+    "sub_jacen_ben_apprenticeship",
+    "sub_luke_dream_line"
+  ],
+  "relationship_turns": [
+    {
+      "dyad": "Luke/Jacen",
+      "from": "master_and_trusted_nephew",
+      "to": "master_and_privately_divergent_nephew"
+    }
+  ],
+  "pacing_curve": "rising",
+  "exit_vector": "Jacen alone in a training room after the Council session, privately certain the Order's neutrality is inadequate.",
+  "chapter_word_target": 3870,
+  "notes": "First Plot Point. The Alliance's deployment decision is Han's lock-in on the other direction as well."
+}

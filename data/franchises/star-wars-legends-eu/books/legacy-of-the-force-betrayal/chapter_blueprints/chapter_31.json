@@ -1,0 +1,42 @@
+{
+  "chapter_number": 31,
+  "chapter_mission": "Asteroid training combat sequences; Jacen's precognitive futures clarify; Ben's unease becomes more specific.",
+  "chapter_turn": "The work becomes visible — Jacen is training in a mode that is not Jedi training, and Ben, even at thirteen, can tell.",
+  "structural_phase": "climax",
+  "pov_allocation": [
+    "Jacen Solo"
+  ],
+  "scene_count": 1,
+  "scene_plan": [
+    {
+      "scene_number": 1,
+      "role": "escalation",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 4253,
+      "purpose": "Asteroid combat training — projected Vectivus-echoes as sparring partners; fork-visions as tactical input."
+    }
+  ],
+  "reveal_payload": [],
+  "hook_movements": {
+    "planted": [],
+    "advanced": [
+      "hook_vectivus_asteroid"
+    ],
+    "resolved": []
+  },
+  "subplot_obligations": [
+    "sub_vectivus_asteroid",
+    "sub_jacen_ben_apprenticeship"
+  ],
+  "relationship_turns": [
+    {
+      "dyad": "Jacen/Ben",
+      "from": "philosophical_mentor_pair_with_authority_asymmetry_now_visible",
+      "to": "mentor_pair_with_cognitive_gap_opened"
+    }
+  ],
+  "pacing_curve": "rising",
+  "exit_vector": "Jacen finishing a sparring sequence against projected Vectivus-echoes; Ben watching and not asking the question forming in him.",
+  "chapter_word_target": 4253,
+  "notes": "The book's most physical chapter in the back half. Rogue-Squadron combat choreography applied to a Force-echo sparring sequence."
+}

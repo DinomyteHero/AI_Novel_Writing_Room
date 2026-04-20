@@ -1,0 +1,60 @@
+{
+  "chapter_number": 31,
+  "scene_number": 1,
+  "structural_phase": "climax",
+  "scene_type": "action",
+  "scene_role": "escalation",
+  "pov_character": "Jacen Solo",
+  "mission": "Asteroid combat training — projected Vectivus-echoes as sparring partners; fork-visions as tactical input.",
+  "why_now": "Jacen is operationalizing the new technique.",
+  "opening_hook": "Jacen in an asteroid training chamber igniting his saber against a first echo-sparring partner.",
+  "conflict": "Jacen's technical mastery vs. the echo's increasing difficulty under Lumiya's tuning.",
+  "conflict_type": "external",
+  "dialogue_expectation": "balanced",
+  "turning_point": "Jacen integrates fork-vision into a close-combat sequence — the technique becomes a sparring tool.",
+  "closing_hook": "Jacen finishing the sequence; Ben in the doorway watching.",
+  "characters_present": [
+    "Jacen Solo",
+    "Ben Skywalker",
+    "Lumiya",
+    "Vectivus echoes"
+  ],
+  "setting": "Vectivus asteroid training chamber.",
+  "sensory_details": "Echo-projection haze; saber hum; chamber's faint subsonic.",
+  "emotional_trajectory": "Practice engagement → technique integration → performed mastery.",
+  "stakes": {
+    "personal": "Jacen's operational proficiency in the new technique.",
+    "interpersonal": "Ben's growing cognitive gap.",
+    "external": "The corruption arc's now-visible lethality."
+  },
+  "plot_threads_advanced": [
+    "sub_vectivus_asteroid",
+    "sub_jacen_ben_apprenticeship"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "canon_elements_needed": [
+    "Vectivus echo-sparring mechanic",
+    "Allston's fighter-choreography applied to Force-sparring"
+  ],
+  "target_word_count": 4253,
+  "action_beats": [
+    "First echo-sparring",
+    "Fork-vision integrated",
+    "Sequence completed",
+    "Ben watches"
+  ],
+  "notes": "Single-scene training chapter.",
+  "active_subplots": [
+    "sub_vectivus_asteroid",
+    "sub_jacen_ben_apprenticeship"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "hook_vectivus_asteroid",
+      "action": "advance"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "lie_chosen"
+}

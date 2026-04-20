@@ -1,0 +1,73 @@
+{
+  "chapter_number": 20,
+  "scene_number": 1,
+  "structural_phase": "attack",
+  "scene_type": "sequel",
+  "scene_role": "reveal",
+  "pov_character": "Jacen Solo",
+  "mission": "Lumiya meets Jacen for the first time in a private setting; she introduces herself, names her teaching, and offers it without pressure.",
+  "why_now": "Lumiya has chosen her moment — Jacen is alone, receptive, and aware that the Order's neutrality is insufficient.",
+  "opening_hook": "Jacen entering a quiet hallway chamber (Coruscant apartment annex) and finding a woman in a tasseled robe waiting.",
+  "conflict": "Lumiya's patient, articulate argument vs. Jacen's Jedi training that any such argument should be refused on hearing.",
+  "conflict_type": "interpersonal",
+  "dialogue_expectation": "dialogue_led",
+  "turning_point": "Lumiya leaves her offer on the table — the teaching is available if Jacen chooses to learn — and exits without pressure.",
+  "closing_hook": "Jacen alone in the room, the offer hanging in the air.",
+  "characters_present": [
+    "Jacen Solo",
+    "Lumiya"
+  ],
+  "setting": "Quiet hallway chamber, Coruscant private apartment annex; evening.",
+  "sensory_details": "Lumiya's voice modulator's faint resonance; tasseled hem across the floor; chamber's dim light.",
+  "emotional_trajectory": "Wariness → engaged listening → held-open uncertainty.",
+  "stakes": {
+    "personal": "Jacen's capacity to refuse seduction on first hearing.",
+    "interpersonal": "The Jacen/Lumiya relationship's opening move.",
+    "external": "The corruption arc's first overt move."
+  },
+  "plot_threads_advanced": [
+    "sub_lumiya_seduction",
+    "sub_jacen_ben_apprenticeship"
+  ],
+  "promises_planted": [
+    "hook_lumiya_identity"
+  ],
+  "promises_paid": [
+    "hook_lumiya_tassels"
+  ],
+  "canon_elements_needed": [
+    "Lumiya's tasseled Sith-robe motif",
+    "Lumiya's voice modulator",
+    "Jacen's Coruscant living arrangement"
+  ],
+  "target_word_count": 2400,
+  "action_beats": [
+    "Jacen enters the chamber",
+    "Lumiya introduces herself",
+    "She names her teaching",
+    "She exits without pressure"
+  ],
+  "notes": "Lumiya's register is articulate, unpressured, patient — her strongest form.",
+  "active_subplots": [
+    "sub_lumiya_seduction",
+    "sub_jacen_ben_apprenticeship"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "hook_lumiya_identity",
+      "action": "plant"
+    },
+    {
+      "hook_id": "hook_dark_hooded_enemy",
+      "action": "advance"
+    },
+    {
+      "hook_id": "hook_lumiya_tassels",
+      "action": "resolve"
+    }
+  ],
+  "revelations": [
+    "rev_lumiya_meets_jacen"
+  ],
+  "pov_arc_phase": "need_resisted"
+}

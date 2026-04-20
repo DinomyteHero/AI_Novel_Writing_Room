@@ -1,0 +1,64 @@
+{
+  "chapter_number": 19,
+  "scene_number": 1,
+  "structural_phase": "second_pinch",
+  "scene_type": "action",
+  "scene_role": "reveal",
+  "pov_character": "Leia Organa Solo",
+  "mission": "The Toryaz bombing — Leia on the summit floor when the blast goes.",
+  "why_now": "The delegations are reconvening for an afternoon session; the bomb is on timer.",
+  "opening_hook": "Leia standing at her chair, hand on the table edge, about to resume the session.",
+  "conflict": "The bomb's mechanical trigger against the room's assembled diplomats.",
+  "conflict_type": "environmental",
+  "dialogue_expectation": "balanced",
+  "turning_point": "The blast — a single paragraph; the chamber violently altered.",
+  "closing_hook": "Leia coughing through smoke; the chamber's alarms live.",
+  "characters_present": [
+    "Leia Organa Solo",
+    "Alliance delegation",
+    "Corellian delegation",
+    "Toryaz staff"
+  ],
+  "setting": "Toryaz Station diplomatic chamber.",
+  "sensory_details": "Concussive blast; suppressor-foam deployment; the chamber's emergency lighting.",
+  "emotional_trajectory": "Diplomatic readiness → blast shock → survival triage.",
+  "stakes": {
+    "personal": "Leia's survival.",
+    "interpersonal": "The delegations' members.",
+    "external": "The summit itself."
+  },
+  "plot_threads_advanced": [
+    "sub_toryaz_diplomacy",
+    "sub_corellian_crisis"
+  ],
+  "promises_planted": [],
+  "promises_paid": [
+    "hook_toryaz_summit"
+  ],
+  "canon_elements_needed": [
+    "Toryaz Station safety systems",
+    "Diplomatic-chamber explosive damage protocols"
+  ],
+  "target_word_count": 1400,
+  "action_beats": [
+    "Session about to resume",
+    "Bomb detonates",
+    "Chamber alarms",
+    "Leia triages"
+  ],
+  "notes": "Allston handles the blast in a paragraph; the chapter's weight is the aftermath.",
+  "active_subplots": [
+    "sub_toryaz_diplomacy",
+    "sub_corellian_crisis"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "hook_toryaz_summit",
+      "action": "resolve"
+    }
+  ],
+  "revelations": [
+    "rev_toryaz_bombing"
+  ],
+  "pov_arc_phase": "need_glimpsed"
+}

@@ -1,0 +1,52 @@
+{
+  "chapter_number": 23,
+  "chapter_mission": "Lumiya's philosophical teaching scene — delivered at length, at its most seductive. Sith lightwhip glimpsed. Jacen's intellectual commitment deepens.",
+  "chapter_turn": "Jacen crosses from considering the teaching to privately accepting it — the public accept happens at Ch 28, but the interior fork has already collapsed.",
+  "structural_phase": "attack",
+  "pov_allocation": [
+    "Jacen Solo"
+  ],
+  "scene_count": 2,
+  "scene_plan": [
+    {
+      "scene_number": 1,
+      "role": "escalation",
+      "dialogue_expectation": "dialogue_led",
+      "target_word_count": 3500,
+      "purpose": "Lumiya's philosophical teaching — Sith-with-love argument at length; lightwhip glimpsed."
+    },
+    {
+      "scene_number": 2,
+      "role": "decision",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 2530,
+      "purpose": "Jacen post-teaching, the asteroid offer named; interior consolidation toward acceptance."
+    }
+  ],
+  "reveal_payload": [],
+  "hook_movements": {
+    "planted": [
+      "hook_vectivus_asteroid"
+    ],
+    "advanced": [
+      "hook_lumiya_identity",
+      "hook_dark_hooded_enemy"
+    ],
+    "resolved": []
+  },
+  "subplot_obligations": [
+    "sub_lumiya_seduction",
+    "sub_vectivus_asteroid"
+  ],
+  "relationship_turns": [
+    {
+      "dyad": "Jacen/Lumiya",
+      "from": "acknowledged_teacher_and_considering_student",
+      "to": "acknowledged_teacher_and_privately_committed_student"
+    }
+  ],
+  "pacing_curve": "steady",
+  "exit_vector": "Lumiya leaving Jacen with a specific offer — a trip to a specific place to see a specific thing.",
+  "chapter_word_target": 6030,
+  "notes": "The book's longest chapter (6030 words). Most of the runtime is philosophical dialogue — Allston trusts the conversation to hold the chapter."
+}

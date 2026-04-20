@@ -1,0 +1,46 @@
+{
+  "chapter_number": 18,
+  "chapter_mission": "Arrive at Toryaz Station; summit opening sessions; Lumiya already moving in the shadows of the station, unrecognized.",
+  "chapter_turn": "The book stages a visibly doomed diplomatic setting — the reader knows the summit will fail; the characters do not.",
+  "structural_phase": "attack",
+  "pov_allocation": [
+    "Leia Organa Solo",
+    "Mara Jade Skywalker"
+  ],
+  "scene_count": 2,
+  "scene_plan": [
+    {
+      "scene_number": 1,
+      "role": "escalation",
+      "dialogue_expectation": "dialogue_led",
+      "target_word_count": 1500,
+      "purpose": "Summit opening session; Leia in her last formal Alliance diplomatic role."
+    },
+    {
+      "scene_number": 2,
+      "role": "escalation",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 1567,
+      "purpose": "Mara in a Toryaz corridor; tasseled figure glimpsed; Mara registers the hem without identifying Lumiya."
+    }
+  ],
+  "reveal_payload": [],
+  "hook_movements": {
+    "planted": [],
+    "advanced": [
+      "hook_toryaz_summit",
+      "hook_lumiya_tassels",
+      "hook_dark_hooded_enemy"
+    ],
+    "resolved": []
+  },
+  "subplot_obligations": [
+    "sub_toryaz_diplomacy",
+    "sub_lumiya_seduction"
+  ],
+  "relationship_turns": [],
+  "pacing_curve": "rising",
+  "exit_vector": "Lumiya's tasseled hem crossing a Toryaz corridor; Tresina Lobi walking past her without a second look.",
+  "chapter_word_target": 3067,
+  "notes": "The tassels appear again — by this point the reader has identified the figure."
+}

@@ -1,0 +1,60 @@
+{
+  "chapter_number": 22,
+  "scene_number": 2,
+  "structural_phase": "attack",
+  "scene_type": "sequel",
+  "scene_role": "escalation",
+  "pov_character": "Luke Skywalker",
+  "mission": "Parallel Jedi Council session — Corran Horn against GAG cooperation; Luke holds.",
+  "why_now": "The GAG has requested Jedi cooperation on Coruscant-side operations.",
+  "opening_hook": "Luke at the head of the chamber table with the GAG cooperation request on a datapad.",
+  "conflict": "Corran's insistence that cooperating with GAG sets a precedent the Order cannot afford vs. Luke's calculation that refusal loses Order influence inside the internal-security apparatus.",
+  "conflict_type": "interpersonal",
+  "dialogue_expectation": "dialogue_led",
+  "turning_point": "Luke commits the Order to case-by-case cooperation — neither full refusal nor full alliance.",
+  "closing_hook": "Corran Horn leaving the chamber at Luke's back, unhappy but not resigning.",
+  "characters_present": [
+    "Luke Skywalker",
+    "Mara Jade Skywalker",
+    "Corran Horn",
+    "Kyp Durron",
+    "Kyle Katarn",
+    "Saba Sebatyne"
+  ],
+  "setting": "Jedi Council chamber, Jedi Temple, Coruscant.",
+  "sensory_details": "Chamber's formal hush; Corran's controlled frustration; Mara's watchful steadiness.",
+  "emotional_trajectory": "Policy debate → compromise posture → Council fracture visible.",
+  "stakes": {
+    "personal": "Luke's authority.",
+    "interpersonal": "Luke/Corran's working partnership.",
+    "external": "Jedi/GAG operational alignment."
+  },
+  "plot_threads_advanced": [
+    "sub_corellian_crisis"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "canon_elements_needed": [
+    "Galactic Alliance Guard institutional pressure",
+    "Jedi Council factional architecture"
+  ],
+  "target_word_count": 2420,
+  "action_beats": [
+    "GAG request presented",
+    "Corran's objection",
+    "Luke's case-by-case policy",
+    "Corran exits unhappy"
+  ],
+  "notes": "The fracture is visible but not yet rupture.",
+  "active_subplots": [
+    "sub_corellian_crisis"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "hook_corellian_insurgency",
+      "action": "advance"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "flat_arc_stable_truth"
+}

@@ -1,0 +1,71 @@
+{
+  "chapter_number": 34,
+  "chapter_mission": "Return to Coruscant; Jacen erases Ben's memory of the asteroid trip; Luke, meditating in the Temple, senses a new Sith in the Force. 'He exists.'",
+  "chapter_turn": "The book closes: Jacen has crossed, Ben does not remember, Luke senses without naming — the series' engine is fully wound.",
+  "structural_phase": "resolution",
+  "pov_allocation": [
+    "Ben Skywalker",
+    "Luke Skywalker"
+  ],
+  "scene_count": 2,
+  "scene_plan": [
+    {
+      "scene_number": 1,
+      "role": "reveal",
+      "dialogue_expectation": "interior",
+      "target_word_count": 1000,
+      "purpose": "Ben on Coruscant without the memory of the trip; unease without object."
+    },
+    {
+      "scene_number": 2,
+      "role": "decision",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 1180,
+      "purpose": "Luke in the Temple meditating; the new-Sith presence is sensed; 'He exists.'"
+    }
+  ],
+  "reveal_payload": [
+    "rev_ben_memory_erased",
+    "rev_he_exists"
+  ],
+  "hook_movements": {
+    "planted": [
+      "hook_he_exists"
+    ],
+    "advanced": [],
+    "resolved": [
+      "hook_ben_memory_edit",
+      "hook_dark_hooded_enemy",
+      "hook_han_leia_split"
+    ]
+  },
+  "subplot_obligations": [
+    "sub_vectivus_asteroid",
+    "sub_lumiya_seduction",
+    "sub_luke_dream_line",
+    "sub_jacen_ben_apprenticeship",
+    "sub_corellian_crisis",
+    "sub_han_leia_corellia"
+  ],
+  "relationship_turns": [
+    {
+      "dyad": "Jacen/Ben",
+      "from": "mentor_pair_with_a_buried_secret",
+      "to": "mentor_pair_with_the_secret_now_literally_erased"
+    },
+    {
+      "dyad": "Luke/Jacen",
+      "from": "master_and_publicly_divergent_nephew",
+      "to": "master_sensing_a_new_Sith_without_identifying_his_nephew"
+    },
+    {
+      "dyad": "Han/Leia",
+      "from": "marriage_in_operational_separation_enacted",
+      "to": "marriage_in_operational_separation_committed_to"
+    }
+  ],
+  "pacing_curve": "falling",
+  "exit_vector": "Luke's words 'He exists' delivered to Mara; Mara already agreeing without needing clarification.",
+  "chapter_word_target": 2180,
+  "notes": "The book's shortest chapter (2180 words). Its job is the close. No diminuendo — just 'he exists.'"
+}

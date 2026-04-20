@@ -1,0 +1,48 @@
+{
+  "chapter_number": 15,
+  "chapter_mission": "Centerpoint commando operation prep — Klauskin near his breakdown; Luke and Mara respond to a Jedi-level Force ripple as the operation nears execution.",
+  "chapter_turn": "The midpoint is cued — the Alliance is about to take the first irrevocable kinetic step of the war, and the Jedi sense it.",
+  "structural_phase": "midpoint",
+  "pov_allocation": [
+    "Admiral Klauskin",
+    "Luke Skywalker"
+  ],
+  "scene_count": 2,
+  "scene_plan": [
+    {
+      "scene_number": 1,
+      "role": "escalation",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 2100,
+      "purpose": "Pre-operation command briefing; Klauskin ticking through the operational sequence while his wife's ghost whispers."
+    },
+    {
+      "scene_number": 2,
+      "role": "escalation",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 1889,
+      "purpose": "Luke and Mara in the Temple sense a Force-ripple from the Corellian system; they cannot identify the source."
+    }
+  ],
+  "reveal_payload": [],
+  "hook_movements": {
+    "planted": [],
+    "advanced": [
+      "hook_centerpoint_reactivation",
+      "hook_klauskin_strain",
+      "hook_dark_hooded_enemy"
+    ],
+    "resolved": []
+  },
+  "subplot_obligations": [
+    "sub_centerpoint_sabotage",
+    "sub_operation_roundabout",
+    "sub_klauskin_breakdown",
+    "sub_luke_dream_line"
+  ],
+  "relationship_turns": [],
+  "pacing_curve": "rising",
+  "exit_vector": "Klauskin stepping onto the flagship's bridge with his dress uniform too tight, the ghost of his wife a presence the reader can see.",
+  "chapter_word_target": 3989,
+  "notes": "Deliberately held to operational detail — the book does not telegraph what Klauskin will do."
+}

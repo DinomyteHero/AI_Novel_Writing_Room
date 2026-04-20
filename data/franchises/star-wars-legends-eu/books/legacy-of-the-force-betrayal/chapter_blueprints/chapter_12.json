@@ -1,0 +1,41 @@
+{
+  "chapter_number": 12,
+  "chapter_mission": "Hold the book's intimate-scale Jedi register: Jacen and Ben on Coruscant in a training scene that subtly advances Jacen's mentorship and carries Vergere's philosophical shadow.",
+  "chapter_turn": "Ben's relationship to Jacen tightens in exactly the shape the book's tragedy will require — Ben trusts Jacen's Force-philosophy more than he trusts his own uncertainty.",
+  "structural_phase": "first_pinch",
+  "pov_allocation": [
+    "Ben Skywalker"
+  ],
+  "scene_count": 1,
+  "scene_plan": [
+    {
+      "scene_number": 1,
+      "role": "escalation",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 2761,
+      "purpose": "Jedi Temple training session — Jacen teaches Ben a kata; Ben trusts; Jacen watches."
+    }
+  ],
+  "reveal_payload": [],
+  "hook_movements": {
+    "planted": [],
+    "advanced": [
+      "hook_dark_hooded_enemy"
+    ],
+    "resolved": []
+  },
+  "subplot_obligations": [
+    "sub_jacen_ben_apprenticeship"
+  ],
+  "relationship_turns": [
+    {
+      "dyad": "Jacen/Ben",
+      "from": "operational_mentor_pair",
+      "to": "philosophical_mentor_pair"
+    }
+  ],
+  "pacing_curve": "falling",
+  "exit_vector": "Ben finishing a kata Jacen has taught him; Jacen watching with something that is not quite pride.",
+  "chapter_word_target": 2761,
+  "notes": "The book's shortest chapter (~2761 words). Its job is relationship-level — the mentor bond that will be corrupted."
+}

@@ -1,0 +1,53 @@
+{
+  "chapter_number": 13,
+  "chapter_mission": "Aidel Saxan is assassinated and Thrackan Sal-Solo installed as Governor-General of Corellia. Brooks First Pinch point lands.",
+  "chapter_turn": "The Corellian war acquires a face who is Han Solo's blood relation; diplomatic options collapse overnight.",
+  "structural_phase": "first_pinch",
+  "pov_allocation": [
+    "Aidel Saxan",
+    "Thrackan Sal-Solo"
+  ],
+  "scene_count": 2,
+  "scene_plan": [
+    {
+      "scene_number": 1,
+      "role": "decision",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 1500,
+      "purpose": "Saxan's last scene — a brief exchange before the off-page assassination."
+    },
+    {
+      "scene_number": 2,
+      "role": "reveal",
+      "dialogue_expectation": "dialogue_led",
+      "target_word_count": 1804,
+      "purpose": "Thrackan's installation and public address — the war acquires its face."
+    }
+  ],
+  "reveal_payload": [
+    "rev_aidel_saxan_assassinated"
+  ],
+  "hook_movements": {
+    "planted": [],
+    "advanced": [
+      "hook_corellian_insurgency"
+    ],
+    "resolved": [
+      "hook_saxan_assassination"
+    ]
+  },
+  "subplot_obligations": [
+    "sub_corellian_crisis"
+  ],
+  "relationship_turns": [
+    {
+      "dyad": "Han/Thrackan",
+      "from": "distant_cousins_with_grievances",
+      "to": "opposed_principals_in_an_open_war"
+    }
+  ],
+  "pacing_curve": "rising",
+  "exit_vector": "Thrackan addressing Corellia on a live feed as the book's new antagonist-in-residence.",
+  "chapter_word_target": 3304,
+  "notes": "Assassination is off-page for the reader; the consequences are foregrounded. First Pinch lands without histrionic violence."
+}

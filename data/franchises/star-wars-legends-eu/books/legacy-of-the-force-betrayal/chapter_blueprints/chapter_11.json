@@ -1,0 +1,51 @@
+{
+  "chapter_number": 11,
+  "chapter_mission": "Han and Leia on the Falcon carry the marriage arc forward — a quiet, pointed exchange that refuses to resolve. Centerpoint engineering confirmations deepen.",
+  "chapter_turn": "The marriage becomes operationally bifurcated without emotional rupture — Han and Leia agree to disagree in a way that prefigures the end-of-book separation.",
+  "structural_phase": "first_pinch",
+  "pov_allocation": [
+    "Han Solo",
+    "Leia Organa Solo"
+  ],
+  "scene_count": 2,
+  "scene_plan": [
+    {
+      "scene_number": 1,
+      "role": "escalation",
+      "dialogue_expectation": "dialogue_led",
+      "target_word_count": 2000,
+      "purpose": "Han and Leia Falcon galley conversation — the political disagreement is named but not settled."
+    },
+    {
+      "scene_number": 2,
+      "role": "aftermath",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 1817,
+      "purpose": "Leia in the cockpit alone — interior consolidation of her third-way posture."
+    }
+  ],
+  "reveal_payload": [],
+  "hook_movements": {
+    "planted": [],
+    "advanced": [
+      "hook_centerpoint_reactivation",
+      "hook_han_leia_split"
+    ],
+    "resolved": []
+  },
+  "subplot_obligations": [
+    "sub_han_leia_corellia",
+    "sub_centerpoint_sabotage"
+  ],
+  "relationship_turns": [
+    {
+      "dyad": "Han/Leia",
+      "from": "marriage_under_active_operational_strain",
+      "to": "marriage_in_open_disagreement_but_intact"
+    }
+  ],
+  "pacing_curve": "steady",
+  "exit_vector": "Han and Leia both looking at the stars from opposite chairs, saying nothing.",
+  "chapter_word_target": 3817,
+  "notes": "Allston handles the marriage strain with restraint — no shouting, no ultimatums, just a visible disagreement."
+}

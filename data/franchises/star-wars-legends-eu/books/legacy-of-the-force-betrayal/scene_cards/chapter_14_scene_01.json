@@ -1,0 +1,63 @@
+{
+  "chapter_number": 14,
+  "scene_number": 1,
+  "structural_phase": "response",
+  "scene_type": "sequel",
+  "scene_role": "decision",
+  "pov_character": "Han Solo",
+  "mission": "Han files Corellian registration papers on a Falcon-side datapad in front of Leia; Leia watches without objecting.",
+  "why_now": "Thrackan's address has forced Han's alignment into the open.",
+  "opening_hook": "Han at the Falcon's ramp with a datapad showing the Corellian registration form.",
+  "conflict": "Han's final step into Corellian alignment vs. Leia's long patience with his Corellian identity.",
+  "conflict_type": "interpersonal",
+  "dialogue_expectation": "dialogue_led",
+  "turning_point": "Han thumbs the registration chip; Leia says nothing.",
+  "closing_hook": "Han handing the datapad back to a Corellian courier.",
+  "characters_present": [
+    "Han Solo",
+    "Leia Organa Solo",
+    "Corellian courier"
+  ],
+  "setting": "Millennium Falcon landing ramp, Coruscant pad.",
+  "sensory_details": "Pad lighting; courier's Corellian uniform; Leia's unopposing posture.",
+  "emotional_trajectory": "Quiet decision → visible commitment → mutual silence.",
+  "stakes": {
+    "personal": "Han's formal citizenship alignment.",
+    "interpersonal": "The marriage's operational architecture.",
+    "external": "Han's alignment as a data point in the galactic war."
+  },
+  "plot_threads_advanced": [
+    "sub_han_leia_corellia",
+    "sub_corellian_crisis"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "canon_elements_needed": [
+    "Corellian registration protocols",
+    "Millennium Falcon's Coruscant pad"
+  ],
+  "target_word_count": 1700,
+  "action_beats": [
+    "Courier presents the form",
+    "Han reads it",
+    "Han thumbs the chip",
+    "Leia watches in silence"
+  ],
+  "notes": "Han's flat-arc commitment lands here with Leia as silent witness.",
+  "active_subplots": [
+    "sub_han_leia_corellia",
+    "sub_corellian_crisis"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "hook_han_leia_split",
+      "action": "advance"
+    },
+    {
+      "hook_id": "hook_corellian_insurgency",
+      "action": "advance"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "flat_arc_stable_truth"
+}

@@ -1,0 +1,58 @@
+{
+  "chapter_number": 8,
+  "scene_number": 2,
+  "structural_phase": "response",
+  "scene_type": "sequel",
+  "scene_role": "escalation",
+  "pov_character": "Jacen Solo",
+  "mission": "Jacen parallel-briefed by Alliance-aligned contacts; his pre-emption stance consolidates further.",
+  "why_now": "Jacen has contacts in the intelligence apparatus who brief him informally.",
+  "opening_hook": "Jacen in a Coruscant side-bar with an intelligence contact across the table.",
+  "conflict": "The contact's warning vs. Jacen's already-formed conviction that the Order must act.",
+  "conflict_type": "interpersonal",
+  "dialogue_expectation": "balanced",
+  "turning_point": "Jacen thanks the contact and commits — in the privacy of his own head — to doing more than the Order has authorized.",
+  "closing_hook": "Jacen leaving the bar onto a busy Coruscant street.",
+  "characters_present": [
+    "Jacen Solo",
+    "Alliance intelligence contact"
+  ],
+  "setting": "Coruscant side-bar, evening.",
+  "sensory_details": "Bar's low lighting; contact's Imperial-style chronometer; street-level Coruscant noise.",
+  "emotional_trajectory": "Measured reception of intel → interior commitment → exit.",
+  "stakes": {
+    "personal": "Jacen's operational independence.",
+    "interpersonal": "Jacen's semi-official intelligence relationships.",
+    "external": "Centerpoint's reactivation and the pre-emption question."
+  },
+  "plot_threads_advanced": [
+    "sub_corellian_crisis",
+    "sub_centerpoint_sabotage"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "canon_elements_needed": [
+    "Coruscant street-level register",
+    "Alliance intelligence informal channels"
+  ],
+  "target_word_count": 1524,
+  "action_beats": [
+    "Contact briefs Jacen informally",
+    "Jacen asks specific follow-up questions",
+    "Jacen thanks the contact",
+    "Jacen exits into the street"
+  ],
+  "notes": "A quiet scene that stacks operational information onto Jacen's growing pre-emption conviction.",
+  "active_subplots": [
+    "sub_corellian_crisis",
+    "sub_centerpoint_sabotage"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "hook_centerpoint_reactivation",
+      "action": "advance"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "need_resisted"
+}

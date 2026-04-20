@@ -1,0 +1,51 @@
+{
+  "chapter_number": 16,
+  "scene_number": 2,
+  "structural_phase": "midpoint",
+  "scene_type": "sequel",
+  "scene_role": "aftermath",
+  "pov_character": "Leia Organa Solo",
+  "mission": "Leia and Han learn of Centerpoint's disabling; Leia begins her private pivot away from Alliance service.",
+  "why_now": "The news has just hit the Falcon's comm.",
+  "opening_hook": "Leia at the Falcon's comm station with the Centerpoint news on-screen.",
+  "conflict": "Leia's institutional role vs. her growing conviction that the Alliance has just made the war permanent.",
+  "conflict_type": "internal",
+  "dialogue_expectation": "balanced",
+  "turning_point": "Leia decides, without telling Han yet, that she will step back from formal Alliance roles.",
+  "closing_hook": "Leia closing the news channel; Han watching from the galley hatch.",
+  "characters_present": [
+    "Leia Organa Solo",
+    "Han Solo"
+  ],
+  "setting": "Millennium Falcon comm station, docked.",
+  "sensory_details": "Comm panel glow; Falcon's off-watch hum; Han's silhouette in the hatchway.",
+  "emotional_trajectory": "News absorbed → private pivot → silent alignment with Han.",
+  "stakes": {
+    "personal": "Leia's career as Alliance servant.",
+    "interpersonal": "The marriage's alignment-by-divergent-routes.",
+    "external": "The peace effort's institutional spine."
+  },
+  "plot_threads_advanced": [
+    "sub_han_leia_corellia"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "canon_elements_needed": [
+    "Millennium Falcon comm station",
+    "Alliance news channel routing"
+  ],
+  "target_word_count": 1990,
+  "action_beats": [
+    "Leia reads the Centerpoint news",
+    "She closes the channel",
+    "Han appears in the hatchway",
+    "They do not speak"
+  ],
+  "notes": "Leia's pivot is interior here; it will enact at Ch 22.",
+  "active_subplots": [
+    "sub_han_leia_corellia"
+  ],
+  "hook_actions": [],
+  "revelations": [],
+  "pov_arc_phase": "need_glimpsed"
+}

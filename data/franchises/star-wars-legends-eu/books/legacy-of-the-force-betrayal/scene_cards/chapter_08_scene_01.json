@@ -1,0 +1,70 @@
+{
+  "chapter_number": 8,
+  "scene_number": 1,
+  "structural_phase": "response",
+  "scene_type": "sequel",
+  "scene_role": "reveal",
+  "pov_character": "Cal Omas",
+  "mission": "Alliance intelligence briefing confirms Centerpoint Station reactivation; Cal Omas authorizes preliminary counter-operation planning.",
+  "why_now": "Alliance intelligence has now corroborated the Corellian engineering effort.",
+  "opening_hook": "Dr. Seyah projecting Centerpoint schematic over Cal Omas's desk.",
+  "conflict": "Alliance desire to contain vs. the super-weapon threat's escalation logic.",
+  "conflict_type": "interpersonal",
+  "dialogue_expectation": "dialogue_led",
+  "turning_point": "Cal Omas authorizes initial planning for a Centerpoint counter-operation.",
+  "closing_hook": "Omas signing the authorization chip; the chip handed to Niathal.",
+  "characters_present": [
+    "Cal Omas",
+    "Admiral Pellaeon",
+    "Admiral Niathal",
+    "Dr. Seyah",
+    "Dr. Arisster"
+  ],
+  "setting": "Cal Omas's private Senate office, Coruscant.",
+  "sensory_details": "Schematic projection glow; Niathal's clawed grip on a stylus; Pellaeon's tea cup precisely half full.",
+  "emotional_trajectory": "Technical briefing → strategic pivot → authorization.",
+  "stakes": {
+    "personal": "Cal Omas's political capital.",
+    "interpersonal": "Omas/Pellaeon/Niathal's command-level working relationship.",
+    "external": "A galactic super-weapon going active."
+  },
+  "plot_threads_advanced": [
+    "sub_centerpoint_sabotage",
+    "sub_corellian_crisis"
+  ],
+  "promises_planted": [
+    "hook_centerpoint_reactivation"
+  ],
+  "promises_paid": [],
+  "canon_elements_needed": [
+    "Centerpoint Station engineering",
+    "Cal Omas as Chief of State circa 40 ABY",
+    "Pellaeon and Niathal as joint chiefs"
+  ],
+  "target_word_count": 1800,
+  "action_beats": [
+    "Seyah projects Centerpoint schematic",
+    "Arisster reads the engineering signatures",
+    "Pellaeon and Niathal frame options",
+    "Omas signs authorization"
+  ],
+  "notes": "Intelligence-register scene; the midpoint engine ignites here.",
+  "active_subplots": [
+    "sub_centerpoint_sabotage",
+    "sub_corellian_crisis"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "hook_centerpoint_reactivation",
+      "action": "plant"
+    },
+    {
+      "hook_id": "hook_corellian_insurgency",
+      "action": "advance"
+    }
+  ],
+  "revelations": [
+    "rev_centerpoint_reactivated"
+  ],
+  "pov_arc_phase": "flat_arc_stable_truth"
+}

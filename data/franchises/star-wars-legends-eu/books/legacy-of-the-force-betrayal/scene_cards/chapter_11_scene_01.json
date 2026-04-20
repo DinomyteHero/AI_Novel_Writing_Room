@@ -1,0 +1,59 @@
+{
+  "chapter_number": 11,
+  "scene_number": 1,
+  "structural_phase": "first_pinch",
+  "scene_type": "sequel",
+  "scene_role": "escalation",
+  "pov_character": "Han Solo",
+  "mission": "Han/Leia Falcon galley conversation — the political disagreement is named but not settled.",
+  "why_now": "The Centerpoint reactivation is now public.",
+  "opening_hook": "Han and Leia in the galley with a half-empty caf pot between them.",
+  "conflict": "Han's argument that Corellia has a legitimate grievance vs. Leia's argument that the grievance does not justify a super-weapon.",
+  "conflict_type": "interpersonal",
+  "dialogue_expectation": "dialogue_led",
+  "turning_point": "Leia tells Han she will not ask him to agree with her; Han tells Leia he will not ask her to agree with him.",
+  "closing_hook": "Both of them finishing the caf pot without refilling it.",
+  "characters_present": [
+    "Han Solo",
+    "Leia Organa Solo"
+  ],
+  "setting": "Millennium Falcon galley, docked.",
+  "sensory_details": "Caf bitter and late; galley lighting tuned low; a small mess of data-chips on the table.",
+  "emotional_trajectory": "Sustained disagreement → mutual acknowledgment → non-resolution.",
+  "stakes": {
+    "personal": "Each spouse's political identity.",
+    "interpersonal": "The marriage's register of mutual non-pressure.",
+    "external": "The political frame they can no longer share."
+  },
+  "plot_threads_advanced": [
+    "sub_han_leia_corellia"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "canon_elements_needed": [
+    "Millennium Falcon galley"
+  ],
+  "target_word_count": 2000,
+  "action_beats": [
+    "Caf poured",
+    "Han states Corellian case",
+    "Leia states Alliance case",
+    "Neither concedes"
+  ],
+  "notes": "Structural preview of the operational separation.",
+  "active_subplots": [
+    "sub_han_leia_corellia"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "hook_centerpoint_reactivation",
+      "action": "advance"
+    },
+    {
+      "hook_id": "hook_han_leia_split",
+      "action": "advance"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "flat_arc_stable_truth"
+}

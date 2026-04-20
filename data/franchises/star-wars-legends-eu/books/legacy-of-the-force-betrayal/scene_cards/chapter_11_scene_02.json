@@ -1,0 +1,50 @@
+{
+  "chapter_number": 11,
+  "scene_number": 2,
+  "structural_phase": "first_pinch",
+  "scene_type": "sequel",
+  "scene_role": "aftermath",
+  "pov_character": "Leia Organa Solo",
+  "mission": "Leia alone in the cockpit consolidating her third-way posture — she will not oppose Han but she will not join him.",
+  "why_now": "Han has gone below-decks; Leia is alone with the cockpit and her choice.",
+  "opening_hook": "Leia in the pilot's chair of a parked Falcon, no engines live, looking at the empty pad beyond the viewscreen.",
+  "conflict": "Leia's instinctual alignment with Han against her political judgment that Corellia is wrong here.",
+  "conflict_type": "internal",
+  "dialogue_expectation": "balanced",
+  "turning_point": "Leia decides, silently, to continue working through the Falcon as her independent base.",
+  "closing_hook": "Leia's hand on the yoke, engines still off.",
+  "characters_present": [
+    "Leia Organa Solo"
+  ],
+  "setting": "Millennium Falcon cockpit, parked.",
+  "sensory_details": "Cockpit's cold panel lighting; her hand on the yoke; the empty pad beyond the viewscreen.",
+  "emotional_trajectory": "Quiet processing → private decision → settled resolve.",
+  "stakes": {
+    "personal": "Leia's political integrity.",
+    "interpersonal": "The marriage's continuing architecture.",
+    "external": "Leia's continuing utility to the peace effort."
+  },
+  "plot_threads_advanced": [
+    "sub_han_leia_corellia"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "canon_elements_needed": [
+    "Millennium Falcon cockpit"
+  ],
+  "target_word_count": 1817,
+  "action_beats": [
+    "Leia enters the cockpit",
+    "She watches the empty pad",
+    "She decides on the Falcon-independent posture",
+    "She sets her hand on the yoke"
+  ],
+  "notes": "Leia's positive-change arc hits its want-defined point here.",
+  "active_subplots": [
+    "sub_han_leia_corellia"
+  ],
+  "hook_actions": [],
+  "revelations": [],
+  "pov_arc_phase": "want_defined",
+  "arc_phase_transition": "need_glimpsed"
+}

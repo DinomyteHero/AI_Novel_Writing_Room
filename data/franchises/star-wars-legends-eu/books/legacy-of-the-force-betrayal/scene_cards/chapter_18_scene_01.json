@@ -1,0 +1,60 @@
+{
+  "chapter_number": 18,
+  "scene_number": 1,
+  "structural_phase": "attack",
+  "scene_type": "sequel",
+  "scene_role": "escalation",
+  "pov_character": "Leia Organa Solo",
+  "mission": "Toryaz Station summit opens; Leia chairs an opening session in her last formal Alliance diplomatic role.",
+  "why_now": "The summit has just been gaveled open; Leia's session is first.",
+  "opening_hook": "Leia at a circular diplomatic table with Alliance and Corellian delegations seated opposite.",
+  "conflict": "Leia's long diplomatic discipline vs. the delegations' mutual unwillingness to concede any ground.",
+  "conflict_type": "interpersonal",
+  "dialogue_expectation": "dialogue_led",
+  "turning_point": "Leia tables a procedural framework — a small win inside an otherwise locked session.",
+  "closing_hook": "The session adjourning; delegations leaving by different doors.",
+  "characters_present": [
+    "Leia Organa Solo",
+    "Corellian delegation",
+    "Alliance delegation",
+    "Toryaz diplomatic staff"
+  ],
+  "setting": "Toryaz Station main diplomatic chamber.",
+  "sensory_details": "Station's low-gravity-adjusted seating; the table's reflective surface; the staff's Toryaz uniforms.",
+  "emotional_trajectory": "Diplomatic formality → grinding impasse → procedural partial win.",
+  "stakes": {
+    "personal": "Leia's diplomatic reputation at its final professional outing.",
+    "interpersonal": "Leia/Corellian-delegation register.",
+    "external": "The summit's chance at any outcome."
+  },
+  "plot_threads_advanced": [
+    "sub_toryaz_diplomacy",
+    "sub_corellian_crisis"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "canon_elements_needed": [
+    "Toryaz Station diplomatic architecture",
+    "Alliance/Corellian delegation composition"
+  ],
+  "target_word_count": 1500,
+  "action_beats": [
+    "Session gaveled open",
+    "Positions presented",
+    "Leia tables procedural framework",
+    "Session adjourns"
+  ],
+  "notes": "Leia's last formal Alliance diplomatic session on-page.",
+  "active_subplots": [
+    "sub_toryaz_diplomacy",
+    "sub_corellian_crisis"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "hook_toryaz_summit",
+      "action": "advance"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "need_glimpsed"
+}

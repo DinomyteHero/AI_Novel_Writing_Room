@@ -1,0 +1,56 @@
+{
+  "chapter_number": 19,
+  "chapter_mission": "Toryaz Station is bombed; Tresina Lobi is killed; the peace effort collapses. Brooks Second Pinch.",
+  "chapter_turn": "The book's most public atrocity lands; Mara's grief becomes a hunt within the same chapter.",
+  "structural_phase": "second_pinch",
+  "pov_allocation": [
+    "Leia Organa Solo",
+    "Mara Jade Skywalker"
+  ],
+  "scene_count": 2,
+  "scene_plan": [
+    {
+      "scene_number": 1,
+      "role": "reveal",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 1400,
+      "purpose": "The bombing itself — Leia on the summit floor when it goes."
+    },
+    {
+      "scene_number": 2,
+      "role": "decision",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 1860,
+      "purpose": "Mara finds Tresina's body; grief converts to operational commitment."
+    }
+  ],
+  "reveal_payload": [
+    "rev_toryaz_bombing"
+  ],
+  "hook_movements": {
+    "planted": [],
+    "advanced": [
+      "hook_dark_hooded_enemy"
+    ],
+    "resolved": [
+      "hook_toryaz_summit"
+    ]
+  },
+  "subplot_obligations": [
+    "sub_toryaz_diplomacy",
+    "sub_lumiya_seduction",
+    "sub_luke_dream_line",
+    "sub_corellian_crisis"
+  ],
+  "relationship_turns": [
+    {
+      "dyad": "Mara/Tresina",
+      "from": "thirty_year_friendship_on_page_at_last",
+      "to": "severed_friendship_grieved"
+    }
+  ],
+  "pacing_curve": "rising",
+  "exit_vector": "Mara walking back to the Falcon with blood on her sleeve and the decision already made that she will find whoever arranged this.",
+  "chapter_word_target": 3260,
+  "notes": "Allston handles the bombing with restraint — the blast is one paragraph, the aftermath is the chapter."
+}

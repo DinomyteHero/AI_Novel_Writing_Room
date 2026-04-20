@@ -1,0 +1,48 @@
+{
+  "chapter_number": 28,
+  "chapter_mission": "Jacen agrees, face-to-face with Lumiya, to travel to the Vectivus asteroid with her. Brooks Second Plot Point.",
+  "chapter_turn": "The corruption arc crosses from consideration to commitment — Jacen walks onto Lumiya's ship voluntarily, with Ben in tow.",
+  "structural_phase": "second_plot_point",
+  "pov_allocation": [
+    "Jacen Solo"
+  ],
+  "scene_count": 1,
+  "scene_plan": [
+    {
+      "scene_number": 1,
+      "role": "decision",
+      "dialogue_expectation": "dialogue_led",
+      "target_word_count": 3738,
+      "purpose": "Final meeting on Coruscant; Jacen agrees; Ben comes along; departure."
+    }
+  ],
+  "reveal_payload": [
+    "rev_vectivus_asteroid"
+  ],
+  "hook_movements": {
+    "planted": [
+      "hook_nelani_tracks_jacen"
+    ],
+    "advanced": [
+      "hook_vectivus_asteroid",
+      "hook_lumiya_identity"
+    ],
+    "resolved": []
+  },
+  "subplot_obligations": [
+    "sub_vectivus_asteroid",
+    "sub_lumiya_seduction",
+    "sub_jacen_ben_apprenticeship"
+  ],
+  "relationship_turns": [
+    {
+      "dyad": "Jacen/Lumiya",
+      "from": "acknowledged_teacher_and_privately_committed_student",
+      "to": "student_and_teacher_en_route_to_the_lesson"
+    }
+  ],
+  "pacing_curve": "rising",
+  "exit_vector": "The ship breaking orbit with Jacen, Ben, and Lumiya aboard; Nelani Dinn watching the departure from a distant comm-channel.",
+  "chapter_word_target": 3738,
+  "notes": "Second Plot Point. The book's final information is acquired — the specific setting of the corruption will be Vectivus's asteroid."
+}

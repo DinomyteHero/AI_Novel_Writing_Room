@@ -1,0 +1,51 @@
+{
+  "chapter_number": 14,
+  "chapter_mission": "Corellia-front reaction: Alliance fleet acceleration; Han's alignment publicly tips toward Corellia; Corellian paramilitary cells mobilize.",
+  "chapter_turn": "Han stops calling his Corellian sympathies a private matter — he commits, openly, with Leia in the room.",
+  "structural_phase": "response",
+  "pov_allocation": [
+    "Han Solo",
+    "Cal Omas"
+  ],
+  "scene_count": 2,
+  "scene_plan": [
+    {
+      "scene_number": 1,
+      "role": "decision",
+      "dialogue_expectation": "dialogue_led",
+      "target_word_count": 1700,
+      "purpose": "Han files Corellian papers; Leia watches."
+    },
+    {
+      "scene_number": 2,
+      "role": "escalation",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 1792,
+      "purpose": "Alliance fleet acceleration order; Pellaeon and Niathal in the room."
+    }
+  ],
+  "reveal_payload": [],
+  "hook_movements": {
+    "planted": [],
+    "advanced": [
+      "hook_han_leia_split",
+      "hook_corellian_insurgency"
+    ],
+    "resolved": []
+  },
+  "subplot_obligations": [
+    "sub_han_leia_corellia",
+    "sub_corellian_crisis"
+  ],
+  "relationship_turns": [
+    {
+      "dyad": "Han/Leia",
+      "from": "marriage_in_open_disagreement_but_intact",
+      "to": "marriage_aligned_with_operational_separation_agreed"
+    }
+  ],
+  "pacing_curve": "rising",
+  "exit_vector": "Han filing Corellian registration papers on a Falcon-side datapad in front of Leia; Leia watching without objecting.",
+  "chapter_word_target": 3492,
+  "notes": "The operational separation is dated to this chapter in the narrative though not enacted until Ch 22."
+}

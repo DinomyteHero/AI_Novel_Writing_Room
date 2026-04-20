@@ -1,0 +1,56 @@
+{
+  "chapter_number": 17,
+  "chapter_mission": "Galactic Alliance Guard authorized by Cal Omas; Toryaz Station peace summit announced as the galaxy's last diplomatic option; Tresina Lobi established as Mara's oldest friend in advance of the bombing.",
+  "chapter_turn": "The Alliance formally militarizes its internal-security apparatus while simultaneously staging a peace summit — the book's cleanest display of institutional self-contradiction.",
+  "structural_phase": "attack",
+  "pov_allocation": [
+    "Cal Omas",
+    "Mara Jade Skywalker"
+  ],
+  "scene_count": 2,
+  "scene_plan": [
+    {
+      "scene_number": 1,
+      "role": "reveal",
+      "dialogue_expectation": "dialogue_led",
+      "target_word_count": 1600,
+      "purpose": "Omas authorizes the Galactic Alliance Guard over private objections; Toryaz summit announced."
+    },
+    {
+      "scene_number": 2,
+      "role": "escalation",
+      "dialogue_expectation": "dialogue_led",
+      "target_word_count": 1568,
+      "purpose": "Mara and Tresina Lobi plan their Toryaz meeting."
+    }
+  ],
+  "reveal_payload": [],
+  "hook_movements": {
+    "planted": [
+      "hook_gag_formation",
+      "hook_toryaz_summit"
+    ],
+    "advanced": [
+      "hook_dark_hooded_enemy",
+      "hook_corellian_insurgency"
+    ],
+    "resolved": []
+  },
+  "subplot_obligations": [
+    "sub_toryaz_diplomacy",
+    "sub_lumiya_seduction",
+    "sub_luke_dream_line",
+    "sub_corellian_crisis"
+  ],
+  "relationship_turns": [
+    {
+      "dyad": "Mara/Tresina",
+      "from": "thirty_year_friendship_offscreen",
+      "to": "thirty_year_friendship_on_page_at_last"
+    }
+  ],
+  "pacing_curve": "rising",
+  "exit_vector": "Mara and Tresina Lobi on a Coruscant balcony agreeing to meet at Toryaz — a conversation the reader will recognize as doom.",
+  "chapter_word_target": 3168,
+  "notes": "Tresina Lobi gets the book's only scene for her — Allston plants the friendship exactly as long as the bombing requires."
+}

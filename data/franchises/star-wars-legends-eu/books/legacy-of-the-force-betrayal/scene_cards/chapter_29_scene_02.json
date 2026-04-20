@@ -1,0 +1,53 @@
+{
+  "chapter_number": 29,
+  "scene_number": 2,
+  "structural_phase": "climax",
+  "scene_type": "sequel",
+  "scene_role": "escalation",
+  "pov_character": "Ben Skywalker",
+  "mission": "Ben's child's-eye-view of the asteroid; unease without identification.",
+  "why_now": "Ben's apprentice perception is now in a Sith setting.",
+  "opening_hook": "Ben walking a side corridor with Jacen and Lumiya, registering something off.",
+  "conflict": "Ben's apprentice-level Force-sensitivity registering the setting's Sith undertone vs. his trained deference to Jacen.",
+  "conflict_type": "internal",
+  "dialogue_expectation": "balanced",
+  "turning_point": "Ben decides — silently — to say nothing.",
+  "closing_hook": "Ben at the threshold of the inner chambers; Jacen and Lumiya already ahead.",
+  "characters_present": [
+    "Ben Skywalker",
+    "Jacen Solo",
+    "Lumiya"
+  ],
+  "setting": "Vectivus asteroid side corridor leading to inner chambers.",
+  "sensory_details": "Corridor's rough stone; faint subsonic pressure; Ben's apprentice robe.",
+  "emotional_trajectory": "Alert attention → suppressed unease → silent compliance.",
+  "stakes": {
+    "personal": "Ben's apprentice register.",
+    "interpersonal": "Ben's mentor bond with Jacen.",
+    "external": "The corruption arc's path through Ben."
+  },
+  "plot_threads_advanced": [
+    "sub_vectivus_asteroid",
+    "sub_jacen_ben_apprenticeship"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "canon_elements_needed": [
+    "Apprentice Force-sensitivity at ~13 years"
+  ],
+  "target_word_count": 2007,
+  "action_beats": [
+    "Ben registers the setting",
+    "Ben suppresses the registering",
+    "Jacen and Lumiya move ahead",
+    "Ben follows"
+  ],
+  "notes": "Ben's positive-change arc resists but does not yet speak up.",
+  "active_subplots": [
+    "sub_vectivus_asteroid",
+    "sub_jacen_ben_apprenticeship"
+  ],
+  "hook_actions": [],
+  "revelations": [],
+  "pov_arc_phase": "want_defined"
+}

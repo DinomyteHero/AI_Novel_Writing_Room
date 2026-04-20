@@ -1,0 +1,65 @@
+{
+  "chapter_number": 25,
+  "scene_number": 1,
+  "structural_phase": "attack",
+  "scene_type": "action",
+  "scene_role": "escalation",
+  "pov_character": "Wedge Antilles",
+  "mission": "Corellian-front fleet engagement; Syal/Lysa in the air; Wedge watching from a command center and unable to intervene.",
+  "why_now": "The Alliance and Corellian fleet elements have closed; combat is live.",
+  "opening_hook": "Wedge in a Corellian command-observation center with combat holos live.",
+  "conflict": "Wedge's refusal to take a side vs. the combat's demand that he read it like a veteran (which he cannot stop himself from doing).",
+  "conflict_type": "internal",
+  "dialogue_expectation": "balanced",
+  "turning_point": "Wedge recognizes — definitively — that Syal/Lysa is in the air; he does not speak it.",
+  "closing_hook": "The engagement disengaging; the Corellian squadron returning; Wedge still at the holo.",
+  "characters_present": [
+    "Wedge Antilles",
+    "Syal Antilles (as Lysa)",
+    "Corellian command staff"
+  ],
+  "setting": "Corellian fleet command observation center, Coronet City; combat holos live.",
+  "sensory_details": "Command-center's low amber lighting; combat-holo chatter; Wedge's hand flat on the railing.",
+  "emotional_trajectory": "Professional observation → personal recognition → withheld emotion.",
+  "stakes": {
+    "personal": "Wedge's family reckoning.",
+    "interpersonal": "The Antilles family.",
+    "external": "The fleet engagement's outcome."
+  },
+  "plot_threads_advanced": [
+    "sub_wedge_syal",
+    "sub_corellian_crisis",
+    "sub_operation_roundabout"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "canon_elements_needed": [
+    "Rogue-Squadron-era combat choreography",
+    "Corellian fleet command architecture"
+  ],
+  "target_word_count": 3852,
+  "action_beats": [
+    "Engagement opens",
+    "Combat choreography on holos",
+    "Wedge recognizes Syal/Lysa",
+    "Engagement disengages"
+  ],
+  "notes": "Pure action chapter; Wedge's interior recognition lands silent.",
+  "active_subplots": [
+    "sub_wedge_syal",
+    "sub_corellian_crisis",
+    "sub_operation_roundabout"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "hook_corellian_insurgency",
+      "action": "advance"
+    },
+    {
+      "hook_id": "hook_syal_identity",
+      "action": "advance"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "flat_arc_stable_truth"
+}

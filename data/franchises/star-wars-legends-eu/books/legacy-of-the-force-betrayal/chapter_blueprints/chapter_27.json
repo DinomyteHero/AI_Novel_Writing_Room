@@ -1,0 +1,49 @@
+{
+  "chapter_number": 27,
+  "chapter_mission": "Jedi-institutional confrontation over Order neutrality — Corran Horn's Council wing presses; Luke holds. The Jedi Order's posture is the book's final institutional question before the Vectivus climax.",
+  "chapter_turn": "Luke explicitly chooses to keep the Order out of the Corellian war — a decision the book presents as wisdom even as it recognizes the cost.",
+  "structural_phase": "attack",
+  "pov_allocation": [
+    "Luke Skywalker"
+  ],
+  "scene_count": 2,
+  "scene_plan": [
+    {
+      "scene_number": 1,
+      "role": "reveal",
+      "dialogue_expectation": "dialogue_led",
+      "target_word_count": 2400,
+      "purpose": "Jedi Council session — Corran Horn presses; Luke holds the neutrality line."
+    },
+    {
+      "scene_number": 2,
+      "role": "aftermath",
+      "dialogue_expectation": "interior",
+      "target_word_count": 1836,
+      "purpose": "Luke alone post-session; the dark-enemy dream sharpens."
+    }
+  ],
+  "reveal_payload": [],
+  "hook_movements": {
+    "planted": [],
+    "advanced": [
+      "hook_dark_hooded_enemy"
+    ],
+    "resolved": []
+  },
+  "subplot_obligations": [
+    "sub_luke_dream_line",
+    "sub_corellian_crisis"
+  ],
+  "relationship_turns": [
+    {
+      "dyad": "Luke/Jacen",
+      "from": "master_and_privately_divergent_nephew",
+      "to": "master_and_publicly_divergent_nephew"
+    }
+  ],
+  "pacing_curve": "falling",
+  "exit_vector": "Luke alone in the Council chamber after dismissal, the dark-enemy dream sharpening in him.",
+  "chapter_word_target": 4236,
+  "notes": "The Council session is the book's last pure institutional scene. After this everything converges on the asteroid."
+}

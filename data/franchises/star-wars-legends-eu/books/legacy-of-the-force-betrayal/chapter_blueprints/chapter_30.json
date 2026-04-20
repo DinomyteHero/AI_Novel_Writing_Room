@@ -1,0 +1,38 @@
+{
+  "chapter_number": 30,
+  "chapter_mission": "The teaching scene at its most seductive. Jacen's interior forks fully visible on-page; he begins to glimpse specific futures.",
+  "chapter_turn": "Jacen stops considering Lumiya's arguments as abstractions and begins using Force-precognition as her argument recommends.",
+  "structural_phase": "climax",
+  "pov_allocation": [
+    "Jacen Solo"
+  ],
+  "scene_count": 1,
+  "scene_plan": [
+    {
+      "scene_number": 1,
+      "role": "escalation",
+      "dialogue_expectation": "dialogue_led",
+      "target_word_count": 4421,
+      "purpose": "Deep teaching at Vectivus's inner sanctum; Jacen runs the fork-vision technique for the first time and sees Luke as his enemy in a specific future."
+    }
+  ],
+  "reveal_payload": [],
+  "hook_movements": {
+    "planted": [],
+    "advanced": [
+      "hook_vectivus_asteroid",
+      "hook_lumiya_identity",
+      "hook_dark_hooded_enemy"
+    ],
+    "resolved": []
+  },
+  "subplot_obligations": [
+    "sub_vectivus_asteroid",
+    "sub_lumiya_seduction"
+  ],
+  "relationship_turns": [],
+  "pacing_curve": "steady",
+  "exit_vector": "Jacen having seen, for the first time, a specific future — Luke standing in front of him with a drawn saber.",
+  "chapter_word_target": 4421,
+  "notes": "The book's most philosophically dense chapter. The fork-vision mechanic is now an operational Jedi technique in Jacen's hands."
+}

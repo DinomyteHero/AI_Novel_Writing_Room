@@ -1,0 +1,38 @@
+{
+  "chapter_number": 25,
+  "chapter_mission": "Corellian-front kinetic engagement — fleet-level combat with Wedge Antilles observing from the sidelines and Syal/Lysa in the air.",
+  "chapter_turn": "The war is now a shooting war across fleet formations; Allston's fighter-choreography register dominates.",
+  "structural_phase": "attack",
+  "pov_allocation": [
+    "Wedge Antilles"
+  ],
+  "scene_count": 1,
+  "scene_plan": [
+    {
+      "scene_number": 1,
+      "role": "escalation",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 3852,
+      "purpose": "Corellian-front fleet engagement; Syal/Lysa in the air; Wedge watching from a command center."
+    }
+  ],
+  "reveal_payload": [],
+  "hook_movements": {
+    "planted": [],
+    "advanced": [
+      "hook_corellian_insurgency",
+      "hook_syal_identity"
+    ],
+    "resolved": []
+  },
+  "subplot_obligations": [
+    "sub_corellian_crisis",
+    "sub_wedge_syal",
+    "sub_operation_roundabout"
+  ],
+  "relationship_turns": [],
+  "pacing_curve": "rising",
+  "exit_vector": "A fighter squadron returning to a Corellian-aligned base with losses.",
+  "chapter_word_target": 3852,
+  "notes": "One of the book's pure action chapters. Syal/Lysa carries a flight under her cover name."
+}

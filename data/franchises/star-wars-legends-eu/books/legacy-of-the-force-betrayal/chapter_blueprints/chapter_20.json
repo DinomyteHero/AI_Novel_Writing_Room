@@ -1,0 +1,55 @@
+{
+  "chapter_number": 20,
+  "chapter_mission": "Lumiya makes her first direct approach to Jacen Solo — introduces herself, names the teaching she offers, leaves the offer on the table. Brooks Attack act opens in earnest.",
+  "chapter_turn": "The interior antagonist moves from foreshadowed presence to explicit presence in Jacen's life; the seduction arc begins.",
+  "structural_phase": "attack",
+  "pov_allocation": [
+    "Jacen Solo"
+  ],
+  "scene_count": 2,
+  "scene_plan": [
+    {
+      "scene_number": 1,
+      "role": "reveal",
+      "dialogue_expectation": "dialogue_led",
+      "target_word_count": 2400,
+      "purpose": "Lumiya meets Jacen in a deserted corridor or chamber; introduces herself; offers a teaching."
+    },
+    {
+      "scene_number": 2,
+      "role": "decision",
+      "dialogue_expectation": "interior",
+      "target_word_count": 1534,
+      "purpose": "Jacen alone afterward, turning the offer over."
+    }
+  ],
+  "reveal_payload": [
+    "rev_lumiya_meets_jacen"
+  ],
+  "hook_movements": {
+    "planted": [],
+    "advanced": [
+      "hook_dark_hooded_enemy",
+      "hook_lumiya_identity"
+    ],
+    "resolved": [
+      "hook_lumiya_tassels"
+    ]
+  },
+  "subplot_obligations": [
+    "sub_lumiya_seduction",
+    "sub_jacen_ben_apprenticeship",
+    "sub_luke_dream_line"
+  ],
+  "relationship_turns": [
+    {
+      "dyad": "Jacen/Lumiya",
+      "from": "unknown_antagonist_to_unknown_student",
+      "to": "acknowledged_teacher_and_considering_student"
+    }
+  ],
+  "pacing_curve": "rising",
+  "exit_vector": "Jacen alone after Lumiya's departure, the offer named, turning it over without yet deciding.",
+  "chapter_word_target": 3934,
+  "notes": "Lumiya's voice lands here — patient, articulate, never raised. The book gives her its strongest argument."
+}

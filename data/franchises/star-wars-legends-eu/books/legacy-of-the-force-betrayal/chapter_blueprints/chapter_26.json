@@ -1,0 +1,37 @@
+{
+  "chapter_number": 26,
+  "chapter_mission": "Continuing Corellian-front chapter — political-kinetic integration; Han Solo's Corellia-side work becomes visible to the reader.",
+  "chapter_turn": "Han moves from political alignment to operational contribution — he is now helping Thrackan in concrete, small ways.",
+  "structural_phase": "attack",
+  "pov_allocation": [
+    "Han Solo"
+  ],
+  "scene_count": 1,
+  "scene_plan": [
+    {
+      "scene_number": 1,
+      "role": "escalation",
+      "dialogue_expectation": "dialogue_led",
+      "target_word_count": 3792,
+      "purpose": "Han on Corellia — operational meetings with Corellian administration; conscience visible in the margins."
+    }
+  ],
+  "reveal_payload": [],
+  "hook_movements": {
+    "planted": [],
+    "advanced": [
+      "hook_corellian_insurgency"
+    ],
+    "resolved": []
+  },
+  "subplot_obligations": [
+    "sub_han_leia_corellia",
+    "sub_corellian_crisis",
+    "sub_wedge_syal"
+  ],
+  "relationship_turns": [],
+  "pacing_curve": "steady",
+  "exit_vector": "Han on a Corellian bridge at dusk with his cousin's administration behind him and his conscience not entirely quiet.",
+  "chapter_word_target": 3792,
+  "notes": "Han-on-Corellia scene register. Ordith Huarr and other Corellian political figures visible in background."
+}

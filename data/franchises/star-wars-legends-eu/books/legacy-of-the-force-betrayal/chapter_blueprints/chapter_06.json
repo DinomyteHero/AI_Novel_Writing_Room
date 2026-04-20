@@ -1,0 +1,47 @@
+{
+  "chapter_number": 6,
+  "chapter_mission": "Widen out to the Corellian-front perspective: Wedge Antilles surfaces on Corellia declining to take sides; Syal/Lysa and Doran Tainer glimpsed; Alliance/Corellian alignment pressure rising.",
+  "chapter_turn": "The book's most recognizable Corellian veteran — Wedge — visibly refuses to commit, which makes the crisis structural rather than personal.",
+  "structural_phase": "response",
+  "pov_allocation": [
+    "Wedge Antilles"
+  ],
+  "scene_count": 2,
+  "scene_plan": [
+    {
+      "scene_number": 1,
+      "role": "escalation",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 1800,
+      "purpose": "Wedge declines a Corellian military commission; the scene registers his stubborn independence."
+    },
+    {
+      "scene_number": 2,
+      "role": "aftermath",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 1456,
+      "purpose": "Wedge watching a squadron depart; Syal/Lysa glimpsed but not identified to the reader."
+    }
+  ],
+  "reveal_payload": [],
+  "hook_movements": {
+    "planted": [
+      "hook_syal_identity"
+    ],
+    "advanced": [
+      "hook_corellian_insurgency"
+    ],
+    "resolved": [
+      "hook_hapan_wedding_attempt"
+    ]
+  },
+  "subplot_obligations": [
+    "sub_wedge_syal",
+    "sub_corellian_crisis"
+  ],
+  "relationship_turns": [],
+  "pacing_curve": "steady",
+  "exit_vector": "Wedge alone on a Corellian terrace watching the political apparatus grind past him.",
+  "chapter_word_target": 3256,
+  "notes": "Establishes the Wedge-holding-the-center register; the Syal/Lysa hook planted quietly."
+}

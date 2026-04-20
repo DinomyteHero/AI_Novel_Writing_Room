@@ -1,0 +1,62 @@
+{
+  "chapter_number": 9,
+  "scene_number": 1,
+  "structural_phase": "response",
+  "scene_type": "sequel",
+  "scene_role": "escalation",
+  "pov_character": "Cal Omas",
+  "mission": "Operation Roundabout's kinetic parameters are formally set; the Alliance commits to a commando operation against Centerpoint.",
+  "why_now": "The authorization from Ch 8 becomes an operational plan.",
+  "opening_hook": "Pellaeon and Niathal at a strategic-planning table with operation options laid out.",
+  "conflict": "Different military philosophies inside the Alliance command (Pellaeon's restraint vs. Niathal's aggression).",
+  "conflict_type": "interpersonal",
+  "dialogue_expectation": "balanced",
+  "turning_point": "The commanders select a low-footprint commando operation over a fleet-level strike — Operation Roundabout.",
+  "closing_hook": "Niathal initialing the operation name on the datapad: ROUNDABOUT.",
+  "characters_present": [
+    "Cal Omas",
+    "Admiral Pellaeon",
+    "Admiral Niathal",
+    "Alliance Joint Chiefs aides"
+  ],
+  "setting": "Alliance command planning chamber, Coruscant.",
+  "sensory_details": "Chamber's strategic-map glow; Pellaeon's Imperial-era posture; Niathal's Mon Calamari clicks.",
+  "emotional_trajectory": "Strategic debate → selected plan → formal commitment.",
+  "stakes": {
+    "personal": "The commanders' professional reputations.",
+    "interpersonal": "Pellaeon/Niathal balance.",
+    "external": "The commando operation's chance of success."
+  },
+  "plot_threads_advanced": [
+    "sub_operation_roundabout",
+    "sub_centerpoint_sabotage",
+    "sub_corellian_crisis"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "canon_elements_needed": [
+    "Alliance Joint Chiefs protocols",
+    "Commando operation doctrine"
+  ],
+  "target_word_count": 1800,
+  "action_beats": [
+    "Options spread on the table",
+    "Pellaeon argues low footprint",
+    "Niathal argues aggressive timing",
+    "Roundabout chosen"
+  ],
+  "notes": "Operation Roundabout named on-page for the first time.",
+  "active_subplots": [
+    "sub_operation_roundabout",
+    "sub_centerpoint_sabotage",
+    "sub_corellian_crisis"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "hook_corellian_insurgency",
+      "action": "advance"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "flat_arc_stable_truth"
+}

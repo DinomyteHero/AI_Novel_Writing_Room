@@ -1,0 +1,62 @@
+{
+  "chapter_number": 22,
+  "scene_number": 1,
+  "structural_phase": "attack",
+  "scene_type": "sequel",
+  "scene_role": "escalation",
+  "pov_character": "Han Solo",
+  "mission": "Han and Leia on a Coruscant terrace — the operational separation is named and agreed.",
+  "why_now": "Both of them are ready to say it.",
+  "opening_hook": "Han and Leia on a Coruscant terrace overlooking the Senate district at dusk.",
+  "conflict": "Neither wants the separation; both know it is operationally necessary.",
+  "conflict_type": "interpersonal",
+  "dialogue_expectation": "dialogue_led",
+  "turning_point": "Han says he will go to Corellia; Leia says she will keep the Falcon; neither of them asks the other to reconsider.",
+  "closing_hook": "Han boarding a Corellian-bound freighter alone; Leia watching from the gantry.",
+  "characters_present": [
+    "Han Solo",
+    "Leia Organa Solo"
+  ],
+  "setting": "Coruscant terrace; then a Coruscant spaceport gantry, evening.",
+  "sensory_details": "Terrace wind; spaceport's hangar lighting; the freighter's boarding ramp.",
+  "emotional_trajectory": "Measured exchange → named separation → watched departure.",
+  "stakes": {
+    "personal": "Each spouse's operational freedom.",
+    "interpersonal": "The marriage's architecture.",
+    "external": "Han's alignment with Corellia becoming fully operational."
+  },
+  "plot_threads_advanced": [
+    "sub_han_leia_corellia",
+    "sub_corellian_crisis"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "canon_elements_needed": [
+    "Coruscant Senate-district terraces",
+    "Coruscant commercial spaceport architecture"
+  ],
+  "target_word_count": 2400,
+  "action_beats": [
+    "Terrace conversation",
+    "Separation named and agreed",
+    "Han boards freighter",
+    "Leia watches from gantry"
+  ],
+  "notes": "Allston takes his time with the separation — no ultimatums.",
+  "active_subplots": [
+    "sub_han_leia_corellia",
+    "sub_corellian_crisis"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "hook_han_leia_split",
+      "action": "advance"
+    },
+    {
+      "hook_id": "hook_corellian_insurgency",
+      "action": "advance"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "flat_arc_stable_truth"
+}

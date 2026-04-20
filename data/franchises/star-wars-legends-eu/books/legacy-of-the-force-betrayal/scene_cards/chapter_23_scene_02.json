@@ -1,0 +1,63 @@
+{
+  "chapter_number": 23,
+  "scene_number": 2,
+  "structural_phase": "attack",
+  "scene_type": "sequel",
+  "scene_role": "decision",
+  "pov_character": "Jacen Solo",
+  "mission": "Post-teaching — the asteroid offer named; Jacen's interior consolidation toward acceptance.",
+  "why_now": "The teaching has crystallized the next step.",
+  "opening_hook": "Jacen walking back to his apartment in the Coruscant underlevels after the teaching session.",
+  "conflict": "Jacen's interior argument against accepting the offer vs. his growing certainty that he must.",
+  "conflict_type": "internal",
+  "dialogue_expectation": "balanced",
+  "turning_point": "Jacen decides, silently, that he will accept the asteroid trip.",
+  "closing_hook": "Jacen at his apartment door, keycode in hand, already-decided.",
+  "characters_present": [
+    "Jacen Solo"
+  ],
+  "setting": "Coruscant underlevel walkway and apartment approach.",
+  "sensory_details": "Underlevel neon; damp corridor smell; Jacen's quieter breathing.",
+  "emotional_trajectory": "Post-teaching restlessness → interior consolidation → settled commitment.",
+  "stakes": {
+    "personal": "Jacen's Jedi identity.",
+    "interpersonal": "His relationship with the Order.",
+    "external": "The corruption arc's imminent enactment."
+  },
+  "plot_threads_advanced": [
+    "sub_lumiya_seduction",
+    "sub_vectivus_asteroid"
+  ],
+  "promises_planted": [
+    "hook_vectivus_asteroid"
+  ],
+  "promises_paid": [],
+  "canon_elements_needed": [
+    "Coruscant underlevel architecture",
+    "Jacen's private apartment"
+  ],
+  "target_word_count": 2530,
+  "action_beats": [
+    "Jacen walks home",
+    "Interior consolidation",
+    "Apartment approach",
+    "Jacen keys in"
+  ],
+  "notes": "The book's interior-turn scene; decision made but not yet enacted.",
+  "active_subplots": [
+    "sub_lumiya_seduction",
+    "sub_vectivus_asteroid"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "hook_vectivus_asteroid",
+      "action": "plant"
+    },
+    {
+      "hook_id": "hook_lumiya_identity",
+      "action": "advance"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "need_glimpsed"
+}

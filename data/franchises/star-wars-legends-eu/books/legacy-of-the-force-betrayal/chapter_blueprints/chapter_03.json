@@ -1,0 +1,53 @@
+{
+  "chapter_number": 3,
+  "chapter_mission": "Reopen on Coruscant and Corellia: Jedi Council hears the Adumar findings; Han and Leia feel the Corellian pull; the political frame solidifies.",
+  "chapter_turn": "The investigation's findings go institutional — the Adumar cell becomes a Council-level fact and a Solo-family pressure.",
+  "structural_phase": "setup",
+  "pov_allocation": [
+    "Luke Skywalker",
+    "Han Solo"
+  ],
+  "scene_count": 2,
+  "scene_plan": [
+    {
+      "scene_number": 1,
+      "role": "escalation",
+      "dialogue_expectation": "dialogue_led",
+      "target_word_count": 1500,
+      "purpose": "Jedi Council hears the Adumar findings; Corran Horn raises Order-neutrality concerns; Luke holds."
+    },
+    {
+      "scene_number": 2,
+      "role": "escalation",
+      "dialogue_expectation": "dialogue_led",
+      "target_word_count": 1472,
+      "purpose": "Han and Leia at home processing the news; Corellian pull begins its slow tightening on Han."
+    }
+  ],
+  "reveal_payload": [],
+  "hook_movements": {
+    "planted": [
+      "hook_han_leia_split"
+    ],
+    "advanced": [
+      "hook_corellian_insurgency",
+      "hook_dark_hooded_enemy"
+    ],
+    "resolved": []
+  },
+  "subplot_obligations": [
+    "sub_corellian_crisis",
+    "sub_han_leia_corellia"
+  ],
+  "relationship_turns": [
+    {
+      "dyad": "Han/Leia",
+      "from": "settled_marriage",
+      "to": "marriage_under_incoming_political_strain"
+    }
+  ],
+  "pacing_curve": "steady",
+  "exit_vector": "Han and Leia privately sharing the day's news; the Corellian crisis crossing from abstract to personal for them both.",
+  "chapter_word_target": 2972,
+  "notes": "Transitional chapter — Coruscant institutional frame re-establishes after the Adumar opening."
+}

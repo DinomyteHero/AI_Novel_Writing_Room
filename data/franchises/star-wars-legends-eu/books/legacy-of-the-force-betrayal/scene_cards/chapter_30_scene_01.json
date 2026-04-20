@@ -1,0 +1,67 @@
+{
+  "chapter_number": 30,
+  "scene_number": 1,
+  "structural_phase": "climax",
+  "scene_type": "sequel",
+  "scene_role": "escalation",
+  "pov_character": "Jacen Solo",
+  "mission": "Deep teaching at Vectivus's inner sanctum; Jacen runs the fork-vision technique for the first time and sees Luke as his enemy in a specific future.",
+  "why_now": "Lumiya's teaching has reached the fork-vision step.",
+  "opening_hook": "Jacen at the sanctum's stone dais with Lumiya teaching him the fork-vision technique.",
+  "conflict": "Jacen's Jedi training that rejects such specific precognition vs. Lumiya's patient coaching that the technique is morally permissible because it protects what he loves.",
+  "conflict_type": "interpersonal",
+  "dialogue_expectation": "dialogue_led",
+  "turning_point": "Jacen runs the technique; sees, in one future, Luke standing in front of him with a drawn saber; comes out of the vision and does not flinch from it.",
+  "closing_hook": "Jacen sitting on the dais with the technique internalized and the vision's image still present.",
+  "characters_present": [
+    "Jacen Solo",
+    "Lumiya"
+  ],
+  "setting": "Vectivus asteroid inner sanctum.",
+  "sensory_details": "Sanctum's rock; the technique's subjective pressure; the vision's specific image.",
+  "emotional_trajectory": "Coached technique → first run → calm reception of its content.",
+  "stakes": {
+    "personal": "Jacen's Jedi frame.",
+    "interpersonal": "Jacen's relationship with Luke under fork-vision's terms.",
+    "external": "The fork-vision technique as an operational Jedi tool in Jacen's hands."
+  },
+  "plot_threads_advanced": [
+    "sub_vectivus_asteroid",
+    "sub_lumiya_seduction"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "canon_elements_needed": [
+    "Sith fork-vision precognition technique",
+    "Vectivus sanctum architecture"
+  ],
+  "target_word_count": 4421,
+  "action_beats": [
+    "Lumiya teaches the fork-vision",
+    "Jacen runs the technique",
+    "Vision of Luke lands",
+    "Jacen internalizes without flinch"
+  ],
+  "notes": "Single-scene chapter; the philosophical crossing lands.",
+  "active_subplots": [
+    "sub_vectivus_asteroid",
+    "sub_lumiya_seduction"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "hook_vectivus_asteroid",
+      "action": "advance"
+    },
+    {
+      "hook_id": "hook_lumiya_identity",
+      "action": "advance"
+    },
+    {
+      "hook_id": "hook_dark_hooded_enemy",
+      "action": "advance"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "need_resisted",
+  "arc_phase_transition": "lie_chosen"
+}

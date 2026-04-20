@@ -1,0 +1,65 @@
+{
+  "chapter_number": 24,
+  "scene_number": 1,
+  "structural_phase": "attack",
+  "scene_type": "sequel",
+  "scene_role": "reveal",
+  "pov_character": "Ben Skywalker",
+  "mission": "Cal Omas formally offers Ben a Galactic Alliance Guard commission; the commission papers carry Omas's signature.",
+  "why_now": "The GAG is standing up its first cohort and Ben is a political-optics asset.",
+  "opening_hook": "Ben at Cal Omas's office with Omas handing him a formal commission folio.",
+  "conflict": "Ben's flattered apprentice self vs. the Order's position that Jedi do not take Alliance commissions.",
+  "conflict_type": "interpersonal",
+  "dialogue_expectation": "dialogue_led",
+  "turning_point": "Ben accepts the folio to consider; he does not accept the commission itself.",
+  "closing_hook": "Ben walking out of the Chief of State's office with the folio under his arm.",
+  "characters_present": [
+    "Ben Skywalker",
+    "Cal Omas",
+    "Omas's aide"
+  ],
+  "setting": "Cal Omas's Chief of State office, Coruscant.",
+  "sensory_details": "Commission folio's formal wax; Omas's measured voice; aide's discreet presence.",
+  "emotional_trajectory": "Surprised flattery → considered reception → held decision.",
+  "stakes": {
+    "personal": "Ben's apprentice standing.",
+    "interpersonal": "The Ben/Luke relationship as the commission tests it.",
+    "external": "The GAG's political optics."
+  },
+  "plot_threads_advanced": [
+    "sub_jacen_ben_apprenticeship"
+  ],
+  "promises_planted": [
+    "hook_ben_gag_offer"
+  ],
+  "promises_paid": [],
+  "canon_elements_needed": [
+    "Cal Omas's office",
+    "Galactic Alliance Guard commission structure"
+  ],
+  "target_word_count": 2000,
+  "action_beats": [
+    "Ben enters Omas's office",
+    "Folio presented",
+    "Ben takes the folio to consider",
+    "Ben exits"
+  ],
+  "notes": "Ben's arc-challenge phase activates here.",
+  "active_subplots": [
+    "sub_jacen_ben_apprenticeship"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "hook_ben_gag_offer",
+      "action": "plant"
+    },
+    {
+      "hook_id": "hook_gag_formation",
+      "action": "advance"
+    }
+  ],
+  "revelations": [
+    "rev_ben_offered_gag"
+  ],
+  "pov_arc_phase": "want_defined"
+}

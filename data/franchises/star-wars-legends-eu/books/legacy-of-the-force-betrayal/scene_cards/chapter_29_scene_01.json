@@ -1,0 +1,67 @@
+{
+  "chapter_number": 29,
+  "scene_number": 1,
+  "structural_phase": "climax",
+  "scene_type": "sequel",
+  "scene_role": "escalation",
+  "pov_character": "Jacen Solo",
+  "mission": "Arrival at the Vectivus asteroid; first tour of the chambers; Vectivus visions begin.",
+  "why_now": "The ship has just docked.",
+  "opening_hook": "Jacen stepping off the ship's ramp onto an asteroid's internal dock platform.",
+  "conflict": "Jacen's Jedi sensitivity detecting Sith signatures vs. his philosophical commitment to hearing what Vectivus has to say.",
+  "conflict_type": "internal",
+  "dialogue_expectation": "balanced",
+  "turning_point": "Jacen has the first Vectivus vision — a prosperous benefactor at the end of his life, not a screaming monster.",
+  "closing_hook": "Jacen turning to Ben, who is watching him with an unfamiliar expression.",
+  "characters_present": [
+    "Jacen Solo",
+    "Ben Skywalker",
+    "Lumiya"
+  ],
+  "setting": "Vectivus asteroid internal dock and first ante-chamber.",
+  "sensory_details": "Asteroid's cool rock; ante-chamber's reddish lighting; Vectivus's echo as a faint tonal presence.",
+  "emotional_trajectory": "Arrival → first Sith-sign → first philosophical confirmation.",
+  "stakes": {
+    "personal": "Jacen's philosophical frame.",
+    "interpersonal": "Ben's unspoken unease.",
+    "external": "The corruption arc's enactment setting."
+  },
+  "plot_threads_advanced": [
+    "sub_vectivus_asteroid",
+    "sub_lumiya_seduction",
+    "sub_jacen_ben_apprenticeship"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "canon_elements_needed": [
+    "Darth Vectivus asteroid as setting",
+    "Sith-echo Force-visual conventions"
+  ],
+  "target_word_count": 2400,
+  "action_beats": [
+    "Jacen steps onto the dock",
+    "Lumiya leads a tour",
+    "First Vectivus vision",
+    "Ben watches Jacen"
+  ],
+  "notes": "Vectivus vision's first sign lands philosophically, not horror-graphically.",
+  "active_subplots": [
+    "sub_vectivus_asteroid",
+    "sub_lumiya_seduction",
+    "sub_jacen_ben_apprenticeship"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "hook_vectivus_asteroid",
+      "action": "advance"
+    },
+    {
+      "hook_id": "hook_lumiya_identity",
+      "action": "advance"
+    }
+  ],
+  "revelations": [
+    "rev_vectivus_sith"
+  ],
+  "pov_arc_phase": "need_resisted"
+}

@@ -1,0 +1,59 @@
+{
+  "chapter_number": 18,
+  "scene_number": 2,
+  "structural_phase": "attack",
+  "scene_type": "sequel",
+  "scene_role": "escalation",
+  "pov_character": "Mara Jade Skywalker",
+  "mission": "Mara in a Toryaz corridor; Lumiya's tasseled hem glimpsed; Mara registers the hem without identifying Lumiya.",
+  "why_now": "Mara is walking between sessions when Lumiya passes.",
+  "opening_hook": "Mara walking a Toryaz residential corridor toward her quarters.",
+  "conflict": "Mara's operational reading of the figure vs. the figure's disappearance before Mara's read completes.",
+  "conflict_type": "internal",
+  "dialogue_expectation": "balanced",
+  "turning_point": "Mara registers the hem as wrong but does not yet name why — the moment she will replay after the bombing.",
+  "closing_hook": "Mara reaching her quarters; the hem already out of the frame.",
+  "characters_present": [
+    "Mara Jade Skywalker",
+    "Lumiya (tassels only)",
+    "Toryaz residents"
+  ],
+  "setting": "Toryaz Station residential corridor.",
+  "sensory_details": "Station lighting; corridor's dull carpet; the tasseled hem in peripheral vision.",
+  "emotional_trajectory": "Routine transit → peripheral unease → filed-away note.",
+  "stakes": {
+    "personal": "Mara's operational instincts.",
+    "interpersonal": "The Mara/Tresina friendship that depends on Mara's vigilance.",
+    "external": "The bomb already placed."
+  },
+  "plot_threads_advanced": [
+    "sub_lumiya_seduction",
+    "sub_toryaz_diplomacy"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "canon_elements_needed": [
+    "Toryaz Station residential layout",
+    "Lumiya's cloaked tassels motif"
+  ],
+  "target_word_count": 1567,
+  "action_beats": [
+    "Mara walks the corridor",
+    "Tasseled hem in periphery",
+    "Mara turns — too late",
+    "Mara reaches her quarters"
+  ],
+  "notes": "The tassels sighting the reader will remember after Ch 19.",
+  "active_subplots": [
+    "sub_lumiya_seduction",
+    "sub_toryaz_diplomacy"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "hook_lumiya_tassels",
+      "action": "advance"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "flat_arc_stable_truth"
+}

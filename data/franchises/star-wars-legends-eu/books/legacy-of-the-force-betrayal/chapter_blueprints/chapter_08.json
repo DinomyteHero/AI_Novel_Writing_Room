@@ -1,0 +1,48 @@
+{
+  "chapter_number": 8,
+  "chapter_mission": "Confirm to Alliance intelligence — and therefore to the reader — that Centerpoint Station is being reactivated by Corellian engineers. Establish the midpoint engine.",
+  "chapter_turn": "The political crisis acquires a super-weapon, and the Alliance's calculus pivots from containment to pre-emption.",
+  "structural_phase": "response",
+  "pov_allocation": [
+    "Cal Omas",
+    "Jacen Solo"
+  ],
+  "scene_count": 2,
+  "scene_plan": [
+    {
+      "scene_number": 1,
+      "role": "reveal",
+      "dialogue_expectation": "dialogue_led",
+      "target_word_count": 1800,
+      "purpose": "Intelligence briefing confirms Centerpoint reactivation work; Omas authorizes preliminary counter-planning."
+    },
+    {
+      "scene_number": 2,
+      "role": "escalation",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 1524,
+      "purpose": "Jacen parallel-briefed by Alliance-aligned contacts; his stance on pre-emption continues to consolidate."
+    }
+  ],
+  "reveal_payload": [
+    "rev_centerpoint_reactivated"
+  ],
+  "hook_movements": {
+    "planted": [
+      "hook_centerpoint_reactivation"
+    ],
+    "advanced": [
+      "hook_corellian_insurgency"
+    ],
+    "resolved": []
+  },
+  "subplot_obligations": [
+    "sub_corellian_crisis",
+    "sub_centerpoint_sabotage"
+  ],
+  "relationship_turns": [],
+  "pacing_curve": "rising",
+  "exit_vector": "Cal Omas authorizing initial planning for a Centerpoint counter-operation.",
+  "chapter_word_target": 3324,
+  "notes": "Intelligence-side chapter. Dr. Seyah and Dr. Arisster as technical voices."
+}

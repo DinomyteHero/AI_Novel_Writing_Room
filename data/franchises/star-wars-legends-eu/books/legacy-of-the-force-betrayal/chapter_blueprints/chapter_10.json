@@ -1,0 +1,53 @@
+{
+  "chapter_number": 10,
+  "chapter_mission": "Introduce Admiral Klauskin's combat-stress symptoms; keep Han and Leia working separately as the Corellian fleet deploys.",
+  "chapter_turn": "The human cost of the war becomes visible in a single GA admiral's private disintegration — and the Solo marriage's operational strain deepens without emotional rupture.",
+  "structural_phase": "first_pinch",
+  "pov_allocation": [
+    "Admiral Klauskin",
+    "Han Solo"
+  ],
+  "scene_count": 2,
+  "scene_plan": [
+    {
+      "scene_number": 1,
+      "role": "reveal",
+      "dialogue_expectation": "interior",
+      "target_word_count": 2000,
+      "purpose": "Klauskin in his flagship cabin; combat-stress symptoms surface; he speaks to his dead wife."
+    },
+    {
+      "scene_number": 2,
+      "role": "escalation",
+      "dialogue_expectation": "dialogue_led",
+      "target_word_count": 2054,
+      "purpose": "Han and Leia on the Falcon — first overt disagreement about whose side of this war to back."
+    }
+  ],
+  "reveal_payload": [],
+  "hook_movements": {
+    "planted": [
+      "hook_klauskin_strain"
+    ],
+    "advanced": [
+      "hook_centerpoint_reactivation",
+      "hook_corellian_insurgency"
+    ],
+    "resolved": []
+  },
+  "subplot_obligations": [
+    "sub_klauskin_breakdown",
+    "sub_han_leia_corellia"
+  ],
+  "relationship_turns": [
+    {
+      "dyad": "Han/Leia",
+      "from": "marriage_under_incoming_political_strain",
+      "to": "marriage_under_active_operational_strain"
+    }
+  ],
+  "pacing_curve": "steady",
+  "exit_vector": "Klauskin alone in his cabin speaking to a chair as if his dead wife were in it.",
+  "chapter_word_target": 4054,
+  "notes": "Klauskin's scenes are the book's most explicit human-cost register; the book does not melodramatize his breakdown."
+}

@@ -1,0 +1,55 @@
+{
+  "chapter_number": 24,
+  "chapter_mission": "Ben Skywalker is formally offered a commission in the Galactic Alliance Guard; Jacen's informal mentorship of Ben tightens on-page.",
+  "chapter_turn": "The GAG offer crystallizes the book's juvenile-apprentice thematic fork in Ben's life; the offer stands unaccepted and open at chapter's end.",
+  "structural_phase": "attack",
+  "pov_allocation": [
+    "Ben Skywalker"
+  ],
+  "scene_count": 2,
+  "scene_plan": [
+    {
+      "scene_number": 1,
+      "role": "reveal",
+      "dialogue_expectation": "dialogue_led",
+      "target_word_count": 2000,
+      "purpose": "GAG commission offered to Ben; Cal Omas's signature on the commission papers."
+    },
+    {
+      "scene_number": 2,
+      "role": "aftermath",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 1857,
+      "purpose": "Ben alone with the offer; Jacen drops by — the conversation is unsettlingly brief."
+    }
+  ],
+  "reveal_payload": [
+    "rev_ben_offered_gag"
+  ],
+  "hook_movements": {
+    "planted": [
+      "hook_ben_gag_offer"
+    ],
+    "advanced": [
+      "hook_gag_formation",
+      "hook_dark_hooded_enemy"
+    ],
+    "resolved": []
+  },
+  "subplot_obligations": [
+    "sub_jacen_ben_apprenticeship",
+    "sub_lumiya_seduction",
+    "sub_corellian_crisis"
+  ],
+  "relationship_turns": [
+    {
+      "dyad": "Jacen/Ben",
+      "from": "philosophical_mentor_pair",
+      "to": "philosophical_mentor_pair_with_authority_asymmetry_now_visible"
+    }
+  ],
+  "pacing_curve": "steady",
+  "exit_vector": "Ben alone at his family apartment window, looking out at Coruscant, the GAG uniform-fitting appointment still open on his datapad.",
+  "chapter_word_target": 3857,
+  "notes": "Ben's arc-challenge phase activates here. The offer is clear; the refusal will come slowly across later chapters."
+}

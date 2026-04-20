@@ -1,0 +1,71 @@
+{
+  "chapter_number": 33,
+  "scene_number": 1,
+  "structural_phase": "climax",
+  "scene_type": "action",
+  "scene_role": "decision",
+  "pov_character": "Jacen Solo",
+  "mission": "The fight between Jacen and Nelani — brief, precise; Jacen kills Nelani.",
+  "why_now": "The calculus has been made; the fight follows immediately.",
+  "opening_hook": "Two sabers ignite in the main chamber.",
+  "conflict": "Jacen's fork-vision-informed combat vs. Nelani's Jedi-regulation style.",
+  "conflict_type": "external",
+  "dialogue_expectation": "balanced",
+  "turning_point": "Nelani falls; her saber extinguishes; Jacen stands.",
+  "closing_hook": "Jacen over Nelani's body; Ben in the chamber's doorway.",
+  "characters_present": [
+    "Jacen Solo",
+    "Nelani Dinn",
+    "Ben Skywalker",
+    "Lumiya"
+  ],
+  "setting": "Vectivus asteroid main chamber.",
+  "sensory_details": "Saber clash; chamber's acoustics; the Vectivus echoes falling silent.",
+  "emotional_trajectory": "Combat readiness → fight → fall.",
+  "stakes": {
+    "personal": "Jacen's Jedi standing, now forfeit.",
+    "interpersonal": "Nelani's life, taken.",
+    "external": "The corruption arc's enacted climax."
+  },
+  "plot_threads_advanced": [
+    "sub_vectivus_asteroid",
+    "sub_lumiya_seduction",
+    "sub_jacen_ben_apprenticeship"
+  ],
+  "promises_planted": [],
+  "promises_paid": [
+    "hook_vectivus_asteroid",
+    "hook_nelani_tracks_jacen"
+  ],
+  "canon_elements_needed": [
+    "Saber combat choreography",
+    "Vectivus asteroid chamber acoustics"
+  ],
+  "target_word_count": 2000,
+  "action_beats": [
+    "Sabers ignite",
+    "Brief, precise combat",
+    "Nelani falls",
+    "Ben appears in doorway"
+  ],
+  "notes": "Brooks Climax. Allston keeps the fight short.",
+  "active_subplots": [
+    "sub_vectivus_asteroid",
+    "sub_lumiya_seduction",
+    "sub_jacen_ben_apprenticeship"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "hook_vectivus_asteroid",
+      "action": "resolve"
+    },
+    {
+      "hook_id": "hook_nelani_tracks_jacen",
+      "action": "resolve"
+    }
+  ],
+  "revelations": [
+    "rev_jacen_kills_nelani"
+  ],
+  "pov_arc_phase": "lie_chosen"
+}

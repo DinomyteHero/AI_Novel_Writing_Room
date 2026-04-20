@@ -1,0 +1,45 @@
+{
+  "chapter_number": 4,
+  "chapter_mission": "Establish Corellian political context on the ground: Prime Minister Aidel Saxan's defiance of the Alliance; Dur Gejjen's shadow; Thrackan Sal-Solo as a figure waiting in the wings.",
+  "chapter_turn": "The Corellian political architecture comes into focus — the independence movement has legitimate leadership and illegitimate challengers, and Thrackan is both.",
+  "structural_phase": "setup",
+  "pov_allocation": [
+    "Aidel Saxan",
+    "Han Solo"
+  ],
+  "scene_count": 2,
+  "scene_plan": [
+    {
+      "scene_number": 1,
+      "role": "escalation",
+      "dialogue_expectation": "dialogue_led",
+      "target_word_count": 2000,
+      "purpose": "Saxan delivers a Corellian policy address defying Alliance pressure; Dur Gejjen shadow in the room."
+    },
+    {
+      "scene_number": 2,
+      "role": "escalation",
+      "dialogue_expectation": "dialogue_led",
+      "target_word_count": 1950,
+      "purpose": "Han and Leia on the Falcon discussing the Corellian trajectory; the marriage strain previewed."
+    }
+  ],
+  "reveal_payload": [],
+  "hook_movements": {
+    "planted": [
+      "hook_saxan_assassination"
+    ],
+    "advanced": [
+      "hook_corellian_insurgency"
+    ],
+    "resolved": []
+  },
+  "subplot_obligations": [
+    "sub_corellian_crisis"
+  ],
+  "relationship_turns": [],
+  "pacing_curve": "steady",
+  "exit_vector": "Saxan publicly defiant at a Corellian press conference; private political chess underway behind her.",
+  "chapter_word_target": 3950,
+  "notes": "Builds the Corellian antagonist side in its own POV terms. Saxan established as sympathetic; Thrackan as recognizable Solo-cousin presence."
+}

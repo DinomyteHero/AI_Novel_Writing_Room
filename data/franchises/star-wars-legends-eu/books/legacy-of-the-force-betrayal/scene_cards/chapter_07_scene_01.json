@@ -1,0 +1,67 @@
+{
+  "chapter_number": 7,
+  "scene_number": 1,
+  "structural_phase": "first_plot_point",
+  "scene_type": "sequel",
+  "scene_role": "reveal",
+  "pov_character": "Luke Skywalker",
+  "mission": "Jedi Council meets to receive Alliance notification of the Corellian garrisoning posture; Corran Horn presses Luke hard.",
+  "why_now": "The Alliance has formally notified the Order of its garrison posture and is asking the Order to coordinate.",
+  "opening_hook": "Cal Omas's envoy delivering the formal notification in the Council chamber.",
+  "conflict": "Corran Horn's insistence that the Order cannot coordinate with an occupying force versus Luke's position that the Order must remain in the room where the decisions are made.",
+  "conflict_type": "interpersonal",
+  "dialogue_expectation": "dialogue_led",
+  "turning_point": "Luke refuses Council coordination with the Alliance garrison — but keeps the Order's line of communication open.",
+  "closing_hook": "The envoy leaving with Luke's measured refusal formally logged.",
+  "characters_present": [
+    "Luke Skywalker",
+    "Mara Jade Skywalker",
+    "Corran Horn",
+    "Kyp Durron",
+    "Kyle Katarn",
+    "Tresina Lobi",
+    "Cal Omas's envoy"
+  ],
+  "setting": "Jedi Council chamber, Jedi Temple, Coruscant.",
+  "sensory_details": "Formal envoy's diplomatic sash; the chamber's hush under high drama; Mara's steady attention on Luke.",
+  "emotional_trajectory": "Institutional reception → internal pushback → held line.",
+  "stakes": {
+    "personal": "Luke's grand master authority.",
+    "interpersonal": "Luke/Corran's working alliance.",
+    "external": "The Order's formal posture toward the Alliance."
+  },
+  "plot_threads_advanced": [
+    "sub_corellian_crisis",
+    "sub_luke_dream_line"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "canon_elements_needed": [
+    "Alliance/Order formal notification protocols",
+    "Jedi Council chamber decorum"
+  ],
+  "target_word_count": 2000,
+  "action_beats": [
+    "Envoy delivers notification",
+    "Corran Horn's pushback",
+    "Luke states the Order's refusal-to-coordinate",
+    "Envoy departs"
+  ],
+  "notes": "The First Plot Point's institutional face for the Jedi Order.",
+  "active_subplots": [
+    "sub_corellian_crisis",
+    "sub_luke_dream_line"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "hook_corellian_insurgency",
+      "action": "advance"
+    },
+    {
+      "hook_id": "hook_dark_hooded_enemy",
+      "action": "advance"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "flat_arc_stable_truth"
+}

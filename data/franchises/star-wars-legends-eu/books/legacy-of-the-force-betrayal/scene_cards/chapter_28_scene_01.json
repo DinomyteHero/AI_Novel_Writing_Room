@@ -1,0 +1,75 @@
+{
+  "chapter_number": 28,
+  "scene_number": 1,
+  "structural_phase": "second_plot_point",
+  "scene_type": "sequel",
+  "scene_role": "decision",
+  "pov_character": "Jacen Solo",
+  "mission": "Final Coruscant meeting between Jacen and Lumiya; Jacen agrees, Ben comes along, they depart for Vectivus's asteroid.",
+  "why_now": "The teaching has crystallized; Lumiya has named the specific next step.",
+  "opening_hook": "Jacen at a Coruscant private pad with Lumiya's ship at its hatch; Ben beside him.",
+  "conflict": "Jacen's Jedi principles against his committed decision; Ben's apprentice trust against his unarticulated unease.",
+  "conflict_type": "internal",
+  "dialogue_expectation": "dialogue_led",
+  "turning_point": "Jacen walks up the ship's ramp with Ben following.",
+  "closing_hook": "Nelani Dinn watching the ship lift off from a distant comm-channel — not yet tracking, but noting.",
+  "characters_present": [
+    "Jacen Solo",
+    "Ben Skywalker",
+    "Lumiya",
+    "Nelani Dinn (remote)"
+  ],
+  "setting": "Coruscant private pad; Lumiya's ship at the hatch.",
+  "sensory_details": "Pad lighting; ship's repulsor spool-up; Nelani's distant comm-channel view.",
+  "emotional_trajectory": "Committed approach → boarding → distant observation.",
+  "stakes": {
+    "personal": "Jacen's Jedi-identity.",
+    "interpersonal": "Ben's mentor trust.",
+    "external": "The corruption arc's enacted commitment."
+  },
+  "plot_threads_advanced": [
+    "sub_vectivus_asteroid",
+    "sub_lumiya_seduction",
+    "sub_jacen_ben_apprenticeship"
+  ],
+  "promises_planted": [
+    "hook_nelani_tracks_jacen"
+  ],
+  "promises_paid": [],
+  "canon_elements_needed": [
+    "Coruscant private pads",
+    "Lumiya's ship as narrative vehicle to Vectivus"
+  ],
+  "target_word_count": 3738,
+  "action_beats": [
+    "Jacen arrives at the pad",
+    "Ben joins",
+    "They board Lumiya's ship",
+    "Ship lifts; Nelani notes"
+  ],
+  "notes": "Brooks Second Plot Point. The single-scene chapter is the commitment.",
+  "active_subplots": [
+    "sub_vectivus_asteroid",
+    "sub_lumiya_seduction",
+    "sub_jacen_ben_apprenticeship"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "hook_vectivus_asteroid",
+      "action": "advance"
+    },
+    {
+      "hook_id": "hook_nelani_tracks_jacen",
+      "action": "plant"
+    },
+    {
+      "hook_id": "hook_lumiya_identity",
+      "action": "advance"
+    }
+  ],
+  "revelations": [
+    "rev_vectivus_asteroid"
+  ],
+  "pov_arc_phase": "need_glimpsed",
+  "arc_phase_transition": "need_resisted"
+}

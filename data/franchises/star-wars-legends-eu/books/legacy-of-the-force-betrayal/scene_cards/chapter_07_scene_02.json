@@ -1,0 +1,62 @@
+{
+  "chapter_number": 7,
+  "scene_number": 2,
+  "structural_phase": "first_plot_point",
+  "scene_type": "sequel",
+  "scene_role": "decision",
+  "pov_character": "Jacen Solo",
+  "mission": "Jacen alone post-Council in a training room, consolidating his private conviction that the Order's neutrality is morally insufficient.",
+  "why_now": "Jacen has just heard the Council's decision and does not agree with it.",
+  "opening_hook": "Jacen in a Temple training room, saber ignited, walking a slow practice kata against empty air.",
+  "conflict": "Jacen's loyalty to Luke and the Order against the private conviction that the Order has just picked the wrong posture.",
+  "conflict_type": "internal",
+  "dialogue_expectation": "balanced",
+  "turning_point": "Jacen stops the kata mid-form and names to himself — without speaking — that the Order is wrong.",
+  "closing_hook": "Jacen extinguishing his saber and standing alone in the dim room.",
+  "characters_present": [
+    "Jacen Solo"
+  ],
+  "setting": "Jedi Temple training room, Coruscant; empty, lights lowered to evening setting.",
+  "sensory_details": "Saber hum; the training room's rubberized floor; ventilator whisper.",
+  "emotional_trajectory": "Practiced focus → mid-kata halt → private conviction.",
+  "stakes": {
+    "personal": "Jacen's standing as a Jedi who agrees with his Order.",
+    "interpersonal": "Jacen's relationship with Luke now carrying a private disagreement.",
+    "external": "Jacen's willingness to act outside Jedi-regulation channels."
+  },
+  "plot_threads_advanced": [
+    "sub_jacen_ben_apprenticeship",
+    "sub_corellian_crisis"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "canon_elements_needed": [
+    "Jedi Temple training rooms",
+    "Jacen's green-bladed lightsaber"
+  ],
+  "target_word_count": 1870,
+  "action_beats": [
+    "Jacen ignites his saber",
+    "Walks a practice kata",
+    "Halts mid-form",
+    "Extinguishes the saber"
+  ],
+  "notes": "The book's First Plot Point for Jacen's corruption arc lands on this interior moment.",
+  "active_subplots": [
+    "sub_jacen_ben_apprenticeship",
+    "sub_corellian_crisis"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "hook_corellian_insurgency",
+      "action": "advance"
+    },
+    {
+      "hook_id": "hook_dark_hooded_enemy",
+      "action": "advance"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "want_defined",
+  "arc_phase_transition": "need_resisted"
+}

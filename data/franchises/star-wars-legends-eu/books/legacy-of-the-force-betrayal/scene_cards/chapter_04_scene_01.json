@@ -1,0 +1,64 @@
+{
+  "chapter_number": 4,
+  "scene_number": 1,
+  "structural_phase": "setup",
+  "scene_type": "sequel",
+  "scene_role": "escalation",
+  "pov_character": "Aidel Saxan",
+  "mission": "Aidel Saxan defies Alliance pressure in a public Corellian policy address while private political chess moves behind her.",
+  "why_now": "The Alliance's ultimatum on Corellian disarmament expires within the week; Saxan is answering publicly.",
+  "opening_hook": "Saxan at a podium on the Corellian Parliament floor, the camera drones tracking her entry.",
+  "conflict": "Saxan's legitimate leadership of Corellian sovereignty against Dur Gejjen's backroom readiness to replace her if she overreaches.",
+  "conflict_type": "interpersonal",
+  "dialogue_expectation": "dialogue_led",
+  "turning_point": "Saxan explicitly names Corellia's right to refuse Alliance garrisoning — the line across which the Alliance will move.",
+  "closing_hook": "Gejjen in a back corridor nodding once to an aide after her speech.",
+  "characters_present": [
+    "Aidel Saxan",
+    "Dur Gejjen",
+    "Corellian parliamentary aides"
+  ],
+  "setting": "Corellian Parliament address chamber, Coronet City; afternoon.",
+  "sensory_details": "Corellian chamber's warmer wood tones; the faint applause of a sympathetic chamber; Saxan's silver pin.",
+  "emotional_trajectory": "Controlled public address → private political calculation → sharpened line.",
+  "stakes": {
+    "personal": "Saxan's political survival as Prime Minister.",
+    "interpersonal": "Saxan/Gejjen's informal alliance as it frays.",
+    "external": "Corellia's formal posture toward the Alliance."
+  },
+  "plot_threads_advanced": [
+    "sub_corellian_crisis"
+  ],
+  "promises_planted": [
+    "hook_saxan_assassination"
+  ],
+  "promises_paid": [],
+  "canon_elements_needed": [
+    "Aidel Saxan as Corellian Prime Minister",
+    "Dur Gejjen as political operator",
+    "Corellian parliamentary protocols"
+  ],
+  "target_word_count": 2000,
+  "action_beats": [
+    "Saxan enters the chamber",
+    "Delivers the defiance speech",
+    "Gejjen watches from a back corridor",
+    "Gejjen signals an aide"
+  ],
+  "notes": "Saxan's sympathetic register established so her death in Ch 13 lands.",
+  "active_subplots": [
+    "sub_corellian_crisis"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "hook_corellian_insurgency",
+      "action": "advance"
+    },
+    {
+      "hook_id": "hook_saxan_assassination",
+      "action": "plant"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "flat_arc_stable_truth"
+}

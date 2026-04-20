@@ -1,0 +1,62 @@
+{
+  "chapter_number": 19,
+  "scene_number": 2,
+  "structural_phase": "second_pinch",
+  "scene_type": "sequel",
+  "scene_role": "decision",
+  "pov_character": "Mara Jade Skywalker",
+  "mission": "Mara finds Tresina's body; grief converts to operational commitment.",
+  "why_now": "Mara is among the first Jedi in the chamber after the blast.",
+  "opening_hook": "Mara moving through suppressor foam toward a familiar robe.",
+  "conflict": "Mara's grief vs. the professional self she reaches for as soon as the grief lands.",
+  "conflict_type": "internal",
+  "dialogue_expectation": "balanced",
+  "turning_point": "Mara kneels by Tresina and commits — silently — that she will find whoever arranged this.",
+  "closing_hook": "Mara leaving the chamber with blood on her sleeve and a new operational goal.",
+  "characters_present": [
+    "Mara Jade Skywalker",
+    "Tresina Lobi (deceased)",
+    "Toryaz medics",
+    "Jedi responders"
+  ],
+  "setting": "Toryaz Station diplomatic chamber post-blast.",
+  "sensory_details": "Foam-suppressant residue; the chamber's emergency lighting; Tresina's robe torn.",
+  "emotional_trajectory": "Desperate search → grief → converted resolve.",
+  "stakes": {
+    "personal": "Mara's grief and professionalism in contention.",
+    "interpersonal": "Mara's thirty-year friendship severed on-page.",
+    "external": "The hunt for whoever arranged the bombing."
+  },
+  "plot_threads_advanced": [
+    "sub_toryaz_diplomacy",
+    "sub_lumiya_seduction",
+    "sub_luke_dream_line"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "canon_elements_needed": [
+    "Jedi responder protocol",
+    "Tresina Lobi's funeral-candidate status"
+  ],
+  "target_word_count": 1860,
+  "action_beats": [
+    "Mara enters the chamber",
+    "Finds Tresina",
+    "Grief beat",
+    "Operational commitment beat"
+  ],
+  "notes": "Brooks Second Pinch's interior register — grief converting to hunt.",
+  "active_subplots": [
+    "sub_toryaz_diplomacy",
+    "sub_lumiya_seduction",
+    "sub_luke_dream_line"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "hook_dark_hooded_enemy",
+      "action": "advance"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "flat_arc_stable_truth"
+}

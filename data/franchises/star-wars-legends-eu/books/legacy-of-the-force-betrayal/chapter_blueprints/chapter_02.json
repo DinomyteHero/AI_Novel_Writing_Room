@@ -1,0 +1,48 @@
+{
+  "chapter_number": 2,
+  "chapter_mission": "Execute the Adumar missile-factory raid; dispatch the Dammant Killers cell; establish Jacen's operational lethality and Nelani's collegial register.",
+  "chapter_turn": "The team moves from investigation to open action — the Corellian paramilitary presence is no longer deniable and the Jedi-combat register is established.",
+  "structural_phase": "setup",
+  "pov_allocation": [
+    "Jacen Solo"
+  ],
+  "scene_count": 1,
+  "scene_plan": [
+    {
+      "scene_number": 1,
+      "role": "decision",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 2786,
+      "purpose": "Raid and dispatch — Jacen, Ben, and Nelani execute the strike on the missile factory; Dammant Killers dispatched; Nelani registers something off about Jacen's lethality."
+    }
+  ],
+  "reveal_payload": [
+    "rev_jacen_moral_slide"
+  ],
+  "hook_movements": {
+    "planted": [],
+    "advanced": [
+      "hook_corellian_insurgency",
+      "hook_adumar_investigation"
+    ],
+    "resolved": [
+      "hook_adumar_investigation"
+    ]
+  },
+  "subplot_obligations": [
+    "sub_adumar_investigation",
+    "sub_jacen_ben_apprenticeship",
+    "sub_corellian_crisis"
+  ],
+  "relationship_turns": [
+    {
+      "dyad": "Jacen/Nelani",
+      "from": "collegial_distance",
+      "to": "professional_partnership_with_philosophical_friction"
+    }
+  ],
+  "pacing_curve": "rising",
+  "exit_vector": "Facility destroyed, cell dispatched, team departing Adumar with the first on-page proof that Corellia is arming in the shadows.",
+  "chapter_word_target": 2786,
+  "notes": "One continuous action arc. Jacen's economy of violence — 'one-and-done' dispatch of the cell — registers to Nelani as slightly off without her being able to name it."
+}
