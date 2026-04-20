@@ -1207,10 +1207,15 @@ class Orchestrator:
         prose: str,
         generation_brief: dict,
     ) -> tuple[dict, str]:
-        """Run the Gate Critic loop with retries on failure.
+        """Run the Gate Critic once as telemetry; return the original prose.
 
-        `generation_brief` is the typed dict from Plot Architect; rewrites reuse
-        the same brief and only vary the failure_context passed to Prose Stylist.
+        Method name is historical. Under the forward-only relay there is no
+        loop and no retries — Gate Critic evaluates the draft exactly once and
+        its verdict is logged to the ledger. The prose is returned unchanged;
+        downstream stages (metrics, polish, final gate, canon expert) always
+        proceed. `generation_brief` is the typed dict from Plot Architect,
+        kept in the signature for future reuse but currently unused in the
+        forward-only path.
         """
         if self.skip_gate_loop:
             # Accept the first draft without running gate_critic at all.
