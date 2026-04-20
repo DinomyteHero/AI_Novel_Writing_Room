@@ -5,13 +5,13 @@
   "scene_type": "action",
   "scene_role": "hook",
   "pov_character": "Ben Skywalker",
-  "mission": "Dawn fully established. Ben lays out the resonance plan in total on a datapad between himself and Kael — theory, math, requirements, untested status, the risk it could kill them, the point where it will not work without him. When Kael asks how sure Ben is, Ben answers 'Not very.' Kael: 'Points for honesty.'",
+  "mission": "Dawn fully established. Ben lays out the resonance plan in total on a datapad between himself and Kael — theory, math, requirements, untested status, the risk it could kill them, the point where it will not work without him. When Kael asks about the odds, Ben answers honestly that they are low; Kael registers the honesty as the thing that differs from every previous institutional ask.",
   "why_now": "The scene is the answer to Kael's question from Ch22 sc3. Kael asked; the answer has to be the plan itself, unvarnished, delivered without a persuasion tactic.",
   "conflict": "Kael has been conscripted, captured, and sealed as infrastructure. Every institution that asked for his service also used him. Ben is asking for his Sith-trained contribution in a framework no institution has tried. The scene is whether 'asking' and 'ordering' can be told apart from inside Kael's experience.",
   "conflict_type": "interpersonal",
-  "turning_point": "Ben's 'Not very' in response to Kael's question about odds. The honest answer is the one Kael has never been given. He has been lied to by experts; the truth is what he does not expect.",
+  "turning_point": "Ben's honest low-odds answer in response to Kael's question. The honest answer is the one Kael has never been given. He has been lied to by experts; the truth is what he does not expect.",
   "opening_hook": "Ben tells Kael everything. The theory. The math. The risk. The part where it's never been tested. The part where it might kill them. The part where it won't work without him.",
-  "closing_hook": "Kael sits with it. A long time. The wrongness presses down. When he speaks, his voice is dry, level, and the driest it's ever been: 'How sure are you this will work?' Ben: 'Not very.' Kael: 'Points for honesty.'",
+  "closing_hook": "Kael sits with it. A long time. The wrongness presses down. When he speaks, his voice is dry, level, and the driest it's ever been — an odds question answered honestly, and Kael's acknowledgment that honesty is the thing that separates this ask from every other",
   "emotional_trajectory": "Honest presentation -> Kael's challenge -> the honest answer that works because it is honest",
   "stakes": {
     "personal": "Ben demonstrating the new approach — trust rather than control",
@@ -49,5 +49,5 @@
   ],
   "revelations": [],
   "pov_arc_phase": "moment_of_truth",
-  "notes": "'Not very' is the scene's load-bearing line. The honest answer does what rhetoric could not. Anti-pattern: Ben must not persuade Kael with a speech; the content of the pitch is the persuasion. Diagnostic-voice trap — Ben should not, in this scene, interior-paragraph his own leadership-as-invitation as a thesis. The open hands are the evidence; the scene trusts them."
+  "notes": "Ben's honest low-odds answer is the scene's load-bearing beat — the honest answer does what rhetoric could not. Anti-pattern: Ben must not persuade Kael with a speech; the content of the pitch is the persuasion. Diagnostic-voice trap — Ben should not, in this scene, interior-paragraph his own leadership-as-invitation as a thesis. The open hands are the evidence; the scene trusts them."
 }

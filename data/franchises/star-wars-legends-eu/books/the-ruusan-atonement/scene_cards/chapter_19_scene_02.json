@@ -5,13 +5,13 @@
   "scene_type": "action",
   "scene_role": "escalation",
   "pov_character": "Ben Skywalker",
-  "mission": "Outpost common area. Torin uses the Knights' suffering as argument — their pain is proof the seal cannot be maintained incrementally. His compassion is genuine and his conclusion is the old one. Sera watches the exchange and turns toward Ben: 'What is your plan, Skywalker?' Not conditional. A genuine question.",
+  "mission": "Outpost common area. Torin uses the Knights' suffering as argument — their pain is proof the seal cannot be maintained incrementally. His compassion is genuine and his conclusion is the old one. Sera watches the exchange and — for the first time in the book — turns away from Torin and asks Ben for his plan directly. Not conditional. A genuine question.",
   "why_now": "Sera's arc-moment-of-truth requires the outpost's human cost. She has been following on principle; she finally asks Ben as a person, and the question is the chapter's turn.",
   "conflict": "Torin's argument is compassionate and logically consistent. Sera has been following his framework in her bones for a thousand years. The outpost makes her watch what her own rigidity costs; Ben's response to helplessness — no false authority — shows her something Gavran never demonstrated.",
   "conflict_type": "interpersonal",
-  "turning_point": "Sera turns away from Torin and faces Ben directly: 'What is your plan, Skywalker?' Not conditional. A genuine question from a soldier who has just chosen her commander.",
+  "turning_point": "Sera turns away from Torin and faces Ben directly, asking for his plan as a genuine question from a soldier who has just chosen her commander. Not conditional.",
   "opening_hook": "Torin kneels beside the young Knight who can't meditate. His hand on the Knight's shoulder is tender, genuine. His eyes, over the Knight's head, are cold with decision.",
-  "closing_hook": "Sera doesn't argue with Torin this time. She turns to Ben instead. 'What is your plan, Skywalker?' Not conditional trust — a genuine question. She's stopped following Torin's framework. She's asking Ben to provide an alternative.",
+  "closing_hook": "Sera doesn't argue with Torin this time. She turns to Ben instead and asks for his plan — not conditional trust, a genuine question. She has stopped following Torin's framework. She is asking Ben to provide an alternative.",
   "emotional_trajectory": "Torin's compassion-as-argument -> Sera's recognition -> the shift from Torin to Ben",
   "stakes": {
     "personal": "Sera's arc-moment-of-truth — rigidity is not protection",
@@ -45,10 +45,11 @@
   ],
   "promises_planted": [],
   "promises_paid": [
-    "Sera's rigidity will break into principled flexibility (PP20 partial)"
+    "Sera's rigidity will break into principled flexibility (PP20 partial)",
+    "Sera's formal distance from Ben begins to thaw — moment-of-truth payoff (PP15 partial)"
   ],
   "hook_actions": [],
   "revelations": [],
   "pov_arc_phase": "lie_challenged",
-  "notes": "Sera's 'What is your plan, Skywalker?' is a chapter-anchor line — deliver once and leave. Her arc-moment-of-truth: rigidity is not protection; Ben's honest helplessness is a kind of leadership Gavran never offered. Torin's compassion-as-weapon must remain real; the scene fails if he is obviously manipulating. Diagnostic-voice trap — Ben should not, in this scene, interior-paragraph his reaction to Sera's question. The question lands, the chapter moves toward Kael in sc3. Voice: dialogue-drama precision; the exchange between Torin and Sera is the scene; Ben is the receiver, not the speaker."
+  "notes": "Sera's 'plan, Skywalker' question — delivered with the formal 'Skywalker' register per PP15 — is a chapter-anchor line; deliver once and leave. Her arc-moment-of-truth: rigidity is not protection; Ben's honest helplessness is a kind of leadership Gavran never offered. Torin's compassion-as-weapon must remain real; the scene fails if he is obviously manipulating. Diagnostic-voice trap — Ben should not, in this scene, interior-paragraph his reaction to Sera's question. The question lands, the chapter moves toward Kael in sc3. Voice: dialogue-drama precision; the exchange between Torin and Sera is the scene; Ben is the receiver, not the speaker."
 }

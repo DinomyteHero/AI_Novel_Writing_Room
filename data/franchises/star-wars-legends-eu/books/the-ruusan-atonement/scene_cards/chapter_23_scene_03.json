@@ -5,11 +5,11 @@
   "scene_type": "action",
   "scene_role": "decision",
   "pov_character": "Ben Skywalker",
-  "mission": "Kael returns. His stride is different — less careful, more deliberate. Ben knows the answer before he speaks it. 'If this kills me, I want it on record that I volunteered. First time for everything.' The group moves down toward the valley. Three Force presences beside each other — different, complementary, three notes arranged but not yet a chord.",
+  "mission": "Kael returns. His stride is different — less careful, more deliberate. Ben knows the answer before he speaks it. Kael lands his commitment in a single dry, deflecting line — the humor covering the magnitude of what he is doing and also carrying it. The group moves down toward the valley. Three Force presences beside each other — different, complementary, three notes arranged but not yet a chord.",
   "why_now": "The last character holdout commits. The book's thematic assembly completes here before the climax can execute.",
   "conflict": "Kael's commitment is real and so is the vulnerability. He has never voluntarily put himself at risk for other people's work. The humor covers the magnitude of what he is doing and also carries it.",
   "conflict_type": "interpersonal",
-  "turning_point": "Kael's line: 'If this kills me, I want it on record that I volunteered. First time for everything.' Dry, level, the humor covering something raw. The group moves.",
+  "turning_point": "Kael lands his dry commitment line — the humor covering something raw, the volunteer framing the load-bearing detail. The group moves.",
   "opening_hook": "Kael walks back to the group. His stride is different — less careful, more deliberate. Ben watches him approach and knows the answer before he speaks.",
   "closing_hook": "The group moves toward the wound source — three Force-users and one non-Force-user, walking toward something unprecedented. Ben feels Sera's and Kael's Force presences beside him. Different. Complementary. Not yet a chord. But the notes are there.",
   "emotional_trajectory": "The commitment -> group relief and resolve -> the march toward the endgame",
@@ -59,5 +59,5 @@
   ],
   "revelations": [],
   "pov_arc_phase": "moment_of_truth",
-  "notes": "'First time for everything' is a chapter-anchor line. Deliver once, dry, understated; do not reprise. Kael's arc new-truth demonstrated. Kael/Veraine parallel resolves by divergent choice from the same wound. Anti-pattern: no group cheer, no emotional speech from Ben; Kael's line lands, the group registers it, they move. Rotate Force-wrongness metaphor family for the closing — three notes arranged but not yet a chord (acoustic register), not handrail or pressure. Use this to seed the Ch24 discordance."
+  "notes": "Kael's dry commitment line is a chapter-anchor. Deliver once, dry, understated; do not reprise. Kael's arc new-truth demonstrated. Kael/Veraine parallel resolves by divergent choice from the same wound. Anti-pattern: no group cheer, no emotional speech from Ben; Kael's line lands, the group registers it, they move. Rotate Force-wrongness metaphor family for the closing — three notes arranged but not yet a chord (acoustic register), not handrail or pressure. Use this to seed the Ch24 discordance."
 }

@@ -11,7 +11,7 @@
   "conflict_type": "interpersonal",
   "turning_point": "Ben understands that the Reformations — the foundation of modern Jedi identity — were penance and damage control. The Order he was raised inside has been built on what Gavran chose not to say.",
   "opening_hook": "Sera crosses to the archive console and her fingers find the activation sequence from muscle memory — a thousand years old and still faster than Ben's modern training",
-  "closing_hook": "'The Reformations you were raised inside,' Sera says, 'were the front half of an agreement.' She does not say what the back half was. She does not need to. Ben can read the rest of it off her face",
+  "closing_hook": "Sera lands the dual-purpose framing in a single composed sentence. She does not say what the penance was for. She does not need to. Ben can read the rest of it off her face",
   "emotional_trajectory": "Absorbing shock -> intellectual vertigo -> moral reckoning with institutional history",
   "stakes": {
     "personal": "The account Ben grew up inside does not match the room he is standing in",
@@ -51,7 +51,8 @@
     "reformations_dual_purpose_revealed"
   ],
   "promises_planted": [
-    "The institutional lie must be told to the Order (PP08)"
+    "The institutional lie must be told to the Order (PP08)",
+    "Each generation of technique-developers thought they were smarter; the resonance will break that cycle (PP11)"
   ],
   "promises_paid": [
     "The wrongness has a source (PP01)"

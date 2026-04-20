@@ -3,28 +3,30 @@
   "chapter_mission": "Awaken the three survivors, deliver the First Plot Point as one detonating institutional fact — the Ruusan Reformations were dual-purpose: the public reform the Order remembers, and a private penance for something the Jedi Lords did — and form the group. Per D8, Ch 5 does not carry the full Reformations payload; the specifics (technique, wound mechanics, anchor system, Brotherhood inversion) defer to Ch 7 / Ch 9 / Ch 11. Ch 5 ends with the empty chamber as unresolved mystery; Veraine's name lives in Ch 6 s1.",
   "chapter_turn": "Ben shifts from investigator to custodian. He arrived expecting a ruin; he leaves responsible for three strangers whose presence rewrites his Order's foundational narrative by a single sentence and whose survival depends on him getting the next move right — even though he does not yet know the antagonist's name.",
   "structural_phase": "first_plot_point",
-  "pov_allocation": ["Ben Skywalker"],
+  "pov_allocation": [
+    "Ben Skywalker"
+  ],
   "scene_count": 4,
   "scene_plan": [
     {
       "scene_number": 1,
       "role": "hook",
       "dialogue_expectation": "interior",
-      "target_word_count": 1300,
+      "target_word_count": 1400,
       "purpose": "Ben and Desh cross the fortress threshold into the stasis ring. The environment carries the story: twelve chambers, nine dark with preserved bodies, three dimly active, one empty and broken open from inside. Establish the empty chamber through physical evidence — damage marks on the walls from inside, emergency warnings in the monitoring system that went unanswered weeks ago — without naming its occupant. The absence is the hook."
     },
     {
       "scene_number": 2,
       "role": "reveal",
       "dialogue_expectation": "balanced",
-      "target_word_count": 1250,
+      "target_word_count": 1200,
       "purpose": "Sera, Torin, Kael wake. Thousand-year disorientation. Archive access restored through Sera's era-specific Force-lock craft. One fact detonates: the Ruusan Reformations were dual-purpose. Public reform plus private penance. The Order's foundational narrative is broken in a single sentence. R04a lands. Survivor introductions carry the human register — Sera's precision, Torin's warmth (per R12, the warmth register is load-bearing canon; his Ch 5-12 specimens anchor the corruption arc that breaks later), Kael's dry corrections. The full specifics (what the technique is, how the wound was made, how the anchor system works, what the Brotherhood was doing) are not delivered here — the reader leaves this scene with one earth-moving fact and three distinct living presences. R8 character-distinctness is load-bearing: the three voices must register as three different voices from their first speaking lines."
     },
     {
       "scene_number": 3,
       "role": "reveal",
       "dialogue_expectation": "balanced",
-      "target_word_count": 1150,
+      "target_word_count": 1200,
       "purpose": "The empty chamber is named as a mystery, not a name. Monitoring logs show a containment breach from inside, dated weeks ago, the occupant's identity flagged but not displayed on the surface-level review (archive authorization for the full record sits one layer deeper). The group registers: someone was here, someone is no longer here, someone got out under their own power. Torin's first unsettling line lands here — the H06 plant — his quiet question about the modern Jedi's relationship with the light/dark boundary: 'Gavran thought so too. Before.' Short. No context given. Ben registers and does not pursue. Torin's warmth in the surrounding speech protects the H06 plant from reading as warning-bell rather than voice-color.",
       "notes_for_scene": "Per D8, R05 (Veraine named) does NOT land here. The Ch 5 s3 end state is: empty chamber as unresolved, occupant-identity flagged-but-not-surfaced, mystery active. Ch 6 s1 opens with Desh running the monitoring-log analysis to identify the occupant. This is the tension valve — the reader leaves Ch 5 without the antagonist's name and Ch 6 opens response-quadrant by delivering it."
     },
@@ -32,17 +34,31 @@
       "scene_number": 4,
       "role": "decision",
       "dialogue_expectation": "balanced",
-      "target_word_count": 1100,
+      "target_word_count": 1000,
       "purpose": "The group forms. Ben does not ask them to follow; they form because no alternative exists. Coordinates for the presumed trail along the Ruusan Corridor (Sera and Torin supply the era-specific map-memory; Desh converts it to a modern navigation frame). Lock-in complete: the seal is failing AND someone is already moving — though the group leaves this fortress without her name. Exit vector: the Steady Returns lifting away with six aboard. Sera's formal 'Skywalker' register is established here (PP15 plant)."
     }
   ],
-  "reveal_payload": ["R04a"],
+  "reveal_payload": [
+    "R04a"
+  ],
   "hook_movements": {
-    "planted": ["H06"],
-    "advanced": ["H03", "H04"],
-    "resolved": ["H04"]
+    "planted": [
+      "H06"
+    ],
+    "advanced": [
+      "H03",
+      "H04"
+    ],
+    "resolved": [
+      "H04"
+    ]
   },
-  "subplot_obligations": ["SP-A", "SP1", "SP2", "SP3"],
+  "subplot_obligations": [
+    "SP-A",
+    "SP1",
+    "SP2",
+    "SP3"
+  ],
   "relationship_turns": [
     {
       "dyad": "Sera/Torin",
