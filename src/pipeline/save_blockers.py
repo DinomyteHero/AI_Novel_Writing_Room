@@ -122,9 +122,34 @@ async def check_save_blockers(
             # The caller emits a warn-level ledger event.
             presence_result = {"violations": []}
 
+        # Deterministic post-filter: drop any violation whose character
+        # actually appears in characters_present. The Haiku agent has been
+        # observed mis-matching full-name entries (flagging "Luke Skywalker"
+        # as absent when the list contains "Luke Skywalker"); this prevents
+        # LLM read errors from quarantining legitimate scenes. Matching is
+        # case-insensitive and handles first-name / last-name subset cases
+        # ("Luke" in list when prose says "Luke Skywalker", or vice versa).
+        present_norms = {
+            c.strip().lower()
+            for c in (scene_card.get("characters_present", []) or [])
+            if isinstance(c, str) and c.strip()
+        }
+
+        def _already_listed(char: str) -> bool:
+            n = char.lower()
+            if n in present_norms:
+                return True
+            # Subset match either direction (covers "Luke" vs "Luke Skywalker").
+            # Require at least 3 chars of overlap to avoid matching initials.
+            if len(n) < 3:
+                return False
+            return any(n in p or p in n for p in present_norms if len(p) >= 3)
+
         for v in presence_result.get("violations", []) or []:
             char = (v.get("character") or "").strip()
             if not char:
+                continue
+            if _already_listed(char):
                 continue
             blockers.append(
                 Blocker(

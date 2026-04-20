@@ -116,6 +116,61 @@ class TestCheckSaveBlockersPresence:
         # Broken infrastructure must not block saves.
         assert blockers == []
 
+    async def test_presence_violation_filtered_when_actually_listed(self):
+        """LLM misclassification: reports 'Luke Skywalker' absent when the
+        card lists 'Luke Skywalker' — post-filter drops the false positive."""
+        card = {
+            "chapter_number": 1,
+            "scene_number": 1,
+            "pov_character": "Ben Skywalker",
+            "characters_present": ["Ben Skywalker", "Luke Skywalker"],
+        }
+        checker = _FakePresenceChecker(
+            violations=[
+                {"character": "Luke Skywalker", "evidence": "Luke stood in the doorway"}
+            ]
+        )
+        blockers = await check_save_blockers(
+            prose="Luke stood in the doorway.",
+            scene_card=card,
+            continuity_report=None,
+            presence_checker=checker,
+        )
+        assert blockers == []
+
+    async def test_presence_violation_filtered_first_name_subset(self):
+        """'Luke' in prose when list has 'Luke Skywalker' — drop false positive."""
+        card = {
+            "chapter_number": 1, "scene_number": 1,
+            "pov_character": "Ben Skywalker",
+            "characters_present": ["Ben Skywalker", "Luke Skywalker"],
+        }
+        checker = _FakePresenceChecker(
+            violations=[{"character": "Luke", "evidence": "..."}]
+        )
+        blockers = await check_save_blockers(
+            prose="...", scene_card=card,
+            continuity_report=None, presence_checker=checker,
+        )
+        assert blockers == []
+
+    async def test_presence_violation_fires_when_not_in_list(self):
+        """Regression guard: a truly absent character still blocks."""
+        card = {
+            "chapter_number": 1, "scene_number": 1,
+            "pov_character": "Ben Skywalker",
+            "characters_present": ["Ben Skywalker"],
+        }
+        checker = _FakePresenceChecker(
+            violations=[{"character": "Luke Skywalker", "evidence": "Luke entered"}]
+        )
+        blockers = await check_save_blockers(
+            prose="Luke entered.", scene_card=card,
+            continuity_report=None, presence_checker=checker,
+        )
+        assert len(blockers) == 1
+        assert "Luke Skywalker" in blockers[0].description
+
     async def test_presence_violation_missing_character_field_ignored(
         self, sample_scene_card
     ):
