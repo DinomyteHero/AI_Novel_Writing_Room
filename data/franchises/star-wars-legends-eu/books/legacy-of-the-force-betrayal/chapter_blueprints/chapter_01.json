@@ -1,0 +1,61 @@
+{
+  "chapter_number": 1,
+  "chapter_mission": "Open the book's thematic and character framing: Luke and Mara in their Coruscant sleeping chamber as Luke articulates the paradoxical dream of a dark-hooded enemy who does not yet exist; then cut to Jacen and Ben on Adumar, where their theatrical GA-inspector tour of the Dammant Killers missile factory under guide Testan ke Harran escalates into hidden-stockpile discovery, lightsaber-through-wall breach, firefight with Dammant security, on-camera evidence capture, and escape through the assembly-line portals. Establishes the Jedi-leadership register, the Jacen-Ben field-operative dynamic, and the Allston dialogue-forward voice.",
+  "chapter_turn": "The book's two engines come online in one chapter: a dark enemy is already moving in the Force (Luke's dream — which the novel's final pages will reveal is Jacen himself), and the Corellian paramilitary infrastructure already extends beyond Corellia's borders (Jacen and Ben recording on-camera evidence at a Dammant Killers missile factory on Adumar).",
+  "structural_phase": "setup",
+  "pov_allocation": [
+    "Luke Skywalker",
+    "Jacen Solo"
+  ],
+  "scene_count": 2,
+  "scene_plan": [
+    {
+      "scene_number": 1,
+      "role": "hook",
+      "dialogue_expectation": "dialogue_led",
+      "target_word_count": 1500,
+      "purpose": "Luke sits upright in bed beside Mara and says 'He doesn't exist'; dialogue works through specific candidates for the dream (Raynar Thul in his Temple cell, Luke's own father mid-fall from Anakin into Vader with eyes turning molten gold); Mara's dry one-liner closes the scene; both return to sleep."
+    },
+    {
+      "scene_number": 2,
+      "role": "escalation",
+      "dialogue_expectation": "dialogue_led",
+      "target_word_count": 4500,
+      "purpose": "Jacen and Ben perform a theatrical GA-inspector tour of the Dammant Killers missile factory on Adumar under guide Testan ke Harran; Ben runs the translator-gag and beard-oil jokes while Jacen Force-reads the guilty thought pointing to the concealed corridor; Ben cuts through the wall with his 'practice' lightsaber; the Dammant security force engages; Jacen deflects bolts while Ben records holocam evidence; the pair escape through the assembly-line portals."
+    }
+  ],
+  "reveal_payload": [
+    "rev_luke_dream_of_dark_enemy"
+  ],
+  "hook_movements": {
+    "planted": [
+      "hook_dark_hooded_enemy",
+      "hook_adumar_investigation",
+      "hook_corellian_insurgency"
+    ],
+    "advanced": [],
+    "resolved": []
+  },
+  "subplot_obligations": [
+    "sub_adumar_investigation",
+    "sub_luke_dream_line",
+    "sub_jacen_ben_apprenticeship",
+    "sub_lumiya_seduction"
+  ],
+  "relationship_turns": [
+    {
+      "dyad": "Luke/Mara",
+      "from": "partnership_at_rest",
+      "to": "partnership_on_alert"
+    },
+    {
+      "dyad": "Jacen/Ben",
+      "from": "cousin_mentor_closeness",
+      "to": "operational_mentor_pair"
+    }
+  ],
+  "pacing_curve": "rising",
+  "exit_vector": "Jacen and Ben escape through the assembly-line portals with holocam evidence — the Adumar fight is joined, not concluded. Next chapter can continue the Adumar thread or cut to another strand.",
+  "chapter_word_target": 6000,
+  "notes": "Matches Aaron Allston's published Chapter 1 of Legacy of the Force: Betrayal. Two scenes: the quiet Luke/Mara bedroom opener, then the long Adumar factory sequence (inspection through escape). Ben's translator-gag, beard-oil jokes, and holocam narration are load-bearing Allston comic beats — they must land. The 'He doesn't exist' paradox and the Anakin-mid-fall candidate are the novel's spine-level setups, both paying off across the nine-book series. Nelani Dinn is NOT in this chapter — she joins the investigation later."
+}

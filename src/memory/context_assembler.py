@@ -33,7 +33,12 @@ TOKEN_BUDGETS = {
     "scene_card": 500,
     "negative_constraints": 400,
     # Phase 5 tiers
-    "voice_rules": 300,
+    # voice_rules budget must accommodate rich multi-anchor voice_definitions
+    # (Ruusan: ~5500 words with two-tier anti_slop_rules, scene_type_anchor_mapping,
+    # humor_register, prior_eu_onboarding, lived_galaxy_texture). Simpler
+    # definitions (Betrayal: ~780 words) fit well under this ceiling with no
+    # truncation. Total prompt size stays well within Sonnet's 200k context.
+    "voice_rules": 7500,
     "hook_agenda": 400,
     "arc_context": 300,
     "subplot_context": 300,
@@ -495,11 +500,16 @@ class ContextAssembler:
     def _assemble_voice_rules(self) -> str:
         """Extract voice definition from concept seed and format for injection.
 
-        Accepts both the legacy nested structure
-        (voice_definition.anti_slop.{banned_words, banned_phrases}) and
-        the post-Phase-5 flat structure (voice_definition.anti_slop_rules),
-        plus the new fields: character_voices, force_description_guidelines,
-        and reference_authors as objects.
+        Render order is priority-first: the project's register and reference
+        authors are the highest-leverage compass for the drafter, so they
+        appear before long per-character lists. When the voice_rules budget
+        truncates, it truncates the low-signal tail (character voices,
+        already carried in the bible summary) rather than the register.
+
+        Supports both simple voice_definition structures (Betrayal-style, with
+        flat anti_slop_rules list) and multi-anchor structures (Ruusan-style,
+        with two-tier anti_slop_rules, scene_type_anchor_mapping, humor_register,
+        pacing_feel, prior_eu_onboarding, and lived_galaxy_texture blocks).
         """
         voice_def = self.concept_seed.get("voice_definition")
         if not voice_def:
@@ -507,12 +517,108 @@ class ContextAssembler:
 
         lines = ["## Voice Rules (MANDATORY)"]
 
-        # New flat anti_slop_rules (post-Phase-5)
+        # Highest priority: POV + Register. These are the project compass.
+        if voice_def.get("pov_approach"):
+            lines.append(f"\n**POV**: {voice_def['pov_approach']}")
+        if voice_def.get("prose_register"):
+            lines.append(f"**Register**: {voice_def['prose_register']}")
+
+        # Reference authors. Supports both the simple form (author/what_to_emulate/
+        # what_to_avoid) and the multi-anchor form with function/weight/scene_defaults
+        # fields that map specific authors to specific scene types.
+        ref_authors = voice_def.get("reference_authors", [])
+        if ref_authors:
+            lines.append("\n### Reference Authors:")
+            for entry in ref_authors:
+                if isinstance(entry, dict):
+                    author = entry.get("author", "unknown")
+                    function = entry.get("function", "")
+                    weight = entry.get("weight", "")
+                    scene_defaults = entry.get("scene_defaults", "")
+                    emulate = entry.get("what_to_emulate", "")
+                    avoid = entry.get("what_to_avoid", "")
+                    lines.append(f"- **{author}**")
+                    if function or weight:
+                        header = function
+                        if weight:
+                            header = f"{header} ({weight})" if header else weight
+                        lines.append(f"  - Function: {header}")
+                    if scene_defaults:
+                        lines.append(f"  - Scene defaults: {scene_defaults}")
+                    if emulate:
+                        lines.append(f"  - Emulate: {emulate}")
+                    if avoid:
+                        lines.append(f"  - Avoid: {avoid}")
+                else:
+                    lines.append(f"- {entry}")
+
+        # Scene-type anchor mapping — which reference-author register dominates
+        # a given scene type. The drafter uses this to pick the right prose
+        # surface for the scene being written.
+        anchor_map = voice_def.get("scene_type_anchor_mapping")
+        if isinstance(anchor_map, dict):
+            mappings = anchor_map.get("mappings", [])
+            if mappings:
+                lines.append("\n### Scene-Type Anchor Mapping — which author register leads for each scene type:")
+                for m in mappings:
+                    scene_type = m.get("scene_type", "")
+                    primary = m.get("primary", "")
+                    supporting = m.get("supporting", [])
+                    sup_str = f" (+ {', '.join(supporting)})" if supporting else ""
+                    lines.append(f"- **{scene_type}** → primary={primary}{sup_str}")
+
+        # Humor register — calibration + per-character sources. Load-bearing
+        # for projects where humor is texture (Ruusan) rather than flavor.
+        humor = voice_def.get("humor_register")
+        if isinstance(humor, dict):
+            lines.append("\n### Humor Register:")
+            cal = humor.get("calibration", "")
+            if cal:
+                lines.append(cal)
+            sources = humor.get("sources", {})
+            if sources:
+                lines.append("\n**Per-character humor sources:**")
+                for who, how in sources.items():
+                    lines.append(f"- **{who}**: {how}")
+            distribution = humor.get("distribution", "")
+            if distribution:
+                lines.append(f"\n**Distribution**: {distribution}")
+            anti_pattern = humor.get("anti_pattern", "")
+            if anti_pattern:
+                lines.append(f"\n**Humor anti-pattern**: {anti_pattern}")
+
+        if voice_def.get("narrative_voice_notes"):
+            lines.append(f"\n### Narrative Voice:\n{voice_def['narrative_voice_notes']}")
+
+        # Anti-slop rules: supports flat list (Betrayal-style) OR two-tier dict
+        # (Ruusan-style: description + derived_rules + line_level_rules). Without
+        # this handling, a dict-typed anti_slop_rules gets iterated as keys and
+        # the rule content never reaches the drafter.
         anti_slop_rules = voice_def.get("anti_slop_rules")
         if anti_slop_rules:
             lines.append("\n### Anti-Slop Rules — Do NOT violate these rules:")
-            for rule in anti_slop_rules:
-                lines.append(f"- {rule}")
+            if isinstance(anti_slop_rules, list):
+                for rule in anti_slop_rules:
+                    lines.append(f"- {rule}")
+            elif isinstance(anti_slop_rules, dict):
+                derived = anti_slop_rules.get("derived_rules", [])
+                line_level = anti_slop_rules.get("line_level_rules", [])
+                if derived:
+                    lines.append("\n#### Architecture Rules (book-level — always apply):")
+                    for rule in derived:
+                        if isinstance(rule, dict):
+                            name = rule.get("name", "")
+                            content = rule.get("content", "")
+                            if name:
+                                lines.append(f"- **{name}**: {content}")
+                            else:
+                                lines.append(f"- {content}")
+                        else:
+                            lines.append(f"- {rule}")
+                if line_level:
+                    lines.append("\n#### Line-Level Rules (sentence-craft — always apply):")
+                    for rule in line_level:
+                        lines.append(f"- {rule}")
         else:
             # Legacy nested anti_slop (banned_words + banned_phrases)
             anti_slop = voice_def.get("anti_slop", {})
@@ -533,42 +639,55 @@ class ContextAssembler:
             for pattern in anti_patterns:
                 lines.append(f"- {pattern}")
 
-        # Per-character voice guidance (post-Phase-5)
-        character_voices = voice_def.get("character_voices", {})
-        if character_voices:
-            lines.append("\n### Character Voices — how each character speaks and thinks:")
-            for char_name, guidance in character_voices.items():
-                lines.append(f"- **{char_name}**: {guidance}")
-
-        # Force / magic description guidelines (post-Phase-5, optional)
+        # Force / magic description guidelines
         force_guide = voice_def.get("force_description_guidelines", "")
         if force_guide:
             lines.append("\n### Magic / Force Description Guidelines:")
             lines.append(force_guide)
 
-        # Reference authors (legacy = list of strings; post-Phase-5 = list of objects)
-        ref_authors = voice_def.get("reference_authors", [])
-        if ref_authors:
-            lines.append("\n### Reference Authors:")
-            for entry in ref_authors:
-                if isinstance(entry, dict):
-                    author = entry.get("author", "unknown")
-                    emulate = entry.get("what_to_emulate", "")
-                    avoid = entry.get("what_to_avoid", "")
-                    lines.append(f"- **{author}**")
-                    if emulate:
-                        lines.append(f"  - Emulate: {emulate}")
-                    if avoid:
-                        lines.append(f"  - Avoid: {avoid}")
-                else:
-                    lines.append(f"- {entry}")
+        # Pacing feel — how scenes should feel at the chapter/book level.
+        pacing_feel = voice_def.get("pacing_feel", "")
+        if pacing_feel:
+            lines.append(f"\n### Pacing Feel:\n{pacing_feel}")
 
-        if voice_def.get("narrative_voice_notes"):
-            lines.append(f"\n### Narrative Voice:\n{voice_def['narrative_voice_notes']}")
-        if voice_def.get("pov_approach"):
-            lines.append(f"**POV**: {voice_def['pov_approach']}")
-        if voice_def.get("prose_register"):
-            lines.append(f"**Register**: {voice_def['prose_register']}")
+        # Prior-EU onboarding — how backstory references land for readers
+        # who know the broad shape but not every beat.
+        prior_eu = voice_def.get("prior_eu_onboarding")
+        if isinstance(prior_eu, dict):
+            lines.append("\n### Prior-Universe Onboarding:")
+            if prior_eu.get("principle"):
+                lines.append(prior_eu["principle"])
+            first_mention = prior_eu.get("first_mention_handling")
+            if isinstance(first_mention, dict):
+                lines.append("\n**First-mention handling:**")
+                for ref, guidance in first_mention.items():
+                    lines.append(f"- **{ref}**: {guidance}")
+            if prior_eu.get("anti_pattern"):
+                lines.append(f"\n**Anti-pattern**: {prior_eu['anti_pattern']}")
+
+        # Lived-galaxy texture — placement and sensory requirements that keep
+        # the book from reading as mission-bounded.
+        lived = voice_def.get("lived_galaxy_texture")
+        if isinstance(lived, dict):
+            lines.append("\n### Lived-Galaxy Texture:")
+            if lived.get("principle"):
+                lines.append(lived["principle"])
+            placement = lived.get("placement_requirements", [])
+            if placement:
+                lines.append("\n**Placement requirements:**")
+                for req in placement:
+                    lines.append(f"- {req}")
+            if lived.get("anti_pattern"):
+                lines.append(f"\n**Anti-pattern**: {lived['anti_pattern']}")
+
+        # Per-character voice guidance. Rendered last because the ensemble
+        # cast's voice_notes are already carried in the bible summary; this
+        # block is complementary detail, not the primary compass.
+        character_voices = voice_def.get("character_voices", {})
+        if character_voices:
+            lines.append("\n### Character Voices — how each character speaks and thinks:")
+            for char_name, guidance in character_voices.items():
+                lines.append(f"- **{char_name}**: {guidance}")
 
         return "\n".join(lines)
 

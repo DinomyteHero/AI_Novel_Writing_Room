@@ -175,11 +175,20 @@ class ProseStylist(BaseAgent):
             "The scene must contain the turning point specified in the brief.",
         ]
         if target_words:
+            floor = int(target_words * 0.90)
+            ceiling = int(target_words * 1.10)
             task_lines.append(
-                f"Target length: approximately {target_words} words. "
-                "Treat this as guidance, not a hard limit — write the scene the "
-                "story needs. The downstream pipeline no longer rejects scenes "
-                "for being off-target by a scene-level word count."
+                f"Target length: {target_words} words. "
+                f"Aim to land within {floor}–{ceiling} words (±10% of target). "
+                "Treat the target as a soft floor, not a ceiling: if your "
+                "first full pass through the brief's beats is coming in short, "
+                "add the scene depth the beats actually need — room for the "
+                "dialogue to breathe, for physical actions to land, for "
+                "interior reactions to register — rather than compressing each "
+                "beat to a sentence. If you significantly exceed the ceiling, "
+                "check that every paragraph is earning its length; the "
+                "downstream pipeline does not hard-reject off-target scenes "
+                "but consistent undershoot is a quality signal."
             )
         if closing_hook:
             task_lines.append(

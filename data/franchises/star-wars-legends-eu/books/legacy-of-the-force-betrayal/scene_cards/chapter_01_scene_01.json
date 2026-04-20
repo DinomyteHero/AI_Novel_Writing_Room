@@ -1,0 +1,67 @@
+{
+  "chapter_number": 1,
+  "scene_number": 1,
+  "structural_phase": "setup",
+  "scene_type": "sequel",
+  "scene_role": "hook",
+  "pov_character": "Luke Skywalker",
+  "mission": "Open the book with Luke snapping upright in bed beside Mara in their Coruscant sleeping chamber, speaking the paradoxical phrase that will define his Force-vision for the entire novel — 'He doesn't exist.' Work through specific candidate identities aloud (Raynar Thul in his Temple cell; Luke's own father mid-fall from Anakin into Vader with eyes turning molten gold). Close with Mara's dry one-liner and both characters returning to sleep.",
+  "why_now": "Luke has had the dream three times in two months; tonight's is the clearest and he needs to speak it aloud to Mara before dawn and the day's obligations reset him.",
+  "opening_hook": "Without conscious thought, Luke sits upright in bed and says aloud: 'He doesn't exist.' Mara wakes beside him — red hair an unruly mess, her bright green eyes instantly alert.",
+  "conflict": "Luke's certainty that the Force is warning him against his inability to point at anyone the warning fits — an enemy who, so far as the Force can show him when awake, does not exist.",
+  "conflict_type": "internal",
+  "dialogue_expectation": "dialogue_led",
+  "turning_point": "Luke names and rejects the specific candidates Mara proposes: Raynar Thul (post-Killik, in a well-protected Temple cell — but Luke no longer senses the insectoid alienness in the vision) and Luke's own father Anakin Skywalker, mid-fall — features of a Jedi Anakin but eyes turning molten gold or orange from Force-use and anger. The vision does not resolve to either. 'He doesn't exist' remains the working description.",
+  "closing_hook": "Mara: 'Let's wait until he shows up, then crush him.' Luke smiles, closes his eyes, his breathing slowing into natural sleep within a minute. Mara lies awake a little longer, reaching through the Force for any flicker of what is troubling her husband, finds no sign of it, and she too sleeps.",
+  "characters_present": [
+    "Luke Skywalker",
+    "Mara Jade Skywalker"
+  ],
+  "setting": "Luke and Mara's private sleeping chamber within the Jedi enclave on Coruscant, pre-dawn. Stone-veneer walls with drawers inset for their limited clothes. A wall rack of plasteel staves and practice weapons. A table scattered with datapads, notes on flimsi, datachips from Jedi Masters, and a crude Tatooine-made sandglass statuette of Luke. Both their lightsabers rest on a shelf on the headboard behind Luke. Mara's spy trade goods — disguises, weapons, falsified documents — are not in this room; Luke doesn't know where she keeps them and she doesn't bother him with it.",
+  "sensory_details": "Mara's medium-length red hair unruly on waking; her green eyes bright and unsleepy when she opens them; the dim illumination of the chamber; the small Tatooine statuette catching what little light there is; the weight of both lightsabers on the headboard shelf; Mara's voice quiet but fully awake.",
+  "emotional_trajectory": "Luke's aftermath-of-vision certainty → articulation through dialogue with candidates proposed and rejected → Mara's deflating joke → settled partnership → Mara's private wakeful Force-scan after Luke sleeps → both return to sleep.",
+  "stakes": {
+    "personal": "Luke's self-trust about his Force-sight at mid-career; the Grand Master's discipline about what he will and will not report to the Council before he has a name.",
+    "interpersonal": "The marriage's baseline agreement that Luke tells Mara this kind of thing before anyone else — Council, family, or Order.",
+    "external": "Whatever is moving in the Force that Luke cannot yet name — the dark-hooded enemy the final page of the novel will reveal he is already related to."
+  },
+  "plot_threads_advanced": [
+    "sub_luke_dream_line",
+    "sub_lumiya_seduction"
+  ],
+  "promises_planted": [
+    "hook_dark_hooded_enemy"
+  ],
+  "promises_paid": [],
+  "canon_elements_needed": [
+    "Luke and Mara's private sleeping chamber in the Jedi enclave (not the balcony, not the Council chambers — a bedroom with domestic clutter)",
+    "Raynar Thul post-Dark-Nest — former Jedi Knight, horribly burned in the Yuuzhan Vong war, mentally transformed by Killik involvement, now undergoing treatment in a well-protected Temple cell",
+    "Anakin Skywalker's features as he was mid-fall into Vader — the face of a Jedi Anakin, but eyes turning molten gold or orange from Force-use and anger",
+    "The Force-dream mechanic: Force-weight behind it, residue after waking, distinct from ordinary dreaming",
+    "Post-NJO Jedi Order institutional status; Luke as Grand Master running a rebuilt Order that is also a household"
+  ],
+  "target_word_count": 1500,
+  "action_beats": [
+    "Luke sits upright in bed and speaks 'He doesn't exist' without conscious thought",
+    "Luke describes the hooded figure in shadows of light and ignorance and denial — a being who brings great pain to the galaxy and, specifically and personally, to him",
+    "Mara proposes Raynar Thul; Luke rejects him (the vision's mental register is human or near-human, not insectoid)",
+    "Luke names his own father mid-Vader-transformation as a candidate — features of Anakin Skywalker as a Jedi, eyes turning molten gold from Force-use and anger",
+    "Mara delivers her joke: 'Let's wait until he shows up, then crush him.' Luke smiles.",
+    "Luke returns to natural sleep within a minute; Mara remains awake and reaches through the Force for any hint of what is troubling him, finds nothing, then sleeps too"
+  ],
+  "notes": "This is the novel's quiet opening. The 'He doesn't exist' paradox is the book's spine — the dark-hooded enemy IS Luke's own nephew Jacen, who has not yet become what the vision shows him becoming. The novel's final chapter echoes this opening with Luke sensing a new Sith and saying 'He exists' — the reversal that closes the frame. The Anakin/Vader foreshadow is load-bearing: it hints at the arc Jacen is about to take. Mara's joke is the first instance of the ensemble's humor register — dry, brief, cutting the Force-weight without dismissing it. Scene is dialogue-led. No atmospheric cosmic opener — the book opens inside the dialogue, on Luke's paradox line.",
+  "active_subplots": [
+    "sub_luke_dream_line",
+    "sub_lumiya_seduction"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "hook_dark_hooded_enemy",
+      "action": "plant"
+    }
+  ],
+  "revelations": [
+    "rev_luke_dream_of_dark_enemy"
+  ],
+  "pov_arc_phase": "flat_arc_stable_truth"
+}
