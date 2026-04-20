@@ -1,7 +1,7 @@
 {
   "chapter_number": 28,
-  "chapter_mission": "Return to Coruscant. Ben deletes every draft of the partial report and tells Luke everything in person — fortress, survivors, wound, Veraine, the technique, the Reformations' true history, the resonance, the new seal. The Order will know the truth. The book closes on a Temple corridor at evening and a single sentence: a note in a chord.",
-  "chapter_turn": "Institutional honesty delivered. Ben's arc resolves with the answer that was sitting in Gavran's own handwriting since Ch14 — we lacked the trust. Ben's final image is not triumph; it is belonging. The wrongness became understanding became harmony, and the book ends with Ben walking a familiar corridor as part of a chord he helped build.",
+  "chapter_mission": "Return to Coruscant. Ben deletes every draft of the partial report and tells Luke everything in person — fortress, survivors, wound, Veraine, the technique, the Reformations' true history, the resonance, the new seal. The Order will know the truth. Per PP26 payoff, the unmade Luke check-in (Ch 13 practice, Ch 14-15 pattern, Ch 15 deleted report) is answered not as confession but as the return of presence to a conversation that should have started weeks ago. The book closes on a Temple corridor at evening and a single sentence: a note in a chord.",
+  "chapter_turn": "Institutional honesty delivered. Ben's arc resolves with the answer that was sitting in Gavran's own handwriting since Ch14 — we lacked the trust. Ben's final image is not triumph; it is belonging. The wrongness became understanding became harmony, and the book ends with Ben walking a familiar corridor as part of a chord he helped build. The call he did not make in Ch 13 is made now, in person, and Luke's one-line response in s2 acknowledges the specific silence without accusing it.",
   "structural_phase": "resolution",
   "pov_allocation": ["Ben Skywalker"],
   "scene_count": 3,
@@ -11,14 +11,14 @@
       "role": "hook",
       "dialogue_expectation": "interior",
       "target_word_count": 1200,
-      "purpose": "Aboard the Steady Returns, hyperspace to Coruscant. Ben leans back in the copilot's seat and listens to the new seal's resonance humming at the edge of perception — the wrongness of Ch1 transformed into chord. He deletes every previous draft of the report to Luke — the partials from Ch7, the full deleted report from Ch15, the ghost files. Some truths require presence. Coruscant on approach. The Temple visible from orbit. Luke somewhere inside, expecting a routine debrief. He is about to get more than that."
+      "purpose": "Aboard the Steady Returns, hyperspace to Coruscant. Ben leans back in the copilot's seat and listens to the new seal's resonance humming at the edge of perception — the wrongness of Ch1 transformed into chord. He deletes every previous draft of the report to Luke — the partials from Ch7, the full deleted report from Ch15, the ghost files. Some truths require presence. The first-anchor tether from Ch 26 s3 registers as a continuous low hum underneath; it will be there for the rest of his life. Coruscant on approach. The Temple visible from orbit. Luke somewhere inside, expecting a routine debrief. He is about to get more than that."
     },
     {
       "scene_number": 2,
       "role": "reveal",
       "dialogue_expectation": "dialogue_led",
       "target_word_count": 1400,
-      "purpose": "Luke's office — the same room where this started. Ben sits where he sat in Ch1. Everything is different. He tells Luke everything. Sera, Kael, Torin, Veraine, the technique, the Reformations' true history, the resonance, the new seal's living character. Luke listens in silence. When he speaks, it is not accusation — it is sadness. His question, after a long silence: 'And you didn't call me.' Understanding, not recrimination. He knows why Ben didn't call: the same reason Gavran didn't tell his successors. The pattern runs in the blood. Luke after another silence: 'We'll tell the Council. All of it.' R14 lands."
+      "purpose": "Luke's office — the same room where this started. Ben sits where he sat in Ch1. Everything is different. He tells Luke everything. Sera, Kael, Torin, Veraine, the technique, the Reformations' true history, the resonance, the new seal's living character, the first-anchor commitment. Luke listens in silence. When he speaks, it is not accusation — it is sadness. His question, after a long silence: 'And you didn't call me.' Understanding, not recrimination. Per PP26 payoff: the line is doing specific work — it registers the Ch 13 missed check-in, the Ch 14-15 blank-template practice, the Ch 15 deleted full report. Luke does not know the exact dates; he knows the pattern. He knows why Ben didn't call: the same reason Gavran didn't tell his successors. The pattern runs in the blood. Luke, after another silence: 'We'll tell the Council. All of it.' R14 lands."
     },
     {
       "scene_number": 3,
@@ -34,17 +34,17 @@
     "advanced": [],
     "resolved": []
   },
-  "subplot_obligations": ["SP-A", "SP4"],
+  "subplot_obligations": ["SP-A", "SP3"],
   "relationship_turns": [
     {
       "dyad": "Ben/Luke",
-      "from": "active deception (Ch15)",
-      "to": "father-son candor — the Ch1 briefing room is the Ch28 reckoning room. Luke listens without invoking Grand Master rank; Ben speaks without pretending he did this alone. The institutional distance the novel opened with is the private alliance it closes with. Ben's Ch1 relationship turn reversed and resolved"
+      "from": "active deception (Ch15); specific unmade call (Ch 13, Ch 14)",
+      "to": "father-son candor — the Ch1 briefing room is the Ch28 reckoning room. Luke listens without invoking Grand Master rank; Ben speaks without pretending he did this alone. The institutional distance the novel opened with is the private alliance it closes with. Per PP26 payoff, Luke's 'And you didn't call me' names the unmade Ch 13 call without requiring Ben to defend it. Ben's Ch1 relationship turn reversed and resolved"
     },
     {
       "dyad": "Ben/Order",
       "from": "withheld truth",
-      "to": "institutional honesty committed to — Luke's 'We'll tell the Council. All of it' is the Order's decision to stop carrying the thousand-year lie. SP4 resolves not as Ben's confession but as a shared choice"
+      "to": "institutional honesty committed to — Luke's 'We'll tell the Council. All of it' is the Order's decision to stop carrying the thousand-year lie. Per D5, merged SP3 (institutional honesty / truth-telling) resolves not as Ben's confession but as a shared choice between father and son"
     },
     {
       "dyad": "Ben/Legacy",
@@ -53,7 +53,7 @@
     }
   ],
   "pacing_curve": "falling",
-  "exit_vector": "'A note in a chord. Enough.' The book ends on Ben's footsteps continuing down a corridor he has walked since he was a child. The wrongness is silent. The resonance hums. The Order will know. The work continues.",
+  "exit_vector": "'A note in a chord. Enough.' The book ends on Ben's footsteps continuing down a corridor he has walked since he was a child. The wrongness is silent. The resonance hums. The first-anchor tether sits in the edge of perception. The Order will know. The work continues.",
   "chapter_word_target": 3750,
-  "notes": "The closing chapter's risk is sentimentality. Ben is 22, not 50; he is at peace but not retired. Every beat should stay functional — deleted drafts (action), the conversation with Luke (exchange), the corridor walk (body in place) — with the interior register restrained. Sensory callback to Ch1's opening is the book's central figure: the same training salle, the same corridor, the same evening light, and the note that used to be wrongness is now the chord Ben is part of. Deliver the callback by geography and perception, not by narration of the parallel. Luke's scene in s2 is the book's second-most-important conversation after Ch21; his 'And you didn't call me' must carry sadness without accusation, and his 'We'll tell the Council' must be a decision, not a platitude. Voice: Zahn-tight-reflective for s1; Zahn-quiet-dramatic for s2 (the conversation's silences do more work than the lines); Stover-permitted-interior for s3 but under half the scene in interiority — the footsteps, the salle doorway, the evening light anchor it. Lived_galaxy_texture obligation: the Temple is populated; Ben passes Jedi in corridors, life continues, the galaxy's ordinary business registers at the edges. Final line discipline: 'A note in a chord. Enough.' is the book's exit. Do not add a paragraph after it. Anti-patterns: (a) no prophecy, no hint of sequel — the resolution is complete on its own terms; (b) Luke's response is not anger or pride — it is grief processed into decision; (c) the corridor walk must not include a single mystical visitation, summary of the mission, or explicit thematic statement. The reader has read 28 chapters; the note in the chord is theirs to hear."
+  "notes": "The closing chapter's risk is sentimentality. Ben is 22, not 50; he is at peace but not retired. Every beat should stay functional — deleted drafts (action), the conversation with Luke (exchange), the corridor walk (body in place) — with the interior register restrained. Sensory callback to Ch1's opening is the book's central figure: the same training salle, the same corridor, the same evening light, and the note that used to be wrongness is now the chord Ben is part of. Deliver the callback by geography and perception, not by narration of the parallel. Luke's scene in s2 is the book's second-most-important conversation after Ch21; his 'And you didn't call me' must carry sadness without accusation, and his 'We'll tell the Council' must be a decision, not a platitude. Per PP26 payoff, the 'And you didn't call me' line is the specific payoff of the unmade-call thread planted at Ch 13 and reinforced through Ch 14-15; do not explain the thread in prose — Luke's line does the work. Voice: Zahn-tight-reflective for s1; Zahn-quiet-dramatic for s2 (the conversation's silences do more work than the lines); Stover-permitted-interior for s3 but under half the scene in interiority — the footsteps, the salle doorway, the evening light anchor it. Lived_galaxy_texture obligation: the Temple is populated; Ben passes Jedi in corridors, life continues, the galaxy's ordinary business registers at the edges. Final line discipline: 'A note in a chord. Enough.' is the book's exit. Do not add a paragraph after it. ANTI-PATTERNS: (a) no prophecy, no hint of sequel — the resolution is complete on its own terms; (b) Luke's response is not anger or pride — it is grief processed into decision; (c) the corridor walk must not include a single mystical visitation, summary of the mission, or explicit thematic statement. The reader has read 28 chapters; the note in the chord is theirs to hear; (d) per PP26, Luke's 'And you didn't call me' is the only on-page acknowledgment of the unmade-call thread; Ben does not apologise in prose, does not catalogue the specific silences, does not explain. The line's weight is the payoff."
 }

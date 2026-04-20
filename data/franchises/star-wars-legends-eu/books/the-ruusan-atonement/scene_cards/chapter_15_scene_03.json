@@ -3,44 +3,63 @@
   "scene_number": 3,
   "structural_phase": "attack",
   "scene_type": "sequel",
-  "scene_role": "decision",
+  "scene_role": "decision_and_plant",
   "pov_character": "Ben Skywalker",
-  "mission": "Sleeping nook, night cycle. Ben strips his lightsaber to component parts to free his hands while his thoughts work. He types the full report to Luke — fortress, survivors, wound, Veraine. He reads it through twice. He deletes it with a single keystroke. Not because it is wrong. Because he does not trust the Order to respond correctly. The ghost file stays in memory; he does not clear it.",
-  "why_now": "Torin's observation in the galley needs its private answer. The chapter cannot end with the observation hanging in the air; it ends with Ben choosing, one more day, to do the thing Torin just named.",
-  "conflict": "Ben honestly knows he should tell Luke everything. He also honestly believes the Order would mishandle the response. The scene holds both truths without choosing between them in any way Ben can live with.",
+  "mission": "Sleeping nook, night cycle. Earlier in the night cycle, on his way to the nook, Ben passes a shadowed companionway and sees Kael and Torin standing in close conversation. He cannot hear them. They notice him. Kael walks away. Torin watches him go. Ben does not ask. Two or three sentences; Ben files it and continues on. In the nook, Ben strips his lightsaber to component parts on the fold-down shelf — familiar maintenance to free his hands while his thoughts work. He types the full report to Luke — fortress, survivors, wound, Veraine. He reads it through twice. He deletes it with a single keystroke. The ghost file stays in memory; he does not clear it. Per W1 Plant 2, the Kael/Torin distance-beat is the chapter's plant — two men who have both been used sharing presence. Per D7 counter-current 3, Torin is giving a moment of humanity to someone he has no instrumental reason to give time to. Per the Luke-pressure texture, the deleted report is the specific escalation of the Ch 13 unmade call and the Ch 14 blank template.",
+  "why_now": "Torin's observation in the galley needs its private answer. The chapter cannot end with the observation hanging in the air; it ends with Ben choosing, one more day, to do the thing Torin just named. And Kael's approach to Torin is placed here — after Torin's galley argument, before the night cycle closes — to give the beat its real ambiguity: the reader does not know whether Kael is approaching Torin because of what Torin said or in spite of it.",
+  "conflict": "Ben honestly knows he should tell Luke everything. He also honestly believes the Order would mishandle the response. The scene holds both truths without choosing between them in any way Ben can live with. Before the nook, Ben also holds a different uncertainty: what two men who have both been used have to say to each other, and whether he is allowed to ask. The answer is the same for both — not yet.",
   "conflict_type": "internal",
   "turning_point": "Ben deletes the report with a single keystroke and does not clear the ghost file. Part of him knows he will need proof later that he tried. That part is not yet the loudest part.",
-  "opening_hook": "Ben strips his lightsaber to component parts on the sleeping nook's fold-down shelf — a mindless maintenance ritual that frees his hands while his thoughts circle the comm field's blinking cursor",
-  "closing_hook": "The deleted report leaves a ghost in Ben's datapad memory. He doesn't clear the ghost. Part of him knows he'll need proof later that he tried.",
-  "emotional_trajectory": "Agonized deliberation -> attempted honesty -> rationalized secrecy",
+  "opening_hook": "On the way to the sleeping nook, Ben passes a shadowed companionway. Kael and Torin are standing in close conversation. They see him. Kael walks away. Torin watches him go. Ben does not ask",
+  "closing_hook": "The deleted report leaves a ghost in Ben's datapad memory. He doesn't clear the ghost. Part of him knows he'll need proof later that he tried",
+  "emotional_trajectory": "Observed absence -> agonized deliberation -> attempted honesty -> rationalized secrecy",
   "stakes": {
     "personal": "Ben becoming, for a few hours, exactly what he is fighting against",
-    "interpersonal": "His relationship with Luke deteriorating through silence",
+    "interpersonal": "His relationship with Luke deteriorating through silence; a Kael/Torin relationship he does not have access to forming in the margins",
     "external": "The Order remains ignorant while the crisis widens"
   },
   "characters_present": [
-    "Ben Skywalker"
+    "Ben Skywalker",
+    "Kael Drenn",
+    "Torin Hal"
   ],
-  "setting": "Aboard the Steady Returns — Ben's sleeping nook, night cycle",
-  "sensory_details": "Lightsaber components laid out in precise order — the familiar maintenance ritual grounding restless hands; the comm field's cursor blinking; the report's honest paragraphs on the datapad screen; the delete action; the ghost file's presence on the file index, not cleared; the wrongness a permanent background pressure, weather rather than event",
-  "canon_elements_needed": [],
-  "target_word_count": 1100,
+  "setting": "Aboard the Steady Returns — shadowed companionway in passage, then Ben's sleeping nook, night cycle",
+  "sensory_details": "The companionway shadowed enough that Ben sees the two figures before he registers their faces; the quiet of a conversation that stops when he passes; Kael's walking-away posture carrying the same economy it carries everywhere; Torin's gaze tracking Kael and then returning forward; in the nook, lightsaber components laid out in precise order — the familiar maintenance ritual grounding restless hands; the comm field's cursor blinking; the report's honest paragraphs on the datapad screen; the delete action; the ghost file's presence on the file index, not cleared; the wrongness a permanent background pressure, weather rather than event",
+  "canon_elements_needed": [
+    "Lightsaber maintenance as meditative ritual in Jedi practice"
+  ],
+  "target_word_count": 1200,
   "action_beats": [
+    "Ben passes a shadowed companionway and sees Kael and Torin in close conversation; they notice him; Kael walks away; Torin watches him go; Ben does not ask",
     "Ben strips his lightsaber to component parts and lays them on the sleeping nook's fold-down shelf",
     "Ben types the full report — fortress, survivors, wound, Veraine — reads it through twice on the datapad",
-    "Ben deletes the report with a single keystroke and reassembles his lightsaber with hands that aren't quite steady"
+    "Ben deletes the report with a single keystroke and reassembles his lightsaber with hands that aren't quite steady",
+    "Ben registers the ghost file's presence in the index and does not clear it"
   ],
   "active_subplots": [
-    "SP4"
+    "SP-A",
+    "SP3",
+    "SP2",
+    "SP1"
   ],
   "plot_threads_advanced": [
+    "kael_torin_distance_beat_w1_plant_2",
+    "torin_counter_current_3_small_humanity_to_kael",
     "ben_deletes_full_report",
-    "institutional_lie_deepest"
+    "institutional_lie_deepest",
+    "luke_pressure_escalates_via_deletion"
   ],
-  "promises_planted": [],
+  "promises_planted": [
+    "The Kael/Torin shared presence (plants Ch 15, pays implicitly through Ch 17 Kael question and Ch 23 commitment)",
+    "The deleted report ghost file (plants Ch 15, pays at Ch 28 s2 — Ben did try once, and the trying is still in the memory)"
+  ],
   "promises_paid": [],
   "hook_actions": [],
   "revelations": [],
   "pov_arc_phase": "lie_challenged",
-  "notes": "SP4 reaches its deepest point inside Part 3. The irony is that Ben is doing what Gavran did, after Torin just told him so. The book refuses to underline the irony; the reader carries it. Use the lightsaber maintenance as physical architecture so the interiority has something to lean on — no more than half the scene in Ben's head, the ritual carrying the rest. Voice: Stover-interior-permitted in measured density; Zahn-restraint everywhere else. Diagnostic-voice trap — Ben should not, in this scene, articulate 'I have become what I'm fighting' as an interior sentence. The delete keystroke is the statement; the unshredded ghost file is the residue of the part of him that knows. Rotate Force-wrongness metaphor here: weather/pressure (a migraine that will not break) — do not use handrail or flat-note."
+  "warmth_load_bearing": true,
+  "notes": "Per W1 Plant 2: the Kael/Torin beat is the chapter's quiet plant. Two or three sentences at the top of the scene. Anti-pattern guardrail: does not read as 'Kael has intel on Torin' — reads as 'two men briefly share presence.' Ben sees from distance, does not hear, does not interpret, does not wonder in prose. He walks on. The beat also doubles as D7 counter-current 3 — Torin giving a small humanity to someone he has no instrumental reason to give time to. Per D7 anti-pattern, the narrator does not over-signal Torin's direction; the scene renders the beat at ground level and leaves it. The reader holds it as live ambiguity. Per W1 anti-pattern, the beat is not underlined by Ben's POV; Ben registers and moves on. Ben's SP3-register low point inside Part 3 — this is the chapter where he becomes, for a few hours, exactly what he is fighting against. The irony is sharp but never underlined. Use the lightsaber maintenance as physical architecture so the interiority has something to lean on — no more than half the scene in Ben's head, the ritual carrying the rest. Voice: Bujold-interior density for the lightsaber ritual; Zahn-restraint everywhere else. One Stover-permitted interior beat allowed at the delete keystroke. Per R11, Ben does not articulate 'I have become what I'm fighting' as an interior sentence. The delete keystroke is the statement; the unshredded ghost file is the residue of the part of him that knows. Per R13, no explicit Jacen naming. Per D3, the Weave terminology holds. Force-wrongness metaphor here: weather/pressure (a migraine that will not break) — do not use handrail or flat-note. Primary anchor: Bujold (Ben's interior register — self-aware without self-pity, aware of the pattern he is enacting without naming it). Supporting anchor: Zahn (frame), Stover (one permitted interior beat). Anti-patterns: (a) do not stage Luke-speaking on comm; his presence is a coded line from the chapter's earlier scene and an empty reply field here; (b) Ben's deletion of the report is an action, not a confession to himself in prose; (c) the Kael/Torin distance-beat is observed, not interpreted — Ben does not wonder in prose what they spoke of; he sees, he registers, he walks on; (d) per D7 Component A, Sera is not on-stage here; her stops-defending beat waits for Ch 17.",
+  "primary_anchor": "Bujold",
+  "supporting_anchor": "Zahn, Stover",
+  "stover_permitted": true
 }

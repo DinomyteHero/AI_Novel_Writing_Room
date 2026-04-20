@@ -11,7 +11,7 @@
   "conflict_type": "interpersonal",
   "turning_point": "Torin across the valley: 'I understand what you're trying to do, Ben. It's the right impulse. But some problems only have one solution.' The use of 'Ben' is the weight of the line. He begins the technique.",
   "opening_hook": "The valley opens below them. Three-way geometry: Veraine at the Scar, Torin descending the ridgeline, the resonance group at mid-valley. Desh already gone — heading to the first amplification node.",
-  "closing_hook": "Torin begins the technique. Ben feels it — the lattice near Torin leaning toward him and dissolving. A pulling, a suction. Like standing next to a drain.",
+  "closing_hook": "Torin begins the technique. Ben feels it — the Weave near Torin leaning toward him and dissolving. A pulling, a suction. Like standing next to a drain.",
   "emotional_trajectory": "Desperate hope for Torin -> the failed appeal's grief -> the technique activating",
   "stakes": {
     "personal": "Ben's last attempt to save Torin — and the acceptance that he cannot force it",
@@ -25,13 +25,13 @@
     "Torin Hal"
   ],
   "setting": "Veranthos — valley approach, ridgeline visible, the Scar at the valley floor",
-  "sensory_details": "The valley's geometry — ridgelines, slopes, the Scar at the lowest point; Torin's descending figure, unhurried; the technique activating as the lattice near him leans inward and dissolves, a visible suction drawing on the Force around him; Veraine's ritual distortion visible at the Scar as a heat-shimmer of motion",
+  "sensory_details": "The valley's geometry — ridgelines, slopes, the Scar at the lowest point; Torin's descending figure, unhurried; the technique activating as the Weave near him leans inward and dissolves, a visible suction drawing on the Force around him; Veraine's ritual distortion visible at the Scar as a heat-shimmer of motion",
   "canon_elements_needed": [],
   "target_word_count": 1300,
   "action_beats": [
     "The group descends into the valley in formation while Desh splits off toward the first amplification node",
     "Ben calls across the valley to Torin and Torin pauses on the ridgeline, turning to listen",
-    "Torin begins the technique and the lattice near him leans inward and dissolves — a pulling, a suction"
+    "Torin begins the technique and the Weave near him leans inward and dissolves — a pulling, a suction"
   ],
   "active_subplots": [
     "SP-A",
@@ -57,5 +57,9 @@
   "revelations": [],
   "pov_arc_phase": "moment_of_truth",
   "arc_phase_transition": "new_truth_demonstrated",
-  "notes": "Torin's use of 'Ben' instead of a title carries the scene's weight — the rejection is affectionate, not cold. Anti-pattern: Torin does not give a speech; the line travels across distance as a single short exchange. The technique's activation uses the force_mechanics vocabulary of active structural violence (a pulling, a suction, a drain) — one consistent image, do not stack metaphors. Diagnostic-voice trap — Ben should not, in this scene, narrate his final acceptance that he cannot force Torin. The action is: he calls, Torin answers, the technique activates, the group keeps moving."
+  "warmth_load_bearing": true,
+  "notes": "Torin's use of 'Ben' instead of a title carries the scene's weight — the rejection is affectionate, not cold. Per the blueprint, the relationship ends in affection; Torin is not rejecting Ben, he is rejecting Ben's approach while admiring his character. Anti-patterns: (a) Torin does not give a speech; the line travels across distance as a single short exchange; (b) the technique's activation uses the force_mechanics vocabulary of active structural violence (a pulling, a suction, a drain) — one consistent image, do not stack metaphors; (c) per R11, Ben should not, in this scene, narrate his final acceptance that he cannot force Torin in interior paragraph; the action is: he calls, Torin answers, the technique activates, the group keeps moving; (d) per R13, no Jacen naming here — the naming budget was spent at Ch 18; (e) per D7 Component B, Torin is at ground level — the narrator does not interpret his descent past Ben's perception; his certainty is registered through posture, the use of 'Ben,' and the technique's activation. Voice: Zahn-dialogue-drama precision for the exchange across distance; Bujold-interior permitted for Ben's registration of the technique's activation (sensory, not analytical); Stover-permitted for the single beat of the Weave leaning toward Torin and dissolving (climactic active-technique image). Primary anchor: Zahn (procedural-dramatic frame of the exchange); supporting anchor: Bujold (Ben's registration), Stover (technique-activation density).",
+  "primary_anchor": "Zahn",
+  "supporting_anchor": "Bujold, Stover",
+  "stover_permitted": true
 }

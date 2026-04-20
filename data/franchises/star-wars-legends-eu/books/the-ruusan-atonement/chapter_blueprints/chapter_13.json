@@ -1,7 +1,7 @@
 {
   "chapter_number": 13,
-  "chapter_mission": "Deliver the Midpoint viscerally, not informationally. The group enters a node Veraine deliberately collapsed as a field test — complete de-structuring. Ben's moral intuition goes silent. Desh's environmental wrongness crosses into undeniable. Torin smiles. Ben flips from reactive to proactive.",
-  "chapter_turn": "Ben stops reading the threat and starts setting the terms. The wrongness is not something happening to the group; it is something a person deliberately engineered and signed. The midpoint is an experience, not a revelation — the reader has to feel the Force-as-handrail disappear.",
+  "chapter_mission": "Deliver the Midpoint as experience, not information. The group crosses into a node Veraine has deliberately collapsed as a field test — complete unweaving. Ben's moral-intuition handrail goes silent. Each Force-user meets their own character-differentiated unweaving sensation. Desh's environmental wrongness crosses into grief-without-an-object. Torin walks into the worst of it and becomes unreadable. Ben's pivot is embodied, not announced — he silently fails to make the routine Luke check-in at departure. Under the experiential surface, two pieces of load-bearing information land on Ben's body: Veraine's technique requires the Veranthos geographical anchor (B1 array-dependency), and anchor losses are multiplicatively coupled to the survivors' lifespans (B2 cascade-acceleration seed).",
+  "chapter_turn": "Ben stops reading the threat and starts setting its terms — through an action, not a speech. The routine comms check-in to Luke at lift does not happen. No declaration, no agenda announcement. The silence itself is the pivot. Desh notices. Sera notices. Ben does not explain. The wrongness is no longer something happening to the group; it is something a person engineered and left her signature on. The intellectual naming of what Veraine has been doing — that she is not studying but engineering — defers to Ch 14 s1 as response-quadrant processing. Ch 13 keeps the body on the page.",
   "structural_phase": "midpoint",
   "pov_allocation": ["Ben Skywalker"],
   "scene_count": 3,
@@ -11,49 +11,39 @@
       "role": "escalation",
       "dialogue_expectation": "balanced",
       "target_word_count": 1500,
-      "purpose": "Approach and entry. The Steady Returns lands at the breach zone (Kolven). Desh's chrono-drift reading, temperature inconsistencies, wrong-growing vegetation. The group crosses the boundary into the de-structured zone. Ben's Force-sense reaches for the handrail and finds nothing."
+      "purpose": "Approach and entry. The Steady Returns lands at the breach zone (Kolven). Desh's chrono-drift reading, temperature inconsistencies, vegetation growing wrong — his instruments and his trained eye are clean while the Force-sensitives' perception is already pressurizing. The group crosses the boundary into the unwoven zone. Ben's Force-sense reaches for the handrail and finds nothing. Maetha's warning from Ch 12 runs through his head at least once. No one names it yet."
     },
     {
       "scene_number": 2,
       "role": "reveal",
       "dialogue_expectation": "interior",
-      "target_word_count": 1600,
-      "purpose": "Full experience. The Force present but formless — no direction, no light/dark distinction, no moral feedback loop. Visceral for Ben. Kael calm in a way that frightens Sera. Torin walks into the worst of it and smiles. Desh's grief-without-an-object hits. R08 lands — experientially, not expositionally."
+      "target_word_count": 1700,
+      "purpose": "Full unweaving, fully inhabited. The Force is present but formless — no direction, no light/dark distinction, no moral feedback loop. Character-differentiated sensations per D4: Ben feels the conversation he cannot fully hear (multiple voices, each partial); Sera works against the muscle memory that expects reciprocal resistance — the missing second blade; Torin registers the weightless relief his body keeps mistaking for flow-state; Kael moves through the zone with the economy of someone who is finally home; Desh holds the operational frame while grief-without-an-object lands on his body and does not lift until they leave. Torin walks into the worst of it, stops, stands there a long time, and when he turns his face is unreadable — to Ben, to Sera, to the reader. Something happened in him; we do not yet know what. Two pieces of embodied knowledge land on Ben through the experience itself, not through exposition: (a) this zone's shape is anchored to a geographical specific, and Desh's chrono-drift correlates with Ben's sensing in a way that says Veranthos is the only place Veraine's ritual can complete — felt-and-understood rather than narrated; (b) Ben can feel, in the silence where moral feedback should be, that the surviving anchors' presences are drawing harder on each other than they were last time he was sensing them — anchor loss is multiplicatively coupled to the survivors' remaining time. R08 lands experientially. R08a lands as a specific geographic conclusion Ben's body has already reached before his mind does."
     },
     {
       "scene_number": 3,
       "role": "decision",
-      "dialogue_expectation": "dialogue_led",
-      "target_word_count": 1400,
-      "purpose": "On the way out — back in structured Force, but changed. The group names what Veraine has been doing: this was a test. She is engineering, not studying. Ben stops deferring and sets the new agenda — pace, priority, route. The seal lurch from Ch12 is now a direction of travel, and Ben is choosing it."
+      "dialogue_expectation": "interior",
+      "target_word_count": 1100,
+      "purpose": "On the way out — back in structured Weave, but changed. Single action beat. The Steady Returns lifts from Kolven. Ben is scheduled to comms-back to Luke at departure — the routine mission check-in he has honored every time. He looks at the comm panel. He does not make the call. No declaration. No agenda speech. He closes the panel and looks out the viewport. Desh sees — does not speak of it. Sera sees — does not ask. The silence holds. The closing image is the unopened channel, not a line of dialogue. Relationship turns (Ben/Desh verified; Sera/Torin unresolved-not-resolved; Kael/Group shared-witness) register implicitly in proximity, speech order, and the texture of silence, not through separate dialogue beats. The intellectual naming of Veraine's engineering is absent by design; Ch 14 s1 will carry it."
     }
   ],
-  "reveal_payload": ["R08"],
+  "reveal_payload": ["R08", "R08a"],
   "hook_movements": {
     "planted": ["H13"],
     "advanced": ["H08"],
     "resolved": ["H08", "H12"]
   },
-  "subplot_obligations": ["SP-A", "SP1", "SP2", "SP3", "SP5"],
+  "subplot_obligations": ["SP-A", "SP1", "SP2", "SP3"],
   "relationship_turns": [
-    {
-      "dyad": "Kael/Group",
-      "from": "adjacent observer — participates when addressed",
-      "to": "shared witness — the breach zone is the first thing Kael and the Force-trained group experience on equivalent terms (the Force is not trustworthy for any of them here)"
-    },
-    {
-      "dyad": "Sera/Torin",
-      "from": "philosophical tension — archive disagreements, sharp edges",
-      "to": "irreconcilable difference — Torin's smile in the breach is unforgettable for Sera; she stops defending him in her own head"
-    },
     {
       "dyad": "Ben/Desh",
       "from": "co-witnesses — same knowledge, different languages",
-      "to": "verified partners — Desh's non-Force-sensitive confirmation of the wrongness validates Ben's perception and closes the loop of doubt Ben has been carrying since Ch1"
+      "to": "verified partners — Desh's chrono-drift reading correlates with Ben's Weave-sense inside the zone. The correlation closes the loop of doubt Ben has been carrying since Ch 1. No one articulates this. It lands in how they stand next to each other leaving the zone."
     }
   ],
   "pacing_curve": "rising",
-  "exit_vector": "The Steady Returns lifts away from Kolven with the wrongness now mapped as enemy action. Ben is no longer asking what happened; he is deciding what to do. Every pressure dial crosses into red. Next stop: the third act.",
-  "chapter_word_target": 4500,
-  "notes": "The most important experiential chapter in the book and the hardest to write. Use full de-structuring sensory vocabulary from concept_seed.force_mechanics.sensory_vocabulary.full_de_structuring — the Force as formless pressure, the missing handrail, the silent moral feedback. Desh's grief-without-an-object must land on a non-Force-sensitive reader without mysticism. Torin's smile is the pivot — do not overexplain; trust the reader to feel it. Voice: Stover-dense interior allowed in s2 specifically; Zahn-tight elsewhere. Anti-pattern: do not intellectualise the experience. Absolutely no metaphor like 'it was as if the Force had—'. The Force does not have 'as if'; it has 'is' or 'is not.' Maetha's warning from Ch12 should echo in Ben's head at least once."
+  "exit_vector": "The Steady Returns lifts away from Kolven with the wrongness now registered as enemy action felt rather than named. The comm panel to Luke stays closed. Every pressure dial crosses into red. Ch 14 opens with processing — the naming of what Veraine has been doing, the new route-decisions the array-dependency fact forces, and the first Luke-pressure the missed check-in generates.",
+  "chapter_word_target": 4300,
+  "notes": "The most important experiential chapter in the book and the hardest to write. Use full unweaving sensory vocabulary from concept_seed.force_mechanics.sensory_vocabulary.character_differentiated_sensations — the Force as formless pressure, the missing handrail, the silent moral feedback, Desh's grief-without-an-object. The chapter's word target (4300) is a floor, not a ceiling; midpoint chapters can run short by design and the restraint is the point. Voice: Bujold-warmth interior allowed in s2 interior passages; Stover-density constrained and earned; Zahn-tight elsewhere. ANTI-PATTERNS (load-bearing): (1) Do not intellectualize the experience — no metaphor like 'it was as if the Force had—'. The Force does not have 'as if'; it has 'is' or 'is not.' (2) Per D7 Component A, Torin does not smile in the breach. He is unreadable. Sera does not stop defending him here — she keeps defending him, including to herself, through Ch 15-16 at least. The loudest visible telegraph relocates to Ch 17-18. (3) Per D7 Component B, the narrator does not over-signal Torin's direction past Ben's perception; Ben's reading of Torin at Ch 13 is rendered as *Ben's reading*, not narrator truth. (4) Per D6 Fix 2, Ben's pivot is behavioral, not verbal. He does not announce an agenda in s3. He does not make the Luke call. The silence is the beat. (5) Per D6 Fix 3, s3 is thinned to the single action. Relationship turns register implicitly. Hook resolutions land through action rather than exposition. (6) Per B1, the array-dependency realization (R08a) must land as felt-and-understood, not as a character explaining it aloud. Desh's chrono-drift plus Ben's sensing converge into a specific geographical conclusion without dialogue narration. (7) Per B2 Candidate 3, the cascade-acceleration principle is seeded subtly through Ben's sensing of the anchors' multiplicative coupling — the reader holds the felt-fact retrospectively once Ch 18 and Ch 21 land; do not name it here. (8) Maetha's warning from Ch 12 echoes in Ben's head at least once (R07 activated as ambient pressure). (9) The unmade Luke check-in is the single behavioral pivot beat — it is the earliest specific instance the reader will remember against Luke's 'And you didn't call me' line in Ch 28 s2, and against the Ch 14 Luke-pressure texture."
 }

@@ -5,18 +5,18 @@
   "scene_type": "action",
   "scene_role": "hook",
   "pov_character": "Ben Skywalker",
-  "mission": "Cockpit. Desh converts the seal degradation rate into hours and posts the countdown on the bulkhead in a number small enough to memorise. Nobody wants to. Ben paces the common area assigning approach tasks. Torin appears in the doorway: 'We need to talk about what happens when we get there.' His voice is calm and warm and decided.",
-  "why_now": "The timeline collapsed at the end of Ch16 and has to be physicalised into an on-ship countdown before the chapter can move. Torin's doorway line can only land now — earlier would have been premature, later would have been a surprise Ben has earned the right to see coming.",
-  "conflict": "The pressure intensifies every friction. The wound's amplification is working on the group by proximity. Ben assigns tasks and tries to hear the ship sound normal. Torin steps into the frame with a sentence that is not a question.",
+  "mission": "Cockpit, continuous from Ch 16's departure. Per W2 Option B, the sabotage lands here: the wrongness lurches into a higher baseline that Ben feels before he understands. Desh runs the sensor sweeps backward across the Ch 16 meeting window and locates the signature — Veraine's crew struck one of the Corridor's intermediate anchor sites while the principals talked. The meeting was cover. The philosophical register was practical too. Desh converts the seal degradation rate into hours and posts the countdown on the bulkhead in a number small enough to memorise. Nobody wants to. Ben paces the common area assigning approach tasks. Torin appears in the doorway: 'We need to talk about what happens when we get there.' His voice is calm and warm and decided. Per D7 Component A, this is the loudest visible Torin telegraph, relocated here from Ch 13 so reader-certainty and the Ch 21 turn live within a few chapters of each other.",
+  "why_now": "The timeline collapse has to be physicalised into an on-ship countdown before the chapter can move. The sabotage could not have been shown in Ch 16 without softening the Ch 16 meeting's Socratic register; delaying it to Ch 17 s1 makes the cost of the meeting specific and late. Torin's doorway line can only land now — earlier would have been premature, later would have been a surprise Ben has earned the right to see coming.",
+  "conflict": "The pressure intensifies every friction. The wound's amplification is working on the group by proximity. Ben assigns tasks and tries to hear the ship sound normal. The fact that Veraine used the meeting as cover restructures Ben's understanding of the whole Ch 16 encounter retroactively — her philosophical register was sincere AND operational; both were simultaneously true. Torin steps into the frame with a sentence that is not a question.",
   "conflict_type": "external",
-  "turning_point": "Torin's tone. Ben has heard the cadence before. Jacen used it in the weeks before the worst things happened — the warmth of someone who has already decided and is negotiating the announcement.",
-  "opening_hook": "Desh converts the seal degradation rate to hours and posts the number on the cockpit display. It's small enough to memorize. Nobody wants to.",
-  "closing_hook": "Torin's tone. Ben has heard that tone before. Jacen used it in the weeks before the worst things happened — the certainty of someone who has already decided and is now only negotiating the announcement.",
-  "emotional_trajectory": "Urgent tactical focus -> group pressure cracking -> Torin's ominous calm",
+  "turning_point": "Torin's tone. Ben has heard the cadence before. The warmth of someone who has already decided and is negotiating the announcement. The line itself is quiet; what it announces is not.",
+  "opening_hook": "The wrongness lurches. Not a jolt — a resettling, the floor of the Force dropping by another meter. Desh's sensor sweeps run backward across the last six hours and find the signature. One of the Corridor's intermediate anchor sites struck while Veraine kept them in the clearing",
+  "closing_hook": "Torin's tone. Ben has heard that tone before — the certainty of someone who has already decided and is now only negotiating the announcement. The argument Torin has just announced will happen later. Ben cannot yet predict what will be in it, but he can predict its cadence",
+  "emotional_trajectory": "Physical drop of the Force-floor -> retrospective understanding of the Ch 16 cover -> urgent tactical focus -> Torin's ominous calm",
   "stakes": {
-    "personal": "Ben hearing the Jacen pattern in Torin's voice — the recognition crystallising",
-    "interpersonal": "Torin separating from the group emotionally even while physically present",
-    "external": "Days until Veraine reaches Veranthos"
+    "personal": "Ben hearing the pattern in Torin's voice — the recognition crystallising without yet being named",
+    "interpersonal": "Torin separating from the group emotionally even while physically present; Desh's analytical confirmation of the sabotage restructures the group's read of the meeting",
+    "external": "Hours, not days, until Veraine reaches Veranthos with a compromised seal and a functioning amplification array. The race has become a sprint"
   },
   "characters_present": [
     "Ben Skywalker",
@@ -26,26 +26,34 @@
     "Kael Drenn"
   ],
   "setting": "Aboard the Steady Returns — cockpit and common area, hyperspace toward Veranthos",
-  "sensory_details": "Desh's countdown numeral on the bulkhead, steady against Ben's pulse; the wrongness a constant pressure like altitude sickness sitting at the back of the head; arguments flaring hotter than their content justifies; Torin's silhouette in the doorway carrying the exact weight of an old remembered cadence",
-  "canon_elements_needed": [],
-  "target_word_count": 1200,
+  "sensory_details": "The Force settling at a new, lower floor — not a spike but a resettling, as if the ground has lowered by a meter; Desh's backward sensor sweep resolving the signature of the sabotage on a bulkhead display; Desh's countdown numeral on the bulkhead, steady against Ben's pulse; the wrongness a constant atmospheric pressure like altitude sickness sitting at the back of the head; arguments already starting to flare hotter than their content justifies in the margin of the scene; Torin's silhouette in the doorway carrying the exact weight of an old remembered cadence; the calm warmth of his voice and the edge underneath it that Ben hears and cannot yet name",
+  "canon_elements_needed": [
+    "Force-wound amplification phenomenology as atmospheric/pressure metaphor",
+    "Jedi sabotage forensic procedure for Force-architecture infrastructure"
+  ],
+  "target_word_count": 1250,
   "action_beats": [
+    "The Force-floor drops. Ben registers it in his body before his mind locates it. Desh runs the sensor sweeps backward across the meeting window and finds the sabotage signature",
     "Desh converts the seal degradation rate to hours and posts the countdown on the cockpit display",
-    "Ben paces the common area while assigning approach tasks — nerves converting to motion",
-    "Torin stands in the doorway and speaks with the calm warm tone that drops Ben's stomach"
+    "Ben paces the common area while assigning approach tasks — nerves converting to motion; he hears his own voice coming out slightly louder than the task warrants, catches the amplification, does not explain it",
+    "Torin stands in the doorway and speaks with the calm warm tone that drops Ben's stomach — 'We need to talk about what happens when we get there.'"
   ],
   "active_subplots": [
     "SP-A",
     "SP1",
-    "SP5"
+    "SP2",
+    "SP3"
   ],
   "plot_threads_advanced": [
+    "sabotage_discovered_retroactively",
     "countdown_established",
-    "torin_decided",
-    "wound_amplifying_tensions"
+    "torin_decided_telegraph_loudest",
+    "wound_amplifying_tensions_physical"
   ],
   "promises_planted": [],
-  "promises_paid": [],
+  "promises_paid": [
+    "Veraine's Ch 16 meeting had operational weight beyond the philosophical register (pays Ch 16 W2 Option B promise)"
+  ],
   "hook_actions": [
     {
       "hook_id": "H16",
@@ -58,5 +66,9 @@
   ],
   "revelations": [],
   "pov_arc_phase": "lie_challenged",
-  "notes": "H17 planted. The most ominous hook in the book because it is delivered with warmth — do not have Torin's line sound like a threat; do not have Ben on-page articulate 'that is how Jacen talked.' The reader hears it through the doorway cadence; Ben's interior register the drop without naming the analogy. Torin's arc deepens — the certainty is now a decision. Anti-pattern: Torin's actual argument is not delivered here; the line is the hook for Ch21, and the chapter must not pay it off early."
+  "warmth_load_bearing": true,
+  "notes": "H16 resolves (timeline collapse confirmed); H17 plants (Torin's doorway line). Per W2 Option B, the sabotage discovery opens Ch 17 as a clean shock — no Ch 16 hints softened its arrival. Per D7 Component A, this is the loudest visible Torin telegraph in the book, relocated here from Ch 13 per the restructure. The warmth is the vehicle — Torin's line should read as decided, not threatening. Do not have Ben on-page articulate 'that is how Jacen talked'; per R13, the single explicit Jacen naming budget is reserved for Ch 18. The reader hears the Jacen cadence through Torin's doorway line; Ben's close-third registers the stomach-drop without naming the analogy. Per D7 Component B, the narrator does not over-signal Torin's direction past Ben's perception — Ben hears decided warmth and does not yet know what the decision is. Per R11, Ben does not narrate his recognition as a framework; the recognition is a body-response (a step he does not take, a sentence he does not say back). Anti-pattern: Torin's actual argument is NOT delivered here; the line is the hook for Ch 21, and the chapter must not pay it off early. Anti-pattern: the sabotage discovery is analytical (Desh's backward sweep) and physical (the Force-floor drop) — not speechified; Desh reports, Ben registers, the room holds. Force phenomenology: use pressure/altitude/weather vocabulary for the amplification. Voice: Zahn-tight procedural through the Desh analytical beat; Bujold-interior permitted for Ben's registration of Torin's doorway cadence. Primary anchor: Zahn (procedural frame, analytical discovery); supporting anchor: Bujold (Ben's interior register of recognition-without-naming). Stover not used here — the density is earned elsewhere in the chapter.",
+  "primary_anchor": "Zahn",
+  "supporting_anchor": "Bujold",
+  "stover_permitted": false
 }

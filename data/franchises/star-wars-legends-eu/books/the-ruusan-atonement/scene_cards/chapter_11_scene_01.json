@@ -5,17 +5,17 @@
   "scene_type": "sequel",
   "scene_role": "hook",
   "pov_character": "Ben Skywalker",
-  "mission": "Day four in hyperspace. The ship smells like six people in a space for two. Desh keeps an ironic tally of arguments on his datapad. Kael laughs for the first time anyone has heard — short, genuine, cut off. The whole ship notices.",
-  "why_now": "Breathing room between nodes. The Kael/Desh warmth needs one more visible beat before the midpoint, and Ben and Desh both need the cockpit-door to close on them before Scene 2 can happen.",
-  "conflict": "Low-level friction from overcrowding. Sera's formality grates against Desh's casualness. Torin's warmth lands on its beats slightly too cleanly — the first time anyone might register the timing as a rhythm rather than a person.",
+  "mission": "Day four in hyperspace. The ship smells like six people in a space for two. Desh keeps an ironic tally of arguments on his datapad. Kael laughs for the first time anyone has heard — short, genuine, cut off. The whole ship notices. Per D7 counter-current 2: in the galley's low-grade philosophical sparring, an opening arises where Torin could naturally pull Kael toward the technique-as-correction line (Kael's institutional-skeptic register would be receptive; the recruitment cost would be minimal). Torin declines — a small redirection of the conversation away from Kael, unframed, uncommented on. Kael notices. Ben notices Kael noticing. Neither interprets it.",
+  "why_now": "Breathing room between nodes. The Kael/Desh warmth needs one more visible beat before the midpoint, and Ben and Desh both need the cockpit-door to close on them before Scene 2 can happen. The D7 counter-current places here because Kael's laugh has opened a window of communal warmth that a corruption-trajectory Torin would exploit; this Torin does not.",
+  "conflict": "Low-level friction from overcrowding. Sera's formality grates against Desh's casualness. Torin's warmth lands on its beats slightly too cleanly — the first time anyone might register the timing as a rhythm rather than a person. Inside that texture, Torin's small refusal to recruit Kael reads as a real ambiguity: a man on the corruption trajectory would take the free pitch; this one does not.",
   "conflict_type": "interpersonal",
   "turning_point": "Kael laughs. A short, genuine sound, cut short the way Kael cuts everything. The whole ship notices without saying so.",
-  "opening_hook": "Day four in hyperspace. The ship smells like six people who've been living in a space designed for two. Desh has started keeping score of arguments.",
-  "closing_hook": "Desh catches Ben alone in the cockpit. 'Can we talk about something that isn't the Force?' His voice is too casual. Whatever he wants to discuss, he's been working up to it.",
-  "emotional_trajectory": "Cramped humor -> interpersonal warmth (Kael's laugh) -> Desh's deliberate opening",
+  "opening_hook": "Day four in hyperspace. The ship smells like six people who've been living in a space designed for two. Desh has started keeping score of arguments",
+  "closing_hook": "Desh catches Ben alone in the cockpit. 'Can we talk about something that isn't the Force?' His voice is too casual. Whatever he wants to discuss, he's been working up to it",
+  "emotional_trajectory": "Cramped humor -> interpersonal warmth (Kael's laugh) -> Torin's small refusal -> Desh's deliberate opening",
   "stakes": {
     "personal": "Kael allowing himself a fraction of company — small but significant",
-    "interpersonal": "Group bonds forming through proximity and shared adversity",
+    "interpersonal": "Group bonds forming through proximity and shared adversity; Torin's counter-current refusal registers as live ambiguity in Ben's filing system",
     "external": "Low — character-breathing chapter"
   },
   "characters_present": [
@@ -26,12 +26,13 @@
     "Kael Drenn"
   ],
   "setting": "Aboard the Steady Returns — various locations, hyperspace transit",
-  "sensory_details": "Recycled air getting stale; Desh's caf supply dwindling; Kael's laugh arriving and leaving before anyone can turn around; Torin telling a story from the NSW with timing that arrives on its beats slightly too cleanly",
+  "sensory_details": "Recycled air getting stale; Desh's caf supply dwindling; Kael's laugh arriving and leaving before anyone can turn around; Torin telling a story from the NSW with timing that arrives on its beats slightly too cleanly; Torin's pivot away from Kael when the recruitment opening surfaces — invisible as a pivot, obvious as an absence once you notice it",
   "canon_elements_needed": [],
   "target_word_count": 1100,
   "action_beats": [
     "Desh marks another tally on his datapad argument tracker as Sera and Torin disagree about galley rotation",
     "Kael laughs at something Desh says — a short, genuine sound that stops every conversation on the ship",
+    "An opening surfaces where Torin could naturally draw Kael into the technique-as-correction argument; he does not take it. The conversation moves elsewhere. Kael's eyes flick once to Torin and back to Desh",
     "Desh drops into the co-pilot seat beside Ben with studied casualness and waits until the cockpit door closes"
   ],
   "active_subplots": [
@@ -41,12 +42,17 @@
   ],
   "plot_threads_advanced": [
     "kael_desh_friendship_deepening",
-    "torin_warmth_thinning"
+    "torin_warmth_thinning",
+    "torin_counter_current_2_declines_recruit_kael"
   ],
   "promises_planted": [],
   "promises_paid": [],
   "hook_actions": [],
   "revelations": [],
   "pov_arc_phase": "lie_reinforced",
-  "notes": "Torin's warmth becoming slightly mechanical is the subtlest note in the chapter — plant it in timing, not in Ben's interior analysis. The reader should feel a story that lands too cleanly before anyone has the word for it. Kael's laugh is a single line and a cut; do not describe him smiling at length. Diagnostic-voice trap — Ben should not, in this scene, articulate 'Torin's warmth is becoming a performance' as interiority. He files the mis-fit the way he files the smell of the ship; analysis belongs to later chapters. Voice: Allston-warm throughout. Anti-pattern: no scene-starter atmospherics; open on action, dialogue, or a concrete observation."
+  "warmth_load_bearing": true,
+  "notes": "Per D7 counter-current 2: Torin's refusal to recruit Kael is a real ambiguity, not misdirection. On the corruption trajectory, Torin would want Kael in his camp (Kael's institutional-skepticism register is naturally receptive to the technique-as-correction argument); here he passes on the opportunity. The beat must read as characterisation, not plot signal — Ben files the mis-fit the way he files the smell of the ship; analysis belongs to later chapters. Per D7 anti-pattern, narrator does not correct Ben's file-and-move-on; no 'Torin was sparing Kael for reasons Ben would only later understand' line. The reader holds the beat as live ambiguity. Per R12, preserve Torin's warmth register — his refusal surfaces within the warmth, not against it. Torin's warmth becoming slightly mechanical is the subtlest note in the chapter — plant it in timing, not in Ben's interior analysis. The reader should feel a story that lands too cleanly before anyone has the word for it. Kael's laugh is a single line and a cut; do not describe him smiling at length. Per R11, Ben does not articulate 'Torin's warmth is becoming a performance' as interiority. He files the mis-fit the way he files the smell of the ship. Per W1 anti-pattern guardrails, Kael's noticing is registered in a single eye-flick — no interiority about what it means to him. Voice: Allston-warm throughout. Anti-pattern: no scene-starter atmospherics; open on action, dialogue, or a concrete observation. Primary anchor: Allston (ensemble warmth architecture); supporting anchor: Zahn (clean procedural frame), Bujold (Ben's light-interior register of the two things he is filing).",
+  "primary_anchor": "Allston",
+  "supporting_anchor": "Zahn, Bujold",
+  "stover_permitted": false
 }

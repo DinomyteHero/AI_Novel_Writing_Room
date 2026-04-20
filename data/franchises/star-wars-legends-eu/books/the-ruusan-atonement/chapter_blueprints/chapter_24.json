@@ -1,7 +1,7 @@
 {
   "chapter_number": 24,
-  "chapter_mission": "The climax's opening. Ben's last appeal to Torin fails across distance — genuine love, irreconcilable choice. Torin activates the technique and the lattice near him leans in and dissolves. Three operations now converge at the Scar: Veraine's amplified ritual, Torin's unilateral sacrifice, the resonance trio at mid-valley. The trio links hands and the resonance is discordant. Ben is trying to lead. Ben is still wrong.",
-  "chapter_turn": "The book's central Lie makes its last stand. The resonance will not harmonise under Ben's control, and the book will not permit him to succeed until he lets go. Everything Part 4 has assembled now meets the problem it was assembled to solve, and the first thing it meets is failure.",
+  "chapter_mission": "The climax's opening. Ben's last appeal to Torin fails across distance — genuine love, irreconcilable choice. Torin activates the technique and the Weave near him leans in and dissolves. Per B3 plant: as Desh sets the first containment node positions on the approach slope, Ben walks through the array and — through the proximity of Sera and Kael already forming resonance alongside him — registers the nodes as load-bearing points in the Weave. This is the first time Ben has felt infrastructure as Weave-registerable objects; the capacity will carry the climax. Per W2 evidence-of-passage beat 5: in the same traversal, Ben reads Veraine's design signature in the array configuration itself — the node placement follows a geometry that is characteristically hers, continuous with the mast Sera read at Ch 22. The three-way geometry resolves: Veraine's amplified ritual at the Scar, Torin's unilateral sacrifice on the far slope, the resonance trio at mid-valley. The trio links hands and the resonance is discordant. Ben is trying to lead. Ben is still wrong.",
+  "chapter_turn": "The book's central Lie makes its last stand. The resonance will not harmonise under Ben's control, and the book will not permit him to succeed until he lets go. Everything Part 4 has assembled now meets the problem it was assembled to solve, and the first thing it meets is failure. Ben's new Weave-infrastructure-sensing capacity is functional but not yet load-bearing; the mechanism that will make Desh legible in Ch 25-26 has been established through embodied experience, not exposition.",
   "structural_phase": "resolution",
   "pov_allocation": ["Ben Skywalker"],
   "scene_count": 3,
@@ -10,22 +10,22 @@
       "scene_number": 1,
       "role": "hook",
       "dialogue_expectation": "balanced",
-      "target_word_count": 1300,
-      "purpose": "The valley opens below. Three-way geometry: Veraine's ritual distortion at the Scar's base, Torin descending the far ridgeline, the resonance group at mid-valley. Desh already split off toward the first amplification node. Ben calls across the distance to Torin. Torin pauses on the slope and responds — genuine affection, the use of 'Ben' instead of a title. 'I understand what you're trying to do, Ben. It's the right impulse. But some problems only have one solution.' He begins the technique. The lattice near him leans in and dissolves — a pulling, a suction. H23 resolves. H24 plants."
+      "target_word_count": 1250,
+      "purpose": "The valley opens below. Three-way geometry: Veraine's ritual distortion at the Scar's base, Torin descending the far ridgeline, the resonance group at mid-valley. Ben calls across the distance to Torin. Torin pauses on the slope and responds — genuine affection, the use of 'Ben' instead of a title. 'I understand what you're trying to do, Ben. It's the right impulse. But some problems only have one solution.' He begins the technique. The Weave near him leans in and dissolves — a pulling, a suction. H23 resolves. H24 plants."
     },
     {
       "scene_number": 2,
-      "role": "escalation",
+      "role": "reveal",
       "dialogue_expectation": "balanced",
-      "target_word_count": 1200,
-      "purpose": "Mid-valley. Ben feels all three operations simultaneously — Veraine's calculated ritual, Torin's personal void, their own resonance not yet begun. Three operations pulling the Force in three different directions. The Scar widens by a visible centimeter. Sera and Kael take positions flanking Ben, hands outstretched. Ben reaches for both through the Force. 'Now.' H24 advances."
+      "target_word_count": 1250,
+      "purpose": "Mid-approach. Desh moves ahead on the broken ground and begins placing the first of the containment nodes — working equipment he has engineered for this role, setting them at positions he and Sera spec'd overnight. Ben, Sera, and Kael walk through the emerging array behind him. Per B3 plant: because Sera and Kael are close enough that a nascent resonance is already present between them, Ben — for the first time in his life — feels the nodes as load-bearing objects in the Weave. They register as specific voices inside a conversation he cannot fully hear: not Desh tending them (D4 holds — Desh does not register; the infrastructure does), but the nodes themselves, each with a position and a weight and a tone. Ben catalogues the feeling without naming it. He does not realise he has acquired a new sensory capacity; he notices that he knows where each node sits with his eyes closed. Per W2 evidence-of-passage beat 5: in the same traversal, Ben registers the array configuration's design signature — the placement geometry, the rhythm of inter-node spacing, the architectural logic of why these specific points in this specific order. The signature is continuous with the mast at Ch 22. It is Veraine. The climactic environment is her work. Ben senses her material thinking underneath the nodes that will be his and Desh's to hold. The realisation is sensory, not articulated. Sera's eyes meet his briefly — she reads what he is reading — and neither speaks. They reach the mid-valley position. The plan is in place. H24 advances."
     },
     {
       "scene_number": 3,
       "role": "escalation",
       "dialogue_expectation": "interior",
       "target_word_count": 1250,
-      "purpose": "Three hands linked. Three Force traditions colliding. The sound of it in the Force is three instruments playing in three different keys. Ben's instinct kicks in — lead, harmonise, impose order by will. The resonance resists. The discordance worsens. Sweat on his temples, Sera's presence rigid and defined, Kael's fluid and sharp, neither combining under Ben's hand. Veraine's ritual is building; Torin's void is expanding; the resonance is falling apart. He is trying too hard. He has been trying too hard for twenty-eight years."
+      "purpose": "Mid-valley, final position. Ben feels all three operations simultaneously — Veraine's calculated ritual, Torin's personal void, their own resonance not yet begun. Three operations pulling the Force in three different directions. The Scar widens by a visible centimeter. Sera and Kael take positions flanking Ben, hands outstretched. Ben reaches for both through the Force. 'Now.' Three hands linked. Three Force traditions colliding. The sound of it in the Force is three instruments playing in three different keys. Ben's instinct kicks in — lead, harmonise, impose order by will. The resonance resists. The discordance worsens. Sweat on his temples, Sera's presence rigid and defined, Kael's fluid and sharp, neither combining under Ben's hand. Veraine's ritual is building; Torin's void is expanding; the resonance is falling apart. He is trying too hard. He has been trying too hard for twenty-eight years."
     }
   ],
   "reveal_payload": [],
@@ -38,7 +38,7 @@
   "relationship_turns": [
     {
       "dyad": "Ben/Torin",
-      "from": "named pattern (Ch18)",
+      "from": "named pattern (Ch18); departed (Ch21)",
       "to": "final exchange — Torin's use of 'Ben' across the valley carries warmth that makes the refusal worse. He is not rejecting Ben; he is rejecting Ben's approach while admiring his character. The relationship ends in affection"
     },
     {
@@ -50,10 +50,20 @@
       "dyad": "Sera/Kael",
       "from": "allies in a coalition",
       "to": "fellow notes — both are present, both are committed, both are reachable through the Force, and both are waiting for Ben to stop leading so they can begin. The discordance is not their fault"
+    },
+    {
+      "dyad": "Ben/Infrastructure",
+      "from": "nodes as tactical assets (planning, Ch 22-23)",
+      "to": "nodes as Weave-registerable voices — per B3 plant, Ben's resonance-adjacent Force-sense has registered the containment nodes as load-bearing points in the Weave; the sensory capacity is new, unnamed, and will carry the climactic legibility in Ch 25-26"
+    },
+    {
+      "dyad": "Ben/Veraine",
+      "from": "present-and-unreachable (Ch 20)",
+      "to": "material mind — per W2 evidence-of-passage beat 5, Ben has now walked through Veraine's design signature and felt it under his feet. The climactic environment is her; he will fight the architecture of her thinking for the rest of the book"
     }
   ],
   "pacing_curve": "rising",
-  "exit_vector": "Three hands linked, Force discordant, sweat and strain, Veraine's ritual building, Torin's void expanding, Desh running the guarded route between amplification nodes and not yet visible to Ben. The chapter closes on the inside of a failure in motion. Ch25 is one step away — the step Ben has not yet taken.",
+  "exit_vector": "Three hands linked, Force discordant, sweat and strain, Veraine's ritual building, Torin's void expanding, Desh running the guarded route between amplification nodes and not yet visible to Ben except through the Weave-registerable voices of the nodes themselves. The chapter closes on the inside of a failure in motion. Ch25 is one step away — the step Ben has not yet taken.",
   "chapter_word_target": 3750,
-  "notes": "The climax's opening chapter is failure by design. The breakthrough belongs to Ch25 and must be earned by this chapter's struggle. Do not let the resonance start to cohere on-page yet; the discordance holds through the closing. Torin's single line in s1 — 'I understand what you're trying to do, Ben' — is the book's most affectionate refusal and must land as love across distance. Force phenomenology: all three operations rendered simultaneously is the highest-density sensory passage in the book (use force_mechanics.sensory_vocabulary.active_technique and lattice_resonance). Ben's instinct-to-control in s3 must be shown as action (force, will, impose) rather than narrated as insight; the reader must feel him trying to drive, not be told he is. Rotate vocabulary away from the 'handrail' and 'cage' families; lean on acoustic (three keys, three notes) and hydraulic (currents, counter-currents, competing flows). Voice: Zahn-procedural-urgent in s1-s2; Stover-permitted interior density for s3 but under half the scene — the hands, the positions, the three presences anchor the body. Anti-patterns: (a) no resolution here; the chapter must close on failure; (b) Torin does not deliver a speech — one line across distance; (c) Ben does not recognise his Lie on-page in s3 (that is Ch25's break); the reader recognises it through the failure's shape."
+  "notes": "The climax's opening chapter is failure by design. The breakthrough belongs to Ch25 and must be earned by this chapter's struggle. Do not let the resonance start to cohere on-page yet; the discordance holds through the closing. Torin's single line in s1 — 'I understand what you're trying to do, Ben' — is the book's most affectionate refusal and must land as love across distance. Per B3 plant, s2 is the establishment of Ben's Weave-infrastructure-sensing capacity through embodied experience. Do not have Ben articulate what he has acquired; render the sensory capacity as the thing that is suddenly available to him, registered in close-third through specific details (knowing where a node sits with his eyes closed, catching a node's tone underneath the conversation he cannot fully hear). Per D4, Desh is NOT felt directly; only the infrastructure is. Per W2 evidence-of-passage beat 5, the Veraine design signature lands in the same scene as the B3 plant — Ben reads the geometry, registers the architect, files it as Sera's eyes meeting his across the approach. Per W2 anti-pattern, no Veraine ledger entry here; the signature IS the evidence. Force phenomenology: all three operations rendered simultaneously in s3 is the highest-density sensory passage in the book (use force_mechanics.sensory_vocabulary.active_technique and weave_resonance). Ben's instinct-to-control in s3 must be shown as action (force, will, impose) rather than narrated as insight; the reader must feel him trying to drive, not be told he is. Rotate vocabulary away from the 'handrail' and 'cage' families; lean on acoustic (three keys, three notes) and hydraulic (currents, counter-currents, competing flows). Voice: Zahn-procedural-urgent in s1; Bujold-interior-precise in s2 for the node-sensing (but under half the scene — Desh's equipment, the broken ground, the walking are the body); Stover-permitted interior density for s3 but under half the scene — the hands, the positions, the three presences anchor the body. ANTI-PATTERNS: (a) no resolution here; the chapter must close on failure; (b) Torin does not deliver a speech — one line across distance; (c) Ben does not recognise his Lie on-page in s3 (that is Ch25's break); the reader recognises it through the failure's shape; (d) per B3/D4, Desh is not Weave-sensed in s2 — only the nodes are; if Ben's POV starts to register Desh as a presence in the Weave, the scene is wrong; (e) per W2, Veraine's design signature is registered as geometry and rhythm, not announced; Ben does not think 'this is her design' in prose — he feels the architecture and Sera's look confirms it."
 }

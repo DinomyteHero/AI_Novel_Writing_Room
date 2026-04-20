@@ -1,7 +1,7 @@
 {
   "chapter_number": 9,
-  "chapter_mission": "Open the Ankhural Codex fragment. Deliver the lattice-as-imposed-structure framework experientially, not didactically. Expose Torin's rationalization as intellectually seductive. Hit the ship alarm — the next Corridor stop has been breached ahead of them.",
-  "chapter_turn": "Ben catches himself agreeing with Torin's reading of the Codex before he pulls back. The threat is not that the technique's defenders are obviously wrong; it is that they are elegant, and he is susceptible. Sera, in a private corridor, names the argument for what it is: she heard it from Gavran.",
+  "chapter_mission": "Open the Ankhural Codex fragment. Deliver the Weave-as-imposed-structure framework experientially, not didactically (R06). Per D8, R04c lands here as well: the wound mechanics — what the Scar is, how it is anchored at a nexus in the Weave (a natural convergence point), why Gavran's technique created a wound that wouldn't heal because the nexus that sustained the Weave became the epicenter of its absence. R04c is the geographical framework against which Ch 13's midpoint experience and Ch 13's array-dependency realisation will land. Expose Torin's rationalisation as intellectually seductive. Hit the ship alarm — the next Corridor stop has been breached ahead of them.",
+  "chapter_turn": "Ben catches himself agreeing with Torin's reading of the Codex before he pulls back. The threat is not that the technique's defenders are obviously wrong; it is that they are elegant, and he is susceptible. Sera, in a private corridor, names the argument for what it is: she heard it from Gavran. The Codex framework now has a wound to attach to — a specific geography the reader can hold against Veranthos.",
   "structural_phase": "response",
   "pov_allocation": ["Ben Skywalker"],
   "scene_count": 3,
@@ -15,35 +15,35 @@
     },
     {
       "scene_number": 2,
-      "role": "decision",
+      "role": "reveal",
       "dialogue_expectation": "dialogue_led",
-      "target_word_count": 1100,
-      "purpose": "Torin lifts the Codex without flinching. He holds it steady while everyone else watches for a reaction that does not come. His rationalization crystallises — if the lattice is imposed, the technique is not violation but correction. He is persuasive enough that Ben catches his own head nodding before he stops it. In the corridor afterward, Sera's hand on Ben's arm, back to the door: 'I have heard that argument before. From a man I followed into a war.'"
+      "target_word_count": 1250,
+      "purpose": "Torin lifts the Codex without flinching. He holds it steady while everyone else watches for a reaction that does not come. His rationalisation crystallises — if the Weave is imposed, the technique is not violation but correction. He is persuasive enough that Ben catches his own head nodding before he stops it. Reading on through the Codex, Sera (pulling era-specific commentary out of memory the modern Order does not have) lays out R04c: the wound mechanics. What the Scar is. How it is anchored at a nexus in the Weave — a natural convergence point, geographically specific. Why Gavran's removal-technique cut at exactly the place that sustained the structure, and why the wound has not healed. The geography of the problem becomes legible: a specific location, a specific anchor, a specific reason it cannot be closed by conventional reseal. Ch 13's midpoint experience will land against this framework. In the corridor afterward, Sera's hand on Ben's arm, back to the door: 'I have heard that argument before. From a man I followed into a war.'"
     },
     {
       "scene_number": 3,
       "role": "escalation",
       "dialogue_expectation": "balanced",
       "target_word_count": 1100,
-      "purpose": "Ship alarm. Desh in the cockpit in three seconds. The Brotherhood Outpost — the next Corridor stop — has been breached. Energy spikes days old, not active. They are not walking into an ambush; they are walking into a scene Veraine left for them. Approach. Moderate thin place with dark-side residue bleeding through the lattice's holes. H09 advances."
+      "purpose": "Ship alarm. Desh in the cockpit in three seconds. The Brotherhood Outpost — the next Corridor stop — has been breached. Energy spikes days old, not active. They are not walking into an ambush; they are walking into a scene Veraine left for them. Approach. Moderate thin place with dark-side residue bleeding through the Weave's holes. H09 advances."
     }
   ],
-  "reveal_payload": ["R06"],
+  "reveal_payload": ["R06", "R04c"],
   "hook_movements": {
     "planted": ["H09"],
     "advanced": ["H09"],
     "resolved": []
   },
-  "subplot_obligations": ["SP-A", "SP1", "SP2", "SP5"],
+  "subplot_obligations": ["SP-A", "SP1", "SP2", "SP3"],
   "relationship_turns": [
     {
       "dyad": "Ben/Sera",
-      "from": "private alliance — corridor warning about Torin (Ch8)",
+      "from": "private alliance — corridor warning about Torin (Ch 8)",
       "to": "shared pattern-recognition — Sera trusts Ben enough to name Gavran in the same sentence as Torin. The analogy is now between them, not in her head"
     },
     {
       "dyad": "Ben/Torin",
-      "from": "warmth with an edge (Ch7-8)",
+      "from": "warmth with an edge (Ch 7-8)",
       "to": "active susceptibility — Ben has felt Torin's argument as correct for two seconds before catching it. Torin does not yet know this. Ben will not forget it"
     },
     {
@@ -53,7 +53,7 @@
     }
   ],
   "pacing_curve": "rising",
-  "exit_vector": "Approach to the Brotherhood Outpost. The Force ahead leaking dark-side residue through gaps in the lattice — oil through cracked pavement. Desh on the controls; Ben braced at the doorframe. Torin leaning toward it without realising he is. The caravan is now a chase, and the chase is not a chase.",
-  "chapter_word_target": 3500,
-  "notes": "R06 is the intellectual heart of the novel and the highest didactic-risk delivery. It must be received as sensation, not explained as thesis. Ben's flash of unstructured Force in s1 is the reader's first taste of the full de-structuring that lands at Ch13 — mild preview, auditory/somatic vocabulary only, no analytical paragraph. Use force_mechanics.vocabulary_variation — lean on somatic or acoustic families here, not the structural/handrail family from earlier chapters. Torin's rationalization in s2 must be genuinely compelling on the page; if the reader thinks Torin is obviously wrong, the book loses him. Voice: Zahn-compact in the opening beat, debate precision in s2, procedural urgency in s3. Anti-patterns: (a) no one quotes the Codex verbatim at length — we receive it through reaction; (b) Sera's warning is a single line and a hand on an arm, not a monologue; (c) the alarm in s3 must land before the Codex debate reaches a conclusion — no tidy resolution."
+  "exit_vector": "Approach to the Brotherhood Outpost. The Force ahead leaking dark-side residue through gaps in the Weave — oil through cracked pavement. Desh on the controls; Ben braced at the doorframe. Torin leaning toward it without realising he is. The caravan is now a chase, and the chase is not a chase.",
+  "chapter_word_target": 3650,
+  "notes": "R06 is the intellectual heart of the novel and the highest didactic-risk delivery. It must be received as sensation, not explained as thesis. R04c sits inside the same scene and must land through Sera reading the Codex commentary against her era-memory — Ben asks the right question, Sera fills the gap by speaking from the era the Order has lost; the wound's geographical specificity arrives as the answer to a felt question, not as a lecture. Ben's flash of unstructured Force in s1 is the reader's first taste of the full unweaving that lands at Ch 13 — mild preview, auditory/somatic vocabulary only, no analytical paragraph. Use force_mechanics.vocabulary_variation — lean on somatic or acoustic families here, not the structural/handrail family from earlier chapters. Torin's rationalisation in s2 must be genuinely compelling on the page; if the reader thinks Torin is obviously wrong, the book loses him. Voice: Zahn-compact in the opening beat, debate precision in s2, procedural urgency in s3. ANTI-PATTERNS: (a) no one quotes the Codex verbatim at length — we receive it through reaction; (b) Sera's warning is a single line and a hand on an arm, not a monologue; (c) the alarm in s3 must land before the Codex debate reaches a conclusion — no tidy resolution; (d) R04c is delivered through Sera's archive-memory, not as narrator exposition; (e) per D3 in-character variants, Sera says 'the work,' Torin says 'the stitching,' Kael says 'the cloth' — same referent, different theological commitments."
 }

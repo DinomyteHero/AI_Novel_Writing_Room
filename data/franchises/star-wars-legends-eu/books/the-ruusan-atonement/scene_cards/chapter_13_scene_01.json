@@ -5,16 +5,16 @@
   "scene_type": "action",
   "scene_role": "hook",
   "pov_character": "Ben Skywalker",
-  "mission": "Approach and entry. The Steady Returns lands at Kolven — a former settlement world Veraine deliberately collapsed as a field test. Desh's chrono drifts, temperatures inconsistent, vegetation growing wrong. The group crosses the boundary into a fully de-structured zone and the Force stops answering in any register they know.",
+  "mission": "Approach and entry. The Steady Returns lands at Kolven — a former settlement world Veraine deliberately collapsed as a field test. Desh's chrono drifts, temperatures inconsistent, vegetation growing wrong. The group crosses the boundary into a fully unwoven zone and the Force stops answering in any register they know.",
   "why_now": "Midpoint chapter. The wound has been discussed for twelve chapters and felt only in fragments. Here it is experienced at full scale, and nothing informational can carry the weight — only sensation.",
-  "conflict": "Full de-structuring. The Force is present but formless. Every instinct the Force-users have trained fires into nothing. Ben's moral intuition goes silent. Desh's environmental unease finally has a source that cannot be dismissed as hypersensitivity. The zone offers no armature to hold onto.",
+  "conflict": "Full unweaving. The Force is present but formless. Every instinct the Force-users have trained fires into nothing. Ben's moral intuition goes silent. Desh's environmental unease finally has a source that cannot be dismissed as hypersensitivity. The zone offers no armature to hold onto.",
   "conflict_type": "environmental",
   "turning_point": "Ben reaches for the Force and finds something — energy, presence, potential — but no structure, no direction, no light or dark. The ground of his perception is simply not there.",
   "opening_hook": "Ben watches the settlement world fill the viewport — green, blue, temperate — while Desh reads scan data that contradicts everything the eyes report. On the surface, the birds are wrong.",
-  "closing_hook": "In the silence of the de-structured Force, Ben hears himself think without the safety net of Force intuition for the first time. The thoughts are his. All of them. Including the ones the Force usually softens.",
+  "closing_hook": "In the silence of the unwoven Force, Ben hears himself think without the safety net of Force intuition for the first time. The thoughts are his. All of them. Including the ones the Force usually softens.",
   "emotional_trajectory": "Professional assessment -> escalating wrongness -> existential disorientation",
   "stakes": {
-    "personal": "Ben experiencing the wound's full effect — what it does to a Force-sensitive to lose the lattice entirely",
+    "personal": "Ben experiencing the wound's full effect — what it does to a Force-sensitive to lose the Weave entirely",
     "interpersonal": "Every group member affected differently — the pressure amplifies tensions",
     "external": "If Veraine can do this to a settlement world as a test, she can do it at Veranthos at full scale"
   },
@@ -32,7 +32,7 @@
   "action_beats": [
     "The Steady Returns breaks orbit and Ben watches the settlement world through the viewport — green, blue, temperate, wrong",
     "Ben steps onto the surface and reaches for the Force — his perception fires into formless nothing, the ground of sense dropping out",
-    "Desh pulls out his chrono and watches the second hand skip — measurable drift in a de-structured zone"
+    "Desh pulls out his chrono and watches the second hand skip — measurable drift in a unwoven zone"
   ],
   "active_subplots": [
     "SP-A",
@@ -44,7 +44,7 @@
   ],
   "promises_planted": [],
   "promises_paid": [
-    "The full de-structured experience delivered (PP17)"
+    "The full unwoven experience delivered (PP17)"
   ],
   "hook_actions": [
     {
@@ -61,5 +61,5 @@
   ],
   "pov_arc_phase": "lie_challenged",
   "arc_phase_transition": "lie_challenged",
-  "notes": "R08 is experiential, not informational. The midpoint revelation is what de-structuring feels like, and it has to land on the reader's body, not their reading memory. Rotate Force-wrongness metaphor for this scene: not handrail, not flat-note. Use 'the ground of sense dropping out', 'no axis', 'the response has nothing to compare itself to' — register this as absence of structure rather than as degraded navigation. Use one consistent image per scene. Desh's non-Force-sensitive grief-without-an-object must land without mysticism — it is a grief that cannot find its object because the object's moral shape has been removed from the Force itself. Diagnostic-voice trap — Ben should not, in this scene, analyse the phenomenology as concept. He notices the silence of his moral intuition; he hears his own thoughts uncushioned; he does not write a paragraph about what the lattice is. Anti-pattern (chapter-level): absolutely no 'it was as if the Force had —' constructions. The Force does not have 'as if' here; it has 'is' or 'is not'."
+  "notes": "R08 is experiential, not informational. The midpoint revelation is what unweaving feels like, and it has to land on the reader's body, not their reading memory. Rotate Force-wrongness metaphor for this scene: not handrail, not flat-note. Use 'the ground of sense dropping out', 'no axis', 'the response has nothing to compare itself to' — register this as absence of structure rather than as degraded navigation. Use one consistent image per scene. Desh's non-Force-sensitive grief-without-an-object must land without mysticism — it is a grief that cannot find its object because the object's moral shape has been removed from the Force itself. Diagnostic-voice trap — Ben should not, in this scene, analyse the phenomenology as concept. He notices the silence of his moral intuition; he hears his own thoughts uncushioned; he does not write a paragraph about what the Weave is. Anti-pattern (chapter-level): absolutely no 'it was as if the Force had —' constructions. The Force does not have 'as if' here; it has 'is' or 'is not'."
 }

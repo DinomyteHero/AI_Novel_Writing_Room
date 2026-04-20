@@ -5,48 +5,64 @@
   "scene_type": "action",
   "scene_role": "reveal",
   "pov_character": "Ben Skywalker",
-  "mission": "Luke's office — the same room where this started. Ben sits where he sat in Ch1. Everything is different. He tells Luke everything. Sera, Kael, Torin, Veraine, the technique, the Reformations' true history, the resonance, the new seal's living character. Luke listens in silence. When he speaks, it is not accusation — it is sadness.",
-  "why_now": "The book's opening scene was a mission briefing in this office. The book's closing scene has to return here with the relationship changed. The callback is geographical, not narrated.",
-  "conflict": "Ben is telling a story that rewrites the foundational narrative of Luke's Order. Luke listens. His sadness is not at being lied to but at the pattern he recognises — the pattern that runs in the blood. His response is not anger; it is a question.",
+  "mission": "Luke's office — the same room where this started. Ben sits where he sat in Ch 1. Everything is different. He tells Luke everything: Sera, Kael, Torin, Veraine, the technique, the Reformations' true history, the resonance, the new seal's living character, the first-anchor commitment from Ch 26 s3 and what it will cost over the rest of his life. Luke listens in silence, hands still on the desk, his Force presence vast and warm and holding sadness without performing it. When he speaks, it is not accusation — it is sadness. His question, after a long silence: 'And you didn't call me.' Per PP26 payoff: the line registers the Ch 13 missed check-in, the Ch 14-15 blank-template practice, the Ch 15 deleted full report. Luke does not know the exact dates; he knows the pattern. He knows why Ben did not call: the same reason Gavran did not tell his successors. The pattern runs in the blood. Ben does not answer. He does not defend the silences; he does not catalogue them. Luke did not ask a question that required defending. After another silence, Luke: 'We'll tell the Council. All of it.' R14 lands.",
+  "why_now": "The book's opening scene was a mission briefing in this office. The book's closing conversation has to return here with the relationship changed — and the Ch 13/14/15 unmade-call thread has to pay off at the only moment the reader has been prepared to receive it, at the specific callback to the Ch 1 geography that has been sitting in the book's spine since chapter one. The PP26 payoff cannot be delayed to a later scene because the book's final corridor walk in s3 requires the Ben/Luke relationship to have been fully realigned by the time Ben leaves the office; it also cannot be earlier because the payoff depends on Ben having told Luke the full story first. The line lands at the specific moment Luke has heard everything and Ben has no prepared response left.",
+  "conflict": "Ben is telling a story that rewrites the foundational narrative of Luke's Order. The conflict is not whether Luke will believe him; Luke believes him. The conflict is what Luke does with the belief — and more precisely, how he names the private failure between them without using it as a weapon. His sadness is not at being lied to; it is at the pattern he recognises, the pattern that runs in the blood. His response is not anger; it is a question that names the silence Ben has been carrying since Ch 13 without requiring Ben to explain it.",
   "conflict_type": "interpersonal",
-  "turning_point": "Luke's question after a long silence: 'And you didn't call me.' Not accusation. Understanding. He knows why Ben did not call — the same reason Gavran did not tell his successors. Luke's follow, after another silence: 'We'll tell the Council. All of it.'",
-  "opening_hook": "Luke's office. The same room where this started — the mission briefing, the datapad, the survey route. Ben sits where he sat before. Everything is different.",
-  "closing_hook": "Luke: 'We'll tell the Council. All of it.' Neither of them speaks for a moment after that.",
-  "emotional_trajectory": "The weight of telling -> Luke's sadness -> the shared commitment to truth",
+  "turning_point": "Luke's question after a long silence: 'And you didn't call me.' Four words; no accusation in them; understanding. He knows why Ben did not call — the same reason Gavran did not tell his successors. The line is the payoff of a thread planted at Ch 13 (Ben's practice-note to himself to check in), reinforced through Ch 14-15 (the blank-template pattern, the Ch 15 deleted full report), and held unspoken until now. Ben does not answer. Luke's follow, after another silence: 'We'll tell the Council. All of it.' The decision is shared; the silence between them is not hostile; the conversation has taken the shape the book has been reaching for.",
+  "opening_hook": "Luke's office. The same room where this started — the mission briefing, the datapad, the survey route laid out on the display, the two chairs on either side of the desk. Ben sits where he sat before. Everything is different",
+  "closing_hook": "Luke: 'We'll tell the Council. All of it.' Neither of them speaks for a moment after that. The decision is shared. The pattern that has run in the blood for a thousand years does not run in this room",
+  "emotional_trajectory": "The weight of telling -> Luke's silence while listening -> Luke's sadness landing as a question rather than an accusation -> Ben receiving the line without answering -> the shared commitment to truth",
   "stakes": {
-    "personal": "Ben and Luke's relationship transformed by honesty",
-    "interpersonal": "Father and son choosing truth together",
-    "external": "The Jedi Order's self-understanding about to be fundamentally rewritten"
+    "personal": "Ben's arc final-beat — the unmade Ch 13 call named by the person it should have been made to, and named without weaponisation; the Skywalker reflex to act alone acknowledged as an inheritance rather than a crime, and ended without forgiveness being required to end it",
+    "interpersonal": "The Ch 1 institutional distance converted into private alliance — father and son choosing truth together, the Grand Master rank deliberately not invoked, the two chairs on either side of the desk occupied by the same two people with nothing between them any longer",
+    "external": "The Jedi Order's self-understanding about to be fundamentally rewritten; the thousand-year institutional lie ending not through exposure but through shared decision; R14 landing as the Reformations' true history told"
   },
   "characters_present": [
     "Ben Skywalker",
     "Luke Skywalker"
   ],
-  "setting": "Jedi Temple, Coruscant — Luke's office, same room as Chapter 1",
-  "sensory_details": "The same office — the same furniture, the same light through the window, the same datapad on the desk; Luke's Force presence vast and warm and holding sadness without performing it; afternoon light; two chairs, two Skywalkers, the truth between them",
-  "canon_elements_needed": [],
+  "setting": "Jedi Temple, Coruscant — Luke's office, same room as Chapter 1, afternoon light",
+  "sensory_details": "The same office — the same furniture, the same Temple light through the window, the same datapad on the desk with a survey route still cached somewhere in its memory; the two chairs on either side of the desk arranged the way they were on the day the mission was briefed; Luke's Force presence vast and warm and holding sadness without performing it — the specific quality of a Master's presence when he is not using it for authority; his hands still on the desk through the entirety of Ben's telling, not moving, not needing to; afternoon light moving across the floor as Ben speaks; the long silence after Ben finishes — not awkward, not heavy, the silence of a conversation that has landed; Luke's question arriving in a voice that is not louder than the silence, four words exactly; the first-anchor tether at the edge of Ben's Force-perception through the whole exchange, a continuous low hum that the conversation does not change",
+  "canon_elements_needed": [
+    "Gavran-era institutional-silence pattern (the Reformations' true history — the thousand-year lie as practice, not as event)",
+    "Jedi Council governance protocols for institutional-record correction",
+    "Force-presence phenomenology of a Master holding sadness without performing it"
+  ],
   "target_word_count": 1400,
   "action_beats": [
-    "Ben sits in the same chair in Luke's office where the mission started and begins talking — everything",
-    "Luke listens in silence, his hands still on the desk, his Force presence vast and sad",
-    "Luke speaks after a long silence: 'We'll tell the Council. All of it.'"
+    "Ben sits in the same chair in Luke's office where the mission started and begins telling the full story — Sera, Kael, Torin, Veraine, the technique, the Reformations' true history, the resonance, the new seal, the first-anchor commitment",
+    "Luke listens in silence, hands still on the desk, Force presence holding sadness without performing it; the afternoon light moves across the floor as Ben speaks",
+    "Ben finishes. A long silence. Luke, quietly: 'And you didn't call me.' Not accusation — understanding",
+    "Ben does not answer. He does not defend the silences; he does not catalogue them. Luke did not ask a question that required defending",
+    "Another silence. Luke: 'We'll tell the Council. All of it.' The decision is shared; neither of them speaks for a moment after that"
   ],
   "active_subplots": [
-    "SP4"
+    "SP-A",
+    "SP3"
   ],
   "plot_threads_advanced": [
     "institutional_truth_delivered",
-    "order_will_know"
+    "order_will_know",
+    "pp26_unmade_call_paid",
+    "ch1_institutional_distance_converted_to_private_alliance",
+    "pattern_that_runs_in_blood_named_and_ended"
   ],
   "promises_planted": [],
   "promises_paid": [
     "The institutional lie told to the Order (PP08)",
-    "Ben's unilateral pattern resolves in transparency (PP12)"
+    "Ben's unilateral pattern resolves in transparency (PP12)",
+    "The unmade Ch 13 check-in and Ch 14-15 blank-template practice and Ch 15 deleted full report paid by Luke's 'And you didn't call me' (PP26)",
+    "The Reformations' true history delivered (R14)"
   ],
   "hook_actions": [],
   "revelations": [
     "R14"
   ],
   "pov_arc_phase": "arc_resolved",
-  "notes": "R14 — the Reformations' true history told. The scene mirrors Ch1's Ben/Luke scene; deliver the callback through geography (same office, same chair, same light) rather than narrated parallel. Luke's sadness is not at being lied to by Ben; it is at the institutional pattern that Ben broke. The irony is that Luke sent Ben alone, and Ben learned that acting alone was the problem; do not name the irony on-page — Luke's question does the work. Luke's 'We'll tell the Council. All of it' is a decision, not a platitude. Anti-pattern: no speech from either. The silences carry the scene."
+  "warmth_load_bearing": true,
+  "notes": "R14 — the Reformations' true history told. The scene mirrors Ch 1's Ben/Luke scene; deliver the callback through geography (same office, same chair, same light, same desk, same two chairs) rather than narrated parallel. Luke's sadness is not at being lied to by Ben; it is at the institutional pattern that Ben broke. The irony is that Luke sent Ben alone, and Ben learned that acting alone was the problem; do not name the irony on-page — Luke's question does the work. Per PP26 payoff, the 'And you didn't call me' line is THE specific payoff of the unmade-call thread planted at Ch 13 and reinforced through Ch 14-15. It is the only on-page acknowledgment of the thread: Ben does not apologise in prose; Ben does not catalogue the specific silences (the Ch 13 check-in he did not make, the Ch 14-15 blank-template practice, the Ch 15 deleted full report); Ben does not explain. The line's weight is the payoff. Per R11, Ben does not, in this scene, interior-paragraph the realisation that Luke knows. He receives the line; he does not answer; the conversation moves. Per D7 Component B, Torin is off-page; no reference to his direction or diminishment beyond Ben's reporting of the mission's events — the narrator does not re-interpret Torin's fate in this scene. Luke's 'We'll tell the Council. All of it' is a DECISION, not a platitude; one short line, after another silence. Per the blueprint, the silences in this scene carry more weight than the lines. Voice: Zahn-quiet-dramatic for the conversation (the silences doing more work than the lines); Bujold-interior-restrained for Ben's registration of Luke's sadness and of the first-anchor tether holding at the edge of perception through the exchange (no more than 25-30% of scene weight); no Stover density here (the scene's quiet is its own weight; stover_permitted false — the climactic Stover beats belonged to Ch 25 s3 and Ch 26 s3). Primary anchor: Zahn (dialogue-drama precision in the conversation's cadence and silences); supporting anchor: Bujold (Ben's interior registration of Luke's presence and the tether's continuity). Anti-patterns: (a) no speech from either — the silences carry the scene; (b) per PP26, the 'And you didn't call me' line is the only on-page acknowledgment of the unmade-call thread — Ben does not apologise, catalogue, or explain; (c) Luke's response is not anger or pride — it is grief processed into decision; (d) Luke does not invoke the Grand Master rank; he is Ben's father in this room, and the authority comes from the relationship, not the title; (e) no prophecy, no hint of sequel, no promise of future missions; the resolution is complete on its own terms; (f) no narration of the parallel to Ch 1 — the callback is geographical and sensory, and the reader makes the parallel; (g) Ben does not, in this scene, name his own arc or the 'lie' or 'the pattern' by those terms; Luke's line does the naming, and it uses 'you didn't call me,' not abstraction.",
+  "primary_anchor": "Zahn",
+  "supporting_anchor": "Bujold",
+  "stover_permitted": false
 }

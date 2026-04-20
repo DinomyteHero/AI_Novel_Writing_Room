@@ -5,18 +5,18 @@
   "scene_type": "action",
   "scene_role": "reveal",
   "pov_character": "Ben Skywalker",
-  "mission": "The meeting point. Veraine steps forward with the bearing of someone treating negotiation as professional courtesy. Her philosophy delivered in full: the lattice as imposed framework, the wound as liberation, the light/dark binary as a thousand years of pointless war. She never monologues; she asks questions with answers she already knows. Then the turn toward Kael.",
-  "why_now": "The antagonist steps forward on the page for the first time in the book. Her argument has to land at full strength here or the climactic defeat becomes victory over a strawman.",
-  "conflict": "Veraine's argument is genuinely compelling. The lattice is arguably imposed; the binary has driven a thousand years of war; her logic is rigorous and her tone is respectful. She is not a cackling villain — she is a theorist with a thesis and the means to test it, and she has brought her pitch specifically tailored to the one person in the circle whose history matches hers.",
+  "mission": "The meeting point. Veraine steps forward with the bearing of someone treating negotiation as professional courtesy. Per R14, her register is Socratic-adjacent: she never monologues. She asks a question, waits for the answer, and replies with another question that incorporates what was said. Her philosophy emerges through the shape of the questions — the Weave as imposed framework, the wound as liberation, the light/dark binary as a thousand years of pointless war — all delivered as invitations toward conclusions rather than declarations of them. Then the turn toward Kael: 'They used us identically, you and I. The only difference is which wall we were sealed into. Why defend the framework that treated us as building material?' Kael's face a mask that costs visible effort. R09 lands — Veraine's philosophy at full strength, but articulated through the Socratic-adjacent register that R14 specifies.",
+  "why_now": "The antagonist steps forward on the page for the first time in the book. Her argument has to land at full strength here or the climactic defeat becomes victory over a strawman. The risk is villain-monologue; the Socratic register is the structural answer to that risk — Veraine does not perform her thesis, she conducts an inquiry toward it and makes the group's own words a step in the proof.",
+  "conflict": "Veraine's argument is genuinely compelling. The Weave is arguably imposed; the binary has driven a thousand years of war; her logic is rigorous and her tone is respectful. She is not a cackling villain — she is a theorist with a thesis and the means to test it, and she has brought her pitch specifically tailored to the one person in the circle whose history matches hers. Ben is in the room with her and cannot answer her register by matching it; every time he tries, she asks another question.",
   "conflict_type": "interpersonal",
-  "turning_point": "Veraine turns toward Kael. 'They used us identically, you and I. The only difference is which wall we were sealed into. Why defend the framework that treated us as building material?' The pull is real. The reader should feel it.",
+  "turning_point": "Veraine turns toward Kael. 'They used us identically, you and I. The only difference is which wall we were sealed into. Why defend the framework that treated us as building material?' The pull is real. The reader should feel it. Kael does not speak. His silence is not refusal; it is the specific silence of someone whose answer is still assembling.",
   "opening_hook": "Veraine steps forward and extends a hand — calm, precise, the gesture of someone who treats negotiation as professional courtesy. Ben would prefer a monster. Monsters are easier to fight.",
-  "closing_hook": "Veraine's final question before the meeting ends: 'What if I'm right?' She doesn't need an answer. She needs the question to sit in Kael's mind.",
-  "emotional_trajectory": "Guarded assessment -> intellectual engagement despite themselves -> the genuine pull of her argument",
+  "closing_hook": "Veraine's final question before the scene ends is to Kael — soft, specific, not theatrical: 'What did you conclude, in the wall, when you had nothing to do but conclude?' She does not need an answer aloud. She needs the question to sit where Kael stores answers.",
+  "emotional_trajectory": "Guarded assessment -> the unsettling experience of being asked questions whose shape presumes the conclusion -> the genuine pull of the Kael pitch -> Kael's assembling silence",
   "stakes": {
-    "personal": "Ben's worldview tested by a coherent counter-argument he cannot dismiss",
-    "interpersonal": "Kael's recruitment — the parallel at its most dangerous",
-    "external": "Veraine's philosophy is not wrong about the problem — only about the solution"
+    "personal": "Ben's worldview tested by a coherent counter-argument he cannot dismiss, delivered in a register that denies him the target a monologue would give",
+    "interpersonal": "Kael's recruitment — the parallel at its most dangerous, and the pull is made worse by Veraine's refusal to sell it",
+    "external": "Veraine's philosophy is not wrong about the problem — only about the solution. The book has to make that distinction feelable, not assertable"
   },
   "characters_present": [
     "Ben Skywalker",
@@ -27,31 +27,44 @@
     "Darth Veraine"
   ],
   "setting": "Neutral meeting point — a cleared area on a minor world between positions",
-  "sensory_details": "Veraine's physical presence — calm composure carried on a military bearing underneath the academic refinement; her Force presence analytical and precise, not radiating dark-side malice but something more unsettling — certainty without heat; her small crew at distance, unarmed by posture rather than by fact",
-  "canon_elements_needed": [],
-  "target_word_count": 1200,
+  "sensory_details": "Veraine's physical presence — calm composure carried on a military bearing underneath the academic refinement; her Force presence analytical and precise, not radiating dark-side malice but something more unsettling — certainty without heat; her small crew at distance, unarmed by posture rather than by fact; her diction — no contractions, complete grammatically sophisticated sentences, academic syntax, measured rhythm; the specific quiet that sits after each question she asks, pulling an answer out of the addressee; Kael's face — a mask that costs visible effort, the effort itself information; Ben registering the Socratic-adjacent pattern as a thing happening to him before he names it as a thing Veraine is doing; her ship in the background, one vessel, minimal crew, gangway down",
+  "canon_elements_needed": [
+    "Sith theorist traditions using Socratic pedagogy (Karness Muur lineage, archival conventions)",
+    "Jedi diplomatic posture for antagonist parley"
+  ],
+  "target_word_count": 1300,
   "action_beats": [
     "Veraine steps forward and extends a hand in greeting — calm, composed, military bearing beneath academic refinement",
-    "Veraine turns to Kael and addresses him by name, her voice shifting to something raw and specific",
-    "Kael stands motionless through the recruitment pitch, his face a mask that costs visible effort to maintain"
+    "Veraine opens with a question whose premise is the Weave's imposition; Ben answers a smaller piece of it and Veraine's next question incorporates his answer and advances",
+    "The philosophy emerges through three or four exchanges — Weave as framework, wound as liberation, binary as a thousand years of war — always questions with answers she already knows, never declarations",
+    "Veraine turns to Kael and addresses him by name, her voice shifting to something specific and personal — the pitch calibrated precisely to his history rather than to generic recruitment",
+    "Kael stands motionless through the recruitment pitch, his face a mask that costs visible effort to maintain",
+    "Veraine's final question of the scene is to Kael — about what he concluded inside the wall. She does not require an answer."
   ],
   "active_subplots": [
     "SP-A",
-    "SP2",
-    "SP5"
+    "SP1",
+    "SP2"
   ],
   "plot_threads_advanced": [
-    "veraine_philosophy_delivered",
-    "kael_recruitment_attempt"
+    "veraine_philosophy_delivered_socratic_adjacent",
+    "kael_recruitment_attempt_calibrated",
+    "veraine_voice_texture_established"
   ],
-  "promises_planted": [],
+  "promises_planted": [
+    "Veraine's pitch to Kael is unresolved — his silence contains an answer that will surface at the Ch 21 refusal (PP W1-adjacent)"
+  ],
   "promises_paid": [
-    "Veraine's philosophy is coherent enough to be genuinely unsettling (PP16 partial)"
+    "Veraine's philosophy is coherent enough to be genuinely unsettling (PP16 primary)"
   ],
   "hook_actions": [],
   "revelations": [
     "R09"
   ],
   "pov_arc_phase": "lie_challenged",
-  "notes": "R09 — Veraine's philosophy at full strength. The highest-risk scene for villain-monologue failure in the book. She never raises her voice. She never makes threats. She asks questions with answers she already knows. Her diction: no contractions, complete grammatically sophisticated sentences, academic syntax; her rhythm: measured. Her pitch to Kael must be specifically tailored to his wound — not generic Sith recruitment. Kael's arc: lie_challenged — the pitch lands on his exact history. Diagnostic-voice trap — Ben should not, in this scene, refute Veraine internally. He listens and he feels the argument working on him and he does not interrupt. The refutation belongs to Sera in sc3. Anti-pattern: no weapons drawn; the encounter is a knife-fight in ideas."
+  "warmth_load_bearing": false,
+  "notes": "R09 — Veraine's philosophy at full strength. The highest-risk scene for villain-monologue failure in the book; R14 is the structural answer. She never raises her voice. She never makes threats. She asks questions with answers she already knows, and each next question incorporates what was said — the conversation advances toward her conclusion without her announcing it. Her diction: no contractions, complete grammatically sophisticated sentences, academic syntax. Her rhythm: measured. Her pitch to Kael must be specifically tailored to his wound — not generic Sith recruitment. Kael's arc: lie_challenged — the pitch lands on his exact history. Per R14 anti-pattern, no Veraine monologue, no declarative pitch, no rhetorical flourish. When she presses, she asks a more specific question, not a louder one. Per R14, her voice_texture ledger-register (working-mind residue) is continuous with the spoken register — what changes between contexts is audience, not register. Per W2, Ben's emergent intelligence is gathered without scripted intelligence-gathering beats — his close-third registers the cadence of her questions, the tells in her crew, the archive fragments she references as if everyone remembered them. This observation is rendered at ground level, not announced. Diagnostic-voice trap — Ben should not, in this scene, refute Veraine internally. He listens and he feels the argument working on him and he does not interrupt. The refutation belongs to Sera in s3. Per R11, Ben does not narrate 'she is using Socratic method' — the experience of the method lands before the name for it would. Voice: Zahn-precise throughout; allow Veraine's diction to do its own work. Primary anchor: Zahn (precision, structural clarity); supporting anchor: Luceno (political/philosophical register for Veraine's diction), Bujold (Ben's interior register of being asked). Anti-patterns: (a) no weapons drawn — the encounter is a knife-fight in ideas; (b) no character on Ben's side verbally refutes Veraine in this scene — that is Sera's s3 work; (c) no Veraine monologue; (d) the sabotage Veraine's crew is executing elsewhere is not referenced, teased, or hinted in this scene — per W2 Option B it is the Ch 17 s1 arrival.",
+  "primary_anchor": "Zahn",
+  "supporting_anchor": "Luceno, Bujold",
+  "stover_permitted": false
 }

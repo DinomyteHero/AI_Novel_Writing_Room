@@ -11,7 +11,7 @@
       "role": "hook",
       "dialogue_expectation": "balanced",
       "target_word_count": 1300,
-      "purpose": "Entering the outpost. Clinical Sith architecture — prefabricated, functional, not theatrical. Dark-side emotional residue bleeds through lattice gaps; Ben feels cruelty that is not his. Sera's discipline holds but strains. Equipment partially disassembled — Veraine took only specific components. Kael picks up a data tablet with her message in Sith-tradition notation, reads it, sets it down with the care of someone handling something that might explode, walks out without a word. H07 and H09 resolve; H10 plants."
+      "purpose": "Entering the outpost. Clinical Sith architecture — prefabricated, functional, not theatrical. Dark-side emotional residue bleeds through the Weave's thinning weave; Ben feels cruelty that is not his. Sera's discipline holds but strains. Equipment partially disassembled — Veraine took only specific components. Kael picks up a data tablet with her message in Sith-tradition notation, reads it, sets it down with the care of someone handling something that might explode, walks out without a word. H07 and H09 resolve; H10 plants."
     },
     {
       "scene_number": 2,
@@ -34,7 +34,7 @@
     "advanced": ["H10"],
     "resolved": ["H07", "H09"]
   },
-  "subplot_obligations": ["SP-A", "SP2", "SP4", "SP5"],
+  "subplot_obligations": ["SP-A", "SP2", "SP3", "SP5"],
   "relationship_turns": [
     {
       "dyad": "Veraine/Kael",

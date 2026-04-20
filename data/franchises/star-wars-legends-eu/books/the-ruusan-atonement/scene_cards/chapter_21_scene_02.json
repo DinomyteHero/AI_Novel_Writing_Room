@@ -3,20 +3,20 @@
   "scene_number": 2,
   "structural_phase": "second_plot_point",
   "scene_type": "action",
-  "scene_role": "reveal",
+  "scene_role": "decision",
   "pov_character": "Ben Skywalker",
-  "mission": "Torin walks down the ridgeline toward the valley. The group watches. Each silence has distinct texture: Ben (failed to stop this pattern once before), Sera (was the person whose agency was overridden), Kael (spent his life being stopped), Desh (breaks the silence first with operational pragmatism). Sera's line lands: 'I was the one they sealed. I cannot seal another.'",
-  "why_now": "The turn's physical enactment. If the group physically restrains Torin, the book's thesis collapses. The scene is the refusal to repeat the pattern the book has spent twenty chapters condemning.",
-  "conflict": "The impossible choice. Stop Torin by force — and repeat Gavran. Let him go — and lose the group's strongest member to a dangerous plan. Each character's silence carries the ghost of their own wound. Sera's is the one that says the book's argument out loud.",
+  "mission": "Torin walks down the ridgeline toward the valley. The group watches. Each silence has distinct texture: Ben (failed to stop this pattern once before, has no alternative yet, and — now — is holding two fresh tactical reads he did not yet have five minutes ago), Sera (was the person whose agency was overridden; also the person who just read the counter-preparation in s1), Kael (spent his life being stopped), Desh (breaks the silence first with operational pragmatism — his chrono-drift readings and entanglement-pattern analysis converging on Ben at the same moment Sera's read lands). Per B2 Candidate 3 (primary ballast), the cascade-acceleration fact surfaces in Ben's head not as a sentence but as the intersection of what Sera just saw and what Desh has been measuring since Ch 13: an entangled Force presence, forcibly disengaged, accelerates cascade rather than interdicts it. The realisation is rendered as Ben registering the room — Sera's read, Desh's numbers, the seal membrane he crossed at Ch 20 — and understanding that letting Torin walk is also their best bad option. No one says this. The reader holds three reasons. Sera speaks the one that is allowed to be speech: 'I was the one they sealed. I cannot seal another.' PP28 pays.",
+  "why_now": "The turn's physical enactment. If the group physically restrains Torin, the book's thesis collapses. The scene is the refusal to repeat the pattern the book has spent twenty chapters condemning. The cascade-acceleration fact, planted at Ch 13 and reinforced at Ch 18, has to pay here — both because the ballast makes the thematic decision overdetermined (B2's purpose) and because the Ch 21 refusal must register as correct on three grounds at once so that the thematic rightness is not accidentally the only rightness.",
+  "conflict": "The impossible choice. Stop Torin by force — and repeat Gavran, and trigger the counter-preparation Sera just read, and accelerate the cascade Desh has been measuring. Let him go — and lose the group's strongest member to a dangerous plan. Each character's silence carries the ghost of their own wound. Sera's is the one that says the book's argument out loud. The other two reasons stay unspoken.",
   "conflict_type": "interpersonal",
-  "turning_point": "Sera, barely above a whisper: 'I was the one they sealed. I cannot seal another.' Ben nods. The group has made a choice without voting.",
-  "opening_hook": "Torin walks down the ridgeline toward the valley. His stride is steady. His Force presence trails behind him — lighter than it's been since he woke up.",
-  "closing_hook": "Sera's voice, barely above a whisper: 'I was the one they sealed. I cannot seal another.' Ben nods. He understands. And now he must find another way.",
-  "emotional_trajectory": "Helpless watching -> the agony of principled inaction -> Sera's devastating clarity",
+  "turning_point": "Sera, barely above a whisper: 'I was the one they sealed. I cannot seal another.' Ben nods. The group has made a choice without voting. In the same beat, Ben registers the convergence of Sera's s1 read and Desh's data — both facts arrive as a single shape in his head, unnamed in prose, unanswered by any character.",
+  "opening_hook": "Torin walks down the ridgeline toward the valley. His stride is steady. His Force presence trails behind him — lighter than it has been since he woke up",
+  "closing_hook": "Sera's voice, barely above a whisper: 'I was the one they sealed. I cannot seal another.' Ben nods. He understands. And now he must find another way",
+  "emotional_trajectory": "Helpless watching -> the convergence of tactical reads arriving unspoken -> the agony of principled inaction -> Sera's devastating clarity",
   "stakes": {
-    "personal": "Each character confronting their deepest wound through the choice to let Torin go",
-    "interpersonal": "The group diminished — their strongest member gone",
-    "external": "Torin heading toward the Scar to become the new seal"
+    "personal": "Each character confronting their deepest wound through the choice to let Torin go; Ben holding three reasons for inaction, only one of which the room permits to be speech",
+    "interpersonal": "The group diminished — their strongest member gone; the group's silent consensus a shape the reader has been assembling for eight chapters",
+    "external": "Torin heading toward the Scar to become the new seal; the seal's cascade dynamics now operating on the group's decisions as a tactical constraint rather than an abstract threat"
   },
   "characters_present": [
     "Ben Skywalker",
@@ -25,13 +25,19 @@
     "Desh Rolan"
   ],
   "setting": "Veranthos — camp, watching Torin walk away down the ridgeline",
-  "sensory_details": "Torin's receding figure — steady, unhurried; the wrongness parting around him as he walks into it; Sera's face holding grief on iron; Kael's hands loose at his sides — the posture of someone refusing to grab; Desh's voice as the first sound after too much silence: 'So. What now?'",
-  "canon_elements_needed": [],
+  "sensory_details": "Torin's receding figure — steady, unhurried; the wrongness parting around him as he walks into it; Sera's face holding grief on iron; Kael's hands loose at his sides — the posture of someone refusing to grab; Desh with his datapad open in one hand, chrono-drift readings scrolling, his other hand finding Ben's forearm in a brief, practical grounding; the numbers on Desh's display matching in shape what Sera's read in s1 said without saying; Desh's voice as the first sound after too much silence",
+  "canon_elements_needed": [
+    "Force-entanglement cascade-acceleration mechanics (planted Ch 13, reinforced Ch 18, payoff here)",
+    "Dantari Force-lock diagnostic (continuity with s1 Sera beat)",
+    "Non-Force-sensitive chrono-drift and entanglement-pattern measurement techniques"
+  ],
   "target_word_count": 1500,
   "action_beats": [
     "Torin turns and walks down the ridgeline toward the valley — stride steady, Force presence trailing behind him",
+    "Desh's chrono-drift readings scroll on his datapad; his other hand finds Ben's forearm; the numbers and Sera's earlier read converge in Ben's head as a single shape he does not try to name",
     "Sera stands motionless as Torin descends, her hands clenched at her sides — refusing to seal another",
-    "Desh breaks the silence: 'So. What now?' — the first sound after too long"
+    "Sera speaks the thematic line once — 'I was the one they sealed. I cannot seal another' — and stops",
+    "Desh breaks the remaining silence: 'So. What now?' — the first full sentence after the line lands"
   ],
   "active_subplots": [
     "SP-A",
@@ -42,19 +48,30 @@
   "plot_threads_advanced": [
     "torin_departed",
     "group_lets_him_go",
-    "moral_architecture_spoken"
+    "moral_architecture_spoken",
+    "cascade_acceleration_converges_b2_candidate_3",
+    "tactical_and_thematic_ballast_meet_silently"
   ],
   "promises_planted": [],
   "promises_paid": [
-    "The Jacen parallel recognized and pattern broken (PP07)"
+    "The Jacen parallel recognised and pattern broken (PP07)",
+    "Cascade-acceleration as tactical constraint (pays PP28 — planted Ch 13 R08a, reinforced Ch 18, convergence here)"
   ],
   "hook_actions": [
     {
       "hook_id": "H06",
       "action": "resolve"
+    },
+    {
+      "hook_id": "H20",
+      "action": "resolve"
     }
   ],
   "revelations": [],
   "pov_arc_phase": "moment_of_truth",
-  "notes": "The book's emotional centre. Ben has seen this before; this time he chooses differently. He does not chase, does not fight, does not force. Each silence is authored: Ben's held breath, Sera's iron composure, Kael's refusal-to-grab, Desh's breaking of the silence. Anti-pattern: do not physically restrain Torin — the scene's thesis is that refusal is the choice. Diagnostic-voice trap — Ben should not, in this scene, name the Jacen pattern as resolved in interiority. Sera's line is the book's moral architecture spoken aloud for the first time; it does the naming. One line, one nod, one question from Desh, and the chapter moves."
+  "warmth_load_bearing": true,
+  "notes": "The book's emotional centre. Ben has seen this before; this time he chooses differently. He does not chase, does not fight, does not force. Each silence is authored: Ben's held breath, Sera's iron composure, Kael's refusal-to-grab, Desh's breaking of the silence. Per B2 Candidate 3, the cascade-acceleration fact surfaces as Ben's registration of the convergence of Sera's s1 read and Desh's measurement data — rendered as one paragraph of integrated perception, not a thought-sentence that names the mechanism. Per B2 presentation anti-pattern, no character says 'forcible disengagement would accelerate cascade.' The room knows; the reader infers from Ch 13/Ch 18/s1 and from the shape of Desh's display plus Sera's earlier read. Sera's thematic line is the chapter's ONLY full articulated reason for the inaction — the other two reasons are the room's silent knowledge and the reader's acquired understanding. Per R13, Jacen is not named again in this chapter — the Ch 18 naming was the whole budget. Per R11, Ben does not, in this scene, name the Jacen pattern as resolved in interiority. Sera's line is the book's moral architecture spoken aloud for the first time; it does the naming. Per D7 Component B, the narrator does not over-signal Torin's direction past Ben's perception — Torin is walking away, visible to all, and the narrator renders him at ground level. Voice: Zahn-tight for the physical frame; permitted Stover-interior beats for Ben's moment of convergence and for Sera's line landing; Bujold-interior for the held texture of each silence. Primary anchor: Stover (permitted density at the convergence and Sera's line); supporting anchor: Bujold (each authored silence), Zahn (procedural frame of Torin's walk and Desh's measurements). Anti-patterns: (a) do not physically restrain Torin — the scene's thesis is that refusal is the choice; (b) no one gives a speech; the decision is a silence; (c) do not name 'the Lie' or 'the Jacen pattern' explicitly; (d) per B2, the tactical reasons are read, not announced; if a character starts to explain either Torin's counter-preparation or the cascade-acceleration fact in prose or dialogue, the scene is wrong; (e) the word 'together' does NOT appear in this scene — it belongs to s3 exclusively; (f) one line, one nod, one question from Desh, and the chapter moves.",
+  "primary_anchor": "Stover",
+  "supporting_anchor": "Bujold, Zahn",
+  "stover_permitted": true
 }

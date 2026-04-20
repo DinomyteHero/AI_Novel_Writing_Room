@@ -5,18 +5,18 @@
   "scene_type": "sequel",
   "scene_role": "decision",
   "pov_character": "Ben Skywalker",
-  "mission": "Camp at the valley's edge. Night. The Scar visible against the stars — a line of absence outlined by light. Torin stands at the camp perimeter and has not looked away from the valley since they arrived. His Force presence has softened. He looks younger. More alive. More dangerous.",
-  "why_now": "Final positioning before the second plot point. The chapter has shown arrival and the city; it has to end on the image that announces tomorrow without a word.",
-  "conflict": "Nothing to do tonight but watch and wait. Ben watches Torin. Torin watches the Scar. Both of them know what the watching means, and neither says so.",
+  "mission": "Camp at the valley's edge. Night. The Scar visible against the stars — a line of absence outlined by light. Torin stands at the camp perimeter and has not looked away from the valley since they arrived. His Force presence has softened. He looks younger. More alive. More dangerous. Ben watches from the tent and understands: tomorrow. Per W2 Option α β-fallback (DEFAULT PATH if α not executed in s2): at the edge of the scene Ben sits with his datapad and reads a second Veraine ledger entry — pulled during the outpost archive sync earlier, surfaced now as his attention returns to it. The entry is her working notes on a midpoint-era site (implied Kolven, unnamed), her reading of the technique-lineage fragment Ben has been chasing since Ch 11. Short. Precise. The working mind in its native register. She reaches a conclusion Ben reaches from the opposite direction and identifies a structural feature of Gavran's original containment work that Gavran himself missed. The intellectual sharpness is the threat. (If α was executed in s2, the ledger beat shortens to a one-paragraph coda — Ben reading the same entry as a reflexive return to her voice after seeing her in the flesh.)",
+  "why_now": "Final positioning before the second plot point. The chapter has shown arrival and the city; it has to end on the image that announces tomorrow without a word. The β ledger beat in the margin of the Torin-watching is the chapter's villain-presence anchor in the default drafting path — it keeps Veraine continuous with the reader across the Ch 16 meeting and the Ch 22 array-component encounter without requiring a direct scene.",
+  "conflict": "Nothing to do tonight but watch and wait. Ben watches Torin. Torin watches the Scar. Both of them know what the watching means, and neither says so. On Ben's datapad, Veraine's second ledger entry reaches a structural conclusion from her side of the work that Ben has not yet reached from his — and the fact that she is ahead of the Gavran-derived tradition on its own terms is a more specific threat than any threat she could have issued.",
   "conflict_type": "internal",
-  "turning_point": "Torin's expression. Not certainty, not determination — longing. Ben sees that longing and understands the timing of the next day without a single word being spoken.",
-  "opening_hook": "They make camp at the valley's edge. The Scar is visible from here — a thin line in the air that shouldn't be there. Torin hasn't looked away from it since they arrived.",
-  "closing_hook": "Night on Veranthos. The Scar visible against the stars — a line of absence in the sky. Torin standing at the camp's edge, looking down at the valley. His expression: peaceful, decided, already gone. Ben watches from the tent and knows: tomorrow.",
-  "emotional_trajectory": "Grim preparation -> watching Torin -> the terrible certainty of what's coming",
+  "turning_point": "Torin's expression. Not certainty, not determination — longing. Ben sees that longing and understands the timing of the next day without a single word being spoken. In the margin, the ledger entry's final sentence — Veraine's structural identification of the feature Gavran missed — sits unanswered on the screen.",
+  "opening_hook": "They make camp at the valley's edge. The Scar is visible from here — a thin line in the air that should not be there. Torin has not looked away from it since they arrived",
+  "closing_hook": "Night on Veranthos. The Scar visible against the stars — a line of absence in the sky. Torin standing at the camp's edge, looking down at the valley. His expression: peaceful, decided, already gone. Ben watches from the tent and knows: tomorrow. On the datapad beside him, Veraine's ledger entry still open — a mind at work, a mind ahead",
+  "emotional_trajectory": "Grim preparation -> watching Torin -> the terrible certainty of what is coming -> the adjacent weight of Veraine's working mind in the margin",
   "stakes": {
-    "personal": "Ben's last hours before the second plot point — the dread of recognition",
+    "personal": "Ben's last hours before the second plot point — the dread of recognition; Ben registering that Veraine is ahead of Gavran on Gavran's own ground",
     "interpersonal": "The group's fragile cohesion about to break",
-    "external": "Veraine at the epicenter, Torin about to move, the clock at zero"
+    "external": "Veraine at the epicenter, Torin about to move, the clock at zero; the structural feature Veraine has identified will pressure the Ch 25-26 decision without having been announced"
   },
   "characters_present": [
     "Ben Skywalker",
@@ -26,23 +26,32 @@
     "Kael Drenn"
   ],
   "setting": "Veranthos — valley edge camp, night, the Scar visible",
-  "sensory_details": "The Scar outlined against the stars — a line of absence in the sky; Torin's silhouette at the camp edge, motionless; the wound's pull constant and gravitational at close range; Veranthos's wrong night sounds — silence where there should be insects, a hum where there should be wind",
-  "canon_elements_needed": [],
+  "sensory_details": "The Scar outlined against the stars — a line of absence in the sky; Torin's silhouette at the camp edge, motionless; the wound's pull constant and gravitational at close range; Veranthos's wrong night sounds — silence where there should be insects, a hum where there should be wind; the datapad's low glow at Ben's knee; the ledger entry's diction — no contractions, academic syntax, short working sentences, precise, certain, minimal affect, unaddressed to any reader; the specific structural sentence at the entry's end — a single observation about a feature of Gavran's containment work Gavran himself did not name",
+  "canon_elements_needed": [
+    "Gavran-era containment theory — Weave-architecture structural feature (unnamed by Gavran, identified by Veraine)",
+    "Sith working-philosophy archive register (continuity with Ch 17 and Ch 19 ledger-fragments)"
+  ],
   "target_word_count": 1000,
   "action_beats": [
     "The group sets up camp at the valley's edge with the Scar visible below — a thin line of absence in the air",
-    "Torin stands at the camp perimeter and stares at the Scar with an expression that isn't fear but longing",
-    "Ben watches from the tent as Torin's silhouette stays motionless at the ridge edge through the falling dark"
+    "Torin stands at the camp perimeter and stares at the Scar with an expression that is not fear but longing",
+    "Ben watches from the tent as Torin's silhouette stays motionless at the ridge edge through the falling dark",
+    "DEFAULT (β path): Ben opens the datapad and reads the second Veraine ledger entry — working notes on the midpoint-era site, her reading of the technique-lineage fragment, a structural observation Gavran did not name. Ben reads it twice. He closes the file. He does not comment. CONDITIONAL (α-executed variant): Ben opens the same entry as a reflexive return after having seen her in the flesh, reads it once, and closes the file — the beat collapses to a single paragraph."
   ],
   "active_subplots": [
     "SP-A",
-    "SP1"
+    "SP1",
+    "SP2"
   ],
   "plot_threads_advanced": [
     "torin_longing_visible",
-    "tomorrow_is_the_day"
+    "tomorrow_is_the_day",
+    "veraine_ledger_evidence_beat_3_structural_insight",
+    "veraine_ahead_of_gavran_on_gavran_ground"
   ],
-  "promises_planted": [],
+  "promises_planted": [
+    "The structural feature Veraine identifies (plants Ch 20 s3, pressures the Ch 25-26 decision without having been announced)"
+  ],
   "promises_paid": [],
   "hook_actions": [
     {
@@ -52,5 +61,14 @@
   ],
   "revelations": [],
   "pov_arc_phase": "lie_challenged",
-  "notes": "H20 planted — Torin's longing expression. The chapter's final image must be held — no dialogue in this scene. Ben watches, Torin watches, the Scar is a line of absence outlined by light. Diagnostic-voice trap — Ben should not, in this scene, interior-paragraph his certainty about tomorrow. He watches, and the chapter ends on 'tomorrow.' One word of interiority; no explanation. Anti-pattern: no combat, no confrontation, no spoken argument; this is the chapter of the held breath."
+  "warmth_load_bearing": false,
+  "notes": "H20 planted — Torin's longing expression. The chapter's final image must be held — no dialogue in this scene. Ben watches, Torin watches, the Scar is a line of absence outlined by light. Per W2 Option α β-fallback, the ledger beat is the DEFAULT path at this scene; it sits in the margin of the Torin-watching as a second kind of attention. The two beats (Torin and Veraine) are architecturally parallel: both are things Ben cannot act on tonight, both are inevitable, both announce tomorrow. Per W2 anti-pattern, Veraine's ledger register is not addressed to any reader — no taunt, no framing; the entry is her working mind in its native register, continuous with Ch 17 and Ch 19. Per R14 voice_texture continuity, what changes between contexts is audience, not register; here the audience is herself-working. Per R11, Ben does not, in this scene, interior-paragraph his certainty about tomorrow or his response to the ledger entry. He watches, he reads, he closes the file. One word of interiority — 'tomorrow' — and no explanation. Per D7 Component B, Torin's direction is not over-signalled past Ben's perception; Ben sees longing, the narrator does not interpret it. Per R13, no Jacen naming in this scene. Voice: Zahn-tight for the physical frame; Luceno-register for the ledger diction; Bujold-interior permitted for the 'tomorrow' beat. Primary anchor: Bujold (Ben's one-word interior register); supporting anchor: Zahn (physical frame), Luceno (ledger-entry diction). Anti-patterns: (a) no dialogue in this scene — Torin's silhouette is the line; (b) no combat or confrontation; (c) the ledger entry's final sentence is quoted or paraphrased in the prose once — a single sentence of her diction is enough; (d) the chapter does not close on a line of dialogue — it closes on 'tomorrow' as Ben's interior word and the two parallel images (Torin against the stars, Veraine's file on the screen); (e) if α was executed in s2, the ledger beat collapses to one paragraph — a reflexive return to her voice rather than a new structural encounter.",
+  "primary_anchor": "Bujold",
+  "supporting_anchor": "Zahn, Luceno",
+  "stover_permitted": false,
+  "conditional_slot": {
+    "slot_id": "W2_Option_alpha_beta",
+    "default": "beta (full ledger entry at this scene)",
+    "alpha_interaction": "If W2 Option α was executed at Ch 20 s2, this scene's ledger beat collapses to a one-paragraph coda (reflexive return to her voice after having seen her in the flesh). If α was not executed (default), the full ledger entry is the scene's closing beat alongside the Torin-silhouette image."
+  }
 }

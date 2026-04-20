@@ -5,45 +5,57 @@
   "scene_type": "action",
   "scene_role": "reveal",
   "pov_character": "Ben Skywalker",
-  "mission": "Desh stares at the Corridor map with the amplification overlay. His expression goes clinical. 'I know what she built. I know how to break it.' Three critical nodes, a solo sabotage against Veraine's small crew guards, an amplification threshold that collapses under the failure of three carefully chosen antennas. Before anyone can ask, he volunteers.",
-  "why_now": "The group's plan cannot succeed as a Force-only operation. The amplification array has to drop below threshold, and Desh is the only person in the camp who can do it. His arc and the plan's mechanics converge in the same scene.",
-  "conflict": "Desh has been the operator, not the volunteer. The sabotage is solo, against armed opposition, and the three critical nodes are already Veraine's. Ben was prepared to ask. Desh gets there first.",
+  "mission": "Mid-morning. Ben, Sera, and Desh walk out to the nearest amplification array component — a relay mast Veraine has placed on a ridge a kilometre from camp. Ostensibly a reconnaissance run; practically the scene where the plan becomes concrete. Per W2 evidence-of-passage beat 4: Sera lays her hand on the mast's base and reads its design signature through both touch and her residual Force-lock expertise. The construction is hers. Not Brotherhood inheritance. Not scavenged. Designed — specific harmonic placement, bespoke resonance geometry, component choices no inheritor would have made the same way. Sera says only: 'This is her mind.' Ben and Desh register the statement's weight. Desh, having already seen three such components in the approach telemetry, processes the implications operationally — three critical nodes, a solo sabotage against Veraine's small crew guards, an amplification threshold that will collapse under the failure of three carefully chosen antennas. Before anyone can ask, he volunteers: 'That's my job. Let the Force-users do the Force thing. I'll handle the part that requires hands.' H14 resolves. The three who came out to the ridge walk back with a plan that has shape and with a deeper, unspoken recognition of what kind of opponent they are engaging.",
+  "why_now": "The group's plan cannot succeed as a Force-only operation. The amplification array has to drop below threshold, and Desh is the only person in the camp who can do it. His arc and the plan's mechanics converge in the same scene. Sera's direct encounter with Veraine's design work pays W2 evidence-of-passage beat 4 at the moment the group is closest to her work and has to act against it; the beat cannot be later without losing the operational meaning it acquires here.",
+  "conflict": "Desh has been the operator, not the volunteer. The sabotage is solo, against armed opposition, and the three critical nodes are already Veraine's. Ben was prepared to ask. Desh gets there first. Sera's hand on the mast delivers a quieter conflict: the reality that Veraine is not borrowing from the past — she is exceeding it. The group's opponent is a mind at its own height, using the Brotherhood's legacy as raw material rather than as authority.",
   "conflict_type": "external",
-  "turning_point": "Desh volunteers before anyone asks. 'That's my job. Let the Force-users do the Force thing. I'll handle the part that requires hands.' The arc's new-truth beat as a single line.",
-  "opening_hook": "Desh stares at the Corridor map with the amplification overlay and his expression goes very still. 'I know what she built. I know how to break it.'",
-  "closing_hook": "Two plans, both dependent on trust: the resonance trio needs Kael; the sabotage needs Desh alone against armed opposition. Both plans fail without both parts.",
-  "emotional_trajectory": "Tactical revelation -> Desh's willing commitment -> the interlocking dependency",
+  "turning_point": "Sera's hand on the mast base. Her face changes. 'This is her mind.' Ben registers the four words and his estimate of the book's remaining difficulty resets. Desh volunteers before anyone asks. 'That's my job. Let the Force-users do the Force thing. I'll handle the part that requires hands.' Two turns, one walk.",
+  "opening_hook": "The three of them walk the kilometre to the ridge-mast in silence that is not uncomfortable. Ben has the Codex notes folded in a pocket that does not matter. Sera's stride matches Desh's on ground neither of them grew up on",
+  "closing_hook": "Two plans, both dependent on trust: the resonance trio needs Kael; the sabotage needs Desh alone against armed opposition. Both plans fail without both parts. Sera's hand on the mast base still echoing in Ben's chest",
+  "emotional_trajectory": "Tactical approach to the mast -> Sera's silent read -> her four-word verdict -> Desh's willing commitment -> the interlocking dependency",
   "stakes": {
-    "personal": "Desh's arc lands — the choice unmistakable",
-    "interpersonal": "The group becoming a genuine team through voluntary specialisation",
-    "external": "The two-pronged plan is the only path to defeating Veraine and saving the seal"
+    "personal": "Desh's arc lands — the choice unmistakable; Sera's expertise directly shaping the group's understanding of their opponent for the second book-level time (first: Ch 21 s1)",
+    "interpersonal": "The group becoming a genuine team through voluntary specialisation; Sera's expert read landing as a statement the others receive without answering",
+    "external": "The two-pronged plan is the only path to defeating Veraine and saving the seal; Veraine's design-authorship of the array is now a felt fact, not a deduced one"
   },
   "characters_present": [
     "Ben Skywalker",
     "Desh Rolan",
     "Sera Varik"
   ],
-  "setting": "Veranthos — camp, tactical planning with Corridor data",
-  "sensory_details": "The amplification array visible on the map — a web of repurposed nodes pointing at Veranthos; Desh's analyst calm overlaid with a personal steadiness that is new; dawn approaching, the window for the run narrowing",
-  "canon_elements_needed": [],
+  "setting": "Veranthos — ridge a kilometre from camp, nearest amplification array component (a relay mast)",
+  "sensory_details": "The mast itself — taller than expected, components that do not quite match any manufacturer's standard loadout, the specific curvature of the resonance antennas hand-shaped rather than stamped; the base-plate's harmonic geometry subtle enough that only a trained eye finds it; Sera's hand flat against the base-plate, palm warming on the metal, the specific micro-shift of her face when a design-signature resolves; the small Dantari exhalation she releases when she finishes reading; Desh at the edge of the clearing with his datapad open, approach-telemetry overlaid on the array schematic, three component-locations lighting up as his fingers trace them; the ridge wind; the valley beyond with the Scar visible as a line of heat shimmer without heat; Ben's own hand on the Codex-notes pocket without taking them out",
+  "canon_elements_needed": [
+    "Sith design-signature theory for Force-amplification architecture",
+    "Brotherhood-of-Darkness inheritance conventions (for what Veraine's signature is deviating from)",
+    "Dantari Force-lock material-reading technique"
+  ],
   "target_word_count": 1200,
   "action_beats": [
-    "Desh stares at the Corridor map with the amplification overlay and his expression goes clinical — intelligence analyst, not friend",
-    "Desh traces the three critical nodes on the map and outlines his solo sabotage approach",
-    "Desh volunteers before anyone asks — straightening from the map table with his decision already made"
+    "The three walk the kilometre to the relay mast on the ridge in uncomfortable but not uncomforted silence",
+    "Sera circles the mast once, lays her hand flat on the base-plate, and closes her eyes briefly; Ben watches her face change",
+    "Sera says, without opening her eyes: 'This is her mind.' She does not elaborate",
+    "Desh, at the clearing's edge, finishes tracing the three critical component-locations on his datapad; his expression goes clinical",
+    "Desh volunteers before anyone asks — straightening from the datapad with his decision already made: 'That's my job. Let the Force-users do the Force thing. I'll handle the part that requires hands.'",
+    "The three walk back toward camp. None of them comments on Sera's four words. All three of them are carrying the weight"
   ],
   "active_subplots": [
     "SP-A",
-    "SP3",
-    "SP5"
+    "SP1",
+    "SP2",
+    "SP3"
   ],
   "plot_threads_advanced": [
     "amplification_array_understood",
     "desh_volunteers",
-    "two_pronged_plan"
+    "two_pronged_plan",
+    "veraine_evidence_beat_4_design_signature",
+    "sera_expert_read_as_characterization_vehicle"
   ],
   "promises_planted": [],
-  "promises_paid": [],
+  "promises_paid": [
+    "Veraine's intellect rendered through her material thinking, not through dialogue (pays W2 evidence-of-passage architecture beat 4 of 5)"
+  ],
   "hook_actions": [
     {
       "hook_id": "H14",
@@ -52,5 +64,9 @@
   ],
   "revelations": [],
   "pov_arc_phase": "moment_of_truth",
-  "notes": "Desh's arc new-truth beat — volunteers unasked. The former GAG operative choosing the dangerous task. Do not have Ben or Sera articulate the arc on-page; Desh's straightening from the map and his line about hands deliver the work. Voice: Zahn-procedural with one permitted Allston-quiet beat on Desh's volunteer line. Anti-pattern: no speech from Desh about why; the decision is structural, his line is short."
+  "warmth_load_bearing": false,
+  "notes": "Desh's arc new-truth beat — volunteers unasked. The former GAG operative choosing the dangerous task. Do not have Ben or Sera articulate the arc on-page; Desh's straightening from the datapad and his line about hands deliver the work. Per W2 evidence-of-passage beat 4, the array-component encounter is physical (walk, hand on the base, one sentence from Sera), sensory, and unnarrated beyond the line itself. Sera's 'This is her mind' is said once; Ben does not reply in dialogue. He registers. Per W2 anti-pattern, the encounter does not include any discovered message from Veraine — no etched initial, no ledger page left at the mast, no taunt. Her design IS the encounter; the intellect is in the geometry. Per R14 voice_texture, Veraine's continuity across contexts is here rendered not through her voice at all, but through her hands' output — the same working mind, in material. Per R11, Ben does not paragraph his response to Sera's read — he registers, the scene moves. Per D7 Component B, Torin is off-page; no reference to his direction. Per D3, Weave terminology continuity — 'harmonic placement,' 'resonance geometry.' Voice: Zahn-precise for the walk and the design-reading; Bujold-interior for one quiet beat at Sera's hand on the mast (her discovery registering through Ben's close-third, not through her interiority); Allston-quiet for Desh's volunteer line. Primary anchor: Zahn (procedural frame); supporting anchor: Bujold (Sera's discovery rendered through Ben), Allston (Desh's understatement). Anti-patterns: (a) no lecture on array mechanics — the reader feels the intellect through the hand on the base and Sera's line; (b) no speech from Desh about why; the decision is structural, his line is short; (c) Sera's 'This is her mind' is said once, not repeated; (d) no taunt from Veraine at the mast — no message, no signature, no audience-address; (e) the scene does not close on dialogue — closes on the three walking back, each carrying the weight.",
+  "primary_anchor": "Zahn",
+  "supporting_anchor": "Bujold, Allston",
+  "stover_permitted": false
 }

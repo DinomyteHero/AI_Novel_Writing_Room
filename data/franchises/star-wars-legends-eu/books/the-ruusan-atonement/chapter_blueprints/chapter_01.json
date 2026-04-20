@@ -34,7 +34,7 @@
     "advanced": ["H01"],
     "resolved": []
   },
-  "subplot_obligations": ["SP-A", "SP3", "SP4"],
+  "subplot_obligations": ["SP-A", "SP3"],
   "relationship_turns": [
     {
       "dyad": "Ben/Luke",
@@ -50,5 +50,5 @@
   "pacing_curve": "rising",
   "exit_vector": "Ben in hyperspace, wrongness pulling not just pointing — active, not ambient. The chapter ends on unconscious pursuit disguised as a routine survey.",
   "chapter_word_target": 3750,
-  "notes": "H01 is planted in scene 2 (Luke's mission brief) and advanced in scene 3 (Ben acts on it by departing). R01 lands at the close of scene 3 — the wrongness acquires direction during hyperspace transit, which it shouldn't. The chapter's emotional spine is Ben's Lie (self-reliance as control) expressed through three escalating isolation choices: sparring alone, accepting the mission without suggesting backup, calling Desh instead of a Jedi. SP-A runs through all three scenes; SP4 lives in scenes 1-2 (Ben's institutional distance from the Order); SP3 enters in scene 3 with Desh. Voice anchor: Zahn-style tight third-person interiority throughout; Ben's internal voice sharp and self-deprecating, never melodramatic. Anti-patterns at chapter level: do not describe the wrongness in visual/color terms (keep auditory/vibrational); do not resolve the father-son distance (that's the novel's long arc)."
+  "notes": "H01 is planted in scene 2 (Luke's mission brief) and advanced in scene 3 (Ben acts on it by departing). R01 lands at the close of scene 3 — the wrongness acquires direction during hyperspace transit, which it shouldn't. The chapter's emotional spine is Ben's Lie (self-reliance as control) expressed through three escalating isolation choices: sparring alone, accepting the mission without suggesting backup, calling Desh instead of a Jedi. SP-A runs through all three scenes; merged SP3 (per D5) covers both the institutional distance from the Order in scenes 1-2 and Ben's relationship with Desh arriving in scene 3. Voice anchor: Zahn-style tight third-person interiority throughout; Ben's internal voice sharp and self-deprecating, never melodramatic. Anti-patterns at chapter level: do not describe the wrongness in visual/color terms (keep auditory/vibrational); do not resolve the father-son distance (that's the novel's long arc)."
 }

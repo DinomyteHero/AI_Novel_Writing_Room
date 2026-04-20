@@ -5,18 +5,18 @@
   "scene_type": "action",
   "scene_role": "escalation",
   "pov_character": "Ben Skywalker",
-  "mission": "The empty chamber investigation. Monitoring logs identify the escapee: Darth Veraine, Brotherhood alchemist and strategist, flagged by Gavran as the highest-risk anchor. She escaped weeks ago. She is already moving.",
-  "why_now": "The dual threat becomes legible here — a failing seal and someone who understands the technique. The race starts in this scene.",
-  "conflict": "Veraine was not merely a prisoner. She was a strategist. The logs show she spent days in the fortress after she woke, read the archive, understood the system, and left with a plan. The evidence of her patience is the thing that frightens Sera and Torin worst.",
+  "mission": "The empty chamber as unresolved mystery. An anchor escaped. The archive cannot tell Ben who — the monitoring logs are heavily corrupted in the relevant window, the survivors saw only the chamber after the fact, and no one in the room can name the occupant. The absence has shape without a name. Per D8 Veraine identification defers to Ch 6 s1 (monitoring-log analysis resolves the name in response-quadrant). Per D7, Torin's H06 plant lands in this scene — a small unsettling inflection that Ben registers and files.",
+  "why_now": "The archive revelation of R04a has set the foundation; now the physical evidence of an already-loose anchor gives the revelation its forward pressure. The mystery of the escapee is what pulls Ben off-ridge toward the Corridor.",
+  "conflict": "The chamber shows systematic, patient escape — centuries of work, methodical, intelligent. Ben needs a name and the archive will not give him one. Sera examines the erosion pattern and is visibly thrown by what she sees. Torin, who should be reading the residue most clearly, says something mildly wrong — a single beat of inflection Ben cannot quite place, which seeds H06 per D7 without telegraphing.",
   "conflict_type": "external",
-  "turning_point": "Desh maps Veraine's post-escape movement through the fortress — she accessed every relevant terminal before she left. Kael's reaction when her name resolves on the display is the scene's quietest and most important beat.",
-  "opening_hook": "The monitoring logs for the empty chamber span centuries — a slow, patient record of something working its way out from inside.",
-  "closing_hook": "Veraine escaped weeks ago. She has had time to recover, acquire resources, and start moving along the Corridor. The race has already begun — and they are behind.",
-  "emotional_trajectory": "Investigative tension -> dawning horror at Veraine's capabilities -> urgency",
+  "turning_point": "Ben understands that whoever escaped has had time to move and has been moving. The question of who is deferred; the question of how far is immediate. The escapee is already out there. H06 plants through Torin — a warmth-adjacent line that sits one degree off from where it should.",
+  "opening_hook": "The monitoring logs for the empty chamber span centuries — a slow, patient record of something working its way out from inside. The readable portions end abruptly two months back. The rest is corrupted in a way Desh does not like",
+  "closing_hook": "An escapee without a name. Two months of silence on the logs. Torin's one inflection that Ben cannot quite place. Ben tells Desh to pull every monitoring packet and start reconstructing — answer first light",
+  "emotional_trajectory": "Investigative tension -> dawning unease at the scope of what has already happened -> forward pressure",
   "stakes": {
-    "personal": "Ben is now responsible for stopping someone with a thousand years of Sith knowledge",
-    "interpersonal": "Kael's reaction to Veraine's file — recognition, then studied blankness. He knew her, or knew of her.",
-    "external": "A Sith alchemist with knowledge of the forbidden technique is already exploiting the seal's failure"
+    "personal": "Ben is now responsible for stopping someone who has already been moving for weeks without the galaxy knowing",
+    "interpersonal": "Torin's faintly-off inflection registers for Ben as a warmth detail that does not quite sit; he does not interpret it, he files it",
+    "external": "The seal is failing and an anchor is already loose in the Corridor"
   },
   "characters_present": [
     "Ben Skywalker",
@@ -26,43 +26,50 @@
     "Kael Drenn"
   ],
   "setting": "Fortress Level 3 — the empty chamber, then monitoring station on Level 1",
-  "sensory_details": "Damage inside the empty chamber not frantic but systematic — deliberate erosion carried on for centuries; Gavran's monitoring flags lit red and unanswered; the residue Veraine left in the Force different in quality from the three survivors — still, analytical, patient in a way that makes Ben's shoulders tighten",
+  "sensory_details": "Damage inside the empty chamber not frantic but systematic — deliberate erosion carried on for centuries; Gavran's monitoring flags lit red and unanswered; the residue the escapee left in the Force different in quality from the three survivors — still, analytical, patient in a way that makes Ben's shoulders tighten; Torin's breath at the doorway, a half-smile at something Ben cannot see",
   "canon_elements_needed": [
-    "Sith alchemy in Legends EU tradition and capabilities",
     "Force-user containment and imprisonment methods",
-    "Brotherhood of Darkness era Sith training and specializations",
-    "Stasis chamber escape mechanics and Force erosion techniques",
-    "Darth title usage and Sith identity in the Brotherhood era"
+    "Brotherhood of Darkness era stasis infrastructure",
+    "Stasis chamber escape mechanics and Force erosion techniques"
   ],
   "target_word_count": 1200,
   "action_beats": [
-    "Ben pulls up Veraine's chamber monitoring logs on the flickering display",
-    "Desh catalogues signs of Veraine's post-escape activity — accessed terminals, moved equipment, supplies taken",
-    "Kael picks up Veraine's abandoned data tablet, examines it, then sets it down with deliberate care",
-    "Ben overlays Veraine's activity timestamps on the fortress map, tracing her methodical movements through every level"
+    "Ben pulls up the empty chamber's monitoring logs on the flickering display — readable until two months ago, corrupted after",
+    "Desh catalogues signs of the escapee's post-escape activity — accessed terminals, moved equipment, supplies taken — without being able to put a name on the pattern",
+    "Sera examines the erosion marks and her precision-register breaks for a half-second; she steadies, does not explain",
+    "Torin stands at the doorway and makes a small warmth-adjacent observation that is one inflection off — H06 plants. Ben registers it the way one registers a wrong note in familiar music and does not yet have a place to put it",
+    "Ben overlays the escapee's activity timestamps on the fortress map — the pattern is methodical, the name is withheld, the Corridor is the direction"
   ],
   "active_subplots": [
     "SP-A",
-    "SP5",
+    "SP3",
     "SP2"
   ],
   "plot_threads_advanced": [
-    "veraine_identified",
-    "veraine_already_moving",
-    "kael_veraine_parallel_seeded"
+    "escapee_exists_unnamed",
+    "escapee_already_moving",
+    "torin_h06_planted"
   ],
   "promises_planted": [
-    "Veraine is ahead and methodical (PP06)",
-    "Veraine's philosophy will be coherent and unsettling (PP16)"
+    "Someone is ahead and methodical (PP06)",
+    "Torin's direction is not quite what it appears (PP07 / H06)"
   ],
   "promises_paid": [],
   "hook_actions": [
     {
       "hook_id": "H05",
       "action": "plant"
+    },
+    {
+      "hook_id": "H06",
+      "action": "plant"
     }
   ],
   "revelations": [],
   "pov_arc_phase": "lie_reinforced",
-  "notes": "H05 is hard — the race begins. Kael's reaction to Veraine's file is the load-bearing small beat of this scene: noticeable but unexplained, he recognises her without saying so. Ben notices and files it and does not yet have a place to put it. Do not resolve it here. Diagnostic-voice trap — Ben should not, in this scene, construct Veraine's philosophy from her activity pattern. He reads behaviour (she studied, she planned, she moved methodically) and feels the patience in the residue she left behind. Articulating her thesis is Ch16's work, not Ch5's."
+  "warmth_load_bearing": true,
+  "notes": "Per D8, Veraine is not identified in this scene — the name lands in Ch 6 s1 as response-quadrant opening. Hold the tension valve: the reader ends Ch 5 with an unnamed escapee. Per D7, Torin's H06 plant in this scene is the loudest telegraph that survives the restructure — and even here it is restrained: a single inflection off, Ben files it, no narrator correction. The narrator does not over-signal Torin's direction past Ben's perception. Per R12, Torin's warmth in the preceding beats must preserve the register-establishing quality; the H06 inflection registers as a tiny dissonance within that warmth, not as a separate voice. Kael's reaction is a quiet watch, not a recognition scene — any Kael/Veraine parallel land fully only once Veraine is named at Ch 6 s1. Ben does not analyze Veraine's philosophy — she has no name yet. He reads behaviour (studied, planned, moved methodically) and the patience in the residue. Per R11, Ben's register is first-approximation; the later Ben would name patterns this Ben cannot yet. Primary anchor: Zahn (investigative clarity). Supporting anchor: Bujold (Ben's interior registering of the wrong note in Torin's voice). Stover not permitted this scene. Anti-patterns: (a) do not name Veraine; (b) do not resolve Torin's off-inflection; (c) do not articulate the escapee's thesis or philosophy; (d) do not have Kael visibly react to a name he has not heard.",
+  "primary_anchor": "Zahn",
+  "supporting_anchor": "Bujold",
+  "stover_permitted": false
 }

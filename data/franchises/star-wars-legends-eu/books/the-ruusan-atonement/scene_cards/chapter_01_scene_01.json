@@ -20,7 +20,8 @@
   },
   "characters_present": [
     "Ben Skywalker",
-    "Jedi Knight (sparring partner)"
+    "Rendell (Jedi Knight, sparring partner)",
+    "Luke Skywalker"
   ],
   "dialogue_expectation": "interior",
   "setting": "Jedi Temple, Coruscant — training salle, late evening session",
@@ -41,7 +42,7 @@
   ],
   "active_subplots": [
     "SP-A",
-    "SP4"
+    "SP3"
   ],
   "plot_threads_advanced": [
     "wrongness_established",

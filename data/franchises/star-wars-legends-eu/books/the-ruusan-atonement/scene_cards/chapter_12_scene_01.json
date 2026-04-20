@@ -5,14 +5,14 @@
   "scene_type": "action",
   "scene_role": "hook",
   "pov_character": "Ben Skywalker",
-  "mission": "Sera works Gavran's personal seal for twelve unbroken minutes while the group waits. It opens on dust, stone, and stale sealed air. The flexible lattice here is different from previous thin places — seductive, not disorienting. Ben stands in the training circle and feels both aspects of the Force simultaneously without contradiction. For a breath, it is beautiful. Torin walks to the centre and stands still; his Force presence settles.",
+  "mission": "Sera works Gavran's personal seal for twelve unbroken minutes while the group waits. It opens on dust, stone, and stale sealed air. The flexible Weave here is different from previous thin places — seductive, not disorienting. Ben stands in the training circle and feels both aspects of the Force simultaneously without contradiction. For a breath, it is beautiful. Torin walks to the centre and stands still; his Force presence settles.",
   "why_now": "H11 has been waiting for its payoff across two chapters. Maetha's facility is the most psychologically intense Corridor stop, and Ben's first direct experience of the technique's seduction has to land before the midpoint makes the argument impossible.",
-  "conflict": "The flexible lattice offers what the rigid binary refuses — a shimmer that looks like possibility. Ben has to work inside it without letting the work become pleasure. Torin lets the work become pleasure and the group registers the difference without a word.",
+  "conflict": "The flexible Weave offers what the rigid binary refuses — a shimmer that looks like possibility. Ben has to work inside it without letting the work become pleasure. Torin lets the work become pleasure and the group registers the difference without a word.",
   "conflict_type": "environmental",
   "turning_point": "Ben steps into the central training circle. For a breath, the light and dark arrive together without cancelling. The beauty of it is the danger — he understands why the Caldera Knights kept coming back.",
   "opening_hook": "Sera works the lock for twelve minutes. When it opens, the air that flows out carries dust, stone, and the stale weight of a sealed space.",
   "closing_hook": "The archive chamber. Sera recognizes the seal pattern — personal, not military. Maetha sealed her own records. The final message of a woman who dismantled her own creation.",
-  "emotional_trajectory": "Cautious entry -> the seduction of the flexible lattice -> sobered focus at the archive",
+  "emotional_trajectory": "Cautious entry -> the seduction of the flexible Weave -> sobered focus at the archive",
   "stakes": {
     "personal": "Ben experiencing the technique's appeal firsthand — intellectual warning was insufficient armor",
     "interpersonal": "Torin's reaction in the training ground — more at ease than anywhere else on the journey",
@@ -26,12 +26,12 @@
     "Desh Rolan"
   ],
   "setting": "Maetha's Training Facility — compound of structures around central training ground, high-altitude, thin forests",
-  "sensory_details": "The flexible lattice — light and dark present, their boundary shimmering with the suggestion of choice; the training circle still holding the resonance of centuries of practice; austere geometric architecture; Desh nursing a persistent low-level headache since arrival",
+  "sensory_details": "The flexible Weave — light and dark present, their boundary shimmering with the suggestion of choice; the training circle still holding the resonance of centuries of practice; austere geometric architecture; Desh nursing a persistent low-level headache since arrival",
   "canon_elements_needed": [],
   "target_word_count": 1300,
   "action_beats": [
     "Sera presses her palms against Gavran's seal and works the Force-lock for twelve unbroken minutes while the group waits in silence",
-    "Ben steps into the central training circle and feels the lattice flex — light and dark present simultaneously",
+    "Ben steps into the central training circle and feels the Weave flex — light and dark present simultaneously",
     "Torin walks to the center of the training ground and stands perfectly still, his Force presence settling like someone arriving home"
   ],
   "active_subplots": [
@@ -53,5 +53,5 @@
   ],
   "revelations": [],
   "pov_arc_phase": "lie_reinforced",
-  "notes": "The flexible lattice must feel genuinely appealing on the page — the reader needs to understand why intelligent people kept coming back to it. Rotate Force-wrongness metaphor family for this scene: gravity/pull/shimmer registers rather than handrail or flat-note. One consistent image per scene (the shimmer at the boundary), no stacked metaphors. Diagnostic-voice trap — Ben should not, in this scene, articulate why the lattice here is seductive. He steps in, he feels it, he notices his body enjoying it, he steps out. The reader experiences the one-second beauty without an interior paragraph explaining it. Torin's arc: lie_reinforced — the ease here is the chapter's quietest warning."
+  "notes": "The flexible Weave must feel genuinely appealing on the page — the reader needs to understand why intelligent people kept coming back to it. Rotate Force-wrongness metaphor family for this scene: gravity/pull/shimmer registers rather than handrail or flat-note. One consistent image per scene (the shimmer at the boundary), no stacked metaphors. Diagnostic-voice trap — Ben should not, in this scene, articulate why the Weave here is seductive. He steps in, he feels it, he notices his body enjoying it, he steps out. The reader experiences the one-second beauty without an interior paragraph explaining it. Torin's arc: lie_reinforced — the ease here is the chapter's quietest warning."
 }

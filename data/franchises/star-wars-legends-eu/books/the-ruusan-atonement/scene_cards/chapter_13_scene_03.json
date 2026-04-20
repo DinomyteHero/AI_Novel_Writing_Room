@@ -5,18 +5,18 @@
   "scene_type": "sequel",
   "scene_role": "decision",
   "pov_character": "Ben Skywalker",
-  "mission": "Ben shifts from reactive to proactive. The breach was a field test; Veraine is heading for Veranthos. The group names what she has been doing — engineering, not studying — and Ben stops deferring and sets the new agenda.",
-  "why_now": "Midpoint turn. The story cannot pursue Veraine one more node at her pace; the group has to get ahead of her, and Ben has to be the one who speaks it first.",
-  "conflict": "Ben's instinct is still solo-control. The breach has made solo impossible and he has not yet made the full shift to 'we need a plan.' The scene's quiet argument is between the single-pronoun and plural-pronoun versions of the sentence he is forming.",
+  "mission": "Single-action midpoint pivot. The Steady Returns lifts from Kolven. Ben is scheduled to comms-back to Luke at departure — the routine mission check-in he has honored every time. He looks at the comm panel. He does not make the call. No declaration. No agenda speech. He closes the panel and looks out the viewport. Desh sees — does not speak of it. Sera sees — does not ask. The silence holds. Per D6 Fix 3, the scene is thinned to this one action. The intellectual naming of Veraine's engineering defers to Ch 14 s1.",
+  "why_now": "The midpoint turn is experiential, not declarative. The breach taught Ben what full unweaving is and what is coming. He has two pieces of body-knowledge (array-dependency and cascade-acceleration seed) and one pattern he cannot yet name. The routine Luke check-in is the smallest act Ben could refuse; refusing it is therefore the pivot with the least narration and the most consequence.",
+  "conflict": "Every reflex Ben has trained tells him to make the call. He is scheduled. He has always called. Luke will notice. Luke will ask. Ben sits with the panel open and feels the two answers that are now possible — the account Luke's intervention would produce versus the account the group has to assemble for itself — and chooses the silence. The choice is not a decision about leadership. It is a decision about who Ben can trust with the Force-reading he has just been through.",
   "conflict_type": "internal",
-  "turning_point": "Ben pulls up the Corridor map and traces a route that does not follow Veraine but cuts ahead of her. He turns to the five people in the cockpit. The order he gives is the first proactive order of the mission.",
-  "opening_hook": "Back aboard the Steady Returns, the breach zone shrinking behind them, Ben's hands are shaking. Not from the de-structuring. From the decision forming in his mind.",
-  "closing_hook": "Veraine is heading for Veranthos. She's days ahead. Ben looks at his crew — battered, frightened, argumentative. 'We need a plan.'",
-  "emotional_trajectory": "Shaken aftermath -> crystallizing resolve -> first proactive leadership",
+  "turning_point": "Ben closes the comm panel without making the call. That is the whole beat.",
+  "opening_hook": "Back aboard the Steady Returns, the breach zone shrinking behind them. The comm panel to Luke sits open on Ben's console. It has been open for thirteen minutes",
+  "closing_hook": "Ben closes the panel. Desh sees. Sera sees. Neither speaks. The Weave restored outside the viewport feels like an instrument Ben is no longer sure he knows how to read. The unopened channel is the last image of the chapter",
+  "emotional_trajectory": "Shaken aftermath -> the pressure of the routine check-in -> the held breath at the open panel -> the closed panel",
   "stakes": {
-    "personal": "Ben's identity moving from the son carrying his father's legacy into the commander the room has needed",
-    "interpersonal": "The group needs Ben to lead, not just facilitate",
-    "external": "Veraine heading for Veranthos with a tested methodology"
+    "personal": "Per D1 Trauma Lie under test, Ben is making the first specific decision that enacts the Lie rather than passively carrying it. Not calling Luke is not self-reliance as concept — it is a named act whose cost is visible in his hands",
+    "interpersonal": "Desh and Sera register the withholding without speaking. The relationship turns (Ben/Desh verified; Sera/Torin unresolved-not-resolved; Kael/Group shared-witness) land implicitly in proximity, speech order, and the texture of silence",
+    "external": "The call that would have pulled the mission into Luke's response window does not happen; Ben's route-decisions in Ch 14 onward will proceed without that institutional weight"
   },
   "characters_present": [
     "Ben Skywalker",
@@ -25,25 +25,29 @@
     "Torin Hal",
     "Kael Drenn"
   ],
-  "setting": "Aboard the Steady Returns — cockpit, departure from the breach zone",
-  "sensory_details": "Ben's hands shaking on the copilot's controls; the lattice restored but feeling fragile after Kolven — he knows now what its absence weighs; Desh's steady hands beside his; five faces packed into the small cockpit",
-  "canon_elements_needed": [],
-  "target_word_count": 1400,
+  "setting": "Aboard the Steady Returns — cockpit, departure from Kolven",
+  "sensory_details": "The comm panel open on Ben's console, the routing to Luke's office highlighted in institutional blue; Ben's hand on the armrest, not moving; the Weave restored outside the viewport feeling like an instrument Ben is no longer sure he knows how to read; Desh's hands on the controls, steady; Sera's reflection in the viewport glass, looking at the panel, then away",
+  "canon_elements_needed": [
+    "Jedi Order mission check-in protocol",
+    "Luke Skywalker's standing comm frequency for Ben"
+  ],
+  "target_word_count": 1100,
   "action_beats": [
-    "Ben grips the copilot's controls with shaking hands as the breach zone shrinks in the viewport behind them",
-    "Ben pulls up the Corridor map and traces a new route — not following Veraine's trail but cutting ahead to intercept",
-    "Ben turns to face the five people crammed into the cockpit and speaks the first proactive order of the mission"
+    "Ben opens the scheduled comm panel to Luke at departure; the routine is thirteen minutes old",
+    "Ben does not speak. The panel waits. Thirty seconds. A minute. Three",
+    "Ben closes the panel. He looks out the viewport"
   ],
   "active_subplots": [
     "SP-A",
-    "SP5"
+    "SP3"
   ],
   "plot_threads_advanced": [
-    "ben_goes_proactive",
-    "veranthos_race_begins",
-    "plan_needed"
+    "luke_checkin_refused",
+    "ben_midpoint_pivot_embodied"
   ],
-  "promises_planted": [],
+  "promises_planted": [
+    "The unmade Luke call (plants Ch 13, pays at Ch 14 Luke-pressure and Ch 28 s2 'And you didn't call me')"
+  ],
   "promises_paid": [],
   "hook_actions": [
     {
@@ -53,5 +57,9 @@
   ],
   "revelations": [],
   "pov_arc_phase": "lie_challenged",
-  "notes": "H13 planted — Veraine heading for Veranthos. Midpoint turn lands: Ben is no longer asking what happened but deciding what to do. He is still thinking partly in 'I' rather than 'we' — the final crossing is Ch21. Diagnostic-voice trap — Ben should not, in this scene, narrate his own leadership transformation. The scene records his shaking hands and the order he speaks, not an interior paragraph about the shift. The 'we need a plan' line is the exit; the chapter does not continue past it. Voice: Zahn-procedural, clipped, the kind of scene where the dialogue is shorter than the breath between lines."
+  "warmth_load_bearing": false,
+  "notes": "Per D6 Fix 2, Ben's pivot is behavioral, not verbal. He does not announce an agenda. He does not speak the sentence 'We need a plan.' The original 'We need a plan' line is removed per the D6 restructure — the chapter does not end on that line. Per D6 Fix 3, the scene is thinned to the single action: opening the panel, not making the call, closing the panel. Relationship turns register implicitly in Desh's hands and Sera's reflection and Kael's silence and Torin's stillness. Hook resolutions land through the action itself — H13 plants through the fact that Ben is now choosing route-decisions without Luke's institutional input. Per R11, Ben does not, in this scene, narrate his own leadership transformation. The scene records his hand on the armrest not moving, the open panel, the closed panel. Interiority stays inside the practical math of 'what could I say that Luke would believe and what would he do with it,' not inside a labelled shift. Per D7 Component B, the narrator does not over-signal Torin's direction — Torin is still in this scene, still unreadable per s2's choice, and the s3 beat is about Ben, not about Torin. Per the extended_metadata.jacen_parallel touchpoint 3, the unmade call is the earliest specific instance that will pay off against Luke's 'And you didn't call me' line in Ch 28 s2 — this scene is the specific earliest instance the reader remembers. Per D3, the Weave terminology is consistent — 'the Weave restored outside the viewport.' Voice: Zahn-tight procedural with Bujold-interior for the held beat at the open panel. One permitted short Bujold paragraph of Ben's interior register — self-aware without self-pity, aware of the pattern he is entering without naming it. No Stover here; this scene is the quiet after the Stover-dense s2. Primary anchor: Bujold (Ben's interior register of the choice); supporting anchor: Zahn (cockpit procedural frame). Anti-patterns: (a) do not have Ben say 'We need a plan'; (b) do not have Ben narrate his leadership shift; (c) do not have Desh or Sera comment aloud on the unmade call; (d) do not close the chapter on a line of dialogue — close on the unopened channel and the viewport.",
+  "primary_anchor": "Bujold",
+  "supporting_anchor": "Zahn",
+  "stover_permitted": false
 }

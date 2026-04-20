@@ -1,7 +1,7 @@
 {
   "chapter_number": 22,
-  "chapter_mission": "Build the plan. Ben and Sera translate Ankhural's resonance theory into a practical approach. Desh sees the shape of Veraine's amplification array and volunteers for the sabotage before anyone asks. Ben prepares the hardest Skywalker move — inviting rather than commanding — as he sets out to approach Kael.",
-  "chapter_turn": "The solution has shape. Two plans that only work together, and three commitments already given — Ben, Sera, Desh. Ben stops leading by decree and starts leading by assembly. The gap between him and Gavran is narrowing into a question of how he asks the one person whose 'no' would end the book.",
+  "chapter_mission": "Build the plan. Ben and Sera translate Ankhural's resonance theory into a practical approach. Per W2 evidence-of-passage beat 4: the group inspects a nearby amplification array component — passing through or adjacent to Veraine's tool becomes a direct sensory encounter with her mind. Sera reads its design signature as characteristically hers (not pieced together from Brotherhood inheritance — designed). Desh sees the shape of the array and volunteers for the sabotage before anyone asks. Ben prepares the hardest Skywalker move — inviting rather than commanding — as he sets out to approach Kael.",
+  "chapter_turn": "The solution has shape. Two plans that only work together, and three commitments already given — Ben, Sera, Desh. Ben stops leading by decree and starts leading by assembly. Veraine's presence is no longer abstract — the group has now physically touched a component of her thinking and can feel the intellect that built it. The gap between Ben and Gavran is narrowing into a question of how he asks the one person whose 'no' would end the book.",
   "structural_phase": "resolution",
   "pov_allocation": ["Ben Skywalker"],
   "scene_count": 3,
@@ -18,14 +18,14 @@
       "role": "reveal",
       "dialogue_expectation": "balanced",
       "target_word_count": 1200,
-      "purpose": "Desh staring at the Corridor map with the amplification overlay. His expression goes clinical. 'I know what she built. I know how to break it.' Three critical nodes, a solo sabotage against Veraine's small crew guards, an amplification threshold that will collapse under the failure of three carefully chosen antennas. Before anyone can ask, he volunteers: 'That's my job. Let the Force-users do the Force thing. I'll handle the part that requires hands.' H14 resolves."
+      "purpose": "Mid-morning. Ben, Sera, and Desh walk out to the nearest array component — a relay mast Veraine has placed on a ridge a kilometre from camp. Ostensibly a reconnaissance run; practically the scene where the plan becomes concrete. Per W2 evidence-of-passage beat 4: Sera lays her hand on the mast's base and reads its design signature through both touch and her residual Force-lock expertise. The construction is hers. Not Brotherhood inheritance. Not scavenged. Designed — specific harmonic placement, bespoke resonance geometry, component choices no inheritor would have made the same way. Sera says only: 'This is her mind.' Ben and Desh register the statement's weight. Desh, having already seen three such components in the approach telemetry, processes the implications operationally — three critical nodes, a solo sabotage against Veraine's small crew guards, an amplification threshold that will collapse under the failure of three carefully chosen antennas. Before anyone can ask, he volunteers: 'That's my job. Let the Force-users do the Force thing. I'll handle the part that requires hands.' H14 resolves. The three who came out to the ridge walk back with a plan that has shape and with a deeper, unspoken recognition of what kind of opponent they are engaging."
     },
     {
       "scene_number": 3,
       "role": "decision",
       "dialogue_expectation": "balanced",
       "target_word_count": 1250,
-      "purpose": "Ben at the camp edge, first light on the ridgeline. Kael sits with his legs over the ridge, facing the valley and the Scar. He felt Ben coming. Ben sits beside him at arm's length. The conversation the book has been building toward. Ben does not order, manipulate, or guilt. He asks. Kael's response is the book's final question: 'Why should I believe this one is different?' Not hostile. Not cynical. Genuine. H22 plants."
+      "purpose": "Ben at the camp edge, first light giving way to full day on the ridgeline. Kael sits with his legs over the ridge, facing the valley and the Scar. He felt Ben coming. Ben sits beside him at arm's length. The conversation the book has been building toward. Ben does not order, manipulate, or guilt. He asks. Kael's response is the book's final question: 'Why should I believe this one is different?' Not hostile. Not cynical. Genuine. H22 plants."
     }
   ],
   "reveal_payload": ["R12"],
@@ -38,22 +38,27 @@
   "relationship_turns": [
     {
       "dyad": "Ben/Sera",
-      "from": "conditional command (Ch14) → genuine request (Ch19)",
+      "from": "conditional command (Ch14) → genuine request (Ch19) → earned trust (Ch21)",
       "to": "true partners — Sera's handwriting on Ben's datapad, side by side. She may begin addressing him as 'Ben' once in this chapter, small, earned, not underlined"
     },
     {
       "dyad": "Desh/Mission",
-      "from": "essential intelligence (Ch10)",
+      "from": "essential intelligence (Ch10); tactical peer (Ch21)",
       "to": "chosen commitment — Desh's volunteer move is his arc's new-truth moment. The former GAG operative choosing the dangerous task without being asked. The laugh Ben and Desh will share in Ch27 is purchased here"
     },
     {
       "dyad": "Ben/Kael",
       "from": "earned respect (Ch10 stars scene, Ch19 outpost)",
       "to": "invitation — Ben approaches with an ask that allows refusal. The hardest Skywalker move. Whether Ben has become someone different from his predecessors depends on whether he can mean it"
+    },
+    {
+      "dyad": "Sera/Veraine",
+      "from": "shared wound, opposite scar (Ch 16)",
+      "to": "expert recognition — Sera's read of the array component is the first time one of Veraine's peers has directly registered her material thinking. Per W2, this is evidence-of-passage beat 4 of five; the design signature carries the characterisation without requiring any spoken Veraine presence"
     }
   ],
   "pacing_curve": "rising",
   "exit_vector": "First light on the ridgeline. Ben and Kael on the edge with the Scar below. Sera and Desh inside the camp, plans ready, waiting on the answer. Torin somewhere — not in this scene. Kael's question hanging in the air between them: why should I believe this one is different? Ben does not yet have the sentence that answers it.",
   "chapter_word_target": 3750,
-  "notes": "The planning chapter has the highest risk of procedural drag — keep each scene's emotional engine visible. S1 is the Ben/Sera partnership landing; s2 is Desh's arc payoff; s3 is the book's moral centerpiece compressed into a single question. Sera's first use of 'Ben' (if it lands here) is a single beat — one line of dialogue, no commentary. Desh's volunteer in s2 must not be prompted by request; he beats anyone to the ask. Ben's approach to Kael in s3 is the highest-risk scene in the third act — a wrong word from Ben and the book tips into command. Voice: Zahn-procedural in s1 and s2; Zahn-quiet for s3 with permitted Stover-interior for one short beat on Ben's approach; dialogue-led at close. Lived_galaxy_texture obligation: the camp is on a dead world, but the tactics discussions can register Desh's pragmatic framing (supply manifest, extraction options, real logistics) rather than abstract strategy. Anti-patterns: (a) Ben does not explain the resonance theory to Kael in this chapter — that belongs to Ch23; (b) no speech about trust from Ben in s3; the ask is structural, not rhetorical; (c) Sera's new-truth beat must not be narrated — it lives in her willingness to work the resonance framework on its own terms."
+  "notes": "The planning chapter has the highest risk of procedural drag — keep each scene's emotional engine visible. S1 is the Ben/Sera partnership landing; s2 is Desh's arc payoff + W2 evidence-of-passage beat 4; s3 is the book's moral centerpiece compressed into a single question. Sera's first use of 'Ben' (if it lands here) is a single beat — one line of dialogue, no commentary. Desh's volunteer in s2 must not be prompted by request; he beats anyone to the ask. Per W2 evidence-of-passage beat 4: the array-component encounter is a physical walk to the mast, a hand on the base, one sentence from Sera ('This is her mind.'), and a registration by Ben of what the signature means. The encounter is sensory, not analytical — the reader feels Veraine's intellect through how the component sits on the ridgeline, not through lecture. Sera's line is the chapter's Veraine-payoff anchor; deliver once, leave. Ben's approach to Kael in s3 is the highest-risk scene in the third act — a wrong word from Ben and the book tips into command. Voice: Zahn-procedural in s1; Zahn-precise with one Bujold-interior beat for Sera's hand on the mast in s2; Zahn-quiet for s3 with permitted Stover-interior for one short beat on Ben's approach; dialogue-led at close. Lived_galaxy_texture obligation: the camp is on a dead world, but the tactics discussions can register Desh's pragmatic framing (supply manifest, extraction options, real logistics) rather than abstract strategy. ANTI-PATTERNS: (a) Ben does not explain the resonance theory to Kael in this chapter — that belongs to Ch23; (b) no speech about trust from Ben in s3; the ask is structural, not rhetorical; (c) Sera's new-truth beat must not be narrated — it lives in her willingness to work the resonance framework on its own terms; (d) per W2 anti-pattern, the array-component encounter does not include any discovered message from Veraine — no etched initial, no ledger page left at the mast, no taunt. Her design IS the encounter; the intellect is in the geometry; (e) Sera's 'This is her mind' is said once; Ben does not reply in dialogue. He registers."
 }

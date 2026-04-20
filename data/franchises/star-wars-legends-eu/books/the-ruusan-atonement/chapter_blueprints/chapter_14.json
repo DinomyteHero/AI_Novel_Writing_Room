@@ -1,59 +1,64 @@
 {
   "chapter_number": 14,
-  "chapter_mission": "Ben takes command. Sera's conditional trust activates — 'Tell me where to stand, Skywalker' — repeating the Gavran pattern she cannot yet see she is repeating. Team synthesis reveals Veraine's project: a network-wide amplification array. Ben files Gavran's note about lattice resonance between disparate traditions without yet understanding what he has found.",
-  "chapter_turn": "Ben stops reacting to the crisis and starts setting its terms. That authority is real and earned, and it is also the exact shape of the trap: Sera is following him the way she followed Gavran. The book's antidote to the Skywalker trap (synthesis instead of unilateral command) is planted here as an archival footnote Ben does not yet read as a solution.",
+  "chapter_mission": "Response-quadrant after the Ch 13 midpoint. Per D6 Fix 1, s1 absorbs the intellectual naming beat that was lifted off Ch 13: the group explicitly articulates what Veraine has been doing — engineering the seal's failure deliberately, not studying it. Ben takes command. Per B1, Ben already holds the array-dependency fact (R08a) at scene one, and the Attack-phase restructures around the Veranthos-geographical-anchor constraint — pace, priority, route are now driven by the fact that Veraine's ritual only completes at that specific site. First Luke-pressure registers: the missed Ch 13 check-in sits between Ben and any comms screen. Sera's conditional trust activates — 'Tell me where to stand, Skywalker' — repeating the Gavran pattern she cannot yet see she is repeating. Team synthesis reveals Veraine's project: a network-wide amplification array with Veranthos as its terminal node. Ben files Gavran's note about Weave-resonance between disparate traditions without yet understanding what he has found.",
+  "chapter_turn": "Ben stops reacting to the crisis and starts setting its terms. That authority is real and earned, and it is also the exact shape of the trap: Sera is following him the way she followed Gavran. The book's antidote to the Skywalker trap (synthesis instead of unilateral command) is planted here as an archival footnote Ben does not yet read as a solution. The missed Luke check-in becomes the day-shape of his leadership — the first day of the Attack phase is also the first day of a specific silence.",
   "structural_phase": "attack",
   "pov_allocation": ["Ben Skywalker"],
   "scene_count": 3,
   "scene_plan": [
     {
       "scene_number": 1,
-      "role": "hook",
+      "role": "processing_and_hook",
       "dialogue_expectation": "dialogue_led",
-      "target_word_count": 1200,
-      "purpose": "Common area reconfigured as tactical briefing. Ben lays out the intercept strategy — skip ahead of Veraine rather than follow. His mother's cadence in his voice without him meaning it. Sera straightens her spine, shifts from adversarial to subordinate. 'Tell me where to stand, Skywalker.' The last person she chose to follow sealed her in a wall. H13 advances."
+      "target_word_count": 1300,
+      "purpose": "Common area reconfigured as tactical briefing. Per D6 Fix 1, the intellectual naming absorbed from Ch 13: the group names what Veraine has been doing. She is not studying the seal — she engineered Kolven as a field test, and by inference every site she has touched. She is not investigating; she is preparing. The word 'engineering' replaces 'studying' in the room's vocabulary, and the change is a load-bearing shift. Per B1: the array-dependency fact Ben's body arrived at in Ch 13 s2 now surfaces as conscious knowledge, driving the plan. The intercept strategy restructures around it — skip ahead of Veraine, not to a midpoint, but to Veranthos specifically. Veranthos is the only place her ritual completes; every other node is instrumentation. Ben lays out the restructured plan. His mother's cadence in his voice without him meaning it. Sera straightens her spine, shifts from adversarial to subordinate. 'Tell me where to stand, Skywalker.' The last person she chose to follow sealed her in a wall. H13 advances. In the margins: the comms panel on the wall, the unopened channel to Coruscant from yesterday's departure still unopened, a small unresolved note Desh sees and does not speak of. First Luke-pressure."
     },
     {
       "scene_number": 2,
       "role": "decision",
       "dialogue_expectation": "balanced",
       "target_word_count": 1100,
-      "purpose": "Evidence from every node spread across every flat surface. Sera pins Corridor maps to the bulkhead. Desh's tactical eye, Sera's historical vocabulary, Torin's Force-theoretical expertise, Kael's dry corrections — for the first time, the group synthesises rather than stalemates. The pattern resolves: each repurposed node is another antenna. Veraine is not attacking the seal, she is inverting its architecture."
+      "purpose": "Evidence from every node spread across every flat surface. Sera pins Corridor maps to the bulkhead. Desh's tactical eye, Sera's historical vocabulary, Torin's Weave-theoretical expertise, Kael's dry corrections — for the first time, the group synthesises rather than stalemates. The pattern resolves: each repurposed node is another antenna. Veraine's amplification array is continent-scale, each node tuned, Veranthos the resonance chamber. Ben makes three concrete route decisions that only hold if the array-dependency fact is true — and they hold. The chapter's synthesis is the experiential argument for PP27's payoff mechanism."
     },
     {
       "scene_number": 3,
       "role": "reveal",
       "dialogue_expectation": "balanced",
-      "target_word_count": 1200,
-      "purpose": "Ben's workspace. Scrolling Gavran's marginalia on the Codex data, searching for counter-measures, he finds it: 'Ankhural theorised that the lattice could be reinforced through harmonic resonance between disparate traditions. We lacked the will or the trust to attempt it.' Sera frowns at Ankhural's name. Ben bookmarks the note and moves on. H14 plants. The solution exists. Nobody in the room recognises it."
+      "target_word_count": 1150,
+      "purpose": "Ben's workspace. Scrolling Gavran's marginalia on the Codex data, searching for counter-measures, he finds it: 'Ankhural theorised that the Weave could be reinforced through harmonic resonance between disparate traditions. We lacked the will or the trust to attempt it.' Sera frowns at Ankhural's name. Ben bookmarks the note and moves on. H14 plants. The solution exists. Nobody in the room recognises it. End-of-scene, Ben opens a blank comm template to Luke and closes it without typing. Desh sees. The unmade call from Ch 13 is now a practice — the first day's silence has become a second day's silence. The Trauma-Lie thread is live pressure across the Attack phase."
     }
   ],
-  "reveal_payload": [],
+  "reveal_payload": ["R08_analytic"],
   "hook_movements": {
     "planted": ["H14"],
     "advanced": ["H13"],
     "resolved": []
   },
-  "subplot_obligations": ["SP-A", "SP1", "SP5"],
+  "subplot_obligations": ["SP-A", "SP1", "SP3"],
   "relationship_turns": [
     {
       "dyad": "Ben/Sera",
-      "from": "private alliance with shared pattern-recognition (Ch9)",
+      "from": "private alliance with shared pattern-recognition (Ch 9)",
       "to": "conditional command — Sera has offered Ben the kind of trust she gave Gavran. The gift is also a test. She does not yet know Ben will pass it by refusing to be Gavran"
     },
     {
       "dyad": "Ben/Group",
-      "from": "coordinator of an unstable coalition (Ch6)",
+      "from": "coordinator of an unstable coalition (Ch 6)",
       "to": "commander — the synthesis in s2 is the first time the group has produced an answer no single member could reach. Ben ran the room, but the answer belonged to everyone"
     },
     {
       "dyad": "Ben/Gavran",
       "from": "historical predecessor",
       "to": "named correspondent — the resonance note is Gavran speaking directly to a successor he did not know he would have. Ben registers the voice without registering the message"
+    },
+    {
+      "dyad": "Ben/Luke",
+      "from": "structured omission (partial reports, Ch 3-7)",
+      "to": "specific unmade call — the Ch 13 departure check-in has now been missed twice; what was a practice has become a specific pattern. Desh registers both closures of the blank template. PP26 advances silently."
     }
   ],
   "pacing_curve": "rising",
-  "exit_vector": "The Steady Returns on the intercept vector, ship configured for the attack phase. Ben at the tactical display, Sera watching him with the investment that is both gift and warning. Gavran's resonance note bookmarked on Ben's datapad, filed under 'return later' — a label Ben has used before for things that turned out to be the answer.",
-  "chapter_word_target": 3500,
-  "notes": "Brooks 'attack phase' begins here. Ben's assumption of command is the Act 3 opening beat and must feel earned — the chapter should land him as *capable of commanding this team* even while the reader registers Sera's gift as Gavran's pattern in miniature. The synthesis scene in s2 is a scene-level foreshadow of the climactic solution: disparate traditions producing an answer none could reach alone. Do not italicise it. Gavran's note in s3 is Chekhov at full tension — the reader must register its weight before Ben does. Voice: Zahn-procedural throughout; Allston-warmth permitted in s2 briefly; Stover-permitted in s3 for one interior beat as Ben reads Gavran's handwriting. Anti-patterns: (a) do not let Ben articulate the Gavran parallel about himself yet — that belongs to Ch18; (b) Sera's 'Tell me where to stand' must land without her seeing what she is saying; (c) the resonance note must not be read aloud by any character. Ben's eyes on the page; a silent file."
+  "exit_vector": "The Steady Returns on the intercept vector, ship configured for the attack phase. Ben at the tactical display, Sera watching him with the investment that is both gift and warning. Gavran's resonance note bookmarked on Ben's datapad, filed under 'return later' — a label Ben has used before for things that turned out to be the answer. The blank Luke template closed twice, unsent.",
+  "chapter_word_target": 3550,
+  "notes": "Brooks 'attack phase' begins here. Per D6 Fix 1, s1 carries the intellectual naming that Ch 13 s3 deferred — this is response-quadrant processing, not midpoint revelation. The tone is Ben and the group catching up to what Ch 13's bodies already knew; the shift from 'studying' to 'engineering' must feel like a room arriving at a conclusion, not announcing one. Per B1, the array-dependency fact reroutes the mission at scene one — Ben already holds the fact; the chapter's plan decisions are all downstream of it. Ben's assumption of command is the Act 3 opening beat and must feel earned — the chapter should land him as *capable of commanding this team* even while the reader registers Sera's gift as Gavran's pattern in miniature. The synthesis scene in s2 is a scene-level foreshadow of the climactic solution: disparate traditions producing an answer none could reach alone. Do not italicise it. Gavran's note in s3 is Chekhov at full tension — the reader must register its weight before Ben does. The missed Luke check-in sits in the margins of every scene — not narrated; a comm panel on a wall, a blank template on a screen, a silence Desh sees. Voice: Zahn-procedural throughout; Allston-warmth permitted in s2 briefly; Bujold-interior permitted in s3 for one beat as Ben reads Gavran's handwriting. ANTI-PATTERNS: (a) do not let Ben articulate the Gavran parallel about himself yet — that belongs to Ch 18; (b) Sera's 'Tell me where to stand' must land without her seeing what she is saying; (c) the resonance note must not be read aloud by any character — Ben's eyes on the page; a silent file; (d) per R13, the Jacen parallel operates subtextually here — no explicit naming; (e) per D6, the Luke-pressure is rendered physically (panels, templates, silences), not psychologically narrated. Ben does not think at the reader about why he will not call. The behaviour is the thought."
 }

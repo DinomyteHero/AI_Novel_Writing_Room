@@ -16,7 +16,7 @@
   "stakes": {
     "personal": "Ben seeing the real human cost of the seal's failure",
     "interpersonal": "The outpost Knights are Ben's peers — this could be him",
-    "external": "The lattice distortion has reached occupied Jedi space"
+    "external": "The Weave distortion has reached occupied Jedi space"
   },
   "characters_present": [
     "Ben Skywalker",
@@ -36,7 +36,7 @@
   ],
   "active_subplots": [
     "SP-A",
-    "SP4"
+    "SP3"
   ],
   "plot_threads_advanced": [
     "modern_jedi_affected",
@@ -48,5 +48,5 @@
   "hook_actions": [],
   "revelations": [],
   "pov_arc_phase": "lie_challenged",
-  "notes": "The Jedi outpost is the book's lived-galaxy-texture payoff — cosmic stakes acquiring human faces. Three young Knights are the template: too-still hands, a meditation drill abandoned mid-breath, a disciplined-senior whose contemplative practice has failed. They are specific but not named at length; they are Ben's peers and the scene treats them as such. Diagnostic-voice trap — Ben should not, in this scene, theorise lattice distortion to himself. He listens, he recognises, he does not articulate. Torin's expression is the chapter's promise to the scene — tenderness and calculation coexisting. Anti-pattern: Torin's compassion must remain genuine on the page; if he reads as obviously manipulative, the chapter's ethical weight collapses."
+  "notes": "The Jedi outpost is the book's lived-galaxy-texture payoff — cosmic stakes acquiring human faces. Three young Knights are the template: too-still hands, a meditation drill abandoned mid-breath, a disciplined-senior whose contemplative practice has failed. They are specific but not named at length; they are Ben's peers and the scene treats them as such. Diagnostic-voice trap — Ben should not, in this scene, theorise Weave distortion to himself. He listens, he recognises, he does not articulate. Torin's expression is the chapter's promise to the scene — tenderness and calculation coexisting. Anti-pattern: Torin's compassion must remain genuine on the page; if he reads as obviously manipulative, the chapter's ethical weight collapses."
 }

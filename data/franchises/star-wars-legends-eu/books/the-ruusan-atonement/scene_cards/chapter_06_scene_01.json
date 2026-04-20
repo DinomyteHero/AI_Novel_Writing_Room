@@ -3,20 +3,20 @@
   "scene_number": 1,
   "structural_phase": "response",
   "scene_type": "sequel",
-  "scene_role": "aftermath",
+  "scene_role": "reveal",
   "pov_character": "Ben Skywalker",
-  "mission": "Six people in a ship built for two. Sera reaches for controls that do not exist. Torin's warmth fills small spaces. Sera tests Ben with a tactical question about the Corridor route; his intelligence-operative answer earns the first grudging respect.",
-  "why_now": "First transit chapter after the lock-in. The crew has to make itself into a crew before the Corridor teaches them what they cost one another.",
-  "conflict": "Sera measures Ben against a standard he cannot yet name — the commander she followed and lost. Torin mediates with easy warmth that makes the small space feel like a team room. Kael says almost nothing, and it costs the air.",
+  "mission": "Response-quadrant opening. Desh's overnight reconstruction of the corrupted monitoring packets resolves the escapee's identity: Darth Veraine, Brotherhood alchemist and strategist, flagged in Gavran's archive as the highest-risk anchor. R05 lands here (moved from Ch 5 s4 per D8). The naming reshapes the room. Sera composes; Torin quiets; Kael's reaction is the scene's most important small beat. Alongside the reveal, the ship-dynamics texture continues: six people in a ship built for two, Sera reaching for controls that do not exist, Torin's warmth filling small spaces.",
+  "why_now": "The monitoring packets finished overnight per Ch 5 s4 setup. The first hour of this transit leg is when Desh brings the name to Ben — and the reveal reframes the entire mission from 'pursue an anchor' to 'pursue Darth Veraine, specifically.'",
+  "conflict": "The name lands and the room reorganises around it. Sera's composure holds; her knowledge of Veraine is obvious and unoffered. Torin's warmth momentarily thins and restores itself. Kael's reaction — recognition, then studied blankness — is the load-bearing small beat Ben notices and files. Later in the scene, Sera tests Ben with a tactical question about the Corridor route; his pragmatic answer earns the first grudging respect.",
   "conflict_type": "interpersonal",
-  "turning_point": "Sera tests Ben with a tactical question about the route. His answer is pragmatic rather than doctrinal — the kind of reading she did not expect from a modern Jedi. Her posture shifts half a degree.",
-  "opening_hook": "Ben wedges himself between a supply crate and the bulkhead to check the nav chart — six people in a ship built for two, and the social fabric creaking as loud as the hull",
-  "closing_hook": "Torin finds Ben alone in the corridor and says something warm about Luke — 'Your father's name carries weight even in our time.' The compliment feels genuine. It also feels like an assessment.",
-  "emotional_trajectory": "Tension and territorial friction -> unexpected competence demonstration -> uneasy truce",
+  "turning_point": "Desh names Veraine. The escapee's shape acquires a signature: Brotherhood alchemist, strategist, patient. Ben now has the antagonist the book has been withholding since s3 of the prior chapter. The mission's forward vector sharpens.",
+  "opening_hook": "Desh finds Ben in the cramped common area at first watch — datapad in hand, the reconstructed monitoring packets resolved. 'We have a name,' Desh says. Ben looks up. Sera, across the table, does not",
+  "closing_hook": "Torin finds Ben alone in the corridor after the briefing and says something warm about Luke — 'Your father's name carries weight even in our time.' The compliment feels genuine. It also feels, very faintly, like an assessment",
+  "emotional_trajectory": "Reveal absorption -> tension and territorial friction -> unexpected competence demonstration -> uneasy truce",
   "stakes": {
-    "personal": "Ben's leadership credibility with people who fought wars before he was born",
-    "interpersonal": "The group's ability to function — fracture here means failure everywhere",
-    "external": "Every moment of internal friction is time Veraine is using to get further ahead"
+    "personal": "Ben is now pursuing Darth Veraine by name, a Brotherhood-era Sith whose capability Sera will not articulate out loud",
+    "interpersonal": "The group's ability to function — fracture here means failure everywhere; Kael's reaction to the name seeds the Veraine/Kael channel the book will open at Ch 10",
+    "external": "Every moment of internal friction is time Veraine is using to get further ahead along the Corridor"
   },
   "characters_present": [
     "Ben Skywalker",
@@ -26,29 +26,53 @@
     "Kael Drenn"
   ],
   "setting": "Aboard the Steady Returns in hyperspace — cramped common area, corridor, cockpit",
-  "sensory_details": "The ship straining with extra passengers; Sera's hand closing on blank hull plating where a console used to be; Torin's ease in small spaces and the old-soldier instinct of standing where he will not block a door; Kael folded into a corner, watching",
-  "canon_elements_needed": [],
-  "target_word_count": 1200,
+  "sensory_details": "The ship straining with extra passengers; Sera's hand closing on blank hull plating where a console used to be; Torin's ease in small spaces and the old-soldier instinct of standing where he will not block a door; Kael folded into a corner, watching; the reconstructed monitoring file open on the table, Veraine's name visible in the header",
+  "canon_elements_needed": [
+    "Sith alchemy in Legends EU tradition and capabilities",
+    "Brotherhood of Darkness era Sith training and specializations",
+    "Darth title usage and Sith identity in the Brotherhood era"
+  ],
+  "target_word_count": 1400,
   "action_beats": [
+    "Desh presents the reconstructed monitoring file to the group; Veraine's name is the first clean line in the display",
+    "Sera's composure holds; the silence after the name is hers and she does not fill it with explanation",
+    "Kael's reaction to the name — recognition, then studied blankness — is the scene's quietest and most important beat; Ben registers and files it",
+    "Torin makes a small, warm remark that restores the room, without diminishing the weight of the name",
     "Sera reaches for a cockpit control that doesn't exist on a modern ship — her hand closing on blank hull plating",
-    "Ben pulls up the Corridor nav chart and traces the route while answering Sera's tactical question",
-    "Torin clasps Ben's shoulder in the corridor — a commander's measured grip of acknowledgment"
+    "Sera tests Ben with a tactical question about the Corridor route; his pragmatic answer earns her posture's first half-degree shift",
+    "Torin clasps Ben's shoulder in the corridor — a commander's measured grip of acknowledgment that lands as both approval and assessment"
   ],
   "active_subplots": [
     "SP-A",
     "SP1",
-    "SP2"
+    "SP2",
+    "SP3"
   ],
   "plot_threads_advanced": [
+    "veraine_identified",
+    "kael_veraine_parallel_seeded",
     "group_dynamics_established",
     "sera_first_respect"
   ],
   "promises_planted": [
+    "Veraine is ahead and methodical (PP06)",
+    "Veraine's philosophy will be coherent and unsettling (PP16)",
     "Mere tactical cooperation won't work; the climax demands genuine unity (PP23)"
   ],
   "promises_paid": [],
-  "hook_actions": [],
-  "revelations": [],
+  "hook_actions": [
+    {
+      "hook_id": "H05",
+      "action": "advance"
+    }
+  ],
+  "revelations": [
+    "R05"
+  ],
   "pov_arc_phase": "lie_reinforced",
-  "notes": "Survivor-displacement texture is the free worldbuilding of this chapter — Sera's reach into empty hull, Torin's adaptive courtesy that is slightly too easy, Kael's silence. Honour the lived-galaxy-texture obligation by letting the modern galaxy feel unfamiliar to three of the characters. Voice: Allston-channel humor in the cramped common area, tightening when Kael's presence changes the room. Diagnostic-voice trap — Ben should not, in this scene, narrate the synthesis-leadership concept. He answers Sera's question, he registers Torin's approval-and-assessment, he notices Kael without approaching him. The phrase 'leading as coordinator of an unstable coalition' is the chapter's structural description, not a line Ben thinks in. Desh in this scene: lie_reinforced in his own arc — professionally competent, emotionally still at arm's length from the larger crisis."
+  "warmth_load_bearing": true,
+  "notes": "Per D8, R05 lands here (moved from Ch 5 s4). The name is the response-quadrant opening — Ch 5 closed on an unnamed mystery; Ch 6 begins with the name resolving. Kael's reaction is load-bearing: noticeable but unexplained, he recognises the name without saying so. Ben notices and files it. Do not resolve it here — the Veraine/Kael channel opens fully at Ch 10. Per R11, Ben's close-third does not construct Veraine's philosophy from the name; he reads the room (Sera's held composure, Kael's blankness, Torin's brief thin-and-restore), and feels the weight without articulating its content. Articulating Veraine's thesis is Ch 16's work. Per R12, Torin's warmth in this scene remains load-bearing — his brief thinning at the name is a single inflection, restored immediately, not a second H06-level telegraph. Per D7, no narrator over-signal of Torin's direction past Ben's perception. Per D4, the weight of the name lands through body-experience — room silence, Sera's held stillness — not through analytical narration. Survivor-displacement texture continues: Sera's reach into empty hull, Torin's adaptive courtesy that is slightly too easy, Kael's silence. Honour the lived-galaxy-texture obligation by letting the modern galaxy feel unfamiliar to three of the characters. Voice: Allston-channel ensemble architecture for the multi-speaker briefing; Zahn baseline for the cockpit exchange with Sera; Bujold for Ben's interior registering of Kael's reaction. Diagnostic-voice trap — Ben should not, in this scene, narrate the synthesis-leadership concept. He answers Sera's question, he registers Torin's approval-and-assessment, he notices Kael without approaching him. Primary anchor: Allston (ensemble architecture — name-lands-on-five-people). Supporting anchor: Zahn (cockpit scene), Bujold (Ben's interior). Stover not permitted this scene.",
+  "primary_anchor": "Allston",
+  "supporting_anchor": "Zahn, Bujold",
+  "stover_permitted": false
 }

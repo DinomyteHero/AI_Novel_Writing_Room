@@ -5,45 +5,59 @@
   "scene_type": "sequel",
   "scene_role": "reveal",
   "pov_character": "Ben Skywalker",
-  "mission": "Cockpit, night cycle. Desh does not start with Jacen. He starts with a specific day — a raid they both remember, an arrest that went wrong, a face Ben sees when he cannot sleep. The GAG history named. Then: 'He sounds like Jacen. The good version. Before.'",
-  "why_now": "Torin's warmth-on-a-beat in the previous scene has put the pattern into the air. The conversation Desh has been carrying since Chapter 1 finally has a door to go through.",
-  "conflict": "Both men have carried the same shame for years. Desh forces the conversation not because he wants to talk about Jacen but because Torin has begun to sound like the good version of him, and Desh recognises the voice. Ben is not ready to hear that sentence. Desh says it anyway.",
+  "mission": "Cockpit, night cycle. Desh does not start with Jacen. He starts with a specific day — a raid they both remember, an arrest that went wrong, a face Ben sees when he cannot sleep. The GAG history named. Then: 'He sounds like Jacen. The good version. Before.' Alongside the personal reckoning, R04d lands: the archive work Ben and Desh have been processing from the Brotherhood Outpost reaches its conclusion on Desh's datapad. The inversion attempt is reconstructible — the Brotherhood of Darkness tried to flip the Weave's polarity at the Veranthos nexus, making dark-side the structural baseline; Gavran's removal-technique cut the inversion off by removing the Weave itself. Right about the emergency, catastrophically wrong about the cost. Ben and Desh hold the structural understanding and the personal pattern-recognition in the same conversation.",
+  "why_now": "Torin's warmth-on-a-beat in the previous scene has put the pattern into the air. The conversation Desh has been carrying since Chapter 1 finally has a door to go through. The Brotherhood inversion piece Desh has been reconstructing resolves tonight — and lands in the same silence that holds Jacen's name.",
+  "conflict": "Both men have carried the same shame for years. Desh forces the conversation not because he wants to talk about Jacen but because Torin has begun to sound like the good version of him, and Desh recognises the voice. Ben is not ready to hear that sentence. Desh says it anyway. At the same time, the Brotherhood inversion framework completes itself on Desh's datapad: the Jedi Lords were not corrupt, they were competent people under catastrophic pressure who made the wrong emergency choice. Two reckonings hold each other up.",
   "conflict_type": "interpersonal",
-  "turning_point": "Desh names it: 'He sounds like Jacen. The good version. Before.' Ben's stomach drops because Desh has just said what Ben has been refusing to think.",
-  "opening_hook": "Desh doesn't start with Jacen. He starts with a specific day — a raid they both remember, an arrest that went wrong, a face Ben sees when he can't sleep.",
-  "closing_hook": "Neither of them says 'we should watch Torin.' They don't need to.",
-  "emotional_trajectory": "Careful approach -> painful honesty -> shared understanding without resolution",
+  "turning_point": "Desh names it: 'He sounds like Jacen. The good version. Before.' Ben's stomach drops because Desh has just said what Ben has been refusing to think. A beat later, the Brotherhood inversion framework resolves on Desh's datapad — right about the emergency, wrong about the cost. Ben registers both together.",
+  "opening_hook": "Desh doesn't start with Jacen. He starts with a specific day — a raid they both remember, an arrest that went wrong, a face Ben sees when he can't sleep",
+  "closing_hook": "Neither of them says 'we should watch Torin.' They don't need to. On Desh's datapad, the inversion reconstruction sits in the quiet — the Jedi Lords turned into tragic peers in the same breath Jacen became a named shape in the room",
+  "emotional_trajectory": "Careful approach -> painful honesty -> Brotherhood framework completing itself -> shared understanding without resolution",
   "stakes": {
-    "personal": "Ben confronting the worst chapter of his life with the only person who shared it",
+    "personal": "Ben confronting the worst chapter of his life with the only person who shared it, while the Jedi Lords' moral architecture reorganises into tragic-peer shape in the same silence",
     "interpersonal": "Ben/Desh relationship deepening from friendship to trust forged in acknowledged shame",
-    "external": "The Jacen pattern recognition will become tactical intelligence"
+    "external": "The Jacen pattern recognition will become tactical intelligence; the Brotherhood inversion understanding reframes Gavran from villain to tragic predecessor — both feeds the Ch 13 midpoint and the Ch 21 refusal"
   },
   "characters_present": [
     "Ben Skywalker",
     "Desh Rolan"
   ],
   "setting": "Aboard the Steady Returns — cockpit, night cycle, dim lighting",
-  "sensory_details": "Dim instrument lights; the quiet of a ship where everyone else is sleeping; Desh's hands on the controls, steady the way they always are; the weight of shared memory pressing the cockpit smaller",
-  "canon_elements_needed": [],
-  "target_word_count": 1300,
+  "sensory_details": "Dim instrument lights; the quiet of a ship where everyone else is sleeping; Desh's hands on the controls, steady the way they always are; the weight of shared memory pressing the cockpit smaller; Desh's datapad glow at a low setting, the inversion reconstruction resolving in the margin of the larger silence",
+  "canon_elements_needed": [
+    "Brotherhood of Darkness ideology and military doctrine at the Reformations era",
+    "Weave-polarity inversion as a named Brotherhood strategic goal",
+    "Jedi Lords era emergency containment theory and Gavran's removal-technique rationale"
+  ],
+  "target_word_count": 1350,
   "action_beats": [
     "Desh keeps his hands steady on the flight controls while describing the raid they both remember",
     "Ben's fingers tighten on the armrest when Desh names the pattern — Torin sounding like the good version of Jacen",
-    "Both men stare at instrument readouts they aren't reading through a long silence"
+    "The Brotherhood inversion reconstruction resolves on Desh's datapad in the quiet after the Jacen beat — the Weave-polarity flip attempt, Gavran's removal-technique as the cut-off, the cost",
+    "Both men stare at instrument readouts they aren't reading through a long silence that holds both reckonings at once"
   ],
   "active_subplots": [
+    "SP-A",
     "SP3"
   ],
   "plot_threads_advanced": [
     "gag_history_acknowledged",
-    "jacen_pattern_planted"
+    "jacen_pattern_planted",
+    "brotherhood_inversion_reconstruction_revealed",
+    "jedi_lords_reframed_as_tragic_peers"
   ],
   "promises_planted": [],
   "promises_paid": [
     "Ben and Desh share unspoken GAG history (PP02)"
   ],
   "hook_actions": [],
-  "revelations": [],
+  "revelations": [
+    "R04d"
+  ],
   "pov_arc_phase": "lie_reinforced",
-  "notes": "Load-bearing scene. The specificity of Desh's opening — a specific raid, a specific arrest, a specific face — is more affecting than any general grief. Keep it quiet: dim cockpit, controls they are not watching, long pauses. Do not spell out the GAG raid in paragraph form — fragments only, the way the memory returns. Diagnostic-voice trap — Ben should not, in this scene, construct a framework for the Jacen parallel. He absorbs Desh's sentence and says nothing that resolves it. The reader must feel the drop in his stomach; interiority paragraphing it would dilute the hit. Voice: Stover-interior-permitted for a single paragraph at most; Zahn-restraint elsewhere. Desh's arc: lie_challenged — the honest reckoning shows him he is here for more than a favor. Anti-patterns: (a) no single character speaks the phrase 'the Jacen pattern' — 'he sounds like Jacen' is the whole permitted expression; (b) no one resolves the scene; it ends on silence."
+  "warmth_load_bearing": false,
+  "notes": "R04d is the Ch 11 deferred revelation per D8 — Brotherhood inversion attempt revealed. It lands *alongside* the Ben/Desh GAG conversation, not in a separate scene — the two reckonings are the same conversation in two registers, and the scene's power is the adjacency. Do not underline the adjacency. The Brotherhood framework completes quietly, on a datapad, while Jacen's name sits in the air. Load-bearing scene. The specificity of Desh's opening — a specific raid, a specific arrest, a specific face — is more affecting than any general grief. Keep it quiet: dim cockpit, controls they are not watching, long pauses. Do not spell out the GAG raid in paragraph form — fragments only, the way the memory returns. Per R11, Ben does not, in this scene, construct a framework for the Jacen parallel. He absorbs Desh's sentence and says nothing that resolves it. The reader must feel the drop in his stomach; interiority paragraphing it would dilute the hit. Per R13, no character names 'the Jacen pattern' — 'he sounds like Jacen' is the whole permitted expression; the single explicit naming budget is Ch 18. Per D4, the Brotherhood inversion revelation lands through the quiet adjacency with the Jacen beat — Ben feels the framework completing before his head names it — not through analytical narration. Voice: Stover-interior-permitted for a single paragraph at most; Zahn-restraint elsewhere. Per D3, the Weave-polarity inversion is named consistently with the Weave terminology — 'inverting the Weave' or 'Weave-polarity' in the record; no residual 'lattice' language. Desh's arc: lie_challenged — the honest reckoning shows him he is here for more than a favor. Anti-patterns: (a) no single character speaks the phrase 'the Jacen pattern' — 'he sounds like Jacen' is the whole permitted expression; (b) no one resolves the scene; it ends on silence; (c) R04d is not lectured — the framework resolves in the margin of the larger silence, not through a Desh or Ben speech about the Lords' moral architecture. Primary anchor: Luceno (payload-through-adjacency — two reckonings rendered as one conversation); supporting anchor: Bujold (Ben's interior register of his own stomach drop), Stover (one permitted interior beat at the Jacen sentence or the framework completing).",
+  "primary_anchor": "Luceno",
+  "supporting_anchor": "Bujold, Stover",
+  "stover_permitted": true
 }

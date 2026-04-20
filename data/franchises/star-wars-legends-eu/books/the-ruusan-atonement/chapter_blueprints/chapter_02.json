@@ -34,7 +34,7 @@
     "advanced": ["H01", "H02"],
     "resolved": []
   },
-  "subplot_obligations": ["SP-A", "SP3", "SP4"],
+  "subplot_obligations": ["SP-A", "SP3"],
   "relationship_turns": [
     {
       "dyad": "Ben/Desh",

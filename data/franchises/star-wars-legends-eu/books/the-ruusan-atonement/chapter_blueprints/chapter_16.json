@@ -1,7 +1,7 @@
 {
   "chapter_number": 16,
-  "chapter_mission": "Veraine on-page. The truce meeting delivers her philosophy at full strength (R09), her direct pitch to Kael, and Sera's experiential counter. Under cover of the argument, Veraine's fourth objective — sabotage — executes invisibly. The timeline collapses at the close.",
-  "chapter_turn": "The antagonist steps forward, the book takes her seriously, and the group discovers too late that it was never only an argument. The philosophical and the tactical are a single move. Ben learns that engaging Veraine's ideas and denying her the operation are not separable problems.",
+  "chapter_mission": "Veraine on-page. Per W2, the Ch 16 meeting restructures from four objectives to three: ideological pitch, Kael recruitment, and intelligence gathering (emergent, not scripted — Ben is in the room with her, attention becomes intelligence). The fourth objective (sabotage) is no longer in-meeting load; per W2 Option B, Veraine's crew executes it elsewhere, discovered at Ch 17 opening. Ch 16 retains Veraine's philosophy at full strength (R09), her direct pitch to Kael, Sera's experiential counter, and the emergent intelligence Ben carries out of the room. Per R14, Veraine's register is Socratic-adjacent: questions she already knows the answers to. Per W2 evidence-of-presence architecture: the meeting itself is the set-piece appearance between Ch 5 (named) and Ch 25-26 (defeated); the page-time weight on the chapter can breathe now that sabotage has been lifted out.",
+  "chapter_turn": "The antagonist steps forward, the book takes her seriously, and the group discovers (in Ch 17) too late that the philosophical register was also practical cover. Ben learns that engaging Veraine's ideas and denying her the operation are not separable problems — but the payoff of that lesson lives across the Ch 16/17 boundary, not inside Ch 16 itself.",
   "structural_phase": "attack",
   "pov_allocation": ["Ben Skywalker"],
   "scene_count": 3,
@@ -17,43 +17,43 @@
       "scene_number": 2,
       "role": "reveal",
       "dialogue_expectation": "dialogue_led",
-      "target_word_count": 1200,
-      "purpose": "The meeting point. Veraine steps forward with the bearing of someone treating negotiation as professional courtesy. Her philosophy delivered in full: the lattice as imposed framework, the wound as liberation, the light/dark binary as a thousand years of pointless war. She never monologues; she asks questions with answers she already knows. Then the turn toward Kael: 'They used us identically, you and I. The only difference is which wall we were sealed into.' Kael's face a mask that costs visible effort. R09 lands."
+      "target_word_count": 1300,
+      "purpose": "The meeting point. Veraine steps forward with the bearing of someone treating negotiation as professional courtesy. Per R14, her register is questions she already knows the answers to — she never monologues; she invites. Her philosophy emerges through Socratic-adjacent questioning: she asks Ben or Kael a question, waits for their answer, and responds with another question that incorporates what they said. The Weave as imposed framework, the wound as liberation, the light/dark binary as a thousand years of pointless war — all delivered as invitations to conclusions, not declarations. Then the turn toward Kael: 'They used us identically, you and I. The only difference is which wall we were sealed into.' Kael's face a mask that costs visible effort. R09 lands — Veraine's philosophy at full strength, but articulated through the Socratic-adjacent register that R14 specifies. Veraine's dignity (she invites, she does not sell) makes her defeat specifically hers."
     },
     {
       "scene_number": 3,
       "role": "escalation",
       "dialogue_expectation": "balanced",
-      "target_word_count": 1300,
-      "purpose": "Sera steps forward. Her archaic syntax carries a thousand years of waiting to say this. She counters Veraine with the one thing theory cannot answer: 'I have been where you want to take the galaxy. There is nothing there.' Veraine's composure cracks once — recognition, not anger. 'I appreciate the testimony. But testimony is not evidence.' She turns and walks back to her ship with measured steps. Something shifts in the Force as she departs — the wrongness lurches. Ben feels it before he understands it. H16 plants."
+      "target_word_count": 1200,
+      "purpose": "Sera steps forward. Her archaic syntax carries a thousand years of waiting to say this. She counters Veraine with the one thing theory cannot answer: 'I have been where you want to take the galaxy. There is nothing there.' Veraine's composure sharpens once — not cracks. Her register does not warm; it cuts into a more specific question per R14 anti-pattern: 'I appreciate the testimony. But tell me — was it the place that held nothing, or the person you were when you were there?' She turns and walks back to her ship with measured steps. Ben, across the meeting, has been assembling emergent intelligence — her ship's approach pattern, the tells in her crew, the archive fragments she referenced as if everyone remembered them. Nothing scripted; just the observation a trained person in the room cannot help. Per W2 Option B, the sabotage is NOT in this meeting. Ch 16 ends with Veraine's ship departing and Ben's group moving. The Force-shift that reveals the sabotage is absent here; it will open Ch 17."
     }
   ],
   "reveal_payload": ["R09"],
   "hook_movements": {
-    "planted": ["H16"],
+    "planted": [],
     "advanced": [],
     "resolved": ["H05", "H10"]
   },
-  "subplot_obligations": ["SP-A", "SP1", "SP2", "SP5"],
+  "subplot_obligations": ["SP-A", "SP1", "SP2", "SP3"],
   "relationship_turns": [
     {
       "dyad": "Ben/Veraine",
       "from": "absent antagonist; named but invisible",
-      "to": "direct contact — Ben has now heard her voice, watched her hands, met her argument at full strength. She is formidable and human. He will not be able to fight a cartoon again"
+      "to": "direct contact — Ben has now heard her voice, watched her hands, met her argument at full strength. She is formidable and human. He will not be able to fight a cartoon again. Per W2, his emergent intelligence from the meeting is the load-bearing takeaway: he has mapped her register and her ship's approach, even without scripted intelligence-gathering beats."
     },
     {
       "dyad": "Kael/Veraine",
-      "from": "parallel recognition (Ch10 message)",
+      "from": "parallel recognition (Ch 10 message)",
       "to": "direct recruitment — her pitch has landed. Kael did not accept. He did not refuse either. The pull is real and the decision is not yet made"
     },
     {
       "dyad": "Sera/Veraine",
       "from": "parallel lives (both anchors, both survivors)",
-      "to": "shared wound, opposite scar — Sera's testimony is the one argument Veraine cannot academically dismiss. Her brief crack is the chapter's most important gesture"
+      "to": "shared wound, opposite scar — Sera's testimony is the one argument Veraine cannot academically dismiss. Veraine's sharpened question in response is the chapter's most important gesture — a woman who asks more specifically when cornered rather than attacks"
     }
   ],
   "pacing_curve": "rising",
-  "exit_vector": "Veraine's ship receding. The group in the clearing as the wrongness lurches to a higher baseline. Ben's understanding overtaking him a beat late — the meeting was cover. Somewhere, something has been damaged that was not damaged an hour ago. The race has just lost days.",
+  "exit_vector": "Veraine's ship receding. The group in the clearing holding the weight of what just passed. Ben's understanding overtaking him in retrospect — something in the meeting was not the meeting. The sabotage the Force will reveal at Ch 17 s1 has already happened; the reader does not yet know. Ch 17 opens with the discovery.",
   "chapter_word_target": 3500,
-  "notes": "Veraine's first on-page appearance is the second-highest-risk scene in the book after the Ch5 awakening. The failure mode is villain-monologue; the success condition is that the reader finishes s2 understanding why intelligent people have followed her. She does not raise her voice. She does not make threats. She asks questions. Her pitch to Kael must be specifically tailored to his history — not generic Sith recruitment. Sera's counter in s3 is the only response that can weigh against Veraine's theory; it must be experiential and short. 'I have been where you want to take the galaxy' is a chapter-anchor line — deliver once. Force phenomenology in s3 closing: the lurch should be felt before it is understood; use pressure/weather vocabulary rather than acoustic. Voice: Zahn-precise throughout; allow Veraine's diction to do its own work (no contractions, complete sentences, academic syntax). Anti-patterns: (a) do not have the group verbally explain Veraine's errors on-page — Sera's testimony is the answer; (b) no one draws a weapon during the meeting; the encounter is a knife-fight in ideas; (c) the sabotage is never shown executing — only its aftershock in the Force. The reader learns what happened in Ch17."
+  "notes": "Per W2 Option B, the Ch 16 overload is resolved by moving sabotage out — the three remaining objectives (ideological pitch, Kael recruitment, intelligence gathering) now have oxygen to breathe; intelligence gathering is emergent, not a separate scripted beat. Veraine's first on-page appearance is the second-highest-risk scene in the book after the Ch 5 awakening. The failure mode is villain-monologue; the success condition is that the reader finishes s2 understanding why intelligent people have followed her. Per R14, her register is Socratic-adjacent. She does not raise her voice. She does not make threats. She does not sell. She asks questions from certainty, and the conversation advances toward her conclusion without her announcing it. Her pitch to Kael must be specifically tailored to his history — not generic Sith recruitment. Sera's counter in s3 is the only response that can weigh against Veraine's theory; it must be experiential and short. 'I have been where you want to take the galaxy' is a chapter-anchor line — deliver once. Per R14 anti-pattern, when cornered Veraine's register sharpens into a more specific question, not into emotional intensity — curiosity is her most unsettling affect. Voice: Zahn-precise throughout; allow Veraine's diction to do its own work (no contractions, complete sentences, academic syntax). ANTI-PATTERNS: (a) do not have the group verbally explain Veraine's errors on-page — Sera's testimony is the answer; (b) no one draws a weapon during the meeting; the encounter is a knife-fight in ideas; (c) per W2, the sabotage is NOT shown in Ch 16 — not scripted, not referenced, not even teased. The reader discovers it at Ch 17 s1. Ch 16 ends with the meeting settling; (d) per R14, no Veraine monologue, no declarative pitch, no rhetorical flourish; (e) Veraine's voice_texture ledger-register (working-mind residue) is continuous with the spoken register — what changes between contexts is audience, not register."
 }

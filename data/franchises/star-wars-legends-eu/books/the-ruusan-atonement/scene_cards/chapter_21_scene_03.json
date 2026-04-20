@@ -5,14 +5,14 @@
   "scene_type": "sequel",
   "scene_role": "decision",
   "pov_character": "Ben Skywalker",
-  "mission": "Ben's crystallising realisation — Gavran's note about lattice resonance. 'I need to show you something in the Codex.' The Lie cracks open. Ben says 'We find another way. Together.' The plan is not yet formed, but the pattern is broken.",
-  "why_now": "Ben's self-reliance has been the book's engine for twenty chapters. The turn has to produce a new sentence, not a new burden, and the resonance note has to rise where Ben has been filing alone since Ch14.",
-  "conflict": "The note Ben bookmarked in Ch14 resurfaces with a different emphasis than his first read. The solution is theoretical, untested, and requires trust between incompatible traditions. The plan is also the only one left, and Ben has to build it with three people instead of four.",
+  "mission": "Ben's crystallising realisation — Gavran's note about Weave-resonance from the Ch 11 archive work, read with the Ch 18 emphasis. 'I need to show you something.' The Lie cracks open. Ben says 'We find another way. Together.' The plan is not yet formed, but the pattern is broken — Ben is no longer reaching for individual mastery. H21 plants. Exit vector toward the resonance solution. In the margins: Kael says nothing, but does not leave the circle. Desh, unsurprised, begins unpacking instruments. Sera does not speak again. The word 'together' has landed once and does not need to land a second time.",
+  "why_now": "Ben's self-reliance has been the book's engine for twenty chapters. The turn has to produce a new sentence, not a new burden, and the resonance note has to rise where Ben has been filing alone since Ch 11. The s2 inaction required three reasons to be overdetermined; the s3 turn requires one sentence to be earned.",
+  "conflict": "The note Ben bookmarked in Ch 11 and re-read in Ch 18 resurfaces with a different emphasis than his first read. The solution is theoretical, untested, and requires trust between incompatible traditions. The plan is also the only one left, and Ben has to build it with three people instead of four.",
   "conflict_type": "internal",
   "turning_point": "'We find another way. Together.' Ben's sentence is not a decree. It is a reach toward the three people still on the ridge. The word 'together' lands once, intentionally, and the chapter does not repeat it.",
-  "opening_hook": "Ben pulls up the Codex notes with hands that are shaking. Gavran's marginalia. Ankhural's theory. The resonance note.",
-  "closing_hook": "'I need to show you something.' Ben's voice is different. Sera hears it. Kael hears it. Desh, who can't feel the Force, hears it most clearly of all. Something in Ben has changed.",
-  "emotional_trajectory": "Desperate searching -> the note recontextualized -> breakthrough -> the new truth spoken",
+  "opening_hook": "Ben pulls up the Codex notes with hands that are shaking. Gavran's marginalia. Ankhural's theory. The resonance note",
+  "closing_hook": "'I need to show you something.' Ben's voice is different. Sera hears it. Kael hears it. Desh, who cannot feel the Force, hears it most clearly of all. Something in Ben has changed",
+  "emotional_trajectory": "Desperate searching -> the note recontextualised -> breakthrough -> the new truth spoken",
   "stakes": {
     "personal": "Ben's arc turn — the Skywalker reflex set down, not defeated, for the next eighteen hours",
     "interpersonal": "The remaining group becoming a partnership under someone who has stopped commanding",
@@ -25,24 +25,35 @@
     "Desh Rolan"
   ],
   "setting": "Veranthos — camp, Ben's workspace, the Codex notes on display",
-  "sensory_details": "The Codex notes glowing on the datapad; Gavran's handwriting — the words 'we lacked the will or the trust' carrying a different emphasis this time; Ben's hands steadying as he finds what he is looking for; three faces turning toward him — three people waiting for a reason to stay",
-  "canon_elements_needed": [],
-  "target_word_count": 1400,
+  "sensory_details": "The Codex notes glowing on the datapad; Gavran's handwriting — the words 'we lacked the will or the trust' carrying a different emphasis this time (trust, not bravery, per the Ch 18 re-read); Ben's hands steadying as he finds what he is looking for; three faces turning toward him — three people waiting for a reason to stay; Kael still in the circle; Desh already unpacking instruments with the quiet of someone who has known where this was going for a day or more; Sera silent and watching",
+  "canon_elements_needed": [
+    "Gavran-era resonance theory marginalia (Codex bookmarked Ch 11/Ch 18)",
+    "Ankhural's resonance theory (continuity with Ch 11 R04d archive work)"
+  ],
+  "target_word_count": 1500,
   "action_beats": [
     "Ben pulls up the Codex notes with shaking hands and scrolls to Gavran's marginalia on the resonance theory",
-    "Ben spreads relevant files across three datapads — Kael's framework insight, Gavran's theory, the technique data — and connects the pieces",
-    "Ben turns to the remaining group and speaks with a voice that has changed: 'I need to show you something'"
+    "Ben spreads relevant files across three datapads — Kael's framework insight from Ch 19, Gavran's theory, the technique-lineage fragments — and the pieces find their shape",
+    "Ben turns to the remaining group and speaks with a voice that has changed: 'I need to show you something. We find another way. Together.'"
   ],
   "active_subplots": [
-    "SP-A"
+    "SP-A",
+    "SP1",
+    "SP2",
+    "SP3"
   ],
   "plot_threads_advanced": [
     "resonance_solution_found",
     "lie_breaks_open",
-    "new_truth_spoken"
+    "new_truth_spoken",
+    "trust_as_structural_problem_becomes_structural_solution"
   ],
-  "promises_planted": [],
-  "promises_paid": [],
+  "promises_planted": [
+    "The resonance solution as the book's path to Veranthos (plants Ch 21 s3, pays across Ch 23-26)"
+  ],
+  "promises_paid": [
+    "Gavran's resonance note read with Ch 18 emphasis produces an actionable plan (pays Ch 18 s3 planted re-reading)"
+  ],
   "hook_actions": [
     {
       "hook_id": "H21",
@@ -51,5 +62,9 @@
   ],
   "revelations": [],
   "pov_arc_phase": "moment_of_truth",
-  "notes": "H21 planted — Ben's pivot to the resonance solution. The word 'together' appears once in the chapter and lands at the close; do not reprise it. Diagnostic-voice trap — Ben should not, in this scene, narrate the Lie-cracking as self-analysis. He finds the note, he re-reads, his voice changes; the reader hears the change through Desh's line ('Ben's voice is different') rather than an interior paragraph from Ben explaining it. Anti-pattern: no group cheer, no relief, no speech. The decision is private and quiet; the group hears it because three people on a ridge can hear a new voice from the one who has been carrying alone."
+  "warmth_load_bearing": true,
+  "notes": "H21 planted — Ben's pivot to the resonance solution. The word 'together' appears once in the chapter and lands at the close; do not reprise it. Per R13, no Jacen naming. Per D7 Component B, Torin is off-page; the narrator does not interpret his absence. Per R11, Ben does not, in this scene, narrate the Lie-cracking as self-analysis. He finds the note, he re-reads, his voice changes; the reader hears the change through Desh's line ('Ben's voice is different,' rendered as Desh's recognition) rather than an interior paragraph from Ben explaining it. Per the Ch 18 s3 plant, the resonance note's emphasis has been sitting as 'trust, not bravery' since that scene; the s3 beat here executes that plant without re-reading the note aloud. Voice: Zahn-procedural for the physical beat of spreading the files; Bujold-interior for Ben's registration of his own voice changing; Allston-ensemble for the three faces turning. Primary anchor: Bujold (arc-turn interior); supporting anchor: Zahn (physical frame), Allston (ensemble close). Stover not used here — the Stover-permitted beats were in s1 close and s2 convergence. Anti-patterns: (a) no group cheer, no relief, no speech; the decision is private and quiet; (b) the group hears the new voice because three people on a ridge can hear a new voice from the one who has been carrying alone — not because Ben explains himself; (c) the word 'together' is used once in the chapter — this scene — and the chapter does not repeat it; (d) the resonance solution is not exposited in prose — it is set in motion by the three datapads spread on a camp table and Ben's sentence; the detail arrives in Ch 23 onward; (e) Sera does not speak in this scene — the chapter's thematic line belonged to s2 and a second Sera line would over-balance the chapter.",
+  "primary_anchor": "Bujold",
+  "supporting_anchor": "Zahn, Allston",
+  "stover_permitted": false
 }

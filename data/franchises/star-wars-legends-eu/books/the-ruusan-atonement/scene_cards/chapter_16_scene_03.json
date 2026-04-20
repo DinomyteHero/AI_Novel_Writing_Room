@@ -5,18 +5,18 @@
   "scene_type": "action",
   "scene_role": "escalation",
   "pov_character": "Ben Skywalker",
-  "mission": "Sera steps forward. Her archaic syntax carries a thousand years of waiting to say this. She counters Veraine with the one thing theory cannot answer: 'I have been where you want to take the galaxy. There is nothing there.' Veraine's composure cracks once — recognition, not anger — and recovers.",
-  "why_now": "Veraine's pitch cannot be left standing without a response that matches its weight. Sera is the only character in the circle whose history can produce the answer, and she has been waiting a thousand years for the chance.",
-  "conflict": "Two women with the same wound and opposite scars. Veraine's argument is academic; Sera's is experiential. The scene is whether experience can out-weigh theory in a room where the theorist has the floor.",
+  "mission": "Sera steps forward. Her archaic syntax carries a thousand years of waiting to say this. She counters Veraine with the one thing theory cannot answer: 'I have been where you want to take the galaxy. There is nothing there.' Per R14 anti-pattern, Veraine does NOT crack; her composure sharpens once — her register cuts into a more specific question, not into emotional intensity: 'I appreciate the testimony. But tell me — was it the place that held nothing, or the person you were when you were there?' She turns and walks back to her ship with measured steps. Per W2 Option B, no sabotage Force-shift occurs in this scene. Ben, across the meeting, has been assembling emergent intelligence — her ship's approach pattern, the tells in her crew, the archive fragments she referenced as if everyone remembered them. Nothing scripted. The scene closes with Veraine's ship receding and the group in the clearing, and with Ben's retrospective sense that something in the meeting was not only the meeting — a sense the chapter leaves unresolved for Ch 17 s1 to answer.",
+  "why_now": "Veraine's pitch cannot be left standing without a response that matches its weight. Sera is the only character in the circle whose history can produce the answer, and she has been waiting a thousand years for the chance. Per R14 anti-pattern, Veraine's response to that answer is the chapter's most important gesture — a woman who asks more specifically when cornered rather than attacks. Her curiosity, under pressure, is her most unsettling affect.",
+  "conflict": "Two women with the same wound and opposite scars. Veraine's argument is academic; Sera's is experiential. The scene is whether experience can out-weigh theory in a room where the theorist has the floor. The answer the chapter delivers is: it can, and it cannot. Sera's testimony is true. Veraine's counter-question is also — at the level of rhetoric — unanswerable in the moment. Both things coexist and the scene does not resolve them.",
   "conflict_type": "interpersonal",
-  "turning_point": "Veraine's composure cracks — not anger, recognition — when Sera names the experience of being sealed. Veraine recovers: 'I appreciate the testimony. But testimony is not evidence.' She turns and walks back to her ship.",
-  "opening_hook": "Sera steps forward. She's been silent throughout Veraine's pitch. When she speaks, her archaic syntax carries the weight of a thousand years of waiting to say this.",
-  "closing_hook": "Veraine recovers composure. 'I appreciate the testimony. But testimony is not evidence.' She excuses herself. The meeting is over. Something changed during her departure — Ben feels it in the Force. Something at the seal just shifted.",
-  "emotional_trajectory": "Sera's controlled fury -> Veraine's brief vulnerability -> the horror of the closing shift",
+  "turning_point": "Veraine's composure sharpens — not cracks — into a more specific question: 'I appreciate the testimony. But tell me — was it the place that held nothing, or the person you were when you were there?' The register does not warm; it cuts. Sera does not answer aloud, and the scene does not require her to. Veraine turns and walks back to her ship with measured steps.",
+  "opening_hook": "Sera steps forward. She has been silent throughout Veraine's pitch. When she speaks, her archaic syntax carries the weight of a thousand years of waiting to say this.",
+  "closing_hook": "Veraine's ship rises and recedes against the cleared sky. Ben stands in the clearing with the group and does not yet have language for what he is carrying out of the meeting — only the certainty that something in the room was not only the room",
+  "emotional_trajectory": "Sera's controlled fury -> Veraine's sharpened question (not vulnerability) -> the unresolved weight of two truths the meeting did not settle",
   "stakes": {
-    "personal": "Sera using her deepest wound as a weapon — the cost of testimony",
-    "interpersonal": "Veraine and Sera's parallel exposed — same wound, opposite conclusions",
-    "external": "Something happened during the meeting. Veraine used the conversation as cover."
+    "personal": "Sera using her deepest wound as a weapon — the cost of testimony when testimony is answered not with refutation but with a specific harder question",
+    "interpersonal": "Veraine and Sera's parallel exposed — same wound, opposite conclusions; the scene does not let either one collapse the other",
+    "external": "Ben's emergent intelligence from the meeting is the load Ben carries out of the clearing — ship-approach pattern, crew tells, archive fragments. The group has more information than they walked in with, and less certainty"
   },
   "characters_present": [
     "Ben Skywalker",
@@ -27,28 +27,47 @@
     "Desh Rolan"
   ],
   "setting": "Neutral meeting point — same location",
-  "sensory_details": "Sera's voice — formal, precise, trembling with controlled emotion at the edges; Veraine's brief crack — a change behind the eyes, raw for a second, then gone; the Force shifting during Veraine's departure — a pressure drop that arrives in the body before the mind locates it",
-  "canon_elements_needed": [],
-  "target_word_count": 1000,
+  "sensory_details": "Sera's voice — formal, precise, trembling with controlled emotion at the edges; Veraine's response register sharpening rather than breaking — the change is a calibration, not a crack; the specific stillness in her face when she frames the question back; her measured walk to the gangway; her crew's falling-in without order; the ship's engines spinning up to a quiet, uncontentious frequency; the cleared air; Ben cataloging without meaning to — the approach vector the ship took in, the two tells in the crew's discipline, the three archive fragments Veraine referenced as if everyone in the clearing had read them",
+  "canon_elements_needed": [
+    "Force phenomenology of unresolved parley — absence of combat-Force texture",
+    "Sith working-philosophy archive register (Karness Muur citation conventions)"
+  ],
+  "target_word_count": 1200,
   "action_beats": [
     "Sera steps forward from the group's line and faces Veraine at arm's length",
-    "Veraine flinches — quickly controlled — when Sera describes the experience of being sealed",
-    "Veraine turns and walks back toward her ship with measured steps, her crew falling in behind her"
+    "Sera delivers the chapter-anchor line — 'I have been where you want to take the galaxy. There is nothing there.' — once, and stops",
+    "Veraine's composure sharpens into a more specific question: 'Was it the place that held nothing, or the person you were when you were there?' She does not raise her voice",
+    "Veraine turns and walks back toward her ship with measured steps, her crew falling in behind her",
+    "In the margins of the departure, Ben catches himself cataloguing — approach vector, crew tells, the specific archive-fragment references Veraine used as shared ground. He does not comment. He does not stop doing it.",
+    "Veraine's ship rises and recedes. The group stands in the clearing. No Force-shift arrives. The meeting is over and it is not over."
   ],
   "active_subplots": [
     "SP-A",
     "SP1",
-    "SP5"
+    "SP2",
+    "SP3"
   ],
   "plot_threads_advanced": [
-    "sera_counter_argument",
-    "veraine_sera_parallel",
-    "sabotage_executed"
+    "sera_counter_argument_experiential",
+    "veraine_sera_parallel_exposed_unresolved",
+    "veraine_register_sharpens_not_cracks",
+    "ben_emergent_intelligence_gathered"
   ],
-  "promises_planted": [],
+  "promises_planted": [
+    "Ben carries emergent intelligence about Veraine out of the clearing — approach vector, crew tells, archive-fragment register (plants Ch 16, pays across Ch 17-25 operational beats)"
+  ],
   "promises_paid": [],
-  "hook_actions": [],
+  "hook_actions": [
+    {
+      "hook_id": "H05",
+      "action": "resolve"
+    }
+  ],
   "revelations": [],
   "pov_arc_phase": "lie_challenged",
-  "notes": "Sera's line 'I have been where you want to take the galaxy. There is nothing there.' is a chapter-anchor — deliver once and leave. Sera's arc: lie_challenged — she uses her principle as a weapon, but watching Veraine walk away intact shows her that principle alone does not protect. Diagnostic-voice trap — Ben should not, in this scene, narrate Sera's rhetorical victory. He registers the crack in Veraine; he feels the Force-shift at her departure; he does not yet have a name for what just happened. Force phenomenology in the closing shift: pressure drop in the body, felt before understood — rotate away from acoustic or navigational metaphors."
+  "warmth_load_bearing": false,
+  "notes": "H05 resolves — the Sera/Veraine parallel has been exposed in direct contact. Sera's line 'I have been where you want to take the galaxy. There is nothing there.' is a chapter-anchor — deliver once and leave. Per R14 anti-pattern, Veraine does NOT crack — her composure sharpens into a more specific question. This is the chapter's most important gesture: a woman who becomes more curious, not more hostile, under pressure. The register change is calibration, not emotion. Per W2 Option B, no sabotage Force-shift occurs in this scene; the chapter ends with the meeting settling and Ben carrying ambiguous weight. Per W2, Ben's emergent intelligence is gathered at ground level — he catches himself cataloguing (approach vector, crew tells, archive-fragment references) without scripted intelligence-gathering beats. The cataloguing is reported in the narration without being announced as a strategic operation. Sera's arc: lie_challenged — she uses her principle as a weapon, but watching Veraine walk away intact with a harder question shows her that testimony alone does not resolve. Per R11, Ben does not, in this scene, narrate Sera's rhetorical victory or failure. He registers the sharpened register in Veraine; he does not yet have language for what the chapter's final hours mean. Per R14 voice_texture continuity, Veraine's spoken register in her answer to Sera is continuous with her ledger-register — what changes between contexts is audience, not register. Diagnostic-voice trap — do not let Ben articulate 'her curiosity is her most unsettling affect' — the experience of her curiosity lands before the name for it would. Voice: Zahn-precise for the frame; Bujold-interior permitted for Ben's involuntary cataloguing. Primary anchor: Zahn (structural precision of the exchange); supporting anchor: Luceno (Veraine's philosophical diction), Bujold (Ben's interior). Anti-patterns: (a) Veraine does NOT crack, does NOT flinch, does NOT show composure breaking — she sharpens into a question; (b) no Force-shift from sabotage at the scene's close — the Ch 17 s1 discovery is meant to arrive cleanly; (c) no character on Ben's side verbally interprets Veraine's response to Sera on-page — the interpretive work belongs to the reader and to subsequent chapters; (d) the scene does not close on a line of dialogue — close on the ship's recession and the group in the clearing.",
+  "primary_anchor": "Zahn",
+  "supporting_anchor": "Luceno, Bujold",
+  "stover_permitted": false
 }

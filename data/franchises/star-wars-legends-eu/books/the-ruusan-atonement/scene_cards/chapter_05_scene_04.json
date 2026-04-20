@@ -5,18 +5,18 @@
   "scene_type": "sequel",
   "scene_role": "decision",
   "pov_character": "Ben Skywalker",
-  "mission": "Lock-in. Ben commits to the pursuit. The group forms because no alternative exists. The triple-layered lock-in activates: seal failing, survivors dependent, Veraine already moving.",
-  "why_now": "The information is all on the table. The next move has to be chosen before the ship can lift, and Ben is the person with the keys.",
-  "conflict": "Every instinct Ben has trained tells him to pick up the comm and call Luke. Every calculation he does not quite permit himself to finish tells him that the Order's response time would cost more than the survivors have. He picks the partial report and does not say the word 'help'.",
+  "mission": "Lock-in. Ben commits to the pursuit without yet knowing the escapee's name. The group forms because no alternative exists. The triple-layered lock-in activates: seal failing, survivors dependent, an unnamed anchor already moving along the Corridor. Per D8, Veraine is not named here — identification lands at Ch 6 s1. The group-formation beat proceeds with the antagonist's shape but not her signature.",
+  "why_now": "The information Ch 5 could deliver is on the table. The Corridor geography is mapped. The escapee has two months of head start. Ben has to choose to lift before Luke's reply window closes on the partial report.",
+  "conflict": "Every instinct Ben has trained tells him to pick up the comm and call Luke in full. Every calculation he does not quite permit himself to finish tells him that the Order's response time would cost more than the survivors have, and that a fuller report would pull the mission out of his hands. He picks the partial report and does not say the word 'help'. The institutional withholding that began at Ch 3 deepens in concrete form.",
   "conflict_type": "internal",
-  "turning_point": "Torin asks a quiet, almost friendly question about the modern Jedi's relationship with the light/dark boundary. 'Gavran thought so too. Before.' Ben files it without processing it.",
-  "opening_hook": "Ben spreads the fortress data across the command table — Corridor maps, seal readings, Veraine's file — while Sera and Torin work through the archive beside him.",
-  "closing_hook": "Ben sends a partial report to Luke — enough to explain the delay, not enough to reveal the scope. The Steady Returns lifts off the plateau, pointed along the Corridor. Someone else is following them.",
+  "turning_point": "Ben sends the partial report. The Steady Returns lifts. The choice to carry this alone — without naming the choice — is made. Somewhere in the archive lists Desh is still compiling are the monitoring packets that will, overnight, resolve the escapee's name in response-quadrant processing.",
+  "opening_hook": "Ben spreads the fortress data across the command table — Corridor maps, seal readings, the chamber file with a name-shaped blank where the occupant should be — while Sera and Torin work through the archive beside him",
+  "closing_hook": "Ben sends a partial report to Luke — enough to explain the delay, not enough to reveal the scope. The Steady Returns lifts off the plateau, pointed along the Corridor. An unnamed anchor is somewhere ahead of them. The monitoring packets Desh is reconstructing will finish overnight",
   "emotional_trajectory": "Overwhelmed assessment -> grim determination -> the quiet cost of choosing to carry this alone",
   "stakes": {
     "personal": "Ben takes the weight because the choice is not really a choice to him yet — the pattern closes around him before he names it",
     "interpersonal": "The fragile group dynamic — Sera's conditional respect, Torin's warmth, Kael's distance, Desh's pragmatism",
-    "external": "The clock is ticking on three fronts: seal degradation, Veraine's progress, and the Order's ignorance"
+    "external": "The clock is ticking on three fronts: seal degradation, the unnamed escapee's progress, and the Order's ignorance"
   },
   "characters_present": [
     "Ben Skywalker",
@@ -31,13 +31,13 @@
     "Ben Skywalker communication protocols with Luke and the Jedi Order",
     "Jedi Order institutional hierarchy for crisis reporting",
     "Ruusan Corridor strategic geography and anchor node network",
-    "Post-Fate of the Jedi era Jedi Order operational capacity",
-    "Force technique lineage and transmission across eras"
+    "Post-Fate of the Jedi era Jedi Order operational capacity"
   ],
   "target_word_count": 1000,
   "action_beats": [
-    "Ben lays out fortress data and Corridor maps across the command table",
-    "Sera and Torin organize archive materials into tactical priority order from muscle memory",
+    "Ben lays out fortress data and Corridor maps across the command table; the chamber file sits beside them with a name-shaped blank",
+    "Sera and Torin organize archive materials into tactical priority order from muscle memory; Torin's arrangement carries warmth and Sera's carries precision, and Ben registers the difference without comment",
+    "Desh commits to having the corrupted monitoring packets reconstructed by morning — the name will resolve in response-quadrant",
     "Ben composes a partial report to Luke on his datapad and transmits it before he can change his mind",
     "The Steady Returns lifts off the mountain plateau, engines straining with five passengers aboard a ship built for two"
   ],
@@ -45,25 +45,22 @@
     "SP-A",
     "SP1",
     "SP2",
-    "SP3",
-    "SP4"
+    "SP3"
   ],
   "plot_threads_advanced": [
     "lock_in_complete",
     "partial_report_to_luke",
-    "heading_to_corridor"
+    "heading_to_corridor",
+    "monitoring_packet_reconstruction_pending"
   ],
   "promises_planted": [],
   "promises_paid": [],
-  "hook_actions": [
-    {
-      "hook_id": "H06",
-      "action": "plant"
-    }
-  ],
-  "revelations": [
-    "R05"
-  ],
+  "hook_actions": [],
+  "revelations": [],
   "pov_arc_phase": "lie_reinforced",
-  "notes": "R05 partial — technique lineage first surfaces. H06 planted: Torin's quiet question ('Gavran thought so too. Before.') seeds his turn fifteen chapters later — understated, easy to miss on first read, should land in Ben's memory without Ben articulating why it bothers him. Diagnostic-voice trap — Ben should not, in this scene, narrate his self-reliance as a pattern. The partial report is the behavioural evidence; his interiority should stay inside the practical math of what he can say to Luke without losing the next twenty-four hours. The phrase 'burden is mine to carry' belongs to a later chapter, earned by consequence. Relationship turns — Ben/Desh shift to co-witnesses; Sera/Torin recognise each other in the archive without language for the thousand-year ache yet; Kael stays adjacent, not yet inside."
+  "warmth_load_bearing": true,
+  "notes": "Per D8, R05 (Veraine naming) is removed from this scene and relocated to Ch 6 s1 — do not smuggle it back. Per D7, H06 was planted in s3; this scene does not re-plant. Diagnostic-voice trap — Ben should not, in this scene, narrate his self-reliance as a pattern. The partial report is the behavioural evidence; his interiority should stay inside the practical math of what he can say to Luke without losing the next twenty-four hours. The phrase 'burden is mine to carry' belongs to a later chapter, earned by consequence. Per R11, Ben's register remains first-approximation — the late-Ben analytical voice that names institutional patterns belongs to Parts 3–4. Relationship turns — Ben/Desh shift to co-witnesses; Sera/Torin recognise each other in the archive without language for the thousand-year ache yet; Kael stays adjacent, not yet inside. Per R12, Torin's warmth in this scene is load-bearing — preserve it. Primary anchor: Zahn (command-table procedural clarity); supporting anchor: Bujold (Ben's interior register as he chooses the partial report — self-awareness without self-pity, aware of the pattern he is entering without naming it). Stover not permitted this scene. Anti-patterns: (a) no R05 — Veraine unnamed; (b) no speech from Ben about self-reliance; (c) no narrator correction of Ben's withholding; the reader feels the choice's weight through action, not exposition.",
+  "primary_anchor": "Zahn",
+  "supporting_anchor": "Bujold",
+  "stover_permitted": false
 }

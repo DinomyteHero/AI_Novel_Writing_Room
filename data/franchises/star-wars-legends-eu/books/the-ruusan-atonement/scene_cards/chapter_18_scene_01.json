@@ -5,44 +5,56 @@
   "scene_type": "sequel",
   "scene_role": "hook",
   "pov_character": "Ben Skywalker",
-  "mission": "Common area. Torin tells an NSW battle story with self-deprecating warmth. Ben watches the structure underneath: I decided, I acted, I bore the cost. Every story has the same architecture. Across the cockpit, Ben's eyes find Desh's. Neither says Jacen's name.",
-  "why_now": "The Ch11 conversation with Desh planted the pattern; the Ch17 doorway line delivered the cadence. The recognition crystallises here because the evidence is a laugh and a story — two things Ben has been watching and not cataloguing.",
-  "conflict": "Ben has been watching Torin for chapters without naming what he is watching. The laugh is perfect, the stories are warm, the cadence is Jacen's. The scene is about whether Ben can keep watching without either confronting Torin or looking away.",
+  "mission": "Common area. Torin tells an NSW battle story with self-deprecating warmth. Ben watches the structure underneath: I decided, I acted, I bore the cost. Every story Torin has told has the same architecture. The laughter is warm and perfectly timed and Ben has seen this before — he wonders when he started analysing Torin's laughter, and then when he stopped doing it with Jacen too late. Across the common area, Ben's eyes find Desh's. Per R13, the single explicit Jacen naming lands here: one of them thinks or says the words 'Like Jacen.' A single sentence. The line the book has been saving. It lands; it is not underlined; the scene does not rest on it. R10 advances. H15 resolves. In the same scene: per D7 counter-current 4, Torin — mid-story — interrupts himself to pour a second cup for Sera before she can reach for it. No framing. No warmth announced. Sera takes it. The moment passes. It is the kind of thing the man who will walk into the caldera would not stop to do, and Ben files it without resolving it.",
+  "why_now": "The Ch 11 conversation with Desh planted the pattern; the Ch 17 doorway line delivered the cadence; the Ch 17 s2 group-fracture scene left the question in the room. The recognition crystallises here because the evidence is a laugh and a story — two things Ben has been watching and not cataloguing. The chapter is the Second Pinch Point, and the name belongs to this moment or to no moment: per R13, this is the single-naming budget for the book's surface.",
+  "conflict": "Ben has been watching Torin for chapters without naming what he is watching. The laugh is perfect, the stories are warm, the cadence is Jacen's. Then Torin, without transition, pours Sera a cup of caf — a small kindness Ben cannot fit inside the pattern he has just named. The scene asks Ben to hold two things at once: the pattern that is real, and the gesture that complicates it. Neither resolves the other.",
   "conflict_type": "internal",
-  "turning_point": "Torin tells a battle story where he saved people by acting alone. Every story he has told has the same architecture. Ben catches the pattern.",
-  "opening_hook": "Torin is laughing at something Desh said. The laugh is perfect — warm, easy, generous. Ben wonders when he started analyzing Torin's laughter for authenticity, and then he wonders why he stopped doing it with Jacen too late.",
-  "closing_hook": "Ben looks at Desh across the cockpit. Desh meets his eyes. Neither says Jacen's name. They don't need to. The confirmation is silent and mutual.",
-  "emotional_trajectory": "Watchful analysis -> dawning recognition -> the sick weight of confirmed suspicion",
+  "turning_point": "Ben catches the pattern in Torin's stories. The Jacen name arrives — once, quietly, between Ben and Desh. Seconds later, Torin pours Sera the second cup, and Ben has no framework ready to hold both.",
+  "opening_hook": "Torin is laughing at something Desh said. The laugh is perfect — warm, easy, generous. Ben wonders when he started analysing Torin's laughter for authenticity, and then he wonders why he stopped doing it with Jacen too late.",
+  "closing_hook": "The scene closes with Torin still mid-story, Sera cradling the second cup, and Ben carrying a name he now has and a gesture he cannot place",
+  "emotional_trajectory": "Watchful analysis -> dawning recognition -> the name landing once -> the unresolved weight of Torin's cup-pouring",
   "stakes": {
-    "personal": "Ben watching a path he has seen before, on a person he has come to rely on",
-    "interpersonal": "Ben and Desh's shared recognition — the GAG-forged bond doing the work it was forged for",
-    "external": "Torin is the group's strongest combatant and may be becoming its greatest threat"
+    "personal": "Ben watching a path he has seen before, on a person he has come to rely on, and holding a gesture that refuses the simplicity of the pattern",
+    "interpersonal": "Ben and Desh's shared recognition — the GAG-forged bond doing the work it was forged for; Torin's gesture toward Sera rendering both of them harder to categorise",
+    "external": "Torin is the group's strongest combatant and may be becoming its greatest threat — but the threat is not simple, and the book refuses to let Ben simplify it"
   },
   "characters_present": [
     "Ben Skywalker",
     "Torin Hal",
-    "Desh Rolan"
+    "Desh Rolan",
+    "Sera Varik",
+    "Kael Drenn"
   ],
-  "setting": "Aboard the Steady Returns — common area, then cockpit",
-  "sensory_details": "Torin's laughter well-timed, well-modulated, landing cleanly on its beats; his Force presence warm and heavy, the post-breach stillness now replaced by something denser; Desh's eyes steady across the cockpit; Ben's mouth dry",
-  "canon_elements_needed": [],
+  "setting": "Aboard the Steady Returns — common area, late second shift",
+  "sensory_details": "Torin's laughter well-timed, well-modulated, landing cleanly on its beats; his Force presence warm and heavy, the post-breach stillness now replaced by something denser; the structural pattern of his stories — decided, acted, bore the cost — arriving to Ben as shape rather than sentence; Desh's eyes steady across the common area; Ben's mouth dry; the specific unhurried moment when Torin rises mid-sentence, refills the caf pot, and fills Sera's cup before she reaches for it; the small Dantari inclination Sera offers back, automatic; the ambient hum of the ship under all of it",
+  "canon_elements_needed": [
+    "Jedi analytical tradition for reading performed versus spontaneous affect",
+    "New Jedi Order battle memoir register (Torin as archetype)"
+  ],
   "target_word_count": 1200,
   "action_beats": [
     "Torin laughs at Desh's joke — warm, easy, the timing perfect — and Ben catalogs the performance",
-    "Torin tells a battle story and gestures with practiced ease while Ben tracks the structural pattern underneath",
-    "Ben meets Desh's eyes across the cockpit and the silent confirmation passes between them without a word"
+    "Torin tells a battle story and gestures with practiced ease while Ben tracks the structural pattern underneath: I decided, I acted, I bore the cost",
+    "Mid-story, Torin reaches across the common-area table, lifts the caf pot, and fills Sera's cup before she can reach for it; Sera takes it; the moment passes without comment",
+    "Ben meets Desh's eyes across the common area. One of them thinks it, one of them says it — barely audible. 'Like Jacen.' Said once. Not repeated"
   ],
   "active_subplots": [
     "SP-A",
     "SP1",
+    "SP2",
     "SP3"
   ],
   "plot_threads_advanced": [
-    "jacen_pattern_recognized",
-    "ben_desh_silent_confirmation"
+    "jacen_pattern_named_once_r13",
+    "ben_desh_silent_confirmation_becomes_spoken",
+    "torin_counter_current_4_cup_poured"
   ],
-  "promises_planted": [],
-  "promises_paid": [],
+  "promises_planted": [
+    "Torin's cup-pouring complicates the corruption-arc reading — the reader is asked to hold ambiguity the characters cannot resolve (pays through Ch 21 implicit read and beyond)"
+  ],
+  "promises_paid": [
+    "The Jacen parallel surfaces explicitly once (pays PP R13 naming budget)"
+  ],
   "hook_actions": [
     {
       "hook_id": "H15",
@@ -53,5 +65,9 @@
     "R10"
   ],
   "pov_arc_phase": "lie_challenged",
-  "notes": "R10 — Ben recognises the Jacen pattern in Torin explicitly to himself. Anti-pattern: Jacen is not named aloud by anyone in this scene; the scene's power is that everyone in the cockpit is deciding not to say the name. Diagnostic-voice trap — Ben should not, in this scene, write the comparison in interior paragraphing. The recognition is carried through the laugh he watches and the story he analyses; his interiority tracks structure, not thesis. Voice: Zahn-observation, Ben as analyst of Torin's surface; one permitted Stover beat for the silent eye-meet with Desh."
+  "warmth_load_bearing": true,
+  "notes": "R10 — Ben recognises the Jacen pattern in Torin and, per R13, the name is spoken or thought explicitly in this scene. The R13 budget is exactly one explicit naming in the book's surface; this is it. After this chapter, the parallel operates subtextually. Per R13 drafting guardrail, do not repeat the name in Ch 19+ in any form; allusions must be structural or gestural. Per D7 counter-current 4, Torin's cup-pouring is a single gesture rendered without commentary. It is not underlined. It does not resolve anything. It lives briefly in the scene and is filed by Ben without being placed. The live ambiguity of the corruption arc depends on this beat not being explained. Per D7 Component B, the narrator does not over-signal Torin's direction past Ben's perception; Ben registers both the pattern and the gesture and does not force them into one account. Per R11, Ben does not write the Jacen-Torin comparison as interior paragraphing — his interiority tracks structure (the architecture of the stories) rather than thesis. The name lands as a short exchange with Desh, not as an interior monologue. Per D7 Component A, R09 and R10 both live in this chapter's register; Veraine's pressure is off-page here, but Torin's pattern is the chapter's weight. Voice: Zahn-observation (Ben as analyst of Torin's surface); one permitted Stover-interior beat for the moment of naming with Desh; Bujold restraint around the cup-pouring (reported, not interpreted). Primary anchor: Zahn (observational precision); supporting anchor: Stover (one permitted interior beat), Bujold (the held ambiguity around the cup). Anti-patterns: (a) Jacen is named exactly once in this chapter — no more, no less; (b) Torin's cup-pouring is NOT interpreted by Ben in prose — he files and moves; (c) the scene does not close on the Jacen line; it closes on Ben carrying both the name and the gesture forward; (d) no confrontation with Torin — the naming is private between Ben and Desh.",
+  "primary_anchor": "Zahn",
+  "supporting_anchor": "Stover, Bujold",
+  "stover_permitted": true
 }

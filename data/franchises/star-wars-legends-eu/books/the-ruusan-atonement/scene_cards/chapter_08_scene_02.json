@@ -5,17 +5,17 @@
   "scene_type": "sequel",
   "scene_role": "reveal",
   "pov_character": "Ben Skywalker",
-  "mission": "The galley. Sera sets down her fork with precision that is itself a warning. Torin puts reasonable hands on the table. Four positions surface — Sera's, Torin's, Kael's, and Ben's (absent). Ben tables the debate; Kael closes it with a line that no one has an answer to.",
+  "mission": "The galley. Sera sets down her fork with precision that is itself a warning. Torin puts reasonable hands on the table. Four positions surface — Sera's, Torin's, Kael's, and Ben's (absent). Ben tables the debate; Kael closes it with a line that no one has an answer to. Per D7 counter-current 1, a small specific beat: when Sera pivots toward Kael with an edged question, Torin smoothly intercepts — redirects the heat to himself without making the redirect visible as one. A costless kindness to Kael. Ben sees it, does not interpret it, files it.",
   "why_now": "The thinning in the previous scene pushed the underlying disagreement into the room. Proceed without naming the positions and the group fractures on the next Corridor stop instead of at a table.",
-  "conflict": "Three irreconcilable readings of the same history. Sera treats the lattice as something sacred and the technique as a violation. Torin treats the lattice as structure and the technique as a tool. Kael treats both frameworks as institutional propaganda. Ben does not have a position, and that is the problem.",
+  "conflict": "Three irreconcilable readings of the same history. Sera treats the Weave as something sacred and the technique as a violation. Torin treats the Weave as structure and the technique as a tool. Kael treats both frameworks as institutional propaganda. Ben does not have a position, and that is the problem. Sera's pressure starts to fall on Kael; Torin quietly absorbs it.",
   "conflict_type": "interpersonal",
   "turning_point": "Kael speaks last. 'You're all arguing about whose cage has nicer bars.' Nobody answers, because nobody has a good answer.",
-  "opening_hook": "It starts over food. Torin says something about the technique that makes Sera put down her fork with precision that is itself a warning.",
-  "closing_hook": "Kael speaks last, after everyone else has committed: 'You're all arguing about whose cage has nicer bars.' Nobody answers. Because nobody has a good response.",
+  "opening_hook": "It starts over food. Torin says something about the technique that makes Sera put down her fork with precision that is itself a warning",
+  "closing_hook": "Kael speaks last, after everyone else has committed: 'You're all arguing about whose cage has nicer bars.' Nobody answers. Because nobody has a good response",
   "emotional_trajectory": "Simmering tension -> heated philosophical collision -> uncomfortable silence",
   "stakes": {
     "personal": "Ben's worldview destabilising — the Force he was taught does not match the room he is standing in",
-    "interpersonal": "The group's ideological fault lines exposed",
+    "interpersonal": "The group's ideological fault lines exposed; Torin's counter-current protection of Kael registers for Ben without explaining itself",
     "external": "Their ability to act together depends on some resolution or at least coexistence"
   },
   "characters_present": [
@@ -32,6 +32,7 @@
   "action_beats": [
     "Sera puts down her fork with controlled precision when Torin raises the technique over their meal",
     "Torin spreads his hands on the table — a gesture of measured reasonableness that makes his argument feel inevitable",
+    "Sera turns toward Kael with an edged question; Torin smoothly redirects the exchange back to himself before Kael has to answer. The redirect is not visible as one. Kael does not need it; Torin does it anyway",
     "Kael speaks last, his words landing in the silence after everyone else has committed their positions"
   ],
   "active_subplots": [
@@ -41,7 +42,8 @@
   ],
   "plot_threads_advanced": [
     "four_positions_crystallized",
-    "ben_worldview_destabilized"
+    "ben_worldview_destabilized",
+    "torin_counter_current_1_kael_protection"
   ],
   "promises_planted": [
     "Three different Force traditions can work in concert (PP13)"
@@ -50,5 +52,9 @@
   "hook_actions": [],
   "revelations": [],
   "pov_arc_phase": "lie_reinforced",
-  "notes": "Veraine's position (lattice as disease) is present by absence — the missing fourth voice, audible in its shape around the three that speak. Kael's 'whose cage has nicer bars' is the line readers should remember from this chapter — plant it and leave. Diagnostic-voice trap — Ben should not, in this scene, internally synthesise all four positions into a framework. He is the one person at the table without a settled answer; the scene's value is that his not-knowing is visible through what he does not say, not through an interior monologue labelling his own destabilisation. Anti-patterns: no monologues; Torin's reasonableness must be genuinely compelling on the page, not a strawman; Sera's anger should register in posture and diction, not in a speech."
+  "warmth_load_bearing": true,
+  "notes": "Veraine's position (Weave as disease) is present by absence — the missing fourth voice, audible in its shape around the three that speak. Kael's 'whose cage has nicer bars' is the line readers should remember from this chapter — plant it and leave. Per D7 counter-current 1: Torin's intercept of Sera's pressure on Kael is a real ambiguity, not misdirection. On the corruption trajectory, Torin would want Kael vulnerable (so he can later recruit Kael into the forbidden-technique camp); here he protects Kael at zero cost to himself. The beat must read as characterisation, not plot signal — Ben sees the redirect, does not interpret it, files it. Per D7 anti-pattern, narrator does not correct Ben's file-and-move-on; no 'Torin was protecting Kael for reasons Ben would only later understand' line. The reader holds the beat as live ambiguity. Per D3, the Weave is the shared referent; Sera may use 'the work', Torin 'the stitching', Kael 'the cloth' — in-character variants without breaking the shared referent. Per D4, the concept-vs-sensation rule holds — each position's weight registers through body-language (Sera's fork, Torin's hands, Kael's flat voice) not through labelled philosophical abstractions. Per R11, Ben's close-third does not internally synthesise all four positions into a framework. He is the one person at the table without a settled answer; the scene's value is that his not-knowing is visible through what he does not say, not through an interior monologue labelling his own destabilisation. Per R12, Torin's warmth is load-bearing across this scene even as it thins during the argument — the counter-current protection of Kael refreshes the warmth specimen at the beat's exit. Anti-patterns: no monologues; Torin's reasonableness must be genuinely compelling on the page, not a strawman; Sera's anger should register in posture and diction, not in a speech; the Torin-counter-current beat is not underlined. Primary anchor: Allston (ensemble dialogue architecture — five distinct voices at a small table); supporting anchor: Zahn (discipline of scene structure), Bujold (Ben's interior register of the redirect he sees without interpreting).",
+  "primary_anchor": "Allston",
+  "supporting_anchor": "Zahn, Bujold",
+  "stover_permitted": false
 }

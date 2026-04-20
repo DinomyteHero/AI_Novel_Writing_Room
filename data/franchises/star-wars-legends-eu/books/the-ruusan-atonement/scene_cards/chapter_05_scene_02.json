@@ -5,18 +5,18 @@
   "scene_type": "action",
   "scene_role": "reveal",
   "pov_character": "Ben Skywalker",
-  "mission": "The full scope lands: the Ruusan Reformations as penance, the forbidden technique, the wound at Veranthos, the anchor system, the Brotherhood's lattice inversion attempt. Delivered through Sera's precision, Torin's warmth, and Kael's dry corrections — not through narrator exposition.",
-  "why_now": "The survivors recognise the archive and can read what Ben could not. The vocabulary returns with its original speakers, and the architecture finally has a name.",
-  "conflict": "The information rewrites the foundational narrative of Ben's Order in front of him. Sera delivers the official account with professional precision; Torin warms the edges with lived memory; Kael corrects details from an angle neither of them expected.",
+  "mission": "The FPP shock lands clean: the Ruusan Reformations were dual-purpose — the public reform every modern Jedi knows, and a private penance no modern Jedi is told about. One institutional fact detonates. Survivor introductions carry the human register: Sera's precision, Torin's warmth, Kael's dry corrections. Technique, wound mechanics, anchor architecture, and Brotherhood inversion are deferred to R04b (Ch 7), R04c (Ch 9), and R04d (Ch 11) per D8.",
+  "why_now": "The survivors recognise the archive and can read what Ben could not. The architecture of their own waking names itself — not as a lecture, but as three people stepping into a room they built a thousand years ago and finding the record still here.",
+  "conflict": "The revelation that the Reformations were penance rewrites the foundation of Ben's Order in front of him. Sera delivers the institutional fact with the composure of someone who has waited a thousand years to say it out loud to a Jedi. Torin warms the edges with lived memory. Kael, monk's brevity, corrects one detail — the first voluntary thing he has said.",
   "conflict_type": "interpersonal",
-  "turning_point": "The Reformations — the foundation of modern Jedi identity — were penance and damage control. The Order Ben was raised inside has been built on what Gavran chose not to say.",
+  "turning_point": "Ben understands that the Reformations — the foundation of modern Jedi identity — were penance and damage control. The Order he was raised inside has been built on what Gavran chose not to say.",
   "opening_hook": "Sera crosses to the archive console and her fingers find the activation sequence from muscle memory — a thousand years old and still faster than Ben's modern training",
-  "closing_hook": "The technique. The wound. The seal. The anchors. Twelve Force-sensitives used as structural rebar in a containment system. Nine dead. Three just woken. One escaped.",
+  "closing_hook": "'The Reformations you were raised inside,' Sera says, 'were the front half of an agreement.' She does not say what the back half was. She does not need to. Ben can read the rest of it off her face",
   "emotional_trajectory": "Absorbing shock -> intellectual vertigo -> moral reckoning with institutional history",
   "stakes": {
     "personal": "The account Ben grew up inside does not match the room he is standing in",
-    "interpersonal": "The survivors' conflicting accounts reveal they were not all willing participants",
-    "external": "The wound exists, the seal is failing, and the Order does not know any of this"
+    "interpersonal": "The survivors emerge as three distinct persons, not three expositors — the book's spine depends on this landing",
+    "external": "The foundation of the modern Order's self-understanding was edited at the source"
   },
   "characters_present": [
     "Ben Skywalker",
@@ -26,45 +26,49 @@
     "Kael Drenn"
   ],
   "setting": "Fortress Level 2 (Archive) — survivors navigating familiar territory with thousand-year-old muscle memory",
-  "sensory_details": "Archive media activating under Sera's touch; holographic displays showing the wound's expansion across centuries as a red accretion over the map; Torin's hand brushing a console with a familiarity that makes Ben's skin register wrong before his mind does; the Codex fragment resting faintly lit inside its sealed case",
+  "sensory_details": "Archive media activating under Sera's touch; holographic displays showing institutional timelines in a register Ben has never seen; Torin's hand brushing a console with a familiarity that makes Ben's skin register wrong before his mind does; Kael's gaze settling on a detail and lingering; the Codex fragment resting faintly lit inside its sealed case, unopened this scene",
   "canon_elements_needed": [
-    "Ruusan Reformations true historical purpose and aftermath",
-    "Brotherhood of Darkness organization and military doctrine",
-    "Force wound theory with Nihilus and Malachor V precedent",
+    "Ruusan Reformations as public historical event (the part every modern Jedi knows)",
     "Institutional memory loss and generational knowledge gaps in the Jedi Order",
-    "Jedi Lords era Force techniques and capabilities",
-    "Light and dark side boundary theory in Legends metaphysics"
+    "Jedi Lords era presence in the historical register",
+    "Brotherhood of Darkness as a name in the historical record (without inversion specifics yet — those land at R04d in Ch 11)"
   ],
-  "target_word_count": 1400,
+  "target_word_count": 1200,
   "action_beats": [
-    "Sera activates the archive console with an ancient access code from muscle memory",
-    "Holographic displays bloom showing the wound's expansion over centuries — red zones growing across the map",
-    "Torin pulls the sealed Codex fragment from its housing and opens the case",
-    "Kael reaches past Sera to correct a detail on the projection map — his first voluntary contribution"
+    "Sera activates the archive console with an ancient access code from muscle memory — her century-of-discipline composure holds even as she is using it",
+    "Torin pulls a record index into the display, adding a story-shaped inflection that warms the institutional facts without softening them",
+    "Kael reaches past Sera to correct one detail — his first voluntary contribution — a single word replaced, precisely and without emphasis",
+    "Sera names the dual-purpose framing: public reform, private penance. One sentence, clean. Ben feels the sentence land before he understands it",
+    "Ben's close-third registers what each of the three has just become for him: Sera the instrument, Torin the keeper, Kael the correction"
   ],
   "active_subplots": [
     "SP-A",
     "SP1",
     "SP2",
-    "SP4"
+    "SP3"
   ],
   "plot_threads_advanced": [
-    "reformations_truth_revealed",
-    "technique_explained",
-    "wound_explained",
-    "anchor_system_explained"
+    "reformations_dual_purpose_revealed"
   ],
   "promises_planted": [
-    "The institutional lie must be told to the Order (PP08)",
-    "The Jacen parallel will be recognized (PP07)"
+    "The institutional lie must be told to the Order (PP08)"
   ],
   "promises_paid": [
     "The wrongness has a source (PP01)"
   ],
   "hook_actions": [],
   "revelations": [
-    "R04"
+    "R04a"
   ],
   "pov_arc_phase": "lie_reinforced",
-  "notes": "R04 is the First Plot Point revelation. Highest info-dump risk scene in the book — every piece of exposition must be earned through character reaction. Sera's precision, Torin's narrative warmth, Kael's dry corrections carry the history. When Sera explains something, Ben's internal response tells the reader why it matters; when Torin narrates, his warmth makes the history feel personal rather than academic; when Kael corrects, the uncomfortable authority of his angle should land for a beat before he lets it go. Prior-EU onboarding — Jacen surfaces here for the first time inside a historical briefing context. One grounding phrase, no recap. Ben's tone does the work; the reader who knows the reference feels the weight, the reader who does not learns it in context without the scene stopping for a footnote. Anti-pattern: no character delivers the thematic sentence about 'repeating the Lords' mistakes' — the point should emerge from what they each take from the same history, not from a speech."
+  "character_emergence_required": {
+    "Sera Varik": "precision — archival exactness, clipped clarity, century-of-discipline composure. Must land as a person, not a database",
+    "Torin Hal": "narrative warmth — storytelling inflection, wry historical framing, textured humanity. Warmth specimens are first-order content per R12; must not be flattened by exposition pressure",
+    "Kael Drenn": "dry corrections — monk's brevity, understated pushback, quiet observation. One voluntary sentence lands heavier than a paragraph"
+  },
+  "warmth_load_bearing": true,
+  "notes": "R04a is the FPP revelation — the sole institutional shock this scene carries. Technique (R04b), wound mechanics (R04c), anchor system, and Brotherhood inversion (R04d) are deferred to Ch 7 / 9 / 11 per D8. Do not smuggle those payloads back in. Scene's primary execution risk per R8: the three survivors must land as distinct persons or the book has no spine for the next 23 chapters. Exposition density is permitted only after character-distinctness is established. Per R12, Torin's warmth in this scene is load-bearing — preserve the register-establishing quality, do not flatten for information density. Prior-EU onboarding: the Reformations-as-penance framing is the specific recontextualization the book commits to; one grounding moment, no recap, Ben's tone does the work. Per D3, the Weave is the shared referent; individual speakers may use in-character variants (Sera 'the work,' Torin 'the stitching,' Kael 'the cloth') but the variants do not land heavily this scene — they will establish across later chapters. Per D4 concept-vs-sensation, the weight of the Reformations revelation lands through Ben's body-experience — sentence landing before understanding, the floor-level recalibration — not through analytical narration. Anti-patterns: (a) no character delivers a thematic summative speech; the point emerges from what each takes from the same history; (b) the Jacen parallel is not named in this scene — per R13 it is explicitly budgeted to Ch 18; (c) Veraine is not named here — per D8 her identification moves to Ch 6 s1; (d) Ben's close-third does not run ahead of what he has earned — per R11, his register is first-approximation reading, not late-Ben analytical. Primary anchor: Luceno (payload delivery technique — institutional shock landing through reaction). Supporting anchor: Zahn (prose clarity); Allston (three-speaker ensemble distinction). No stover_permitted beat.",
+  "primary_anchor": "Luceno",
+  "supporting_anchor": "Zahn, Allston",
+  "stover_permitted": false
 }

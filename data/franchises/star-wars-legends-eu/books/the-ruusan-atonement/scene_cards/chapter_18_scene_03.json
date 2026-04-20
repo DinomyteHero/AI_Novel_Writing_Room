@@ -5,25 +5,28 @@
   "scene_type": "sequel",
   "scene_role": "decision",
   "pov_character": "Ben Skywalker",
-  "mission": "Corridor, alone, night cycle. Ben slides down the bulkhead until he is sitting on cold deck plates. He pulls up Gavran's resonance note on his datapad: 'We lacked the will or the trust to attempt it.' He has been reading it as 'we weren't brave enough.' He re-reads: 'We couldn't trust each other enough.' Different emphasis. Different problem.",
-  "why_now": "The recognition in Scenes 1-2 has to translate into a concrete shift before Ch19's Sera/Kael payoffs can land. Ben cannot arrive at the Jedi outpost still reading the note the old way.",
-  "conflict": "Ben's body finally admits what it has been carrying. Interiority crowds in — self-reproach, the Jacen recognition, the Desh sentence. Mara's voice arrives as pragmatist, not myth: stop wondering if you are worthy and figure out what works.",
+  "mission": "Corridor, alone, night cycle. Ben slides down the bulkhead until he is sitting on cold deck plates — body finally admitting the trip. He pulls up Gavran's resonance note on his datapad: 'We lacked the will or the trust to attempt it.' He has been reading it as 'we weren't brave enough.' He re-reads: 'We couldn't trust each other enough.' Different emphasis. Different problem. Mara's voice, pragmatic: stop wondering if you're worthy and figure out what works. The micro-turn.",
+  "why_now": "The recognition in s1-s2 has to translate into a concrete shift before Ch 19's Sera/Kael payoffs can land. Ben cannot arrive at the Jedi outpost still reading the note the old way. Per R13, the Jacen naming budget used in s1 must not surface again — so the shift here is about trust as a structural problem, not about the Jacen parallel directly. The pragmatist Mara-voice is the vehicle; the resonance note's re-emphasis is the mechanism.",
+  "conflict": "Ben's body finally admits what it has been carrying. Interiority crowds in — self-reproach, the Torin pattern, the Desh sentence, Sera's unsaid line from the preceding scene. Mara's voice arrives as pragmatist, not myth: stop wondering if you're worthy and figure out what works. The scene does not give Ben an answer; it gives him a differently-shaped question.",
   "conflict_type": "internal",
   "turning_point": "The resonance note's emphasis shifts under Ben's eyes. 'Will or trust' becomes two problems, not one. The trust problem is the problem he has been avoiding. It is also the one he has any chance of solving.",
-  "opening_hook": "Ben slides down the corridor bulkhead until he's sitting on the deck plates, legs stretched across the narrow passage — the first time on this trip he's let his body admit how tired he is",
-  "closing_hook": "The resonance note in the Codex files. Gavran wrote: 'We lacked the will or the trust.' Ben has been reading this as 'we weren't brave enough.' He re-reads it now: 'We couldn't trust each other enough.' Different emphasis. Different problem. Maybe a different solution.",
-  "emotional_trajectory": "Exhausted honesty -> memory of Mara -> the angle shift on the resonance note",
+  "opening_hook": "Ben slides down the corridor bulkhead until he is sitting on the deck plates, legs stretched across the narrow passage — the first time on this trip he has let his body admit how tired he is",
+  "closing_hook": "The resonance note in the Codex files. Gavran wrote: 'We lacked the will or the trust.' Ben has been reading this as 'we weren't brave enough.' He re-reads it now: 'We couldn't trust each other enough.' Different emphasis. Different problem. Maybe a different solution",
+  "emotional_trajectory": "Exhausted honesty -> the memory of Mara as pragmatist -> the angle shift on the resonance note",
   "stakes": {
     "personal": "Ben moves one file from the archive folder to the open one",
-    "interpersonal": "The memory of Mara as a different model of leadership — pragmatist, not icon",
-    "external": "The resonance note becomes the shape of a possible solution"
+    "interpersonal": "The memory of Mara as a different model of leadership — pragmatist, not icon; the first time in the book her memory has done work instead of pain",
+    "external": "The resonance note becomes the shape of a possible solution that does not yet have specifics"
   },
   "characters_present": [
     "Ben Skywalker"
   ],
   "setting": "Aboard the Steady Returns — corridor, alone, night cycle",
-  "sensory_details": "Cold deck plates through his trousers; the bulkhead's low vibration against his spine; the ship's ambient hum; the datapad on his knees with the Codex notes glowing; the memory of his mother's voice, pragmatic, not a Force-ghost but a sentence she would have said; the resonance note's emphasis rearranging on a second read",
-  "canon_elements_needed": [],
+  "sensory_details": "Cold deck plates through his trousers; the bulkhead's low vibration against his spine; the ship's ambient hum; the datapad on his knees with the Codex notes glowing; the memory of his mother's voice, pragmatic, not a Force-ghost but a sentence she would have said — no more than that; the resonance note's emphasis rearranging on a second read; the specific quiet of a corridor at night-cycle in a small ship",
+  "canon_elements_needed": [
+    "Gavran-era Jedi Lords resonance annotations in the Codex record",
+    "Mara Jade Skywalker's operational-register pragmatism as remembered by Ben"
+  ],
   "target_word_count": 1100,
   "action_beats": [
     "Ben slides down the corridor bulkhead and sits on the cold deck plates, legs stretched across the narrow passage",
@@ -36,12 +39,20 @@
   "plot_threads_advanced": [
     "lie_cracking",
     "resonance_note_reinterpreted",
-    "mara_memory"
+    "mara_memory_as_pragmatist"
   ],
-  "promises_planted": [],
-  "promises_paid": [],
+  "promises_planted": [
+    "The trust-as-problem reading of the resonance note (plants Ch 18 s3, pays at Ch 25-26 through the interpreter-of-chord and first-anchor bonded-seal mechanics per D2)"
+  ],
+  "promises_paid": [
+    "Mara-memory does work instead of pain (pays PP Ben/Mara arc beat)"
+  ],
   "hook_actions": [],
   "revelations": [],
   "pov_arc_phase": "lie_challenged",
-  "notes": "Mara must remain the pragmatist. No mystical visitation, no reassuring dream, no Force-ghost. A memory of how she would have said it. One short sentence, and move. This is a micro-turn, not a breakthrough — Ben has not yet committed to a different approach; he has moved one file from 'return later' to 'open.' Diagnostic-voice trap — Ben should not, in this scene, articulate the Skywalker-trap framework in interiority. The scene is the physical ritual of being tired, the datapad, the second read. The shift happens silently."
+  "warmth_load_bearing": true,
+  "notes": "Mara must remain the pragmatist. No mystical visitation, no reassuring dream, no Force-ghost. A memory of how she would have said it. One short sentence, and move. This is a micro-turn, not a breakthrough — Ben has not yet committed to a different approach; he has moved one file from 'return later' to 'open.' Per R13, the Jacen naming budget used in s1 does not surface here — the scene is about Gavran's resonance note, not about the Torin pattern directly. The Torin pattern is the shadow behind the scene; the explicit subject is trust as a structural problem. Per R11, Ben does not, in this scene, articulate the Skywalker-trap framework in interiority. The scene is the physical ritual of being tired, the datapad, the second read. The shift happens silently. Per D3, the Weave terminology continuity holds — 'resonance' is Gavran's term, preserved from the Codex annotations. Voice: Bujold-interior density for the corridor beat — self-aware without self-pity, aware of the pattern he is partly inside without naming it — under half the scene in interiority; the deck plates and the datapad and the lightsaber on his hip anchor the body. Primary anchor: Bujold (interior micro-turn); supporting anchor: Zahn (tight physical frame). Stover not used here — the chapter's Stover-permitted beat was in s1 at the moment of naming. Anti-patterns: (a) no Mara Force-ghost, no mystical voice, no reassuring dream — a remembered pragmatist sentence only; (b) Ben does not articulate the Skywalker-trap or the Torin-pattern framework; (c) the scene does not close on a resolution — it closes on 'maybe a different solution,' indefinite; (d) no other character present in prose; the scene is strictly solitary; (e) the lightsaber on Ben's hip is a physical anchor, not a symbol — rendered as weight, not as meaning.",
+  "primary_anchor": "Bujold",
+  "supporting_anchor": "Zahn",
+  "stover_permitted": false
 }

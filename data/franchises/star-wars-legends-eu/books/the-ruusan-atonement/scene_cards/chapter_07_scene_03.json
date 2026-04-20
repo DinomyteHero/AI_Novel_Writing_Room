@@ -5,45 +5,59 @@
   "scene_type": "sequel",
   "scene_role": "decision",
   "pov_character": "Ben Skywalker",
-  "mission": "Aboard the Steady Returns. Ben drafts his second partial report — more context, still not the full truth. Torin leans in the doorway and asks, without accusation, 'What will you tell them?' Ben changes the subject. The next node's readings register worse.",
-  "why_now": "The withholding is becoming a practice. Each transmission teaches Ben how to be two people at once, and the practice has to be visible to the reader before the price of it lands.",
-  "conflict": "Ben edits the honest paragraphs out of a report he knows will be read by the person who raised him. Torin asks the question that would cost him most to answer, and does not push. The ship keeps moving.",
+  "mission": "Aboard the Steady Returns. Ben drafts his second partial report — more context, still not the full truth. Torin leans in the doorway and asks, without accusation, 'What will you tell them?' Ben changes the subject. Per W1 Plant 1, Kael — unprompted — approaches Desh and requests specific archive records (Kolven-era disciplinary logs or equivalent). Desh complies; no one else sees what Kael reads. The beat lives briefly: a man who was conscripted and used now chooses to learn. The next node's readings register worse.",
+  "why_now": "The withholding is becoming a practice. Each transmission teaches Ben how to be two people at once, and the practice has to be visible to the reader before the price of it lands. And now that R04b has given the technique a name, Kael has something specific to read toward — the archive request is authored from his own decision, not in response to being treated well.",
+  "conflict": "Ben edits the honest paragraphs out of a report he knows will be read by the person who raised him. Torin asks the question that would cost him most to answer, and does not push. Across the ship, Kael makes an ask of Desh that Desh absorbs without commentary. The ship keeps moving.",
   "conflict_type": "internal",
-  "turning_point": "Torin's doorway question lands on top of Ben's keyboard. Ben does not answer. The silence becomes a kind of answer.",
+  "turning_point": "Torin's doorway question lands on top of Ben's keyboard. Ben does not answer. The silence becomes a kind of answer. Separately, Ben registers Kael's quiet archive request to Desh from the far side of the common area — a man who was used now choosing to learn — and does not approach it.",
   "opening_hook": "Ben hunches over his datapad composing the second partial report to Luke — enough to explain the delay, not enough to reveal the scope — while the thin place's effects fade from his body like a headache lifting",
-  "closing_hook": "Next node on approach. This one's degradation is worse — the Force ahead arrives in pieces rather than merely offset. And the energy signature Desh flagged? It's stronger here. Much stronger. Someone spent time.",
+  "closing_hook": "Next node on approach. This one's degradation is worse — the Force ahead arrives in pieces rather than merely offset. And the energy signature Desh flagged? It's stronger here. Much stronger. Someone spent time",
   "emotional_trajectory": "Reflective processing -> the weight of withholding -> renewed determination",
   "stakes": {
     "personal": "Ben's integrity eroding with each incomplete report",
-    "interpersonal": "Torin's question about honesty — a soft pressure that does not need to push",
+    "interpersonal": "Torin's question about honesty — a soft pressure that does not need to push; Kael's archive request to Desh — a self-directed act Ben registers and does not underline",
     "external": "The next stop shows heavier Veraine activity"
   },
   "characters_present": [
     "Ben Skywalker",
     "Torin Hal",
-    "Desh Rolan"
+    "Desh Rolan",
+    "Kael Drenn"
   ],
-  "setting": "Aboard the Steady Returns — Ben's makeshift workspace, then cockpit",
-  "sensory_details": "The datapad with Luke's comm frequency open; Torin's weight in the doorway — warm, easy, and carrying something underneath that Ben has not named; nav display showing the next node's degraded readings stacking into a worse baseline",
-  "canon_elements_needed": [],
+  "setting": "Aboard the Steady Returns — Ben's makeshift workspace, common area, then cockpit",
+  "sensory_details": "The datapad with Luke's comm frequency open; Torin's weight in the doorway — warm, easy, and carrying something underneath that Ben has not named; Kael's voice pitched low as he asks Desh for the Kolven-era records, a monk's sentence with no unnecessary words; Desh's nod in reply and the datapad turning in his hands as he queues the pull; nav display showing the next node's degraded readings stacking into a worse baseline",
+  "canon_elements_needed": [
+    "Kolven as a Corridor-era settlement site with disciplinary records",
+    "Jedi disciplinary logs structure in pre-Reformations archive format"
+  ],
   "target_word_count": 1100,
   "action_beats": [
     "Ben drafts another partial report to Luke on his datapad, editing out the full scope before transmitting",
-    "Torin leans against the doorframe of Ben's makeshift workspace and watches him compose the message",
+    "Torin leans against the doorframe of Ben's makeshift workspace and watches him compose the message; asks the question and does not push",
+    "Across the common area, Kael approaches Desh with a specific archive request — Kolven-era disciplinary logs, a single sentence, unprompted. Desh absorbs it, complies, queues the pull",
+    "Ben registers the Kael/Desh exchange from the corner of his eye and does not approach it; the reader holds it as texture",
     "Desh pulls up the next node's readings on the nav display — energy signature registering stronger than the last"
   ],
   "active_subplots": [
     "SP-A",
-    "SP4"
+    "SP3",
+    "SP2"
   ],
   "plot_threads_advanced": [
     "institutional_lie_deepening",
-    "torin_foreshadowing"
+    "torin_soft_pressure",
+    "kael_self_driven_archive_request"
   ],
-  "promises_planted": [],
+  "promises_planted": [
+    "Kael will act from knowledge he chose to pursue (plants Ch 7, pays Ch 19 / Ch 23)"
+  ],
   "promises_paid": [],
   "hook_actions": [],
   "revelations": [],
   "pov_arc_phase": "lie_reinforced",
-  "notes": "SP4 (institutional lie) advances — Ben's withholding from Luke mirrors the Order's thousand-year amnesia without needing Ben to name the mirror. Torin's question is warmth with pressure underneath, not confrontation; keep his tone light. Diagnostic-voice trap — Ben should not, in this scene, articulate the 'two people at once' self-analysis. The practice is behavioural; interiority keeps to what the sentence he is trying to write will not let him write. The next-node readings landing worse than the Battlefield Node sets up Ch8's philosophical pressure without needing exposition."
+  "warmth_load_bearing": true,
+  "notes": "SP3 (merged institutional lie + Veraine antagonism per D5) advances — Ben's withholding from Luke mirrors the Order's thousand-year amnesia without needing Ben to name the mirror. Torin's question is warmth with pressure underneath, not confrontation; keep his tone light. Per R12, preserve Torin's warmth register across this scene. Per W1 Plant 1, Kael's archive request to Desh is the chapter's second quiet thread — it lives briefly (a sentence or two), is not explained, Ben registers and moves on. Per W1 anti-pattern guardrails: no beat carries an explicit reason; the reader holds it as character texture; Ben's close-third does not underline with 'Kael had been acting differently lately' narration. The beat opens the Kael/Desh quiet-alliance thread without making it explicit. Per R11, Ben does not, in this scene, articulate the 'two people at once' self-analysis. The practice is behavioural; interiority keeps to what the sentence he is trying to write will not let him write. Per D3, any terminology-reference to the technique uses 'unweaving' / 'the Weave' / in-character variants (Sera 'the work', Torin 'the stitching', Kael 'the cloth'); here Kael's archive-request line if voiced may use monk's brevity with the cloth variant. The next-node readings landing worse than the Battlefield Node sets up Ch 8's philosophical pressure without needing exposition. Primary anchor: Zahn (procedural transit clarity); supporting anchor: Bujold (Ben's interior register of the Luke-report choice and the Kael/Desh exchange — self-awareness without self-pity). Stover not permitted this scene.",
+  "primary_anchor": "Zahn",
+  "supporting_anchor": "Bujold",
+  "stover_permitted": false
 }

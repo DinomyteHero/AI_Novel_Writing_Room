@@ -3,46 +3,62 @@
   "scene_number": 2,
   "structural_phase": "resolution",
   "scene_type": "action",
-  "scene_role": "escalation",
+  "scene_role": "reveal",
   "pov_character": "Ben Skywalker",
-  "mission": "Mid-valley. Ben feels all three operations simultaneously — Veraine's calculated amplified ritual, Torin's expanding personal void, their own resonance not yet begun. Three operations pulling the Force in three directions. The Scar widens by a visible centimetre. Sera and Kael take positions flanking Ben; he speaks the word that starts their attempt.",
-  "why_now": "The climax's physical geometry has to be rendered here before the discordance of sc3 can land. All three operations competing on the same wound, and the trio has to begin before the sun moves.",
-  "conflict": "The environmental pressure is cumulative. The wound amplifies emotion; concentration is a physical cost. The Scar widens as two of the three operations build momentum. The group's operation is the one not yet running.",
-  "conflict_type": "environmental",
-  "turning_point": "Ben says 'Now.' The trio reaches for each other through the Force. The operation begins.",
-  "opening_hook": "Ben watches the Scar widen — a centimeter, maybe two. Enough to be visible. Enough to be terrifying.",
-  "closing_hook": "Ben: 'Now.' He reaches for Sera and Kael through the Force. Three traditions. Three wounds. One chance.",
-  "emotional_trajectory": "Environmental overwhelm -> focus through chaos -> the call to begin",
+  "mission": "Mid-approach. Desh moves ahead on the broken ground with the containment-node cases slung across his back, and begins setting the first of the nodes at the positions he and Sera spec'd overnight. Ben, Sera, and Kael walk through the emerging array behind him. Per B3 plant: because Sera and Kael are close enough that a nascent resonance is already present between them — not yet combining, but already present in the Force as adjacent running tones — Ben, for the first time in his life, feels the nodes as load-bearing objects in the Weave. They register as specific voices inside a conversation he cannot fully hear: each node with a position, a weight, and a tone. Per D4, Desh himself is not Weave-sensed; the infrastructure is. Ben catalogues the feeling without naming it — he notices, walking, that he knows where each node sits with his eyes closed, and the noticing has the shape of something new that has not yet introduced itself. Per W2 evidence-of-passage beat 5: in the same traversal, Ben registers the array configuration's design signature — the placement geometry, the rhythm of inter-node spacing, the architectural logic of why these specific points in this specific order. The signature is continuous with the mast Sera read at Ch 22. The climactic environment is Veraine's work. Ben senses her material thinking underneath the nodes that will be his and Desh's to hold. The realisation is sensory, not articulated. Sera's eyes meet his briefly as they pass the third node — she reads what he is reading — and neither speaks. They reach the mid-valley position. The plan is in place. H24 advances.",
+  "why_now": "The climactic environment has to teach Ben a sensory capacity before the climax asks him to use it. The B3 plant cannot land later — the Ch 25-26 legibility of Desh running the guarded route depends on Ben already having registered the nodes as Weave-present; if the capacity is introduced in the climactic scenes themselves, it is unearned. W2 evidence-of-passage beat 5 has to land in the same traversal because the architecture of the array and the nodes' Weave-presence are two readings of the same physical walk, and rendering them separately would break the scene's single spatial spine. Both beats must complete before Ben reaches the mid-valley position, because s3 is the beginning of the operation and has no capacity for revelation.",
+  "conflict": "The approach is quiet in a way that is worse than sound. Desh is working ahead at a pace that does not permit conversation. Ben is walking through the shape of something without yet having words for it — a new sense arriving unannounced, and underneath it the felt geometry of an opponent who designed the ground he is walking on. Sera is reading the same signature Ben is reading. Kael is already close enough to Sera in the Force that the resonance has begun to form without anyone reaching for it. The conflict is internal and environmental both: Ben acquiring a capacity he does not know he has acquired, inside an environment authored by the person he is about to fight.",
+  "conflict_type": "internal",
+  "turning_point": "Ben passes the third node and realises — without looking — that he knows where the fourth will be. Not because Desh has told him. Because the three behind him are sitting at a rhythm that specifies the next position. The realisation is a half-breath long. Sera's eyes find his. He files it without a sentence. The new capacity is load-bearing by the time they reach the mid-valley position, though Ben has not named what he can now do.",
+  "opening_hook": "Desh is already moving ahead of them on the broken ground, the node-cases slung across his back and his datapad in one hand, setting the first of the nodes at a position he has spec'd down to the centimetre",
+  "closing_hook": "They reach the mid-valley position. Desh is a hundred metres ahead, setting the sixth node. Ben can feel all six behind him without turning around. Sera's hand brushes his shoulder — not a gesture, a confirmation — and takes her position. Kael takes his. The plan is in place",
+  "emotional_trajectory": "The approach's deliberate pace -> Desh working at the edge of hearing -> the nodes becoming audible as objects -> Veraine's signature felt underfoot -> the quiet arrival at the mid-valley position with a new capacity Ben does not yet know is new",
   "stakes": {
-    "personal": "Ben committing to the resonance — no more preparation, no more theory",
-    "interpersonal": "Three people trusting each other with their lives and their Force connections",
-    "external": "Three operations competing at the wound site — only one can succeed"
+    "personal": "Ben acquiring — without announcement, without articulation — a Weave-sensing capacity that will carry the climactic legibility in Ch 25-26; Ben walking through the material thinking of his opponent and registering her as architect, not presence",
+    "interpersonal": "Sera's reading the signature and meeting Ben's eyes without speaking — the second wordless exchange between them about Veraine's work (first: Ch 22 mast); the nascent Sera/Kael resonance already forming as an unplanned ambient condition of the approach",
+    "external": "The containment nodes being placed and the array taking shape; the climactic environment confirmed as Veraine's design; the plan positioned and ready for s3"
   },
   "characters_present": [
     "Ben Skywalker",
+    "Desh Rolan",
     "Sera Varik",
     "Kael Drenn"
   ],
-  "setting": "Veranthos — mid-valley position, Scar visible, Torin visible, Veraine's ritual visible",
-  "sensory_details": "The Scar widening as a visible seam; Veraine's ritual an organised distortion at the Scar's base; Torin's technique a moving void descending the ridgeline; the trio's position a triangle of reaching without yet combining; sweat, wind, the smell of air that has been sealed for a thousand years",
-  "canon_elements_needed": [],
-  "target_word_count": 1200,
+  "setting": "Veranthos — mid-approach across the broken ground toward the mid-valley position, nodes being placed in a line ahead of the walking trio",
+  "sensory_details": "The broken ground underfoot — basalt slabs tilted at angles that do not match any geological process Ben has seen before; Desh ahead with the node-cases, opening them with the economy of someone who has done the procedure on paper four hundred times; each node a matte cylinder the length of a forearm, its base-plate seating with a specific, quiet click when locked into position; the first node passing behind them — and a tone, faint, underneath the wind, in the shape of a held pitch Ben cannot quite name; the second node, a slightly different pitch; the third, a third; the three pitches not combining but sitting at a rhythm; the realisation that he knows where the next position is without looking — the next pitch already audible in the shape of the silence where it will sit; Sera half a pace behind his right shoulder, her own reading moving in parallel, her face the face she wore at the mast; the specific geometry of the node-spacing — not regular, not arbitrary, a logic under it that Ben's hand wants to trace in the air; the Scar visible ahead and below, Veraine's ritual a shape of organised pressure at its base, Torin descending the far ridgeline in peripheral vision; Kael walking at the line's edge, his presence in the Force gradually anchoring at a specific texture as the resonance's pre-conditions form",
+  "canon_elements_needed": [
+    "Sith design-signature theory for Force-amplification architecture (continuity with Ch 22 s2 mast)",
+    "Weave-infrastructure sensing — the phenomenon of Force-registerable objects acquiring Weave-presence under adjacent resonance conditions",
+    "Non-Force-sensitive node-placement hardware (Desh's engineered containment hardware)",
+    "Brotherhood-of-Darkness inheritance conventions (for what Veraine's configuration deviates from)"
+  ],
+  "target_word_count": 1250,
   "action_beats": [
-    "Ben watches the Scar widen by centimeters and feels all three operations pulling the Force in different directions",
-    "Sera and Kael take positions flanking Ben, hands outstretched, the resonance formation assembling",
-    "Ben reaches for Sera and Kael through the Force and speaks the word: 'Now.'"
+    "Desh moves ahead across the broken ground and begins setting the first containment node at its spec'd position — the node-case opening, the cylinder locking into its base, the quiet click",
+    "Ben, Sera, and Kael begin walking the approach line behind Desh; the first node registers in Ben's Force-sense as a faint held pitch underneath the wind",
+    "The second and third nodes pass behind them; the three pitches sit at a rhythm rather than combining; Ben notices that the noticing is new",
+    "At the third node, Ben realises — without looking — that he knows where the fourth position will be; Sera's eyes find his, confirm the same reading she is making; neither speaks",
+    "Ben feels the array configuration's design signature underfoot — the placement geometry, the inter-node rhythm, the architectural logic continuous with the mast Sera read at Ch 22",
+    "The trio reaches the mid-valley position; Desh is ahead, setting the sixth node; Sera's hand brushes Ben's shoulder and she takes her position; Kael takes his; the plan is in place"
   ],
   "active_subplots": [
     "SP-A",
+    "SP1",
     "SP5"
   ],
   "plot_threads_advanced": [
-    "veraine_ritual_active",
-    "torin_technique_active",
-    "resonance_begins"
+    "weave_infrastructure_sensing_plant_b3",
+    "veraine_evidence_beat_5_array_design_signature",
+    "nodes_registered_as_weave_objects",
+    "nascent_sera_kael_resonance_as_ambient_condition",
+    "climactic_environment_confirmed_as_veraine_designed"
   ],
-  "promises_planted": [],
-  "promises_paid": [],
+  "promises_planted": [
+    "Ben's Weave-infrastructure-sensing capacity (plants Ch 24 s2; pays the Ch 25-26 climactic legibility of Desh running the guarded route via the nodes' Weave-presence)"
+  ],
+  "promises_paid": [
+    "Veraine's design-authorship of the climactic environment rendered through the array itself (pays W2 evidence-of-passage architecture beat 5 of 5 — closing the evidence-of-passage arc that began at Ch 17 s3)"
+  ],
   "hook_actions": [
     {
       "hook_id": "H24",
@@ -51,5 +67,9 @@
   ],
   "revelations": [],
   "pov_arc_phase": "moment_of_truth",
-  "notes": "The three simultaneous operations are the highest-density sensory passage in the book. Render each as a distinct Force-texture — Veraine's calculated and directed, Torin's personal and expanding, the trio's three-toned and not yet chord. Rotate vocabulary into acoustic (keys, notes) and hydraulic (currents, counter-currents) families rather than handrail or cage; lean on the force_mechanics active_technique vocabulary for Torin's void. Diagnostic-voice trap — Ben should not, in this scene, narrate the phenomenology as theory. He feels three directions at once; he says 'Now.'"
+  "warmth_load_bearing": false,
+  "notes": "B3 plant + W2 evidence-of-passage beat 5 in the same traversal. Both beats are sensory, unannounced, and complete before the trio reaches the mid-valley position. Per B3, the mechanism that makes the nodes Weave-registerable is the nascent resonance between Sera and Kael — present because the two of them are walking the same approach line in preparation for the s3 attempt. Ben does NOT sense Desh (per D4); he senses the nodes. The distinction is load-bearing for the Ch 25-26 climax and must not be muddied here. Per R11, Ben does not narrate the capacity as he acquires it — he catalogues without naming. The reader recognises the new sense through specific details (knowing where the fourth position will be; hearing the pitches underneath the wind) rather than through a thought-sentence that names the mechanism. Per W2 evidence-of-passage beat 5, Veraine's design signature is felt as geometry and rhythm, not announced; Ben does not think 'this is her design' — the architecture registers, Sera's eyes confirm, the file is closed without comment. Per W2 anti-pattern, no ledger entry, no etched mark, no audience-address — the signature IS the encounter, and it IS the last of the five evidence-of-passage beats. Per R14 voice_texture, what changes across contexts is audience; here the audience is the ground itself. Continuous with Ch 22 s2 mast reading. Per D7 Component B, Torin visible in peripheral vision as descending the far ridgeline — the narrator does not interpret his pace or his direction past what Ben can see from the approach line. Force phenomenology: acoustic vocabulary (held pitch, rhythm, the shape of a silence where a pitch will sit) — per blueprint rotation away from handrail/cage families and into acoustic/hydraulic. The three node-pitches sit at a rhythm; they do not combine. Combining belongs to s3 (and fails there). Voice: Zahn-procedural-urgent for Desh's equipment-work and the approach-line frame (the body of the scene — under half of the scene is interior); Bujold-interior-precise for the node-sensing registration and the design-signature read (no more than 40-45% of scene weight); no Stover density here (stover_permitted false — the Stover-permitted beats were Ch 21 s1/s2 and belong to Ch 25-26 for the climax). Primary anchor: Zahn (procedural frame of Desh's work and the walking approach); supporting anchor: Bujold (Ben's interior registration of the new sense and the design signature). Anti-patterns: (a) Ben does not name his new capacity; the reader recognises it through specific details; (b) Desh is not Weave-sensed — only the nodes are; if any line of POV registers Desh's presence in the Weave, the scene is wrong; (c) no ledger entry or surface-message from Veraine; the signature IS the encounter; (d) Sera does not speak — the eye-meet is the beat, and neither character explains it; (e) the resonance does not begin here — Sera and Kael's closeness is an ambient condition, not an attempt; the trio linking hands belongs to s3; (f) Desh is not up-close in POV — he is ahead and working; Ben does not narrate what Desh is doing past what he can see from the approach line; (g) Torin is in peripheral vision only; no second-line thread pulling him into the scene past the Ch 24 s1 exchange.",
+  "primary_anchor": "Zahn",
+  "supporting_anchor": "Bujold",
+  "stover_permitted": false
 }

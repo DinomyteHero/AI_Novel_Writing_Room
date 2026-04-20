@@ -1,7 +1,7 @@
 {
   "chapter_number": 21,
-  "chapter_mission": "Torin leaves. The group lets him go. Ben's Lie cracks open — the Jacen pattern recognised and refused. The chapter's turning point is not a confrontation but a principled inaction: each character's silence has its own texture, rooted in their Weiland arc.",
-  "chapter_turn": "Ben moves from 'I have to stop him' to 'We find another way. Together.' The Lie of self-reliance fractures publicly. Sera articulates the moral architecture of the book out loud for the first time: 'I was the one they sealed. I cannot seal another.'",
+  "chapter_mission": "Second Plot Point. Torin leaves. The group lets him go. Ben's Lie cracks open — the Jacen pattern recognised and refused. The chapter's turning point is not a confrontation but a principled inaction: each character's silence has its own texture, rooted in their Weiland arc. Per B2 dual ballast, the refusal is overdetermined — thematically (Sera's articulated line), tactically (cascade-acceleration: forcible disengagement of Torin's entangled Force presence would rip the seal faster than his voluntary arrival), and operationally (Torin's counter-preparation: a dead-man's trigger on his own Force presence such that forcible locking triggers cascade immediately). Per B2 presentation, the thematic reason is the only one articulated aloud; the other two register silently through Sera's Force-lock read of Torin at s1 and through the convergence of Sera's and Desh's reads in Ben's head at s2. PP28 pays (cascade-acceleration-as-tactical-constraint, planted Ch 13, reinforced Ch 18).",
+  "chapter_turn": "Ben moves from 'I have to stop him' to 'We find another way. Together.' The Lie of self-reliance fractures publicly. Sera articulates the moral architecture of the book out loud for the first time: 'I was the one they sealed. I cannot seal another.' In the same beat, the group's refusal to interdict is also their best bad option — Sera reads Torin's counter-preparation in the Force, and the cascade-acceleration intuition she first held without language at Ch 18 surfaces into Ben's operational understanding through the combined weight of her read and Desh's tactical analysis. The decision that was going to have to be right on thematic grounds alone is now right on three grounds at once.",
   "structural_phase": "second_plot_point",
   "pov_allocation": ["Ben Skywalker"],
   "scene_count": 3,
@@ -11,21 +11,21 @@
       "role": "reveal",
       "dialogue_expectation": "dialogue_led",
       "target_word_count": 1500,
-      "purpose": "Torin stands in the doorway and says he is not asking for permission. The final appeal fails — Ben tries every argument he has. Torin counters each with the quiet certainty of a man who has already decided. R11 lands. The crisis is inside the group, not outside it."
+      "purpose": "Torin stands in the doorway and says he is not asking for permission. The final appeal fails — Ben tries every argument he has. Torin counters each with the quiet certainty of a man who has already decided. R11 lands. The crisis is inside the group, not outside it. Per B2 Candidate 1 (secondary): at the edge of this conversation — while Ben is still arguing — Sera places one hand on the bulkhead near Torin and lets her Force-lock expertise do its work. She does not announce what she finds. Ben sees the change in her face: the microscopic shift of someone reading a rigged trigger. She does not look at Torin. She looks at Ben and her eyes say: don't. The reader holds it. Torin holds it too. He has always known she would read it; that is the point of preparing it. No one speaks the mechanism aloud."
     },
     {
       "scene_number": 2,
       "role": "decision",
       "dialogue_expectation": "balanced",
       "target_word_count": 1500,
-      "purpose": "Torin walks down the ridgeline toward the valley. The group watches. Each silence has distinct texture: Ben (failed to stop this pattern with Jacen, has no alternative yet), Sera (was the person whose agency was overridden), Kael (spent his life being stopped), Desh (breaks the silence first with operational pragmatism). Sera's line: 'I was the one they sealed. I cannot seal another.' H06 resolves."
+      "purpose": "Torin walks down the ridgeline toward the valley. The group watches. Each silence has distinct texture: Ben (failed to stop this pattern with Jacen, has no alternative yet, and — now — is holding two fresh tactical reads he did not yet have five minutes ago), Sera (was the person whose agency was overridden; also the person who just read the counter-preparation), Kael (spent his life being stopped), Desh (breaks the silence first with operational pragmatism — his chrono-drift readings and entanglement-pattern analysis converging on Ben at the same moment Sera's read lands). Per B2 Candidate 3 (primary), the cascade-acceleration fact surfaces in Ben's head not as a sentence but as the intersection of what Sera just saw and what Desh has been measuring since Ch 13: an entangled Force presence, forcibly disengaged, accelerates cascade rather than interdicts it. The realization is rendered as Ben registering the room — Sera's read, Desh's numbers, the seal membrane he crossed at Ch 20 — and understanding that letting Torin walk is also their best bad option. No one says this. The reader holds three reasons. Sera speaks the one that is allowed to be speech: 'I was the one they sealed. I cannot seal another.' H06 resolves. PP28 pays."
     },
     {
       "scene_number": 3,
       "role": "decision",
       "dialogue_expectation": "balanced",
       "target_word_count": 1500,
-      "purpose": "The Lie cracks. Ben says 'We find another way. Together.' He remembers Gavran's archived note from Ch14 about lattice resonance. The plan is not yet formed, but the pattern is broken — Ben is no longer reaching for individual mastery. H21 plants. Exit vector toward the resonance solution."
+      "purpose": "The Lie cracks. Ben says 'We find another way. Together.' He remembers Gavran's archived note from Ch 14 about Weave-resonance between disparate traditions — 'We lacked the will or the trust to attempt it.' He reads it now with the emphasis he found in Ch 18: trust, not bravery. The plan is not yet formed, but the pattern is broken — Ben is no longer reaching for individual mastery. H21 plants. Exit vector toward the resonance solution. In the margins: Kael says nothing, but does not leave the circle. Desh, unsurprised, begins unpacking instruments. Sera does not speak again. The word 'together' has landed once and does not need to land a second time."
     }
   ],
   "reveal_payload": ["R11"],
@@ -34,31 +34,36 @@
     "advanced": [],
     "resolved": ["H06", "H17", "H20"]
   },
-  "subplot_obligations": ["SP-A", "SP1", "SP2", "SP3", "SP4", "SP5"],
+  "subplot_obligations": ["SP-A", "SP1", "SP2", "SP3", "SP5"],
   "relationship_turns": [
     {
       "dyad": "Sera/Torin",
-      "from": "irreconcilable difference — Sera named the pattern in Ch15",
-      "to": "departed — Torin walks. Sera does not move to stop him and does not look away. The dynamic ends; the grief begins"
+      "from": "stops defending (Ch17); lie_fissure (Ch18)",
+      "to": "departed — Torin walks. Sera does not move to stop him and does not look away. She has also just read, silently, the counter-preparation he built because he anticipated her. The dynamic ends; the grief begins. Per B2, her Force-lock read is the diagnostic instrument for Torin's counter-preparation — a specific expression of her Ch 20-era lie_cracking phase"
     },
     {
       "dyad": "Ben/Jacen-shadow",
-      "from": "latent — Ben has been carrying the parallel privately since Ch18",
-      "to": "broken — Ben publicly refuses to repeat it. Jacen was the ghost. Breaking the pattern is the answer"
+      "from": "named once (Ch 18) — Ben has carried the parallel privately since",
+      "to": "broken — Ben publicly refuses to repeat it. Jacen was the ghost. Breaking the pattern is the answer. Per R13, the Jacen name does NOT land again here; the refusal is enacted through the decision, not named. Per B2, the refusal is also tactically correct, which strengthens rather than weakens the Jacen-parallel payoff"
     },
     {
       "dyad": "Ben/Sera",
-      "from": "conditional trust ('Tell me where to stand, Skywalker') from Ch14",
-      "to": "earned trust — Sera has seen Ben refuse the old pattern; she will follow him on his terms now, not because he is the senior officer but because he proved incompatible with Gavran"
+      "from": "conditional trust ('Tell me where to stand, Skywalker') from Ch 14; genuine request from Ch 19",
+      "to": "earned trust — Sera has seen Ben refuse the old pattern; she will follow him on his terms now, not because he is the senior officer but because he proved incompatible with Gavran. Her silent Force-lock read is also the first time her expertise has directly shaped a book-level decision"
+    },
+    {
+      "dyad": "Ben/Desh",
+      "from": "mutual anchor (Ch 18)",
+      "to": "tactical peer — Desh's readings are now load-bearing data in Ben's decision-making. He is not Ben's plus-one; he is the operational second whose numbers combine with Sera's read to produce the room's silent consensus"
     },
     {
       "dyad": "Kael/Group",
-      "from": "articulated critique from Ch19 outpost",
-      "to": "witnessing commitment — Kael watches the group not seal Torin. He sees what it costs them. His lie_cracking phase advances"
+      "from": "articulated critique from Ch 19 outpost",
+      "to": "witnessing commitment — Kael watches the group not seal Torin. He sees what it costs them. His lie_cracking phase advances; H22 is now in reach"
     }
   ],
   "pacing_curve": "falling",
-  "exit_vector": "Camp silent on the ridge. Torin a diminishing figure in the valley below. Ben lowers the datapad, looks at Sera, Kael, Desh. 'We find another way. Together.' The Lie is not healed — but for the first time, it is no longer the loudest voice in the room.",
+  "exit_vector": "Camp silent on the ridge. Torin a diminishing figure in the valley below. Ben lowers the datapad, looks at Sera, Kael, Desh. 'We find another way. Together.' The Lie is not healed — but for the first time, it is no longer the loudest voice in the room. Three reasons for letting Torin walk; one of them spoken. The decision the book has been building toward since Ch 1 is made.",
   "chapter_word_target": 4500,
-  "notes": "The emotional centre of the book. Ben's public refusal to repeat the Jacen pattern is the thematic pivot — the story's argument (collective trust over individual mastery) lands here experientially, not as dialogue. Every character's silence in s2 is authored, not described: we should feel Ben's held breath, Sera's iron composure, Kael's refusal-to-grab, Desh's breaking of the silence. Jacen parallel touchpoint 4 (payoff per extended_metadata.jacen_parallel). Voice: Stover-interior for Ben throughout; permit sentence fragments. Anti-patterns: (a) do not physically restrain Torin — that would repeat Gavran's pattern and collapse the thematic point; (b) no one gives a speech; the decision is a silence; (c) do not name 'the Lie' or 'the Jacen pattern' explicitly — those are concepts the reader holds, not the characters. The word 'together' should land only once in the chapter and only at the end."
+  "notes": "The emotional centre of the book. Ben's public refusal to repeat the Jacen pattern is the thematic pivot — the story's argument (collective trust over individual mastery) lands here experientially, not as dialogue. Every character's silence in s2 is authored, not described: we should feel Ben's held breath, Sera's iron composure, Kael's refusal-to-grab, Desh's breaking of the silence. Jacen parallel touchpoint 4 (payoff per extended_metadata.jacen_parallel) — delivered through decision, not naming. Per B2 presentation choice: the dual tactical ballast (counter-preparation + cascade-acceleration) is registered through action and implicit reading, never announced. Sera's bulkhead-hand beat at s1 close is the Candidate 1 landing — two sentences, rendered through Ben's POV as a face changing, a posture changing, a hand lifted; the reader infers the Force-lock read without Ben articulating it. Cascade-acceleration at s2 is the Candidate 3 landing — rendered as the convergence of Sera's read and Desh's instrument-data in Ben's head as he watches Torin walk; one paragraph of integrated reading, not a thought-sentence that names the mechanism. Per B2 anti-pattern, no character says 'forcible disengagement would accelerate cascade' or 'he rigged a trigger.' The room knows. Voice: Stover-interior for Ben throughout; permit sentence fragments. Force phenomenology: this chapter is the last time Ben has his Force-sense functional on the ridge (he is above the seal boundary — the camp is at the edge of Ring 4 but still just inside functional perception); the phenomenology of Sera's read and Desh's data is available to him because they are still in perceptible space. Once he descends with the group after this chapter, he is back inside full unweaving. ANTI-PATTERNS: (a) do not physically restrain Torin — that would repeat Gavran's pattern and collapse the thematic point; (b) no one gives a speech; the decision is a silence; (c) do not name 'the Lie' or 'the Jacen pattern' explicitly — those are concepts the reader holds, not the characters; per R13, Jacen is not named again in this chapter — the Ch 18 naming was the whole budget; (d) per B2, the tactical reasons are read, not announced — if a character starts to explain either Torin's counter-preparation or the cascade-acceleration fact in prose or dialogue, the scene is wrong; (e) the word 'together' should land only once in the chapter and only at the end; (f) Sera's thematic line is the chapter's only full articulated reason for the inaction — the other two reasons are the room's silent knowledge and the reader's acquired understanding from Ch 13/18/20."
 }

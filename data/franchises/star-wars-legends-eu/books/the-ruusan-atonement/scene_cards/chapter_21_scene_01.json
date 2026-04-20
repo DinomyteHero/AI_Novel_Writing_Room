@@ -3,53 +3,59 @@
   "scene_number": 1,
   "structural_phase": "second_plot_point",
   "scene_type": "action",
-  "scene_role": "escalation",
+  "scene_role": "reveal",
   "pov_character": "Ben Skywalker",
-  "mission": "Morning on Veranthos. Torin is already awake in the spot where Ben left him last night. His Force presence is lighter, sharper — the heaviness that has defined him since awakening is gone. He has been meditating near the Scar overnight and is not hiding it. Ben confronts him. Torin is honest in a way that makes the truth worse.",
-  "why_now": "The ridgeline vigil of Ch20 needed its morning. The turn has to happen in daylight, in conversation, not as an ambush — so the choice to let him go in sc2 has weight.",
-  "conflict": "Ben is trying to prevent something he cannot stop by talking. Torin is not hiding. He is not manipulating. He is telling Ben the honest shape of a decision made a thousand years ago and confirmed in the breach zone. The horror is in the warmth.",
+  "mission": "Morning on Veranthos. Torin stands in the doorway of the tent and says he is not asking for permission. The final appeal fails — Ben tries every argument he has. Torin counters each with the quiet certainty of a man who has already decided. R11 lands. The crisis is inside the group, not outside it. Per B2 Candidate 1 (secondary ballast): at the edge of this conversation — while Ben is still arguing — Sera places one hand on the bulkhead near Torin and lets her Force-lock expertise do its work. She does not announce what she finds. Ben sees the change in her face: the microscopic shift of someone reading a rigged trigger. She does not look at Torin. She looks at Ben and her eyes say: do not. The reader holds it. Torin holds it too. He has always known she would read it; that is the point of preparing it. No one speaks the mechanism aloud.",
+  "why_now": "The ridgeline vigil of Ch 20 needed its morning. The turn has to happen in daylight, in conversation, not as an ambush — so the choice to let him go in s2 has weight. Sera's Force-lock read must land in the same scene as Ben's argument so that by the time Ben decides in s2 the room has already acquired the first of the two tactical reasons it will hold silently.",
+  "conflict": "Ben is trying to prevent something he cannot stop by talking. Torin is not hiding. He is not manipulating. He is telling Ben the honest shape of a decision made a thousand years ago and confirmed in the breach zone. The horror is in the warmth. At the edge of the exchange, Sera reads what Torin has prepared for anyone who might try to lock him — and the reading itself becomes an argument Ben has not had yet.",
   "conflict_type": "interpersonal",
-  "turning_point": "Torin describes the first time he used the technique — the moment of beauty, clarity without categories. 'It was the truest thing I've ever felt.' Then: 'I'm not asking for permission.' Five words. Nobody moves.",
-  "opening_hook": "Torin is already awake when Ben emerges. He's standing in the same spot as last night. But something is different. He looks... rested. In a place where no one sleeps well.",
-  "closing_hook": "Torin: 'I'm not asking for permission.' Five words. Nobody moves.",
-  "emotional_trajectory": "Concerned confrontation -> Torin's devastating honesty -> the five words that break everything",
+  "turning_point": "Torin describes the first time he used the technique — the moment of beauty, clarity without categories. 'It was the truest thing I've ever felt.' Then: 'I'm not asking for permission.' Five words. Nobody moves. In the same frame, Sera's hand comes off the bulkhead. Her face does not change in a way anyone not trained to see would register. Ben is trained. He sees.",
+  "opening_hook": "Torin is already awake when Ben emerges. He is standing in the same spot as last night. Something is different. He looks rested. In a place where no one sleeps well",
+  "closing_hook": "Torin: 'I'm not asking for permission.' Five words. Nobody moves. Sera's hand leaves the bulkhead. Her eyes find Ben's. She does not speak. She does not need to",
+  "emotional_trajectory": "Concerned confrontation -> Torin's devastating honesty -> Sera's silent Force-lock read -> the five words that break everything",
   "stakes": {
-    "personal": "Ben watching a pattern he has seen before complete in front of him",
-    "interpersonal": "The group's strongest member declaring independence",
-    "external": "Torin's plan would work, at the cost of every principle the book has been arguing for"
+    "personal": "Ben watching a pattern he has seen before complete in front of him; Ben receiving a tactical read he has not asked for and has no vocabulary to refuse",
+    "interpersonal": "The group's strongest member declaring independence; Sera's expertise actively shaping a book-level decision for the first time",
+    "external": "Torin's plan would work, at the cost of every principle the book has been arguing for; forcibly stopping him now, per Sera's silent read, would also cost more than letting him walk"
   },
   "characters_present": [
     "Ben Skywalker",
-    "Torin Hal"
+    "Torin Hal",
+    "Sera Varik"
   ],
   "setting": "Veranthos — camp at valley edge, dawn, the Scar visible below",
-  "sensory_details": "Dawn light on Veranthos — golden but the shadows fall at slightly wrong angles; Torin's Force presence lighter and sharper, the heaviness that has defined him gone; his voice calm and warm and certain; the Scar below, outlined now by sunrise as it was outlined last night by stars",
-  "canon_elements_needed": [],
-  "target_word_count": 1600,
+  "sensory_details": "Dawn light on Veranthos — golden but the shadows fall at slightly wrong angles; Torin's Force presence lighter and sharper, the heaviness that has defined him gone; his voice calm and warm and certain; the Scar below, outlined now by sunrise as it was outlined last night by stars; Sera at the edge of the tent-mouth, hand on the bulkhead frame, weight shifted slightly toward Torin's Force presence without any visible gesture toward him; the specific micro-set of her jaw when she finds what she was not looking for; her eyes crossing to Ben's for the space of a breath and returning forward",
+  "canon_elements_needed": [
+    "Dantari Force-lock diagnostic technique — reading of prepared-trigger architectures",
+    "Force-entangled presence phenomenology (Torin's Weave-entanglement, unannounced in prose)"
+  ],
+  "target_word_count": 1500,
   "action_beats": [
     "Ben emerges from the tent at dawn to find Torin standing in the same spot — rested, lighter, his Force presence changed overnight",
     "Ben confronts Torin at the ridgeline and Torin turns without shifting his weight — already grounded, already decided",
+    "Torin describes the first time he used the technique — 'the truest thing I've ever felt' — with a warmth that refuses the category of confession",
+    "Sera at the tent frame places one hand on the bulkhead and closes her eyes briefly; her face changes; she does not speak; her eyes find Ben's",
     "Torin speaks five words and the temperature between them drops to absolute zero"
   ],
   "active_subplots": [
     "SP-A",
-    "SP1"
+    "SP1",
+    "SP2"
   ],
   "plot_threads_advanced": [
-    "torin_turn_begins",
-    "technique_at_personal_scale"
+    "torin_turn_begins_explicit",
+    "technique_at_personal_scale",
+    "sera_force_lock_reads_counter_preparation_b2_candidate_1"
   ],
-  "promises_planted": [],
+  "promises_planted": [
+    "Sera's silent Force-lock read is the first of two unannounced tactical ballasts for the s2 decision (per B2)"
+  ],
   "promises_paid": [
     "Torin's certainty is dangerous and he will act on it (PP04)"
   ],
   "hook_actions": [
     {
       "hook_id": "H17",
-      "action": "resolve"
-    },
-    {
-      "hook_id": "H20",
       "action": "resolve"
     }
   ],
@@ -58,5 +64,9 @@
   ],
   "pov_arc_phase": "moment_of_truth",
   "arc_phase_transition": "moment_of_truth",
-  "notes": "R11 — 'I'm not asking for permission.' The turn must be devastating because of its warmth, not despite it. Torin is not a villain. He is a hero making the wrong choice for reasons he can defend. Diagnostic-voice trap — Ben should not, in this scene, interior-paragraph Torin's pattern as a thesis about corruption arcs. He argues, he watches the argument not work, he registers the five-word line. Torin's arc crosses its point-of-no-return here. Voice: dialogue-drama precision; permitted Stover-interior beat at the end of the scene, a sentence fragment at most, as Ben absorbs the refusal."
+  "warmth_load_bearing": true,
+  "notes": "R11 — 'I'm not asking for permission.' The turn must be devastating because of its warmth, not despite it. Torin is not a villain. He is a hero making the wrong choice for reasons he can defend. Per B2 Candidate 1, Sera's bulkhead-hand beat at the scene close is the first of the two unannounced tactical ballasts. Two sentences, rendered through Ben's POV as a face changing, a posture changing, a hand lifted; the reader infers the Force-lock read without Ben articulating it. Per B2 anti-pattern, no character says 'he rigged a trigger.' The room knows. Torin has always known she would read it; that is the point of preparing it. Per R13, no Jacen naming in this scene — the naming budget was spent at Ch 18. Per D7 Component B, the narrator does not over-signal Torin's direction past Ben's perception — Torin is now visible as decided, but the narrator renders him at ground level (posture, Force presence, diction), and the interpretive work belongs to Ben and the reader. Per R11, Ben does not, in this scene, interior-paragraph Torin's pattern as a thesis about corruption arcs. He argues, he watches the argument not work, he registers the five-word line and Sera's read. Torin's arc crosses its point-of-no-return here. Voice: dialogue-drama precision through the exchange; one permitted Stover-interior beat at the end of the scene — a sentence fragment at most, as Ben absorbs the refusal and Sera's read simultaneously. Primary anchor: Stover (permitted interior density at close); supporting anchor: Zahn (dialogue-drama precision), Bujold (Sera's silent expertise rendered through Ben's close-third). Anti-patterns: (a) Sera's Force-lock read is not announced in dialogue or narration — it is rendered as face, posture, eyes; (b) no character names 'counter-preparation' or 'dead-man's trigger' in prose; (c) Torin's five-word line closes the scene's dialogue, but the scene closes on Sera's eyes finding Ben's, not on Torin; (d) no physical contact with Torin in this scene.",
+  "primary_anchor": "Stover",
+  "supporting_anchor": "Zahn, Bujold",
+  "stover_permitted": true
 }

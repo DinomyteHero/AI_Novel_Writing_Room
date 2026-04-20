@@ -5,18 +5,18 @@
   "scene_type": "sequel",
   "scene_role": "decision",
   "pov_character": "Ben Skywalker",
-  "mission": "Outpost wall, exterior. Kael leans with arms folded, watching the Knights from outside. He speaks more than he has spoken in days: 'They built everything on one thing. Take it away and they don't know how to stand. That's not a lattice problem. That's a design problem.' He does not know what he has just said. Ben does not yet either.",
-  "why_now": "Kael's arc-moment-of-truth. The resonance answer arrives in embryonic form, spoken by the least expected voice — the outsider naming what the insiders cannot see.",
-  "conflict": "Kael has been watching the outpost from outside. What he sees is not the wound; it is the single-framework fragility his arc has always noticed. He says more than he usually says. Ben hears a sentence; he does not yet hear the answer inside it.",
+  "mission": "Outpost exterior wall at the archive alcove. Kael leans with arms folded, watching the Knights through the open doorway. He speaks more than he has spoken in days — quiet, precise, the outsider naming what insiders cannot see: 'They built everything on one thing. Take it away and they don't know how to stand. That's not a Weave problem. That's a design problem.' He does not know what he has just said. Ben does not yet either. While Kael speaks, Ben is scrolling the outpost's historical archive on a wall console — preparing a route-update — and finds a short annotation in Veraine's hand on a fragment of pre-Ruusan Weave-theoretical writing. Per W2 evidence-of-passage beat 2: a few lines, marginal, no audience, her working-mind voice. She has been to this outpost. She has read the same fragment the outpost's own curators read, and she has noted — without rhetoric — a specific structural reading of it that is not the Order's. Ben registers the register more than the content: intellectually calm, precise, curious, inhumanly composed. He files it. He does not yet put it next to Kael's sentence.",
+  "why_now": "Kael's arc-moment-of-truth. The resonance answer arrives in embryonic form, spoken by the least expected voice — the outsider naming what the insiders cannot see. The Veraine-annotation beat must land in the same scene because the chapter's convergence is architectural: Kael's articulated critique and Veraine's archival trace are in the same physical location, at the same moment, registered by the same Ben. The reader assembles what Ben does not.",
+  "conflict": "Kael has been watching the outpost from outside. What he sees is not the wound; it is the single-framework fragility his arc has always noticed. He says more than he usually says. Ben hears a sentence; he does not yet hear the answer inside it. On the console beside him, Veraine's hand in the margin — a mind at the same primary source Kael is processing from gesture, reaching a different answer. Ben has two readings of the same problem two meters apart and does not yet know he is holding a choice.",
   "conflict_type": "internal",
-  "turning_point": "Kael: 'They built everything on one thing. Take it away and they don't know how to stand. That's not a lattice problem. That's a design problem.' The chapter's second anchor-line lands.",
-  "opening_hook": "Kael leans against the outpost wall with arms folded and watches the struggling Knights the way he watches everything — from outside, measuring, cataloging",
-  "closing_hook": "Departure from the outpost. Close enough to feel the primary wound now — immense, pulling. Veranthos is ahead. The endgame approaches.",
-  "emotional_trajectory": "Kael's quiet observation -> the insight landing -> grim departure",
+  "turning_point": "Kael: 'They built everything on one thing. Take it away and they don't know how to stand. That's not a Weave problem. That's a design problem.' The chapter's second anchor-line lands. Seconds later, Ben's fingertip pauses on the console at Veraine's annotation. Two pieces of insight, two sources, one corridor of air.",
+  "opening_hook": "Kael leans against the outpost wall with arms folded and watches the struggling Knights the way he watches everything — from outside, measuring, cataloguing",
+  "closing_hook": "Departure from the outpost. Close enough to feel the primary wound now — immense, pulling. Veranthos is ahead. On Ben's datapad, two files sit open: Kael's sentence as a voice-note he does not remember recording, and Veraine's annotation copied from the outpost console as a textual fragment. The endgame approaches and Ben is carrying a choice he has not yet identified as a choice",
+  "emotional_trajectory": "Kael's quiet observation -> the insight landing -> the parallel archival register at the console -> grim departure",
   "stakes": {
-    "personal": "Kael's insight arriving through outsider perspective",
-    "interpersonal": "Kael engaging with the group's problem not from obligation but from honest observation",
-    "external": "Veranthos approaching"
+    "personal": "Kael's insight arriving through outsider perspective; Ben acquiring a second piece of Veraine's working mind without yet knowing what to do with it",
+    "interpersonal": "Kael engaging with the group's problem not from obligation but from honest observation; Ben's relationship with Veraine deepening through absence — she is continuous with herself across locations, and Ben is starting to see the shape of it",
+    "external": "Veranthos approaching; Veraine ahead of the group in ideas as well as in trajectory"
   },
   "characters_present": [
     "Ben Skywalker",
@@ -24,24 +24,35 @@
     "Sera Varik",
     "Desh Rolan"
   ],
-  "setting": "Jedi outpost -> departure, approach toward Veranthos",
-  "sensory_details": "The outpost shrinking behind them; the wound ahead pulling, immense, the wrongness concentrated into a gravity of absence; Kael's voice quiet and precise, the most words he has strung together in days; Veranthos's star visible on the nav display",
-  "canon_elements_needed": [],
+  "setting": "Jedi outpost — exterior wall at archive alcove; then departure aboard the Steady Returns, approach toward Veranthos",
+  "sensory_details": "The outpost's exterior wall warm from the day's sun; the open doorway onto the training hall where the young Knights are still failing at a centring exercise; Kael's voice quiet and precise, the most words he has strung together in days; Ben's peripheral attention on the wall console — an archive interface with a pre-Ruusan Weave-theoretical fragment displayed, and a short marginal note appended in a hand Ben recognises from the Ch 17 ledger-recovery; the annotation's diction — no contractions, academic syntax, short working sentences, no rhetorical flourish, no audience; the register intellectually calm, precise, curious, inhumanly composed; the specific absence of any address to a reader; the outpost shrinking behind them on departure; the wound ahead pulling, immense, the wrongness concentrated into a gravity of absence",
+  "canon_elements_needed": [
+    "Pre-Ruusan Weave-theoretical archive materials (Kueller-era fragments) in outpost curation",
+    "Sith working-philosophy archive register (continuity with Ch 17 ledger-fragment)"
+  ],
   "target_word_count": 1100,
   "action_beats": [
     "Kael leans against the outpost wall with arms folded, watching the struggling Knights from the outside",
     "Kael speaks the most words he's strung together in days — quiet, precise, the outsider naming what insiders can't see",
+    "Ben's fingertip pauses on the wall-console archive interface at a short marginal note in Veraine's hand on a pre-Ruusan fragment. He reads it twice. He does not copy it aloud",
+    "Ben registers the date on the annotation, the specific fragment chosen, the register of the voice — and files the registration without commentary",
     "The group boards the Steady Returns for departure as the primary wound's pull grows ahead of them"
   ],
   "active_subplots": [
     "SP-A",
+    "SP1",
     "SP2"
   ],
   "plot_threads_advanced": [
     "kael_framework_insight",
-    "veranthos_approach"
+    "veranthos_approach",
+    "veraine_evidence_beat_2_outpost_annotation",
+    "ben_holds_two_readings_without_naming_choice"
   ],
-  "promises_planted": [],
+  "promises_planted": [
+    "Kael's 'design problem' observation (plants Ch 19 s3, pays at Ch 25-26 resonance answer)",
+    "Veraine's outpost-archive trace (plants Ch 19 s3, continues at Ch 20/22/24 evidence beats)"
+  ],
   "promises_paid": [],
   "hook_actions": [
     {
@@ -51,5 +62,9 @@
   ],
   "revelations": [],
   "pov_arc_phase": "lie_challenged",
-  "notes": "Kael's 'design problem' observation is the chapter's other anchor-line. Both Sera's 'What is your plan, Skywalker?' and Kael's 'that's a design problem' do immense work in small sentences. Anti-pattern: Ben does not, on-page, recognise Kael's line as the resonance answer — the reader registers it; Ben does not yet. Diagnostic-voice trap — Ben should not, in this scene, paragraph the connection between Kael's sentence and Gavran's resonance note. The sentence sits in the air; the Codex bookmark is still open on his datapad; the chapter ends on approach."
+  "warmth_load_bearing": false,
+  "notes": "Kael's 'design problem' observation is the chapter's other anchor-line; Sera's 'What is your plan, Skywalker?' lands in s2. Both small sentences doing immense work. Per W2 evidence-of-passage beat 2, Veraine's outpost annotation is brief, lateral, unsigned — a marginal note on a pre-Ruusan fragment. She writes for herself. Her voice is continuous with the Ch 17 ledger register (precise, certain, intellectually restless, minimal affect). The beat is carried as sensory_details / action_beat, not as lecture. Per W2 anti-pattern, the annotation is not addressed to any reader — no taunt, no 'if you are reading this' framing; the register does not warm or sharpen because Ben is the one now holding it. Per R14 voice_texture continuity, what changes between contexts is audience, not register; here the audience is herself-working, and the diction is spare. Per R11, Ben does not articulate on-page that the annotation means Veraine has been here before them; he registers a date, a hand, a register — that is enough. Per R11, Ben does not paragraph the connection between Kael's sentence and Gavran's resonance note. The sentence sits in the air; the Codex bookmark is still open on his datapad; the chapter ends on approach. Per R13, no Jacen naming in this scene. Voice: Allston-understatement for Kael's delivery; Zahn-precision for the archive beat; Bujold-interior permitted for Ben's registration of the two parallel readings. Primary anchor: Allston (Kael's voice, five-voice ensemble); supporting anchor: Zahn (archive procedural), Luceno (Veraine's ledger diction continuity). Anti-patterns: (a) Ben does not, on-page, recognise Kael's line as the resonance answer — the reader registers it, Ben does not yet; (b) Ben does not paragraph the Veraine-Kael adjacency — he holds both and does not place them together; (c) the Veraine annotation is not addressed to any audience; (d) the scene closes on physical images (outpost shrinking, wound's pull, two files on the datapad), not on a thesis sentence.",
+  "primary_anchor": "Allston",
+  "supporting_anchor": "Zahn, Luceno",
+  "stover_permitted": false
 }

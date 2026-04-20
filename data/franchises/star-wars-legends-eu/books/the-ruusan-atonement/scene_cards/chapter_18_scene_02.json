@@ -5,44 +5,62 @@
   "scene_type": "sequel",
   "scene_role": "reveal",
   "pov_character": "Ben Skywalker",
-  "mission": "Cockpit, night cycle. Desh walks Ben through the team status as a debrief: Torin is separating, Sera is rigid, Kael is watching the exit, Ben is carrying too much alone. The diagnosis is clinical until it is not: 'I didn't come here to watch another good person convince themselves they're the only answer.'",
-  "why_now": "The Jacen recognition has to be met with a sentence from someone who was there. Desh is the only person on the ship who can speak this one, and the scene earns his arc-moment-of-truth.",
-  "conflict": "The assessment Ben needs is the assessment he does not want. Desh delivers it as professional debrief until the last sentence, which he delivers as himself. Ben cannot argue with any part of it.",
+  "mission": "Cockpit, night cycle. Desh walks Ben through the team status as a debrief: Torin is separating, Sera is rigid, Kael is watching the exit, Ben is carrying too much alone. The diagnosis is clinical until it is not: 'I didn't come here to watch another good person convince themselves they're the only answer.' Desh does not need to name who 'another' is; the Ch 11 conversation is still between them, and Ch 18 s1 already put Jacen in the room once. Per R13 budget, the name is not repeated here — once is the whole budget for the book's surface. Per B1 Part 2, Sera's lie_fissure lands in a parallel beat in the same scene: she is at the edge of the cockpit when Desh says 'the only answer,' and her hand pauses on the frame. She had been about to say something — the defense-of-principle sentence she would have said in Ch 14 — and it does not come out. She walks away. Ben sees the not-saying. In the margins of her silence, Sera has also just felt something else she does not yet name: that forcibly disengaging an entangled Force presence now would rip the seal faster than the slower, voluntary cost. The intuition is unarticulated. It will pay at Ch 21.",
+  "why_now": "The Jacen recognition has to be met with a sentence from someone who was there. Desh is the only person on the ship who can speak this one, and the scene earns his arc-moment-of-truth. Sera's fissure cannot land without the preceding Ch 17 s2 silence; it also cannot wait past Ch 18 because the Ch 19 scenes require her to be someone who has already begun to doubt. Two threads, one scene, rendered through the same physical space.",
+  "conflict": "The assessment Ben needs is the assessment he does not want. Desh delivers it as professional debrief until the last sentence, which he delivers as himself. Ben cannot argue with any part of it. At the same time, Sera enters the edge of the cockpit, registers Desh's last sentence, starts to speak — and does not. The line she would have said in Ch 14 is now a line she cannot say. The cost of the not-saying is held in her hand on the frame.",
   "conflict_type": "interpersonal",
-  "turning_point": "Desh: 'I didn't come here to watch another good person convince themselves they're the only answer.' Ben hears Jacen, he hears Torin, and he hears himself. Desh does not have to specify.",
+  "turning_point": "Desh: 'I didn't come here to watch another good person convince themselves they're the only answer.' Ben hears Jacen, he hears Torin, and he hears himself. Desh does not have to specify. In the same beat, Sera at the cockpit frame — hand paused, breath held, the sentence not emerging. Two turning points in one frame.",
   "opening_hook": "Desh doesn't frame it as a warning. He frames it as a debrief. 'Let me walk you through the team status.' It's the most frightening sentence Ben has heard on this trip.",
-  "closing_hook": "Desh's final assessment: 'You need to give them a reason to stay that isn't you telling them to.' Ben doesn't have that reason yet. But he knows where to look — somewhere in the Codex notes he bookmarked and hasn't revisited.",
-  "emotional_trajectory": "Professional assessment -> personal investment revealed -> the challenge to Ben's leadership approach",
+  "closing_hook": "Desh's final assessment: 'You need to give them a reason to stay that isn't you telling them to.' Ben doesn't have that reason yet. But he knows where to look — somewhere in the Codex notes he bookmarked and hasn't revisited. At the cockpit doorway, Sera's hand is still on the frame. She walks away without the sentence. Ben watches her go",
+  "emotional_trajectory": "Professional assessment -> personal investment revealed -> the challenge to Ben's leadership approach -> Sera's unsaid line held in the air",
   "stakes": {
-    "personal": "Desh's arc turning — obligation becoming investment",
-    "interpersonal": "The group's survival as a functioning unit",
-    "external": "A fractured group cannot face Veraine at Veranthos"
+    "personal": "Desh's arc turning — obligation becoming investment; Ben receiving the Jacen echo from the only other witness",
+    "interpersonal": "The group's survival as a functioning unit; Sera's defence-of-Torin instinct visibly faltering for the first time in the book",
+    "external": "A fractured group cannot face Veraine at Veranthos; Sera's unarticulated cascade-acceleration intuition, planted here, will reach into the Ch 21 decision-space"
   },
   "characters_present": [
     "Ben Skywalker",
-    "Desh Rolan"
+    "Desh Rolan",
+    "Sera Varik"
   ],
   "setting": "Aboard the Steady Returns — cockpit, night cycle",
-  "sensory_details": "Instrument lights; Desh's voice steady and professional until the last line, when it is not; the nav display showing Veranthos's system approaching; the countdown timer Desh posted on the bulkhead, smaller every time Ben reads it",
-  "canon_elements_needed": [],
+  "sensory_details": "Instrument lights; Desh's voice steady and professional until the last line, when it is not; the nav display showing Veranthos's system approaching; the countdown timer Desh posted on the bulkhead, smaller every time Ben reads it; the specific quiet of Sera's arrival at the cockpit doorway; her weight shifting forward onto the ball of her front foot, then settling back; her hand finding the frame; the small intake of breath that is the beginning of a sentence; the breath releasing without the sentence; her footsteps moving away down the corridor, measured, not-quite-steady",
+  "canon_elements_needed": [
+    "Jedi mission-debrief structure used as personal confrontation vehicle",
+    "Dantari philosophical discipline under internal doubt (Sera's posture)"
+  ],
   "target_word_count": 1200,
   "action_beats": [
     "Desh pulls out his datapad and walks Ben through each team member's status — clinical, precise, devastating",
     "Desh taps the countdown timer he posted on the bulkhead without looking at it",
+    "Sera arrives at the cockpit doorway as Desh says 'the only answer'; her hand finds the frame; her breath starts a sentence and does not release it",
+    "Desh delivers the personal line. Ben does not answer. Desh does not need him to",
+    "Sera walks away down the corridor without the sentence. Ben registers the absence. Neither Ben nor Desh remarks on it",
     "Ben stares at the Codex file bookmark on his datapad after Desh leaves — the resonance note waiting"
   ],
   "active_subplots": [
+    "SP-A",
+    "SP1",
     "SP3"
   ],
   "plot_threads_advanced": [
-    "desh_genuine_investment",
+    "desh_genuine_investment_revealed",
     "group_fracture_assessment",
-    "codex_notes_flagged"
+    "codex_notes_flagged",
+    "sera_lie_fissure_b1_part_2",
+    "cascade_acceleration_intuition_seeded_in_sera"
   ],
-  "promises_planted": [],
+  "promises_planted": [
+    "Sera's unarticulated cascade-acceleration intuition (plants Ch 18 s2, pays at Ch 21 when the forcible-disengagement cost becomes the decision-point)",
+    "The resonance-note emphasis waiting to shift (plants Ch 18 s2, pays at Ch 18 s3)"
+  ],
   "promises_paid": [],
   "hook_actions": [],
   "revelations": [],
   "pov_arc_phase": "lie_challenged",
-  "notes": "Desh's arc-moment-of-truth — operational concern revealing genuine investment. The Jacen reference is powerful because Desh is the only person who watched it happen in real time beside Ben. Diagnostic-voice trap — Ben should not, in this scene, write a paragraph identifying himself in Desh's sentence. The identification is registered through what Ben does after Desh leaves (stares at the Codex bookmark) rather than through an explicit interior line. Voice: dialogue-precision; the debrief carries the scene, the personal line lands and the scene ends shortly after."
+  "warmth_load_bearing": true,
+  "notes": "Desh's arc-moment-of-truth — operational concern revealing genuine investment. The Jacen reference is powerful because Desh is the only person who watched it happen in real time beside Ben; Desh's 'another good person' phrasing holds the echo without naming it per R13. Per R13, Jacen is NOT named in this scene — the name's budget was used in s1. Per B1 Part 2, Sera's lie_fissure is a physical beat rendered through Ben's POV — her hand on the frame, the breath that starts a sentence and does not release it. The sentence she would have said in Ch 14 ('he is still grieving,' 'he is still the man who was at Veranthos') is not uttered. The reader feels the absence. Per B1, Sera's cascade-acceleration intuition is unarticulated in prose — she holds it as body-fact; it waits for Ch 21 to pay. The two threads (principle-alone doubt + unarticulated cascade intuition) are served by one beat per the B1/B2 architecture. Per R11, Ben does not, in this scene, write a paragraph identifying himself in Desh's sentence. The identification is registered through what Ben does after Desh leaves (stares at the Codex bookmark) rather than through an explicit interior line. Per D7 Component B, the narrator does not over-signal Torin's direction past Ben's perception — Torin is not in this scene, and his absence is load-bearing. Voice: dialogue-precision; the debrief carries the scene, the personal line lands and the scene ends shortly after. Sera's beat is rendered in silent movement — posture, breath, footsteps — not in dialogue. Primary anchor: Zahn (dialogue-precision debrief); supporting anchor: Bujold (Ben's registration of Sera's silence, self-aware without self-pity), Allston (three-character choreography in one cockpit space). Anti-patterns: (a) Sera does not speak in this scene — her beat is absence; (b) Desh does not name Jacen; (c) Ben does not articulate the cascade-acceleration intuition from Sera's side — he cannot feel it; he can only register her unsaid line; (d) no confrontation between Desh and Ben — the debrief is Desh's care rendered as clinical procedure until the last sentence.",
+  "primary_anchor": "Zahn",
+  "supporting_anchor": "Bujold, Allston",
+  "stover_permitted": false
 }

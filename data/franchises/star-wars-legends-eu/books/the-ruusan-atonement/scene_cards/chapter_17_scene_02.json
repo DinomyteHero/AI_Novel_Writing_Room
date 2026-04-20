@@ -5,18 +5,18 @@
   "scene_type": "sequel",
   "scene_role": "escalation",
   "pov_character": "Ben Skywalker",
-  "mission": "Common area. An argument about hyperspace routes stops being about hyperspace routes within thirty seconds. The wound's amplification hits the room — arguments louder than they should be, Sera and Kael saying sentences that are not quite theirs, Ben catching his own disproportionate anger mid-sentence. The wound is in this room now, not cosmic.",
-  "why_now": "The wound has been a cosmic threat for the whole book. The reader needs to feel it operating on these five specific people in a space they can't leave. Every later pressure beat rides on this one.",
-  "conflict": "The trigger is trivial — a route choice, a rotation disagreement, a word said the wrong way. The volume is not. The wound amplifies emotional extremes without possessing anyone; the argument is real and their own, just louder than it would otherwise be. Each speaker keeps catching themselves mid-breath.",
+  "mission": "Common area. An argument about hyperspace routes stops being about hyperspace routes within thirty seconds. The wound's amplification hits the room — arguments louder than they should be, Sera and Kael saying sentences that are not quite theirs, Ben catching his own disproportionate anger mid-sentence. The wound is in this room now, not cosmic. Under the argument surface, the Torin question has been circling the group without being asked. Then Kael asks it. Short, monk's-vocabulary, not confrontational — just asked. To Ben, possibly to Sera: 'What's wrong with him?' Per W1 Inversion 2, Kael gets there first and puts the question in the room. Per D7 Component A, Sera does not defend Torin this time. Her silence is the break — the sentence she would have said in Ch 14 ('he is still grieving,' 'he is still the man who was at Veranthos,' the line whose absence is audible) does not happen. She looks at the table. The room registers. Desh brings food to each of them afterward without being asked.",
+  "why_now": "The wound has been a cosmic threat for the whole book. The reader needs to feel it operating on these five specific people in a space they cannot leave. The Ch 16 meeting and the Ch 17 s1 sabotage and doorway announcement have created the precise pressure under which the Torin question becomes ask-able; the convergence is the scene. Per D7 Component A, this is the sharp, late break in the Sera/Torin arc — placed here because the preceding beats made earlier timing unearned and later timing implausible.",
+  "conflict": "The trigger is trivial — a route choice, a rotation disagreement, a word said the wrong way. The volume is not. The wound amplifies emotional extremes without possessing anyone; the argument is real and their own, just louder than it would otherwise be. Each speaker keeps catching themselves mid-breath. Under the surface of the argument, the unasked Torin question pressurises the room. Kael asks it — short, flat, unadorned. Sera's answer is the silence where the defence would go.",
   "conflict_type": "interpersonal",
-  "turning_point": "Ben feels his own anger spike disproportionate to its content, catches himself mid-sentence, stops. The wound is not only at Veranthos. It is on the ship.",
+  "turning_point": "Kael asks the Torin question the group has been circling. Sera does not defend him. Her silence is the break — the sentence whose absence is audible. She looks at the table.",
   "opening_hook": "The argument starts about hyperspace routes. It stops being about hyperspace routes within thirty seconds.",
-  "closing_hook": "After the fight, silence. Desh brings everyone something to eat without being asked. Nobody thanks him. He doesn't expect them to. The silence after the argument is more informative than the argument itself.",
-  "emotional_trajectory": "Simmering tension -> explosive argument -> exhausted silence",
+  "closing_hook": "After the fight, silence. Desh brings everyone something to eat without being asked. Nobody thanks him. He doesn't expect them to. The silence after the argument is more informative than the argument itself — because somewhere in the middle of it, Kael asked the question, and Sera did not answer",
+  "emotional_trajectory": "Simmering tension -> amplified argument -> Kael's quiet question in the middle of it -> Sera's silence -> exhausted aftermath held by Desh's practical care",
   "stakes": {
-    "personal": "Ben recognising the wound's influence on his own emotional state",
-    "interpersonal": "Group cohesion fracturing under external psychic pressure",
-    "external": "If the wound can amplify their tensions, it is doing the same to every Force-sensitive in range"
+    "personal": "Ben recognising the wound's influence on his own emotional state; Ben hearing Kael name the thing Ben has been not-naming",
+    "interpersonal": "Sera stops defending Torin — the sharp late break; Kael crosses from observer of tensions to the one who names them",
+    "external": "If the wound can amplify their tensions, it is doing the same to every Force-sensitive in range; the coalition's ability to reach Veranthos intact is not guaranteed"
   },
   "characters_present": [
     "Ben Skywalker",
@@ -26,28 +26,43 @@
     "Torin Hal"
   ],
   "setting": "Aboard the Steady Returns — common area, cramped and overheated",
-  "sensory_details": "The ship too warm; recycled air stale; voices bouncing off metal walls; Ben's own anger arriving hotter than its content should permit; Desh's food-rounds after, practical kindness where resolution does not exist",
-  "canon_elements_needed": [],
-  "target_word_count": 1200,
+  "sensory_details": "The ship too warm; recycled air stale; voices bouncing off metal walls; Ben's own anger arriving hotter than its content should permit; the atmospheric pressure of the wound sitting behind the sternum like a front moving through; Kael's voice when he asks — the monk's register, short syllables, the question arriving at ground level with no adornment; Sera's hands going still on the table; the specific sentence-shape she would have said in Ch 14 absent from the air; her eyes finding the tabletop; Torin not in the room for this; Desh's food-rounds after, practical kindness where resolution does not exist",
+  "canon_elements_needed": [
+    "Force-wound amplification phenomenology (atmospheric pressure metaphor continuity)",
+    "Dantari monastic register in short declarative questioning"
+  ],
+  "target_word_count": 1250,
   "action_beats": [
     "Sera slams her palm on the nav console mid-argument — the sound silencing the cockpit for a breath",
-    "Ben catches himself mid-sentence as his own anger spikes disproportionate — the wound pushing",
+    "Ben catches himself mid-sentence as his own anger spikes disproportionate — the wound pushing — he stops",
+    "Kael asks the question the group has been circling — quiet, short, addressed to whoever will answer: 'What's wrong with him?'",
+    "Sera does not defend Torin. The sentence whose absence is audible does not happen. She looks at the table.",
     "Desh brings food to each person without being asked, navigating the silent aftermath"
   ],
   "active_subplots": [
     "SP-A",
     "SP1",
-    "SP2"
+    "SP2",
+    "SP3"
   ],
   "plot_threads_advanced": [
-    "wound_amplification_experienced",
-    "group_fracturing",
-    "desh_practical_care"
+    "wound_amplification_experienced_physical",
+    "kael_names_the_tension_w1_inversion_2",
+    "sera_stops_defending_torin_d7_component_a",
+    "desh_practical_care_visible"
   ],
-  "promises_planted": [],
-  "promises_paid": [],
+  "promises_planted": [
+    "Sera's silence plants the Ch 19 recognition — she registers her own Gavran-pattern only in retrospect, after she has stopped defending"
+  ],
+  "promises_paid": [
+    "Kael's W1 plants pay through direct action — his approach to Desh in Ch 7/8 and his archive request set up the register in which he can now ask this question without it reading as exposure-seeking (pays PP W1 arc)"
+  ],
   "hook_actions": [],
   "revelations": [],
   "pov_arc_phase": "lie_challenged",
-  "notes": "The wound's amplification is the scene's engine — arguments louder than their subject, fear cutting deeper, disproportionate emotion that catches its owner mid-breath. Not possession; pressurisation. Rotate Force-wrongness metaphor here: atmospheric/weather vocabulary (pressure at altitude, a front moving through, barometric change before a storm) rather than acoustic or navigational. Diagnostic-voice trap — Ben should not, in this scene, theorise the amplification as a phenomenon. He catches himself mid-sentence; he stops; the stop is the recognition. Voice: Zahn-tight dialogue, one permitted Stover-interior beat when Ben catches his own amplified anger. Desh's food round becomes the clearest visible moment of his minor arc turning — practical care as genuine investment; do not have him narrate it."
+  "warmth_load_bearing": true,
+  "notes": "Per D7 Component A, this is the sharp late break in the Sera/Torin arc — relocated here per the restructure. Sera's not-defending is rendered as the absence of a specific line, not as a monologue against Torin. The reader feels what she does not say. Per W1 Inversion 2, Kael's question is the trigger; his short monk's-vocabulary register is continuous with his voice throughout the book and does not need to explain itself. The chapter does not overwrite his motive in narration — he asks, the room hears, the beat lands. Per R11, Ben does not articulate 'Sera has stopped defending' on-page; he registers the absence of the expected line and files it. Per R13, no explicit Jacen naming — the single budget is reserved for Ch 18. Per D7 Component B, the narrator does not over-signal Torin's direction past Ben's perception. Torin is not in the room for this scene; his absence is load-bearing — the group can only ask the question when he is elsewhere. Force phenomenology: atmospheric/weather vocabulary for the amplification (pressure at altitude, a front moving through, barometric change before a storm) — not acoustic, not navigational. Diagnostic-voice trap — Ben should not theorise the amplification as a phenomenon; he catches himself mid-sentence, he stops, the stop is the recognition. Voice: Zahn-tight dialogue for the argument; one permitted Stover-interior beat when Ben catches his own amplified anger; Bujold-interior for the registration of Sera's silence. Desh's food round is the clearest visible moment of his minor arc turning — practical care as genuine investment; do not have him narrate it. Primary anchor: Allston (five-voice ensemble under crisis); supporting anchor: Stover (one permitted interior beat at the amplification-catch), Bujold (Sera's silence held in Ben's register). Anti-patterns: (a) Kael's question is short — do not let him monologue; (b) Sera's silence is a specific absence, not a speech; (c) Torin is not in the room — his appearance here would collapse the beat; (d) Ben does not, in interiority, name Sera's shift as D7; the label is for the card, the experience is for the prose.",
+  "primary_anchor": "Allston",
+  "supporting_anchor": "Stover, Bujold",
+  "stover_permitted": true
 }

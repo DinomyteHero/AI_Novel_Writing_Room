@@ -5,7 +5,7 @@
   "scene_type": "action",
   "scene_role": "reveal",
   "pov_character": "Ben Skywalker",
-  "mission": "Ben's workspace. Scrolling Gavran's marginalia on the Codex data, searching for counter-measures, he finds the sentence: 'Ankhural theorised that the lattice could be reinforced through harmonic resonance between disparate traditions. We lacked the will or the trust to attempt it.' Ben bookmarks it and moves on.",
+  "mission": "Ben's workspace. Scrolling Gavran's marginalia on the Codex data, searching for counter-measures, he finds the sentence: 'Ankhural theorised that the Weave could be reinforced through harmonic resonance between disparate traditions. We lacked the will or the trust to attempt it.' Ben bookmarks it and moves on.",
   "why_now": "The chapter has been about Ben's command and the group's synthesis. The solution belongs here as a footnote Ben does not yet read as a solution — so the climactic rediscovery in Ch22 lands as earned rather than invented.",
   "conflict": "The note describes a solution no one has tested. The requirement is exactly what the group has only partially assembled: trust between incompatible traditions. Ben does not yet know he has just read the climax of his own book.",
   "conflict_type": "internal",
@@ -39,7 +39,7 @@
     "solution_seed_present"
   ],
   "promises_planted": [
-    "Gavran's note about lattice resonance will matter (PP10)"
+    "Gavran's note about Weave-resonance will matter (PP10)"
   ],
   "promises_paid": [],
   "hook_actions": [

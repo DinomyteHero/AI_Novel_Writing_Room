@@ -1,7 +1,7 @@
 {
   "chapter_number": 17,
-  "chapter_mission": "The timeline has collapsed. Days, not weeks. The wound's amplification of emotional extremes cracks the group's composure for the first time. Torin appears in a doorway with a calm warm voice — 'We need to talk about what happens when we get there' — and the argument it announces will happen later. Veraine's ship registers on long-range sensors, parallel course to Veranthos.",
-  "chapter_turn": "Torin stops being an ally with a worrying framework and becomes a man who has decided. Ben does not know the content of the conversation yet. He knows the cadence. The doorway announcement is how Jacen used to open the worst conversations.",
+  "chapter_mission": "Triple-register chapter per W2/D7/W1. Opens with the sabotage discovery — what Veraine's crew did during or after the Ch 16 meeting (per W2 Option B). Then the timeline collapses: days, not weeks. The wound's amplification of emotional extremes cracks the group's composure for the first time. Per D7 Component A, this is where Sera stops defending Torin — the late, sharp break in the Sera/Torin arc, triggered by Kael's direct question per W1 Inversion 2. Per W1 Inversion 2, Kael asks the direct Torin question the group has been circling; his question gives Sera permission to stop defending. Torin appears in a doorway with a calm warm voice — 'We need to talk about what happens when we get there' — and the argument it announces will happen later. This is the loudest visible Torin telegraph (per D7 Component A, relocated from Ch 13).",
+  "chapter_turn": "Torin stops being an ally with a worrying framework and becomes a man who has decided. Sera stops being the one who keeps defending him. Ben does not know the content of the conversation yet. He knows the cadence. The doorway announcement is how Jacen used to open the worst conversations.",
   "structural_phase": "attack",
   "pov_allocation": ["Ben Skywalker"],
   "scene_count": 3,
@@ -10,22 +10,22 @@
       "scene_number": 1,
       "role": "hook",
       "dialogue_expectation": "balanced",
-      "target_word_count": 1200,
-      "purpose": "Cockpit. Desh converts the seal degradation rate into hours and posts the countdown on the bulkhead in a number small enough to memorise. Nobody wants to. Ben paces the common area assigning approach tasks. Torin appears in the doorway: 'We need to talk about what happens when we get there.' His voice is calm and warm and decided. Ben's stomach drops for a reason he already recognises. H16 resolves; H17 plants."
+      "target_word_count": 1250,
+      "purpose": "Cockpit. Per W2 Option B: sabotage discovery. The wrongness lurches into a higher baseline that Ben feels before he understands. Desh runs the sensor sweeps backward across the Ch 16 meeting window and locates the signature — Veraine's crew struck one of the Corridor's intermediate anchor sites while the principals talked. The meeting was cover. The philosophical register was practical too. Desh converts the seal degradation rate into hours and posts the countdown on the bulkhead in a number small enough to memorise. Nobody wants to. Ben paces the common area assigning approach tasks. Torin appears in the doorway: 'We need to talk about what happens when we get there.' His voice is calm and warm and decided. Ben's stomach drops for a reason he already recognises. H16 resolves; H17 plants. Per D7 Component A, this is the loudest visible Torin telegraph — relocated here from Ch 13 so reader-certainty and the Ch 21 turn live within a few chapters of each other."
     },
     {
       "scene_number": 2,
       "role": "escalation",
       "dialogue_expectation": "dialogue_led",
-      "target_word_count": 1200,
-      "purpose": "Common area. An argument about hyperspace routes stops being about hyperspace routes within thirty seconds. The wound's amplification effect hits the room — arguments louder than they should be, Sera and Kael saying sentences that are not quite theirs, Ben catching his own disproportionate anger and stopping mid-sentence. The wound is in this room now, not cosmic. Desh brings food to each of them afterward without being asked."
+      "target_word_count": 1250,
+      "purpose": "Common area. An argument about hyperspace routes stops being about hyperspace routes within thirty seconds. The wound's amplification effect hits the room — arguments louder than they should be, Sera and Kael saying sentences that are not quite theirs, Ben catching his own disproportionate anger and stopping mid-sentence. The wound is in this room now, not cosmic. Under the argument surface, the Torin question has been circling the group without being asked. Then Kael asks it. Short, monk's-vocabulary, not confrontational — just asked. To Ben, possibly to Sera: 'What's wrong with him?' Or close variant. Per W1 Inversion 2: Kael gets there first and puts the question in the room. Per D7 Component A: Sera does not defend Torin this time. Her silence is the break — the sentence she would have said in Ch 14 ('he is still grieving,' 'he is still the man who was at Veranthos,' the line whose absence is audible) does not happen. She looks at the table. The room registers. Ch 16 sabotage discovery in the same chapter as the Torin break produces a convergence: the group metabolizing that Torin was the sabotage's philosophical route while Sera stops metabolizing for him. Desh brings food to each of them afterward without being asked."
     },
     {
       "scene_number": 3,
       "role": "decision",
       "dialogue_expectation": "balanced",
       "target_word_count": 1100,
-      "purpose": "Cockpit, night cycle. Desh at the long-range sensor display: 'Contact. Bearing three-one-five, parallel course. It's her.' Ben overlays both trajectories — convergence at Veranthos within hours of each other. She is not fleeing; she timed this. She wants them there for the endgame. Torin watches the nav display with the expression of a man coming home and does not try to hide it. H18 plants."
+      "purpose": "Cockpit, night cycle. Desh at the long-range sensor display: 'Contact. Bearing three-one-five, parallel course. It's her.' Ben overlays both trajectories — convergence at Veranthos within hours of each other. She is not fleeing; she timed this. She wants them there for the endgame. Torin watches the nav display with the expression of a man coming home and does not try to hide it. H18 plants. In the margins of the scene: Ben reads the first Veraine ledger entry they've recovered from the intermediate site's damaged archive — a short working note in her voice, no address to any reader, the residue of a mind that thinks at night. Per W2 evidence-of-presence, this is the Ch 17 evidence-beat (see extended_metadata.veraine_evidence_of_passage)."
     }
   ],
   "reveal_payload": [],
@@ -34,12 +34,22 @@
     "advanced": [],
     "resolved": ["H16"]
   },
-  "subplot_obligations": ["SP-A", "SP1", "SP2", "SP5"],
+  "subplot_obligations": ["SP-A", "SP1", "SP2", "SP3"],
   "relationship_turns": [
     {
       "dyad": "Ben/Torin",
-      "from": "mirrored pattern (Ch15)",
+      "from": "mirrored pattern (Ch 15)",
       "to": "decided man — Torin's doorway announcement uses the specific cadence Jacen used before the worst conversations. Ben has the pattern now. The question is what he will do with it"
+    },
+    {
+      "dyad": "Sera/Torin",
+      "from": "still-defending (through Ch 15)",
+      "to": "stops defending — the sharp late break in the Sera/Torin arc (relocated from Ch 13 per D7). Sera's silence in response to Kael's question is the beat. Per D7 Component A, this is the second-loudest visible telegraph, concurrent with the Ch 17 s1 doorway announcement"
+    },
+    {
+      "dyad": "Kael/Group",
+      "from": "observer of tensions (through Ch 15)",
+      "to": "the one who names the tension no one else will — W1 Inversion 2. Kael's question is the trigger for Sera's shift; he has now moved from adjacent to load-bearing in the group's ability to reach the Ch 21 decision"
     },
     {
       "dyad": "Group/Wound",
@@ -49,11 +59,11 @@
     {
       "dyad": "Ben/Desh",
       "from": "acknowledged partners",
-      "to": "working in concert — Desh's food delivery after the argument is the first time he acts as emotional infrastructure for the whole group, not just Ben's plus-one. His minor arc is accelerating"
+      "to": "working in concert — Desh's food delivery after the argument is the first time he acts as emotional infrastructure for the whole group, not just Ben's plus-one. His supporting presence lands as action"
     }
   ],
   "pacing_curve": "rising",
-  "exit_vector": "Two ships converging on Veranthos. Torin's silhouette in the cockpit viewport, reflection overlaid on a sensor dot that will arrive when he does. Desh's countdown timer at hours. The group in their quarters with a pressure in their chests none of them can name. The second pinch point's clock is set.",
-  "chapter_word_target": 3500,
-  "notes": "The wound's amplification of emotional extremes is this chapter's sensory engine. It must be felt as physical — arguments louder than they ought to be, fear cutting deeper, disproportionate emotion that catches its owner mid-sentence. Not possession, pressurisation (force_mechanics.implications). Torin's doorway line is the chapter's echo line; deliver once, at a quiet moment, and let its cadence do the work. Do not have Ben articulate 'that is how Jacen talked' on-page — the reader hears it through the doorway. Voice: Zahn-tight throughout; single Stover-permitted interior beat when Ben catches his own amplified anger in s2. Force phenomenology: use pressure/altitude/weather vocabulary for the amplification — the wound as atmospheric condition, not mystical force. Anti-patterns: (a) the doorway announcement is not followed by Torin's actual argument in this chapter — it is the hook for Ch21; (b) the argument in s2 should be about something trivial on the surface (routes, rotation, ration cycles) and catastrophic underneath; (c) do not show Veraine's ship directly — a sensor dot and a course overlay are enough."
+  "exit_vector": "Two ships converging on Veranthos. Torin's silhouette in the cockpit viewport, reflection overlaid on a sensor dot that will arrive when he does. Desh's countdown timer at hours. The group in their quarters with a pressure in their chests none of them can name. The second pinch point's clock is set. Sera has stopped defending; Kael has named; the room has changed.",
+  "chapter_word_target": 3600,
+  "notes": "Per W2/D7/W1, this chapter carries three quiet threads — all thematically related (the group metabolizing that Torin was the sabotage route, Sera breaking, Kael naming it). Each thread distributes across scenes: sabotage discovery in s1, Sera/Kael beats in s2, Veraine's evidence beat in s3 margin. Resist crowding — each beat must breathe. The wound's amplification of emotional extremes is this chapter's sensory engine. It must be felt as physical — arguments louder than they ought to be, fear cutting deeper, disproportionate emotion that catches its owner mid-sentence. Not possession, pressurisation (force_mechanics.implications). Torin's doorway line is the chapter's echo line; deliver once, at a quiet moment, and let its cadence do the work. Do not have Ben articulate 'that is how Jacen talked' on-page — per R13, the single explicit Jacen naming waits for Ch 18. Voice: Zahn-tight throughout; single Bujold-interior beat when Ben catches his own amplified anger in s2. Force phenomenology: use pressure/altitude/weather vocabulary for the amplification — the wound as atmospheric condition, not mystical force. ANTI-PATTERNS: (a) the doorway announcement is not followed by Torin's actual argument in this chapter — it is the hook for Ch 21; (b) the argument in s2 should be about something trivial on the surface (routes, rotation, ration cycles) and catastrophic underneath; (c) do not show Veraine's ship directly — a sensor dot and a course overlay are enough; (d) per W1 Inversion 2 guardrail, Kael's question is short — monk's-vocabulary — and the chapter does not overwrite his motive in narration. Ben hears it, Sera hears it, the room hears it; (e) per D7, Sera's not-defending is rendered as the absence of a specific line, not as a monologue against Torin. The reader feels what she does not say."
 }

@@ -5,18 +5,18 @@
   "scene_type": "action",
   "scene_role": "reveal",
   "pov_character": "Ben Skywalker",
-  "mission": "Inside the breach zone, each character's response reveals their truth. Sera's hands clench, jaw set. Kael folds into himself. Torin relaxes — and smiles. The first real warning lands on a group that had eleven chapters to prepare for it.",
-  "why_now": "The de-structured zone strips performance off everyone in it. Each character's honest register surfaces when the Force can no longer mediate, and Torin's register is the one the reader needs to see now.",
-  "conflict": "Sera fights to hold discipline. Kael retreats into survival. Desh reports environmental data the way he always reports environmental data. Torin's Force presence stops being heavy. He smiles with recognition, not fear, and the smile is the answer to fifteen chapters' worth of questions.",
+  "mission": "Inside the breach zone, each character's response reveals their truth through character-differentiated unweaving sensations (per D4). Ben experiences the Force as a conversation he cannot fully hear — multiple voices, each partial. Sera works against the missing second blade. Kael moves through the zone with the economy of someone who is finally home. Desh holds the operational frame while grief-without-an-object lands on his body. Per D7 Component A, Torin does NOT smile in the breach — he walks into the worst of it, stops, stands there a long time, and when he turns his face is unreadable to Ben, to Sera, to the reader. Something happened in him; we do not yet know what. Per B1 R08a, the array-dependency lands felt-and-understood: Desh's chrono-drift reading and Ben's sensing converge without dialogue into the specific conclusion that Veranthos is the only place Veraine's ritual can complete. Per B2 seed, Ben feels the anchors' multiplicative coupling — their presences drawing harder on each other than last time — without naming it. Cascade-acceleration is planted as body-knowledge, to be paid at Ch 18 and Ch 21.",
+  "why_now": "The unwoven zone strips performance off everyone in it. Each character's honest register surfaces when the Force can no longer mediate. Per D7, Torin's register here is withheld rather than exposed — his direction is not the answer the midpoint delivers; the answer is the embodied experience of full unweaving, plus two pieces of load-bearing knowledge that travel through Ben's body rather than through exposition.",
+  "conflict": "Sera fights to hold discipline against the missing second blade. Kael navigates the zone with unexpected ease. Desh reports environmental data the way he always reports environmental data while grief that does not know its object lands on him. Torin's Force presence changes in the deepest part of the breach and Ben cannot read which way it changed. The withheld answer is the most pressure-loaded ambiguity in the book so far.",
   "conflict_type": "interpersonal",
-  "turning_point": "Torin smiles. In the place where the Force is broken, where everyone else is holding themselves together, Torin Hal looks at peace. Ben sees Jacen in the moments before the worst decisions — the certainty, the calm — and does not yet say the name aloud.",
-  "opening_hook": "Inside the de-structured zone: Sera's hands clench, jaw set. Kael folds into himself. Torin relaxes.",
-  "closing_hook": "They leave the zone. The lattice snaps back — the relief is immediate and physical. Ben looks at Torin and sees someone who is already planning to come back.",
-  "emotional_trajectory": "Group distress -> focus on Torin's anomalous calm -> deep unease on departure",
+  "turning_point": "Ben's body understands two things before his mind does. First: the zone's shape is anchored to a geographical specific, and the only place Veraine's ritual can complete is Veranthos. Second: the surviving anchors are drawing harder on each other than they were the last time he sensed them. Neither of these lands as a sentence; both land as felt-fact. Meanwhile, Torin stops at the worst of the breach and stands unreadable.",
+  "opening_hook": "Inside the unwoven zone: the Force arrives in pieces, each voice partial. Sera's hands clench. Kael moves like someone whose feet know the ground. Torin walks toward the worst of it and does not come back for a long time",
+  "closing_hook": "They leave the zone. The Weave snaps back — the relief is immediate and physical. Ben looks at Torin and cannot read what is in him. He does not know what Ben is looking for. Ben does not know what he is looking at",
+  "emotional_trajectory": "Group distress differentiated by training -> Ben's body absorbing two load-bearing facts without language -> Torin's unreadable return -> held ambiguity on departure",
   "stakes": {
-    "personal": "Ben's pattern recognition firing — Torin's peace in the breach echoes the Jacen memory Desh named the scene before",
-    "interpersonal": "The group has seen Torin's true relationship with de-structuring. It cannot be unseen.",
-    "external": "If the wound opens fully, this is what the galaxy feels"
+    "personal": "Ben's pattern-recognition pressurising without the vocabulary to name what he is reading — per D1 Trauma Lie under test, his capacity to judge whose Force-reading is trustworthy is specifically the skill the midpoint asks him to use without any of the usual instruments",
+    "interpersonal": "The group has been inside full unweaving together. Something happened to Torin. No one has a name for what they saw or did not see.",
+    "external": "If the wound opens fully, this is what the galaxy feels. Veranthos is the specific site. Cascade is accelerating."
   },
   "characters_present": [
     "Ben Skywalker",
@@ -25,14 +25,21 @@
     "Kael Drenn",
     "Desh Rolan"
   ],
-  "setting": "Breach Zone — deep inside the de-structured area, then retreat to the perimeter",
-  "sensory_details": "The lattice returning on exit with the relief of warmth after cold; Torin's face changing as the group leaves — the peace draining slowly, replaced by a weight that was not there before Kolven; Sera's expression on Torin, the look of someone watching a forecast become weather",
-  "canon_elements_needed": [],
-  "target_word_count": 1500,
+  "setting": "Breach Zone — deep inside the unwoven area, then retreat to the perimeter",
+  "sensory_details": "The Force as multiple voices speaking at once, each partial — Ben assembling nothing; Sera's bilateral muscle memory meeting no reciprocal pressure and compensating every beat late; Kael's breathing steady in a place where everyone else's pattern has broken; Desh's face registering a sadness without an object, noted in his tone but not in his speech; Torin walking into the dead centre of the breach and staying there; the Weave snapping back on exit with a relief Ben feels behind his sternum; Torin's face on turning, absolutely still, absolutely unreadable",
+  "canon_elements_needed": [
+    "Force wound phenomenology in full-unweaving register",
+    "Geographical anchoring of Force rituals in Legends metaphysics"
+  ],
+  "target_word_count": 1700,
   "action_beats": [
-    "Sera clenches her fists and sets her jaw — holding discipline as a physical act against the formless Force",
-    "Kael folds into a survival crouch, ancient and instinctive, his Force presence pulling inward",
-    "Torin smiles and spreads his arms slightly — his Force presence expanding where everyone else's contracts"
+    "Sera's hands clench and her body braces against a pressure that does not arrive — her Force-lock training running without its reciprocal",
+    "Kael moves through the zone with the economy of someone who is finally home; his breathing does not change",
+    "Ben reaches for the Force and gets multiple partial voices, each a fraction; he stops assembling",
+    "Desh's chrono-drift readings line up in Ben's peripheral vision with what Ben's body is sensing about the zone's shape — Veranthos as the only completion site resolves as felt-fact, not as a spoken conclusion",
+    "Ben's attention registers the surviving anchors drawing harder on each other than before — a multiplicative coupling he cannot put into words, planted for later",
+    "Torin walks into the worst of it, stops, stands there a long time",
+    "Torin turns; his face is unreadable; the group absorbs the silence and steps out of the zone"
   ],
   "active_subplots": [
     "SP-A",
@@ -41,11 +48,15 @@
     "SP3"
   ],
   "plot_threads_advanced": [
-    "torin_smiles_in_breach",
-    "jacen_pattern_echo",
-    "group_breach_reactions"
+    "full_unweaving_inhabited_character_differentiated",
+    "array_dependency_felt_and_understood",
+    "cascade_acceleration_seeded",
+    "torin_unreadable_in_breach"
   ],
-  "promises_planted": [],
+  "promises_planted": [
+    "The array-dependency fact (plants Ch 13, pays Ch 14 onward, ultimate Ch 25-26)",
+    "Cascade-acceleration as tactical constraint (plants Ch 13, reinforces Ch 18, pays Ch 21)"
+  ],
   "promises_paid": [],
   "hook_actions": [
     {
@@ -53,7 +64,14 @@
       "action": "resolve"
     }
   ],
-  "revelations": [],
+  "revelations": [
+    "R08",
+    "R08a"
+  ],
   "pov_arc_phase": "lie_challenged",
-  "notes": "Torin's smile is the load-bearing image of the midpoint. Keep it specific and human — not villainous, not dark-side. Recognition. Relief. A man feeling something he has been missing for a thousand years. The horror is in its normalcy. Torin's arc shifts deeper — the breach confirms his memory of the technique's beauty. Diagnostic-voice trap — Ben should not, in this scene, articulate the Jacen parallel in interiority. The recognition is a flash; the word 'Jacen' belongs to Chapter 18. Write Ben's recognition as a body-response (a cold that lives below the sternum, a step he does not take toward Torin) and trust the reader to hold the echo. Maetha's 'replaces you' should surface once in Ben's memory, fragment only, not in quotation."
+  "warmth_load_bearing": false,
+  "notes": "Per D7 Component A, Torin does NOT smile in the breach — this was the loudest telegraph in the original blueprint and it has been relocated per the D7 restructure. Here he is unreadable. The withholding is the beat. Per D7 Component B, the narrator does not over-signal Torin's direction past Ben's perception; Ben's reading of Torin is rendered as *Ben's reading*, and the narrator does not correct for it. Per D4 character-differentiated unweaving, use the full sensory vocabulary: Ben (conversation he cannot fully hear), Sera (missing second blade), Kael (finally home), Torin (weightlessness his body keeps mistaking for flow-state — but this sensation is held in Torin and not shown to Ben directly), Desh (grief without an object that does not lift until leaving the zone). Ben perceives only what Ben can perceive. Per B1 R08a, the array-dependency fact lands as felt-and-understood: Desh's chrono-drift reading correlates with Ben's sensing of the zone's shape, and the specific conclusion — Veranthos is the only completion site — resolves in Ben's body before it resolves in speech. Do not narrate it aloud. Per B2 cascade-acceleration seed, Ben feels the anchors' multiplicative coupling without naming it. The fact is planted for Ch 18 reinforcement and Ch 21 payoff. No character articulates cascade-acceleration in this chapter. Per R11, Ben does not, in this scene, articulate the Jacen parallel in interiority. The recognition is a flash; the word 'Jacen' belongs to Ch 18 per R13's single explicit-naming budget. Write Ben's recognition as a body-response (a cold that lives below the sternum, a step he does not take toward Torin) and trust the reader to hold the echo. Maetha's 'replaces you' should surface once in Ben's memory, fragment only, not in quotation. Per D4 concept-vs-sensation rule, no 'it was as if the Force had—' metaphors; the Force does not have 'as if'; it has 'is' or 'is not.' Per D3, use the Weave terminology consistently — 'the Weave snaps back' on exit, etc. Voice: Bujold-warmth interior allowed in interior passages; Stover-density constrained and earned; Zahn-tight for the procedural frame around the interior beats. One extended Stover-permitted passage allowed in this scene. Primary anchor: Stover (the book's most interior high-stakes Force passage); supporting anchor: Bujold (Ben's self-aware interior register), Zahn (clean frame). Anti-patterns: (a) Torin does NOT smile; (b) no character names the Jacen parallel; (c) neither R08a nor cascade-acceleration is spoken aloud — both land as felt-fact.",
+  "primary_anchor": "Stover",
+  "supporting_anchor": "Bujold, Zahn",
+  "stover_permitted": true
 }

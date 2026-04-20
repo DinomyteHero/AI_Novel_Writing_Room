@@ -5,18 +5,18 @@
   "scene_type": "action",
   "scene_role": "reveal",
   "pov_character": "Ben Skywalker",
-  "mission": "Archive room, Force-locked. Sera's palms on the mechanism; the lock dissolves in seconds from a thousand-year-deep muscle memory. Partial technique lineage fragments; Veranthos named by coordinate and warning notation.",
-  "why_now": "Each node holds a piece of the picture the fortress archive was missing. This node pays off Sera's era-specific expertise as tactical, not just moral.",
-  "conflict": "The records reference events and framings Ben has no vocabulary for. Sera translates, and her translation implies a militarised and morally compromised Jedi Lords era that modern Jedi history has quietly trimmed.",
+  "mission": "Archive room, Force-locked. Sera's palms on the mechanism; the lock dissolves in seconds from a thousand-year-deep muscle memory. R04b lands: the technique. The records define unweaving as a specific Force-lock discipline — not a general ability, a named procedure passed through a specific lineage from the Jedi Lords era to the Brotherhood's practitioners. The vocabulary clarifies in a way that sharpens the antagonist: Veraine is not improvising; she is practising. Veranthos named by coordinate and warning notation.",
+  "why_now": "Each Corridor node holds a piece of the picture the fortress archive was missing. This node pays off Sera's era-specific expertise — the Force-lock she cracks is the same discipline-tree that R04b will name in the record. The mechanism and the record ratify each other in the same scene.",
+  "conflict": "The records reference events and framings Ben has no vocabulary for. Sera translates, and her translation implies a militarised and morally compromised Jedi Lords era that modern Jedi history has quietly trimmed. The technique's name and specific procedural shape land as a single sentence in the record that Sera reads aloud — and the weight of the reading falls on her, not on the prose.",
   "conflict_type": "interpersonal",
-  "turning_point": "Sera cracks a Force-lock in seconds that would take modern Jedi years. Her value to the mission becomes undeniable, and Ben's respect shifts from reluctant to genuine.",
-  "opening_hook": "Sera's hands move over the ancient lock mechanism with the ease of someone unlocking their own front door. A thousand years, and her muscle memory is still better than Ben's training.",
-  "closing_hook": "The records name Veranthos — coordinates, purpose, and a warning notation Ben can now read. The wound is real. It has a location. And Veraine knows where it is.",
+  "turning_point": "Sera cracks a Force-lock in seconds that would take modern Jedi years, and the record she opens names the discipline that does it. R04b lands. Her value to the mission becomes undeniable, and Ben's respect shifts from reluctant to genuine.",
+  "opening_hook": "Sera's hands move over the ancient lock mechanism with the ease of someone unlocking their own front door. A thousand years, and her muscle memory is still better than Ben's training",
+  "closing_hook": "The records name the technique and they name Veranthos. The wound is real. It has a location. And Veraine is practising the specific discipline that made it",
   "emotional_trajectory": "Intellectual curiosity -> uncomfortable historical reckoning -> focused urgency",
   "stakes": {
     "personal": "Ben's growing understanding that modern Jedi education is radically incomplete",
     "interpersonal": "Sera earning her place through competence, not just historical authority",
-    "external": "Each fragment of lineage data makes the wound more comprehensible — and more frightening"
+    "external": "The technique has a name and a procedure; Veraine's capability acquires a specific shape"
   },
   "characters_present": [
     "Ben Skywalker",
@@ -24,22 +24,29 @@
     "Desh Rolan"
   ],
   "setting": "Battlefield Node bunker — records room, Force-locked archive",
-  "sensory_details": "The Force-lock dissolving under Sera's touch with the domestic ease of a household latch; holographic records in an older data format; the thin place making concentration work — vision and attention pulling at a slight angle",
-  "canon_elements_needed": [],
+  "sensory_details": "The Force-lock dissolving under Sera's touch with the domestic ease of a household latch; holographic records in an older data format; the thin place making concentration work — vision and attention pulling at a slight angle; the technique-name on the record sitting inert as text and vibrating in Ben's body as a procedure he suddenly understands the shape of",
+  "canon_elements_needed": [
+    "Jedi Lords era Force techniques and capabilities",
+    "Force-lock discipline as a formal training tree in Legends EU",
+    "Brotherhood of Darkness training inheritance from pre-Reformations Jedi Lords material"
+  ],
   "target_word_count": 1200,
   "action_beats": [
     "Sera places her palms on the ancient Force-lock and dissolves it in seconds — muscle memory from a thousand years ago",
     "Ben scrolls through holographic records in an archaic data format while Sera translates the terminology",
-    "Sera pulls up the Veranthos entry — coordinates, purpose, and a warning notation glowing on the display"
+    "Sera reads a passage aloud that names the technique — unweaving — as a specific procedure in the Force-lock discipline; the sentence is clean and short and Ben feels the weight of it land in his body a beat after the words end",
+    "Sera pulls up the Veranthos entry — coordinates, purpose, and a warning notation glowing on the display",
+    "Ben registers that Veraine is not improvising; she is practising the named procedure"
   ],
   "active_subplots": [
     "SP-A",
-    "SP4"
+    "SP3"
   ],
   "plot_threads_advanced": [
     "sera_demonstrates_value",
-    "technique_lineage_deepened",
-    "veranthos_confirmed"
+    "technique_named_and_procedural",
+    "veranthos_confirmed",
+    "veraine_as_practitioner_not_improviser"
   ],
   "promises_planted": [],
   "promises_paid": [],
@@ -49,7 +56,13 @@
       "action": "advance"
     }
   ],
-  "revelations": [],
+  "revelations": [
+    "R04b"
+  ],
   "pov_arc_phase": "lie_reinforced",
-  "notes": "R05 continues — technique lineage progressive revelation. Sera's Force-lock skill is her primary tactical contribution — keep it understated, almost domestic; the point is that the lock submits to muscle memory that predates modern Jedi training. Diagnostic-voice trap — Ben should not, in this scene, theorise why the modern Order has forgotten this material. He notices the missing registers and keeps moving. Voice: Zahn-procedural in the archive, one permitted Stover-interior beat when Ben reads the Veranthos warning notation and recognises the place-name in his body before his brain catches up. Anti-pattern: do not have Sera narrate what the Jedi Lords were — the record excerpts should imply it."
+  "warmth_load_bearing": false,
+  "notes": "R04b is the Ch 7 deferred revelation per D8 — technique named, procedure identified, lineage mapped to the Force-lock discipline tree. Do not pull R04c (wound mechanics, Ch 9) or R04d (Brotherhood inversion, Ch 11) into this scene. Sera's Force-lock skill is her primary tactical contribution — keep it understated, almost domestic; the point is that the lock submits to muscle memory that predates modern Jedi training, and the record she opens names the same discipline. Per R11, Ben does not theorise why the modern Order has forgotten this material; he notices the missing registers and keeps moving. Per D3, the technique is named as 'unweaving' — the sensational word consistent with the Weave terminology; character variants (Sera may use 'the work' in dialogue) are available but the formal named term in the record is the authoritative label. Per D4, Ben's experience of the technique-name landing is rendered through body-experience (sentence landing before understanding) — not through analytical narration. Voice: Zahn-procedural in the archive, one permitted Stover-interior beat when Ben reads the Veranthos warning notation and recognises the place-name in his body before his brain catches up. Anti-pattern: do not have Sera narrate what the Jedi Lords were — the record excerpts should imply it. Primary anchor: Luceno (payload delivery technique — the technique-name landing through Ben's reaction). Supporting anchor: Zahn (procedural clarity of the archive work), Stover (one permitted interior beat at the warning-notation recognition).",
+  "primary_anchor": "Luceno",
+  "supporting_anchor": "Zahn, Stover",
+  "stover_permitted": true
 }
