@@ -20,19 +20,21 @@ Routing lives at [config/settings.yaml:68-99](../../config/settings.yaml). The a
 
 | Agent | Model (current) | Temp | Cost /M in | Cost /M out | Role weight |
 |---|---|---|---|---|---|
-| **prose_stylist** | `anthropic/claude-sonnet-4.6` | 0.80 | $3.00 | **$15.00** | 1 call per scene, up to **6× under max retries** |
+| **prose_stylist** | `anthropic/claude-sonnet-4.6` | 0.80 | $3.00 | **$15.00** | 1 call per scene |
+| **line_writer** (Stage 3) | `openai/gpt-5.4` | 0.80 | $1.25 | $10.00 | 1 call per scene (optional; skipped in `--raw-draft` or when unset) |
 | **quality_polish** | `anthropic/claude-sonnet-4.6` | 0.5 | $3.00 | **$15.00** | 1 call per scene |
 | plot_architect | `google/gemini-3.1-pro-preview` | 0.4 | $2.00 | $12.00 | 1 call per scene |
-| gate_critic | `anthropic/claude-haiku-4.5` | 0.3 | $1.00 | $5.00 | 1–6 calls per scene |
-| final_gate | `anthropic/claude-haiku-4.5` | 0.2 | $1.00 | $5.00 | 1 call per scene |
+| gate_critic | `anthropic/claude-haiku-4.5` | 0.3 | $1.00 | $5.00 | 1 call per scene (advisory; no retries) |
+| final_gate | `anthropic/claude-haiku-4.5` | 0.2 | $1.00 | $5.00 | 1 call per scene (advisory) |
 | chapter_gate_critic | `anthropic/claude-haiku-4.5` | 0.3 | $1.00 | $5.00 | 1 per chapter |
 | judge_evaluator | `x-ai/grok-4.20` | 0.2 | $2.00 | $6.00 | 1 per scene (Phase 4) |
-| canon_expert | `x-ai/grok-4.20` | 0.2 | $2.00 | $6.00 | pre-gate + on rewrites |
+| canon_expert | `x-ai/grok-4.20` | 0.2 | $2.00 | $6.00 | 1 call per scene (runs after FinalGate as the continuity-editor in the save-blocker chain) |
+| presence_checker | `anthropic/claude-haiku-4.5` | 0.1 | $1.00 | $5.00 | 1 call per scene (save-blocker) |
 | summarizer / character_specialist / lore_extractor | `deepseek/deepseek-v3.2` | 0.2-0.3 | $0.26 | $0.38 | utility |
 
-Retry loop at [src/orchestrator.py:982-1149](../../src/orchestrator.py:982): `max_structural_retries=3`, `max_voice_retries=2`. Each structural failure rebuilds prose (`prose_stylist`) + re-runs the gate. Worst case is 5 Sonnet calls for one scene.
+The forward-only relay (Stage 1a) removed the gate-driven retry loop. Each role now fires exactly once per scene. The old `max_structural_retries` / `max_voice_retries` knobs are pinned to `0` in `config/settings.yaml` and have no runtime effect — costs are now deterministic per scene.
 
-**Rough per-scene cost today** (best case, ≈2.5k in / 3k out): `prose_stylist ≈ $0.053` + `quality_polish ≈ $0.056` + plot + gates + judge ≈ **$0.15–0.20 per scene**. A retry-heavy scene doubles that. The prose_stylist + quality_polish pair contributes ~65% of the Sonnet-driven cost — they are the only levers worth pulling.
+**Rough per-scene cost today** (typical brief, ≈2.5k in / 3k out): `prose_stylist ≈ $0.053` + `line_writer ≈ $0.033` (when enabled) + `quality_polish ≈ $0.056` + plot + gates + canon ≈ **$0.18–0.25 per scene** for a full-feature run, dropping to ~$0.12 when LineWriter is off (bench/cheap config). The prose_stylist + quality_polish + line_writer triad dominates cost; gates and utility agents are rounding error.
 
 **Cross-family audit:** `prose_stylist → quality_polish → gate_critic → final_gate` are **all Anthropic** today. That's the first thing to fix even before the cost question — you are effectively getting one family's taste marking its own homework.
 

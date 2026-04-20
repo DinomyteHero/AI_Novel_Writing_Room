@@ -19,7 +19,7 @@ The output is a **concept seed** (`concept_seed.json`) and a set of **scene card
 
 ### Phase B: Autonomous Pipeline
 
-The pipeline processes each scene card through a multi-agent loop:
+The pipeline processes each scene card through a **forward-only relay** (post-Stage-3 refactor — no retry loops; gates are telemetry; the save-blocker layer is the only hard-failure path):
 
 ```
 Scene Card
@@ -31,14 +31,10 @@ PlotArchitect (scene card -> generation brief)
 ProseStylist (generation brief + context -> draft prose)
     |
     v
-CanonExpert (franchise lore validation, template-driven)
+LineWriter (optional line-editing pass; preserves beats, POV, characters_present, canon)
     |
     v
-GateCritic (pass/fail with 19 failure codes, calibrated 0.60-1.00)
-    |
-    +-- fail_structural -> ProseStylist (full rewrite; rewrite loop)
-    +-- fail_voice -> ProseStylist (targeted revision; rewrite loop)
-    +-- pass / fail_polish -> continue
+GateCritic (pass/fail with failure codes; advisory only, no retries)
     |
     v
 QualityMetrics (code-based flags feeding polish)
@@ -47,10 +43,19 @@ QualityMetrics (code-based flags feeding polish)
 QualityPolish (bounded expression-level polish; cannot change beats/characters)
     |
     v
-Compression guard (reject polish if < 80% of gate-passed word count)
+Compression advisory (emits ledger event if polish < 60% of pre-polish word count; always saves)
     |
     v
-FinalGate (contract check on polished text; reverts to gate-passed draft on fail)
+FinalGate (contract check on polished text; advisory_only=True — polished prose is always saved unless a blocker fires)
+    |
+    v
+CanonExpert (franchise lore validation; runs as the final continuity-editor on the polished text)
+    |
+    v
+Save-blocker layer (CHARACTER_PRESENCE_BLOCKER, CANON_BLOCKER critical/moderate, POV advisory)
+    |
+    +-- no blockers -> Save
+    +-- blockers fire -> Quarantine (<project>/quarantine/chNN_scMM/) + abort run
     |
     v
 Save -> Summarizer -> StateDiff -> ContradictionScanner -> WorldbuildingExtraction
@@ -59,7 +64,7 @@ Save -> Summarizer -> StateDiff -> ContradictionScanner -> WorldbuildingExtracti
 CharacterSpecialist -> MilestoneGate -> ChapterGateCritic (optional)
 ```
 
-Not all steps are active at every phase level. The pipeline gracefully degrades when optional components are `None`.
+Not all steps are active at every phase level. The pipeline gracefully degrades when optional components are `None`. Scenes save as `saved_clean` (no advisories fired), `saved_with_advisory` (any gate fired an advisory signal), or never save at all when a save-blocker fires and the scene is quarantined.
 
 ## Directory Structure
 
@@ -79,7 +84,7 @@ ai-writers-room/
 │   ├── run_ledger.py              # Append-only SQLite event log
 │   ├── pipeline_session.py        # JSON-based session save/resume
 │   ├── project_paths.py           # Franchise/book/series/run path resolution
-│   ├── agents/                    # Agent implementations (base + 12 specialized)
+│   ├── agents/                    # Agent implementations (base + 13 specialized, inc. LineWriter + PresenceChecker)
 │   ├── memory/                    # State management (SQLite, ChromaDB, context assembly)
 │   ├── worldbuilding/             # Cross-project universe & lore persistence (SQLite + ChromaDB)
 │   ├── rag/                       # Canon knowledge retrieval (vector DB, hybrid search)
@@ -96,22 +101,14 @@ ai-writers-room/
 │   ├── character_forge/           # ensemble_cast + relationship_arcs + referenced_characters
 │   ├── outline_planner/           # structural_notes + outline + subplots + hooks + revelations
 │   └── scene_card_authoring/      # per-scene cards
-├── tests/                         # ~1,457 tests across 110+ files
+├── tests/                         # ~1,440 tests across 103 files
 ├── prompts/
 │   ├── concept_workshop.md        # Legacy workshop facilitator system prompt
 │   ├── stress_test_prompt.md      # Adversarial stress-test harness
 │   ├── voice_definition_template.md
-│   ├── agent_system_prompts/      # Per-agent system prompts
-│   └── revision_prompts/          # Legacy revision-band prompts (not invoked by current orchestrator)
+│   └── agent_system_prompts/      # Per-agent system prompts
 ├── schemas/                       # JSON schema definitions
 ├── templates/                     # canon_profile and voice_definition scaffolds (init_project.py)
-├── config/
-│   ├── settings.yaml              # Production routing
-│   ├── settings.bench.sonnet.yaml # Bench config: Sonnet prose
-│   ├── settings.bench.gpt.yaml    # Bench config: GPT prose
-│   ├── failure_codes.yaml
-│   ├── negative_constraints.yaml
-│   └── eval_rubric.yaml
 ├── data/
 │   ├── franchises/                # Franchise-scoped projects and shared resources (active)
 │   │   └── <franchise>/

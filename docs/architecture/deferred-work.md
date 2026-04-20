@@ -32,9 +32,9 @@ Add a planning layer between the concept seed and scene cards. The blueprint cap
 
 ## 3. Centralize register contract — **S**
 
-The Zahn/Allston/Golden commercial-register directive is duplicated across `prompts/agent_system_prompts/prose_stylist.md:46`, `prompts/agent_system_prompts/plot_architect.md:78,80`, and `prompts/revision_prompts/scene_emotion.md:39` (4 duplicated lines across 3 files). Move to a single shared source (e.g. `prompts/shared/commercial_register.md`) that all three agents reference, so edits propagate atomically.
+The Zahn/Allston/Golden commercial-register directive is duplicated across `prompts/agent_system_prompts/prose_stylist.md:46` and `prompts/agent_system_prompts/plot_architect.md:78,80`. (A third copy in `prompts/revision_prompts/scene_emotion.md` was removed with the old multi-band revision pipeline.) Move the remaining two to a single shared source (e.g. `prompts/shared/commercial_register.md`) that both agents reference, so edits propagate atomically.
 
-**Why it matters.** The duplication already diverged once: after Phase 4 rewired the dialogue-expectation proxy, the three files had to be edited separately to replace "2+ characters present" with the new field-aware language. Drift is expected unless the source is shared.
+**Why it matters.** The duplication already diverged once: after Phase 4 rewired the dialogue-expectation proxy, the files had to be edited separately to replace "2+ characters present" with the new field-aware language. Drift is expected unless the source is shared.
 
 **Known constraints.** Each agent prompt currently loads from a single `.md` file via `Path(prompts/...).read_text()`. Need a small inclusion/assembly mechanism (templating, or explicit compose-at-load-time). Keep it simple: a Markdown `include` convention processed by BaseAgent, or a per-agent compose step.
 

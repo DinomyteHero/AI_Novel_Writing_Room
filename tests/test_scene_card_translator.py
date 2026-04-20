@@ -12,7 +12,7 @@ post-enrichment card shape.
 
 from __future__ import annotations
 
-from src.concept_workshop.scene_card_translator import (
+from workflows._shared.scene_card_translator import (
     ARC_PHASE_PREFIX,
     UPPERCASE_MARKERS,
     build_scene_card_notes,

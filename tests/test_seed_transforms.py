@@ -12,7 +12,7 @@ from __future__ import annotations
 
 import copy
 
-from src.concept_workshop.seed_transforms import (
+from workflows._shared.seed_transforms import (
     ARC_TYPE_ENUM,
     CANON_STATUS_ENUM,
     RELATIONSHIP_ARC_TYPE_ENUM,

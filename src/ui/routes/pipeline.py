@@ -20,6 +20,15 @@ class PipelineStartRequest(BaseModel):
     no_milestones: bool = False
     judge: bool = False
     chapter: Optional[int] = None
+    # Canonical project scoping — mirrors the CLI --franchise / --book /
+    # --run-name / --series flags so the web surface can request the same
+    # franchise-scoped, run-isolated output layout as the CLI.
+    franchise: Optional[str] = None
+    book: Optional[str] = None
+    run_name: Optional[str] = None
+    series: Optional[str] = None
+    # Deprecated aliases for franchise/book. Kept so existing frontend
+    # clients keep working; new callers should use franchise/book.
     universe_id: Optional[str] = None
     project_id: Optional[str] = None
     raw_draft: bool = False
@@ -71,23 +80,42 @@ async def start_pipeline(body: PipelineStartRequest, request: Request):
     if not cards:
         raise HTTPException(400, "No scene cards found")
 
+    # Resolve canonical scoping — prefer the new fields; fall back to
+    # deprecated universe_id/project_id for older clients.
+    franchise_slug = body.franchise or body.universe_id
+    book_slug = body.book or body.project_id
+
+    # Apply run-level isolation when run_name is provided. Mirrors the CLI
+    # ProjectPaths(..., run_id=run_name) flow so web runs land at
+    # output/<franchise>/<book>/runs/<run_name>/chapters/ instead of the
+    # book-level chapters/ default that app lifespan wires up.
+    if body.run_name:
+        from src.project_paths import ProjectPaths
+        paths = ProjectPaths.from_concept_seed(concept_seed, run_id=body.run_name)
+        if franchise_slug:
+            paths.franchise_slug = franchise_slug
+        if body.series:
+            paths.series_slug = body.series
+        paths.ensure_dirs()
+        state.manuscripts_dir = str(paths.manuscripts_dir)
+
     # Phase 5: ensure chapter blueprints exist for every chapter being run.
     # Hand-authored blueprints take precedence (skip-if-exists). Requires
-    # universe_id and project_id so blueprints land at the canonical path
+    # franchise and book slugs so blueprints land at the canonical path
     # ChapterGateCritic loads from.
     if (
         body.phase >= 5
         and body.generate_blueprints
-        and body.universe_id
-        and body.project_id
+        and franchise_slug
+        and book_slug
     ):
         await _ensure_chapter_blueprints(
             router=state.router,
             ledger=state.ledger,
             concept_seed=concept_seed,
             scene_cards=cards,
-            franchise_slug=body.universe_id,
-            book_slug=body.project_id,
+            franchise_slug=franchise_slug,
+            book_slug=book_slug,
             regenerate=body.regenerate_blueprints,
         )
 
@@ -242,8 +270,11 @@ def _create_web_orchestrator(state, concept_seed_path, concept_seed, body):
 
     pipeline_cfg = state.config.get("pipeline", {})
 
-    universe_id = body.universe_id
-    project_id = body.project_id
+    # Accept both the canonical franchise/book fields and the deprecated
+    # universe_id/project_id aliases. ContextAssembler and ChapterGateCritic
+    # keep the legacy parameter names internally for now.
+    universe_id = body.franchise or body.universe_id
+    project_id = body.book or body.project_id
 
     assembler = ContextAssembler(
         concept_seed_path=concept_seed_path,

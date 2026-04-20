@@ -158,7 +158,7 @@ Historical implementation briefs from each build phase are preserved in [docs/ar
 ## Tests
 
 ```bash
-pytest                              # Run all tests (~1,457 collected)
+pytest                              # Run all tests (~1,440 collected)
 pytest -k "test_orchestrator"       # Run specific tests
 ```
 

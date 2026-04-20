@@ -109,7 +109,7 @@ export default function Pipeline() {
               onChange={(e) => setPhase(Number(e.target.value))}
               className="border rounded px-2 py-1.5 text-sm"
             >
-              {[1, 2, 3, 4].map((p) => (
+              {[1, 2, 3, 4, 5].map((p) => (
                 <option key={p} value={p}>Phase {p}</option>
               ))}
             </select>

@@ -50,7 +50,7 @@ pytestmark = pytest.mark.skipif(
 )
 
 from scripts.install_seed import install_seed  # noqa: E402
-from src.concept_workshop.seed_transforms import (  # noqa: E402
+from workflows._shared.seed_transforms import (  # noqa: E402
     apply_arc_phase_maps,
     apply_canon_constraints,
     apply_canon_profile,
@@ -252,24 +252,13 @@ class TestRuusanWrapperScript:
         shutil.copy(REPO_ROOT / "scripts" / "install_ruusan_seed.py", tmp_path / "scripts")
         shutil.copy(REPO_ROOT / "scripts" / "install_seed.py", tmp_path / "scripts")
 
-        src_dst = tmp_path / "src" / "concept_workshop"
-        src_dst.mkdir(parents=True)
-        shutil.copy(
-            REPO_ROOT / "src" / "concept_workshop" / "seed_transforms.py",
-            src_dst,
-        )
-        shutil.copy(
-            REPO_ROOT / "src" / "concept_workshop" / "scene_card_translator.py",
-            src_dst,
-        )
-        # project_paths lives one level up.
-        shutil.copy(REPO_ROOT / "src" / "project_paths.py", tmp_path / "src")
+        # install_seed.py now imports seed_transforms and scene_card_translator
+        # directly from workflows._shared (the concept_workshop shims were
+        # retired). Mirror the canonical workflows package and project_paths.
+        (tmp_path / "src").mkdir()
         (tmp_path / "src" / "__init__.py").touch()
-        (tmp_path / "src" / "concept_workshop" / "__init__.py").touch()
+        shutil.copy(REPO_ROOT / "src" / "project_paths.py", tmp_path / "src")
 
-        # The concept_workshop modules above are Phase-4 back-compat shims
-        # that re-export from workflows/_shared/. Mirror that package so
-        # the wrapper's import chain resolves inside the isolated tree.
         shared_dst = tmp_path / "workflows" / "_shared"
         shared_dst.mkdir(parents=True)
         (tmp_path / "workflows" / "__init__.py").touch()

@@ -81,8 +81,8 @@ def main():
         "--phase",
         type=int,
         default=4,
-        choices=[1, 2, 3, 4],
-        help="Pipeline phase (default: 4)",
+        choices=[1, 2, 3, 4, 5],
+        help="Pipeline phase (default: 4). Phase 5 enables chapter blueprints + ChapterGateCritic.",
     )
     parser.add_argument(
         "--dev",

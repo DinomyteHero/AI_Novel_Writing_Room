@@ -59,8 +59,8 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from src.concept_workshop.scene_card_translator import translate_scene_card  # noqa: E402
-from src.concept_workshop.seed_transforms import (  # noqa: E402
+from workflows._shared.scene_card_translator import translate_scene_card  # noqa: E402
+from workflows._shared.seed_transforms import (  # noqa: E402
     apply_arc_phase_maps,
     apply_branch_point,
     apply_canon_constraints,
