@@ -578,7 +578,11 @@ class ContextAssembler:
             return ""
         try:
             agenda = self.story_state.get_chapter_hook_agenda(chapter_number)
-        except Exception:
+        except Exception as e:
+            logger.warning(
+                "context_assembler._assemble_hook_agenda failed (chapter=%s): %s",
+                chapter_number, e,
+            )
             return ""
 
         if not any(agenda.values()):
@@ -609,7 +613,11 @@ class ContextAssembler:
         char_id = _slugify(pov_character)
         try:
             arc = self.story_state.get_character_arc(char_id)
-        except Exception:
+        except Exception as e:
+            logger.warning(
+                "context_assembler._assemble_arc_context failed (char=%s): %s",
+                char_id, e,
+            )
             return ""
 
         if not arc:
@@ -637,7 +645,10 @@ class ContextAssembler:
 
         try:
             active = self.story_state.get_active_subplots()
-        except Exception:
+        except Exception as e:
+            logger.warning(
+                "context_assembler._assemble_subplot_context failed: %s", e
+            )
             return ""
 
         if not active:
@@ -664,7 +675,10 @@ class ContextAssembler:
 
         try:
             terms = self.story_state.get_all_terms()
-        except Exception:
+        except Exception as e:
+            logger.warning(
+                "context_assembler._assemble_terminology failed: %s", e
+            )
             return ""
 
         if not terms:
@@ -718,7 +732,11 @@ class ContextAssembler:
                 top_k=5,
                 project_reading_order=project_reading_order,
             )
-        except Exception:
+        except Exception as e:
+            logger.warning(
+                "context_assembler._assemble_worldbuilding_lore failed (universe=%s): %s",
+                self.universe_id, e,
+            )
             return ""
 
         if not results:
@@ -747,7 +765,11 @@ class ContextAssembler:
 
         try:
             terms = self.lore_service.get_terminology(self.universe_id)
-        except Exception:
+        except Exception as e:
+            logger.warning(
+                "context_assembler._assemble_worldbuilding_terminology failed (universe=%s): %s",
+                self.universe_id, e,
+            )
             return ""
 
         if not terms:
@@ -772,7 +794,11 @@ class ContextAssembler:
                 character_ids=characters_present or None,
                 knowledge_layers=self.knowledge_layers,
             )
-        except Exception:
+        except Exception as e:
+            logger.warning(
+                "context_assembler._assemble_worldbuilding_dialogue failed (universe=%s): %s",
+                self.universe_id, e,
+            )
             return ""
 
         speech = context.get("speech_patterns", [])

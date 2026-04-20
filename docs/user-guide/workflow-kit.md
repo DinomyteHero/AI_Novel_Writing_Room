@@ -122,24 +122,25 @@ warning and writes a seed with empty extracted scene cards. The pipeline
 auto-generates cards via `SceneCardGenerator` at run time. Use
 `--strict` to make this a failure instead.
 
-## Migrating from `workshop_runner`
+## Legacy `workshop_runner` has been removed
 
-The legacy `workshop_runner.py` keeps working in Phase 4 — your in-flight
-workshops won't break. On startup it now prints a deprecation banner
-pointing here. When you finalize the seed, run
-`scripts/migrate_workshop.py` to roll it into the workflow kit, then
-ignore `workshop_runner.py` going forward.
+The interactive `src.concept_workshop.workshop_runner` CLI has been
+removed entirely — see [concept-workshop.md](concept-workshop.md) for
+the rationale. New projects must use the workflow kit surfaces described
+above. There is no migration script; compile fresh per-surface artifacts
+under `workflows/<surface>/` and run `scripts/compile_bundle.py`.
 
 The `seed_transforms`, `scene_card_translator`, and `voice_discovery`
-modules under `src/concept_workshop/` are now **back-compat re-export
-shims**. The canonical locations are:
+re-export shims that previously lived under `src/concept_workshop/` have
+been removed. Import directly from the canonical locations:
 
 - `workflows/_shared/seed_transforms.py`
 - `workflows/_shared/scene_card_translator.py`
 - `workflows/voice_discovery/api.py`
 
-Existing imports keep working. Phase 8 (frontend decoupling) retires
-the shims along with the rest of `workshop_runner`.
+The remaining modules in `src/concept_workshop/` (`compliance_validator.py`,
+`series_manager.py`, `stress_test.py`) are canonical, not shims, and keep
+their existing import paths.
 
 ## Out of scope (Phase 5+)
 

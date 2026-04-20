@@ -34,6 +34,7 @@ class WebSocketLedger(RunLedger):
         scene_number: Optional[int] = None,
         agent_role: Optional[str] = None,
         payload: Optional[dict] = None,
+        attempt_id: Optional[str] = None,
     ) -> int:
         """Emit an event to SQLite and the WebSocket broadcast queue."""
         event_id = super().emit(
@@ -42,6 +43,7 @@ class WebSocketLedger(RunLedger):
             scene_number=scene_number,
             agent_role=agent_role,
             payload=payload,
+            attempt_id=attempt_id,
         )
 
         event_dict = {
@@ -50,6 +52,7 @@ class WebSocketLedger(RunLedger):
             "chapter_number": chapter_number,
             "scene_number": scene_number,
             "agent_role": agent_role,
+            "attempt_id": attempt_id,
             "payload": payload,
             "timestamp": datetime.now(timezone.utc).isoformat(),
         }

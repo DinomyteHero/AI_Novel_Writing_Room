@@ -34,11 +34,13 @@ Each agent:
 |-------|------|----------|------|
 | PlotArchitect | `src/agents/plot_architect.py` | `plot_architect` | Scene card -> typed generation brief (JSON per `schemas/generation_brief.json`) |
 | ProseStylist | `src/agents/prose_stylist.py` | `prose_stylist` | Typed generation brief + context -> draft prose |
-| GateCritic | `src/agents/gate_critic.py` | `gate_critic` | Prose -> structured pass/fail evaluation (Scene Gate) |
+| LineWriter | `src/agents/line_writer.py` | `line_writer` | Optional line-editing pass (GPT 5.4 @ t=0.8 by default). Preserves beats, POV, characters_present, canon while rewriting sentence-level rhythm, imagery, and voice texture. Skipped in `--raw-draft` and when no `line_writer` routing entry is configured. |
+| GateCritic | `src/agents/gate_critic.py` | `gate_critic` | Prose -> structured pass/fail evaluation (Scene Gate). Advisory only under the forward-only relay — verdicts are logged but do not block or retry. |
 | QualityPolish | `src/agents/quality_polish.py` | `quality_polish` | Single bounded expression-level polish pass (replaces Craft Editor + 3 revision bands) |
-| FinalGate | `src/agents/final_gate.py` | `final_gate` | Contract check on the polished text (unit of truth) |
+| FinalGate | `src/agents/final_gate.py` | `final_gate` | Contract check on polished text. Advisory only — emits `final_gate_rejection` with `advisory_only=True`; polished prose is still saved unless the save-blocker layer fires. |
+| CanonExpert | `src/agents/canon_expert.py` | `canon_expert` | Continuity editor. Runs **after FinalGate** as the last reader on the polished text; its verdict feeds the `CANON_BLOCKER` save-blocker. Franchise-agnostic, template-driven: reads `canon_profile` from the concept seed. |
+| PresenceChecker | `src/agents/presence_checker.py` | `presence_checker` | Save-blocker agent. Detects named characters who speak or act in the prose despite being absent from the scene card's `characters_present` list; fires `CHARACTER_PRESENCE_BLOCKER`. |
 | ChapterGateCritic | `src/agents/chapter_gate_critic.py` | `chapter_gate_critic` | Whole-chapter evaluation against the blueprint + composition heuristics |
-| CanonExpert | `src/agents/canon_expert.py` | `canon_expert` | Franchise-agnostic, template-driven lore validation (reads canon_profile from concept seed) |
 | CharacterSpecialist | `src/agents/character_specialist.py` | `character_specialist` | Out-of-character detection (supplementary) |
 | Summarizer | `src/agents/summarizer.py` | `summarizer` | Chapter compression to summary + state diff |
 | OutlinePlanner | `src/planning/scene_card_generator.py` | `outline_planner` | Concept seed -> structured outline |
@@ -71,40 +73,48 @@ PlotArchitect reads the scene card and produces a generation brief -- a structur
 
 ProseStylist takes the generation brief + assembled context and drafts the chapter prose. Dynamic overused words from the cross-scene tracker (see [Quality and Revision](quality-and-revision.md#cross-scene-overused-word-tracker)) are injected into the Prose Stylist prompt for subsequent scenes, helping avoid manuscript-level repetition.
 
-### 5. Canon Validation
+### 5. Line Editing (optional)
 
-CanonExpert runs before the Gate Critic to validate franchise lore compliance. The canon expert has been rewritten as a franchise-agnostic, template-driven agent: it reads the `canon_profile` section from the concept seed (franchise name, continuity rules, cross-continuity violations, anachronistic terms) and uses those to drive validation. There are zero franchise-specific strings hardcoded in the agent -- all franchise knowledge comes from the concept seed and RAG retrieval.
+LineWriter runs an optional line-editing pass between ProseStylist and GateCritic. It receives the source prose, scene card, generation brief, characters_present list, franchise profile, and POV approach as an explicitly wired context dict so it cannot reach into ambient ContextAssembler state. LineWriter preserves the structural beats, turning point, POV, and canon while rewriting sentence-level rhythm, imagery, and voice texture. Skipped in `--raw-draft` mode and when no `line_writer` routing entry is configured. If LineWriter infrastructure fails or its output collapses below 40% of the source word count, the orchestrator falls back to the drafter's prose and emits a warn-level `line_writer_error` or `line_writer_collapsed` event.
 
-### 6. Scene Gate Evaluation
+### 6. Scene Gate Evaluation (advisory)
 
 GateCritic evaluates the draft against a structural rubric and returns a structured `CriticFailure` JSON with:
 - Overall verdict: `pass`, `fail_structural`, `fail_voice`, or `fail_polish`
-- Failure codes from `config/failure_codes.yaml` (includes the programmatic `WORD_COUNT_VIOLATION` injected at the agent boundary when the draft is outside ±20% of target)
+- Failure codes from `config/failure_codes.yaml`
 - **Calibration anchors**: scores use a 0.60-1.00 scale with defined anchor points
 - **Chain-of-thought reasoning**: the critic includes a `reasoning` field explaining its evaluation logic
-- Routing decision:
-  - `fail_structural` -> full rewrite (back to ProseStylist with failure context)
-  - `fail_voice` -> targeted revision (ProseStylist with specific notes)
-  - `fail_polish` -> no rewrite; proceeds to Quality Polish where any remaining issues are handled or rejected by the Final Gate
 
-Note: `CANON_VIOLATION` has been promoted from `POLISH_CODES` to `STRUCTURAL_CODES`, meaning canon violations now trigger full rewrites rather than non-blocking edits.
-
-The orchestrator retries structural failures up to `max_structural_retries` (default: 3) and voice failures up to `max_voice_retries` (default: 2).
+Under the forward-only relay (Stage 1a+), the verdict is **advisory only**: the orchestrator logs the evaluation to the ledger and proceeds to QualityPolish regardless of outcome. The old routing logic (`fail_structural` → full rewrite, `fail_voice` → targeted revision) has been removed; `max_structural_retries` and `max_voice_retries` are pinned to `0` and have no runtime effect. Retaining Gate Critic as telemetry lets bench analyses and the run ledger surface craft concerns without blocking the pipeline.
 
 ### 7. Quality Polish
 
 QualityPolish runs a single bounded expression-level pass on the gate-passed prose. It **can** fix show-don't-tell violations, word choice, AI-tells, sentence rhythm, and dialogue tags. It **cannot** add/remove beats or characters, change the turning point, or extend past the closing hook. Quality Polish replaces the previous Craft Editor + 3 revision bands — see `docs/architecture/pipeline-redesign.md` for the rationale.
 
-### 8. Compression Guard + Final Gate
+### 8. Compression Advisory + Final Gate (advisory)
 
-Two guards catch polish drift before the prose is saved:
+Two signals catch polish drift before the prose is saved. Neither reverts the polish under the forward-only relay — both emit advisory events:
 
-1. **Compression guard** (deterministic): if polished word count < 80% of gate-passed word count, the orchestrator rejects the polish and keeps the gate-passed draft. Emits `compression_guard_fired`.
-2. **Final Gate** (LLM + deterministic): runs a contract check on the polished text — characters present, closing hook boundary, word-count floor. If it fails, the polish is rejected and the gate-passed draft is saved instead. Emits `final_gate_complete` or `final_gate_rejection`.
+1. **Compression advisory** (deterministic): if polished word count < 60% of pre-polish word count, emits a `compression_guard_fired` event. The polished prose is still saved.
+2. **Final Gate** (LLM + deterministic): runs a contract check on the polished text — characters present, closing hook boundary, word-count floor. On rejection it emits `final_gate_rejection` with `advisory_only=True`; the polished prose is still saved. Passing the gate emits `final_gate_complete`.
 
-The Final Gate is the pipeline's unit-of-truth check: the only quality evaluation that runs on the exact text that gets saved.
+Under the old pipeline the Final Gate was the save-path's unit-of-truth. Post-Stage-1 it is telemetry; the save-blocker layer (step 10) is the new unit-of-truth for whether a scene writes to disk at all.
 
-### 9. Post-Save Pipeline (Phase 2+)
+### 9. Continuity Editor (CanonExpert)
+
+CanonExpert runs **after** FinalGate, as the last reader on the polished prose. The canon expert is a franchise-agnostic, template-driven agent: it reads the `canon_profile` section from the concept seed (franchise name, continuity rules, cross-continuity violations, anachronistic terms) and uses those plus RAG retrieval to drive validation. There are zero franchise-specific strings hardcoded in the agent. Its verdict feeds the `CANON_BLOCKER` save-blocker in step 10: `verdict == "fail"` with any finding at `critical` or `moderate` severity fires the blocker; lower severities are advisory only.
+
+### 10. Save-Blocker Layer + Quarantine
+
+The only hard stopping point in the relay. Three blocker categories run after the continuity editor (see [`src/pipeline/save_blockers.py`](../../src/pipeline/save_blockers.py)):
+
+1. **`CHARACTER_PRESENCE_BLOCKER`** — dedicated PresenceChecker agent detects named characters who speak or act in the prose despite being absent from the scene card's `characters_present` list.
+2. **`CANON_BLOCKER`** — CanonExpert (continuity editor) returned `verdict == "fail"` with at least one finding at `critical` or `moderate` severity.
+3. **POV advisory** — regex heuristic flags non-POV interiority verbs. Advisory only in v1; will be promoted to a blocker after corpus validation.
+
+A non-empty blocker list causes the orchestrator to write the offending scene's prose + blockers.json + brief.json to `<project>/quarantine/chNN_scMM/` and raise `SaveBlockedError`, aborting the entire run. No partial chapters ship: quarantine-on-first-blocker policy.
+
+### 11. Post-Save Pipeline (Phase 2+)
 
 After the chapter is saved:
 1. **Summarizer** compresses the chapter to a summary + state diff JSON. The orchestrator injects a current state snapshot (characters, subplots, hooks with their exact current values) so the Summarizer can produce accurate `old_value` fields. The Summarizer prompt includes all valid enum values and arc-type-specific phase progressions.
@@ -112,31 +122,36 @@ After the chapter is saved:
 3. **StateDiffApplier** sanitizes the diff (fuzzy-matching near-miss enum values, correcting `old_value` mismatches, stripping no-ops) then applies it to SQLite
 4. **ContradictionScanner** checks the new state against prior state for inconsistencies (5 scan types: truth, belief, promises, timeline, relationships)
 
-### 10. Quality Metrics and Milestones (Phase 3+)
+### 12. Quality Metrics and Milestones (Phase 3+)
 
 1. **MetricsDashboard** runs pure-Python checkers (no LLM calls) and feeds results into Quality Polish:
    - RepetitionDetector, PacingAnalyzer, VoiceChecker, SlopDetector
    - Weighted average score, pass threshold >= 0.6
-   - Metrics advise; they do not block. Contract checks (Scene Gate, Final Gate, Chapter Gate) do the blocking.
+   - Metrics advise; they do not block. Under the forward-only relay, blocking is exclusively the save-blocker layer's job.
 2. **CharacterSpecialist** detects out-of-character behavior (supplementary, non-blocking)
 3. **MilestoneGates** pause the pipeline at structural checkpoints (first plot point, midpoint, second plot point) for user approval
 
-### 11. Chapter Gate (after all scenes pass)
+### 13. Chapter Gate (after all scenes in the chapter are saved)
 
-ChapterGateCritic evaluates the assembled chapter after every scene has cleared its Scene Gate. When a `chapter_blueprint.json` exists at `data/franchises/{franchise}/books/{book}/chapter_blueprints/chapter_{NN}.json`, the critic's prompt includes blueprint-aware checks (chapter mission, chapter turn, reveal payload, subplot obligations, pacing curve, exit vector) alongside the existing composition heuristics. Blueprint checks are advisory — failures surface in `chapter_level_failures` for diagnostics rather than blocking the save.
+ChapterGateCritic evaluates the assembled chapter after every scene has been saved. When a `chapter_blueprint.json` exists at `data/franchises/{franchise}/books/{book}/chapter_blueprints/chapter_{NN}.json`, the critic's prompt includes blueprint-aware checks (chapter mission, chapter turn, reveal payload, subplot obligations, pacing curve, exit vector) alongside the existing composition heuristics. Blueprint checks are advisory — failures surface in `chapter_level_failures` for diagnostics rather than blocking the save.
 
-### 12. LLM Judge (Phase 4, optional)
+### 14. LLM Judge (Phase 4, optional)
 
 JudgeEvaluator uses a cloud model to score the chapter across 5 dimensions defined in `config/eval_rubric.yaml`.
 
 ## Event Logging
 
-Every step emits a typed event to the RunLedger. Event types include:
+Every step emits a typed event to the RunLedger. Events carry a `level` field (`info`, `warn`, `error`) in the payload. The canonical list lives in [`src/run_ledger.py`](../../src/run_ledger.py); current event types include:
+
 - `pipeline_start`, `pipeline_complete`
 - `chapter_start`, `agent_start`, `agent_complete`
-- `gate_pass`, `gate_fail`
-- `final_gate_complete`, `final_gate_rejection`
-- `compression_guard_fired`
+- `gate_pass`, `gate_fail` (advisory under the forward-only relay)
+- `line_writer_error`, `line_writer_collapsed` (Stage 3 — LineWriter fallback signals)
+- `final_gate_complete`, `final_gate_rejection` (rejection carries `advisory_only=True`)
+- `compression_guard_fired` (advisory; polish is still saved)
+- `save_blocked` (run aborted; scene quarantined)
+- `continuity_editor_complete` (CanonExpert verdict used by the CANON_BLOCKER)
+- `chapter_word_count_telemetry` (chapter-close advisory at ±15% / ±15-30% / >30% thresholds)
 - `state_diff_proposed`, `state_diff_committed`
 - `contradiction_scan`, `summarizer_complete`
 - `milestone_reached`, `milestone_gate_paused`

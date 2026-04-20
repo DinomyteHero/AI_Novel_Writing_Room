@@ -117,11 +117,14 @@ class PipelineManager:
 
         Called by WebOrchestrator after run_chapter() returns if a milestone
         was detected. Creates a Future that the approve_milestone() method resolves.
+        If the wait is cancelled (e.g. reset/shutdown), the manager clears the
+        pending state cleanly and lets the cancellation propagate.
         """
         self.state = PipelineState.MILESTONE_PENDING
         loop = asyncio.get_event_loop()
         self._milestone_future = loop.create_future()
 
+        should_continue = False
         try:
             should_continue = await self._milestone_future
         finally:

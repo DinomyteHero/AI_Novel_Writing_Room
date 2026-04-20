@@ -125,7 +125,7 @@ python -m src.main \
     --chapter 1 --phase 1
 ```
 
-This runs the basic pipeline (Phase 1): `PlotArchitect → ProseStylist → GateCritic (retry loop) → QualityMetrics → QualityPolish → compression guard → FinalGate → save`. CanonExpert is added at Phase 2+ when the canon RAG database is present.
+This runs the basic pipeline (Phase 1): `PlotArchitect → ProseStylist → [LineWriter] → GateCritic (advisory) → QualityMetrics → QualityPolish → compression advisory → FinalGate (advisory) → CanonExpert → save-blocker layer → save | quarantine`. Prose flows forward only — gates emit telemetry, they no longer retry. The save-blocker layer is the single hard-failure point: a blocker aborts the run and the offending scene is written to `<project>/quarantine/chNN_scMM/`. CanonExpert (franchise lore validation) is added at Phase 2+ when the canon RAG database is present.
 
 Output goes to `output/star-wars-legends-eu/the-ruusan-atonement/runs/<auto-timestamp>/chapters/`.
 
@@ -193,7 +193,7 @@ Run the test suite to confirm everything is installed correctly:
 pytest
 ```
 
-Approximately 1,457 tests are collected. If some tests are skipped due to missing optional dependencies (chromadb, sentence-transformers, fastapi), that's expected — the tests for those subsystems are skipped when their dependencies aren't installed.
+Approximately 1,440 tests are collected across 103 test files. If some tests are skipped due to missing optional dependencies (chromadb, sentence-transformers, fastapi), that's expected — the tests for those subsystems are skipped when their dependencies aren't installed.
 
 ## Three Workflows
 

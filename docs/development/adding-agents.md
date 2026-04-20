@@ -102,7 +102,7 @@ When building a new agent that needs franchise awareness, follow the Canon Exper
 
 > **Deprecated.** The 3-band revision pipeline and `src/revision/` module were removed in the [pipeline redesign](../architecture/pipeline-redesign.md). Polish is now a single bounded `quality_polish` pass guarded by a compression check and the Final Gate.
 >
-> New "polish-like" behaviors should extend [`src/agents/quality_polish.py`](../../src/agents/quality_polish.py) or add a new agent that runs alongside it — not a revision band. The `prompts/revision_prompts/` directory and any `AdaptiveRevisionPipeline` references in older docs describe a dead code path.
+> New "polish-like" behaviors should extend [`src/agents/quality_polish.py`](../../src/agents/quality_polish.py) or add a new agent that runs alongside it — not a revision band. Both the old `prompts/revision_prompts/` directory and the `AdaptiveRevisionPipeline` machinery have been removed; any references to them in older docs describe a dead code path.
 
 ## Step 6: Write Tests
 

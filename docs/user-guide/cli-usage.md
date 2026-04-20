@@ -66,7 +66,7 @@ python -m src.main <concept_seed> <scene_cards_dir> [options]
 
 | Phase | What It Adds |
 |-------|-------------|
-| 1 | Core per-scene loop: PlotArchitect → ProseStylist → GateCritic (retry loop) → QualityMetrics → QualityPolish → compression guard → FinalGate → save |
+| 1 | Forward-only per-scene relay: PlotArchitect → ProseStylist → [LineWriter] → GateCritic (advisory) → QualityMetrics → QualityPolish → compression advisory → FinalGate (advisory) → CanonExpert → save-blocker layer → save \| quarantine |
 | 2 | SQLite story state, ChromaDB chapter memory, knowledge layers, canon RAG, CanonExpert, Summarizer, StateDiff, ContradictionScanner |
 | 3 | Quality metrics (repetition, pacing, voice, slop), CharacterSpecialist, milestone gates at 25/50/75% |
 | 4 | PhysicsEnforcer, export, session persistence (save/resume), optional LLM judge (`--judge`), scene card generation (`--generate-outline`) |
@@ -87,8 +87,11 @@ worldbuilding DB (`data/franchises/<fr>/worldbuilding.db`). To enable:
 
 - Pass `--franchise` and `--book` (both required so `lore_service` has a
   universe + project binding).
-- Pass `--worldbuilding-auto-extract` (or set it in config) to flip the
-  orchestrator's `worldbuilding_auto_extract` flag on.
+- Enable it in `config/settings.yaml` under
+  `worldbuilding.auto_extraction.enabled: true` (default). The
+  orchestrator's `worldbuilding_auto_extract` flag flips on
+  automatically whenever a `lore_service` + franchise binding is in
+  place; there is no separate CLI flag.
 
 Provisional entries don't affect generation until promoted. Use
 `scripts/promote_lore.py` to review and promote provisional entries to

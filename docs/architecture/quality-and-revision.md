@@ -1,8 +1,8 @@
 # Quality and Revision
 
-The system uses pure-Python quality metrics (no LLM calls) to score scenes, then runs a bounded LLM refinement pass (QualityPolish) whose output must pass a compression guard and a Final Gate before it is saved. If polish is rejected, the Scene-Gate-passed draft is saved instead — so the saved file is always a validated artifact.
+The system uses pure-Python quality metrics (no LLM calls) to score scenes, then runs a bounded LLM refinement pass (QualityPolish) whose output is checked by a compression advisory and a Final Gate before it is saved. Under the forward-only relay (Stage 1a+), FinalGate verdicts are **advisory**: the polished prose is always saved unless the save-blocker layer fires. The only hard-failure path is save-blockers (CHARACTER_PRESENCE, CANON critical/moderate, POV advisory), which quarantines the scene and aborts the run.
 
-> **Note — pipeline redesign.** Earlier builds ran a multi-band revision pipeline (StructuralContinuity → SceneEmotion → LineCopy → optional DialoguePolish / WorldbuildingCoherence) after the Gate. That pipeline has been removed. Polish is now a single pass bounded by the compression guard and the Final Gate. Prompts under `prompts/revision_prompts/` and code under `src/revision/` are legacy and are not invoked by the current orchestrator.
+> **Note — pipeline redesign.** Earlier builds ran a multi-band revision pipeline (StructuralContinuity → SceneEmotion → LineCopy → optional DialoguePolish / WorldbuildingCoherence) after the Gate. That pipeline has been removed entirely. Polish is now a single pass followed by a Final Gate advisory and the save-blocker layer. The old `prompts/revision_prompts/` directory and `src/revision/` module that backed the revision bands have both been deleted; older docs that reference them describe a dead code path.
 
 ## Quality Metrics
 
@@ -87,17 +87,13 @@ Validates the polished prose against the scene card contract:
 - Word-count floor
 - Turning point is identifiable in the final prose
 
-Final Gate emits structural failure codes (`CLOSING_HOOK_VIOLATION`, `CHARACTER_PRESENCE_VIOLATION`, `OPENING_HOOK_MISMATCH`) — see [`config/failure_codes.yaml`](../../config/failure_codes.yaml). If it rejects the polish, the orchestrator reverts to the Scene-Gate-passed draft and saves that instead. No stage can silently rewrite a saved scene.
+Final Gate emits structural failure codes (`CLOSING_HOOK_VIOLATION`, `CHARACTER_PRESENCE_VIOLATION`, `OPENING_HOOK_MISMATCH`) — see [`config/failure_codes.yaml`](../../config/failure_codes.yaml). Under the forward-only relay, a rejection emits a `final_gate_rejection` event tagged `advisory_only` and the polished prose is still saved. Hard failures are handled by the save-blocker layer, not by reverting to an earlier draft.
 
-### Rewrite Retry Loop (Scene Gate only)
+### Retry loops — removed (Stage 1a)
 
-The Scene Gate runs before QualityPolish and drives a bounded retry loop back to the ProseStylist when structural or voice failures occur. Failure routing (see [`config/failure_codes.yaml`](../../config/failure_codes.yaml)):
+The old per-gate retry loops have been neutered. Scene Gate and Final Gate now run exactly once per scene and emit telemetry only; the orchestrator does not branch back to ProseStylist on failure. The `max_structural_retries` and `max_voice_retries` keys in `config/settings.yaml` are set to `0` and kept only for rollback; setting them higher has no effect in the current orchestrator. Structural/voice/polish failure codes are still useful as ledger signals and bench diagnostics, but they do not gate the save.
 
-- `fail_structural` → full rewrite (ProseStylist with corrective brief)
-- `fail_voice` → targeted revision (ProseStylist with voice notes)
-- `fail_polish` → revert to Gate-passed draft (caught at compression guard / Final Gate, not routed back to a polish retry)
-
-Max retries: `max_structural_retries` (default 3) and `max_voice_retries` (default 2), configurable via `config/settings.yaml`.
+The single hard stopping point is the save-blocker layer (see [`src/pipeline/save_blockers.py`](../../src/pipeline/save_blockers.py)): when a CHARACTER_PRESENCE or CANON (critical/moderate) blocker fires, the run aborts and the offending scene is written to `<project>/quarantine/chNN_scMM/{prose.md, blockers.json, brief.json}`.
 
 ## Milestone Gates
 
