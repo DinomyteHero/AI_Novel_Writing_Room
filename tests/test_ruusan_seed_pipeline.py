@@ -20,7 +20,7 @@ import jsonschema
 import pytest
 
 from src.concept_workshop.compliance_validator import validate_concept_seed
-from src.memory.story_state import StoryState
+from src.memory.story_state import CONCEPT_SEED_PHASE_MAP, StoryState
 
 REPO_ROOT = Path(__file__).parent.parent
 RUUSAN_SEED_PATH = (
@@ -179,6 +179,32 @@ class TestInstalledSeedSchemaValidation:
             assert card.get("scene_type") in ("action", "sequel"), (
                 f"{card_path.name} missing or has invalid scene_type"
             )
+
+    def test_every_scene_card_pov_arc_phase_is_recognized(self):
+        """Every scene card's ``pov_arc_phase`` must be a label the runtime knows.
+
+        ``state_diff.py`` treats ``scene_card.pov_arc_phase`` as authoritative for
+        the POV character, but ``CONCEPT_SEED_PHASE_MAP`` in ``story_state.py``
+        only resolves a closed set of planning labels. An unrecognized label
+        silently falls through and the POV arc phase is left unchanged, which
+        drifts arc state from the scene card's declaration. This guard catches
+        that class of typo at authoring time instead of at state-diff time.
+        """
+        if not RUUSAN_SCENE_CARDS_DIR.exists():
+            pytest.skip(f"Scene cards directory not present: {RUUSAN_SCENE_CARDS_DIR}")
+        valid = set(CONCEPT_SEED_PHASE_MAP.keys())
+        bad: list[tuple[str, str]] = []
+        for card_path in sorted(RUUSAN_SCENE_CARDS_DIR.glob("chapter_*_scene_*.json")):
+            card = json.loads(card_path.read_text(encoding="utf-8"))
+            phase = card.get("pov_arc_phase")
+            if phase is None:
+                continue
+            if phase not in valid:
+                bad.append((card_path.name, phase))
+        assert not bad, (
+            f"Scene cards with unrecognized pov_arc_phase values: {bad}. "
+            f"Valid labels: {sorted(valid)}"
+        )
 
     def test_scene_type_spot_check(self):
         """Verify known action/sequel assignments for several chapters."""
