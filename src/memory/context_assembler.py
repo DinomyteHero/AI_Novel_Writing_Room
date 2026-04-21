@@ -645,6 +645,16 @@ class ContextAssembler:
             lines.append("\n### Magic / Force Description Guidelines:")
             lines.append(force_guide)
 
+        # Franchise terminology notes live on canon_constraints, not voice_def.
+        # Without this surfacing the rules (e.g. "turbolifts not elevators",
+        # "the Force is a living presence, not a measurable phenomenon") never
+        # reach the drafter.
+        canon_constraints = self.concept_seed.get("canon_constraints") or {}
+        terminology_notes = canon_constraints.get("franchise_terminology_notes", "")
+        if terminology_notes:
+            lines.append("\n### Franchise Terminology Notes:")
+            lines.append(terminology_notes)
+
         # Pacing feel — how scenes should feel at the chapter/book level.
         pacing_feel = voice_def.get("pacing_feel", "")
         if pacing_feel:

@@ -40,7 +40,22 @@ Return a single JSON object matching the `GenerationBrief` schema. **JSON only**
 
 ### Anti-pattern extraction (IMPORTANT)
 
-Scan the scene card's `notes` field for forbidden-move language — phrases like "do not open with", "avoid", "don't start with", "no flashback", "no exposition dump". Surface each match as an explicit item in the `anti_patterns` array. This raises their salience in the Prose Stylist's prompt; they would otherwise be buried in the raw scene card and often ignored.
+Scan the scene card's `notes` field for forbidden-move language. Extract BOTH structural and voice-register moves — voice-level anti-patterns are just as load-bearing as structural ones, and the drafter needs them surfaced in the high-salience `anti_patterns` slot or they get buried in the raw scene card.
+
+**Structural / compositional examples:**
+- "do not open with [X]", "avoid", "don't start with", "no flashback", "no exposition dump", "do not resolve", "no info dump"
+
+**Voice-register examples:**
+- "do not arrive at clinical articulation"
+- "avoid diagnostic voice"
+- "keep it [sensory modality]" (auditory, tactile, vibrational, etc.)
+- "no mission-debrief sentences"
+- "not too composed", "character should not name [X] yet"
+- "do not describe [X] in [metaphor domain]"
+
+**Extraction rule.** Any phrase inside `notes` containing `should not` / `do not` / `avoid` / `trap` / `anti-pattern` / `DO NOT` / `no [X]` is eligible for extraction into `anti_patterns`, regardless of whether it describes a structural move (pacing, flashback, exposition) or a voice-register move (clinical framing, diagnostic voice, over-composed interiority). When in doubt, extract — the drafter can treat a too-liberal extraction as a reminder, but a missed voice-level warning silently ships a drift it could have prevented.
+
+Surface each match as an explicit item in the `anti_patterns` array.
 
 ## Rules
 
