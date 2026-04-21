@@ -50,6 +50,18 @@ Slice 2 ships the drafter's single inspectable runtime contract and the structur
 - **New ledger events (all `emit_{info,warn,error}`):** `packet_base_compiled` (info), `packet_overlay_written` (info), `packet_fallback_flat` (warn), `revision_debt_added` (info), `revision_debt_updated` (info).
 - **Shipping-book guards** at `tests/test_runtime_flags.py::test_shipping_books_keep_chapter_packet_off` and `::test_shipping_books_keep_revision_debt_off` block an accidental `runtime_overrides.yaml` flipping either flag for Ruusan or Betrayal before their parity test lands.
 
+## Slice 3: promise ledger (feature-flagged, default off)
+
+Slice 3 ships the first trusted stateful-memory artifact: a **declaration-driven** promise ledger. Populated from planning + scene cards, never inferred by LLMs. `runtime.promise_ledger.enabled` defaults `false` on Ruusan and Betrayal until their per-book parity tests land.
+
+- **Store.** `src/memory/promise_ledger.py` (`PromiseLedger`) backs `output/<franchise>/<book>/state/promise_ledger.db`. `initialize_from_planning(concept_seed, scene_cards)` seeds from `story_physics.promise_payoff_ledger` + scene-card `promises_planted` / `promises_paid` (idempotent; existing `progression_log` preserved). Scene IDs use `chNN_scMM`; the sentinel `chNN_sc99` represents chapter-end when planning only names a chapter. `initialize_from_planning` drops entries with no derivable `setup_scene` rather than writing a row that would fail the NOT NULL constraint.
+- **Trust model (spec §7.1).** Ledger rows move through `record_progression` / `record_payoff` / `record_broken` only. `SceneReviewer` progression suggestions do **not** write here — those land as `editorial.scene_reviewer` revision-debt rows. `overdue` is derived at read time (`list_overdue`), never stored.
+- **Scene-card contract.** New optional field `promises_progressed: [<promise_id>, ...]`. At save time the orchestrator appends one entry to each promise's `progression_log` with `source='scene_card'` and emits a `promise_progressed` info event. `promises_paid` emits `promise_paid`. Unknown IDs emit a warn-level event (planning drift) but do not abort the run.
+- **Packet integration.** `ChapterPacketCompiler.compile_overlay` now calls `list_top_urgent(at_scene=scene_id, n=5)` so the drafter sees urgency-ranked promises *as of this scene*, not a chapter snapshot. `active_promises_total_count` tails the top-5 list (spec §7.3 dilution guard). Overdue rows carry `status='overdue'` + `overdue_by_scenes`; the renderer emits them under a separate *"Overdue promises (advisory only — do not force payoff)"* heading. `compile_base` still uses `active_for_chapter(chapter_number)` because the scene is not yet known there; the overlay replaces that snapshot per scene.
+- **Migration.** `scripts/migrate_promise_ledger.py` walks every `output/<franchise>/<book>/state/` dir, pairs it with `data/franchises/<franchise>/books/<book>/`, seeds `promise_ledger.db` from that book's planning. Idempotent (UPSERT on `promise_id`). `--dry-run` reports plan without writes.
+- **New ledger events (all `emit_{info,warn,error}`):** `promise_planted` (info), `promise_progressed` (info), `promise_paid` (info), `promise_overdue` (warn). The warn-level path fires from `_maybe_record_promise_deltas` after save so the human operator sees slipping promises in the feed.
+- **Shipping-book guard** at `tests/test_runtime_flags.py::test_shipping_books_keep_promise_ledger_off` blocks an accidental `runtime_overrides.yaml` flipping the flag on Ruusan or Betrayal before their parity test lands.
+
 ## Status vocabulary (three values only)
 
 Per-scene save status lives in `src/memory/story_state.py`. Only three values are valid:

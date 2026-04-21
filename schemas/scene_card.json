@@ -49,6 +49,11 @@
     "plot_threads_advanced": { "type": "array", "items": { "type": "string" } },
     "promises_planted": { "type": "array", "items": { "type": "string" } },
     "promises_paid": { "type": "array", "items": { "type": "string" } },
+    "promises_progressed": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Promise IDs this scene advances without paying off. Used by the Slice 3 promise ledger to record progression beats; each entry appends one row to promise.progression_log at save time with source='scene_card'. Optional."
+    },
     "canon_elements_needed": { "type": "array", "items": { "type": "string" } },
     "target_word_count": { "type": "integer" },
     "action_beats": {

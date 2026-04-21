@@ -275,3 +275,32 @@ def test_shipping_books_keep_revision_debt_off(book_slug: str):
         f"{book_slug} must keep runtime.revision_debt.enabled=false until a "
         "parity test and the SQLite migration approve the flip"
     )
+
+
+# --- Slice 3 shipping-book protection ----------------------------------------
+
+
+@pytest.mark.parametrize("book_slug", [
+    "the-ruusan-atonement",
+    "legacy-of-the-force-betrayal",
+])
+def test_shipping_books_keep_promise_ledger_off(book_slug: str):
+    """Spec §7.5: promise_ledger populates the active_promises overlay slot
+    and can induce forced-payoff drift in drafter prose. Keep the flag off for
+    Ruusan and Betrayal until the per-book parity test approves the flip and
+    the seeded ledger has been human-spot-checked.
+    """
+    import json
+    seed_path = Path(
+        f"data/franchises/star-wars-legends-eu/books/{book_slug}/concept_seed.json"
+    )
+    if not seed_path.exists():
+        pytest.skip(f"seed not present: {seed_path}")
+    with seed_path.open(encoding="utf-8") as fh:
+        seed = json.load(fh)
+
+    merged = load_runtime_flags(concept_seed=seed)
+    assert merged["runtime"]["promise_ledger"]["enabled"] is False, (
+        f"{book_slug} must keep runtime.promise_ledger.enabled=false until the "
+        "per-book parity test (spec §11.6.3) approves the flip"
+    )

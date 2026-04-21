@@ -60,6 +60,11 @@ class ChapterPacket:
     pov_arc_pressure: dict = field(default_factory=dict)
     next_scene_obligations: list[dict] = field(default_factory=list)
     active_promises: list[dict] = field(default_factory=list)     # Slice 3
+    # Slice 3 (spec \u00a77.3): total count of *active* promises at overlay time.
+    # ``active_promises`` is capped at 5 by ``list_top_urgent`` so the drafter
+    # sees the most urgent slice without dilution; this tail keeps the total
+    # visible (e.g. "5 of 23 open").
+    active_promises_total_count: int = 0
     reveal_deadlines: list[dict] = field(default_factory=list)
     canon_slices: list[dict] = field(default_factory=list)
     relationship_context: dict = field(default_factory=dict)      # Slice 5
@@ -197,13 +202,31 @@ class ChapterPacket:
             )
 
         if self.active_promises:
+            # Slice 3 (spec \u00a77.3): split urgent vs overdue, render with
+            # type / due / setup details. Overdue promises carry the
+            # ``do-not-force-payoff`` hint so the drafter treats them as
+            # advisory only.
             parts.append("")
-            parts.append("### Active Promises")
-            for p in self.active_promises:
-                pid = p.get("promise_id", "(unknown)")
-                setup = p.get("setup_scene", "")
-                due = p.get("due_by_scene", "")
-                parts.append(f"- {pid}: setup {setup} \u2192 due {due}")
+            total = self.active_promises_total_count or len(self.active_promises)
+            shown = len(self.active_promises)
+            non_overdue = [
+                p for p in self.active_promises if p.get("status") != "overdue"
+            ]
+            overdue = [
+                p for p in self.active_promises if p.get("status") == "overdue"
+            ]
+            parts.append(
+                f"### Active promises ({shown} of {total} open; sorted by urgency)"
+            )
+            for p in non_overdue:
+                parts.append(_format_active_promise_line(p))
+            if overdue:
+                parts.append("")
+                parts.append(
+                    "### Overdue promises (advisory only \u2014 do not force payoff in this scene)"
+                )
+                for p in overdue:
+                    parts.append(_format_overdue_promise_line(p))
 
         if self.reveal_deadlines:
             parts.append("")
@@ -372,9 +395,17 @@ class ChapterPacketCompiler:
         gap_notes = self._fetch_gap_notes(base.chapter_number)
         flat_snapshot = self._render_flat_context_snapshot(scene_card)
 
-        # Slice 3/4/5 can refresh their views at overlay time, but Slice 2
-        # keeps them empty unless the ledger was populated during base build.
-        active_promises = self._fetch_active_promises(chapter_number=base.chapter_number)
+        # Slice 3 (spec \u00a77.3): overlay uses scene-scoped ``list_top_urgent``
+        # so the drafter sees the most urgent promises at *this* scene, not a
+        # chapter-wide snapshot. Slice 4/5 follow the same "refresh at overlay"
+        # pattern once their stores are populated.
+        scene_id = _scene_id(base.chapter_number, scene_number) if scene_number else None
+        active_promises = self._fetch_active_promises_for_scene(
+            chapter_number=base.chapter_number, scene_id=scene_id,
+        )
+        total_active = self._count_active_promises_for_scene(
+            chapter_number=base.chapter_number, scene_id=scene_id,
+        )
         continuity_events = self._fetch_continuity_events(chapter_number=base.chapter_number)
         relationship_context = self._fetch_relationship_context(chapter_number=base.chapter_number)
 
@@ -386,6 +417,7 @@ class ChapterPacketCompiler:
             trusted_state_gap_notes=gap_notes,
             flat_context_snapshot=flat_snapshot,
             active_promises=active_promises,
+            active_promises_total_count=total_active,
             continuity_events=continuity_events,
             relationship_context=relationship_context,
         )
@@ -487,7 +519,12 @@ class ChapterPacketCompiler:
             return []
 
     def _fetch_active_promises(self, *, chapter_number: int) -> list[dict]:
-        """Slice 3 hook. Empty until PromiseLedger lands."""
+        """Base-packet hook: chapter-scoped active promises (spec \u00a77.3).
+
+        Used by ``compile_base`` before the scene is known. Overlay callers
+        use ``_fetch_active_promises_for_scene`` so the rendered list is
+        urgency-filtered against the *current* scene, not the chapter's first.
+        """
         if self.promise_ledger is None:
             return []
         try:
@@ -495,6 +532,41 @@ class ChapterPacketCompiler:
         except Exception:  # noqa: BLE001
             logger.exception("promise_ledger.active_for_chapter failed")
             return []
+
+    def _fetch_active_promises_for_scene(
+        self, *, chapter_number: int, scene_id: str | None,
+    ) -> list[dict]:
+        """Overlay hook: top-5 urgent promises as of ``scene_id`` (spec \u00a77.3).
+
+        Falls back to the chapter-scoped list when ``scene_id`` is unknown
+        (e.g. base packet view) so the packet stays non-empty while still
+        deterministic. Overdue rows carry ``status='overdue'`` so the renderer
+        emits them under a separate heading with the do-not-force-payoff hint.
+        """
+        if self.promise_ledger is None:
+            return []
+        if not scene_id:
+            return self._fetch_active_promises(chapter_number=chapter_number)
+        try:
+            return list(
+                self.promise_ledger.list_top_urgent(at_scene=scene_id, n=5)
+            )
+        except Exception:  # noqa: BLE001
+            logger.exception("promise_ledger.list_top_urgent failed")
+            return []
+
+    def _count_active_promises_for_scene(
+        self, *, chapter_number: int, scene_id: str | None,
+    ) -> int:
+        if self.promise_ledger is None:
+            return 0
+        try:
+            if scene_id:
+                return int(self.promise_ledger.count_active(at_scene=scene_id))
+            return len(self.promise_ledger.active_for_chapter(chapter_number))
+        except Exception:  # noqa: BLE001
+            logger.exception("promise_ledger count_active failed")
+            return 0
 
     def _fetch_continuity_events(self, *, chapter_number: int) -> list[dict]:
         """Slice 4 hook. Empty until ContinuityLog lands."""
@@ -527,6 +599,53 @@ class ChapterPacketCompiler:
         except Exception:  # noqa: BLE001 -- surface via packet_fallback_flat
             logger.exception("ContextAssembler.assemble failed during overlay")
             return ""
+
+
+# --------------------------------------------------------------------------- #
+# Module helpers                                                              #
+# --------------------------------------------------------------------------- #
+
+
+def _scene_id(chapter_number: int, scene_number: int) -> str:
+    return f"ch{chapter_number:02d}_sc{scene_number:02d}"
+
+
+def _format_active_promise_line(entry: Mapping[str, Any]) -> str:
+    pid = entry.get("promise_id", "(unknown)")
+    ptype = entry.get("promise_type") or ""
+    desc = entry.get("description") or ""
+    head = f"[{ptype}] " if ptype else ""
+    fragments: list[str] = []
+    due = entry.get("due_by_scene")
+    if due:
+        fragments.append(f"due by {due}")
+    setup = entry.get("setup_scene")
+    if setup:
+        fragments.append(f"planted {setup}")
+    status = entry.get("status")
+    if status and status not in ("overdue",):
+        fragments.append(status)
+    tail = f" ({'; '.join(fragments)})" if fragments else ""
+    body = desc or pid
+    return f"- {head}{body}{tail}"
+
+
+def _format_overdue_promise_line(entry: Mapping[str, Any]) -> str:
+    pid = entry.get("promise_id", "(unknown)")
+    ptype = entry.get("promise_type") or ""
+    desc = entry.get("description") or ""
+    due = entry.get("due_by_scene") or ""
+    overdue_by = entry.get("overdue_by_scenes")
+    head = f"[{ptype}] " if ptype else ""
+    fragments: list[str] = []
+    if due:
+        fragments.append(f"due by {due}")
+    if isinstance(overdue_by, int) and overdue_by > 0:
+        suffix = "scene" if overdue_by == 1 else "scenes"
+        fragments.append(f"{overdue_by} {suffix} overdue")
+    tail = f" ({'; '.join(fragments)})" if fragments else ""
+    body = desc or pid
+    return f"- {head}{body}{tail}"
 
 
 __all__ = ["ChapterPacket", "ChapterPacketCompiler"]

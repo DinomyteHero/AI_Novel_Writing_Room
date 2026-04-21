@@ -56,16 +56,26 @@
     },
     "active_promises": {
       "type": "array",
-      "description": "Populated by Slice 3 (promise ledger); empty for Slice 2.",
+      "description": "Slice 3 (spec \u00a77.3): overlay-time top-N urgent promises. Capped at 5; the total count lives in active_promises_total_count. Overdue entries carry status='overdue' and overdue_by_scenes; the renderer emits those under a do-not-force-payoff heading. Empty under default flags (runtime.promise_ledger.enabled=false).",
       "items": {
         "type": "object",
         "properties": {
           "promise_id": { "type": "string" },
+          "description": { "type": "string" },
+          "promise_type": { "type": "string" },
           "setup_scene": { "type": "string" },
-          "due_by_scene": { "type": "string" },
-          "status": { "type": "string" }
+          "payoff_scene": { "type": ["string", "null"] },
+          "due_by_scene": { "type": ["string", "null"] },
+          "status": { "type": "string" },
+          "overdue_by_scenes": { "type": "integer" },
+          "progression_log": { "type": "array" }
         }
       }
+    },
+    "active_promises_total_count": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Slice 3: total count of active promises at overlay time. Lets the drafter see the full scope even when active_promises is capped at 5."
     },
     "reveal_deadlines": {
       "type": "array",

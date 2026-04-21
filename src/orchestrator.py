@@ -49,6 +49,7 @@ if TYPE_CHECKING:
     from src.memory.contradiction_scanner import ContradictionScanner
     from src.memory.state_diff import StateDiffApplier
     from src.memory.story_state import StoryState
+    from src.memory.promise_ledger import PromiseLedger
     from src.pipeline.chapter_packet import ChapterPacketCompiler
     from src.pipeline.revision_debt import RevisionDebtStore
     from src.quality.metrics_dashboard import MetricsDashboard
@@ -120,6 +121,12 @@ class Orchestrator:
         # ignored (fallback to flat assembly). Same for revision_debt_store.
         chapter_packet_compiler: Optional["ChapterPacketCompiler"] = None,
         revision_debt_store: Optional["RevisionDebtStore"] = None,
+        # Architecture upgrade Slice 3: promise ledger. When the flag is on,
+        # scene-save-time calls record_progression / record_payoff for each
+        # declared promise_id on the scene card. The chapter-packet compiler
+        # pulls list_top_urgent into the overlay via its own reference; pass
+        # the same PromiseLedger instance here and to the compiler.
+        promise_ledger: Optional["PromiseLedger"] = None,
     ):
         self.router = router
         self.assembler = context_assembler
@@ -206,6 +213,17 @@ class Orchestrator:
         # <run_dir> = parent of manuscripts_dir (chapters/). Matches the
         # existing quarantine_dir placement convention.
         self._packets_dir = self.manuscripts_dir.parent / "chapter_packets"
+
+        # Architecture upgrade Slice 3 \u2014 promise ledger. When the flag is on
+        # and a ledger was passed, scene-save time calls record_progression /
+        # record_payoff per declared promise_id, emits `promise_progressed` /
+        # `promise_paid` events, and surfaces any `list_overdue` matches as
+        # warn-level `promise_overdue` telemetry.
+        self.promise_ledger = promise_ledger
+        self._promise_ledger_enabled = bool(
+            self.runtime_flags.get("runtime", {}).get("promise_ledger", {}).get("enabled", False)
+            and self.promise_ledger is not None
+        )
 
         # Architecture upgrade Slice 1 — Phase 0 prompt capture.
         # When runtime.phase0_audit.enabled is on, instantiate a snapshot
@@ -912,6 +930,12 @@ class Orchestrator:
         output_path = self._save_chapter(chapter_num, scene_num, final_prose)
         print(f"  Saved: {output_path}")
 
+        # Architecture upgrade Slice 3 \u2014 record declared promise deltas.
+        # Scene cards are the source of truth (spec \u00a77.1 declarative model);
+        # SceneReviewer-suggested progressions are explicitly *not* written
+        # here \u2014 those land as editorial.scene_reviewer revision-debt rows.
+        self._maybe_record_promise_deltas(scene_card)
+
         # Phase 4: Post-chapter physics validation
         physics_post = None
         if self.physics_enforcer:
@@ -1440,6 +1464,75 @@ class Orchestrator:
         payload = overlay.to_json()
         payload["rendered_markdown"] = rendered
         return payload
+
+    # ------------------------------------------------------------------
+    # Slice 3 promise-ledger hook. Called from save path *after* _save_chapter
+    # so a blocker-quarantined scene never writes to the ledger. No-op when
+    # the flag is off or no ledger was attached.
+    # ------------------------------------------------------------------
+    def _maybe_record_promise_deltas(self, scene_card: dict) -> None:
+        if not self._promise_ledger_enabled:
+            return
+        chapter_number = scene_card.get("chapter_number")
+        scene_number = scene_card.get("scene_number", 1)
+        if chapter_number is None:
+            return
+        scene_id = f"ch{int(chapter_number):02d}_sc{int(scene_number):02d}"
+
+        for pid in scene_card.get("promises_progressed") or []:
+            try:
+                self.promise_ledger.record_progression(
+                    promise_id=pid, scene_id=scene_id, source="scene_card",
+                )
+            except KeyError:
+                # Unknown promise_id \u2014 planning drift. Warn but don't abort.
+                self.ledger.emit_warn(
+                    "promise_progressed",
+                    chapter_number=chapter_number, scene_number=scene_number,
+                    payload={"promise_id": pid, "status": "unknown_promise_id"},
+                )
+                continue
+            self.ledger.emit_info(
+                "promise_progressed",
+                chapter_number=chapter_number, scene_number=scene_number,
+                payload={"promise_id": pid, "scene_id": scene_id},
+            )
+
+        for pid in scene_card.get("promises_paid") or []:
+            try:
+                self.promise_ledger.record_payoff(
+                    promise_id=pid, scene_id=scene_id,
+                )
+            except KeyError:
+                self.ledger.emit_warn(
+                    "promise_paid",
+                    chapter_number=chapter_number, scene_number=scene_number,
+                    payload={"promise_id": pid, "status": "unknown_promise_id"},
+                )
+                continue
+            self.ledger.emit_info(
+                "promise_paid",
+                chapter_number=chapter_number, scene_number=scene_number,
+                payload={"promise_id": pid, "scene_id": scene_id},
+            )
+
+        # After the scene lands, surface any *newly* overdue promises as
+        # advisory warnings so the human operator sees the slipping promise
+        # without the drafter being forced into payoff (spec \u00a77.3).
+        try:
+            overdue = self.promise_ledger.list_overdue(at_scene=scene_id)
+        except Exception:  # noqa: BLE001
+            overdue = []
+        for entry in overdue:
+            self.ledger.emit_warn(
+                "promise_overdue",
+                chapter_number=chapter_number, scene_number=scene_number,
+                payload={
+                    "promise_id": entry.get("promise_id"),
+                    "due_by_scene": entry.get("due_by_scene"),
+                    "overdue_by_scenes": entry.get("overdue_by_scenes"),
+                },
+            )
 
     async def _run_prose_stylist(
         self,

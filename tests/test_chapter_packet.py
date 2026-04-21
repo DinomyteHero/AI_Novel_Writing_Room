@@ -249,3 +249,136 @@ def test_slice3_active_promises_pulled_when_ledger_wired(blueprint_ch1, concept_
         {"promise_id": "P1", "setup_scene": "ch01_sc01",
          "due_by_scene": "ch05_close", "status": "open"},
     ]
+
+
+def test_slice3_overlay_uses_list_top_urgent_with_real_ledger(
+    blueprint_ch1, concept_seed,
+):
+    """Overlay must call list_top_urgent(at_scene=...) \u2014 not active_for_chapter \u2014
+    so the drafter sees urgency-ranked promises for the *current* scene (spec \u00a77.3).
+    """
+    from src.memory.promise_ledger import PromiseLedger
+
+    ledger = PromiseLedger(db_path=":memory:")
+    ledger.initialize_from_planning(
+        concept_seed={
+            "story_physics": {
+                "promise_payoff_ledger": [
+                    {"promise_id": "FAR", "description": "Far deadline",
+                     "planted_chapter": 1, "payoff_chapter": 9,
+                     "type": "plot", "status": "unfulfilled"},
+                    {"promise_id": "LATE", "description": "Already overdue",
+                     "planted_chapter": 1, "payoff_chapter": 1,
+                     "type": "plot", "status": "unfulfilled"},
+                ],
+            },
+        },
+        scene_cards=[],
+    )
+    # Leave setup so FAR and LATE both have setup_scene=ch01_sc01, due at
+    # ch09_sc99 and ch01_sc99 respectively. At ch01_sc02 the LATE promise is
+    # already overdue and must rank first.
+
+    compiler = ChapterPacketCompiler(
+        concept_seed=concept_seed,
+        blueprints={1: blueprint_ch1},
+        promise_ledger=ledger,
+    )
+    base = compiler.compile_base(chapter_number=1)
+    overlay = compiler.compile_overlay(
+        base=base,
+        scene_card={"chapter_number": 1, "scene_number": 2},
+    )
+    ids = [e["promise_id"] for e in overlay.active_promises]
+    assert ids == ["LATE", "FAR"]
+    # The LATE promise has passed its due_by_scene ch01_sc99? at ch01_sc02
+    # sc02 < sc99 so LATE is still active-with-future-deadline from the
+    # ledger's point of view. Distance sorts it *before* FAR. The overdue
+    # marker only fires when sc index passes sc99, so neither entry is
+    # overdue here \u2014 but the ranking proves list_top_urgent is the path.
+    assert overlay.active_promises[0].get("status") != "paid"
+    # active_promises_total_count tails the top-5 list.
+    assert overlay.active_promises_total_count == 2
+    ledger.close()
+
+
+def test_slice3_overlay_renders_overdue_under_advisory_heading(
+    blueprint_ch1, concept_seed,
+):
+    from src.memory.promise_ledger import PromiseLedger
+
+    ledger = PromiseLedger(db_path=":memory:")
+    # Hand-seed a promise that is explicitly overdue at the target scene.
+    from datetime import datetime, timezone
+    import json
+    now = datetime.now(timezone.utc).isoformat()
+    ledger.conn.execute(
+        """
+        INSERT INTO promise_ledger (
+            promise_id, description, promise_type, setup_scene, payoff_scene,
+            due_by_scene, status, progression_log, created_at, updated_at
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """,
+        ("LATE", "Already overdue", "mystery", "ch01_sc01", None,
+         "ch01_sc01", "progressing", json.dumps([]), now, now),
+    )
+    ledger.conn.commit()
+
+    compiler = ChapterPacketCompiler(
+        concept_seed=concept_seed,
+        blueprints={1: blueprint_ch1},
+        promise_ledger=ledger,
+    )
+    base = compiler.compile_base(chapter_number=1)
+    overlay = compiler.compile_overlay(
+        base=base,
+        scene_card={"chapter_number": 1, "scene_number": 5},
+    )
+    # The renderer splits overdue into its own heading with the advisory.
+    assert "do not force payoff" in overlay.rendered_markdown
+    # Overdue promise carries status='overdue' in the list.
+    overdue_entries = [
+        p for p in overlay.active_promises if p.get("status") == "overdue"
+    ]
+    assert len(overdue_entries) == 1
+    assert overdue_entries[0]["promise_id"] == "LATE"
+    ledger.close()
+
+
+def test_slice3_active_promises_total_count_reflects_true_total(
+    blueprint_ch1, concept_seed,
+):
+    """Spec \u00a77.3: the tail count is the *true* active count even when
+    list_top_urgent caps at 5."""
+    from src.memory.promise_ledger import PromiseLedger
+
+    ledger = PromiseLedger(db_path=":memory:")
+    from datetime import datetime, timezone
+    import json
+    now = datetime.now(timezone.utc).isoformat()
+    for i in range(1, 9):
+        ledger.conn.execute(
+            """
+            INSERT INTO promise_ledger (
+                promise_id, description, promise_type, setup_scene, payoff_scene,
+                due_by_scene, status, progression_log, created_at, updated_at
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """,
+            (f"P{i}", f"Promise {i}", "plot", "ch01_sc01", None,
+             f"ch0{i+1}_sc01", "progressing", json.dumps([]), now, now),
+        )
+    ledger.conn.commit()
+
+    compiler = ChapterPacketCompiler(
+        concept_seed=concept_seed,
+        blueprints={1: blueprint_ch1},
+        promise_ledger=ledger,
+    )
+    overlay = compiler.compile_overlay(
+        base=compiler.compile_base(chapter_number=1),
+        scene_card={"chapter_number": 1, "scene_number": 2},
+    )
+    assert len(overlay.active_promises) == 5
+    assert overlay.active_promises_total_count == 8
+    assert "5 of 8" in overlay.rendered_markdown
+    ledger.close()

@@ -61,6 +61,11 @@ EVENT_TYPES = [
     "packet_fallback_flat",    # warn  — packet compilation raised; fell back to flat assembly
     "revision_debt_added",     # info  — new debt row
     "revision_debt_updated",   # info  — debt status changed
+    # Architecture upgrade Slice 3: promise ledger.
+    "promise_planted",         # info  — setup_scene recorded
+    "promise_progressed",      # info  — scene card declared a progression beat
+    "promise_paid",            # info  — payoff_scene recorded
+    "promise_overdue",         # warn  — list_overdue surfaced a promise at packet time
 ]
 
 
