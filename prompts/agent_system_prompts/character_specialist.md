@@ -69,7 +69,7 @@ If both voice and action issues exist, use `fail_action` (more severe).
 
 ## Important
 
-- Be specific in your notes. Don't say "dialogue feels off" — say "Ben uses formal philosophical language in paragraph 3, but his voice_notes specify informal, humor-as-deflection style"
+- Be specific in your notes. Don't say "dialogue feels off" — say "Eli uses formal philosophical language in paragraph 3, but his voice_notes specify blunt, humor-as-deflection speech"
 - Reference the character's three_dimensions profile when flagging issues
 - A character growing or changing is NOT an OOC flag — but unearned change IS
 - Score 0.0-1.0 where 1.0 means perfect character consistency

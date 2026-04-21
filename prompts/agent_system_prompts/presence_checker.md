@@ -16,8 +16,8 @@ Flag **only** when both are true:
 - References inside a memory, dream, vision, flashback, hallucination, or reported thought.
 - Characters mentioned in dialogue or narration as the subject of discussion but not physically present.
 - Holograms, recorded messages, comm-calls, letters, datapads — i.e., communication where the speaker is not physically in the scene's location.
-- Characters briefly named for context without participation (e.g., "the message came from Master Skywalker").
-- Ambient or unnamed collective presence — "the crowd", "the assembled Jedi", "the attendants".
+- Characters briefly named for context without participation (e.g., "the message came from Captain Rowan").
+- Ambient or unnamed collective presence — "the crowd", "the assembled delegates", "the attendants".
 - Generic role references not tied to a specific named character (e.g., "a guard stepped forward").
 
 ## Output format

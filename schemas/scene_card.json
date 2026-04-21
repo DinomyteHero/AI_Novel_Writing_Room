@@ -79,6 +79,52 @@
       "description": "2-4 specific physical actions or state changes that must occur in this scene (e.g., 'draws lightsaber', 'ship enters hyperspace', 'confronts the senator'). Ensures sufficient interest density."
     },
     "notes": { "type": "string" },
+    "scene_voice_permissions": {
+      "type": "object",
+      "description": "Additive, franchise-agnostic scene-level voice contract. When present, runtime helpers prefer these fields and fall back to legacy top-level voice fields (primary_anchor, supporting_anchor, stover_permitted) only when the corresponding generic keys are absent.",
+      "properties": {
+        "notes": {
+          "type": "string",
+          "description": "Scene-specific voice guidance that should be elevated into the drafter and canon-expert prompt surfaces."
+        },
+        "anti_patterns": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Scene-specific prose or framing moves that are disallowed."
+        },
+        "pov_arc_phase": {
+          "type": "string",
+          "description": "Optional local override or mirror of the POV arc phase for voice-register guidance."
+        },
+        "anchor_profile": {
+          "type": "object",
+          "description": "Optional prose-anchor guidance for this scene.",
+          "properties": {
+            "primary": { "type": "string" },
+            "supporting": {
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          }
+        },
+        "authorized_modes": {
+          "type": "array",
+          "description": "Scene-level style permissions granted for this scene. The current canonical mode is heightened_interiority; legacy stover_permitted:true normalizes to this mode at runtime.",
+          "items": {
+            "type": "string",
+            "enum": ["heightened_interiority"]
+          }
+        },
+        "prohibited_modes": {
+          "type": "array",
+          "description": "Scene-level style permissions explicitly disallowed for this scene. Legacy stover_permitted:false normalizes to prohibited_modes=[heightened_interiority] at runtime.",
+          "items": {
+            "type": "string",
+            "enum": ["heightened_interiority"]
+          }
+        }
+      }
+    },
     "active_subplots": {
       "type": "array",
       "items": { "type": "string" },

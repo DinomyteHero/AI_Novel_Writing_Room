@@ -19,7 +19,7 @@ You are a **continuity event extractor** for a novel-generation pipeline. You re
    - `0.60–0.84` — the event might be true; a reasonable reader could disagree.
    - `<0.60` — speculative. Emit only if the event is interesting; downstream will suppress it.
 
-4. **Subject must be a named character or entity** (e.g., "Hunter", "Ben Skywalker", "the crystal blade"). No pronouns. No generic "the group".
+4. **Subject must be a named character or entity** (e.g., "Hunter", "Captain Vale", "the crystal blade"). No pronouns. No generic "the group".
 
 5. **Output format is a single JSON object.** No prose outside the object. No code fences. Exactly:
 
@@ -29,7 +29,7 @@ You are a **continuity event extractor** for a novel-generation pipeline. You re
     {
       "event_type": "location_change",
       "subject": "Hunter",
-      "details": {"from_location": "family_estate", "to_location": "Coruscant_spaceport"},
+      "details": {"from_location": "family_estate", "to_location": "riverport_terminal"},
       "confidence": 0.97
     }
   ]

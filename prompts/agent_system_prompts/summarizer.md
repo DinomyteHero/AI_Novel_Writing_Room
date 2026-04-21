@@ -29,7 +29,7 @@ The state diff tracks concrete changes to the story database. For each change, i
 
 ### Character Updates
 Track changes to: `current_location`, `emotional_state`, `arc_position`, `inventory`
-- Use the character's slug ID (lowercase, underscores): "Ben Skywalker" → "ben_skywalker"
+- Use the character's slug ID (lowercase, underscores): "Alex Reyes" → "alex_reyes"
 - Specify the `field` being updated, `old_value` (or null if new), and `new_value`
 
 ### Plot Thread Updates
@@ -82,7 +82,7 @@ hard, soft, series
 Track significant narrative concepts, motifs, or world-building elements introduced in this scene. This prevents downstream agents from restating established ideas from scratch in later scenes.
 
 For each concept:
-- `concept_id`: A stable snake_case identifier (e.g., `force_wrongness`, `solo_mission_mandate`)
+- `concept_id`: A stable snake_case identifier (e.g., `signal_anomaly`, `sealed_file_mandate`)
 - `label`: Human-readable name
 - `maturity`: How developed the concept is after this scene:
   - `introduced` — First appearance, reader is learning about it
@@ -103,24 +103,24 @@ Respond with valid JSON only. No markdown fences, no commentary.
   "summary": "Natural language summary here...",
   "established_concepts": [
     {
-      "concept_id": "force_wrongness",
-      "label": "Force wrongness / thinning phenomenon",
+      "concept_id": "signal_anomaly",
+      "label": "Signal anomaly / interference pattern",
       "maturity": "introduced",
       "scenes_present": ["1.1"],
-      "guidance_for_next": "Do NOT re-describe from scratch. Show evolution — the wrongness should feel directional now, not just static pressure."
+      "guidance_for_next": "Do NOT re-describe from scratch. Show evolution — the anomaly should feel directional now, not just ambient pressure."
     }
   ],
   "state_diff": {
     "chapter_number": 1,
     "changes": {
       "character_updates": [
-        {"character_id": "ben_skywalker", "field": "emotional_state", "old_value": null, "new_value": "reluctant acceptance"}
+        {"character_id": "alex_reyes", "field": "emotional_state", "old_value": null, "new_value": "uneasy resolve"}
       ],
       "plot_thread_updates": [
-        {"thread_id": "mission_briefing", "field": "status", "old_value": "planted", "new_value": "active"}
+        {"thread_id": "archive_investigation", "field": "status", "old_value": "planted", "new_value": "active"}
       ],
       "new_knowledge": [
-        {"character_id": "ben_skywalker", "fact": "The Force anomaly in the Unknown Regions requires collective willpower", "source": "told"}
+        {"character_id": "alex_reyes", "fact": "The signal anomaly intensifies near the sealed district", "source": "inferred"}
       ]
     }
   }

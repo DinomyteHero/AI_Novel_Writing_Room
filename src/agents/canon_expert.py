@@ -17,6 +17,7 @@ import re
 from typing import Optional
 
 from src.agents.base_agent import BaseAgent
+from src.prompting.scene_voice_permissions import render_canon_voice_permissions
 from src.rag.canon_evidence import CanonEvidenceRanker
 
 logger = logging.getLogger(__name__)
@@ -238,36 +239,7 @@ class CanonExpert(BaseAgent):
         authorization or it flags the drafter's faithful use as franchise_voice
         drift.
         """
-        if not scene_card:
-            return ""
-        notes = (scene_card.get("notes") or "").strip()
-        stover_permitted = bool(scene_card.get("stover_permitted"))
-        anti_patterns = scene_card.get("anti_patterns") or []
-        if not notes and not stover_permitted and not anti_patterns:
-            return ""
-        parts = [
-            "## Scene-Level Voice Permissions (READ BEFORE FLAGGING FRANCHISE_VOICE)",
-            "The following scene-level authorizations override franchise-wide voice "
-            "rules for THIS scene only. A phrase or metaphor permitted here is NOT "
-            "a franchise_voice violation; treating it as one is a false positive.",
-        ]
-        if notes:
-            parts.append("\n### Scene-card notes (verbatim)")
-            parts.append(notes)
-        if stover_permitted:
-            parts.append(
-                "\n### stover_permitted: true"
-            )
-            parts.append(
-                "This scene permits Stover-style prose intensity — heightened "
-                "physicality, metaphysical direct address, sharper abstraction. "
-                "Do not flag such moves as franchise_voice drift."
-            )
-        if anti_patterns:
-            parts.append("\n### Scene-card anti-patterns (for context only)")
-            for p in anti_patterns:
-                parts.append(f"- {p}")
-        return "\n".join(parts)
+        return render_canon_voice_permissions(scene_card)
 
     def _section_branch_point(self, branch_point: Optional[dict]) -> str:
         """Emit the AU divergence context block when a branch_point is declared.

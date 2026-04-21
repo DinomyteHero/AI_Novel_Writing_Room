@@ -45,20 +45,20 @@ Return ONLY the JSON object, no other text.
 ### chapter_mission
 Name the structural work the chapter does for the whole novel. Combine concrete scene-level goals into one or two sentences that describe the chapter as a unit. Reference specific entities (character names, settings, plot threads) — never write generic descriptions like "advance the plot" or "deepen character." A good chapter_mission is recognisably about *this* chapter and could not be pasted into another chapter without losing meaning.
 
-Examples of the target register (from a hand-authored Ruusan blueprint):
-> "Establish Ben's restlessness and the wrongness in the Force, launch the investigation via Luke's survey assignment, and depart Coruscant with the wrongness now directional."
+Example of the target register:
+> "Establish Talia's unease with the blackout pattern, launch the investigation via an official archive warrant, and leave the old quarter with the threat now directional."
 
 ### chapter_turn
 The chapter-level turn is *how the protagonist or story shifts across the whole chapter*, not any single scene's turning point. Focus on the change in posture, knowledge, or relationship state from chapter open to chapter close. Be concrete about what state existed before and what state exists after.
 
 Example:
-> "Ben moves from passive unease to active pursuit with institutional cover — the wrongness transforms from ambient background to a compass needle."
+> "Talia moves from passive unease to active pursuit with institutional cover — the background disturbance becomes a lead she can follow."
 
 ### scene_purposes
 For each scene, write one sentence that says what that scene does *for the chapter's mission*. Do not just summarise the scene. Connect it to the chapter-level work. If scene 2 is a reveal, the purpose says what the reveal contributes to the chapter as a unit, not just "X reveals Y."
 
 Example:
-> "Luke validates Ben's read of the wrongness and assigns the survey mission. Father and son communicate through mission briefings; neither acknowledges the choice to send Ben alone."
+> "Director Imani validates Talia's read of the outage pattern and authorizes the archive search. Mentor and protégé speak in procedure because neither is ready to name the personal risk underneath it."
 
 ### pacing_curve
 Pick the single best descriptor of how pressure moves across the scenes:
@@ -73,7 +73,7 @@ Use the scene cards' `stakes`, `conflict_type`, and `turning_point` as evidence.
 The energy and trajectory the chapter leaves the reader on. This shapes the final scene's closing hook and bridges into the next chapter. Be concrete about *direction* (where the story is pointed) and *energy* (active pursuit vs. quiet dread vs. fragile hope).
 
 Example:
-> "Ben in hyperspace, wrongness pulling not just pointing — active, not ambient. The chapter ends on unconscious pursuit disguised as a routine survey."
+> "Talia heads into the rain with the archive keycard in her pocket — active pursuit, not private dread. The chapter ends on motion disguised as routine work."
 
 ### relationship_turns
 List only dyads whose relational state actually shifts in this chapter. Both `from` and `to` should be specific descriptions of the relationship (not character moods). Dyad strings use the format "Name/Name". If a relationship is referenced but not changed, do not include it.

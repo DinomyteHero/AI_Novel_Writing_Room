@@ -59,7 +59,7 @@ Surface each match as an explicit item in the `anti_patterns` array.
 
 ## Rules
 
-- **Be specific, not vague.** "Build tension" is useless. "The scholar's answer should take one beat too long, and Ben should notice the hesitation but choose not to press" is useful.
+- **Be specific, not vague.** "Build tension" is useless. "The archivist's answer should take one beat too long, and Alex should notice the hesitation but choose not to press" is useful.
 - **Reference the scene card's fields directly** — mission, turning point, conflict type, emotional trajectory.
 - **Concept maturity**: if the assembled context includes an "Established Concepts" section, do NOT plan beats that re-introduce these concepts from scratch. If a concept is listed as `established` or `evolved`, plan beats that advance or transform it instead.
 - **Characters present boundary**: ONLY characters listed in the scene card's `characters_present` field may have dialogue, significant action, or meaningful interaction. Characters outside this list may be mentioned in passing or appear only as described in the `closing_hook`, but must not speak or act.

@@ -193,6 +193,17 @@ class TestSceneVoiceContractStructuredFields:
         assert "### Stover Permission" in output
         assert "is not permitted in this scene" in output
 
+    def test_generic_permission_surfaces_without_author_name(self):
+        output = _scene_voice_contract({
+            "scene_voice_permissions": {
+                "anchor_profile": {"primary": "Bujold"},
+                "authorized_modes": ["heightened_interiority"],
+            }
+        })
+        assert "### Heightened Interiority Permission" in output
+        assert "Heightened interior density is permitted in this scene" in output
+        assert "Stover" not in output
+
 
 class TestAgentIntegration:
     async def test_full_prompt_includes_brief_sections(self):
@@ -265,3 +276,31 @@ class TestAgentIntegration:
         assert "Supporting anchors: Luceno, Bujold" in user_content
         assert "### Stover Permission" in user_content
         assert "is not permitted in this scene" in user_content
+
+    async def test_prompt_includes_generic_scene_voice_permissions(self):
+        context = _make_context(
+            _minimal_brief(),
+            {
+                "chapter_number": 1,
+                "scene_number": 1,
+                "target_word_count": 1250,
+                "closing_hook": "An unknown number pings.",
+                "characters_present": ["Alex Reyes"],
+                "scene_voice_permissions": {
+                    "anchor_profile": {
+                        "primary": "Bujold",
+                        "supporting": ["Cherryh"],
+                    },
+                    "authorized_modes": ["heightened_interiority"],
+                },
+            },
+        )
+        _, router = await _run_stylist(context)
+
+        user_content = router.complete.await_args.args[1][-1]["content"]
+        assert "### Scene Anchor Profile" in user_content
+        assert "Primary anchor: Bujold" in user_content
+        assert "Supporting anchors: Cherryh" in user_content
+        assert "### Heightened Interiority Permission" in user_content
+        assert "Heightened interior density is permitted in this scene" in user_content
+        assert "Stover" not in user_content

@@ -57,7 +57,7 @@ Return a JSON array of scene card objects. Each chapter will have MULTIPLE entri
 
 ### Notes Field Conventions
 
-The `notes` field captures scene-specific craft guidance for the Plot Architect and Prose Stylist. Prefer **concrete, craft-specific directives** over abstract literary-workshop instructions. The target register is defined by the project's `voice_definition` and any loaded Franchise Profile (e.g. Star Wars EU, urban fantasy, near-future thriller). Defer to those for author-channeling language and franchise-specific sensory palette.
+The `notes` field captures scene-specific craft guidance for the Plot Architect and Prose Stylist. Prefer **concrete, craft-specific directives** over abstract literary-workshop instructions. The target register is defined by the project's `voice_definition` and any loaded Franchise Profile (e.g. licensed space opera, urban fantasy, near-future thriller). Defer to those for author-channeling language and franchise-specific sensory palette.
 
 **Good note types** (use these):
 - *Sensory register*: specific instructions about which senses to foreground or suppress (e.g. "keep the wrongness auditory/vibrational, not visual")

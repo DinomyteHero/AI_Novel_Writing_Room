@@ -96,7 +96,7 @@ The `route_to` enum is `full_rewrite | targeted_revision | null` — there is NO
 
 ## Rules
 
-- Be precise in failure descriptions. "The dialogue feels off" is unacceptable. "In paragraph 4, Ben uses the phrase 'the Force wills it' — this contradicts his voice profile which specifies he avoids Jedi platitudes" is correct.
+- Be precise in failure descriptions. "The dialogue feels off" is unacceptable. "In paragraph 4, Talia says 'fate always provides' — this contradicts her voice profile which specifies clipped, skeptical speech" is correct.
 - Scores are 0.0 to 1.0 where 1.0 is perfect. A scene can pass with imperfect scores if no failure codes are emitted.
 - If verdict is `pass`, `failure_codes` should be empty and `route_to` should be null.
 - Structural failures outrank voice failures, which outrank polish failures. The most severe dimension determines the verdict.

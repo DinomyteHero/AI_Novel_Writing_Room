@@ -1,4 +1,4 @@
-"""Prose Stylist agent — takes a typed generation brief and drafts scene prose.
+"""Prose Stylist agent -- takes a typed generation brief and drafts scene prose.
 
 Consumes `generation_brief` as a dict matching `schemas/generation_brief.json`.
 Surfaces typed fields as labeled markdown sections in the user prompt so the
@@ -6,6 +6,7 @@ drafter sees structured, high-salience guidance instead of a prose blob.
 """
 
 from src.agents.base_agent import BaseAgent
+from src.prompting.scene_voice_permissions import render_scene_voice_contract
 
 
 def _render_brief(brief: dict) -> str:
@@ -13,7 +14,7 @@ def _render_brief(brief: dict) -> str:
 
     Required fields render unconditionally; optional fields render only when
     present and non-empty. Missing required fields render as an explicit
-    "(unspecified)" placeholder so the drafter is aware — the Plot Architect's
+    "(unspecified)" placeholder so the drafter is aware -- the Plot Architect's
     semantic check already logged a warning if any were missing.
     """
     lines: list[str] = []
@@ -79,9 +80,13 @@ def _render_brief(brief: dict) -> str:
         if delivery.get("reveal_mode"):
             rendered.append(f"- Reveal mode: {delivery['reveal_mode']}")
         if delivery.get("exposition_budget"):
-            rendered.append(f"- Exposition budget: {delivery['exposition_budget']}")
+            rendered.append(
+                f"- Exposition budget: {delivery['exposition_budget']}"
+            )
         if delivery.get("register_override"):
-            rendered.append(f"- Register override: {delivery['register_override']}")
+            rendered.append(
+                f"- Register override: {delivery['register_override']}"
+            )
         if rendered:
             lines.append("")
             lines.append("## Delivery Preferences")
@@ -114,116 +119,19 @@ def _render_brief(brief: dict) -> str:
     anti_patterns = brief.get("anti_patterns") or []
     if anti_patterns:
         lines.append("")
-        lines.append("## Anti-Patterns (extracted from scene card notes — do NOT do these)")
+        lines.append(
+            "## Anti-Patterns (extracted from scene card notes \u2014 do NOT do these)"
+        )
         lines.extend(f"- {a}" for a in anti_patterns)
 
     return "\n".join(lines)
 
 
-_PART_1_PHASES = frozenset({"lie_established", "lie_reinforced"})
-_PART_2_3_PHASES = frozenset({
-    "lie_questioned", "lie_cracking", "lie_deepened", "point_of_no_return",
-})
-_PART_3_4_PHASES = frozenset({
-    "lie_confronted", "truth_accepted", "truth_rejected",
-    "lie_acted_upon", "lie_consequence",
-    "truth_tested", "truth_pressured", "truth_reaffirmed",
-    "truth_glimpsed", "disillusionment_accepted",
-})
-
-
-def _register_guidance_for_phase(phase: str) -> str:
-    if phase in _PART_1_PHASES:
-        return (
-            "Part 1 register — reactive, tactile, sensory. Character feels "
-            "problems before naming them. No clinical articulation."
-        )
-    if phase in _PART_2_3_PHASES:
-        return (
-            "Part 2-3 register — interior tension permitted, but still grounded "
-            "in sensation. No mission-debrief sentences."
-        )
-    if phase in _PART_3_4_PHASES:
-        return (
-            "Part 3-4 register — analytical precision permitted where earned. "
-            "Character may articulate what they now understand."
-        )
-    return "Honor the scene-card notes above for voice register."
-
-
-def _normalize_anchor_values(raw: object) -> list[str]:
-    """Normalize scene-card anchor fields to a flat list of strings."""
-    if isinstance(raw, str):
-        return [part.strip() for part in raw.split(",") if part.strip()]
-    if isinstance(raw, (list, tuple)):
-        values: list[str] = []
-        for item in raw:
-            text = str(item).strip()
-            if text:
-                values.append(text)
-        return values
-    return []
-
-
+# Compatibility shim: keep the historical import path
+# ``src.agents.prose_stylist._scene_voice_contract`` stable while routing the
+# implementation through the shared helper.
 def _scene_voice_contract(scene_card: dict) -> str:
-    """Render the top-of-prompt Scene Voice Contract block.
-
-    Returns an empty string when the scene card has nothing to surface.
-    """
-    notes = (scene_card.get("notes") or "").strip()
-    raw_anti_patterns = scene_card.get("anti_patterns") or []
-    anti_patterns = [str(a).strip() for a in raw_anti_patterns if str(a).strip()]
-    pov_arc_phase = (scene_card.get("pov_arc_phase") or "").strip()
-    primary_anchor = str(scene_card.get("primary_anchor") or "").strip()
-    supporting_anchors = _normalize_anchor_values(scene_card.get("supporting_anchor"))
-    has_stover_permission = isinstance(scene_card.get("stover_permitted"), bool)
-    stover_permitted = bool(scene_card.get("stover_permitted"))
-
-    if (
-        not notes
-        and not anti_patterns
-        and not pov_arc_phase
-        and not primary_anchor
-        and not supporting_anchors
-        and not has_stover_permission
-    ):
-        return ""
-
-    lines: list[str] = ["## Scene Voice Contract (READ FIRST — ABSOLUTE)"]
-    if notes:
-        lines.append(notes)
-    if primary_anchor or supporting_anchors:
-        lines.append("")
-        lines.append("### Scene Anchor Profile")
-        lines.append(
-            "Primary anchor sets the prose surface; supporting anchors are beat-level accents only."
-        )
-        if primary_anchor:
-            lines.append(f"- Primary anchor: {primary_anchor}")
-        if supporting_anchors:
-            lines.append(f"- Supporting anchors: {', '.join(supporting_anchors)}")
-    if has_stover_permission:
-        lines.append("")
-        lines.append("### Stover Permission")
-        if stover_permitted:
-            lines.append(
-                "Stover-style interior density is permitted in this scene when the surrounding prose earns it."
-            )
-        else:
-            lines.append(
-                "Stover-style interior density is not permitted in this scene; keep the prose surface in the listed anchors and scene notes."
-            )
-    if anti_patterns:
-        lines.append("")
-        lines.append("### Anti-Patterns (from scene card)")
-        lines.extend(f"- {a}" for a in anti_patterns)
-    if pov_arc_phase:
-        lines.append("")
-        lines.append("### POV Arc Phase")
-        lines.append(
-            f"{pov_arc_phase} — {_register_guidance_for_phase(pov_arc_phase)}"
-        )
-    return "\n".join(lines)
+    return render_scene_voice_contract(scene_card)
 
 
 class ProseStylist(BaseAgent):
@@ -248,7 +156,7 @@ class ProseStylist(BaseAgent):
         parts = []
 
         # The Scene Voice Contract is the drafter's highest-salience per-scene
-        # instruction block — hoisted to the top of the user prompt so the
+        # instruction block -- hoisted to the top of the user prompt so the
         # scene-card notes and anti-patterns do not sit buried inside the
         # scene-card JSON blob or the assembled context's mid-prompt position.
         voice_contract = _scene_voice_contract(scene_card)
@@ -262,17 +170,21 @@ class ProseStylist(BaseAgent):
         # escape hatch; it is not re-appended here to avoid duplicate scene
         # card / voice-rules sections.
         if chapter_packet is not None:
-            rendered_packet = chapter_packet.get("rendered_markdown") if isinstance(chapter_packet, dict) else ""
+            rendered_packet = (
+                chapter_packet.get("rendered_markdown")
+                if isinstance(chapter_packet, dict)
+                else ""
+            )
             if not rendered_packet and hasattr(chapter_packet, "render_markdown"):
                 rendered_packet = chapter_packet.render_markdown()
             if rendered_packet:
                 parts.append(rendered_packet)
         elif assembled_context:
-            # assembled_context already includes the "## Writing Constraints" block
-            # produced by ContextAssembler (the base banned-phrase list from
+            # assembled_context already includes the "## Writing Constraints"
+            # block produced by ContextAssembler (the base banned-phrase list from
             # config/negative_constraints.yaml). The orchestrator may add
             # cross-scene dynamic feedback (overused words, description ratio
-            # trends) via dynamic_feedback — that stays in its own section.
+            # trends) via dynamic_feedback -- that stays in its own section.
             parts.append(assembled_context)
 
         # Typed brief rendered as labeled sections
@@ -280,7 +192,8 @@ class ProseStylist(BaseAgent):
 
         if dynamic_feedback:
             parts.append(
-                f"## Cross-Scene Feedback (from prior scenes in this chapter)\n{dynamic_feedback}"
+                "## Cross-Scene Feedback (from prior scenes in this chapter)\n"
+                f"{dynamic_feedback}"
             )
 
         if failure_context:
@@ -293,7 +206,9 @@ class ProseStylist(BaseAgent):
         if voice_rules:
             parts.append(voice_rules)
 
-        target_words = scene_card.get("target_word_count") or generation_brief.get("target_word_count")
+        target_words = scene_card.get("target_word_count") or generation_brief.get(
+            "target_word_count"
+        )
         closing_hook = scene_card.get("closing_hook", "")
         characters_present = scene_card.get("characters_present", [])
         pov_approach = context.get("pov_approach") or "third-person limited"
@@ -310,12 +225,12 @@ class ProseStylist(BaseAgent):
             ceiling = int(target_words * 1.10)
             task_lines.append(
                 f"Target length: {target_words} words. "
-                f"Aim to land within {floor}–{ceiling} words (±10% of target). "
+                f"Aim to land within {floor}\u2013{ceiling} words (\u00b110% of target). "
                 "Treat the target as a soft floor, not a ceiling: if your "
                 "first full pass through the brief's beats is coming in short, "
-                "add the scene depth the beats actually need — room for the "
+                "add the scene depth the beats actually need -- room for the "
                 "dialogue to breathe, for physical actions to land, for "
-                "interior reactions to register — rather than compressing each "
+                "interior reactions to register -- rather than compressing each "
                 "beat to a sentence. If you significantly exceed the ceiling, "
                 "check that every paragraph is earning its length; the "
                 "downstream pipeline does not hard-reject off-target scenes "
@@ -323,7 +238,7 @@ class ProseStylist(BaseAgent):
             )
         if closing_hook:
             task_lines.append(
-                f"SCENE BOUNDARY: The scene ENDS at the closing hook: \"{closing_hook}\". "
+                f'SCENE BOUNDARY: The scene ENDS at the closing hook: "{closing_hook}". '
                 "Do not write any content beyond this moment. Do not advance into "
                 "the next scene's territory."
             )

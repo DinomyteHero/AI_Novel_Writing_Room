@@ -242,6 +242,28 @@ class TestTranslateSceneCard:
         assert card["revelations"] == ["R01"]
         assert card["pov_arc_phase"] == "Setup: wrongness surfaces"
 
+    def test_legacy_scene_voice_fields_preserved(self):
+        seed = self._base_seed_card()
+        seed["primary_anchor"] = "Zahn"
+        seed["supporting_anchor"] = "Luceno, Bujold"
+        seed["stover_permitted"] = False
+        seed["anti_patterns"] = ["No exposition dump"]
+        card = translate_scene_card(seed)
+        assert card["primary_anchor"] == "Zahn"
+        assert card["supporting_anchor"] == "Luceno, Bujold"
+        assert card["stover_permitted"] is False
+        assert card["anti_patterns"] == ["No exposition dump"]
+
+    def test_generic_scene_voice_permissions_preserved(self):
+        seed = self._base_seed_card()
+        seed["scene_voice_permissions"] = {
+            "notes": "Keep the prose tactile.",
+            "anchor_profile": {"primary": "Bujold"},
+            "authorized_modes": ["heightened_interiority"],
+        }
+        card = translate_scene_card(seed)
+        assert card["scene_voice_permissions"] == seed["scene_voice_permissions"]
+
     def test_empty_references_default_to_empty_list(self):
         seed = self._base_seed_card()
         del seed["subplot_references"]

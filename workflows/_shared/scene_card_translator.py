@@ -227,6 +227,19 @@ def translate_scene_card(
     card["revelations"] = pick_list("revelations", "revelation_references")
     card["pov_arc_phase"] = pick("pov_arc_phase", "arc_phase")
 
+    # Scene-level voice permissions are authoring metadata, not generated
+    # defaults. Preserve both the legacy fields and the additive generic
+    # object when present so mixed migration states do not silently lose them.
+    for field in (
+        "anti_patterns",
+        "primary_anchor",
+        "supporting_anchor",
+        "stover_permitted",
+        "scene_voice_permissions",
+    ):
+        if field in seed_card:
+            card[field] = seed_card[field]
+
     if "arc_phase_transition" in seed_card:
         card["arc_phase_transition"] = seed_card["arc_phase_transition"]
 

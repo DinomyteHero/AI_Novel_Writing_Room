@@ -379,11 +379,12 @@ class TestFranchiseVoiceSeverityPolicy:
 
 class TestSceneCardVoicePermissions:
     """The save-blocking canon_expert must see scene-level voice permissions
-    (scene_card.notes, stover_permitted, anti_patterns) so drafter-faithful
-    use of scene-authorized metaphors is not flagged as franchise_voice drift.
-    This invariant is the load-bearing part of the scene-card/seed
-    contradiction fix; without it the runtime silently diverges from the
-    drafter's view of what the scene permits."""
+    (scene_card.notes, stover_permitted, anti_patterns, and the additive
+    scene_voice_permissions block) so drafter-faithful use of scene-authorized
+    metaphors is not flagged as franchise_voice drift. This invariant is the
+    load-bearing part of the scene-card/seed contradiction fix; without it the
+    runtime silently diverges from the drafter's view of what the scene
+    permits."""
 
     def test_prompt_surfaces_scene_card_notes(self, canon_expert, base_canon_profile):
         scene_card = {
@@ -410,6 +411,24 @@ class TestSceneCardVoicePermissions:
         )
         assert "stover_permitted: true" in prompt
         assert "Stover-style" in prompt
+
+    def test_prompt_surfaces_generic_authorized_mode(
+        self, canon_expert, base_canon_profile
+    ):
+        scene_card = {
+            "scene_voice_permissions": {
+                "authorized_modes": ["heightened_interiority"],
+            }
+        }
+        concept_seed = {"canon_profile": base_canon_profile}
+        prompt = canon_expert._build_evaluation_prompt(
+            prose="sample prose",
+            concept_seed=concept_seed,
+            scene_card=scene_card,
+        )
+        assert "authorized_modes: heightened_interiority" in prompt
+        assert "heightened interior density" in prompt
+        assert "Stover-style" not in prompt
 
     def test_prompt_omits_permissions_section_when_scene_card_empty(
         self, canon_expert, base_canon_profile
