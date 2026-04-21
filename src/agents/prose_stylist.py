@@ -151,6 +151,20 @@ def _register_guidance_for_phase(phase: str) -> str:
     return "Honor the scene-card notes above for voice register."
 
 
+def _normalize_anchor_values(raw: object) -> list[str]:
+    """Normalize scene-card anchor fields to a flat list of strings."""
+    if isinstance(raw, str):
+        return [part.strip() for part in raw.split(",") if part.strip()]
+    if isinstance(raw, (list, tuple)):
+        values: list[str] = []
+        for item in raw:
+            text = str(item).strip()
+            if text:
+                values.append(text)
+        return values
+    return []
+
+
 def _scene_voice_contract(scene_card: dict) -> str:
     """Render the top-of-prompt Scene Voice Contract block.
 
@@ -160,13 +174,45 @@ def _scene_voice_contract(scene_card: dict) -> str:
     raw_anti_patterns = scene_card.get("anti_patterns") or []
     anti_patterns = [str(a).strip() for a in raw_anti_patterns if str(a).strip()]
     pov_arc_phase = (scene_card.get("pov_arc_phase") or "").strip()
+    primary_anchor = str(scene_card.get("primary_anchor") or "").strip()
+    supporting_anchors = _normalize_anchor_values(scene_card.get("supporting_anchor"))
+    has_stover_permission = isinstance(scene_card.get("stover_permitted"), bool)
+    stover_permitted = bool(scene_card.get("stover_permitted"))
 
-    if not notes and not anti_patterns and not pov_arc_phase:
+    if (
+        not notes
+        and not anti_patterns
+        and not pov_arc_phase
+        and not primary_anchor
+        and not supporting_anchors
+        and not has_stover_permission
+    ):
         return ""
 
     lines: list[str] = ["## Scene Voice Contract (READ FIRST — ABSOLUTE)"]
     if notes:
         lines.append(notes)
+    if primary_anchor or supporting_anchors:
+        lines.append("")
+        lines.append("### Scene Anchor Profile")
+        lines.append(
+            "Primary anchor sets the prose surface; supporting anchors are beat-level accents only."
+        )
+        if primary_anchor:
+            lines.append(f"- Primary anchor: {primary_anchor}")
+        if supporting_anchors:
+            lines.append(f"- Supporting anchors: {', '.join(supporting_anchors)}")
+    if has_stover_permission:
+        lines.append("")
+        lines.append("### Stover Permission")
+        if stover_permitted:
+            lines.append(
+                "Stover-style interior density is permitted in this scene when the surrounding prose earns it."
+            )
+        else:
+            lines.append(
+                "Stover-style interior density is not permitted in this scene; keep the prose surface in the listed anchors and scene notes."
+            )
     if anti_patterns:
         lines.append("")
         lines.append("### Anti-Patterns (from scene card)")

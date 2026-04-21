@@ -8,7 +8,11 @@ prompt, and that optional fields render only when present.
 
 from unittest.mock import AsyncMock, MagicMock
 
-from src.agents.prose_stylist import ProseStylist, _render_brief
+from src.agents.prose_stylist import (
+    ProseStylist,
+    _render_brief,
+    _scene_voice_contract,
+)
 
 
 def _minimal_brief() -> dict:
@@ -168,6 +172,28 @@ class TestGracefulDegradation:
         assert "Register override:" not in output  # null -> omitted
 
 
+class TestSceneVoiceContractStructuredFields:
+    def test_anchor_profile_surfaces_without_free_text_notes(self):
+        output = _scene_voice_contract({
+            "primary_anchor": "Zahn",
+            "supporting_anchor": "Luceno, Bujold",
+        })
+        assert "## Scene Voice Contract" in output
+        assert "### Scene Anchor Profile" in output
+        assert "Primary anchor: Zahn" in output
+        assert "Supporting anchors: Luceno, Bujold" in output
+
+    def test_stover_permission_true_surfaces_structurally(self):
+        output = _scene_voice_contract({"stover_permitted": True})
+        assert "### Stover Permission" in output
+        assert "is permitted in this scene" in output
+
+    def test_stover_permission_false_surfaces_structurally(self):
+        output = _scene_voice_contract({"stover_permitted": False})
+        assert "### Stover Permission" in output
+        assert "is not permitted in this scene" in output
+
+
 class TestAgentIntegration:
     async def test_full_prompt_includes_brief_sections(self):
         context = _make_context(_full_brief())
@@ -216,3 +242,26 @@ class TestAgentIntegration:
         result, _ = await _run_stylist(context, response="Drafted prose.")
         assert result["prose"] == "Drafted prose."
         assert result["scene_card"] is context["scene_card"]
+
+    async def test_prompt_includes_structured_scene_voice_fields(self):
+        context = _make_context(
+            _minimal_brief(),
+            {
+                "chapter_number": 1,
+                "scene_number": 1,
+                "target_word_count": 1250,
+                "closing_hook": "An unknown number pings.",
+                "characters_present": ["Alex Reyes"],
+                "primary_anchor": "Zahn",
+                "supporting_anchor": "Luceno, Bujold",
+                "stover_permitted": False,
+            },
+        )
+        _, router = await _run_stylist(context)
+
+        user_content = router.complete.await_args.args[1][-1]["content"]
+        assert "### Scene Anchor Profile" in user_content
+        assert "Primary anchor: Zahn" in user_content
+        assert "Supporting anchors: Luceno, Bujold" in user_content
+        assert "### Stover Permission" in user_content
+        assert "is not permitted in this scene" in user_content
