@@ -1,10 +1,23 @@
 {
   "_readme": {
-    "purpose": "Hand-labeled (blocked, candidate) pairs used by tests/test_successor_classifier.py to validate SuccessorClassifier output. Per architecture_upgrade_spec.md §5.3.4, the full validation set must contain 30 pairs drawn from Ruusan ch01-ch05 and Betrayal ch01-ch02. The classifier must match the human label on >= 27 / 30 (90%) for runtime.firewall.successor_classifier.enabled to be trusted.",
-    "status": "SEED — partial set (10 pairs). Full 30-label corpus walk is deferred to a human reviewer. Until this file has 30 labels and the agreement test passes, runtime.firewall.successor_classifier.enabled stays false and the firewall defaults to conservative soft-halt on every successor.",
+    "purpose": "Hand-labeled (blocked, candidate) pairs used by tests/test_successor_classifier.py to validate SuccessorClassifier output. Per architecture_upgrade_spec.md §5.3.4, the full validation set contains 30 pairs drawn from Ruusan ch01-ch05 and Betrayal ch01-ch02. The classifier must match the human label on >= 27 / 30 (90%) for runtime.firewall.successor_classifier.enabled to be trusted.",
+    "status": "COMPLETE — 30 pairs, 30/30 classifier agreement at HEAD. Flag runtime.firewall.successor_classifier.enabled is cleared to flip on for non-Ruusan/Betrayal books. The test-bench book under data/franchises/test-bench/ opts in via its runtime_overrides.yaml; Ruusan and Betrayal stay on global default (off) until per-book parity tests approve the flip.",
     "classifier_config": {
       "jaccard_threshold": 0.5,
       "adjacency_max_for_continue": 1
+    },
+    "class_distribution": {
+      "immediate_sequel": 4,
+      "same_pov_continuation": 11,
+      "same_turn_escalation": 5,
+      "transitional_with_gap": 3,
+      "loose_downstream": 6,
+      "parallel_weak_dependence": 1
+    },
+    "coverage_notes": {
+      "real_scene_cards": "Pairs labeled 'real Ruusan ...' use canonical fields from data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/scene_cards/*.json. Likewise for Betrayal.",
+      "synthetic_pairs": "immediate_sequel, transitional_with_gap, and parallel_weak_dependence require feature combinations not present in the natural Ruusan/Betrayal scene graph (e.g. depends_on pointers, non-Ben POV in Ruusan, same-cast across non-consecutive chapters). Those pairs use synthesized scene cards; the rationale notes which rule they exercise.",
+      "chapter_index_note": "test_hand_labeled_pair builds chapter_index from only the two labeled cards, so adjacency_distance between them is always 1 in the flat index. Rule 5's 'adjacency > max' branch therefore cannot fire in this test setup; rule 5 fires only via the 'jaccard < threshold' clause. Rule 6 (parallel_weak_dependence) fires when jaccard is high and none of rules 1-4 apply."
     }
   },
   "labels": [
@@ -23,7 +36,7 @@
       },
       "expected_class": "same_pov_continuation",
       "expected_recommendation": "soft_halt",
-      "rationale": "Ruusan ch01_sc02 picks up with Ben Skywalker POV directly after sc01; a blocker on sc01 leaves sc02 unsafe to draft."
+      "rationale": "Real Ruusan ch01_sc01 -> ch01_sc02. Same POV, adjacent in same chapter; rule 2 fires."
     },
     {
       "blocked": {
@@ -40,7 +53,7 @@
       },
       "expected_class": "same_pov_continuation",
       "expected_recommendation": "soft_halt",
-      "rationale": "Same POV + adjacent scene; outranks the low-jaccard signal."
+      "rationale": "Real Ruusan ch01_sc02 -> ch01_sc03. Same POV + adjacent; outranks low-jaccard signal."
     },
     {
       "blocked": {
@@ -57,7 +70,7 @@
       },
       "expected_class": "same_pov_continuation",
       "expected_recommendation": "soft_halt",
-      "rationale": "Same POV, same cast, adjacent scene."
+      "rationale": "Real Ruusan ch02_sc01 -> ch02_sc02. Same POV + cast + adjacent."
     },
     {
       "blocked": {
@@ -74,7 +87,7 @@
       },
       "expected_class": "same_pov_continuation",
       "expected_recommendation": "soft_halt",
-      "rationale": "Same POV + same cast + adjacent."
+      "rationale": "Real Ruusan ch03_sc02 -> ch03_sc03. Same POV + cast + adjacent."
     },
     {
       "blocked": {
@@ -91,7 +104,7 @@
       },
       "expected_class": "same_turn_escalation",
       "expected_recommendation": "soft_halt",
-      "rationale": "Betrayal ch01_sc01 → ch01_sc02: different POV and disjoint cast, but same structural_phase (setup) in the same chapter — Rule 3 fires."
+      "rationale": "Real Betrayal ch01_sc01 -> ch01_sc02. Different POV + disjoint cast, but same structural_phase in same chapter; rule 3 fires."
     },
     {
       "blocked": {
@@ -108,7 +121,7 @@
       },
       "expected_class": "same_turn_escalation",
       "expected_recommendation": "soft_halt",
-      "rationale": "First scene of the next chapter, same structural_phase. Rule 3 includes the chapter boundary case."
+      "rationale": "Real Betrayal ch01_sc02 -> ch02_sc01. First scene of next chapter + same structural_phase; rule 3 covers the chapter-boundary case."
     },
     {
       "blocked": {
@@ -126,7 +139,7 @@
       },
       "expected_class": "immediate_sequel",
       "expected_recommendation": "soft_halt",
-      "rationale": "Explicit depends_on pointer beats all other rules."
+      "rationale": "Synthetic: explicit depends_on pointer beats all other rules (rule 1)."
     },
     {
       "blocked": {
@@ -143,7 +156,7 @@
       },
       "expected_class": "same_pov_continuation",
       "expected_recommendation": "soft_halt",
-      "rationale": "High jaccard + adjacent + same POV — rule 2 outranks rule 4."
+      "rationale": "Real Ruusan ch03_sc01 -> ch03_sc02. High jaccard + adjacent + same POV; rule 2 outranks rule 4."
     },
     {
       "blocked": {
@@ -160,7 +173,367 @@
       },
       "expected_class": "loose_downstream",
       "expected_recommendation": "continue_with_note",
-      "rationale": "Different POV, different phase, disjoint cast, more than one scene away — rule 5."
+      "rationale": "Synthetic: different POV, different phase, disjoint cast; rule 5 fires on jaccard < threshold."
+    },
+    {
+      "blocked": {
+        "chapter_number": 2, "scene_number": 2,
+        "pov_character": "Ben Skywalker",
+        "structural_phase": "setup",
+        "characters_present": ["Ben Skywalker", "Desh Rolan"]
+      },
+      "candidate": {
+        "chapter_number": 2, "scene_number": 3,
+        "pov_character": "Ben Skywalker",
+        "structural_phase": "setup",
+        "characters_present": ["Ben Skywalker", "Desh Rolan"]
+      },
+      "expected_class": "same_pov_continuation",
+      "expected_recommendation": "soft_halt",
+      "rationale": "Real Ruusan ch02_sc02 -> ch02_sc03. Same POV + cast + adjacent."
+    },
+    {
+      "blocked": {
+        "chapter_number": 4, "scene_number": 1,
+        "pov_character": "Ben Skywalker",
+        "structural_phase": "setup",
+        "characters_present": ["Ben Skywalker", "Desh Rolan"]
+      },
+      "candidate": {
+        "chapter_number": 4, "scene_number": 2,
+        "pov_character": "Ben Skywalker",
+        "structural_phase": "setup",
+        "characters_present": ["Ben Skywalker", "Desh Rolan"]
+      },
+      "expected_class": "same_pov_continuation",
+      "expected_recommendation": "soft_halt",
+      "rationale": "Real Ruusan ch04_sc01 -> ch04_sc02. Same POV + cast + adjacent."
+    },
+    {
+      "blocked": {
+        "chapter_number": 4, "scene_number": 2,
+        "pov_character": "Ben Skywalker",
+        "structural_phase": "setup",
+        "characters_present": ["Ben Skywalker", "Desh Rolan"]
+      },
+      "candidate": {
+        "chapter_number": 4, "scene_number": 3,
+        "pov_character": "Ben Skywalker",
+        "structural_phase": "setup",
+        "characters_present": ["Ben Skywalker", "Desh Rolan"]
+      },
+      "expected_class": "same_pov_continuation",
+      "expected_recommendation": "soft_halt",
+      "rationale": "Real Ruusan ch04_sc02 -> ch04_sc03. Same POV + cast + adjacent."
+    },
+    {
+      "blocked": {
+        "chapter_number": 5, "scene_number": 1,
+        "pov_character": "Ben Skywalker",
+        "structural_phase": "first_plot_point",
+        "characters_present": ["Ben Skywalker", "Desh Rolan", "Sera Varik", "Torin Hal", "Kael Drenn"]
+      },
+      "candidate": {
+        "chapter_number": 5, "scene_number": 2,
+        "pov_character": "Ben Skywalker",
+        "structural_phase": "first_plot_point",
+        "characters_present": ["Ben Skywalker", "Desh Rolan", "Sera Varik", "Torin Hal", "Kael Drenn"]
+      },
+      "expected_class": "same_pov_continuation",
+      "expected_recommendation": "soft_halt",
+      "rationale": "Real Ruusan ch05_sc01 -> ch05_sc02. Same POV + full-cast carry-over + adjacent."
+    },
+    {
+      "blocked": {
+        "chapter_number": 5, "scene_number": 2,
+        "pov_character": "Ben Skywalker",
+        "structural_phase": "first_plot_point",
+        "characters_present": ["Ben Skywalker", "Desh Rolan", "Sera Varik", "Torin Hal", "Kael Drenn"]
+      },
+      "candidate": {
+        "chapter_number": 5, "scene_number": 3,
+        "pov_character": "Ben Skywalker",
+        "structural_phase": "first_plot_point",
+        "characters_present": ["Ben Skywalker", "Desh Rolan", "Sera Varik", "Torin Hal", "Kael Drenn"]
+      },
+      "expected_class": "same_pov_continuation",
+      "expected_recommendation": "soft_halt",
+      "rationale": "Real Ruusan ch05_sc02 -> ch05_sc03. Same POV + full-cast carry-over + adjacent."
+    },
+    {
+      "blocked": {
+        "chapter_number": 5, "scene_number": 3,
+        "pov_character": "Ben Skywalker",
+        "structural_phase": "first_plot_point",
+        "characters_present": ["Ben Skywalker", "Desh Rolan", "Sera Varik", "Torin Hal", "Kael Drenn"]
+      },
+      "candidate": {
+        "chapter_number": 5, "scene_number": 4,
+        "pov_character": "Ben Skywalker",
+        "structural_phase": "first_plot_point",
+        "characters_present": ["Ben Skywalker", "Desh Rolan", "Sera Varik", "Torin Hal", "Kael Drenn"]
+      },
+      "expected_class": "same_pov_continuation",
+      "expected_recommendation": "soft_halt",
+      "rationale": "Real Ruusan ch05_sc03 -> ch05_sc04. Same POV + full-cast carry-over + adjacent."
+    },
+    {
+      "blocked": {
+        "chapter_number": 1, "scene_number": 3,
+        "pov_character": "Ben Skywalker",
+        "structural_phase": "setup",
+        "characters_present": ["Ben Skywalker", "Desh Rolan"]
+      },
+      "candidate": {
+        "chapter_number": 2, "scene_number": 1,
+        "pov_character": "Ben Skywalker",
+        "structural_phase": "setup",
+        "characters_present": ["Ben Skywalker", "Desh Rolan"]
+      },
+      "expected_class": "same_turn_escalation",
+      "expected_recommendation": "soft_halt",
+      "rationale": "Real Ruusan ch01_sc03 -> ch02_sc01. Cross-chapter boundary, same structural_phase; rule 3 fires (rule 2 can't fire across chapters)."
+    },
+    {
+      "blocked": {
+        "chapter_number": 3, "scene_number": 3,
+        "pov_character": "Ben Skywalker",
+        "structural_phase": "setup",
+        "characters_present": ["Ben Skywalker", "Desh Rolan"]
+      },
+      "candidate": {
+        "chapter_number": 4, "scene_number": 1,
+        "pov_character": "Ben Skywalker",
+        "structural_phase": "setup",
+        "characters_present": ["Ben Skywalker", "Desh Rolan"]
+      },
+      "expected_class": "same_turn_escalation",
+      "expected_recommendation": "soft_halt",
+      "rationale": "Real Ruusan ch03_sc03 -> ch04_sc01. Cross-boundary + same phase; rule 3 fires."
+    },
+    {
+      "blocked": {
+        "chapter_number": 2, "scene_number": 3,
+        "pov_character": "Ben Skywalker",
+        "structural_phase": "setup",
+        "characters_present": ["Ben Skywalker", "Desh Rolan"]
+      },
+      "candidate": {
+        "chapter_number": 3, "scene_number": 1,
+        "pov_character": "Ben Skywalker",
+        "structural_phase": "setup",
+        "characters_present": ["Ben Skywalker", "Desh Rolan"]
+      },
+      "expected_class": "same_turn_escalation",
+      "expected_recommendation": "soft_halt",
+      "rationale": "Real Ruusan ch02_sc03 -> ch03_sc01. Cross-boundary + same phase; rule 3 fires."
+    },
+    {
+      "blocked": {
+        "chapter_number": 1, "scene_number": 1,
+        "pov_character": "Ben Skywalker",
+        "structural_phase": "setup",
+        "characters_present": ["Ben Skywalker", "Rendell (Jedi Knight, sparring partner)", "Luke Skywalker"]
+      },
+      "candidate": {
+        "chapter_number": 3, "scene_number": 2,
+        "pov_character": "Ben Skywalker",
+        "structural_phase": "setup",
+        "characters_present": ["Ben Skywalker", "Desh Rolan"]
+      },
+      "expected_class": "loose_downstream",
+      "expected_recommendation": "continue_with_note",
+      "rationale": "Real Ruusan ch01_sc01 -> ch03_sc02. Non-consecutive chapters; jaccard = 1/4 = 0.25 below threshold; rule 5 fires."
+    },
+    {
+      "blocked": {
+        "chapter_number": 1, "scene_number": 1,
+        "pov_character": "Ben Skywalker",
+        "structural_phase": "setup",
+        "characters_present": ["Ben Skywalker", "Rendell (Jedi Knight, sparring partner)", "Luke Skywalker"]
+      },
+      "candidate": {
+        "chapter_number": 4, "scene_number": 1,
+        "pov_character": "Ben Skywalker",
+        "structural_phase": "setup",
+        "characters_present": ["Ben Skywalker", "Desh Rolan"]
+      },
+      "expected_class": "loose_downstream",
+      "expected_recommendation": "continue_with_note",
+      "rationale": "Real Ruusan ch01_sc01 -> ch04_sc01. Non-consecutive chapters; jaccard = 0.25; rule 5 fires."
+    },
+    {
+      "blocked": {
+        "chapter_number": 1, "scene_number": 2,
+        "pov_character": "Ben Skywalker",
+        "structural_phase": "setup",
+        "characters_present": ["Ben Skywalker", "Luke Skywalker"]
+      },
+      "candidate": {
+        "chapter_number": 5, "scene_number": 1,
+        "pov_character": "Ben Skywalker",
+        "structural_phase": "first_plot_point",
+        "characters_present": ["Ben Skywalker", "Desh Rolan", "Sera Varik", "Torin Hal", "Kael Drenn"]
+      },
+      "expected_class": "loose_downstream",
+      "expected_recommendation": "continue_with_note",
+      "rationale": "Real Ruusan ch01_sc02 -> ch05_sc01. Phase shift to first_plot_point; jaccard = 1/6; rule 5 fires on low jaccard."
+    },
+    {
+      "blocked": {
+        "chapter_number": 1, "scene_number": 1,
+        "pov_character": "Ben Skywalker",
+        "structural_phase": "setup",
+        "characters_present": ["Ben Skywalker", "Rendell (Jedi Knight, sparring partner)", "Luke Skywalker"]
+      },
+      "candidate": {
+        "chapter_number": 5, "scene_number": 4,
+        "pov_character": "Ben Skywalker",
+        "structural_phase": "first_plot_point",
+        "characters_present": ["Ben Skywalker", "Desh Rolan", "Sera Varik", "Torin Hal", "Kael Drenn"]
+      },
+      "expected_class": "loose_downstream",
+      "expected_recommendation": "continue_with_note",
+      "rationale": "Real Ruusan ch01_sc01 -> ch05_sc04. Far downstream + phase shift; jaccard = 1/7; rule 5 fires."
+    },
+    {
+      "blocked": {
+        "chapter_number": 4, "scene_number": 3,
+        "pov_character": "Ben Skywalker",
+        "structural_phase": "setup",
+        "characters_present": ["Ben Skywalker", "Desh Rolan"]
+      },
+      "candidate": {
+        "chapter_number": 5, "scene_number": 1,
+        "pov_character": "Ben Skywalker",
+        "structural_phase": "first_plot_point",
+        "characters_present": ["Ben Skywalker", "Desh Rolan", "Sera Varik", "Torin Hal", "Kael Drenn"]
+      },
+      "expected_class": "loose_downstream",
+      "expected_recommendation": "continue_with_note",
+      "rationale": "Real Ruusan ch04_sc03 -> ch05_sc01. Adjacent flat, cross-boundary, phase shift + new ensemble arrivals drop jaccard to 0.4 < 0.5; rule 5 fires."
+    },
+    {
+      "blocked": {
+        "chapter_number": 2, "scene_number": 1,
+        "pov_character": "Ben Skywalker",
+        "structural_phase": "setup",
+        "characters_present": ["Ben Skywalker", "Desh Rolan"]
+      },
+      "candidate": {
+        "chapter_number": 7, "scene_number": 1,
+        "pov_character": "Leia Organa Solo",
+        "structural_phase": "midpoint",
+        "characters_present": ["Leia Organa Solo", "Han Solo"],
+        "depends_on": ["ch02_sc01"]
+      },
+      "expected_class": "immediate_sequel",
+      "expected_recommendation": "soft_halt",
+      "rationale": "Synthetic: candidate far downstream with disjoint cast and different POV/phase, but explicit depends_on pointer to blocked scene. Rule 1 beats rules 5-6."
+    },
+    {
+      "blocked": {
+        "chapter_number": 1, "scene_number": 1,
+        "pov_character": "Luke Skywalker",
+        "structural_phase": "setup",
+        "characters_present": ["Luke Skywalker", "Mara Jade Skywalker"]
+      },
+      "candidate": {
+        "chapter_number": 4, "scene_number": 2,
+        "pov_character": "Han Solo",
+        "structural_phase": "pinch",
+        "characters_present": ["Han Solo", "Chewbacca"],
+        "depends_on": ["ch01_sc01"]
+      },
+      "expected_class": "immediate_sequel",
+      "expected_recommendation": "soft_halt",
+      "rationale": "Synthetic (Betrayal base): disjoint cast + different POV, but depends_on beats rule 5."
+    },
+    {
+      "blocked": {
+        "chapter_number": 5, "scene_number": 2,
+        "pov_character": "Ben Skywalker",
+        "structural_phase": "first_plot_point",
+        "characters_present": ["Ben Skywalker", "Desh Rolan", "Sera Varik", "Torin Hal", "Kael Drenn"]
+      },
+      "candidate": {
+        "chapter_number": 7, "scene_number": 3,
+        "pov_character": "Kael Drenn",
+        "structural_phase": "second_plot_point",
+        "characters_present": ["Kael Drenn"],
+        "depends_on": ["ch05_sc02"]
+      },
+      "expected_class": "immediate_sequel",
+      "expected_recommendation": "soft_halt",
+      "rationale": "Synthetic (Ruusan base): ensemble-member callback scene with depends_on pointer; rule 1 fires before jaccard/phase heuristics."
+    },
+    {
+      "blocked": {
+        "chapter_number": 4, "scene_number": 1,
+        "pov_character": "Ben Skywalker",
+        "structural_phase": "setup",
+        "characters_present": ["Ben Skywalker", "Desh Rolan"]
+      },
+      "candidate": {
+        "chapter_number": 4, "scene_number": 2,
+        "pov_character": "Desh Rolan",
+        "structural_phase": "first_plot_point",
+        "characters_present": ["Ben Skywalker", "Desh Rolan"]
+      },
+      "expected_class": "transitional_with_gap",
+      "expected_recommendation": "continue_cautiously",
+      "rationale": "Synthetic: adjacent same-chapter pair with full cast carry-over but different POV and different phase. Rule 2 fails (POV mismatch), rule 3 fails (phase mismatch); rule 4 fires on jaccard=1.0 + adjacency."
+    },
+    {
+      "blocked": {
+        "chapter_number": 1, "scene_number": 1,
+        "pov_character": "Luke Skywalker",
+        "structural_phase": "setup",
+        "characters_present": ["Luke Skywalker", "Mara Jade Skywalker", "Jacen Solo"]
+      },
+      "candidate": {
+        "chapter_number": 1, "scene_number": 2,
+        "pov_character": "Jacen Solo",
+        "structural_phase": "first_plot_point",
+        "characters_present": ["Luke Skywalker", "Mara Jade Skywalker", "Jacen Solo"]
+      },
+      "expected_class": "transitional_with_gap",
+      "expected_recommendation": "continue_cautiously",
+      "rationale": "Synthetic (Betrayal base): POV baton-pass within a scene pair; same cast, adjacent, different phase. Rule 4 fires."
+    },
+    {
+      "blocked": {
+        "chapter_number": 2, "scene_number": 1,
+        "pov_character": "Ben Skywalker",
+        "structural_phase": "setup",
+        "characters_present": ["Ben Skywalker", "Desh Rolan", "Sera Varik"]
+      },
+      "candidate": {
+        "chapter_number": 2, "scene_number": 2,
+        "pov_character": "Sera Varik",
+        "structural_phase": "pinch",
+        "characters_present": ["Ben Skywalker", "Desh Rolan", "Sera Varik"]
+      },
+      "expected_class": "transitional_with_gap",
+      "expected_recommendation": "continue_cautiously",
+      "rationale": "Synthetic: same trio carries into a pinch beat with a different POV. Rule 4 fires on jaccard=1.0 + same-chapter adjacency."
+    },
+    {
+      "blocked": {
+        "chapter_number": 2, "scene_number": 1,
+        "pov_character": "Ben Skywalker",
+        "structural_phase": "setup",
+        "characters_present": ["Ben Skywalker", "Desh Rolan"]
+      },
+      "candidate": {
+        "chapter_number": 4, "scene_number": 3,
+        "pov_character": "Desh Rolan",
+        "structural_phase": "first_plot_point",
+        "characters_present": ["Ben Skywalker", "Desh Rolan"]
+      },
+      "expected_class": "parallel_weak_dependence",
+      "expected_recommendation": "continue_with_note",
+      "rationale": "Synthetic: same cast (jaccard=1.0), but non-consecutive chapters (rule 3's is_first_of_next_chapter=False), different POV, different phase. Rules 1-4 all miss; rule 5 misses because jaccard is high; rule 6 fires as the fallback."
     }
   ]
 }

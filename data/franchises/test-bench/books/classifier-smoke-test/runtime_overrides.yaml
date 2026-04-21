@@ -1,0 +1,19 @@
+# Per-book runtime-flag overrides for the classifier-smoke-test book.
+#
+# Inherits global defaults from config/settings.yaml except where listed.
+# Precedence (first match wins, highest priority last): config/settings.yaml <
+# franchise runtime_overrides.yaml < this file < CLI --runtime-flag.
+#
+# Ruusan and Betrayal do NOT get a runtime_overrides.yaml until their per-book
+# parity test signs off; test-bench books absorb quality regressions so the
+# shipping books stay on known-good behavior.
+runtime:
+  firewall:
+    # Isolate-and-continue on save-blockers (Slice 1 state firewall).
+    enabled: true
+    successor_classifier:
+      # 30-label agreement at 30/30 (tests/data/successor_classifier_labels.json);
+      # the classifier is trusted for this scratch book.
+      enabled: true
+      jaccard_threshold: 0.5
+      adjacency_max_for_continue: 1

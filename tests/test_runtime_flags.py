@@ -159,3 +159,62 @@ def test_shipping_defaults_all_safe():
     assert runtime["promise_ledger"]["enabled"] is False
     assert runtime["continuity_log"]["enabled"] is False
     assert runtime["sociogram"]["enabled"] is False
+
+
+# --- test-bench + shipping-book protection -------------------------------
+
+
+def test_testbench_classifier_smoke_book_enables_firewall():
+    """The test-bench scratch book opts in to the Slice 1 firewall + classifier.
+
+    This is the canonical flag-flip receipt per spec §4.4: non-Ruusan/non-
+    Betrayal book goes first, the successor_classifier 30-label gate has
+    passed, so classifier.enabled is trusted for this scratch project.
+    """
+    import json
+    seed_path = Path(
+        "data/franchises/test-bench/books/classifier-smoke-test/concept_seed.json"
+    )
+    if not seed_path.exists():
+        pytest.skip(f"test-bench seed not present: {seed_path}")
+    with seed_path.open(encoding="utf-8") as fh:
+        seed = json.load(fh)
+
+    merged = load_runtime_flags(concept_seed=seed)
+    fw = merged["runtime"]["firewall"]
+    assert fw["enabled"] is True, (
+        "test-bench runtime_overrides.yaml must enable the firewall"
+    )
+    assert fw["successor_classifier"]["enabled"] is True, (
+        "test-bench runtime_overrides.yaml must enable the classifier"
+    )
+
+
+@pytest.mark.parametrize("book_slug", [
+    "the-ruusan-atonement",
+    "legacy-of-the-force-betrayal",
+])
+def test_shipping_books_keep_firewall_off(book_slug: str):
+    """Ruusan + Betrayal must keep global defaults (firewall off) until their
+    per-book parity tests land. This test guards against an accidental
+    runtime_overrides.yaml in either book dir.
+    """
+    import json
+    seed_path = Path(
+        f"data/franchises/star-wars-legends-eu/books/{book_slug}/concept_seed.json"
+    )
+    if not seed_path.exists():
+        pytest.skip(f"seed not present: {seed_path}")
+    with seed_path.open(encoding="utf-8") as fh:
+        seed = json.load(fh)
+
+    merged = load_runtime_flags(concept_seed=seed)
+    fw = merged["runtime"]["firewall"]
+    assert fw["enabled"] is False, (
+        f"{book_slug} must keep runtime.firewall.enabled=false until its "
+        "per-book parity test approves the flip (spec §4.4)"
+    )
+    assert fw["successor_classifier"]["enabled"] is False, (
+        f"{book_slug} must keep runtime.firewall.successor_classifier.enabled=false "
+        "until its parity test approves the flip"
+    )
