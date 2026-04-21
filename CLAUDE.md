@@ -90,6 +90,21 @@ Slice 5 ships the character-relationship graph. Declarative-first: planning seed
 - **New ledger events:** `sociogram_delta_applied` (info), `sociogram_suggestion_recorded` (info, reserved for the assisted-suggestion path in Slice 11.1 wave).
 - **Shipping-book guard** at `tests/test_runtime_flags.py::test_shipping_books_keep_sociogram_off` blocks an accidental flag flip on Ruusan or Betrayal before a non-shipping book has it enabled and produces relationally-grounded prose without drift (spec §9.6 go/no-go).
 
+## Slice 6: manuscript lifecycle design + patch workflow
+
+Slice 6 is the bridge between the forward-only scene runtime and coherent manuscript-level editorial. The design doc lives at `docs/architecture/manuscript_lifecycle_design.md`; the load-bearing CLI ships alongside it.
+
+- **Design doc.** `docs/architecture/manuscript_lifecycle_design.md` specifies developmental / line / copy / proof passes and defines the invariant: manuscript-level passes never rewrite prose in place during a drafting run — mutations route through `scripts/patch_workflow.py`.
+- **Patch workflow CLI.** `scripts/patch_workflow.py` with four subcommands:
+  - `accept-isolated <scene_id>` promotes quarantined prose, resolves matching gap notes, marks downstream overlays stale, replays declarative state (promise + sociogram) from the scene card.
+  - `replace <scene_id> --from <path> [--gap <gap_id>]` overwrites saved prose with a human edit; same replay semantics.
+  - `overrule <gap_id>` resolves a gap without changing prose.
+  - `apply-manuscript-patch <patch_path>` dispatches JSON batches matching `schemas/manuscript_patch.json`. Duplicate `replace` entries for the same scene are rejected before any mutation.
+- **Replay semantics.** Scene card `promises_progressed` / `promises_paid` / `relationship_deltas` are re-applied on every `accept-isolated` / `replace`, so the stateful stores converge to the scene card's declaration. Continuity extraction does NOT run in the CLI (needs a live router) — instead `<run_dir>/continuity_log.STALE` markers let the next drafting run rebuild. Per-overlay markers at `<run_dir>/chapter_packets/chapter_NN_sc_MM_overlay.STALE` are advisory; `Orchestrator._maybe_compile_overlay` notices them, emits a `packet_overlay_written` info event with `stale_marker_cleared=true`, and deletes them (overlays already rebuild every scene so the marker is a human-audit trail, not a cache-invalidation signal).
+- **Export scaffolding.** `scripts/manuscript_export.py` walks a run's `chapters/` dir and stitches `manuscript.md` + `chapter_index.md` under `<project_root>/export/`. Deliberately simple — EPUB / PDF wrapping is deferred.
+- **Schema.** `schemas/manuscript_patch.json` with closed action enum (`accept-isolated`, `replace`, `overrule`) and scene-id pattern enforcement. `source_pass` tag lets downstream memos attribute each mutation to its originating pass.
+- **Test coverage.** 12 new tests span every subcommand, the duplicate-replace rejection, and the export stitcher. All subprocess calls pass `--no-ledger` + `--base-dir tmp_path` so tests stay hermetic and don't touch the real run ledger.
+
 ## Status vocabulary (three values only)
 
 Per-scene save status lives in `src/memory/story_state.py`. Only three values are valid:

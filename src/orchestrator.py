@@ -1469,6 +1469,30 @@ class Orchestrator:
             # compile_base fell back; overlay cannot proceed.
             return None
         scene_number = scene_card.get("scene_number", 1)
+        # Slice 6 (spec \u00a710.3 step 4/5): patch_workflow.py writes a
+        # ``*_overlay.STALE`` marker whenever gap resolution touches the
+        # scene's downstream. Overlays already rebuild every scene, so the
+        # marker is advisory \u2014 we emit an info event then clear it so the
+        # audit trail lands exactly once per resolution.
+        try:
+            marker = self._packets_dir / (
+                f"chapter_{chapter_number:02d}_sc_{scene_number:02d}_overlay.STALE"
+            )
+            if marker.exists():
+                self.ledger.emit_info(
+                    "packet_overlay_written",
+                    chapter_number=chapter_number, scene_number=scene_number,
+                    payload={
+                        "chapter_number": chapter_number,
+                        "scene_number": scene_number,
+                        "stale_marker_cleared": True,
+                        "marker_written_at": marker.read_text(encoding="utf-8").strip(),
+                    },
+                )
+                marker.unlink(missing_ok=True)
+        except Exception:  # noqa: BLE001 -- marker errors must not block draft
+            pass
+
         try:
             overlay = self.chapter_packet_compiler.compile_overlay(
                 base=base,
