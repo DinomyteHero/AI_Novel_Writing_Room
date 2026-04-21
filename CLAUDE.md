@@ -24,6 +24,19 @@ Rules:
 - **LineWriter** is optional (GPT 5.4 @ t=0.8 by default). It takes an **explicitly wired** context dict — do not let it reach into ambient `ContextAssembler`. Collapsed output (<40% source word count) falls back to drafter prose with a warn event.
 - The **save-blocker layer** (`src/pipeline/save_blockers.py`) is the **only** hard-failure path. Three categories: `CHARACTER_PRESENCE_BLOCKER` (from PresenceChecker), `CANON_BLOCKER` (CanonExpert verdict = fail + severity ∈ {critical, moderate}), and a POV advisory (not yet blocking). When a blocker fires, the run aborts and the offending scene is written to `<project>/quarantine/chNN_scMM/{prose.md, blockers.json, brief.json}`.
 
+## Slice 1: state firewall + Phase 0 gate (feature-flagged, default off)
+
+Slice 1 of the architecture upgrade (`docs/architecture/architecture_upgrade_spec.md`) is in the tree but **off by default**. The defaults-off posture protects Ruusan and Betrayal until each book passes its own parity test.
+
+- Runtime flags live at `config/settings.yaml` under `runtime:` and resolve through `src/runtime_flags.py` (precedence: CLI `--runtime-flag` > per-book `data/franchises/<franchise>/books/<book>/runtime_overrides.yaml` > per-franchise `runtime_overrides.yaml` > settings default). Do not hand-author a `runtime_overrides.yaml` for Ruusan or Betrayal until their parity tests land.
+- `runtime.firewall.enabled: true` flips the save-blocker path from run-abort to isolate-and-continue. Isolation still writes prose + `blockers.json` to `<project>/quarantine/chNN_scMM/` (existing behavior) and additionally writes `gap_manifest.json` + records a `gap_notes` row in `story_state.db` (v7 migration adds the table; wrapper at `scripts/migrate_gap_notes.py`).
+- `runtime.firewall.successor_classifier.enabled: true` enables `src/pipeline/successor_classifier.py`. Until `tests/data/successor_classifier_labels.json` reaches 30 hand-labeled pairs with ≥ 90% classifier agreement, leave this flag off — the firewall's conservative default soft-halts on any blocker.
+- `gap_notes` table + `StoryState.{record_gap, list_open_gaps, resolve_gap, list_gaps_affecting}` are load-bearing for Slices 2 (overlay surfacing) and 6 (patch workflow). End-of-run summary in `src/main.py` prints open gaps.
+- Phase 0 audit (`scripts/audit_phase0.py`, `schemas/phase0_audit.json`) is the gate for Slice 2 (chapter packet). Slice 2 is **blocked** until `phase0_audit.json` reports `overall_pass: true` for both Ruusan and Betrayal. The v0.1 audit script is a scaffold: it emits the schema-conformant envelope + a human report, but criterion evaluations still need wiring to per-stage prompt snapshots.
+- New ledger events: `scene_isolated` (error), `gap_note_recorded` (warn), `phase0_audit_emitted` (info). Use the existing `ledger.emit_{info,warn,error}` helpers.
+- Parity scaffolds at `tests/test_pipeline_regression_{ruusan,betrayal}.py` opt in to live comparison via `PARITY_RUN_PATH=<chapter_01_scene_01.md>`; without it, only the baseline readability check runs. Baselines live at `tests/baselines/{ruusan,betrayal}_ch01_sc01.md` — refresh only with explicit human sign-off.
+- Adding a new runtime flag without `default: false` (or the safest equivalent) is a review-blocker.
+
 ## Status vocabulary (three values only)
 
 Per-scene save status lives in `src/memory/story_state.py`. Only three values are valid:

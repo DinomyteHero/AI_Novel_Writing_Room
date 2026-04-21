@@ -1,0 +1,56 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Phase0Audit",
+  "description": "Machine-readable Phase 0 audit output from scripts/audit_phase0.py. Gates Slice 2 (chapter packet) implementation.",
+  "type": "object",
+  "required": ["run_id", "git_sha", "dirty", "generated_at", "criteria", "overall_pass"],
+  "properties": {
+    "run_id": { "type": "string" },
+    "git_sha": { "type": "string" },
+    "dirty": { "type": "boolean", "description": "True if working tree had uncommitted changes at audit time." },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "franchise": { "type": "string" },
+    "book": { "type": "string" },
+    "chapter_audited": { "type": "integer", "minimum": 1 },
+    "criteria": {
+      "type": "object",
+      "description": "Six-criteria gate. Every key must be a criterion result with {pass, evidence}.",
+      "required": [
+        "voice_rules_reach_drafter",
+        "scene_contract_reaches_drafter",
+        "constraints_survive_assembly",
+        "cross_scene_feedback_real",
+        "register_policy_single_source",
+        "audit_report_exists"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "voice_rules_reach_drafter": { "$ref": "#/definitions/criterion" },
+        "scene_contract_reaches_drafter": { "$ref": "#/definitions/criterion" },
+        "constraints_survive_assembly": { "$ref": "#/definitions/criterion" },
+        "cross_scene_feedback_real": { "$ref": "#/definitions/criterion" },
+        "register_policy_single_source": { "$ref": "#/definitions/criterion" },
+        "audit_report_exists": { "$ref": "#/definitions/criterion" }
+      }
+    },
+    "overall_pass": {
+      "type": "boolean",
+      "description": "True only when every criterion's `pass` is true. Slice 2 is blocked until this is true for both Ruusan and Betrayal."
+    }
+  },
+  "definitions": {
+    "criterion": {
+      "type": "object",
+      "required": ["pass", "evidence"],
+      "additionalProperties": false,
+      "properties": {
+        "pass": { "type": "boolean" },
+        "evidence": {
+          "type": "string",
+          "description": "Relative path + line range (e.g. 'phase0_debug/ch01_sc01/02_prose_stylist_prompt.txt:L142-L178') OR a free-text explanation of why this criterion passed or failed."
+        },
+        "notes": { "type": "string" }
+      }
+    }
+  }
+}

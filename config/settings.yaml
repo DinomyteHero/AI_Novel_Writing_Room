@@ -158,3 +158,36 @@ worldbuilding:
   reconciliation:
     run_on_startup: true
     interval_minutes: 60
+
+# Architecture upgrade runtime flags.
+# Every flag defaults to the SAFEST value (off, or most conservative numeric).
+# Slice 1 adds phase0_audit + firewall + successor_classifier.
+# Later slices (2-5) add chapter_packet, revision_debt, canon_expert.early_position,
+# promise_ledger, continuity_log, sociogram. See docs/architecture/architecture_upgrade_spec.md.
+# Per-book overrides at data/franchises/<franchise>/books/<book>/runtime_overrides.yaml.
+runtime:
+  phase0_audit:
+    enabled: false
+  firewall:
+    enabled: false
+    successor_classifier:
+      enabled: false
+      jaccard_threshold: 0.5
+      adjacency_max_for_continue: 1
+  chapter_packet:
+    enabled: false
+    fallback_on_error: true
+  revision_debt:
+    enabled: false
+  canon_expert:
+    early_position: false
+    apply_local_fixes: false
+    local_fixes_whitelist: []
+  promise_ledger:
+    enabled: false
+  continuity_log:
+    enabled: false
+    min_confidence: 0.85
+  sociogram:
+    enabled: false
+    suggest_mode: false
