@@ -81,13 +81,12 @@ The orchestrator rejects polish output that significantly drops or compresses ma
 
 Validates the polished prose against the scene card contract:
 
-- Character presence (all required characters are on-page)
 - Closing-hook boundary (the scene ends where the card says it should)
-- Opening-hook alignment (the scene opens where the card says it should)
-- Word-count floor
-- Turning point is identifiable in the final prose
+- Turning point is identifiable in the final prose (no polish-induced flattening)
 
-Final Gate emits structural failure codes (`CLOSING_HOOK_VIOLATION`, `CHARACTER_PRESENCE_VIOLATION`, `OPENING_HOOK_MISMATCH`) — see [`config/failure_codes.yaml`](../../config/failure_codes.yaml). Under the forward-only relay, a rejection emits a `final_gate_rejection` event tagged `advisory_only` and the polished prose is still saved. Hard failures are handled by the save-blocker layer, not by reverting to an earlier draft.
+Final Gate emits structural failure codes (`CLOSING_HOOK_VIOLATION`, `MISSING_TURNING_POINT`, `WEAK_TURNING_POINT`) — see [`config/failure_codes.yaml`](../../config/failure_codes.yaml). Under the forward-only relay, a rejection emits a `final_gate_rejection` event tagged `advisory_only` and the polished prose is still saved. Hard failures are handled by the save-blocker layer, not by reverting to an earlier draft.
+
+Forward Relay v4 narrowed FinalGate's scope: `CHARACTER_PRESENCE_VIOLATION` is no longer emitted (PresenceChecker at save time is the sole authority), and word-count enforcement moved to `src/pipeline/word_count_telemetry.py` at chapter-close. Only closing-hook and turning-point regression remain.
 
 ### Retry loops — removed (Stage 1a)
 

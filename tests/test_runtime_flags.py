@@ -159,6 +159,10 @@ def test_shipping_defaults_all_safe():
     assert runtime["promise_ledger"]["enabled"] is False
     assert runtime["continuity_log"]["enabled"] is False
     assert runtime["sociogram"]["enabled"] is False
+    # Forward Relay v4: smart single corrective rerun defaults off.
+    assert runtime["corrective_rerun"]["enabled"] is False
+    assert "MISSING_TURNING_POINT" in runtime["corrective_rerun"]["trigger_codes"]
+    assert "CLOSING_HOOK_VIOLATION" in runtime["corrective_rerun"]["trigger_codes"]
 
 
 # --- test-bench + shipping-book protection -------------------------------
@@ -361,3 +365,60 @@ def test_shipping_books_keep_continuity_log_off(book_slug: str):
     )
     # min_confidence safe default stays intact even when an override creeps in.
     assert merged["runtime"]["continuity_log"]["min_confidence"] == 0.85
+
+
+# --- Forward Relay v4 shipping-book protection --------------------------------
+
+
+@pytest.mark.parametrize("book_slug", [
+    "the-ruusan-atonement",
+    "legacy-of-the-force-betrayal",
+])
+def test_shipping_books_keep_corrective_rerun_off(book_slug: str):
+    """Forward Relay v4: the smart corrective rerun is a new retry-branch path
+    under the forward-only relay. Ruusan and Betrayal keep the flag off until
+    their per-book parity tests approve the flip; same discipline as every
+    other architecture-upgrade flag.
+    """
+    import json
+    seed_path = Path(
+        f"data/franchises/star-wars-legends-eu/books/{book_slug}/concept_seed.json"
+    )
+    if not seed_path.exists():
+        pytest.skip(f"seed not present: {seed_path}")
+    with seed_path.open(encoding="utf-8") as fh:
+        seed = json.load(fh)
+
+    merged = load_runtime_flags(concept_seed=seed)
+    assert merged["runtime"]["corrective_rerun"]["enabled"] is False, (
+        f"{book_slug} must keep runtime.corrective_rerun.enabled=false until "
+        "the per-book parity test approves the flip"
+    )
+
+
+@pytest.mark.parametrize("book_slug", [
+    "the-ruusan-atonement",
+    "legacy-of-the-force-betrayal",
+])
+def test_shipping_books_keep_canon_apply_local_fixes_off(book_slug: str):
+    """Slice 11.1 (Forward Relay v4): narrow canon repair mutates saved prose
+    via literal substitution. Keep off on Ruusan/Betrayal until a non-shipping
+    book has flipped it on and proven the whitelist is safe in practice.
+    """
+    import json
+    seed_path = Path(
+        f"data/franchises/star-wars-legends-eu/books/{book_slug}/concept_seed.json"
+    )
+    if not seed_path.exists():
+        pytest.skip(f"seed not present: {seed_path}")
+    with seed_path.open(encoding="utf-8") as fh:
+        seed = json.load(fh)
+
+    merged = load_runtime_flags(concept_seed=seed)
+    assert merged["runtime"]["canon_expert"]["apply_local_fixes"] is False, (
+        f"{book_slug} must keep runtime.canon_expert.apply_local_fixes=false "
+        "until a parity test confirms no prose drift from whitelisted fixes"
+    )
+    # Belt-and-braces: whitelist must stay empty so an accidental flag flip
+    # still has no whitelisted category to act on.
+    assert merged["runtime"]["canon_expert"]["local_fixes_whitelist"] == []

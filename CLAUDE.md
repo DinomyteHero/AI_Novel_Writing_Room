@@ -24,6 +24,23 @@ Rules:
 - **LineWriter** is optional (GPT 5.4 @ t=0.8 by default). It takes an **explicitly wired** context dict — do not let it reach into ambient `ContextAssembler`. Collapsed output (<40% source word count) falls back to drafter prose with a warn event.
 - The **save-blocker layer** (`src/pipeline/save_blockers.py`) is the **only** hard-failure path. Three categories: `CHARACTER_PRESENCE_BLOCKER` (from PresenceChecker), `CANON_BLOCKER` (CanonExpert verdict = fail + severity ∈ {critical, moderate}), and a POV advisory (not yet blocking). When a blocker fires, the run aborts and the offending scene is written to `<project>/quarantine/chNN_scMM/{prose.md, blockers.json, brief.json}`.
 
+## Forward Relay v4 — use the advice, diversify the judges
+
+The forward-only relay is intact, but three editorial redundancies were collapsed and the latent corrective-rerun plumbing was activated behind a runtime flag. Design doc at `docs/architecture/forward_relay_v4_proposal.md`.
+
+**Default-on changes (shipped without a flag):**
+- **LineWriter is off by default.** The `line_writer:` entry under `agent_routing` in `config/settings.yaml` is commented out. `src/main.py:916` guards instantiation on the config key being present, so the orchestrator receives `line_writer=None` and `src/orchestrator.py:680` short-circuits. Bench configs that need LineWriter can re-enable it in their own overlay YAML.
+- **Presence triple-check collapsed.** `CHARACTER_PRESENCE_VIOLATION` was removed from `GateCritic.STRUCTURAL_CODES` and `FinalGate.FINAL_GATE_CODES`. `PresenceChecker` at save time is the sole authority on character presence — the gates used to echo it, producing the same violation three times across pre-polish / post-polish / save-blocker. Turning-point + closing-hook stay in both gates because pre-polish vs post-polish is real regression coverage.
+- **GateCritic moved off Haiku to Grok 4.1 Fast.** The drafter (Sonnet) plus three Haiku judges was same-family homogeneity; GateCritic is the advice source for the corrective rerun, so its family bias has the most leverage. FinalGate and PresenceChecker stay on Haiku — narrower / contract-shaped, same-family matters less. Fallback if structured-JSON reliability regresses: `glm` or `gemini_flash`. Alternative cross-family candidates documented in the proposal doc's "Alternatives considered" section for future benching.
+
+**Flag-gated changes (default-off; shipping-book guards in place):**
+- **Smart single corrective rerun** — `runtime.corrective_rerun.enabled: false` (default). When enabled, a narrow trigger set (`MISSING_TURNING_POINT` or `CLOSING_HOOK_VIOLATION` from GateCritic `fail_structural`) fires *exactly one* ProseStylist redraft with structured `failure_context` populated from `_format_failure_context(evaluation)`. Confusion-skip rules: >3 failure codes → skip (brief not landing), draft below 50% of `target_word_count` → skip (collapsed output is a different failure mode). `pipeline.max_structural_retries` stays pinned at 0; this flag is the only path to a non-zero drafter retry. Emits `corrective_rerun_fired`, `corrective_rerun_skipped`, `corrective_rerun_complete` events.
+- **Slice 11.1 narrow canon repair** — `runtime.canon_expert.apply_local_fixes: false` + `runtime.canon_expert.local_fixes_whitelist: []` (both default-safe). CanonExpert now emits an optional `local_fixes: [{category, pattern, replacement, reason}]` list for violations it can fix with a literal string substitution. The orchestrator's `_maybe_apply_canon_local_fixes` applies whitelisted fixes to `final_prose` via `str.replace` before the save-blocker check — no second polish pass, no additional model calls. Fixes outside the whitelist emit `canon_fix_rejected` (warn). Pattern-not-in-prose cases also emit `canon_fix_rejected`. Applied fixes emit `canon_fix_applied` (info) plus a canon debt row.
+
+**Shipping-book guards** at `tests/test_runtime_flags.py::test_shipping_books_keep_corrective_rerun_off` and `::test_shipping_books_keep_canon_apply_local_fixes_off` block an accidental `runtime_overrides.yaml` flipping either flag for Ruusan or Betrayal before their parity tests land. Same pattern as Slice 1–5.
+
+**Deferred:** cheaper-drafter bench. Only after Phase 2 rerun rate is measured. First candidate: `gpt54_mini`. Promote only if word-count discipline survives the climax bench AND rerun rate stays under ~20%.
+
 ## Slice 1: state firewall + Phase 0 gate (feature-flagged, default off)
 
 Slice 1 of the architecture upgrade (`docs/architecture/architecture_upgrade_spec.md`) is in the tree but **off by default**. The defaults-off posture protects Ruusan and Betrayal until each book passes its own parity test.

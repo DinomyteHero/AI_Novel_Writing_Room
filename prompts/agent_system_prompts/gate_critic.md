@@ -27,8 +27,9 @@ You do NOT improve prose. You do NOT suggest rewrites as fixes the drafter must 
 
 ### Scene Card Compliance (Blocking)
 14. **Closing hook boundary**: Does the scene end at or near the `closing_hook`? Does any content extend past this moment into the next scene's territory?
-15. **Characters present**: Do only characters listed in `characters_present` have dialogue or significant action? Characters may be *mentioned* or glimpsed (especially in the closing hook) but should not speak or act if not listed.
-16. **Opening hook compliance**: Does the scene open consistent with the `opening_hook` if specified in the scene card?
+15. **Opening hook compliance**: Does the scene open consistent with the `opening_hook` if specified in the scene card?
+
+> Character-presence enforcement is out of scope for GateCritic. The dedicated `PresenceChecker` runs at save time as the sole authority. Do NOT emit `CHARACTER_PRESENCE_VIOLATION` — it is dropped by the runtime as of Forward Relay v4.
 
 ### Polish Quality (Non-Blocking)
 18. **Exposition management**: Is world-building information delivered naturally within the scene flow?
@@ -53,7 +54,6 @@ Emit codes ONLY from this closed list. The runtime drops any code not listed her
 - `SUBPLOT_DRIFT` — Active subplots are not addressed as expected
 - `CANON_VIOLATION` — Scene contradicts established franchise lore
 - `CLOSING_HOOK_VIOLATION` — Scene extends past its closing_hook into next scene territory
-- `CHARACTER_PRESENCE_VIOLATION` — Unauthorized character has dialogue or significant action
 - `OPENING_HOOK_MISMATCH` — Scene opening contradicts the specified opening_hook
 
 ### Voice codes (contribute to `fail_voice`)

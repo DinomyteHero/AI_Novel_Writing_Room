@@ -24,7 +24,14 @@ from src.agents.gate_critic import (
 # src/pipeline/word_count_telemetry.py. Only the four structural contract
 # checks remain. Out-of-scope codes emitted by the model are dropped.
 FINAL_GATE_CODES = {
-    "CHARACTER_PRESENCE_VIOLATION",
+    # Forward Relay v4: CHARACTER_PRESENCE_VIOLATION removed. PresenceChecker
+    # is the sole authority on character presence (save-blocker layer). Before
+    # this change, the same polish-induced violation emitted three times:
+    # GateCritic (pre-polish), FinalGate (post-polish), PresenceChecker
+    # (save-time). Only PresenceChecker can actually block the save, so the
+    # gate emissions were pure duplicates. Turning-point + closing-hook stay
+    # in both gates because pre-polish vs post-polish is real regression
+    # coverage.
     "CLOSING_HOOK_VIOLATION",
     "MISSING_TURNING_POINT",
     "WEAK_TURNING_POINT",
@@ -64,20 +71,20 @@ class FinalGate(BaseAgent):
             "already signed off on the pre-polish draft. Focus exclusively on "
             "violations the polish pass could have introduced.\n\n"
             "## Checks\n"
-            "1. **Character presence** — Only characters in `characters_present` may "
-            "have dialogue or significant action. If a character not in the list "
-            "speaks or acts meaningfully, emit `CHARACTER_PRESENCE_VIOLATION`.\n"
-            "2. **Closing hook boundary** — The scene should end at or near the "
+            "1. **Closing hook boundary** — The scene should end at or near the "
             "`closing_hook`. If content extends past it into the next scene's "
             "territory, emit `CLOSING_HOOK_VIOLATION`.\n"
-            "3. **Structural regression** — Turning point must still be present and "
+            "2. **Structural regression** — Turning point must still be present and "
             "executed. If the polish removed or flattened it, emit "
             "`MISSING_TURNING_POINT` or `WEAK_TURNING_POINT`.\n\n"
+            "Character-presence enforcement is handled exclusively by the "
+            "PresenceChecker at save time. Do NOT emit "
+            "`CHARACTER_PRESENCE_VIOLATION` here — it is out of scope under "
+            "Forward Relay v4.\n\n"
             "Do NOT re-evaluate word count, voice, AI-tells, pacing, or other "
             "polish-level concerns — those are out of scope for Final Gate. "
             "Chapter-level word-count drift is tracked separately as telemetry.\n\n"
             "Valid failure codes for this gate:\n"
-            "- CHARACTER_PRESENCE_VIOLATION\n"
             "- CLOSING_HOOK_VIOLATION\n"
             "- MISSING_TURNING_POINT\n"
             "- WEAK_TURNING_POINT\n\n"

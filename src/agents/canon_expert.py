@@ -467,6 +467,16 @@ class CanonExpert(BaseAgent):
             "  - text: the offending phrase from the prose\n"
             "  - explanation: why this is a violation\n"
             "  - suggestion: a suggested fix\n"
+            "- **local_fixes**: OPTIONAL list of narrow literal-substitution "
+            "fixes the runtime can apply without re-drafting. Only emit an "
+            "entry when the fix is a safe exact-string swap (e.g. an "
+            "anachronistic term has a canonical replacement). Skip for "
+            "nuanced issues that need rewriting. Each entry has:\n"
+            "  - category: one of the violation categories above\n"
+            "  - pattern: the EXACT literal substring that appears in the "
+            "prose (case-sensitive, no regex)\n"
+            "  - replacement: the exact literal substring to substitute\n"
+            "  - reason: one-sentence rationale\n"
             "- **verdict**: \"pass\" if no critical or moderate violations, "
             "\"fail\" otherwise. post_divergence_drift entries never cause "
             "a \"fail\" verdict on their own.\n"
@@ -643,5 +653,34 @@ class CanonExpert(BaseAgent):
 
         if verdict == "fail" and "corrected_prose" in parsed:
             result["corrected_prose"] = parsed["corrected_prose"]
+
+        # Slice 11.1 (Forward Relay v4): narrow-repair local_fixes. Validated
+        # to shape at this layer; whitelist gating + application happens in the
+        # orchestrator so the agent stays franchise-agnostic.
+        raw_fixes = parsed.get("local_fixes") or []
+        local_fixes: list[dict] = []
+        for fix in raw_fixes:
+            if not isinstance(fix, dict):
+                continue
+            category = fix.get("category")
+            pattern = fix.get("pattern")
+            replacement = fix.get("replacement")
+            if (
+                not isinstance(category, str)
+                or not isinstance(pattern, str)
+                or not isinstance(replacement, str)
+                or not pattern
+            ):
+                continue
+            local_fixes.append(
+                {
+                    "category": category,
+                    "pattern": pattern,
+                    "replacement": replacement,
+                    "reason": str(fix.get("reason", "")),
+                }
+            )
+        if local_fixes:
+            result["local_fixes"] = local_fixes
 
         return result

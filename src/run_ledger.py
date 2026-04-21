@@ -81,6 +81,10 @@ EVENT_TYPES = [
     "canon_polish_drift_detected",  # warn — second pass found drift after polish
     "canon_fix_applied",            # info — whitelisted local_fix applied
     "canon_fix_rejected",           # warn — suggested fix was outside the whitelist
+    # Forward Relay v4: smart single corrective rerun.
+    "corrective_rerun_fired",       # info — rerun triggered on fail_structural
+    "corrective_rerun_skipped",     # info — rerun candidate but trigger rules rejected
+    "corrective_rerun_complete",    # info — rerun finished; downstream proceeds
 ]
 
 
