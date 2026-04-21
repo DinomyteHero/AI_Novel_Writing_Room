@@ -132,15 +132,32 @@ class ProseStylist(BaseAgent):
         assembled_context = context.get("assembled_context", "")
         dynamic_feedback = context.get("dynamic_feedback", "")
         failure_context = context.get("failure_context", "")
+        # Slice 2: when the orchestrator resolves ``runtime.chapter_packet.enabled``
+        # to true, it passes a rendered packet here. The packet renderer embeds
+        # a flat-context snapshot so every token the legacy flat path produced
+        # is still present (parity-enforced in tests/test_packet_parity.py).
+        chapter_packet = context.get("chapter_packet")
 
         parts = []
 
-        # assembled_context already includes the "## Writing Constraints" block
-        # produced by ContextAssembler (the base banned-phrase list from
-        # config/negative_constraints.yaml). The orchestrator may add
-        # cross-scene dynamic feedback (overused words, description ratio
-        # trends) via dynamic_feedback — that stays in its own section.
-        if assembled_context:
+        # When a packet is supplied, it is the drafter's single inspectable
+        # runtime contract and replaces the flat assembled_context in the
+        # rendered prompt. assembled_context is still kept around by the
+        # orchestrator as the ``runtime.chapter_packet.fallback_on_error``
+        # escape hatch; it is not re-appended here to avoid duplicate scene
+        # card / voice-rules sections.
+        if chapter_packet is not None:
+            rendered_packet = chapter_packet.get("rendered_markdown") if isinstance(chapter_packet, dict) else ""
+            if not rendered_packet and hasattr(chapter_packet, "render_markdown"):
+                rendered_packet = chapter_packet.render_markdown()
+            if rendered_packet:
+                parts.append(rendered_packet)
+        elif assembled_context:
+            # assembled_context already includes the "## Writing Constraints" block
+            # produced by ContextAssembler (the base banned-phrase list from
+            # config/negative_constraints.yaml). The orchestrator may add
+            # cross-scene dynamic feedback (overused words, description ratio
+            # trends) via dynamic_feedback — that stays in its own section.
             parts.append(assembled_context)
 
         # Typed brief rendered as labeled sections

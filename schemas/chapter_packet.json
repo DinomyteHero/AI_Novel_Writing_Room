@@ -1,0 +1,172 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ChapterPacket",
+  "description": "Typed runtime contract consumed by the drafter (ProseStylist) and downstream reviewers when runtime.chapter_packet.enabled is true. Compiled as base (once per chapter) + overlay (once per scene). The overlay composes the base; the base is immutable for the chapter. See docs/architecture/architecture_upgrade_spec.md \u00a76.1.",
+  "type": "object",
+  "required": [
+    "chapter_number",
+    "overlay_version",
+    "mission",
+    "chapter_turn"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "chapter_number": { "type": "integer", "minimum": 1 },
+    "scene_number": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Present on overlays; omitted on base."
+    },
+    "overlay_version": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "0 on the base packet; increments with each overlay that composes the base."
+    },
+    "mission": { "type": "string" },
+    "chapter_turn": { "type": "string" },
+    "pressure_ladder": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["scene_number", "label"],
+        "properties": {
+          "scene_number": { "type": "integer" },
+          "label": { "type": "string" },
+          "note": { "type": "string" }
+        }
+      }
+    },
+    "pov_arc_pressure": {
+      "type": "object",
+      "properties": {
+        "pov_character": { "type": "string" },
+        "arc_phase": { "type": "string" },
+        "pressure_note": { "type": "string" }
+      }
+    },
+    "next_scene_obligations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "kind": { "type": "string" },
+          "note": { "type": "string" }
+        }
+      }
+    },
+    "active_promises": {
+      "type": "array",
+      "description": "Populated by Slice 3 (promise ledger); empty for Slice 2.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "promise_id": { "type": "string" },
+          "setup_scene": { "type": "string" },
+          "due_by_scene": { "type": "string" },
+          "status": { "type": "string" }
+        }
+      }
+    },
+    "reveal_deadlines": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "revelation_id": { "type": "string" },
+          "due_by_scene": { "type": "string" },
+          "status": { "type": "string" }
+        }
+      }
+    },
+    "canon_slices": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "title": { "type": "string" },
+          "body": { "type": "string" },
+          "source": { "type": "string" }
+        }
+      }
+    },
+    "relationship_context": {
+      "type": "object",
+      "description": "Populated by Slice 5 (sociogram); empty for Slice 2.",
+      "additionalProperties": true
+    },
+    "exit_vector": {
+      "type": "object",
+      "properties": {
+        "closing_hook": { "type": "string" },
+        "next_scene_setup": { "type": "string" }
+      }
+    },
+    "trusted_state_gap_notes": {
+      "type": "array",
+      "description": "Open gap_notes (from Slice 1 StateFirewall) that affect this chapter. Overlay filters to gaps whose isolated_scene or affected_scenes intersect the current chapter.",
+      "items": {
+        "type": "object",
+        "required": ["gap_id", "isolated_scene", "blocker_categories", "affected_scenes", "status"],
+        "properties": {
+          "gap_id": { "type": "string" },
+          "isolated_scene": { "type": "string" },
+          "blocker_categories": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "affected_scenes": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "created_at": { "type": "string" },
+          "status": {
+            "enum": ["open", "resolved", "overruled"]
+          }
+        }
+      }
+    },
+    "exemplar_snippets": {
+      "type": "array",
+      "description": "Optional voice-exemplar prose snippets pulled from voice.json.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": { "type": "string" },
+          "text": { "type": "string" }
+        }
+      }
+    },
+    "anti_exemplar_snippets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": { "type": "string" },
+          "text": { "type": "string" }
+        }
+      }
+    },
+    "continuity_events": {
+      "type": "array",
+      "description": "Populated by Slice 4 (continuity log); empty for Slice 2.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "event_id": { "type": "string" },
+          "event_type": { "type": "string" },
+          "confidence": { "type": "number" },
+          "summary": { "type": "string" }
+        }
+      }
+    },
+    "scene_card": {
+      "type": "object",
+      "description": "Copy of the current scene card; present on overlays.",
+      "additionalProperties": true
+    },
+    "rendered_markdown": {
+      "type": "string",
+      "description": "Cached markdown render of the packet; produced by ChapterPacket.render_markdown()."
+    }
+  }
+}

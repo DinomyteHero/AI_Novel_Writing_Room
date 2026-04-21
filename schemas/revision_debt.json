@@ -1,0 +1,70 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "RevisionDebtEntry",
+  "description": "Single row in the revision-debt store. Every structured advisory produced by the pipeline (CanonExpert, GateCritic, FinalGate, MetricsDashboard, PresenceChecker near-misses, compression guard, word-count telemetry, StateFirewall, SceneReviewer) writes one of these. The category enum is closed: adding a new category requires a schema bump. See docs/architecture/architecture_upgrade_spec.md \u00a76.2.",
+  "type": "object",
+  "required": ["debt_id", "created_at", "producer", "scope", "category", "severity", "status"],
+  "additionalProperties": false,
+  "properties": {
+    "debt_id": {
+      "type": "string",
+      "description": "Stable identifier like debt_YYYYMMDD_chNN_scMM_<producer>_<short>."
+    },
+    "created_at": { "type": "string", "format": "date-time" },
+    "producer": {
+      "type": "string",
+      "description": "Which pipeline component wrote the row. One of: canon_expert, gate_critic, final_gate, quality_metrics, presence_checker, state_firewall, word_count_telemetry, compression_guard, scene_reviewer."
+    },
+    "scope": {
+      "type": "object",
+      "required": ["level"],
+      "additionalProperties": false,
+      "properties": {
+        "level": { "enum": ["scene", "chapter", "act", "manuscript"] },
+        "chapter_number": { "type": "integer" },
+        "scene_number": { "type": "integer" },
+        "scene_id": { "type": "string" }
+      }
+    },
+    "category": {
+      "enum": [
+        "canon",
+        "canon_fix_rejected",
+        "editorial.gate_advisory",
+        "editorial.final_gate_advisory",
+        "editorial.scene_reviewer",
+        "editorial.other",
+        "editorial.canon_polish_drift",
+        "metric",
+        "presence_near_miss",
+        "blocker_record",
+        "wordcount_drift",
+        "compression_advisory"
+      ],
+      "description": "Closed set. Adding a new category requires a schema bump + store.CATEGORIES update."
+    },
+    "severity": { "enum": ["low", "medium", "high"] },
+    "summary": {
+      "type": "string",
+      "description": "One-line human summary. Required for UI/CLI listing."
+    },
+    "details": {
+      "type": "object",
+      "description": "Structured payload specific to the producer (failure codes, metric names, fix_from/fix_to, etc.).",
+      "additionalProperties": true
+    },
+    "fix_scope": {
+      "enum": ["local", "scene", "chapter", "manuscript"],
+      "description": "Suggested smallest unit of revision to address the debt."
+    },
+    "status": {
+      "enum": ["open", "deferred", "resolved", "overruled"]
+    },
+    "resolved_at": { "type": "string", "format": "date-time" },
+    "resolution_notes": { "type": "string" },
+    "owner_or_reviewer_notes": {
+      "type": "string",
+      "description": "Human-only field. No agent writes to this."
+    }
+  }
+}

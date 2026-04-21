@@ -53,7 +53,14 @@ EVENT_TYPES = [
     # Payload shapes are documented in docs/architecture/architecture_upgrade_spec.md §11.4.
     "scene_isolated",          # error — StateFirewall isolates a scene
     "gap_note_recorded",       # warn  — gap row written to SQLite
+    "gap_note_resolved",       # info  — gap resolved via patch workflow
     "phase0_audit_emitted",    # info  — audit_phase0.py completed
+    # Architecture upgrade Slice 2: chapter packet + revision debt.
+    "packet_base_compiled",    # info  — ChapterPacketCompiler.compile_base done
+    "packet_overlay_written",  # info  — per-scene overlay built (carries overlay_version)
+    "packet_fallback_flat",    # warn  — packet compilation raised; fell back to flat assembly
+    "revision_debt_added",     # info  — new debt row
+    "revision_debt_updated",   # info  — debt status changed
 ]
 
 
