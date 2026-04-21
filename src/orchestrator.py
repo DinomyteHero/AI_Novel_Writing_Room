@@ -27,7 +27,7 @@ Phase 4 additions (when dependencies provided):
 import json
 import time
 from pathlib import Path
-from typing import Callable, Optional, TYPE_CHECKING
+from typing import Any, Callable, Optional, TYPE_CHECKING
 
 from src.agents.final_gate import FinalGate
 from src.agents.gate_critic import GateCritic
@@ -49,6 +49,8 @@ if TYPE_CHECKING:
     from src.memory.contradiction_scanner import ContradictionScanner
     from src.memory.state_diff import StateDiffApplier
     from src.memory.story_state import StoryState
+    from src.pipeline.chapter_packet import ChapterPacketCompiler
+    from src.pipeline.revision_debt import RevisionDebtStore
     from src.quality.metrics_dashboard import MetricsDashboard
     from src.quality.milestone_gates import MilestoneGates
     from src.planning.physics_enforcer import PhysicsEnforcer
@@ -111,6 +113,13 @@ class Orchestrator:
         # None defers to config/settings.yaml defaults (firewall off → run
         # aborts on blocker, preserving pre-Slice-1 behavior).
         runtime_flags: Optional[dict] = None,
+        # Architecture upgrade Slice 2: chapter packet + revision debt.
+        # Both default None → flag-off path (no packet compilation, advisories
+        # stay ledger-only). When runtime.chapter_packet.enabled is true the
+        # caller must supply chapter_packet_compiler; otherwise packet flag is
+        # ignored (fallback to flat assembly). Same for revision_debt_store.
+        chapter_packet_compiler: Optional["ChapterPacketCompiler"] = None,
+        revision_debt_store: Optional["RevisionDebtStore"] = None,
     ):
         self.router = router
         self.assembler = context_assembler
@@ -168,6 +177,35 @@ class Orchestrator:
         # high-severity lore_conflicts flags on the scene result so callers
         # can treat them as failures.
         self._strict_lore = strict_lore
+
+        # Architecture upgrade Slice 2 — chapter packet + revision debt.
+        # Both stay dormant unless runtime.chapter_packet.enabled /
+        # runtime.revision_debt.enabled is true AND the caller supplies the
+        # corresponding collaborator. Bases are cached per chapter_number so
+        # overlay compilation per scene is cheap (base immutable).
+        self.chapter_packet_compiler = chapter_packet_compiler
+        self.revision_debt_store = revision_debt_store
+        self._chapter_packet_bases: dict[int, Any] = {}
+        packet_cfg = self.runtime_flags.get("runtime", {}).get("chapter_packet", {})
+        self._chapter_packet_enabled = bool(
+            packet_cfg.get("enabled", False) and self.chapter_packet_compiler is not None
+        )
+        self._chapter_packet_fallback_on_error = bool(
+            packet_cfg.get("fallback_on_error", True)
+        )
+        self._revision_debt_enabled = bool(
+            self.runtime_flags.get("runtime", {}).get("revision_debt", {}).get("enabled", False)
+            and self.revision_debt_store is not None
+        )
+        # Active store reference used by producers — None when the flag is off
+        # so wrappers short-circuit even when a store is attached for inspection.
+        self._active_debt_store = (
+            self.revision_debt_store if self._revision_debt_enabled else None
+        )
+        # Persistence path for compiled packets: <run_dir>/chapter_packets/.
+        # <run_dir> = parent of manuscripts_dir (chapters/). Matches the
+        # existing quarantine_dir placement convention.
+        self._packets_dir = self.manuscripts_dir.parent / "chapter_packets"
 
         # Architecture upgrade Slice 1 — Phase 0 prompt capture.
         # When runtime.phase0_audit.enabled is on, instantiate a snapshot
@@ -242,13 +280,29 @@ class Orchestrator:
             emit_chapter_word_count_telemetry,
         )
         try:
-            emit_chapter_word_count_telemetry(
+            telemetry_payload = emit_chapter_word_count_telemetry(
                 self.ledger,
                 chapter_number=chapter_num,
                 chapter_results=ch_results,
                 franchise_slug=self._universe_id,
                 book_slug=self._project_id,
             )
+            # Slice 2: debt row when drift exceeds the info band (|pct| > 15).
+            # Noop when flag off.
+            drift = telemetry_payload.get("drift_fraction")
+            target = telemetry_payload.get("target_word_count")
+            actual = telemetry_payload.get("actual_word_count")
+            if drift is not None and target and abs(drift) > 0.15:
+                from src.pipeline.revision_debt_producers import emit_wordcount_drift
+
+                emit_wordcount_drift(
+                    self._active_debt_store,
+                    ledger=self.ledger,
+                    scope={"level": "chapter", "chapter_number": chapter_num},
+                    target=int(target),
+                    actual=int(actual or 0),
+                    pct_drift=float(drift) * 100.0,
+                )
         except Exception as e:
             # Telemetry failure must never block chapter completion.
             print(
@@ -477,13 +531,27 @@ class Orchestrator:
         brief = None  # Pre-save state; the caller's brief is not currently
         # captured on the SaveBlockedError. Slice 6's patch workflow will
         # hydrate this by reading quarantine/brief.json.
-        return firewall.handle_blocker(
+        decision = firewall.handle_blocker(
             scene_card=scene_card,
             prose="",  # already persisted by write_quarantine before raise
             brief=brief,
             blockers=blockers,
             subsequent_scenes=subsequent,
         )
+        # Slice 2: persist a high-severity blocker_record row. Noop when flag off.
+        from src.pipeline.revision_debt_producers import emit_blocker_record
+        emit_blocker_record(
+            self._active_debt_store,
+            ledger=self.ledger,
+            scope={
+                "level": "scene",
+                "chapter_number": chapter_num,
+                "scene_number": int(scene_card.get("scene_number", 1)),
+            },
+            blocker_categories=[getattr(b, "code", str(b)) for b in blockers],
+            gap_id=getattr(decision, "gap_id", None),
+        )
+        return decision
 
     async def run_chapter(self, scene_card: dict) -> dict:
         """Run the full pipeline for a single scene card."""
@@ -576,6 +644,26 @@ class Orchestrator:
             if quality_metrics["flags"]:
                 for flag in quality_metrics["flags"][:5]:
                     print(f"    - {flag}")
+            # Slice 2: one debt row per quality flag. Noop when flag off.
+            from src.pipeline.revision_debt_producers import emit_metric_advisory
+            scope = {
+                "level": "scene",
+                "chapter_number": chapter_num,
+                "scene_number": scene_num,
+            }
+            for flag in quality_metrics.get("flags", []) or []:
+                emit_metric_advisory(
+                    self._active_debt_store,
+                    ledger=self.ledger,
+                    scope=scope,
+                    metric_name=str(flag)[:60],
+                    value=float(quality_metrics.get("overall_score", 0.0)),
+                    threshold=float(
+                        quality_metrics.get("threshold", 0.0) or 0.0
+                    ),
+                    bands_over=0,
+                    details={"flag": str(flag)},
+                )
             # Accumulate overused words for dynamic Prose Stylist constraints
             if not hasattr(self, "_chapter_overused_words"):
                 self._chapter_overused_words = set()
@@ -638,6 +726,22 @@ class Orchestrator:
                         "advisory_only": True,
                     },
                 )
+                # Slice 2: structured advisory row. Noop when flag off.
+                from src.pipeline.revision_debt_producers import (
+                    emit_compression_advisory,
+                )
+                emit_compression_advisory(
+                    self._active_debt_store,
+                    ledger=self.ledger,
+                    scope={
+                        "level": "scene",
+                        "chapter_number": chapter_num,
+                        "scene_number": scene_num,
+                    },
+                    pre_polish_words=gate_passed_wc,
+                    post_polish_words=polished_wc,
+                    ratio=polished_wc / gate_passed_wc if gate_passed_wc else 0.0,
+                )
 
             # Final Gate — Stage 1c of the relay refactor.
             # Runs as telemetry. Its verdict is logged but does NOT control the
@@ -665,6 +769,22 @@ class Orchestrator:
                         "advisory_only": True,
                     },
                 )
+                # Slice 2: one debt row per failure code.
+                from src.pipeline.revision_debt_producers import (
+                    emit_final_gate_advisory,
+                )
+                scope = {
+                    "level": "scene",
+                    "chapter_number": chapter_num,
+                    "scene_number": scene_num,
+                }
+                for fc in final_gate_result.get("failure_codes", []):
+                    emit_final_gate_advisory(
+                        self._active_debt_store,
+                        ledger=self.ledger,
+                        scope=scope,
+                        failure=fc,
+                    )
             else:
                 print("    Final Gate: pass")
                 self.ledger.emit(
@@ -699,6 +819,27 @@ class Orchestrator:
                         "violation_count": n_violations,
                     },
                 )
+                # Slice 2: one debt row per canon advisory/violation. Noop when flag off.
+                from src.pipeline.revision_debt_producers import emit_canon_advisory
+                scope = {
+                    "level": "scene",
+                    "chapter_number": chapter_num,
+                    "scene_number": scene_num,
+                }
+                for advisory in continuity_report.get("advisory_notes", []) or []:
+                    emit_canon_advisory(
+                        self._active_debt_store,
+                        ledger=self.ledger,
+                        scope=scope,
+                        advisory=advisory,
+                    )
+                for violation in continuity_report.get("violations", []) or []:
+                    emit_canon_advisory(
+                        self._active_debt_store,
+                        ledger=self.ledger,
+                        scope=scope,
+                        advisory=violation,
+                    )
             except Exception as e:
                 print(f"    Continuity editor: error ({e.__class__.__name__}) — skipping")
                 continuity_report = None
@@ -1190,6 +1331,116 @@ class Orchestrator:
 
         return brief
 
+    # ------------------------------------------------------------------
+    # Slice 2 chapter-packet helpers. When the flag is off these are no-ops
+    # that return None and the drafter path falls back to flat assembly.
+    # ------------------------------------------------------------------
+    def _maybe_compile_base(self, chapter_number: int) -> None:
+        """Build and persist the per-chapter packet base on first entry.
+
+        Idempotent: subsequent scenes in the same chapter reuse the cached
+        base. Safe to call unconditionally — guarded by the enabled flag.
+        """
+        if not self._chapter_packet_enabled:
+            return
+        if chapter_number in self._chapter_packet_bases:
+            return
+        try:
+            base = self.chapter_packet_compiler.compile_base(chapter_number=chapter_number)
+        except Exception as exc:  # noqa: BLE001
+            self.ledger.emit_warn(
+                "packet_fallback_flat",
+                chapter_number=chapter_number,
+                payload={"stage": "compile_base", "error": f"{type(exc).__name__}: {exc}"},
+            )
+            if not self._chapter_packet_fallback_on_error:
+                raise
+            return
+
+        self._chapter_packet_bases[chapter_number] = base
+
+        # Persist the base so debug/inspection has a single inspectable
+        # contract per chapter (spec §6.1.1). Non-fatal on IO errors.
+        try:
+            self._packets_dir.mkdir(parents=True, exist_ok=True)
+            path = self._packets_dir / f"chapter_{chapter_number:02d}.json"
+            path.write_text(json.dumps(base.to_json(), indent=2), encoding="utf-8")
+        except Exception:  # noqa: BLE001
+            pass
+
+        rendered = base.render_markdown()
+        token_count = len(rendered.split())
+        self.ledger.emit_info(
+            "packet_base_compiled",
+            chapter_number=chapter_number,
+            payload={"chapter_number": chapter_number, "token_count": token_count},
+        )
+
+    def _maybe_compile_overlay(self, scene_card: dict) -> Optional[dict]:
+        """Compile the per-scene overlay packet. Returns a dict (packet.to_json
+        plus rendered_markdown) or None when the flag is off or fallback fired.
+        """
+        if not self._chapter_packet_enabled:
+            return None
+        chapter_number = scene_card.get("chapter_number")
+        if chapter_number is None:
+            return None
+        self._maybe_compile_base(chapter_number)
+        base = self._chapter_packet_bases.get(chapter_number)
+        if base is None:
+            # compile_base fell back; overlay cannot proceed.
+            return None
+        scene_number = scene_card.get("scene_number", 1)
+        try:
+            overlay = self.chapter_packet_compiler.compile_overlay(
+                base=base,
+                scene_card=scene_card,
+                trusted_state_snapshot={
+                    "chapter_number": chapter_number,
+                    "scene_number": scene_number,
+                },
+            )
+        except Exception as exc:  # noqa: BLE001
+            self.ledger.emit_warn(
+                "packet_fallback_flat",
+                chapter_number=chapter_number,
+                scene_number=scene_number,
+                payload={
+                    "stage": "compile_overlay",
+                    "error": f"{type(exc).__name__}: {exc}",
+                },
+            )
+            if not self._chapter_packet_fallback_on_error:
+                raise
+            return None
+
+        try:
+            self._packets_dir.mkdir(parents=True, exist_ok=True)
+            path = (
+                self._packets_dir
+                / f"chapter_{chapter_number:02d}_sc_{scene_number:02d}_overlay.json"
+            )
+            path.write_text(json.dumps(overlay.to_json(), indent=2), encoding="utf-8")
+        except Exception:  # noqa: BLE001
+            pass
+
+        rendered = overlay.rendered_markdown or overlay.render_markdown()
+        token_count = len(rendered.split())
+        self.ledger.emit_info(
+            "packet_overlay_written",
+            chapter_number=chapter_number,
+            scene_number=scene_number,
+            payload={
+                "chapter_number": chapter_number,
+                "scene_number": scene_number,
+                "overlay_version": overlay.overlay_version,
+                "token_count": token_count,
+            },
+        )
+        payload = overlay.to_json()
+        payload["rendered_markdown"] = rendered
+        return payload
+
     async def _run_prose_stylist(
         self,
         scene_card: dict,
@@ -1210,6 +1461,14 @@ class Orchestrator:
 
         assembled_context = self.assembler.assemble(scene_card)
 
+        # Slice 2: build the chapter packet overlay for this scene when the
+        # flag is on. The packet renderer embeds a flat-context snapshot so
+        # the drafter prompt remains a token-superset of the legacy flat path.
+        # On any failure, emit packet_fallback_flat and fall back to
+        # assembled_context — runtime.chapter_packet.fallback_on_error gates
+        # whether a raise bubbles up when fallback is not wanted.
+        chapter_packet = self._maybe_compile_overlay(scene_card)
+
         # Build dynamic cross-scene feedback. The base banned-phrase list
         # from config/negative_constraints.yaml is already baked into
         # assembled_context — we only build the *dynamic* addendum here.
@@ -1228,7 +1487,7 @@ class Orchestrator:
                 )
         dynamic_feedback = "\n\n".join(dynamic_parts)
 
-        result = await self.prose_stylist.run({
+        prose_context = {
             "generation_brief": generation_brief,
             "assembled_context": assembled_context,
             "dynamic_feedback": dynamic_feedback,
@@ -1236,7 +1495,13 @@ class Orchestrator:
             "scene_card": scene_card,
             "pov_approach": self.assembler.get_pov_approach(),
             "franchise_profile_text": self.assembler.get_franchise_profile_text(),
-        })
+        }
+        if chapter_packet is not None:
+            # Only attach when the overlay compiled cleanly. The absence of
+            # this key is the signal to ProseStylist._format_context to use
+            # the flat assembled_context path (spec §6.1.4 precedence rule).
+            prose_context["chapter_packet"] = chapter_packet
+        result = await self.prose_stylist.run(prose_context)
 
         duration_ms = int((time.time() - start) * 1000)
         self.ledger.emit(
@@ -1453,6 +1718,24 @@ class Orchestrator:
             print(f"    Gate: {verdict} | structural={s_score:.2f} voice={v_score:.2f} polish={p_score:.2f} | {', '.join(fc_codes)} (advisory — no retry)")
         else:
             print(f"    Gate: {verdict} | structural={s_score:.2f} voice={v_score:.2f} polish={p_score:.2f}")
+
+        # Slice 2: one debt row per non_blocking failure code. Noop when flag off.
+        from src.pipeline.revision_debt_producers import emit_gate_critic_advisory
+        scope = {
+            "level": "scene",
+            "chapter_number": chapter_num,
+            "scene_number": scene_num,
+        }
+        for fc in evaluation.get("failure_codes", []) or []:
+            # Gate critic emits three severities {blocker, non_blocking, advisory}.
+            # Only non-pass verdicts with structured codes need rows; severity
+            # mapping happens in the producer wrapper.
+            emit_gate_critic_advisory(
+                self._active_debt_store,
+                ledger=self.ledger,
+                scope=scope,
+                failure=fc,
+            )
 
         # Forward-only: always return the original prose regardless of verdict.
         return evaluation, prose

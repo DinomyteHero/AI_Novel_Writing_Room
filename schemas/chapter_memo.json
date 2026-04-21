@@ -1,0 +1,106 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ChapterCloseOrMilestoneMemo",
+  "description": "Synthesis of revision debt, gap notes, promise status, and quality-metric advisories at chapter close or cross-chapter milestones. Written to output/<franchise>/<book>/runs/<run_id>/memos/. See docs/architecture/architecture_upgrade_spec.md \u00a76.3.",
+  "type": "object",
+  "required": ["kind", "generated_at", "debt_summary", "human_attention_items"],
+  "additionalProperties": false,
+  "properties": {
+    "kind": {
+      "enum": ["chapter_close", "milestone"]
+    },
+    "chapter_number": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Present on chapter_close memos."
+    },
+    "through_chapter": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Present on milestone memos; inclusive upper chapter bound."
+    },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "debt_summary": {
+      "type": "object",
+      "required": ["counts_by_category", "counts_by_severity", "open_debt_ids"],
+      "additionalProperties": false,
+      "properties": {
+        "counts_by_category": {
+          "type": "object",
+          "additionalProperties": { "type": "integer" }
+        },
+        "counts_by_severity": {
+          "type": "object",
+          "additionalProperties": { "type": "integer" }
+        },
+        "open_debt_ids": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "debt_trend": {
+      "type": "array",
+      "description": "Milestone-only: per-chapter counts by severity.",
+      "items": {
+        "type": "object",
+        "required": ["chapter_number", "counts_by_severity"],
+        "properties": {
+          "chapter_number": { "type": "integer" },
+          "counts_by_severity": {
+            "type": "object",
+            "additionalProperties": { "type": "integer" }
+          }
+        }
+      }
+    },
+    "gap_notes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "gap_id": { "type": "string" },
+          "isolated_scene": { "type": "string" },
+          "blocker_categories": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "affected_scenes": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "status": { "type": "string" }
+        }
+      }
+    },
+    "gap_resolution_rate": {
+      "type": "number",
+      "description": "Milestone-only: fraction of total gaps that are resolved/overruled."
+    },
+    "open_gap_count": { "type": "integer" },
+    "pending_promises": {
+      "type": "array",
+      "description": "Slice 3 populates. Empty list is valid.",
+      "items": { "type": "object" }
+    },
+    "presence_near_misses": { "type": "integer" },
+    "compression_events": { "type": "integer" },
+    "word_count_drift": {
+      "type": "object",
+      "properties": {
+        "events": { "type": "integer" },
+        "max_abs_pct": { "type": "number" }
+      }
+    },
+    "recommended_review_chapters": {
+      "type": "array",
+      "description": "Milestone-only: chapters the reviewer suggests auditing first.",
+      "items": { "type": "integer" }
+    },
+    "human_attention_items": {
+      "type": "array",
+      "description": "Pre-formatted markdown bullets, synthesized from debt + gaps for human review.",
+      "items": { "type": "string" }
+    }
+  }
+}

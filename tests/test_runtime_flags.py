@@ -218,3 +218,60 @@ def test_shipping_books_keep_firewall_off(book_slug: str):
         f"{book_slug} must keep runtime.firewall.successor_classifier.enabled=false "
         "until its parity test approves the flip"
     )
+
+
+# --- Slice 2 shipping-book protection ----------------------------------------
+
+
+@pytest.mark.parametrize("book_slug", [
+    "the-ruusan-atonement",
+    "legacy-of-the-force-betrayal",
+])
+def test_shipping_books_keep_chapter_packet_off(book_slug: str):
+    """Spec §6.8 + §11.6.3: Ruusan and Betrayal must keep
+    runtime.chapter_packet.enabled=false until their per-book parity tests
+    approve the flip. An accidental override dropped under either book dir
+    trips this guard so the prose-path flag cannot silently flip.
+    """
+    import json
+    seed_path = Path(
+        f"data/franchises/star-wars-legends-eu/books/{book_slug}/concept_seed.json"
+    )
+    if not seed_path.exists():
+        pytest.skip(f"seed not present: {seed_path}")
+    with seed_path.open(encoding="utf-8") as fh:
+        seed = json.load(fh)
+
+    merged = load_runtime_flags(concept_seed=seed)
+    cp = merged["runtime"]["chapter_packet"]
+    assert cp["enabled"] is False, (
+        f"{book_slug} must keep runtime.chapter_packet.enabled=false until "
+        "the per-book parity test approves the flip (spec §6.8, §11.6.3)"
+    )
+    # fallback_on_error is not a safety flag but a degradation policy; assert
+    # the safe default (true) stays intact so an accidental override that
+    # enables packet mode still falls back to flat on error.
+    assert cp["fallback_on_error"] is True
+
+
+@pytest.mark.parametrize("book_slug", [
+    "the-ruusan-atonement",
+    "legacy-of-the-force-betrayal",
+])
+def test_shipping_books_keep_revision_debt_off(book_slug: str):
+    """Spec §6.8: revision_debt is safe-off until the book-scoped SQLite
+    migration has run and a parity test confirms no behavioral change."""
+    import json
+    seed_path = Path(
+        f"data/franchises/star-wars-legends-eu/books/{book_slug}/concept_seed.json"
+    )
+    if not seed_path.exists():
+        pytest.skip(f"seed not present: {seed_path}")
+    with seed_path.open(encoding="utf-8") as fh:
+        seed = json.load(fh)
+
+    merged = load_runtime_flags(concept_seed=seed)
+    assert merged["runtime"]["revision_debt"]["enabled"] is False, (
+        f"{book_slug} must keep runtime.revision_debt.enabled=false until a "
+        "parity test and the SQLite migration approve the flip"
+    )
