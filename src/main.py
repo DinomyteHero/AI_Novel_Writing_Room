@@ -616,6 +616,17 @@ async def main():
         help="Run LLM-as-judge evaluation after generation",
     )
     parser.add_argument(
+        "--runtime-flag",
+        action="append",
+        default=None,
+        metavar="KEY=VALUE",
+        help=(
+            "Override a runtime flag (architecture upgrade, Slice 1+). "
+            "Use dotted keys, e.g. --runtime-flag runtime.firewall.enabled=true. "
+            "May be repeated. See docs/architecture/architecture_upgrade_spec.md §4.2."
+        ),
+    )
+    parser.add_argument(
         "--franchise",
         default=None,
         dest="franchise",
@@ -1150,6 +1161,14 @@ async def main():
     elif pipeline_session and args.phase >= 4:
         session_id = args.session_id or pipeline_session.generate_session_id()
 
+    # Architecture upgrade Slice 1: resolve runtime flags (settings.yaml
+    # + optional per-franchise / per-book overrides + --runtime-flag CLI).
+    from src.runtime_flags import load_runtime_flags as _load_runtime_flags
+    runtime_flags = _load_runtime_flags(
+        concept_seed=concept_seed,
+        cli_overrides=getattr(args, "runtime_flag", None),
+    )
+
     orchestrator = Orchestrator(
         router=router,
         context_assembler=assembler,
@@ -1157,6 +1176,7 @@ async def main():
         manuscripts_dir=manuscripts_dir,
         max_structural_retries=pipeline_cfg.get("max_structural_retries", 3),
         max_voice_retries=pipeline_cfg.get("max_voice_retries", 2),
+        runtime_flags=runtime_flags,
         summarizer=summarizer,
         state_diff_applier=state_diff_applier,
         contradiction_scanner=contradiction_scanner,
@@ -1264,6 +1284,31 @@ async def main():
                 f"{r['word_count']:,} words, status={status}"
                 f"{flag_str}{quality_str}{char_str}{judge_str}"
             )
+
+        # Architecture upgrade Slice 1: surface open gap notes from the
+        # state firewall. Runs regardless of whether the firewall flag was
+        # on — an open gap from an earlier run still deserves attention.
+        if story_state is not None:
+            try:
+                open_gaps = story_state.list_open_gaps()
+            except Exception:  # noqa: BLE001 -- pre-migration DBs gracefully skip
+                open_gaps = []
+            if open_gaps:
+                print(f"\nOpen state-firewall gaps: {len(open_gaps)}")
+                for g in open_gaps:
+                    cats = ", ".join(g.get("blocker_categories", [])) or "unspecified"
+                    affected = g.get("affected_scenes", [])
+                    affected_str = (
+                        f" affects={len(affected)} scene(s)" if affected else ""
+                    )
+                    print(
+                        f"  {g['gap_id']}  isolated={g['isolated_scene']}  "
+                        f"categories=[{cats}]{affected_str}"
+                    )
+                print(
+                    "  Resolve via scripts/patch_workflow.py "
+                    "(landing in Slice 6) or hand-fix the quarantined scene."
+                )
 
         # Phase 4: Export after pipeline
         if args.export and export_manager:

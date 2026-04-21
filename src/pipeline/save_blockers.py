@@ -14,7 +14,10 @@ write. Three blocker categories:
 
 A non-empty blocker list causes the orchestrator to write the offending
 scene's prose + blocker report to the project's quarantine directory and
-raise ``SaveBlockedError``, which aborts the whole run.
+raise ``SaveBlockedError``. Whether that aborts the whole run is gated by
+``runtime.firewall.enabled`` via :func:`should_abort_run` — Slice 1 of the
+architecture upgrade introduced the :class:`~src.pipeline.state_firewall.StateFirewall`
+that isolates the scene and continues when the flag is on.
 """
 
 from __future__ import annotations
@@ -260,3 +263,23 @@ def write_quarantine(
         )
 
     return scene_dir
+
+
+def should_abort_run(runtime_flags: dict | None) -> bool:
+    """Return True when a save-blocker should abort the whole run.
+
+    The opposite of ``runtime.firewall.enabled``. When the firewall is off
+    (default), the orchestrator preserves the pre-Slice-1 behavior of
+    aborting on first blocker. When the firewall is on, the orchestrator
+    routes through :class:`~src.pipeline.state_firewall.StateFirewall` to
+    isolate the scene and decide continuation per the successor classifier.
+    """
+    if not isinstance(runtime_flags, dict):
+        return True
+    runtime = runtime_flags.get("runtime")
+    if not isinstance(runtime, dict):
+        return True
+    firewall = runtime.get("firewall")
+    if not isinstance(firewall, dict):
+        return True
+    return not bool(firewall.get("enabled", False))

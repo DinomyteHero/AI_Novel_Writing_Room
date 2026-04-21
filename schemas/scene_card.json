@@ -84,6 +84,11 @@
     "arc_phase_transition": {
       "type": "string",
       "description": "If this scene triggers a phase change, the new phase"
+    },
+    "depends_on": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^ch\\d{2}_sc\\d{2}$" },
+      "description": "Scene IDs (format chNN_scMM) that this scene directly depends on. Used by SuccessorClassifier (src/pipeline/successor_classifier.py) to classify this scene as an immediate-sequel soft-halt when any listed predecessor is isolated by the state firewall. Authors set this manually; no auto-inference in v1. Optional — missing means classifier falls through to heuristic rules."
     }
   }
 }

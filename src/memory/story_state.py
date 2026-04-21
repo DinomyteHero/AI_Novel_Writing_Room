@@ -14,6 +14,7 @@ import json
 import logging
 import re
 import sqlite3
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Optional
 
@@ -292,6 +293,25 @@ CREATE TABLE IF NOT EXISTS schema_migrations (
     applied_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     description TEXT
 );
+
+-- Architecture upgrade Slice 1: state-firewall gap notes. Each row records a
+-- scene isolated by the firewall because a save-blocker fired, plus the
+-- downstream scenes that must treat its referenced facts as unknown. The v6→v7
+-- migration creates this table on existing DBs; fresh DBs pick it up here.
+CREATE TABLE IF NOT EXISTS gap_notes (
+    gap_id TEXT PRIMARY KEY,
+    isolated_scene TEXT NOT NULL,
+    blocker_categories TEXT NOT NULL,
+    created_at TEXT NOT NULL,
+    affected_scenes TEXT NOT NULL,
+    status TEXT NOT NULL CHECK(status IN ('open','resolved','overruled')),
+    resolved_by TEXT,
+    resolved_at TEXT,
+    resolution_notes TEXT
+);
+
+CREATE INDEX IF NOT EXISTS idx_gap_notes_status ON gap_notes(status);
+CREATE INDEX IF NOT EXISTS idx_gap_notes_isolated_scene ON gap_notes(isolated_scene);
 """
 
 
@@ -671,6 +691,31 @@ def _migrate_v5_to_v6(conn: sqlite3.Connection) -> None:
     """)
 
 
+def _migrate_v6_to_v7(conn: sqlite3.Connection) -> None:
+    """Architecture upgrade Slice 1: add gap_notes table + indexes.
+
+    The table records state-firewall isolations so downstream scenes can be
+    told via the chapter packet overlay (Slice 2) that the predecessor's
+    facts are not trusted continuity. Idempotent via CREATE IF NOT EXISTS.
+    """
+    conn.executescript("""
+    CREATE TABLE IF NOT EXISTS gap_notes (
+        gap_id TEXT PRIMARY KEY,
+        isolated_scene TEXT NOT NULL,
+        blocker_categories TEXT NOT NULL,
+        created_at TEXT NOT NULL,
+        affected_scenes TEXT NOT NULL,
+        status TEXT NOT NULL CHECK(status IN ('open','resolved','overruled')),
+        resolved_by TEXT,
+        resolved_at TEXT,
+        resolution_notes TEXT
+    );
+
+    CREATE INDEX IF NOT EXISTS idx_gap_notes_status ON gap_notes(status);
+    CREATE INDEX IF NOT EXISTS idx_gap_notes_isolated_scene ON gap_notes(isolated_scene);
+    """)
+
+
 # Ordered list of migrations. Each entry is (version, description, callable).
 _MIGRATIONS: list[tuple[int, str, callable]] = [
     (2, "Phase 5: character arcs, subplot board, hook ledger, terminology, propagation debts, style fingerprint", _migrate_v1_to_v2),
@@ -678,6 +723,7 @@ _MIGRATIONS: list[tuple[int, str, callable]] = [
     (4, "Expand character_arcs.current_phase for all arc types", _migrate_v3_to_v4),
     (5, "Pipeline redesign: retire craft_edited/revised; add polished and final_gate_rejected", _migrate_v4_to_v5),
     (6, "Relay v3: collapse revision_status to saved_clean/saved_with_advisory/quarantined", _migrate_v5_to_v6),
+    (7, "Architecture upgrade Slice 1: gap_notes table for state-firewall isolations", _migrate_v6_to_v7),
 ]
 
 
@@ -2296,6 +2342,128 @@ class StoryState:
             counts["guns"] += 1
 
         return counts
+
+    # ------------------------------------------------------------------
+    # Gap notes (Slice 1: state firewall)
+    # ------------------------------------------------------------------
+
+    def record_gap(self, gap: dict) -> str:
+        """Insert a gap-note row and return its ``gap_id``.
+
+        Required keys in ``gap``:
+          - ``gap_id``: stable identifier (caller-supplied, e.g. ``gap_YYYYMMDD_chNN_scMM``).
+          - ``isolated_scene``: scene id like ``ch04_sc07``.
+          - ``blocker_categories``: list[str] — copied from the firing blockers.
+          - ``affected_scenes``: list[str] — downstream scenes the firewall routed
+            past; may be empty when the gap was the last scene in its chapter.
+
+        Optional keys:
+          - ``created_at``: ISO-8601 string; defaults to ``datetime.now(timezone.utc).isoformat()``.
+          - ``status``: defaults to ``open``.
+        """
+        import json as _json
+
+        required = {"gap_id", "isolated_scene", "blocker_categories", "affected_scenes"}
+        missing = required - gap.keys()
+        if missing:
+            raise ValueError(f"record_gap missing required keys: {sorted(missing)}")
+
+        created_at = gap.get("created_at") or datetime.now(timezone.utc).isoformat()
+        status = gap.get("status", "open")
+        if status not in ("open", "resolved", "overruled"):
+            raise ValueError(
+                f"record_gap: status must be open|resolved|overruled, got {status!r}"
+            )
+
+        self.conn.execute(
+            """
+            INSERT INTO gap_notes
+                (gap_id, isolated_scene, blocker_categories, created_at,
+                 affected_scenes, status, resolved_by, resolved_at, resolution_notes)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """,
+            (
+                gap["gap_id"],
+                gap["isolated_scene"],
+                _json.dumps(list(gap["blocker_categories"])),
+                created_at,
+                _json.dumps(list(gap["affected_scenes"])),
+                status,
+                gap.get("resolved_by"),
+                gap.get("resolved_at"),
+                gap.get("resolution_notes"),
+            ),
+        )
+        self.conn.commit()
+        return gap["gap_id"]
+
+    def list_open_gaps(self, *, chapter_number: int | None = None) -> list[dict]:
+        """Return open gaps, optionally filtered to those affecting a chapter.
+
+        When ``chapter_number`` is supplied, a gap is returned if the chapter
+        appears in either its ``isolated_scene`` or any of its
+        ``affected_scenes`` (matched via the ``chNN_`` prefix).
+        """
+        rows = self.conn.execute(
+            "SELECT * FROM gap_notes WHERE status = 'open' ORDER BY created_at"
+        ).fetchall()
+        gaps = [self._hydrate_gap_row(r) for r in rows]
+        if chapter_number is None:
+            return gaps
+        prefix = f"ch{chapter_number:02d}_"
+        return [
+            g for g in gaps
+            if g["isolated_scene"].startswith(prefix)
+            or any(s.startswith(prefix) for s in g["affected_scenes"])
+        ]
+
+    def resolve_gap(
+        self, gap_id: str, *, resolved_by: str, notes: str = "",
+    ) -> None:
+        """Mark a gap resolved (or overruled). ``resolved_by`` must match one
+        of the expected patch workflows (``human_patch_accept``, ``human_replace``,
+        ``overrule``) — enforcement is advisory, not schema-level."""
+        status = "overruled" if resolved_by == "overrule" else "resolved"
+        resolved_at = datetime.now(timezone.utc).isoformat()
+        cursor = self.conn.execute(
+            """
+            UPDATE gap_notes
+               SET status = ?, resolved_by = ?, resolved_at = ?, resolution_notes = ?
+             WHERE gap_id = ?
+            """,
+            (status, resolved_by, resolved_at, notes, gap_id),
+        )
+        if cursor.rowcount == 0:
+            raise KeyError(f"resolve_gap: no gap with gap_id={gap_id!r}")
+        self.conn.commit()
+
+    def list_gaps_affecting(self, scene_id: str) -> list[dict]:
+        """Return every gap (any status) whose ``affected_scenes`` contains
+        ``scene_id``. Used by packet overlay compilation (Slice 2)."""
+        import json as _json
+
+        rows = self.conn.execute("SELECT * FROM gap_notes").fetchall()
+        out: list[dict] = []
+        for row in rows:
+            affected = _json.loads(row["affected_scenes"] or "[]")
+            if scene_id in affected:
+                out.append(self._hydrate_gap_row(row))
+        return out
+
+    def _hydrate_gap_row(self, row: sqlite3.Row) -> dict:
+        import json as _json
+
+        return {
+            "gap_id": row["gap_id"],
+            "isolated_scene": row["isolated_scene"],
+            "blocker_categories": _json.loads(row["blocker_categories"] or "[]"),
+            "created_at": row["created_at"],
+            "affected_scenes": _json.loads(row["affected_scenes"] or "[]"),
+            "status": row["status"],
+            "resolved_by": row["resolved_by"],
+            "resolved_at": row["resolved_at"],
+            "resolution_notes": row["resolution_notes"],
+        }
 
     def close(self) -> None:
         """Close the database connection."""

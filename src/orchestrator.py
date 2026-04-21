@@ -107,10 +107,15 @@ class Orchestrator:
         strict_lore: bool = False,
         raw_draft: bool = False,
         skip_gate_loop: bool = False,
+        # Architecture upgrade Slice 1: state-firewall runtime flags.
+        # None defers to config/settings.yaml defaults (firewall off → run
+        # aborts on blocker, preserving pre-Slice-1 behavior).
+        runtime_flags: Optional[dict] = None,
     ):
         self.router = router
         self.assembler = context_assembler
         self.ledger = ledger
+        self.runtime_flags = runtime_flags or {}
         self.manuscripts_dir = Path(manuscripts_dir)
         self.manuscripts_dir.mkdir(parents=True, exist_ok=True)
         # Quarantine directory sits beside manuscripts so the project layout
@@ -293,7 +298,7 @@ class Orchestrator:
 
         # Lazy import to avoid circular concerns and keep the pipeline package
         # optional for callers that don't exercise save-blockers.
-        from src.pipeline.save_blockers import SaveBlockedError
+        from src.pipeline.save_blockers import SaveBlockedError, should_abort_run
 
         try:
             for i, scene_card in enumerate(active_cards):
@@ -306,14 +311,38 @@ class Orchestrator:
                 try:
                     result = await self.run_chapter(scene_card)
                 except SaveBlockedError as e:
-                    # Relay v1 quarantine policy: abort the entire run on the
-                    # first blocker. No partial chapters, no silent skips —
-                    # human reviewer fixes the quarantined scene and re-runs.
-                    print(f"\n{'=' * 60}")
-                    print("PIPELINE ABORTED — save-blocker fired")
-                    print(f"{'=' * 60}")
-                    print(str(e))
-                    break
+                    if should_abort_run(self.runtime_flags):
+                        # Pre-Slice-1 behavior: abort the entire run on first
+                        # blocker. No partial chapters, no silent skips.
+                        print(f"\n{'=' * 60}")
+                        print("PIPELINE ABORTED — save-blocker fired")
+                        print(f"{'=' * 60}")
+                        print(str(e))
+                        break
+
+                    decision = self._handle_firewall(
+                        scene_card=scene_card,
+                        error=e,
+                        active_cards=active_cards,
+                        current_index=i,
+                    )
+                    print(
+                        f"\n[STATE-FIREWALL] isolated {scene_card['chapter_number']}.{scene_card.get('scene_number', 1)} "
+                        f"→ gap_id={decision.gap_id}"
+                    )
+                    if decision.soft_halted_scenes:
+                        print(
+                            f"  soft_halt: {', '.join(decision.soft_halted_scenes)}"
+                        )
+                    if decision.continue_with_gap_note:
+                        print(
+                            f"  continue_with_note: {', '.join(decision.continue_with_gap_note)}"
+                        )
+                    if not decision.continue_run:
+                        print("[STATE-FIREWALL] soft-halting run — open gaps require human review.")
+                        break
+                    # Skip the isolated scene and advance.
+                    continue
 
                 results.append(result)
 
@@ -349,6 +378,79 @@ class Orchestrator:
             payload={"chapters_generated": len(results)},
         )
         return results
+
+    def _handle_firewall(
+        self,
+        *,
+        scene_card: dict,
+        error,
+        active_cards: list[dict],
+        current_index: int,
+    ):
+        """Route a save-blocker through :class:`StateFirewall`.
+
+        Collects the subsequent scenes relevant to the classifier — the
+        remaining scenes in the current chapter plus the first scene of the
+        next chapter — and delegates the isolation + classification work.
+        Returns the :class:`FirewallDecision` so ``run_pipeline`` can decide
+        whether to break the scene loop.
+        """
+        from types import SimpleNamespace
+
+        from src.pipeline.state_firewall import StateFirewall
+        from src.pipeline.successor_classifier import SuccessorClassifier
+
+        chapter_num = int(scene_card["chapter_number"])
+
+        remaining = active_cards[current_index + 1:]
+        same_chapter_remaining = [
+            c for c in remaining
+            if int(c["chapter_number"]) == chapter_num
+        ]
+        next_chapter_scenes = [
+            c for c in remaining
+            if int(c["chapter_number"]) == chapter_num + 1
+        ]
+        first_of_next: list[dict] = []
+        if next_chapter_scenes:
+            # Earliest by scene_number.
+            first_of_next = [
+                min(next_chapter_scenes, key=lambda c: int(c["scene_number"])),
+            ]
+        subsequent = [*same_chapter_remaining, *first_of_next]
+
+        flags = self.runtime_flags or {}
+        classifier_cfg = (
+            flags.get("runtime", {})
+            .get("firewall", {})
+            .get("successor_classifier", {})
+        )
+        classifier = SuccessorClassifier(
+            jaccard_threshold=float(classifier_cfg.get("jaccard_threshold", 0.5)),
+            adjacency_max_for_continue=int(classifier_cfg.get("adjacency_max_for_continue", 1)),
+        )
+
+        project_paths_shim = SimpleNamespace(quarantine_dir=self.quarantine_dir)
+
+        firewall = StateFirewall(
+            project_paths=project_paths_shim,
+            story_state=self.story_state,
+            classifier=classifier,
+            ledger=self.ledger,
+            runtime_flags=flags,
+        )
+
+        blockers = getattr(error, "blockers", [])
+        brief = None  # Pre-save state; the caller's brief is not currently
+        # captured on the SaveBlockedError. Slice 6's patch workflow will
+        # hydrate this by reading quarantine/brief.json.
+        return firewall.handle_blocker(
+            scene_card=scene_card,
+            prose="",  # already persisted by write_quarantine before raise
+            brief=brief,
+            blockers=blockers,
+            subsequent_scenes=subsequent,
+        )
 
     async def run_chapter(self, scene_card: dict) -> dict:
         """Run the full pipeline for a single scene card."""

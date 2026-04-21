@@ -49,6 +49,11 @@ EVENT_TYPES = [
     # Relay refactor Stage 3: LineWriter telemetry
     "line_writer_error",
     "line_writer_collapsed",
+    # Architecture upgrade Slice 1: state firewall + Phase 0 audit.
+    # Payload shapes are documented in docs/architecture/architecture_upgrade_spec.md §11.4.
+    "scene_isolated",          # error — StateFirewall isolates a scene
+    "gap_note_recorded",       # warn  — gap row written to SQLite
+    "phase0_audit_emitted",    # info  — audit_phase0.py completed
 ]
 
 

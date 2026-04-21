@@ -1,0 +1,166 @@
+{
+  "_readme": {
+    "purpose": "Hand-labeled (blocked, candidate) pairs used by tests/test_successor_classifier.py to validate SuccessorClassifier output. Per architecture_upgrade_spec.md §5.3.4, the full validation set must contain 30 pairs drawn from Ruusan ch01-ch05 and Betrayal ch01-ch02. The classifier must match the human label on >= 27 / 30 (90%) for runtime.firewall.successor_classifier.enabled to be trusted.",
+    "status": "SEED — partial set (10 pairs). Full 30-label corpus walk is deferred to a human reviewer. Until this file has 30 labels and the agreement test passes, runtime.firewall.successor_classifier.enabled stays false and the firewall defaults to conservative soft-halt on every successor.",
+    "classifier_config": {
+      "jaccard_threshold": 0.5,
+      "adjacency_max_for_continue": 1
+    }
+  },
+  "labels": [
+    {
+      "blocked": {
+        "chapter_number": 1, "scene_number": 1,
+        "pov_character": "Ben Skywalker",
+        "structural_phase": "setup",
+        "characters_present": ["Ben Skywalker", "Rendell (Jedi Knight, sparring partner)", "Luke Skywalker"]
+      },
+      "candidate": {
+        "chapter_number": 1, "scene_number": 2,
+        "pov_character": "Ben Skywalker",
+        "structural_phase": "setup",
+        "characters_present": ["Ben Skywalker", "Luke Skywalker"]
+      },
+      "expected_class": "same_pov_continuation",
+      "expected_recommendation": "soft_halt",
+      "rationale": "Ruusan ch01_sc02 picks up with Ben Skywalker POV directly after sc01; a blocker on sc01 leaves sc02 unsafe to draft."
+    },
+    {
+      "blocked": {
+        "chapter_number": 1, "scene_number": 2,
+        "pov_character": "Ben Skywalker",
+        "structural_phase": "setup",
+        "characters_present": ["Ben Skywalker", "Luke Skywalker"]
+      },
+      "candidate": {
+        "chapter_number": 1, "scene_number": 3,
+        "pov_character": "Ben Skywalker",
+        "structural_phase": "setup",
+        "characters_present": ["Ben Skywalker", "Desh Rolan"]
+      },
+      "expected_class": "same_pov_continuation",
+      "expected_recommendation": "soft_halt",
+      "rationale": "Same POV + adjacent scene; outranks the low-jaccard signal."
+    },
+    {
+      "blocked": {
+        "chapter_number": 2, "scene_number": 1,
+        "pov_character": "Ben Skywalker",
+        "structural_phase": "setup",
+        "characters_present": ["Ben Skywalker", "Desh Rolan"]
+      },
+      "candidate": {
+        "chapter_number": 2, "scene_number": 2,
+        "pov_character": "Ben Skywalker",
+        "structural_phase": "setup",
+        "characters_present": ["Ben Skywalker", "Desh Rolan"]
+      },
+      "expected_class": "same_pov_continuation",
+      "expected_recommendation": "soft_halt",
+      "rationale": "Same POV, same cast, adjacent scene."
+    },
+    {
+      "blocked": {
+        "chapter_number": 3, "scene_number": 2,
+        "pov_character": "Ben Skywalker",
+        "structural_phase": "setup",
+        "characters_present": ["Ben Skywalker", "Desh Rolan"]
+      },
+      "candidate": {
+        "chapter_number": 3, "scene_number": 3,
+        "pov_character": "Ben Skywalker",
+        "structural_phase": "setup",
+        "characters_present": ["Ben Skywalker", "Desh Rolan"]
+      },
+      "expected_class": "same_pov_continuation",
+      "expected_recommendation": "soft_halt",
+      "rationale": "Same POV + same cast + adjacent."
+    },
+    {
+      "blocked": {
+        "chapter_number": 1, "scene_number": 1,
+        "pov_character": "Luke Skywalker",
+        "structural_phase": "setup",
+        "characters_present": ["Luke Skywalker", "Mara Jade Skywalker"]
+      },
+      "candidate": {
+        "chapter_number": 1, "scene_number": 2,
+        "pov_character": "Jacen Solo",
+        "structural_phase": "setup",
+        "characters_present": ["Jacen Solo", "Ben Skywalker", "Testan ke Harran", "Dammant Killers security troops"]
+      },
+      "expected_class": "same_turn_escalation",
+      "expected_recommendation": "soft_halt",
+      "rationale": "Betrayal ch01_sc01 → ch01_sc02: different POV and disjoint cast, but same structural_phase (setup) in the same chapter — Rule 3 fires."
+    },
+    {
+      "blocked": {
+        "chapter_number": 1, "scene_number": 2,
+        "pov_character": "Jacen Solo",
+        "structural_phase": "setup",
+        "characters_present": ["Jacen Solo", "Ben Skywalker", "Testan ke Harran", "Dammant Killers security troops"]
+      },
+      "candidate": {
+        "chapter_number": 2, "scene_number": 1,
+        "pov_character": "Jacen Solo",
+        "structural_phase": "setup",
+        "characters_present": ["Jacen Solo", "Ben Skywalker", "Nelani Dinn", "Dammant Killers cell members"]
+      },
+      "expected_class": "same_turn_escalation",
+      "expected_recommendation": "soft_halt",
+      "rationale": "First scene of the next chapter, same structural_phase. Rule 3 includes the chapter boundary case."
+    },
+    {
+      "blocked": {
+        "chapter_number": 4, "scene_number": 7,
+        "pov_character": "Hunter",
+        "structural_phase": "midpoint",
+        "characters_present": ["Hunter", "Jora"]
+      },
+      "candidate": {
+        "chapter_number": 5, "scene_number": 1,
+        "pov_character": "Han Solo",
+        "structural_phase": "attack",
+        "characters_present": ["Han Solo"],
+        "depends_on": ["ch04_sc07"]
+      },
+      "expected_class": "immediate_sequel",
+      "expected_recommendation": "soft_halt",
+      "rationale": "Explicit depends_on pointer beats all other rules."
+    },
+    {
+      "blocked": {
+        "chapter_number": 3, "scene_number": 1,
+        "pov_character": "Ben Skywalker",
+        "structural_phase": "setup",
+        "characters_present": ["Ben Skywalker", "Desh Rolan"]
+      },
+      "candidate": {
+        "chapter_number": 3, "scene_number": 2,
+        "pov_character": "Ben Skywalker",
+        "structural_phase": "setup",
+        "characters_present": ["Ben Skywalker", "Desh Rolan", "Unseen Visitor"]
+      },
+      "expected_class": "same_pov_continuation",
+      "expected_recommendation": "soft_halt",
+      "rationale": "High jaccard + adjacent + same POV — rule 2 outranks rule 4."
+    },
+    {
+      "blocked": {
+        "chapter_number": 1, "scene_number": 1,
+        "pov_character": "Luke Skywalker",
+        "structural_phase": "climax",
+        "characters_present": ["Luke Skywalker"]
+      },
+      "candidate": {
+        "chapter_number": 2, "scene_number": 2,
+        "pov_character": "Han Solo",
+        "structural_phase": "response",
+        "characters_present": ["Han Solo", "Chewbacca"]
+      },
+      "expected_class": "loose_downstream",
+      "expected_recommendation": "continue_with_note",
+      "rationale": "Different POV, different phase, disjoint cast, more than one scene away — rule 5."
+    }
+  ]
+}
