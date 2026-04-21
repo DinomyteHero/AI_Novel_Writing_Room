@@ -100,7 +100,7 @@ def main() -> int:
                 already += 1
             else:
                 applied += 1
-            print(f"        → schema_version={version}")
+            print(f"        -> schema_version={version}")
         except Exception as exc:  # noqa: BLE001
             errors += 1
             print(f"        ! ERROR: {exc}")

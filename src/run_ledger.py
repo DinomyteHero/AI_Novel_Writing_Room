@@ -73,6 +73,14 @@ EVENT_TYPES = [
     # Architecture upgrade Slice 5: sociogram.
     "sociogram_delta_applied",      # info — scene_card relationship_deltas row applied
     "sociogram_suggestion_recorded",# info — suggest_mode proposal landed in revision debt
+    # Architecture upgrade §11.1: CanonExpert relocation. Event types
+    # reserved at the inventory level so producers can emit safely once the
+    # relocation lands (the flag triad in config/settings.yaml is already
+    # default-off). See docs/architecture/architecture_upgrade_spec.md §11.1.
+    "canon_early_pass_fired",       # info — pre-polish canon pass ran
+    "canon_polish_drift_detected",  # warn — second pass found drift after polish
+    "canon_fix_applied",            # info — whitelisted local_fix applied
+    "canon_fix_rejected",           # warn — suggested fix was outside the whitelist
 ]
 
 
