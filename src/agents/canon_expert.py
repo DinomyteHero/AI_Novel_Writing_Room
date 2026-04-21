@@ -74,6 +74,7 @@ class CanonExpert(BaseAgent):
         (when verdict is fail) corrected_prose.
         """
         concept_seed = context.get("concept_seed", {})
+        scene_card = context.get("scene_card") or {}
         canon_profile = concept_seed.get("canon_profile")
 
         if canon_profile is None:
@@ -81,7 +82,7 @@ class CanonExpert(BaseAgent):
                 "No canon_profile in concept seed; running generic checks only."
             )
 
-        prompt = self._build_evaluation_prompt(prose, concept_seed)
+        prompt = self._build_evaluation_prompt(prose, concept_seed, scene_card)
 
         # Optionally enrich with RAG evidence
         evidence_block = self._retrieve_evidence_block(context)
@@ -101,15 +102,15 @@ class CanonExpert(BaseAgent):
         back to extracting from the scene card's draft_prose or
         scene_description.
         """
+        scene_card = context.get("scene_card", {}) or {}
         prose = context.get("prose", "")
         if not prose:
-            scene_card = context.get("scene_card", {})
             prose = scene_card.get("draft_prose", "") or scene_card.get(
                 "scene_description", ""
             )
         concept_seed = context.get("concept_seed", {})
 
-        prompt = self._build_evaluation_prompt(prose, concept_seed)
+        prompt = self._build_evaluation_prompt(prose, concept_seed, scene_card)
         evidence_block = self._retrieve_evidence_block(context)
         if evidence_block:
             prompt = f"{prompt}\n\n## Retrieved Canon Evidence\n{evidence_block}"
@@ -135,12 +136,18 @@ class CanonExpert(BaseAgent):
     # Prompt construction
     # ------------------------------------------------------------------
 
-    def _build_evaluation_prompt(self, prose: str, concept_seed: dict) -> str:
+    def _build_evaluation_prompt(
+        self,
+        prose: str,
+        concept_seed: dict,
+        scene_card: Optional[dict] = None,
+    ) -> str:
         """Dynamically construct the evaluation prompt from the canon profile.
 
-        Builds five check sections using ONLY data drawn from the
-        canon_profile.  When no canon_profile exists, falls back to
-        generic internal-consistency checks.
+        Builds five check sections using data drawn from the ``canon_profile``,
+        plus a scene-level permissions section drawn from ``scene_card`` when
+        one is provided. When no canon_profile exists, falls back to generic
+        internal-consistency checks.
         """
         canon_profile = concept_seed.get("canon_profile")
         branch_point = (concept_seed.get("meta") or {}).get("branch_point")
@@ -155,6 +162,16 @@ class CanonExpert(BaseAgent):
         branch_section = self._section_branch_point(branch_point)
         if branch_section:
             sections.append(branch_section)
+
+        # Scene-level voice permissions. When a scene card pre-authorizes a
+        # specific metaphor or register (e.g. "use the half-beat lag in the
+        # ambient field" or ``stover_permitted: true``), it overrides the
+        # franchise-wide register rule for this evaluation only. Without this
+        # section, canon_expert flags the drafter's faithful use of the
+        # authorized metaphor as franchise_voice drift.
+        permissions_section = self._section_scene_card_voice_permissions(scene_card)
+        if permissions_section:
+            sections.append(permissions_section)
 
         # --- Check 1: Cross-continuity contamination ---
         sections.append(
@@ -205,6 +222,51 @@ class CanonExpert(BaseAgent):
             parts.append(
                 f"Narrative Register: {canon_profile['narrative_register']}"
             )
+        return "\n".join(parts)
+
+    def _section_scene_card_voice_permissions(
+        self, scene_card: Optional[dict]
+    ) -> str:
+        """Surface scene-level voice permissions that override franchise rules.
+
+        The drafter sees ``scene_card.notes`` via the Scene Voice Contract
+        block in its prompt, and the scene card may authorize specific
+        metaphors or register intensities for this scene (e.g. Ruusan Ch 01
+        Sc 01 authorizes "the half-beat lag in the ambient field" as the
+        scene's one consistent metaphor; Ch 13/25/26 set ``stover_permitted``
+        to unlock Stover-style intensity). Canon_expert has to see the same
+        authorization or it flags the drafter's faithful use as franchise_voice
+        drift.
+        """
+        if not scene_card:
+            return ""
+        notes = (scene_card.get("notes") or "").strip()
+        stover_permitted = bool(scene_card.get("stover_permitted"))
+        anti_patterns = scene_card.get("anti_patterns") or []
+        if not notes and not stover_permitted and not anti_patterns:
+            return ""
+        parts = [
+            "## Scene-Level Voice Permissions (READ BEFORE FLAGGING FRANCHISE_VOICE)",
+            "The following scene-level authorizations override franchise-wide voice "
+            "rules for THIS scene only. A phrase or metaphor permitted here is NOT "
+            "a franchise_voice violation; treating it as one is a false positive.",
+        ]
+        if notes:
+            parts.append("\n### Scene-card notes (verbatim)")
+            parts.append(notes)
+        if stover_permitted:
+            parts.append(
+                "\n### stover_permitted: true"
+            )
+            parts.append(
+                "This scene permits Stover-style prose intensity — heightened "
+                "physicality, metaphysical direct address, sharper abstraction. "
+                "Do not flag such moves as franchise_voice drift."
+            )
+        if anti_patterns:
+            parts.append("\n### Scene-card anti-patterns (for context only)")
+            for p in anti_patterns:
+                parts.append(f"- {p}")
         return "\n".join(parts)
 
     def _section_branch_point(self, branch_point: Optional[dict]) -> str:
@@ -519,15 +581,25 @@ class CanonExpert(BaseAgent):
                         return None
         return None
 
-    @staticmethod
-    def _normalize_output(parsed: dict) -> dict:
+    # Categories whose severity is clamped to ``minor`` regardless of what the
+    # LLM emits, and which never cause a ``fail`` verdict on their own. These
+    # are the surface-level / register-drift categories the system prompt
+    # explicitly calibrates as advisory (see canon_expert.md §Severity
+    # Calibration). Without the clamp, a model rating e.g. franchise_voice
+    # at ``moderate`` would trip the save-blocker layer even though the
+    # prompt's own policy is that franchise_voice is advisory.
+    _ADVISORY_CATEGORIES = frozenset({"post_divergence_drift", "franchise_voice"})
+
+    @classmethod
+    def _normalize_output(cls, parsed: dict) -> dict:
         """Ensure the parsed dict conforms to the expected schema.
 
-        Also enforces two invariants for ``post_divergence_drift`` flags that
-        the prompt asks the LLM to honour — we do not trust the LLM:
+        Enforces two invariants for advisory-class categories
+        (``post_divergence_drift``, ``franchise_voice``) — the prompt asks
+        the LLM to honour these, but we do not trust the LLM:
         1. Severity is clamped to ``minor`` regardless of what the LLM emits.
-        2. These flags never contribute to a ``fail`` verdict when the
-           verdict has to be derived from the violations list.
+        2. These flags never contribute to a ``fail`` verdict, even when the
+           LLM explicitly stated ``verdict: fail``.
         """
         violations = parsed.get("violations", [])
         normalized_violations = []
@@ -536,8 +608,7 @@ class CanonExpert(BaseAgent):
                 continue
             category = v.get("category", "franchise_voice")
             severity = v.get("severity", "minor")
-            # Invariant 1: post_divergence_drift is always minor.
-            if category == "post_divergence_drift":
+            if category in cls._ADVISORY_CATEGORIES:
                 severity = "minor"
             normalized_violations.append(
                 {
@@ -549,20 +620,20 @@ class CanonExpert(BaseAgent):
                 }
             )
 
-        verdict = parsed.get("verdict", "pass")
-        if verdict not in VERDICT_VALUES:
-            # Derive verdict from violations, ignoring post_divergence_drift
-            # (invariant 2).
-            severities = {
-                v["severity"]
-                for v in normalized_violations
-                if v["category"] != "post_divergence_drift"
-            }
-            verdict = (
-                "fail"
-                if severities & {"critical", "moderate"}
-                else "pass"
-            )
+        # Always derive verdict from the normalized (advisory-clamped)
+        # violations list. The LLM's stated verdict is advisory input only —
+        # if clamping advisory categories to minor leaves no critical/moderate
+        # violations, the scene must pass regardless of what the LLM said.
+        blocking_severities = {
+            v["severity"]
+            for v in normalized_violations
+            if v["category"] not in cls._ADVISORY_CATEGORIES
+        }
+        verdict = (
+            "fail"
+            if blocking_severities & {"critical", "moderate"}
+            else "pass"
+        )
 
         result = {
             "violations": normalized_violations,
