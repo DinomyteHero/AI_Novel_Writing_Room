@@ -47,7 +47,7 @@ if str(REPO_ROOT) not in sys.path:
 
 from src.concept_workshop.compliance_validator import validate_concept_seed  # noqa: E402
 from src.planning.physics_enforcer import PhysicsEnforcer  # noqa: E402
-from src.project_paths import ProjectPaths  # noqa: E402
+from src.project_paths import ProjectPaths, _slugify_franchise  # noqa: E402
 from workflows._shared.scene_card_translator import translate_scene_card  # noqa: E402
 from workflows._shared.seed_transforms import (  # noqa: E402
     apply_arc_phase_maps,
@@ -83,6 +83,7 @@ class CompileReport:
     book: str
     surfaces_present: dict = field(default_factory=dict)
     surfaces_missing: list[str] = field(default_factory=list)
+    preflight_errors: list[str] = field(default_factory=list)
     compliance: dict = field(default_factory=dict)
     schema_errors: list[str] = field(default_factory=list)
     scene_card_count: int = 0
@@ -98,6 +99,7 @@ class CompileReport:
             "book": self.book,
             "surfaces_present": self.surfaces_present,
             "surfaces_missing": self.surfaces_missing,
+            "preflight_errors": self.preflight_errors,
             "compliance": self.compliance,
             "schema_errors": self.schema_errors,
             "scene_card_count": self.scene_card_count,
@@ -321,6 +323,28 @@ def compile_bundle(
         _write_report(paths, report)
         return report
 
+    # Preflight: the universe surface's declared franchise must slugify back
+    # to the franchise_slug the caller passed (which is the input path). A
+    # drift here routes outputs and scaffolds to a ghost directory, because
+    # ProjectPaths.from_concept_seed(seed) slugifies meta.franchise at pipeline
+    # run time (see Betrayal quirk: meta said "Star Wars" → slug "star-wars"
+    # while inputs lived under "star-wars-legends-eu").
+    declared_franchise = (
+        (surfaces["universe"] or {}).get("meta", {}).get("franchise", "")
+    )
+    if declared_franchise:
+        declared_slug = _slugify_franchise(declared_franchise)
+        if declared_slug and declared_slug != franchise_slug:
+            report.preflight_errors.append(
+                f"franchise slug mismatch: input path uses "
+                f"'{franchise_slug}' but workflows/universe.json declares "
+                f"meta.franchise={declared_franchise!r} (slugifies to "
+                f"'{declared_slug}'). Fix universe.json so the slug matches "
+                f"the input path, or move the book to the correct franchise."
+            )
+            _write_report(paths, report)
+            return report
+
     seed = _build_seed(
         universe=surfaces["universe"] or {},
         canon=surfaces["canon"] or {},
@@ -523,6 +547,8 @@ def report_has_failures(report: CompileReport, *, strict: bool) -> bool:
     """Return True when the compile should exit non-zero."""
     if report.surfaces_missing:
         return True
+    if report.preflight_errors:
+        return True
     if report.schema_errors:
         return True
     if report.scene_card_errors:
@@ -547,6 +573,10 @@ def _format_summary(report: CompileReport) -> str:
     ]
     if report.surfaces_missing:
         lines.append(f"  surfaces MISSING: {report.surfaces_missing}")
+    if report.preflight_errors:
+        lines.append(f"  PREFLIGHT ERRORS ({len(report.preflight_errors)}):")
+        for err in report.preflight_errors:
+            lines.append(f"    - {err}")
     lines.append(f"  scene cards written: {report.scene_card_count}")
     if report.schema_errors:
         lines.append(f"  SCHEMA ERRORS ({len(report.schema_errors)}):")
