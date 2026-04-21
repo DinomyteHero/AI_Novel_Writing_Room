@@ -40,6 +40,11 @@ build/
 # See data/README.md for the full layout.
 output/*/*/state/
 
+# Phase 0 audit runs are regenerated on demand from scripts/audit_phase0.py.
+# The canonical committed evidence lives in docs/audits/phase0_*.md; the
+# per-run phase0_debug/ prompt dumps are regeneratable artifacts.
+output/*/*/runs/phase0_*/
+
 # Fallback runtime dirs, used when ProjectPaths isn't supplied (ad-hoc
 # scripts, tests, UI fallbacks). Updated defaults in src/ route here.
 output/_fallback/

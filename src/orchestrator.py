@@ -169,6 +169,32 @@ class Orchestrator:
         # can treat them as failures.
         self._strict_lore = strict_lore
 
+        # Architecture upgrade Slice 1 — Phase 0 prompt capture.
+        # When runtime.phase0_audit.enabled is on, instantiate a snapshot
+        # writer and attach to every agent. Scenes get opened via
+        # phase0_snapshot.start_scene() at the top of each scene loop.
+        self.phase0_snapshot = None
+        phase0_cfg = (
+            self.runtime_flags.get("runtime", {}).get("phase0_audit", {})
+        )
+        if phase0_cfg.get("enabled", False):
+            from src.pipeline.phase0_capture import Phase0PromptSnapshot
+            # Conventional layout: manuscripts_dir is <run_dir>/chapters, so
+            # its parent is <run_dir>. When callers pass a non-conventional
+            # manuscripts_dir, this falls back to dumping beside the chapters
+            # folder, which is fine for inspection.
+            run_dir = self.manuscripts_dir.parent
+            self.phase0_snapshot = Phase0PromptSnapshot(run_dir=run_dir)
+            for agent in (
+                self.plot_architect, self.prose_stylist, self.gate_critic,
+                self.quality_polish, self.final_gate,
+                self.line_writer, self.canon_expert, self.presence_checker,
+                self.chapter_gate_critic, self.character_specialist,
+                self.summarizer,
+            ):
+                if agent is not None:
+                    agent.attach_phase0_snapshot(self.phase0_snapshot)
+
     @staticmethod
     def _is_last_scene_in_chapter(current_index: int, sorted_cards: list[dict]) -> bool:
         """Check if the current card is the last scene in its chapter."""
@@ -307,6 +333,13 @@ class Orchestrator:
                 print(f"\n{'='*60}")
                 print(f"Chapter {chapter_num}, Scene {scene_num}")
                 print(f"{'='*60}")
+
+                # Phase 0 prompt capture: open a per-scene subdir. No-op when
+                # runtime.phase0_audit.enabled is off (snapshot is None).
+                if self.phase0_snapshot is not None:
+                    self.phase0_snapshot.start_scene(
+                        chapter=chapter_num, scene=scene_num,
+                    )
 
                 try:
                     result = await self.run_chapter(scene_card)
