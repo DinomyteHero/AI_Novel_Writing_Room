@@ -31,7 +31,7 @@
           "scene_type": { "type": "string", "enum": ["action", "sequel"] },
           "scene_role": {
             "type": "string",
-            "enum": ["hook", "escalation", "reveal", "decision", "aftermath"]
+            "enum": ["hook", "escalation", "reveal", "decision", "aftermath", "decision_and_plant"]
           },
           "pov_character": { "type": "string", "minLength": 1 },
           "mission": { "type": "string" },

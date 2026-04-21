@@ -867,19 +867,27 @@ class StoryState:
             # Phase 5: Weiland character arc
             weiland = char.get("weiland_arc")
             if weiland:
-                # Normalize descriptive arc_type strings to the canonical
-                # enum (positive_change/flat/negative/disillusionment).
-                # The workshop captures these as prose; the DB has a strict
-                # CHECK constraint.
-                arc_type = _normalize_arc_type(weiland.get("arc_type"))
-                if arc_type is None:
-                    logger.warning(
-                        "Skipping character arc for '%s': arc_type '%s' "
-                        "is not recognizable. Expected one of %s or a "
-                        "descriptive phrase containing one of those keywords.",
-                        char["name"], weiland.get("arc_type"), ARC_TYPES,
-                    )
+                raw_arc_type = weiland.get("arc_type")
+                # 'supporting_presence' is an explicit opt-out from Weiland-arc
+                # tracking — the character appears in the cast but does not
+                # carry a full lie_believed → lie_cracking → new_truth
+                # progression. Skip the DB insert silently.
+                if (raw_arc_type or "").lower() == "supporting_presence":
+                    arc_type = None
                 else:
+                    # Normalize descriptive arc_type strings to the canonical
+                    # enum (positive_change/flat/negative/disillusionment).
+                    # The workshop captures these as prose; the DB has a strict
+                    # CHECK constraint.
+                    arc_type = _normalize_arc_type(raw_arc_type)
+                    if arc_type is None:
+                        logger.warning(
+                            "Skipping character arc for '%s': arc_type '%s' "
+                            "is not recognizable. Expected one of %s or a "
+                            "descriptive phrase containing one of those keywords.",
+                            char["name"], raw_arc_type, ARC_TYPES,
+                        )
+                if arc_type is not None:
                     self.add_character_arc(
                         character_id=char_id,
                         book_number=book_number,

@@ -105,13 +105,21 @@ def _parse_chapter_ref(ref: Any) -> int | None:
 
 
 def _is_supporting_character(char: dict) -> bool:
-    """Heuristic: a character is 'supporting' if their role or arc_type flags it."""
+    """Heuristic: a character is 'supporting' if their role or arc_type flags it.
+
+    The canonical 'supporting_presence' arc_type is an explicit opt-out from
+    Weiland-arc tracking: such characters retain Ghost and Lie as character
+    texture but do not carry a full lie_believed → lie_cracking → new_truth
+    progression, so lie_believed/ghost/want/need may be omitted. The 'minor'
+    substring catches legacy free-text arc phrases like 'minor positive'.
+    """
     role = (char.get("role") or "").lower()
     arc_type = (char.get("weiland_arc", {}).get("arc_type") or "").lower()
     return (
         "supporting" in role
         or "minor" in arc_type
         or "minor" in role
+        or arc_type == "supporting_presence"
     )
 
 
@@ -349,7 +357,11 @@ def _check_ensemble_cast(seed: dict, report: ValidationReport) -> None:
                     f"missing for {name}",
                 )
         weiland = char.get("weiland_arc") or {}
-        for key in ("lie_believed", "ghost", "want", "need", "arc_type"):
+        supporting = _is_supporting_character(char)
+        required_keys = ("arc_type",) if supporting else (
+            "lie_believed", "ghost", "want", "need", "arc_type",
+        )
+        for key in required_keys:
             if not weiland.get(key):
                 report.add(
                     f"{path_prefix}.weiland_arc.{key}",
@@ -359,7 +371,7 @@ def _check_ensemble_cast(seed: dict, report: ValidationReport) -> None:
         # arc_phase_map is optional — warn (not fail) if a non-supporting
         # character is missing it.
         arc_phase_map = weiland.get("arc_phase_map")
-        if not arc_phase_map and not _is_supporting_character(char):
+        if not arc_phase_map and not supporting:
             report.add(
                 f"{path_prefix}.weiland_arc.arc_phase_map",
                 CheckStatus.WARN,

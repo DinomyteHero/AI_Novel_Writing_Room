@@ -61,12 +61,14 @@ class TestInstalledSeedShape:
         """Seed has the expected number of entries for each tracked artifact."""
         seed = installed_ruusan_seed
         assert len(seed["ensemble_cast"]) == 6, "Expected 6 cast members"
-        assert len(seed["subplots"]) == 6, "Expected 6 subplots (including SP-A)"
+        # SP4 merged into SP3 per the D5 revision — effective count is 5
+        # (SP-A, SP1, SP2, merged-SP3, SP5-as-half-weight operational presence).
+        assert len(seed["subplots"]) == 5, "Expected 5 subplots (SP-A, SP1, SP2, SP3, SP5)"
         assert len(seed["hooks"]) == 25, "Expected 25 hooks"
-        assert len(seed["revelation_schedule"]) == 14, "Expected 14 revelations"
+        assert len(seed["revelation_schedule"]) == 19, "Expected 19 revelations"
         assert len(seed["scene_cards"]) == 0, "Expected 0 scene cards (removed pending regeneration)"
         assert len(seed["terminology_registry"]) == 44, "Expected 44 terminology entries"
-        assert len(seed["promise_payoff_ledger"]) == 25, "Expected 25 promise ledger entries"
+        assert len(seed["promise_payoff_ledger"]) == 32, "Expected 32 promise ledger entries"
 
     def test_extended_metadata_contains_story_specific_fields(self, installed_ruusan_seed):
         """technique_lineage and jacen_parallel are under extended_metadata, not top-level."""
@@ -91,9 +93,17 @@ class TestInstalledSeedShape:
         assert "anti_slop" not in voice or not isinstance(voice.get("anti_slop"), dict) or "banned_words" not in voice.get("anti_slop", {})
 
     def test_all_characters_have_arc_phase_map(self, installed_ruusan_seed):
-        """All 6 ensemble cast members have arc_phase_map (including Desh's minor arc)."""
+        """Every tracked-arc ensemble member has an arc_phase_map.
+
+        Characters with arc_type 'supporting_presence' are intentionally
+        untracked (presence and contrast, not Weiland progression) and
+        are exempt from this check.
+        """
         for char in installed_ruusan_seed["ensemble_cast"]:
-            apm = char.get("weiland_arc", {}).get("arc_phase_map")
+            weiland = char.get("weiland_arc", {})
+            if weiland.get("arc_type") == "supporting_presence":
+                continue
+            apm = weiland.get("arc_phase_map")
             assert apm, f"{char['name']} missing arc_phase_map"
 
 
@@ -211,13 +221,15 @@ class TestInstalledSeedPipelineLoad:
             f"Expected 16 characters in DB (6 ensemble + 10 referenced), got {cast_count}"
         )
 
-        # Character arcs — all 6 including Desh (positive_change)
+        # Character arcs — 5 tracked (Ben, Sera, Kael, Torin, Veraine). Desh
+        # is arc_type='supporting_presence' and is intentionally skipped at
+        # the DB layer; his weight lives in scene-level presence and contrast.
         arcs = state.conn.execute("SELECT COUNT(*) FROM character_arcs").fetchone()[0]
-        assert arcs == 6, f"Expected 6 character_arcs, got {arcs}"
+        assert arcs == 5, f"Expected 5 character_arcs (Desh is supporting_presence), got {arcs}"
 
-        # Subplots
+        # Subplots — SP4 merged into SP3 per the D5 revision.
         subs = state.conn.execute("SELECT COUNT(*) FROM subplots").fetchone()[0]
-        assert subs == 6, f"Expected 6 subplots (including SP-A), got {subs}"
+        assert subs == 5, f"Expected 5 subplots (SP-A, SP1, SP2, SP3, SP5), got {subs}"
 
         # Hooks
         hooks = state.conn.execute("SELECT COUNT(*) FROM hooks").fetchone()[0]
@@ -247,14 +259,16 @@ class TestInstalledSeedPipelineLoad:
             "SELECT character_id, arc_type FROM character_arcs"
         ).fetchall()
         arc_type_by_char = {row["character_id"]: row["arc_type"] for row in rows}
-        # Ben, Sera, Kael, Desh are positive_change (including the "minor positive" for Desh)
+        # Ben, Sera, Kael are positive_change
         assert arc_type_by_char["ben_skywalker"] == "positive_change"
         assert arc_type_by_char["sera_varik"] == "positive_change"
         assert arc_type_by_char["kael_drenn"] == "positive_change"
-        assert arc_type_by_char["desh_rolan"] == "positive_change"
-        # Torin is negative (tragic), Veraine is negative (flat negative maps to negative)
+        # Torin is corruption (maps to 'negative' in DB — extended Weiland
+        # negative-arc variant collapses to the bare enum), Veraine is negative.
         assert arc_type_by_char["torin_hal"] == "negative"
         assert arc_type_by_char["darth_veraine"] == "negative"
+        # Desh is supporting_presence: no row in character_arcs.
+        assert "desh_rolan" not in arc_type_by_char
 
 
 class TestInstalledSeedComplianceValidator:
