@@ -1,0 +1,37 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ManuscriptPatch",
+  "description": "Slice 6 patch bundle. Each entry routes through scripts/patch_workflow.py subcommands. Manuscript-level passes (developmental, line, copy, proof) emit one of these as their sole output \u2014 the CLI is the only path that mutates saved prose or trusted state. See docs/architecture/manuscript_lifecycle_design.md.",
+  "type": "object",
+  "required": ["version", "entries"],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "type": "string", "minLength": 1 },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "source_pass": {
+      "type": "string",
+      "enum": ["developmental", "line", "copy", "proof", "manual"]
+    },
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["action"],
+        "additionalProperties": false,
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": ["accept-isolated", "replace", "overrule"]
+          },
+          "scene_id": {
+            "type": "string",
+            "pattern": "^ch\\d{2}_sc\\d{2}$"
+          },
+          "prose_path": { "type": "string" },
+          "gap_id": { "type": "string" },
+          "notes": { "type": "string" }
+        }
+      }
+    }
+  }
+}

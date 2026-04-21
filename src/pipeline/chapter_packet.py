@@ -32,6 +32,7 @@ from __future__ import annotations
 import copy
 import json
 import logging
+import re
 from dataclasses import asdict, dataclass, field, fields, replace
 from typing import TYPE_CHECKING, Any, Iterable, Mapping, Optional
 
@@ -60,6 +61,11 @@ class ChapterPacket:
     pov_arc_pressure: dict = field(default_factory=dict)
     next_scene_obligations: list[dict] = field(default_factory=list)
     active_promises: list[dict] = field(default_factory=list)     # Slice 3
+    # Slice 3 (spec \u00a77.3): total count of *active* promises at overlay time.
+    # ``active_promises`` is capped at 5 by ``list_top_urgent`` so the drafter
+    # sees the most urgent slice without dilution; this tail keeps the total
+    # visible (e.g. "5 of 23 open").
+    active_promises_total_count: int = 0
     reveal_deadlines: list[dict] = field(default_factory=list)
     canon_slices: list[dict] = field(default_factory=list)
     relationship_context: dict = field(default_factory=dict)      # Slice 5
@@ -197,13 +203,31 @@ class ChapterPacket:
             )
 
         if self.active_promises:
+            # Slice 3 (spec \u00a77.3): split urgent vs overdue, render with
+            # type / due / setup details. Overdue promises carry the
+            # ``do-not-force-payoff`` hint so the drafter treats them as
+            # advisory only.
             parts.append("")
-            parts.append("### Active Promises")
-            for p in self.active_promises:
-                pid = p.get("promise_id", "(unknown)")
-                setup = p.get("setup_scene", "")
-                due = p.get("due_by_scene", "")
-                parts.append(f"- {pid}: setup {setup} \u2192 due {due}")
+            total = self.active_promises_total_count or len(self.active_promises)
+            shown = len(self.active_promises)
+            non_overdue = [
+                p for p in self.active_promises if p.get("status") != "overdue"
+            ]
+            overdue = [
+                p for p in self.active_promises if p.get("status") == "overdue"
+            ]
+            parts.append(
+                f"### Active promises ({shown} of {total} open; sorted by urgency)"
+            )
+            for p in non_overdue:
+                parts.append(_format_active_promise_line(p))
+            if overdue:
+                parts.append("")
+                parts.append(
+                    "### Overdue promises (advisory only \u2014 do not force payoff in this scene)"
+                )
+                for p in overdue:
+                    parts.append(_format_overdue_promise_line(p))
 
         if self.reveal_deadlines:
             parts.append("")
@@ -239,10 +263,31 @@ class ChapterPacket:
                 parts.append(f"- [{et}] {summary}")
 
         if self.relationship_context:
+            # Slice 5 (spec \u00a79.5): render per-dyad trust/warmth/power_balance.
+            # The overlay-scoped ``context_for_scene`` may attach an
+            # ``_unshown_edge_count`` tail so the drafter sees the dilution
+            # cap without being flooded with unrelated dyads.
             parts.append("")
-            parts.append("### Relationship Context")
-            for k, v in self.relationship_context.items():
-                parts.append(f"- {k}: {v}")
+            scene_anchor = ""
+            # Scene anchor comes from the first dyad's updated_at_scene.
+            for key, val in self.relationship_context.items():
+                if isinstance(val, Mapping):
+                    scene_anchor = val.get("updated_at_scene") or ""
+                    break
+            if scene_anchor:
+                parts.append(f"### Relationship context (current state as of {scene_anchor})")
+            else:
+                parts.append("### Relationship Context")
+            for key, val in self.relationship_context.items():
+                if key.startswith("_"):
+                    continue
+                if isinstance(val, Mapping):
+                    parts.append(_format_relationship_line(key, val))
+                else:
+                    parts.append(f"- {key}: {val}")
+            unshown = self.relationship_context.get("_unshown_edge_count")
+            if isinstance(unshown, int) and unshown > 0:
+                parts.append(f"- _(+{unshown} other edges not surfaced this scene)_")
 
         if self.exit_vector:
             parts.append("")
@@ -372,11 +417,24 @@ class ChapterPacketCompiler:
         gap_notes = self._fetch_gap_notes(base.chapter_number)
         flat_snapshot = self._render_flat_context_snapshot(scene_card)
 
-        # Slice 3/4/5 can refresh their views at overlay time, but Slice 2
-        # keeps them empty unless the ledger was populated during base build.
-        active_promises = self._fetch_active_promises(chapter_number=base.chapter_number)
-        continuity_events = self._fetch_continuity_events(chapter_number=base.chapter_number)
-        relationship_context = self._fetch_relationship_context(chapter_number=base.chapter_number)
+        # Slice 3 (spec \u00a77.3): overlay uses scene-scoped ``list_top_urgent``
+        # so the drafter sees the most urgent promises at *this* scene, not a
+        # chapter-wide snapshot. Slice 4/5 follow the same "refresh at overlay"
+        # pattern once their stores are populated.
+        scene_id = _scene_id(base.chapter_number, scene_number) if scene_number else None
+        active_promises = self._fetch_active_promises_for_scene(
+            chapter_number=base.chapter_number, scene_id=scene_id,
+        )
+        total_active = self._count_active_promises_for_scene(
+            chapter_number=base.chapter_number, scene_id=scene_id,
+        )
+        continuity_events = self._fetch_continuity_events_for_scene(
+            chapter_number=base.chapter_number, scene_id=scene_id,
+            scene_card=scene_card,
+        )
+        relationship_context = self._fetch_relationship_context_for_scene(
+            chapter_number=base.chapter_number, scene_card=scene_card,
+        )
 
         overlay = replace(
             base,
@@ -386,6 +444,7 @@ class ChapterPacketCompiler:
             trusted_state_gap_notes=gap_notes,
             flat_context_snapshot=flat_snapshot,
             active_promises=active_promises,
+            active_promises_total_count=total_active,
             continuity_events=continuity_events,
             relationship_context=relationship_context,
         )
@@ -487,7 +546,12 @@ class ChapterPacketCompiler:
             return []
 
     def _fetch_active_promises(self, *, chapter_number: int) -> list[dict]:
-        """Slice 3 hook. Empty until PromiseLedger lands."""
+        """Base-packet hook: chapter-scoped active promises (spec \u00a77.3).
+
+        Used by ``compile_base`` before the scene is known. Overlay callers
+        use ``_fetch_active_promises_for_scene`` so the rendered list is
+        urgency-filtered against the *current* scene, not the chapter's first.
+        """
         if self.promise_ledger is None:
             return []
         try:
@@ -496,8 +560,49 @@ class ChapterPacketCompiler:
             logger.exception("promise_ledger.active_for_chapter failed")
             return []
 
+    def _fetch_active_promises_for_scene(
+        self, *, chapter_number: int, scene_id: str | None,
+    ) -> list[dict]:
+        """Overlay hook: top-5 urgent promises as of ``scene_id`` (spec \u00a77.3).
+
+        Falls back to the chapter-scoped list when ``scene_id`` is unknown
+        (e.g. base packet view) so the packet stays non-empty while still
+        deterministic. Overdue rows carry ``status='overdue'`` so the renderer
+        emits them under a separate heading with the do-not-force-payoff hint.
+        """
+        if self.promise_ledger is None:
+            return []
+        if not scene_id:
+            return self._fetch_active_promises(chapter_number=chapter_number)
+        try:
+            return list(
+                self.promise_ledger.list_top_urgent(at_scene=scene_id, n=5)
+            )
+        except Exception:  # noqa: BLE001
+            logger.exception("promise_ledger.list_top_urgent failed")
+            return []
+
+    def _count_active_promises_for_scene(
+        self, *, chapter_number: int, scene_id: str | None,
+    ) -> int:
+        if self.promise_ledger is None:
+            return 0
+        try:
+            if scene_id:
+                return int(self.promise_ledger.count_active(at_scene=scene_id))
+            return len(self.promise_ledger.active_for_chapter(chapter_number))
+        except Exception:  # noqa: BLE001
+            logger.exception("promise_ledger count_active failed")
+            return 0
+
     def _fetch_continuity_events(self, *, chapter_number: int) -> list[dict]:
-        """Slice 4 hook. Empty until ContinuityLog lands."""
+        """Base-packet hook: chapter-scoped continuity events.
+
+        Used by ``compile_base`` when the scene is not yet known. Overlay
+        callers use ``_fetch_continuity_events_for_scene`` to narrow by the
+        scene's POV and characters_present so the drafter does not wade
+        through unrelated rows.
+        """
         if self.continuity_log is None:
             return []
         try:
@@ -506,8 +611,46 @@ class ChapterPacketCompiler:
             logger.exception("continuity_log.events_for_chapter failed")
             return []
 
+    def _fetch_continuity_events_for_scene(
+        self,
+        *,
+        chapter_number: int,
+        scene_id: str | None,
+        scene_card: Mapping[str, Any] | None,
+    ) -> list[dict]:
+        """Overlay hook: chapter events filtered to those whose subject is
+        the POV or among ``characters_present``, bounded to strictly-before
+        ``scene_id`` so the scene does not see its own events (spec \u00a78.1
+        narrow-events invariant \u2014 only prior-state continuity propagates)."""
+        base_rows = self._fetch_continuity_events(chapter_number=chapter_number)
+        if not base_rows:
+            return []
+        if scene_card is None:
+            return base_rows
+        subjects: set[str] = set()
+        pov = scene_card.get("pov_character")
+        if isinstance(pov, str) and pov:
+            subjects.add(pov)
+        for char in scene_card.get("characters_present") or []:
+            if isinstance(char, str) and char:
+                subjects.add(char)
+        if not subjects:
+            return base_rows
+        out: list[dict] = []
+        for row in base_rows:
+            if row.get("subject") in subjects and not _scene_id_strictly_at_or_after(
+                row.get("scene_id"), scene_id,
+            ):
+                out.append(row)
+        return out
+
     def _fetch_relationship_context(self, *, chapter_number: int) -> dict:
-        """Slice 5 hook. Empty until Sociogram lands."""
+        """Base-packet hook: chapter-scoped relationship snapshot.
+
+        Used by ``compile_base`` before the scene is known. Overlay callers
+        go through ``_fetch_relationship_context_for_scene`` so the POV /
+        characters_present filter is applied per Slice 5.
+        """
         if self.sociogram is None:
             return {}
         try:
@@ -515,6 +658,22 @@ class ChapterPacketCompiler:
         except Exception:  # noqa: BLE001
             logger.exception("sociogram.snapshot_for_chapter failed")
             return {}
+
+    def _fetch_relationship_context_for_scene(
+        self, *, chapter_number: int, scene_card: Mapping[str, Any] | None,
+    ) -> dict:
+        """Overlay hook: prefer the Sociogram's ``context_for_scene`` when
+        available (narrows to POV + characters_present dyads); otherwise
+        fall back to the chapter-scoped snapshot."""
+        if self.sociogram is None:
+            return {}
+        method = getattr(self.sociogram, "context_for_scene", None)
+        if callable(method) and scene_card is not None:
+            try:
+                return dict(method(scene_card=scene_card))
+            except Exception:  # noqa: BLE001
+                logger.exception("sociogram.context_for_scene failed")
+        return self._fetch_relationship_context(chapter_number=chapter_number)
 
     def _render_flat_context_snapshot(self, scene_card: Mapping[str, Any]) -> str:
         """Inline the legacy ContextAssembler output so the packet is a strict
@@ -527,6 +686,88 @@ class ChapterPacketCompiler:
         except Exception:  # noqa: BLE001 -- surface via packet_fallback_flat
             logger.exception("ContextAssembler.assemble failed during overlay")
             return ""
+
+
+# --------------------------------------------------------------------------- #
+# Module helpers                                                              #
+# --------------------------------------------------------------------------- #
+
+
+def _scene_id(chapter_number: int, scene_number: int) -> str:
+    return f"ch{chapter_number:02d}_sc{scene_number:02d}"
+
+
+_SCENE_ID_RE = re.compile(r"^ch(\d{2})_sc(\d{2})$")
+
+
+def _scene_id_strictly_at_or_after(scene_a: str | None, scene_b: str | None) -> bool:
+    """True when ``scene_a`` is >= ``scene_b``. Used by the overlay's
+    continuity filter to keep a scene from seeing its own events."""
+    if not scene_a or not scene_b:
+        return False
+    ma = _SCENE_ID_RE.match(scene_a)
+    mb = _SCENE_ID_RE.match(scene_b)
+    if ma is None or mb is None:
+        return False
+    return (int(ma.group(1)), int(ma.group(2))) >= (int(mb.group(1)), int(mb.group(2)))
+
+
+def _format_active_promise_line(entry: Mapping[str, Any]) -> str:
+    pid = entry.get("promise_id", "(unknown)")
+    ptype = entry.get("promise_type") or ""
+    desc = entry.get("description") or ""
+    head = f"[{ptype}] " if ptype else ""
+    fragments: list[str] = []
+    due = entry.get("due_by_scene")
+    if due:
+        fragments.append(f"due by {due}")
+    setup = entry.get("setup_scene")
+    if setup:
+        fragments.append(f"planted {setup}")
+    status = entry.get("status")
+    if status and status not in ("overdue",):
+        fragments.append(status)
+    tail = f" ({'; '.join(fragments)})" if fragments else ""
+    body = desc or pid
+    return f"- {head}{body}{tail}"
+
+
+def _format_relationship_line(key: str, value: Mapping[str, Any]) -> str:
+    trust = float(value.get("trust", 0.0))
+    warmth = float(value.get("warmth", 0.0))
+    power = float(value.get("power_balance", 0.0))
+    arc_type = value.get("arc_type") or ""
+    fragments: list[str] = []
+    fragments.append(f"trust {_format_signed(trust)}")
+    fragments.append(f"warmth {_format_signed(warmth)}")
+    fragments.append(f"power_balance {_format_signed(power)}")
+    tail = "; ".join(fragments)
+    arc = f" [{arc_type}]" if arc_type and arc_type != "other" else ""
+    return f"- {key}: {tail}{arc}"
+
+
+def _format_signed(value: float) -> str:
+    if abs(value) < 1e-9:
+        return "0.0"
+    return f"{value:+.2f}"
+
+
+def _format_overdue_promise_line(entry: Mapping[str, Any]) -> str:
+    pid = entry.get("promise_id", "(unknown)")
+    ptype = entry.get("promise_type") or ""
+    desc = entry.get("description") or ""
+    due = entry.get("due_by_scene") or ""
+    overdue_by = entry.get("overdue_by_scenes")
+    head = f"[{ptype}] " if ptype else ""
+    fragments: list[str] = []
+    if due:
+        fragments.append(f"due by {due}")
+    if isinstance(overdue_by, int) and overdue_by > 0:
+        suffix = "scene" if overdue_by == 1 else "scenes"
+        fragments.append(f"{overdue_by} {suffix} overdue")
+    tail = f" ({'; '.join(fragments)})" if fragments else ""
+    body = desc or pid
+    return f"- {head}{body}{tail}"
 
 
 __all__ = ["ChapterPacket", "ChapterPacketCompiler"]

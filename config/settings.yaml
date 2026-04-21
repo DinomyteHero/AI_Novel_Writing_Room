@@ -96,6 +96,10 @@ agent_routing:
   manuscript_reviewer:    { backend: cloud, model: kimi, params: { temperature: 0.3 } }
   # Relay Stage 1g — binary check for characters who speak/act while absent from characters_present.
   presence_checker:       { backend: cloud, model: haiku, params: { temperature: 0.1, max_tokens: 1000 } }
+  # Architecture upgrade Slice 4 — narrow post-save continuity event extraction
+  # from saved prose. Haiku at t=0.0 for determinism and cost. max_tokens=2048
+  # is well more than enough for the 5-type narrow schema.
+  continuity_extractor:   { backend: cloud, model: haiku, params: { temperature: 0.0, max_tokens: 2048 } }
 
   # PLANNING — Gemini Pro for long-context one-off authoring; Haiku 4.5 for
   # the per-scene plot_architect (structured JSON output at ~1/6 the cost).

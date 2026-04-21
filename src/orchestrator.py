@@ -49,6 +49,10 @@ if TYPE_CHECKING:
     from src.memory.contradiction_scanner import ContradictionScanner
     from src.memory.state_diff import StateDiffApplier
     from src.memory.story_state import StoryState
+    from src.agents.continuity_extractor import ContinuityExtractor
+    from src.memory.continuity_log import ContinuityLog
+    from src.memory.promise_ledger import PromiseLedger
+    from src.memory.sociogram import Sociogram
     from src.pipeline.chapter_packet import ChapterPacketCompiler
     from src.pipeline.revision_debt import RevisionDebtStore
     from src.quality.metrics_dashboard import MetricsDashboard
@@ -120,6 +124,23 @@ class Orchestrator:
         # ignored (fallback to flat assembly). Same for revision_debt_store.
         chapter_packet_compiler: Optional["ChapterPacketCompiler"] = None,
         revision_debt_store: Optional["RevisionDebtStore"] = None,
+        # Architecture upgrade Slice 3: promise ledger. When the flag is on,
+        # scene-save-time calls record_progression / record_payoff for each
+        # declared promise_id on the scene card. The chapter-packet compiler
+        # pulls list_top_urgent into the overlay via its own reference; pass
+        # the same PromiseLedger instance here and to the compiler.
+        promise_ledger: Optional["PromiseLedger"] = None,
+        # Architecture upgrade Slice 4: continuity event log + extractor.
+        # Both stay dormant unless runtime.continuity_log.enabled is true AND
+        # both collaborators are supplied. The extractor runs *after* save so
+        # blocker-quarantined prose never produces trusted events.
+        continuity_log: Optional["ContinuityLog"] = None,
+        continuity_extractor: Optional["ContinuityExtractor"] = None,
+        # Architecture upgrade Slice 5: sociogram. Scene-card
+        # ``relationship_deltas`` flow into the store at save time. The
+        # chapter-packet compiler queries the same instance for the
+        # overlay's ``relationship_context`` field.
+        sociogram: Optional["Sociogram"] = None,
     ):
         self.router = router
         self.assembler = context_assembler
@@ -206,6 +227,47 @@ class Orchestrator:
         # <run_dir> = parent of manuscripts_dir (chapters/). Matches the
         # existing quarantine_dir placement convention.
         self._packets_dir = self.manuscripts_dir.parent / "chapter_packets"
+
+        # Architecture upgrade Slice 3 \u2014 promise ledger. When the flag is on
+        # and a ledger was passed, scene-save time calls record_progression /
+        # record_payoff per declared promise_id, emits `promise_progressed` /
+        # `promise_paid` events, and surfaces any `list_overdue` matches as
+        # warn-level `promise_overdue` telemetry.
+        self.promise_ledger = promise_ledger
+        self._promise_ledger_enabled = bool(
+            self.runtime_flags.get("runtime", {}).get("promise_ledger", {}).get("enabled", False)
+            and self.promise_ledger is not None
+        )
+
+        # Architecture upgrade Slice 4 \u2014 continuity event log + extractor.
+        # Both must be attached AND the flag on for trusted-event recording to
+        # fire. Suppressed (sub-threshold) events go *nowhere* except a warn
+        # count event (spec \u00a78.3.2).
+        self.continuity_log = continuity_log
+        self.continuity_extractor = continuity_extractor
+        continuity_cfg = (
+            self.runtime_flags.get("runtime", {}).get("continuity_log", {}) or {}
+        )
+        self._continuity_log_enabled = bool(
+            continuity_cfg.get("enabled", False)
+            and self.continuity_log is not None
+            and self.continuity_extractor is not None
+        )
+        try:
+            self._continuity_min_confidence = float(
+                continuity_cfg.get("min_confidence", 0.85)
+            )
+        except (TypeError, ValueError):
+            self._continuity_min_confidence = 0.85
+
+        # Architecture upgrade Slice 5 \u2014 sociogram. Scene-card
+        # ``relationship_deltas`` fire at save time when the flag is on.
+        # Overlay rendering uses the same store via ChapterPacketCompiler.
+        self.sociogram = sociogram
+        self._sociogram_enabled = bool(
+            self.runtime_flags.get("runtime", {}).get("sociogram", {}).get("enabled", False)
+            and self.sociogram is not None
+        )
 
         # Architecture upgrade Slice 1 — Phase 0 prompt capture.
         # When runtime.phase0_audit.enabled is on, instantiate a snapshot
@@ -912,6 +974,22 @@ class Orchestrator:
         output_path = self._save_chapter(chapter_num, scene_num, final_prose)
         print(f"  Saved: {output_path}")
 
+        # Architecture upgrade Slice 3 \u2014 record declared promise deltas.
+        # Scene cards are the source of truth (spec \u00a77.1 declarative model);
+        # SceneReviewer-suggested progressions are explicitly *not* written
+        # here \u2014 those land as editorial.scene_reviewer revision-debt rows.
+        self._maybe_record_promise_deltas(scene_card)
+
+        # Architecture upgrade Slice 4 — extract narrow continuity events
+        # from the saved prose. Threshold-filtered inside the helper; sub-
+        # threshold rows are suppressed entirely (not logged, not stored) so
+        # hallucinated facts can never reach the packet.
+        await self._maybe_extract_continuity(scene_card, final_prose)
+
+        # Architecture upgrade Slice 5 — apply declared relationship deltas.
+        # Scene cards are the source of truth (spec §9.1 declarative model).
+        self._maybe_apply_relationship_deltas(scene_card)
+
         # Phase 4: Post-chapter physics validation
         physics_post = None
         if self.physics_enforcer:
@@ -1391,6 +1469,30 @@ class Orchestrator:
             # compile_base fell back; overlay cannot proceed.
             return None
         scene_number = scene_card.get("scene_number", 1)
+        # Slice 6 (spec \u00a710.3 step 4/5): patch_workflow.py writes a
+        # ``*_overlay.STALE`` marker whenever gap resolution touches the
+        # scene's downstream. Overlays already rebuild every scene, so the
+        # marker is advisory \u2014 we emit an info event then clear it so the
+        # audit trail lands exactly once per resolution.
+        try:
+            marker = self._packets_dir / (
+                f"chapter_{chapter_number:02d}_sc_{scene_number:02d}_overlay.STALE"
+            )
+            if marker.exists():
+                self.ledger.emit_info(
+                    "packet_overlay_written",
+                    chapter_number=chapter_number, scene_number=scene_number,
+                    payload={
+                        "chapter_number": chapter_number,
+                        "scene_number": scene_number,
+                        "stale_marker_cleared": True,
+                        "marker_written_at": marker.read_text(encoding="utf-8").strip(),
+                    },
+                )
+                marker.unlink(missing_ok=True)
+        except Exception:  # noqa: BLE001 -- marker errors must not block draft
+            pass
+
         try:
             overlay = self.chapter_packet_compiler.compile_overlay(
                 base=base,
@@ -1440,6 +1542,184 @@ class Orchestrator:
         payload = overlay.to_json()
         payload["rendered_markdown"] = rendered
         return payload
+
+    # ------------------------------------------------------------------
+    # Slice 3 promise-ledger hook. Called from save path *after* _save_chapter
+    # so a blocker-quarantined scene never writes to the ledger. No-op when
+    # the flag is off or no ledger was attached.
+    # ------------------------------------------------------------------
+    def _maybe_record_promise_deltas(self, scene_card: dict) -> None:
+        if not self._promise_ledger_enabled:
+            return
+        chapter_number = scene_card.get("chapter_number")
+        scene_number = scene_card.get("scene_number", 1)
+        if chapter_number is None:
+            return
+        scene_id = f"ch{int(chapter_number):02d}_sc{int(scene_number):02d}"
+
+        for pid in scene_card.get("promises_progressed") or []:
+            try:
+                self.promise_ledger.record_progression(
+                    promise_id=pid, scene_id=scene_id, source="scene_card",
+                )
+            except KeyError:
+                # Unknown promise_id \u2014 planning drift. Warn but don't abort.
+                self.ledger.emit_warn(
+                    "promise_progressed",
+                    chapter_number=chapter_number, scene_number=scene_number,
+                    payload={"promise_id": pid, "status": "unknown_promise_id"},
+                )
+                continue
+            self.ledger.emit_info(
+                "promise_progressed",
+                chapter_number=chapter_number, scene_number=scene_number,
+                payload={"promise_id": pid, "scene_id": scene_id},
+            )
+
+        for pid in scene_card.get("promises_paid") or []:
+            try:
+                self.promise_ledger.record_payoff(
+                    promise_id=pid, scene_id=scene_id,
+                )
+            except KeyError:
+                self.ledger.emit_warn(
+                    "promise_paid",
+                    chapter_number=chapter_number, scene_number=scene_number,
+                    payload={"promise_id": pid, "status": "unknown_promise_id"},
+                )
+                continue
+            self.ledger.emit_info(
+                "promise_paid",
+                chapter_number=chapter_number, scene_number=scene_number,
+                payload={"promise_id": pid, "scene_id": scene_id},
+            )
+
+        # After the scene lands, surface any *newly* overdue promises as
+        # advisory warnings so the human operator sees the slipping promise
+        # without the drafter being forced into payoff (spec \u00a77.3).
+        try:
+            overdue = self.promise_ledger.list_overdue(at_scene=scene_id)
+        except Exception:  # noqa: BLE001
+            overdue = []
+        for entry in overdue:
+            self.ledger.emit_warn(
+                "promise_overdue",
+                chapter_number=chapter_number, scene_number=scene_number,
+                payload={
+                    "promise_id": entry.get("promise_id"),
+                    "due_by_scene": entry.get("due_by_scene"),
+                    "overdue_by_scenes": entry.get("overdue_by_scenes"),
+                },
+            )
+
+    # ------------------------------------------------------------------
+    # Slice 4 continuity-extractor hook. Called post-save so quarantined
+    # scenes never produce trusted events. Suppressed rows go nowhere
+    # except a warn-count telemetry event.
+    # ------------------------------------------------------------------
+    async def _maybe_extract_continuity(self, scene_card: dict, prose: str) -> None:
+        if not self._continuity_log_enabled:
+            return
+        chapter_number = scene_card.get("chapter_number")
+        scene_number = scene_card.get("scene_number", 1)
+        if chapter_number is None or not prose:
+            return
+        try:
+            concept_seed = getattr(self.assembler, "concept_seed", {}) or {}
+        except Exception:  # noqa: BLE001
+            concept_seed = {}
+        try:
+            events = await self.continuity_extractor.extract(
+                prose=prose, scene_card=scene_card, concept_seed=concept_seed,
+            )
+        except Exception as exc:  # noqa: BLE001
+            self.ledger.emit_warn(
+                "continuity_extractor_error",
+                chapter_number=chapter_number, scene_number=scene_number,
+                payload={"error": f"{type(exc).__name__}: {exc}"},
+            )
+            return
+
+        threshold = float(self._continuity_min_confidence)
+        trusted: list[dict] = []
+        suppressed: list[dict] = []
+        for ev in events or []:
+            conf = float(ev.get("confidence", 0.0))
+            if conf >= threshold:
+                trusted.append(ev)
+            else:
+                suppressed.append(ev)
+
+        for ev in trusted:
+            try:
+                event_id = self.continuity_log.append(ev)
+            except Exception as exc:  # noqa: BLE001
+                # Store-rejected row \u2014 log as warn-count but do not raise.
+                self.ledger.emit_warn(
+                    "continuity_extractor_error",
+                    chapter_number=chapter_number, scene_number=scene_number,
+                    payload={
+                        "error": f"append-rejected: {type(exc).__name__}: {exc}",
+                        "event_type": ev.get("event_type"),
+                    },
+                )
+                continue
+            self.ledger.emit_info(
+                "continuity_event_recorded",
+                chapter_number=chapter_number, scene_number=scene_number,
+                payload={
+                    "event_id": event_id,
+                    "event_type": ev.get("event_type"),
+                    "subject": ev.get("subject"),
+                    "confidence": ev.get("confidence"),
+                },
+            )
+
+        if suppressed:
+            # Spec \u00a78.3.2: only a count lands \u2014 no event content, no
+            # per-row payload. Hallucinations stay invisible downstream.
+            self.ledger.emit_warn(
+                "continuity_events_suppressed",
+                chapter_number=chapter_number, scene_number=scene_number,
+                payload={
+                    "count": len(suppressed),
+                    "threshold": threshold,
+                    "extractor_version": events[0].get("extractor_version")
+                    if events else None,
+                },
+            )
+
+    # ------------------------------------------------------------------
+    # Slice 5 sociogram hook. Called post-save so quarantined scenes never
+    # shift relationship state. No-op when flag off or no store attached.
+    # ------------------------------------------------------------------
+    def _maybe_apply_relationship_deltas(self, scene_card: dict) -> None:
+        if not self._sociogram_enabled:
+            return
+        try:
+            updates = self.sociogram.apply_scene_deltas(scene_card=scene_card)
+        except Exception as exc:  # noqa: BLE001
+            # Sociogram failure is advisory \u2014 do not abort the scene save.
+            self.ledger.emit_warn(
+                "sociogram_delta_applied",
+                chapter_number=scene_card.get("chapter_number"),
+                scene_number=scene_card.get("scene_number", 1),
+                payload={"error": f"{type(exc).__name__}: {exc}"},
+            )
+            return
+        chapter_number = scene_card.get("chapter_number")
+        scene_number = scene_card.get("scene_number", 1)
+        for update in updates:
+            self.ledger.emit_info(
+                "sociogram_delta_applied",
+                chapter_number=chapter_number, scene_number=scene_number,
+                payload={
+                    "edge_id": update.get("edge_id"),
+                    "trust": update.get("trust"),
+                    "warmth": update.get("warmth"),
+                    "power_balance": update.get("power_balance"),
+                },
+            )
 
     async def _run_prose_stylist(
         self,

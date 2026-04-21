@@ -49,6 +49,28 @@
     "plot_threads_advanced": { "type": "array", "items": { "type": "string" } },
     "promises_planted": { "type": "array", "items": { "type": "string" } },
     "promises_paid": { "type": "array", "items": { "type": "string" } },
+    "promises_progressed": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Promise IDs this scene advances without paying off. Used by the Slice 3 promise ledger to record progression beats; each entry appends one row to promise.progression_log at save time with source='scene_card'. Optional."
+    },
+    "relationship_deltas": {
+      "type": "array",
+      "description": "Slice 5: per-scene relationship shifts the scene author declares. Each delta is capped at \u00b10.5 on every axis to prevent runaway swings; authors decompose larger changes across multiple scenes. Used by src/memory/sociogram.py to update edge state at scene-save time.",
+      "items": {
+        "type": "object",
+        "required": ["subject", "object"],
+        "additionalProperties": false,
+        "properties": {
+          "subject": { "type": "string", "minLength": 1 },
+          "object": { "type": "string", "minLength": 1 },
+          "trust_delta": { "type": "number", "minimum": -0.5, "maximum": 0.5 },
+          "warmth_delta": { "type": "number", "minimum": -0.5, "maximum": 0.5 },
+          "power_balance_delta": { "type": "number", "minimum": -0.5, "maximum": 0.5 },
+          "note": { "type": "string" }
+        }
+      }
+    },
     "canon_elements_needed": { "type": "array", "items": { "type": "string" } },
     "target_word_count": { "type": "integer" },
     "action_beats": {
