@@ -263,10 +263,31 @@ class ChapterPacket:
                 parts.append(f"- [{et}] {summary}")
 
         if self.relationship_context:
+            # Slice 5 (spec \u00a79.5): render per-dyad trust/warmth/power_balance.
+            # The overlay-scoped ``context_for_scene`` may attach an
+            # ``_unshown_edge_count`` tail so the drafter sees the dilution
+            # cap without being flooded with unrelated dyads.
             parts.append("")
-            parts.append("### Relationship Context")
-            for k, v in self.relationship_context.items():
-                parts.append(f"- {k}: {v}")
+            scene_anchor = ""
+            # Scene anchor comes from the first dyad's updated_at_scene.
+            for key, val in self.relationship_context.items():
+                if isinstance(val, Mapping):
+                    scene_anchor = val.get("updated_at_scene") or ""
+                    break
+            if scene_anchor:
+                parts.append(f"### Relationship context (current state as of {scene_anchor})")
+            else:
+                parts.append("### Relationship Context")
+            for key, val in self.relationship_context.items():
+                if key.startswith("_"):
+                    continue
+                if isinstance(val, Mapping):
+                    parts.append(_format_relationship_line(key, val))
+                else:
+                    parts.append(f"- {key}: {val}")
+            unshown = self.relationship_context.get("_unshown_edge_count")
+            if isinstance(unshown, int) and unshown > 0:
+                parts.append(f"- _(+{unshown} other edges not surfaced this scene)_")
 
         if self.exit_vector:
             parts.append("")
@@ -709,6 +730,26 @@ def _format_active_promise_line(entry: Mapping[str, Any]) -> str:
     tail = f" ({'; '.join(fragments)})" if fragments else ""
     body = desc or pid
     return f"- {head}{body}{tail}"
+
+
+def _format_relationship_line(key: str, value: Mapping[str, Any]) -> str:
+    trust = float(value.get("trust", 0.0))
+    warmth = float(value.get("warmth", 0.0))
+    power = float(value.get("power_balance", 0.0))
+    arc_type = value.get("arc_type") or ""
+    fragments: list[str] = []
+    fragments.append(f"trust {_format_signed(trust)}")
+    fragments.append(f"warmth {_format_signed(warmth)}")
+    fragments.append(f"power_balance {_format_signed(power)}")
+    tail = "; ".join(fragments)
+    arc = f" [{arc_type}]" if arc_type and arc_type != "other" else ""
+    return f"- {key}: {tail}{arc}"
+
+
+def _format_signed(value: float) -> str:
+    if abs(value) < 1e-9:
+        return "0.0"
+    return f"{value:+.2f}"
 
 
 def _format_overdue_promise_line(entry: Mapping[str, Any]) -> str:

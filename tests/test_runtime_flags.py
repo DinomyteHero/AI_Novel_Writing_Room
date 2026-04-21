@@ -313,6 +313,32 @@ def test_shipping_books_keep_promise_ledger_off(book_slug: str):
     "the-ruusan-atonement",
     "legacy-of-the-force-betrayal",
 ])
+def test_shipping_books_keep_sociogram_off(book_slug: str):
+    """Spec §9.6: sociogram is the highest-inference-risk slot in the
+    stateful-memory family. Keep the flag off on Ruusan/Betrayal until a
+    non-shipping book has it flipped on and produces relationally-grounded
+    prose without drift (spec §9.6 go/no-go).
+    """
+    import json
+    seed_path = Path(
+        f"data/franchises/star-wars-legends-eu/books/{book_slug}/concept_seed.json"
+    )
+    if not seed_path.exists():
+        pytest.skip(f"seed not present: {seed_path}")
+    with seed_path.open(encoding="utf-8") as fh:
+        seed = json.load(fh)
+
+    merged = load_runtime_flags(concept_seed=seed)
+    assert merged["runtime"]["sociogram"]["enabled"] is False
+    # suggest_mode (assisted-suggestion) must also stay off \u2014 it routes to
+    # revision debt but still makes an LLM call per scene.
+    assert merged["runtime"]["sociogram"]["suggest_mode"] is False
+
+
+@pytest.mark.parametrize("book_slug", [
+    "the-ruusan-atonement",
+    "legacy-of-the-force-betrayal",
+])
 def test_shipping_books_keep_continuity_log_off(book_slug: str):
     """Spec §8.6: the continuity extractor is the risky slice. Even with
     threshold filtering, precision < 0.90 on the labeled eval set risks

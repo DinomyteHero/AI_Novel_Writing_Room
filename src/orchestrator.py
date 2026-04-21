@@ -52,6 +52,7 @@ if TYPE_CHECKING:
     from src.agents.continuity_extractor import ContinuityExtractor
     from src.memory.continuity_log import ContinuityLog
     from src.memory.promise_ledger import PromiseLedger
+    from src.memory.sociogram import Sociogram
     from src.pipeline.chapter_packet import ChapterPacketCompiler
     from src.pipeline.revision_debt import RevisionDebtStore
     from src.quality.metrics_dashboard import MetricsDashboard
@@ -135,6 +136,11 @@ class Orchestrator:
         # blocker-quarantined prose never produces trusted events.
         continuity_log: Optional["ContinuityLog"] = None,
         continuity_extractor: Optional["ContinuityExtractor"] = None,
+        # Architecture upgrade Slice 5: sociogram. Scene-card
+        # ``relationship_deltas`` flow into the store at save time. The
+        # chapter-packet compiler queries the same instance for the
+        # overlay's ``relationship_context`` field.
+        sociogram: Optional["Sociogram"] = None,
     ):
         self.router = router
         self.assembler = context_assembler
@@ -253,6 +259,15 @@ class Orchestrator:
             )
         except (TypeError, ValueError):
             self._continuity_min_confidence = 0.85
+
+        # Architecture upgrade Slice 5 \u2014 sociogram. Scene-card
+        # ``relationship_deltas`` fire at save time when the flag is on.
+        # Overlay rendering uses the same store via ChapterPacketCompiler.
+        self.sociogram = sociogram
+        self._sociogram_enabled = bool(
+            self.runtime_flags.get("runtime", {}).get("sociogram", {}).get("enabled", False)
+            and self.sociogram is not None
+        )
 
         # Architecture upgrade Slice 1 — Phase 0 prompt capture.
         # When runtime.phase0_audit.enabled is on, instantiate a snapshot
@@ -971,6 +986,10 @@ class Orchestrator:
         # hallucinated facts can never reach the packet.
         await self._maybe_extract_continuity(scene_card, final_prose)
 
+        # Architecture upgrade Slice 5 — apply declared relationship deltas.
+        # Scene cards are the source of truth (spec §9.1 declarative model).
+        self._maybe_apply_relationship_deltas(scene_card)
+
         # Phase 4: Post-chapter physics validation
         physics_post = None
         if self.physics_enforcer:
@@ -1643,6 +1662,38 @@ class Orchestrator:
                     "threshold": threshold,
                     "extractor_version": events[0].get("extractor_version")
                     if events else None,
+                },
+            )
+
+    # ------------------------------------------------------------------
+    # Slice 5 sociogram hook. Called post-save so quarantined scenes never
+    # shift relationship state. No-op when flag off or no store attached.
+    # ------------------------------------------------------------------
+    def _maybe_apply_relationship_deltas(self, scene_card: dict) -> None:
+        if not self._sociogram_enabled:
+            return
+        try:
+            updates = self.sociogram.apply_scene_deltas(scene_card=scene_card)
+        except Exception as exc:  # noqa: BLE001
+            # Sociogram failure is advisory \u2014 do not abort the scene save.
+            self.ledger.emit_warn(
+                "sociogram_delta_applied",
+                chapter_number=scene_card.get("chapter_number"),
+                scene_number=scene_card.get("scene_number", 1),
+                payload={"error": f"{type(exc).__name__}: {exc}"},
+            )
+            return
+        chapter_number = scene_card.get("chapter_number")
+        scene_number = scene_card.get("scene_number", 1)
+        for update in updates:
+            self.ledger.emit_info(
+                "sociogram_delta_applied",
+                chapter_number=chapter_number, scene_number=scene_number,
+                payload={
+                    "edge_id": update.get("edge_id"),
+                    "trust": update.get("trust"),
+                    "warmth": update.get("warmth"),
+                    "power_balance": update.get("power_balance"),
                 },
             )
 

@@ -345,6 +345,49 @@ def test_slice3_overlay_renders_overdue_under_advisory_heading(
     ledger.close()
 
 
+def test_slice5_relationship_context_uses_context_for_scene(
+    blueprint_ch1, concept_seed,
+):
+    """Overlay prefers ``sociogram.context_for_scene`` (characters_present
+    filter) over the chapter-scoped ``snapshot_for_chapter`` (spec \u00a79.5)."""
+    from src.memory.sociogram import Sociogram
+
+    graph = Sociogram(db_path=":memory:")
+    try:
+        graph.initialize_from_planning(concept_seed={
+            "relationship_arcs": [
+                {"dyad": "Ben Skywalker/Luke Skywalker", "arc_type": "reconciling"},
+                {"dyad": "Ben Skywalker/Desh Lor", "arc_type": "deepening"},
+                {"dyad": "Desh Lor/Luke Skywalker", "arc_type": "stable_opposition"},
+            ],
+        })
+        compiler = ChapterPacketCompiler(
+            concept_seed=concept_seed,
+            blueprints={1: blueprint_ch1},
+            sociogram=graph,
+        )
+        overlay = compiler.compile_overlay(
+            base=compiler.compile_base(chapter_number=1),
+            scene_card={
+                "chapter_number": 1, "scene_number": 2,
+                "pov_character": "Ben Skywalker",
+                "characters_present": ["Ben Skywalker", "Luke Skywalker"],
+            },
+        )
+        dyads = {k for k in overlay.relationship_context if not k.startswith("_")}
+        assert dyads == {
+            "Ben Skywalker \u2502 Luke Skywalker",
+            "Luke Skywalker \u2502 Ben Skywalker",
+        }
+        # Dilution tail: 6 total directed edges \u2013 2 surfaced = 4 unshown.
+        assert overlay.relationship_context["_unshown_edge_count"] == 4
+        # Markdown renderer includes the scene anchor + unshown tail.
+        assert "Relationship context" in overlay.rendered_markdown
+        assert "+4 other edges" in overlay.rendered_markdown
+    finally:
+        graph.close()
+
+
 def test_slice4_continuity_events_filtered_to_pov_and_present_chars(
     blueprint_ch1, concept_seed,
 ):

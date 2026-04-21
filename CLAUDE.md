@@ -77,6 +77,19 @@ Slice 4 ships the first **LLM-extracted** trusted-memory artifact, with explicit
 - **New ledger events:** `continuity_event_recorded` (info), `continuity_events_suppressed` (warn), `continuity_extractor_error` (warn).
 - **Shipping-book guard** at `tests/test_runtime_flags.py::test_shipping_books_keep_continuity_log_off` blocks an accidental flag flip on Ruusan or Betrayal before the precision gate passes.
 
+## Slice 5: sociogram (feature-flagged, default off — highest inference risk)
+
+Slice 5 ships the character-relationship graph. Declarative-first: planning seeds the initial state; scene-card `relationship_deltas` are the only auto-trusted write path. Assisted-suggestion mode is routed through revision debt, never directly into the graph.
+
+- **Schema.** `schemas/sociogram_edge.json` pins directional edges (subject → object is distinct from object → subject). Three-axis scalar encoding: `trust`, `warmth`, `power_balance`, each in `[-1, 1]`. `arc_type` is a closed enum of 11 relationship shapes; the store normalizes planning aliases (`reconciling` → `enemies_to_allies`, etc.) to land on the enum.
+- **Store.** `src/memory/sociogram.py` (`Sociogram`) backs `output/<franchise>/<book>/state/sociogram.db`. `initialize_from_planning` accepts both `concept_seed.relationship_arcs` (Ruusan convention: `dyad: "A/B"`) and `concept_seed.ensemble_cast[*].relationships` (spec convention). Re-seeding is idempotent and **does not** clobber scene-card-driven state — a repeat `initialize_from_planning` leaves `trust`/`warmth`/`power_balance` at whatever the deltas moved them to, appending only a planning note to history.
+- **Scene-card contract.** New optional field `relationship_deltas: [{subject, object, trust_delta, warmth_delta, power_balance_delta, note}]`. Per-axis deltas capped at ±0.5 by both the schema and the store; larger swings must be decomposed across multiple scenes. `Sociogram.apply_scene_deltas` skips invalid rows with a warn log rather than aborting; valid rows emit `sociogram_delta_applied` info events.
+- **Packet integration.** `ChapterPacketCompiler.compile_overlay` calls `sociogram.context_for_scene(scene_card)` — dyads whose subject AND object are both in `{pov_character} ∪ characters_present`. The non-surfaced count goes in `_unshown_edge_count`; the renderer emits it as `_(+N other edges not surfaced this scene)_` so the drafter sees dilution without being flooded. `compile_base` still uses `snapshot_for_chapter(chapter_number)` (scene-less view).
+- **Renderer.** Per-dyad line: `Hunter │ Jora: trust -0.30; warmth -0.10; power_balance +0.20 [arc_type]`. Leading scene anchor `(current state as of chNN_scMM)` from the first entry's `updated_at_scene`.
+- **Migration.** `scripts/migrate_sociogram.py` walks every `output/<franchise>/<book>/state/` dir, pairs it with `data/franchises/<franchise>/books/<book>/`, seeds `sociogram.db` from planning. Idempotent.
+- **New ledger events:** `sociogram_delta_applied` (info), `sociogram_suggestion_recorded` (info, reserved for the assisted-suggestion path in Slice 11.1 wave).
+- **Shipping-book guard** at `tests/test_runtime_flags.py::test_shipping_books_keep_sociogram_off` blocks an accidental flag flip on Ruusan or Betrayal before a non-shipping book has it enabled and produces relationally-grounded prose without drift (spec §9.6 go/no-go).
+
 ## Status vocabulary (three values only)
 
 Per-scene save status lives in `src/memory/story_state.py`. Only three values are valid:

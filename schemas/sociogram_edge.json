@@ -1,0 +1,61 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SociogramEdge",
+  "description": "Slice 5 directional relationship edge. Three-axis scalar encoding: trust / warmth / power_balance, each in [-1, 1]. Populated from planning-time relationship_arcs (declarative) and scene-card relationship_deltas; assisted-suggestion mode writes to revision_debt, NOT directly here. See docs/architecture/architecture_upgrade_spec.md \u00a79.",
+  "type": "object",
+  "required": ["edge_id", "subject", "object", "arc_type", "current_state"],
+  "additionalProperties": false,
+  "properties": {
+    "edge_id": { "type": "string", "minLength": 1 },
+    "subject": { "type": "string", "minLength": 1 },
+    "object": { "type": "string", "minLength": 1 },
+    "arc_type": {
+      "type": "string",
+      "enum": [
+        "allies_to_enemies",
+        "enemies_to_allies",
+        "lovers_to_strangers",
+        "strangers_to_found_family",
+        "mentor_to_peer",
+        "stable_opposition",
+        "stable_alliance",
+        "one_sided",
+        "convergent",
+        "divergent",
+        "other"
+      ]
+    },
+    "current_state": {
+      "type": "object",
+      "required": ["trust", "warmth", "power_balance", "updated_at_scene"],
+      "additionalProperties": false,
+      "properties": {
+        "trust": { "type": "number", "minimum": -1, "maximum": 1 },
+        "warmth": { "type": "number", "minimum": -1, "maximum": 1 },
+        "power_balance": { "type": "number", "minimum": -1, "maximum": 1 },
+        "updated_at_scene": { "type": "string", "pattern": "^(ch\\d{2}_sc\\d{2}|planning)$" }
+      }
+    },
+    "history": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["scene_id", "source"],
+        "additionalProperties": false,
+        "properties": {
+          "scene_id": { "type": "string" },
+          "trust_delta": { "type": "number" },
+          "warmth_delta": { "type": "number" },
+          "power_balance_delta": { "type": "number" },
+          "source": {
+            "type": "string",
+            "enum": ["planning", "scene_card", "human_accepted_suggestion"]
+          },
+          "note": { "type": "string" }
+        }
+      }
+    },
+    "created_at": { "type": "string", "format": "date-time" },
+    "updated_at": { "type": "string", "format": "date-time" }
+  }
+}

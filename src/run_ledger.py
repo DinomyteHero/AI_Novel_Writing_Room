@@ -70,6 +70,9 @@ EVENT_TYPES = [
     "continuity_event_recorded",    # info — event appended above threshold
     "continuity_events_suppressed", # warn — count of sub-threshold events dropped
     "continuity_extractor_error",   # warn — extractor call failed; scene still saved
+    # Architecture upgrade Slice 5: sociogram.
+    "sociogram_delta_applied",      # info — scene_card relationship_deltas row applied
+    "sociogram_suggestion_recorded",# info — suggest_mode proposal landed in revision debt
 ]
 
 
