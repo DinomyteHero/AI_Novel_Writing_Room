@@ -93,3 +93,33 @@ class TestContextAssembler:
         assert "Alex Reyes" in context
         # Anti-patterns
         assert "prophecy" in context.lower() or "destiny" in context.lower()
+
+    def test_voice_rules_surface_franchise_terminology_notes_from_canon_profile(
+        self, assembler
+    ):
+        """``franchise_terminology_notes`` lives on ``canon_profile``, not on
+        ``canon_constraints`` and not on ``voice_definition``. The voice-rules
+        block must read the field from the correct location or the drafter
+        never sees the same franchise rules canon_expert enforces at save
+        time. This regression test pins the path: if someone moves the read
+        back to ``canon_constraints``, this fails."""
+        # Inject canon_profile.franchise_terminology_notes into the loaded seed
+        # and re-render the voice rules. We do not mutate the on-disk fixture
+        # — we assert on the rendered output for a seed modified in memory.
+        assembler.concept_seed.setdefault("canon_profile", {})[
+            "franchise_terminology_notes"
+        ] = (
+            "The Force is a living presence, not a measurable phenomenon. "
+            "Turbolifts, not elevators."
+        )
+        # Make sure a stray canon_constraints copy is NOT read — this guards
+        # against regression to the wrong path.
+        assembler.concept_seed.setdefault("canon_constraints", {})[
+            "franchise_terminology_notes"
+        ] = "SHOULD NOT APPEAR — this path is not canonical"
+
+        rules = assembler._assemble_voice_rules()
+        assert "Franchise Terminology Notes" in rules
+        assert "living presence" in rules
+        assert "Turbolifts" in rules
+        assert "SHOULD NOT APPEAR" not in rules
