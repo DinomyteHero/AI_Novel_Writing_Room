@@ -3,7 +3,9 @@
   "chapter_mission": "Enter Maetha's Training Facility. The flexible region of the Weave at this site lets Ben feel the technique's seduction firsthand. Maetha's recorded warning ('It replaces you') lands. Torin hears it as challenge, not prohibition. The wrongness spikes to a new, higher baseline — the seal is being actively attacked. The next node is a settlement world.",
   "chapter_turn": "Ben stops understanding the technique intellectually and feels why previous generations fell to it. Intellectual warning is insufficient armor. Sera watches Torin walk out of the archive chamber and realises she is watching Gavran walk out of a briefing a thousand years ago.",
   "structural_phase": "response",
-  "pov_allocation": ["Ben Skywalker"],
+  "pov_allocation": [
+    "Ben Skywalker"
+  ],
   "scene_count": 3,
   "scene_plan": [
     {
@@ -11,7 +13,7 @@
       "role": "hook",
       "dialogue_expectation": "balanced",
       "target_word_count": 1300,
-      "purpose": "Sera works Gavran's personal seal for twelve unbroken minutes while the group waits. It opens on dust, stone, and stale sealed air. The flexible region of the Weave here is different from previous thin places — the boundary between light and dark shimmers while watched. Seductive, not disorienting. Ben stands in the central training circle and feels both aspects simultaneously without contradiction. For a breath, it is beautiful. Torin walks to the centre and stands still; his Force presence settles like someone arriving home. H11 resolves."
+      "purpose": "Sera works Gavran's personal seal for twelve unbroken minutes while the group waits. It opens on dust, stone, and stale sealed air. The flexible region of the Weave here is different from previous thin places — the local moral and sensory certainty slips while watched. Seductive, not disorienting. Ben stands in the central training circle and feels both aspects simultaneously without contradiction. For a breath, it is beautiful. Torin walks to the centre and stands still; his Force presence settles like someone arriving home. H11 resolves."
     },
     {
       "scene_number": 2,
@@ -28,13 +30,23 @@
       "purpose": "Exterior. The wrongness spikes without warning. Ben staggers; Torin tilts his head toward the spike with attentive listening. It stabilises at a higher baseline. Desh's scan: Veraine spent extended time at Maetha's — not repurposing, studying. A pilgrimage. The next Corridor stop on the nav display is a settlement world. Civilians lived there. Possibly still do. H12 plants. Departure."
     }
   ],
-  "reveal_payload": ["R07"],
+  "reveal_payload": [
+    "R07"
+  ],
   "hook_movements": {
-    "planted": ["H12"],
+    "planted": [
+      "H12"
+    ],
     "advanced": [],
-    "resolved": ["H11"]
+    "resolved": [
+      "H11"
+    ]
   },
-  "subplot_obligations": ["SP-A", "SP1", "SP5"],
+  "subplot_obligations": [
+    "SP-A",
+    "SP1",
+    "SP5"
+  ],
   "relationship_turns": [
     {
       "dyad": "Sera/Torin",

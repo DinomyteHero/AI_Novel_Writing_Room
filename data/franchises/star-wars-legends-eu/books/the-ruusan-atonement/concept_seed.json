@@ -84,21 +84,21 @@
     ]
   },
   "premise": {
-    "what_if": "What if the Ruusan Reformations were penance for a Jedi war crime — a forbidden technique that tore the boundary between light and dark — and a thousand years later, the seal containing that wound starts to fail?",
+    "what_if": "What if the Ruusan Reformations were penance for a Jedi war crime -- a forbidden technique that damaged a vergence and scarred the Force -- and a thousand years later the seal containing that wound starts to fail?",
     "central_dramatic_question": "Can Ben succeed where the Jedi Lords failed — not by wielding power, but by trusting the people his Order forgot?",
-    "logline": "Ben Skywalker awakens three survivors of a war the Jedi Order erased from history — and discovers they're the only people who understand the wound in the Force that's unraveling the boundary between light and dark. With an ancient Sith racing to exploit the crisis and his most trusted ally turning desperate enough to become the next threat, Ben must do what a thousand years of Jedi couldn't: find an answer that doesn't require becoming the thing he's fighting.",
+    "logline": "Ben Skywalker awakens three survivors of a war the Jedi Order erased from history -- and discovers they are the only people who understand the wound in the Force festering around Veranthos. With an ancient Sith racing to break the seal on her terms and his most trusted ally turning desperate enough to become the next threat, Ben must do what a thousand years of Jedi could not: find a way to contain the wound without making another person the prison.",
     "hook_classification": "hard"
   },
   "conflict": {
     "primary_antagonistic_force": {
       "type": "External — Ancient Sith survivor",
       "identity": "Darth Veraine, Brotherhood of Darkness alchemist and strategist. Captured by Gavran's forces and repurposed as one of twelve Force-sensitive anchors in the seal's containment infrastructure. Her partial awareness during a millennium of stasis — feeling her Force presence drained as structural rebar — eroded her chamber from inside. She escaped weeks before the main cascade, her breakout accelerating the system failure that woke the remaining three survivors.",
-      "motivation": "Veraine genuinely believes the wound in the Force is the Force's natural state and that the seal is keeping the galaxy sick. Her philosophy is rooted in direct experience: the Brotherhood's attempt to invert the Weave at Veranthos proved the Weave was malleable, and Gavran's technique proved it was removable. A thousand years as an anchor gave her partial awareness of the unwoven state, and her conclusion is that the Weave is an imposed framework, not a natural property — a disease the galaxy has mistaken for health. She intends to open the wound fully, not to destroy, but to liberate the Force from the artificial light/dark binary. She has the ideological certainty of a true believer backed by a millennium of Sith knowledge the modern galaxy has forgotten. Her flaw is detachment — she has so thoroughly intellectualized the Force that she cannot feel what unweaving does to living beings. The wound isn't a catastrophe to her because she doesn't experience it as suffering.",
-      "escalation": "Part 1: Invisible — referenced only through an empty stasis chamber at the fortress, broken open from inside, and monitoring logs flagging a high-risk anchor breach weeks prior. Part 2: Evidence of her passage along the Corridor's anchor nodes — she's traveling the same route ahead of the group, repurposing each node's infrastructure into an amplification array that turns the seal's own architecture against itself. A small crew of Outer Rim salvagers and one or two true believers provide practical support. Each site shows escalating sophistication. Part 3: Direct confrontation during a truce meeting (Chapter 16) where she presents her philosophy to the full group — a three-objective operation combining ideological pitch, Kael recruitment attempt, and intelligence gathering; her crew executes a parallel sabotage out of Ben's sight, collapsing the timeline from weeks to days once the group discovers it on exit. Part 4: Full assault on the primary seal at Veranthos — her ritual amplified by the repurposed node network, directed at the Scar. Defeated in two stages: Desh disables critical amplification nodes (physical/tactical), then the Weave-resonance produces emergent complexity her analytical framework cannot model. She planned for opposition from a single tradition; she didn't plan for synthesis. Contained by Sera but unbroken — defeated by results, not by conversion."
+      "motivation": "The wound is real. The seal is a prison built from fear. Veraine believes Gavran's technique was a battlefield crime and that the Order compounded it by building a containment system out of living anchors, then naming that mercy. Ankhural's Codex gave her a heretical frame for what she already suspected -- that the local structure around vergences is imposed rather than natural -- and a thousand years of half-aware imprisonment turned suspicion into certainty. She intends to break the seal and accepts the transition casualties as the price of ending what the Jedi chose to preserve. Her accusation is historically accurate in key particulars; her conclusion is catastrophically wrong. She can count the bodies and still choose release. Her flaw is detachment -- she has translated suffering into arithmetic and cannot feel what the wound does to living beings strongly enough to stop.",
+      "escalation": "Part 1: Invisible -- referenced only through an empty stasis chamber at the fortress, broken open from inside, and monitoring logs flagging a high-risk anchor breach weeks prior. Part 2: Evidence of her passage along the Corridor's anchor nodes -- she is traveling the same route ahead of the group, repurposing each node's infrastructure into an amplification array that turns the seal's own architecture against itself. A small crew of Outer Rim salvagers and one or two true believers provide practical support. Each site shows escalating sophistication. Part 3: Direct confrontation during a truce meeting (Chapter 16) where she presents her philosophy to the full group -- a three-objective operation combining ideological pitch, Kael recruitment attempt, and intelligence gathering; her crew executes a parallel sabotage out of Ben's sight, collapsing the timeline from weeks to days once the group discovers it on exit. Part 4: Full assault on the primary seal at Veranthos -- her ritual amplified by the repurposed node network, directed at the Scar. Defeated in two stages: Desh disables critical amplification nodes (physical/tactical), then the shared-burden containment Ben, Sera, and Kael establish distributes the load across willing practitioners and traditions. Veraine planned for one tradition, one authority, or one living prisoner. She did not plan for a plural answer that leaves no single person load-bearing. Contained by Sera but unbroken -- defeated by results, not by conversion."
     },
     "secondary_pressures": [
       "Torin Hal (internal antagonist) — ally turned antagonist at the second plot point. His pattern mirrors Jacen Solo and the Jedi Lords: the talented, damaged Force-user who decides he alone bears responsibility for the solution. His turn is driven by desperation, not malice.",
-      "The wound itself — semi-aware, reactive. As the seal weakens it amplifies emotional extremes in Force-sensitives nearby. Not possession, but pressurization — every argument hits harder, every fear cuts deeper, every doubt becomes paralyzing.",
+      "The wound itself -- reactive and destabilizing. As the seal weakens it amplifies emotional extremes in Force-sensitives nearby. Not possession, but pressurization -- every argument hits harder, every fear cuts deeper, every doubt becomes paralyzing.",
       "The institutional lie — the Jedi Order's thousand-year cover-up of the Reformations' true purpose. Ben carries the weight of knowing the truth, and every step deeper makes it harder to imagine going home and pretending he doesn't know.",
       "Luke's shadow — not an antagonist but a pressure. Luke sent Ben alone. The irony of that choice — sending one person to solve a problem caused by people who acted alone — becomes increasingly apparent. Ben's reluctance to call for help is both practical and personal."
     ],
@@ -108,11 +108,11 @@
     "thematic_premise": "Choosing a different path than those who came before isn't betrayal — it's the only way to stop repeating their failures.",
     "thematic_argument": "Five characters carry different wounds toward the same question. The Jedi Lords acted alone and buried what followed. Jacen Solo acted alone under the banner of moral certainty. Torin Hal looks at the stakes and reaches for the old pattern because noble sacrifice feels cleaner than shared risk. Ben moves the opposite direction — carrying less alone as the book goes on, trusting people he was raised to mistrust, accepting an imperfect solution no single person authored. Veraine is the dissonant note: her path diverges from her predecessors' but the detachment that lets her walk it is its own blindness. The climactic solution at Veranthos is not a metaphor for the answer the book is looking for. It is the answer, expressed as mechanics — three voices, no dominant one, producing something none of them could alone.\n\nAuthoring discipline: these ideas should live inside the characters' choices, cadence, and silences. Dramatize; do not name. A character who says the thematic sentence out loud has already weakened it.",
     "how_each_arc_tests_theme": {
-      "Ben Skywalker": "Ben begins the book convinced that his own Force-read is the only read that can be trusted when the Force is going wrong — because the last people he trusted with that judgment (Jacen, Vestara) were wrong or dangerous. The novel drops him into a problem where his solo read is insufficient by design: the answer requires running a coherence composed of judgments he cannot personally verify. His change across twenty-eight chapters is not a philosophical conversion; it is the slow accrual of a skill — Ch 13's unmade Luke check-in, Ch 21's refusal of unilateral interdiction, Ch 25 s3's interpretive-axis read under maximum load, Ch 26 s3's first-anchor commitment. The Legacy burden (Skywalker shadow) persists as weather, not as the engine.",
+      "Ben Skywalker": "Ben begins the book convinced that his own Force-read is the only read that can be trusted when the Force is going wrong — because the last people he trusted with that judgment (Jacen, Vestara) were wrong or dangerous. The novel drops him into a problem where his solo read is insufficient by design: the answer requires running a coherence composed of judgments he cannot personally verify. His change across twenty-eight chapters is not a philosophical conversion; it is the slow accrual of a skill — Ch 13's unmade Luke check-in, Ch 21's refusal of unilateral interdiction, Ch 25 s3's interpretive-axis read under maximum load, Ch 26 s3's first-renewal commitment. The Legacy burden (Skywalker shadow) persists as weather, not as the engine.",
       "Sera Varik": "Sera believed in the commander who turned her into a load-bearing beam. A thousand years later she wakes up grieving and furious and certain that if she had been there she could have stopped all of it. She has to learn that being right about the principle doesn't mean being right about every application, and that following a new leader does not have to mean repeating the old mistake.",
       "Kael Drenn": "Conscripted by the Sith, captured by the Jedi, used as infrastructure by both. He has never chosen a side and has no intention of starting. What the book asks of him is whether someone used by every institution he has touched can volunteer for the last one — not out of belief, but because a specific thing matters to him.",
       "Torin Hal": "Torin volunteered for the technique the first time out of duty and found something transcendent inside it. Stasis did not heal the pull. He is the book's tragic mirror — the reasonable, warm, likeable man who reaches for the Jedi Lords' pattern because the stakes feel too big for collaborative risk, and who breaks the people who love him by doing it.",
-      "Darth Veraine": "Not born Sith. Made one by circumstance, kept one by curiosity. A thousand years half-aware as seal infrastructure left her convinced the light/dark binary is an imposed framework — a disease mistaken for health. She is ideologically coherent, intellectually formidable, and wrong. The book does not convert her. It produces a result she cannot dismiss.",
+      "Darth Veraine": "Not born Sith. Made one by circumstance, kept one by curiosity. A thousand years half-aware as seal infrastructure left her certain that the seal was worse than the wound and that containment had been fear pretending to be mercy. She is ideologically coherent, intellectually formidable, historically acute in ways that matter, and wrong. The book does not convert her. It produces a result she cannot dismiss.",
       "Desh Rolan": "Desh is the non-Force-sensitive ballast and, per D5, a supporting presence rather than a fully-tracked arc. He served in GAG with Ben as a teenager and has never fully looked at what they were part of. The mission forces the Ch 11 conversation, surfaces his caring in Ch 18, and gets his unasked Ch 25 volunteer; his growth lands as presence and choice under pressure, not as articulated lie-breaking. His thematic contribution is precisely that he does not feel the Weave: when the Force-users lose their footing he holds the operational frame, and his non-sensitivity becomes the anchor the team needs."
     }
   },
@@ -133,14 +133,14 @@
         "need": "To act on another person's Force-read without first verifying it against his own — and to hold the resulting coherence as a skill, not a concession. The test is not whether he can trust; it is whether he can run a read composed of judgments he cannot personally verify and treat that as the correct answer under load.",
         "arc_type": "positive_change",
         "initial_phase": "lie_established",
-        "arc_summary": "Positive change — moves from the Trauma Lie (only my Force-read can be trusted when the Force is going wrong) to a new truth that is measurable in specific behaviors: in Ch 21 he refuses the unilateral interdiction his Lie would have demanded; in Ch 25 s3 he holds the interpretive axis of the Weave-resonance under maximum load, composing Sera/Kael/Desh's reads into a single executable coherence he cannot verify directly; in Ch 26 s3 he takes the first share of the new seal's ongoing ethical load on himself, explicitly and publicly. The Legacy burden (Skywalker shadow) persists as ambient pressure throughout but is never the operative Lie — it lives inside PP21 and Ben/Luke scenes as weather, not as the arc engine.",
+        "arc_summary": "Positive change -- moves from the Trauma Lie (only my Force-read can be trusted when the Force is going wrong) to a new truth that is measurable in specific behaviors: in Ch 21 he refuses the unilateral interdiction his Lie would have demanded; in Ch 25 s3 he holds the interpretive axis of the shared-burden containment under maximum load, composing Sera/Kael/Desh's reads into a single executable coherence he cannot verify directly; in Ch 26 s3 he takes the first public renewal share of the new seal's ongoing burden. The Legacy burden (Skywalker shadow) persists as ambient pressure throughout but is never the operative Lie -- it lives inside PP21 and Ben/Luke scenes as weather, not as the arc engine.",
         "arc_phase_targets": {
           "lie_reinforced": "Ben's lock-in convinces him the burden is his to carry because only he is reading the wrongness correctly — the survivors are witnesses, not verifiers.",
           "lie_questioned": "The breach (Ch 13) forces the first behavioral break — the unmade Luke check-in — that is unexplained even to Ben. Ben-misreads-Torin across Chs 8-18 is the Trauma Lie under live pressure: his Force-read of whose judgment to trust is specifically what the Lie compromises, and the middle chapters render the misreading rather than correct for it.",
           "lie_cracking": "Torin's departure (Ch 21) forces Ben to admit that the capacity the Lie told him to exercise — override another's Force-judgment when he reads them as wrong — is the exact pattern he cannot repeat. Silence is the behavior; 'we find another way, together' is the crystallisation.",
           "lie_confronted": "At Veranthos Ben must run a Force-read composed of Sera's lock-sense, Kael's unintegrable signature, and Desh's non-sensitive operational frame — three judgments he cannot verify against his own, held as a single coherence.",
           "new_truth_tested": "Ch 25 s3 — Ben is the interpretive axis of the resonance. He is not the reader; he is the one holding Sera, Kael, and Desh's contributions as one executable chord. If he drops the chord, the operation collapses. The Trauma-Lie antithesis demonstrated under load: trust placed in specialists whose judgment he cannot verify directly, executed as a skill he did not have in Ch 1. He holds by feel, not analysis.",
-          "truth_resolved": "Ch 26 s3 — Ben takes the first share of the new seal's ongoing ethical load on himself. He becomes the first anchor. The cost is visible, ongoing, and his; Sera and Kael witness. In Ch 28 he returns and tells Luke everything — the private corollary to the public commitment."
+          "truth_resolved": "Ch 26 s3 -- Ben takes the first public renewal share of the new shared-burden seal. The cost is visible, ongoing, and his, but the burden is distributed rather than prison-like; Sera and Kael witness. In Ch 28 he returns and tells Luke everything -- the private corollary to the public commitment."
         },
         "arc_phase_map": {
           "lie_established": "Chapter 1",
@@ -233,12 +233,12 @@
       "age": "Mid 40s physically, ~1,045 chronologically",
       "three_dimensions": {
         "surface": "Commanding presence, warm in a way that surprises people. Laughs easily, tells stories with self-deprecating humor, treats Ben with genuine paternal affection. He's the one who makes the group feel like a team. First impression is that he's the most stable of the survivors. That impression is wrong.",
-        "backstory_inner_demons": "One of the finest Jedi warriors of his era. When Gavran developed the technique, Torin volunteered to test it — not recklessly, but from duty. It worked. It changed him. The Force feels different around Torin — heavier, blurred, like the boundary between light and dark has gone soft. He sealed himself willingly because he could feel himself slipping toward a certainty that frightened him. A thousand years later, he wakes up and the certainty is still there. Stasis didn't heal it.",
+        "backstory_inner_demons": "One of the finest Jedi warriors of his era. When Gavran developed the technique, Torin volunteered to test it -- not recklessly, but from duty. It worked. It changed him. The Force feels different around Torin -- heavier, blurred, like damage has made its answers harder to trust. He sealed himself willingly because he could feel himself slipping toward a certainty that frightened him. A thousand years later, he wakes up and the certainty is still there. Stasis did not heal it.",
         "action_under_pressure": "Torin's instinct is to act decisively and bear the cost personally. This sounds noble but is actually a form of control — by taking all the burden on himself, he removes everyone else's agency. Every major decision in his life follows the same pattern: 'I'll handle this so you don't have to.' It's the Jedi Lord pattern. It's Jacen's pattern. And he can't see it."
       },
       "weiland_arc": {
         "lie_believed": "Bearing the cost alone is what makes a true Jedi. The technique changed me, but that sacrifice gives me the right — the responsibility — to use it again when the time comes.",
-        "ghost": "The first time he used the technique in combat. The boundary between light and dark dissolved, and for one moment it was beautiful — clarity without categories, power without moral friction. That moment of beauty is what he's chasing. Not power. The memory of transcendence.",
+        "ghost": "The first time he used the technique in combat. The Force lost its ordinary resistance and, for one moment, the pressure in him went quiet. That relieved clarity -- false, costly, and unforgettable -- is what he is chasing. Not power. The memory of release.",
         "want": "To use the technique one final time to seal the wound permanently, proving his sacrifice wasn't meaningless.",
         "need": "To accept that his sacrifice was meaningful without needing to repeat it. That stepping back and letting others find a different way isn't cowardice. He never gets there.",
         "arc_type": "corruption",
@@ -283,13 +283,13 @@
         "action_under_pressure": "Veraine doesn't react — she adjusts. Every setback is data. Fights only when it advances her objective. Her flaw is detachment — she has so thoroughly intellectualized the Force that she's lost the ability to feel what it does to living beings. The wound isn't a catastrophe to her because she doesn't experience it as suffering."
       },
       "weiland_arc": {
-        "lie_believed": "The Force is a system, not a moral framework. Light and dark are superstitions imposed on a natural phenomenon. Removing the boundary will liberate the galaxy from a false binary that has driven a thousand years of pointless war.",
-        "ghost": "Two layered: First, her conversion — the moment the Sith unlocked her Force sensitivity and she felt the light/dark division for the first time, and it struck her as absurd. Second, and deeper: a thousand years of partial awareness as an anchor, feeling her Force presence used as infrastructure by the Jedi who claimed moral superiority over the Sith who conscripted her. Both institutions used her. Her philosophy is built on that wound.",
-        "want": "To open the wound fully and prove her thesis. She genuinely believes this will end war, not cause it.",
-        "need": "She never gets there. The story treats her as wrong for the right reasons. Her defeat is external, not internal — she's proven wrong by results she can't dismiss, even if she'll spend years rationalizing them.",
+        "lie_believed": "The seal is worse than the wound. Gavran's technique was a panicked battlefield act; the Order's cover-up built on living anchors was the real crime. Containment has never been mercy -- it has been fear wearing the language of mercy. The only honest answer is to break the seal and accept the transition cost of ending what the Order started.",
+        "ghost": "(1) Her conversion -- the moment the Brotherhood unlocked her Force sensitivity and showed her what the Jedi had done at Veranthos, a crime her own civilization had preserved rather than confronted.\n\n(2) A thousand years of partial awareness as an anchor, her Force presence drained to maintain a wound she was not allowed to help heal, by an Order that claimed moral superiority over the Sith who had conscripted her. Both institutions used her; only the second wrote the history.",
+        "want": "To destroy the seal and release the wound, accepting the casualties as the cost of ending a crime the Order chose to preserve rather than face.",
+        "need": "To see that some crimes cannot be ended by completing them -- that a better containment is possible, and that her utilitarian arithmetic is wrong on its own terms. She does not get there.",
         "arc_type": "negative",
         "initial_phase": "lie_established",
-        "arc_summary": "Flat negative — enters certain, exits certain. Defeated but unchanged.",
+        "arc_summary": "Flat negative -- enters certain, exits certain. Defeated by a containment method she did not anticipate and cannot dismiss: shared-burden containment with no single prisoner, no solitary keystone, and no one person load-bearing.",
         "arc_phase_map": {
           "lie_established": "Chapter 5 (referenced)",
           "lie_reinforced": "Chapter 10 / Chapter 16",
@@ -302,14 +302,14 @@
         "register": "Precise, certain, intellectually restless, minimal affect. Complete grammatically sophisticated sentences. No contractions. No emotional performance. She writes as she speaks — the ledger voice and the spoken voice are continuous. What changes between contexts is the audience, not the register.",
         "evidence_beat_rules": [
           "Entries are short — a sentence, sometimes a paragraph. Not speeches.",
-          "Each entry does one specific piece of characterization: her certainty, her intellectual framework, her relationship to Gavran's original work, her reading of a specific site.",
+          "Each entry does one specific piece of characterization: her certainty, her containment logic, her relationship to Gavran's original work, or her reading of pressure, drainage, and scar geometry at a specific site.",
           "Never address the reader or a hypothetical opponent. She writes for herself.",
           "Never offer a rhetorical flourish or an editorial comment on her own certainty."
         ],
         "anti_pattern": "No taunts aimed at Ben. No 'if you're reading this' framings. No breaks in register. Her working mind does not know or care who will read her notes; the reader overhears, rather than being addressed."
       },
       "dialogue_register": {
-        "description": "Per R14, Veraine's Ch 16 pitch (and her speech throughout) operates on Socratic-adjacent questioning — questions she already knows the answers to. Carries her dignity (she invites, she does not sell) and makes her defeat specifically hers.",
+        "description": "Per R14, Veraine's Ch 16 pitch (and her speech throughout) operates on Socratic-adjacent questioning -- questions she already knows the answers to. Carries her dignity (she invites, she does not sell) and makes her defeat specifically hers. Her clinical register uses containment vocabulary -- pressure, drainage, scarring, stagnation, release, contamination, decay, cost, transition -- rather than abstract systems language.",
         "structure": "Questions from certainty, not doubt. Intellectual restlessness expressed as what-else-might-follow-from-this rather than as uncertainty. She asks Ben or Kael a question, waits for their answer, and responds with another question that incorporates what they said. The conversation always advances toward her conclusion, but she does not announce the conclusion; she invites the interlocutor to arrive.",
         "anti_pattern": "No declarative monologue. No pitch framing. She never explains her plan because she does not need to justify herself to opponents. When cornered or when the stakes cut close, her register does not warm — it sharpens into a more specific question. Curiosity is the most unsettling affect she has; use it, never replace it with intensity."
       }
@@ -348,7 +348,7 @@
       "name": "The Failing Seal — Race Against Veraine",
       "line_type": "A",
       "function": "Main dramatic throughline. The wound in the Force is real, the seal is failing, and Veraine is racing to exploit the crisis. Carries the central dramatic question: can Ben succeed where the Jedi Lords failed?",
-      "arc_summary": "From Ben's perception of wrongness through discovery of the wound, awakening of the survivors, pursuit along the Ruusan Corridor, confrontation with Veraine, Torin's defection, and the climactic Weave-resonance at Veranthos. Resolved by collective action replacing unilateral control.",
+      "arc_summary": "From Ben's perception of wrongness through discovery of the wound, awakening of the survivors, pursuit along the Ruusan Corridor, confrontation with Veraine, Torin's defection, and the climactic shared-burden containment (Weave-Resonance) at Veranthos. Resolved by collective action replacing unilateral control.",
       "chapters_active": [
         1,
         2,
@@ -637,7 +637,7 @@
       "hook_type": "hard",
       "planted_in": "Chapter 21",
       "resolved_in": "Chapter 22",
-      "description": "Torin's departure and Ben's crystallizing realization — Gavran's note about Weave-resonance. 'I need to show you something in the Codex.'"
+      "description": "Torin's departure and Ben's crystallizing realization — Gavran's note about Weave-Resonance. 'I need to show you something in the Codex.'"
     },
     {
       "hook_id": "H22",
@@ -724,7 +724,7 @@
         "reader"
       ],
       "revealed_in": "Chapter 5 (First Plot Point — the FPP shock, per D8)",
-      "impact": "The institutional shock: the Order's foundational narrative is broken. One fact detonates. Specifics — technique, wound, anchor system, Brotherhood inversion — are deferred to R04b/c/d so each lands with its own dramatic air.",
+      "impact": "The institutional shock: the Order's foundational narrative is broken. One fact detonates. Specifics — technique, wound, anchor system, Brotherhood ritual — are deferred to R04b/c/d so each lands with its own dramatic air.",
       "setup_required": "Archive access with survivors' help. Ch 5 s2 survivor-introduction + one institutional fact."
     },
     {
@@ -746,7 +746,7 @@
     },
     {
       "revelation_id": "R04c",
-      "what": "The wound mechanics — what the Scar is, how it is anchored in the Weave at a nexus in the Weave (a natural convergence point), how Gavran's technique created a wound that wouldn't heal because the nexus that sustained the Weave became the epicenter of its absence.",
+      "what": "The wound mechanics -- what the Scar is, how it is anchored at a vergence, and why Gavran's technique created a wound that would not heal because he damaged the site where the Force was already unusually concentrated.",
       "known_by": [
         "Ben",
         "Desh",
@@ -758,12 +758,12 @@
         "reader"
       ],
       "revealed_in": "Chapter 9 (precedes Ch 13 midpoint)",
-      "impact": "The geography of the problem — the wound has a specific location, a specific anchor, and a specific reason it cannot be closed by conventional reseal. Ch 13's midpoint experience lands against this framework.",
+      "impact": "Damage mechanics at a vergence, not a new cosmology -- the wound has a specific location, a specific anchor, and a specific reason it cannot be closed by conventional reseal. Ch 13's midpoint experience lands against this framework.",
       "setup_required": "Ankhural Codex fragment (R06) recovered/read by Ch 9. R04b established."
     },
     {
       "revelation_id": "R04d",
-      "what": "The Brotherhood inversion attempt — why the system was built the way it was. The Brotherhood of Darkness attempted to invert the Weave at the Veranthos nexus, flipping its polarity so the dark side became the structural baseline. Gavran removed the Weave entirely to stop the inversion — right about the emergency, catastrophically wrong about the cost. Inversion would have been bad but survivable; removal was worse.",
+      "what": "The Brotherhood Ritual at Veranthos -- why the system was built the way it was. The Brotherhood of Darkness attempted a mass dark-side ritual meant to corrupt the Veranthos vergence into a permanent wound. Gavran deadened the site to stop completion -- right about the emergency, catastrophically wrong about the cost.",
       "known_by": [
         "Ben",
         "Desh",
@@ -812,7 +812,7 @@
     },
     {
       "revelation_id": "R08a",
-      "what": "Veraine's technique requires a specific geographical anchor — her amplified ritual is tied to the Veranthos nexus as the only site where her ritual can achieve full breach. The realization reframes the mission: reaching Veranthos before or after she completes her approach determines the endgame shape.",
+      "what": "Veraine's technique requires a specific geographical anchor — her amplified ritual is tied to the Veranthos vergence as the only site where her ritual can achieve full breach. The realization reframes the mission: reaching Veranthos before or after she completes her approach determines the endgame shape.",
       "known_by": [
         "Ben",
         "Sera",
@@ -827,7 +827,7 @@
     },
     {
       "revelation_id": "R06",
-      "what": "The Ankhural Codex's theory — the Force's Weave as imposed structure rather than natural property",
+      "what": "The Ankhural Codex's theory -- a heretical claim that the local structure around vergences is imposed rather than natural",
       "known_by": [
         "Ben",
         "Sera",
@@ -838,7 +838,7 @@
         "reader"
       ],
       "revealed_in": "Chapter 9",
-      "impact": "Intellectual framework for the entire conflict — crystallizes the four philosophical positions",
+      "impact": "Dangerous framework for the entire conflict -- Veraine's intellectual inheritance, treated seriously but never confirmed by the novel",
       "setup_required": "Codex fragment recovered from fortress or en route"
     },
     {
@@ -875,7 +875,7 @@
     },
     {
       "revelation_id": "R09",
-      "what": "Veraine's full philosophy — the wound as liberation, the Weave as disease",
+      "what": "Veraine's full philosophy -- the seal as prison, release as mercy, and the arithmetic of transition cost",
       "known_by": [
         "Ben",
         "Sera",
@@ -887,7 +887,7 @@
         "reader"
       ],
       "revealed_in": "Chapter 16",
-      "impact": "The counter-argument articulated at full strength. Sera counters with firsthand evidence.",
+      "impact": "The counter-argument articulated at full strength. Veraine's accusation lands because history supports part of it; Sera counters with firsthand evidence and Ben hears the cost in human terms.",
       "setup_required": "Veraine established through evidence of passage in earlier chapters"
     },
     {
@@ -922,7 +922,7 @@
     },
     {
       "revelation_id": "R12",
-      "what": "Weave-resonance — Ankhural's overlooked theory about reinforcing the Weave through disparate traditions working in concert",
+      "what": "Weave-Resonance -- a shared-burden containment method that distributes the seal's load across traditions so no single person becomes the prison",
       "known_by": [
         "Ben",
         "Sera"
@@ -933,7 +933,7 @@
         "Desh"
       ],
       "revealed_in": "Chapter 22",
-      "impact": "Hope — there's another way. But it requires Kael's full commitment and has never been tested.",
+      "impact": "Hope -- there is another way, and it does not require living anchors or a solitary keystone. But it still requires Kael's full commitment and has never been tested.",
       "setup_required": "Gavran's note planted in Chapter 14, Ben struggling to find it in Chapter 22's opening"
     },
     {
@@ -1043,7 +1043,7 @@
         "Gavran",
         "the Jedi Lord"
       ],
-      "definition": "NSW Jedi Lord who developed the technique, deployed it at Veranthos to counter the Brotherhood's attempt to invert the Weave, built the fortress and anchor system, and sealed himself as the thirteenth anchor — the keystone. Dead at his post after centuries, his body in the fortress's central chamber. Present through archive voice, monitoring logs, and the environmental portrait of the fortress itself.",
+      "definition": "NSW Jedi Lord who developed the technique, deployed it at Veranthos to counter the Brotherhood Ritual at Veranthos, built the fortress and anchor system, and sealed himself as the thirteenth anchor -- the keystone. Dead at his post after centuries, his body in the fortress's central chamber. Present through archive voice, monitoring logs, and the environmental portrait of the fortress itself.",
       "category": "character_name",
       "first_appearance": "Chapter 3 (named)",
       "usage_notes": "Never appears in person — dead before the story begins. Present through archive voice (meticulous, honest, haunted) and the fortress as environmental storytelling. His final monitoring log entry trails off mid-sentence."
@@ -1051,7 +1051,7 @@
     {
       "canonical_form": "Ankhural",
       "aliases": [],
-      "definition": "Jedi scholar (~2400 BBY), theorized the Force's Weave as imposed structure rather than natural property",
+      "definition": "Jedi scholar (~2400 BBY), author of a heretical treatise arguing that the local structure around vergences may be imposed rather than natural",
       "category": "character_name",
       "first_appearance": "Chapter 9",
       "usage_notes": "Ghost presence. Single name only. Disappeared — possibly killed, exiled, or hidden."
@@ -1072,7 +1072,7 @@
         "the wound source",
         "the primary site"
       ],
-      "definition": "Outer Rim world at a natural nexus in the Weave, site of the Battle of Veranthos and the Brotherhood's attempt to invert the Weave, location of the primary wound and seal. Once a populated civilian regional hub. Now a world that drifted rather than died — lush, overgrown, alive, and deeply wrong. Ring structure of concentric zones: the epicenter (battlefield valley with the Scar), the city (civilian ground zero, overwhelmingly alive but growing without biological logic), the evacuation zone (milder drift, evidence of flight), and the seal boundary (a membrane felt by Force-sensitives).",
+      "definition": "Outer Rim world at a natural vergence, site of the Battle of Veranthos and the Brotherhood Ritual at Veranthos, location of the primary wound and seal. Once a populated civilian regional hub. Now a world that drifted rather than died -- lush, overgrown, alive, and deeply wrong. Ring structure of concentric zones: the epicenter (battlefield valley with the Scar), the city (civilian ground zero, overwhelmingly alive but growing without biological logic), the evacuation zone (milder drift, evidence of flight), and the seal boundary (a membrane felt by Force-sensitives).",
       "category": "place_name",
       "first_appearance": "Chapter 5 (coordinates), Chapter 20 (arrival)",
       "usage_notes": "Stress on second syllable: ver-AN-thos"
@@ -1119,14 +1119,14 @@
         "the threadwork (in-character, Veraine/Ankhural quotations)",
         "the work (in-character, Gavran's archive voice)"
       ],
-      "definition": "The organizational framework of the Force maintaining light/dark distinction — per the Codex, potentially imposed rather than natural. Renamed from 'the lattice' in revision to foreground the textile metaphor (woven, can unravel, can be re-woven in concert) that governs the novel's sensory vocabulary. 'Lattice' survives in older archive documents as an earlier translation of Ankhural's term.",
+      "definition": "Era-specific term for the Force's felt structure at Veranthos and in Codex/archival vocabulary. Light and dark remain natural per Legends canon; 'the Weave' is what Gavran-era and Ankhural-era practitioners called the local structure they were trying to preserve, damage, or reinforce. 'Lattice' survives in older archive documents as an earlier translation of Ankhural's term.",
       "category": "concept",
       "first_appearance": "Chapter 9",
-      "usage_notes": "Always lowercase 'w' unless starting a sentence. Term of art from the Codex. In-character variants ('cloth,' 'stitching,' 'work,' 'threadwork') carry speaker signal — Gavran says 'work,' Torin says 'stitching,' Veraine quotes Ankhural's 'threadwork,' Maetha's archive says 'cloth.' The abstract term 'the Weave' is the narrative-voice canonical; speakers reach for their own word. Do not use 'lattice' in new prose except when a character is explicitly quoting a pre-revision archive source.",
+      "usage_notes": "Always lowercase 'w' unless starting a sentence. Era-language, not narrator-proof of objective cosmology. In-character variants ('cloth,' 'stitching,' 'work,' 'threadwork') carry speaker signal -- Gavran says 'work,' Torin says 'stitching,' Veraine quotes Ankhural's 'threadwork,' Maetha's archive says 'cloth.' The abstract term 'the Weave' is the narrative-voice canonical shorthand for this local structure; speakers reach for their own word. Do not use 'lattice' in new prose except when a character is explicitly quoting a pre-revision archive source.",
       "in_character_variants": {
         "cloth": "Archival, older — Maetha-era and earlier. Suggests woven but finished, a completed fabric.",
         "stitching": "Torin and Sera — NSW-era Jedi Lord vocabulary. Suggests structural, load-bearing, where the seams carry force.",
-        "threadwork": "Veraine, quoting Ankhural. Ornamental on the surface, structural underneath. Signals her irony — the thing the Order treats as decoration is the thing holding the sky up.",
+        "threadwork": "Veraine, quoting Ankhural. Ornamental on the surface, structural underneath. Signals her irony -- the thing the Order treated as nature may have been locally imposed.",
         "work": "Gavran's archive voice. Plainspoken. 'The work holds. The work is holding. The work is thinner than it was.' Makes the seal sound like labor, which it was."
       }
     },
@@ -1137,7 +1137,7 @@
         "Gavran's technique",
         "the unweaving technique"
       ],
-      "definition": "Engineered Force manipulation that unweaves the Force locally — suspending the Weave and reverting the Force to unstructured state",
+      "definition": "Desperate Force technique that damaged and locally deadened the Force at Veranthos in order to stop the Brotherhood ritual. It produces a wound; it does not reveal a truer universal state.",
       "category": "concept",
       "first_appearance": "Chapter 5",
       "usage_notes": "Never given a formal name. 'The technique' — deliberately vague, clinical. Never capitalize as proper noun."
@@ -1150,10 +1150,10 @@
         "the collective approach",
         "lattice resonance (pre-revision archive term only)"
       ],
-      "definition": "Ankhural's theorized method of reinforcing the Weave through multiple Force traditions working in concert — a harmonic re-weaving that no single tradition could produce alone",
+      "definition": "Multi-tradition shared-burden containment that distributes the seal's load across practitioners and traditions so no single person is load-bearing. Thematic pluralism; structural rejection of living-prisoner containment.",
       "category": "concept",
       "first_appearance": "Chapter 14 (note), Chapter 22 (articulated)",
-      "usage_notes": "Coined by Ankhural. 'The resonance' in practice. The older 'lattice resonance' phrasing may appear once or twice in the Codex passage Ben quotes verbatim — it is character-voice archival, not narrative voice."
+      "usage_notes": "Coined by Ankhural. 'The resonance' in practice. The older 'lattice resonance' phrasing may appear once or twice in archival quotation, but the term's meaning in-story is shared-burden containment rather than cosmological proof."
     },
     {
       "canonical_form": "Unweaving",
@@ -1163,7 +1163,7 @@
         "the formless state",
         "the blurred state"
       ],
-      "definition": "Condition of the Force when the Weave is absent — light/dark indistinguishable, moral intuition disappears. The verb ('to unweave') and noun forms are both active; the point is that the Weave was something someone wove, and someone unwove it. Agency is built into the word.",
+      "definition": "Sensory condition inside the wound zone -- Force-sense becomes unreliable, emotional extremes amplify, dark-side residue leaks, and the environment feels wrong. Characters may experience moral disorientation inside it; the cause is damage, not proof that morality was artificial.",
       "category": "concept",
       "first_appearance": "Chapter 8",
       "usage_notes": "Descriptive, not proper noun. Never 'destruction,' never 'de-structuring' (pre-revision term). 'Unwoven' as adjective, 'unweaving' as gerund and present participle. Character voice may use 'unmade' informally but narrator uses 'unwoven.'"
@@ -1188,7 +1188,7 @@
       "definition": "Force construct built by Gavran's inner circle containing the wound at Veranthos. Originally maintained by thirteen Force-sensitive anchors (twelve in a ring plus Gavran as central keystone) embedded as living structural components. A field expedient — combat medicine on a planetary wound, never meant to be permanent. Degraded over centuries as anchors died one by one. In cascading failure at story's start.",
       "category": "concept",
       "first_appearance": "Chapter 3",
-      "usage_notes": "Always 'the seal' with definite article. Singular. New seal still 'the seal' but described differently."
+      "usage_notes": "Always 'the seal' with definite article. Singular. The original seal used living anchors; the resonance-built seal that replaces it does not."
     },
     {
       "canonical_form": "The Wound",
@@ -1196,7 +1196,7 @@
         "the wound in the Force",
         "the unwoven zone"
       ],
-      "definition": "Persistent area of unwoven Force caused by Gavran's technique at Veranthos",
+      "definition": "Persistent Force-wound at Veranthos caused by Gavran's technique -- a standard Legends-shaped wound with unreliable Force-sense, emotional pressurization, dark-side residue bleed, and environmental wrongness",
       "category": "concept",
       "first_appearance": "Chapter 3",
       "usage_notes": "Lowercase. Consistent with EU 'wounds in the Force.'"
@@ -1225,7 +1225,7 @@
       "aliases": [
         "the Codex"
       ],
-      "definition": "Theoretical treatise proposing the Force's Weave as imposed structure rather than natural property, ~2400 BBY. Force-imbued artifact. Two known copies. Uses the term 'threadwork' in older passages and 'lattice' in the translator's footnotes — the novel's 'Weave' is a modern rendering of Ankhural's original.",
+      "definition": "Heretical treatise arguing that the Force's local structure at vergences is imposed rather than natural, ~2400 BBY. Force-imbued artifact. Two known copies. Uses the term 'threadwork' in older passages and 'lattice' in the translator's footnotes -- the novel's 'Weave' is a modern rendering of Ankhural's original. Seminal to Veraine's philosophy, never confirmed by mainstream Jedi or Sith tradition.",
       "category": "artifact",
       "first_appearance": "Chapter 9",
       "usage_notes": "Always capitalized. Touching provides experiential flashes."
@@ -1342,7 +1342,7 @@
       "definition": "Planet in the Mid Rim, site of the final battle of the New Sith Wars (Seventh Battle of Ruusan, 1000 BBY). The Valley of the Jedi is a nexus of trapped Force energy. In this AU, the Ruusan Reformations enacted after the battle were dual-purpose: public restructuring of the Republic and Jedi Order, plus private penance for the Jedi Lords' use of the forbidden technique.",
       "category": "place_name",
       "first_appearance": "Chapter 5 (historical context)",
-      "usage_notes": "Distinguish between Ruusan (the planet), the Ruusan Reformations (the political/doctrinal event), and the Valley of the Jedi (the specific Force nexus). The seal's deterioration affects the Valley in Ch 15."
+      "usage_notes": "Distinguish between Ruusan (the planet), the Ruusan Reformations (the political/doctrinal event), and the Valley of the Jedi (the specific Force vergence). The seal's deterioration affects the Valley in Ch 15."
     },
     {
       "canonical_form": "Brotherhood of Darkness",
@@ -1352,7 +1352,7 @@
       "definition": "Sith organization led by Lord Kaan during the final phase of the New Sith Wars (~1010-1000 BBY). Veraine was a member. Destroyed at Ruusan by the thought bomb. In this AU, Kaan sealed Veraine before the final battle because he couldn't control what she'd do with her knowledge.",
       "category": "faction",
       "first_appearance": "Chapter 5",
-      "usage_notes": "EU canon faction. Veraine's membership humanizes the Brotherhood — they were an organization of individuals, not a monolith of evil. At Veranthos, the Brotherhood attempted to invert the Weave at a nexus in order to permanently shift the Force's structural baseline toward the dark side."
+      "usage_notes": "EU canon faction. Veraine's membership humanizes the Brotherhood -- they were an organization of individuals, not a monolith of evil. At Veranthos, the Brotherhood attempted a mass dark-side ritual meant to corrupt a vergence into a lasting wound."
     },
     {
       "canonical_form": "Nathema",
@@ -1395,30 +1395,33 @@
       "usage_notes": "The Scar is always capitalized. Visible from an angle, barely visible straight on. The seal holds the wound closed but this is where the stitches are thinnest."
     },
     {
-      "canonical_form": "Nexus in the Weave",
+      "canonical_form": "Vergence",
       "aliases": [
         "nexus",
+        "vergence",
         "the Weave-nexus",
         "convergence point (pre-revision archive term)",
         "lattice convergence point (pre-revision archive term)"
       ],
-      "definition": "A natural location where the Force's woven structure is unusually dense, concentrated, and accessible. Rare. Veranthos sits on one. The Brotherhood targeted it for inversion; Gavran's technique at this location created a wound that wouldn't heal because the nexus that sustained the Weave became the epicenter of its absence.",
+      "definition": "A natural location where the Force is unusually concentrated and accessible. Rare. Veranthos sits on one. The Brotherhood targeted the site for corruption; Gavran's technique at that location created a wound that would not heal because the damage centered on the vergence itself.",
       "category": "concept",
       "first_appearance": "Chapter 9 (theoretical), Chapter 20 (physical)",
-      "usage_notes": "Lowercase. Conceptual vocabulary from the Ankhural Codex — modern Jedi don't have this framework. 'Convergence point' may appear in older archive passages as a direct quotation; narrator voice uses 'nexus in the Weave' or 'the nexus.'"
+      "usage_notes": "Narrator default is 'vergence.' 'Nexus' and 'vergence' survive as archival or character vocabulary. Modern Jedi have language for vergences even if they do not share Ankhural's framework."
     },
     {
-      "canonical_form": "Inverting the Weave",
+      "canonical_form": "Brotherhood Ritual at Veranthos",
       "aliases": [
+        "the ritual",
+        "the Brotherhood ritual",
         "the inversion",
+        "Inverting the Weave",
         "Weave-inversion",
-        "the Brotherhood's plan",
         "lattice inversion (pre-revision archive term)"
       ],
-      "definition": "The Brotherhood of Darkness's operation at Veranthos: flipping the polarity of the nexus so the dark side becomes the structural baseline — re-weaving the Weave with its warp and weft reversed. Not a temporary nexus but a fundamental rewrite propagating outward along Force currents. Gavran deployed the technique to prevent it. The tragic symmetry: inversion would have been bad but survivable (Korriban sustains civilizations); removal was worse because no weave is worse than wrong weave.",
+      "definition": "The Brotherhood of Darkness's operation at Veranthos: a mass dark-side ritual meant to corrupt the vergence into a permanent wound in the Malachor V / Nathema silhouette. Gavran deployed the technique to stop completion.",
       "category": "concept",
       "first_appearance": "Chapter 5 (archive), Chapter 9 (theoretical context)",
-      "usage_notes": "Never depicted directly. Known through archive records discovered at Corridor nodes. 'Lattice inversion' survives only in direct archive quotations."
+      "usage_notes": "Narrator default is 'Brotherhood Ritual at Veranthos.' 'Inverting the Weave' survives as archival or character phrasing, especially in Codex-influenced material."
     },
     {
       "canonical_form": "Anchor",
@@ -1472,7 +1475,7 @@
   "structural_notes": {
     "brooks_alignment": {
       "part_1_setup": "Chapters 1-4 (~15,000 words, ~15%). Ben's restlessness and the wrongness in the Force. Luke's survey mission — both father and son feel the wrongness, but Ben's experiential pattern recognition (from years of exposure to the Force behaving wrong under Jacen, Abeloth, Vestara) leads him to interpret it differently. Ben considers and rejects a Jedi partner, calls Desh — a control choice disguised as a practical one (his Lie operating). Survey rhythm establishes Ben/Desh dynamic. Discovery of perimeter facility, seal warning, fortress coordinates. Arrival at the fortress: four-level vertical descent into a mountain — operations level, archive level, stasis ring (twelve chambers: nine dark with bodies, three active with living occupants, one empty and broken open from inside), and Gavran's central chamber where his body sits at the nexus of the anchor system. The fortress tells the story through environment before anyone explains it.",
-      "first_plot_point": "Chapter 5 (~5,000 words). Single-shock FPP per D8. The survivors awaken — three humans, human register carrying the dramatic soul of the scene — and one institutional fact detonates: the Ruusan Reformations were dual-purpose (public reform + private penance). That is the FPP shock (R04a). Survivor introductions carry character distinctness per R8 (Sera's precision, Torin's warmth, Kael's dry corrections must emerge as persons before exposition density is permitted). The empty chamber is left as unresolved mystery. Technique, wound mechanics, anchor system, and Brotherhood inversion details are deferred to Ch 7 / 9 / 11 (R04b/c/d) to give each revelation dramatic air and to build institutional-question momentum feeding the Ch 21 SPP. Veraine is named at Ch 6 s1 (R05 moved from Ch 5 s3 per D8). Dual threat (seal failing AND someone already moving) lands by Ch 6; Ben's lock-in begins at Ch 5 and completes at Ch 6.",
+      "first_plot_point": "Chapter 5 (~5,000 words). Single-shock FPP per D8. The survivors awaken — three humans, human register carrying the dramatic soul of the scene — and one institutional fact detonates: the Ruusan Reformations were dual-purpose (public reform + private penance). That is the FPP shock (R04a). Survivor introductions carry character distinctness per R8 (Sera's precision, Torin's warmth, Kael's dry corrections must emerge as persons before exposition density is permitted). The empty chamber is left as unresolved mystery. Technique, wound mechanics, anchor system, and Brotherhood ritual details are deferred to Ch 7 / 9 / 11 (R04b/c/d) to give each revelation dramatic air and to build institutional-question momentum feeding the Ch 21 SPP. Veraine is named at Ch 6 s1 (R05 moved from Ch 5 s3 per D8). Dual threat (seal failing AND someone already moving) lands by Ch 6; Ben's lock-in begins at Ch 5 and completes at Ch 6.",
       "part_2_response": "Chapters 6-12 (~26,250 words, ~26%). The group travels the Ruusan Corridor — now understood as the seal's infrastructure network connecting anchor nodes. Each stop is a failed or failing node with escalating severity: the Battlefield Node (mild thin place, minimal Veraine trace), the Brotherhood Outpost (moderate degradation with dark-side residue, heavy Veraine activity and deliberate message aimed at Kael), Maetha's Training Facility (psychologically intense, the Weave gone flexible, Maetha's warning delivered, Torin's rationalization begins). Transit chapters aboard the Steady Returns deliver the Ankhural Codex framework, the Ben/Desh Jacen conversation, and the Kael/Desh friendship. Veraine's trail reveals she's not just researching — she's repurposing each node into an amplification array, turning the seal's own infrastructure against itself.",
       "midpoint": "Chapter 13 (~4,500 words floor, may run shorter per D6). Experiential midpoint, not informational. Full breach experience — the group enters a node Veraine deliberately collapsed as a field test for her Veranthos ritual. Complete unweaving: the Force present but formless, every choice Ben's alone (the missing stop-signal), Desh's environmental wrongness crossing into undeniable. Per D7 Component A, Torin's response is unreadable — NOT a smile that closes the corruption arc at the midpoint. Per D6, Ben's reactive-to-proactive pivot is behavioral, not verbal: the unmade Luke check-in. He was scheduled to comms-back to Luke at departure from Kolven; he doesn't make the call. No declaration; the silence is the pivot. Per B1, an additional realization lands — Veraine's technique requires a specific geographical anchor, reframing Veranthos and rerouting the mission from Ch 14. Per B2, the cascade-acceleration principle is seeded subtly through the breach experience (Ben senses how things hold together or apart not by intention but by what bears weight). Naming what Veraine has been doing is split off the midpoint and lands in Ch 14 s1 as response-quadrant processing (D6 Fix 1).",
       "part_3_attack": "Chapters 14-20 (~26,250 words, ~26%). Ben takes command — the Ch 13 behavioral pivot extends into Ch 14 where Ben already holds the B1 amplification-array-dependency fact and reroutes the mission on that basis. Ch 14 s1 absorbs the naming of what Veraine has been doing (D6 Fix 1). Sera's conditional trust ('Tell me where to stand, Skywalker') reinforces her Lie — she's following someone again without examining the pattern (Ch 14). Gavran's resonance note planted. Veraine's truce meeting (Chapter 16): three-objective operation per W2 — ideological pitch, Kael recruitment, intelligence gathering (as Ben's attention rather than scripted beat). Sabotage is NOT an in-meeting objective; Veraine's crew executes sabotage in a separate scene distributed across Ch 16 exit and Ch 17 opening. Sera counters with firsthand testimony. Chapter 17 triple-register absorption: sabotage discovery opens the chapter; Sera-stops-defending-Torin lands (D7 relocation, triggered by Kael's direct question per W1 Inversion 2); Kael's question is also the W1 beat. Three quiet threads, thematically related. Chapter 18: sabotage consequence reverberates; Sera's lie_fissure lands (B1 Part 2 — first visible doubt about 'principle alone is enough', brief/unspoken, also first intuition of cascade-acceleration behavior); Ben recognizes the Jacen pattern in Torin and names it explicitly (the R13 single-explicit-naming budget); the loudest visible Torin-telegraph beat lands concurrent with the Jacen naming. The Jedi outpost (Chapter 19): modern Knights experiencing Weave distortion — grounds cosmic stakes in present suffering, Torin weaponizes their pain as argument, Sera's moment of truth as she sees principled certainty isn't protection. Kael articulates the single-framework critique (his moment of truth). The Jacen parallel now operates subtextually. Arrival at Veranthos (Chapter 20): the ring structure of escalating wrongness, Veraine already at the wound source; conditional W2 Option α slot for a Veraine near-miss or failed-interception beat, or a ledger entry if α is dropped.",
@@ -1481,10 +1484,10 @@
       "inciting_incident": "Chapter 1. Luke's survey assignment lands on Ben's datapad while Ben is still processing the sparring failure. The wrongness stops being ambient and becomes institutional — Ben now has cover and coordinates to pursue it. The disturbance has found him; the story has begun.",
       "first_pinch_point": "Chapters 10-11. The Brotherhood Outpost. Veraine's trail goes hot: she has been through the facility days ahead of the group, extracted the research infrastructure, and left a deliberate message aimed at Kael. The reader sees the antagonist's active hand for the first time. Veraine escalates from absent presence to operational threat without the plot skeleton advancing.",
       "second_pinch_point": "Chapter 18. The seal sabotage hits. Veraine has used the truce meeting to deliver targeted damage and the timeline collapses from weeks to days. Ben names the Jacen pattern in Torin out loud to Desh. The antagonist force presses and the internal antagonist reveals he is locked onto a course. Every pressure dial is red; the attack phase is failing.",
-      "climax": "Chapters 25-26. The three-way convergence at the Scar. Veraine's amplified ritual, Torin's unilateral technique deployment, Desh's off-site sabotage of the amplification array, and the resonance trio (Ben, Sera, Kael) at mid-valley. Per B3, Ben's resonance-enhanced Force-sense reads the containment nodes as load-bearing points in the Weave (not Desh himself); targeted comm-bursts carry tactical facts that require language; the heartbeat beat (node wobble + Desh re-stabilisation call) renders a single high-tension moment by alternating channels. Per D2 Ch 25 s3, Ben holds the interpretive axis of the resonance — composing Sera's lock-sense, Kael's unintegrable signature, and Desh's operational frame into one executable chord. Two-stage Veraine defeat: Desh removes amplification, resonance produces unmodellable emergent complexity. Torin's technique works but consumes him. New seal stabilizes dynamic and harmonic. Per D2 Ch 26 s3, Ben takes the first share of the new seal's ongoing ethical load on himself — becomes the first anchor. Per R13 rule 12, the Jacen parallel remains subtextual throughout the climax."
+      "climax": "Chapters 25-26. The three-way convergence at the Scar. Veraine's amplified ritual, Torin's unilateral technique deployment, Desh's off-site sabotage of the amplification array, and the resonance trio (Ben, Sera, Kael) at mid-valley. Per B3, Ben's resonance-enhanced Force-sense reads the containment nodes as load-bearing points in the local field (not Desh himself); targeted comm-bursts carry tactical facts that require language; the heartbeat beat (node wobble + Desh re-stabilization call) renders a single high-tension moment by alternating channels. Per D2 Ch 25 s3, Ben holds the interpretive axis of the shared-burden containment -- composing Sera's lock-sense, Kael's unintegrable signature, and Desh's operational frame into one executable chord. Two-stage Veraine defeat: Desh removes amplification, resonance produces unmodellable emergent complexity. Torin's technique works but consumes him. New seal stabilizes as shared-burden containment with periodic renewal, not living anchors. Per D2 Ch 26 s3, Ben takes the first public renewal share of that ongoing burden. Per R13 rule 12, the Jacen parallel remains subtextual throughout the climax."
     },
     "subplot_count_after_d5": "Four active subplots (SP-A, SP1, SP2, merged SP3/4) plus SP5 demoted to half-weight operational presence per D5. SP3 and SP4 merged under retained SP3 identifier; Veraine's institutional antagonism and the Order's internal politics are now a single thread rendered through Veraine's ledger voice and paid off at Ch 28 s2's Council-reveal. SP5 (Desh operational) absorbed into SP-A (Ben's practical dependence on non-sensitive operational judgment) and SP2 (Desh's pragmatism mirrors/contrasts Kael's re-emergence). Desh retains Ghost and Lie fragments as character texture but does not carry a full Weiland progression in his own named scenes.",
-    "fpp_single_shock_structure_d8": "Per D8: Ch 5 FPP carries one institutional revelation (R04a — Reformations dual-purpose). Technique / wound mechanics / Brotherhood inversion details defer to R04b (Ch 7) / R04c (Ch 9) / R04d (Ch 11). Veraine identification (R05) moves from Ch 5 s3 to Ch 6 s1. This gives each revelation its own dramatic air and builds institutional-question momentum feeding the Ch 21 SPP.",
+    "fpp_single_shock_structure_d8": "Per D8: Ch 5 FPP carries one institutional revelation (R04a — Reformations dual-purpose). Technique / wound mechanics / Brotherhood ritual details defer to R04b (Ch 7) / R04c (Ch 9) / R04d (Ch 11). Veraine identification (R05) moves from Ch 5 s3 to Ch 6 s1. This gives each revelation its own dramatic air and builds institutional-question momentum feeding the Ch 21 SPP.",
     "midpoint_experiential_then_analytic_split_d6": "Per D6: Ch 13 is experiential midpoint; the intellectual naming of Veraine's engineering (previously Ch 13 s3) moves to Ch 14 s1 as response-quadrant processing. Ben's pivot at Ch 13 s3 is behavioral (unmade Luke check-in), not verbal. Relationship turns register implicitly through proximity, speech order, texture of silence rather than through scripted dialogue beats. Ch 13 may run shorter than 4,500 words — allowed.",
     "voice_architecture_cm4": "Per CM4: the book runs on a five-anchor voice architecture (Zahn primary ~60-65% / Luceno payload ~20-25% / Allston ensemble architecture / Stover constrained ~5% / Bujold interior ~15-20%). Scene-type → anchor mapping is codified in voice_definition.scene_type_anchor_mapping. Anti-slop rules restructured into a two-tier set: 17 derived_rules (CM4 + FG2b + R11 + R13 + D3 + D4 + D7 + W1 + W2 + B3) governing what kind of book this is; 25 line_level_rules preserving granular prose-craft guardrails. The spec is NOT 'airport bookstore / commercial tie-in' — that framing has been retired. Target audience is EU-literate Legends readers; primary comps Darth Plagueis / Outbound Flight / Memory. See top-level positioning_statement and comp_block fields.",
     "hooks_convolution_notes": "Per CM3: H06's 16-chapter lifespan is accepted as-is; D7's telegraph restructure (counter-currents at Ch 8/11/15/18, Sera-stops-defending moved to Ch 17, loudest telegraph to Ch 17-18) makes the long lifespan live through authentic ambiguity rather than slow confirmation. Per CM1/CM2, named-character and faction counts are within tolerance given CM4's EU-literate audience commitment."
@@ -1589,7 +1592,7 @@
       "arc_summary": "Philosophical mirror: identical histories (conscription by institutions), opposite conclusions. Thematic contrast rather than relational evolution — the dynamic is an unresolved argument by parallel example.",
       "ghost": "Both were repurposed as seal anchors. Both felt a thousand years of partial awareness. Neither was asked.",
       "lie": "The institution that used us is the enemy (Veraine's reading) / No institution is safe (Kael's).",
-      "want": "Veraine: to destroy the structural binary. Kael: to be left alone.",
+      "want": "Veraine: to break the seal and end the prison. Kael: to be left alone.",
       "need": "The story tests whether a shared wound must lead to a shared response. Kael's choice in Ch23 proves it need not.",
       "arc_phase_map": {
         "initial_state": "Chapter 5 — Kael learns of Veraine's existence via archive",
@@ -1724,7 +1727,7 @@
       "Sera Varik": "Dialogue is formal, archaic in syntax — no contractions early in the story, gradually loosening as she adapts. She speaks with precision and weight. Short sentences under pressure. Longer, more considered sentences in debate. She does NOT monologue — when she has something to say, she says it once and expects it to land. Her formality should soften specifically with Ben as trust builds — the shift from 'Skywalker' to 'Ben' is a marker the reader should feel.\n\nSpecimens:\n- \"Skywalker. The seal held for a thousand years because thirteen of us were the seal. Do not lecture me on containment.\"\n- \"I have fought beside people I did not trust. I have died with them. Trust and competence are separate questions.\"\n- She touched the cut at her temple, considered it, and said nothing.",
       "Torin Hal": "Warm, easy, disarming. He tells stories. He uses humor to put people at ease. His dialogue should feel like the most *likeable* person in the room — which is what makes his turn devastating. As the story progresses, his warmth thins. The humor becomes slightly mechanical. The ease becomes slightly performed. The shift should be subtle enough that the reader feels it before they can name it. Post-technique in the climax, his voice flattens — still articulate but emotionally hollow.\n\nSpecimens:\n- \"You know what I love about modern Jedi? You still believe the dark side is a place you can choose not to go.\"\n- \"I sealed myself because I knew what I was becoming. Stasis was supposed to hold it. It did not.\"\n- He smiled. He was always smiling by the end. It was one of the things that frightened Ben most.",
       "Kael Drenn": "Clipped, observational, dry. He doesn't volunteer — he responds. His humor is deadpan and often arrives after a beat of silence, as if he considered not saying anything and then couldn't resist. He speaks less than anyone else in the group. When he does speak, it tends to be the thing nobody wanted to hear. His voice should warm incrementally — not dramatically, just enough that the reader notices he's using more words per sentence by Part 4 than he did in Part 1.\n\nSpecimens:\n- \"Is this the part where I pick a side?\" / \"No.\" / \"Good. I have not decided which one is lying yet.\"\n- \"Conviction costs more than anyone tells you when they are conscripting you.\"\n- He did not volunteer. He waited, the way he always waited, until the room forgot he was there.",
-      "Darth Veraine": "Precise, academic, unruffled. She speaks in complete, grammatically sophisticated sentences. No contractions ever. She asks questions she already knows the answers to. Her dialogue should feel like a university lecturer who happens to be discussing the fate of the galaxy. She is never sarcastic — sarcasm implies emotional investment. She is occasionally *curious*, which is more unsettling.\n\nSpecimens:\n- \"Consider what you have been taught to fear, Skywalker. Then consider who benefited from teaching it to you.\"\n- \"I am not interested in whether the wound hurts. Hurt is a small argument. I am interested in whether it is true.\"\n- \"You have two options. You may listen, or you may refuse to listen. Your decision does not alter the threadwork.\"",
+      "Darth Veraine": "Precise, academic, unruffled. She speaks in complete, grammatically sophisticated sentences. No contractions ever. She asks questions she already knows the answers to. Her dialogue should feel like a lecturer discussing triage, contamination, and unacceptable costs with perfect calm. She is never sarcastic -- sarcasm implies emotional investment. She is occasionally curious, which is more unsettling. Her clinical vocabulary comes from containment and wound care rather than abstract systems language: pressure, drainage, scarring, stagnation, release, contamination, decay, cost, transition.\n\nSpecimens:\n- \"The wound is real. The seal is the prison you mistook for mercy.\"\n- \"I counted the transition dead before I came here, Skywalker. Did you?\"\n- \"If the seal is fear made architectural, why should I help you preserve it?\"",
       "Desh Rolan": "Casual, practical, professionally understated. Ex-intelligence operative who defaults to dry humor under stress. He speaks in shorter sentences than the Force-users because he's thinking about concrete things while they're debating philosophy. His humor is the Allston channel — grounding, well-timed, never at the expense of the moment's weight. He's the character most likely to say something the reader is thinking.\n\nSpecimens:\n- \"You are quiet.\" / \"Mm.\" / \"That is the bad kind of quiet.\" / \"Yeah.\"\n- \"I used to carry a badge that said I was the law. Now I carry a charter that says I am insured. I prefer the charter.\"\n- He checked the loading, checked it again, and then did the thing he always did before a firefight — cracked his neck and said nothing.",
       "Luke Skywalker": "Warmth holding sadness. Luke's voice has the specific quality of a Master who does not need his authority present in the room — the weight comes from the relationship, not from the title. Speaks in short sentences by preference; Grand-Master register surfaces only when the institution requires it, and never to Ben in private. He asks rather than tells. When he lands a hard thing, he lands it quietly — four words after a long silence, not a speech. His Force presence reads as vast, steady, and warm in a way that does not perform warmth. Post-Mara, post-Jacen, post-Abeloth: he carries the grief of a man who has lost more than most people will ever have, without any of it visible in his speaking voice.\n\nSpecimens:\n- \"And you didn't call me.\" (Ch 28 — four words that name the pattern without accusation.)\n- \"We'll tell the Council. All of it.\" (Ch 28 — decision rendered as we, not I.)\n- His hands stayed on the desk through the entirety of Ben's telling. He did not need to move them.\n\nAnti-pattern: Luke does not lecture. He does not invoke 'the Force' as an explanatory frame when speaking to Ben (they share the vocabulary; he does not need to cite it). He does not sigh, shake his head, or perform weariness — the weight is in the silences, not in the theatre. He does not deliver wisdom-dialogue of the 'you must learn that...' variety; if a line could appear in a Jedi Council scene, it is wrong for a Ben/Luke office scene."
     },
@@ -1779,7 +1782,7 @@
         {
           "rule_number": 10,
           "name": "Render the Weave argument; never declare it (FG2b)",
-          "content": "The Weave-as-imposed-structure theological claim is rendered through events and consequences, never declared by narrator. Veraine's wrongness is demonstrated by what happens when she acts on her theology, not by authorial tell. The Weave's holding is vindicated through plot outcomes, not through stated affirmation. Reader's experience of the book's Force metaphysics is emergent from events — the argument arrives as felt conclusion, not as position-taking. No character gives a summative speech reconciling Weave-rendering with light/dark canonical framing; the reconciliation happens in the reader's head, unforced."
+          "content": "The narrator never confirms a cosmological claim about the Force. Light and dark remain natural to the Force per Legends canon. 'The Weave' and Ankhural's imposed-structure thesis are rendered as in-universe language and ideology the book takes seriously without endorsing. Veraine's wrongness is demonstrated by what happens when she acts on her theology, not by authorial tell. No character gives a summative speech reconciling the Codex theory with canon; the reader receives the argument as atmosphere, history, consequence, and failed arithmetic."
         },
         {
           "rule_number": 11,
@@ -1852,12 +1855,12 @@
       "No 'chosen one' framing — Ben's unique Force perception (the wrongness) is a plot mechanism, not a destiny marker. Other Skywalkers could potentially perceive it too; Ben is simply in the right place and state of mind.",
       "No villainous monologues — Veraine presents arguments, not speeches. She never explains her plan because she doesn't need to justify herself to opponents.",
       "No redemption-through-combat — no character switches sides because they're defeated in a lightsaber duel. Ideological change comes through evidence and experience, not physical submission.",
-      "No 'the Force wills it' as explanation — the Force in this story is a system with properties, not a sentient guide. Characters may believe the Force guides them, but the narrative never confirms it.",
+      "No 'the Force wills it' as explanation -- characters may believe the Force guides them, but the narrative never confirms intervention or replaces causality with mysticism.",
       "No convenient timing — if two events coincide, establish the causal or thematic connection. Coincidence is the enemy of earned narrative.",
       "Avoid the 'wise mentor explains things' pattern — Sera, Torin, and Kael are knowledge sources but they should disagree and be wrong about things. No single character has all the answers.",
-      "Avoid resolution through superior firepower — the climax is won through collaboration and trust, not through being stronger. The Weave-resonance is not a superweapon."
+      "Avoid resolution through superior firepower — the climax is won through collaboration and trust, not through being stronger. The Weave-Resonance is not a superweapon."
     ],
-    "force_description_guidelines": "The Force in this story has specific phenomenological rules defined in the force_mechanics.sensory_vocabulary section. Key principles: (1) The Weave (normal Force) is perceived as textured, directional, with distinguishable aspects — like a handrail in the dark, always where expected. (2) The unwoven Force (the wound) is perceived as formless, directionless — the handrail is gone but the wall is still there, somewhere. Abilities function without the feedback loop. 'Losing color vision' — everything present but meaning drained. (3) The technique's activation is perceived as active structural violence — a pulling, a suction, the Weave leaning toward the practitioner and coming apart thread by thread. Like standing next to a drain. (4) Weave-resonance is perceived as unprecedented — three textures interacting, producing an overtone none could create alone. Starts discordant, catches when the practitioner stops trying to lead. Warmth returning after cold. A chord building from notes that shouldn't harmonize but do. (5) Desh's non-Force-sensitive experience escalates from environmental unease through physical wrongness (chrono drift, temperature shifts, wrong vegetation) to grief-without-an-object at full unweaving — validating that the Weave matters to everyone, not just Force-users. Character-differentiated sensations: Ben perceives unweaving as a missing handrail (the concept-vs-sensation rule: body-experience first, analysis second); Sera perceives it as the architecture going slack; Torin perceives it as relief; Kael perceives it as the old familiar (his Sith training fits the unwoven state better than the Weave); Desh perceives it as chrono-drift and wrong-growing vegetation and, at full unweaving, grief without object.",
+    "force_description_guidelines": "The Force in this story follows Legends-canonical behavior: natural light/dark polarity, vergences, Force-wounds, and Force-sensitive ritual work. Key principles: (1) 'The Weave' is era-specific language for the local structure practitioners feel at Veranthos and in Codex-shaped discourse, not narrator-proof of a new universal ontology. (2) The wound is perceived as damage and local deadening -- Force-sense becomes unreliable, emotional extremes amplify, dark-side residue bleeds through, and the environment feels wrong. (3) The technique's activation is perceived as active structural violence -- a pulling, a suction, the local field leaning toward the practitioner and coming apart thread by thread, like standing beside a drain. (4) Weave-Resonance is perceived as shared-burden containment -- three traditions distributing a load no single one can safely carry, the seal catching when no one person tries to dominate it. (5) Desh's non-Force-sensitive experience escalates from environmental unease through physical wrongness (chrono drift, temperature shifts, wrong vegetation) to grief-without-an-object at full wound pressure -- validating that the wound matters to everyone, not just Force-users. Character-differentiated sensations: Ben experiences wound-pressure as a missing handrail and bad footing; Sera experiences the architecture going slack; Torin experiences the damaged field as false relief; Kael experiences it as an old familiar from Sith conditioning; Desh experiences it as chrono drift, wrong-growing vegetation, and grief without object.",
     "pacing_feel": "Zahn-clear surface pacing — propulsive, sentence-level clarity, dialogue and action carrying momentum — with Luceno payload density sitting underneath the surface in what each scene is *about*. Early chapters exploratory and haunted; middle chapters increasingly compressed by institutional discovery and character pressure; Parts 3-4 tighten into urgent forward motion without losing sequel beats for moral consequence. Ch 13 midpoint and Ch 21 SPP spike into Stover-interior register; Ch 25-26 climax extends that allowance. Ch 27 earns the book's most visible humor and quietest interpersonal warmth (Bujold-forward). Most chapters land between 3,250 and 4,250 words, with structural spikes at Ch 5, 13, 21, 25, and 26. Pacing anti-pattern: if a chapter is moving slowly because the sentences are slow, rewrite the sentences; if it is moving slowly because the payload is genuinely heavy (Ch 5, Ch 12), the payload is correct and the scene structure compensates through reaction-led exposition and ensemble architecture.",
     "narrative_voice_notes": "This is adult Legends fiction for EU-literate readers — Luceno-density payload inside Zahn-clarity prose, with Bujold-warmth interior. The target reader finished Darth Plagueis, Outbound Flight, and Memory; they are comfortable with dense political-theological payload and moral ambiguity. Interior monologue is brief and emotionally textured — Bujold-calibrated, not Stover-extended — with self-awareness and warmth supplying the register. Dialogue and action carry more of the scene's length than interiority. When Ben reflects, he reflects in one or two sentences with warmth and self-awareness, then the scene moves. Force phenomenology is experiential and sensory per the concept-vs-sensation rule — one sharp image beats a paragraph of metaphorical excavation. Ben's close-third filter is the anchor: if a sentence could not plausibly arise from his perception in real time, it does not belong on the page. Prose that the reader looks *through* to the story is the goal; prose the reader admires for its craft is the warning sign (except inside permitted Stover beats at Ch 13 / 25 / 26). This is not airport-bookstore commercial tie-in fiction; it is also not literary-fiction experimentation. It is a specific hybrid: clear sentences, dense content, warm interior.",
     "prior_eu_onboarding": {
@@ -1969,7 +1972,7 @@
     },
     {
       "promise_id": "PP10",
-      "promise": "Gavran's archived note about Weave-resonance will matter to the climax",
+      "promise": "Gavran's archived note about Weave-Resonance will matter to the climax",
       "planted_in": "Chapter 14",
       "payoff_in": "Chapter 25-26",
       "type": "plot",
@@ -2152,7 +2155,7 @@
       "planted_in": "Chapter 21",
       "payoff_in": "Chapter 25 / Chapter 26",
       "type": "character",
-      "rationale": "Per D2 dual-reinforcement: Ch 21's refusal-as-permission is converted into Ben's own active capacity at Ch 25 s3 (interpreter-of-chord — he is the axis composing Sera/Kael/Desh's specialist contributions into a single executable read; if he drops the chord, the operation collapses) and Ch 26 s3 (first-anchor of the bonded seal — he takes the first share of the seal's ongoing ethical load on himself, publicly, with Sera and Kael witnessing). The Trauma-Lie antithesis demonstrated under load: trust placed in specialists whose judgment he cannot verify, executed as a skill he did not have in Ch 1."
+      "rationale": "Per D2 dual-reinforcement: Ch 21's refusal-as-permission is converted into Ben's own active capacity at Ch 25 s3 (interpreter-of-chord — he is the axis composing Sera/Kael/Desh's specialist contributions into a single executable read; if he drops the chord, the operation collapses) and Ch 26 s3 (first renewal share in the bonded seal — he takes the first share of the seal's ongoing ethical load on himself, publicly, with Sera and Kael witnessing). The Trauma-Lie antithesis demonstrated under load: trust placed in specialists whose judgment he cannot verify, executed as a skill he did not have in Ch 1."
     }
   ],
   "canon_profile": {
@@ -2219,7 +2222,7 @@
     "franchise_terminology_notes": "The Force should be described through experiential and mystical language, not clinical or scientific framing. Avoid 'energy field' — Luke's generation understands the Force as a living presence, not a measurable phenomenon. Technology should use Star Wars vocabulary consistently: datapads not tablets, transparisteel not glass, durasteel not steel, turbolifts not elevators."
   },
   "force_mechanics": {
-    "primary_rule": "The Force has a Weave — a woven structure that maintains the light/dark distinction and provides moral intuition to Force-sensitives. This Weave may be imposed rather than natural (per the Ankhural Codex). It can be locally unwoven by a technique derived from studying historical Force wounds (Nathema, Malachor V), creating an unwoven zone where moral intuition and Force-feedback disappear while raw ability persists. The technique removes rather than destroys — silence, not violence. It unpicks the Weave thread by thread, leaving the Force present but unstructured, like pulling the warp out of a fabric and watching the cloth come apart.",
+    "primary_rule": "The Force behaves canonically for Legends: light and dark are natural moral-polar properties, and Force wounds remain wounds. 'The Weave' is era-specific language used at Veranthos and in Ankhural's Codex for the local structure practitioners felt at a vergence and around the seal. Gavran's technique damaged and locally deadened the Force, creating a wound where Force-sense becomes unreliable, emotional extremes amplify, and dark-side residue bleeds through. The technique damages and deadens; it does not prove that light and dark were imposed.",
     "implications": [
       "Unweaving does not remove Force ability — it removes the feedback loop that tells a user whether their action aligns with light or dark. Abilities function but without moral compass.",
       "Prolonged exposure to unwoven Force erodes emotional range and replaces identity rather than consuming it ('The caldera does not consume you. It replaces you.').",
@@ -2227,17 +2230,17 @@
       "The wound amplifies emotional extremes in nearby Force-sensitives. Not possession, but pressurization — arguments hit harder, fear cuts deeper, doubt paralyzes.",
       "The seal containing the wound was maintained by twelve Force-sensitive anchors embedded in its infrastructure as living structural components. As anchors died over centuries, the seal degraded progressively until cascading failure.",
       "Cascade-acceleration: anchor losses do not weaken the seal additively but multiplicatively. Each failed anchor shifts load to the survivors and shortens their remaining lifespans. Veraine's escape removed an anchor that was already counter-loading the others' decay; the cascade did not begin in 47 ABY by coincidence. Ben's pressure clock is therefore not 'the seal is eroding' but 'the rate of erosion is itself accelerating.'",
-      "Veranthos sits on a natural nexus in the Weave — a place where the Force's woven structure is unusually dense and accessible. The nexus's properties explain both the Brotherhood's interest and the wound's severity.",
+      "Veranthos sits on a natural vergence -- a place where the Force is unusually concentrated and accessible. The vergence's properties explain both the Brotherhood's interest and the wound's severity.",
       "The technique exists at different scales: personal (Caldera Knights, Torin — meters), battlefield (Gavran at Veranthos — kilometers), and the expanding wound (planetary, over centuries).",
       "Weave-infrastructure sensing: a non-Force-sensitive trained observer (Desh) registers the Weave's failure as a pattern of correlated environmental wrongness — chrono drift, temperature inconsistencies, biological aberration, ambient affect. He cannot perceive the Weave but he can read its absence. By Ch 10 he is the most reliable instrumental indicator the group has, because the Force-users' own perception is being pressurized by the same field they are trying to measure."
     ],
-    "canon_grounding": "Builds on established Legends precedents: Nathema (KOTOR/TOR — world stripped of Force by Vitiate's ritual), Malachor V (KOTOR II — wound in the Force from mass death via Mass Shadow Generator), and the concept of Force wounds as persistent phenomena. The Weave, the unweaving technique, nexus points, and anchor system are original extrapolations from these canon foundations. The Ankhural Codex and technique lineage are entirely original.",
+    "canon_grounding": "Builds on established Legends precedents: Nathema (KOTOR/TOR -- world stripped of Force by Vitiate's ritual), Malachor V (KOTOR II -- wound in the Force from mass death via Mass Shadow Generator), vergences, and the concept of Force wounds as persistent phenomena. The Weave, the technique, the anchor system, and the Ankhural Codex are original era-language and infrastructure layered onto those canon foundations rather than proof of a new universal ontology.",
     "sensory_vocabulary": {
-      "concept_vs_sensation_rule": "The Force is rendered through body-experience first, analysis second. A scene shows the sensation (the missed footing, the missing weight, the warmth or its absence) before any character or narrator names what it means. Diagnostic vocabulary — 'unweaving,' 'the Weave,' 'amplification,' 'Weave-resonance' — is earned by experiential rendering and may not arrive on the page until the body has already arrived. The reader should feel the wrongness as Ben's body feels it; the word for the wrongness comes after.",
+      "concept_vs_sensation_rule": "The Force is rendered through body-experience first, analysis second. A scene shows the sensation (the missed footing, the missing weight, the warmth or its absence) before any character or narrator names what it means. Diagnostic vocabulary — 'unweaving,' 'the Weave,' 'amplification,' 'Weave-Resonance' — is earned by experiential rendering and may not arrive on the page until the body has already arrived. The reader should feel the wrongness as Ben's body feels it; the word for the wrongness comes after.",
       "character_differentiated_sensations": {
         "ben": "The Weave registers as a handrail in the dark, the footing he doesn't think about until it isn't there. Unweaving is footing gone — not falling, but the moment before falling, when the body knows the floor has stopped agreeing to be a floor. Reaching for the Force returns presence without direction. He notices what the Force is not telling him before he can articulate what it usually does.",
         "sera": "The Weave is architecture — load-bearing, structural, intelligible. She perceives it the way a Force-lock cracker perceives a sealing pattern: as a system with weight and seams. Unweaving is the architecture going slack. The walls are still walls but they no longer hold the building up. Her Force-lock expertise gives her a vocabulary the others lack and the ability to read counter-preparation in Torin's behavior at Ch 21 — she is the first to recognize that he has been engineering the SPP, not arriving at it.",
-        "torin": "The Weave is restraint. He has spent a thousand years being held by it. Unweaving is relief — the first quiet after a long noise. He does not register it as wrongness; he registers it as the natural state Ankhural described, which is exactly the misperception that condemns him. Ch 13 is not horror for Torin. It is recognition.",
+        "torin": "The damaged field feels like relief. He has spent a thousand years being held inside the seal, and the wound-pressure reads to him as the first quiet after a long noise. He mistakes that relief for truth, which is exactly the misperception that condemns him. Ch 13 is not horror for Torin. It is recognition.",
         "kael": "The Weave is the foreign accent he has been forced to learn. The unwoven Force is his first language. He moves through Ch 13 with the economy of someone who is finally home, and the wrongness he feels is at how comfortable he is — the body remembering what it was conscripted out of.",
         "desh": "He cannot perceive the Weave directly. He perceives the world the Weave organizes — chrono, temperature, vegetation, animal behavior, ambient mood. As the Weave fails, those readings de-correlate and then anti-correlate. By Ch 10, his instruments and his trained eye are the group's clean instrument, because the Force-sensitives' perception is being warped by the same medium they are trying to measure. At Ch 13's full unweaving he experiences grief without an object — a sadness with no referent that does not lift until they leave the zone. The non-Force-sensitive reader meets the wound here, on Desh's body, in language that owes nothing to mysticism."
       },
@@ -2254,12 +2257,12 @@
         "non_force_sensitive": "Temperature inconsistencies, sounds carrying oddly, a persistent sense of being watched that training identifies as environmental rather than tactical. Desh starts annotating the readings rather than just recording them — the de-correlation is now visible to the eye, not just the instrument."
       },
       "thin_places_high": {
-        "force_sensitive": "The boundary between light and dark shifts while watched — not gone but mobile. The Weave is flexible rather than thinned. The Force responds differently depending on micro-positioning. Like a room where the acoustics change from corner to corner. A seductive quality — the flexible Weave offers freedom from the rigid light/dark binary. It feels like possibility. That seduction is part of the danger.",
+        "force_sensitive": "The local field becomes hard to trust under wound-pressure -- not absent but unstable. The Force answers differently depending on micro-positioning. Like a room where the acoustics change from corner to corner. The seductive quality is not liberation but the false calm that comes when ordinary moral and sensory resistance thins.",
         "non_force_sensitive": "Chrono drift (timepiece and subjective time disagree). Light behaving subtly wrong — shadows at slightly incorrect angles. Persistent low-level headache that starts on arrival and stops on departure. Desh's readings now anti-correlate with where the Force-users say the wrongness is densest — the field is bending the perception of the perceivers, and his instruments are the only voice in the room that isn't being moved."
       },
       "full_unweaving": {
         "force_sensitive": "The handrail is gone. Reaching for the Force and finding something — energy, presence, potential — but no structure. No direction. No light or dark. No texture. Like trying to see in a world where light exists but nothing reflects it. The Force becomes a vast, formless pressure. Not hostile. Not empty. Undifferentiated. Every Force instinct fires into nothing. The emotional component is worst: the Force-mediated layer of moral perception goes silent. Not overridden by the dark side — absent. Navigation by judgment alone, without the safety net of Force intuition. For a Skywalker, existential.",
-        "non_force_sensitive": "Gravity feels subtly inconsistent. Temperature changes block to block without explanation. Chrono drifts measurably. Biological wrongness visible: wrong-growing vegetation, animals without pattern, silence where birds should be. Underneath, a persistent emotional undertone — not Force-mediated, but the biological effect of losing the ambient woven framework. Feels like grief without an object. A sadness about nothing that doesn't lift until leaving the zone. Validates that the Weave matters to everyone, not just Force-sensitives."
+        "non_force_sensitive": "Gravity feels subtly inconsistent. Temperature changes block to block without explanation. Chrono drifts measurably. Biological wrongness visible: wrong-growing vegetation, animals without pattern, silence where birds should be. Underneath, a persistent emotional undertone -- not Force-mediated, but the biological effect of prolonged exposure to a wounded local field. Feels like grief without an object. A sadness about nothing that does not lift until leaving the zone. Validates that the wound matters to everyone, not just Force-sensitives."
       },
       "active_technique": {
         "force_sensitive": "Different from passive breach zones. The Weave is being unpicked in real time — structural violence, not absence. A pulling, a suction — the threadwork near the practitioner leaning toward them and coming apart. Like standing next to a drain. The practitioner becomes a void in Force perception — not empty but hungry. Their Force presence transforms into something that consumes structure. The boundary of the unwoven zone is sharp — one step in the Weave, the next step nothing. A cliff edge, not a gradient."
@@ -2331,7 +2334,7 @@
         "'Frequency' / 'note' / 'chord' language clusters around Force-perception scenes. Outside those scenes, prefer structural or somatic vocabulary.",
         "Do not describe the same sensation with more than one metaphor in the same paragraph. Pick the image and move on.",
         "When in doubt, prefer a concrete physical sensation (weight, temperature, sound, balance) over a continued metaphor.",
-        "Concept-vs-sensation: render the body-experience before naming the mechanism. Diagnostic vocabulary ('unweaving,' 'the Weave,' 'amplification array,' 'Weave-resonance') is earned by experiential rendering and may not arrive in the prose ahead of the felt sense."
+        "Concept-vs-sensation: render the body-experience before naming the mechanism. Diagnostic vocabulary ('unweaving,' 'the Weave,' 'amplification array,' 'Weave-Resonance') is earned by experiential rendering and may not arrive in the prose ahead of the felt sense."
       ],
       "forbidden_repeat_phrases": [
         "reached for the Force",
@@ -2361,8 +2364,8 @@
       "The existence of the forbidden technique lineage (Nathema study -> Malachor V wound fragmentary records -> Quelling of Tython -> Nihil Reach experiments -> Ankhural Codex -> Drathul IV incident -> Caldera Knights -> Gavran's technique)",
       "Darth Veraine (Brotherhood of Darkness alchemist) and the three Jedi survivors (Sera Varik, Torin Hal, Kael Drenn) sealed as Force-sensitive anchors in the containment infrastructure since the final stage of the New Sith Wars, along with nine other anchors who died over the millennium",
       "The Battle of Veranthos as a decisive (but previously erased) New Sith Wars engagement where Gavran deployed the technique at maximum scale",
-      "The Force's Weave as a potentially imposed structure rather than a natural property — the Ankhural Codex's heretical theoretical framework",
-      "The Brotherhood of Darkness's operation at Veranthos: an attempt to invert the Weave at a natural nexus, which would have permanently shifted the Force's structural baseline toward the dark side. Gavran deployed the technique to counter the inversion — stopped it but created the permanent wound. The tragic symmetry: inversion vs. removal, with removal proving worse because structure, even wrong structure, is better than no structure."
+      "The Ankhural Codex's heretical theory that local structure around vergences may be imposed rather than natural. The novel treats this as in-universe heresy, not narrator-confirmed truth.",
+      "The Brotherhood of Darkness's operation at Veranthos: a mass dark-side ritual meant to corrupt a vergence into a lasting wound. Gavran deployed the technique to counter the ritual -- stopped it but created the permanent wound the Order then sealed."
     ],
     "style_constraints": [
       "Capitalize 'Human' per Lucasfilm style guide",
@@ -2425,7 +2428,7 @@
     },
     {
       "name": "Serran Voth",
-      "role": "Convert to Veraine's philosophy — one of the two true believers on her crew. Previously a fringe theologian on a Sith-tradition-influenced world; Veraine's anti-binary message resonated with his own heterodox ideas.",
+      "role": "Convert to Veraine's philosophy -- one of the two true believers on her crew. Previously a fringe theologian on a Sith-tradition-influenced world; Veraine's release-as-mercy message resonated with his own heterodox ideas.",
       "initial_location": "mobile",
       "initial_emotional_state": "zealous, intellectually aligned with Veraine"
     },
@@ -2496,8 +2499,8 @@
           "name": "The Ankhural Codex",
           "date": "~2400 BBY",
           "source": "Original creation",
-          "description": "Theoretical treatise by Jedi scholar Ankhural proposing that light and dark aren't properties of the Force but an imposed structure — a woven Weave. Declared heretical, suppressed. Author vanished. Ankhural's term for the structure was 'threadwork'; the novel's 'Weave' is a modern rendering.",
-          "contribution_to_technique": "Theoretical framework — the model of the Weave that made the technique's design possible. Also contains the overlooked passage about Weave-resonance that provides the climactic solution."
+          "description": "Theoretical treatise by Jedi scholar Ankhural arguing that the local structure around vergences may be imposed rather than natural -- a dangerous heresy later suppressed. Author vanished. Ankhural's term for the structure was 'threadwork'; the novel's 'Weave' is a modern rendering.",
+          "contribution_to_technique": "A dangerous theoretical frame later adopted by Veraine. Also contains the overlooked passage about shared-burden containment that provides the climactic solution."
         },
         {
           "name": "The Resonance at Drathul IV",
@@ -2656,14 +2659,14 @@
         "veraine_escape": "Veraine's partial awareness during stasis — a thousand years of half-felt use, her Force presence drawn on without consent — eroded her stasis field from inside through centuries of low-level resistance. Her chamber failed weeks before the main cascade. She pulled herself out depleted and disoriented. Her escape destabilized the system further, accelerating the cascade that woke the remaining three. She spent days recovering in the fortress, accessing the archive, understanding the system. Then departed to acquire resources and recruit a small crew."
       },
       "brotherhood_operation": {
-        "description": "The Brotherhood of Darkness identified Veranthos as a natural nexus in the Weave — a rare location where the Force's woven structure is unusually dense and accessible. Their plan: invert the Weave at the nexus, flipping the polarity so the dark side becomes the structural baseline. The inversion would propagate outward along natural Force currents, gradually shifting the galaxy's Force balance. The civilian population served as medium — their ambient Force connections part of the inversion infrastructure, making conventional military response unviable.",
-        "gavran_calculus": "Gavran deployed the technique to remove the Weave the inversion depended on. No Weave, no inversion. He was right — the inversion stopped instantly. He was catastrophically wrong about the cost: at this scale, at a nexus, the unweaving was permanent and expanding. The tragic symmetry: the Brotherhood wanted to invert the Weave (wrong structure), Gavran unwove it entirely (no structure). Inversion would have been bad but survivable — wrong structure is still structure. Removal was worse. His crime is arrogance, not malice."
+        "description": "The Brotherhood of Darkness identified Veranthos as a natural vergence -- a rare location where the Force is unusually concentrated and accessible. Their plan: a mass dark-side ritual meant to corrupt the vergence into a permanent wound. The civilian population served as medium -- their ambient Force connections part of the ritual infrastructure, making conventional military response unviable.",
+        "gavran_calculus": "Gavran deployed the technique to deaden the local field the ritual depended on. No intact vergence, no completed ritual. He was right about the emergency and catastrophically wrong about the cost: at this scale, at a vergence, the damage became permanent and expanding. His crime is not malice but emergency arrogance followed by a seal the Order let harden into a prison."
       },
       "institutional_amnesia": {
         "description": "The knowledge of the seal, the technique, and the anchors died through organizational death, not conspiracy. Chain of forgetting: (1) Gavran's inner circle — the people who understood the seal's architecture — went to Ruusan and died there. (2) The broader Jedi Lord command knew something terrible happened at Veranthos but not enough to maintain the seal. Safe extraction of anchors may have been impossible without collapsing the containment. (3) The Reformations dissolved the Jedi Lords as an institution — the organizational structure that held the restricted knowledge ceased to exist. Ironically, the Reformations motivated partly by guilt over Veranthos also destroyed the institutional memory of what the guilt was for. (4) The guilt persisted for a generation or two, fading into vague tradition, then into a restricted notation in the archives. (5) The Clone Wars and Imperial Purge destroyed the Jedi Temple archives. Whatever restricted notation existed was lost. (6) Luke rebuilt from scratch with no access to the old Order's deep records. The conceptual vocabulary itself — the Weave, nexuses, unweaving — was lost with the era that developed it."
       },
       "veraine_crew": {
-        "description": "Four to six people recruited by Veraine in the weeks after her awakening. Mostly Outer Rim salvagers and spacers hired for a well-paying job with a powerful, eccentric employer. One or two are genuine converts to her philosophy — people for whom her message about the artificial light/dark binary resonates. Not a faction. A resource. They handle the ship, logistics, physical labor at node sites, and serve as guards at critical amplification nodes during the climax. None are major characters. They scatter after Veraine's defeat.",
+        "description": "Four to six people recruited by Veraine in the weeks after her awakening. Mostly Outer Rim salvagers and spacers hired for a well-paying job with a powerful, eccentric employer. One or two are genuine converts to her philosophy — people for whom her release-as-mercy message resonates. Not a faction. A resource. They handle the ship, logistics, physical labor at node sites, and serve as guards at critical amplification nodes during the climax. None are major characters. They scatter after Veraine's defeat.",
         "narrative_functions": [
           "Explain how Veraine operates practically across multiple star systems",
           "Provide evidence of non-solo activity at Corridor nodes (Desh reads the tactical signs)",
@@ -2684,16 +2687,16 @@
         "chapter_25": "Three-way collision. Resonance starts discordant — three traditions that have never combined. Torin's technique works immediately (known quantity). Veraine's ritual powerful (amplified by network). Desh starts disabling nodes. Veraine's amplification drops. Resonance catches when Ben stops trying to control it — lets Sera and Kael contribute as equals.",
         "chapter_26": "Resolution. Veraine's ritual fails (two-stage: Desh removes amplification, resonance produces unmodelable emergence). Torin partially succeeds but is consumed — pulled free by Sera, alive but diminished. New seal stabilizes: dynamic, harmonic, requiring periodic renewal."
       },
-      "what_breaks_veraine": "Two-stage defeat. Stage 1 (physical/tactical): Desh disables three critical amplification nodes, dropping Veraine below the threshold where her ritual can breach the wound. She's strong alone but not strong enough — the seal was the work of thirteen anchors. Stage 2 (philosophical/structural): The resonance produces an emergent pattern from three traditions that Veraine's analytical framework can't model. She planned for single-tradition opposition (Jedi resealing with old methods). She didn't plan for synthesis. She identifies the Jedi and pre-Ruusan components and starts building a counter-pattern, but Kael's Sith-trained component adds the unintegrable variable — not because it's more powerful, but because its relationship to the other traditions is something her framework can't compute. She was right about the problem (the light/dark binary is limiting) and catastrophically wrong about the solution (harmonize, don't eliminate).",
+      "what_breaks_veraine": "Two-stage defeat. Stage 1 (physical/tactical): Desh disables three critical amplification nodes, dropping Veraine below the threshold where her ritual can breach the wound. Stage 2 (philosophical/structural): the shared-burden containment produces an emergent pattern from three traditions that Veraine's arithmetic cannot model. She planned for single-tradition opposition or one new prisoner bearing the load. She did not plan for synthesis without a prisoner. She is right about the crime embedded in the old seal and catastrophically wrong about the only answer she can imagine.",
       "why_torin_isnt_stopped": "Triple overdetermination (per B2). Primary reason, articulated: Sera's thematic refusal — 'I was the one they sealed. I cannot seal another.' (the book's line). Secondary reasons, registered by the room without being named: (a) cascade-acceleration — Torin's Force presence is partially entangled with the seal network (foreshadowed Ch 13 breach, made explicit Ch 18 sabotage); forcibly disengaging him would rip the seal faster than even his unchecked arrival at Veranthos; and (b) counter-preparation — Torin knows the group well enough to have prepared against the interdiction options, a dead-man's trigger on his own Force presence such that forcible locking would trigger cascade immediately. Sera reads the counter-preparation in the Weave without Torin announcing it. Ben registers the cascade-acceleration stakes through the combined reads of Sera (Force-lock expertise) and Desh (operational tactical analysis). No one gives a speech; the overdetermination lands as what the room knows without needing to say it. Each character's silence additionally carries distinct arc-rooted texture: Ben (failed to stop this pattern with Jacen, has no alternative yet), Sera (was the person whose agency was overridden — cannot do to Torin what Gavran did to her), Kael (spent his life being redirected — won't do it to someone else), Desh (breaks silence with operational pragmatism — redirects group from paralysis to action).",
       "cascade_acceleration_principle": "Forcible disengagement of a Force presence that has become partially entangled with the seal network accelerates the cascade. This is B2's Candidate-3 tactical ballast under Ch 21's thematic refusal. Plantable: Ch 13 (Ben senses the breach-zone's behavior when Veraine deliberately collapsed a node — things held together or apart not by intention but by what happened to be bearing weight); reinforced Ch 18 (seal sabotage demonstrates that yanking at an entangled element rips its neighbors); paid off Ch 21 (room reads this silently as reason interdiction would be strategically wrong, alongside the thematic refusal). Not a mystical rule — a property of the woven structure the seal is built from.",
       "interpreter_of_chord": {
-        "description": "D2's Ch 25 s3 Ben active-agent beat. Ben is not merely reading the Weave-resonance. He is the one holding the interpretive coherence between Sera, Kael, and Desh's contributions. Each specialist contributes a specialist input — Sera's lock-sense, Kael's unintegrable signature, Desh's non-sensitive operational frame — and Ben is the axis that composes them into a single executable read. If he drops the chord, the operation collapses.",
+        "description": "D2's Ch 25 s3 Ben active-agent beat. Ben is not merely reading the shared-burden containment. He is the one holding the interpretive coherence between Sera, Kael, and Desh's contributions. Each specialist contributes a specialist input — Sera's lock-sense, Kael's unintegrable signature, Desh's non-sensitive operational frame — and Ben is the axis that composes them into a single executable read. If he drops the chord, the operation collapses.",
         "trauma_lie_antithesis_demonstration": "This is the Trauma Lie (D1) antithesis demonstrated under load: trust placed in specialists whose judgment Ben cannot verify directly, executed as a skill he did not have in Ch 1. The Ben-of-Ch-1 would have tried to verify each input against his own Force-read; the Ben-of-Ch-25 holds three inputs as one composite correct answer. He holds by feel, not by analysis — the concept-vs-sensation rule (anti-slop rule 8) applies here more strictly than anywhere else in the book.",
         "collapse_condition": "If Ben drops the chord (tries to analyse one input against the others, reverts to Ch-1 verification instinct, refuses a contribution because it does not fit his prior read), the resonance decoheres. The operation's failure state is specifically Ben reverting to the Lie. Scene-card anti-pattern: no diagnostic voice at Ch 25 s3; Ben holds by feel, not by analysis."
       },
       "first_anchor_bonded_seal": {
-        "description": "D2's Ch 26 s3 Ben active-agent beat. The new seal that stabilises at the close of the climax is dynamic and harmonic, requiring periodic renewal — a living seal, not a static one. Ben accepts the new seal's ongoing ethical load by taking the first share of it on himself, explicitly and publicly, with Sera and Kael witnessing. He becomes the first anchor.",
+        "description": "D2's Ch 26 s3 Ben active-agent beat. The new seal that stabilizes at the close of the climax is dynamic and harmonic, requiring periodic renewal -- a living seal, not a static one. Ben makes the price visible by taking the first public renewal share on himself, explicitly and publicly, with Sera and Kael witnessing. He does not become the prison. He becomes the first person to volunteer for the ongoing work the old Order forced on captives.",
         "priced_commitment": "Converts Ch 21's thematic refusal line ('we find another way, together') from an articulated position into a priced commitment: cost visible, ongoing, his. The Legacy-burden pressure that the book refuses to make Ben's operative Lie (D1 chose Trauma over Legacy) resurfaces here as chosen weight rather than inherited weight — a distinction that is the point.",
         "why_not_a_council_vote": "The seal is not something institutions can ratify; its stability depends on specific bonded anchors, which means the commitment must be personal. The Ch 28 s2 scene where Ben tells Luke everything is the private corollary to the public Ch 26 commitment; it is not the decision. The decision happens at Veranthos."
       },
@@ -2715,7 +2718,7 @@
       "Chapter 16 is high-density but restructured per W2 — now carries three Veraine-in-meeting objectives (ideological pitch, Kael recruitment attempt, intelligence gathering as Ben's attention rather than scripted beat). The sabotage objective is distributed across Ch 16 exit and Ch 17 opening, not scripted as a Ch 16 meeting objective. Sera/Veraine confrontation and Kael/Veraine parallel's most direct moment still land here. Chapter may still spill into adjacent chapter word targets but sabotage is off the in-meeting load."
     ],
     "kael_veraine_parallel": {
-      "description": "Kael and Veraine share identical histories of institutional conscription and exploitation — both born on worlds controlled by factions they didn't choose, both conscripted into Force training, both captured by Gavran's forces, both repurposed as anchors in the seal. Their parallel tests the thematic question from the perspective of the used rather than the user. Same wound, opposite scar tissue: Kael responds with exhaustion and withdrawal (conviction is a trap, passivity is safety); Veraine responds with fury and purpose (the system that used me is the disease, I'll tear it down). The book's answer is neither — it's reconstruction through relationship, embodied by Kael's free choice to participate in the resonance.",
+      "description": "Kael and Veraine share identical histories of institutional conscription and exploitation — both born on worlds controlled by factions they didn't choose, both conscripted into Force training, both captured by Gavran's forces, both repurposed as anchors in the seal. Their parallel tests the thematic question from the perspective of the used rather than the user. Same wound, opposite scar tissue: Kael responds with exhaustion and withdrawal (conviction is a trap, passivity is safety); Veraine responds with fury and purpose (the seal that trapped me is the prison, and I will tear it down). The book's answer is neither — it's reconstruction through relationship, embodied by Kael's free choice to participate in the resonance.",
       "touchpoints": [
         {
           "chapter": 5,
@@ -2735,7 +2738,7 @@
         {
           "chapter": 19,
           "type": "divergence",
-          "description": "At the Jedi outpost, Kael observes that the Knights 'built their identity on the Weave.' His perspective diverges from Veraine's: she would say the Weave is the problem; Kael says the dependence on a single framework is the problem. He's arriving at the resonance answer before Ben articulates it."
+          "description": "At the Jedi outpost, Kael observes that the Knights built their identity on one answer. His perspective diverges from Veraine's: she would say the seal and everything built around it must be broken; Kael says dependence on a single framework is the problem. He is arriving at the resonance answer before Ben articulates it."
         },
         {
           "chapter": 23,
@@ -2748,7 +2751,7 @@
       "description": "Per W2's Option β (primary): between Veraine's Ch 16 truce-meeting appearance and her Ch 25-26 climactic confrontation, her presence is carried by evidence-of-passage — ledger entries, archive annotations, design signatures on the amplification array, working notes recovered from the sites she has visited. This evidence sustains audience-relationship with the antagonist across her physical absence and does so in a register that respects her dignity (no taunts, no editorial commentary; the residue of a working mind). Voice register governed by ensemble_cast.Darth_Veraine.voice_texture and anti-slop rule 15.",
       "architectural_principles": [
         "Each beat is small — a sentence, sometimes a paragraph; not a scene-stopper.",
-        "Each beat does one specific piece of characterization (her certainty / her intellectual framework / her relationship to Gavran's original work / her reading of a specific site / her design signature).",
+        "Each beat does one specific piece of characterization (her certainty / her containment logic / her relationship to Gavran's original work / her reading of a specific site / her design signature).",
         "Beats are spaced — one per chapter in the relevant range, not stacked.",
         "Beats do not address Ben or any reader; she writes for herself; the reader (and Ben) overhear.",
         "Beats refresh audience-relationship without softening her flat-negative arc — she does not change across the evidence beats; she demonstrates consistent intellectual sharpness."

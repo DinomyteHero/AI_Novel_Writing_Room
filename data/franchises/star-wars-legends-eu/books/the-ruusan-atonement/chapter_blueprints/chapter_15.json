@@ -3,7 +3,9 @@
   "chapter_mission": "The crisis goes galactic. Fragmentary reports reach the Steady Returns from Force nexuses across the galaxy. Luke sends a coded message asking for status; Ben does not answer. Torin weaponises the widening crisis into his self-sacrifice argument and names Ben's own pattern out loud. Per W1 Plant 2, Kael approaches Torin privately in a quiet moment that Ben sees from distance but cannot hear — a plant that also doubles as D7 counter-current 3 (Torin giving a moment of humanity to Kael he has no instrumental reason to give). Ben drafts a full report to Luke, reads it through twice, and deletes it.",
   "chapter_turn": "Torin says the sentence about Ben that Ben has been refusing to say about himself. The recognition is accurate. The change it produces is not yet action — Ben sees the pattern, names it privately, and chooses secrecy anyway. The Lie is challenged and, for one more chapter, winning. Meanwhile, two men who have both been used share presence briefly in a companionway; neither Ben nor the reader learns what passed between them.",
   "structural_phase": "attack",
-  "pov_allocation": ["Ben Skywalker"],
+  "pov_allocation": [
+    "Ben Skywalker"
+  ],
   "scene_count": 3,
   "scene_plan": [
     {
@@ -30,11 +32,20 @@
   ],
   "reveal_payload": [],
   "hook_movements": {
-    "planted": ["H15"],
+    "planted": [
+      "H15"
+    ],
     "advanced": [],
-    "resolved": ["H13"]
+    "resolved": [
+      "H13"
+    ]
   },
-  "subplot_obligations": ["SP-A", "SP1", "SP2", "SP3"],
+  "subplot_obligations": [
+    "SP-A",
+    "SP1",
+    "SP2",
+    "SP3"
+  ],
   "relationship_turns": [
     {
       "dyad": "Ben/Luke",

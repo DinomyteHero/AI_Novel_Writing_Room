@@ -3,7 +3,9 @@
   "chapter_mission": "Expose the group's philosophical fault lines. Torin's unsettling ease in a degraded Force zone; a three-cornered debate over the technique's nature; a small and quiet friendship forming between Kael and Desh. Per D7 counter-current 1, Torin does something a character on the corruption trajectory would genuinely not do — a small costless kindness whose register stays characterisation, not misdirection. Per W1 Inversion 1, Kael approaches Desh — not the Force-users — with a practical observation Desh had missed. The chapter surfaces problems the book will not solve until Parts 3 and 4.",
   "chapter_turn": "Ben notices Torin is comfortable where he should not be. He cannot yet name what it means, but the shape of it is filed — and Sera names it for him in a corridor, in private. Kael stops being the man who comments on the group's tensions and becomes the man who quietly makes himself useful to the one member who does not need the Force to be useful. The crew stops being 'the group we rescued' and starts being 'a coalition with visible fault lines.'",
   "structural_phase": "response",
-  "pov_allocation": ["Ben Skywalker"],
+  "pov_allocation": [
+    "Ben Skywalker"
+  ],
   "scene_count": 3,
   "scene_plan": [
     {
@@ -18,7 +20,7 @@
       "role": "reveal",
       "dialogue_expectation": "dialogue_led",
       "target_word_count": 1200,
-      "purpose": "The galley. Sera puts down her fork with precision that is itself a warning. Torin's reasonable hands on the table. Four positions surface: Sera (the Weave is sacred; the technique is violation), Torin (the Weave is structure; the technique is engineering), Kael (both frameworks are institutional propaganda). Ben realises he does not have a position and tables the debate. Kael speaks last: 'You're all arguing about whose cage has nicer bars.' The silence after is the answer. Per D3 in-character variants: Sera uses 'the work,' Torin uses 'the stitching,' Kael uses 'the cloth' — three different names for the same thing, each carrying its own theological commitments. Veraine's philosophy is present in the room as the unnamed fifth position the debate is dancing around (PP16 anchor)."
+      "purpose": "The galley. Sera puts down her fork with precision that is itself a warning. Torin's reasonable hands on the table. Four positions surface: Sera (the Weave is sacred; the technique is violation), Torin (the Weave is structure; the technique is engineering), Kael (all three traditions built institutions around one answer and called that answer truth). Ben realises he does not have a position and tables the debate. Kael speaks last: 'You're all arguing about whose cage has nicer bars.' The silence after is the answer. Per D3 in-character variants: Sera uses 'the work,' Torin uses 'the stitching,' Kael uses 'the cloth' -- three different names for the same thing, each carrying its own theological commitments. Veraine's philosophy is present in the room as the unnamed fifth position: the seal as prison, release as mercy, cost accepted in advance."
     },
     {
       "scene_number": 3,
@@ -30,11 +32,18 @@
   ],
   "reveal_payload": [],
   "hook_movements": {
-    "planted": ["H08"],
+    "planted": [
+      "H08"
+    ],
     "advanced": [],
     "resolved": []
   },
-  "subplot_obligations": ["SP-A", "SP1", "SP2", "SP3"],
+  "subplot_obligations": [
+    "SP-A",
+    "SP1",
+    "SP2",
+    "SP3"
+  ],
   "relationship_turns": [
     {
       "dyad": "Sera/Torin",

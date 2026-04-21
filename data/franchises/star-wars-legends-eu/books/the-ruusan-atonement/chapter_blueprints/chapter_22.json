@@ -1,9 +1,11 @@
 {
   "chapter_number": 22,
-  "chapter_mission": "Build the plan. Ben and Sera translate Ankhural's resonance theory into a practical approach. Per W2 evidence-of-passage beat 4: the group inspects a nearby amplification array component — passing through or adjacent to Veraine's tool becomes a direct sensory encounter with her mind. Sera reads its design signature as characteristically hers (not pieced together from Brotherhood inheritance — designed). Desh sees the shape of the array and volunteers for the sabotage before anyone asks. Ben prepares the hardest Skywalker move — inviting rather than commanding — as he sets out to approach Kael.",
-  "chapter_turn": "The solution has shape. Two plans that only work together, and three commitments already given — Ben, Sera, Desh. Ben stops leading by decree and starts leading by assembly. Veraine's presence is no longer abstract — the group has now physically touched a component of her thinking and can feel the intellect that built it. The gap between Ben and Gavran is narrowing into a question of how he asks the one person whose 'no' would end the book.",
+  "chapter_mission": "Build the plan. Ben and Sera translate Ankhural's shared-burden containment theory into a practical approach. Per W2 evidence-of-passage beat 4: the group inspects a nearby amplification array component -- passing through or adjacent to Veraine's tool becomes a direct sensory encounter with her mind. Sera reads its design signature as characteristically hers (not pieced together from Brotherhood inheritance -- designed). Desh sees the shape of the array and volunteers for the sabotage before anyone asks. Ben prepares the hardest Skywalker move -- inviting rather than commanding -- as he sets out to approach Kael. Ch 22 stays tactile-operational: gear, site, plan mechanics, physical approach.",
+  "chapter_turn": "The solution has shape. Two plans that only work together, and three commitments already given -- Ben, Sera, Desh. Ben stops leading by decree and starts leading by assembly. Veraine's presence is no longer abstract -- the group has now physically touched a component of her thinking and can feel the intellect that built it. The gap between Ben and Gavran narrows into a practical question of how to build a seal without making any one person the seal.",
   "structural_phase": "resolution",
-  "pov_allocation": ["Ben Skywalker"],
+  "pov_allocation": [
+    "Ben Skywalker"
+  ],
   "scene_count": 3,
   "scene_plan": [
     {
@@ -11,7 +13,7 @@
       "role": "hook",
       "dialogue_expectation": "balanced",
       "target_word_count": 1300,
-      "purpose": "Camp workspace, before dawn. Ben and Sera spread Codex notes between them and translate Ankhural's abstract framework into a practical approach — three Force traditions producing an emergent structure no single one can achieve. Sera's archaic notation flows alongside Ben's modern Force analysis. Sera's arc lands its new-truth beat: principled flexibility, adapting without abandoning. Desh provides logistical reality checks. R12 delivered. H21 resolves. The plan requires Kael."
+      "purpose": "Camp workspace, before dawn. Ben and Sera spread Codex notes between them and translate Ankhural's fragment into a practical shared-burden containment approach -- three Force traditions distributing the seal's load so no single one has to become the prison. Sera's archaic notation flows alongside Ben's modern Force analysis. Sera's arc lands its new-truth beat: principled flexibility, adapting without abandoning. Desh provides logistical reality checks. R12 delivered. H21 resolves. The plan requires Kael."
     },
     {
       "scene_number": 2,
@@ -28,13 +30,26 @@
       "purpose": "Ben at the camp edge, first light giving way to full day on the ridgeline. Kael sits with his legs over the ridge, facing the valley and the Scar. He felt Ben coming. Ben sits beside him at arm's length. The conversation the book has been building toward. Ben does not order, manipulate, or guilt. He asks. Kael's response is the book's final question: 'Why should I believe this one is different?' Not hostile. Not cynical. Genuine. H22 plants."
     }
   ],
-  "reveal_payload": ["R12"],
+  "reveal_payload": [
+    "R12"
+  ],
   "hook_movements": {
-    "planted": ["H22"],
+    "planted": [
+      "H22"
+    ],
     "advanced": [],
-    "resolved": ["H14", "H21"]
+    "resolved": [
+      "H14",
+      "H21"
+    ]
   },
-  "subplot_obligations": ["SP-A", "SP1", "SP2", "SP3", "SP5"],
+  "subplot_obligations": [
+    "SP-A",
+    "SP1",
+    "SP2",
+    "SP3",
+    "SP5"
+  ],
   "relationship_turns": [
     {
       "dyad": "Ben/Sera",
