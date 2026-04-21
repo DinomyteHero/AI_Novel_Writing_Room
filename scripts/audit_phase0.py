@@ -738,10 +738,13 @@ def main() -> int:
         prompt_text=sc1_prompt_text,
         concept_seed=concept_seed,
     )
+    # audit_report_exists is self-referential: the report is written below,
+    # so we know it *will* exist. Assert True here and write once — ordering
+    # the MD and JSON writes so both agree on the final verdict.
     criteria["audit_report_exists"] = {
-        "pass": report_path.exists() and report_path.stat().st_size > 0,
+        "pass": True,
         "evidence": str(report_path),
-        "notes": "Self-check: this script emits the report; pass once it lands on disk.",
+        "notes": "Self-check: this script emits the report; passes on a clean run.",
     }
 
     overall_pass = all(c["pass"] for c in criteria.values())
@@ -761,9 +764,6 @@ def main() -> int:
     }
 
     audit_path = run_dir / "phase0_audit.json"
-    audit_path.write_text(
-        json.dumps(audit, indent=2, sort_keys=True), encoding="utf-8",
-    )
 
     report_lines = [
         f"# Phase 0 audit — {book}",
@@ -800,18 +800,22 @@ def main() -> int:
             "register policy across voice.json / prose_stylist / voice_checker "
             "prompts. See spec §5.1.5."
         )
+
+    # Write MD report first so the self-check is true, then verify on disk
+    # and write the JSON. A post-write sanity check keeps the two artifacts
+    # in sync: if the MD write silently produced an empty file, downgrade
+    # audit_report_exists and update the JSON accordingly.
     report_path.write_text("\n".join(report_lines) + "\n", encoding="utf-8")
 
-    # Re-evaluate audit_report_exists now that the file lives on disk, then
-    # recompute overall_pass so the two artifacts agree. (The report exists
-    # check is the one criterion this script can truthfully self-assert.)
-    criteria["audit_report_exists"] = {
-        "pass": report_path.exists() and report_path.stat().st_size > 0,
-        "evidence": str(report_path),
-        "notes": "Self-check: this script emits the report; pass once it lands on disk.",
-    }
-    audit["criteria"] = criteria
-    audit["overall_pass"] = all(c["pass"] for c in criteria.values())
+    if not (report_path.exists() and report_path.stat().st_size > 0):
+        criteria["audit_report_exists"] = {
+            "pass": False,
+            "evidence": f"MD report write failed: {report_path}",
+            "notes": "Self-check: this script emits the report; post-write verification failed.",
+        }
+        audit["criteria"] = criteria
+        audit["overall_pass"] = all(c["pass"] for c in criteria.values())
+
     audit_path.write_text(
         json.dumps(audit, indent=2, sort_keys=True), encoding="utf-8",
     )

@@ -4,8 +4,8 @@
 - Franchise: `star-wars-legends-eu`
 - Chapter: 1
 - Mode: `dry-run`
-- Generated: 2026-04-21T02:46:48.217065+00:00
-- Git: `00c53a2` (dirty)
+- Generated: 2026-04-21T02:59:34.740550+00:00
+- Git: `301c4f1` (dirty)
 - Overall pass: **YES**
 
 ## Criteria
