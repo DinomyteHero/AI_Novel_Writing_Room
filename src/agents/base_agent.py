@@ -2,8 +2,12 @@
 
 from abc import ABC, abstractmethod
 from pathlib import Path
+from typing import TYPE_CHECKING, Optional
 
 from src.model_router import ModelRouter
+
+if TYPE_CHECKING:
+    from src.pipeline.phase0_capture import Phase0PromptSnapshot
 
 
 class BaseAgent(ABC):
@@ -17,6 +21,16 @@ class BaseAgent(ABC):
         self.router = router
         self.role = role
         self.system_prompt = self._load_system_prompt()
+        # Architecture upgrade Slice 1: when runtime.phase0_audit.enabled is
+        # on, the orchestrator attaches a snapshot writer that captures the
+        # rendered messages before each router call. Defaults to None so
+        # behavior is unchanged when the flag is off.
+        self._phase0_snapshot: Optional["Phase0PromptSnapshot"] = None
+
+    def attach_phase0_snapshot(
+        self, snapshot: Optional["Phase0PromptSnapshot"],
+    ) -> None:
+        self._phase0_snapshot = snapshot
 
     def _load_system_prompt(self) -> str:
         prompt_path = Path(f"prompts/agent_system_prompts/{self.role}.md")
@@ -27,12 +41,16 @@ class BaseAgent(ABC):
     async def run(self, context: dict) -> dict:
         """Execute the agent's task. Returns structured output."""
         messages = self._build_messages(context)
+        if self._phase0_snapshot is not None:
+            self._phase0_snapshot.dump(self.role, messages)
         response = await self.router.complete(self.role, messages)
         return self._parse_response(response, context)
 
     async def run_structured(self, context: dict) -> dict:
         """Execute the agent's task expecting JSON output."""
         messages = self._build_messages(context)
+        if self._phase0_snapshot is not None:
+            self._phase0_snapshot.dump(self.role, messages)
         return await self.router.complete_structured(self.role, messages)
 
     def _build_messages(self, context: dict) -> list[dict]:
