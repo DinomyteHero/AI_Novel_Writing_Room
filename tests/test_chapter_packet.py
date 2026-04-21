@@ -345,6 +345,83 @@ def test_slice3_overlay_renders_overdue_under_advisory_heading(
     ledger.close()
 
 
+def test_slice4_continuity_events_filtered_to_pov_and_present_chars(
+    blueprint_ch1, concept_seed,
+):
+    """Overlay must narrow chapter-level continuity events to those whose
+    subject is the POV or in characters_present (spec \u00a78.5). Prior-scene
+    events from unrelated characters must not clutter the packet.
+    """
+    from src.memory.continuity_log import ContinuityLog
+
+    log = ContinuityLog(db_path=":memory:")
+    try:
+        log.append({
+            "event_type": "location_change", "scene_id": "ch01_sc01",
+            "subject": "Ben Skywalker",
+            "details": {"from_location": "home", "to_location": "hangar"},
+            "confidence": 0.95, "extractor_version": "v0.1",
+        })
+        log.append({
+            "event_type": "location_change", "scene_id": "ch01_sc01",
+            "subject": "Lando",
+            "details": {"from_location": "bar", "to_location": "landing pad"},
+            "confidence": 0.95, "extractor_version": "v0.1",
+        })
+
+        compiler = ChapterPacketCompiler(
+            concept_seed=concept_seed,
+            blueprints={1: blueprint_ch1},
+            continuity_log=log,
+        )
+        base = compiler.compile_base(chapter_number=1)
+        overlay = compiler.compile_overlay(
+            base=base,
+            scene_card={
+                "chapter_number": 1, "scene_number": 2,
+                "pov_character": "Ben Skywalker",
+                "characters_present": ["Ben Skywalker"],
+            },
+        )
+        subjects = {ev["subject"] for ev in overlay.continuity_events}
+        assert subjects == {"Ben Skywalker"}
+    finally:
+        log.close()
+
+
+def test_slice4_overlay_does_not_surface_events_from_current_scene(
+    blueprint_ch1, concept_seed,
+):
+    """An event from the scene being drafted must not appear in its own
+    overlay \u2014 only strictly-prior events propagate (spec \u00a78.1)."""
+    from src.memory.continuity_log import ContinuityLog
+
+    log = ContinuityLog(db_path=":memory:")
+    try:
+        log.append({
+            "event_type": "location_change", "scene_id": "ch01_sc02",
+            "subject": "Ben Skywalker",
+            "details": {"from_location": "a", "to_location": "b"},
+            "confidence": 0.95, "extractor_version": "v0.1",
+        })
+        compiler = ChapterPacketCompiler(
+            concept_seed=concept_seed,
+            blueprints={1: blueprint_ch1},
+            continuity_log=log,
+        )
+        overlay = compiler.compile_overlay(
+            base=compiler.compile_base(chapter_number=1),
+            scene_card={
+                "chapter_number": 1, "scene_number": 2,
+                "pov_character": "Ben Skywalker",
+                "characters_present": ["Ben Skywalker"],
+            },
+        )
+        assert overlay.continuity_events == []
+    finally:
+        log.close()
+
+
 def test_slice3_active_promises_total_count_reflects_true_total(
     blueprint_ch1, concept_seed,
 ):

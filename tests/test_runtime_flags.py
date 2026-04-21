@@ -304,3 +304,34 @@ def test_shipping_books_keep_promise_ledger_off(book_slug: str):
         f"{book_slug} must keep runtime.promise_ledger.enabled=false until the "
         "per-book parity test (spec §11.6.3) approves the flip"
     )
+
+
+# --- Slice 4 shipping-book protection ----------------------------------------
+
+
+@pytest.mark.parametrize("book_slug", [
+    "the-ruusan-atonement",
+    "legacy-of-the-force-betrayal",
+])
+def test_shipping_books_keep_continuity_log_off(book_slug: str):
+    """Spec §8.6: the continuity extractor is the risky slice. Even with
+    threshold filtering, precision < 0.90 on the labeled eval set risks
+    hallucinated facts reaching the drafter. Keep the flag off on shipping
+    books until the per-book eval gate passes (>= 0.95 for Ruusan).
+    """
+    import json
+    seed_path = Path(
+        f"data/franchises/star-wars-legends-eu/books/{book_slug}/concept_seed.json"
+    )
+    if not seed_path.exists():
+        pytest.skip(f"seed not present: {seed_path}")
+    with seed_path.open(encoding="utf-8") as fh:
+        seed = json.load(fh)
+
+    merged = load_runtime_flags(concept_seed=seed)
+    assert merged["runtime"]["continuity_log"]["enabled"] is False, (
+        f"{book_slug} must keep runtime.continuity_log.enabled=false until "
+        "the extractor eval gate passes (spec §8.4.3)"
+    )
+    # min_confidence safe default stays intact even when an override creeps in.
+    assert merged["runtime"]["continuity_log"]["min_confidence"] == 0.85

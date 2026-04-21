@@ -49,6 +49,8 @@ if TYPE_CHECKING:
     from src.memory.contradiction_scanner import ContradictionScanner
     from src.memory.state_diff import StateDiffApplier
     from src.memory.story_state import StoryState
+    from src.agents.continuity_extractor import ContinuityExtractor
+    from src.memory.continuity_log import ContinuityLog
     from src.memory.promise_ledger import PromiseLedger
     from src.pipeline.chapter_packet import ChapterPacketCompiler
     from src.pipeline.revision_debt import RevisionDebtStore
@@ -127,6 +129,12 @@ class Orchestrator:
         # pulls list_top_urgent into the overlay via its own reference; pass
         # the same PromiseLedger instance here and to the compiler.
         promise_ledger: Optional["PromiseLedger"] = None,
+        # Architecture upgrade Slice 4: continuity event log + extractor.
+        # Both stay dormant unless runtime.continuity_log.enabled is true AND
+        # both collaborators are supplied. The extractor runs *after* save so
+        # blocker-quarantined prose never produces trusted events.
+        continuity_log: Optional["ContinuityLog"] = None,
+        continuity_extractor: Optional["ContinuityExtractor"] = None,
     ):
         self.router = router
         self.assembler = context_assembler
@@ -224,6 +232,27 @@ class Orchestrator:
             self.runtime_flags.get("runtime", {}).get("promise_ledger", {}).get("enabled", False)
             and self.promise_ledger is not None
         )
+
+        # Architecture upgrade Slice 4 \u2014 continuity event log + extractor.
+        # Both must be attached AND the flag on for trusted-event recording to
+        # fire. Suppressed (sub-threshold) events go *nowhere* except a warn
+        # count event (spec \u00a78.3.2).
+        self.continuity_log = continuity_log
+        self.continuity_extractor = continuity_extractor
+        continuity_cfg = (
+            self.runtime_flags.get("runtime", {}).get("continuity_log", {}) or {}
+        )
+        self._continuity_log_enabled = bool(
+            continuity_cfg.get("enabled", False)
+            and self.continuity_log is not None
+            and self.continuity_extractor is not None
+        )
+        try:
+            self._continuity_min_confidence = float(
+                continuity_cfg.get("min_confidence", 0.85)
+            )
+        except (TypeError, ValueError):
+            self._continuity_min_confidence = 0.85
 
         # Architecture upgrade Slice 1 — Phase 0 prompt capture.
         # When runtime.phase0_audit.enabled is on, instantiate a snapshot
@@ -936,6 +965,12 @@ class Orchestrator:
         # here \u2014 those land as editorial.scene_reviewer revision-debt rows.
         self._maybe_record_promise_deltas(scene_card)
 
+        # Architecture upgrade Slice 4 — extract narrow continuity events
+        # from the saved prose. Threshold-filtered inside the helper; sub-
+        # threshold rows are suppressed entirely (not logged, not stored) so
+        # hallucinated facts can never reach the packet.
+        await self._maybe_extract_continuity(scene_card, final_prose)
+
         # Phase 4: Post-chapter physics validation
         physics_post = None
         if self.physics_enforcer:
@@ -1531,6 +1566,83 @@ class Orchestrator:
                     "promise_id": entry.get("promise_id"),
                     "due_by_scene": entry.get("due_by_scene"),
                     "overdue_by_scenes": entry.get("overdue_by_scenes"),
+                },
+            )
+
+    # ------------------------------------------------------------------
+    # Slice 4 continuity-extractor hook. Called post-save so quarantined
+    # scenes never produce trusted events. Suppressed rows go nowhere
+    # except a warn-count telemetry event.
+    # ------------------------------------------------------------------
+    async def _maybe_extract_continuity(self, scene_card: dict, prose: str) -> None:
+        if not self._continuity_log_enabled:
+            return
+        chapter_number = scene_card.get("chapter_number")
+        scene_number = scene_card.get("scene_number", 1)
+        if chapter_number is None or not prose:
+            return
+        try:
+            concept_seed = getattr(self.assembler, "concept_seed", {}) or {}
+        except Exception:  # noqa: BLE001
+            concept_seed = {}
+        try:
+            events = await self.continuity_extractor.extract(
+                prose=prose, scene_card=scene_card, concept_seed=concept_seed,
+            )
+        except Exception as exc:  # noqa: BLE001
+            self.ledger.emit_warn(
+                "continuity_extractor_error",
+                chapter_number=chapter_number, scene_number=scene_number,
+                payload={"error": f"{type(exc).__name__}: {exc}"},
+            )
+            return
+
+        threshold = float(self._continuity_min_confidence)
+        trusted: list[dict] = []
+        suppressed: list[dict] = []
+        for ev in events or []:
+            conf = float(ev.get("confidence", 0.0))
+            if conf >= threshold:
+                trusted.append(ev)
+            else:
+                suppressed.append(ev)
+
+        for ev in trusted:
+            try:
+                event_id = self.continuity_log.append(ev)
+            except Exception as exc:  # noqa: BLE001
+                # Store-rejected row \u2014 log as warn-count but do not raise.
+                self.ledger.emit_warn(
+                    "continuity_extractor_error",
+                    chapter_number=chapter_number, scene_number=scene_number,
+                    payload={
+                        "error": f"append-rejected: {type(exc).__name__}: {exc}",
+                        "event_type": ev.get("event_type"),
+                    },
+                )
+                continue
+            self.ledger.emit_info(
+                "continuity_event_recorded",
+                chapter_number=chapter_number, scene_number=scene_number,
+                payload={
+                    "event_id": event_id,
+                    "event_type": ev.get("event_type"),
+                    "subject": ev.get("subject"),
+                    "confidence": ev.get("confidence"),
+                },
+            )
+
+        if suppressed:
+            # Spec \u00a78.3.2: only a count lands \u2014 no event content, no
+            # per-row payload. Hallucinations stay invisible downstream.
+            self.ledger.emit_warn(
+                "continuity_events_suppressed",
+                chapter_number=chapter_number, scene_number=scene_number,
+                payload={
+                    "count": len(suppressed),
+                    "threshold": threshold,
+                    "extractor_version": events[0].get("extractor_version")
+                    if events else None,
                 },
             )
 

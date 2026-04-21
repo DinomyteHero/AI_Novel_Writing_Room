@@ -1,0 +1,104 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ContinuityEvent",
+  "description": "Slice 4 continuity-log row. Extracted from saved prose by ContinuityExtractor; trusted only above runtime.continuity_log.min_confidence. The type set is deliberately narrow \u2014 interpretive events (emotional shifts, relationship reads, thematic observations) belong to the sociogram (Slice 5) or revision debt, not here. See docs/architecture/architecture_upgrade_spec.md \u00a78.1.",
+  "type": "object",
+  "required": ["event_id", "event_type", "scene_id", "subject", "details", "confidence", "extractor_version"],
+  "additionalProperties": false,
+  "properties": {
+    "event_id": { "type": "string", "minLength": 1 },
+    "scene_id": { "type": "string", "pattern": "^ch\\d{2}_sc\\d{2}$" },
+    "subject": { "type": "string", "minLength": 1 },
+    "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+    "extractor_version": { "type": "string", "minLength": 1 },
+    "human_verified": { "type": "boolean" },
+    "redacted": { "type": "boolean" },
+    "redacted_reason": { "type": "string" },
+    "created_at": { "type": "string", "format": "date-time" },
+    "event_type": {
+      "type": "string",
+      "enum": [
+        "location_change",
+        "injury_state",
+        "possession",
+        "revelation",
+        "status_change"
+      ]
+    },
+    "details": { "type": "object" }
+  },
+  "oneOf": [
+    {
+      "properties": {
+        "event_type": { "const": "location_change" },
+        "details": {
+          "type": "object",
+          "required": ["from_location", "to_location"],
+          "additionalProperties": false,
+          "properties": {
+            "from_location": { "type": "string" },
+            "to_location": { "type": "string" }
+          }
+        }
+      }
+    },
+    {
+      "properties": {
+        "event_type": { "const": "injury_state" },
+        "details": {
+          "type": "object",
+          "required": ["severity", "body_part", "mechanism"],
+          "additionalProperties": false,
+          "properties": {
+            "severity": { "enum": ["minor", "moderate", "severe", "mortal"] },
+            "body_part": { "type": "string" },
+            "mechanism": { "type": "string" }
+          }
+        }
+      }
+    },
+    {
+      "properties": {
+        "event_type": { "const": "possession" },
+        "details": {
+          "type": "object",
+          "required": ["item", "action"],
+          "additionalProperties": false,
+          "properties": {
+            "item": { "type": "string" },
+            "action": { "enum": ["acquired", "lost", "transferred"] },
+            "counterparty": { "type": "string" }
+          }
+        }
+      }
+    },
+    {
+      "properties": {
+        "event_type": { "const": "revelation" },
+        "details": {
+          "type": "object",
+          "required": ["revelation_id", "recipient"],
+          "additionalProperties": false,
+          "properties": {
+            "revelation_id": { "type": "string" },
+            "recipient": { "type": "string" }
+          }
+        }
+      }
+    },
+    {
+      "properties": {
+        "event_type": { "const": "status_change" },
+        "details": {
+          "type": "object",
+          "required": ["status_id", "new_value"],
+          "additionalProperties": false,
+          "properties": {
+            "status_id": { "type": "string" },
+            "new_value": { "type": "string" }
+          }
+        }
+      }
+    }
+  ]
+}

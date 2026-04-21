@@ -62,6 +62,21 @@ Slice 3 ships the first trusted stateful-memory artifact: a **declaration-driven
 - **New ledger events (all `emit_{info,warn,error}`):** `promise_planted` (info), `promise_progressed` (info), `promise_paid` (info), `promise_overdue` (warn). The warn-level path fires from `_maybe_record_promise_deltas` after save so the human operator sees slipping promises in the feed.
 - **Shipping-book guard** at `tests/test_runtime_flags.py::test_shipping_books_keep_promise_ledger_off` blocks an accidental `runtime_overrides.yaml` flipping the flag on Ruusan or Betrayal before their parity test lands.
 
+## Slice 4: continuity event log (feature-flagged, default off — RISKY)
+
+Slice 4 ships the first **LLM-extracted** trusted-memory artifact, with explicit trust-model guardrails. `runtime.continuity_log.enabled` defaults `false` on every book; the extractor is advisory-to-trusted, threshold-gated by `runtime.continuity_log.min_confidence` (default 0.85).
+
+- **Narrow-by-design schema.** `schemas/continuity_event.json` permits exactly five event types: `location_change`, `injury_state`, `possession`, `revelation`, `status_change`. `oneOf` discriminates on `event_type` and pins each type's `details` shape (closed `additionalProperties: false`). Interpretive / emotional / relational events are **not** modeled here — those belong to Slice 5 sociogram or revision debt.
+- **Store.** `src/memory/continuity_log.py` (`ContinuityLog`) backs `output/<franchise>/<book>/state/continuity_log.db`. `append` enforces the closed type set + required details at the Python layer (second line of defense behind the schema). Redaction is soft (`redacted=true` + `redacted_reason`) so audit trails survive.
+- **Extractor.** `src/agents/continuity_extractor.py` (`ContinuityExtractor`) + `prompts/agent_system_prompts/continuity_extractor.md`. Haiku @ t=0.0, max_tokens=2048 (cost floor for the risky slice). The agent drops rows that fail structural validation (unknown type, bad details, out-of-range confidence) silently — scene-save path must never abort on extractor noise.
+- **Suppression is absolute.** Sub-threshold events go **nowhere**: not stored, not rendered, not logged as content. Only `continuity_events_suppressed` (warn, payload=`{count, threshold}`) lands in the run ledger. Hallucinated facts cannot reach the packet by construction.
+- **Packet integration.** `ChapterPacketCompiler.compile_overlay` now narrows chapter continuity events to those whose `subject` matches the POV or `characters_present`, bounded to strictly-before the current `scene_id`. An event from the drafting scene never appears in its own overlay (spec §8.1 invariant).
+- **Eval harness.** `scripts/eval_continuity_extractor.py` supports both a live mode (drives the real router; spends credits) and a predictions-file mode (CI-safe). Produces `precision / recall / false_positive_rate / per-scene` report. Spec §8.4.3 gate for flipping the flag: precision ≥ 0.90 (≥ 0.95 for Ruusan), FP rate ≤ 0.05, recall ≥ 0.60 on the labeled corpus. The corpus lives at `tests/data/continuity_eval_set.json` — **the committed version is a 2-scene stub** for exercising the harness; the 30-scene Ruusan corpus is the prerequisite for flag flip and remains human-author-only work.
+- **Orchestrator wiring.** `_maybe_extract_continuity` runs *after* save so quarantined scenes never produce trusted events. Per-event outcomes emit `continuity_event_recorded` (info); the suppression count emits `continuity_events_suppressed` (warn); extractor crashes emit `continuity_extractor_error` (warn) and do not abort the pipeline.
+- **Migration.** `scripts/migrate_continuity_log.py` walks every `output/**/state/` dir and ensures an empty `continuity_log.db` exists. Idempotent.
+- **New ledger events:** `continuity_event_recorded` (info), `continuity_events_suppressed` (warn), `continuity_extractor_error` (warn).
+- **Shipping-book guard** at `tests/test_runtime_flags.py::test_shipping_books_keep_continuity_log_off` blocks an accidental flag flip on Ruusan or Betrayal before the precision gate passes.
+
 ## Status vocabulary (three values only)
 
 Per-scene save status lives in `src/memory/story_state.py`. Only three values are valid:

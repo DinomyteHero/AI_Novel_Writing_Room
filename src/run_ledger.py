@@ -66,6 +66,10 @@ EVENT_TYPES = [
     "promise_progressed",      # info  — scene card declared a progression beat
     "promise_paid",            # info  — payoff_scene recorded
     "promise_overdue",         # warn  — list_overdue surfaced a promise at packet time
+    # Architecture upgrade Slice 4: continuity event log.
+    "continuity_event_recorded",    # info — event appended above threshold
+    "continuity_events_suppressed", # warn — count of sub-threshold events dropped
+    "continuity_extractor_error",   # warn — extractor call failed; scene still saved
 ]
 
 
