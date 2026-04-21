@@ -87,7 +87,10 @@ class TestNestedStructures:
         """The scene_plan.role enum must match scene_card.scene_role."""
         schema = _load()
         role_enum = schema["properties"]["scene_plan"]["items"]["properties"]["role"]["enum"]
-        assert set(role_enum) == {"hook", "escalation", "reveal", "decision", "aftermath"}
+        assert set(role_enum) == {
+            "hook", "escalation", "reveal", "decision", "aftermath",
+            "decision_and_plant",
+        }
 
     def test_dialogue_expectation_enum_matches_scene_card(self):
         schema = _load()

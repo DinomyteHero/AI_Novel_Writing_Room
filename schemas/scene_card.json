@@ -17,8 +17,8 @@
     },
     "scene_role": {
       "type": "string",
-      "enum": ["hook", "escalation", "reveal", "decision", "aftermath"],
-      "description": "Narrative function of this scene within its chapter."
+      "enum": ["hook", "escalation", "reveal", "decision", "aftermath", "decision_and_plant"],
+      "description": "Narrative function of this scene within its chapter. 'decision_and_plant' = composite role: the scene resolves the chapter's decision beat AND plants a hook/callback for later chapters, common in dense mid-book scenes that cannot afford a dedicated plant scene."
     },
     "pov_character": { "type": "string", "minLength": 1 },
     "mission": { "type": "string", "minLength": 1 },

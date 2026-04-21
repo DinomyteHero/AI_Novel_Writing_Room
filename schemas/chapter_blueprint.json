@@ -50,7 +50,7 @@
           },
           "role": {
             "type": "string",
-            "enum": ["hook", "escalation", "reveal", "decision", "aftermath"],
+            "enum": ["hook", "escalation", "reveal", "decision", "aftermath", "decision_and_plant"],
             "description": "Narrative function within the chapter. Matches scene_card.scene_role."
           },
           "dialogue_expectation": {

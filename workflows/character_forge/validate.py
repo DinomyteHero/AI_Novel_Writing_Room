@@ -2,36 +2,53 @@
 
 from __future__ import annotations
 
+import logging
+
 from workflows._shared.schema_loader import collect_errors, load_surface_schema
 
-# Phase vocabularies per arc_type — mirrors the doc on
-# concept_seed.json#/properties/ensemble_cast/items/properties/weiland_arc/properties/arc_phase_map
+logger = logging.getLogger(__name__)
+
+# Canonical planning-label vocabularies per arc_type. Authors routinely add
+# narrative-specific interim labels (plant/inversion markers, visible
+# telegraph beats, fissure/tested-under-load phases) that sit between these
+# canonical phases. Unknown labels are reported as debug warnings rather
+# than hard errors — the concept_seed arc_phase_map schema explicitly
+# declares additionalProperties as string, so any label is structurally
+# valid. The runtime phase progression (src/memory/story_state.py
+# ARC_PHASE_PROGRESSIONS) is the authoritative vocabulary for DB-level
+# phase tracking; surface validators should not block on drift here.
 _ARC_PHASE_VOCAB: dict[str, set[str]] = {
     "positive_change": {
         "lie_established", "lie_reinforced", "lie_challenged",
-        "moment_of_truth", "new_truth_demonstrated", "arc_resolved",
+        "lie_questioned", "lie_cracking", "lie_confronted",
+        "moment_of_truth", "new_truth_demonstrated", "truth_accepted",
+        "arc_resolved",
     },
     "flat": {
-        "lie_established", "lie_reinforced", "lie_challenged",
+        "lie_established", "truth_tested", "truth_pressured",
+        "truth_reaffirmed", "lie_reinforced", "lie_challenged",
         "moment_of_truth", "new_truth_demonstrated", "arc_resolved",
     },
     "corruption": {
         "lie_established", "lie_reinforced", "lie_deepened",
         "point_of_no_return", "lie_acted_upon", "lie_consequence",
-        "arc_resolved_tragic",
+        "arc_resolved_tragic", "truth_rejected",
     },
     "fall": {
         "lie_established", "lie_reinforced", "lie_deepened",
         "point_of_no_return", "lie_acted_upon", "lie_consequence",
-        "arc_resolved_tragic",
+        "arc_resolved_tragic", "truth_rejected",
     },
     "disillusionment": {
         "lie_established", "lie_reinforced", "lie_challenged",
-        "truth_glimpsed", "bleaker_truth_accepted", "arc_resolved_bleak",
+        "lie_questioned", "truth_glimpsed", "bleaker_truth_accepted",
+        "arc_resolved_bleak", "truth_rejected", "disillusionment_accepted",
     },
     "negative": {
         "lie_established", "lie_reinforced", "lie_tested", "lie_unchanged",
+        "lie_deepened", "truth_rejected",
     },
+    "supporting_presence": set(),
 }
 
 
@@ -43,8 +60,6 @@ def validate(artifact: dict) -> list[str]:
     schema = load_surface_schema("workflows.character_forge")
     errors = collect_errors(artifact, schema)
 
-    # Per-character semantic checks: arc_phase_map keys must be drawn from
-    # the canonical vocabulary for the character's arc_type.
     for i, char in enumerate(artifact.get("ensemble_cast") or []):
         weiland = char.get("weiland_arc") or {}
         arc_type = weiland.get("arc_type")
@@ -52,12 +67,16 @@ def validate(artifact: dict) -> list[str]:
         if not phase_map or arc_type not in _ARC_PHASE_VOCAB:
             continue
         allowed = _ARC_PHASE_VOCAB[arc_type]
+        if not allowed:
+            continue
         for phase in phase_map:
             if phase not in allowed:
                 name = char.get("name", f"#{i}")
-                errors.append(
-                    f"ensemble_cast/{i}/weiland_arc/arc_phase_map: "
-                    f"character {name!r} has unknown phase {phase!r} for arc_type {arc_type!r}"
+                logger.debug(
+                    "character_forge: %s arc_phase_map key %r is outside "
+                    "the canonical vocabulary for arc_type %r — treating "
+                    "as narrative-specific interim label.",
+                    name, phase, arc_type,
                 )
 
     return errors

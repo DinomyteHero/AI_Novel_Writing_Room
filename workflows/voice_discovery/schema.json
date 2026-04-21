@@ -30,8 +30,39 @@
           "additionalProperties": { "type": "string" }
         },
         "anti_slop_rules": {
-          "type": "array",
-          "items": { "type": "string" }
+          "description": "Either a flat list of slop-avoidance rule strings (legacy shape) or a two-tier object separating book-level derived_rules from sentence-level line_level_rules. Both shapes are canonical; context_assembler.py renders either into the drafter brief.",
+          "oneOf": [
+            {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            {
+              "type": "object",
+              "properties": {
+                "description": { "type": "string" },
+                "derived_rules": {
+                  "type": "array",
+                  "items": {
+                    "oneOf": [
+                      { "type": "string" },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "rule_number": { "type": "integer" },
+                          "name": { "type": "string" },
+                          "content": { "type": "string" }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "line_level_rules": {
+                  "type": "array",
+                  "items": { "type": "string" }
+                }
+              }
+            }
+          ]
         },
         "anti_patterns": {
           "type": "array",

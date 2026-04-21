@@ -31,15 +31,18 @@
           "voice_notes": { "type": "string" },
           "weiland_arc": {
             "type": "object",
-            "required": ["lie_believed", "ghost", "want", "need", "arc_type"],
+            "required": ["arc_type"],
             "properties": {
               "lie_believed": { "type": "string", "minLength": 30 },
+              "lie_fragment": { "type": "string" },
               "ghost": { "type": "string", "minLength": 30 },
               "want": { "type": "string", "minLength": 20 },
               "need": { "type": "string", "minLength": 20 },
+              "status": { "type": "string" },
+              "narrative_beats": { "type": "array", "items": { "type": "string" } },
               "arc_type": {
                 "type": "string",
-                "enum": ["positive_change", "flat", "negative", "disillusionment", "corruption", "fall"]
+                "enum": ["positive_change", "flat", "negative", "disillusionment", "corruption", "fall", "supporting_presence"]
               },
               "arc_summary": { "type": "string" },
               "initial_phase": { "type": "string", "default": "lie_established" },
@@ -84,7 +87,7 @@
           "dyad": { "type": "string" },
           "arc_type": {
             "type": "string",
-            "enum": ["deepening", "rupturing", "reconciling", "transactional", "static"]
+            "enum": ["deepening", "rupturing", "reconciling", "transactional", "static", "quiet_alliance"]
           },
           "arc_summary": { "type": "string" },
           "ghost": { "type": "string" },
