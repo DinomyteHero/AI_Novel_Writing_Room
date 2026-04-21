@@ -151,7 +151,7 @@ Installer-level is aligned with Phase 3's "generic, reproducible" ethos.
 ### P1-4. Phase numbering collision (orchestrator Phase 1-4 vs roadmap Phase 0-8)
 
 **Evidence:**
-- [implementation-roadmap.md](../../docs/development/implementation-roadmap.md) defines Phase 0-8 (preflight, baseline, cleanup, schema, bootstrap, workflow kit, series, lore, frontend).
+- [implementation-roadmap.md](./implementation-roadmap.md) defines Phase 0-8 (preflight, baseline, cleanup, schema, bootstrap, workflow kit, series, lore, frontend).
 - [orchestrator.py:14-24](../../src/orchestrator.py) defines Phase 1-4 (always-on, memory+summarizer, character+milestones, physics+session+judge).
 - [main.py](../../src/main.py) `--phase 1..4` flag means orchestrator Phase, not roadmap Phase.
 - [Pipeline.tsx:114-116](../../src/ui/frontend/src/pages/Pipeline.tsx) Phase dropdown means orchestrator Phase, not roadmap Phase.
@@ -199,7 +199,7 @@ If P1-2's "revision is legacy" framing is correct, the directory and its prompts
 
 ### P2-2. Auto-memory says "Phases 1-5 complete," user said "Phase 3 just complete"
 
-Memory files [project_phase1_complete.md](../../~/.claude/memory/) through `project_phase5_complete.md` describe a different phase numbering system from the current [implementation-roadmap.md](../../docs/development/implementation-roadmap.md). Those memories appear to describe an *earlier* roadmap (Phase 1 = MVP / Phase 5 = UI) that got superseded.
+Memory files [project_phase1_complete.md](../../~/.claude/memory/) through `project_phase5_complete.md` describe a different phase numbering system from the current [implementation-roadmap.md](./implementation-roadmap.md). Those memories appear to describe an *earlier* roadmap (Phase 1 = MVP / Phase 5 = UI) that got superseded.
 
 **Action:** Update memory to reflect the current roadmap's Phase 0-8 numbering. Mark Phase 3 (Generic Bootstrap) complete; Phases 6-8 planned.
 

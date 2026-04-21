@@ -51,6 +51,8 @@ models:
       grok41fast:     x-ai/grok-4.1-fast
       mistral_small4: mistralai/mistral-small-2603
       minimax:        minimax/minimax-m2.7
+      gpt54:          openai/gpt-5.4           # line-editing (Stage 3a of the relay)
+      gpt54_mini:     openai/gpt-5.4-mini      # quality_polish — matches line-editor's family
     default_params:
       # Per-alias defaults (temperature, max_tokens) applied when an agent
       # routing entry does not override them.
@@ -59,10 +61,12 @@ models:
       deepseek:       { temperature: 0.3, max_tokens: 4096 }
       claude:         { temperature: 0.4, max_tokens: 8192 }
       haiku:          { temperature: 0.4, max_tokens: 4096 }
+      gpt54:          { temperature: 0.8, max_tokens: 12000 }
+      gpt54_mini:     { temperature: 0.5, max_tokens: 8192 }
       # ...
 ```
 
-Add more aliases as needed. The bench configs (`settings.bench.sonnet.yaml`, `settings.bench.gpt.yaml`) also register `gpt54: openai/gpt-5.4` when benchmarking OpenAI prose models.
+Add more aliases as needed. The bench configs (`settings.bench.sonnet.yaml`, `settings.bench.gpt.yaml`) freeze per-benchmark routing snapshots.
 
 ### Timeout Settings
 
@@ -84,27 +88,32 @@ Maps each agent role to a backend, model tier, and optional parameter overrides.
 
 ```yaml
 agent_routing:
-  # PROSE — premium voice under current live config
-  prose_stylist:   { backend: cloud, model: claude,   params: { temperature: 0.80, max_tokens: 8192 } }
+  # PROSE — drafter + optional line-editor relay
+  prose_stylist: { backend: cloud, model: claude, params: { temperature: 0.80, max_tokens: 8192 } }
+  line_writer:   { backend: cloud, model: gpt54,  params: { temperature: 0.8,  max_tokens: 12000 } }
 
-  # GATES / EVAL — cheap, precise
-  gate_critic:         { backend: cloud, model: haiku,   params: { temperature: 0.3 } }
-  chapter_gate_critic: { backend: cloud, model: haiku,   params: { temperature: 0.3 } }
-  final_gate:          { backend: cloud, model: haiku,   params: { temperature: 0.2 } }
-  judge_evaluator:     { backend: cloud, model: grok420, params: { temperature: 0.2 } }
-  manuscript_reviewer: { backend: cloud, model: kimi,    params: { temperature: 0.3 } }
+  # GATES / EVAL
+  gate_critic:          { backend: cloud, model: haiku,   params: { temperature: 0.3 } }
+  chapter_gate_critic:  { backend: cloud, model: haiku,   params: { temperature: 0.3 } }
+  final_gate:           { backend: cloud, model: haiku,   params: { temperature: 0.2 } }
+  presence_checker:     { backend: cloud, model: haiku,   params: { temperature: 0.1, max_tokens: 1000 } }
+  continuity_extractor: { backend: cloud, model: haiku,   params: { temperature: 0.0, max_tokens: 2048 } }
+  judge_evaluator:      { backend: cloud, model: grok420, params: { temperature: 0.2 } }
+  manuscript_reviewer:  { backend: cloud, model: kimi,    params: { temperature: 0.3 } }
 
-  # PLANNING — Gemini Pro for outline/seed/brief generation
-  concept_workshop: { backend: cloud, model: gemini, params: { temperature: 0.7, max_tokens: 8192 } }
-  outline_planner:  { backend: cloud, model: gemini, params: { temperature: 0.5, max_tokens: 32768 } }
-  seed_builder:     { backend: cloud, model: gemini, params: { temperature: 0.3, max_tokens: 16384 } }
-  plot_architect:   { backend: cloud, model: gemini, params: { temperature: 0.4 } }
+  # PLANNING — Gemini Pro for long-context one-off authoring;
+  # Haiku 4.5 for the per-scene plot_architect (structured JSON, ~1/6 the cost of Gemini).
+  concept_workshop:              { backend: cloud, model: gemini, params: { temperature: 0.7, max_tokens: 8192 } }
+  outline_planner:               { backend: cloud, model: gemini, params: { temperature: 0.5, max_tokens: 32768 } }
+  seed_builder:                  { backend: cloud, model: gemini, params: { temperature: 0.3, max_tokens: 16384 } }
+  plot_architect:                { backend: cloud, model: haiku,  params: { temperature: 0.4, max_tokens: 4096 } }
   chapter_blueprint_synthesizer: { backend: cloud, model: gemini, params: { temperature: 0.4, max_tokens: 8192 } }
 
-  # POLISH — single bounded expression-level pass
-  quality_polish: { backend: cloud, model: claude, params: { temperature: 0.5, max_tokens: 8192 } }
+  # POLISH — GPT 5.4-mini matches line_writer's family (gpt-5.4) for style consistency.
+  quality_polish:      { backend: cloud, model: gpt54_mini, params: { temperature: 0.5, max_tokens: 8192 } }
 
-  # STRUCTURAL REVISION / UTILITY
+  # EDITORIAL / REVISION / UTILITY
+  editorial_consultant: { backend: cloud, model: claude,         params: { temperature: 0.4, max_tokens: 16384 } }
   voice_checker:        { backend: cloud, model: mistral_small4, params: { temperature: 0.3 } }
   stress_test:          { backend: cloud, model: deepseek,       params: { temperature: 0.5 } }
   orchestrator:         { backend: cloud, model: grok41fast }
@@ -145,20 +154,23 @@ Run with `--config config/settings.bench.sonnet.yaml` or `--config config/settin
 
 ```yaml
 pipeline:
-  max_structural_retries: 3
-  max_voice_retries: 2
-  max_http_retries: 3              # Max retries for failed HTTP requests (with jitter)
+  # Relay refactor (Stage 1e): retries zeroed. Orchestrator is forward-only.
+  # The keys are retained only as a rollback valve — do not raise without
+  # re-introducing the gate-driven rewrite branches in orchestrator.py.
+  max_structural_retries: 0
+  max_voice_retries: 0
+  max_http_retries: 2              # Max retries for failed HTTP requests (with jitter)
+  embeddings:
+    use_mock: true                 # When true, uses mock embeddings (deterministic, no model needed)
+    model: nomic-ai/nomic-embed-text-v1.5
+  prompt_caching:
+    enabled: true
+    anthropic_ttl: 1h              # "5m" (1.25x write) or "1h" (2x write, cheaper for sequential pipelines)
   # chapter_output_dir: defaults to output/<franchise>/<book>/runs/<run_id>/chapters/
   # run_ledger_path: auto-resolved at output/<franchise>/<book>/state/run_ledger.db
 ```
 
-### Embeddings Settings
-
-```yaml
-embeddings:
-  use_mock: false                  # When true, uses mock embeddings (deterministic, no model needed)
-                                   # Useful for testing or environments without an embedding model
-```
+The embeddings block is nested under `pipeline` (not top-level). The shipped `config/settings.yaml` defaults `use_mock: true`; flip to `false` on machines that have `sentence-transformers` installed for real semantic similarity.
 
 ### Per-Run Config Snapshot
 
@@ -179,8 +191,12 @@ local_inference:
 
 ```yaml
 worldbuilding:
-  db_path: data/worldbuilding.db              # SQLite database for universes/lore
-  vectors_dir: data/worldbuilding_vectors     # ChromaDB persistent directory
+  # Fallback defaults for ad-hoc invocations without a concept-seed context.
+  # Live runs override these paths via ProjectPaths (franchise-scoped),
+  # writing to data/franchises/<franchise>/worldbuilding.db and
+  # data/franchises/<franchise>/worldbuilding_vectors/ instead.
+  db_path: output/_fallback/worldbuilding.db
+  vectors_dir: output/_fallback/worldbuilding_vectors
   default_top_k: 5                            # Default semantic retrieval limit
   walk_parents: true                          # Walk universe inheritance chain
   include_provisional_in_context: false       # Include provisional entries (flagged)
@@ -194,12 +210,49 @@ worldbuilding:
     interval_minutes: 60                      # Periodic reconciliation (0 = disabled)
 ```
 
-The `lore_extractor` agent routing is also defined in `agent_routing`:
+The fallback paths live under a gitignored `output/_fallback/` tree so they never collide with a real franchise-scoped worldbuilding DB.
+
+### Runtime Flags (Architecture Upgrade)
+
+Slice 1–5 of the architecture upgrade land behind feature flags that default to the safest value (off or most conservative numeric). Flags resolve through `src/runtime_flags.py` with this precedence:
+
+1. `--runtime-flag key=value` (CLI override, may be repeated)
+2. `data/franchises/<franchise>/books/<book>/runtime_overrides.yaml` (per-book)
+3. `data/franchises/<franchise>/runtime_overrides.yaml` (per-franchise)
+4. `config/settings.yaml` `runtime:` block (global default)
 
 ```yaml
-agent_routing:
-  lore_extractor: { backend: local, model: utility, params: { temperature: 0.2 } }
+runtime:
+  phase0_audit:
+    enabled: false
+  firewall:
+    enabled: false
+    successor_classifier:
+      enabled: false
+      jaccard_threshold: 0.5
+      adjacency_max_for_continue: 1
+  chapter_packet:
+    enabled: false
+    fallback_on_error: true
+  revision_debt:
+    enabled: false
+  canon_expert:
+    early_position: false
+    apply_local_fixes: false
+    local_fixes_whitelist: []
+  promise_ledger:
+    enabled: false
+  continuity_log:
+    enabled: false
+    min_confidence: 0.85
+  sociogram:
+    enabled: false
+    suggest_mode: false
 ```
+
+Shipping books (Ruusan, Betrayal) keep every flag at the global default (`false`) until their per-book parity tests land — see `tests/test_runtime_flags.py` for the guard tests that reject accidental `runtime_overrides.yaml` files under those books. The full spec lives at [architecture_upgrade_spec.md](../architecture/architecture_upgrade_spec.md).
+
+The `lore_extractor` agent routing is defined in `agent_routing` (see the Agent Routing section above).
 
 ---
 

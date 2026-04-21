@@ -468,8 +468,8 @@ Phase 0 --> Phase 1 --> Phase 1.5 --+--> Phase 2 --+--> Phase 3 ---> Phase 4 (3-
   — memory/state layer.
 - [`docs/architecture/quality-and-revision.md`](../architecture/quality-and-revision.md)
   — quality metrics and (legacy) revision bands.
-- [`docs/architecture/deferred-work.md`](../architecture/deferred-work.md)
-  — existing deferred-work log.
+- [`docs/archive/deferred-work.md`](./deferred-work.md)
+  — historical deferred-work log.
 - [`schemas/`](../../schemas/) — all JSON schemas.
 
 ## 8. Open questions deferred to their phases

@@ -4,20 +4,39 @@ The web interface exposes a REST API at `/api/` and a WebSocket endpoint for rea
 
 ## ProjectPaths
 
-`src/project_paths.py` (or equivalent) resolves all file paths for a project. Key properties:
+`src/project_paths.py` resolves all file paths for a project. Construct via `ProjectPaths.from_concept_seed(seed, run_id=...)` or `ProjectPaths.from_concept_seed_path(path, run_id=...)`. Key slugs and properties (full list in [src/project_paths.py](../../src/project_paths.py)):
+
+### Slugs (constructor arguments)
+
+| Slug | Description |
+|------|-------------|
+| `project_slug` | Book identifier (kebab-case). Resolves the book directory at `data/franchises/<franchise>/books/<project_slug>/`. The `--book` CLI flag (and `book` API field) set this. |
+| `franchise_slug` | Franchise namespace (e.g., `star-wars-legends-eu`). Resolves to `data/franchises/<franchise_slug>/`. |
+| `series_slug` | Optional series identifier. When set, state is shared at `output/<franchise>/<series>/state/`. |
+| `cosmology_slug` | Optional meta-universe slug. Resolves to `data/cosmologies/<cosmology_slug>/`. |
+| `run_id` | Per-run identifier (auto-timestamped, or custom via `--run-name`). |
+
+### Path properties
 
 | Property | Description |
 |----------|-------------|
-| `franchise_slug` | Franchise namespace (e.g., `star-wars`). Resolves to `data/franchises/<franchise>/`. |
-| `book_slug` | Book identifier within a franchise. Resolves to `data/franchises/<franchise>/books/<book>/`. |
-| `series_slug` | Optional series identifier. When set, shared state resolves to `output/<franchise>/<series>/state/`. |
-| `run_id` | Per-run identifier (auto-timestamped or custom via `--run-name`). Resolves to `output/<franchise>/<book>/runs/<run_id>/`. |
-| `concept_seed_path` | Path to concept_seed.json (franchise-scoped or legacy flat). |
-| `scene_cards_dir` | Path to scene_cards/ directory. |
-| `state_dir` | Path to state databases (output-level, or series-level if `series_slug` is set). |
-| `run_chapters_dir` | Path to `output/<franchise>/<book>/runs/<run_id>/chapters/`. |
-| `canon_db_dir` | Path to franchise-level canon DB at `data/franchises/<franchise>/canon_db/`. |
-| `worldbuilding_db_path` | Path to franchise-level worldbuilding DB at `data/franchises/<franchise>/worldbuilding.db`. |
+| `book_dir` | Book input directory (`data/franchises/<franchise>/books/<project_slug>/`). |
+| `concept_seed_path` | `<book_dir>/concept_seed.json`. |
+| `scene_cards_dir` | `<book_dir>/scene_cards/`. |
+| `workflows_dir` | `<book_dir>/workflows/` — per-surface artifact directory (workflow kit). |
+| `state_dir` | Accumulated state (book-level, or series-level when `series_slug` is set). |
+| `story_state_db`, `chapter_memory_dir`, `run_ledger_db` | State-scoped SQLite/ChromaDB paths. |
+| `run_dir` | Per-run output directory (`output/<franchise>/<book>/runs/<run_id>/`) — `None` when no `run_id`. |
+| `manuscripts_dir` | Generated chapter prose. With a `run_id`: `<run_dir>/chapters/`; otherwise falls back to `<book_output>/chapters/`. |
+| `config_snapshot_path` | `<run_dir>/config_snapshot.yaml` — frozen settings for this run. |
+| `sessions_dir` | Session checkpoint directory (under `run_dir` when a run is active). |
+| `export_dir` | `<book_output>/export/`. |
+| `franchise_dir` | Top-level franchise directory. |
+| `canon_dbs_dir` | Franchise-level canon ChromaDB root. |
+| `worldbuilding_db` | Franchise-level worldbuilding SQLite path. |
+| `worldbuilding_vectors_dir` | Franchise-level worldbuilding vectors directory. |
+
+The `universe_*` and `project_root` properties are backward-compat aliases for the franchise-scoped and `book_dir` properties respectively. `display_name` returns a human-readable `franchise/[series]/book@run_id` identifier for log lines.
 
 ### CLI Flags
 
@@ -56,7 +75,7 @@ Start a pipeline run as a background task.
 |-------|------|---------|-------------|
 | concept_seed_path | string? | null | Override concept seed path |
 | scene_cards_dir | string? | null | Override scene cards directory |
-| phase | int | 4 | Pipeline phase (1-4) |
+| phase | int | 4 | Pipeline phase (1–5). Phases 6–7 are runtime-orthogonal and activate via other fields / `--runtime-flag` overrides. |
 | raw_draft | bool | false | Skip Quality Polish + Final Gate; save the Scene-Gate-passed draft |
 | no_milestones | bool | false | Skip milestone gates |
 | judge | bool | false | Run LLM judge evaluation |
@@ -65,6 +84,11 @@ Start a pipeline run as a background task.
 | book | string? | null | Book identifier |
 | series | string? | null | Series identifier for shared state |
 | run_name | string? | null | Custom run ID (default: auto-timestamped) |
+| generate_blueprints | bool | true | Phase 5: auto-generate missing chapter blueprints when `phase >= 5`. Set `false` to skip generation and only use hand-authored blueprints. |
+| regenerate_blueprints | bool | false | Phase 5: overwrite existing blueprints. Default preserves hand-authored files. |
+| strict_lore | bool | false | Phase 7.2: promote high-severity `LoreConflictDetector` flags to blocking. Advisory by default — flags land in the run ledger but don't fail the scene. |
+| universe_id | string? | null | Deprecated alias for `franchise`. Kept for existing frontend clients; new callers should send `franchise`. |
+| project_id | string? | null | Deprecated alias for `book`. Kept for existing frontend clients; new callers should send `book`. |
 
 **Response:** `{ session_id, status, total_chapters }`
 
