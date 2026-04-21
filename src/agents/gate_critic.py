@@ -27,7 +27,10 @@ STRUCTURAL_CODES = {
     "SUBPLOT_DRIFT",
     # Scene card compliance
     "CLOSING_HOOK_VIOLATION",
-    "CHARACTER_PRESENCE_VIOLATION",
+    # Forward Relay v4: CHARACTER_PRESENCE_VIOLATION removed. PresenceChecker
+    # is the sole authority on character presence (save-blocker layer). The
+    # gates used to echo this check, creating a triple-emit across GateCritic,
+    # FinalGate, and PresenceChecker for the same violation.
     "OPENING_HOOK_MISMATCH",
 }
 
@@ -136,13 +139,15 @@ class GateCritic(BaseAgent):
             "10. Are in-universe terms spelled correctly per the terminology registry? (TERMINOLOGY_DRIFT)\n"
             "11. Does the prose follow voice definition rules (banned words, anti-patterns)? (VOICE_DEFINITION_VIOLATION)\n"
             "12. Does the scene end at or near the closing_hook? Does any content extend past it into the next scene? (CLOSING_HOOK_VIOLATION)\n"
-            "13. Do only characters in characters_present have dialogue or significant action? (CHARACTER_PRESENCE_VIOLATION)\n"
-            "14. Does the scene open consistent with the opening_hook if specified? (OPENING_HOOK_MISMATCH)\n\n"
+            "13. Does the scene open consistent with the opening_hook if specified? (OPENING_HOOK_MISMATCH)\n\n"
+            "Character-presence enforcement is handled by the dedicated "
+            "PresenceChecker at save time. Do NOT emit CHARACTER_PRESENCE_VIOLATION "
+            "here — it is out of scope for GateCritic under Forward Relay v4.\n\n"
             "Valid failure codes:\n"
             "- Structural: CONTINUITY_CONTRADICTION, WEAK_TURNING_POINT, "
             "MISSING_TURNING_POINT, UNEARNED_RESOLUTION, STRUCTURAL_PHASE_VIOLATION, "
             "PROMISE_BROKEN, MOTIVATION_GAP, CHARACTER_ARC_STALL, HOOK_VIOLATION, SUBPLOT_DRIFT, CANON_VIOLATION, "
-            "CLOSING_HOOK_VIOLATION, CHARACTER_PRESENCE_VIOLATION, OPENING_HOOK_MISMATCH\n"
+            "CLOSING_HOOK_VIOLATION, OPENING_HOOK_MISMATCH\n"
             "- Voice: OOC_DIALOGUE, OOC_ACTION, TELLING_NOT_SHOWING, "
             "TERMINOLOGY_DRIFT, VOICE_DEFINITION_VIOLATION\n"
             "- Polish: EXPOSITION_LEAK, PACING_FLATLINE, PROSE_CLICHE_BURST\n\n"

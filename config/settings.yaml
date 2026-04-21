@@ -83,13 +83,21 @@ agent_routing:
   # PROSE — Sonnet with softened constraints (untested combo): Sonnet's obedience + room to breathe. Plot architect on Gemini Pro.
   prose_stylist:          { backend: cloud, model: claude, params: { temperature: 0.80, max_tokens: 8192 } }
 
-  # Relay Stage 3 — GPT 5.4 line-editing pass after the drafter. Preserves
-  # beat sequence, turning point, POV, characters_present, and canonical
-  # facts; rewrites at sentence level for rhythm, imagery, and voice texture.
-  line_writer:            { backend: cloud, model: gpt54, params: { temperature: 0.8, max_tokens: 12000 } }
+  # Forward Relay v4 — LineWriter is OFF by default. With the smart
+  # corrective rerun handling structural misses and QualityPolish handling
+  # voice/expression, the dedicated line-edit pass is redundant. Bench configs
+  # that want LineWriter back can re-enable by uncommenting this entry in a
+  # bench-specific overlay. main.py treats a missing entry as "don't
+  # instantiate" and Orchestrator._run_scene then skips the call.
+  # line_writer:            { backend: cloud, model: gpt54, params: { temperature: 0.8, max_tokens: 12000 } }
 
-  # GATE/EVAL — Haiku for gate + final gate (precise, cheap), Grok 4.20 for judge (Arena CW #4, understands prose quality), Kimi K2.5 for manuscript review
-  gate_critic:            { backend: cloud, model: haiku, params: { temperature: 0.3 } }
+  # GATE/EVAL — Forward Relay v4: GateCritic moved off Haiku to Grok 4.1 Fast
+  # to break same-family bias (drafter + 3 judges were all Anthropic). GateCritic
+  # is the advice source for the smart corrective rerun, so its family bias has
+  # the most leverage on downstream regenerations. FinalGate + PresenceChecker
+  # stay on Haiku — narrower contract checks, same-family matters less.
+  # If structured-JSON reliability regresses, fall back to `glm` (z-ai/glm-5.1).
+  gate_critic:            { backend: cloud, model: grok41fast, params: { temperature: 0.3 } }
   chapter_gate_critic:    { backend: cloud, model: haiku, params: { temperature: 0.3 } }
   final_gate:             { backend: cloud, model: haiku, params: { temperature: 0.2 } }
   judge_evaluator:        { backend: cloud, model: grok420, params: { temperature: 0.2 } }
@@ -195,3 +203,24 @@ runtime:
   sociogram:
     enabled: false
     suggest_mode: false
+  # Forward Relay v4: smart single corrective rerun.
+  # When enabled, GateCritic verdict `fail_structural` with specific narrow
+  # trigger codes causes ProseStylist to re-draft once with structured
+  # `failure_context`. Bounded to exactly one attempt per scene. The legacy
+  # `pipeline.max_structural_retries` / `max_voice_retries` stay pinned at 0;
+  # this flag is the only path to a non-zero-retry drafter call.
+  corrective_rerun:
+    enabled: false
+    # Only fire the rerun when the GateCritic verdict is fail_structural AND
+    # at least one of the listed codes appears. Narrow by design: subjective
+    # codes (WEAK_TURNING_POINT, OPENING_HOOK_MISMATCH) intentionally excluded
+    # so the rerun acts only on hard contract misses the drafter can fix.
+    trigger_codes:
+      - MISSING_TURNING_POINT
+      - CLOSING_HOOK_VIOLATION
+    # Skip the rerun if the drafter emitted more failure codes than this —
+    # >N codes signals brief confusion, and a rerun amplifies noise.
+    max_failure_codes: 3
+    # Skip the rerun if the draft came in below this ratio of target word
+    # count (collapsed output is a different failure mode; rerun won't help).
+    min_word_count_ratio: 0.5

@@ -689,6 +689,18 @@ class Orchestrator:
         # Step 3: Gate Critic evaluates
         print("  [3/5] Gate Critic evaluating...")
         evaluation, prose = await self._gate_loop(scene_card, prose, generation_brief)
+
+        # Forward Relay v4 — smart single corrective rerun.
+        # Flag-gated (runtime.corrective_rerun.enabled), narrow trigger set
+        # (MISSING_TURNING_POINT / CLOSING_HOOK_VIOLATION), and skipped when
+        # the first draft emits too many codes or collapses below the word
+        # count floor. At most one rerun per scene — no loop semantics.
+        prose = await self._maybe_corrective_rerun(
+            scene_card=scene_card,
+            generation_brief=generation_brief,
+            prose=prose,
+            evaluation=evaluation,
+        )
         gate_passed_prose = prose
         gate_passed_wc = len(gate_passed_prose.split())
 
@@ -909,6 +921,19 @@ class Orchestrator:
             except Exception as e:
                 print(f"    Continuity editor: error ({e.__class__.__name__}) — skipping")
                 continuity_report = None
+
+        # Slice 11.1 (Forward Relay v4): apply whitelisted CanonExpert
+        # local_fixes as literal substitutions on final_prose. Narrow-repair
+        # alternative to sending moderate canon findings through a full
+        # ProseStylist rerun. Noop when the flag is off or the report has no
+        # local_fixes.
+        if continuity_report:
+            final_prose = self._maybe_apply_canon_local_fixes(
+                prose=final_prose,
+                continuity_report=continuity_report,
+                chapter_number=chapter_num,
+                scene_number=scene_num,
+            )
 
         # Relay v3 (Stage 1f): Save-blocker check. Three categories —
         #   CHARACTER_PRESENCE_BLOCKER (PresenceChecker agent)
@@ -2023,6 +2048,206 @@ class Orchestrator:
 
         # Forward-only: always return the original prose regardless of verdict.
         return evaluation, prose
+
+    def _maybe_apply_canon_local_fixes(
+        self,
+        *,
+        prose: str,
+        continuity_report: dict,
+        chapter_number: int,
+        scene_number: int,
+    ) -> str:
+        """Apply CanonExpert ``local_fixes`` as narrow literal substitutions.
+
+        Slice 11.1 (Forward Relay v4). Default-off; requires both
+        ``runtime.canon_expert.apply_local_fixes=true`` AND a non-empty
+        ``local_fixes_whitelist``. Fixes whose category is outside the
+        whitelist emit ``canon_fix_rejected`` and are left for human review.
+        Each applied fix emits ``canon_fix_applied`` plus a canon debt row.
+        """
+        ce_cfg = (self.runtime_flags.get("runtime") or {}).get("canon_expert") or {}
+        if not ce_cfg.get("apply_local_fixes", False):
+            return prose
+        whitelist = set(ce_cfg.get("local_fixes_whitelist") or [])
+        local_fixes = continuity_report.get("local_fixes") or []
+        if not local_fixes:
+            return prose
+
+        from src.pipeline.revision_debt_producers import emit_canon_advisory
+
+        scope = {
+            "level": "scene",
+            "chapter_number": chapter_number,
+            "scene_number": scene_number,
+        }
+
+        updated_prose = prose
+        for fix in local_fixes:
+            category = fix.get("category", "")
+            pattern = fix.get("pattern", "")
+            replacement = fix.get("replacement", "")
+            reason = fix.get("reason", "")
+
+            if category not in whitelist:
+                self.ledger.emit_warn(
+                    "canon_fix_rejected",
+                    chapter_number=chapter_number,
+                    scene_number=scene_number,
+                    payload={
+                        "category": category,
+                        "pattern_preview": pattern[:80],
+                        "reason": "category_not_whitelisted",
+                    },
+                )
+                continue
+
+            if pattern not in updated_prose:
+                # Model proposed a fix whose pattern does not appear literally.
+                # Skip silently rather than doing fuzzy match — narrow-repair
+                # must be safe-by-construction.
+                self.ledger.emit_warn(
+                    "canon_fix_rejected",
+                    chapter_number=chapter_number,
+                    scene_number=scene_number,
+                    payload={
+                        "category": category,
+                        "pattern_preview": pattern[:80],
+                        "reason": "pattern_not_in_prose",
+                    },
+                )
+                continue
+
+            updated_prose = updated_prose.replace(pattern, replacement)
+            self.ledger.emit_info(
+                "canon_fix_applied",
+                chapter_number=chapter_number,
+                scene_number=scene_number,
+                payload={
+                    "category": category,
+                    "pattern_preview": pattern[:80],
+                    "replacement_preview": replacement[:80],
+                    "reason": reason[:200] if reason else "",
+                },
+            )
+            emit_canon_advisory(
+                self._active_debt_store,
+                ledger=self.ledger,
+                scope=scope,
+                advisory={
+                    "category": f"canon.local_fix_applied:{category}",
+                    "severity": "minor",
+                    "text": pattern,
+                    "explanation": reason or "whitelisted local fix applied",
+                    "suggestion": replacement,
+                },
+            )
+
+        return updated_prose
+
+    async def _maybe_corrective_rerun(
+        self,
+        *,
+        scene_card: dict,
+        generation_brief: dict,
+        prose: str,
+        evaluation: dict,
+    ) -> str:
+        """Fire a single corrective rerun when the flag is on and triggers match.
+
+        Forward Relay v4. Bounded to exactly one attempt — returns the rerun
+        output when the rules fire, the unchanged prose otherwise. Never loops.
+        All decisions land in the ledger:
+        - ``corrective_rerun_skipped`` (info) when flag is on but a rule rejects
+          the candidate. Payload includes ``skip_reason`` so operators can see
+          why a legitimate-looking failure did not trigger a rerun.
+        - ``corrective_rerun_fired`` (info) before the rerun executes.
+        - ``corrective_rerun_complete`` (info) after the rerun returns.
+        """
+        cfg = (self.runtime_flags.get("runtime") or {}).get("corrective_rerun") or {}
+        if not cfg.get("enabled", False):
+            return prose
+
+        chapter_num = scene_card["chapter_number"]
+        scene_num = scene_card.get("scene_number", 1)
+
+        verdict = evaluation.get("verdict")
+        failure_codes = evaluation.get("failure_codes") or []
+        codes = [fc.get("code") for fc in failure_codes if isinstance(fc, dict)]
+
+        trigger_codes = set(cfg.get("trigger_codes") or [])
+        max_codes = int(cfg.get("max_failure_codes", 3))
+        min_wc_ratio = float(cfg.get("min_word_count_ratio", 0.5))
+
+        def _skip(reason: str, **extra):
+            payload = {"skip_reason": reason, "codes": codes, "verdict": verdict}
+            payload.update(extra)
+            self.ledger.emit_info(
+                "corrective_rerun_skipped",
+                chapter_number=chapter_num,
+                scene_number=scene_num,
+                payload=payload,
+            )
+            print(f"    Rerun: skipped ({reason})")
+
+        if verdict != "fail_structural":
+            # Only structural misses are candidates. Voice issues go to polish;
+            # polish failures are already advisory.
+            return prose
+
+        matched_triggers = [c for c in codes if c in trigger_codes]
+        if not matched_triggers:
+            _skip("no_trigger_code_match")
+            return prose
+
+        if len(codes) > max_codes:
+            _skip("too_many_failure_codes", failure_code_count=len(codes), max_allowed=max_codes)
+            return prose
+
+        target_wc = int(scene_card.get("target_word_count") or 0)
+        if target_wc > 0:
+            draft_wc = len(prose.split())
+            ratio = draft_wc / target_wc
+            if ratio < min_wc_ratio:
+                _skip(
+                    "draft_below_word_count_floor",
+                    draft_word_count=draft_wc,
+                    target_word_count=target_wc,
+                    ratio=round(ratio, 3),
+                    min_ratio=min_wc_ratio,
+                )
+                return prose
+
+        pre_wc = len(prose.split())
+        self.ledger.emit_info(
+            "corrective_rerun_fired",
+            chapter_number=chapter_num,
+            scene_number=scene_num,
+            payload={
+                "trigger_codes": matched_triggers,
+                "all_codes": codes,
+                "pre_rerun_word_count": pre_wc,
+            },
+        )
+        print(
+            f"    Rerun: fired (triggers={matched_triggers}) — re-drafting with failure context"
+        )
+
+        failure_context = self._format_failure_context(evaluation)
+        reran = await self._run_prose_stylist(
+            scene_card, generation_brief, failure_context=failure_context
+        )
+
+        self.ledger.emit_info(
+            "corrective_rerun_complete",
+            chapter_number=chapter_num,
+            scene_number=scene_num,
+            payload={
+                "trigger_codes": matched_triggers,
+                "pre_rerun_word_count": pre_wc,
+                "post_rerun_word_count": len(reran.split()),
+            },
+        )
+        return reran
 
     def _format_failure_context(self, evaluation: dict) -> str:
         """Format failure codes into revision notes for the Prose Stylist."""

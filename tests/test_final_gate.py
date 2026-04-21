@@ -57,8 +57,11 @@ class TestFinalGatePass:
 
 
 class TestFinalGateFailures:
-    async def test_character_presence_violation_fails_structural(self):
-        """Polish introduces a character not in characters_present."""
+    async def test_character_presence_violation_is_dropped(self, capsys):
+        """Forward Relay v4: CHARACTER_PRESENCE_VIOLATION is out of scope for
+        FinalGate. PresenceChecker is the sole authority. An LLM-emitted
+        CHARACTER_PRESENCE_VIOLATION here is dropped by the out-of-scope filter.
+        """
         result, _ = await _run_gate(
             _make_context(),
             {
@@ -71,9 +74,12 @@ class TestFinalGateFailures:
                 }],
             },
         )
-        assert result["verdict"] == "fail_structural"
-        assert result["route_to"] == "full_rewrite"
-        assert any(fc["code"] == "CHARACTER_PRESENCE_VIOLATION" for fc in result["failure_codes"])
+        codes = [fc["code"] for fc in result["failure_codes"]]
+        assert "CHARACTER_PRESENCE_VIOLATION" not in codes
+        # With no in-scope codes, derived verdict is pass.
+        assert result["verdict"] == "pass"
+        captured = capsys.readouterr()
+        assert "dropping out-of-scope failure_code" in captured.out
 
     async def test_closing_hook_violation_fails_structural(self):
         """Polish extends past the closing hook."""

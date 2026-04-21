@@ -145,13 +145,16 @@ class TestFinalGateRejection:
             return "mock"
 
         gate_pass = _make_gate_pass_dict()
+        # Forward Relay v4: CHARACTER_PRESENCE_VIOLATION is out of scope for
+        # FinalGate (PresenceChecker is the sole authority). Assert the
+        # rejection path with a still-in-scope structural code instead.
         final_gate_fail = {
             "verdict": "fail_structural",
             "failure_codes": [{
-                "code": "CHARACTER_PRESENCE_VIOLATION",
+                "code": "CLOSING_HOOK_VIOLATION",
                 "location": "paragraph 2",
-                "description": "character not in scene card speaks",
-                "fix_hint": "remove",
+                "description": "polish extended past the closing hook",
+                "fix_hint": "trim trailing content",
             }],
         }
 
@@ -183,7 +186,7 @@ class TestFinalGateRejection:
         rejections = [e for e in ledger.get_events() if e["event_type"] == "final_gate_rejection"]
         assert len(rejections) == 1
         assert rejections[0]["payload"].get("advisory_only") is True
-        assert "CHARACTER_PRESENCE_VIOLATION" in rejections[0]["payload"]["failure_codes"]
+        assert "CLOSING_HOOK_VIOLATION" in rejections[0]["payload"]["failure_codes"]
 
         # SAVED PROSE IS THE POLISHED OUTPUT — no reversion in forward-only pipeline.
         # Save-blocker layer (Stage 1f) handles CHARACTER_PRESENCE via a distinct

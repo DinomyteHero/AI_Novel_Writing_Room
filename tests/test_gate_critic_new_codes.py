@@ -34,16 +34,27 @@ class TestNewFailureCodeSets:
         assert new_codes.issubset(ALL_CODES)
 
     def test_total_code_count(self):
-        """Relay v3 (Stage 1h): WORD_COUNT_VIOLATION left the taxonomy.
+        """Forward Relay v4: CHARACTER_PRESENCE_VIOLATION left the GateCritic
+        taxonomy — PresenceChecker is the sole authority at save time.
 
-        14 original + 5 Phase 5 + 4 scene card compliance - 1 (WORD_COUNT)
-        = 22.
+        Cumulative adjustments from the original taxonomy:
+        - Relay v3 (Stage 1h): -1 for WORD_COUNT_VIOLATION
+        - Forward Relay v4: -1 for CHARACTER_PRESENCE_VIOLATION
+
+        14 original + 5 Phase 5 + 4 scene card compliance - 1 (WC) - 1 (CPV)
+        = 21.
         """
-        assert len(ALL_CODES) == 22
+        assert len(ALL_CODES) == 21
 
     def test_word_count_violation_not_in_all_codes(self):
         """Relay v3 (Stage 1h): word-count enforcement no longer lives in the gate."""
         assert "WORD_COUNT_VIOLATION" not in ALL_CODES
+
+    def test_character_presence_violation_not_in_all_codes(self):
+        """Forward Relay v4: GateCritic no longer emits CHARACTER_PRESENCE_VIOLATION.
+        PresenceChecker at save time is the sole authority."""
+        assert "CHARACTER_PRESENCE_VIOLATION" not in ALL_CODES
+        assert "CHARACTER_PRESENCE_VIOLATION" not in STRUCTURAL_CODES
 
 
 class TestNewCodeVerdicts:
