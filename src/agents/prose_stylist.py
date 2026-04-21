@@ -120,6 +120,66 @@ def _render_brief(brief: dict) -> str:
     return "\n".join(lines)
 
 
+_PART_1_PHASES = frozenset({"lie_established", "lie_reinforced"})
+_PART_2_3_PHASES = frozenset({
+    "lie_questioned", "lie_cracking", "lie_deepened", "point_of_no_return",
+})
+_PART_3_4_PHASES = frozenset({
+    "lie_confronted", "truth_accepted", "truth_rejected",
+    "lie_acted_upon", "lie_consequence",
+    "truth_tested", "truth_pressured", "truth_reaffirmed",
+    "truth_glimpsed", "disillusionment_accepted",
+})
+
+
+def _register_guidance_for_phase(phase: str) -> str:
+    if phase in _PART_1_PHASES:
+        return (
+            "Part 1 register — reactive, tactile, sensory. Character feels "
+            "problems before naming them. No clinical articulation."
+        )
+    if phase in _PART_2_3_PHASES:
+        return (
+            "Part 2-3 register — interior tension permitted, but still grounded "
+            "in sensation. No mission-debrief sentences."
+        )
+    if phase in _PART_3_4_PHASES:
+        return (
+            "Part 3-4 register — analytical precision permitted where earned. "
+            "Character may articulate what they now understand."
+        )
+    return "Honor the scene-card notes above for voice register."
+
+
+def _scene_voice_contract(scene_card: dict) -> str:
+    """Render the top-of-prompt Scene Voice Contract block.
+
+    Returns an empty string when the scene card has nothing to surface.
+    """
+    notes = (scene_card.get("notes") or "").strip()
+    raw_anti_patterns = scene_card.get("anti_patterns") or []
+    anti_patterns = [str(a).strip() for a in raw_anti_patterns if str(a).strip()]
+    pov_arc_phase = (scene_card.get("pov_arc_phase") or "").strip()
+
+    if not notes and not anti_patterns and not pov_arc_phase:
+        return ""
+
+    lines: list[str] = ["## Scene Voice Contract (READ FIRST — ABSOLUTE)"]
+    if notes:
+        lines.append(notes)
+    if anti_patterns:
+        lines.append("")
+        lines.append("### Anti-Patterns (from scene card)")
+        lines.extend(f"- {a}" for a in anti_patterns)
+    if pov_arc_phase:
+        lines.append("")
+        lines.append("### POV Arc Phase")
+        lines.append(
+            f"{pov_arc_phase} — {_register_guidance_for_phase(pov_arc_phase)}"
+        )
+    return "\n".join(lines)
+
+
 class ProseStylist(BaseAgent):
     """Takes the typed generation brief from the Plot Architect plus
     assembled context from the ContextAssembler, and drafts scene prose."""
@@ -137,8 +197,17 @@ class ProseStylist(BaseAgent):
         # a flat-context snapshot so every token the legacy flat path produced
         # is still present (parity-enforced in tests/test_packet_parity.py).
         chapter_packet = context.get("chapter_packet")
+        scene_card = context.get("scene_card", {}) or {}
 
         parts = []
+
+        # The Scene Voice Contract is the drafter's highest-salience per-scene
+        # instruction block — hoisted to the top of the user prompt so the
+        # scene-card notes and anti-patterns do not sit buried inside the
+        # scene-card JSON blob or the assembled context's mid-prompt position.
+        voice_contract = _scene_voice_contract(scene_card)
+        if voice_contract:
+            parts.append(voice_contract)
 
         # When a packet is supplied, it is the drafter's single inspectable
         # runtime contract and replaces the flat assembled_context in the
@@ -178,7 +247,6 @@ class ProseStylist(BaseAgent):
         if voice_rules:
             parts.append(voice_rules)
 
-        scene_card = context.get("scene_card", {})
         target_words = scene_card.get("target_word_count") or generation_brief.get("target_word_count")
         closing_hook = scene_card.get("closing_hook", "")
         characters_present = scene_card.get("characters_present", [])
