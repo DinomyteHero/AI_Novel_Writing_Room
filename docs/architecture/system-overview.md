@@ -4,18 +4,20 @@ The AI Writers' Room is a multi-agent fiction generation system organized around
 
 ## Two-Phase Workflow
 
-### Phase A: Human Collaboration
+### Phase A: Human Collaboration (Workflow Kit)
 
-An interactive Concept Workshop guides the user through structured story development:
+Story authoring happens through the **workflow kit** — six independent per-surface skills that each own one slice of the concept:
 
-1. Choose franchise, era, tone, and cast type
-2. Generate and select premise seeds
-3. Develop characters with detailed profiles
-4. Map story structure (Larry Brooks's four-part framework)
-5. Validate story physics (causality, revelations, promises)
-6. Generate scene cards
+1. `universe-builder` — meta + premise + conflict + theme
+2. `canon-drafter` — canon profile, canon constraints, terminology
+3. `voice-discovery` — POV, register, anti-slop rules, character voices
+4. `character-forge` — ensemble cast with Weiland arcs, referenced characters, relationship arcs
+5. `outline-planner` — structural outline (Brooks four-part beat map), subplots, hooks, revelations, promises
+6. `scene-card-authoring` — per-scene cards
 
-The output is a **concept seed** (`concept_seed.json`) and a set of **scene cards** -- one per chapter/scene.
+Each surface writes a JSON artifact under `workflows/<surface>/`. `scripts/compile_bundle.py` merges those artifacts into the canonical **concept seed** (`concept_seed.json`) and **scene cards** (one JSON per chapter/scene) that the pipeline consumes.
+
+The older monolithic `workshop_runner.py` CLI has been removed; see [workflow-kit.md](../user-guide/workflow-kit.md) for the supported authoring path.
 
 ### Phase B: Autonomous Pipeline
 
@@ -91,7 +93,7 @@ ai-writers-room/
 │   ├── quality/                   # Quality metrics, milestone gates, style fingerprinting, LLM judge
 │   ├── planning/                  # Story physics, scene cards, chapter blueprint generator
 │   ├── export/                    # Markdown, DOCX, EPUB export
-│   ├── concept_workshop/          # Legacy 11-step workshop runner + shared shims
+│   ├── concept_workshop/          # compliance_validator, series_manager, stress_test (canonical — workshop runner removed)
 │   └── ui/                        # FastAPI backend + React frontend
 ├── workflows/                     # Six-surface workflow kit
 │   ├── _shared/                   # Shared helpers: seed_transforms, scene_card_translator, etc.
@@ -101,7 +103,7 @@ ai-writers-room/
 │   ├── character_forge/           # ensemble_cast + relationship_arcs + referenced_characters
 │   ├── outline_planner/           # structural_notes + outline + subplots + hooks + revelations
 │   └── scene_card_authoring/      # per-scene cards
-├── tests/                         # ~1,440 tests across 103 files
+├── tests/                         # ~1,800 tests across 140 files
 ├── prompts/
 │   ├── concept_workshop.md        # Legacy workshop facilitator system prompt
 │   ├── stress_test_prompt.md      # Adversarial stress-test harness

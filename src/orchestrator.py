@@ -1,15 +1,19 @@
 """Event-driven orchestrator for the chapter generation pipeline.
 
-Phase 1 flow (per scene card):
-  PlotArchitect -> ProseStylist -> GateCritic -> (retry loop)
-  -> QualityMetrics -> QualityPolish -> compression guard -> FinalGate -> save
+Phase 1 flow (per scene card) under the forward-only relay:
+  PlotArchitect -> ProseStylist -> [LineWriter] -> GateCritic (advisory)
+  -> QualityMetrics -> QualityPolish -> compression advisory
+  -> FinalGate (advisory) -> CanonExpert -> save-blocker layer -> save | quarantine
 All steps emit typed events to the RunLedger.
 
-The Final Gate validates the actual polished text against the scene-card contract
-(character presence, closing-hook boundary, word-count floor, turning point). If
-it rejects the polish, the Scene-Gate-passed draft is saved instead. This makes
-the final saved prose the unit of truth — no post-gate stage can silently rewrite
-a scene without validation.
+Gates are telemetry, not control flow. GateCritic and FinalGate run to
+produce failure codes but do not trigger rewrites — max_structural_retries
+and max_voice_retries are pinned to 0 and retained only as a rollback valve.
+Polished prose is the canonical saved output: the compression advisory and
+Final Gate both fire `advisory_only` ledger events and do not revert to the
+pre-polish draft. The only hard-failure path is the save-blocker layer
+(CHARACTER_PRESENCE_BLOCKER, CANON_BLOCKER critical/moderate), which
+quarantines the scene to <project>/quarantine/chNN_scMM/ and aborts the run.
 
 Phase 2 additions (when dependencies provided):
   After save: Summarizer -> ChromaDB storage -> StateDiff -> ContradictionScanner

@@ -24,11 +24,12 @@ docs/
 ├── development/
 │   ├── contributing.md          # Dev setup, testing, code conventions
 │   ├── adding-agents.md         # How to create new agents
-│   ├── benchmarking.md          # Prose-model bench, bench configs, A/B methodology
-│   ├── implementation-roadmap.md # Phase-by-phase rebuild roadmap (Phases 0-8)
-│   └── future-work.md           # Deferred items / known follow-ups backlog
+│   └── benchmarking.md          # Prose-model bench, bench configs, A/B methodology
 └── archive/
-    └── ...                      # Historical implementation briefs + drift reports
+    ├── implementation-roadmap.md # Historical phase-by-phase rebuild roadmap
+    ├── future-work.md            # Historical deferred-items backlog
+    ├── deferred-work.md          # Historical deferred-work log (craft_editor era)
+    └── ...                       # Historical implementation briefs + drift reports
 ```
 
 ## Categories

@@ -97,7 +97,7 @@ Orthogonal feature sets available at any depth:
 - **Export** — markdown, DOCX, EPUB
 - **Prose model bench** — single-scene, same-brief A/B/C comparison across 10+ models via `scripts/bench_prose_models.py`; see [Benchmarking](docs/development/benchmarking.md)
 
-See the [implementation roadmap](docs/development/implementation-roadmap.md) for the rollout-phase plan (not to be confused with `--phase 1..5`, which controls runtime depth).
+The historical rollout-phase plan (not to be confused with `--phase 1..5`, which controls runtime depth) is preserved in [docs/archive/implementation-roadmap.md](docs/archive/implementation-roadmap.md). Current architecture work lives under [docs/architecture/](docs/architecture/); in particular [architecture_upgrade_spec.md](docs/architecture/architecture_upgrade_spec.md) tracks Slices 1–6.
 
 ## Directory Structure
 
@@ -151,14 +151,13 @@ output/<franchise>/<series>/state/
 | [Contributing](docs/development/contributing.md) | Dev setup, testing, code style |
 | [Adding Agents](docs/development/adding-agents.md) | How to extend the agent system |
 | [Benchmarking](docs/development/benchmarking.md) | Prose-model bench, bench configs, pipeline A/B methodology |
-| [Future Work](docs/development/future-work.md) | Deferred items and known follow-ups |
 
-Historical implementation briefs from each build phase are preserved in [docs/archive/](docs/archive/).
+Historical implementation briefs, the rollout roadmap, deferred-work log, and the original future-work backlog are preserved in [docs/archive/](docs/archive/).
 
 ## Tests
 
 ```bash
-pytest                              # Run all tests (~1,440 collected)
+pytest                              # Run all tests (~1,800 collected)
 pytest -k "test_orchestrator"       # Run specific tests
 ```
 

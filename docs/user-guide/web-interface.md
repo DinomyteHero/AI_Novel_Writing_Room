@@ -14,8 +14,10 @@ python -m src.ui.server <concept_seed> [options]
 | `--config` | `config/settings.yaml` | Configuration file path |
 | `--host` | `127.0.0.1` | Server host |
 | `--port` | `8000` | Server port |
-| `--phase {1,2,3,4}` | `4` | Pipeline phase |
+| `--phase {1,2,3,4,5}` | `4` | Pipeline phase |
 | `--dev` | off | Enable auto-reload for development |
+
+> **Preview mode.** The web UI currently runs in preview mode — consecutive runs through the dashboard are **not** run-isolated and can overwrite chapter output. The dashboard displays an amber banner to this effect. For production-quality output use the CLI (`python -m src.main`) with `--run-name`, which writes to a per-run directory under `output/<franchise>/<book>/runs/<run_id>/`.
 
 Alternatively, use the main CLI with `--server`:
 
@@ -29,18 +31,20 @@ The React frontend provides these pages:
 
 ### Pipeline Control
 
-Start, pause, and resume pipeline runs. Configure options before starting:
-- Phase selection (1-4)
-- Revision and milestone toggles
+Start, pause, and resume pipeline runs. The form exposes a small, fixed surface:
+- Concept seed path (optional override)
+- Scene cards directory (optional override)
+- Phase selection (1–5)
+- Milestone-gate toggle
 - LLM judge toggle
-- Chapter filter
+
+The REST API (`POST /api/pipeline/start`) accepts more fields (`chapter` filter, `raw_draft`, `strict_lore`, blueprint controls, franchise/book/series scoping) that the form does not surface; use the CLI or hit the API directly for those. See the [API Reference](../reference/api-reference.md).
 
 ### Event Log
 
 Real-time event stream showing every pipeline action as it happens. Events are delivered via WebSocket and include:
 - Agent start/complete events
-- Gate pass/fail results
-- Revision band progress
+- Gate pass/fail results (advisory under the forward-only relay)
 - State diff commits
 - Milestone gate pauses
 

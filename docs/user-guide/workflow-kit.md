@@ -12,10 +12,10 @@ pipeline changed in Phase 4; what changed is how you produce its input.
 
 ## Why six surfaces
 
-The legacy [`workshop_runner.py`](../../src/concept_workshop/workshop_runner.py)
-walks an 11-step protocol in one long monolithic chat session. That works
-when one author knows every step, but it doesn't compose. The workflow
-kit splits authoring along its natural seams so:
+The legacy `workshop_runner.py` (now removed — see [Legacy `workshop_runner` has been removed](#legacy-workshop_runner-has-been-removed)
+below) walked an 11-step protocol in one long monolithic chat session.
+That works when one author knows every step, but it doesn't compose.
+The workflow kit splits authoring along its natural seams so:
 
 - A non-Claude-Code frontend can drive any surface independently (Phase 8).
 - An author with existing material can use an importer instead of
@@ -83,15 +83,16 @@ python -m src.main --franchise my-franchise --book my-novel --chapter 1 --raw-dr
 
 ### Migrate an existing project (concept_seed.json → workflow surfaces)
 
+There is no dedicated migration script. Run each surface's `legacy_seed`
+importer directly against the existing `concept_seed.json` (and, when
+present, the extracted `scene_cards/` tree) to write the per-surface
+artifacts into `workflows/`, then compile:
+
 ```bash
-python scripts/migrate_workshop.py --franchise <slug> --book <slug>
+# Run each surface's legacy_seed importer against the existing seed.
+# See workflows/<surface>/importers/legacy_seed.py for the per-surface API.
 python scripts/compile_bundle.py --franchise <slug> --book <slug>
 ```
-
-`migrate_workshop.py` runs every surface's `legacy_seed` importer
-against the project's existing `concept_seed.json` and (when present)
-the extracted `scene_cards/` tree, writing the six surface artifacts
-into `workflows/`. Re-running is idempotent.
 
 ## What the bundle compiler does
 
