@@ -41,16 +41,12 @@ class BaseAgent(ABC):
     async def run(self, context: dict) -> dict:
         """Execute the agent's task. Returns structured output."""
         messages = self._build_messages(context)
-        if self._phase0_snapshot is not None:
-            self._phase0_snapshot.dump(self.role, messages)
         response = await self.router.complete(self.role, messages)
         return self._parse_response(response, context)
 
     async def run_structured(self, context: dict) -> dict:
         """Execute the agent's task expecting JSON output."""
         messages = self._build_messages(context)
-        if self._phase0_snapshot is not None:
-            self._phase0_snapshot.dump(self.role, messages)
         return await self.router.complete_structured(self.role, messages)
 
     def _build_messages(self, context: dict) -> list[dict]:
@@ -64,6 +60,14 @@ class BaseAgent(ABC):
             # without editing the agent prompts.
             messages.append({"role": "system", "content": franchise_profile})
         messages.append({"role": "user", "content": self._format_context(context)})
+        # Phase 0 prompt capture (Slice 1). _build_messages is the choke point
+        # every agent uses before calling the router — including agents that
+        # override run() / run_structured() with their own flow (e.g.
+        # gate_critic, final_gate, plot_architect). Dumping here guarantees
+        # all seven pipeline stages land in phase0_debug/ when the snapshot
+        # is attached.
+        if self._phase0_snapshot is not None:
+            self._phase0_snapshot.dump(self.role, messages)
         return messages
 
     @abstractmethod

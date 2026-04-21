@@ -122,6 +122,53 @@ def test_base_agent_dumps_messages_when_snapshot_attached(tmp_path):
     assert "second call" in prompt_path.read_text(encoding="utf-8")
 
 
+def test_dump_fires_for_agents_that_override_run(tmp_path):
+    """Regression guard: ~9 real agents (gate_critic, plot_architect, final_gate,
+    line_writer, canon_expert, summarizer, character_specialist, chapter_gate_critic,
+    presence_checker) override BaseAgent.run() with their own flow. The dump
+    must fire via _build_messages() — the one choke point they all go through —
+    not via run()/run_structured(). An earlier version of this file hooked at
+    the run() level and silently dropped 5 of 7 pipeline stages.
+    """
+    import asyncio
+    from src.agents.base_agent import BaseAgent
+
+    class _FakeRouter:
+        async def complete_structured(self, role, messages):
+            return {"result": "ok"}
+
+    class _GateCriticLike(BaseAgent):
+        """Mirror the gate_critic pattern: override run() to go straight to
+        router.complete_structured, bypassing the inherited run()."""
+
+        def _format_context(self, context):
+            return "gate critic body"
+
+        def _parse_response(self, response, context):
+            return {}
+
+        async def run(self, context):
+            messages = self._build_messages(context)
+            result = await self.router.complete_structured(self.role, messages)
+            return {"result": result}
+
+    snap = Phase0PromptSnapshot(run_dir=tmp_path)
+    snap.start_scene(chapter=1, scene=1)
+
+    agent = _GateCriticLike(_FakeRouter(), "gate_critic")
+    agent.attach_phase0_snapshot(snap)
+
+    asyncio.run(agent.run({}))
+
+    prompt_path = tmp_path / "phase0_debug" / "ch01_sc01" / "04_gate_critic_prompt.txt"
+    assert prompt_path.exists(), (
+        "An agent that overrides run() must still dump via _build_messages(); "
+        "otherwise stages like gate_critic, final_gate, plot_architect, etc. "
+        "would be silently missing from phase0_debug/."
+    )
+    assert "gate critic body" in prompt_path.read_text(encoding="utf-8")
+
+
 def test_stage_order_covers_core_agents():
     # Regression guard: if the pipeline adds a new core agent, the
     # dump filename would fall back to 99_ — surface that the map
