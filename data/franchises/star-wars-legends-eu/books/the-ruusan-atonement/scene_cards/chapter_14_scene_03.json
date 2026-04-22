@@ -7,7 +7,7 @@
   "pov_character": "Ben Skywalker",
   "mission": "Ben's workspace. Scrolling Gavran's marginalia on the Codex data, searching for counter-measures, he finds the sentence: 'Ankhural theorised that the Weave could be reinforced through harmonic resonance between disparate traditions. We lacked the will or the trust to attempt it.' Ben bookmarks it and moves on.",
   "why_now": "The chapter has been about Ben's command and the group's synthesis. The solution belongs here as a footnote Ben does not yet read as a solution — so the climactic rediscovery in Ch22 lands as earned rather than invented.",
-  "conflict": "The note describes a solution no one has tested. The requirement is exactly what the group has only partially assembled: trust between incompatible traditions. Ben does not yet know he has just read the climax of his own book.",
+  "conflict": "The note describes a solution no one has tested. The requirement is exactly what the group has only partially assembled: trust between incompatible traditions. Ben does not yet know he has just read the climax of his own story.",
   "conflict_type": "internal",
   "turning_point": "Gavran's admission: 'We lacked the will or the trust.' The most powerful Jedi Lord of his era conceded he could not do this. Ben bookmarks it.",
   "opening_hook": "Ben scrolls through Gavran's personal annotations on the Codex data and stops — marginalia cross-referenced with a passage Ankhural marked as 'untested, requires conditions we cannot create'",
@@ -50,5 +50,5 @@
   ],
   "revelations": [],
   "pov_arc_phase": "lie_challenged",
-  "notes": "H14 planted — Ankhural's resonance theory, filed by Ben under 'return later.' Chekhov at full tension. The reader must register the weight of the sentence before Ben does. Anti-pattern: no character reads the note aloud — Ben's eyes on the page, a silent file. Sera's reaction to Ankhural's name is a single frown and a pause, not a paragraph of backstory. Diagnostic-voice trap — Ben should not, in this scene, think 'this could be the answer' or narrate his recognition of the pattern. He bookmarks it with the attention of a man who has a dozen other files to read, and the scene trusts the reader to hold the weight."
+  "notes": "H14 planted — Ankhural's resonance theory, filed by Ben under 'return later.' Chekhov at full tension. Make sure the weight of the sentence lands before Ben does. Anti-pattern: no character reads the note aloud — Ben's eyes on the page, a silent file. Sera's reaction to Ankhural's name is a single frown and a pause, not a paragraph of backstory. Diagnostic-voice trap — Ben should not, in this scene, think 'this could be the answer' or narrate his recognition of the pattern. He bookmarks it with the attention of a man who has a dozen other files to read, and the scene trusts the moment to hold that weight."
 }

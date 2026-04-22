@@ -1,7 +1,7 @@
 {
   "chapter_number": 12,
-  "chapter_mission": "Enter Maetha's Training Facility. The flexible region of the Weave at this site lets Ben feel the technique's seduction firsthand. Maetha's recorded warning ('It replaces you') lands. Torin hears it as challenge, not prohibition. The wrongness spikes to a new, higher baseline — the seal is being actively attacked. The next node is a settlement world.",
-  "chapter_turn": "Ben stops understanding the technique intellectually and feels why previous generations fell to it. Intellectual warning is insufficient armor. Sera watches Torin walk out of the archive chamber and realises she is watching Gavran walk out of a briefing a thousand years ago.",
+  "chapter_mission": "Take the group into Maetha's facility, let Ben feel the seduction of the technique, and land Maetha's warning hard enough to follow them out.",
+  "chapter_turn": "Ben stops treating the technique as a theory and feels why someone might surrender to it.",
   "structural_phase": "response",
   "pov_allocation": [
     "Ben Skywalker"
@@ -13,21 +13,21 @@
       "role": "hook",
       "dialogue_expectation": "balanced",
       "target_word_count": 1300,
-      "purpose": "Sera works Gavran's personal seal for twelve unbroken minutes while the group waits. It opens on dust, stone, and stale sealed air. The flexible region of the Weave here is different from previous thin places — the local moral and sensory certainty slips while watched. Seductive, not disorienting. Ben stands in the central training circle and feels both aspects simultaneously without contradiction. For a breath, it is beautiful. Torin walks to the centre and stands still; his Force presence settles like someone arriving home. H11 resolves."
+      "purpose": "Use the opening and training circle to show why this site feels different from every earlier thin place."
     },
     {
       "scene_number": 2,
       "role": "reveal",
       "dialogue_expectation": "balanced",
       "target_word_count": 1200,
-      "purpose": "Archive chamber, personally sealed. Sera activates Maetha's record. A woman's voice — quieter than Gavran's and sadder — fills the chamber. The warning delivered in full: 'The caldera does not consume you. It replaces you.' R07 lands. Torin's response, not denial but reframing: 'She couldn't handle it. That doesn't mean no one can.' Ben watches Sera's face as Torin speaks and sees something break in her expression. Torin walks out first. Sera's hand finds the wall for support."
+      "purpose": "Maetha's record should be clear, sad, and impossible to shrug off, while Torin immediately tries to do exactly that."
     },
     {
       "scene_number": 3,
       "role": "escalation",
       "dialogue_expectation": "balanced",
       "target_word_count": 1000,
-      "purpose": "Exterior. The wrongness spikes without warning. Ben staggers; Torin tilts his head toward the spike with attentive listening. It stabilises at a higher baseline. Desh's scan: Veraine spent extended time at Maetha's — not repurposing, studying. A pilgrimage. The next Corridor stop on the nav display is a settlement world. Civilians lived there. Possibly still do. H12 plants. Departure."
+      "purpose": "The spike at the end needs to tell the reader Veraine has turned study into pressure."
     }
   ],
   "reveal_payload": [
@@ -67,5 +67,5 @@
   "pacing_curve": "rising",
   "exit_vector": "The Steady Returns lifting from Maetha's plateau. Gavran's personal seal broken for the first time in a millennium. Maetha's warning in everyone's heads. The next node is populated — or was. Torin at the viewport, calm. Sera not looking at him. The midpoint is one jump away.",
   "chapter_word_target": 3500,
-  "notes": "The single most important piece of foreshadowing in the book is R07 — 'It replaces you.' Deliver it once, in full, in Maetha's own voice; afterward, fragments only. The flexible region of the Weave in s1 must feel genuinely appealing on the page — the reader needs to understand why intelligent people kept returning to this. Use force_mechanics.sensory_vocabulary.thin_places_high for the character of the flexibility (seductive quality, light and dark offered as simultaneous options). Use force_mechanics.vocabulary_variation to rotate away from the handrail / weave-structure language — prefer balance, footing, gravitational-pull imagery here. Torin's reframing of the warning in s2 is the most dangerous sentence in his characterisation — it must land as reasonable, not cartoon-villainous. Voice: permit one Stover-dense interior beat for Ben's moment in the training circle; Zahn-tight elsewhere. Lived_galaxy_texture obligation: the settlement-world framing at the close of s3 prepares the reader for Ch13 Kolven — the horror is that people lived there. Anti-patterns: (a) do not have Sera articulate the Gavran parallel to Ben on-page in this chapter; the parallel is in her posture; (b) Maetha's voice should not be explained or biographised; the reader learns her through her sentences; (c) no combat here — the chapter's physical stakes are internal."
+  "notes": "This chapter should feel seductive before it feels terrifying. Maetha's warning is the human counterweight, and Torin's response should make Sera's memory of Gavran hurt."
 }

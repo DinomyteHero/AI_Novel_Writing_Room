@@ -5,8 +5,8 @@
   "scene_type": "action",
   "scene_role": "reveal",
   "pov_character": "Ben Skywalker",
-  "mission": "Veraine at the Scar. Her ritual staggers as the amplification drops; she compensates with raw power. Ben is the axis composing Sera's, Kael's, and Desh's specialist reads into one executable chord he cannot verify directly. Mid-ritual, a containment node wobbles; Desh's comm re-stabilises it; the chord survives its one near-break. The resonance grows and produces an emergent pattern Veraine's framework cannot model. Her ritual collapses. R13 lands. H25 resolves.",
-  "why_now": "Stage two of Veraine's defeat. Her defeat has to be empirical, not rhetorical — and the interpreter-of-chord capacity needs a stressor the reader can feel, which the node-wobble supplies.",
+  "mission": "With the array down, Veraine tries to force the ritual through on personal power. Ben holds Sera, Kael, and Desh in one working shape long enough for the shared answer to overtake her. When a node falters, Desh's voice reaches across the only gap the Force cannot bridge.",
+  "why_now": "Veraine cannot be argued out of this. The scene has to show her losing to a result she can measure and cannot explain away.",
   "conflict": "Three traditions produce a chord none could produce alone, and the chord breaks Veraine's equations. Ben holds the chord by feel while one of the three voices weakens under load; Desh's voice arrives in language where Force-sense cannot carry the instruction. The chord holds. Veraine's arithmetic does not.",
   "conflict_type": "external",
   "turning_point": "Two joined turns in one beat: the node wobbles, the chord nearly collapses, and the re-stabilisation holds. Then the resonance produces the emergent overtone and Veraine's composure registers its first confusion in a thousand years. Her theory cannot absorb what she is looking at without breaking itself.",
@@ -14,9 +14,9 @@
   "closing_hook": "Veraine's ritual collapses. Not defeated by superior power — defeated by something she could not model or predict. Her face settles into something harder than confusion: recognition without acceptance. She files the observation. She does not stop thinking",
   "emotional_trajectory": "Holding the chord under load -> the node-wobble heartbeat -> Desh's voice landing in language -> the chord surviving -> the resonance producing emergence -> Veraine's confusion -> the collapse of her thesis",
   "stakes": {
-    "personal": "Ben's new capacity (interpreter-of-chord) tested under a load that could collapse the operation; the new-truth from Ch 21 s3 ('Together') executed as a skill, not a sentiment",
-    "interpersonal": "Sera's Force-lock read, Kael's Sith-trained variable, and Desh's infrastructure contribution each functioning as indispensable specialist input Ben cannot verify — the book's trust thesis expressed as mechanism; Desh's comm landing exactly where Force-sense cannot carry",
-    "external": "Veraine defeated empirically, not rhetorically; the Scar no longer in danger of full breach; one of the three climactic threats resolved"
+    "personal": "Ben's new way of operating is tested at full strain: he must trust what the others know without turning back into the man who tries to control all of it.",
+    "interpersonal": "The chord only holds because Sera, Kael, and Desh each do something Ben cannot do for them.",
+    "external": "If the chord slips, Veraine completes the breach. If it holds, her ritual fails in front of her."
   },
   "characters_present": [
     "Ben Skywalker",
@@ -73,7 +73,7 @@
   ],
   "pov_arc_phase": "new_truth_demonstrated",
   "warmth_load_bearing": false,
-  "notes": "R13 — Veraine's thesis fails empirically. Her confusion must land as genuine; her dignity is that she will adapt the framework rather than abandon it (that is Ch 27). Interpreter-of-chord is EXPERIENCED, not ARTICULATED — the reader feels Ben composing the chord without Ben narrating the composition. The heartbeat beat is ONE beat: node wobbles, Ben falters, Desh's comm arrives specifying a duration in language ('three seconds' is the load-bearing detail — Force-sense cannot carry a specific number), node steadies. Per B3/D4, Desh himself is NOT Weave-sensed — only the nodes are. Per R14 voice_texture, Veraine's confusion is a question-shaped silence, not an outburst; composure sharpens, does not crack; lips form equations, not speech. Per R11, Ben does not recognise his own new capacity on-page — Ch 26 is where he registers what he has done. Per D7 Component B, Torin is off-page; his presence is the expanding void. Voice: Zahn-precise for the procedural frame; Stover-permitted for the single density beat at Veraine's face (one beat, one sentence, no paragraph); Zahn-tight for the heartbeat exchange. Anti-patterns: (a) Veraine does not monologue or concede; (b) Ben does not diagnose the chord in prose; (c) the heartbeat is ONE beat, not a scene-long back-and-forth; (d) Desh is not Weave-sensed, only the nodes are; (e) one consistent image for the overtone (three textures producing a fourth), not a simile-cascade; (f) the ritual goes slack and stops — the quiet of her defeat is the defeat.",
+  "notes": "Keep Ben inside the effort rather than explaining the mechanism. The node wobble is one sharp suspense beat, not a prolonged exchange. Veraine's confusion should register as disciplined intelligence meeting an answer it did not allow for. Desh is present through the nodes and the brief comm call, not as a felt Force-presence.",
   "primary_anchor": "Zahn",
   "supporting_anchor": "Stover, Luceno",
   "stover_permitted": true

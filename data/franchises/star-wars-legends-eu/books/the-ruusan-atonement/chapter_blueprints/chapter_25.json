@@ -1,9 +1,11 @@
 {
   "chapter_number": 25,
-  "chapter_mission": "The climax reversal. Ben lets go of control and the resonance catches — warmth after the bone-deep cold of Part 4. Desh's sabotage strips Veraine's amplification. Per B3 hybrid legibility, Ben senses Desh's progress through the containment nodes as load-bearing points in the Weave (not Desh himself — D4 holds); comm bursts carry only what Force-sense cannot, including a dramatic heartbeat beat when a node wobbles and Desh's voice arrives to re-stabilise. Per D2, Ben in s3 is the interpreter-of-chord: he is not reading the resonance, he is the axis holding Sera's, Kael's, and Desh's contributions in a single executable read. If he drops the chord, the operation collapses. Veraine's ritual staggers and collapses under emergent complexity her framework cannot model. Sera contains Veraine with the same Force-lock discipline that once held her captive. Torin is still active.",
-  "chapter_turn": "Ben's Lie breaks at the instant of its last stand. He stops leading and the chord forms; the book's thematic argument, plot resolution, and Ben's arc all coincide in a single letting-go. Per D2, the letting-go is immediately followed by a new capacity being tested under load — Ben as interpretive axis for three specialists whose judgment he cannot verify directly. Two of the three climactic threats resolve — Veraine's ritual and Veraine herself — and the reader learns that the climax has a second stage.",
+  "chapter_mission": "The shared answer starts to work. Ben stops trying to dominate the resonance, Desh's sabotage strips away Veraine's advantage, and Veraine is beaten by a result she cannot explain away.",
+  "chapter_turn": "Ben's last attempt to control the moment gives way to a harder skill: holding other people's judgment without owning it. Veraine loses not to bigger power, but to an answer built from trust, timing, and incompatible strengths staying in tune.",
   "structural_phase": "climax",
-  "pov_allocation": ["Ben Skywalker"],
+  "pov_allocation": [
+    "Ben Skywalker"
+  ],
   "scene_count": 4,
   "scene_plan": [
     {
@@ -11,37 +13,49 @@
       "role": "hook",
       "dialogue_expectation": "interior",
       "target_word_count": 1400,
-      "purpose": "The discordance is at critical. Sera's jaw set, Kael's hands shaking, Ben's fist around three traditions refusing to combine. Every Skywalker instinct screams control. Ben — one breath, one decision — lets go. Stops leading. Listens. The three notes find their own relationship. The chord forms. Warmth — real, not metaphor — floods through their linked hands. The wrongness he has heard for months goes quiet. H24 resolves."
+      "purpose": "At the point of collapse, Ben stops trying to force the chord and lets the three traditions find each other. The breakthrough should feel physical before it feels interpretable."
     },
     {
       "scene_number": 2,
       "role": "escalation",
       "dialogue_expectation": "balanced",
       "target_word_count": 1200,
-      "purpose": "Cut to Desh through Ben's new Weave-infrastructure-sensing capacity (per B3 plant, Ch 24). Ben does not feel Desh — he feels the nodes as voices in a conversation he cannot fully hear (D4 register). As Desh moves to each containment node and the specific voice goes silent, Ben registers the sabotage progressing in real time. First node silenced: one voice drops from the chord underlayer. Second: another. Third: the array's architectural signature — Veraine's geometry from Ch 24 — loses coherence. Targeted comm burst only where Force-sense cannot carry tactical language: one line from Desh at the third node — 'Array's down. Whatever you're doing — do it now. Everything. Don't hold back.' The comm is short and disciplined; the Weave-sense has done the atmospheric work. H25 plants."
+      "purpose": "Track Desh through the failing array by what his work does to the nodes, not through chatter. Use comms only when the Force cannot carry the needed instruction."
     },
     {
       "scene_number": 3,
       "role": "reveal",
       "dialogue_expectation": "balanced",
       "target_word_count": 1400,
-      "purpose": "Veraine at the Scar. Her ritual staggers as the amplification drops; she compensates with raw personal power. She is formidable alone — not formidable enough for a full breach. Per D2 interpreter-of-chord: Ben is not simply reading the resonance. He is the axis composing Sera's Force-lock read of the Scar, Kael's unintegrable variable in the chord, and Desh's infrastructure holds into one executable operation. He cannot verify any of the three directly — Sera's diagnostic is a discipline he has never trained; Kael's signature is an instrument no one has documented; Desh is beyond his Force-reach except through the nodes. He holds them together by feel, not analysis. If he drops the chord, the operation collapses. Per B3 heartbeat beat: at the critical moment — Veraine driving the ritual on personal power, Ben holding three specialists in a chord that must not break — one containment node wobbles. Ben feels the voice weaken in the Weave-conversation and his composure falters. A breath. Desh's comm arrives in the same half-second: re-stabilisation call, a short specific instruction that requires language ('Ben — spiking on the east node, give me three seconds'). Force-sense and comm-channel alternate for one moment of maximum suspense; the node steadies; the chord holds. The resonance grows beside Veraine's ritual and produces an emergent pattern. Veraine's face shifts — confusion, genuine intellectual confusion, for the first time in a thousand years. Her framework cannot model it. The ritual collapses. R13 lands. H25 resolves."
+      "purpose": "Ben holds Sera, Kael, and Desh in one working shape while Veraine tries to overpower the breach alone. When the node falters, the scene spikes and then steadies."
     },
     {
       "scene_number": 4,
       "role": "escalation",
       "dialogue_expectation": "balanced",
       "target_word_count": 1000,
-      "purpose": "Sera moves before Ben can speak. Ancient containment protocols — the same techniques that sealed her in a wall for a thousand years — adapted to field conditions. Veraine in containment: conscious, intellectually furious, physically outmatched. Ben turns from the contained antagonist to the valley below, where Torin's void is still expanding and the wound is still closing and Maetha's warning is echoing in everyone's head."
+      "purpose": "Sera contains Veraine quickly and with discipline. The victory is real, but the larger crisis is not over."
     }
   ],
-  "reveal_payload": ["R13"],
+  "reveal_payload": [
+    "R13"
+  ],
   "hook_movements": {
-    "planted": ["H25"],
+    "planted": [
+      "H25"
+    ],
     "advanced": [],
-    "resolved": ["H24", "H25"]
+    "resolved": [
+      "H24",
+      "H25"
+    ]
   },
-  "subplot_obligations": ["SP-A", "SP1", "SP3", "SP5"],
+  "subplot_obligations": [
+    "SP-A",
+    "SP1",
+    "SP3",
+    "SP5"
+  ],
   "relationship_turns": [
     {
       "dyad": "Ben/Resonance",
@@ -62,5 +76,5 @@
   "pacing_curve": "rising",
   "exit_vector": "Veraine in containment, equations already forming in her fingers. The resonance humming. The wrongness quieted into a chord. Desh's comm open. Ben turning from the defeated antagonist to the valley where Torin's void is still growing and the wound is still closing and the climax is not yet done.",
   "chapter_word_target": 5000,
-  "notes": "The book's structural spike. Four scenes, 5,000 words, the single most important chapter after Ch5 and Ch21. The s1 letting-go is the novel's thematic pivot expressed as a physical action — Ben opens his hands, the three traditions find each other, the warmth returns. Use force_mechanics.sensory_vocabulary.weave_resonance verbatim for the register: discordant start, the breakthrough coming when the practitioner stops trying to lead, three notes finding their own relationship, living tissue not rigid grid. Per B3 hybrid legibility, Desh's sabotage in s2 is rendered primarily through Ben's Weave-infrastructure sensing of the nodes — not through comm exposition. Only one comm burst in s2, short, tactical. Per D4, Desh himself is NOT felt in the Weave; only the nodes register. Per B3 heartbeat beat in s3: one node wobbles, Ben loses the voice for a breath, Desh's comm arrives with a re-stabilisation call that requires language, the node steadies. The alternation of Force-sense and comm-channel converts the dual-channel mechanism from exposition into suspense. This is the chapter's one anti-slop-protected comm-dialogue beat — all other tactical work is Force-sensory. Per D2 interpreter-of-chord in s3, Ben holds the three specialists by feel — no diagnostic voice, no analytical naming of what each is contributing; the reader must feel Ben composing the chord without Ben narrating the composition. Veraine's defeat in s3 is the book's intellectual climax: she is proven wrong by results she cannot dismiss (concept seed's thesis_failed_empirically). Her confusion must land as genuine; she is not a cartoon. Sera's containment in s4 is the book's only physical-capture victory and must feel like discipline, not vengeance. Voice: Stover-dense-permitted interior density for s1 (the letting-go is interior); Zahn-compact in s2 (Desh is action; Ben's Weave-sense is the POV anchor); Zahn-precise in s3 with one Stover beat as Veraine's composure cracks and one Zahn-tight beat for the heartbeat node-wobble + comm re-stabilisation; Zahn-quiet in s4. Force phenomenology: use the full vocabulary variation — acoustic (chord, overtone), somatic (warmth, relief), architectural (living tissue, load-bearing). ANTI-PATTERNS: (a) Ben's letting-go must not be narrated as an insight paragraph — it is an action (hands open, breath out, weight forward); (b) Veraine does not monologue or concede — she is confused, and that is the most dignified defeat she can receive; (c) Torin is not on-page in this chapter — his presence is the expanding void and the unresolved threat; (d) per B3/D4, Desh is not Weave-sensed in s2 or s3; only nodes register; if Ben's POV starts to feel Desh as a presence, the scene is wrong; (e) per D2 anti-pattern, Ben does not diagnose the chord in s3 — he holds by feel; he does not think 'Sera's read is X, Kael's contribution is Y, Desh's hold is Z' in prose; the interpreter-of-chord is experienced, not articulated; (f) per B3, comm bursts are disciplined — if s2 or s3 starts running comm-dialogue over multiple beats, the scene is wrong."
+  "notes": "The chapter needs tactile clarity more than metaphysical explanation. Scene 1 is Ben's surrender into the chord. Scene 2 tracks Desh through the nodes, with comms used only when language is truly needed. Scene 3 holds the pressure point: Ben keeps the chord together while the node falters and Veraine realizes the pattern in front of her is real. Scene 4 should feel disciplined, not triumphant. Sera contains Veraine because she knows exactly what that act costs."
 }

@@ -1,7 +1,7 @@
 {
   "chapter_number": 9,
-  "chapter_mission": "Open the Ankhural Codex fragment. Deliver the Codex's imposed-structure heresy experientially, not didactically (R06). Per D8, R04c lands here as well: the wound mechanics -- what the Scar is, how it is anchored at a vergence, and why Gavran's technique created a wound that would not heal because the damage struck the vergence itself. R04c is the geographical framework against which Ch 13's midpoint experience and Ch 13's array-dependency realization will land. Expose Torin's rationalization as intellectually seductive. Introduce Veraine's mid-book handprint as a clinical annotation about containment pressure and scar geometry. Hit the ship alarm -- the next Corridor stop has been breached ahead of them.",
-  "chapter_turn": "Ben catches himself agreeing with Torin's reading of the Codex before he pulls back. The threat is not that the technique's defenders are obviously wrong; it is that their wrongness has an elegant historical argument behind it. Sera, in a private corridor, names the argument for what it is: she heard it from Gavran. The Codex's heresy now has a wound, a vergence, and Veraine's working hand attached to it.",
+  "chapter_mission": "Open the Codex, make the wound understandable, and show why Torin's reading of the evidence is tempting.",
+  "chapter_turn": "Ben stops dealing with a vague catastrophe and starts seeing a specific wound, at a specific place, sustained by specific human cost.",
   "structural_phase": "response",
   "pov_allocation": [
     "Ben Skywalker"
@@ -13,21 +13,21 @@
       "role": "hook",
       "dialogue_expectation": "balanced",
       "target_word_count": 1300,
-      "purpose": "Common area. Sera breaks the seal on the Codex case. Every Force-sensitive in the room feels the artifact's resonance before anyone speaks. Ben touches it and the experiential flash lands: the Force present but damaged, orientation gone unreliable, the usual moral and sensory footing suddenly hard to trust -- a handful of seconds and his hand jerks back. R06 delivered by sensation, not paragraph. Four different Force presences react four different ways around the table."
+      "purpose": "Let the Codex land through sensation first, so the theory arrives in the body before the room debates it."
     },
     {
       "scene_number": 2,
       "role": "reveal",
       "dialogue_expectation": "dialogue_led",
       "target_word_count": 1100,
-      "purpose": "Torin lifts the Codex without flinching. He holds it steady while everyone else watches for a reaction that does not come. His rationalization crystallizes -- if Ankhural's heresy is right about imposed structure at vergences, the technique is correction rather than violation. He is persuasive enough that Ben catches his own head nodding before he stops it. Reading on through the Codex, Sera (pulling era-specific commentary out of memory the modern Order does not have) lays out R04c: the wound mechanics. What the Scar is. How it is anchored at a vergence, geographically specific. Why Gavran's technique cut at exactly the place that sustained the local field, and why the wound has not healed. The geography of the problem becomes legible: a specific location, a specific anchor, a specific reason it cannot be closed by conventional reseal. Buried in the same material is Veraine's clinical annotation on a copied site diagram -- containment pressure, structural drainage, scar geometry. No ideology. Just working-mind competence. In the corridor afterward, Sera's hand on Ben's arm, back to the door: 'I have heard that argument before. From a man I followed into a war.'"
+      "purpose": "Give Torin his strongest intellectual case, then let Sera turn the same material into the wound's real cost."
     },
     {
       "scene_number": 3,
       "role": "escalation",
       "dialogue_expectation": "balanced",
       "target_word_count": 1100,
-      "purpose": "Ship alarm. Desh in the cockpit in three seconds. The Brotherhood Outpost — the next Corridor stop — has been breached. Energy spikes days old, not active. They are not walking into an ambush; they are walking into a scene Veraine left for them. Approach. Moderate thin place with dark-side residue bleeding through the Weave's holes. H09 advances."
+      "purpose": "Use the alarm to wrench everyone back into motion toward a site Veraine has already touched."
     }
   ],
   "reveal_payload": [
@@ -69,5 +69,5 @@
   "pacing_curve": "rising",
   "exit_vector": "Approach to the Brotherhood Outpost. The Force ahead leaking dark-side residue through gaps in the Weave — oil through cracked pavement. Desh on the controls; Ben braced at the doorframe. Torin leaning toward it without realising he is. The caravan is now a chase, and the chase is not a chase.",
   "chapter_word_target": 3500,
-  "notes": "R06 is the intellectual heart of the novel and the highest didactic-risk delivery. It must be received as sensation, not as narrator-endorsed metaphysics. R04c sits inside the same scene and must land through Sera reading the Codex commentary against her era-memory -- Ben asks the right question, Sera fills the gap by speaking from the era the Order has lost; the wound's geographical specificity arrives as the answer to a felt question, not as a lecture. Ben's flash in s1 is the reader's first taste of wound-pressure at scale -- mild preview, auditory/somatic vocabulary only, no analytical paragraph. Veraine's handprint in s2 is clinical and operational: pressure, drainage, scar geometry, no manifesto. Voice: Zahn-compact in the opening beat, debate precision in s2, procedural urgency in s3. ANTI-PATTERNS: (a) no one quotes the Codex verbatim at length -- we receive it through reaction; (b) Sera's warning is a single line and a hand on an arm, not a monologue; (c) the alarm in s3 must land before the Codex debate reaches a conclusion -- no tidy resolution; (d) R04c is delivered through Sera's archive-memory, not as narrator exposition; (e) per D3 in-character variants, Sera says 'the work,' Torin says 'the stitching,' Kael says 'the cloth' -- same referent, different theological commitments."
+  "notes": "The chapter should make the evidence more dangerous by making it persuasive. Sera's corridor warning needs to feel earned by what Ben almost agrees to."
 }

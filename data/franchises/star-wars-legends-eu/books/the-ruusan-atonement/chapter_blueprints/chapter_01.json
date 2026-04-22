@@ -1,9 +1,11 @@
 {
   "chapter_number": 1,
   "chapter_mission": "Establish Ben's restlessness and the wrongness in the Force, launch the investigation via Luke's survey assignment, and depart Coruscant with the wrongness now directional.",
-  "chapter_turn": "Ben moves from passive unease to active pursuit with institutional cover — the wrongness transforms from ambient background to a compass needle.",
+  "chapter_turn": "Ben goes from trying to ignore the disturbance to following it under the cover of a routine survey. What began as private unease becomes a direction he cannot stop himself from taking.",
   "structural_phase": "setup",
-  "pov_allocation": ["Ben Skywalker"],
+  "pov_allocation": [
+    "Ben Skywalker"
+  ],
   "scene_count": 3,
   "scene_plan": [
     {
@@ -11,30 +13,39 @@
       "role": "hook",
       "dialogue_expectation": "interior",
       "target_word_count": 1250,
-      "purpose": "Establish the wrongness through physical failure in sparring — make it concrete and costly, not abstract meditation. Ground Ben's Lie (self-reliance as safety) in observable behavior."
+      "purpose": "Show the wrongness through a sparring failure that should not happen. Ben's instinct is to hide the problem, not explain it."
     },
     {
       "scene_number": 2,
       "role": "reveal",
       "dialogue_expectation": "balanced",
       "target_word_count": 1250,
-      "purpose": "Luke validates Ben's read of the wrongness and assigns the survey mission. Father and son communicate through mission briefings; neither acknowledges the choice to send Ben alone."
+      "purpose": "Luke confirms that Ben is not imagining the disturbance and sends him to look at it. The mission briefing should also show how father and son keep speaking through work."
     },
     {
       "scene_number": 3,
       "role": "decision",
       "dialogue_expectation": "balanced",
       "target_word_count": 1250,
-      "purpose": "Ben bypasses the Jedi partner roster for Desh Rolan — self-reliance dressed as practicality. Departure turns the wrongness from ambient to directional, transforming retreat into unconscious pursuit."
+      "purpose": "Ben chooses Desh over another Jedi and leaves with the wrongness pulling like a direction rather than background noise."
     }
   ],
-  "reveal_payload": ["R01"],
+  "reveal_payload": [
+    "R01"
+  ],
   "hook_movements": {
-    "planted": ["H01"],
-    "advanced": ["H01"],
+    "planted": [
+      "H01"
+    ],
+    "advanced": [
+      "H01"
+    ],
     "resolved": []
   },
-  "subplot_obligations": ["SP-A", "SP3"],
+  "subplot_obligations": [
+    "SP-A",
+    "SP3"
+  ],
   "relationship_turns": [
     {
       "dyad": "Ben/Luke",
@@ -50,5 +61,5 @@
   "pacing_curve": "rising",
   "exit_vector": "Ben in hyperspace, wrongness pulling not just pointing — active, not ambient. The chapter ends on unconscious pursuit disguised as a routine survey.",
   "chapter_word_target": 3750,
-  "notes": "H01 is planted in scene 2 (Luke's mission brief) and advanced in scene 3 (Ben acts on it by departing). R01 lands at the close of scene 3 — the wrongness acquires direction during hyperspace transit, which it shouldn't. The chapter's emotional spine is Ben's Lie (self-reliance as control) expressed through three escalating isolation choices: sparring alone, accepting the mission without suggesting backup, calling Desh instead of a Jedi. SP-A runs through all three scenes; merged SP3 (per D5) covers both the institutional distance from the Order in scenes 1-2 and Ben's relationship with Desh arriving in scene 3. Voice anchor: Zahn-style tight third-person interiority throughout; Ben's internal voice sharp and self-deprecating, never melodramatic. Anti-patterns at chapter level: do not describe the wrongness in visual/color terms (keep auditory/vibrational); do not resolve the father-son distance (that's the novel's long arc)."
+  "notes": "Keep the chapter grounded in three practical isolation choices that feel sensible in the moment: Ben trains alone, accepts the assignment without asking for backup, and calls Desh instead of another Jedi. Luke's briefing should feel like trust mixed with distance. Let the wrongness stay sensory and physical rather than visionary, and leave the father-son strain unresolved."
 }

@@ -6,7 +6,7 @@
   "scene_role": "reveal",
   "pov_character": "Ben Skywalker",
   "mission": "Archive chamber, personally sealed. Sera activates Maetha's record. The warning delivered in full: 'The caldera does not consume you. It replaces you.' Torin's response is not denial but reframing. Ben watches Sera's face as Torin speaks and sees something break in her expression.",
-  "why_now": "The archive unlocked. Maetha's final testament is the chapter's thesis against the technique, and Torin's rebuttal is the chapter's evidence that thesis is not enough.",
+  "why_now": "The archive unlocked. Maetha's final testament is the chapter's clearest case against the technique, and Torin's rebuttal is the chapter's evidence that argument alone is not enough.",
   "conflict": "Maetha's warning is unambiguous about the cost. Torin reframes her as insufficient rather than right. Sera recognises the reframing. Kael watches the exchange and says nothing.",
   "conflict_type": "interpersonal",
   "turning_point": "Torin reframes Maetha's warning as her personal limitation rather than the technique's. Sera's face changes without sound. Torin walks out of the archive first. Sera's hand finds the wall.",
@@ -50,5 +50,5 @@
     "R07"
   ],
   "pov_arc_phase": "lie_reinforced",
-  "notes": "R07 — the book's single most important piece of foreshadowing. Deliver Maetha's full sentence once, in her voice. Afterward, fragments only — 'replaces you' is the echo that will carry across the rest of the book. Torin's reframing must land as reasonable on the page, not cartoon-villainous; his arc: lie_reinforced as he reads Maetha's failure as evidence of her limitation, not the technique's. Diagnostic-voice trap — Ben should not, in this scene, narrate Sera's face as a diagnostic paragraph. The break in her expression is an observation, one or two specific details (a hand to the wall, a pause between inhales), not an essay. Voice: Zahn-tight, Stover-interior permitted only on Ben's held breath during the delivered sentence."
+  "notes": "R07 — the story's single most important piece of foreshadowing. Deliver Maetha's full sentence once, in her voice. Afterward, fragments only — 'replaces you' is the echo that will carry across the rest of the story. Torin's reframing must land as reasonable on the page, not cartoon-villainous; his arc: lie_reinforced as he reads Maetha's failure as evidence of her limitation, not the technique's. Diagnostic-voice trap — Ben should not, in this scene, narrate Sera's face as a diagnostic paragraph. The break in her expression is an observation, one or two specific details (a hand to the wall, a pause between inhales), not an essay. Voice: Zahn-tight, Stover-interior permitted only on Ben's held breath during the delivered sentence."
 }

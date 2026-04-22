@@ -1,7 +1,7 @@
 {
   "chapter_number": 15,
-  "chapter_mission": "The crisis goes galactic. Fragmentary reports reach the Steady Returns from Force nexuses across the galaxy. Luke sends a coded message asking for status; Ben does not answer. Torin weaponises the widening crisis into his self-sacrifice argument and names Ben's own pattern out loud. Per W1 Plant 2, Kael approaches Torin privately in a quiet moment that Ben sees from distance but cannot hear — a plant that also doubles as D7 counter-current 3 (Torin giving a moment of humanity to Kael he has no instrumental reason to give). Ben drafts a full report to Luke, reads it through twice, and deletes it.",
-  "chapter_turn": "Torin says the sentence about Ben that Ben has been refusing to say about himself. The recognition is accurate. The change it produces is not yet action — Ben sees the pattern, names it privately, and chooses secrecy anyway. The Lie is challenged and, for one more chapter, winning. Meanwhile, two men who have both been used share presence briefly in a companionway; neither Ben nor the reader learns what passed between them.",
+  "chapter_mission": "Widen the crisis beyond the Corridor, let Torin make the clean-sacrifice case, and show Ben choosing secrecy again even after Luke asks directly.",
+  "chapter_turn": "Ben sees more of the pattern and still doubles down on handling it alone.",
   "structural_phase": "attack",
   "pov_allocation": [
     "Ben Skywalker"
@@ -13,21 +13,21 @@
       "role": "escalation",
       "dialogue_expectation": "balanced",
       "target_word_count": 1200,
-      "purpose": "Comm station. Ben cycles frequencies and catches fragmentary Jedi outpost reports — anomalous Force behaviour at multiple nexuses, the Valley of the Jedi destabilising. Desh plots the disturbances radiating outward from the Corridor. Luke's coded personal message arrives: 'Sensing disturbances at multiple nexuses. Report status.' Ben stares at the reply field without typing. H13 resolves. The Luke-pressure texture from Ch 14 intensifies — the missed Ch 13 check-in is now three days unresolved and Luke's direct request sharpens it."
+      "purpose": "Let the outpost reports and Luke's message make the crisis feel bigger than the ship."
     },
     {
       "scene_number": 2,
       "role": "escalation",
       "dialogue_expectation": "dialogue_led",
       "target_word_count": 1200,
-      "purpose": "Galley. Torin brings up the bad thing over food, as he always does. He uses the Valley's destabilisation as evidence the seal was always temporary. The only permanent answer: someone who understands the technique becoming the new seal. Himself. His argument has warmth and devastating logic. Then: 'You're curating reality to manage the outcome you want. You know who else did that?' Ben's hands under the table grip his knees. Sera sits motionless — she has heard this argument before. But Sera does not stop defending Torin in her head — per D7, her defense survives this chapter. H15 plants."
+      "purpose": "Use the galley argument to make Torin's answer sound frighteningly reasonable."
     },
     {
       "scene_number": 3,
       "role": "decision_and_plant",
       "dialogue_expectation": "interior",
       "target_word_count": 1200,
-      "purpose": "Sleeping nook, night cycle. Ben strips his lightsaber to component parts on the fold-down shelf — familiar maintenance to free his hands while his thoughts work. He types the full report to Luke — fortress, survivors, wound, Veraine. He reads it through twice. He deletes it with a single keystroke. Not because it's wrong. Because he doesn't trust the Order to respond correctly. The ghost file stays in memory; he does not clear it. Part of him knows he will need proof later that he tried. Earlier in the night cycle, on his way to the nook: Ben passes a shadowed companionway and sees Kael and Torin standing in close conversation. He cannot hear them. They notice Ben. Kael walks away. Torin watches him go. Ben does not ask. The reader holds it as the kind of thing that happens between two men who have both been used. Per W1 Plant 2 anti-pattern: does not read as 'Kael has intel on Torin'; reads as 'two men briefly share presence.' Per D7 counter-current 3: Torin giving a small humanity to someone he has no instrumental reason to give time to — real ambiguity, not misdirection."
+      "purpose": "In the nook, make the report real enough to hurt when Ben deletes it, and keep Kael and Torin as an unread private moment."
     }
   ],
   "reveal_payload": [],
@@ -71,5 +71,5 @@
   "pacing_curve": "rising",
   "exit_vector": "Ship in transit toward the intercept point. Ben's datapad holding a deleted full report and an unanswered coded message from Luke. Torin's observation sitting in the space between Ben and the work surface he is not using. Sera three compartments away, silent — still defending him to herself. Kael in his bunk, whatever he and Torin spoke of unspoken. The institutional question subplot at its deepest point; the Jacen-parallel recognition now fully available for when Ben chooses to use it (per R13, the explicit naming waits for Ch 18).",
   "chapter_word_target": 3600,
-  "notes": "Ben's SP3-register low point inside Part 3 — this is the chapter where he becomes, for a few hours, exactly what he is fighting against. The irony is sharp but never underlined. Torin's observation in s2 must land as true, not melodramatic — warmth, timing, and specific accuracy. The s3 solo scene is the book's quietest chapter-closer in Part 3 and must hold — use the lightsaber maintenance as physical architecture so the interiority has something to lean on. The Kael/Torin beat at the top of s3 is a brief embedded moment, not a scene; two or three sentences, rendered from Ben's perspective at distance. Voice: Zahn-procedural in s1; dialogue-drama precision in s2 (the Torin observation is a line that must land without italics); Bujold-interior density for s3's lightsaber ritual, but no more than half the scene in Ben's head — the physical ritual carries the rest. Force phenomenology: the wrongness is now a permanent background note, no longer surprising — use somatic/pressure vocabulary (migraine that won't break, weather, pressure at altitude) rather than the acoustic/Weave families. ANTI-PATTERNS: (a) do not stage Luke-speaking on comm; his presence is a coded line and an empty reply field; (b) Torin's 'you know who else did that' must stop there — per R13, no explicit Jacen naming yet; (c) Ben's deletion of the report is an action, not a confession to himself in prose; (d) per D7 Component A, Sera keeps defending Torin here — her stops-defending beat waits for Ch 17; (e) the Kael/Torin distance-beat is observed, not interpreted. Ben does not wonder in prose what they spoke of. He sees; he registers; he walks on."
+  "notes": "This chapter should feel like the outside galaxy pressing in. Torin's argument needs warmth and force, and Ben's deleted report should feel like a worse choice because it is fully informed."
 }

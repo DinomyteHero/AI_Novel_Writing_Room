@@ -1,9 +1,11 @@
 {
   "chapter_number": 3,
-  "chapter_mission": "Deliver the first structural revelation: the wrongness is not a phenomenon, it is a failing containment. The perimeter facility broadcasts SEAL FAILING, its navigation data reveals a corridor of installations, and Ben chooses to follow the coordinates rather than report. The institutional withholding stops being quiet.",
-  "chapter_turn": "Ben crosses from investigator to accomplice in his own mission. The warning is institutional — someone built this perimeter a thousand years ago and it is shouting at him — but he chooses not to pass the alarm up the chain he belongs to. His Lie moves from passive self-reliance into active omission.",
+  "chapter_mission": "Reveal that the wrongness is tied to a failing containment system and force Ben to choose whether to report it or follow it.",
+  "chapter_turn": "Ben stops being a curious investigator and becomes someone actively hiding a crisis from his own chain of command.",
   "structural_phase": "setup",
-  "pov_allocation": ["Ben Skywalker"],
+  "pov_allocation": [
+    "Ben Skywalker"
+  ],
   "scene_count": 3,
   "scene_plan": [
     {
@@ -11,30 +13,42 @@
       "role": "hook",
       "dialogue_expectation": "balanced",
       "target_word_count": 1300,
-      "purpose": "Arrival at the next survey point to find a structure that is not ruin — it has power. The Jedi Lords-era Force-recognition mechanism pulses against Ben's modern signature, accepts him grudgingly. Automated systems wake. The warning resolves: SEAL FAILING. R02 lands: the seal exists and is losing containment. H01 and H02 resolve; H03 plants."
+      "purpose": "Bring Ben and Desh into the live perimeter facility and land the warning as an active emergency, not a ruin."
     },
     {
       "scene_number": 2,
       "role": "reveal",
       "dialogue_expectation": "balanced",
       "target_word_count": 1200,
-      "purpose": "Inside the facility's data core. Desh jury-rigs a coupler to thousand-year-old storage. The holographic star map resolves into a network of installations — the Ruusan Corridor, nodes in a perimeter pattern around a central fortress. Ben copies coordinates and route data. The scale of the thing he is reading is no longer survey-sized."
+      "purpose": "Use the data core to map the Corridor and widen the scale of the problem beyond anything a survey mission can contain."
     },
     {
       "scene_number": 3,
       "role": "decision",
       "dialogue_expectation": "dialogue_led",
       "target_word_count": 1250,
-      "purpose": "The cockpit, three deleted report drafts later. Desh reads over Ben's shoulder: 'You're not sending that.' Ben's answer — 'Not yet' — is the first institutional withholding spoken aloud. They jump toward the fortress coordinates. The wrongness intensifies through hyperspace transition instead of fading. They are inside it now."
+      "purpose": "Make the choice concrete: Ben leaves the alarm unreported, speaks the omission aloud to Desh, and jumps."
     }
   ],
-  "reveal_payload": ["R02"],
+  "reveal_payload": [
+    "R02"
+  ],
   "hook_movements": {
-    "planted": ["H03"],
-    "advanced": ["H03"],
-    "resolved": ["H01", "H02"]
+    "planted": [
+      "H03"
+    ],
+    "advanced": [
+      "H03"
+    ],
+    "resolved": [
+      "H01",
+      "H02"
+    ]
   },
-  "subplot_obligations": ["SP-A", "SP3"],
+  "subplot_obligations": [
+    "SP-A",
+    "SP3"
+  ],
   "relationship_turns": [
     {
       "dyad": "Ben/Desh",
@@ -50,5 +64,5 @@
   "pacing_curve": "rising",
   "exit_vector": "Hyperspace toward uncharted coordinates. The wrongness did not dim on jump; it sharpened. Ben's fingers on the armrest, nav computer painting a route through a chart-sector that does not officially exist. The Lie is operating as urgency. The investigation has become the pursuit.",
   "chapter_word_target": 3750,
-  "notes": "Lord Gavran first named in s1 or s2 — as a signature on a monitoring log or an authorization line, never an introduction. Let the facility do the characterizing: what he built, how he organized it, what he kept. Desh's intelligence-operative instinct reads the architecture as military command-and-control — that reading carries weight Ben respects. Voice: Zahn-tight, procedural; allow one short Stover-interior beat when Ben reads the SEAL FAILING message. Anti-patterns: (a) no exposition dump about the Ruusan Reformations here — the reader is not supposed to know what the seal is yet; (b) Ben's decision not to report should be shown through action (deleted drafts, Desh's observation, hyperspace jump), not through an interior monologue explaining why he won't. The reader should feel the withholding before Ben names it to himself."
+  "notes": "The facility should feel old, institutional, and still running on duty. Let the report drafts matter as physical evidence that Ben is crossing a line he knows how to name but still refuses to admit."
 }

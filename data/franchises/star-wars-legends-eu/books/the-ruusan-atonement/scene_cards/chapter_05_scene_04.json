@@ -5,7 +5,7 @@
   "scene_type": "sequel",
   "scene_role": "decision",
   "pov_character": "Ben Skywalker",
-  "mission": "Lock-in. Ben commits to the pursuit without yet knowing the escapee's name. The group forms because no alternative exists. The triple-layered lock-in activates: seal failing, survivors dependent, an unnamed anchor already moving along the Corridor. Per D8, Veraine is not named here — identification lands at Ch 6 s1. The group-formation beat proceeds with the antagonist's shape but not her signature.",
+  "mission": "Ben commits to leaving with the survivors and pursuing the unknown escapee even before the room can give him a name.",
   "why_now": "The information Ch 5 could deliver is on the table. The Corridor geography is mapped. The escapee has two months of head start. Ben has to choose to lift before Luke's reply window closes on the partial report.",
   "conflict": "Every instinct Ben has trained tells him to pick up the comm and call Luke in full. Every calculation he does not quite permit himself to finish tells him that the Order's response time would cost more than the survivors have, and that a fuller report would pull the mission out of his hands. He picks the partial report and does not say the word 'help'. The institutional withholding that began at Ch 3 deepens in concrete form.",
   "conflict_type": "internal",
@@ -59,7 +59,7 @@
   "revelations": [],
   "pov_arc_phase": "lie_reinforced",
   "warmth_load_bearing": true,
-  "notes": "Per D8, R05 (Veraine naming) is removed from this scene and relocated to Ch 6 s1 — do not smuggle it back. Per D7, H06 was planted in s3; this scene does not re-plant. Diagnostic-voice trap — Ben should not, in this scene, narrate his self-reliance as a pattern. The partial report is the behavioural evidence; his interiority should stay inside the practical math of what he can say to Luke without losing the next twenty-four hours. The phrase 'burden is mine to carry' belongs to a later chapter, earned by consequence. Per R11, Ben's register remains first-approximation — the late-Ben analytical voice that names institutional patterns belongs to Parts 3–4. Relationship turns — Ben/Desh shift to co-witnesses; Sera/Torin recognise each other in the archive without language for the thousand-year ache yet; Kael stays adjacent, not yet inside. Per R12, Torin's warmth in this scene is load-bearing — preserve it. Primary anchor: Zahn (command-table procedural clarity); supporting anchor: Bujold (Ben's interior register as he chooses the partial report — self-awareness without self-pity, aware of the pattern he is entering without naming it). Stover not permitted this scene. Anti-patterns: (a) no R05 — Veraine unnamed; (b) no speech from Ben about self-reliance; (c) no narrator correction of Ben's withholding; the reader feels the choice's weight through action, not exposition.",
+  "notes": "This is the lock-in scene. The choice should feel practical and urgent, not heroic, and the partial report should reveal what Ben is still refusing to say.",
   "primary_anchor": "Zahn",
   "supporting_anchor": "Bujold",
   "stover_permitted": false

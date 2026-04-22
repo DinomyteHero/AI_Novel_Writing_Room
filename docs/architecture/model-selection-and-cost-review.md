@@ -1,5 +1,7 @@
 # Model Selection & Cost Review — 2026-04-17
 
+> **Historical status (2026-04-21):** This document predates the Ruusan planning rewrite, scene-card cleanup, and subsequent prompt changes. Its cost framing is still useful background, but its model recommendations should **not** be treated as current production guidance without a fresh bench on the revised inputs.
+
 > **Update 2026-04-19:** The `kimi` alias in [config/settings.yaml](../../config/settings.yaml) now points at `moonshotai/kimi-k2.5` (released 2026-01-27, $0.38/$1.72 per M in/out). Historical analysis below references Kimi K2-Instruct (`moonshotai/kimi-k2`), which previously tested better for *prose drafting* than K2.5. The live config only uses `kimi` for `manuscript_reviewer` (a review role, not a drafter), so the prose-quality concern does not apply to the production routing. If a future Kimi-as-drafter experiment is run, re-bench K2.5 against K2-Instruct first.
 
 > **Relay v3 addendum (2026-04-19):** Two new agents joined the routing table:

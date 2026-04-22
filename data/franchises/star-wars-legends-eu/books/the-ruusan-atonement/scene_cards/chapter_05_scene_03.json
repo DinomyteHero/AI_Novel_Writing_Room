@@ -5,7 +5,7 @@
   "scene_type": "action",
   "scene_role": "escalation",
   "pov_character": "Ben Skywalker",
-  "mission": "The empty chamber as unresolved mystery. An anchor escaped. The archive cannot tell Ben who — the monitoring logs are heavily corrupted in the relevant window, the survivors saw only the chamber after the fact, and no one in the room can name the occupant. The absence has shape without a name. Per D8 Veraine identification defers to Ch 6 s1 (monitoring-log analysis resolves the name in response-quadrant). Per D7, Torin's H06 plant lands in this scene — a small unsettling inflection that Ben registers and files.",
+  "mission": "The empty chamber becomes a live mystery: someone escaped from inside and has already had time to move.",
   "why_now": "The archive revelation of R04a has set the foundation; now the physical evidence of an already-loose anchor gives the revelation its forward pressure. The mystery of the escapee is what pulls Ben off-ridge toward the Corridor.",
   "conflict": "The chamber shows systematic, patient escape — centuries of work, methodical, intelligent. Ben needs a name and the archive will not give him one. Sera examines the erosion pattern and is visibly thrown by what she sees. Torin, who should be reading the residue most clearly, says something mildly wrong — a single beat of inflection Ben cannot quite place, which seeds H06 per D7 without telegraphing.",
   "conflict_type": "external",
@@ -68,7 +68,7 @@
   "revelations": [],
   "pov_arc_phase": "lie_reinforced",
   "warmth_load_bearing": true,
-  "notes": "Per D8, Veraine is not identified in this scene — the name lands in Ch 6 s1 as response-quadrant opening. Hold the tension valve: the reader ends Ch 5 with an unnamed escapee. Per D7, Torin's H06 plant in this scene is the loudest telegraph that survives the restructure — and even here it is restrained: a single inflection off, Ben files it, no narrator correction. The narrator does not over-signal Torin's direction past Ben's perception. Per R12, Torin's warmth in the preceding beats must preserve the register-establishing quality; the H06 inflection registers as a tiny dissonance within that warmth, not as a separate voice. Kael's reaction is a quiet watch, not a recognition scene — any Kael/Veraine parallel land fully only once Veraine is named at Ch 6 s1. Ben does not analyze Veraine's philosophy — she has no name yet. He reads behaviour (studied, planned, moved methodically) and the patience in the residue. Per R11, Ben's register is first-approximation; the later Ben would name patterns this Ben cannot yet. Primary anchor: Zahn (investigative clarity). Supporting anchor: Bujold (Ben's interior registering of the wrong note in Torin's voice). Stover not permitted this scene. Anti-patterns: (a) do not name Veraine; (b) do not resolve Torin's off-inflection; (c) do not articulate the escapee's thesis or philosophy; (d) do not have Kael visibly react to a name he has not heard.",
+  "notes": "Keep the absence sharper than the explanation. Torin's off note should register and pass, not ring like a warning bell.",
   "primary_anchor": "Zahn",
   "supporting_anchor": "Bujold",
   "stover_permitted": false

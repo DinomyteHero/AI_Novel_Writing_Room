@@ -1,9 +1,11 @@
 {
   "chapter_number": 2,
-  "chapter_mission": "Translate the wrongness from a bearing into evidence. First and second survey worlds both carry the same unknown markings; the bearing that runs through them points into uncharted space. Ben makes his first quiet withholding from Luke — omitting his Force impression from the report.",
-  "chapter_turn": "The wrongness becomes data. What Ben was carrying alone as an unreliable perception gains two corroborating sites and a direction. The survey rhythm stops being cover and starts being pursuit — the bearing is moving him, not the other way around.",
+  "chapter_mission": "Carry the survey mission from intuition into evidence. Two worlds show the same unknown marks, and Ben's private sense of wrongness starts becoming a track he can follow.",
+  "chapter_turn": "The disturbance stops being something only Ben feels and becomes something the ship can chart. Ben starts withholding in small, deliberate ways.",
   "structural_phase": "setup",
-  "pov_allocation": ["Ben Skywalker"],
+  "pov_allocation": [
+    "Ben Skywalker"
+  ],
   "scene_count": 3,
   "scene_plan": [
     {
@@ -11,30 +13,38 @@
       "role": "hook",
       "dialogue_expectation": "balanced",
       "target_word_count": 1200,
-      "purpose": "Ben and Desh aboard the Steady Returns in hyperspace. Establish the professional ease of two people who do not discuss the thing they share. Desh's practical read on the instruments flags the wrongness before Ben does — the non-Force-user detects it through sensor drift. First survey world on scanners at the close."
+      "purpose": "Use hyperspace routine and instrument drift to show Ben and Desh as an established team before the first world appears."
     },
     {
       "scene_number": 2,
       "role": "reveal",
       "dialogue_expectation": "balanced",
       "target_word_count": 1300,
-      "purpose": "Planetside at the first survey world. Ruins older than the surveyed record, with markings that match no tradition Ben knows. His hand to the stone, the wrongness spikes — mild thin-place phenomenology. Back aboard, he files the report to Luke and leaves the Force impression out of the transmission. First institutional withholding, quiet, not yet named by either of them."
+      "purpose": "At the first world, give Ben one physical spike of wrongness and let him choose to leave it out of the report."
     },
     {
       "scene_number": 3,
       "role": "escalation",
       "dialogue_expectation": "balanced",
       "target_word_count": 1250,
-      "purpose": "Second survey world: same markings, different world, same hand. Desh overlays the two sites on the nav chart and draws the line. The bearing points into uncharted space. Ben punches the coordinates into the nav computer and the empty chart-sector stares back. The survey is no longer a survey."
+      "purpose": "At the second world, repeat the marks, let Desh draw the line, and end with the survey becoming pursuit."
     }
   ],
   "reveal_payload": [],
   "hook_movements": {
-    "planted": ["H02"],
-    "advanced": ["H01", "H02"],
+    "planted": [
+      "H02"
+    ],
+    "advanced": [
+      "H01",
+      "H02"
+    ],
     "resolved": []
   },
-  "subplot_obligations": ["SP-A", "SP3"],
+  "subplot_obligations": [
+    "SP-A",
+    "SP3"
+  ],
   "relationship_turns": [
     {
       "dyad": "Ben/Desh",
@@ -50,5 +60,5 @@
   "pacing_curve": "rising",
   "exit_vector": "The Steady Returns in hyperspace, pointed at uncharted coordinates. The wrongness, now anchored to a bearing, has teeth. Ben closes the chapter knowing the survey route was the corridor he was already following.",
   "chapter_word_target": 3750,
-  "notes": "Thin-place phenomenology at the first-worlds level only — distances feel fractionally wrong, chrono drifts a second, never mystical. Desh as warm absence in Ben's Force-awareness is a register to hold onto — he reads the sensor anomaly because he does not feel it. Voice: Allston-rhythm in the cockpit banter, Zahn-precision in the archaeological observation. Lived-galaxy texture obligation: Ch2 is the earliest chance to seed civilian/economic life. One survey world should register inhabitants or recent traffic even if the ruins are isolated — a supply freighter on sensors, a trader's tracks on the approach, a line of dialogue from a passing traffic controller. The chapter should not feel airlocked. Anti-pattern: do not let Ben diagnose the markings or the pattern — he catalogs, Desh connects. The interpretation is held back for Ch3."
+  "notes": "Keep the chapter quiet and procedural. Ben and Desh should feel like two professionals who already know how not to talk about old damage, and the omission in the report should land as a small action rather than a confession."
 }

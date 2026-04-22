@@ -6,7 +6,7 @@
   "scene_role": "escalation",
   "pov_character": "Ben Skywalker",
   "mission": "Descent through Levels 1 and 2 — Operations and Archive. The fortress tells its own story through the equipment Gavran left running and the records he ordered. A monitoring panel still tracks a network of nodes, most dark, one flashing BREACH.",
-  "why_now": "Sequential exploration — each level deepens the scope of the emergency. Reading the building is how the reader learns what it is for.",
+  "why_now": "Sequential exploration — each level deepens the scope of the emergency. Let the building reveal what it is for.",
   "conflict": "The archive is meticulously organized where time allowed and frantically stacked where it did not. Ben can read fragments but has no vocabulary for what the fragments imply. Force-locks refuse the deeper material to a modern signature.",
   "conflict_type": "environmental",
   "turning_point": "A monitoring display still functions — a network of nodes spread across the Outer Rim, most reading dead, three reading active, one reading BREACH. The network is a containment system, and it is losing.",

@@ -1,9 +1,11 @@
 {
   "chapter_number": 18,
-  "chapter_mission": "Second Pinch Point. Per R13, this is the chapter where the Jacen parallel is explicitly named on the page — the single explicit naming budget. Ben sees the Jacen pattern in Torin — cadence, structure of every story Torin tells, the process of unilateral decision disguised as compassion — and the name arrives in one sentence, in one quiet moment. Desh's team-status debrief reveals operational concern as genuine investment. Per B1 Part 2, Sera's lie_fissure lands here — brief, unspoken or near-unspoken; a hand pausing, a sentence cut off, a line she does not say. Per the same fissure, Sera first intuits that forcible disengagement of an entangled Force presence would accelerate the cascade (the principle that pays at Ch 21 per B2). Per D7 counter-current 4, Torin does something on the corruption trajectory he genuinely would not do — a moment of clarity or a small kindness to Sera visible to Ben but unexplained. Ben re-reads Gavran's resonance note with different emphasis and the meaning shifts under him.",
-  "chapter_turn": "The recognition becomes fully conscious. Ben has a name for what he is watching in Torin — both the Jacen name, explicitly once, and the structural name (unilateral decision disguised as compassion). Sera, in a motion no one describes, does not say the line she would have said. The room crosses a threshold none of them can walk back from.",
+  "chapter_mission": "At the second pinch point, let Ben name the Jacen echo once, let Desh speak from care instead of analysis, and let Sera's certainty visibly crack.",
+  "chapter_turn": "What has been pattern becomes fact in Ben's mind, and the room crosses the point where pretending otherwise is still possible.",
   "structural_phase": "second_pinch",
-  "pov_allocation": ["Ben Skywalker"],
+  "pov_allocation": [
+    "Ben Skywalker"
+  ],
   "scene_count": 3,
   "scene_plan": [
     {
@@ -11,30 +13,39 @@
       "role": "hook",
       "dialogue_expectation": "balanced",
       "target_word_count": 1200,
-      "purpose": "Common area. Torin tells an NSW battle story with self-deprecating warmth. Ben watches the structure underneath: I decided, I acted, I bore the cost. Every story has the same architecture. The laughter is warm and perfectly timed and Ben has seen this before — he wonders when he started analysing Torin's laughter, and then when he stopped doing it with Jacen too late. Across the cockpit, Ben's eyes find Desh's. Per R13, the explicit naming lands here: Ben thinks it or Desh says it, once. A single sentence. 'Like Jacen.' That is the line the book has been saving. It lands; it is not underlined; the scene does not rest on it. R10 advances. H15 resolves. In the same scene: D7 counter-current 4 — Torin, mid-story, interrupts himself to pour a second cup for Sera before she can reach for it. No framing. No warmth announced. Sera takes it. The moment passes. It is the kind of thing the man who will walk into the caldera would not stop to do, and Ben files it without resolving it."
+      "purpose": "Have Ben hear the pattern in Torin's warmth and then immediately face the gesture that keeps it from being simple."
     },
     {
       "scene_number": 2,
       "role": "reveal",
       "dialogue_expectation": "dialogue_led",
       "target_word_count": 1200,
-      "purpose": "Cockpit, night cycle. Desh walks Ben through the team status as a debrief: Torin is separating, Sera is rigid, Kael is watching the exit, Ben is carrying too much alone. The diagnosis is clinical until it is not: 'I didn't come here to watch another good person convince themselves they're the only answer.' Desh does not need to name who 'another' is; the Ch 11 conversation is still between them, and Ch 18 s1 already put Jacen in the room once. Per R13 budget, the name is not repeated — once is the whole budget for the book's surface. Per B1 Part 2, Sera's lie_fissure lands in a parallel beat in the same scene: she is at the edge of the cockpit when Desh says 'the only answer,' and her hand pauses on the frame. She had been about to say something — the defense-of-principle sentence she would have said in Ch 14 — and it does not come out. She walks away. Ben sees the not-saying. In the back of his mind, in the margins of her silence, Sera has also just felt something else she does not yet name: that forcibly disengaging an entangled Force presence now would rip the seal faster than the slower, voluntary cost. The intuition is unarticulated. It will pay at Ch 21."
+      "purpose": "Let Desh's team-status read turn personal, and have Sera's silence do more than any speech could."
     },
     {
       "scene_number": 3,
       "role": "decision",
       "dialogue_expectation": "interior",
       "target_word_count": 1100,
-      "purpose": "Corridor, alone, night cycle. Ben slides down the bulkhead until he is sitting on the cold deck plates. Body finally admitting the trip. He pulls up Gavran's resonance note on his datapad: 'We lacked the will or the trust to attempt it.' Ben has been reading it as 'we weren't brave enough.' He re-reads: 'We couldn't trust each other enough.' Different emphasis. Different problem. Mara's voice, pragmatic: stop wondering if you're worthy and figure out what works. The micro-turn."
+      "purpose": "Give Ben a small private shift in how he reads trust, not a breakthrough."
     }
   ],
-  "reveal_payload": ["R10"],
+  "reveal_payload": [
+    "R10"
+  ],
   "hook_movements": {
     "planted": [],
     "advanced": [],
-    "resolved": ["H15"]
+    "resolved": [
+      "H15"
+    ]
   },
-  "subplot_obligations": ["SP-A", "SP1", "SP2", "SP3"],
+  "subplot_obligations": [
+    "SP-A",
+    "SP1",
+    "SP2",
+    "SP3"
+  ],
   "relationship_turns": [
     {
       "dyad": "Ben/Torin",
@@ -60,5 +71,5 @@
   "pacing_curve": "steady",
   "exit_vector": "Ben on the deck plates with Gavran's note on his datapad. The resonance passage read under different emphasis, the memory of his mother's pragmatism quieting the interior noise. Torin three compartments away, unaware he has been named. Sera's unsaid line hanging in the cockpit airspace. Desh at the countdown. Veranthos one jump away. The Lie is cracking. Not yet broken.",
   "chapter_word_target": 3500,
-  "notes": "Jacen parallel — per R13, this is the chapter that holds the single explicit naming budget. 'Like Jacen.' One line in the entire book's surface. After this chapter, the parallel operates subtextually. R10 is the book's second-most important revelation (after R07) and the highest-risk — the reader must feel the pattern through Torin's laughter and story structure, with the name arriving once as a confirmation of what the scene has already shown. Per R13 drafting guardrail, do not repeat the name in Ch 19+; if a character wants to allude, they allude through gesture or structural echo. Desh's debrief in s2 is the third book-critical scene for him (after Ch 11 GAG conversation and Ch 17 food delivery); it surfaces his caring. The s3 interior scene is a quiet micro-turn, not a breakthrough — Ben has not yet committed to a different approach. He has moved one file from the 'archive' folder to the 'open' folder. Sera's B1 lie_fissure in s2 is a physical beat rendered through Ben's POV — her hand on the frame, the words that do not arrive. Two threads served by one beat per B1/B2: principle-alone doubt + unarticulated cascade-acceleration intuition. D7 counter-current 4 in s1 is a single gesture (the second cup poured) rendered without commentary. Voice: Zahn-observation in s1 (Ben as analyst of Torin's surface), dialogue-precision in s2, Bujold-interior density for s3 but under half the scene in interiority — the deck plates, the datapad, the lightsaber on his hip anchor the body. ANTI-PATTERNS: (a) Jacen is named once in this chapter — no more, no less (per R13 budget); (b) Ben does not articulate his own Gavran-pattern on-page yet — he reads Gavran's note and the emphasis shifts, that is enough; (c) Mara must remain the pragmatist — no mystical visitation, no reassuring dream. A memory of how she'd have said it, and nothing more; (d) per B1, Sera's fissure is rendered as absence, not narration. The reader feels the line she would have said by its not being there. Per B1, she does not articulate the cascade-acceleration intuition. It is a body-fact she holds without language; the articulation waits for the Ch 21 implicit read; (e) per D7 counter-current 4 guardrail, Torin's cup-pouring is not underlined and does not resolve anything. It lives briefly. The corruption arc's live ambiguity depends on beats like this not being explained."
+  "notes": "Use restraint. The power here is in one named comparison, one unsaid line from Sera, and one quiet re-reading that shifts Gavran's note."
 }

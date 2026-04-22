@@ -1,7 +1,7 @@
 {
   "chapter_number": 5,
-  "chapter_mission": "Awaken the three survivors, deliver the First Plot Point as one detonating institutional fact — the Ruusan Reformations were dual-purpose: the public reform the Order remembers, and a private penance for something the Jedi Lords did — and form the group. Per D8, Ch 5 does not carry the full Reformations payload; the specifics (technique, wound mechanics, anchor system, Brotherhood ritual) defer to Ch 7 / Ch 9 / Ch 11. Ch 5 ends with the empty chamber as unresolved mystery; Veraine's name lives in Ch 6 s1.",
-  "chapter_turn": "Ben shifts from investigator to custodian. He arrived expecting a ruin; he leaves responsible for three strangers whose presence rewrites his Order's foundational narrative by a single sentence and whose survival depends on him getting the next move right — even though he does not yet know the antagonist's name.",
+  "chapter_mission": "Wake the three survivors, break Ben's understanding of Jedi history in a single sentence, and get the group moving before the full history can be sorted out. The chapter should feel human first: shock, disorientation, and immediate dependency.",
+  "chapter_turn": "Ben stops being an investigator with a mystery and becomes the person responsible for three witnesses out of time. He leaves the fortress with a broken version of the Order's founding story and an unnamed enemy already ahead of them.",
   "structural_phase": "first_plot_point",
   "pov_allocation": [
     "Ben Skywalker"
@@ -13,29 +13,29 @@
       "role": "hook",
       "dialogue_expectation": "interior",
       "target_word_count": 1400,
-      "purpose": "Ben and Desh cross the fortress threshold into the stasis ring. The environment carries the story: twelve chambers, nine dark with preserved bodies, three dimly active, one empty and broken open from inside. Establish the empty chamber through physical evidence — damage marks on the walls from inside, emergency warnings in the monitoring system that went unanswered weeks ago — without naming its occupant. The absence is the hook."
+      "purpose": "Ben and Desh enter the stasis ring and find the shape of the catastrophe in the room itself: twelve chambers, nine dead, three fading, one broken from the inside."
     },
     {
       "scene_number": 2,
       "role": "reveal",
       "dialogue_expectation": "balanced",
       "target_word_count": 1200,
-      "purpose": "Sera, Torin, Kael wake. Thousand-year disorientation. Archive access restored through Sera's era-specific Force-lock craft. One fact detonates: the Ruusan Reformations were dual-purpose. Public reform plus private penance. The Order's foundational narrative is broken in a single sentence. R04a lands. Survivor introductions carry the human register — Sera's precision, Torin's warmth (per R12, the warmth register is load-bearing canon; his Ch 5-12 specimens anchor the corruption arc that breaks later), Kael's dry corrections. The full specifics (what the technique is, how the wound was made, how the anchor system works, what the Brotherhood was doing) are not delivered here — the reader leaves this scene with one earth-moving fact and three distinct living presences. R8 character-distinctness is load-bearing: the three voices must register as three different voices from their first speaking lines."
+      "purpose": "Sera, Torin, and Kael wake. One sentence breaks Ben's understanding of the Reformations, and the scene must let each survivor arrive as a distinct person, not a history lesson."
     },
     {
       "scene_number": 3,
       "role": "reveal",
       "dialogue_expectation": "balanced",
       "target_word_count": 1200,
-      "purpose": "The empty chamber is named as a mystery, not a name. Monitoring logs show a containment breach from inside, dated weeks ago, the occupant's identity flagged but not displayed on the surface-level review (archive authorization for the full record sits one layer deeper). The group registers: someone was here, someone is no longer here, someone got out under their own power. Torin's first unsettling line lands here — the H06 plant — his quiet question about the modern Jedi's relationship with the light/dark boundary: 'Gavran thought so too. Before.' Short. No context given. Ben registers and does not pursue. Torin's warmth in the surrounding speech protects the H06 plant from reading as warning-bell rather than voice-color.",
-      "notes_for_scene": "Per D8, R05 (Veraine named) does NOT land here. The Ch 5 s3 end state is: empty chamber as unresolved, occupant-identity flagged-but-not-surfaced, mystery active. Ch 6 s1 opens with Desh running the monitoring-log analysis to identify the occupant. This is the tension valve — the reader leaves Ch 5 without the antagonist's name and Ch 6 opens response-quadrant by delivering it."
+      "purpose": "The group confirms that someone escaped weeks earlier and is already moving. Treat the empty chamber as a live threat, not a solved reveal.",
+      "notes_for_scene": "Do not identify the escaped occupant yet. End the scene with the group knowing someone broke out from inside and got a head start, nothing more. The name belongs to the next chapter so this one closes on absence, not explanation."
     },
     {
       "scene_number": 4,
       "role": "decision",
       "dialogue_expectation": "balanced",
       "target_word_count": 1000,
-      "purpose": "The group forms. Ben does not ask them to follow; they form because no alternative exists. Coordinates for the presumed trail along the Ruusan Corridor (Sera and Torin supply the era-specific map-memory; Desh converts it to a modern navigation frame). Lock-in complete: the seal is failing AND someone is already moving — though the group leaves this fortress without her name. Exit vector: the Steady Returns lifting away with six aboard. Sera's formal 'Skywalker' register is established here (PP15 plant)."
+      "purpose": "The group forms because there is no safe alternative. Ben leaves the fortress with responsibility, a direction, and far less certainty than he had when he entered."
     }
   ],
   "reveal_payload": [
@@ -79,5 +79,5 @@
   "pacing_curve": "rising",
   "exit_vector": "The Steady Returns lifts from Gavran's fortress with six aboard. Ben at the viewport. The wrongness has a destination. The antagonist is out there, unnamed — whoever broke out from inside has a weeks-old head start. Ch 6 s1 will give the room her name.",
   "chapter_word_target": 4800,
-  "notes": "Per D8, this is no longer the novel's longest chapter — the R04 payload is redistributed across Ch 7 / Ch 9 / Ch 11, and Ch 5 carries the human FPP (three survivors wake, one institutional fact detonates, group forms) at a reduced word target. Highest-craft requirement: R8 character-distinctness carries the exposition. Sera's precision, Torin's warmth, Kael's dry corrections must register as three specific voices by the end of s2 — the reader does not reach Ch 6 hearing them as 'the survivors' collectively. Per R12, Torin's warmth is first-order canon and must not flatten under exposition pressure; his Ch 5 specimens anchor the register the corruption breaks against at Ch 21. Voice: Zahn-tight, propulsive; one Bujold-interior beat per scene at most. Per R8 and the anti-slop architecture, every piece of archive content is filtered through how it lands on Ben — no narrator-voice lecture. Jacen is referenced once during historical briefing — Ben's tone carries the reader's read of him; no explicit naming of the Jacen parallel yet (per R13, the single explicit naming budget lives at Ch 18). The Ch 1 sparring partner is forgotten; the Order's foundational narrative just broke by a sentence. ANTI-PATTERNS: (1) Do not deliver R04b/c/d here. The technique, the wound mechanics, the anchor system, the Brotherhood ritual attempt — each has its own reveal chapter. Ch 5 carries only R04a. (2) Do not name Veraine here. The empty chamber is a mystery at the end of s3; her name is Ch 6's opening. (3) Do not resolve the Sera/Torin thousand-year distance here — it seeds; it does not pay. (4) Per D3, the narrator uses 'the Weave' consistently; the survivors' in-character variants (Sera 'the work,' Torin 'stitching,' Kael 'the cloth') may appear organically in their first speaking lines."
+  "notes": "Keep the chapter focused on three human shocks: the stasis ring, the survivors waking, and the realization that the Reformations concealed penance as well as reform. Sera, Torin, and Kael must sound distinct on first contact. Do not dump the full Ruusan history here; hold back the technique, wound mechanics, and Veraine's name. The empty chamber should close the chapter as a live absence, not a solved reveal."
 }

@@ -6,7 +6,7 @@
   "scene_role": "hook",
   "pov_character": "Ben Skywalker",
   "mission": "Entering the Brotherhood Outpost. Clinical Sith architecture — prefabricated, functional, not theatrical. Dark-side emotional residue bleeds through the Weave's thinning weave; Ben feels cruelty that is not his. Equipment partially disassembled — Veraine took only specific components. Kael reads a message in Sith-tradition notation and leaves the room.",
-  "why_now": "Second major Corridor stop and the first pinch point. The trail goes present-tense here: Veraine's hand becomes operational instead of archived, and she has a specific reader in mind for the notation she left.",
+  "why_now": "Second major Corridor stop and the first pinch point. The trail goes present-tense here: Veraine's hand becomes operational instead of archived, and she left the notation for a specific set of eyes.",
   "conflict": "The outpost is a workplace, which is worse than a temple. Ben's Force-sense catches emotional residue without sources — cruelty that never belonged to him. Sera's discipline strains; Kael reads a message only he can read and goes quiet in a way the others cannot follow.",
   "conflict_type": "environmental",
   "turning_point": "Kael reads the message Veraine left on a data tablet in Sith-tradition notation. He puts the tablet down and leaves the room. He does not show it to Ben.",
@@ -62,5 +62,5 @@
   ],
   "revelations": [],
   "pov_arc_phase": "lie_reinforced",
-  "notes": "First pinch point: the antagonist acts without the plot mechanically advancing. Nothing in the hook structure changes in the room, but the reader's understanding of the pursuit has shifted. The message Veraine left is never shown to the reader; what it says is whatever makes Kael's face do what it does. Diagnostic-voice trap — Ben should not, in this scene, reconstruct Veraine's strategy as a thesis. He registers the curation (took this, left that) and the targeted message through Kael's response; analysis waits for Desh's operations-room scene. Kael's lie_reinforced in this beat: the message confirms his priors that conviction and institutions cut the same way."
+  "notes": "First pinch point: the antagonist acts without the plot mechanically advancing. Nothing in the hook structure changes in the room, but the understanding of the pursuit has shifted. The message Veraine left is never shown in full; what it says is whatever makes Kael's face do what it does. Diagnostic-voice trap — Ben should not, in this scene, reconstruct Veraine's strategy as a clean explanatory claim. He registers the curation (took this, left that) and the targeted message through Kael's response; analysis waits for Desh's operations-room scene. Kael's lie_reinforced in this beat: the message confirms his priors that conviction and institutions cut the same way."
 }

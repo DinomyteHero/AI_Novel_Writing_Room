@@ -10,10 +10,12 @@ Usage:
         --scene-card data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/scene_cards/chapter_01_scene_01.json \\
         --run-name bench-2026-04-17-prose
 
-By default benches three configurations (Sonnet control, DeepSeek, Kimi K2.5).
+By default runs the configured BENCH_CONFIGS matrix. Use ``--models`` to
+limit the run to a focused subset (for example ``qwen,minimax,deepseek``).
 Models are mutated in-memory on the ModelRouter's config between calls.
 
-Costs: ~$0.08 per full bench (1 Gemini-Pro brief + 3 prose calls).
+Costs depend on the selected matrix. Use ``--models`` for a focused A/B when
+you want a cheap comparison run.
 """
 
 from __future__ import annotations
@@ -40,16 +42,19 @@ from src.model_router import ModelRouter  # noqa: E402
 from src.project_paths import ProjectPaths  # noqa: E402
 
 
-# Pricing per million tokens (from OpenRouter, 2026-04-17)
+# Pricing per million tokens (OpenRouter pricing pages, 2026-04-21).
 PRICING = {
     "anthropic/claude-sonnet-4.6": (3.00, 15.00),
     "anthropic/claude-haiku-4.5": (1.00, 5.00),
     "deepseek/deepseek-v3.2": (0.26, 0.38),
-    "moonshotai/kimi-k2.5": (0.38, 1.72),
+    "qwen/qwen3.6-plus": (0.325, 1.95),
+    "moonshotai/kimi-k2.5": (0.3827, 1.72),
+    "moonshotai/kimi-k2.6": (0.95, 4.00),
     "google/gemini-3.1-pro-preview": (2.00, 12.00),
     "google/gemini-3-flash-preview": (0.50, 3.00),
     "x-ai/grok-4.20": (2.00, 6.00),
     "x-ai/grok-4.1-fast": (0.20, 0.50),
+    "minimax/minimax-m2.7": (0.30, 1.20),
     "z-ai/glm-5.1": (0.95, 3.15),
     "openai/gpt-5.4": (2.50, 15.00),
     "openai/gpt-5.4-mini": (0.75, 4.50),
@@ -94,9 +99,27 @@ BENCH_CONFIGS = [
         "temperature": 0.70,
     },
     {
+        "label": "qwen-36-plus-t070",
+        "model_short": "qwen",
+        "model_full": "qwen/qwen3.6-plus",
+        "temperature": 0.70,
+    },
+    {
         "label": "kimi-k25-t070",
         "model_short": "kimi",
         "model_full": "moonshotai/kimi-k2.5",
+        "temperature": 0.70,
+    },
+    {
+        "label": "kimi-k26-t070",
+        "model_short": "kimi26",
+        "model_full": "moonshotai/kimi-k2.6",
+        "temperature": 0.70,
+    },
+    {
+        "label": "minimax-m27-t070",
+        "model_short": "minimax",
+        "model_full": "minimax/minimax-m2.7",
         "temperature": 0.70,
     },
     {
@@ -157,6 +180,7 @@ MODEL_ALIASES = {
     "haiku":        "anthropic/claude-haiku-4.5",
     "deepseek":     "deepseek/deepseek-v3.2",
     "kimi":         "moonshotai/kimi-k2.5",
+    "kimi26":       "moonshotai/kimi-k2.6",
     "grok420":      "x-ai/grok-4.20",
     "grok41fast":   "x-ai/grok-4.1-fast",
     "glm":          "z-ai/glm-5.1",

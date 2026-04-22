@@ -1,11 +1,13 @@
 # Benchmarking
 
+> **Status note (2026-04-21):** Treat the archived `BENCH_*` outputs and April 17-19 routing summaries as **historical only**. Ruusan's concept seed, chapter blueprints, scene cards, and prompt stack have all been materially revised since those benches were run. Do **not** use the older results as the sole basis for a production routing change; re-bench on current inputs first.
+
 Two benchmarking tools live in the repo:
 
 1. **`scripts/bench_prose_models.py`** — single-scene, same-brief, model-A/B/C comparison for the `prose_stylist` (and optionally `plot_architect` and `quality_polish`) roles.
 2. **`--skip-gate-loop` CLI flag** — runs the full pipeline on real scene cards without the Gate Critic rewrite loop, so "stripped" pipeline behaviour can be compared against the full pipeline with the same config.
 
-Both are designed for **apples-to-apples model evaluation**: swap one lever at a time and compare outputs on the same scene card with the same generation brief. Past benches led directly to the production routing decisions in `config/settings.yaml` (see the results summaries in `output/star-wars-legends-eu/the-ruusan-atonement/runs/BENCH_*.md`).
+Both are designed for **apples-to-apples model evaluation**: swap one lever at a time and compare outputs on the same scene card with the same generation brief. Older benches remain useful as historical artifacts, but after a material planning or prompt revision they should be treated as stale until rerun on the current inputs.
 
 ---
 
@@ -17,7 +19,7 @@ Run a bench when you:
 - Are deciding whether the Gate Critic rewrite loop is adding quality or eating cost on a specific scene archetype.
 - Need a defensible artifact to justify the routing choice for arc-critical scenes (midpoint, pinch points, climax) that justify a more expensive model.
 
-Skip a bench for purely mechanical changes (prompt tweaks, bug fixes) — use the test suite and `--raw-draft` runs instead.
+Skip a bench for purely mechanical changes (bug fixes, logging, non-behavioral refactors) — use the test suite and `--raw-draft` runs instead. If you changed the concept seed, scene cards, franchise profile, prompt stack, or routing around the role you are evaluating, the prior bench is no longer authoritative.
 
 ---
 
@@ -44,7 +46,7 @@ Default config: `config/settings.yaml`. Output lands at `output/<franchise>/<boo
 | `--scene-card PATH` | Scene card JSON. The script benches prose for exactly this scene. |
 | `--run-name NAME` | Output directory name under `runs/`. Use a descriptive slug so bench artifacts are easy to find later. |
 | `--config PATH` | Path to a settings YAML. Default: `config/settings.yaml`. Pass `config/settings.bench.sonnet.yaml` or `config/settings.bench.gpt.yaml` to freeze the surrounding pipeline. |
-| `--models FILTER` | Comma-separated list of model labels or short names to include (e.g. `deepseek,kimi,gpt54`). Default: run all ten defaults. |
+| `--models FILTER` | Comma-separated list of model labels or short names to include (e.g. `deepseek,kimi26,qwen`). Default: run all configs currently listed in `BENCH_CONFIGS`. |
 | `--reuse-brief-from PATH` | Path to an existing `generation_brief.json` to reuse instead of calling `plot_architect`. Keeps a bench apples-to-apples with a prior run. |
 | `--plot-architect-model SHORT` | Override `plot_architect` routing (e.g. `grok420`). Ignored when `--reuse-brief-from` is set. |
 | `--polish-model SHORT` | Run `quality_polish` on each prose output with the named model (e.g. `haiku`). Writes a separate `<label>__POLISHED.md` file. |

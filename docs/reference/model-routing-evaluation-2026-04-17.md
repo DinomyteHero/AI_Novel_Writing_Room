@@ -1,5 +1,7 @@
 # Model Routing Evaluation - 2026-04-17
 
+> **Historical status (2026-04-21):** This evaluation was written before the Ruusan planning rewrite and later prompt/scene-card revisions. Keep it as a record of the earlier stack, but do **not** treat its routing recommendations as current without re-benching on today's inputs.
+
 ## Scope
 
 This review is based on:

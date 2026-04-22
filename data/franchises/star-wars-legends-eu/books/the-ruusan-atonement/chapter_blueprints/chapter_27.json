@@ -1,7 +1,7 @@
 {
   "chapter_number": 27,
-  "chapter_mission": "Aftermath on Veranthos. Veraine in containment, composed, already writing equations; defeated by results, unbroken by conversion. Torin diminished; Sera chooses to stay. Kael departs freely — the ability to leave is the proof that this was different. Ben and Desh laugh.",
-  "chapter_turn": "Every character's ending is chosen. The book's argument — that choosing differently than the predecessors is the answer — lands in the shape of these resolutions: Veraine's refusal, Sera's presence, Kael's departure, Desh's laughter. None of them is forced. None is denied.",
+  "chapter_mission": "Show what each choice has cost and what each character still gets to keep after Veranthos.",
+  "chapter_turn": "The book ends its arcs through chosen aftermath instead of forced symmetry.",
   "structural_phase": "resolution",
   "pov_allocation": [
     "Ben Skywalker"
@@ -13,21 +13,21 @@
       "role": "aftermath",
       "dialogue_expectation": "balanced",
       "target_word_count": 1200,
-      "purpose": "Ben at Veraine's containment. She sits cross-legged in Sera's Force-lock field, already writing equations in the dust with one finger. Composed. Academic. Genuinely curious about the emergent pattern they produced. 'The emergence you produced was interesting. I will think about it.' Not concession. Not conversion. Ben learns the texture of intellectual enemies: they are not convinced by arguments, only by results they cannot dismiss, and even then they adapt the theory rather than abandon it. Ben leaves. She keeps writing."
+      "purpose": "At Veraine's containment, let Ben see an enemy who will adapt rather than repent."
     },
     {
       "scene_number": 2,
       "role": "aftermath",
       "dialogue_expectation": "interior",
       "target_word_count": 1300,
-      "purpose": "Ridgeline above the new seal's hum. Torin on the edge, posture unchanged, presence diminished. Warmth muted, humor gone quiet, Force-presence lighter in a way that should be freeing and is devastating. Sera walks up, sits beside him without speaking. After a long time, his hand finds hers. Lighter grip than before. It's there. Ben watches from a distance and understands he is watching love without control — Sera's arc resolved in its final word, chosen presence."
+      "purpose": "On the ridge, let Sera and Torin resolve into presence without speeches."
     },
     {
       "scene_number": 3,
       "role": "aftermath",
       "dialogue_expectation": "dialogue_led",
       "target_word_count": 1250,
-      "purpose": "Camp, morning. Kael has his bag packed before anyone wakes. Everything he owns slung over one shoulder. He finds Ben at the ship and they shake hands — firm, brief, the most Kael gesture possible. He turns toward his transport without looking back. Desh says something that shouldn't be funny. Ben laughs. Desh laughs. The sound carries up the ridge where Sera and Torin sit; for a moment, Torin's eyes crinkle. The laugh between equals. The resolution the GAG pattern needed and never got."
+      "purpose": "Kael's departure and the laugh between Ben and Desh should feel plain, human, and final."
     }
   ],
   "reveal_payload": [],
@@ -73,5 +73,5 @@
   "pacing_curve": "falling",
   "exit_vector": "Kael's transport lifting from the camp. Sera and Torin small on the ridgeline. Veraine's containment visible in the middle distance with the guard posted. The Steady Returns on the pad, Desh already running pre-flight. Ben at the ramp, the renewal tether (per Ch 26 D2) registered in his perception as a continuous presence — the seal he is leaving but not leaving permanently; the renewal he will return to. The laugh still in the air. One scene left in the book, and it is on Coruscant.",
   "chapter_word_target": 3750,
-  "notes": "The chapter's register is falling action and chosen ending, not triumph. Veraine's scene in s1 is the book's final philosophical note — her refusal to concede is the book's honest answer to 'what do you do about people you cannot convert.' Her equations in the dust are the image that lingers. The Sera/Torin scene in s2 is the book's emotional climax after the plot climax; understated grip of hands on hand, no dialogue, no articulation of what she is doing there. The closing laugh between Ben and Desh is the Allston register of the whole book's Allston register — earned joy, small, offered to a reader who has followed these two for 27 chapters. Voice: Zahn-quiet in s1 (Veraine's composure sets the register); Stover-permitted density for s2 but under half the scene in interiority (the ridgeline, the hand, the small grip anchor the body); Allston-warmth for s3 with the laugh as the exit line. Anti-patterns: (a) do not give Veraine a concession or softening in s1 — the refusal is the book's honesty; (b) Sera and Torin do not speak in s2; the hand is the sentence; (c) the laugh in s3 must not be about anything specific — the reader does not need to hear Desh's joke; they hear the laugh."
+  "notes": "Keep the chapter quiet. Veraine stays unconverted, Sera stays by choice, Kael leaves by choice, and the laugh matters because the book earned it."
 }
