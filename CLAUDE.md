@@ -8,38 +8,60 @@ A multi-agent fiction generation system. Humans plan a novel through the **workf
 
 ## The relay is forward-only — do not re-introduce retries
 
-Since the Stage 1a–3 refactor, prose flows through a **single-pass relay**. Gates are telemetry. Retry loops have been deliberately removed. The canonical order per scene:
+Since the Stage 1a–3 refactor, prose flows through a **single-pass relay**. Gates are telemetry. Retry loops have been deliberately removed. The canonical order per scene (as implemented in `src/orchestrator.py::run_chapter`):
 
 ```
-PlotArchitect → ProseStylist → [LineWriter] → GateCritic → QualityMetrics
-  → QualityPolish → compression advisory → FinalGate → CanonExpert
-  → save-blocker layer → save | quarantine
+PlotArchitect → ProseStylist → [LineWriter*] → GateCritic → [corrective_rerun?]
+  → QualityMetrics → QualityPolish → compression advisory → FinalGate
+  → CanonExpert → [canon_local_fixes?] → collect_presence_violations
+  → [micro_repair?] → save-blocker layer → save | quarantine
 ```
+
+`*` optional. `?` flag-gated, default off.
 
 Rules:
 
 - **GateCritic** and **FinalGate** are **advisory**. `final_gate_rejection` carries `advisory_only=True`; the polished prose is saved regardless.
-- **`max_structural_retries` / `max_voice_retries`** are pinned to `0` in `config/settings.yaml`. They are retained only for rollback. Do not raise them, and do not add new retry branches.
+- **`max_structural_retries` / `max_voice_retries`** are pinned to `0` in `config/settings.yaml`. They are retained only for rollback. Do not raise them, and do not add new retry branches. The only non-zero drafter retry path is `runtime.corrective_rerun.enabled` (bounded to exactly one rerun; Forward Relay v4).
 - **Compression guard** is advisory too: polish that shrinks below 60% of pre-polish word count emits a ledger event and is saved anyway.
-- **LineWriter** is optional (GPT 5.4 @ t=0.8 by default). It takes an **explicitly wired** context dict — do not let it reach into ambient `ContextAssembler`. Collapsed output (<40% source word count) falls back to drafter prose with a warn event.
-- The **save-blocker layer** (`src/pipeline/save_blockers.py`) is the **only** hard-failure path. Three categories: `CHARACTER_PRESENCE_BLOCKER` (from PresenceChecker), `CANON_BLOCKER` (CanonExpert verdict = fail + severity ∈ {critical, moderate}), and a POV advisory (not yet blocking). When a blocker fires, the run aborts and the offending scene is written to `<project>/quarantine/chNN_scMM/{prose.md, blockers.json, brief.json}`.
+- **LineWriter is currently disabled** in the shipping config — its `agent_routing.line_writer:` entry is commented out in `config/settings.yaml`. `src/main.py:915` guards instantiation on the config key; with it missing, the orchestrator receives `line_writer=None` and `src/orchestrator.py:688` short-circuits. When present (bench overlays), LineWriter takes an **explicitly wired** context dict — do not let it reach into ambient `ContextAssembler`. Collapsed output (<40% source word count) falls back to drafter prose with a warn event.
+- The **save-blocker layer** (`src/pipeline/save_blockers.py`) is the **only** hard-failure path. Three categories: `CHARACTER_PRESENCE_BLOCKER` (from PresenceChecker), `CANON_BLOCKER` (CanonExpert verdict = fail + severity ∈ {critical, moderate}, excluding `post_divergence_drift` which is clamped to advisory), and a POV advisory (not yet blocking). When a blocker fires, the run aborts and the offending scene is written to `<project>/quarantine/chNN_scMM/{prose.md, blockers.json, brief.json}` — unless `runtime.firewall.enabled` is on (then `StateFirewall` isolates + continues, Slice 1).
+- **PresenceChecker is invoked once per scene.** `save_blockers.collect_presence_violations()` produces the normalized violations list; the orchestrator threads it through `_maybe_micro_repair` and into `check_save_blockers(..., presence_violations=...)` so the checker is not called twice in the same scene unless micro_repair mutated the prose.
 
 ## Forward Relay v4 — use the advice, diversify the judges
 
 The forward-only relay is intact, but three editorial redundancies were collapsed and the latent corrective-rerun plumbing was activated behind a runtime flag. Design doc at `docs/architecture/forward_relay_v4_proposal.md`.
 
 **Default-on changes (shipped without a flag):**
-- **LineWriter is off by default.** The `line_writer:` entry under `agent_routing` in `config/settings.yaml` is commented out. `src/main.py:916` guards instantiation on the config key being present, so the orchestrator receives `line_writer=None` and `src/orchestrator.py:680` short-circuits. Bench configs that need LineWriter can re-enable it in their own overlay YAML.
+- **LineWriter is off by default.** The `line_writer:` entry under `agent_routing` in `config/settings.yaml` is commented out. `src/main.py:915` guards instantiation on the config key being present, so the orchestrator receives `line_writer=None` and `src/orchestrator.py:688` short-circuits. Bench configs that need LineWriter can re-enable it in their own overlay YAML.
 - **Presence triple-check collapsed.** `CHARACTER_PRESENCE_VIOLATION` was removed from `GateCritic.STRUCTURAL_CODES` and `FinalGate.FINAL_GATE_CODES`. `PresenceChecker` at save time is the sole authority on character presence — the gates used to echo it, producing the same violation three times across pre-polish / post-polish / save-blocker. Turning-point + closing-hook stay in both gates because pre-polish vs post-polish is real regression coverage.
 - **GateCritic moved off Haiku to Grok 4.1 Fast.** The drafter (Sonnet) plus three Haiku judges was same-family homogeneity; GateCritic is the advice source for the corrective rerun, so its family bias has the most leverage. FinalGate and PresenceChecker stay on Haiku — narrower / contract-shaped, same-family matters less. Fallback if structured-JSON reliability regresses: `glm` or `gemini_flash`. Alternative cross-family candidates documented in the proposal doc's "Alternatives considered" section for future benching.
 
 **Flag-gated changes (default-off; shipping-book guards in place):**
 - **Smart single corrective rerun** — `runtime.corrective_rerun.enabled: false` (default). When enabled, a narrow trigger set (`MISSING_TURNING_POINT` or `CLOSING_HOOK_VIOLATION` from GateCritic `fail_structural`) fires *exactly one* ProseStylist redraft with structured `failure_context` populated from `_format_failure_context(evaluation)`. Confusion-skip rules: >3 failure codes → skip (brief not landing), draft below 50% of `target_word_count` → skip (collapsed output is a different failure mode). `pipeline.max_structural_retries` stays pinned at 0; this flag is the only path to a non-zero drafter retry. Emits `corrective_rerun_fired`, `corrective_rerun_skipped`, `corrective_rerun_complete` events.
-- **Slice 11.1 narrow canon repair** — `runtime.canon_expert.apply_local_fixes: false` + `runtime.canon_expert.local_fixes_whitelist: []` (both default-safe). CanonExpert now emits an optional `local_fixes: [{category, pattern, replacement, reason}]` list for violations it can fix with a literal string substitution. The orchestrator's `_maybe_apply_canon_local_fixes` applies whitelisted fixes to `final_prose` via `str.replace` before the save-blocker check — no second polish pass, no additional model calls. Fixes outside the whitelist emit `canon_fix_rejected` (warn). Pattern-not-in-prose cases also emit `canon_fix_rejected`. Applied fixes emit `canon_fix_applied` (info) plus a canon debt row.
+- **Slice 11.1 narrow canon repair** — `runtime.canon_expert.apply_local_fixes: false` + `runtime.canon_expert.local_fixes_whitelist: []` (both default-safe). CanonExpert can emit an optional `local_fixes: [{category, pattern, replacement, reason}]` list for violations it can fix with a literal string substitution. `Orchestrator._maybe_apply_canon_local_fixes` applies whitelisted fixes to `final_prose` via `str.replace` — no second polish pass, no additional model calls *for the fix itself*. When a whitelisted fix actually mutates the prose, CanonExpert is re-invoked on the patched text before the save-blocker layer runs (emits `continuity_editor_recheck_complete` info). Fixes outside the whitelist emit `canon_fix_rejected` (warn, reason `category_not_whitelisted`). Pattern-not-in-prose cases also emit `canon_fix_rejected` (reason `pattern_not_in_prose`). Applied fixes emit `canon_fix_applied` (info) plus a `canon.local_fix_applied:<category>` debt row.
 
 **Shipping-book guards** at `tests/test_runtime_flags.py::test_shipping_books_keep_corrective_rerun_off` and `::test_shipping_books_keep_canon_apply_local_fixes_off` block an accidental `runtime_overrides.yaml` flipping either flag for Ruusan or Betrayal before their parity tests land. Same pattern as Slice 1–5.
 
-**Deferred:** cheaper-drafter bench. Only after Phase 2 rerun rate is measured. First candidate: `gpt54_mini`. Promote only if word-count discipline survives the climax bench AND rerun rate stays under ~20%.
+**Deferred:** cheaper-drafter bench. Previous bench runs and assumptions are invalidated — none of the pre-2026-04-21 bench artifacts under `output/**/runs/bench-*` reflect the current pipeline shape (LineWriter off, GateCritic on Grok 4.1 Fast, new micro_repair stage). Rerun the climax bench before making a drafter-swap decision. First candidate when ready: `gpt54_mini`. Promote only if word-count discipline holds AND rerun rate stays under ~20%.
+
+## Safe canon/presence repair path — `micro_repair` (feature-flagged, default off)
+
+Commit `6227b21` added `src/agents/micro_repair.py` and a matching orchestrator stage so the save-blocker layer has a legible, safe "try to patch before we quarantine" option. It is **not** a rewrite loop — it only applies *exact literal substring replacements* the model copies from the already-drafted prose.
+
+- **Agent.** `MicroRepair` (Haiku @ t=0.1, max_tokens=1500) returns `{"summary": ..., "repairs": [{"issue_type", "pattern", "replacement", "reason"}]}`. The prompt at `prompts/agent_system_prompts/micro_repair.md` explicitly forbids new named characters, new lore, new beats, regex, placeholders, or paragraph rewrites. If no safe patch exists, the agent returns `{"repairs": []}`.
+- **Orchestrator stage.** `Orchestrator._maybe_micro_repair` runs between CanonExpert (post-`_maybe_apply_canon_local_fixes`) and the final `check_save_blockers` call, at `src/orchestrator.py:1021`. It receives precomputed `presence_violations` from `collect_presence_violations` so it never duplicates the PresenceChecker round-trip. When repairs apply, CanonExpert is re-invoked on the patched prose before save-blockers evaluate.
+- **Currently supported issue types:** `presence_violation` only. Other `issue_type` values are rejected (`unsupported_issue_type`). Canon and POV issues still flow through their existing paths.
+- **Deterministic safety caps enforced in `_apply_micro_repairs` regardless of what the model returns:**
+  - `runtime.micro_repair.max_repairs` (default 2) — cap on applied patches per scene.
+  - `runtime.micro_repair.max_total_changed_chars` (default 500) — total byte budget across patches.
+  - `runtime.micro_repair.max_changed_ratio` (default 0.12) — ratio ceiling vs. original prose length.
+  - **Unique-occurrence requirement.** If `pattern` appears zero times → `pattern_not_in_prose`. If it appears more than once → `ambiguous_pattern_occurrences` (no fuzzy substitution; we refuse to guess which span to patch).
+  - **Forbidden-name guard.** Any absent-character name from the original violation list that also appears in `replacement` (case-folded) → `forbidden_name_in_replacement` (prevents the model from "fixing" `Luke stepped from the doorway` → `Luke Skywalker stepped from the doorway`).
+  - Other rejections: `empty_pattern`, `non_string_replacement`, `no_op_replacement`, `duplicate_pattern`, `changed_char_budget_exceeded`, `changed_ratio_exceeded`.
+- **Ledger events.** `micro_repair_fired` (info, start), `micro_repair_applied` (info, per applied patch), `micro_repair_rejected` (warn, per rejected patch with `reason`), `micro_repair_complete` (info, summary including `canon_blocker_count` after recheck), `micro_repair_error` (warn, model or canon-recheck failure).
+- **Shipping-book guard** at `tests/test_runtime_flags.py::test_shipping_books_keep_micro_repair_off` blocks an accidental `runtime_overrides.yaml` flipping `runtime.micro_repair.enabled` on Ruusan or Betrayal. `test_shipping_defaults_all_safe` also asserts the default caps to prevent silent widening.
+- **Config wiring.** `agent_routing.micro_repair` is present in the shipping `config/settings.yaml` (Haiku, t=0.1, 1500 max_tokens). `src/main.py:922` instantiates `MicroRepair(router)` only when the routing entry exists — bench configs can drop it to keep runs even cheaper. The runtime flag decides whether `_maybe_micro_repair` ever attempts a patch; a missing routing entry is also a no-op.
 
 ## Slice 1: state firewall + Phase 0 gate (feature-flagged, default off)
 
@@ -150,9 +172,19 @@ Always route I/O through `src/project_paths.ProjectPaths`. Do not hand-construct
 | Pipeline orchestration | `src/orchestrator.py` |
 | CLI entry point | `src/main.py` |
 | Model routing (YAML → backend) | `src/model_router.py` |
+| Runtime-flag resolver | `src/runtime_flags.py` |
 | Path resolver | `src/project_paths.py` |
-| Agents | `src/agents/` |
+| Agents (incl. `micro_repair.py`, `presence_checker.py`) | `src/agents/` (see `src/agents/README.md` for the live/optional/utility split) |
 | Save-blocker layer | `src/pipeline/save_blockers.py` |
+| State firewall (Slice 1 isolate-and-continue) | `src/pipeline/state_firewall.py` |
+| Successor classifier (Slice 1) | `src/pipeline/successor_classifier.py` |
+| Chapter packet (Slice 2) | `src/pipeline/chapter_packet.py` |
+| Revision-debt store + producers (Slice 2) | `src/pipeline/revision_debt.py`, `src/pipeline/revision_debt_producers.py` |
+| Phase 0 prompt capture (Slice 1 audit harness) | `src/pipeline/phase0_capture.py` |
+| Chapter memos | `src/pipeline/chapter_memos.py` |
+| Promise ledger (Slice 3) | `src/memory/promise_ledger.py` |
+| Continuity log (Slice 4) | `src/memory/continuity_log.py` |
+| Sociogram (Slice 5) | `src/memory/sociogram.py` |
 | Word-count telemetry | `src/pipeline/word_count_telemetry.py` |
 | Ledger (typed events) | `src/run_ledger.py` |
 | Context assembly | `src/memory/context_assembler.py` |
@@ -163,6 +195,8 @@ Always route I/O through `src/project_paths.ProjectPaths`. Do not hand-construct
 | Web API + frontend | `src/ui/` |
 | Workflow-kit surfaces (skills) | `.claude/skills/<surface>/` + `workflows/<surface>/` |
 | Bundle compiler (workflows → concept_seed) | `scripts/compile_bundle.py` |
+| Manuscript patch workflow (Slice 6) | `scripts/patch_workflow.py`, `scripts/manuscript_export.py` |
+| Migration wrappers | `scripts/migrate_all.py`, plus per-store `migrate_*.py` scripts |
 | Canonical shared helpers | `workflows/_shared/seed_transforms.py`, `workflows/_shared/scene_card_translator.py`, `workflows/voice_discovery/api.py` |
 
 ## Workflow kit is the only supported authoring path
@@ -183,7 +217,15 @@ The bare `python` alias routes to the Microsoft Store installer stub on this mac
 
 ## Benchmarking
 
-`scripts/bench_prose_models.py` runs a single scene through multiple drafter/line-editor configurations and writes to `output/<franchise>/<book>/runs/bench-<date>-<scene>/`. Cost per scene is typically ~$0.20 (full pipeline) or ~$0.12 (`--skip-gate-loop` / bench-cheap). Summary markdown goes under `docs/editorial/` or alongside the bench run. Before shipping a drafter/line-editor config change, re-run the climax scene at minimum — word-count discipline is the load-bearing metric, and GPT 5.4 overshoots at every temperature while Claude is the consistency floor.
+`scripts/bench_prose_models.py` runs a single scene through multiple drafter/line-editor configurations and writes to `output/<franchise>/<book>/runs/bench-<date>-<scene>/`. Summary markdown goes under `docs/editorial/` or alongside the bench run.
+
+**All pre-2026-04-21 bench numbers are invalidated.** The pipeline shape changed enough between them and HEAD that cost, word-count, and quality figures from those runs no longer predict current behavior:
+- LineWriter was default-on, now default-off (routing commented out).
+- GateCritic was on Haiku, now on Grok 4.1 Fast.
+- New `micro_repair` stage sits between CanonExpert and the save-blocker layer (flag-gated but wired into the scene path).
+- `corrective_rerun` + `canon_expert.apply_local_fixes` are newly landed escape hatches (flag-gated).
+
+Before making any drafter/line-editor/judge config decision, re-run the climax scene **under the current config** to re-establish baselines. Word-count discipline remains the load-bearing metric. Cost and rerun-rate numbers should be collected fresh — do not compare against archived bench tables in `docs/editorial/`.
 
 ## Conventions to follow
 
