@@ -16,7 +16,7 @@ docs/
 │   ├── system-overview.md    # Components, data flow, directory layout
 │   ├── agent-pipeline.md     # Multi-agent generation loop
 │   ├── memory-and-state.md   # SQLite state, ChromaDB, knowledge layers
-│   └── quality-and-revision.md # Metrics, revision bands, milestone gates
+│   └── quality-and-revision.md # Metrics, QualityPolish, and milestone gates (historical filename)
 ├── reference/
 │   ├── api-reference.md      # FastAPI endpoints and WebSocket events
 │   ├── configuration.md      # YAML configuration files

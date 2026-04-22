@@ -1,29 +1,17 @@
-"""Minimal model-obedience test for the diagnostic-voice bug.
+"""Opt-in model-obedience diagnostic.
 
-Isolates prompt-structure vs model-obedience: feed Sonnet 4.6 @ t=0.8 a small
-scene prompt where the diagnostic-voice anti-pattern is reframed as a HARD
-POSITIVE DIRECTIVE at the top of the prompt (vs. buried in a long rule list).
-If output stays clean, the fix is structural (re-rank / reframe). If it still
-drifts, the model-obedience floor is the limit.
+This utility intentionally lives outside ``tests/`` and is not part of the
+normal pytest suite. Run it directly when you want a live OpenRouter check.
 
 Budget: ~$0.02-0.05 for one short Sonnet 4.6 completion.
 """
-import os
-import sys
-import json
-from pathlib import Path
 
-# Load .env
-env_path = Path(".env")
-if env_path.exists():
-    for line in env_path.read_text().splitlines():
-        if "=" in line and not line.startswith("#"):
-            k, v = line.split("=", 1)
-            os.environ.setdefault(k.strip(), v.strip())
+import asyncio
+import os
+from pathlib import Path
 
 import httpx
 
-API_KEY = os.environ["OPENROUTER_API_KEY"]
 
 SYSTEM = """You are drafting a short prose passage (~250 words) for a Legends-era Star Wars novel. The POV character is Ben Skywalker, 22, tired Jedi Knight.
 
@@ -35,7 +23,7 @@ DO NOT:
   - describe the Force using any structural, architectural, mechanical, musical-beat, or analytical framing
   - use words like "structural", "layer", "architecture", "measurable", "the Force's answer", "lagged behind", "second beat", "a frequency", "pattern", "confirmation"
   - write a sentence Ben could read out loud in a mission debrief
-  - explain what the disturbance IS — only render what it feels like on his body
+  - explain what the disturbance IS - only render what it feels like on his body
 
 If any sentence in your draft could be lifted into a formal report, that sentence is wrong.
 
@@ -43,10 +31,21 @@ Write the opening 250 words of the scene. Ben alone in the Temple training salle
 
 USER = "Draft the 250-word opening."
 
-async def call():
+
+def _load_env() -> None:
+    env_path = Path(".env")
+    if not env_path.exists():
+        return
+    for line in env_path.read_text().splitlines():
+        if "=" in line and not line.startswith("#"):
+            k, v = line.split("=", 1)
+            os.environ.setdefault(k.strip(), v.strip())
+
+
+async def call(api_key: str) -> tuple[str, dict]:
     async with httpx.AsyncClient(
         base_url="https://openrouter.ai/api/v1",
-        headers={"Authorization": f"Bearer {API_KEY}"},
+        headers={"Authorization": f"Bearer {api_key}"},
         timeout=120.0,
     ) as client:
         resp = await client.post(
@@ -67,14 +66,25 @@ async def call():
         text = data["choices"][0]["message"]["content"]
         return text, usage
 
-import asyncio
-text, usage = asyncio.run(call())
 
-print("=" * 70)
-print("MODEL OBEDIENCE TEST — reframed directive at top")
-print("=" * 70)
-print(text)
-print()
-print("Usage:", usage)
+def main() -> int:
+    _load_env()
+    api_key = os.environ.get("OPENROUTER_API_KEY")
+    if not api_key:
+        raise SystemExit("OPENROUTER_API_KEY is not set.")
 
-Path("tmp_diagnostic/obedience_reframed.md").write_text(text, encoding="utf-8")
+    text, usage = asyncio.run(call(api_key))
+
+    print("=" * 70)
+    print("MODEL OBEDIENCE TEST - reframed directive at top")
+    print("=" * 70)
+    print(text)
+    print()
+    print("Usage:", usage)
+
+    Path("tmp_diagnostic/obedience_reframed.md").write_text(text, encoding="utf-8")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

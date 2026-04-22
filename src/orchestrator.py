@@ -47,6 +47,7 @@ if TYPE_CHECKING:
     from src.agents.chapter_gate_critic import ChapterGateCritic
     from src.agents.character_specialist import CharacterSpecialist
     from src.agents.line_writer import LineWriter
+    from src.agents.micro_repair import MicroRepair
     from src.agents.presence_checker import PresenceChecker
     from src.agents.summarizer import Summarizer
     from src.memory.chapter_memory import ChapterMemory
@@ -98,6 +99,7 @@ class Orchestrator:
         canon_expert: Optional["CanonExpert"] = None,
         presence_checker: Optional["PresenceChecker"] = None,
         line_writer: Optional["LineWriter"] = None,
+        micro_repair: Optional["MicroRepair"] = None,
         # Phase 3 optional dependencies:
         metrics_dashboard: Optional["MetricsDashboard"] = None,
         character_specialist: Optional["CharacterSpecialist"] = None,
@@ -178,6 +180,7 @@ class Orchestrator:
         self.canon_expert = canon_expert
         self.presence_checker = presence_checker
         self.line_writer = line_writer
+        self.micro_repair = micro_repair
 
         # Phase 3 optional components
         self.metrics_dashboard = metrics_dashboard
@@ -292,7 +295,8 @@ class Orchestrator:
             for agent in (
                 self.plot_architect, self.prose_stylist, self.gate_critic,
                 self.quality_polish, self.final_gate,
-                self.line_writer, self.canon_expert, self.presence_checker,
+                self.line_writer, self.micro_repair,
+                self.canon_expert, self.presence_checker,
                 self.chapter_gate_critic, self.character_specialist,
                 self.summarizer,
             ):
@@ -928,12 +932,58 @@ class Orchestrator:
         # ProseStylist rerun. Noop when the flag is off or the report has no
         # local_fixes.
         if continuity_report:
-            final_prose = self._maybe_apply_canon_local_fixes(
+            canon_fixed_prose = self._maybe_apply_canon_local_fixes(
                 prose=final_prose,
                 continuity_report=continuity_report,
                 chapter_number=chapter_num,
                 scene_number=scene_num,
             )
+            if canon_fixed_prose != final_prose and self.canon_expert:
+                try:
+                    continuity_report = await self.canon_expert.run(
+                        {
+                            "prose": canon_fixed_prose,
+                            "scene_card": scene_card,
+                            "concept_seed": getattr(
+                                self.assembler, "concept_seed", {}
+                            ),
+                        }
+                    )
+                    verdict_str = continuity_report.get("verdict", "pass")
+                    n_violations = len(
+                        continuity_report.get("violations", []) or []
+                    )
+                    self.ledger.emit_info(
+                        "continuity_editor_recheck_complete",
+                        chapter_number=chapter_num,
+                        scene_number=scene_num,
+                        payload={
+                            "verdict": verdict_str,
+                            "violation_count": n_violations,
+                            "stage": "canon_local_fixes",
+                        },
+                    )
+                    print(
+                        f"    Continuity recheck: {verdict_str} "
+                        f"({n_violations} finding(s))"
+                    )
+                    final_prose = canon_fixed_prose
+                except Exception as e:  # noqa: BLE001
+                    self.ledger.emit_warn(
+                        "continuity_editor_recheck_error",
+                        chapter_number=chapter_num,
+                        scene_number=scene_num,
+                        payload={
+                            "stage": "canon_local_fixes",
+                            "error": f"{type(e).__name__}: {e}",
+                        },
+                    )
+                    print(
+                        "    Continuity recheck: error "
+                        f"({e.__class__.__name__}) — reverting local fixes"
+                    )
+            else:
+                final_prose = canon_fixed_prose
 
         # Relay v3 (Stage 1f): Save-blocker check. Three categories —
         #   CHARACTER_PRESENCE_BLOCKER (PresenceChecker agent)
@@ -944,6 +994,7 @@ class Orchestrator:
         from src.pipeline.save_blockers import (
             SaveBlockedError,
             check_save_blockers,
+            collect_presence_violations,
             detect_pov_advisory,
             write_quarantine,
         )
@@ -962,11 +1013,28 @@ class Orchestrator:
             )
             print(f"  [POV] Advisory: {len(pov_hits)} suspect span(s) — no block in v1")
 
+        presence_violations = await collect_presence_violations(
+            prose=final_prose,
+            scene_card=scene_card,
+            presence_checker=self.presence_checker,
+        )
+        final_prose, continuity_report, micro_repair_changed = (
+            await self._maybe_micro_repair(
+                prose=final_prose,
+                scene_card=scene_card,
+                continuity_report=continuity_report,
+                presence_violations=presence_violations,
+                chapter_number=chapter_num,
+                scene_number=scene_num,
+            )
+        )
+
         blockers = await check_save_blockers(
             prose=final_prose,
             scene_card=scene_card,
             continuity_report=continuity_report,
             presence_checker=self.presence_checker,
+            presence_violations=None if micro_repair_changed else presence_violations,
         )
 
         if blockers:
@@ -2143,6 +2211,264 @@ class Orchestrator:
             )
 
         return updated_prose
+
+    @staticmethod
+    def _count_canon_blockers(continuity_report: Optional[dict]) -> int:
+        if not continuity_report or continuity_report.get("verdict") != "fail":
+            return 0
+        count = 0
+        for violation in continuity_report.get("violations", []) or []:
+            if violation.get("category") == "post_divergence_drift":
+                continue
+            if violation.get("severity") in ("critical", "moderate"):
+                count += 1
+        return count
+
+    def _apply_micro_repairs(
+        self,
+        *,
+        prose: str,
+        repairs: list[dict],
+        forbidden_names: set[str],
+        chapter_number: int,
+        scene_number: int,
+    ) -> tuple[str, int, int]:
+        """Apply exact-span repairs under deterministic safety caps.
+
+        Returns ``(updated_prose, applied_count, changed_chars)``. Individual
+        rejected repairs emit ``micro_repair_rejected`` ledger rows.
+        """
+        cfg = (self.runtime_flags.get("runtime") or {}).get("micro_repair") or {}
+        max_repairs = int(cfg.get("max_repairs", 2) or 2)
+        max_total_changed_chars = int(cfg.get("max_total_changed_chars", 500) or 500)
+        max_changed_ratio = float(cfg.get("max_changed_ratio", 0.12) or 0.12)
+
+        updated_prose = prose
+        original_chars = max(1, len(prose))
+        total_changed_chars = 0
+        applied_count = 0
+        seen_patterns: set[str] = set()
+
+        def _reject(repair: dict, reason: str) -> None:
+            self.ledger.emit_warn(
+                "micro_repair_rejected",
+                chapter_number=chapter_number,
+                scene_number=scene_number,
+                agent_role="micro_repair",
+                payload={
+                    "reason": reason,
+                    "issue_type": repair.get("issue_type", ""),
+                    "pattern_preview": str(repair.get("pattern", ""))[:120],
+                    "replacement_preview": str(repair.get("replacement", ""))[:120],
+                },
+            )
+
+        for index, repair in enumerate(repairs or []):
+            if index >= max_repairs:
+                _reject(repair, "max_repairs_exceeded")
+                continue
+
+            issue_type = str(repair.get("issue_type", "")).strip()
+            pattern = repair.get("pattern", "")
+            replacement = repair.get("replacement", "")
+            reason = str(repair.get("reason", "")).strip()
+
+            if issue_type != "presence_violation":
+                _reject(repair, "unsupported_issue_type")
+                continue
+            if not isinstance(pattern, str) or not pattern:
+                _reject(repair, "empty_pattern")
+                continue
+            if not isinstance(replacement, str):
+                _reject(repair, "non_string_replacement")
+                continue
+            if pattern == replacement:
+                _reject(repair, "no_op_replacement")
+                continue
+            if pattern in seen_patterns:
+                _reject(repair, "duplicate_pattern")
+                continue
+
+            occurrence_count = updated_prose.count(pattern)
+            if occurrence_count == 0:
+                _reject(repair, "pattern_not_in_prose")
+                continue
+            if occurrence_count != 1:
+                _reject(repair, "ambiguous_pattern_occurrences")
+                continue
+
+            replacement_norm = replacement.casefold()
+            if any(name.casefold() in replacement_norm for name in forbidden_names if name):
+                _reject(repair, "forbidden_name_in_replacement")
+                continue
+
+            changed_chars = max(len(pattern), len(replacement))
+            next_total = total_changed_chars + changed_chars
+            if next_total > max_total_changed_chars:
+                _reject(repair, "changed_char_budget_exceeded")
+                continue
+            if max_changed_ratio > 0 and (next_total / original_chars) > max_changed_ratio:
+                _reject(repair, "changed_ratio_exceeded")
+                continue
+
+            updated_prose = updated_prose.replace(pattern, replacement, 1)
+            total_changed_chars = next_total
+            applied_count += 1
+            seen_patterns.add(pattern)
+            self.ledger.emit_info(
+                "micro_repair_applied",
+                chapter_number=chapter_number,
+                scene_number=scene_number,
+                agent_role="micro_repair",
+                payload={
+                    "issue_type": issue_type,
+                    "pattern_preview": pattern[:120],
+                    "replacement_preview": replacement[:120],
+                    "reason": reason[:200],
+                },
+            )
+
+        return updated_prose, applied_count, total_changed_chars
+
+    async def _maybe_micro_repair(
+        self,
+        *,
+        prose: str,
+        scene_card: dict,
+        continuity_report: Optional[dict],
+        presence_violations: list[dict],
+        chapter_number: int,
+        scene_number: int,
+    ) -> tuple[str, Optional[dict], bool]:
+        """Run the bounded post-check repair stage when safe to do so.
+
+        Currently this stage only acts on presence violations, using the
+        dedicated ``micro_repair`` agent to propose exact-span substitutions.
+        If the prose changes, CanonExpert is rerun on the patched text before
+        the save-blocker layer executes.
+        """
+        cfg = (self.runtime_flags.get("runtime") or {}).get("micro_repair") or {}
+        if not cfg.get("enabled", False):
+            return prose, continuity_report, False
+        if self.micro_repair is None or not presence_violations:
+            return prose, continuity_report, False
+
+        repair_requests = [
+            {
+                "issue_type": "presence_violation",
+                "character": v.get("character", ""),
+                "evidence": v.get("evidence", ""),
+            }
+            for v in presence_violations
+        ]
+        forbidden_names = {
+            str(v.get("character", "")).strip()
+            for v in presence_violations
+            if str(v.get("character", "")).strip()
+        }
+
+        self.ledger.emit_info(
+            "micro_repair_fired",
+            chapter_number=chapter_number,
+            scene_number=scene_number,
+            agent_role="micro_repair",
+            payload={
+                "presence_violation_count": len(presence_violations),
+                "forbidden_names": sorted(forbidden_names),
+            },
+        )
+        print("  [Repair] Micro repair attempting exact-span patch...")
+
+        try:
+            result = await self.micro_repair.run(
+                {
+                    "prose": prose,
+                    "scene_card": scene_card,
+                    "repair_requests": repair_requests,
+                    "franchise_profile_text": self.assembler.get_franchise_profile_text(),
+                }
+            )
+        except Exception as exc:  # noqa: BLE001
+            self.ledger.emit_warn(
+                "micro_repair_error",
+                chapter_number=chapter_number,
+                scene_number=scene_number,
+                agent_role="micro_repair",
+                payload={"stage": "agent", "error": f"{type(exc).__name__}: {exc}"},
+            )
+            print(f"    Micro repair: error ({exc.__class__.__name__}) — skipping")
+            return prose, continuity_report, False
+
+        repairs = result.get("repairs") or []
+        updated_prose, applied_count, changed_chars = self._apply_micro_repairs(
+            prose=prose,
+            repairs=repairs,
+            forbidden_names=forbidden_names,
+            chapter_number=chapter_number,
+            scene_number=scene_number,
+        )
+
+        if applied_count == 0 or updated_prose == prose:
+            self.ledger.emit_info(
+                "micro_repair_complete",
+                chapter_number=chapter_number,
+                scene_number=scene_number,
+                agent_role="micro_repair",
+                payload={
+                    "requested_repair_count": len(repairs),
+                    "applied_repair_count": 0,
+                    "changed_chars": 0,
+                    "summary": result.get("summary", "")[:200],
+                    "canon_blocker_count": self._count_canon_blockers(continuity_report),
+                    "text_changed": False,
+                },
+            )
+            print("    Micro repair: no safe exact-span patch applied")
+            return prose, continuity_report, False
+
+        updated_continuity = continuity_report
+        if self.canon_expert:
+            try:
+                updated_continuity = await self.canon_expert.run(
+                    {
+                        "prose": updated_prose,
+                        "scene_card": scene_card,
+                        "concept_seed": getattr(self.assembler, "concept_seed", {}),
+                    }
+                )
+            except Exception as exc:  # noqa: BLE001
+                self.ledger.emit_warn(
+                    "micro_repair_error",
+                    chapter_number=chapter_number,
+                    scene_number=scene_number,
+                    agent_role="micro_repair",
+                    payload={
+                        "stage": "canon_recheck",
+                        "error": f"{type(exc).__name__}: {exc}",
+                    },
+                )
+                updated_continuity = continuity_report
+
+        canon_blocker_count = self._count_canon_blockers(updated_continuity)
+        self.ledger.emit_info(
+            "micro_repair_complete",
+            chapter_number=chapter_number,
+            scene_number=scene_number,
+            agent_role="micro_repair",
+            payload={
+                "requested_repair_count": len(repairs),
+                "applied_repair_count": applied_count,
+                "changed_chars": changed_chars,
+                "summary": result.get("summary", "")[:200],
+                "canon_blocker_count": canon_blocker_count,
+                "text_changed": True,
+            },
+        )
+        print(
+            f"    Micro repair: applied {applied_count} patch(es) "
+            f"({changed_chars} chars changed)"
+        )
+        return updated_prose, updated_continuity, True
 
     async def _maybe_corrective_rerun(
         self,

@@ -33,7 +33,6 @@ python -m src.main <concept_seed> <scene_cards_dir> [options]
 |------|-------------|
 | `--raw-draft` | Baseline mode: skip QualityPolish and FinalGate. Saves the Scene-Gate-passed draft directly. Use this to measure the writer+gate loop in isolation. |
 | `--skip-gate-loop` | Skip the GateCritic LLM call entirely and synthesize a `skipped` verdict. The forward-only relay has no rewrite loop, so this flag only bypasses the gate-critic call; QualityPolish and FinalGate still run (unless combined with `--raw-draft`). Useful for bench configs and cheap runs where gate telemetry is not needed. Flag name is historical from the retry-era pipeline. |
-| `--no-revision` | **Deprecated**: the 3-band revision pipeline has been removed. Flag is a no-op. Use `--raw-draft` for pre-polish baseline mode. |
 | `--strict-lore` | Phase 7: promote high-severity `LoreConflictDetector` flags to blocking status. Default is advisory — flags land in the run ledger under `lore_conflicts` and the scene is still saved. |
 | `--no-milestones` | Skip milestone gate pausing (Phase 3/4 only) |
 
@@ -59,6 +58,7 @@ python -m src.main <concept_seed> <scene_cards_dir> [options]
 |-----------------|-------------|
 | `--universe-id` | `--franchise` |
 | `--project-id` | `--book` |
+| `--no-revision` | Removed rewrite-era flag. Still accepted as a hidden no-op for compatibility; use `--raw-draft` for pre-polish baseline mode. |
 
 **Backward compatibility:** The flat `data/projects/<slug>/` layout is still supported. When `--franchise` is not provided, the pipeline falls back to the project-scoped directory structure.
 

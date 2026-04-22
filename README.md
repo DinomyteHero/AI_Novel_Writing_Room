@@ -1,6 +1,6 @@
 # AI Writers' Room
 
-A multi-agent fiction generation system that produces novel-length (60-80K word) franchise fanfiction. The system uses a two-phase workflow: human-collaborative planning (with canon profile construction) followed by autonomous multi-agent drafting, canon validation, critique, revision, and export. Projects are organized by franchise and book, with per-run output isolation and optional series-level state sharing.
+A multi-agent fiction generation system that produces novel-length (60-80K word) franchise fanfiction. The system uses a two-phase workflow: human-collaborative planning (with canon profile construction) followed by autonomous multi-agent drafting, validation, bounded polish, continuity checking, and export. Projects are organized by franchise and book, with per-run output isolation and optional series-level state sharing.
 
 ## Quick Start
 

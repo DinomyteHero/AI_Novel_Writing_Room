@@ -86,7 +86,7 @@ ai-writers-room/
 │   ├── run_ledger.py              # Append-only SQLite event log
 │   ├── pipeline_session.py        # JSON-based session save/resume
 │   ├── project_paths.py           # Franchise/book/series/run path resolution
-│   ├── agents/                    # Agent implementations (base + 13 specialized, inc. LineWriter + PresenceChecker)
+│   ├── agents/                    # Scene-path agents plus auxiliary editorial/import utilities (see src/agents/README.md)
 │   ├── memory/                    # State management (SQLite, ChromaDB, context assembly)
 │   ├── worldbuilding/             # Cross-project universe & lore persistence (SQLite + ChromaDB)
 │   ├── rag/                       # Canon knowledge retrieval (vector DB, hybrid search)

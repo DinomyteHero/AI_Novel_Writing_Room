@@ -23,6 +23,7 @@ from src.pipeline.save_blockers import (
     Blocker,
     SaveBlockedError,
     check_save_blockers,
+    collect_presence_violations,
     detect_pov_advisory,
     write_quarantine,
 )
@@ -154,6 +155,23 @@ class TestCheckSaveBlockersPresence:
         )
         assert blockers == []
 
+    async def test_collect_presence_violations_uses_same_false_positive_filter(self):
+        card = {
+            "chapter_number": 1,
+            "scene_number": 1,
+            "pov_character": "Ben Skywalker",
+            "characters_present": ["Ben Skywalker", "Luke Skywalker"],
+        }
+        checker = _FakePresenceChecker(
+            violations=[{"character": "Luke", "evidence": "Luke frowned."}]
+        )
+        violations = await collect_presence_violations(
+            prose="Luke frowned.",
+            scene_card=card,
+            presence_checker=checker,
+        )
+        assert violations == []
+
     async def test_presence_violation_fires_when_not_in_list(self):
         """Regression guard: a truly absent character still blocks."""
         card = {
@@ -170,6 +188,26 @@ class TestCheckSaveBlockersPresence:
         )
         assert len(blockers) == 1
         assert "Luke Skywalker" in blockers[0].description
+
+    async def test_precomputed_presence_violations_skip_checker_call(
+        self, sample_scene_card
+    ):
+        class ShouldNotRun:
+            async def run(self, context):
+                raise AssertionError("presence_checker.run should not be called")
+
+        blockers = await check_save_blockers(
+            prose="...",
+            scene_card=sample_scene_card,
+            continuity_report=None,
+            presence_checker=ShouldNotRun(),
+            presence_violations=[
+                {"character": "Darth Vader", "evidence": '"You failed me."'}
+            ],
+        )
+        assert len(blockers) == 1
+        assert blockers[0].code == "CHARACTER_PRESENCE_BLOCKER"
+        assert "Darth Vader" in blockers[0].description
 
     async def test_presence_violation_missing_character_field_ignored(
         self, sample_scene_card
@@ -574,6 +612,122 @@ class TestOrchestratorSaveBlockerIntegration:
         event_types = [e["event_type"] for e in ledger.get_events()]
         assert "save_blocked" not in event_types
         assert "continuity_editor_complete" in event_types
+
+    async def test_canon_local_fix_recheck_can_clear_blocker_and_save(
+        self, mock_router, mock_assembler, ledger, temp_dir, sample_scene_card
+    ):
+        prose = "She pulled out her cell phone and checked the screen."
+        mock_router.complete = AsyncMock(return_value=prose)
+        mock_router.complete_structured = AsyncMock(return_value=_make_gate_pass_dict())
+
+        canon = MagicMock()
+        canon.run = AsyncMock(
+            side_effect=[
+                {
+                    "verdict": "fail",
+                    "violations": [
+                        {
+                            "category": "anachronism",
+                            "severity": "moderate",
+                            "text": "cell phone",
+                            "explanation": "wrong era",
+                        }
+                    ],
+                    "local_fixes": [
+                        {
+                            "category": "anachronism",
+                            "pattern": "cell phone",
+                            "replacement": "commlink",
+                            "reason": "terminology swap",
+                        }
+                    ],
+                },
+                {"verdict": "pass", "violations": []},
+            ]
+        )
+
+        orchestrator = Orchestrator(
+            router=mock_router,
+            context_assembler=mock_assembler,
+            ledger=ledger,
+            manuscripts_dir=str(Path(temp_dir) / "manuscripts"),
+            canon_expert=canon,
+            runtime_flags={
+                "runtime": {
+                    "canon_expert": {
+                        "apply_local_fixes": True,
+                        "local_fixes_whitelist": ["anachronism"],
+                    }
+                }
+            },
+        )
+
+        result = await orchestrator.run_chapter(sample_scene_card)
+
+        saved_text = Path(result["output_path"]).read_text(encoding="utf-8")
+        assert "cell phone" not in saved_text
+        assert "commlink" in saved_text
+        assert canon.run.await_count == 2
+        event_types = [e["event_type"] for e in ledger.get_events()]
+        assert "continuity_editor_recheck_complete" in event_types
+        assert "save_blocked" not in event_types
+
+    async def test_micro_repair_can_clear_presence_blocker_and_save(
+        self, mock_router, mock_assembler, ledger, temp_dir, sample_scene_card
+    ):
+        prose = "Luke stepped from the doorway. Ben watched him carefully."
+        mock_router.complete = AsyncMock(return_value=prose)
+        mock_router.complete_structured = AsyncMock(return_value=_make_gate_pass_dict())
+
+        class ConditionalPresenceChecker:
+            async def run(self, context):
+                current = context["prose"]
+                if "Luke stepped from the doorway." in current:
+                    return {
+                        "violations": [
+                            {
+                                "character": "Luke Skywalker",
+                                "evidence": "Luke stepped from the doorway.",
+                            }
+                        ]
+                    }
+                return {"violations": []}
+
+        micro_repair = MagicMock()
+        micro_repair.run = AsyncMock(
+            return_value={
+                "summary": "Removed absent-character mention.",
+                "repairs": [
+                    {
+                        "issue_type": "presence_violation",
+                        "pattern": "Luke stepped from the doorway.",
+                        "replacement": "A figure stepped from the doorway.",
+                        "reason": "Remove absent character reference.",
+                    }
+                ],
+            }
+        )
+
+        orchestrator = Orchestrator(
+            router=mock_router,
+            context_assembler=mock_assembler,
+            ledger=ledger,
+            manuscripts_dir=str(Path(temp_dir) / "manuscripts"),
+            presence_checker=ConditionalPresenceChecker(),
+            micro_repair=micro_repair,
+            runtime_flags={
+                "runtime": {"micro_repair": {"enabled": True, "max_changed_ratio": 1.0}}
+            },
+        )
+
+        result = await orchestrator.run_chapter(sample_scene_card)
+
+        saved_text = Path(result["output_path"]).read_text(encoding="utf-8")
+        assert "Luke stepped from the doorway." not in saved_text
+        assert "A figure stepped from the doorway." in saved_text
+        event_types = [e["event_type"] for e in ledger.get_events()]
+        assert "micro_repair_applied" in event_types
+        assert "save_blocked" not in event_types
 
     async def test_run_pipeline_aborts_after_save_blocker(
         self, mock_router, mock_assembler, ledger, temp_dir, sample_scene_card

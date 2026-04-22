@@ -507,7 +507,7 @@ async def main():
         type=int,
         default=1,
         choices=[1, 2, 3, 4, 5],
-        help="Pipeline phase: 1 = basic, 2 = memory/canon, 3 = quality/revision, 4 = full, 5 = chapter blueprints + chapter gate critic (default: 1)",
+        help="Pipeline phase: 1 = basic, 2 = memory/canon, 3 = quality/milestones, 4 = full, 5 = chapter blueprints + chapter gate critic (default: 1)",
     )
     parser.add_argument(
         "--no-blueprints",
@@ -525,8 +525,7 @@ async def main():
     parser.add_argument(
         "--no-revision",
         action="store_true",
-        help="Deprecated: the revision pipeline has been removed. Flag is a no-op. "
-             "Use --raw-draft for the baseline (no post-gate) mode.",
+        help=argparse.SUPPRESS,
     )
     parser.add_argument(
         "--raw-draft",
@@ -917,6 +916,15 @@ async def main():
         from src.agents.line_writer import LineWriter
         line_writer = LineWriter(router)
 
+    # Forward Relay v4 â€” bounded post-check repair stage. The runtime flag
+    # decides whether it ever runs; routing presence decides whether the
+    # agent can be instantiated for experiment configs.
+    micro_repair = None
+    if config.get("agent_routing", {}).get("micro_repair"):
+        from src.agents.micro_repair import MicroRepair
+
+        micro_repair = MicroRepair(router)
+
     if args.phase >= 2:
         print("Initializing Phase 2 components...")
         (
@@ -1185,6 +1193,7 @@ async def main():
         canon_expert=canon_expert,
         presence_checker=presence_checker,
         line_writer=line_writer,
+        micro_repair=micro_repair,
         metrics_dashboard=metrics_dashboard,
         character_specialist=character_specialist,
         milestone_gates=milestone_gates,

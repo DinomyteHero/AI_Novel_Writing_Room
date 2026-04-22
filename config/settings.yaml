@@ -84,6 +84,12 @@ models:
 # NOTE: The 'backend' field is ONLY honoured in 'hybrid' deployment_mode.
 # In 'local' or 'cloud' mode, ALL agents use the deployment_mode backend.
 agent_routing:
+  # ---------------------------------------------------------------------------
+  # LIVE SCENE PIPELINE
+  # These entries are the ones to inspect first when reasoning about normal
+  # per-scene cost and complexity.
+  # ---------------------------------------------------------------------------
+
   # PROSE — Sonnet with softened constraints (untested combo): Sonnet's obedience + room to breathe. Plot architect on Gemini Pro.
   prose_stylist:          { backend: cloud, model: claude, params: { temperature: 0.80, max_tokens: 8192 } }
 
@@ -108,10 +114,19 @@ agent_routing:
   manuscript_reviewer:    { backend: cloud, model: kimi, params: { temperature: 0.3 } }
   # Relay Stage 1g — binary check for characters who speak/act while absent from characters_present.
   presence_checker:       { backend: cloud, model: haiku, params: { temperature: 0.1, max_tokens: 1000 } }
+  # Bounded post-check patch generator. Returns exact literal substitutions
+  # only; the orchestrator enforces repair-count + diff-budget caps and
+  # revalidates after patching before save.
+  micro_repair:           { backend: cloud, model: haiku, params: { temperature: 0.1, max_tokens: 1500 } }
   # Architecture upgrade Slice 4 — narrow post-save continuity event extraction
   # from saved prose. Haiku at t=0.0 for determinism and cost. max_tokens=2048
   # is well more than enough for the 5-type narrow schema.
   continuity_extractor:   { backend: cloud, model: haiku, params: { temperature: 0.0, max_tokens: 2048 } }
+
+  # ---------------------------------------------------------------------------
+  # PLANNING / COMPILE-TIME UTILITIES
+  # Not part of the live per-scene drafting hot path.
+  # ---------------------------------------------------------------------------
 
   # PLANNING — Gemini Pro for long-context one-off authoring; Haiku 4.5 for
   # the per-scene plot_architect (structured JSON output at ~1/6 the cost).
@@ -128,6 +143,11 @@ agent_routing:
 
   # EDITORIAL — plan-time qualitative review (Hat 1: Brooks/Weiland structural; Hat 2: genre-reader). One call per compile; advisory output.
   editorial_consultant:   { backend: cloud, model: claude, params: { temperature: 0.4, max_tokens: 16384 } }
+
+  # ---------------------------------------------------------------------------
+  # AUXILIARY / BENCH / NON-SCENE UTILITIES
+  # Real code, but not part of the normal scene save path.
+  # ---------------------------------------------------------------------------
 
   # STRUCTURAL REVISION — Mistral Small 4 for voice check, DeepSeek for stress test
   voice_checker:          { backend: cloud, model: mistral_small4, params: { temperature: 0.3 } }
@@ -228,3 +248,10 @@ runtime:
     # Skip the rerun if the draft came in below this ratio of target word
     # count (collapsed output is a different failure mode; rerun won't help).
     min_word_count_ratio: 0.5
+  # Exact-span post-check repair stage. Safe-off by default. Used for narrow
+  # issues that can be fixed with literal substitutions and then revalidated.
+  micro_repair:
+    enabled: false
+    max_repairs: 2
+    max_total_changed_chars: 500
+    max_changed_ratio: 0.12

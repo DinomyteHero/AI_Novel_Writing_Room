@@ -40,6 +40,7 @@ Each agent:
 | FinalGate | `src/agents/final_gate.py` | `final_gate` | Contract check on polished text. Advisory only — emits `final_gate_rejection` with `advisory_only=True`; polished prose is still saved unless the save-blocker layer fires. |
 | CanonExpert | `src/agents/canon_expert.py` | `canon_expert` | Continuity editor. Runs **after FinalGate** as the last reader on the polished text; its verdict feeds the `CANON_BLOCKER` save-blocker. Franchise-agnostic, template-driven: reads `canon_profile` from the concept seed. |
 | PresenceChecker | `src/agents/presence_checker.py` | `presence_checker` | Save-blocker agent. Detects named characters who speak or act in the prose despite being absent from the scene card's `characters_present` list; fires `CHARACTER_PRESENCE_BLOCKER`. |
+| MicroRepair | `src/agents/micro_repair.py` | `micro_repair` | Optional bounded post-check repair agent. Converts presence findings into exact literal substitutions only; never rewrites paragraphs, adds beats, or introduces new names. Disabled by default. |
 | ChapterGateCritic | `src/agents/chapter_gate_critic.py` | `chapter_gate_critic` | Whole-chapter evaluation against the blueprint + composition heuristics |
 | CharacterSpecialist | `src/agents/character_specialist.py` | `character_specialist` | Out-of-character detection (supplementary) |
 | Summarizer | `src/agents/summarizer.py` | `summarizer` | Chapter compression to summary + state diff |
@@ -104,6 +105,8 @@ Under the old pipeline the Final Gate was the save-path's unit-of-truth. Post-St
 
 CanonExpert runs **after** FinalGate, as the last reader on the polished prose. The canon expert is a franchise-agnostic, template-driven agent: it reads the `canon_profile` section from the concept seed (franchise name, continuity rules, cross-continuity violations, anachronistic terms) and uses those plus RAG retrieval to drive validation. There are zero franchise-specific strings hardcoded in the agent. Its verdict feeds the `CANON_BLOCKER` save-blocker in step 10: `verdict == "fail"` with any finding at `critical` or `moderate` severity fires the blocker; lower severities are advisory only.
 
+When `runtime.canon_expert.apply_local_fixes=true`, whitelisted `local_fixes` can be applied as narrow literal substitutions before the save-blocker layer. If any such fix changes the prose, CanonExpert is rerun on the patched text so blocker decisions are based on the repaired artifact rather than the stale pre-fix report.
+
 ### 10. Save-Blocker Layer + Quarantine
 
 The only hard stopping point in the relay. Three blocker categories run after the continuity editor (see [`src/pipeline/save_blockers.py`](../../src/pipeline/save_blockers.py)):
@@ -111,6 +114,8 @@ The only hard stopping point in the relay. Three blocker categories run after th
 1. **`CHARACTER_PRESENCE_BLOCKER`** — dedicated PresenceChecker agent detects named characters who speak or act in the prose despite being absent from the scene card's `characters_present` list.
 2. **`CANON_BLOCKER`** — CanonExpert (continuity editor) returned `verdict == "fail"` with at least one finding at `critical` or `moderate` severity.
 3. **POV advisory** — regex heuristic flags non-POV interiority verbs. Advisory only in v1; will be promoted to a blocker after corpus validation.
+
+When `runtime.micro_repair.enabled=true`, the orchestrator precomputes presence violations before blocker evaluation and gives them to MicroRepair. MicroRepair may propose only exact literal substitutions. Deterministic guardrails enforce: one literal match only, bounded diff size, bounded changed-text ratio, and no replacement containing the absent character's name. If a safe patch lands, PresenceChecker reruns on the patched prose before save; otherwise the original blocker path proceeds unchanged.
 
 A non-empty blocker list causes the orchestrator to write the offending scene's prose + blockers.json + brief.json to `<project>/quarantine/chNN_scMM/` and raise `SaveBlockedError`, aborting the entire run. No partial chapters ship: quarantine-on-first-blocker policy.
 
@@ -151,6 +156,8 @@ Every step emits a typed event to the RunLedger. Events carry a `level` field (`
 - `compression_guard_fired` (advisory; polish is still saved)
 - `save_blocked` (run aborted; scene quarantined)
 - `continuity_editor_complete` (CanonExpert verdict used by the CANON_BLOCKER)
+- `continuity_editor_recheck_complete` (CanonExpert rerun after applied local fixes)
+- `micro_repair_fired`, `micro_repair_applied`, `micro_repair_rejected`, `micro_repair_complete`
 - `chapter_word_count_telemetry` (chapter-close advisory at ±15% / ±15-30% / >30% thresholds)
 - `state_diff_proposed`, `state_diff_committed`
 - `contradiction_scan`, `summarizer_complete`

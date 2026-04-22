@@ -46,6 +46,7 @@ def _make_orchestrator(
     temp_dir,
     *,
     runtime_flags: dict | None = None,
+    **extra_kwargs,
 ) -> Orchestrator:
     return Orchestrator(
         router=mock_router,
@@ -53,6 +54,7 @@ def _make_orchestrator(
         ledger=ledger,
         manuscripts_dir=str(Path(temp_dir) / "manuscripts"),
         runtime_flags=runtime_flags or {},
+        **extra_kwargs,
     )
 
 
@@ -342,3 +344,171 @@ class TestCanonLocalFixes:
         rejected = [e for e in ledger.get_events() if e["event_type"] == "canon_fix_rejected"]
         assert len(rejected) == 1
         assert rejected[0]["payload"]["reason"] == "pattern_not_in_prose"
+
+
+class TestMicroRepair:
+    async def test_applies_valid_presence_patch_and_reruns_canon(
+        self, mock_router, mock_assembler, ledger, temp_dir, sample_scene_card
+    ):
+        micro_repair = MagicMock()
+        micro_repair.run = AsyncMock(
+            return_value={
+                "summary": "Removed absent-character mention.",
+                "repairs": [
+                    {
+                        "issue_type": "presence_violation",
+                        "pattern": "Luke stepped from the doorway.",
+                        "replacement": "A figure stepped from the doorway.",
+                        "reason": "Remove absent character reference.",
+                    }
+                ],
+            }
+        )
+        canon_expert = MagicMock()
+        canon_expert.run = AsyncMock(return_value={"verdict": "pass", "violations": []})
+        orchestrator = _make_orchestrator(
+            mock_router,
+            mock_assembler,
+            ledger,
+            temp_dir,
+            runtime_flags={
+                "runtime": {"micro_repair": {"enabled": True, "max_changed_ratio": 1.0}}
+            },
+            micro_repair=micro_repair,
+            canon_expert=canon_expert,
+        )
+
+        prose = "Luke stepped from the doorway. Ben watched him carefully."
+        updated_prose, updated_report, changed = await orchestrator._maybe_micro_repair(
+            prose=prose,
+            scene_card=sample_scene_card,
+            continuity_report={"verdict": "pass", "violations": []},
+            presence_violations=[
+                {
+                    "character": "Luke Skywalker",
+                    "evidence": "Luke stepped from the doorway.",
+                }
+            ],
+            chapter_number=1,
+            scene_number=1,
+        )
+
+        assert changed is True
+        assert updated_prose == "A figure stepped from the doorway. Ben watched him carefully."
+        assert updated_report == {"verdict": "pass", "violations": []}
+        assert canon_expert.run.await_count == 1
+        event_types = _event_types(ledger)
+        assert "micro_repair_fired" in event_types
+        assert "micro_repair_applied" in event_types
+        assert "micro_repair_complete" in event_types
+
+    async def test_ambiguous_pattern_is_rejected_without_text_change(
+        self, mock_router, mock_assembler, ledger, temp_dir, sample_scene_card
+    ):
+        micro_repair = MagicMock()
+        micro_repair.run = AsyncMock(
+            return_value={
+                "summary": "Tried to remove duplicated name.",
+                "repairs": [
+                    {
+                        "issue_type": "presence_violation",
+                        "pattern": "Luke stepped from the doorway.",
+                        "replacement": "A figure stepped from the doorway.",
+                        "reason": "Remove absent character reference.",
+                    }
+                ],
+            }
+        )
+        canon_expert = MagicMock()
+        canon_expert.run = AsyncMock(return_value={"verdict": "pass", "violations": []})
+        orchestrator = _make_orchestrator(
+            mock_router,
+            mock_assembler,
+            ledger,
+            temp_dir,
+            runtime_flags={
+                "runtime": {"micro_repair": {"enabled": True, "max_changed_ratio": 1.0}}
+            },
+            micro_repair=micro_repair,
+            canon_expert=canon_expert,
+        )
+
+        prose = (
+            "Luke stepped from the doorway. "
+            "Ben froze. Luke stepped from the doorway."
+        )
+        updated_prose, updated_report, changed = await orchestrator._maybe_micro_repair(
+            prose=prose,
+            scene_card=sample_scene_card,
+            continuity_report={"verdict": "pass", "violations": []},
+            presence_violations=[
+                {
+                    "character": "Luke Skywalker",
+                    "evidence": "Luke stepped from the doorway.",
+                }
+            ],
+            chapter_number=1,
+            scene_number=1,
+        )
+
+        assert changed is False
+        assert updated_prose == prose
+        assert updated_report == {"verdict": "pass", "violations": []}
+        assert canon_expert.run.await_count == 0
+        rejected = [
+            e for e in ledger.get_events() if e["event_type"] == "micro_repair_rejected"
+        ]
+        assert len(rejected) == 1
+        assert rejected[0]["payload"]["reason"] == "ambiguous_pattern_occurrences"
+
+    async def test_forbidden_name_in_replacement_is_rejected(
+        self, mock_router, mock_assembler, ledger, temp_dir, sample_scene_card
+    ):
+        micro_repair = MagicMock()
+        micro_repair.run = AsyncMock(
+            return_value={
+                "summary": "Attempted replacement still names the absent character.",
+                "repairs": [
+                    {
+                        "issue_type": "presence_violation",
+                        "pattern": "Luke stepped from the doorway.",
+                        "replacement": "Luke Skywalker stepped from the doorway.",
+                        "reason": "Expanded the same absent name.",
+                    }
+                ],
+            }
+        )
+        orchestrator = _make_orchestrator(
+            mock_router,
+            mock_assembler,
+            ledger,
+            temp_dir,
+            runtime_flags={
+                "runtime": {"micro_repair": {"enabled": True, "max_changed_ratio": 1.0}}
+            },
+            micro_repair=micro_repair,
+        )
+
+        prose = "Luke stepped from the doorway. Ben watched him carefully."
+        updated_prose, updated_report, changed = await orchestrator._maybe_micro_repair(
+            prose=prose,
+            scene_card=sample_scene_card,
+            continuity_report={"verdict": "pass", "violations": []},
+            presence_violations=[
+                {
+                    "character": "Luke Skywalker",
+                    "evidence": "Luke stepped from the doorway.",
+                }
+            ],
+            chapter_number=1,
+            scene_number=1,
+        )
+
+        assert changed is False
+        assert updated_prose == prose
+        assert updated_report == {"verdict": "pass", "violations": []}
+        rejected = [
+            e for e in ledger.get_events() if e["event_type"] == "micro_repair_rejected"
+        ]
+        assert len(rejected) == 1
+        assert rejected[0]["payload"]["reason"] == "forbidden_name_in_replacement"

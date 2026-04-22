@@ -93,6 +93,7 @@ async def check_save_blockers(
     scene_card: dict,
     continuity_report: Optional[dict],
     presence_checker: Optional[Any],
+    presence_violations: Optional[list[dict]] = None,
 ) -> list[Blocker]:
     """Run all save-blocker checks against the final prose.
 
@@ -112,82 +113,124 @@ async def check_save_blockers(
     presence_checker:
         A ``PresenceChecker`` agent instance. ``None`` skips the presence
         check (e.g., when the agent could not be initialised).
+    presence_violations:
+        Optional precomputed normalized presence violations. When supplied,
+        ``presence_checker`` is not invoked again.
     """
     blockers: list[Blocker] = []
 
-    if presence_checker is not None:
-        try:
-            presence_result = await presence_checker.run(
-                {"prose": prose, "scene_card": scene_card}
+    if presence_violations is None:
+        presence_violations = await collect_presence_violations(
+            prose=prose,
+            scene_card=scene_card,
+            presence_checker=presence_checker,
+        )
+    blockers.extend(presence_violations_to_blockers(presence_violations))
+    blockers.extend(canon_violations_to_blockers(continuity_report))
+    return blockers
+
+
+def _presence_norms(scene_card: dict) -> set[str]:
+    return {
+        c.strip().lower()
+        for c in (scene_card.get("characters_present", []) or [])
+        if isinstance(c, str) and c.strip()
+    }
+
+
+def _already_listed(char: str, present_norms: set[str]) -> bool:
+    n = char.lower()
+    if n in present_norms:
+        return True
+    # Subset match either direction (covers "Luke" vs "Luke Skywalker").
+    # Require at least 3 chars of overlap to avoid matching initials.
+    if len(n) < 3:
+        return False
+    return any(n in p or p in n for p in present_norms if len(p) >= 3)
+
+
+async def collect_presence_violations(
+    *,
+    prose: str,
+    scene_card: dict,
+    presence_checker: Optional[Any],
+) -> list[dict]:
+    """Return normalized unresolved presence violations.
+
+    Deterministic post-filtering mirrors the save-blocker path so callers can
+    safely precompute presence issues without risking divergence from
+    ``check_save_blockers``.
+    """
+    if presence_checker is None:
+        return []
+    try:
+        presence_result = await presence_checker.run(
+            {"prose": prose, "scene_card": scene_card}
+        )
+    except Exception:
+        # Presence-checker infra failure is advisory, not blocking.
+        return []
+
+    present_norms = _presence_norms(scene_card)
+    normalized: list[dict] = []
+    for v in presence_result.get("violations", []) or []:
+        char = (v.get("character") or "").strip()
+        if not char or _already_listed(char, present_norms):
+            continue
+        normalized.append(
+            {
+                "character": char,
+                "evidence": (v.get("evidence") or "").strip(),
+            }
+        )
+    return normalized
+
+
+def presence_violations_to_blockers(violations: list[dict] | None) -> list[Blocker]:
+    blockers: list[Blocker] = []
+    for v in violations or []:
+        char = (v.get("character") or "").strip()
+        if not char:
+            continue
+        blockers.append(
+            Blocker(
+                code="CHARACTER_PRESENCE_BLOCKER",
+                severity="critical",
+                description=(
+                    f"Character '{char}' speaks or acts in the scene but is "
+                    f"not listed in characters_present."
+                ),
+                evidence=(v.get("evidence") or "").strip(),
             )
-        except Exception:
-            # Presence-checker infra failure is advisory, not blocking.
-            # The caller emits a warn-level ledger event.
-            presence_result = {"violations": []}
+        )
+    return blockers
 
-        # Deterministic post-filter: drop any violation whose character
-        # actually appears in characters_present. The Haiku agent has been
-        # observed mis-matching full-name entries (flagging "Luke Skywalker"
-        # as absent when the list contains "Luke Skywalker"); this prevents
-        # LLM read errors from quarantining legitimate scenes. Matching is
-        # case-insensitive and handles first-name / last-name subset cases
-        # ("Luke" in list when prose says "Luke Skywalker", or vice versa).
-        present_norms = {
-            c.strip().lower()
-            for c in (scene_card.get("characters_present", []) or [])
-            if isinstance(c, str) and c.strip()
-        }
 
-        def _already_listed(char: str) -> bool:
-            n = char.lower()
-            if n in present_norms:
-                return True
-            # Subset match either direction (covers "Luke" vs "Luke Skywalker").
-            # Require at least 3 chars of overlap to avoid matching initials.
-            if len(n) < 3:
-                return False
-            return any(n in p or p in n for p in present_norms if len(p) >= 3)
-
-        for v in presence_result.get("violations", []) or []:
-            char = (v.get("character") or "").strip()
-            if not char:
-                continue
-            if _already_listed(char):
-                continue
+def canon_violations_to_blockers(continuity_report: Optional[dict]) -> list[Blocker]:
+    blockers: list[Blocker] = []
+    if not continuity_report:
+        return blockers
+    verdict = continuity_report.get("verdict", "pass")
+    if verdict != "fail":
+        return blockers
+    for v in continuity_report.get("violations", []) or []:
+        severity = v.get("severity", "minor")
+        category = v.get("category", "")
+        # post_divergence_drift is always advisory (canon_expert already clamps
+        # it to minor, but double-guard here because this function is public).
+        if category == "post_divergence_drift":
+            continue
+        if severity in ("critical", "moderate"):
             blockers.append(
                 Blocker(
-                    code="CHARACTER_PRESENCE_BLOCKER",
-                    severity="critical",
+                    code="CANON_BLOCKER",
+                    severity=severity,
                     description=(
-                        f"Character '{char}' speaks or acts in the scene but is "
-                        f"not listed in characters_present."
+                        f"{category}: {v.get('explanation', '')}".strip(": ")
                     ),
-                    evidence=(v.get("evidence") or "").strip(),
+                    evidence=(v.get("text") or "").strip(),
                 )
             )
-
-    if continuity_report:
-        verdict = continuity_report.get("verdict", "pass")
-        if verdict == "fail":
-            for v in continuity_report.get("violations", []) or []:
-                severity = v.get("severity", "minor")
-                category = v.get("category", "")
-                # post_divergence_drift is always advisory (canon_expert
-                # already clamps severity to "minor", but double-guard).
-                if category == "post_divergence_drift":
-                    continue
-                if severity in ("critical", "moderate"):
-                    blockers.append(
-                        Blocker(
-                            code="CANON_BLOCKER",
-                            severity=severity,
-                            description=(
-                                f"{category}: {v.get('explanation', '')}".strip(": ")
-                            ),
-                            evidence=(v.get("text") or "").strip(),
-                        )
-                    )
-
     return blockers
 
 

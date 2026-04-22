@@ -159,6 +159,10 @@ def test_shipping_defaults_all_safe():
     assert runtime["promise_ledger"]["enabled"] is False
     assert runtime["continuity_log"]["enabled"] is False
     assert runtime["sociogram"]["enabled"] is False
+    assert runtime["micro_repair"]["enabled"] is False
+    assert runtime["micro_repair"]["max_repairs"] == 2
+    assert runtime["micro_repair"]["max_total_changed_chars"] == 500
+    assert runtime["micro_repair"]["max_changed_ratio"] == 0.12
     # Forward Relay v4: smart single corrective rerun defaults off.
     assert runtime["corrective_rerun"]["enabled"] is False
     assert "MISSING_TURNING_POINT" in runtime["corrective_rerun"]["trigger_codes"]
@@ -256,6 +260,31 @@ def test_shipping_books_keep_chapter_packet_off(book_slug: str):
     # the safe default (true) stays intact so an accidental override that
     # enables packet mode still falls back to flat on error.
     assert cp["fallback_on_error"] is True
+
+
+@pytest.mark.parametrize("book_slug", [
+    "the-ruusan-atonement",
+    "legacy-of-the-force-betrayal",
+])
+def test_shipping_books_keep_micro_repair_off(book_slug: str):
+    """Shipping books must keep exact-span post-check repair off until a
+    per-book parity test explicitly approves it."""
+    import json
+
+    seed_path = Path(
+        f"data/franchises/star-wars-legends-eu/books/{book_slug}/concept_seed.json"
+    )
+    if not seed_path.exists():
+        pytest.skip(f"seed not present: {seed_path}")
+    with seed_path.open(encoding="utf-8") as fh:
+        seed = json.load(fh)
+
+    merged = load_runtime_flags(concept_seed=seed)
+    mr = merged["runtime"]["micro_repair"]
+    assert mr["enabled"] is False, (
+        f"{book_slug} must keep runtime.micro_repair.enabled=false until "
+        "the per-book parity test approves the flip"
+    )
 
 
 @pytest.mark.parametrize("book_slug", [
