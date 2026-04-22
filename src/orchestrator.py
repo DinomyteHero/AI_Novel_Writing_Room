@@ -336,14 +336,32 @@ class Orchestrator:
         ch_results = [r for r in results if r.get("chapter_number") == chapter_num]
 
         if self.chapter_gate_critic:
-            ch_eval = await self._run_chapter_gate(chapter_num, ch_cards, ch_results)
-            results[-1]["chapter_gate"] = ch_eval
-            if not ch_eval["chapter_passed"]:
-                failures = len(ch_eval.get("chapter_level_failures", []))
-                print(
-                    f"  Chapter {chapter_num} failed chapter-level gate "
-                    f"({failures} issue(s))"
+            try:
+                ch_eval = await self._run_chapter_gate(chapter_num, ch_cards, ch_results)
+            except Exception as exc:  # noqa: BLE001
+                # ChapterGateCritic is advisory; a crash here (prompt-template
+                # regression, blueprint parse error, LLM parse failure) must
+                # never abort the run after scenes have been saved.
+                self.ledger.emit_warn(
+                    "chapter_gate_complete",
+                    chapter_number=chapter_num,
+                    payload={
+                        "status": "error",
+                        "error": f"{type(exc).__name__}: {exc}",
+                    },
                 )
+                print(
+                    f"  [WARN] Chapter gate critic crashed: "
+                    f"{type(exc).__name__}: {exc} — chapter completion continues"
+                )
+            else:
+                results[-1]["chapter_gate"] = ch_eval
+                if not ch_eval["chapter_passed"]:
+                    failures = len(ch_eval.get("chapter_level_failures", []))
+                    print(
+                        f"  Chapter {chapter_num} failed chapter-level gate "
+                        f"({failures} issue(s))"
+                    )
 
         # Word-count telemetry — chapter-level drift only, never blocks.
         from src.pipeline.word_count_telemetry import (
@@ -786,26 +804,31 @@ class Orchestrator:
             })
             polished_prose = polish_result["prose"]
 
-            # Compression telemetry — Stage 1b of the relay refactor.
-            # Historically this block reverted polished_prose to gate_passed_prose
-            # when polish cut below 80%. Under the relay, polish output is kept
-            # unconditionally; a warn-level ledger event fires at <60% so humans
-            # can spot aggressive compressions without auto-reverting.
+            # Compression guard — revert-on-regression.
+            # When polish compresses the draft below 60% of the gate-passed
+            # word count, we treat the polish as damaged and keep the
+            # gate-passed prose instead. Below 60% is the threshold at which
+            # aggressive summarization / sentence-level collapse has been
+            # observed to hollow scenes; reverting is safer than shipping a
+            # degraded scene under the forward-only relay. The advisory event
+            # still fires so humans see the regression; payload adds
+            # reverted=True to distinguish from the pure-telemetry era.
             polished_wc = len(polished_prose.split())
             if gate_passed_wc and polished_wc < 0.6 * gate_passed_wc:
                 pct = polished_wc / gate_passed_wc * 100
                 print(
-                    f"    Compression advisory: polish cut {gate_passed_wc} -> {polished_wc} "
-                    f"({pct:.0f}%) — kept polished output; human review recommended"
+                    f"    Compression guard reverted: polish cut {gate_passed_wc} -> {polished_wc} "
+                    f"({pct:.0f}%) — kept gate-passed draft"
                 )
-                self.ledger.emit(
+                self.ledger.emit_warn(
                     "compression_guard_fired",
                     chapter_number=chapter_num,
                     scene_number=scene_num,
                     payload={
                         "gate_word_count": gate_passed_wc,
                         "polish_word_count": polished_wc,
-                        "advisory_only": True,
+                        "advisory_only": False,
+                        "reverted": True,
                     },
                 )
                 # Slice 2: structured advisory row. Noop when flag off.
@@ -824,6 +847,13 @@ class Orchestrator:
                     post_polish_words=polished_wc,
                     ratio=polished_wc / gate_passed_wc if gate_passed_wc else 0.0,
                 )
+                # Revert so the saved prose is the gate-passed draft, not the
+                # degraded polish. Downstream stages (FinalGate, CanonExpert,
+                # PresenceChecker, save-blocker layer) re-evaluate the reverted
+                # prose — FinalGate verdict on the gate-passed draft is the
+                # authoritative telemetry from here on.
+                polished_prose = gate_passed_prose
+                polished_wc = gate_passed_wc
 
             # Final Gate — Stage 1c of the relay refactor.
             # Runs as telemetry. Its verdict is logged but does NOT control the
@@ -1090,26 +1120,59 @@ class Orchestrator:
         # Phase 4: Post-chapter physics validation
         physics_post = None
         if self.physics_enforcer:
-            physics_post = self.physics_enforcer.validate_post_chapter(
-                scene_card, final_prose, chapter_num
-            )
-            self.ledger.emit(
-                "physics_validation_post",
-                chapter_number=chapter_num,
-                scene_number=scene_num,
-                payload={"passed": physics_post["passed"], "issue_count": len(physics_post["issues"])},
-            )
-            if physics_post["issues"]:
-                print(f"  [P4] Physics post-check: {len(physics_post['issues'])} issue(s)")
+            try:
+                physics_post = self.physics_enforcer.validate_post_chapter(
+                    scene_card, final_prose, chapter_num
+                )
+            except Exception as exc:  # noqa: BLE001
+                # Physics validation is advisory; never abort a saved scene
+                # because post-save instrumentation crashed.
+                self.ledger.emit_warn(
+                    "physics_validation_post",
+                    chapter_number=chapter_num,
+                    scene_number=scene_num,
+                    payload={
+                        "status": "error",
+                        "error": f"{type(exc).__name__}: {exc}",
+                    },
+                )
+                physics_post = None
+            else:
+                self.ledger.emit(
+                    "physics_validation_post",
+                    chapter_number=chapter_num,
+                    scene_number=scene_num,
+                    payload={"passed": physics_post["passed"], "issue_count": len(physics_post["issues"])},
+                )
+                if physics_post["issues"]:
+                    print(f"  [P4] Physics post-check: {len(physics_post['issues'])} issue(s)")
 
         # Phase 2: Post-save processing
         summary_text = None
         contradiction_flags = []
         if self.summarizer:
-            summary_text, contradiction_flags = await self._run_post_save(
-                scene_card, final_prose, evaluation,
-                polish_rejected=polish_rejected,
-            )
+            try:
+                summary_text, contradiction_flags = await self._run_post_save(
+                    scene_card, final_prose, evaluation,
+                    polish_rejected=polish_rejected,
+                )
+            except Exception as exc:  # noqa: BLE001
+                # Summarizer / state-diff / chapter-memory failures cascade
+                # into missing state for the *next* scene; surface loudly but
+                # never abort the already-saved scene.
+                self.ledger.emit_warn(
+                    "post_save_error",
+                    chapter_number=chapter_num,
+                    scene_number=scene_num,
+                    payload={
+                        "stage": "run_post_save",
+                        "error": f"{type(exc).__name__}: {exc}",
+                    },
+                )
+                print(
+                    f"  [WARN] post-save processing crashed: "
+                    f"{type(exc).__name__}: {exc} — scene saved, state may be stale"
+                )
 
         # Phase 3: Character Specialist (supplementary, after Phase 2)
         character_analysis = None
@@ -1127,25 +1190,48 @@ class Orchestrator:
             try:
                 character_analysis = await self.character_specialist.run(char_context)
                 print(f"    Character verdict: {character_analysis['verdict']}")
-            except (json.JSONDecodeError, KeyError) as e:
-                print(f"    Character specialist: parse error ({e.__class__.__name__}) — skipping")
+            except Exception as exc:  # noqa: BLE001
+                self.ledger.emit_warn(
+                    "post_save_error",
+                    chapter_number=chapter_num,
+                    scene_number=scene_num,
+                    payload={
+                        "stage": "character_specialist",
+                        "error": f"{type(exc).__name__}: {exc}",
+                    },
+                )
+                print(f"    Character specialist crashed ({type(exc).__name__}) — skipping")
                 character_analysis = None
 
         # Phase 4: LLM-as-Judge evaluation
         judge_evaluation = None
         if self.judge_evaluator:
             print("  [P4] LLM Judge evaluating...")
-            judge_evaluation = await self.judge_evaluator.evaluate_chapter({
-                "prose": final_prose,
-                "scene_card": scene_card,
-            })
-            self.ledger.emit(
-                "judge_evaluation",
-                chapter_number=chapter_num,
-                scene_number=scene_num,
-                payload={"overall_score": judge_evaluation.get("overall_score", 0)},
-            )
-            print(f"    Judge score: {judge_evaluation.get('overall_score', 0):.1f}/10")
+            try:
+                judge_evaluation = await self.judge_evaluator.evaluate_chapter({
+                    "prose": final_prose,
+                    "scene_card": scene_card,
+                })
+            except Exception as exc:  # noqa: BLE001
+                self.ledger.emit_warn(
+                    "post_save_error",
+                    chapter_number=chapter_num,
+                    scene_number=scene_num,
+                    payload={
+                        "stage": "judge_evaluator",
+                        "error": f"{type(exc).__name__}: {exc}",
+                    },
+                )
+                print(f"    LLM Judge crashed ({type(exc).__name__}) — skipping")
+                judge_evaluation = None
+            else:
+                self.ledger.emit(
+                    "judge_evaluation",
+                    chapter_number=chapter_num,
+                    scene_number=scene_num,
+                    payload={"overall_score": judge_evaluation.get("overall_score", 0)},
+                )
+                print(f"    Judge score: {judge_evaluation.get('overall_score', 0):.1f}/10")
 
         result = {
             "chapter_number": chapter_num,
@@ -1667,6 +1753,19 @@ class Orchestrator:
                     payload={"promise_id": pid, "status": "unknown_promise_id"},
                 )
                 continue
+            except Exception as exc:  # noqa: BLE001
+                # Store-level failure (DB lock, serialization, schema) must
+                # not abort a scene that already saved. Surface as warn.
+                self.ledger.emit_warn(
+                    "promise_progressed",
+                    chapter_number=chapter_number, scene_number=scene_number,
+                    payload={
+                        "promise_id": pid,
+                        "status": "store_error",
+                        "error": f"{type(exc).__name__}: {exc}",
+                    },
+                )
+                continue
             self.ledger.emit_info(
                 "promise_progressed",
                 chapter_number=chapter_number, scene_number=scene_number,
@@ -1683,6 +1782,17 @@ class Orchestrator:
                     "promise_paid",
                     chapter_number=chapter_number, scene_number=scene_number,
                     payload={"promise_id": pid, "status": "unknown_promise_id"},
+                )
+                continue
+            except Exception as exc:  # noqa: BLE001
+                self.ledger.emit_warn(
+                    "promise_paid",
+                    chapter_number=chapter_number, scene_number=scene_number,
+                    payload={
+                        "promise_id": pid,
+                        "status": "store_error",
+                        "error": f"{type(exc).__name__}: {exc}",
+                    },
                 )
                 continue
             self.ledger.emit_info(

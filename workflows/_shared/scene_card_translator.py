@@ -230,12 +230,24 @@ def translate_scene_card(
     # Scene-level voice permissions are authoring metadata, not generated
     # defaults. Preserve both the legacy fields and the additive generic
     # object when present so mixed migration states do not silently lose them.
+    # Also preserve the post-PlotArchitect planning fields
+    # (turning_point_detail, emotional_arc, opening_mode, key_beats,
+    # anti_patterns) and the Slice-3/4/5 memory fields
+    # (relationship_deltas, promises_progressed, depends_on) so they survive
+    # the compile round-trip.
     for field in (
         "anti_patterns",
         "primary_anchor",
         "supporting_anchor",
         "stover_permitted",
         "scene_voice_permissions",
+        "turning_point_detail",
+        "emotional_arc",
+        "opening_mode",
+        "key_beats",
+        "relationship_deltas",
+        "promises_progressed",
+        "depends_on",
     ):
         if field in seed_card:
             card[field] = seed_card[field]

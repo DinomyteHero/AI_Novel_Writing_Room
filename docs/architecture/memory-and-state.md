@@ -129,10 +129,6 @@ Canonical terms for consistency. PK: `term`. Fields: `aliases` (JSON), `definiti
 
 Tracks state changes needing propagation to previously-written chapters. Fields: `source_layer`, `change_description`, `affected_chapters` (JSON), `resolved_at`, `resolution_method`.
 
-### style_fingerprint (Phase 5)
-
-Per-source style metrics for voice enforcement. Fields: `source`, `metric_name`, `metric_value` (JSON).
-
 ## Worldbuilding Persistence Layer
 
 `src/worldbuilding/` provides a cross-project worldbuilding persistence system in a separate database because universes span multiple projects. For franchise-scoped projects, the database lives at `data/franchises/<franchise>/worldbuilding.db`; for legacy flat projects, at `data/worldbuilding.db`.

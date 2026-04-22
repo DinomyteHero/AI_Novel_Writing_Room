@@ -48,6 +48,10 @@ if str(REPO_ROOT) not in sys.path:
 from src.concept_workshop.compliance_validator import validate_concept_seed  # noqa: E402
 from src.planning.physics_enforcer import PhysicsEnforcer  # noqa: E402
 from src.project_paths import ProjectPaths, _slugify_franchise  # noqa: E402
+from src.prompting.scene_voice_permissions import detect_legacy_voice_fields  # noqa: E402
+from workflows._shared.scene_card_references import (  # noqa: E402
+    validate_all_scene_card_references,
+)
 from workflows._shared.scene_card_translator import translate_scene_card  # noqa: E402
 from workflows._shared.seed_transforms import (  # noqa: E402
     apply_arc_phase_maps,
@@ -265,6 +269,14 @@ def _write_scene_cards(
                 report.scene_card_errors.append(
                     f"chapter_{ch:02d}_scene_{sn:02d}: {err.message}"
                 )
+
+        legacy_voice = detect_legacy_voice_fields(translated)
+        if legacy_voice:
+            report.warnings.append(
+                f"chapter_{ch:02d}_scene_{sn:02d}: legacy voice fields "
+                f"{legacy_voice} \u2014 migrate into scene_voice_permissions "
+                f"(see D1 in docs; readers still honor the legacy shape)"
+            )
         filename = f"chapter_{ch:02d}_scene_{sn:02d}.json"
         path = output_dir / filename
         path.write_text(
@@ -413,6 +425,17 @@ def compile_bundle(
             report.warnings.append(
                 f"physics: could not read {path.name} for validation: {exc}"
             )
+
+    # Tier 1 #4 \u2014 cross-surface reference validation.
+    # Verify every character/promise/hook/subplot/revelation reference on
+    # each scene card resolves in the compiled seed. Warnings land in
+    # report.warnings (not scene_card_errors) so only --strict promotes
+    # them to failure; legacy books with drift warnings can still compile.
+    if translated_cards:
+        reference_warnings = validate_all_scene_card_references(
+            translated_cards, seed,
+        )
+        report.warnings.extend(reference_warnings)
 
     if translated_cards:
         enforcer = PhysicsEnforcer(seed, translated_cards)

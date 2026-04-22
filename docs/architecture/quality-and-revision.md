@@ -127,10 +127,6 @@ Can be disabled with `--no-milestones`.
 
 `src/quality/llm_judge.py` uses a cloud model to evaluate chapters across 5 dimensions defined in `config/eval_rubric.yaml`. This is an expensive evaluation (cloud API call) and is only run when `--judge` is passed.
 
-## Style Fingerprinter (Phase 5)
-
-`src/quality/style_fingerprint.py` extracts quantitative prose metrics (sentence length distribution, dialogue ratio, adverb density, em-dash usage) and compares them against reference fingerprints stored in the `style_fingerprint` SQLite table. This enables voice drift detection across chapters and against reference material.
-
 ## Manuscript Reviewer (Phase 5)
 
 `src/agents/manuscript_reviewer.py` performs full-manuscript-level review using dual personas (Literary Critic and Structural Editor). Unlike the per-chapter LLM Judge, the Manuscript Reviewer evaluates the complete work and outputs categorized issues with severity levels (critical/major/minor/suggestion) and an overall recommendation (approve/revise_specific_chapters/major_revision_needed).

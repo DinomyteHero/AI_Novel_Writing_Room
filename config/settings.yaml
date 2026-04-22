@@ -211,7 +211,12 @@ runtime:
       jaccard_threshold: 0.5
       adjacency_max_for_continue: 1
   chapter_packet:
-    enabled: false
+    # Shipping default (D4a). Phase 0 audit + packet parity both pass for
+    # Ruusan and Betrayal at HEAD; the packet is now the drafter's single
+    # inspectable runtime contract. fallback_on_error stays true so a
+    # compile regression reverts to the legacy flat context instead of
+    # aborting the run.
+    enabled: true
     fallback_on_error: true
   revision_debt:
     enabled: false

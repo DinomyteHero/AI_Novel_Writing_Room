@@ -37,7 +37,6 @@ class TestSchemaMigration:
             "hooks",
             "terminology_registry",
             "propagation_debts",
-            "style_fingerprint",
         }
         assert phase5_tables.issubset(tables), f"Missing: {phase5_tables - tables}"
         state.close()

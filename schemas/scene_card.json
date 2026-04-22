@@ -32,11 +32,71 @@
       "description": "Expected dialogue mode for this scene. Drives drafter/revision behavior. `dialogue_led` = 40-55% dialogue target, back-and-forth exchange carries the scene. `balanced` = no hard floor, dialogue and interiority share weight. `interior` = POV-isolation scene, interior monologue and observation dominate even if additional characters are physically present. When omitted, derive() in src/quality/dialogue_expectation.py infers a safe default from scene_type/conflict_type/characters_present. Explicit override is the escape hatch for scenes where a second character is background (e.g. sparring partner in a sequel scene)."
     },
     "turning_point": { "type": "string", "minLength": 1 },
+    "turning_point_detail": {
+      "type": "object",
+      "description": "Decomposed turning-point planning. When present, the brief assembler uses these three fields directly; when absent, the assembler falls back to the legacy string `turning_point`. Authors planning a new scene should populate this; legacy cards can omit it until migrated. Load-bearing for post-PlotArchitect deterministic brief assembly.",
+      "required": ["trigger", "shift", "cost"],
+      "additionalProperties": false,
+      "properties": {
+        "trigger": { "type": "string", "minLength": 1, "description": "What causes the turn." },
+        "shift": { "type": "string", "minLength": 1, "description": "How scene dynamics change after the trigger." },
+        "cost": { "type": "string", "minLength": 1, "description": "What the turn costs the POV character \u2014 emotional, relational, or strategic." }
+      }
+    },
     "closing_hook": { "type": "string" },
     "characters_present": { "type": "array", "items": { "type": "string" } },
     "setting": { "type": "string" },
     "sensory_details": { "type": "string" },
     "emotional_trajectory": { "type": "string" },
+    "emotional_arc": {
+      "type": "object",
+      "description": "Decomposed emotional trajectory across the scene. When present, the brief assembler uses these three fields directly; when absent, the assembler falls back to the legacy string `emotional_trajectory`. Authors planning a new scene should populate this; legacy cards can omit it until migrated.",
+      "required": ["start", "shift", "end"],
+      "additionalProperties": false,
+      "properties": {
+        "start": { "type": "string", "minLength": 1, "description": "Starting emotional state \u2014 be specific, not a generic label." },
+        "shift": { "type": "string", "minLength": 1, "description": "The pivot \u2014 what changes and why." },
+        "end": { "type": "string", "minLength": 1, "description": "Ending emotional state \u2014 be specific." }
+      }
+    },
+    "opening_mode": {
+      "type": "string",
+      "enum": ["in_medias_res", "sensory_hook", "dialogue_hook", "contrast"],
+      "description": "How the scene opens. Drives the drafter's first-paragraph choices. Optional: when absent, the drafter picks an opening appropriate to the scene_role / structural_phase."
+    },
+    "key_beats": {
+      "type": "array",
+      "description": "3-5 specific story beats the scene must execute, in order. Populated during planning (was PlotArchitect runtime output pre-retirement). When present, the brief assembler passes these directly to the drafter as labeled beat sections; when absent, the assembler produces a partial brief and emits a warn event so the operator sees the planning gap.",
+      "minItems": 3,
+      "maxItems": 5,
+      "items": {
+        "type": "object",
+        "required": ["beat_description", "state_change", "pov_reaction"],
+        "additionalProperties": false,
+        "properties": {
+          "beat_description": {
+            "type": "string",
+            "minLength": 1,
+            "description": "What happens observably. One sentence, clear verbs."
+          },
+          "state_change": {
+            "type": "string",
+            "minLength": 1,
+            "description": "What shifts in the external situation or relationship as a result of the beat."
+          },
+          "pov_reaction": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Behavioral / sensory shape of the POV character's internal response \u2014 NOT the sentence the drafter should write. Faithful models copy lyrical phrasings verbatim, collapsing voice variety; describe the shape (sensation, impulse, tension, decision-direction) instead."
+          }
+        }
+      }
+    },
+    "anti_patterns": {
+      "type": "array",
+      "description": "Structural / compositional moves the drafter must avoid in this scene (e.g., 'do not open with a flashback', 'avoid exposition dump', 'no mission-debrief sentences'). Voice-register anti-patterns belong in `scene_voice_permissions.anti_patterns` \u2014 the brief assembler merges both sources into the drafter's anti_patterns surface.",
+      "items": { "type": "string" }
+    },
     "stakes": {
       "type": "object",
       "description": "What is at risk in this scene across three dimensions.",
