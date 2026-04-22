@@ -1,12 +1,12 @@
 """Tests for the post-polish guards in Orchestrator.run_chapter.
 
-Post-relay-refactor (Stages 1b and 1c): both guards run as telemetry and do
-NOT revert the saved prose. Polished output is always kept; the ledger
-records advisories that humans review downstream.
-
-1. **Compression advisory**: polish output below 60% of gate-passed word count
-   emits a `compression_guard_fired` ledger event with `advisory_only: True`.
-   The polished prose is still saved — nothing reverts.
+1. **Compression guard (revert-on-regression)**: polish output below 60% of
+   gate-passed word count is treated as damaged. The saved prose reverts to
+   the gate-passed draft and a `compression_guard_fired` warn event fires
+   with `reverted: True` in the payload. This is the only place in the
+   forward-only relay where a later stage can overwrite an earlier stage's
+   output, justified by "polish collapsed the scene, the earlier draft is
+   safer."
 
 2. **Final Gate advisory**: non-pass verdicts emit `final_gate_rejection`
    with `advisory_only: True`. The polished prose is still saved.
@@ -54,11 +54,11 @@ def _make_gate_pass_dict() -> dict:
 
 
 class TestCompressionGuard:
-    async def test_advisory_fires_below_60_percent_without_reverting(
+    async def test_reverts_to_draft_below_60_percent(
         self, mock_router, mock_assembler, ledger, temp_dir, sample_scene_card
     ):
-        """Polish < 60% of gate-passed emits advisory but DOES NOT revert the saved prose."""
-        # Prose Stylist: 100 words. Quality Polish: 50 words (50% — clearly below the 60% advisory threshold)
+        """Polish < 60% of gate-passed triggers revert-to-draft."""
+        # Prose Stylist: 100 words. Quality Polish: 50 words (50% — clearly below the 60% revert threshold)
         gate_prose = " ".join(["word"] * 100)
         polished_prose = " ".join(["polish"] * 50)
 
@@ -81,20 +81,21 @@ class TestCompressionGuard:
 
         result = await orchestrator.run_chapter(sample_scene_card)
 
-        # Advisory event emitted with the advisory_only flag set.
+        # Warn event emitted with reverted=True and advisory_only=False.
         event_types = [e["event_type"] for e in ledger.get_events()]
         assert "compression_guard_fired" in event_types
         compression_events = [e for e in ledger.get_events() if e["event_type"] == "compression_guard_fired"]
-        assert compression_events[0]["payload"].get("advisory_only") is True
+        payload = compression_events[0]["payload"]
+        assert payload.get("reverted") is True
+        assert payload.get("advisory_only") is False
 
-        # Final Gate still runs (advisory now, not skipped on compression fire).
+        # Final Gate still runs on the reverted (gate-passed) prose.
         assert "final_gate_complete" in event_types or "final_gate_rejection" in event_types
 
-        # SAVED PROSE IS THE POLISHED OUTPUT — relay refactor: no reversion.
+        # SAVED PROSE IS THE GATE-PASSED DRAFT — revert-on-regression.
         output_path = Path(result["output_path"])
         saved_text = output_path.read_text(encoding="utf-8")
-        assert saved_text == polished_prose, "Relay refactor: compression advisory must not revert to pre-polish prose."
-        # polish_rejected flag is not set; compression is advisory only.
+        assert saved_text == gate_prose, "Compression guard must revert to the gate-passed draft when polish collapses below 60%."
         assert not result.get("polish_rejected")
 
     async def test_advisory_does_not_fire_above_threshold(

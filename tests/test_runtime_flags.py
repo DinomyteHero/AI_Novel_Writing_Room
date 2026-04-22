@@ -146,12 +146,16 @@ def test_resolve_flag_returns_value(tmp_path: Path):
 
 def test_shipping_defaults_all_safe():
     """Every flag in the shipped config/settings.yaml must default to the
-    safe value (False or empty list), per spec §4.2 invariant."""
+    safe value (False or empty list), per spec §4.2 invariant. The one
+    exception is ``chapter_packet.enabled`` \u2014 D4a rolled it on as the
+    drafter's single inspectable runtime contract after Phase 0 audit and
+    packet parity both passed on shipping books."""
     merged = load_runtime_flags(settings_path=Path("config/settings.yaml"))
     runtime = merged["runtime"]
     assert runtime["firewall"]["enabled"] is False
     assert runtime["firewall"]["successor_classifier"]["enabled"] is False
-    assert runtime["chapter_packet"]["enabled"] is False
+    assert runtime["chapter_packet"]["enabled"] is True
+    assert runtime["chapter_packet"]["fallback_on_error"] is True
     assert runtime["revision_debt"]["enabled"] is False
     assert runtime["canon_expert"]["early_position"] is False
     assert runtime["canon_expert"]["apply_local_fixes"] is False
@@ -235,11 +239,12 @@ def test_shipping_books_keep_firewall_off(book_slug: str):
     "the-ruusan-atonement",
     "legacy-of-the-force-betrayal",
 ])
-def test_shipping_books_keep_chapter_packet_off(book_slug: str):
-    """Spec §6.8 + §11.6.3: Ruusan and Betrayal must keep
-    runtime.chapter_packet.enabled=false until their per-book parity tests
-    approve the flip. An accidental override dropped under either book dir
-    trips this guard so the prose-path flag cannot silently flip.
+def test_shipping_books_run_chapter_packet_by_default(book_slug: str):
+    """Post-D4a rollout: the chapter packet is the drafter's single
+    inspectable runtime contract. Phase 0 audit + packet parity both pass
+    for Ruusan and Betrayal at HEAD, so the packet ships on by default
+    (config/settings.yaml). This guard catches accidental per-book
+    runtime_overrides that would disable the packet path.
     """
     import json
     seed_path = Path(
@@ -252,13 +257,14 @@ def test_shipping_books_keep_chapter_packet_off(book_slug: str):
 
     merged = load_runtime_flags(concept_seed=seed)
     cp = merged["runtime"]["chapter_packet"]
-    assert cp["enabled"] is False, (
-        f"{book_slug} must keep runtime.chapter_packet.enabled=false until "
-        "the per-book parity test approves the flip (spec §6.8, §11.6.3)"
+    assert cp["enabled"] is True, (
+        f"{book_slug} must run with runtime.chapter_packet.enabled=true "
+        "(post-D4a shipping default). If this guard trips, a per-book "
+        "runtime_overrides.yaml has disabled the packet \u2014 revert it."
     )
-    # fallback_on_error is not a safety flag but a degradation policy; assert
-    # the safe default (true) stays intact so an accidental override that
-    # enables packet mode still falls back to flat on error.
+    # fallback_on_error is a degradation policy, not a safety flag. Keep
+    # the safe default (true) so a compile regression reverts to flat
+    # context instead of aborting the run.
     assert cp["fallback_on_error"] is True
 
 

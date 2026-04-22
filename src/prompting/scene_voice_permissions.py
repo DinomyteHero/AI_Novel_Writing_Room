@@ -316,3 +316,35 @@ def render_canon_voice_permissions(
         parts.append("\n### Scene-card anti-patterns (for context only)")
         parts.extend(f"- {item}" for item in permissions.anti_patterns)
     return "\n".join(parts)
+
+
+# Top-level scene-card fields that have been superseded by the additive
+# `scene_voice_permissions` block. Authors should migrate into the nested
+# shape; the readers above still accept these for backwards compatibility,
+# but authoring-time tooling surfaces a deprecation warning so the migration
+# debt is visible per-card.
+_LEGACY_VOICE_FIELDS: tuple[str, ...] = (
+    "primary_anchor",
+    "supporting_anchor",
+    "stover_permitted",
+)
+
+
+def detect_legacy_voice_fields(
+    scene_card: Mapping[str, object] | None,
+) -> list[str]:
+    """Return legacy top-level voice field names present on the scene card.
+
+    A card that carries *only* the nested ``scene_voice_permissions`` object
+    returns ``[]``. A card that carries one or more of the top-level
+    ``primary_anchor`` / ``supporting_anchor`` / ``stover_permitted`` fields
+    returns them in declaration order so callers can surface a deprecation
+    warning with specific field names.
+
+    The normalized reader in this module still honors the legacy fields for
+    backwards compatibility; this helper exists for authoring-time tooling
+    (bundle compile, authoring skills) so the migration backlog is visible.
+    """
+    if not scene_card:
+        return []
+    return [field for field in _LEGACY_VOICE_FIELDS if field in scene_card]

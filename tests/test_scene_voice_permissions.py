@@ -1,10 +1,38 @@
 """Unit tests for shared scene-level voice-permission helpers."""
 
 from src.prompting.scene_voice_permissions import (
+    detect_legacy_voice_fields,
     normalize_scene_voice_permissions,
     render_canon_voice_permissions,
     render_scene_voice_contract,
 )
+
+
+def test_detect_legacy_voice_fields_returns_empty_for_canonical_card():
+    assert detect_legacy_voice_fields({
+        "scene_voice_permissions": {"anchor_profile": {"primary": "Bujold"}},
+    }) == []
+
+
+def test_detect_legacy_voice_fields_lists_present_legacy_fields():
+    assert detect_legacy_voice_fields({
+        "primary_anchor": "Zahn",
+        "stover_permitted": True,
+    }) == ["primary_anchor", "stover_permitted"]
+
+
+def test_detect_legacy_voice_fields_handles_none_card():
+    assert detect_legacy_voice_fields(None) == []
+
+
+def test_detect_legacy_voice_fields_coexists_with_new_block():
+    # A card mid-migration carries both; the helper still surfaces the legacy
+    # fields so the operator knows to finish the move.
+    legacy = detect_legacy_voice_fields({
+        "primary_anchor": "Zahn",
+        "scene_voice_permissions": {"notes": "migrated notes"},
+    })
+    assert legacy == ["primary_anchor"]
 
 
 def test_normalize_scene_voice_permissions_reads_legacy_fields():

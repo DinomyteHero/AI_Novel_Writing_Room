@@ -8,7 +8,6 @@ from pathlib import Path
 from src.memory.story_state import StoryState
 from src.memory.context_assembler import ContextAssembler
 from src.planning.scene_card_generator import SceneCardGenerator
-from src.quality.style_fingerprint import StyleFingerprinter
 
 
 @pytest.fixture
@@ -296,29 +295,3 @@ class TestContextAssemblyWithPhase5:
         state.close()
 
 
-class TestStyleFingerprintIntegration:
-    """Tests that style fingerprinting works end-to-end."""
-
-    def test_extract_and_store(self, tmp_path):
-        """Extract metrics from prose and store in story state."""
-        prose = """
-        The warrior stepped through the broken gate. He did not look back.
-        "We should turn around," Lyra said. "This place is wrong."
-        Kael said nothing. His hand found the hilt of his sword.
-        The darkness pressed in from all sides, thick and cold. Every shadow
-        seemed to breathe. Somewhere ahead, something moved.
-        """
-
-        fp = StyleFingerprinter()
-        metrics = fp.extract(prose)
-
-        assert "avg_sentence_length" in metrics
-        assert "dialogue_to_narration_ratio" in metrics
-        assert metrics["avg_sentence_length"] > 0
-
-        state = StoryState(db_path=str(tmp_path / "state.db"))
-        fp.store(state, "chapter_1", metrics)
-
-        stored = state.get_style_fingerprint_dict("chapter_1")
-        assert stored["avg_sentence_length"] == metrics["avg_sentence_length"]
-        state.close()

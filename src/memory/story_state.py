@@ -321,7 +321,7 @@ CREATE INDEX IF NOT EXISTS idx_gap_notes_isolated_scene ON gap_notes(isolated_sc
 
 def _migrate_v1_to_v2(conn: sqlite3.Connection) -> None:
     """Phase 5 migration: add character_arcs, subplots, hooks,
-    terminology_registry, propagation_debts, style_fingerprint tables."""
+    terminology_registry, propagation_debts tables."""
 
     conn.executescript("""
     CREATE TABLE IF NOT EXISTS character_arcs (
@@ -405,14 +405,6 @@ def _migrate_v1_to_v2(conn: sqlite3.Connection) -> None:
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         resolved_at TIMESTAMP,
         resolution_method TEXT
-    );
-
-    CREATE TABLE IF NOT EXISTS style_fingerprint (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        source TEXT NOT NULL,
-        metric_name TEXT NOT NULL,
-        metric_value TEXT NOT NULL,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
     """)
 
@@ -2056,45 +2048,6 @@ class StoryState:
             (resolution_method, debt_id),
         )
         self.conn.commit()
-
-    # ------------------------------------------------------------------
-    # Style Fingerprint
-    # ------------------------------------------------------------------
-
-    def add_style_metric(
-        self,
-        source: str,
-        metric_name: str,
-        metric_value: object,
-    ) -> int:
-        """Insert a style fingerprint metric. Returns the new ID."""
-        cursor = self.conn.execute(
-            """INSERT OR IGNORE INTO style_fingerprint (source, metric_name, metric_value)
-               VALUES (?, ?, ?)""",
-            (source, metric_name, json.dumps(metric_value)),
-        )
-        self.conn.commit()
-        return cursor.lastrowid
-
-    def get_style_metrics(self, source: str | None = None) -> list[dict]:
-        """Return style metrics, optionally filtered by source."""
-        if source is not None:
-            rows = self.conn.execute(
-                "SELECT * FROM style_fingerprint WHERE source = ?", (source,)
-            ).fetchall()
-        else:
-            rows = self.conn.execute("SELECT * FROM style_fingerprint").fetchall()
-        results = []
-        for row in rows:
-            d = dict(row)
-            d["metric_value"] = _safe_json_loads(d["metric_value"], "", "metric_value")
-            results.append(d)
-        return results
-
-    def get_style_fingerprint_dict(self, source: str) -> dict:
-        """Return style metrics as a {metric_name: metric_value} dict for a source."""
-        metrics = self.get_style_metrics(source)
-        return {m["metric_name"]: m["metric_value"] for m in metrics}
 
     # ------------------------------------------------------------------
     # Utility
