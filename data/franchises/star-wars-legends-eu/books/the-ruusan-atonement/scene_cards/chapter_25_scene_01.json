@@ -42,9 +42,9 @@
   ],
   "promises_planted": [],
   "promises_paid": [
-    "Three different traditions can work in concert (PP13)",
-    "The Codex's theoretical framework has a real-world answer (PP14)",
-    "Gavran's resonance note matters to the climax (PP10)"
+    "PP13",
+    "PP14",
+    "PP10"
   ],
   "hook_actions": [
     {
@@ -54,5 +54,40 @@
   ],
   "revelations": [],
   "pov_arc_phase": "new_truth_demonstrated",
-  "notes": "The story's thematic pivot expressed as a physical action. Ben's letting-go is not an insight paragraph; it is breath, weight shift, open hands. Use the force_mechanics Weave-resonance vocabulary: discordant start, three notes finding their own relationship, warmth returning after cold, living tissue rather than rigid grid. Do not reuse 'handrail' or 'flat-note' here; Ben has moved past that vocabulary by the climax. Diagnostic-voice trap — Ben should not, in this scene, interior-paragraph the arc completion. The action carries the completion; interiority is a breath out, maybe a sentence fragment. Voice: Stover-permitted density for the letting-go itself, Zahn-restraint around it."
+  "notes": "The story's thematic pivot expressed as a physical action. Ben's letting-go is not an insight paragraph; it is breath, weight shift, open hands. Use the force_mechanics Weave-resonance vocabulary: discordant start, three notes finding their own relationship, warmth returning after cold, living tissue rather than rigid grid. Do not reuse 'handrail' or 'flat-note' here; Ben has moved past that vocabulary by the climax. Diagnostic-voice trap — Ben should not, in this scene, interior-paragraph the arc completion. The action carries the completion; interiority is a breath out, maybe a sentence fragment. Voice: Stover-permitted density for the letting-go itself, Zahn-restraint around it.",
+  "turning_point_detail": {
+    "trigger": "Ben stops leading and starts listening. He releases his grip on control—the Skywalker reflex he has carried since childhood.",
+    "shift": "The three traditions find their own relationship without his hand steering them. The chord forms. The resonance catches instead of failing.",
+    "cost": "Ben surrenders the identity-shaping instinct to lead, to impose, to carry the burden alone. The cost is paid in the moment of letting go—a physical and emotional vulnerability that exposes him to the outcome he cannot control."
+  },
+  "emotional_arc": {
+    "start": "Desperate control—instinct pushing toward action, toward imposition, toward the Skywalker reflex to lead.",
+    "shift": "The moment of surrender—pressure tightening as Ben's focus narrows to what is changing, to what he is releasing.",
+    "end": "Breakthrough warmth—relief like breathing after nearly drowning, the chord formed, the wrongness gone silent."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Sera's jaw sets and Kael's hands tremble as the discordance reaches critical—the resonance failing, the pressure mounting into concrete urgency.",
+      "state_change": "The abstract pressure of the failing seal becomes embodied and immediate in the two people Ben is linked to.",
+      "pov_reaction": "Ben registers the physical signs of failure in his companions and feels the reflex surge—the trained instinct to act, to lead, to fix. His body wants to impose a solution. Tension coils in his shoulders and down his spine; his grip tightens on their hands."
+    },
+    {
+      "beat_description": "Ben stops leading. He releases his grip on control—stops steering, stops driving, stops imposing—and listens. The three traditions find their own relationship without his hand shaping them.",
+      "state_change": "The dynamic inverts: instead of Ben's will channeling the resonance, the three traditions move into alignment on their own terms. The chord forms.",
+      "pov_reaction": "The moment of release is physical—a breath out, a weight shift, open hands. Ben's focus tightens to a single point: what is changing. The wrongness that has been a constant hum in his Force-sense begins to shift. His body braces for the outcome he cannot control."
+    },
+    {
+      "beat_description": "The resonance catches. Warmth floods through their linked hands—physical, not metaphorical, after months of cold. The Weave reforms as living tissue rather than a rigid grid. The wrongness goes quiet.",
+      "state_change": "The seal's infrastructure stabilizes. The three traditions hold in concert. The wound's discordance ceases.",
+      "pov_reaction": "Relief floods through Ben's body like breathing after nearly drowning. The cold that has shadowed him since Veranthos goes warm. His hands register the heat in Sera's and Kael's palms. The silence in the Force—the absence of wrongness—is louder than any resonance note."
+    }
+  ],
+  "opening_mode": "in_medias_res",
+  "anti_patterns": [
+    "Do not reuse 'handrail' or 'flat-note' here; Ben has moved past that vocabulary by the climax",
+    "Ben should not, in this scene, interior-paragraph the arc completion",
+    "Do not arrive at diagnostic voice—Ben should not analyze the phenomenology of the Weave or the Force in this moment",
+    "Avoid exposition dump or explanation of what is happening; the action is immediate and physical",
+    "Do not have Ben articulate his surrender as a conscious insight or decision; the letting-go is embodied, not rationalized"
+  ]
 }

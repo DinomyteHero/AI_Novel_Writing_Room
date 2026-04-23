@@ -48,5 +48,39 @@
   "hook_actions": [],
   "revelations": [],
   "pov_arc_phase": "new_truth_demonstrated",
-  "notes": "Kael's arc resolves through freely chosen departure — the ability to leave is the proof the story was different. Desh's arc resolves in the laugh between equals. Anti-pattern: do not spell out the joke. No one needs to hear Desh's line; the laugh carries it. Voice: Allston-warmth for the closing; the laugh is the chapter's exit."
+  "notes": "Kael's arc resolves through freely chosen departure — the ability to leave is the proof the story was different. Desh's arc resolves in the laugh between equals. Anti-pattern: do not spell out the joke. No one needs to hear Desh's line; the laugh carries it. Voice: Allston-warmth for the closing; the laugh is the chapter's exit.",
+  "turning_point_detail": {
+    "trigger": "The laugh—not at anything in particular, but at the fact of having come through, and of being equals who chose to be here, and of the joke being not very good.",
+    "shift": "The scene pivots from farewell (pressure, potential loss) to grace (freedom exercised, bond deepened into genuine equality). The laugh carries across the ridge and reaches even Torin, whose eyes crinkle for a moment. The cast's futures unlock.",
+    "cost": "Ben must release Kael without trying to make the departure into something else—no persuasion, no reclamation. The cost is the acceptance that Kael's freedom is more important than Ben's desire to keep him. Desh's laugh with Ben deepens their bond into genuine equality, which means Ben can no longer be the one who carries the weight alone."
+  },
+  "emotional_arc": {
+    "start": "Kael's farewell—the pressure of impending loss, the instinct to act rather than accept.",
+    "shift": "The grace of free departure—the recognition that Kael's choice to leave is proof the story was different, that he was never a burden or a tool.",
+    "end": "The healing laugh—sound that is not grief, but the warmth of equals who chose to be here and came through together."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Kael finds Ben at the ship with his bag packed—everything he owns slung over one shoulder. Ben is already there, already knowing.",
+      "state_change": "The abstract pressure of Kael's departure becomes concrete and immediate. The moment is now.",
+      "pov_reaction": "Ben's instinct pushes toward action—a gesture, a word, something to bridge the gap. His body registers the finality before his mind accepts it. The weight of Kael's bag, light as it is, carries the full gravity of the choice."
+    },
+    {
+      "beat_description": "Kael extends his hand. Ben takes it. The handshake is firm, brief—the most Kael gesture possible. Kael turns toward his transport without looking back.",
+      "state_change": "The farewell completes. Kael exercises the freedom the story fought for. Ben releases him.",
+      "pov_reaction": "Ben feels the pressure transform into something quieter—not loss, but recognition. The handshake is enough. No words needed. His hand drops as Kael turns, and Ben does not call after him. The grace of free departure settles into his chest like a breath finally exhaled."
+    },
+    {
+      "beat_description": "Desh says something that shouldn't be funny. Ben laughs. Desh laughs. The sound carries across the ridge where Sera sits with Torin.",
+      "state_change": "The scene locks into its final truth: the cast has come through as equals who chose to be here. Their futures are open. Even Torin's eyes crinkle for a moment.",
+      "pov_reaction": "Ben's laugh is not forced or performative—it rises from the fact of having survived, of being here with people who are no longer burdens or tools but companions. The sound carries his relief, his warmth, his acceptance that this is enough. The GAG wound's scar tissue produces sound that is not grief."
+    }
+  ],
+  "opening_mode": "in_medias_res",
+  "anti_patterns": [
+    "do not spell out the joke",
+    "No one needs to hear Desh's line; the laugh carries it",
+    "do not extend the scene beyond the closing hook",
+    "avoid internal reflection or thematic commentary on the laugh"
+  ]
 }

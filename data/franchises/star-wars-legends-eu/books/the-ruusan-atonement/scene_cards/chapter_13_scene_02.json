@@ -73,5 +73,48 @@
   "notes": "Stay inside the experience. Torin must remain unreadable here, and the new knowledge should arrive as sensation, not analysis.",
   "primary_anchor": "Stover",
   "supporting_anchor": "Bujold, Zahn",
-  "stover_permitted": true
+  "stover_permitted": true,
+  "turning_point_detail": {
+    "trigger": "Ben's body understands two things before his mind does: the zone's shape is anchored to a geographical specific (Veranthos as the only completion site for Veraine's ritual), and the surviving anchors are drawing harder on each other than before — a multiplicative coupling he cannot name. Simultaneously, Torin walks into the worst of the breach, stands there a long time, and returns with his Force presence unreadable.",
+    "shift": "The scene pivots from differentiated group distress under Force-deprivation to Ben's embodied knowledge of tactical constraint (Veranthos) and systemic acceleration (anchor coupling). Torin's unreadable return introduces the story's central ambiguity: his direction is withheld, his intentions opaque, his allegiance uncertain. The group has survived full unweaving together, but something happened to Torin that no one can name.",
+    "cost": "Ben's pattern-recognition pressurizes without vocabulary — his capacity to judge whose Force-reading is trustworthy (the Trauma Lie under test) is exactly the skill the midpoint demands he use without the usual instruments. The group absorbs the silence of Torin's return and steps out of the zone carrying unspoken dread. No one has a name for what they saw or did not see."
+  },
+  "emotional_arc": {
+    "start": "Group distress differentiated by training — Sera's discipline fracturing, Kael's unexpected ease, Desh's objectivity under strain, Ben's instinct pushing toward action.",
+    "shift": "Ben's body absorbs two load-bearing facts without language, his pattern-recognition tightening without words to contain it. The pressure of Torin's unreadable return lands as dread without object.",
+    "end": "Held ambiguity on departure — relief at exiting the zone immediately undercut by the impossibility of reading Torin's face. Ben braced for what he cannot name."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Sera's hands clench and her body braces against a pressure that does not arrive — her Force-lock training running without its reciprocal, muscle memory meeting no response.",
+      "state_change": "The opening pressure becomes concrete instead of abstract. Group distress surfaces as differentiated responses to Force-deprivation.",
+      "pov_reaction": "Ben registers Sera's compensation — the half-beat lag in her body's response — and feels the instinct to act, to fill the gap she is bracing against. His own breath tightens in sympathy."
+    },
+    {
+      "beat_description": "Kael moves through the zone with the economy of someone who is finally home; his breathing does not change, his stride does not hesitate, his body does not compensate for missing pressure.",
+      "state_change": "Pressure escalates. Kael's unexpected ease in the unwoven zone becomes undeniable — he is not struggling the way the others are. The mission advances: Ben's focus tightens on what just changed.",
+      "pov_reaction": "Ben's attention snags on Kael's steadiness. A question forms without words — something about the zone's shape, about who belongs where. His body registers the wrongness before his mind can articulate it."
+    },
+    {
+      "beat_description": "Ben reaches for the Force and gets multiple partial voices, each a fraction — no coherence, no unified field, only shards. He stops assembling them.",
+      "state_change": "The Force itself becomes unreliable as a tool. Ben's usual instruments fail. He must navigate by other means.",
+      "pov_reaction": "The silence where the Force should be lands as vertigo. Ben's body tenses against the absence, then releases it — a deliberate choice to stop reaching. His sternum tightens with the effort of not grasping."
+    },
+    {
+      "beat_description": "Desh's chrono-drift readings line up in Ben's peripheral vision with what Ben's body is sensing about the zone's shape — the geographical anchoring of the breach, the way it holds its boundaries, the single point where completion becomes possible. Veranthos. Not as a conclusion, but as a felt-fact.",
+      "state_change": "The first load-bearing knowledge resolves: the zone's shape is anchored to a geographical specific, and Veraine's ritual can only complete at Veranthos. This is not information Ben can speak yet. It is knowledge his body carries.",
+      "pov_reaction": "Ben's breath catches. The knowledge arrives as a physical certainty — a weight settling into his chest, a direction his body understands without explanation. He does not look at Desh. He does not need to. The data and the sensation align."
+    },
+    {
+      "beat_description": "Ben's attention registers the surviving anchors drawing harder on each other than before — a multiplicative coupling, each anchor's drain accelerating the others' depletion. The cascade is not slowing. It is feeding itself.",
+      "state_change": "The second load-bearing knowledge: the system is not merely failing, it is accelerating. The anchors are no longer independent variables. They are coupled, interdependent, pulling each other toward collapse. The timeline has compressed.",
+      "pov_reaction": "The sensation lands as a vibration in Ben's bones — a frequency he feels rather than hears. His hands clench. The knowledge arrives without language, without the possibility of language. It is pure embodied fact: the cascade is faster than anyone believed."
+    }
+  ],
+  "opening_mode": "sensory_hook",
+  "anti_patterns": [
+    "Do not stay outside the experience — stay inside the experience.",
+    "Do not articulate Torin's state — Torin must remain unreadable here.",
+    "Do not deliver new knowledge as analysis — the new knowledge should arrive as sensation, not as a spoken conclusion."
+  ]
 }

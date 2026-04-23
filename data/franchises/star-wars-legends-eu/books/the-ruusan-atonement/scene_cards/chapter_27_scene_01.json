@@ -44,5 +44,36 @@
   "hook_actions": [],
   "revelations": [],
   "pov_arc_phase": "new_truth_demonstrated",
-  "notes": "Veraine's arc lands as lie_unchanged — defeated but unbroken. The equations in the dust are the lingering image: she will go on thinking, and the scene does not tell us what she will produce. Anti-pattern: do not give Veraine a softening or concession. Her dignity is the refusal, and the story's honesty is that it holds her as an open question rather than a closed one."
+  "notes": "Veraine's arc lands as lie_unchanged — defeated but unbroken. The equations in the dust are the lingering image: she will go on thinking, and the scene does not tell us what she will produce. Anti-pattern: do not give Veraine a softening or concession. Her dignity is the refusal, and the story's honesty is that it holds her as an open question rather than a closed one.",
+  "turning_point_detail": {
+    "trigger": "Ben listens to Veraine's precise, unruffled assessment of the emergent pattern the group produced — her curiosity genuine, her dignity intact, her framework unchanged.",
+    "shift": "Ben realizes Veraine was not convinced by arguments or results, only interrupted by them. She will spend years rationalizing. The intellectual enemy remains intellectually unbroken.",
+    "cost": "Ben must accept that containment is the only victory available — no redemption, no conversion, no concession. He leaves before the temptation to argue becomes unbearable."
+  },
+  "emotional_arc": {
+    "start": "The weight of the antagonist's survival — the pressure of knowing Veraine lives, thinks, and remains dangerous in a different register than before.",
+    "shift": "The unsatisfying reality of intellectual enemies — the recognition that victory does not mean conversion, that containment is not closure, that Veraine's dignity is her refusal to concede.",
+    "end": "Acceptance — Ben braced for the long-term consideration Veraine represents, no longer reaching for an argument that will not land."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Veraine sits cross-legged in Sera's Force-locked containment field, composed and unhurried, writing equations in the dust with one finger.",
+      "state_change": "The abstract weight of Veraine's survival becomes concrete and visible — a contained body, a functioning mind, a prisoner who is not broken.",
+      "pov_reaction": "Ben's instinct pushes toward action rather than acceptance; the sight of her composure and deliberate work triggers a pressure to do something, to intervene, to prevent whatever she is calculating. His breath catches slightly; his hand moves toward the containment field before he stops it."
+    },
+    {
+      "beat_description": "Ben stands outside the containment and listens to Veraine's assessment — her voice precise and unruffled, her curiosity genuine as she describes the emergent pattern the group produced, her analysis delivered as observation rather than concession.",
+      "state_change": "The scene pivots from Ben's hope for some acknowledgment of defeat into the recognition that Veraine has already begun reframing the outcome. She is not broken; she is adapting her theory to accommodate the interruption.",
+      "pov_reaction": "Ben feels the unsatisfying reality settle into his chest — a tightness that is not anger but something colder, the recognition that argument will not reach her. Her politeness makes it worse; she is not defensive, not rationalizing in desperation, but genuinely curious about how her framework must evolve. His jaw tightens. He does not interrupt."
+    },
+    {
+      "beat_description": "Ben turns and walks away from the containment without looking back at the equations still being written in the dust.",
+      "state_change": "The boundary locks: Veraine remains contained but thinking, a long-term consideration rather than an immediate threat. Ben has chosen not to argue, not to press, not to demand a concession that will not come.",
+      "pov_reaction": "Acceptance settles as Ben walks — not peace, but the braced readiness of someone who has recognized the shape of a problem that cannot be solved, only managed. His shoulders carry the weight differently now: not the pressure to convince, but the weight of knowing she will be thinking for years, and that is the cost he pays for her containment."
+    }
+  ],
+  "opening_mode": "sensory_hook",
+  "anti_patterns": [
+    "do not give Veraine a softening or concession"
+  ]
 }

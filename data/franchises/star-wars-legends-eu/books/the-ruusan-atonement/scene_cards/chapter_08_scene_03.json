@@ -19,6 +19,7 @@
     "external": "Low — this is character breathing room; the pattern Kael named is a minor operational fact, not a reveal"
   },
   "characters_present": [
+    "Ben Skywalker",
     "Kael Drenn",
     "Desh Rolan"
   ],
@@ -53,5 +54,50 @@
   "notes": "Per W1 Inversion 1: Kael approaches Desh first, unprompted, with a practical observation. Kael's agency inverts here — he is no longer merely reacting to being treated well; he is initiating. The beat lives briefly (a sentence of observation, Desh's absorption, the work beginning) and reads as character texture, not plot signal. Per W1 anti-pattern guardrails: the beat does not carry an explicit reason; Ben's close-third does not underline with 'Kael had been acting differently lately' narration; the beat is not a scene of Kael's inner life but a short exchange Ben sees from the corridor. Thematically coherent with D4's character-differentiated unweaving architecture: Kael finds the Weave navigable; Desh doesn't feel it at all; neither is trapped in the standard-Jedi sensorium. This is the quiet-alliance opening. Ch 8 already carried a D7 Torin counter-current in a different register in s2 (silent intercept of Sera's pressure on Kael); the Kael/Desh beat is brief/practical and the two threads coexist per W1 distribution notes. Ben is mostly not on stage — the POV stays close to Kael through Ben's absence, with a single sight-through-the-doorway beat that holds Ben's close-third without violating single-POV discipline. Voice: Allston-channel warmth through Desh's operational flat matched against Kael's monk's brevity. Let the hydrospanner do what words would spoil. Anti-pattern: no interiority paragraph explaining Kael's first experience of initiating — the gesture is the exposition. Per R11, no late-Ben analytical register imported here. Primary anchor: Allston (two-voice distinction); supporting anchor: Zahn (workmanlike procedural frame). Stover not permitted this scene.",
   "primary_anchor": "Allston",
   "supporting_anchor": "Zahn",
-  "stover_permitted": false
+  "stover_permitted": false,
+  "turning_point_detail": {
+    "trigger": "Desh absorbs Kael's observation about the power-cycle draw pattern, folds it into the diagnosis, and asks Kael for the hydrospanner.",
+    "shift": "Kael passes the tool after a beat of deliberate stillness. The offer was Kael's; the ask is Desh's; neither is about the Force. This is the smallest gesture carrying the biggest meaning — Kael has initiated without being extracted.",
+    "cost": "The cost lands on Ben Skywalker as witness: he sees an alliance forming that he did not arrange, and Kael's agency has inverted from reaction to initiation. For Kael, the cost is vulnerability — the first time he has offered something to someone in the group on his own initiative."
+  },
+  "emotional_arc": {
+    "start": "Residual tension from the philosophical argument in the previous scene; Kael braced for extraction or judgment.",
+    "shift": "Kael's self-directed approach to Desh with a concrete observation; the tension begins to dissolve into purposeful work.",
+    "end": "The smallest warmth — not effusive, not resolved, but present. A near-smile. The beginning of trust that does not require the Force."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Kael finds Desh in the engineering crawlspace before Desh finds him. He has a specific observation about the ship's power-cycle draw — a pattern that has been nagging at him since the last transit — and he approaches Desh directly with it.",
+      "state_change": "The abstract pressure from the previous scene becomes concrete and operational. The ship's problem has a name; Desh's work has a direction.",
+      "pov_reaction": "Ben Skywalker registers the approach without interpreting it — a shift in Kael's bearing that reads as purposeful rather than reactive. The residual tension from the galley scene does not dissolve; it redirects."
+    },
+    {
+      "beat_description": "Desh absorbs the observation without fanfare, folds it into the diagnosis he is already running, and crawls into the engineering space to act on it. He does not thank Kael; he does not explain. He moves.",
+      "state_change": "Kael's observation becomes operational fact. The work accelerates. The partnership between Desh and Kael shifts from Desh-leading to Desh-accepting.",
+      "pov_reaction": "Ben Skywalker's close-third tightens on what just changed: Kael did not wait to be asked; Desh did not need to ask. The exchange happened in the register where the Force is not the question."
+    },
+    {
+      "beat_description": "Kael folds himself into the cramped crawlspace beside Desh and begins handing tools — the work absorbing him into it rather than the reverse. His hands know what to do; the rhythm of the work is familiar in a way that does not require explanation.",
+      "state_change": "Kael moves from observer to participant. The crawlspace, designed for one person, now holds two. The work becomes shared without negotiation.",
+      "pov_reaction": "Ben Skywalker's presence in the corridor remains peripheral — the POV stays close to Kael through Ben's absence, registering the physical ease of the work, the way Kael's tension begins to settle into purpose."
+    },
+    {
+      "beat_description": "Desh asks for the hydrospanner. Kael holds it for a beat of deliberate stillness — not hesitation, but the smallest pause that marks the moment as significant — and then passes it. The tool is warm from Kael's grip.",
+      "state_change": "The first thing anyone has asked Kael for that was not about the Force. The first thing Kael has offered that was not extracted. The smallest gesture carries the biggest meaning.",
+      "pov_reaction": "Ben Skywalker's close-third registers the pause and the pass as a single unit — the deliberate stillness that marks Kael's choice to offer. The cost of that choice is visible in the hesitation; the commitment is visible in the release."
+    },
+    {
+      "beat_description": "Ben crosses the corridor outside on his way to the cockpit. He sees Kael and Desh working in the crawlspace — two figures folded into the mechanical space, the work absorbing them both. He does not stop. He moves on.",
+      "state_change": "Ben's witness to the alliance does not interrupt it. The work continues. The quiet-alliance dyad is established in the register where Ben's close-third does not need to underline or explain.",
+      "pov_reaction": "Ben Skywalker's POV registers the scene without interpretation — the smallest warmth, the almost-smile that Kael offers when Desh deadpans the oblique Force question back into mechanical and interpersonal ship-reality. Ben moves on, leaving the alliance to its work."
+    }
+  ],
+  "opening_mode": "in_medias_res",
+  "anti_patterns": [
+    "no interiority paragraph explaining Kael's first experience of initiating — the gesture is the exposition",
+    "no late-Ben analytical register imported here",
+    "no explicit reason carried in the beat; let the gesture speak",
+    "no underline narration ('Kael had been acting differently lately')",
+    "no scene of Kael's inner life — this is a short exchange Ben sees from the corridor"
+  ]
 }

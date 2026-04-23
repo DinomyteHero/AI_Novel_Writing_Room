@@ -44,7 +44,7 @@
     "lattice_as_imposed_structure"
   ],
   "promises_planted": [
-    "The Codex's theoretical framework has a real-world answer (PP14)"
+    "PP14"
   ],
   "promises_paid": [],
   "hook_actions": [
@@ -58,5 +58,47 @@
     "R05b"
   ],
   "pov_arc_phase": "lie_reinforced",
-  "notes": "R06 is the intellectual center of the manuscript and the highest exposition-risk delivery in it. It must be received as sensation, not explained as narrator-endorsed conclusion. The flash of damaged, directionless Force is the first mild taste of what Ch13's full wound zone will deliver at scale -- keep this one mild and somatic. Use a somatic or acoustic vocabulary family (the emptying, the quick retreat, the body's refusal); do not use the handrail phrasing or the flat-note phrasing from earlier chapters. Diagnostic-voice trap -- Ben should not, in this scene, articulate the Codex's imposed-structure claim as settled truth. He feels the flash and pulls his hand back. Sera, Torin, and Kael take the ideas; Ben holds the experience. Anti-pattern: no character quotes the Codex at length -- it is received through reaction."
+  "notes": "R06 is the intellectual center of the manuscript and the highest exposition-risk delivery in it. It must be received as sensation, not explained as narrator-endorsed conclusion. The flash of damaged, directionless Force is the first mild taste of what Ch13's full wound zone will deliver at scale -- keep this one mild and somatic. Use a somatic or acoustic vocabulary family (the emptying, the quick retreat, the body's refusal); do not use the handrail phrasing or the flat-note phrasing from earlier chapters. Diagnostic-voice trap -- Ben should not, in this scene, articulate the Codex's imposed-structure claim as settled truth. He feels the flash and pulls his hand back. Sera, Torin, and Kael take the ideas; Ben holds the experience. Anti-pattern: no character quotes the Codex at length -- it is received through reaction.",
+  "turning_point_detail": {
+    "trigger": "Ben touches the Codex fragment",
+    "shift": "For a handful of seconds the Force is present and unshaped — no direction, no texture, no moral register. His hand jerks back before his mind arrives at explanation.",
+    "cost": "Ben's foundational understanding of the Force is challenged at the deepest level; the moment also fractures the group's unified interpretation as four Force-sensitives hold the same artifact and take four different readings from it."
+  },
+  "emotional_arc": {
+    "start": "Intellectual engagement — the Codex as abstract theory, a problem to be solved",
+    "shift": "Existential vertigo — the Force as something unshaped, directionless, stripped of the moral register Ben has trusted his entire life",
+    "end": "Sharp alarm — external threat crystallizes, forcing the group from philosophical crisis into immediate tactical response"
+  },
+  "key_beats": [
+    {
+      "beat_description": "Sera breaks the seal on the Codex case and lifts the fragment onto the common area table.",
+      "state_change": "The artifact moves from theoretical abstraction to physical presence; the opening pressure becomes concrete.",
+      "pov_reaction": "Ben's intellectual engagement sharpens into instinctive readiness — the body recognizes something before the mind names it. His attention narrows; he leans forward or his breath shifts slightly. The Force-sense around the table changes texture."
+    },
+    {
+      "beat_description": "Ben reaches out and touches the Codex fragment; his hand jerks back as the experiential flash of unstructured Force hits like sensory overload.",
+      "state_change": "The Force is present and unshaped — no direction, no texture, no moral register. The moment lasts a handful of seconds; it is enough.",
+      "pov_reaction": "His body moves before cognition catches up. The sensation arrives as an emptying — weight without direction, sound without body, the moral register gone and nothing replacing it. His hand recoils; his breath catches. The vertigo is somatic first, intellectual second. He does not articulate what he felt; he only knows his hand is no longer touching the artifact and his pulse is elevated."
+    },
+    {
+      "beat_description": "The other Force-sensitives in the room react to the artifact's resonance — Sera, Torin, and Kael each register the presence differently, their interpretations diverging in real time.",
+      "state_change": "Four Force-users hold the same phenomenon and arrive at four different conclusions. The group's unified understanding fractures.",
+      "pov_reaction": "Ben observes the divergence from his own shock. He is still steadying his breathing, still processing the sensory flash, while the others move into intellectual territory. He hears their words but is not yet ready to join them. His focus is internal — tracking the afterimage of what he felt, not what it means."
+    },
+    {
+      "beat_description": "The ship alarm cuts through the discussion; Desh moves toward the cockpit in three seconds, clearing the common area.",
+      "state_change": "The Brotherhood Outpost — the next planned stop — has been breached. Energy readings are spiking. Someone is there or has been there very recently.",
+      "pov_reaction": "The external threat lands as sharp alarm, pulling Ben from internal vertigo into tactical focus. His body recognizes the shift before his mind does — the alert tone triggers a reflex response. The philosophical crisis is not resolved; it is suspended. He is braced for the next scene's pressure."
+    }
+  ],
+  "opening_mode": "sensory_hook",
+  "anti_patterns": [
+    "Use a somatic or acoustic vocabulary family (the emptying, the quick retreat, the body's refusal); do not use the handrail phrasing or the flat-note phrasing from earlier chapters",
+    "- Ben should not, in this scene, articulate the Codex's imposed-structure claim as settled truth",
+    "no character quotes the Codex at length -- it is received through reaction",
+    "Ben should not articulate the Codex's imposed-structure claim as settled truth — he feels the flash and pulls his hand back",
+    "No character quotes the Codex at length — it is received through reaction",
+    "Do not arrive at clinical articulation of the Force phenomenon",
+    "Avoid diagnostic voice — Ben registers sensation, not analysis"
+  ]
 }

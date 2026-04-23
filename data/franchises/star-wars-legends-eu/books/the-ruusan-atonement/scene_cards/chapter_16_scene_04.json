@@ -53,5 +53,40 @@
   ],
   "revelations": [],
   "pov_arc_phase": "lie_challenged",
-  "notes": "H16 planted — timeline collapse. Veraine can be intellectually honest and ruthlessly strategic simultaneously; she is not lying about her beliefs, and she is also willing to destroy things while explaining them. That is the chapter's argument about her character and it should be felt through the aftermath, not asserted in interiority. Diagnostic-voice trap — Ben should not, in this scene, frame his own wrong-call as a character beat. The Force-collapse and Desh's assessment are the frame; Ben punches the nav computer as the visible consequence."
+  "notes": "H16 planted — timeline collapse. Veraine can be intellectually honest and ruthlessly strategic simultaneously; she is not lying about her beliefs, and she is also willing to destroy things while explaining them. That is the chapter's argument about her character and it should be felt through the aftermath, not asserted in interiority. Diagnostic-voice trap — Ben should not, in this scene, frame his own wrong-call as a character beat. The Force-collapse and Desh's assessment are the frame; Ben punches the nav computer as the visible consequence.",
+  "turning_point_detail": {
+    "trigger": "Desh names the sabotage as parallel-operation executed throughout the meeting — Veraine's crew dismantling infrastructure while the principals talked.",
+    "shift": "The timeline collapses. Weeks becomes days. The seal's degradation accelerates to a new, lower baseline.",
+    "cost": "Ben is outmaneuvered. His gambit to gather intelligence cost them critical time. Group trust shakes — did Ben make the wrong call accepting the meeting? The cost lands on Ben's judgment and the group's cohesion under pressure."
+  },
+  "emotional_arc": {
+    "start": "Post-meeting processing — the residue of dialogue, the weight of what was said and what wasn't.",
+    "shift": "Alarm at the sabotage — the wrongness in the Force becomes concrete; the clock resets.",
+    "end": "Urgent compression — Ben braced for the handoff, the next phase locked in at the boundary. No time for second-guessing."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Ben doubles over in the cockpit as the Force drops to a new, lower baseline — not a lurch but a collapse, the floor giving way by another meter.",
+      "state_change": "The abstract pressure becomes concrete and sensory. The seal's degradation is no longer theoretical.",
+      "pov_reaction": "Ben's body registers the wrongness before his mind catches up — a vertigo-like drop in the Force-sense, the ground beneath him lowering. His instinct pushes toward action rather than explanation; the post-meeting processing dissolves into physical alarm."
+    },
+    {
+      "beat_description": "Desh pulls up damage assessment data and scrolls through the cascade reports — the sabotage itemized, the timeline reset.",
+      "state_change": "The clock resets. Weeks becomes days. The group now understands Veraine's parallel operation: she negotiated in good faith while her crew executed throughout.",
+      "pov_reaction": "Ben watches the numbers scroll, the pressure tightening his focus. The alarm sharpens into a specific target — not Veraine's dishonesty (she was honest), but her ruthlessness. The group's trust fractures not because Veraine lied, but because she can believe in dialogue and destruction simultaneously."
+    },
+    {
+      "beat_description": "Ben punches the nav computer and plots a direct course to Veranthos — no more stops, no more delays.",
+      "state_change": "The next phase locks in. The race becomes a sprint. Days until Veraine reaches Veranthos with a compromised seal and a functioning amplification array.",
+      "pov_reaction": "The punch is the visible consequence of the outmaneuvering — Ben's body moving before his mind can frame it as failure. The urgent compression settles into his posture, his hands, his next decision. No time for self-recrimination; only the next move."
+    }
+  ],
+  "opening_mode": "contrast",
+  "anti_patterns": [
+    "Ben should not, in this scene, frame his own wrong-call as a character beat",
+    "Ben should not, in this scene, frame his own wrong-call as a character beat.",
+    "Do not arrive at diagnostic voice — avoid Ben analyzing the phenomenology of his own mistake.",
+    "Do not open with a flashback to the meeting.",
+    "Do not assert the chapter's argument about Veraine's character in interiority; let it be felt through the aftermath."
+  ]
 }

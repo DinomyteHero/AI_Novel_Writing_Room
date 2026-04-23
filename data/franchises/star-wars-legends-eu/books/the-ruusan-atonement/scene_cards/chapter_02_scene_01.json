@@ -49,5 +49,45 @@
   "hook_actions": [],
   "revelations": [],
   "pov_arc_phase": "lie_established",
-  "notes": "Allston-channel humor in the cockpit banter, Zahn-precision in how Desh reads the instruments. Desh is a warm absence in Ben's Force-awareness — the first scene that shows what it is like for Ben to be around someone who does not register in the Force. The relationship turn is Ben/Desh from operational partnership toward co-investigators; Desh's instruments give the problem its first external witness. Diagnostic-voice trap — Ben should not, in this scene, articulate the 'structural vs. emotional' read of the wrongness. He recognises the drift's bearing because it matches what his body has been telling him since Coruscant; he should not have vocabulary for it yet. If his interiority reaches for a clean declarative sentence about the Force, cut it and put the sentence back in his body. Prior-EU orientation — GAG sits between them on a single phrase, not a paragraph; the shared history should carry weight without a recap. No flashback."
+  "notes": "Allston-channel humor in the cockpit banter, Zahn-precision in how Desh reads the instruments. Desh is a warm absence in Ben's Force-awareness — the first scene that shows what it is like for Ben to be around someone who does not register in the Force. The relationship turn is Ben/Desh from operational partnership toward co-investigators; Desh's instruments give the problem its first external witness. Diagnostic-voice trap — Ben should not, in this scene, articulate the 'structural vs. emotional' read of the wrongness. He recognises the drift's bearing because it matches what his body has been telling him since Coruscant; he should not have vocabulary for it yet. If his interiority reaches for a clean declarative sentence about the Force, cut it and put the sentence back in his body. Prior-EU orientation — GAG sits between them on a single phrase, not a paragraph; the shared history should carry weight without a recap. No flashback.",
+  "turning_point_detail": {
+    "trigger": "Desh taps the sensor panel with dry patience and identifies the drift as bearing-consistent rather than random noise.",
+    "shift": "Ben recognizes the bearing matches the wrongness he has been carrying somatically since Coruscant — the problem becomes external and witnessed, no longer solitary.",
+    "cost": "Ben's reliance on Desh as a safe, Force-blind relationship is complicated by the fact that Desh has now independently detected what Ben has been trying not to articulate. The unprocessed GAG history between them tightens; shared shame becomes shared investigation."
+  },
+  "emotional_arc": {
+    "start": "Comfortable familiarity — the ease of two people who have learned to move around each other without friction.",
+    "shift": "Careful humor — Ben's deflection as Desh's readings begin to confirm what Ben has been sensing, the levity tightening as the wrongness becomes undeniable.",
+    "end": "Growing tension — the weight of shared knowledge settling in. Ben braced at the threshold of the investigation proper."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Desh yanks the Steady Returns through a rough hyperspace reversion that rattles the cockpit hard enough to spill Ben's caf across the copilot console.",
+      "state_change": "The abstract wrongness Ben has been carrying becomes concrete and physical — the ship's systems register it as a navigation anomaly, not a Force-sense whisper.",
+      "pov_reaction": "Ben's body responds before his mind catches up — the instinct to stabilize, to act, to ground himself in the familiar rhythm of ship operations. The spill is an excuse to move, to not sit with what the reversion just confirmed."
+    },
+    {
+      "beat_description": "Ben mops the spilled caf off the copilot instruments with his sleeve while Desh runs a diagnostic on the nav systems.",
+      "state_change": "The moment opens space for Desh to speak first — his instruments are already flagging the anomaly, and Ben's silence about why becomes its own answer.",
+      "pov_reaction": "Ben's focus narrows. The familiar ritual of cleaning, of small repair, masks the tightening in his chest as he waits for Desh to name what the sensors are showing. The humor that follows is a pressure valve — levity under stress, Allston-style, the kind of dry wit that lets two people acknowledge danger without flinching."
+    },
+    {
+      "beat_description": "Desh taps the sensor panel showing the drift pattern and says with patient dryness that it has a bearing, not a pattern — the anomaly is directional, consistent, and growing stronger as they move along the route.",
+      "state_change": "The wrongness is no longer Ben's private burden. Desh's instruments have given it external weight and trajectory. The problem is now shared, witnessed, and moving toward the first survey world.",
+      "pov_reaction": "Recognition hits Ben like a physical thing — the bearing Desh is reading is the one his body has been tracking since Coruscant, the one he has been trying to ignore by staying in motion. His hands grip the armrest. The tension is no longer abstract; it is a vector, a destination, a thing that cannot be outrun."
+    }
+  ],
+  "opening_mode": "in_medias_res",
+  "anti_patterns": [
+    "Ben should not, in this scene, articulate the 'structural vs",
+    "He recognises the drift's bearing because it matches what his body has been telling him since Coruscant; he should not have vocabulary for it yet",
+    "If his interiority reaches for a clean declarative sentence about the Force, cut it and put the sentence back in his body",
+    "No flashback",
+    "Do not articulate the 'structural vs. emotional' read of the wrongness — Ben should not have vocabulary for it yet.",
+    "Do not reach for clean declarative sentences about the Force in Ben's interiority; cut them and put the sentence back in his body.",
+    "No flashback to Coruscant or the GAG.",
+    "Do not recap the GAG history in exposition — the shared shame carries weight through a single phrase, not a paragraph.",
+    "Do not have Ben arrive at diagnostic voice or clinical articulation of the Force phenomenon.",
+    "Do not have Desh perceive the Force directly — he reads instruments; the instruments read the anomaly."
+  ]
 }

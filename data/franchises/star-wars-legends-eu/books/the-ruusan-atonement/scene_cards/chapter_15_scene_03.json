@@ -61,5 +61,50 @@
   "notes": "The report needs to feel complete enough that deleting it hurts. Kael and Torin's private conversation should stay unreadable and human.",
   "primary_anchor": "Bujold",
   "supporting_anchor": "Zahn, Stover",
-  "stover_permitted": true
+  "stover_permitted": true,
+  "turning_point_detail": {
+    "trigger": "Ben deletes the report with a single keystroke and does not clear the ghost file.",
+    "shift": "The part of him that knows he will need proof later that he tried becomes a permanent passenger in his own choice. Secrecy hardens from temporary expedience into something that will require justification.",
+    "cost": "Ben becomes, for a few hours, exactly what he is fighting against — someone who withholds truth from the Order because he believes he knows better. The cost also strains his relationship with Luke through silence, and places a Kael/Torin relationship he has no access to forming in the margins of his awareness."
+  },
+  "emotional_arc": {
+    "start": "Observed absence — Ben sees Kael and Torin in private conversation, registers the exclusion, and feels the weight of what he does not know.",
+    "shift": "Agonized deliberation — the pressure of duty (report to Luke) collides with the pressure of doubt (the Order will mishandle this), and Ben attempts honesty as a way to resolve the collision.",
+    "end": "Rationalized secrecy — the deletion is complete, the ghost file remains, and Ben has translated his doubt into action. The rationalization is not yet comfortable, but it is chosen."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Ben passes a shadowed companionway and sees Kael and Torin in close conversation. They notice him. Kael walks away with the same economic precision he carries everywhere. Torin watches him go, then returns his gaze forward. Ben does not ask.",
+      "state_change": "The abstract pressure of the crisis becomes concrete and personal. Ben is now aware that relationships are forming in the margins of his awareness, shaped by conversations he is not part of.",
+      "pov_reaction": "Ben registers the exclusion as a physical sensation — the moment of being seen and then deliberately not engaged. His instinct pushes toward action (asking, following, demanding clarity) but he suppresses it. The suppression itself becomes a small choice that mirrors the larger one coming."
+    },
+    {
+      "beat_description": "Ben enters his sleeping nook and strips his lightsaber to component parts, laying them on the fold-down shelf in precise order — the familiar maintenance ritual that grounds restless hands.",
+      "state_change": "Ben transitions from observation to action, but the action is meditative rather than decisive. The ritual creates space for deliberation without requiring him to sit still with his thoughts.",
+      "pov_reaction": "The pressure of the scene tightens into focus. Ben's hands move through the familiar sequence while his mind turns toward the harder work — the report he knows he should write and the doubt that whispers he should not. The ritual is both grounding and evasion."
+    },
+    {
+      "beat_description": "Ben types the full report — fortress, survivors, wound, Veraine, the seal's failure, the stakes — and reads it through twice on the datapad screen. The paragraphs are honest. They are also complete enough that sending them would force the Order's hand.",
+      "state_change": "Ben has attempted honesty. The report exists. It is real enough to hurt to delete.",
+      "pov_reaction": "Ben feels the weight of the words he has written. Part of him wants to send them — the part that trusts the Order, that believes in hierarchy and protocol. But another part, the part that has seen how the Order moves and how slowly it moves, knows that sending this report will trigger responses he cannot control. The agonized deliberation reaches its peak: both choices feel like betrayal."
+    },
+    {
+      "beat_description": "Ben deletes the report with a single keystroke. His hands are not quite steady as he reassembles his lightsaber, fitting the components back together with the same precision he used to disassemble them.",
+      "state_change": "The decision is made. The report is gone. But Ben does not clear the ghost file from the datapad's memory index.",
+      "pov_reaction": "The deletion feels like failure and relief in the same moment. Ben's hands move through the reassembly with mechanical precision, but the steadiness is a performance. Part of him — not yet the loudest part, but present — knows he will need proof later that he tried. That part is already planning for the moment when this choice will require justification."
+    },
+    {
+      "beat_description": "Ben registers the ghost file's presence in the datapad's file index. He does not clear it. The wrongness of the choice becomes a permanent background pressure — weather rather than event, something he will carry forward.",
+      "state_change": "Ben has locked in his isolation from the Order. The silence with Luke hardens into a choice. The Kael/Torin relationship remains unreadable and human, forming in the margins of his awareness.",
+      "pov_reaction": "Ben feels the wrongness settle into place. It is not comfortable, but it is chosen. The ghost file is his insurance policy and his confession — proof that he tried, evidence that he failed. He will carry both forward into the next scene."
+    }
+  ],
+  "opening_mode": "sensory_hook",
+  "anti_patterns": [
+    "Do not open with a flashback or exposition about the earlier galley conversation with Torin.",
+    "Do not have Ben ask Kael or Torin what they were discussing — the scene depends on Ben's restraint and the conversation's privacy.",
+    "Do not arrive at clinical articulation of Ben's moral reasoning — avoid diagnostic voice or thematic naming of what he is doing.",
+    "Do not make the deletion feel easy or triumphant — it should hurt.",
+    "Do not have Ben justify the decision to himself in a way that resolves the agonized deliberation — the rationalization should be incomplete and temporary."
+  ]
 }

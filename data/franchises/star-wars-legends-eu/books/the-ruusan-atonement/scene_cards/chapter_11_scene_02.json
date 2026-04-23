@@ -48,7 +48,7 @@
   ],
   "promises_planted": [],
   "promises_paid": [
-    "Ben and Desh share unspoken GAG history (PP02)"
+    "PP02"
   ],
   "hook_actions": [],
   "revelations": [
@@ -59,5 +59,45 @@
   "notes": "Let the scene feel like two men setting down weight they have carried too long. The historical revelation should ride beside that emotion, not interrupt it.",
   "primary_anchor": "Luceno",
   "supporting_anchor": "Bujold, Stover",
-  "stover_permitted": true
+  "stover_permitted": true,
+  "turning_point_detail": {
+    "trigger": "Desh names the Torin/Jacen sound-likeness in a single short line — the good version of him, the voice Ben has been refusing to think.",
+    "shift": "Ben's stomach drops because the unthinkable has been named. A beat later, the Brotherhood ritual framework resolves on Desh's datapad: the Jedi Lords were competent people under catastrophic pressure who made the wrong emergency choice. Ben registers both reckonings at once — personal shame and historical reframing holding each other up in the same silence.",
+    "cost": "Ben must confront the worst chapter of his life with the only person who shared it, while the moral architecture of the Jedi Lords reorganizes into tragic-peer shape. The cost lands as deepened trust forged in acknowledged shame, but without resolution — Ben is braced for what comes next, not healed."
+  },
+  "emotional_arc": {
+    "start": "Careful approach — Ben holding the conversation at arm's length, instinct pushing toward action rather than explanation.",
+    "shift": "Painful honesty — the moment Desh names the pattern, Ben's refusal collapses. The pressure tightens his focus on what just changed, what he can no longer unsay.",
+    "end": "Shared understanding without resolution — two men setting down weight they have carried too long, the historical revelation riding beside that emotion rather than interrupting it. Ben is steadier but not lighter."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Desh keeps his hands steady on the flight controls while describing the raid they both remember — a specific day, an arrest that went wrong, a face Ben sees when he can't sleep.",
+      "state_change": "The opening pressure becomes concrete instead of abstract. The cockpit shrinks around shared memory.",
+      "pov_reaction": "Ben's instinct pushes the response toward action rather than explanation. His body wants to move, to do something other than sit in the weight of what Desh is saying. The careful approach holds, but it costs him."
+    },
+    {
+      "beat_description": "Ben's fingers tighten on the armrest when Desh names the pattern — Torin sounding like the good version of Jacen.",
+      "state_change": "The unthinkable has been named. Ben's refusal collapses in that single short line. The pressure escalates from abstract to visceral.",
+      "pov_reaction": "His stomach drops because Desh has just said what Ben has been refusing to think. The tightening of his fingers is involuntary — his body registering the shift before his mind catches up. Painful honesty floods in, and Ben's focus narrows to what just changed, what he can no longer unsay."
+    },
+    {
+      "beat_description": "The Brotherhood ritual reconstruction resolves on Desh's datapad in the quiet after the Jacen beat — the Weave-polarity flip attempt, Gavran's removal-technique as the cut-off, the cost calculated and displayed in cold data.",
+      "state_change": "The scene pivots: two reckonings hold each other up at once. The Jedi Lords transform from historical villains into tragic peers — competent people who made the wrong emergency choice under catastrophic pressure. This reframing lands in the same silence that holds Jacen's name.",
+      "pov_reaction": "Ben registers both together — the personal shame and the historical reframing arriving in the same breath. The datapad's glow illuminates the framework, but it is the silence that does the work. Ben's breath steadies slightly, but his shoulders remain braced. The understanding is shared, but it does not resolve anything."
+    },
+    {
+      "beat_description": "Both men stare at instrument readouts they aren't reading through a long silence that holds both reckonings at once.",
+      "state_change": "The scene closes on new information that changes the operating picture. Neither of them needs to say 'we should watch Torin' — the pattern is planted and understood. The Jedi Lords' moral architecture has reorganized; Jacen has become a named shape in the room.",
+      "pov_reaction": "Ben is steadier but not lighter. The shared understanding settles like weight redistributed, not removed. He is braced for the scene's handoff pressure — the midpoint is coming, and he now carries both the Torin/Jacen pattern and the knowledge that the Jedi Lords were tragic peers, not villains. The silence holds both truths without resolving either."
+    }
+  ],
+  "opening_mode": "in_medias_res",
+  "anti_patterns": [
+    "Do not let the scene feel like two men explaining history to each other — let it feel like two men setting down weight they have carried too long.",
+    "Do not arrive at clinical articulation of the Brotherhood ritual or Gavran's technique — keep it sensory and concrete, let the datapad glow carry the information.",
+    "Avoid diagnostic voice about the Force wound or the Weave-polarity flip — the characters register the framework, they do not analyze it.",
+    "Do not have Ben name what the Torin/Jacen pattern means — the silence and his body's response do that work.",
+    "Avoid over-composed interiority — Ben's refusal is concrete and physical, not philosophical."
+  ]
 }

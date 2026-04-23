@@ -70,5 +70,48 @@
     "slot_id": "W2_Option_alpha_beta",
     "default": "beta (full ledger entry at this scene)",
     "alpha_interaction": "If W2 Option α was executed at Ch 20 s2, this scene's ledger beat collapses to a one-paragraph coda (reflexive return to her voice after having seen her in the flesh). If α was not executed (default), the full ledger entry is the scene's closing beat alongside the Torin-silhouette image."
-  }
+  },
+  "turning_point_detail": {
+    "trigger": "Ben sees the longing in Torin's stillness—not fear, but the peaceful certainty of someone already committed—and understands that tomorrow has already started for him.",
+    "shift": "The scene's pressure pivots from grim preparation (abstract dread) to watching Torin (concrete recognition). The group's fragile cohesion is about to fracture. Ben's last hours before the second plot point are now measured in the time Torin stands at the ridge edge.",
+    "cost": "Ben registers both Torin's imminent departure and Veraine's continued strategic advantage—she is ahead of Gavran on Gavran's own ground. The dread of recognition lands: Ben cannot prevent what is coming, only witness it and read the mind of the woman who set these pieces in motion."
+  },
+  "emotional_arc": {
+    "start": "Grim preparation—the abstract dread of arrival, the need to act, the weight of responsibility.",
+    "shift": "Watching Torin—the pivot from action-readiness to the terrible certainty of recognition. Ben sees what Torin has already decided.",
+    "end": "The adjacent weight of Veraine's working mind in the margin—the compound pressure of Torin's imminent departure and Veraine's continued strategic thinking. Dread compounds into a kind of held breath."
+  },
+  "key_beats": [
+    {
+      "beat_description": "The group sets up camp at the valley's edge. The Scar is visible below—a thin line of absence in the air where the Force behaves wrong.",
+      "state_change": "The abstract pressure of the journey becomes concrete and localized. The wound is no longer a concept; it is visible, present, gravitational.",
+      "pov_reaction": "Ben's instinct pushes toward action rather than explanation—a need to move, to do, to prepare. The wrongness of the place presses against his Force-sense like a constant weight. His body wants to move; his mind knows movement won't help."
+    },
+    {
+      "beat_description": "Torin stands at the camp perimeter and stares at the Scar. His expression is not fear but longing—the peaceful certainty of someone who has already made a choice.",
+      "state_change": "The group's fragile cohesion begins to fracture. Torin is no longer waiting; he is ready. The timeline accelerates.",
+      "pov_reaction": "Ben's focus tightens on Torin's silhouette. The longing in Torin's stillness registers as a kind of recognition—Ben sees what Torin has already decided and cannot unsee it. A vertigo-like shift: the pressure is no longer about what might happen tomorrow, but what Torin has already committed to."
+    },
+    {
+      "beat_description": "Ben watches from the tent as Torin's silhouette remains motionless at the ridge edge through the falling dark. The Scar outlines itself against the stars—a line of absence in the sky.",
+      "state_change": "The turning point locks in. Ben's last hours before the second plot point are now measured in the time Torin stands at the edge. Tomorrow is no longer theoretical.",
+      "pov_reaction": "A kind of held breath—the dread of recognition without the ability to act on it. Ben sees Torin's peace and understands it for what it is: the peace of someone already gone. The wrongness of the place hums at the edge of his awareness, but Torin's stillness is louder."
+    },
+    {
+      "beat_description": "Ben opens the datapad and reads Veraine's ledger entry—working notes on the midpoint-era site, her reading of the technique-lineage fragment, a structural observation Gavran did not name. The entry is written in no contractions, academic syntax, short working sentences, precise and certain and minimal in affect. Ben reads it twice. He closes the file. He does not comment.",
+      "state_change": "A decision locks in and hands off its consequence. Ben now carries both Torin's imminent departure and Veraine's continued strategic thinking. The structural feature Veraine has identified will pressure decisions yet to come.",
+      "pov_reaction": "The weight of Veraine's working mind settles adjacent to Torin's longing. Ben registers her precision, her certainty, her detachment—the mind of someone who has translated suffering into arithmetic. The ledger entry is a voice without affect, a consciousness at work, thinking moves ahead. Ben closes the file but cannot close the knowledge it contains."
+    }
+  ],
+  "opening_mode": "sensory_hook",
+  "anti_patterns": [
+    "Do not open with a flashback or exposition dump about the journey to the valley.",
+    "Do not arrive at clinical articulation of the Force wound—keep it sensory and experiential, not diagnostic.",
+    "Do not use an ambient hum of or similar well-worn AI defaults for Force-sense description.",
+    "Do not have Ben articulate Torin's emotions for him—show Torin's longing through physical stillness and expression.",
+    "Do not resolve the structural feature Veraine identifies in this scene—it plants pressure for Ch 25-26.",
+    "Do not have Ben comment on or explain Veraine's ledger entry—he reads it, understands it, closes it.",
+    "Do not soften the scene's held breath with false hope or reassurance.",
+    "Choose the ledger path cleanly. The scene should close on stillness, not options."
+  ]
 }

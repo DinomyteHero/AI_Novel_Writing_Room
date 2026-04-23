@@ -66,5 +66,47 @@
   "notes": "H21 planted — Ben's pivot to the resonance solution. The word 'together' appears once in the chapter and lands at the close; do not reprise it. Per R13, no Jacen naming. Per D7 Component B, Torin is off-page; the narrator does not interpret his absence. Per R11, Ben does not, in this scene, narrate the Lie-cracking as self-analysis. He finds the note, he re-reads, his voice changes; the change should come through Desh's line ('Ben's voice is different,' rendered as Desh's recognition) rather than an interior paragraph from Ben explaining it. Per the Ch 18 s3 plant, the resonance note's emphasis has been sitting as 'trust, not bravery' since that scene; the s3 beat here executes that plant without re-reading the note aloud. Voice: Zahn-procedural for the physical beat of spreading the files; Bujold-interior for Ben's registration of his own voice changing; Allston-ensemble for the three faces turning. Primary anchor: Bujold (arc-turn interior); supporting anchor: Zahn (physical frame), Allston (ensemble close). Stover not used here — the Stover-permitted beats were in s1 close and s2 convergence. Anti-patterns: (a) no group cheer, no relief, no speech; the decision is private and quiet; (b) the group hears the new voice because three people on a ridge can hear a new voice from the one who has been carrying alone — not because Ben explains himself; (c) the word 'together' is used once in the chapter — this scene — and the chapter does not repeat it; (d) the resonance solution is not exposited in prose — it is set in motion by the three datapads spread on a camp table and Ben's sentence; the detail arrives in Ch 23 onward; (e) Sera does not speak in this scene — the chapter's thematic line belonged to s2 and a second Sera line would over-balance the chapter.",
   "primary_anchor": "Bujold",
   "supporting_anchor": "Zahn, Allston",
-  "stover_permitted": false
+  "stover_permitted": false,
+  "turning_point_detail": {
+    "trigger": "Ben's voice changes as he speaks: 'I need to show you something. We find another way. Together.'",
+    "shift": "The sentence is not a decree or explanation. It is a reach toward Sera, Kael, and Desh—a structural pivot from Ben carrying alone to Ben building with three people. The group hears the new voice because they have been listening to the old one for twenty chapters; the change registers as permission, not command.",
+    "cost": "Ben sets down the Skywalker reflex—the instinct to solve alone, to master, to carry the weight—for the next eighteen hours and beyond. The cost is also interpersonal: the remaining group must now function as a partnership under someone who has stopped commanding, which requires trust between incompatible traditions (Force-sensitive and non-Force-sensitive, Jedi and outsider) that have never cooperated at this depth."
+  },
+  "emotional_arc": {
+    "start": "Desperate searching—pressure mounting, no clear path, hands shaking as Ben reaches for the Codex notes.",
+    "shift": "The note recontextualized—Gavran's marginalia on resonance theory reads differently when the emphasis lands on trust instead of bravery. The pieces find their shape. The pressure turns inward, tightening Ben's focus on what has just changed inside him.",
+    "end": "The new truth spoken—Ben's voice steadies as he turns to the group. The decision locks in. He is no longer reaching for individual mastery. He is reaching toward three people."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Ben pulls up the Codex notes with shaking hands and scrolls to Gavran's marginalia on resonance theory—the same passage he bookmarked in Chapter 11 and re-read in Chapter 18.",
+      "state_change": "The abstract pressure of the failing seal becomes concrete: a note, a theory, a possibility written in the margins by someone who lived a thousand years ago.",
+      "pov_reaction": "Ben's hands shake because the desperation is real, but the shaking steadies as his eyes find the words. His breath catches—not on the words themselves, but on the emphasis. This time, the word 'trust' carries weight it did not carry before. His body registers the shift before his mind articulates it: a tightening in the chest, a narrowing of focus, the sensation of a door opening that he did not know was locked."
+    },
+    {
+      "beat_description": "Ben spreads relevant files across three datapads—Kael's framework insight from Chapter 19, Gavran's resonance theory, the technique-lineage fragments Sera uncovered. He arranges them on the camp table. The pieces find their shape.",
+      "state_change": "The solution moves from theoretical to tangible. Three datapads. Three people. The architecture of the answer becomes visible.",
+      "pov_reaction": "Ben's hands move with purpose now, not desperation. The physical act of spreading the files—arranging them, cross-referencing, watching the pattern emerge—pulls him out of the spiral of solitary problem-solving. He feels the shift in his own body: the release of a tension he did not know he was holding. His shoulders drop. His breathing deepens. For the first time in twenty chapters, the weight is not his alone to carry."
+    },
+    {
+      "beat_description": "Ben turns to the remaining group—Sera, Kael, Desh—still on the ridge, still waiting. He speaks with a voice that has changed: 'I need to show you something. We find another way. Together.'",
+      "state_change": "The decision locks in. The group becomes a partnership. The resonance solution is set in motion. H21 plants.",
+      "pov_reaction": "Ben hears his own voice as if from outside himself—steadier, clearer, stripped of the command-tone that has carried the group this far. The word 'together' lands once, intentionally. He does not repeat it. He does not explain it. He simply speaks it and waits. His body is braced for the handoff—for the moment when the weight becomes shared, when the consequence is no longer his alone to carry. The sensation is not relief. It is something harder and more necessary: trust in three people who have chosen to stay."
+    }
+  ],
+  "opening_mode": "in_medias_res",
+  "anti_patterns": [
+    "The word 'together' appears once in the chapter and lands at the close; do not reprise it",
+    "Anti-patterns: (a) no group cheer, no relief, no speech; the decision is private and quiet; (b) the group hears the new voice because three people on a ridge can hear a new voice from the one who has been carrying alone — not because Ben explains himself; (c) the word 'together' is used once in the chapter — this scene — and the chapter does not repeat it; (d) the resonance solution is not exposited in prose — it is set in motion by the three datapads spread on a camp table and Ben's sentence; the detail arrives in Ch 23 onward; (e) Sera does not speak in this scene — the chapter's thematic line belonged to s2 and a second Sera line would over-balance the chapter",
+    "Do not repeat the word 'together' after this scene closes. It lands once and does not reprise.",
+    "No group cheer, no relief, no speech; the decision is private and quiet.",
+    "The group hears the new voice because three people on a ridge can hear a new voice from the one who has been carrying alone—not because Ben explains himself.",
+    "The word 'together' is used once in the chapter—this scene—and the chapter does not repeat it.",
+    "The resonance solution is not exposited in prose—it is set in motion by the three datapads spread on a camp table and Ben's sentence; the detail arrives in Ch 23 onward.",
+    "Sera does not speak in this scene—the chapter's thematic line belonged to s2 and a second Sera line would over-balance the chapter.",
+    "Do not narrate the Lie-cracking as self-analysis. Ben finds the note, he re-reads, his voice changes; the change should come through Desh's line ('Ben's voice is different,' rendered as Desh's recognition) rather than an interior paragraph from Ben explaining it.",
+    "Do not name Jacen or reference the Lie by name.",
+    "Do not interpret Torin's absence. The narrator does not comment on why he is off-page.",
+    "Do not arrive at clinical articulation of the Force-wound or the resonance theory. The solution is theoretical; Ben does not fully understand it."
+  ]
 }

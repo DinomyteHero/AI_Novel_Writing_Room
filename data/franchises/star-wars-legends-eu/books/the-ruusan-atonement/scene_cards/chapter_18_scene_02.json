@@ -62,5 +62,53 @@
   "notes": "Desh's line and Sera's unsaid line are the scene. Everything else should point at those two absences becoming visible.",
   "primary_anchor": "Zahn",
   "supporting_anchor": "Bujold, Allston",
-  "stover_permitted": false
+  "stover_permitted": false,
+  "turning_point_detail": {
+    "trigger": "Desh lands the personal line — the 'another good person' echo that hits Ben as Jacen, Torin, and himself simultaneously, delivered after clinical debrief shifts into genuine investment.",
+    "shift": "In the same beat, Sera arrives at the cockpit frame, hand finding the doorway, breath beginning a sentence that does not emerge. Two turning points in one frame: Desh's obligation becomes investment; Sera's defense-of-Torin certainty visibly falters for the first time in the book.",
+    "cost": "Ben receives the Jacen echo from the only other witness who was there. The group's survival as a functioning unit is now strained. Sera's unarticulated cascade-acceleration intuition (planted here, to pay at Ch 21) is seeded in her hesitation. Ben must find a reason to ask the group to stay that originates outside his own will — a leadership shift he does not yet possess the answer for."
+  },
+  "emotional_arc": {
+    "start": "Professional assessment received as tactical pressure; Ben's instinct pushes toward action rather than explanation.",
+    "shift": "Desh's voice shifts from analyst to someone who cares whether Ben survives this pattern. Sera's arrival at the frame and the breath that does not become a sentence. The pressure turns inward — personal investment revealed, tightening Ben's focus on what just changed in both of them.",
+    "end": "Sera's unsaid line held in the air. Ben braced for the scene's handoff pressure, knowing the group needs a reason to stay that he does not yet have."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Desh pulls out his datapad and walks Ben through each team member's status — clinical, precise, devastating. He does not frame it as a warning; he frames it as a debrief.",
+      "state_change": "The opening pressure becomes concrete instead of abstract. The countdown timer Desh posted on the bulkhead is smaller every time Ben reads it.",
+      "pov_reaction": "Ben feels the professional assessment land as tactical pressure. His instinct pushes the response toward action rather than explanation — a tightening in his chest, the urge to move, to solve, to do something other than sit with the numbers Desh is laying out."
+    },
+    {
+      "beat_description": "Desh taps the countdown timer he posted on the bulkhead without looking at it. His voice remains steady and professional until the last line, when it is not.",
+      "state_change": "Desh stops speaking like an analyst and starts speaking like someone who cares whether Ben survives this pattern. The debrief becomes personal investment.",
+      "pov_reaction": "Ben registers the shift in Desh's voice — the moment obligation becomes something else. His shoulders tighten. The pressure that was abstract becomes intimate, and Ben cannot argue with any part of it."
+    },
+    {
+      "beat_description": "Sera arrives at the cockpit doorway as Desh lands the personal line — the 'another good person' echo. Her hand finds the frame. Her breath starts a sentence and does not release it.",
+      "state_change": "Sera's certainty visibly falters at the edge of the room. The line she would have said in Ch 14 is now a line she cannot say. The cost of the not-saying is held in her hand on the frame.",
+      "pov_reaction": "Ben feels the weight of her arrival before he registers her presence. The small intake of breath that is the beginning of a sentence. The breath releasing without the sentence. His awareness splits — Desh's last line landing as Jacen, Torin, and himself simultaneously, while Sera's silence becomes louder than any words she could have spoken."
+    },
+    {
+      "beat_description": "Desh delivers the personal line. Ben does not answer. Desh does not need him to. Neither Ben nor Desh remarks on Sera's presence at the frame.",
+      "state_change": "The scene pivots. Two turning points in one frame: Desh's arc turning — obligation becoming investment; Ben receiving the Jacen echo from the only other witness. The group's survival as a functioning unit is now strained by what has been said and what has not.",
+      "pov_reaction": "Ben's breath holds. The line hits him as recognition — not new information, but confirmation of something he has been running from. He does not have a response because Desh is right. The silence between them is not empty; it is full of everything Ben cannot say back."
+    },
+    {
+      "beat_description": "Sera walks away down the corridor without the sentence. Her footsteps are measured, not-quite-steady. Ben watches her go. The nav display shows Veranthos's system approaching.",
+      "state_change": "Desh's final assessment names the leadership shift Ben has to make — the group needs a reason to stay that is not Ben telling them to. Ben doesn't have that reason yet. But he knows where to look — somewhere in the Codex notes he bookmarked and hasn't revisited.",
+      "pov_reaction": "Ben registers the absence of her words as a new kind of pressure. His hand moves to the datapad. The Codex file bookmark waits. He understands now that the answer he needs is not in Desh's assessment or Sera's silence — it is in the resonance note he has not yet revisited. The weight of that knowledge settles into his shoulders."
+    }
+  ],
+  "opening_mode": "in_medias_res",
+  "anti_patterns": [
+    "Do not open with a flashback",
+    "Do not have Sera speak",
+    "Do not have Ben respond to Desh's personal line",
+    "Do not resolve Sera's fissure in this scene",
+    "Do not arrive at clinical articulation",
+    "Do not name the 'another good person' echo explicitly",
+    "Do not use mission-debrief sentences as filler",
+    "Do not describe Sera's arrival through her perspective"
+  ]
 }

@@ -61,5 +61,45 @@
   "notes": "Torin's use of 'Ben' instead of a title carries the scene's weight — the rejection is affectionate, not cold. Per the blueprint, the relationship ends in affection; Torin is not rejecting Ben, he is rejecting Ben's approach while admiring his character. Anti-patterns: (a) Torin does not give a speech; the line travels across distance as a single short exchange; (b) the technique's activation uses the force_mechanics vocabulary of active structural violence (a pulling, a suction, a drain) — one consistent image, do not stack metaphors; (c) per R11, Ben should not, in this scene, narrate his final acceptance that he cannot force Torin in interior paragraph; the action is: he calls, Torin answers, the technique activates, the group keeps moving; (d) per R13, no Jacen naming here — the naming budget was spent at Ch 18; (e) per D7 Component B, Torin is at ground level — the narrator does not interpret his descent past Ben's perception; his certainty is registered through posture, the use of 'Ben,' and the technique's activation. Voice: Zahn-dialogue-drama precision for the exchange across distance; Bujold-interior permitted for Ben's registration of the technique's activation (sensory, not analytical); Stover-permitted for the single beat of the Weave leaning toward Torin and dissolving (climactic active-technique image). Primary anchor: Zahn (procedural-dramatic frame of the exchange); supporting anchor: Bujold (Ben's registration), Stover (technique-activation density).",
   "primary_anchor": "Zahn",
   "supporting_anchor": "Bujold, Stover",
-  "stover_permitted": true
+  "stover_permitted": true,
+  "turning_point_detail": {
+    "trigger": "Torin's response across the valley: 'I understand what you're trying to do, Ben. It's the right impulse. But some problems only have one solution.' The use of 'Ben' instead of a title.",
+    "shift": "Ben's desperate hope collapses into the recognition that he cannot force Torin's compliance. Torin begins the technique. The Weave near Torin leans inward and dissolves—a pulling, a suction, like standing next to a drain.",
+    "cost": "Ben loses his last chance to save Torin. The relationship ends in genuine love across irreconcilable choices—which is worse than anger because it means Torin is not confused or coerced, only committed to a different solution. Ben must accept that he cannot force it."
+  },
+  "emotional_arc": {
+    "start": "Desperate hope for Torin—the instinct to act, to reach him, to find words that might change his mind.",
+    "shift": "The failed appeal's grief—the moment Torin's response lands and Ben understands the refusal is final and loving, which is the worst version of it.",
+    "end": "The technique activating—Ben's focus narrows to the sensory reality of the Weave dissolving near Torin, the pull of structural violence, the handoff pressure locking in."
+  },
+  "key_beats": [
+    {
+      "beat_description": "The group descends into the valley in formation while Desh splits off toward the first amplification node. Ben's attention tracks Torin on the far ridgeline.",
+      "state_change": "The abstract pressure of the convergence becomes concrete spatial geometry. Three operations are now visibly simultaneous: Veraine at the Scar, Torin descending, the resonance group at mid-valley, Desh moving toward the first node.",
+      "pov_reaction": "Ben registers the moment as the last window for intervention. His body wants to move faster; his mind knows distance and timing are fixed. The desperate hope is not passive—it pushes toward action, toward words, toward the Force itself."
+    },
+    {
+      "beat_description": "Ben calls across the valley to Torin. Torin pauses on the ridgeline, turns, and listens. The exchange travels the distance as a single short dialogue—Ben's plea, Torin's response using 'Ben' instead of a title, Torin's statement that some problems have only one solution.",
+      "state_change": "Torin acknowledges Ben's understanding and affection while refusing the premise of Ben's appeal. The use of 'Ben' signals genuine warmth; the refusal signals certainty. Torin's posture does not waver.",
+      "pov_reaction": "The grief lands as the recognition that Torin has heard him and rejected him anyway—not from confusion or coercion, but from a different conviction about what the situation requires. Ben's focus tightens. The desperate hope collapses into the weight of the refusal."
+    },
+    {
+      "beat_description": "Torin begins the technique. The Weave near Torin leans inward and dissolves—a pulling, a suction, like standing next to a drain. The technique's activation is visible as a structural violence, a drawing-down of the local Force structure.",
+      "state_change": "The technique is now active. The seal's infrastructure begins to shift. The three-way convergence at the Scar is locked into motion. Ben and the group must move to their positions; there is no more time for appeals.",
+      "pov_reaction": "Ben feels the technique's activation as a sensory reality—the Weave dissolving, the pull, the drain. His body registers it before his mind can process the finality. The scene's pressure transfers from the interpersonal (can he reach Torin?) to the structural (the technique is happening now). Ben braces for the next phase."
+    }
+  ],
+  "opening_mode": "in_medias_res",
+  "anti_patterns": [
+    "Anti-patterns: (a) Torin does not give a speech; the line travels across distance as a single short exchange; (b) the technique's activation uses the force_mechanics vocabulary of active structural violence (a pulling, a suction, a drain) — one consistent image, do not stack metaphors; (c) per R11, Ben should not, in this scene, narrate his final acceptance that he cannot force Torin in interior paragraph; the action is: he calls, Torin answers, the technique activates, the group keeps moving; (d) per R13, no Jacen naming here — the naming budget was spent at Ch 18; (e) per D7 Component B, Torin is at ground level — the narrator does not interpret his descent past Ben's perception; his certainty is registered through posture, the use of 'Ben,' and the technique's activation",
+    "Torin does not give a speech; the line travels across distance as a single short exchange",
+    "The technique's activation uses the force_mechanics vocabulary of active structural violence (a pulling, a suction, a drain)—one consistent image, do not stack metaphors",
+    "Ben should not narrate his final acceptance that he cannot force Torin in interior paragraph; the action is: he calls, Torin answers, the technique activates, the group keeps moving",
+    "No Jacen naming here—the naming budget was spent at Ch 18",
+    "Torin is at ground level—the narrator does not interpret his descent past Ben's perception; his certainty is registered through posture, the use of 'Ben,' and the technique's activation",
+    "Do not open with a flashback",
+    "Do not arrive at clinical articulation of the Force-sense moment",
+    "Avoid diagnostic voice for the technique's activation",
+    "Do not have Ben give a speech in response to Torin"
+  ]
 }

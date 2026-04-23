@@ -59,5 +59,45 @@
   "notes": "Keep the scene about chosen silence. Kael's request should feel small, private, and purposeful.",
   "primary_anchor": "Zahn",
   "supporting_anchor": "Bujold",
-  "stover_permitted": false
+  "stover_permitted": false,
+  "turning_point_detail": {
+    "trigger": "Torin's doorway question lands while Ben is composing the incomplete report — a soft, direct pressure that does not demand an answer but makes the absence of one impossible to ignore.",
+    "shift": "Ben does not answer. The silence becomes a kind of answer. Simultaneously, Ben registers Kael's quiet, unprompted archive request to Desh — a man who was used now choosing to learn — and does not approach it. The scene pivots from Ben's internal conflict to Ben's observation of another person's agency, and Ben's choice not to claim or guide that agency.",
+    "cost": "Ben's integrity erodes with each incomplete report; Torin's soft pressure accumulates (the question does not need to push because it already has); Kael's self-directed act is witnessed by Ben but not underlined or claimed, leaving Ben as a bystander to his own crew's growth."
+  },
+  "emotional_arc": {
+    "start": "Reflective processing — Ben moving through the aftermath of the thin place, the physical effects fading like a headache lifting, his mind still turning over what he learned.",
+    "shift": "The weight of withholding — the practice of editing honest paragraphs out of a report he knows will be read by the person who raised him, the accumulation of small silences, the recognition that he is becoming two people at once.",
+    "end": "Renewed determination — the next degradation point is worse, the energy signature stronger, and Ben braces for what comes next. The decision to withhold has locked in; now the consequences move forward."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Ben hunches over his datapad composing the second partial report to Luke, editing out the full scope of what he knows, while the thin place's effects fade from his body like a headache lifting.",
+      "state_change": "The abstract pressure of the mission becomes concrete: Ben is now actively choosing what to withhold, not passively concealing it.",
+      "pov_reaction": "Ben's body registers the physical aftermath — the fading sensation — while his mind moves into the deliberate work of composition. His fingers hesitate over certain phrases; he deletes them. The action is mechanical, practiced, and carries an undertone of something he has not yet named as cost."
+    },
+    {
+      "beat_description": "Torin leans against the doorframe of Ben's makeshift workspace, warm and easy in his presence, and asks a direct question about honesty. He does not push for an answer.",
+      "state_change": "Pressure escalates from abstract to interpersonal. Torin's question is soft but specific — it names the thing Ben is doing — and his refusal to push makes the silence that follows Ben's non-answer into a kind of answer itself.",
+      "pov_reaction": "Ben feels the weight of the question land on top of the keyboard. His instinct is to answer — to explain, to justify — but something in him holds back. The silence stretches. Ben registers Torin's warmth and the thing underneath it that he has not named, and does not break the quiet."
+    },
+    {
+      "beat_description": "Across the common area, Kael approaches Desh with a specific, unprompted archive request: Kolven-era disciplinary logs. One sentence, no elaboration. Desh absorbs it without commentary and queues the pull.",
+      "state_change": "A second act of agency unfolds in Ben's peripheral awareness. Kael is not asking permission; he is asking for access to knowledge he has decided to pursue. The request is small, private, and purposeful.",
+      "pov_reaction": "Ben registers the exchange from the corner of his eye — the low pitch of Kael's voice, the monk's economy of the sentence, Desh's nod and the datapad turning in his hands. Ben does not approach it. He holds it as texture, as something happening in the same space but not requiring his intervention or acknowledgment."
+    },
+    {
+      "beat_description": "Ben watches the nav display as Desh pulls up the next node's readings. The energy signature that was flagged at the previous stop registers stronger here. The degradation pattern is worse — the Force ahead arriving in pieces rather than merely offset.",
+      "state_change": "The scene hands off its consequence. The decision to withhold has locked in; now the external pressure accelerates. The next stop is worse. Someone has been here, dismantling the seal's infrastructure.",
+      "pov_reaction": "Ben's attention sharpens. The renewed determination settles in — not hope, not confidence, but a braced readiness. The scene's pressure has moved from internal conflict to external necessity. He is ready for what comes next because he has already chosen his path."
+    }
+  ],
+  "opening_mode": "contrast",
+  "anti_patterns": [
+    "Do not open with a flashback to the thin place or any prior scene.",
+    "Keep the scene about chosen silence — do not drift into Ben's justification or internal debate about whether withholding is right.",
+    "Kael's request should feel small, private, and purposeful — do not underline it or have Ben comment on it.",
+    "Do not have Ben articulate the cost of withholding in diagnostic voice — show it through hesitation, through what he deletes, through the silence he does not break.",
+    "Do not arrive at clinical articulation of Ben's emotional state — the weight of withholding should surface through behavior and sensory detail, not through Ben naming it."
+  ]
 }

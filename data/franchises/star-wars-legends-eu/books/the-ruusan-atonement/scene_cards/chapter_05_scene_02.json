@@ -51,11 +51,11 @@
     "reformations_dual_purpose_revealed"
   ],
   "promises_planted": [
-    "The institutional lie must be told to the Order (PP08)",
-    "Each generation of technique-developers thought they were smarter; the resonance will break that cycle (PP11)"
+    "PP08",
+    "PP11"
   ],
   "promises_paid": [
-    "The wrongness has a source (PP01)"
+    "PP01"
   ],
   "hook_actions": [],
   "revelations": [
@@ -71,5 +71,51 @@
   "notes": "The scene works only if the survivor voices separate immediately. Land the institutional shock cleanly, then stop before the room tries to answer everything.",
   "primary_anchor": "Luceno",
   "supporting_anchor": "Zahn, Allston",
-  "stover_permitted": false
+  "stover_permitted": false,
+  "turning_point_detail": {
+    "trigger": "Sera names the dual-purpose framing in a single composed sentence: the Reformations were simultaneously public reform and private penance. Ben feels the sentence land before his intellect catches up.",
+    "shift": "The Order Ben was raised inside—the institutional identity he has never questioned—is revealed as constructed around a concealed wound. The foundation is edited history, not discovered truth.",
+    "cost": "Ben's moral reckoning with institutional history. The account he grew up inside does not match the room he is standing in. The survivors land as three distinct persons whose presence makes the lie visible and undeniable."
+  },
+  "emotional_arc": {
+    "start": "Absorbing shock—the concrete activation of the archive makes the pressure tangible rather than abstract.",
+    "shift": "Intellectual vertigo—Ben's focus tightens as each survivor contributes a distinct voice, and the institutional fact assembles itself in front of him.",
+    "end": "Moral reckoning with institutional history—Ben registers what each survivor has become for him (Sera the instrument, Torin the keeper, Kael the correction) and braces for the implications."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Sera crosses to the archive console and her fingers find the activation sequence from muscle memory—a thousand years old and still faster than Ben's modern training. The console hums to life under her touch.",
+      "state_change": "The abstract wrongness becomes concrete. The archive itself is evidence; the survivors can read what Ben cannot.",
+      "pov_reaction": "Ben's shock registers as a physical response before thought catches up—a tightening in his chest, a sharpening of sensory detail (the hum of the console, the precise angle of Sera's shoulders, the weight of the Codex fragment in its sealed case nearby). His instinct pushes toward action, toward doing something, rather than standing still while the room rewrites itself."
+    },
+    {
+      "beat_description": "Torin pulls a record index into the holographic display, his hand moving with the same thousand-year-old familiarity. As the institutional timeline unfolds, he adds a story-shaped inflection—a wry observation, a narrative warmth that contextualizes the facts without softening them.",
+      "state_change": "The pressure escalates. Torin's presence transforms the archive from a database into a testimony. He is not explaining; he is remembering, and the distinction matters.",
+      "pov_reaction": "Ben's shock deepens into intellectual vertigo. The timeline is not what he was taught. The names are the same, but the causal chain is wrong. His focus tightens on the discrepancy, on the gap between the history he knows and the history the survivors are showing him. His breathing steadies as his mind engages with the problem."
+    },
+    {
+      "beat_description": "Kael reaches past Sera to correct one detail on the display—a single word replaced, precisely and without emphasis. It is his first voluntary contribution since the survivors woke. He does not explain the correction. He simply makes it and steps back.",
+      "state_change": "Kael emerges as a distinct presence. His silence has been broken by something that matters to him. The correction is small, but it is his.",
+      "pov_reaction": "Ben registers the significance of Kael's action before he processes the content of the correction. The monk's brevity lands heavier than explanation would. Ben's vertigo sharpens—the survivors are not unified in their testimony; they are three separate people with three separate relationships to the truth. That separation is the truth."
+    },
+    {
+      "beat_description": "Sera names the dual-purpose framing in a single composed sentence: the Reformations were public reform and private penance. She does not elaborate. She does not soften the institutional fact with context or apology. The sentence lands clean and complete.",
+      "state_change": "The scene pivots. The Order Ben was raised inside has been built on what Gavran chose not to say. The lie is not accidental; it is structural.",
+      "pov_reaction": "Ben feels the sentence land before his intellect catches up. His body registers the impact—a vertigo-like drop in his center of gravity, a sudden clarity that comes with the understanding that everything he has been taught about the Order's origins is incomplete. His mind races ahead to the implications: if the Reformations were penance, what were they penance for? What did the Order choose to hide? The moral weight of the question settles into his shoulders."
+    },
+    {
+      "beat_description": "Ben's close-third perspective registers what each of the three survivors has just become for him: Sera the instrument of precision, Torin the keeper of narrative warmth, Kael the quiet correction. The archive around them is no longer a room full of records. It is a testimony delivered by three people who have waited a thousand years to say it.",
+      "state_change": "The scene closes on new information that changes the operating picture. Ben is no longer standing in a room with three survivors. He is standing in a room with three witnesses to the Order's hidden history.",
+      "pov_reaction": "Ben's moral reckoning with institutional history crystallizes. He does not yet understand what the penance was for, but he understands that the Order has been built on a concealed wound. The weight of that knowledge settles into him—not as despair, but as a new clarity about what he is responsible for. He braces for what comes next, knowing that the survivors' testimony has changed the foundation of everything he thought he knew about the Jedi."
+    }
+  ],
+  "opening_mode": "in_medias_res",
+  "anti_patterns": [
+    "Do not open with a flashback or exposition dump explaining the Reformations.",
+    "Do not have the survivors deliver the revelation as a lecture or coordinated explanation.",
+    "Do not soften the institutional fact with apology or context—let it land clean.",
+    "Do not arrive at clinical articulation of the institutional lie; let Ben feel it before he understands it.",
+    "Do not flatten the survivor voices into a unified exposition vector; they must emerge as distinct persons.",
+    "The scene works only if the survivor voices separate immediately. Land the institutional shock cleanly, then stop before the room tries to answer everything."
+  ]
 }

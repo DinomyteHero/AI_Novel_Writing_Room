@@ -58,5 +58,46 @@
     "R03"
   ],
   "pov_arc_phase": "lie_established",
-  "notes": "R03 lands — the fortress is a tomb with three living people in it. The empty chamber carries the threat. Gavran's body at the nexus tells the story without words. He held on until he died. End with Ben and Desh standing in front of the three active chambers; the decision to wake them belongs to Ch5. Anti-pattern: do not make Gavran's death maudlin. The grief should come from Ben's recognition of the duty, not from emotional description — understatement is stronger. Diagnostic-voice trap — Ben should not, in this scene, articulate the anchor system or the Reformations as a concept. He sees twelve chambers, counts the dead, counts the living, registers the empty one. Naming the architecture is Ch5's work."
+  "notes": "R03 lands — the fortress is a tomb with three living people in it. The empty chamber carries the threat. Gavran's body at the nexus tells the story without words. He held on until he died. End with Ben and Desh standing in front of the three active chambers; the decision to wake them belongs to Ch5. Anti-pattern: do not make Gavran's death maudlin. The grief should come from Ben's recognition of the duty, not from emotional description — understatement is stronger. Diagnostic-voice trap — Ben should not, in this scene, articulate the anchor system or the Reformations as a concept. He sees twelve chambers, counts the dead, counts the living, registers the empty one. Naming the architecture is Ch5's work.",
+  "turning_point_detail": {
+    "trigger": "The empty chamber — damage scored outward from inside, emergency flags still blinking, breach weeks old.",
+    "shift": "The thing the fortress was built to contain is already loose and moving. The seal's failure is not theoretical; the escapee has had weeks to act. Ben's mission expands from discovery to pursuit and prevention.",
+    "cost": "Ben confronts the reality that the Jedi sealed living people as infrastructure — used them as rebar in a containment system. The cost lands as moral weight: he is looking at the price the Reformations extracted, and it is human. Desh's practical reaction ('Someone broke out. Recently.') grounds the horror in immediate threat rather than abstraction."
+  },
+  "emotional_arc": {
+    "start": "Horror at the sight of nine dark chambers — the dead, the sealed, the forgotten.",
+    "shift": "Awe at the three living signatures distinct even through the stasis fields, followed immediately by dread at the empty chamber's gouged interior and the implication of weeks-old escape.",
+    "end": "Grief at Gavran's vigil — the recognition that one man held this together until he couldn't, and Ben is now inheriting that burden."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Ben walks the circumference of the Stasis Ring, counting dark chambers and flickering active ones. The pattern becomes undeniable: nine dark, three faintly lit, one visibly broken.",
+      "state_change": "Abstract threat becomes concrete inventory. Ben moves from exploration to accounting — the scale of the containment system is now visible.",
+      "pov_reaction": "Horror registers first as physical recoil — a tightness in his chest, the instinct to move, to do something. His mind resists the implication of what he's counting. The Force-sense through the stasis fields is muted but present: three distinct signatures, disciplined and heavy and clipped, each one a person. Nine dark chambers register as absence — not empty, but sealed off from his perception."
+    },
+    {
+      "beat_description": "Desh moves to the empty chamber and traces the damage marks — systematic scoring gouged from the inside, radiating outward like something clawed its way free. The emergency flags on the monitoring panel still blink, still logging the breach as weeks old.",
+      "state_change": "The breach is no longer a mystery. It is a timeline. Whatever was sealed here has had weeks to move, to act, to dismantle. The fortress's failure is not imminent — it is already in progress.",
+      "pov_reaction": "Ben's attention sharpens. The awe at the three living signatures tightens into focus — these three are still here, still sealed, still dependent on systems that are failing. The empty chamber becomes a threat vector. His hand moves toward the monitoring panel, reading the timestamps, calculating how far the escapee could have traveled, what damage it could have done."
+    },
+    {
+      "beat_description": "Ben descends to Level 4 and finds Gavran's body seated at the control nexus, hands still resting on the surfaces. His posture is not peaceful — it is settled, like a man who finished what he could and then stopped moving. The monitoring log trails off mid-sentence.",
+      "state_change": "The fortress's architect is revealed as its final guardian. Gavran did not abandon the seal — he held it until death. The system's degradation is not a failure of design but a failure of time itself. One man cannot hold forever.",
+      "pov_reaction": "Grief arrives not as sentiment but as weight. Ben recognizes the duty in Gavran's posture — the choice to stay, to hold, to keep the seal intact even as the anchors failed one by one. The recognition carries obligation. Ben is now the only person who can do what Gavran did, and Gavran is dead. The Force-sense around Gavran's body is quiet, settled, like a note that has finished sounding."
+    },
+    {
+      "beat_description": "Ben touches one of the three active chamber controls and the stasis field hums in response — a sound like held breath, like something waiting to be released. The three signatures pulse faintly in acknowledgment.",
+      "state_change": "The three survivors are confirmed as responsive, aware at some level of the external world. They are not merely preserved — they are waiting. The decision to wake them is no longer theoretical.",
+      "pov_reaction": "Ben's hand lingers on the control. The hum carries a question. The three signatures are distinct now — one disciplined, one heavy, one clipped — each one a personality, a will, a person who has been sealed for a thousand years and does not know the galaxy has moved on. The weight of that knowledge settles into Ben's shoulders. He is standing at the threshold between discovery and action, and there is no going back."
+    }
+  ],
+  "opening_mode": "in_medias_res",
+  "anti_patterns": [
+    "do not make Gavran's death maudlin",
+    "Ben should not, in this scene, articulate the anchor system or the Reformations as a concept",
+    "Ben should not articulate the anchor system or the Reformations as a concept",
+    "do not resolve the decision to wake the survivors — that belongs to Ch5",
+    "avoid diagnostic voice when describing Force-sense through stasis fields",
+    "do not open with exposition about the Ring's purpose or history"
+  ]
 }

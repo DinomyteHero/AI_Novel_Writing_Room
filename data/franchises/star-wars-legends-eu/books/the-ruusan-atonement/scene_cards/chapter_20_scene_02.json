@@ -50,7 +50,7 @@
   ],
   "promises_planted": [],
   "promises_paid": [
-    "PP25 — the wound as lived galactic texture, not cosmic concept (Desh's grief lands in the evacuation-zone city)"
+    "PP25"
   ],
   "hook_actions": [],
   "revelations": [],
@@ -66,5 +66,58 @@
     "alpha_location": "Ch 20 s2 evacuation-zone passage",
     "beta_location": "Ch 20 s3 camp edge",
     "interaction": "If alpha executed at draft time, beta collapses to a one-paragraph coda in s3. If alpha not executed, beta is the full ledger-entry beat."
-  }
+  },
+  "turning_point_detail": {
+    "trigger": "Ben stops walking at the valley ridgeline and the Scar becomes visible below—a three-meter vertical distortion of air where the Force was torn and never fully healed.",
+    "shift": "Sight arrives before concept. The wound ceases to be theoretical and becomes a visual fact. The group's descent reaches its destination; the next phase (confrontation with Veraine, the choice to seal or break) is now inevitable.",
+    "cost": "Ben loses Force-sense permanently for the rest of the book and must operate blind to the Force in the climactic confrontation. Each group member's reaction at different ring levels reveals how the wound affects non-Force-users differently. Desh's grief-without-an-object lands as proof that the Weave matters to those who cannot sense it."
+  },
+  "emotional_arc": {
+    "start": "Controlled descent—professional focus, mission-oriented, braced for what lies ahead.",
+    "shift": "Escalating wrongness—the intact city triggers cognitive dissonance; the absence of Force-sense becomes undeniable; Desh's non-Force grief lands as a shared wound; the Scar appears and awe and horror collapse into a single sensation.",
+    "end": "Awe and horror at the Scar—Ben stands at the threshold of the wound itself, stripped of Force-sense, forced to witness rather than sense."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Ben steps through the seal boundary and stumbles as the Force drops away entirely—not thinned, not shifted, but gone.",
+      "state_change": "The abstract pressure of the seal becomes concrete. Ben's primary sensory tool vanishes. The group crosses the threshold into the dead zone.",
+      "pov_reaction": "A moment of vertigo-without-falling. Ben's hand reaches into space that refuses to register the hand—no echo, no presence, no answer. The reflex to reach for the Force meets silence. His body tightens; breath catches; the next step forward is an act of will, not instinct."
+    },
+    {
+      "beat_description": "The group moves through the evacuation zone—doors standing open, vehicles pointed away from the city, a thousand years of overgrowth reclaiming the spaces between structures.",
+      "state_change": "The evidence of evacuation under pressure becomes visible. The scale of abandonment lands: this was not a gradual exodus but a flight. The city itself is still ahead.",
+      "pov_reaction": "Ben registers the pattern—the direction of the vehicles, the way the doors hang open—and his tactical mind catalogs it even as his Force-sense remains absent. A tightness in his chest that has nothing to do with the seal boundary. The wrongness is not yet visible, but it is implied in the geometry of escape."
+    },
+    {
+      "beat_description": "The group enters the city proper—buildings standing intact, vines climbing and reversing direction, horizontal tree splits through walls, flowers blooming on shadow faces. A child's toy on a step. No birds. No sound except footsteps and breathing.",
+      "state_change": "The intact-but-wrong horror becomes undeniable. This is not a ruin; it is a place where normal rules have been suspended. Desh's non-Force grief lands—a sadness about nothing that will not lift until leaving the zone, settling below the sternum without ever finding its object.",
+      "pov_reaction": "Ben's eyes track the reversing vines—the wrongness of growth moving backward—and something in his chest tightens further. The absence of birds registers as absence. His hand brushes a wall and the durasteel is cold, real, ordinary. The contradiction between intact and wrong creates a cognitive pressure that his Force-sense would normally resolve. Without it, the pressure stays. Desh's grief becomes visible in posture, in the way the older man's shoulders carry weight that has no name. Ben recognizes it because he cannot feel the Force to explain it away."
+    },
+    {
+      "beat_description": "Optional conditional beat: in the evacuation-zone passage, Ben raises binoculars at movement on an opposing ridge, catches a distant human figure in precise, unhurried posture, and loses her between two breaths. No pursuit, no dialogue, no taunt. The space where she stood continues to be watched by Ben for a beat longer than is tactically reasonable.",
+      "state_change": "Veraine's presence is confirmed at the epicenter. The threat is no longer abstract. The stage is set for the confrontation ahead.",
+      "pov_reaction": "Ben's focus narrows. The figure is gone before identification is certain, but the posture—precise, unhurried—registers as deliberate. Ben's hand lowers the binoculars. The descent continues. No interior narration of why she wanted to be seen; Ben registers it and moves forward."
+    },
+    {
+      "beat_description": "Ben stops at the valley ridge and stares at the Scar—a three-meter vertical distortion where reality was torn and never fully healed. The eye can see it; the brain cannot parse it.",
+      "state_change": "The wound is visible. The descent is complete. The next phase—confrontation, choice, the decision to seal or break—is now inevitable. Ben stands at the threshold without Force-sense, forced to witness rather than sense.",
+      "pov_reaction": "Awe and horror collapse into a single sensation. Ben's breath steadies. His hand does not reach for the Force because the Force is not there to reach for. He stands at the ridgeline and stares at the thing the whole book has been leading toward, and the wrongness of it—the way it sits in the air, the way it refuses to resolve into meaning—becomes the only thing that matters."
+    }
+  ],
+  "opening_mode": "in_medias_res",
+  "anti_patterns": [
+    "Rotate Force-wrongness metaphor for Ben's seal-boundary crossing: a hand reaching into space that refuses to register the hand; do not reuse the 'ground dropping out' phrasing from Ch 13 nor the handrail family",
+    "the city is not rendered as disaster; the point is that it is intact and still wrong",
+    "No chase, no attempted interception, no dialogue, no taunt",
+    "Ben should not, in this scene, narrate the phenomenology as theory",
+    "Anti-patterns: (a) do not describe the ruined city as a disaster zone — intact and still wrong; (b) no combat; (c) if the distant sighting is omitted, do not tease it in prose — keep Veraine offstage until the ledger beat in s3; (d) if the distant sighting is used, no interior narration of 'why did she want to be seen' — Ben registers it and the descent continues",
+    "Do not reuse 'ground dropping out' phrasing from Ch 13 nor the handrail family—rotate Force-wrongness metaphor to 'a hand reaching into space that refuses to register the hand'",
+    "Do not describe the ruined city as a disaster zone—intact and still wrong is the point",
+    "No combat, no chase, no attempted interception, no dialogue, no taunt",
+    "Ben should not narrate the phenomenology as theory—he sees, he cannot Force-sense, he stops walking",
+    "If the distant sighting is omitted, do not tease it in prose—keep Veraine offstage until the ledger beat in s3",
+    "If the distant sighting is used, no interior narration of 'why did she want to be seen'—Ben registers it and the descent continues",
+    "Do not open with flashback or exposition dump",
+    "Avoid diagnostic voice—keep Force-wound description sensory and immediate"
+  ]
 }

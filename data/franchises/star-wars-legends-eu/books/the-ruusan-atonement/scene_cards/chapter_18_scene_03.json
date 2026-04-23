@@ -54,5 +54,44 @@
   "notes": "Mara must remain the pragmatist. No mystical visitation, no reassuring dream, no Force-ghost. A memory of how she would have said it. One short sentence, and move. This is a micro-turn, not a breakthrough — Ben has not yet committed to a different approach; he has moved one file from 'return later' to 'open.' Per R13, the Jacen naming budget used in s1 does not surface here — the scene is about Gavran's resonance note, not about the Torin pattern directly. The Torin pattern is the shadow behind the scene; the explicit subject is trust as a structural problem. Per R11, Ben does not, in this scene, articulate the Skywalker-trap framework in interiority. The scene is the physical ritual of being tired, the datapad, the second read. The shift happens silently. Per D3, the Weave terminology continuity holds — 'resonance' is Gavran's term, preserved from the Codex annotations. Voice: Bujold-interior density for the corridor beat — self-aware without self-pity, aware of the pattern he is partly inside without naming it — under half the scene in interiority; the deck plates and the datapad and the lightsaber on his hip anchor the body. Primary anchor: Bujold (interior micro-turn); supporting anchor: Zahn (tight physical frame). Stover not used here — the chapter's Stover-permitted beat was in s1 at the moment of naming. Anti-patterns: (a) no Mara Force-ghost, no mystical voice, no reassuring dream — a remembered pragmatist sentence only; (b) Ben does not articulate the Skywalker-trap or the Torin-pattern framework; (c) the scene does not close on a resolution — it closes on 'maybe a different solution,' indefinite; (d) no other character present in prose; the scene is strictly solitary; (e) the lightsaber on Ben's hip is a physical anchor, not a symbol — rendered as weight, not as meaning.",
   "primary_anchor": "Bujold",
   "supporting_anchor": "Zahn",
-  "stover_permitted": false
+  "stover_permitted": false,
+  "turning_point_detail": {
+    "trigger": "Ben re-reads Gavran's resonance note and the emphasis shifts under his eyes: 'will or trust' splits into two separate problems.",
+    "shift": "The trust problem — the one Ben has been avoiding — becomes visible as the one he has any chance of solving. The frame moves from 'am I worthy enough' to 'can I build trust with the people I'm working with.'",
+    "cost": "Ben moves one file from the archive folder to the open one. The memory of Mara as pragmatist — not as myth or reassurance, but as a model of operational thinking — surfaces for the first time in the book as something that does work instead of pain. This costs Ben the comfort of self-reproach and demands he act on a half-formed question."
+  },
+  "emotional_arc": {
+    "start": "Exhausted honesty — body finally admitting what it has been carrying; interiority crowding in with self-reproach and the weight of the Torin pattern.",
+    "shift": "The memory of Mara as pragmatist arrives — not reassuring, not mythic, but concrete: 'stop wondering if you're worthy and figure out what works.' The shift tightens focus from self-judgment to structural problem-solving.",
+    "end": "The angle shift on the resonance note. Ben is not resolved or confident; he is braced for a differently-shaped question. The exhaustion remains, but it is now the exhaustion of someone who has moved one file from 'return later' to 'open.'"
+  },
+  "key_beats": [
+    {
+      "beat_description": "Ben slides down the corridor bulkhead until he is sitting on the cold deck plates, legs stretched across the narrow passage — the first time on this trip he has let his body admit how tired he is.",
+      "state_change": "The abstract pressure of the mission becomes concrete and physical. Ben's body takes up space; exhaustion becomes undeniable.",
+      "pov_reaction": "His spine registers the bulkhead's low vibration; the cold of the deck plates presses through his trousers. The sensation is relief and admission at once — his body has been waiting for permission to stop. No impulse to move or explain; just the weight of fatigue settling into his shoulders and the back of his neck."
+    },
+    {
+      "beat_description": "Ben pulls up the Codex notes on his datapad and scrolls to Gavran's resonance annotation — the passage he has been reading for days as evidence of the Jedi Lords' insufficient courage.",
+      "state_change": "The scene pivots inward. Ben is still sitting on the cold deck, but his attention narrows to the glowing text on the datapad. The resonance note becomes the focal point; everything else — the corridor, the ship's ambient hum, the weight of his own exhaustion — recedes.",
+      "pov_reaction": "His fingers move across the datapad's surface with the muscle-memory of someone who has read this passage too many times. The familiar words arrive, and with them, the familiar self-reproach: *we weren't brave enough*. But this time, something catches. The pressure in his chest does not ease into the usual pattern of self-judgment; instead, it sharpens into something closer to recognition."
+    },
+    {
+      "beat_description": "Ben re-reads the note: 'We lacked the will or the trust.' The emphasis shifts under his eyes. Not 'we weren't brave enough' — 'we couldn't trust each other enough.'",
+      "state_change": "The trust problem separates from the will problem. Ben realizes he has been reading the note as a judgment on the Jedi Lords' character when it was actually a diagnosis of their structural failure. The problem he has been avoiding — the one about whether he can trust the people he is working with, whether they can trust him — becomes visible as the problem he might actually solve.",
+      "pov_reaction": "Mara's voice arrives in his memory, pragmatic and stripped of myth: *stop wondering if you're worthy and figure out what works*. It is not a Force-ghost or a reassuring dream; it is the remembered shape of how she would have said it — one short sentence, and move. The memory tightens his focus. His hand stills on the datapad. The lightsaber on his hip — its weight against his thigh — becomes an anchor, something solid to brace against while the question reshapes itself."
+    }
+  ],
+  "opening_mode": "in_medias_res",
+  "anti_patterns": [
+    "No mystical visitation, no reassuring dream, no Force-ghost",
+    "Anti-patterns: (a) no Mara Force-ghost, no mystical voice, no reassuring dream — a remembered pragmatist sentence only; (b) Ben does not articulate the Skywalker-trap or the Torin-pattern framework; (c) the scene does not close on a resolution — it closes on 'maybe a different solution,' indefinite; (d) no other character present in prose; the scene is strictly solitary; (e) the lightsaber on Ben's hip is a physical anchor, not a symbol — rendered as weight, not as meaning",
+    "No mystical visitation, no reassuring dream, no Force-ghost — a remembered pragmatist sentence only.",
+    "Ben does not articulate the Skywalker-trap or the Torin-pattern framework.",
+    "The scene does not close on a resolution — it closes on 'maybe a different solution,' indefinite.",
+    "No other character present in prose; the scene is strictly solitary.",
+    "The lightsaber on Ben's hip is a physical anchor, not a symbol — rendered as weight, not as meaning.",
+    "Do not arrive at clinical articulation of the trust problem.",
+    "Do not open with a flashback or exposition dump about Gavran or the Jedi Lords."
+  ]
 }

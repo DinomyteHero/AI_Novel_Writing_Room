@@ -50,9 +50,9 @@
   ],
   "promises_planted": [],
   "promises_paid": [
-    "The institutional lie told to the Order (PP08)",
-    "Ben's unilateral pattern resolves in transparency (PP12)",
-    "The unmade Ch 13 check-in and Ch 14-15 blank-template practice and Ch 15 deleted full report paid by Luke's 'And you didn't call me' (PP26)",
+    "PP08",
+    "PP12",
+    "PP26",
     "The Reformations' true history delivered (R14)"
   ],
   "hook_actions": [],
@@ -64,5 +64,45 @@
   "notes": "Keep the scene small and exact. Geography does most of the callback work. Luke's question lands once and Ben lets it land. No one summarizes anything; the scene lives in telling, listening, silence, and decision.",
   "primary_anchor": "Zahn",
   "supporting_anchor": "Bujold",
-  "stover_permitted": false
+  "stover_permitted": false,
+  "turning_point_detail": {
+    "trigger": "After Ben finishes his full account, Luke lets the silence stand and then asks the one question that matters — the line that names what Ben should have done.",
+    "shift": "Ben does not defend himself or explain the silences away. Luke answers the silence by naming the shared decision: the Council will hear the truth. The pattern of unilateral burden-carrying ends in this room.",
+    "cost": "Ben must endure being seen by the person he should have called and resist the reflex to explain himself back into safety. Luke must name the hurt without weaponizing it, and Ben must let the line land without flinching. The cost is mutual: vulnerability without armor."
+  },
+  "emotional_arc": {
+    "start": "The weight of telling — pressure toward action, toward explanation, toward anything but stillness.",
+    "shift": "Luke's silence while listening — the pressure tightens into focus. Ben registers what has changed: Luke is not performing authority; he is holding sadness without using it as a tool.",
+    "end": "The shared commitment to truth — the weight transforms into something Ben can carry with another person. The urge to defend himself dissolves because Luke did not ask a question that required defending."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Ben sits in the same chair where the mission briefing happened. The office is unchanged — same furniture, same light, same datapad with the survey route cached in its memory. Ben begins telling the full story: Sera, Kael, Torin, Veraine, the technique, the Reformations' true history, the resonance, the new seal, the first-renewal commitment.",
+      "state_change": "The abstract pressure of the mission becomes concrete and named. Ben is no longer carrying the silence alone — he is breaking it in the room where it was first imposed.",
+      "pov_reaction": "Ben feels the weight of telling settle into his chest. Instinct pushes toward action, toward explanation, toward anything that is not stillness. He speaks instead, letting the words carry what silence could not."
+    },
+    {
+      "beat_description": "Luke listens without moving. His hands remain on the desk. His Force presence is vast and warm, holding sadness without performing it — the specific quality of a Master's presence when he is not using it for authority. The afternoon light moves across the floor as Ben speaks. The renewal tether hums at the edge of Ben's Force-perception, a continuous low note that the conversation does not change.",
+      "state_change": "The pressure escalates inward. Ben registers that Luke is not defending the Order's silence or his own. Luke is simply present, listening, letting Ben be seen.",
+      "pov_reaction": "Ben's focus tightens on what has changed in Luke's presence. The absence of judgment is not the same as agreement, but it is not rejection either. It is something Ben has not felt from his father in this context: the willingness to hear without immediately answering."
+    },
+    {
+      "beat_description": "Ben finishes. A long silence follows — not awkward, not heavy, the silence of a conversation that has landed. Luke lets it stand. Then Luke asks the one question that matters, four words exactly, in a voice that is not louder than the silence.",
+      "state_change": "The pivot happens. Luke names the breach without weaponizing it. The question is not an accusation; it is an acknowledgment of what Ben should have done and did not.",
+      "pov_reaction": "Ben feels the question land like a blade that cuts cleanly. There is no defense against it because the question does not demand one. Luke is not asking Ben to justify the silence; Luke is naming that the silence existed and that it mattered."
+    },
+    {
+      "beat_description": "Ben does not answer. He does not defend the silences or catalogue them. Luke did not ask a question that required defending. Another silence follows, and in that silence, Luke names the shared decision: the Council will hear the truth. Neither of them speaks for a moment after that.",
+      "state_change": "The scene closes on the new operating picture. The decision is no longer Ben's alone. Luke has chosen transparency with him, converting the institutional distance from Chapter 1 into private alliance and institutional commitment.",
+      "pov_reaction": "Ben registers the shift as a release of pressure that he did not know he was carrying. The urge to explain, to defend, to prove himself dissolves because Luke did not ask for proof. Luke asked for truth, and Ben gave it. The pattern that runs in the blood — the unilateral burden, the silence, the weight carried alone — does not run in this room."
+    }
+  ],
+  "opening_mode": "sensory_hook",
+  "anti_patterns": [
+    "No one summarizes anything; the scene lives in telling, listening, silence, and decision",
+    "No one summarizes anything; the scene lives in telling, listening, silence, and decision.",
+    "Do not open with exposition or backstory recap — the scene begins with Ben sitting in the same chair, the geography doing the callback work.",
+    "Do not perform emotion — Luke's sadness is held without being weaponized or displayed.",
+    "Do not extend beyond the closing silence — the pattern that runs in the blood does not run in this room, and the scene ends there."
+  ]
 }

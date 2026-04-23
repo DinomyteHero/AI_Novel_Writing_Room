@@ -69,5 +69,48 @@
   "notes": "Keep it tactical. Sera's line to Ben should change the room, and the unfinished report should remain visible as the cost of that new authority.",
   "primary_anchor": "Zahn",
   "supporting_anchor": "Bujold, Allston",
-  "stover_permitted": false
+  "stover_permitted": false,
+  "turning_point_detail": {
+    "trigger": "Sera straightens her spine and calls Ben 'Skywalker' with something new inside the word — investment, not warmth. She has chosen to follow him.",
+    "shift": "The gift is also the test. The Luke report template sits open on the briefing table with the mission-state field empty. Desh sees it. Ben sees Desh see it. Neither speaks. The institutional silence becomes a presence.",
+    "cost": "Ben assumes a leadership role he is not certain he deserves. The unfilled report template continues the Ch 13 withholding and makes it visible to the group. Sera's trust places Gavran's shadow on Ben without either of them naming it — a thousand-year-old pattern of command and sealed walls that Ben cannot yet see in the rhyme of her acceptance."
+  },
+  "emotional_arc": {
+    "start": "Assumed authority — Ben feels the weight of decision-making settle into his body without permission or rank to justify it.",
+    "shift": "The intellectual naming lands in the room and tightens into focus. Sera's acceptance arrives as both gift and test. The blank report template becomes visible as the cost of his new authority.",
+    "end": "The unfilled template — Ben carries forward the burden of earned trust and the institutional silence that comes with it. The pressure settles into his chest as something he will not yet name."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Ben stands in the center of the common area and names Veraine's activity as engineering, not studying. The word lands in the room as a structural reframing.",
+      "state_change": "Abstract pressure crystallizes into concrete antagonist action. The group's reactive posture shifts toward strategic response.",
+      "pov_reaction": "Ben feels assumed authority settle into his shoulders and chest — an instinct that pushes toward action and declaration rather than explanation or permission-seeking. His mother's cadence surfaces in his voice without deliberate choice."
+    },
+    {
+      "beat_description": "Ben lays out the array-dependency fact: the seal's structural integrity depends on Veranthos as the completion site. The intercept route skips ahead of Veraine's dismantling sequence rather than following it.",
+      "state_change": "The mission reroutes. Veranthos becomes the decision-forcing destination that determines endgame shape. The group moves from damage-control to intercept strategy.",
+      "pov_reaction": "Ben's focus tightens on the intellectual naming — the moment when disparate facts align into a single conclusion that changes everything. His breath steadies. The pressure that was diffuse becomes directional."
+    },
+    {
+      "beat_description": "Sera straightens her spine, feet resettling. Her posture shifts from adversarial stance to soldier's readiness — the physical grammar of accepting command.",
+      "state_change": "Sera moves from conditional skepticism to conditional subordination. The room registers her choice as a turning point.",
+      "pov_reaction": "Ben sees the shift in her spine and recognizes it as acceptance — not warmth, not agreement, but investment. The recognition lands with weight because he understands what it costs her. His chest tightens with the knowledge that she is choosing to follow him, and that choice carries the shadow of Gavran without either of them naming it."
+    },
+    {
+      "beat_description": "Kael leans against the wall with arms crossed, evaluating Ben's plan from the outside. His posture remains unchanged — neither endorsement nor rejection, but assessment.",
+      "state_change": "The scene pivots from Ben's assertion to the group's reception. Kael's outsider perspective remains unresolved, holding the plan in tension.",
+      "pov_reaction": "Ben registers Kael's evaluation as a test he is passing or failing in real time. The pressure of being read by someone outside the institutional chain becomes tactile — a weight in the room that Ben cannot fully account for."
+    },
+    {
+      "beat_description": "Ben's datapad sits open on the briefing-table corner with a Luke report template glowing. The mission-state field remains blank throughout the scene. As the briefing closes, Desh's eyes find the open template. Ben sees Desh see it. Neither speaks.",
+      "state_change": "The unfilled report becomes visible as the cost of Ben's new authority. The institutional silence — the fact that Luke is not being looped in — becomes a presence in the room.",
+      "pov_reaction": "Ben feels the weight of the blank field as a continuation of the Ch 13 withholding. The moment Desh's eyes find the template, Ben knows that the cost of Sera's trust is now visible to someone else. His instinct is to close the datapad, but he does not. The blank field remains open. The pressure settles into his chest as something he will carry forward."
+    }
+  ],
+  "opening_mode": "in_medias_res",
+  "anti_patterns": [
+    "Keep it tactical — do not drift into introspective meditation on leadership or authority.",
+    "Do not arrive at clinical articulation of the array-dependency mechanics — keep the explanation tactical and concrete.",
+    "Sera's line to Ben should change the room through its delivery and what it signals, not through explicit emotional language."
+  ]
 }

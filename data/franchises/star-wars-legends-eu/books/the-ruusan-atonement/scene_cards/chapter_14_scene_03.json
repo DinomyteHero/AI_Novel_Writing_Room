@@ -39,7 +39,7 @@
     "solution_seed_present"
   ],
   "promises_planted": [
-    "Gavran's note about Weave-resonance will matter (PP10)"
+    "PP10"
   ],
   "promises_paid": [],
   "hook_actions": [
@@ -50,5 +50,42 @@
   ],
   "revelations": [],
   "pov_arc_phase": "lie_challenged",
-  "notes": "H14 planted — Ankhural's resonance theory, filed by Ben under 'return later.' Chekhov at full tension. Make sure the weight of the sentence lands before Ben does. Anti-pattern: no character reads the note aloud — Ben's eyes on the page, a silent file. Sera's reaction to Ankhural's name is a single frown and a pause, not a paragraph of backstory. Diagnostic-voice trap — Ben should not, in this scene, think 'this could be the answer' or narrate his recognition of the pattern. He bookmarks it with the attention of a man who has a dozen other files to read, and the scene trusts the moment to hold that weight."
+  "notes": "H14 planted — Ankhural's resonance theory, filed by Ben under 'return later.' Chekhov at full tension. Make sure the weight of the sentence lands before Ben does. Anti-pattern: no character reads the note aloud — Ben's eyes on the page, a silent file. Sera's reaction to Ankhural's name is a single frown and a pause, not a paragraph of backstory. Diagnostic-voice trap — Ben should not, in this scene, think 'this could be the answer' or narrate his recognition of the pattern. He bookmarks it with the attention of a man who has a dozen other files to read, and the scene trusts the moment to hold that weight.",
+  "turning_point_detail": {
+    "trigger": "Gavran's marginalia: 'We lacked the will or the trust to attempt it.' — the confession that the most powerful Jedi Lord of his era could not achieve what the solution requires.",
+    "shift": "Ben bookmarks the note and moves on, filing it under 'return later' without recognizing it as the answer to his current crisis.",
+    "cost": "Ben carries the solution unknowingly; the group has only partially assembled the trust between traditions that the technique demands, and Ben cannot yet see what he is holding."
+  },
+  "emotional_arc": {
+    "start": "Discovery — the momentum of scrolling through data, searching for tactical advantage.",
+    "shift": "Intrigued uncertainty — Sera's reaction to Ankhural's name tightens Ben's focus; the note catches his attention without fully landing.",
+    "end": "Filed away for later — Ben has catalogued something important but not urgent, and the pressure of other work pushes him forward."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Ben scrolls through Gavran's marginalia on the archive data, searching for counter-measures to the array's infrastructure.",
+      "state_change": "The abstract pressure of the failing seal becomes concrete — Ben is actively hunting for tactical solutions in the historical record.",
+      "pov_reaction": "Ben's attention sharpens with the rhythm of discovery; his eyes move faster when a line catches, slower when the text is dense or tangential. His body leans slightly forward, the posture of a man reading against time."
+    },
+    {
+      "beat_description": "Sera leans over Ben's shoulder and frowns at Ankhural's name on the display.",
+      "state_change": "The scene pivots from solitary research to shared attention; Sera's recognition of the heretic's name signals that this passage carries historical weight Ben may not immediately grasp.",
+      "pov_reaction": "Ben registers Sera's frown before he fully processes the text — a moment of hesitation, a question forming without words. His eyes flick back to the passage, re-reading it with Sera's skepticism now coloring his interpretation. The note feels heavier because someone else in the room knows why it should."
+    },
+    {
+      "beat_description": "Ben bookmarks the resonance note on his datapad and moves on to the next file.",
+      "state_change": "The passage is catalogued but not resolved; Ben has marked it for later consideration while the immediate work continues.",
+      "pov_reaction": "Ben's finger hovers over the bookmark function for a beat — not indecision, but the small physical acknowledgment that this note matters enough to flag. Then the motion completes, and his attention shifts forward. The pressure of other files, other lines of inquiry, pulls him onward. He will come back to this."
+    }
+  ],
+  "opening_mode": "in_medias_res",
+  "anti_patterns": [
+    "no character reads the note aloud — Ben's eyes on the page, a silent file",
+    "Ben should not, in this scene, think 'this could be the answer' or narrate his recognition of the pattern",
+    "No character reads the note aloud — Ben's eyes on the page, a silent file.",
+    "Ben should not think 'this could be the answer' or narrate his recognition of the pattern.",
+    "Avoid diagnostic-voice trap — Ben should not analyze the phenomenology of harmonic resonance or the Weave as a concept.",
+    "Do not provide paragraph-length backstory about Ankhural or the heresy — Sera's frown and pause are sufficient.",
+    "Do not linger on the note after Ben bookmarks it; the scene trusts the moment to hold weight without explanation."
+  ]
 }

@@ -64,5 +64,50 @@
   "notes": "The room should feel pressurized, not possessed. Sera's silence is the scene's real turn.",
   "primary_anchor": "Allston",
   "supporting_anchor": "Stover, Bujold",
-  "stover_permitted": true
+  "stover_permitted": true,
+  "turning_point_detail": {
+    "trigger": "Kael asks the Torin question the group has been circling — 'What's wrong with him?' — short, flat, unadorned, addressed to whoever will answer.",
+    "shift": "Sera does not defend Torin. The sentence whose absence is audible does not happen. She looks at the table. Her silence is the break.",
+    "cost": "For Ben: recognition of the wound's influence on his own emotional state, and hearing Kael name the thing Ben has been not-naming. For Sera: the moment she stops defending Torin, planting the recognition of her own Gavran-pattern that will crystallize later. For Kael: crossing from observer of tensions to the one who names them, accepting the social friction that naming creates."
+  },
+  "emotional_arc": {
+    "start": "Simmering tension — the group coiled, aware of pressure but not yet naming it.",
+    "shift": "Amplified argument — the wound pushing emotional extremes hotter than their content should permit; Ben catching himself mid-sentence as his own anger spikes disproportionate; Sera's palm slamming the nav console; the room pressurized, not possessed.",
+    "end": "Exhausted aftermath — the argument spent, the real question asked and left unanswered, the silence more informative than the noise. Desh's practical care holding the space where resolution does not exist."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Sera slams her palm on the nav console mid-argument — the sound silencing the cockpit for a breath.",
+      "state_change": "The simmering tension becomes concrete and audible. The argument escalates from abstract disagreement to physical action.",
+      "pov_reaction": "Ben registers the sound as a threshold crossed — the moment when control becomes harder to maintain. His own instinct pushes toward action rather than explanation; he feels the pressure behind his sternum tighten. The wound is present in the room, atmospheric, like a front moving through."
+    },
+    {
+      "beat_description": "Ben catches himself mid-sentence as his own anger spikes disproportionate to the content — the wound pushing — and he stops, recognizing the amplification.",
+      "state_change": "Ben becomes aware that the wound is acting on the group directly, not as abstract threat but as immediate influence on emotional extremes. The argument is real and their own, but louder than it would otherwise be.",
+      "pov_reaction": "A moment of vertigo — Ben's own anger arriving hotter than its content should permit, and the recognition that the heat is not entirely his. His breath catches. He stops mid-word, aware that continuing will escalate further, and the escalation will not be entirely his choice."
+    },
+    {
+      "beat_description": "Kael asks the question the group has been circling — quiet, short, addressed to whoever will answer: 'What's wrong with him?' The monk's register, short syllables, the question arriving at ground level with no adornment.",
+      "state_change": "The unasked Torin question becomes audible. Kael crosses from observer of tensions to the one who names them. The group's collective silence breaks.",
+      "pov_reaction": "Ben hears the question land in the pressurized silence and feels the room contract around it. The question is simple and devastating because it is simple. Ben knows what Kael is asking. He also knows that Sera is about to answer — or not answer — and that her response will change something."
+    },
+    {
+      "beat_description": "Sera does not defend Torin. The sentence whose absence is audible does not happen. She looks at the table.",
+      "state_change": "Sera stops defending Torin. Her silence is the break — the moment she stops carrying the weight of his stability. The scene pivots on what she does not say.",
+      "pov_reaction": "Ben watches Sera's hands go still on the table. He knows the sentence-shape she would have said in Ch 14 — the defence, the explanation, the reason Torin is not what Kael is implying. The absence of that sentence is louder than any words. Her eyes finding the tabletop is the real answer."
+    },
+    {
+      "beat_description": "Desh brings food to each person without being asked, navigating the silent aftermath with practiced ease.",
+      "state_change": "The argument is over. The question is asked and unanswered. The silence after the argument is more informative than the argument itself. Desh's practical care holds the space where resolution does not exist.",
+      "pov_reaction": "Ben accepts the food without thanks because Desh does not expect thanks. The gesture is not comfort — it is presence. Desh understands that the group needs to eat, needs the small ritual of nourishment, needs someone to move through the aftermath without requiring acknowledgment. Ben feels the exhaustion settle in, the pressure still present but no longer escalating."
+    }
+  ],
+  "opening_mode": "in_medias_res",
+  "anti_patterns": [
+    "Do not arrive at clinical articulation of the wound's influence — the character feels it, the narrator registers it, but no diagnostic voice.",
+    "Avoid opening with exposition about the wound's mechanics.",
+    "Do not soften Sera's silence with internal justification.",
+    "Do not resolve the argument into understanding or reconciliation.",
+    "The room should feel pressurized, not possessed — the wound amplifies their real tensions, it does not control them."
+  ]
 }

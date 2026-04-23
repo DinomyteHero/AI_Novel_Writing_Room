@@ -45,5 +45,39 @@
   "revelations": [],
   "pov_arc_phase": "arc_resolved",
   "arc_phase_transition": "arc_resolved",
-  "notes": "Ben's arc transitions to arc_resolved. The resonance hum has become a permanent edge-of-perception chord; this is the Ch28 sc3 image in its first register. Diagnostic-voice trap — Ben should not, in this scene, narrate the Ch1 comparison as an explicit callback. The hum carries the echo; interiority stays quiet. Voice: Zahn-tight-reflective. Lived-galaxy texture on approach: Coruscant traffic, the Temple in its working capital, the orbital approach unremarkable except to Ben."
+  "notes": "Ben's arc transitions to arc_resolved. The resonance hum has become a permanent edge-of-perception chord; this is the Ch28 sc3 image in its first register. Diagnostic-voice trap — Ben should not, in this scene, narrate the Ch1 comparison as an explicit callback. The hum carries the echo; interiority stays quiet. Voice: Zahn-tight-reflective. Lived-galaxy texture on approach: Coruscant traffic, the Temple in its working capital, the orbital approach unremarkable except to Ben.",
+  "turning_point_detail": {
+    "trigger": "Ben deletes every previous draft of the report—partials from Ch7, the full deleted report from Ch15, ghost files. The action is deliberate and irreversible.",
+    "shift": "The deletion commits him to presence over protection. Coruscant fills the viewport; the Temple becomes visible from orbit. The next scene's pressure locks in at the boundary.",
+    "cost": "Ben breaks the thousand-year pattern of institutional silence and self-protection. The Ben/Luke relationship is about to face its most honest moment, and Ben cannot retreat into a carefully crafted document. He has chosen vulnerability."
+  },
+  "emotional_arc": {
+    "start": "Reflective processing—Ben listening to the new seal's resonance, the wrongness transformed into chord, the weight of what he carries settling into something that feels like belonging.",
+    "shift": "Determined resolution—the deletion of the drafts tightens his focus. The action commits him. There is no document to hide behind.",
+    "end": "The courage of institutional honesty—Ben braced at the boundary, ready to step into the Temple and tell Luke the truth in person, knowing the cost and choosing it anyway."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Ben leans back in the copilot's chair, listening to the new seal's resonance humming at the edge of his perception—the wrongness from Chapter 1 now transformed into a three-part chord.",
+      "state_change": "The abstract pressure of the seal becomes concrete and sensory. Ben registers the shift from wrongness to belonging as a physical state—the hum is still there, still strange, but no longer alien.",
+      "pov_reaction": "Ben's body settles into the chair; his attention narrows to the edge of perception where the chord lives. The instinct is not to explain or analyze but to listen. His breath steadies. The sensation carries a weight that is not burden—it is presence."
+    },
+    {
+      "beat_description": "Ben opens his datapad and deletes every previous draft of the report to Luke—the partials from Chapter 7, the full deleted report from Chapter 15, the ghost files. Each deletion is a deliberate action.",
+      "state_change": "The scene pivots from reflection to commitment. Ben has removed every escape route. There is no document to send, no careful phrasing to protect himself or Luke or the survivors. Presence is the only option left.",
+      "pov_reaction": "The pressure Ben has been carrying transforms from weight into focus. His hands move with certainty; each deletion is a small release, a shedding of the thousand-year habit of institutional silence. When the last file is gone, the pressure does not lift—it sharpens. Ben feels the clarity of having no choice but truth."
+    },
+    {
+      "beat_description": "Coruscant fills the viewport on approach. The Temple becomes visible from orbit—familiar in a way that is about to change. Desh holds the approach steady in the pilot's chair. Ben sees his father's city, his father's Order, waiting.",
+      "state_change": "The boundary locks in. Ben is no longer in hyperspace; he is in the approach vector to the moment that will redefine everything. The Temple is not a destination anymore—it is a threshold.",
+      "pov_reaction": "Ben's body goes still. Not frozen—braced. The chord at the edge of his perception hums steady. He knows what comes next: Luke's face when Ben tells him the truth. The Order's self-understanding about to crack open. And Ben is ready to step through that threshold without armor, without documents, with only the truth and the courage to speak it in person."
+    }
+  ],
+  "opening_mode": "contrast",
+  "anti_patterns": [
+    "Ben should not, in this scene, narrate the Ch1 comparison as an explicit callback",
+    "Do not narrate the Ch1 comparison as an explicit callback—Ben should not articulate the wrongness-to-chord transformation as a conscious reflection",
+    "Avoid diagnostic voice when describing the seal's resonance—do not analyze the phenomenology of the chord or explain its structure",
+    "Do not arrive at clinical articulation about what the deletion means institutionally—let the action speak; Ben's interiority stays quiet and sensory"
+  ]
 }

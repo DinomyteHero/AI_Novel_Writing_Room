@@ -52,5 +52,41 @@
   ],
   "revelations": [],
   "pov_arc_phase": "lie_reinforced",
-  "notes": "H11 planted — the facility Gavran sealed personally, separate from the anchor system. The flexible Weave here should feel different from previous thin places: not disorientation but a shimmer that looks like a choice being offered. Rotate Force-wrongness metaphor family for this scene: balance/gravity (a surface that wants to tilt, a field that leans), not handrail, not flat-note. Diagnostic-voice trap — Ben should not, in this scene, theorise why Maetha's facility is different. He notices the shimmer and waits for Sera to speak; the interpretation is Ch12's work. Anti-pattern: Sera's recognition is a charged silence, not a backstory dump. A single quiet sentence, and the scene ends."
+  "notes": "H11 planted — the facility Gavran sealed personally, separate from the anchor system. The flexible Weave here should feel different from previous thin places: not disorientation but a shimmer that looks like a choice being offered. Rotate Force-wrongness metaphor family for this scene: balance/gravity (a surface that wants to tilt, a field that leans), not handrail, not flat-note. Diagnostic-voice trap — Ben should not, in this scene, theorise why Maetha's facility is different. He notices the shimmer and waits for Sera to speak; the interpretation is Ch12's work. Anti-pattern: Sera's recognition is a charged silence, not a backstory dump. A single quiet sentence, and the scene ends.",
+  "turning_point_detail": {
+    "trigger": "Sera looks at the sealed entrance and says, very quietly: 'This was Maetha's.' The name means nothing to Ben.",
+    "shift": "Sera's expression says it should. The group's professional approach to another node collapses into the recognition that Sera is confronting a piece of history she knows and dreads.",
+    "cost": "Ben is forced to trust Sera's expertise and visible reluctance without being told why. The group's confidence in their ability to navigate these places fractures. Sera bears the weight of knowing something the others do not—and her silence becomes a form of burden-carrying that mirrors the story's thematic core."
+  },
+  "emotional_arc": {
+    "start": "Professional approach—Ben and the group moving through the mission with tactical focus, treating this node as another waypoint in the sequence.",
+    "shift": "Growing concern as sensor readings spike with unfamiliar patterns. The Force ahead registers as something new: not thinned but flexible, the boundary shimmering. Ben's instinct pushes toward action rather than explanation. Sera's sudden withdrawal from the console tightens the pressure.",
+    "end": "Sera's charged recognition—a moment of confrontation with history. Ben is left braced at the threshold, understanding that Sera knows something dangerous and is choosing not to speak it aloud. The emotional register shifts from tactical to dread."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Desh adjusts the approach vector; sensor readings spike with energy patterns that don't match any previous node. The Force ahead registers as something new: not thinned but flexible, the boundary shimmering while watched.",
+      "state_change": "The abstract pressure of the mission becomes concrete. The group's assumption that each node will follow the established pattern fractures.",
+      "pov_reaction": "Ben's professional focus sharpens. His instinct pushes toward action—a readiness to respond—rather than toward explanation or analysis. He registers the shimmer as wrongness without naming it, waiting for context."
+    },
+    {
+      "beat_description": "Sera pulls her hands back from the console when she recognizes Gavran's personal seal notation on the facility scan. Her body language shifts from engaged to withdrawn.",
+      "state_change": "The scene pivots. Sera's visible dread signals that this location carries significance beyond the others. The group's confidence in their ability to navigate these places becomes conditional on Sera's willingness to lead.",
+      "pov_reaction": "Ben's focus tightens on Sera. He reads her withdrawal as recognition—not confusion, but knowledge. The pressure in the cabin shifts from external (the Force ahead) to interpersonal (Sera's silence). His instinct is to ask, but something in her posture holds him back."
+    },
+    {
+      "beat_description": "The group gathers at the viewport as the high-altitude compound materializes—geometric, austere, cold. Sharp clear air rinsed of smell. Disciplined architecture visible from approach. The sealed entrance is unmistakable.",
+      "state_change": "The next-scene pressure locks in at the boundary. The facility is real, visible, and waiting. Sera's dread becomes inescapable.",
+      "pov_reaction": "Ben stands at the viewport and waits. He does not ask. Sera looks at the sealed entrance and speaks—very quietly, as though the name itself is dangerous. 'This was Maetha's.' The name means nothing to Ben. Sera's expression says it should. Ben is left braced for what comes next, understanding that Sera is carrying knowledge she is not yet ready to share, and that the group's survival may depend on trusting her anyway."
+    }
+  ],
+  "opening_mode": "contrast",
+  "anti_patterns": [
+    "Ben should not, in this scene, theorise why Maetha's facility is different",
+    "Sera's recognition is a charged silence, not a backstory dump",
+    "Ben should not theorize why Maetha's facility is different—he notices the shimmer and waits for Sera to speak; interpretation is Chapter 12's work.",
+    "Sera's recognition is a charged silence, not a backstory dump. A single quiet sentence, and the scene ends.",
+    "Do not use diagnostic voice to explain the Force-wrongness. Avoid 'an ambient hum of' or 'the structural lattice' metaphors. Rotate to balance/gravity language: a surface that wants to tilt, a field that leans.",
+    "Do not have Sera immediately explain or reassure. Her reluctance and dread are the scene's emotional payload."
+  ]
 }

@@ -62,5 +62,41 @@
   ],
   "revelations": [],
   "pov_arc_phase": "lie_reinforced",
-  "notes": "First pinch point: the antagonist acts without the plot mechanically advancing. Nothing in the hook structure changes in the room, but the understanding of the pursuit has shifted. The message Veraine left is never shown in full; what it says is whatever makes Kael's face do what it does. Diagnostic-voice trap — Ben should not, in this scene, reconstruct Veraine's strategy as a clean explanatory claim. He registers the curation (took this, left that) and the targeted message through Kael's response; analysis waits for Desh's operations-room scene. Kael's lie_reinforced in this beat: the message confirms his priors that conviction and institutions cut the same way."
+  "notes": "First pinch point: the antagonist acts without the plot mechanically advancing. Nothing in the hook structure changes in the room, but the understanding of the pursuit has shifted. The message Veraine left is never shown in full; what it says is whatever makes Kael's face do what it does. Diagnostic-voice trap — Ben should not, in this scene, reconstruct Veraine's strategy as a clean explanatory claim. He registers the curation (took this, left that) and the targeted message through Kael's response; analysis waits for Desh's operations-room scene. Kael's lie_reinforced in this beat: the message confirms his priors that conviction and institutions cut the same way.",
+  "turning_point_detail": {
+    "trigger": "Kael reads the data tablet containing Veraine's message in Sith-tradition notation.",
+    "shift": "Kael's face remains controlled, but his handling of the tablet—the explosive-handler care—and his silent exit signal that the message carries weight and personal targeting. The pursuit has become operational; Veraine is not running, she is building. Kael's silence also signals that he understands something the others do not.",
+    "cost": "Ben feels dark-side emotional bleed (cruelty that is not his own) and now confronts the fact that Veraine knows who Kael is and has communicated with him directly. The cost is twofold: the sensory contamination of the outpost itself, and the interpersonal fracture of Kael's unshared knowledge."
+  },
+  "emotional_arc": {
+    "start": "Professional assessment—Ben enters in operational mode, cataloging the space and its contents.",
+    "shift": "Dark-side contamination pressure—as the team clears rooms, Ben feels emotional residue (cruelty, malice) that has no living source. The pressure tightens his focus and strains his discipline. When Kael reads the message, the pressure pivots toward shock and recognition that Veraine's actions are targeted and systematic.",
+    "end": "Shock at Veraine's targeted message—Ben registers that the antagonist has moved from reactive flight to proactive communication, and that Kael is the intended recipient. The shock carries the weight of a lie reinforced: Ben's assumption that they are pursuing Veraine is inverted. Veraine is moving toward something, and Kael knows what it is."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Ben steps through the outpost entrance into clinical Sith architecture—prefabricated corridors stripped of theatrical grandeur, functional and cold.",
+      "state_change": "The abstract threat becomes concrete. The outpost is not a temple or a monument; it is a workplace. The shift reframes the entire location as a site of systematic activity rather than historical artifact.",
+      "pov_reaction": "Ben's professional assessment mode engages—the instinct to read the space, catalog what is present and what is missing, and prepare for threat. His body settles into operational readiness; his Force-sense reaches outward to map the structure and its emotional signature."
+    },
+    {
+      "beat_description": "The team moves through cleared rooms. Sera's jaw tightens as dark-side emotional residue bleeds through the Weave's thinning structure—cruelty, malice, suffering without source or context.",
+      "state_change": "The pressure of the outpost intensifies. What was clinical becomes contaminated. The emotional bleed is not localized to a single chamber or artifact; it permeates the space, suggesting the Weave itself is degrading and releasing what it contained.",
+      "pov_reaction": "Ben feels the contamination as a secondary sensation—not his own cruelty, but cruelty he is forced to register through the Force. His discipline tightens in response; he does not articulate what he is sensing, but his body language shifts toward protective positioning around Sera. The pressure is not external threat but internal contamination, and it costs him focus."
+    },
+    {
+      "beat_description": "Kael picks up a data tablet from a workstation, reads the display in Sith-tradition notation. His face does not change. He sets the tablet down with the deliberate, explosive-handler care of someone managing something that might detonate, and walks out of the room without a word.",
+      "state_change": "The scene's understanding inverts. Veraine is not fleeing; she is communicating. She left this message for Kael specifically, which means she knows who he is and what he represents. The outpost is not a crime scene to be investigated—it is a waypoint in Veraine's systematic dismantling of the seal's infrastructure. Kael's exit also fractures the group: he has information the others do not, and he is choosing not to share it.",
+      "pov_reaction": "Ben registers shock—not at the message itself, which he cannot read, but at Kael's response. The controlled blankness is costing Kael something; Ben can feel the effort in the Force, the tightness of will required to maintain that composure. When Kael leaves, Ben is left with the tablet, the outpost, and the growing certainty that the pursuit has inverted. Veraine is not running from them; they are following her toward something she is building. The shock carries a secondary layer: Kael knows what that something is, and he is not telling."
+    }
+  ],
+  "opening_mode": "in_medias_res",
+  "anti_patterns": [
+    "Ben should not, in this scene, reconstruct Veraine's strategy as a clean explanatory claim",
+    "Ben should not reconstruct Veraine's strategy as a clean explanatory claim",
+    "Do not arrive at diagnostic-voice articulation of the Weave or Force wound",
+    "Do not show the full text of Veraine's message",
+    "Do not have Kael explain his exit or his knowledge",
+    "Do not soften Kael's controlled response with emotional leakage or internal justification"
+  ]
 }

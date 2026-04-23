@@ -56,8 +56,8 @@
   ],
   "promises_planted": [],
   "promises_paid": [
-    "The seal failure resolved (PP24)",
-    "Collective action replaces unilateral control (PP23)",
+    "PP24",
+    "PP23",
     "The 'we find another way, together' of Ch 21 s3 converted to a priced commitment (pays D2 first-renewal commitment)",
     "Ben's arc new-truth demonstrated as ongoing condition rather than single-scene insight"
   ],
@@ -68,5 +68,53 @@
   "notes": "The scene should land through sensation, gesture, and quiet confirmation. Ben's commitment is visible and costly, but he must not sound as if he is explaining the point of the story. Desh's chrono and the valley's settling do the practical proof. Sera and Kael answer through presence, not speeches.",
   "primary_anchor": "Bujold",
   "supporting_anchor": "Zahn, Stover",
-  "stover_permitted": true
+  "stover_permitted": true,
+  "turning_point_detail": {
+    "trigger": "The Weave reforms around the wound as living tissue rather than rigid grid; the resonance's character stays embedded, humming with three distinct frequencies that Ben can perceive individually and as a unified whole.",
+    "shift": "Ben places his hand on the new seal's surface and speaks a short line containing the word 'first'—a commitment so specific and priced that the resonance registers it as a deepening, a settling. Sera's Force presence steadies around his; Kael's follows half a beat later. Neither speaks. The tether becomes a continuous presence at the edge of Ben's Force-sense. The chord does not end. The climax's resolution transforms from a moment into an ongoing condition.",
+    "cost": "Ben accepts an ongoing tether to the seal and acknowledges that the solution will keep asking something of him indefinitely. Sera and Kael witness the commitment and choose to leave room for it to remain shared rather than imposed. The valley stabilizes—Desh's chrono runs correctly for the first time since arrival, the grief-without-an-object lifts—but the wound itself persists, thinner but real, requiring continuous relational maintenance."
+  },
+  "emotional_arc": {
+    "start": "The quiet after storm—exhaustion, relief, the background wrongness finally beginning to resolve into something coherent.",
+    "shift": "Recognition that the new seal is alive, responsive, held together by relationship rather than rigidity, and that its survival depends on people choosing it again and again. The pressure tightens toward action rather than explanation.",
+    "end": "The tether settling into continuous presence—a priced commitment rendered visible and embodied, no longer abstract. Ben is braced for the future it requires, steadied by Sera and Kael's presence, no longer alone in the load."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Ben feels the warmth spread outward from the resonance point as the new seal forms—living tissue, not rigid grid, three-part harmony at the Scar's base, the wrongness that has been a background note in his chest for months beginning to quiet into a chord.",
+      "state_change": "The abstract pressure becomes concrete and sensory. The opening wrongness resolves into something with character and texture.",
+      "pov_reaction": "Ben's body registers the shift before his mind names it—a loosening in his chest, a settling of breath, the instinct to move toward the source rather than away from it. The sensation is warm, almost tactile, almost like a hand steadying his own."
+    },
+    {
+      "beat_description": "The Scar thins but persists—the wound contained, not erased, the new seal humming with three distinct frequencies Ben can hear individually and also as a single unified sound.",
+      "state_change": "The mission crystallizes: the new seal is not a solution that ends the problem, but a living structure that will require ongoing choice and commitment to sustain. Ben's focus tightens on what this means for the future.",
+      "pov_reaction": "Ben's recognition arrives not as thought but as a tightening in his chest—the understanding that this answer will keep asking something of him, and that understanding does not bring dread but a strange kind of clarity. His hand moves toward the seal's perimeter without conscious decision."
+    },
+    {
+      "beat_description": "Desh arrives from the amplification route with his kit and checks his chrono; it runs correctly for the first time since arrival; the grief-without-an-object that has haunted the valley lifts like a held breath finally released.",
+      "state_change": "External validation arrives: the valley is actually stabilizing. The seal is not theoretical or fragile. It is holding. The practical proof settles around them all.",
+      "pov_reaction": "Ben feels the shift in the valley's resonance—not through the Force, but through the simple fact that Desh's instruments confirm what the new seal's living tissue has already demonstrated. The pressure of doubt eases just enough for Ben to move forward."
+    },
+    {
+      "beat_description": "Ben walks to the new seal's perimeter and places his hand flat on its surface—the surface not cold, not hot, the temperature of a palm against another palm, responsive to his touch.",
+      "state_change": "The scene pivots from observation to commitment. Ben's hand on the seal's surface registers as a specific, visible, costly choice. The tether begins to settle into place.",
+      "pov_reaction": "Ben's hand finds the surface and holds. The sensation is not shock or pain but recognition—a deepening, a folding-in of his presence at a specific point on the seal's architecture. His breath steadies. His body knows what his mind is about to speak."
+    },
+    {
+      "beat_description": "Ben speaks one short line—the word 'first' in it—and the resonance registers the commitment as a deepening, a settling. Sera's Force presence steadies around his; Kael's does the same, half a beat later. Neither speaks. The chord does not end.",
+      "state_change": "The climax's resolution becomes a condition Ben will carry from this valley onward. The new seal is no longer abstract or theoretical. It is alive, held together by relationship, and Ben is part of that relationship now—the first of what will be many ongoing commitments.",
+      "pov_reaction": "Ben feels the tether settle into continuous presence at the edge of his Force-sense—not a burden, not a prison, but a note in a chord that will keep sounding as long as he and the others choose to sustain it. Sera and Kael's presences are steady around his, witnessing without taking the load, without refusing it either. The pressure of isolation lifts. He is not alone in this."
+    }
+  ],
+  "opening_mode": "sensory_hook",
+  "anti_patterns": [
+    "Do not sound as if Ben is explaining the point of the story",
+    "Do not resolve the scene with speeches",
+    "Do not arrive at clinical articulation of what the tether means",
+    "Do not open with exposition or explanation",
+    "Do not make the commitment feel easy or cost-free",
+    "Do not have Sera or Kael speak in response to Ben's commitment",
+    "Do not describe the new seal in diagnostic or analytical language—stay sensory and experiential",
+    "Do not use diagnostic voice when describing Force-perception; keep it experiential and concrete"
+  ]
 }

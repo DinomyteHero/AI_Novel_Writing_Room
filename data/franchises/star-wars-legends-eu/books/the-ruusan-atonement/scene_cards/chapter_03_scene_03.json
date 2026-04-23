@@ -56,5 +56,46 @@
   ],
   "revelations": [],
   "pov_arc_phase": "lie_established",
-  "notes": "Desh's quiet 'You're not reporting this' lands with the weight of someone who recognises institutional avoidance from inside. The two of them served in the same machine; he knows the signature. The withholding should be shown through action (deleted drafts, Desh's observation, hyperspace jump), not through an interior monologue explaining why Ben will not send it. Diagnostic-voice trap — if Ben reaches for an analysis of his own motives here, cut it. Let the omission land before Ben names it to himself. Rotate the Force-wrongness metaphor for the hyperspace transition — not the handrail, not the note-played-flat; this scene's register is spatial (pressure against the bulkheads, the distance not behaving the way distance should)."
+  "notes": "Desh's quiet 'You're not reporting this' lands with the weight of someone who recognises institutional avoidance from inside. The two of them served in the same machine; he knows the signature. The withholding should be shown through action (deleted drafts, Desh's observation, hyperspace jump), not through an interior monologue explaining why Ben will not send it. Diagnostic-voice trap — if Ben reaches for an analysis of his own motives here, cut it. Let the omission land before Ben names it to himself. Rotate the Force-wrongness metaphor for the hyperspace transition — not the handrail, not the note-played-flat; this scene's register is spatial (pressure against the bulkheads, the distance not behaving the way distance should).",
+  "turning_point_detail": {
+    "trigger": "Desh leans over the copilot's shoulder, reads the first line of Ben's unsent report, and says 'You're not sending that.' Ben's answer—'Not yet'—is the first time the withholding is spoken aloud.",
+    "shift": "The pressure shifts from abstract deliberation to rationalized certainty. Ben moves from internal conflict about the delay to external commitment to follow the coordinates. Desh's recognition of the pattern transforms it from a private hesitation into a shared choice.",
+    "cost": "Ben chooses to act alone under cover of urgency, and the pattern becomes visible to Desh before it becomes visible to Ben. Desh sees the institutional avoidance and follows anyway—loyalty enabling avoidance rather than confronting it. Ben's isolation deepens because someone who could challenge him has chosen complicity instead."
+  },
+  "emotional_arc": {
+    "start": "Deliberation—Ben cycles through three drafts of the honest report, each deletion a small refusal without yet being a choice.",
+    "shift": "Rationalized certainty—Desh's observation transforms the withholding from private hesitation into named action. Ben's focus tightens on the urgency of the seal's degradation as justification for the delay.",
+    "end": "Suppressed doubt—As hyperspace swallows them, the wrongness intensifies rather than fading with distance. Ben feels the pressure of the decision locking in, but does not yet acknowledge the cost of what he has chosen."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Ben types and deletes his third draft of the report to Luke, each version honest but each one deleted before it reaches the transmission queue.",
+      "state_change": "The abstract pressure of the overdue report becomes concrete—three deleted drafts in the buffer, each one a small refusal that has not yet become a choice.",
+      "pov_reaction": "Ben's fingers move through the motions of compliance while his instinct pushes toward action rather than explanation. The deliberation manifests as repetition—type, read, delete—without the internal articulation of why. The wrongness in the Force sits at the edge of his awareness, pulling him toward the coordinates rather than toward the comm system."
+    },
+    {
+      "beat_description": "Desh enters the cockpit, reads the first line of the unsent report over Ben's shoulder, and says 'You're not sending that.' Ben answers 'Not yet'—the first time the withholding is spoken aloud.",
+      "state_change": "Desh's observation names the pattern. Ben's private hesitation becomes a shared choice. The pressure pivots from internal conflict to external commitment. Desh reaches across to the nav computer, waiting for Ben's answer before he enters the coordinates.",
+      "pov_reaction": "Ben feels the recognition land—Desh knows the signature of institutional avoidance from inside the same machine. The pressure tightens into rationalized certainty. Ben does not defend the withholding; he accepts Desh's reading of it and moves toward the next action. The wrongness in the Force pulls harder now that it has a name and a direction."
+    },
+    {
+      "beat_description": "Desh enters the uncharted fortress coordinates into the nav computer. The system begins calculating a route through unmapped space, the display cycling through probability matrices and course corrections.",
+      "state_change": "The decision becomes operational. The coordinates transform from abstract data into a navigational commitment. The Steady Returns is no longer waiting for a report; it is preparing to jump.",
+      "pov_reaction": "Ben watches the nav computer work, feeling the rationalized certainty harden into something closer to inevitability. The wrongness in the Force no longer pulls; it presses—spatial, directional, demanding. Ben's doubt surfaces for a moment (the cost of what Desh has just done, the loyalty that enables avoidance), but he does not name it. The pressure of the seal's degradation, the survivors waiting, the urgency—these become the justification that allows him to suppress the doubt before it can fully form."
+    },
+    {
+      "beat_description": "The Steady Returns jumps to hyperspace. The transition should be smooth, the wrongness fading with distance as it always does. Instead, it intensifies—pressure against the bulkheads, the spatial wrongness not behaving the way distance should.",
+      "state_change": "The decision locks in. There is no return to the comm system now, no option to send the delayed report. Ben and Desh are committed to the coordinates, heading toward the source of the wrongness. The seal's failure is no longer abstract; it is the medium they are traveling through.",
+      "pov_reaction": "Ben feels the suppressed doubt crystallize into something harder—not acceptance, but bracing. The wrongness does not fade as hyperspace should allow it to fade. It presses against the hull, against his awareness, intensifying instead of diminishing. Ben is alone with this knowledge, and Desh has chosen to be alone with him. The cost of that choice—the loyalty that enables avoidance—sits unexamined at the edge of his awareness as hyperspace swallows them both."
+    }
+  ],
+  "opening_mode": "in_medias_res",
+  "anti_patterns": [
+    "if Ben reaches for an analysis of his own motives here, cut it",
+    "Do not open with a flashback or explanation of why Ben is withholding the report",
+    "If Ben reaches for an analysis of his own motives here, cut it—diagnostic-voice trap",
+    "Do not use the handrail metaphor or the note-played-flat for the Force wrongness in this scene—rotate to spatial register (pressure against bulkheads, distance not behaving the way distance should)",
+    "Do not have Ben articulate the institutional avoidance pattern to himself before Desh names it aloud",
+    "Do not resolve the withholding or the decision—lock it in and hand off the consequence to the next scene"
+  ]
 }

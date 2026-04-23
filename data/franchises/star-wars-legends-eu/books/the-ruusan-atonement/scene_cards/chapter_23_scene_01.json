@@ -49,5 +49,40 @@
   ],
   "revelations": [],
   "pov_arc_phase": "moment_of_truth",
-  "notes": "Ben's honest low-odds answer is the scene's load-bearing beat — the honest answer does what rhetoric could not. Anti-pattern: Ben must not persuade Kael with a speech; the content of the pitch is the persuasion. Diagnostic-voice trap — Ben should not, in this scene, interior-paragraph his own leadership-as-invitation as a summary. The open hands are the evidence; the scene trusts them."
+  "notes": "Ben's honest low-odds answer is the scene's load-bearing beat — the honest answer does what rhetoric could not. Anti-pattern: Ben must not persuade Kael with a speech; the content of the pitch is the persuasion. Diagnostic-voice trap — Ben should not, in this scene, interior-paragraph his own leadership-as-invitation as a summary. The open hands are the evidence; the scene trusts them.",
+  "turning_point_detail": {
+    "trigger": "Ben's honest admission of low odds when Kael asks the direct question",
+    "shift": "Kael recognizes honesty as the differentiator — every previous institutional ask masked or minimized risk; this one does not. The truth is what he has never been given by an authority figure.",
+    "cost": "Ben accepts the vulnerability of transparent leadership: he cannot control Kael's choice, only present it clearly. Kael faces the weight of genuine agency — the burden of deciding without being told what to decide."
+  },
+  "emotional_arc": {
+    "start": "Ben's careful, open presentation; Kael's guarded blankness masking readiness to be used again",
+    "shift": "The honest odds answer cracks Kael's defensive posture; Ben's refusal to persuade or minimize creates a moment of recognition",
+    "end": "Kael's dry acknowledgment — the emotional register shifts from fear of being deployed to something harder and clearer: the weight of real choice"
+  },
+  "key_beats": [
+    {
+      "beat_description": "Ben lays out the resonance theory on the datapad between them — the mathematical foundation, the requirements, the untested status, the risk of lethal cascade failure.",
+      "state_change": "Abstract pressure becomes concrete technical framework. The plan moves from concept to actionable proposal.",
+      "pov_reaction": "Ben's instinct pushes toward action-language rather than explanation-language; his hands stay open and visible on the datapad. The presentation itself is the evidence of non-coercion — no closed fist, no commanding posture, no rhetoric designed to override objection."
+    },
+    {
+      "beat_description": "Kael asks the direct question: what are the odds? Ben answers without hedging, without institutional softening, without the false confidence that precedes institutional failure.",
+      "state_change": "The honest answer lands as a rupture in Kael's experience of authority. He has been lied to by experts; the truth is unfamiliar.",
+      "pov_reaction": "Ben feels the moment Kael's careful blankness fractures — a micro-shift in breath or eye-focus that registers as recognition. The pressure tightens toward Kael's internal reckoning, and Ben holds still rather than filling the silence with persuasion."
+    },
+    {
+      "beat_description": "Kael's face shifts from defensive blankness to something new — not acceptance, not refusal, but the visible work of processing a choice that is actually his to make.",
+      "state_change": "The scene locks into its closing pressure: Kael sits with the weight of genuine agency. The wrongness of the situation (the seal failing, the plan untested, the odds low) presses down, but it presses as a shared weight, not an institutional burden he must carry alone.",
+      "pov_reaction": "Ben registers Kael's silence as the scene's real answer — not a yes or no, but the acknowledgment that this ask is different because it is honest. Ben braces for Kael's response, knowing the choice is no longer his to control."
+    }
+  ],
+  "opening_mode": "in_medias_res",
+  "anti_patterns": [
+    "Ben must not persuade Kael with a speech; the content of the pitch is the persuasion",
+    "Ben should not, in this scene, interior-paragraph his own leadership-as-invitation as a summary",
+    "Ben should not interior-paragraph his own leadership-as-invitation as a summary",
+    "Do not arrive at diagnostic voice — Ben should not analyze his own approach to trust or frame it as a leadership philosophy",
+    "Avoid clinical articulation of the plan's mechanics; present the math and the risk, but let Kael's reaction carry the emotional weight"
+  ]
 }

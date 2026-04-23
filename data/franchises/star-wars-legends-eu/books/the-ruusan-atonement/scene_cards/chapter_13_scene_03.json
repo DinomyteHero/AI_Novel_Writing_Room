@@ -46,7 +46,7 @@
     "ben_midpoint_pivot_embodied"
   ],
   "promises_planted": [
-    "Ben's missed Luke check-in at Kolven departure pays as direct reckoning (PP26) — plants Ch 13, pays at Ch 14 Luke-pressure and Ch 28 s2"
+    "PP26"
   ],
   "promises_paid": [],
   "hook_actions": [
@@ -61,5 +61,40 @@
   "notes": "Do not decorate this scene. The whole midpoint turn is the refusal.",
   "primary_anchor": "Bujold",
   "supporting_anchor": "Zahn",
-  "stover_permitted": false
+  "stover_permitted": false,
+  "turning_point_detail": {
+    "trigger": "Ben opens the comm panel to Luke at departure; thirteen minutes pass in silence as he holds the choice between two possible accounts: Luke's intervention versus the group's self-assembled understanding.",
+    "shift": "Ben closes the panel without transmitting. The routine check-in does not happen. The institutional weight that would have shaped his next decisions lifts. He is now committed to a path where the Force-reading he just experienced — the body-knowledge of array-dependency and cascade-acceleration — remains within the group's circle only.",
+    "cost": "Personal: Ben enacts his Trauma Lie as a specific, visible decision rather than passive habit — the cost is visible in his hands and in the silence that follows. Interpersonal: Desh and Sera register the withholding without speaking; the texture of their silence marks a relationship turn. External: The call that would have pulled the mission into Luke's response window does not happen; Ben's route-decisions in subsequent chapters proceed without that institutional weight."
+  },
+  "emotional_arc": {
+    "start": "Shaken aftermath — Ben is still processing the breach, the unweaving, the body-knowledge of what full cascade looks like.",
+    "shift": "The pressure of the routine check-in crystallizes the choice: speak and pull Luke in, or hold silence and commit to the group's isolated path.",
+    "end": "The closed panel — a decision locked in, consequence handed off, Ben braced for what the silence costs and what it enables."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Ben opens the scheduled comm panel to Luke at departure; the routing highlights in institutional blue. Thirteen minutes have passed since the Steady Returns broke clear of the breach zone.",
+      "state_change": "The abstract pressure of routine becomes concrete — the panel is open, the channel is live, the moment is now.",
+      "pov_reaction": "Ben's body registers shaken aftermath: his hand rests on the armrest, not moving toward the transmit control. Instinct pushes toward action (speak, report, restore routine) but something in what he just experienced — the Weave's texture, the cascade-acceleration seed, the array-dependency — holds him at the threshold. His breath is steady but shallow."
+    },
+    {
+      "beat_description": "Ben does not speak. The panel waits. Thirty seconds. A minute. Three. The institutional blue of the routing does not change. Outside the viewport, the Weave restored shows as a faint shimmer against the starfield.",
+      "state_change": "Silence becomes a choice rather than a pause. The longer Ben holds it, the more the refusal hardens into decision.",
+      "pov_reaction": "The pressure tightens. Ben feels the weight of two possible accounts assembling themselves: the one Luke's intervention would produce (institutional, framed through Jedi Order protocols, filtered through a Master's interpretation of what Ben should know and when) versus the one the group has to assemble for itself (raw, unfiltered, bound only by what they can trust each other to understand). His hands grip the armrest. His jaw tightens. The choice is not about leadership or self-reliance as concept — it is about who Ben can trust with the Force-reading he just lived through."
+    },
+    {
+      "beat_description": "Ben closes the panel. His hand moves from the armrest to the control, and the institutional blue blinks out. He looks out the viewport at the restored Weave.",
+      "state_change": "The refusal is complete. The call that would have pulled the mission into Luke's response window does not happen. Ben's route-decisions in the chapters ahead will proceed without that institutional weight.",
+      "pov_reaction": "Ben's shoulders drop slightly as the panel closes — not relief, but the settling of a decision made. He feels Desh's steady hands on the controls, unchanged. He feels Sera's reflection in the viewport glass, watching the panel, then looking away. Neither speaks. The silence between them is not empty; it is textured with what they all just witnessed in the breach, and with what Ben has just chosen not to report. The Weave outside feels like an instrument Ben is no longer sure he knows how to read — its restored shimmer looks whole from here, but he knows now what it cost to seal, and what it is still costing. The unopened channel sits dark on his console. That is the last thing he sees before the chapter ends."
+    }
+  ],
+  "opening_mode": "in_medias_res",
+  "anti_patterns": [
+    "Do not decorate this scene",
+    "Do not use diagnostic voice for the Weave or the Force-wound",
+    "Do not have Ben articulate his reasoning in internal monologue; keep thoughts sensory and behavioral",
+    "Do not resolve interpersonal consequences; register them implicitly through silence and proximity",
+    "Do not extend beyond the closing hook"
+  ]
 }

@@ -51,8 +51,8 @@
     "torin_h06_planted"
   ],
   "promises_planted": [
-    "Someone is ahead and methodical (PP06)",
-    "Torin's direction is not quite what it appears (PP07 / H06)"
+    "PP06",
+    "PP07"
   ],
   "promises_paid": [],
   "hook_actions": [
@@ -71,5 +71,49 @@
   "notes": "Keep the absence sharper than the explanation. Torin's off note should register and pass, not ring like a warning bell.",
   "primary_anchor": "Zahn",
   "supporting_anchor": "Bujold",
-  "stover_permitted": false
+  "stover_permitted": false,
+  "turning_point_detail": {
+    "trigger": "Ben understands that whoever escaped has had time to move and has been moving — the readable monitoring logs end two months ago, and the physical evidence of systematic activity (accessed terminals, moved equipment, supplies taken) proves the escapee did not simply vanish.",
+    "shift": "The question of identity is deferred; the question of how far is immediate. The escapee is already out there, already moving. The scene pivots from investigation to forward pressure. H06 plants through Torin's warmth-adjacent line that sits one degree off from where it should.",
+    "cost": "Ben is now responsible for stopping someone who has already been moving for weeks without the galaxy knowing. Torin's faintly-off inflection registers as a warmth detail that does not quite sit; Ben files it without interpretation, seeding doubt he cannot yet name."
+  },
+  "emotional_arc": {
+    "start": "Investigative tension — focused, methodical, pushing toward action rather than explanation.",
+    "shift": "Dawning unease at the scope of what has already happened — the realization that weeks have passed, that the escapee has had time to move, that the threat is not theoretical but already in motion.",
+    "end": "Forward pressure — braced, locked into the next phase, responsibility settling onto Ben's shoulders."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Ben pulls up the empty chamber's monitoring logs on the flickering display — readable until two months ago, then corrupted.",
+      "state_change": "Abstract threat becomes concrete: the logs provide a timeline. The readable portion ends abruptly; the corruption pattern suggests deliberate erasure or system failure, not accident.",
+      "pov_reaction": "Ben's investigative tension sharpens into focus — the instinct to act, to move forward, to find the next piece. His shoulders register the weight of what the logs are not saying."
+    },
+    {
+      "beat_description": "Desh catalogs the physical evidence of post-escape activity: accessed terminals, moved equipment, supplies taken. The pattern is methodical, but Desh cannot put a name to it.",
+      "state_change": "The escapee's presence becomes undeniable and recent. The activity is not frantic; it is patient, intelligent, systematic. Someone has been moving through the fortress with purpose.",
+      "pov_reaction": "Ben's unease deepens — the scope of what has already happened crystallizes. His focus tightens on the timeline: weeks of activity, weeks of preparation, weeks of advantage. His breath steadies; his mind accelerates."
+    },
+    {
+      "beat_description": "Sera examines the erosion marks inside the chamber — the damage pattern that shows centuries of work, methodical and patient. Her precision-register breaks for a half-second; she steadies herself and does not explain what she saw.",
+      "state_change": "The technical evidence confirms the emotional pressure: whoever escaped did not break out in desperation. They worked their way free with patience that spans centuries. Sera's reaction — the momentary loss of composure — signals that the implications are larger than the immediate escape.",
+      "pov_reaction": "Ben registers Sera's break in composure without asking. The unease settles deeper: if Sera is shaken, the threat is not routine. His shoulders tighten; he does not press her. The silence between them carries weight."
+    },
+    {
+      "beat_description": "Torin stands at the doorway, observing the chamber. He makes a small observation — something warmth-adjacent, a detail that sits one inflection off from where it should. Ben registers it the way one registers a wrong note in familiar music and files it without interpretation.",
+      "state_change": "H06 plants. The scene pivots: the question of identity defers; the question of how far becomes immediate. The escapee is already out there. Torin's off-note does not ring as a warning; it passes, but it does not settle.",
+      "pov_reaction": "Ben's attention catches on Torin's inflection — not alarm, but a small dissonance that his mind cannot quite place. He does not interpret it; he files it. The unease has a new shape now, one he cannot yet name. His focus remains on the forward pressure, but Torin's warmth-adjacent line sits in the corner of his awareness, waiting."
+    },
+    {
+      "beat_description": "Ben overlays the escapee's activity timestamps on the fortress map. The pattern is methodical, the direction clear: the Corridor. The name remains withheld.",
+      "state_change": "The next phase locks in. The escapee is not a mystery to be solved in the chamber; they are a moving target already weeks ahead. The fortress is no longer the primary theater. The Corridor is.",
+      "pov_reaction": "Forward pressure settles onto Ben as responsibility. He is braced for the handoff, for the next phase. His voice is steady when he tells Desh to pull every monitoring packet and start reconstructing — answer first light. The weight of what he now knows, and what he still does not, settles across his shoulders."
+    }
+  ],
+  "opening_mode": "in_medias_res",
+  "anti_patterns": [
+    "Keep the absence sharper than the explanation — do not name what the evidence means; let it accumulate.",
+    "Do not ring Torin's off note like a warning bell — it should register and pass without interpretation.",
+    "Avoid diagnostic voice when describing the Force-residue the escapee left behind; keep it sensory and experiential.",
+    "Do not arrive at clinical articulation of what the scope of the escape means; let Ben's shoulders and breath register it first."
+  ]
 }

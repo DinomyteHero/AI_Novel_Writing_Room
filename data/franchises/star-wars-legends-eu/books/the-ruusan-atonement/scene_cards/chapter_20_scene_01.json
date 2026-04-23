@@ -44,8 +44,8 @@
   ],
   "promises_planted": [],
   "promises_paid": [
-    "The primary wound site will be physically visited (PP25)",
-    "The wound site has physical presence (PP18)"
+    "PP25",
+    "PP18"
   ],
   "hook_actions": [
     {
@@ -59,5 +59,42 @@
   ],
   "revelations": [],
   "pov_arc_phase": "lie_challenged",
-  "notes": "The chapter's load-bearing image is the beauty-as-symptom — Veranthos lush and temperate, the eye deceived before the scan tells the truth. Anti-pattern: do not describe the ruined world; describe the apparently unruined one and let the data contradict it. Diagnostic-voice trap — Ben should not, in this scene, narrate the seal boundary as concept. He feels the pressure, sees the membrane on scan, registers the wound's pull; the interpretation stays in his body."
+  "notes": "The chapter's load-bearing image is the beauty-as-symptom — Veranthos lush and temperate, the eye deceived before the scan tells the truth. Anti-pattern: do not describe the ruined world; describe the apparently unruined one and let the data contradict it. Diagnostic-voice trap — Ben should not, in this scene, narrate the seal boundary as concept. He feels the pressure, sees the membrane on scan, registers the wound's pull; the interpretation stays in his body.",
+  "turning_point_detail": {
+    "trigger": "The seal boundary visible in the Force as a membrane, a pressure change — Ben perceives the boundary between the sealed wound and the almost-normal space beyond it.",
+    "shift": "Inside the boundary, the world is wrong in ways scan data makes undeniable: weather patterns contradicting rotation, vegetation defying sunlight, ocean currents reversed. Outside, almost normal. The boundary is failing; patches of wrongness bleed through. The wound is not theoretical — it is planetary, present, and active.",
+    "cost": "Ben faces the source of everything he has been feeling since Chapter 1, made concrete and immense. The group's reactions to Veranthos reveal their final emotional states before the endgame. Veraine's presence on the surface eliminates approach time and forces immediate tactical commitment."
+  },
+  "emotional_arc": {
+    "start": "Awed dread — the beauty of Veranthos fills the viewport and triggers a visceral warning Ben cannot yet articulate.",
+    "shift": "The wrongness made planetary — scan data and Force-perception transform abstract pressure into concrete contradiction. The wound is not a concept; it is a place, and it is wrong.",
+    "end": "Urgent tactical alarm — Veraine's confirmed presence on the surface collapses the timeline and forces Ben's focus into immediate action-readiness."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Ben presses his hand against the viewport as Veranthos fills the frame — blue-green oceans, temperate forests, beautiful. The beauty is the first warning.",
+      "state_change": "The abstract pressure Ben has carried since Chapter 1 becomes concrete: the destination is here, visible, and the sensory reality contradicts the dread.",
+      "pov_reaction": "Ben's hand meets the cold viewport; the beauty triggers a somatic response — a tightness in his chest, a pull in the Force-sense that his conscious mind has not yet named. His instinct is to act, not to explain. The awed dread is physical before it is intellectual."
+    },
+    {
+      "beat_description": "Desh reads scan data aloud: weather patterns not tracking the planet's rotation, vegetation defying the sunlight angle, ocean currents running reversed. The data contradicts the eye.",
+      "state_change": "The wrongness shifts from Force-perception (interior, subjective) to sensor confirmation (objective, undeniable). The boundary between sealed and almost-normal becomes visible on the display. The wound's pull registers as immense and silent.",
+      "pov_reaction": "Ben's focus tightens. The pressure that was awed dread becomes urgent focus — his professional assessment running in parallel with visceral recognition. The wrongness is not his imagination; it is planetary. His body registers the boundary as a membrane in the Force; the scan confirms it. The wound is pulling."
+    },
+    {
+      "beat_description": "Desh zooms the sensor display to the valley coordinates where the seal's central infrastructure should be. Veraine's ship signature is already there, on the surface, no longer in approach.",
+      "state_change": "The timeline collapses. Veraine did not arrive with them; she arrived weeks ago and has been on the surface since before the group's descent began. No approach time remains. The next move is immediate.",
+      "pov_reaction": "The alarm lands clean and sharp — a tactical recognition that overrides the awed dread. Ben's mind shifts into the next phase. Veraine is not a future problem; she is a present one. The group's emotional states before the endgame are locked in by this confirmation. There is no time left to spend."
+    }
+  ],
+  "opening_mode": "sensory_hook",
+  "anti_patterns": [
+    "do not describe the ruined world; describe the apparently unruined one and let the data contradict it",
+    "Ben should not, in this scene, narrate the seal boundary as concept",
+    "Do not describe the ruined world; describe the apparently unruined one and let the data contradict it.",
+    "Do not arrive at diagnostic-voice articulation of the seal boundary — Ben should not narrate the seal boundary as concept.",
+    "Do not have Ben explain or analyze the phenomenology of the Force-sense; keep it sensory and experiential.",
+    "Do not open with flashback or extended internal monologue about what Ben has been feeling since Chapter 1.",
+    "Do not resolve the group's emotional reactions to Veranthos in this scene — save that reveal for the next scene."
+  ]
 }
