@@ -2156,6 +2156,177 @@
       "payoff_in": "Chapter 25 / Chapter 26",
       "type": "character",
       "rationale": "Per D2 dual-reinforcement: Ch 21's refusal-as-permission is converted into Ben's own active capacity at Ch 25 s3 (interpreter-of-chord — he is the axis composing Sera/Kael/Desh's specialist contributions into a single executable read; if he drops the chord, the operation collapses) and Ch 26 s3 (first renewal share in the bonded seal — he takes the first share of the seal's ongoing ethical load on himself, publicly, with Sera and Kael witnessing). The Trauma-Lie antithesis demonstrated under load: trust placed in specialists whose judgment he cannot verify, executed as a skill he did not have in Ch 1."
+    },
+    {
+      "promise_id": "PP33",
+      "promise": "Kael's chosen-knowledge agency: the things Kael seeks out (not extracted from him) will drive his active decisions later",
+      "planted_in": "Chapter 7",
+      "payoff_in": "Chapter 19 and Chapter 23",
+      "type": "character",
+      "related_hook_id": null,
+      "rationale": "Kael's W1 agency arc — his first self-directed pursuit becomes the basis for Ch 19's articulated critique and Ch 23's commitment."
+    },
+    {
+      "promise_id": "PP34",
+      "promise": "Kael/Desh quiet-alliance dyad: the practical-man + outsider partnership established here pays implicitly through Ch 19 and Ch 23",
+      "planted_in": "Chapter 8",
+      "payoff_in": "Chapter 19 and Chapter 23",
+      "type": "relationship",
+      "related_hook_id": null,
+      "rationale": "Relationship promise — Kael initiates with Desh without Force-register framing; pays as load-bearing under later pressure."
+    },
+    {
+      "promise_id": "PP35",
+      "promise": "The array-dependency fact: the plot-critical constraint that binds later tactical options, ultimately pays at the climax",
+      "planted_in": "Chapter 13",
+      "payoff_in": "Chapter 14 onward; ultimate payoff Chapter 25–26",
+      "type": "plot",
+      "related_hook_id": null,
+      "rationale": "Mechanical constraint introduced here governs the climactic decision space."
+    },
+    {
+      "promise_id": "PP36",
+      "promise": "Cascade-acceleration as tactical constraint: the time-pressure mechanic introduced here pays at the Ch 21 decision point",
+      "planted_in": "Chapter 13",
+      "payoff_in": "Chapter 21 (reinforced Ch 18)",
+      "type": "plot",
+      "related_hook_id": null,
+      "rationale": "Time-pressure constraint that shapes the Ch 21 forcible-disengagement decision."
+    },
+    {
+      "promise_id": "PP37",
+      "promise": "Kael/Torin shared-presence dyad: the co-presence established here pays implicitly through Ch 17 and Ch 23",
+      "planted_in": "Chapter 15",
+      "payoff_in": "Chapter 17 and Chapter 23",
+      "type": "relationship",
+      "related_hook_id": null,
+      "rationale": "Relationship texture — payoff reads implicitly through Kael's later moves."
+    },
+    {
+      "promise_id": "PP38",
+      "promise": "The deleted report ghost file: Ben's documented attempt lives on in the system, pays at Ch 28 s2",
+      "planted_in": "Chapter 15",
+      "payoff_in": "Chapter 28 scene 2",
+      "type": "plot",
+      "related_hook_id": null,
+      "rationale": "Long-delayed payoff — Ben's earlier effort is not gone; it resurfaces as evidence he did try."
+    },
+    {
+      "promise_id": "PP39",
+      "promise": "Veraine's pitch to Kael: Kael's silence in Ch 16 contains an answer that surfaces as the Ch 21 refusal",
+      "planted_in": "Chapter 16",
+      "payoff_in": "Chapter 21",
+      "type": "character",
+      "related_hook_id": null,
+      "rationale": "Deferred-answer promise — the later refusal reads as explicit resolution of the unresolved scene."
+    },
+    {
+      "promise_id": "PP40",
+      "promise": "Ben's emergent Veraine-intel: approach vector, crew tells, and archive-fragment register he carries out of Ch 16 pay across Ch 17–25 operational beats",
+      "planted_in": "Chapter 16",
+      "payoff_in": "Chapter 17 through Chapter 25",
+      "type": "plot",
+      "related_hook_id": null,
+      "rationale": "Information promise — concrete knowledge fragments govern later operational decisions."
+    },
+    {
+      "promise_id": "PP41",
+      "promise": "Sera's Gavran-pattern recognition: her Ch 17 silence pays at Ch 19 when she registers her own pattern in retrospect",
+      "planted_in": "Chapter 17",
+      "payoff_in": "Chapter 19",
+      "type": "character",
+      "related_hook_id": null,
+      "rationale": "Retrospective-recognition promise — the delay between the silence and the naming is the arc."
+    },
+    {
+      "promise_id": "PP42",
+      "promise": "Sera's unarticulated cascade-intuition: her Ch 18 s2 read pays at Ch 21 as the Force-cost of disengagement becomes the decision-point",
+      "planted_in": "Chapter 18 scene 2",
+      "payoff_in": "Chapter 21",
+      "type": "character",
+      "related_hook_id": null,
+      "rationale": "Tactical-intuition promise — her unspoken read becomes load-bearing at the decision."
+    },
+    {
+      "promise_id": "PP43",
+      "promise": "The resonance-note emphasis: the reading introduced in Ch 18 s2 shifts emphasis at Ch 18 s3",
+      "planted_in": "Chapter 18 scene 2",
+      "payoff_in": "Chapter 18 scene 3",
+      "type": "plot",
+      "related_hook_id": null,
+      "rationale": "Short-arc promise within a single chapter — the note's meaning pivots between scenes."
+    },
+    {
+      "promise_id": "PP44",
+      "promise": "The trust-as-problem reading of the resonance note: framed at Ch 18 s3, pays at Ch 25–26 through interpreter-of-chord and first-renewal commitment",
+      "planted_in": "Chapter 18 scene 3",
+      "payoff_in": "Chapter 25 and Chapter 26",
+      "type": "theme",
+      "related_hook_id": null,
+      "rationale": "Thematic-mechanic promise — the resonance reframing governs how the climactic commitment reads."
+    },
+    {
+      "promise_id": "PP45",
+      "promise": "Kael's 'design problem' observation: framed at Ch 19 s3, pays at Ch 25–26 as the resonance answer emerges",
+      "planted_in": "Chapter 19 scene 3",
+      "payoff_in": "Chapter 25 and Chapter 26",
+      "type": "plot",
+      "related_hook_id": null,
+      "rationale": "Conceptual reframing promise — Kael's 'design problem' lens becomes the path to the resonance answer."
+    },
+    {
+      "promise_id": "PP46",
+      "promise": "Veraine's outpost-archive trace: the first fragment surfaces at Ch 19 s3 and continues as evidence across Ch 20, 22, and 24",
+      "planted_in": "Chapter 19 scene 3",
+      "payoff_in": "Chapter 20, Chapter 22, Chapter 24",
+      "type": "plot",
+      "related_hook_id": null,
+      "rationale": "Evidence-trail promise — incremental archive discoveries across the middle act."
+    },
+    {
+      "promise_id": "PP47",
+      "promise": "The structural feature Veraine identifies: planted at Ch 20 s3, silently pressures the Ch 25–26 decision",
+      "planted_in": "Chapter 20 scene 3",
+      "payoff_in": "Chapter 25 and Chapter 26",
+      "type": "plot",
+      "related_hook_id": null,
+      "rationale": "Unannounced-pressure promise — the feature shapes the climax without narration flagging it."
+    },
+    {
+      "promise_id": "PP48",
+      "promise": "The resonance solution as the book's path to Veranthos: committed at Ch 21 s3, pays across Ch 23–26",
+      "planted_in": "Chapter 21 scene 3",
+      "payoff_in": "Chapter 23 through Chapter 26",
+      "type": "plot",
+      "related_hook_id": null,
+      "rationale": "Spine-of-the-book promise — the committed tactical frame carries through to the climax."
+    },
+    {
+      "promise_id": "PP49",
+      "promise": "Ben's Weave-infrastructure-sensing capacity: planted at Ch 24 s2, pays at Ch 25–26 as the climactic route-reading through the nodes",
+      "planted_in": "Chapter 24 scene 2",
+      "payoff_in": "Chapter 25 and Chapter 26",
+      "type": "ability",
+      "related_hook_id": null,
+      "rationale": "Capacity promise — a new Force ability introduced late, immediately paid as the climactic legibility."
+    },
+    {
+      "promise_id": "PP50",
+      "promise": "Ben's interpreter-of-chord capacity tested under climactic load — the ability demonstrated across the Ch 18/21/24 arc is stress-tested at the climax",
+      "planted_in": "Chapter 18 scene 3 (trust-as-problem reframing) through Chapter 24",
+      "payoff_in": "Chapter 25 scene 3",
+      "type": "ability",
+      "related_hook_id": null,
+      "rationale": "Climactic test of the interpreter-of-chord reading — the arc-level capacity demonstrated on-page under load."
+    },
+    {
+      "promise_id": "PP51",
+      "promise": "The 'find another way, together' commitment of Ch 21 s3 converts to a priced, first-renewal commitment at Ch 26 s3",
+      "planted_in": "Chapter 21 scene 3",
+      "payoff_in": "Chapter 26 scene 3",
+      "type": "theme",
+      "related_hook_id": null,
+      "rationale": "Thematic-commitment promise — the earlier 'together' line is paid as a priced choice, not a feel-good echo."
     }
   ],
   "canon_profile": {
