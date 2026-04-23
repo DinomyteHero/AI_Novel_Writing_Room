@@ -280,6 +280,18 @@ class ProjectPaths:
         return self.book_dir / "scene_cards"
 
     @property
+    def chapter_blueprints_dir(self) -> Path:
+        return self.book_dir / "chapter_blueprints"
+
+    @property
+    def canon_contract_path(self) -> Path:
+        return self.book_dir / "canon_contract.md"
+
+    @property
+    def canon_guidance_dir(self) -> Path:
+        return self.book_dir / "canon_guidance"
+
+    @property
     def workflows_dir(self) -> Path:
         """Per-surface artifact directory (Phase 4 workflow kit).
 

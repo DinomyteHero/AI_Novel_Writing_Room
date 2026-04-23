@@ -245,3 +245,9 @@ class TestPhase5Plumbing:
     def test_chapter_gate_critic_importable(self):
         """Smoke test: the import path main.py uses must resolve."""
         from src.agents.chapter_gate_critic import ChapterGateCritic  # noqa: F401
+
+    def test_canon_expert_profile_only_mode_is_wired(self):
+        main_src = (Path(__file__).parent.parent / "src" / "main.py").read_text(encoding="utf-8")
+        assert "CanonExpert(router, canon_evidence=ranker)" in main_src
+        assert "CanonExpert initialized in profile-only mode" in main_src
+        assert "CanonExpert skipped" not in main_src

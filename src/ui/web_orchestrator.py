@@ -48,7 +48,7 @@ class WebOrchestrator(Orchestrator):
 
         # Lazy import to match Orchestrator.run_pipeline; the pipeline package is
         # optional for callers that don't exercise save-blockers.
-        from src.pipeline.save_blockers import SaveBlockedError
+        from src.pipeline.save_blockers import SaveBlockedError, should_abort_run
 
         try:
             for i, scene_card in enumerate(active_cards):
@@ -66,6 +66,34 @@ class WebOrchestrator(Orchestrator):
                 try:
                     result = await self.run_chapter(scene_card)
                 except SaveBlockedError as e:
+                    if not should_abort_run(self.runtime_flags):
+                        decision = self._handle_firewall(
+                            scene_card=scene_card,
+                            error=e,
+                            active_cards=active_cards,
+                            current_index=i,
+                        )
+                        print(
+                            f"\n[STATE-FIREWALL] isolated "
+                            f"{scene_card['chapter_number']}.{scene_card.get('scene_number', 1)} "
+                            f"-> gap_id={decision.gap_id}"
+                        )
+                        if decision.soft_halted_scenes:
+                            print(
+                                f"  soft_halt: {', '.join(decision.soft_halted_scenes)}"
+                            )
+                        if decision.continue_with_gap_note:
+                            print(
+                                "  continue_with_note: "
+                                f"{', '.join(decision.continue_with_gap_note)}"
+                            )
+                        if not decision.continue_run:
+                            print(
+                                "[STATE-FIREWALL] soft-halting run -- "
+                                "open gaps require human review."
+                            )
+                            break
+                        continue
                     # Relay v1 quarantine policy: abort the entire run on the
                     # first blocker. Web UI surfaces the abort through the
                     # pipeline_manager state the same way a KeyboardInterrupt

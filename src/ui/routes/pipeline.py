@@ -204,6 +204,25 @@ def _load_scene_cards(scene_cards_dir: str, chapter: Optional[int] = None) -> li
     return cards
 
 
+def _load_chapter_blueprints(paths, chapter: Optional[int] = None) -> dict[int, dict]:
+    blueprints: dict[int, dict] = {}
+    bp_dir = paths.chapter_blueprints_dir
+    if not bp_dir.exists():
+        return blueprints
+    for path in sorted(bp_dir.glob("chapter_*.json")):
+        try:
+            chapter_number = int(path.stem.split("_")[1])
+        except (IndexError, ValueError):
+            continue
+        if chapter is not None and chapter_number != chapter:
+            continue
+        try:
+            blueprints[chapter_number] = json.loads(path.read_text(encoding="utf-8"))
+        except (json.JSONDecodeError, OSError):
+            continue
+    return blueprints
+
+
 async def _ensure_chapter_blueprints(
     router,
     ledger,
@@ -266,6 +285,10 @@ async def _ensure_chapter_blueprints(
 def _create_web_orchestrator(state, concept_seed_path, concept_seed, body):
     """Create a WebOrchestrator with all configured components."""
     from src.memory.context_assembler import ContextAssembler
+    from src.pipeline.canon_guidance import CanonGuidanceStore
+    from src.pipeline.chapter_packet import ChapterPacketCompiler
+    from src.project_paths import ProjectPaths
+    from src.runtime_flags import load_runtime_flags
     from src.ui.web_orchestrator import WebOrchestrator
 
     pipeline_cfg = state.config.get("pipeline", {})
@@ -286,6 +309,57 @@ def _create_web_orchestrator(state, concept_seed_path, concept_seed, body):
         universe_id=universe_id,
         project_id=project_id,
     )
+    paths = ProjectPaths.from_concept_seed_path(concept_seed_path)
+    if universe_id:
+        paths.franchise_slug = universe_id
+    if project_id:
+        paths.project_slug = project_id
+    chapter_packet_compiler = ChapterPacketCompiler(
+        concept_seed=concept_seed,
+        blueprints=_load_chapter_blueprints(paths, chapter=body.chapter),
+        assembler=assembler,
+        story_state=state.story_state,
+        canon_guidance_store=CanonGuidanceStore(
+            paths.canon_guidance_dir,
+            canon_contract_path=paths.canon_contract_path,
+        ),
+    )
+    runtime_flags = load_runtime_flags(concept_seed=concept_seed)
+
+    # Save-blocker and post-check agents. Keep this aligned with the CLI path:
+    # presence checking should always be available, while CanonExpert can run
+    # in profile-only mode without a CanonDB/RAG evidence store.
+    presence_checker = None
+    canon_expert = None
+    line_writer = None
+    micro_repair = None
+    try:
+        from src.agents.presence_checker import PresenceChecker
+
+        presence_checker = PresenceChecker(state.router)
+    except ImportError:
+        pass
+    if body.phase >= 2:
+        try:
+            from src.agents.canon_expert import CanonExpert
+
+            canon_expert = CanonExpert(state.router)
+        except ImportError:
+            pass
+    if state.config.get("agent_routing", {}).get("line_writer"):
+        try:
+            from src.agents.line_writer import LineWriter
+
+            line_writer = LineWriter(state.router)
+        except ImportError:
+            pass
+    if state.config.get("agent_routing", {}).get("micro_repair"):
+        try:
+            from src.agents.micro_repair import MicroRepair
+
+            micro_repair = MicroRepair(state.router)
+        except ImportError:
+            pass
 
     # Optional Phase 3/4 components
     metrics_dashboard = None
@@ -376,11 +450,17 @@ def _create_web_orchestrator(state, concept_seed_path, concept_seed, body):
         manuscripts_dir=state.manuscripts_dir,
         max_structural_retries=pipeline_cfg.get("max_structural_retries", 3),
         max_voice_retries=pipeline_cfg.get("max_voice_retries", 2),
+        runtime_flags=runtime_flags,
+        chapter_packet_compiler=chapter_packet_compiler,
         summarizer=summarizer,
         state_diff_applier=state_diff_applier,
         contradiction_scanner=contradiction_scanner,
         chapter_memory=state.chapter_memory,
         story_state=state.story_state,
+        canon_expert=canon_expert,
+        presence_checker=presence_checker,
+        line_writer=line_writer,
+        micro_repair=micro_repair,
         metrics_dashboard=metrics_dashboard,
         character_specialist=character_specialist,
         milestone_gates=milestone_gates,

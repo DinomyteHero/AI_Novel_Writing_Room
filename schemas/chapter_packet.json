@@ -99,6 +99,11 @@
         }
       }
     },
+    "canon_guidance": {
+      "type": "object",
+      "description": "Fresh planning-time Canon Scout sidecar for this scene. Empty when no fresh sidecar exists.",
+      "additionalProperties": true
+    },
     "relationship_context": {
       "type": "object",
       "description": "Populated by Slice 5 (sociogram); empty for Slice 2.",

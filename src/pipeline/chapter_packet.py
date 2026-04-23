@@ -36,6 +36,8 @@ import re
 from dataclasses import asdict, dataclass, field, fields, replace
 from typing import TYPE_CHECKING, Any, Iterable, Mapping, Optional
 
+from src.pipeline.canon_guidance import render_guidance_for_packet
+
 logger = logging.getLogger(__name__)
 
 if TYPE_CHECKING:
@@ -68,6 +70,7 @@ class ChapterPacket:
     active_promises_total_count: int = 0
     reveal_deadlines: list[dict] = field(default_factory=list)
     canon_slices: list[dict] = field(default_factory=list)
+    canon_guidance: dict = field(default_factory=dict)
     relationship_context: dict = field(default_factory=dict)      # Slice 5
     exit_vector: dict = field(default_factory=dict)
     trusted_state_gap_notes: list[dict] = field(default_factory=list)
@@ -180,6 +183,11 @@ class ChapterPacket:
                 if body:
                     parts.append(f"  {body}")
 
+        if self.canon_guidance:
+            parts.append("")
+            parts.append("### Static Canon Guidance")
+            parts.append(render_guidance_for_packet(self.canon_guidance))
+
         if self.trusted_state_gap_notes:
             parts.append("")
             parts.append("### Narrative Continuity Gaps")
@@ -233,10 +241,10 @@ class ChapterPacket:
             parts.append("")
             parts.append("### Reveal Deadlines")
             for r in self.reveal_deadlines:
-                rid = r.get("revelation_id", "(unknown)")
+                note = r.get("note") or r.get("revelation_id", "(unknown)")
                 due = r.get("due_by_scene", "")
                 status = r.get("status", "")
-                parts.append(f"- {rid}: due {due}" + (f" [{status}]" if status else ""))
+                parts.append(f"- {note}: due {due}" + (f" [{status}]" if status else ""))
 
         if self.exemplar_snippets:
             parts.append("")
@@ -299,7 +307,7 @@ class ChapterPacket:
             parts.append("")
             parts.append("## Scene Card")
             parts.append("```json")
-            parts.append(json.dumps(dict(self.scene_card), indent=2))
+            parts.append(json.dumps(_model_facing_scene_card(self.scene_card), indent=2))
             parts.append("```")
 
         if self.flat_context_snapshot:
@@ -312,7 +320,7 @@ class ChapterPacket:
             parts.append("")
             parts.append(self.flat_context_snapshot)
 
-        return "\n".join(parts)
+        return _scrub_model_facing_text("\n".join(parts))
 
 
 # ---------------------------------------------------------------------------
@@ -339,6 +347,7 @@ class ChapterPacketCompiler:
         promise_ledger=None,           # Slice 3
         continuity_log=None,           # Slice 4
         sociogram=None,                # Slice 5
+        canon_guidance_store=None,
         exemplar_snippets: list[dict] | None = None,
         anti_exemplar_snippets: list[dict] | None = None,
     ) -> None:
@@ -349,8 +358,19 @@ class ChapterPacketCompiler:
         self.promise_ledger = promise_ledger
         self.continuity_log = continuity_log
         self.sociogram = sociogram
+        self.canon_guidance_store = canon_guidance_store
         self.exemplar_snippets = list(exemplar_snippets or [])
         self.anti_exemplar_snippets = list(anti_exemplar_snippets or [])
+        self._subplots_by_id = _index_seed_refs(
+            self.concept_seed.get("subplots") or [], ("subplot_id", "id")
+        )
+        self._hooks_by_id = _index_seed_refs(
+            self.concept_seed.get("hooks") or [], ("hook_id", "id")
+        )
+        self._revelations_by_id = _index_seed_refs(
+            self.concept_seed.get("revelation_schedule") or [],
+            ("revelation_id", "info_id", "id"),
+        )
 
     # ------------------------------------------------------------------ base
     def compile_base(self, *, chapter_number: int) -> ChapterPacket:
@@ -385,6 +405,7 @@ class ChapterPacketCompiler:
             active_promises=active_promises,
             reveal_deadlines=reveal_deadlines,
             canon_slices=canon_slices,
+            canon_guidance={},
             relationship_context=relationship_context,
             exit_vector=exit_vector,
             trusted_state_gap_notes=[],
@@ -435,6 +456,10 @@ class ChapterPacketCompiler:
         relationship_context = self._fetch_relationship_context_for_scene(
             chapter_number=base.chapter_number, scene_card=scene_card,
         )
+        canon_guidance = self._fetch_canon_guidance_for_scene(
+            chapter_number=base.chapter_number,
+            scene_card=scene_card,
+        )
 
         overlay = replace(
             base,
@@ -447,6 +472,7 @@ class ChapterPacketCompiler:
             active_promises_total_count=total_active,
             continuity_events=continuity_events,
             relationship_context=relationship_context,
+            canon_guidance=canon_guidance,
         )
         return replace(overlay, rendered_markdown=overlay.render_markdown())
 
@@ -479,7 +505,7 @@ class ChapterPacketCompiler:
     def _build_next_scene_obligations(self, blueprint: Mapping[str, Any]) -> list[dict]:
         out: list[dict] = []
         for sub in blueprint.get("subplot_obligations") or []:
-            out.append({"kind": "subplot", "note": str(sub)})
+            out.append({"kind": "subplot", "note": self._resolve_subplot_ref(sub)})
         for turn in blueprint.get("relationship_turns") or []:
             if not isinstance(turn, Mapping):
                 continue
@@ -491,15 +517,36 @@ class ChapterPacketCompiler:
                 "note": f"{dyad}: {frm} \u2192 {to}".strip(),
             })
         for rid in (blueprint.get("reveal_payload") or []):
-            out.append({"kind": "reveal", "note": str(rid)})
+            out.append({"kind": "reveal", "note": self._resolve_revelation_ref(rid)})
         hooks = blueprint.get("hook_movements") or {}
         for planted in hooks.get("planted") or []:
-            out.append({"kind": "hook_planted", "note": str(planted)})
+            out.append({"kind": "hook_planted", "note": self._resolve_hook_ref(planted)})
         for advanced in hooks.get("advanced") or []:
-            out.append({"kind": "hook_advanced", "note": str(advanced)})
+            out.append({"kind": "hook_advanced", "note": self._resolve_hook_ref(advanced)})
         for resolved in hooks.get("resolved") or []:
-            out.append({"kind": "hook_resolved", "note": str(resolved)})
+            out.append({"kind": "hook_resolved", "note": self._resolve_hook_ref(resolved)})
         return out
+
+    def _resolve_subplot_ref(self, ref: Any) -> str:
+        return _resolve_seed_ref(
+            ref,
+            index=self._subplots_by_id,
+            text_keys=("name", "function", "arc_summary"),
+        )
+
+    def _resolve_hook_ref(self, ref: Any) -> str:
+        return _resolve_seed_ref(
+            ref,
+            index=self._hooks_by_id,
+            text_keys=("description", "hook_type"),
+        )
+
+    def _resolve_revelation_ref(self, ref: Any) -> str:
+        return _resolve_seed_ref(
+            ref,
+            index=self._revelations_by_id,
+            text_keys=("what", "content", "summary", "description"),
+        )
 
     def _build_canon_slices(self, blueprint: Mapping[str, Any]) -> list[dict]:
         slices: list[dict] = []
@@ -517,11 +564,38 @@ class ChapterPacketCompiler:
                         slices.append({"title": key, "body": item, "source": key})
         return slices
 
+    def _fetch_canon_guidance_for_scene(
+        self,
+        *,
+        chapter_number: int,
+        scene_card: Mapping[str, Any],
+    ) -> dict:
+        """Load fresh static canon guidance for the current scene.
+
+        Missing or stale guidance is intentionally non-fatal. The scouting
+        workflow is a planning-time cache; runtime drafting should continue
+        without injecting stale notes.
+        """
+        if self.canon_guidance_store is None:
+            return {}
+        blueprint = self.blueprints.get(int(chapter_number), {})
+        try:
+            guidance = self.canon_guidance_store.load_fresh(
+                concept_seed=self.concept_seed,
+                chapter_blueprint=blueprint,
+                scene_card=scene_card,
+            )
+        except Exception:  # noqa: BLE001
+            logger.exception("canon guidance lookup failed")
+            return {}
+        return dict(guidance or {})
+
     def _build_reveal_deadlines(self, blueprint: Mapping[str, Any]) -> list[dict]:
         out: list[dict] = []
         for rid in (blueprint.get("reveal_payload") or []):
             out.append({
                 "revelation_id": str(rid),
+                "note": self._resolve_revelation_ref(rid),
                 "due_by_scene": f"ch{blueprint.get('chapter_number', 0):02d}_close",
                 "status": "pending",
             })
@@ -698,6 +772,20 @@ def _scene_id(chapter_number: int, scene_number: int) -> str:
 
 
 _SCENE_ID_RE = re.compile(r"^ch(\d{2})_sc(\d{2})$")
+_PLANNING_ID_RE = re.compile(r"\b(?:R\d{2}[a-z]?|H\d{2}|PP\d{2}|SP-[A-Z]|SP\d+)\b")
+
+_MODEL_FACING_SCENE_CARD_OMIT_KEYS = {
+    # Machine tracking IDs are already rendered as story-language obligations
+    # in ChapterPacket sections above. Keep them out of the drafter-facing JSON
+    # so prose models do not echo planning shorthand.
+    "active_subplots",
+    "plot_threads_advanced",
+    "promises_planted",
+    "promises_paid",
+    "promises_progressed",
+    "hook_actions",
+    "revelations",
+}
 
 
 def _scene_id_strictly_at_or_after(scene_a: str | None, scene_b: str | None) -> bool:
@@ -710,6 +798,84 @@ def _scene_id_strictly_at_or_after(scene_a: str | None, scene_b: str | None) -> 
     if ma is None or mb is None:
         return False
     return (int(ma.group(1)), int(ma.group(2))) >= (int(mb.group(1)), int(mb.group(2)))
+
+
+def _model_facing_scene_card(scene_card: Mapping[str, Any]) -> dict:
+    return {
+        key: _scrub_model_facing_value(value)
+        for key, value in dict(scene_card).items()
+        if key not in _MODEL_FACING_SCENE_CARD_OMIT_KEYS
+    }
+
+
+def _scrub_model_facing_value(value: Any) -> Any:
+    if isinstance(value, str):
+        return _scrub_model_facing_text(value)
+    if isinstance(value, list):
+        return [_scrub_model_facing_value(item) for item in value]
+    if isinstance(value, Mapping):
+        return {
+            key: _scrub_model_facing_value(item)
+            for key, item in value.items()
+        }
+    return copy.deepcopy(value)
+
+
+def _scrub_model_facing_text(text: str) -> str:
+    return _PLANNING_ID_RE.sub(_planning_id_label, text)
+
+
+def _planning_id_label(match: re.Match[str]) -> str:
+    token = match.group(0)
+    if token.startswith("R"):
+        return "this reveal"
+    if token.startswith("H"):
+        return "this hook"
+    if token.startswith("PP"):
+        return "this promise"
+    return "this subplot"
+
+
+def _index_seed_refs(
+    items: Iterable[Any],
+    id_keys: Iterable[str],
+) -> dict[str, Mapping[str, Any]]:
+    out: dict[str, Mapping[str, Any]] = {}
+    for item in items:
+        if not isinstance(item, Mapping):
+            continue
+        for key in id_keys:
+            value = item.get(key)
+            if isinstance(value, str) and value.strip():
+                out[value.strip()] = item
+    return out
+
+
+def _resolve_seed_ref(
+    ref: Any,
+    *,
+    index: Mapping[str, Mapping[str, Any]],
+    text_keys: Iterable[str],
+) -> str:
+    if isinstance(ref, Mapping):
+        item: Mapping[str, Any] | None = ref
+    elif isinstance(ref, str):
+        item = index.get(ref.strip())
+    else:
+        item = None
+    if item is None:
+        return str(ref)
+
+    fragments: list[str] = []
+    for key in text_keys:
+        value = item.get(key)
+        if isinstance(value, str) and value.strip():
+            fragments.append(value.strip())
+    if not fragments:
+        return str(ref)
+    if len(fragments) == 1:
+        return fragments[0]
+    return f"{fragments[0]}: {fragments[1]}"
 
 
 def _format_active_promise_line(entry: Mapping[str, Any]) -> str:

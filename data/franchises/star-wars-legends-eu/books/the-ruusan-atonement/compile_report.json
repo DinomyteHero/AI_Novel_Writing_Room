@@ -1,0 +1,29 @@
+{
+  "franchise": "star-wars-legends-eu",
+  "book": "the-ruusan-atonement",
+  "surfaces_present": {
+    "universe": false,
+    "canon": false,
+    "voice": false,
+    "characters": false,
+    "outline": false
+  },
+  "surfaces_missing": [
+    "universe",
+    "canon",
+    "voice",
+    "characters",
+    "outline"
+  ],
+  "preflight_errors": [],
+  "compliance": {},
+  "schema_errors": [],
+  "scene_card_count": 0,
+  "scene_card_errors": [],
+  "physics": {},
+  "editorial": {},
+  "warnings": [
+    "required surfaces missing: ['universe', 'canon', 'voice', 'characters', 'outline']; cannot build seed"
+  ],
+  "generated_at": "2026-04-23T20:50:16Z"
+}

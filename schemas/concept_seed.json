@@ -565,10 +565,10 @@
           },
           "type": {
             "type": "string",
-            "enum": ["plot", "character", "thematic", "atmospheric"]
+            "enum": ["plot", "character", "relationship", "thematic", "theme", "atmospheric", "ability"]
           },
           "related_hook_id": {
-            "type": "string",
+            "type": ["string", "null"],
             "description": "Optional cross-reference to a hook in the hooks array that shares this promise's reader contract."
           }
         }

@@ -135,7 +135,7 @@ def test_revision_debt_schema_rejects_bad_severity():
 # --------------------------------------------------------------- chapter_memo
 
 
-def test_chapter_close_memo_schema_validates(tmp_path):
+def test_chapter_close_memo_schema_validates():
     schema = _load_schema("chapter_memo.json")
     store = RevisionDebtStore(db_path=":memory:")
     store.add({

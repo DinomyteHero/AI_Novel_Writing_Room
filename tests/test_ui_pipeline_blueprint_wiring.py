@@ -162,6 +162,13 @@ class TestUiPhase5Plumbing:
         src = (Path(__file__).parent.parent / "src" / "ui" / "routes" / "pipeline.py").read_text(encoding="utf-8")
         assert "chapter_gate_critic=chapter_gate_critic" in src
 
+    def test_pipeline_py_passes_save_blocker_agents_to_web_orchestrator(self):
+        src = (Path(__file__).parent.parent / "src" / "ui" / "routes" / "pipeline.py").read_text(encoding="utf-8")
+        assert "canon_expert=canon_expert" in src
+        assert "presence_checker=presence_checker" in src
+        assert "line_writer=line_writer" in src
+        assert "micro_repair=micro_repair" in src
+
     def test_pipeline_py_calls_blueprint_helper_in_start_pipeline(self):
         src = (Path(__file__).parent.parent / "src" / "ui" / "routes" / "pipeline.py").read_text(encoding="utf-8")
         # Helper definition + at least one invocation
@@ -172,6 +179,11 @@ class TestUiPhase5Plumbing:
         Phase 5 chapter-gate helper so the UI surface honours blueprints."""
         src = (Path(__file__).parent.parent / "src" / "ui" / "web_orchestrator.py").read_text(encoding="utf-8")
         assert "maybe_run_chapter_gate_after_scene" in src
+
+    def test_web_orchestrator_honors_firewall_runtime_flag(self):
+        src = (Path(__file__).parent.parent / "src" / "ui" / "web_orchestrator.py").read_text(encoding="utf-8")
+        assert "should_abort_run" in src
+        assert "_handle_firewall" in src
 
     def test_orchestrator_exposes_chapter_gate_helper(self):
         """The shared helper must exist on Orchestrator (parent class) so

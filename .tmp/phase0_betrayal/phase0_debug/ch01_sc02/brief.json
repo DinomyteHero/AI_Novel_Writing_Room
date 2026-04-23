@@ -1,0 +1,99 @@
+{
+  "scene_objective": "Full Adumar factory sequence in a single continuous scene: Jacen and Ben conduct a theatrical GA-inspector tour of the Dammant Killers missile facility under local guide Testan ke Harran; use Force-reading of Testan's guilty thoughts to locate a concealed corridor; Ben cuts through the wall with his 'practice' lightsaber; the Dammant Killers security force engages; Jacen defends with lightsaber deflection while Ben records evidence on a holocam; the pair escape through the assembly-line portals.",
+  "opening_mode": "The turbolift doors slide open and warm air bearing the aroma of death and destruction — labor, propellant, high explosives, newly fabricated composites — washes over Jacen Solo, his cousin Ben Skywalker, and their guide.",
+  "key_beats": [
+    {
+      "beat_description": "The turbolift doors open and the factory's aroma washes over Jacen, Ben, and Testan",
+      "state_change": "",
+      "pov_reaction": ""
+    },
+    {
+      "beat_description": "Jacen makes his theatrical entrance onto the catwalk — billowing cloak, ringing boot heels — leaving Testan and Ben a beat behind; this is performance, and he knows he is selling it",
+      "state_change": "",
+      "pov_reaction": ""
+    },
+    {
+      "beat_description": "Ben pretends to translate Testan's Adumari-accented speech for Jacen, who understands Testan clearly but has chosen the act; Ben keeps Testan occupied with the beard-oil jokes ('Do you brush it with butter?')",
+      "state_change": "",
+      "pov_reaction": ""
+    },
+    {
+      "beat_description": "Jacen surveys the eight assembly lanes — sensor units, casing housings, hazmat-suited workers plunging sensors into luminous-green explosive spheres — and reads the facility's rhythm through the Force",
+      "state_change": "",
+      "pov_reaction": ""
+    },
+    {
+      "beat_description": "Testan's mental control slips; Jacen says his first words in the guide's presence — 'There is something here. Something wrong' — and tracks a concealed memory of a broad gray door",
+      "state_change": "",
+      "pov_reaction": ""
+    },
+    {
+      "beat_description": "Jacen walks the catwalk toward the matching wall panel, his speed increasing the ring of his boots and the billow of his cloak as a side effect rather than an act",
+      "state_change": "",
+      "pov_reaction": ""
+    },
+    {
+      "beat_description": "Ben cuts a meter-and-a-half circle through the wall panel with his 'practice' lightsaber; Jacen tells Testan it's true from a certain point of view — Ben does practice with it",
+      "state_change": "",
+      "pov_reaction": ""
+    },
+    {
+      "beat_description": "Discovery: the hidden corridor, DAMMANT KILLER MODEL 16 transport containers stacked in lots of 24, marked DANGER, DO NOT DROP",
+      "state_change": "",
+      "pov_reaction": ""
+    },
+    {
+      "beat_description": "Dammant Killers security — orange-and-green troops in waves of six, then six again, then eight — charges the corridor; Jacen ignites his green saber and tells Ben 'Stay behind me'",
+      "state_change": "",
+      "pov_reaction": ""
+    },
+    {
+      "beat_description": "Jacen moves forward at a walk, twirling the blade in a butterfly pattern, calling back to the troopers: 'Could you speak up? I'm a little deaf' — Ben snickers",
+      "state_change": "",
+      "pov_reaction": ""
+    },
+    {
+      "beat_description": "Jacen deflects blaster bolts back into the trooper ranks; the commander falls to a helmet-ricochet (non-fatal); four troopers fall to friendly fire in the opening seconds",
+      "state_change": "",
+      "pov_reaction": ""
+    },
+    {
+      "beat_description": "The team reaches the rail overlooking a second assembly chamber; Ben records evidence on holocam — 'Um, this is Ben Skywalker. Jedi Knight Jacen Solo and I are in a secret part of the Dammant Killers plant... their guys are trying to kill us' — while Jacen provides lightsaber defense",
+      "state_change": "",
+      "pov_reaction": ""
+    },
+    {
+      "beat_description": "Ben vaults the rail, lands on a conveyor belt loaded with opalescent shell casings, sprints forward and squeezes through the diminutive portal at the line's end; Jacen follows, taking one blaster bolt on his blade near the hilt rather than deflecting it into a neighboring line",
+      "state_change": "",
+      "pov_reaction": ""
+    }
+  ],
+  "turning_point": {
+    "trigger": "Testan's mental control gives way under the pressure of Jacen's silent Force-presence. Jacen extracts the memory of a concealed broad gray door closing from above, supervisors in dark blue jumpsuits s",
+    "shift": "Testan's mental control gives way under the pressure of Jacen's silent Force-presence. Jacen extracts the memory of a concealed broad gray door closing from above, supervisors in dark blue jumpsuits s",
+    "cost": "(derived from scene card)"
+  },
+  "closing_beat": "Jacen squeezes through the diminutive portal at the end of an assembly line — following Ben, who has just landed and scrambled through ahead of him — while behind them the surviving troopers continue firing into the conveyor belt they have just vaulted.",
+  "emotional_arc": {
+    "start": "",
+    "shift": "Theatrical calm and social engineering → rising Force-pressure as Testan's guilty thought leaks → explosive commitment to combat → controlled battlefield defense → mission expansion (record evidence) → escape.",
+    "end": ""
+  },
+  "required_hooks": [
+    {
+      "hook_id": "hook_adumar_investigation",
+      "action": "plant"
+    },
+    {
+      "hook_id": "hook_corellian_insurgency",
+      "action": "plant"
+    }
+  ],
+  "required_subplots": [
+    "sub_adumar_investigation",
+    "sub_corellian_crisis",
+    "sub_jacen_ben_apprenticeship"
+  ],
+  "anti_patterns": [],
+  "target_word_count": 4500
+}

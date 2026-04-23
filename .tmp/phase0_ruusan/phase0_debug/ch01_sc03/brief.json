@@ -1,0 +1,49 @@
+{
+  "scene_objective": "Ben bypasses the Jedi partner roster and calls Desh Rolan. The choice looks pragmatic and is; it is also the third solo move of the evening.",
+  "opening_mode": "Ben sits in his ship's cockpit with the preflight complete and his thumb sliding past the Jedi partner roster to open his personal contacts instead",
+  "key_beats": [
+    {
+      "beat_description": "Ben bypasses three Jedi Knight contacts on his datapad and opens his personal list",
+      "state_change": "",
+      "pov_reaction": ""
+    },
+    {
+      "beat_description": "Desh's voice crackles over long-range comm — dry greeting, no questions asked",
+      "state_change": "",
+      "pov_reaction": ""
+    },
+    {
+      "beat_description": "Ben's ship lifts from the Temple hangar bay and angles toward orbit",
+      "state_change": "",
+      "pov_reaction": ""
+    },
+    {
+      "beat_description": "The ship punches into hyperspace; Ben's instruments flicker as the wrongness persists through the jump",
+      "state_change": "",
+      "pov_reaction": ""
+    }
+  ],
+  "turning_point": {
+    "trigger": "Desh answers the comm with dry humor and agrees to the job without asking why Ben did not call a Jedi. They both know why, and neither says so.",
+    "shift": "Desh answers the comm with dry humor and agrees to the job without asking why Ben did not call a Jedi. They both know why, and neither says so.",
+    "cost": "(derived from scene card)"
+  },
+  "closing_beat": "The wrongness in the Force shifts as Ben leaves Coruscant — not diminishing but acquiring direction, like a compass needle settling",
+  "emotional_arc": {
+    "start": "",
+    "shift": "Calculated avoidance -> familiar comfort with Desh -> unsettled recognition that the wrongness is guiding him",
+    "end": ""
+  },
+  "required_hooks": [
+    {
+      "hook_id": "H01",
+      "action": "advance"
+    }
+  ],
+  "required_subplots": [
+    "SP-A",
+    "SP3"
+  ],
+  "anti_patterns": [],
+  "target_word_count": 1250
+}

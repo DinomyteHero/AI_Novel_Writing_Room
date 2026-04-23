@@ -1,0 +1,60 @@
+{
+  "chapter_number": 1,
+  "scene_number": 1,
+  "structural_phase": "setup",
+  "scene_type": "sequel",
+  "scene_role": "hook",
+  "pov_character": "Ben Skywalker",
+  "mission": "Ben loses a sparring exchange he should not have lost, and the wrongness in the Force is the reason. Open on the night a problem he has been handling privately becomes a problem someone else could see.",
+  "why_now": "The wrongness has been costing Ben since the week started. Tonight is the first time it has cost him in front of another Knight.",
+  "conflict": "Ben's timing fractures mid-spar when the wrongness pulls at his attention, and the Order has been treating the background disturbance as residue from recent crises. His body fails him in a way he cannot blame on the week, and he still does not want to say so aloud.",
+  "conflict_type": "interpersonal",
+  "turning_point": "Alone in the salle afterward, Ben runs a form through without igniting the blade and feels the wrongness steal a beat he cannot spare. He stops pretending it is fatigue.",
+  "opening_hook": "Ben's guard drops a half-second late and his sparring partner's training blade catches him across the shoulder — the third time this week the wrongness in the Force has cost him a beat he should never miss",
+  "closing_hook": "Luke appears in the doorway with a datapad and an expression Ben knows means a mission",
+  "emotional_trajectory": "Restless unease -> frustrated isolation -> reluctant hope",
+  "stakes": {
+    "personal": "Ben's sense of his own Force perception — is he reliable or traumatized?",
+    "interpersonal": "His distance from other Knights who do not share his concern",
+    "external": "The wrongness itself — something is happening to the Force"
+  },
+  "characters_present": [
+    "Ben Skywalker",
+    "Rendell (Jedi Knight, sparring partner)",
+    "Luke Skywalker"
+  ],
+  "dialogue_expectation": "interior",
+  "setting": "Jedi Temple, Coruscant — training salle, late evening session",
+  "sensory_details": "Training sabers humming; the salle's ambient Force presence arriving a half-beat behind the rhythm Ben's body has known by reflex for years; sweat on his palms, the sound of boots on the salle floor; distant Temple corridors still carrying the foot traffic of the late shift",
+  "canon_elements_needed": [
+    "Force meditation techniques and Jedi contemplative practice",
+    "Jedi Temple architecture on Coruscant, meditation chambers",
+    "Post-Abeloth era Force sensitivity and lingering disturbances",
+    "Ben Skywalker training history and Force abilities",
+    "Jedi Knight rank responsibilities and daily life circa 47 ABY"
+  ],
+  "target_word_count": 1250,
+  "action_beats": [
+    "Ben's guard drops and his sparring partner scores a training-blade hit across his shoulder",
+    "Ben deactivates his training saber and waves off a rematch, claiming fatigue",
+    "Ben paces the empty salle alone, running through forms without igniting the blade — testing whether the wrongness disrupts muscle memory or Force timing",
+    "Luke appears in the doorway with a datapad and mission-ready posture"
+  ],
+  "active_subplots": [
+    "SP-A",
+    "SP3"
+  ],
+  "plot_threads_advanced": [
+    "wrongness_established",
+    "ben_isolation"
+  ],
+  "promises_planted": [
+    "The wrongness has a source Ben will find (PP01)",
+    "Ben's Skywalker shadow — he measures himself against legacy (PP21)"
+  ],
+  "promises_paid": [],
+  "hook_actions": [],
+  "revelations": [],
+  "pov_arc_phase": "lie_established",
+  "notes": "Opens with a training spar so the wrongness costs Ben something concrete before any interiority names it. Ben should read as a Knight handling a private problem privately, not as a character having a character arc in public. Voice anchor: Zahn-style close third; interior voice sharp and self-deprecating, never melodramatic. Diagnostic-voice trap — he should not, in this scene, arrive at any clinical articulation of what the wrongness is. He feels it before he can name it; the 'structural, not emotional' framing is a Part 3-4 voice, earned later. If a sentence of his interiority could be lifted into a mission debrief, it is too composed for this scene. Anti-pattern: do not describe the wrongness in visual or color terms — keep it auditory and vibrational, and use one consistent metaphor for this scene (the half-beat lag in the ambient field). The sparring partner is a background character — minimal characterization, exists to provide the physical context. Temple life at this hour can surface in the edges (late-shift foot traffic, a cleaning droid, turbolift chimes in the corridor) — Coruscant is a place people live in, not only a backdrop Ben moves through."
+}

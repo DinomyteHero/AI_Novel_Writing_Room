@@ -1,8 +1,8 @@
 """Shared test fixtures."""
 
 import json
-import os
-import tempfile
+import shutil
+import uuid
 from pathlib import Path
 from unittest.mock import AsyncMock, MagicMock
 
@@ -59,8 +59,12 @@ def multi_scene_chapter_cards():
 @pytest.fixture
 def temp_dir():
     """Create a temporary directory for test outputs."""
-    with tempfile.TemporaryDirectory() as d:
-        yield d
+    path = Path(f"codex_test_tmp_{uuid.uuid4().hex}")
+    path.mkdir()
+    try:
+        yield str(path)
+    finally:
+        shutil.rmtree(path, ignore_errors=True)
 
 
 @pytest.fixture

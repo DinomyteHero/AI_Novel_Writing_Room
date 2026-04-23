@@ -1,21 +1,19 @@
-Ben's boots scraped the salle floor—too loud. The sound came back from the walls wrong, like the room had gotten bigger while he wasn't looking.
+Ben moved through the sixth Shii-Cho transition and his body flinched.
 
-He moved through the Shii-Cho sequence again, blade unlit. Step, pivot, overhead guard. His shoulders knew the form. His hips knew it. But when he shifted his weight, the rightness that usually met him—that sense of *yes, here*—didn't arrive. Or it did, but his body had already moved on.
+Nothing had touched him. The salle was empty—he'd made sure of it after Seha had dumped him on his back for the third time—and the air was still. But something had *pulled* at the space his forward foot was supposed to meet, like stepping onto a stair that wasn't there.
 
-He stopped mid-stance, breathing harder than the form warranted.
+He reset. Ran the transition again.
 
-The training salle was empty. Dawn light through the high windows. Dust motes turning in the air like they always did. Nothing looked different. But his chest felt tight, and his next breath didn't quite fill his lungs the way it should.
+His shoulder dipped into the stroke and the wrongness happened *after*—half a breath after, arriving like an echo that didn't know it was late. His body had already committed to the movement. The feeling came behind it, slow and thin.
 
-He started the sequence again. Slower this time. Step—the floor solid under him. Pivot—his knee tracking true. Overhead guard—
+Ben stopped mid-form, blade unlit, breathing through his nose.
 
-There.
+The salle's climate system hummed. Somewhere in the Temple a door sealed. He could hear his own pulse in his ears, too loud, like the room had gone quieter than it should be.
 
-His arms finished the movement, and a half-second later something brushed against his awareness. Familiar but delayed. Like hearing his name called from the next room when the person was standing right beside him.
+He tried the sequence a third time. Slower. The first position, the weight shift, the drawing cut that went nowhere because the blade was dead in his hand. His body moved and the world moved with it and then—
 
-Ben lowered the hilt. His palms were damp.
+A drag. A delay.
 
-He'd lost the sparring match an hour ago because his timing was off. He'd blamed fatigue. But this wasn't fatigue. This was the world arriving late to where his body already was, and he didn't know if the problem was him or the world.
+Like the room was moving through water and he was the only thing that wasn't.
 
-The dust motes kept turning. The light didn't change.
-
-His hands wouldn't stop sweating.
+Ben lowered the hilt. He stood in the middle of the salle with his training blacks stuck to his spine and his hands starting to shake, and he didn't know why. He only knew that something was *late*, and it shouldn't be, and his body understood that before his brain could catch up.

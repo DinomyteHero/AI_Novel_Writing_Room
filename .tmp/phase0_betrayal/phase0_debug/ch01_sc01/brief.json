@@ -1,0 +1,59 @@
+{
+  "scene_objective": "Open the book with Luke snapping upright in bed beside Mara in their Coruscant sleeping chamber, speaking the paradoxical phrase that will define his Force-vision for the entire novel — 'He doesn't exist.' Work through specific candidate identities aloud (Raynar Thul in his Temple cell; Luke's own father mid-fall from Anakin into Vader with eyes turning molten gold). Close with Mara's dry one-liner and both characters returning to sleep.",
+  "opening_mode": "Without conscious thought, Luke sits upright in bed and says aloud: 'He doesn't exist.' Mara wakes beside him — red hair an unruly mess, her bright green eyes instantly alert.",
+  "key_beats": [
+    {
+      "beat_description": "Luke sits upright in bed and speaks 'He doesn't exist' without conscious thought",
+      "state_change": "",
+      "pov_reaction": ""
+    },
+    {
+      "beat_description": "Luke describes the hooded figure in shadows of light and ignorance and denial — a being who brings great pain to the galaxy and, specifically and personally, to him",
+      "state_change": "",
+      "pov_reaction": ""
+    },
+    {
+      "beat_description": "Mara proposes Raynar Thul; Luke rejects him (the vision's mental register is human or near-human, not insectoid)",
+      "state_change": "",
+      "pov_reaction": ""
+    },
+    {
+      "beat_description": "Luke names his own father mid-Vader-transformation as a candidate — features of Anakin Skywalker as a Jedi, eyes turning molten gold from Force-use and anger",
+      "state_change": "",
+      "pov_reaction": ""
+    },
+    {
+      "beat_description": "Mara delivers her joke: 'Let's wait until he shows up, then crush him.' Luke smiles.",
+      "state_change": "",
+      "pov_reaction": ""
+    },
+    {
+      "beat_description": "Luke returns to natural sleep within a minute; Mara remains awake and reaches through the Force for any hint of what is troubling him, finds nothing, then sleeps too",
+      "state_change": "",
+      "pov_reaction": ""
+    }
+  ],
+  "turning_point": {
+    "trigger": "Luke names and rejects the specific candidates Mara proposes: Raynar Thul (post-Killik, in a well-protected Temple cell — but Luke no longer senses the insectoid alienness in the vision) and Luke's ow",
+    "shift": "Luke names and rejects the specific candidates Mara proposes: Raynar Thul (post-Killik, in a well-protected Temple cell — but Luke no longer senses the insectoid alienness in the vision) and Luke's ow",
+    "cost": "(derived from scene card)"
+  },
+  "closing_beat": "Mara: 'Let's wait until he shows up, then crush him.' Luke smiles, closes his eyes, his breathing slowing into natural sleep within a minute. Mara lies awake a little longer, reaching through the Force for any flicker of what is troubling her husband, finds no sign of it, and she too sleeps.",
+  "emotional_arc": {
+    "start": "",
+    "shift": "Luke's aftermath-of-vision certainty → articulation through dialogue with candidates proposed and rejected → Mara's deflating joke → settled partnership → Mara's private wakeful Force-scan after Luke sleeps → both return to sleep.",
+    "end": ""
+  },
+  "required_hooks": [
+    {
+      "hook_id": "hook_dark_hooded_enemy",
+      "action": "plant"
+    }
+  ],
+  "required_subplots": [
+    "sub_luke_dream_line",
+    "sub_lumiya_seduction"
+  ],
+  "anti_patterns": [],
+  "target_word_count": 1500
+}

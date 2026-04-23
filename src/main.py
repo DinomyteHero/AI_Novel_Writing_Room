@@ -198,6 +198,62 @@ def load_scene_cards(scene_cards_dir: str, chapter: int | None = None) -> list[d
     return cards
 
 
+def load_chapter_blueprints(
+    paths: ProjectPaths,
+    chapter: int | None = None,
+) -> dict[int, dict]:
+    """Load canonical chapter blueprints for chapter-packet compilation."""
+    blueprints: dict[int, dict] = {}
+    bp_dir = paths.chapter_blueprints_dir
+    if not bp_dir.exists():
+        return blueprints
+
+    for path in sorted(bp_dir.glob("chapter_*.json")):
+        try:
+            chapter_number = int(path.stem.split("_")[1])
+        except (IndexError, ValueError):
+            continue
+        if chapter is not None and chapter_number != chapter:
+            continue
+        try:
+            with open(path, encoding="utf-8") as f:
+                blueprints[chapter_number] = json.load(f)
+        except (json.JSONDecodeError, OSError) as exc:
+            print(f"Warning: Skipping invalid chapter blueprint {path}: {exc}")
+    return blueprints
+
+
+def build_chapter_packet_compiler(
+    *,
+    concept_seed: dict,
+    paths: ProjectPaths,
+    assembler: ContextAssembler,
+    chapter: int | None = None,
+    story_state=None,
+    promise_ledger=None,
+    continuity_log=None,
+    sociogram=None,
+):
+    """Construct the runtime chapter-packet compiler used by CLI runs."""
+    from src.pipeline.canon_guidance import CanonGuidanceStore
+    from src.pipeline.chapter_packet import ChapterPacketCompiler
+
+    canon_guidance_store = CanonGuidanceStore(
+        paths.canon_guidance_dir,
+        canon_contract_path=paths.canon_contract_path,
+    )
+    return ChapterPacketCompiler(
+        concept_seed=concept_seed,
+        blueprints=load_chapter_blueprints(paths, chapter=chapter),
+        assembler=assembler,
+        story_state=story_state,
+        promise_ledger=promise_ledger,
+        continuity_log=continuity_log,
+        sociogram=sociogram,
+        canon_guidance_store=canon_guidance_store,
+    )
+
+
 def _init_phase2(concept_seed_path: str, config: dict, manuscripts_dir: str,
                   paths: "ProjectPaths | None" = None):
     """Initialize Phase 2 components. Returns (story_state, knowledge_layers,
@@ -262,7 +318,7 @@ def _init_phase2(concept_seed_path: str, config: dict, manuscripts_dir: str,
     else:
         print(
             f"Warning: Canon DB directory not found at {canon_db_dir} — "
-            f"canon validation will be skipped for this run"
+            f"retrieved canon evidence will be disabled"
         )
 
     return (
@@ -947,23 +1003,28 @@ async def main():
             state_diff_applier = StateDiffApplier(story_state, knowledge_layers, ledger)
             contradiction_scanner = ContradictionScanner(story_state, knowledge_layers, ledger)
 
-            # Canon expert (requires canon_db + chromadb)
-            if canon_db:
-                try:
-                    from src.agents.canon_expert import CanonExpert
-                    from src.rag.canon_evidence import CanonEvidenceRanker
-                    from src.rag.hybrid_search import HybridSearch
+            # CanonExpert is the runtime save-blocker validator. CanonDB/RAG
+            # evidence is optional; profile-only validation must still run for
+            # projects that use static Canon Scout sidecars instead of a rigid
+            # prebuilt canon database.
+            try:
+                from src.agents.canon_expert import CanonExpert
 
-                    hybrid = HybridSearch(canon_db)
-                    ranker = CanonEvidenceRanker(hybrid)
-                    canon_expert = CanonExpert(router, canon_evidence=ranker)
-                except (ImportError, Exception) as e:
-                    print(f"  Warning: CanonExpert not available: {e}")
-            else:
-                print(
-                    "  Warning: CanonExpert skipped — no canon_db available. "
-                    "See earlier Phase 2 init warnings for root cause."
-                )
+                ranker = None
+                if canon_db:
+                    try:
+                        from src.rag.canon_evidence import CanonEvidenceRanker
+                        from src.rag.hybrid_search import HybridSearch
+
+                        hybrid = HybridSearch(canon_db)
+                        ranker = CanonEvidenceRanker(hybrid)
+                    except (ImportError, Exception) as e:
+                        print(f"  Warning: CanonDB evidence disabled: {e}")
+                canon_expert = CanonExpert(router, canon_evidence=ranker)
+                if ranker is None:
+                    print("  CanonExpert initialized in profile-only mode")
+            except (ImportError, Exception) as e:
+                print(f"  Warning: CanonExpert not available: {e}")
 
             print("  Phase 2 components initialized")
         else:
@@ -1176,6 +1237,13 @@ async def main():
         concept_seed=concept_seed,
         cli_overrides=getattr(args, "runtime_flag", None),
     )
+    chapter_packet_compiler = build_chapter_packet_compiler(
+        concept_seed=concept_seed,
+        paths=paths,
+        assembler=assembler,
+        chapter=args.chapter,
+        story_state=story_state,
+    )
 
     orchestrator = Orchestrator(
         router=router,
@@ -1185,6 +1253,7 @@ async def main():
         max_structural_retries=pipeline_cfg.get("max_structural_retries", 3),
         max_voice_retries=pipeline_cfg.get("max_voice_retries", 2),
         runtime_flags=runtime_flags,
+        chapter_packet_compiler=chapter_packet_compiler,
         summarizer=summarizer,
         state_diff_applier=state_diff_applier,
         contradiction_scanner=contradiction_scanner,

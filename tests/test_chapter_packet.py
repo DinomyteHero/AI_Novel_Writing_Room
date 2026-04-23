@@ -52,6 +52,25 @@ def concept_seed() -> dict:
         "canon_pillars": [
             {"title": "Force wrongness", "body": "Wrongness is auditory, not visual"},
         ],
+        "subplots": [
+            {
+                "subplot_id": "SP-A",
+                "name": "The failing seal",
+                "function": "Ben follows the wrongness to its source.",
+            },
+        ],
+        "hooks": [
+            {
+                "hook_id": "H01",
+                "description": "The wrongness has a direction.",
+            },
+        ],
+        "revelation_schedule": [
+            {
+                "revelation_id": "R01",
+                "what": "The wrongness in the Force has a source.",
+            },
+        ],
     }
 
 
@@ -89,6 +108,42 @@ def test_compile_base_builds_next_scene_obligations(compiler):
     assert "relationship_turn" in kinds
     assert "reveal" in kinds
     assert "hook_planted" in kinds
+
+
+def test_compile_base_resolves_model_facing_planning_ids(compiler):
+    base = compiler.compile_base(chapter_number=1)
+    notes = [o["note"] for o in base.next_scene_obligations]
+
+    assert "The failing seal: Ben follows the wrongness to its source." in notes
+    assert "The wrongness has a direction." in notes
+    assert "The wrongness in the Force has a source." in notes
+    assert "SP-A" not in notes
+    assert "H01" not in notes
+    assert "R01" not in notes
+
+
+def test_overlay_omits_machine_tracking_ids_from_scene_card_json(compiler):
+    base = compiler.compile_base(chapter_number=1)
+    overlay = compiler.compile_overlay(
+        base=base,
+        scene_card={
+            "chapter_number": 1,
+            "scene_number": 1,
+            "pov_character": "Ben",
+            "mission": "test",
+            "active_subplots": ["SP-A"],
+            "promises_planted": ["PP01"],
+            "hook_actions": [{"hook_id": "H01", "action": "plant"}],
+            "revelations": ["R01"],
+        },
+    )
+
+    rendered = overlay.render_markdown()
+    scene_card_block = rendered.split("## Scene Card", 1)[1].split("```", 2)[1]
+    assert "active_subplots" not in scene_card_block
+    assert "promises_planted" not in scene_card_block
+    assert "hook_actions" not in scene_card_block
+    assert "revelations" not in scene_card_block
 
 
 def test_compile_base_raises_for_missing_chapter(compiler):
