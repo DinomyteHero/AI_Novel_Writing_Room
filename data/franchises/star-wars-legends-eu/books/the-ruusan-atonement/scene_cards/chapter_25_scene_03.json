@@ -59,8 +59,7 @@
   "promises_paid": [
     "PP16",
     "PP11",
-    "Ben's new capacity (interpreter-of-chord) tested under load — D2 payoff",
-    "B3 heartbeat beat payoff — node wobble + comm re-stabilisation + steady"
+    "PP50"
   ],
   "hook_actions": [
     {

@@ -47,9 +47,7 @@
     "veraine_ledger_evidence_beat_1"
   ],
   "promises_planted": [],
-  "promises_paid": [
-    "Veraine's working-voice ledger register continuous with her spoken register (pays R14 voice_texture continuity)"
-  ],
+  "promises_paid": [],
   "hook_actions": [
     {
       "hook_id": "H18",
