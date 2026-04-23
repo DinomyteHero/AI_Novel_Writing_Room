@@ -45,11 +45,46 @@
   ],
   "promises_planted": [],
   "promises_paid": [
-    "Sera's rigidity will break into principled flexibility (PP20 partial)",
-    "Sera's formal distance from Ben begins to thaw — moment-of-truth payoff (PP15 partial)"
+    "PP20",
+    "PP15"
   ],
   "hook_actions": [],
   "revelations": [],
   "pov_arc_phase": "lie_challenged",
-  "notes": "Sera's 'plan, Skywalker' question — delivered with the formal 'Skywalker' register per PP15 — is a chapter-anchor line; deliver once and leave. Her arc-moment-of-truth: rigidity is not protection; Ben's honest helplessness is a kind of leadership Gavran never offered. Torin's compassion-as-weapon must remain real; the scene fails if he is obviously manipulating. Diagnostic-voice trap — Ben should not, in this scene, interior-paragraph his reaction to Sera's question. The question lands, the chapter moves toward Kael in sc3. Voice: dialogue-drama precision; the exchange between Torin and Sera is the scene; Ben is the receiver, not the speaker."
+  "notes": "Sera's 'plan, Skywalker' question — delivered with the formal 'Skywalker' register per PP15 — is a chapter-anchor line; deliver once and leave. Her arc-moment-of-truth: rigidity is not protection; Ben's honest helplessness is a kind of leadership Gavran never offered. Torin's compassion-as-weapon must remain real; the scene fails if he is obviously manipulating. Diagnostic-voice trap — Ben should not, in this scene, interior-paragraph his reaction to Sera's question. The question lands, the chapter moves toward Kael in sc3. Voice: dialogue-drama precision; the exchange between Torin and Sera is the scene; Ben is the receiver, not the speaker.",
+  "turning_point_detail": {
+    "trigger": "Sera watches Torin weaponize the young Knight's suffering into his argument for mercy-through-release, then turns away from him entirely and faces Ben directly with a genuine question about his plan.",
+    "shift": "Sera moves out of Torin's orbit and into Ben's. She stops following the framework that has structured her for a thousand years and asks for an alternative — not conditional, not testing, but a real request for leadership.",
+    "cost": "Ben inherits the weight of Sera's choice. Her arc-moment-of-truth (rigidity is not protection) becomes his burden to answer. The leadership dynamic fractures; Torin's compassionate argument has been heard and rejected, and he will feel that rejection as a kind of betrayal."
+  },
+  "emotional_arc": {
+    "start": "Torin's compassion-as-argument: the Knights' suffering is real and demands mercy, even if mercy means release.",
+    "shift": "Sera's recognition: rigidity is not protection; Ben's honest helplessness (he cannot fix these Knights and will not pretend otherwise) is a kind of leadership Gavran never offered.",
+    "end": "The shift from Torin to Ben: Sera has chosen a different framework, one built on honesty rather than predetermined mercy."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Torin kneels beside the young Knight who cannot meditate. His hand on her shoulder is steady and warm; his eyes, over her head, are cold with decision. He speaks to the Knight with genuine tenderness, but the words are an argument: the seal cannot be maintained incrementally, and the Knights' suffering proves it.",
+      "state_change": "The abstract pressure of the seal's failure becomes concrete in the Knight's visible pain. Torin's compassion is real, but it is also a weapon — the suffering becomes evidence for his conclusion.",
+      "pov_reaction": "Ben feels the force of Torin's argument and the genuine care beneath it. Instinct pushes toward action — the impulse to do something, anything — rather than explanation or counter-argument. The helplessness tightens in his chest."
+    },
+    {
+      "beat_description": "Sera's jaw works as she watches. Her posture is rigid, her breathing controlled. She has heard Torin's argument before, in different forms, across a thousand years. But this time she is watching it land on a living Knight, watching the suffering become proof.",
+      "state_change": "Sera's internal framework — the one that has kept her moving forward through a thousand years of loss — begins to crack. The rigidity that protected her is now visible as something else: a refusal to feel what the Knights feel.",
+      "pov_reaction": "Ben watches Sera's jaw tighten and sees the moment her resistance shifts. It is not agreement with Torin; it is something deeper — a recognition that her own framework has been a kind of armor, and armor does not heal. His focus narrows on what is changing in her posture, her breathing."
+    },
+    {
+      "beat_description": "Sera turns away from Torin. The movement is deliberate, not reactive. She faces Ben directly, her posture shifting from bystander to questioner. When she speaks, her voice carries the formal register she has used with him since the beginning — 'Skywalker' — but the question is not conditional. It is genuine.",
+      "state_change": "The leadership dynamic fractures. Sera has stopped following Torin's framework. She is asking Ben to provide an alternative — not because she has rejected compassion, but because she has recognized that Torin's compassion has a predetermined conclusion, and Ben's does not.",
+      "pov_reaction": "The question lands on Ben as a weight and a responsibility. He does not interior-paragraph his reaction; the moment is too sharp, too immediate. His body registers the shift — the straightening of his spine, the steadying of his breath — as Sera's choice becomes his burden."
+    }
+  ],
+  "opening_mode": "sensory_hook",
+  "anti_patterns": [
+    "Ben should not, in this scene, interior-paragraph his reaction to Sera's question",
+    "Ben should not interior-paragraph his reaction to Sera's question in this scene",
+    "Do not arrive at diagnostic voice when describing Ben's helplessness or Sera's recognition — keep reactions behavioral and sensory",
+    "Do not use mission-debrief sentences or clinical articulation of the seal's failure — the scene is about people, not infrastructure",
+    "Avoid opening with exposition about the Knights' condition or the seal's mechanics; begin in sensory immediacy"
+  ]
 }

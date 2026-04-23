@@ -55,5 +55,39 @@
   ],
   "revelations": [],
   "pov_arc_phase": "lie_established",
-  "notes": "Desh's intelligence training kicks in — he reads the installation as military infrastructure and recognises a command-and-control architecture. His professional assessment carries weight Ben respects. First mention of Gavran's name — a signature on a monitoring log or an authorization line, never a formal introduction. Diagnostic-voice trap — Ben should read the network without constructing a theory about its builders in this scene. He copies the coordinates; interpretation waits for later. Keep Force-perception register consistent with Ch3 sc1 — pressure rather than pitch or navigation metaphor."
+  "notes": "Desh's intelligence training kicks in — he reads the installation as military infrastructure and recognises a command-and-control architecture. His professional assessment carries weight Ben respects. First mention of Gavran's name — a signature on a monitoring log or an authorization line, never a formal introduction. Diagnostic-voice trap — Ben should read the network without constructing a theory about its builders in this scene. He copies the coordinates; interpretation waits for later. Keep Force-perception register consistent with Ch3 sc1 — pressure rather than pitch or navigation metaphor.",
+  "turning_point_detail": {
+    "trigger": "The navigation data resolves into a route connecting multiple installations in a perimeter pattern around a central fortress.",
+    "shift": "This is not one facility; it is a network. The problem is not survey-sized; it is strategic-infrastructure-sized.",
+    "cost": "Ben's investment deepens — this is becoming his mission, not Luke's survey. The professional question surfaces: do they report this and wait for backup, or does Ben act on what he now knows?"
+  },
+  "emotional_arc": {
+    "start": "Analytical focus — Ben is executing a technical task with professional detachment.",
+    "shift": "Dawning scope — the data reveals a scale that tightens his attention and reframes the problem.",
+    "end": "The weight of decision — Ben is now braced against the knowledge that he cannot unknow this and that waiting for backup may not be an option."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Desh pries open a corroded access panel and jams a modern data coupler into ancient storage media; the connection sparks twice before holding.",
+      "state_change": "The abstract opening pressure becomes concrete and tactile. The technical challenge is real — ancient systems do not cooperate with modern equipment.",
+      "pov_reaction": "Ben's analytical focus sharpens into action-readiness. His instinct is to move, to solve, not to narrate. The cold of the facility and the hum of ancient power cells register as environmental friction — the Force here carries a quality of recording, as if the walls remember, and that pressure sits beneath his attention without demanding articulation."
+    },
+    {
+      "beat_description": "Holographic star maps flicker to life, showing the Ruusan Corridor network — multiple installations arranged in a perimeter pattern around a central fortress.",
+      "state_change": "The scene pivots. This is not one facility; it is a network. The operational picture expands from a single survey site to a strategic infrastructure.",
+      "pov_reaction": "The pressure Ben has been feeling shifts from ambient to directional. His focus tightens on what just changed — the geometry of the installations, the deliberate arrangement, the scale. He does not construct a theory about who built this or why; he reads the network as a fact and lets the fact sit. The weight of the discovery is physical — a tightening in his chest, a sharpening of his senses."
+    },
+    {
+      "beat_description": "Ben copies the fortress coordinates and route data onto the Steady Returns nav computer. The destination resolves on the display.",
+      "state_change": "New information locks into place. The coordinates point to deep uncharted space — no hyperspace lane, no Republic survey, nothing. Something was deliberately hidden.",
+      "pov_reaction": "The weight of decision lands. Ben is braced against the knowledge that he cannot unknow this. The professional question Desh raises — do they report this and wait for backup? — is no longer abstract. Ben carries the coordinates now. He carries the choice. The Force-pressure in the facility feels like a recording, a thousand-year-old memory pressing against the present, and Ben is the one who has to decide what to do with what he now knows."
+    }
+  ],
+  "opening_mode": "in_medias_res",
+  "anti_patterns": [
+    "Ben should read the network without constructing a theory about its builders in this scene",
+    "Do not arrive at diagnostic-voice analysis of the network or its purpose",
+    "Avoid exposition dump about ancient Jedi military infrastructure — let it emerge through data and Desh's professional reading",
+    "Do not use pitch, harmonic, or navigation metaphors for Force-perception — keep pressure-register consistent with Chapter 3, Scene 1"
+  ]
 }

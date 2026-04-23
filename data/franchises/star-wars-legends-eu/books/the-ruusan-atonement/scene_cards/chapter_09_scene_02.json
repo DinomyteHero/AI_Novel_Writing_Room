@@ -60,5 +60,53 @@
   "notes": "The danger here is seduction. Ben should almost agree, and Sera's warning should land because she can hear the old pattern returning.",
   "primary_anchor": "Luceno",
   "supporting_anchor": "Zahn, Bujold",
-  "stover_permitted": true
+  "stover_permitted": true,
+  "turning_point_detail": {
+    "trigger": "Ben catches the motion of his own head nodding to Torin's final argument.",
+    "shift": "He stops the nod mid-motion. Sera sees him catch himself and pulls him aside into the corridor.",
+    "cost": "Ben's susceptibility to Torin's logic is exposed — a warning about his own capacity for rationalization when confronted with intellectually coherent justification for a dangerous act. The cost to Sera is the strain of trusting Ben enough to name Gavran's pattern without naming Gavran, risking that Ben will not hear the warning."
+  },
+  "emotional_arc": {
+    "start": "Absorbing the wound's mechanism — understanding landing in Ben's stomach before it lands in his head, visceral before intellectual.",
+    "shift": "Intellectual engagement with Torin's reading deepens into seductive logic — the argument is coherent, beautiful, and dangerous in proportion to how well it fits the evidence Ben has just internalized.",
+    "end": "Sera's cold water — the recognition that he was nearly nodding agreement, and the historical echo of that pattern in a man he knows Sera followed into catastrophe."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Torin lifts the Codex fragment and holds it steady. The others watch for a flinch that doesn't come.",
+      "state_change": "The abstract pressure of the seal's failure becomes concrete — the artifact is present, the records are legible, the mechanism is about to be named.",
+      "pov_reaction": "Ben's instinct pushes toward action rather than explanation; the weight of the wound's mechanism registers through his body as a physical pressure before his mind processes what he's seeing. His breath tightens. His hand moves toward the table, then stops."
+    },
+    {
+      "beat_description": "The fragment's records resolve — the wound's mechanism named, the anchor system specified, twelve living Force-sensitives as sustained structural rebar. R04c lands.",
+      "state_change": "The mission advances: the wound's architecture is now legible as engineered human cost, not abstract containment. The scale of what Gavran's technique damaged is no longer theoretical.",
+      "pov_reaction": "Ben registers the mechanism through his body before his mind processes it — a vertigo-like drop in his center, a tightening of his throat. The Force around the wound is not a field; it is a cage built from twelve people's drained presence. The knowledge lands heavier than he expected."
+    },
+    {
+      "beat_description": "Torin's reading of the same material lands as correction-not-violation — coherent, beautiful, dangerous. The logic is tight. The precedent is sound. The conclusion follows.",
+      "state_change": "Pressure escalates. Torin's rationalization deepens; the technique is no longer a war crime but a necessary correction, and the anchor system becomes not a prison but a structural solution to a structural problem.",
+      "pov_reaction": "Ben's focus tightens on the argument's internal coherence. His head begins to nod — a small motion, almost unconscious. The seduction is in the logic's elegance, in how well it fits the evidence he has just understood in his body. Part of him wants Torin to be right."
+    },
+    {
+      "beat_description": "Sera steps close enough to place her hand flat on the table between Torin and the artifact — a physical barrier, quiet and deliberate.",
+      "state_change": "The scene pivots. The common area's intellectual momentum breaks. Sera's presence becomes a counterweight.",
+      "pov_reaction": "Ben catches the motion of his own head nodding. He stops it. The awareness of his own susceptibility lands like a second shock — he was almost agreeing. Sera's hand on the table is not a gesture; it is a name without a name."
+    },
+    {
+      "beat_description": "Sera pulls Ben into the corridor and speaks with her back to the common area door, her voice very quiet.",
+      "state_change": "The scene closes on private warning. Ben is isolated from the others' hearing. Sera names the argument's lineage without naming Gavran — she has heard this one before, from a man she followed into a war.",
+      "pov_reaction": "Ben braces for the weight of what Sera is about to say. The pattern is legible now — not just Torin's logic, but the shape of how that logic has moved through history, how it has justified catastrophe before. Sera doesn't say Gavran's name. She doesn't need to. Ben hears it anyway."
+    }
+  ],
+  "opening_mode": "in_medias_res",
+  "anti_patterns": [
+    "Do not open with exposition about the Codex or the anchor system",
+    "Do not have Ben articulate his susceptibility aloud",
+    "Do not name Gavran in dialogue",
+    "Do not resolve the tension between Torin's logic and Ben's warning",
+    "Do not soften Sera's intervention with reassurance or warmth",
+    "Do not use diagnostic voice when describing the Force wound",
+    "Avoid arriving at clinical articulation of the wound's mechanism — keep it sensory and embodied",
+    "Do not describe the anchor system in engineering metaphors that distance the human cost"
+  ]
 }

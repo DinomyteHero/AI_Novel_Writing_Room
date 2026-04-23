@@ -53,5 +53,40 @@
   ],
   "revelations": [],
   "pov_arc_phase": "lie_established",
-  "notes": "Thin-place effects slightly stronger than at the first world. Desh might notice temperature inconsistencies or sound carrying oddly — non-Force-sensitive baseline establishing. Pacing: this is the fastest scene in Act 1 — confirm and move. Keep it tight. The pattern is already established from the previous scene; this scene confirms that it is deliberate. Diagnostic-voice trap — Ben should not, in this scene, articulate the pattern as a settled claim about who built it or why. He recognises the hand and punches the coordinates. Interpretation belongs to Ch3 when the perimeter facility does the explaining."
+  "notes": "Thin-place effects slightly stronger than at the first world. Desh might notice temperature inconsistencies or sound carrying oddly — non-Force-sensitive baseline establishing. Pacing: this is the fastest scene in Act 1 — confirm and move. Keep it tight. The pattern is already established from the previous scene; this scene confirms that it is deliberate. Diagnostic-voice trap — Ben should not, in this scene, articulate the pattern as a settled claim about who built it or why. He recognises the hand and punches the coordinates. Interpretation belongs to Ch3 when the perimeter facility does the explaining.",
+  "turning_point_detail": {
+    "trigger": "Desh lays the two anomalous sites on the nav chart and extends the line into a chart-sector that does not officially exist.",
+    "shift": "Ben punches the coordinates and the empty sector stares back — the bearing points to a cluster of systems that do not appear on any navigation chart Ben has ever seen.",
+    "cost": "Ben's growing certainty that this is bigger than a survey mission; the friendship holds while the scope outgrows the job, and Ben registers Desh reading his tension and choosing not to press."
+  },
+  "emotional_arc": {
+    "start": "Confirmation dread — the abstract wrongness from the first world made concrete by repetition.",
+    "shift": "Analytical focus — the pressure tightens from emotional recognition to tactical assessment as Desh draws the line.",
+    "end": "Determined pursuit — Ben braced at the boundary, ready to follow the bearing into uncharted space."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Ben crouches to examine identical markings carved into different-composition stone on a different world, confirming the hand that made them.",
+      "state_change": "The abstract wrongness from the first site becomes concrete repetition — the pattern is not local anomaly but deliberate placement.",
+      "pov_reaction": "Confirmation dread arrives as a physical sensation — a tightness in the chest, the instinct to move rather than sit with the implication. Ben's body wants action before his mind has finished processing what the repetition means."
+    },
+    {
+      "beat_description": "Desh overlays the two anomalous sites on the nav chart and draws a line through uncharted space, extending the bearing into chart-sectors that do not officially exist.",
+      "state_change": "The scene pivots from archaeological confirmation to navigational crisis — the pattern now has a direction, and that direction points toward something deliberately hidden from modern records.",
+      "pov_reaction": "The pressure shifts from dread to analytical focus. Ben's attention narrows onto the line Desh has drawn, the coordinates, the empty space beyond. He reads Desh's tension in the set of his shoulders, recognizes the moment his friend understands the scope has outgrown the job, and chooses not to voice it yet."
+    },
+    {
+      "beat_description": "Ben punches the bearing coordinates into the nav computer and stares at the empty chart sector beyond, waiting for the system to resolve or confirm the void.",
+      "state_change": "The bearing locks in. The next-scene pressure crystallizes at the boundary: something is out there, and Ben now carries the knowledge that Luke's survey route runs exactly along the wrongness's bearing — coincidence or design, Ben does not know yet and does not want to know yet.",
+      "pov_reaction": "Determined pursuit settles into Ben's posture. The dread has resolved into forward momentum. He is braced for the handoff, ready to follow the line or defend the choice not to, but no longer able to treat this as a routine survey."
+    }
+  ],
+  "opening_mode": "in_medias_res",
+  "anti_patterns": [
+    "Ben should not, in this scene, articulate the pattern as a settled claim about who built it or why",
+    "Ben should not articulate the pattern as a settled claim about who built it or why",
+    "Do not arrive at diagnostic voice when describing the thin-place effects — keep Force-perception sensory and experiential, not analytical",
+    "Avoid exposition dump about Jedi Lords era distribution patterns",
+    "Do not open with recap or flashback to the first world"
+  ]
 }

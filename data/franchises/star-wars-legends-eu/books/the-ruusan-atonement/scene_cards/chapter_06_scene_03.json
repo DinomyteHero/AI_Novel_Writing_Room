@@ -47,5 +47,41 @@
   "hook_actions": [],
   "revelations": [],
   "pov_arc_phase": "lie_reinforced",
-  "notes": "First mild thin-place preview on approach — establish the parallax of a lightly unwoven zone without the handrail phrase. The register here is spatial: the Force answers from a step further off than it should, a footing that is fractionally off. Use this scene to set the metaphor family for Ch7's landing. Diagnostic-voice trap — Ben should not, in this scene, articulate why the thin place feels the way it does. He notices the gap and files it. Interpretation is the archive's job, not interiority's. Anti-pattern: do not stack metaphors; the 'fabric worn through' image is the scene's one figure for the wrongness and needs no companion."
+  "notes": "First mild thin-place preview on approach — establish the parallax of a lightly unwoven zone without the handrail phrase. The register here is spatial: the Force answers from a step further off than it should, a footing that is fractionally off. Use this scene to set the metaphor family for Ch7's landing. Diagnostic-voice trap — Ben should not, in this scene, articulate why the thin place feels the way it does. He notices the gap and files it. Interpretation is the archive's job, not interiority's. Anti-pattern: do not stack metaphors; the 'fabric worn through' image is the scene's one figure for the wrongness and needs no companion.",
+  "turning_point_detail": {
+    "trigger": "Ben selects Sera's systematic route and names Kael's reasoning out loud — 'We don't know why she's moving' — making the synthesis explicit and audible to the group.",
+    "shift": "The coalition stops being three separate voices debating and becomes a single unit that has made a choice together. Ben's leadership is visible for the first time as something other than authority or default.",
+    "cost": "Ben becomes accountable for the route. If they miss Veraine, the failure is his synthesis, not Sera's caution or Torin's urgency. The group's ability to function through disagreement is now tested in real time — consensus is tentative, not settled."
+  },
+  "emotional_arc": {
+    "start": "Practical focus — the pressure is concrete, the problem is solvable, action is the natural response.",
+    "shift": "Animated disagreement — three voices, each correct inside its own premise, each pushing Ben toward a different choice. The pressure tightens into something that cannot be resolved by action alone.",
+    "end": "Tentative consensus — the route is keyed in, the choice is made, but the agreement is fragile and Ben knows it. He is braced for what comes next."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Desh activates the nav display and lays out the fourteen-node Corridor route with color-coded status markers — red for dead, amber for degraded, green for active, one flashing white for recent activity.",
+      "state_change": "The abstract pressure becomes concrete and visual. The problem is no longer theoretical; it is a map with fourteen nodes and a choice to make.",
+      "pov_reaction": "Ben's instinct pushes toward action — the practical focus that comes when a problem has a visible shape. His attention narrows to the display, but underneath that focus is a current of unease: someone has been visiting these nodes. The wrongness is not just the seal's failure; it is Veraine's movement."
+    },
+    {
+      "beat_description": "Sera traces the systematic node-by-node path on the holographic map, arguing for methodical assessment — check each node, gather data, understand the pattern before committing. Torin counters with a direct run at Veranthos, the seal's heart. Kael interrupts: 'We don't know why she's moving.' The three voices overlap, each correct inside its own logic.",
+      "state_change": "The scene pivots from information-gathering to decision-making. Ben is no longer observing the problem; he is being asked to choose between three incompatible solutions, each of which will determine whether they catch Veraine or miss her entirely.",
+      "pov_reaction": "The pressure tightens into animated disagreement. Ben's focus sharpens on what just changed — not the route options, but the fact that the group is fragmenting into separate voices. His Jedi training pulls him toward synthesis, but synthesis requires him to choose, and choosing means one voice wins and two lose. His body registers the tension: a tightness in his shoulders, a quickening of his breath, the weight of the moment pressing down."
+    },
+    {
+      "beat_description": "Ben keys Sera's systematic route into the nav computer, but he names Kael's reasoning out loud as he does it: 'We don't know why she's moving.' The synthesis is audible — not Sera's caution alone, not Torin's urgency, but the logic that connects them: understand the pattern before you run at the center.",
+      "state_change": "The decision locks in. The route is set, the first node is on approach, and the group has made a choice together. But the consensus is tentative — Torin's urgency is still live, Sera's caution is still live, and Ben's synthesis is only as strong as the reasoning that holds it together.",
+      "pov_reaction": "The wrongness sharpens as the nav computer accepts the input. Ben sets his attention on the space ahead, on the first node on approach, and the Force answers from a step further off than it should — a footing that is fractionally off, as if the ground beneath his Force-sense has shifted. The sensation is not painful or loud; it is spatial, a gap where there should be continuity. Ben files the observation without interpreting it. The moment is not for understanding; it is for bracing. He is accountable now. The route is his synthesis, and if it is wrong, the failure is his."
+    }
+  ],
+  "opening_mode": "in_medias_res",
+  "anti_patterns": [
+    "Ben should not, in this scene, articulate why the thin place feels the way it does",
+    "do not stack metaphors; the 'fabric worn through' image is the scene's one figure for the wrongness and needs no companion",
+    "Ben should not, in this scene, articulate why the thin place feels the way it does — he notices the gap and files it; interpretation is the archive's job, not interiority's",
+    "Do not stack metaphors; the 'fabric worn through' image is the scene's one figure for the wrongness and needs no companion",
+    "Do not use diagnostic voice when Ben registers the Force wrongness — avoid phrases like 'an ambient hum of the structural lattice' or 'a frequency that resonates'; the sensation is spatial and tactile, not harmonic",
+    "Do not open with exposition about the Corridor nodes or the seal's degradation; let Desh's display and the characters' debate carry the information"
+  ]
 }

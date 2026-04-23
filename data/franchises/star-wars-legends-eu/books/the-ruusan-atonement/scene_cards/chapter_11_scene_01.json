@@ -54,5 +54,47 @@
   "notes": "Per D7 counter-current 2: Torin's refusal to recruit Kael is a real ambiguity, not misdirection. On the corruption trajectory, Torin would want Kael in his camp (Kael's institutional-skepticism register is naturally receptive to the technique-as-correction argument); here he passes on the opportunity. The beat must read as characterisation, not plot signal — Ben files the mis-fit the way he files the smell of the ship; analysis belongs to later chapters. Per D7 anti-pattern, narrator does not correct Ben's file-and-move-on; no 'Torin was sparing Kael for reasons Ben would only later understand' line. Hold the beat as live ambiguity. Per R12, preserve Torin's warmth register — his refusal surfaces within the warmth, not against it. Torin's warmth becoming slightly mechanical is the subtlest note in the chapter — plant it in timing, not in Ben's interior analysis. The exchange should land just a little too cleanly before anyone has a word for why. Kael's laugh is a single line and a cut; do not describe him smiling at length. Per R11, Ben does not articulate 'Torin's warmth is becoming a performance' as interiority. He files the mis-fit the way he files the smell of the ship. Per W1 anti-pattern guardrails, Kael's noticing is registered in a single eye-flick — no interiority about what it means to him. Voice: Allston-warm throughout. Anti-pattern: no scene-starter atmospherics; open on action, dialogue, or a concrete observation. Primary anchor: Allston (ensemble warmth architecture); supporting anchor: Zahn (clean procedural frame), Bujold (Ben's light-interior register of the two things he is filing).",
   "primary_anchor": "Allston",
   "supporting_anchor": "Zahn, Bujold",
-  "stover_permitted": false
+  "stover_permitted": false,
+  "turning_point_detail": {
+    "trigger": "Kael laughs — a short, genuine sound cut short the way Kael cuts everything.",
+    "shift": "The whole ship notices without saying so. Pressure escalates from abstract cramping to concrete interpersonal warmth. An opening surfaces where Torin could recruit Kael toward the technique-as-correction argument; Torin declines. Kael's eyes flick once to Torin and back to Desh.",
+    "cost": "Ben files the mis-fit (Torin's refusal, Kael's notice of it, the timing of Torin's warmth arriving slightly too cleanly) without analysis. The cost is ambiguity: Ben cannot yet read whether Torin is sparing Kael or simply not interested. This uncertainty will compound as the chapter unfolds."
+  },
+  "emotional_arc": {
+    "start": "Cramped humor — the pressure of six people in a two-person space, managed through irony and tally-keeping.",
+    "shift": "Interpersonal warmth arrives with Kael's laugh, then immediately complicates as Torin's refusal registers as a live ambiguity in Ben's filing system.",
+    "end": "Desh's deliberate opening — casual on the surface, but the studied casualness signals he has been working up to something that is not about the Force."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Desh marks another tally on his datapad as Sera and Torin disagree about galley rotation. The argument is low-level, but the tally makes it concrete.",
+      "state_change": "Abstract cramping becomes observable friction. The ship's resource constraints (two-person design, six occupants) surface in a specific disagreement about space and routine.",
+      "pov_reaction": "Ben registers the pressure as something that pushes toward action rather than explanation — a physical restlessness, an instinct to move or solve rather than sit with discomfort. The cramped air itself becomes a sensory anchor for his awareness."
+    },
+    {
+      "beat_description": "Kael laughs at something Desh says — a short, genuine sound that stops every conversation on the ship. It is over before anyone can turn around.",
+      "state_change": "Pressure inverts from friction to warmth. Kael has allowed himself a fraction of company, and the group registers it without comment. The laugh is the first genuine one anyone has heard from him.",
+      "pov_reaction": "Ben's focus tightens on what just changed. The laugh arrives as a small permission — Kael lowering a guard just enough to let sound out. Ben feels the shift in the room's temperature, the way everyone's attention pivots toward Kael without anyone moving."
+    },
+    {
+      "beat_description": "In the galley's low-grade philosophical sparring about the technique and correction, an opening surfaces where Torin could naturally draw Kael into the argument. Kael's institutional-skeptic register would be receptive; the recruitment cost would be minimal. Torin does not take it. The conversation moves elsewhere. Kael's eyes flick once to Torin and back to Desh.",
+      "state_change": "Torin's warmth becomes slightly mechanical — his refusal surfaces within the warmth, not against it. The timing of his story-telling and his pivot away from Kael arrives just a little too cleanly. Ben files the mis-fit the way he files the smell of the ship: noted, not analyzed.",
+      "pov_reaction": "Ben observes Kael's eye-flick to Torin and back to Desh without interpreting it. He does not articulate 'Torin's warmth is becoming a performance.' Instead, he registers the rhythm of Torin's warmth as slightly off-beat, the way a musician notices a note played slightly flat. The ambiguity lodges in Ben's filing system: Torin passed on a free pitch. Ben does not yet know why."
+    },
+    {
+      "beat_description": "Desh drops into the co-pilot seat beside Ben with studied casualness and waits until the cockpit door closes behind them.",
+      "state_change": "The scene isolates Ben and Desh from the group. The cockpit door closing signals a boundary — whatever Desh wants to discuss, it is separate from the galley's warmth and friction.",
+      "pov_reaction": "Ben feels the shift in Desh's deliberateness. The casualness is a performance, and Ben recognizes it as such. He braces for the handoff: Desh has been working up to something that is not about the Force, and the door closing is the signal that the conversation is about to begin."
+    }
+  ],
+  "opening_mode": "sensory_hook",
+  "anti_patterns": [
+    "Kael's laugh is a single line and a cut; do not describe him smiling at length",
+    "no scene-starter atmospherics; open on action, dialogue, or a concrete observation",
+    "narrator does not correct Ben's file-and-move-on; no 'Torin was sparing Kael for reasons Ben would only later understand' line",
+    "preserve Torin's warmth register — his refusal surfaces within the warmth, not against it",
+    "Ben does not articulate 'Torin's warmth is becoming a performance' as interiority; hold the beat as live ambiguity",
+    "Kael's noticing is registered in a single eye-flick — no interiority about what it means to him",
+    "do not resolve the ambiguity about Torin's refusal; plant it in timing, not in Ben's interior analysis"
+  ]
 }

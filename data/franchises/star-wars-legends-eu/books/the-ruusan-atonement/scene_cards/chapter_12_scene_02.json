@@ -42,7 +42,7 @@
     "torin_reads_as_challenge"
   ],
   "promises_planted": [
-    "Maetha's warning will prove true (PP05)"
+    "PP05"
   ],
   "promises_paid": [],
   "hook_actions": [],
@@ -50,5 +50,40 @@
     "R07"
   ],
   "pov_arc_phase": "lie_reinforced",
-  "notes": "R07 — the story's single most important piece of foreshadowing. Deliver Maetha's full sentence once, in her voice. Afterward, fragments only — 'replaces you' is the echo that will carry across the rest of the story. Torin's reframing must land as reasonable on the page, not cartoon-villainous; his arc: lie_reinforced as he reads Maetha's failure as evidence of her limitation, not the technique's. Diagnostic-voice trap — Ben should not, in this scene, narrate Sera's face as a diagnostic paragraph. The break in her expression is an observation, one or two specific details (a hand to the wall, a pause between inhales), not an essay. Voice: Zahn-tight, Stover-interior permitted only on Ben's held breath during the delivered sentence."
+  "notes": "R07 — the story's single most important piece of foreshadowing. Deliver Maetha's full sentence once, in her voice. Afterward, fragments only — 'replaces you' is the echo that will carry across the rest of the story. Torin's reframing must land as reasonable on the page, not cartoon-villainous; his arc: lie_reinforced as he reads Maetha's failure as evidence of her limitation, not the technique's. Diagnostic-voice trap — Ben should not, in this scene, narrate Sera's face as a diagnostic paragraph. The break in her expression is an observation, one or two specific details (a hand to the wall, a pause between inhales), not an essay. Voice: Zahn-tight, Stover-interior permitted only on Ben's held breath during the delivered sentence.",
+  "turning_point_detail": {
+    "trigger": "Torin reframes Maetha's warning as evidence of her personal limitation rather than the technique's inherent cost.",
+    "shift": "Sera's face changes without sound. Torin walks out of the archive first with steady, certain stride. Sera's hand finds the wall for support.",
+    "cost": "Ben hears, in a dead woman's voice, the exact description of what will happen to Torin. Sera recognizes the Gavran pattern repeating in Torin and is powerless to stop it."
+  },
+  "emotional_arc": {
+    "start": "Reverent attention — Ben braced for what the archive will reveal.",
+    "shift": "The impact of Maetha's warning lands: the caldera does not consume you, it replaces you. The cost becomes visceral and specific.",
+    "end": "Horror at Torin's response — Ben recognizes that Torin has heard the same warning and chosen to reframe it as Maetha's failure, not the technique's. The pattern is repeating."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Sera activates Maetha's archive. A woman's voice fills the sealed chamber — quieter than Gavran's, and sadder. The warning is delivered in full: 'The caldera does not consume you. It replaces you.'",
+      "state_change": "The abstract pressure of the seal's failure becomes concrete and personal. The cost is named.",
+      "pov_reaction": "Ben's attention sharpens into reverent focus. The Force-wound around them seems to hold the words a beat longer than air should — the Weave itself carrying the warning. Ben's breath catches; he does not interrupt."
+    },
+    {
+      "beat_description": "Torin listens without flinching. His face is attentive, respectful, unmoved. When the recording ends, he does not speak. He turns and walks out of the archive — stride steady, certain, without a backward glance.",
+      "state_change": "The scene pivots from revelation to response. Torin's silence and exit reframe Maetha's warning as something he has already processed and rejected.",
+      "pov_reaction": "Ben's focus tightens on Sera. He watches her face as Torin speaks — or does not speak — and sees something break in her expression. The horror is not in Maetha's words; it is in Torin's refusal to hear them."
+    },
+    {
+      "beat_description": "Sera's hand moves to the wall for support as Torin's footsteps fade down the corridor. She does not follow. Kael watches the exchange and says nothing.",
+      "state_change": "The archive is sealed again. The warning has been delivered. Torin has walked out first. The pattern is repeating — the same reframing Gavran used, now echoed in Torin's lie-reinforced certainty.",
+      "pov_reaction": "Ben registers Sera's stillness and the weight of what she has just recognized: Torin has heard the warning and chosen to believe Maetha was insufficient, not that the technique is catastrophic. Ben braces against the implication — Torin is already lost to the same logic that consumed Gavran."
+    }
+  ],
+  "opening_mode": "in_medias_res",
+  "anti_patterns": [
+    "Ben should not, in this scene, narrate Sera's face as a diagnostic paragraph",
+    "Ben should not narrate Sera's face as a diagnostic paragraph — the break in her expression is an observation, one or two specific details (a hand to the wall, a pause between inhales), not an essay.",
+    "Avoid diagnostic-voice trap — do not have Ben analyze or articulate the phenomenology of what is happening; register it through action and reaction.",
+    "Do not arrive at clinical articulation of the Force-wound or the Weave structure — keep Force-perception sensory and experiential.",
+    "Do not open with exposition or backstory about Maetha, Gavran, or the caldera technique — open in the moment of activation."
+  ]
 }

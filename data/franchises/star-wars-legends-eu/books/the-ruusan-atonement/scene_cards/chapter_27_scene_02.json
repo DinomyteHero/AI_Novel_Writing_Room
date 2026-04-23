@@ -42,12 +42,45 @@
   ],
   "promises_planted": [],
   "promises_paid": [
-    "Sera and Torin's thousand-year unresolved relationship plays out — presence without control (PP03)",
-    "Sera's rigidity resolves into principled flexibility — she chooses to stay (PP20 full)",
-    "Sera's formal distance from Ben has thawed; trust earned across the arc (PP15 full)"
+    "PP03",
+    "PP20",
+    "PP15"
   ],
   "hook_actions": [],
   "revelations": [],
   "pov_arc_phase": "new_truth_demonstrated",
-  "notes": "Sera's arc resolves in chosen presence; Torin's arc resolves tragic in diminished survival. Anti-pattern: Sera and Torin do not speak in this scene; the hand is the sentence. Ben observes from a distance; interiority minimal — a single line of observation, maybe, and the rest is the wind and the ridgeline and the hum below."
+  "notes": "Sera's arc resolves in chosen presence; Torin's arc resolves tragic in diminished survival. Anti-pattern: Sera and Torin do not speak in this scene; the hand is the sentence. Ben observes from a distance; interiority minimal — a single line of observation, maybe, and the rest is the wind and the ridgeline and the hum below.",
+  "turning_point_detail": {
+    "trigger": "Torin's hand finds Sera's after the long silence",
+    "shift": "The grip is lighter than it was before. It is there — presence without wholeness, love without control",
+    "cost": "Ben registers the devastation of partial success: Sera's arc resolves in chosen presence, but Torin's arc resolves tragic in diminished survival. The cost lands on Ben as witness — he cannot fix this, and the people he cares for have accepted a future smaller than before"
+  },
+  "emotional_arc": {
+    "start": "Quiet grief — the weight of what Torin has become, what was lost in the sealing",
+    "shift": "The devastation of partial success — the realization that presence without wholeness is the only victory available, and it is enough",
+    "end": "The grace of staying — Ben's recognition that love expressed through chosen presence, not through fixing or control, is the scene's final word"
+  },
+  "key_beats": [
+    {
+      "beat_description": "Torin sits on the ridgeline with his hands resting on his knees, facing the valley where the new seal hums. His posture is unchanged from before. Everything else is different — his presence lighter, the heavy warmth gone quiet, his Force-signature diminished in a way that should feel freeing and is devastating.",
+      "state_change": "The abstract pressure of Torin's sacrifice becomes concrete and visible. Ben can see what the sealing cost him.",
+      "pov_reaction": "Ben's instinct pushes toward action — the impulse to do something, to fix, to restore — but there is nothing to fix. The grief is quiet because the work is done. His attention tightens on the small details: the angle of Torin's shoulders, the way his hands rest, the absence of the warmth that used to radiate from him."
+    },
+    {
+      "beat_description": "Sera walks up the ridgeline and sits beside Torin without speaking. She does not try to fill the silence. She does not offer comfort as a solution. She simply sits.",
+      "state_change": "The scene pivots from Ben's observation of loss to the arrival of presence. Sera's choice to sit without speaking becomes the argument itself.",
+      "pov_reaction": "Ben feels the shift in the air between them — not a lightening, but a settling. The pressure does not ease; it transforms. He recognizes in Sera's face the same grief and peace holding together without choosing between them. This is what staying looks like."
+    },
+    {
+      "beat_description": "After a long time — long enough that the new seal's three-part harmonic hum becomes the only sound — Torin's hand finds Sera's. The grip is lighter than it was before. But it is there.",
+      "state_change": "The hand-grip becomes the final word on the Sera/Torin relationship: love as presence, not as fixing. Torin's diminished survival is accepted. Sera's choice to stay is complete.",
+      "pov_reaction": "Ben registers this as the grace of staying — the recognition that presence without wholeness is the only victory available, and it is enough. The cost lands on him as witness: he cannot restore what was lost, and the people he cares for have accepted a future smaller than before. This is not failure. This is what survival looks like when the alternative is dissolution."
+    }
+  ],
+  "opening_mode": "sensory_hook",
+  "anti_patterns": [
+    "Sera and Torin do not speak in this scene; the hand is the sentence",
+    "Ben observes from a distance; interiority minimal — a single line of observation, maybe, and the rest is the wind and the ridgeline and the hum below",
+    "Do not arrive at clinical articulation of what the hand-grip means — let the image carry the meaning"
+  ]
 }

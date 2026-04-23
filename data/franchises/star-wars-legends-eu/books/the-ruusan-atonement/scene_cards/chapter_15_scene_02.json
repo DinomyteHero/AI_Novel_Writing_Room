@@ -50,5 +50,44 @@
   ],
   "revelations": [],
   "pov_arc_phase": "lie_challenged",
-  "notes": "H15 planted — Torin's observation about curating reality. It must land as true, not melodramatic — warmth, timing, and specific accuracy. Torin's arc: lie_deepened — his certainty growing as the crisis validates his analysis. Anti-pattern: Torin's 'you know who else did that' must stop there. No one names Jacen in this scene; Ben does the naming in Ch18. Diagnostic-voice trap — Ben should not, in this scene, inwardly complete the Jacen identification. His hands grip his knees; the sentence sits on the air; Sera's silence carries it. Interiority paragraphing the recognition would give back everything the chapter is trying to keep tight."
+  "notes": "H15 planted — Torin's observation about curating reality. It must land as true, not melodramatic — warmth, timing, and specific accuracy. Torin's arc: lie_deepened — his certainty growing as the crisis validates his analysis. Anti-pattern: Torin's 'you know who else did that' must stop there. No one names Jacen in this scene; Ben does the naming in Ch18. Diagnostic-voice trap — Ben should not, in this scene, inwardly complete the Jacen identification. His hands grip his knees; the sentence sits on the air; Sera's silence carries it. Interiority paragraphing the recognition would give back everything the chapter is trying to keep tight.",
+  "turning_point_detail": {
+    "trigger": "Torin names the pattern: 'You're curating reality to manage the outcome you want. You know who else did that?' The observation lands with warmth and devastating specificity, grounded in concrete tactical evidence.",
+    "shift": "Ben cannot dismiss the accusation because it is accurate. The question pivots from whether the seal can hold to whether Ben's method of managing the crisis mirrors the very pattern he is trying to prevent Torin from repeating.",
+    "cost": "Ben's own pattern of control — withholding information, managing narrative, curating outcomes — is named by the person who is repeating it at larger scale. The cost is also interpersonal: mutual respect makes the disagreement more painful, and Sera's silence confirms she has heard this argument before."
+  },
+  "emotional_arc": {
+    "start": "Engaged debate — Ben is present and responsive, ready to counter Torin's points with logic.",
+    "shift": "Seductive logic — Torin's argument carries warmth and specificity; the logic is sound enough that Ben feels the pull of it, the temptation to see Torin's sacrifice as the answer.",
+    "end": "Devastating personal parallel — the recognition that Torin's observation describes Ben's own behavior, and the inability to dismiss it because it is true. The emotion is not anger or despair but a kind of trapped clarity."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Torin pushes his plate aside and pulls the tactical display between them, moving from abstract argument to concrete evidence as he makes his case that the seal's failure proves it was always temporary.",
+      "state_change": "The conversation shifts from philosophical debate to tactical specificity. Torin is no longer hypothesizing; he is showing Ben the data that supports his thesis.",
+      "pov_reaction": "Ben's instinct pushes toward engagement — the urge to counter with logic, to find the flaw in Torin's reasoning. His body language mirrors Torin's shift: he leans in, focuses on the display, prepares to argue. The debate feels winnable."
+    },
+    {
+      "beat_description": "Torin names the pattern directly: 'You're curating reality to manage the outcome you want.' His tone carries no accusation, only observation — the warmth remains, which makes the precision cut deeper.",
+      "state_change": "Ben's internal landscape fractures. The argument is no longer abstract; it is personal. Torin has identified not just a flaw in Ben's strategy but a behavioral pattern, and he has done it with such specificity that dismissal becomes impossible.",
+      "pov_reaction": "Ben's hands grip his knees under the table — a physical anchor against the sensation of being seen. His breath catches; the impulse to respond dies in his throat because the response would require him to either lie or admit the truth. The seductive logic of Torin's argument — that sacrifice, that permanent solution — becomes harder to refuse because Ben recognizes it as the same logic he has been using to justify his own choices."
+    },
+    {
+      "beat_description": "Sera sits motionless through the exchange, her silence carrying the weight of having heard this argument before — between Ben and Torin, or perhaps between Ben and himself.",
+      "state_change": "Sera's silence locks in the scene's pressure. She is not neutral; her stillness is a form of witness. She knows where this conversation leads, and she is waiting to see if Ben will recognize it too.",
+      "pov_reaction": "Ben registers Sera's silence as confirmation. The observation about curating reality is not new to her; she has been watching Ben make these choices all along. The recognition that he has been transparent to her — that his pattern has been visible — lands with the force of the personal parallel Torin has just named. Ben is braced now, waiting for the next beat, knowing that the question of whether recognizing the pattern is enough to break it will define everything that comes after."
+    }
+  ],
+  "opening_mode": "in_medias_res",
+  "anti_patterns": [
+    "Torin's 'you know who else did that' must stop there",
+    "No one names Jacen in this scene; Ben does the naming in Ch18",
+    "Ben should not, in this scene, inwardly complete the Jacen identification",
+    "Torin's 'you know who else did that?' must stop there — no one names Jacen in this scene",
+    "Ben should not inwardly complete the Jacen identification; his hands grip his knees; the sentence sits on the air",
+    "Do not use diagnostic-voice interiority to paragraph Ben's recognition of the pattern",
+    "Avoid exposition dump about the seal's history or Gavran's technique; keep the focus on the interpersonal argument",
+    "Do not open with flashback or backstory; open in medias res with Torin bringing it up over food",
+    "Do not allow Ben to articulate the parallel between his behavior and Jacen's — that naming happens in Ch18"
+  ]
 }

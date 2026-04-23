@@ -69,5 +69,44 @@
   "notes": "The scene depends on restraint. The name lands once, the caf lands once, and Ben carries both forward unresolved.",
   "primary_anchor": "Zahn",
   "supporting_anchor": "Stover, Bujold",
-  "stover_permitted": true
+  "stover_permitted": true,
+  "turning_point_detail": {
+    "trigger": "Ben catches the structural pattern in Torin's stories — the cadence of decision, action, cost — and the Jacen echo becomes audible.",
+    "shift": "The name arrives once, quietly, between Ben and Desh. Seconds later, Torin pours Sera's cup before she reaches for it, and Ben has no framework ready to hold both the pattern and the gesture. The scene pivots from recognition to irresolution.",
+    "cost": "Ben carries forward a name he now cannot un-know, paired with a gesture he cannot categorize. The cost lands on Ben's capacity to act: he is watching a path he has seen before on a person he has come to rely on, and the gesture complicates any simple reading of threat or redemption. The cost also strains Ben and Desh's shared recognition — the GAG-forged bond does the work it was forged for, but the answer it yields is not actionable. Torin's gesture toward Sera renders both of them harder to categorize, and Ben must move forward without resolution."
+  },
+  "emotional_arc": {
+    "start": "Watchful analysis — Ben cataloging Torin's laughter and performance with trained Jedi precision, the analytical distance of someone reading affect for authenticity.",
+    "shift": "Dawning recognition tightens into the Jacen name arriving, then immediately fractures as the cup-pouring gesture lands without explanation. The recognition does not resolve; it deepens the pressure.",
+    "end": "Unresolved weight — Ben holding two truths at once (the pattern is real; the gesture complicates it) without framework to reconcile them. The emotional register is not relief or clarity, but the specific tension of carrying ambiguity forward."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Torin laughs at Desh's joke — warm, easy, the timing perfect — and Ben catalogs the performance as if reading a text.",
+      "state_change": "The abstract pressure of Ben's unspoken observation becomes concrete and sensory. The laugh is audible proof of something Ben has been tracking without naming.",
+      "pov_reaction": "Ben's analytical attention sharpens; his body registers the watchfulness as a physical state — the dry mouth, the stillness of someone listening harder than the moment requires. The response is not yet recognition, but the tightening that precedes it."
+    },
+    {
+      "beat_description": "Torin tells a battle story, gesturing with practiced ease. Ben tracks the structural pattern underneath: I decided, I acted, I bore the cost. The cadence repeats across the story's beats.",
+      "state_change": "The pattern becomes audible. Ben hears not just the words but the shape of Torin's decision-making, and that shape carries a specific resonance — one Ben has heard before, in a voice he has not heard in years.",
+      "pov_reaction": "Dawning recognition tightens Ben's focus. His breath does not change, his posture does not shift, but internally the pressure consolidates into something that has a name. The sensation is not comfort; it is the vertigo of recognizing a path he thought he had closed."
+    },
+    {
+      "beat_description": "Mid-story, Torin reaches across the common-area table, lifts the caf pot, and fills Sera's cup before she can reach for it. Sera takes the cup with a small Dantari inclination. The moment passes without comment.",
+      "state_change": "The scene pivots. The Jacen name arrives — once, quietly, between Ben and Desh. Seconds later, Torin's gesture lands, and Ben has no framework ready to hold both the pattern and the kindness. The gesture does not erase the pattern; it complicates it.",
+      "pov_reaction": "Ben's internal state fractures. The recognition he was consolidating does not resolve; instead, it splinters against the evidence of Torin's small kindness. His body registers this as a suspension — the moment where analysis breaks and no new framework arrives to replace it. The sensation is not clarity but irresolution."
+    },
+    {
+      "beat_description": "Ben meets Desh's eyes across the common area. One of them thinks it, one of them says it — barely audible. 'Like Jacen.' Said once. Not repeated.",
+      "state_change": "The name is spoken. The pattern is confirmed between two people who have the training and the bond to recognize it. But the confirmation does not resolve the scene; it locks in the ambiguity. Ben and Desh have named the thing, and the thing remains unresolved.",
+      "pov_reaction": "Ben carries the name forward as weight. The GAG-forged bond between him and Desh does the work it was forged for — silent confirmation, shared reading — but the answer it yields is not actionable. Ben is braced at the boundary between recognition and the next scene's pressure, holding a name and a gesture that refuse to reconcile."
+    }
+  ],
+  "opening_mode": "in_medias_res",
+  "anti_patterns": [
+    "Do not open with a flashback — the recognition must arrive through Torin's present behavior.",
+    "The scene depends on restraint — the name lands once, the caf lands once, and Ben carries both forward unresolved.",
+    "Do not arrive at clinical articulation of the pattern — Ben feels the resonance; he does not analyze it as a concept.",
+    "Do not resolve the ambiguity — the cup-pouring gesture must complicate the pattern, not explain it away."
+  ]
 }

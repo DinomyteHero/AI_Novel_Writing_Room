@@ -45,5 +45,51 @@
   "hook_actions": [],
   "revelations": [],
   "pov_arc_phase": "lie_reinforced",
-  "notes": "Kael's arc first touch of lie_questioned — a Jedi has treated him as a person to whom something is owed, not a category to be handled. The questioning is tentative; the Codex scene still sits in his pocket next to the message. Diagnostic-voice trap — Ben's apology is one sentence, not a speech. The power is in its brevity. Do not let him explain why he is saying it. Lived-galaxy texture — the alien constellations count as the outside world observing the scene's emotional work without set-piece. Voice: one permitted Stover-interior beat when Ben watches Kael turn the tablet over; otherwise Zahn-restraint. Anti-pattern: do not put Torin or Sera on page here; the scene belongs to Ben and Kael."
+  "notes": "Kael's arc first touch of lie_questioned — a Jedi has treated him as a person to whom something is owed, not a category to be handled. The questioning is tentative; the Codex scene still sits in his pocket next to the message. Diagnostic-voice trap — Ben's apology is one sentence, not a speech. The power is in its brevity. Do not let him explain why he is saying it. Lived-galaxy texture — the alien constellations count as the outside world observing the scene's emotional work without set-piece. Voice: one permitted Stover-interior beat when Ben watches Kael turn the tablet over; otherwise Zahn-restraint. Anti-pattern: do not put Torin or Sera on page here; the scene belongs to Ben and Kael.",
+  "turning_point_detail": {
+    "trigger": "Ben says, without qualifying, that what was done to Kael was indefensible.",
+    "shift": "Kael turns the data tablet over in his hands and does not show Ben the message. He says only: 'She'll come for me. She might have a point.' He does not say which point.",
+    "cost": "Ben has treated Kael as a person to whom something is owed, not a category to be handled — the first institution Kael has touched that does not reduce him to a function. This recognition simultaneously deepens first real trust between them and exposes Kael's vulnerability to Veraine's pitch, creating a strategic liability Ben cannot unsee."
+  },
+  "emotional_arc": {
+    "start": "Ben approaches with careful restraint; Kael is guarded but not hostile, more open than Ben has felt his Force presence before.",
+    "shift": "Both characters move into honest vulnerability — Ben's apology lands without explanation or qualification; Kael's response is undefended, the tablet turning over in his hands a physical manifestation of internal conflict.",
+    "end": "Ambiguous warning. Kael's final statement leaves the nature of Veraine's 'point' unspecified, leaving Ben braced against an unknown threat and Kael suspended between gratitude and the pull of someone who shares his experience of being used as infrastructure."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Ben finds Kael on the outpost's exterior steps, face tilted toward constellations that shifted while he slept a thousand years.",
+      "state_change": "The abstract pressure of the larger crisis becomes concrete and localized — Ben is no longer in the operations room, but outside, alone with one of the people the seal's failure has displaced.",
+      "pov_reaction": "Ben's instinct pushes toward action rather than explanation. He feels the weight of what Kael has lost — not as a concept but as a presence in the cold air and the unfamiliar sky. His approach is careful because Kael is not yet his ally; he is a person Ben's Order has wronged, and Ben does not know how to begin."
+    },
+    {
+      "beat_description": "Ben sits down on the cold stone beside Kael, leaving a deliberate arm's length of space — not crowding, not performing distance, but respecting the boundary Kael has not yet lowered.",
+      "state_change": "The scene pivots from observation to presence. Kael's Force presence, which has been guarded throughout their time together, does not close further. The silence between them becomes a space where something unsaid can be said.",
+      "pov_reaction": "Ben feels the moment where he could speak — where the machinery of apology and explanation could begin — and chooses not to. The pressure of what needs to be said tightens in his chest. He sits with it. One sentence. That is all."
+    },
+    {
+      "beat_description": "Ben says, without qualifying, that what was done to Kael was indefensible.",
+      "state_change": "The turning point lands. Kael's hand moves to the data tablet in his pocket — the message from Veraine — and he turns it over once, twice, the motion deliberate and controlled.",
+      "pov_reaction": "Ben watches the tablet turn in Kael's hands and feels the moment fracture. He has said the thing that cannot be unsaid, and Kael is deciding what to do with it. There is a Stover-register depth here — the sensation of having opened a door and not knowing what stands on the other side, the vertigo of having treated someone as a person and discovering that person has their own gravity, their own pull toward choices Ben cannot control."
+    },
+    {
+      "beat_description": "Kael pockets the tablet without showing Ben the message and speaks into the long silence: 'She'll come for me. At some point. She'll try to recruit me.'",
+      "state_change": "Kael has made a decision about what to share and what to withhold. The message remains his. The warning is given. The strategic risk is now explicit.",
+      "pov_reaction": "Ben feels the ground shift. Kael is not refusing the apology; he is acknowledging it by being honest in return. But the honesty includes a threat — not to Ben, but to the fragile coalition forming around the seal's failure. Kael's vulnerability to Veraine's pitch is real. Ben cannot protect him from it. He can only listen."
+    },
+    {
+      "beat_description": "Kael adds, after another beat: 'She might have a point.' He does not say which point.",
+      "state_change": "The ambiguity locks in. Kael has left the nature of Veraine's argument unspecified — is it the moral argument about the seal's construction? The strategic argument about breaking it? The personal argument about shared experience? Ben cannot know, and that uncertainty is the scene's final pressure.",
+      "pov_reaction": "Ben is braced for the handoff. The scene ends not with resolution but with a question that will not be answered until Veraine makes her move. Kael has been treated as a person, and the cost of that recognition is that Ben must now live with Kael's autonomy — including the possibility that Kael might choose Veraine's path."
+    }
+  ],
+  "opening_mode": "in_medias_res",
+  "anti_patterns": [
+    "Ben's apology is one sentence, not a speech",
+    "Do not let him explain why he is saying it",
+    "do not put Torin or Sera on page here; the scene belongs to Ben and Kael",
+    "Do not put Torin or Sera on page here; the scene belongs to Ben and Kael",
+    "Do not arrive at diagnostic-voice trap — avoid clinical articulation of the moral wrong",
+    "Do not open with exposition about constellations or the thousand-year gap"
+  ]
 }

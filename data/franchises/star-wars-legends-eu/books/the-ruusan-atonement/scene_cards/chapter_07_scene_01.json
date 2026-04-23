@@ -44,7 +44,7 @@
     "veraine_trail_warm"
   ],
   "promises_planted": [
-    "The full unwoven experience will be delivered (PP17)"
+    "PP17"
   ],
   "promises_paid": [],
   "hook_actions": [
@@ -55,5 +55,42 @@
   ],
   "revelations": [],
   "pov_arc_phase": "lie_reinforced",
-  "notes": "Establish the Corridor as a trail of thin places. Torin's ease in the thin place is a subtle warning — he should not be comfortable here; plant without naming. Rotate the Force-wrongness metaphor for this scene: not the handrail, not the note-played-flat. Use a footing/balance register (the ground's answer arriving late, the body reading a tilt that the eyes cannot see). Diagnostic-voice trap — Ben should not, in this scene, articulate the thin place as 'structural' or 'Weave-weak'. He registers the offset physically; interpretation waits. Institutional-lie subplot threads through Ben's private note that the Corridor appears in no modern Jedi record he has ever seen."
+  "notes": "Establish the Corridor as a trail of thin places. Torin's ease in the thin place is a subtle warning — he should not be comfortable here; plant without naming. Rotate the Force-wrongness metaphor for this scene: not the handrail, not the note-played-flat. Use a footing/balance register (the ground's answer arriving late, the body reading a tilt that the eyes cannot see). Diagnostic-voice trap — Ben should not, in this scene, articulate the thin place as 'structural' or 'Weave-weak'. He registers the offset physically; interpretation waits. Institutional-lie subplot threads through Ben's private note that the Corridor appears in no modern Jedi record he has ever seen.",
+  "turning_point_detail": {
+    "trigger": "Inside the bunker, the stasis chamber is empty—its anchor died centuries ago, yet the installation records show recent access.",
+    "shift": "Fresh tool marks on the access panel and boot prints in undisturbed dust reveal Veraine was here weeks ago. The seal's failure is not abstract; it has a present-tense agent moving through the Corridor.",
+    "cost": "Ben's Force perception becomes unreliable in the thin place (distances wrong by inches, footing fractionally off). The survivors' different reactions to the wrongness expose vulnerabilities: Sera's tension, Torin's unnatural ease, Kael's flatness. Ben cannot unsee that Veraine is already moving—walking away is no longer an option."
+  },
+  "emotional_arc": {
+    "start": "Archaeological curiosity—Ben approaching the site as a puzzle to solve, instinct pushing toward action rather than explanation.",
+    "shift": "The wrongness making itself felt—the thin place's offset becoming undeniable in his body, his Force sense fractionally late. Curiosity sharpens into unease as the physical wrongness tightens his focus.",
+    "end": "Alertness at recent evidence—Ben braced and ready, the abstract threat of the Corridor's failure now concrete and present-tense. The cost of the thin place lands: his perception is compromised, and Veraine's trail is warm."
+  },
+  "key_beats": [
+    {
+      "beat_description": "The Steady Returns sets down on terrain still shaped by thousand-year-old trenches eroded into gentle valleys. Ben exits the ship and reaches for the Force.",
+      "state_change": "The abstract pressure of the Corridor becomes concrete. Ben is now on-site, in the thin place, and his Force perception is immediately offset—distances wrong by inches, the ground's answer arriving a fraction late.",
+      "pov_reaction": "His body registers the tilt before his mind names it. Balance reads the terrain one note late; footing fractionally wrong. The sensation is not pain or darkness—it is wrongness, a sensory offset that makes his proprioception unreliable. His instinct is to reach deeper into the Force to correct the offset, but the deeper he reaches, the more the offset compounds."
+    },
+    {
+      "beat_description": "Ben sweeps dust from the empty stasis chamber and finds fresh tool marks on the access panel—marks that sit on top of centuries of undisturbed sediment.",
+      "state_change": "The thin place's wrongness is no longer Ben's private experience. The bunker's records show recent access. Veraine was here. The seal's failure has a present-tense agent, and the trail is warm.",
+      "pov_reaction": "Alertness crystallizes. Ben's attention narrows to the marks, the dust pattern, the timeline. His hand stills over the panel. The wrongness of the thin place recedes into background pressure—his focus is now on what the marks mean. Veraine did not wait. She is already moving through the Corridor, dismantling the seal from inside."
+    },
+    {
+      "beat_description": "Ben observes the survivors' reactions to the thin place: Sera's shoulders tighten, her jaw set; Torin moves through the bunker with ease, almost comfort; Kael's expression flattens, his usual sharpness dulled.",
+      "state_change": "The survivors are not uniform in their response to the thin place. Their inner states—fear, ease, numbness—are exposed without words. Torin's comfort in the wrongness is a warning Ben does not yet name.",
+      "pov_reaction": "Ben registers each reaction without interpretation. Sera's tension he understands—the thin place is wrong, and she feels it as threat. Kael's flatness is a retreat, a shuttering. But Torin's ease registers as a discordant note. Torin should not be comfortable here. The observation lodges without analysis; Ben files it and moves forward."
+    }
+  ],
+  "opening_mode": "in_medias_res",
+  "anti_patterns": [
+    "Torin's ease in the thin place is a subtle warning — he should not be comfortable here; plant without naming",
+    "Ben should not, in this scene, articulate the thin place as 'structural' or 'Weave-weak'",
+    "Torin's ease in the thin place is a subtle warning—he should not be comfortable here; plant without naming.",
+    "Ben should not, in this scene, articulate the thin place as 'structural' or 'Weave-weak'. He registers the offset physically; interpretation waits.",
+    "Do not arrive at diagnostic-voice articulation of the thin place. Ben's body knows the wrongness; his mind does not yet explain it.",
+    "Do not open with exposition about the Corridor's history or the seal's thousand-year degradation. Start with the landing and the immediate sensory wrongness.",
+    "The Corridor appears in no modern Jedi record Ben has ever seen—this institutional-lie thread should surface in Ben's private thought, not in dialogue or explanation."
+  ]
 }

@@ -48,5 +48,46 @@
   "hook_actions": [],
   "revelations": [],
   "pov_arc_phase": "lie_challenged",
-  "notes": "The Jedi outpost is the story's lived-galaxy-texture payoff — cosmic stakes acquiring human faces. Three young Knights are the template: too-still hands, a meditation drill abandoned mid-breath, a disciplined-senior whose contemplative practice has failed. They are specific but not named at length; they are Ben's peers and the scene treats them as such. Diagnostic-voice trap — Ben should not, in this scene, theorise Weave distortion to himself. He listens, he recognises, he does not articulate. Torin's expression is the chapter's promise to the scene — tenderness and calculation coexisting. Anti-pattern: Torin's compassion must remain genuine on the page; if he reads as obviously manipulative, the chapter's ethical weight collapses."
+  "notes": "The Jedi outpost is the story's lived-galaxy-texture payoff — cosmic stakes acquiring human faces. Three young Knights are the template: too-still hands, a meditation drill abandoned mid-breath, a disciplined-senior whose contemplative practice has failed. They are specific but not named at length; they are Ben's peers and the scene treats them as such. Diagnostic-voice trap — Ben should not, in this scene, theorise Weave distortion to himself. He listens, he recognises, he does not articulate. Torin's expression is the chapter's promise to the scene — tenderness and calculation coexisting. Anti-pattern: Torin's compassion must remain genuine on the page; if he reads as obviously manipulative, the chapter's ethical weight collapses.",
+  "turning_point_detail": {
+    "trigger": "A young Knight about Ben's age describes losing the ability to meditate — 'The Force is there but I can't find the shape of it anymore.' Ben recognizes the description from the Battlefield Node, now permanent here.",
+    "shift": "The pressure pivots from professional concern to empathetic horror. The crisis stops being something Ben can theorize or manage and becomes something he must feel. The outpost Knights are his peers — this could be him.",
+    "cost": "Ben's helplessness crystallizes. He knows what is happening; he cannot explain it without rewriting the Jedi Order's entire understanding of the seal in the same conversation. He is forced to watch suffering he cannot immediately relieve and cannot fully articulate."
+  },
+  "emotional_arc": {
+    "start": "Professional concern — Ben arrives expecting a briefing, a tactical update, a problem to solve.",
+    "shift": "Empathetic horror — the young Knight's description of lost meditation triggers recognition of the Battlefield Node's permanent presence. The abstraction becomes a face.",
+    "end": "Frustrated helplessness — Ben can see what is happening and cannot stop it or explain it. Torin's cold calculation over the Knight's shoulder locks in the scene's final pressure: the group is running out of time and out of gentle options."
+  },
+  "key_beats": [
+    {
+      "beat_description": "The Steady Returns touches down at the outpost landing pad. A young Knight meets them — eyes too wide, hands held with the careful stillness of someone holding themselves together.",
+      "state_change": "The abstract crisis acquires a physical presence. The outpost is not in emergency lockdown; it is in quiet dysfunction. The Knight's body language signals something wrong that is not yet a disaster.",
+      "pov_reaction": "Ben's instinct reads the Knight's state and pushes toward action — a need to assess, to do something, to fix. The professional concern is real; it is also a shield against what he is about to see."
+    },
+    {
+      "beat_description": "Ben walks through the outpost's training area. Practice drills are abandoned mid-exercise — meditation cushions empty, a lightsaber kata frozen mid-stance, breathing exercises stopped mid-breath. Young faces wearing expressions too old for them.",
+      "state_change": "The wrongness becomes visible. This is not damage or attack; this is a system failing at its core function. The Jedi here cannot do what Jedi do.",
+      "pov_reaction": "Ben's body tightens with recognition — not yet full understanding, but the shape of it. A pressure building behind his sternum, a pull toward one of the abandoned drills as if he could restart it by proximity alone."
+    },
+    {
+      "beat_description": "A young Knight about Ben's age describes losing the ability to meditate. 'The Force is there but I can't find the shape of it anymore.' The words land with the weight of a diagnosis.",
+      "state_change": "The turning point. Ben recognizes the description from the Battlefield Node — the permanent distortion now bleeding into occupied Jedi space. The crisis has crossed a threshold.",
+      "pov_reaction": "Empathetic horror floods in. Ben's breath catches; his hands want to reach out and cannot. The Knight is describing something Ben has felt at the Node — the wrongness, the unreliability, the Force arriving in pieces instead of whole. This Knight is experiencing what Ben has only touched in the wound itself."
+    },
+    {
+      "beat_description": "Torin kneels beside the frightened Knight and places a hand on her shoulder — the gesture tender, the eyes over her head cold and measuring. He is not comforting her; he is assessing her.",
+      "state_change": "The scene's final pressure locks in. Torin sees the same suffering Ben sees and reaches a different conclusion about what it requires. The tenderness is genuine; the calculation is also genuine. Both are true at once.",
+      "pov_reaction": "Ben watches Torin's expression and feels the ground shift beneath him. Frustrated helplessness settles in — Ben cannot fix this, cannot explain this, and now must confront that Torin may be planning to solve it in a way Ben is not prepared to accept."
+    }
+  ],
+  "opening_mode": "in_medias_res",
+  "anti_patterns": [
+    "Ben should not, in this scene, theorise Weave distortion to himself",
+    "Torin's compassion must remain genuine on the page; if he reads as obviously manipulative, the chapter's ethical weight collapses",
+    "Ben should not, in this scene, theorise Weave distortion to himself. He listens, he recognises, he does not articulate.",
+    "Torin's compassion must remain genuine on the page; if he reads as obviously manipulative, the chapter's ethical weight collapses.",
+    "Do not arrive at diagnostic voice or clinical articulation of the Force distortion.",
+    "Avoid exposition dump about the seal's failure or the Battlefield Node. Let the Knights' confusion and Ben's recognition carry the information."
+  ]
 }

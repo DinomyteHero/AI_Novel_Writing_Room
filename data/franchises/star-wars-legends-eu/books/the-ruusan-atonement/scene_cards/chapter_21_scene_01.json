@@ -51,7 +51,7 @@
     "Sera's silent Force-lock read is the first of two unannounced tactical ballasts for the s2 decision (per B2)"
   ],
   "promises_paid": [
-    "Torin's certainty is dangerous and he will act on it (PP04)"
+    "PP04"
   ],
   "hook_actions": [
     {
@@ -68,5 +68,55 @@
   "notes": "Keep the scene intimate and face-to-face. Torin should sound calm, sincere, and devastatingly reasonable. Sera's read belongs in one physical beat the room notices but no one explains. The scene should end with Ben understanding that argument alone will not bring Torin back.",
   "primary_anchor": "Stover",
   "supporting_anchor": "Zahn, Bujold",
-  "stover_permitted": true
+  "stover_permitted": true,
+  "turning_point_detail": {
+    "trigger": "Torin describes the first time he used the technique—the moment of beauty and clarity without categories—and says 'It was the truest thing I've ever felt.' Then: 'I'm not asking for permission.'",
+    "shift": "The conversation shifts from Ben's attempt to prevent Torin's departure to Ben's recognition that Torin has already resolved the internal conflict. Sera's hand leaves the bulkhead and her eyes find Ben's—a silent Force-lock read that signals she has detected prepared trigger architectures in Torin's presence. The warmth in Torin's voice becomes the most dangerous thing in the room.",
+    "cost": "Ben watches someone he cares about choose the same lonely certainty that once broke his own life. He must trust a warning from Sera that he only half understands. Torin is claiming the right to decide for everyone else, and Ben has no argument left that will bring him back. The cost is the collapse of Ben's primary tool and the acceleration of the external crisis."
+  },
+  "emotional_arc": {
+    "start": "Concerned confrontation—Ben emerges expecting to find Torin still burdened, still wrestling with the weight of what he carries. The discovery that Torin is rested and lighter triggers alarm rather than relief.",
+    "shift": "Torin's devastating honesty. The warmth in his voice as he describes the technique's clarity, the refusal to frame it as confession or apology, the calm certainty of 'I'm not asking for permission'—these strip away Ben's ability to argue. The shift is from trying to prevent to understanding that prevention is no longer possible.",
+    "end": "The five words that break everything. Ben is braced for the next decision, understanding that force will not work and that Sera has read something in Torin's prepared defenses that Ben does not yet fully comprehend. The emotional register closes on a kind of hollow clarity—the moment when the protagonist realizes the antagonist is not wrong, only catastrophically committed."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Ben emerges from the tent at dawn to find Torin standing in the same spot as last night, but rested, lighter, his Force presence changed overnight—the heaviness that has defined him gone.",
+      "state_change": "The abstract pressure of Torin's internal conflict becomes concrete. The change in Torin's physical and Force presence signals that a decision has been made and resolved internally.",
+      "pov_reaction": "Ben's instinct reads the change as danger before his conscious mind catches up. His body tightens; the urge to act, to move, to stop something rises before he has words for what he is stopping. The wrongness is in the peace—Torin should not look rested in a place where no one sleeps well."
+    },
+    {
+      "beat_description": "Ben confronts Torin at the ridgeline. Torin turns without shifting his weight—already grounded, already decided. Ben throws everything he has at stopping him: argument, appeal, the weight of what Torin leaving means for the group, for the valley, for the wound.",
+      "state_change": "Ben's attempt to prevent Torin's departure meets no resistance and no hidden conflict. Torin is not hiding. He is not manipulating. He is telling Ben the honest shape of a decision made a thousand years ago and confirmed in the breach zone.",
+      "pov_reaction": "Ben feels the ground shift beneath his argument. Each point he makes lands on Torin's calm certainty and slides off. The horror is in the warmth—Torin is not cold or distant or resigned. He is warm and sincere and devastatingly reasonable. Ben's chest tightens with the recognition that he is losing something he cannot fight."
+    },
+    {
+      "beat_description": "Torin describes the first time he used the technique—the moment of beauty, clarity without categories. 'It was the truest thing I've ever felt.' His voice carries no apology, no confession, no request for understanding. Only statement. Then: 'I'm not asking for permission.'",
+      "state_change": "The conversation moves from Ben's attempt at prevention to Ben's recognition that Torin has already made peace with what he is about to do. The five words are not a threat or a challenge. They are a statement of fact. Torin is not asking because he has already decided.",
+      "pov_reaction": "Ben feels the moment crystallize. The warmth in Torin's voice—the refusal to frame the technique as a crime or a burden—strips away Ben's ability to argue. Something in Ben's chest drops. He understands, in that moment, that argument alone will not bring Torin back. The clarity is sharp and cold."
+    },
+    {
+      "beat_description": "Sera at the tent frame places one hand on the bulkhead and closes her eyes briefly. Her face changes—a micro-set of her jaw that only someone trained to see would register. She does not speak. Her eyes find Ben's for the space of a breath and return forward.",
+      "state_change": "Sera's silent Force-lock read signals that she has detected prepared trigger architectures in Torin's presence—counter-measures, defenses, the shape of what Torin has prepared for anyone who might try to lock him. The read itself becomes an argument Ben has not had yet.",
+      "pov_reaction": "Ben's training catches what Sera's face does not say. His Jedi senses register the moment she closes her eyes and reads—the brief, precise contact with Torin's prepared defenses. When her eyes find his, Ben understands that Torin is not just leaving. Torin is prepared for them to try to stop him. The recognition lands like a second blow. Ben has to trust a warning he only half understands."
+    },
+    {
+      "beat_description": "Torin speaks five words. Nobody moves. The temperature between them drops to absolute zero. Sera's hand leaves the bulkhead. Her eyes find Ben's. She does not speak. She does not need to.",
+      "state_change": "The scene closes on the recognition that Ben's primary tool—persuasion, argument, the weight of relationship—cannot stop what is coming. Torin is already moving. Someone has to stop him or the wound opens on his terms. The decision that Ben must make in the next scene is now locked in place.",
+      "pov_reaction": "Ben is braced for the handoff. The five words settle into him like a door closing. He understands that he is watching someone he cares about choose the same kind of lonely certainty that once broke his own life. He also understands that Sera has read something in Torin's defenses that changes the operating picture. The moment is hollow and clear—the protagonist recognizing that the antagonist is not wrong, only catastrophically committed."
+    }
+  ],
+  "opening_mode": "in_medias_res",
+  "anti_patterns": [
+    "Do not open with a flashback or exposition about Torin's past use of the technique",
+    "Do not explain Sera's Force-lock read in dialogue or narration",
+    "Do not arrive at clinical articulation of the Force-lock read or Torin's prepared defenses",
+    "Do not soften Torin's certainty with doubt or hesitation",
+    "Do not have Sera speak during or after her Force-lock read",
+    "Do not resolve the external crisis in this scene",
+    "Keep the scene intimate and face-to-face",
+    "Torin should sound calm, sincere, and devastatingly reasonable",
+    "Sera's read belongs in one physical beat the room notices but no one explains",
+    "The scene should end with Ben understanding that argument alone will not bring Torin back"
+  ]
 }

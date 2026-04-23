@@ -45,5 +45,40 @@
   "hook_actions": [],
   "revelations": [],
   "pov_arc_phase": "moment_of_truth",
-  "notes": "Kael's arc: lie_confronted — the space Ben does not fill with pressure is the space Kael uses to choose. Anti-pattern: do not narrate Kael's realisation; stay in Ben's close-third and let Kael's face change register through Ben's eyes. Ben's instinct is to follow; the scene's work is that he stays. Voice: Allston-quiet — Ben observes, the chapter does not annotate."
+  "notes": "Kael's arc: lie_confronted — the space Ben does not fill with pressure is the space Kael uses to choose. Anti-pattern: do not narrate Kael's realisation; stay in Ben's close-third and let Kael's face change register through Ben's eyes. Ben's instinct is to follow; the scene's work is that he stays. Voice: Allston-quiet — Ben observes, the chapter does not annotate.",
+  "turning_point_detail": {
+    "trigger": "Kael observes Desh working on equipment unaware—the non-Force-user who chose to be here without destiny, institution, or conviction, only purpose.",
+    "shift": "Kael recognizes for the first time the shape of a chosen life. The parallel lands: Desh models freedom through deliberate choice, not Force-granted destiny. Kael's guarded walls ease; his Force presence shifts from defensive to open.",
+    "cost": "Ben must resist his instinct to follow, to explain, to fill the silence with pressure. The cost is Ben's restraint—his willingness to trust Kael's process without intervention. Kael's cost is the vulnerability of choosing without the armor of indifference."
+  },
+  "emotional_arc": {
+    "start": "Ben: waiting, tension coiled toward action. Kael (observed): guarded, processing under pressure.",
+    "shift": "Ben: forced stillness, the strain of non-intervention. Kael (observed): walls easing, Force presence opening, recognition dawning as he watches Desh.",
+    "end": "Ben: braced for Kael's return, witnessing the visible change. Kael: the careful blankness gone, replaced by something that reads as chosen."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Kael walks away from Ben toward the ridge edge. Not leaving—thinking. Ben forces himself not to follow.",
+      "state_change": "The abstract pressure of Kael's internal conflict becomes concrete spatial separation. The question hangs unresolved.",
+      "pov_reaction": "Ben's instinct pushes toward action—follow, explain, convince. He locks it down. The effort registers as physical restraint: breath held, muscles tense, the Force-sense trained on Kael's retreating form. His own uncertainty bleeds into the waiting."
+    },
+    {
+      "beat_description": "Kael reaches the ridge edge and stops. Below, the Scar waits. Kael's gaze shifts from the wound to Desh, working on equipment in the camp below—unaware he is being watched.",
+      "state_change": "The pivot: Kael is no longer looking outward at the problem. He is looking at Desh—the only person in the group without Force-sensitivity, without destiny, without the weight of institutional obligation. Desh chose to be here anyway.",
+      "pov_reaction": "Ben feels the shift in Kael's Force presence before he understands it—the guarded walls easing for the first time since Chapter 5. A loosening, like a held breath released. Ben's own tension does not break; it sharpens into focus. Something is changing in Kael. Ben stays still and watches."
+    },
+    {
+      "beat_description": "Kael turns back toward the group. His stride is different—less careful, more deliberate. Not rushed. Not resigned. Chosen.",
+      "state_change": "Decision locks in. Kael's arc climax: choosing to care after a lifetime of enforced indifference. The non-Force-user modeled a life Kael has never inhabited, and Kael recognized it as possible for himself.",
+      "pov_reaction": "Ben sees the change register in Kael's face—the careful blankness gone, the dry detachment replaced by something new. Ben does not name it. He braces for what comes next, understanding that his refusal to follow was itself the answer Kael needed."
+    }
+  ],
+  "opening_mode": "in_medias_res",
+  "anti_patterns": [
+    "do not narrate Kael's realisation; stay in Ben's close-third and let Kael's face change register through Ben's eyes",
+    "do not have Ben follow Kael before the closing beat",
+    "do not introduce dialogue or external interruption",
+    "do not over-explain the Desh parallel—let it land through observation",
+    "do not drift toward diagnostic voice or clinical analysis of Kael's emotional state"
+  ]
 }

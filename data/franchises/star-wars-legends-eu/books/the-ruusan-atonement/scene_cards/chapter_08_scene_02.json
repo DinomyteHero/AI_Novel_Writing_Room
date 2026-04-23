@@ -46,7 +46,7 @@
     "torin_counter_current_1_kael_protection"
   ],
   "promises_planted": [
-    "Three different Force traditions can work in concert (PP13)"
+    "PP13"
   ],
   "promises_paid": [],
   "hook_actions": [],
@@ -56,5 +56,50 @@
   "notes": "Veraine's position (the seal as prison, release as mercy) is present by absence — the missing fourth voice, audible in its shape around the three that speak. Kael's closing observation (the 'cages' framing) is the line to remember from this chapter — land it and leave. Per D7 counter-current 1: Torin's intercept of Sera's pressure on Kael is a real ambiguity, not misdirection. On the corruption trajectory, Torin would want Kael vulnerable (so he can later recruit Kael into the forbidden-technique camp); here he protects Kael at zero cost to himself. The beat must read as characterisation, not plot signal — Ben sees the redirect, does not interpret it, files it. Per D7 anti-pattern, narrator does not correct Ben's file-and-move-on; no 'Torin was protecting Kael for reasons Ben would only later understand' line. Hold the beat as live ambiguity. Per D3, the Weave is the shared referent; Sera may use 'the work', Torin 'the stitching', Kael 'the cloth' — in-character variants without breaking the shared referent. Per D4, the concept-vs-sensation rule holds — each position's weight registers through body-language (Sera's fork, Torin's hands, Kael's flat voice) not through labelled philosophical abstractions. Per R11, Ben's close-third does not internally synthesise all four positions into a framework. He is the one person at the table without a settled answer; the scene's value is that his not-knowing is visible through what he does not say, not through an interior monologue labelling his own destabilisation. Per R12, Torin's warmth is load-bearing across this scene even as it thins during the argument — the counter-current protection of Kael refreshes the warmth specimen at the beat's exit. Anti-patterns: no monologues; Torin's reasonableness must be genuinely compelling on the page, not a strawman; Sera's anger should register in posture and diction, not in a speech; the Torin-counter-current beat is not underlined. Primary anchor: Allston (ensemble dialogue architecture — five distinct voices at a small table); supporting anchor: Zahn (discipline of scene structure), Bujold (Ben's interior register of the redirect he sees without interpreting).",
   "primary_anchor": "Allston",
   "supporting_anchor": "Zahn, Bujold",
-  "stover_permitted": false
+  "stover_permitted": false,
+  "turning_point_detail": {
+    "trigger": "Kael speaks last, landing a single-sentence observation that reframes all three positions (Sera's sacred violation, Torin's structural tool, Kael's institutional truth-claim) as equivalent cages.",
+    "shift": "The philosophical collision peaks and stalls. Nobody answers because nobody has a defensible response. The group's ideological fault lines are now exposed and live.",
+    "cost": "Ben's worldview destabilizes — the Force he was taught to understand does not match the room he is standing in. The group's ability to act together is now contingent on coexistence rather than resolution. Torin's counter-current protection of Kael registers for Ben without explanation, filing as live ambiguity."
+  },
+  "emotional_arc": {
+    "start": "Simmering tension beneath the meal — pressure building but not yet articulated.",
+    "shift": "Heated philosophical collision — Sera's fork, Torin's hands, Kael's flat voice each carrying weight. The pressure sharpens from abstract disagreement into concrete ideological opposition.",
+    "end": "Uncomfortable silence — the collision peaks and stalls. Ben braced in the aftermath, holding four positions that cannot coexist and no framework to reconcile them."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Sera sets down her fork with controlled precision when Torin raises the technique over their meal. The gesture itself is a warning.",
+      "state_change": "The simmering tension becomes concrete. The opening pressure moves from abstract disagreement into visible opposition.",
+      "pov_reaction": "Ben registers the shift in Sera's body language — the deliberate placement of the fork — as a threshold crossed. His instinct pushes toward action rather than explanation; he feels the need to move, to do something, but the table holds him in place."
+    },
+    {
+      "beat_description": "Torin spreads his hands on the table in a gesture of measured reasonableness. His argument unfolds with the weight of inevitability — the Weave as structure, the technique as a tool, the problem as engineering rather than violation.",
+      "state_change": "The pressure escalates. Torin's reasonableness makes his position feel self-evident, which sharpens the opposition rather than softening it. Four distinct positions are now in the room: Sera's, Torin's, Kael's, and Ben's absence.",
+      "pov_reaction": "Ben feels the heated philosophical collision tighten his focus. Torin's warmth — which has been load-bearing through the journey — thins visibly as he commits to the argument. Ben tracks the shift without naming it."
+    },
+    {
+      "beat_description": "Sera pivots toward Kael with an edged question — pressure redirecting from Torin toward the outsider. Torin smoothly intercepts, spreading his hands again, redirecting the heat back to himself before Kael has to answer. The redirect is not visible as one. Kael does not need the protection; Torin does it anyway.",
+      "state_change": "The scene's pressure architecture shifts. Torin absorbs the heat that would have landed on Kael. The group's internal dynamics surface: who protects whom, and at what cost.",
+      "pov_reaction": "Ben sees the redirect — the way Torin's hands move, the way his voice shifts register, the way Sera's question never lands on Kael. He does not interpret it. He files it as live ambiguity, a beat that means something he is not yet equipped to understand."
+    },
+    {
+      "beat_description": "Kael speaks last, his voice flat and cutting. One sentence: a reframing that collapses all three positions into equivalent institutional captivities. The Weave as sacred, the Weave as structure, the Weave as truth-claim — all of them cages built by people who decided they had the answer.",
+      "state_change": "The philosophical collision peaks and stalls. Nobody answers because nobody has a good response. Veraine's position — the seal as prison, release as mercy — is present by absence, audible in the shape around the three voices that spoke.",
+      "pov_reaction": "Ben feels the uncomfortable silence settle. His worldview, which was already destabilizing, finds no purchase in the room. He is the one person at the table without a settled answer, and that absence is now visible through what he does not say. The pressure lands on him not as a question but as a weight."
+    }
+  ],
+  "opening_mode": "dialogue_hook",
+  "anti_patterns": [
+    "Anti-patterns: no monologues; Torin's reasonableness must be genuinely compelling on the page, not a strawman; Sera's anger should register in posture and diction, not in a speech; the Torin-counter-current beat is not underlined",
+    "No monologues — positions emerge through dialogue and action, not explanation.",
+    "Torin's reasonableness must be genuinely compelling on the page, not a strawman position.",
+    "Sera's anger should register in posture and diction, not in a speech.",
+    "The Torin counter-current protection of Kael is not underlined — Ben sees it, does not interpret it, files it as live ambiguity.",
+    "Narrator does not correct Ben's file-and-move-on; no 'Torin was protecting Kael for reasons Ben would only later understand' line.",
+    "Do not have Ben internally synthesize all four positions into a framework.",
+    "Avoid diagnostic voice or philosophical abstraction — let positions emerge through what each character does and says.",
+    "Do not resolve the ideological collision or provide a good answer to Kael's closing observation.",
+    "Veraine's position is present by absence — do not introduce her voice directly."
+  ]
 }

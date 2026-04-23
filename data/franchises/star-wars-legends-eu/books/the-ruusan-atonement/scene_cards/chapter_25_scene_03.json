@@ -57,8 +57,8 @@
   ],
   "promises_planted": [],
   "promises_paid": [
-    "Veraine's philosophy answered through results (PP16)",
-    "The cycle of unilateral power broken (PP11)",
+    "PP16",
+    "PP11",
     "Ben's new capacity (interpreter-of-chord) tested under load — D2 payoff",
     "B3 heartbeat beat payoff — node wobble + comm re-stabilisation + steady"
   ],
@@ -76,5 +76,53 @@
   "notes": "Keep Ben inside the effort rather than explaining the mechanism. The node wobble is one sharp suspense beat, not a prolonged exchange. Veraine's confusion should register as disciplined intelligence meeting an answer it did not allow for. Desh is present through the nodes and the brief comm call, not as a felt Force-presence.",
   "primary_anchor": "Zahn",
   "supporting_anchor": "Stover, Luceno",
-  "stover_permitted": true
+  "stover_permitted": true,
+  "turning_point_detail": {
+    "trigger": "The containment node wobbles—Ben feels the voice weaken for a breath—and Desh's comm re-stabilizes it in a single half-second of language. The chord holds. Then the resonance produces the emergent overtone: three textures producing a fourth.",
+    "shift": "Veraine's composure registers confusion for the first time in a thousand years. Her theory cannot absorb what she is looking at without breaking itself. Her ritual collapses not because Ben overpowered her, but because the result is unmodelable.",
+    "cost": "Ben must hold the chord by feel while trusting three specialists he cannot verify—Sera's rigid signature, Kael's fluid variable, Desh's voice arriving in language where Force-sense cannot carry instruction. The cost is the full strain of his new way of operating: he cannot control all of it, and the chord only holds because each of them does something he cannot do for them."
+  },
+  "emotional_arc": {
+    "start": "Holding the chord under load—focused, pressured, committed to the shape Ben has built with three specialists he cannot fully verify.",
+    "shift": "The node-wobble heartbeat—a moment where the entire operation teeters on the edge of collapse, and Ben's focus tightens to a single point of failure that is not his to control.",
+    "end": "The collapse of Veraine's thesis—a strange, cold clarity. Ben has won, but not in a way he can explain or replicate. The victory is real, but it belongs to all four of them, and Veraine's face shows she understands this and rejects it."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Veraine's ritual staggers as the amplification array drops offline. She compensates with raw personal power, but the Weave infrastructure underneath her working is gone. Ben feels the pressure shift from abstract to concrete.",
+      "state_change": "The opening pressure becomes immediate and measurable. Veraine is powerful enough to push the ritual forward alone, but not powerful enough to complete the breach without the array. She is now operating on deficit.",
+      "pov_reaction": "Ben's instinct pushes toward action rather than explanation. His body tightens. The chord beside him—Sera's rigid signature, Kael's fluid variable—becomes the only thing between Veraine and the breach. He holds it by feel, not by understanding."
+    },
+    {
+      "beat_description": "Ben holds the chord: three specialist contributions he cannot verify, held in one executable shape by feel. Sera's read, Kael's variable, Desh's nodes humming behind him through the guarded route. The pressure escalates. Ben does not turn back into the man who tries to control all of it.",
+      "state_change": "The mission advances. Ben's new capacity—interpreter-of-chord—is now under full operational load. He is not directing them; he is holding the shape they produce together.",
+      "pov_reaction": "The pressure tightens Ben's focus. He cannot verify what Sera is reading or what Kael is doing with the variable. He can only feel the chord holding. The sensation is not comfort; it is trust under strain, and the strain is constant."
+    },
+    {
+      "beat_description": "One containment node wobbles. Ben feels the voice weaken for a breath—a single tone in a six-part conversation going uncertain while five other voices stay steady. The chord nearly collapses. Then Desh's comm crackles: a single half-second of language specifying a duration Force-sense cannot carry. The node steadies. The chord holds.",
+      "state_change": "The scene pivots on a mechanism Veraine cannot model. The Force cannot carry language; language cannot carry Force-sense. But Desh's voice reaches across the only gap the Force cannot bridge, and the node stabilizes. The dual-channel mechanism works. The chord survives.",
+      "pov_reaction": "Ben's heartbeat registers the wobble as a physical sensation—a vertigo-like drop in the chord's stability. His body braces for collapse. Then the comm arrives, and the node's voice steadies. Relief is secondary to recognition: something just worked that should not have been possible. The pressure does not ease; it shifts."
+    },
+    {
+      "beat_description": "The resonance produces an emergent overtone. Three textures—Sera's read, Kael's variable, Desh's stabilization—produce a fourth register none of them could produce alone. The chord becomes something it was not before.",
+      "state_change": "Veraine's composure registers confusion for the first time in a thousand years. Her face shows the micro-set of disciplined intelligence meeting an answer it did not allow for. Her lips move, not in speech but in equations. Her theory cannot absorb what she is looking at without breaking itself.",
+      "pov_reaction": "Ben feels the shift in Veraine's presence before he sees her face. The overtone is real—a texture in the Weave that should not exist. It is not a victory he can name or explain. It is emergence: three specialists producing a fourth voice, and the fourth voice is not Ben's."
+    },
+    {
+      "beat_description": "Veraine's ritual collapses. Her face settles into something harder than confusion: recognition without acceptance. She files the observation. She does not stop thinking.",
+      "state_change": "The scene closes on new information that changes Veraine's operating picture. She has been defeated empirically, but her mind is already moving. She has encountered data that contradicts her thesis, and she has not accepted the contradiction; she has simply noted it and filed it away.",
+      "pov_reaction": "Ben holds the chord steady as Veraine's ritual fails. The pressure does not ease—it shifts into a different register. The victory is real, but it is not final. Veraine's face shows that she understands what just happened and that understanding has not changed her course. She has simply learned something new about the problem."
+    }
+  ],
+  "opening_mode": "sensory_hook",
+  "anti_patterns": [
+    "Do not open with a flashback or explanation of how the chord was built",
+    "Do not explain the mechanism of the dual-channel system—keep Ben inside the effort",
+    "The node wobble is one sharp suspense beat, not a prolonged exchange",
+    "Do not arrive at clinical articulation of the Force or the Weave—keep descriptions sensory and experiential",
+    "Veraine's confusion should register as disciplined intelligence meeting an answer it did not allow for, not as a moment of acceptance",
+    "Do not have Desh appear as a felt Force-presence—he is present through the nodes and the brief comm call only",
+    "Do not use 'an ambient hum of the structural lattice' or similar well-worn defaults for Force-sense",
+    "Do not resolve the larger conflict—this is Veraine's ritual collapsing, not her defeat. She does not stop thinking"
+  ]
 }

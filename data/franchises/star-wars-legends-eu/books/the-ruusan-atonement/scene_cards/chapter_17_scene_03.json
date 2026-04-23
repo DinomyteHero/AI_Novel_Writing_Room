@@ -62,5 +62,45 @@
   "notes": "End the chapter on inevitability. The sensor track and the ledger fragment should feel like the same kind of intelligence in different forms.",
   "primary_anchor": "Zahn",
   "supporting_anchor": "Luceno, Bujold",
-  "stover_permitted": false
+  "stover_permitted": false,
+  "turning_point_detail": {
+    "trigger": "The two ship trajectories lock on the nav display, converging at Veranthos within hours of each other.",
+    "shift": "Ben recognizes that Veraine is not fleeing—she timed this. The endgame is a fixed date, not a variable guess. The ledger-fragment in the margin delivers a parallel certainty: her mind and her ship move in the same shape. She thinks the way her movements track.",
+    "cost": "The cost lands on Ben: no more preparation time, no more room to reshape the vector. He is reading Veraine's working voice while watching her ship's parallel course converge. Torin's unsettling anticipation (the expression of a man coming home) strains against everyone else's dread, adding interpersonal pressure to the tactical one."
+  },
+  "emotional_arc": {
+    "start": "Tactical alertness—instinct pushing toward action rather than explanation.",
+    "shift": "Grim inevitability as the two trajectories lock and the date becomes fixed. The pressure tightens Ben's focus on what just changed and what cannot be changed.",
+    "end": "The ledger-fragment's quiet adjacency—a kind of cold clarity that comes from reading an enemy's working mind while watching her ship approach. No dread, no hope. Just the shape of what is coming."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Desh calls the contact on the long-range sensor display and confirms Veraine's ship signature on a parallel course.",
+      "state_change": "The abstract threat becomes concrete. The opening pressure shifts from theoretical to observable on the display.",
+      "pov_reaction": "Ben's tactical alertness sharpens—a reflex toward action, toward doing something with the information. His body language should register the impulse to move before his mind catches up to the fact that there is nowhere to move yet."
+    },
+    {
+      "beat_description": "Ben leans over the nav console and overlays both trajectories, watching the convergence point calculate at Veranthos within hours.",
+      "state_change": "The shipboard clock and the Veranthos clock lock together. The mission timeline collapses from 'approaching' to 'imminent.' The vector is no longer reshapeable.",
+      "pov_reaction": "Grim inevitability settles in—a tightening of focus, a narrowing of what matters. Ben should feel the weight of the display's numbers the way a pilot feels a descent vector that cannot be aborted. His attention should narrow to the convergence point itself."
+    },
+    {
+      "beat_description": "Torin watches the nav display with the expression of a man coming home, not hiding it, not trying to mask the anticipation.",
+      "state_change": "The scene pivots from tactical observation to interpersonal strain. Ben sees Torin's readiness and recognizes it as something other than dread—something that mirrors Veraine's own timing, her own certainty.",
+      "pov_reaction": "Ben registers Torin's expression as a kind of mirror to what he is about to read in the ledger-fragment. The anticipation is unsettling because it suggests Torin knows something about the endgame that the group does not yet. Ben's focus should shift from the display to Torin's face, then back to the display, searching for the connection."
+    },
+    {
+      "beat_description": "Ben reads the recovered ledger-fragment on his datapad—a short working note in Veraine's voice, no address to any reader, the residue of a mind that thinks at night.",
+      "state_change": "The ledger-fragment confirms that Veraine's working voice is continuous with her spoken register. Her mind and her ship are the same shape. The scene lands on the certainty that what the group heard in the clearing was her—not a projection, not a fragment, but her working intelligence rendered in her own diction.",
+      "pov_reaction": "The pressure resolves into the ledger-fragment's quiet adjacency. Ben is reading an enemy's working mind while watching her ship approach. No dread, no hope—just the cold clarity of understanding how she thinks. His attention should settle into the datapad's glow, the words on the screen, the rhythm of her syntax. The physical sensation should be stillness, not tension—the kind of focus that comes from reading something that confirms what you already suspected but did not want to know."
+    }
+  ],
+  "opening_mode": "in_medias_res",
+  "anti_patterns": [
+    "Do not open with a flashback or exposition dump about Veraine's escape or the seal's degradation.",
+    "Avoid diagnostic voice when describing the ledger-fragment—do not have Ben analyze her syntax or explain her working philosophy. Let the words speak.",
+    "Do not arrive at clinical articulation of the convergence point—no mission-debrief sentences like 'The vectors intersected at Veranthos in 4.3 hours.' Let the display show it and let Ben's reaction carry the weight.",
+    "Keep the scene sensory and observational, not too composed. Ben is reading a datapad and watching a display; the prose should feel like that, not like a strategic briefing.",
+    "Do not describe Veraine's presence in metaphor or abstraction. She is a dot on a display and a line of handwriting. Treat both as concrete."
+  ]
 }

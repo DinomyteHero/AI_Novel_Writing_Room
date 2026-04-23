@@ -44,10 +44,45 @@
   ],
   "promises_planted": [],
   "promises_paid": [
-    "Sera/Torin relationship plays out (PP03)"
+    "PP03"
   ],
   "hook_actions": [],
   "revelations": [],
   "pov_arc_phase": "new_truth_demonstrated",
-  "notes": "Torin's arc reaches its lie_consequence beat — the diminished survival embodies the cost of mistaking self-sacrifice for moral authority. Sera's arc lands in the new-truth beat: principled flexibility, love without control, the discipline used the other way. Anti-pattern: Sera and Torin do not speak inside the void; no dialogue with the void-voice. The scene is render-through-Ben — Ben watches from outside, Sera and Torin are felt through Ben's close-third. Voice: Stover-permitted density; the void is the climactic core's most interior sensory passage, but the interiority belongs to Ben observing, not to a POV shift."
+  "notes": "Torin's arc reaches its lie_consequence beat — the diminished survival embodies the cost of mistaking self-sacrifice for moral authority. Sera's arc lands in the new-truth beat: principled flexibility, love without control, the discipline used the other way. Anti-pattern: Sera and Torin do not speak inside the void; no dialogue with the void-voice. The scene is render-through-Ben — Ben watches from outside, Sera and Torin are felt through Ben's close-third. Voice: Stover-permitted density; the void is the climactic core's most interior sensory passage, but the interiority belongs to Ben observing, not to a POV shift.",
+  "turning_point_detail": {
+    "trigger": "Sera's hands on Torin's hands—Force-lock expertise reversed, unsealing instead of sealing.",
+    "shift": "The technique resists but yields. Torin's Force presence separates from the wound like tearing adhesive. Her principle, her training, and her love execute in the same action.",
+    "cost": "The cost lands on Ben: Sera's arc completes at the price of Torin's diminishment. The relationship's final act saves him but replaces the parts that made him Torin. The new seal strains under the extraction, and Ben must hold the resonance steady while Sera pulls him free."
+  },
+  "emotional_arc": {
+    "start": "Desperate rescue—Ben's focus narrowed to action, the void pressing from all sides.",
+    "shift": "The fight against the technique—pressure tightening as Sera's hands move against the Force-lock's resistance, the wound pulling back.",
+    "end": "Devastating partial success—Torin alive but diminished, the warmth returning and fading, Ben braced at the boundary between extraction and loss."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Sera reaches Torin inside the void and places her hands over his, Force-lock expertise reversing, unsealing instead of sealing.",
+      "state_change": "The abstract pressure of the void becomes concrete resistance. The wound's pull on Torin becomes tactile, felt through Ben's close-third as a tension between Sera's hands and the Scar's grip.",
+      "pov_reaction": "Ben's instinct pushes toward action rather than explanation. His Force-sense registers Sera's presence as a counterweight to the void's formlessness—a shape, a direction, a refusal. His breath catches; his hands move as if to reach toward her, then stop."
+    },
+    {
+      "beat_description": "Sera pulls Torin free from the technique—his Force presence separating from the wound like tearing adhesive, the Force-lock discipline inverted against itself.",
+      "state_change": "The technique resists. The wound fights the extraction. For a beat, the seal's new equilibrium wavers—Ben feels the resonance stutter, the containment structure shudder. Then Torin separates. The void collapses inward where he was standing.",
+      "pov_reaction": "Ben's focus tightens to a single point: holding the resonance steady while Sera completes the extraction. His Force-sense becomes a brace, a counterforce. The effort is not pain but a kind of vertigo—the sensation of standing in two places at once, one foot in the void, one in the world. His jaw clenches. His shoulders lock."
+    },
+    {
+      "beat_description": "Torin's eyes find Sera's face and the warmth returns for a moment before fading to something quieter, smaller, diminished.",
+      "state_change": "The extraction is complete. Torin is alive. But the parts of him that were integrated with the wound—the parts that held it closed, that felt its pull, that understood its weight—are gone. What returns is recognition without the depth that made recognition matter. The caldera didn't consume him. It replaced him.",
+      "pov_reaction": "Ben feels the moment as a kind of settling—the pressure that has been building since Sera entered the void releases, but not into relief. Into a quieter, heavier thing. His Force-sense registers Torin's presence as diminished, the edges softer, the resonance smaller. He does not look away. He cannot. This is what the extraction cost."
+    }
+  ],
+  "opening_mode": "sensory_hook",
+  "anti_patterns": [
+    "Sera and Torin do not speak inside the void; no dialogue with the void-voice",
+    "Sera and Torin do not speak inside the void; no dialogue with the void-voice.",
+    "Do not shift POV away from Ben's close-third observation—the void is rendered through what Ben feels, not through Sera's or Torin's interiority.",
+    "Do not arrive at clinical articulation of the Force-lock technique. The reversal is felt as resistance, as adhesive tearing, as the wound pulling back—not explained as a procedural inversion.",
+    "Avoid diagnostic voice when describing the void. The void is formless, sensory-sparse; render it through absence and pressure, not through analysis of its properties."
+  ]
 }

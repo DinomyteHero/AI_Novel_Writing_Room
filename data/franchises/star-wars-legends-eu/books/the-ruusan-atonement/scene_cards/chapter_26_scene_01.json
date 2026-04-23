@@ -44,10 +44,46 @@
   ],
   "promises_planted": [],
   "promises_paid": [
-    "Maetha's warning proves true (PP05)"
+    "PP05"
   ],
   "hook_actions": [],
   "revelations": [],
   "pov_arc_phase": "new_truth_demonstrated",
-  "notes": "Maetha's warning payoff. Torin's diminishment must be specific and terrible — not dramatic dark-side corruption but the slow subtraction of the parts that made him Torin (warmth, humor, the specific idioms of affection). His voice in the void is articulate and empty; not sinister, just less. Anti-pattern: no altered eyes, no altered voice in the villainous sense; the cost is reduction. Rotate Force-wrongness metaphor here: the structured-absence register (Torin's void as deliberate, directional, the technique at full expression) rather than handrail or pressure."
+  "notes": "Maetha's warning payoff. Torin's diminishment must be specific and terrible — not dramatic dark-side corruption but the slow subtraction of the parts that made him Torin (warmth, humor, the specific idioms of affection). His voice in the void is articulate and empty; not sinister, just less. Anti-pattern: no altered eyes, no altered voice in the villainous sense; the cost is reduction. Rotate Force-wrongness metaphor here: the structured-absence register (Torin's void as deliberate, directional, the technique at full expression) rather than handrail or pressure.",
+  "turning_point_detail": {
+    "trigger": "Sera's recognition that Torin is being consumed by the technique, articulated in her line: 'I was sealed once.'",
+    "shift": "She chooses to enter the void rather than remain a witness to his replacement. The scene pivots from Ben's horror at Torin's diminishment to Sera's desperate, principled action.",
+    "cost": "Torin is replaced by the technique — Maetha's prophecy fulfills. Sera enters the void and Ben loses both of them in a single beat. The cost to Ben is the straining of his ability to act: he reaches for Sera and she shakes him off, leaving him across the valley as both his allies vanish."
+  },
+  "emotional_arc": {
+    "start": "Horror at Torin's diminishment — the specific terror of watching someone he trusts become less themselves in real time.",
+    "shift": "Sera's desperate determination overrides Ben's instinct to protect. Her choice forces Ben to confront that he cannot save everyone, and that the people he trusts will make choices he cannot prevent.",
+    "end": "The choice to save Torin, made by Sera, leaves Ben braced and isolated — the weight of what just happened settling into his shoulders as she enters the void."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Torin stands at the Scar with his hands on the wound, holding it closed with his own Force presence. His eyes are open but unseeing. The Scar visibly narrows as the technique works.",
+      "state_change": "The abstract pressure of the failing seal becomes concrete and visible. The wound is closing. Torin is winning — and losing.",
+      "pov_reaction": "Ben's horror registers as a physical jolt through the Force-bond — the wrongness of Torin's presence, the absence of the warmth and humor and specific idioms of affection that made him Torin. What Ben feels is not dark-side corruption but subtraction: the technique is replacing, not corrupting. His instinct pushes toward action, but he is across the valley and Torin's hands are already on the wound."
+    },
+    {
+      "beat_description": "Sera screams Torin's name. She moves toward the void. Ben reaches for her — a reflex, a plea — and she shakes him off without breaking stride.",
+      "state_change": "The scene pivots. Ben's horror becomes secondary to Sera's desperate determination. She has seen what the technique costs and she will not be a witness to it.",
+      "pov_reaction": "Ben feels the rejection through their connection — not anger, but the iron of someone who has already decided. His reach fails. The pressure of the moment tightens around what he cannot prevent, and Sera's choice forces him to understand that his allies are not his to save."
+    },
+    {
+      "beat_description": "Sera enters the void. Her Force presence flares against the unweaving — a sharp, bright resistance as she crosses the boundary between the structured absence and whatever lies inside Torin's diminishment.",
+      "state_change": "Both Torin and Sera are now inside the void. The technique has two anchors instead of one. The Scar continues to narrow. Ben is alone on the outside, watching.",
+      "pov_reaction": "The moment lands as the choice to save him — Sera's choice, not Ben's. Ben is left braced at the boundary, the weight of what just happened settling into his shoulders. His voice reaches for her — 'Sera, don't—' — but it is already too late. She looks back once, and then she is gone. The scene ends with Ben across the valley, watching the void close, understanding that Maetha's warning has fulfilled and that the next move is his alone."
+    }
+  ],
+  "opening_mode": "in_medias_res",
+  "anti_patterns": [
+    "no altered eyes, no altered voice in the villainous sense; the cost is reduction",
+    "No altered eyes, no altered voice in the villainous sense; the cost is reduction.",
+    "Do not use the handrail or pressure metaphor for the Force-wrongness here — rotate to the structured-absence register: Torin's void as deliberate, directional, the technique at full expression.",
+    "Do not open with a flashback or exposition about Maetha's warning — the payoff lands through action, not recollection.",
+    "Do not have Torin speak in corrupted or sinister tones — his voice is articulate and empty, the precision of someone who remembers how to form sentences but has forgotten why they matter.",
+    "Do not soften Sera's choice or have Ben convince her to stay — her determination is iron, and she shakes him off without hesitation."
+  ]
 }

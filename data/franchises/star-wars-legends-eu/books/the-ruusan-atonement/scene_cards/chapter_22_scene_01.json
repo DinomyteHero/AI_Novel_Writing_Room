@@ -43,7 +43,7 @@
   ],
   "promises_planted": [],
   "promises_paid": [
-    "Sera's rigidity breaks into flexibility (PP20 partial)"
+    "PP20"
   ],
   "hook_actions": [
     {
@@ -55,5 +55,39 @@
     "R12"
   ],
   "pov_arc_phase": "moment_of_truth",
-  "notes": "R12 -- the Weave-Resonance articulated as shared-burden containment rather than re-weaving proof. Sera's new-truth beat lands here through action, not narration. The shift from 'Skywalker' to 'Ben' may begin here -- a single line of dialogue, no commentary around it, subtle and earned. Diagnostic-voice trap -- Ben should not, in this scene, narrate Sera's arc as 'principled flexibility'; the phrase is for the scene card, not the prose. The shift registers through her handwriting on his datapad and her willingness to work Ankhural's fragment on its own terms. Voice: Zahn-procedural, engineer-quiet."
+  "notes": "R12 -- the Weave-Resonance articulated as shared-burden containment rather than re-weaving proof. Sera's new-truth beat lands here through action, not narration. The shift from 'Skywalker' to 'Ben' may begin here -- a single line of dialogue, no commentary around it, subtle and earned. Diagnostic-voice trap -- Ben should not, in this scene, narrate Sera's arc as 'principled flexibility'; the phrase is for the scene card, not the prose. The shift registers through her handwriting on his datapad and her willingness to work Ankhural's fragment on its own terms. Voice: Zahn-procedural, engineer-quiet.",
+  "turning_point_detail": {
+    "trigger": "Sera adapts her archaic notation onto the shared-burden containment plan on its own terms, working Ankhural's fragment as a live answer rather than translating it into her discipline.",
+    "shift": "The dynamic between Ben and Sera pivots from parallel work to true partnership. Her willingness to hold her own tradition lightly while engaging the fragment's logic on its own terms signals a fundamental reorientation — not abandonment of NSW discipline, but integration of it into something larger.",
+    "cost": "Ben recognizes that this partnership, this moment of genuine collaboration, now depends on a fourth person whose answer is not yet secured. The breakthrough carries immediate vulnerability: without Kael, the resonance collapses and the burden falls back onto Torin or the wound opens on Veraine's terms."
+  },
+  "emotional_arc": {
+    "start": "Intense intellectual pressure — the need to solve an unsolvable problem before the timeline closes.",
+    "shift": "Breakthrough clarity when Sera's adaptation lands. The pressure transforms from abstract urgency into concrete possibility.",
+    "end": "Dependency and exposure. The plan is sound, but its execution depends on a choice Ben cannot control. The weight of that dependency settles into his awareness."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Ben and Sera spread Codex notes and archive data across every flat surface in the camp workspace, positioning themselves to work through the resonance theory side by side.",
+      "state_change": "The abstract pressure of the timeline becomes concrete. The problem is no longer theoretical — it is now a physical arrangement of fragments and calculations that must yield an answer.",
+      "pov_reaction": "Ben's instinct pushes toward action and forward momentum rather than explanation or doubt. His focus narrows to the work itself — the patterns in Ankhural's notation, the gaps in his own modern Force analysis, the shape of what might fit together. A low-level hum of urgency runs beneath his concentration."
+    },
+    {
+      "beat_description": "Sera adapts her archaic NSW notation to match Ben's modern Force framework, her handwriting flowing alongside his on the same datapad. She is not translating Ankhural into her discipline; she is working the fragment as a live containment answer, holding her own tradition lightly enough to let the solution emerge.",
+      "state_change": "The collaboration shifts from parallel work to genuine partnership. Sera's flexibility is not compromise — it is disciplined engagement with a problem larger than any single tradition can hold. The resonance theory begins to cohere.",
+      "pov_reaction": "Ben's pressure tightens into focus. He registers the moment Sera stops defending her notation and starts using it as a tool. The shift is visible in her handwriting, in the speed of her adaptation, in the absence of hesitation. Something in his chest loosens slightly — not relief, but recognition that they are no longer working alone."
+    },
+    {
+      "beat_description": "Desh provides logistical reality checks from the supply manifest while Ben and Sera calculate the resonance requirements — power draw, duration, the physical and Force-sensitive resources the containment will demand.",
+      "state_change": "The plan solidifies from theory into operational framework. The numbers are real. The requirements are clear. The path forward exists — but it has a condition.",
+      "pov_reaction": "Ben feels the weight of the dependency settle into place. The resonance requires three traditions. They have two. Kael is the variable, and Kael's answer is not yet in. The breakthrough carries immediate vulnerability. Without him, there is no resonance. Without resonance, there is only Torin's sacrifice or the wound opening on Veraine's terms. Ben holds both possibilities in awareness simultaneously — the plan that works and the plan that fails — and the gap between them is Kael's choice."
+    }
+  ],
+  "opening_mode": "in_medias_res",
+  "anti_patterns": [
+    "- Ben should not, in this scene, narrate Sera's arc as 'principled flexibility'; the phrase is for the scene card, not the prose",
+    "Ben should not narrate Sera's arc as 'principled flexibility' — the phrase is for the scene card, not the prose. The shift registers through her handwriting on his datapad and her willingness to work Ankhural's fragment on its own terms.",
+    "Do not arrive at diagnostic voice or clinical articulation of Force mechanics. Keep Force-sense descriptions experiential and sensory.",
+    "Avoid exposition dump about Ankhural's Codex or the history of the three traditions. The scene begins with the work already underway."
+  ]
 }

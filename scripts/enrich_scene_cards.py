@@ -43,6 +43,7 @@ from __future__ import annotations
 import argparse
 import asyncio
 import json
+import re
 import sys
 from pathlib import Path
 from typing import Any
@@ -51,17 +52,337 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
+from dotenv import load_dotenv  # noqa: E402
+
+load_dotenv()
+
 from src.agents.plot_architect import PlotArchitect  # noqa: E402
 from src.memory.context_assembler import ContextAssembler  # noqa: E402
 from src.model_router import ModelRouter  # noqa: E402
+from src.pipeline.brief_assembler import BriefAssembler  # noqa: E402
 from src.project_paths import ProjectPaths  # noqa: E402
 
 
 ENRICHED_FIELDS = ("turning_point_detail", "emotional_arc", "key_beats")
+_VALID_OPENING_MODES = {
+    "in_medias_res", "sensory_hook", "dialogue_hook", "contrast",
+}
 
 
 def _is_already_enriched(card: dict) -> bool:
     return all(card.get(field) for field in ENRICHED_FIELDS)
+
+
+def _short_pov_name(card: dict) -> str:
+    pov = str(card.get("pov_character") or "The POV character").strip()
+    return pov.split(" (", 1)[0]
+
+
+def _normalize_whitespace(text: str) -> str:
+    return re.sub(r"\s+", " ", text or "").strip()
+
+
+def _lower_sentence_start(text: str) -> str:
+    text = _normalize_whitespace(text)
+    if not text:
+        return text
+    return text[:1].lower() + text[1:]
+
+
+def _split_sentences(text: str) -> list[str]:
+    cleaned = _normalize_whitespace(text)
+    if not cleaned:
+        return []
+    return [
+        part.strip(" -")
+        for part in re.split(r"(?<=[.!?])\s+", cleaned)
+        if part.strip(" -")
+    ]
+
+
+def _parse_emotional_arc(card: dict) -> dict[str, str]:
+    raw = _normalize_whitespace(str(card.get("emotional_trajectory") or ""))
+    if not raw:
+        fallback = "heightened pressure"
+        return {"start": fallback, "shift": fallback, "end": fallback}
+
+    parts = [
+        part.strip(" .")
+        for part in re.split(r"\s*(?:->|→)\s*", raw)
+        if part.strip(" .")
+    ]
+    if len(parts) >= 3:
+        return {
+            "start": parts[0],
+            "shift": parts[1],
+            "end": parts[-1],
+        }
+    if len(parts) == 2:
+        return {
+            "start": parts[0],
+            "shift": f"transition from {parts[0].lower()} to {parts[1].lower()}",
+            "end": parts[1],
+        }
+    return {
+        "start": parts[0],
+        "shift": f"pressure turns around {parts[0].lower()}",
+        "end": parts[0],
+    }
+
+
+def _derive_opening_mode(card: dict) -> str | None:
+    opening_hook = _normalize_whitespace(str(card.get("opening_hook") or ""))
+    if not opening_hook:
+        return None
+
+    lowered = opening_hook.lower()
+    if (
+        opening_hook.startswith(("\"", "'", "“"))
+        or any(token in lowered for token in (
+            " says ", " asks ", " replies ", " answered ", " shouts ",
+            " whispers ",
+        ))
+    ):
+        return "dialogue_hook"
+
+    if any(token in lowered for token in (
+        " while ", " but ", " yet ", " though ", " although ", " instead ",
+        " contradict", " does not match ", " don't match", " does not fit ",
+    )):
+        return "contrast"
+
+    if lowered.startswith((
+        "inside ", "in the ", "on the ", "under ", "beneath ", "within ",
+    )) or any(token in lowered for token in (
+        "hum", "silence", "sound", "smell", "scent", "heat", "cold", "taste",
+        "shadow", "glow", "void", "wind", "dust", "birds", "viewport",
+        "floor", "air", "breath",
+    )):
+        return "sensory_hook"
+
+    return "in_medias_res"
+
+
+def _derive_turning_cost(card: dict, emotional_arc: dict[str, str]) -> str:
+    pov = _short_pov_name(card)
+    stakes = card.get("stakes") or {}
+    personal = _normalize_whitespace(str(stakes.get("personal") or ""))
+    interpersonal = _normalize_whitespace(str(stakes.get("interpersonal") or ""))
+    external = _normalize_whitespace(str(stakes.get("external") or ""))
+    end_state = _normalize_whitespace(emotional_arc.get("end", ""))
+
+    fragments = [frag for frag in (personal, interpersonal, external) if frag]
+    if fragments:
+        primary = fragments[0].rstrip(".")
+        if primary.lower().startswith(f"{pov.lower()}'s "):
+            primary = primary[len(pov) + 2:]
+        if len(fragments) > 1:
+            secondary = fragments[1].rstrip(".")
+            if secondary.lower().startswith(f"{pov.lower()}'s "):
+                secondary = secondary[len(pov) + 2:]
+            return f"The cost lands on {pov}: {primary}; it also strains {secondary.lower()}"
+        return f"The cost lands on {pov}: {primary}"
+
+    if end_state:
+        return (
+            f"The cost lands as {end_state.lower()}, forcing {pov} to carry the "
+            "scene's new pressure instead of explaining it away"
+        )
+
+    mission = _normalize_whitespace(str(card.get("mission") or ""))
+    if mission:
+        return f"The turn commits {pov} more deeply to {mission.rstrip('.')}"
+    return f"The turn forces {pov} to carry a sharper personal cost into the next beat"
+
+
+def _derive_turning_point_detail(
+    card: dict, emotional_arc: dict[str, str],
+) -> dict[str, str]:
+    existing = card.get("turning_point_detail")
+    if isinstance(existing, dict) and all(
+        isinstance(existing.get(key), str) and existing.get(key).strip()
+        for key in ("trigger", "shift", "cost")
+    ):
+        return {
+            "trigger": existing["trigger"].strip(),
+            "shift": existing["shift"].strip(),
+            "cost": existing["cost"].strip(),
+        }
+
+    turning_point = _normalize_whitespace(str(card.get("turning_point") or ""))
+    sentences = _split_sentences(turning_point)
+    if len(sentences) >= 2:
+        trigger = sentences[0]
+        shift = " ".join(sentences[1:])
+    elif sentences:
+        trigger = sentences[0]
+        shift = (
+            f"The scene dynamics pivot around {sentences[0].rstrip('.').lower()}, "
+            f"turning the pressure toward {emotional_arc['shift'].lower()}"
+        )
+    else:
+        trigger = "The scene reaches its planned turning point"
+        shift = (
+            f"The pressure pivots toward {emotional_arc['shift'].lower()} as the "
+            "scene commits to its consequence"
+        )
+
+    return {
+        "trigger": trigger.rstrip("."),
+        "shift": shift.rstrip("."),
+        "cost": _derive_turning_cost(card, emotional_arc).rstrip("."),
+    }
+
+
+def _state_change_for_beat(
+    card: dict,
+    idx: int,
+    total: int,
+    turning_detail: dict[str, str],
+) -> str:
+    mission = _normalize_whitespace(str(card.get("mission") or "the scene mission"))
+    closing_hook = _normalize_whitespace(str(card.get("closing_hook") or ""))
+    role = str(card.get("scene_role") or "").strip().lower()
+
+    if idx == 0:
+        return "The opening pressure becomes concrete instead of abstract."
+    if idx == total - 1 and closing_hook:
+        if role == "decision":
+            return f"A decision locks in and hands off its consequence: {closing_hook.rstrip('.')}"
+        if role == "reveal":
+            return f"The scene closes on new information that changes the operating picture: {closing_hook.rstrip('.')}"
+        return f"The next-scene pressure locks in at the boundary: {closing_hook.rstrip('.')}"
+    if idx == total - 2:
+        return f"The scene pivots: {turning_detail['shift'].rstrip('.')}"
+    return f"Pressure escalates and advances the mission: {mission.rstrip('.')}"
+
+
+def _pov_reaction_for_beat(
+    card: dict, idx: int, total: int, emotional_arc: dict[str, str],
+) -> str:
+    pov = _short_pov_name(card)
+    if idx == 0:
+        return (
+            f"{pov} feels {_lower_sentence_start(emotional_arc['start'])}, and instinct pushes the "
+            "response toward action rather than explanation"
+        )
+    if idx == total - 1:
+        return (
+            f"The beat lands as {_lower_sentence_start(emotional_arc['end'])}, leaving {pov} braced "
+            "for the scene's handoff pressure"
+        )
+    return (
+        f"The pressure turns toward {_lower_sentence_start(emotional_arc['shift'])}, tightening "
+        f"{pov}'s focus on what just changed"
+    )
+
+
+def _derive_key_beats(
+    card: dict,
+    emotional_arc: dict[str, str],
+    turning_detail: dict[str, str],
+) -> list[dict[str, str]]:
+    existing = card.get("key_beats")
+    if isinstance(existing, list) and len(existing) >= 3:
+        cleaned: list[dict[str, str]] = []
+        for beat in existing[:5]:
+            if not isinstance(beat, dict):
+                continue
+            if all(
+                isinstance(beat.get(key), str) and beat.get(key).strip()
+                for key in ("beat_description", "state_change", "pov_reaction")
+            ):
+                cleaned.append({
+                    "beat_description": beat["beat_description"].strip(),
+                    "state_change": beat["state_change"].strip(),
+                    "pov_reaction": beat["pov_reaction"].strip(),
+                })
+        if len(cleaned) >= 3:
+            return cleaned
+
+    beats = [
+        _normalize_whitespace(str(beat))
+        for beat in (card.get("action_beats") or [])
+        if _normalize_whitespace(str(beat))
+    ]
+    if len(beats) < 3:
+        for fallback in (
+            card.get("opening_hook"),
+            card.get("turning_point"),
+            card.get("closing_hook"),
+        ):
+            text = _normalize_whitespace(str(fallback or ""))
+            if text and text not in beats:
+                beats.append(text)
+            if len(beats) >= 3:
+                break
+
+    beats = beats[:5]
+    total = len(beats)
+    return [
+        {
+            "beat_description": beat.rstrip("."),
+            "state_change": _state_change_for_beat(card, idx, total, turning_detail),
+            "pov_reaction": _pov_reaction_for_beat(card, idx, total, emotional_arc),
+        }
+        for idx, beat in enumerate(beats)
+    ]
+
+
+def _extract_anti_patterns_from_notes(notes: str) -> list[str]:
+    if not notes:
+        return []
+
+    candidates: list[str] = []
+    for sentence in _split_sentences(notes):
+        lowered = sentence.lower()
+        if not (
+            lowered.startswith(("anti-pattern", "anti pattern", "diagnostic-voice trap"))
+            or re.search(r"\b(do not|should not|avoid|too composed|cut it)\b", lowered)
+            or lowered.startswith("no ")
+            or " absolutely no " in f" {lowered} "
+        ):
+            continue
+        extracted = sentence.strip()
+        for prefix in (
+            "anti-pattern:", "anti-pattern (chapter-level):", "anti pattern:",
+            "diagnostic-voice trap —", "diagnostic-voice trap -",
+            "diagnostic-voice trap:", "voice trap —", "voice trap:",
+        ):
+            if lowered.startswith(prefix):
+                extracted = sentence[len(prefix):].strip()
+                break
+        extracted = extracted.rstrip(".")
+        if extracted and extracted not in candidates:
+            candidates.append(extracted)
+    return candidates
+
+
+def _build_offline_brief(card: dict) -> dict[str, Any]:
+    emotional_arc = _parse_emotional_arc(card)
+    turning_detail = _derive_turning_point_detail(card, emotional_arc)
+    key_beats = _derive_key_beats(card, emotional_arc, turning_detail)
+
+    assembled = BriefAssembler().assemble(card)
+    brief = dict(assembled.brief)
+    brief["turning_point"] = turning_detail
+    brief["emotional_arc"] = emotional_arc
+
+    opening_mode = _derive_opening_mode(card)
+    if opening_mode in _VALID_OPENING_MODES:
+        brief["opening_mode"] = opening_mode
+
+    if len(key_beats) >= 3:
+        brief["key_beats"] = key_beats
+
+    anti_patterns = list(card.get("anti_patterns") or [])
+    for item in _extract_anti_patterns_from_notes(str(card.get("notes") or "")):
+        if item not in anti_patterns:
+            anti_patterns.append(item)
+    if anti_patterns:
+        brief["anti_patterns"] = anti_patterns
+
+    return brief
 
 
 def _apply_brief_to_card(card: dict, brief: dict) -> dict:
@@ -140,10 +461,11 @@ def _apply_brief_to_card(card: dict, brief: dict) -> dict:
 async def _enrich_one(
     card_path: Path,
     *,
-    plot_architect: PlotArchitect,
-    assembler: ContextAssembler,
+    plot_architect: PlotArchitect | None,
+    assembler: ContextAssembler | None,
     force: bool,
     dry_run: bool,
+    offline: bool,
 ) -> dict[str, Any]:
     """Enrich a single card file. Returns a result summary dict."""
     result: dict[str, Any] = {
@@ -162,19 +484,22 @@ async def _enrich_one(
         result["status"] = "skipped_already_enriched"
         return result
 
-    try:
-        pa_context = {
-            "scene_card": card,
-            "bible_summary": assembler.get_bible_summary(),
-            "franchise_profile_text": assembler.get_franchise_profile_text(),
-        }
-        pa_result = await plot_architect.run(pa_context)
-    except Exception as exc:  # noqa: BLE001
-        result["status"] = "error"
-        result["error"] = f"plot_architect failed: {type(exc).__name__}: {exc}"
-        return result
+    if offline:
+        brief = _build_offline_brief(card)
+    else:
+        try:
+            pa_context = {
+                "scene_card": card,
+                "bible_summary": assembler.get_bible_summary(),
+                "franchise_profile_text": assembler.get_franchise_profile_text(),
+            }
+            pa_result = await plot_architect.run(pa_context)
+        except Exception as exc:  # noqa: BLE001
+            result["status"] = "error"
+            result["error"] = f"plot_architect failed: {type(exc).__name__}: {exc}"
+            return result
 
-    brief = pa_result.get("generation_brief") or {}
+        brief = pa_result.get("generation_brief") or {}
     enriched = _apply_brief_to_card(card, brief)
 
     if enriched == card:
@@ -216,6 +541,7 @@ async def enrich_bundle(
     only_card: str | None = None,
     force: bool = False,
     dry_run: bool = False,
+    offline: bool = False,
 ) -> list[dict[str, Any]]:
     """Enrich every scene card (or a single ``only_card``) in a book."""
     paths = ProjectPaths(
@@ -231,18 +557,24 @@ async def enrich_bundle(
         print(f"[FATAL] no concept_seed.json at {concept_seed_path}")
         return []
 
-    router = ModelRouter(config_path)
+    router: ModelRouter | None = None
     try:
-        ok, msg = await router.health_check()
-        if not ok:
-            print(f"[FATAL] model router health check failed: {msg}")
-            return []
-        print(f"[ok] {msg}")
+        assembler: ContextAssembler | None = None
+        plot_architect: PlotArchitect | None = None
+        if offline:
+            print("[offline] using deterministic PlotArchitect fallback")
+        else:
+            router = ModelRouter(config_path)
+            ok, msg = await router.health_check()
+            if not ok:
+                print(f"[FATAL] model router health check failed: {msg}")
+                return []
+            print(f"[ok] {msg}")
 
-        assembler = ContextAssembler(
-            concept_seed_path=str(concept_seed_path),
-        )
-        plot_architect = PlotArchitect(router)
+            assembler = ContextAssembler(
+                concept_seed_path=str(concept_seed_path),
+            )
+            plot_architect = PlotArchitect(router)
 
         card_files: list[Path]
         if only_card:
@@ -258,7 +590,8 @@ async def enrich_bundle(
 
         print(
             f"[enrich] {franchise_slug}/{book_slug}: "
-            f"{len(card_files)} card(s); force={force} dry_run={dry_run}"
+            f"{len(card_files)} card(s); force={force} dry_run={dry_run} "
+            f"offline={offline}"
         )
         results: list[dict[str, Any]] = []
         for path in card_files:
@@ -269,6 +602,7 @@ async def enrich_bundle(
                 assembler=assembler,
                 force=force,
                 dry_run=dry_run,
+                offline=offline,
             )
             print(result["status"])
             if result.get("error"):
@@ -280,7 +614,8 @@ async def enrich_bundle(
             results.append(result)
         return results
     finally:
-        await router.close()
+        if router is not None:
+            await router.close()
 
 
 def main() -> int:
@@ -296,6 +631,14 @@ def main() -> int:
     )
     parser.add_argument("--force", action="store_true")
     parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument(
+        "--offline",
+        action="store_true",
+        help=(
+            "Skip the live PlotArchitect model call and derive the enriched "
+            "brief deterministically from the existing scene card."
+        ),
+    )
     args = parser.parse_args()
 
     results = asyncio.run(enrich_bundle(
@@ -306,6 +649,7 @@ def main() -> int:
         only_card=args.card,
         force=args.force,
         dry_run=args.dry_run,
+        offline=args.offline,
     ))
 
     enriched = sum(1 for r in results if r["status"] == "enriched")

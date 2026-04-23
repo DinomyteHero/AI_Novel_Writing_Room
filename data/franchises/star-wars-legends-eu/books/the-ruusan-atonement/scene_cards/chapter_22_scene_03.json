@@ -49,5 +49,42 @@
   ],
   "revelations": [],
   "pov_arc_phase": "moment_of_truth",
-  "notes": "H22 planted — Kael's question. Ben's leadership through invitation is the thematic argument in action. Anti-pattern: Ben does not give a speech about trust; the ask is structural, not rhetorical. The pitch's content is the persuasion. Diagnostic-voice trap — Ben should not, in this scene, narrate to himself that forcing Kael would repeat institutional harm. The restraint is behavioural; the interiority that matters is the thirty seconds of quiet where Ben waits for the question. Voice: Zahn-quiet, one permitted Stover-interior beat as Ben sits. Kael's question ends the scene; the answer belongs to Ch23."
+  "notes": "H22 planted — Kael's question. Ben's leadership through invitation is the thematic argument in action. Anti-pattern: Ben does not give a speech about trust; the ask is structural, not rhetorical. The pitch's content is the persuasion. Diagnostic-voice trap — Ben should not, in this scene, narrate to himself that forcing Kael would repeat institutional harm. The restraint is behavioural; the interiority that matters is the thirty seconds of quiet where Ben waits for the question. Voice: Zahn-quiet, one permitted Stover-interior beat as Ben sits. Kael's question ends the scene; the answer belongs to Ch23.",
+  "turning_point_detail": {
+    "trigger": "Ben asks Kael to join the resonance plan, laying out the full cost and requirement without manipulation or guilt.",
+    "shift": "Kael's response pivots from silence to a genuine, non-hostile question that cuts to the heart of trust: 'Why should I believe this one is different?' The scene's pressure transfers from Ben's internal resolve to Kael's external judgment.",
+    "cost": "Ben must lead through invitation, surrendering the authority to command. The cost lands on both: Ben's vulnerability in asking without guarantee of yes, and Kael's exposure in asking whether this Jedi is truly different from every institution that has used him."
+  },
+  "emotional_arc": {
+    "start": "Steeling resolve—Ben braced for the hardest Skywalker move, the one that requires restraint instead of action.",
+    "shift": "The approach—Ben's focus tightens as he sits beside Kael, the wrongness between them (Jedi and Sith-trained) making the conversation harder than it should be.",
+    "end": "Kael's devastating question—Ben left braced for the handoff, the decision now in Kael's hands, the scene's pressure suspended."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Kael sits at the camp's edge with his legs over the ridgeline, facing the Scar below. He doesn't turn when Ben approaches—he felt him coming.",
+      "state_change": "The abstract pressure of the plan becomes concrete. Kael's Force presence is guarded but not hostile; the wrongness of the wound bleeds through the space between them.",
+      "pov_reaction": "Ben's instinct pushes toward action, toward explanation, toward the weight of command. He has to feel that impulse and choose not to follow it. The sensation is restraint—a tightening in the chest, the impulse to speak held back by conscious choice. His hands settle on his knees instead of reaching."
+    },
+    {
+      "beat_description": "Ben sits down beside Kael at arm's length. He presents the resonance plan—theory, requirements, risks, his specific role—holding nothing back. The pitch is structural, not rhetorical; the content is the persuasion.",
+      "state_change": "Kael turns the question over in silence. The scene pivots from Ben's resolve to Kael's judgment. The decision is no longer Ben's to make.",
+      "pov_reaction": "Ben feels the shift as it happens—the moment when Kael stops listening to the plan and starts weighing whether to trust the person offering it. There is a thirty-second silence where Ben waits. He does not fill it. The wrongness of the wound presses at the edges of his Force-sense, making the silence heavier than it should be. His breath steadies. He waits."
+    },
+    {
+      "beat_description": "Kael's fingers pull at the grass beside him, methodical, deliberate. He turns his head slightly—not to face Ben, but to acknowledge him. His question arrives without preamble: 'Why should I believe this one is different?'",
+      "state_change": "A decision locks in and hands off its consequence. Kael's question is the final holdout before the plan can execute. The answer belongs to Chapter 23.",
+      "pov_reaction": "Ben registers the question as genuine—not cynical, not hostile, but the deepest thing Kael has asked him. The wrongness of the wound makes it harder to read Kael's Force presence, harder to know if the question is a gate or a door. Ben feels the weight of the answer he cannot give yet, the trust he cannot manufacture, the invitation that can only be answered by Kael himself."
+    }
+  ],
+  "opening_mode": "in_medias_res",
+  "anti_patterns": [
+    "Ben does not give a speech about trust; the ask is structural, not rhetorical",
+    "Ben should not, in this scene, narrate to himself that forcing Kael would repeat institutional harm",
+    "Ben does not give a speech about trust; the ask is structural, not rhetorical.",
+    "Ben should not, in this scene, narrate to himself that forcing Kael would repeat institutional harm.",
+    "Do not open with exposition about why Kael is essential to the plan.",
+    "Avoid diagnostic voice about the wound or the Force's structure.",
+    "Do not soften or resolve Kael's question within the scene—it is the closing beat."
+  ]
 }

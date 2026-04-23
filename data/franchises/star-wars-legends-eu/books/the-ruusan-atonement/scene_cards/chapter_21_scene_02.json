@@ -54,8 +54,8 @@
   ],
   "promises_planted": [],
   "promises_paid": [
-    "The Jacen parallel recognised and pattern broken (PP07)",
-    "Cascade-acceleration as tactical constraint (pays PP28 — planted Ch 13 R08a, reinforced Ch 18, convergence here)"
+    "PP07",
+    "PP28"
   ],
   "hook_actions": [
     {
@@ -73,5 +73,50 @@
   "notes": "Let the silence do the work. The practical reasons can remain unspoken as long as the room clearly lives inside them.",
   "primary_anchor": "Stover",
   "supporting_anchor": "Bujold, Zahn",
-  "stover_permitted": true
+  "stover_permitted": true,
+  "turning_point_detail": {
+    "trigger": "Sera speaks the one line the room can bear to speak: 'I was the one they sealed. I cannot seal another.' Her words crystallize what everyone has been holding unspoken — that seizing Torin would replicate the foundational crime they are trying to escape.",
+    "shift": "The pressure pivots from helpless watching toward the convergence of tactical reads arriving unspoken. Ben understands without debate that the choice is made. The scene dynamics move from external action (Torin walking) to internal consensus (the group's silent agreement not to intervene).",
+    "cost": "Ben Skywalker loses Torin — their strongest member, their best tactical asset, their anchor to hope. He must hold three reasons for inaction (moral principle, tactical necessity, Sera's wound) and speak only one. The group is diminished. The path forward becomes unmapped. The cost lands as agony of principled inaction."
+  },
+  "emotional_arc": {
+    "start": "Helpless watching — instinct pushing toward action, toward stopping Torin, toward the violent answer that would feel like control.",
+    "shift": "The convergence of tactical reads arriving unspoken — Desh's chrono-drift numbers matching Sera's earlier read, the shape of the cascade acceleration becoming visible without being named. Ben's focus tightens. The pressure turns inward.",
+    "end": "Sera's devastating clarity — the moment her words land and Ben understands that the only way forward is to let Torin go. The agony of principled inaction becomes the only choice that does not repeat the crime."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Torin turns and walks down the ridgeline toward the valley — stride steady, Force presence trailing behind him lighter than it has been since he woke.",
+      "state_change": "The abstract pressure becomes concrete and visible. Torin is no longer debating or hesitating; he is walking toward the Scar with purpose.",
+      "pov_reaction": "Ben's instinct surges toward intervention — the impulse to act, to stop, to seize control. His body registers the wrongness of watching someone walk toward self-sacrifice. The sensation is vertigo-like: the ground beneath his certainty shifts, and he cannot locate the source of the drop."
+    },
+    {
+      "beat_description": "Desh's chrono-drift readings scroll on his datapad. His other hand finds Ben's forearm — a brief, practical grounding. The numbers on the display match in shape what Sera's read in the earlier scene said without saying.",
+      "state_change": "The tactical picture converges. The cascade acceleration is no longer theoretical; it is measurable, quantifiable, and accelerating. The numbers confirm what Sera already knew: the seal is failing faster because Torin is walking toward it.",
+      "pov_reaction": "Ben's focus tightens as the convergence of tactical reads arrives unspoken. He does not name it. Desh's hand on his forearm is the only permission he needs to understand: the numbers are saying what words cannot. The pressure turns from external action toward internal recognition."
+    },
+    {
+      "beat_description": "Sera stands motionless as Torin descends, her hands clenched at her sides — the posture of someone refusing to seal another, refusing to reach out and pull him back.",
+      "state_change": "The group's silence becomes active. Each person is holding the same impossible choice: let him go, or become Gavran.",
+      "pov_reaction": "Ben reads Sera's posture and understands that she is not frozen by indecision. She is frozen by the clarity of what she will not do. Her refusal is an anchor. It holds the room."
+    },
+    {
+      "beat_description": "Sera speaks once, her voice barely above a whisper: 'I was the one they sealed. I cannot seal another.'",
+      "state_change": "The scene pivots. The choice becomes real without anyone calling it a vote. Sera's words name the moral architecture that has been assembling for eight chapters. The group's consensus is no longer silent; it is spoken once and then held.",
+      "pov_reaction": "Ben understands. The agony of principled inaction crystallizes into clarity. He does not argue. He does not offer alternatives. He simply understands that this is the only way forward that does not repeat the crime. The pressure that was pushing him toward action transforms into the weight of acceptance."
+    },
+    {
+      "beat_description": "Desh breaks the remaining silence: 'So. What now?' — the first full sentence after Sera's line lands, practical and grounded.",
+      "state_change": "The decision locks in. The group has chosen not to stop Torin by force. Now they must find another way — another path, another answer, another solution that does not require seizing a person to serve the Order's need.",
+      "pov_reaction": "Ben is braced for the handoff. The scene's pressure transfers from the choice itself toward the consequence: Torin is gone, the group is diminished, and Ben must find another way. The clarity is devastating, but it is clear."
+    }
+  ],
+  "opening_mode": "in_medias_res",
+  "anti_patterns": [
+    "Let the silence do the work — do not fill it with explanation or debate.",
+    "Do not open with a flashback or exposition dump about why Torin is walking toward the Scar.",
+    "Do not arrive at clinical articulation of the moral principle — let it emerge through action and refusal.",
+    "Do not have the group call a vote or debate the choice — the consensus is silent and arrives unspoken.",
+    "Do not describe the Force wound in diagnostic voice or explain the mechanics of the cascade acceleration — keep it sensory and measured."
+  ]
 }

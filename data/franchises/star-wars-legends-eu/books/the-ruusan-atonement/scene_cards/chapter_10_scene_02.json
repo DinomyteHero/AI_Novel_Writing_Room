@@ -50,5 +50,39 @@
   ],
   "revelations": [],
   "pov_arc_phase": "lie_reinforced",
-  "notes": "Desh's moment of essential contribution — the non-Force-user's tactical reading is the reading the Force-users could not deliver. Write the Force-users' recalibration as visible physical change (Sera's hands flat on the table, Ben's posture shift) rather than interior monologue. Diagnostic-voice trap — Ben should not, in this scene, theorise what Veraine is building. He sees the pattern and does not try to complete it. Articulation waits for Ch22's 'amplification array' recognition. Voice: Zahn-procedural, clipped, no extraneous flourishes; Desh does the work and the room agrees with him without a speech."
+  "notes": "Desh's moment of essential contribution — the non-Force-user's tactical reading is the reading the Force-users could not deliver. Write the Force-users' recalibration as visible physical change (Sera's hands flat on the table, Ben's posture shift) rather than interior monologue. Diagnostic-voice trap — Ben should not, in this scene, theorise what Veraine is building. He sees the pattern and does not try to complete it. Articulation waits for Ch22's 'amplification array' recognition. Voice: Zahn-procedural, clipped, no extraneous flourishes; Desh does the work and the room agrees with him without a speech.",
+  "turning_point_detail": {
+    "trigger": "Desh names the pattern: Veraine is not running, she is curating. The manifests, disassembly photos, and tactical map show deliberate selection, not random scavenging.",
+    "shift": "The group's operational assumption inverts. They have been reading the Corridor as a chase; it is actually a construction project. Veraine is ahead not because she is fleeing but because she is leading them along a route she has prepared.",
+    "cost": "Ben must accept that the Force-users' perception failed where Desh's procedural cataloguing succeeded. The group is now forced to reconsider whether pursuing Veraine along the Corridor is an opportunity or a trap — and they lack the information to distinguish between them."
+  },
+  "emotional_arc": {
+    "start": "Analytical focus — Ben is present and attentive, ready to process information.",
+    "shift": "Uncomfortable realization — the pattern clicks and Ben registers that Desh has delivered a reading the Force-users could not. The dark-side pressure in the room makes the discomfort physical.",
+    "end": "Strategic uncertainty — Ben is braced for the handoff, understanding that the operating picture has changed but not yet knowing what to do with the new information."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Desh spreads equipment manifests and disassembly photos across the operations table in a grid, each item catalogued and cross-referenced.",
+      "state_change": "The abstract pressure of the Corridor becomes concrete. The evidence is physical, countable, and arranged for inspection.",
+      "pov_reaction": "Ben's analytical focus sharpens; his instinct pushes toward action rather than explanation. He moves closer to the table, drawn by the clarity of the layout. The dark-side pressure in the room makes concentration work, but the work is worth it."
+    },
+    {
+      "beat_description": "Desh traces Veraine's route on his tactical map with small, precise handwriting, marking each item she took and each she deliberately left behind. He speaks the pattern aloud: she is not running, she is curating.",
+      "state_change": "The scene pivots. Veraine is not fleeing; she is building. The question the group has been asking (where is she going) is the wrong one. The question is what she is building.",
+      "pov_reaction": "Uncomfortable realization tightens Ben's focus. He feels the shift in the room — Sera's hands flatten against the table, her jaw set. The pressure turns inward, no longer abstract threat but concrete miscalculation. Ben does not yet know what Veraine is building, but he knows they have been reading the pursuit wrong."
+    },
+    {
+      "beat_description": "Ben leans over the evidence layout as the pattern clicks — deliberate curation, not random scavenging. Each item Veraine took serves a purpose; each item she left serves a different one. The map shows a route, not a flight path.",
+      "state_change": "The operating picture inverts. If Veraine wants them to follow, then pursuing her along the Corridor is either an opportunity or a trap. Either way, the group needs to understand what she is building before they move.",
+      "pov_reaction": "Strategic uncertainty settles into Ben's posture. He straightens, pulling back from the table slightly, braced for the handoff pressure. His hands are steady, but his breath is shallow. Desh has delivered the reading the Force-users could not, and now the group must act on incomplete information."
+    }
+  ],
+  "opening_mode": "in_medias_res",
+  "anti_patterns": [
+    "Ben should not, in this scene, theorise what Veraine is building",
+    "Do not arrive at diagnostic voice — Ben sees the pattern and does not try to complete it",
+    "Avoid interior monologue about the Force-users' failure. Show it through physical response instead (Sera's hands, Ben's posture shift)",
+    "No extraneous flourishes — Zahn-procedural, clipped, functional"
+  ]
 }

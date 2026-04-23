@@ -44,7 +44,7 @@
   ],
   "promises_planted": [],
   "promises_paid": [
-    "The full unwoven experience delivered (PP17)"
+    "PP17"
   ],
   "hook_actions": [
     {
@@ -61,5 +61,44 @@
   ],
   "pov_arc_phase": "lie_challenged",
   "arc_phase_transition": "lie_challenged",
-  "notes": "R08 is experiential, not informational. The midpoint revelation is what unweaving feels like, and it has to land in the body, not as remembered explanation. Rotate Force-wrongness metaphor for this scene: not handrail, not flat-note. Use 'the ground of sense dropping out', 'no axis', 'the response has nothing to compare itself to' — register this as absence of structure rather than as degraded navigation. Use one consistent image per scene. Desh's non-Force-sensitive grief-without-an-object must land without mysticism — it is a grief that cannot find its object because the object's moral shape has been removed from the Force itself. Diagnostic-voice trap — Ben should not, in this scene, analyse the phenomenology as concept. He notices the silence of his moral intuition; he hears his own thoughts uncushioned; he does not write a paragraph about what the Weave is. Anti-pattern (chapter-level): absolutely no 'it was as if the Force had —' constructions. The Force does not have 'as if' here; it has 'is' or 'is not'."
+  "notes": "R08 is experiential, not informational. The midpoint revelation is what unweaving feels like, and it has to land in the body, not as remembered explanation. Rotate Force-wrongness metaphor for this scene: not handrail, not flat-note. Use 'the ground of sense dropping out', 'no axis', 'the response has nothing to compare itself to' — register this as absence of structure rather than as degraded navigation. Use one consistent image per scene. Desh's non-Force-sensitive grief-without-an-object must land without mysticism — it is a grief that cannot find its object because the object's moral shape has been removed from the Force itself. Diagnostic-voice trap — Ben should not, in this scene, analyse the phenomenology as concept. He notices the silence of his moral intuition; he hears his own thoughts uncushioned; he does not write a paragraph about what the Weave is. Anti-pattern (chapter-level): absolutely no 'it was as if the Force had —' constructions. The Force does not have 'as if' here; it has 'is' or 'is not'.",
+  "turning_point_detail": {
+    "trigger": "Ben reaches for the Force and finds energy, presence, potential — but no structure, no direction, no light or dark. The ground of his perception is simply not there.",
+    "shift": "The Force-sensitive characters' primary navigation system fails. Ben's moral intuition goes silent. The group loses the shared armature that has held them together through the investigation. Each member is now isolated within their own sensory apparatus, amplifying existing tensions.",
+    "cost": "Ben experiences the wound's full neurological and existential effect — what it does to a Force-sensitive to lose the Weave entirely. He hears his own thoughts uncushioned by Force intuition for the first time, including the ones the Force usually softens. The group fractures under the pressure of differential perception: Force-users blind, non-Force-users hyperaware, no shared language for what is happening."
+  },
+  "emotional_arc": {
+    "start": "Professional assessment — Ben approaches the landing as a tactical problem to be solved, grounded in training and prior briefing.",
+    "shift": "Escalating wrongness — the moment Ben reaches for the Force and finds nothing, the pressure inverts from external threat to internal disorientation. His confidence in his own perception fractures.",
+    "end": "Existential disorientation — Ben is left braced in the silence, aware that his unfiltered thoughts are now the only voice in his head, and some of those thoughts are ones he has relied on the Force to soften or contextualize."
+  },
+  "key_beats": [
+    {
+      "beat_description": "The Steady Returns breaks orbit and Ben watches the settlement world fill the viewport — green, blue, temperate, visibly wrong. Desh reads scan data that contradicts everything the visual record reports. On the surface, the birds are wrong.",
+      "state_change": "The abstract threat becomes concrete. Ben shifts from briefing-mode into observation-mode, and the first sensory data introduces the contradiction that will anchor the scene.",
+      "pov_reaction": "Ben's professional assessment registers the wrongness without yet understanding its source. His instinct pushes toward action — toward landing, toward investigation — rather than toward explanation. A tightness settles in his chest, the kind that comes before a decision point."
+    },
+    {
+      "beat_description": "Ben steps onto the surface and reaches for the Force. His perception fires into formless nothing. The ground of sense drops out. He is reaching into a space that has no axis, no direction, no light or dark — only presence without structure, energy without meaning.",
+      "state_change": "The scene pivots. The Force-sensitive characters' primary tool of perception and moral intuition ceases to function. Ben loses the safety net that has held his decision-making since childhood.",
+      "pov_reaction": "The pressure turns toward escalating wrongness. Ben's focus tightens on what just changed — not on the settlement world around him, but on the absence inside his own perception. His breathing shifts. His balance registers a vertigo-like drop; he widens his stance by reflex but cannot locate the source. The wrongness is not external; it is internal. It is him."
+    },
+    {
+      "beat_description": "Desh pulls out his chrono and watches the second hand skip — measurable drift in the unwoven zone. The data confirms what the Force-users cannot perceive: time itself is unstable here. Desh's jaw tightens. He does not speak.",
+      "state_change": "The group's isolation deepens. Desh has data; the Force-users have silence. There is no shared language for what is happening. The pressure amplifies existing tensions — Desh's practical grounding becomes the only reliable anchor, and the Force-users are forced to depend on instruments instead of intuition.",
+      "pov_reaction": "Ben registers Desh's reaction without being able to reach for the Force to understand it. He is left with behavioral reading alone — the tightening of Desh's jaw, the silence that follows. Ben's existential disorientation deepens. He hears his own thoughts uncushioned by Force intuition for the first time. Some of those thoughts are ones the Force usually softens. The silence of his moral intuition is louder than any sound."
+    }
+  ],
+  "opening_mode": "contrast",
+  "anti_patterns": [
+    "Ben should not, in this scene, analyse the phenomenology as concept",
+    "absolutely no 'it was as if the Force had —' constructions",
+    "Absolutely no 'it was as if the Force had —' constructions",
+    "Do not open with exposition about the wound or the Weave",
+    "Do not use diagnostic voice to explain what the Weave is or how it works",
+    "Do not soften the existential disorientation with reassurance",
+    "Do not resolve the external conflict or move toward a solution",
+    "Rotate Force-wrongness metaphor away from handrail and flat-note — use 'the ground of sense dropping out', 'no axis', 'the response has nothing to compare itself to'",
+    "Register Desh's grief-without-an-object as a non-mystical emotional response, not as Force-sense"
+  ]
 }

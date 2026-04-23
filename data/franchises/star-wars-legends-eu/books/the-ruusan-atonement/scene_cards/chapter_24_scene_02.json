@@ -71,5 +71,50 @@
   "notes": "This is discovery through movement. Keep Desh real and physical, the nodes felt, and Veraine present only through design.",
   "primary_anchor": "Zahn",
   "supporting_anchor": "Bujold",
-  "stover_permitted": false
+  "stover_permitted": false,
+  "turning_point_detail": {
+    "trigger": "Ben realizes—without looking, without conscious inference—that he knows where the fourth node position will be. Sera's eyes find his in the same moment, confirming she is making the same reading.",
+    "shift": "The scene pivots from Ben passively registering individual node-pitches to Ben actively sensing the array's overall design geometry. The pressure shifts from external (Desh working ahead) to internal (Ben's own emerging capacity). The dynamic becomes one of parallel discovery—Sera reading alongside him—rather than Ben following.",
+    "cost": "Ben acquires a new sensory capacity he does not yet consciously recognize as new. This binds him to the climactic solution in Ch 25-26; he cannot unknow what the Weave now shows him. The cost to Sera is the second wordless exchange about Veraine's work, deepening the intimacy of their reading without articulation. The cost to the group is that Kael's presence begins anchoring at a specific texture as the resonance's pre-conditions form—an unplanned ambient condition that will shape the climax."
+  },
+  "emotional_arc": {
+    "start": "Deliberate, focused pressure of the approach—Ben moving with intention but without full understanding of what he is about to discover.",
+    "shift": "The pressure tightens inward as Desh works at the edge of hearing and the nodes become audible as objects. Ben's attention narrows to what is changing in his own perception. When Sera's eyes meet his, the pressure transforms from solitary discovery into shared recognition.",
+    "end": "Quiet arrival at the mid-valley position. Ben carries a new capacity he does not yet know is new—a kind of calm readiness, the sensation of standing in a structure he can now feel beneath him. No triumph, no articulation. Just the ground made legible."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Desh moves ahead across the broken ground, the node-cases slung across his back, his datapad in one hand. He reaches the first spec'd position and opens the node-case with practiced economy. The matte cylinder locks into its base-plate with a specific, quiet click.",
+      "state_change": "The abstract mission becomes concrete. The approach shifts from planning into execution. The first anchor point is established.",
+      "pov_reaction": "Ben registers the click as a physical threshold crossed. His instinct pushes toward action rather than explanation—the deliberate pace of the approach tightens into focus. He is watching Desh work because Desh is the only one moving; the rest of them are walking into something they cannot yet see."
+    },
+    {
+      "beat_description": "Ben, Sera, and Kael begin walking the approach line behind Desh. As they move, the first node registers in Ben's Force-sense as a faint held pitch underneath the wind—not a sound, but a presence that has a pitch-shape.",
+      "state_change": "The nodes transition from hardware to Force-registerable objects. The Weave-infrastructure begins to acquire presence. Ben's sensory field expands to include what Desh is building.",
+      "pov_reaction": "Ben's focus tightens on what just changed. The pitch is underneath everything else—underneath the wind, underneath the sound of their footsteps on the broken ground. It is there without being loud. His body registers it before his mind names it. A slight shift in his breathing as he adjusts to the new texture in the Force."
+    },
+    {
+      "beat_description": "The second node passes behind them. Then the third. The three pitches do not combine into a chord; they sit at a rhythm instead—a spacing, a pattern, a logic under the placement. Ben notices that the noticing itself is new. He has never felt infrastructure this way before.",
+      "state_change": "The array begins to acquire design signature. Individual nodes resolve into a configuration. Ben's perception shifts from registering objects to reading architecture.",
+      "pov_reaction": "A moment of disorientation—Ben's hand wants to trace the geometry in the air, to map what his Force-sense is showing him. He does not do it. Instead, he walks and lets the pattern settle into his body. The realization that this capacity is arriving without his having asked for it. A slight tension in his shoulders as he adjusts to the weight of understanding something he did not know he was capable of understanding."
+    },
+    {
+      "beat_description": "At the third node, Ben realizes—without looking, without conscious inference—that he knows where the fourth position will be. The next pitch is already audible in the shape of the silence where it will sit. Sera's eyes find his in the same moment. Her face carries the same reading she is making. Neither speaks.",
+      "state_change": "The turning point lands. Ben's perception crosses from passive registration into active prediction. Sera's silent confirmation transforms the moment from solitary discovery into shared recognition. The pressure shifts from external (Desh working ahead) to internal (Ben's own emerging capacity).",
+      "pov_reaction": "A sharp intake of breath—not audible, but Ben feels it in his chest. The moment when Sera's eyes meet his carries the weight of the second wordless exchange between them about Veraine's work. No need to speak. The reading is the same. Ben's body steadies as he understands that he is not alone in this perception. A brief, intense quiet between them—the kind of quiet that carries more than words."
+    },
+    {
+      "beat_description": "Ben feels the array configuration's design signature underfoot as they walk—the placement geometry, the inter-node rhythm, the architectural logic continuous with the mast Sera read at Ch 22. The logic is not regular; it is not arbitrary. It is Veraine's thinking made material. Ben walks through her design and registers her as architect, not presence.",
+      "state_change": "The climactic environment is confirmed as Veraine-designed. The array's purpose and structure become legible through the Weave-infrastructure itself. Ben now carries the sensory knowledge he will need to navigate the climax.",
+      "pov_reaction": "A deep, settling calm. Ben's hand still wants to trace the geometry, but now he understands why—the pattern is asking to be read, and his body knows how to read it. No triumph, no articulation. Just the ground made legible beneath him. Kael's presence in the Force gradually anchors at a specific texture as the resonance's pre-conditions form—an ambient condition Ben registers but does not yet understand."
+    }
+  ],
+  "opening_mode": "in_medias_res",
+  "anti_patterns": [
+    "Do not open with explanation or exposition about the nodes or the array's purpose",
+    "Do not have Ben articulate or name his new capacity—the capacity arrives without announcement, without articulation",
+    "Do not arrive at clinical articulation of the Force-perception; keep it sensory and experiential",
+    "Do not use diagnostic voice or mission-debrief sentences; the scene is movement and discovery, not briefing",
+    "Keep Desh real and physical; the nodes felt; Veraine present only through design"
+  ]
 }

@@ -68,5 +68,50 @@
   "notes": "Keep the scene tactile and spare. Sera's line should land once, and Desh's volunteer should feel matter-of-fact because he has already decided.",
   "primary_anchor": "Zahn",
   "supporting_anchor": "Bujold, Allston",
-  "stover_permitted": false
+  "stover_permitted": false,
+  "turning_point_detail": {
+    "trigger": "Sera identifies the mast as Veraine's work through her hand-reading of the base-plate geometry, and in the same breath of understanding, Desh volunteers for the sabotage role.",
+    "shift": "The scene dynamics pivot from tactical reconnaissance to emotional commitment. Ben moves from observing Sera's expertise to witnessing Desh's willing acceptance of the most dangerous task. The pressure that was abstract becomes embodied.",
+    "cost": "Ben carries the weight of the interlocking dependency: both plans fail without both parts. Desh's choice is unmistakable and voluntary, which means Ben cannot protect him from it. Sera's silent read—'This is her mind'—becomes a statement the group receives without answering, deepening the isolation of each person's role."
+  },
+  "emotional_arc": {
+    "start": "Tactical approach—Ben is focused on the mission, moving through the landscape with purpose and minimal internal noise.",
+    "shift": "Sera's silent read and four-word verdict shift Ben's emotional register from tactical to witnessing. The pressure tightens around what Sera has just revealed and what Desh is about to choose.",
+    "end": "Interlocking dependency—Ben understands that both plans fail without both parts, and that Desh has already decided. The weight is no longer abstract; it is carried by three people walking back in silence."
+  },
+  "key_beats": [
+    {
+      "beat_description": "The three walk the kilometre to the relay mast on the ridge in silence that is not uncomfortable—Ben carrying the Codex notes in a pocket that does not matter, Sera's stride matching Desh's on ground neither of them grew up on.",
+      "state_change": "The opening pressure becomes concrete instead of abstract. The group is moving toward the evidence.",
+      "pov_reaction": "Ben's instinct pushes toward action rather than explanation. The silence is not empty; it is the silence of people who have already decided to move. His hand-awareness of the Codex notes in his pocket registers as a small, unnecessary weight—the intellectual work is done; now comes the physical work."
+    },
+    {
+      "beat_description": "Sera circles the mast once, lays her hand flat on the base-plate, and closes her eyes briefly. Ben watches her face change—the micro-shift that signals recognition resolving into certainty.",
+      "state_change": "Pressure escalates. Sera's material-reading is active; the mast is no longer a theoretical component but a text she is reading.",
+      "pov_reaction": "Ben's focus tightens on what is changing in Sera's face. The moment stretches slightly—not melodramatic, but present. He recognizes the signature of her expertise landing, the small exhalation that follows when a design-signature resolves. His own breath steadies in response, matching the rhythm of her certainty."
+    },
+    {
+      "beat_description": "Sera says, without opening her eyes: 'This is her mind.' She does not elaborate. The statement lands once and holds.",
+      "state_change": "Sera's expert read becomes a felt fact, not a deduced one. Veraine's authorship of the array is now present in the room—or on the ridge, in the metal.",
+      "pov_reaction": "Ben receives the statement without answering. The four words are complete; they do not require response. His chest tightens slightly—not fear, but the pressure of understanding that Sera has just named something that cannot be un-named. The isolation of her expertise becomes visible: she has read something the others cannot read, and she has delivered it without softening or explanation."
+    },
+    {
+      "beat_description": "Desh, at the clearing's edge, finishes tracing the three critical component-locations on his datapad. His expression goes clinical—the shift from observer to actor. He straightens from the datapad with his decision already made.",
+      "state_change": "The scene pivots. Desh is no longer waiting for assignment; he is claiming the role. The pressure that was on Sera now moves toward Desh's choice.",
+      "pov_reaction": "Ben recognizes the moment Desh's decision crystallizes. It is not a moment of doubt or hesitation; it is the moment when someone stops thinking and starts acting. Ben's own body registers this—a small shift in posture, a readiness for what comes next. The clinical expression on Desh's face is not coldness; it is focus. Ben understands that Desh has already calculated the cost and chosen to pay it."
+    },
+    {
+      "beat_description": "Desh volunteers before anyone asks—straightening from the datapad with his decision already made: 'That's my job. Let the Force-users do the Force thing. I'll handle the part that requires hands.' The statement is matter-of-fact, not heroic.",
+      "state_change": "The two-pronged plan is now dependent on both parts. Both plans fail without both roles filled. The human cost of acting against Veraine is now assigned and accepted.",
+      "pov_reaction": "Ben carries the weight of the interlocking dependency. Desh's choice is unmistakable and voluntary, which means Ben cannot protect him from it. The pressure that was abstract becomes embodied in three people walking back toward camp. Ben's hand-awareness of Sera's touch on the mast base—the specific warmth of her palm on the metal—echoes in his chest as they move. The silence on the return walk is not uncomfortable; it is the silence of people who have just made a choice that cannot be unmade."
+    }
+  ],
+  "opening_mode": "sensory_hook",
+  "anti_patterns": [
+    "Keep the scene tactile and spare—do not elaborate.",
+    "Sera's line should land once without elaboration.",
+    "Desh's volunteer should feel matter-of-fact because he has already decided—do not soften with doubt.",
+    "Do not arrive at clinical articulation of Veraine's design signature.",
+    "Do not describe the Force-wound in diagnostic voice."
+  ]
 }

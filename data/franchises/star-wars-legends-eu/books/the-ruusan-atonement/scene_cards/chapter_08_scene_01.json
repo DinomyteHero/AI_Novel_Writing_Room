@@ -55,5 +55,41 @@
     "R05b"
   ],
   "pov_arc_phase": "lie_reinforced",
-  "notes": "H08 planted — Torin's comfort in the thin place. Torin shifts deeper into his own lie_reinforced: the ease becomes a quiet asset to him, not a liability. Kael also lie_reinforced — what he sees in Torin confirms his priors about believers. Diagnostic-voice trap — Ben should not, in this scene, name the Jacen parallel out loud or in interiority. The echo in his stomach is enough; the word 'Jacen' belongs to Ch18. Do not let Ben reach for analytical articulation of Torin's reaction — he files a sensation, and Sera's corridor warning does the work the interiority would spoil. Force phenomenology: moderate thin place, presence fragmenting — use the 'fragments' register, not handrail, not flat-note."
+  "notes": "H08 planted — Torin's comfort in the thin place. Torin shifts deeper into his own lie_reinforced: the ease becomes a quiet asset to him, not a liability. Kael also lie_reinforced — what he sees in Torin confirms his priors about believers. Diagnostic-voice trap — Ben should not, in this scene, name the Jacen parallel out loud or in interiority. The echo in his stomach is enough; the word 'Jacen' belongs to Ch18. Do not let Ben reach for analytical articulation of Torin's reaction — he files a sensation, and Sera's corridor warning does the work the interiority would spoil. Force phenomenology: moderate thin place, presence fragmenting — use the 'fragments' register, not handrail, not flat-note.",
+  "turning_point_detail": {
+    "trigger": "Torin's Ankhural line lands on the cockpit air — 'the natural state' — spoken in a tone closer to nostalgia than lecture, while the Force fragments around them.",
+    "shift": "Ben's stomach registers the wrongness before his mind articulates it. The group's unease becomes focused alarm. Sera's later corridor grip translates the somatic warning into explicit caution: Torin is not struggling in the thin place; he is settling into it.",
+    "cost": "Ben's confidence in reading his allies fractures — he missed warning signs before (Jacen parallel lives subtext, not named). Sera and Torin's thousand-year history surfaces as a tactical vulnerability Ben must now monitor."
+  },
+  "emotional_arc": {
+    "start": "Group unease — the Force stutter is abstract pressure, everyone braced",
+    "shift": "Focused alarm — Ben's stomach drops as he registers Torin's ease, the wrongness of comfort in a place that should destabilize",
+    "end": "Private warning locked in — Sera's grip and words leave Ben braced for a threat he cannot yet articulate, only feel"
+  },
+  "key_beats": [
+    {
+      "beat_description": "Ben grips the cockpit armrest as the Force stutters mid-transit — presence fragmenting, reaching getting nothing, then it is back, then nothing again.",
+      "state_change": "Abstract pressure becomes concrete. The group's unease has a physical anchor.",
+      "pov_reaction": "Ben's instinct pushes toward action rather than explanation — a tightening in his chest, the need to do something, though there is nothing to do. His grip on the armrest is the only outlet."
+    },
+    {
+      "beat_description": "Torin settles into his seat and tilts his head, listening to the thin zone with an ease that tenses everyone else — his Force presence subtly altered, the heaviness easing as if something in him relaxes into a familiar room.",
+      "state_change": "The scene pivots. What should destabilize Torin instead settles him. The group's unease sharpens into focused alarm.",
+      "pov_reaction": "Ben's stomach registers it before his mind does — a drop, a wrongness without shape. His eyes track Torin without meaning to. The sensation is not analytical; it is somatic and immediate, a warning his body knows before language can catch up."
+    },
+    {
+      "beat_description": "After the zone clears and the Force returns to normal density, Sera finds Ben alone in the corridor and grips his arm hard enough to leave marks.",
+      "state_change": "The private warning locks in. Sera's grip and tone translate Ben's somatic alarm into explicit caution.",
+      "pov_reaction": "Ben feels the grip as both anchor and warning — Sera's hand is steady, her voice low and deliberate. The absence of Torin's name in her instruction makes it heavier, not lighter. Ben understands: Sera has seen something in Torin that she cannot say aloud in the cockpit, and now Ben must carry that knowledge forward."
+    }
+  ],
+  "opening_mode": "contrast",
+  "anti_patterns": [
+    "Ben should not, in this scene, name the Jacen parallel out loud or in interiority",
+    "Do not let Ben reach for analytical articulation of Torin's reaction — he files a sensation, and Sera's corridor warning does the work the interiority would spoil",
+    "Do not name the Jacen parallel out loud or in interiority — the echo in Ben's stomach is enough",
+    "Do not use diagnostic voice or clinical framing for Force phenomenology — use 'fragments' register, not 'handrail' or 'flat-note' metaphors",
+    "Do not over-articulate Sera's concern — her grip and 'Watch him' are sufficient; additional explanation weakens the warning",
+    "Do not arrive at clinical articulation of the thin place's effect — keep it sensory and somatic, not analytical"
+  ]
 }

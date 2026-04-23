@@ -55,9 +55,9 @@
     "sera_first_respect"
   ],
   "promises_planted": [
-    "Veraine is ahead and methodical (PP06)",
-    "Veraine's philosophy will be coherent and unsettling (PP16)",
-    "Mere tactical cooperation won't work; the climax demands genuine unity (PP23)"
+    "PP06",
+    "PP16",
+    "PP23"
   ],
   "promises_paid": [],
   "hook_actions": [
@@ -74,5 +74,50 @@
   "notes": "Kael's reaction is the quiet center. Let the room shift around the name without turning the scene into a history lesson.",
   "primary_anchor": "Allston",
   "supporting_anchor": "Zahn, Bujold",
-  "stover_permitted": false
+  "stover_permitted": false,
+  "turning_point_detail": {
+    "trigger": "Desh names Veraine in the reconstructed monitoring file.",
+    "shift": "The abstract pursuit becomes concrete and personal. The escapee acquires a signature: Brotherhood alchemist, strategist, patient—a specific historical antagonist with known capabilities and ideological coherence. Ben now carries the weight of pursuing Darth Veraine by name, not an unknown anchor.",
+    "cost": "Ben is locked into pursuit of a Sith whose full capability Sera will not articulate. The group's cohesion fractures visibly—Torin's warmth thins, Kael's recognition flickers into studied blankness—and Ben must navigate that friction while every moment of internal reorganization is time Veraine uses to move further ahead along the Corridor."
+  },
+  "emotional_arc": {
+    "start": "Reveal absorption—Ben processing the name and its weight with the instinct to move forward rather than explain.",
+    "shift": "Tension and territorial friction as the room reorganizes around Veraine's identity. Ben's focus tightens on what has changed in the group's dynamic and what Sera's silence means.",
+    "end": "Uneasy truce—the group has stabilized around the new mission vector, but Ben is braced for fracture and aware that Torin's warmth carries an undertone of judgment he cannot yet read."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Desh presents the reconstructed monitoring file to the group in the cramped common area. Veraine's name is the first clean line in the display.",
+      "state_change": "The abstract pressure becomes concrete. The escapee is no longer a shape or a signature—she is Darth Veraine, a named antagonist with historical weight.",
+      "pov_reaction": "Ben's instinct pushes toward action and forward momentum rather than reflection. His body language shifts to readiness; his mind is already calculating vectors and timelines. The name lands like a physical object he must now carry."
+    },
+    {
+      "beat_description": "Sera's composure holds. The silence after the name is hers—she does not fill it with explanation or context, and the room waits for her to speak.",
+      "state_change": "Pressure escalates. Sera's refusal to articulate Veraine's full capability becomes its own kind of warning. The group's ability to function depends on what Sera knows and will not say.",
+      "pov_reaction": "Ben registers the silence as territorial. Sera is claiming authority over the Veraine question, and her composure—held but not relaxed—signals that the answer, when it comes, will not be reassuring. Ben's focus tightens on what Sera is protecting by not speaking."
+    },
+    {
+      "beat_description": "Kael's reaction to the name: recognition flickers across his face, then resolves into studied blankness. Ben notices and files it.",
+      "state_change": "A secondary fracture opens. Kael knows something about Veraine, or Veraine knows something about Kael. The connection is not yet visible, but Ben's attention has caught the seam.",
+      "pov_reaction": "Ben's body goes still. His Jedi training surfaces—the discipline of observation without judgment—but underneath it runs a current of unease. Kael's blankness is a choice, and choices like that are dangerous. Ben does not press, but he does not forget."
+    },
+    {
+      "beat_description": "Torin makes a small, warm remark that restores the room's equilibrium without diminishing the weight of the name. His ease in small spaces and old-soldier instinct of standing where he will not block a door grounds the moment.",
+      "state_change": "The group stabilizes around the new mission vector. Torin's warmth is genuine, but it is also a command decision—he is choosing to move the group forward rather than dwell in the fracture.",
+      "pov_reaction": "Ben feels the relief of Torin's intervention and the subtle weight of obligation it carries. Torin is holding the group together, and Ben is aware that this holding is temporary and conditional. The warmth is real, but it is also a test of whether Ben can be trusted to move forward without breaking the group further."
+    },
+    {
+      "beat_description": "Sera reaches for a cockpit control that does not exist on a modern ship—her hand closing on blank hull plating where a console used to be. The gesture is automatic, a muscle memory from a thousand years ago.",
+      "state_change": "The scene pivots from interpersonal friction to the weight of temporal displacement. Sera's body remembers a ship that no longer exists, and that displacement is now Ben's responsibility to navigate.",
+      "pov_reaction": "Ben sees Sera's hand close on empty space and understands, in that moment, the full cost of what they are asking these people to do. The gesture is small, but it carries the weight of a thousand years of loss. Ben's awareness shifts from the group's internal friction to the external pressure: every moment spent reorganizing is time Veraine uses to move further ahead."
+    }
+  ],
+  "opening_mode": "in_medias_res",
+  "anti_patterns": [
+    "Do not turn the scene into a history lesson about Veraine or the Brotherhood of Darkness.",
+    "Let the room shift around the name without exposition dump.",
+    "Kael's reaction is the quiet center—do not overexplain or resolve the Veraine-Kael parallel in this scene.",
+    "Do not have Sera articulate Veraine's full capability; her silence is load-bearing.",
+    "Avoid diagnostic voice when Ben registers Kael's blankness—show the observation as sensory fact, not analysis."
+  ]
 }

@@ -55,5 +55,44 @@
     "R05b"
   ],
   "pov_arc_phase": "lie_reinforced",
-  "notes": "The flexible Weave must feel genuinely appealing on the page — it needs to be clear why intelligent people kept coming back to it. Rotate Force-wrongness metaphor family for this scene: gravity/pull/shimmer registers rather than handrail or flat-note. One consistent image per scene (the shimmer at the boundary), no stacked metaphors. Diagnostic-voice trap — Ben should not, in this scene, articulate why the Weave here is seductive. He steps in, he feels it, he notices his body enjoying it, he steps out. Let the one-second beauty land without an interior paragraph explaining it. Torin's arc: lie_reinforced — the ease here is the chapter's quietest warning."
+  "notes": "The flexible Weave must feel genuinely appealing on the page — it needs to be clear why intelligent people kept coming back to it. Rotate Force-wrongness metaphor family for this scene: gravity/pull/shimmer registers rather than handrail or flat-note. One consistent image per scene (the shimmer at the boundary), no stacked metaphors. Diagnostic-voice trap — Ben should not, in this scene, articulate why the Weave here is seductive. He steps in, he feels it, he notices his body enjoying it, he steps out. Let the one-second beauty land without an interior paragraph explaining it. Torin's arc: lie_reinforced — the ease here is the chapter's quietest warning.",
+  "turning_point_detail": {
+    "trigger": "Ben steps into the central training circle and the Weave flexes — light and dark present simultaneously without cancelling.",
+    "shift": "For a breath, the beauty of unified Force-presence becomes tangible. Ben understands viscerally why the Caldera Knights kept coming back. The danger is inseparable from the appeal.",
+    "cost": "Ben's intellectual defenses prove insufficient; he has felt the seduction firsthand and cannot unknow it. Simultaneously, Torin's visible ease in this space — more grounded and at home here than anywhere else on the journey — signals a deeper vulnerability the group has not yet named."
+  },
+  "emotional_arc": {
+    "start": "Cautious entry — Ben's defenses intact, the group unified in wariness.",
+    "shift": "The seduction of the flexible Weave — the moment when light and dark shimmer without contradiction, and Ben's body registers pleasure before his mind can frame resistance.",
+    "end": "Sobered focus at the archive — the beauty has passed, but its memory remains. Ben is braced for what Maetha's records will demand."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Sera presses her palms against Gavran's seal and works the Force-lock for twelve unbroken minutes while the group waits in silence. The lock yields.",
+      "state_change": "The abstract threat becomes concrete — the seal opens, releasing stale air, dust, and stone-weight into the present moment.",
+      "pov_reaction": "Ben's caution sharpens into readiness. His instinct pushes toward action rather than explanation; he is waiting for what comes next, not analyzing what has already arrived. A low tension in his shoulders, a steadiness in his breathing."
+    },
+    {
+      "beat_description": "Ben steps into the central training circle. The Weave flexes beneath his Force-sense — light and dark present simultaneously, their boundary shimmering with the suggestion of choice rather than cancellation.",
+      "state_change": "The scene pivots from external threat to internal seduction. For a breath, the light and dark arrive together without contradiction. The beauty of it is the danger — Ben understands why the Caldera Knights kept coming back.",
+      "pov_reaction": "His body registers the pleasure first: a loosening in his chest, a settling of his Force-presence as though he has finally arrived somewhere he did not know he was searching for. The sensation is immediate and physical — not a thought, but a felt rightness. He does not articulate why the Weave is seductive; he experiences it. His breath catches. His weight shifts, as though his feet want to root deeper into the training circle."
+    },
+    {
+      "beat_description": "Torin walks to the center of the training ground and stands perfectly still. His Force presence settles like someone arriving home — a calm so complete it registers as a kind of surrender.",
+      "state_change": "The group's unified caution fractures. Torin is not braced here; he is at ease. The contrast between his stillness and the group's vigilance becomes impossible to ignore.",
+      "pov_reaction": "Ben feels the shift in Torin's presence and recognizes it without words — a recognition that lands as warning. Torin's ease here is not reassurance; it is a quiet alarm. Ben's own pleasure in the Weave cools. He steps back from the training circle, and the shimmer recedes. The beauty does not vanish, but it becomes historical — something that happened, not something happening."
+    },
+    {
+      "beat_description": "The group moves deeper into the facility. Sera's hand traces the seal pattern on the archive chamber door — geometric, precise, personal rather than military in its construction.",
+      "state_change": "The facility's purpose crystallizes. This was not a military installation; it was Maetha's private workspace. The records within are her own.",
+      "pov_reaction": "Ben registers Sera's recognition and feels the weight of it settle. Maetha sealed her own records. A woman who dismantled her own creation, leaving a message in the architecture itself. The archive is not a threat to be breached; it is a confession waiting to be read. Ben's focus hardens into something close to dread."
+    }
+  ],
+  "opening_mode": "sensory_hook",
+  "anti_patterns": [
+    "Ben should not, in this scene, articulate why the Weave here is seductive",
+    "Ben should not, in this scene, articulate why the Weave here is seductive — he steps in, he feels it, he notices his body enjoying it, he steps out. Let the one-second beauty land without an interior paragraph explaining it.",
+    "Do not arrive at diagnostic-voice articulation of the Weave's nature or mechanics.",
+    "Avoid stacked Force-sense metaphors — one consistent image (the shimmer at the boundary) per scene, not multiple registers layered together."
+  ]
 }

@@ -59,5 +59,49 @@
   "notes": "The highest-density sensory passage in the climax — three operations rendered simultaneously, each with a distinct Force-texture. Per the blueprint, Veraine's is calculated and directed; Torin's is personal and expanding; the trio's is three-toned and not yet chord. Per D3, Weave-vocabulary continuity — rotate into acoustic (keys, notes, chord, pitch) and hydraulic (currents, counter-currents, competing flows) families and away from handrail/cage; one consistent image per paragraph, not a simile-cascade. Per R11, Ben does NOT articulate his Lie on-page in this scene. The failure should make it recognizable; Ben's on-page recognition is Ch 25's work. Per D4, Desh is not Weave-sensed directly — the nodes Ben established at s2 carry the rhythm, and Desh's movement is registered through the pressure-shape inside that rhythm, not as Desh's own Weave-presence. Per the blueprint, Stover-permitted interior density for this scene but under half the scene's weight — the hands, the positions, the three presences anchor the body; Stover density lands at the moments of instinct-firing and of the discordance worsening. Per the blueprint, Ben's instinct-to-control is shown as action (force, will, impose) rather than narrated as insight. Per anti-patterns: (a) no resolution; the chapter closes on failure; (b) the discordance does not begin to cohere on-page in this scene — if the resonance starts to harmonise before the close, the scene is wrong; (c) no 'it was as if the Force had —' constructions during the resonance; the acoustic vocabulary holds; (d) no diagnostic-voice articulation of what is going wrong — Ben feels it, he leans harder, it gets worse; (e) the chapter closes on the interior of the failure, not on a line of dialogue and not on an external event; (f) per B3 plant consistency from s2, the nodes register as ground-tone underneath the discord — their presence is load-bearing for Ch 25-26 and must be audible here without being discussed. Primary anchor: Stover (permitted interior density for the discordance and the instinct-fire); supporting anchor: Bujold (Ben's interior registration of the three textures), Zahn (procedural frame of positions, hands, Now). stover_permitted: true — this scene and Ch 25 s3 are the climactic Stover beats.",
   "primary_anchor": "Stover",
   "supporting_anchor": "Bujold, Zahn",
-  "stover_permitted": true
+  "stover_permitted": true,
+  "turning_point_detail": {
+    "trigger": "Ben's instinct fires—he reaches to impose order, to harmonise the three traditions by force of will, the way Skywalker training has taught him for twenty-eight years.",
+    "shift": "The resonance worsens in direct response to his reach-to-lead rather than his reach-to-join. The discordance amplifies. Veraine's ritual continues building; Torin's void continues expanding; the trio's operation is the one not yet running. The answer remains one step away—the step Ben has not yet taken.",
+    "cost": "Personal: the Lie at its final defensive position, the twenty-eight-year pattern meeting a problem only a trio can solve. Interpersonal: three people trusting each other with their lives and their Force connections, failing to harmonise not because they cannot, but because one of them is pulling for a lead. External: the Scar widens further; both opposing operations gain momentum; the trio's resonance falls apart."
+  },
+  "emotional_arc": {
+    "start": "Environmental overwhelm—the visible widening of the Scar, the pressure of three simultaneous operations pulling the Force in incompatible directions, the weight of the moment collapsing into immediate action.",
+    "shift": "Focused determination as Ben calls 'Now' and reaches to harmonise—the narrowing of attention into the act of leading, the surge of instinctive confidence that will and skill can order the discord.",
+    "end": "Strain and the recognition of failure in motion—sweat at his temples, the resonance resisting his reach, the discordance worsening under his hand, the closing image of a pattern that has defined him for twenty-eight years meeting a problem it cannot solve."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Ben watches the Scar widen by a visible centimetre—enough to see without measuring—and feels all three operations pulling the Force in different directions simultaneously.",
+      "state_change": "Abstract pressure becomes concrete environmental threat. The opening pressure shifts from anticipation to immediate sensory reality.",
+      "pov_reaction": "Ben's body registers the widening as a physical fact before his mind catches up; the instinct to act, to respond, to do something pushes forward faster than analysis. His awareness splinters across three vectors—Veraine's calculated pressure at the Scar's base, Torin's expanding void on the far ridgeline, his own position not yet committed."
+    },
+    {
+      "beat_description": "Sera and Kael take positions flanking Ben, hands outstretched. The resonance formation assembles. Ben reaches for both through the Force and speaks the word: 'Now.'",
+      "state_change": "The trio moves from preparation to execution. Three Force-presences align—Sera's rigid and defined (the specific shape of Dantari Force-lock residue), Kael's fluid and sharp (the pressurised mobility of a man who has spent a lifetime in confined spaces), Ben's reaching to harmonise them by will.",
+      "pov_reaction": "Ben's focus tightens into the moment of initiation. The call to begin is not hesitation but commitment—the word spoken aloud anchors the action, makes it real, makes it irrevocable. He feels Sera and Kael respond, their presences turning toward him, toward each other, toward the work."
+    },
+    {
+      "beat_description": "Three hands link. Three Force traditions collide. The sound of it in the Force is three instruments playing in three different keys—Sera's note, Kael's note, Ben's note, none of them resolving into a single chord.",
+      "state_change": "The resonance begins but does not harmonise. The three traditions meet and immediately create discord instead of unity. The Weave-texture of the moment is acoustic and unresolved.",
+      "pov_reaction": "Ben registers the collision as a physical sensation—not pain but pressure, not silence but noise. The three textures refuse to blend under his reach. He feels the resistance as a kind of pushing-back, a refusal. His instinct responds: push harder, lead more clearly, impose the order that should be there."
+    },
+    {
+      "beat_description": "Ben's instinct fires. He reaches to lead, to harmonise, to impose order by will. The resonance resists. The discordance worsens. Sweat beads at his temples in the specific cold of concentration.",
+      "state_change": "The moment of failure locks in. Ben's attempt to command the resonance produces the opposite of harmony—the discord amplifies. Veraine's ritual continues building at the Scar's base. Torin's void continues expanding down the far ridgeline. The Scar widens by another visible centimetre. The trio's operation is the one not yet running.",
+      "pov_reaction": "Ben feels the worsening as a kind of falling—not downward but inward, the three presences collapsing away from each other instead of toward unity. His body tightens against it. He leans harder into the reach, into the will, into the command. The harder he pushes, the more the resonance refuses. Sera's presence rigid and defined, Kael's fluid and sharp, neither combining under his hand. The knowledge that he is trying too hard arrives not as thought but as the sensation of his own effort becoming the problem."
+    }
+  ],
+  "opening_mode": "contrast",
+  "anti_patterns": [
+    "No resolution—the chapter closes on failure.",
+    "The discordance does not begin to cohere on-page in this scene.",
+    "No 'it was as if the Force had—' constructions during the resonance.",
+    "No diagnostic-voice articulation of what is going wrong.",
+    "The chapter closes on the interior of the failure, not on a line of dialogue and not on an external event.",
+    "Do not articulate Ben's Lie on-page in this scene.",
+    "Avoid simile-cascade; one consistent image per paragraph.",
+    "Ben's instinct-to-control is shown as action (force, will, impose) rather than narrated as insight.",
+    "Do not render Desh as a direct Weave-presence; use the nodes' ground-tone and pressure-shape inside that rhythm."
+  ]
 }

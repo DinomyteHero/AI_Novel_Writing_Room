@@ -45,11 +45,52 @@
     "kael_humanized"
   ],
   "promises_planted": [
-    "Kael's detachment is a defense mechanism (PP09)"
+    "PP09"
   ],
   "promises_paid": [],
   "hook_actions": [],
   "revelations": [],
   "pov_arc_phase": "lie_reinforced",
-  "notes": "Kael's approved humanizing beat is the Brotherhood-veteran morning discipline -- private action before explanation, not summary. His homeworld moment remains small and load-bearing -- plants his arc. He is not detached because he does not care; he is detached because caring cost him everything and nobody ever asked. Let the empty database entry do what no line of dialogue could. Diagnostic-voice trap -- Ben should not, in this scene, narrate Kael's psychology or name the defense mechanism. He observes, Desh senses without naming, Torin mediates, Sera absorbs. Kael's cost should land through what the screen does not say. Voice: Allston-brief dialogue, Stover-interior beat permitted only on Ben's recognition of Kael's silence. Prior-EU orientation -- if Mara or Vestara surfaces in the history scroll, each gets one grounding phrase at most, no paragraph."
+  "notes": "Kael's approved humanizing beat is the Brotherhood-veteran morning discipline -- private action before explanation, not summary. His homeworld moment remains small and load-bearing -- plants his arc. He is not detached because he does not care; he is detached because caring cost him everything and nobody ever asked. Let the empty database entry do what no line of dialogue could. Diagnostic-voice trap -- Ben should not, in this scene, narrate Kael's psychology or name the defense mechanism. He observes, Desh senses without naming, Torin mediates, Sera absorbs. Kael's cost should land through what the screen does not say. Voice: Allston-brief dialogue, Stover-interior beat permitted only on Ben's recognition of Kael's silence. Prior-EU orientation -- if Mara or Vestara surfaces in the history scroll, each gets one grounding phrase at most, no paragraph.",
+  "turning_point_detail": {
+    "trigger": "Kael asks what happened to the Sith world he was taken from, and Ben searches the database.",
+    "shift": "The screen returns nothing—the planet too small for surviving records. Kael's expression does not change, but his shoulders register the cost. Ben sees, for the first time, that Kael's distance is not emptiness but discipline protecting what remains.",
+    "cost": "Ben absorbs the human weight of what the Reformations did: a thousand-year displacement so complete that even the homeworld is erased from galactic record. The cost also strains the group's cohesion—real connection requires witnessing grief, not managing it."
+  },
+  "emotional_arc": {
+    "start": "Awkward information exchange—Ben moving through explanation without feeling its weight.",
+    "shift": "Raw grief surfaces when the database returns nothing. Ben's focus tightens on what just changed in Kael's shoulders, the silence taking up more space than his body.",
+    "end": "Fragile group empathy—the survivors have registered each other's displacement, and Ben has seen that connection requires more than mission alignment."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Ben passes the cargo corridor and catches Kael in a private Brotherhood-veteran morning discipline—exact, quiet, economical movement that ends before Ben can decide whether to acknowledge it.",
+      "state_change": "The opening pressure becomes concrete: Ben has seen Kael's invisible survival mechanism before hearing any explanation of displacement.",
+      "pov_reaction": "Ben's instinct pushes toward action rather than explanation—a recognition that some things cannot be named in common areas. His discomfort at witnessing a private ritual registers as a physical tension: the impulse to look away, the choice not to."
+    },
+    {
+      "beat_description": "Ben pulls up a galactic history archive on the datapad and slides it across the table to Sera, beginning to answer the Reformations question directly.",
+      "state_change": "The group moves from isolation into shared information. Sera's stillness as she reads becomes the room's new pressure point.",
+      "pov_reaction": "Ben feels the weight of honesty landing—each survivor will process this differently, and he cannot control how. The datapad becomes a physical anchor for a conversation that has no good shape."
+    },
+    {
+      "beat_description": "Kael asks what happened to the Sith world he was taken from. Ben searches the database. The screen returns nothing—the planet too small for surviving records.",
+      "state_change": "The scene pivots from abstract displacement to concrete erasure. Kael's homeworld does not exist in the modern galaxy's memory.",
+      "pov_reaction": "Ben's attention narrows to Kael's shoulders—the line of them shifts, a micro-adjustment that registers as the cost landing. Ben does not name what he sees; he feels the silence expand in the small space, and his own breath becomes audible to him."
+    },
+    {
+      "beat_description": "Torin nods across the common area—a commander's acknowledgment that Ben cannot read as approval or assessment.",
+      "state_change": "The group's internal structure begins to solidify. Torin is already thinking in command hierarchy, already mediating the survivors' grief through operational framing.",
+      "pov_reaction": "Ben registers the nod as both reassurance and warning. The fragile empathy the group has built is already being threaded through command structure—a pattern that will hold them together and constrain them both."
+    }
+  ],
+  "opening_mode": "sensory_hook",
+  "anti_patterns": [
+    "- Ben should not, in this scene, narrate Kael's psychology or name the defense mechanism",
+    "Ben should not narrate Kael's psychology or name the defense mechanism",
+    "Avoid diagnostic-voice trap—Ben observes, he does not analyze",
+    "Do not arrive at clinical articulation of Kael's detachment",
+    "Do not use the empty database entry as a springboard for exposition about the Sith world—let the absence speak",
+    "Avoid mission-debrief sentences—this is not a briefing, it is a conversation that breaks people open"
+  ]
 }

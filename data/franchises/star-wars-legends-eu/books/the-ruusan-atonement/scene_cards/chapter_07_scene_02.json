@@ -64,5 +64,50 @@
   "notes": "Make the lock opening and the vocabulary arrival part of the same movement. Sera's competence should do as much work as the text on the screen.",
   "primary_anchor": "Luceno",
   "supporting_anchor": "Zahn, Stover",
-  "stover_permitted": true
+  "stover_permitted": true,
+  "turning_point_detail": {
+    "trigger": "Sera dissolves a Force-lock in seconds using muscle memory from a thousand years ago, and the record she opens names the discipline—unweaving—as a specific procedure in the Force-lock training tree.",
+    "shift": "Ben's respect for Sera shifts from reluctant tolerance to genuine recognition of her irreplaceable value. The technique acquires a formal name and procedural identity, transforming Veraine from an unpredictable threat into a practitioner of a known, inherited discipline.",
+    "cost": "Ben's understanding of modern Jedi education becomes undeniably incomplete. The Jedi Lords era was militarized and morally compromised in ways the Order has quietly trimmed from its historical record. This knowledge cannot be unknown, and it complicates Ben's relationship to the institution he serves."
+  },
+  "emotional_arc": {
+    "start": "Intellectual curiosity—Ben approaches the archive as a puzzle to solve, a piece of missing information.",
+    "shift": "Uncomfortable historical reckoning—as Sera translates, Ben confronts the reality that the Jedi Lords era was far more morally compromised than modern Jedi history acknowledges, and that the Order has actively concealed this.",
+    "end": "Focused urgency—the technique has a name, a procedure, and a location. Veraine is no longer an unknown variable but a practitioner of a specific, identifiable discipline. The mission acquires sharp definition."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Sera places her palms on the ancient Force-lock and dissolves it in seconds—muscle memory overriding a thousand years of stasis.",
+      "state_change": "The abstract barrier becomes concrete proof of Sera's capability. The archive opens.",
+      "pov_reaction": "Ben's curiosity sharpens into recognition. His body registers the ease of her movement—the domestic familiarity of someone unlocking their own door—before his mind catches up to what it means. A slight vertigo: the gap between what he was trained to expect and what he is witnessing."
+    },
+    {
+      "beat_description": "Ben scrolls through holographic records in an archaic data format while Sera translates the terminology and historical context. The records reference events, techniques, and framings Ben has no vocabulary for.",
+      "state_change": "Information accumulates. Sera's translations reveal a militarized Jedi Lords era that modern Jedi history has quietly trimmed. The picture becomes uncomfortable.",
+      "pov_reaction": "Ben's focus tightens. Each translation lands with a slight weight—not shock, but the slow, cold recognition that the Order's historical narrative has been edited. His attention pulls at a slight angle, the thin place making concentration work harder. A tension between wanting to understand and not wanting to know what comes next."
+    },
+    {
+      "beat_description": "Sera reads a passage aloud that names the technique—unweaving—as a specific procedure in the Force-lock discipline. The sentence is clean and short. Ben feels the weight of it land in his body a beat after the words end.",
+      "state_change": "The technique acquires a formal name and procedural identity. It is not improvisation; it is a named, inherited discipline.",
+      "pov_reaction": "The word 'unweaving' settles into Ben's body like a procedure he suddenly understands the shape of. His breath catches—not from fear, but from the sudden clarity of recognition. The technique is no longer abstract threat; it is a specific, teachable method. The implications cascade: Veraine learned this. She was trained in this. She knows exactly what she is doing."
+    },
+    {
+      "beat_description": "Sera pulls up the Veranthos entry—coordinates, purpose, and a warning notation glowing on the display. The location is real. The wound is real.",
+      "state_change": "The scene pivots from historical reckoning to operational urgency. Sera's value to the mission becomes undeniable—only her era-specific expertise could have cracked this lock and translated these records. Ben's respect shifts from reluctant to genuine.",
+      "pov_reaction": "Ben's focus crystallizes. The thin place's pressure sharpens his attention. He sees Sera clearly now—not as a historical artifact or a liability, but as the only person in this bunker who could have done what she just did. The recognition carries its own weight: he needs her. The mission needs her. This is not negotiable."
+    },
+    {
+      "beat_description": "Ben registers that Veraine is not improvising. She is practicing the named procedure. She was trained in this discipline. She knows what she is doing.",
+      "state_change": "The operating picture changes. Veraine is no longer an unknown variable but a practitioner of a specific, identifiable technique. The threat acquires shape and definition.",
+      "pov_reaction": "Ben's body braces. The urgency settles into his chest—not panic, but the cold clarity of someone who understands the scope of the problem. Veraine is not flailing. She is executing. The wound is real, the technique is named, the location is confirmed, and she is already moving. The scene's pressure hands off to what comes next."
+    }
+  ],
+  "opening_mode": "in_medias_res",
+  "anti_patterns": [
+    "Do not open with exposition about the Force-lock or the archive's history",
+    "Do not have Ben or Desh crack the lock—Sera must do it, and her ease must be the point",
+    "Do not arrive at clinical articulation of the Force-lock mechanism; keep it sensory and behavioral",
+    "Make the lock opening and the vocabulary arrival part of the same movement—Sera's competence should do as much work as the text on the screen",
+    "Do not describe the thin place's effect on perception in diagnostic voice; register it as Ben's attention pulling at a slight angle"
+  ]
 }

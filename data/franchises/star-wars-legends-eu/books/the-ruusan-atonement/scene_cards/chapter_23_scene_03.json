@@ -45,7 +45,7 @@
   ],
   "promises_planted": [],
   "promises_paid": [
-    "Kael's detachment breaks into chosen commitment (PP09)"
+    "PP09"
   ],
   "hook_actions": [
     {
@@ -59,5 +59,41 @@
   ],
   "revelations": [],
   "pov_arc_phase": "moment_of_truth",
-  "notes": "Kael's dry commitment line is a chapter-anchor. Deliver once, dry, understated; do not reprise. Kael's arc new-truth demonstrated. Kael/Veraine parallel resolves by divergent choice from the same wound. Anti-pattern: no group cheer, no emotional speech from Ben; Kael's line lands, the group registers it, they move. Rotate Force-wrongness metaphor family for the closing — three notes arranged but not yet a chord (acoustic register), not handrail or pressure. Use this to seed the Ch24 discordance."
+  "notes": "Kael's dry commitment line is a chapter-anchor. Deliver once, dry, understated; do not reprise. Kael's arc new-truth demonstrated. Kael/Veraine parallel resolves by divergent choice from the same wound. Anti-pattern: no group cheer, no emotional speech from Ben; Kael's line lands, the group registers it, they move. Rotate Force-wrongness metaphor family for the closing — three notes arranged but not yet a chord (acoustic register), not handrail or pressure. Use this to seed the Ch24 discordance.",
+  "turning_point_detail": {
+    "trigger": "Kael delivers his dry commitment line — the humor covering something raw, the volunteer framing the load-bearing detail of what he is choosing to do.",
+    "shift": "The group moves from waiting/deciding into action. The abstract pressure becomes concrete forward motion toward the valley and the wound source.",
+    "cost": "Ben registers Kael's vulnerability — the magnitude of a man who has never voluntarily risked himself for others' work now doing exactly that. The cost also lands on the resonance trio itself: three traditions, three wounds, one attempt — the notes are arranged but not yet a chord, and Ben feels the strain of that incompleteness as they move toward the climax."
+  },
+  "emotional_arc": {
+    "start": "Anticipation mixed with doubt — Kael is the last holdout, and Ben is braced for refusal or continued resistance.",
+    "shift": "The commitment lands; doubt converts to group relief and resolve. Ben's focus tightens on what just changed: Kael chose.",
+    "end": "The march toward the endgame — resolve hardened into forward motion, but threaded with the strain of three incompletely-resonant Force presences moving together toward something that has never been attempted."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Kael walks back to the group with a stride that's changed — less careful, more deliberate, decided.",
+      "state_change": "The waiting ends. Ben reads the body language before Kael speaks and knows the answer is yes.",
+      "pov_reaction": "Ben's instinct pushes toward action rather than explanation — a tightening in his chest, a shift in his weight as if preparing to move. The commitment is visible in the stride, and Ben's body registers it before his mind articulates it."
+    },
+    {
+      "beat_description": "Kael delivers his commitment line with the driest voice Ben has heard — the humor covering something enormous, the deflection carrying the weight of what he is doing.",
+      "state_change": "The group pivots from decision-pending to decision-locked. Sera and Desh register the line; the pressure that has been holding them all in place releases into forward motion.",
+      "pov_reaction": "Ben hears the dry delivery and recognizes the armor — the humor is real, but so is what it covers. The line lands as both relief and a sharp recognition of Kael's vulnerability. Ben feels the magnitude of what Kael is choosing without needing it explained."
+    },
+    {
+      "beat_description": "The group moves together toward the valley — three Force-users and one non-Force-user walking toward something unprecedented. Desh splits off toward the first amplification node in the distance.",
+      "state_change": "The resonance trio is formed and moving. The climactic attempt is no longer theoretical — it is imminent, concrete, locked in by Kael's choice and the group's forward motion.",
+      "pov_reaction": "Ben feels Sera's and Kael's Force presences adjacent to his own — different in texture and tradition, complementary in structure but not yet harmonized. The incompleteness is palpable; the three notes are arranged but not yet a chord. Ben carries this strain as they move, braced for the discordance that will come when they attempt to resonate together."
+    }
+  ],
+  "opening_mode": "in_medias_res",
+  "anti_patterns": [
+    "Deliver once, dry, understated; do not reprise",
+    "no group cheer, no emotional speech from Ben; Kael's line lands, the group registers it, they move",
+    "Deliver once, dry, understated; do not reprise Kael's commitment line.",
+    "No group cheer, no emotional speech from Ben; Kael's line lands, the group registers it, they move.",
+    "Rotate Force-wrongness metaphor family for the closing — use acoustic register (three notes arranged but not yet a chord), not handrail or pressure.",
+    "Do not linger on reflection or emotional processing; the scene ends as the group moves toward the valley."
+  ]
 }

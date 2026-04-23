@@ -70,5 +70,45 @@
   "notes": "Keep the discovery procedural and physical. Torin's line should sound warm, calm, and fatal.",
   "primary_anchor": "Zahn",
   "supporting_anchor": "Bujold",
-  "stover_permitted": false
+  "stover_permitted": false,
+  "turning_point_detail": {
+    "trigger": "Torin's tone — the cadence of someone who has already decided and is now only negotiating the announcement.",
+    "shift": "Ben recognizes the pattern in Torin's voice before the words themselves register. The group's emotional cohesion fractures; Torin separates even while physically present. The sabotage discovery retroactively reframes Ch 16 as cover for Veraine's infrastructure work, collapsing the distinction between her philosophical sincerity and her operational intent.",
+    "cost": "Ben hears the recognition crystallizing in Torin's tone but cannot yet name what decision Torin has made. The cost is uncertainty compounded by intimacy — Ben knows Torin well enough to hear the finality, not well enough to predict its direction. Interpersonally, the group's trust fractures under the wound's amplification. Externally, the countdown compresses the mission from days to hours."
+  },
+  "emotional_arc": {
+    "start": "Physical drop of the Force-floor — a sudden, disorienting shift in the ambient pressure of the Force itself, registering in Ben's body before his conscious mind locates it.",
+    "shift": "Retrospective understanding of the Ch 16 meeting as operational cover, collapsing the boundary between Veraine's sincere philosophical argument and her sabotage. Urgency crystallizes as Ben converts abstract pressure into tactical focus.",
+    "end": "Torin's ominous calm — the recognition that someone Ben trusts has already made a choice that will fracture the group, and Ben is braced for the announcement without yet knowing its shape."
+  },
+  "key_beats": [
+    {
+      "beat_description": "The Force-floor drops. Ben registers the wrongness in his body before his mind locates it — not a jolt but a resettling, as if the ground beneath the Force has lowered by a meter. Desh runs the sensor sweeps backward across the meeting window and finds the sabotage signature on a bulkhead display.",
+      "state_change": "The abstract pressure becomes concrete. The opening wrongness transforms from atmospheric dread into forensic confirmation: Veraine struck an intermediate anchor site while the group was in the clearing, using the meeting as operational cover.",
+      "pov_reaction": "Ben's instinct pushes toward action rather than explanation. His body registers the Force-floor drop as a physical sensation — a vertigo-like pressure at the back of his head — before his mind can articulate what has shifted. The sabotage signature on the display lands as confirmation of something Ben's Force-sense already knew but could not yet name."
+    },
+    {
+      "beat_description": "Desh converts the seal degradation rate to hours and posts the countdown on the cockpit display. The numeral sits steady against Ben's pulse, a constant atmospheric pressure like altitude sickness.",
+      "state_change": "The timeline collapses from abstract to measurable. Hours, not days, until Veraine reaches Veranthos with a compromised seal and a functioning amplification array. The race becomes a sprint.",
+      "pov_reaction": "Ben's focus tightens toward the tactical problem. The countdown numeral becomes the new floor of his attention — not a threat he can negotiate but a physical constraint he must work within. The pressure of the wound amplifies his sense of urgency; he feels his own heartbeat as a separate thing, slightly out of sync with the ship's hum."
+    },
+    {
+      "beat_description": "Ben paces the common area while assigning approach tasks — nerves converting to motion. He hears his own voice coming out slightly louder than the task warrants, catches the amplification in his own tone, does not explain it. Arguments flare hotter than their content justifies in the margins of the scene; the wound is working on the group by proximity.",
+      "state_change": "The group's emotional cohesion begins to fracture under the wound's amplification. Ben's own voice betrays the pressure he is trying to contain. The scene pivots from discovery toward interpersonal strain.",
+      "pov_reaction": "Ben registers the amplification in his own tone and chooses not to name it — a small act of containment that costs him. His body wants motion; his mind wants control. The pacing is a compromise that satisfies neither. He can hear the strain in the voices around him, the way the wound is shortening everyone's patience, and he cannot stop it."
+    },
+    {
+      "beat_description": "Torin stands in the doorway with the exact weight of an old remembered cadence. His voice is calm and warm, the tone that drops Ben's stomach. 'We need to talk about what happens when we get there,' Torin says. The line itself is quiet; what it announces is not.",
+      "state_change": "Torin separates from the group emotionally even while physically present. The next-scene pressure locks in at the boundary. Ben has heard that tone before — the certainty of someone who has already decided and is now only negotiating the announcement. The argument Torin has just announced will happen later. Ben cannot yet predict what will be in it, but he can predict its cadence.",
+      "pov_reaction": "Ben's stomach drops before his mind catches up. He hears the pattern in Torin's voice — the finality underneath the warmth — and the recognition crystallizes without yet being named. Ben knows Torin well enough to hear the decision, not well enough to predict its direction. The cost lands as uncertainty compounded by intimacy: Ben is braced for the scene's handoff pressure, but the shape of what is coming remains opaque."
+    }
+  ],
+  "opening_mode": "contrast",
+  "anti_patterns": [
+    "Do not open with a flashback or exposition dump explaining the sabotage's mechanics.",
+    "Do not arrive at clinical articulation of the Force-wound's phenomenology.",
+    "Do not have Ben articulate or explain the wound's amplification effect — he registers it, he does not diagnose it.",
+    "Keep the discovery procedural and physical.",
+    "Torin's line should sound warm, calm, and fatal."
+  ]
 }

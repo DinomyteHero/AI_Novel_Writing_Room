@@ -47,5 +47,40 @@
   "hook_actions": [],
   "revelations": [],
   "pov_arc_phase": "lie_challenged",
-  "notes": "First moment of genuine team function — not just cooperation but synthesis. Scene-level foreshadow of the climactic solution: disparate traditions producing an answer none could reach alone. Do not italicise the parallel. Diagnostic-voice trap — Ben should not, in this scene, articulate 'this is leadership through integration.' He runs the room and lets the room run itself; the synthesis is visible in the action and dialogue, not in his head. Voice: Zahn-procedural, short exchanges, one Allston-warm Desh line permitted near the close."
+  "notes": "First moment of genuine team function — not just cooperation but synthesis. Scene-level foreshadow of the climactic solution: disparate traditions producing an answer none could reach alone. Do not italicise the parallel. Diagnostic-voice trap — Ben should not, in this scene, articulate 'this is leadership through integration.' He runs the room and lets the room run itself; the synthesis is visible in the action and dialogue, not in his head. Voice: Zahn-procedural, short exchanges, one Allston-warm Desh line permitted near the close.",
+  "turning_point_detail": {
+    "trigger": "The Corridor map stops reading as a route and starts reading as a diagram — the moment when overlaid evidence and connections resolve into a coherent pattern showing each repurposed node as an antenna in a network.",
+    "shift": "Veraine's objective transforms from 'attacking the seal' to 'inverting its architecture.' The answer arrives as a group observation; no single speaker owns it. The threat escalates from tactical to structural.",
+    "cost": "Ben runs the room and the room produces an answer none of them could reach alone. The cost lands on Ben: he must trust the synthesis rather than direct it, and the group's first successful collaboration arrives with the recognition that Veraine's plan is more sophisticated and more dangerous than they assumed."
+  },
+  "emotional_arc": {
+    "start": "Analytical collaboration — the pressure of unsolved evidence channeled into procedural focus.",
+    "shift": "Dawning understanding — the moment the pattern resolves and the threat clarifies, tightening Ben's focus on what just changed.",
+    "end": "Strategic alarm — the recognition that Veraine's sophistication exceeds their initial assessment, leaving Ben braced for the scene's handoff pressure."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Desh spreads evidence from every node across every flat surface on the ship — datapads, manifests, sensor logs, environmental readings overlaid and cross-referenced.",
+      "state_change": "The abstract pressure of the failing seal becomes concrete. The room transforms into a working space; the evidence becomes actionable.",
+      "pov_reaction": "Ben registers the shift from abstract threat to tangible data. His instinct pushes toward action — organizing, connecting, moving — rather than explanation. A quiet recognition that Desh has just handed him the frame the group needs."
+    },
+    {
+      "beat_description": "Sera pins Corridor maps to the bulkhead and draws connections between node modifications in archaic notation, annotating the spatial relationships. Torin places the Force-theoretical implications alongside the physical layout. Kael pulls two of the conclusions apart with a single sentence and improves the rest.",
+      "state_change": "The evidence stops being a collection and becomes a diagram. The Corridor map resolves into a weapon's schematic. The group's separate expertise begins to synthesize rather than stalemate.",
+      "pov_reaction": "Ben watches the pattern emerge without directing it. The pressure turns toward understanding — a tightening focus as he recognizes what the overlaid data is showing. His role shifts from answering to witnessing; the synthesis is visible in the room's motion, not in his head. A moment of recognition that the group is functioning as a unit."
+    },
+    {
+      "beat_description": "Ben traces the amplification array's shape on the tactical display as the pattern resolves — each node positioned as an antenna, the network aimed at Veranthos, the architecture inverted.",
+      "state_change": "The decision locks in. Veraine is not attacking the seal; she is inverting its own architecture. The threat escalates from tactical assault to structural inversion. The group's first successful collaboration arrives with the recognition that Veraine's plan is more sophisticated and more dangerous than they assumed.",
+      "pov_reaction": "Strategic alarm settles into Ben's chest. The recognition lands not as personal failure but as a shift in the threat's shape — Veraine's sophistication exceeds their initial assessment. His hand moves across the display, tracing the array, and the weight of what they've just understood settles into his shoulders. The scene's pressure hands off its consequence: they know what she's doing now, and they have to stop her."
+    }
+  ],
+  "opening_mode": "in_medias_res",
+  "anti_patterns": [
+    "Do not italicise the parallel",
+    "Ben should not, in this scene, articulate 'this is leadership through integration.' He runs the room and lets the room run itself; the synthesis is visible in the action and dialogue, not in his head",
+    "Do not italicise the parallel between this scene's group synthesis and the climactic solution.",
+    "Ben should not, in this scene, articulate 'this is leadership through integration.' He runs the room and lets the room run itself; the synthesis is visible in the action and dialogue, not in his head.",
+    "Avoid diagnostic-voice trap — Ben should not analyze the phenomenology of the group's functioning or articulate what the synthesis means. Let the action and dialogue carry the recognition."
+  ]
 }

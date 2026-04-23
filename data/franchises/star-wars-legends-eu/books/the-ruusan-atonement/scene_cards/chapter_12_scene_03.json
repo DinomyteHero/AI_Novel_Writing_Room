@@ -54,5 +54,44 @@
   ],
   "revelations": [],
   "pov_arc_phase": "lie_reinforced",
-  "notes": "H12 planted — the wrongness lurches, the seal is being deliberately attacked. Rotate Force-wrongness metaphor: not handrail, not flat-note, not bass-below-hearing. Here the register is pressure-drop in the body, a physical wobble the knees catch before the ears do. One consistent image, carried through the scene. Diagnostic-voice trap — Ben should not, in this scene, narrate 'the seal is being actively attacked' as an interior realisation sentence. His body registers the spike; Desh's scan reads the pattern; the group's collective shift does the work. Settlement-world cue at the close prepares Ch13 (Kolven) — the horror of the midpoint is that it was populated, and Ch12 gives that breath of knowing before the chapter ends."
+  "notes": "H12 planted — the wrongness lurches, the seal is being deliberately attacked. Rotate Force-wrongness metaphor: not handrail, not flat-note, not bass-below-hearing. Here the register is pressure-drop in the body, a physical wobble the knees catch before the ears do. One consistent image, carried through the scene. Diagnostic-voice trap — Ben should not, in this scene, narrate 'the seal is being actively attacked' as an interior realisation sentence. His body registers the spike; Desh's scan reads the pattern; the group's collective shift does the work. Settlement-world cue at the close prepares Ch13 (Kolven) — the horror of the midpoint is that it was populated, and Ch12 gives that breath of knowing before the chapter ends.",
+  "turning_point_detail": {
+    "trigger": "Desh's read of Veraine's extended time at Maetha's — she sat where the Knights trained, not logistics or repurposing. A pilgrimage.",
+    "shift": "Veraine's project acquires historical lineage and deliberate shape. She is not improvising or fleeing; she is executing a mapped strategy. The group can begin to anticipate her next moves because her pattern is becoming legible.",
+    "cost": "Ben feels the seal's failure in real time — visceral, not abstract. The wrongness spike lands in his body before his mind can contextualize it. Simultaneously, Torin's reaction to the spike diverges sharply from everyone else's, widening the gap between him and the group. Ben now carries both the physical weight of acceleration and the interpersonal strain of Torin's dangerous attunement."
+  },
+  "emotional_arc": {
+    "start": "Physical shock — the wrongness spike catches Ben's body before his mind can process it.",
+    "shift": "Urgent assessment — Ben's focus tightens on the pattern emerging from Desh's scan and Torin's reaction. The pressure becomes directional.",
+    "end": "Grim realization of acceleration — the timeline has compressed from days to hours. The next encounter will not be abstract. It will be populated."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Ben staggers as the wrongness spikes without warning — his hand catches the doorframe to stay upright. The pressure drops in his body; his knees register it before his ears do.",
+      "state_change": "The wrongness moves from background hum to acute physical event. The seal's failure is no longer theoretical.",
+      "pov_reaction": "Ben's body reacts before thought — a stagger, a catch, a moment where balance is not guaranteed. His instinct is to stabilize himself, not to narrate what is happening. The sensation is pressure-drop, a wobble in the knees, a sudden need for the doorframe to be solid."
+    },
+    {
+      "beat_description": "Sera braces against the wall with both palms as the Force destabilizes around them. The flexible Weave at Maetha's location snaps briefly into chaos before settling.",
+      "state_change": "The spike escalates and confirms: this is not a localized fluctuation. The wrongness is spreading. The group's physical responses synchronize — everyone recoils.",
+      "pov_reaction": "Ben's focus tightens. The pressure is not random; it has a direction. His urgent assessment begins to map the pattern — where it came from, what it means, whether it will spike again."
+    },
+    {
+      "beat_description": "Torin tilts his head toward the spike with an attentive listening posture while everyone else recoils. He does not brace. He does not stagger. He orients.",
+      "state_change": "The group's reaction fragments. Torin's attunement to the wrongness diverges sharply from the others'. He is not resisting the spike; he is listening to it. The gap between him and the group widens visibly.",
+      "pov_reaction": "Ben registers Torin's posture — the tilt of the head, the absence of recoil. The recognition lands as a cold spike of its own: Torin is not fighting the wrongness. He is attuned to it in a way that suggests alignment, not resistance. The cost of that realization settles into Ben's chest."
+    },
+    {
+      "beat_description": "Desh punches the nav display to life and plots their course to the next node on the Corridor. The chrono on the display runs one second fast against Ben's own. The settlement world flags in red.",
+      "state_change": "The pattern becomes legible. Veraine's time at Maetha's was not logistics — it was pilgrimage. She sat where the Knights trained. Her lineage acquires an ancestor. Her project gains a shape the group can begin to map. And the next stop is not empty.",
+      "pov_reaction": "Ben's grim realization settles into place. The timeline has compressed. Days have become critical. The next encounter will not be abstract. It will be populated. The wrongness is accelerating toward civilians, and the group is still days behind Veraine's signal."
+    }
+  ],
+  "opening_mode": "in_medias_res",
+  "anti_patterns": [
+    "Ben should not, in this scene, narrate 'the seal is being actively attacked' as an interior realisation sentence",
+    "Ben should not narrate 'the seal is being actively attacked' as an interior realization sentence — his body registers the spike; Desh's scan reads the pattern; the group's collective shift does the work",
+    "Do not use diagnostic voice to describe the wrongness or the Weave — keep it sensory and physical (pressure-drop, knees registering, chaos snapping and settling)",
+    "Do not open with exposition or explanation — open in medias res with the spike itself"
+  ]
 }

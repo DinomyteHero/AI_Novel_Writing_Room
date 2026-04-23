@@ -41,7 +41,7 @@
   ],
   "promises_planted": [],
   "promises_paid": [
-    "Desh will matter to the climax (PP19)"
+    "PP19"
   ],
   "hook_actions": [
     {
@@ -51,5 +51,51 @@
   ],
   "revelations": [],
   "pov_arc_phase": "new_truth_demonstrated",
-  "notes": "The chapter's only tactical scene. Keep it tight, competent, understated — Desh in his element, the old skill turned to a better purpose. The GAG history is present as technique, not as memory paragraph. Voice: Zahn-compact, Allston-rhythm where appropriate (one dry line before the first takedown, maybe). Anti-pattern: no lethal kills unless the scene absolutely requires it — Desh's read is 'break equipment, not kill people,' and the nonlethal choice is the chapter's quiet moral."
+  "notes": "The chapter's only tactical scene. Keep it tight, competent, understated — Desh in his element, the old skill turned to a better purpose. The GAG history is present as technique, not as memory paragraph. Voice: Zahn-compact, Allston-rhythm where appropriate (one dry line before the first takedown, maybe). Anti-pattern: no lethal kills unless the scene absolutely requires it — Desh's read is 'break equipment, not kill people,' and the nonlethal choice is the chapter's quiet moral.",
+  "turning_point_detail": {
+    "trigger": "Third amplification node goes dark; array drops below operational threshold.",
+    "shift": "The amplification infrastructure collapses. Veraine's ritual loses its force-multiplication. Ben's resonance work transitions from impossible to merely desperate. The scene's pressure transfers from Desh's operational timeline to Ben's mystical one.",
+    "cost": "Desh has burned his cover and his nonlethal discipline to the limit. Ben receives the handoff with no margin — Desh's comm message is a hard deadline: 'do it now, everything, don't hold back.' The cost is urgency without buffer."
+  },
+  "emotional_arc": {
+    "start": "Professional focus — Desh in his element, the old GAG skill repurposed toward a chosen purpose. Controlled, efficient, present.",
+    "shift": "Escalating physical danger as guards respond and the operational timeline tightens. Each node must fall before the others are compromised. Pressure mounts with each success.",
+    "end": "Triumph through competence — the third node dark, the array down, the mission accomplished. Desh's confidence in his own skill vindicated. The handoff to Ben delivered with authority."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Desh approaches the first amplification node in textbook GAG silence — low, fast approach, two guards positioned at the entrance. He reads their posture, their sight lines, the equipment layout. The guards have no idea he is there until he moves.",
+      "state_change": "The abstract operational pressure becomes concrete and immediate. The first node is live; the clock is running on all three.",
+      "pov_reaction": "Desh's breathing settles into the old rhythm — the one that predates choice, the one his body remembers. His hands are steady. No hesitation, no moral weight in this moment; the nonlethal choice is already made and filed away. He is present in the action, not in the reasoning."
+    },
+    {
+      "beat_description": "Desh disables the first node with three precise strikes to the control housing — nonlethal takedowns on the guards, then the equipment. The guards drop. The node's hum falters, then dies. His comm crackles: Ben's voice, waiting. Desh moves.",
+      "state_change": "One node down. Two remain. The timeline is now measurable in minutes. Desh is committed; there is no abort point.",
+      "pov_reaction": "The pressure shifts from tactical to temporal. Desh feels the clock as a physical thing — a weight in his chest, a tightness in his shoulders. The competence is still there, but it is now running against a deadline. Each second the other nodes stay live is a second the array stays operational."
+    },
+    {
+      "beat_description": "Second node. Guards. Equipment. The same sequence, faster. Desh is moving at the edge of his nonlethal margin — the strikes are precise, controlled, but they are also hard. No room for hesitation or mercy; the guards are armed and trained, and they will kill him if they get the chance. He does not kill them. He disables them. The distinction matters.",
+      "state_change": "Two nodes down. The array is weakening — Desh can feel it in the hum of the equipment, in the way the Force-sense around the nodes is beginning to stutter. One more.",
+      "pov_reaction": "Desh's focus narrows to a point. Everything else — the moral weight of the nonlethal choice, the danger, the stakes — falls away. There is only the next node, the next guard, the next strike. His body is running on training and muscle memory. His mind is three steps ahead."
+    },
+    {
+      "beat_description": "Third node. The guards here are faster, better trained — Veraine's crew has had time to reinforce. The fight is harder. Desh takes a hit — a blaster bolt grazes his shoulder, burning through fabric and skin. He does not slow. Three strikes. The guards fall. The equipment sparks and dies. The array hum cuts out entirely.",
+      "state_change": "The amplification infrastructure is offline. Veraine's ritual loses its force-multiplication. The seal's physics change. Ben's resonance work is now possible.",
+      "pov_reaction": "Desh's comm is open. He keys it, his voice steady despite the burn in his shoulder, despite the adrenaline spike. The competence has held. The mission is complete. What comes next is Ben's problem. Desh has done his part."
+    },
+    {
+      "beat_description": "Desh's comm crackles to Ben: 'Array's down. Whatever you're doing — do it now. Everything. Don't hold back.' The message is not a request. It is a statement of fact and a hard deadline. The array is gone. The amplification is stripped. The next phase begins now.",
+      "state_change": "The operational pressure transfers from Desh to Ben. The tactical prong of the plan is complete. The mystical prong must now execute without margin.",
+      "pov_reaction": "Desh is already moving — away from the third node, toward extraction, toward the next phase. The triumph is real, but it is also already behind him. The competence has delivered. Now he waits for Ben to do the same."
+    }
+  ],
+  "opening_mode": "in_medias_res",
+  "anti_patterns": [
+    "no lethal kills unless the scene absolutely requires it — Desh's read is 'break equipment, not kill people,' and the nonlethal choice is the chapter's quiet moral",
+    "No lethal kills unless the scene absolutely requires it — Desh's read is 'break equipment, not kill people,' and the nonlethal choice is the chapter's quiet moral.",
+    "Do not open with a flashback to GAG history or training — the history is present as technique, not as memory paragraph.",
+    "Avoid slowing the action for exposition about how the amplification nodes work — understanding should emerge through Desh's tactical assessment and the equipment's response.",
+    "Do not include Ben Skywalker as a physical presence in the scene — he is a voice on the comm at the very end only. This is Desh's operational scene.",
+    "Do not resolve the larger conflict or the seal's fate — this is stage one of a two-pronged climax. The mystical prong (Ben's resonance work) follows immediately."
+  ]
 }

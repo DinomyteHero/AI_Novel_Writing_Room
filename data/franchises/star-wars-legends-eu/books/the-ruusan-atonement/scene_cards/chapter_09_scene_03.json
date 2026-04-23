@@ -52,5 +52,44 @@
   ],
   "revelations": [],
   "pov_arc_phase": "lie_reinforced",
-  "notes": "Transition from cerebral to tactical. Desh's tactical read is the same order of competence as Sera's Force-lock work — the non-Force-user parity is a deliberate balance in the story. Voice: Zahn-procedural urgency; cut the scene at the approach before any debate can resolve. Diagnostic-voice trap — Ben should not, in this scene, reflect on the Codex argument he just left at the table. The alarm cancels the thought; carry the tension into the outpost. Force phenomenology: moderate thin place with dark-side residue — one consistent image (oil seeping through a cracked floor), no stacked metaphors."
+  "notes": "Transition from cerebral to tactical. Desh's tactical read is the same order of competence as Sera's Force-lock work — the non-Force-user parity is a deliberate balance in the story. Voice: Zahn-procedural urgency; cut the scene at the approach before any debate can resolve. Diagnostic-voice trap — Ben should not, in this scene, reflect on the Codex argument he just left at the table. The alarm cancels the thought; carry the tension into the outpost. Force phenomenology: moderate thin place with dark-side residue — one consistent image (oil seeping through a cracked floor), no stacked metaphors.",
+  "turning_point_detail": {
+    "trigger": "Desh's sensor read confirms the energy signatures are residual, days old, not active — no active ambush.",
+    "shift": "The outpost is not a trap; it is a crime scene Veraine left deliberately for them to discover. The pressure inverts from 'incoming threat' to 'what was she doing here, and what does she want us to find?'",
+    "cost": "Ben must assume command without resolving the Codex argument still sitting on the common-area table. The philosophical tension remains unresolved, now compounded by tactical urgency. Torin's eagerness to move fast collides with Desh's caution — Ben's first real leadership friction emerges under pressure."
+  },
+  "emotional_arc": {
+    "start": "Sharp alarm — the klaxon cuts through debate and triggers instinctive response toward action.",
+    "shift": "Tactical assessment — Desh's sensor read reframes the threat from ambush to staged scene. Ben's focus tightens on what just changed and what it means.",
+    "end": "Grim anticipation — Ben braces for what waits at the outpost, knowing Veraine has been there for days and left a message."
+  },
+  "key_beats": [
+    {
+      "beat_description": "The alarm klaxon cuts through the Codex discussion. Desh is in the cockpit in three seconds, dropping into the pilot's seat and pulling up sensor data on the Brotherhood Outpost with practiced speed.",
+      "state_change": "The abstract philosophical pressure becomes concrete and immediate. The group's focus snaps from internal debate to external threat.",
+      "pov_reaction": "Ben feels sharp alarm spike through his chest — the kind that pushes response toward action rather than explanation. His body moves before thought catches up; he's in the cockpit doorway before he consciously decides to move there."
+    },
+    {
+      "beat_description": "Ben braces against the cockpit doorframe as Desh adjusts their approach vector, fingers moving across the controls with the same professional calm he brought to the sensor sweep. Desh highlights the residual energy signatures on the scanner — days old, not active.",
+      "state_change": "The threat reframes. Not an ambush waiting. Days-old signatures mean Veraine was here and has moved on. The outpost is a scene, not a trap.",
+      "pov_reaction": "The pressure shifts from alarm toward tactical assessment. Ben's focus tightens, narrowing to the specific question: what was she doing here, and what does she want us to find? His breathing steadies; the philosopher's uncertainty gives way to the commander's focus."
+    },
+    {
+      "beat_description": "Desh's voice carries the professional flatness of someone delivering bad news they've already processed. 'Days old. Whatever happened here, it's done.' Behind them, Ben feels the thin place ahead — the Force-sense carrying dark-side residue leaking through the Weave, oil seeping through a cracked floor.",
+      "state_change": "The outpost's condition becomes tactile through the Force. Moderate degradation, residue bleeding through. The thin place is worse than the previous sites. And underneath the wound's signature, something else — a deliberate pattern. A message.",
+      "pov_reaction": "Grim anticipation settles into Ben's shoulders. He braces for the approach, knowing Veraine has been here for days and left something for them to find. The Codex argument remains unresolved at the common-area table, but the alarm has canceled that thought. He carries the tension forward into what waits ahead."
+    },
+    {
+      "beat_description": "Torin's voice cuts in from the corridor behind them — eager, ready to move. 'How long until we're in range?' Desh doesn't answer immediately, running another scan, and the hesitation creates space for the first real friction between speed and caution.",
+      "state_change": "Ben's first leadership test emerges: Torin wants to move quickly; Desh wants to read the signatures before committing. Ben has to choose which instinct to trust without resolving the Codex question that created this tension in the first place.",
+      "pov_reaction": "Ben feels the weight of command settle across his shoulders — not the weight of decision yet, but the weight of knowing that whatever he says next will shape how the group moves. The philosopher's uncertainty about the Codex's claims becomes the commander's certainty about what needs to happen next, even if the reasoning remains unresolved."
+    }
+  ],
+  "opening_mode": "in_medias_res",
+  "anti_patterns": [
+    "Ben should not, in this scene, reflect on the Codex argument he just left at the table",
+    "Ben should not reflect on the Codex argument he just left at the table — the alarm cancels that thought.",
+    "Do not arrive at diagnostic voice when describing the thin place — Ben registers the dark-side residue; avoid analytical framing of the Weave's structural properties.",
+    "Do not use stacked metaphors for the Force phenomenology — one consistent image (oil seeping through a cracked floor) beats multiple layered comparisons."
+  ]
 }

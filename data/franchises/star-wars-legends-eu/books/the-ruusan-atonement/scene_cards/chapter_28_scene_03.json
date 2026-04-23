@@ -39,11 +39,48 @@
   ],
   "promises_planted": [],
   "promises_paid": [
-    "Ben finds a new relationship with his legacy (PP21)",
-    "Ben's unique Force perception resolves into his own frequency (PP22)"
+    "PP21",
+    "PP22"
   ],
   "hook_actions": [],
   "revelations": [],
   "pov_arc_phase": "arc_resolved",
-  "notes": "Final image: 'A note in a chord. Enough.' Deliver the sensory callback to Ch1 by geography and perception, not by narration of the parallel. Ben is 22, not 50 — at peace but not retired. The future is open, not summarised. Anti-pattern: no prophecy, no sequel hint, no mystical visitation, no explicit thematic statement. The note in the chord should land without further explanation. The closing line is the scene's exit — do not add a paragraph after it. Lived-galaxy texture: the Temple is a working building with other Jedi in it; the corridor is not empty."
+  "notes": "Final image: 'A note in a chord. Enough.' Deliver the sensory callback to Ch1 by geography and perception, not by narration of the parallel. Ben is 22, not 50 — at peace but not retired. The future is open, not summarised. Anti-pattern: no prophecy, no sequel hint, no mystical visitation, no explicit thematic statement. The note in the chord should land without further explanation. The closing line is the scene's exit — do not add a paragraph after it. Lived-galaxy texture: the Temple is a working building with other Jedi in it; the corridor is not empty.",
+  "turning_point_detail": {
+    "trigger": "Ben pauses at the training salle where the wrongness first cost him a sparring match three weeks ago. He listens. The wrongness is gone; a chord is in its place—the new seal humming at the edge of perception where the wound used to bleed.",
+    "shift": "From isolated bearer of a terrible truth to a note within a chord he helped build. Ben recognizes his own frequency as part of something larger, not subordinate to it. The shift is from 'I carry this alone' to 'I am part of this.'",
+    "cost": "Ben Skywalker at peace with his name on his own terms, but his place in the Order is changed, honest, and ongoing—not resolved into a fixed role. The cost is acceptance of incompleteness and continued work."
+  },
+  "emotional_arc": {
+    "start": "Reflective peace—Ben walking with the weight of resolution, the immediate crisis past, the truth known.",
+    "shift": "The new perception: the wrongness transformed into resonance. Ben's sensory awareness registers the chord where the wound used to be, and with it, the recognition that he is part of something larger than his own knowledge or burden.",
+    "end": "Acceptance and forward motion. Ben moves through the Temple as a changed person—at peace with what he knows, grounded in his place within the Order's ongoing work, no longer isolated by his unique perception."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Ben walks the Temple corridors in evening light—the same route he took in Chapter 1, when the wrongness was everything he could hear. The light is the same; Ben is not.",
+      "state_change": "The external setting mirrors Chapter 1, but Ben's internal state has transformed. The corridor is no longer a place where he walks alone with unbearable knowledge.",
+      "pov_reaction": "Ben's body moves with reflective steadiness; his Force-sense is open but not strained. The familiar architecture of the Temple registers as home, not as a container for a secret he cannot share. His breathing is even; his footsteps are unhurried."
+    },
+    {
+      "beat_description": "Ben pauses at the training salle where a blade caught his shoulder three weeks ago—where the wrongness cost him a sparring match because he could not explain what he was hearing. He listens.",
+      "state_change": "The wrongness is gone. In its place: a chord. The new seal humming at the edge of perception, the resonance of the anchors and the Weave stabilized, the wound contained not by fear but by orchestration. Ben's Force-sense registers the harmonic structure where the wound used to bleed.",
+      "pov_reaction": "Ben's awareness tightens into focus—not the sharp, isolating focus of Chapter 1, but a focused recognition of pattern. His shoulders drop slightly; the chronic tension that has lived in his chest for weeks eases into something that feels like recognition. He is hearing a chord, not a wrongness. He is part of it."
+    },
+    {
+      "beat_description": "Ben's footsteps continue down the corridor, steady and unhurried. Other Jedi pass him—the Temple is a working building, populated, alive with the ordinary motion of the Order's daily life. Ben moves through it as one of them.",
+      "state_change": "The isolation resolves. Ben is no longer the only one who can hear; he is one voice in a larger structure. The Temple's living presence—other Jedi, the hum of the building, the evening light—becomes the context for his own presence, not a backdrop to his solitude.",
+      "pov_reaction": "Ben's body carries acceptance. His awareness settles into the resonance at the edge of perception—not as a burden he must carry alone, but as a note he is part of. The future is open; the work continues. He is ready for what comes next, not because he has answers, but because he understands that he does not need to carry the answers alone."
+    }
+  ],
+  "opening_mode": "in_medias_res",
+  "anti_patterns": [
+    "no prophecy, no sequel hint, no mystical visitation, no explicit thematic statement",
+    "The closing line is the scene's exit — do not add a paragraph after it",
+    "The closing line is the scene's exit—do not add a paragraph after it",
+    "Do not narrate the parallel to Chapter 1; deliver it through geography and Ben's transformed perception",
+    "Do not have Ben articulate what the chord means or what his role in it signifies",
+    "Do not drift toward diagnostic voice when describing the Force or the Weave",
+    "Do not resolve Ben's future into a summary; leave it open"
+  ]
 }

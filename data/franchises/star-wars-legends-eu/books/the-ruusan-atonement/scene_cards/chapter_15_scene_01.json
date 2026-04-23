@@ -52,5 +52,40 @@
   ],
   "revelations": [],
   "pov_arc_phase": "lie_challenged",
-  "notes": "SP4 intensifying — Ben's withholding moves from editorial discretion toward disobedience as the crisis expands. The parallel to Gavran's secrecy should be felt without being named by Ben. Anti-pattern: do not stage Luke on comm as a speaking voice; his presence is a coded line and an empty reply field. Rotate Force-wrongness metaphor family: weather/pressure (a migraine that does not break, pressure at altitude, a front pushing through) rather than acoustic or navigational registers. Diagnostic-voice trap — Ben should not, in this scene, construct an explanation to himself for why he is not replying. The not-replying is the scene; the justification is Ch15 sc3's work."
+  "notes": "SP4 intensifying — Ben's withholding moves from editorial discretion toward disobedience as the crisis expands. The parallel to Gavran's secrecy should be felt without being named by Ben. Anti-pattern: do not stage Luke on comm as a speaking voice; his presence is a coded line and an empty reply field. Rotate Force-wrongness metaphor family: weather/pressure (a migraine that does not break, pressure at altitude, a front pushing through) rather than acoustic or navigational registers. Diagnostic-voice trap — Ben should not, in this scene, construct an explanation to himself for why he is not replying. The not-replying is the scene; the justification is Ch15 sc3's work.",
+  "turning_point_detail": {
+    "trigger": "Luke's coded message arrives on Ben's personal frequency: 'Sensing disturbances at multiple nexuses. Report status.'",
+    "shift": "Ben stares at the reply field without typing. H13 resolves — Veraine heading for Veranthos is no longer a private problem. The crisis is now visible to the broader Order, and Ben's choice to withhold becomes a choice to lie by omission to his uncle.",
+    "cost": "Ben's withholding becomes harder to maintain as the crisis affects the broader Order. The group recognizes that their local mission has galaxy-wide consequences. Ben is braced at the boundary between editorial discretion and disobedience."
+  },
+  "emotional_arc": {
+    "start": "Strategic alarm — instinct pushing toward action rather than explanation",
+    "shift": "Scope expanding — the pressure turns toward recognition of what just changed, tightening focus on the galactic dimension",
+    "end": "The weight of withholding from Luke deepening — Ben braced at the boundary, the not-replying becoming the scene's final beat"
+  },
+  "key_beats": [
+    {
+      "beat_description": "Ben cycles through comm frequencies and catches fragmentary distress reports from Jedi outposts across the galaxy — anomalous Force behavior at multiple nexuses.",
+      "state_change": "The abstract pressure becomes concrete. The wrongness is no longer localized to the Corridor.",
+      "pov_reaction": "Strategic alarm registers as a physical impulse — Ben's hands move across the comm controls before conscious thought catches up. The reports are fragmentary, half-decrypted, but the pattern is unmistakable. His body knows what his mind is still assembling."
+    },
+    {
+      "beat_description": "Desh pulls up a galactic map and plots each reported disturbance — the pattern radiating outward from the Corridor like a pressure front expanding.",
+      "state_change": "The visual confirmation locks the scope. The disturbances form a coherent pattern. The Valley of the Jedi — where the Reformations began — is responding to the seal's failure.",
+      "pov_reaction": "Ben's focus tightens. The pressure shifts from alarm to recognition. He sees what Desh is plotting before the other man finishes marking the coordinates. The implication settles into his chest like a weight that will not lift."
+    },
+    {
+      "beat_description": "Luke's coded message arrives on Ben's personal frequency — brief, controlled, the language of a Jedi Master who has felt something wrong in the Force and is asking his nephew for an accounting.",
+      "state_change": "The boundary crystallizes. Luke now knows something is wrong. Ben's choice to withhold becomes a choice to lie by omission to the man who taught him what it means to be Jedi.",
+      "pov_reaction": "Ben stares at the reply field. The cursor blinks. His hands rest on the datapad but do not move. The not-replying is the only honest response available to him — answering would require either truth or deception, and both are impossible. The silence is the only thing left."
+    }
+  ],
+  "opening_mode": "in_medias_res",
+  "anti_patterns": [
+    "do not stage Luke on comm as a speaking voice; his presence is a coded line and an empty reply field",
+    "Ben should not, in this scene, construct an explanation to himself for why he is not replying",
+    "do not have Ben construct an explanation to himself for why he is not replying — the not-replying is the scene; the justification is Ch15 Sc3's work",
+    "do not use acoustic or navigational registers for Force-wrongness metaphors; rotate to weather/pressure family (migraine that does not break, pressure at altitude, a front pushing through)",
+    "do not arrive at diagnostic-voice articulation of the Force phenomenon; Ben registers it as sensory pressure, not as explained concept"
+  ]
 }
