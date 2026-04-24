@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch02_sc01",
+  "chapter_number": 2,
+  "scene_number": 1,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "68fb8293c654f7f6ca852aa3ee6b1d22233fc2a561bcd903ac8d87e9572e7b0f",
+  "review_status": "unreviewed",
+  "confidence": 0.98,
+  "hard_constraints": [
+    "Use Legends terminology: comlink/comm channel (not radio), datapad (not laptop), concussion missile/proton torpedo (not missile), blaster (not gun)",
+    "Force described experientially, not clinically: no diagnostic terms like 'Weave' (first in Ch9), 'unweaving', or structural analysis; render Ben's wrongness somatically (e.g., body tension, missed footing) without declarative explanation",
+    "Desh is non-Force-sensitive: perceives anomaly only via instruments (chrono drift, sensor anomalies); no direct Force perception",
+    "No in-universe ABY dating, publishing labels (Legends/Canon), or meta-references (prequels, Wookieepedia style)",
+    "Capitalize 'Human(s)'; 'Jedi' singular/plural; 'galaxy' lowercase; American English",
+    "Ben/Desh GAG history referenced via single phrase only, no recap/flashback/exposition paragraph"
+  ],
+  "canon_risks": [
+    "Hyperspace reversion shudder and sensor drift must align with Legends mechanics: possible via gravitic distortions or micro-mass shadows, not hyperspace 'storms' (Disney bleed risk if framed mystically)",
+    "Instrument drift as early thin-place manifestation: ensure environmental (chrono, nav) without implying direct Force readout on sensors, per Desh's non-sensitivity",
+    "Ben's Force-sense in hyperspace: Legends Force-sensitives feel ambient disturbances during transit (e.g., Yuuzhan Vong voids), but keep somatic/unreliable per scene anti-patterns"
+  ],
+  "legends_continuity_notes": [
+    "YT-series freighters (e.g., Millennium Falcon): cramped cockpits, jury-rigged panels, hyperspace reversion often rough without perfect navicomputer sync; post-Fate of the Jedi (47 ABY), Outer Rim travel routine amid GA stability",
+    "Galactic Alliance Guard (GAG): Legacy of the Force canon; Jacen Solo's secret police (44-41 ABY); Ben/Desh teenage service preserved, evokes shared shame without detail",
+    "Hyperspace sensory: swirling blue mottling, potential disorientation for Force-sensitives near disturbances (precedents in NJO for void-like anomalies); instruments detect via gravitic/chrono drift",
+    "Post-Abeloth (Fate of the Jedi): Force settling, Jedi Temple on Coruscant under Luke; Ben as Knight with GAG/Abeloth/Vestara history"
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Setting: Steady Returns (modified YT-series freighter, Desh's ship, cramped cockpit, lived-in; italicize ship name)",
+    "Characters: Ben Skywalker (POV, ~20-21, somatic wrongness since Ch1); Desh Rolan (non-Force, former GAG, dry humor, practical)",
+    "Scene goal: Establish Ben/Desh team rhythm (unspoken GAG bond); Desh instruments first externalize Ben's wrongness as directional bearing matching his somatic sense",
+    "Emotional arc: Familiar ease -> careful humor -> tension; no diagnostic voice/body-experience first",
+    "Era: 47 ABY post-Fate, GA primary government, Jedi from Coruscant Temple",
+    "AU thin places: Mild wrongness as sensor drift (chrono/nav anomalies); Desh reads de-correlation, Ben recognizes bearing somatically"
+  ],
+  "allowed_au_divergences": [
+    "Seal deterioration manifesting as hyperspace-adjacent sensor drift (thin places per concept seed; authorized wound effect on environment/instruments)",
+    "Wrongness as pre-Weave somatic distortion (handrail slippage precursor; Ben lacks vocabulary per force_mechanics/sensory_vocabulary)"
+  ],
+  "open_questions": [
+    "Specific YT-series model for Steady Returns? (Contract says modified YT-series; Wookieepedia Legends entries exist for YT-1300 etc., but unneeded unless ship specs called for)"
+  ]
+}

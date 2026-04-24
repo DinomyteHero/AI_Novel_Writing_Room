@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch27_sc01",
+  "chapter_number": 27,
+  "scene_number": 1,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "bff6fe88dfb33a19cfcb43f5d516dc7f95c53d5c5eecb9d1b8e1dcfe77ff1d15",
+  "review_status": "unreviewed",
+  "confidence": 1.0,
+  "hard_constraints": [
+    "Veraine's arc lands as lie_unchanged -- defeated but unbroken (Concept Seed, Veraine Weiland arc). Anti-pattern: do not give Veraine a softening or concession (Scene Card notes).",
+    "Force-lock is hyphenated NSW-era security technique keyed to Force signatures; Sera's expertise (Terminology Registry).",
+    "Veraine's voice register: precise, certain, no contractions, intellectual restlessness as questions from certainty, containment vocabulary (pressure, drainage, etc.) not abstract systems (Concept Seed, Veraine voice_texture and dialogue_register).",
+    "Style: Capitalize 'Human'; decapitalize 'galaxy'; American English; 'Jedi' singular/plural; 'Darth' capitalized before name (Canon Constraints, style_constraints)."
+  ],
+  "canon_risks": [],
+  "legends_continuity_notes": [
+    "Brotherhood of Darkness: Legends canon faction led by Lord Kaan during New Sith Wars (~1010-1000 BBY), destroyed at Ruusan (Canon Contract, terminology_registry).",
+    "Force wounds: Precedents include Malachor V (KOTOR II, mass death wound) and Nathema (KOTOR/TOR, ritual-stripped Force); persistent, unreliable Force-sense (Force Mechanics, canon_grounding)."
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Setting: Veranthos (AU Outer Rim vergence world, overgrown, wrong; Scene Card sensory_details). Containment: Sera's Force-lock field, clean/inescapable; Veraine cross-legged, writing equations in dust (key_beats).",
+    "Veraine: Composed/academic/curious about group's emergent Weave-Resonance pattern; assessment as observation, not concession; polite respect without surrender (Scene Card mission, conflict, key_beats).",
+    "Ben POV: Emotional arc from antagonist survival weight -> unsatisfying intellectual enemy reality -> acceptance; turning point realizes she adapts theory, will rationalize for years (Scene Card emotional_trajectory, turning_point_detail).",
+    "Action beats: Veraine writing equations; Ben listens to assessment; Ben walks away without looking back (Scene Card action_beats)."
+  ],
+  "allowed_au_divergences": [
+    "Darth Veraine: Brotherhood alchemist repurposed as anchor, escapes pre-cascade (Concept Seed, primary_antagonistic_force; Canon Constraints, canon_overridden).",
+    "Veranthos: AU site of Battle of Veranthos/primary wound/vergence (Terminology Registry).",
+    "Weave-Resonance containment: Multi-tradition shared-burden distributing seal load; defeats Veraine by pluralism she did not plan (Force Mechanics; Concept Seed).",
+    "Sera's Force-lock: AU NSW expertise for sealing/containment (Terminology Registry)."
+  ],
+  "open_questions": []
+}

@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch20_sc02",
+  "chapter_number": 20,
+  "scene_number": 2,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "5bd53def7c13e064404cbd7c4b4391708ffed2446dab1285d08c69c1f41e04be",
+  "review_status": "unreviewed",
+  "confidence": 1.0,
+  "hard_constraints": [
+    "Use Legends continuity only; invalidate Disney Canon elements per Canon Contract.",
+    "Describe Force experientially per force_mechanics.sensory_vocabulary.full_unweaving: for Ben (force_sensitive), 'reaching for the Force returns presence without direction'; rotate metaphors (no handrail, no 'ground dropping out'); sensory before diagnostic terms like 'unweaving'.",
+    "Desh (non_force_sensitive) experiences 'grief without an object' per force_mechanics: biological/environmental wrongness (chrono drift, temperature inconsistencies, etc.), no mysticism.",
+    "Veranthos city intact and overgrown wrong, not ruined disaster zone per scene_card and concept_seed.",
+    "No combat, chase, dialogue with Veraine, or taunts; optional distant sighting (alpha) has no pursuit or 'why seen' narration.",
+    "Terminology: durasteel (not steel), no anachronisms (e.g., no DNA, laptop); 'Jedi' singular/plural.",
+    "Capitalize 'Human'; decapitalize 'galaxy'; American English."
+  ],
+  "canon_risks": [
+    "Ensure wound phenomenology aligns with Legends precedents (Malachor V echo in sensory unreliability, Nathema in deadened Force) without implying Disney 'World Between Worlds' or kyber mechanics.",
+    "Ben Skywalker as established post-Fate of the Jedi Jedi Knight; no Legacy comics future bleed."
+  ],
+  "legends_continuity_notes": [
+    "47 ABY post-Abeloth: Galactic Alliance government, Jedi Temple on Coruscant under Luke Skywalker; Ben ~21, experienced from GAG, Caedus conflict, Vestara.",
+    "Vergences canonical (e.g., Valley of the Jedi on Ruusan); Force wounds persistent (Malachor V: mass death echo; Nathema: stripped Force).",
+    "New Sith Wars (1000 BBY): Brotherhood of Darkness, Ruusan Reformations canonical; AU layers (Veranthos battle, technique) authorized atop.",
+    "Tech: YT-series freighters (Steady Returns), binoculars/scanners as laser rangefinder equivalents."
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Setting: Descent through Veranthos rings (seal boundary Ring 4: Force drops; evacuation zone Ring 3: open doors/vehicles outward; city Ring 2: intact buildings, reversing vines, shadow flowers, child's toy, no birds; valley ridgeline reveals Scar).",
+    "Key beats: Ben stumbles at boundary ('hand reaching into space that refuses to register'); city wrongness for Desh (grief-without-object); Scar: 3m vertical air distortion, heat shimmer no heat, angle-visible.",
+    "Group reactions differentiate: Sera (architecture slack), Torin (relief), Kael (home-like), Desh (instrumental/environmental).",
+    "POV Ben: lie_challenged phase; no Force-sense post-boundary for rest of book.",
+    "Optional alpha (distant Veraine): evacuation zone, precise posture, gone instantly, no analysis.",
+    "Emotional arc: controlled -> escalating wrongness -> devastating beauty -> awe/horror at Scar.",
+    "Voice anchors: Stover (dense beats at boundary/Scar), Zahn (procedural descent), Bujold (interior at crossing)."
+  ],
+  "allowed_au_divergences": [
+    "Veranthos: AU Outer Rim vergence world, Battle of Veranthos site, ringed wound structure (epicenter Scar, city drift, etc.).",
+    "Wound/Seal: Gavran's technique damage, anchor system degradation, full unweaving phenomenology.",
+    "Survivors (Sera, Torin, Kael) awake in 47 ABY; Veraine escaped.",
+    "Scar as visible tear artifact.",
+    "Weave terminology/spacing as era-specific AU overlay on Legends Force."
+  ],
+  "open_questions": [
+    "Confirm Veranthos planetary details (lush, overgrown, alive/wrong) as fully AU invention with no conflicting Legends planet?",
+    "Optional alpha Veraine sighting: execute only if draft needs light refresh; default beta ledger in s3."
+  ]
+}

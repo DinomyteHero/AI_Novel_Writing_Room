@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch22_sc03",
+  "chapter_number": 22,
+  "scene_number": 3,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "8d16ad2a07fdf3cae75f85ee50a1db33a5f6e01cecb2bce2f317afe360a76eeb",
+  "review_status": "unreviewed",
+  "confidence": 1.0,
+  "hard_constraints": [
+    "Single POV: Ben Skywalker throughout",
+    "Force rendered through body-experience first (sensory: handrail absent, footing gone, formless pressure), analysis second; no diagnostic vocabulary ('Weave', 'unweaving', 'resonance') without prior sensation",
+    "No anachronistic terms: datapad (not laptop), blaster (not gun), etc.",
+    "Ben leads through invitation, not command/guilt/manipulation; pitch is structural (theory, requirements, risks, role), not rhetorical speech about trust",
+    "End exactly with Kael's question: 'Why should I believe this one is different?' \u2013 genuine, non-hostile; no resolution/softening in this scene",
+    "No narrator diagnosis of institutional harm or forcing Kael; restraint behavioral only",
+    "American English; 'Jedi' singular/plural; lowercase 'galaxy', 'Sith' generic",
+    "Scar: three-meter vertical seam/distortion like heat shimmer without heat, visible from angle"
+  ],
+  "canon_risks": [],
+  "legends_continuity_notes": [
+    "Ben Skywalker: Jedi Knight, ~20-21 in 47 ABY, post-Fate of the Jedi/Abeloth; son of Luke/Mara; GAG service under Jacen; experienced in crises but arc tests trust in others' Force reads",
+    "New Sith Wars era (~1000 BBY) context for Kael: Brotherhood of Darkness destroyed at Ruusan; conscripts common, not all ideological",
+    "Vergences: natural Force concentrations (Legends canon, e.g., Valley of the Jedi); wounds persistent (e.g., Malachor V, Nathema precedents)",
+    "Post-FotJ galaxy: Galactic Alliance government; Jedi Temple on Coruscant under Luke"
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Setting: Veranthos camp edge/ridgeline, first light on ridges, valley/Scar below in shadow; wound wrongness: unreliable Force-sense, emotional pressure, parallax error (high thin-place: unstable field, moral/sensory thinning)",
+    "Kael Drenn: Sith-trained conscript (not true Sith), NSW-era (~1020s chronologically), guarded Force presence (unwoven navigable as 'first language'); quiet/watchful, dry humor; arc to chosen commitment",
+    "Scene beats: 1. Kael sits legs over ridge facing Scar, senses Ben. 2. Ben sits arm's length, presents resonance plan fully (theory/reqs/risks/his role). 3. Kael silent, pulls grass; asks genuine question",
+    "Ben interior: restraint (chest tightens, hands on knees); waits 30s silence; wound presses (harder to read Kael)",
+    "Emotional arc: steeling -> approach (wrongness between Jedi/Sith-trained) -> Kael's question hands off pressure",
+    "Subplots: SP-A (Ben trusts non-verifiable reads), SP2 (Kael/group deepening to invitation)",
+    "Anti-patterns: no speeches/exposition open; no Weave/forbidden repeats ('reached for the Force'); Zahn-quiet voice, one Stover-interior beat max",
+    "Target: 1250 words; in medias res open"
+  ],
+  "allowed_au_divergences": [
+    "Veranthos: Outer Rim vergence world, Battle of Veranthos site, Wound/Scar from Gavran's technique vs Brotherhood ritual",
+    "Kael Drenn: NSW Sith conscript repurposed as seal anchor; partial stasis awareness; Weave as 'first language'",
+    "Weave-Resonance: multi-tradition shared-burden containment (Ben/Sera/Kael); distributes seal load, no single prisoner/keystone",
+    "The Scar: visible wound artifact at epicenter",
+    "Wound effects: pressurization (extremes amplify), non-Force-sensitive reads environmental drift (Desh baseline, but not present)"
+  ],
+  "open_questions": []
+}

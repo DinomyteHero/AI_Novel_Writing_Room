@@ -57,7 +57,7 @@ Initial pick is Grok 4.1 Fast because it is the lowest-friction change: already 
 |-----------|---------------|--------|-------|
 | **Gemini 3 Flash** | `google/gemini-3-flash-preview` | Google | Fast, cheap, excellent structured output. Already in stack as `gemini_flash`. |
 | **Qwen 3.6 Plus** | `qwen/qwen3.6-plus` | Alibaba | Genuinely different training. Strong instruction following. Cheapest of the shortlist. Already in stack as `qwen` but not currently judging anywhere. |
-| **DeepSeek V3.2** | `deepseek/deepseek-v3.2` | DeepSeek | Already used for utility roles; extending it to gate is a small reach. |
+| **DeepSeek V4 Flash** | `deepseek/deepseek-v4-flash` | DeepSeek | Already used for utility roles; extending it to gate is a small reach. |
 | **Kimi K2.x** | `moonshotai/kimi-k2.5` (K2.6 if/when OpenRouter lists it) | Moonshot | Long-context specialist. CLAUDE.md already warns about long-scene risk for Kimi as a drafter — but that was for *writing*, not *judging*, so the gate role might still work well. |
 | **MiniMax M2.7** | `minimax/minimax-m2.7` | MiniMax | Newer; unknown structured-JSON reliability in our stack. |
 | **Mistral Small 2603** | `mistralai/mistral-small-2603` | Mistral | Cheap, European alternative. |

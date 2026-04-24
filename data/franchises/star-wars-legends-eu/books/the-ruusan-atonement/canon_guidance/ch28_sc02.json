@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch28_sc02",
+  "chapter_number": 28,
+  "scene_number": 2,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "0b536cfa903a73da365d715d447922c0cbd134c56b9bc85c11117539a1ce024f",
+  "review_status": "unreviewed",
+  "confidence": 0.98,
+  "hard_constraints": [
+    "Single POV: Ben Skywalker throughout",
+    "Force phenomenology: experiential/mystical language only (e.g., renewal tether as continuous low hum at perception edge; Luke's presence as vast/warm/holding sadness without authority performance)",
+    "No anachronistic terms (e.g., datapad, not laptop; comlink, not radio)",
+    "Capitalize 'Human'; 'Jedi' singular/plural; 'Darth' capitalized before name",
+    "No in-universe use of ABY/BBY, 'Legends', 'Canon', or meta-references",
+    "Warmth load-bearing: preserve Luke's paternal sadness without anger/performance"
+  ],
+  "canon_risks": [
+    "Ensure Jedi Temple office aligns with post-Fate of the Jedi Legends (Coruscant-based Order under Luke; no Imperial/Disney+ structures)",
+    "Ben/Luke dynamic preserves preserved canon (Ben as Knight/son; Luke as Grand Master who sent him alone)"
+  ],
+  "legends_continuity_notes": [
+    "47 ABY: Jedi Order at Coruscant Temple under Grand Master Luke Skywalker post-Abeloth; Galactic Alliance primary government",
+    "Jedi Council: Handles doctrinal/governance decisions (e.g., Legacy of the Force/Fate of the Jedi precedents for truth-telling post-crisis)",
+    "Luke's character: Grounded authority with personal warmth (Fate of the Jedi: paternal to Ben, reflective on Order's past)",
+    "Force wounds/seals: Consistent with Legends precedents (Nathema, Malachor V as persistent phenomena)"
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Setting callback: Exact Ch1 office (furniture, datapad with cached survey, chairs, afternoon light)",
+    "Ben/Luke dyad payoff: From institutional distance to father-son candor; Luke names unmade Ch13 call ('And you didn't call me') without accusation; shared Council decision ends thousand-year lie",
+    "Reveal payload: Full story (Sera/Torin/Kael/Veraine, technique, Reformations' penance, resonance/new seal, renewal commitment)",
+    "Emotional arc: Weight of telling -> listening silence -> Luke's 4-word question -> no defense -> shared truth commitment",
+    "Sensory: Renewal tether hum continuous; Luke's hands still; light moves across floor",
+    "SP-A/SP3: Ben's arc resolved (trusts composite reads); institutional honesty via Luke/Council"
+  ],
+  "allowed_au_divergences": [
+    "Ruusan Reformations as penance for technique/wound (overrides Legends military/doctrinal framing)",
+    "Gavran-era survivors/anchors/seal failure in 47 ABY",
+    "Weave/Resonance as era-language for vergence structure/seal (builds on Nathema/Malachor precedents)",
+    "Institutional lie exposure to Council as project resolution"
+  ],
+  "open_questions": [
+    "Precise Jedi Council protocol for historical record correction in 47 ABY Legends (post-Fate precedents exist but not scene-specific; flag if drafter needs sourcing)"
+  ]
+}

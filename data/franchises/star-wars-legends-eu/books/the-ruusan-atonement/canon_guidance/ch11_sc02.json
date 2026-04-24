@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch11_sc02",
+  "chapter_number": 11,
+  "scene_number": 2,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "31f1872987b088b749f7dd42909a08efb2b0f06a65bb006ccb7325a3d62a20af",
+  "review_status": "unreviewed",
+  "confidence": 0.98,
+  "hard_constraints": [
+    "Single POV: Ben Skywalker throughout; no head-hopping or external perspectives.",
+    "Preserve exact Legends canon on Ben Skywalker (Jedi Knight, son of Luke and Mara, GAG service under Jacen, Abeloth crisis), Jacen Solo (fall to Darth Caedus, murdered Mara), and Galactic Alliance Guard (secret police under Jacen during Second Galactic Civil War).",
+    "Use project terminology: 'datapad' not laptop/computer; no anachronistic terms like DNA/radio/sonar.",
+    "Force described experientially/mystically per Legends (post-Fate of the Jedi style), not scientifically; no 'energy field'.",
+    "No in-universe use of 'Legends'/'Canon'/ABY dating; reference events as 'Vong War'/'after Endor'.",
+    "Capitalize 'Human(s)'; 'Jedi' singular/plural; 'Darth' capitalized before name."
+  ],
+  "canon_risks": [
+    "Brotherhood ritual at Veranthos must not override their canon endgame (thought bomb at Ruusan); frame as prior strategic operation during New Sith Wars, not replacement.",
+    "Jacen/Torin parallel risks overemphasizing Caedus fall if not grounded in Ben's personal history (GAG service, Mara's death); keep as emotional pattern recognition, not doctrinal comparison.",
+    "Gavran's 'removal-technique' rationale must cite AU emergency containment (counter to ritual) without contradicting Jedi Lords' canon role in Army of Light vs. Brotherhood."
+  ],
+  "legends_continuity_notes": [
+    "Brotherhood of Darkness (Darth Bane Trilogy): Sith led by Lord Kaan; emulated Jedi structure (academy, ranks) but dark side philosophy; military doctrine emphasized massed Force-users in 'Army of Darkness' for pitched battles; strategic goals included vergences for power amplification (precedent in Sith rituals like Nathema).",
+    "New Sith Wars/Jedi Lords (~2000-1000 BBY): Jedi Lords led Army of Light; desperate measures common; Ruusan Reformations followed Seventh Battle of Ruusan (thought bomb destroyed Brotherhood leadership).",
+    "Post-Fate of the Jedi (47 ABY): Jedi Order under Luke at Coruscant Temple; Ben as young Knight post-Abeloth; GAG legacy as shared trauma from Jacen's regime.",
+    "Vergences: Canon Legends sites (e.g., Valley of the Jedi) attract Sith/Jedi for ritual corruption/amplification; Malachor V/Nathema precedents for wounds via mass rituals/tech."
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Setting: Steady Returns cockpit, night cycle, dim lights; Ben/Desh only; others asleep.",
+    "Emotional core: Shared GAG shame (teen service under Jacen); Desh names Torin as 'good version of Jacen' (warmth pattern); Brotherhood ritual resolves on datapad (Weave-polarity flip attempt at Veranthos vergence, countered by Gavran's technique).",
+    "Turning point: Desh's short line on Torin/Jacen likeness + datapad resolution; silence holds both reckonings.",
+    "Ben's state: Lie reinforced (trusts own Force-read amid wrongness); registers Torin warmth as mechanical but does not act.",
+    "AU elements: Veranthos ritual (Brotherhood corruption of vergence); technique as damage/counter (not liberation); Jedi Lords as tragic peers under pressure.",
+    "Sensory: Instrument glow; steady controls; physical tension (tightened fingers, stomach drop)."
+  ],
+  "allowed_au_divergences": [
+    "Battle of Veranthos and Brotherhood Ritual at Veranthos (mass dark-side vergence corruption, pre-Ruusan).",
+    "Gavran's forbidden technique (unweaving/removal to counter ritual, creating wound).",
+    "Ruusan Reformations dual-purpose (public reform + private penance for technique).",
+    "Jedi Lords emergency containment theory (field-expedient seal with anchors)."
+  ],
+  "open_questions": [
+    "Exact Brotherhood military doctrine details for vergence-corruption rituals (precedents exist in Nathema/Malachor but not named 'Weave-polarity flip'; flag if drafter needs deeper sourcing)."
+  ]
+}

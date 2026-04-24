@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch01_sc03",
+  "chapter_number": 1,
+  "scene_number": 3,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "cbf4f0a6dd4f32781f582f5e7241cb0e314d6ca6934bf50767f049fad68488b3",
+  "review_status": "unreviewed",
+  "confidence": 0.98,
+  "hard_constraints": [
+    "Use Legends terminology: 'datapad' not laptop, 'comlink' not radio/phone, 'hyperspace' with standard Star Wars phrasing.",
+    "Force described experientially/mystically: sensory (pressure, pull) before analysis; no 'energy field' or clinical terms.",
+    "No in-universe meta-references: no ABY dating, no 'Legends/Canon', no film/book nods.",
+    "GAG referenced per canon: secret police under Jacen Solo (Legacy of the Force), dissolved post-Caedus; shared Ben/Desh history as unprocessed shame.",
+    "Style: Capitalize 'Human(s)'; 'Jedi' singular/plural; lowercase 'galaxy'; American English.",
+    "No diagnostic voice for 'wrongness': render as body-experience (e.g., pull, weight) per force_mechanics sensory_vocabulary (normal_weave -> thin_places_mild)."
+  ],
+  "canon_risks": [
+    "GAG history must align: Ben/Desh served as teens during Second Galactic Civil War (41-42 ABY); avoid implying ongoing post-dissolution activity.",
+    "Force in hyperspace: typically muffled/distant in Legends (e.g., NJO, FotJ); AU persistence flagged but do not overstate as 'normal'.",
+    "Jedi Temple hangar: Legends post-ROTJ rebuild (Coruscant Temple intact post-Vong War); departure protocols routine, no Imperial-era restrictions.",
+    "Ben's isolation: Matches FotJ characterization (post-Abeloth independence) but risks contradicting team-oriented Jedi norm without AU wrongness pressure."
+  ],
+  "legends_continuity_notes": [
+    "Ben Skywalker (b. 26.5 ABY): ~20-21 in 47 ABY; Jedi Knight post-FotJ, experienced but young (teen GAG service under Jacen, Abeloth defeat).",
+    "Desh Rolan: AU but grounded in GAG operative archetype (e.g., Ben's GAG peers in LotF); non-sensitive Jedi ally common post-war (e.g., Han, Lando).",
+    "Coruscant-Outer Rim hyperspace: Multi-jump standard (e.g., Core to Rim via Hydian Way/Mynock Run); ~days/weeks, not instant.",
+    "Jedi-nonJedi partnerships: Routine in 47 ABY (FotJ: Luke/others collaborate with GA/secular allies).",
+    "Wrongness sensory: Builds on Legends Force disturbances (e.g., Yuuzhan Vong voids, Abeloth echoes in FotJ) but AU directional pull."
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Ben/Desh dyad: Dormant GAG-shared shame; Desh accepts job sans questions, unspoken mutual understanding.",
+    "Scene beats: Bypass roster -> Desh comm (dry humor) -> hangar lift -> hyperspace (wrongness directional via R01).",
+    "Emotional arc: Avoidance -> comfort -> unsettled pull; behavioral Lie establishment (isolation reflex), no articulated self-reliance.",
+    "POV arc: lie_established; Skywalker competence hides exhaustion (Jacen/Vestara ghosts ambient, not declarative).",
+    "Subplots: SP-A (practical non-sensitive dependence), SP3 (Ben/Luke institutional distance to alliance).",
+    "Exit: Wrongness as compass (thin_places_mild: parallax, unease); persists unusually through hyperspace."
+  ],
+  "allowed_au_divergences": [
+    "Directional/persistent wrongness: AU seal deterioration signal; overrides standard hyperspace muffling.",
+    "Ben's solo pattern: AU pressure from wound amplifies isolation instinct, recontextualizing FotJ independence."
+  ],
+  "open_questions": [
+    "Precise Coruscant-Outer Rim route/duration for this survey vector (Ruusan Corridor direction unspecified; use generic multi-jump).",
+    "Jedi partner roster details: Generic Knights (e.g., like Rendell archetype); no named conflicts needed."
+  ]
+}

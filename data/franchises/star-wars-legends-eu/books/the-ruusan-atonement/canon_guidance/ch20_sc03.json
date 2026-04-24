@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch20_sc03",
+  "chapter_number": 20,
+  "scene_number": 3,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "28888153e61069224c43806355507bf4fc0893a8bc136ddc624762838a5b237e",
+  "review_status": "unreviewed",
+  "confidence": 0.98,
+  "hard_constraints": [
+    "Use Legends EU continuity only; invalidate Disney Canon elements unless duplicated in Legends.",
+    "Render Force/wound through body-experience first (sensory: handrail gone, formless pressure, grief-without-object for Desh); diagnostic terms ('unweaving', 'Weave') earned after felt sense.",
+    "Veraine's ledger register: no contractions, academic syntax, short precise sentences, minimal affect, unaddressed; ends with unnamed Gavran containment structural feature.",
+    "Torin's warmth preserved in prior chapters; here show longing via stillness/expression, not articulated emotion.",
+    "Style: Capitalize 'Human'; lowercase 'galaxy'; 'Jedi' singular/plural; no anachronisms (datapad, not laptop)."
+  ],
+  "canon_risks": [
+    "Torin's 'longing' at Scar must align with corruption arc (relief in damaged field, not generic dark-side pull); avoid implying possession.",
+    "Scar as 'line of absence/distortion' matches AU but echoes Legends wounds (Malachor V, Nathema); ensure no clinical/scientific framing.",
+    "Full unweaving sensory: Force-sensitives (formless pressure, no light/dark); Desh (grief-without-object, environmental wrongness)."
+  ],
+  "legends_continuity_notes": [
+    "47 ABY post-Fate of the Jedi: Jedi Order under Luke at Coruscant Temple; Ben Skywalker as Knight with GAG/Abeloth history.",
+    "New Sith Wars (1000 BBY): Brotherhood of Darkness, Ruusan Reformations canonical; AU recontextualizes as penance but preserves baseline.",
+    "Force wounds canonical precedents: Nathema (Vitiate ritual), Malachor V (Mass Shadow Generator) \u2013 persistent, sensory-disruptive.",
+    "Vergences: Natural Force concentrations (Legends standard); Veranthos AU but grounded."
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Setting: Veranthos epicenter valley edge camp, night; Scar (3m vertical distortion/heat-shimmer, visible angled); wound-pressure: gravitational pull, wrong sounds (silence/hum), stars-outlined absence.",
+    "Torin: Silhouette at ridge, peaceful/decided longing (arc telegraph for Ch21 turn; counter-currents closed).",
+    "Veraine ledger (\u03b2 path/default): Midpoint-era site notes, technique-lineage read, unnamed Gavran structural feature (pressures Ch25-26); continuity with prior fragments.",
+    "Group: Fragile cohesion; Desh in tent/instruments; Sera not watching Torin; Kael motionless/awake.",
+    "Ben POV: lie_challenged phase; registers Torin/Veraine certainties as held breath/dread.",
+    "Sensory vocab rotation: Avoid repeats ('handrail', 'reached for Force'); use somatic/structural (footing gone, load slack)."
+  ],
+  "allowed_au_divergences": [
+    "Veranthos/Battle of Veranthos/Scar/wound as primary site.",
+    "Gavran's technique/Weave/seal/anchors (AU lineage from Nathema/Malachor).",
+    "Survivors (Sera/Torin/Kael/Veraine) as anchors; Veraine's escape/ledger/array.",
+    "Torin's arc telegraph (longing as technique-relief misperceived).",
+    "Weave-Resonance potential untested."
+  ],
+  "open_questions": [
+    "Exact content of Veraine's unnamed 'structural observation' on Gavran's containment (AU invention; must pressure Ch25-26 without resolution here)."
+  ]
+}

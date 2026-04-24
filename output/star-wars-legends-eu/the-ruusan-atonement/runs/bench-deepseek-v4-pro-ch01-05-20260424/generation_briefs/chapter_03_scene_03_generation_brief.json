@@ -1,0 +1,61 @@
+{
+  "scene_objective": "In the setup phase, this sequel scene forces Ben's decision to withhold the report to Luke and commit to the uncharted coordinates, transforming private hesitation into a named, shared choice that locks in his solitary path forward.",
+  "turning_point": {
+    "trigger": "Desh leans over the copilot's shoulder, reads the first line of Ben's unsent report, and says 'You're not sending that.' Ben's answer—'Not yet'—is the first time the withholding is spoken aloud.",
+    "shift": "The pressure shifts from abstract deliberation to rationalized certainty. Ben moves from internal conflict about the delay to external commitment to follow the coordinates. Desh's recognition transforms the private hesitation into a shared choice.",
+    "cost": "Ben chooses to act alone under cover of urgency; the pattern becomes visible to Desh before Ben himself. Desh sees the institutional avoidance and follows anyway—loyalty enabling avoidance rather than confronting it. Ben's isolation deepens as a potential challenger opts for complicity."
+  },
+  "closing_beat": "The Steady Returns jumped to hyperspace toward the uncharted coordinates. The wrongness did not diminish in hyperspace. It intensified. They headed toward the source.",
+  "emotional_arc": {
+    "start": "Deliberation—Ben cycles through three drafts of the honest report, each deletion a small refusal without yet being a choice.",
+    "shift": "Rationalized certainty—Desh's observation transforms the withholding from private hesitation into named action. Ben's focus tightens on the urgency of the seal's degradation as justification for the delay.",
+    "end": "Suppressed doubt—As hyperspace swallowed them, the wrongness intensified rather than fading with distance. Ben felt the pressure of the decision locking in, but did not yet acknowledge the cost of what he had chosen."
+  },
+  "target_word_count": 1250,
+  "opening_mode": "in_medias_res",
+  "key_beats": [
+    {
+      "beat_description": "Ben types and deletes his third draft of the report to Luke, each version honest but each one deleted before it reaches the transmission queue.",
+      "state_change": "The abstract pressure of the overdue report becomes concrete—three deleted drafts in the buffer, each one a small refusal that has not yet become a choice.",
+      "pov_reaction": "Ben's fingers hesitate mid-keystroke, tension coiling in his shoulders as the wrongness tugs spatially toward the coordinates, his posture shifting forward over the console."
+    },
+    {
+      "beat_description": "Desh enters the cockpit, reads the first line of the unsent report over Ben's shoulder, and says 'You're not sending that.' Ben answers 'Not yet'—the first time the withholding is spoken aloud.",
+      "state_change": "Desh's observation names the pattern. Ben's private hesitation becomes a shared choice. The pressure pivots from internal conflict to external commitment. Desh reaches across to the nav computer.",
+      "pov_reaction": "Ben's breath catches at Desh's quiet certainty, a shared-history recognition tightening his jaw; his hand lifts from the transmit key as certainty aligns with the Force-pull."
+    },
+    {
+      "beat_description": "Desh enters the uncharted fortress coordinates into the nav computer. The system begins calculating a route through unmapped space, the display cycling through probability matrices and course corrections.",
+      "state_change": "The decision becomes operational. The coordinates transform from abstract data into a navigational commitment. The Steady Returns prepares to jump.",
+      "pov_reaction": "Ben leans back slightly as the screens flicker, a brief chest-tightening doubt at Desh's enabling loyalty flickers before urgency presses it down, his gaze locking on the plotting route."
+    },
+    {
+      "beat_description": "The Steady Returns jumps to hyperspace. The transition feels smooth at first, but the wrongness intensifies—pressure against the bulkheads, spatial distortion not fading with distance.",
+      "state_change": "The decision locks in. No return to the comm system now; they commit to the source of the wrongness amid accelerating seal degradation.",
+      "pov_reaction": "Ben grips the armrest as bulkheads creak under unnatural pressure, suppressed doubt hardening into braced resolve, the intensifying wrongness coiling around his spine."
+    }
+  ],
+  "voice_guidance": "Channel Zahn's efficient dialogue—every line moves plot or reveals character through shared GAG history. Tight third-person interiority: sharp, action-threaded reactions, never diagnostic or melodramatic. Allston-style humor-under-stress absent here; focus Golden's grounded interpersonal weight in Desh's quiet naming. Sensory palette: nav computer whir, hyperspace blue shift, durasteel pressure creak. Force-wrongness in spatial register only—no handrail or flat-note metaphors.",
+  "delivery_preferences": {
+    "reveal_mode": "direct",
+    "exposition_budget": "concise",
+    "register_override": null
+  },
+  "required_hooks": [
+    "H03"
+  ],
+  "required_subplots": [
+    "SP-A",
+    "SP3"
+  ],
+  "required_revelations": [],
+  "anti_patterns": [
+    "Diagnostic-voice trap—if Ben reaches for an analysis of his own motives here, cut it",
+    "The withholding shown through action (deleted drafts, Desh's observation, hyperspace jump), not interior monologue explaining why",
+    "Let the omission land before Ben names it to himself",
+    "Rotate Force-wrongness to spatial register (pressure against bulkheads, distance not behaving)—no handrail, no note-played-flat",
+    "Do not open with flashback or explanation of why Ben is withholding",
+    "Do not have Ben articulate institutional avoidance to himself before Desh names it",
+    "Do not resolve withholding or decision—lock it in for next scene"
+  ]
+}

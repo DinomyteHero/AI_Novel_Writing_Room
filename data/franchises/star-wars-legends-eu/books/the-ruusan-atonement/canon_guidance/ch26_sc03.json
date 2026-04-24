@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch26_sc03",
+  "chapter_number": 26,
+  "scene_number": 3,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "8c528a6f66cb73ad03804cc80b2f42b5f4201eee0e18425390f890478f86f3c4",
+  "review_status": "unreviewed",
+  "confidence": 1.0,
+  "hard_constraints": [
+    "Preserve Star Wars Legends / Expanded Universe continuity; treat Disney-only material as invalid unless overlapping with Legends.",
+    "AU divergences only as explicitly authorized in concept seed or contract; do not correct authorized AU elements.",
+    "Force described through experiential, mystical, body-first language; diagnostic terms ('Weave', 'resonance', 'unweaving') earned after sensation; rotate sensory vocabularies (structural, acoustic, etc.); avoid forbidden repeats and 'energy field' framing.",
+    "Use Star Wars-specific terminology: no anachronisms (e.g., datapad not laptop, blaster not gun); capitalize 'Human'; decapitalize 'galaxy'; 'Jedi' singular/plural; 'Darth' capitalized before name.",
+    "No in-universe use of 'Legends', 'Canon', ABY/BBY dates, or meta-references to films/books.",
+    "Single POV: Ben Skywalker; render non-Force-sensitive Desh through practical, instrumental validation (chrono drift, temperature, grief-without-object lifting)."
+  ],
+  "canon_risks": [
+    "Ensure new seal's 'living tissue' sensation aligns with Legends Force wound precedents (Nathema, Malachor V as persistent, non-erased phenomena); avoid implying total erasure or reversal.",
+    "Ben's commitment as 'first renewal share' must feel like Skywalker-era Jedi practice extension, not new ontology; ground in authorized resonance mechanics without contradicting light/dark as natural polarities."
+  ],
+  "legends_continuity_notes": [
+    "Post-Fate of the Jedi (47 ABY): Ben Skywalker as established Jedi Knight, son of Luke (Grand Master) and Mara Jade; experienced in Abeloth crisis, GAG service under Jacen Solo.",
+    "Force wounds in Legends (e.g., Nathema stripped by ritual, Malachor V via mass death) as persistent, destabilizing scars with unreliable sense, emotional amplification; scene builds directly on these as foundational precedents.",
+    "Vergences as natural Force concentrations (Legends canon); Veranthos as AU vergence site with Brotherhood ritual countered by technique."
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Scene setting: Veranthos valley, Scar thinned/persistent; Torin diminished/silent on floor, Sera hand on shoulder; Kael exhausted/upright; Desh arrives from amplification route with kit; Ben at seal perimeter.",
+    "Sensory core: Warmth spreading, chord resolving (three frequencies: Ben/Sera/Kael); living tissue (flexible, responsive, relational not rigid); hand on surface (palm-to-palm temperature); Desh chrono correct, grief lifts, temperature consistent.",
+    "Key action: Ben hand on seal, speaks short line with 'first' (e.g., 'I go first'); resonance deepens/settles; Sera/Kael presences steady around his (no speech).",
+    "No speeches/explanation; experiential before diagnostic; Desh validates environmentally.",
+    "Ben's arc phase: new_truth_demonstrated \u2013 holds others' reads as coherence under load.",
+    "Weave-resonance: Emergent from discordant traditions; warmth after cold; environmental wrongness lifts for non-sensitives."
+  ],
+  "allowed_au_divergences": [
+    "Ruusan Reformations as penance for forbidden technique (Gavran's unweaving at Veranthos vergence).",
+    "Seal/anchors: Twelve ring + Gavran keystone; degrading cascade; Veraine escape accelerates.",
+    "Survivors: Sera Varik (Jedi Knight), Torin Hal (Battle Master, technique user, diminished), Kael Drenn (Sith conscript).",
+    "New seal via Weave-resonance: Shared-burden across traditions; living tissue, ongoing renewal (Ben's first share).",
+    "Ankhural Codex heresy, Maetha's caldera warning, technique lineage (Nathema -> Malachor -> etc.)."
+  ],
+  "open_questions": []
+}

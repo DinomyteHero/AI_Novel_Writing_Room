@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch13_sc03",
+  "chapter_number": 13,
+  "scene_number": 3,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "2ea6cd342b64d907e53189c29568df6d162a9bddf3c25a54f7f008e0b4683b1a",
+  "review_status": "unreviewed",
+  "confidence": 0.98,
+  "hard_constraints": [
+    "Single POV: Ben Skywalker throughout",
+    "Use Legends terminology: 'comm channel', 'console', 'holoprojector' or equivalent for comm panel; no 'radio', 'computer', 'laptop'",
+    "Force descriptions: sensory/experiential first (body-experience before naming); no forbidden repeats like 'reached for the Force' or 'the Force was still there'",
+    "Weave vocabulary: post-breach restored Weave as 'instrument Ben is no longer sure he knows how to read'; rotate metaphors (somatic: footing/balance; avoid 'Weave itself')",
+    "Ship name 'Steady Returns' italicized",
+    "No in-universe ABY dating; characters reference events directly",
+    "Capitalize 'Human(s)' if applicable; 'Jedi' singular/plural identically",
+    "'Darth' capitalized only before name (none here)"
+  ],
+  "canon_risks": [
+    "Ben withholding routine check-in from Luke risks implying uncharacteristic insubordination; Legends Ben is dutiful (post-Fate of the Jedi service), but scene frames as Trauma Lie test (authorized AU arc beat)"
+  ],
+  "legends_continuity_notes": [
+    "Post-Fate of the Jedi (47 ABY): Jedi Order reformed under Luke Skywalker (Grand Master) at Coruscant Temple; Ben Skywalker (~21 ABY-born) is established Jedi Knight with GAG/Abeloth history",
+    "Luke/Ben relationship: Close but strained by legacy (Jacen/Mara); Luke sends Ben on solo missions trusting his maturity (Fate of the Jedi precedent)",
+    "Jedi comm protocols: Routine holocomm check-ins standard for field missions (e.g., New Jedi Order/LotF series); open channels to Grand Master plausible via secure Temple frequency",
+    "Non-Force-sensitive Desh: Perceptions limited to environmental (chrono drift, etc.); no direct Weave sense",
+    "Survivors (Sera, Torin, Kael): AU but grounded in NSW-era (Brotherhood of Darkness/Ruusan); treat as disoriented post-stasis"
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Setting: Steady Returns cockpit, post-Kolven (AU anchor node/breach zone) departure; viewport shows restored Weave shimmer",
+    "Key beats: Open panel (13 min old), silence (30s-3min), close panel; Desh/Sera witness silently",
+    "Ben's state: Shaken from full unweaving (handrail gone, formless pressure); body-knowledge (array-dependency, cascade-acceleration) unnamed but felt",
+    "Group presence: All aboard; silence textured (Ben/Desh verified partners via correlated reads; Sera/Torin unresolved)",
+    "Emotional arc: Shaken -> check-in pressure -> held breath -> closed panel",
+    "Arc phase: Ben's Trauma Lie challenged (trust only own Force-read; refusal trusts group over Luke)",
+    "Sensory: Institutional blue routing; hand on armrest; viewport Weave uncertainty; Desh steady controls; Sera's reflection"
+  ],
+  "allowed_au_divergences": [
+    "Failing Ruusan seal/wound effects (unweaving pressurization post-breach)",
+    "Survivors awake in 47 ABY (Sera, Torin, Kael as anchors)",
+    "Ben's midpoint pivot: Withholding from Luke enacts AU Lie (only own read trusted when Force wrong)",
+    "Kolven as breach zone/anchor node in Ruusan Corridor",
+    "Weave-resonance precursors felt but unnamed"
+  ],
+  "open_questions": [
+    "Precise Jedi mission check-in protocol details (Legends generic; scene implies routine open channel to Luke's frequency \u2013 confirm no specific post-FotJ contradiction?)",
+    "Kolven Station specifics (AU node; blueprint implies full unweaving site \u2013 any Legends Outer Rim overlap?)"
+  ]
+}

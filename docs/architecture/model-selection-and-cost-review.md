@@ -32,7 +32,7 @@ Routing lives at [config/settings.yaml:68-99](../../config/settings.yaml). The a
 | judge_evaluator | `x-ai/grok-4.20` | 0.2 | $2.00 | $6.00 | 1 per scene (Phase 4) |
 | canon_expert | `x-ai/grok-4.20` | 0.2 | $2.00 | $6.00 | 1 call per scene (runs after FinalGate as the continuity-editor in the save-blocker chain) |
 | presence_checker | `anthropic/claude-haiku-4.5` | 0.1 | $1.00 | $5.00 | 1 call per scene (save-blocker) |
-| summarizer / character_specialist / lore_extractor | `deepseek/deepseek-v3.2` | 0.2-0.3 | $0.26 | $0.38 | utility |
+| summarizer / character_specialist / lore_extractor | `deepseek/deepseek-v4-flash` | 0.2-0.3 | $0.14 | $0.28 | utility |
 
 The forward-only relay (Stage 1a) removed the gate-driven retry loop. Each role now fires exactly once per scene. The old `max_structural_retries` / `max_voice_retries` knobs are pinned to `0` in `config/settings.yaml` and have no runtime effect — costs are now deterministic per scene.
 
@@ -56,7 +56,7 @@ The forward-only relay (Stage 1a) removed the gate-driven retry loop. Each role 
 | grok-4.20-beta | 1645.5 | **2.2** | 4.5 | 72.55 | Current judge |
 | GLM-5 | 1626.9 | 2.6 | 3.5 | 80.45 | |
 | GLM-5.1 | 1601.8 | 3.3 | 3.8 | 81.30 | Slop regression vs 5 |
-| **DeepSeek-V3.2** | 1486.3 | 3.2 | 4.1 | **81.40** | Top roleplay-share model |
+| **DeepSeek-V4-Flash** | 1486.3 | 3.2 | 4.1 | **81.40** | Top roleplay-share model |
 | gemini-3-pro-preview | 1472.3 | 3.4 | 4.5 | 81.50 | |
 | gemini-3.1-pro-preview | 1467.4 | **4.2** | 4.5 | 80.20 | Regression vs 3-pro; explains Ruusan "fancy" tone |
 | DeepSeek-V3.1 | 1379.1 | 3.9 | 4.4 | 80.50 | |
@@ -69,7 +69,7 @@ Roleplay category (1.18T tokens over the window):
 
 | Rank | Model | Share |
 |---|---|---|
-| 1 | **DeepSeek V3.2** | **38.1%** |
+| 1 | **DeepSeek V4 Flash** | **38.1%** |
 | 2 | gpt-oss-120b | 6.8% |
 | 3 | Grok 4.1 Fast | 6.4% |
 | 4 | Gemini 2.5 Flash Lite | 5.4% |
@@ -88,11 +88,11 @@ Marketing (commercial-style short form) category:
 | 6 | Claude Haiku 4.5 | 4.1% |
 | 7 | Claude Sonnet 4.6 | 3.2% |
 
-Key reading: **DeepSeek V3.2 has displaced Claude for long-form creative** at market scale, and **Gemini Flash variants own the short commercial register** you revised Ruusan toward.
+Key reading: **DeepSeek V4 Flash has displaced Claude for long-form creative** at market scale, and **Gemini Flash variants own the short commercial register** you revised Ruusan toward.
 
 ### Third-party commentary (important caveats)
 
-- **DeepSeek V3.2** — "concise, image-rich English, favoring stoic narrative arcs and tight two-beat lyricism…unmatched price-performance" ([EVY benchmarks](https://evy.so/compare/best-llms-for-writing/)), but users report **tendency toward cliché** and **post-Feb-2026 updates made prose choppier/more robotic** ([DeepSeek issue #538](https://github.com/deepseek-ai/awesome-deepseek-integration/issues/538)). Matches commercial-thriller register, not literary.
+- **DeepSeek V4 Flash** — "concise, image-rich English, favoring stoic narrative arcs and tight two-beat lyricism…unmatched price-performance" ([EVY benchmarks](https://evy.so/compare/best-llms-for-writing/)), but users report **tendency toward cliché** and **post-Feb-2026 updates made prose choppier/more robotic** ([DeepSeek issue #538](https://github.com/deepseek-ai/awesome-deepseek-integration/issues/538)). Matches commercial-thriller register, not literary.
 - **Kimi K2** — "sharp under 300 words; wheels come off over 3,000 words" ([Adam Holter review](https://adam.holter.com/kimi-k2-thinking-aftermath-great-agent-mediocre-writer/)). Relevant because scene cards often hit 2,500-3,000 word targets. K2-Instruct tests better than K2-Thinking or K2.5 for prose.
 - **Gemini 3.1 Pro Preview** scored **worse than Gemini 3 Pro** on creative (1467 vs 1472, Slop 4.2 vs 3.4). The "fancy" register you had to revise off Ruusan is reflected here.
 - **Grok 4.20** — low Slop (2.2), mid Rubric (72.55). Decent low-slop judge; unremarkable prose writer.
@@ -118,7 +118,7 @@ Conclusion: **cross-family is a real but small quality lift**; the **main reason
 
 Pick one Ruusan Chapter 1 scene that already ran on Sonnet. Run it three times with `--model-override prose_stylist=<candidate>` at temperature 0.80:
 
-- `deepseek/deepseek-v3.2`
+- `deepseek/deepseek-v4-flash`
 - `moonshotai/kimi-k2.5` (at 0.7, since K2.5 is less steerable at high temp)
 - `google/gemini-3-flash-preview` (reference — cheapest possible)
 
@@ -126,7 +126,7 @@ Feed the three outputs through the existing gate_critic + judge_evaluator pipeli
 
 ### Step 2 — Switch prose_stylist based on bench result
 
-Most likely winner for Ruusan's commercial tie-in register: **DeepSeek V3.2**. Expected savings: output cost drops from $15/M → $0.38/M (~**40×**). Single-scene cost drops from ≈$0.053 to ≈$0.002.
+Most likely winner for Ruusan's commercial tie-in register: **DeepSeek V4 Flash**. Expected savings: output cost drops from $15/M -> $0.28/M (~**54x**). Single-scene cost drops from ≈$0.053 to ≈$0.0012.
 
 ```yaml
 prose_stylist: { backend: cloud, model: deepseek, params: { temperature: 0.70, max_tokens: 8192 } }
@@ -196,7 +196,7 @@ DeepSeek has implicit caching on OpenRouter (automatic, no API flag). Gemini Fla
 Since plot_architect carries the Brooks four-part beat map and character_specialist enforces Weiland arc phases, the model choice for each should reflect what that framework demands:
 
 - **plot_architect (Brooks beats)** — structured planning, not prose. Gemini 3.1 Pro's 1M context and strong structured output make sense. Keep it, **but drop temperature from 0.4 → 0.3** — Brooks beats are template-like, creativity at the outline level is where "fancy" register leaks in.
-- **character_specialist (Weiland arc_phase_map)** — this is about psychological consistency across arc phases (lie/ghost/want/need). DeepSeek V3.2 at temp 0.3 is correct here (already the config); it's factual/analytic, not creative.
+- **character_specialist (Weiland arc_phase_map)** — this is about psychological consistency across arc phases (lie/ghost/want/need). DeepSeek V4 Flash at temp 0.3 is correct here (already the config); it's factual/analytic, not creative.
 - **prose_stylist** receives the Brooks beat + Weiland arc phase in its brief. The writer model doesn't need to *know* Brooks/Weiland as frameworks, only to execute the assigned beat faithfully. DeepSeek's "tight two-beat lyricism" style *maps well to Brooks' scene-level beats* — that's a genuine fit, not just a cost argument.
 
 ### Step 9 — Rollout order
@@ -214,7 +214,7 @@ Since plot_architect carries the Brooks four-part beat map and character_special
 
 | Risk | Mitigation |
 |---|---|
-| DeepSeek V3.2 produces cliché / "flat" prose on emotional scenes | Keep Sonnet as a fallback via CLI flag `--prose-model=claude` for identified high-stakes scenes; check scene_card `emotional_intensity` tag to auto-promote. |
+| DeepSeek V4 Flash produces cliché / "flat" prose on emotional scenes | Keep Sonnet as a fallback via CLI flag `--prose-model=claude` for identified high-stakes scenes; check scene_card `emotional_intensity` tag to auto-promote. |
 | Style drift across a chapter when DeepSeek's output goes through Kimi polish | Run the existing `voice_checker` + `character_specialist` on every scene. These already exist and will catch Ruusan-voice drift. |
 | DeepSeek refuses or degrades on franchise-specific terminology | CanonExpert (Grok 4.20) runs pre-gate and can auto-correct. Already wired. |
 | Kimi K2 quality degrades past 3,000 words | Route long scenes (scene_card `target_word_count > 2500`) back to DeepSeek or Sonnet. One-line guard in router. |
@@ -222,7 +222,7 @@ Since plot_architect carries the Brooks four-part beat map and character_special
 | Gate false-reject rate rises because Haiku is now stricter than DeepSeek's style | Tune failure-code weights in `_gate_loop` if this shows up in RunLedger; don't tune by lowering the bar. |
 | Prompt caching benefits shrink on DeepSeek/Gemini (implicit caching, less predictable than Anthropic's explicit API) | Accept this — the base cost drop dominates the caching delta. |
 | JSON schema adherence on gate_critic degrades if swapped away from Haiku | Do not swap gates. Keep Haiku. |
-| OpenRouter provider routes DeepSeek to a slow backend | Pin `deepseek/deepseek-v3.2` to a specific provider with good latency via OpenRouter provider preferences. |
+| OpenRouter provider routes DeepSeek to a slow backend | Pin `deepseek/deepseek-v4-flash` to a specific provider with good latency via OpenRouter provider preferences. |
 | Mid-chapter model change breaks voice continuity | Never swap models mid-chapter. Changes only apply from next chapter onward. |
 
 ---

@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch27_sc03",
+  "chapter_number": 27,
+  "scene_number": 3,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "f149e012fe4a47eb11891169bb2d5eeceaf00c01f55525ced109b01923ea2050",
+  "review_status": "unreviewed",
+  "confidence": 1.0,
+  "hard_constraints": [
+    "Single POV: Ben Skywalker throughout; no head-hopping or external perspectives.",
+    "Adhere to terminology_registry: e.g., 'Veranthos' (stress ver-AN-thos), 'Kael Drenn' (no Sith titles), 'Desh Rolan', 'Steady Returns' (italicized ship name).",
+    "Force mechanics: No Force use in this scene per plan; if any ambient perception, use Ben's somatic vocabulary ('footing', 'handrail in the dark' echoes only if earned, rotate families, body-experience before naming).",
+    "Style rules: Capitalize 'Human'; lowercase 'galaxy'; 'Jedi' singular/plural; American English; no ABY/BBY in prose; no 'Legends'/'Canon' terms.",
+    "Anachronistic terms: Avoid Earth tech (e.g., use 'datapad', 'comlink'); weapons 'blaster'.",
+    "Voice: Allston-warmth for closing; render laugh through body-experience, not thematic summary."
+  ],
+  "canon_risks": [],
+  "legends_continuity_notes": [
+    "Ben Skywalker (Jedi Knight, ~20-21 in 47 ABY): Post-Fate of the Jedi/Abeloth; GAG service with Desh under Jacen Solo preserved as shared backstory bond.",
+    "Galactic Alliance as primary government; Jedi Order under Luke Skywalker at Coruscant Temple.",
+    "Post-NWS Ruusan Reformations canonical but AU-recontextualized (penance layer authorized; do not contradict public history).",
+    "Force wounds (e.g., Nathema, Malachor V precedents) persist as unreliable sense, emotional pressure; Veranthos wound follows this model."
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Setting: Veranthos camp, morning departure prep; lush/overgrown but 'deeply wrong' (mild thin-place drift: chrono inconsistencies, biological aberration per Desh; Force-sensitives feel parallax error).",
+    "Characters: Ben (POV, arc: new_truth_demonstrated \u2013 trusts group judgments); Kael (early 20s physical/~1020 chrono, conscripted Sith-trainee survivor, arc resolves via free departure); Desh (23-24, non-Force-sensitive ex-GAG, operational anchor); Sera/Torin visible on ridge (Sera late 20s/~1030 chrono, Torin mid-40s/~1045 chrono, their dyad: chosen presence).",
+    "Key beats: Kael bag over shoulder (light, all possessions); firm/brief handshake; Kael turns to transport no look-back; Desh joke (do not spell out); Ben/Desh laugh carries to ridge (Torin eyes crinkle briefly).",
+    "Emotional arc: Farewell pressure -> free departure grace -> healing laugh (GAG scar tissue as non-grief sound).",
+    "Anti-patterns: No joke text; no persuasion/reclamation of Kael; no internal reflection/thematic summary on laugh; end at closing hook.",
+    "Relationship resolutions: Kael/group (freely departed); Ben/Desh (equals via laugh); ties SP2 (Kael commitment), SP3 (Sera/Torin)."
+  ],
+  "allowed_au_divergences": [
+    "Veranthos as natural vergence/wound site from Battle of Veranthos (AU NSW event).",
+    "Kael Drenn, Sera Varik, Torin Hal as thawed Force-sensitive anchors (AU survivors from Gavran's seal).",
+    "Kael's free departure as arc proof (AU thematic closure).",
+    "Ben/Desh laugh as GAG wound healing (authorized emotional payoff)."
+  ],
+  "open_questions": []
+}

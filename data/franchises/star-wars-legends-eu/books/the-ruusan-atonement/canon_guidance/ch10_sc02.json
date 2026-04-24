@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch10_sc02",
+  "chapter_number": 10,
+  "scene_number": 2,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "f9404e9f28110077394c9a332b4330e72c601522662c1b136761afa084d4324f",
+  "review_status": "unreviewed",
+  "confidence": 1.0,
+  "hard_constraints": [
+    "Use Legends terminology and avoid anachronisms: datapad (not laptop), tactical map/console (not computer), comm channel (not radio).",
+    "Ben must not theorize what Veraine is building (save 'amplification array' for Ch22); limit to recognizing curation pattern.",
+    "Render Force-users' recalibration physically (e.g., Sera's hands flat on table, Ben's posture shift), not via interior monologue about failure.",
+    "Prose style: Zahn-procedural, clipped, functional; no extraneous flourishes or diagnostic voice ahead of experiential beats.",
+    "Dark-side pressure/wound effects per force_mechanics: emotional extremes amplify (thin_places_moderate/high); show as concentration difficulty, not possession."
+  ],
+  "canon_risks": [
+    "Brotherhood Outpost is AU anchor node repurposed from Brotherhood of Darkness infrastructure; ensure it aligns with Legends depiction of Brotherhood as organized military force (Jedi vs. Sith novel, Darth Bane trilogy) without introducing post-Ruusan Sith structures.",
+    "Veraine's curation (taking/leaving specific items) must feel like Legends Sith alchemist/strategist (precise, purposeful), not cartoonish villainy."
+  ],
+  "legends_continuity_notes": [
+    "47 ABY post-Fate of the Jedi: Jedi Order under Luke Skywalker on Coruscant; Ben Skywalker as Knight with GAG history; Desh as former GAG operative.",
+    "Brotherhood of Darkness (1000 BBY): Pre-Ruusan Sith led by Lord Kaan; operated outposts and rituals during New Sith Wars (Darth Bane: Path of Destruction).",
+    "Force wounds (e.g., Malachor V from KOTOR II): Unreliable sense, emotional bleed, dark residue; matches scene's 'dark-side pressure'.",
+    "Tech: Operations rooms use consoles, holomaps, manifests on datapads (common in NJO/LotF/FotJ era)."
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Setting: Brotherhood Outpost operations area (AU anchor node, Ch10); evidence grid of manifests/disassembly photos/tactical map.",
+    "Present: Ben (POV), Desh (drives reveal via cataloguing), Sera (physical reaction to pressure).",
+    "Key beats: Desh spreads evidence; traces route/markings; names curation ('not running, curating'); Ben pattern-click; group recalibrates to 'what is she building?'.",
+    "Emotional arc: Analytical focus -> uncomfortable realization -> strategic uncertainty.",
+    "Subplots: SP-A (Ben/Desh tactical value), SP5 (Desh's non-sensitive reliability).",
+    "Hook: H10 advanced (Veraine leading).",
+    "Wound sensory: Moderate/high thin place (gaps in Force, emotional impressions leak, dark residue bleeds; non-FS like Desh notes environmental de-correlation)."
+  ],
+  "allowed_au_divergences": [
+    "Brotherhood Outpost as seal anchor node with Veraine's recent activity (took/left specific items for curation).",
+    "Veraine (AU Brotherhood alchemist) escaped weeks prior, traveling Ruusan Corridor ahead, curating path deliberately.",
+    "Desh's non-FS cataloguing reveals pattern Force-users miss due to wound pressure."
+  ],
+  "open_questions": []
+}

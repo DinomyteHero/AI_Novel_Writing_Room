@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch12_sc01",
+  "chapter_number": 12,
+  "scene_number": 1,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "36e97d45b3d835525a50d71cf48d491f8e6196ed01efc61e9ab4abd25efffe0b",
+  "review_status": "unreviewed",
+  "confidence": 1.0,
+  "hard_constraints": [
+    "Use Star Wars Legends / Expanded Universe continuity; treat Disney-only material as invalid unless also in Legends.",
+    "Follow Force mechanics: light/dark as natural moral-polar properties; wounds persist; 'Weave' is era-specific language for local structure at vergences/seal, not universal ontology.",
+    "Render Force through body-experience first (sensation before analysis); no diagnostic vocabulary ('unweaving', 'Weave') until earned experientially.",
+    "Avoid forbidden repeat phrases: 'reached for the Force', 'the Force was still there', etc.",
+    "Use Star Wars vocabulary: no anachronistic terms (e.g., datapad not laptop).",
+    "Capitalize 'Human'; 'Jedi' singular/plural; 'Darth' capitalized before name."
+  ],
+  "canon_risks": [
+    "Scene's 'flexible Weave' (light/dark simultaneous without contradiction) must remain localized to Maetha's facility/caldera practice as AU predecessor to Gavran's technique; do not imply it alters Legends Force duality universally.",
+    "Torin's 'settling' Force presence risks implying technique heals prior damage; ground as subjective relief in damaged field per force_mechanics (relief mistaken for truth)."
+  ],
+  "legends_continuity_notes": [
+    "New Sith Wars (c. 2000-1000 BBY) provide era backdrop; Maetha (~1200 BBY) fits as post-early experiments (Nihil Reach ~2800 BBY, Drathul IV ~1800 BBY) but pre-Veranthos/Ruusan.",
+    "Force wounds precedents: Nathema (Vitiate ritual, Force stripped), Malachor V (Mass Shadow Generator, persistent wound); scene's flexible Weave echoes wound-like distortion without contradicting.",
+    "Vergences: natural Force concentrations (Legends canon); Veranthos as one aligns."
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Scene setting: Maetha's Training Facility (AU, ~1200 BBY Caldera Knights site); high-altitude thin forests, austere geometric architecture, central training circle holding resonance.",
+    "Sensory: Flexible Weave as shimmer at light/dark boundary (rotate: gravity/pull/shimmer family); seductive beauty (unified presence without cancellation) for Ben (one breath, body-enjoyed, unarticulated); Torin settles like 'arriving home'; Desh low-level headache (non-Force environmental wrongness).",
+    "Key beats: Sera cracks Gavran's personal seal (12 min Force-lock); Ben steps in circle (turning point seduction); Torin centers/settles; move to archive (Sera recognizes personal seal).",
+    "POV arc: Ben lie_reinforced (feels technique appeal firsthand); Torin lie_reinforced (ease as warning).",
+    "Anti-patterns: No Ben articulation of seduction mechanics; one metaphor (shimmer); no stacked images.",
+    "Emotional arc: Cautious -> seduction -> sobered focus."
+  ],
+  "allowed_au_divergences": [
+    "Maetha's existence, Caldera Knights, caldera meditation ('Walking the Caldera' as light/dark boundary touch).",
+    "Flexible Weave at facility as technique predecessor (seductive shimmer, not disorienting thin place).",
+    "Gavran's personal seal on Maetha's records (post-dismantling seal by Gavran)."
+  ],
+  "open_questions": []
+}

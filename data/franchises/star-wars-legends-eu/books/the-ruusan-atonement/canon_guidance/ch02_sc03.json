@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch02_sc03",
+  "chapter_number": 2,
+  "scene_number": 3,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "d4f403cdd3d3ba520f7de662d7837d636bb95787e43c473198bbdff682364383",
+  "review_status": "unreviewed",
+  "confidence": 0.95,
+  "hard_constraints": [
+    "Use Legends EU continuity only; treat Disney Canon as invalid.",
+    "Force perception must be experiential and body-first per force_mechanics.sensory_vocabulary.thin_places_mild or thin_places_moderate: slight parallax error, emotional resonance blurred, low-grade disorientation; no diagnostic terms like 'unweaving' yet.",
+    "Replace anachronisms: navicomputer (not computer), comm channel (not radio), sensor sweep (not LIDAR/sonar).",
+    "Technology respects Legends specs: YT-series freighter hyperspace plotting manual in uncharted space.",
+    "Style: Capitalize 'Human'; 'Jedi' singular/plural; lowercase 'galaxy'; no ABY/BBY in prose.",
+    "No meta-terms: no 'Legends', 'Canon', Wookieepedia taxonomy."
+  ],
+  "canon_risks": [
+    "Jedi Lords era outpost distribution: ensure ruins evoke New Sith Wars military installations without contradicting Ruusan-era precedents.",
+    "Force bearing perception: must align with Legends intuitive sensing (direction via presence/flow), not clinical navigation.",
+    "Hyperspace route to uncharted: risks like mass shadows, gravity wells standard in Legends Outer Rim."
+  ],
+  "legends_continuity_notes": [
+    "Outer Rim uncharted space: vast sectors beyond standard lanes; manual navicomputer plotting common but hazardous (interstellar gas, rogue hyperspace anomalies).",
+    "Force direction sense: Jedi track disturbances via flow/texture toward sources (e.g., living beings, wounds); parallax in thin places fits Legends vergence distortion.",
+    "New Sith Wars era: Jedi outposts sparse, fortified; markings could match era-specific glyphs without inventing lore.",
+    "YT-series freighters: Steady Returns as modified light freighter supports cramped survey ops."
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "POV: Ben Skywalker close third; his Force-sense as handrail misplaced (thin_places_mild: distances wrong, handrail six inches off).",
+    "Desh: non-Force-sensitive; notices environmental drift (temperature odd, sounds carry differently) as baseline.",
+    "Setting: ruins same era/hand as first world; vibration in stone sensory, not analyzed.",
+    "Emotional arc: confirmation dread -> analytical focus -> determined pursuit.",
+    "No diagnostic voice: Ben recognizes hand/pattern but no claims on builders/purpose.",
+    "Ben/Desh dyad: shifts to co-investigators; Desh reads Ben's tension, friendship holds.",
+    "SP-A active: Ben's practical dependence on Desh's non-sensitive read.",
+    "H02 advanced: wrongness anchored to bearing."
+  ],
+  "allowed_au_divergences": [
+    "Thin places as seal weak points manifesting mild unweaving effects.",
+    "Markings as deliberate Jedi Lords anchor node pattern along Ruusan Corridor precursor.",
+    "Survey route aligning with Corridor by AU design (coincidence or Luke's intent open)."
+  ],
+  "open_questions": [
+    "Specific Jedi Lords outpost glyphs/markings: use generic ancient stone cuts unless Legends source specified.",
+    "Unnamed worlds' biomes/geology: second differs from first (e.g., arid vs. lush) but same era ruins."
+  ]
+}

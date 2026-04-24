@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch17_sc03",
+  "chapter_number": 17,
+  "scene_number": 3,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "d0870d91929fac9b7978065304b7244d05b0f2f8c445d2a16cde95cf3eeefe9b",
+  "review_status": "unreviewed",
+  "confidence": 0.96,
+  "hard_constraints": [
+    "Use Legends terminology: 'nav console', 'sensor display', 'datapad', 'hyperspace' \u2013 no anachronisms like 'computer', 'laptop', or 'radar'.",
+    "Single POV: Ben Skywalker \u2013 all observations filtered through his close-third perspective.",
+    "Preserve era-specific tech: YT-series freighter sensor suite capable of long-range hyperspace tracking signatures; no post-2014 tech assumptions.",
+    "Capitalization/style: 'Human(s)' capitalized; 'galaxy' lowercase; 'Jedi' singular/plural unchanged; 'Darth' capitalized only before name."
+  ],
+  "canon_risks": [
+    "Hyperspace parallel-course tracking must align with Legends sensor limits \u2013 feasible via mass shadow detection or signature ID (e.g., GAG-era tech in LOTF), but not real-time visual; emphasize signature confirmation and projected convergence, not impossible precision.",
+    "Torin's 'coming home' expression risks over-telegraphing his arc if rendered too explicitly \u2013 keep Ben's read observational per blueprint (Jacen cadence in doorway announcement from prior scene carries primary pattern signal)."
+  ],
+  "legends_continuity_notes": [
+    "YT-series freighters (e.g., Millennium Falcon precedents) have upgraded sensor arrays for long-range detection; hyperspace tracking via gravitic distortions or transponder echoes standard in post-NJO era (Fate of the Jedi sensor tech).",
+    "Sith archive registers draw from Legends: Karness Muur (Tales of the Jedi: The Sith War) uses precise, detached annotation style \u2013 Veraine's ledger-fragment must echo this (complete sentences, no contractions, citation-like diction) without modernizing.",
+    "47 ABY context: Galactic Alliance sensor protocols; Ben/Desh's GAG background justifies tactical sensor discipline."
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Setting: Steady Returns cockpit, night cycle \u2013 single bright dot on sensor display; Desh's calm professionalism; Torin's reflection in viewport.",
+    "Key beats: Desh confirms Veraine's ship signature (parallel course); Ben overlays trajectories (converge at Veranthos in hours); Torin watches with 'man coming home' anticipation; Ben reads Veraine ledger-fragment (short, precise working note, no reader address, continuous with Ch16 voice).",
+    "Emotional arc: Tactical alertness \u2192 grim inevitability \u2192 Torin's anticipation \u2192 ledger's quiet certainty.",
+    "No Force mechanics here \u2013 pure tech/observational; Ben's read of Torin/Veraine via pattern recognition (Jacen parallel).",
+    "Characters: Ben (POV, lie_challenged phase); Desh (operational anchor); Torin (warmth preserved, but anticipation signals shift)."
+  ],
+  "allowed_au_divergences": [
+    "Veraine's ship on timed parallel course to Veranthos; her ledger-fragment as evidence-of-passage (W2); Torin's unsettling anticipation mirroring Veraine (AU arc telegraph per D7).",
+    "Convergence clock as accelerating cascade pressure (AU seal mechanics)."
+  ],
+  "open_questions": [
+    "Specific Karness Muur citation style for ledger-fragment \u2013 confirm exact phrasing from Tales of the Jedi if needed beyond 'precise/academic'."
+  ]
+}

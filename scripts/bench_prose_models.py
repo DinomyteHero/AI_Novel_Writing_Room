@@ -42,11 +42,12 @@ from src.model_router import ModelRouter  # noqa: E402
 from src.project_paths import ProjectPaths  # noqa: E402
 
 
-# Pricing per million tokens (OpenRouter pricing pages, 2026-04-21).
+# Pricing per million tokens (OpenRouter models API, 2026-04-24).
 PRICING = {
     "anthropic/claude-sonnet-4.6": (3.00, 15.00),
     "anthropic/claude-haiku-4.5": (1.00, 5.00),
-    "deepseek/deepseek-v3.2": (0.26, 0.38),
+    "deepseek/deepseek-v4-flash": (0.14, 0.28),
+    "deepseek/deepseek-v4-pro": (1.74, 3.48),
     "qwen/qwen3.6-plus": (0.325, 1.95),
     "moonshotai/kimi-k2.5": (0.3827, 1.72),
     "moonshotai/kimi-k2.6": (0.95, 4.00),
@@ -56,6 +57,7 @@ PRICING = {
     "x-ai/grok-4.1-fast": (0.20, 0.50),
     "minimax/minimax-m2.7": (0.30, 1.20),
     "z-ai/glm-5.1": (0.95, 3.15),
+    "xiaomi/mimo-v2.5-pro": (1.00, 3.00),
     "openai/gpt-5.4": (2.50, 15.00),
     "openai/gpt-5.4-mini": (0.75, 4.50),
 }
@@ -93,10 +95,18 @@ BENCH_CONFIGS = [
         "temperature": 0.70,
     },
     {
-        "label": "deepseek-v32-t070",
+        "label": "deepseek-v4-flash-t070",
         "model_short": "deepseek",
-        "model_full": "deepseek/deepseek-v3.2",
+        "model_full": "deepseek/deepseek-v4-flash",
         "temperature": 0.70,
+        "extra_params": {"reasoning": {"effort": "none"}},
+    },
+    {
+        "label": "deepseek-v4-pro-t070",
+        "model_short": "deepseekpro",
+        "model_full": "deepseek/deepseek-v4-pro",
+        "temperature": 0.70,
+        "extra_params": {"reasoning": {"effort": "none"}},
     },
     {
         "label": "qwen-36-plus-t070",
@@ -129,9 +139,21 @@ BENCH_CONFIGS = [
         "temperature": 0.70,
     },
     {
+        "label": "grok-41-fast-t070",
+        "model_short": "grok41fast",
+        "model_full": "x-ai/grok-4.1-fast",
+        "temperature": 0.70,
+    },
+    {
         "label": "glm-51-t070",
         "model_short": "glm",
         "model_full": "z-ai/glm-5.1",
+        "temperature": 0.70,
+    },
+    {
+        "label": "mimo-v25-pro-t070",
+        "model_short": "mimo25pro",
+        "model_full": "xiaomi/mimo-v2.5-pro",
         "temperature": 0.70,
     },
     {
@@ -178,12 +200,14 @@ BENCH_CONFIGS = [
 MODEL_ALIASES = {
     "claude":       "anthropic/claude-sonnet-4.6",
     "haiku":        "anthropic/claude-haiku-4.5",
-    "deepseek":     "deepseek/deepseek-v3.2",
+    "deepseek":     "deepseek/deepseek-v4-flash",
+    "deepseekpro":  "deepseek/deepseek-v4-pro",
     "kimi":         "moonshotai/kimi-k2.5",
     "kimi26":       "moonshotai/kimi-k2.6",
     "grok420":      "x-ai/grok-4.20",
     "grok41fast":   "x-ai/grok-4.1-fast",
     "glm":          "z-ai/glm-5.1",
+    "mimo25pro":    "xiaomi/mimo-v2.5-pro",
     "gpt54":        "openai/gpt-5.4",
     "gpt54mini":    "openai/gpt-5.4-mini",
     "gemini":       "google/gemini-3.1-pro-preview",
@@ -337,6 +361,7 @@ async def run_bench(
             "params": {
                 "temperature": cfg["temperature"],
                 "max_tokens": 8192,
+                **cfg.get("extra_params", {}),
             },
         }
         # Inject model key into cloud.models map if it isn't already there

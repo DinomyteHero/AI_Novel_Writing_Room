@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch24_sc03",
+  "chapter_number": 24,
+  "scene_number": 3,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "6faf7571e55deae424a9e8ad1e5c936bee50845b60486df007b5a9c0f2d8bf5a",
+  "review_status": "unreviewed",
+  "confidence": 1.0,
+  "hard_constraints": [
+    "Force described through experiential/mystical language per canon_profile; no 'energy field' or scientific framing.",
+    "Weave vocabulary rotation: acoustic (keys, notes, chord) and hydraulic (currents, counter-currents) families only; one image per paragraph; no forbidden repeats like 'reached for the Force' or 'handrail in the dark'.",
+    "Render body-experience before diagnostic terms; no on-page articulation of Ben's Lie or diagnostic explanation of failure.",
+    "Desh not directly Weave-sensed; register only through nodes' ground-tone rhythm and pressure-shape within it.",
+    "Sera's presence: rigid/defined with Dantari Force-lock residue signature.",
+    "Kael's presence: fluid/sharp, pressurized mobility from confined lifetime.",
+    "Torin's active technique: moving void, traveling unweaving zone with sharp boundary.",
+    "Veraine's ritual: organized/calculated pressure/distortion at Scar base.",
+    "Scar: visible seam widening by centimeters; heat-shimmer distortion without heat.",
+    "Style: American English; 'Jedi' singular/plural; lowercase 'galaxy'; no ABY/BBY in prose."
+  ],
+  "canon_risks": [
+    "Ensure Force-tradition incompatibility aligns with Legends precedents of mismatched techniques causing backlash (e.g., KOTOR II echo-disruption); do not imply universal ontology change.",
+    "Resonance failure must reinforce light/dark as natural Legends properties; unweaving as damage, not revelation."
+  ],
+  "legends_continuity_notes": [
+    "Vergences: natural Force concentrations (e.g., Valley of the Jedi); Veranthos as AU example.",
+    "Force wounds: persistent phenomena with unreliable sense/emotional amplification/dark bleed (Nathema via KOTOR/TOR; Malachor V via KOTOR II).",
+    "Multi-tradition Force work: rare but precedented in Legends (e.g., disparate Jedi/Sith clashes creating wounds); resonance as AU harmonic extension.",
+    "Post-Fate of the Jedi (47 ABY): Jedi Order under Luke; Ben as Knight with GAG/Abeloth/ Vestara history intact."
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Scene closes on failure in motion: discordance worsens under Ben's control attempt; no coherence/resolution.",
+    "Three operations simultaneous: Veraine (building ritual), Torin (expanding void), trio (discordant notes refusing lead).",
+    "Ben's POV: instinct-to-control shown via action (push/lead/impose will); sweat/temples cold of concentration.",
+    "Hands linked post-'Now'; three keys/notes collide without chord.",
+    "Nodes: steady ground-tone underneath discord; Desh as moving pressure in rhythm (B3 plant from s2).",
+    "Emotional arc: overwhelm -> determination -> strain/failure.",
+    "Stover-permitted interior density at instinct-fire/discordance; anchor body sensations.",
+    "Anti-patterns: no simile-cascade; no dialogue close; no direct Desh sense; no Lie articulation."
+  ],
+  "allowed_au_divergences": [
+    "Weave-resonance: multi-tradition shared-burden; fails under single-lead control.",
+    "Unweaving phenomenology: formless pressure, no light/dark texture, emotional extremes.",
+    "Veranthos/Scar/wound/seal/anchors: AU infrastructure on Legends vergence/wound precedents.",
+    "Survivors (Sera/Torin/Kael/Veraine/Gavran): AU from New Sith Wars, sealed as anchors.",
+    "Technique lineage: Nathema/Malachor precedents extended to Gavran's deployment."
+  ],
+  "open_questions": []
+}

@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch23_sc03",
+  "chapter_number": 23,
+  "scene_number": 3,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "1dbcaf008ec5d62b8fc82a27222c4f6e684c656525793da03bb5c159082a6585",
+  "review_status": "unreviewed",
+  "confidence": 1.0,
+  "hard_constraints": [
+    "Single POV: Ben Skywalker throughout",
+    "Use Legends EU continuity; treat Disney Canon as invalid",
+    "Force description: experiential and mystical, not scientific; rotate vocabulary families (use acoustic register here: 'three notes arranged but not yet a chord')",
+    "No anachronistic terms: datapad (not laptop), blaster (not gun), etc.",
+    "Kael's commitment line: deliver once, dry, understated; do not reprise",
+    "No group cheer, no emotional speech from Ben; line lands, group registers, they move",
+    "Anti-pattern: do not linger on reflection or emotional processing; end as group moves",
+    "'Jedi' singular and plural (never 'Jedis')",
+    "Capitalize 'Human'; lowercase 'galaxy'; American English",
+    "'Darth' capitalized only before name"
+  ],
+  "canon_risks": [],
+  "legends_continuity_notes": [
+    "Ben Skywalker: Jedi Knight, post-Fate of the Jedi (47 ABY), experienced GAG service under Jacen, fought Abeloth; instinctive control under pressure but arc learns trust",
+    "Vergences: natural Force concentrations (Legends precedent); Veranthos sits on one, explaining wound severity",
+    "Force wounds: persistent phenomena with unreliable sense, emotional amplification (precedents: Malachor V, Nathema)",
+    "Galactic Alliance: primary government in 47 ABY post-FotJ"
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Setting: Veranthos valley camp, then movement toward wound source (lush, overgrown, alive but wrong; concentric zones, Scar at epicenter)",
+    "Characters: Ben (POV, interpretive axis), Sera Varik (NSW Jedi Knight, Force-lock expert, principled), Kael Drenn (Sith-trained conscript, quiet wildcard), Desh Rolan (non-Force-sensitive ex-GAG, practical)",
+    "Key beats: Kael's changed stride (deliberate); dry commitment line (humor covers raw vulnerability, frames volunteer choice); group moves (Desh splits to first amplification node); three Force presences adjacent/complementary but not harmonized",
+    "Emotional arc: anticipation/doubt -> relief/resolve -> march with strain",
+    "Subplots: SP-A (Ben's trust arc), SP2 (Kael's commitment), SP3 (resonance trio forms)",
+    "Arcs: Kael's positive change payoff (chosen commitment vs. passivity); Ben/Kael dyad to acceptance; resonance trio (Ben/Sera/Kael traditions)",
+    "Sensory: Kael's stride/voice; Force as notes (acoustic); valley distortion visible; Torin on ridgeline, Veraine's ritual at base",
+    "Exit: Group in formation down slope; clock at minutes"
+  ],
+  "allowed_au_divergences": [
+    "Veranthos as wound site/Brotherhood ritual/Gavran technique deployment",
+    "Survivors (Sera, Kael, Torin) as anchors woken in 47 ABY",
+    "Weave-Resonance: multi-tradition shared-burden containment (Ben/Jedi, Sera/NSW, Kael/Sith-trained)",
+    "Seal failure cascade; amplification array (Veraine's repurposing)",
+    "Kael Drenn: Sith conscript anchor, chooses participation (diverges from Veraine parallel)"
+  ],
+  "open_questions": []
+}

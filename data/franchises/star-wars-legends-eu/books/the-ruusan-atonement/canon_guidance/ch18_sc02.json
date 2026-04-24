@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch18_sc02",
+  "chapter_number": 18,
+  "scene_number": 2,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "48e080cd4d24dbbf5ff98bbbdc06e195125658337d278276f60d30040df9e74c",
+  "review_status": "unreviewed",
+  "confidence": 0.92,
+  "hard_constraints": [
+    "Preserve single-POV Ben Skywalker; no head-hopping or other perspectives.",
+    "Use Star Wars Legends / EU continuity only; setting post-Fate of the Jedi (47 ABY), Ben as Jedi Knight son of Luke and Mara.",
+    "Adhere to anachronistic_terms replacements: datapad (not laptop), comm (not radio), etc.; no modern tech terms.",
+    "Force described experientially per force_mechanics: body-sense first, no clinical framing; no 'reached for the Force' repeats.",
+    "Style: Capitalize 'Human'; 'Jedi' singular/plural; 'Darth' capitalized before name; lowercase 'galaxy', 'the Sith'.",
+    "No in-universe use of 'Legends'/'Canon', ABY/BBY dates, or meta-references."
+  ],
+  "canon_risks": [
+    "Jacen Solo (Darth Caedus) reference must align with Legends: Ben's cousin who fell, murdered Mara Jade, led GAG; Ben served as teen. Avoid any post-2014 retcons.",
+    "Galactic Alliance Guard (GAG) debrief structure fits Legends (secret police under Jacen), but ensure no Imperial/Disney Inquisitorius bleed in operational tone.",
+    "Sera Varik's 'Dantari philosophical discipline' posture risks species mismatch; no prior artifacts confirm Sera as Dantari (humanoid NSW Jedi implied)."
+  ],
+  "legends_continuity_notes": [
+    "Ben Skywalker: 20-21ish in 47 ABY, post-Abeloth; GAG service with Desh bonds them via shared shame; Jacen pattern (unilateral action) mirrors Jedi Lords/Torin.",
+    "Desh Rolan: Non-Force-sensitive ex-GAG operative; practical grounding; his investment reveal advances Ben/Desh deepening arc per relationship_arcs.",
+    "Steady Returns: Modified YT-series freighter; cramped cockpit/night cycle sensory: instrument lights, nav display, bulkhead timer.",
+    "Jedi mission-debrief: Procedural, clinical per Zahn/Allston style; GAG influence adds edge for Ben/Desh dynamic."
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Scene aboard Steady Returns cockpit, night cycle: Desh debriefs team status clinically then personal ('another good person' echo re: Jacen/Torin); Sera at doorway, hand on frame, breath for unsaid line (Ch14-style defense of Torin absent), walks away.",
+    "Turning point: Desh's voice shifts to care; Sera's certainty fissures (lie_fissure per blueprint); plants cascade-acceleration intuition for Ch21.",
+    "Ben's lie_challenged: Receives Jacen echo from Desh (only shared GAG witness); no verbal response; pivots to Codex resonance bookmark.",
+    "Sera: NSW Jedi Knight, Force-lock expert; archaic/formal speech; defending Torin ends here (first visible falter).",
+    "No Sera dialogue; her posture evokes Dantari discipline under doubt.",
+    "Emotional arc: Professional -> personal investment -> leadership challenge; Veranthos jump imminent."
+  ],
+  "allowed_au_divergences": [
+    "Sera Varik/Torin Hal/Kael as thawed NSW-era survivors/anchors; AU recontextualization of Ruusan Reformations.",
+    "Group dynamics, wound pressure amplifying extremes (not possession); Jacen/Torin/Jedi Lords pattern as thematic mirror.",
+    "Codex/Ankhural resonance notes as heresy; Sera's unarticulated intuition on forcible disengagement accelerating cascade."
+  ],
+  "open_questions": [
+    "Sera Varik's species/origin: 'Dantari philosophical discipline' unspecified in contract/seed/blueprint; Legends Dantari (Dantooine natives) fit meditative posture, but confirm if AU intent or error."
+  ]
+}

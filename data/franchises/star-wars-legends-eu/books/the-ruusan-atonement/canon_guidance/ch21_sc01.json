@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch21_sc01",
+  "chapter_number": 21,
+  "scene_number": 1,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "296c1614bb01b73266c86da88aa46aa163a1608306ec3606329ea499efa1552c",
+  "review_status": "unreviewed",
+  "confidence": 0.95,
+  "hard_constraints": [
+    "Preserve Torin's warmth register per ensemble_cast['Torin Hal'].voice_texture.preserved_specimens and description: calm, sincere, devastatingly reasonable; no softening with doubt/hesitation per scene_card.anti_patterns[3]",
+    "Sera's Force-lock read must be one physical beat (hand on bulkhead, micro-set jaw, eyes to Ben) with no dialogue/explanation per scene_card.anti_patterns[1,2,4,5] and key_beats[3,4]",
+    "No clinical articulation of Force-lock read or Torin's prepared defenses per scene_card.anti_patterns[2]; unannounced in prose per scene_card.canon_elements_needed[1]",
+    "Capitalize 'Human' per canon_constraints.style_constraints[0]; 'Jedi' singular/plural per [5]; lowercase 'galaxy' per [1]",
+    "'Darth' capitalized only preceding name per canon_constraints.style_constraints[6]",
+    "Use Star Wars vocabulary: no anachronisms per canon_profile.anachronistic_terms",
+    "Force described experientially per force_mechanics.sensory_vocabulary.concept_vs_sensation_rule; rotate vocab families per vocabulary_variation"
+  ],
+  "canon_risks": [
+    "Torin's technique use at personal scale must align with force_mechanics: damages/deadens locally (meters), removes feedback loop without removing ability; not possession or universal ontology proof per primary_rule.implications[0]",
+    "Sera's Force-lock expertise is NSW-era specific per terminology_registry['Force-lock']; diagnostic read of 'prepared-trigger architectures' must ground in AU phenomenology without contradicting Legends Force bonds/entanglements (e.g., KOTOR II wound echoes)",
+    "Veranthos dawn sensory details (wrong-angle shadows) must match thin_places_high/full_unweaving for non/Force-sensitive per force_mechanics.sensory_vocabulary; no overstatement beyond wound pressurization"
+  ],
+  "legends_continuity_notes": [
+    "Ben Skywalker: Jedi Knight post-Fate of the Jedi/Abeloth; GAG service under Jacen per canon_preserved[3]; single-POV throughout per meta.pov_structure",
+    "New Sith Wars era (NSW ~2000-1000 BBY): Jedi Lords like Gavran; Brotherhood of Darkness per canon_preserved[7]; Ruusan Reformations (1000 BBY) baseline per [6]",
+    "Force wounds precedents: Nathema (KOTOR/TOR), Malachor V (KOTOR II) per force_mechanics.canon_grounding; persistent, unreliable sense/emotional amp",
+    "Vergences: natural Force concentrations per terminology_registry['Vergence']"
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Setting: Veranthos camp at valley edge (Scar visible); dawn, golden light/wrong shadows per scene_card.sensory_details",
+    "Torin rested/lighter Force presence (heaviness gone) per action_beats[0]/key_beats[0]; first technique use 'truest thing' warmth per turning_point_detail",
+    "Sera at tent-mouth/bulkhead; hand closes eyes briefly, jaw micro-set, eyes to Ben per action_beats[3]/sensory_details",
+    "Turning: 'I'm not asking for permission' per turning_point/closing_hook; interpersonal conflict, no force resolution here",
+    "Ben POV arc: moment_of_truth (Trauma Lie crack: refuses unilateral override) per scene_card.pov_arc_phase/arc_phase_transition",
+    "Warmth load-bearing: true per scene_card; Torin paternal/warm per ensemble_cast['Torin Hal'].three_dimensions.surface",
+    "Active subplots: SP-A (Ben Lie), SP1 (Sera/Torin rupture), SP2 (Ben/Jacen shadow break) per scene_card.active_subplots/relationship_turns"
+  ],
+  "allowed_au_divergences": [
+    "Torin Hal (NSW Battle Master, technique user, sealed anchor) per canon_overridden[3]/terminology_registry",
+    "Sera Varik Force-lock read of Torin's Weave-entanglement/counter-prep per scene_card.canon_elements_needed[0,1]/force_mechanics",
+    "Veranthos wound/Scar/vergeance per canon_overridden[4]/terminology_registry['Veranthos']['The Scar']",
+    "The Technique/unweaving at personal scale per canon_overridden[2]/force_mechanics.implications[7]",
+    "Weave phenomenology (handrail gone, formless pressure) per force_mechanics.sensory_vocabulary.full_unweaving.force_sensitive"
+  ],
+  "open_questions": [
+    "Source for 'Dantari Force-lock diagnostic technique' in scene_card.canon_elements_needed[0]? Not in terminology_registry['Force-lock'] or provided Legends precedents; confirm Legends grounding or treat as AU extension",
+    "'Force-entangled presence phenomenology (Torin's Weave-entanglement)' per scene_card.canon_elements_needed[1]: prose-unannounced ok, but verify no Legends contradiction with Force bonds (e.g., NJO ysalamiri/voids)"
+  ]
+}

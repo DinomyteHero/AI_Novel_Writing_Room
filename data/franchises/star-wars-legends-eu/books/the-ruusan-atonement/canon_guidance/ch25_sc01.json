@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch25_sc01",
+  "chapter_number": 25,
+  "scene_number": 1,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "f957566edbc955da66bfcb0821575bbbd26aff1a3827857e88fef7a98bde2f7d",
+  "review_status": "unreviewed",
+  "confidence": 1.0,
+  "hard_constraints": [
+    "Describe the Force through body-experience first, analysis second: render sensation (warmth, chord formation) before diagnostic terms like 'Weave-Resonance' (force_mechanics.sensory_vocabulary.concept_vs_sensation_rule)",
+    "Use exact weave-resonance vocabulary for Force-sensitives: discordant start (three notes not forming a chord), breakthrough (stops trying to lead and listens; emergent relationship; physical warmth after cold; Weave as living tissue, flexible/dynamic; relief not triumph) (force_mechanics.force_sensitive.weave_resonance)",
+    "Avoid forbidden repeat phrases: no 'reached for the Force', 'the Force was still there', 'like a handrail in the dark', 'the note held slightly below pitch', 'the Weave itself', 'the lattice itself' (force_mechanics.vocabulary_variation.forbidden_repeat_phrases)",
+    "Ben's close third-person POV only: no access to Sera/Kael interiority; register their states physically (jaw set, hands shaking) (pov_structure: Single POV \u2014 Ben Skywalker throughout)",
+    "Era-appropriate terminology: 'the Weave' lowercase unless sentence start; in-character variants per speaker but narrator uses 'the Weave' sparingly (terminology_registry.The Weave)"
+  ],
+  "canon_risks": [
+    "Multi-tradition resonance (Jedi/Sith-trained/NSW-era) risks implying Force unity incompatible with Legends light/dark polarity; mitigate by emphasizing AU 'harmonic resonance' as local reinforcement of damaged Weave, not universal ontology (force_mechanics.primary_rule: light/dark natural; technique damages, does not prove imposition)"
+  ],
+  "legends_continuity_notes": [
+    "Ben Skywalker (47 ABY): Jedi Knight post-Fate of the Jedi/Abeloth; experienced from GAG service, civil war, Vestara betrayal; Skywalker reflex to lead/control canon to character (canon_preserved.Ben Skywalker as Jedi Knight; ensemble_cast.ben.three_dimensions)",
+    "Force wounds persistent in Legends: Malachor V (KOTOR II: mass death wound, echo effects), Nathema (TOR: ritual-stripped Force); scene builds on these as precedent for Veranthos wound/seal (force_mechanics.canon_grounding; terminology_registry.Nathema, Malachor V)",
+    "Vergences canon: natural Force concentrations (e.g., Valley of the Jedi); Veranthos as vergence explains wound severity (terminology_registry.Vergence)"
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Setting: Veranthos mid-valley near Scar (three-meter vertical distortion); lush/overgrown but wrong; wound-pressure amplifies emotions but resonance counters it (terminology_registry.Veranthos, The Scar; force_mechanics.thin_places_high.full_unweaving)",
+    "Characters: Ben (interpretive axis, lets go of control); Sera (NSW Jedi, architecture perception: Weave as load-bearing; jaw sets); Kael (Sith-trained conscript, Weave as foreign accent now home-like; hands shake) (force_mechanics.character_differentiated_sensations; terminology_registry.Sera Varik, Kael Drenn)",
+    "Key beats: Discordance critical (Sera jaw, Kael tremble); Ben releases control (breath/weight shift/open hands); chord forms (three traditions self-align); warmth floods linked hands/palms; wrongness quiets (scene_card.key_beats; action_beats)",
+    "Emotional arc: Desperate control -> surrender -> breakthrough warmth/relief (scene_card.emotional_arc; emotional_trajectory)",
+    "AU elements active: Resonance as shared-burden (Ben/Sera/Kael traditions); pays PP10/13/14 (scene_card.promises_paid); advances Ben arc to new_truth_demonstrated (pov_arc_phase)"
+  ],
+  "allowed_au_divergences": [
+    "Weave-Resonance: multi-tradition harmonic reinforcement distributing seal load; untested until climax (canon_overridden.Weave-Resonance; force_mechanics.weave_resonance)",
+    "Veranthos wound/seal: Gavran's technique damage at vergence; contained by anchors (now failed); resonance as plural solution (canon_overridden.Battle of Veranthos, The Seal, Anchor)",
+    "Survivors as anchors: Sera (Jedi Knight), Kael (Sith-trained), Torin (Battle Master) awake in 47 ABY; Veraine escaped (canon_overridden.Darth Veraine, three Jedi survivors)"
+  ],
+  "open_questions": []
+}

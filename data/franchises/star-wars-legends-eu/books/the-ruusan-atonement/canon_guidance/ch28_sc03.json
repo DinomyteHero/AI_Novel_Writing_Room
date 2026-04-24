@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch28_sc03",
+  "chapter_number": 28,
+  "scene_number": 3,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "067c7764191d4e72865677147e9bb157f726497f9448d732a20f1896765d205f",
+  "review_status": "unreviewed",
+  "confidence": 1.0,
+  "hard_constraints": [
+    "Single POV: Ben Skywalker throughout (project contract: 'pov_structure': 'Single POV \u2014 Ben Skywalker throughout')",
+    "Force description: Render through body-experience first (sensation before diagnostic vocabulary like 'resonance', 'chord', 'Weave') per force_mechanics.sensory_vocabulary.concept_vs_sensation_rule and vocabulary_variation.rules",
+    "No forbidden repeat phrases: e.g., no 'reached for the Force', 'the Force was still there' (force_mechanics.vocabulary_variation.forbidden_repeat_phrases)",
+    "No explicit thematic statement, no narration of Ch1 parallel, no prophecy/sequel hint/mystical visitation/summary of Ben's future (scene card anti_patterns)",
+    "Closing line 'A note in a chord. Enough.' is scene exit \u2014 no paragraph after it (scene card notes and anti_patterns)",
+    "Use Star Wars vocabulary: e.g., no anachronistic terms like 'computer' (use 'console', 'datapad'); 'corridor' not 'hallway' (canon_profile.anachronistic_terms and franchise_terminology_notes)"
+  ],
+  "canon_risks": [
+    "Ensure Jedi Temple on Coruscant remains operational under Luke Skywalker in 47 ABY post-Fate of the Jedi (canon preserved: Luke as Grand Master; era_description confirms Coruscant Temple base)",
+    "Ben's age ~20-21 aligns with the 47 ABY post-Fate timeline (Ben as young adult Jedi Knight; canon preserved)"
+  ],
+  "legends_continuity_notes": [
+    "Jedi Temple, Coruscant: Grand Master Luke Skywalker's base post-Abeloth (47 ABY); working facility with training salles, populated by Jedi Knights (era_description, canon preserved)",
+    "Force perception post-resolution: Differentiated per Ben ('handrail in the dark' metaphor introduced early, rotate vocab to 'chord/note' here per vocabulary_variation.rotation_families.acoustic; weave_resonance.force_sensitive: 'warmth... living tissue... relief')",
+    "No GAG/Imperial/Disney structures; Temple as neutral, ongoing Jedi hub (continuity: Legends post-Second Galactic Civil War)"
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Scene beats: (1) Walk same Ch1 corridor in evening light (reflective peace); (2) Pause at training salle (wrongness -> chord shift, shoulders drop, recognition); (3) Footsteps continue, Temple populated/alive (acceptance/forward motion) (scene card.key_beats)",
+    "Emotional arc: Reflective peace -> new perception (resonance hums where wound bled) -> acceptance (Ben as 'note in chord', open future) (scene card.emotional_arc)",
+    "Sensory: Evening light, warmer harmonics, resonance at perception edge, steady footsteps, other Jedi passing (scene card.sensory_details)",
+    "Ben's arc resolved: From isolated truth-bearer to part of shared chord (pov_arc_phase: 'arc_resolved'; turning_point_detail.shift)",
+    "Weave-resonance sensation for Ben: Emergent warmth after discord, flexible tissue, relief (force_mechanics.force_mechanics.weave_resonance.force_sensitive)",
+    "SP-A active: Ben's practical dependence on non-sensitive judgment resolved in resonance (scene card.active_subplots)",
+    "Promises paid: PP21 (Ben/Luke), PP22 (final image) (scene card.promises_paid)"
+  ],
+  "allowed_au_divergences": [
+    "New shared-burden seal/resonance: humming chord at perception edge, distributed load (no single load-bearer), replacing wound (canon_overridden: seal purpose; force_mechanics.primary_rule, weave_resonance)",
+    "Ruusan Atonement history/recontextualization resolved via institutional honesty (chapter blueprint.relationship_turns: Ben/Order)",
+    "Ben's 'wrongness' perception transformed to chord (terminology_registry: 'The Wrongness' -> Weave-Resonance)"
+  ],
+  "open_questions": []
+}

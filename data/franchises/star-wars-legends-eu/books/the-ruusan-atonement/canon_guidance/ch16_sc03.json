@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch16_sc03",
+  "chapter_number": 16,
+  "scene_number": 3,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "4398b101ce2670f069a03c7957fc7f0edfeb30a31ecafc01eb6901d15dd20ae4",
+  "review_status": "unreviewed",
+  "confidence": 0.98,
+  "hard_constraints": [
+    "Single POV: Ben Skywalker throughout (project contract: 'pov_structure': 'Single POV \u2014 Ben Skywalker throughout').",
+    "Veraine introduces herself as 'Veraine' \u2014 dropping the 'Darth' is a strategic choice (terminology_registry: 'usage_notes').",
+    "'Darth' as a Sith title is capitalized when preceding a name; generic 'the Sith' lowercase (canon_constraints: style_constraints).",
+    "Use Star Wars vocabulary: no anachronistic terms like 'radio' (use 'comlink'), 'computer' (use 'console', 'datapad') (canon_profile: anachronistic_terms).",
+    "Force rendered through body-experience first, analysis second; diagnostic vocabulary ('unweaving', 'the Weave') earned by experiential rendering (force_mechanics: sensory_vocabulary: concept_vs_sensation_rule)."
+  ],
+  "canon_risks": [
+    "Veraine's Sith working-philosophy archive register referencing Karness Muur: ensure alignment with Legends Brotherhood of Darkness (thought bomb, Kaan-led) without implying post-Ruusan Sith structures.",
+    "Force phenomenology of unresolved parley (absence of combat-Force texture): risk of drifting toward clinical description; must stay experiential per Ben's differentiated sensations (handrail absent but pressure present)."
+  ],
+  "legends_continuity_notes": [
+    "Brotherhood of Darkness: Legends canon (Darth Bane trilogy); alchemists/strategists like Veraine fit as Kaan's forces pre-Ruusan thought bomb.",
+    "Karness Muur: Legends Sith Lord (Tales of the Jedi: The Sith War, ~5000 BBY); citation conventions in archives would use era-appropriate formal referencing (e.g., holocron fragments, not modern footnotes).",
+    "Force wounds: Established Legends precedents (Nathema via Vitiate, Malachor V via Mass Shadow Generator); parley without combat-Force aligns with intuitive/mystical sensing in post-Fate of the Jedi era.",
+    "47 ABY post-Abeloth: Jedi Order under Luke Skywalker; Ben as Knight with GAG/Abeloth history preserved."
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Ben's Weave sensation: 'handrail in the dark' gone \u2014 footing absent, Force presence without direction (force_mechanics: character_differentiated_sensations: ben).",
+    "Sera's testimony: Experiential 'nothing-there' framing from anchor stasis; archaic syntax, no contractions early (terminology_registry: Sera Varik).",
+    "Veraine's register: Precise, Socratic questions from certainty; clinical containment vocabulary (pressure, drainage); sharpens to specific question without raising voice or warming (scene_card: turning_point_detail, dialogue_register).",
+    "Group present: Ben, Sera, Torin, Kael, Desh (non-Force-sensitive, no Weave perception).",
+    "Scene beats: Sera steps forward \u2192 testimony \u2192 Veraine's sharpened question (place-vs-person) \u2192 measured departure \u2192 Ben catalogs (approach vector, crew tells, archive fragments).",
+    "Emotional arc: Sera's controlled fury \u2192 Veraine sharpens \u2192 unresolved weight; Ben witnesses cost, catalogs emergently.",
+    "No resolution: Sera does not answer counter-question aloud; ends worse off."
+  ],
+  "allowed_au_divergences": [
+    "Darth Veraine: AU Brotherhood alchemist/strategist, escaped anchor (canon_overridden, primary_antagonistic_force).",
+    "Sera Varik: AU NSW Jedi Knight, unwilling anchor; Force-lock expertise (terminology_registry).",
+    "Unresolved parley testimony: AU 'nothing-there' from anchor experience tying to Weave/unweaving (force_mechanics).",
+    "Veraine-Sera parallel: Same wound (anchors), opposite scars (release vs. containment) \u2014 authorized thematic (conflict, relationship_turns)."
+  ],
+  "open_questions": [
+    "Specific Karness Muur citation conventions in Legends Sith archives: any precise formatting from holocrons or texts for drafter reference?"
+  ]
+}

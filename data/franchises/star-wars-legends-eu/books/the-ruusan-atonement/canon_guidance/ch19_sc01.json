@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch19_sc01",
+  "chapter_number": 19,
+  "scene_number": 1,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "0b0357f88523aa524debd738d92cc3401d40a5c491dbdc1b1e62e18b132c3c30",
+  "review_status": "unreviewed",
+  "confidence": 0.98,
+  "hard_constraints": [
+    "Use Star Wars Legends / Expanded Universe continuity; treat Disney-only continuity as invalid",
+    "Preserve post-Fate of the Jedi setting in 47 ABY: Jedi Order under Grand Master Luke Skywalker from Coruscant Temple",
+    "Force described through experiential and mystical language per force_mechanics; render body-experience before diagnostic vocabulary like 'Weave'",
+    "No anachronistic terms: use datapad, blaster, comlink; avoid DNA, radio, laptop, etc. per anachronistic_terms",
+    "Style: Capitalize 'Human'; decapitalize 'galaxy'; 'Jedi' singular and plural; 'Darth' capitalized before name",
+    "No meta-references: no ABY/BBY, no 'Legends'/'Canon', no Wookieepedia taxonomy",
+    "Ben Skywalker POV: single close-third; use his sensory vocabulary for Force (handrail gone, footing missing)"
+  ],
+  "canon_risks": [
+    "Unnamed 'young Knight' descriptions must align with referenced_characters: Master Ava Renn (disoriented), Knight Tell Maran (underconfident), Knight Drevin Los (unsettled senior); avoid inventing new modern Jedi",
+    "Outpost as small Outer Rim installation near Veranthos plausible but unconfirmed in Legends; ensure no conflict with post-Fate Jedi deployments",
+    "Meditation failure as Weave thinning effect must match Legends Force wounds (e.g., Malachor V echo) without proving new ontology"
+  ],
+  "legends_continuity_notes": [
+    "Post-Fate of the Jedi (47 ABY): Jedi Order reformed under Luke; outposts exist for training/surveys; Ben Skywalker ~21, established Knight after Abeloth crisis",
+    "Force wounds (Nathema, Malachor V) cause unreliable sense, emotional bleed; thin_places_moderate/high: parallax error, gaps, emotional leaks per force_mechanics",
+    "YT-series freighter Steady Returns: standard Legends tech; landing pad at outpost routine",
+    "Jedi training: lightsaber katas, meditation drills standard; disruption shows wound pressure without possession"
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Setting: Modern Jedi outpost, small Outer Rim installation within two jumps of Veranthos; lived-in but damaged (abandoned drills, empty cushions)",
+    "Characters: Ben (POV), Desh, Sera, Torin, Kael; outpost Knights: Ava Renn (failing meditation), Tell Maran (stress-like reports), Drevin Los (shaken senior)",
+    "Force effects: thin_places_moderate (gaps in Force, blurred light/dark, emotional leaks); non-diagnostic: 'Force there but no shape' per Knight dialogue",
+    "Torin: Genuine tenderness + calculation; warmth preserved (e.g., commander's hand); no manipulative read",
+    "Ben arc: lie_challenged; recognizes Battlefield Node echo but no theorizing; empathetic horror to helplessness",
+    "Sensory: Too-wide eyes, too-still hands; Force unreliable (pieces, no direction); no 'Weave' naming yet",
+    "Beats: Steady Returns lands; Knight greets abnormally; abandoned drills; Knight describes lost meditation; Torin kneels (tender gesture, cold eyes)"
+  ],
+  "allowed_au_divergences": [
+    "Weave thinning from seal failure affecting modern Jedi outpost (AU recontextualization of Ruusan Reformations)",
+    "Outpost Knights experiencing permanent Battlefield Node-like distortion as human cost of wound",
+    "Torin using suffering as argument for his solution (AU internal antagonist telegraph)"
+  ],
+  "open_questions": [
+    "Specific Legends precedents for Outer Rim Jedi outposts in 47 ABY? (Treat as open if unconfirmed beyond general post-Fate structure)"
+  ]
+}

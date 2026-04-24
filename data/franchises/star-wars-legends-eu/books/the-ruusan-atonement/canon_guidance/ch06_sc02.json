@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch06_sc02",
+  "chapter_number": 6,
+  "scene_number": 2,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "798db0b304ef01c6c15fd2eff999cce5e313bad4ee81f5dcc17936ad18b59a66",
+  "review_status": "unreviewed",
+  "confidence": 0.98,
+  "hard_constraints": [
+    "Use 'datapad' for computing devices per canon_profile.anachronistic_terms.",
+    "Capitalize 'Human' per style_constraints.",
+    "'Jedi' singular and plural per style_constraints.",
+    "Force descriptions must use experiential language per force_mechanics.sensory_vocabulary; no diagnostic terms like 'Weave' (first_appearance Chapter 9).",
+    "No in-universe use of ABY/BBY or 'Legends'/'Canon' per meta_reference_rules.",
+    "Ben's POV: internal references to Jacen as 'Jacen' with emotional charge per terminology_registry."
+  ],
+  "canon_risks": [
+    "Ruusan Reformations discussion must preserve Legends baseline (doctrinal/military restructuring post-New Sith Wars, Darth Bane era transition) before AU recontextualization; do not imply AU penance as public knowledge.",
+    "Brotherhood of Darkness as canon Sith faction led by Lord Kaan; Kael's 'veteran morning discipline' must align with Legends Sith training rigor without inventing non-AU structures."
+  ],
+  "legends_continuity_notes": [
+    "Ruusan Reformations (1000 BBY): Jedi Order restructured post-Seventh Battle of Ruusan; banned Army of Light model, emphasized peace; per canon_profile.canon_preserved.",
+    "Brotherhood of Darkness: Pre-Ruusan Sith collective under Kaan; destroyed by thought bomb; conscripted Force-sensitives common in NSW era.",
+    "Post-Fate of the Jedi (47 ABY): Ben Skywalker ~20-21, Jedi Knight; Galactic Alliance government; Jedi Temple on Coruscant under Luke.",
+    "Datapad standard for galactic history archives in Legends EU."
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Setting: Steady Returns common area (cramped YT-series freighter); sensory: modern field rations, datapad history scroll.",
+    "Key beats: Kael's private Brotherhood discipline (cargo corridor, exact/economical); Ben shares Reformations history; Kael's homeworld search empty (small Sith planet, no records); Torin nods commandingly.",
+    "Emotional arc: Awkward exchange -> Kael's grief (shoulder shift) -> fragile empathy; Ben observes without analyzing Kael.",
+    "Relationships: Humanizes Kael (discipline not emptiness); survivor displacement grief.",
+    "No Force sensing of Weave/unweaving (pre-Ch8); Ben's lie_reinforced phase.",
+    "Anti-patterns: No Ben POV psychology narration on Kael; no diagnostic voice; absence speaks (empty database)."
+  ],
+  "allowed_au_divergences": [
+    "Survivors (Sera, Torin, Kael) as awakened NSW-era anchors per canon_overridden.",
+    "Kael's unnamed small Sith homeworld erased from records as AU consequence of millennium passage.",
+    "Ruusan Reformations dual-purpose (public canon + private AU penance) per canon_overridden.",
+    "Group as fragile caravan post-Ch5 stasis awakening."
+  ],
+  "open_questions": [
+    "Specific Legends details on minor Sith worlds during NSW for Kael's homeworld vibe (treat as open if needed, but AU small/unnamed)."
+  ]
+}

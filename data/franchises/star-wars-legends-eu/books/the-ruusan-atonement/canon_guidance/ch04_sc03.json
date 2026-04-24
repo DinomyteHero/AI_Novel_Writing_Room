@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch04_sc03",
+  "chapter_number": 4,
+  "scene_number": 3,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "af4fb4a37e9955df0005bf3037efd98b019be2998b4be20163d62294cbee5272",
+  "review_status": "unreviewed",
+  "confidence": 0.97,
+  "hard_constraints": [
+    "Do not articulate the anchor system, Reformations purpose, or seal architecture as concepts in Ben's thoughts or dialogue; he observes chambers, counts dead/living/empty, registers implications without naming the system (Ch5 payload)",
+    "Do not resolve the decision to wake survivors; end with Ben's hand above control, stasis humming in response",
+    "Avoid maudlin description of Gavran's death; use understatement for grief via duty recognition and settled posture",
+    "Use Legends terminology: durasteel (not steel), transparisteel (not glass), datapad/console (not computer/laptop)",
+    "Capitalize 'Human(s)' per style guide; 'Jedi' singular/plural only (no 'Jedis'); lowercase 'galaxy'; 'Darth' capitalized only before name",
+    "Render Force through body-experience first (e.g., muted signatures as physical recoil, chest tightness) before analysis; no 'reached for the Force' phrasing",
+    "No in-universe ABY/BBY dates, 'Legends'/'Canon' terms, or Wookieepedia-style taxonomy"
+  ],
+  "canon_risks": [
+    "Stasis fields must align with Legends precedents (e.g., Jedi Academy Trilogy stasis pods, KOTOR-era cryo tech); avoid implying permanent Force-drain or Disney-style Inquisitorius interrogation chambers",
+    "Jedi Lords as flawed commanders plausible (Legends shows NSW desperation/moral compromises), but avoid overstating as 'war crime' here (AU recontextualization deferred to later chapters)",
+    "Force-sensitives in stasis: Legends allows (e.g., Exar Kun possession cases, carbonite variants), but signatures must remain distinguishable/muted, not erased (per force_mechanics: abilities function without moral feedback)"
+  ],
+  "legends_continuity_notes": [
+    "New Sith Wars (c. 2000-1000 BBY) featured desperate Jedi Lords like Lord Hoth; tech like stasis chambers fits era (e.g., Darth Bane novels, Jedi vs. Sith comics show advanced cryo/stasis for prisoners/bodies)",
+    "Force wounds persist in Legends (Malachor V, Nathema); environmental wrongness (flickering fields, scored interiors) builds on this without resolving",
+    "Ben Skywalker (47 ABY, post-FotJ): experienced Knight from GAG/Abeloth crises; dry wit, pragmatic (Mara's edge), control instinct under pressure",
+    "Non-Force-sensitive Desh: practical read (scored durasteel as 'recent breakout') grounds scene per Legends norm (e.g., Han Solo-style ops in EU novels)"
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Setting: Level 3 Stasis Ring (12 chambers in circle around central shaft: 9 dark/preserved dead bodies, 3 dimly active/flickering blue fields with living signatures [disciplined=Sera, heavy=Torin, clipped=Kael], 1 empty/broken open from inside with outward gouges); Level 4 Gavran's Chamber (body seated at nexus, hands on controls, log trails off mid-sentence, posture settled/not peaceful)",
+    "Action beats: Ben circumscribes ring counting chambers; Desh inspects empty chamber (systematic inward scoring, weeks-old flags); Ben descends to Gavran; Ben touches active control (field hums, signatures pulse)",
+    "Emotional arc: Horror (dead chambers) -> awe (living signatures) -> dread (empty breach) -> grief (Gavran's vigil)",
+    "Force sensory: Muted but distinct signatures through fields (body-recoil first: tightness, instinct to act; no diagnostic terms like 'Weave'/'unweaving' yet)",
+    "Desh anchors practically: Names empty chamber as recent breakout via damage timestamps before Ben processes meaning",
+    "Exit: Ben/Desh before 3 active chambers; hand above control, hum like held breath; decision to Ch5",
+    "R03 reveal: Fortress as tomb with 3 living people; empty chamber threat (Veraine loose weeks prior)"
+  ],
+  "allowed_au_divergences": [
+    "Force-sensitive anchors as living structural components in seal infrastructure (12 ring + Gavran keystone; 9 died over centuries, 3 active [Sera Varik, Torin Hal, Kael Drenn], 1 escaped [Darth Veraine])",
+    "Gavran (Jedi Lord) as technique originator, self-sealed keystone, died at post holding seal",
+    "Empty chamber as Veraine's weeks-old breakout accelerating cascade (AU seal failure mechanics)",
+    "Stasis ring as NSW-era field-expedient containment hub (not Legends-published, but authorized override)"
+  ],
+  "open_questions": [
+    "Precise Legends visuals for multi-chamber Force stasis rings in NSW era? (Plausible from Bane-era tech, but no exact match; flag for review if drafter needs visual precedent)",
+    "Gouges from inside: Compatible with Sith alchemist like Veraine eroding field over centuries? (AU half-aware stasis authorized, but physical damage mechanism unspecified)"
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch11_sc01",
+  "chapter_number": 11,
+  "scene_number": 1,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "281206131592d7b0efe498ac513db040f46a329f66b06b1d70a3a4ae5911f2f1",
+  "review_status": "unreviewed",
+  "confidence": 1.0,
+  "hard_constraints": [
+    "Single POV: Ben Skywalker throughout (project contract: pov_structure)",
+    "Use Star Wars Legends continuity only; no Disney Canon elements (Canon Contract: Continuity Branch)",
+    "Ship name 'Steady Returns' italicized as proper noun (terminology_registry)",
+    "'Jedi' singular and plural, never 'Jedis' (canon_constraints: style_constraints)",
+    "No anachronistic terms: datapad not laptop/computer (canon_profile: anachronistic_terms)",
+    "Force described experientially, not clinically (force_mechanics: primary_rule; sensory_vocabulary)"
+  ],
+  "canon_risks": [
+    "Torin's warmth must remain load-bearing per R12; do not flatten for exposition (ensemble_cast: Torin voice_texture)",
+    "Ben misreads Torin across Chs 8-18 per Weiland arc; do not correct ambiguity here (ensemble_cast: Ben/Torin arc_phase_map)"
+  ],
+  "legends_continuity_notes": [
+    "Ben Skywalker: Jedi Knight, post-Fate of the Jedi, former GAG operative under Jacen Solo (canon_preserved)",
+    "Desh Rolan: Former GAG with Ben, non-Force-sensitive (terminology_registry; referenced_characters)",
+    "Galactic Alliance Guard (GAG): Secret police under Jacen Solo during Second Galactic Civil War (canon_preserved; terminology_registry)",
+    "YT-series freighter: Common Legends design (e.g., YT-1300 Millennium Falcon); Steady Returns modified for practicality (terminology_registry)",
+    "New Sith Wars (NSW) era context for Torin/Sera/Kael: ~1000 BBY, post-Ruusan Reformations (Canon Contract; terminology_registry)"
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Setting: Steady Returns in hyperspace, cramped for six (six people in two-person space design; sensory: stale recycled air, dwindling caf)",
+    "Characters present: Ben (POV), Desh, Sera Varik (formal, archaic), Torin Hal (warm, Battle Master), Kael Drenn (quiet, watchful)",
+    "Key beats: Desh's argument tally; Kael's short genuine laugh (first heard, stops conversations); Torin declines natural recruitment opening to Kael (counter-current 2, unframed ambiguity); Desh isolates Ben in cockpit",
+    "Torin warmth: Timing slightly too clean/mechanical, but preserve register (notes: warmth load-bearing)",
+    "Kael/Desh: Quiet alliance deepening (relationship_arcs)",
+    "No Force-heavy action: Low interpersonal friction, hyperspace transit to Maetha's facility (AU anchor node)"
+  ],
+  "allowed_au_divergences": [
+    "Torin Hal, Sera Varik, Kael Drenn as thawed NSW-era survivors/anchors (canon_overridden)",
+    "Maetha's facility as AU anchor node/Corridor site (terminology_registry; chapter_blueprint)",
+    "Torin's subtle counter-current refusal per D7 restructuring (chapter_blueprint: relationship_turns; scene_card: notes)"
+  ],
+  "open_questions": []
+}

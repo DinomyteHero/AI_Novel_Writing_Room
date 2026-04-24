@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch21_sc02",
+  "chapter_number": 21,
+  "scene_number": 2,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "f5ebffe4708c9a69719d6acc8b9471538d919121d8f6ebecfe3401dd47882391",
+  "review_status": "unreviewed",
+  "confidence": 1.0,
+  "hard_constraints": [
+    "Single POV: Ben Skywalker throughout; no head-hopping or group omniscient.",
+    "Force descriptions must be experiential and body-first (e.g., handrail gone, footing absent) before diagnostic terms like 'unweaving' or 'Weave'; rotate sensory vocabularies (structural, acoustic, etc.) without repeating forbidden phrases.",
+    "Use Star Wars terminology: datapad (not laptop), comlink (not radio), chrono (not watch/clock for timepieces).",
+    "'Jedi' singular and plural; 'Darth' capitalized only before name; lowercase 'galaxy', 'Sith' as generic.",
+    "No in-universe meta-terms like 'Legends', 'Canon', ABY/BBY dates; reference events by name (e.g., 'after Abeloth').",
+    "Preserve Torin's warmth in dialogue/action until his turn; do not villainize.",
+    "Sera's line 'I was the one they sealed. I cannot seal another.' is canonical verbatim."
+  ],
+  "canon_risks": [
+    "Ensure Torin's departure aligns with his corruption arc (lie: bearing cost alone); avoid premature villainy that contradicts Ch5-18 warmth specimens.",
+    "Cascade-acceleration must cite force_mechanics: multiplicative load-shift from anchor loss, not additive; Veraine's escape already accelerated it.",
+    "Ben's Jacen-parallel refusal must be enacted via decision, not re-naming Jacen (per blueprint R13)."
+  ],
+  "legends_continuity_notes": [
+    "Ben Skywalker: Jedi Knight, post-Fate of the Jedi/Abeloth; GAG service under Jacen Solo as teen; personal history with Vestara Khai's dark-side choice reinforces trust Lie.",
+    "New Sith Wars (NSW) era: Ruusan Reformations (1000 BBY) baseline canon; Brotherhood of Darkness canon; Jedi Lords pattern of unilateral action preserved as thematic mirror.",
+    "Force wounds precedents: Nathema (Vitiate ritual), Malachor V (Mass Shadow Generator) \u2013 persistent, sensory-unreliable zones with emotional amplification.",
+    "Post-47 ABY galaxy: Galactic Alliance government; Jedi Temple on Coruscant under Luke; Imperial remnant only.",
+    "Non-Force-sensitive perception: Desh as trained observer registers environmental de-correlation (chrono drift, temperature inconsistencies) per force_mechanics."
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Scene mission: Group watches Torin walk away; chooses principled inaction as every violent option repeats Gavran's crime (using people as anchors).",
+    "Key beats: Torin walks steadily, presence lighter; Desh's chrono-drift confirms Sera's s1 Force-lock read of entanglement danger; Sera's motionless refusal, then one line; Desh asks 'So. What now?'",
+    "Silence carries: Sera (her wound), Desh (tactical numbers), Kael (refusal to grab), Ben (holds three reasons unspoken).",
+    "Force-entanglement: Torin's presence entangled in seal; forcible stop accelerates cascade multiplicatively (per force_mechanics).",
+    "Sera's Dantari Force-lock diagnostic: Reads Torin's counter-preparation (dead-man's trigger) silently in s1, converges here unspoken.",
+    "Emotional arc: Helpless watching -> unspoken tactical convergence -> principled agony -> Sera's clarity.",
+    "Torin headed to Scar at Veranthos epicenter to deploy technique as new keystone.",
+    "Group at Veranthos camp on ridgeline; wound-pressure amplifies extremes but Ben holds via specialists."
+  ],
+  "allowed_au_divergences": [
+    "Torin Hal (NSW Battle Master, technique user, willing anchor; corruption arc authorized).",
+    "Sera Varik (NSW Knight, Gavran's lieutenant, unwilling anchor; Force-lock expertise).",
+    "Veranthos wound/Scar from Gavran's technique countering Brotherhood ritual at vergence (builds on Nathema/Malachor precedents).",
+    "Seal anchors (13 total, living structural rebar; cascading failure from deaths).",
+    "Weave (era-language for local Force structure; unweaving sensory condition, not ontology proof).",
+    "Cascade-acceleration mechanics (multiplicative from anchor loss; Veraine escape trigger)."
+  ],
+  "open_questions": []
+}

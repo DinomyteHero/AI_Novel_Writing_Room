@@ -1,0 +1,88 @@
+{
+  "chapter_number": 3,
+  "overlay_version": 0,
+  "mission": "Reveal that the wrongness is tied to a failing containment system and force Ben to choose whether to report it or follow it.",
+  "chapter_turn": "Ben stops being a curious investigator and becomes someone actively hiding a crisis from his own chain of command.",
+  "pressure_ladder": [
+    {
+      "scene_number": 1,
+      "label": "hook",
+      "note": "Bring Ben and Desh into the live perimeter facility and land the warning as an active emergency, not a ruin."
+    },
+    {
+      "scene_number": 2,
+      "label": "reveal",
+      "note": "Use the data core to map the Corridor and widen the scale of the problem beyond anything a survey mission can contain."
+    },
+    {
+      "scene_number": 3,
+      "label": "decision",
+      "note": "Make the choice concrete: Ben leaves the alarm unreported, speaks the omission aloud to Desh, and jumps."
+    }
+  ],
+  "pov_arc_pressure": {
+    "pov_character": "Ben Skywalker",
+    "structural_phase": "setup",
+    "pacing_curve": "rising"
+  },
+  "next_scene_obligations": [
+    {
+      "kind": "subplot",
+      "note": "The Failing Seal \u2014 Race Against Veraine: Main dramatic throughline. The wound in the Force is real, the seal is failing, and Veraine is racing to exploit the crisis. Carries the central dramatic question: can Ben succeed where the Jedi Lords failed?"
+    },
+    {
+      "kind": "subplot",
+      "note": "The Institutional Reckoning \u2014 GAG Shadow, Reformations Cover-Up, and Veraine as the Mirror: Main plot complication + thematic pressure + Jacen parallel reinforcement. Merged per D5 \u2014 Veraine's institutional antagonism is the Order's internal politics expressed through one character, and Ben/Desh's GAG shadow is the personal register of the same question. The merged subplot carries (a) Ben and Desh's shared GAG history surfacing and being acknowledged, (b) Ben's discovery and metabolization of the Reformations' true purpose, (c) his agonizing decision to withhold from Luke under crisis conditions, (d) Veraine's parallel institutional exploitation as the mirror against which his choice is tested, and (e) his final choice to tell the Order. All five strands converge on Ch 28 s2 \u2014 the office scene pays off the thread that has been running through Veraine's ledger, Ben's silences, and Desh's steady presence all along."
+    },
+    {
+      "kind": "relationship_turn",
+      "note": "Ben/Desh: co-investigators \u2014 sharing the reading of the problem \u2192 co-conspirators \u2014 Desh names the withholding out loud and stays aboard anyway; the GAG pattern of institutional distance re-activates between them, this time on Ben's initiative"
+    },
+    {
+      "kind": "relationship_turn",
+      "note": "Ben/Luke: first withholding \u2014 quiet, unnamed \u2192 active omission \u2014 Ben decides not to report a functioning ancient facility and its distress signal. The distance is now chosen, not incidental"
+    },
+    {
+      "kind": "reveal",
+      "note": "The seal exists and is failing \u2014 ancient Jedi military infrastructure with a warning about expiration"
+    },
+    {
+      "kind": "hook_planted",
+      "note": "The perimeter facility message: 'the seal is failing' \u2014 coordinates to the fortress in uncharted space: soft"
+    },
+    {
+      "kind": "hook_advanced",
+      "note": "The perimeter facility message: 'the seal is failing' \u2014 coordinates to the fortress in uncharted space: soft"
+    },
+    {
+      "kind": "hook_resolved",
+      "note": "The wrongness in the Force has a direction \u2014 it's coming from somewhere deep in the Outer Rim, and Ben's survey route runs directly along the bearing: soft"
+    },
+    {
+      "kind": "hook_resolved",
+      "note": "The pattern of anomalous ruins with unrecognized markings on specific survey worlds \u2014 connected to the wrongness: soft"
+    }
+  ],
+  "active_promises": [],
+  "active_promises_total_count": 0,
+  "reveal_deadlines": [
+    {
+      "revelation_id": "R02",
+      "note": "The seal exists and is failing \u2014 ancient Jedi military infrastructure with a warning about expiration",
+      "due_by_scene": "ch03_close",
+      "status": "pending"
+    }
+  ],
+  "canon_slices": [],
+  "canon_guidance": {},
+  "relationship_context": {},
+  "exit_vector": {
+    "summary": "Hyperspace toward uncharted coordinates. The wrongness did not dim on jump; it sharpened. Ben's fingers on the armrest, nav computer painting a route through a chart-sector that does not officially exist. The Lie is operating as urgency. The investigation has become the pursuit."
+  },
+  "trusted_state_gap_notes": [],
+  "exemplar_snippets": [],
+  "anti_exemplar_snippets": [],
+  "continuity_events": [],
+  "scene_card": {},
+  "rendered_markdown": ""
+}

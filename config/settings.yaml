@@ -16,7 +16,8 @@ models:
     models:
       gemini: google/gemini-3.1-pro-preview
       gemini_flash: google/gemini-3-flash-preview
-      deepseek: deepseek/deepseek-v3.2
+      deepseek: deepseek/deepseek-v4-flash
+      deepseekpro: deepseek/deepseek-v4-pro
       claude: anthropic/claude-sonnet-4.6
       haiku: anthropic/claude-haiku-4.5
       # --- Additional models ---
@@ -28,11 +29,11 @@ models:
       grok41fast: x-ai/grok-4.1-fast
       mistral_small4: mistralai/mistral-small-2603
       minimax: minimax/minimax-m2.7
-      # Relay Stage 3a — GPT 5.4 for line-editing (prose rhythm, imagery,
+      # Relay Stage 3a â€” GPT 5.4 for line-editing (prose rhythm, imagery,
       # voice texture) after the Claude Sonnet 4.6 drafter. Mirrors the
       # bench config entry so agent routing can reference `gpt54`.
       gpt54: openai/gpt-5.4
-      # GPT 5.4-mini — cheaper tier of the same family. Rubric 82.55 on
+      # GPT 5.4-mini â€” cheaper tier of the same family. Rubric 82.55 on
       # EQBench Creative Writing v3 (within 2pts of full gpt-5.4). Used
       # for quality_polish so the polisher matches the line-editor's family.
       gpt54_mini: openai/gpt-5.4-mini
@@ -46,6 +47,13 @@ models:
       deepseek:
         temperature: 0.3
         max_tokens: 4096
+        reasoning:
+          effort: "none"
+      deepseekpro:
+        temperature: 0.3
+        max_tokens: 8192
+        reasoning:
+          effort: "none"
       claude:
         temperature: 0.4
         max_tokens: 8192
@@ -90,10 +98,14 @@ agent_routing:
   # per-scene cost and complexity.
   # ---------------------------------------------------------------------------
 
-  # PROSE — Sonnet with softened constraints (untested combo): Sonnet's obedience + room to breathe. Plot architect on Gemini Pro.
-  prose_stylist:          { backend: cloud, model: claude, params: { temperature: 0.80, max_tokens: 8192 } }
+  # PROSE — DeepSeek V4 Pro is the primary drafter in the lean architecture.
+  # The live path now keeps the model's prose intact instead of sending every
+  # scene through advisory gates and polish/rewrite agents.
+  prose_stylist:          { backend: cloud, model: deepseekpro, params: { temperature: 0.70, max_tokens: 8192 } }
+  # Retained for opt-in experiments; skipped by default via runtime.lean_prose_only.
+  commercial_rewrite:     { backend: cloud, model: gpt54_mini, params: { temperature: 0.45, max_tokens: 8192 } }
 
-  # Forward Relay v4 — LineWriter is OFF by default. With the smart
+  # Forward Relay v4 â€” LineWriter is OFF by default. With the smart
   # corrective rerun handling structural misses and QualityPolish handling
   # voice/expression, the dedicated line-edit pass is redundant. Bench configs
   # that want LineWriter back can re-enable by uncommenting this entry in a
@@ -101,48 +113,44 @@ agent_routing:
   # instantiate" and Orchestrator._run_scene then skips the call.
   # line_writer:            { backend: cloud, model: gpt54, params: { temperature: 0.8, max_tokens: 12000 } }
 
-  # GATE/EVAL — Forward Relay v4: GateCritic moved off Haiku to Grok 4.1 Fast
-  # to break same-family bias (drafter + 3 judges were all Anthropic). GateCritic
-  # is the advice source for the smart corrective rerun, so its family bias has
-  # the most leverage on downstream regenerations. FinalGate + PresenceChecker
-  # stay on Haiku — narrower contract checks, same-family matters less.
-  # If structured-JSON reliability regresses, fall back to `glm` (z-ai/glm-5.1).
+  # GATE/EVAL — retained as opt-in tooling. The default lean path skips these
+  # checks so DeepSeek V4 Pro's raw prose is the saved artifact.
   gate_critic:            { backend: cloud, model: grok41fast, params: { temperature: 0.3 } }
-  chapter_gate_critic:    { backend: cloud, model: haiku, params: { temperature: 0.3 } }
-  final_gate:             { backend: cloud, model: haiku, params: { temperature: 0.2 } }
+  chapter_gate_critic:    { backend: cloud, model: grok41fast, params: { temperature: 0.3 } }
+  final_gate:             { backend: cloud, model: grok41fast, params: { temperature: 0.2 } }
   judge_evaluator:        { backend: cloud, model: grok420, params: { temperature: 0.2 } }
   manuscript_reviewer:    { backend: cloud, model: kimi, params: { temperature: 0.3 } }
-  # Relay Stage 1g — binary check for characters who speak/act while absent from characters_present.
-  presence_checker:       { backend: cloud, model: haiku, params: { temperature: 0.1, max_tokens: 1000 } }
+  # Relay Stage 1g â€” binary check for characters who speak/act while absent from characters_present.
+  presence_checker:       { backend: cloud, model: grok41fast, params: { temperature: 0.1, max_tokens: 1000 } }
   # Bounded post-check patch generator. Returns exact literal substitutions
   # only; the orchestrator enforces repair-count + diff-budget caps and
   # revalidates after patching before save.
-  micro_repair:           { backend: cloud, model: haiku, params: { temperature: 0.1, max_tokens: 1500 } }
-  # Architecture upgrade Slice 4 — narrow post-save continuity event extraction
-  # from saved prose. Haiku at t=0.0 for determinism and cost. max_tokens=2048
-  # is well more than enough for the 5-type narrow schema.
-  continuity_extractor:   { backend: cloud, model: haiku, params: { temperature: 0.0, max_tokens: 2048 } }
+  micro_repair:           { backend: cloud, model: grok41fast, params: { temperature: 0.1, max_tokens: 1500 } }
+  # Architecture upgrade Slice 4 â€” narrow post-save continuity event extraction
+  # from saved prose. Grok 4.1 Fast at t=0.0 for deterministic structured output.
+  # max_tokens=2048 is well more than enough for the 5-type narrow schema.
+  continuity_extractor:   { backend: cloud, model: grok41fast, params: { temperature: 0.0, max_tokens: 2048 } }
 
   # ---------------------------------------------------------------------------
   # PLANNING / COMPILE-TIME UTILITIES
   # Not part of the live per-scene drafting hot path.
   # ---------------------------------------------------------------------------
 
-  # PLANNING — Gemini Pro for long-context one-off authoring; Haiku 4.5 for
-  # the per-scene plot_architect (structured JSON output at ~1/6 the cost).
+  # PLANNING — Gemini Pro for long-context one-off authoring; DeepSeek V4 Flash
+  # for the per-scene plot_architect structured JSON pass.
   concept_workshop:       { backend: cloud, model: gemini, params: { temperature: 0.7, max_tokens: 8192 } }
   outline_planner:        { backend: cloud, model: gemini, params: { temperature: 0.5, max_tokens: 32768 } }
   seed_builder:           { backend: cloud, model: gemini, params: { temperature: 0.3, max_tokens: 16384 } }
-  plot_architect:         { backend: cloud, model: haiku, params: { temperature: 0.4, max_tokens: 4096 } }
+  plot_architect:         { backend: cloud, model: deepseek, params: { temperature: 0.4, max_tokens: 4096 } }
   chapter_blueprint_synthesizer: { backend: cloud, model: gemini, params: { temperature: 0.4, max_tokens: 8192 } }
   canon_scout:            { backend: cloud, model: grok41fast, params: { temperature: 0.1, max_tokens: 1800 } }
 
-  # POLISH — GPT 5.4-mini matches the line_writer's family (gpt-5.4)
+  # POLISH â€” GPT 5.4-mini matches the line_writer's family (gpt-5.4)
   # for style consistency across the post-draft chain. Rubric 82.55 on
   # EQBench Creative Writing v3.
   quality_polish:         { backend: cloud, model: gpt54_mini, params: { temperature: 0.5, max_tokens: 8192 } }
 
-  # EDITORIAL — plan-time qualitative review (Hat 1: Brooks/Weiland structural; Hat 2: genre-reader). One call per compile; advisory output.
+  # EDITORIAL â€” plan-time qualitative review (Hat 1: Brooks/Weiland structural; Hat 2: genre-reader). One call per compile; advisory output.
   editorial_consultant:   { backend: cloud, model: claude, params: { temperature: 0.4, max_tokens: 16384 } }
 
   # ---------------------------------------------------------------------------
@@ -150,11 +158,11 @@ agent_routing:
   # Real code, but not part of the normal scene save path.
   # ---------------------------------------------------------------------------
 
-  # STRUCTURAL REVISION — Mistral Small 4 for voice check, DeepSeek for stress test
+  # STRUCTURAL REVISION â€” Mistral Small 4 for voice check, DeepSeek for stress test
   voice_checker:          { backend: cloud, model: mistral_small4, params: { temperature: 0.3 } }
   stress_test:            { backend: cloud, model: deepseek, params: { temperature: 0.5 } }
 
-  # UTILITY — Grok 4.1 Fast for orchestration, DeepSeek for analytics,
+  # UTILITY â€” Grok 4.1 Fast for orchestration, DeepSeek for analytics,
   # Grok 4.20 for canon_expert (franchise knowledge; revisit after baseline).
   orchestrator:           { backend: cloud, model: grok41fast }
   canon_expert:           { backend: cloud, model: grok420, params: { temperature: 0.2 } }
@@ -166,7 +174,7 @@ agent_routing:
 # Pipeline settings
 pipeline:
   # Relay refactor (Stage 1e): retries zeroed. Orchestrator is forward-only.
-  # Keys retained as a rollback valve — raise to re-enable gate-driven rewrites.
+  # Keys retained as a rollback valve â€” raise to re-enable gate-driven rewrites.
   max_structural_retries: 0
   max_voice_retries: 0
   max_http_retries: 2
@@ -180,7 +188,7 @@ pipeline:
 # Worldbuilding persistence
 # Live runs override these paths via ProjectPaths (franchise-scoped).
 # The values below are fallback defaults for ad-hoc invocations without
-# a concept-seed context — they write to gitignored output/_fallback/.
+# a concept-seed context â€” they write to gitignored output/_fallback/.
 worldbuilding:
   db_path: output/_fallback/worldbuilding.db
   vectors_dir: output/_fallback/worldbuilding_vectors
@@ -197,12 +205,19 @@ worldbuilding:
     interval_minutes: 60
 
 # Architecture upgrade runtime flags.
-# Every flag defaults to the SAFEST value (off, or most conservative numeric).
+# Keep flags conservative by default unless explicitly enabled for the current
+# production path.
 # Slice 1 adds phase0_audit + firewall + successor_classifier.
 # Later slices (2-5) add chapter_packet, revision_debt, canon_expert.early_position,
 # promise_ledger, continuity_log, sociogram. See docs/architecture/architecture_upgrade_spec.md.
 # Per-book overrides at data/franchises/<franchise>/books/<book>/runtime_overrides.yaml.
 runtime:
+  # Lean DeepSeek architecture: PlotArchitect -> ProseStylist -> save.
+  # This bypasses advisory gates, quality/polish/rewrite passes, save-blocker
+  # agents, chapter gates, and post-save LLM analysis so the prose model's
+  # output is preserved exactly.
+  lean_prose_only:
+    enabled: true
   phase0_audit:
     enabled: false
   firewall:
@@ -248,12 +263,39 @@ runtime:
     trigger_codes:
       - MISSING_TURNING_POINT
       - CLOSING_HOOK_VIOLATION
-    # Skip the rerun if the drafter emitted more failure codes than this —
+    # Skip the rerun if the drafter emitted more failure codes than this â€”
     # >N codes signals brief confusion, and a rerun amplifies noise.
     max_failure_codes: 3
     # Skip the rerun if the draft came in below this ratio of target word
     # count (collapsed output is a different failure mode; rerun won't help).
     min_word_count_ratio: 0.5
+  # Bounded scene-level craft rewrite. Distinct from corrective_rerun (hard
+  # structural contract repair) and quality_polish (expression-only copy pass).
+  # This pass may rebalance paragraphs and convert telling/description-heavy
+  # delivery into enacted choices while preserving beats, POV, characters, and
+  # closing hook. Trigger-gated and protected by word-count guards. Default
+  # off while prompt/model variants are being benchmarked.
+  commercial_rewrite:
+    enabled: false
+    trigger_failure_codes:
+      - TELLING_NOT_SHOWING
+      - PROSE_CLICHE_BURST
+      - TERMINOLOGY_DRIFT
+      - VOICE_DEFINITION_VIOLATION
+      - OPENING_HOOK_MISMATCH
+    trigger_flag_keywords:
+      - show-don't-tell
+      - telling
+      - repeated n-gram
+      - semantically similar
+      - scene type imbalance
+      - description
+      - overused words
+      - cliche
+      - clichÃ©
+    min_quality_score: 0.72
+    min_word_count_ratio: 0.75
+    max_word_count_ratio: 1.35
   # Exact-span post-check repair stage. Safe-off by default. Used for narrow
   # issues that can be fixed with literal substitutions and then revalidated.
   micro_repair:

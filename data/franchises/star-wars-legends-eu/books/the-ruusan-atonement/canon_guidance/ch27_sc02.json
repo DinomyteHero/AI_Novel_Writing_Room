@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch27_sc02",
+  "chapter_number": 27,
+  "scene_number": 2,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "d6f2c06f0b93ba35169e53a135993efbeb56bd421b07368cfb0a6c98a5b7d71d",
+  "review_status": "unreviewed",
+  "confidence": 1.0,
+  "hard_constraints": [
+    "No dialogue between Sera and Torin; the hand-grip is the resolution without speeches.",
+    "Ben observes from a distance; limit interiority to minimal observation (one line maximum), focus on sensory details like wind, ridgeline, seal hum.",
+    "Do not clinically articulate the hand-grip's meaning; let the image carry it.",
+    "Use Force sensory vocabulary per force_mechanics: weave-resonance as emergent warmth, three-part harmony in the new seal; Torin's diminished presence as lighter/quieter Force-signature.",
+    "Adhere to style_constraints: Capitalize 'Human'; lowercase 'galaxy', 'Jedi' plural; no anachronistic terms (e.g., use 'datapad' not laptop)."
+  ],
+  "canon_risks": [
+    "Ensure Torin's diminished state aligns with Legends Force wound precedents (e.g., Nathema/Malachor V erosion, not possession or bleeding kyber crystals).",
+    "Ben's observation must not imply World Between Worlds-style time/Force manipulation."
+  ],
+  "legends_continuity_notes": [
+    "Post-Fate of the Jedi (47 ABY): Ben Skywalker is a young Jedi Knight with GAG/Abeloth experience; Force described experientially, not as 'energy field'.",
+    "Force wounds (Nathema, Malachor V) cause persistent distortion, emotional amplification, unreliable sense \u2013 basis for Veranthos wound/seal.",
+    "Vergences are natural Force concentrations (Legends canon); resonance builds on this without altering light/dark polarity."
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Setting: Veranthos ridgeline overlooking valley; new seal hums with three-part harmonic resonance (warmth, living tissue feel).",
+    "Torin: Post-technique diminished \u2013 posture unchanged, warmth muted, Force-presence lighter (devastating, not freeing).",
+    "Sera: Sits beside Torin silently; face holds grief/peace; hand-grip lighter but present \u2013 resolves her arc in chosen presence.",
+    "Ben (POV): Witnesses partial success/devastation; emotional arc quiet grief -> devastation -> grace of staying.",
+    "Key beats: Torin sits hands-on-knees; Sera sits silently; long silence with seal hum; Torin's hand finds hers.",
+    "Subplots: SP1 (Sera/Torin rupturing -> presence); promises PP03, PP20, PP15 paid.",
+    "Vocabulary: Rotate metaphors (structural/acoustic/somatic); 'Weave' sparingly; body-experience before naming."
+  ],
+  "allowed_au_divergences": [
+    "Torin Hal (NSW Battle Master) as technique user with diminished survival.",
+    "Sera Varik stays with Torin post-climax.",
+    "New seal as Weave-Resonance (shared-burden, multi-tradition, no living anchors).",
+    "Veranthos as AU wound site on vergence; Battle of Veranthos, technique lineage.",
+    "Ruusan Reformations dual-purpose (public reform + private penance)."
+  ],
+  "open_questions": []
+}

@@ -1,0 +1,27 @@
+{
+  "scene_card_path": "data\\franchises\\star-wars-legends-eu\\books\\the-ruusan-atonement\\scene_cards\\chapter_04_scene_02.json",
+  "scene_label": "Ch4S2",
+  "pov_character": "Ben Skywalker",
+  "target_word_count": 1300,
+  "plot_architect_duration_s": 19.8,
+  "results": [
+    {
+      "label": "deepseek-v4-pro-t070",
+      "model_short": "deepseekpro",
+      "model_full": "deepseek/deepseek-v4-pro",
+      "temperature": 0.7,
+      "extra_params": {
+        "reasoning": {
+          "effort": "none"
+        }
+      },
+      "duration_s": 54.0,
+      "word_count": 1252,
+      "char_count": 7226,
+      "est_in_tokens": 17253,
+      "est_out_tokens": 1806,
+      "est_cost_usd": 0.0363,
+      "output_file": "output\\star-wars-legends-eu\\the-ruusan-atonement\\runs\\bench-deepseek-v4-pro-ch01-05-20260424-ch04-sc02\\deepseek-v4-pro-t070.md"
+    }
+  ]
+}

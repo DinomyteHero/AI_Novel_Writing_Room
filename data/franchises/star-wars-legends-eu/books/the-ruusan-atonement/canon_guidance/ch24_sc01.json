@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch24_sc01",
+  "chapter_number": 24,
+  "scene_number": 1,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "330beba33fdc10888adb639892ceb16b61750575e43e56e337223724f307c4fc",
+  "review_status": "unreviewed",
+  "confidence": 1.0,
+  "hard_constraints": [
+    "Use Star Wars Legends / Expanded Universe continuity; treat Disney-only material as invalid.",
+    "Set in 47 ABY post-Fate of the Jedi; preserve published continuity until AU divergences.",
+    "Force mechanics: active technique sensory vocabulary strictly 'a pulling, a suction, like standing next to a drain'; render body-experience before analysis; no stacking metaphors; no forbidden repeat phrases.",
+    "Torin's exchange: single short dialogue across distance; no speech; uses 'Ben' for affection; refusal warm, not cold.",
+    "Style: 'Jedi' singular/plural; 'Darth' capitalized before name; lowercase 'galaxy'; American English; no ABY/BBY in prose.",
+    "No clinical/scientific Force framing; experiential/mystical language.",
+    "No anachronistic terms: use Star Wars vocabulary (e.g., no 'radio', use 'comlink')."
+  ],
+  "canon_risks": [],
+  "legends_continuity_notes": [
+    "Ben Skywalker: Jedi Knight, son of Luke and Mara Jade Skywalker; post-Fate of the Jedi/Abeloth crisis; prior GAG service under Jacen Solo.",
+    "Ruusan Reformations (1000 BBY): Legends canon event recontextualized per AU as penance; Brotherhood of Darkness: Legends canon Sith faction led by Lord Kaan.",
+    "Force wounds precedents: Nathema (KOTOR/TOR), Malachor V (KOTOR II) \u2013 persistent phenomena with unreliable sense.",
+    "Vergences: Legends canon as Force concentrations (e.g., Valley of the Jedi)."
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Setting: Veranthos valley approach; natural vergence turned wound site; Scar at floor (3m vertical distortion, heat-shimmer); three-way geometry: Veraine at Scar base, Torin on far ridgeline descending, resonance group (Ben/Sera/Kael) mid-valley, Desh to first amplification node.",
+    "Torin Hal: NSW Battle Master; used technique; warm paternal to Ben; corruption arc \u2013 affectionate refusal closes Ben/Torin dyad.",
+    "Active technique: Weave leans toward practitioner and dissolves; sharp boundary; practitioner as void/hungry in Force perception.",
+    "Ben's POV: registers technique somatically before analysis; desperate hope -> grief -> activation focus.",
+    "No interior narration of final Torin acceptance; action drives: call, response, activation, group moves.",
+    "Warmth load-bearing: Torin's 'Ben' and posture register certainty via affection."
+  ],
+  "allowed_au_divergences": [
+    "Battle of Veranthos, forbidden technique (Gavran's unweaving), wound/Scar at Veranthos vergence.",
+    "Survivors as anchors: Torin Hal (Jedi), Sera Varik (Jedi), Kael Drenn (Sith conscript).",
+    "Seal infrastructure: anchor nodes, Ruusan Corridor, amplification array (Veraine's repurposing).",
+    "Weave-Resonance: multi-tradition shared-burden containment.",
+    "Ankhural Codex heresy; technique lineage (Nathema -> Malachor -> etc.)."
+  ],
+  "open_questions": []
+}

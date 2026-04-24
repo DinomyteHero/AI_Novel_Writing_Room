@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch05_sc03",
+  "chapter_number": 5,
+  "scene_number": 3,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "39773a67c445fdd0ec7bc8fc26cc563cf105f5452d0164ccd0a6bf2e144f4577",
+  "review_status": "unreviewed",
+  "confidence": 0.95,
+  "hard_constraints": [
+    "Do not identify the escaped anchor by name (Darth Veraine); end on absence and forward pressure per scene card and chapter blueprint.",
+    "Torin's observation must be warmth-adjacent and one inflection off, registering as subtle dissonance without interpretation or warning-bell emphasis (plants H06 per D7 restructuring).",
+    "Render Force residue sensory/experiential first (still, analytical, patient quality tightening Ben's shoulders) before any diagnostic terms; adhere to force_mechanics sensory_vocabulary for Ben (handrail/flooring absent or misplaced).",
+    "Use Star Wars terminology: console/terminal/datapad (not computer), no anachronisms from anachronistic_terms list.",
+    "'Jedi' singular/plural identically; 'Darth' capitalized only before name (irrelevant here as unnamed)."
+  ],
+  "canon_risks": [
+    "Stasis chamber escape via internal Force erosion over centuries risks conflicting with Legends stasis tech durability (e.g., carbonite or cryo-stasis in Jedi Academy trilogy, Dark Empire); ensure description frames as AU field-expedient infrastructure tied to anchors/seal.",
+    "Monitoring logs spanning centuries with corruption pattern must align with Legends ancient tech degradation (e.g., Rakatan or Infinite Empire relics in KOTOR era), not imply impossible data retention without AU justification (seal infrastructure)."
+  ],
+  "legends_continuity_notes": [
+    "Brotherhood of Darkness (Darth Bane trilogy: Path of Destruction, Rule of Two) used alchemical/ritual tech; stasis aligns with NSW-era desperation tech (e.g., stasis fields in Jedi vs. Sith).",
+    "Force-user containment in Legends: ysalamiri bubbles (Thrawn Trilogy), Force-null zones (Nathema/Malachor V precedents), but no exact anchor/rebar embedding; ground in vergence manipulation precedents.",
+    "Escape mechanics evoke Legends slow-erosion precedents like Yuuzhan Vong biotech corrosion or dark side entropy (e.g., Bane's orbalisk armor erosion), but patient/internal via partial awareness fits partial AU."
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Empty chamber: one of twelve in Stasis Ring (Level 3), broken from inside weeks before main cascade; Veraine eroded via partial awareness/millecentia stasis drain (unnamed here).",
+    "Group: Ben (POV), Desh (non-Force, catalogs physical), Sera (examines erosion, briefly shaken), Torin (doorway observation, warmth-off), Kael (present, minimal beats).",
+    "Setting shift: Level 3 empty chamber (systematic erosion) to Level 1 monitoring station (logs/maps).",
+    "Turning point: Escapee moving weeks ahead toward Corridor; Ben overlays timestamps on fortress map.",
+    "Emotional arc: Investigative tension -> dawning unease -> forward pressure on Ben's shoulders.",
+    "Subtlety: Absence sharper than explanation; Sera's composure break half-second, unexplained."
+  ],
+  "allowed_au_divergences": [
+    "Anchor system: Force-sensitives as living structural rebar in seal infrastructure (canon_overridden).",
+    "Fortress as Gavran's NSW hub with Stasis Ring (Level 3: 12 chambers + Gavran keystone Level 4).",
+    "Escape via centuries-long internal erosion accelerating cascade (tied to Veraine's partial awareness).",
+    "Monitoring logs as Gavran's meticulous archive voice (trailing final entry elsewhere)."
+  ],
+  "open_questions": [
+    "Precise Legends precedent for Brotherhood-era stasis field keyed to Force signatures (Force-lock adjacent); if none, flag for review as open AU extension of NSW tech desperation.",
+    "Does Legends specify data retention limits for millennium-old consoles in sealed installations (e.g., Jedi Civil War era)? Corruption pattern viable?"
+  ]
+}

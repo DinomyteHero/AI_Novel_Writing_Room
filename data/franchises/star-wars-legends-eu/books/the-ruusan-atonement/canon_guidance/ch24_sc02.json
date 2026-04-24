@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch24_sc02",
+  "chapter_number": 24,
+  "scene_number": 2,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "f8cbede39bb3429e81ad04a0a18db7b4b4ef33c71f13d02438573a39e74fffe0",
+  "review_status": "unreviewed",
+  "confidence": 0.98,
+  "hard_constraints": [
+    "Use Star Wars Legends / Expanded Universe continuity exclusively; treat Disney Canon as invalid unless overlapping with Legends material.",
+    "Render Force sensations experientially through body-experience first (e.g., Ben's somatic/structural metaphors: handrail/footing gone, balance, grip), before any diagnostic vocabulary like 'Weave' or 'unweaving'; rotate vocabulary families (structural, acoustic, etc.) without repeating forbidden phrases.",
+    "No clinical/scientific framing of the Force; describe as living presence with texture, direction, moral polarity per Legends (light/dark natural).",
+    "Avoid anachronistic terms: use 'datapad' (ok here), no 'computer/laptop/radio/sonar/etc.'",
+    "Capitalize 'Human(s)'; lowercase 'galaxy'; 'Jedi' singular/plural; 'Darth' capitalized before name.",
+    "No in-universe use of 'Legends/Canon/ABY-BBY/Wookieepedia-style taxonomy/meta-references to films/books.'"
+  ],
+  "canon_risks": [
+    "Risk of clinical Force description if node-pitches/geometry explained rather than felt; must stay sensory (e.g., pitches as rhythm underfoot/wind, not analyzed frequencies).",
+    "Veraine's 'design signature' in array must feel like Brotherhood alchemist work (plausible for Legends Sith strategist), not modern Inquisitorius/Disney structures.",
+    "New 'Weave-infrastructure sensing' capacity for Ben must emerge without contradicting Legends Force-sensitives registering artifacts/vergences (e.g., holocrons, Valley of the Jedi)."
+  ],
+  "legends_continuity_notes": [
+    "Vergences/nexuses canonical in Legends (e.g., Ruusan Valley of the Jedi as Force nexus from mass death; Mt. Yoda on Dagobah); Veranthos as natural vergence aligns.",
+    "Force wounds persistent (Nathema stripped by ritual, Malachor V via Mass Shadow Generator); sensory unreliability/emotional bleed matches KOTOR precedents.",
+    "Brotherhood of Darkness (Darth Bane/Path of Destruction): alchemists/strategists like Veraine plausible; rituals to corrupt sites fit Sith tactics pre-Ruusan.",
+    "Post-Fate of the Jedi (47 ABY): Ben Skywalker ~21, Jedi Knight; Galactic Alliance government; Jedi Temple on Coruscant under Luke; no Empire/First Order.",
+    "Non-Force-sensitives like Desh unaffected directly by Force phenomena; register environmental drift (chrono/temp/biological) per project mechanics."
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Scene on Veranthos (AU Outer Rim vergence-world, overgrown/wrong post-Battle of Veranthos ~1000 BBY); broken ground (basalt slabs illogical angles).",
+    "Desh places matte forearm-length containment node cylinders (his engineered hardware, non-Force-sensitive); quiet click on base-plate.",
+    "Ben's new capacity: nodes register as held pitches/rhythm (acoustic family), geometry underfoot; predicts 4th position intuitively; Sera confirms wordlessly (2nd exchange post-Ch22 mast).",
+    "Veraine's array: deviates from Brotherhood norms, legible as her architect-thinking (continuity Ch22); felt in placement logic/rhythm.",
+    "Present: Ben (POV, resonance axis), Desh (ahead placing nodes), Sera (right shoulder, lock-sense parallel), Kael (line edge, anchoring texture).",
+    "Torin's void/Veraine's ritual distant (peripheral); no direct interaction.",
+    "Anti-patterns: No articulation/naming of capacity; no exposition on nodes/array; Desh physical/real; Veraine via design only.",
+    "Ben sensations: Weave as handrail/footing (somatic); thin-place high/moderate (unstable, parallax); emerging resonance pre-conditions discordant.",
+    "AU mechanics: Nodes as Weave-registerable under resonance; amplification array repurposes seal nodes against it."
+  ],
+  "allowed_au_divergences": [
+    "Veranthos/Battle of Veranthos as decisive NSW engagement creating wound via Gavran's technique vs. Brotherhood ritual.",
+    "Weave-infrastructure sensing: Force-users register containment nodes as pitches/geometry under resonance conditions (B3 plant).",
+    "Veraine (Brotherhood alchemist) escaped anchor; her amplification array from anchor nodes.",
+    "Desh's non-sensitive containment nodes/hardware.",
+    "Sera/Kael nascent resonance as ambient (Sith/Jedi/NSW traditions).",
+    "Ruusan Reformations dual-purpose (public reform + penance for technique/wound)."
+  ],
+  "open_questions": [
+    "Specific Legends precedents for Sith 'design-signature' in Force-amplification architecture (e.g., Brotherhood rituals/alchemy beyond general Bane-era sorcery)?"
+  ]
+}

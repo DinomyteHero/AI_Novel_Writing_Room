@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch15_sc01",
+  "chapter_number": 15,
+  "scene_number": 1,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "cc15f82b15f61329a0364c354128901229132b1ebe2e34b1a727f458b16701cf",
+  "review_status": "unreviewed",
+  "confidence": 0.98,
+  "hard_constraints": [
+    "Use 'comm frequencies', 'comm channels', or 'frequency' instead of 'radio'.",
+    "'Jedi' is both singular and plural; never 'Jedis'.",
+    "'Nexus' or 'nexuses' per scene card; prefer 'vergence' from terminology registry where possible without altering plan.",
+    "Force wrongness rendered through weather/pressure metaphors only (e.g., migraine that does not break, pressure at altitude, front pushing through); no acoustic/navigational registers.",
+    "No diagnostic explanation of Force phenomenon; render as sensory pressure via Ben's body-experience first.",
+    "Luke's presence is a single coded line only; no speaking voice or comm staging.",
+    "Ben does not construct justification for not replying; silence is the beat."
+  ],
+  "canon_risks": [
+    "Ensure outpost reports describe anomalous Force behavior consistent with Legends wounds (unreliable sense, emotional amplification) without Disney framing (e.g., no World Between Worlds, kyber bleeding).",
+    "Valley of the Jedi destabilization must align with AU seal failure; avoid implying Disney sequel-era politics or structures."
+  ],
+  "legends_continuity_notes": [
+    "Valley of the Jedi: Legends canon nexus on Ruusan from Seventh Battle (1000 BBY thought bomb); trapped Force energy, visited in Jedi Academy Trilogy.",
+    "Post-Fate of the Jedi (47 ABY): Jedi Order under Luke Skywalker on Coruscant; scattered outposts possible, Galactic Alliance government.",
+    "Nexuses/vergences: Established Legends locations of concentrated Force (e.g., Dagobah, Tython); disturbances fit precedents like Malachor V wound echoes.",
+    "Luke Skywalker: Grand Master, intuitive Force sense; coded personal message fits his style from Fate of the Jedi."
+  ],
+  "possible_disney_bleed": [
+    "Avoid any Inquisitorius references in outpost reports.",
+    "No Sequel-trilogy Force terminology (e.g., dyads beyond Legends use)."
+  ],
+  "required_context_for_drafter": [
+    "Scene aboard Steady Returns comm station in hyperspace transit; characters: Ben (POV), Desh, Sera, Torin.",
+    "Key beats: Ben cycles comms/hears fragmentary outpost reports (anomalous Force at nexuses, Valley destabilizing); Desh plots galactic map (radiating from Corridor); Luke's message: 'Sensing disturbances at multiple nexuses. Report status.'; Ben stares at empty reply.",
+    "Emotional arc: Strategic alarm -> scope expanding -> weight of withholding from Luke.",
+    "SP-A/SP3 active: Ben's Lie challenged (trusting own Force-read); institutional lie pressure.",
+    "H13 resolves: Crisis galactic, Veraine no longer private.",
+    "Ben/Luke dyad: Withholding escalates to active deception.",
+    "Force sensory: Permanent background pressure (weather family); no 'reached for the Force' repeats."
+  ],
+  "allowed_au_divergences": [
+    "Seal failure causes galactic nexus disturbances radiating from Corridor/Veranthos, including Valley of the Jedi response (authorized Ch15 obligation).",
+    "Ruusan Reformations as penance for Veranthos technique (overridden canon purpose).",
+    "Jedi outposts reporting Weave/seal effects at nexuses (AU extension of wound mechanics)."
+  ],
+  "open_questions": [
+    "Specific Legends nexuses for outpost reports? (Treat as generic unless scene needs names; e.g., avoid Disney-only like Ahch-To.)"
+  ]
+}

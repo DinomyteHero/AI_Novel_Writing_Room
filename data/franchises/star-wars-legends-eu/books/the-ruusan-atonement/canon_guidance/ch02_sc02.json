@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch02_sc02",
+  "chapter_number": 2,
+  "scene_number": 2,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "bb57b502be98fc2ddd978fe761a3ba16d3486d7bfb127f9d2c29a284c363df75",
+  "review_status": "unreviewed",
+  "confidence": 0.95,
+  "hard_constraints": [
+    "Use Legends EU continuity only; no Disney Canon elements.",
+    "Force description must be experiential and body-first: tactile low vibration without physical source, fractional distance error in Force perception (handrail six inches further, slight parallax, low-grade disorientation); no diagnostic terms like 'Weave', 'unweaving', or analysis before sensation.",
+    "Terminology: datapad (not laptop/computer), blaster (not gun), etc.; per anachronistic_terms and style_constraints.",
+    "Jedi reporting: Ben transmits to Luke as Grand Master via standard hierarchy; report includes visuals/tool-marks/age but omits Force impression.",
+    "Mild thin place effects per force_mechanics: Force responds but misplaced; Desh: nothing overt, possible unsourced unease.",
+    "No color/visual for wrongness; tactile/vibrational only, one consistent metaphor per scene.",
+    "Ben does not theorize withholding motive; omission is behavioral action."
+  ],
+  "canon_risks": [
+    "Risk of non-Legends construction styles for ruins; must align with authorized AU (Ruusan Corridor/anchor node remnants) without contradicting Jedi Lords/NSW era.",
+    "Risk of over-diagnosing Force anomaly early; keep pre-Ch9, no 'thin place' naming or Weave vocabulary.",
+    "Ben's Force-sense must remain Legends-standard (intuitive, moral-polar) with AU mild distortion only."
+  ],
+  "legends_continuity_notes": [
+    "Ben Skywalker: Jedi Knight, post-Fate of the Jedi/Abeloth, experienced in GAG/GA service; conducts Outer Rim surveys as routine Jedi fieldwork.",
+    "Jedi surveys: Knights catalog anomalies (archaeological, Force) via datapad scans, transmit to Temple/Council/Grand Master; protocol prioritizes verifiable data over subjective impressions unless corroborated.",
+    "Force with artifacts: Touch can evoke echoes/residue (e.g., KOTOR/Malachor precedents); here limited to mild parallax per plan.",
+    "Pre-Republic/Jedi Lords era: Ruusan Reformations (1000 BBY) post-NSW; ruins evoke that era's military installations, not earlier unless authorized lineage.",
+    "Outer Rim worlds: Often uncharted/low-traffic, recent surveys (60 years) plausible but incomplete."
+  ],
+  "possible_disney_bleed": [
+    "Avoid kyber crystal or Inquisitorius references (none in plan).",
+    "No High Republic terminology/institutions (plan ruins are NSW-era AU)."
+  ],
+  "required_context_for_drafter": [
+    "Setting: Unnamed Outer Rim arid/rocky world, half-buried ruins older than 60-year survey; low civilian traffic (freighter contrail).",
+    "Beats: Hike to ruins -> touch stone -> recoil from vibration/parallax jolt -> scan/omit Force data -> transmit to Luke.",
+    "Emotional: Curiosity -> unease -> quiet alarm; advances Ben/Desh to co-investigators, Ben/Luke first withholding.",
+    "AU thin place: First encounter, very mild; plants H02 (anomalous ruins pattern).",
+    "Desh: Non-Force-sensitive, professional; feels unease max, no direct perception.",
+    "POV arc: lie_established; Skywalker competence masks exhaustion."
+  ],
+  "allowed_au_divergences": [
+    "Ruins/markings as thin place/anchor node remnants from Ruusan seal infrastructure (per canon_overridden, Corridor).",
+    "Wrongness as seal deterioration signal (mild parallax/vibration), not standard Force wound yet.",
+    "Withholding as lock-in step toward Ruusan truth."
+  ],
+  "open_questions": [
+    "Exact Legends precedents for Jedi Outer Rim survey protocols on uncharted ruins (e.g., specific scan tools beyond datapad)?",
+    "Detailed NSW/Jedi Lords construction/tool-marks (e.g., from Darth Bane novels/Jedi vs Sith)? Flag for review if drafter needs visuals.",
+    "Force-sensitive touch on ancient stone in 47 ABY Legends (beyond general vergence/echo risks)?"
+  ]
+}

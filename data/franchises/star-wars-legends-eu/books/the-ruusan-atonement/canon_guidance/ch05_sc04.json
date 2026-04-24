@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch05_sc04",
+  "chapter_number": 5,
+  "scene_number": 4,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "b27b5e9be0082dc8e1f7ecdbc2b5aaee8abf0e170d29ea412a410bbf8cc5f379",
+  "review_status": "unreviewed",
+  "confidence": 0.95,
+  "hard_constraints": [
+    "Single close-third POV from Ben Skywalker; no head-hopping or omniscient narration.",
+    "Use Star Wars Legends terminology: datapad (not laptop/computer), comm (not radio), Steady Returns (italicized ship name).",
+    "Do not use in-universe meta-terms like 'Legends' or 'Canon'; reference events by name (e.g., 'Fate of the Jedi', 'Abeloth crisis') only if character-appropriate.",
+    "Force descriptions: experiential/sensory first (e.g., diffused, unreliable), diagnostic terms (e.g., 'Weave', 'seal') earned by sensation; avoid 'reached for the Force' repeats.",
+    "Capitalize 'Human(s)' if appearing; lowercase 'galaxy', 'Jedi' plural as 'Jedi'."
+  ],
+  "canon_risks": [
+    "Ben's direct reporting to Luke assumes post-FotJ Knight-to-Grand Master access; Legends supports informal Skywalker family protocols but confirm no formal GAG-era barriers persist.",
+    "Jedi Order response time to Outer Rim crisis: post-FotJ Order is stretched thin (post-Abeloth settling); plan's 'reply window' fits but risks underestimating Coruscant Temple bureaucracy if drafter inflates speed.",
+    "YT-series freighter (Steady Returns) straining with five aboard: Legends specs allow but emphasize cramped conditions without contradicting hyperdrive/atmospheric limits."
+  ],
+  "legends_continuity_notes": [
+    "47 ABY post-FotJ: Jedi Order reformed on Coruscant under Grand Master Luke Skywalker; Ben Skywalker is a seasoned Jedi Knight with GAG/Abeloth experience, trusted for solo missions.",
+    "Galactic Alliance primary government; Jedi independent but coordinated via Temple comms; Knights report crises directly to superiors like Luke for high-threat anomalies.",
+    "Ruusan Reformations (1000 BBY): Canonical Legends event as doctrinal/military restructure post-NSO; AU layer (penance) authorized but do not override public history in prose.",
+    "Brotherhood of Darkness: Legends canonical (Darth Bane era, Kaan-led); Veranthos ritual/AU anchors do not conflict."
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Setting shift: Fortress Level 1 (operations/command table) to Steady Returns liftoff from mountain plateau; wrongness diffused in sky.",
+    "Group: Ben (overwhelmed to grim to quiet cost), Desh (pragmatic, commits to overnight monitoring packet reconstruction), Sera (precise archive organization), Torin (warm/collaborative archive), Kael (watchful/distant).",
+    "Key beats: Data/maps/table (chamber blank), survivors organize archive (contrast warmth/precision), Desh overnight packets, Ben partial report (explains delay, withholds survivors/seal truth), ship lifts (engines strain, five aboard cramped YT).",
+    "Turning point: Partial report transmitted; lock-in to Corridor pursuit without full Order aid; escapee (unnamed Veraine) has weeks head start.",
+    "Emotional arc: Overwhelmed assessment -> grim determination -> quiet cost of solo commitment; internal conflict (call Luke vs. act now).",
+    "Subplots advance: SP-A (Ben/Desh co-witnesses), SP1-3 (group forms, lock-in)."
+  ],
+  "allowed_au_divergences": [
+    "Ruusan Corridor/anchor nodes as seal infrastructure.",
+    "Survivors (Sera Varik, Torin Hal, Kael Drenn) as thawed Force-sensitive anchors.",
+    "Gavran's Fortress/monitoring packets resolving escapee (Veraine) overnight.",
+    "Seal degradation urgency forcing partial report/withholding from Luke.",
+    "Reformations dual-purpose (reform + penance for Veranthos technique)."
+  ],
+  "open_questions": [
+    "Precise post-FotJ Jedi comm protocols for Knights on solo surveys: direct holocomm to Luke viable, or routed via Temple ops?",
+    "Exact Steady Returns specs (AU YT-series): confirm Legends YT-1300/1930 mass limits allow five without failure, but strain realistic?",
+    "Corridor geography details: uncharted nodes fit Outer Rim post-NSW abandonment?"
+  ]
+}

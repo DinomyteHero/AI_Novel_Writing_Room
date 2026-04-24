@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch14_sc01",
+  "chapter_number": 14,
+  "scene_number": 1,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "5d7557b854f4ebd3221bbe74da0fbbf67b07dbc140440c6d309fc1786010a650",
+  "review_status": "unreviewed",
+  "confidence": 0.95,
+  "hard_constraints": [
+    "Use Legends EU continuity: post-Fate of the Jedi (47 ABY), Ben Skywalker as Jedi Knight under Grand Master Luke Skywalker on Coruscant.",
+    "Terminology: datapad (not laptop/tablet), comm protocols (not radio/phone), Steady Returns as modified YT-series freighter.",
+    "Single Ben Skywalker close-third POV; no head-hopping.",
+    "No in-universe use of 'Legends' or 'Canon'; no ABY/BBY dates spoken.",
+    "Force described experientially, not scientifically; no 'energy field'.",
+    "'Jedi' singular/plural identical; 'Darth' capitalized before name.",
+    "Capitalize 'Human'; lowercase 'galaxy'; American English."
+  ],
+  "canon_risks": [
+    "Ben assuming field command without consulting Luke risks contradicting post-Fate Jedi protocols if drafter assumes rigid hierarchy; project canonizes Luke sending Ben alone (Ch1-2), making independent action baseline.",
+    "Group dynamics with ancient survivors (Sera, Torin, Kael) must preserve NSW-era ranks/voices without modernizing (e.g., Torin as 'Battle Master Hal', Sera archaic syntax)."
+  ],
+  "legends_continuity_notes": [
+    "Ben's GAG service under Jacen Solo (Legacy of the Force) bonds him/Desh; shared shame surfaces in pressure moments.",
+    "Luke's field Jedi protocols (Fate of the Jedi): regular check-ins expected but flexible for solo missions; blank template fits pattern of structured omission (Ch3-7).",
+    "Jedi mission reports: standardized holonet/datapad templates for field Knights (post-NJO norms); mission-state field tracks operational summary/status.",
+    "YT-series freighters (common Legends civilian craft): cramped common areas suit tactical reconfigs.",
+    "Corridor/anchor nodes: AU but grounded in Ruusan Reformations/NSW wounds (Darth Bane trilogy, Jedi vs. Sith)."
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Setting: Steady Returns common area as tactical briefing; Desh's displays show Corridor map/intercept route.",
+    "Characters: Ben (commander), Sera (shifts to 'Skywalker' with investment), Torin (warm approval), Kael (arms-crossed evaluator), Desh (notes blank template).",
+    "Key beats: Ben names Veraine 'engineering' (not studying), array-dependency forces Veranthos intercept; Sera posture shift (spine straightens); Luke template blank/visible.",
+    "Sera voice: Archaic, formal (no early contractions); 'Skywalker' marks conditional trust/Gavran echo.",
+    "Torin warmth load-bearing: Approval reassuring but off (per project notes).",
+    "Emotional arc: Assumed authority -> naming lands -> Sera trust/test -> blank template cost.",
+    "No Force mechanics here: Tactical/dialogue-led; keep concrete (maps, routes)."
+  ],
+  "allowed_au_divergences": [
+    "Veraine as Brotherhood alchemist/escaped anchor engineering amplification array.",
+    "Seal/wound at Veranthos; Ruusan Reformations as penance/cover-up.",
+    "Survivors (Sera/Torin/Kael) awake in 47 ABY; Gavran's resonance note.",
+    "Intercept strategy skipping Corridor nodes to Veranthos."
+  ],
+  "open_questions": [
+    "Precise structure of Jedi Order mission report template (e.g., fields beyond 'mission-state')?",
+    "Luke Skywalker's exact standing comm protocols for solo Outer Rim surveys post-Abeloth?"
+  ]
+}

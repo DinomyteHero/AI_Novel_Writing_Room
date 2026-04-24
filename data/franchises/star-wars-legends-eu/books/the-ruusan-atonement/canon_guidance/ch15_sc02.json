@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch15_sc02",
+  "chapter_number": 15,
+  "scene_number": 2,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "6a82e510671a7cbd504aa676d6f331d45ed6ca4ccd70c33e88ec185c2b2e9c39",
+  "review_status": "unreviewed",
+  "confidence": 0.98,
+  "hard_constraints": [
+    "Single Ben Skywalker close-third POV; no head-hopping or omniscient access to other characters' thoughts.",
+    "Torin's line 'You know who else did that?' must end there without naming Jacen Solo or prompting any character to name him; Ben does not inwardly complete the Jacen identification in this scene.",
+    "Preserve Torin's canonical warmth register in dialogue and action: storytelling inflection, wry framing, textured humanity (e.g., preserved specimens like 'You know what I love about modern Jedi? You still believe the dark side is a place you can choose not to go.').",
+    "No diagnostic interiority paragraphing Ben's pattern recognition; render via body-experience (hands gripping knees) before analysis.",
+    "Use Star Wars Legends terminology: datapad (not laptop), no anachronisms like DNA/radio/sonar.",
+    "Force described experientially per force_mechanics: no clinical framing; adhere to sensory_vocabulary rules (body first, diagnostic terms earned)."
+  ],
+  "canon_risks": [
+    "Ruusan/Valley of the Jedi destabilization must align with Legends baseline (Valley as Force nexus from thought bomb in Darth Bane: Path of Destruction / Jedi Academy Trilogy; affected by seal failure only per AU authorization). Avoid implying Disney Canon nexus mechanics.",
+    "Torin Hal as NSW Battle Master proposing technique-derived self-sealing: AU character/action, but risks diluting Jedi Lords' canon recklessness if not grounded in his preserved arc (lie_deepened phase)."
+  ],
+  "legends_continuity_notes": [
+    "47 ABY post-Fate of the Jedi: Ben Skywalker established Jedi Knight, experienced from GAG service, Abeloth crisis; Luke Skywalker Grand Master on Coruscant.",
+    "Ruusan Reformations (1000 BBY): Canon EU event post-Seventh Battle of Ruusan / thought bomb; Valley of the Jedi as persistent vergence/nexus.",
+    "Brotherhood of Darkness / Lord Kaan / New Sith Wars: Canon from Darth Bane novels; technique lineage builds on Nathema/Malachor V precedents without overriding.",
+    "Steady Returns: Modified YT-series freighter fits Legends freighter norms (e.g., YT-1300 like Falcon); cramped interior for six emphasizes ensemble pressure."
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Scene aboard Steady Returns galley/common area during meal: food cooling, tactical display pulled up; Sera present but motionless/silent (weight of prior familiarity).",
+    "Torin argues seal temporary (evidenced by Valley destabilization), proposes self as permanent keystone via technique understanding; warmth makes nobility seductive, not power-grab.",
+    "Turning point: Torin observes Ben 'curating reality to manage the outcome you want' \u2013 accurate, grounded in Ben's secrecy (e.g., deleted report from sc3); plants H15.",
+    "Ben's pov_arc_phase: lie_challenged (Trauma Lie: only his Force-read trusted); hands grip knees under table as somatic response.",
+    "Active subplots: SP-A (Ben's practical dependence), SP1 (Torin arc: lie_deepened via crisis validation).",
+    "Relationship turns: Ben/Torin to mirrored pattern; Sera's silence witnesses.",
+    "No Force technique demonstration; interpersonal via tactical display/argument."
+  ],
+  "allowed_au_divergences": [
+    "Seal's cascading failure destabilizing Ruusan Valley of the Jedi (explicit canon_overridden recontextualization of Reformations).",
+    "Torin Hal (AU NSW Battle Master) as technique user proposing self-sealing; aligns with authorized forbidden technique lineage and anchor system.",
+    "Wound-pressurization amplifying extremes implicitly via argument intensity (not direct unweaving exposure)."
+  ],
+  "open_questions": [
+    "Exact tactical display details for Valley destabilization (e.g., sensor data types) \u2013 treat as open if not derivable from Gavran's monitoring logs precedent."
+  ]
+}

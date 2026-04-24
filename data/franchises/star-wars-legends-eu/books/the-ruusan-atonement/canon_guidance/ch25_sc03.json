@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch25_sc03",
+  "chapter_number": 25,
+  "scene_number": 3,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "97a170887477992b3be234067c93e1686c3e100309b9f68eb5488fc3d6bf203d",
+  "review_status": "unreviewed",
+  "confidence": 1.0,
+  "hard_constraints": [
+    "Force must be described through body-experience first (sensation before diagnostic vocabulary like 'Weave', 'resonance', 'unweaving'); use rotation families (structural, acoustic, etc.) without forbidden repeats ('reached for the Force', 'handrail in the dark verbatim')",
+    "Light and dark remain natural moral-polar properties per Legends; resonance reinforces Weave locally without proving imposed structure or removing polarity",
+    "Ben's phenomenology: chord as handrail/footing gone then emergent; holds specialists (Sera rigid, Kael fluid/variable, Desh nodes) by feel without verification",
+    "Veraine's register: precise, no contractions, Socratic questions from certainty; confusion as disciplined micro-set (lips in equations), not emotional break",
+    "Desh non-Force-sensitive: present only via nodes/comm, no Force-perception; dual-channel (Force-sense + comm) complementary at load",
+    "Terminology: 'Weave' lowercase/sparing; 'resonance'/'Weave-Resonance'; 'Scar' capitalized; no 'lattice' except archival quote; 'Darth Veraine' drops 'Darth' in her intro",
+    "Style: Capitalize 'Human'; lowercase 'galaxy'; American English; 'Jedi' singular/plural; no ABY/BBY in-universe",
+    "Anachronisms: blaster not gun; datapad not laptop; etc. per anachronistic_terms"
+  ],
+  "canon_risks": [],
+  "legends_continuity_notes": [
+    "Builds on Legends Force wounds (Nathema: Vitiate ritual strips Force; Malachor V: Mass Shadow Generator wound with echo-effects); resonance as harmonic reinforcement untested in Legends but grounded in vergence concentration",
+    "Ben Skywalker (post-Fate of the Jedi): experienced Knight, GAG/Abeloth vet; intuitive Force use aligns with Skywalker legacy (Luke's experiential over analytical)",
+    "Brotherhood of Darkness (Darth Bane era, ~1000 BBY): alchemists/strategists like Veraine plausible; rituals target vergences (e.g., thought bomb at Ruusan)",
+    "Vergences: natural Force concentrations (e.g., Valley of the Jedi); wounds persist as unreliable/dark-bleed zones (KOTOR II Malachor)",
+    "Sith under unmodelable data: analytical composure (e.g., Bane, Lumiya) but empirical defeat possible without conversion"
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Scene at Veranthos valley/Scar: natural vergence; wound amplifies extremes (pressurization, not possession); full unweaving sensory (formless pressure, no light/dark texture)",
+    "Resonance phenomenology (force_mechanics.weave_resonance): discordant to emergent warmth (three notes -> chord; physical warmth after cold); non-FS (Desh): wrongness lifts",
+    "Ben's chord-hold: interpreter-of-chord (new truth tested); Sera (rigid architecture), Kael (unwoven-native fluency), Desh (instrumental via nodes/comm)",
+    "Node wobble: Weave-infrastructure voice-dropout (one tone uncertain in six-part hum); Desh's half-second comm specifies duration Force cannot",
+    "Veraine: raw power compensates array loss but lacks infrastructure; emergent overtone (fourth texture) breaks her model (arithmetic -> confusion/recognition)",
+    "Emotional arc: load-focus -> wobble vertigo -> comm-relief -> emergence -> Veraine collapse (recognition w/o acceptance)",
+    "Action beats exact: ritual stagger -> chord hold -> node wobble/comm -> overtone -> collapse",
+    "Subplots: SP-A (Ben/Desh peer), SP1 (resonance emergence), SP3 (Veraine empirical defeat), SP5 (Desh operational)",
+    "Promises paid: PP16 (resonance), PP11 (chord interpreter), PP50 (dual-channel)",
+    "AU Force: technique damages (not reveals); seal anchors degraded multiplicatively; resonance distributes load pluralistically"
+  ],
+  "allowed_au_divergences": [
+    "Weave-resonance/emergent overtone: multi-tradition shared-burden (Jedi/NSW/Sith-trained) reinforces vergence Weave; untested theoretical from Ankhural Codex",
+    "Veranthos/Scar/wound: AU Battle of Veranthos (NSW); technique-deployed vergence wound; seal via 13 anchors (Gavran keystone)",
+    "Survivors as anchors: Sera/Torin/Kael/Veraine (partial stasis awareness); Veraine escaped/repurposed nodes into array",
+    "Dual-channel: Desh's non-FS comm bridges Force-sense gap at load (B3 heartbeat)",
+    "Ruusan Reformations dual-purpose: public + penance for technique (overrides Legends military/doctrinal only)"
+  ],
+  "open_questions": []
+}

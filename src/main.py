@@ -876,6 +876,19 @@ async def main():
         config = yaml.safe_load(f)
 
     pipeline_cfg = config.get("pipeline", {})
+    # Architecture upgrade runtime flags (settings.yaml + per-book overrides +
+    # CLI overrides). Resolve before the reproducibility snapshot so the run
+    # records the actual active pipeline shape.
+    from src.runtime_flags import load_runtime_flags as _load_runtime_flags
+    runtime_flags = _load_runtime_flags(
+        concept_seed=concept_seed,
+        cli_overrides=getattr(args, "runtime_flag", None),
+    )
+    lean_prose_only = bool(
+        ((runtime_flags.get("runtime") or {}).get("lean_prose_only") or {}).get(
+            "enabled", False
+        )
+    )
 
     # Resolve franchise/series/run parameters (support deprecated aliases)
     franchise_slug = args.franchise or args.franchise_legacy
@@ -920,7 +933,11 @@ async def main():
     if paths.run_dir is not None:
         # Record which post-gate variant ran: the pipeline has one canonical
         # polish stage now (Quality Polish + Final Gate). Raw-draft skips it.
-        _pipeline_variant = "raw_draft" if args.raw_draft else "quality_polish"
+        _pipeline_variant = (
+            "lean_prose_only"
+            if lean_prose_only
+            else ("raw_draft" if args.raw_draft else "quality_polish")
+        )
         _write_reproducibility_snapshot(paths.run_dir, args, _pipeline_variant)
         print(f"  Prompt + invocation snapshot: {paths.run_dir}")
 
@@ -1230,13 +1247,6 @@ async def main():
     elif pipeline_session and args.phase >= 4:
         session_id = args.session_id or pipeline_session.generate_session_id()
 
-    # Architecture upgrade Slice 1: resolve runtime flags (settings.yaml
-    # + optional per-franchise / per-book overrides + --runtime-flag CLI).
-    from src.runtime_flags import load_runtime_flags as _load_runtime_flags
-    runtime_flags = _load_runtime_flags(
-        concept_seed=concept_seed,
-        cli_overrides=getattr(args, "runtime_flag", None),
-    )
     chapter_packet_compiler = build_chapter_packet_compiler(
         concept_seed=concept_seed,
         paths=paths,

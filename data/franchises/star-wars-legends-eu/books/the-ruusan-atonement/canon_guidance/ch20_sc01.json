@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch20_sc01",
+  "chapter_number": 20,
+  "scene_number": 1,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "88ccb61a63f38ec17acfc5c15a0a68d8d4c096c163e97a4d9bd710869cb8bcba",
+  "review_status": "unreviewed",
+  "confidence": 1.0,
+  "hard_constraints": [
+    "Render Force perceptions through body-experience first (e.g., pressure shimmer, pull); diagnostic terms like 'seal boundary' or 'the Wound' must not be narrated as concepts\u2014keep interpretation somatic per sensory_vocabulary rules and scene notes.",
+    "Use Star Wars tech vocabulary: sensor display/sweep, not LIDAR/sonar/computer; Steady Returns as modified YT-series freighter.",
+    "Describe Veranthos as lush/blue-green/beautiful first, then contradict with scan data (weather/vegetation/ocean anomalies); anti-pattern: no ruined world upfront.",
+    "Capitalize 'Human(s)' if referenced; 'Jedi' singular/plural; lowercase 'galaxy'; no ABY/BBY dates in prose.",
+    "No 'reached for the Force' or forbidden_repeat_phrases."
+  ],
+  "canon_risks": [],
+  "legends_continuity_notes": [
+    "Ben Skywalker: Jedi Knight post-Fate of the Jedi/Abeloth crisis; former GAG service with Desh.",
+    "Force wounds precedents (Nathema, Malachor V) support planetary-scale anomaly without contradicting Legends mechanics.",
+    "Vergences: natural Force concentrations (Legends canon); Veranthos anomaly builds on this.",
+    "Sensor anomalies align with Legends environmental wrongness in Force-wound zones (e.g., KOTOR II Malachor)."
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Veranthos: Outer Rim vergence world; lush/overgrown/alive but wrong; ringed zones (epicenter/Scar, city, evacuation, seal boundary); beauty is symptom.",
+    "Orbit view: seal boundary as Force-membrane (pressure change); inside: wound pull (gravitational/silent); scan confirms contradictions (weather vs rotation, vegetation vs sunlight, currents reversed).",
+    "Veraine's ship: Confirmed on surface at valley/Scar coordinates; her presence collapses timeline.",
+    "Group present: Ben (POV, awed dread to tactical alarm), Desh (sensor reads), Sera/Torin/Kael (reactions reveal endgame states, not resolved here).",
+    "Force sensory (thin_places_high/full_unweaving edge): parallax error, gaps, emotional leaks, unreliable; non-sensitive (Desh): subtle drifts building.",
+    "Emotional arc: Awed dread \u2192 planetary wrongness \u2192 tactical alarm.",
+    "Key beats: Viewport hand-press (beauty warning); Desh scan read (contradictions); zoom to Veraine ship (urgency)."
+  ],
+  "allowed_au_divergences": [
+    "Veranthos/Battle of Veranthos as decisive NSW site with Brotherhood ritual/Gavran technique/wound.",
+    "Seal infrastructure/membrane visible in Force; planetary anomalies from wound.",
+    "Darth Veraine escaped/ship on surface; amplification array prep implied.",
+    "Survivors (Sera/Torin/Kael) awake/reactions to Veranthos."
+  ],
+  "open_questions": []
+}

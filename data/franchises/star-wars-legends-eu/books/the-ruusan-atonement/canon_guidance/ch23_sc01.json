@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch23_sc01",
+  "chapter_number": 23,
+  "scene_number": 1,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "5feb2915e33f156e93f153ff0f9f77a5888583106eb1bff09e15e4a2368e80d3",
+  "review_status": "unreviewed",
+  "confidence": 1.0,
+  "hard_constraints": [
+    "Single POV: Ben Skywalker throughout (project contract, meta.pov_structure)",
+    "Force rendered through body-experience first, analysis second; diagnostic vocabulary ('Weave-Resonance', 'resonance') earned by sensation (force_mechanics.sensory_vocabulary.concept_vs_sensation_rule)",
+    "Use Star Wars terminology: datapad (not laptop/computer), no anachronistic terms like DNA/radio/sonar (canon_profile.anachronistic_terms)",
+    "'Jedi' singular and plural, never 'Jedis'; 'the Force' as living presence via experiential language, avoid 'energy field' (canon_profile.franchise_terminology_notes, style_constraints)",
+    "Capitalize 'Human'; decapitalize 'galaxy' unless sentence start (style_constraints)"
+  ],
+  "canon_risks": [],
+  "legends_continuity_notes": [
+    "Ben Skywalker: Jedi Knight, son of Luke Skywalker and Mara Jade Skywalker; post-Fate of the Jedi (47 ABY), served in GAG under Jacen Solo/Darth Caedus, fought Abeloth (canon_preserved)",
+    "Era (47 ABY): Post-Abeloth Crisis; Jedi Order on Coruscant under Grand Master Luke Skywalker; Galactic Alliance primary government; no Legacy comics future (Canon Contract.Continuity Branch)",
+    "Vergences: Natural Force concentrations, canon in Legends (e.g., Valley of the Jedi); Veranthos as AU vergence site",
+    "Ruusan Reformations (1000 BBY): Legends canon historical event, recontextualized as AU penance (canon_overridden)"
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Setting: Veranthos camp edge, dawn fully established; morning light beautiful but wrong, Scar visible below (scene_card.setting, sensory_details)",
+    "Characters present: Only Ben Skywalker and Kael Drenn (scene_card.characters_present)",
+    "Resonance plan: Multi-tradition shared-burden containment distributing seal load across practitioners/traditions; untested, low odds, lethal risk possible, requires Kael's Sith-trained contribution (terminology_registry.Weave-Resonance, force_mechanics.primary_rule, implications)",
+    "Ben's sensory vocab for Weave: Handrail in dark gone (moment before falling); rotate metaphors (structural/acoustic/etc.), no repeats/forbidden phrases (force_mechanics.character_differentiated_sensations.ben, vocabulary_variation)",
+    "Kael: Sith-trained conscript (not true Sith), sealed as anchor ~1000 BBY; physically early 20s; Lie 'conviction is trap', arc to chosen commitment (ensemble_cast.Kael Drenn.weiland_arc)",
+    "Scene mission: Ben honest/no sales pitch; turning point honest low-odds answer differentiates from institutional asks (scene_card.mission, turning_point)",
+    "Emotional arc: Honest presentation -> challenge -> honest answer; open hands, no manipulation (scene_card.emotional_trajectory, action_beats)",
+    "Anti-patterns: No Ben persuasion speech/summary of leadership; no diagnostic voice; present math/risk via body-experience (scene_card.anti_patterns, notes)"
+  ],
+  "allowed_au_divergences": [
+    "Veranthos: AU Outer Rim vergence world, Battle of Veranthos site, wound/Scar epicenter (terminology_registry.Veranthos, canon_overridden)",
+    "Weave-Resonance: AU multi-tradition harmonic reinforcement for seal; first articulated Ch22, detailed here (terminology_registry.Weave-Resonance, force_mechanics.force_mechanics)",
+    "Kael Drenn: AU NSW Sith conscript survivor/anchor (terminology_registry.Kael Drenn, canon_overridden)",
+    "The Seal/Wound: AU containment via 13 anchors (12 ring + Gavran keystone), degrading cascade (terminology_registry.The Seal, The Wound, canon_overridden)",
+    "Ruusan Reformations dual-purpose: Public reform + private penance for technique (terminology_registry.The Ruusan Reformations, canon_overridden)"
+  ],
+  "open_questions": []
+}

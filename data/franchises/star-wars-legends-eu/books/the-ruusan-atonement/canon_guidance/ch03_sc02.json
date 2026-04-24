@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch03_sc02",
+  "chapter_number": 3,
+  "scene_number": 2,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "61d3f36aa6c32b50cbaf477fd413a36408f1b23a89c1ef236e01fc8773a5a37d",
+  "review_status": "unreviewed",
+  "confidence": 0.95,
+  "hard_constraints": [
+    "Use only Legends continuity; treat Disney Canon as invalid unless overlapping with Legends.",
+    "Force perception limited to 'pressure' register; no pitch, harmonic, chord, handrail, footing, or navigation metaphors.",
+    "No diagnostic analysis or theory-building about network purpose or builders; Ben reads facts only.",
+    "Gavran's name appears only as signature on log/authorization, not introduced.",
+    "Terminology: console, datapad, holographic display, nav computer; no anachronisms like computer, laptop.",
+    "No in-universe use of ABY/BBY, Legends/Canon labels."
+  ],
+  "canon_risks": [
+    "Pre-Ruusan Jedi military ranks (e.g., Jedi Lord) must align with New Sith Wars depictions in Darth Bane novels; avoid modern Jedi structure bleed.",
+    "Ruusan Corridor placement in Outer Rim must not overwrite known Legends geography (e.g., Ruusan system in Mid Rim; Corridor is AU perimeter around Veranthos).",
+    "Ancient hyperspace charts may differ from modern; ensure navigational data feels era-appropriate without contradicting Legends hyperspace standards."
+  ],
+  "legends_continuity_notes": [
+    "New Sith Wars (c. 2000-1000 BBY): Jedi organized into Army of Light with ranks like Jedi Lord (Gavran), Battle Master (Torin); military facilities used command bunkers with data cores for strategic oversight.",
+    "Data storage in Legends: datachips, holodiscs, crystal matrices; compatible with jury-rigging via modern couplers (e.g., as in Jedi Academy Trilogy tech interfaces).",
+    "Hyperspace navigation: Ancient charts used astrographs, holographic projectors; Outer Rim uncharted zones common, deliberate hiding via false beacons or erased lanes per EU precedents (e.g., Sith Empire hideouts).",
+    "Ruusan Reformations (1000 BBY, post-Seventh Battle of Ruusan): Canonical Jedi/Republic restructuring; AU layer (penance/seal) authorized but public history unchanged.",
+    "Force wounds/seals: Precedents in Nathema (KOTOR), Malachor V (KOTOR II); monitoring via sensor arrays and logs fits Legends tech-Force hybrid (e.g., Valley of the Jedi defenses)."
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Setting: Perimeter facility data core; emergency lighting, ancient consoles, cold air (breath visible), Force as 'recording' pressure (walls remember).",
+    "Beats: Desh rigs coupler (sparks twice); holo-maps show Corridor network (perimeter installations around central fortress); Ben copies fortress coordinates/route to Steady Returns nav.",
+    "Desh's read: Military C2 architecture via GAG intel training; raises report/backup question.",
+    "Emotional arc: Analytical focus -> dawning scope -> decision weight; Ben's investment deepens (his mission now).",
+    "POV phase: Lie established (trust only own Force read); pressure sharpens, directional.",
+    "AU elements: Corridor as seal perimeter; fortress central; scale strategic, not survey.",
+    "Subplots: SP-A (Ben/Desh co-conspirators turn), SP3 (Ben/Luke omission)."
+  ],
+  "allowed_au_divergences": [
+    "Ruusan Corridor: AU seal infrastructure network connecting anchor nodes around Veranthos wound.",
+    "Perimeter facility: AU node in Corridor; live monitoring of failing seal.",
+    "Central fortress (Gavran's): AU hub with anchors; coordinates hidden in uncharted space.",
+    "Seal as living-anchor system: AU recontextualization of Ruusan Reformations."
+  ],
+  "open_questions": [
+    "Specific Legends-compatible ancient data storage media (e.g., exact type for jury-rigging; holodiscs viable?)",
+    "Outer Rim geography: Does Legends detail block Corridor placement around Veranthos (AU planet)?"
+  ]
+}

@@ -53,17 +53,22 @@ Default config: `config/settings.yaml`. Output lands at `output/<franchise>/<boo
 
 ### Default model matrix
 
-The script benches the ten configurations listed in `BENCH_CONFIGS` by default. Short names map to full OpenRouter slugs:
+The script benches the configurations listed in `BENCH_CONFIGS` by default. Short names map to full OpenRouter slugs:
 
 | Short | Full | Current use |
 |-------|------|-------------|
 | `claude` | `anthropic/claude-sonnet-4.6` | Production prose |
 | `haiku` | `anthropic/claude-haiku-4.5` | Production polish + gates |
-| `deepseek` | `deepseek/deepseek-v3.2` | Summarizer, lore_extractor |
+| `deepseek` | `deepseek/deepseek-v4-flash` | Summarizer, lore_extractor |
+| `deepseekpro` | `deepseek/deepseek-v4-pro` | Bench-only |
+| `qwen` | `qwen/qwen3.6-plus` | Bench-only |
 | `kimi` | `moonshotai/kimi-k2.5` | Manuscript reviewer |
+| `kimi26` | `moonshotai/kimi-k2.6` | Bench-only |
 | `grok420` | `x-ai/grok-4.20` | Canon expert, judge_evaluator |
 | `grok41fast` | `x-ai/grok-4.1-fast` | Orchestrator |
 | `glm` | `z-ai/glm-5.1` | Bench-only |
+| `minimax` | `minimax/minimax-m2.7` | Prose candidate |
+| `mimo25pro` | `xiaomi/mimo-v2.5-pro` | Bench-only |
 | `gpt54` | `openai/gpt-5.4` | Bench-only |
 | `gpt54mini` | `openai/gpt-5.4-mini` | Bench-only |
 | `gemini` | `google/gemini-3.1-pro-preview` | Plot architect, outline planner |
@@ -83,7 +88,7 @@ The script prints a per-call cost estimate and a grand-total line at the end. In
 | `claude` (Sonnet 4.6) | ~$0.04-0.05 | Best commercial register + best word-count discipline |
 | `gpt54` | ~$0.05-0.06 | Sharpest sentence punch; overshoots word count 134%+ |
 
-A full ten-model bench on one scene runs ~$0.20-0.25; the whole-scene pipeline bench (Sonnet + GPT on Ch1 and Ch13) came in at ~$0.21 total. Budget ~$0.50 for a thorough single-scene model sweep, ~$2-3 for a full-chapter A/B.
+A focused comparison run is usually cheap, but the full default matrix changes as new candidates are added. Budget roughly `$0.50-$1.00` for a thorough single-scene model sweep and `$2-$3` for a full-chapter A/B.
 
 ### Output layout
 

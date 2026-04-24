@@ -1,0 +1,65 @@
+{
+  "scene_objective": "In the first plot point phase, this sequel decision scene locks in Ben's commitment to pursuing the unknown escapee along the Ruusan Corridor with the three survivors and Desh, by sending a partial report to Luke that withholds the full scope and lifting off before the Order can intervene.",
+  "turning_point": {
+    "trigger": "Ben composes and transmits the partial report to Luke before he can change his mind.",
+    "shift": "The Steady Returns lifts off the plateau. The choice to carry this alone—without naming the choice—locks in. Desh's monitoring-packet reconstruction will resolve the escapee's identity overnight, but Ben is already committed to the Corridor pursuit with incomplete information and a ship built for two carrying five people.",
+    "cost": "Ben absorbs the weight because the decision does not yet feel like a decision to him—the pattern closes before he articulates it. The fragile group dynamic strains: Sera's conditional respect, Torin's warmth, Kael's distance, and Desh's pragmatism all register Ben's unspoken choice to withhold from the Order. The cost is also external: the clock tightens on three fronts (seal degradation, the escapee's two-month head start, and the Order's ignorance), and Ben has just chosen to face all three without institutional backup."
+  },
+  "closing_beat": "Ben sent a partial report to Luke—enough to explain the delay, not enough to reveal the scope. The Steady Returns lifted off the plateau, pointed along the Corridor. An unnamed anchor was somewhere ahead of them. The monitoring packets Desh was reconstructing would finish overnight.",
+  "emotional_arc": {
+    "start": "Overwhelmed assessment—the data is concrete but the scope is still settling, and Ben's instinct pushes toward action rather than explanation.",
+    "shift": "Grim determination—pressure crystallizes as Ben registers what Sera and Torin's muscle-memory precision means, what Desh's commitment to overnight reconstruction implies, and what his own refusal to call Luke fully will cost.",
+    "end": "The quiet cost of choosing to carry this alone—not heroic, not triumphant, but the braced awareness that the pattern has closed and he is already committed before he has named the commitment."
+  },
+  "target_word_count": 1000,
+  "opening_mode": "contrast",
+  "key_beats": [
+    {
+      "beat_description": "Ben spreads fortress data and Corridor maps across the command table; the chamber file sits beside them with a name-shaped blank where the occupant's designation should be.",
+      "state_change": "Abstract pressure becomes concrete. The opening pressure shifts from 'something is wrong with the seal' to 'something escaped and we do not know what it is.'",
+      "pov_reaction": "Ben's overwhelm registers as a physical impulse toward action—hands arranging data, eyes tracking the blank space, the Force-sense still diffused and unreliable around him. His instinct is to move, not to sit with the incomplete picture. The wrongness he felt spreading through the wider sky now has a shape: absence."
+    },
+    {
+      "beat_description": "Sera and Torin organize archive materials into tactical priority order from muscle memory—Torin's arrangement carries warmth and collaborative ease, Sera's carries precision and distance. Ben registers the difference without comment.",
+      "state_change": "The pressure escalates from abstract to interpersonal. Ben sees that these two survivors are already operating as a unit, already moving toward departure, already assuming he will follow. The choice to leave is being made around him before he consciously makes it.",
+      "pov_reaction": "Grim determination tightens Ben's focus. He watches Torin's hands move with the ease of someone who has done this a thousand times before—literally—and sees Sera's precision as a kind of armor. The warmth between them is real but conditional on forward motion. Ben feels the weight of that conditionality without articulating it. His own hands tighten on the datapad."
+    },
+    {
+      "beat_description": "Desh commits to having the corrupted monitoring packets reconstructed by morning—the name will resolve in response-quadrant processing overnight.",
+      "state_change": "The timeline crystallizes. Ben now has a deadline: either he lifts before Luke's reply window closes on the partial report, or he loses the initiative. The escapee has two months of head start. The seal is failing regardless. The survivors depend on him. The choice is no longer abstract.",
+      "pov_reaction": "Grim determination hardens into something closer to inevitability. Ben does not yet name it as a choice because the pattern is closing too fast for naming. He registers Desh's pragmatism as the final piece of the lock—Desh is already assuming they will leave, already assuming they will pursue. The Force-sense around Ben remains unreliable, but his instinct is sharp: if he does not move now, he will be moved by events instead."
+    },
+    {
+      "beat_description": "Ben composes a partial report to Luke on his datapad—enough to explain the delay, not enough to reveal the scope of the survivors or the seal's true condition—and transmits it before he can change his mind.",
+      "state_change": "The lock-in completes. By withholding the full scope, Ben has committed to carrying this alone. He has not called for help. He has not named the choice. The institutional withholding that began in Ch 3 becomes concrete and irreversible. The Order will not know what he knows. The Order's response time will not matter because Ben will not wait for it.",
+      "pov_reaction": "The quiet cost lands. Ben's hands move on the datapad with the precision of someone executing a plan he has not consciously made. He does not say the word 'help'. He does not articulate what he is choosing. The Force-sense around him is still deadened and unreliable, but his own instinct is clear: the pattern has closed. He is already committed. The transmission goes through before his conscious mind can catch up to what his hands have just done."
+    },
+    {
+      "beat_description": "The Steady Returns lifts off the mountain plateau, engines straining with five passengers aboard a ship built for two, climbing away from the fortress and the wrongness that still diffuses through the wider sky.",
+      "state_change": "The decision locks in and hands off its consequence. Ben has sent the partial report. The Steady Returns is now committed to the Corridor. An unnamed anchor is somewhere ahead of them. The monitoring packets will resolve the escapee's identity overnight, but by then they will already be in pursuit. The seal is failing. The clock is tightening on all three fronts. Ben is no longer braced for a choice—he is braced for what the choice will cost.",
+      "pov_reaction": "The quiet cost of choosing to carry this alone settles into Ben's awareness as the plateau shrinks below them. He is not heroic. He is not triumphant. He is braced. The pattern closed before he named it, and now he is committed to carrying the weight of three survivors, a failing seal, an unnamed escapee, and the Order's ignorance. The wrongness that diffused through the wider sky is still present, still spread, still unreliable. But Ben's focus is sharp. The choice is made. The Steady Returns is climbing."
+    }
+  ],
+  "voice_guidance": "Channel Zahn's efficient dialogue-led page-turner pacing with tight third-person interiority on Ben Skywalker—sharp, pragmatic, self-deprecating reactions under pressure; every line moves plot or reveals character. Infuse Bujold-style warmth in Torin and Sera's interpersonal dynamics and Desh's pragmatism without slowing pace. Keep Force-sense diffused and unreliable, sensory (deadened tang in the recycled air, unreliable pull through durasteel) rather than analytical. American English, capitalize 'Human', decapitalize 'galaxy', 'Jedi' singular/plural.",
+  "anti_patterns": [
+    "Do not open with a flashback or exposition dump about the seal's history.",
+    "Do not have Ben articulate the choice as a choice before he makes it.",
+    "Do not make the scene feel heroic or triumphant.",
+    "Do not arrive at clinical articulation of Ben's emotional state.",
+    "Do not use 'an ambient hum of' or other worn-default Force-perception language.",
+    "Avoid diagnostic voice when describing the Force-sense—keep it diffused and unreliable, sensory rather than analytical.",
+    "Do not make the choice feel heroic",
+    "The partial report should reveal what Ben is still refusing to say"
+  ],
+  "delivery_preferences": {
+    "reveal_mode": "direct",
+    "exposition_budget": "concise",
+    "register_override": null
+  },
+  "required_subplots": [
+    "SP-A",
+    "SP1",
+    "SP2",
+    "SP3"
+  ]
+}

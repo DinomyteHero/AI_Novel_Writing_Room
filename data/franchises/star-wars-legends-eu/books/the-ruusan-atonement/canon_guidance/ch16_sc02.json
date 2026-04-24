@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch16_sc02",
+  "chapter_number": 16,
+  "scene_number": 2,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "fa7b85da82abd0b6aa26acdde95c7c805f74e6995a7a5f04df2116559e09935a",
+  "review_status": "unreviewed",
+  "confidence": 0.96,
+  "hard_constraints": [
+    "Use Star Wars Legends / Expanded Universe continuity exclusively (Canon Contract: Continuity Branch).",
+    "Treat Disney-only continuity as invalid unless also in Legends (Canon Contract: Continuity Branch; canon_profile.cross_continuity_violations).",
+    "No anachronistic terms: replace with Star Wars equivalents (canon_profile.anachronistic_terms).",
+    "Force described through experiential/mystical language, not scientific (canon_profile.franchise_terminology_notes; force_mechanics.primary_rule).",
+    "'Jedi' singular and plural, never 'Jedis'; 'Darth' capitalized before name (canon_constraints.style_constraints).",
+    "Veraine's voice: no contractions, complete grammatically sophisticated sentences (terminology_registry.Darth Veraine; scene_card.sensory_details)."
+  ],
+  "canon_risks": [
+    "Veraine as Brotherhood of Darkness alchemist must align with Legends depiction of faction as organized Sith under Kaan during New Sith Wars (canon_preserved: Brotherhood of Darkness; Darth Bane Trilogy). Risk of portraying as chaotic/disorganized if drafter deviates from strategic role.",
+    "Socratic pedagogy in Sith theorist traditions referenced (scene_card.canon_elements_needed): Karness Muur lineage is Legends (Tales of the Jedi), but specific Socratic method may require careful non-invented framing to avoid new lore.",
+    "Jedi diplomatic parley posture standard in Legends (e.g., negotiations in Jedi Academy Trilogy), but ensure no modern Inquisitorius bleed in antagonist structure."
+  ],
+  "legends_continuity_notes": [
+    "Brotherhood of Darkness: Pre-Ruusan Sith led by Lord Kaan, emphasized collective philosophy over Rule of Two; ended via thought bomb at Ruusan (Darth Bane: Path of Destruction). Veraine fits as strategist/alchemist without contradicting.",
+    "Post-Fate of the Jedi (47 ABY): Ben Skywalker ~21, Jedi Knight post-Abeloth; Galactic Alliance government; Jedi Temple on Coruscant under Luke (canon_preserved; era_description).",
+    "Force wounds precedents: Nathema (KOTOR), Malachor V (KOTOR II) \u2013 persistent damage with unreliable sense, emotional bleed (force_mechanics.canon_grounding).",
+    "Vergences/nexuses: Established Legends locations of concentrated Force (e.g., Valley of the Jedi on Ruusan)."
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Veraine: AU Brotherhood alchemist/strategist, escaped anchor; philosophy accuses Jedi of crime via living anchors, seeks seal release (primary_antagonistic_force; terminology_registry.Darth Veraine). Socratic questioning only \u2013 no monologue/declarations (scene_card.conflict; action_beats).",
+    "Kael recruitment: Invokes shared anchor history; his silence is assembling, not refusal (turning_point; key_beats[3]).",
+    "Present: Ben, Sera, Torin, Kael, Desh, Veraine (no crew interaction; at distance) (characters_present).",
+    "Setting: Neutral cleared area; Veraine's ship visible, gangway down (setting; sensory_details).",
+    "Weave/Ankhural heresy: Local vergence structure possibly imposed \u2013 Veraine's frame, not proven (force_mechanics; terminology_registry.The Weave).",
+    "No resolution: Philosophy compelling, distinction via feel not assertion (stakes.external; anti_patterns)."
+  ],
+  "allowed_au_divergences": [
+    "Darth Veraine's existence, Brotherhood operation at Veranthos, her anchor role/escape (canon_overridden).",
+    "Ankhural Codex heresy on vergence structure (canon_overridden).",
+    "Veraine's philosophy/ritual to break seal using repurposed nodes (primary_antagonistic_force).",
+    "Seal anchors as living infrastructure; partial stasis awareness (canon_overridden)."
+  ],
+  "open_questions": [
+    "Sith theorist Socratic pedagogy specifics: Karness Muur (Legends) used philosophical manipulation; confirm if exact Socratic framing has direct source or needs archival euphemism.",
+    "Jedi parley protocols in 47 ABY: Post-Fate of the Jedi norms for neutral antagonist meetings unstated \u2013 standard diplomatic caution assumed."
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch25_sc04",
+  "chapter_number": 25,
+  "scene_number": 4,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "1b90ac7d29332aaaee832f569ca57e3679878dce66bd83ea1f9962b8db246025",
+  "review_status": "unreviewed",
+  "confidence": 1.0,
+  "hard_constraints": [
+    "The Force behaves canonically for Legends: light and dark are natural moral-polar properties, and Force wounds remain wounds. 'The Weave' is era-specific language (project contract: force_mechanics.primary_rule).",
+    "Render Force through body-experience first, analysis second. Diagnostic vocabulary ('unweaving,' 'Weave') earned by experiential rendering (project contract: force_mechanics.sensory_vocabulary.concept_vs_sensation_rule).",
+    "Use rotation families for sensory vocabulary; avoid forbidden repeats like 'reached for the Force' (project contract: force_mechanics.vocabulary_variation.rules).",
+    "'Jedi' singular and plural; never 'Jedis' (project contract: canon_constraints.style_constraints).",
+    "Veraine introduces herself as 'Veraine,' dropping 'Darth' strategically (project contract: terminology_registry.Darth Veraine)."
+  ],
+  "canon_risks": [
+    "Sera's 'ancient containment protocols' and 'Force-containment field' must align with NSW-era Force-locks (AU extension of Legends stasis/Force barriers); avoid implying Inquisitorius structures.",
+    "Torin's 'void' as 'structured absence' (active technique: pulling/suction, practitioner as hungry void) must distinguish from passive unweaving (formless pressure) per force_mechanics.active_technique."
+  ],
+  "legends_continuity_notes": [
+    "Brotherhood of Darkness (led by Lord Kaan, destroyed at Ruusan 1000 BBY) valid Legends faction; Veraine as alchemist/strategist fits wartime Sith specialists (Darth Bane novels).",
+    "Force wounds persistent (Nathema stripped by Vitiate ~5000 BBY; Malachor V via Mass Shadow Generator ~3960 BBY) \u2013 Torin's expanding void echoes these as engineered precedent.",
+    "Ben Skywalker: Jedi Knight post-Fate of the Jedi/Abeloth (47 ABY), GAG service under Jacen, experienced in Force anomalies."
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Sera's containment: ancient Force-lock protocols adapted from stasis anchors (her expertise; same tech that sealed her). Professional discipline, not vengeance (scene_card.notes, anti_patterns).",
+    "Veraine contained: conscious, intellectually furious (detachment flaw; equations forming in fingers per chapter_blueprint.exit_vector).",
+    "Torin's void: active technique at full scale \u2013 structured violence, sharp boundary, practitioner as void/consuming structure (force_mechanics.active_technique; deliberate/directional vs. formless). Maetha's warning fragment: 'It replaces you.'",
+    "Resonance humming post-Veraine: warmth, living tissue, environmental wrongness lifted (force_mechanics.weave_resonance).",
+    "Setting: Veranthos valley/Scar epicenter \u2013 natural vergence, wound zone (full unweaving sensory: formless pressure, grief-without-object).",
+    "POV emotional arc: relief -> dread (Ben faces failure to save Torin)."
+  ],
+  "allowed_au_divergences": [
+    "Darth Veraine (Brotherhood alchemist, escaped anchor) existence and containment (concept_seed.conflict.primary_antagonistic_force).",
+    "Sera Varik (NSW Jedi, Force-lock expert) using stasis-derived protocols on Veraine (terminology_registry.Force-lock; ensemble_cast.Sera Varik).",
+    "Torin's technique deployment creating expanding void toward Scar (force_mechanics; canon_overridden.forbidden technique lineage).",
+    "Weave-Resonance containing wound via shared burden (no single load-bearing person) defeating Veraine (concept_seed.force_mechanics.implications)."
+  ],
+  "open_questions": [
+    "Does 'Force-containment field' risk overlap with Legends Force stasis precedents (e.g., carbonite variants or ysalamiri null zones)? Scene grounds in Force-locks/anchors."
+  ]
+}

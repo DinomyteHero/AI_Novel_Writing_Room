@@ -1,0 +1,60 @@
+{
+  "scene_objective": "In the setup phase, this escalation scene transforms the fortress from a historical curiosity into a live command post for a failing Outer Rim containment network, deepening the emergency from local anomaly to systemic crisis via environmental conflict and discovery.",
+  "turning_point": {
+    "trigger": "A monitoring display flickers alive, showing a network map with nodes in red, amber, and one flashing BREACH across the Outer Rim.",
+    "shift": "The abstract threat becomes concrete and systemic: the fortress is not a tomb but a control center for a failing containment infrastructure. The emergency is not local.",
+    "cost": "Ben commits to descent without full knowledge of what he's descending into. Desh's cataloguing of exits signals his instinct that this is wrong—the cost splits between Ben's ignorance and Desh's growing unease about the mission's true scope."
+  },
+  "closing_beat": "The stairwell to Level 3 descended into blue-tinged emergency lighting. The Force down there was different—not wrong but alive, pulsing with three distinct rhythms. People. Living people, sealed below.",
+  "emotional_arc": {
+    "start": "Archaeological wonder—the thrill of discovery in an ancient, preserved space",
+    "shift": "Growing dread as the monitoring display transforms abstract threat into concrete system failure",
+    "end": "Shock at the living Force signatures—the realization that the fortress contains not artifacts but prisoners"
+  },
+  "target_word_count": 1300,
+  "opening_mode": "contrast",
+  "key_beats": [
+    {
+      "beat_description": "Ben activates residual power on the monitoring stations with a targeted Force pulse; the equipment hums to life after centuries of dormancy.",
+      "state_change": "The Operations level transforms from a dead archive into a functional command post. Residual systems respond to Force contact, confirming the fortress was built by Force-users and designed to remain partially active.",
+      "pov_reaction": "Archaeological wonder—the satisfaction of making something ancient respond, of reading the room's design through its reaction. Ben's instinct pushes toward action (activating, exploring) rather than analysis; he is reading the space kinetically, not intellectually."
+    },
+    {
+      "beat_description": "A display screen flickers alive showing a network map: nodes scattered across the Outer Rim in red (dead), amber (degraded), and one flashing BREACH in urgent white.",
+      "state_change": "The pressure shifts from 'what is this place' to 'what is failing.' The fortress reveals itself as a hub in a larger system. The BREACH node transforms the scene from exploration into emergency response.",
+      "pov_reaction": "The wonder collapses into dread. Ben's focus narrows—his eyes track the flashing node, his breath catches slightly. The Force around the display feels wrong in a new way: not deadened but strained, as if the system itself is screaming. His body tightens; his next move is toward the display, not away."
+    },
+    {
+      "beat_description": "Desh photographs every console and catalogues exit routes on his datapad, his movements precise but his jaw tight. He does not ask what the network is for; he is already calculating how to get out.",
+      "state_change": "The scene pivots from Ben's solo discovery to a two-person dynamic. Desh's practical response—exits, escape vectors—introduces a counterpoint to Ben's forward momentum. His unease becomes a second pressure in the room.",
+      "pov_reaction": "Ben registers Desh's shift in posture and tone. It lands as a warning Ben does not yet have the vocabulary to name. The dread deepens because Desh's fear is contagious; Ben's confidence in 'we can handle this' wavers slightly. He does not slow down, but he notices that Desh wants to."
+    },
+    {
+      "beat_description": "Ben moves toward the stairwell descending to Level 3. The blue-tinged emergency lighting intensifies below, casting the stairs in an otherworldly glow. The air grows warmer, more charged.",
+      "state_change": "The boundary between known and unknown sharpens. Level 3 is no longer abstract—it is below, it is lit, it is calling. The fortress's architecture itself pulls Ben downward.",
+      "pov_reaction": "Shock. The Force down there is alive in a way the upper levels are not. Ben perceives three distinct rhythms—one disciplined, one heavy, one clipped—without naming them. The shock is not fear but recognition: something is waiting. Something has been waiting. His hand moves to the railing; his descent begins."
+    }
+  ],
+  "voice_guidance": "Channel Zahn's efficient, tight third-person interiority: sharp sensory reactions over analysis, Force as lived sensation (strained hum, pulsing rhythms) not diagnostics. Dialogue sparse but purposeful—Desh's lines practical, edged with unease; Ben's clipped, action-oriented. Efficient worldbuilding via equipment interaction and Gavran's meticulous/frantic organization. Pace as commercial page-turner: 75% physical action/dialogue beats.",
+  "anti_patterns": [
+    "Diagnostic-voice trap — Ben should not, in this scene, reconstruct what the network is for; he registers the red, the amber, the one flashing BREACH, and moves",
+    "The three living rhythms in the closing hook should be perceived, not interpreted: 'one disciplined, one heavy, one clipped' is the level of detail Ben can carry here. Names and histories wait for Ch5",
+    "Ben should not reconstruct what the network is for; he registers the red, the amber, the one flashing BREACH, and moves",
+    "Avoid diagnostic-voice reconstruction of the containment system—no analysis of how it works or what Gavran intended",
+    "Do not interpret the three living Force signatures; perceive them only: 'one disciplined, one heavy, one clipped' is the level of detail Ben carries here",
+    "Do not open with exposition about the fortress's original purpose or Gavran's role",
+    "Do not have Ben name or theorize about the Force wound or the seal's failure—that vocabulary comes later"
+  ],
+  "delivery_preferences": {
+    "reveal_mode": "direct",
+    "exposition_budget": "concise",
+    "register_override": null
+  },
+  "required_hooks": [
+    "H04"
+  ],
+  "required_subplots": [
+    "SP-A"
+  ],
+  "required_revelations": []
+}

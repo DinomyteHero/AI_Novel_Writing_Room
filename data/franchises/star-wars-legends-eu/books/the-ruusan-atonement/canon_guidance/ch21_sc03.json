@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch21_sc03",
+  "chapter_number": 21,
+  "scene_number": 3,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "01547a2393e4d4a99b2073f00707aebdc21a0ff0c33796e79e10d521d8925e5c",
+  "review_status": "unreviewed",
+  "confidence": 1.0,
+  "hard_constraints": [
+    "Single POV: Ben Skywalker throughout (project contract: pov_structure)",
+    "Force mechanics per Legends with AU overlay: Weave-Resonance as multi-tradition shared-burden containment, not universal ontology proof (force_mechanics primary_rule, implications)",
+    "Terminology registry: 'Ankhural Codex', 'The Weave' (lowercase unless starting sentence), 'Weave-Resonance'; no forbidden repeats like 'reached for the Force' (terminology_registry, vocabulary_variation forbidden_repeat_phrases)",
+    "Style constraints: Capitalize 'Human'; decapitalize 'galaxy'; 'Jedi' singular/plural; no ABY/BBY in-universe (canon_constraints style_constraints)",
+    "No anachronistic terms: datapad not laptop (canon_profile anachronistic_terms)",
+    "Sensory vocabulary rule: body-experience before analysis; rotate metaphor families, no diagnostic terms ahead of felt sense (force_mechanics sensory_vocabulary concept_vs_sensation_rule, vocabulary_variation)"
+  ],
+  "canon_risks": [
+    "Ensure Ben's arc turn aligns with preserved canon: Ben as post-Fate of the Jedi Jedi Knight, no override of his GAG/Abeloth/Vestara history (canon_constraints canon_preserved)",
+    "Ruusan Reformations recontextualized but not erased: dual-purpose (public reform + AU penance) without contradicting Legends baseline event (canon_constraints canon_overridden)"
+  ],
+  "legends_continuity_notes": [
+    "Post-Fate of the Jedi (47 ABY): Ben Skywalker is Jedi Knight; Luke Grand Master on Coruscant; Galactic Alliance government; Jedi Order from Temple (canon_profile era_description, canon_constraints canon_preserved)",
+    "Force wounds as persistent: Builds on Nathema, Malachor V precedents; unweaving damages feedback loop, does not remove morality (force_mechanics canon_grounding)",
+    "Vergences: Natural Force concentrations, Legends standard (terminology_registry Vergence)"
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Scene mission: Ben recontextualizes Gavran's Codex marginalia (Ch11/18 bookmark) on resonance theory; speaks 'We find another way. Together.' once; plants H21 toward resonance solution (scene_card mission, turning_point)",
+    "Key beats: Shaking hands to Codex -> spreads 3 datapads (Kael Ch19 insight, Gavran theory, technique fragments) -> voice changes, addresses group (scene_card key_beats, action_beats)",
+    "Characters: Ben (POV, arc moment_of_truth), Sera (silent, no speech), Kael (in circle, no speech), Desh (unpacks instruments, recognizes voice change) (scene_card characters_present, notes)",
+    "Setting: Veranthos camp ridge, Ben's workspace; Codex glowing, Gavran handwriting 'we lacked the will or the trust' emphasis on trust (scene_card sensory_details)",
+    "Emotional arc: Desperate searching -> note recontextualized -> breakthrough -> new truth spoken; no cheer/relief/speech (scene_card emotional_trajectory, emotional_arc)",
+    "Anti-patterns: Word 'together' once only; no exposition of resonance (details Ch23+); no self-analysis of Lie; no Jacen name; Sera/Desh/Kael reactions via action not speech (scene_card anti_patterns)",
+    "Ben's Weave sensation: Handrail gone in wound, but here focus on resonance warmth/emergence (force_mechanics character_differentiated_sensations.ben, weave_resonance)"
+  ],
+  "allowed_au_divergences": [
+    "Ankhural Codex as heretical treatise (~2400 BBY), resonance theory, 'threadwork'/'lattice' variants (canon_constraints canon_overridden, terminology_registry)",
+    "Gavran's marginalia on Weave-Resonance in Codex (force_mechanics implications, weave_resonance)",
+    "Veranthos as AU vergence site, Battle of Veranthos, technique lineage (canon_constraints canon_overridden)",
+    "Weave-Resonance: Untested multi-tradition solution distributing seal load (terminology_registry Weave-Resonance)"
+  ],
+  "open_questions": []
+}

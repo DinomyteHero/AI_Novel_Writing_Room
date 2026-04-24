@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch04_sc02",
+  "chapter_number": 4,
+  "scene_number": 2,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "6933c40f6362ac58db2dbc42c8009543356181a859c31adb1113a6fa746b8b27",
+  "review_status": "unreviewed",
+  "confidence": 0.98,
+  "hard_constraints": [
+    "Do not reconstruct the containment network's purpose or function; Ben registers nodes in red (dead), amber (degraded), and one flashing BREACH, then moves on (per scene notes and anti-patterns).",
+    "Do not interpret the three living Force signatures; perceive them only as 'one disciplined, one heavy, one clipped' without names or histories (per scene notes).",
+    "Use Star Wars Legends terminology: datapad (not laptop), durasteel (not steel), holocron (pyramidal Jedi gatekeeper device), no anachronisms like LIDAR/DNA/radio/sonar (per canon_profile.anachronistic_terms and style_constraints).",
+    "Force described experientially, not clinically; no 'energy field' (per force_mechanics.primary_rule and sensory_vocabulary).",
+    "'Jedi' singular and plural, never 'Jedis'; 'Darth' capitalized only before name (per style_constraints)."
+  ],
+  "canon_risks": [
+    "Force-locks are AU era-specific tech; ensure prose treats as NSW Jedi security keyed to signatures/knowledge patterns, not Inquisitorius-style (Disney bleed flag if mismatched).",
+    "Monitoring display as residual-power Force-responsive tech risks over-technical detail; keep abstract to avoid contradicting Legends precedents like Nathema/Malachor wounds without mechanics.",
+    "Pre-Ruusan military record-keeping: risk of modernizing NSW Jedi archives; portray as holocrons, data tablets, vacuum-sealed docs per scene canon_elements_needed."
+  ],
+  "legends_continuity_notes": [
+    "Jedi holocrons: pyramidal artifacts that activate via Force-sensitive touch, dispense knowledge via gatekeeper hologram (e.g., Jedi Academy Trilogy, pre-Ruusan era compatible).",
+    "New Sith Wars (c. 2000-1000 BBY) Jedi: militaristic, fortress-like installations common; record-keeping via holocrons, datacrons, physical media for redundancy (Darth Bane novels, Jedi vs. Sith).",
+    "Force signatures: detectable as distinct presences/emotional resonances in Legends (e.g., Luke sensing Ben in Fate of the Jedi); living signatures in stasis align with carbonite/hibernation precedents.",
+    "Force pulse to activate tech: consistent with Legends Force-technique interfaces (e.g., KOTOR-era consoles, temple mechanisms)."
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Setting: Level 1 Operations (command post, monitoring stations), Level 2 Archive (organized then frantic stacks, holocrons/data tablets/Force-locks), descending to Level 3 stairwell.",
+    "Key beats: Ben Force-pulse activates monitoring (nodes: red/amber/BREACH); Desh photos consoles/catalogs exits; air warms/charges; closing three Force rhythms (disciplined/Sera, heavy/Torin, clipped/Kael).",
+    "Gavran's voice: meticulous organization turning frantic; no direct appearance.",
+    "Emotional arc: wonder -> dread -> shock; Ben kinetic (action over analysis), Desh practical (exits/unease).",
+    "AU infrastructure: Fortress as Gavran's hub for seal network (Outer Rim nodes); residual power from design to persist.",
+    "Ben/Desh dyad: Operational verification; Desh names empty chamber implications practically in Ch4 overall."
+  ],
+  "allowed_au_divergences": [
+    "Gavran's Fortress: AU NSW installation with four levels, residual power, monitoring network for seal (per terminology_registry and canon_overridden).",
+    "Containment network/anchor nodes: AU seal infrastructure tracking via display (red dead, amber degraded, BREACH); builds on Legends wounds (Nathema, Malachor V).",
+    "Force-locks: AU NSW security keyed to signatures/patterns; Sera's later expertise.",
+    "Three survivors as living anchors: Sera (disciplined), Torin (heavy), Kael (clipped) in stasis ring below."
+  ],
+  "open_questions": [
+    "Specific Legends precedents for multi-node Force-containment monitoring displays? Treated as AU extension of vergence/wound sensing.",
+    "Exact sensory profile of 'clipped' Force signature for Kael (Sith-trained conscript)? Aligns with force_mechanics.character_differentiated_sensations.kael."
+  ]
+}

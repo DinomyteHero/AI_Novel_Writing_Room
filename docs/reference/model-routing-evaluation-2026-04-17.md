@@ -22,7 +22,7 @@ The fastest path to reducing spend is:
 1. Keep `prose_stylist` on `anthropic/claude-sonnet-4.6` for now.
 2. Stop running `quality_polish` on every scene by default.
 3. Keep `gate_critic`, `chapter_gate_critic`, and `final_gate` on `anthropic/claude-haiku-4.5`.
-4. Keep `summarizer` and `character_specialist` on `deepseek/deepseek-v3.2`.
+4. Keep `summarizer` and `character_specialist` on `deepseek/deepseek-v4-flash`.
 5. Use a **different family** for higher-level feedback: `x-ai/grok-4.20` or `moonshotai/kimi-k2`.
 6. If you want to test cheaper prose models, test `qwen/qwen3.6-plus` and `minimax/minimax-m2.7` first. Do **not** jump straight to `gemini-3-flash-preview` or `glm-5.1` for prose based on the runs already in this repo.
 
@@ -40,8 +40,8 @@ Current phase-5 routing in `config/settings.yaml`:
 | `plot_architect` | `google/gemini-3.1-pro-preview` | Planning brief |
 | `judge_evaluator` | `x-ai/grok-4.20` | Optional LLM judge |
 | `manuscript_reviewer` | `moonshotai/kimi-k2` | Full-manuscript feedback |
-| `summarizer` | `deepseek/deepseek-v3.2` | Cheap utility role |
-| `character_specialist` | `deepseek/deepseek-v3.2` | Cheap utility role |
+| `summarizer` | `deepseek/deepseek-v4-flash` | Cheap utility role |
+| `character_specialist` | `deepseek/deepseek-v4-flash` | Cheap utility role |
 
 ## Step 2: Why Chapter 1 Feels Expensive
 
@@ -172,7 +172,7 @@ OpenRouter prices checked on April 17, 2026:
 | Mistral Small 4 | $0.15 | $0.60 | [OpenRouter](https://openrouter.ai/mistralai/mistral-small-2603/pricing) |
 | MiniMax M2.7 | $0.30 | $1.20 | [OpenRouter](https://openrouter.ai/minimax/minimax-m2.7/pricing) |
 | GLM 5.1 | $0.95 | $3.15 | [OpenRouter](https://openrouter.ai/z-ai/glm-5.1/pricing) |
-| DeepSeek V3.2 | $0.26 | $0.38 | [OpenRouter](https://openrouter.ai/deepseek/deepseek-v3.2/pricing) |
+| DeepSeek V4 Flash | $0.14 | $0.28 | [OpenRouter](https://openrouter.ai/deepseek/deepseek-v4-flash/pricing) |
 
 ## Step 8: Which Models Actually Make Sense By Role
 
@@ -246,7 +246,7 @@ This is where cross-family critique makes sense. It is a good heuristic because 
 
 Best current recommendation: **leave them alone**.
 
-- `deepseek-v3.2` for summarizer and character specialist is already extremely cheap.
+- `deepseek-v4-flash` for summarizer and character specialist is already extremely cheap.
 - `mistral-small-2603` for voice checker is already cheap.
 - `grok-4.1-fast` for orchestration is already cheap.
 
@@ -295,7 +295,7 @@ Use this if you want the safest cost reduction:
 - Keep `prose_stylist` on `claude-sonnet-4.6`
 - Keep `plot_architect` on `gemini-3.1-pro-preview`
 - Keep `gate_critic`, `chapter_gate_critic`, `final_gate` on `claude-haiku-4.5`
-- Keep `summarizer`, `character_specialist`, `lore_extractor` on `deepseek-v3.2`
+- Keep `summarizer`, `character_specialist`, `lore_extractor` on `deepseek-v4-flash`
 - Keep `judge_evaluator` on `grok-4.20`
 - Keep `manuscript_reviewer` on `kimi-k2`
 - Make `quality_polish` conditional instead of always-on

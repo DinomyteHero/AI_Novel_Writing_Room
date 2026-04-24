@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch13_sc01",
+  "chapter_number": 13,
+  "scene_number": 1,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "1dbf62dbaa395f64d82c3938ed8cafc3b93fbf0981e0180d67eb9c2ec1754435",
+  "review_status": "unreviewed",
+  "confidence": 0.98,
+  "hard_constraints": [
+    "Preserve Legends continuity: post-Fate of the Jedi (47 ABY), Ben Skywalker as Jedi Knight son of Luke and Mara",
+    "Force mechanics per project: full unweaving is formless pressure with no light/dark distinction, moral intuition silent; render through body-experience first (no axis, ground of sense drops out), no diagnostic vocabulary until earned",
+    "Sensory rendering rules: rotate metaphors (no handrail/flat-note here; use 'no axis', 'response has nothing to compare to'); no 'reached for the Force', no 'it was as if the Force had'; concrete sensations before analysis",
+    "Desh (non-Force-sensitive): perceives via instruments/environment (chrono drift, temperature inconsistencies, biological aberration, grief-without-object as biological effect, no mysticism)",
+    "Terminology: no anachronisms (chrono not clock/watch; use Star Wars vocab); 'Jedi' singular/plural, lowercase 'galaxy', capitalize 'Human'",
+    "No meta-references: no ABY/BBY, no 'Legends/Canon', no Wookieepedia-style taxonomy"
+  ],
+  "canon_risks": [
+    "Ensure unweaving builds on Legends precedents (Nathema void, Malachor V wound) without implying new universal ontology; wound is damage, not revelation",
+    "Ben's Force perception must align with Skywalker lineage (intuitive, experiential) per Fate of the Jedi style, not clinical",
+    "Group dynamics: survivors (Sera/Torin/Kael) use NSW-era language/vocab variants (stitching/work/threadwork), not modern Jedi terms"
+  ],
+  "legends_continuity_notes": [
+    "Force wounds in Legends: persistent phenomena with unreliable sense, emotional amplification, dark residue (e.g., Malachor V from KOTOR II, Nathema from KOTOR/TOR)",
+    "Post-FotJ context: Jedi Order on Coruscant under Luke; Ben post-Abeloth, post-Vestara; Galactic Alliance government",
+    "Ben Skywalker: experienced from GAG service, civil war, Abeloth crisis; dry wit, pragmatic from Mara"
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Setting: Kolven (AU breach zone, former settlement; intact buildings, wrong vegetation (vines reverse, flowers in shadow, no birds), fresh drift",
+    "Key beats: Steady Returns lands (visual green/blue vs Desh scans); Ben steps out, Force formless (energy no structure); Desh chrono skips",
+    "Character sensations (full unweaving): Ben - handrail gone, formless pressure, moral silence; Sera - architecture slack; Torin - relief (not horror); Kael - home language; Desh - grief w/o object, chrono/temp/bio wrongness",
+    "Emotional arc: assessment -> wrongness -> disorientation; group isolation (Force-users blind, Desh anchor)",
+    "Anti-patterns: no analysis/concept phenomenology; no softening/resolution; Desh grief non-mystical",
+    "Revelations: R08 experiential (unweaving felt); hooks H08/H12 resolve",
+    "Subplots: SP-A (Ben lie challenged), SP5 (Desh operational)"
+  ],
+  "allowed_au_divergences": [
+    "Kolven as Veraine's field test (settlement collapsed via unwoven zone)",
+    "Full unweaving zone as Veraine sabotage (amplification array effect preview)",
+    "Survivors' differentiated responses to unweaving (Torin relief, Kael comfort, Sera slack architecture)",
+    "Desh as clean instrument (anti-correlates with Force-users' warped perception)"
+  ],
+  "open_questions": [
+    "Is 'Kolven' a pre-existing Legends planet name? (Scene treats as AU creation; confirm no conflict if needed)"
+  ]
+}

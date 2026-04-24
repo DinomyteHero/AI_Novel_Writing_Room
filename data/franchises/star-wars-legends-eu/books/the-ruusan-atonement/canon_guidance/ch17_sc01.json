@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch17_sc01",
+  "chapter_number": 17,
+  "scene_number": 1,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "c308763033bf75e166db87611b95583f62f76188e3fa7b085bcc2068b76011ea",
+  "review_status": "unreviewed",
+  "confidence": 0.98,
+  "hard_constraints": [
+    "Use Star Wars Legends / Expanded Universe continuity exclusively; treat Disney-only material as invalid.",
+    "Force described through experiential, body-first language per force_mechanics: render sensation before diagnostic terms like 'unweaving' or 'Weave'; use rotating sensory vocabularies (structural, acoustic, etc.) without repeating forbidden phrases.",
+    "No anachronistic terms: datapad/console not computer/laptop; comlink not radio.",
+    "Technology/ship specs match Legends: YT-series freighter hyperspace travel standard.",
+    "'Jedi' singular/plural identical; 'Darth' capitalized only before name.",
+    "Capitalize 'Human'; lowercase 'galaxy'; American English."
+  ],
+  "canon_risks": [
+    "Ensure wound amplification stays within Legends precedents for Force wounds (e.g., Malachor V emotional bleed, Nathema deadening) without implying Disney kyber-bleeding or World Between Worlds framing.",
+    "Torin's 'decided man' telegraph must not contradict his preserved warmth register (Ch 5-12 specimens canonical); voice remains warm/calm/fatal per scene card."
+  ],
+  "legends_continuity_notes": [
+    "Ben Skywalker: Jedi Knight, ~21 ABY age-adjusted to 47 ABY (post-Fate of the Jedi, post-Abeloth); GAG service under Jacen Solo preserved.",
+    "Steady Returns: Modified YT-series light freighter; cramped for group; Desh's domain.",
+    "Hyperspace: Sensor sweeps possible for recent events; countdowns via degradation rates align with Legends sensor tech.",
+    "Force-wounds: Persistent phenomena (Malachor V, Nathema precedents); amplify emotional extremes without possession.",
+    "Galactic Alliance: Primary government; Jedi Temple on Coruscant under Luke."
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Wound phenomenology: 'Force-floor drops' as resettling (handrail gone, parallax worse); amplification pressurizes emotions (arguments hotter); Ben feels in body first (pressure at head back, like altitude sickness).",
+    "Sabotage: Veraine repurposed anchor node during Ch 16 meeting; Desh's backward sensor sweep confirms; procedural/physical discovery.",
+    "Torin: Warmth load-bearing; doorway line 'We need to talk about what happens when we get there' in calm/warm tone with fatal edge; echoes Jacen cadence.",
+    "Group dynamics: Wound amplifies frictions (Ben's voice louder); all present (Ben, Desh, Sera, Torin, Kael).",
+    "Setting: Cockpit/common area, hyperspace to Veranthos; countdown numeral steady on display.",
+    "POV arc: lie_challenged \u2013 Ben recognizes pattern in Torin's tone without naming."
+  ],
+  "allowed_au_divergences": [
+    "Veraine's sabotage/amplification array on Ruusan Corridor anchor nodes.",
+    "Seal degradation cascade: multiplicative, hours countdown post-Ch 16.",
+    "Torin Hal as NSW Battle Master with technique scar; warmth-to-turn telegraph.",
+    "Wound/Weave at Veranthos: AU infrastructure (anchors, thin places) on Legends wound precedents.",
+    "Force-lock/anchor forensics as era-specific Jedi procedure."
+  ],
+  "open_questions": [
+    "Specific sensor readouts for anchor node sabotage \u2013 treat as open if needing precise Legends tech match beyond 'topographic scanner/sensor sweep'."
+  ]
+}

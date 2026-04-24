@@ -1,0 +1,71 @@
+{
+  "generated_at": "2026-04-24T02:25:45.371311+00:00",
+  "base_config": "config\\settings.yaml",
+  "models_requested": [
+    "deepseek",
+    "gpt54_mini"
+  ],
+  "roles": [
+    "plot_architect"
+  ],
+  "models": {
+    "deepseek": {
+      "model_alias": "deepseek",
+      "model_id": "deepseek/deepseek-v3.2",
+      "config_path": ".tmp\\haiku_bench_20260423-plot-deepseek-gptmini\\settings.haiku-bench.deepseek.yaml",
+      "roles": {
+        "plot_architect": {
+          "score": 1.0,
+          "latency_seconds": 69.923,
+          "calls": 2,
+          "errors": [],
+          "details": [
+            {
+              "case_id": "ch01_sc01",
+              "missing_required_fields": [],
+              "target_word_count_expected": 1250,
+              "target_word_count_observed": 1250,
+              "score": 1.0
+            },
+            {
+              "case_id": "ch01_sc02",
+              "missing_required_fields": [],
+              "target_word_count_expected": 1250,
+              "target_word_count_observed": 1250,
+              "score": 1.0
+            }
+          ]
+        }
+      }
+    },
+    "gpt54_mini": {
+      "model_alias": "gpt54_mini",
+      "model_id": "openai/gpt-5.4-mini",
+      "config_path": ".tmp\\haiku_bench_20260423-plot-deepseek-gptmini\\settings.haiku-bench.gpt54_mini.yaml",
+      "roles": {
+        "plot_architect": {
+          "score": 1.0,
+          "latency_seconds": 19.495,
+          "calls": 2,
+          "errors": [],
+          "details": [
+            {
+              "case_id": "ch01_sc01",
+              "missing_required_fields": [],
+              "target_word_count_expected": 1250,
+              "target_word_count_observed": 1250,
+              "score": 1.0
+            },
+            {
+              "case_id": "ch01_sc02",
+              "missing_required_fields": [],
+              "target_word_count_expected": 1250,
+              "target_word_count_observed": 1250,
+              "score": 1.0
+            }
+          ]
+        }
+      }
+    }
+  }
+}

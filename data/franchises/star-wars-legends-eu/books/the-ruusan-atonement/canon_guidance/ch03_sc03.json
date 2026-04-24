@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch03_sc03",
+  "chapter_number": 3,
+  "scene_number": 3,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "d2f7afbf305233bb6374068ccacff7e22f94191a3f58dddbc0415830db23a712",
+  "review_status": "unreviewed",
+  "confidence": 0.98,
+  "hard_constraints": [
+    "Use 'navicomputer' or 'console' for ship navigation systems; avoid 'computer'.",
+    "Ship name 'Steady Returns' must be italicized in prose.",
+    "Force wrongness rendered experientially through spatial register (e.g., pressure against bulkheads, distance not behaving as expected); rotate metaphors per force_mechanics.vocabulary_variation\u2014no 'handrail', 'note', or repeats.",
+    "No in-universe use of ABY/BBY dates, 'Legends', or 'Canon'; reference events by name (e.g., 'after Abeloth').",
+    "'Jedi' singular and plural; no 'Jedis'.",
+    "American English spellings; lowercase 'galaxy'; capitalize 'Human'."
+  ],
+  "canon_risks": [
+    "Ben's Jedi Knight status and relationship to Luke Skywalker (Grand Master on Coruscant) must align with post-Fate of the Jedi Legends continuity\u2014Ben reports directly to Luke on missions, but chain of command exists via Temple protocols.",
+    "GAG shared history with Desh must evoke post-Legacy of the Force shame without contradicting Ben's teenage service under Jacen.",
+    "Hyperspace through unmapped space risks micro-jumps or miscalculations per Legends navicomputer mechanics; wrongness intensification is AU but must not imply non-Legends hyperspace anomalies."
+  ],
+  "legends_continuity_notes": [
+    "In 47 ABY post-Fate of the Jedi, Jedi Order operates from Coruscant Temple under Luke Skywalker; mission reports via holocomm or encrypted burst-transmission standard for field Knights.",
+    "Ben Skywalker (~21 ABY): Jedi Knight, experienced from GAG, Second Galactic Civil War, Abeloth crisis; internal 'Dad' for Luke, weighs Skywalker legacy heavily.",
+    "Desh Rolan (original): Non-Force-sensitive ex-GAG operative; bond with Ben rooted in shared institutional complicity.",
+    "YT-series freighters like Steady Returns use navicomputers for route plotting; unmapped regions require manual overrides or probe data.",
+    "Jedi history includes institutional secrecy (e.g., Valley of the Jedi cover-ups post-Ruusan), paralleling Ben's withholding without inventing new lore."
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Single Ben Skywalker close-third POV; show withholding via action (three deleted drafts, Desh naming it) before interior analysis.",
+    "Emotional arc: Deliberation (drafting/deleting) \u2192 rationalized certainty (Desh's line, nav input) \u2192 suppressed doubt (hyperspace intensification).",
+    "Key beats: Third draft delete; Desh reads/names withholding ('You're not sending that' / 'Not yet'); nav to fortress coordinates; hyperspace jump with intensifying spatial wrongness.",
+    "Subplots: SP-A (Ben's practical dependence on Desh), SP3 (Ben/Luke withholding escalates to active omission).",
+    "Ben/Desh dyad turn: From co-investigators to co-conspirators via GAG-pattern recognition.",
+    "Wrongness: AU seal deterioration; pressurizes as spatial distortion in hyperspace, not fading with distance."
+  ],
+  "allowed_au_divergences": [
+    "Force wrongness (seal failure) intensifies in hyperspace rather than diminishing\u2014tied to Ruusan Atonement AU premise.",
+    "Uncharted fortress coordinates and Ruusan Corridor as seal infrastructure.",
+    "Ben's Lie phase: lie_established\u2014solo action justified as urgency, enabling institutional avoidance."
+  ],
+  "open_questions": [
+    "Specific Legends precedents for Jedi field report formats/protocols in 47 ABY? (Treat as standard holomessage; flag if drafter needs exact phrasing.)",
+    "Navicomputer behavior in fully unmapped Outer Rim sectors post-FotJ? (Risky but feasible with manual plotting; no conflict found.)"
+  ]
+}

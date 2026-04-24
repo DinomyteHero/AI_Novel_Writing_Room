@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch09_sc03",
+  "chapter_number": 9,
+  "scene_number": 3,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "118588c7a1a8f7594468cf81c45addc67de77bc905cabdba27db51d71dc62dcc",
+  "review_status": "unreviewed",
+  "confidence": 1.0,
+  "hard_constraints": [
+    "Use Legends terminology for ship sensors and tech: 'sensor data', 'scanner', 'console', not 'computer', 'LIDAR', or 'radio'.",
+    "Force phenomenology must match 'thin_places_moderate': intermittent Force gaps, dark-side residue bleed, emotional impressions from past; single image 'oil seeping through a cracked floor' per scene notes, no stacked metaphors or diagnostic voice.",
+    "No reflection on Codex argument; alarm cancels thought per anti-patterns.",
+    "Ben's POV: single close-third, no encyclopedia summaries."
+  ],
+  "canon_risks": [
+    "Dark-side residue bleed must evoke Legends Force wounds (Malachor V echo) without implying Disney 'kyber bleeding' or World Between Worlds.",
+    "Energy signatures on sensors: ensure residual spikes read as Force activity traces, consistent with Legends sensor detection of hyperspace/Force anomalies (e.g., YV dovin basals)."
+  ],
+  "legends_continuity_notes": [
+    "Steady Returns: modified YT-series freighter (e.g., YT-1300 like Falcon), standard sensor suite detects energy emissions, hyperspace traces.",
+    "47 ABY post-Fate: Galactic Alliance operational, Jedi from Coruscant Temple; Ben Skywalker as established Knight with GAG history.",
+    "Brotherhood of Darkness: Legends canon (Darth Bane era, ~1000 BBY), outposts plausible as pre-Ruusan Sith facilities.",
+    "Force wounds: Legends precedent (Malachor V, Nathema) feature dark-side echoes, unreliable sensing."
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Scene beats: alarm klaxon -> Desh cockpit/sensor data -> residual signatures days old -> Torin eagerness vs Desh caution -> approach with Force thin place (oil/cracked floor image).",
+    "Emotional arc: alarm -> tactical assessment -> grim anticipation; Ben shifts to commander.",
+    "Characters: all present; first leadership friction (Torin speed vs Desh caution).",
+    "Exit: approaching outpost, deliberate message left.",
+    "Subplots: SP-A (Ben's lie reinforced), SP5 (Desh operational).",
+    "Hook: H09 advanced (Veraine trail intensifies)."
+  ],
+  "allowed_au_divergences": [
+    "Brotherhood Outpost as Corridor anchor node, breached by Veraine weeks/months prior.",
+    "Thin place degradation: Weave gaps leaking dark residue, per force_mechanics_moderate.",
+    "Veraine's trail: days-old signatures as her amplification array repurposing."
+  ],
+  "open_questions": []
+}

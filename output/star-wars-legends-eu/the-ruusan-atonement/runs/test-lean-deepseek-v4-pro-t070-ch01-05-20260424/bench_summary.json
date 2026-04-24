@@ -1,0 +1,66 @@
+{
+  "run": "test-lean-deepseek-v4-pro-t070-ch01-05-20260424",
+  "date": "2026-04-24",
+  "scope": "chapters 1-5 phase 1",
+  "pipeline": "lean_prose_only",
+  "plot_architect": {
+    "route": "deepseek",
+    "model": "deepseek/deepseek-v4-flash",
+    "temperature": 0.4
+  },
+  "prose_stylist": {
+    "route": "deepseekpro",
+    "model": "deepseek/deepseek-v4-pro",
+    "temperature": 0.70
+  },
+  "summary": {
+    "scene_files": 16,
+    "total_words": 22835,
+    "target_words": 19800,
+    "actual_to_target_ratio": 1.15,
+    "quarantined": 0,
+    "markdown_code_fences": 0,
+    "refusal_artifacts": 0
+  },
+  "comparison_to_temp_075": {
+    "run": "test-lean-deepseek-v4-pro-t075-ch01-05-20260424",
+    "total_words": { "temp_070": 22835, "temp_075": 24127, "delta": -1292 },
+    "actual_to_target_ratio": { "temp_070": 1.15, "temp_075": 1.22, "delta": -0.07 },
+    "chapters": [
+      { "chapter": 1, "temp_070_words": 3928, "temp_075_words": 4227, "delta": -299 },
+      { "chapter": 2, "temp_070_words": 4024, "temp_075_words": 4235, "delta": -211 },
+      { "chapter": 3, "temp_070_words": 4264, "temp_075_words": 4602, "delta": -338 },
+      { "chapter": 4, "temp_070_words": 4537, "temp_075_words": 5685, "delta": -1148 },
+      { "chapter": 5, "temp_070_words": 6082, "temp_075_words": 5378, "delta": 704 }
+    ]
+  },
+  "chapters": [
+    { "chapter": 1, "scenes": 3, "words": 3928, "target": 3750, "ratio": 1.05 },
+    { "chapter": 2, "scenes": 3, "words": 4024, "target": 3750, "ratio": 1.07 },
+    { "chapter": 3, "scenes": 3, "words": 4264, "target": 3750, "ratio": 1.14 },
+    { "chapter": 4, "scenes": 3, "words": 4537, "target": 3750, "ratio": 1.21 },
+    { "chapter": 5, "scenes": 4, "words": 6082, "target": 4800, "ratio": 1.27 }
+  ],
+  "scenes": [
+    { "scene": "01.01", "words": 1112, "target": 1250, "ratio": 0.89 },
+    { "scene": "01.02", "words": 1332, "target": 1250, "ratio": 1.07 },
+    { "scene": "01.03", "words": 1484, "target": 1250, "ratio": 1.19 },
+    { "scene": "02.01", "words": 1290, "target": 1200, "ratio": 1.08 },
+    { "scene": "02.02", "words": 1416, "target": 1300, "ratio": 1.09 },
+    { "scene": "02.03", "words": 1318, "target": 1250, "ratio": 1.05 },
+    { "scene": "03.01", "words": 1275, "target": 1300, "ratio": 0.98 },
+    { "scene": "03.02", "words": 1497, "target": 1200, "ratio": 1.25 },
+    { "scene": "03.03", "words": 1492, "target": 1250, "ratio": 1.19 },
+    { "scene": "04.01", "words": 1393, "target": 1200, "ratio": 1.16 },
+    { "scene": "04.02", "words": 1390, "target": 1300, "ratio": 1.07 },
+    { "scene": "04.03", "words": 1754, "target": 1250, "ratio": 1.40 },
+    { "scene": "05.01", "words": 1432, "target": 1400, "ratio": 1.02 },
+    { "scene": "05.02", "words": 1337, "target": 1200, "ratio": 1.11 },
+    { "scene": "05.03", "words": 1786, "target": 1200, "ratio": 1.49 },
+    { "scene": "05.04", "words": 1527, "target": 1000, "ratio": 1.53 }
+  ],
+  "exports": {
+    "manuscript": "export/manuscript.md",
+    "chapter_index": "export/chapter_index.md"
+  }
+}

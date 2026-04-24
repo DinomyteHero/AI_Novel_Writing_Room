@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch22_sc01",
+  "chapter_number": 22,
+  "scene_number": 1,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "8f9b300cf1daab1499f07b2f4364c572889207eb78bd4fda23a34b50e93e1306",
+  "review_status": "unreviewed",
+  "confidence": 1.0,
+  "hard_constraints": [
+    "Use Legends continuity only: post-Fate of the Jedi, 47 ABY; no Disney Canon elements",
+    "Force descriptions must be experiential and sensory first (body-experience before diagnostic terms like 'Weave-Resonance'); rotate vocabulary families (structural, acoustic, etc.) without repeating forbidden phrases",
+    "Terminology: 'datapad' (not laptop/tablet); 'the Weave' lowercase unless sentence start; 'Weave-Resonance' or 'the resonance' for shared-burden containment; character variants (e.g., Sera: 'stitching')",
+    "Capitalize 'Human(s)' per style guide; 'Jedi' singular/plural; 'Darth' capitalized before name",
+    "No in-universe use of 'Legends'/'Canon'; no ABY/BBY dates; reference events by name (e.g., 'Abeloth crisis')",
+    "Ben's POV: close third, Skywalker lineage perception of Force as handrail/footing gone in wound zones"
+  ],
+  "canon_risks": [
+    "Ensure Ankhural Codex treated as in-universe heresy, not confirmed truth; resonance builds on Legends precedents (Nathema, Malachor V wounds) without overriding light/dark as natural",
+    "Sera's NSW-era expertise (Force-locks, archaic notation) must align with authorized AU (NSW Jedi Lords vocabulary like 'stitching')"
+  ],
+  "legends_continuity_notes": [
+    "Ben Skywalker: Jedi Knight, post-Abeloth, experienced in GAG/GA Guard under Jacen; dry wit, pragmatic from Mara",
+    "Veranthos: AU vergence world, site of Battle of Veranthos (AU event countering Brotherhood ritual); wound consistent with Legends Force wounds (unreliable sense, emotional amplification)",
+    "Desh Rolan: non-Force-sensitive ex-GAG operative; perceives wrongness via instruments/environment (chrono drift, etc.)",
+    "Era: Galactic Alliance government; Jedi Temple on Coruscant under Luke; no Empire/First Order/Inquisitorius"
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Scene on Veranthos camp (pre-dawn, wound pull gravitational); characters: Ben (POV), Sera (NSW Knight, Force-lock expert), Desh (logistics)",
+    "Action: Spread Codex notes; Sera adapts archaic notation to Ben's framework on shared datapad; Desh checks supplies; turning point: Sera works fragment as live answer (principled flexibility via action, not narration)",
+    "Force mechanics: Thin-place high/moderate effects (parallax error, gaps, emotional bleed); resonance starts discordant, emerges as warmth; Desh notes environmental de-correlation",
+    "Relationship: Ben/Sera to true partners (possible 'Ben' address once, subtle); Desh logistical anchor",
+    "R12 reveal: Weave-Resonance as shared-burden (three traditions: NSW/Jedi/Sith); depends on Kael",
+    "Sensory: Codex fragments everywhere; wound's patient pull; handwriting mingling; supply manifest checks",
+    "Voice: Zahn-procedural; no diagnostic narration of arcs/mechanics"
+  ],
+  "allowed_au_divergences": [
+    "Ankhural Codex and 'threadwork'/Weave as era-specific heresy",
+    "Weave-Resonance as multi-tradition shared-burden containment (distributes seal load, no living anchors)",
+    "Sera Varik as NSW survivor/anchor; her 'stitching' vocabulary",
+    "Veranthos wound/Scar from Gavran's technique (authorized override of Ruusan Reformations purpose)",
+    "Resonance theory from Codex fragment: emergent structure from discordant traditions"
+  ],
+  "open_questions": []
+}

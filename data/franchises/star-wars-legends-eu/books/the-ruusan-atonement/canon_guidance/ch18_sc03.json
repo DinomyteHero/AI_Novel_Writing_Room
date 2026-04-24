@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch18_sc03",
+  "chapter_number": 18,
+  "scene_number": 3,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "c98fa495502763736300a5e0bf1dee62961e009cb58a99a1575635c4afe2b34f",
+  "review_status": "unreviewed",
+  "confidence": 1.0,
+  "hard_constraints": [
+    "Scene must be strictly solitary: only Ben Skywalker present in prose; no other characters appear or are referenced in dialogue.",
+    "Mara Jade Skywalker memory must be a single remembered pragmatic sentence only\u2014no Force-ghost, mystical visitation, reassuring dream, or extended flashback.",
+    "Ben must not articulate the Skywalker-trap framework, Torin-pattern framework, or clinical trust problem in interiority.",
+    "Scene closes indefinitely on 'maybe a different solution'; no resolution or breakthrough.",
+    "Lightsaber rendered as physical weight/anchor only, not symbolic.",
+    "Use Star Wars Legends terminology: datapad (not laptop), no anachronistic terms like DNA/radio/sonar.",
+    "Force described experientially per force_mechanics: body-experience before analysis; no 'reached for the Force' repeats.",
+    "'Jedi' singular/plural unchanged; 'Darth' capitalized before name.",
+    "American English; lowercase 'galaxy'; capitalize 'Human'."
+  ],
+  "canon_risks": [
+    "Ensure Mara's pragmatism aligns with Legends portrayal (ex-Imperial operative, spy/assassin turned Jedi; operational mindset from Legacy of the Force).",
+    "Gavran's resonance note must use era-specific vocabulary ('Weave-Resonance' or 'resonance' per terminology_registry; sparingly, earned by experience)."
+  ],
+  "legends_continuity_notes": [
+    "Ben Skywalker: Jedi Knight, ~20-21 in 47 ABY, son of Luke/Mara; GAG service under Jacen Solo, fought Abeloth (Fate of the Jedi), Vestara Khai betrayal.",
+    "Mara Jade Skywalker: Deceased (killed by Jacen/Caedus, Legacy of the Force); remembered as pragmatic, no post-death Force appearances here.",
+    "Steady Returns: Modified YT-series light freighter (italicized as ship name).",
+    "Ankhural Codex: AU artifact (~2400 BBY heretical treatise); contains resonance annotations from Gavran-era Jedi Lords.",
+    "Post-Fate of the Jedi (47 ABY): Jedi Order under Luke at Coruscant Temple; Galactic Alliance government."
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "POV: Ben Skywalker close third; Bujold-interior density (self-aware without self-pity), Zahn-tight physical frame.",
+    "Setting: Steady Returns corridor, night cycle\u2014cold deck plates, bulkhead vibration, ship hum, datapad glow.",
+    "Key beats: (1) Ben sits on deck plates, body admits exhaustion; (2) Pulls up Codex/Gavran resonance note; (3) Re-reads 'We lacked the will or the trust'\u2014emphasis shifts to trust problem.",
+    "Emotional arc: Exhausted honesty \u2192 Mara pragmatist memory \u2192 Note reinterpretation (trust as structural issue).",
+    "AU elements: Resonance note reinterpretation advances Ben's lie_challenged phase (SP-A); plants PP44.",
+    "Sensory: Physical anchors (deck cold, lightsaber weight, datapad on knees); no Force reach.",
+    "Weave-Resonance: Multi-tradition shared-burden; Gavran annotation per Codex."
+  ],
+  "allowed_au_divergences": [
+    "Gavran's resonance annotation in Ankhural Codex ('We lacked the will or the trust to attempt it').",
+    "Reinterpretation of note as trust problem (not bravery).",
+    "Mara memory as operational pragmatist doing 'work instead of pain' (first instance).",
+    "Ruusan Atonement context: Jedi Lords' forbidden technique, seal anchors, Weave damage at Veranthos."
+  ],
+  "open_questions": []
+}

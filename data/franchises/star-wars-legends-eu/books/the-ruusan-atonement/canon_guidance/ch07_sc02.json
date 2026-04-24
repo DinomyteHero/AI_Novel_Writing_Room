@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch07_sc02",
+  "chapter_number": 7,
+  "scene_number": 2,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "7df8e96f15a67ace021f4060af0e3ba603195c2527356ee36f646103713e7b86",
+  "review_status": "unreviewed",
+  "confidence": 0.95,
+  "hard_constraints": [
+    "Use Star Wars Legends / Expanded Universe continuity only; treat Disney Canon as invalid unless overlapping with Legends (Canon Contract: Continuity Branch).",
+    "Preserve AU divergences explicitly authorized: Force-lock as NSW-era Jedi security technique keyed to Force signatures; 'unweaving' as forbidden technique procedure within Force-lock discipline tree; Veranthos as decisive NSW battle site (Concept Seed: canon_overridden).",
+    "'Jedi' singular and plural, never 'Jedis'; 'Darth' capitalized before name; lowercase 'galaxy'; American English; no ABY/BBY in prose (Canon Contract: style_constraints).",
+    "Force rendered experientially via Ben's body-sense before diagnostic terms like 'unweaving' or 'Force-lock'; rotate sensory vocab families, avoid forbidden repeats (Concept Seed: force_mechanics, vocabulary_variation)."
+  ],
+  "canon_risks": [
+    "Force-lock discipline portrayed as formal NSW Jedi training tree must not imply modern Jedi (post-Ruusan) retain it unchanged; modern Order has incomplete historical knowledge (Scene Card: stakes.personal; Concept Seed: institutional lie).",
+    "Jedi Lords era techniques must remain militarized but not exceed Legends precedents like battle meditation or Force barriers; avoid implying systemic Sith-like practices pre-Reformations (Scene Card: canon_elements_needed).",
+    "Veraine's inheritance of Brotherhood training from Jedi Lords material must align with Legends Sith drawing from captured Jedi knowledge, not invent new cross-training (Scene Card: canon_elements_needed)."
+  ],
+  "legends_continuity_notes": [
+    "New Sith Wars (c. 2000-1000 BBY): Jedi organized into Army of Light under Lords like Valenthyne Farfalla; militarized structure with ranks like Battle Master (Torin Hal); ended with Ruusan Reformations post-thought bomb (Darth Bane novels by Drew Karpyshyn).",
+    "Brotherhood of Darkness: Sith led by Lord Kaan; used dark-side alchemy and mass rituals; drew from pre-Reformations Jedi techniques via espionage/captives (Darth Bane: Path of Destruction).",
+    "Force techniques in Legends EU: Security seals/locks appear in era-specific contexts (e.g., holocron guardians, stasis fields in Jedi Academy Trilogy by KJA); Luceno's Dark Lord details NSW-era desperation tactics (primary_anchor). Zahn/Stover emphasize intuitive Force use over procedural naming.",
+    "Vergences/wounds: Precedents like Valley of the Jedi (Ruusan), Malachor V (KOTOR II); procedural 'unweaving' builds on these without contradicting."
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Scene beats: Sera palms Force-lock (dissolves in seconds via muscle memory); Ben scrolls archaic holorecords; Sera translates/names 'unweaving' as Force-lock procedure (clean/short sentence, weight on her reading); Veranthos entry (coordinates/purpose/warning); Ben realizes Veraine practices inherited discipline (Scene Card: action_beats).",
+    "Ben POV: Intellectual curiosity -> historical reckoning -> urgency; lie_reinforced (trusts own Force-read over others); thin place: attention pulls at angle, concentration works (Scene Card: emotional_trajectory, sensory_details).",
+    "Sera: Archaic formal speech, no early contractions; demonstrates value via lock-cracking/translation (Terminology: Force-lock hyphenated; Scene Card: turning_point).",
+    "Setting: Battlefield Node bunker records room; Desh present but non-Force (characters_present).",
+    "R04b revelation: Technique named procedural; H07 advanced (Scene Card)."
+  ],
+  "allowed_au_divergences": [
+    "Force-lock as keyed NSW security technique/Sera's expertise (Terminology Registry).",
+    "'Unweaving' as named forbidden technique in Force-lock discipline; technique lineage (Nathema -> Malachor V -> etc. -> Gavran) (Concept Seed: canon_overridden, force_mechanics).",
+    "Battlefield Node as first Ruusan Corridor anchor site; Veranthos as wound location/Brotherhood ritual site (Terminology Registry, Chapter Blueprint).",
+    "Veraine as Brotherhood alchemist practicing inherited unweaving discipline (primary_antagonistic_force)."
+  ],
+  "open_questions": [
+    "Precise Legends source for 'Force-lock' as formal discipline tree? Contract defines as era-specific/AU; confirm no direct overlap with holocron guardians or similar (e.g., Jedi vs. Sith by Ryan).",
+    "Jedi Lords procedural techniques: Any NSW-specific lock/seal examples beyond general Force barriers (Luceno/Zahn)?"
+  ]
+}

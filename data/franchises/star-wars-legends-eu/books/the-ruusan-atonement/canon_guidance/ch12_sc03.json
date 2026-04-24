@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch12_sc03",
+  "chapter_number": 12,
+  "scene_number": 3,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "6804d8f4c5d663357ef29b5c0c75fb0006c3680d617d914b2088f987798a0cd0",
+  "review_status": "unreviewed",
+  "confidence": 1.0,
+  "hard_constraints": [
+    "Force sensations must be rendered through body-experience first (pressure-drop in body, knees registering before ears), analysis second; no diagnostic vocabulary like 'seal actively attacked' from Ben's interior narration",
+    "Use Star Wars vocabulary: nav display, chrono (not computer, clock); Steady Returns italicized as ship name",
+    "'Jedi' singular and plural only; lowercase 'galaxy'; American English",
+    "No forbidden repeat phrases: 'reached for the Force', 'the Force was still there', etc."
+  ],
+  "canon_risks": [
+    "Torin's attentive posture to spike must preserve ambiguity as counter-current (Ch12 in his lie_reinforced phase); avoid signaling corruption trajectory prematurely per D7 restructuring"
+  ],
+  "legends_continuity_notes": [
+    "47 ABY post-Fate of the Jedi: Ben Skywalker established Jedi Knight; Galactic Alliance as government; Jedi Temple on Coruscant under Luke",
+    "YT-series freighters (Steady Returns) standard Legends tech; navicomputer/displays use sensor sweeps, not LIDAR",
+    "Force wounds (precedents: Nathema, Malachor V) cause unreliable sense, emotional amplification \u2013 aligns with spike as physical destabilization"
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Sensory: wrongness as pressure-drop/wobble in knees, Weave snapping to chaos then settling; Desh's chrono one second fast vs Ben's",
+    "Key beats: Ben staggers/doorframe; Sera braces wall; Torin tilts head listening (no recoil); Desh nav to settlement world (Kolven cue)",
+    "Emotional arc: shock -> assessment -> grim acceleration realization; Torin gap widens",
+    "No Ben diagnostic voice: body/Desh/group do realization work",
+    "H12 plant: wrongness lurch as deliberate attack signal",
+    "Active subplots SP-A/SP5; plot threads: seal attacked, Veraine pilgrimage, timeline compress"
+  ],
+  "allowed_au_divergences": [
+    "Maetha's Training Facility as Caldera Knights site (~1200 BBY)",
+    "Veraine's pilgrimage/study at Maetha's (ideological ancestor link)",
+    "Wrongness spike as Veraine-accelerated seal failure (cascade mechanics)",
+    "Settlement world (next node, Kolven) as populated thin place",
+    "Torin's attunement to spike as technique-relief misperception"
+  ],
+  "open_questions": []
+}

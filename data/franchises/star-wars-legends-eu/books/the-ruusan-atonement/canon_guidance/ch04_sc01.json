@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch04_sc01",
+  "chapter_number": 4,
+  "scene_number": 1,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "f1d37d4d75a910719d5b37a56588d07f4f05d786b45404634b7216c8aed59e78",
+  "review_status": "unreviewed",
+  "confidence": 0.96,
+  "hard_constraints": [
+    "No Jedi symbols visible on the fortress exterior (scene card anti-pattern and notes: secrecy is a fact of design)",
+    "Do not use diagnostic vocabulary for the wrongness or fortress purpose (project force_mechanics sensory_vocabulary rule: body-experience before analysis; scene notes anti-pattern)",
+    "Force phenomenology must rotate metaphors: here use weight/shape/held breath/pressure through rock, avoiding handrail/note/frequency (project force_mechanics vocabulary_variation rules and scene notes)",
+    "Use Legends Star Wars terminology: glow rod (not flashlight), durasteel (not steel), etc. (project canon_profile anachronistic_terms)",
+    "'Jedi' singular and plural only (project canon_constraints style_constraints)"
+  ],
+  "canon_risks": [
+    "Skywalker bloodline recognition by ancient mechanism must feel like intuitive Legends precedent (e.g., hereditary Force echoes in EU artifacts) without inventing new lore; if ungrounded, risks feeling contrived",
+    "Force-lock rejection of modern Jedi signature vs. acceptance of older lineage could imply unauthorized Jedi doctrinal shift post-Ruusan; ensure it reads as era-specific calibration per AU fortress design"
+  ],
+  "legends_continuity_notes": [
+    "New Sith Wars/Jedi Lords era (~1000 BBY) fortresses: utilitarian, defensive, integrated into terrain for secrecy and endurance (e.g., Starkiller Base precursors or Jedi outposts in Darth Bane novels)",
+    "Force-locked facilities common in Legends (e.g., Jedi archives in Jedi Academy Trilogy, Sith tombs in KOTOR; keyed to signature/knowledge patterns)",
+    "Bloodline Force signatures: hereditary echoes recognized in EU (e.g., Skywalker lineage attunement to certain artifacts in Dark Journey or Legacy of the Force)",
+    "Thin place effects: builds on Legends Force wounds (Malachor V echo in KOTOR II: perceptual distortion, emotional bleed); amplify subtly as low-grade disorientation per project force_mechanics thin_places_mild",
+    "Outer Rim uncharted worlds: cold, thin-atmosphere plateaus standard (e.g., Hoth-like geology in Empire Strikes Back novelization, but Legends geology)"
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "POV: Ben Skywalker close third; register his Skywalker lineage recognition as unsettling displacement, not triumph (scene emotional_arc: awed caution -> frustration -> unsettled recognition)",
+    "Key beats: plateau trek (breath steaming, angles wrong), palm on mechanism (amber reject modern technique), deeper reach (green via bloodline), door opens (ancient air, Desh glow rod sweep, Ben Force probe)",
+    "Sensory: thin air burns lungs, wind low registers, stone patina, wrongness as shaped weight/held breath/pressure through rock (project force_mechanics thin_places_mild for Ben)",
+    "Desh role: tactical assessment (defensible, no extraction), non-Force read anchors scene (SP-A subplot)",
+    "Exit: inside entry corridor, wrongness concentrated/shaped; something alive (sets Ch4 escalation)",
+    "Word target: 1200; in medias res open"
+  ],
+  "allowed_au_divergences": [
+    "Gavran's Fortress as AU seal hub: Jedi Lords-era construction with living-maintenance infrastructure (project canon_overridden: fortress, anchor system)",
+    "Mechanism keyed to pre-Ruusan Jedi Lords signature, overridden by Skywalker bloodline (authorized via Ben's preserved canon role and AU vergence/seal mechanics)",
+    "Concentrated wrongness as seal pressure channeled through mountain (project force_mechanics: wound pressurization, Weave damage at thin place)"
+  ],
+  "open_questions": [
+    "Exact Legends precedent for Jedi fortress exterior lacking symbols (Jedi Lords secrecy during NSW plausible but unconfirmed; flag if drafter needs source check)"
+  ]
+}

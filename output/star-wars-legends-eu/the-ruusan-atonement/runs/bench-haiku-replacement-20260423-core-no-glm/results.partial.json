@@ -1,0 +1,602 @@
+{
+  "generated_at": "2026-04-24T02:07:59.882564+00:00",
+  "base_config": "config\\settings.yaml",
+  "models_requested": [
+    "haiku",
+    "grok41fast",
+    "qwen",
+    "deepseek",
+    "gpt54_mini"
+  ],
+  "roles": [
+    "continuity_extractor",
+    "presence_checker",
+    "final_gate",
+    "micro_repair",
+    "plot_architect",
+    "chapter_gate_critic"
+  ],
+  "models": {
+    "haiku": {
+      "model_alias": "haiku",
+      "model_id": "anthropic/claude-haiku-4.5",
+      "config_path": ".tmp\\haiku_bench_20260423-core-no-glm\\settings.haiku-bench.haiku.yaml",
+      "roles": {
+        "continuity_extractor": {
+          "score": 0.25,
+          "latency_seconds": 5.929,
+          "calls": 2,
+          "errors": [],
+          "details": {
+            "eval_set_version": "2026-04-21-stub",
+            "min_confidence": 0.85,
+            "n_scenes": 2,
+            "precision": 0.25,
+            "recall": 0.25,
+            "false_positive_rate": 0.75,
+            "false_positive_count": 3,
+            "per_scene": [
+              {
+                "scene_id": "stub_ch01_sc01",
+                "truth_count": 3,
+                "prediction_count": 3,
+                "trusted_count": 3,
+                "tp": 0,
+                "fp": 3,
+                "fn": 3
+              },
+              {
+                "scene_id": "stub_ch02_sc01",
+                "truth_count": 1,
+                "prediction_count": 1,
+                "trusted_count": 1,
+                "tp": 1,
+                "fp": 0,
+                "fn": 0
+              }
+            ],
+            "generated_at": "2026-04-24T02:08:05.833769+00:00",
+            "predictions_by_scene": {
+              "stub_ch01_sc01": [
+                {
+                  "event_type": "location_change",
+                  "scene_id": "ch01_sc01",
+                  "subject": "Hunter",
+                  "details": {
+                    "from_location": "family_estate",
+                    "to_location": "Coruscant spaceport"
+                  },
+                  "confidence": 0.97,
+                  "extractor_version": "v0.1"
+                },
+                {
+                  "event_type": "injury_state",
+                  "scene_id": "ch01_sc01",
+                  "subject": "Hunter",
+                  "details": {
+                    "severity": "minor",
+                    "body_part": "forearm",
+                    "mechanism": "loose bolt glanced forearm in shuttle"
+                  },
+                  "confidence": 0.95,
+                  "extractor_version": "v0.1"
+                },
+                {
+                  "event_type": "possession",
+                  "scene_id": "ch01_sc01",
+                  "subject": "Hunter",
+                  "details": {
+                    "item": "datapad",
+                    "action": "acquired",
+                    "counterparty": "Hunter's father"
+                  },
+                  "confidence": 0.96,
+                  "extractor_version": "v0.1"
+                }
+              ],
+              "stub_ch02_sc01": [
+                {
+                  "event_type": "revelation",
+                  "scene_id": "ch02_sc01",
+                  "subject": "Ben",
+                  "details": {
+                    "revelation_id": "R01",
+                    "recipient": "Ben"
+                  },
+                  "confidence": 0.95,
+                  "extractor_version": "v0.1"
+                }
+              ]
+            }
+          }
+        },
+        "presence_checker": {
+          "score": 1.0,
+          "latency_seconds": 2.666,
+          "calls": 3,
+          "errors": [],
+          "details": [
+            {
+              "case_id": "clean_reference_not_present",
+              "expected": [],
+              "observed": [],
+              "score": 1.0
+            },
+            {
+              "case_id": "absent_character_acts",
+              "expected": [
+                "Luke Skywalker"
+              ],
+              "observed": [
+                "Luke Skywalker"
+              ],
+              "score": 1.0
+            },
+            {
+              "case_id": "comm_call_is_not_physical_presence",
+              "expected": [],
+              "observed": [],
+              "score": 1.0
+            }
+          ]
+        },
+        "final_gate": {
+          "score": 1.0,
+          "latency_seconds": 5.234,
+          "calls": 3,
+          "errors": [],
+          "details": [
+            {
+              "case_id": "clean_contract",
+              "expected_any": [],
+              "observed_codes": [],
+              "score": 1.0,
+              "raw": {
+                "verdict": "pass",
+                "failure_codes": [],
+                "severity": "non_blocking",
+                "route_to": null
+              }
+            },
+            {
+              "case_id": "closing_hook_violation",
+              "expected_any": [
+                "CLOSING_HOOK_VIOLATION"
+              ],
+              "observed_codes": [
+                "CLOSING_HOOK_VIOLATION"
+              ],
+              "score": 1.0,
+              "raw": {
+                "verdict": "fail_structural",
+                "failure_codes": [
+                  {
+                    "code": "CLOSING_HOOK_VIOLATION",
+                    "location": "final sentence: 'Two days later, the shuttle dropped from hyperspace above the first survey world.'",
+                    "description": "Content extends past the closing hook ('Ben asks how soon they leave.') into the next scene's territory. The sentence about the shuttle dropping from hyperspace belongs to the following scene, not this one.",
+                    "fix_hint": "End the scene immediately after Ben's closing hook line: '\"How soon do we leave?\"' Remove the shuttle sentence entirely."
+                  }
+                ],
+                "severity": "blocking",
+                "route_to": "full_rewrite"
+              }
+            },
+            {
+              "case_id": "weak_turning_point",
+              "expected_any": [
+                "MISSING_TURNING_POINT",
+                "WEAK_TURNING_POINT"
+              ],
+              "observed_codes": [
+                "MISSING_TURNING_POINT",
+                "CLOSING_HOOK_VIOLATION"
+              ],
+              "score": 1.0,
+              "raw": {
+                "verdict": "fail_structural",
+                "failure_codes": [
+                  {
+                    "code": "MISSING_TURNING_POINT",
+                    "location": "entire prose block",
+                    "description": "The turning point 'Ben accepts the mission after seeing the anomaly cluster' is completely absent from the polished prose. The scene shows discussion of filing procedures that ends without decision, which directly contradicts the required turning point where Ben accepts the mission.",
+                    "fix_hint": "Restore the moment where Ben sees the anomaly cluster data and accepts the mission. This is the structural core of the scene and cannot be removed or replaced."
+                  },
+                  {
+                    "code": "CLOSING_HOOK_VIOLATION",
+                    "location": "final sentence",
+                    "description": "The scene ends with 'the conversation ended without a decision' rather than the required closing hook 'Ben asks how soon they leave.' The current ending is premature and does not reach the specified closing hook.",
+                    "fix_hint": "Ensure the scene concludes with Ben asking 'how soon they leave' (or equivalent phrasing that captures this question). This is the contractual endpoint."
+                  }
+                ],
+                "severity": "blocking",
+                "route_to": "full_rewrite"
+              }
+            }
+          ]
+        },
+        "micro_repair": {
+          "score": 1.0,
+          "latency_seconds": 4.505,
+          "calls": 2,
+          "errors": [],
+          "details": [
+            {
+              "case_id": "presence_repair_exact_span",
+              "expected_repair": true,
+              "observed_repair_count": 1,
+              "exact_patterns": true,
+              "score": 1.0,
+              "raw": {
+                "summary": "Luke Skywalker is not present in the scene; removing the sentence describing his action resolves the presence violation.",
+                "repairs": [
+                  {
+                    "issue_type": "presence_violation",
+                    "pattern": "Luke Skywalker crossed the office and handed him a second report. ",
+                    "replacement": "",
+                    "reason": "Deletes the entire sentence attributing an action to absent character Luke Skywalker, leaving only Ben's solo study and his reaction to the timestamp."
+                  }
+                ]
+              }
+            },
+            {
+              "case_id": "no_exact_span_needed",
+              "expected_repair": false,
+              "observed_repair_count": 0,
+              "exact_patterns": true,
+              "score": 1.0,
+              "raw": {
+                "summary": "No safe exact-span repair exists for this issue.",
+                "repairs": []
+              }
+            }
+          ]
+        },
+        "plot_architect": {
+          "score": 1.0,
+          "latency_seconds": 39.126,
+          "calls": 2,
+          "errors": [],
+          "details": [
+            {
+              "case_id": "ch01_sc01",
+              "missing_required_fields": [],
+              "target_word_count_expected": 1250,
+              "target_word_count_observed": 1250,
+              "score": 1.0
+            },
+            {
+              "case_id": "ch01_sc02",
+              "missing_required_fields": [],
+              "target_word_count_expected": 1250,
+              "target_word_count_observed": 1250,
+              "score": 1.0
+            }
+          ]
+        },
+        "chapter_gate_critic": {
+          "score": 1.0,
+          "latency_seconds": 22.54,
+          "calls": 1,
+          "errors": [],
+          "details": {
+            "missing_keys": [],
+            "raw": {
+              "chapter_passed": true,
+              "chapter_level_failures": [],
+              "scene_level_flags": [],
+              "metrics": {
+                "scene_variety_index": 0.72,
+                "conflict_density": 0.85,
+                "chapter_hook_strength": 0.95,
+                "arc_pressure_progression": "ascending"
+              },
+              "blueprint_checks": {
+                "mission_achieved": {
+                  "status": "pass",
+                  "evidence": "Scene 1 establishes the wrongness through sparring failure and Ben's private acknowledgment. Scene 2 launches the investigation via Luke's survey assignment and validates Ben's perception. Scene 3 departs Coruscant with the wrongness now directional and pulling rather than ambient. All three elements of chapter_mission are executed."
+                },
+                "chapter_turn_landed": {
+                  "status": "pass",
+                  "evidence": "Ben moves from trying to ignore the disturbance (Scene 1: 'he should tell someone... he wasn't going to do it yet') to following it under institutional cover (Scene 2: accepts the survey mission) to being actively pulled by it (Scene 3: 'It knew where it was going. Ben watched the hyperspace tunnel stream past and kept his grip on the controls and said nothing, because there was nothing to say yet. The wrongness pulled, patient and specific, toward something waiting at the far end of the bearing.'). The turn from private unease to directional pursuit is complete."
+                },
+                "reveal_payload_delivered": {
+                  "status": "pass",
+                  "evidence": "R01 (wrongness acquires direction during hyperspace) lands in Scene 3's closing beats: 'The wrongness was still there, and it was doing something it hadn't done before. Not pressing outward in every direction. Not ambient. It was pulling, with a weight and a vector, steady and patient and aimed.' and 'The wrongness pulled, patient and specific, toward something waiting at the far end of the bearing.'"
+                },
+                "subplot_obligations_touched": {
+                  "status": "pass",
+                  "evidence": "SP-A and SP3 are marked active in all three scenes but not explicitly resolved in prose. However, the chapter blueprint notes indicate these are ongoing subplots meant to be 'touched' rather than resolved. Scene 1 establishes Ben's isolation (SP-A context). Scene 2 shows Luke's shadow and institutional distance (SP3 context). Scene 3 shows Ben's choice to operate outside Jedi channels (both subplots advanced). The obligations are touched through character behavior and relationship dynamics rather than explicit exposition."
+                },
+                "pacing_curve_matches": {
+                  "status": "pass",
+                  "evidence": "Blueprint specifies 'rising' pacing curve. Scene 1 pressure: interpersonal conflict (sparring loss, private acknowledgment). Scene 2 pressure: institutional pressure (mission assignment, father-son distance). Scene 3 pressure: existential pressure (wrongness becomes directional, pulling Ben toward unknown destination). Pressure escalates from personal to institutional to existential across the chapter."
+                },
+                "exit_vector_reached": {
+                  "status": "pass",
+                  "evidence": "Blueprint exit vector: 'Ben in hyperspace, wrongness pulling not just pointing — active, not ambient. The chapter ends on unconscious pursuit disguised as a routine survey.' Final prose: 'Ben watched the hyperspace tunnel stream past and kept his grip on the controls and said nothing, because there was nothing to say yet. The wrongness pulled, patient and specific, toward something waiting at the far end of the bearing. He let it pull.' Ben is in hyperspace, the wrongness is actively pulling (not ambient), and the pursuit is disguised as routine survey work."
+                }
+              },
+              "detailed_analysis": {
+                "mission_distinctness": "Scene 1 mission: establish wrongness through failure and private acknowledgment. Scene 2 mission: validate wrongness and launch investigation via Luke's assignment. Scene 3 mission: choose non-Jedi partnership and depart with wrongness directional. Each scene accomplishes a distinct narrative goal; no redundancy between adjacent scenes.",
+                "stakes_escalation": "Scene 1 stakes: Ben's reliability as a Force-sensitive and Jedi Knight (personal/internal). Scene 2 stakes: institutional trust and father-son distance (interpersonal/institutional). Scene 3 stakes: the wrongness is active and pulling toward unknown destination (existential/external). Stakes transform from personal doubt to institutional mission to existential threat. Clear escalation and transformation.",
+                "opening_hook_strength": "Scene 1 opens in medias res with immediate physical action: 'The training blade caught him across the shoulder, and Ben stepped back hard enough to reset his footing.' Followed immediately by the problem: 'His guard had been up... He should have had the strike before it started. He was a half beat late anyway.' Within 200 words, reader understands Ben's problem is concrete, physical, and mysterious. Strong engagement hook.",
+                "end_hook_strength": "Scene 3 closes with chapter-end hook: the wrongness has become directional and is actively pulling Ben toward an unknown destination. 'The wrongness pulled, patient and specific, toward something waiting at the far end of the bearing. He let it pull.' This is a cliffhanger that demands continuation — what is the wrongness pulling him toward? What will he find? The hook is strong and unanswered.",
+                "scene_variety": "Scene 1: sequel (internal conflict, sparring failure). Scene 2: action (mission briefing, institutional pressure). Scene 3: action (decision, departure). Conflict types: Scene 1 interpersonal (Ben vs. Rendell, Ben vs. himself). Scene 2 interpersonal (Ben vs. Luke's distance). Scene 3 internal (Ben's choice to avoid Jedi partnership). Variety is present but could be stronger — two action scenes in a row (Scenes 2-3) creates slight rhythm flatness. However, the internal conflict in Scene 3 provides texture differentiation.",
+                "pressure_progression": "Scene 1: moderate pressure (private failure, internal acknowledgment). Scene 2: elevated pressure (institutional validation, mission assignment, father-son strain). Scene 3: highest pressure (wrongness becomes active, pulling, existential threat). Pressure escalates consistently. Final scene is highest-pressure moment. Progression is ascending as specified.",
+                "relationship_turn_ben_luke": "Blueprint specifies: 'from institutional distance — father-son filtered through rank and mission' to 'private alliance — Luke entrusts Ben with the wrongness investigation without closing the distance.' Scene 2 delivers this turn: Luke validates Ben's private reading ('I know'), assigns him the mission without opening the roster, and neither acknowledges what the solo assignment means. The distance remains ('Sir,' Ben said) but the alliance is formed (Luke trusts Ben alone with this). Turn is landed.",
+                "relationship_turn_ben_desh": "Blueprint specifies: 'from dormant contact — shared GAG history neither discusses' to 'operational partnership — Desh accepts the job without asking why Ben didn't call a Jedi.' Scene 3 delivers this turn: Desh answers the comm, agrees without rationale demanded, and the unspoken GAG history surfaces as shared understanding. The partnership locks in on a foundation of shared history neither discusses. Turn is landed.",
+                "hook_movements": "H01 planted in Scene 1 (wrongness established as concrete problem). H01 advanced in Scene 2 (wrongness validated and given direction via survey mission). H01 not resolved by chapter end (wrongness becomes active and pulling — escalation rather than resolution). This matches blueprint specification that H01 is 'resolved: []' (empty list).",
+                "prose_quality_notes": "All three scenes maintain consistent voice (Zahn-style close third, interior voice sharp and self-deprecating). Sensory details are grounded and specific. Dialogue is minimal but weighted. The wrongness is consistently described through sensory/vibrational metaphors (half-beat lag, sour note, pulling) rather than visual or diagnostic language. Anti-patterns from scene cards are avoided: no clinical articulation of wrongness, no mission-debrief sentences in Ben's interiority, no flashbacks, no diagnostic voice. The prose honors the chapter blueprint's instruction to keep the wrongness 'sensory and physical rather than visionary.'"
+              },
+              "blueprint_used": true,
+              "lore_used": false,
+              "lore_entry_count": 0
+            }
+          }
+        }
+      }
+    },
+    "grok41fast": {
+      "model_alias": "grok41fast",
+      "model_id": "x-ai/grok-4.1-fast",
+      "config_path": ".tmp\\haiku_bench_20260423-core-no-glm\\settings.haiku-bench.grok41fast.yaml",
+      "roles": {
+        "continuity_extractor": {
+          "score": 0.5917,
+          "latency_seconds": 10.391,
+          "calls": 2,
+          "errors": [],
+          "details": {
+            "eval_set_version": "2026-04-21-stub",
+            "min_confidence": 0.85,
+            "n_scenes": 2,
+            "precision": 0.6667,
+            "recall": 0.5,
+            "false_positive_rate": 0.3333,
+            "false_positive_count": 1,
+            "per_scene": [
+              {
+                "scene_id": "stub_ch01_sc01",
+                "truth_count": 3,
+                "prediction_count": 2,
+                "trusted_count": 2,
+                "tp": 1,
+                "fp": 1,
+                "fn": 2
+              },
+              {
+                "scene_id": "stub_ch02_sc01",
+                "truth_count": 1,
+                "prediction_count": 1,
+                "trusted_count": 1,
+                "tp": 1,
+                "fp": 0,
+                "fn": 0
+              }
+            ],
+            "generated_at": "2026-04-24T02:09:30.326473+00:00",
+            "predictions_by_scene": {
+              "stub_ch01_sc01": [
+                {
+                  "event_type": "location_change",
+                  "scene_id": "ch01_sc01",
+                  "subject": "Hunter",
+                  "details": {
+                    "from_location": "family_estate",
+                    "to_location": "Coruscant_spaceport"
+                  },
+                  "confidence": 0.97,
+                  "extractor_version": "v0.1"
+                },
+                {
+                  "event_type": "injury_state",
+                  "scene_id": "ch01_sc01",
+                  "subject": "Hunter",
+                  "details": {
+                    "severity": "minor",
+                    "body_part": "forearm",
+                    "mechanism": "loose bolt glanced"
+                  },
+                  "confidence": 0.97,
+                  "extractor_version": "v0.1"
+                }
+              ],
+              "stub_ch02_sc01": [
+                {
+                  "event_type": "revelation",
+                  "scene_id": "ch02_sc01",
+                  "subject": "Ben",
+                  "details": {
+                    "revelation_id": "R01",
+                    "recipient": "Ben"
+                  },
+                  "confidence": 0.97,
+                  "extractor_version": "v0.1"
+                }
+              ]
+            }
+          }
+        },
+        "presence_checker": {
+          "score": 1.0,
+          "latency_seconds": 4.689,
+          "calls": 3,
+          "errors": [],
+          "details": [
+            {
+              "case_id": "clean_reference_not_present",
+              "expected": [],
+              "observed": [],
+              "score": 1.0
+            },
+            {
+              "case_id": "absent_character_acts",
+              "expected": [
+                "Luke Skywalker"
+              ],
+              "observed": [
+                "Luke Skywalker"
+              ],
+              "score": 1.0
+            },
+            {
+              "case_id": "comm_call_is_not_physical_presence",
+              "expected": [],
+              "observed": [],
+              "score": 1.0
+            }
+          ]
+        },
+        "final_gate": {
+          "score": 1.0,
+          "latency_seconds": 17.315,
+          "calls": 3,
+          "errors": [],
+          "details": [
+            {
+              "case_id": "clean_contract",
+              "expected_any": [],
+              "observed_codes": [],
+              "score": 1.0,
+              "raw": {
+                "verdict": "pass",
+                "failure_codes": [],
+                "severity": "non_blocking",
+                "route_to": null
+              }
+            },
+            {
+              "case_id": "closing_hook_violation",
+              "expected_any": [
+                "CLOSING_HOOK_VIOLATION"
+              ],
+              "observed_codes": [
+                "CLOSING_HOOK_VIOLATION"
+              ],
+              "score": 1.0,
+              "raw": {
+                "verdict": "fail_structural",
+                "failure_codes": [
+                  {
+                    "code": "CLOSING_HOOK_VIOLATION",
+                    "location": "final sentence",
+                    "description": "Prose extends past the closing hook ('Ben asks how soon they leave') with 'Two days later, the shuttle dropped from hyperspace above the first survey world.', introducing next-scene content.",
+                    "fix_hint": "Trim all content after the closing hook dialogue."
+                  }
+                ],
+                "severity": "blocking",
+                "route_to": "full_rewrite"
+              }
+            },
+            {
+              "case_id": "weak_turning_point",
+              "expected_any": [
+                "MISSING_TURNING_POINT",
+                "WEAK_TURNING_POINT"
+              ],
+              "observed_codes": [
+                "MISSING_TURNING_POINT"
+              ],
+              "score": 1.0,
+              "raw": {
+                "verdict": "fail_structural",
+                "failure_codes": [
+                  {
+                    "code": "MISSING_TURNING_POINT",
+                    "location": "entire polished prose",
+                    "description": "The turning point 'Ben accepts the mission after seeing the anomaly cluster' is completely absent; the prose describes a routine report skim and unresolved discussion on filing procedures instead.",
+                    "fix_hint": "Restore the specified turning point where Ben sees the anomaly cluster and accepts the mission."
+                  }
+                ],
+                "severity": "blocking",
+                "route_to": "full_rewrite"
+              }
+            }
+          ]
+        },
+        "micro_repair": {
+          "score": 1.0,
+          "latency_seconds": 6.321,
+          "calls": 2,
+          "errors": [],
+          "details": [
+            {
+              "case_id": "presence_repair_exact_span",
+              "expected_repair": true,
+              "observed_repair_count": 1,
+              "exact_patterns": true,
+              "score": 1.0,
+              "raw": {
+                "summary": "Delete the sentence featuring absent character Luke Skywalker.",
+                "repairs": [
+                  {
+                    "issue_type": "presence_violation",
+                    "pattern": "Luke Skywalker crossed the office and handed him a second report.",
+                    "replacement": "",
+                    "reason": "Removes the action beat belonging to absent character Luke Skywalker, preserving the scene with only present character Ben."
+                  }
+                ]
+              }
+            },
+            {
+              "case_id": "no_exact_span_needed",
+              "expected_repair": false,
+              "observed_repair_count": 0,
+              "exact_patterns": true,
+              "score": 1.0,
+              "raw": {
+                "summary": "The current prose contains no reference to Luke Skywalker or the reported evidence, so no repair is needed.",
+                "repairs": []
+              }
+            }
+          ]
+        },
+        "plot_architect": {
+          "score": 1.0,
+          "latency_seconds": 25.69,
+          "calls": 2,
+          "errors": [],
+          "details": [
+            {
+              "case_id": "ch01_sc01",
+              "missing_required_fields": [],
+              "target_word_count_expected": 1250,
+              "target_word_count_observed": 1250,
+              "score": 1.0
+            },
+            {
+              "case_id": "ch01_sc02",
+              "missing_required_fields": [],
+              "target_word_count_expected": 1250,
+              "target_word_count_observed": 1250,
+              "score": 1.0
+            }
+          ]
+        },
+        "chapter_gate_critic": {
+          "score": 1.0,
+          "latency_seconds": 7.273,
+          "calls": 1,
+          "errors": [],
+          "details": {
+            "missing_keys": [],
+            "raw": {
+              "chapter_passed": true,
+              "chapter_level_failures": [],
+              "scene_level_flags": [],
+              "metrics": {
+                "scene_variety_index": 0.75,
+                "conflict_density": 1.0,
+                "chapter_hook_strength": 1.0,
+                "arc_pressure_progression": "ascending"
+              },
+              "blueprint_used": true,
+              "lore_used": false,
+              "lore_entry_count": 0
+            }
+          }
+        }
+      }
+    }
+  }
+}

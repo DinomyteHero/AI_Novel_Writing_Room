@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch06_sc01",
+  "chapter_number": 6,
+  "scene_number": 1,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "cdeea81583eb75b1f2673f7f30db64b3da08516fa6b1d3e7b9be4d7a3fe62d58",
+  "review_status": "unreviewed",
+  "confidence": 0.98,
+  "hard_constraints": [
+    "Single POV: Ben Skywalker throughout; no head-hopping or ensemble perspectives.",
+    "No in-universe references to publishing terms like 'Legends' or 'Canon'.",
+    "Use Star Wars Legends terminology and avoid anachronisms (e.g., datapad, not laptop; comlink, not radio).",
+    "Do not turn the scene into a history lesson on Veraine, Sith alchemy, or Brotherhood of Darkness; limit to what's revealed in monitoring file per scene beats.",
+    "Force descriptions: Experiential and mystical per Legends (no 'energy field'); use Ben's sensory vocabulary (handrail/footing gone, etc.) without diagnostic terms like 'Weave' (not introduced until Ch9).",
+    "'Jedi' singular/plural identical; 'Darth' capitalized only before name.",
+    "Capitalize 'Human'; lowercase 'galaxy'; American English."
+  ],
+  "canon_risks": [
+    "Risk of inflating Veraine's profile with unprompted Legends Brotherhood details (e.g., Kaan's thought bomb) beyond AU seed (alchemist/strategist, captured anchor).",
+    "Kael's reaction must seed AU parallel (shared anchor history) without implying non-AU Sith conscript lore.",
+    "Sera's silence on Veraine's capabilities: Risk of accidental exposition violating 'her knowledge obvious and unoffered' beat."
+  ],
+  "legends_continuity_notes": [
+    "Brotherhood of Darkness (EU canon): Sith coalition ~1010-1000 BBY led by Lord Kaan; emphasized equality among Lords over traditional Sith hierarchy; ended at Ruusan via thought bomb. Specializations like alchemy/strategy plausible per era (e.g., Sith sorcery in Darth Bane novels).",
+    "Sith alchemy (Legends): Arcane dark side arts for transmutation, creature creation (e.g., Naga Sadow's beasts, Sharad Hett's Tusken sorcery); not Disney 'kyber bleeding'; fits Veraine's AU profile.",
+    "Darth title (Brotherhood era): Used selectively alongside 'Lord'; Kaan preferred 'Lord'; Veraine's 'Darth Veraine' aligns with AU as individual Sith identity.",
+    "Post-Fate of the Jedi (47 ABY): Jedi Order under Luke on Coruscant; Galactic Alliance government; no Legacy comics future (out of scope)."
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Setting: Steady Returns hyperspace transit post-Ch5; cramped common area/corridor/cockpit; ship straining with 5 passengers.",
+    "Key beats: Desh presents reconstructed monitoring file naming 'Darth Veraine' (first clean line); Sera's held composure/silence; Kael's recognition-to-studied blankness (Ben notices/files); Torin's warm remark restoring room; Sera's hand on absent control; Sera's tactical Corridor route test (Ben's pragmatic answer earns respect); Torin corridor shoulder-grip (warm assessment).",
+    "Veraine (AU): Brotherhood alchemist/strategist; captured anchor; escaped weeks prior; ahead on Corridor repurposing nodes.",
+    "Group dynamics: Ship as temporary home; survivors displaced (Sera formal/archaic, Torin warm/paternal, Kael watchful/detached).",
+    "Ben's arc phase: Lie reinforced (trust only his Force read); registers reactions sensorily, not diagnostically.",
+    "Emotional arc: Reveal absorption -> tension/friction -> competence demo -> uneasy truce.",
+    "Subplots active: SP-A (Ben/Desh partnership), SP1 (Sera respect), SP2 (Kael/group seen), SP3 (Torin commander nod)."
+  ],
+  "allowed_au_divergences": [
+    "Veraine's existence, capture as anchor, escape via stasis erosion, role as antagonist.",
+    "Monitoring packets revealing her name/signature (alchemist/strategist).",
+    "Survivors (Sera/Torin/Kael) as Force-sensitive anchors; Kael-Veraine parallel via shared anchor wound.",
+    "Corridor route as seal infrastructure; thin places ahead.",
+    "Gavran's Fortress logs/packets as AU source."
+  ],
+  "open_questions": [
+    "Specific Legends precedents for Brotherhood 'alchemist/strategist' roles? (Seed treats as AU elaboration on canon faction; flag if drafter needs Wookieepedia cross-check.)",
+    "Kael's homeworld database emptiness: AU implication of Sith-world erasure post-Ruusan?"
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "scene_objective": "In the setup phase, this scene reveals the institutional confirmation of the Force wrongness through flagged survey reports, assigns Ben the solo Outer Rim survey mission as cover for investigating the disturbance, and establishes the guarded, love-laden distance in the father-son relationship as Luke validates Ben's private sensing without closing the emotional gap.",
+  "turning_point": {
+    "trigger": "Luke sets the datapad down and says, evenly, that he has felt something too.",
+    "shift": "Ben registers the difference in his father's register — Luke is describing an anomaly as a Grand Master would; Ben is recognizing a frequency he has lived inside since childhood. The wrongness is no longer Ben's private burden; it is now shared, but only between them, and only in this room.",
+    "cost": "Ben must accept the mission without naming what it costs him to be trusted alone with it. The careful, love-laden distance between father and son tightens rather than closes. Ben's need to prove himself independently of the Skywalker name is both honored and weaponized by Luke's trust."
+  },
+  "closing_beat": "Ben accepted the mission without suggesting a partner. Luke did not push. Neither of them acknowledged what that choice meant.",
+  "emotional_arc": {
+    "start": "Guarded attentiveness — Ben enters the office braced for a routine briefing, not prepared to have his private reading validated by the Grand Master.",
+    "shift": "Brief connection with Luke — the moment Luke names the wrongness, Ben feels the pressure of being truly seen, the relief and terror of that recognition.",
+    "end": "Deliberate distance — Ben steps away from the desk toward the window, reasserting the boundary he needs to maintain. The connection is real; the distance is necessary."
+  },
+  "target_word_count": 1250,
+  "opening_mode": "in_medias_res",
+  "key_beats": [
+    {
+      "beat_description": "Luke slides the datapad across the desk, showing seventeen flagged survey reports clustered along a bearing in the Outer Rim.",
+      "state_change": "The wrongness becomes concrete. Ben's private reading is now institutional fact — the Order has noticed.",
+      "pov_reaction": "Ben's instinct pushes toward action rather than explanation. His body tightens; he reaches for the datapad before his mind has finished processing what the gesture means. The guarded attentiveness sharpens into focus."
+    },
+    {
+      "beat_description": "Ben scrolls through the anomaly data, zooming on three readings that match his own independent perception — the same sourness in the Force-weave, the same wrongness he has been carrying for weeks.",
+      "state_change": "Validation and isolation collapse into the same moment. Ben is not alone in feeling this. Luke has been reading the same signals. But Luke's reading is clinical; Ben's is visceral. The gap between them is suddenly visible.",
+      "pov_reaction": "The pressure turns inward and upward — Ben feels the brief connection with Luke like a note played slightly flat, present but wrong. His focus tightens on what just changed in the room: his father sees the anomaly; Ben sees the wound. The distinction matters and cannot be named."
+    },
+    {
+      "beat_description": "Ben sets the datapad down on the desk and moves to the window, his body language settling into the posture of someone accepting a solo assignment.",
+      "state_change": "Ben does not ask for a partner. Luke does not offer one. The mission is now Ben's alone, and the silence around that choice becomes the scene's weight.",
+      "pov_reaction": "Deliberate distance reasserts itself — Ben needs the window, the space, the physical separation. His shoulders settle into a readiness that is also a closing. The brief connection with Luke is real; the distance is necessary. Ben braces for the handoff."
+    }
+  ],
+  "voice_guidance": "Channel Zahn's efficient dialogue — every line moves plot or reveals character, with Luke warm but slightly formal. Tight third-person interiority, sharp and self-deprecating, never melodramatic; Ben thinks 'Dad' internally but speaks to Grand Master Luke. Sensory Force perceptions only — sourness under Temple harmonics, no diagnostic voice or clinical articulation. Lived-galaxy texture: Coruscant traffic low wash through window, functional office details bleed in without set-pieces. American English, capitalize 'Human', decapitalize 'galaxy'.",
+  "delivery_preferences": {
+    "reveal_mode": "direct",
+    "exposition_budget": "concise",
+    "register_override": null
+  },
+  "required_hooks": [
+    "H01"
+  ],
+  "required_subplots": [
+    "SP-A",
+    "SP3"
+  ],
+  "required_revelations": [],
+  "anti_patterns": [
+    "No flashback paragraph",
+    "Ben's interior read of Luke should stay reactive (what the man in front of him does and does not say, the pause before the pad slides across the desk), not an essay on the Skywalker shadow",
+    "If a line of interiority could stand alone as a clean declarative sentence about trust or legacy, cut it",
+    "Do not arrive at diagnostic voice when describing the wrongness or the Force-weave — stay sensory and immediate",
+    "Avoid clinical articulation of Ben's emotional state; let it live in his body and his choices"
+  ]
+}

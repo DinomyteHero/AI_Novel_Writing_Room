@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch09_sc01",
+  "chapter_number": 9,
+  "scene_number": 1,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "ad174aec23cb0915204960588c080ecc902f491e86c0daf50edadfb440f7382a",
+  "review_status": "unreviewed",
+  "confidence": 1.0,
+  "hard_constraints": [
+    "Preserve single-POV Ben Skywalker; no head-hopping.",
+    "Force rendered through body-experience first (sensation before analysis); diagnostic terms like 'Weave' or 'unweaving' earned only after felt sense.",
+    "Use somatic or acoustic vocabulary family only (e.g., emptying, quick retreat, body's refusal); forbidden: 'reached for the Force', 'handrail in the dark', 'flat-note' phrasing.",
+    "No character quotes Codex at length; received through reaction, not exposition.",
+    "Capitalize 'Human(s)' per style guide; 'Jedi' singular/plural; lowercase 'galaxy', 'the Sith'.",
+    "No in-universe ABY dating, 'Legends'/'Canon' terms, or anachronisms (e.g., use 'datapad' not laptop)."
+  ],
+  "canon_risks": [
+    "Risk of over-articulating Ankhural's heresy as narrator-endorsed truth; scene plan specifies sensation-only for Ben, divergence via reactions.",
+    "Codex flash must remain mild 'thin places' precursor (parallax error, blurred boundaries), not full unweaving (formless pressure)."
+  ],
+  "legends_continuity_notes": [
+    "Vergences/nexuses canonical in Legends (e.g., Force-sensitive locations like Yavin IV); Ankhural frames as heresy, not proof.",
+    "Force wounds precedents: Nathema (Vitiate ritual, KOTOR/TOR), Malachor V (Mass Shadow Generator, KOTOR II) \u2013 persistent, sensory-distorting.",
+    "Ben Skywalker: Jedi Knight, 47 ABY post-Fate of the Jedi/Abeloth; experienced but young, shaped by GAG service, Jacen/Vestara shadows.",
+    "Jedi Order under Grand Master Luke Skywalker at Coruscant Temple; post-Imperial remnant, Galactic Alliance government."
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Setting: Steady Returns common area (cramped YT-series freighter); all five characters present.",
+    "Key beats: Sera opens Codex case (resonance felt by Force-sensitives); Ben touches fragment (hand jerks back from unstructured Force flash \u2013 present but no direction/texture/moral register); four divergent reactions; ship alarm (Brotherhood Outpost breach).",
+    "Ben's reaction: Somatic vertigo first (e.g., weight without direction); lie_reinforced phase \u2013 tempts solo Force-read trust.",
+    "Character presences: Ben (vertigo), Sera (architectural read), Torin (relief/temptation), Kael (home-like comfort), Desh (no perception, clears to cockpit).",
+    "AU Force sensation: Mild thin-place (distances wrong, blurred light/dark); builds to Ch13 full unweaving.",
+    "Exit: Alarm wrenches to motion; Veraine's touch at next node escalates chase."
+  ],
+  "allowed_au_divergences": [
+    "Ankhural Codex (~2400 BBY heretical treatise on imposed vergence structure; Force-imbued, experiential flashes).",
+    "Weave/'threadwork' era-language for local Force structure; unweaving sensations (damaged, deadened feedback).",
+    "Codex as sensation-delivered heresy; four divergent Force-sensitive reads without group consensus."
+  ],
+  "open_questions": [
+    "Specific Brotherhood Outpost details (node infrastructure, Veraine's repurposing signs) \u2013 derive from Corridor/anchor node generics unless Chapter Blueprint specifies."
+  ]
+}

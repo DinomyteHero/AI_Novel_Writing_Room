@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch01_sc01",
+  "chapter_number": 1,
+  "scene_number": 1,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "80e56f9505656a2ab26dddcf4cf1ea27f2403b1733b8237ef497ff3ab2fa840a",
+  "review_status": "unreviewed",
+  "confidence": 0.98,
+  "hard_constraints": [
+    "Single POV: Ben Skywalker throughout",
+    "Use Legends EU continuity only; post-Fate of the Jedi, 47 ABY",
+    "Force described through experiential/mystical language (body-experience first); no scientific framing",
+    "No anachronistic terms (e.g., use datapad, not laptop; training saber, not lightsaber if training context)",
+    "No in-universe use of publishing terms like 'Legends' or 'Canon'",
+    "Capitalize 'Human'; 'Jedi' singular/plural; 'Darth' capitalized before name",
+    "American English spellings",
+    "Avoid forbidden repeat phrases (e.g., 'reached for the Force')",
+    "Wrongness rendered as half-beat lag in ambient Force field (auditory/vibrational only; no visual/color terms)"
+  ],
+  "canon_risks": [
+    "Distinguish new 'wrongness' (AU seal failure) from post-Abeloth lingering disturbances; do not imply Abeloth return",
+    "Ben's sparring failure must align with his established Legends competence as skilled young Knight (post-Fate, GAG/Abeloth experience); frame as uncharacteristic due to external wrongness",
+    "Jedi Temple on Coruscant under Luke's Order: ensure daily life/training matches Legends post-ROTJ rebuild (no Disney+ Andor/Rebels bleed)"
+  ],
+  "legends_continuity_notes": [
+    "Jedi Temple, Coruscant: Rebuilt post-ROTJ; training salles standard for lightsaber practice with low-power training sabers (humming blue blades)",
+    "Ben Skywalker: Jedi Knight, ~20-21 in 47 ABY; son of Luke/Mara; GAG service under Jacen; fought Abeloth; highly skilled but carries trauma (Mara's death, Vestara betrayal)",
+    "Post-Fate of the Jedi: Force settling after Abeloth; Jedi Order at Coruscant Temple under Grand Master Luke; Knights handle surveys/outposts",
+    "Training practice: Forms emphasize reflex/Force integration; ambient Temple Force presence supportive in normal conditions",
+    "Luke Skywalker: Grand Master; paternal but institutional with Ben"
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Scene beats: Guard drops (hit on shoulder); waves off rematch (claims fatigue); alone tests form unlit (feels lag); Luke arrives with datapad",
+    "Emotional arc: Restless unease -> frustrated isolation -> reluctant hope",
+    "Wrongness: Consistent half-beat lag metaphor (note flat, Force arriving late); body-felt before named; no clinical/diagnostic voice",
+    "Rendell: Background Knight; minimal characterization (professional focus)",
+    "Setting: Late evening salle; sensory (saber hum, boots on floor, sweat, distant Temple sounds)",
+    "POV voice: Zahn-style close third; sharp, self-deprecating interior; no melodramatic/diagnostic sentences",
+    "Subplots: SP-A (Ben isolation), SP3; plants PP01/PP21",
+    "Turning point: Acknowledges wrongness structural/external (not personal failure/trauma)"
+  ],
+  "allowed_au_divergences": [
+    "'Wrongness' as early manifestation of Ruusan seal failure (half-beat lag in Force from Weave degradation)",
+    "Ben's unique sensitivity to wrongness (ties to Lie: trusts own Force-read when wrong)"
+  ],
+  "open_questions": [
+    "Specific post-Fate Jedi Knight daily routines/training protocols (e.g., late-evening salle access)?"
+  ]
+}

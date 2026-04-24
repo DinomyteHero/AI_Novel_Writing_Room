@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch28_sc01",
+  "chapter_number": 28,
+  "scene_number": 1,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "5ee8786d2b7758217ee7769dd45c6d12ae8eba2e199c55928ce4f4fdd615b72c",
+  "review_status": "unreviewed",
+  "confidence": 1.0,
+  "hard_constraints": [
+    "Single POV: Ben Skywalker throughout (project contract: 'pov_structure': 'Single POV \u2014 Ben Skywalker throughout')",
+    "Use 'datapad' for computing devices (canon_profile.anachronistic_terms)",
+    "'Steady Returns' is the canonical ship name for Desh's modified YT-series light freighter; italicize as ship name in prose (terminology_registry)",
+    "Force described through experiential/mystical language, not scientific; render body-experience before diagnostic terms like 'resonance' or 'chord' (force_mechanics.sensory_vocabulary.concept_vs_sensation_rule)",
+    "Avoid forbidden repeat phrases like 'reached for the Force' (force_mechanics.vocabulary_variation.forbidden_repeat_phrases)",
+    "Capitalize 'Human'; decapitalize 'galaxy'; 'Jedi' singular/plural (canon_constraints.style_constraints)",
+    "No in-universe use of ABY/BBY, 'Legends', 'Canon', or meta-references (canon_profile.meta_reference_rules)"
+  ],
+  "canon_risks": [
+    "Ensure Ben's perception of the new seal aligns with authorized Weave-Resonance mechanics (shared-burden containment distributing load across traditions; feels like emergent warmth/chord after discord, not rigid structure) without implying universal ontology change",
+    "Desh as non-Force-sensitive must not perceive the resonance directly; his role is operational/practical (force_mechanics.sensory_vocabulary.weave_resonance.non_force_sensitive: absence of wrongness only)"
+  ],
+  "legends_continuity_notes": [
+    "In 47 ABY post-Fate of the Jedi, Jedi Order headquartered at Coruscant Temple under Grand Master Luke Skywalker; Galactic Alliance primary government (canon_profile.era_description)",
+    "Coruscant Temple approach standard: orbital traffic control, visible from orbit amid ecumenopolis (standard Legends hyperspace exit/decel to planetary approach)",
+    "Ben Skywalker: Jedi Knight, ~20-21 years old, son of Luke/Mara, GAG service history with Desh (canon_constraints.canon_preserved)"
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "New seal's resonance for Ben: discordant notes finding emergent relationship; physical warmth through Force after unweaving cold; flexible/dynamic Weave like living tissue; relief not triumph (force_mechanics.force_mechanics.force_mechanics.force_mechanics.sensory_vocabulary.weave_resonance.force_sensitive)",
+    "Transform from Ch1 'wrongness' (persistent low-grade distortion) to belonging/chord without explicit callback narration (scene_card.anti_patterns, notes)",
+    "Ben/Desh: Shared GAG past as dormant pressure; Desh practical anchor, non-sensitive operational frame (ensemble_cast.Desh.weiland_arc, relationship_arcs.Ben/Desh)",
+    "Setting: Cramped YT-series freighter cockpit; hyperspace blue viewport to realspace decel; Temple visible on Coruscant approach (terminology_registry.Steady Returns, scene_card.sensory_details)",
+    "Emotional arc: Reflective processing (listen to hum) -> determined resolution (delete drafts) -> courage of honesty (Temple threshold) (scene_card.emotional_arc, key_beats)"
+  ],
+  "allowed_au_divergences": [
+    "Existence/persistence of new shared-burden Weave-Resonance seal post-climax; humming chord at edge of Ben's perception as permanent distributed load (canon_constraints.canon_overridden, force_mechanics.primary_rule, terminology_registry.Weave-Resonance)",
+    "Ruusan Reformations as penance for Veranthos wound/seal (canon_constraints.canon_overridden)",
+    "Ben's mission outcome: Institutional truth-telling to Luke/Order about thousand-year cover-up (concept_seed.conflict.lock_in_mechanism, chapter_blueprint.relationship_turns)"
+  ],
+  "open_questions": []
+}

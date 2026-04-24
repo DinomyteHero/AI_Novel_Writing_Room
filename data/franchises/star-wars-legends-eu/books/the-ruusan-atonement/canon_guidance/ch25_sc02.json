@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch25_sc02",
+  "chapter_number": 25,
+  "scene_number": 2,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "167548fe72d177388ea41a21726c2afec42bd5c26fb8f7af51afd84e96bac3a6",
+  "review_status": "unreviewed",
+  "confidence": 1.0,
+  "hard_constraints": [
+    "Use Star Wars Legends / Expanded Universe continuity per Canon Contract.",
+    "Galactic Alliance Guard (GAG) aligns with canon_preserved: Ben and Desh served under Jacen Solo.",
+    "Replace anachronistic terms: 'gun' or 'blaster pistol/rifle'; 'radio' or 'comlink/comm channel'; 'computer' or 'console/terminal'.",
+    "Nonlethal takedowns required per scene card to reflect Desh's operational read: 'break equipment, not kill people'.",
+    "Capitalize 'Human' per style_constraints; 'Jedi' singular/plural, never 'Jedis'."
+  ],
+  "canon_risks": [
+    "GAG techniques must feel like Legacy of the Force-era spec ops (silent, efficient), not modern spec ops.",
+    "Veraine's crew (salvagers/true believers like Vess Oran, Pira Kul) portrayed as frightened/outmatched, not cartoon villains, to humanize Brotherhood parallels."
+  ],
+  "legends_continuity_notes": [
+    "47 ABY post-Fate of the Jedi: Galactic Alliance government, Jedi Order under Luke on Coruscant, Empire remnant.",
+    "Ben Skywalker: Jedi Knight, former GAG member under Jacen Solo/Darth Caedus, per canon_preserved.",
+    "Comms as comlinks; blasters standard; non-Force-sensitive operative competence fits Desh's profile as ex-GAG.",
+    "Force wounds (e.g., Malachor V, Nathema) provide precedent for unreliable Force-sense near nodes."
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "POV: Ben Skywalker close third; track Desh via node effects/Force stutter/comm, not direct observation (Ben not physically present).",
+    "Desh Rolan: non-Force-sensitive ex-GAG, Ben's friend; sabotage three amplification nodes nonlethally.",
+    "Amplification array/nodes: Veraine's repurposing of Ruusan Corridor anchor infrastructure; disabling drops below threshold (needs ~8 nodes).",
+    "Crew: Outer Rim salvagers (e.g., Vess Oran, Pira Kul) + believers; outnumbered Desh but outclassed in training.",
+    "Beats: First node (textbook GAG silence, two guards); second (faster); third (harder fight, graze wound); comm: 'Array's down. Whatever you're doing \u2014 do it now. Everything. Don't hold back.'",
+    "Emotional arc: professional focus -> escalating danger -> triumph via competence.",
+    "Setting: Veranthos nodes; sensory: silent movement, sparking equipment, comm as steady audio amid valley chaos."
+  ],
+  "allowed_au_divergences": [
+    "Amplification array/nodes as Veraine's creation from canon_overridden anchor infrastructure.",
+    "Desh Rolan as named ex-GAG operative partnering with Ben, per ensemble_cast.",
+    "Veranthos as AU vergence/wound site with node installations.",
+    "Nonlethal GAG-derived sabotage as Desh's chosen repurposing of skills."
+  ],
+  "open_questions": []
+}

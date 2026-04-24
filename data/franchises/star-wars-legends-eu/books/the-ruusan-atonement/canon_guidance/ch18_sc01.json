@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch18_sc01",
+  "chapter_number": 18,
+  "scene_number": 1,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "fc4c183037faeab23f32bdbe087b08462d24e76d2783a8cd37b2b7ca89c94ed3",
+  "review_status": "unreviewed",
+  "confidence": 1.0,
+  "hard_constraints": [
+    "Single POV: Ben Skywalker throughout; no head-hopping or external perspectives.",
+    "Preserve Torin's warmth register as load-bearing: use preserved specimens like 'You know what I love about modern Jedi? You still believe the dark side is a place you can choose not to go.' and maintain storytelling inflection with wry historical framing.",
+    "Jacen named once only per R13: 'Like Jacen.' Not repeated; Ben thinks of him as 'Jacen' with emotional charge, not 'Caedus'.",
+    "Use Star Wars terminology: caf (not coffee), datapad (not laptop), common area aboard YT-series freighter.",
+    "Force described experientially per force_mechanics: no clinical framing; Ben's read of Torin as 'warm and heavy' post-breach.",
+    "Style: Capitalize 'Human'; lowercase 'galaxy'; 'Jedi' singular/plural; American English."
+  ],
+  "canon_risks": [
+    "Torin's NSW-era battle stories must evoke New Jedi Order battle memoir register without anachronisms; ground in Legends precedents like Ruusan Reformations or Brotherhood of Darkness without contradicting canon_preserved.",
+    "Ben's GAG service under Jacen: shared shame with Desh must align with Legacy of the Force/Fate of the Jedi details \u2013 teenage service, secret police complicity."
+  ],
+  "legends_continuity_notes": [
+    "Jacen Solo: Fell to dark side as Darth Caedus, murdered Mara Jade Skywalker; Ben's cousin and former mentor in GAG. Reference carries personal weight for Ben.",
+    "Ben Skywalker: 20-21 in 47 ABY, post-Abeloth; experienced but exhausted by crises (Vong War aftermath, GAG, Caedus, Vestara, Abeloth).",
+    "Torin Hal: NSW Battle Master (~1000 BBY); stories should reference canon events like Battle of Veranthos (AU) or Ruusan without Legacy comics future bleed.",
+    "Galactic Alliance Guard (GAG): Jacen Solo's secret police during Second Galactic Civil War; Ben/Desh served as teens, source of unprocessed shame.",
+    "Steady Returns: Modified YT-series freighter; cramped common area fits group dynamics."
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Setting: Steady Returns common area, late second shift; ambient ship hum, caf pot on table.",
+    "Characters: All present \u2013 Torin laughing/storytelling (warm, paternal), Desh (dry humor, steady eyes), Sera (formal, accepts caf with Dantari inclination), Kael (watchful, minimal dialogue), Ben (internal analysis).",
+    "Key beats: Torin laughs at Desh's joke (perfect timing); battle story pattern (decided/acted/bore cost); pours Sera's caf unhurriedly mid-story; Ben/Desh eye contact, 'Like Jacen' whispered once.",
+    "Emotional arc: Watchful -> recognition -> irresolution (caf gesture complicates pattern).",
+    "Torin counter-current 4: Caf pour as small kindness refusing simple pattern fit.",
+    "Ben's Lie challenged: Trusts Desh's read but holds Torin ambiguity.",
+    "Warmth load-bearing: Torin's laugh/stories humanize before pattern name."
+  ],
+  "allowed_au_divergences": [
+    "Torin Hal as thawed NSW survivor and technique user; his corruption arc mirroring Jacen/Jedi Lords.",
+    "Sera Varik, Kael Drenn as survivors/anchors; group dynamics post-fortress awakening.",
+    "Post-breach Weave pressure: Torin's presence 'warm and heavy'; emotional extremes amplified but not possession.",
+    "Jacen pattern as thematic echo for Ben/Torin without overriding canon fall."
+  ],
+  "open_questions": []
+}

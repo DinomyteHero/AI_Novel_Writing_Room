@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch08_sc01",
+  "chapter_number": 8,
+  "scene_number": 1,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "15f1a8b5c2dd840fc529396355645db83db65f919ff25d05c8092cefa927186f",
+  "review_status": "unreviewed",
+  "confidence": 1.0,
+  "hard_constraints": [
+    "Single POV: Ben Skywalker throughout",
+    "Force phenomenology must use moderate thin place sensory vocabulary from force_mechanics: 'The Force has gaps \u2014 moments where reaching gets nothing, then it's back. Intermittent rather than consistent. Dark-side residue bleeds through... Emotional impressions from the past leak through \u2014 not visions, not ghosts, but emotional textures without sources.' Render body-experience first (fragments register), analysis second; no diagnostic vocabulary ('unweaving,' 'Weave') until earned",
+    "No anachronistic terms: use 'comm channel,' 'datapad,' 'blaster,' etc. per canon_profile.anachronistic_terms",
+    "Style rules: Capitalize 'Human'; decapitalize 'galaxy'; 'Jedi' singular/plural only; 'Darth' capitalized before name",
+    "No in-universe meta terms: no ABY/BBY, 'Legends,' 'Canon,' Wookieepedia taxonomy",
+    "Do not name Jacen parallel in interiority or aloud (per scene notes/anti_patterns)",
+    "Ship name 'Steady Returns' italicized as proper noun",
+    "Torin's murmur 'Ankhural called it the natural state' verbatim from scene card; tone nostalgic, not lecturing"
+  ],
+  "canon_risks": [
+    "Torin's comfort in thin place risks implying technique removes light/dark morality prematurely; reinforce via Ben's somatic unease that it is damage, not revelation (per force_mechanics.primary_rule)"
+  ],
+  "legends_continuity_notes": [
+    "Ben Skywalker: Jedi Knight post-Fate of the Jedi/Abeloth crisis; GAG service with Desh under Jacen as shared backstory (not named here)",
+    "Steady Returns: Modified YT-series light freighter (Millennium Falcon lineage; hyperspace transit with micro-jumps feasible per Legends tech)",
+    "Thin place effects build on Legends precedents: Malachor V wound (KOTOR II: echoey emotional residue, unreliable Force); Nathema (TOR: deadened Force with bleed-through)",
+    "Ankhural reference (~2400 BBY): Fits Legends Old Republic era; heretical Jedi scholars exist (e.g., Sorzus Syn influences), but treat as AU-authorized"
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Characters present: Ben (POV), Sera, Torin, Kael, Desh; all aboard Steady Returns in moderately degraded zone (Ruusan Corridor transit between nodes)",
+    "Key beats: (1) Ben grips armrest, Force fragments (intermittent gaps, emotional leaks); (2) Torin eases/relaxes, murmurs Ankhural line nostalgically; Sera/Kael tense; (3) Post-zone, Sera grips Ben's arm privately: 'Watch him. In the thin places. Watch what happens to his face.' (no Torin name)",
+    "Torin: Force presence heaviness eases in thin zone (technique history); counter-current warmth/kindness incidental (small courtesy to Kael)",
+    "Sera: Professional wait in moment, personal warning after; first private alliance with Ben",
+    "Kael: Goes still, tracks Torin subtly; lie_reinforced (confirms priors on believers)",
+    "Desh: Non-Force-sensitive; no Weave perception (calibration baseline only)",
+    "Emotional arc: Group unease -> focused alarm (Torin's ease) -> private warning locked in",
+    "H08 planted: Torin's thin-place comfort",
+    "SP-A/SP1/SP2 active: Ben lie_reinforced (trusts own read); Sera/Torin fracture begins; Torin lie_reinforced",
+    "Sensory: Force fragments (no handrail/flat-note); cockpit transit stutter; Sera's grip leaves marks"
+  ],
+  "allowed_au_divergences": [
+    "Thin place as seal degradation manifestation (moderate: gaps, residue bleed, emotional leaks)",
+    "Torin's comfort/ease from forbidden technique history (damaged field feels like relief; per character_differentiated_sensations.torin)",
+    "Ankhural Codex reference ('natural state' for unwoven Force; heretical vergence theory)",
+    "Sera's era-specific Force-lock expertise implicit in perceptions (architecture going slack)"
+  ],
+  "open_questions": []
+}

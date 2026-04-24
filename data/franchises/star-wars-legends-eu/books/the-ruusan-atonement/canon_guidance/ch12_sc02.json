@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch12_sc02",
+  "chapter_number": 12,
+  "scene_number": 2,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "964b21a737f744ab9edc8fb02a71fccbcbd22d8825fdb9a29004fe0072a51aca",
+  "review_status": "unreviewed",
+  "confidence": 1.0,
+  "hard_constraints": [
+    "Single POV: Ben Skywalker throughout; no head-hopping or omniscient narration (project contract: POV_structure Single POV \u2014 Ben Skywalker throughout).",
+    "Force perception must be experiential and body-first, not clinical or diagnostic; render sensation before naming (force_mechanics: concept_vs_sensation_rule; sensory_vocabulary rules).",
+    "No diagnostic narration of Sera's face: observation via 1-2 specific details only, not essay (scene card: anti_patterns).",
+    "'Jedi' singular and plural, never 'Jedis'; 'Darth' capitalized before name (canon_constraints: style_constraints).",
+    "Avoid forbidden repeat phrases like 'reached for the Force' (force_mechanics: vocabulary_variation: forbidden_repeat_phrases)."
+  ],
+  "canon_risks": [
+    "Torin's reframing of Maetha's warning must read as reasonable paternal warmth under lie_reinforced, not cartoon-villain denial (scene card: notes; ensemble_cast Torin voice_texture: preserved_specimens)."
+  ],
+  "legends_continuity_notes": [
+    "47 ABY post-Fate of the Jedi: Jedi Order under Grand Master Luke Skywalker on Coruscant; Ben Skywalker as established Jedi Knight with GAG/Abeloth/Vestara history (canon_preserved; era_description).",
+    "Ruusan Reformations (1000 BBY) canonical baseline, recontextualized AU as penance (canon_overridden).",
+    "Force wounds canonical precedents: Nathema, Malachor V (force_mechanics: canon_grounding)."
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Maetha: Jedi Lord ~1200 BBY, developed 'Walking the Caldera' (touching light/dark boundary), disbanded Caldera Knights upon seeing consequences; voice contemplative, tragic (terminology_registry; concept_seed).",
+    "Maetha's Warning full delivery once: 'The caldera does not consume you. It replaces you...' (terminology_registry; scene card: key_beats; notes: fragments only afterward).",
+    "Caldera meditation: Predecessor to Gavran's technique (terminology_registry).",
+    "Torin response: Reframes as Maetha's personal limitation, not technique's cost; attentive/respectful/unmoved; walks out steady/certain (scene card: turning_point; key_beats).",
+    "Sera reaction: Face changes without sound; hand to wall; recognizes Gavran pattern repeat (Sera/Torin dyad: arc_phase_map deepening_trust Ch12; scene card).",
+    "Kael: Watches, says nothing (scene card).",
+    "Setting: Maetha's Training Facility archive chamber, personally sealed (scene card; Gavran's Fortress model).",
+    "Weave sensory: Flexible, holds words longer (sensory_details; thin_places_moderate for site).",
+    "Ben arc: lie_reinforced \u2014 technique temptation felt earlier scene1, warning describes Torin's fate (pov_arc_phase; chapter_turn)."
+  ],
+  "allowed_au_divergences": [
+    "Maetha, Caldera Knights, caldera meditation as technique predecessor (~1200 BBY) (canon_overridden; terminology_registry).",
+    "Maetha's Warning as canonical in-project artifact (terminology_registry).",
+    "'The Weave' era-language for local structure at vergences/seal (terminology_registry; force_mechanics).",
+    "Technique lineage including Maetha (canon_overridden)."
+  ],
+  "open_questions": []
+}

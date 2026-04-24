@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch03_sc01",
+  "chapter_number": 3,
+  "scene_number": 1,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "a39c419033b7edac5623ae1101c062a6d0c752413b7be496f25c75e651a1ef8d",
+  "review_status": "unreviewed",
+  "confidence": 0.95,
+  "hard_constraints": [
+    "Use only Legends EU continuity; no Disney Canon elements",
+    "Force described experientially via body-sense before diagnostic terms; rotate metaphors\u2014no 'handrail in the dark' or 'note-played-flat'; use 'denser pressure, weight on chest'",
+    "Ben does not narrate what the 'seal' protects against or arrive at diagnostic understanding of the warning",
+    "Do not over-explain Lord Gavran; facility architecture/environment does characterization",
+    "Terminology: 'console'/'datapad' not 'computer'; 'blaster' not 'gun'; archaic Basic for warning",
+    "'Jedi' singular/plural identical; capitalize 'Human' if used",
+    "No in-universe ABY/BBY dates; no 'Legends'/'Canon' terms"
+  ],
+  "canon_risks": [
+    "Force-recognition mechanism must align with Legends precedents (e.g., Jedi holocron/lock tech from NSW era like in Darth Bane novels); avoid implying Inquisitorius-style or Disney bio-locks",
+    "Jedi Lords-era (NSW ~1000 BBY) military facility risks over-militarization if not grounded in Legends Jedi Army precedents from Ruusan campaign",
+    "Dead frequencies/Ruusan-era comm protocols must not conflict with established EU hyperspace buoy/encryption standards"
+  ],
+  "legends_continuity_notes": [
+    "New Sith Wars Jedi Lords operated militarized fortresses/outposts (e.g., Jedi vs. Brotherhood of Darkness in Darth Bane: Path of Destruction/Rule of Two)",
+    "Force-powered tech common in EU (e.g., ambient energy fields in ancient Jedi temples, KOTOR-era locks keyed to midi-chlorian signatures/lineage)",
+    "Pre-Ruusan Jedi used hierarchical command structures with automated defenses; Ruusan Reformations demilitarized post-1000 BBY",
+    "Force wounds/seals build on Nathema/Malachor V precedents; warnings as automated loops fit holocron/archive behaviors"
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Setting: Unnamed Outer Rim world, partially underground perimeter facility (Jedi Lords-era, first contact before Gavran's Fortress proper)",
+    "Key beats: Approach on foot (hands near blasters); blue pulse Force-scan (hesitant, lineage-triggered); systems wake (humming cells, flickering displays); warning cycles dead frequencies to 'SEAL FAILING' in archaic Basic",
+    "Sensory: Humming power cells, dust on untouched consoles, denser wrongness (chest pressure), Desh chrono fast vs. Ben's",
+    "Emotional arc: Cautious -> awe -> alarm; Desh shifts to threat assessment",
+    "R02 reveal: Seal exists/failing; plants PP24/25/18; advances H03",
+    "Ben/Desh: Co-investigators reading military C2 architecture",
+    "No survivors/anchors yet; facility institutional/dutiful, not ruin"
+  ],
+  "allowed_au_divergences": [
+    "Perimeter facility as seal infrastructure hub (AU seal/anchor system)",
+    "SEAL FAILING warning tied to failing containment of Veranthos wound",
+    "Lord Gavran named (AU Jedi Lord, technique deployer)",
+    "'The Seal' as Force construct with living anchors (overrides Ruusan Reformations' published purpose)"
+  ],
+  "open_questions": [
+    "Precise Legends source for NSW-era Force-recognition scan visuals (blue pulse fits holocron activation; confirm no conflict with specific Jedi lock depictions)"
+  ]
+}

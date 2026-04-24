@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch10_sc01",
+  "chapter_number": 10,
+  "scene_number": 1,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "32502c7f0819fd47cf26433f536f13ce7fb0d6c66bf2eb2b71bea9702092d9af",
+  "review_status": "unreviewed",
+  "confidence": 0.98,
+  "hard_constraints": [
+    "Use Legends EU continuity only; treat Disney Canon as invalid unless overlapping with Legends.",
+    "Render Force/weave effects through body-experience first (e.g., emotional residue as felt cruelty without source, gaps in Force feedback), analysis second; no diagnostic vocabulary like 'unweaving' or 'Weave' until earned experientially.",
+    "Brotherhood of Darkness portrayal must align with Legends: structured Sith organization during New Sith Wars, not theatrical; functional architecture per wartime pragmatism.",
+    "Sensory vocabulary for moderate thin place: Force gaps (intermittent response), dark-side residue bleed (cruelty/malice without source), emotional impressions leak; non-Force-sensitives note environmental de-correlation (Desh as observer).",
+    "No in-universe use of 'Legends'/'Canon'; use Star Wars terminology (e.g., datapad, not tablet).",
+    "'Jedi' singular/plural identical; 'Darth' capitalized before name."
+  ],
+  "canon_risks": [
+    "Sith-tradition notation must evoke Legends Sith script (e.g., as in holocrons from Darth Bane era) without implying Disney Inquisitorius or kyber-bleeding models.",
+    "Dark-side emotional residue in thin place risks over-emphasizing as 'possession'; keep as pressurization/amplification per force_mechanics (arguments harder, fears deeper, residue leaks without overriding agency).",
+    "Prefabricated outpost risks conflicting with Legends Sith bases if described as overly modern; ground in New Sith Wars (~1000 BBY) modular military prefab consistent with wartime logistics."
+  ],
+  "legends_continuity_notes": [
+    "Brotherhood of Darkness (Darth Bane: Path of Destruction, Rule of Two): Sith led by Lord Kaan, emphasized brotherhood/alchemy over Rule of Two; operated practical outposts/labs during New Sith Wars for rituals/weapons research.",
+    "New Sith Wars era (~2000-1000 BBY): Sith focused on mass rituals, alchemy (Veraine as alchemist fits); architecture functional/military, not Imperial opulence.",
+    "Force wounds precedents: Malachor V (KOTOR II) leaks echoes/residue; Nathema (TOR) deadens Force with emotional void \u2013 aligns with moderate thin place bleed here.",
+    "Post-Fate of the Jedi (47 ABY): Ben Skywalker ~21, experienced post-Abeloth; Jedi Order under Luke on Coruscant, Galactic Alliance government."
+  ],
+  "possible_disney_bleed": [
+    "Avoid Inquisitorius-style Sith notation/structures (Disney post-Imperial); use generic Sith script from Legends holocrons.",
+    "No kyber crystal references or bleeding as Sith norm (Legends uses synthetics)."
+  ],
+  "required_context_for_drafter": [
+    "Scene at Brotherhood Outpost (AU anchor node on Ruusan Corridor): Veraine curated/disassembled equipment for amplification array; left message in Sith-tradition notation targeted at Kael (conscripted Sith-trained anchor, parallels her history).",
+    "Ben POV: Feels dark-side residue as alien cruelty/malice leaking through thinning weave (moderate thin place: intermittent Force gaps, emotional textures without sources).",
+    "Kael reaction: Reads message, handles datapad with explosive care, exits silently \u2013 reinforces his lie (conviction/institutions destructive); do not show/explain message content.",
+    "Group present: Ben, Desh, Sera (jaw tightens under pressure), Torin, Kael; clinical prefab architecture (workplace, not temple).",
+    "Advances: Veraine as active strategist communicating via curation/message; first_pinch realizes pursuit inverted.",
+    "Anti-patterns: No full message text; no Ben reconstructing full strategy (save for scene 2); no Kael explaining; sensation before diagnosis."
+  ],
+  "allowed_au_divergences": [
+    "Darth Veraine (Brotherhood alchemist/strategist, escaped anchor) leaving targeted message for Kael at outpost.",
+    "Outpost as failing anchor node with curated disassembly for Veraine's amplification array.",
+    "Weave thinning effects at Corridor node: emotional bleed as moderate thin place per force_mechanics.",
+    "Kael's Sith-tradition notation literacy from conscripted training; targeted parallel to Veraine (both repurposed anchors)."
+  ],
+  "open_questions": [
+    "Specific Legends precedent for Sith notation style at Brotherhood outposts? (Treat as open if no exact match; use generic alchemical/script from Bane novels.)"
+  ]
+}

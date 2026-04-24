@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch05_sc01",
+  "chapter_number": 5,
+  "scene_number": 1,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "540f57131732486b7d3f88ead061c3771a9af4778e184d145f5b7423ba9ac911",
+  "review_status": "unreviewed",
+  "confidence": 0.96,
+  "hard_constraints": [
+    "Preserve Legends EU continuity: post-Fate of the Jedi, 47 ABY; no Disney Canon elements or Sequel/High Republic terminology",
+    "Force descriptions must prioritize body-experience/sensory rendering before any diagnostic vocabulary; no analysis of anchor architecture or Torin's presence as 'slipping toward dark' in this scene",
+    "Survivor speech patterns: Sera formal/precise/military (complete sentences, archaic syntax, no early contractions); Torin warm/archaic courtesy; Kael silent/withholds until addressed",
+    "Three Force-signature contrast is load-bearing: unhurried, one specific sensory line apiece (Sera: sharp/disciplined/older training; Torin: warm/heavy/settled deep; Kael: clipped/guarded/unfamiliar register); no stacked metaphors or diagnostic voice",
+    "Style: Capitalize 'Human'; 'Jedi' singular/plural (no 'Jedis'); 'Darth' capitalized before name; lowercase 'galaxy'; American English; no anachronistic terms (e.g., use comlink, datapad)",
+    "No in-universe use of 'Legends'/'Canon'/ABY dating; reference events directly (e.g., 'New Sith Wars')"
+  ],
+  "canon_risks": [
+    "Risk of over-specifying millennium stasis revival physiology without Legends precedent; keep disorientation human/general (staggering, crouch, scanning) per scene beats, avoid clinical detail",
+    "Jedi Lords era (New Sith Wars, ~1000 BBY) training differences vs. modern must derive from authorized AU (Sera/Torin as Gavran's circle) without contradicting Legends Jedi diversity",
+    "Force presence perception: modern Jedi (Ben) sensing ancient practitioners must feel intuitive/experiential per force_mechanics, not encyclopedic"
+  ],
+  "legends_continuity_notes": [
+    "Ruusan Reformations (1000 BBY) canon as Jedi Order restructuring post-New Sith Wars/Seventh Battle of Ruusan; Brotherhood of Darkness canon under Lord Kaan",
+    "Long-term stasis exists in Legends (e.g., carbonite, kolto suspension); Force-sensitives can survive extended suspension but emerge disoriented/weakened (cf. Exar Kun possession precedents)",
+    "New Sith Wars Jedi used archaic/militaristic structure (Jedi Lords like Hoth); training emphasized combat vs. modern post-Ruusan introspection",
+    "Force presences vary by tradition/experience in Legends (e.g., ancient Jedi feel 'different' to moderns per KOTOR-era echoes)"
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Setting: Fortress Level 3 Stasis Ring (12 chambers: 9 dead, 3 active, 1 broken/empty); emergency lighting",
+    "Characters: Ben (POV, lie_reinforced phase), Desh (non-Force-sensitive support), Sera Varik (first awake, combat crouch, sharp/disciplined presence), Torin Hal (staggers, warm/heavy presence, Battle Master), Kael Drenn (silent scan, clipped/guarded presence)",
+    "Key beats: Ben releases stasis (hiss); Sera crouches/orients; Torin staggers; Kael scans; Sera asks 'What year is it?' (Ben answers 47 ABY); Torin notes empty chamber ('Who got out?')",
+    "Emotional arc: Tense anticipation -> shock of contact -> dread at scope/empty chamber",
+    "Sensory: Stasis collapse like held breath; presences as body-felt (no Weave/unweaving terms yet)",
+    "AU lock-in: Survivors as Force-sensitive anchors (Sera: Gavran's lieutenant; Torin: technique user/Battle Master; Kael: Sith-conscript); temporal displacement ~1030 years",
+    "No Veraine name/identity yet; empty chamber as live threat/absence"
+  ],
+  "allowed_au_divergences": [
+    "Existence/awakening of specific survivors (Sera Varik, Torin Hal, Kael Drenn) as anchors in Gavran's seal",
+    "Stasis ring as 13-anchor infrastructure (12 ring + Gavran keystone) with 9 dead over centuries, 1 escaped (Veraine), 3 waking",
+    "Fortress as NSW hub with Force-locks/monitoring; Gavran's presence via environment/archive only",
+    "Ruusan Reformations dual-purpose (public reform + private penance for Veranthos technique) recontextualizing Legends event"
+  ],
+  "open_questions": [
+    "Precise physiological markers for Force-sensitive revival from ~1000-year stasis (e.g., muscle atrophy rate, Force-attunement lag); flag for review if drafter needs beyond disorientation/staggering",
+    "Era-specific archaic Basic variants for dialogue (e.g., Sera/Torin's formality) without contradicting Legends NSW speech patterns"
+  ]
+}

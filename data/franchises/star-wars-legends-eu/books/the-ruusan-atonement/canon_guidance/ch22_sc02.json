@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch22_sc02",
+  "chapter_number": 22,
+  "scene_number": 2,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "ab0e92f603a8ff07f66d80784dd90034640935a9cad1fc1b3ecba75ab87acd5b",
+  "review_status": "unreviewed",
+  "confidence": 0.92,
+  "hard_constraints": [
+    "Single POV: Ben Skywalker throughout; no head-hopping or ensemble interiority.",
+    "Force rendered experientially via Ben's body-sense first (e.g., handrail metaphor family, rotating vocabularies); diagnostic terms like 'Weave' earned after sensation, used sparingly.",
+    "No anachronistic terms: datapad (not laptop), no 'DNA/radio/sonar/etc.'",
+    "Era: 47 ABY post-Fate of the Jedi; Galactic Alliance government, Jedi Temple on Coruscant under Luke.",
+    "Capitalize 'Human(s)'; 'Jedi' singular/plural; 'Darth' capitalized before name.",
+    "No meta-references: no ABY/BBY, no 'Legends/Canon', no film/book refs."
+  ],
+  "canon_risks": [
+    "Sera's material-reading of mast base-plate must align with Legends psychometry precedents (e.g., Quinlan Vos sensing via touch) without inventing new mechanics; avoid over-specifying as unique 'Dantari Force-lock' if not project-grounded.",
+    "Veraine's array as Brotherhood-derived Force-amplification: ensure deviation from Sith architecture fits alchemist/strategist profile without contradicting Darth Bane-era tech (e.g., no kyber-bleeding).",
+    "Desh's non-Force-sensitive sabotage role reinforces his calibration against Weave distortion; do not imply Force-use."
+  ],
+  "legends_continuity_notes": [
+    "Brotherhood of Darkness: Pre-Ruusan Sith led by Lord Kaan (Darth Bane: Path of Destruction); alchemists like Veraine plausible via Sith sorcery precedents (e.g., Naga Sadow holocron experiments).",
+    "Force-amplification architecture: Legends Sith use focusing crystals/devices (e.g., Ssi-ruuk entechment, Yuuzhan Vong ysalamiri zones); hand-shaped antennas evoke alchemical personalization.",
+    "Psychometry/material-reading: Established via Quinlan Vos (Jedi Council: Acts of War); tactile Force-sense of maker's intent fits without new invention.",
+    "Dantooine/Dantari: Legends planet (KOTOR); kinana trees, crystal caves; no direct 'Force-lock' but era-specific security via Force imprints aligns with NSW desperation tech."
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Setting: Veranthos ridge-mast (AU amplification array node); tactile details (hand-shaped antennas, base-plate geometry, ridge wind, Scar shimmer distant).",
+    "Characters: Ben (POV, Skywalker instinct to control), Sera (NSW expertise, archaic formal; addresses Ben as 'Skywalker' until late Act 3 shift), Desh (non-sensitive, GAG vet, clinical focus).",
+    "Beats: Silence approach; Sera hand-on-base-plate read ('This is her mind'); Desh traces datapad, volunteers matter-of-fact ('That's my job... hands'). Return silence weighted.",
+    "AU elements: Amplification array (Veraine repurposes anchor nodes); two-pronged plan (resonance trio + Desh sabotage); Veraine evidence beat 4 (design signature).",
+    "Emotional arc: Tactical -> Sera's read -> Desh commitment -> interlocking dependency on Ben.",
+    "No diagnostic Force voice; tactile/spare prose."
+  ],
+  "allowed_au_divergences": [
+    "Amplification array and Veraine's design-signature as repurposed seal infrastructure.",
+    "Sera's Force-lock material-reading as NSW-era expertise for reading maker-intent in metal.",
+    "Veranthos/Scar/Weave-pressure as post-Ruusan wound from Gavran's technique.",
+    "Desh's sabotage volunteer as GAG-pattern break into chosen commitment."
+  ],
+  "open_questions": [
+    "Is 'Dantari Force-lock material-reading technique' directly Legends-sourced, or AU extension of psychometry? Confirm via Vos/KOTOR if needed.",
+    "Sith design-signature theory specifics for amplification: any Bane-era alchemist precedents beyond general sorcery?"
+  ]
+}

@@ -29,7 +29,7 @@ from src.project_paths import ProjectPaths
 OPENROUTER_PRICING_PER_MILLION = {
     "x-ai/grok-4.1-fast": {"input": 0.20, "output": 0.50},
     "openai/gpt-5.4-mini": {"input": 0.75, "output": 4.50},
-    "deepseek/deepseek-v3.2": {"input": 0.26, "output": 0.38},
+    "deepseek/deepseek-v4-flash": {"input": 0.14, "output": 0.28},
 }
 
 

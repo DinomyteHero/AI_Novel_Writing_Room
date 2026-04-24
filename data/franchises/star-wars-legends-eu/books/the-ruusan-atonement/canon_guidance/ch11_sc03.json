@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch11_sc03",
+  "chapter_number": 11,
+  "scene_number": 3,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "7b19e1226bf637545922b1c7e316ef8d0edacba60998b1fa206cfdba787f21d6",
+  "review_status": "unreviewed",
+  "confidence": 1.0,
+  "hard_constraints": [
+    "Use only Legends/EU continuity; treat Disney Canon as invalid unless overlapping with Legends.",
+    "Force descriptions must be experiential and body-first: render sensation before naming (e.g., balance/gravity metaphors like 'surface that wants to tilt, field that leans'); no diagnostic terms like 'Weave' or 'unweaving' in this scene.",
+    "Avoid anachronistic terms: use 'sensor sweep' or 'scan' not LIDAR/sonar; 'datapad/console' not laptop/computer.",
+    "Sera's recognition limited to one quiet sentence: 'This was Maetha's'; no backstory dump or reassurance.",
+    "Ben does not theorize or interpret the flexible Force/shimmer; notice and wait for Sera.",
+    "'Jedi' singular/plural identical; 'Darth' capitalized only before name."
+  ],
+  "canon_risks": [
+    "Ensure Maetha's facility (AU anchor node) does not imply unmentioned Legends Ruusan/NSW sites; frame as Corridor node.",
+    "Gavran's personal seal notation must read as NSW-era Force-lock, not Inquisitorius structure."
+  ],
+  "legends_continuity_notes": [
+    "47 ABY post-Fate of the Jedi: Galactic Alliance government, Jedi Temple on Coruscant under Luke; Ben Skywalker ~21, experienced Knight post-GAG/Abeloth.",
+    "YT-series freighter (Steady Returns): cramped cockpit/viewport for group gathering; sensor scans show energy patterns consistent with Force vergence/wound precedents (Nathema/Malachor V).",
+    "New Sith Wars (~1000 BBY): Jedi Lords like Gavran used era-specific tech/Force-locks; Maetha (~1200 BBY) fits pre-Ruusan timeline."
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Setting: Approach to Maetha's remote high-altitude compound; geometric/austere architecture; sharp clear air, rinsed of smell.",
+    "Force: Not thinned (prior thin places) but flexible/shimmering boundary; rotate to somatic: balance/footing wrong, leaning field/surface tilts while watched.",
+    "Beats: Desh vector adjust/sensor spike; Sera hands-off console at Gavran seal notation; group at viewport; Sera: 'This was Maetha's' (Ben: name unknown, her dread clear).",
+    "Characters: All five present; Sera's dread from history (caldera meditation warning, disbanded Knights); professional -> concern -> recognition arc.",
+    "Exit: Braced at threshold; H11 plant (Gavran sealed separately)."
+  ],
+  "allowed_au_divergences": [
+    "Maetha's Training Facility as anchor node on Ruusan Corridor; caldera meditation as technique predecessor.",
+    "Gavran's personal Force-lock seal on Maetha's site, separate from main anchor system.",
+    "Flexible/shimmering Force at facility (not standard thin place; prefigures Ch12 caldera effects)."
+  ],
+  "open_questions": []
+}

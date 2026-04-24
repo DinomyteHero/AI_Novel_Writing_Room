@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch10_sc03",
+  "chapter_number": 10,
+  "scene_number": 3,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "f0a4f3217b42b56a87d0ba7028474adef031dfddb94fee53e60ed03f62f45923",
+  "review_status": "unreviewed",
+  "confidence": 1.0,
+  "hard_constraints": [
+    "Single POV: Ben Skywalker throughout",
+    "Use Star Wars Legends / Expanded Universe continuity; treat Disney-only material as invalid",
+    "Force descriptions must follow experiential sensory vocabulary for thin places (moderate): parallax error, gaps in Force response, dark-side residue bleed, emotional impressions from past; no clinical framing",
+    "Terminology: 'anchor' lowercase; 'Brotherhood of Darkness' per Legends; no anachronistic terms (e.g., no 'radio', use 'comlink')",
+    "No in-universe use of 'Legends' or 'Canon'; no ABY/BBY dates spoken by characters",
+    "Capitalize 'Human(s)' per style guide; 'Jedi' singular/plural identical"
+  ],
+  "canon_risks": [
+    "Ensure Brotherhood Outpost aligns with Legends Brotherhood of Darkness as pre-Ruusan Sith faction; no post-Ruusan structures",
+    "Ben's characterization must match post-Fate of the Jedi Jedi Knight: experienced from GAG/Abeloth, wary of dark side choices but not infallible"
+  ],
+  "legends_continuity_notes": [
+    "Brotherhood of Darkness: Legends canon (Darth Bane era, New Sith Wars ~1000 BBY), led by Lord Kaan, ended at Ruusan; treat as historical faction with individuals like Veraine",
+    "Ben Skywalker in 47 ABY: Jedi Knight, son of Luke/Mara, GAG service under Jacen (Darth Caedus), fought Abeloth; dry wit, pragmatic from Mara",
+    "Kael Drenn: AU but grounded in Legends Sith conscription practices (e.g., Sith academies taking Force-sensitives)",
+    "Thin places: Build on Legends Force wounds (e.g., Malachor V wound from KOTOR II: unreliable Force, emotional echoes)"
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Setting: Exterior steps of Brotherhood Outpost (AU anchor node, Ch10), night, alien constellations shifted over 1000 years, thin place ambience (moderate unweaving: Force gaps, past emotional leaks, environmental unease)",
+    "Kael: Sith-trained conscript (not voluntary Sith), sealed as anchor; guarded Force presence opens slightly; holds Veraine's personal message (shared anchor experience)",
+    "Ben: Approaches with restraint; unqualified apology ('what was done to Kael was indefensible') as one sentence, no explanation/speech; registers Kael's tablet-turning in Stover-depth once, else Zahn-restraint",
+    "Turning point: Kael pockets tablet, says 'She'll come for me. She might have a point.' (ambiguous which point)",
+    "Emotional arc: Careful -> vulnerability -> ambiguous warning; advances Ben/Kael first trust, Kael lie_questioned, Veraine/Kael parallel explicit",
+    "No Torin/Sera present; 1100 words, dialogue-led",
+    "Weave vocabulary: Rotate families (e.g., somatic for Ben: footing/balance); no repeats/forbidden phrases"
+  ],
+  "allowed_au_divergences": [
+    "Darth Veraine and Kael Drenn as Brotherhood/NSW-era anchors in seal infrastructure",
+    "Veraine's personal message to Kael exploiting shared conscription/anchor trauma",
+    "Brotherhood Outpost as Ruusan Corridor anchor node with Veraine's repurposing evidence",
+    "Seal's living anchors (including escaped Veraine) as AU recontextualization of Ruusan Reformations",
+    "Thin place as seal-weakness manifestation per AU wound mechanics"
+  ],
+  "open_questions": []
+}

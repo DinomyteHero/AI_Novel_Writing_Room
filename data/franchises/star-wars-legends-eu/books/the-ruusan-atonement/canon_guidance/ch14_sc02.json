@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch14_sc02",
+  "chapter_number": 14,
+  "scene_number": 2,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "c51fb9729cc7c4eb7d5f77068805a4efe3228e865716414efe5b5f671e9f970c",
+  "review_status": "unreviewed",
+  "confidence": 1.0,
+  "hard_constraints": [
+    "Single POV: Ben Skywalker throughout",
+    "Use Legends terminology and avoid anachronisms (e.g., datapad not laptop, tactical display not computer screen, bulkhead for ship walls)",
+    "Force descriptions through experiential language only; no diagnostic vocabulary ('Weave', 'unweaving') without prior body-experience rendering",
+    "Capitalize 'Human' per style guide; 'Jedi' singular/plural; 'Darth' capitalized before name",
+    "No in-universe use of 'Legends' or 'Canon'; no ABY/BBY dates spoken by characters",
+    "Voice: Zahn-procedural with short exchanges; one Allston-warm Desh line permitted near close"
+  ],
+  "canon_risks": [],
+  "legends_continuity_notes": [
+    "Ben Skywalker: Jedi Knight, post-Fate of the Jedi (47 ABY), former GAG operative with Desh",
+    "Galactic Alliance as primary government; Jedi Order under Luke Skywalker at Coruscant Temple",
+    "YT-series freighter (Steady Returns) consistent with Legends ship designs",
+    "Ruusan Reformations (1000 BBY) as baseline Legends event, AU-recontextualized only",
+    "Brotherhood of Darkness: Legends canon faction from New Sith Wars era"
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Amplification array: Veraine repurposes anchor nodes into focusing system amplifying her ritual at Veranthos; each node channels against the seal (concept seed)",
+    "Ruusan Corridor: Seal's perimeter network of anchor nodes; historical Jedi Lords' route (terminology_registry)",
+    "Group expertise: Desh (tactical/non-Force), Sera (historical/Force-lock/archaic notation), Torin (Force theory), Kael (dry corrections/Sith-trained perspective)",
+    "Scene synthesis: Group produces amplification array recognition; no single owner, foreshadows climax without italicizing",
+    "Emotional arc: Analytical collaboration -> dawning understanding -> strategic alarm (Ben's POV)",
+    "Setting: Steady Returns interior, every surface with evidence (datapads, manifests, sensor logs, Corridor maps pinned to bulkhead)"
+  ],
+  "allowed_au_divergences": [
+    "Amplification array and node repurposing by Veraine",
+    "Survivors (Sera Varik, Torin Hal, Kael Drenn) as anchors from New Sith Wars",
+    "Veranthos wound/seal from Gavran's forbidden technique",
+    "Ankhural Codex heresy and Weave terminology as era-specific",
+    "Steady Returns as Desh's modified YT-series freighter"
+  ],
+  "open_questions": []
+}

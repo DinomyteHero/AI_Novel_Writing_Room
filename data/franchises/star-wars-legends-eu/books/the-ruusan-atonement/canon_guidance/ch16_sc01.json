@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch16_sc01",
+  "chapter_number": 16,
+  "scene_number": 1,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "095bc8a856ceba025cfd6a9659644192741c89026ede013c4517c077dacb598c",
+  "review_status": "unreviewed",
+  "confidence": 0.95,
+  "hard_constraints": [
+    "Preserve Legends continuity: post-Fate of the Jedi, 47 ABY; Galactic Alliance as government; Jedi Order under Luke Skywalker at Coruscant Temple.",
+    "No Disney-only material: avoid High Republic, World Between Worlds, kyber bleeding, Sequel trilogy terms, Inquisitorius.",
+    "Use Star Wars terminology: datapad (not laptop), comm (not radio), no anachronisms like DNA/radio/sonar.",
+    "Force described experientially, not as 'energy field'; no clinical framing.",
+    "'Jedi' singular/plural identical; 'Darth' capitalized before name only.",
+    "Capitalize 'Human'; lowercase 'galaxy'; American English.",
+    "No in-universe use of 'Legends'/'Canon'/ABY dating; reference events by name (e.g., 'after Abeloth').",
+    "Veraine introduces as 'Veraine' (drops 'Darth'); calm, precise, no contractions, Socratic questioning.",
+    "Do not articulate four-objective frame (ideological pitch, Kael recruitment, intelligence gathering, sabotage) on-page; sabotage not teased (Ch17 discovery).",
+    "Torin's warmth load-bearing: preserve register without over-signaling direction."
+  ],
+  "canon_risks": [
+    "Sith-era encrypted protocol: Brotherhood of Darkness (Legends canon, Darth Bane era) ended at Ruusan 1000 BBY; no published successor traditions in post-NSW Legends, but AU survivor Veraine authorizes use.",
+    "Jedi counter-intelligence for antagonist contact: no specific Legends procedure detailed for 47 ABY GAG/Jedi ops; Desh's GAG background (Legends canon) supports tactical read without conflict."
+  ],
+  "legends_continuity_notes": [
+    "Brotherhood of Darkness: Legends canon faction led by Lord Kaan during New Sith Wars (~1010-1000 BBY); destroyed by thought bomb at Ruusan (Darth Bane: Path of Destruction).",
+    "Ben Skywalker: Jedi Knight, post-Fate of the Jedi; GAG service under Jacen Solo (Legacy of the Force canon).",
+    "Desh Rolan: AU but grounded in GAG (Galactic Alliance Guard, Legends canon secret police under Jacen/Darth Caedus).",
+    "Steady Returns: AU YT-series freighter; matches Legends ship classes (e.g., YT-1300 Millennium Falcon).",
+    "Post-Abeloth (44-47 ABY): Force settling; Jedi at Coruscant Temple under Luke."
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Setting: Steady Returns cockpit; Veranthos course on nav display.",
+    "Veraine's comm: clean, encrypted Sith-era protocol (Kael recognizes); voice calm, precise, academic, complete sentences, no contractions; 'I would prefer to speak rather than be spoken about. I suspect you would as well.' (uses Kael's name).",
+    "Debate: Desh/Sera against (tactical/archive); Torin for (warm advocacy); Kael silent.",
+    "Ben's TP: keys acceptance before debate reopens; meeting at neutral point toward Veranthos; Veraine's ship already there (minimal crew).",
+    "Ben POV: registers Torin's warmth without interpreting; trusts Desh's tactics, listens to Sera's memory.",
+    "Voices: Sera archaic/full formal under stress; Torin warm/storytelling; Kael silent.",
+    "Subplots: SP-A (Ben's operational dependence), SP2 (Kael/Desh alliance quiet), SP3 (Torin telegraph subtle).",
+    "Hook: Resolves H10 (Veraine speaks directly); plants H16."
+  ],
+  "allowed_au_divergences": [
+    "Darth Veraine: Brotherhood alchemist/strategist, escaped anchor; AU character.",
+    "Sith-era protocol recognized by Kael (Sith conscript anchor); AU detail on Brotherhood tech.",
+    "Veraine's three objectives (pitch, Kael recruitment, intel via Ben observation): AU mission structure.",
+    "Group dynamics post-Ch15: survivors awoken, seal failing, Corridor travel."
+  ],
+  "open_questions": [
+    "Specific Legends details on Brotherhood comm encryption? None in provided sources; treat as AU-authorized era-appropriate tech.",
+    "Exact GAG/Jedi in-field counter-intel protocols for 47 ABY? Legends supports Desh's procedural response via GAG background."
+  ]
+}

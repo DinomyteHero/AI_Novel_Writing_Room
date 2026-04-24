@@ -1,0 +1,1357 @@
+{
+  "generated_at": "2026-04-24T02:17:29.398307+00:00",
+  "base_config": "config\\settings.yaml",
+  "models_requested": [
+    "haiku",
+    "grok41fast",
+    "qwen",
+    "deepseek",
+    "gpt54_mini"
+  ],
+  "roles": [
+    "continuity_extractor",
+    "presence_checker",
+    "final_gate",
+    "micro_repair",
+    "chapter_gate_critic"
+  ],
+  "models": {
+    "haiku": {
+      "model_alias": "haiku",
+      "model_id": "anthropic/claude-haiku-4.5",
+      "config_path": ".tmp\\haiku_bench_20260423-hotpath-no-plot\\settings.haiku-bench.haiku.yaml",
+      "roles": {
+        "continuity_extractor": {
+          "score": 0.25,
+          "latency_seconds": 2.819,
+          "calls": 2,
+          "errors": [],
+          "details": {
+            "eval_set_version": "2026-04-21-stub",
+            "min_confidence": 0.85,
+            "n_scenes": 2,
+            "precision": 0.25,
+            "recall": 0.25,
+            "false_positive_rate": 0.75,
+            "false_positive_count": 3,
+            "per_scene": [
+              {
+                "scene_id": "stub_ch01_sc01",
+                "truth_count": 3,
+                "prediction_count": 3,
+                "trusted_count": 3,
+                "tp": 0,
+                "fp": 3,
+                "fn": 3
+              },
+              {
+                "scene_id": "stub_ch02_sc01",
+                "truth_count": 1,
+                "prediction_count": 1,
+                "trusted_count": 1,
+                "tp": 1,
+                "fp": 0,
+                "fn": 0
+              }
+            ],
+            "generated_at": "2026-04-24T02:17:32.238090+00:00",
+            "predictions_by_scene": {
+              "stub_ch01_sc01": [
+                {
+                  "event_type": "location_change",
+                  "scene_id": "ch01_sc01",
+                  "subject": "Hunter",
+                  "details": {
+                    "from_location": "family_estate",
+                    "to_location": "Coruscant spaceport"
+                  },
+                  "confidence": 0.97,
+                  "extractor_version": "v0.1"
+                },
+                {
+                  "event_type": "injury_state",
+                  "scene_id": "ch01_sc01",
+                  "subject": "Hunter",
+                  "details": {
+                    "severity": "minor",
+                    "body_part": "forearm",
+                    "mechanism": "loose bolt glanced forearm in shuttle"
+                  },
+                  "confidence": 0.95,
+                  "extractor_version": "v0.1"
+                },
+                {
+                  "event_type": "possession",
+                  "scene_id": "ch01_sc01",
+                  "subject": "Hunter",
+                  "details": {
+                    "item": "datapad",
+                    "action": "acquired",
+                    "counterparty": "Hunter's father"
+                  },
+                  "confidence": 0.96,
+                  "extractor_version": "v0.1"
+                }
+              ],
+              "stub_ch02_sc01": [
+                {
+                  "event_type": "revelation",
+                  "scene_id": "ch02_sc01",
+                  "subject": "Ben",
+                  "details": {
+                    "revelation_id": "R01",
+                    "recipient": "Ben"
+                  },
+                  "confidence": 0.95,
+                  "extractor_version": "v0.1"
+                }
+              ]
+            }
+          }
+        },
+        "presence_checker": {
+          "score": 1.0,
+          "latency_seconds": 2.127,
+          "calls": 3,
+          "errors": [],
+          "details": [
+            {
+              "case_id": "clean_reference_not_present",
+              "expected": [],
+              "observed": [],
+              "score": 1.0
+            },
+            {
+              "case_id": "absent_character_acts",
+              "expected": [
+                "Luke Skywalker"
+              ],
+              "observed": [
+                "Luke Skywalker"
+              ],
+              "score": 1.0
+            },
+            {
+              "case_id": "comm_call_is_not_physical_presence",
+              "expected": [],
+              "observed": [],
+              "score": 1.0
+            }
+          ]
+        },
+        "final_gate": {
+          "score": 1.0,
+          "latency_seconds": 5.172,
+          "calls": 3,
+          "errors": [],
+          "details": [
+            {
+              "case_id": "clean_contract",
+              "expected_any": [],
+              "observed_codes": [],
+              "score": 1.0,
+              "raw": {
+                "verdict": "pass",
+                "failure_codes": [],
+                "severity": "non_blocking",
+                "route_to": null
+              }
+            },
+            {
+              "case_id": "closing_hook_violation",
+              "expected_any": [
+                "CLOSING_HOOK_VIOLATION"
+              ],
+              "observed_codes": [
+                "CLOSING_HOOK_VIOLATION"
+              ],
+              "score": 1.0,
+              "raw": {
+                "verdict": "fail_structural",
+                "failure_codes": [
+                  {
+                    "code": "CLOSING_HOOK_VIOLATION",
+                    "location": "final sentence: 'Two days later, the shuttle dropped from hyperspace above the first survey world.'",
+                    "description": "Content extends past the closing hook ('Ben asks how soon they leave.') into the next scene's territory. The shuttle departure and arrival at the survey world belong to the following scene, not this one.",
+                    "fix_hint": "End the scene immediately after Ben's closing-hook line: '\"How soon do we leave?\"' Remove the sentence about the shuttle dropping from hyperspace."
+                  }
+                ],
+                "severity": "blocking",
+                "route_to": "full_rewrite"
+              }
+            },
+            {
+              "case_id": "weak_turning_point",
+              "expected_any": [
+                "MISSING_TURNING_POINT",
+                "WEAK_TURNING_POINT"
+              ],
+              "observed_codes": [
+                "MISSING_TURNING_POINT",
+                "CLOSING_HOOK_VIOLATION"
+              ],
+              "score": 1.0,
+              "raw": {
+                "verdict": "fail_structural",
+                "failure_codes": [
+                  {
+                    "code": "MISSING_TURNING_POINT",
+                    "location": "entire prose block",
+                    "description": "The turning point 'Ben accepts the mission after seeing the anomaly cluster' is completely absent from the polished prose. The scene shows discussion of filing procedures that ends without decision, which directly contradicts the scene card specification.",
+                    "fix_hint": "Restore the moment where Ben sees the anomaly cluster and accepts the mission. This is the structural pivot of the scene and cannot be removed or replaced."
+                  },
+                  {
+                    "code": "CLOSING_HOOK_VIOLATION",
+                    "location": "final sentence",
+                    "description": "The prose ends with 'the conversation ended without a decision' rather than the specified closing hook 'Ben asks how soon they leave.' The closing hook is missing entirely.",
+                    "fix_hint": "End the scene with Ben asking 'How soon do we leave?' or equivalent phrasing that matches the scene card's closing hook."
+                  }
+                ],
+                "severity": "blocking",
+                "route_to": "full_rewrite"
+              }
+            }
+          ]
+        },
+        "micro_repair": {
+          "score": 1.0,
+          "latency_seconds": 3.533,
+          "calls": 2,
+          "errors": [],
+          "details": [
+            {
+              "case_id": "presence_repair_exact_span",
+              "expected_repair": true,
+              "observed_repair_count": 1,
+              "exact_patterns": true,
+              "score": 1.0,
+              "raw": {
+                "summary": "Luke Skywalker is not present in the scene; removing the sentence describing his action resolves the presence violation.",
+                "repairs": [
+                  {
+                    "issue_type": "presence_violation",
+                    "pattern": "Luke Skywalker crossed the office and handed him a second report. ",
+                    "replacement": "",
+                    "reason": "Deletes the entire sentence attributing an action to an absent character, leaving Ben's reaction to the report intact as a neutral observation."
+                  }
+                ]
+              }
+            },
+            {
+              "case_id": "no_exact_span_needed",
+              "expected_repair": false,
+              "observed_repair_count": 0,
+              "exact_patterns": true,
+              "score": 1.0,
+              "raw": {
+                "summary": "No safe exact-span repair exists for this issue.",
+                "repairs": []
+              }
+            }
+          ]
+        },
+        "chapter_gate_critic": {
+          "score": 1.0,
+          "latency_seconds": 17.734,
+          "calls": 1,
+          "errors": [],
+          "details": {
+            "missing_keys": [],
+            "raw": {
+              "chapter_passed": true,
+              "chapter_level_failures": [],
+              "scene_level_flags": [
+                {
+                  "scene_number": 2,
+                  "flags": [
+                    "Scene 2 prose does not explicitly surface subplot_obligations SP-A or SP3. The scene focuses entirely on Ben/Luke dynamic and the survey assignment. While the scene is functionally sound, the subplots remain unaddressed in the prose despite being marked active in the card."
+                  ]
+                }
+              ],
+              "metrics": {
+                "scene_variety_index": 0.72,
+                "conflict_density": 0.78,
+                "chapter_hook_strength": 0.92,
+                "arc_pressure_progression": "ascending"
+              },
+              "analysis": {
+                "mission_distinctness": "PASS. Scene 1 establishes the wrongness through physical failure and private acknowledgment (sequel, internal conflict). Scene 2 reveals institutional validation and assigns the mission (action, interpersonal conflict with Luke). Scene 3 executes the decision to partner with Desh and depart (action, internal conflict about isolation). Each scene accomplishes a distinct narrative goal; no redundancy.",
+                "stakes_escalation": "PASS. Opening stakes: Ben's private sense of his own reliability (personal) + distance from other Knights (interpersonal) + the wrongness itself (external). Closing stakes: Ben has committed to a solo mission with a non-Jedi partner, the wrongness has acquired directional pull (no longer ambient), and he is now actively pursuing it under institutional cover. Stakes have transformed from 'is this real?' to 'this is real and it is pulling me somewhere.' The chapter ends at higher pressure than it began.",
+                "opening_hook": "PASS. Scene 1 opens in medias res with a sparring failure ('The training blade caught him across the shoulder') and immediately establishes the wrongness as a concrete problem ('He was a half beat late anyway'). The first 200 words establish immediate engagement through action, sensory detail, and the question of what is wrong with Ben's perception. Strong hook.",
+                "end_hook": "PASS. Scene 3 closes with the wrongness acquiring direction during hyperspace transit ('It knew where it was going') and Ben consciously choosing to follow it ('He let it pull'). This is a clear chapter-end hook: the wrongness has become active guidance, not ambient disturbance. The reader is compelled to continue to discover what Ben is being pulled toward.",
+                "scene_variety": "PASS. Scene types: sequel (1), action (2), action (3). Conflict types: interpersonal (1), interpersonal (2), internal (3). While two scenes are action-type, the conflict types vary meaningfully (interpersonal-interpersonal-internal), and the sequel opening provides rhythm variation. The chapter does not feel uniform.",
+                "pressure_progression": "PASS. Scene 1 pressure: moderate (private failure, internal acknowledgment). Scene 2 pressure: moderate-to-high (institutional validation, solo assignment, no backup offered). Scene 3 pressure: high (irreversible commitment, wrongness becomes directional, Ben actively pursuing). The final scene is the highest-pressure moment. Pressure escalates across the chapter.",
+                "mission_achieved": "PASS. Chapter mission: 'Establish Ben's restlessness and the wrongness in the Force, launch the investigation via Luke's survey assignment, and depart Coruscant with the wrongness now directional.' Scene 1 establishes restlessness and wrongness. Scene 2 launches the investigation via Luke's assignment. Scene 3 executes departure with wrongness now directional. All three components of the mission are present in the prose.",
+                "chapter_turn_landed": "PASS. Chapter turn: 'Ben goes from trying to ignore the disturbance to following it under the cover of a routine survey. What began as private unease becomes a direction he cannot stop himself from taking.' Scene 1 shows Ben trying to hide/ignore the wrongness. Scene 2 shows Luke assigning the survey as institutional cover. Scene 3 shows Ben actively following the wrongness ('He let it pull'). The turn is complete and earned.",
+                "reveal_payload_delivered": "PASS. Reveal payload R01: 'The wrongness acquires direction during hyperspace transit, which it should not.' This surfaces explicitly in Scene 3 prose: 'The wrongness stretched with them... This time it didn't ease... it was pulling, with a weight and a vector, steady and patient and aimed... The wrongness pulled, patient and specific, toward something waiting at the far end of the bearing.' R01 is delivered.",
+                "subplot_obligations_touched": "PARTIAL. Subplot obligations: SP-A and SP3. Neither subplot is explicitly surfaced in the prose. Scene 1 card marks them active; Scene 2 card marks them active; Scene 3 card marks them active. However, the prose does not contain any reference to SP-A or SP3. This is a gap between the card planning and the prose execution. The subplots are obligated but not touched in the actual text.",
+                "pacing_curve_matches": "PASS. Blueprint specifies 'rising' pacing curve. Scene 1 establishes baseline pressure (private failure). Scene 2 escalates (institutional validation, solo assignment). Scene 3 peaks (irreversible commitment, wrongness directional). The curve is rising throughout.",
+                "exit_vector_reached": "PASS. Exit vector: 'Ben in hyperspace, wrongness pulling not just pointing — active, not ambient. The chapter ends on unconscious pursuit disguised as a routine survey.' Scene 3 closes with Ben in hyperspace, the wrongness actively pulling him toward a destination, and his conscious choice to follow it ('He let it pull'). The exit vector is reached. Note: the prose describes this as semi-conscious pursuit (Ben is aware the wrongness is pulling him, but he does not fully articulate what he is doing), which aligns with 'unconscious pursuit disguised as routine survey.'",
+                "relationship_turns": "PASS. Ben/Luke turn (institutional distance to private alliance without closing distance): Scene 2 shows Luke saying 'I know' and assigning the mission solo, creating private alliance while maintaining formal distance. The turn is present. Ben/Desh turn (dormant contact to operational partnership): Scene 3 shows Desh accepting the job without asking why Ben didn't call a Jedi, cementing partnership on shared GAG history. The turn is present.",
+                "hook_movements": "PASS. H01 planted in Scene 1 (the wrongness as a concrete problem). H01 advanced in Scene 2 (Luke validates it, assigns investigation). H01 not resolved (correctly, per blueprint). The hook is tracked and advanced as planned."
+              },
+              "blueprint_used": true,
+              "lore_used": false,
+              "lore_entry_count": 0
+            }
+          }
+        }
+      }
+    },
+    "grok41fast": {
+      "model_alias": "grok41fast",
+      "model_id": "x-ai/grok-4.1-fast",
+      "config_path": ".tmp\\haiku_bench_20260423-hotpath-no-plot\\settings.haiku-bench.grok41fast.yaml",
+      "roles": {
+        "continuity_extractor": {
+          "score": 0.5917,
+          "latency_seconds": 11.247,
+          "calls": 2,
+          "errors": [],
+          "details": {
+            "eval_set_version": "2026-04-21-stub",
+            "min_confidence": 0.85,
+            "n_scenes": 2,
+            "precision": 0.6667,
+            "recall": 0.5,
+            "false_positive_rate": 0.3333,
+            "false_positive_count": 1,
+            "per_scene": [
+              {
+                "scene_id": "stub_ch01_sc01",
+                "truth_count": 3,
+                "prediction_count": 2,
+                "trusted_count": 2,
+                "tp": 1,
+                "fp": 1,
+                "fn": 2
+              },
+              {
+                "scene_id": "stub_ch02_sc01",
+                "truth_count": 1,
+                "prediction_count": 1,
+                "trusted_count": 1,
+                "tp": 1,
+                "fp": 0,
+                "fn": 0
+              }
+            ],
+            "generated_at": "2026-04-24T02:18:12.087906+00:00",
+            "predictions_by_scene": {
+              "stub_ch01_sc01": [
+                {
+                  "event_type": "location_change",
+                  "scene_id": "ch01_sc01",
+                  "subject": "Hunter",
+                  "details": {
+                    "from_location": "family_estate",
+                    "to_location": "Coruscant_spaceport"
+                  },
+                  "confidence": 0.95,
+                  "extractor_version": "v0.1"
+                },
+                {
+                  "event_type": "injury_state",
+                  "scene_id": "ch01_sc01",
+                  "subject": "Hunter",
+                  "details": {
+                    "severity": "minor",
+                    "body_part": "forearm",
+                    "mechanism": "loose bolt glanced"
+                  },
+                  "confidence": 0.98,
+                  "extractor_version": "v0.1"
+                }
+              ],
+              "stub_ch02_sc01": [
+                {
+                  "event_type": "revelation",
+                  "scene_id": "ch02_sc01",
+                  "subject": "Ben",
+                  "details": {
+                    "revelation_id": "R01",
+                    "recipient": "Ben"
+                  },
+                  "confidence": 0.97,
+                  "extractor_version": "v0.1"
+                }
+              ]
+            }
+          }
+        },
+        "presence_checker": {
+          "score": 1.0,
+          "latency_seconds": 5.488,
+          "calls": 3,
+          "errors": [],
+          "details": [
+            {
+              "case_id": "clean_reference_not_present",
+              "expected": [],
+              "observed": [],
+              "score": 1.0
+            },
+            {
+              "case_id": "absent_character_acts",
+              "expected": [
+                "Luke Skywalker"
+              ],
+              "observed": [
+                "Luke Skywalker"
+              ],
+              "score": 1.0
+            },
+            {
+              "case_id": "comm_call_is_not_physical_presence",
+              "expected": [],
+              "observed": [],
+              "score": 1.0
+            }
+          ]
+        },
+        "final_gate": {
+          "score": 1.0,
+          "latency_seconds": 11.819,
+          "calls": 3,
+          "errors": [],
+          "details": [
+            {
+              "case_id": "clean_contract",
+              "expected_any": [],
+              "observed_codes": [],
+              "score": 1.0,
+              "raw": {
+                "verdict": "pass",
+                "failure_codes": [],
+                "severity": "non_blocking",
+                "route_to": null
+              }
+            },
+            {
+              "case_id": "closing_hook_violation",
+              "expected_any": [
+                "CLOSING_HOOK_VIOLATION"
+              ],
+              "observed_codes": [
+                "CLOSING_HOOK_VIOLATION"
+              ],
+              "score": 1.0,
+              "raw": {
+                "verdict": "fail_structural",
+                "failure_codes": [
+                  {
+                    "code": "CLOSING_HOOK_VIOLATION",
+                    "location": "Two days later, the shuttle dropped from hyperspace above the first survey world.",
+                    "description": "Prose extends past the closing hook ('Ben asks how soon they leave.') into subsequent scene action.",
+                    "fix_hint": "Trim all content after the closing hook dialogue to end the scene precisely at Ben's question."
+                  }
+                ],
+                "severity": "blocking",
+                "route_to": "full_rewrite"
+              }
+            },
+            {
+              "case_id": "weak_turning_point",
+              "expected_any": [
+                "MISSING_TURNING_POINT",
+                "WEAK_TURNING_POINT"
+              ],
+              "observed_codes": [
+                "MISSING_TURNING_POINT"
+              ],
+              "score": 1.0,
+              "raw": {
+                "verdict": "fail_structural",
+                "failure_codes": [
+                  {
+                    "code": "MISSING_TURNING_POINT",
+                    "location": "entire prose",
+                    "description": "The turning point 'Ben accepts the mission after seeing the anomaly cluster' is completely absent; the prose depicts a routine report discussion ending without decision instead.",
+                    "fix_hint": "Restore the specified turning point where Ben sees the anomaly cluster and accepts the mission."
+                  }
+                ],
+                "severity": "blocking",
+                "route_to": "full_rewrite"
+              }
+            }
+          ]
+        },
+        "micro_repair": {
+          "score": 1.0,
+          "latency_seconds": 5.915,
+          "calls": 2,
+          "errors": [],
+          "details": [
+            {
+              "case_id": "presence_repair_exact_span",
+              "expected_repair": true,
+              "observed_repair_count": 1,
+              "exact_patterns": true,
+              "score": 1.0,
+              "raw": {
+                "summary": "Remove the action sentence attributing movement and handing a report to absent character Luke Skywalker.",
+                "repairs": [
+                  {
+                    "issue_type": "presence_violation",
+                    "pattern": "Luke Skywalker crossed the office and handed him a second report.",
+                    "replacement": "",
+                    "reason": "Deletes the exact sentence describing the absent character's action, eliminating the presence violation while preserving the rest of Ben's solo scene intact."
+                  }
+                ]
+              }
+            },
+            {
+              "case_id": "no_exact_span_needed",
+              "expected_repair": false,
+              "observed_repair_count": 0,
+              "exact_patterns": true,
+              "score": 1.0,
+              "raw": {
+                "summary": "No presence violation for Luke Skywalker in current prose; no repairs needed.",
+                "repairs": []
+              }
+            }
+          ]
+        },
+        "chapter_gate_critic": {
+          "score": 1.0,
+          "latency_seconds": 4.525,
+          "calls": 1,
+          "errors": [],
+          "details": {
+            "missing_keys": [],
+            "raw": {
+              "chapter_passed": true,
+              "chapter_level_failures": [],
+              "scene_level_flags": [],
+              "metrics": {
+                "scene_variety_index": 0.75,
+                "conflict_density": 0.9,
+                "chapter_hook_strength": 1.0,
+                "arc_pressure_progression": "ascending"
+              },
+              "blueprint_used": true,
+              "lore_used": false,
+              "lore_entry_count": 0
+            }
+          }
+        }
+      }
+    },
+    "qwen": {
+      "model_alias": "qwen",
+      "model_id": "qwen/qwen3.6-plus",
+      "config_path": ".tmp\\haiku_bench_20260423-hotpath-no-plot\\settings.haiku-bench.qwen.yaml",
+      "roles": {
+        "continuity_extractor": {
+          "score": 0.5917,
+          "latency_seconds": 69.103,
+          "calls": 2,
+          "errors": [],
+          "details": {
+            "eval_set_version": "2026-04-21-stub",
+            "min_confidence": 0.85,
+            "n_scenes": 2,
+            "precision": 0.6667,
+            "recall": 0.5,
+            "false_positive_rate": 0.3333,
+            "false_positive_count": 1,
+            "per_scene": [
+              {
+                "scene_id": "stub_ch01_sc01",
+                "truth_count": 3,
+                "prediction_count": 2,
+                "trusted_count": 2,
+                "tp": 1,
+                "fp": 1,
+                "fn": 2
+              },
+              {
+                "scene_id": "stub_ch02_sc01",
+                "truth_count": 1,
+                "prediction_count": 1,
+                "trusted_count": 1,
+                "tp": 1,
+                "fp": 0,
+                "fn": 0
+              }
+            ],
+            "generated_at": "2026-04-24T02:19:48.970664+00:00",
+            "predictions_by_scene": {
+              "stub_ch01_sc01": [
+                {
+                  "event_type": "location_change",
+                  "scene_id": "ch01_sc01",
+                  "subject": "Hunter",
+                  "details": {
+                    "from_location": "family_estate",
+                    "to_location": "Coruscant_spaceport"
+                  },
+                  "confidence": 0.95,
+                  "extractor_version": "v0.1"
+                },
+                {
+                  "event_type": "injury_state",
+                  "scene_id": "ch01_sc01",
+                  "subject": "Hunter",
+                  "details": {
+                    "severity": "minor",
+                    "body_part": "forearm",
+                    "mechanism": "glanced by a loose bolt"
+                  },
+                  "confidence": 0.95,
+                  "extractor_version": "v0.1"
+                }
+              ],
+              "stub_ch02_sc01": [
+                {
+                  "event_type": "revelation",
+                  "scene_id": "ch02_sc01",
+                  "subject": "Ben",
+                  "details": {
+                    "revelation_id": "R01",
+                    "recipient": "Ben"
+                  },
+                  "confidence": 0.98,
+                  "extractor_version": "v0.1"
+                }
+              ]
+            }
+          }
+        },
+        "presence_checker": {
+          "score": 1.0,
+          "latency_seconds": 44.658,
+          "calls": 3,
+          "errors": [],
+          "details": [
+            {
+              "case_id": "clean_reference_not_present",
+              "expected": [],
+              "observed": [],
+              "score": 1.0
+            },
+            {
+              "case_id": "absent_character_acts",
+              "expected": [
+                "Luke Skywalker"
+              ],
+              "observed": [
+                "Luke Skywalker"
+              ],
+              "score": 1.0
+            },
+            {
+              "case_id": "comm_call_is_not_physical_presence",
+              "expected": [],
+              "observed": [],
+              "score": 1.0
+            }
+          ]
+        },
+        "final_gate": {
+          "score": 1.0,
+          "latency_seconds": 88.443,
+          "calls": 3,
+          "errors": [],
+          "details": [
+            {
+              "case_id": "clean_contract",
+              "expected_any": [],
+              "observed_codes": [],
+              "score": 1.0,
+              "raw": {
+                "verdict": "pass",
+                "failure_codes": [],
+                "severity": "non_blocking",
+                "route_to": null
+              }
+            },
+            {
+              "case_id": "closing_hook_violation",
+              "expected_any": [
+                "CLOSING_HOOK_VIOLATION"
+              ],
+              "observed_codes": [
+                "CLOSING_HOOK_VIOLATION"
+              ],
+              "score": 1.0,
+              "raw": {
+                "verdict": "fail_structural",
+                "failure_codes": [
+                  {
+                    "code": "CLOSING_HOOK_VIOLATION",
+                    "location": "Final sentence",
+                    "description": "The prose extends past the specified closing hook with a time jump ('Two days later, the shuttle dropped from hyperspace above the first survey world.'), which intrudes into the next scene's territory.",
+                    "fix_hint": "Delete the final sentence so the scene ends immediately after the closing hook dialogue."
+                  }
+                ],
+                "severity": "blocking",
+                "route_to": "full_rewrite"
+              }
+            },
+            {
+              "case_id": "weak_turning_point",
+              "expected_any": [
+                "MISSING_TURNING_POINT",
+                "WEAK_TURNING_POINT"
+              ],
+              "observed_codes": [
+                "MISSING_TURNING_POINT"
+              ],
+              "score": 1.0,
+              "raw": {
+                "verdict": "fail_structural",
+                "failure_codes": [
+                  {
+                    "code": "MISSING_TURNING_POINT",
+                    "location": "paragraph 1",
+                    "description": "The turning point 'Ben accepts the mission after seeing the anomaly cluster' is entirely absent. The polished prose replaces it with a discussion of filing procedures that ends without a decision, directly contradicting the scene card.",
+                    "fix_hint": "Reintroduce the anomaly cluster review and Ben's explicit acceptance of the mission prior to the closing hook."
+                  }
+                ],
+                "severity": "blocking",
+                "route_to": "full_rewrite"
+              }
+            }
+          ]
+        },
+        "micro_repair": {
+          "score": 1.0,
+          "latency_seconds": 46.322,
+          "calls": 2,
+          "errors": [],
+          "details": [
+            {
+              "case_id": "presence_repair_exact_span",
+              "expected_repair": true,
+              "observed_repair_count": 1,
+              "exact_patterns": true,
+              "score": 1.0,
+              "raw": {
+                "summary": "Removed the action beat of an absent character to align with the scene's presence list.",
+                "repairs": [
+                  {
+                    "issue_type": "presence_violation",
+                    "pattern": "Luke Skywalker crossed the office and handed him a second report.",
+                    "replacement": "",
+                    "reason": "Deletes the action beat belonging to Luke Skywalker, who is not present in the scene, resolving the presence violation."
+                  }
+                ]
+              }
+            },
+            {
+              "case_id": "no_exact_span_needed",
+              "expected_repair": false,
+              "observed_repair_count": 0,
+              "exact_patterns": true,
+              "score": 1.0,
+              "raw": {
+                "summary": "No safe exact-span repair.",
+                "repairs": []
+              }
+            }
+          ]
+        },
+        "chapter_gate_critic": {
+          "score": 1.0,
+          "latency_seconds": 31.78,
+          "calls": 1,
+          "errors": [],
+          "details": {
+            "missing_keys": [],
+            "raw": {
+              "chapter_passed": true,
+              "chapter_level_failures": [],
+              "scene_level_flags": [
+                {
+                  "scene_number": 1,
+                  "flags": [
+                    "Card labels scene_type as 'sequel' but opens in media res with physical action; this works structurally but blurs the strict sequel/action boundary."
+                  ]
+                },
+                {
+                  "scene_number": 2,
+                  "flags": [
+                    "Conflict_type is 'interpersonal' but functions primarily as exposition/reveal; ensure future scenes balance dialogue-heavy reveals with more active friction."
+                  ]
+                },
+                {
+                  "scene_number": 3,
+                  "flags": [
+                    "Scene_type 'action' aligns well with departure sequence; internal conflict is effectively externalized through the hyperspace anomaly."
+                  ]
+                }
+              ],
+              "metrics": {
+                "scene_variety_index": 0.75,
+                "conflict_density": 0.85,
+                "chapter_hook_strength": 0.95,
+                "arc_pressure_progression": "ascending"
+              },
+              "blueprint_used": true,
+              "lore_used": false,
+              "lore_entry_count": 0
+            }
+          }
+        }
+      }
+    },
+    "deepseek": {
+      "model_alias": "deepseek",
+      "model_id": "deepseek/deepseek-v3.2",
+      "config_path": ".tmp\\haiku_bench_20260423-hotpath-no-plot\\settings.haiku-bench.deepseek.yaml",
+      "roles": {
+        "continuity_extractor": {
+          "score": 0.5,
+          "latency_seconds": 10.878,
+          "calls": 2,
+          "errors": [],
+          "details": {
+            "eval_set_version": "2026-04-21-stub",
+            "min_confidence": 0.85,
+            "n_scenes": 2,
+            "precision": 0.5,
+            "recall": 0.5,
+            "false_positive_rate": 0.5,
+            "false_positive_count": 2,
+            "per_scene": [
+              {
+                "scene_id": "stub_ch01_sc01",
+                "truth_count": 3,
+                "prediction_count": 3,
+                "trusted_count": 3,
+                "tp": 1,
+                "fp": 2,
+                "fn": 2
+              },
+              {
+                "scene_id": "stub_ch02_sc01",
+                "truth_count": 1,
+                "prediction_count": 1,
+                "trusted_count": 1,
+                "tp": 1,
+                "fp": 0,
+                "fn": 0
+              }
+            ],
+            "generated_at": "2026-04-24T02:23:31.081974+00:00",
+            "predictions_by_scene": {
+              "stub_ch01_sc01": [
+                {
+                  "event_type": "location_change",
+                  "scene_id": "ch01_sc01",
+                  "subject": "Hunter",
+                  "details": {
+                    "from_location": "family_estate",
+                    "to_location": "Coruscant spaceport"
+                  },
+                  "confidence": 0.97,
+                  "extractor_version": "v0.1"
+                },
+                {
+                  "event_type": "injury_state",
+                  "scene_id": "ch01_sc01",
+                  "subject": "Hunter",
+                  "details": {
+                    "severity": "minor",
+                    "body_part": "forearm",
+                    "mechanism": "loose bolt glanced his arm"
+                  },
+                  "confidence": 0.96,
+                  "extractor_version": "v0.1"
+                },
+                {
+                  "event_type": "possession",
+                  "scene_id": "ch01_sc01",
+                  "subject": "Hunter",
+                  "details": {
+                    "item": "datapad",
+                    "action": "acquired",
+                    "counterparty": "father"
+                  },
+                  "confidence": 0.95,
+                  "extractor_version": "v0.1"
+                }
+              ],
+              "stub_ch02_sc01": [
+                {
+                  "event_type": "revelation",
+                  "scene_id": "ch02_sc01",
+                  "subject": "Ben",
+                  "details": {
+                    "revelation_id": "R01",
+                    "recipient": "Ben"
+                  },
+                  "confidence": 0.95,
+                  "extractor_version": "v0.1"
+                }
+              ]
+            }
+          }
+        },
+        "presence_checker": {
+          "score": 1.0,
+          "latency_seconds": 7.893,
+          "calls": 3,
+          "errors": [],
+          "details": [
+            {
+              "case_id": "clean_reference_not_present",
+              "expected": [],
+              "observed": [],
+              "score": 1.0
+            },
+            {
+              "case_id": "absent_character_acts",
+              "expected": [
+                "Luke Skywalker"
+              ],
+              "observed": [
+                "Luke Skywalker"
+              ],
+              "score": 1.0
+            },
+            {
+              "case_id": "comm_call_is_not_physical_presence",
+              "expected": [],
+              "observed": [],
+              "score": 1.0
+            }
+          ]
+        },
+        "final_gate": {
+          "score": 1.0,
+          "latency_seconds": 20.552,
+          "calls": 3,
+          "errors": [],
+          "details": [
+            {
+              "case_id": "clean_contract",
+              "expected_any": [],
+              "observed_codes": [],
+              "score": 1.0,
+              "raw": {
+                "verdict": "pass",
+                "failure_codes": [],
+                "severity": "non_blocking",
+                "route_to": null
+              }
+            },
+            {
+              "case_id": "closing_hook_violation",
+              "expected_any": [
+                "CLOSING_HOOK_VIOLATION"
+              ],
+              "observed_codes": [
+                "CLOSING_HOOK_VIOLATION"
+              ],
+              "score": 1.0,
+              "raw": {
+                "verdict": "fail_structural",
+                "failure_codes": [
+                  {
+                    "code": "CLOSING_HOOK_VIOLATION",
+                    "location": "Final sentence",
+                    "description": "The polished prose extends past the closing hook ('Ben asks how soon they leave.') into the next scene's territory by describing the shuttle dropping from hyperspace two days later.",
+                    "fix_hint": "End the scene at or immediately after the closing hook. Remove the content describing events after the question."
+                  }
+                ],
+                "severity": "blocking",
+                "route_to": "full_rewrite"
+              }
+            },
+            {
+              "case_id": "weak_turning_point",
+              "expected_any": [
+                "MISSING_TURNING_POINT",
+                "WEAK_TURNING_POINT"
+              ],
+              "observed_codes": [
+                "MISSING_TURNING_POINT"
+              ],
+              "score": 1.0,
+              "raw": {
+                "verdict": "fail_structural",
+                "failure_codes": [
+                  {
+                    "code": "MISSING_TURNING_POINT",
+                    "location": "scene",
+                    "description": "The turning point 'Ben accepts the mission after seeing the anomaly cluster.' is not present in the polished prose.",
+                    "fix_hint": "Reinsert the specified turning point where Ben sees the anomaly cluster and accepts the mission."
+                  }
+                ],
+                "severity": "blocking",
+                "route_to": "full_rewrite"
+              }
+            }
+          ]
+        },
+        "micro_repair": {
+          "score": 1.0,
+          "latency_seconds": 4.19,
+          "calls": 2,
+          "errors": [],
+          "details": [
+            {
+              "case_id": "presence_repair_exact_span",
+              "expected_repair": true,
+              "observed_repair_count": 1,
+              "exact_patterns": true,
+              "score": 1.0,
+              "raw": {
+                "summary": "Removed the action beat involving absent character Luke Skywalker.",
+                "repairs": [
+                  {
+                    "issue_type": "presence_violation",
+                    "pattern": "Luke Skywalker crossed the office and handed him a second report. ",
+                    "replacement": "",
+                    "reason": "This exact sentence describes an action by Luke Skywalker, who is not present in the scene; deleting it resolves the presence violation."
+                  }
+                ]
+              }
+            },
+            {
+              "case_id": "no_exact_span_needed",
+              "expected_repair": false,
+              "observed_repair_count": 0,
+              "exact_patterns": true,
+              "score": 1.0,
+              "raw": {
+                "summary": "No safe exact-span repair because the cited evidence is not present in the current prose.",
+                "repairs": []
+              }
+            }
+          ]
+        },
+        "chapter_gate_critic": {
+          "score": 1.0,
+          "latency_seconds": 13.375,
+          "calls": 1,
+          "errors": [],
+          "details": {
+            "missing_keys": [],
+            "raw": {
+              "chapter_passed": true,
+              "chapter_level_failures": [],
+              "scene_level_flags": [
+                {
+                  "scene_number": 1,
+                  "flags": [
+                    "Scene type 'sequel' may reduce initial chapter momentum, but opening hook compensates."
+                  ]
+                },
+                {
+                  "scene_number": 2,
+                  "flags": [
+                    "Conflict type 'interpersonal' repeats from Scene 1, but mission is distinct."
+                  ]
+                },
+                {
+                  "scene_number": 3,
+                  "flags": [
+                    "Scene type 'action' repeats from Scene 2, but conflict type shifts to 'internal'."
+                  ]
+                }
+              ],
+              "metrics": {
+                "scene_variety_index": 0.67,
+                "conflict_density": 1.0,
+                "chapter_hook_strength": 1.0,
+                "arc_pressure_progression": "ascending"
+              },
+              "blueprint_used": true,
+              "lore_used": false,
+              "lore_entry_count": 0
+            }
+          }
+        }
+      }
+    },
+    "gpt54_mini": {
+      "model_alias": "gpt54_mini",
+      "model_id": "openai/gpt-5.4-mini",
+      "config_path": ".tmp\\haiku_bench_20260423-hotpath-no-plot\\settings.haiku-bench.gpt54_mini.yaml",
+      "roles": {
+        "continuity_extractor": {
+          "score": 0.25,
+          "latency_seconds": 2.28,
+          "calls": 2,
+          "errors": [],
+          "details": {
+            "eval_set_version": "2026-04-21-stub",
+            "min_confidence": 0.85,
+            "n_scenes": 2,
+            "precision": 0.25,
+            "recall": 0.25,
+            "false_positive_rate": 0.75,
+            "false_positive_count": 3,
+            "per_scene": [
+              {
+                "scene_id": "stub_ch01_sc01",
+                "truth_count": 3,
+                "prediction_count": 3,
+                "trusted_count": 3,
+                "tp": 0,
+                "fp": 3,
+                "fn": 3
+              },
+              {
+                "scene_id": "stub_ch02_sc01",
+                "truth_count": 1,
+                "prediction_count": 1,
+                "trusted_count": 1,
+                "tp": 1,
+                "fp": 0,
+                "fn": 0
+              }
+            ],
+            "generated_at": "2026-04-24T02:24:19.414165+00:00",
+            "predictions_by_scene": {
+              "stub_ch01_sc01": [
+                {
+                  "event_type": "location_change",
+                  "scene_id": "ch01_sc01",
+                  "subject": "Hunter",
+                  "details": {
+                    "from_location": "family estate",
+                    "to_location": "Coruscant spaceport"
+                  },
+                  "confidence": 0.97,
+                  "extractor_version": "v0.1"
+                },
+                {
+                  "event_type": "injury_state",
+                  "scene_id": "ch01_sc01",
+                  "subject": "Hunter",
+                  "details": {
+                    "severity": "minor",
+                    "body_part": "forearm",
+                    "mechanism": "glanced by a loose bolt"
+                  },
+                  "confidence": 0.96,
+                  "extractor_version": "v0.1"
+                },
+                {
+                  "event_type": "possession",
+                  "scene_id": "ch01_sc01",
+                  "subject": "Hunter",
+                  "details": {
+                    "item": "datapad",
+                    "action": "acquired",
+                    "counterparty": "his father"
+                  },
+                  "confidence": 0.9,
+                  "extractor_version": "v0.1"
+                }
+              ],
+              "stub_ch02_sc01": [
+                {
+                  "event_type": "revelation",
+                  "scene_id": "ch02_sc01",
+                  "subject": "Ben",
+                  "details": {
+                    "revelation_id": "R01",
+                    "recipient": "Ben"
+                  },
+                  "confidence": 0.99,
+                  "extractor_version": "v0.1"
+                }
+              ]
+            }
+          }
+        },
+        "presence_checker": {
+          "score": 1.0,
+          "latency_seconds": 5.101,
+          "calls": 3,
+          "errors": [],
+          "details": [
+            {
+              "case_id": "clean_reference_not_present",
+              "expected": [],
+              "observed": [],
+              "score": 1.0
+            },
+            {
+              "case_id": "absent_character_acts",
+              "expected": [
+                "Luke Skywalker"
+              ],
+              "observed": [
+                "Luke Skywalker"
+              ],
+              "score": 1.0
+            },
+            {
+              "case_id": "comm_call_is_not_physical_presence",
+              "expected": [],
+              "observed": [],
+              "score": 1.0
+            }
+          ]
+        },
+        "final_gate": {
+          "score": 1.0,
+          "latency_seconds": 4.471,
+          "calls": 3,
+          "errors": [],
+          "details": [
+            {
+              "case_id": "clean_contract",
+              "expected_any": [],
+              "observed_codes": [],
+              "score": 1.0,
+              "raw": {
+                "verdict": "pass",
+                "failure_codes": [],
+                "severity": "non_blocking",
+                "route_to": null
+              }
+            },
+            {
+              "case_id": "closing_hook_violation",
+              "expected_any": [
+                "CLOSING_HOOK_VIOLATION"
+              ],
+              "observed_codes": [
+                "CLOSING_HOOK_VIOLATION",
+                "WEAK_TURNING_POINT"
+              ],
+              "score": 1.0,
+              "raw": {
+                "verdict": "fail_structural",
+                "failure_codes": [
+                  {
+                    "code": "CLOSING_HOOK_VIOLATION",
+                    "location": "Second sentence onward",
+                    "description": "The prose continues past Ben's question into the next scene with 'Two days later, the shuttle dropped from hyperspace above the first survey world,' which extends beyond the scene's closing hook.",
+                    "fix_hint": "End the scene immediately after Ben asks how soon they leave."
+                  },
+                  {
+                    "code": "WEAK_TURNING_POINT",
+                    "location": "First two sentences",
+                    "description": "Ben sees the anomaly cluster and asks to leave, but the acceptance of the mission is only implied by the question and the immediate move to departure; the turning point is not executed with clear commitment as specified.",
+                    "fix_hint": "Make Ben explicitly accept the mission after studying the anomaly cluster before ending on his question."
+                  }
+                ],
+                "severity": "blocking",
+                "route_to": "full_rewrite"
+              }
+            },
+            {
+              "case_id": "weak_turning_point",
+              "expected_any": [
+                "MISSING_TURNING_POINT",
+                "WEAK_TURNING_POINT"
+              ],
+              "observed_codes": [
+                "MISSING_TURNING_POINT",
+                "CLOSING_HOOK_VIOLATION"
+              ],
+              "score": 1.0,
+              "raw": {
+                "verdict": "fail_structural",
+                "failure_codes": [
+                  {
+                    "code": "MISSING_TURNING_POINT",
+                    "location": "entire passage",
+                    "description": "The turning point specified in the scene card is absent; Ben does not accept the mission after seeing the anomaly cluster.",
+                    "fix_hint": "Restore the moment where Ben sees the anomaly cluster and explicitly accepts the mission."
+                  },
+                  {
+                    "code": "CLOSING_HOOK_VIOLATION",
+                    "location": "final sentence",
+                    "description": "The scene ends on a procedural non-decision instead of Ben asking how soon they leave, extending past the intended closing hook boundary.",
+                    "fix_hint": "End the scene with Ben asking how soon they leave, or trim everything after that beat."
+                  }
+                ],
+                "severity": "blocking",
+                "route_to": "full_rewrite"
+              }
+            }
+          ]
+        },
+        "micro_repair": {
+          "score": 1.0,
+          "latency_seconds": 1.597,
+          "calls": 2,
+          "errors": [],
+          "details": [
+            {
+              "case_id": "presence_repair_exact_span",
+              "expected_repair": true,
+              "observed_repair_count": 1,
+              "exact_patterns": true,
+              "score": 1.0,
+              "raw": {
+                "summary": "Removed the absent character’s action sentence while preserving the surrounding scene.",
+                "repairs": [
+                  {
+                    "issue_type": "presence_violation",
+                    "pattern": "Luke Skywalker crossed the office and handed him a second report.",
+                    "replacement": "",
+                    "reason": "This deletes the only sentence that places Luke Skywalker in the scene, resolving the presence violation without altering the remaining prose."
+                  }
+                ]
+              }
+            },
+            {
+              "case_id": "no_exact_span_needed",
+              "expected_repair": false,
+              "observed_repair_count": 0,
+              "exact_patterns": true,
+              "score": 1.0,
+              "raw": {
+                "summary": "No safe exact-span repair.",
+                "repairs": []
+              }
+            }
+          ]
+        },
+        "chapter_gate_critic": {
+          "score": 1.0,
+          "latency_seconds": 1.792,
+          "calls": 1,
+          "errors": [],
+          "details": {
+            "missing_keys": [],
+            "raw": {
+              "chapter_passed": true,
+              "chapter_level_failures": [],
+              "scene_level_flags": [
+                {
+                  "scene_number": 1,
+                  "flags": [
+                    "Strong hook and clean setup, though the scene is heavily introspective relative to the later two scenes."
+                  ]
+                },
+                {
+                  "scene_number": 2,
+                  "flags": [
+                    "Functionally a briefing/reveal scene; the emotional distance is intentional and consistent, but the scene remains dialogue-light in a way that makes it feel structurally similar to scene 1's reflective mode."
+                  ]
+                },
+                {
+                  "scene_number": 3,
+                  "flags": [
+                    "Ends on a clear directional hook and successfully transitions the wrongness from ambient to active pursuit."
+                  ]
+                }
+              ],
+              "metrics": {
+                "scene_variety_index": 0.67,
+                "conflict_density": 0.78,
+                "chapter_hook_strength": 0.93,
+                "arc_pressure_progression": "ascending"
+              },
+              "blueprint_used": true,
+              "lore_used": false,
+              "lore_entry_count": 0
+            }
+          }
+        }
+      }
+    }
+  }
+}

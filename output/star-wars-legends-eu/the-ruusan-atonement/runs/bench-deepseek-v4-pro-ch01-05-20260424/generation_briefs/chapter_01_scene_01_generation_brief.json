@@ -1,0 +1,62 @@
+{
+  "scene_objective": "In the setup phase, establish the 'wrongness' in the Force through a sparring loss that costs Ben publicly for the first time, shifting his private handling of the disturbance into witnessed failure and internal acknowledgment that it's structural, not personal fatigue.",
+  "turning_point": {
+    "trigger": "Alone in the salle after Rendell leaves, Ben runs a form through without igniting the blade and feels the wrongness steal a beat he cannot spare — a half-second lag in the ambient Force field that disrupts muscle memory he has relied on for years.",
+    "shift": "Ben stops pretending the wrongness is fatigue or week-long exhaustion. He acknowledges, internally and without words, that something structural is wrong with the Force itself, not with him — though he cannot yet articulate what or why.",
+    "cost": "The cost lands on Ben's sense of his own reliability as a Force-sensitive and as a Jedi Knight. If the wrongness is external, he is not failing; if it is internal (trauma, lingering Abeloth-bleed, psychological fracture), he is. The uncertainty isolates him from other Knights who do not feel what he feels, deepening his distance from the Order."
+  },
+  "closing_beat": "Luke appeared in the doorway with a datapad and an expression Ben knew meant a mission.",
+  "emotional_arc": {
+    "start": "Restless unease — the wrongness has been tugging at Ben's attention all week, a half-beat lag he keeps attributing to fatigue or distraction.",
+    "shift": "Frustrated isolation — after the sparring hit, Ben moves from unease into active frustration with his own body and a sharpening awareness that he is handling this alone because no one else feels it.",
+    "end": "Reluctant hope — Luke's arrival suggests that Ben's private problem is about to become a shared one, and that the Order might have resources or answers. The hope is reluctant because it means admitting the wrongness aloud and losing the privacy he has been guarding."
+  },
+  "target_word_count": 1250,
+  "opening_mode": "in_medias_res",
+  "key_beats": [
+    {
+      "beat_description": "Ben's guard drops a half-second late during a sparring exchange with Rendell, and Rendell's training blade catches him across the shoulder — the third time this week the wrongness has cost Ben a beat he should never miss.",
+      "state_change": "The wrongness moves from abstract background disturbance to concrete, witnessed failure. Ben has lost a sparring exchange he should not have lost, and the wrongness is the reason.",
+      "pov_reaction": "Ben's body registers the hit as a sharp, clean failure — not pain, but the specific sting of a mistake his reflexes should not have allowed. His instinct pushes toward action (rematch, push harder, prove it was a fluke) rather than explanation. The wrongness pulls at his attention even as Rendell steps back, and Ben feels the lag in the ambient Force field like a note played slightly flat."
+    },
+    {
+      "beat_description": "Ben deactivates his training saber and waves off a rematch, claiming fatigue. He keeps his tone light, offers a reason that is not quite a lie, and waits for Rendell to accept the out and leave.",
+      "state_change": "Ben chooses isolation over explanation. He does not want to say aloud what he felt, and he does not want Rendell to press. The wrongness becomes a private problem again, but now it is a private problem that has cost him in front of another Knight.",
+      "pov_reaction": "Ben's internal voice tightens into self-deprecation — a sharp, practiced move toward humor that deflects without lying. He feels the weight of the wrongness as isolation: Rendell does not feel it, the other Knights do not feel it, and Ben cannot explain it without sounding like he is either traumatized or unreliable. The frustration is clean and sharp, not melodramatic — a Knight's frustration with his own body."
+    },
+    {
+      "beat_description": "Alone in the salle, Ben paces and runs through a form without igniting the blade, testing whether the wrongness disrupts muscle memory or Force timing. He moves through the sequence slowly, feeling for the half-beat lag in the ambient field, and finds it — the Force arriving a half-second behind the rhythm his body has known by reflex for years.",
+      "state_change": "The turning point lands. Ben stops pretending the wrongness is fatigue. He acknowledges, without words, that something is structurally wrong with the Force itself, not with him — though he cannot yet name what or why. The private problem becomes undeniable.",
+      "pov_reaction": "Ben's body moves through the form with precision, but his Force-sense registers the lag like a musician hearing a note played slightly flat. The wrongness is not in him; it is in the ambient field. The realization arrives not as a thought but as a physical sensation — a tightening in his chest, a sharpening of focus, a shift from 'I am failing' to 'something is wrong.' He does not articulate this; he feels it. The frustration deepens into something closer to dread, but Ben does not name that either."
+    },
+    {
+      "beat_description": "Luke appears in the doorway with a datapad and mission-ready posture — the expression Ben knows means a mission is coming.",
+      "state_change": "External pressure arrives at the boundary of the scene. Ben's private problem is about to become a shared one. The Order is about to move, and Ben will have to speak aloud what he has been handling alone.",
+      "pov_reaction": "Ben feels a surge of reluctant hope — relief that he might not be alone with this, mixed with the cost of admitting it. The hope is reluctant because it means losing the privacy he has been guarding and stepping into whatever Luke is about to ask of him. Ben braces for the handoff, his body already shifting from the form into readiness."
+    }
+  ],
+  "voice_guidance": "Channel Zahn's efficient, tight third-person interiority — sharp, self-deprecating internal voice, never melodramatic; dialogue minimal and plot-moving. Ground in franchise sensory palette: training sabers humming, boots on salle floor, sweat on palms, distant Temple foot traffic and turbolift chimes. Force perception experiential and sensory (half-beat lag like a note played slightly flat), not analytical.",
+  "forbidden_moves": [
+    "Resolve any promises or advance subplots beyond establishing the wrongness and Ben's isolation",
+    "Include significant action or dialogue from characters not in characters_present"
+  ],
+  "delivery_preferences": {
+    "reveal_mode": "gradual",
+    "exposition_budget": "concise",
+    "register_override": "Zahn-style close third, commercial page-turner pace"
+  },
+  "required_subplots": [
+    "SP-A",
+    "SP3"
+  ],
+  "anti_patterns": [
+    "he should not, in this scene, arrive at any clinical articulation of what the wrongness is",
+    "If a sentence of his interiority could be lifted into a mission debrief, it is too composed for this scene",
+    "do not describe the wrongness in visual or color terms — keep it auditory and vibrational, and use one consistent metaphor for this scene (the half-beat lag in the ambient field)",
+    "do not open with a flashback",
+    "avoid diagnostic voice",
+    "no mission-debrief sentences",
+    "Ben should read as a Knight handling a private problem privately, not as a character having a character arc in public",
+    "The sparring partner is a background character — minimal characterization"
+  ]
+}

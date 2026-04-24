@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch08_sc02",
+  "chapter_number": 8,
+  "scene_number": 2,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "ea748815dc6954c5e3fedd37e0ea53964bc75d85d74205163b767ae2d88025b4",
+  "review_status": "unreviewed",
+  "confidence": 1.0,
+  "hard_constraints": [
+    "Use Star Wars Legends / Expanded Universe continuity. (Canon Contract: Continuity Branch)",
+    "Treat Disney-only continuity as invalid. (Canon Contract: Continuity Branch)",
+    "Force described through experiential and mystical language, not 'energy field'. (canon_profile: narrative_register, force_mechanics: primary_rule)",
+    "'Jedi' singular and plural, never 'Jedis'. (canon_constraints: style_constraints)",
+    "'Darth' capitalized preceding name; 'the Sith' lowercase. (canon_constraints: style_constraints)",
+    "Use Star Wars vocabulary: comlink not radio, datapad not laptop. (canon_profile: anachronistic_terms)",
+    "No in-universe use of ABY/BBY, 'Legends', 'Canon'. (canon_profile: meta_reference_rules)"
+  ],
+  "canon_risks": [
+    "Ensure debate stays grounded in Legends Force wounds (Nathema, Malachor V precedents); avoid implying new universal ontology. (force_mechanics: canon_grounding)",
+    "Torin's warmth must remain load-bearing and compelling, not strawman. (ensemble_cast: Torin voice_texture)",
+    "Ben's POV must not synthesize positions into framework or correct ambiguities. (scene_card: anti_patterns, R11)"
+  ],
+  "legends_continuity_notes": [
+    "Ben Skywalker: Jedi Knight, post-Fate of the Jedi, GAG service under Jacen Solo. (canon_preserved)",
+    "Steady Returns: Modified YT-series light freighter. (terminology_registry)",
+    "Galactic Alliance primary government; Jedi Order on Coruscant under Luke Skywalker. (canon_profile: era_description)",
+    "Ruusan Reformations (1000 BBY) real EU event, AU recontextualized. (canon_preserved, canon_overridden)"
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "In-character Weave variants: Sera 'the work', Torin 'the stitching', Kael 'the cloth'. (terminology_registry, scene notes: D3)",
+    "Torin counter-current 1: Protects Kael from Sera's question costlessly; Ben sees, files without interpretation. Live ambiguity. (scene_card: action_beats, D7)",
+    "Kael's closing: Single sentence reframing positions as institutional cages; no answer. Veraine's view absent but shaped around. (scene_card: turning_point)",
+    "Sensory: Fork precision (Sera), hands reasonableness (Torin), flat voice (Kael). No monologues. (scene_card: key_beats, anti_patterns)",
+    "Ben POV destabilized: No position, worldview mismatch visible in silence. (pov_arc_phase: lie_reinforced)",
+    "Warmth load-bearing: Torin's reasonableness compelling. (scene_card: warmth_load_bearing)"
+  ],
+  "allowed_au_divergences": [
+    "Weave, forbidden technique (unweaving), survivor anchors from ~1000 BBY. (canon_overridden)",
+    "Four positions: Sera (sacred violation), Torin (structural tool), Kael (institutional truth-claim), Ben absent. (scene_card: conflict)",
+    "Technique lineage including Battle of Veranthos. (canon_overridden)"
+  ],
+  "open_questions": []
+}

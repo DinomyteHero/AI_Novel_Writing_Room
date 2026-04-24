@@ -2,7 +2,7 @@
 
 Phase 1 flow (per scene card) under the forward-only relay:
   PlotArchitect -> ProseStylist -> [LineWriter] -> GateCritic (advisory)
-  -> QualityMetrics -> QualityPolish -> compression advisory
+  -> QualityMetrics -> [CommercialRewrite] -> QualityPolish -> compression advisory
   -> FinalGate (advisory) -> CanonExpert -> save-blocker layer -> save | quarantine
 All steps emit typed events to the RunLedger.
 
@@ -36,6 +36,7 @@ from typing import Any, Callable, Optional, TYPE_CHECKING
 from src.agents.final_gate import FinalGate
 from src.agents.gate_critic import GateCritic
 from src.agents.plot_architect import PlotArchitect
+from src.agents.commercial_rewrite import CommercialRewrite
 from src.agents.prose_stylist import ProseStylist
 from src.agents.quality_polish import QualityPolish
 from src.memory.context_assembler import ContextAssembler
@@ -73,7 +74,7 @@ class Orchestrator:
 
     Manages the per-chapter generation loop:
     PlotArchitect -> ProseStylist -> GateCritic -> (retry loop)
-      -> QualityMetrics -> QualityPolish -> compression guard -> FinalGate -> save
+      -> QualityMetrics -> CommercialRewrite -> QualityPolish -> compression guard -> FinalGate -> save
     with failure-driven retry logic. Final Gate rejection reverts to the
     Scene-Gate-passed draft so the saved file is always a validated artifact.
 
@@ -163,11 +164,14 @@ class Orchestrator:
         self.max_voice_retries = max_voice_retries
         self.raw_draft = raw_draft
         self.skip_gate_loop = skip_gate_loop
+        lean_cfg = (self.runtime_flags.get("runtime") or {}).get("lean_prose_only") or {}
+        self._lean_prose_only = bool(lean_cfg.get("enabled", False))
 
         # Initialize Phase 1 agents
         self.plot_architect = PlotArchitect(router)
         self.prose_stylist = ProseStylist(router)
         self.gate_critic = GateCritic(router)
+        self.commercial_rewrite = CommercialRewrite(router)
         self.quality_polish = QualityPolish(router)
         self.final_gate = FinalGate(router)
 
@@ -294,7 +298,7 @@ class Orchestrator:
             self.phase0_snapshot = Phase0PromptSnapshot(run_dir=run_dir)
             for agent in (
                 self.plot_architect, self.prose_stylist, self.gate_critic,
-                self.quality_polish, self.final_gate,
+                self.commercial_rewrite, self.quality_polish, self.final_gate,
                 self.line_writer, self.micro_repair,
                 self.canon_expert, self.presence_checker,
                 self.chapter_gate_critic, self.character_specialist,
@@ -328,6 +332,9 @@ class Orchestrator:
            the most recent result in-place with ``chapter_gate``.
         2. Word-count telemetry (Stage 1h). Always runs; never blocks.
         """
+        if self._lean_prose_only:
+            return
+
         if not self._is_last_scene_in_chapter(scene_index, active_cards):
             return
 
@@ -641,6 +648,20 @@ class Orchestrator:
         )
         return decision
 
+    @staticmethod
+    def _lean_skipped_evaluation() -> dict:
+        """Synthetic evaluation payload for the prose-only runtime path."""
+        return {
+            "verdict": "skipped",
+            "failure_codes": [],
+            "severity": "non_blocking",
+            "route_to": None,
+            "structural_score": 1.0,
+            "voice_score": 1.0,
+            "polish_score": 1.0,
+            "skip_reason": "lean_prose_only",
+        }
+
     async def run_chapter(self, scene_card: dict) -> dict:
         """Run the full pipeline for a single scene card."""
         chapter_num = scene_card["chapter_number"]
@@ -694,6 +715,42 @@ class Orchestrator:
         # Step 2: Prose Stylist drafts the scene
         print("  [2/5] Prose Stylist drafting...")
         prose = await self._run_prose_stylist(scene_card, generation_brief)
+
+        if self._lean_prose_only:
+            print("  [Lean] Prose-only mode: skipping gates, checks, polish, and post-save agents")
+            output_path = self._save_chapter(chapter_num, scene_num, prose)
+            word_count = len(prose.split())
+            self.ledger.emit_info(
+                "lean_prose_only_saved",
+                chapter_number=chapter_num,
+                scene_number=scene_num,
+                payload={
+                    "word_count": word_count,
+                    "output_path": str(output_path),
+                    "skipped_stages": [
+                        "line_writer",
+                        "gate_critic",
+                        "corrective_rerun",
+                        "quality_metrics",
+                        "commercial_rewrite",
+                        "quality_polish",
+                        "final_gate",
+                        "canon_expert",
+                        "save_blockers",
+                        "micro_repair",
+                        "post_save_agents",
+                    ],
+                },
+            )
+            print(f"  Saved: {output_path}")
+            return {
+                "chapter_number": chapter_num,
+                "scene_number": scene_num,
+                "output_path": str(output_path),
+                "evaluation": self._lean_skipped_evaluation(),
+                "word_count": word_count,
+                "lean_prose_only": True,
+            }
 
         # Relay v3 (Stage 1f): Canon expert no longer runs mid-stream — it
         # moves to the LAST reader position (continuity_editor) just before
@@ -779,6 +836,18 @@ class Orchestrator:
                 dist = pacing.get("scene_type_distribution", {})
                 desc_ratio = dist.get("description", 0) + dist.get("introspection", 0)
                 self._scene_description_ratios.append(desc_ratio)
+
+        if not self.raw_draft:
+            rewritten_prose = await self._maybe_commercial_rewrite(
+                scene_card=scene_card,
+                generation_brief=generation_brief,
+                prose=gate_passed_prose,
+                evaluation=evaluation,
+                quality_metrics=quality_metrics,
+            )
+            if rewritten_prose != gate_passed_prose:
+                gate_passed_prose = rewritten_prose
+                gate_passed_wc = len(gate_passed_prose.split())
 
         # Steps 4-5: Quality Polish + compression guard + Final Gate
         # (skipped in --raw-draft baseline mode — save gate-passed prose directly)
@@ -2579,6 +2648,202 @@ class Orchestrator:
             f"({changed_chars} chars changed)"
         )
         return updated_prose, updated_continuity, True
+
+    def _commercial_rewrite_reasons(
+        self,
+        *,
+        evaluation: dict,
+        quality_metrics: Optional[dict],
+    ) -> list[str]:
+        """Return concrete trigger reasons for the commercial rewrite lane."""
+        cfg = (self.runtime_flags.get("runtime") or {}).get("commercial_rewrite") or {}
+
+        trigger_codes = set(cfg.get("trigger_failure_codes") or [])
+        trigger_keywords = [
+            str(k).casefold()
+            for k in (cfg.get("trigger_flag_keywords") or [])
+            if str(k).strip()
+        ]
+        min_quality_score = cfg.get("min_quality_score")
+
+        reasons: list[str] = []
+
+        for fc in evaluation.get("failure_codes", []) or []:
+            if not isinstance(fc, dict):
+                continue
+            code = fc.get("code")
+            if code in trigger_codes:
+                description = fc.get("description") or fc.get("fix_hint") or ""
+                reason = f"Gate finding {code}"
+                if description:
+                    reason += f": {description}"
+                reasons.append(reason)
+
+        if quality_metrics:
+            if min_quality_score is not None:
+                try:
+                    score = float(quality_metrics.get("overall_score", 1.0))
+                    threshold = float(min_quality_score)
+                except (TypeError, ValueError):
+                    score = 1.0
+                    threshold = 0.0
+                if score < threshold:
+                    reasons.append(
+                        f"Quality score {score:.2f} below commercial rewrite threshold {threshold:.2f}"
+                    )
+
+            for flag in quality_metrics.get("flags", []) or []:
+                flag_text = str(flag)
+                flag_folded = flag_text.casefold()
+                if any(keyword in flag_folded for keyword in trigger_keywords):
+                    reasons.append(f"Quality metric flag: {flag_text}")
+
+        # Preserve order while de-duping repeated flags.
+        deduped: list[str] = []
+        seen: set[str] = set()
+        for reason in reasons:
+            if reason not in seen:
+                deduped.append(reason)
+                seen.add(reason)
+        return deduped
+
+    async def _maybe_commercial_rewrite(
+        self,
+        *,
+        scene_card: dict,
+        generation_brief: dict,
+        prose: str,
+        evaluation: dict,
+        quality_metrics: Optional[dict],
+    ) -> str:
+        """Run one bounded commercial rewrite when configured triggers match."""
+        cfg = (self.runtime_flags.get("runtime") or {}).get("commercial_rewrite") or {}
+        if not cfg.get("enabled", False):
+            return prose
+
+        chapter_num = scene_card["chapter_number"]
+        scene_num = scene_card.get("scene_number", 1)
+        reasons = self._commercial_rewrite_reasons(
+            evaluation=evaluation,
+            quality_metrics=quality_metrics,
+        )
+        if not reasons:
+            self.ledger.emit_info(
+                "commercial_rewrite_skipped",
+                chapter_number=chapter_num,
+                scene_number=scene_num,
+                agent_role="commercial_rewrite",
+                payload={"skip_reason": "no_trigger_match"},
+            )
+            return prose
+
+        source_wc = len(prose.split())
+        if source_wc == 0:
+            self.ledger.emit_warn(
+                "commercial_rewrite_rejected",
+                chapter_number=chapter_num,
+                scene_number=scene_num,
+                agent_role="commercial_rewrite",
+                payload={
+                    "reason": "empty_source_prose",
+                    "source_word_count": 0,
+                    "rewritten_word_count": 0,
+                    "ratio": 0.0,
+                },
+            )
+            print("    Commercial rewrite skipped (empty source prose) — keeping draft")
+            return prose
+
+        self.ledger.emit_info(
+            "commercial_rewrite_fired",
+            chapter_number=chapter_num,
+            scene_number=scene_num,
+            agent_role="commercial_rewrite",
+            payload={
+                "reasons": reasons,
+                "source_word_count": source_wc,
+            },
+        )
+        print("  [3.7/5] Commercial rewrite running...")
+
+        try:
+            result = await self.commercial_rewrite.run(
+                {
+                    "source_prose": prose,
+                    "scene_card": scene_card,
+                    "generation_brief": generation_brief,
+                    "gate_evaluation": evaluation,
+                    "quality_metrics": quality_metrics or {},
+                    "diagnostic_reasons": reasons,
+                    "negative_constraints": self.assembler.get_negative_constraints(),
+                    "pov_approach": self.assembler.get_pov_approach(),
+                    "franchise_profile_text": self.assembler.get_franchise_profile_text(),
+                }
+            )
+            rewritten = result.get("prose", "") or ""
+        except Exception as exc:  # noqa: BLE001
+            self.ledger.emit_warn(
+                "commercial_rewrite_error",
+                chapter_number=chapter_num,
+                scene_number=scene_num,
+                agent_role="commercial_rewrite",
+                payload={"error": f"{type(exc).__name__}: {exc}"},
+            )
+            print(f"    Commercial rewrite: error ({exc.__class__.__name__}) — keeping draft")
+            return prose
+
+        rewritten_wc = len(rewritten.split())
+        min_ratio = float(cfg.get("min_word_count_ratio", 0.75))
+        max_ratio = float(cfg.get("max_word_count_ratio", 1.35))
+        ratio = (rewritten_wc / source_wc) if source_wc else 0.0
+
+        if not rewritten.strip():
+            reason = "empty_output"
+        elif source_wc and ratio < min_ratio:
+            reason = "below_word_count_floor"
+        elif source_wc and max_ratio > 0 and ratio > max_ratio:
+            reason = "above_word_count_ceiling"
+        else:
+            reason = ""
+
+        if reason:
+            self.ledger.emit_warn(
+                "commercial_rewrite_rejected",
+                chapter_number=chapter_num,
+                scene_number=scene_num,
+                agent_role="commercial_rewrite",
+                payload={
+                    "reason": reason,
+                    "source_word_count": source_wc,
+                    "rewritten_word_count": rewritten_wc,
+                    "ratio": round(ratio, 3),
+                    "min_word_count_ratio": min_ratio,
+                    "max_word_count_ratio": max_ratio,
+                },
+            )
+            print(
+                f"    Commercial rewrite rejected ({reason}; "
+                f"{source_wc}->{rewritten_wc} words) — keeping draft"
+            )
+            return prose
+
+        self.ledger.emit_info(
+            "commercial_rewrite_complete",
+            chapter_number=chapter_num,
+            scene_number=scene_num,
+            agent_role="commercial_rewrite",
+            payload={
+                "source_word_count": source_wc,
+                "rewritten_word_count": rewritten_wc,
+                "ratio": round(ratio, 3),
+                "reasons": reasons,
+            },
+        )
+        print(
+            f"    Commercial rewrite: kept revised prose "
+            f"({source_wc}->{rewritten_wc} words)"
+        )
+        return rewritten
 
     async def _maybe_corrective_rerun(
         self,

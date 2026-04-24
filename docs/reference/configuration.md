@@ -41,7 +41,8 @@ models:
       # Short alias -> full OpenRouter slug
       gemini:         google/gemini-3.1-pro-preview
       gemini_flash:   google/gemini-3-flash-preview
-      deepseek:       deepseek/deepseek-v3.2
+      deepseek:       deepseek/deepseek-v4-flash
+      deepseekpro:    deepseek/deepseek-v4-pro
       claude:         anthropic/claude-sonnet-4.6
       haiku:          anthropic/claude-haiku-4.5
       glm:            z-ai/glm-5.1
@@ -59,6 +60,7 @@ models:
       gemini:         { temperature: 0.6, max_tokens: 8192 }
       gemini_flash:   { temperature: 0.5, max_tokens: 8192 }
       deepseek:       { temperature: 0.3, max_tokens: 4096 }
+      deepseekpro:    { temperature: 0.3, max_tokens: 8192 }
       claude:         { temperature: 0.4, max_tokens: 8192 }
       haiku:          { temperature: 0.4, max_tokens: 4096 }
       gpt54:          { temperature: 0.8, max_tokens: 12000 }

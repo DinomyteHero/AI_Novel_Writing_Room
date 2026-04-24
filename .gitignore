@@ -24,6 +24,7 @@ Thumbs.db
 
 # Codex auto-generated files
 .codex/
+.codex_tmp_test/
 
 # pytest / coverage
 .pytest_cache/
@@ -46,6 +47,9 @@ output/*/*/state/
 # The canonical committed evidence lives in docs/audits/phase0_*.md; the
 # per-run phase0_debug/ prompt dumps are regeneratable artifacts.
 output/*/*/runs/phase0_*/
+.tmp/canon_scout_full_*/
+.tmp/chapter_bench_*/
+.tmp/haiku_bench_*/
 
 # Fallback runtime dirs, used when ProjectPaths isn't supplied (ad-hoc
 # scripts, tests, UI fallbacks). Updated defaults in src/ route here.

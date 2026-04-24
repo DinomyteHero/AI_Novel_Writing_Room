@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch26_sc01",
+  "chapter_number": 26,
+  "scene_number": 1,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "81be6989df3caf1ce50863421dab0190cdaa268a5b3dccba9c7127424f322a42",
+  "review_status": "unreviewed",
+  "confidence": 1.0,
+  "hard_constraints": [
+    "Single POV: Ben Skywalker throughout; no head-hopping or ensemble omniscient.",
+    "Force mechanics per Legends: light/dark moral polarity preserved; wounds cause unreliable sense, emotional amplification, dark residue bleed (e.g., Malachor V precedent); no World Between Worlds or kyber bleeding.",
+    "Terminology: 'the Weave' lowercase unless sentence-start; rotate metaphors (no 'handrail in the dark', 'reached for the Force'); use structural-absence register for Torin's void (deliberate, directional unweaving).",
+    "Torin diminishment: subtraction (warmth, humor, affection idioms absent), not dark-side corruption spectacle (no altered eyes/voice sinisterly); voice articulate, emotionally hollow.",
+    "Style: Capitalize 'Human'; 'Jedi' singular/plural (no 'Jedis'); 'Darth' capitalized before name; American English; no ABY/BBY in prose.",
+    "No anachronisms: blaster not gun, datapad not laptop, etc."
+  ],
+  "canon_risks": [],
+  "legends_continuity_notes": [
+    "47 ABY post-Fate of the Jedi: Ben Skywalker ~21, experienced Jedi Knight (GAG service, Abeloth defeat); Jedi Order at Coruscant Temple under Luke.",
+    "Force wounds (Nathema, Malachor V): persistent, disorienting, amplify extremes/moral unreliability without removing abilities; matches scene's unweaving (formless pressure, no light/dark texture).",
+    "Ruusan Reformations (1000 BBY Legends canon): post-NEW Sith Wars restructuring; AU layer (penance for technique) authorized but public history unchanged."
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Setting: Veranthos Scar (3m vertical distortion like heat shimmer); Torin's void: sharp boundary, Weave absent, formless Force hunger.",
+    "Key beats: Torin hands on Scar (eyes open/unseeing, Scar narrows); Sera screams name, shakes off Ben, enters void (presence flares); her line: 'I was sealed once. I will not watch it happen to someone else and do nothing.'",
+    "Torin voice: precise sentences, no warmth/humor/affection; 'caldera does not consume, replaces' fulfills Maetha's Ch12 warning (PP05 payoff).",
+    "Ben reaction: horror as subtraction via Force (warmth absence); isolated across valley post-Sera entry.",
+    "Sensory: structured-absence (void as unpicked Weave, suction/drain); emotional arc horror -> Sera determination -> Ben braced isolation.",
+    "Present: Ben, Sera, Kael, Torin; Desh off-stage (Ch25 nodes)."
+  ],
+  "allowed_au_divergences": [
+    "Battle of Veranthos, forbidden technique (Gavran's unweaving), Wound/Scar at vergence.",
+    "Survivors as anchors: Torin Hal (Battle Master, technique user), Sera Varik (Gavran lieutenant).",
+    "Maetha's warning ('caldera replaces you'), Weave-Resonance not yet (Ch26 s3).",
+    "Torin diminishment/corruption arc consequence: technique replacement, not Legends death."
+  ],
+  "open_questions": []
+}

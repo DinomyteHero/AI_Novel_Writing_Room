@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch09_sc02",
+  "chapter_number": 9,
+  "scene_number": 2,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "6659d9d66f86be14ab21e1ada09ff330e48a18c5aba446a6a719035ef80221c2",
+  "review_status": "unreviewed",
+  "confidence": 0.95,
+  "hard_constraints": [
+    "Preserve Legends Force wound precedents: Malachor V (KOTOR II mass death wound), Nathema (TOR ritual stripping), no Disney innovations like World Between Worlds or kyber bleeding.",
+    "Force described experientially/mystically per canon_profile: no 'energy field'; use Skywalker-era intuitive language.",
+    "Style rules: Capitalize 'Human'; 'Jedi' singular/plural; 'Darth' capitalized before name; lowercase 'galaxy'; no ABY/BBY in prose.",
+    "No diagnostic terms ('Weave', 'unweaving') before body-experience per force_mechanics.sensory_vocabulary.",
+    "No Gavran name in dialogue per scene_card.anti_patterns.",
+    "Anchor system: 12 peripheral + Gavran keystone as AU-authorized living structural rebar, not field.",
+    "No anachronistic terms: use 'datapad', 'comlink', etc. per canon_profile.anachronistic_terms."
+  ],
+  "canon_risks": [
+    "Torin's Codex reading risks over-intellectualizing Jedi Lords era; ensure it aligns with NSW desperation (e.g., Hoth's Army of Light) without inventing non-Legends doctrines.",
+    "Anchor configuration (12+1) must feel like field-expedient NSW engineering, not formal doctrine.",
+    "Codex heresy must remain unconfirmed in-universe per canon_constraints; no narrator endorsement."
+  ],
+  "legends_continuity_notes": [
+    "Malachor V: Mandalorian Wars wound (3960 BBY, KOTOR II) from Mass Shadow Generator; echoey screams, dark bleed, moral disorientation \u2013 sensory model for Veranthos wound.",
+    "Nathema: Vitiate ritual (~5000 BBY, TOR/KOTOR) stripped Force entirely; precedent for deliberate unweaving at scale.",
+    "Darth Nihilus: KOTOR II wound-devourer; Force hunger from Malachor exposure \u2013 avoid in prose, but informs wound amplification.",
+    "New Sith Wars/Jedi Lords: ~2000-1000 BBY chaos; Lords like Hoth used extreme measures; Ruusan Reformations (1000 BBY, Darth Bane) restructured Order post-thought bomb.",
+    "Vergences: Legends canon (e.g., Valley of the Jedi); natural Force concentrations, targetable for rituals."
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Scene beats: Torin holds Codex unflinching; R04c reveals wound mechanism/anchor system viscerally (body first); Torin argues correction-not-violation; Ben nods unconsciously, catches self; Sera intervenes hand-on-table, pulls Ben to corridor for unnamed Gavran-pattern warning.",
+    "Ben POV: lie_reinforced \u2013 susceptibility to Torin's logic warns his Trauma Lie (only his Force-read trustworthy).",
+    "Torin warmth load-bearing: paternal, wry; makes seduction/loss felt.",
+    "Sera: Trusts Ben to hear pattern (Gavran echo unnamed); jaw tight, hand barrier deliberate.",
+    "Kael: Quiet validation of 'cages' view; no triumph.",
+    "Sensory: Wound as handrail absent (Ben); Torin presence lightens/heavier; mechanism hits stomach/vertigo before head.",
+    "Setting: Steady Returns common area \u2192 corridor; post-Codex touch sensation.",
+    "Subplots: SP-A (Ben/Desh ops), SP1 (Sera/Torin rupture)."
+  ],
+  "allowed_au_divergences": [
+    "Ankhural Codex (~2400 BBY heresy: vergence structure imposed; 'threadwork'/'lattice').",
+    "Forbidden technique lineage: Nathema \u2192 Malachor \u2192 Quelling Tython \u2192 Nihil Reach \u2192 Drathul IV \u2192 Caldera Knights \u2192 Gavran.",
+    "Anchor system: 13 living Force-sensitives (12 ring + Gavran keystone) as rebar in seal.",
+    "Battle of Veranthos/NSW ritual counter: Gavran technique creates persistent wound on vergence.",
+    "Ruusan Reformations: Dual-purpose (public reform + private penance) per canon_overridden."
+  ],
+  "open_questions": [
+    "Exact Jedi Lords 'containment engineering' precedents beyond general NSW desperation; flag if drafter needs Wookieepedia Legends cross-check.",
+    "Twelve-anchor rationale: AU math (multiplicative cascade), but confirm no conflicting Legends seal/anchor counts."
+  ]
+}

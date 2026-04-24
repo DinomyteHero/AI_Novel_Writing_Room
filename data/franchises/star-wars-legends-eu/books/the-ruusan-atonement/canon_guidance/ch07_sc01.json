@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch07_sc01",
+  "chapter_number": 7,
+  "scene_number": 1,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "51269d08c51284e72da519487fe069d44a368135fa8a7f3e401676682def6baa",
+  "review_status": "unreviewed",
+  "confidence": 1.0,
+  "hard_constraints": [
+    "Use Legends EU continuity only; treat Disney Canon as invalid unless overlapping with Legends.",
+    "Force mechanics: mild thin place effects only - Force responds but distances wrong by inches (parallax error), emotional resonance blurred, low-grade disorientation like early ear infection; no full unweaving or diagnostic terms like 'Weave', 'unweaving', or 'structural'. Render body-experience first (footing offset, balance late), analysis second.",
+    "No anachronistic terms: e.g., use 'datapad' not laptop, 'blaster' not gun; 'Human' capitalized.",
+    "Ben's POV: no articulating thin place as 'Weave-weak' or structural; register physically via footing/balance metaphors (ground's answer late, body tilt eyes don't see).",
+    "Torin's ease in thin place: subtle plant as counter-current, not named or interpreted by Ben.",
+    "Corridor absent from modern Jedi records: institutional-lie thread via Ben's private thought only."
+  ],
+  "canon_risks": [
+    "None identified: scene plan aligns with Legends New Sith Wars battlefield remnants and post-FotJ Ben Skywalker capabilities."
+  ],
+  "legends_continuity_notes": [
+    "New Sith Wars (c. 2000-1000 BBY): era of total war with planetary-scale battles, eroded military installations plausible as relics.",
+    "Ben Skywalker (47 ABY): experienced Jedi Knight post-Abeloth, skilled in combat/surveillance but young; GAG background informs operational instincts.",
+    "Force wounds precedents: Malachor V/Nathema as distant analogs; thin place as mild, localized degradation fits Legends vergence instability without contradicting canon.",
+    "Stasis tech: Legends-compatible (e.g., carbonite, NSW-era cryo for prisoners)."
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Setting: Battlefield Node - rolling terrain with ancient eroded trenches (gentle valleys now), half-buried war machinery in grass; bunker interior cold/dry/preserved.",
+    "Thin place (mild): Ben - Force offset (distances inches wrong, footing fractionally off, balance reads tilt eyes miss); Sera - shoulders tighten/jaw set; Torin - unnatural ease/relaxation; Kael - expression flattens/sharpness dulled; Desh - subtle unease (light wrong, sounds carry oddly).",
+    "Turning point: Empty stasis chamber (anchor dead centuries ago); fresh tool marks/boot prints on ancient dust (Veraine weeks prior); records show recent access.",
+    "Key beats: Steady Returns landing; Ben Force-reach on exit (offset); bunker sweep finds marks; observe survivor reactions.",
+    "Emotional arc: curiosity -> wrongness felt -> alertness at evidence.",
+    "Subplots: SP-A (Ben's operational dependence), SP5 (Desh as non-sensitive anchor)."
+  ],
+  "allowed_au_divergences": [
+    "Battlefield Node as first Ruusan Corridor anchor site with empty stasis chamber.",
+    "Thin places as seal weak points with graded Force distortion.",
+    "Veraine's recent trail (weeks old marks) from her escape accelerating cascade.",
+    "Survivors (Sera/Torin/Kael) as living anchors with era-specific reactions to thin places."
+  ],
+  "open_questions": []
+}

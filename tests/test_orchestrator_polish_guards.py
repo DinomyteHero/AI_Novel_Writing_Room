@@ -300,3 +300,71 @@ class TestRawDraftBypass:
 
         saved = Path(result["output_path"]).read_text(encoding="utf-8")
         assert saved == gate_prose
+
+
+class TestLeanProseOnlyBypass:
+    async def test_lean_prose_only_saves_drafter_output_without_checks(
+        self, mock_router, mock_assembler, ledger, temp_dir, sample_scene_card
+    ):
+        """Lean mode is PlotArchitect -> ProseStylist -> save, with checks bypassed."""
+        brief = {
+            "scene_objective": "Mock objective.",
+            "turning_point": {"trigger": "t", "shift": "s", "cost": "c"},
+            "closing_beat": "Mock closing beat.",
+            "emotional_arc": {"start": "a", "shift": "b", "end": "c"},
+            "target_word_count": 1000,
+        }
+        prose = "DeepSeek Pro drafter output, preserved exactly."
+
+        async def fake_structured(agent_role, messages, *args, **kwargs):
+            if agent_role == "plot_architect":
+                return brief
+            raise AssertionError(f"{agent_role} must not run in lean_prose_only mode")
+
+        async def fake_complete(agent_role, messages, *args, **kwargs):
+            if agent_role == "prose_stylist":
+                return prose
+            raise AssertionError(f"{agent_role} must not run in lean_prose_only mode")
+
+        mock_router.complete = AsyncMock(side_effect=fake_complete)
+        mock_router.complete_structured = AsyncMock(side_effect=fake_structured)
+
+        canon_expert = MagicMock()
+        canon_expert.run = AsyncMock(
+            side_effect=AssertionError("CanonExpert must not run in lean_prose_only mode")
+        )
+        presence_checker = MagicMock()
+        presence_checker.run = AsyncMock(
+            side_effect=AssertionError("PresenceChecker must not run in lean_prose_only mode")
+        )
+        summarizer = MagicMock()
+        summarizer.run = AsyncMock(
+            side_effect=AssertionError("Summarizer must not run in lean_prose_only mode")
+        )
+
+        orchestrator = Orchestrator(
+            router=mock_router,
+            context_assembler=mock_assembler,
+            ledger=ledger,
+            manuscripts_dir=str(Path(temp_dir) / "manuscripts"),
+            runtime_flags={"runtime": {"lean_prose_only": {"enabled": True}}},
+            canon_expert=canon_expert,
+            presence_checker=presence_checker,
+            summarizer=summarizer,
+        )
+
+        result = await orchestrator.run_chapter(sample_scene_card)
+
+        assert result["lean_prose_only"] is True
+        assert result["evaluation"]["verdict"] == "skipped"
+        assert result["evaluation"]["skip_reason"] == "lean_prose_only"
+        saved = Path(result["output_path"]).read_text(encoding="utf-8")
+        assert saved == prose
+
+        event_types = [e["event_type"] for e in ledger.get_events()]
+        assert "lean_prose_only_saved" in event_types
+        assert "gate_pass" not in event_types
+        assert "gate_fail" not in event_types
+        assert "final_gate_complete" not in event_types
+        assert "final_gate_rejection" not in event_types
+        assert "compression_guard_fired" not in event_types

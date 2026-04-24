@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch17_sc02",
+  "chapter_number": 17,
+  "scene_number": 2,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "1d9c4d4628bcec6d57f977a6644a7d64c2797c4badef4085c90d434f803db6b3",
+  "review_status": "unreviewed",
+  "confidence": 0.98,
+  "hard_constraints": [
+    "Single POV: Ben Skywalker throughout",
+    "Wound amplification is pressurization of emotional extremes in Force-sensitives, not possession; render through body-experience (e.g., anger hotter than content, pressure behind sternum) before any naming",
+    "Use Legends terminology: hyperspace routes, nav console, comlink; avoid anachronisms (no radio, laptop, etc.)",
+    "'Jedi' singular and plural; capitalize 'Human'; lowercase 'galaxy'; American English",
+    "Ship name 'Steady Returns' italicized",
+    "No in-universe use of ABY/BBY, 'Legends', 'Canon', or meta-references"
+  ],
+  "canon_risks": [
+    "Ensure Ben's emotional response aligns with post-Fate of the Jedi maturity: experienced Jedi Knight, not novice",
+    "Torin's warmth preserved in dialogue if present (load-bearing per contract); corruption trajectory subtle, not over-signaled",
+    "Group dynamics must respect Ben's lie_challenged phase: recognizes wound influence but misreads Torin until turning point"
+  ],
+  "legends_continuity_notes": [
+    "Ben Skywalker: Jedi Knight, ~21 ABY-born, post-Abeloth crisis experience shapes wary competence",
+    "YT-series freighter (Steady Returns): cramped common areas typical for modified light freighters; recycled air, metal walls amplify voices",
+    "Force wounds (precedents: Malachor V, Nathema) cause unreliable sense, emotional bleed; AU amplification fits Legends pattern of persistent effects",
+    "Post-Fate of the Jedi: Galactic Alliance government; Jedi Temple on Coruscant under Luke"
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Setting: Steady Returns common area, cramped/overheated, stale recycled air",
+    "Argument trigger: trivial (hyperspace routes); escalates via wound pressure",
+    "Key beats: Sera palm-slam; Ben self-catch mid-anger; Kael's 'What's wrong with him?' (monk's register, short/flat); Sera's silence (looks at table, no defense); Desh food delivery",
+    "Sensory: voices bounce off walls; disproportionate anger; sternum pressure like atmospheric front",
+    "Emotional arc: simmering -> amplified argument -> question/silence -> exhausted aftermath",
+    "Subplots: SP-A (Ben/Desh concert), SP1 (Sera/Torin break), SP2 (Kael names tension), SP3 (wound internal)",
+    "Vocab rotation: prefer somatic (balance/footing absent), hydraulic (pressure/pull) for wound here; no repeats like 'reached for the Force'"
+  ],
+  "allowed_au_divergences": [
+    "Wound amplification on group (emotional pressurization per force_mechanics)",
+    "Survivors as anchors: Sera Varik (Jedi Knight), Torin Hal (Battle Master), Kael Drenn (Sith conscript)",
+    "Veranthos wound/seal failing in 47 ABY; Ruusan Reformations as penance AU",
+    "Kael's Dantari monastic register in questioning (Sith-trained but conscripted)",
+    "Desh Rolan: former GAG operative, non-Force-sensitive operational anchor"
+  ],
+  "open_questions": [
+    "Specific hyperspace routes: any Legends Outer Rim planets needed for authenticity? (e.g., avoid Disney-only worlds)",
+    "Torin's exact absence in scene: implied off-screen or explicitly noted? (plan says present but beats focus others)"
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch19_sc02",
+  "chapter_number": 19,
+  "scene_number": 2,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "8d07a9b00e7c906c8644c12dc362a1e7b76bc64d25b3b81b9fdc78828a5fa59a",
+  "review_status": "unreviewed",
+  "confidence": 1.0,
+  "hard_constraints": [
+    "Single POV: Ben Skywalker throughout; no head-hopping or group omniscient.",
+    "Use Legends continuity only: post-Fate of the Jedi (47 ABY), Jedi Order under Grand Master Luke Skywalker on Coruscant; outposts are standard Jedi infrastructure.",
+    "Force description: Experiential/sensory first (e.g., unreliable handrail, parallax error, emotional pressurization per force_mechanics.thin_places_moderate/high); diagnostic terms like 'Weave' earned post-sensation, used sparingly.",
+    "Terminology: 'Jedi Knight' singular/plural (never 'Jedis'); 'Skywalker' formal address from Sera; no anachronisms (e.g., datapad not laptop); lowercase 'galaxy'; capitalize 'Human'.",
+    "No in-universe meta-terms: No 'Legends'/'Canon'; reference events by name (e.g., 'Abeloth crisis') not ABY/BBY.",
+    "Style: American English; no forbidden repeat phrases (e.g., 'reached for the Force')."
+  ],
+  "canon_risks": [
+    "Ensure modern Jedi Knights (Ava Renn, Tell Maran, Drevin Los) align with post-Fate of the Jedi norms: Knights on outpost rotations, meditation/contemplation central to practice; suffering from Weave thinning must match Legends Force wound precedents (e.g., Malachor V disorientation) without inventing new mechanics."
+  ],
+  "legends_continuity_notes": [
+    "Jedi outposts: Common in Legends EU (e.g., Outer Rim stations post-Yuuzhan Vong War); staffed by Knights/Masters for training/surveys.",
+    "Jedi ranks: 'Jedi Knight' standard; 'Master' for seniors like Ava Renn; no NSW-era titles like 'Battle Master' for moderns.",
+    "Force wounds: Precedents like Malachor V (KOTOR II: echoey emotions, blurred light/dark); Nathema (TOR: deadened Force); amplify here as pressurization (arguments harder, doubt deeper) per project force_mechanics.",
+    "Ben Skywalker: Jedi Knight ~21 ABY age (born 26.5 ABY per EU); post-Abeloth, experienced but young; GAG/Abeloth/Vestara history preserved."
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Setting: Outer Rim Jedi outpost (within two jumps of Veranthos); common area, lived-in/damaged; young Knights (Ava Renn: disoriented/frightened Master; Tell Maran: underconfident; Drevin Los: unsettled senior Knight) suffering failing meditations from seal weakening (thin_places_moderate/high: parallax errors, emotional leaks, disorientation).",
+    "Characters: Torin Hal (NSW Battle Master, warm/compassionate surface, arguing release via suffering); Sera Varik (NSW Knight, arc turn: stops defending Torin, asks Ben 'What is your plan, Skywalker?' genuinely); Kael Drenn/Desh Rolan present but background.",
+    "Key beats: Torin kneels/touches Knight tenderly but argues seal failure demands release; Sera's jaw works, turns to Ben (posture shift); no Ben interior on question.",
+    "Sensory: Torin's warm hand/cold eyes; Sera's rigid jaw/controlled breath; Ben's chest-tight helplessness (no fix, no pretend).",
+    "Subplots: SP-A (Ben's lie challenged: trust others' reads); SP1 (Sera/Torin rupturing).",
+    "Weave effects: Force-sensitives feel gaps/unreliable (handrail misplaced); amplifies extremes; non-sensitives (Desh) note environmental drift."
+  ],
+  "allowed_au_divergences": [
+    "Outpost Knights' suffering from Ruusan seal failure/thinning Weave (AU recontextualization of Reformations).",
+    "Ancient survivors (Torin/Sera/Kael) interacting with modern Jedi; Torin's compassion-as-argument for wound release.",
+    "Sera's arc turn (rigidity cracks, shifts to Ben's leadership).",
+    "Weave terminology/vocab (handrail, stitching per registry/force_mechanics) as era-specific for vergence/seal."
+  ],
+  "open_questions": []
+}

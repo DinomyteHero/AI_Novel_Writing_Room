@@ -1,0 +1,64 @@
+{
+  "scene_objective": "In the setup phase, this sequel scene reveals the Ruusan Corridor's strategic network of installations containing a central fortress, transforming Ben's routine survey into a mission-defining discovery that deepens his personal investment and surfaces the tension between reporting up the chain and acting independently.",
+  "turning_point": {
+    "trigger": "The navigation data resolves into a route connecting multiple installations in a perimeter pattern around a central fortress.",
+    "shift": "This is not one facility; it is a network. The problem expands from survey-sized to strategic-infrastructure-sized.",
+    "cost": "Ben's investment deepens—this becomes his mission, not Luke's survey. Desh raises the professional question of reporting for backup, forcing Ben to confront acting on knowledge he cannot unknow."
+  },
+  "closing_beat": "Coordinates resolved on the nav computer. The destination lay deep in uncharted space—no hyperspace lane, no Republic survey, nothing. Something had been deliberately hidden there.",
+  "emotional_arc": {
+    "start": "Analytical focus—Ben executes a technical task with professional detachment.",
+    "shift": "Dawning scope—the data reveals a scale that tightens his attention and reframes the problem.",
+    "end": "The weight of decision—Ben braces against the knowledge that he cannot unknow this and waiting for backup may not be an option."
+  },
+  "target_word_count": 1200,
+  "opening_mode": "in_medias_res",
+  "key_beats": [
+    {
+      "beat_description": "Desh pries open a corroded access panel and jams a modern data coupler into ancient storage media; the connection sparks twice before holding.",
+      "state_change": "The abstract opening pressure becomes concrete and tactile. Ancient systems resist modern equipment, making the technical challenge real.",
+      "pov_reaction": "Ben's analytical focus sharpens into action-readiness; his instinct drives him to solve amid the facility's cold and humming power cells, where the Force's recording pressure sits beneath without articulation."
+    },
+    {
+      "beat_description": "Holographic star maps flicker to life, showing the Ruusan Corridor network—multiple installations in a perimeter pattern around a central fortress; Desh identifies it as military command-and-control architecture, spotting Gavran's name on a log.",
+      "state_change": "The operational picture expands from single site to perimeter network, revealing deliberate strategic containment.",
+      "pov_reaction": "Pressure shifts from ambient to directional as Ben registers the geometry and scale; chest tightens, senses sharpen on the fact without theorizing builders or purpose."
+    },
+    {
+      "beat_description": "Ben copies fortress coordinates and route data to the Steady Returns' nav computer while Desh questions reporting for backup.",
+      "state_change": "Coordinates lock in, pointing to hidden uncharted space; the choice to report or proceed crystallizes.",
+      "pov_reaction": "Decision weight lands heavily; Ben carries the data and choice, Force-pressure like a thousand-year memory pressing the present."
+    },
+    {
+      "beat_description": "Desh voices professional caution, reading the perimeter as Jedi military infrastructure from his GAG training.",
+      "state_change": "Interpersonal stakes rise—Desh's respected assessment frames the network as active containment, amplifying urgency.",
+      "pov_reaction": "Ben feels the pull of chain-of-command versus action; tension coils in his gut, respecting Desh's grounded read without yielding."
+    }
+  ],
+  "voice_guidance": "Channel Zahn's efficient dialogue—every line advances plot or character; tight third-person interiority, sharp and self-deprecating, never melodramatic. Allston-style humor-under-stress if tension allows. Dialogue-led with Desh's practical exchanges; Force as pressure sensation only, no pitch/harmonic metaphors. Sensory palette: flickering holos, ancient power hum, visible breath in cold, durasteel chill.",
+  "forbidden_moves": [
+    "Resolve any promises or subplot threads beyond advancing H03, SP-A, SP3",
+    "Introduce characters beyond Ben and Desh",
+    "Deliver Jedi history via lecture"
+  ],
+  "delivery_preferences": {
+    "reveal_mode": "direct",
+    "exposition_budget": "concise",
+    "register_override": null
+  },
+  "required_hooks": [
+    "H03"
+  ],
+  "required_subplots": [
+    "SP-A",
+    "SP3"
+  ],
+  "required_revelations": [],
+  "anti_patterns": [
+    "Ben should read the network without constructing a theory about its builders in this scene",
+    "Diagnostic-voice trap—do not arrive at clinical analysis of the network or Force",
+    "Avoid exposition dump about ancient Jedi military infrastructure—emerge through data and Desh's reading",
+    "Do not use pitch, harmonic, or navigation metaphors for Force-perception—keep pressure-register consistent with Ch3 sc1",
+    "Interpretation of coordinates waits for later—no theory-building here"
+  ]
+}

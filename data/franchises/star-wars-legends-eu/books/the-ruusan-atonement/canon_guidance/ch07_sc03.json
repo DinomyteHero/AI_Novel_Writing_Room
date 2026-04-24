@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch07_sc03",
+  "chapter_number": 7,
+  "scene_number": 3,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "5b61cf6ceb0eef271634c63fe377f3c15b252eab7ab0b16d366efd2a23621f74",
+  "review_status": "unreviewed",
+  "confidence": 0.95,
+  "hard_constraints": [
+    "Single POV: Ben Skywalker throughout; no head-hopping or external perspectives.",
+    "Use canonical terminology: 'datapad' (not laptop/computer), 'comlink/comm channel' if needed (not radio), ship name 'Steady Returns' italicized.",
+    "Torin's warmth is load-bearing: preserve commanding presence with paternal affection, self-deprecating humor, easy laugh; do not flatten for exposition.",
+    "Avoid forbidden repeat phrases: 'reached for the Force', 'the Force was still there', 'like a handrail in the dark'.",
+    "Force descriptions: body-experience first (e.g., fading thin-place effects like headache lifting), no diagnostic terms before sensation.",
+    "No in-universe ABY dating, 'Legends'/'Canon' terms, or Wookieepedia-style taxonomy."
+  ],
+  "canon_risks": [
+    "Kael's unprompted request for 'Kolven-era disciplinary logs' risks implying unearned historical knowledge; ensure it aligns with his Sith-conscript background and post-R04b technique naming without Ben-POV speculation.",
+    "Torin's 'doorway question' on honesty must not telegraph his arc prematurely; keep as soft pressure per blueprint, with warmth intact and no Ben misread resolution."
+  ],
+  "legends_continuity_notes": [
+    "Ben Skywalker: Jedi Knight, ~20-21 in 47 ABY, post-Fate of the Jedi/Abeloth; history includes GAG service under Jacen Solo (with Desh), Mara Jade's murder by Caedus, Vestara Khai betrayal.",
+    "Luke Skywalker: Grand Master at Coruscant Temple; Ben's father, sends partial reports here as 'structured omission' practice.",
+    "Galactic Alliance Guard (GAG): Jacen Solo's secret police; Ben/Desh shared shame, referenced indirectly via withholding pattern.",
+    "New Sith Wars (pre-1000 BBY): Jedi Lords era; pre-Reformations Jedi archives use era-specific formats (e.g., Force-locks), disciplinary logs plausible for settlements like Kolven.",
+    "Post-FotJ galaxy: Jedi Order from Coruscant Temple; no Empire/First Order/Sequel elements."
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Scene aboard Steady Returns (modified YT-series freighter, cramped): Ben's makeshift workspace, common area, cockpit; sensory: datapad with Luke's comm frequency, nav display showing next node degradation/energy signature stronger.",
+    "Beats: Ben drafts/edits partial report (omits full scope); Torin doorframe question (soft, no push); Kael's low-voice request to Desh for Kolven-era disciplinary logs (monk's economy, unprompted); Desh complies silently; Ben registers peripherally, no intervention.",
+    "Emotional arc: Reflective (thin-place fading) -> withholding weight (hesitant deletes, silence) -> renewed determination (next node worse).",
+    "Subplots: SP-A (Ben/Desh operational), SP2 (Kael self-driven), SP3 (Torin pressure/institutional lie).",
+    "Anti-patterns: No flashbacks, no Ben justification/debate on withholding, no underlining Kael/Desh, no diagnostic emotion naming; show via behavior/sensation.",
+    "Turning point: Torin's question + silence as answer; Kael's agency observed but unclaimed."
+  ],
+  "allowed_au_divergences": [
+    "Ruusan Corridor/anchor nodes including Battlefield Node and Kolven (Corridor-era settlement with disciplinary logs).",
+    "Pre-Reformations Jedi disciplinary logs structure (AU format for NSW-era archives).",
+    "Torin Hal (NSW Battle Master), Kael Drenn (Sith conscript anchor), Desh Rolan (ex-GAG with Ben).",
+    "Technique lineage/naming from R04b; Veraine's recent trail/energy signatures.",
+    "Weave/thin places effects fading (per force_mechanics: mild-moderate sensory wrongness)."
+  ],
+  "open_questions": [
+    "Specifics of 'Kolven-era disciplinary logs' structure/content: scene flags as pre-Reformations Jedi format and Corridor settlement site; no Legends source in contract/seed \u2013 confirm if needs Legends grounding or fully AU node.",
+    "'Energy signature' on nav display: Desh-flagged Veraine trace; ensure matches Legends sensor sweeps/topographic scanners, not prohibited tech."
+  ]
+}

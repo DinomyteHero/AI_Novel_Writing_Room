@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch19_sc03",
+  "chapter_number": 19,
+  "scene_number": 3,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "e1c0e898310c679973e655f6f75a66c2664221256ca82b86ce015dba0e8c6aa4",
+  "review_status": "unreviewed",
+  "confidence": 0.95,
+  "hard_constraints": [
+    "Single POV: Ben Skywalker throughout (project contract: pov_structure)",
+    "Preserve Legends continuity: post-Fate of the Jedi, 47 ABY; Jedi Order under Grand Master Luke Skywalker on Coruscant (canon_profile, canon_constraints)",
+    "No Disney-only material: avoid High Republic, World Between Worlds, kyber bleeding, Sequel terminology, Inquisitorius (Canon Contract: Disney-Only Bleed To Flag)",
+    "Force mechanics: describe via body-experience first (sensory_vocabulary: concept_vs_sensation_rule); use rotation families for Weave metaphors, avoid forbidden repeats (force_mechanics: vocabulary_variation)",
+    "Terminology: 'the Weave' lowercase unless starting sentence; Veraine's voice precise, no contractions, no audience address (terminology_registry, Veraine voice_texture)",
+    "Style: Capitalize 'Human'; decapitalize 'galaxy'; 'Jedi' singular/plural; no anachronistic terms (e.g., datapad not laptop) (canon_constraints: style_constraints, anachronistic_terms)",
+    "No in-universe meta terms: no ABY/BBY, 'Legends', 'Canon', film/book refs (canon_profile: meta_reference_rules)"
+  ],
+  "canon_risks": [
+    "Scene plan references 'Kueller-era fragments' for pre-Ruusan Weave theory: Kueller (Hand of Thrawn, ~19 ABY) is Legends canon but has no established Weave/Force structure theory; risks anachronism if not framed as AU archival curation of older material",
+    "'Modern Jedi training builds on a single foundation': AU insight per Kael's arc, but ensure it aligns with post-Fate Jedi practices (diverse but Skywalker-influenced) without contradicting Ben's GAG/Abeloth experience",
+    "Outer Rim Jedi outpost with named Knights (Ava Renn, Tell Maran, Drevin Los): AU characters fine, but outpost must feel like post-Fate decentralized Jedi presence, not centralized Temple structure"
+  ],
+  "legends_continuity_notes": [
+    "47 ABY: Post-Abeloth, Force settling; Galactic Alliance primary government; Jedi from Coruscant Temple (era_description)",
+    "Ben Skywalker: Jedi Knight, post-Fate; history with GAG under Jacen, Vestara, Abeloth (canon_preserved)",
+    "Jedi outposts: Common in Legends post-NJO/Fate era for Outer Rim monitoring (e.g., similar to stations in Fate of the Jedi)",
+    "Force wounds precedents: Malachor V (KOTOR II: echoey trauma), Nathema (TOR: stripped Force) \u2013 wound here builds on these without contradicting",
+    "Vergences: Established Legends (e.g., Valley of the Jedi on Ruusan) \u2013 Veranthos as natural vergence fits"
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Kael's key line: 'design problem' framing \u2013 modern Jedi single-foundation fragility under Weave thinning (scene_card: turning_point, key_beats)",
+    "Veraine annotation: Brief marginal note on pre-Ruusan fragment; working-mind register (precise, certain, no contractions, no rhetoric/audience); continuity with Ch17 ledger (scene_card: sensory_details, notes)",
+    "Setting progression: Outpost exterior wall/archive alcove -> Steady Returns departure toward Veranthos (pulling wound gravitational) (scene_card: setting, closing_hook)",
+    "No Ben synthesis: Holds Kael/Veraine insights without connecting/paragraping them (anti_patterns)",
+    "Weave state: High thin-place effects on outpost Knights (unreliable Force, emotional pressure) per force_mechanics: thin_places_high",
+    "Characters present: Ben (POV), Kael, Sera, Desh \u2013 Kael speaks most here (arc moment of truth)"
+  ],
+  "allowed_au_divergences": [
+    "Weave/unweaving/wound at Veranthos from Gavran's technique (canon_overridden, force_mechanics)",
+    "Veraine's presence/annotations as evidence-of-passage (primary_antagonistic_force, plot_threads_advanced)",
+    "Survivors (Kael, Sera, Torin) awake in 47 ABY from NSW stasis anchors (canon_overridden)",
+    "Seal failure amplifying Jedi meditation failure at outpost (force_mechanics: implications, wound pressurization)",
+    "Resonance embryonic form in Kael's 'design problem' observation (Weave-Resonance first_appearance Ch14 note/Ch22 articulated; scene as precursor)",
+    "Pre-Ruusan Weave theory in AU archives (Ankhural Codex lineage, ~2400 BBY heresy)"
+  ],
+  "open_questions": [
+    "Kueller-era (19 ABY) curation of pre-Ruusan (~pre-1000 BBY) Weave fragments: No Legends source links Kueller to Force theory; confirm if 'Kueller-era' means his collection or AU invention?",
+    "Specific pre-Ruusan fragment content: AU, but ensure Veraine's annotation fits Ankhural Codex 'threadwork'/imposed structure heresy without proving universal ontology (force_mechanics: canon_grounding)"
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch08_sc03",
+  "chapter_number": 8,
+  "scene_number": 3,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "06c7771556415fd6a2cfafcc27ca43ba76fd2ac2b18999ab673d2df03b42b704",
+  "review_status": "unreviewed",
+  "confidence": 1.0,
+  "hard_constraints": [
+    "Single POV: Ben Skywalker throughout; no head-hopping or internal access to Kael or Desh.",
+    "Use Star Wars Legends terminology: hydrospanner (Legends canon tool), power-cycle draw as 'power fluctuations' or 'energy cycling irregularity' if needed; avoid anachronisms like 'laptop' (use datapad), 'computer' (use console).",
+    "No in-universe use of publishing terms like 'Legends' or 'Canon'; no ABY/BBY dates spoken by characters.",
+    "Force descriptions: experiential and mystical per Legends; no clinical framing. This scene is non-Force-focused (practical observation, mechanical work).",
+    "'Jedi' singular and plural; 'Darth' capitalized only before name.",
+    "American English; capitalize 'Human'; lowercase 'galaxy' unless sentence start."
+  ],
+  "canon_risks": [
+    "Ensure Desh Rolan (OC, former GAG) aligns with post-LotF era: GAG dissolved after Caedus's defeat; his service is shared shame with Ben, not active affiliation.",
+    "Kael Drenn's agency here (initiating with Desh) must not contradict his AU backstory as conscripted Sith trainee repurposed as anchor; treat as first voluntary operational act.",
+    "Steady Returns as modified YT-series freighter: consistent with Legends (e.g., YT-1300 like Falcon); engineering crawlspace fits cramped freighter design."
+  ],
+  "legends_continuity_notes": [
+    "Ben Skywalker: Jedi Knight, ~21 ABY age fits 47 ABY (post-FotJ); GAG service under Jacen/Caedus canonical (Legacy of the Force).",
+    "Galactic Alliance Guard (GAG): Canonical secret police from LotF; Ben and Desh's teen service is preserved canon.",
+    "Post-FotJ era (47 ABY): Jedi Order under Luke on Coruscant; no Empire/First Order; focus on personal stakes, no galaxy-spanning politics here.",
+    "YT-series freighters: Common Legends civilian ships; engineering bays cramped, tool-heavy (hydrospanners, fusion torches canonical)."
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Scene aboard Steady Returns engineering crawlspace: Desh's domain, cramped for one, now two.",
+    "Kael initiates unprompted with practical observation (e.g., power-cycle draw pattern matching conduit failure); Desh absorbs without fanfare, asks for hydrospanner after deliberate stillness.",
+    "Ben observes briefly from corridor en route to cockpit; registers alliance without interpreting/narrating it.",
+    "Quiet-alliance dyad (Kael/Desh): lives in tools, competence, observation; no overt bonding or explanation.",
+    "Emotional arc: residual tension -> purposeful work -> smallest warmth (Kael near-smile).",
+    "Anti-patterns: no Kael interiority explanation; no Ben analytical underline ('Kael acting differently'); gesture is exposition.",
+    "Primary anchor: Allston (two-voice warmth via Desh's flat operational vs. Kael's brevity); supporting: Zahn (procedural frame)."
+  ],
+  "allowed_au_divergences": [
+    "Kael Drenn: AU New Sith Wars Sith conscript/anchor survivor; his Weave-navigability and initiation here per project force_mechanics and ensemble_cast.",
+    "Desh Rolan: AU OC former GAG operative, non-Force-sensitive; his role as operational anchor preserved.",
+    "Steady Returns: AU modified YT-series freighter, Desh's personal vessel.",
+    "Group dynamics: Kael/Desh quiet alliance as authorized relationship arc (W1 Inversion 1)."
+  ],
+  "open_questions": []
+}

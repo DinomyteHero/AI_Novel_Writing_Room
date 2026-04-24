@@ -1,0 +1,27 @@
+{
+  "scene_card_path": "data\\franchises\\star-wars-legends-eu\\books\\the-ruusan-atonement\\scene_cards\\chapter_05_scene_03.json",
+  "scene_label": "Ch5S3",
+  "pov_character": "Ben Skywalker",
+  "target_word_count": 1200,
+  "plot_architect_duration_s": 19.5,
+  "results": [
+    {
+      "label": "deepseek-v4-pro-t070",
+      "model_short": "deepseekpro",
+      "model_full": "deepseek/deepseek-v4-pro",
+      "temperature": 0.7,
+      "extra_params": {
+        "reasoning": {
+          "effort": "none"
+        }
+      },
+      "duration_s": 54.0,
+      "word_count": 1170,
+      "char_count": 7041,
+      "est_in_tokens": 18731,
+      "est_out_tokens": 1760,
+      "est_cost_usd": 0.0387,
+      "output_file": "output\\star-wars-legends-eu\\the-ruusan-atonement\\runs\\bench-deepseek-v4-pro-ch01-05-20260424-ch05-sc03\\deepseek-v4-pro-t070.md"
+    }
+  ]
+}

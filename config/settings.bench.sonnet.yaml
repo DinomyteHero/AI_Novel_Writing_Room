@@ -1,4 +1,4 @@
-deployment_mode: cloud  # local | cloud | hybrid
+﻿deployment_mode: cloud  # local | cloud | hybrid
 
 models:
   local:
@@ -16,7 +16,8 @@ models:
     models:
       gemini: google/gemini-3.1-pro-preview
       gemini_flash: google/gemini-3-flash-preview
-      deepseek: deepseek/deepseek-v3.2
+      deepseek: deepseek/deepseek-v4-flash
+      deepseekpro: deepseek/deepseek-v4-pro
       claude: anthropic/claude-sonnet-4.6
       haiku: anthropic/claude-haiku-4.5
       glm: z-ai/glm-5.1
@@ -36,6 +37,13 @@ models:
       deepseek:
         temperature: 0.3
         max_tokens: 4096
+        reasoning:
+          effort: "none"
+      deepseekpro:
+        temperature: 0.3
+        max_tokens: 8192
+        reasoning:
+          effort: "none"
       claude:
         temperature: 0.4
         max_tokens: 8192

@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch01_sc02",
+  "chapter_number": 1,
+  "scene_number": 2,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "461d96e1f3a24d781796f37c8305b423299978f993585dd26bf1008751718a8b",
+  "review_status": "unreviewed",
+  "confidence": 0.98,
+  "hard_constraints": [
+    "Single POV: Ben Skywalker throughout; no head-hopping or external narration.",
+    "Preserve Legends continuity: Luke Skywalker as Grand Master of the Jedi Order on Coruscant Temple post-Fate of the Jedi (47 ABY).",
+    "Force description: Experiential and sensory only (e.g., 'sourness under the Temple's usual harmonics'); no diagnostic terms like 'Weave' or 'unweaving' (first appearance Ch 9). Use 'wrongness' per Ben's personal term (registry).",
+    "Terminology: Datapad (not laptop/computer); comlink/comm (not radio); no anachronisms (e.g., DNA->genetic material). Decapitalize 'galaxy'; capitalize 'Human' if used.",
+    "No meta-references: No ABY/BBY, 'Legends'/'Canon', film/book titles, or Wookieepedia-style taxonomy.",
+    "Style: American English; 'Jedi' singular/plural (no 'Jedis'); no forbidden repeat phrases (e.g., 'reached for the Force')."
+  ],
+  "canon_risks": [
+    "Jedi survey mission protocols: Scene implies routine Outer Rim surveys with Force anomaly flags; risk of over-inventing hierarchy/details not in provided materials (e.g., assignment process). Stick to functional briefing.",
+    "Luke/Ben relationship: Post-Fate of the Jedi (Abeloth crisis resolved); ensure warmth with institutional distance, no unresolved Lost Tribe/Vestara bleed beyond Ben's preserved canon history.",
+    "Force perception: Skywalker bloodline sensitivity heightened but differentiated (Ben visceral, Luke clinical); avoid equating to Disney midi-chlorian or Sequel-era framing."
+  ],
+  "legends_continuity_notes": [
+    "47 ABY: Galactic Alliance primary government; Jedi Temple on Coruscant operational under Luke as Grand Master; post-Abeloth, Force settling but no major disruptions.",
+    "Ben Skywalker: ~20-21, Jedi Knight; GAG service under Jacen, Mara murdered by Jacen/Caedus, Vestara Khai dark side choice preserved.",
+    "Jedi Temple: Administrative spaces functional/lived-in; Grand Master's office includes holocomm/desk for briefings.",
+    "Father-son dynamic: Communicates via mission briefings; Ben internal 'Dad', external Knight-to-Grand Master formality."
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Setting: Luke's office, Jedi Temple Coruscant \u2013 functional, lived-in, holocomm/desk; Coruscant traffic low wash; Luke's presence warm/familiar; wrongness faint sourness.",
+    "Emotional arc: Guarded attentiveness -> brief connection -> deliberate distance; Ben accepts solo mission silently.",
+    "Key beats: Datapad with 17 flagged reports (Outer Rim bearing); Ben zooms 3 matching his perception; moves to window accepting solo.",
+    "Relationship turn: Institutional distance to private alliance (Luke validates wrongness; no partner offered/asked).",
+    "Wrongness: Ben's subjective 'the Wrongness' (Ch1 term); sensory (sourness, off-note); directional toward seal.",
+    "Subplots: SP-A (Ben's practical dependence), SP3 (Luke's shadow); hook H01 plant.",
+    "No flashbacks/recaps: Mara/Jacen as grounding phrases only if surfaced (e.g., 'his mother')."
+  ],
+  "allowed_au_divergences": [
+    "The 'wrongness': AU seal deterioration from Ruusan Atonement; manifests as persistent low-grade Force distortion directional to Veranthos.",
+    "Survey route: Aligns with Ruusan Corridor/Veranthos bearing per premise."
+  ],
+  "open_questions": [
+    "Precise Jedi survey protocols/assignment hierarchy: Provided materials imply Knight-level solo with pilot; confirm Legends sources if needed beyond functional briefing.",
+    "Jedi Temple office details: Functional per scene; any specific post-FotJ Legends descriptions?"
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch14_sc03",
+  "chapter_number": 14,
+  "scene_number": 3,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "b02a5c5e9295f8862eadfaf80c87ea1e3bc61f121d4cfa00b55305cb758a92f8",
+  "review_status": "unreviewed",
+  "confidence": 1.0,
+  "hard_constraints": [
+    "Use Legends EU continuity only; treat Disney Canon as invalid unless overlapping Legends material.",
+    "Force described through experiential/mystical language, not scientific; no 'energy field'.",
+    "Terminology: 'the Weave' lowercase unless starting sentence; 'Weave-Resonance' or variants per registry.",
+    "No anachronistic terms: datapad, not laptop/computer.",
+    "Capitalize 'Human(s)' per style guide; 'Jedi' singular/plural.",
+    "No in-universe use of 'Legends'/'Canon' or ABY dating."
+  ],
+  "canon_risks": [],
+  "legends_continuity_notes": [
+    "47 ABY post-Fate of the Jedi: Ben Skywalker is a ~21-year-old Jedi Knight, experienced from GAG service, Caedus conflict, Abeloth crisis; operates from Coruscant Temple under Grand Master Luke Skywalker.",
+    "Vergences are established Legends concept (e.g., Valley of the Jedi); wounds in Force from mass death/rituals (Malachor V, Nathema precedents).",
+    "Datapads standard for archival data in Legends tech."
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Scene aboard Steady Returns (modified YT-series freighter, Desh's ship); Ben's workspace with archive data displays.",
+    "Ben scrolls Gavran's marginalia on Ankhural Codex data; finds: 'Ankhural theorised that the Weave could be reinforced through harmonic resonance between disparate traditions. We lacked the will or the trust to attempt it.'",
+    "Sera Varik present, leans over shoulder, frowns at 'Ankhural' (heretical Jedi scholar ~2400 BBY).",
+    "Ben bookmarks silently (no aloud reading), moves on; files as 'return later'.",
+    "Sensory: old script, Gavran's precise/rushed handwriting; Sera's frown signals historical weight.",
+    "Ben POV, lie_challenged phase: holds solution unknowingly.",
+    "Anti-patterns: no diagnostic analysis/explanation of resonance/Weave; no 'this is the answer' recognition; brief Sera reaction only."
+  ],
+  "allowed_au_divergences": [
+    "Ankhural Codex as heretical artifact (~2400 BBY, vergence structure theory).",
+    "'The Weave' as era-specific term for local Force structure at Veranthos/seal.",
+    "Weave-Resonance ('harmonic resonance between disparate traditions') as untested theory in Gavran's notes.",
+    "Gavran (NSW Jedi Lord) as author of marginalia confessing failure of will/trust."
+  ],
+  "open_questions": []
+}

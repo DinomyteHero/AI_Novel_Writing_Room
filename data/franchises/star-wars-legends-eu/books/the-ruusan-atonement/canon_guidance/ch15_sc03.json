@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch15_sc03",
+  "chapter_number": 15,
+  "scene_number": 3,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "c3b8062de735c684c45da9fc58655213a3883ce1dda58d574c7624302941a61e",
+  "review_status": "unreviewed",
+  "confidence": 1.0,
+  "hard_constraints": [
+    "Single POV: Ben Skywalker throughout",
+    "Use Legends EU continuity; treat Disney Canon as invalid",
+    "Lightsaber maintenance rendered as meditative Jedi ritual per canon_elements_needed",
+    "Ship name: Steady Returns (italicized as proper noun, modified YT-series light freighter)",
+    "No in-universe use of 'Legends' or 'Canon'; no ABY/BBY dates spoken by characters",
+    "Force described experientially, not as 'energy field'; use rotation families for Weave metaphors sparingly",
+    "'Jedi' singular and plural; 'Darth' capitalized only before name",
+    "Capitalize 'Human'; decapitalize 'galaxy'"
+  ],
+  "canon_risks": [
+    "Ensure lightsaber maintenance aligns with Legends Jedi practice (meditative focus, not tech repair emphasis; cf. Jedi Academy Trilogy, Dark Journey)",
+    "Ben's Jedi Knight status and post-Fate of the Jedi experience (GAG service, Abeloth crisis) must inform internal monologue without anachronistic Sequel Trilogy echoes"
+  ],
+  "legends_continuity_notes": [
+    "Ben Skywalker (b. 26.5 ABY) is ~20-21 in 47 ABY: experienced Knight from Legacy of the Force/Fate of the Jedi; carries GAG trauma, Mara's death by Jacen, Vestara betrayal",
+    "Jedi communication: datapads for reports, secure comm channels; holocomms rare in field per EU novels (e.g., Dark Nest Trilogy)",
+    "Lightsaber maintenance: common Jedi centering practice (e.g., Yoda's Cave, various NJO/LotF scenes); components laid out precisely evokes ritual focus",
+    "Post-Fate of the Jedi: Jedi Order on Coruscant under Luke; Galactic Alliance government; no Legacy comics future",
+    "Shipboard life on YT freighter: cramped, utilitarian (e.g., Millennium Falcon analogs in EU)"
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Ben/Luke dyad: from structured omission to active deception; Luke's direct request escalates pressure",
+    "Torin Hal: NSW Battle Master, warm paternal figure; counter-current 3 via human moment with Kael (unreadable, private)",
+    "Kael Drenn: Sith-conscript outsider; W1 plant 2 (kael_torin_distance_beat); economy of movement",
+    "Report contents: fortress (Gavran's), survivors (Sera, Torin, Kael), wound/scar, Veraine escape, seal failure/cascade",
+    "Ben's Lie phase: lie_challenged; recognizes pattern in self but chooses secrecy one more day",
+    "Setting: Steady Returns night cycle; shadowed companionway, sleeping nook fold-down shelf",
+    "Emotional arc: observed absence (Kael/Torin) -> agonized deliberation -> rationalized secrecy; deletion hurts, ghost file uncleared",
+    "Wrongness: background weather (seal pressure), not event; Weave via Ben's somatic vocab (footing/handrail absent)"
+  ],
+  "allowed_au_divergences": [
+    "Torin Hal and Kael Drenn as thawed Force-sensitive anchors from NSW-era seal",
+    "Institutional lie: Jedi Order's 1000-year cover-up of Ruusan Reformations' true penance purpose",
+    "Wound/seal mechanics: Gavran's technique damage at Veranthos vergence; anchor degradation cascade",
+    "Veraine as escaped Brotherhood anchor; her amplification array along Ruusan Corridor"
+  ],
+  "open_questions": []
+}

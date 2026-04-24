@@ -167,6 +167,7 @@ def test_shipping_defaults_all_safe():
     assert runtime["micro_repair"]["max_repairs"] == 2
     assert runtime["micro_repair"]["max_total_changed_chars"] == 500
     assert runtime["micro_repair"]["max_changed_ratio"] == 0.12
+    assert runtime["commercial_rewrite"]["enabled"] is False
     # Forward Relay v4: smart single corrective rerun defaults off.
     assert runtime["corrective_rerun"]["enabled"] is False
     assert "MISSING_TURNING_POINT" in runtime["corrective_rerun"]["trigger_codes"]

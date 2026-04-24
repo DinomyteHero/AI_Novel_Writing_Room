@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch23_sc02",
+  "chapter_number": 23,
+  "scene_number": 2,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "4b027ccb8bc4ec832b8283a6de8fa73cd347981fcd1ba6f7c36ee072484c999b",
+  "review_status": "unreviewed",
+  "confidence": 0.98,
+  "hard_constraints": [
+    "Single close-third POV: Ben Skywalker throughout; do not narrate Kael's internal realization or thoughts directly",
+    "Render Force sensations through Ben's body-experience first (e.g., Kael's presence shifting as easing walls, loosening breath); diagnostic terms like 'Weave' or 'unweaving' only after sensation",
+    "Use rotating sensory vocabularies (structural, acoustic, etc.); avoid forbidden repeats like 'reached for the Force', 'handrail in the dark'",
+    "Veranthos is full unweaving zone: Force formless/undifferentiated for Ben, environmental wrongness (chrono drift, inconsistent gravity/temperature, grief-without-object); Desh perceives biological/environmental anti-correlation",
+    "No dialogue or external interruption; silent/internal conflict only",
+    "Terminology: 'the Scar' (capitalized), 'the wound'; lowercase 'galaxy', 'Jedi' plural/singular, 'the Force' experiential/mystical not scientific",
+    "Ben does not follow Kael; restraint is key action"
+  ],
+  "canon_risks": [
+    "Ensure Ben's Force perception of Kael aligns with Legends (Sith-trained conscript presence as foreign accent/weak Weave navigation, not Inquisitorius-style; no kyber bleeding)",
+    "Desh's non-sensitivity must register as 'warm absence' in Ben's Force-sense, consistent with post-Fate of the Jedi GAG background"
+  ],
+  "legends_continuity_notes": [
+    "Ben Skywalker: 20-21, Jedi Knight post-Abeloth/Fate of the Jedi; experienced but exhausted by crises (Jacen, Vestara, GAG service)",
+    "Force wounds precedents: Malachor V (unreliable sense, emotional echoes), Nathema (deadened Force); Veranthos as AU extension",
+    "47 ABY: Jedi Order under Luke on Coruscant; no Empire/First Order/Sequels",
+    "Non-Force-sensitives like Desh perceive wounds via environmental drift (chrono, temp, biology), not mysticism"
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Setting: Veranthos camp on ridge overlooking Scar (3m vertical distortion, heat-shimmer without heat); lush/wrong (wrong vegetation, silence, grief undertone)",
+    "Kael's presence to Ben: guarded walls easing (first since Ch5); Sith-trained as 'foreign accent' in unwoven Force, navigable without modern Jedi unlearning",
+    "Desh: working on node sabotage equipment (for amplification array); unaware, purposeful choice without Force/destiny; models freedom for Kael via observation",
+    "Ben's arc phase: moment_of_truth (trusts Kael's process without verifying/controlling; resists follow instinct)",
+    "Key beats: Kael walks to ridge (processing), watches Scar then Desh, turns back changed (stride deliberate, face new/not blank/detached)",
+    "Emotional arc: Ben's tension in stillness -> focus on Kael's shift -> brace for return",
+    "Sensory: Ben feels Kael's loosening pre-visually; Desh as operational anchor; Scar patient/waiting"
+  ],
+  "allowed_au_divergences": [
+    "Veranthos/Scar as primary wound site on vergence (AU Battle of Veranthos, Brotherhood ritual counter)",
+    "Kael Drenn as NSW Sith conscript survivor/anchor; arc from detachment to chosen commitment",
+    "Weave-Resonance setup: Kael's Sith-tradition piece essential for shared-burden containment",
+    "Desh as freedom model for Kael (non-sensitive choice paralleling Kael's institutional use)"
+  ],
+  "open_questions": [
+    "Specific equipment Desh works on (node sabotage tools? consistent with amplification array repurposing from Ch22+)",
+    "Precise visual of Kael's 'changed face/stride' through Ben's eyes (deliberate vs. careful; avoid over-naming emotion)"
+  ]
+}

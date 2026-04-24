@@ -1,0 +1,3 @@
+LLM returned null content for commercial_rewrite (finish_reason=length)
+Arc phase transition rejected for 'ben_skywalker': truth_accepted -> lie_established. Invalid progression.
+LLM returned null content for prose_stylist (finish_reason=length)

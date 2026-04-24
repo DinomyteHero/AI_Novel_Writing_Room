@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch06_sc03",
+  "chapter_number": 6,
+  "scene_number": 3,
+  "model": "x-ai/grok-4.1-fast",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "887e395a677e7825fe4b0295f9526bff147c35da164e59219889f935ac143017",
+  "review_status": "unreviewed",
+  "confidence": 1.0,
+  "hard_constraints": [
+    "Use Legends terminology: nav display, holographic map, no anachronisms like 'computer' (use nav computer), 'missile' (none here)",
+    "Force description per force_mechanics.sensory_vocabulary.thin_places_mild: distances wrong (parallax error), Force answers from further off; spatial/tactile only, no diagnostic terms like 'Weave', 'unweaving', or harmonic metaphors; single image ('fabric worn through') only, no stacking",
+    "Ben's POV: lie_reinforced phase \u2013 trust only his Force read; do not articulate thin-place cause",
+    "Capitalize 'Human(s)' if appears; 'Jedi' singular/plural; lowercase 'galaxy', 'the Sith'; ship name 'Steady Returns' italicized",
+    "No in-universe ABY dating, Legends/Canon labels, or meta-references"
+  ],
+  "canon_risks": [
+    "Scene plan assumes 14 Corridor nodes with color-coded status (red/amber/green/white) \u2013 AU infrastructure, but ensure no bleed into Legends Ruusan/Valley of the Jedi details beyond contract baseline",
+    "Veraine's recent activity at nodes \u2013 authorized antagonist movement, but prose must not imply Legends Sith structures incompatible with Brotherhood of Darkness (pre-Ruusan)"
+  ],
+  "legends_continuity_notes": [
+    "Ben Skywalker: Jedi Knight, post-Fate of the Jedi/Abeloth, former GAG with Desh; dry wit, pragmatic from Mara",
+    "Desh Rolan: non-Force-sensitive ex-GAG operative, handles ship ops (galley, engineering, nav)",
+    "YT-series freighter cockpit: cramped, holographic nav displays standard for 47 ABY civilian craft",
+    "Post-Fate era: Galactic Alliance government, Jedi on Coruscant under Luke; Outer Rim travel routine but seal thin-places introduce parallax distortion consistent with Legends Force wounds (e.g., Malachor V echo)"
+  ],
+  "possible_disney_bleed": [],
+  "required_context_for_drafter": [
+    "Setting: Steady Returns cockpit; all five characters present; dialogue-led decision on Sera's systematic route via Kael's reasoning ('We don't know why she's moving')",
+    "Turning point: Ben keys route, names synthesis aloud \u2013 first coalition choice, Ben accountable",
+    "Emotional arc: practical focus -> animated disagreement -> tentative consensus",
+    "Force wrongness: mild thin-place on approach to first node \u2013 spatial gap ('step further off', 'fabric worn through'); Ben notices/files, no interpretation",
+    "Relationship: Ben leads by synthesis (not rank); Torin paternal/commander nod; Sera grudging respect; Kael seen via empty homeworld entry (prior scene); Desh steady partner",
+    "Subplots: SP-A (Ben/Desh partnership), SP5 (Desh operational role)",
+    "Exit: First node approach, wrongness sharpens"
+  ],
+  "allowed_au_divergences": [
+    "Ruusan Corridor: 14 anchor nodes as seal perimeter (AU infrastructure linking to Veranthos)",
+    "Veraine (Darth Veraine): Brotherhood escapee, recent node activity (white marker) as amplification prep",
+    "Survivors (Sera, Torin, Kael): awake post-Ch5, era voices (Sera archaic/formal, Torin warm/storyteller, Kael quiet/watchful)",
+    "Thin-place preview: parallax as seal degradation symptom (authorized wound mechanics)"
+  ],
+  "open_questions": []
+}
