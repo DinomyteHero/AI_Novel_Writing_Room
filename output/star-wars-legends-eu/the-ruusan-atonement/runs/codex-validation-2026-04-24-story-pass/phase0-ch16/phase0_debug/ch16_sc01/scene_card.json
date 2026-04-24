@@ -1,0 +1,109 @@
+{
+  "chapter_number": 16,
+  "scene_number": 1,
+  "structural_phase": "attack",
+  "scene_type": "action",
+  "scene_role": "hook",
+  "pov_character": "Ben Skywalker",
+  "mission": "Cockpit. Veraine's comm signal arrives — clean, encrypted in a Sith-era protocol only Kael fully recognises: 'I would prefer to speak rather than be spoken about. I suspect you would as well.' Desh and Sera argue against; Torin argues for; Kael is silent, which is its own answer. Ben keys acceptance before the debate can reopen. Meeting location set at a neutral point between their position and Veranthos. Per W2 Option B, the Ch 16 meeting is now a three-objective encounter (ideological pitch, Kael recruitment, intelligence gathering — the last of which Ben will generate by being in the room with her, not by a scripted plan). The fourth objective (sabotage) is not part of this meeting in the mission architecture of Ch 16; it belongs to Ch 17 opening and is not to be teased here.",
+  "why_now": "Veraine has been invisible for fifteen chapters. She steps forward now because the amplification work has advanced to a stage where dialogue is cheaper than pursuit, and the clean signal is the shape of her timing. The group needs intelligence more than it needs distance; Ben registers that before the debate finishes.",
+  "conflict": "Desh's tactical read is the one Ben trusts; Sera's archive memory is the one Ben listens to; Torin is for; Kael's silence is its own position. The trap may be inside whichever position they choose. Ben is not yet sure what he is walking into; he is sure only that he cannot afford another chapter of her as abstraction.",
+  "conflict_type": "interpersonal",
+  "turning_point": "Ben keys the acceptance into the comm and transmits before the debate can reopen. The choice is ratified by action before the group has agreed.",
+  "opening_hook": "The comm signal is clean, polite, and uses Kael's name. 'I would prefer to speak rather than be spoken about. I suspect you would as well.'",
+  "closing_hook": "The meeting location: a neutral point between their position and Veranthos. Veraine's ship is already there. One vessel, minimal crew. Either she's supremely confident or supremely prepared. Probably both.",
+  "emotional_trajectory": "Sharp alarm at contact -> heated debate -> calculated acceptance",
+  "stakes": {
+    "personal": "Ben choosing to face the primary antagonist directly, before he has a complete read on her",
+    "interpersonal": "The group's working trust tested — Ben overriding objections he cannot fully answer",
+    "external": "Veraine's agenda for the meeting is not visible to Ben, and whatever he learns he will have to learn in the room"
+  },
+  "characters_present": [
+    "Ben Skywalker",
+    "Desh Rolan",
+    "Sera Varik",
+    "Torin Hal",
+    "Kael Drenn"
+  ],
+  "setting": "Aboard the Steady Returns — cockpit, comm active",
+  "sensory_details": "Veraine's voice across the comm — calm, precise, academic, using complete sentences without contractions; the protocol's era signature catching Kael's attention before it catches anyone else's; Desh running counter-intelligence scenarios in small fast hand-work on his datapad; Sera's jaw muscles working but no sentence emerging; Torin's 'we should hear her' falling into the cockpit with a warmth that is half of Torin's effectiveness and half of what makes Ben's skin cool; the Veranthos course overlay on the nav display quietly present beneath the debate",
+  "canon_elements_needed": [
+    "Sith-era encrypted communication protocols used by Brotherhood of Darkness successor traditions",
+    "Jedi counter-intelligence procedure for antagonist contact in-field"
+  ],
+  "target_word_count": 1000,
+  "action_beats": [
+    "Veraine's comm signal cuts through the cockpit speakers — clean, encrypted in a Sith-era protocol Kael recognises",
+    "Desh runs counter-intelligence scenarios on his datapad while the group debates the truce offer",
+    "Torin's 'we should hear her' lands with the same warmth as every other Torin contribution, and Ben registers the warmth without knowing why he is registering it",
+    "Ben keys the acceptance into the comm and transmits before the debate can reopen"
+  ],
+  "active_subplots": [
+    "SP-A",
+    "SP2",
+    "SP3"
+  ],
+  "plot_threads_advanced": [
+    "veraine_contact",
+    "truce_meeting_accepted",
+    "torin_warmth_for_meeting_registered_not_named"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "hook_actions": [
+    {
+      "hook_id": "H10",
+      "action": "resolve"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "lie_challenged",
+  "warmth_load_bearing": true,
+  "notes": "H10 resolves — Veraine has stepped forward to speak rather than be spoken about. Per W2 Option B, the Ch 16 meeting has three operative objectives (ideological pitch, Kael recruitment, intelligence gathering as emergent observation); sabotage is NOT part of Ch 16 and is not to be teased in this scene. Per R14, Veraine's comm voice establishes the Socratic-adjacent register the meeting will carry — she does not announce her agenda; she opens with an observation and an implication. Diagnostic-voice trap: Ben should not, in this scene, list Veraine's possible objectives as interiority. He keys acceptance and the scene moves. Torin's low-heat advocacy for the meeting is recorded and not interpreted — per D7 Component B, the narrator does not over-signal Torin's direction past Ben's perception; Ben registers the warmth without placing it. Voice: Zahn-procedural, clipped cockpit dialogue, Sera's sentences in her full archaic register under stress. Anti-pattern: (a) do not let any character articulate the four-objective frame on-page — the chapter architecture is for the scene card, not the prose; (b) do not foreshadow sabotage; the Ch 17 s1 discovery is meant to arrive as a specific shock not softened by Ch 16 hints. Primary anchor: Zahn (procedural cockpit frame); supporting anchor: Bujold (Ben's interior register of the warmth he cannot yet place).",
+  "primary_anchor": "Zahn",
+  "supporting_anchor": "Bujold",
+  "stover_permitted": false,
+  "turning_point_detail": {
+    "trigger": "Ben keys the acceptance into the comm and transmits before the debate can reopen.",
+    "shift": "The choice is ratified by action before the group has agreed. The abstract threat becomes a concrete meeting with a set location and timeline.",
+    "cost": "Ben overrides objections he cannot fully answer (Desh's tactical read, Sera's archival caution). The group's working trust is tested. Ben faces the primary antagonist directly before he has a complete read on her or her agenda."
+  },
+  "emotional_arc": {
+    "start": "Sharp alarm at contact—instinct pushes toward action rather than explanation.",
+    "shift": "Heated debate tightens Ben's focus on what has changed and what is at stake in the choice.",
+    "end": "Calculated acceptance—Ben braced for the handoff, the decision made and transmitted before reversal is possible."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Veraine's comm signal cuts through the cockpit speakers—clean, encrypted in a Sith-era protocol Kael recognizes immediately.",
+      "state_change": "The abstract threat becomes concrete and present. The opening pressure shifts from strategic planning to immediate contact.",
+      "pov_reaction": "Ben's alarm registers as a physical impulse before thought catches up—the instinct to respond, to act, to move the situation forward rather than defend against it. His hand is already reaching before he consciously decides to engage."
+    },
+    {
+      "beat_description": "Desh runs counter-intelligence scenarios on his datapad while Sera's jaw muscles work and Torin's warmth fills the cockpit with 'we should hear her.'",
+      "state_change": "The group fractures into positions: Desh and Sera argue against the meeting; Torin argues for it; Kael's silence is its own answer. The debate escalates pressure without resolving it.",
+      "pov_reaction": "Ben feels the weight of each position—Desh's tactical caution he trusts, Sera's archival memory he listens to, Torin's warmth he registers without placing it. The pressure tightens his focus. He cannot answer all their objections, and he knows it."
+    },
+    {
+      "beat_description": "Ben's hand moves to the comm controls. The debate is still open, still unresolved, but Ben does not wait for consensus.",
+      "state_change": "The decision is made and transmitted before the group can reopen the argument. The meeting is accepted. The location is set.",
+      "pov_reaction": "Ben's action is clean and final—the kind of decisiveness that closes debate by making it moot. He is braced for the group's reaction, for the cost of overriding them, but the choice is already in the transmission."
+    },
+    {
+      "beat_description": "The nav display shows the meeting point: neutral ground between their current position and Veranthos. Veraine's ship is already there—one vessel, minimal crew.",
+      "state_change": "The meeting is no longer hypothetical. It is scheduled, located, and Veraine is already in position. The next phase of engagement is locked in.",
+      "pov_reaction": "Ben reads the tactical picture: either Veraine is supremely confident or supremely prepared. Probably both. The realization lands without panic—it is the shape of the problem he has chosen to walk into, and he is already calculating what that means."
+    }
+  ],
+  "opening_mode": "in_medias_res",
+  "anti_patterns": [
+    "Ben should not, in this scene, list Veraine's possible objectives as interiority",
+    "(a) do not let any character articulate the four-objective frame on-page — the chapter architecture is for the scene card, not the prose; (b) do not foreshadow sabotage; the Ch 17 s1 discovery is meant to arrive as a specific shock not softened by Ch 16 hints",
+    "Ben should not list Veraine's possible objectives as interiority—he keys acceptance and the scene moves.",
+    "Do not let any character articulate the four-objective frame on-page—the chapter architecture is for the scene card, not the prose.",
+    "Do not foreshadow sabotage; the Ch 17 s1 discovery is meant to arrive as a specific shock not softened by Ch 16 hints.",
+    "Do not over-signal Torin's direction past Ben's perception; the narrator does not interpret the warmth for him.",
+    "Avoid diagnostic-voice articulation of Veraine's agenda or strategic intent.",
+    "Do not arrive at clinical articulation of the meeting's stakes—keep the scene tactile and action-driven, not analytical."
+  ]
+}

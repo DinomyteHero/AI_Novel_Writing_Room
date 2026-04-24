@@ -1,0 +1,58 @@
+{
+  "scene_objective": "Ben commits to leaving with the survivors and pursuing the unknown escapee even before the room can give him a name.",
+  "opening_mode": "Ben spreads the fortress data across the command table — Corridor maps, seal readings, the chamber file with a name-shaped blank where the occupant should be — while Sera and Torin work through the archive beside him",
+  "key_beats": [
+    {
+      "beat_description": "Ben lays out fortress data and Corridor maps across the command table; the chamber file sits beside them with a name-shaped blank",
+      "state_change": "",
+      "pov_reaction": ""
+    },
+    {
+      "beat_description": "Sera and Torin organize archive materials into tactical priority order from muscle memory; Torin's arrangement carries warmth and Sera's carries precision, and Ben registers the difference without comment",
+      "state_change": "",
+      "pov_reaction": ""
+    },
+    {
+      "beat_description": "Desh commits to having the corrupted monitoring packets reconstructed by morning — the name will resolve in response-quadrant",
+      "state_change": "",
+      "pov_reaction": ""
+    },
+    {
+      "beat_description": "Ben composes a partial report to Luke on his datapad and transmits it before he can change his mind",
+      "state_change": "",
+      "pov_reaction": ""
+    },
+    {
+      "beat_description": "The Steady Returns lifts off the mountain plateau, engines straining with five passengers aboard a ship built for two",
+      "state_change": "",
+      "pov_reaction": ""
+    }
+  ],
+  "turning_point": {
+    "trigger": "Ben sends the partial report. The Steady Returns lifts. The choice to carry this alone — without naming the choice — is made. Somewhere in the archive lists Desh is still compiling are the monitoring ",
+    "shift": "Ben sends the partial report. The Steady Returns lifts. The choice to carry this alone — without naming the choice — is made. Somewhere in the archive lists Desh is still compiling are the monitoring ",
+    "cost": "(derived from scene card)"
+  },
+  "closing_beat": "Ben sends a partial report to Luke — enough to explain the delay, not enough to reveal the scope. The Steady Returns lifts off the plateau, pointed along the Corridor. An unnamed anchor is somewhere ahead of them. The monitoring packets Desh is reconstructing will finish overnight",
+  "emotional_arc": {
+    "start": "",
+    "shift": "Overwhelmed assessment -> grim determination -> the quiet cost of choosing to carry this alone",
+    "end": ""
+  },
+  "required_hooks": [],
+  "required_subplots": [
+    "SP-A",
+    "SP1",
+    "SP2",
+    "SP3"
+  ],
+  "anti_patterns": [
+    "Do not open with a flashback or exposition dump about the seal's history.",
+    "Do not have Ben articulate the choice as a choice before he makes it.",
+    "Do not make the scene feel heroic or triumphant.",
+    "Do not arrive at clinical articulation of Ben's emotional state.",
+    "Do not use 'an ambient hum of' or other worn-default Force-perception language.",
+    "Avoid diagnostic voice when describing the Force-sense—keep it diffused and unreliable, sensory rather than analytical."
+  ],
+  "target_word_count": 1000
+}

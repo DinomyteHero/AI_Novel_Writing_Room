@@ -1,0 +1,44 @@
+{
+  "scene_objective": "Sera moves before Ben can speak. Ancient containment protocols — the same techniques that sealed her in a wall for a thousand years — adapted to field conditions. Veraine in containment: conscious, intellectually furious, physically outmatched. Ben turns from the contained antagonist to the valley below, where Torin's void is still expanding.",
+  "opening_mode": "Sera moves before Ben can speak. Ancient containment protocols — the same techniques that held Veraine in stasis for a millennium, adapted to field conditions.",
+  "key_beats": [
+    {
+      "beat_description": "Sera moves before Ben can speak — activating ancient containment protocols adapted to field conditions",
+      "state_change": "",
+      "pov_reaction": ""
+    },
+    {
+      "beat_description": "Sera locks Veraine in a Force-containment field using techniques that held her in stasis for a millennium",
+      "state_change": "",
+      "pov_reaction": ""
+    },
+    {
+      "beat_description": "Ben turns from the contained Veraine to look down the valley where Torin's void continues to expand",
+      "state_change": "",
+      "pov_reaction": ""
+    }
+  ],
+  "turning_point": {
+    "trigger": "Veraine in containment. Ben turns from the antagonist he has defeated to the friend he has not saved.",
+    "shift": "Veraine in containment. Ben turns from the antagonist he has defeated to the friend he has not saved.",
+    "cost": "(derived from scene card)"
+  },
+  "closing_beat": "Torin. Still descending. His technique has created a zone of perfect unweaving around him, expanding as he approaches the Scar. He's not fighting the resonance — he's ignoring it. He has his own solution. And it's working. Maetha's warning echoes: 'It replaces you.'",
+  "emotional_arc": {
+    "start": "",
+    "shift": "Relief at Veraine's containment -> immediate dread at Torin's continuing descent",
+    "end": ""
+  },
+  "required_hooks": [],
+  "required_subplots": [
+    "SP-A",
+    "SP1"
+  ],
+  "anti_patterns": [
+    "Sera's containment work is discipline, not vengeance",
+    "Do not arrive at clinical articulation of the Force mechanics",
+    "Maetha's warning should surface as fragment, not quotation",
+    "Sera's face registers neither triumph nor pity—the room is a professional one"
+  ],
+  "target_word_count": 1000
+}

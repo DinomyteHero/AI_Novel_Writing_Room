@@ -5,9 +5,9 @@
   "scene_type": "action",
   "scene_role": "reveal",
   "pov_character": "Ben Skywalker",
-  "mission": "Ben tells Luke everything in the room where the mission began. Luke listens, names the silence between them once, and chooses truth with him.",
+  "mission": "Ben tells Luke everything in the room where the mission began: survivors, Veranthos archive, Gavran's consent crime and desperate context, Veraine in custody, Ash-Tithe evidence and crew dispositions, the new seal, and Ben's first-renewal burden. Luke listens as father and Grand Master, names the silence between them once, and chooses truth with him.",
   "why_now": "The Ben/Luke line cannot close at a distance. The story needs the office, the silence, and the decision in the same scene.",
-  "conflict": "Ben is rewriting the story Luke's Order has told itself for a thousand years. The danger is not disbelief. It is whether the private breach between them gets named cleanly enough for them to move forward.",
+  "conflict": "Ben is rewriting the story his father's Order has told itself for a thousand years. The danger is not disbelief; Luke is too serious for denial. The danger is whether private hurt, survivor consent, evidence, and institutional responsibility can all be held in the same room without one of them being used to avoid the others.",
   "conflict_type": "interpersonal",
   "turning_point": "After Ben finishes, Luke lets the silence stand and then asks the one question that matters. Ben does not defend himself. Luke answers the silence by choosing what happens next: the Council hears the truth.",
   "opening_hook": "Luke's office. The same room where this started — the mission briefing, the datapad, the survey route laid out on the display, the two chairs on either side of the desk. Ben sits where he sat before. Everything is different",
@@ -31,11 +31,12 @@
   ],
   "target_word_count": 1400,
   "action_beats": [
-    "Ben sits in the same chair in Luke's office where the mission started and begins telling the full story — Sera, Kael, Torin, Veraine, the technique, the Reformations' true history, the resonance, the new seal, the first-renewal commitment",
+    "Ben sits in the same chair in Luke's office where the mission started and begins telling the full story — Sera, Kael, Torin, Veraine, Gavran's records, the Ash-Tithe evidence chain, the technique, the Reformations' true hidden layer, the resonance, the new seal, the first-renewal commitment",
+    "Ben gives Luke the practical end-states without turning people into reports: Sera and Torin remaining temporarily at Veranthos by consent, Kael leaving outside formal Jedi belonging, Veraine in secured custody, Pira captured, Mira debriefing, Serran dead, Vess tagged and gone",
     "Luke listens in silence, hands still on the desk, Force presence holding sadness without performing it; the afternoon light moves across the floor as Ben speaks",
     "Ben finishes. A long silence. Luke's four-word question lands — understanding, not accusation",
     "Ben does not answer. He does not defend the silences; he does not catalogue them. Luke did not ask a question that required defending",
-    "Another silence. Luke names the shared decision to tell the Council; neither of them speaks for a moment after that"
+    "Another silence. Luke names the shared decision to tell the Council, preserve the evidence, protect survivor consent, and stop letting the old Order's silence govern the new one; neither of them speaks for a moment after that"
   ],
   "active_subplots": [
     "SP-A",
@@ -60,7 +61,7 @@
   ],
   "pov_arc_phase": "arc_resolved",
   "warmth_load_bearing": true,
-  "notes": "Keep the scene small and exact. Geography does most of the callback work. Luke's question lands once and Ben lets it land. No one summarizes anything; the scene lives in telling, listening, silence, and decision.",
+  "notes": "Keep the scene small and exact. Geography does most of the callback work. Luke's question lands once and Ben lets it land. Luke should feel Legends-appropriate: compassionate, grave, institutionally responsible, and personally affected as Ben's father. The Council response must be concrete enough to matter — truth, evidence preservation, survivor-consent protections, renewal responsibility, and Veraine custody — but not a bureaucratic lecture. No one summarizes anything as a recap block; the scene lives in telling, listening, silence, and decision.",
   "primary_anchor": "Zahn",
   "supporting_anchor": "Bujold",
   "stover_permitted": false,
@@ -76,13 +77,13 @@
   },
   "key_beats": [
     {
-      "beat_description": "Ben sits in the same chair where the mission briefing happened. The office is unchanged — same furniture, same light, same datapad with the survey route cached in its memory. Ben begins telling the full story: Sera, Kael, Torin, Veraine, the technique, the Reformations' true history, the resonance, the new seal, the first-renewal commitment.",
-      "state_change": "The abstract pressure of the mission becomes concrete and named. Ben is no longer carrying the silence alone — he is breaking it in the room where it was first imposed.",
+      "beat_description": "Ben sits in the same chair where the mission briefing happened. The office is unchanged — same furniture, same light, same datapad with the survey route cached in its memory. Ben begins telling the full story: Sera, Kael, Torin, Veraine, Gavran's records, the Ash-Tithe evidence chain, the technique, the Reformations' true hidden layer, the resonance, the new seal, the first-renewal commitment.",
+      "state_change": "The abstract pressure of the mission becomes concrete and named. Ben is no longer carrying the silence alone — he is breaking it in the room where it was first imposed, with witness testimony and physical evidence beside him.",
       "pov_reaction": "Ben feels the weight of telling settle into his chest. Instinct pushes toward action, toward explanation, toward anything that is not stillness. He speaks instead, letting the words carry what silence could not."
     },
     {
-      "beat_description": "Luke listens without moving. His hands remain on the desk. His Force presence is vast and warm, holding sadness without performing it — the specific quality of a Master's presence when he is not using it for authority. The afternoon light moves across the floor as Ben speaks. The renewal tether hums at the edge of Ben's Force-perception, a continuous low note that the conversation does not change.",
-      "state_change": "The pressure escalates inward. Ben registers that Luke is not defending the Order's silence or his own. Luke is simply present, listening, letting Ben be seen.",
+      "beat_description": "Luke listens without moving. His hands remain on the desk. His Force presence is vast and warm, holding sadness without performing it — the specific quality of a father and Grand Master who is not using authority to soften the record. The afternoon light moves across the floor as Ben speaks. The renewal tether hums at the edge of Ben's Force-perception, a continuous low note that the conversation does not change.",
+      "state_change": "The pressure escalates inward. Ben registers that Luke is not defending the Order's silence or his own. Luke is simply present, listening, letting Ben be seen, and beginning to hold the institutional response without stealing Ben's burden.",
       "pov_reaction": "Ben's focus tightens on what has changed in Luke's presence. The absence of judgment is not the same as agreement, but it is not rejection either. It is something Ben has not felt from his father in this context: the willingness to hear without immediately answering."
     },
     {
@@ -91,7 +92,7 @@
       "pov_reaction": "Ben feels the question land like a blade that cuts cleanly. There is no defense against it because the question does not demand one. Luke is not asking Ben to justify the silence; Luke is naming that the silence existed and that it mattered."
     },
     {
-      "beat_description": "Ben does not answer. He does not defend the silences or catalogue them. Luke did not ask a question that required defending. Another silence follows, and in that silence, Luke names the shared decision: the Council will hear the truth. Neither of them speaks for a moment after that.",
+      "beat_description": "Ben does not answer. He does not defend the silences or catalogue them. Luke did not ask a question that required defending. Another silence follows, and in that silence, Luke names the shared decision: the Council will hear the truth, the evidence will be preserved, the survivors' consent will be protected, and Veraine's custody will not become another buried secret. Neither of them speaks for a moment after that.",
       "state_change": "The scene closes on the new operating picture. The decision is no longer Ben's alone. Luke has chosen transparency with him, converting the institutional distance from Chapter 1 into private alliance and institutional commitment.",
       "pov_reaction": "Ben registers the shift as a release of pressure that he did not know he was carrying. The urge to explain, to defend, to prove himself dissolves because Luke did not ask for proof. Luke asked for truth, and Ben gave it. The pattern that runs in the blood — the unilateral burden, the silence, the weight carried alone — does not run in this room."
     }

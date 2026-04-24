@@ -1,0 +1,149 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch05_sc02",
+  "description": "Executable prose contract for Chapter 5 Scene 2: survivors can speak to Veranthos, Gavran's protocol, anchors, and human cost; Ben/Desh own the later Ruusan Reformations frame; Kael owns Gavran's designation correction.",
+  "speakers": [
+    "Ben",
+    "Desh",
+    "Sera",
+    "Torin",
+    "Kael"
+  ],
+  "checks": [
+    {
+      "id": "survivors_cannot_carry_public_reformations_frame",
+      "type": "speaker_forbidden",
+      "severity": "error",
+      "speakers": [
+        "Sera",
+        "Torin",
+        "Kael"
+      ],
+      "patterns": [
+        "\\bpublic\\s+settlement\\b",
+        "\\bpublic\\s+record\\b",
+        "\\bRuusan\\s+settlement\\b",
+        "\\blater\\s+settlement\\b",
+        "\\bRuusan\\s+Reformations\\b",
+        "\\blater\\s+Reformations\\b",
+        "\\bArmy\\s+of\\s+Light\\b",
+        "\\bJedi\\s+Lords\\b",
+        "\\bcentraliz(?:ed|ing)\\s+training\\b",
+        "\\bRepublic\\s+(?:and\\s+)?Judicial\\s+oversight\\b"
+      ]
+    },
+    {
+      "id": "survivor_what_came_after_language",
+      "type": "speaker_forbidden",
+      "severity": "warning",
+      "speakers": [
+        "Sera",
+        "Torin",
+        "Kael"
+      ],
+      "patterns": [
+        "\\bwhat\\s+came\\s+after\\b",
+        "\\bbefore\\s+any\\s+of\\s+your\\s+later\\b"
+      ]
+    },
+    {
+      "id": "kael_owns_gavran_designation_correction",
+      "type": "speaker_forbidden",
+      "severity": "error",
+      "speakers": [
+        "Sera",
+        "Torin"
+      ],
+      "patterns": [
+        "\\bnot\\s+(?:the\\s+)?architect\\b",
+        "\\bcustodian\\b",
+        "\\bGavran\\b.{0,80}\\bkeeper\\b",
+        "\\bkeeper\\b.{0,80}\\bGavran\\b",
+        "\\bthere\\s+is\\s+a\\s+difference\\b"
+      ]
+    },
+    {
+      "id": "kael_must_make_designation_correction",
+      "type": "character_required",
+      "severity": "error",
+      "character": "Kael",
+      "window_paragraphs": 3,
+      "patterns": [
+        "\\barchitect\\b",
+        "\\bkeeper\\b",
+        "\\bcustodian\\b"
+      ]
+    },
+    {
+      "id": "anchor_count_must_be_clear",
+      "type": "required_patterns",
+      "severity": "error",
+      "patterns": [
+        "\\btwelve\\s+(?:chamber-bound\\s+)?anchors?\\b|\\btwelve\\s+chambers?\\b",
+        "\\bcentral\\s+keystone\\b|\\bGavran\\b"
+      ]
+    },
+    {
+      "id": "anchor_count_must_not_be_wrong",
+      "type": "global_forbidden",
+      "severity": "error",
+      "patterns": [
+        "\\bthirteen\\s+stasis\\s+chambers\\b",
+        "(?<!not\\s)\\bthirteen\\s+chambers\\b"
+      ]
+    },
+    {
+      "id": "survivor_consent_must_not_be_universalized",
+      "type": "global_forbidden",
+      "severity": "error",
+      "patterns": [
+        "\\bwe\\s+signed\\s+up\\b",
+        "\\bwe\\s+agreed\\b",
+        "\\bwe\\s+volunteered\\b",
+        "\\bwe\\s+chose\\s+this\\b",
+        "\\ball\\s+anchors\\s+volunteered\\b",
+        "\\ball\\s+anchors\\s+chose\\b"
+      ]
+    },
+    {
+      "id": "archive_register_must_stay_canon_safe",
+      "type": "global_forbidden",
+      "severity": "error",
+      "patterns": [
+        "\\bOld\\s+Galactic\\s+Standard\\b",
+        "\\bpre-Basic\\b"
+      ]
+    },
+    {
+      "id": "ruusan_chronology_must_be_precise",
+      "type": "global_forbidden",
+      "severity": "error",
+      "patterns": [
+        "\\bpredates\\s+Ruusan\\b",
+        "\\bThis\\s+predates\\s+Ruusan\\b",
+        "\\bRuusan\\s+had\\s+come\\s+after\\b",
+        "\\bcame\\s+after\\s+the\\s+New\\s+Sith\\s+Wars\\b"
+      ]
+    },
+    {
+      "id": "rule_of_two_bleed",
+      "type": "global_forbidden",
+      "severity": "error",
+      "patterns": [
+        "\\bRule\\s+of\\s+Two\\b"
+      ]
+    },
+    {
+      "id": "planning_language_must_not_leak",
+      "type": "global_forbidden",
+      "severity": "error",
+      "patterns": [
+        "\\bBen\\s+supplied\\b",
+        "\\bSera\\s+names\\b",
+        "\\bSera\\s+named\\b",
+        "\\bword\\s+Reformations\\s+belongs\\b",
+        "\\bscene\\s+works\\s+only\\b"
+      ]
+    }
+  ]
+}

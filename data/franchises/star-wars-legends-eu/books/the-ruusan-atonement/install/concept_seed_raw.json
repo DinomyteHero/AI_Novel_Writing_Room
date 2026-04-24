@@ -23,7 +23,7 @@
       "type": "External — Ancient Sith survivor",
       "identity": "Darth Veraine, Brotherhood of Darkness alchemist and strategist. Captured by Gavran's forces and repurposed as one of twelve Force-sensitive anchors in the seal's containment infrastructure. Her partial awareness during a millennium of stasis — feeling her Force presence drained as structural rebar — eroded her chamber from inside. She escaped weeks before the main cascade, her breakout accelerating the system failure that woke the remaining three survivors.",
       "motivation": "Veraine genuinely believes the wound in the Force is the Force's natural state and that the seal is keeping the galaxy sick. Her philosophy is rooted in direct experience: the Brotherhood's lattice inversion attempt at Veranthos proved the lattice was malleable, and Gavran's technique proved it was removable. A thousand years as an anchor gave her partial awareness of the de-structured state, and her conclusion is that the lattice is an imposed framework, not a natural property — a disease the galaxy has mistaken for health. She intends to open the wound fully, not to destroy, but to liberate the Force from the artificial light/dark binary. She has the ideological certainty of a true believer backed by a millennium of Sith knowledge the modern galaxy has forgotten. Her flaw is detachment — she has so thoroughly intellectualized the Force that she cannot feel what de-structuring does to living beings. The wound isn't a catastrophe to her because she doesn't experience it as suffering.",
-      "escalation": "Part 1: Invisible — referenced only through an empty stasis chamber at the fortress, broken open from inside, and monitoring logs flagging a high-risk anchor breach weeks prior. Part 2: Evidence of her passage along the Corridor's anchor nodes — she's traveling the same route ahead of the group, repurposing each node's infrastructure into an amplification array that turns the seal's own architecture against itself. A small crew of Outer Rim salvagers and one or two true believers provide practical support. Each site shows escalating sophistication. Part 3: Direct confrontation during a truce meeting (Chapter 16) where she presents her philosophy to the full group — a four-objective operation combining ideological pitch, Kael recruitment attempt, sabotage cover, and intelligence gathering. Uses the meeting to deliver a final act of infrastructure damage that collapses the timeline from weeks to days. Part 4: Full assault on the primary seal at Veranthos — her ritual amplified by the repurposed node network, directed at the Scar. Defeated in two stages: Desh disables critical amplification nodes (physical/tactical), then the lattice resonance produces emergent complexity her analytical framework cannot model. She planned for opposition from a single tradition; she didn't plan for synthesis. Contained by Sera but unbroken — defeated by results, not by conversion."
+      "escalation": "Part 1: Invisible — referenced only through an empty stasis chamber at the fortress, broken open from inside, and monitoring logs flagging a high-risk anchor breach weeks prior. Part 2: Evidence of her passage along the Corridor's anchor nodes — she's traveling the same route ahead of the group, repurposing each node's infrastructure into an amplification array that turns the seal's own architecture against itself. The Ash-Tithe Compact provides practical support: Vess routes and manifests, Pira technical sabotage, Serran archival/ritual authentication, Mira low-level Force calibration, plus a few disposable hired guards. Each site shows escalating sophistication. Part 3: Direct confrontation during a truce meeting (Chapter 16) where she presents her philosophy to the full group — a three-objective operation combining ideological pitch, Kael recruitment attempt, and intelligence gathering; her crew executes a parallel sabotage out of Ben's sight, collapsing the timeline from weeks to days once the group discovers it on exit. Part 4: Full assault on the primary seal at Veranthos — her ritual amplified by the repurposed node network, directed at the Scar. Defeated in two stages: Desh disables critical amplification nodes (physical/tactical), then the shared-burden containment produces emergent complexity she cannot model. She planned for opposition from a single tradition; she did not plan for synthesis without a prisoner. Contained by Sera but unbroken — defeated by results, not by conversion."
     },
     "secondary_pressures": [
       "Torin Hal (internal antagonist) — ally turned antagonist at the second plot point. His pattern mirrors Jacen Solo and the Jedi Lords: the talented, damaged Force-user who decides he alone bears responsibility for the solution. His turn is driven by desperation, not malice.",
@@ -3448,7 +3448,7 @@
       ],
       "revelations": [],
       "pov_arc_phase": "lie_challenged",
-      "notes": "Veraine's four objectives for the meeting: (1) ideological pitch, (2) Kael recruitment attempt, (3) sabotage cover, (4) intelligence gathering. The group knows none of these."
+      "notes": "Veraine's three in-meeting objectives: (1) ideological pitch, (2) Kael recruitment attempt, (3) intelligence gathering through what Ben notices and how the group answers. Sabotage is not an in-meeting objective; Ash-Tithe movement may create unease here, but proof waits for Chapter 17."
     },
     {
       "chapter_number": 16,
@@ -3568,18 +3568,18 @@
       "scene_type": "action",
       "scene_role": "escalation",
       "pov_character": "Ben Skywalker",
-      "mission": "Aftermath — the sabotage discovered. Veraine used the truce to deliver a final act of infrastructure damage. The seal lurches. The timeline collapses from weeks to days.",
-      "why_now": "Veraine's four objectives completed: she pitched her philosophy, attempted Kael's recruitment, gathered intelligence on the group's capabilities, and sabotaged the seal's infrastructure under cover of conversation",
-      "conflict": "The timeline has been cut dramatically. Veraine used the meeting's cover — when Ben's group was focused on dialogue — to trigger a pre-positioned sabotage package at a critical node. The seal's cascade accelerates.",
+      "mission": "Aftermath aboard ship. Do not reveal the sabotage yet. Let the group process the meeting, let Ben's catalogue of Veraine and the Ash-Tithe Compact fail to settle into certainty, and let Desh begin the backward sweeps that will pay off in Chapter 17.",
+      "why_now": "The chapter needs a decompression beat after the truce meeting, but the natural dramatic consequence belongs at the next chapter opening. This scene preserves the meeting's unresolved pressure while planting the procedural bridge to the Chapter 17 discovery.",
+      "conflict": "Ben has more information than he can yet interpret: Veraine's register, Kael's silence, Sera's cost, the crew's tells, the ship's approach vector. The group feels worse off, but the reason is not yet visible. Desh senses an operational layer in the data and starts checking without having proof.",
       "conflict_type": "external",
-      "turning_point": "Desh: 'She played us. Every minute of that meeting, her crew was executing a pre-staged operation.' The truce was real — Veraine genuinely wanted to present her argument. The sabotage was simultaneous, not contradictory. She can believe in dialogue and destruction at the same time.",
-      "opening_hook": "Ben doubles over in the cockpit as the wrongness drops — not a lurch but a collapse, the floor of the Force giving way by another meter",
-      "closing_hook": "Days. Not weeks, not months. Days until Veraine reaches Veranthos with a compromised seal and a functioning amplification array. The race has become a sprint.",
-      "emotional_trajectory": "Post-meeting processing -> alarm at the sabotage -> urgent compression",
+      "turning_point": "Desh says he is running back-sweeps across the meeting window because the Ash-Tithe Compact moved like people with a job outside the conversation. Ben realizes the meeting may have been cover for something else, but there is no confirmation yet.",
+      "opening_hook": "Back aboard the Steady Returns, the clearing dust still on their boots, nobody sits where they usually sit.",
+      "closing_hook": "Desh starts the back-sweeps. Ben watches Veraine's ship vanish from the last passive track and knows the meeting is not finished with them.",
+      "emotional_trajectory": "Post-meeting silence -> unsettled processing -> procedural suspicion without proof",
       "stakes": {
-        "personal": "Ben outmaneuvered — his intelligence-gathering gambit cost them critical time",
-        "interpersonal": "Group trust shaken — did Ben make the wrong call accepting the meeting?",
-        "external": "Timeline collapsed to days. The seal cannot hold much longer."
+        "personal": "Ben may have been outplayed, but he cannot yet name how",
+        "interpersonal": "Group trust sits under strain because no one can decide whether taking the meeting helped or cost them",
+        "external": "If Veraine used the meeting as cover, the next loss will already be in motion before they understand it"
       },
       "characters_present": [
         "Ben Skywalker",
@@ -3589,22 +3589,23 @@
         "Kael Drenn"
       ],
       "setting": "Aboard the Steady Returns — departure from the meeting point, tactical assessment",
-      "sensory_details": "The Force dropping — not a spike but a collapse, a new lower floor; Desh's damage assessment scrolling on displays; Sera's face: 'I told you so' without the satisfaction; Torin's expression: calm, certain, his argument strengthened",
+      "sensory_details": "Clearing dust tracked across the deck plating; the ship too quiet after Veraine's measured questions; Sera standing instead of sitting, anger held below discipline; Torin trying to make warmth available and not quite reaching everyone; Kael in the corner with his hands visible and his answer still unspoken; Desh replaying passive sensor traces, not damage reports yet; Ben's memory catching on the Ash-Tithe Compact: Vess by the ramp, Pira's too-square crate, Serran's archive cylinder, Mira's fear-taught stillness",
       "canon_elements_needed": [],
       "target_word_count": 800,
       "action_beats": [
-        "Ben doubles over in the cockpit as the Force drops to a new, lower baseline",
-        "Desh pulls up damage assessment data and scrolls through the cascade reports",
-        "Ben punches the nav computer and plots a direct course to Veranthos — no more stops"
+        "The group boards in silence; the normal shipboard rhythm does not resume",
+        "Ben replays the meeting in fragments: Veraine's questions, Sera's answer, Kael's non-answer, and the Ash-Tithe Compact moving by function around the ship",
+        "Desh starts passive back-sweeps across the meeting window, flagging crew movement and approach-vector anomalies as suspicion rather than proof"
       ],
       "active_subplots": [
         "SP-A",
         "SP5"
       ],
       "plot_threads_advanced": [
-        "timeline_collapsed",
-        "veraine_sabotage_revealed",
-        "four_objectives_complete"
+        "post_meeting_unease",
+        "ben_emergent_intelligence_held",
+        "desh_back_sweeps_started",
+        "ash_tithe_compact_tells_planted"
       ],
       "promises_planted": [],
       "promises_paid": [],
@@ -5008,31 +5009,31 @@
       "scene_type": "action",
       "scene_role": "escalation",
       "pov_character": "Ben Skywalker",
-      "mission": "Desh's sabotage mission — cutting to his operation against Veraine's crew-guarded amplification nodes. Former GAG operative vs. mundane opposition under extreme time pressure.",
-      "why_now": "Two-stage defeat of Veraine: Stage 1 is physical/tactical. Desh removes the amplification that makes Veraine's ritual viable.",
-      "conflict": "Desh against armed crew guards at critical nodes. He's outnumbered but outclasses them — former intelligence operative with combat training against salvagers and true believers. The challenge is time: he needs to disable three nodes before the resonance fails.",
+      "mission": "Keep Ben's close POV while Desh executes the physical sabotage. The reader experiences Desh's operation through Ben's resonance-stressed infrastructure sense, comm bursts, node telemetry, and the array's physical response. The Ash-Tithe Compact becomes real opposition, and Desh's non-Force competence completes stage one of Veraine's defeat.",
+      "why_now": "Two-stage defeat of Veraine: Stage 1 is physical/tactical. Desh removes the amplification that makes Veraine's ritual viable, but the book's single-POV discipline should not break in the climax.",
+      "conflict": "Ben must hold the resonance while trusting action he cannot directly control. Desh is off-site against armed Ash-Tithe opposition: hired guards at the first node, Mira's fearful Force-sensitive calibration at the second, and Pira Kul's reinforced technical command at the third. The challenge is time: three nodes before the resonance fails, with no margin for Ben to verify the work himself.",
       "conflict_type": "external",
       "turning_point": "Desh disables the third critical node. Veraine's amplification drops below threshold. She's strong alone — but not strong enough alone. The seal was the work of thirteen anchors. She was always depending on the array.",
-      "opening_hook": "Desh at the first node. Two guards. The approach is textbook GAG — silent, efficient, nonlethal. He's not here to kill anyone. He's here to break three pieces of equipment.",
+      "opening_hook": "The first node is only a point of tension in Ben's chest until Desh's comm clicks twice and the point goes dark.",
       "closing_hook": "The third node goes dark. Desh's comm: 'Array's down. Whatever you're doing — do it now. Everything. Don't hold back.'",
-      "emotional_trajectory": "Professional focus -> escalating physical danger -> triumph through competence",
+      "emotional_trajectory": "Forced trust -> escalating off-site danger -> handoff through competence",
       "stakes": {
-        "personal": "Desh proving that non-Force-users are essential, not auxiliary",
-        "interpersonal": "Desh and Ben's partnership — one handling the mystical, one handling the physical",
+        "personal": "Ben cannot solve the practical half of the climax with Force-sense; he has to trust Desh's hands",
+        "interpersonal": "Desh and Ben's partnership — the mystical and the practical on the same operation without either one becoming decorative",
         "external": "Without the array, Veraine cannot breach the wound. Stage 1 of her defeat."
       },
       "characters_present": [
         "Ben Skywalker",
         "Desh Rolan"
       ],
-      "setting": "Veranthos — amplification node sites, guarded positions, Desh operating solo",
-      "sensory_details": "Desh in his element — silent movement, tactical assessment, controlled violence; node equipment sparking as he disables it; Veraine's crew — scared, outmatched, not villains; the comm connection to Ben — Desh's steady voice against the chaos",
+      "setting": "Veranthos — resonance position at mid-valley, with comm and telemetry from Desh's off-site amplification-node run",
+      "sensory_details": "Ben's resonance hold making the three critical nodes feel like hard knots in the valley's field; Desh's comm reduced to breath, clicks, and clipped tactical facts; node equipment sparking across telemetry instead of through Desh interiority; Ash-Tithe signatures distinct in the array: hired guards as movement noise, Mira's faint Force-sensitive flinch at a calibration lock, Pira Kul's pressure-cut countersequence at the final node",
       "canon_elements_needed": [],
       "target_word_count": 1200,
       "action_beats": [
-        "Desh approaches the first node in textbook GAG silence — low, fast, nonlethal takedowns on the guards",
-        "Desh disables the first amplification node with three precise strikes to the control housing",
-        "Desh's comm crackles as the third node goes dark: 'Array's down. Do it now. Everything.'"
+        "Ben holds the resonance with Sera and Kael while the first node remains a hard knot in the array; Desh's comm clicks twice and the knot goes dark",
+        "At the second node, Mira's low Force-sensitive calibration touch flares against Ben's infrastructure sense; Desh breaks the control housing before that warning becomes useful to Veraine",
+        "The third node resists under Pira Kul's countermeasures; then it goes dark and Desh's comm gives Ben the handoff"
       ],
       "active_subplots": [
         "SP-A",
@@ -6206,9 +6207,9 @@
       "first_plot_point": "Chapter 5 (~5,000 words). The survivors awaken. The full scope reveals: the Ruusan Reformations as penance, the forbidden technique, the wound, the anchor system (twelve Force-sensitives used as structural rebar, nine dead, Gavran dead at the center), and Veraine's empty chamber — escaped weeks ago, the monitoring systems flagging a high-risk Sith-trained anchor who broke out from inside. Dual threat: the seal is in cascading failure AND someone who understands the technique is already moving. Ben is locked in.",
       "part_2_response": "Chapters 6-12 (~26,250 words, ~26%). The group travels the Ruusan Corridor — now understood as the seal's infrastructure network connecting anchor nodes. Each stop is a failed or failing node with escalating severity: the Battlefield Node (mild thin place, minimal Veraine trace), the Brotherhood Outpost (moderate degradation with dark-side residue, heavy Veraine activity and deliberate message aimed at Kael), Maetha's Training Facility (psychologically intense, flexible lattice, Maetha's warning delivered, Torin's rationalization begins). Transit chapters aboard the Steady Returns deliver the Ankhural Codex framework, the Ben/Desh Jacen conversation, and the Kael/Desh friendship. Veraine's trail reveals she's not just researching — she's repurposing each node into an amplification array, turning the seal's own infrastructure against itself.",
       "midpoint": "Chapter 13 (~4,500 words). Full breach experience — the group enters a node Veraine deliberately collapsed as a field test for her Veranthos ritual. Complete de-structuring: the Force present but formless, Ben's moral intuition gone silent, Desh's environmental wrongness crossing into undeniable. The group arrived expecting another damaged node and found total collapse. Torin smiles. Ben shifts from reactive to proactive.",
-      "part_3_attack": "Chapters 14-20 (~26,250 words, ~26%). Ben takes command. Sera's conditional trust ('Tell me where to stand, Skywalker') reinforces her Lie — she's following someone again without examining the pattern. Gavran's resonance note planted. Veraine's truce meeting (Chapter 16): four-objective operation — ideological pitch, Kael recruitment, sabotage, intelligence. Sera counters with firsthand testimony. Veraine's sabotage collapses the timeline. Ben recognizes the Jacen pattern in Torin (Chapter 18). The Jedi outpost (Chapter 19): modern Knights experiencing lattice distortion — grounds cosmic stakes in present suffering, Torin weaponizes their pain as argument, Sera's moment of truth as she sees principled certainty isn't protection. Kael observes the Knights built their identity on a single framework. Arrival at Veranthos (Chapter 20): the ring structure of escalating wrongness, Veraine already at the wound source.",
+      "part_3_attack": "Chapters 14-20 (~26,250 words, ~26%). Ben takes command. Sera's conditional trust ('Tell me where to stand, Skywalker') reinforces her Lie — she's following someone again without examining the pattern. Gavran's resonance note planted. Veraine's truce meeting (Chapter 16): three-objective operation — ideological pitch, Kael recruitment, intelligence gathering as Ben's attention rather than a scripted beat. Sabotage is not an in-meeting objective; the Ash-Tithe Compact executes it offscreen and the group discovers the proof at Chapter 17's opening. Sera counters with firsthand testimony. Ben recognizes the Jacen pattern in Torin (Chapter 18). The Jedi outpost (Chapter 19): modern Knights experiencing lattice distortion — grounds cosmic stakes in present suffering, Torin weaponizes their pain as argument, Sera's moment of truth as she sees principled certainty isn't protection. Kael observes the Knights built their identity on a single framework. Arrival at Veranthos (Chapter 20): the ring structure of escalating wrongness, Veraine already at the wound source.",
       "second_plot_point": "Chapter 21 (~4,500 words). Torin's turn. 'I'm not asking for permission.' He leaves to become the new seal — repeating Gavran's pattern of noble self-sacrifice. The group lets him go because physically overriding his agency would repeat the exact pattern the book condemns. Each character's silence has distinct texture: Ben (failed to stop Jacen, has no alternative to offer yet), Sera (was the person whose agency was overridden — cannot do to Torin what Gavran did to her), Kael (spent his life being stopped and redirected — won't do it to someone else), Desh (breaks the silence with operational pragmatism). Ben's crystallizing realization: 'We find another way. Together.' The Lie cracks open.",
-      "part_4_resolution": "Chapters 22-28 (~28,000 words, ~28%). Ben and Sera find the resonance solution (Chapter 22). Kael commits freely — 'If this kills me, I want it on record that I volunteered. First time for everything.' (Chapter 23). Three-way convergence at the Scar: Veraine at the epicenter performing her amplified ritual, Torin descending the ridgeline deploying the technique, resonance trio at mid-valley, Desh off-site sabotaging amplification nodes against Veraine's crew guards. Resonance starts discordant, catches when Ben stops trying to control it. Two-stage defeat of Veraine: Desh removes amplification, resonance produces emergent complexity she can't model. Torin's technique works but consumes him — pulled free by Sera, alive but diminished. New seal: dynamic, harmonic, requiring periodic renewal. Denouement: Veraine contained not killed, Torin diminished (Sera stays), Kael departs freely, Desh and Ben laugh. Chapter 28: Ben tells Luke everything. The Order will know the truth.",
+      "part_4_resolution": "Chapters 22-28 (~28,000 words, ~28%). Ben and Sera find the resonance solution (Chapter 22). Kael commits freely — 'If this kills me, I want it on record that I volunteered. First time for everything.' (Chapter 23). Three-way convergence at the Scar: Veraine at the epicenter performing her amplified ritual, Torin descending the ridgeline deploying the technique, resonance trio at mid-valley, Desh off-site sabotaging amplification nodes against Ash-Tithe Compact opposition. Resonance starts discordant, catches when Ben stops trying to control it. Two-stage defeat of Veraine: Desh removes amplification, resonance produces emergent complexity she can't model. Torin's technique works but consumes him — pulled free by Sera, alive but diminished. New seal: dynamic, harmonic, requiring periodic renewal. Denouement: Veraine remains in custody, alive and unrepentant; Sera remains temporarily with diminished Torin at Veranthos by consent; Kael departs outside formal Jedi belonging to seek names of dead conscripts and anchors; Desh preserves the physical evidence chain and laughs with Ben. Chapter 28: Ben tells Luke everything, including Veraine custody, crew dispositions, Gavran's legacy, the new seal, and the burden Ben accepted. The Order will know the truth.",
       "inciting_incident": "Chapter 1. Luke's survey assignment lands on Ben's datapad while Ben is still processing the sparring failure. The wrongness stops being ambient and becomes institutional — Ben now has cover and coordinates to pursue it. The disturbance has found him; the story has begun.",
       "first_pinch_point": "Chapters 10-11. The Brotherhood Outpost. Veraine's trail goes hot: she has been through the facility days ahead of the group, extracted the research infrastructure, and left a deliberate message aimed at Kael. The reader sees the antagonist's active hand for the first time. Veraine escalates from absent presence to operational threat without the plot skeleton advancing.",
       "second_pinch_point": "Chapter 18. The seal sabotage hits. Veraine has used the truce meeting to deliver targeted damage and the timeline collapses from weeks to days. Ben names the Jacen pattern in Torin out loud to Desh. The antagonist force presses and the internal antagonist reveals he is locked onto a course. Every pressure dial is red; the attack phase is failing.",
@@ -6303,12 +6304,15 @@
       "description": "The knowledge of the seal, the technique, and the anchors died through organizational death, not conspiracy. Chain of forgetting: (1) Gavran's inner circle — the people who understood the seal's architecture — went to Ruusan and died there. (2) The broader Jedi Lord command knew something terrible happened at Veranthos but not enough to maintain the seal. Safe extraction of anchors may have been impossible without collapsing the containment. (3) The Reformations dissolved the Jedi Lords as an institution — the organizational structure that held the restricted knowledge ceased to exist. Ironically, the Reformations motivated partly by guilt over Veranthos also destroyed the institutional memory of what the guilt was for. (4) The guilt persisted for a generation or two, fading into vague tradition, then into a restricted notation in the archives. (5) The Clone Wars and Imperial Purge destroyed the Jedi Temple archives. Whatever restricted notation existed was lost. (6) Luke rebuilt from scratch with no access to the old Order's deep records. The conceptual vocabulary itself — lattice theory, convergence points, de-structuring — was lost with the era that developed it."
     },
     "veraine_crew": {
-      "description": "Four to six people recruited by Veraine in the weeks after her awakening. Mostly Outer Rim salvagers and spacers hired for a well-paying job with a powerful, eccentric employer. One or two are genuine converts to her philosophy — people for whom her message about the artificial light/dark binary resonates. Not a faction. A resource. They handle the ship, logistics, physical labor at node sites, and serve as guards at critical amplification nodes during the climax. None are major characters. They scatter after Veraine's defeat.",
+      "name": "Ash-Tithe Compact",
+      "description": "A four-person salvage compact recruited by Veraine in the weeks after her awakening, plus two or three disposable hired guards as needed. They are not a Sith army and not generic henchmen. Vess Oran handles underworld logistics and false manifests; Pira Kul handles technical sabotage and node defense; Serran Voth supplies archival and low ritual competence; Mira Dann provides low-level Force calibration through fear-based obedience. They reveal how Veraine leads: she condemns institutions that use living beings while calmly reducing useful people to functions.",
+      "operational_signature": "Ash-gray vacuum coats, respirators around the throat, old Imperial survey tags, underworld slicer tabs, salvage chalk marks, ash-white tally lines, and modular cutting frames. They move in short task clusters rather than parade discipline.",
       "narrative_functions": [
-        "Explain how Veraine operates practically across multiple star systems",
-        "Provide evidence of non-solo activity at Corridor nodes (Desh reads the tactical signs)",
-        "Give Desh opponents during his climax sabotage mission — former GAG operative vs. mundane opposition under time pressure",
-        "Demonstrate Veraine's casual moral blindness — she uses Force influence to smooth interactions with her crew, replicating the pattern of institutional exploitation she condemns"
+        "Explain how Veraine operates practically across multiple star systems without becoming a one-person logistics miracle",
+        "Provide evidence of non-solo activity at Corridor nodes (Desh reads tool choice, guard spacing, manifest fraud, and sabotage signatures)",
+        "Give Desh opponents during his climax sabotage mission whose competence varies by threat type rather than faceless guards",
+        "Demonstrate Veraine's casual moral blindness — she uses pay, fear, withheld knowledge, and usefulness to replicate the pattern of institutional exploitation she condemns",
+        "Leave concrete end-state evidence: Vess fled but tagged, Pira captured, Serran dead in backlash, Mira surviving debrief witness"
       ]
     }
   },
@@ -6334,7 +6338,7 @@
     "Veraine's inner life during on-page scenes — her off-screen story and practical situation are solved; her thoughts and feelings during Ch 16 and climax chapters are prose work.",
     "Desh's independent characterization — his arc, function, and backstory are structurally sound; deepening him as a person (what he does in his spare time, his relationships outside Ben, his private thoughts) is prose work. His GAG backstory is protagonist-level material.",
     "Hook density awareness in Chapters 9-13 — five hooks planted in five consecutive chapters. Ensure each lands with space to register. Avoid stacking hook-planting beats in consecutive scenes within a chapter.",
-    "Chapter 16 is high-density — carries Veraine's four-objective operation, Sera/Veraine confrontation, Kael/Veraine parallel's most direct moment, lie_challenged beats for both Sera and Kael. Needs room to breathe; may need to be the longest chapter or spill into adjacent chapters."
+    "Chapter 16 is high-density — carries Veraine's three in-meeting objectives, Sera/Veraine confrontation, Kael/Veraine parallel's most direct moment, and lie_challenged beats for both Sera and Kael. The sabotage proof belongs to Chapter 17, with Chapter 16 scene 4 carrying only unresolved operational residue. Needs room to breathe; may need to be the longest chapter or spill into adjacent chapters."
   ],
   "kael_veraine_parallel": {
     "description": "Kael and Veraine share identical histories of institutional conscription and exploitation — both born on worlds controlled by factions they didn't choose, both conscripted into Force training, both captured by Gavran's forces, both repurposed as anchors in the seal. Their parallel tests the thematic question from the perspective of the used rather than the user. Same wound, opposite scar tissue: Kael responds with exhaustion and withdrawal (conviction is a trap, passivity is safety); Veraine responds with fury and purpose (the system that used me is the disease, I'll tear it down). The book's answer is neither — it's reconstruction through relationship, embodied by Kael's free choice to participate in the resonance.",

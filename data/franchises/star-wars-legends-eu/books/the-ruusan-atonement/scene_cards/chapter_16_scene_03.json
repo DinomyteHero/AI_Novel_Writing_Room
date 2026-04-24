@@ -27,7 +27,7 @@
     "Desh Rolan"
   ],
   "setting": "Neutral meeting point — same location",
-  "sensory_details": "Sera's voice — formal, precise, trembling with controlled emotion at the edges; Veraine's response register sharpening rather than breaking — the change is a calibration, not a crack; the specific stillness in her face when she frames the question back; her measured walk to the gangway; her crew's falling-in without order; the ship's engines spinning up to a quiet, uncontentious frequency; the cleared air; Ben cataloging without meaning to — the approach vector the ship took in, the two tells in the crew's discipline, the three archive fragments Veraine referenced as if everyone in the clearing had read them",
+  "sensory_details": "Sera's voice — formal, precise, trembling with controlled emotion at the edges; Veraine's response register sharpening rather than breaking — the change is a calibration, not a crack; the specific stillness in her face when she frames the question back; her measured walk to the gangway; the Ash-Tithe Compact falling in without order: Vess checking the sky before the ramp, Pira touching the maintenance crate once, Serran bowing his head to the archive cylinder instead of Veraine, Mira moving only when Veraine's silence permits it; the ship's engines spinning up to a quiet, uncontentious frequency; the cleared air; Ben cataloging without meaning to — the approach vector the ship took in, the crew's professional spacing and fear-tells, the three archive fragments Veraine referenced as if everyone in the clearing had read them",
   "canon_elements_needed": [
     "Force phenomenology of unresolved parley — absence of combat-Force texture",
     "Sith working-philosophy archive register (Karness Muur citation conventions)"
@@ -37,7 +37,7 @@
     "Sera steps forward from the group's line and faces Veraine at arm's length",
     "Sera delivers the chapter-anchor testimony line (nothing-there framing) once, and stops",
     "Veraine's composure sharpens into a more specific question — the place-versus-person redirect — she does not raise her voice",
-    "Veraine turns and walks back toward her ship with measured steps, her crew falling in behind her",
+    "Veraine turns and walks back toward her ship with measured steps, the Ash-Tithe Compact falling in by function rather than formation",
     "In the margins of the departure, Ben catches himself cataloguing — approach vector, crew tells, the specific archive-fragment references Veraine used as shared ground. He does not comment. He does not stop doing it.",
     "Veraine's ship rises and recedes. The group stands in the clearing. No Force-shift arrives. The meeting is over and it is not over."
   ],
@@ -97,7 +97,7 @@
       "pov_reaction": "Ben's breath catches. The question is not a refutation; it is something harder—a specific pressure that turns Sera's testimony onto the self-report it necessarily contains. He watches Sera's face and sees the cost of testimony land. His mind begins to catalogue without permission: the sharpness in Veraine's eyes, the stillness in her face, the way the question hangs unanswered."
     },
     {
-      "beat_description": "Veraine turns and walks back toward her ship with measured steps. Her crew falls in behind her without order, their discipline precise and unsettling.",
+      "beat_description": "Veraine turns and walks back toward her ship with measured steps. The Ash-Tithe Compact falls in by function rather than formation: Vess to ship and route, Pira to equipment, Serran to the archive cylinder, Mira to the gap behind Veraine.",
       "state_change": "The departure locks in the scene's final pressure. Veraine's ship rises and recedes against the cleared sky. The meeting is over and it is not over.",
       "pov_reaction": "Ben's focus sharpens into observation. He catches himself cataloguing—the approach vector the ship took in, the two tells in the crew's discipline that suggest tactical preparation, the three archive fragments Veraine referenced as if everyone in the clearing had read them. He does not comment. He does not stop doing it."
     },

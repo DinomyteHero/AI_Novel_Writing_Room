@@ -99,22 +99,19 @@ agent_routing:
   # ---------------------------------------------------------------------------
 
   # PROSE — DeepSeek V4 Pro is the primary drafter in the lean architecture.
-  # The live path now keeps the model's prose intact instead of sending every
-  # scene through advisory gates and polish/rewrite agents.
+  # The live path keeps broad gates/polish/rewrite agents disabled, then runs
+  # one bounded sentence-level edit before saving.
   prose_stylist:          { backend: cloud, model: deepseekpro, params: { temperature: 0.70, max_tokens: 8192 } }
+  line_writer:            { backend: cloud, model: gpt54_mini, params: { temperature: 0.35, max_tokens: 8192 } }
   # Retained for opt-in experiments; skipped by default via runtime.lean_prose_only.
   commercial_rewrite:     { backend: cloud, model: gpt54_mini, params: { temperature: 0.45, max_tokens: 8192 } }
 
-  # Forward Relay v4 â€” LineWriter is OFF by default. With the smart
-  # corrective rerun handling structural misses and QualityPolish handling
-  # voice/expression, the dedicated line-edit pass is redundant. Bench configs
-  # that want LineWriter back can re-enable by uncommenting this entry in a
-  # bench-specific overlay. main.py treats a missing entry as "don't
-  # instantiate" and Orchestrator._run_scene then skips the call.
-  # line_writer:            { backend: cloud, model: gpt54, params: { temperature: 0.8, max_tokens: 12000 } }
+  # LineWriter is active in lean mode as the single post-generation edit.
+  # GPT 5.4 Mini proved more reliable than DeepSeek V4 Flash in cleanup A/Bs.
+  # To A/B DeepSeek V4 Flash, override this routing to model: deepseek.
 
   # GATE/EVAL — retained as opt-in tooling. The default lean path skips these
-  # checks so DeepSeek V4 Pro's raw prose is the saved artifact.
+  # checks so DeepSeek V4 Pro plus the lean line edit is the saved artifact.
   gate_critic:            { backend: cloud, model: grok41fast, params: { temperature: 0.3 } }
   chapter_gate_critic:    { backend: cloud, model: grok41fast, params: { temperature: 0.3 } }
   final_gate:             { backend: cloud, model: grok41fast, params: { temperature: 0.2 } }
@@ -212,12 +209,14 @@ worldbuilding:
 # promise_ledger, continuity_log, sociogram. See docs/architecture/architecture_upgrade_spec.md.
 # Per-book overrides at data/franchises/<franchise>/books/<book>/runtime_overrides.yaml.
 runtime:
-  # Lean DeepSeek architecture: PlotArchitect -> ProseStylist -> save.
+  # Lean DeepSeek architecture: PlotArchitect -> ProseStylist -> LineWriter -> save.
   # This bypasses advisory gates, quality/polish/rewrite passes, save-blocker
-  # agents, chapter gates, and post-save LLM analysis so the prose model's
-  # output is preserved exactly.
+  # agents, chapter gates, and post-save LLM analysis while preserving a
+  # narrow line-edit cleanup pass for repeated card residue and Legends register.
   lean_prose_only:
     enabled: true
+    line_edit:
+      enabled: true
   phase0_audit:
     enabled: false
   firewall:

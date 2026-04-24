@@ -1,0 +1,48 @@
+{
+  "scene_card_path": "data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/scene_cards/chapter_05_scene_02.json",
+  "scene_label": "Ch5S2",
+  "pov_character": "Ben Skywalker",
+  "target_word_count": 1200,
+  "plot_architect_duration_s": 0.0,
+  "results": [
+    {
+      "label": "gpt-54-mini-t070",
+      "model_short": "gpt54mini",
+      "model_full": "openai/gpt-5.4-mini",
+      "temperature": 0.7,
+      "duration_s": 21.6,
+      "word_count": 1879,
+      "char_count": 10530,
+      "est_in_tokens": 24028,
+      "est_out_tokens": 2632,
+      "est_cost_usd": 0.0299,
+      "output_file": "output\\star-wars-legends-eu\\the-ruusan-atonement\\runs\\bench-2026-04-24-ch05s02-ruusan-boundary-final-gptmini\\gpt-54-mini-t070.md",
+      "line_edits": [
+        {
+          "model_short": "gpt54_mini",
+          "model_full": "openai/gpt-5.4-mini",
+          "temperature": 0.35,
+          "duration_s": 11.6,
+          "word_count": 1840,
+          "char_count": 10442,
+          "est_in_tokens": 10287,
+          "est_out_tokens": 2610,
+          "est_cost_usd": 0.0195,
+          "output_file": "output\\star-wars-legends-eu\\the-ruusan-atonement\\runs\\bench-2026-04-24-ch05s02-ruusan-boundary-final-gptmini\\gpt-54-mini-t070__LINE_EDIT_gpt54_mini.md"
+        }
+      ],
+      "line_edit": {
+        "model_short": "gpt54_mini",
+        "model_full": "openai/gpt-5.4-mini",
+        "temperature": 0.35,
+        "duration_s": 11.6,
+        "word_count": 1840,
+        "char_count": 10442,
+        "est_in_tokens": 10287,
+        "est_out_tokens": 2610,
+        "est_cost_usd": 0.0195,
+        "output_file": "output\\star-wars-legends-eu\\the-ruusan-atonement\\runs\\bench-2026-04-24-ch05s02-ruusan-boundary-final-gptmini\\gpt-54-mini-t070__LINE_EDIT_gpt54_mini.md"
+      }
+    }
+  ]
+}

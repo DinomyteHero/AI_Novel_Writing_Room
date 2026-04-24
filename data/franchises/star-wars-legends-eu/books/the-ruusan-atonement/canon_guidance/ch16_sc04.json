@@ -16,8 +16,8 @@
     "No meta-references (ABY/BBY, Legends/Canon); characters reference events directly (e.g., 'after Abeloth')"
   ],
   "canon_risks": [
-    "Sudden 'Force drop' must align with project Force mechanics: multiplicative cascade acceleration from anchor loss/Veraine escape, manifesting as intensified thin-place high/full unweaving (unreliable sense, emotional extremes, parallax error worsening); avoid implying global Force change or Disney wound models",
-    "Veraine's sabotage via crew during truce must preserve her character as intellectually honest yet ruthlessly strategic; no portrayal as deceptively breaking truce"
+    "Do not reveal the sabotage, Force-floor drop, or countdown in this scene; those beats belong to Chapter 17 scene 1",
+    "Veraine's suspected parallel operation via crew during truce must preserve her character as intellectually honest yet ruthlessly strategic; Chapter 16 scene 4 may plant suspicion but not prove it"
   ],
   "legends_continuity_notes": [
     "Ben Skywalker: Jedi Knight, ~21 in 47 ABY, post-Abeloth, experienced from GAG/ civil war/ Vestara; dry wit, pragmatic from Mara",
@@ -27,17 +27,17 @@
   ],
   "possible_disney_bleed": [],
   "required_context_for_drafter": [
-    "Setting: Aboard Steady Returns post-meeting departure; cockpit tactical assessment",
-    "Characters present: Ben (POV), Desh, Sera, Torin, Kael; Sera's face holds 'I-told-you-so' without satisfaction; Torin calm/argument-strengthened",
-    "Key beats: Ben doubles over (Force resettling lower, vertigo-like drop); Desh scrolls cascade reports (sabotage itemized, parallel op by Veraine's crew); Ben punches navicomputer, plots direct Veranthos course (no stops)",
-    "Sensory: Force as new lower floor (handrail/footing gone further; parallax worse, emotional pressure amps); Desh displays (topographic scanner/sensor sweep data); no diagnostic voice from Ben",
-    "Turning point: Desh names parallel sabotage (crew executed during principals' talk); timeline weeks->days; Veraine's 4th objective (sabotage) lands, seal lurches lower",
-    "Emotional arc: processing -> alarm -> urgent compression; group trust shakes (Ben's call cost time), but no Ben self-recrimination interiority",
+    "Setting: Aboard Steady Returns post-meeting departure; quiet tactical reassessment, not yet damage discovery",
+    "Characters present: Ben (POV), Desh, Sera, Torin, Kael; Sera standing instead of sitting, Torin trying to make warmth available, Kael silent with visible hands",
+    "Key beats: group boards in silence; Ben replays Veraine's questions and Ash-Tithe Compact tells (Vess at ramp, Pira's too-square crate, Serran's archive cylinder, Mira's fear-taught stillness); Sera/Torin/Kael process without resolving; Desh starts passive back-sweeps as suspicion, not proof",
+    "Sensory: clearing dust on deck plating; quiet ship; passive sensor traces, not damage reports; no Force drop, no countdown",
+    "Turning point: Desh starts back-sweeps across the meeting window because the Ash-Tithe Compact moved like people with a job outside the conversation; Ben realizes the meeting may have been cover for something else without proof",
+    "Emotional arc: post-meeting silence -> unsettled processing -> procedural suspicion without proof",
     "Subplots: SP-A (Ben's operational dependence on Desh), SP5 (Desh's arc texture via volunteerism/pragmatism)",
-    "Exit: Sprint to Veranthos; H16 planted (timeline collapse)"
+    "Exit: Desh's back-sweeps running; Veraine's ship gone from passive track; H16 planted as unresolved operational residue"
   ],
   "allowed_au_divergences": [
-    "Veraine (Brotherhood alchemist, escaped anchor) and her crew (Vess Oran, Pira Kul, etc.) executing parallel sabotage during truce",
+    "Veraine (Brotherhood alchemist, escaped anchor) and Ash-Tithe Compact crew (Vess Oran, Pira Kul, Serran Voth, Mira Dann) suspected of parallel operation during truce; proof waits for Chapter 17 scene 1",
     "Seal cascade: multiplicative degradation from Veraine escape/anchors dying; sabotage accelerates to days-timeline",
     "Amplification array: Veraine repurposing Corridor nodes against seal",
     "Veranthos: AU Outer Rim vergence-world, wound site; direct course skips remaining nodes",

@@ -27,7 +27,7 @@ class ModelRouter:
     """
 
     def __init__(self, config_path: str = "config/settings.yaml"):
-        with open(config_path) as f:
+        with open(config_path, encoding="utf-8") as f:
             self.config = yaml.safe_load(f)
         for key in ("deployment_mode", "models"):
             if key not in self.config:

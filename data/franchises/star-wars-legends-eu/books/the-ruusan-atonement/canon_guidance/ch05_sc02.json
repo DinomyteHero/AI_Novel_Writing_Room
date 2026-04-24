@@ -10,7 +10,7 @@
   "confidence": 1.0,
   "hard_constraints": [
     "Use Star Wars Legends / Expanded Universe continuity only; treat Disney-only material as invalid (Canon Contract: Continuity Branch).",
-    "Ruusan Reformations are canonical Legends event as public restructuring post-1000 BBY; AU dual-purpose (public reform + private penance) authorized but must preserve published baseline (Concept Seed: canon_overridden).",
+    "Ruusan Reformations are a canonical Legends public restructuring after the New Sith Wars; the authorized AU layer is a concealed pre-Ruusan Veranthos containment/penance protocol later buried beneath that settlement, not a replacement for the published baseline (Concept Seed: canon_overridden).",
     "Brotherhood of Darkness is Legends canonical Sith faction led by Lord Kaan during New Sith Wars; reference without AU inversion details yet (Scene Card: canon_elements_needed).",
     "Jedi Lords era is Legends historical (pre-Reformations); no modern ranks/titles bleed (Canon Contract).",
     "No publishing labels like 'Legends' or 'Canon' in prose (Canon Contract).",
@@ -22,7 +22,7 @@
     "Institutional memory gaps in Jedi Order align with Legends (e.g., lost histories post-Ruusan), but revelation must feel earned via archive, not omniscient dump."
   ],
   "legends_continuity_notes": [
-    "Ruusan Reformations (1000 BBY): Jedi Order decentralized post-Seventh Battle of Ruusan; ended Army of Light, banned large-scale military structures; driven by lessons from New Sith Wars (Darth Bane trilogy, Jedi vs. Sith).",
+    "Ruusan Reformations (1000 BBY): public restructuring after the Seventh Battle/aftermath of Ruusan and the New Sith Wars that demilitarized the Jedi, ended the Jedi Lords/Army of Light structure, centralized Jedi training, and placed the Order under closer Republic/Judicial oversight while preserving the published Legends baseline. Do not phrase Ruusan as simply coming after the New Sith Wars.",
     "Jedi Lords: Informal title for powerful pre-Reformation Jedi leaders during New Sith Wars (~2000-1000 BBY).",
     "Brotherhood of Darkness: Sith alliance under Lord Kaan; culminated in Ruusan thought bomb (Legends canonical, no Disney overlap).",
     "Post-Fate of the Jedi (47 ABY): Ben Skywalker is Jedi Knight; Order under Luke on Coruscant; no Legacy comics future (Canon Contract)."
@@ -32,14 +32,14 @@
     "Scene in Gavran's Fortress Level 2 Archive; survivors use thousand-year muscle memory on consoles (Scene Card).",
     "Sera Varik: Precision, clipped clarity, archaic formality; first emergence as 'instrument of precision' (Scene Card: character_emergence_required).",
     "Torin Hal: Narrative warmth, wry framing, self-deprecating; preserved specimens like 'You know what I love about modern Jedi...' are first-order (Ensemble Cast, Scene Card).",
-    "Kael Drenn: Monk's brevity, dry correction; first voluntary action is single-word fix (Scene Card: key_beats).",
+    "Kael Drenn: Monk's brevity, dry correction; first voluntary action is the Gavran designation fix. Do not give that correction to Torin or Sera first (Scene Card: key_beats).",
     "Ben POV: Lie reinforced (only his Force-read trusted); registers survivors distinctly post-revelation (Scene Card: pov_arc_phase).",
     "Desh Rolan: Non-Force-sensitive observer; no Force perception (Terminology Registry).",
-    "Revelation R04a: Reformations dual-purpose (public reform, private penance); one composed sentence from Sera, no elaboration (Scene Card: turning_point_detail).",
+    "Revelation R04a: concealed Veranthos penance/containment layer beneath the legitimate public Reformations. Sera's composed sentence can name only the Veranthos function; Ben/Desh must supply any public-Reformation details and any public record/public settlement/Ruusan settlement/later-Reformations phrasing.",
     "No technique/wound/Veraine name yet; hold for later chapters (Chapter Blueprint notes)."
   ],
   "allowed_au_divergences": [
-    "Ruusan Reformations as private penance for forbidden technique at Veranthos (Concept Seed: canon_overridden).",
+    "A concealed pre-Ruusan Veranthos penance-and-containment protocol was later buried beneath the legitimate public Ruusan Reformations; do not collapse the public settlement into the private protocol (Concept Seed: canon_overridden).",
     "Sera Varik, Torin Hal, Kael Drenn as stasis anchors since ~1000 BBY (Terminology Registry, Concept Seed).",
     "Gavran's Fortress archive revealing erased history (Chapter Blueprint).",
     "Jedi institutional cover-up of Veranthos/Battle/wound (Concept Seed: premise)."

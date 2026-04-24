@@ -17,7 +17,7 @@
   ],
   "canon_risks": [
     "GAG techniques must feel like Legacy of the Force-era spec ops (silent, efficient), not modern spec ops.",
-    "Veraine's crew (salvagers/true believers like Vess Oran, Pira Kul) portrayed as frightened/outmatched, not cartoon villains, to humanize Brotherhood parallels."
+    "Ash-Tithe Compact opposition should be specific without taking over the climax: hired guards as obstacles, Mira Dann as low Force-sensitive warning/calibration, Pira Kul as technical countermeasure commander; Vess and Serran matter through evidence/ritual context rather than direct Desh combat."
   ],
   "legends_continuity_notes": [
     "47 ABY post-Fate of the Jedi: Galactic Alliance government, Jedi Order under Luke on Coruscant, Empire remnant.",
@@ -27,13 +27,13 @@
   ],
   "possible_disney_bleed": [],
   "required_context_for_drafter": [
-    "POV: Ben Skywalker close third; track Desh via node effects/Force stutter/comm, not direct observation (Ben not physically present).",
-    "Desh Rolan: non-Force-sensitive ex-GAG, Ben's friend; sabotage three amplification nodes nonlethally.",
+    "POV: Ben Skywalker close third; track Desh via node effects, infrastructure pressure, telemetry, and comm bursts, not Desh interiority or direct observation (Ben not physically present).",
+    "Desh Rolan: non-Force-sensitive ex-GAG, Ben's friend; sabotage three amplification nodes nonlethally and preserve Pira Kul alive as technical evidence.",
     "Amplification array/nodes: Veraine's repurposing of Ruusan Corridor anchor infrastructure; disabling drops below threshold (needs ~8 nodes).",
-    "Crew: Outer Rim salvagers (e.g., Vess Oran, Pira Kul) + believers; outnumbered Desh but outclassed in training.",
-    "Beats: First node (textbook GAG silence, two guards); second (faster); third (harder fight, graze wound); comm: 'Array's down. Whatever you're doing \u2014 do it now. Everything. Don't hold back.'",
-    "Emotional arc: professional focus -> escalating danger -> triumph via competence.",
-    "Setting: Veranthos nodes; sensory: silent movement, sparking equipment, comm as steady audio amid valley chaos."
+    "Crew: Ash-Tithe Compact pressure: hired guards at node one, Mira's low Force-sensitive calibration touch at node two, Pira Kul's reinforced control housing and guard direction at node three.",
+    "Beats from Ben POV: first node hard knot goes dark after Desh's comm clicks; first clipped report confirms nonlethal takedowns; second node flares with Mira's warning and dies; third node resists under Pira's countermeasures; comm: 'Array's down. Whatever you're doing \u2014 do it now. Everything. Don't hold back.'",
+    "Emotional arc: forced trust -> escalating off-site danger -> handoff through competence.",
+    "Setting: Veranthos mid-valley resonance position, with nodes rendered through Ben's infrastructure sense, comm, and telemetry; sensory: hard knots in the field, sparking equipment on feed, static, array pressure changing."
   ],
   "allowed_au_divergences": [
     "Amplification array/nodes as Veraine's creation from canon_overridden anchor infrastructure.",

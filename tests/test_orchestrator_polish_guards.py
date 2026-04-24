@@ -368,3 +368,62 @@ class TestLeanProseOnlyBypass:
         assert "final_gate_complete" not in event_types
         assert "final_gate_rejection" not in event_types
         assert "compression_guard_fired" not in event_types
+
+    async def test_lean_prose_only_can_apply_configured_line_edit(
+        self, mock_router, mock_assembler, ledger, temp_dir, sample_scene_card
+    ):
+        """Lean mode may run the bounded LineWriter pass, then save directly."""
+        brief = {
+            "scene_objective": "Mock objective.",
+            "turning_point": {"trigger": "t", "shift": "s", "cost": "c"},
+            "closing_beat": "Mock closing beat.",
+            "emotional_arc": {"start": "a", "shift": "b", "end": "c"},
+            "target_word_count": 1000,
+        }
+        prose = "DeepSeek Pro drafter output."
+        edited = "DeepSeek Flash line-edited output."
+
+        async def fake_structured(agent_role, messages, *args, **kwargs):
+            if agent_role == "plot_architect":
+                return brief
+            raise AssertionError(f"{agent_role} must not run in lean line-edit mode")
+
+        async def fake_complete(agent_role, messages, *args, **kwargs):
+            if agent_role == "prose_stylist":
+                return prose
+            raise AssertionError(f"{agent_role} must not run directly")
+
+        mock_router.complete = AsyncMock(side_effect=fake_complete)
+        mock_router.complete_structured = AsyncMock(side_effect=fake_structured)
+
+        line_writer = MagicMock()
+        line_writer.run = AsyncMock(return_value={"prose": edited})
+
+        orchestrator = Orchestrator(
+            router=mock_router,
+            context_assembler=mock_assembler,
+            ledger=ledger,
+            manuscripts_dir=str(Path(temp_dir) / "manuscripts"),
+            runtime_flags={
+                "runtime": {
+                    "lean_prose_only": {
+                        "enabled": True,
+                        "line_edit": {"enabled": True},
+                    }
+                }
+            },
+            line_writer=line_writer,
+        )
+
+        result = await orchestrator.run_chapter(sample_scene_card)
+
+        assert result["lean_prose_only"] is True
+        assert result["line_edit_applied"] is True
+        saved = Path(result["output_path"]).read_text(encoding="utf-8")
+        assert saved == edited
+        line_writer.run.assert_awaited_once()
+
+        event_types = [e["event_type"] for e in ledger.get_events()]
+        assert "lean_prose_only_saved" in event_types
+        assert "gate_pass" not in event_types
+        assert "final_gate_complete" not in event_types

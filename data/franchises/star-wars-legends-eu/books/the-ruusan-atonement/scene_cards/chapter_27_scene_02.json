@@ -5,7 +5,7 @@
   "scene_type": "sequel",
   "scene_role": "aftermath",
   "pov_character": "Ben Skywalker",
-  "mission": "Ridgeline above the new seal's hum. Torin on the edge, posture unchanged, presence diminished — warmth muted, humor gone quiet, Force-presence lighter in a way that should feel freeing and is devastating. Sera walks up and sits beside him without speaking. After a long time, his hand finds hers. Lighter grip than before. It is there.",
+  "mission": "Ridgeline above the new seal's hum. Torin on the edge, posture unchanged, presence diminished — warmth muted, humor gone quiet, Force-presence lighter in a way that should feel freeing and is devastating. Sera has chosen to remain temporarily at the Veranthos recovery and debriefing site with him, not as a Jedi asset but as a displaced survivor with agency. She walks up and sits beside him without speaking. After a long time, his hand finds hers. Lighter grip than before. It is there.",
   "why_now": "The Sera/Torin arc has to land in an image, not a speech. The hand on a hand on a ridgeline is the final word on love without control.",
   "conflict": "There is nothing to fix. Torin is partly present and partly not. Sera does not try to fix him. The scene's argument is that presence is the thing, and presence does not require the person to be whole.",
   "conflict_type": "interpersonal",
@@ -24,11 +24,12 @@
     "Torin Hal"
   ],
   "setting": "Veranthos — ridgeline, overlooking the valley where the new seal hums",
-  "sensory_details": "Torin's diminished presence — lighter, quieter, the heavy warmth gone; Sera's face holding grief and peace without choosing between them; their hands touching in a grip lighter than before; the new seal humming in the valley below, three-part harmony audible in the Force",
+  "sensory_details": "Torin's diminished presence — lighter, quieter, the heavy warmth gone; the recovery shelter lights below the ridge, not a Temple intake line or recruitment station; Sera's field kit and debrief slate set aside by her own hand; Sera's face holding grief and peace without choosing between them; their hands touching in a grip lighter than before; the new seal humming in the valley below, three-part harmony audible in the Force",
   "canon_elements_needed": [],
   "target_word_count": 1300,
   "action_beats": [
     "Torin sits on the ridgeline with hands on his knees, facing the valley — posture unchanged, presence diminished",
+    "Ben registers the practical shape of Sera's choice — temporary recovery, debrief on her terms, no one claiming her or Torin as convenient Jedi resources",
     "Sera walks to the ridgeline and sits beside Torin without speaking",
     "Torin's hand finds Sera's after a long silence — the grip lighter than it was, but there"
   ],
@@ -49,7 +50,7 @@
   "hook_actions": [],
   "revelations": [],
   "pov_arc_phase": "new_truth_demonstrated",
-  "notes": "Sera's arc resolves in chosen presence; Torin's arc resolves tragic in diminished survival. Anti-pattern: Sera and Torin do not speak in this scene; the hand is the sentence. Ben observes from a distance; interiority minimal — a single line of observation, maybe, and the rest is the wind and the ridgeline and the hum below.",
+  "notes": "Sera's arc resolves in chosen presence; Torin's arc resolves tragic in diminished survival. Their practical ending is temporary recovery and debriefing at Veranthos under consent boundaries, not absorption into the modern Jedi Order. Anti-pattern: Sera and Torin do not speak in this scene; the hand is the sentence. Ben observes from a distance; interiority minimal — a single line of observation, maybe, and the rest is the wind and the ridgeline and the hum below.",
   "turning_point_detail": {
     "trigger": "Torin's hand finds Sera's after the long silence",
     "shift": "The grip is lighter than it was before. It is there — presence without wholeness, love without control",

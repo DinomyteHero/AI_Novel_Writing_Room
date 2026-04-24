@@ -6,7 +6,7 @@
   "scene_role": "escalation",
   "pov_character": "Ben Skywalker",
   "mission": "The empty chamber becomes a live mystery: someone escaped from inside and has already had time to move.",
-  "why_now": "The archive revelation of R04a has set the foundation; now the physical evidence of an already-loose anchor gives the revelation its forward pressure. The mystery of the escapee is what pulls Ben off-ridge toward the Corridor.",
+  "why_now": "The archive revelation of R04a has set the terms; now the physical evidence of an already-loose anchor gives the revelation its forward pressure. The mystery of the escapee is what pulls Ben off-ridge toward the Corridor.",
   "conflict": "The chamber shows systematic, patient escape — centuries of work, methodical, intelligent. Ben needs a name and the archive will not give him one. Sera examines the erosion pattern and is visibly thrown by what she sees. Torin, who should be reading the residue most clearly, says something mildly wrong — a single beat of inflection Ben cannot quite place, which seeds H06 per D7 without telegraphing.",
   "conflict_type": "external",
   "turning_point": "Ben understands that whoever escaped has had time to move and has been moving. The question of who is deferred; the question of how far is immediate. The escapee is already out there. H06 plants through Torin — a warmth-adjacent line that sits one degree off from where it should.",
@@ -26,17 +26,19 @@
     "Kael Drenn"
   ],
   "setting": "Fortress Level 3 — the empty chamber, then monitoring station on Level 1",
-  "sensory_details": "Damage inside the empty chamber not frantic but systematic — deliberate erosion carried on for centuries; Gavran's monitoring flags lit red and unanswered; the residue the escapee left in the Force different in quality from the three survivors — still, analytical, patient in a way that makes Ben's shoulders tighten; Torin's breath at the doorway, a half-smile at something Ben cannot see",
+  "sensory_details": "Damage inside the empty chamber not frantic but systematic — deliberate erosion carried on for centuries; Gavran's monitoring flags lit red and unanswered; the residue the escapee left in the Force different in quality from the three survivors — still, analytical, patient in a way that makes Ben's shoulders tighten; Sera's precision breaking because the workmanship feels familiar before the name is allowed into the story; Kael's gaze catching on the same patience and going flatter, recognizing a fellow captive's discipline without forgiving what it became; Torin's breath at the doorway, a half-smile at something Ben cannot see",
   "canon_elements_needed": [
     "Force-user containment and imprisonment methods",
     "Brotherhood of Darkness era stasis infrastructure",
+    "Archive language/register guardrail: use archaic Basic, High Galactic legal script, or pre-Reformation administrative Basic; do not call Ruusan-era displays Old Galactic Standard or pre-Basic",
     "Stasis chamber escape mechanics and Force erosion techniques"
   ],
   "target_word_count": 1200,
   "action_beats": [
     "Ben pulls up the empty chamber's monitoring logs on the flickering display — readable until two months ago, corrupted after",
     "Desh catalogues signs of the escapee's post-escape activity — accessed terminals, moved equipment, supplies taken — without being able to put a name on the pattern",
-    "Sera examines the erosion marks and her precision-register breaks for a half-second; she steadies, does not explain",
+    "Sera examines the erosion marks and her precision-register breaks for a half-second; she steadies, does not explain, because naming the craft would name a person the chapter is withholding",
+    "Kael studies the same marks from farther back and says nothing, but the silence changes texture: not ignorance, recognition withheld",
     "Torin stands at the doorway and makes a small warmth-adjacent observation that is one inflection off — H06 plants. Ben registers it the way one registers a wrong note in familiar music and does not yet have a place to put it",
     "Ben overlays the escapee's activity timestamps on the fortress map — the pattern is methodical, the name is withheld, the Corridor is the direction"
   ],
@@ -68,7 +70,7 @@
   "revelations": [],
   "pov_arc_phase": "lie_reinforced",
   "warmth_load_bearing": true,
-  "notes": "Keep the absence sharper than the explanation. Torin's off note should register and pass, not ring like a warning bell.",
+  "notes": "Keep the absence sharper than the explanation. Sera and Kael may show recognition of a kind of mind or craft, but not the escapee's name. Torin's off note should register and pass, not ring like a warning bell.",
   "primary_anchor": "Zahn",
   "supporting_anchor": "Bujold",
   "stover_permitted": false,
@@ -114,6 +116,7 @@
     "Keep the absence sharper than the explanation — do not name what the evidence means; let it accumulate.",
     "Do not ring Torin's off note like a warning bell — it should register and pass without interpretation.",
     "Avoid diagnostic voice when describing the Force-residue the escapee left behind; keep it sensory and experiential.",
+    "Do not describe the monitoring logs or chamber text as Old Galactic Standard or as predating Basic; use archaic Basic, High Galactic legal script, or pre-Reformation administrative Basic.",
     "Do not arrive at clinical articulation of what the scope of the escape means; let Ben's shoulders and breath register it first."
   ]
 }

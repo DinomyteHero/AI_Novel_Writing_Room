@@ -1,0 +1,109 @@
+{
+  "chapter_number": 16,
+  "scene_number": 4,
+  "structural_phase": "attack",
+  "scene_type": "action",
+  "scene_role": "escalation",
+  "pov_character": "Ben Skywalker",
+  "mission": "Aftermath aboard ship. Do not reveal the sabotage yet. Let the group process the meeting, let Ben's catalogue of Veraine and the Ash-Tithe Compact fail to settle into certainty, and let Desh begin the backward sweeps that will pay off in Chapter 17.",
+  "why_now": "The chapter needs a decompression beat after the truce meeting, but the natural dramatic consequence belongs at the next chapter opening. This scene preserves the meeting's unresolved pressure while planting the procedural bridge to the Chapter 17 discovery.",
+  "conflict": "Ben has more information than he can yet interpret: Veraine's register, Kael's silence, Sera's cost, the crew's tells, the ship's approach vector. The group feels worse off, but the reason is not yet visible. Desh senses an operational layer in the data and starts checking without having proof.",
+  "conflict_type": "interpersonal",
+  "turning_point": "Desh says he is running back-sweeps across the meeting window because the Ash-Tithe Compact moved like people with a job outside the conversation. Ben realizes the meeting may have been cover for something else, but there is no confirmation yet.",
+  "opening_hook": "Back aboard the Steady Returns, the clearing dust still on their boots, nobody sits where they usually sit.",
+  "closing_hook": "Desh starts the back-sweeps. Ben watches Veraine's ship vanish from the last passive track and knows the meeting is not finished with them.",
+  "emotional_trajectory": "Post-meeting silence -> unsettled processing -> procedural suspicion without proof",
+  "stakes": {
+    "personal": "Ben may have been outplayed, but he cannot yet name how",
+    "interpersonal": "Group trust sits under strain because no one can decide whether taking the meeting helped or cost them",
+    "external": "If Veraine used the meeting as cover, the next loss will already be in motion before they understand it"
+  },
+  "characters_present": [
+    "Ben Skywalker",
+    "Desh Rolan",
+    "Sera Varik",
+    "Torin Hal",
+    "Kael Drenn"
+  ],
+  "setting": "Aboard the Steady Returns - departure from the meeting point, tactical assessment",
+  "sensory_details": "Clearing dust tracked across the deck plating; the ship too quiet after Veraine's measured questions; Sera standing instead of sitting, anger held below discipline; Torin trying to make warmth available and not quite reaching everyone; Kael in the corner with his hands visible and his answer still unspoken; Desh replaying passive sensor traces, not damage reports yet; Ben's memory catching on the Ash-Tithe Compact: Vess by the ramp, Pira's too-square crate, Serran's archive cylinder, Mira's fear-taught stillness",
+  "canon_elements_needed": [],
+  "target_word_count": 800,
+  "action_beats": [
+    "The group boards in silence; the normal shipboard rhythm does not resume",
+    "Ben replays the meeting in fragments: Veraine's questions, Sera's answer, Kael's non-answer, and the Ash-Tithe Compact moving by function around the ship",
+    "Sera says the meeting did not change Veraine; Torin gently counters that knowing an enemy's shape still matters, and the exchange lands more tired than argumentative",
+    "Kael refuses to summarize what Veraine's question did to him, but his silence is no longer blank enough for Ben to misread as indifference",
+    "Desh starts passive back-sweeps across the meeting window, flagging crew movement and approach-vector anomalies as suspicion rather than proof",
+    "Ben watches the last passive track of Veraine's ship fade and realizes the meeting may have contained work they did not see"
+  ],
+  "active_subplots": [
+    "SP-A",
+    "SP1",
+    "SP2",
+    "SP3",
+    "SP5"
+  ],
+  "plot_threads_advanced": [
+    "post_meeting_unease",
+    "ben_emergent_intelligence_held",
+    "desh_back_sweeps_started",
+    "ash_tithe_compact_tells_planted"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "hook_actions": [
+    {
+      "hook_id": "H16",
+      "action": "plant"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "lie_challenged",
+  "notes": "Do not reveal the sabotage, the Force-floor drop, or the countdown in this scene. Those beats belong to Chapter 17 scene 1. This scene should make the reader feel that the meeting left an operational residue without explaining it. Veraine remains sincere and ruthless; the proof of ruthlessness lands next.",
+  "turning_point_detail": {
+    "trigger": "Desh starts passive back-sweeps across the meeting window because the Ash-Tithe Compact's movement pattern does not fit a crew that only came to stand behind Veraine.",
+    "shift": "The chapter's pressure changes from philosophical aftermath to procedural suspicion. Ben has no proof yet, but he now knows to look for a second action hidden under the meeting.",
+    "cost": "Ben cannot decide whether the meeting was necessary intelligence or a mistake. The group has to carry that uncertainty into hyperspace."
+  },
+  "emotional_arc": {
+    "start": "Post-meeting silence - everyone back aboard, no one sitting where they usually sit.",
+    "shift": "Unsettled processing - Veraine's questions and Sera's answer remain emotionally live while Ben's catalogue of crew tells keeps intruding.",
+    "end": "Procedural suspicion without proof - Desh begins the back-sweeps, and Ben understands the meeting is not over."
+  },
+  "key_beats": [
+    {
+      "beat_description": "The group boards in silence; the normal shipboard rhythm does not resume.",
+      "state_change": "The truce meeting leaves the clearing and enters the ship as pressure, not clarity.",
+      "pov_reaction": "Ben notices seating, posture, and silence before he can organize meaning. His body wants the familiar tempo of departure; the room refuses to provide it."
+    },
+    {
+      "beat_description": "Ben replays the meeting in fragments: Veraine's questions, Sera's answer, Kael's non-answer, and the Ash-Tithe Compact moving by function around the ship.",
+      "state_change": "The meeting becomes evidence, but not yet a solved pattern.",
+      "pov_reaction": "Ben's focus catches on the practical details because the philosophical ones will not resolve. Vess at the ramp. Pira's crate. Serran's cylinder. Mira watching Kael. None of it is proof; all of it stays."
+    },
+    {
+      "beat_description": "Sera says the meeting did not change Veraine; Torin gently counters that knowing an enemy's shape still matters. Kael does not summarize what Veraine's question did to him.",
+      "state_change": "The group's differing moral readings of the meeting surface without becoming a full argument.",
+      "pov_reaction": "Ben hears strain in every register: Sera's held anger, Torin's deliberate warmth, Kael's disciplined silence. He cannot turn any of it into certainty."
+    },
+    {
+      "beat_description": "Desh starts passive back-sweeps across the meeting window, flagging crew movement and approach-vector anomalies as suspicion rather than proof.",
+      "state_change": "The next chapter's forensic discovery is planted. The operational layer is visible enough to investigate, not enough to name.",
+      "pov_reaction": "Ben feels a small, unwelcome clarity: Veraine may have used honest words as cover for honest damage. The thought is not yet confirmed, and that makes it worse."
+    },
+    {
+      "beat_description": "Ben watches the last passive track of Veraine's ship fade and realizes the meeting may have contained work they did not see.",
+      "state_change": "The scene closes on unresolved operational pressure rather than revelation. Chapter 17 will open with the proof.",
+      "pov_reaction": "Ben carries the suspicion like a bruise he cannot explain. The meeting is not finished with them."
+    }
+  ],
+  "opening_mode": "aftermath",
+  "anti_patterns": [
+    "Do not reveal the sabotage in Chapter 16 scene 4.",
+    "Do not drop the Force-floor or establish the countdown here.",
+    "Do not make Ben diagnose his own wrong call.",
+    "Do not assert Veraine's dual sincerity and ruthlessness in narration; plant the residue and let Chapter 17 prove it.",
+    "Do not repeat the arguments from scenes 2 and 3."
+  ]
+}

@@ -1,0 +1,111 @@
+{
+  "chapter_number": 16,
+  "scene_number": 2,
+  "structural_phase": "attack",
+  "scene_type": "action",
+  "scene_role": "reveal",
+  "pov_character": "Ben Skywalker",
+  "mission": "Veraine finally steps into view and argues her case through questions that keep tightening around Ben and Kael.",
+  "why_now": "The antagonist steps forward on the page for the first time in the story. Her argument has to land at full strength here or the climactic defeat becomes victory over a strawman. The risk is villain-monologue; the Socratic register is the structural answer to that risk — Veraine does not perform her argument, she conducts an inquiry toward it and makes the group's own words a step in the proof.",
+  "conflict": "Veraine's argument is genuinely compelling. The Weave is arguably imposed; the binary has driven a thousand years of war; her logic is rigorous and her tone is respectful. She is not a cackling villain — she is a theorist with an argument and the means to test it, and she has brought her pitch specifically tailored to the one person in the circle whose history matches hers. Ben is in the room with her and cannot answer her register by matching it; every time he tries, she asks another question.",
+  "conflict_type": "interpersonal",
+  "turning_point": "Veraine turns toward Kael and asks — in her Socratic register — why he would defend institutional frameworks that used his Force-sensitivity as building material, invoking their shared infrastructure-anchor history. The pull should feel real on the page. Kael does not speak. His silence is not refusal; it is the specific silence of someone whose answer is still assembling.",
+  "opening_hook": "Veraine steps forward and extends a hand — calm, precise, the gesture of someone who treats negotiation as professional courtesy. Ben would prefer a monster. Monsters are easier to fight.",
+  "closing_hook": "Veraine's final question before the scene ends is to Kael — soft, specific, not theatrical: a question about what he concluded during the centuries in the wall, when he had nothing to do but conclude. She does not need an answer aloud. She needs the question to sit where Kael stores answers.",
+  "emotional_trajectory": "Guarded assessment -> the unsettling experience of being asked questions whose shape presumes the conclusion -> the genuine pull of the Kael pitch -> Kael's assembling silence",
+  "stakes": {
+    "personal": "Ben's worldview tested by a coherent counter-argument he cannot dismiss, delivered in a register that denies him the target a monologue would give",
+    "interpersonal": "Kael's recruitment — the parallel at its most dangerous, and the pull is made worse by Veraine's refusal to sell it",
+    "external": "Veraine's philosophy is not wrong about the problem — only about the solution. The book has to make that distinction feelable, not assertable"
+  },
+  "characters_present": [
+    "Ben Skywalker",
+    "Sera Varik",
+    "Torin Hal",
+    "Kael Drenn",
+    "Desh Rolan",
+    "Darth Veraine"
+  ],
+  "setting": "Neutral meeting point — a cleared area on a minor world between positions",
+  "sensory_details": "Veraine's physical presence — calm composure carried on a military bearing underneath the academic refinement; her Force presence analytical and precise, not radiating dark-side malice but something more unsettling — certainty without heat; the Ash-Tithe Compact at distance in ash-gray vacuum coats and mixed armor harness, unarmed by posture rather than by fact; Vess Oran near the ship with a manifest slate and false transponder tags, Pira Kul beside a maintenance crate that sits too square, Serran Voth holding an archive cylinder like a religious object, Mira Dann watching Kael as if fear has learned discipline; Veraine's diction — no contractions, complete grammatically sophisticated sentences, academic syntax, measured rhythm; the specific quiet that sits after each question she asks, pulling an answer out of the addressee; Kael's face — a mask that costs visible effort, the effort itself information; Ben registering the Socratic-adjacent pattern as a thing happening to him before he names it as a thing Veraine is doing; her ship in the background, one vessel, minimal crew, gangway down",
+  "canon_elements_needed": [
+    "Sith theorist traditions using Socratic pedagogy (Karness Muur lineage, archival conventions)",
+    "Jedi diplomatic posture for antagonist parley"
+  ],
+  "target_word_count": 1300,
+  "action_beats": [
+    "Veraine steps forward and extends a hand in greeting — calm, composed, military bearing beneath academic refinement",
+    "Veraine opens with a question whose premise is the Weave's imposition; Ben answers a smaller piece of it and Veraine's next question incorporates his answer and advances",
+    "The philosophy emerges through three or four exchanges — Weave as framework, release as mercy, binary as a thousand years of war — always questions with answers she already knows, never declarations",
+    "Veraine turns to Kael and addresses him by name, her voice shifting to something specific and personal — the pitch calibrated precisely to his history rather than to generic recruitment",
+    "Kael stands motionless through the recruitment pitch, his face a mask that costs visible effort to maintain",
+    "Veraine's final question of the scene is to Kael — about what he concluded inside the wall. She does not require an answer."
+  ],
+  "active_subplots": [
+    "SP-A",
+    "SP1",
+    "SP2"
+  ],
+  "plot_threads_advanced": [
+    "veraine_philosophy_delivered_socratic_adjacent",
+    "kael_recruitment_attempt_calibrated",
+    "veraine_voice_texture_established"
+  ],
+  "promises_planted": [
+    "PP39"
+  ],
+  "promises_paid": [
+    "PP16"
+  ],
+  "hook_actions": [],
+  "revelations": [
+    "R09"
+  ],
+  "pov_arc_phase": "lie_challenged",
+  "warmth_load_bearing": false,
+  "notes": "Treat her as precise, patient, and intellectually dangerous. She does not need a speech; she needs control of the room.",
+  "primary_anchor": "Zahn",
+  "supporting_anchor": "Luceno, Bujold",
+  "stover_permitted": false,
+  "turning_point_detail": {
+    "trigger": "Veraine turns toward Kael and asks—in her Socratic register—why he would defend institutional frameworks that used his Force-sensitivity as building material, invoking their shared infrastructure-anchor history.",
+    "shift": "The pull feels real on the page. Kael does not speak. His silence is not refusal; it is the specific silence of someone whose answer is still assembling. The scene pivots from Ben-centered pressure to Kael-centered recruitment attempt.",
+    "cost": "Ben's worldview is tested by a coherent counter-argument he cannot dismiss, delivered in a register that denies him the target a monologue would give. Kael's recruitment—the parallel at its most dangerous—is made worse by Veraine's refusal to sell it theatrically. The pull is real because it is not performed."
+  },
+  "emotional_arc": {
+    "start": "Guarded assessment—Ben expects a monster and prepares for combat.",
+    "shift": "The unsettling experience of being asked questions whose shape presumes the conclusion. Ben recognizes the Socratic-adjacent pattern as a thing happening to him before he names it as a thing Veraine is doing. The pull on Kael becomes genuine and specific.",
+    "end": "Kael's assembling silence. Ben is braced for the handoff, unable to answer for Kael, unable to interrupt the question's work. The cost lands as a worldview tested and a recruitment pitch that sits unanswered."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Veraine steps forward and extends a hand in greeting—calm, composed, military bearing beneath academic refinement. The gesture treats negotiation as professional courtesy.",
+      "state_change": "The antagonist becomes concrete and present instead of abstract threat. The opening pressure shifts from strategic to interpersonal.",
+      "pov_reaction": "Ben registers the absence of monstrosity—no radiating malice, no theatrical darkness—and feels the instinctive pull toward action rather than explanation. His body wants to move; his mind recognizes the trap in that impulse."
+    },
+    {
+      "beat_description": "Veraine opens with a question whose premise assumes the Weave's imposition. Ben answers a smaller piece of it; Veraine's next question incorporates his answer and advances the logic. The pattern repeats through three or four exchanges—Weave as framework, release as mercy, binary as a thousand years of war—always questions with answers she already knows, never declarations.",
+      "state_change": "Pressure escalates and advances. Veraine's Socratic register denies Ben the target a monologue would give. Each answer he offers becomes a step in her proof.",
+      "pov_reaction": "Ben experiences the unsettling shape of being asked questions whose structure presumes the conclusion. He recognizes the pattern as a thing happening to him before he names it as a thing Veraine is doing. His focus tightens on what just changed—the register itself is the weapon."
+    },
+    {
+      "beat_description": "Veraine turns toward Kael and addresses him by name. Her voice shifts to something specific and personal—the pitch calibrated precisely to his history as an infrastructure anchor rather than generic recruitment. She invokes their shared experience: why would he defend institutional frameworks that used his Force-sensitivity as building material?",
+      "state_change": "The scene pivots. The pull becomes real and targeted. Kael's recruitment—the parallel at its most dangerous—moves from abstract risk to present pressure.",
+      "pov_reaction": "Ben feels the genuine pull of the Kael pitch land. The question is not rhetorical; it contains a real answer Kael might give, and Veraine's refusal to oversell it makes the pull worse, not better. Ben registers Kael's face—a mask that costs visible effort to maintain—and understands the effort itself is information."
+    },
+    {
+      "beat_description": "Kael stands motionless through the recruitment pitch. His face is a mask; the effort to maintain it is visible. He does not speak. His silence is not refusal; it is the specific silence of someone whose answer is still assembling.",
+      "state_change": "The scene closes on new information that changes the operating picture. Kael's non-answer is an answer—one that will surface later. Veraine's final question—soft, specific, not theatrical—asks what he concluded during the centuries in the wall, when he had nothing to do but conclude. She does not require an answer aloud. She needs the question to sit where Kael stores answers.",
+      "pov_reaction": "Ben is braced for the handoff. Kael's assembling silence lands as the scene's closing pressure. Ben cannot answer for him; cannot interrupt the question's work. The cost lands: his worldview tested by a coherent counter-argument he cannot dismiss, delivered in a register that denies him the target a monologue would give."
+    }
+  ],
+  "opening_mode": "in_medias_res",
+  "anti_patterns": [
+    "Do not open with a monologue from Veraine—the Socratic register is the structural answer to the risk of villain-monologue.",
+    "Do not have Ben successfully counter Veraine's argument by matching her register—every time he tries, she asks another question.",
+    "Do not resolve Kael's recruitment pitch in this scene—his silence contains an answer that will surface later.",
+    "Do not present Veraine's philosophy as obviously wrong—the book must make the distinction between correct diagnosis and catastrophic solution feelable, not assertable.",
+    "Do not have Veraine perform her argument theatrically—she is a theorist conducting an inquiry, not a villain selling a pitch.",
+    "Treat her as precise, patient, and intellectually dangerous—she does not need a speech; she needs control of the room."
+  ]
+}

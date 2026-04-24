@@ -872,7 +872,7 @@ async def main():
         print(f"  {msg}")
 
     import yaml
-    with open(args.config) as f:
+    with open(args.config, encoding="utf-8") as f:
         config = yaml.safe_load(f)
 
     pipeline_cfg = config.get("pipeline", {})
@@ -889,6 +889,12 @@ async def main():
             "enabled", False
         )
     )
+    _lean_cfg = (runtime_flags.get("runtime") or {}).get("lean_prose_only") or {}
+    _lean_line_edit_cfg = _lean_cfg.get("line_edit", {})
+    if isinstance(_lean_line_edit_cfg, dict):
+        lean_line_edit = bool(_lean_line_edit_cfg.get("enabled", False))
+    else:
+        lean_line_edit = bool(_lean_line_edit_cfg)
 
     # Resolve franchise/series/run parameters (support deprecated aliases)
     franchise_slug = args.franchise or args.franchise_legacy
@@ -933,11 +939,14 @@ async def main():
     if paths.run_dir is not None:
         # Record which post-gate variant ran: the pipeline has one canonical
         # polish stage now (Quality Polish + Final Gate). Raw-draft skips it.
-        _pipeline_variant = (
-            "lean_prose_only"
-            if lean_prose_only
-            else ("raw_draft" if args.raw_draft else "quality_polish")
-        )
+        if lean_prose_only:
+            _pipeline_variant = (
+                "lean_prose_line_edit" if lean_line_edit else "lean_prose_only"
+            )
+        else:
+            _pipeline_variant = (
+                "raw_draft" if args.raw_draft else "quality_polish"
+            )
         _write_reproducibility_snapshot(paths.run_dir, args, _pipeline_variant)
         print(f"  Prompt + invocation snapshot: {paths.run_dir}")
 

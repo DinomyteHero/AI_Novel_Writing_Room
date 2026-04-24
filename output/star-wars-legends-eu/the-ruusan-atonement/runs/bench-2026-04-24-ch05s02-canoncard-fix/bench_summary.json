@@ -1,0 +1,53 @@
+{
+  "scene_card_path": "data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/scene_cards/chapter_05_scene_02.json",
+  "scene_label": "Ch5S2",
+  "pov_character": "Ben Skywalker",
+  "target_word_count": 1200,
+  "plot_architect_duration_s": 25.8,
+  "results": [
+    {
+      "label": "deepseek-v4-pro-t070",
+      "model_short": "deepseekpro",
+      "model_full": "deepseek/deepseek-v4-pro",
+      "temperature": 0.7,
+      "extra_params": {
+        "reasoning": {
+          "effort": "none"
+        }
+      },
+      "duration_s": 40.9,
+      "word_count": 1086,
+      "char_count": 6730,
+      "est_in_tokens": 21259,
+      "est_out_tokens": 1682,
+      "est_cost_usd": 0.0428,
+      "output_file": "output\\star-wars-legends-eu\\the-ruusan-atonement\\runs\\bench-2026-04-24-ch05s02-canoncard-fix\\deepseek-v4-pro-t070.md",
+      "line_edits": [
+        {
+          "model_short": "gpt54_mini",
+          "model_full": "openai/gpt-5.4-mini",
+          "temperature": 0.35,
+          "duration_s": 9.1,
+          "word_count": 1066,
+          "char_count": 6493,
+          "est_in_tokens": 7626,
+          "est_out_tokens": 1623,
+          "est_cost_usd": 0.013,
+          "output_file": "output\\star-wars-legends-eu\\the-ruusan-atonement\\runs\\bench-2026-04-24-ch05s02-canoncard-fix\\deepseek-v4-pro-t070__LINE_EDIT_gpt54_mini.md"
+        }
+      ],
+      "line_edit": {
+        "model_short": "gpt54_mini",
+        "model_full": "openai/gpt-5.4-mini",
+        "temperature": 0.35,
+        "duration_s": 9.1,
+        "word_count": 1066,
+        "char_count": 6493,
+        "est_in_tokens": 7626,
+        "est_out_tokens": 1623,
+        "est_cost_usd": 0.013,
+        "output_file": "output\\star-wars-legends-eu\\the-ruusan-atonement\\runs\\bench-2026-04-24-ch05s02-canoncard-fix\\deepseek-v4-pro-t070__LINE_EDIT_gpt54_mini.md"
+      }
+    }
+  ]
+}

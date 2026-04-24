@@ -10,7 +10,7 @@
   "conflict": "The pressure intensifies every friction. The wound's amplification is working on the group by proximity. Ben assigns tasks and tries to hear the ship sound normal. The fact that Veraine used the meeting as cover restructures Ben's understanding of the whole Ch 16 encounter retroactively — her philosophical register was sincere AND operational; both were simultaneously true. Torin steps into the frame with a sentence that is not a question.",
   "conflict_type": "external",
   "turning_point": "Torin's tone. Ben has heard the cadence before. The warmth of someone who has already decided and is negotiating the announcement. The line itself is quiet; what it announces is not.",
-  "opening_hook": "The wrongness lurches. Not a jolt — a resettling, the floor of the Force dropping by another meter. Desh's sensor sweeps run backward across the last six hours and find the signature. One of the Corridor's intermediate anchor sites struck while Veraine kept them in the clearing",
+  "opening_hook": "The wrongness lurches. Not a jolt — a resettling, the floor of the Force dropping by another meter. Desh's back-sweeps from the meeting window finally resolve: one of the Corridor's intermediate anchor sites was struck while Veraine kept them in the clearing",
   "closing_hook": "Torin's tone. Ben has heard that tone before — the certainty of someone who has already decided and is now only negotiating the announcement. The argument Torin has just announced will happen later. Ben cannot yet predict what will be in it, but he can predict its cadence",
   "emotional_trajectory": "Physical drop of the Force-floor -> retrospective understanding of the Ch 16 cover -> urgent tactical focus -> Torin's ominous calm",
   "stakes": {
@@ -26,14 +26,15 @@
     "Kael Drenn"
   ],
   "setting": "Aboard the Steady Returns — cockpit and common area, hyperspace toward Veranthos",
-  "sensory_details": "The Force settling at a new, lower floor — not a spike but a resettling, as if the ground has lowered by a meter; Desh's backward sensor sweep resolving the signature of the sabotage on a bulkhead display; Desh's countdown numeral on the bulkhead, steady against Ben's pulse; the wrongness a constant atmospheric pressure like altitude sickness sitting at the back of the head; arguments already starting to flare hotter than their content justifies in the margin of the scene; Torin's silhouette in the doorway carrying the exact weight of an old remembered cadence; the calm warmth of his voice and the edge underneath it that Ben hears and cannot yet name",
+  "sensory_details": "The Force settling at a new, lower floor — not a spike but a resettling, as if the ground has lowered by a meter; Desh's backward sensor sweep resolving the signature of the sabotage on a bulkhead display; Ash-Tithe tells becoming evidence instead of unease: Pira Kul's pressure-cut sequence in the node housing, Vess Oran's false beacon hop in the traffic record, Serran Voth's old-language authentication scrape in the site archive, Mira Dann's low-level Force residue ghosting the calibration lock; Desh's countdown numeral on the bulkhead, steady against Ben's pulse; the wrongness a constant atmospheric pressure like altitude sickness sitting at the back of the head; arguments already starting to flare hotter than their content justifies in the margin of the scene; Torin's silhouette in the doorway carrying the exact weight of an old remembered cadence; the calm warmth of his voice and the edge underneath it that Ben hears and cannot yet name",
   "canon_elements_needed": [
     "Force-wound amplification phenomenology as atmospheric/pressure metaphor",
     "Jedi sabotage forensic procedure for Force-architecture infrastructure"
   ],
   "target_word_count": 1250,
   "action_beats": [
-    "The Force-floor drops. Ben registers it in his body before his mind locates it. Desh runs the sensor sweeps backward across the meeting window and finds the sabotage signature",
+    "The Force-floor drops. Ben registers it in his body before his mind locates it. Desh's back-sweeps across the meeting window resolve into a sabotage signature",
+    "Desh ties the signature to specific Ash-Tithe work: Pira's pressure cuts, Vess's traffic masking, Serran's authentication scrape, and a faint Force-sensitive calibration touch that points toward Mira without making her a Sith threat",
     "Desh converts the seal degradation rate to hours and posts the countdown on the cockpit display",
     "Ben paces the common area while assigning approach tasks — nerves converting to motion; he hears his own voice coming out slightly louder than the task warrants, catches the amplification, does not explain it",
     "Torin stands in the doorway and speaks with the calm warm tone that drops Ben's stomach — 'We need to talk about what happens when we get there.'"
@@ -65,7 +66,7 @@
   "revelations": [],
   "pov_arc_phase": "lie_challenged",
   "warmth_load_bearing": true,
-  "notes": "Keep the discovery procedural and physical. Torin's line should sound warm, calm, and fatal.",
+  "notes": "Keep the discovery procedural and physical. The Ash-Tithe Compact should become evidence of Veraine's operational reach, not a competing antagonist focus. Torin's line should sound warm, calm, and fatal.",
   "primary_anchor": "Zahn",
   "supporting_anchor": "Bujold",
   "stover_permitted": false,
@@ -81,9 +82,9 @@
   },
   "key_beats": [
     {
-      "beat_description": "The Force-floor drops. Ben registers the wrongness in his body before his mind locates it — not a jolt but a resettling, as if the ground beneath the Force has lowered by a meter. Desh runs the sensor sweeps backward across the meeting window and finds the sabotage signature on a bulkhead display.",
-      "state_change": "The abstract pressure becomes concrete. The opening wrongness transforms from atmospheric dread into forensic confirmation: Veraine struck an intermediate anchor site while the group was in the clearing, using the meeting as operational cover.",
-      "pov_reaction": "Ben's instinct pushes toward action rather than explanation. His body registers the Force-floor drop as a physical sensation — a vertigo-like pressure at the back of his head — before his mind can articulate what has shifted. The sabotage signature on the display lands as confirmation of something Ben's Force-sense already knew but could not yet name."
+      "beat_description": "The Force-floor drops. Ben registers the wrongness in his body before his mind locates it — not a jolt but a resettling, as if the ground beneath the Force has lowered by a meter. Desh's back-sweeps across the meeting window resolve into a sabotage signature on a bulkhead display, with Ash-Tithe tells now evidentiary instead of merely unsettling.",
+      "state_change": "The abstract pressure becomes concrete. The opening wrongness transforms from atmospheric dread into forensic confirmation: the Ash-Tithe Compact struck an intermediate anchor site while the group was in the clearing, using the meeting as operational cover.",
+      "pov_reaction": "Ben's instinct pushes toward action rather than explanation. His body registers the Force-floor drop as a physical sensation — a vertigo-like pressure at the back of his head — before his mind can articulate what has shifted. Pira's pressure cuts, Vess's traffic mask, Serran's archive scrape, and Mira's calibration residue make his Chapter 16 unease specific."
     },
     {
       "beat_description": "Desh converts the seal degradation rate to hours and posts the countdown on the cockpit display. The numeral sits steady against Ben's pulse, a constant atmospheric pressure like altitude sickness.",

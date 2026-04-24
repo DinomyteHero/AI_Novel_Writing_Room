@@ -5,9 +5,9 @@
   "scene_type": "sequel",
   "scene_role": "aftermath",
   "pov_character": "Ben Skywalker",
-  "mission": "Camp, morning. Kael has his bag packed before anyone wakes. Everything he owns slung over one shoulder. He finds Ben at the ship and they shake hands — firm, brief, the most Kael gesture possible. He turns toward his transport without looking back. Desh says something that shouldn't be funny. Ben laughs. Desh laughs. The laugh carries up the ridge.",
+  "mission": "Camp, morning. Kael has his bag packed before anyone wakes. Everything he owns slung over one shoulder, plus a copied list of dead anchors, conscripts, and old Brotherhood sites he means to visit before he belongs anywhere. He finds Ben at the ship and they shake hands — firm, brief, the most Kael gesture possible. Desh closes the evidence chain without fanfare, then says something that shouldn't be funny. Ben laughs. Desh laughs. The laugh carries up the ridge.",
   "why_now": "Kael's freely-chosen departure is the story's argument in its final form. The laugh between Ben and Desh is the GAG wound's scar tissue finally producing sound that is not grief.",
-  "conflict": "Kael does not reject the group; he exercises the freedom the story demanded he be offered. The scene's quiet question is whether Ben can let him go. The answer is a handshake and a turned back, and no one tries to make it something else.",
+  "conflict": "Kael does not reject the group and does not join the modern Jedi Order as a convenient answer. He exercises the freedom the story demanded he be offered. The scene's quiet question is whether Ben can let him go toward atonement outside formal belonging. The answer is a handshake and a turned back, and no one tries to make it something else.",
   "conflict_type": "interpersonal",
   "turning_point": "The laugh. Not at anything in particular. At the fact of having come through, and of being equals who chose to be here, and of the joke being not very good.",
   "opening_hook": "Kael has his bag packed before anyone wakes. He finds Ben at the ship, already knowing.",
@@ -26,12 +26,14 @@
     "Torin Hal"
   ],
   "setting": "Veranthos — the camp, departure preparations, morning",
-  "sensory_details": "Kael's packed bag — light, everything he owns slung over one shoulder; his handshake with Ben — firm, brief, the most Kael gesture possible; Desh's joke — not spelled out for the reader; the laugh carrying across the ridge; Torin's eyes crinkling for a second and then settling",
+  "sensory_details": "Kael's packed bag — light, everything he owns slung over one shoulder; a folded datafilm of names and coordinates: dead anchors, dead Sith conscripts, Brotherhood-era sites, places where someone should ask who never came home; his handshake with Ben — firm, brief, the most Kael gesture possible; Desh sealing evidence packets with plain labels and no ceremony; Desh's joke — not spelled out for the reader; the laugh carrying across the ridge; Torin's eyes crinkling for a second and then settling",
   "canon_elements_needed": [],
   "target_word_count": 1250,
   "action_beats": [
-    "Kael finds Ben at the ship with his bag packed — everything he owns slung over one shoulder",
+    "Kael finds Ben at the ship with his bag packed — everything he owns slung over one shoulder and a copied list of names and old Sith/Brotherhood sites in his pocket",
+    "Kael makes clear in his sparse way that he is not joining the modern Jedi now; he is going to look for names, sites, and dead people no institution wanted to remember",
     "Kael shakes Ben's hand — firm, brief, the most Kael gesture possible — and turns toward his transport",
+    "Desh seals the last evidence packet and tags Veraine's crew dispositions before the joke, making his non-Force contribution part of the ending's record",
     "Desh says something that shouldn't be funny and Ben laughs — the sound carrying across the ridge"
   ],
   "active_subplots": [
@@ -48,7 +50,7 @@
   "hook_actions": [],
   "revelations": [],
   "pov_arc_phase": "new_truth_demonstrated",
-  "notes": "Kael's arc resolves through freely chosen departure — the ability to leave is the proof the story was different. Desh's arc resolves in the laugh between equals. Anti-pattern: do not spell out the joke. No one needs to hear Desh's line; the laugh carries it. Voice: Allston-warmth for the closing; the laugh is the chapter's exit.",
+  "notes": "Kael's arc resolves through freely chosen departure — the ability to leave is the proof the story was different. He does not need to become a modern Jedi to be redeemed; his atonement is seeking names, sites, and dead people outside formal belonging. Desh's arc resolves both in the evidence chain and in the laugh between equals. Anti-pattern: do not spell out the joke. No one needs to hear Desh's line; the laugh carries it. Voice: Allston-warmth for the closing; the laugh is the chapter's exit.",
   "turning_point_detail": {
     "trigger": "The laugh—not at anything in particular, but at the fact of having come through, and of being equals who chose to be here, and of the joke being not very good.",
     "shift": "The scene pivots from farewell (pressure, potential loss) to grace (freedom exercised, bond deepened into genuine equality). The laugh carries across the ridge and reaches even Torin, whose eyes crinkle for a moment. The cast's futures unlock.",
@@ -61,18 +63,18 @@
   },
   "key_beats": [
     {
-      "beat_description": "Kael finds Ben at the ship with his bag packed—everything he owns slung over one shoulder. Ben is already there, already knowing.",
-      "state_change": "The abstract pressure of Kael's departure becomes concrete and immediate. The moment is now.",
-      "pov_reaction": "Ben's instinct pushes toward action—a gesture, a word, something to bridge the gap. His body registers the finality before his mind accepts it. The weight of Kael's bag, light as it is, carries the full gravity of the choice."
+      "beat_description": "Kael finds Ben at the ship with his bag packed—everything he owns slung over one shoulder and a copied list of names and old Sith/Brotherhood sites in his pocket. Ben is already there, already knowing.",
+      "state_change": "The abstract pressure of Kael's departure becomes concrete and immediate. The moment is now, and the destination is active atonement rather than convenient recruitment.",
+      "pov_reaction": "Ben's instinct pushes toward action—a gesture, a word, something to bridge the gap. His body registers the finality before his mind accepts it. The weight of Kael's bag, light as it is, carries the full gravity of a choice no institution gets to own."
     },
     {
-      "beat_description": "Kael extends his hand. Ben takes it. The handshake is firm, brief—the most Kael gesture possible. Kael turns toward his transport without looking back.",
-      "state_change": "The farewell completes. Kael exercises the freedom the story fought for. Ben releases him.",
-      "pov_reaction": "Ben feels the pressure transform into something quieter—not loss, but recognition. The handshake is enough. No words needed. His hand drops as Kael turns, and Ben does not call after him. The grace of free departure settles into his chest like a breath finally exhaled."
+      "beat_description": "Kael says, sparsely, that the Jedi have their dead and the Sith had theirs, and someone should learn the names. He extends his hand. Ben takes it. The handshake is firm, brief—the most Kael gesture possible. Kael turns toward his transport without looking back.",
+      "state_change": "The farewell completes. Kael exercises the freedom the story fought for and directs it toward names, sites, and dead people rather than formal belonging. Ben releases him.",
+      "pov_reaction": "Ben feels the pressure transform into something quieter—not loss, but recognition. The handshake is enough. His hand drops as Kael turns, and Ben does not call after him. The grace of free departure settles into his chest like a breath finally exhaled."
     },
     {
-      "beat_description": "Desh says something that shouldn't be funny. Ben laughs. Desh laughs. The sound carries across the ridge where Sera sits with Torin.",
-      "state_change": "The scene locks into its final truth: the cast has come through as equals who chose to be here. Their futures are open. Even Torin's eyes crinkle for a moment.",
+      "beat_description": "Desh seals the last evidence packet, tags Veraine's crew dispositions in plain language, and then says something that shouldn't be funny. Ben laughs. Desh laughs. The sound carries across the ridge where Sera sits with Torin.",
+      "state_change": "The scene locks into its final truth: the cast has come through as equals who chose to be here, and Desh's practical record will travel with Ben's testimony. Their futures are open. Even Torin's eyes crinkle for a moment.",
       "pov_reaction": "Ben's laugh is not forced or performative—it rises from the fact of having survived, of being here with people who are no longer burdens or tools but companions. The sound carries his relief, his warmth, his acceptance that this is enough. The GAG wound's scar tissue produces sound that is not grief."
     }
   ],

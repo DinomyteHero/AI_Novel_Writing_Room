@@ -1,0 +1,49 @@
+{
+  "scene_objective": "The discordance is at critical. Sera's jaw set, Kael's hands shaking, Ben's fist around three traditions that refuse to combine. One breath, one decision — Ben lets go. Stops leading. Listens. The three notes find their own relationship. The chord forms. Warmth floods through their linked hands. The wrongness he has heard for months goes quiet.",
+  "opening_mode": "The discordance is reaching critical. Sera's jaw is set. Kael's hands are shaking. Nothing Ben tries is working.",
+  "key_beats": [
+    {
+      "beat_description": "Sera sets her jaw and Kael's hands tremble as the discordance reaches critical — the resonance failing",
+      "state_change": "",
+      "pov_reaction": ""
+    },
+    {
+      "beat_description": "Ben releases his grip on control — stops leading, starts listening — and the three traditions find their own relationship",
+      "state_change": "",
+      "pov_reaction": ""
+    },
+    {
+      "beat_description": "The resonance catches and warmth floods through their linked hands — physical, not metaphorical, after months of cold",
+      "state_change": "",
+      "pov_reaction": ""
+    }
+  ],
+  "turning_point": {
+    "trigger": "Ben stops leading and starts listening. The three traditions find their own relationship without his hand steering them. The chord forms.",
+    "shift": "Ben stops leading and starts listening. The three traditions find their own relationship without his hand steering them. The chord forms.",
+    "cost": "(derived from scene card)"
+  },
+  "closing_beat": "The resonance catches. The warmth returns — real and immediate, not metaphorical. The wrongness that has been with Ben for months goes quiet.",
+  "emotional_arc": {
+    "start": "",
+    "shift": "Desperate control -> the moment of surrender -> the breakthrough warmth",
+    "end": ""
+  },
+  "required_hooks": [
+    {
+      "hook_id": "H24",
+      "action": "resolve"
+    }
+  ],
+  "required_subplots": [
+    "SP-A"
+  ],
+  "anti_patterns": [
+    "Do not reuse 'handrail' or 'flat-note' here; Ben has moved past that vocabulary by the climax",
+    "Ben should not, in this scene, interior-paragraph the arc completion",
+    "Do not arrive at diagnostic voice—Ben should not analyze the phenomenology of the Weave or the Force in this moment",
+    "Avoid exposition dump or explanation of what is happening; the action is immediate and physical",
+    "Do not have Ben articulate his surrender as a conscious insight or decision; the letting-go is embodied, not rationalized"
+  ],
+  "target_word_count": 1400
+}

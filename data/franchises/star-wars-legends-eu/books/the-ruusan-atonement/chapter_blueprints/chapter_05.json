@@ -1,7 +1,7 @@
 {
   "chapter_number": 5,
-  "chapter_mission": "Wake the three survivors, break Ben's understanding of Jedi history in a single sentence, and get the group moving before the full history can be sorted out. The chapter should feel human first: shock, disorientation, and immediate dependency.",
-  "chapter_turn": "Ben stops being an investigator with a mystery and becomes the person responsible for three witnesses out of time. He leaves the fortress with a broken version of the Order's founding story and an unnamed enemy already ahead of them.",
+  "chapter_mission": "Wake the three survivors, reveal the pre-Ruusan Veranthos protocol they actually remember, force Ben to connect it to the later Jedi history he inherited, and get the group moving before the full history can be sorted out. The chapter should feel human first: shock, disorientation, and immediate dependency.",
+  "chapter_turn": "Ben stops being an investigator with a mystery and becomes the person responsible for three witnesses out of time. He leaves the fortress with a broken version of the Order's inherited history and an unnamed enemy already ahead of them.",
   "structural_phase": "first_plot_point",
   "pov_allocation": [
     "Ben Skywalker"
@@ -13,14 +13,14 @@
       "role": "hook",
       "dialogue_expectation": "interior",
       "target_word_count": 1400,
-      "purpose": "Ben and Desh enter the stasis ring and find the shape of the catastrophe in the room itself: twelve chambers, nine dead, three fading, one broken from the inside."
+      "purpose": "Ben wakes Sera, Torin, and Kael from the stasis ring already discovered in Chapter 4. The dramatic unit is first contact across a millennium: three distinct shock responses, three different relationships to Gavran's work, and the immediate human cost of the room before any archive explanation begins."
     },
     {
       "scene_number": 2,
       "role": "reveal",
       "dialogue_expectation": "balanced",
       "target_word_count": 1200,
-      "purpose": "Sera, Torin, and Kael wake. One sentence breaks Ben's understanding of the Reformations, and the scene must let each survivor arrive as a distinct person, not a history lesson."
+      "purpose": "Sera, Torin, and Kael wake. Their recognition of the pre-Ruusan Veranthos protocol lets Ben and Desh connect the hidden record to the later Ruusan Reformations, and the scene must let each survivor arrive as a distinct person, not a history lesson."
     },
     {
       "scene_number": 3,
@@ -73,11 +73,11 @@
     {
       "dyad": "Ben/Desh",
       "from": "operational partnership — survey team, Ch 1 dynamic",
-      "to": "co-witnesses — both now hold the same impossible institutional fact and neither yet knows what to do with it"
+      "to": "co-witnesses — both now hold the same impossible institutional inference and neither yet knows what to do with it"
     }
   ],
   "pacing_curve": "rising",
   "exit_vector": "The Steady Returns lifts from Gavran's fortress with six aboard. Ben at the viewport. The wrongness has a destination. The antagonist is out there, unnamed — whoever broke out from inside has a weeks-old head start. Ch 6 s1 will give the room her name.",
   "chapter_word_target": 4800,
-  "notes": "Keep the chapter focused on three human shocks: the stasis ring, the survivors waking, and the realization that the Reformations concealed penance as well as reform. Sera, Torin, and Kael must sound distinct on first contact. Do not dump the full Ruusan history here; hold back the technique, wound mechanics, and Veraine's name. The empty chamber should close the chapter as a live absence, not a solved reveal."
+  "notes": "Keep the chapter focused on three human shocks: the stasis ring, the survivors waking, and Ben's realization that the pre-Ruusan Veranthos protocol was later buried beneath legitimate public reform. Sera, Torin, and Kael must sound distinct on first contact. They know Veranthos and Gavran's protocol; they do not know the post-Ruusan Reformations firsthand. Do not dump the full Ruusan history here; hold back the technique, wound mechanics, and Veraine's name. The empty chamber should close the chapter as a live absence, not a solved reveal."
 }

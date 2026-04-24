@@ -5,39 +5,53 @@
   "scene_type": "action",
   "scene_role": "escalation",
   "pov_character": "Ben Skywalker",
-  "mission": "Cut to Desh. First amplification node, two guards, GAG silence: low, fast, nonlethal. He is not here to kill; he is here to break three pieces of equipment. Second node. Third node. The array goes dark. His comm: 'Array's down. Whatever you're doing — do it now. Everything. Don't hold back.'",
-  "why_now": "Stage one of Veraine's defeat. The resonance cannot defeat the amplified ritual alone; Desh strips the amplification and the physics change. The two-pronged plan works because both hands are on it.",
-  "conflict": "Desh against armed crew guards. Outnumbered and outclassed in numbers, he outclasses them in training. The pressure is time — three nodes before the resonance fails, and no margin for any of the three to take longer than the others.",
+  "mission": "Keep Ben's close POV while Desh executes the physical sabotage. The reader experiences Desh's operation through Ben's resonance-stressed infrastructure sense, comm bursts, node telemetry, and the array's physical response. The Ash-Tithe Compact becomes real opposition, and Desh's non-Force competence completes stage one of Veraine's defeat.",
+  "why_now": "Stage one of Veraine's defeat. The resonance cannot defeat the amplified ritual alone; Desh strips the amplification and the physics change. The two-pronged plan works because both hands are on it, but the book's single-POV discipline should not break in the climax.",
+  "conflict": "Ben must hold the resonance while trusting action he cannot directly control. Desh is off-site against armed Ash-Tithe opposition: hired guards at the first node, Mira's fearful Force-sensitive calibration at the second, and Pira Kul's reinforced technical command at the third. The pressure is time: three nodes before the resonance fails, with no margin for Ben to verify the work himself.",
   "conflict_type": "external",
-  "turning_point": "Third node dark. The array drops below threshold. Desh's comm open to Ben: do it now, everything, don't hold back.",
-  "opening_hook": "Desh at the first node. Two guards. The approach is textbook GAG — silent, efficient, nonlethal. He's not here to kill anyone. He's here to break three pieces of equipment.",
-  "closing_hook": "The third node goes dark. Desh's comm: 'Array's down. Whatever you're doing — do it now. Everything. Don't hold back.'",
-  "emotional_trajectory": "Professional focus -> escalating physical danger -> triumph through competence",
+  "turning_point": "Third node dark. The array drops below threshold. Desh's comm reaches Ben through static: 'Array's down. Whatever you're doing - do it now. Everything. Don't hold back.'",
+  "opening_hook": "The first node is only a point of tension in Ben's chest until Desh's comm clicks twice and the point goes dark.",
+  "closing_hook": "The third node goes dark. Desh's voice cuts through the static: 'Array's down. Whatever you're doing - do it now. Everything. Don't hold back.'",
+  "emotional_trajectory": "Forced trust -> escalating off-site danger -> handoff through competence",
   "stakes": {
-    "personal": "The former GAG operative turning the old skill to a chosen purpose",
-    "interpersonal": "Desh and Ben's partnership — the mystical and the practical on the same operation",
-    "external": "Without the array, Veraine cannot breach. Stage one of her defeat complete."
+    "personal": "Ben cannot solve the practical half of the climax with Force-sense; he has to trust Desh's hands",
+    "interpersonal": "Desh and Ben's partnership - the mystical and the practical on the same operation without either one becoming decorative",
+    "external": "Without the array, Veraine cannot breach. Stage one of her defeat must complete before the resonance can become more than desperate resistance."
   },
   "characters_present": [
     "Ben Skywalker",
-    "Desh Rolan"
+    "Sera Varik",
+    "Kael Drenn",
+    "Desh Rolan",
+    "Pira Kul",
+    "Mira Dann",
+    "Ash-Tithe hired guards"
   ],
-  "setting": "Veranthos — amplification node sites, guarded positions, Desh operating solo",
-  "sensory_details": "Desh in his element — silent movement, tactical assessment, controlled nonlethal violence; node equipment sparking as precise strikes disable the control housings; Veraine's crew frightened and outmatched, not villains; the comm connection to Ben as Desh's one steady line of audio against the valley's chaos",
-  "canon_elements_needed": [],
+  "setting": "Veranthos - resonance position at mid-valley, with comm and telemetry from Desh's off-site amplification-node run",
+  "sensory_details": "Ben's resonance hold making the three critical nodes feel like hard knots in the valley's field; Desh's comm reduced to breath, clicks, and clipped tactical facts; node equipment sparking across telemetry instead of through Desh interiority; Ash-Tithe signatures distinct in the array: hired guards as movement noise, Mira's faint Force-sensitive flinch at a calibration lock, Pira Kul's pressure-cut countersequence at the final node; Sera's lock-sense pulling against Ben's left side; Kael's unintegrable signature bracing the right; Veraine's ritual still amplified until each knot goes dark",
+  "canon_elements_needed": [
+    "Single-POV Ben discipline for climax rendering",
+    "Non-Force operative contribution through comms, telemetry, and infrastructure effects"
+  ],
   "target_word_count": 1200,
   "action_beats": [
-    "Desh approaches the first node in textbook GAG silence — low, fast, nonlethal takedowns on the guards",
-    "Desh disables the first amplification node with three precise strikes to the control housing",
-    "Desh's comm crackles as the third node goes dark: 'Array's down. Do it now. Everything.'"
+    "Ben holds the resonance with Sera and Kael while the first node remains a hard knot in the array; Desh's comm clicks twice and the knot goes dark",
+    "Desh's first clipped report confirms nonlethal takedowns on hired guards and equipment disabled, giving Ben facts without shifting into Desh interiority",
+    "At the second node, Mira's low Force-sensitive calibration touch flares against Ben's infrastructure sense; Desh breaks the control housing before that warning becomes useful to Veraine",
+    "The third node resists: Pira Kul has reinforced the control housing and is directing guards with professional calm; Ben hears blaster static and a cut-off grunt through the comm but cannot leave the resonance",
+    "The third node goes dark. Desh reports Pira alive and contained, then gives Ben the handoff: array down, do it now, everything",
+    "Ben stops trying to verify Desh's success and lets the changed physics become part of the resonance"
   ],
   "active_subplots": [
     "SP-A",
-    "SP3"
+    "SP3",
+    "SP5"
   ],
   "plot_threads_advanced": [
     "desh_sabotage_succeeds",
-    "veraine_amplification_drops"
+    "veraine_amplification_drops",
+    "ash_tithe_compact_payoff",
+    "ben_trusts_non_force_input"
   ],
   "promises_planted": [],
   "promises_paid": [
@@ -51,51 +65,50 @@
   ],
   "revelations": [],
   "pov_arc_phase": "new_truth_demonstrated",
-  "notes": "The chapter's only tactical scene. Keep it tight, competent, understated — Desh in his element, the old skill turned to a better purpose. The GAG history is present as technique, not as memory paragraph. Voice: Zahn-compact, Allston-rhythm where appropriate (one dry line before the first takedown, maybe). Anti-pattern: no lethal kills unless the scene absolutely requires it — Desh's read is 'break equipment, not kill people,' and the nonlethal choice is the chapter's quiet moral.",
+  "notes": "This is Desh's operational triumph, but not Desh POV. Do not cut into Desh's thoughts, breathing-as-interiority, or visual camera unless a device feed explicitly carries it to Ben. Keep the GAG history present as technique visible through results: nonlethal reports, timing, controlled violence, and equipment going dark. Pira should survive as technical evidence. Mira should feel dangerous because she can warn the system, not because she is suddenly a Sith combatant. The hired guards are obstacles, not character subplots.",
   "turning_point_detail": {
-    "trigger": "Third amplification node goes dark; array drops below operational threshold.",
-    "shift": "The amplification infrastructure collapses. Veraine's ritual loses its force-multiplication. Ben's resonance work transitions from impossible to merely desperate. The scene's pressure transfers from Desh's operational timeline to Ben's mystical one.",
-    "cost": "Desh has burned his cover and his nonlethal discipline to the limit. Ben receives the handoff with no margin — Desh's comm message is a hard deadline: 'do it now, everything, don't hold back.' The cost is urgency without buffer."
+    "trigger": "Third amplification node goes dark; Desh confirms Pira Kul alive and contained, and the array drops below operational threshold.",
+    "shift": "The amplification infrastructure collapses. Veraine's ritual loses its force-multiplication. Ben's resonance work transitions from impossible to merely desperate. The scene's pressure transfers from Desh's operational timeline to Ben's mystical one without leaving Ben's POV.",
+    "cost": "Ben has to accept a result he did not personally verify. Desh has burned his cover and nonlethal discipline to the limit. The handoff arrives with no margin: do it now, everything, do not hold back."
   },
   "emotional_arc": {
-    "start": "Professional focus — Desh in his element, the old GAG skill repurposed toward a chosen purpose. Controlled, efficient, present.",
-    "shift": "Escalating physical danger as guards respond and the operational timeline tightens. Each node must fall before the others are compromised. Pressure mounts with each success.",
-    "end": "Triumph through competence — the third node dark, the array down, the mission accomplished. Desh's confidence in his own skill vindicated. The handoff to Ben delivered with authority."
+    "start": "Forced trust - Ben feels the nodes as hard knots but cannot leave the resonance to help or verify.",
+    "shift": "Escalating off-site danger as each node reveals a different Ash-Tithe threat and Ben's only access is comm, telemetry, and the array's changing pressure.",
+    "end": "Handoff through competence - the third node dark, the array stripped, Desh's voice steady enough to make the next impossible thing Ben's problem."
   },
   "key_beats": [
     {
-      "beat_description": "Desh approaches the first amplification node in textbook GAG silence — low, fast approach, two guards positioned at the entrance. He reads their posture, their sight lines, the equipment layout. The guards have no idea he is there until he moves.",
-      "state_change": "The abstract operational pressure becomes concrete and immediate. The first node is live; the clock is running on all three.",
-      "pov_reaction": "Desh's breathing settles into the old rhythm — the one that predates choice, the one his body remembers. His hands are steady. No hesitation, no moral weight in this moment; the nonlethal choice is already made and filed away. He is present in the action, not in the reasoning."
+      "beat_description": "Ben holds the resonance with Sera and Kael while the first node remains a hard knot in the array. Desh's comm clicks twice. The knot goes dark.",
+      "state_change": "The abstract operational pressure becomes concrete and measurable from Ben's POV. One node is down without Ben controlling it.",
+      "pov_reaction": "Ben's instinct reaches to verify, but the resonance slips when he tries. He has to take the darkened node as fact because Desh made it fact."
     },
     {
-      "beat_description": "Desh disables the first node with three precise strikes to the control housing — nonlethal takedowns on the guards, then the equipment. The guards drop. The node's hum falters, then dies. His comm crackles: Ben's voice, waiting. Desh moves.",
-      "state_change": "One node down. Two remain. The timeline is now measurable in minutes. Desh is committed; there is no abort point.",
-      "pov_reaction": "The pressure shifts from tactical to temporal. Desh feels the clock as a physical thing — a weight in his chest, a tightness in his shoulders. The competence is still there, but it is now running against a deadline. Each second the other nodes stay live is a second the array stays operational."
+      "beat_description": "Desh's clipped report confirms nonlethal takedowns on hired guards and equipment disabled. He gives facts, not drama, and moves before Ben can answer.",
+      "state_change": "Desh's old GAG skill is visible as result and restraint: guards alive, equipment broken, no wasted motion.",
+      "pov_reaction": "Ben feels the quiet moral line in the report. Break equipment, not people. He cannot praise it; he can only keep holding."
     },
     {
-      "beat_description": "Second node. Guards. Equipment. The same sequence, faster. Desh is moving at the edge of his nonlethal margin — the strikes are precise, controlled, but they are also hard. No room for hesitation or mercy; the guards are armed and trained, and they will kill him if they get the chance. He does not kill them. He disables them. The distinction matters.",
-      "state_change": "Two nodes down. The array is weakening — Desh can feel it in the hum of the equipment, in the way the Force-sense around the nodes is beginning to stutter. One more.",
-      "pov_reaction": "Desh's focus narrows to a point. Everything else — the moral weight of the nonlethal choice, the danger, the stakes — falls away. There is only the next node, the next guard, the next strike. His body is running on training and muscle memory. His mind is three steps ahead."
+      "beat_description": "At the second node, Mira Dann's low Force-sensitive calibration touch flares against Ben's infrastructure sense. Desh breaks the control housing before the warning can travel cleanly through the array.",
+      "state_change": "The crew's threat diversifies. Mira is not generic muscle; she is a frightened, useful sensor in Veraine's system.",
+      "pov_reaction": "Ben registers the flare like a hand tapping the wrong side of glass. He cannot reach Mira, cannot argue with her fear, and cannot let her warning save the node."
     },
     {
-      "beat_description": "Third node. The guards here are faster, better trained — Veraine's crew has had time to reinforce. The fight is harder. Desh takes a hit — a blaster bolt grazes his shoulder, burning through fabric and skin. He does not slow. Three strikes. The guards fall. The equipment sparks and dies. The array hum cuts out entirely.",
-      "state_change": "The amplification infrastructure is offline. Veraine's ritual loses its force-multiplication. The seal's physics change. Ben's resonance work is now possible.",
-      "pov_reaction": "Desh's comm is open. He keys it, his voice steady despite the burn in his shoulder, despite the adrenaline spike. The competence has held. The mission is complete. What comes next is Ben's problem. Desh has done his part."
+      "beat_description": "The third node resists. Pira Kul has reinforced the control housing and is directing guards with professional calm. Ben hears blaster static and a cut-off grunt through the comm while the knot refuses to go dark.",
+      "state_change": "The final node becomes the real physical obstacle. Veraine's array is defended by competence, not faceless bodies.",
+      "pov_reaction": "Ben's concentration tears toward the sound and Sera catches the resonance edge before it slips. He cannot go to Desh. Trust becomes an action, not a feeling."
     },
     {
-      "beat_description": "Desh's comm crackles to Ben: 'Array's down. Whatever you're doing — do it now. Everything. Don't hold back.' The message is not a request. It is a statement of fact and a hard deadline. The array is gone. The amplification is stripped. The next phase begins now.",
-      "state_change": "The operational pressure transfers from Desh to Ben. The tactical prong of the plan is complete. The mystical prong must now execute without margin.",
-      "pov_reaction": "Desh is already moving — away from the third node, toward extraction, toward the next phase. The triumph is real, but it is also already behind him. The competence has delivered. Now he waits for Ben to do the same."
+      "beat_description": "The third node goes dark. Desh reports Pira alive and contained, then gives the handoff: 'Array's down. Whatever you're doing - do it now. Everything. Don't hold back.'",
+      "state_change": "The tactical prong of the plan is complete. Veraine's amplification drops below threshold. The mystical prong must now execute without margin.",
+      "pov_reaction": "Ben stops trying to verify Desh's success and lets the changed physics become part of the resonance. The trust he could not force becomes the condition of the next move."
     }
   ],
   "opening_mode": "in_medias_res",
   "anti_patterns": [
-    "no lethal kills unless the scene absolutely requires it — Desh's read is 'break equipment, not kill people,' and the nonlethal choice is the chapter's quiet moral",
-    "No lethal kills unless the scene absolutely requires it — Desh's read is 'break equipment, not kill people,' and the nonlethal choice is the chapter's quiet moral.",
-    "Do not open with a flashback to GAG history or training — the history is present as technique, not as memory paragraph.",
-    "Avoid slowing the action for exposition about how the amplification nodes work — understanding should emerge through Desh's tactical assessment and the equipment's response.",
-    "Do not include Ben Skywalker as a physical presence in the scene — he is a voice on the comm at the very end only. This is Desh's operational scene.",
-    "Do not resolve the larger conflict or the seal's fate — this is stage one of a two-pronged climax. The mystical prong (Ben's resonance work) follows immediately."
+    "Do not switch into Desh POV even though the scene pays off Desh's role.",
+    "Do not open with a flashback to GAG history or training; the history is present as technique and result.",
+    "No lethal kills unless absolutely required; Desh's read is break equipment, not people.",
+    "Do not slow the action for exposition about how the amplification nodes work; understanding should emerge through node response, comm facts, and Ben's infrastructure sense.",
+    "Do not make Ash-Tithe members crowd Veraine out of the climax; they are pressure, evidence, and facets of her leadership."
   ]
 }

@@ -5,13 +5,13 @@
   "scene_type": "action",
   "scene_role": "reveal",
   "pov_character": "Ben Skywalker",
-  "mission": "Ben wakes the three survivors. Sera orients first — disciplined and formal; Torin second — warm, commanding, steady; Kael last — quiet, watchful, saying nothing yet. Three people a thousand years out of their own time.",
+  "mission": "Ben wakes the three survivors. Sera orients first — disciplined and formal, reaching for command before comfort; Torin second — warm, commanding, steady, counting the dead before himself; Kael last — quiet, watchful, saying nothing yet because silence once kept him alive. Three people a thousand years out of their own time, not three exposition devices.",
   "why_now": "The containment is failing and the fortress is running out of vigil. The survivors are the only living source of context for what Gavran built and why.",
   "conflict": "The survivors are disoriented and wary in different ways. Sera demands identification and chain of command. Torin assesses Ben tactically with an ease that surprises him. Kael says nothing, and his silence is the loudest thing in the room.",
   "conflict_type": "interpersonal",
   "turning_point": "Sera recognises Ben as Jedi-trained but not of her era. 'What year is it?' Ben answers. The room holds its breath. All three register the number differently, and all three begin the private math of what a thousand years has cost them.",
   "opening_hook": "Ben's hand on the stasis release feels like a choice he can't take back. The first chamber's field dissolves, and a woman with the bearing of a soldier opens eyes that have been closed for a thousand years.",
-  "closing_hook": "Torin is the last to orient. He looks at the nine dark chambers, the empty one, and says quietly: 'Who got out?'",
+  "closing_hook": "Torin is the last to orient. He looks at the eight dark chambers, the empty one, and says quietly: 'Who got out?'",
   "emotional_trajectory": "Tense anticipation -> the shock of contact across centuries -> growing dread as scope becomes apparent",
   "stakes": {
     "personal": "Ben has just assumed responsibility for three people a millennium out of time",
@@ -26,7 +26,7 @@
     "Kael Drenn"
   ],
   "setting": "Fortress Level 3 — Stasis Ring, emergency lighting, the three active chambers",
-  "sensory_details": "Stasis fields collapsing with a sound like held breath released; Sera's Force presence — sharp and disciplined, a signature shaped by an older training; Torin's — warm and heavy, something settled deep that Ben does not yet have a name for; Kael's — clipped and guarded, trained in a register Ben has not encountered before",
+  "sensory_details": "Stasis fields collapsing with a sound like held breath released; Sera's hand cutting toward an absent sidearm or rank-tab before she knows what century she is in; Sera's Force presence — sharp and disciplined, a signature shaped by an older training and years of loyal dissent; Torin's first look going to the other chambers before he checks himself; Torin's presence — warm and heavy, something settled deep that Ben does not yet have a name for; Kael's shoulders finding wall and exits by barracks instinct; Kael's presence — clipped and guarded, trained by coercive Sith service rather than belief",
   "canon_elements_needed": [
     "Millennium of temporal displacement effects on Force-sensitives",
     "Jedi Lords era training versus modern Jedi training differences",
@@ -37,9 +37,10 @@
   "target_word_count": 1400,
   "action_beats": [
     "Ben pulls the stasis release lever — the first chamber's field dissolves with an audible hiss of released pressure",
-    "Sera Varik opens her eyes and immediately assumes a combat crouch before orientation hits",
-    "Torin Hal emerges from the second chamber, staggers, catches himself on the doorframe with one hand",
-    "Kael Drenn exits the third chamber in silence, back against the wall, scanning the room and cataloguing exits"
+    "Sera Varik opens her eyes and immediately assumes a combat crouch before orientation hits, then demands identity and chain of command because command language is the only stable ground she has",
+    "Torin Hal emerges from the second chamber, staggers, catches himself on the doorframe with one hand, then looks past Ben to count which chambers still hold bodies",
+    "Kael Drenn exits the third chamber in silence, back against the wall, scanning the room and cataloguing exits with the discipline of someone taught that speech creates targets",
+    "Ben gives the year. Sera absorbs it through rank and duty, Torin through names he will never report back to, and Kael through the blank fact that even the war which owned him is dead"
   ],
   "active_subplots": [
     "SP-A",
@@ -66,7 +67,13 @@
   "revelations": [],
   "pov_arc_phase": "lie_reinforced",
   "arc_phase_transition": "lie_reinforced",
-  "notes": "Ben's phase shifts here — the survivors' dependence gives his sense-of-burden a surface to land on. Sera, Torin, Kael all enter at their own lie_established. Survivor speech patterns: Sera speaks in complete sentences under stress — formal, precise, military. Torin's warmth has an archaic courtesy to it. Kael waits to be addressed; the silence itself is archaic. Diagnostic-voice trap — Ben should not, in this scene, read Torin's signature as 'something slipping toward dark' or narrate the anchor architecture. He registers each survivor's presence as a body does: tone, weight, clipped edge. Interpretation waits for the archive. Note the three-signature contrast is the chapter's load-bearing image; keep it unhurried and specific, one line apiece, and do not stack metaphors on it.",
+  "notes": "Ben's phase shifts here — the survivors' dependence gives his sense-of-burden a surface to land on. Sera, Torin, Kael all enter at their own lie_established. Survivor speech patterns: Sera speaks in complete sentences under stress — formal, precise, military. Torin's warmth has an archaic courtesy to it, and he uses it first to steady others rather than himself. Kael waits to be addressed; the silence itself is old military conditioning from Sith service, not mystique or contempt. Diagnostic-voice trap — Ben should not, in this scene, read Torin's signature as 'something slipping toward dark' or narrate the anchor architecture. He registers each survivor's presence as a body does: tone, weight, clipped edge. Interpretation waits for the archive. Note the three-signature contrast is the chapter's load-bearing image; keep it unhurried and specific, one line apiece, and do not stack metaphors on it.",
+  "survivor_backstory_signals": {
+    "Sera Varik": "Former Veranthos field lieutenant, lock-breaker, and logistical conscience. She was loyal enough to hold the line and dissenting enough to know which parts of Gavran's plan were wrong. Her first demand should reveal command reflex, not exposition.",
+    "Torin Hal": "Campaign commander who knew casualty names and volunteered for the old seal because duty and warmth made unilateral sacrifice feel like care. His first instinct is to count who else survived, then make the room less afraid.",
+    "Kael Drenn": "Sith-trained conscript from a Sith-held frontier world, taken into academy service by levy and made useful through obedience drills, survival kata, battlefield triage, and dark-side focus. He was not a Rule-of-Two apprentice, not a modern cultist, and not a true believer. His silence is barracks discipline and guilt management: short answers were safer; strong opinions made instructors notice.",
+    "Gavran": "Gavran's name should not land as simple villain or saint. To Sera he is commander and betrayer; to Torin a desperate commander whose duty logic still tempts him; to Kael another institution that found a use for him."
+  },
   "turning_point_detail": {
     "trigger": "Sera recognizes Ben as Jedi-trained but not of her era and asks 'What year is it?' Ben answers with the actual date.",
     "shift": "The room holds its breath. All three survivors register the number differently, each beginning the private arithmetic of what a thousand years has cost them. The temporal displacement becomes real and irreversible.",
@@ -84,12 +91,12 @@
       "pov_reaction": "Ben's anticipation crystallizes into forward momentum—his body moves before his mind fully catches up. The sound of the field collapsing registers as finality, not relief."
     },
     {
-      "beat_description": "Sera Varik opens her eyes and immediately assumes a combat crouch before orientation hits. Her Force presence arrives sharp and disciplined, a signature shaped by older training.",
+      "beat_description": "Sera Varik opens her eyes and immediately assumes a combat crouch before orientation hits. Her hand cuts toward an absent sidearm or rank-tab; command language returns before memory does. Her Force presence arrives sharp and disciplined, a signature shaped by older training and loyal dissent.",
       "state_change": "The first survivor is awake and combat-ready. Ben confronts the reality that these are not civilians—they are trained warriors emerging into a world they do not recognize.",
       "pov_reaction": "Ben's focus tightens on Sera's presence—the disciplined edge of it, the way her body moves before her mind catches up. He recognizes training in her, but not the era of it. The shock of contact across centuries lands as a physical sensation."
     },
     {
-      "beat_description": "Torin Hal emerges from the second chamber, staggers, catches himself on the doorframe with one hand. His Force presence arrives warm and heavy, something settled deep that Ben does not yet have a name for.",
+      "beat_description": "Torin Hal emerges from the second chamber, staggers, catches himself on the doorframe with one hand, then looks past Ben to count the other chambers. His Force presence arrives warm and heavy, something settled deep that Ben does not yet have a name for.",
       "state_change": "The second survivor wakes. Torin's presence contrasts sharply with Sera's—where she is sharp, he is grounded. Where she is ready for combat, he is still finding his balance.",
       "pov_reaction": "Ben registers Torin's presence as a weight in the room, different from Sera's edge. The contrast between them is immediate and unsettling. Ben's dread begins to sharpen—these are not just survivors, they are people with histories, with relationships, with their own agendas."
     },
@@ -99,9 +106,9 @@
       "pov_reaction": "Ben feels the weight of the answer land. The room's held breath becomes his own held breath. He registers the moment when each survivor understands, and he understands that he has just assumed responsibility for three people a millennium out of time."
     },
     {
-      "beat_description": "Kael Drenn exits the third chamber in silence, back against the wall, scanning the room and cataloguing exits. His Force presence arrives clipped and guarded, trained in a register Ben has not encountered before.",
+      "beat_description": "Kael Drenn exits the third chamber in silence, back against the wall, scanning the room and cataloguing exits. His Force presence arrives clipped and guarded, shaped by coercive Sith service rather than conviction.",
       "state_change": "The third survivor wakes, but does not speak. Kael's silence is a choice, not a symptom of disorientation. The room's dynamic shifts again—now there is a fourth presence, and it is the quietest.",
-      "pov_reaction": "Ben's dread deepens. Kael's silence is louder than Sera's demands or Torin's assessment. Ben registers the absence of speech as a form of communication—a warning, a withholding, a refusal to trust. The scope of what he has just woken begins to become apparent."
+      "pov_reaction": "Ben's dread deepens. Kael's silence is louder than Sera's demands or Torin's assessment. Ben registers the absence of speech as a form of communication—not theatrical menace, but trained survival: no answers until ordered, no opinions until safe. The scope of what he has just woken begins to become apparent."
     }
   ],
   "opening_mode": "in_medias_res",

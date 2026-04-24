@@ -5,7 +5,7 @@
   "scene_type": "sequel",
   "scene_role": "aftermath",
   "pov_character": "Ben Skywalker",
-  "mission": "Ben at Veraine's containment. She sits cross-legged in Sera's Force-lock field, already writing equations in the dust with one finger. Composed, academic, genuinely curious about the emergent pattern the group produced — her assessment delivered as observation, not concession. Ben leaves. She keeps writing.",
+  "mission": "Ben at Veraine's containment. She sits cross-legged in Sera's Force-lock field and a mundane secured cell, already writing equations in the dust with one finger. Composed, academic, genuinely curious about the emergent pattern the group produced — her assessment delivered as observation, not concession. The scene makes custody the moral answer: no execution, no release, no burying her. Ben leaves. She keeps writing.",
   "why_now": "The antagonist's fate has to resolve as the story's philosophical note before the character farewells begin. Veraine contained and unconverted is the story's honesty about people you cannot argue out of a framework.",
   "conflict": "Ben wants a concession he is not going to get. Veraine's dignity is that she does not give one. She will adapt the theory rather than abandon it, and she is polite to him while she does it.",
   "conflict_type": "interpersonal",
@@ -22,12 +22,13 @@
     "Ben Skywalker",
     "Darth Veraine"
   ],
-  "setting": "Veranthos — improvised containment area, guarded",
-  "sensory_details": "Veraine's containment — Force-locked, Sera's design, quiet; Veraine's composure unbroken, academic, unhurried; her voice precise, unruffled, genuinely curious about the emergence; dust motes in the containment light; her finger drawing equations that might or might not be important",
+  "setting": "Veranthos — improvised containment area, guarded by Sera's Force-lock and mundane security pending transfer",
+  "sensory_details": "Veraine's containment — Force-locked, Sera's design, quiet, backed by physical restraints and a guarded evidence chain rather than trust; Desh's sealed case visible outside the field with Pira Kul's captured tools, Mira Dann's debrief tags, Serran Voth's scorched archive cylinder, and Vess Oran's tagged transponder trail; Veraine's composure unbroken, academic, unhurried; her voice precise, unruffled, genuinely curious about the emergence; dust motes in the containment light; her finger drawing equations that might or might not be important",
   "canon_elements_needed": [],
   "target_word_count": 1200,
   "action_beats": [
-    "Veraine sits cross-legged in Sera's containment field, composed, writing equations in the dust with one finger",
+    "Ben passes Desh's sealed evidence case before entering the containment line: Pira captured alive, Mira under debrief guard, Serran dead in backlash, Vess fled but tagged",
+    "Veraine sits cross-legged in Sera's containment field and a mundane secured cell, composed, writing equations in the dust with one finger",
     "Ben stands outside the containment and listens to Veraine's assessment — precise, unruffled, genuinely curious",
     "Ben turns and walks away from the containment without looking back at the equations still being written"
   ],
@@ -44,7 +45,7 @@
   "hook_actions": [],
   "revelations": [],
   "pov_arc_phase": "new_truth_demonstrated",
-  "notes": "Veraine's arc lands as lie_unchanged — defeated but unbroken. The equations in the dust are the lingering image: she will go on thinking, and the scene does not tell us what she will produce. Anti-pattern: do not give Veraine a softening or concession. Her dignity is the refusal, and the story's honesty is that it holds her as an open question rather than a closed one.",
+  "notes": "Veraine's arc lands as lie_unchanged — defeated but unbroken. Custody is the strongest ending: execution would repeat the old arrogance, release/exile would undercut the stakes and make Ben look naive, and burying her would reproduce the institutional sin. The equations in the dust are the lingering image: she will go on thinking, and the scene does not tell us what she will produce. Anti-pattern: do not give Veraine a softening or concession. Her dignity is the refusal, and the story's honesty is that it holds her as an open question rather than a closed one. The Ash-Tithe disposition should be concrete but brief; their evidence matters because it prevents the finale from becoming mystical hearsay.",
   "turning_point_detail": {
     "trigger": "Ben listens to Veraine's precise, unruffled assessment of the emergent pattern the group produced — her curiosity genuine, her dignity intact, her framework unchanged.",
     "shift": "Ben realizes Veraine was not convinced by arguments or results, only interrupted by them. She will spend years rationalizing. The intellectual enemy remains intellectually unbroken.",
@@ -57,8 +58,8 @@
   },
   "key_beats": [
     {
-      "beat_description": "Veraine sits cross-legged in Sera's Force-locked containment field, composed and unhurried, writing equations in the dust with one finger.",
-      "state_change": "The abstract weight of Veraine's survival becomes concrete and visible — a contained body, a functioning mind, a prisoner who is not broken.",
+      "beat_description": "Ben passes Desh's sealed evidence case before entering the containment line: Pira captured alive, Mira under debrief guard, Serran dead in backlash, Vess fled but tagged. Veraine sits cross-legged inside Sera's Force-lock and a mundane secured cell, composed and unhurried, writing equations in the dust with one finger.",
+      "state_change": "The abstract weight of Veraine's survival becomes concrete and visible — a contained body, a functioning mind, a prisoner who is not broken, and a case the Jedi cannot reduce to mystical hearsay.",
       "pov_reaction": "Ben's instinct pushes toward action rather than acceptance; the sight of her composure and deliberate work triggers a pressure to do something, to intervene, to prevent whatever she is calculating. His breath catches slightly; his hand moves toward the containment field before he stops it."
     },
     {

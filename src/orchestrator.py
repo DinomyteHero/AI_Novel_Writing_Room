@@ -166,6 +166,11 @@ class Orchestrator:
         self.skip_gate_loop = skip_gate_loop
         lean_cfg = (self.runtime_flags.get("runtime") or {}).get("lean_prose_only") or {}
         self._lean_prose_only = bool(lean_cfg.get("enabled", False))
+        line_edit_cfg = lean_cfg.get("line_edit", {})
+        if isinstance(line_edit_cfg, dict):
+            self._lean_line_edit = bool(line_edit_cfg.get("enabled", False))
+        else:
+            self._lean_line_edit = bool(line_edit_cfg)
 
         # Initialize Phase 1 agents
         self.plot_architect = PlotArchitect(router)
@@ -717,9 +722,40 @@ class Orchestrator:
         prose = await self._run_prose_stylist(scene_card, generation_brief)
 
         if self._lean_prose_only:
-            print("  [Lean] Prose-only mode: skipping gates, checks, polish, and post-save agents")
+            line_edit_attempted = False
+            line_edit_applied = False
+            if self._lean_line_edit and self.line_writer and not self.raw_draft:
+                source_before_line_edit = prose
+                line_edit_attempted = True
+                prose = await self._run_line_writer(
+                    scene_card, generation_brief, prose
+                )
+                line_edit_applied = prose != source_before_line_edit
+            elif self._lean_line_edit and not self.line_writer:
+                self.ledger.emit_warn(
+                    "lean_line_edit_unavailable",
+                    chapter_number=chapter_num,
+                    scene_number=scene_num,
+                    payload={"reason": "agent_routing.line_writer missing"},
+                )
+
+            print("  [Lean] Skipping gates, checks, broad polish, and post-save agents")
             output_path = self._save_chapter(chapter_num, scene_num, prose)
             word_count = len(prose.split())
+            skipped_stages = [
+                "gate_critic",
+                "corrective_rerun",
+                "quality_metrics",
+                "commercial_rewrite",
+                "quality_polish",
+                "final_gate",
+                "canon_expert",
+                "save_blockers",
+                "micro_repair",
+                "post_save_agents",
+            ]
+            if not line_edit_attempted:
+                skipped_stages.insert(0, "line_writer")
             self.ledger.emit_info(
                 "lean_prose_only_saved",
                 chapter_number=chapter_num,
@@ -727,19 +763,10 @@ class Orchestrator:
                 payload={
                     "word_count": word_count,
                     "output_path": str(output_path),
-                    "skipped_stages": [
-                        "line_writer",
-                        "gate_critic",
-                        "corrective_rerun",
-                        "quality_metrics",
-                        "commercial_rewrite",
-                        "quality_polish",
-                        "final_gate",
-                        "canon_expert",
-                        "save_blockers",
-                        "micro_repair",
-                        "post_save_agents",
-                    ],
+                    "line_edit_enabled": bool(self._lean_line_edit),
+                    "line_edit_attempted": line_edit_attempted,
+                    "line_edit_applied": line_edit_applied,
+                    "skipped_stages": skipped_stages,
                 },
             )
             print(f"  Saved: {output_path}")
@@ -750,6 +777,8 @@ class Orchestrator:
                 "evaluation": self._lean_skipped_evaluation(),
                 "word_count": word_count,
                 "lean_prose_only": True,
+                "line_edit_attempted": line_edit_attempted,
+                "line_edit_applied": line_edit_applied,
             }
 
         # Relay v3 (Stage 1f): Canon expert no longer runs mid-stream — it

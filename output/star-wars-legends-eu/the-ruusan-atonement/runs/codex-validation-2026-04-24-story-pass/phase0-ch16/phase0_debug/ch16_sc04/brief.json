@@ -1,0 +1,68 @@
+{
+  "scene_objective": "Aftermath aboard ship. Do not reveal the sabotage yet. Let the group process the meeting, let Ben's catalogue of Veraine and the Ash-Tithe Compact fail to settle into certainty, and let Desh begin the backward sweeps that will pay off in Chapter 17.",
+  "opening_mode": "Back aboard the Steady Returns, the clearing dust still on their boots, nobody sits where they usually sit.",
+  "key_beats": [
+    {
+      "beat_description": "The group boards in silence; the normal shipboard rhythm does not resume",
+      "state_change": "",
+      "pov_reaction": ""
+    },
+    {
+      "beat_description": "Ben replays the meeting in fragments: Veraine's questions, Sera's answer, Kael's non-answer, and the Ash-Tithe Compact moving by function around the ship",
+      "state_change": "",
+      "pov_reaction": ""
+    },
+    {
+      "beat_description": "Sera says the meeting did not change Veraine; Torin gently counters that knowing an enemy's shape still matters, and the exchange lands more tired than argumentative",
+      "state_change": "",
+      "pov_reaction": ""
+    },
+    {
+      "beat_description": "Kael refuses to summarize what Veraine's question did to him, but his silence is no longer blank enough for Ben to misread as indifference",
+      "state_change": "",
+      "pov_reaction": ""
+    },
+    {
+      "beat_description": "Desh starts passive back-sweeps across the meeting window, flagging crew movement and approach-vector anomalies as suspicion rather than proof",
+      "state_change": "",
+      "pov_reaction": ""
+    },
+    {
+      "beat_description": "Ben watches the last passive track of Veraine's ship fade and realizes the meeting may have contained work they did not see",
+      "state_change": "",
+      "pov_reaction": ""
+    }
+  ],
+  "turning_point": {
+    "trigger": "Desh says he is running back-sweeps across the meeting window because the Ash-Tithe Compact moved like people with a job outside the conversation. Ben realizes the meeting may have been cover for some",
+    "shift": "Desh says he is running back-sweeps across the meeting window because the Ash-Tithe Compact moved like people with a job outside the conversation. Ben realizes the meeting may have been cover for some",
+    "cost": "(derived from scene card)"
+  },
+  "closing_beat": "Desh starts the back-sweeps. Ben watches Veraine's ship vanish from the last passive track and knows the meeting is not finished with them.",
+  "emotional_arc": {
+    "start": "",
+    "shift": "Post-meeting silence -> unsettled processing -> procedural suspicion without proof",
+    "end": ""
+  },
+  "required_hooks": [
+    {
+      "hook_id": "H16",
+      "action": "plant"
+    }
+  ],
+  "required_subplots": [
+    "SP-A",
+    "SP1",
+    "SP2",
+    "SP3",
+    "SP5"
+  ],
+  "anti_patterns": [
+    "Do not reveal the sabotage in Chapter 16 scene 4.",
+    "Do not drop the Force-floor or establish the countdown here.",
+    "Do not make Ben diagnose his own wrong call.",
+    "Do not assert Veraine's dual sincerity and ruthlessness in narration; plant the residue and let Chapter 17 prove it.",
+    "Do not repeat the arguments from scenes 2 and 3."
+  ],
+  "target_word_count": 800
+}

@@ -1,0 +1,20 @@
+{
+  "scene_card_path": "data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/scene_cards/chapter_01_scene_01.json",
+  "source_prose_path": "output/star-wars-legends-eu/the-ruusan-atonement/runs/bench-2026-04-24-lineedit-ch01s01-retry/deepseek-v4-pro-t070.md",
+  "generation_brief_path": "output/star-wars-legends-eu/the-ruusan-atonement/runs/bench-2026-04-24-lineedit-ch01s01-retry/generation_brief.json",
+  "results": [
+    {
+      "model_short": "gpt54_mini",
+      "model_full": "openai/gpt-5.4-mini",
+      "temperature": 0.35,
+      "duration_s": 8.7,
+      "word_count": 1165,
+      "char_count": 6559,
+      "changed": true,
+      "est_in_tokens": 6260,
+      "est_out_tokens": 1639,
+      "est_cost_usd": 0.0121,
+      "output_file": "output\\star-wars-legends-eu\\the-ruusan-atonement\\runs\\lineedit-existing-ch01s01-gptmini-t035-prompt2\\deepseek-v4-pro-t070__LINE_EDIT_gpt54_mini_t0.35.md"
+    }
+  ]
+}

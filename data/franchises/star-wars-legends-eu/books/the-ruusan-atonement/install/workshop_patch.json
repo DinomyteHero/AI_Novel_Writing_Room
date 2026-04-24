@@ -549,25 +549,25 @@
     },
     {
       "name": "Vess Oran",
-      "role": "Outer Rim salvager hired by Veraine after her escape. Ship captain, non-Force-sensitive. Accepts the well-paying job without examining Veraine's philosophy; treats her as an eccentric employer.",
+      "role": "Captain and underworld logistics broker of the Ash-Tithe Compact. Handles routes, aliases, fuel, false manifests, and quick exits for Veraine while growing increasingly afraid of the employer he cannot read.",
       "initial_location": "mobile — wherever Veraine's ship is",
       "initial_emotional_state": "professional, mercenary-pragmatic"
     },
     {
       "name": "Pira Kul",
-      "role": "Outer Rim spacer and technician on Veraine's crew. Handles the repurposing of anchor node infrastructure — practical labor, not ideology. One of the mercenary majority.",
+      "role": "Ex-Imperial-affiliated siege technician turned corporate salvage specialist; the Ash-Tithe Compact's practical engineer. Handles pressure cuts, field generators, node sabotage, and battlefield triage.",
       "initial_location": "mobile",
       "initial_emotional_state": "detached competence"
     },
     {
       "name": "Serran Voth",
-      "role": "Convert to Veraine's philosophy — one of the two true believers on her crew. Previously a fringe theologian on a Sith-tradition-influenced world; Veraine's anti-binary message resonated with his own heterodox ideas.",
+      "role": "Archive theologian and Sith-cult remnant attached to the Ash-Tithe Compact as buyer, authenticator, and ritual interpreter. Provides old-language citations, low ritual competence, and ideological devotion.",
       "initial_location": "mobile",
       "initial_emotional_state": "zealous, intellectually aligned with Veraine"
     },
     {
       "name": "Mira Dann",
-      "role": "Second true believer on Veraine's crew. Former student of a Sith-adjacent academy who survived the faction's collapse; came to Veraine for ideological continuity. Provides low-level Force sensitivity when the crew needs it.",
+      "role": "Failed Jedi-adjacent Force-sensitive and former fringe-academy student who survived a minor Force catastrophe. Provides low-level Force calibration and fear-based obedience; treats Veraine as the first teacher who named her fear instead of correcting it.",
       "initial_location": "mobile",
       "initial_emotional_state": "devoted but green, deferential to Veraine"
     }

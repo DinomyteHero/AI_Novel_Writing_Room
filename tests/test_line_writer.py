@@ -101,6 +101,26 @@ class TestLineWriterAgent:
         })
         assert result["prose"] == "Revised prose."
 
+    async def test_ben_pov_rewrites_lukes_order_planning_label(self):
+        router = MagicMock()
+        router.complete = AsyncMock(
+            return_value="The history Luke’s Order had inherited was incomplete."
+        )
+        lw = LineWriter(router)
+
+        result = await lw.run({
+            "source_prose": "source",
+            "scene_card": {"pov_character": "Ben Skywalker"},
+            "generation_brief": {},
+            "characters_present": ["Ben Skywalker"],
+            "pov_approach": "third-limited",
+            "franchise_profile_text": "",
+        })
+
+        assert result["prose"] == (
+            "The history his father's Order had inherited was incomplete."
+        )
+
     def test_format_context_includes_preservation_constraints(self):
         router = MagicMock()
         lw = LineWriter(router)

@@ -20,7 +20,7 @@ from src.agents.base_agent import BaseAgent
 
 
 class LineWriter(BaseAgent):
-    """Prose line editor — GPT 5.4 @ t=0.8, post-drafter pass.
+    """Prose line editor, post-drafter pass.
 
     Output is revised prose (plain text), not JSON. Returns ``{"prose": str}``
     to match the ProseStylist / QualityPolish contract used by the
@@ -34,7 +34,9 @@ class LineWriter(BaseAgent):
         """Run the line editor. Returns ``{"prose": <revised prose>}``."""
         messages = self._build_messages(context)
         raw = await self.router.complete(self.role, messages)
-        return {"prose": self._strip_wrapping(raw)}
+        prose = self._strip_wrapping(raw)
+        prose = self._apply_pov_term_cleanup(prose, context)
+        return {"prose": prose}
 
     def _format_context(self, context: dict) -> str:
         source_prose = context.get("source_prose", "")
@@ -71,6 +73,48 @@ class LineWriter(BaseAgent):
         parts.append(
             "## Source Prose (from drafter)\n"
             f"{source_prose}"
+        )
+        parts.append(
+            "## Post-Generation Line-Edit Agenda\n"
+            "This pass targets recurring DeepSeek prose issues seen in Ruusan "
+            "bench runs. Preserve structure, but remove signs that the scene "
+            "was expanded from a card.\n\n"
+            "- Replace repeated card phrases with fresh sentence-level prose. "
+            "Do not reuse scene-card wording verbatim unless it is a proper "
+            "noun, required fixed text, or canonical phrase.\n"
+            "- Reduce repeated Force-anomaly labels. Prefer consequence in "
+            "action, dialogue, sensors, timing, and physical behavior over "
+            "repeating words like 'wrongness', 'pressure', or 'chest'.\n"
+            "- Remove AI-literary hedges and narrator labels such as 'the "
+            "particular', 'the kind of', 'operational register', and 'braced "
+            "for what came next'. Replace them with direct observation.\n"
+            "- Make the page feel like Star Wars Legends EU commercial prose: "
+            "clear movement, concrete ship/Temple/world detail, and dialogue "
+            "doing real work. Do not turn the scene into literary summary.\n"
+            "- Keep Ben's early-book interiority reactive and tactile, not "
+            "diagnostic. Let him feel and decide before he explains.\n"
+            "- Sharpen character voices already implied by the source and "
+            "scene card. Add wit only when the source moment can naturally "
+            "support it; do not bolt on jokes.\n"
+            "- Mandatory cleanup: the returned prose must not contain these "
+            "exact filler strings: 'the particular', 'the kind of', 'sort of', "
+            "'not exactly', or 'braced for what came next'. Rewrite those "
+            "phrases instead of preserving them. Also rewrite any sentence "
+            "that reads like a mission-card label rather than POV prose.\n"
+            "- Ben Skywalker close-third cleanup: do not use 'Luke's Order' "
+            "or 'Luke’s Order' as narration unless a character is making a "
+            "deliberately formal institutional distinction. Prefer 'his "
+            "father's Order', 'his Order', 'the Jedi Order', or 'the Order "
+            "his father rebuilt' according to the sentence.\n"
+            "- Keep the central Force disturbance legible. Do not erase it; "
+            "reduce repeated labels by varying the sentence work around it. "
+            "Use concrete effects such as timing lag, failed blocks, altered "
+            "sensorium, or bodily compensation. One or two explicit uses of "
+            "'wrongness' are acceptable when the scene needs the term, but a "
+            "cluster of repeated uses is not.\n"
+            "- Return a visibly line-edited draft. If the source already works, "
+            "still improve cadence, remove repeated phrasing, and sharpen "
+            "transitions. Do not return the original text unchanged."
         )
         parts.append(
             "## Task\n"
@@ -113,3 +157,25 @@ class LineWriter(BaseAgent):
         if text.endswith("```"):
             text = text[:-3].rstrip()
         return text.strip()
+
+    @staticmethod
+    def _apply_pov_term_cleanup(text: str, context: dict) -> str:
+        """Clean narration-only terminology that leaks planning labels.
+
+        The generated scene may inherit "Luke's Order" from planning context.
+        In Ben Skywalker close third, that reads like an external franchise
+        label rather than Ben's interior relationship to the institution.
+        """
+        scene_card = context.get("scene_card", {}) or {}
+        if scene_card.get("pov_character") != "Ben Skywalker":
+            return text
+
+        replacements = {
+            "Luke's Order": "his father's Order",
+            "Luke’s Order": "his father's Order",
+            "Luke's order": "his father's order",
+            "Luke’s order": "his father's order",
+        }
+        for old, new in replacements.items():
+            text = text.replace(old, new)
+        return text
