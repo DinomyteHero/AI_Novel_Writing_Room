@@ -22,8 +22,15 @@
       "patterns": [
         "\\bpublic\\s+settlement\\b",
         "\\bpublic\\s+record\\b",
+        "\\bpublic\\s+version\\b",
+        "\\bofficial\\s+(?:record|settlement|version)\\b",
+        "\\bofficial\\b",
+        "\\bpublished\\b",
+        "\\bpublic\\s+reform\\b",
         "\\bRuusan\\s+settlement\\b",
         "\\blater\\s+settlement\\b",
+        "\\blater\\s+(?:records?|accounts?|versions?)\\b",
+        "\\bReformations\\b",
         "\\bRuusan\\s+Reformations\\b",
         "\\blater\\s+Reformations\\b",
         "\\bArmy\\s+of\\s+Light\\b",
@@ -123,6 +130,23 @@
         "\\bThis\\s+predates\\s+Ruusan\\b",
         "\\bRuusan\\s+had\\s+come\\s+after\\b",
         "\\bcame\\s+after\\s+the\\s+New\\s+Sith\\s+Wars\\b"
+      ]
+    },
+    {
+      "id": "public_reformations_must_not_decentralize_order",
+      "type": "global_forbidden",
+      "severity": "error",
+      "patterns": [
+        "\\bdecentraliz(?:ed|ing|ation)\\b"
+      ]
+    },
+    {
+      "id": "ruusan_records_must_not_precede_republic",
+      "type": "global_forbidden",
+      "severity": "error",
+      "patterns": [
+        "\\bbefore\\s+the\\s+Republic\\s+(?:existed|was\\s+founded)\\b",
+        "\\blonger\\s+than\\s+the\\s+Republic\\s+had\\s+existed\\b"
       ]
     },
     {

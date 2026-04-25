@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch05_sc04",
+  "description": "Executable prose contract for Chapter 5 Scene 4: Ben sends a partial report, withholds the full survivor/seal scope, leaves without saying help, and lifts with a weeks-old/twenty-three-day escapee head start.",
+  "speakers": [
+    "Ben",
+    "Desh",
+    "Sera",
+    "Torin",
+    "Kael"
+  ],
+  "checks": [
+    {
+      "id": "partial_report_must_surface",
+      "type": "required_patterns",
+      "severity": "error",
+      "patterns": [
+        "\\breport\\s+to\\s+Luke\\b|\\bpartial\\s+report\\b|\\btransmission\\s+confirmed\\b",
+        "\\bSurvey\\s+complete\\b|\\bContinuing\\s+investigation\\b|\\bWill\\s+update\\b"
+      ]
+    },
+    {
+      "id": "report_must_withhold_full_scope",
+      "type": "required_patterns",
+      "severity": "error",
+      "patterns": [
+        "\\bdid\\s+not\\s+mention\\s+the\\s+survivors\\b",
+        "\\bdid\\s+not\\s+mention\\s+the\\s+seal\\b",
+        "\\bdid\\s+not\\s+say\\s+\\*?help\\*?\\b|\\bword\\s+['\"]help['\"]"
+      ]
+    },
+    {
+      "id": "head_start_must_be_weeks_not_months",
+      "type": "global_forbidden",
+      "severity": "error",
+      "patterns": [
+        "\\btwo\\s+months\\b",
+        "\\bmonths?\\s+of\\s+(?:a\\s+)?head\\s+start\\b"
+      ]
+    },
+    {
+      "id": "head_start_timeline_must_surface",
+      "type": "required_patterns",
+      "severity": "error",
+      "patterns": [
+        "\\btwenty-three\\s+(?:standard\\s+)?days\\b|\\bweeks?\\s+(?:old|ahead|of\\s+head\\s+start)\\b"
+      ]
+    },
+    {
+      "id": "steady_returns_must_lift",
+      "type": "required_patterns",
+      "severity": "error",
+      "patterns": [
+        "\\bSteady\\s+Returns\\b",
+        "\\blift(?:s|ed)?\\b|\\bclimb(?:s|ed)?\\b|\\bclear(?:s|ed)?\\s+the\\s+atmosphere\\b"
+      ]
+    }
+  ]
+}

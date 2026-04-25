@@ -1,0 +1,16 @@
+# Keep repository text normalized to LF across Windows/macOS/Linux.
+* text=auto eol=lf
+
+# Binary artifacts should never be line-ending normalized.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.pdf binary
+*.docx binary
+*.pptx binary
+*.xlsx binary
+*.db binary
+*.sqlite binary

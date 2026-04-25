@@ -119,10 +119,11 @@ agent_routing:
   manuscript_reviewer:    { backend: cloud, model: kimi, params: { temperature: 0.3 } }
   # Relay Stage 1g â€” binary check for characters who speak/act while absent from characters_present.
   presence_checker:       { backend: cloud, model: grok41fast, params: { temperature: 0.1, max_tokens: 1000 } }
-  # Bounded post-check patch generator. Returns exact literal substitutions
-  # only; the orchestrator enforces repair-count + diff-budget caps and
-  # revalidates after patching before save.
-  micro_repair:           { backend: cloud, model: grok41fast, params: { temperature: 0.1, max_tokens: 1500 } }
+  # Bounded exact-span patch generator. Used for scene-contract misses before
+  # final copy and as the post-polish "velvet rope" scrub. DeepSeek V4 Pro
+  # gets the full scene contract and must avoid every forbidden synonym in the
+  # failed check, then deterministic code applies only literal substitutions.
+  micro_repair:           { backend: cloud, model: deepseekpro, params: { temperature: 0.1, max_tokens: 1800, reasoning: { effort: "none" } } }
   # Architecture upgrade Slice 4 â€” narrow post-save continuity event extraction
   # from saved prose. Grok 4.1 Fast at t=0.0 for deterministic structured output.
   # max_tokens=2048 is well more than enough for the 5-type narrow schema.
@@ -146,6 +147,8 @@ agent_routing:
   # for style consistency across the post-draft chain. Rubric 82.55 on
   # EQBench Creative Writing v3.
   quality_polish:         { backend: cloud, model: gpt54_mini, params: { temperature: 0.5, max_tokens: 8192 } }
+  # FINAL COPY - opt-in literary taste pass after scene contracts pass.
+  literary_polish:        { backend: cloud, model: gpt54, params: { temperature: 0.45, max_tokens: 12000 } }
 
   # EDITORIAL â€” plan-time qualitative review (Hat 1: Brooks/Weiland structural; Hat 2: genre-reader). One call per compile; advisory output.
   editorial_consultant:   { backend: cloud, model: claude, params: { temperature: 0.4, max_tokens: 16384 } }
@@ -295,10 +298,20 @@ runtime:
     min_quality_score: 0.72
     min_word_count_ratio: 0.75
     max_word_count_ratio: 1.35
-  # Exact-span post-check repair stage. Safe-off by default. Used for narrow
-  # issues that can be fixed with literal substitutions and then revalidated.
+  # Exact-span post-check repair stage. Safe-off by default in the live
+  # orchestrator, but enabled by the final-copy scripts as the post-polish
+  # velvet-rope scrub. Used only for narrow issues that can be fixed with
+  # literal substitutions and then revalidated.
   micro_repair:
     enabled: false
-    max_repairs: 2
-    max_total_changed_chars: 500
+    max_repairs: 5
+    max_total_changed_chars: 1000
     max_changed_ratio: 0.12
+  final_copy:
+    enabled: false
+    literary_polish_model: gpt54
+    literary_polish_temperature: 0.45
+    post_polish_contract_repair_model: deepseekpro
+    post_polish_contract_repair_temperature: 0.1
+    post_polish_contract_repair_max_repairs: 5
+    post_polish_contract_repair_max_total_changed_chars: 1000

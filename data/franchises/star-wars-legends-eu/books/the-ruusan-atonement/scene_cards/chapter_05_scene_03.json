@@ -10,8 +10,8 @@
   "conflict": "The chamber shows systematic, patient escape — centuries of work, methodical, intelligent. Ben needs a name and the archive will not give him one. Sera examines the erosion pattern and is visibly thrown by what she sees. Torin, who should be reading the residue most clearly, says something mildly wrong — a single beat of inflection Ben cannot quite place, which seeds H06 per D7 without telegraphing.",
   "conflict_type": "external",
   "turning_point": "Ben understands that whoever escaped has had time to move and has been moving. The question of who is deferred; the question of how far is immediate. The escapee is already out there. H06 plants through Torin — a warmth-adjacent line that sits one degree off from where it should.",
-  "opening_hook": "The monitoring logs for the empty chamber span centuries — a slow, patient record of something working its way out from inside. The readable portions end abruptly two months back. The rest is corrupted in a way Desh does not like",
-  "closing_hook": "An escapee without a name. Two months of silence on the logs. Torin's one inflection that Ben cannot quite place. Ben tells Desh to pull every monitoring packet and start reconstructing — answer first light",
+  "opening_hook": "The monitoring logs for the empty chamber span centuries — a slow, patient record of something working its way out from inside. The readable portions end abruptly twenty-three standard days back. The rest is corrupted in a way Desh does not like",
+  "closing_hook": "An escapee without a name. Twenty-three standard days of silence on the logs. Torin's one inflection that Ben cannot quite place. Ben tells Desh to pull every monitoring packet and start reconstructing — answer first light",
   "emotional_trajectory": "Investigative tension -> dawning unease at the scope of what has already happened -> forward pressure",
   "stakes": {
     "personal": "Ben is now responsible for stopping someone who has already been moving for weeks without the galaxy knowing",
@@ -30,16 +30,16 @@
   "canon_elements_needed": [
     "Force-user containment and imprisonment methods",
     "Brotherhood of Darkness era stasis infrastructure",
-    "Archive language/register guardrail: use archaic Basic, High Galactic legal script, or pre-Reformation administrative Basic; do not call Ruusan-era displays Old Galactic Standard or pre-Basic",
+    "Archive language/register guardrail: use archaic Basic, High Galactic legal script, or pre-Reformation administrative Basic; avoid non-canon ancient-language labels",
     "Stasis chamber escape mechanics and Force erosion techniques"
   ],
   "target_word_count": 1200,
   "action_beats": [
-    "Ben pulls up the empty chamber's monitoring logs on the flickering display — readable until two months ago, corrupted after",
+    "Ben pulls up the empty chamber's monitoring logs on the flickering display — readable until twenty-three standard days ago, corrupted after",
     "Desh catalogues signs of the escapee's post-escape activity — accessed terminals, moved equipment, supplies taken — without being able to put a name on the pattern",
     "Sera examines the erosion marks and her precision-register breaks for a half-second; she steadies, does not explain, because naming the craft would name a person the chapter is withholding",
     "Kael studies the same marks from farther back and says nothing, but the silence changes texture: not ignorance, recognition withheld",
-    "Torin stands at the doorway and makes a small warmth-adjacent observation that is one inflection off — H06 plants. Ben registers it the way one registers a wrong note in familiar music and does not yet have a place to put it",
+    "Torin stands at the doorway and makes a small warmth-adjacent observation that is one inflection off — H06 plants. It catches in Ben like a wrong note in familiar music, and he does not yet have a place to put it",
     "Ben overlays the escapee's activity timestamps on the fortress map — the pattern is methodical, the name is withheld, the Corridor is the direction"
   ],
   "active_subplots": [
@@ -75,7 +75,7 @@
   "supporting_anchor": "Bujold",
   "stover_permitted": false,
   "turning_point_detail": {
-    "trigger": "Ben understands that whoever escaped has had time to move and has been moving — the readable monitoring logs end two months ago, and the physical evidence of systematic activity (accessed terminals, moved equipment, supplies taken) proves the escapee did not simply vanish.",
+    "trigger": "Ben understands that whoever escaped has had time to move and has been moving — the readable monitoring logs end twenty-three standard days ago, and the physical evidence of systematic activity (accessed terminals, moved equipment, supplies taken) proves the escapee did not simply vanish.",
     "shift": "The question of identity is deferred; the question of how far is immediate. The escapee is already out there, already moving. The scene pivots from investigation to forward pressure. H06 plants through Torin's warmth-adjacent line that sits one degree off from where it should.",
     "cost": "Ben is now responsible for stopping someone who has already been moving for weeks without the galaxy knowing. Torin's faintly-off inflection registers as a warmth detail that does not quite sit; Ben files it without interpretation, seeding doubt he cannot yet name."
   },
@@ -86,7 +86,7 @@
   },
   "key_beats": [
     {
-      "beat_description": "Ben pulls up the empty chamber's monitoring logs on the flickering display — readable until two months ago, then corrupted.",
+      "beat_description": "Ben pulls up the empty chamber's monitoring logs on the flickering display — readable until twenty-three standard days ago, then corrupted.",
       "state_change": "Abstract threat becomes concrete: the logs provide a timeline. The readable portion ends abruptly; the corruption pattern suggests deliberate erasure or system failure, not accident.",
       "pov_reaction": "Ben's investigative tension sharpens into focus — the instinct to act, to move forward, to find the next piece. His shoulders register the weight of what the logs are not saying."
     },
@@ -98,10 +98,10 @@
     {
       "beat_description": "Sera examines the erosion marks inside the chamber — the damage pattern that shows centuries of work, methodical and patient. Her precision-register breaks for a half-second; she steadies herself and does not explain what she saw.",
       "state_change": "The technical evidence confirms the emotional pressure: whoever escaped did not break out in desperation. They worked their way free with patience that spans centuries. Sera's reaction — the momentary loss of composure — signals that the implications are larger than the immediate escape.",
-      "pov_reaction": "Ben registers Sera's break in composure without asking. The unease settles deeper: if Sera is shaken, the threat is not routine. His shoulders tighten; he does not press her. The silence between them carries weight."
+      "pov_reaction": "Sera's break in composure catches Ben without his needing to ask. The unease settles deeper: if Sera is shaken, the threat is not routine. His shoulders tighten; he does not press her. The silence between them carries weight."
     },
     {
-      "beat_description": "Torin stands at the doorway, observing the chamber. He makes a small observation — something warmth-adjacent, a detail that sits one inflection off from where it should. Ben registers it the way one registers a wrong note in familiar music and files it without interpretation.",
+      "beat_description": "Torin stands at the doorway, observing the chamber. He makes a small observation — something warmth-adjacent, a detail that sits one inflection off from where it should. It catches in Ben like a wrong note in familiar music, and he files it without interpretation.",
       "state_change": "H06 plants. The scene pivots: the question of identity defers; the question of how far becomes immediate. The escapee is already out there. Torin's off-note does not ring as a warning; it passes, but it does not settle.",
       "pov_reaction": "Ben's attention catches on Torin's inflection — not alarm, but a small dissonance that his mind cannot quite place. He does not interpret it; he files it. The unease has a new shape now, one he cannot yet name. His focus remains on the forward pressure, but Torin's warmth-adjacent line sits in the corner of his awareness, waiting."
     },
@@ -116,7 +116,7 @@
     "Keep the absence sharper than the explanation — do not name what the evidence means; let it accumulate.",
     "Do not ring Torin's off note like a warning bell — it should register and pass without interpretation.",
     "Avoid diagnostic voice when describing the Force-residue the escapee left behind; keep it sensory and experiential.",
-    "Do not describe the monitoring logs or chamber text as Old Galactic Standard or as predating Basic; use archaic Basic, High Galactic legal script, or pre-Reformation administrative Basic.",
+    "Use archaic Basic, High Galactic legal script, or pre-Reformation administrative Basic for monitoring logs or chamber text.",
     "Do not arrive at clinical articulation of what the scope of the escape means; let Ben's shoulders and breath register it first."
   ]
 }

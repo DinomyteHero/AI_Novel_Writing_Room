@@ -20,14 +20,14 @@
       "role": "reveal",
       "dialogue_expectation": "balanced",
       "target_word_count": 1200,
-      "purpose": "Sera, Torin, and Kael wake. Their recognition of the pre-Ruusan Veranthos protocol lets Ben and Desh connect the hidden record to the later Ruusan Reformations, and the scene must let each survivor arrive as a distinct person, not a history lesson."
+      "purpose": "Sera, Torin, and Kael wake. Their recognition of the pre-Ruusan Veranthos protocol lets Ben and Desh connect the hidden record to the public reforms that followed Ruusan, and the scene must let each survivor arrive as a distinct person, not a history lesson."
     },
     {
       "scene_number": 3,
       "role": "reveal",
       "dialogue_expectation": "balanced",
       "target_word_count": 1200,
-      "purpose": "The group confirms that someone escaped weeks earlier and is already moving. Treat the empty chamber as a live threat, not a solved reveal.",
+      "purpose": "The group confirms that someone escaped twenty-three standard days earlier and is already moving. Treat the empty chamber as a live threat, not a solved reveal.",
       "notes_for_scene": "Do not identify the escaped occupant yet. End the scene with the group knowing someone broke out from inside and got a head start, nothing more. The name belongs to the next chapter so this one closes on absence, not explanation."
     },
     {
@@ -77,7 +77,7 @@
     }
   ],
   "pacing_curve": "rising",
-  "exit_vector": "The Steady Returns lifts from Gavran's fortress with six aboard. Ben at the viewport. The wrongness has a destination. The antagonist is out there, unnamed — whoever broke out from inside has a weeks-old head start. Ch 6 s1 will give the room her name.",
+  "exit_vector": "The Steady Returns lifts from Gavran's fortress with five aboard. Ben at the viewport. The wrongness has a destination. The antagonist is out there, unnamed — whoever broke out from inside has a twenty-three-standard-day head start. Ch 6 s1 will give the room her name.",
   "chapter_word_target": 4800,
-  "notes": "Keep the chapter focused on three human shocks: the stasis ring, the survivors waking, and Ben's realization that the pre-Ruusan Veranthos protocol was later buried beneath legitimate public reform. Sera, Torin, and Kael must sound distinct on first contact. They know Veranthos and Gavran's protocol; they do not know the post-Ruusan Reformations firsthand. Do not dump the full Ruusan history here; hold back the technique, wound mechanics, and Veraine's name. The empty chamber should close the chapter as a live absence, not a solved reveal."
+  "notes": "Keep the chapter focused on three human shocks: the stasis ring, the survivors waking, and Ben's realization that the pre-Ruusan Veranthos protocol was buried beneath legitimate public reform. Sera, Torin, and Kael must sound distinct on first contact. They know Veranthos and Gavran's protocol; they do not know the post-Ruusan Reformations firsthand. Do not dump the full Ruusan history here; hold back the technique, wound mechanics, and Veraine's name. The empty chamber should close the chapter as a live absence, not a solved reveal."
 }

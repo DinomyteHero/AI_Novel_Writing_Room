@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch04_sc03",
+  "description": "Executable prose contract for Chapter 4 Scene 3: the stasis ring must inventory twelve chambers as eight dark, three active, and one broken; the breach is weeks old/twenty-three days, not two months.",
+  "speakers": [
+    "Ben",
+    "Desh",
+    "Sera",
+    "Torin",
+    "Kael"
+  ],
+  "checks": [
+    {
+      "id": "stasis_ring_total_must_be_twelve",
+      "type": "required_patterns",
+      "severity": "error",
+      "patterns": [
+        "\\btwelve\\s+(?:alcoves|chambers)\\b"
+      ]
+    },
+    {
+      "id": "stasis_ring_inventory_must_be_8_3_1",
+      "type": "required_patterns",
+      "severity": "error",
+      "patterns": [
+        "\\beight\\s+dark\\s+chambers?\\b|\\beight\\s+(?:of\\s+them\\s+)?(?:were\\s+)?dark\\b",
+        "\\bthree\\s+(?:chambers\\s+)?(?:were\\s+)?(?:still\\s+)?(?:lit|active|living)\\b",
+        "\\bone\\s+(?:chamber\\s+)?(?:was\\s+)?(?:empty|broken)\\b|\\bempty\\s+chamber\\b|\\btwelfth\\s+chamber\\b"
+      ]
+    },
+    {
+      "id": "stasis_ring_inventory_must_not_be_9_3_1",
+      "type": "global_forbidden",
+      "severity": "error",
+      "patterns": [
+        "\\bnine\\s+dark\\s+chambers?\\b",
+        "\\bnine\\s+(?:of\\s+them\\s+)?(?:were\\s+)?dark\\b"
+      ]
+    },
+    {
+      "id": "stasis_ring_must_not_add_thirteenth_chamber",
+      "type": "global_forbidden",
+      "severity": "error",
+      "patterns": [
+        "\\bthirteen\\s+(?:stasis\\s+)?chambers?\\b",
+        "\\bthirteen\\s+alcoves?\\b"
+      ]
+    },
+    {
+      "id": "breach_timeline_must_be_weeks_not_months",
+      "type": "global_forbidden",
+      "severity": "error",
+      "patterns": [
+        "\\btwo\\s+months\\b",
+        "\\bmonths?\\s+of\\s+(?:a\\s+)?head\\s+start\\b"
+      ]
+    },
+    {
+      "id": "breach_timeline_must_be_present",
+      "type": "required_patterns",
+      "severity": "error",
+      "patterns": [
+        "\\btwenty-three\\s+(?:standard\\s+)?days\\b|\\bweeks?\\s+old\\b|\\bweeks?\\s+ago\\b"
+      ]
+    },
+    {
+      "id": "ruusan_records_must_not_precede_republic",
+      "type": "global_forbidden",
+      "severity": "error",
+      "patterns": [
+        "\\bbefore\\s+the\\s+Republic\\s+(?:existed|was\\s+founded)\\b",
+        "\\blonger\\s+than\\s+the\\s+Republic\\s+had\\s+existed\\b"
+      ]
+    }
+  ]
+}

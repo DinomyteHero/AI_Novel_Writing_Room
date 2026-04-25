@@ -35,12 +35,20 @@ from dotenv import load_dotenv  # noqa: E402
 load_dotenv()  # searches CWD then walks up; finds .env in main repo from worktree
 
 from src.agents.line_writer import LineWriter  # noqa: E402
+from src.agents.literary_polish import LiteraryPolish  # noqa: E402
 from src.agents.micro_repair import MicroRepair  # noqa: E402
 from src.agents.plot_architect import PlotArchitect  # noqa: E402
 from src.agents.prose_stylist import ProseStylist  # noqa: E402
 from src.agents.quality_polish import QualityPolish  # noqa: E402
 from src.memory.context_assembler import ContextAssembler  # noqa: E402
 from src.model_router import ModelRouter  # noqa: E402
+from src.pipeline.final_copy import (  # noqa: E402
+    build_continuity_lockfile,
+    build_motif_ledger,
+    run_copydesk_checks,
+    score_read_aloud_voltage,
+    validate_final_copy,
+)
 from src.project_paths import ProjectPaths  # noqa: E402
 from src.quality.literal_repair import apply_literal_repairs  # noqa: E402
 from src.quality.scene_contract_validator import (  # noqa: E402
@@ -288,8 +296,32 @@ def contract_validation_summary_entry(validation: dict, output_file: Path, paths
         "passed": validation["passed"],
         "failure_count": validation["failure_count"],
         "hard_failure_count": validation["hard_failure_count"],
-        "output_file": str(output_file.relative_to(paths.base)),
+        "output_file": artifact_ref(output_file, paths),
     }
+
+
+def artifact_ref(path: Path, paths) -> str:
+    """Return a stable artifact reference for bench summaries."""
+
+    path = Path(path)
+    base = Path(getattr(paths, "base", "."))
+    try:
+        return str(path.relative_to(base))
+    except ValueError:
+        pass
+    try:
+        return str(path.resolve().relative_to(base.resolve()))
+    except ValueError:
+        return str(path)
+
+
+def artifact_path(ref: str | Path, paths) -> Path:
+    """Resolve a bench-summary artifact reference back to a path."""
+
+    path = Path(ref)
+    if path.is_absolute():
+        return path
+    return Path(getattr(paths, "base", ".")) / path
 
 
 async def run_contract_repair(
@@ -323,6 +355,7 @@ async def run_contract_repair(
     repair_result = await micro_repair.run({
         "prose": prose,
         "scene_card": scene_card,
+        "scene_contract": scene_contract,
         "repair_requests": repair_requests,
     })
     repair_json_path = bench_dir / f"{output_stem}__CONTRACT_REPAIR_{repair_model}.json"
@@ -359,8 +392,8 @@ async def run_contract_repair(
 
     return {
         "model_short": repair_model,
-        "repair_output_file": str(repair_json_path.relative_to(paths.base)),
-        "output_file": str(repaired_path.relative_to(paths.base)),
+        "repair_output_file": artifact_ref(repair_json_path, paths),
+        "output_file": artifact_ref(repaired_path, paths),
         "application": {
             "applied_count": len(application["applied"]),
             "skipped_count": len(application["skipped"]),
@@ -375,6 +408,245 @@ async def run_contract_repair(
             paths,
         ),
     }
+
+
+async def run_final_copy_pass(
+    *,
+    literary_polish: LiteraryPolish | None,
+    final_copy_model: str | None,
+    micro_repair: MicroRepair | None,
+    contract_repair_model: str | None,
+    source_prose: str,
+    source_stem: str,
+    source_label: str,
+    scene_card: dict,
+    generation_brief: dict,
+    scene_contract: dict | None,
+    scene_contract_validation: dict | None,
+    bench_dir: Path,
+    paths,
+    franchise_profile_text: str,
+    contract_repair_max_repairs: int,
+    contract_repair_max_total_changed_chars: int,
+    contract_repair_max_changed_ratio: float,
+) -> dict | None:
+    """Run final-copy diagnostics, optional literary polish, and revalidation."""
+
+    if literary_polish is None or final_copy_model is None:
+        return None
+
+    print(f"  [final_copy] building lockfile for {source_label} ...")
+    lockfile = build_continuity_lockfile(
+        scene_card=scene_card,
+        generation_brief=generation_brief,
+        scene_contract=scene_contract,
+        contract_validation=scene_contract_validation,
+        source_label=source_label,
+    )
+    motif_ledger = build_motif_ledger(
+        source_prose,
+        character_names=scene_card.get("characters_present", []),
+    )
+    copydesk_report = run_copydesk_checks(
+        source_prose,
+        target_word_count=scene_card.get("target_word_count"),
+        scene_card=scene_card,
+    )
+    voltage_report = score_read_aloud_voltage(
+        source_prose,
+        scene_card=scene_card,
+    )
+
+    lockfile_path = bench_dir / f"{source_stem}__CONTINUITY_LOCKFILE.json"
+    motif_path = bench_dir / f"{source_stem}__MOTIF_LEDGER.json"
+    copydesk_path = bench_dir / f"{source_stem}__COPYDESK.json"
+    voltage_path = bench_dir / f"{source_stem}__READ_ALOUD_VOLTAGE.json"
+    lockfile_path.write_text(
+        json.dumps(lockfile, indent=2, ensure_ascii=False),
+        encoding="utf-8",
+    )
+    motif_path.write_text(
+        json.dumps(motif_ledger, indent=2, ensure_ascii=False),
+        encoding="utf-8",
+    )
+    copydesk_path.write_text(
+        json.dumps(copydesk_report, indent=2, ensure_ascii=False),
+        encoding="utf-8",
+    )
+    voltage_path.write_text(
+        json.dumps(voltage_report, indent=2, ensure_ascii=False),
+        encoding="utf-8",
+    )
+
+    final_copy_full = MODEL_ALIASES.get(final_copy_model, final_copy_model)
+    print(f"  [literary_polish] {final_copy_model} ({final_copy_full}) ...")
+    start = time.time()
+    polish_result = await literary_polish.run({
+        "source_prose": source_prose,
+        "scene_card": scene_card,
+        "generation_brief": generation_brief,
+        "continuity_lockfile": lockfile,
+        "motif_ledger": motif_ledger,
+        "copydesk_report": copydesk_report,
+        "voltage_report": voltage_report,
+        "scene_contract": scene_contract,
+        "scene_contract_validation": scene_contract_validation,
+        "franchise_profile_text": franchise_profile_text,
+    })
+    final_prose = polish_result["prose"]
+    duration = time.time() - start
+    final_wc = len(final_prose.split())
+    final_cc = len(final_prose)
+    in_tokens = count_tokens_rough(
+        source_prose
+        + json.dumps(lockfile)
+        + json.dumps(motif_ledger)
+        + json.dumps(copydesk_report)
+        + json.dumps(voltage_report)
+    )
+    out_tokens = count_tokens_rough(final_prose)
+    cost = estimate_cost(final_copy_full, in_tokens, out_tokens)
+
+    final_path = bench_dir / f"{source_stem}__FINAL_COPY_{final_copy_model}.md"
+    final_path.write_text(final_prose, encoding="utf-8")
+
+    validation = validate_final_copy(
+        final_prose,
+        scene_contract=scene_contract,
+        source_word_count=len(source_prose.split()),
+        scene_card=scene_card,
+    )
+    validation_path = (
+        bench_dir / f"{source_stem}__FINAL_COPY_{final_copy_model}__VALIDATION.json"
+    )
+    validation_path.write_text(
+        json.dumps(validation, indent=2, ensure_ascii=False),
+        encoding="utf-8",
+    )
+
+    contract_validation = validation.get("scene_contract_validation")
+    if contract_validation is not None:
+        print(
+            "    [contract] "
+            f"{summarize_contract_validation(contract_validation)}"
+        )
+
+    post_repair_entry = None
+    if (
+        scene_contract is not None
+        and contract_validation is not None
+        and not contract_validation.get("passed")
+    ):
+        post_repair_entry = await run_contract_repair(
+            micro_repair=micro_repair,
+            repair_model=contract_repair_model,
+            prose=final_prose,
+            validation=contract_validation,
+            scene_contract=scene_contract,
+            scene_card=scene_card,
+            bench_dir=bench_dir,
+            output_stem=f"{source_stem}__FINAL_COPY_{final_copy_model}",
+            paths=paths,
+            max_repairs=contract_repair_max_repairs,
+            max_total_changed_chars=contract_repair_max_total_changed_chars,
+            max_changed_ratio=contract_repair_max_changed_ratio,
+        )
+        if post_repair_entry is not None:
+            repaired_path = artifact_path(post_repair_entry["output_file"], paths)
+            repaired_prose = repaired_path.read_text(encoding="utf-8")
+            repaired_validation = validate_final_copy(
+                repaired_prose,
+                scene_contract=scene_contract,
+                source_word_count=len(source_prose.split()),
+                scene_card=scene_card,
+            )
+            repaired_validation_path = (
+                bench_dir
+                / f"{source_stem}__FINAL_COPY_{final_copy_model}"
+                f"__CONTRACT_REPAIRED_{contract_repair_model}__VALIDATION.json"
+            )
+            repaired_validation_path.write_text(
+                json.dumps(repaired_validation, indent=2, ensure_ascii=False),
+                encoding="utf-8",
+            )
+            post_repair_entry["validation"] = {
+                "passed": repaired_validation["passed"],
+                "output_file": artifact_ref(repaired_validation_path, paths),
+                "copydesk_passed": repaired_validation["copydesk"]["passed"],
+                "voltage_total": repaired_validation[
+                    "read_aloud_voltage"
+                ]["total_score"],
+                "scene_contract_validation": (
+                    None
+                    if repaired_validation.get("scene_contract_validation") is None
+                    else {
+                        "passed": repaired_validation[
+                            "scene_contract_validation"
+                        ]["passed"],
+                        "failure_count": repaired_validation[
+                            "scene_contract_validation"
+                        ]["failure_count"],
+                        "hard_failure_count": repaired_validation[
+                            "scene_contract_validation"
+                        ]["hard_failure_count"],
+                    }
+                ),
+            }
+            if repaired_validation["passed"]:
+                final_prose = repaired_prose
+                final_wc = len(final_prose.split())
+                final_cc = len(final_prose)
+                final_path = repaired_path
+                validation = repaired_validation
+                validation_path = repaired_validation_path
+                contract_validation = validation.get("scene_contract_validation")
+
+    print(
+        f"    final copy in {duration:.1f}s - {final_wc}w / {final_cc}c "
+        f"(~{in_tokens}in + {out_tokens}out = ~${cost:.4f})"
+    )
+
+    raw_output_file = bench_dir / f"{source_stem}__FINAL_COPY_{final_copy_model}.md"
+    raw_validation_file = (
+        bench_dir / f"{source_stem}__FINAL_COPY_{final_copy_model}__VALIDATION.json"
+    )
+    entry = {
+        "model_short": final_copy_model,
+        "model_full": final_copy_full,
+        "duration_s": round(duration, 1),
+        "word_count": final_wc,
+        "char_count": final_cc,
+        "est_in_tokens": in_tokens,
+        "est_out_tokens": out_tokens,
+        "est_cost_usd": round(cost, 4),
+        "source_label": source_label,
+        "output_file": artifact_ref(final_path, paths),
+        "continuity_lockfile": artifact_ref(lockfile_path, paths),
+        "motif_ledger": artifact_ref(motif_path, paths),
+        "copydesk_report": artifact_ref(copydesk_path, paths),
+        "read_aloud_voltage": artifact_ref(voltage_path, paths),
+        "validation": {
+            "passed": validation["passed"],
+            "output_file": artifact_ref(validation_path, paths),
+            "copydesk_passed": validation["copydesk"]["passed"],
+            "voltage_total": validation["read_aloud_voltage"]["total_score"],
+            "scene_contract_validation": (
+                None
+                if contract_validation is None
+                else {
+                    "passed": contract_validation["passed"],
+                    "failure_count": contract_validation["failure_count"],
+                    "hard_failure_count": contract_validation["hard_failure_count"],
+                }
+            ),
+        },
+    }
+    if post_repair_entry is not None:
+        entry["post_polish_contract_repair"] = post_repair_entry
+        if post_repair_entry.get("validation", {}).get("passed"):
+            entry["raw_output_file"] = artifact_ref(raw_output_file, paths)
+            entry["raw_validation"] = artifact_ref(raw_validation_file, paths)
+    return entry
 
 
 async def run_bench(
@@ -393,9 +665,11 @@ async def run_bench(
     fail_on_contract: bool = False,
     contract_repair_model: str | None = None,
     contract_repair_temperature: float = 0.1,
-    contract_repair_max_repairs: int = 2,
-    contract_repair_max_total_changed_chars: int = 500,
+    contract_repair_max_repairs: int = 5,
+    contract_repair_max_total_changed_chars: int = 1000,
     contract_repair_max_changed_ratio: float = 0.12,
+    final_copy_model: str | None = None,
+    final_copy_temperature: float = 0.45,
 ) -> None:
     # Bootstrap
     router = ModelRouter(config_path)
@@ -449,6 +723,7 @@ async def run_bench(
     line_writer = LineWriter(router) if line_edit_models else None
     quality_polish = QualityPolish(router) if polish_model else None
     micro_repair = MicroRepair(router) if contract_repair_model else None
+    literary_polish = LiteraryPolish(router) if final_copy_model else None
 
     if plot_architect_model:
         apply_model_override(router, "plot_architect", plot_architect_model, 0.4)
@@ -471,6 +746,19 @@ async def run_bench(
             print("[contract_repair] ignored because no scene contract is loaded")
             micro_repair = None
             contract_repair_model = None
+    if final_copy_model:
+        apply_model_override(
+            router,
+            "literary_polish",
+            final_copy_model,
+            final_copy_temperature,
+            12000,
+        )
+        print(
+            f"[override] literary_polish -> {final_copy_model} "
+            f"({MODEL_ALIASES.get(final_copy_model, final_copy_model)}) "
+            f"@ t={final_copy_temperature:.2f}"
+        )
 
     # --- Step 1: plot_architect (once) — or reuse an existing brief ---
     if reuse_brief_from:
@@ -601,11 +889,17 @@ async def run_bench(
             "est_in_tokens": in_tokens,
             "est_out_tokens": out_tokens,
             "est_cost_usd": round(cost, 4),
-            "output_file": str(out_path.relative_to(paths.base)),
+            "output_file": artifact_ref(out_path, paths),
         }
+
+        downstream_prose = prose
+        downstream_stem = cfg["label"]
+        downstream_label = cfg["label"]
+        downstream_contract_validation = None
 
         if scene_contract is not None:
             validation = validate_prose_contract(prose, scene_contract)
+            downstream_contract_validation = validation
             validation_path = bench_dir / f"{cfg['label']}__CONTRACT.json"
             validation_path.write_text(
                 json.dumps(validation, indent=2, ensure_ascii=False),
@@ -643,12 +937,22 @@ async def run_bench(
                 )
                 if repair_entry is not None:
                     result_entry["contract_repair"] = repair_entry
-                    if not repair_entry["scene_contract_validation"]["passed"]:
+                    repair_validation = repair_entry["scene_contract_validation"]
+                    if repair_validation["passed"]:
+                        downstream_prose = artifact_path(
+                            repair_entry["output_file"],
+                            paths,
+                        ).read_text(encoding="utf-8")
+                        downstream_stem = artifact_path(
+                            repair_entry["output_file"],
+                            paths,
+                        ).stem
+                        downstream_label = f"{cfg['label']} contract repair"
+                        downstream_contract_validation = repair_validation
+                    else:
                         any_contract_fail = True
                 else:
                     any_contract_fail = True
-
-        downstream_prose = prose
 
         # --- Optional post-generation line edit ---
         if line_writer is not None and line_edit_models:
@@ -669,7 +973,7 @@ async def run_bench(
                 line_edit_start = time.time()
                 try:
                     line_edit_result = await line_writer.run({
-                        "source_prose": prose,
+                        "source_prose": downstream_prose,
                         "scene_card": scene_card,
                         "generation_brief": brief,
                         "characters_present": scene_card.get(
@@ -690,7 +994,7 @@ async def run_bench(
                 line_edit_wc = len(line_edited_prose.split())
                 line_edit_cc = len(line_edited_prose)
                 le_in = count_tokens_rough(
-                    prose + json.dumps(scene_card) + json.dumps(brief)
+                    downstream_prose + json.dumps(scene_card) + json.dumps(brief)
                 )
                 le_out = count_tokens_rough(line_edited_prose)
                 le_cost = estimate_cost(line_edit_full, le_in, le_out)
@@ -714,13 +1018,14 @@ async def run_bench(
                     "est_in_tokens": le_in,
                     "est_out_tokens": le_out,
                     "est_cost_usd": round(le_cost, 4),
-                    "output_file": str(line_edit_path.relative_to(paths.base)),
+                    "output_file": artifact_ref(line_edit_path, paths),
                 }
                 if scene_contract is not None:
                     validation = validate_prose_contract(
                         line_edited_prose,
                         scene_contract,
                     )
+                    downstream_contract_validation = validation
                     validation_path = (
                         bench_dir
                         / f"{cfg['label']}__LINE_EDIT_{edit_model}__CONTRACT.json"
@@ -759,13 +1064,36 @@ async def run_bench(
                         )
                         if repair_entry is not None:
                             line_edit_entry["contract_repair"] = repair_entry
-                            if not repair_entry["scene_contract_validation"]["passed"]:
+                            repair_validation = repair_entry[
+                                "scene_contract_validation"
+                            ]
+                            if repair_validation["passed"]:
+                                line_edited_prose = artifact_path(
+                                    repair_entry["output_file"],
+                                    paths,
+                                ).read_text(encoding="utf-8")
+                                downstream_contract_validation = repair_validation
+                            else:
                                 any_contract_fail = True
                         else:
                             any_contract_fail = True
                 result_entry["line_edits"].append(line_edit_entry)
                 result_entry["line_edit"] = line_edit_entry
                 downstream_prose = line_edited_prose
+                downstream_stem = (
+                    artifact_path(
+                        line_edit_entry.get("contract_repair", {}).get(
+                            "output_file",
+                            line_edit_entry["output_file"],
+                        ),
+                        paths,
+                    ).stem
+                    if line_edit_entry.get("contract_repair", {}).get(
+                        "scene_contract_validation", {}
+                    ).get("passed")
+                    else Path(line_edit_entry["output_file"]).stem
+                )
+                downstream_label = f"{cfg['label']} line edit {edit_model}"
 
         # --- Optional polish step ---
         if quality_polish is not None and polish_model:
@@ -809,10 +1137,11 @@ async def run_bench(
                     "est_in_tokens": p_in,
                     "est_out_tokens": p_out,
                     "est_cost_usd": round(p_cost, 4),
-                    "output_file": str(polished_path.relative_to(paths.base)),
+                    "output_file": artifact_ref(polished_path, paths),
                 }
                 if scene_contract is not None:
                     validation = validate_prose_contract(polished_prose, scene_contract)
+                    downstream_contract_validation = validation
                     validation_path = bench_dir / f"{cfg['label']}__POLISHED__CONTRACT.json"
                     validation_path.write_text(
                         json.dumps(validation, indent=2, ensure_ascii=False),
@@ -848,10 +1177,100 @@ async def run_bench(
                         )
                         if repair_entry is not None:
                             result_entry["polish"]["contract_repair"] = repair_entry
-                            if not repair_entry["scene_contract_validation"]["passed"]:
+                            repair_validation = repair_entry[
+                                "scene_contract_validation"
+                            ]
+                            if repair_validation["passed"]:
+                                polished_prose = artifact_path(
+                                    repair_entry["output_file"],
+                                    paths,
+                                ).read_text(encoding="utf-8")
+                                downstream_contract_validation = repair_validation
+                            else:
                                 any_contract_fail = True
                         else:
                             any_contract_fail = True
+                downstream_prose = polished_prose
+                downstream_stem = (
+                    artifact_path(
+                        result_entry["polish"].get("contract_repair", {}).get(
+                            "output_file",
+                            result_entry["polish"]["output_file"],
+                        ),
+                        paths,
+                    ).stem
+                    if result_entry["polish"].get("contract_repair", {}).get(
+                        "scene_contract_validation", {}
+                    ).get("passed")
+                    else Path(result_entry["polish"]["output_file"]).stem
+                )
+                downstream_label = f"{cfg['label']} polish"
+
+        # --- Optional final literary copy step ---
+        if literary_polish is not None and final_copy_model:
+            if (
+                scene_contract is not None
+                and downstream_contract_validation is not None
+                and not downstream_contract_validation.get("passed")
+            ):
+                result_entry["final_copy_skipped"] = {
+                    "reason": "source_failed_scene_contract",
+                    "source_label": downstream_label,
+                    "hard_failure_count": downstream_contract_validation.get(
+                        "hard_failure_count",
+                        0,
+                    ),
+                    "failure_count": downstream_contract_validation.get(
+                        "failure_count",
+                        0,
+                    ),
+                }
+                print(
+                    "  [final_copy] skipped because source still fails "
+                    "scene contract"
+                )
+                any_contract_fail = True
+            else:
+                try:
+                    final_copy_entry = await run_final_copy_pass(
+                        literary_polish=literary_polish,
+                        final_copy_model=final_copy_model,
+                        micro_repair=micro_repair,
+                        contract_repair_model=contract_repair_model,
+                        source_prose=downstream_prose,
+                        source_stem=downstream_stem,
+                        source_label=downstream_label,
+                        scene_card=scene_card,
+                        generation_brief=brief,
+                        scene_contract=scene_contract,
+                        scene_contract_validation=downstream_contract_validation,
+                        bench_dir=bench_dir,
+                        paths=paths,
+                        franchise_profile_text=franchise_profile_text,
+                        contract_repair_max_repairs=contract_repair_max_repairs,
+                        contract_repair_max_total_changed_chars=(
+                            contract_repair_max_total_changed_chars
+                        ),
+                        contract_repair_max_changed_ratio=(
+                            contract_repair_max_changed_ratio
+                        ),
+                    )
+                    if final_copy_entry is not None:
+                        result_entry["final_copy"] = final_copy_entry
+                        contract_summary = (
+                            final_copy_entry.get("validation", {})
+                            .get("scene_contract_validation")
+                        )
+                        if contract_summary and not contract_summary.get("passed"):
+                            any_contract_fail = True
+                except Exception as e:
+                    print(
+                        f"    [ERROR] final copy failed: "
+                        f"{e.__class__.__name__}: {e}"
+                    )
+                    result_entry["final_copy"] = {
+                        "error": f"{e.__class__.__name__}: {e}"
+                    }
 
         results.append(result_entry)
 
@@ -874,6 +1293,8 @@ async def run_bench(
             contract_repair_max_total_changed_chars
         ),
         "contract_repair_max_changed_ratio": contract_repair_max_changed_ratio,
+        "final_copy_model": final_copy_model,
+        "final_copy_temperature": final_copy_temperature,
         "results": results,
     }
     (bench_dir / "bench_summary.json").write_text(
@@ -881,7 +1302,7 @@ async def run_bench(
     )
 
     print("\n" + "=" * 60)
-    print(f"Bench complete. Output: {bench_dir.relative_to(paths.base)}")
+    print(f"Bench complete. Output: {artifact_ref(bench_dir, paths)}")
     print("=" * 60)
     print(f"{'label':<30} {'words':>7} {'time_s':>8} {'cost_usd':>10}")
     for r in results:
@@ -981,20 +1402,32 @@ def main() -> None:
     p.add_argument(
         "--contract-repair-max-repairs",
         type=int,
-        default=2,
-        help="Maximum exact-span repairs to apply per output. Default: 2.",
+        default=5,
+        help="Maximum exact-span repairs to apply per output. Default: 5.",
     )
     p.add_argument(
         "--contract-repair-max-total-changed-chars",
         type=int,
-        default=500,
-        help="Maximum cumulative replacement span per output. Default: 500.",
+        default=1000,
+        help="Maximum cumulative replacement span per output. Default: 1000.",
     )
     p.add_argument(
         "--contract-repair-max-changed-ratio",
         type=float,
         default=0.12,
         help="Maximum replacement span as a ratio of prose length. Default: 0.12.",
+    )
+    p.add_argument(
+        "--final-copy-model",
+        default=None,
+        help="Short-name model for the final literary copy pass "
+             "(e.g. 'gpt54'). Skips final-copy artifacts when omitted.",
+    )
+    p.add_argument(
+        "--final-copy-temperature",
+        type=float,
+        default=0.45,
+        help="Temperature for --final-copy-model. Default: 0.45.",
     )
     args = p.parse_args()
 
@@ -1023,6 +1456,8 @@ def main() -> None:
             args.contract_repair_max_total_changed_chars
         ),
         contract_repair_max_changed_ratio=args.contract_repair_max_changed_ratio,
+        final_copy_model=args.final_copy_model,
+        final_copy_temperature=args.final_copy_temperature,
     ))
 
 

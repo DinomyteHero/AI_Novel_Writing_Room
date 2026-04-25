@@ -124,6 +124,7 @@ def extract_dialogue(prose: str, speakers: Iterable[str]) -> list[DialogueLine]:
 
     speaker_names = list(speakers)
     lines: list[DialogueLine] = []
+    last_speaker: str | None = None
 
     for match in _QUOTE_RE.finditer(prose):
         text = _normalize_space(match.group(1))
@@ -131,10 +132,18 @@ def extract_dialogue(prose: str, speakers: Iterable[str]) -> list[DialogueLine]:
             continue
         start = match.start()
         end = match.end()
-        speaker = _infer_speaker(prose, start, end, speaker_names)
+        speaker = _infer_speaker(
+            prose,
+            start,
+            end,
+            speaker_names,
+            last_speaker=last_speaker,
+        )
         line = prose.count("\n", 0, start) + 1
         excerpt = _line_excerpt(prose, start)
         lines.append(DialogueLine(speaker=speaker, text=text, line=line, excerpt=excerpt))
+        if speaker:
+            last_speaker = speaker
 
     return lines
 
@@ -144,6 +153,8 @@ def _infer_speaker(
     quote_start: int,
     quote_end: int,
     speakers: list[str],
+    *,
+    last_speaker: str | None = None,
 ) -> str | None:
     before_break = prose.rfind("\n\n", 0, quote_start)
     before_para_start = 0 if before_break == -1 else before_break + 2
@@ -161,11 +172,32 @@ def _infer_speaker(
     if before_hit:
         return before_hit
 
+    carryover = _speaker_from_pronoun_carryover(before, speakers, last_speaker)
+    if carryover:
+        return carryover
+
     paragraph = before + after_para
     mentioned = _mentioned_speakers(paragraph, speakers)
     if len(mentioned) == 1:
         return mentioned[0]
 
+    return None
+
+
+def _speaker_from_pronoun_carryover(
+    before: str,
+    speakers: list[str],
+    last_speaker: str | None,
+) -> str | None:
+    """Infer carried-over speaker in simple pronoun action-beat paragraphs."""
+
+    if not last_speaker:
+        return None
+    stripped = before.strip()
+    if not stripped or _mentioned_speakers(stripped, speakers):
+        return None
+    if re.match(r"^(?:He|She|They)\b[^\"\u201c]{0,180}\.\s*$", stripped):
+        return last_speaker
     return None
 
 

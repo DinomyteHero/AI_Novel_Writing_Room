@@ -25,11 +25,14 @@ Thumbs.db
 # Codex auto-generated files
 .codex/
 .codex_tmp_test/
+.tmp/
 
 # pytest / coverage
 .pytest_cache/
 .pytest_tmp_root/
 .pytest_basetemp*/
+codex_test_runtime_basetemp*/
+pytest-temp-basetest/
 htmlcov/
 .coverage
 coverage.xml
@@ -42,6 +45,10 @@ build/
 # Pipeline runtime — canonical per-project output (franchise-scoped).
 # See data/README.md for the full layout.
 output/*/*/state/
+
+# Generated model run artifacts can contain very long diagnostic filenames.
+# Keep them out of normal commits; copy curated evidence into docs/ when needed.
+output/*/*/runs/
 
 # Phase 0 audit runs are regenerated on demand from scripts/audit_phase0.py.
 # The canonical committed evidence lives in docs/audits/phase0_*.md; the

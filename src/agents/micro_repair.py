@@ -39,12 +39,21 @@ class MicroRepair(BaseAgent):
     def _format_context(self, context: dict) -> str:
         prose = context.get("prose", "")
         scene_card = context.get("scene_card", {}) or {}
+        scene_contract = context.get("scene_contract", {}) or {}
         repair_requests = context.get("repair_requests", []) or []
 
         parts = [
             "## Scene Card",
             f"```json\n{json.dumps(scene_card, indent=2)}\n```",
             "",
+        ]
+        if scene_contract:
+            parts.extend([
+                "## Scene Contract",
+                f"```json\n{json.dumps(scene_contract, indent=2)}\n```",
+                "",
+            ])
+        parts.extend([
             "## Repair Requests",
             json.dumps(repair_requests, indent=2),
             "",
@@ -60,6 +69,8 @@ class MicroRepair(BaseAgent):
             "- Do not add new beats, new named characters, new canon facts, or new exposition.",
             "- If the request is a missing required scene-contract fact, add it only by replacing an existing nearby sentence.",
             "- The issue_type may be a scene-contract check id; preserve it in your repair object.",
+            "- If a scene contract is provided, replacements must avoid every forbidden pattern in the failed check, not just the one pattern that fired.",
+            "- Never replace one forbidden public/official/later-record term with another forbidden synonym from the same check.",
             "- Do not move scene structure around.",
             "- If a request cannot be fixed safely with an exact-span patch, omit it.",
             "",
@@ -78,7 +89,7 @@ class MicroRepair(BaseAgent):
             "}",
             "```",
             'If no safe exact-span repair exists, return {"summary": "...", "repairs": []}.',
-        ]
+        ])
         return "\n".join(parts)
 
     def _parse_response(self, response: str, context: dict) -> dict:
