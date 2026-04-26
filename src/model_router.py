@@ -120,12 +120,32 @@ class ModelRouter:
                     continue
                 response.raise_for_status()
                 data = response.json()
-                content = data["choices"][0]["message"]["content"]
+                choices = data.get("choices")
+                if not choices:
+                    error_payload = data.get("error", data)
+                    error_text = json.dumps(error_payload, ensure_ascii=False)[:1000]
+                    if attempt < max_retries:
+                        logger.warning(
+                            "LLM response missing choices for %s on attempt %d/%d "
+                            "(model=%s): %s",
+                            agent_role,
+                            attempt + 1,
+                            max_retries + 1,
+                            model,
+                            error_text,
+                        )
+                        await asyncio.sleep((2 ** attempt) + random.uniform(0, 1))
+                        continue
+                    raise RuntimeError(
+                        "LLM response missing choices for "
+                        f"{agent_role} (model={model}): {error_text}"
+                    )
+                content = choices[0]["message"]["content"]
                 if content is None:
                     logger.warning(
                         "LLM returned null content for %s (finish_reason=%s)",
                         agent_role,
-                        data["choices"][0].get("finish_reason", "unknown"),
+                        choices[0].get("finish_reason", "unknown"),
                     )
                     return ""
                 return content

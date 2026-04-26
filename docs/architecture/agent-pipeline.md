@@ -2,6 +2,12 @@
 
 This document describes how the multi-agent generation loop works, from scene card input to saved chapter.
 
+## Default Production Mode
+
+The current production default is lean mode (`runtime.lean_prose_only.enabled: true`): `PlotArchitect -> ProseStylist -> LineWriter -> save`. In that path, broad scene gates, QualityPolish, FinalGate, CanonExpert, PresenceChecker, chapter gates, and post-save LLM analysis are skipped unless explicitly enabled for a diagnostic or benchmark run.
+
+The fuller relay documented below remains real code and is still useful for experiments, telemetry, and non-lean runs. For final manuscript work after export, use the [Manuscript Production Lifecycle](manuscript-production-lifecycle.md): full manuscript review, targeted revision, targeted cleanup, optional literary donor pass, and deterministic validation.
+
 ## BaseAgent Pattern
 
 All agents extend `BaseAgent` (`src/agents/base_agent.py`):
@@ -46,7 +52,7 @@ Each agent:
 | Summarizer | `src/agents/summarizer.py` | `summarizer` | Chapter compression to summary + state diff |
 | OutlinePlanner | `src/planning/scene_card_generator.py` | `outline_planner` | Concept seed -> structured outline |
 | JudgeEvaluator | `src/quality/llm_judge.py` | `judge_evaluator` | LLM-as-judge 5-dimension evaluation |
-| ManuscriptReviewer | `src/agents/manuscript_reviewer.py` | `manuscript_reviewer` | Dual-persona full-manuscript evaluation |
+| ManuscriptReviewer | `src/agents/manuscript_reviewer.py` | `manuscript_reviewer` | GPT-5.4 full-manuscript evaluation that produces the editorial docket for targeted revision |
 
 ## Per-Chapter Flow (Orchestrator)
 
@@ -91,6 +97,8 @@ Under the forward-only relay (Stage 1a+), the verdict is **advisory only**: the 
 ### 7. Quality Polish
 
 QualityPolish runs a single bounded expression-level pass on the gate-passed prose. It **can** fix show-don't-tell violations, word choice, AI-tells, sentence rhythm, and dialogue tags. It **cannot** add/remove beats or characters, change the turning point, or extend past the closing hook. Quality Polish replaces the previous Craft Editor + 3 revision bands — see `docs/architecture/pipeline-redesign.md` for the rationale.
+
+In lean production mode, this step is skipped. LineWriter is the only post-draft scene-level edit before save; manuscript-level cleanup happens after export.
 
 ### 8. Compression Advisory + Final Gate (advisory)
 
@@ -143,6 +151,18 @@ ChapterGateCritic evaluates the assembled chapter after every scene has been sav
 ### 14. LLM Judge (Phase 4, optional)
 
 JudgeEvaluator uses a cloud model to score the chapter across 5 dimensions defined in `config/eval_rubric.yaml`.
+
+## Post-Manuscript Production
+
+After a lean manuscript is exported, the default production path moves from per-scene agents to manuscript-level editorial control:
+
+1. Run `manuscript_reviewer` on GPT-5.4 to create a full-book docket.
+2. Apply targeted revision patches for major docket items.
+3. Run targeted cleanup as the default polish branch.
+4. Optionally run full literary polish as a comparison or donor branch, then cherry-pick only safe improvements.
+5. Apply the final docket pass and run `scripts/manuscript_final_validation.py`.
+
+The targeted cleanup branch is the production base unless manual comparison shows a concrete reason to choose otherwise. Full literary polish is not the default master because it can introduce visible prose style and tonal drift.
 
 ## Event Logging
 

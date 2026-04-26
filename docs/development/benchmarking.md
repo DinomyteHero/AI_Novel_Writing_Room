@@ -210,4 +210,5 @@ Keep summaries dated. The `v2`, `v3` suffix convention is fine when you need to 
 - Bench configs: [`config/settings.bench.sonnet.yaml`](../../config/settings.bench.sonnet.yaml), [`config/settings.bench.gpt.yaml`](../../config/settings.bench.gpt.yaml)
 - Analyses: `output/star-wars-legends-eu/the-ruusan-atonement/runs/BENCH_*.md`
 - Related CLI flags: [`--skip-gate-loop`](../user-guide/cli-usage.md#pipeline-mode-flags), `--raw-draft`, `--judge`
-- Production routing rationale: [`docs/architecture/model-selection-and-cost-review.md`](../architecture/model-selection-and-cost-review.md)
+- Historical routing rationale: [`docs/archive/model-selection-and-cost-review-2026-04-17.md`](../archive/model-selection-and-cost-review-2026-04-17.md)
+- Current production workflow: [`docs/user-guide/new-manuscript-workflow.md`](../user-guide/new-manuscript-workflow.md)

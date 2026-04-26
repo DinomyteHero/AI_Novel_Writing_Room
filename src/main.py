@@ -1306,6 +1306,14 @@ async def main():
 
     # Load scene cards
     scene_cards = load_scene_cards(args.scene_cards_dir, args.chapter)
+    if args.resume and pipeline_session and session_id:
+        original_count = len(scene_cards)
+        scene_cards = pipeline_session.get_pending_cards(session_id, scene_cards)
+        completed_count = original_count - len(scene_cards)
+        print(
+            f"Resume session {session_id}: "
+            f"{completed_count} completed, {len(scene_cards)} pending"
+        )
     print(f"Loaded {len(scene_cards)} scene card(s)")
     print(f"Deployment mode: {router.mode}")
     print(f"Pipeline phase: {args.phase}")

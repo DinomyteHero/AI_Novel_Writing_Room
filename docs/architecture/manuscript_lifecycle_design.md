@@ -6,6 +6,8 @@
 
 ## 1. Four manuscript-level passes
 
+Current production update (2026-04-26): the operator-facing lifecycle now lives in [Manuscript Production Lifecycle](manuscript-production-lifecycle.md). This document remains the lower-level patch-workflow design reference.
+
 Each pass runs **after** the scene-level pipeline has produced a full manuscript. They are editorial, not drafting — they **never rewrite prose in place** during a run. Outputs route through the patch workflow (§3) so every mutation is human-gated and the forward-only invariant holds.
 
 ### 1.1 Developmental pass

@@ -1,0 +1,123 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "IdeaSessionCapture",
+  "description": "Author-facing capture packet for an early planning chat. This is a front-door artifact and is not consumed by compile_bundle.py.",
+  "type": "object",
+  "required": ["surface", "schema_version", "project", "relationship", "north_star", "surface_handoffs"],
+  "properties": {
+    "surface": { "type": "string", "const": "idea-session-capture" },
+    "schema_version": { "type": "string", "const": "1.0" },
+    "created_at": { "type": "string" },
+    "updated_at": { "type": "string" },
+    "project": {
+      "type": "object",
+      "required": ["title", "franchise", "book_slug", "franchise_slug", "session_name"],
+      "properties": {
+        "title": { "type": "string" },
+        "franchise": { "type": "string" },
+        "book_slug": { "type": "string" },
+        "franchise_slug": { "type": "string" },
+        "session_name": { "type": "string" }
+      }
+    },
+    "relationship": {
+      "type": "object",
+      "properties": {
+        "project_scope": {
+          "type": "string",
+          "enum": [
+            "standalone",
+            "planned_series",
+            "continuation",
+            "spinoff",
+            "shared_universe_entry",
+            "alternate_universe",
+            "anthology_entry"
+          ]
+        },
+        "canon_status": {
+          "type": ["string", "null"],
+          "enum": ["canon_compliant", "AU", "original", null]
+        },
+        "series_id": { "type": ["string", "null"] },
+        "book_number": { "type": ["integer", "null"], "minimum": 1 },
+        "cosmology_id": { "type": ["string", "null"] },
+        "source_franchise": { "type": ["string", "null"] },
+        "source_work": { "type": ["string", "null"] },
+        "parent_project": { "type": ["string", "null"] },
+        "branch_point": { "type": ["string", "null"] },
+        "base_source": { "type": ["string", "null"] }
+      }
+    },
+    "source": {
+      "type": "object",
+      "properties": {
+        "transcript_path": { "type": ["string", "null"] },
+        "raw_transcript_file": { "type": ["string", "null"] }
+      }
+    },
+    "north_star": {
+      "type": "object",
+      "properties": {
+        "one_sentence_pitch": { "type": "string" },
+        "reader_promise": { "type": "string" },
+        "emotional_core": { "type": "string" },
+        "author_intent": { "type": "string" },
+        "non_negotiables": { "type": "array", "items": { "type": "string" } },
+        "avoid": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "depth_ladder": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["stage", "goal", "status"],
+        "properties": {
+          "stage": { "type": "string" },
+          "goal": { "type": "string" },
+          "status": { "type": "string" }
+        }
+      }
+    },
+    "decisions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "surface": { "type": "string" },
+          "topic": { "type": "string" },
+          "decision": { "type": "string" },
+          "confidence": {
+            "type": "string",
+            "enum": ["open", "tentative", "settled"]
+          }
+        }
+      }
+    },
+    "open_questions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "surface": { "type": "string" },
+          "question": { "type": "string" },
+          "why_it_matters": { "type": "string" }
+        }
+      }
+    },
+    "surface_handoffs": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "status": { "type": "string" },
+          "settled_inputs": { "type": "array", "items": { "type": "string" } },
+          "questions_to_resolve": { "type": "array", "items": { "type": "string" } },
+          "notes": { "type": "string" }
+        }
+      }
+    },
+    "parking_lot": { "type": "array", "items": { "type": "string" } },
+    "next_steps": { "type": "array", "items": { "type": "string" } }
+  }
+}

@@ -1,0 +1,757 @@
+{
+  "generated_at": "2026-04-26T16:51:18.834193+00:00",
+  "source_dir": "C:\\Users\\lbouw\\OneDrive\\Documents\\Github Repos\\AI_Novel_Writing_Room\\output\\star-wars-legends-eu\\the-ruusan-atonement\\export\\production-lean-full-20260425-010838-final-candidate",
+  "out_dir": "C:\\Users\\lbouw\\OneDrive\\Documents\\Github Repos\\AI_Novel_Writing_Room\\output\\star-wars-legends-eu\\the-ruusan-atonement\\export\\production-lean-full-20260425-010838-final-candidate-micro-cleanup",
+  "manuscript_path": "C:\\Users\\lbouw\\OneDrive\\Documents\\Github Repos\\AI_Novel_Writing_Room\\output\\star-wars-legends-eu\\the-ruusan-atonement\\export\\production-lean-full-20260425-010838-final-candidate-micro-cleanup\\manuscript_final_candidate_micro_cleanup.md",
+  "chapter_index_path": "C:\\Users\\lbouw\\OneDrive\\Documents\\Github Repos\\AI_Novel_Writing_Room\\output\\star-wars-legends-eu\\the-ruusan-atonement\\export\\production-lean-full-20260425-010838-final-candidate-micro-cleanup\\chapter_index.md",
+  "target_chapters": [
+    10,
+    15,
+    16,
+    17,
+    18,
+    27,
+    28
+  ],
+  "total_word_count": 111906,
+  "validation_errors": [],
+  "chapters": [
+    {
+      "chapter": 1,
+      "status": "copied",
+      "duration_s": 0.0,
+      "source_words": 3478,
+      "final_words": 3478,
+      "delta_words": 0,
+      "source_motif_counts": {
+        "wound": 2,
+        "seal": 0,
+        "chord": 0,
+        "note": 3,
+        "silence": 6,
+        "wrongness": 3
+      },
+      "final_motif_counts": {
+        "wound": 2,
+        "seal": 0,
+        "chord": 0,
+        "note": 3,
+        "silence": 6,
+        "wrongness": 3
+      },
+      "validation_errors": [],
+      "output_path": "C:\\Users\\lbouw\\OneDrive\\Documents\\Github Repos\\AI_Novel_Writing_Room\\output\\star-wars-legends-eu\\the-ruusan-atonement\\export\\production-lean-full-20260425-010838-final-candidate-micro-cleanup\\chapters\\chapter_01.md"
+    },
+    {
+      "chapter": 2,
+      "status": "copied",
+      "duration_s": 0.0,
+      "source_words": 3882,
+      "final_words": 3882,
+      "delta_words": 0,
+      "source_motif_counts": {
+        "wound": 0,
+        "seal": 0,
+        "chord": 0,
+        "note": 0,
+        "silence": 5,
+        "wrongness": 0
+      },
+      "final_motif_counts": {
+        "wound": 0,
+        "seal": 0,
+        "chord": 0,
+        "note": 0,
+        "silence": 5,
+        "wrongness": 0
+      },
+      "validation_errors": [],
+      "output_path": "C:\\Users\\lbouw\\OneDrive\\Documents\\Github Repos\\AI_Novel_Writing_Room\\output\\star-wars-legends-eu\\the-ruusan-atonement\\export\\production-lean-full-20260425-010838-final-candidate-micro-cleanup\\chapters\\chapter_02.md"
+    },
+    {
+      "chapter": 3,
+      "status": "copied",
+      "duration_s": 0.0,
+      "source_words": 3614,
+      "final_words": 3614,
+      "delta_words": 0,
+      "source_motif_counts": {
+        "wound": 1,
+        "seal": 12,
+        "chord": 0,
+        "note": 1,
+        "silence": 2,
+        "wrongness": 2
+      },
+      "final_motif_counts": {
+        "wound": 1,
+        "seal": 12,
+        "chord": 0,
+        "note": 1,
+        "silence": 2,
+        "wrongness": 2
+      },
+      "validation_errors": [],
+      "output_path": "C:\\Users\\lbouw\\OneDrive\\Documents\\Github Repos\\AI_Novel_Writing_Room\\output\\star-wars-legends-eu\\the-ruusan-atonement\\export\\production-lean-full-20260425-010838-final-candidate-micro-cleanup\\chapters\\chapter_03.md"
+    },
+    {
+      "chapter": 4,
+      "status": "copied",
+      "duration_s": 0.0,
+      "source_words": 4346,
+      "final_words": 4346,
+      "delta_words": 0,
+      "source_motif_counts": {
+        "wound": 2,
+        "seal": 27,
+        "chord": 0,
+        "note": 2,
+        "silence": 4,
+        "wrongness": 0
+      },
+      "final_motif_counts": {
+        "wound": 2,
+        "seal": 27,
+        "chord": 0,
+        "note": 2,
+        "silence": 4,
+        "wrongness": 0
+      },
+      "validation_errors": [],
+      "output_path": "C:\\Users\\lbouw\\OneDrive\\Documents\\Github Repos\\AI_Novel_Writing_Room\\output\\star-wars-legends-eu\\the-ruusan-atonement\\export\\production-lean-full-20260425-010838-final-candidate-micro-cleanup\\chapters\\chapter_04.md"
+    },
+    {
+      "chapter": 5,
+      "status": "copied",
+      "duration_s": 0.0,
+      "source_words": 5327,
+      "final_words": 5327,
+      "delta_words": 0,
+      "source_motif_counts": {
+        "wound": 1,
+        "seal": 8,
+        "chord": 0,
+        "note": 4,
+        "silence": 8,
+        "wrongness": 0
+      },
+      "final_motif_counts": {
+        "wound": 1,
+        "seal": 8,
+        "chord": 0,
+        "note": 4,
+        "silence": 8,
+        "wrongness": 0
+      },
+      "validation_errors": [],
+      "output_path": "C:\\Users\\lbouw\\OneDrive\\Documents\\Github Repos\\AI_Novel_Writing_Room\\output\\star-wars-legends-eu\\the-ruusan-atonement\\export\\production-lean-full-20260425-010838-final-candidate-micro-cleanup\\chapters\\chapter_05.md"
+    },
+    {
+      "chapter": 6,
+      "status": "copied",
+      "duration_s": 0.0,
+      "source_words": 4383,
+      "final_words": 4383,
+      "delta_words": 0,
+      "source_motif_counts": {
+        "wound": 0,
+        "seal": 3,
+        "chord": 0,
+        "note": 0,
+        "silence": 8,
+        "wrongness": 0
+      },
+      "final_motif_counts": {
+        "wound": 0,
+        "seal": 3,
+        "chord": 0,
+        "note": 0,
+        "silence": 8,
+        "wrongness": 0
+      },
+      "validation_errors": [],
+      "output_path": "C:\\Users\\lbouw\\OneDrive\\Documents\\Github Repos\\AI_Novel_Writing_Room\\output\\star-wars-legends-eu\\the-ruusan-atonement\\export\\production-lean-full-20260425-010838-final-candidate-micro-cleanup\\chapters\\chapter_06.md"
+    },
+    {
+      "chapter": 7,
+      "status": "copied",
+      "duration_s": 0.0,
+      "source_words": 3235,
+      "final_words": 3235,
+      "delta_words": 0,
+      "source_motif_counts": {
+        "wound": 3,
+        "seal": 10,
+        "chord": 0,
+        "note": 1,
+        "silence": 6,
+        "wrongness": 3
+      },
+      "final_motif_counts": {
+        "wound": 3,
+        "seal": 10,
+        "chord": 0,
+        "note": 1,
+        "silence": 6,
+        "wrongness": 3
+      },
+      "validation_errors": [],
+      "output_path": "C:\\Users\\lbouw\\OneDrive\\Documents\\Github Repos\\AI_Novel_Writing_Room\\output\\star-wars-legends-eu\\the-ruusan-atonement\\export\\production-lean-full-20260425-010838-final-candidate-micro-cleanup\\chapters\\chapter_07.md"
+    },
+    {
+      "chapter": 8,
+      "status": "copied",
+      "duration_s": 0.0,
+      "source_words": 3176,
+      "final_words": 3176,
+      "delta_words": 0,
+      "source_motif_counts": {
+        "wound": 2,
+        "seal": 2,
+        "chord": 0,
+        "note": 0,
+        "silence": 6,
+        "wrongness": 0
+      },
+      "final_motif_counts": {
+        "wound": 2,
+        "seal": 2,
+        "chord": 0,
+        "note": 0,
+        "silence": 6,
+        "wrongness": 0
+      },
+      "validation_errors": [],
+      "output_path": "C:\\Users\\lbouw\\OneDrive\\Documents\\Github Repos\\AI_Novel_Writing_Room\\output\\star-wars-legends-eu\\the-ruusan-atonement\\export\\production-lean-full-20260425-010838-final-candidate-micro-cleanup\\chapters\\chapter_08.md"
+    },
+    {
+      "chapter": 9,
+      "status": "copied",
+      "duration_s": 0.0,
+      "source_words": 3233,
+      "final_words": 3233,
+      "delta_words": 0,
+      "source_motif_counts": {
+        "wound": 4,
+        "seal": 6,
+        "chord": 0,
+        "note": 0,
+        "silence": 3,
+        "wrongness": 0
+      },
+      "final_motif_counts": {
+        "wound": 4,
+        "seal": 6,
+        "chord": 0,
+        "note": 0,
+        "silence": 3,
+        "wrongness": 0
+      },
+      "validation_errors": [],
+      "output_path": "C:\\Users\\lbouw\\OneDrive\\Documents\\Github Repos\\AI_Novel_Writing_Room\\output\\star-wars-legends-eu\\the-ruusan-atonement\\export\\production-lean-full-20260425-010838-final-candidate-micro-cleanup\\chapters\\chapter_09.md"
+    },
+    {
+      "chapter": 10,
+      "status": "micro_cleaned",
+      "duration_s": 53.5,
+      "source_words": 3831,
+      "final_words": 3794,
+      "delta_words": -37,
+      "source_motif_counts": {
+        "wound": 1,
+        "seal": 3,
+        "chord": 0,
+        "note": 1,
+        "silence": 5,
+        "wrongness": 0
+      },
+      "final_motif_counts": {
+        "wound": 1,
+        "seal": 3,
+        "chord": 0,
+        "note": 1,
+        "silence": 5,
+        "wrongness": 0
+      },
+      "validation_errors": [],
+      "output_path": "C:\\Users\\lbouw\\OneDrive\\Documents\\Github Repos\\AI_Novel_Writing_Room\\output\\star-wars-legends-eu\\the-ruusan-atonement\\export\\production-lean-full-20260425-010838-final-candidate-micro-cleanup\\chapters\\chapter_10.md"
+    },
+    {
+      "chapter": 11,
+      "status": "copied",
+      "duration_s": 0.0,
+      "source_words": 4264,
+      "final_words": 4264,
+      "delta_words": 0,
+      "source_motif_counts": {
+        "wound": 3,
+        "seal": 10,
+        "chord": 0,
+        "note": 2,
+        "silence": 9,
+        "wrongness": 0
+      },
+      "final_motif_counts": {
+        "wound": 3,
+        "seal": 10,
+        "chord": 0,
+        "note": 2,
+        "silence": 9,
+        "wrongness": 0
+      },
+      "validation_errors": [],
+      "output_path": "C:\\Users\\lbouw\\OneDrive\\Documents\\Github Repos\\AI_Novel_Writing_Room\\output\\star-wars-legends-eu\\the-ruusan-atonement\\export\\production-lean-full-20260425-010838-final-candidate-micro-cleanup\\chapters\\chapter_11.md"
+    },
+    {
+      "chapter": 12,
+      "status": "copied",
+      "duration_s": 0.0,
+      "source_words": 3785,
+      "final_words": 3785,
+      "delta_words": 0,
+      "source_motif_counts": {
+        "wound": 1,
+        "seal": 18,
+        "chord": 0,
+        "note": 1,
+        "silence": 5,
+        "wrongness": 1
+      },
+      "final_motif_counts": {
+        "wound": 1,
+        "seal": 18,
+        "chord": 0,
+        "note": 1,
+        "silence": 5,
+        "wrongness": 1
+      },
+      "validation_errors": [],
+      "output_path": "C:\\Users\\lbouw\\OneDrive\\Documents\\Github Repos\\AI_Novel_Writing_Room\\output\\star-wars-legends-eu\\the-ruusan-atonement\\export\\production-lean-full-20260425-010838-final-candidate-micro-cleanup\\chapters\\chapter_12.md"
+    },
+    {
+      "chapter": 13,
+      "status": "copied",
+      "duration_s": 0.0,
+      "source_words": 4583,
+      "final_words": 4583,
+      "delta_words": 0,
+      "source_motif_counts": {
+        "wound": 2,
+        "seal": 8,
+        "chord": 0,
+        "note": 0,
+        "silence": 19,
+        "wrongness": 3
+      },
+      "final_motif_counts": {
+        "wound": 2,
+        "seal": 8,
+        "chord": 0,
+        "note": 0,
+        "silence": 19,
+        "wrongness": 3
+      },
+      "validation_errors": [],
+      "output_path": "C:\\Users\\lbouw\\OneDrive\\Documents\\Github Repos\\AI_Novel_Writing_Room\\output\\star-wars-legends-eu\\the-ruusan-atonement\\export\\production-lean-full-20260425-010838-final-candidate-micro-cleanup\\chapters\\chapter_13.md"
+    },
+    {
+      "chapter": 14,
+      "status": "copied",
+      "duration_s": 0.0,
+      "source_words": 3881,
+      "final_words": 3881,
+      "delta_words": 0,
+      "source_motif_counts": {
+        "wound": 3,
+        "seal": 16,
+        "chord": 0,
+        "note": 5,
+        "silence": 7,
+        "wrongness": 0
+      },
+      "final_motif_counts": {
+        "wound": 3,
+        "seal": 16,
+        "chord": 0,
+        "note": 5,
+        "silence": 7,
+        "wrongness": 0
+      },
+      "validation_errors": [],
+      "output_path": "C:\\Users\\lbouw\\OneDrive\\Documents\\Github Repos\\AI_Novel_Writing_Room\\output\\star-wars-legends-eu\\the-ruusan-atonement\\export\\production-lean-full-20260425-010838-final-candidate-micro-cleanup\\chapters\\chapter_14.md"
+    },
+    {
+      "chapter": 15,
+      "status": "micro_cleaned",
+      "duration_s": 44.5,
+      "source_words": 3503,
+      "final_words": 3455,
+      "delta_words": -48,
+      "source_motif_counts": {
+        "wound": 1,
+        "seal": 19,
+        "chord": 0,
+        "note": 0,
+        "silence": 4,
+        "wrongness": 2
+      },
+      "final_motif_counts": {
+        "wound": 1,
+        "seal": 19,
+        "chord": 0,
+        "note": 0,
+        "silence": 4,
+        "wrongness": 2
+      },
+      "validation_errors": [],
+      "output_path": "C:\\Users\\lbouw\\OneDrive\\Documents\\Github Repos\\AI_Novel_Writing_Room\\output\\star-wars-legends-eu\\the-ruusan-atonement\\export\\production-lean-full-20260425-010838-final-candidate-micro-cleanup\\chapters\\chapter_15.md"
+    },
+    {
+      "chapter": 16,
+      "status": "micro_cleaned",
+      "duration_s": 76.9,
+      "source_words": 6144,
+      "final_words": 6094,
+      "delta_words": -50,
+      "source_motif_counts": {
+        "wound": 4,
+        "seal": 16,
+        "chord": 0,
+        "note": 0,
+        "silence": 16,
+        "wrongness": 1
+      },
+      "final_motif_counts": {
+        "wound": 4,
+        "seal": 16,
+        "chord": 0,
+        "note": 0,
+        "silence": 13,
+        "wrongness": 1
+      },
+      "validation_errors": [],
+      "output_path": "C:\\Users\\lbouw\\OneDrive\\Documents\\Github Repos\\AI_Novel_Writing_Room\\output\\star-wars-legends-eu\\the-ruusan-atonement\\export\\production-lean-full-20260425-010838-final-candidate-micro-cleanup\\chapters\\chapter_16.md"
+    },
+    {
+      "chapter": 17,
+      "status": "micro_cleaned",
+      "duration_s": 61.2,
+      "source_words": 4735,
+      "final_words": 4674,
+      "delta_words": -61,
+      "source_motif_counts": {
+        "wound": 5,
+        "seal": 13,
+        "chord": 0,
+        "note": 5,
+        "silence": 8,
+        "wrongness": 2
+      },
+      "final_motif_counts": {
+        "wound": 4,
+        "seal": 12,
+        "chord": 0,
+        "note": 5,
+        "silence": 8,
+        "wrongness": 2
+      },
+      "validation_errors": [],
+      "output_path": "C:\\Users\\lbouw\\OneDrive\\Documents\\Github Repos\\AI_Novel_Writing_Room\\output\\star-wars-legends-eu\\the-ruusan-atonement\\export\\production-lean-full-20260425-010838-final-candidate-micro-cleanup\\chapters\\chapter_17.md"
+    },
+    {
+      "chapter": 18,
+      "status": "micro_cleaned",
+      "duration_s": 45.5,
+      "source_words": 3600,
+      "final_words": 3564,
+      "delta_words": -36,
+      "source_motif_counts": {
+        "wound": 1,
+        "seal": 4,
+        "chord": 0,
+        "note": 8,
+        "silence": 3,
+        "wrongness": 0
+      },
+      "final_motif_counts": {
+        "wound": 1,
+        "seal": 4,
+        "chord": 0,
+        "note": 8,
+        "silence": 3,
+        "wrongness": 0
+      },
+      "validation_errors": [],
+      "output_path": "C:\\Users\\lbouw\\OneDrive\\Documents\\Github Repos\\AI_Novel_Writing_Room\\output\\star-wars-legends-eu\\the-ruusan-atonement\\export\\production-lean-full-20260425-010838-final-candidate-micro-cleanup\\chapters\\chapter_18.md"
+    },
+    {
+      "chapter": 19,
+      "status": "copied",
+      "duration_s": 0.0,
+      "source_words": 3492,
+      "final_words": 3492,
+      "delta_words": 0,
+      "source_motif_counts": {
+        "wound": 5,
+        "seal": 8,
+        "chord": 0,
+        "note": 4,
+        "silence": 4,
+        "wrongness": 1
+      },
+      "final_motif_counts": {
+        "wound": 5,
+        "seal": 8,
+        "chord": 0,
+        "note": 4,
+        "silence": 4,
+        "wrongness": 1
+      },
+      "validation_errors": [],
+      "output_path": "C:\\Users\\lbouw\\OneDrive\\Documents\\Github Repos\\AI_Novel_Writing_Room\\output\\star-wars-legends-eu\\the-ruusan-atonement\\export\\production-lean-full-20260425-010838-final-candidate-micro-cleanup\\chapters\\chapter_19.md"
+    },
+    {
+      "chapter": 20,
+      "status": "copied",
+      "duration_s": 0.0,
+      "source_words": 4158,
+      "final_words": 4158,
+      "delta_words": 0,
+      "source_motif_counts": {
+        "wound": 6,
+        "seal": 8,
+        "chord": 0,
+        "note": 1,
+        "silence": 4,
+        "wrongness": 2
+      },
+      "final_motif_counts": {
+        "wound": 6,
+        "seal": 8,
+        "chord": 0,
+        "note": 1,
+        "silence": 4,
+        "wrongness": 2
+      },
+      "validation_errors": [],
+      "output_path": "C:\\Users\\lbouw\\OneDrive\\Documents\\Github Repos\\AI_Novel_Writing_Room\\output\\star-wars-legends-eu\\the-ruusan-atonement\\export\\production-lean-full-20260425-010838-final-candidate-micro-cleanup\\chapters\\chapter_20.md"
+    },
+    {
+      "chapter": 21,
+      "status": "copied",
+      "duration_s": 0.0,
+      "source_words": 3971,
+      "final_words": 3971,
+      "delta_words": 0,
+      "source_motif_counts": {
+        "wound": 3,
+        "seal": 12,
+        "chord": 0,
+        "note": 3,
+        "silence": 8,
+        "wrongness": 1
+      },
+      "final_motif_counts": {
+        "wound": 3,
+        "seal": 12,
+        "chord": 0,
+        "note": 3,
+        "silence": 8,
+        "wrongness": 1
+      },
+      "validation_errors": [],
+      "output_path": "C:\\Users\\lbouw\\OneDrive\\Documents\\Github Repos\\AI_Novel_Writing_Room\\output\\star-wars-legends-eu\\the-ruusan-atonement\\export\\production-lean-full-20260425-010838-final-candidate-micro-cleanup\\chapters\\chapter_21.md"
+    },
+    {
+      "chapter": 22,
+      "status": "copied",
+      "duration_s": 0.0,
+      "source_words": 3751,
+      "final_words": 3751,
+      "delta_words": 0,
+      "source_motif_counts": {
+        "wound": 5,
+        "seal": 12,
+        "chord": 0,
+        "note": 5,
+        "silence": 8,
+        "wrongness": 1
+      },
+      "final_motif_counts": {
+        "wound": 5,
+        "seal": 12,
+        "chord": 0,
+        "note": 5,
+        "silence": 8,
+        "wrongness": 1
+      },
+      "validation_errors": [],
+      "output_path": "C:\\Users\\lbouw\\OneDrive\\Documents\\Github Repos\\AI_Novel_Writing_Room\\output\\star-wars-legends-eu\\the-ruusan-atonement\\export\\production-lean-full-20260425-010838-final-candidate-micro-cleanup\\chapters\\chapter_22.md"
+    },
+    {
+      "chapter": 23,
+      "status": "copied",
+      "duration_s": 0.0,
+      "source_words": 3516,
+      "final_words": 3516,
+      "delta_words": 0,
+      "source_motif_counts": {
+        "wound": 1,
+        "seal": 6,
+        "chord": 0,
+        "note": 2,
+        "silence": 5,
+        "wrongness": 1
+      },
+      "final_motif_counts": {
+        "wound": 1,
+        "seal": 6,
+        "chord": 0,
+        "note": 2,
+        "silence": 5,
+        "wrongness": 1
+      },
+      "validation_errors": [],
+      "output_path": "C:\\Users\\lbouw\\OneDrive\\Documents\\Github Repos\\AI_Novel_Writing_Room\\output\\star-wars-legends-eu\\the-ruusan-atonement\\export\\production-lean-full-20260425-010838-final-candidate-micro-cleanup\\chapters\\chapter_23.md"
+    },
+    {
+      "chapter": 24,
+      "status": "copied",
+      "duration_s": 0.0,
+      "source_words": 3641,
+      "final_words": 3641,
+      "delta_words": 0,
+      "source_motif_counts": {
+        "wound": 3,
+        "seal": 4,
+        "chord": 5,
+        "note": 18,
+        "silence": 1,
+        "wrongness": 1
+      },
+      "final_motif_counts": {
+        "wound": 3,
+        "seal": 4,
+        "chord": 5,
+        "note": 18,
+        "silence": 1,
+        "wrongness": 1
+      },
+      "validation_errors": [],
+      "output_path": "C:\\Users\\lbouw\\OneDrive\\Documents\\Github Repos\\AI_Novel_Writing_Room\\output\\star-wars-legends-eu\\the-ruusan-atonement\\export\\production-lean-full-20260425-010838-final-candidate-micro-cleanup\\chapters\\chapter_24.md"
+    },
+    {
+      "chapter": 25,
+      "status": "copied",
+      "duration_s": 0.0,
+      "source_words": 4107,
+      "final_words": 4107,
+      "delta_words": 0,
+      "source_motif_counts": {
+        "wound": 4,
+        "seal": 5,
+        "chord": 26,
+        "note": 18,
+        "silence": 4,
+        "wrongness": 2
+      },
+      "final_motif_counts": {
+        "wound": 4,
+        "seal": 5,
+        "chord": 26,
+        "note": 18,
+        "silence": 4,
+        "wrongness": 2
+      },
+      "validation_errors": [],
+      "output_path": "C:\\Users\\lbouw\\OneDrive\\Documents\\Github Repos\\AI_Novel_Writing_Room\\output\\star-wars-legends-eu\\the-ruusan-atonement\\export\\production-lean-full-20260425-010838-final-candidate-micro-cleanup\\chapters\\chapter_25.md"
+    },
+    {
+      "chapter": 26,
+      "status": "copied",
+      "duration_s": 0.0,
+      "source_words": 4484,
+      "final_words": 4484,
+      "delta_words": 0,
+      "source_motif_counts": {
+        "wound": 22,
+        "seal": 23,
+        "chord": 13,
+        "note": 4,
+        "silence": 3,
+        "wrongness": 3
+      },
+      "final_motif_counts": {
+        "wound": 22,
+        "seal": 23,
+        "chord": 13,
+        "note": 4,
+        "silence": 3,
+        "wrongness": 3
+      },
+      "validation_errors": [],
+      "output_path": "C:\\Users\\lbouw\\OneDrive\\Documents\\Github Repos\\AI_Novel_Writing_Room\\output\\star-wars-legends-eu\\the-ruusan-atonement\\export\\production-lean-full-20260425-010838-final-candidate-micro-cleanup\\chapters\\chapter_26.md"
+    },
+    {
+      "chapter": 27,
+      "status": "micro_cleaned",
+      "duration_s": 59.3,
+      "source_words": 4564,
+      "final_words": 4457,
+      "delta_words": -107,
+      "source_motif_counts": {
+        "wound": 5,
+        "seal": 26,
+        "chord": 5,
+        "note": 1,
+        "silence": 3,
+        "wrongness": 0
+      },
+      "final_motif_counts": {
+        "wound": 4,
+        "seal": 24,
+        "chord": 1,
+        "note": 0,
+        "silence": 3,
+        "wrongness": 0
+      },
+      "validation_errors": [],
+      "output_path": "C:\\Users\\lbouw\\OneDrive\\Documents\\Github Repos\\AI_Novel_Writing_Room\\output\\star-wars-legends-eu\\the-ruusan-atonement\\export\\production-lean-full-20260425-010838-final-candidate-micro-cleanup\\chapters\\chapter_27.md"
+    },
+    {
+      "chapter": 28,
+      "status": "micro_cleaned",
+      "duration_s": 46.6,
+      "source_words": 3618,
+      "final_words": 3561,
+      "delta_words": -57,
+      "source_motif_counts": {
+        "wound": 4,
+        "seal": 8,
+        "chord": 13,
+        "note": 11,
+        "silence": 12,
+        "wrongness": 2
+      },
+      "final_motif_counts": {
+        "wound": 4,
+        "seal": 9,
+        "chord": 0,
+        "note": 5,
+        "silence": 10,
+        "wrongness": 2
+      },
+      "validation_errors": [],
+      "output_path": "C:\\Users\\lbouw\\OneDrive\\Documents\\Github Repos\\AI_Novel_Writing_Room\\output\\star-wars-legends-eu\\the-ruusan-atonement\\export\\production-lean-full-20260425-010838-final-candidate-micro-cleanup\\chapters\\chapter_28.md"
+    }
+  ],
+  "final_manual_fix": {
+    "applied_at": "2026-04-26T16:53:58.889125+00:00",
+    "chapters": [
+      18,
+      27,
+      28
+    ],
+    "notes": "Trimmed verifier-identified interpretive echoes and local hum/resonance motif repetition."
+  }
+}

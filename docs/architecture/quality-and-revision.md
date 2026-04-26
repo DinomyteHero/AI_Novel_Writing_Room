@@ -1,5 +1,7 @@
 # Quality and Revision
 
+Current production defaults to lean mode, where the per-scene refinement stack is bypassed and LineWriter is the only post-draft scene edit. Quality and revision decisions then move to the full-manuscript lifecycle: GPT-5.4 review, targeted revision, targeted cleanup, final docket pass, and deterministic validation.
+
 The system uses pure-Python quality metrics (no LLM calls) to score scenes, then runs a bounded LLM refinement pass (QualityPolish) whose output is checked by a compression advisory and a Final Gate before it is saved. Under the forward-only relay (Stage 1a+), FinalGate verdicts are **advisory**: the polished prose is always saved unless the save-blocker layer fires. The only hard-failure path is save-blockers (CHARACTER_PRESENCE, CANON critical/moderate, POV advisory), which quarantines the scene and aborts the run.
 
 > **Note — pipeline redesign.** Earlier builds ran a multi-band revision pipeline (StructuralContinuity → SceneEmotion → LineCopy → optional DialoguePolish / WorldbuildingCoherence) after the Gate. That pipeline has been removed entirely. Polish is now a single pass followed by a Final Gate advisory and the save-blocker layer. The old `prompts/revision_prompts/` directory and `src/revision/` module that backed the revision bands have both been deleted; older docs that reference them describe a dead code path.
@@ -65,9 +67,9 @@ Quality metrics produce structured flags that are passed to QualityPolish so the
 
 A manuscript-level tracker aggregates overused words across all generated scenes (not just per-chapter). After each chapter, newly flagged words are merged into the tracker. These accumulated overused words are dynamically injected into the Prose Stylist prompt for subsequent scenes, helping the drafting agent proactively avoid manuscript-level repetition patterns.
 
-## Refinement Path: QualityPolish → Compression Guard → Final Gate
+## Full Relay Refinement Path: QualityPolish → Compression Guard → Final Gate
 
-After a draft passes the Scene Gate, the orchestrator runs a single bounded refinement pass and validates its output before saving.
+In non-lean runs, after a draft passes the Scene Gate, the orchestrator runs a single bounded refinement pass and validates its output before saving.
 
 ### QualityPolish (`src/agents/quality_polish.py`)
 
@@ -129,7 +131,23 @@ Can be disabled with `--no-milestones`.
 
 ## Manuscript Reviewer (Phase 5)
 
-`src/agents/manuscript_reviewer.py` performs full-manuscript-level review using dual personas (Literary Critic and Structural Editor). Unlike the per-chapter LLM Judge, the Manuscript Reviewer evaluates the complete work and outputs categorized issues with severity levels (critical/major/minor/suggestion) and an overall recommendation (approve/revise_specific_chapters/major_revision_needed).
+`src/agents/manuscript_reviewer.py` performs full-manuscript-level review using dual personas (Literary Critic and Structural Editor). Unlike the per-chapter LLM Judge, the Manuscript Reviewer evaluates the complete work and outputs categorized issues with severity levels (critical/major/minor/suggestion) and an overall recommendation (approve/revise_specific_chapters/major_revision_needed). The live route uses GPT-5.4 for this role.
+
+## Current Manuscript-Level Revision Policy
+
+The manuscript reviewer creates an editorial docket. It does not directly produce the final manuscript.
+
+The current default sequence is:
+
+1. Export the lean manuscript.
+2. Review the full manuscript with GPT-5.4.
+3. Apply targeted revision patches against the docket, including earlier chapters when a clean baseline is desired.
+4. Run targeted cleanup as the default final polish branch.
+5. Run full literary polish only as a donor/comparison branch.
+6. Apply the final docket pass.
+7. Validate the candidate with `scripts/manuscript_final_validation.py`.
+
+The targeted cleanup branch is the production base because it has shown the best balance of readability, tonal fit, and line discipline. Full literary polish can be attractive, but it should be mined for isolated improvements rather than accepted wholesale.
 
 ## Gold Evaluation Corpus
 

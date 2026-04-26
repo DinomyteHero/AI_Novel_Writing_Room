@@ -1,0 +1,68 @@
+{
+  "metadata": {
+    "generated_at": "2026-04-26T16:52:49.738423+00:00",
+    "run_name": "production-lean-full-20260425-010838",
+    "micro_dir": "C:\\Users\\lbouw\\OneDrive\\Documents\\Github Repos\\AI_Novel_Writing_Room\\output\\star-wars-legends-eu\\the-ruusan-atonement\\export\\production-lean-full-20260425-010838-final-candidate-micro-cleanup",
+    "target_chapters": [
+      10,
+      15,
+      16,
+      17,
+      18,
+      27,
+      28
+    ]
+  },
+  "verification": {
+    "verdict": "needs_tiny_manual_fix",
+    "checks": [
+      {
+        "check": "No structural revision introduced; chapter/scene count and continuity preserved",
+        "status": "pass",
+        "notes": "Local validation remains at 28 chapters, 87 scenes, with no validation errors. Micro-cleanup summary targets only the requested chapters."
+      },
+      {
+        "check": "Meta/process-language artifacts removed",
+        "status": "pass",
+        "notes": "No hard artifact hits and no meta hits in local validation. Sampled chapters contain no chapter/scene/book self-reference intrusions in narration."
+      },
+      {
+        "check": "Duplicate interpretive lines compressed in Chapter 10",
+        "status": "pass",
+        "notes": "Chapter 10 is materially tighter. Veraine-as-curator/stager remains central but no longer feels obviously over-repeated at line level."
+      },
+      {
+        "check": "Duplicate interpretive lines compressed in Chapters 15-18",
+        "status": "caution",
+        "notes": "Improved overall, but some interpretive reiteration still clusters across adjacent scenes: Ben withholding/curating reality in 15.02, 15.03, and 18.02; Torin/Jacen patterning in 17.01, 18.01, and 18.02. This is narrower than before but not fully invisible."
+      },
+      {
+        "check": "Repeated motif words trimmed where adjacent paragraphs perform same function",
+        "status": "caution",
+        "notes": "Micro-cleaned text reduces some clustering, but late-book local density is still noticeable at paragraph range. Example in Chapter 28.03: 'The hum held' appears twice within a short span, and the closing cadence reiterates hum/resonance/Enough in close proximity. Similar mild clustering persists elsewhere with 'hum,' 'weight,' and 'stillness.'"
+      },
+      {
+        "check": "Light simplification of over-lush sentences in Chapters 13, 18, 27, 28",
+        "status": "caution",
+        "notes": "Chapters 18, 27, and 28 read cleaner than the prior verifier described, but a few sentences still sit slightly above the surrounding commercial house voice. Examples: 27.02 'the pressure didn’t ease; it changed, the way a wound stopped bleeding and started to close'; 28.03 'The Skywalker name sat on him without weight.' These are not structural issues, just a few remaining elevated lines."
+      },
+      {
+        "check": "Commercial clarity and readability maintained",
+        "status": "pass",
+        "notes": "Despite some elevated phrasing, scene action, stakes, and character positioning remain clear. The prose is readable and export-close."
+      },
+      {
+        "check": "Ending cadence does not over-echo itself",
+        "status": "caution",
+        "notes": "Final pages are strong, but Chapter 28.03 slightly over-insists on the concluding emotional state through repeated hum/tether/resonance/Enough phrasing. A very small line-level trim would sharpen the close."
+      }
+    ],
+    "overall_assessment": "This candidate is essentially export-ready in structure, continuity, and macro line quality. The requested micro-cleanup was substantially completed. What remains is extremely small: a few repeated interpretive or motif echoes and a handful of elevated closing lines that could be trimmed for maximum polish.",
+    "remaining_risks": [
+      "A few adjacent passages in Chapters 15-18 still restate the same interpretive conclusion with slightly different phrasing.",
+      "Late-book motif echo, especially around hum/resonance/weight/stillness, may register on a very attentive final read.",
+      "Two or three lines in Chapters 27-28 still read a shade more lyrical than the surrounding commercial register."
+    ],
+    "recommendation": "Do one final restrained hand edit only: trim a few repeated hum/resonance and interpretive echoes, especially in 18.02 and 28.03, and simplify any single sentence that still stands out as slightly over-lush. Then export."
+  }
+}

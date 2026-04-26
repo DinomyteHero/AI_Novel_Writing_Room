@@ -8,6 +8,8 @@ The AI Writers' Room is a multi-agent fiction generation system organized around
 
 Story authoring happens through the **workflow kit** — six independent per-surface skills that each own one slice of the concept:
 
+An optional **Idea Session Capture** step can run before these surfaces. It stores a loose planning chat, north-star decisions, open questions, and per-surface handoff notes under `workflows/idea_session/`; the six surfaces remain the compiler inputs.
+
 1. `universe-builder` — meta + premise + conflict + theme
 2. `canon-drafter` — canon profile, canon constraints, terminology
 3. `voice-discovery` — POV, register, anti-slop rules, character voices
@@ -18,6 +20,12 @@ Story authoring happens through the **workflow kit** — six independent per-sur
 Each surface writes a JSON artifact under `workflows/<surface>/`. `scripts/compile_bundle.py` merges those artifacts into the canonical **concept seed** (`concept_seed.json`) and **scene cards** (one JSON per chapter/scene) that the pipeline consumes.
 
 The older monolithic `workshop_runner.py` CLI has been removed; see [workflow-kit.md](../user-guide/workflow-kit.md) for the supported authoring path.
+
+### Current Production Default
+
+Production now runs lean by default: `PlotArchitect -> ProseStylist -> LineWriter -> save`. The fuller relay remains available for diagnostics, benchmarks, and opt-in non-lean runs.
+
+After a manuscript is exported, production continues through the [Manuscript Production Lifecycle](manuscript-production-lifecycle.md): GPT-5.4 full review, targeted revision, targeted cleanup, optional full-literary donor comparison, final docket pass, and deterministic validation.
 
 ### Phase B: Autonomous Pipeline
 

@@ -2,6 +2,8 @@
 
 All configuration files are in the `config/` directory.
 
+> **Current production note (2026-04-26):** `config/settings.yaml` now defaults to lean manuscript production. The live scene path is `PlotArchitect -> ProseStylist -> LineWriter -> save`, with `prose_stylist` on DeepSeek V4 Pro, `line_writer` on GPT-5.4 Mini, and `manuscript_reviewer` on GPT-5.4. Targeted cleanup is the default final polish branch; full literary polish is an opt-in donor/comparison branch.
+
 ## settings.yaml
 
 The main configuration file. Controls deployment mode, model routing, and pipeline behavior.
@@ -52,8 +54,8 @@ models:
       grok41fast:     x-ai/grok-4.1-fast
       mistral_small4: mistralai/mistral-small-2603
       minimax:        minimax/minimax-m2.7
-      gpt54:          openai/gpt-5.4           # line-editing (Stage 3a of the relay)
-      gpt54_mini:     openai/gpt-5.4-mini      # quality_polish — matches line-editor's family
+      gpt54:          openai/gpt-5.4           # manuscript review, optional literary donor pass
+      gpt54_mini:     openai/gpt-5.4-mini      # lean line edit, optional quality polish
     default_params:
       # Per-alias defaults (temperature, max_tokens) applied when an agent
       # routing entry does not override them.
@@ -91,27 +93,28 @@ Maps each agent role to a backend, model tier, and optional parameter overrides.
 ```yaml
 agent_routing:
   # PROSE — drafter + optional line-editor relay
-  prose_stylist: { backend: cloud, model: claude, params: { temperature: 0.80, max_tokens: 8192 } }
-  line_writer:   { backend: cloud, model: gpt54,  params: { temperature: 0.8,  max_tokens: 12000 } }
+  prose_stylist: { backend: cloud, model: deepseekpro, params: { temperature: 0.70, max_tokens: 8192 } }
+  line_writer:   { backend: cloud, model: gpt54_mini, params: { temperature: 0.35, max_tokens: 8192 } }
 
   # GATES / EVAL
-  gate_critic:          { backend: cloud, model: haiku,   params: { temperature: 0.3 } }
-  chapter_gate_critic:  { backend: cloud, model: haiku,   params: { temperature: 0.3 } }
-  final_gate:           { backend: cloud, model: haiku,   params: { temperature: 0.2 } }
-  presence_checker:     { backend: cloud, model: haiku,   params: { temperature: 0.1, max_tokens: 1000 } }
-  continuity_extractor: { backend: cloud, model: haiku,   params: { temperature: 0.0, max_tokens: 2048 } }
+  gate_critic:          { backend: cloud, model: grok41fast, params: { temperature: 0.3 } }
+  chapter_gate_critic:  { backend: cloud, model: grok41fast, params: { temperature: 0.3 } }
+  final_gate:           { backend: cloud, model: grok41fast, params: { temperature: 0.2 } }
+  presence_checker:     { backend: cloud, model: grok41fast, params: { temperature: 0.1, max_tokens: 1000 } }
+  continuity_extractor: { backend: cloud, model: grok41fast, params: { temperature: 0.0, max_tokens: 2048 } }
   judge_evaluator:      { backend: cloud, model: grok420, params: { temperature: 0.2 } }
-  manuscript_reviewer:  { backend: cloud, model: kimi,    params: { temperature: 0.3 } }
+  manuscript_reviewer:  { backend: cloud, model: gpt54, params: { temperature: 0.3, max_tokens: 16000 } }
 
   # PLANNING — Gemini Pro for long-context one-off authoring;
-  # Haiku 4.5 for the per-scene plot_architect (structured JSON, ~1/6 the cost of Gemini).
+  # DeepSeek V4 Flash for the per-scene plot_architect structured JSON pass.
   concept_workshop:              { backend: cloud, model: gemini, params: { temperature: 0.7, max_tokens: 8192 } }
   outline_planner:               { backend: cloud, model: gemini, params: { temperature: 0.5, max_tokens: 32768 } }
   seed_builder:                  { backend: cloud, model: gemini, params: { temperature: 0.3, max_tokens: 16384 } }
-  plot_architect:                { backend: cloud, model: haiku,  params: { temperature: 0.4, max_tokens: 4096 } }
+  plot_architect:                { backend: cloud, model: deepseek, params: { temperature: 0.4, max_tokens: 4096 } }
   chapter_blueprint_synthesizer: { backend: cloud, model: gemini, params: { temperature: 0.4, max_tokens: 8192 } }
 
   # POLISH — GPT 5.4-mini matches line_writer's family (gpt-5.4) for style consistency.
+  # Skipped by default while lean_prose_only is enabled.
   quality_polish:      { backend: cloud, model: gpt54_mini, params: { temperature: 0.5, max_tokens: 8192 } }
 
   # EDITORIAL / REVISION / UTILITY
@@ -127,6 +130,8 @@ agent_routing:
 ```
 
 **Deployment mode override**: When `deployment_mode` is `cloud`, the `backend` field on every agent routing entry is overridden — all agents use cloud models. When `local`, all use local. `hybrid` is the only mode that honours the per-agent `backend` field.
+
+Current manuscript production uses `manuscript_reviewer` for the GPT-5.4 full-book docket. Targeted cleanup is the default final polish branch. `literary_polish` is available for an opt-in full-literary donor/comparison branch, but should not replace the targeted-cleanup master without manual review.
 
 **There is no `craft_editor` role.** The 3-band revision pipeline was collapsed into a single `quality_polish` agent in the [pipeline redesign](../architecture/pipeline-redesign.md). Any `craft_editor` routing entry inherited from an older config is ignored.
 
@@ -225,6 +230,10 @@ Slice 1–5 of the architecture upgrade land behind feature flags that default t
 
 ```yaml
 runtime:
+  lean_prose_only:
+    enabled: true
+    line_edit:
+      enabled: true
   phase0_audit:
     enabled: false
   firewall:
@@ -234,7 +243,7 @@ runtime:
       jaccard_threshold: 0.5
       adjacency_max_for_continue: 1
   chapter_packet:
-    enabled: false
+    enabled: true
     fallback_on_error: true
   revision_debt:
     enabled: false
@@ -252,7 +261,7 @@ runtime:
     suggest_mode: false
 ```
 
-Shipping books (Ruusan, Betrayal) keep every flag at the global default (`false`) until their per-book parity tests land — see `tests/test_runtime_flags.py` for the guard tests that reject accidental `runtime_overrides.yaml` files under those books. The full spec lives at [architecture_upgrade_spec.md](../architecture/architecture_upgrade_spec.md).
+Current production deliberately enables `lean_prose_only` and `chapter_packet` globally. Other architecture-upgrade surfaces remain disabled unless a book or run explicitly opts in. The full spec lives at [architecture_upgrade_spec.md](../architecture/architecture_upgrade_spec.md).
 
 The `lore_extractor` agent routing is defined in `agent_routing` (see the Agent Routing section above).
 

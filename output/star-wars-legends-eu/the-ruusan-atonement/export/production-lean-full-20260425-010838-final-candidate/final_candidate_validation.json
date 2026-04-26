@@ -1,0 +1,16 @@
+{
+  "validated_at": "2026-04-26T16:42:29.064117+00:00",
+  "chapters": 28,
+  "scenes": 87,
+  "word_count_with_headings": 112302,
+  "validation_errors": [],
+  "hard_artifact_hits": [],
+  "motif_counts": {
+    "wound": 94,
+    "seal": 287,
+    "chord": 62,
+    "note": 100,
+    "silence": 176,
+    "wrongness": 31
+  }
+}

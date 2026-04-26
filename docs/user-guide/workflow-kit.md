@@ -10,6 +10,11 @@ merges all six surface outputs into the canonical `concept_seed.json` +
 `scene_cards/` tree the pipeline already consumes. Nothing in the
 pipeline changed in Phase 4; what changed is how you produce its input.
 
+For the full operator sequence, see [New Manuscript Workflow](new-manuscript-workflow.md).
+For a looser author-led start, use [Idea Session Capture](idea-session-capture.md)
+before authoring the six surfaces. It creates `workflows/idea_session/`
+with chat notes, open questions, and per-surface handoff files.
+
 ## Why six surfaces
 
 The legacy `workshop_runner.py` (now removed — see [Legacy `workshop_runner` has been removed](#legacy-workshop_runner-has-been-removed)
@@ -56,6 +61,9 @@ describes the protocol every surface follows.
 ### Fresh project (empty directory → compiled bundle)
 
 ```bash
+# 0. Optional: create an idea-session workspace for the planning chat.
+python scripts/idea_session_capture.py init --title "My Novel" --franchise "My Franchise"
+
 # 1. Scaffold the project tree (canon_profile + voice templates).
 python scripts/init_project.py --title "My Novel" --franchise "My Franchise" --depth original_light
 
