@@ -164,8 +164,12 @@ def test_shipping_defaults_all_safe():
     assert runtime["continuity_log"]["enabled"] is False
     assert runtime["sociogram"]["enabled"] is False
     assert runtime["micro_repair"]["enabled"] is False
-    assert runtime["micro_repair"]["max_repairs"] == 2
-    assert runtime["micro_repair"]["max_total_changed_chars"] == 500
+    # Production caps: widened from the original 2/500/0.12 after the final-copy
+    # workflow proved the narrower budget couldn't actually patch presence
+    # violations in long climactic scenes. The flag still defaults off; these
+    # caps only bind when a bench overlay or final-copy script enables it.
+    assert runtime["micro_repair"]["max_repairs"] == 5
+    assert runtime["micro_repair"]["max_total_changed_chars"] == 1000
     assert runtime["micro_repair"]["max_changed_ratio"] == 0.12
     assert runtime["commercial_rewrite"]["enabled"] is False
     # Forward Relay v4: smart single corrective rerun defaults off.

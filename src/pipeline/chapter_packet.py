@@ -461,6 +461,10 @@ class ChapterPacketCompiler:
             scene_card=scene_card,
         )
 
+        scene_pov_arc_pressure = _enrich_pov_arc_pressure_for_scene(
+            base.pov_arc_pressure, scene_card
+        )
+
         overlay = replace(
             base,
             overlay_version=base.overlay_version + 1,
@@ -473,6 +477,7 @@ class ChapterPacketCompiler:
             continuity_events=continuity_events,
             relationship_context=relationship_context,
             canon_guidance=canon_guidance,
+            pov_arc_pressure=scene_pov_arc_pressure,
         )
         return replace(overlay, rendered_markdown=overlay.render_markdown())
 
@@ -769,6 +774,44 @@ class ChapterPacketCompiler:
 
 def _scene_id(chapter_number: int, scene_number: int) -> str:
     return f"ch{chapter_number:02d}_sc{scene_number:02d}"
+
+
+def _enrich_pov_arc_pressure_for_scene(
+    base_pressure: Mapping[str, Any],
+    scene_card: Mapping[str, Any],
+) -> dict:
+    """Fold the scene card's Weiland arc fields into the chapter-level pressure dict.
+
+    The base packet only knows the chapter blueprint, so its pov_arc_pressure
+    carries the chapter's structural_phase and the chapter POV. The scene
+    card may also declare ``pov_arc_phase`` (the POV character's current
+    Weiland arc phase) and ``arc_phase_transition`` (the new phase if this
+    scene flips it). Surface both so the drafter sees the scene's arc
+    contract, not just the chapter's.
+
+    The scene-card values fall back to ``scene_voice_permissions.pov_arc_phase``
+    when the top-level field is empty, matching the resolution order used
+    by ``src.prompting.scene_voice_permissions``.
+    """
+    enriched: dict[str, Any] = dict(base_pressure or {})
+
+    pov_arc_phase = (scene_card.get("pov_arc_phase") or "").strip()
+    if not pov_arc_phase:
+        voice_block = scene_card.get("scene_voice_permissions") or {}
+        if isinstance(voice_block, Mapping):
+            pov_arc_phase = (voice_block.get("pov_arc_phase") or "").strip()
+    if pov_arc_phase:
+        enriched["pov_arc_phase"] = pov_arc_phase
+
+    arc_phase_transition = (scene_card.get("arc_phase_transition") or "").strip()
+    if arc_phase_transition:
+        enriched["arc_phase_transition"] = arc_phase_transition
+
+    scene_pov = (scene_card.get("pov_character") or "").strip()
+    if scene_pov and not enriched.get("pov_character"):
+        enriched["pov_character"] = scene_pov
+
+    return enriched
 
 
 _SCENE_ID_RE = re.compile(r"^ch(\d{2})_sc(\d{2})$")

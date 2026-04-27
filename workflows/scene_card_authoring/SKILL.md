@@ -9,6 +9,22 @@ scene-card-authoring SKILL is deferred to a follow-up phase. The
 api.py and the two importers (legacy_seed, plain_markdown) are
 shipped in Phase 4.
 
+## Scene-count discipline (less is more)
+
+Whether you generate cards via the api or hand-author them, hold to the
+scene-count discipline that the outline-planner SKILL specifies:
+
+- A chapter with one load-bearing scene is healthier than a chapter
+  padded with three scenes that share one turning point.
+- Only split a chapter when each scene carries its own distinct
+  turning point, mission, and emotional arc.
+- The schema does **not** force a minimum scene count per chapter;
+  do not invent extra cards to "fill" a chapter.
+
+When importing legacy cards or markdown, audit pairs that look like
+they share a turning point — collapse them, do not preserve the split
+just because the original author drafted it that way.
+
 ## What you can do today
 
 ### Headless generation (recommended)

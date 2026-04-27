@@ -179,6 +179,70 @@ def test_overlay_does_not_mutate_base(compiler):
     assert overlay.pressure_ladder == base.pressure_ladder
 
 
+def test_overlay_surfaces_scene_card_pov_arc_phase(compiler):
+    """Scene-card pov_arc_phase + arc_phase_transition flow into pov_arc_pressure.
+
+    Closes the gap where the chapter packet only carried chapter-level
+    structural_phase from the blueprint; the drafter now sees the POV
+    character's current Weiland arc phase + any transition this scene
+    triggers.
+    """
+    base = compiler.compile_base(chapter_number=1)
+    scene_card = {
+        "chapter_number": 1,
+        "scene_number": 1,
+        "pov_character": "Ben",
+        "mission": "spar and fail",
+        "pov_arc_phase": "lie_reinforced",
+        "arc_phase_transition": "lie_challenged",
+    }
+    overlay = compiler.compile_overlay(base=base, scene_card=scene_card)
+    # Chapter-level fields preserved
+    assert overlay.pov_arc_pressure["structural_phase"] == "setup"
+    # Scene-level fields surfaced
+    assert overlay.pov_arc_pressure["pov_arc_phase"] == "lie_reinforced"
+    assert overlay.pov_arc_pressure["arc_phase_transition"] == "lie_challenged"
+    # Rendered markdown carries them under the POV Arc Pressure heading
+    rendered = overlay.render_markdown()
+    arc_section = rendered.split("### POV Arc Pressure", 1)[1].split("###", 1)[0]
+    assert "pov_arc_phase: lie_reinforced" in arc_section
+    assert "arc_phase_transition: lie_challenged" in arc_section
+    # Base is not mutated
+    assert "pov_arc_phase" not in base.pov_arc_pressure
+
+
+def test_overlay_pov_arc_phase_falls_back_to_voice_permissions(compiler):
+    """When top-level pov_arc_phase is empty, voice permissions block wins."""
+    base = compiler.compile_base(chapter_number=1)
+    scene_card = {
+        "chapter_number": 1,
+        "scene_number": 1,
+        "pov_character": "Ben",
+        "mission": "spar and fail",
+        "scene_voice_permissions": {
+            "pov_arc_phase": "moment_of_truth",
+        },
+    }
+    overlay = compiler.compile_overlay(base=base, scene_card=scene_card)
+    assert overlay.pov_arc_pressure["pov_arc_phase"] == "moment_of_truth"
+
+
+def test_overlay_omits_pov_arc_fields_when_scene_card_silent(compiler):
+    """No scene-level Weiland fields → packet omits them entirely (no empty noise)."""
+    base = compiler.compile_base(chapter_number=1)
+    scene_card = {
+        "chapter_number": 1,
+        "scene_number": 1,
+        "pov_character": "Ben",
+        "mission": "spar and fail",
+    }
+    overlay = compiler.compile_overlay(base=base, scene_card=scene_card)
+    assert "pov_arc_phase" not in overlay.pov_arc_pressure
+    assert "arc_phase_transition" not in overlay.pov_arc_pressure
+    # Chapter-level pressure still present
+    assert overlay.pov_arc_pressure["structural_phase"] == "setup"
+
+
 def test_overlay_version_monotonic(compiler):
     base = compiler.compile_base(chapter_number=1)
     scene1 = {"chapter_number": 1, "scene_number": 1}
