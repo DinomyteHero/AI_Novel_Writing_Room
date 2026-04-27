@@ -2264,7 +2264,7 @@
       "promise": "The trust-as-problem reading of the resonance note: framed at Ch 18 s3, pays at Ch 25–26 through interpreter-of-chord and first-renewal commitment",
       "planted_in": "Chapter 18 scene 3",
       "payoff_in": "Chapter 25 and Chapter 26",
-      "type": "theme",
+      "type": "thematic",
       "related_hook_id": null,
       "rationale": "Thematic-mechanic promise — the resonance reframing governs how the climactic commitment reads."
     },
@@ -2327,7 +2327,7 @@
       "promise": "The 'find another way, together' commitment of Ch 21 s3 converts to a priced, first-renewal commitment at Ch 26 s3",
       "planted_in": "Chapter 21 scene 3",
       "payoff_in": "Chapter 26 scene 3",
-      "type": "theme",
+      "type": "thematic",
       "related_hook_id": null,
       "rationale": "Thematic-commitment promise — the earlier 'together' line is paid as a priced choice, not a feel-good echo."
     }

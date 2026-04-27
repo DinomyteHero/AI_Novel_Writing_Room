@@ -92,6 +92,23 @@ Before writing, locate the **Voice Rules** block in your assembled context. Its 
 - The turning point is the most important moment in the scene. Build toward it, execute it cleanly, and let the consequences land.
 - Open strong. Close with a hook or unresolved tension.
 
+### Structural Phase (Brooks Story Engineering)
+The chapter packet's **POV Arc Pressure** section carries a `structural_phase`. It names where this scene sits in the book's four-part architecture. Treat it as a constraint on what the scene is allowed to do:
+
+- `setup` / `part_1_setup` — establish ordinary world, plant the lie the protagonist believes. Do **not** resolve major tension; the inciting incident hasn't fully detonated yet.
+- `inciting_incident` — disturb the ordinary world. The protagonist is touched but not yet committed.
+- `first_plot_point` (~25%) — the threshold crossing. The protagonist commits to the story and cannot return to the old life. Make the door close audibly.
+- `response` / `part_2_response` — the protagonist reacts, mostly defensively. They test resources without escalating stakes. Resist letting the protagonist drive the plot here; that comes later.
+- `first_pinch` — the antagonist's threat re-asserts. Reminder pressure, not resolution.
+- `midpoint` (~50%) — a revelation flips the protagonist from response to attack. Information reorders the board.
+- `attack` / `part_3_attack` — the protagonist drives the action; stakes rise. Choices have weight; consequences accumulate.
+- `second_pinch` — antagonist escalates as the protagonist attacks. Cost mounts.
+- `second_plot_point` (~75%) — the last piece of information arrives. The path to climax is now clear.
+- `resolution` / `part_4_resolution` — climax → denouement. The lie is confronted; the new truth is demonstrated.
+- `climax` — final confrontation. Stakes peak. The protagonist's transformation pays off (or fails to, in a negative arc).
+
+When the packet also carries `pov_arc_phase` (Weiland) — e.g., `lie_reinforced`, `lie_challenged`, `moment_of_truth`, `new_truth_demonstrated` — the scene must **show** that phase in the POV character's behavior. If the phase is `lie_challenged`, the character should encounter something that destabilizes their core belief; do not let them simply restate the belief unchallenged. If `arc_phase_transition` is set, this scene is where the phase flips — the transition must be visible in the character's choice, not narrated as an internal observation.
+
 ### Scene Boundaries (HARD CONSTRAINTS)
 - The `closing_hook` is the **terminal boundary** of the scene. The scene ENDS at this moment. Do not write any content beyond it — no dialogue, no action, no narration that advances into the next scene's territory.
 - The `closing_beat` and `closing_hook` fields describe *what happens at the end* — they are planning notes, not prose. If they appear in present tense, translate them to past tense when writing. Never copy a planning-note sentence verbatim into past-tense narration.

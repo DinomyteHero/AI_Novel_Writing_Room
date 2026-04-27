@@ -68,7 +68,8 @@ class TestInstalledSeedShape:
         assert len(seed["revelation_schedule"]) == 19, "Expected 19 revelations"
         assert len(seed["scene_cards"]) == 0, "Expected 0 scene cards (removed pending regeneration)"
         assert len(seed["terminology_registry"]) == 44, "Expected 44 terminology entries"
-        assert len(seed["promise_payoff_ledger"]) == 32, "Expected 32 promise ledger entries"
+        # Grew from 32 to 51 during planning iteration; current shipping seed.
+        assert len(seed["promise_payoff_ledger"]) == 51, "Expected 51 promise ledger entries"
 
     def test_extended_metadata_contains_story_specific_fields(self, installed_ruusan_seed):
         """technique_lineage and jacen_parallel are under extended_metadata, not top-level."""

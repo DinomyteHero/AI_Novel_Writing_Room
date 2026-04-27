@@ -25,7 +25,7 @@ Rules:
 - **`max_structural_retries` / `max_voice_retries`** are pinned to `0` in `config/settings.yaml`. They are retained only for rollback. Do not raise them, and do not add new retry branches. The only non-zero drafter retry path is `runtime.corrective_rerun.enabled` (bounded to exactly one rerun; Forward Relay v4).
 - **Compression guard is revert-on-regression.** Polish that shrinks below 60% of pre-polish word count causes `polished_prose` to revert to the gate-passed draft; a warn-level `compression_guard_fired` event fires with `reverted=True`, and downstream stages (FinalGate, CanonExpert, PresenceChecker, save-blocker layer) evaluate the reverted prose. This is the only place in the forward-only relay where a later stage can overwrite an earlier stage's output — justified because polish-below-60% has been observed to hollow scenes beyond what human review can reasonably repair. Soft compressions (60-100%) still save polished output unchanged.
 - **Post-save stages are wrapped with broad error guards.** Physics validation, summarizer/state-diff, character specialist, LLM judge, chapter gate critic, and the promise ledger Slice-3 hook each catch `Exception` and emit a warn-level event (`post_save_error` with a `stage` tag, or stage-specific events like `physics_validation_post` with `status=error`). A crash in any post-save stage never aborts a saved scene — next-scene state may be stale, so the warn is load-bearing.
-- **LineWriter is currently disabled** in the shipping config — its `agent_routing.line_writer:` entry is commented out in `config/settings.yaml`. `src/main.py:915` guards instantiation on the config key; with it missing, the orchestrator receives `line_writer=None` and `src/orchestrator.py:688` short-circuits. When present (bench overlays), LineWriter takes an **explicitly wired** context dict — do not let it reach into ambient `ContextAssembler`. Collapsed output (<40% source word count) falls back to drafter prose with a warn event.
+- **LineWriter is gated off by `runtime.lean_prose_only`** in the shipping config. The `agent_routing.line_writer:` entry **is** present in `config/settings.yaml` (retained for opt-in experiments and bench overlays), but `runtime.lean_prose_only.enabled: true` short-circuits the orchestrator after the drafter so LineWriter never runs in production. When LineWriter does run (bench overlays that disable lean mode), it takes an **explicitly wired** context dict — do not let it reach into ambient `ContextAssembler`. Collapsed output (<40% source word count) falls back to drafter prose with a warn event.
 - The **save-blocker layer** (`src/pipeline/save_blockers.py`) is the **only** hard-failure path. Three categories: `CHARACTER_PRESENCE_BLOCKER` (from PresenceChecker), `CANON_BLOCKER` (CanonExpert verdict = fail + severity ∈ {critical, moderate}, excluding `post_divergence_drift` which is clamped to advisory), and a POV advisory (not yet blocking). When a blocker fires, the run aborts and the offending scene is written to `<project>/quarantine/chNN_scMM/{prose.md, blockers.json, brief.json}` — unless `runtime.firewall.enabled` is on (then `StateFirewall` isolates + continues, Slice 1).
 - **PresenceChecker is invoked once per scene.** `save_blockers.collect_presence_violations()` produces the normalized violations list; the orchestrator threads it through `_maybe_micro_repair` and into `check_save_blockers(..., presence_violations=...)` so the checker is not called twice in the same scene unless micro_repair mutated the prose.
 
@@ -34,7 +34,7 @@ Rules:
 The forward-only relay is intact, but three editorial redundancies were collapsed and the latent corrective-rerun plumbing was activated behind a runtime flag. Design doc at `docs/architecture/forward_relay_v4_proposal.md`.
 
 **Default-on changes (shipped without a flag):**
-- **LineWriter is off by default.** The `line_writer:` entry under `agent_routing` in `config/settings.yaml` is commented out. `src/main.py:915` guards instantiation on the config key being present, so the orchestrator receives `line_writer=None` and `src/orchestrator.py:688` short-circuits. Bench configs that need LineWriter can re-enable it in their own overlay YAML.
+- **LineWriter is off by default via `runtime.lean_prose_only`.** The `line_writer:` entry under `agent_routing` in `config/settings.yaml` is present (so bench overlays can opt in), but the lean-prose-only flag short-circuits the orchestrator after the drafter so LineWriter never runs in production. To re-enable for a bench, set `runtime.lean_prose_only.enabled: false` in the overlay YAML.
 - **Presence triple-check collapsed.** `CHARACTER_PRESENCE_VIOLATION` was removed from `GateCritic.STRUCTURAL_CODES` and `FinalGate.FINAL_GATE_CODES`. `PresenceChecker` at save time is the sole authority on character presence — the gates used to echo it, producing the same violation three times across pre-polish / post-polish / save-blocker. Turning-point + closing-hook stay in both gates because pre-polish vs post-polish is real regression coverage.
 - **GateCritic moved off Haiku to Grok 4.1 Fast.** The drafter (Sonnet) plus three Haiku judges was same-family homogeneity; GateCritic is the advice source for the corrective rerun, so its family bias has the most leverage. FinalGate and PresenceChecker stay on Haiku — narrower / contract-shaped, same-family matters less. Fallback if structured-JSON reliability regresses: `glm` or `gemini_flash`. Alternative cross-family candidates documented in the proposal doc's "Alternatives considered" section for future benching.
 
@@ -54,8 +54,8 @@ Commit `6227b21` added `src/agents/micro_repair.py` and a matching orchestrator 
 - **Orchestrator stage.** `Orchestrator._maybe_micro_repair` runs between CanonExpert (post-`_maybe_apply_canon_local_fixes`) and the final `check_save_blockers` call, at `src/orchestrator.py:1021`. It receives precomputed `presence_violations` from `collect_presence_violations` so it never duplicates the PresenceChecker round-trip. When repairs apply, CanonExpert is re-invoked on the patched prose before save-blockers evaluate.
 - **Currently supported issue types:** `presence_violation` only. Other `issue_type` values are rejected (`unsupported_issue_type`). Canon and POV issues still flow through their existing paths.
 - **Deterministic safety caps enforced in `_apply_micro_repairs` regardless of what the model returns:**
-  - `runtime.micro_repair.max_repairs` (default 2) — cap on applied patches per scene.
-  - `runtime.micro_repair.max_total_changed_chars` (default 500) — total byte budget across patches.
+  - `runtime.micro_repair.max_repairs` (default 5) — cap on applied patches per scene. Widened from the original 2 after the final-copy workflow showed the narrower budget could not patch presence violations in long climactic scenes.
+  - `runtime.micro_repair.max_total_changed_chars` (default 1000) — total byte budget across patches.
   - `runtime.micro_repair.max_changed_ratio` (default 0.12) — ratio ceiling vs. original prose length.
   - **Unique-occurrence requirement.** If `pattern` appears zero times → `pattern_not_in_prose`. If it appears more than once → `ambiguous_pattern_occurrences` (no fuzzy substitution; we refuse to guess which span to patch).
   - **Forbidden-name guard.** Any absent-character name from the original violation list that also appears in `replacement` (case-folded) → `forbidden_name_in_replacement` (prevents the model from "fixing" `Luke stepped from the doorway` → `Luke Skywalker stepped from the doorway`).
@@ -145,6 +145,59 @@ Slice 6 is the bridge between the forward-only scene runtime and coherent manusc
 - **Schema.** `schemas/manuscript_patch.json` with closed action enum (`accept-isolated`, `replace`, `overrule`) and scene-id pattern enforcement. `source_pass` tag lets downstream memos attribute each mutation to its originating pass.
 - **Test coverage.** 12 new tests span every subcommand, the duplicate-replace rejection, and the export stitcher. All subprocess calls pass `--no-ledger` + `--base-dir tmp_path` so tests stay hermetic and don't touch the real run ledger.
 
+## Lean prose path (shipping default)
+
+`runtime.lean_prose_only.enabled: true` is the **shipping default**. When on, the orchestrator short-circuits after the drafter (and optionally LineWriter when its routing entry is also enabled) — skipping GateCritic, QualityMetrics, QualityPolish, FinalGate, CanonExpert, the canon local-fix path, the micro_repair stage, and the save-blocker layer. Prose lands as `saved_clean` directly.
+
+Why it's safe by default: the structural framework (Brooks beat map + Weiland arc map + scene contract) is enforced *upstream* at planning + scene-card validation time. The save-time gates were originally inserted as cheap insurance against drafter drift; with the post-D2(c) enriched scene cards + chapter packet contract, the drafter has enough information to land the contract on the first pass for the vast majority of scenes. The gates are still wired and tested; the lean flag lets a shipping run skip them without removing them from the codebase.
+
+When to disable lean (set `runtime.lean_prose_only.enabled: false`):
+- Bench runs that need editorial judgement on every scene.
+- Recovery runs after a drafter / model / prompt change, before re-ramping.
+- Books on franchises with strict canon contracts where canon_expert + presence_checker are non-negotiable.
+
+Disabling lean re-engages the full forward-only relay documented in the "relay is forward-only" section above.
+
+## Pre-run architecture: canon guidance + preflight (commit `e67d5ff`)
+
+Two pre-run subsystems landed alongside the lean path:
+
+- **Canon guidance store + canon_scout agent.** `src/pipeline/canon_guidance.py` + `src/agents/canon_scout.py`. Persists franchise-level canon tips (terminology, mechanics, period detail) at `data/franchises/<franchise>/canon_guidance.json`. The chapter packet's `canon_guidance` field surfaces relevant entries to the drafter via the "Static Canon Guidance" section in the rendered packet. CLI: `scripts/canon_scout.py` for authoring; `data/franchises/<f>/canon_guidance.json` is read at packet compile time. Coverage gaps surface as preflight warnings.
+- **Preflight runner.** `src/pipeline/run_preflight.py` + `scripts/preflight_run.py`. Runs deterministic checks on planning artifacts before any LLM call: scene-card schema validity, cross-surface references resolve, canon guidance coverage, presence chains tractable. Surfaces all findings as a single report so the operator never wastes a run on a planning gap that could have been caught in seconds.
+
+## Manuscript-level passes (post-save, opt-in)
+
+Three post-save / off-path subsystems extend the per-scene pipeline without touching the relay:
+
+- **`src/quality/scene_contract_validator.py` + `src/quality/literal_repair.py`** (commit `c222462`). Deterministic per-scene contract checks (turning point present, characters present, structural-phase-appropriate moves). `bench_prose_models.py` exposes `--scene-contract`, `--auto-scene-contract`, `--fail-on-contract` to wire them into a bench run. Not in the per-scene shipping path; opt-in for diagnostic / recovery work.
+- **Literary polish + final-copy** (commit `5820841`). `src/agents/literary_polish.py` + `src/pipeline/final_copy.py` + `scripts/final_copy_existing.py`. A post-production pass that runs *after* the per-scene pipeline finishes and prose is saved. Routes to a higher-tier model (default `gpt54`) for line-level literary polish. **Not** part of the per-scene relay; intended for the final pre-publication sweep, not for every drafting run.
+- **Manuscript reviewer.** `src/agents/manuscript_reviewer.py` consumes the assembled manuscript for a developmental-pass review. Output lands in revision-debt rows (Slice 2) for human triage.
+
+These three are the "manuscript lifecycle" implementations of the design at `docs/architecture/manuscript_lifecycle_design.md`. The per-scene pipeline does not invoke them.
+
+## Idea-session capture (front-door planning, Claude/Codex portable)
+
+`workflows/idea_session_capture/` is the **only** workflow surface that runs identically in Claude Code and Codex. The conversation contract is the SKILL.md (read by both); state mutation goes through `IdeaSessionCapture` (a headless api). Both tools mutate the same `capture.json` through the same Python entry points; only the surrounding chat experience differs.
+
+- **Claude Code:** invokes the skill registered at `.claude/skills/idea-session-capture/SKILL.md` (thin wrapper; points at the workflow SKILL).
+- **Codex:** reads `AGENTS.md` at the repo root, which orients to the workflow kit and the idea-session conversation contract.
+- **Headless:** `from workflows.idea_session_capture import IdeaSessionCapture; cap = IdeaSessionCapture(title, franchise); cap.init_workspace(); cap.set_north_star(...); cap.add_decision(...); cap.expand_to_surface_drafts()`.
+- **CLI:** `python scripts/idea_session_capture.py {init|status|expand}`.
+
+`expand_to_surface_drafts()` is the bridge from the creative tier to the structural tier: it reads a populated capture and pre-seeds `workflows/{universe,canon,voice,characters,outline}.json` skeletons (and `workflows/scene_cards/_intent.md`). Existing artifacts are skipped unless `force=True`. The downstream surface sessions open to a partly-filled draft, not a blank file — the user does the creative thinking, the agent does the structural fleshing-out.
+
+## Scene-count discipline (less is more)
+
+Chapters carry **as many or as few scenes as the dramatic need calls for**. The schema does **not** force a minimum scene count per chapter — `outline.minItems = 1` for the chapter array, and `scene_cards/` may carry one card per chapter or several. A chapter with one load-bearing scene is healthier than a chapter padded with three scenes that share one turning point.
+
+Rule of thumb (enforced by guidance in `outline-planner` and `scene-card-authoring` SKILLs, not by validation): only split a chapter when each resulting scene carries its own:
+
+- distinct turning point (trigger / shift / cost)
+- distinct mission for the POV character
+- distinct emotional arc (start / shift / end)
+
+If two candidate scenes share a turning point, fold them into one. This is the spirit of Brooks's chapter-as-dramatic-unit: chapters are sized to the beat they carry, not to a uniform cadence.
+
 ## Status vocabulary (three values only)
 
 Per-scene save status lives in `src/memory/story_state.py`. Only three values are valid:
@@ -180,7 +233,13 @@ Always route I/O through `src/project_paths.ProjectPaths`. Do not hand-construct
 | State firewall (Slice 1 isolate-and-continue) | `src/pipeline/state_firewall.py` |
 | Successor classifier (Slice 1) | `src/pipeline/successor_classifier.py` |
 | Chapter packet (Slice 2, shipping default ON) | `src/pipeline/chapter_packet.py` |
-| Deterministic brief assembler (PlotArchitect successor) | `src/pipeline/brief_assembler.py` |
+| Deterministic brief assembler (PlotArchitect successor; **WIP — not yet wired into the orchestrator**) | `src/pipeline/brief_assembler.py` |
+| Canon guidance store + canon_scout agent | `src/pipeline/canon_guidance.py`, `src/agents/canon_scout.py`, `scripts/canon_scout.py` |
+| Pre-run preflight | `src/pipeline/run_preflight.py`, `scripts/preflight_run.py` |
+| Scene-contract validator + literal repair (bench/diagnostic) | `src/quality/scene_contract_validator.py`, `src/quality/literal_repair.py` |
+| Literary polish + final-copy (post-production) | `src/agents/literary_polish.py`, `src/pipeline/final_copy.py`, `scripts/final_copy_existing.py` |
+| Manuscript reviewer (developmental pass) | `src/agents/manuscript_reviewer.py` |
+| Idea-session capture (Claude/Codex portable) | `workflows/idea_session_capture/api.py`, `scripts/idea_session_capture.py`, `AGENTS.md` |
 | Scene-card cross-surface validator | `workflows/_shared/scene_card_references.py` |
 | Scene-card enrichment migration | `scripts/enrich_scene_cards.py` |
 | Revision-debt store + producers (Slice 2) | `src/pipeline/revision_debt.py`, `src/pipeline/revision_debt_producers.py` |
@@ -205,9 +264,21 @@ Always route I/O through `src/project_paths.ProjectPaths`. Do not hand-construct
 
 ## Workflow kit is the only supported authoring path
 
-The interactive `src.concept_workshop.workshop_runner` CLI was **removed**. Do not reference it in docs or code. New projects go through the per-surface skills (`universe-builder`, `canon-drafter`, `character-forge`, `outline-planner`, `voice-discovery`, `scene-card-authoring`). `scripts/compile_bundle.py` merges the surface outputs into the canonical `concept_seed.json`.
+The interactive `src.concept_workshop.workshop_runner` CLI was **removed**. Do not reference it in docs or code. New projects go through the per-surface skills, in order:
+
+1. **`idea-session-capture`** (front door, Claude/Codex portable) — captures the author's intent, decisions, and open questions; pre-seeds the six structural surfaces.
+2. **`universe-builder`** — premise, conflict, theme, setting.
+3. **`canon-drafter`** — continuity rules, terminology.
+4. **`voice-discovery`** — POV, register, reference authors.
+5. **`character-forge`** — Weiland arc structure (lie/ghost/want/need/arc_type/arc_phase_map).
+6. **`outline-planner`** — Brooks four-part beat map; chapters with variable scene counts.
+7. **`scene-card-authoring`** — per-scene contract.
+
+Then `scripts/compile_bundle.py` merges the surface outputs into the canonical `concept_seed.json`.
 
 Canonical helpers live under `workflows/_shared/` (`seed_transforms.py`, `scene_card_translator.py`) and `workflows/voice_discovery/api.py` (`VoiceDiscovery`). The old re-export shims at `src/concept_workshop/{seed_transforms,scene_card_translator,voice_discovery}.py` have been removed. The remaining modules under `src/concept_workshop/` (`compliance_validator.py`, `series_manager.py`, `stress_test.py`) are canonical, not shims, and are still the right import path.
+
+**Codex parity:** the `idea-session-capture` surface runs identically in Claude Code and Codex — the conversation contract is at `workflows/idea_session_capture/SKILL.md` and Codex enters via `AGENTS.md` at the repo root. The other six surfaces are Claude-Code-skill-shaped today; they have headless apis (`workflows/<surface>/api.py`) so Codex can drive them programmatically, but their interactive-chat ergonomics are tuned for the Claude Code skill harness. Use Codex for idea-session and scripted operations; use Claude Code for the structured-surface chats.
 
 ## Testing
 

@@ -131,9 +131,9 @@
           },
           "type": {
             "type": "string",
-            "enum": ["plot", "character", "thematic", "atmospheric"]
+            "enum": ["plot", "character", "thematic", "atmospheric", "ability", "relationship"]
           },
-          "related_hook_id": { "type": "string" }
+          "related_hook_id": { "type": ["string", "null"] }
         }
       }
     },

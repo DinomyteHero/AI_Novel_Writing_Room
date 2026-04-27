@@ -61,6 +61,29 @@ Per chapter:
 
 Aim for one entry per `meta.target_chapters` from universe-builder.
 
+#### Scene-count discipline (less is more)
+
+The schema does **not** force a minimum scene count per chapter. A
+chapter with one load-bearing scene is healthier than a chapter padded
+with three scenes that share one turning point. Do not invent extra
+scenes to "fill" a chapter.
+
+Only split a chapter when each resulting scene carries its own:
+
+- distinct turning point (trigger / shift / cost)
+- distinct mission for the POV character
+- distinct emotional arc (start / shift / end)
+
+If two candidate scenes share a turning point, fold them into one. The
+scene-card-authoring surface enforces this same discipline at the per-card
+level — but planner-level intent (which chapters are dense, which are
+single-scene) belongs in the synopsis here.
+
+When you set `estimated_word_count`, calibrate to what the dramatic load
+actually needs, not to a uniform-cadence ideal. A 1,500-word single-scene
+chapter and a 4,500-word three-scene chapter can sit beside each other
+without an alarm bell.
+
 ### Step 3 — subplots
 
 Each subplot:
