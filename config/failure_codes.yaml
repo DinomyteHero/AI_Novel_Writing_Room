@@ -29,9 +29,12 @@ failure_codes:
     PROSE_CLICHE_BURST: "Multiple banned phrases or AI-tells detected"
     WORD_COUNT_VIOLATION: "Scene prose falls outside the target word count range"
 
-# Post-Phase 1 pipeline redesign: fail_polish no longer routes to a craft_edit pass.
-# Polish issues are caught by the compression guard and the Final Gate, which reject
-# the polish output and keep the Gate-passed draft instead. See orchestrator.py.
+# Post-Phase 1 pipeline redesign: these routing labels are legacy telemetry.
+# GateCritic verdicts do not branch by themselves; only the optional
+# runtime.corrective_rerun path can perform one narrow redraft. fail_polish no
+# longer routes to a CraftEditor. Severe polish collapse is handled by the
+# deterministic compression guard in orchestrator.py. The literal values below
+# are retained for legacy consumers and should not be read as live routing.
 routing:
   fail_structural: full_rewrite
   fail_voice: targeted_revision

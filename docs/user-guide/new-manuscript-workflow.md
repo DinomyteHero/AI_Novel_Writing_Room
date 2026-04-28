@@ -124,8 +124,8 @@ Run deterministic preflight checks before production:
 
 ```bash
 python scripts/preflight_run.py \
-  data/franchises/<franchise>/books/<book>/concept_seed.json \
-  data/franchises/<franchise>/books/<book>/scene_cards
+  --franchise <franchise-slug> \
+  --book <book-slug>
 ```
 
 Do not start production if the inputs still contain placeholders, missing cast references, unresolved continuity questions, or scene-card gaps that should have been authored.
@@ -138,7 +138,7 @@ The current production default is lean mode:
 PlotArchitect -> ProseStylist -> LineWriter -> save
 ```
 
-Run production with the normal CLI for the book. Keep broad gates, per-scene quality polish, and full literary copy passes as opt-in diagnostics rather than the default drafting path.
+Run production with the normal CLI for the book. The `LineWriter` step runs only while `runtime.lean_prose_only.line_edit.enabled` is true and `agent_routing.line_writer` is configured. Keep broad gates, per-scene quality polish, save-blockers, post-save LLM analysis, and full literary copy passes as opt-in diagnostics rather than the default drafting path.
 
 ## 6. Export The Manuscript
 
@@ -196,7 +196,7 @@ The important distinction is:
 - Repo-level `workflows/<surface>/` defines tools, schemas, and SKILL instructions.
 - Book-level `data/franchises/<franchise>/books/<book>/workflows/` stores authored planning artifacts.
 
-The only structural change worth making soon is a light documentation cleanup:
+Documentation convention:
 
 - Keep new operator workflows under `docs/user-guide/`.
 - Keep architectural rationale under `docs/architecture/`.

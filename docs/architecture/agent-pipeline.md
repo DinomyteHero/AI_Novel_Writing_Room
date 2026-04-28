@@ -40,11 +40,11 @@ Each agent:
 |-------|------|----------|------|
 | PlotArchitect | `src/agents/plot_architect.py` | `plot_architect` | Scene card -> typed generation brief (JSON per `schemas/generation_brief.json`) |
 | ProseStylist | `src/agents/prose_stylist.py` | `prose_stylist` | Typed generation brief + context -> draft prose |
-| LineWriter | `src/agents/line_writer.py` | `line_writer` | Optional line-editing pass (GPT 5.4 @ t=0.8 by default). Preserves beats, POV, characters_present, canon while rewriting sentence-level rhythm, imagery, and voice texture. Skipped in `--raw-draft` and when no `line_writer` routing entry is configured. |
+| LineWriter | `src/agents/line_writer.py` | `line_writer` | Optional line-editing pass (GPT-5.4 Mini @ t=0.35 in the shipping config). Preserves beats, POV, characters_present, canon while rewriting sentence-level rhythm, imagery, and voice texture. In lean mode it runs when `runtime.lean_prose_only.line_edit.enabled: true`; in non-lean runs it is skipped in `--raw-draft` and when no `line_writer` routing entry is configured. |
 | GateCritic | `src/agents/gate_critic.py` | `gate_critic` | Prose -> structured pass/fail evaluation (Scene Gate). Advisory only under the forward-only relay — verdicts are logged but do not block or retry. |
 | QualityPolish | `src/agents/quality_polish.py` | `quality_polish` | Single bounded expression-level polish pass (replaces Craft Editor + 3 revision bands) |
-| FinalGate | `src/agents/final_gate.py` | `final_gate` | Contract check on polished text. Advisory only — emits `final_gate_rejection` with `advisory_only=True`; polished prose is still saved unless the save-blocker layer fires. |
-| CanonExpert | `src/agents/canon_expert.py` | `canon_expert` | Continuity editor. Runs **after FinalGate** as the last reader on the polished text; its verdict feeds the `CANON_BLOCKER` save-blocker. Franchise-agnostic, template-driven: reads `canon_profile` from the concept seed. |
+| FinalGate | `src/agents/final_gate.py` | `final_gate` | Contract check on the current post-polish text. Advisory only — emits `final_gate_rejection` with `advisory_only=True`; prose still proceeds unless the compression guard has already reverted it or the save-blocker layer fires. |
+| CanonExpert | `src/agents/canon_expert.py` | `canon_expert` | Continuity editor. Runs **after FinalGate** as the last reader on the current post-polish text; its verdict feeds the `CANON_BLOCKER` save-blocker. Franchise-agnostic, template-driven: reads `canon_profile` from the concept seed. |
 | PresenceChecker | `src/agents/presence_checker.py` | `presence_checker` | Save-blocker agent. Detects named characters who speak or act in the prose despite being absent from the scene card's `characters_present` list; fires `CHARACTER_PRESENCE_BLOCKER`. |
 | MicroRepair | `src/agents/micro_repair.py` | `micro_repair` | Optional bounded post-check repair agent. Converts presence findings into exact literal substitutions only; never rewrites paragraphs, adds beats, or introduces new names. Disabled by default. |
 | ChapterGateCritic | `src/agents/chapter_gate_critic.py` | `chapter_gate_critic` | Whole-chapter evaluation against the blueprint + composition heuristics |
@@ -82,7 +82,7 @@ ProseStylist takes the generation brief + assembled context and drafts the chapt
 
 ### 5. Line Editing (optional)
 
-LineWriter runs an optional line-editing pass between ProseStylist and GateCritic. It receives the source prose, scene card, generation brief, characters_present list, franchise profile, and POV approach as an explicitly wired context dict so it cannot reach into ambient ContextAssembler state. LineWriter preserves the structural beats, turning point, POV, and canon while rewriting sentence-level rhythm, imagery, and voice texture. Skipped in `--raw-draft` mode and when no `line_writer` routing entry is configured. If LineWriter infrastructure fails or its output collapses below 40% of the source word count, the orchestrator falls back to the drafter's prose and emits a warn-level `line_writer_error` or `line_writer_collapsed` event.
+LineWriter runs an optional line-editing pass between ProseStylist and the next stage. It receives the source prose, scene card, generation brief, characters_present list, franchise profile, and POV approach as an explicitly wired context dict so it cannot reach into ambient ContextAssembler state. LineWriter preserves the structural beats, turning point, POV, and canon while rewriting sentence-level rhythm, imagery, and voice texture. In lean mode it runs when `runtime.lean_prose_only.line_edit.enabled` is true; in non-lean mode it is skipped in `--raw-draft` mode and when no `line_writer` routing entry is configured. If LineWriter infrastructure fails or its output collapses below 40% of the source word count, the orchestrator falls back to the drafter's prose and emits a warn-level `line_writer_error` or `line_writer_collapsed` event.
 
 ### 6. Scene Gate Evaluation (advisory)
 
@@ -100,18 +100,18 @@ QualityPolish runs a single bounded expression-level pass on the gate-passed pro
 
 In lean production mode, this step is skipped. LineWriter is the only post-draft scene-level edit before save; manuscript-level cleanup happens after export.
 
-### 8. Compression Advisory + Final Gate (advisory)
+### 8. Compression Guard + Final Gate (advisory)
 
-Two signals catch polish drift before the prose is saved. Neither reverts the polish under the forward-only relay — both emit advisory events:
+Two signals catch polish drift before the prose is saved:
 
-1. **Compression advisory** (deterministic): if polished word count < 60% of pre-polish word count, emits a `compression_guard_fired` event. The polished prose is still saved.
-2. **Final Gate** (LLM + deterministic): runs a contract check on the polished text — characters present, closing hook boundary, word-count floor. On rejection it emits `final_gate_rejection` with `advisory_only=True`; the polished prose is still saved. Passing the gate emits `final_gate_complete`.
+1. **Compression guard** (deterministic): if polished word count < 60% of pre-polish word count, emits a `compression_guard_fired` event with `reverted: true` and keeps the gate-passed draft instead. Downstream FinalGate, CanonExpert, PresenceChecker, and save-blocker checks evaluate the reverted prose.
+2. **Final Gate** (LLM + deterministic): runs a contract check on the current post-polish text — characters present, closing hook boundary, word-count floor. On rejection it emits `final_gate_rejection` with `advisory_only=True`; the prose still proceeds unless the compression guard has already reverted it or the save-blocker layer fires. Passing the gate emits `final_gate_complete`.
 
 Under the old pipeline the Final Gate was the save-path's unit-of-truth. Post-Stage-1 it is telemetry; the save-blocker layer (step 10) is the new unit-of-truth for whether a scene writes to disk at all.
 
 ### 9. Continuity Editor (CanonExpert)
 
-CanonExpert runs **after** FinalGate, as the last reader on the polished prose. The canon expert is a franchise-agnostic, template-driven agent: it reads the `canon_profile` section from the concept seed (franchise name, continuity rules, cross-continuity violations, anachronistic terms) and uses those plus RAG retrieval to drive validation. There are zero franchise-specific strings hardcoded in the agent. Its verdict feeds the `CANON_BLOCKER` save-blocker in step 10: `verdict == "fail"` with any finding at `critical` or `moderate` severity fires the blocker; lower severities are advisory only.
+CanonExpert runs **after** FinalGate, as the last reader on the current post-polish prose. The canon expert is a franchise-agnostic, template-driven agent: it reads the `canon_profile` section from the concept seed (franchise name, continuity rules, cross-continuity violations, anachronistic terms) and uses those plus RAG retrieval to drive validation. There are zero franchise-specific strings hardcoded in the agent. Its verdict feeds the `CANON_BLOCKER` save-blocker in step 10: `verdict == "fail"` with any finding at `critical` or `moderate` severity fires the blocker; lower severities are advisory only.
 
 When `runtime.canon_expert.apply_local_fixes=true`, whitelisted `local_fixes` can be applied as narrow literal substitutions before the save-blocker layer. If any such fix changes the prose, CanonExpert is rerun on the patched text so blocker decisions are based on the repaired artifact rather than the stale pre-fix report.
 
@@ -173,7 +173,7 @@ Every step emits a typed event to the RunLedger. Events carry a `level` field (`
 - `gate_pass`, `gate_fail` (advisory under the forward-only relay)
 - `line_writer_error`, `line_writer_collapsed` (Stage 3 — LineWriter fallback signals)
 - `final_gate_complete`, `final_gate_rejection` (rejection carries `advisory_only=True`)
-- `compression_guard_fired` (advisory; polish is still saved)
+- `compression_guard_fired` (warn; `reverted=True` when the guard keeps the gate-passed draft)
 - `save_blocked` (run aborted; scene quarantined)
 - `continuity_editor_complete` (CanonExpert verdict used by the CANON_BLOCKER)
 - `continuity_editor_recheck_complete` (CanonExpert rerun after applied local fixes)

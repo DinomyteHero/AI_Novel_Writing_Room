@@ -1,6 +1,6 @@
 # AI Writers' Room — Architecture Upgrade Implementation Spec
 
-**Status:** Approved for implementation. Slice 1 is greenlit. Slices 2–6 gated on prior slices.
+**Status:** Historical implementation spec. Slices 1–6 have since landed or evolved in code; use `CLAUDE.md`, `config/settings.yaml`, and the current user-guide/reference docs for operational behavior.
 **Last revised:** 2026-04-20
 **Authoring context:** This document supersedes the earlier "revised phased roadmap." It consolidates the eight patch-level refinements (successor classifier, debt write-matrix, packet consistency model, promise progression semantics, gap-note lifecycle, Phase 0 JSON audit, polish bench extension, slice renumbering) into a single implementation playbook.
 
@@ -120,8 +120,8 @@ Every advisory produced by the pipeline (from CanonExpert, GateCritic, FinalGate
 ### 3.4 Measurement stays deterministic
 `src/quality/metrics_dashboard.py` remains an independent service. Reviewer agents consume its outputs; they do not replace them. No "SceneReviewer subsumes QualityMetrics" refactor.
 
-### 3.5 One pen by default
-Only `ProseStylist` (the drafter) writes scene prose in the default relay. `LineWriter` stays optional and off by default. No new agent is granted write authority over prose without a specific feature flag.
+### 3.5 Bounded prose writers
+`ProseStylist` remains the drafter. The current lean production path also runs one bounded `LineWriter` pass when `runtime.lean_prose_only.line_edit.enabled` is true. No other agent is granted write authority over scene prose without a specific feature flag.
 
 ### 3.6 No hidden ambient context
 Once Slice 2 ships, agents consume an inspectable chapter packet + explicit typed retrieval. `LineWriter` already follows this rule; new agents must follow it too. `ContextAssembler.assemble()`'s flat-markdown path remains available during Slices 1–2 as a fallback.

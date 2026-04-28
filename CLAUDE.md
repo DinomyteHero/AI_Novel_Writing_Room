@@ -12,7 +12,7 @@ Since the Stage 1a–3 refactor, prose flows through a **single-pass relay**. Ga
 
 ```
 PlotArchitect → ProseStylist → [LineWriter*] → GateCritic → [corrective_rerun?]
-  → QualityMetrics → QualityPolish → compression advisory → FinalGate
+  → QualityMetrics → QualityPolish → compression guard → FinalGate
   → CanonExpert → [canon_local_fixes?] → collect_presence_violations
   → [micro_repair?] → save-blocker layer → save | quarantine
 ```
@@ -21,11 +21,11 @@ PlotArchitect → ProseStylist → [LineWriter*] → GateCritic → [corrective_
 
 Rules:
 
-- **GateCritic** and **FinalGate** are **advisory**. `final_gate_rejection` carries `advisory_only=True`; the polished prose is saved regardless.
+- **GateCritic** and **FinalGate** are **advisory**. `final_gate_rejection` carries `advisory_only=True`; it does not block, retry, or revert. The compression guard is the exception that can keep the gate-passed draft when polish collapses below 60%.
 - **`max_structural_retries` / `max_voice_retries`** are pinned to `0` in `config/settings.yaml`. They are retained only for rollback. Do not raise them, and do not add new retry branches. The only non-zero drafter retry path is `runtime.corrective_rerun.enabled` (bounded to exactly one rerun; Forward Relay v4).
 - **Compression guard is revert-on-regression.** Polish that shrinks below 60% of pre-polish word count causes `polished_prose` to revert to the gate-passed draft; a warn-level `compression_guard_fired` event fires with `reverted=True`, and downstream stages (FinalGate, CanonExpert, PresenceChecker, save-blocker layer) evaluate the reverted prose. This is the only place in the forward-only relay where a later stage can overwrite an earlier stage's output — justified because polish-below-60% has been observed to hollow scenes beyond what human review can reasonably repair. Soft compressions (60-100%) still save polished output unchanged.
 - **Post-save stages are wrapped with broad error guards.** Physics validation, summarizer/state-diff, character specialist, LLM judge, chapter gate critic, and the promise ledger Slice-3 hook each catch `Exception` and emit a warn-level event (`post_save_error` with a `stage` tag, or stage-specific events like `physics_validation_post` with `status=error`). A crash in any post-save stage never aborts a saved scene — next-scene state may be stale, so the warn is load-bearing.
-- **LineWriter is gated off by `runtime.lean_prose_only`** in the shipping config. The `agent_routing.line_writer:` entry **is** present in `config/settings.yaml` (retained for opt-in experiments and bench overlays), but `runtime.lean_prose_only.enabled: true` short-circuits the orchestrator after the drafter so LineWriter never runs in production. When LineWriter does run (bench overlays that disable lean mode), it takes an **explicitly wired** context dict — do not let it reach into ambient `ContextAssembler`. Collapsed output (<40% source word count) falls back to drafter prose with a warn event.
+- **LineWriter is the narrow lean edit by default.** `runtime.lean_prose_only.enabled: true` skips the broad gate/polish/canon/save-blocker stack, but `runtime.lean_prose_only.line_edit.enabled: true` lets the orchestrator run `LineWriter` once before saving when `agent_routing.line_writer` is present. Disable only the lean line edit with `runtime.lean_prose_only.line_edit.enabled: false`; disable lean entirely with `runtime.lean_prose_only.enabled: false` for diagnostic/full-relay runs. LineWriter takes an **explicitly wired** context dict — do not let it reach into ambient `ContextAssembler`. Collapsed output (<40% source word count) falls back to drafter prose with a warn event.
 - The **save-blocker layer** (`src/pipeline/save_blockers.py`) is the **only** hard-failure path. Three categories: `CHARACTER_PRESENCE_BLOCKER` (from PresenceChecker), `CANON_BLOCKER` (CanonExpert verdict = fail + severity ∈ {critical, moderate}, excluding `post_divergence_drift` which is clamped to advisory), and a POV advisory (not yet blocking). When a blocker fires, the run aborts and the offending scene is written to `<project>/quarantine/chNN_scMM/{prose.md, blockers.json, brief.json}` — unless `runtime.firewall.enabled` is on (then `StateFirewall` isolates + continues, Slice 1).
 - **PresenceChecker is invoked once per scene.** `save_blockers.collect_presence_violations()` produces the normalized violations list; the orchestrator threads it through `_maybe_micro_repair` and into `check_save_blockers(..., presence_violations=...)` so the checker is not called twice in the same scene unless micro_repair mutated the prose.
 
@@ -34,9 +34,9 @@ Rules:
 The forward-only relay is intact, but three editorial redundancies were collapsed and the latent corrective-rerun plumbing was activated behind a runtime flag. Design doc at `docs/architecture/forward_relay_v4_proposal.md`.
 
 **Default-on changes (shipped without a flag):**
-- **LineWriter is off by default via `runtime.lean_prose_only`.** The `line_writer:` entry under `agent_routing` in `config/settings.yaml` is present (so bench overlays can opt in), but the lean-prose-only flag short-circuits the orchestrator after the drafter so LineWriter never runs in production. To re-enable for a bench, set `runtime.lean_prose_only.enabled: false` in the overlay YAML.
+- **Lean LineWriter is default-on.** The `line_writer:` entry under `agent_routing` in `config/settings.yaml` is present, and the shipping runtime has `runtime.lean_prose_only.line_edit.enabled: true`, so lean production is `PlotArchitect -> ProseStylist -> LineWriter -> save`. To compare drafter-only output, set `runtime.lean_prose_only.line_edit.enabled: false`; to run the full relay, set `runtime.lean_prose_only.enabled: false`.
 - **Presence triple-check collapsed.** `CHARACTER_PRESENCE_VIOLATION` was removed from `GateCritic.STRUCTURAL_CODES` and `FinalGate.FINAL_GATE_CODES`. `PresenceChecker` at save time is the sole authority on character presence — the gates used to echo it, producing the same violation three times across pre-polish / post-polish / save-blocker. Turning-point + closing-hook stay in both gates because pre-polish vs post-polish is real regression coverage.
-- **GateCritic moved off Haiku to Grok 4.1 Fast.** The drafter (Sonnet) plus three Haiku judges was same-family homogeneity; GateCritic is the advice source for the corrective rerun, so its family bias has the most leverage. FinalGate and PresenceChecker stay on Haiku — narrower / contract-shaped, same-family matters less. Fallback if structured-JSON reliability regresses: `glm` or `gemini_flash`. Alternative cross-family candidates documented in the proposal doc's "Alternatives considered" section for future benching.
+- **Gate/contract checks now use Grok 4.1 Fast.** `gate_critic`, `final_gate`, and `presence_checker` route to `grok41fast` in `config/settings.yaml`; `canon_expert` and `judge_evaluator` route to `grok420`. Fallback if structured-JSON reliability regresses: `glm` or `gemini_flash`. Alternative cross-family candidates are documented in the historical proposal doc's "Alternatives considered" section for future benching.
 
 **Flag-gated changes (default-off; shipping-book guards in place):**
 - **Smart single corrective rerun** — `runtime.corrective_rerun.enabled: false` (default). When enabled, a narrow trigger set (`MISSING_TURNING_POINT` or `CLOSING_HOOK_VIOLATION` from GateCritic `fail_structural`) fires *exactly one* ProseStylist redraft with structured `failure_context` populated from `_format_failure_context(evaluation)`. Confusion-skip rules: >3 failure codes → skip (brief not landing), draft below 50% of `target_word_count` → skip (collapsed output is a different failure mode). `pipeline.max_structural_retries` stays pinned at 0; this flag is the only path to a non-zero drafter retry. Emits `corrective_rerun_fired`, `corrective_rerun_skipped`, `corrective_rerun_complete` events.
@@ -44,13 +44,13 @@ The forward-only relay is intact, but three editorial redundancies were collapse
 
 **Shipping-book guards** at `tests/test_runtime_flags.py::test_shipping_books_keep_corrective_rerun_off` and `::test_shipping_books_keep_canon_apply_local_fixes_off` block an accidental `runtime_overrides.yaml` flipping either flag for Ruusan or Betrayal before their parity tests land. Same pattern as Slice 1–5.
 
-**Deferred:** cheaper-drafter bench. Previous bench runs and assumptions are invalidated — none of the pre-2026-04-21 bench artifacts under `output/**/runs/bench-*` reflect the current pipeline shape (LineWriter off, GateCritic on Grok 4.1 Fast, new micro_repair stage). Rerun the climax bench before making a drafter-swap decision. First candidate when ready: `gpt54_mini`. Promote only if word-count discipline holds AND rerun rate stays under ~20%.
+**Deferred:** drafter/line-editor bench. Previous bench runs and assumptions are invalidated — none of the pre-2026-04-21 bench artifacts under `output/**/runs/bench-*` reflect the current pipeline shape (DeepSeek V4 Pro drafter, GPT-5.4 Mini lean LineWriter, Grok 4.1 Fast gates, new micro_repair stage). Rerun the climax bench before making a routing decision. Promote a new drafter or line editor only if word-count discipline, contract obedience, and cost all hold under the current lean config.
 
 ## Safe canon/presence repair path — `micro_repair` (feature-flagged, default off)
 
 Commit `6227b21` added `src/agents/micro_repair.py` and a matching orchestrator stage so the save-blocker layer has a legible, safe "try to patch before we quarantine" option. It is **not** a rewrite loop — it only applies *exact literal substring replacements* the model copies from the already-drafted prose.
 
-- **Agent.** `MicroRepair` (Haiku @ t=0.1, max_tokens=1500) returns `{"summary": ..., "repairs": [{"issue_type", "pattern", "replacement", "reason"}]}`. The prompt at `prompts/agent_system_prompts/micro_repair.md` explicitly forbids new named characters, new lore, new beats, regex, placeholders, or paragraph rewrites. If no safe patch exists, the agent returns `{"repairs": []}`.
+- **Agent.** `MicroRepair` (DeepSeek V4 Pro @ t=0.1, max_tokens=1800 in the shipping config) returns `{"summary": ..., "repairs": [{"issue_type", "pattern", "replacement", "reason"}]}`. The prompt at `prompts/agent_system_prompts/micro_repair.md` explicitly forbids new named characters, new lore, new beats, regex, placeholders, or paragraph rewrites. If no safe patch exists, the agent returns `{"repairs": []}`.
 - **Orchestrator stage.** `Orchestrator._maybe_micro_repair` runs between CanonExpert (post-`_maybe_apply_canon_local_fixes`) and the final `check_save_blockers` call, at `src/orchestrator.py:1021`. It receives precomputed `presence_violations` from `collect_presence_violations` so it never duplicates the PresenceChecker round-trip. When repairs apply, CanonExpert is re-invoked on the patched prose before save-blockers evaluate.
 - **Currently supported issue types:** `presence_violation` only. Other `issue_type` values are rejected (`unsupported_issue_type`). Canon and POV issues still flow through their existing paths.
 - **Deterministic safety caps enforced in `_apply_micro_repairs` regardless of what the model returns:**
@@ -62,7 +62,7 @@ Commit `6227b21` added `src/agents/micro_repair.py` and a matching orchestrator 
   - Other rejections: `empty_pattern`, `non_string_replacement`, `no_op_replacement`, `duplicate_pattern`, `changed_char_budget_exceeded`, `changed_ratio_exceeded`.
 - **Ledger events.** `micro_repair_fired` (info, start), `micro_repair_applied` (info, per applied patch), `micro_repair_rejected` (warn, per rejected patch with `reason`), `micro_repair_complete` (info, summary including `canon_blocker_count` after recheck), `micro_repair_error` (warn, model or canon-recheck failure).
 - **Shipping-book guard** at `tests/test_runtime_flags.py::test_shipping_books_keep_micro_repair_off` blocks an accidental `runtime_overrides.yaml` flipping `runtime.micro_repair.enabled` on Ruusan or Betrayal. `test_shipping_defaults_all_safe` also asserts the default caps to prevent silent widening.
-- **Config wiring.** `agent_routing.micro_repair` is present in the shipping `config/settings.yaml` (Haiku, t=0.1, 1500 max_tokens). `src/main.py:922` instantiates `MicroRepair(router)` only when the routing entry exists — bench configs can drop it to keep runs even cheaper. The runtime flag decides whether `_maybe_micro_repair` ever attempts a patch; a missing routing entry is also a no-op.
+- **Config wiring.** `agent_routing.micro_repair` is present in the shipping `config/settings.yaml` (DeepSeek V4 Pro, t=0.1, 1800 max_tokens). `src/main.py` instantiates `MicroRepair(router)` only when the routing entry exists — bench configs can drop it to keep runs even cheaper. The runtime flag decides whether `_maybe_micro_repair` ever attempts a patch; a missing routing entry is also a no-op.
 
 ## Slice 1: state firewall + Phase 0 gate (feature-flagged, default off)
 
@@ -147,7 +147,7 @@ Slice 6 is the bridge between the forward-only scene runtime and coherent manusc
 
 ## Lean prose path (shipping default)
 
-`runtime.lean_prose_only.enabled: true` is the **shipping default**. When on, the orchestrator short-circuits after the drafter (and optionally LineWriter when its routing entry is also enabled) — skipping GateCritic, QualityMetrics, QualityPolish, FinalGate, CanonExpert, the canon local-fix path, the micro_repair stage, and the save-blocker layer. Prose lands as `saved_clean` directly.
+`runtime.lean_prose_only.enabled: true` is the **shipping default**. When on, the orchestrator short-circuits the broad relay and, by default, runs the configured lean LineWriter once before saving (`runtime.lean_prose_only.line_edit.enabled: true`). This skips GateCritic, QualityMetrics, QualityPolish, FinalGate, CanonExpert, the canon local-fix path, the micro_repair stage, and the save-blocker layer. Prose lands as `saved_clean` directly.
 
 Why it's safe by default: the structural framework (Brooks beat map + Weiland arc map + scene contract) is enforced *upstream* at planning + scene-card validation time. The save-time gates were originally inserted as cheap insurance against drafter drift; with the post-D2(c) enriched scene cards + chapter packet contract, the drafter has enough information to land the contract on the first pass for the vast majority of scenes. The gates are still wired and tested; the lean flag lets a shipping run skip them without removing them from the codebase.
 
@@ -203,7 +203,7 @@ If two candidate scenes share a turning point, fold them into one. This is the s
 Per-scene save status lives in `src/memory/story_state.py`. Only three values are valid:
 
 - `saved_clean` — all gates green, no advisories fired.
-- `saved_with_advisory` — saved, but at least one advisory fired (final-gate rejection, compression advisory, POV heuristic, word-count drift).
+- `saved_with_advisory` — saved, but at least one advisory fired (final-gate rejection, compression guard warning, POV heuristic, word-count drift).
 - `quarantined` — a save-blocker fired; scene is on disk at `quarantine/` and the run aborted.
 
 The old vocabulary (`gate_passed`, `polished`, `approved`, `gate_failed`, `gate_skipped`, `final_gate_rejected`) is gone. `scripts/migrate_status_vocab.py` auto-migrates existing `story_state.db` files. Ledger emits carry a `level` (`info` / `warn` / `error`) in the payload.
@@ -286,17 +286,17 @@ Canonical helpers live under `workflows/_shared/` (`seed_transforms.py`, `scene_
 - Some tests skip without optional deps (chromadb, sentence-transformers, fastapi); that is expected.
 - Web-path regression set: `pytest tests/test_websocket_ledger.py tests/test_run_ledger.py tests/test_api_pipeline.py tests/test_api_ledger.py tests/test_ui_pipeline_blueprint_wiring.py -q`.
 
-### Windows: do not call `python` directly
+### Windows Python invocation
 
-The bare `python` alias routes to the Microsoft Store installer stub on this machine. Use `py -3` (resolves to Python 3.12.0) or the explicit interpreter at `/c/Users/lbouw/AppData/Local/Programs/Python/Python312/python.exe`. Do not run commands that hit the store stub. Verified working: `py -3 --version` → `Python 3.12.0`.
+In the current PowerShell workspace, `python` resolves correctly and is used throughout the docs. If a Windows shell ever routes bare `python` to the Microsoft Store installer stub, use `py -3` or the explicit interpreter at `/c/Users/lbouw/AppData/Local/Programs/Python/Python312/python.exe`.
 
 ## Benchmarking
 
 `scripts/bench_prose_models.py` runs a single scene through multiple drafter/line-editor configurations and writes to `output/<franchise>/<book>/runs/bench-<date>-<scene>/`. Summary markdown goes under `docs/editorial/` or alongside the bench run.
 
 **All pre-2026-04-21 bench numbers are invalidated.** The pipeline shape changed enough between them and HEAD that cost, word-count, and quality figures from those runs no longer predict current behavior:
-- LineWriter was default-on, now default-off (routing commented out).
-- GateCritic was on Haiku, now on Grok 4.1 Fast.
+- The lean production path now includes DeepSeek V4 Pro drafting plus GPT-5.4 Mini LineWriter before save.
+- GateCritic, FinalGate, and PresenceChecker now route to Grok 4.1 Fast.
 - New `micro_repair` stage sits between CanonExpert and the save-blocker layer (flag-gated but wired into the scene path).
 - `corrective_rerun` + `canon_expert.apply_local_fixes` are newly landed escape hatches (flag-gated).
 

@@ -1,9 +1,10 @@
-"""Final Gate agent — contract check on the polished text before save.
+"""Final Gate agent — advisory contract check on the current text before save.
 
 The Scene Gate evaluates the Prose Stylist draft. The Final Gate evaluates the
-Quality Polish output against the same scene-card contract, catching violations
-the polish pass may have introduced (wrong characters, closing-hook drift,
-structural regression). Under the relay v3 refactor, Final Gate runs as
+post-polish text against the same scene-card contract, catching violations the
+polish pass may have introduced (closing-hook drift, structural regression).
+If the compression guard reverted severe collapse, Final Gate receives that
+current prose instead. Under the relay v3 refactor, Final Gate runs as
 telemetry only — its verdict is logged but does not control the save path.
 
 Reuses the verdict-derivation machinery and failure-code taxonomy from
@@ -39,9 +40,10 @@ FINAL_GATE_CODES = {
 
 
 class FinalGate(BaseAgent):
-    """Contract check on polished prose. Narrower than Scene Gate — focuses on
-    the violations a polish pass can introduce: character presence, closing hook
-    boundary, word-count floor, and structural regression.
+    """Narrow contract check on current prose after the polish stage.
+
+    Focuses on closing-hook boundary and structural regression. Character
+    presence and word-count drift are handled elsewhere.
     """
 
     def __init__(self, router, role: str = "final_gate"):
@@ -62,11 +64,11 @@ class FinalGate(BaseAgent):
             f"```json\n{json.dumps(hard_constraints, indent=2)}\n```"
         )
         parts.append(f"## Scene Card (reference)\n```json\n{json.dumps(scene_card, indent=2)}\n```")
-        parts.append(f"## Polished Prose (to validate)\n{prose}")
+        parts.append(f"## Current Prose (to validate)\n{prose}")
 
         parts.append(
             "## Task\n"
-            "Validate the polished prose against the scene hard constraints. This is a "
+            "Validate the current prose against the scene hard constraints. This is a "
             "narrow contract check, not a full quality review — the Scene Gate has "
             "already signed off on the pre-polish draft. Focus exclusively on "
             "violations the polish pass could have introduced.\n\n"

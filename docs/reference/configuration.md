@@ -309,11 +309,11 @@ Defines the 19 failure codes used by GateCritic, organized into 3 categories:
 
 | Category | Action |
 |----------|--------|
-| fail_structural | full_rewrite (back to ProseStylist with failure context; up to `max_structural_retries`) |
-| fail_voice | targeted_revision (ProseStylist with specific notes; up to `max_voice_retries`) |
-| fail_polish | no rewrite — the Scene-Gate-passed draft passes through to QualityPolish + compression guard + FinalGate, which either accept the polish or revert to the Gate-passed draft |
+| fail_structural | advisory ledger signal. Only `runtime.corrective_rerun.enabled=true` can trigger one narrow ProseStylist redraft, and only for configured hard trigger codes. |
+| fail_voice | advisory ledger signal; no targeted-revision retry branch in the current orchestrator. |
+| fail_polish | advisory ledger signal. The Scene-Gate-passed draft passes through to QualityPolish + compression guard + FinalGate; compression below 60% reverts to the Gate-passed draft. |
 
-> **Note**: `fail_polish` no longer routes to a CraftEditor. The 3-band revision pipeline was collapsed into a single bounded `quality_polish` pass guarded by a compression check and the Final Gate. See [pipeline-redesign.md](../architecture/pipeline-redesign.md).
+> **Note**: GateCritic routing labels are telemetry in the current forward-only relay. `fail_polish` no longer routes to a CraftEditor, and the 3-band revision pipeline was collapsed into a single bounded `quality_polish` pass guarded by a compression check and the Final Gate. See [pipeline-redesign.md](../architecture/pipeline-redesign.md).
 
 ---
 

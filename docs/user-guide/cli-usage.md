@@ -21,7 +21,7 @@ python -m src.main <concept_seed> <scene_cards_dir> [options]
 
 | Flag | Default | Description |
 |------|---------|-------------|
-| `--phase {1,2,3,4,5}` | 1 | Pipeline depth. Higher phases enable more subsystems (see below). Phases 6–7 are runtime-orthogonal and available at any depth. |
+| `--phase {1,2,3,4,5}` | 1 | Pipeline depth. Higher phases enable more subsystems (see below). The shipping lean runtime still bypasses broad gates, save-blockers, and post-save LLM agents unless lean is disabled. |
 | `--chapter N` | all | Generate only this chapter number |
 | `--config PATH` | `config/settings.yaml` | Path to the configuration file |
 | `--output-dir PATH` | auto | Override the manuscript output directory |
@@ -31,8 +31,8 @@ python -m src.main <concept_seed> <scene_cards_dir> [options]
 
 | Flag | Description |
 |------|-------------|
-| `--raw-draft` | Baseline mode: skip QualityPolish and FinalGate. Saves the Scene-Gate-passed draft directly. Use this to measure the writer+gate loop in isolation. |
-| `--skip-gate-loop` | Skip the GateCritic LLM call entirely and synthesize a `skipped` verdict. The forward-only relay has no rewrite loop, so this flag only bypasses the gate-critic call; QualityPolish and FinalGate still run (unless combined with `--raw-draft`). Useful for bench configs and cheap runs where gate telemetry is not needed. Flag name is historical from the retry-era pipeline. |
+| `--raw-draft` | Non-lean baseline mode: skip QualityPolish and FinalGate. Saves the Scene-Gate-passed draft directly. Use this to measure drafting plus gate telemetry before polish. In lean mode, broad gates and polish are already skipped. |
+| `--skip-gate-loop` | Skip the GateCritic LLM call entirely and synthesize a `skipped` verdict. The forward-only relay has no rewrite loop, so this flag only bypasses the gate-critic call. In non-lean runs, QualityPolish and FinalGate still run unless combined with `--raw-draft`; in lean runs they are already skipped. Useful for bench configs and cheap runs where gate telemetry is not needed. Flag name is historical from the retry-era pipeline. |
 | `--strict-lore` | Phase 7: promote high-severity `LoreConflictDetector` flags to blocking status. Default is advisory — flags land in the run ledger under `lore_conflicts` and the scene is still saved. |
 | `--no-milestones` | Skip milestone gate pausing (Phase 3/4 only) |
 
@@ -66,13 +66,13 @@ python -m src.main <concept_seed> <scene_cards_dir> [options]
 
 | Phase | What It Adds |
 |-------|-------------|
-| 1 | Forward-only per-scene relay: PlotArchitect → ProseStylist → [LineWriter] → GateCritic (advisory) → QualityMetrics → QualityPolish → compression advisory → FinalGate (advisory) → CanonExpert → save-blocker layer → save \| quarantine |
+| 1 | Shipping lean path: PlotArchitect -> ProseStylist -> [LineWriter] -> save. Non-lean diagnostic relay: PlotArchitect -> ProseStylist -> [LineWriter] -> GateCritic (advisory) -> QualityMetrics -> QualityPolish -> compression guard -> FinalGate (advisory) -> CanonExpert -> save-blocker layer -> save \| quarantine |
 | 2 | SQLite story state, ChromaDB chapter memory, knowledge layers, canon RAG, CanonExpert, Summarizer, StateDiff, ContradictionScanner |
 | 3 | Quality metrics (repetition, pacing, voice, slop), CharacterSpecialist, milestone gates at 25/50/75% |
 | 4 | PhysicsEnforcer, export, session persistence (save/resume), optional LLM judge (`--judge`), scene card generation (`--generate-outline`) |
 | 5 | Chapter blueprint generation + `ChapterGateCritic` (advisory by default) |
 
-Phases 6 and 7 are orthogonal runtime features — they activate when their corresponding CLI flags or scripts are used, at any `--phase` depth.
+Phases 6 and 7 are orthogonal runtime features. They activate when their corresponding CLI flags or scripts are used, but post-save lore extraction requires a non-lean/full-relay run because lean mode skips post-save LLM agents.
 
 | Orthogonal | What It Adds |
 |------------|-------------|
@@ -81,7 +81,7 @@ Phases 6 and 7 are orthogonal runtime features — they activate when their corr
 
 ### Closed-loop lore (Phase 7)
 
-Each saved scene runs the `lore_extractor` agent against the prose and
+In non-lean runs, each saved scene runs the `lore_extractor` agent against the prose and
 creates `provisional` lore entries in the franchise-scoped
 worldbuilding DB (`data/franchises/<fr>/worldbuilding.db`). To enable:
 
@@ -183,9 +183,9 @@ python -m src.main \
     --chapter 1 --phase 1 --raw-draft --run-name ch1-raw
 ```
 
-Useful for isolating the writer+gate loop before evaluating polish. See [Benchmarking](../development/benchmarking.md).
+Useful for isolating drafting plus gate telemetry before evaluating polish. See [Benchmarking](../development/benchmarking.md).
 
-### Skip the gate rewrite loop (no retries)
+### Skip GateCritic telemetry
 
 ```bash
 python -m src.main \
@@ -195,7 +195,7 @@ python -m src.main \
     --chapter 1 --skip-gate-loop --run-name ch1-no-gate-loop
 ```
 
-Accept the first ProseStylist output without gate retries. Polish and Final Gate still run. Primarily used in benchmarking to isolate prose quality from the gate-driven refinement loop.
+Bypass the GateCritic LLM call and synthesize a `skipped` verdict. Polish and Final Gate still run in non-lean mode. Primarily used in benchmarking to isolate prose quality from gate telemetry cost.
 
 ### Series-level state sharing
 

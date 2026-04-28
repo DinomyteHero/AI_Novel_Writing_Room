@@ -125,7 +125,7 @@ python -m src.main \
     --chapter 1 --phase 1
 ```
 
-This runs the basic pipeline (Phase 1): `PlotArchitect → ProseStylist → [LineWriter] → GateCritic (advisory) → QualityMetrics → QualityPolish → compression advisory → FinalGate (advisory) → CanonExpert → save-blocker layer → save | quarantine`. Prose flows forward only — gates emit telemetry, they no longer retry. The save-blocker layer is the single hard-failure point: a blocker aborts the run and the offending scene is written to `<project>/quarantine/chNN_scMM/`. CanonExpert (franchise lore validation) is added at Phase 2+ when the canon RAG database is present.
+With the shipping runtime flags, this runs the lean scene path: `PlotArchitect -> ProseStylist -> [LineWriter] -> save`. The fuller forward-only relay is still available for diagnostics by disabling `runtime.lean_prose_only`; in that path gates emit telemetry, compression below 60% reverts to the gate-passed draft, and the save-blocker layer is the single hard-failure point.
 
 Output goes to `output/star-wars-legends-eu/the-ruusan-atonement/runs/<auto-timestamp>/chapters/`.
 
@@ -151,7 +151,7 @@ python -m src.main \
     --phase 5
 ```
 
-Phase 5 layers all available subsystems: story state, quality metrics, milestone gates, physics enforcement, session persistence, chapter blueprint generation, and the `ChapterGateCritic` (advisory by default).
+Phase 5 enables the highest pipeline depth, including story state, quality metrics, milestone gates, physics enforcement, session persistence, chapter blueprint generation, and the `ChapterGateCritic` when the non-lean path reaches those stages. The shipping lean scene path still skips broad gates, per-scene polish, save-blockers, and post-save LLM analysis by default.
 
 ### Export the Manuscript
 
@@ -205,7 +205,10 @@ Scaffold a fresh project from templates, author each surface, then compile and r
 python scripts/init_project.py --title "My Novel" --franchise "My Franchise" --depth original_light
 # Author via workflow kit surfaces (chat skills, api.py, or markdown importers)
 python scripts/compile_bundle.py --franchise my-franchise --book my-novel
-python -m src.main --franchise my-franchise --book my-novel --phase 5
+python -m src.main \
+    data/franchises/my-franchise/books/my-novel/concept_seed.json \
+    data/franchises/my-franchise/books/my-novel/scene_cards \
+    --franchise my-franchise --book my-novel --phase 5
 ```
 
 See [Workflow Kit](user-guide/workflow-kit.md) for the six-surface breakdown.

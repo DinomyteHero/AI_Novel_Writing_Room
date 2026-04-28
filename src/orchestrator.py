@@ -1,19 +1,20 @@
 """Event-driven orchestrator for the chapter generation pipeline.
 
-Phase 1 flow (per scene card) under the forward-only relay:
+Non-lean flow (per scene card) under the forward-only relay:
   PlotArchitect -> ProseStylist -> [LineWriter] -> GateCritic (advisory)
-  -> QualityMetrics -> [CommercialRewrite] -> QualityPolish -> compression advisory
+  -> QualityMetrics -> [CommercialRewrite] -> QualityPolish -> compression guard
   -> FinalGate (advisory) -> CanonExpert -> save-blocker layer -> save | quarantine
 All steps emit typed events to the RunLedger.
 
 Gates are telemetry, not control flow. GateCritic and FinalGate run to
 produce failure codes but do not trigger rewrites — max_structural_retries
 and max_voice_retries are pinned to 0 and retained only as a rollback valve.
-Polished prose is the canonical saved output: the compression advisory and
-Final Gate both fire `advisory_only` ledger events and do not revert to the
-pre-polish draft. The only hard-failure path is the save-blocker layer
-(CHARACTER_PRESENCE_BLOCKER, CANON_BLOCKER critical/moderate), which
-quarantines the scene to <project>/quarantine/chNN_scMM/ and aborts the run.
+Polished prose is the canonical saved output unless the compression guard
+reverts severe polish collapse (<60% of the gate-passed draft). Final Gate is
+advisory only and does not revert. The only hard-failure path is the
+save-blocker layer (CHARACTER_PRESENCE_BLOCKER, CANON_BLOCKER
+critical/moderate), which quarantines the scene to
+<project>/quarantine/chNN_scMM/ and aborts the run.
 
 Phase 2 additions (when dependencies provided):
   After save: Summarizer -> ChromaDB storage -> StateDiff -> ContradictionScanner
@@ -72,11 +73,12 @@ if TYPE_CHECKING:
 class Orchestrator:
     """Event-driven pipeline orchestrator.
 
-    Manages the per-chapter generation loop:
-    PlotArchitect -> ProseStylist -> GateCritic -> (retry loop)
-      -> QualityMetrics -> CommercialRewrite -> QualityPolish -> compression guard -> FinalGate -> save
-    with failure-driven retry logic. Final Gate rejection reverts to the
-    Scene-Gate-passed draft so the saved file is always a validated artifact.
+    Manages the per-chapter generation loop. In shipping lean mode this is:
+    PlotArchitect -> ProseStylist -> [LineWriter] -> save. In non-lean mode:
+    PlotArchitect -> ProseStylist -> [LineWriter] -> GateCritic telemetry
+      -> [corrective_rerun?] -> QualityMetrics -> CommercialRewrite
+      -> QualityPolish -> compression guard -> FinalGate telemetry
+      -> CanonExpert -> save-blockers -> save | quarantine.
 
     Phase 2 (optional): After save, runs Summarizer -> state diff -> contradiction scan.
     Phase 3 (optional): Quality metrics, character specialist, milestones.

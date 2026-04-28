@@ -78,32 +78,32 @@ That workspace captures the early chat, open questions, and handoffs into the si
 
 Current production runs use lean mode by default (`runtime.lean_prose_only.enabled: true`): `PlotArchitect -> ProseStylist -> LineWriter -> save`. The fuller forward-only relay remains available for diagnostics, benchmarks, and opt-in non-lean runs.
 
-Each scene runs through a forward-only relay (post-v3 refactor — no retry loops, gates are telemetry, save-blocker is the only hard-failure path):
+When lean mode is disabled, each scene runs through the fuller forward-only relay (post-v3 refactor — no retry loops, gates are telemetry, save-blocker is the only hard-failure path):
 
 1. **PlotArchitect** reads a scene card and produces a generation brief
 2. **ProseStylist (drafter)** drafts prose from the brief + assembled context
-3. **LineWriter** — optional line-editing pass (GPT 5.4 @ t=0.8) that preserves beats, turning point, POV, characters_present, and canon while rewriting sentence-level rhythm, imagery, and voice texture. Skipped in `--raw-draft` mode and when no `line_writer` routing entry is configured.
+3. **LineWriter** — optional line-editing pass (GPT-5.4 Mini @ t=0.35 in the shipping config) that preserves beats, turning point, POV, characters_present, and canon while rewriting sentence-level rhythm, imagery, and voice texture. In lean production it runs when `runtime.lean_prose_only.line_edit.enabled: true`; in non-lean runs it is skipped in `--raw-draft` mode and when no `line_writer` routing entry is configured.
 4. **GateCritic** evaluates the draft against a structural rubric (pass/fail with failure codes); runs as telemetry under the relay — verdicts are logged but do not block the pipeline
 5. **QualityMetrics** scores the draft (repetition, pacing, voice, AI-tell detection) via pure-Python checkers, no LLM call
 6. **QualityPolish (copy editor)** makes a single bounded refinement pass targeting the flagged metrics
-7. **Compression advisory** logs a ledger event when polish cuts below 60% of pre-polish word count; kept for telemetry, no longer reverts
+7. **Compression guard** reverts to the gate-passed draft when polish cuts below 60% of pre-polish word count; the warn event carries `reverted: true`
 8. **FinalGate** validates polished prose against the scene contract (character presence, closing-hook boundary, turning point); advisory only
 9. **Continuity Editor (canon_expert)** runs on FINAL polished prose — the last reader before save
 10. **Save-blocker layer** — three blocker categories can abort the run: `CHARACTER_PRESENCE_BLOCKER` (dedicated PresenceChecker agent), `CANON_BLOCKER` (continuity_report verdict=fail + severity in {critical, moderate}), and `POV_ADVISORY` (advisory-only in v1). Quarantine-on-first-blocker policy: the run aborts, the offending scene lands at `<project>/quarantine/chNN_scMM/{prose.md, blockers.json, brief.json}`, and no partial chapters ship.
 
-The saved file is the polished, continuity-checked prose. Scenes save as `saved_clean` (all gates green), `saved_with_advisory` (any gate fired advisory-level signal), or never save at all if the save-blocker fires. Every step emits typed events (with level: info/warn/error) to the RunLedger. Chapter-level word-count drift is tracked as telemetry at chapter close (±15% / ±15-30% / >30% thresholds); scene-level word count is no longer enforced at any gate.
+In lean production, the saved file is the line-edited draft when the lean line edit is enabled, otherwise the drafter prose. In non-lean runs, the saved file is the polished prose unless the compression guard reverts to the gate-passed draft or the save-blocker fires. Scenes save as `saved_clean` (all gates green), `saved_with_advisory` (any gate fired advisory-level signal), or never save at all if the save-blocker fires. Every step emits typed events (with level: info/warn/error) to the RunLedger. Chapter-level word-count drift is tracked as telemetry at chapter close (±15% / ±15-30% / >30% thresholds); scene-level word count is no longer enforced at any gate.
 
-Depending on the pipeline depth selected (`--phase 1..5`), additional layers activate after the scene is saved:
+With the shipping `runtime.lean_prose_only.enabled: true`, every phase uses the lean scene save path unless you opt into the full relay. Depending on the pipeline depth selected (`--phase 1..5`), additional layers are available when the relevant runtime path reaches them:
 
 | Pipeline depth | Adds |
 |----------------|------|
-| 1 | Per-scene relay only (PlotArchitect → ProseStylist → [LineWriter] → GateCritic → QualityMetrics → QualityPolish → compression advisory → FinalGate → Continuity Editor → Save-Blocker → save) |
+| 1 | Lean default: PlotArchitect → ProseStylist → [LineWriter] → save. Non-lean diagnostic relay: PlotArchitect → ProseStylist → [LineWriter] → GateCritic → QualityMetrics → QualityPolish → compression guard → FinalGate → Continuity Editor → Save-Blocker → save \| quarantine |
 | 2 | Summarizer + StateDiff + ContradictionScanner (chapter memory, SQLite story state, ChromaDB, canon RAG) |
 | 3 | CharacterSpecialist (OOC detection) + MilestoneGates (structural checkpoints at 25/50/75%) |
 | 4 | PhysicsEnforcer (pre/post validation) + PipelineSession (save/resume) + optional LLM judge (`--judge`) |
 | 5 | Chapter blueprint generation + ChapterGateCritic (advisory by default) + chapter word-count telemetry |
 
-Closed-loop lore (Phases 6–7, available at any depth with `--franchise`/`--book`):
+Closed-loop lore (Phases 6–7, available in non-lean/full-relay runs with `--franchise`/`--book`; lean mode skips post-save LLM agents):
 
 - **Series continuation** — `scripts/spawn_next_book.py`, `branch_point` context in `canon_expert`, series-level shared state
 - **Post-save lore extraction** — `lore_extractor` writes provisional lore after each scene; `scripts/promote_lore.py` reviews/promotes; `ChapterGateCritic` reads canonical lore; `--strict-lore` makes high-severity conflict flags blocking

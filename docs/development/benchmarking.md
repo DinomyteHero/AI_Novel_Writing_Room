@@ -5,7 +5,7 @@
 Two benchmarking tools live in the repo:
 
 1. **`scripts/bench_prose_models.py`** — single-scene, same-brief, model-A/B/C comparison for the `prose_stylist` (and optionally `plot_architect` and `quality_polish`) roles.
-2. **`--skip-gate-loop` CLI flag** — runs the full pipeline on real scene cards without the Gate Critic rewrite loop, so "stripped" pipeline behaviour can be compared against the full pipeline with the same config.
+2. **`--skip-gate-loop` CLI flag** — runs the non-lean pipeline on real scene cards without the GateCritic LLM telemetry call, so "stripped" pipeline behaviour can be compared against the full telemetry path with the same config.
 
 Both are designed for **apples-to-apples model evaluation**: swap one lever at a time and compare outputs on the same scene card with the same generation brief. Older benches remain useful as historical artifacts, but after a material planning or prompt revision they should be treated as stale until rerun on the current inputs.
 
@@ -16,7 +16,7 @@ Both are designed for **apples-to-apples model evaluation**: swap one lever at a
 Run a bench when you:
 
 - Want to swap the `prose_stylist` model (or `plot_architect`, or `quality_polish`) and need to know if the new model's voice, word-count discipline, and ensemble handling hold up against the current production pick.
-- Are deciding whether the Gate Critic rewrite loop is adding quality or eating cost on a specific scene archetype.
+- Are deciding whether GateCritic telemetry is worth its cost on a specific scene archetype.
 - Need a defensible artifact to justify the routing choice for arc-critical scenes (midpoint, pinch points, climax) that justify a more expensive model.
 
 Skip a bench for purely mechanical changes (bug fixes, logging, non-behavioral refactors) — use the test suite and `--raw-draft` runs instead. If you changed the concept seed, scene cards, franchise profile, prompt stack, or routing around the role you are evaluating, the prior bench is no longer authoritative.
@@ -57,20 +57,20 @@ The script benches the configurations listed in `BENCH_CONFIGS` by default. Shor
 
 | Short | Full | Current use |
 |-------|------|-------------|
-| `claude` | `anthropic/claude-sonnet-4.6` | Production prose |
-| `haiku` | `anthropic/claude-haiku-4.5` | Production polish + gates |
+| `claude` | `anthropic/claude-sonnet-4.6` | Former production prose / bench candidate |
+| `haiku` | `anthropic/claude-haiku-4.5` | Legacy judge/polish candidate |
 | `deepseek` | `deepseek/deepseek-v4-flash` | Summarizer, lore_extractor |
-| `deepseekpro` | `deepseek/deepseek-v4-pro` | Bench-only |
+| `deepseekpro` | `deepseek/deepseek-v4-pro` | Current lean production prose |
 | `qwen` | `qwen/qwen3.6-plus` | Bench-only |
-| `kimi` | `moonshotai/kimi-k2.5` | Manuscript reviewer |
+| `kimi` | `moonshotai/kimi-k2.5` | Bench candidate |
 | `kimi26` | `moonshotai/kimi-k2.6` | Bench-only |
 | `grok420` | `x-ai/grok-4.20` | Canon expert, judge_evaluator |
-| `grok41fast` | `x-ai/grok-4.1-fast` | Orchestrator |
+| `grok41fast` | `x-ai/grok-4.1-fast` | GateCritic / FinalGate / PresenceChecker / orchestration |
 | `glm` | `z-ai/glm-5.1` | Bench-only |
 | `minimax` | `minimax/minimax-m2.7` | Prose candidate |
 | `mimo25pro` | `xiaomi/mimo-v2.5-pro` | Bench-only |
-| `gpt54` | `openai/gpt-5.4` | Bench-only |
-| `gpt54mini` | `openai/gpt-5.4-mini` | Bench-only |
+| `gpt54` | `openai/gpt-5.4` | Manuscript reviewer / literary donor branch / bench candidate |
+| `gpt54mini` | `openai/gpt-5.4-mini` | Current lean LineWriter / bench candidate |
 | `gemini` | `google/gemini-3.1-pro-preview` | Plot architect, outline planner |
 | `gemini_flash` | `google/gemini-3-flash-preview` | Bench-only |
 
@@ -117,19 +117,19 @@ python scripts/bench_prose_models.py \
 
 ---
 
-## `--skip-gate-loop` — full-vs-stripped pipeline comparison
+## `--skip-gate-loop` - full-vs-stripped telemetry comparison
 
-The Gate Critic rewrite loop adds cost and latency. For a given prose-stylist model, the `--skip-gate-loop` flag accepts the first ProseStylist draft without retries, so you can measure:
+GateCritic adds cost and latency even though it no longer controls retries. For a given prose-stylist model, the `--skip-gate-loop` flag skips that LLM call and synthesizes a `skipped` verdict, so you can measure:
 
-- Whether the gate loop is adding quality (comparison against the gate-looped version).
-- Whether gate false-rejections are eating cost on scenes that were already passable.
+- Whether GateCritic telemetry changes downstream polish decisions enough to matter.
+- Whether gate findings are worth collecting on scenes that were already passable.
 
-QualityPolish and FinalGate still run (unless combined with `--raw-draft`), so the final saved file is still validated.
+In non-lean runs, QualityPolish and FinalGate still run unless combined with `--raw-draft`. In lean runs, broad gates and polish are already skipped by `runtime.lean_prose_only`.
 
 ### Example: full vs stripped on Chapter 1
 
 ```bash
-# Full pipeline (default) — Sonnet prose with gate rewrite loop
+# Full telemetry path - Sonnet prose with GateCritic call
 python -m src.main \
     data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/concept_seed.json \
     data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/scene_cards \
@@ -137,7 +137,7 @@ python -m src.main \
     --chapter 1 --config config/settings.bench.sonnet.yaml \
     --run-name bench-ch1-sonnet-FULL
 
-# Stripped pipeline — same config, no gate loop
+# Stripped telemetry path - same config, no GateCritic call
 python -m src.main \
     data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/concept_seed.json \
     data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/scene_cards \
@@ -170,6 +170,8 @@ Two frozen routing snapshots live in `config/`:
 
 Both have Anthropic prompt caching enabled (`anthropic_ttl: 1h`) so repeated scene runs in the same chapter batch amortize input cost.
 
+These two bench configs intentionally omit the `runtime:` block, so CLI runs with them execute the non-lean relay. They are comparison fixtures, not the shipping routing in `config/settings.yaml`.
+
 Add new bench configs as `config/settings.bench.<label>.yaml` when introducing a new prose candidate for chapter-scale comparison.
 
 ---
@@ -184,7 +186,7 @@ Every meaningful bench should land a short markdown summary alongside its output
 | `BENCH_SUMMARY_2026-04-17-v2.md` | Expanded analysis (v2): adds tier list and anti-pattern compliance |
 | `BENCH_SUMMARY_2026-04-17-v3.md` | Sonnet at t=0.70 added; updates recommendation after temp correction |
 | `BENCH_PIPELINE_ANALYSIS.md` | Step-by-step Grok-architect + Sonnet/GPT-prose + Haiku-polish pipeline analysis |
-| `GATE_LOOP_COMPARISON.md` | Full-vs-stripped pipeline analysis using `--skip-gate-loop` |
+| `GATE_LOOP_COMPARISON.md` | Historical full-vs-stripped pipeline analysis using `--skip-gate-loop` |
 
 Each summary should contain:
 

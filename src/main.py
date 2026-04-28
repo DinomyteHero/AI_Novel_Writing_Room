@@ -586,9 +586,9 @@ async def main():
     parser.add_argument(
         "--raw-draft",
         action="store_true",
-        help="Baseline mode: skip Quality Polish and Final Gate. "
+        help="Non-lean baseline mode: skip Quality Polish and Final Gate. "
              "Saves the Scene-Gate-passed draft directly. Use this to measure "
-             "the writer+gate loop in isolation before the polish stage.",
+             "drafting plus gate telemetry before the polish stage.",
     )
     parser.add_argument(
         "--skip-gate-loop",

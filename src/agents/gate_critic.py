@@ -1,8 +1,8 @@
 """Gate Critic agent — evaluates drafted prose against structural rubric.
 
-Returns structured CriticFailure JSON with machine-readable failure codes
-and routing decisions. This is the blocking gate — only structural failures
-trigger a full rewrite loop.
+Returns structured CriticFailure JSON with machine-readable failure codes and
+legacy routing labels. In the current forward-only relay, this is telemetry:
+GateCritic does not block saves or trigger retry loops by itself.
 """
 
 import json
@@ -76,9 +76,9 @@ def determine_verdict(failure_codes: list[dict]) -> str:
 def determine_route(verdict: str) -> Optional[str]:
     """Map verdict to routing destination.
 
-    Post-Phase 1 pipeline redesign: fail_polish no longer routes to craft_edit.
-    Polish issues are caught by the compression guard and Final Gate, which
-    reject the polish output and keep the gate-passed draft instead.
+    The returned labels are historical telemetry. The orchestrator no longer
+    branches directly on them, except for the separate flag-gated
+    corrective_rerun path that inspects fail_structural verdicts.
     """
     routing = {
         "pass": None,
@@ -179,9 +179,9 @@ class GateCritic(BaseAgent):
         """Run the gate critic and return structured evaluation.
 
         Verdict and route are always derived from `failure_codes` — the model's
-        stated verdict is not trusted for routing. This prevents the contract
+        stated verdict is not trusted for routing labels. This prevents the contract
         inconsistency where `verdict="pass"` could coexist with a structural
-        failure code and cause the orchestrator to skip the rewrite loop.
+        failure code and cause misleading telemetry.
         Disagreements between the model's stated verdict and the derived one
         are logged for prompt-tuning diagnostics.
         """

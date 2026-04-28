@@ -86,7 +86,10 @@ python scripts/init_project.py --title "My Novel" --franchise "My Franchise" --d
 python scripts/compile_bundle.py --franchise my-franchise --book my-novel
 
 # 4. Run the pipeline.
-python -m src.main --franchise my-franchise --book my-novel --chapter 1 --raw-draft
+python -m src.main \
+  data/franchises/my-franchise/books/my-novel/concept_seed.json \
+  data/franchises/my-franchise/books/my-novel/scene_cards \
+  --franchise my-franchise --book my-novel --chapter 1 --phase 5
 ```
 
 ### Migrate an existing project (concept_seed.json → workflow surfaces)

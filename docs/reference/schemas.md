@@ -19,7 +19,7 @@ The `schemas/` directory contains JSON Schema definitions for the system's core 
 | Chapter Blueprint | `schemas/chapter_blueprint.json` | Per-chapter planning document synthesised from the seed + scene cards. Consumed by `ChapterGateCritic`. Lives at `data/franchises/<fr>/books/<bk>/chapter_blueprints/chapter_NN.json`. |
 | Generation Brief | `schemas/generation_brief.json` | PlotArchitect output handed to ProseStylist: per-beat plan (beat sequence, turning point, POV, characters_present, structural phase) derived from the scene card. |
 | Phase 0 Audit | `schemas/phase0_audit.json` | Output of `scripts/audit_phase0.py`. Records six-criterion audit of rendered prompts (voice rules → drafter, scene contract → drafter, constraints survive assembly, cross-scene feedback, register single-source, audit report exists). |
-| Chapter Packet | `schemas/chapter_packet.json` | Slice 2 contract: the drafter's single inspectable runtime input. Base compiled once per chapter; overlay composed per scene. Produced by `src/pipeline/chapter_packet.py`. Off by default on shipping books. |
+| Chapter Packet | `schemas/chapter_packet.json` | Slice 2 contract: the drafter's single inspectable runtime input. Base compiled once per chapter; overlay composed per scene. Produced by `src/pipeline/chapter_packet.py`. Shipping default is on with flat-context fallback enabled. |
 | Revision Debt | `schemas/revision_debt.json` | Slice 2 store for structured advisories (canon drift, gate findings, presence near-misses, compression, etc.). Closed `category` enum. Persisted to `output/<franchise>/<book>/state/revision_debt.db`. Off by default on shipping books. |
 | Promise Ledger Entry | `schemas/promise_ledger_entry.json` | Slice 3 declaration-driven promise ledger row. Seeded from planning (`story_physics.promise_payoff_ledger` + scene-card `promises_planted` / `promises_paid`); progression / payoff / broken transitions are the only mutating writes. Persisted to `promise_ledger.db`. Off by default on shipping books. |
 | Continuity Event | `schemas/continuity_event.json` | Slice 4 narrow LLM-extracted event log. `oneOf` restricts to five event types (`location_change`, `injury_state`, `possession`, `revelation`, `status_change`). Threshold-gated by `runtime.continuity_log.min_confidence`. Persisted to `continuity_log.db`. Off by default on shipping books. |
@@ -59,7 +59,7 @@ Workflow kit (workflows/<surface>/*.json) -> compile_bundle.py
     -> scene_cards/ (Scene Card schema per file)
     -> series_seed.json (Series Seed schema, series mode only)
 
-Pipeline (per chapter):
+Pipeline (per chapter; shipping lean mode saves after ProseStylist/LineWriter and skips the full relay below):
     Scene Card -> ContextAssembler -> prompt payload
         Context tiers: story bible, act summary, chapter summaries, recent prose
         Phase 5 tiers: voice_rules, hook_agenda, arc_context, subplot_context, terminology
@@ -69,10 +69,10 @@ Pipeline (per chapter):
     prose -> GateCritic -> Failure Code schema (advisory under forward-only relay)
     prose -> MetricsDashboard -> per-scene metrics (repetition, pacing, voice, slop)
     prose + metrics -> QualityPolish -> polished prose (expression-only)
-    polished prose -> compression advisory (warn at <60%; never reverts)
-    polished prose -> FinalGate -> Failure Code schema (advisory_only=True)
-    polished prose -> CanonExpert -> continuity report (reads canon_profile from seed)
-    polished prose + continuity report -> save-blocker layer
+    polished prose -> compression guard (keeps current prose or reverts to gate-passed draft at <60%)
+    current prose -> FinalGate -> Failure Code schema (advisory_only=True)
+    current prose -> CanonExpert -> continuity report (reads canon_profile from seed)
+    current prose + continuity report -> save-blocker layer
         CHARACTER_PRESENCE_BLOCKER | CANON_BLOCKER | POV advisory (non-blocking v1)
         -> save or quarantine (+ abort run on blocker)
 

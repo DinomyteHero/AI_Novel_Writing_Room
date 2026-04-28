@@ -29,7 +29,7 @@ After a manuscript is exported, production continues through the [Manuscript Pro
 
 ### Phase B: Autonomous Pipeline
 
-The pipeline processes each scene card through a **forward-only relay** (post-Stage-3 refactor — no retry loops; gates are telemetry; the save-blocker layer is the only hard-failure path):
+When lean mode is disabled, the pipeline processes each scene card through a **forward-only relay** (post-Stage-3 refactor — no retry loops; gates are telemetry; the save-blocker layer is the only hard-failure path):
 
 ```
 Scene Card
@@ -53,13 +53,13 @@ QualityMetrics (code-based flags feeding polish)
 QualityPolish (bounded expression-level polish; cannot change beats/characters)
     |
     v
-Compression advisory (emits ledger event if polish < 60% of pre-polish word count; always saves)
+Compression guard (reverts to gate-passed draft if polish < 60% of pre-polish word count)
     |
     v
-FinalGate (contract check on polished text; advisory_only=True — polished prose is always saved unless a blocker fires)
+FinalGate (contract check on current text; advisory_only=True, no retry)
     |
     v
-CanonExpert (franchise lore validation; runs as the final continuity-editor on the polished text)
+CanonExpert (franchise lore validation; runs as the final continuity-editor on the current text)
     |
     v
 Save-blocker layer (CHARACTER_PRESENCE_BLOCKER, CANON_BLOCKER critical/moderate, POV advisory)

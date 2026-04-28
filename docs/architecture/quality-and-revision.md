@@ -2,7 +2,7 @@
 
 Current production defaults to lean mode, where the per-scene refinement stack is bypassed and LineWriter is the only post-draft scene edit. Quality and revision decisions then move to the full-manuscript lifecycle: GPT-5.4 review, targeted revision, targeted cleanup, final docket pass, and deterministic validation.
 
-The system uses pure-Python quality metrics (no LLM calls) to score scenes, then runs a bounded LLM refinement pass (QualityPolish) whose output is checked by a compression advisory and a Final Gate before it is saved. Under the forward-only relay (Stage 1a+), FinalGate verdicts are **advisory**: the polished prose is always saved unless the save-blocker layer fires. The only hard-failure path is save-blockers (CHARACTER_PRESENCE, CANON critical/moderate, POV advisory), which quarantines the scene and aborts the run.
+The system uses pure-Python quality metrics (no LLM calls) to score scenes, then runs a bounded LLM refinement pass (QualityPolish) whose output is checked by a compression guard and a Final Gate before it is saved. Under the forward-only relay, FinalGate verdicts are **advisory**: the polished prose is saved unless the compression guard reverts to the gate-passed draft or the save-blocker layer fires. The only hard-failure path is save-blockers (CHARACTER_PRESENCE_BLOCKER, CANON_BLOCKER critical/moderate, POV advisory), which quarantines the scene and aborts the run.
 
 > **Note — pipeline redesign.** Earlier builds ran a multi-band revision pipeline (StructuralContinuity → SceneEmotion → LineCopy → optional DialoguePolish / WorldbuildingCoherence) after the Gate. That pipeline has been removed entirely. Polish is now a single pass followed by a Final Gate advisory and the save-blocker layer. The old `prompts/revision_prompts/` directory and `src/revision/` module that backed the revision bands have both been deleted; older docs that reference them describe a dead code path.
 
@@ -77,7 +77,7 @@ A single LLM pass that receives the Gate-passed draft plus the structured qualit
 
 ### Compression Guard
 
-The orchestrator rejects polish output that significantly drops or compresses material relative to the Gate-passed draft. This is one of two mechanisms that keep QualityPolish bounded: if it tries to over-edit, the output is discarded.
+The orchestrator rejects polish output that significantly drops or compresses material relative to the Gate-passed draft. If the polished word count falls below 60% of the gate-passed draft, the saved candidate reverts to the gate-passed draft and `compression_guard_fired` is emitted with `reverted: true`.
 
 ### Final Gate (`src/agents/final_gate.py`)
 
@@ -86,7 +86,7 @@ Validates the polished prose against the scene card contract:
 - Closing-hook boundary (the scene ends where the card says it should)
 - Turning point is identifiable in the final prose (no polish-induced flattening)
 
-Final Gate emits structural failure codes (`CLOSING_HOOK_VIOLATION`, `MISSING_TURNING_POINT`, `WEAK_TURNING_POINT`) — see [`config/failure_codes.yaml`](../../config/failure_codes.yaml). Under the forward-only relay, a rejection emits a `final_gate_rejection` event tagged `advisory_only` and the polished prose is still saved. Hard failures are handled by the save-blocker layer, not by reverting to an earlier draft.
+Final Gate emits structural failure codes (`CLOSING_HOOK_VIOLATION`, `MISSING_TURNING_POINT`, `WEAK_TURNING_POINT`) — see [`config/failure_codes.yaml`](../../config/failure_codes.yaml). Under the forward-only relay, a rejection emits a `final_gate_rejection` event tagged `advisory_only` and does not block or retry. Severe compression has already been handled by the compression guard; remaining hard failures are handled by the save-blocker layer.
 
 Forward Relay v4 narrowed FinalGate's scope: `CHARACTER_PRESENCE_VIOLATION` is no longer emitted (PresenceChecker at save time is the sole authority), and word-count enforcement moved to `src/pipeline/word_count_telemetry.py` at chapter-close. Only closing-hook and turning-point regression remain.
 

@@ -5,11 +5,11 @@ expression-level edits (show-don't-tell, word choice, AI-tell removal, sentence
 rhythm, grammar) within an explicit contract: it CANNOT add or remove beats,
 characters, or story content.
 
-Under the forward-only relay, Final Gate and the compression advisory both run
-downstream of polish as telemetry only — they log advisory events but never
-revert the polish. The save-blocker layer (character presence, canon verdict
-at critical/moderate severity) is the sole hard-failure path. Polish output
-is always saved otherwise.
+Under the forward-only relay, the compression guard and Final Gate both run
+downstream of polish. Severe shrinkage reverts to the gate-passed draft; Final
+Gate is advisory and does not block by itself. The save-blocker layer
+(character presence, canon verdict at critical/moderate severity) is the sole
+hard-failure path.
 
 Replaces: craft_editor, revision/pipeline (3 bands: structural_continuity,
 scene_emotion, line_copy).
@@ -25,10 +25,10 @@ class QualityPolish(BaseAgent):
 
     Receives gate-passed prose plus scene card hard constraints, quality metric
     flags, and an explicit 80% word-count floor as an instructed target to the
-    model. Under the forward-only relay, the floor is advisory: the runtime
-    compression guard emits a warn-level `compression_guard_fired` event when
-    polish cuts below 60% of pre-polish word count, but the polished output is
-    always kept. Final Gate runs afterwards as telemetry and never reverts.
+    model. Under the forward-only relay, the runtime compression guard emits a
+    warn-level `compression_guard_fired` event and reverts to the gate-passed
+    draft when polish cuts below 60% of pre-polish word count. Final Gate runs
+    afterwards as telemetry and never reverts by itself.
     """
 
     def __init__(self, router, role: str = "quality_polish"):
