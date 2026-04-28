@@ -32,7 +32,14 @@ Thumbs.db
 .pytest_tmp_root/
 .pytest_basetemp*/
 codex_test_runtime_basetemp*/
+codex_pytest_lineedit_tmp/
+codex_pytest_tmp_*/
+.codex_pytest_tmp_*/
 pytest-temp-basetest/
+pytest-cache-files-*/
+test-output/
+tmp_diagnostic/
+tmp_pytest_codex_run/
 htmlcov/
 .coverage
 coverage.xml
@@ -49,6 +56,7 @@ output/*/*/state/
 # Generated model run artifacts can contain very long diagnostic filenames.
 # Keep them out of normal commits; copy curated evidence into docs/ when needed.
 output/*/*/runs/
+output/runs-logs/
 
 # Phase 0 audit runs are regenerated on demand from scripts/audit_phase0.py.
 # The canonical committed evidence lives in docs/audits/phase0_*.md; the

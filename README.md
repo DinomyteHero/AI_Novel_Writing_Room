@@ -1,6 +1,10 @@
 # AI Writers' Room
 
-A multi-agent fiction generation system that produces novel-length (60-80K word) franchise fanfiction. The system uses a two-phase workflow: human-collaborative planning (with canon profile construction) followed by autonomous multi-agent drafting, validation, bounded polish, continuity checking, and export. Projects are organized by franchise and book, with per-run output isolation and optional series-level state sharing.
+> **Status:** experimental research project. Active development; APIs and pipeline shape change between commits.
+
+A multi-agent fiction generation system that produces novel-length (60–80K word) fiction — configurable for franchise fanfiction or wholly original worlds. The system uses a two-phase workflow: human-collaborative planning (with optional canon profile construction) followed by autonomous multi-agent drafting, validation, bounded polish, continuity checking, and export. Projects are organized by franchise and book, with per-run output isolation and optional series-level state sharing.
+
+**What's interesting about it:** a forward-only relay (no retry loops, gates are telemetry), declarative trusted-state stores (promise ledger, sociogram, continuity log) that the drafter sees through a single chapter-packet contract, and a save-blocker layer as the only hard-failure path. See [CLAUDE.md](CLAUDE.md) for the architectural details.
 
 ## Quick Start
 
@@ -182,10 +186,15 @@ Historical implementation briefs, the rollout roadmap, deferred-work log, and th
 ## Tests
 
 ```bash
-pytest                              # Run all tests (~1,800 collected)
+pytest                              # Run all tests (~1,950 collected)
 pytest -k "test_orchestrator"       # Run specific tests
 ```
 
 ## License
 
-TBD
+Apache License 2.0 — see [LICENSE](LICENSE).
+
+The license covers the pipeline software. It does not grant rights in any
+third-party franchise material that the bundled worked examples or evaluation
+corpus happen to reference; see [DISCLAIMER](DISCLAIMER.md) for the
+non-commercial fan-content posture and rightsholder takedown contact.
