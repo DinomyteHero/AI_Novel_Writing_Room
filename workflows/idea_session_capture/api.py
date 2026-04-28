@@ -459,6 +459,12 @@ class IdeaSessionCapture:
 
             artifact_path = self.paths.workflows_dir / f"{surface}.json"
             draft = self._build_surface_draft(surface, capture)
+            errors = _validate_surface_draft(surface, draft)
+            if errors:
+                raise RuntimeError(
+                    f"expand_to_surface_drafts produced an invalid {surface!r} "
+                    f"skeleton (schema drift bug). Errors: {errors}"
+                )
             if self._write_json(artifact_path, draft, force=force):
                 written.append(artifact_path)
             else:
@@ -772,7 +778,13 @@ class IdeaSessionCapture:
         surface: str,
         capture: dict[str, Any],
     ) -> dict[str, Any]:
-        """Build a partial surface artifact from capture state."""
+        """Build a schema-valid skeleton surface artifact from capture state.
+
+        Each skeleton passes the surface validator on write — required
+        fields land with EDIT_ME placeholders that satisfy minLength /
+        minItems / enum constraints. The downstream surface session
+        replaces the placeholders with real content.
+        """
         north_star = capture.get("north_star") or {}
         relationship = capture.get("relationship") or {}
         handoff = (capture.get("surface_handoffs") or {}).get(surface) or {}
@@ -805,104 +817,184 @@ class IdeaSessionCapture:
         }
 
         if surface == "universe":
-            return {
-                **common_envelope,
-                "universe_identity": {
-                    "name": (capture.get("project") or {}).get("franchise", ""),
-                    "canon_status": relationship.get("canon_status"),
-                    "project_scope": relationship.get("project_scope"),
-                    "era_or_setting": "",
-                },
-                "premise": {
-                    "logline": north_star.get("one_sentence_pitch", ""),
-                    "reader_promise": north_star.get("reader_promise", ""),
-                    "tone": "",
-                },
-                "conflict": {
-                    "central_question": "",
-                    "stakes": "",
-                },
-                "theme": {
-                    "primary": north_star.get("emotional_core", ""),
-                    "author_intent": north_star.get("author_intent", ""),
-                },
-                "non_negotiables": north_star.get("non_negotiables", []),
-                "avoid": north_star.get("avoid", []),
+            canon_status = _canon_status_or_default(
+                relationship.get("canon_status")
+            )
+            meta: dict[str, Any] = {
+                "project_title": self.title,
+                "franchise": self.franchise,
+                "canon_status": canon_status,
+                "era": "<EDIT_ME>",
+                "tone": "heroic_with_weight",
+                "target_word_count": 80000,
             }
+            project_scope = relationship.get("project_scope")
+            if project_scope in {"standalone", "planned_series", "continuation"}:
+                meta["project_scope"] = project_scope
+            if relationship.get("series_id"):
+                meta["series_id"] = relationship["series_id"]
+            if relationship.get("book_number"):
+                meta["book_number"] = relationship["book_number"]
+            if relationship.get("cosmology_id"):
+                meta["cosmology_id"] = relationship["cosmology_id"]
+
+            universe_meta: dict[str, Any] = {
+                "universe_name": self.franchise,
+                "franchise": self.franchise,
+                "canon_status": canon_status,
+                "commercial_intent": "fanfiction_noncommercial",
+            }
+            if relationship.get("cosmology_id"):
+                universe_meta["cosmology_id"] = relationship["cosmology_id"]
+            if relationship.get("source_work") or relationship.get("branch_point"):
+                universe_meta["branch_point"] = {
+                    "source_canon": relationship.get("source_franchise") or "",
+                    "divergence_point": relationship.get("branch_point") or "",
+                    "divergence_description": relationship.get("base_source") or "",
+                }
+
+            artifact: dict[str, Any] = {**common_envelope}
+            artifact["meta"] = meta
+            artifact["universe_meta"] = universe_meta
+            # Optional sections — fill only when the capture has content.
+            if north_star.get("one_sentence_pitch"):
+                artifact["premise"] = {
+                    "what_if": (
+                        f"<EDIT_ME — restate as a >=50-char 'What if' premise. "
+                        f"Seed: {north_star['one_sentence_pitch']}"
+                    ),
+                    "logline": north_star["one_sentence_pitch"],
+                }
+            if north_star.get("emotional_core") or north_star.get("author_intent"):
+                artifact["theme"] = {}
+                if north_star.get("emotional_core"):
+                    artifact["theme"]["thematic_premise"] = north_star["emotional_core"]
+            if north_star.get("non_negotiables") or north_star.get("avoid"):
+                artifact["extended_metadata"] = {}
+                if north_star.get("non_negotiables"):
+                    artifact["extended_metadata"]["non_negotiables"] = list(
+                        north_star["non_negotiables"]
+                    )
+                if north_star.get("avoid"):
+                    artifact["extended_metadata"]["avoid"] = list(north_star["avoid"])
+            return artifact
 
         if surface == "canon":
-            return {
-                **common_envelope,
-                "canon_profile": {
-                    "canon_status": relationship.get("canon_status"),
-                    "source_work": relationship.get("source_work"),
-                    "branch_point": relationship.get("branch_point"),
-                    "base_source": relationship.get("base_source"),
-                },
-                "constraints": [],
-                "force_or_magic_mechanics": {},
-                "canonical_terminology": [],
+            artifact = {**common_envelope}
+            artifact["canon_constraints"] = {
+                "continuity": "<EDIT_ME — describe continuity stance for this book>",
+                "canon_preserved": [],
+                "style_constraints": [],
             }
+            artifact["canon_profile"] = {
+                "franchise": self.franchise,
+            }
+            if relationship.get("canon_status"):
+                artifact["canon_profile"]["continuity"] = relationship[
+                    "canon_status"
+                ]
+            if relationship.get("source_work"):
+                artifact["canon_profile"]["franchise_terminology_notes"] = (
+                    f"Source work: {relationship['source_work']}"
+                )
+            artifact["force_mechanics"] = {}
+            artifact["terminology_registry"] = []
+            return artifact
 
         if surface == "voice":
-            return {
-                **common_envelope,
-                "voice_definition": {
-                    "pov_approach": "",
-                    "prose_register": "",
-                    "reference_authors": [],
-                    "character_voices": {},
-                    "anti_slop_rules": [],
-                    "anti_patterns": [],
-                    "narrative_voice_notes": north_star.get("author_intent", ""),
-                },
+            artifact = {**common_envelope}
+            voice_def: dict[str, Any] = {
+                "pov_approach": "<EDIT_ME — e.g., 'close third, single POV, past tense'>",
+                "prose_register": "<EDIT_ME — e.g., 'literary thriller; sentence-level rhythm'>",
+                "reference_authors": [],
+                "character_voices": {},
+                "anti_slop_rules": [],
+                "anti_patterns": [],
             }
+            if north_star.get("author_intent"):
+                voice_def["narrative_voice_notes"] = north_star["author_intent"]
+            artifact["voice_definition"] = voice_def
+            return artifact
 
         if surface == "characters":
-            return {
-                **common_envelope,
-                "ensemble_cast": [],
-                "referenced_characters": [],
-                "relationship_arcs": [],
-                "weiland_notes": (
-                    "Each main character needs lie_believed, ghost, want, need, "
-                    "arc_type, and an arc_phase_map keyed by chapter or scene id. "
-                    "Reference: K.M. Weiland's character arc framework."
+            artifact = {**common_envelope}
+            placeholder_three_dim = {
+                "surface": (
+                    "<EDIT_ME — describe how this character presents to "
+                    "the world; >=50 chars. Replace placeholder.>"
+                ),
+                "backstory_inner_demons": (
+                    "<EDIT_ME — describe the wound, ghost, or contradiction "
+                    "this character carries; >=50 chars.>"
+                ),
+                "action_under_pressure": (
+                    "<EDIT_ME — describe what this character does when forced "
+                    "to choose under stakes; >=50 chars.>"
                 ),
             }
+            artifact["ensemble_cast"] = [
+                {
+                    "name": "<EDIT_ME — Protagonist Name>",
+                    "role": "protagonist",
+                    "three_dimensions": dict(placeholder_three_dim),
+                },
+                {
+                    "name": "<EDIT_ME — Antagonist or Co-Lead Name>",
+                    "role": "antagonist",
+                    "three_dimensions": dict(placeholder_three_dim),
+                },
+            ]
+            artifact["referenced_characters"] = []
+            artifact["relationship_arcs"] = []
+            artifact["_weiland_notes"] = (
+                "Each main character needs lie_believed, ghost, want, need, "
+                "arc_type, and an arc_phase_map keyed by chapter or scene id. "
+                "Reference: K.M. Weiland's character arc framework."
+            )
+            return artifact
 
         if surface == "outline":
-            return {
-                **common_envelope,
-                "structural_notes": {
-                    "brooks_alignment": {
-                        "part_1_setup": "",
-                        "inciting_incident": "",
-                        "first_plot_point": "",
-                        "part_2_response": "",
-                        "first_pinch_point": "",
-                        "midpoint": "",
-                        "part_3_attack": "",
-                        "second_pinch_point": "",
-                        "second_plot_point": "",
-                        "part_4_resolution": "",
-                        "climax": "",
-                    },
-                    "_scene_count_discipline": (
-                        "Chapters carry as many or as few scenes as the dramatic "
-                        "need requires. A chapter with a single load-bearing scene "
-                        "is healthier than a chapter padded with redundant beats. "
-                        "Only split when each resulting scene has a distinct "
-                        "turning point, mission, and emotional arc."
-                    ),
+            artifact = {**common_envelope}
+            artifact["structural_notes"] = {
+                "brooks_alignment": {
+                    "part_1_setup": "",
+                    "inciting_incident": "",
+                    "first_plot_point": "",
+                    "part_2_response": "",
+                    "first_pinch_point": "",
+                    "midpoint": "",
+                    "part_3_attack": "",
+                    "second_pinch_point": "",
+                    "second_plot_point": "",
+                    "part_4_resolution": "",
+                    "climax": "",
                 },
-                "outline": [],
-                "subplots": [],
-                "hooks": [],
-                "revelation_schedule": [],
-                "promise_payoff_ledger": [],
-                "arc_phase_maps": {},
+                "_scene_count_discipline": (
+                    "Chapters carry as many or as few scenes as the dramatic "
+                    "need requires. A chapter with a single load-bearing scene "
+                    "is healthier than a chapter padded with redundant beats. "
+                    "Only split when each resulting scene has a distinct "
+                    "turning point, mission, and emotional arc."
+                ),
             }
+            artifact["outline"] = [
+                {
+                    "chapter_number": 1,
+                    "chapter_title": "<EDIT_ME — Chapter 1 title>",
+                    "synopsis": (
+                        "<EDIT_ME — replace this placeholder with a real "
+                        "chapter-1 synopsis. Add additional chapters to fill "
+                        "the four-part Brooks beat map.>"
+                    ),
+                    "structural_phase": "setup",
+                }
+            ]
+            artifact["subplots"] = []
+            artifact["hooks"] = []
+            artifact["revelation_schedule"] = []
+            artifact["promise_payoff_ledger"] = []
+            artifact["arc_phase_maps"] = {}
+            return artifact
 
         # default empty draft
         return {**common_envelope}
@@ -943,3 +1035,42 @@ def _surface_envelope_name(surface: str) -> str:
         "outline": "outline-planner",
         "scene_cards": "scene-card-authoring",
     }.get(surface, surface)
+
+
+_VALID_CANON_STATUSES = {"canon_compliant", "AU", "original"}
+
+
+def _validate_surface_draft(surface: str, draft: dict[str, Any]) -> list[str]:
+    """Validate an expand-time skeleton against its surface schema.
+
+    Returns the list of validation errors (empty when valid). The
+    expand path raises if this returns non-empty so a schema/expand
+    drift never silently writes a broken skeleton.
+    """
+    import importlib
+
+    module_for_surface = {
+        "universe": "workflows.universe_builder.validate",
+        "canon": "workflows.canon_drafter.validate",
+        "voice": "workflows.voice_discovery.validate",
+        "characters": "workflows.character_forge.validate",
+        "outline": "workflows.outline_planner.validate",
+    }
+    module_name = module_for_surface.get(surface)
+    if module_name is None:
+        return []
+    module = importlib.import_module(module_name)
+    return module.validate(draft)
+
+
+def _canon_status_or_default(value: str | None) -> str:
+    """Map a capture canon_status into the universe schema enum.
+
+    The capture surface stores `canon_status` as a free-form string; the
+    universe schema constrains it to {canon_compliant, AU, original}.
+    Anything outside that enum (including None or empty) collapses to
+    "original" — the safest default for a brand-new project.
+    """
+    if value in _VALID_CANON_STATUSES:
+        return value
+    return "original"

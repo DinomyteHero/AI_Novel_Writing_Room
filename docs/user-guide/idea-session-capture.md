@@ -108,18 +108,28 @@ The capture packet has first-class fields for:
 - Alternate universes with a `branch_point`
 - Different universes that draw from the same `base_source`
 
+## Expand To Surface Drafts
+
+When the capture has a settled north star and at least one decision, run:
+
+```bash
+python scripts/idea_session_capture.py expand \
+  --title "Working Title" \
+  --franchise "Franchise Or Original Universe"
+```
+
+This pre-seeds the five JSON workflow-kit surfaces (`universe`, `canon`, `voice`, `characters`, `outline`) and writes a `scene_cards/_intent.md` brief. Each JSON skeleton is **schema-valid on write** — required fields land with `<EDIT_ME ...>` placeholders that satisfy schema constraints (minLength, minItems, enum). The downstream surface session reads the skeleton and replaces those placeholders with real content; the surface api re-validates on write.
+
+Re-running `expand` is idempotent — existing artifacts are skipped unless you pass `--force`.
+
 ## How It Connects To The Existing System
 
 The capture workspace feeds the six workflow-kit surfaces:
 
 ```text
 idea_session
-  -> universe.json
-  -> canon.json
-  -> voice.json
-  -> characters.json
-  -> outline.json
-  -> scene_cards/
+  -> expand_to_surface_drafts (skeletons)
+  -> author each surface (replace EDIT_ME with real content)
   -> compile_bundle.py
   -> lean production
 ```

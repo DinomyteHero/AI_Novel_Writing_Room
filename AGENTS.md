@@ -33,19 +33,43 @@ in Claude Code and Codex. The conversation contract is at:
 - `workflows/_shared/SKILL_preamble.md` — your role and the surface
   protocol.
 
-State mutation goes through the headless api, not hand-edited JSON:
+State mutation goes through the headless api, not hand-edited JSON.
+Each call validates against `schema.json`. Required keyword arguments
+are explicit — `add_decision` takes `surface`/`topic`/`decision`,
+`add_open_question` takes `surface`/`question`, etc.
 
 ```python
 from workflows.idea_session_capture import IdeaSessionCapture
 
 capture = IdeaSessionCapture(title="Working Title", franchise="My World")
-capture.init_workspace()              # scaffold workflows/idea_session/
-capture.set_north_star(...)           # pitch, promise, emotional core
-capture.add_decision(...)             # one settled or tentative call
-capture.add_open_question(...)        # what's not decided yet
-capture.update_handoff("characters", status="seeded", settled_inputs=[...])
-capture.expand_to_surface_drafts()    # pre-seed the six downstream surfaces
+capture.init_workspace()                     # scaffold workflows/idea_session/
+capture.set_north_star(
+    one_sentence_pitch="...",
+    reader_promise="...",
+    emotional_core="...",
+)
+capture.add_decision(
+    surface="voice", topic="POV", decision="...", confidence="settled",
+)
+capture.add_open_question(
+    surface="characters", question="...", why_it_matters="...",
+)
+capture.update_handoff(
+    "characters",
+    status="seeded",
+    settled_inputs=[...],
+    questions_to_resolve=[...],
+)
+capture.expand_to_surface_drafts()           # pre-seed the six surfaces
 ```
+
+`expand_to_surface_drafts` writes **schema-valid skeletons** for each
+of `universe.json`, `canon.json`, `voice.json`, `characters.json`, and
+`outline.json` (plus a `scene_cards/_intent.md` brief). Each skeleton
+passes its surface validator on write — required fields land with
+`<EDIT_ME ...>` placeholders satisfying schema constraints. The
+downstream surface session reads the skeleton and replaces those
+placeholders with real content.
 
 CLI equivalents (when you'd rather shell out):
 

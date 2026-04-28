@@ -216,10 +216,15 @@ def test_expand_seeded_universe_carries_north_star(
     universe_path = capture.paths.workflows_dir / "universe.json"
     universe = json.loads(universe_path.read_text(encoding="utf-8"))
     assert universe["surface"] == "universe-builder"
+    # Schema-required blocks land
+    assert universe["meta"]["project_title"] == "Test Book"
+    assert universe["meta"]["franchise"] == "Original"
+    assert universe["meta"]["canon_status"] == "original"
+    assert universe["universe_meta"]["franchise"] == "Original"
+    # Optional seeded north-star content lands in premise/theme/extended_metadata
     assert "retired spy" in universe["premise"]["logline"]
-    assert universe["premise"]["reader_promise"] == "Earned emotional ending."
-    assert universe["theme"]["primary"] == "reckoning"
-    assert universe["non_negotiables"] == ["POV stays Mara"]
+    assert universe["theme"]["thematic_premise"] == "reckoning"
+    assert universe["extended_metadata"]["non_negotiables"] == ["POV stays Mara"]
 
 
 def test_expand_seeded_outline_carries_brooks_skeleton(
@@ -253,6 +258,51 @@ def test_expand_only_subset_of_surfaces(capture: IdeaSessionCapture) -> None:
     result = capture.expand_to_surface_drafts(surfaces=["universe", "voice"])
     paths = {p.name for p in result["written"]}
     assert paths == {"universe.json", "voice.json"}
+
+
+def test_expand_drafts_validate_against_surface_schemas(
+    capture: IdeaSessionCapture,
+) -> None:
+    """expand_to_surface_drafts must produce skeletons that pass each
+    surface's validator. Without this, Codex/Claude agents that follow
+    the documented expand-then-edit-then-write workflow would write
+    schema-invalid surfaces back through the surface api and trip the
+    validator at write time. Schema drift in either the expand body or
+    the surface schemas must fail this test.
+    """
+    capture.set_north_star(
+        one_sentence_pitch="A drifting heir must reclaim a city she walked away from.",
+        reader_promise="Hard-won emotional resolution.",
+        emotional_core="cost of return",
+        non_negotiables=["POV stays Mara"],
+    )
+    capture.add_decision(
+        surface="universe",
+        topic="canon_status",
+        decision="original universe",
+        confidence="settled",
+    )
+    capture.expand_to_surface_drafts()
+    workflows_dir = capture.paths.workflows_dir
+
+    surface_to_validator = {
+        "universe": "workflows.universe_builder.validate",
+        "canon": "workflows.canon_drafter.validate",
+        "voice": "workflows.voice_discovery.validate",
+        "characters": "workflows.character_forge.validate",
+        "outline": "workflows.outline_planner.validate",
+    }
+    import importlib
+
+    for surface, mod_name in surface_to_validator.items():
+        artifact_path = workflows_dir / f"{surface}.json"
+        assert artifact_path.exists(), f"{surface}.json not written by expand"
+        artifact = json.loads(artifact_path.read_text(encoding="utf-8"))
+        module = importlib.import_module(mod_name)
+        errors = module.validate(artifact)
+        assert errors == [], (
+            f"expand draft for {surface!r} failed schema validation: {errors}"
+        )
 
 
 def test_load_raises_when_workspace_absent(tmp_path: Path) -> None:
