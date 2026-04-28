@@ -96,6 +96,27 @@ Once the idea session has a strong north star, author the standard workflow-kit 
 
 The handoff files from `workflows/idea_session/surface_handoffs/` should guide these sessions. The six surface artifacts remain the compiler inputs; idea-session notes are not compiled directly.
 
+### Compile-readiness checklist
+
+The per-surface schemas are intentionally permissive so an author can iterate. The **compile-bundle** step has stricter requirements that pull from across surfaces — a surface can validate alone but still leave a gap that fails compile. Fill these explicit fields before running compile to avoid round-tripping back to the surface chats:
+
+- **universe**:
+  - `meta.pov_structure` (compliance critical) — e.g. `"Single POV close-third on Joren Vass."`
+  - `premise.central_dramatic_question` (concept_seed schema) — required *in addition to* `premise.what_if`
+  - `theme.thematic_argument` (≥100 chars) and `theme.how_each_arc_tests_theme` (object keyed by character)
+  - `protagonist_arc_type` — one of `change`, `steadfast`, `fall`, `rise`
+  - `stress_test_scores` with a non-null `overall` (compliance critical)
+- **characters**:
+  - Each cast member needs `age` (compliance critical even though the surface schema marks it optional)
+  - All three `three_dimensions` fields must hit ≥50 characters
+- **outline**:
+  - `subplots`, `hooks`, `revelation_schedule`, `promise_payoff_ledger` are each compliance-critical at the concept_seed level — at least one entry each, even if minimal
+- **scene_cards**:
+  - Every card needs a non-empty `conflict` (schema required) and a `why_now` (physics required)
+  - `mission` and `turning_point` must be non-empty
+
+The surface validator catches the per-surface required fields; the compile-bundle errors and `compile_report.json` catch the cross-surface and concept_seed requirements above.
+
 ## 3. Compile The Bundle
 
 Compile the authored surfaces into production inputs:
