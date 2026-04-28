@@ -282,7 +282,7 @@ Canonical helpers live under `workflows/_shared/` (`seed_transforms.py`, `scene_
 
 ## Testing
 
-- Full suite: `pytest -q` (≈1,800 tests across 140 files, ≈90s).
+- Full suite: `pytest -q` (≈1,950 tests across 140 files, ≈140s).
 - Some tests skip without optional deps (chromadb, sentence-transformers, fastapi); that is expected.
 - Web-path regression set: `pytest tests/test_websocket_ledger.py tests/test_run_ledger.py tests/test_api_pipeline.py tests/test_api_ledger.py tests/test_ui_pipeline_blueprint_wiring.py -q`.
 

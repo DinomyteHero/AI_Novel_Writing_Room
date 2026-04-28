@@ -111,7 +111,7 @@ ai-writers-room/
 │   ├── character_forge/           # ensemble_cast + relationship_arcs + referenced_characters
 │   ├── outline_planner/           # structural_notes + outline + subplots + hooks + revelations
 │   └── scene_card_authoring/      # per-scene cards
-├── tests/                         # ~1,800 tests across 140 files
+├── tests/                         # ~1,950 tests across 140 files
 ├── prompts/
 │   ├── concept_workshop.md        # Legacy workshop facilitator system prompt
 │   ├── stress_test_prompt.md      # Adversarial stress-test harness

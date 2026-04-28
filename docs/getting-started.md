@@ -193,7 +193,7 @@ Run the test suite to confirm everything is installed correctly:
 pytest
 ```
 
-Approximately 1,800 tests are collected across 140 test files. If some tests are skipped due to missing optional dependencies (chromadb, sentence-transformers, fastapi), that's expected — the tests for those subsystems are skipped when their dependencies aren't installed.
+Approximately 1,950 tests are collected across 140 test files. If some tests are skipped due to missing optional dependencies (chromadb, sentence-transformers, fastapi), that's expected — the tests for those subsystems are skipped when their dependencies aren't installed.
 
 ## Three Workflows
 
