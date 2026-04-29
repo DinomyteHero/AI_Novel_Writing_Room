@@ -174,13 +174,33 @@ worldbuilding:
     run_on_startup: true
     interval_minutes: 60
 
-# Architecture upgrade runtime flags.
-# Keep flags conservative by default unless explicitly enabled for the current
-# production path.
-# Slice 1 adds phase0_audit + firewall + successor_classifier.
-# Later slices (2-5) add chapter_packet, revision_debt, canon_expert.early_position,
-# promise_ledger, continuity_log, sociogram. See docs/architecture/architecture_upgrade_spec.md.
-# Per-book overrides at data/franchises/<franchise>/books/<book>/runtime_overrides.yaml.
+# Runtime flags.
+#
+# PRODUCTION DEFAULTS ARE LEAN. Effective default-on (do not disable on
+# shipping books without per-book sign-off):
+#   lean_prose_only.enabled
+#   lean_prose_only.line_edit.enabled
+#   chapter_packet.enabled
+#
+# Everything else below is STANDBY tooling — wired so it can be flipped on
+# for diagnostic, recovery, or bench runs without code changes:
+#   Slice infrastructure: phase0_audit, firewall, revision_debt,
+#                         promise_ledger, continuity_log, sociogram
+#   Full-relay opt-ins:   canon_expert.early_position,
+#                         canon_expert.apply_local_fixes,
+#                         corrective_rerun, commercial_rewrite, micro_repair
+#   Final-copy script:    final_copy.* (consumed by
+#                         scripts/final_copy_existing.py)
+#
+# Resolution precedence (src/runtime_flags.py):
+#   CLI --runtime-flag > book runtime_overrides.yaml
+#     > franchise runtime_overrides.yaml > this file
+# Per-book overrides live at:
+#   data/franchises/<franchise>/books/<book>/runtime_overrides.yaml
+#
+# See docs/architecture/manuscript-production-lifecycle.md for the production
+# lifecycle; per-slice notes in docs/architecture/architecture_upgrade_spec.md
+# and CLAUDE.md.
 runtime:
   # Lean DeepSeek architecture: PlotArchitect -> ProseStylist -> LineWriter -> save.
   # This bypasses advisory gates, quality/polish/rewrite passes, save-blocker
