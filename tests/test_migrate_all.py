@@ -1,4 +1,4 @@
-"""Smoke test for scripts/migrate_all.py \u2014 exercises the wrapper end-to-end
+"""Smoke test for scripts/migrations/migrate_all.py \u2014 exercises the wrapper end-to-end
 against a synthetic output/ tree under tmp_path.
 """
 
@@ -11,7 +11,7 @@ from pathlib import Path
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-SCRIPT = REPO_ROOT / "scripts" / "migrate_all.py"
+SCRIPT = REPO_ROOT / "scripts" / "migrations" / "migrate_all.py"
 
 
 def _make_project(tmp_path: Path) -> None:

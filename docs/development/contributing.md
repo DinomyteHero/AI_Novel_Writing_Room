@@ -37,7 +37,7 @@ pytest -k "test_gate_critic"
 pytest -s
 ```
 
-The test suite has ~1,950 tests across 140 files covering all major components. Tests use pytest with pytest-asyncio for async test support.
+The test suite has roughly 150 test files covering the major pipeline, workflow, UI, migration, and memory surfaces. Tests use pytest with pytest-asyncio for async test support.
 
 ### Test Fixtures
 
@@ -58,28 +58,39 @@ Phase 5 has additional fixtures in `tests/conftest_phase5.py` for FastAPI test c
 
 ```
 src/
-├── main.py              # CLI entry point
-├── model_router.py      # LLM routing abstraction
-├── orchestrator.py      # Pipeline state machine
-├── run_ledger.py        # Event logging
-├── pipeline_session.py  # Session persistence
-├── agents/              # Agent implementations (10 files)
-├── memory/              # State management (7 files)
-├── rag/                 # Canon retrieval (6 files)
-├── quality/             # Quality metrics (9 files)
-├── revision/            # Revision pipeline (6 files)
-├── planning/            # Story physics (6 files)
-├── export/              # Export formats (5 files)
-├── concept_workshop/    # Interactive concept dev (10 files)
-└── ui/                  # Web interface
-    ├── app.py           # FastAPI app factory
-    ├── server.py        # Uvicorn entry point
-    ├── routes/          # 6 route modules
-    ├── connection_manager.py
-    ├── pipeline_manager.py
-    ├── web_orchestrator.py
-    ├── websocket_ledger.py
-    └── frontend/        # React + Vite + TypeScript
+|-- main.py              # CLI entry point
+|-- model_router.py      # LLM routing abstraction
+|-- orchestrator.py      # Scene pipeline state machine
+|-- project_paths.py     # Franchise/book/run path resolution
+|-- runtime_flags.py     # Runtime flag merge and CLI override resolution
+|-- run_ledger.py        # Event logging
+|-- pipeline_session.py  # Session persistence
+|-- agents/              # 21 agent implementations and utilities
+|-- pipeline/            # Chapter packet, preflight, save blockers, final copy
+|-- memory/              # Story state, chapter memory, ledgers, continuity, sociogram
+|-- rag/                 # Canon retrieval
+|-- quality/             # Quality metrics, scene-contract checks, literal repair
+|-- planning/            # Story physics and planning helpers
+|-- worldbuilding/       # Lore DB and vector helpers
+|-- export/              # Export formats
+|-- concept_workshop/    # Remaining canonical concept helpers
+|-- prompting/           # Prompt rendering helpers
+`-- ui/                  # FastAPI app, routes, WebSocket ledger, React frontend
+
+scripts/
+|-- migrations/          # One-shot and idempotent migration scripts
+|-- compile_bundle.py    # Workflow artifacts -> concept_seed + scene cards
+|-- patch_workflow.py    # Manuscript patch application
+`-- manuscript_export.py # Run export stitcher
+
+workflows/
+|-- idea_session_capture/
+|-- universe_builder/
+|-- canon_drafter/
+|-- voice_discovery/
+|-- character_forge/
+|-- outline_planner/
+`-- scene_card_authoring/
 ```
 
 ## Code Conventions

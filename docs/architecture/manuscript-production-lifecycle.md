@@ -1,6 +1,30 @@
 # Manuscript Production Lifecycle
 
-Current default as of 2026-04-26: finish books in lean mode, then do manuscript-level review and narrow revision. The scene pipeline still creates the raw material, but the production decision now happens at the full-manuscript level.
+Current default as of 2026-04-29: finish books in lean mode, then do manuscript-level review and narrow revision. The scene pipeline still creates the raw material, but the production decision now happens at the full-manuscript level.
+
+## At A Glance
+
+Default production path:
+
+```text
+preflight
+  -> PlotArchitect
+  -> ProseStylist
+  -> LineWriter
+  -> save scenes
+  -> manuscript export
+  -> manuscript_reviewer docket
+  -> targeted patch/revision
+  -> final validation/export
+```
+
+Standby tooling remains wired for diagnostics, bench runs, and recovery work:
+
+- Full relay gates: `gate_critic`, `quality_polish`, `final_gate`, `canon_expert`, `presence_checker`, save blockers.
+- Default-off repair and memory slices: `corrective_rerun`, `micro_repair`, `revision_debt`, `promise_ledger`, `continuity_log`, `sociogram`.
+- Post-save/advisory agents: `summarizer`, `character_specialist`, `chapter_gate_critic`, `judge_evaluator`.
+
+Do not treat standby tooling as dead code. It is intentionally outside the default path, but still useful when changing model routing, recovering a problem run, or evaluating whether a slice is ready to enable for a specific book.
 
 ## Default Flow
 
@@ -28,7 +52,19 @@ The live config keeps production lean:
 | Targeted cleanup | GPT-5.4 export/pass tooling | Default final polish branch. |
 | Full literary polish | GPT-5.4 export/pass tooling | Optional donor/comparison branch only. |
 
-Broad scene gates, per-scene quality polish, final gates, presence checks, and chapter gates remain useful for diagnostics and experiments, but they are skipped by default when `runtime.lean_prose_only.enabled` is true.
+Broad scene gates, per-scene quality polish, final gates, presence checks, and chapter gates remain useful for diagnostics and experiments, but they are skipped by default when `runtime.lean_prose_only.enabled` is true. `runtime.chapter_packet.enabled` stays on because the packet is the drafter's inspectable scene contract.
+
+## Config Shape
+
+The production reader should start with `config/settings.yaml`. It contains only model aliases currently routed by the shipping config. Frozen comparison configs and experimental aliases live under `config/bench/`, including `config/bench/experimental-model-aliases.yaml`.
+
+Runtime flags remain explicit advanced controls rather than one opaque mode switch. The effective default mode is lean production:
+
+- `runtime.lean_prose_only.enabled: true`
+- `runtime.lean_prose_only.line_edit.enabled: true`
+- `runtime.chapter_packet.enabled: true`
+
+Everything else that can change saved prose or stateful memory stays default-off until a book-specific parity test approves it.
 
 ## Lessons From The Ruusan Run
 

@@ -13,7 +13,7 @@ on ``promise_id``). For books with no planning ledger present the database is
 still created (empty) so later runs can append.
 
 Usage:
-    py -3 scripts/migrate_promise_ledger.py [--dry-run] [--base-dir <path>]
+    py -3 scripts/migrations/migrate_promise_ledger.py [--dry-run] [--base-dir <path>]
 """
 
 from __future__ import annotations
@@ -25,7 +25,7 @@ import sys
 from pathlib import Path
 from typing import Iterable
 
-sys.path.insert(0, str(Path(__file__).parent.parent))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 
 DEFAULT_OUTPUT_ROOT = Path("output")

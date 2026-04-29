@@ -7,7 +7,7 @@ re-running re-upserts edges; existing trust/warmth/power state is preserved
 on re-seed so scene-card deltas are not clobbered.
 
 Usage:
-    py -3 scripts/migrate_sociogram.py [--dry-run] [--base-dir <path>]
+    py -3 scripts/migrations/migrate_sociogram.py [--dry-run] [--base-dir <path>]
 """
 
 from __future__ import annotations
@@ -18,7 +18,7 @@ import sqlite3
 import sys
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).parent.parent))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 
 OUTPUT_ROOT = Path("output")

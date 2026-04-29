@@ -984,7 +984,7 @@ async def main():
     state_diff_applier = None
     contradiction_scanner = None
     canon_expert = None
-    # Relay Stage 1g — presence_checker is a cheap Haiku agent; instantiate
+    # Relay Stage 1g — presence_checker is a cheap contract-check agent; instantiate
     # eagerly so the save-blocker layer always has it available.
     from src.agents.presence_checker import PresenceChecker
     presence_checker = PresenceChecker(router)

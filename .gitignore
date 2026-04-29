@@ -31,6 +31,9 @@ Thumbs.db
 .pytest_cache/
 .pytest_tmp_root/
 .pytest_basetemp*/
+# Local pytest basetemp/probe dirs.
+test-tmp*/
+mode-test-*/
 codex_test_runtime_basetemp*/
 codex_pytest_lineedit_tmp/
 codex_pytest_tmp_*/

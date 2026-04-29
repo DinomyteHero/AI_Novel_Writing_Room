@@ -1,6 +1,6 @@
 """PresenceChecker agent — binary check for character-presence violations.
 
-Haiku 4.5 @ t=0.1: precise, cheap, single-purpose. Given final prose and a
+Grok 4.1 Fast @ t=0.1 in the shipping config: precise, cheap, single-purpose. Given final prose and a
 scene card, identifies named characters who speak or physically act despite
 being absent from ``characters_present``. Consumed by the save-blocker layer
 as the ``CHARACTER_PRESENCE_BLOCKER`` source.

@@ -6,7 +6,7 @@ new project-scoped directory structure. Shared resources (eval_corpus,
 canon_dbs) are left in place.
 
 Usage:
-    python scripts/migrate_to_project_dirs.py [--dry-run]
+    python scripts/migrations/migrate_to_project_dirs.py [--dry-run]
 """
 
 import argparse
@@ -15,7 +15,7 @@ import shutil
 import sys
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).parent.parent))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 from src.project_paths import ProjectPaths, slugify_title
 

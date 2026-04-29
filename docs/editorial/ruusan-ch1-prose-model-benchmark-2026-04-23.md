@@ -13,9 +13,9 @@ production config, including GPT 5.4-mini as `quality_polish`.
 
 | Candidate | Config | Run directory |
 | --- | --- | --- |
-| Claude Sonnet 4.6 baseline | `config/settings.bench.ruusan-sonnet.yaml` | `output/star-wars-legends-eu/the-ruusan-atonement/runs/bench-ch1-sonnet-20260423/` |
-| MiniMax M2.7 | `config/settings.bench.ruusan-minimax.yaml` | `output/star-wars-legends-eu/the-ruusan-atonement/runs/bench-ch1-minimax-20260423/` |
-| Qwen 3.6 Plus | `config/settings.bench.ruusan-qwen.yaml` | `output/star-wars-legends-eu/the-ruusan-atonement/runs/bench-ch1-qwen-20260423/` |
+| Claude Sonnet 4.6 baseline | `config/bench/settings.bench.ruusan-sonnet.yaml` | `output/star-wars-legends-eu/the-ruusan-atonement/runs/bench-ch1-sonnet-20260423/` |
+| MiniMax M2.7 | `config/bench/settings.bench.ruusan-minimax.yaml` | `output/star-wars-legends-eu/the-ruusan-atonement/runs/bench-ch1-minimax-20260423/` |
+| Qwen 3.6 Plus | `config/bench/settings.bench.ruusan-qwen.yaml` | `output/star-wars-legends-eu/the-ruusan-atonement/runs/bench-ch1-qwen-20260423/` |
 
 ## Automated Outcome
 

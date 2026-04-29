@@ -23,7 +23,7 @@ Investigation notes (Phase 4 diagnostic):
   current scene prose + last 2-3 scene summaries from ChromaDB and checks
   for character state, object continuity, and timeline contradictions.
   This would catch semantic contradictions that heuristic pattern-matching
-  misses. Run on a fast/cheap model (Gemini Flash or Haiku).
+  misses. Run on a fast/cheap model.
 """
 
 import re

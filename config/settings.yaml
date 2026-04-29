@@ -15,20 +15,12 @@ models:
     timeout_seconds: 300
     models:
       gemini: google/gemini-3.1-pro-preview
-      gemini_flash: google/gemini-3-flash-preview
       deepseek: deepseek/deepseek-v4-flash
       deepseekpro: deepseek/deepseek-v4-pro
       claude: anthropic/claude-sonnet-4.6
-      haiku: anthropic/claude-haiku-4.5
-      # --- Additional models ---
-      glm: z-ai/glm-5.1
-      qwen: qwen/qwen3.6-plus
-      kimi: moonshotai/kimi-k2.5
-      kimi26: moonshotai/kimi-k2.6
       grok420: x-ai/grok-4.20
       grok41fast: x-ai/grok-4.1-fast
       mistral_small4: mistralai/mistral-small-2603
-      minimax: minimax/minimax-m2.7
       # GPT 5.4: manuscript review and opt-in literary donor/comparison passes.
       gpt54: openai/gpt-5.4
       # GPT 5.4 Mini: lean LineWriter plus opt-in quality polish.
@@ -36,9 +28,6 @@ models:
     default_params:
       gemini:
         temperature: 0.6
-        max_tokens: 8192
-      gemini_flash:
-        temperature: 0.5
         max_tokens: 8192
       deepseek:
         temperature: 0.3
@@ -53,28 +42,13 @@ models:
       claude:
         temperature: 0.4
         max_tokens: 8192
-      haiku:
-        temperature: 0.4
-        max_tokens: 4096
-      glm:
-        temperature: 0.4
-        max_tokens: 8192
       grok420:
         temperature: 0.3
         max_tokens: 8192
       grok41fast:
         temperature: 0.3
         max_tokens: 8192
-      kimi:
-        temperature: 0.4
-        max_tokens: 8192
-      kimi26:
-        temperature: 0.4
-        max_tokens: 8192
       mistral_small4:
-        temperature: 0.3
-        max_tokens: 4096
-      minimax:
         temperature: 0.3
         max_tokens: 4096
       gpt54:

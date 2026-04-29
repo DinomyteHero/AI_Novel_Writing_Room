@@ -7,14 +7,14 @@ fast on the first non-zero exit so CI does not continue past a broken
 migration.
 
 Scripts invoked (in order):
-    scripts/migrate_gap_notes.py         (Slice 1)
-    scripts/migrate_revision_debt.py     (Slice 2)
-    scripts/migrate_promise_ledger.py    (Slice 3)
-    scripts/migrate_continuity_log.py    (Slice 4)
-    scripts/migrate_sociogram.py         (Slice 5)
+    scripts/migrations/migrate_gap_notes.py         (Slice 1)
+    scripts/migrations/migrate_revision_debt.py     (Slice 2)
+    scripts/migrations/migrate_promise_ledger.py    (Slice 3)
+    scripts/migrations/migrate_continuity_log.py    (Slice 4)
+    scripts/migrations/migrate_sociogram.py         (Slice 5)
 
 Usage:
-    py -3 scripts/migrate_all.py [--dry-run] [--base-dir <path>]
+    py -3 scripts/migrations/migrate_all.py [--dry-run] [--base-dir <path>]
 """
 
 from __future__ import annotations
@@ -26,11 +26,11 @@ from pathlib import Path
 
 
 MIGRATIONS: list[tuple[str, str]] = [
-    ("Slice 1 - gap_notes",         "scripts/migrate_gap_notes.py"),
-    ("Slice 2 - revision_debt",     "scripts/migrate_revision_debt.py"),
-    ("Slice 3 - promise_ledger",    "scripts/migrate_promise_ledger.py"),
-    ("Slice 4 - continuity_log",    "scripts/migrate_continuity_log.py"),
-    ("Slice 5 - sociogram",         "scripts/migrate_sociogram.py"),
+    ("Slice 1 - gap_notes",         "scripts/migrations/migrate_gap_notes.py"),
+    ("Slice 2 - revision_debt",     "scripts/migrations/migrate_revision_debt.py"),
+    ("Slice 3 - promise_ledger",    "scripts/migrations/migrate_promise_ledger.py"),
+    ("Slice 4 - continuity_log",    "scripts/migrations/migrate_continuity_log.py"),
+    ("Slice 5 - sociogram",         "scripts/migrations/migrate_sociogram.py"),
 ]
 
 
@@ -50,7 +50,7 @@ def main() -> int:
     parser.add_argument("--base-dir", default=".")
     args = parser.parse_args()
 
-    repo_root = Path(__file__).resolve().parents[1]
+    repo_root = Path(__file__).resolve().parents[2]
     base = Path(args.base_dir).resolve()
     any_error = 0
     for label, rel_path in MIGRATIONS:

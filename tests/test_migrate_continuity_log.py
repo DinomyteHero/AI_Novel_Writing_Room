@@ -1,4 +1,4 @@
-"""Smoke test for scripts/migrate_continuity_log.py."""
+"""Smoke test for scripts/migrations/migrate_continuity_log.py."""
 
 from __future__ import annotations
 
@@ -10,7 +10,7 @@ from src.memory.continuity_log import ContinuityLog
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-SCRIPT = REPO_ROOT / "scripts" / "migrate_continuity_log.py"
+SCRIPT = REPO_ROOT / "scripts" / "migrations" / "migrate_continuity_log.py"
 
 
 def _run(args: list[str], cwd: Path) -> subprocess.CompletedProcess:

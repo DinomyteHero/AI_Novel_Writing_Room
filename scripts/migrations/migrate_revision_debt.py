@@ -1,16 +1,14 @@
 #!/usr/bin/env python3
-"""Wrapper that walks the repo for ``story_state.db`` files and applies the
-v6→v7 migration (adds the ``gap_notes`` table used by the state firewall).
+"""Idempotent wrapper for the Slice 2 revision-debt migration.
 
-The heavy lifting is already done by the schema migration in
-``src.memory.story_state`` — opening a DB through ``StoryState`` triggers
-``_run_migrations`` which applies every pending version, including v7.
-
-This script iterates every project DB and opens each through ``StoryState``
-so the migration fires in one pass. Idempotent (CREATE IF NOT EXISTS).
+Walks the repo for every ``state/`` directory (franchise- and book-scoped, per
+``ProjectPaths``) and ensures ``revision_debt.db`` exists with the current
+schema. Opening a path through ``RevisionDebtStore`` triggers the CREATE IF
+NOT EXISTS path in ``src/pipeline/revision_debt.py`` so this script only needs
+to enumerate target paths and instantiate the store.
 
 Usage:
-    py -3 scripts/migrate_gap_notes.py [--dry-run] [--base-dir <path>]
+    py -3 scripts/migrations/migrate_revision_debt.py [--dry-run] [--base-dir <path>]
 """
 
 from __future__ import annotations
@@ -20,34 +18,35 @@ import sqlite3
 import sys
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).parent.parent))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 
 DEFAULT_SEARCH_ROOTS = (
-    Path("data/franchises"),
-    Path("data/projects"),
     Path("output"),
 )
 
 
-def find_story_state_dbs(roots: list[Path]) -> list[Path]:
+def find_state_dirs(roots: list[Path]) -> list[Path]:
     hits: list[Path] = []
     for root in roots:
         if not root.exists():
             continue
-        hits.extend(sorted(root.rglob("story_state.db")))
+        for state_dir in sorted(root.rglob("state")):
+            if state_dir.is_dir():
+                hits.append(state_dir)
     return hits
 
 
-def table_exists(db_path: Path, table: str) -> bool:
+def revision_debt_table_exists(db_path: Path) -> bool:
+    if not db_path.exists():
+        return False
     try:
         conn = sqlite3.connect(f"file:{db_path}?mode=ro", uri=True)
     except sqlite3.OperationalError:
         return False
     try:
         row = conn.execute(
-            "SELECT 1 FROM sqlite_master WHERE type = 'table' AND name = ?",
-            (table,),
+            "SELECT 1 FROM sqlite_master WHERE type = 'table' AND name = 'revision_debt'"
         ).fetchone()
         return row is not None
     finally:
@@ -59,7 +58,7 @@ def main() -> int:
     parser.add_argument(
         "--dry-run",
         action="store_true",
-        help="List affected DBs and whether gap_notes already exists; do not open for write.",
+        help="List affected state/ dirs; do not open stores for write.",
     )
     parser.add_argument(
         "--base-dir",
@@ -70,37 +69,36 @@ def main() -> int:
 
     base = Path(args.base_dir).resolve()
     roots = [base / r for r in DEFAULT_SEARCH_ROOTS]
-    db_paths = find_story_state_dbs(roots)
+    state_dirs = find_state_dirs(roots)
 
-    if not db_paths:
-        print("No story_state.db files found.")
+    if not state_dirs:
+        print("No state/ directories found under output/.")
         return 0
 
-    print(f"Found {len(db_paths)} story_state.db file(s) under {base}")
+    print(f"Found {len(state_dirs)} state/ dir(s) under {base}")
     print()
 
     applied = 0
     already = 0
     errors = 0
-    for db in db_paths:
-        has_table = table_exists(db, "gap_notes")
+    for state_dir in state_dirs:
+        db_path = state_dir / "revision_debt.db"
+        has_table = revision_debt_table_exists(db_path)
         marker = "[exists]" if has_table else "[pending]"
-        print(f"  {marker}  {db.relative_to(base)}")
+        print(f"  {marker}  {db_path.relative_to(base)}")
 
         if args.dry_run:
             continue
 
         try:
-            # Importing here means a failure in the import path bubbles up cleanly.
-            from src.memory.story_state import StoryState  # noqa: PLC0415
-            store = StoryState(db_path=str(db))
-            version = store.get_schema_version()
+            from src.pipeline.revision_debt import RevisionDebtStore  # noqa: PLC0415
+
+            store = RevisionDebtStore(db_path=str(db_path))
             store.close()
             if has_table:
                 already += 1
             else:
                 applied += 1
-            print(f"        -> schema_version={version}")
         except Exception as exc:  # noqa: BLE001
             errors += 1
             print(f"        ! ERROR: {exc}")

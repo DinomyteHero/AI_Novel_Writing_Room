@@ -516,9 +516,9 @@ Slice 1 lands the gap-note record (`§5.2.4`) and writes it at isolation time. F
 
 Acceptance: after a blocked run, `StoryState.list_open_gaps()` returns the gap record with correct `isolated_scene`, `blocker_categories`, and `affected_scenes`.
 
-### 5.5 Migration: `scripts/migrate_gap_notes.py`
+### 5.5 Migration: `scripts/migrations/migrate_gap_notes.py`
 
-Idempotent. Creates the `gap_notes` table on existing `story_state.db` files. Pattern matches `scripts/migrate_status_vocab.py`.
+Idempotent. Creates the `gap_notes` table on existing `story_state.db` files. Pattern matches `scripts/migrations/migrate_status_vocab.py`.
 
 ```python
 def migrate(db_path: Path) -> MigrationResult:
@@ -531,7 +531,7 @@ def migrate(db_path: Path) -> MigrationResult:
 
 CLI:
 ```
-py -3 scripts/migrate_gap_notes.py --base-dir .
+py -3 scripts/migrations/migrate_gap_notes.py --base-dir .
 ```
 
 Walks all `output/<franchise>/<book>/state/story_state.db` and applies. Idempotent (CREATE IF NOT EXISTS).
@@ -772,7 +772,7 @@ These wrappers are called from the orchestrator at the appropriate stage. They a
 
 When `runtime.revision_debt.enabled: false`, wrappers short-circuit to noop and emit the advisory to the ledger only (existing behavior).
 
-#### 6.2.5 Migration: `scripts/migrate_revision_debt.py`
+#### 6.2.5 Migration: `scripts/migrations/migrate_revision_debt.py`
 
 Creates `revision_debt.db` alongside `story_state.db` in every `output/<franchise>/<book>/state/` directory. Idempotent.
 
@@ -892,7 +892,7 @@ Record in `output/<franchise>/<book>/runs/<run_id>/packet_budget_report.md`. If 
 - [ ] Token-budget measurement reports within +20% of flat for both books (or a trim plan is adopted and re-measured).
 - [ ] Write-matrix enforced: every existing advisory stage produces debt rows correctly.
 - [ ] Closed-category enforcement: attempts to add unknown categories raise `ValueError`.
-- [ ] `scripts/migrate_revision_debt.py` runs cleanly on all books.
+- [ ] `scripts/migrations/migrate_revision_debt.py` runs cleanly on all books.
 - [ ] `runtime.chapter_packet.enabled` and `runtime.revision_debt.enabled` both default `false` in `config/settings.yaml`.
 - [ ] At least one lower-stakes book (or `test-bench/`) has both flags flipped on via `runtime_overrides.yaml` and produces prose that subjectively matches or exceeds the flat-context baseline.
 - [ ] Ruusan and Betrayal still default-off; their parity tests still pass.
@@ -1023,7 +1023,7 @@ Renderer in `ChapterPacket.render_markdown` emits them as:
 
 ### 7.4 Initialization from existing planning
 
-#### 7.4.1 Migration: `scripts/migrate_promise_ledger.py`
+#### 7.4.1 Migration: `scripts/migrations/migrate_promise_ledger.py`
 
 For each book:
 1. Open `concept_seed.json`; find `story_physics.promise_payoff_ledger` (if present).
@@ -1049,7 +1049,7 @@ If none of the above, `due_by_scene` stays null and `list_overdue` never returns
 - [ ] `schemas/promise_ledger_entry.json` lands.
 - [ ] `schemas/scene_card.json` has `promises_progressed` optional field.
 - [ ] `src/memory/promise_ledger.py` implemented.
-- [ ] `scripts/migrate_promise_ledger.py` runs on Ruusan and Betrayal; produces reasonable ledgers (human spot-check, not automated).
+- [ ] `scripts/migrations/migrate_promise_ledger.py` runs on Ruusan and Betrayal; produces reasonable ledgers (human spot-check, not automated).
 - [ ] `runtime.promise_ledger.enabled: false` default.
 - [ ] Unit tests cover: `list_active` correct at arbitrary scene ids; `list_overdue` only returns with due_by_scene set; `record_payoff` moves status to `paid`; `list_top_urgent` respects `n` cap.
 - [ ] Packet integration test: when flag on, `active_promises` field of overlay is non-empty and capped at 5 with `active_promises_total_count` reflecting true total.
@@ -1608,13 +1608,13 @@ Every new durable state artifact gets a migration. All migrations are idempotent
 
 | Slice | Migration script | Creates |
 |---|---|---|
-| 1 | `scripts/migrate_gap_notes.py` | `gap_notes` table in `story_state.db` |
-| 2 | `scripts/migrate_revision_debt.py` | `revision_debt.db` |
-| 3 | `scripts/migrate_promise_ledger.py` | `promise_ledger.db`, seeded from planning |
-| 4 | `scripts/migrate_continuity_log.py` | `continuity_log.db` (empty until extractor runs) |
-| 5 | `scripts/migrate_sociogram.py` | `sociogram.db`, seeded from `ensemble_cast.relationships` |
+| 1 | `scripts/migrations/migrate_gap_notes.py` | `gap_notes` table in `story_state.db` |
+| 2 | `scripts/migrations/migrate_revision_debt.py` | `revision_debt.db` |
+| 3 | `scripts/migrations/migrate_promise_ledger.py` | `promise_ledger.db`, seeded from planning |
+| 4 | `scripts/migrations/migrate_continuity_log.py` | `continuity_log.db` (empty until extractor runs) |
+| 5 | `scripts/migrations/migrate_sociogram.py` | `sociogram.db`, seeded from `ensemble_cast.relationships` |
 
-All migrations invoked via a wrapper: `py -3 scripts/migrate_all.py --base-dir .`. Each migration reports `{tables_added, rows_migrated, errors}` and the wrapper fails fast on any error.
+All migrations invoked via a wrapper: `py -3 scripts/migrations/migrate_all.py --base-dir .`. Each migration reports `{tables_added, rows_migrated, errors}` and the wrapper fails fast on any error.
 
 ### 11.6 Test strategy
 

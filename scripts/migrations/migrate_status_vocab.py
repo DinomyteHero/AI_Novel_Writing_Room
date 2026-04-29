@@ -14,7 +14,7 @@ summary of how many rows were remapped per DB. Safe to re-run — the
 migration is idempotent.
 
 Usage:
-    python scripts/migrate_status_vocab.py [--dry-run] [--root <path>]
+    python scripts/migrations/migrate_status_vocab.py [--dry-run] [--root <path>]
 
 With ``--dry-run``, the script lists DBs and reports their pre-migration
 statuses without opening them for write (no auto-migration runs).
@@ -27,7 +27,7 @@ import sqlite3
 import sys
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).parent.parent))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 
 DEFAULT_SEARCH_ROOTS = (

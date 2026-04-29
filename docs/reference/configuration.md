@@ -42,35 +42,30 @@ models:
     models:
       # Short alias -> full OpenRouter slug
       gemini:         google/gemini-3.1-pro-preview
-      gemini_flash:   google/gemini-3-flash-preview
       deepseek:       deepseek/deepseek-v4-flash
       deepseekpro:    deepseek/deepseek-v4-pro
       claude:         anthropic/claude-sonnet-4.6
-      haiku:          anthropic/claude-haiku-4.5
-      glm:            z-ai/glm-5.1
-      qwen:           qwen/qwen3.6-plus
-      kimi:           moonshotai/kimi-k2.5
       grok420:        x-ai/grok-4.20
       grok41fast:     x-ai/grok-4.1-fast
       mistral_small4: mistralai/mistral-small-2603
-      minimax:        minimax/minimax-m2.7
       gpt54:          openai/gpt-5.4           # manuscript review, optional literary donor pass
       gpt54_mini:     openai/gpt-5.4-mini      # lean line edit, optional quality polish
     default_params:
       # Per-alias defaults (temperature, max_tokens) applied when an agent
       # routing entry does not override them.
       gemini:         { temperature: 0.6, max_tokens: 8192 }
-      gemini_flash:   { temperature: 0.5, max_tokens: 8192 }
       deepseek:       { temperature: 0.3, max_tokens: 4096 }
       deepseekpro:    { temperature: 0.3, max_tokens: 8192 }
       claude:         { temperature: 0.4, max_tokens: 8192 }
-      haiku:          { temperature: 0.4, max_tokens: 4096 }
+      grok420:        { temperature: 0.3, max_tokens: 8192 }
+      grok41fast:     { temperature: 0.3, max_tokens: 8192 }
+      mistral_small4: { temperature: 0.3, max_tokens: 4096 }
       gpt54:          { temperature: 0.8, max_tokens: 12000 }
       gpt54_mini:     { temperature: 0.5, max_tokens: 8192 }
       # ...
 ```
 
-Add more aliases as needed. The bench configs (`settings.bench.sonnet.yaml`, `settings.bench.gpt.yaml`) freeze per-benchmark routing snapshots.
+The shipped config keeps only aliases referenced by `agent_routing`. Bench-only aliases such as `qwen`, `minimax`, `haiku`, `glm`, `kimi`, and `gemini_flash` live in `config/bench/experimental-model-aliases.yaml` or in frozen bench snapshots.
 
 ### Timeout Settings
 
@@ -150,12 +145,14 @@ The 1h TTL is the right choice for chapter-level batches — the `anthropic` pro
 
 ### Bench Configs
 
-Two frozen routing snapshots live alongside `settings.yaml` for benchmarking:
+Frozen routing snapshots live under `config/bench/` for benchmarking:
 
-- `config/settings.bench.sonnet.yaml` — `prose_stylist` on Sonnet 4.6 @ t=0.70, `plot_architect` on Grok 4.20, `quality_polish` on Haiku 4.5.
-- `config/settings.bench.gpt.yaml` — same pipeline but `prose_stylist` on GPT 5.4 @ t=0.70, and registers `gpt54: openai/gpt-5.4` in the cloud models map.
+- `config/bench/settings.bench.sonnet.yaml` — `prose_stylist` on Sonnet 4.6 @ t=0.70, `plot_architect` on Grok 4.20, `quality_polish` on Haiku 4.5.
+- `config/bench/settings.bench.gpt.yaml` — same pipeline but `prose_stylist` on GPT 5.4 @ t=0.70, and registers `gpt54: openai/gpt-5.4` in the cloud models map.
 
-Run with `--config config/settings.bench.sonnet.yaml` or `--config config/settings.bench.gpt.yaml`. See [Benchmarking](../development/benchmarking.md) for the A/B methodology and the pre-built analyses in `output/…/runs/BENCH_*.md`.
+Use `config/bench/experimental-model-aliases.yaml` as the alias reference when creating a new bench snapshot for a model that is not part of the shipping routing.
+
+Run with `--config config/bench/settings.bench.sonnet.yaml` or `--config config/bench/settings.bench.gpt.yaml`. See [Benchmarking](../development/benchmarking.md) for the A/B methodology and the pre-built analyses in `output/…/runs/BENCH_*.md`.
 
 ### Pipeline Settings
 

@@ -179,11 +179,11 @@ Open http://localhost:8000.
 If you have legacy data in the flat `data/projects/<slug>/` layout and want to move it to the franchise-scoped layout:
 
 ```bash
-python scripts/migrate_to_franchise_layout.py --dry-run   # preview
-python scripts/migrate_to_franchise_layout.py             # execute
+python scripts/migrations/migrate_to_franchise_layout.py --dry-run   # preview
+python scripts/migrations/migrate_to_franchise_layout.py             # execute
 ```
 
-The older `scripts/migrate_to_project_dirs.py` (flat-to-flat reorganization) is also preserved for historical migrations.
+The older `scripts/migrations/migrate_to_project_dirs.py` (flat-to-flat reorganization) is also preserved for historical migrations.
 
 ## Verify Your Setup
 

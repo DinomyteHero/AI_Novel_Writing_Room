@@ -1,4 +1,4 @@
-"""End-to-end smoke test for scripts/migrate_sociogram.py."""
+"""End-to-end smoke test for scripts/migrations/migrate_sociogram.py."""
 
 from __future__ import annotations
 
@@ -11,7 +11,7 @@ from src.memory.sociogram import Sociogram
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-SCRIPT = REPO_ROOT / "scripts" / "migrate_sociogram.py"
+SCRIPT = REPO_ROOT / "scripts" / "migrations" / "migrate_sociogram.py"
 
 
 def _write_fixture(base: Path) -> Path:

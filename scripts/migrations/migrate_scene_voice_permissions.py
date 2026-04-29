@@ -13,7 +13,7 @@ The migration is intentionally conservative:
 - legacy aliases are preserved so runtime behavior stays unchanged
 
 Usage:
-    python scripts/migrate_scene_voice_permissions.py [--dry-run] [--root <path>]
+    python scripts/migrations/migrate_scene_voice_permissions.py [--dry-run] [--root <path>]
 """
 
 from __future__ import annotations
@@ -24,7 +24,7 @@ import json
 import sys
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).parent.parent))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 
 DEFAULT_SEARCH_ROOTS = (

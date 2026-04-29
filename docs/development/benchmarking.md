@@ -45,7 +45,7 @@ Default config: `config/settings.yaml`. Output lands at `output/<franchise>/<boo
 | `--concept-seed PATH` | Concept seed JSON (franchise-scoped path). Required. |
 | `--scene-card PATH` | Scene card JSON. The script benches prose for exactly this scene. |
 | `--run-name NAME` | Output directory name under `runs/`. Use a descriptive slug so bench artifacts are easy to find later. |
-| `--config PATH` | Path to a settings YAML. Default: `config/settings.yaml`. Pass `config/settings.bench.sonnet.yaml` or `config/settings.bench.gpt.yaml` to freeze the surrounding pipeline. |
+| `--config PATH` | Path to a settings YAML. Default: `config/settings.yaml`. Pass `config/bench/settings.bench.sonnet.yaml` or `config/bench/settings.bench.gpt.yaml` to freeze the surrounding pipeline. |
 | `--models FILTER` | Comma-separated list of model labels or short names to include (e.g. `deepseek,kimi26,qwen`). Default: run all configs currently listed in `BENCH_CONFIGS`. |
 | `--reuse-brief-from PATH` | Path to an existing `generation_brief.json` to reuse instead of calling `plot_architect`. Keeps a bench apples-to-apples with a prior run. |
 | `--plot-architect-model SHORT` | Override `plot_architect` routing (e.g. `grok420`). Ignored when `--reuse-brief-from` is set. |
@@ -134,7 +134,7 @@ python -m src.main \
     data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/concept_seed.json \
     data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/scene_cards \
     --franchise star-wars-legends-eu --book the-ruusan-atonement \
-    --chapter 1 --config config/settings.bench.sonnet.yaml \
+    --chapter 1 --config config/bench/settings.bench.sonnet.yaml \
     --run-name bench-ch1-sonnet-FULL
 
 # Stripped telemetry path - same config, no GateCritic call
@@ -142,12 +142,12 @@ python -m src.main \
     data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/concept_seed.json \
     data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/scene_cards \
     --franchise star-wars-legends-eu --book the-ruusan-atonement \
-    --chapter 1 --config config/settings.bench.sonnet.yaml \
+    --chapter 1 --config config/bench/settings.bench.sonnet.yaml \
     --skip-gate-loop \
     --run-name bench-ch1-sonnet-STRIPPED
 ```
 
-Repeat both with `config/settings.bench.gpt.yaml` to produce the four-cell matrix (model × pipeline depth). The `runs/` directory becomes self-documenting:
+Repeat both with `config/bench/settings.bench.gpt.yaml` to produce the four-cell matrix (model × pipeline depth). The `runs/` directory becomes self-documenting:
 
 ```
 runs/
@@ -163,16 +163,17 @@ Each run saves its own `config_snapshot.yaml`, `invocation.json`, and `prompts_s
 
 ## Bench configs
 
-Two frozen routing snapshots live in `config/`:
+Frozen routing snapshots live in `config/bench/`:
 
-- **`config/settings.bench.sonnet.yaml`** — `prose_stylist` on Sonnet 4.6 @ t=0.70, `plot_architect` on Grok 4.20, `quality_polish` on Haiku 4.5.
-- **`config/settings.bench.gpt.yaml`** — identical except `prose_stylist` on GPT 5.4 @ t=0.70, and adds `gpt54: openai/gpt-5.4` to the cloud models map.
+- **`config/bench/settings.bench.sonnet.yaml`** — `prose_stylist` on Sonnet 4.6 @ t=0.70, `plot_architect` on Grok 4.20, `quality_polish` on Haiku 4.5.
+- **`config/bench/settings.bench.gpt.yaml`** — identical except `prose_stylist` on GPT 5.4 @ t=0.70, and adds `gpt54: openai/gpt-5.4` to the cloud models map.
 
 Both have Anthropic prompt caching enabled (`anthropic_ttl: 1h`) so repeated scene runs in the same chapter batch amortize input cost.
 
 These two bench configs intentionally omit the `runtime:` block, so CLI runs with them execute the non-lean relay. They are comparison fixtures, not the shipping routing in `config/settings.yaml`.
 
-Add new bench configs as `config/settings.bench.<label>.yaml` when introducing a new prose candidate for chapter-scale comparison.
+Add new bench configs as `config/bench/settings.bench.<label>.yaml` when introducing a new prose candidate for chapter-scale comparison.
+Use `config/bench/experimental-model-aliases.yaml` as the bench-only alias reference when adding candidates that are not routed by `config/settings.yaml`.
 
 ---
 
@@ -209,7 +210,7 @@ Keep summaries dated. The `v2`, `v3` suffix convention is fine when you need to 
 ## Pointers
 
 - Script: [`scripts/bench_prose_models.py`](../../scripts/bench_prose_models.py)
-- Bench configs: [`config/settings.bench.sonnet.yaml`](../../config/settings.bench.sonnet.yaml), [`config/settings.bench.gpt.yaml`](../../config/settings.bench.gpt.yaml)
+- Bench configs: [`config/bench/settings.bench.sonnet.yaml`](../../config/bench/settings.bench.sonnet.yaml), [`config/bench/settings.bench.gpt.yaml`](../../config/bench/settings.bench.gpt.yaml)
 - Analyses: `output/star-wars-legends-eu/the-ruusan-atonement/runs/BENCH_*.md`
 - Related CLI flags: [`--skip-gate-loop`](../user-guide/cli-usage.md#pipeline-mode-flags), `--raw-draft`, `--judge`
 - Historical routing rationale: [`docs/archive/model-selection-and-cost-review-2026-04-17.md`](../archive/model-selection-and-cost-review-2026-04-17.md)

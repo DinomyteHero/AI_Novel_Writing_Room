@@ -2,7 +2,7 @@
 """Migrate a project from flat data/projects/ layout to franchise/book/run layout.
 
 Usage:
-    python scripts/migrate_to_franchise_layout.py \\
+    python scripts/migrations/migrate_to_franchise_layout.py \\
         --project the-ruusan-atonement \\
         --franchise star-wars-legends-eu
 

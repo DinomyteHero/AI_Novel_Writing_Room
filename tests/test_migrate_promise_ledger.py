@@ -1,4 +1,4 @@
-"""End-to-end smoke test for scripts/migrate_promise_ledger.py (Slice 3).
+"""End-to-end smoke test for scripts/migrations/migrate_promise_ledger.py (Slice 3).
 
 Constructs a synthetic franchise + book + output/state/ tree under tmp_path
 and runs the migration wrapper in-process; asserts the SQLite DB is populated
@@ -62,7 +62,8 @@ def _write_fixture(base: Path) -> tuple[Path, Path]:
 def test_migration_seeds_empty_state_dir(tmp_path: Path):
     _, state_dir = _write_fixture(tmp_path)
     cmd = [
-        sys.executable, str(REPO_ROOT / "scripts" / "migrate_promise_ledger.py"),
+        sys.executable,
+        str(REPO_ROOT / "scripts" / "migrations" / "migrate_promise_ledger.py"),
         "--base-dir", str(tmp_path),
     ]
     result = subprocess.run(
@@ -83,7 +84,8 @@ def test_migration_seeds_empty_state_dir(tmp_path: Path):
 def test_migration_is_idempotent(tmp_path: Path):
     _, state_dir = _write_fixture(tmp_path)
     cmd = [
-        sys.executable, str(REPO_ROOT / "scripts" / "migrate_promise_ledger.py"),
+        sys.executable,
+        str(REPO_ROOT / "scripts" / "migrations" / "migrate_promise_ledger.py"),
         "--base-dir", str(tmp_path),
     ]
     for _ in range(2):
@@ -103,7 +105,8 @@ def test_migration_is_idempotent(tmp_path: Path):
 def test_migration_dry_run_does_not_write(tmp_path: Path):
     _, state_dir = _write_fixture(tmp_path)
     cmd = [
-        sys.executable, str(REPO_ROOT / "scripts" / "migrate_promise_ledger.py"),
+        sys.executable,
+        str(REPO_ROOT / "scripts" / "migrations" / "migrate_promise_ledger.py"),
         "--base-dir", str(tmp_path), "--dry-run",
     ]
     result = subprocess.run(

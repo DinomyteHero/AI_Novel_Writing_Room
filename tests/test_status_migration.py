@@ -1,4 +1,4 @@
-"""Tests for the one-shot scripts/migrate_status_vocab.py migration script.
+"""Tests for the one-shot scripts/migrations/migrate_status_vocab.py migration script.
 
 The script walks for ``story_state.db`` files and opens each through
 ``StoryState``, which triggers the v5→v6 auto-migration. These tests seed
@@ -14,7 +14,7 @@ import pytest
 # Ensure the scripts directory is importable
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from scripts import migrate_status_vocab
+from scripts.migrations import migrate_status_vocab
 
 
 def _seed_v5_db(db_path: Path) -> None:

@@ -1,4 +1,4 @@
-"""Tests for scripts/migrate_scene_voice_permissions.py."""
+"""Tests for scripts/migrations/migrate_scene_voice_permissions.py."""
 
 from __future__ import annotations
 
@@ -8,7 +8,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from scripts import migrate_scene_voice_permissions
+from scripts.migrations import migrate_scene_voice_permissions
 
 
 def test_build_scene_voice_permissions_from_legacy_fields():
