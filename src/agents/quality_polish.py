@@ -67,9 +67,10 @@ class QualityPolish(BaseAgent):
             f"Target: {target_wc}\n"
             f"**Your polished output MUST be >= {min_floor} words.** "
             f"If you would cut below the floor, stop cutting and rewrite in place "
-            f"instead. Polish that compresses aggressively (below 60% of pre-polish) "
-            f"fires an advisory event for human review — polish is still saved, but "
-            f"aggressive compression is flagged as quality risk."
+            f"instead. Polish that compresses below 60% of pre-polish is "
+            f"REVERTED to the gate-passed draft — your work is discarded and the "
+            f"unpolished draft is what saves. Stay above 60% so your polish "
+            f"survives to the manuscript."
         )
 
         # Quality metric flags drive the polish agenda — what actually needs fixing.
