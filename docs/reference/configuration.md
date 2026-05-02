@@ -195,26 +195,25 @@ local_inference:
 
 ```yaml
 worldbuilding:
-  # Fallback defaults for ad-hoc invocations without a concept-seed context.
-  # Live runs override these paths via ProjectPaths (franchise-scoped),
-  # writing to data/franchises/<franchise>/worldbuilding.db and
-  # data/franchises/<franchise>/worldbuilding_vectors/ instead.
-  db_path: output/_fallback/worldbuilding.db
-  vectors_dir: output/_fallback/worldbuilding_vectors
+  # Storage paths resolve via ProjectPaths from the loaded concept seed:
+  #   data/franchises/<franchise>/worldbuilding.db
+  #   data/franchises/<franchise>/worldbuilding_vectors/
+  # Set db_path / vectors_dir below ONLY to override the franchise default
+  # for a one-off ad-hoc run (no concept seed, or a deliberate scratch DB).
+  # Leave them unset for normal operation.
   default_top_k: 5                            # Default semantic retrieval limit
   walk_parents: true                          # Walk universe inheritance chain
   include_provisional_in_context: false       # Include provisional entries (flagged)
   auto_extraction:
-    enabled: true                             # Run extraction after each chapter
+    enabled: true                             # Run extraction after each scene save
     auto_promote: false                       # Skip quarantine on extracted entries
   terminology:
     always_include: true                      # Bypass top-K for terminology
-  reconciliation:
-    run_on_startup: true                      # Run SQLite/ChromaDB reconciliation at startup
-    interval_minutes: 60                      # Periodic reconciliation (0 = disabled)
 ```
 
-The fallback paths live under a gitignored `output/_fallback/` tree so they never collide with a real franchise-scoped worldbuilding DB.
+`auto_extraction.enabled` only takes effect when a `lore_service` is wired (i.e. a franchise slug is resolvable from the concept seed). Set it to `false` to disable post-save lore extraction without removing the rest of the worldbuilding stack.
+
+Reconciliation between SQLite and ChromaDB is currently exposed only as a manual operation through the UI route `POST /api/worldbuilding/admin/reconcile`. Background scheduling is not wired.
 
 ### Runtime Flags (Architecture Upgrade)
 

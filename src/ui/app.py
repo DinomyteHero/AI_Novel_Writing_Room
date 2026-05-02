@@ -254,10 +254,20 @@ def _init_worldbuilding(state: AppState, config: dict,
         from src.worldbuilding.lore_service import LoreService
 
         wb_config = config.get("worldbuilding", {})
-        db_path = wb_config.get("db_path", str(paths.worldbuilding_db) if paths else "output/_fallback/worldbuilding.db")
-        vectors_dir = wb_config.get(
-            "vectors_dir", str(paths.worldbuilding_vectors_dir) if paths else "output/_fallback/worldbuilding_vectors"
-        )
+        configured_db = wb_config.get("db_path")
+        configured_vectors = wb_config.get("vectors_dir")
+        if configured_db:
+            db_path = configured_db
+        elif paths is not None:
+            db_path = str(paths.worldbuilding_db)
+        else:
+            db_path = "output/_fallback/worldbuilding.db"
+        if configured_vectors:
+            vectors_dir = configured_vectors
+        elif paths is not None:
+            vectors_dir = str(paths.worldbuilding_vectors_dir)
+        else:
+            vectors_dir = "output/_fallback/worldbuilding_vectors"
 
         ef = state.embedding_function
         wb_db = WorldbuildingDB(db_path=db_path)

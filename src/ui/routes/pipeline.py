@@ -471,7 +471,14 @@ def _create_web_orchestrator(state, concept_seed_path, concept_seed, body):
         lore_service=state.lore_service,
         universe_id=universe_id,
         project_id=project_id,
-        worldbuilding_auto_extract=bool(state.lore_service and universe_id),
+        worldbuilding_auto_extract=(
+            bool(state.lore_service and universe_id)
+            and bool(
+                state.config.get("worldbuilding", {})
+                .get("auto_extraction", {})
+                .get("enabled", True)
+            )
+        ),
         strict_lore=body.strict_lore,
         raw_draft=body.raw_draft,
     )

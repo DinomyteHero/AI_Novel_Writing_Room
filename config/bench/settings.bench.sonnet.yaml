@@ -111,8 +111,6 @@ pipeline:
     anthropic_ttl: 1h
 
 worldbuilding:
-  db_path: output/_fallback/worldbuilding.db
-  vectors_dir: output/_fallback/worldbuilding_vectors
   default_top_k: 5
   walk_parents: true
   include_provisional_in_context: false
@@ -121,6 +119,3 @@ worldbuilding:
     auto_promote: false
   terminology:
     always_include: true
-  reconciliation:
-    run_on_startup: true
-    interval_minutes: 60

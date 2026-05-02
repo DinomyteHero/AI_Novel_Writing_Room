@@ -187,12 +187,10 @@ pipeline:
     anthropic_ttl: 1h  # Cache TTL for Anthropic models: "5m" (1.25x write) or "1h" (2x write, better for sequential pipelines)
 
 # Worldbuilding persistence
-# Live runs override these paths via ProjectPaths (franchise-scoped).
-# The values below are fallback defaults for ad-hoc invocations without
-# a concept-seed context â€” they write to gitignored output/_fallback/.
+# Paths resolve via ProjectPaths (franchise-scoped). Override db_path /
+# vectors_dir here only for ad-hoc runs that need to escape the
+# franchise-scoped default.
 worldbuilding:
-  db_path: output/_fallback/worldbuilding.db
-  vectors_dir: output/_fallback/worldbuilding_vectors
   default_top_k: 5
   walk_parents: true
   include_provisional_in_context: false
@@ -201,9 +199,6 @@ worldbuilding:
     auto_promote: false
   terminology:
     always_include: true
-  reconciliation:
-    run_on_startup: true
-    interval_minutes: 60
 
 # Architecture upgrade runtime flags.
 # Every flag defaults to the SAFEST value (off, or most conservative numeric).

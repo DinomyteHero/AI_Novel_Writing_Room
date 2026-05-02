@@ -1166,8 +1166,10 @@ async def main():
             from src.worldbuilding.lore_service import LoreService
 
             wb_config = config.get("worldbuilding", {})
-            wb_db_path = wb_config.get("db_path", str(paths.worldbuilding_db))
-            wb_vectors_dir = wb_config.get("vectors_dir", str(paths.worldbuilding_vectors_dir))
+            wb_db_path = wb_config.get("db_path") or str(paths.worldbuilding_db)
+            wb_vectors_dir = (
+                wb_config.get("vectors_dir") or str(paths.worldbuilding_vectors_dir)
+            )
 
             ef_wb = None
             try:
@@ -1293,7 +1295,14 @@ async def main():
         lore_service=lore_service,
         universe_id=franchise_slug,
         project_id=book_id,
-        worldbuilding_auto_extract=bool(lore_service and franchise_slug),
+        worldbuilding_auto_extract=(
+            bool(lore_service and franchise_slug)
+            and bool(
+                config.get("worldbuilding", {})
+                .get("auto_extraction", {})
+                .get("enabled", True)
+            )
+        ),
         strict_lore=bool(getattr(args, "strict_lore", False)),
         raw_draft=args.raw_draft,
         skip_gate_loop=args.skip_gate_loop,

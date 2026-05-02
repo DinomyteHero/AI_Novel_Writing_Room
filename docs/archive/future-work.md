@@ -132,7 +132,7 @@ Currently, authors must manually provide `timeline_sort_start`/`timeline_sort_en
 
 ### Reconciliation on startup
 
-The `worldbuilding.reconciliation.run_on_startup` config flag is defined but not wired into the app lifespan. The `_init_worldbuilding` function should check this flag and call `reconcile_chromadb_orphans()` during startup.
+The dead `worldbuilding.reconciliation.{run_on_startup,interval_minutes}` config block was removed because nothing read it. Reconciliation is currently exposed only as a manual operation through `POST /api/worldbuilding/admin/reconcile`. To revisit this, add both the config keys back and a startup hook in `src/ui/app.py::_init_worldbuilding` (or the equivalent app-lifespan path) that calls `lore_service.reconcile_chromadb_orphans()` — and decide whether the periodic schedule belongs in the API process or a separate worker.
 
 ### Per-universe subdirectories (partially implemented)
 
