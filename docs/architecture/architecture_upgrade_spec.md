@@ -88,17 +88,17 @@ Confirmed state of the repository at the time of writing (verify again before ea
 
 | Claim | Current state | Reference |
 |---|---|---|
-| Retries are pinned to zero | True | [config/settings.yaml:133-134](config/settings.yaml) |
-| Save blockers currently abort the whole run | True | [src/pipeline/save_blockers.py](src/pipeline/save_blockers.py), [src/orchestrator.py:308](src/orchestrator.py) |
-| Status vocabulary is three-valued | True | [src/memory/story_state.py:280-285](src/memory/story_state.py) |
-| `metrics_dashboard.py` already independent | True | [src/quality/metrics_dashboard.py:15](src/quality/metrics_dashboard.py) |
-| `prompts_snapshot/` already captures prompts | True | [src/main.py:57-81](src/main.py) |
+| Retries are pinned to zero | True | [config/settings.yaml:133-134](../../config/settings.yaml) |
+| Save blockers currently abort the whole run | True | [src/pipeline/save_blockers.py](../../src/pipeline/save_blockers.py), [src/orchestrator.py:308](../../src/orchestrator.py) |
+| Status vocabulary is three-valued | True | [src/memory/story_state.py:280-285](../../src/memory/story_state.py) |
+| `metrics_dashboard.py` already independent | True | [src/quality/metrics_dashboard.py:15](../../src/quality/metrics_dashboard.py) |
+| `prompts_snapshot/` already captures prompts | True | [src/main.py:57-81](../../src/main.py) |
 | CanonExpert runs post-polish | True | Orchestrator stage order |
 | `chapter_packet`, `promise_ledger`, `continuity_log`, `sociogram`, `revision_debt` | Do not exist as artifacts | grep confirmed |
-| Scene card has `promises_planted` / `promises_paid` | True | [schemas/scene_card.json:50-51](schemas/scene_card.json) |
-| Scene card has `depends_on` | **False** — to be added in Slice 1 | [schemas/scene_card.json](schemas/scene_card.json) |
-| Scene card has `promises_progressed` | **False** — to be added in Slice 3 | [schemas/scene_card.json](schemas/scene_card.json) |
-| `bench_prose_models.py` is scene-level only | True | [scripts/bench_prose_models.py](scripts/bench_prose_models.py) |
+| Scene card has `promises_planted` / `promises_paid` | True | [schemas/scene_card.json:50-51](../../schemas/scene_card.json) |
+| Scene card has `depends_on` | **False** — to be added in Slice 1 | [schemas/scene_card.json](../../schemas/scene_card.json) |
+| Scene card has `promises_progressed` | **False** — to be added in Slice 3 | [schemas/scene_card.json](../../schemas/scene_card.json) |
+| `bench_prose_models.py` is scene-level only | True | [scripts/bench_prose_models.py](../../scripts/bench_prose_models.py) |
 | Phase 0 machine-readable audit output | Does not exist | — |
 | `docs/audits/` directory | Does not exist | — |
 
@@ -156,7 +156,7 @@ def resolve_flag(key: str, *, concept_seed: dict | None = None,
 
 ### 4.2 Flag inventory
 
-All flags default to **False** or their safest value. Adding a flag without default=safe is a review-blocker.
+All flags default to **False** or their safest value when first introduced. Adding a flag without default=safe is a review-blocker. Once a flag's parity test passes on Ruusan and Betrayal it can be promoted to a shipping default; the table below reflects the current shipping defaults, not the slice-introduction defaults.
 
 | Flag key | Slice | Default | Purpose |
 |---|---|---|---|
@@ -164,7 +164,7 @@ All flags default to **False** or their safest value. Adding a flag without defa
 | `runtime.firewall.successor_classifier.enabled` | 1 | `false` | Enable dependency classifier. When off, every successor scene soft-halts conservatively. |
 | `runtime.firewall.successor_classifier.jaccard_threshold` | 1 | `0.5` | Character-overlap threshold for soft-halt classification. |
 | `runtime.phase0_audit.enabled` | 1 | `false` | Emit `phase0_audit.json` alongside the run. |
-| `runtime.chapter_packet.enabled` | 2 | `false` | Use `ChapterPacketCompiler` instead of `ContextAssembler.assemble()`. |
+| `runtime.chapter_packet.enabled` | 2 | `true` (D4a) | Use `ChapterPacketCompiler` instead of `ContextAssembler.assemble()`. Promoted to shipping default after Ruusan and Betrayal parity tests passed. |
 | `runtime.chapter_packet.fallback_on_error` | 2 | `true` | If packet compilation raises, fall back to flat assembly for that scene. |
 | `runtime.revision_debt.enabled` | 2 | `false` | Write structured debt rows to SQLite. When off, advisories remain ledger-only. |
 | `runtime.canon_expert.early_position` | 11.1 | `false` | Run CanonExpert before QualityPolish instead of after. |
@@ -1687,7 +1687,7 @@ Scene card schema (`schemas/scene_card.json`) gets three new optional fields acr
 
 ### B. New configuration keys
 
-All under the `runtime` top-level key in `config/settings.yaml`:
+All under the `runtime` top-level key in `config/settings.yaml`. The block below is the slice-introduction shape (every flag default-safe). For current shipping defaults, see §4.2 and `config/settings.yaml` directly — `runtime.chapter_packet.enabled` has since been promoted to `true`.
 
 ```yaml
 runtime:

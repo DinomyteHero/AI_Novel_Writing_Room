@@ -17,10 +17,10 @@ Yet the pattern still reaches the saved prose (lines 27, 33, 41, 49, 55 of the s
 
 ## Method
 
-1. Rendered the ch01_sc01 drafter prompt offline with `scripts/audit_phase0._render_prose_stylist_prompt` via [tmp_diagnostic/render_prompt.py](../../tmp_diagnostic/render_prompt.py) and located every warning by character offset.
+1. Rendered the ch01_sc01 drafter prompt offline with `scripts/audit_phase0._render_prose_stylist_prompt` via a one-off helper at `tmp_diagnostic/render_prompt.py` (since removed in commit `1f69290`) and located every warning by character offset.
 2. Read [src/memory/context_assembler.py](../../src/memory/context_assembler.py), [src/agents/prose_stylist.py](../../src/agents/prose_stylist.py), [src/agents/plot_architect.py](../../src/agents/plot_architect.py), and their system prompts to trace the prompt-assembly path.
 3. Grepped saved chapters across the 22-27 production run and several bench runs for diagnostic-voice tokens (`structural`, `architecture`, `the Force's`, `a layer`, `handrail`, `second beat`, `half-beat`, `measurable`, `chrono-drift`, `pressurize`, `confirmation came`, `echo from`, `clinical`, `analyti`).
-4. Ran one minimal-repro Sonnet 4.5 @ t=0.8 call with the anti-pattern reframed as a hard positive directive at the top of a short prompt ($0.006 — see [tmp_diagnostic/model_obedience_test.py](../../tmp_diagnostic/model_obedience_test.py) and [tmp_diagnostic/obedience_reframed.md](../../tmp_diagnostic/obedience_reframed.md)).
+4. Ran one minimal-repro Sonnet 4.5 @ t=0.8 call with the anti-pattern reframed as a hard positive directive at the top of a short prompt ($0.006). Diagnostic helpers `tmp_diagnostic/model_obedience_test.py` and `tmp_diagnostic/obedience_reframed.md` were removed alongside the rest of `tmp_diagnostic/` in commit `1f69290`; the experiment is preserved here for the record but cannot be re-run from this checkout.
 
 No pipeline code was changed. No runtime flags were flipped.
 
@@ -57,7 +57,7 @@ The warnings work. They are just not strong enough for this specific Part-1 sall
 
 ### 4. Model-obedience floor is not the bottleneck
 
-With the anti-pattern reframed as a top-of-prompt **hard positive directive** in ~300 words ("Narrate only through sensory register / auditory metaphor. DO NOT use structural, architectural, mechanical framing. If any sentence could be lifted into a mission debrief, it is wrong."), Claude Sonnet 4.5 @ t=0.8 produced 356 completion tokens of prose with zero occurrences of `structural`, `architecture`, `layer`, `measurable`, `the Force's answer`, or `second beat`. The output stayed tactile, sensory, Part-1-appropriate. Full output at [tmp_diagnostic/obedience_reframed.md](../../tmp_diagnostic/obedience_reframed.md).
+With the anti-pattern reframed as a top-of-prompt **hard positive directive** in ~300 words ("Narrate only through sensory register / auditory metaphor. DO NOT use structural, architectural, mechanical framing. If any sentence could be lifted into a mission debrief, it is wrong."), Claude Sonnet 4.5 @ t=0.8 produced 356 completion tokens of prose with zero occurrences of `structural`, `architecture`, `layer`, `measurable`, `the Force's answer`, or `second beat`. The output stayed tactile, sensory, Part-1-appropriate. (Captured output once lived at `tmp_diagnostic/obedience_reframed.md`; removed in commit `1f69290`.)
 
 This isolates the problem to prompt salience, not model capability. (Caveat: test used Sonnet 4.5; production uses Sonnet 4.6. The obedience delta between the two minor versions is small — call this a strong directional signal rather than a point estimate.)
 

@@ -22,11 +22,11 @@ Canon_expert still returned `verdict: fail` with five moderate `franchise_voice`
 
 ### Bug 1 — seed-field mismatch (my Edit C was a no-op)
 
-The franchise terminology rules live at `concept_seed.canon_profile.franchise_terminology_notes` per the schema and the Ruusan seed (line 2222 inside the `canon_profile` block that opens at line 2161). Canon_expert reads the correct path at [canon_expert.py:382](src/agents/canon_expert.py:382).
+The franchise terminology rules live at `concept_seed.canon_profile.franchise_terminology_notes` per the schema and the Ruusan seed (line 2222 inside the `canon_profile` block that opens at line 2161). Canon_expert reads the correct path at [canon_expert.py:382](../../src/agents/canon_expert.py:382).
 
 My Edit C in ContextAssembler read `concept_seed.canon_constraints.franchise_terminology_notes` — **the wrong key**. `canon_constraints` is a separate block starting at line 2349 and does not contain this field. Edit C was effectively dead code. The drafter was NEVER seeing the same franchise rule canon_expert was enforcing.
 
-**Fix:** re-pointed ContextAssembler at `canon_profile.franchise_terminology_notes`. Regression test at [test_context_assembler.py](tests/test_context_assembler.py) pins the correct path and guards against a regression back to `canon_constraints`.
+**Fix:** re-pointed ContextAssembler at `canon_profile.franchise_terminology_notes`. Regression test at [test_context_assembler.py](../../tests/test_context_assembler.py) pins the correct path and guards against a regression back to `canon_constraints`.
 
 ### Bug 2 — canon_expert ignored the scene card it already received
 
@@ -39,15 +39,15 @@ The orchestrator has always passed `scene_card` into `canon_expert.evaluate()` v
 
 So canon_expert evaluated prose against franchise rules with zero visibility into scene-level permissions, even though those permissions were sitting in its context dict. When the drafter faithfully used the scene card's authorized "ambient field" metaphor, canon_expert had no way to know that metaphor was pre-approved.
 
-**Fix:** `_build_evaluation_prompt()` now takes a `scene_card` parameter. A new `_section_scene_card_voice_permissions(scene_card)` method renders scene_card.notes, `stover_permitted`, and anti_patterns into a `## Scene-Level Voice Permissions (READ BEFORE FLAGGING FRANCHISE_VOICE)` section placed before the franchise checks. Both entry paths (`evaluate()` and `_format_context()`) now propagate scene_card through. Regression tests at [test_canon_expert_branch_point.py::TestSceneCardVoicePermissions](tests/test_canon_expert_branch_point.py) assert the section renders correctly.
+**Fix:** `_build_evaluation_prompt()` now takes a `scene_card` parameter. A new `_section_scene_card_voice_permissions(scene_card)` method renders scene_card.notes, `stover_permitted`, and anti_patterns into a `## Scene-Level Voice Permissions (READ BEFORE FLAGGING FRANCHISE_VOICE)` section placed before the franchise checks. Both entry paths (`evaluate()` and `_format_context()`) now propagate scene_card through. Regression tests at [test_canon_expert_branch_point.py::TestSceneCardVoicePermissions](../../tests/test_canon_expert_branch_point.py) assert the section renders correctly.
 
 ### Bug 3 — franchise_voice severity never clamped (NEW, surfaced by Codex)
 
-The canon_expert system prompt calibrates `franchise_voice` as advisory surface-drift — it should be `minor`. But `_normalize_output()` only clamped `post_divergence_drift` to minor. Meanwhile [save_blockers.py:165-180](src/pipeline/save_blockers.py:165) treated any `moderate` or `critical` violation outside `post_divergence_drift` as a hard block.
+The canon_expert system prompt calibrates `franchise_voice` as advisory surface-drift — it should be `minor`. But `_normalize_output()` only clamped `post_divergence_drift` to minor. Meanwhile [save_blockers.py:165-180](../../src/pipeline/save_blockers.py:165) treated any `moderate` or `critical` violation outside `post_divergence_drift` as a hard block.
 
 Mechanical consequence: the LLM could emit `franchise_voice` at `moderate` and the save-blocker fires, contradicting the prompt's own policy. In production (`firewall.enabled: true`) this would quarantine the scene; in Ruusan default (`firewall.enabled: false`) it would abort the run.
 
-**Fix:** `_normalize_output()` now treats `post_divergence_drift` AND `franchise_voice` as advisory. Severity clamped to `minor`; never contributes to fail verdict. Verdict is now ALWAYS derived from normalized (advisory-clamped) violations — the LLM's stated verdict is advisory input only. Regression tests at [test_canon_expert_branch_point.py::TestFranchiseVoiceSeverityPolicy](tests/test_canon_expert_branch_point.py) pin this behavior for both `moderate` and `critical` franchise_voice flags.
+**Fix:** `_normalize_output()` now treats `post_divergence_drift` AND `franchise_voice` as advisory. Severity clamped to `minor`; never contributes to fail verdict. Verdict is now ALWAYS derived from normalized (advisory-clamped) violations — the LLM's stated verdict is advisory input only. Regression tests at [test_canon_expert_branch_point.py::TestFranchiseVoiceSeverityPolicy](../../tests/test_canon_expert_branch_point.py) pin this behavior for both `moderate` and `critical` franchise_voice flags.
 
 ---
 
@@ -111,7 +111,7 @@ If this proves unreliable, escalate to a structured `voice_exceptions` / `metaph
 
 ### Other save-blocking categories
 
-After clamping franchise_voice, the remaining blockable categories are `cross_continuity`, `anachronism`, `meta_reference`, and `era_accuracy`. Worth auditing: are any of these also advisory by design in the prompt but not clamped in code? Quick scan of [canon_expert.md:55-59](prompts/agent_system_prompts/canon_expert.md) suggests no — cross_continuity and anachronism are genuinely factual violations. But worth a look at the next revision.
+After clamping franchise_voice, the remaining blockable categories are `cross_continuity`, `anachronism`, `meta_reference`, and `era_accuracy`. Worth auditing: are any of these also advisory by design in the prompt but not clamped in code? Quick scan of [canon_expert.md:55-59](../../prompts/agent_system_prompts/canon_expert.md) suggests no — cross_continuity and anachronism are genuinely factual violations. But worth a look at the next revision.
 
 ---
 
