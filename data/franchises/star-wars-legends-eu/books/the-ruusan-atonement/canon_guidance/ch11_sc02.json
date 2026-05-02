@@ -5,7 +5,7 @@
   "scene_number": 2,
   "model": "x-ai/grok-4.1-fast",
   "prompt_version": "canon_scout_v1",
-  "input_hash": "31f1872987b088b749f7dd42909a08efb2b0f06a65bb006ccb7325a3d62a20af",
+  "input_hash": "1fa5b5ac3e27988cc95927e4f1d9ddc008701949727c18487d1adc30c6d3752b",
   "review_status": "unreviewed",
   "confidence": 0.98,
   "hard_constraints": [

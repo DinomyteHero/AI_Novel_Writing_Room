@@ -310,6 +310,41 @@ class CanonGuidanceStore:
         )
         return path
 
+    def rekey(
+        self,
+        *,
+        concept_seed: Mapping[str, Any],
+        chapter_blueprint: Mapping[str, Any] | None,
+        scene_card: Mapping[str, Any],
+    ) -> tuple[bool, str, str]:
+        """Re-anchor a sidecar's input_hash to current inputs without rewriting content.
+
+        Use when an operator has reviewed the input drift (e.g. mojibake cleanup
+        in the seed, additive scene-card enrichment) and decided the existing
+        canon analysis is still applicable. Loads the sidecar, swaps in the
+        freshly-computed hash, writes it back. Returns (changed, old, new).
+        Raises FileNotFoundError if no sidecar exists, ValueError if the
+        existing payload is invalid (re-keying does not repair invalid content).
+        """
+        sid = scene_id_from_card(scene_card)
+        path = self.path_for_scene(sid)
+        if not path.exists():
+            raise FileNotFoundError(f"no canon guidance sidecar at {path}")
+        payload = json.loads(path.read_text(encoding="utf-8"))
+        if not self._is_guidance_payload(payload):
+            raise ValueError(f"invalid canon guidance payload at {path}")
+        old_hash = str(payload.get("input_hash") or "")
+        new_hash = self.expected_hash(
+            concept_seed=concept_seed,
+            chapter_blueprint=chapter_blueprint,
+            scene_card=scene_card,
+        )
+        if old_hash == new_hash:
+            return False, old_hash, new_hash
+        payload["input_hash"] = new_hash
+        self.write(payload)
+        return True, old_hash, new_hash
+
     @staticmethod
     def _is_guidance_payload(payload: Mapping[str, Any]) -> bool:
         if int(payload.get("schema_version") or 0) != SCHEMA_VERSION:

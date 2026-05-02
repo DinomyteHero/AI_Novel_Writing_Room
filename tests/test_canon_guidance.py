@@ -99,6 +99,75 @@ def test_canon_guidance_store_marks_fresh_and_stale():
         ) is None
 
 
+def test_rekey_marks_stale_sidecar_fresh_without_changing_content():
+    with _workspace_tmp() as tmp_path:
+        contract = tmp_path / "canon_contract.md"
+        contract.write_text("Use Legends.", encoding="utf-8")
+        store = CanonGuidanceStore(tmp_path / "canon_guidance", canon_contract_path=contract)
+        payload = store.prepare_payload(
+            model_output={
+                "hard_constraints": ["Use Legends continuity."],
+                "required_context_for_drafter": ["Ben is post-FOTJ."],
+                "confidence": 0.8,
+            },
+            model="x-ai/grok-4.1-fast",
+            concept_seed=_seed(),
+            chapter_blueprint=_blueprint(),
+            scene_card=_scene_card(),
+        )
+        path = store.write(payload)
+        original_payload = json.loads(path.read_text(encoding="utf-8"))
+
+        drifted_seed = {**_seed(), "premise": "Same canon, freshly worded."}
+        assert store.freshness(
+            concept_seed=drifted_seed,
+            chapter_blueprint=_blueprint(),
+            scene_card=_scene_card(),
+        ).status == "stale"
+
+        changed, old, new = store.rekey(
+            concept_seed=drifted_seed,
+            chapter_blueprint=_blueprint(),
+            scene_card=_scene_card(),
+        )
+        assert changed
+        assert old != new
+        assert store.freshness(
+            concept_seed=drifted_seed,
+            chapter_blueprint=_blueprint(),
+            scene_card=_scene_card(),
+        ).status == "fresh"
+        rekeyed_payload = json.loads(path.read_text(encoding="utf-8"))
+        assert rekeyed_payload["input_hash"] == new
+        for key in (
+            "hard_constraints",
+            "required_context_for_drafter",
+            "review_status",
+            "confidence",
+            "model",
+        ):
+            assert rekeyed_payload[key] == original_payload[key]
+
+        # Idempotent: re-running on a now-fresh sidecar reports no change.
+        changed_again, _, _ = store.rekey(
+            concept_seed=drifted_seed,
+            chapter_blueprint=_blueprint(),
+            scene_card=_scene_card(),
+        )
+        assert changed_again is False
+
+
+def test_rekey_raises_when_sidecar_missing():
+    with _workspace_tmp() as tmp_path:
+        store = CanonGuidanceStore(tmp_path / "canon_guidance")
+        with pytest.raises(FileNotFoundError):
+            store.rekey(
+                concept_seed=_seed(),
+                chapter_blueprint=_blueprint(),
+                scene_card=_scene_card(),
+            )
+
+
 def test_canon_guidance_coverage_rolls_up_freshness():
     with _workspace_tmp() as tmp_path:
         store = CanonGuidanceStore(tmp_path / "canon_guidance")

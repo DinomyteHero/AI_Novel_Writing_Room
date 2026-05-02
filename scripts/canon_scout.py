@@ -48,6 +48,17 @@ def _parse_args(argv: list[str]) -> argparse.Namespace:
         help="Spend API calls and write canon_guidance sidecars",
     )
     parser.add_argument(
+        "--rekey-only",
+        action="store_true",
+        help=(
+            "Do not regenerate content; recompute input_hash on each stale "
+            "sidecar against current inputs and write it back. Use after "
+            "reviewing input drift (e.g. seed cleanup, additive scene-card "
+            "enrichment) and confirming the existing canon analysis still "
+            "applies. Skips missing/invalid sidecars."
+        ),
+    )
+    parser.add_argument(
         "--max-cost-usd",
         type=float,
         default=0.50,
@@ -197,6 +208,44 @@ def _print_plan(plan: dict[str, Any], *, as_json: bool) -> None:
         print(f"- {target['scene_id']}: {target['status']} -> {marker}")
 
 
+def _rekey(plan: dict[str, Any], args: argparse.Namespace) -> None:
+    paths: ProjectPaths = plan["paths"]
+    store: CanonGuidanceStore = plan["store"]
+    cards_by_scene = {
+        f"ch{int(c['chapter_number']):02d}_sc{int(c.get('scene_number', 1)):02d}": c
+        for c in _load_scene_cards(paths, chapter=args.chapter, scene=args.scene)
+    }
+    rekeyed = 0
+    skipped: list[tuple[str, str]] = []
+    for target in plan["targets"]:
+        scene_id = target["scene_id"]
+        status = target["status"]
+        if status in {"missing", "invalid"}:
+            skipped.append((scene_id, status))
+            continue
+        if status == "fresh":
+            continue
+        card = cards_by_scene[scene_id]
+        blueprint = plan["blueprints"].get(int(card.get("chapter_number") or 0), {})
+        try:
+            changed, old, new = store.rekey(
+                concept_seed=plan["concept_seed"],
+                chapter_blueprint=blueprint,
+                scene_card=card,
+            )
+        except (FileNotFoundError, ValueError) as exc:
+            skipped.append((scene_id, f"error: {exc}"))
+            continue
+        if changed:
+            rekeyed += 1
+            print(f"Re-keyed {scene_id}: {old[:8]} -> {new[:8]}")
+    if skipped:
+        print(f"Skipped {len(skipped)} sidecar(s) that cannot be re-keyed:")
+        for scene_id, reason in skipped:
+            print(f"  - {scene_id}: {reason}")
+    print(f"Re-keyed {rekeyed} sidecar(s).")
+
+
 async def _execute(plan: dict[str, Any], args: argparse.Namespace) -> None:
     if plan["estimated_cost_usd"] > args.max_cost_usd:
         raise SystemExit(
@@ -253,9 +302,14 @@ async def _execute(plan: dict[str, Any], args: argparse.Namespace) -> None:
 
 def main(argv: list[str] | None = None) -> int:
     args = _parse_args(argv or sys.argv[1:])
+    if args.rekey_only and args.force:
+        raise SystemExit("--rekey-only and --force are mutually exclusive")
     plan = _build_plan(args)
     _print_plan(plan, as_json=args.json)
     if not args.execute:
+        return 0
+    if args.rekey_only:
+        _rekey(plan, args)
         return 0
     asyncio.run(_execute(plan, args))
     return 0
