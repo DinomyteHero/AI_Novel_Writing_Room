@@ -6,20 +6,6 @@ A multi-agent system that writes novel-length (60–80K word) fiction. A human p
 
 It works for franchise fanfiction (with optional canon-aware checking) or wholly original worlds, and is configured per-franchise / per-book.
 
-## Worked example: a Star Wars fanfiction novel
-
-The shipped end-to-end example is **The Ruusan Atonement** — an original fan-fiction novel set in the Star Wars Legends Expanded Universe (New Sith Wars era). The pipeline produced a **~113,000-word, 28-chapter manuscript** all the way through to a reviewed, validated final draft. The published artifact lives at:
-
-```
-output/star-wars-legends-eu/the-ruusan-atonement/export/
-  production-lean-full-20260425-010838-targeted-revision-1/
-    manuscript_targeted_revision_1.md            # the manuscript
-    chapter_index.md                             # chapter-by-chapter index
-    targeted_revision_verification_gpt54.md      # GPT-5.4 review of the manuscript
-```
-
-The pipeline software is Apache 2.0. The license does **not** grant rights in any third-party franchise material that the bundled worked examples reference. See [DISCLAIMER](DISCLAIMER.md) for the non-commercial fan-content posture and the rightsholder takedown contact.
-
 ## What makes this project interesting
 
 If you want the engineering hook before the install instructions, this is it:
@@ -157,9 +143,9 @@ Set your OpenRouter API key (cloud or hybrid mode):
 export OPENROUTER_API_KEY=your_key_here
 ```
 
-### Reproduce the worked example
+### Run the bundled example
 
-The Ruusan Atonement inputs are checked into the repo. To re-draft from them:
+A single end-to-end pipeline run is checked into the repo as a reference. To re-draft it from inputs:
 
 ```bash
 python -m src.main \
@@ -169,7 +155,7 @@ python -m src.main \
   --run-name first-draft --phase 5
 ```
 
-The flat `data/projects/<slug>/` layout is also supported for ad-hoc projects, but the franchise-scoped layout above is what the worked example uses.
+The flat `data/projects/<slug>/` layout is also supported for ad-hoc projects, but the franchise-scoped layout above is what the bundled example uses.
 
 ### Start a brand-new project
 
@@ -301,11 +287,19 @@ pytest                              # Run all tests (~1,950 collected, ~140s)
 pytest -k "test_orchestrator"       # Run a subset
 ```
 
+## A note on the bundled example output
+
+The repo ships with one end-to-end pipeline run as a reference: **The Ruusan Atonement**, a fan-fiction concept set in the Star Wars Legends Expanded Universe (New Sith Wars era). The artifact at [`output/star-wars-legends-eu/the-ruusan-atonement/export/production-lean-full-20260425-010838-targeted-revision-1/`](output/star-wars-legends-eu/the-ruusan-atonement/export/production-lean-full-20260425-010838-targeted-revision-1/) is a 28-chapter, ~113,000-word manuscript produced by running the pipeline all the way through draft → GPT-5.4 review → targeted revision.
+
+**It is a base test of the pipeline, not an example of polished storytelling.** The point of the bundled run is to demonstrate that the system can take guided author planning all the way through to a reviewed, validated long-form manuscript — not to ship a novel for reading. Treat it as a reference output, not an editorial benchmark.
+
+The pipeline inputs that produced it are checked in at [`data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/`](data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/), so the run is reproducible from the inputs alone.
+
 ## License
 
 Apache License 2.0 — see [LICENSE](LICENSE).
 
-The license covers the pipeline software. It does not grant rights in any third-party franchise material that the bundled worked examples or evaluation corpus happen to reference; see [DISCLAIMER](DISCLAIMER.md) for the non-commercial fan-content posture and rightsholder takedown contact.
+The license covers the pipeline software. It does not grant rights in any third-party franchise material that the bundled example or evaluation corpus happens to reference; see [DISCLAIMER](DISCLAIMER.md) for the non-commercial fan-content posture and rightsholder takedown contact.
 
 ## Connect
 
