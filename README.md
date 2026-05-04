@@ -303,6 +303,6 @@ The license covers the pipeline software. It does not grant rights in any third-
 
 ## Connect
 
-Built by **Louis Bouwer**. If this project is useful to you, or you'd like to chat about multi-agent fiction generation, language-model orchestration, or the engineering behind the forward-only relay — say hi on LinkedIn:
+Built by **Louis Bouwer**. If this project is useful to you, or you'd like to chat about multi-agent fiction generation, language-model orchestration, or the engineering behind the forward-only relay, please feel free to say hi and connect on LinkedIn:
 
 [Louis Bouwer on LinkedIn](https://www.linkedin.com/in/louisbouwer3/)
