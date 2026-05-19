@@ -1,0 +1,38 @@
+{
+  "chapter_number": 1,
+  "chapter_mission": "Elya finds a duplicated wartime quarantine/survey shipment manifest from the final days before the Battle of Shedu Maad. One version is public and boring; the hidden duplicate carries the same shipment identity, a quarantine/survey disguise, conflicting destination data, and enough metadata to show Jacen Solo personally encrypted it shortly before his death. She realizes this is not a clerical duplicate: one of Jacen’s last orders had two lives. She remembers the old wrong approval field where she once quietly removed Ben’s name because he had been fourteen and she could not bear one more child being turned into a clean bureaucratic answer. She sends Ben the obsolete GAG-coded message through an identity-address/dead-drop protocol tied to his old service marker: GAG is still active. One of Jacen’s last orders has two lives. Come alone. — E.R. Then she hears someone arrive. Aevyn reaches her. He uses a Jacen-derived blend of memory pressure, Recognition, and Holding to extract part of the lead. The method is precise, intimate, and controlled rather than showy. He learns that Elya contacted Ben, preserved a missing piece, and found a Jacen-sealed duplicate manifest pointing toward Iresh. He pushes the mind and body past what they can survive. Elya dies — but the damaged manifest fragment she preserved remains beyond what Aevyn fully extracts.",
+  "chapter_turn": "Elya dies. The fragment survives.",
+  "structural_phase": "setup",
+  "pov_allocation": [
+    "Commander Elya Rane"
+  ],
+  "scene_count": 1,
+  "scene_plan": [
+    {
+      "scene_number": 1,
+      "role": "hook",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 4200,
+      "purpose": "Elya finds a duplicated wartime quarantine/survey shipment manifest from the final days before the Battle of Shedu Maad. One version is public and boring; the hidden duplicate carries the same shipment identity, a quarantine/survey disguise, conflicting destination data, and enough metadata to show Jacen Solo personally encrypted it shortly before his death."
+    }
+  ],
+  "reveal_payload": [
+    "R_01"
+  ],
+  "hook_movements": {
+    "planted": [
+      "HK_01",
+      "HK_02"
+    ],
+    "advanced": [],
+    "resolved": []
+  },
+  "subplot_obligations": [
+    "SUB_05"
+  ],
+  "relationship_turns": [],
+  "pacing_curve": "rising",
+  "exit_vector": "Elya dies. The fragment survives.",
+  "chapter_word_target": 4200,
+  "notes": "Source: Chapter Outlines v4.1. Act: Act One — The Body / The Prison / The Partnership. Chapter title: Wrong Field (Hook).\n\nReader-facing clarity note: The question is simple: why did Jacen personally encrypt a duplicated wartime shipment manifest days before Shedu Maad, and why did the hidden copy go somewhere the public shipment never went?\n\nContinuity note: This is the consolidated opening hook (formerly Chapters 1 and 2). The Elya POV carries through Aevyn’s arrival and her death without a chapter break. The reader’s first experience of the novel is sustained pressure.\n\nCharacter voice focus: preserve the exact v1.4 character behavior and dialogue rules for the chapter POV and named participants. Plot first, character second, theme through consequences."
+}

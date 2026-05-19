@@ -1,0 +1,369 @@
+{
+  "surface": "character-forge",
+  "schema_version": "1.0",
+  "ensemble_cast": [
+    {
+      "name": "Ben Skywalker",
+      "role": "Protagonist, POV anchor",
+      "age": "~21",
+      "force_status": "Jedi Knight",
+      "three_dimensions": {
+        "surface": "Capable young Jedi Knight, son of Luke Skywalker and Mara Jade Skywalker. Carries himself with the practiced ease of someone people expect to recognize. Polite, controlled, dry under pressure — the family register filtered through twenty-one years of survival. Tells people he is fine too quickly. Reads as the kind of capable young man people trust on sight, which is most of why he distrusts the trust.",
+        "backstory_inner_demons": "Briefly apprenticed to Jacen Solo as a fourteen-year-old. Served in the Galactic Alliance Guard under Jacen — black armor, war crimes adjacent, a child inside a system that made bodies into approval fields. Jacen killed Mara. Ben turned against Caedus by the end of the war, and the Order treated his turn as victim's recovery; the family treated it as survival; nobody made him sort what the GAG year actually built into him. He loved Vestara Khai and she chose the dark side. Helped defeat Abeloth. Has done more by twenty than most Jedi will in a lifetime, and is secretly hungry for meaningful work that makes the part of his past everyone avoids count for something other than damage.",
+        "action_under_pressure": "Reaches for competence first, conversation second. Covers old GAG sender codes before he realizes he is hiding them. Clocks exits and threat angles automatically. Gives a command in a voice that makes Talon stop joking. Hates that some of Jacen's training still works. When the Glasswell starts collapsing, his perception narrows into bodies and exits and water and weight, and he moves people the way Jacen taught him to move people."
+      },
+      "weiland_arc": {
+        "lie_believed": "The GAG year and Jacen's training are something done TO him — categorized away by family and the Order as victim, survivor, son, symbol — and as long as he holds the line against the methods, the lessons themselves are inert.",
+        "ghost": "Served under Jacen/GAG at fourteen; Jacen killed Mara; Ben's turn against Caedus was real but circumstantial — driven by Mara's murder and external facts arriving at the right time. The deeper internal work was never done.",
+        "want": "Solve Elya Rane's murder, stop the Vigil's Iresh operation, understand what Jacen left behind.",
+        "need": "Make his past useful as more than damage without surrendering ownership of himself to Jacen.",
+        "arc_type": "positive_change",
+        "arc_summary": "Positive but morally compromised. Ben ends recognizably heroic — he saved Tavi and the locals, defeated Aevyn, denied the Vigil the unfinished holocron, told Luke the truth in the only register he could afford. The warning sign is that his most dangerous choices arrive dressed as compassion, urgency, and competence — and that he keeps the holocron because he believes it may help people someday.",
+        "initial_phase": "lie_established",
+        "arc_phase_map": {
+          "lie_established": "Ch 2 (Manifest Fragment) — Ben at Shedu Maad, lonely and quietly restless among peers who go careful around his history; the obsolete GAG-coded message arrives, and his hand covers the sender code before he realizes he is hiding it. The GAG year is something he keeps in a drawer.",
+          "lie_reinforced": "Ch 9 (Storm Line — FPP) — Ben breaks cover at Tarn Velos and saves Talon, categorizes the act as duty even as it ends the institutional path. Forced partnership becomes the door he cannot return through. He reads his own competence as professionalism, not as Jacen's grammar.",
+          "lie_challenged": "Ch 14-15 (PP1 archive cleanup + Iressa hostage death) — Ben sees a Jacen-shaped coercive move that might save Iressa and refuses it. Iressa dies. Talon does not let him off the hook: 'You had another way.' / 'I had a bad way.' / 'She's still dead.' Restraint is no longer free.",
+          "moment_of_truth": "Ch 16 (No Good Version — Midpoint) — Iressa's transmission carries documentary chain plus the identity-shaping revelation. Ben holo-calls Luke and Saba: institutional path is correct and too slow. Ben pivots from investigator to active disruptor — decides to go to Iresh themselves. The Lie cracks: the GAG-shaped tools are his to use, not just to guard against.",
+          "new_truth_demonstrated": "Ch 31 (Too Slow) — at the collapsing Glasswell the ordinary Jedi path is too slow; Ben uses Jacen-shaped crisis logic to save Tavi, Sela's locals, and others. Some are grateful; some are shaken by how it felt to be moved or commanded. Aevyn recognizes the pattern: 'He taught you that.'",
+          "arc_resolved": "Ch 36 (It's Gone) — first in-person Luke conversation since the holo calls. Ben preserves the holocron and answers Luke with the technically-true 'Somewhere it can't hurt anyone.' Luke senses the incompleteness and does not force the answer. Ben is recognizably heroic and morally compromised at the same time — the truth he has arrived at is that the most defensible choices and the most dangerous choices can be the same choices."
+        }
+      }
+    },
+    {
+      "name": "Talon Veyr",
+      "role": "Deuteragonist, partner, tempo engine, pressure valve",
+      "age": "28",
+      "force_status": "Non-Force-sensitive",
+      "three_dimensions": {
+        "surface": "Fast-talking, field-capable, physically resourceful, irreverent, charming when cornered, allergic to solemn authority and funny until the joke stops working. Looks like a man who survived prison and is still adjusting to rooms with windows. Counts guards mid-sentence; sits facing exits and makes a joke about the chair first. Calls Ben 'Skywalker' when guarded, 'Ben' when trust slips through.",
+        "backstory_inner_demons": "Operation Glasshook: during a wartime GAG interdiction mission on Coruscant, Talon disobeyed Colonel Maro Tess's direct order to stay on the objective and diverted the extraction route to save trapped GA personnel and civilians. The target escaped. Tess did not rage — he judged. He reassigned Talon out of field duty into black-channel logistics/security routing as punishment and 'education,' intending to teach him to see the whole operation rather than only the people in front of him. The war collapsed before Tess could bring him back. The reassignment became the record that ruined him. He went to prison while higher officers survived. He refused the deal that would have required him to validate the cleaned-up official version.",
+        "action_under_pressure": "Talks too much when entering dangerous rooms. Names bad plans while already doing them. Makes jokes fastest when he is most frightened. Reads maintenance routes, storm shutters, camera lag, and guard habits as fluently as he reads people. When the valve shuts — Tess, prison routines, children in security systems, Ben being fourteen in GAG — he goes quiet, and the silence is the tell. At the Glasswell he reroutes Greyline extraction while complaining furiously and saves people he will never name to Ben."
+      },
+      "weiland_arc": {
+        "lie_believed": "Being funny — and being useful — will keep the past at a manageable distance and prevent anyone from using him again.",
+        "ghost": "Operation Glasshook (see backstory): saved people, was punished for it, and the punishment moved him into the GAG logistics network that later made him look guilty. Tess saw him clearly and decided what he should become.",
+        "want": "Stay free, stay alive, avoid being used again — especially by Tess-shaped systems.",
+        "need": "Prove he was not only a tool in someone else's machine — by being a partner who chooses, not a contractor who executes.",
+        "arc_type": "positive_change",
+        "arc_summary": "Positive change through partnership. Talon begins performing his irreverence as armor; the partnership with Ben forces him into shared competence and shared cost. By Ch 22 he names the wound out loud (Glasshook, Tess, 'Move her first'); by Ch 33 he saves the Glasswell evacuees through field work that is no longer compromised by the old record; by Ch 34 he names Ben's holocron omission without rupturing the partnership — the first time the joke valve has been earned, not used.",
+        "initial_phase": "lie_established",
+        "arc_phase_map": {
+          "lie_established": "Ch 6 (Visitor Room) — Talon enters as quick, funny, restless, difficult; recognizes the duplicated manifest fragment as a cloned shipment identity and clocks Ben as Skywalker/Jedi/former GAG. Prison-habit beat: sits facing the door, counts guards mid-joke, pockets food automatically. The performance is intact.",
+          "lie_reinforced": "Ch 9 (Storm Line — FPP) — saved by Ben at the prison; still calls him 'Skywalker.' Reads the storm-line escape with field instinct intact. Joins not from gratitude but because the clue proves his old case was part of something larger. The performance is useful again.",
+          "lie_challenged": "Ch 11 (Back Through the Rain — Skywalker apartment) — first time in the apartment. Talon jokes until he realizes the room is not funny; makes a small dark joke about the family holo, sees Ben's face, stops. The valve fails for the first time in a way Ben sees.",
+          "moment_of_truth": "Ch 22 (Maro Tess) — Talon finally tells Ben about Glasshook, Tess, Operation Nightglass, Marael Sen, the GAG corridor moment 'Move her first.' Not a lore dump — Talon avoids the truth before he says it: fixes a device that is not broken, changes the subject, eats too fast, jokes badly, then stops. 'He said logistics would teach me scale. It mostly taught me how easy it is to lose people in paperwork.'",
+          "new_truth_demonstrated": "Ch 33 (The Flood) — Talon's climax job: disrupt Greyline extraction, reroute escape logistics, steal a Greyline access cylinder, keep a collapsing service hoist running while complaining furiously. Saves people the field instinct knew he could save. The work is no longer compromised by the old record.",
+          "arc_resolved": "Ch 34 (After the Glasswell) — suspects Ben's holocron decision is not clean and names it. The valve does its work: the joke earned its weight by spending the book not being a joke. The partnership survives the naming."
+        }
+      }
+    },
+    {
+      "name": "Iressa Vossk",
+      "role": "Short-arc Act 2 ally; structural pivot — her dying transmission carries the Midpoint revelation",
+      "age": "Early-to-mid thirties",
+      "force_status": "Non-Force-sensitive (possibly Kiffar-descended per bible; psychometry NOT exploited in Book 1)",
+      "three_dimensions": {
+        "surface": "Brisk, transactional, office-cynical. Senior records restoration analyst at Civitas Archive Systems — repairs damaged public records, casualty files, displacement registries, charity/government archive errors. Wears the respectable life like an armor that needs polishing. Sounds like someone with a calendar invite in twelve minutes and a fake name with dental benefits.",
+        "backstory_inner_demons": "Former GAG Manifest Integrity Analyst. Specialized in wartime cargo discrepancies, duplicate manifests, quarantine classifications, restricted transfer corrections — knew when a duplicate was innocent clerical damage and when it was deliberate concealment. Her old work was making ugly records look boring and consistent. Talon went to prison because he refused the lie; Iressa stayed free because she got very good at making lies look like corrected records. After the war she became small, useful, forgettable, and professionally boring. Maintained a secondary cache off-record — old tools, encrypted dead drops, manifest-reconstruction habits — the part of herself she officially renounced.",
+        "action_under_pressure": "Denies knowing people she clearly knows. Charges a 'Jedi complication fee.' Lies about exits she clearly maintains. Pretends not to care while preserving names and evidence. When pressed past the professional register, reconstructs around Jacen's encryption — not by breaking the cipher but by reading surrounding records (inspection gaps, correction logs, duplicate cargo seals, quarantine overrides, loading-dock scans, archive timestamps, records damaged in the same shape). Under Vara's hostage pressure, she finishes corrupting the enemy copy and transmits the surviving package — documentary chain plus identity-shaping revelation — to Ben and Talon. Her final beat is herself: practical irritation, file anger, one last debt/fee complaint, rather than sentimental martyrdom."
+      },
+      "weiland_arc": {
+        "lie_believed": "Survival made her a coward — she stayed free by becoming small, useful, and forgettable, and the cost was being the kind of person who would never matter to a record that was hers.",
+        "ghost": "Her GAG manifest work made ugly records look boring and consistent — duplicates buried, transfers corrected, quarantine classifications applied where bodies should have been. She never truly believed; she just got very good at making the lie look like a corrected record.",
+        "want": "Keep her Civitas job, stay alive, get paid, and avoid old GAG trouble.",
+        "need": "Have one old choice matter — preserve a discrepancy instead of bury it.",
+        "arc_type": "positive_change",
+        "arc_summary": "Compressed positive change across Ch 12-15. Old Iressa buried discrepancies; new Iressa preserves one. Her arc lands not by surviving but by the SHAPE of her death — agency at the moment the Foundation/Vigil tries to extract her last piece of leverage.",
+        "initial_phase": "lie_established",
+        "arc_phase_map": {
+          "lie_established": "Ch 12 (Iressa Vossk Does Not Know You) — Civitas office. Iressa lies smoothly to coworkers to protect the respectable life; denies knowing Talon, charges the Jedi complication fee, moves Ben and Talon away from cameras. 'I do compliance.' 'You forge records.' 'That is an ugly word for user-corrected metadata.'",
+          "lie_challenged": "Ch 13 (The Index Under the Index) — at her secondary cache the old GAG instincts wake. She reconstructs around Jacen's encryption through surrounding records. The respectable surface stops being enough the moment the work matters. Starts splitting/corrupting the data so the enemy cannot get a clean copy.",
+          "moment_of_truth": "Ch 15 (The Bad Way) — Vara takes her hostage and pressures her memory with a crude dark-side method. Iressa finishes corrupting the enemy copy and transmits the two-part dying package: documentary chain plus identity-shaping revelation. Her final beat is herself — practical irritation, file anger, or one last debt/fee joke. She dies denying Vara the clean version.",
+          "arc_resolved": "Ch 15 (death) — old Iressa buried discrepancies; new Iressa preserved one. Her work survives the body by minutes. Ben and Talon carry the transmission into the Midpoint and beyond."
+        }
+      }
+    },
+    {
+      "name": "Aevyn Soris",
+      "role": "Primary antagonist (Force / mythic); Ben's true mirror — the other student of Jacen",
+      "age": "28",
+      "force_status": "Marginal Force-sensitive (politely declined by the Jedi at fourteen). Jacen-trained in Recognition, Deepening, and Holding. No formal Jedi lightsaber tradition; combat instinct from GAG operational training.",
+      "three_dimensions": {
+        "surface": "Quiet, exact, private. Calm in the way someone is calm when they have spent years rehearsing the exact words of an old dismissal. Aligns tools at exact angles. Dislikes generic praise. Speaks softer when angry, not louder. Carries a self-built cold white-blue lightsaber that shivers along the edge — the work of a competent man who was never formally trained in lightsaber construction or form.",
+        "backstory_inner_demons": "AEVYN'S CORRIDOR FLASHBACK (preserved verbatim from Planning Bible §17 and Voice Sheet v1.3 — the single sharpest character detail in the project; surfaces in Aevyn's Ch 30 POV ONLY as image-fragment, NEVER as exposition, NEVER as speech): Aevyn was at a side console in a working area, running a Recognition exercise Jacen had given him. Jacen was actually present — watching, correcting in real time. It was the longest sustained attention Jacen had given him. Then fourteen-year-old Ben came down the corridor. Jacen looked up, saw the boy, straightened. He said something brief to Aevyn — 'Good. Keep going. We'll review later.' — and walked off with Ben. The 'later' never came. Days passed. When Jacen surfaced again, he picked up where they had left off, gave Aevyn another correction, and acted as though nothing had happened. Because from Jacen's perspective, nothing had happened. He had simply had a thing to do. Aevyn remembers the exact words of the brief dismissal. He remembers Jacen's posture as he turned. He remembers what he was practicing when the moment broke. Ben does not remember Aevyn at all. The wound is not 'Jacen left me' or 'the Jedi rejected me.' The wound is 'Jacen had Ben. I was what he did when Ben wasn't available.' Layered under that: the Jedi rejection at fourteen (a Mid Rim Jedi Knight on a recruiting sweep at a regional outreach office, the forgettable phrase 'we're not able to offer placement at this time'), and GAG dissolving in disgrace after the war — losing his institutional home for the second time.",
+        "action_under_pressure": "Speaks softer when angry. Treats his unstable lightsaber like an argument he keeps trying to perfect. Uses Jacen-derived memory pressure / Recognition / Holding to extract information from subjects, killing by pushing mind and body past survivable limits — precision rather than savagery. Forces the Glasswell to remember the moment Jacen sealed it; cracks the cache. In the duel, his blade fractures more visibly when Ben uses Jacen-derived crisis logic successfully — a visual tell Aevyn cannot suppress."
+      },
+      "weiland_arc": {
+        "lie_believed": "Jacen Solo can be separated from Darth Caedus — Jacen was his teacher, Darth Caedus was what the war did to him — and finishing Jacen's unfinished work honors the teacher without inheriting the crimes.",
+        "ghost": "The corridor moment (see backstory): Jacen leaving a Recognition session with him to walk off with fourteen-year-old Ben, the 'later' that never came. Compounded by the Jedi rejection at fourteen and GAG's post-war disgrace. He was useful, not chosen.",
+        "want": "Recover Jacen's unfinished holocron and finish the lesson — Recognition, Deepening, Holding made operational.",
+        "need": "Admit he was useful, not chosen — that Jacen's attention was always partial and the work was always side-project.",
+        "arc_type": "corruption",
+        "arc_summary": "Corruption arc. Aevyn opens the book having already made the foundational choice (Jacen is salvageable; the work must be finished; he is the one to finish it). The book is the consequence of that choice. Ben's restraint, Iressa's preservation, the Glasswell's structural failure, and Ben's use-without-surrender of Jacen's lessons together glimpse the Truth — that Jacen WAS Caedus, that Aevyn was useful and not chosen, that the lesson finishes him rather than the other way around. He rejects the glimpse and pushes through. Defeated at the Glasswell, presumed dead; the white-blue spark in Ch 38 confirms survival without resolution. Book 2 seed.",
+        "initial_phase": "lie_established",
+        "arc_phase_map": {
+          "lie_established": "Ch 1 (Wrong Field) — Force-interrogates and kills Commander Elya Rane using Jacen-derived method. The precision feels like vindication of Jacen's training. Aevyn is already past the foundational corruption choice; the book finds him there.",
+          "lie_reinforced": "Ch 14-15 (PP1 archive cleanup) — the Vigil's operation depends on him as Jacen's surviving student; Vara and Cinderline are crude muscle while he is the necessary mythic component. Confirms his centrality — confirms he is Jacen's.",
+          "lie_deepened": "Ch 27 (The Other Student) — first direct/semi-direct encounter with Ben on Iresh. Aevyn unsettles Ben by knowing private Jacen-shaped details. Sees in Ben the primary student he was never; uses the encounter to confirm that his version of Jacen is the correct one.",
+          "point_of_no_return": "Ch 30 (Opening) — forces the cache open by making the Glasswell remember the moment Jacen sealed it. The corridor flashback surfaces as fragment when the Glasswell begins to answer. He chooses to continue.",
+          "lie_acted_upon": "Ch 32 (What He Left — climax duel) — turns on Ben; the cold white-blue blade fractures more visibly each time Ben uses Jacen-derived logic. Aevyn glimpses the Truth — Ben uses the lessons WITHOUT surrendering ownership, which means Aevyn's whole premise is wrong — and rejects the glimpse. He pushes through the duel as though winning would settle which of them Jacen actually meant.",
+          "lie_consequence": "Ch 32 (duel resolution) — defeated. The Glasswell gives way. Aevyn is stripped of the holocron, the Vigil, Tess's protection, and the identity of Jacen's unfinished student. The corridor wound has been answered by being made the same — left behind again.",
+          "arc_resolved_tragic": "Ch 38 (White-Blue Spark) — survives in secret, broken-open. Stripped of his certainties but not destroyed. The cold white-blue spark in the dark below the broken Glasswell is the Lie's consequence made visible: he is no longer Jacen's student, and he has not yet become anything else. Book 2 seed."
+        }
+      }
+    },
+    {
+      "name": "Colonel Maro Tess",
+      "role": "Primary antagonist (operational); architect of the Vigil's field operations; knowing One Sith asset",
+      "age": "~49",
+      "force_status": "Non-Force-sensitive; knowing One Sith asset (the hand glimpsed in Ch 37 has Tess's loyalty, not his Force-faith)",
+      "three_dimensions": {
+        "surface": "Plain, calm, operational. Greyline Strategic Services strategist providing donor-event security, archive protection, offworld survey security, threat assessments. Speaks like a man who sorts lives into categories and acts before emotion can complicate the board. Does not posture. Does not explain more than required. NO villain poetry. Uses first names when it asserts ownership — especially with Talon.",
+        "backstory_inner_demons": "Former senior GAG operations officer. During the war, oversaw black-channel logistics and security operations that moved detainees, sealed cargo, evidence, classified personnel, Jacen-related material, and off-book transfers through emergency routes. Knew what the network was truly for. Saw Talon Veyr clearly as a young field agent — field instinct, movement, exits, timing, people-reading — and intended to bring him back to field duty after the Glasshook discipline taught him to see the whole operation rather than only the people in front of him. The war collapsed before that plan could complete. He believes Caedus was not wrong to seek control; he believes Caedus failed because he was too visible, rushed, and emotionally compromised. Post-war, the Vigil's project was the natural continuation.",
+        "action_under_pressure": "Removes sentiment from decisions. Treats failures as logistics. At PP2, decides Korda has become too visible and orders the killing the way another man would order a supply transfer — 'Korda was becoming visible. This cleans the board.' Then orders the Iresh operation accelerated specifically because Skywalker and Veyr are now actively involved. The acceleration is not panic; it is a calculated adjustment to the threat profile. When Iresh fails, he does not panic — 'Iresh failed.' 'Completely?' 'No.' — and retreats deeper into One Sith service."
+      },
+      "weiland_arc": {
+        "lie_believed": "Power is real, hesitation kills, and morality is usually written after control has been secured. Caedus was right to seek control; he was wrong only in being visible, rushed, and emotionally compromised.",
+        "ghost": "A career of running black-channel logistics for a regime that lost. Saw too many commanders confuse morality with hesitation, then watched hesitation get people killed. Tess never made that mistake; the people who did paid the cost. He survived by being precise.",
+        "want": "Contain exposure, preserve useful assets, continue the Vigil's operation, advance the broader One Sith program.",
+        "need": "Recognize that the precision is itself the cost — that every clean board he leaves behind is another instance of the harm he refuses to feel. (Unmet; arc is static.)",
+        "arc_type": "negative",
+        "arc_summary": "Static villain. Tess does not change in Book 1. He is the calm endpoint of crisis logic with no moral counterweight, and the book's argument is that systems shaped by his kind of clarity continue running long after the visible apparatus collapses. Korda dies; Aelia steps down; the Iresh operation fails. Tess retreats, categorizes the loss, and continues. The lie is unchanged because the world has not yet refused to reward it.",
+        "initial_phase": "lie_established",
+        "arc_phase_map": {
+          "lie_established": "Ch 20 (Containment — PP2 opening) — Tess clears the board. Orders Korda's elimination as a public fall-guy. Orders Iresh acceleration because Skywalker and Veyr are involved. The killing is logistics. The acceleration is calculation. The register is plain.",
+          "lie_reinforced": "Ch 22 (Maro Tess — off-screen / through Talon's recollection) — Operation Glasshook surfaces in Talon's confession. 'He said field work had made me sentimental. Logistics would teach me scale.' Tess's lesson then is Tess's lesson now. The lie has outlived its first victims.",
+          "lie_tested": "Ch 32-33 (Glasswell collapse + Iresh operation failure — off-screen from Tess) — Aevyn defeated; the holocron lost to the Vigil; Greyline extraction disrupted by Talon. The board does not survive. The lie is tested by failure.",
+          "lie_unchanged": "Ch 37 (A Board Cleared) — POV: Tess. Survives. Learns Iresh failed. 'Completely?' 'No.' Retreats deeper into One Sith service. Dorvan remains a future target. The hand learns and adjusts. The system Tess serves is older and longer than this operation. The lie continues; the Book 2 cycle begins."
+        }
+      }
+    },
+    {
+      "name": "Aelia Vandros",
+      "role": "Primary antagonist (public face); Executive Director of the Shedu Maad Memorial Foundation; the legible face of the Vigil",
+      "age": "Late fifties",
+      "force_status": "Non-Force-sensitive",
+      "three_dimensions": {
+        "surface": "Warm, polished, civic-minded. Executive Director of the Shedu Maad Memorial Foundation — scholarships for children of GA service members, grief counseling, casualty-record preservation, legal/benefits advocacy. Writes condolence notes by hand. Remembers scholarship recipients' names. Speaks in clarity, resilience, steadiness, continuity, preparedness. Rarely raises her voice — her danger is credibility, not volume.",
+        "backstory_inner_demons": "Former Senate staffer and widow from the Second Galactic Civil War. Lost her husband to the war Jacen helped shape and Caedus then deepened. The Foundation grew out of personal grief converted to civic service — and the Vigil grew out of the private donor circle of grieving families who believed the official postwar story left too much buried. Aelia genuinely helps grieving families while privately preserving an ideology that grew from Jacen's wartime logic. Privately thinks of Jacen as Jacen, not Caedus. Never publicly defends 'Darth Caedus.' Her compassion and corruption are entangled. The dangerous belief: 'The crimes were real. So was the insight.'",
+        "action_under_pressure": "Beats Ben socially before she is exposed operationally. Translates moral horror into civic language. Corrects simplifications gently. Uses grief as both truth and shield. When the Foundation's public legitimacy is threatened by Korda's exposure and the Iresh failure, she does not fight publicly. She accepts the bleaker truth — that she cannot serve both meanings of the dead simultaneously — and steps down 'to preserve the Foundation's legitimate charitable work.' The private moral collapse is visible but unspoken; she does not recant. The civic register holds her up even as she leaves."
+      },
+      "weiland_arc": {
+        "lie_believed": "The dead can be made to mean something through Jacen's preserved insight — clarity, resilience, steadiness, preparation. The crimes were real, AND the insight was real, AND the Foundation's public charity is real, and all three can coexist within one organization without compromising any of them.",
+        "ghost": "The death of her husband to a war Jacen helped shape and Caedus then deepened. Grief converted into civic service. She has spent decades being the warm public face of bereavement-as-meaning.",
+        "want": "Protect the Foundation, its mission, and the legible face of grief-made-meaningful for families who genuinely need both.",
+        "need": "Separate the real charity from the Jacen-shaped ideology she cannot publicly defend — or, failing that, accept that the entanglement makes the second a tumor in the first.",
+        "arc_type": "disillusionment",
+        "arc_summary": "Disillusionment. Aelia begins the book sustained by the conviction that the Vigil's preservation of Jacen's insight and the Foundation's public charity are co-extensive — both honor the dead. Across Acts 2-3 the operational machinery beneath her cause becomes undeniable: Korda exposed; Korda killed by Tess; the Iresh operation revealed as identity-shaping weaponization; Aevyn defeated; the holocron lost. She glimpses the bleaker truth — that the entanglement made the charity a vehicle for harm she helped enable — and accepts it without publicly recanting. Steps down to preserve the part she can still defend. Private moral collapse visible; the public story closes; the harm persists.",
+        "initial_phase": "lie_established",
+        "arc_phase_map": {
+          "lie_established": "Ch 17 (The Candle Room) — Ben visits the Foundation. Aelia is warm, prepared, legitimate, hard to attack. Writes a handwritten condolence note while Ben watches. Beats Ben socially. The Foundation's public good is real; the Vigil's ideology lives quietly underneath, and from her perspective neither contaminates the other.",
+          "lie_reinforced": "Ch 17 (same chapter) — Ben sees scholarship walls, occupied grief rooms, casualty records the government misplaced, families who genuinely need the organization. Aelia's compassion is real, which reinforces her conviction that her cause is right.",
+          "lie_challenged": "Ch 19-20 (Korda Runs + Containment / PP2) — Korda exposed as Foundation security guarding an active Vigil operation; Tess kills Korda as the public fall guy. Aelia sees the operational machinery beneath her cause being managed by men who treat people as logistics. She cannot unsee it.",
+          "truth_glimpsed": "Ch 33-34 (The Flood + After the Glasswell) — Iresh fails. Aevyn presumed dead. The holocron lost to the Vigil. The identity-shaping weaponization is exposed (in the documentary trail Iressa transmitted and in Ben's post-Iresh report through Saba). Aelia glimpses that the harm was real, not redemption — that her cause has been used to make the same kind of dead her husband became.",
+          "bleaker_truth_accepted": "Ch 35 (The Foundation Survives) — Aelia steps down in public disgrace 'to preserve the Foundation's legitimate charitable work.' Korda is the dead fall guy. The Foundation's lawyers buffer her from criminal liability. She accepts the bleaker truth: that she cannot serve both meanings of the dead simultaneously, and that the harm she helped enable is uglier than her conviction.",
+          "arc_resolved_bleak": "Ch 35 (same chapter, into the coda) — private moral collapse visible but unspoken. She does not recant. The public story closes around Korda. The harm persists. The Foundation survives — diminished but operating. Aelia's lie has been replaced by a bleaker truth she cannot live in public."
+        }
+      }
+    }
+  ],
+  "referenced_characters": [
+    {
+      "name": "Luke Skywalker",
+      "role": "Ben's father; senior Master of the Jedi Order (no longer Grand Master post-FOTJ — Saba Sebatyne holds the title). Three Book 1 conversations: Ch 3 first holo call, Ch 16 Midpoint paternal+institutional call, Ch 20 PP2 second holo call from the Skywalker apartment, Ch 36 in-person 'Gone where?' coda exchange. Post-Crucible quieter — implication only, Mortis never named. Emotionally intelligent; not absent, foolish, or conveniently fooled.",
+      "initial_location": "Shedu Maad (Hapes Cluster) — the Jedi Order's headquarters since the post-FOTJ relocation",
+      "initial_emotional_state": "Stepped-back, paternal, quieter than he used to be. Loves his son. Trusts him. Worried. Those are not opposites."
+    },
+    {
+      "name": "Bren Korda",
+      "role": "Director of Protective Services for the Shedu Maad Memorial Foundation; old GAG security lieutenant in respectable clothing. Smooth with superiors, polite in public, cruel through process. Talon knew him during GAG and disliked him. Killed/discarded by Tess as the public fall guy at PP2 (Ch 20).",
+      "initial_location": "Coruscant — Shedu Maad Memorial Foundation headquarters",
+      "initial_emotional_state": "Confident in the visible system, watchful of exposure. Treats compassion as a security vulnerability."
+    },
+    {
+      "name": "Sela Dray",
+      "role": "Iresh local guide and settlement liaison; early thirties. Survives Book 1. Knows weather, paths, chimes, taboo ground. Refuses Force theory; speaks in survival rules. Climax job: saves Tavi and locals through local knowledge Ben does NOT have. Calls Ben 'Skywalker' through Ch 28; shifts to 'Ben' from Ch 34 onward — conditional trust only.",
+      "initial_location": "Iresh — local settlement near the Glasswell exclusion zone",
+      "initial_emotional_state": "Wary; angry that offworlders have already begun breaking her home and worried about Tavi"
+    },
+    {
+      "name": "Tavi Dray",
+      "role": "Sela's younger relative/apprentice figure; pressured/paid by the Foundation into the Glasswell exclusion zone as a guide. Younger, practical, overconfident, loved. Trapped below during Aevyn's forced opening of the Glasswell cache (Ch 30); rescued by Ben's Jacen-shaped crisis logic at Ch 31. Imperfect Sela/Tavi reunion in Ch 34. Survives Book 1.",
+      "initial_location": "Iresh — already inside the Glasswell exclusion zone when the narrative reaches him; present through carved guide-token, field recorder, warning marks, and Sela's stake before being seen in person",
+      "initial_emotional_state": "Trapped, scared, conscious of having taken the work despite Sela's warnings"
+    },
+    {
+      "name": "Vara Senn",
+      "role": "Former Lost Tribe of Sith apprentice now doing mercenary work. Dangerous but undisciplined; uses pressure, fear, and domination — crude dark-side contrast to Aevyn's refined Jacen-derived method. Engages Ben in a short ugly lightsaber clash at the Ch 14-15 archive cleanup, then takes Iressa hostage when combat doesn't quickly work. Disappears into the contractor pool after PP1; does NOT return on-page in Book 1. Book 2 seed.",
+      "initial_location": "Coruscant — attached to the Cinderline archive cleanup team at the old GAG quarantine archive (Ch 14)",
+      "initial_emotional_state": "Sharp, status-conscious, irritated by the indignity of selling Force talent to clients who pay late"
+    },
+    {
+      "name": "Commander Elya Rane",
+      "role": "Opening victim and normal-person history lens. Former GAG records/logistics officer who discovers the duplicated Jacen-encrypted wartime quarantine/survey shipment manifest in Ch 1 and contacts Ben through an obsolete GAG-coded channel because she once quietly removed Ben's name from a wrong approval field when he was fourteen. Murdered by Aevyn via Jacen-derived Force-interrogation; the fragment she preserved survives beyond what Aevyn extracts.",
+      "initial_location": "Coruscant — at her workstation when she discovers the duplicated manifest",
+      "initial_emotional_state": "Afraid; competent; conscious that the wrong people will notice the discovery before she can route it safely"
+    },
+    {
+      "name": "Saba Sebatyne",
+      "role": "Grand Master of the Jedi Order. Barabel. Assumed the title at the end of FOTJ when Luke Skywalker stepped down. Measured, fierce when needed, committed to institutional stability. Appears in ONE Ch 16 holo call from Ben (institutional report after Iressa's death). Speaks with Barabel gravity — careful, sharp questions, formal review register. NOT the villain — the slowness of her correct review process is the institutional pressure that forces Ben's Midpoint pivot.",
+      "initial_location": "Shedu Maad — Jedi Order headquarters",
+      "initial_emotional_state": "Grand-Master-formal; treats Ben's report with full gravity and full institutional honesty"
+    }
+  ],
+  "relationship_arcs": [
+    {
+      "dyad": "Ben/Talon",
+      "arc_type": "deepening",
+      "arc_summary": "Forced partnership becomes equality through action — Ben saves Talon physically at the storm-line escape; Talon gets them out operationally. Across Acts 2-3 they move from transactional cover to shared competence and shared cost. By Ch 34, Talon can name Ben's holocron omission without rupturing the partnership.",
+      "ghost": "Talon was a fourteen-year-old surviving the Yuuzhan Vong evacuations; Ben was a fourteen-year-old in GAG. Both survived adjacent ugly rooms but neither remembers the other from then. Ben categorized the GAG year away; Talon carries it as the record that ruined him.",
+      "lie": "We're using each other; the partnership ends when the case ends.",
+      "want": "Get through this case alive.",
+      "need": "Be the partner who refuses to let the other simplify himself.",
+      "arc_phase_map": {
+        "initial_state": "Ch 6 (Visitor Room) — Talon clocks Ben as Skywalker/Jedi/former GAG; Ben needs the man who can recognize the manifest fraud. Mutual instrumental framing.",
+        "first_alliance": "Ch 9 (Storm Line — FPP) — Ben saves Talon physically by breaking cover at the prison; Talon gets them out operationally via maintenance routes, storm shutters, camera lag. Equality through action.",
+        "reluctant_trust": "Ch 11 (Back Through the Rain) — Skywalker apartment. Talon jokes until he sees the family holo, makes a small dark joke, sees Ben's face, stops. First time the valve fails in a way Ben sees.",
+        "mutual_recognition": "Ch 22 (Maro Tess) — Talon tells Ben about Glasshook, Tess, the corridor moment 'Move her first.' The confession is in his own register (jokes badly, then stops). Ben listens without prompting an apology.",
+        "shared_action": "Ch 33 (The Flood) — both work the Glasswell extraction. Ben holds the structure; Talon disrupts Greyline extraction and reroutes escape logistics. Different competencies, one operation.",
+        "resolved_state": "Ch 34 (After the Glasswell) — Talon suspects Ben's holocron decision is not clean and names it without rupturing the partnership. The first time the joke valve has been earned, not used."
+      },
+      "payoff_chapter": 34
+    },
+    {
+      "dyad": "Ben/Luke",
+      "arc_type": "quiet_alliance",
+      "arc_summary": "Loving alliance at distance. Luke is geographically and institutionally limited (Shedu Maad; senior Master, no longer Grand Master); communicates with Ben on Coruscant by holo. The arc plays through three holo calls and one in-person coda exchange. Luke senses the omission in Ch 36 and does not force the answer. The father who knows is the strongest indictment the book can offer.",
+      "ghost": "Mara's death by Jacen. The silence between them about what Ben actually was during the GAG year. Luke's own post-Crucible state — implication only, Mortis never named — leaving him quieter than he used to be.",
+      "lie": "Father-son intimacy at distance requires holding back the truth that would force closeness.",
+      "want": "Stay father and son without the Order between them.",
+      "need": "Tell the truth to Luke when he asks, even when the technically-true answer would let Ben keep the omission.",
+      "arc_phase_map": {
+        "initial_state": "Ch 3 (Quietly) — first holo call. Luke listens, asks two or three quiet questions, classifies the matter as sensitive but not catastrophic; tells Ben to verify quietly and come back if it is larger. Paternal at distance. One quiet line of post-Crucible texture.",
+        "first_strain": "Ch 16 (Midpoint Luke + Saba calls) — Ben holo-calls Luke after Iressa's death; Luke directs Ben to Saba. Ben holo-calls Saba; institutional path is correct and too slow. Ben pivots. Luke hears the pivot in Ben's voice and does not try to stop him.",
+        "second_strain": "Ch 20 (PP2 brief Luke call from the apartment) — Ben tells Luke what has happened (cache burned, Talon framed, Iresh accelerated). Luke says he understands and he will do what he can from where he is. The call ends with Luke knowing what Ben has just decided. He does not try to stop him.",
+        "unresolved_coda": "Ch 36 (It's Gone) — first in-person Luke conversation since the holo calls. Luke asks about the holocron. Ben answers technically true: 'Somewhere it can't hurt anyone.' 'That wasn't what I asked.' 'I know.' Luke senses the incompleteness.",
+        "arc_resolved": "Ch 36 (same scene) — Luke does not force the answer. Loved, unresolved. The father who knows is the strongest indictment the book can offer; the alliance survives the unspoken thing."
+      },
+      "payoff_chapter": 36
+    },
+    {
+      "dyad": "Ben/Iressa",
+      "arc_type": "transactional",
+      "arc_summary": "Awkward, useful, ends in death. Iressa treats Ben as a complication before a hero; Ben respects her competence; they spend three working chapters together and never quite stop being transactional. Her death wounds Ben because she was alive, specific, and acting.",
+      "ghost": "Ben was a fourteen-year-old in GAG; Iressa worked the manifest records that turned bodies into approval fields. Both touched the same machine from different angles.",
+      "lie": "This is a transaction; we owe each other nothing beyond fees.",
+      "want": "Get the information and get out (both).",
+      "need": "Recognize each other as people, not roles, before time runs out.",
+      "arc_phase_map": {
+        "initial_state": "Ch 12 (Iressa Vossk Does Not Know You) — Iressa charges the Jedi complication fee; lies about exits; denies knowing Talon; moves Ben away from her cameras. Ben is the inconvenience.",
+        "first_alliance": "Ch 13 (The Index Under the Index) — Iressa reconstructs around Jacen's encryption at her secondary cache. Ben sees professionalism become real competence.",
+        "moment_of_truth": "Ch 15 (The Bad Way) — Iressa transmits the dying package while Vara presses her memory. Ben sees her clearly for the first time as the case ends her life.",
+        "resolved_state": "Ch 16 (Midpoint) — Ben examines Iressa's transmission and carries her work forward. The transaction has outlived the transactor; Ben's pivot to active disruptor is what her death made possible."
+      },
+      "payoff_chapter": 16
+    },
+    {
+      "dyad": "Ben/Aelia",
+      "arc_type": "rupturing",
+      "arc_summary": "Social defeat into operational exposure. Aelia beats Ben socially in Ch 17 because the Foundation's public work is real and Ben cannot morally flatten her. Across PP2, Iresh, and the coda the operational machinery beneath her cause becomes undeniable. By Ch 35 Aelia steps down quietly; Ben knows the public story is incomplete.",
+      "ghost": "Mara's death; the Foundation grew from grief Aelia genuinely shares; Ben grew from the wound the Vigil now wants to weaponize.",
+      "lie": "Civic compassion and Vigil ideology can coexist within the same organization without compromising either.",
+      "want": "Aelia: protect the Foundation. Ben: expose the Vigil.",
+      "need": "Aelia: separate the real charity from the Jacen-shaped ideology. Ben: stop conflating Aelia-the-person with the system she fronts.",
+      "arc_phase_map": {
+        "initial_state": "Ch 17 (The Candle Room) — Aelia beats Ben socially. Handwritten condolence note. Scholarship recipients remembered by name. Ben over-explains at the front desk; is offered tea by a young Foundation staffer; finds himself on the back foot before he sits down with her.",
+        "rupturing": "Ch 19-20 (Korda Runs + Containment / PP2) — Korda exposed as Foundation-side security guarding an active Vigil operation; Tess kills Korda. Aelia's operational machinery is now visible to Ben — and visible to her in a way she cannot unsee.",
+        "second_rupture": "Ch 33 (The Flood) — Iresh fails. The Vigil's identity-shaping recovery operation collapses publicly. Aelia's cause cannot survive in its old shape.",
+        "resolved_state": "Ch 35 (The Foundation Survives) — Aelia steps down quietly to preserve the Foundation's legitimate work. Korda is the dead public fall guy. Ben knows the public story is incomplete. The harm persists."
+      },
+      "payoff_chapter": 35
+    },
+    {
+      "dyad": "Ben/Aevyn",
+      "arc_type": "rupturing",
+      "arc_summary": "Rival students of Jacen, argument through action. Ben does not remember Aevyn from the GAG year; Aevyn remembers the corridor moment and the fourteen-year-old Ben who walked past it. Their confrontation across Acts 2-3 is the book's central mirror beat: Ben using Jacen's lessons without surrendering ownership; Aevyn insisting that survival without surrender is impossible. The duel resolves Book 1's case and ruptures the dyad open for Book 2.",
+      "ghost": "Jacen as their shared teacher — Ben as primary student (whose father took him back), Aevyn as side project (whose teacher died). The corridor moment that Aevyn replays and Ben never knew happened.",
+      "lie": "Aevyn: Jacen Solo can be separated from Darth Caedus, and the lessons honor the teacher. Ben: I categorized the GAG year away and the lessons are inert.",
+      "want": "Aevyn: recover the holocron and finish the lesson. Ben: stop the Iresh operation and deny the Vigil.",
+      "need": "Aevyn: admit he was useful, not chosen. Ben: refuse to let Jacen own what he does with Jacen's lessons.",
+      "arc_phase_map": {
+        "initial_state": "Ch 1 (Wrong Field) — Aevyn kills Elya off-page from Ben; Ben recovers the fragment with Jacen's personal encryption marker. Adversarial, unseen. Ben does not yet know Aevyn exists.",
+        "first_strain": "Ch 27 (The Other Student) — Aevyn unsettles Ben directly with private Jacen-shaped detail. Both recognize the Jacen-shape in the other for the first time.",
+        "rupturing": "Ch 30 (Opening) — Aevyn forces the Glasswell cache open by making the place remember the moment Jacen sealed it. The corridor flashback surfaces as fragment for Aevyn. Tavi is trapped below.",
+        "point_of_no_return": "Ch 31 (Too Slow) — Ben uses Jacen-shaped crisis logic to save Tavi, Sela's locals, and others. Aevyn recognizes the pattern: 'He taught you that.' The duel is no longer avoidable.",
+        "shared_action": "Ch 32 (What He Left — climax duel) — two students of Jacen arguing through action across the collapsing Glasswell. Aevyn's blade fractures more visibly each time Ben's lessons land. Ben wins by refusing to let Jacen own what he does. Aevyn is defeated; Ben preserves the holocron.",
+        "resolved_state": "Ch 38 (White-Blue Spark) — Aevyn survives in secret, broken-open. The rupture remains open. The cycle continues into Book 2."
+      },
+      "payoff_chapter": 32
+    },
+    {
+      "dyad": "Ben/Sela",
+      "arc_type": "transactional",
+      "arc_summary": "Conditional trust never granted as ownership. Sela needs Ben to stop worse offworlders and get Tavi back; Ben needs Sela's local knowledge. She helps because the goals overlap, not because she grants him her home.",
+      "ghost": "Offworlders with causes have already broken Iresh; Tavi took the Foundation's money against Sela's warnings.",
+      "lie": "Offworlders with causes always break this place; help offered is a kind of taking.",
+      "want": "Sela: Tavi back and offworlders out. Ben: stop the Vigil's Iresh operation.",
+      "need": "Conditional trust earned through specific local knowledge shared without the offworlder claiming any of it.",
+      "arc_phase_map": {
+        "initial_state": "Ch 24 (Iresh Wind) — Sela refuses Ben and Talon at first. They watch her repair a chime line, argue over supply access. She is in the middle of ordinary local responsibility when they arrive.",
+        "first_alliance": "Ch 24 (same chapter) — Sela agrees on her terms. Finding Tavi and stopping the offworlders overlap.",
+        "working_partnership": "Ch 25-28 (Some Places Remember Too Loudly / Memorial Survey / The Other Student / Tavi) — chime lines, taboo ground, Tavi's recorder, the rules of where not to step when the lake is flat. Sela guides; Ben listens.",
+        "shared_action": "Ch 31-33 (Too Slow / What He Left / The Flood) — Sela saves locals through knowledge Ben does not have; Ben saves Tavi through crisis logic Sela cannot replicate. Two different competencies, one rescue.",
+        "resolved_state": "Ch 34 (After the Glasswell) — imperfect Sela/Tavi reunion. Sela shifts to 'Ben' from 'Skywalker' — conditional trust, never granted ownership of her home. 'You saved him. That does not make this place yours.'"
+      },
+      "payoff_chapter": 34
+    },
+    {
+      "dyad": "Talon/Tess",
+      "arc_type": "rupturing",
+      "arc_summary": "Ownership wound. Tess was Talon's mentor; saw him clearly and decided what he should become; reassigned him after Operation Glasshook into the logistics network that later made him look guilty. The book never gives them an on-page scene together; the rupture plays through Talon's prison habits, Tess's PP2 tradecraft fingerprint on the frame, Talon's Ch 22 confession, and Talon disrupting Greyline at the Glasswell.",
+      "ghost": "Operation Glasshook (Coruscant interdiction mission; Talon disobeyed to save trapped civilians/troops; Tess reassigned him out of field duty as punishment and 'education'; the war collapsed before Tess could bring him back). Tess's intent was correction; the cost was Talon's ruined record.",
+      "lie": "Talon: Tess saw me clearly and used the best parts of me. Tess: Talon was a sentimental field agent who needed logistics to teach him scale.",
+      "want": "Talon: stay free of Tess's awareness. Tess: contain exposure (Talon is one piece of exposure).",
+      "need": "Talon: prove he was not only a tool. Tess: (need never registered).",
+      "arc_phase_map": {
+        "initial_state": "Ch 6 (Visitor Room) — Talon imprisoned at Tarn Velos. Tess off-page but the wound is alive in Talon's prison habits — counting guards, sitting facing the door, pocketing food automatically.",
+        "first_strain": "Ch 20 (PP2 Containment) — Tess frames Talon for a current Coruscant crime with his tradecraft fingerprint. Talon recognizes the work — the particular cover-identity construction, the routing of the planted evidence. The valve does not shut; it freezes. This is Tess saying I see you through professional craft.",
+        "rupturing": "Ch 22 (Maro Tess) — Talon tells Ben about Glasshook, Tess, the corridor moment 'Move her first.' The wound named out loud for the first time.",
+        "lie_consequence": "Ch 33 (The Flood) — Talon disrupts Greyline extraction — the operational arm Tess built — and reroutes escape logistics. Tess never sees this on-screen. The work speaks back at the lesson Tess once gave.",
+        "resolved_state": "Ch 37 (A Board Cleared) — Tess survives, retreats deeper into One Sith service, never registers Talon's specific act against Greyline. The rupture remains open. Book 2 seed: the mentor who taught the student to lose people in paperwork is still in business."
+      },
+      "payoff_chapter": 22
+    },
+    {
+      "dyad": "Talon/Korda",
+      "arc_type": "rupturing",
+      "arc_summary": "Contamination. Korda was old GAG security in respectable clothing — Talon's old institutional ghost in a clean suit. Talon's humor thins or stops in any room Korda enters; Korda makes Talon feel seen in the worst way. Talon's manifest-correction bait sets up Korda's exposure; Tess kills Korda as the public fall guy before accountability lands.",
+      "ghost": "GAG service — Talon believed in the mission and broke from it; Korda believed in advancement and stayed.",
+      "lie": "Talon: I am not contaminated by what Korda became. Korda: Talon's records prove he is guilty.",
+      "want": "Talon: avoid being seen by Korda. Korda: keep the visible system clean and never be the one left holding the dirty work.",
+      "need": "Talon: name Korda's role in the conspiracy. Korda: (unmet; he dies before he can fail).",
+      "arc_phase_map": {
+        "initial_state": "Ch 17 (The Candle Room) — Talon spots Korda. The humor valve thins. Korda is the institutional ghost in respectable clothing; Talon's body recognizes him before Ben sees the connection.",
+        "rupturing": "Ch 18 (Manifest Correction) — Talon submits a fake manifest correction using Iressa's tools; deliberately puts an old version of himself back on the board because catching Korda requires looking like him again.",
+        "point_of_no_return": "Ch 19 (Korda Runs) — Talon and Ben follow Korda's response through a Coruscant logistics annex; nearly corner him; capture enough physical evidence to point the trail at Iresh.",
+        "lie_consequence": "Ch 20 (Containment — PP2) — Tess kills Korda as the public fall guy before Talon's effort can land. Korda dies before accountability reaches him; Talon's record remains soiled by the system that built them both.",
+        "resolved_state": "Ch 20 (same) — the contamination wound persists. Korda is dead; Talon is still hunted; the system survives. The lie is consequenced but not refuted."
+      },
+      "payoff_chapter": 20
+    },
+    {
+      "dyad": "Talon/Iressa",
+      "arc_type": "transactional",
+      "arc_summary": "Old debts, old irritation, shared survival of adjacent ugly rooms. They feel like people who survived the same machine from different desks. Their banter implies history without over-explaining it. Iressa's death affects Talon more than he shows.",
+      "ghost": "Both worked the GAG manifest environment after Tess reassigned Talon under Elya Rane's supervision. Iressa worked manifests Talon's authorization codes were on. Neither was the worst person in the room and neither was the best.",
+      "lie": "We don't owe each other anything beyond what the ledger says.",
+      "want": "Talon: information from Iressa. Iressa: payment plus protection from Talon's trouble.",
+      "need": "Recognize the shared survival before time runs out.",
+      "arc_phase_map": {
+        "initial_state": "Ch 12 (Iressa Vossk Does Not Know You) — Iressa pretends not to know Talon while clearly knowing him. Talon names the pattern and keeps moving. The debt amount changes every time she mentions it.",
+        "working_partnership": "Ch 13 (The Index Under the Index) — Iressa and Talon share the reconstruction work at her secondary cache. Old GAG instincts surface for both of them. The transaction is functional.",
+        "moment_of_truth": "Ch 15 (The Bad Way) — Iressa dies under Vara's hostage pressure. Talon is more affected than he wants to show — quiet at the wrong moment, eats nothing on the trip out, makes a bad joke about her invoicing policy and then stops.",
+        "resolved_state": "Ch 16 (Midpoint) — Talon presses Ben about the option he refused. Carries Iressa's death into the next decisions. The transactional frame outlasts the transactor."
+      },
+      "payoff_chapter": 15
+    }
+  ]
+}

@@ -31,6 +31,32 @@
       "enum": ["dialogue_led", "balanced", "interior"],
       "description": "Expected dialogue mode for this scene. Drives drafter/revision behavior. `dialogue_led` = 40-55% dialogue target, back-and-forth exchange carries the scene. `balanced` = no hard floor, dialogue and interiority share weight. `interior` = POV-isolation scene, interior monologue and observation dominate even if additional characters are physically present. When omitted, derive() in src/quality/dialogue_expectation.py infers a safe default from scene_type/conflict_type/characters_present. Explicit override is the escape hatch for scenes where a second character is background (e.g. sparring partner in a sequel scene)."
     },
+    "dialogue_density_target": {
+      "type": "string",
+      "enum": ["high", "medium", "low"],
+      "description": "Optional explicit dialogue-density target consumed by ProseStylist and RhythmValidator. `high` = 55%+ dialogue-bearing paragraphs (Zahn baseline ~67%); `medium` = 35-55%; `low` = <35% (POV-isolation, atmospheric, contemplative scenes). When omitted, the drafter and validator derive a default from `dialogue_expectation` and `characters_present`: any scene with 2+ characters present and `dialogue_expectation` != `interior` defaults to `high`. The RhythmValidator's `dialogue_starved` check only fires when the resolved target is `high` or `medium`."
+    },
+    "interiority_budget": {
+      "type": "object",
+      "description": "Optional interiority-rationing contract consumed by ProseStylist. Caps the total word count and paragraph count of interior-monologue / character-reflection prose in this scene so the drafter cannot accrete pages of 'he did not name the feeling' style rumination. Default when omitted: derive from `dialogue_expectation` (`dialogue_led` → 150 words / 2 paragraphs; `balanced` → 250 / 3; `interior` → 600 / 6).",
+      "additionalProperties": false,
+      "properties": {
+        "max_words": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Total interior-monologue word budget across the scene. The drafter should treat this as a hard ceiling, not a target. A scene with multiple short reflection beats is better than one long inner-monologue paragraph."
+        },
+        "max_paragraphs": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Total interior-monologue paragraph budget. Caps the number of distinct unbroken interior beats. Reflection beats longer than this count must be broken with dialogue, action, or environmental interruption."
+        },
+        "rationale": {
+          "type": "string",
+          "description": "Optional note explaining why this scene gets the budget it does. Useful when a scene deviates from the default derived from dialogue_expectation (e.g. an interior scene budgeted tight, or a dialogue-led scene granted extra reflection because it's a major emotional pivot)."
+        }
+      }
+    },
     "turning_point": { "type": "string", "minLength": 1 },
     "turning_point_detail": {
       "type": "object",

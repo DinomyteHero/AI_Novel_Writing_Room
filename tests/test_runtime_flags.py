@@ -462,3 +462,89 @@ def test_shipping_books_keep_canon_apply_local_fixes_off(book_slug: str):
     # Belt-and-braces: whitelist must stay empty so an accidental flag flip
     # still has no whitelisted category to act on.
     assert merged["runtime"]["canon_expert"]["local_fixes_whitelist"] == []
+
+
+# --- Rhythm + continuity validator shipping-book protection ----------------
+
+
+@pytest.mark.parametrize("book_slug", [
+    "the-ruusan-atonement",
+    "legacy-of-the-force-betrayal",
+])
+def test_shipping_books_keep_rhythm_validator_off(book_slug: str):
+    """RhythmValidator is telemetry-only but adds new revision_debt rows.
+    Keep off on shipping books until a per-book review confirms the per-scene
+    issue volume is signal rather than noise.
+    """
+    import json
+    seed_path = Path(
+        f"data/franchises/star-wars-legends-eu/books/{book_slug}/concept_seed.json"
+    )
+    if not seed_path.exists():
+        pytest.skip(f"seed not present: {seed_path}")
+    with seed_path.open(encoding="utf-8") as fh:
+        seed = json.load(fh)
+
+    merged = load_runtime_flags(concept_seed=seed)
+    assert merged["runtime"]["rhythm_validator"]["enabled"] is False, (
+        f"{book_slug} must keep runtime.rhythm_validator.enabled=false until "
+        "the per-book review approves the rhythm-telemetry surface"
+    )
+
+
+@pytest.mark.parametrize("book_slug", [
+    "the-ruusan-atonement",
+    "legacy-of-the-force-betrayal",
+])
+def test_shipping_books_keep_continuity_validator_off(book_slug: str):
+    """Cross-chapter continuity validator runs at bundle-compile time and
+    reads optional scene-card fields (end_state, start_state, objects_at_*).
+    The shipping books don't have those fields populated yet, so enabling the
+    flag would be a no-op at best and a confusing report at worst. Keep off
+    until the per-book scene cards have been migrated.
+    """
+    import json
+    seed_path = Path(
+        f"data/franchises/star-wars-legends-eu/books/{book_slug}/concept_seed.json"
+    )
+    if not seed_path.exists():
+        pytest.skip(f"seed not present: {seed_path}")
+    with seed_path.open(encoding="utf-8") as fh:
+        seed = json.load(fh)
+
+    merged = load_runtime_flags(concept_seed=seed)
+    assert merged["runtime"]["continuity_validator"]["enabled"] is False, (
+        f"{book_slug} must keep runtime.continuity_validator.enabled=false "
+        "until end_state / start_state fields are populated on its scene cards"
+    )
+
+
+@pytest.mark.parametrize("book_slug", [
+    "the-ruusan-atonement",
+    "legacy-of-the-force-betrayal",
+])
+def test_shipping_books_keep_rhythm_editor_off(book_slug: str):
+    """RhythmEditor mutates saved prose via bounded literal substitutions.
+    Same safety class as micro_repair. Keep off on shipping books until a
+    per-book parity test confirms the edits land within voice.
+    """
+    import json
+    seed_path = Path(
+        f"data/franchises/star-wars-legends-eu/books/{book_slug}/concept_seed.json"
+    )
+    if not seed_path.exists():
+        pytest.skip(f"seed not present: {seed_path}")
+    with seed_path.open(encoding="utf-8") as fh:
+        seed = json.load(fh)
+
+    merged = load_runtime_flags(concept_seed=seed)
+    rhythm_editor = merged["runtime"]["rhythm_editor"]
+    assert rhythm_editor["enabled"] is False, (
+        f"{book_slug} must keep runtime.rhythm_editor.enabled=false until a "
+        "per-book parity test confirms the literal-edit pass preserves voice"
+    )
+    # Belt-and-braces: ensure the safety caps stay tight if someone flips the
+    # flag without re-tuning the bounds.
+    assert rhythm_editor["max_edits"] <= 10
+    assert rhythm_editor["max_total_changed_chars"] <= 2500
+    assert rhythm_editor["max_changed_ratio"] <= 0.20

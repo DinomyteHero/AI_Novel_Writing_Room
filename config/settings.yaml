@@ -71,7 +71,7 @@ agent_routing:
   # PROSE — DeepSeek V4 Pro is the primary drafter in the lean architecture.
   # The live path keeps broad gates/polish/rewrite agents disabled, then runs
   # one bounded sentence-level edit before saving.
-  prose_stylist:          { backend: cloud, model: deepseekpro, params: { temperature: 0.70, max_tokens: 8192 } }
+  prose_stylist:          { backend: cloud, model: deepseekpro, params: { temperature: 0.70, max_tokens: 8192, provider: { order: [deepseek], only: [deepseek], allow_fallbacks: false } } }
   line_writer:            { backend: cloud, model: gpt54_mini, params: { temperature: 0.35, max_tokens: 8192 } }
   # Retained for opt-in experiments; skipped by default via runtime.lean_prose_only.
   commercial_rewrite:     { backend: cloud, model: gpt54_mini, params: { temperature: 0.45, max_tokens: 8192 } }
@@ -93,7 +93,11 @@ agent_routing:
   # final copy and as the post-polish "velvet rope" scrub. DeepSeek V4 Pro
   # gets the full scene contract and must avoid every forbidden synonym in the
   # failed check, then deterministic code applies only literal substitutions.
-  micro_repair:           { backend: cloud, model: deepseekpro, params: { temperature: 0.1, max_tokens: 1800, reasoning: { effort: "none" } } }
+  micro_repair:           { backend: cloud, model: deepseekpro, params: { temperature: 0.1, max_tokens: 1800, reasoning: { effort: "none" }, provider: { order: [deepseek], only: [deepseek], allow_fallbacks: false } } }
+  # Rhythm-editor agent: literal substring edits to fix detected rhythm
+  # issues from RhythmValidator. Same safety model as micro_repair. Default
+  # off via runtime flag; routing entry must exist for the agent to load.
+  rhythm_editor:          { backend: cloud, model: deepseekpro, params: { temperature: 0.2, max_tokens: 2400, reasoning: { effort: "none" }, provider: { order: [deepseek], only: [deepseek], allow_fallbacks: false } } }
   # Architecture upgrade Slice 4 â€” narrow post-save continuity event extraction
   # from saved prose. Grok 4.1 Fast at t=0.0 for deterministic structured output.
   # max_tokens=2048 is well more than enough for the 5-type narrow schema.
@@ -109,7 +113,7 @@ agent_routing:
   concept_workshop:       { backend: cloud, model: gemini, params: { temperature: 0.7, max_tokens: 8192 } }
   outline_planner:        { backend: cloud, model: gemini, params: { temperature: 0.5, max_tokens: 32768 } }
   seed_builder:           { backend: cloud, model: gemini, params: { temperature: 0.3, max_tokens: 16384 } }
-  plot_architect:         { backend: cloud, model: deepseek, params: { temperature: 0.4, max_tokens: 4096 } }
+  plot_architect:         { backend: cloud, model: deepseek, params: { temperature: 0.4, max_tokens: 4096, provider: { order: [deepseek], only: [deepseek], allow_fallbacks: false } } }
   chapter_blueprint_synthesizer: { backend: cloud, model: gemini, params: { temperature: 0.4, max_tokens: 8192 } }
   canon_scout:            { backend: cloud, model: grok41fast, params: { temperature: 0.1, max_tokens: 1800 } }
 
@@ -300,3 +304,44 @@ runtime:
     post_polish_contract_repair_temperature: 0.1
     post_polish_contract_repair_max_repairs: 5
     post_polish_contract_repair_max_total_changed_chars: 1000
+  # Deterministic prose-rhythm validator. Pure measurement + threshold
+  # bands derived from a Zahn (Scoundrels, 2013) corpus baseline. Emits
+  # revision-debt rows of category prose.rhythm.*. Never blocks a save.
+  # Default off so shipping books keep their current behavior until a
+  # per-book review approves the telemetry surface.
+  rhythm_validator:
+    enabled: false
+    # Override DEFAULT_THRESHOLDS keys here if a book needs custom bands.
+    # Schema matches src/quality/rhythm_validator.DEFAULT_THRESHOLDS.
+    thresholds: {}
+  # Rhythm-editor LLM pass. When enabled, runs after RhythmValidator detects
+  # warn-band issues and applies bounded literal edits. Deterministic safety
+  # caps in src/agents/rhythm_editor.apply_rhythm_edits are enforced
+  # regardless of what the model returns. Default off so a model regression
+  # cannot silently rewrite shipping prose.
+  rhythm_editor:
+    enabled: false
+    # Only fire when the listed issue codes appear in RhythmValidator output.
+    # `rhythm.dialogue_starved` is intentionally absent: dialogue-density
+    # fixes require generative work the drafter should do, not the editor.
+    trigger_codes:
+      - rhythm.em_dash_overuse
+      - rhythm.staccato_cluster
+      - rhythm.opener_monotone
+      - rhythm.abstract_tic
+    # Skip the rhythm-editor pass when there are more issue codes than this -
+    # >N codes signals the drafter produced low-quality prose and a literal
+    # edit pass would be patching noise rather than fixing rhythm.
+    max_trigger_codes: 5
+    # Bounded safety caps applied by apply_rhythm_edits. Widening these is
+    # a deliberate decision; the shipping defaults are intentionally tight.
+    max_edits: 8
+    max_total_changed_chars: 1500
+    max_changed_ratio: 0.15
+  # Cross-chapter continuity validator. Runs at bundle-compile time, before
+  # any drafting begins, to catch character status / location / plot-object
+  # discontinuities across scene boundaries. Pure deterministic check on
+  # scene-card metadata. Default off so existing shipping bundles continue
+  # to compile unchanged.
+  continuity_validator:
+    enabled: false

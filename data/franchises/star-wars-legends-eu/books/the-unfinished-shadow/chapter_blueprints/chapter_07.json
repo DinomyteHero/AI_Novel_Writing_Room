@@ -1,0 +1,34 @@
+{
+  "chapter_number": 7,
+  "chapter_mission": "Cinderline begins the prison snatch under false procedural cover. Lysa manipulates systems; Talon reads the pattern before Ben can. The first snatch team breaches the wing. Ben breaks cover and saves Talon physically, disabling rather than killing and protecting confused prison staff. His restraint is active, not passive — he chooses non-lethal Force work and lightsaber control even when speed would be easier.",
+  "chapter_turn": "Ben can win the fight, but Talon says they are going the wrong way.",
+  "structural_phase": "setup",
+  "pov_allocation": [
+    "Ben",
+    "Talon"
+  ],
+  "scene_count": 1,
+  "scene_plan": [
+    {
+      "scene_number": 1,
+      "role": "escalation",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 3800,
+      "purpose": "Cinderline begins the prison snatch under false procedural cover. Lysa manipulates systems; Talon reads the pattern before Ben can."
+    }
+  ],
+  "reveal_payload": [],
+  "hook_movements": {
+    "planted": [],
+    "advanced": [],
+    "resolved": []
+  },
+  "subplot_obligations": [
+    "SUB_05"
+  ],
+  "relationship_turns": [],
+  "pacing_curve": "rising",
+  "exit_vector": "Ben can win the fight, but Talon says they are going the wrong way.",
+  "chapter_word_target": 3800,
+  "notes": "Source: Chapter Outlines v4.1. Act: Act One — The Body / The Prison / The Partnership. Chapter title: Break Cover.\n\nContinuity note: This is the consolidated lockdown-and-rescue chapter (formerly Chapters 9 and 10). The Cinderline reveal flows directly into Ben’s response without a chapter break.\n\nCharacter voice focus: preserve the exact v1.4 character behavior and dialogue rules for the chapter POV and named participants. Plot first, character second, theme through consequences."
+}

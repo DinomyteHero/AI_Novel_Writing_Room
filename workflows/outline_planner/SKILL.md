@@ -84,6 +84,75 @@ actually needs, not to a uniform-cadence ideal. A 1,500-word single-scene
 chapter and a 4,500-word three-scene chapter can sit beside each other
 without an alarm bell.
 
+#### Multi-POV chapter braiding (optional, recommended for tension)
+
+Single-POV chapters are the safe default. They keep one character's
+emotional thread continuous and let the drafter sink fully into a single
+voice per chapter.
+
+But Zahn / Allston / Stackpole-tier commercial Star Wars tie-ins (and
+most ensemble thrillers) routinely braid 2–4 POVs *within a single chapter*
+when the dramatic shape calls for it. The Scoundrels chapter 1 model is the
+canonical example: three POVs (Imperial captain → Intelligence agent →
+Black Sun sector chief) advance three threads in 3,500 words, each scene
+cutting at a question that the next scene's POV makes more urgent.
+
+Use `pov_sequence` to signal multi-POV intent on a chapter:
+
+```json
+{
+  "chapter_number": 7,
+  "synopsis": "Ben tracks Korda through the Foundation archive; Tess, off-stage, orders Korda's elimination.",
+  "pov_character": "Ben",
+  "pov_sequence": ["Ben", "Tess", "Ben"],
+  "structural_phase": "first_pinch"
+}
+```
+
+`pov_character` remains the dominant / framing POV. `pov_sequence` is the
+ordered list of POVs across the chapter's scenes. The example above asks
+scene-card-authoring to generate three cards — Ben, Tess, Ben — for an
+A-B-A weave that lets the antagonist's calm appear mid-chapter and
+escalate the protagonist's chase on return.
+
+When to braid:
+
+- A protagonist scene whose tension depends on antagonist offstage action
+  the reader needs to *see* now, not hear about later.
+- A chapter whose climax is an ensemble convergence (Glasswell-style).
+- Pinch-point or midpoint chapters where the antagonist's calm functions
+  as a tonal counterweight.
+
+When NOT to braid:
+
+- Quiet character scenes that need uninterrupted interiority.
+- Chapters with a single load-bearing turning point already fully owned by
+  one POV character.
+- Early-act setup chapters where adding POVs would scatter the reader.
+
+Use `scene_briefs` to seed per-scene shape at outline time:
+
+```json
+{
+  "chapter_number": 7,
+  "pov_sequence": ["Ben", "Tess", "Ben"],
+  "scene_briefs": [
+    {"scene_number": 1, "pov": "Ben", "thread": "Ben archive chase",
+     "structural_role": "escalation", "turning_point_hint": "Korda routes through Cinderline cutout"},
+    {"scene_number": 2, "pov": "Tess", "thread": "Tess board-clearing",
+     "structural_role": "reveal", "turning_point_hint": "Tess orders Korda eliminated"},
+    {"scene_number": 3, "pov": "Ben", "thread": "Ben archive chase",
+     "structural_role": "aftermath", "turning_point_hint": "Ben finds Korda dead, trail cold"}
+  ]
+}
+```
+
+The `thread` field is load-bearing for braided chapters: it tells
+scene-card-authoring which plot line each scene advances, so the cards
+don't drift into rehashing the same beat from different angles. Distinct
+threads per scene is the test for whether the braid is dramatically
+justified.
+
 ### Step 3 — subplots
 
 Each subplot:

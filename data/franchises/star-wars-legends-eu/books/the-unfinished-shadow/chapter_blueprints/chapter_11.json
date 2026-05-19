@@ -1,0 +1,33 @@
+{
+  "chapter_number": 11,
+  "chapter_mission": "Ben and Talon return from Tarn Velos under pressure. Luke (off-world at Shedu Maad) is doing what he can from distance to contain contradictory prison reports. Because bringing Talon straight to the Jedi would make the case official before there is anything Saba could act on, Ben takes him to the old Skywalker family apartment on Coruscant as a temporary hideout and supply stop. The apartment exposes more of Ben’s family history than Ben intends: a preserved family holo on a shelf, Luke’s quiet stack of old mission logs left where he placed them years ago, traces of Ben’s own GAG past in things he never threw away. Talon jokes until he realizes the room is not funny. Using the recovered fragment and the apartment’s old secure terminal, Talon identifies Iressa Vossk as the person who can prove where the hidden duplicate manifest went.",
+  "chapter_turn": "Talon names Iressa Vossk, and Ben realizes the next lead is not in a battlefield, prison, or Jedi archive — it is inside someone’s carefully rebuilt ordinary life.",
+  "structural_phase": "response",
+  "pov_allocation": [
+    "Ben"
+  ],
+  "scene_count": 1,
+  "scene_plan": [
+    {
+      "scene_number": 1,
+      "role": "escalation",
+      "dialogue_expectation": "dialogue_led",
+      "target_word_count": 4200,
+      "purpose": "Ben and Talon return from Tarn Velos under pressure. Luke (off-world at Shedu Maad) is doing what he can from distance to contain contradictory prison reports."
+    }
+  ],
+  "reveal_payload": [],
+  "hook_movements": {
+    "planted": [],
+    "advanced": [],
+    "resolved": []
+  },
+  "subplot_obligations": [
+    "SUB_01"
+  ],
+  "relationship_turns": [],
+  "pacing_curve": "rising",
+  "exit_vector": "Talon names Iressa Vossk, and Ben realizes the next lead is not in a battlefield, prison, or Jedi archive — it is inside someone’s carefully rebuilt ordinary life.",
+  "chapter_word_target": 4200,
+  "notes": "Source: Chapter Outlines v4.1. Act: Act One — The Body / The Prison / The Partnership. Chapter title: Back Through the Rain.\n\nReader-onboarding note: Use physical objects, but only two: the family holo (Mara, Luke, young Ben — the photo Luke kept) and Luke’s stack of old mission logs (the work he set down years ago and never returned to). Both are texture, not chekhov’s gun. The reader should understand that Ben’s family loves him, but the apartment holds wounds no one has fully sorted. Avoid stacking too many objects — the room should breathe.\n\nContinuity note: This is the first time Talon sees the apartment. Ben and Talon will return here later (post-PP2) under very different circumstances. The drafter should write this visit as a one-night brush past the wound, so that the eventual return reads as a return.\n\nCharacter voice focus: preserve the exact v1.4 character behavior and dialogue rules for the chapter POV and named participants. Plot first, character second, theme through consequences."
+}

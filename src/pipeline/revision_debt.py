@@ -50,6 +50,14 @@ CATEGORIES: frozenset[str] = frozenset({
     "blocker_record",
     "wordcount_drift",
     "compression_advisory",
+    "prose.rhythm.em_dash_overuse",
+    "prose.rhythm.staccato_cluster",
+    "prose.rhythm.opener_monotone",
+    "prose.rhythm.dialogue_starved",
+    "prose.rhythm.abstract_tic",
+    "prose.continuity.character_state_break",
+    "prose.continuity.location_break",
+    "prose.continuity.object_location_break",
 })
 
 SEVERITIES: frozenset[str] = frozenset({"low", "medium", "high"})

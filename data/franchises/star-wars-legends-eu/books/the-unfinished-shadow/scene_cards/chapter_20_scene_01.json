@@ -1,0 +1,83 @@
+{
+  "chapter_number": 20,
+  "scene_number": 1,
+  "structural_phase": "second_pinch",
+  "scene_role": "escalation",
+  "pov_character": "Tess / Ben / Talon (split — open with Tess, then shift)",
+  "mission": "This chapter is the Squeeze. It compounds three antagonist-pressure beats within the space of hours, closing every alternative to Iresh and forcing Ben and Talon underground. Beat 1 — Tess clears the board. Open from Tess’s POV. He determines Korda has become too visible and orders Korda’s elimination. The killing is shaped as a public fall-guy narrative: rogue security director, illegal contractors, no institutional culpability for the Foundation. Tess does not gloat. He treats the death as logistics. “Korda was becoming visible. This cleans the board.” He then orders the Iresh operation accelerated specifically because Ben Skywalker and Talon Veyr are now actively involved. The acceleration is not a panic move — it is a calculated adjustment to the threat profile. Beat 2 — The cache raid. Ben and Talon return to Iressa’s secondary cache (where they have been working since the Midpoint) to find it raided and burned. No bodies. No witnesses. The cache is professionally destroyed in a way that means the documentary reconstruction — the case Ben was building for Saba — is unrecoverable. The professionalism is the threat. Someone told Cinderline where the cache was; the breach point is not identifiable. Whatever case Ben was going to bring back to Shedu Maad is now ash. Beat 3 — The frame and the tempo signal. Within hours of the cache raid, a warrant goes out for Talon on a current Coruscant crime he could not have committed. Planted biometric or comm signature evidence. The frame is professionally constructed in a way Talon recognizes — Tess’s tradecraft fingerprint is on it. Specific cover-identity construction patterns, a particular routing of the planted evidence. Talon does not rage. He goes quiet. The valve does not shut; it freezes. Simultaneously, Talon reads through public-facing indicators (freight aggregator patterns, civil-aviation filings using cover names, a still-floating old contact declining a casual meet) that Cinderline has accelerated Iresh staging past the timeline they captured from Korda. Whatever margin Ben thought he had is gone. Cumulative effect: The documentary path is closed (cache destroyed). Talon’s legal cover is destroyed (frame). The timeline is destroyed (acceleration). Even with Saba’s full institutional support, there is no case to bring her and no time to bring it. The only door still open is going to Iresh themselves, immediately, off-grid. Relocation to the apartment: With the cache destroyed and Talon’s location compromised by the warrant, Ben and Talon have nowhere to go but the Skywalker family apartment, which the Vigil does not connect to either of them as an operational location. They relocate that night. The apartment becomes their final refuge for the run-up to Iresh. Second Luke holo call: From the apartment, Ben holo-calls Luke at Shedu Maad. Brief. Ben tells him what has happened. Luke does not tell Ben to come to Shedu Maad. He does not tell him to go to Iresh. He says he understands and he will do what he can from where he is. The conversation ends with Luke knowing what Ben has just decided. The call is short, quiet, and ends without resolution.",
+  "why_now": "Chapter 20 occupies the second_pinch phase and carries the next locked outline turn.",
+  "conflict": "Tess should feel terrifying because he is calm and operational. He does not rage, he does not gloat, he just clears the board. The cache raid should land through absence rather than action — Ben and Talon walk into a destroyed space, no enemy present, only the evidence of professionalism. The frame should make Talon go cold, not hot. The Luke call should be the quietest beat in the chapter, and the most painful. Reader-onboarding / clarity note: Plain-language consequence: the bad guys just closed every option Ben had except the most dangerous one. They did it surgically. They did it because Ben is involved. The clock is no longer theoretical. Craft notes: - The cache raid happens off-screen for Ben. He arrives after. The reader experiences the loss through the destroyed space. - Who told Cinderline where the cache was stays unanswered. The drafter should plant the question without resolving it. - Tess’s tradecraft fingerprint on the frame should be quiet, not declamatory. Talon notices, gives one small reaction, names it in a sentence when Ben asks.",
+  "conflict_type": "interpersonal",
+  "dialogue_expectation": "dialogue_led",
+  "turning_point": "Ben and Talon, hiding in the Skywalker family apartment, begin preparing the off-grid transit to Iresh.",
+  "closing_hook": "Ben and Talon, hiding in the Skywalker family apartment, begin preparing the off-grid transit to Iresh.",
+  "characters_present": [
+    "Ben Skywalker",
+    "Talon Veyr",
+    "Luke Skywalker",
+    "Iressa Vossk",
+    "Bren Korda",
+    "Colonel Maro Tess",
+    "Saba Sebatyne"
+  ],
+  "setting": "Three locations. (A) A Greyline Strategic Services secure office on the forty-second floor of a mid-tier Coruscant commercial tower — Tess's POV opens here: sleek, clean, anonymous, durasteel desk, single visitor chair, no personal effects. (B) Iressa's secondary cache, found burned and raided when Ben and Talon return — slagged terminals, ash where her notes were. (C) The Skywalker family apartment, where Ben and Talon relocate that night and Ben holocalls Luke briefly.",
+  "emotional_trajectory": "Tess should feel terrifying because he is calm and operational. He does not rage, he does not gloat, he just clears the board. The cache raid should land through absence rather than action — Ben and Talon walk into a destroyed space, no enemy present, only the evidence of professionalism. The frame should make Talon go cold, not hot. The Luke call should be the quietest beat in the chapter, and the most painful. Reader-onboarding / clarity note: Plain-language consequence: the bad guys just closed every option Ben had except the most dangerous one. They did it surgically. They did it because Ben is involved. The clock is no longer theoretical. Craft notes: - The cache raid happens off-screen for Ben. He arrives after. The reader experiences the loss through the destroyed space. - Who told Cinderline where the cache was stays unanswered. The drafter should plant the question without resolving it. - Tess’s tradecraft fingerprint on the frame should be quiet, not declamatory. Talon notices, gives one small reaction, names it in a sentence when Ben asks.",
+  "stakes": {
+    "personal": "Preserve the POV-specific fear, wound, and immediate want from Character Voice & Life Sheet v1.4.",
+    "interpersonal": "Preserve the relationship pressure named in the outline and character interaction rules.",
+    "external": "Preserve the chapter-level mystery/action consequence and the end-hook pressure."
+  },
+  "sensory_details": "Use only physical details implied by the source outline and bible; do not add new mythology or abstract Force explanation.",
+  "canon_elements_needed": [
+    "Shedu Maad / Hapes Jedi HQ continuity",
+    "Iressa / Civitas / manifest reconstruction logic",
+    "Foundation / Vigil public-charity reality",
+    "Iresh physical geography and local survival rules"
+  ],
+  "target_word_count": 4500,
+  "active_subplots": [
+    "SUB_01",
+    "SUB_02",
+    "SUB_04",
+    "SUB_05",
+    "SUB_06"
+  ],
+  "plot_threads_advanced": [
+    "chapter_20_locked_outline_action"
+  ],
+  "promises_planted": [
+    "PP_04",
+    "PP_11"
+  ],
+  "promises_paid": [],
+  "promises_progressed": [
+    "PP_02",
+    "PP_05",
+    "PP_06",
+    "PP_08",
+    "PP_10",
+    "PP_12"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "HK_07",
+      "action": "plant"
+    }
+  ],
+  "revelations": [
+    "R_08",
+    "R_09"
+  ],
+  "pov_arc_phase": "Tess:lie_established; Aelia:lie_challenged",
+  "notes": "Source: Chapter Outlines v4.1. Act: Act One — The Body / The Prison / The Partnership. Chapter title: Containment (Pinch Point 2).\n\nCharacter voice focus: preserve the exact v1.4 character behavior and dialogue rules for the chapter POV and named participants. Plot first, character second, theme through consequences.",
+  "scene_voice_permissions": {
+    "notes": "Use Character Voice & Life Sheet v1.4 as controlling source for dialogue, behavior, humor, fear, wounds, and interaction rules. Preserve commercial readability: goal, obstacle, movement, reversal, hook.",
+    "anti_patterns": [
+      "do not write theme as thesis",
+      "do not add new plot mythology",
+      "do not let Iresh become abstract before it is physically clear",
+      "do not make Dorrin a third lead or secret mentor"
+    ],
+    "pov_arc_phase": "Tess:lie_established; Aelia:lie_challenged"
+  }
+}

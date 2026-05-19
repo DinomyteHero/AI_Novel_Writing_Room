@@ -1,0 +1,60 @@
+{
+  "chapter_number": 3,
+  "scene_number": 1,
+  "structural_phase": "setup",
+  "scene_role": "decision",
+  "pov_character": "Ben",
+  "mission": "Ben holo-calls Luke while Luke/family are temporarily offworld rather than physically present at Shedu Maad. The conversation is paternal in register - Luke listens carefully, asks two or three quiet questions, and they classify the matter as sensitive but not yet proof. Luke tells Ben to verify quietly and come back if it is larger. He is careful because an official Jedi move (which would have to come from Saba and the Council) could relitigate GAG publicly and scatter the trail before there is anything concrete to hold. Ben is impatient with that caution because the case already feels personally meaningful.",
+  "why_now": "Chapter 3 occupies the setup phase and carries the next locked outline turn.",
+  "conflict": "Luke must be present and loving, not absent — even on holo. The geographic distance (Shedu Maad to Coruscant) and the institutional distance (Luke no longer Grand Master) are both real but understated. Ben should bristle at being managed while still understanding why Luke is careful. Luke should sense that Ben is not only alarmed; he is drawn to the case. One quiet line of texture: Luke looks tired in a way Ben doesn’t quite remember, his eyes seem further away even when he’s looking right at Ben. Ben notices. Ben doesn’t ask.",
+  "conflict_type": "interpersonal",
+  "dialogue_expectation": "dialogue_led",
+  "turning_point": "Ben leaves Shedu Maad for Coruscant to find Elya.",
+  "closing_hook": "Ben leaves Shedu Maad for Coruscant to find Elya.",
+  "characters_present": [
+    "Ben Skywalker",
+    "Commander Elya Rane",
+    "Luke Skywalker",
+    "Saba Sebatyne"
+  ],
+  "setting": "Shedu Maad, Ben's quarters at the Jedi compound — late afternoon, Hapan sunlight angled across the floor. Holocall to Luke (who is temporarily off-world for family/diplomatic business). The room is sparse: a single training mat, an old training-blade rack, a holoframe Ben does not look at directly during the call.",
+  "emotional_trajectory": "Luke must be present and loving, not absent — even on holo. The geographic distance (Shedu Maad to Coruscant) and the institutional distance (Luke no longer Grand Master) are both real but understated. Ben should bristle at being managed while still understanding why Luke is careful. Luke should sense that Ben is not only alarmed; he is drawn to the case. One quiet line of texture: Luke looks tired in a way Ben doesn’t quite remember, his eyes seem further away even when he’s looking right at Ben. Ben notices. Ben doesn’t ask.",
+  "stakes": {
+    "personal": "Preserve the POV-specific fear, wound, and immediate want from Character Voice & Life Sheet v1.4.",
+    "interpersonal": "Preserve the relationship pressure named in the outline and character interaction rules.",
+    "external": "Preserve the chapter-level mystery/action consequence and the end-hook pressure."
+  },
+  "sensory_details": "Use only physical details implied by the source outline and bible; do not add new mythology or abstract Force explanation.",
+  "canon_elements_needed": [
+    "Shedu Maad / Hapes Jedi HQ continuity",
+    "GAG / Jacen / Caedus continuity"
+  ],
+  "target_word_count": 1800,
+  "active_subplots": [],
+  "plot_threads_advanced": [
+    "chapter_03_locked_outline_action"
+  ],
+  "promises_planted": [
+    "PP_12"
+  ],
+  "promises_paid": [],
+  "promises_progressed": [
+    "PP_01",
+    "PP_05",
+    "PP_10"
+  ],
+  "hook_actions": [],
+  "revelations": [],
+  "pov_arc_phase": "Ben arc per concept_seed ensemble_cast.weiland_arc.arc_phase_map",
+  "notes": "Source: Chapter Outlines v4.1. Act: Act One — The Body / The Prison / The Partnership. Chapter title: Quietly.\n\nReader-onboarding note: Use Luke to clarify why reopening GAG is dangerous: GAG was not just Jacen, and too many people survived by pretending they had not helped build it. Also seed: the Order is at Shedu Maad now, Saba is Grand Master, Luke is a senior Master and Ben’s father — Luke can advise but not convene. This is brief; one or two natural lines.\n\nCharacter voice focus: preserve the exact v1.4 character behavior and dialogue rules for the chapter POV and named participants. Plot first, character second, theme through consequences.",
+  "scene_voice_permissions": {
+    "notes": "Use Character Voice & Life Sheet v1.4 as controlling source for dialogue, behavior, humor, fear, wounds, and interaction rules. Preserve commercial readability: goal, obstacle, movement, reversal, hook.",
+    "anti_patterns": [
+      "do not write theme as thesis",
+      "do not add new plot mythology",
+      "do not let Iresh become abstract before it is physically clear",
+      "do not make Dorrin a third lead or secret mentor"
+    ],
+    "pov_arc_phase": "Ben arc per concept_seed ensemble_cast.weiland_arc.arc_phase_map"
+  }
+}

@@ -1007,6 +1007,14 @@ async def main():
 
         micro_repair = MicroRepair(router)
 
+    # Rhythm-editor literal-edit pass. Runtime flag decides whether it ever
+    # runs; routing presence decides whether the agent can be instantiated.
+    rhythm_editor = None
+    if config.get("agent_routing", {}).get("rhythm_editor"):
+        from src.agents.rhythm_editor import RhythmEditor
+
+        rhythm_editor = RhythmEditor(router)
+
     if args.phase >= 2:
         print("Initializing Phase 2 components...")
         (
@@ -1284,6 +1292,7 @@ async def main():
         presence_checker=presence_checker,
         line_writer=line_writer,
         micro_repair=micro_repair,
+        rhythm_editor=rhythm_editor,
         metrics_dashboard=metrics_dashboard,
         character_specialist=character_specialist,
         milestone_gates=milestone_gates,

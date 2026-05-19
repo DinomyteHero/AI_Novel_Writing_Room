@@ -1,0 +1,130 @@
+{
+  "franchise": "star_wars",
+  "continuity": "legends_eu",
+  "continuity_description": "Star Wars Legends EU (pre-April 2014 Expanded Universe). All Legends-published material through Crucible (2013) is valid canon. Anything introduced exclusively in Disney Canon (post-April 2014 sequel trilogy, High Republic initiative, Disney+ original content) is invalid unless it also appeared in Legends sources. Legacy comics (Star Wars: Legacy / Cade Skywalker / Darth Krayt galactic war) are EXCLUDED — the One Sith remain in pre-emergence.",
+  "era_description": "Post-Abeloth / post-Crucible, 47 ABY in the Legends timeline. Three years after the close of Fate of the Jedi; two years after Crucible. The Galactic Alliance is the ruling galactic government under Chief of State Wynn Dorvan, in return-to-normalcy mode after repeated crises (Yuuzhan Vong, Killik, Second Galactic Civil War / Caedus, Daala, Abeloth, Lost Tribe, Sith occupation/panic). The Jedi Order operates from Shedu Maad in the Hapes Cluster under Grand Master Saba Sebatyne, having relocated permanently from the Coruscant Temple at the end of FOTJ (44 ABY). Luke Skywalker is a senior Master on the Council, stepped back from daily Order leadership after the Mortis-adjacent encounter at Crucible. The Imperial Remnant is stable under Head of State Jagged Fel; Hapes stable under Queen Mother Tenel Ka Djo. Working line: 'The Dorvan administration has restored procedure, not trust.' The galaxy is not healed — it is procedurally stabilized.",
+  "narrative_register": "Commercial post-war conspiracy thriller in space-opera register. Cinematic clarity, adventure momentum, lived-in technology, dry humor, mythic Force awe when earned. Commercial readability beats literary flourish. The book should read first as a tense Star Wars adventure — murder, prison break, uneasy partnership, archive attack, charity with a hidden inner ring, offworld Force-site climax — and only second as a thematic meditation on Jacen/Caedus, trauma, restraint, and dangerous knowledge. Reader pleasure before theme. The drafter must NOT imitate any specific published Star Wars author's prose; use broad franchise feel only. Reference-author register samples (Allston, Zahn, Traviss, Tana French) anchor sentence-level rhythm and dialogue density, never voice templates.",
+  "cross_continuity_violations": [
+    "Star Wars: Legacy comics (Cade Skywalker, Darth Krayt-led galactic war, fall of the Galactic Alliance to the One Sith). EXCLUDED — the One Sith remain in pre-emergence on Korriban under Darth Krayt.",
+    "High Republic (Disney Canon publishing initiative — does not exist in Legends).",
+    "World Between Worlds (Disney Canon Force concept from Rebels — incompatible with Legends Force ontology).",
+    "Inquisitorius as a formal post-Imperial organization (Disney Canon structure — Legends Inquisitorius is Empire-era only).",
+    "Starkiller Base, First Order, Resistance (sequel trilogy — does not exist in Legends).",
+    "Kyber crystal bleeding mechanic (Disney Canon lore — Legends Sith use synthetic crystals).",
+    "Ahsoka Tano post-Rebels appearances (some Legends material exists but most characterization is Disney Canon).",
+    "Disney-canon naming for shared characters (e.g., 'Ben' = Ben Solo). 'Ben' in this novel is unambiguously Ben Skywalker.",
+    "Disney-canon Mandalorian visual / political conventions (e.g., 'The Way' as Mandalorian creed — Legends Mandalorians follow Karen Traviss's Resol'nare and post-NJO continuity)."
+  ],
+  "anachronistic_terms": {
+    "LIDAR": [
+      "laser rangefinder",
+      "topographic scanner",
+      "sensor sweep"
+    ],
+    "DNA": [
+      "genetic material",
+      "bioscan",
+      "gene-print"
+    ],
+    "radio": [
+      "comlink",
+      "comm channel",
+      "frequency"
+    ],
+    "sonar": [
+      "echo-scan",
+      "ping sweep"
+    ],
+    "laptop": [
+      "datapad",
+      "terminal"
+    ],
+    "computer": [
+      "navicomputer",
+      "terminal",
+      "console",
+      "datapad"
+    ],
+    "missile": [
+      "concussion missile",
+      "proton torpedo"
+    ],
+    "gun": [
+      "blaster",
+      "blaster pistol",
+      "blaster rifle",
+      "slugthrower"
+    ],
+    "email": [
+      "comm message",
+      "tight-beam",
+      "encrypted packet"
+    ],
+    "smartphone": [
+      "comlink",
+      "wrist-comm"
+    ],
+    "GPS": [
+      "nav beacon",
+      "positional fix",
+      "transponder"
+    ],
+    "AI": [
+      "droid intelligence",
+      "logic core",
+      "VI"
+    ],
+    "internet": [
+      "HoloNet",
+      "comm grid"
+    ],
+    "movie": [
+      "holovid",
+      "holodrama"
+    ],
+    "police": [
+      "security",
+      "constabulary",
+      "enforcement"
+    ],
+    "FBI": [
+      "GA Justice",
+      "Security Bureau"
+    ],
+    "courthouse": [
+      "judiciary chamber",
+      "tribunal hall"
+    ],
+    "lawyer": [
+      "barrister",
+      "counselor",
+      "advocate"
+    ],
+    "hospital": [
+      "medcenter",
+      "bacta ward"
+    ],
+    "doctor": [
+      "medic",
+      "med-officer",
+      "physician"
+    ],
+    "iPhone": [
+      "comlink",
+      "datapad"
+    ],
+    "PowerPoint": [
+      "holo briefing",
+      "mission slate"
+    ]
+  },
+  "meta_reference_rules": [
+    "ABY/BBY dating system — fan and sourcebook convention, never used by characters in-universe. Characters reference events directly: 'after Caedus', 'during the Vong War', 'before Shedu Maad', 'two years after we lost Luke at Crucible'.",
+    "'Legends' or 'Canon' as terms — these are publishing classifications, not in-universe concepts.",
+    "Wookieepedia-style taxonomic descriptions — a character in-universe would not narrate their own species taxonomy.",
+    "Referencing 'the prequels', 'the original trilogy', 'the sequel trilogy', or any film/book as a source.",
+    "Real-world pop culture references (no '21st-century idioms', no real-world brand names, no internet/meme references).",
+    "Out-of-universe authorial framing in narration (no chapter titles invoking real-world songs, films, or book titles; no in-prose narrator addressing the reader directly)."
+  ],
+  "franchise_terminology_notes": "STAR WARS VOCABULARY DISCIPLINE — datapads not tablets, transparisteel not glass, durasteel not steel, turbolifts not elevators, comlinks not radios, blasters not guns, hyperspace not warp, parsecs as distance not time, klicks for short distances.\n\nFORCE PROSE RULE — the Force is rendered through experiential and mystical language, not clinical or scientific framing. Avoid 'energy field' as a description; Luke's generation understands the Force as a living presence, not a measurable phenomenon. Force abilities surface as body-sensations first, named only after the body has felt them.\n\nNAMING DISCIPLINE — 'Jacen' for the pre-fall identity (Ben's cousin, mentor, the boy Mara raised in part); 'Caedus' for the Sith-Lord identity (the war crimes, the murder of Mara). POVs choose by emotional load: Ben slides between both, mostly 'Jacen' when remembering training and 'Caedus' when accusing; Aevyn refuses 'Caedus'; Aelia privately thinks 'Jacen' but never publicly defends 'Darth Caedus'; Tess avoids both names in operational dialogue. Talon uses 'Caedus' when contemptuous, 'Jacen' when Ben is in earshot and he is trying not to wound him.\n\nINSTITUTIONAL NAMES — full name on first use, abbreviation thereafter: Galactic Alliance Guard (GAG); Shedu Maad Memorial Foundation (the Foundation); Greyline Strategic Services (Greyline). 'Cinderline' and 'the Vigil' have no abbreviation. 'Civitas' may stand alone for Civitas Archive Systems after first introduction in Ch 12.\n\nPOST-CRUCIBLE TEXTURE — Mortis is NEVER named on-page. One quiet line of texture in Ch 3 (Luke looks tired in a way Ben doesn't remember; eyes further away; longer pauses) is the entire treatment. Ben notices and does NOT ask. A reader who knows Crucible reads it as Mortis aftermath; a reader who does not reads it as a father aging into something new.\n\nINVESTIGATION VOCABULARY — keep reader-facing clue vocabulary in physical-thriller terms: fragment, duplicate manifest, quarantine disguise, archive, Foundation link, Iresh manifest/authorization. Technical GAG/archive language may appear in expert dialogue (Iressa, Talon) for flavor, but every technical phrase translates to a concrete object, danger, location, or next action within two sentences.\n\nV8.5 GROUNDING UPDATES - Cale Dorrin is a grounded official contact only: access, records, limits, friction. Allana / Amelia may appear as brief Shedu Maad ordinary-life texture under the Amelia identity, but never becomes plot-active in Book 1. The Ben/Talon friendship is behavioral and practical; the future-call offer stays plain."
+}

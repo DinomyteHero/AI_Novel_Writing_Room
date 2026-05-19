@@ -1,0 +1,77 @@
+{
+  "chapter_number": 29,
+  "scene_number": 1,
+  "structural_phase": "second_plot_point",
+  "scene_role": "reveal",
+  "pov_character": "Talon or Ben",
+  "mission": "The group discovers Jacen’s cache was hidden in old offworld survey/GAG storage equipment near the Glasswell, not in a mystical altar. Talon recognizes the storage logic. Ben recognizes the Force wrongness. Sela recognizes the local danger. When they get close enough to scan the outer data layers, Ben confirms what Iressa told them in her dying transmission at the Midpoint: the holocron is unfinished, containing Jacen’s work on Recognition, Deepening, and Holding — exactly the identity-shaping techniques the Vigil intends to weaponize with Aevyn’s help. The SPP function here is embodiment rather than revelation. Ben already knew (from Iressa) what the holocron was for. Seeing the cache, seeing Aevyn already at work on it, makes the threat concrete. There is no way to stop Aevyn from getting at the holocron cleanly. The only options left are rescue (saving Tavi and the locals from what Aevyn’s work is about to break) and denial (keeping Aevyn from leaving with the full prize).",
+  "why_now": "Chapter 29 occupies the second_plot_point phase and carries the next locked outline turn.",
+  "conflict": "Make Jacen feel like Jacen: mystical insight plus cold logistics. The cache being in old survey equipment is the right Jacen-shaped detail. Ben’s reaction to confirming Iressa was right should be quiet — not horror, but the kind of bracing that comes when a worst case becomes the actual case. Reader-onboarding / grounding note: The Glasswell is not a Sith temple, Jedi ruin, or treasure chamber. It is a natural site Jacen exploited with practical concealment. Plain-language consequence of the SPP confirmation: Aevyn is already cracking it; we are too late to stop him from getting at it; the question now is whether we can save anyone caught underneath, and whether we can deny him the part that matters most.",
+  "conflict_type": "external",
+  "dialogue_expectation": "dialogue_led",
+  "turning_point": "Aevyn begins forcing the cache open. The Glasswell starts to answer.",
+  "closing_hook": "Aevyn begins forcing the cache open. The Glasswell starts to answer.",
+  "characters_present": [
+    "Ben Skywalker",
+    "Talon Veyr",
+    "Aevyn Soris",
+    "Iressa Vossk",
+    "Sela Dray",
+    "Tavi"
+  ],
+  "setting": "Iresh, the Glasswell upper chamber — the entrance to the cavern system beneath the mirror-lake. Pale translucent mineral walls, faintly luminescent. Old offworld survey equipment and a concealed GAG-era storage container near the cache site. Aevyn is already at work when the group arrives.",
+  "emotional_trajectory": "Make Jacen feel like Jacen: mystical insight plus cold logistics. The cache being in old survey equipment is the right Jacen-shaped detail. Ben’s reaction to confirming Iressa was right should be quiet — not horror, but the kind of bracing that comes when a worst case becomes the actual case. Reader-onboarding / grounding note: The Glasswell is not a Sith temple, Jedi ruin, or treasure chamber. It is a natural site Jacen exploited with practical concealment. Plain-language consequence of the SPP confirmation: Aevyn is already cracking it; we are too late to stop him from getting at it; the question now is whether we can save anyone caught underneath, and whether we can deny him the part that matters most.",
+  "stakes": {
+    "personal": "Preserve the POV-specific fear, wound, and immediate want from Character Voice & Life Sheet v1.4.",
+    "interpersonal": "Preserve the relationship pressure named in the outline and character interaction rules.",
+    "external": "Preserve the chapter-level mystery/action consequence and the end-hook pressure."
+  },
+  "sensory_details": "Use only physical details implied by the source outline and bible; do not add new mythology or abstract Force explanation.",
+  "canon_elements_needed": [
+    "GAG / Jacen / Caedus continuity",
+    "Iressa / Civitas / manifest reconstruction logic",
+    "Foundation / Vigil public-charity reality",
+    "Iresh physical geography and local survival rules",
+    "Unfinished holocron / Recognition / Deepening / Holding"
+  ],
+  "target_word_count": 3200,
+  "active_subplots": [
+    "SUB_03",
+    "SUB_05"
+  ],
+  "plot_threads_advanced": [
+    "chapter_29_locked_outline_action"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "promises_progressed": [
+    "PP_02",
+    "PP_04",
+    "PP_05",
+    "PP_06",
+    "PP_07",
+    "PP_10",
+    "PP_12"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "HK_05",
+      "action": "resolve"
+    }
+  ],
+  "revelations": [
+    "R_10"
+  ],
+  "pov_arc_phase": "Aevyn:lie_deepened",
+  "notes": "Source: Chapter Outlines v4.1. Act: Act One — The Body / The Prison / The Partnership. Chapter title: The Cache Site (Second Plot Point).\n\nCharacter voice focus: preserve the exact v1.4 character behavior and dialogue rules for the chapter POV and named participants. Plot first, character second, theme through consequences.",
+  "scene_voice_permissions": {
+    "notes": "Use Character Voice & Life Sheet v1.4 as controlling source for dialogue, behavior, humor, fear, wounds, and interaction rules. Preserve commercial readability: goal, obstacle, movement, reversal, hook.",
+    "anti_patterns": [
+      "do not write theme as thesis",
+      "do not add new plot mythology",
+      "do not let Iresh become abstract before it is physically clear",
+      "do not make Dorrin a third lead or secret mentor"
+    ],
+    "pov_arc_phase": "Aevyn:lie_deepened"
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "chapter_number": 10,
+  "scene_number": 1,
+  "structural_phase": "response",
+  "scene_role": "escalation",
+  "pov_character": "Ben",
+  "mission": "Aftermath of the escape. Luke begins containing the fallout from a distance, calling in what favors he still has, while Dorrin becomes the strained official contact caught between “Ben may be right” and “Ben just helped a convicted prisoner escape.” Talon, exhausted and still defensive, gives Ben the next lead: Iressa Vossk.",
+  "why_now": "Chapter 10 occupies the response phase and carries the next locked outline turn.",
+  "conflict": "Talon should not joke much here. The valve is closed. He is tired, hunted, and being shown small kindnesses he does not know how to refuse. Ben should feel the weight of what he has just chosen.",
+  "conflict_type": "external",
+  "dialogue_expectation": "balanced",
+  "turning_point": "Act turn. Ben and Talon return to Coruscant together, compromised and hunted. Talon joins not out of gratitude, but because the attack proves the lie that ruined him was only one layer of something larger. # Act Two — Coruscant Investigation / Foundation / The Vigil Act purpose: Ben and Talon become a real investigative pair, Iressa’s death teaches Ben that restraint can cost lives, and the GAG trail leads through the Foundation, Korda, Tess, and finally to Iresh.",
+  "closing_hook": "Act turn. Ben and Talon return to Coruscant together, compromised and hunted. Talon joins not out of gratitude, but because the attack proves the lie that ruined him was only one layer of something larger. # Act Two — Coruscant Investigation / Foundation / The Vigil Act purpose: Ben and Talon become a real investigative pair, Iressa’s death teaches Ben that restraint can cost lives, and the GAG trail leads through the Foundation, Korda, Tess, and finally to Iresh.",
+  "characters_present": [
+    "Ben Skywalker",
+    "Talon Veyr",
+    "Luke Skywalker",
+    "Cale Dorrin",
+    "Iressa Vossk",
+    "Bren Korda",
+    "Colonel Maro Tess"
+  ],
+  "setting": "Coruscant orbital approach, then a cheap civilian transit hub in a forgettable Coruscant district. Ben and Talon arrive exhausted from the prison escape. Holocall fragments with Luke (off-world, doing damage control from a distance) and the strained official voice of Dorrin. The hub is anonymous, neon-lit, and full of people who do not want to be noticed.",
+  "emotional_trajectory": "Talon should not joke much here. The valve is closed. He is tired, hunted, and being shown small kindnesses he does not know how to refuse. Ben should feel the weight of what he has just chosen.",
+  "stakes": {
+    "personal": "Preserve the POV-specific fear, wound, and immediate want from Character Voice & Life Sheet v1.4.",
+    "interpersonal": "Preserve the relationship pressure named in the outline and character interaction rules.",
+    "external": "Preserve the chapter-level mystery/action consequence and the end-hook pressure."
+  },
+  "sensory_details": "Use only physical details implied by the source outline and bible; do not add new mythology or abstract Force explanation.",
+  "canon_elements_needed": [
+    "Cale Dorrin official-access limits",
+    "Tarn Velos prison geography and legal stakes",
+    "Iressa / Civitas / manifest reconstruction logic"
+  ],
+  "target_word_count": 1800,
+  "active_subplots": [],
+  "plot_threads_advanced": [
+    "chapter_10_locked_outline_action"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "promises_progressed": [
+    "PP_01",
+    "PP_02",
+    "PP_05",
+    "PP_08",
+    "PP_10",
+    "PP_12"
+  ],
+  "hook_actions": [],
+  "revelations": [],
+  "pov_arc_phase": "Ben arc per concept_seed ensemble_cast.weiland_arc.arc_phase_map",
+  "notes": "Source: Chapter Outlines v4.1. Act: Act One — The Body / The Prison / The Partnership. Chapter title: Iressa Vossk.\n\nCharacter voice focus: preserve the exact v1.4 character behavior and dialogue rules for the chapter POV and named participants. Plot first, character second, theme through consequences.",
+  "scene_voice_permissions": {
+    "notes": "Use Character Voice & Life Sheet v1.4 as controlling source for dialogue, behavior, humor, fear, wounds, and interaction rules. Preserve commercial readability: goal, obstacle, movement, reversal, hook.",
+    "anti_patterns": [
+      "do not write theme as thesis",
+      "do not add new plot mythology",
+      "do not let Iresh become abstract before it is physically clear",
+      "do not make Dorrin a third lead or secret mentor"
+    ],
+    "pov_arc_phase": "Ben arc per concept_seed ensemble_cast.weiland_arc.arc_phase_map"
+  }
+}

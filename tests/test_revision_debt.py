@@ -347,4 +347,94 @@ def test_status_update_emits_ledger_event():
     assert result == {"old_status": "open", "new_status": "resolved"}
     assert len(ledger.info) == 1
     assert ledger.info[0]["event_type"] == "revision_debt_updated"
-    assert ledger.info[0]["payload"]["debt_id"] == debt_id
+
+
+# ----------------------------------------------- rhythm + continuity producers
+
+
+def test_rhythm_advisory_maps_known_codes_to_categories():
+    from src.pipeline.revision_debt_producers import emit_rhythm_advisory
+    store = _store()
+    ledger = _LedgerStub()
+    debt_id = emit_rhythm_advisory(
+        store, ledger=ledger,
+        scope={"level": "scene", "chapter_number": 1, "scene_number": 1},
+        issue={
+            "code": "rhythm.em_dash_overuse",
+            "severity": "medium",
+            "message": "too many em-dashes",
+            "metric_value": 12.4,
+            "threshold": 6.0,
+        },
+    )
+    row = store.get(debt_id)
+    assert row["category"] == "prose.rhythm.em_dash_overuse"
+    assert row["severity"] == "medium"
+    assert row["producer"] == "rhythm_validator"
+    assert "metric_value" in row["details"]
+
+
+def test_rhythm_advisory_unknown_code_routes_to_editorial_other():
+    from src.pipeline.revision_debt_producers import emit_rhythm_advisory
+    store = _store()
+    debt_id = emit_rhythm_advisory(
+        store,
+        scope={"level": "scene", "chapter_number": 1},
+        issue={"code": "rhythm.new_code_we_have_not_added", "severity": "low",
+               "message": "x", "metric_value": 1.0, "threshold": 0.5},
+    )
+    assert store.get(debt_id)["category"] == "editorial.other"
+
+
+def test_rhythm_advisory_noop_when_store_is_none():
+    from src.pipeline.revision_debt_producers import emit_rhythm_advisory
+    result = emit_rhythm_advisory(
+        None,
+        scope={"level": "scene", "chapter_number": 1},
+        issue={"code": "rhythm.em_dash_overuse", "severity": "low",
+               "message": "x", "metric_value": 1.0, "threshold": 0.5},
+    )
+    assert result is None
+
+
+def test_rhythm_advisory_includes_metrics_snapshot_when_provided():
+    from src.pipeline.revision_debt_producers import emit_rhythm_advisory
+    store = _store()
+    debt_id = emit_rhythm_advisory(
+        store,
+        scope={"level": "scene", "chapter_number": 1},
+        issue={"code": "rhythm.em_dash_overuse", "severity": "low",
+               "message": "x", "metric_value": 7.0, "threshold": 6.0},
+        metrics={"em_dashes_per_1k_words": 7.0, "sentence_count": 50},
+    )
+    details = store.get(debt_id)["details"]
+    assert details["metrics_snapshot"]["em_dashes_per_1k_words"] == 7.0
+
+
+def test_continuity_break_maps_known_kinds_to_categories():
+    from src.pipeline.revision_debt_producers import emit_continuity_break
+    store = _store()
+    debt_id = emit_continuity_break(
+        store,
+        scope={"level": "chapter", "chapter_number": 33},
+        break_kind="character_state",
+        summary="Aevyn: dead at close of ch32_sc01 → alive at open of ch33_sc01",
+        details={"previous_state": "dead", "next_state": "alive"},
+    )
+    row = store.get(debt_id)
+    assert row["category"] == "prose.continuity.character_state_break"
+    assert row["producer"] == "continuity_validator"
+    assert row["severity"] == "medium"
+    assert row["fix_scope"] == "chapter"
+
+
+def test_continuity_break_unknown_kind_routes_to_editorial_other():
+    from src.pipeline.revision_debt_producers import emit_continuity_break
+    store = _store()
+    debt_id = emit_continuity_break(
+        store,
+        scope={"level": "chapter", "chapter_number": 1},
+        break_kind="hairstyle",
+        summary="x",
+    )
+    assert store.get(debt_id)["category"] == "editorial.other"

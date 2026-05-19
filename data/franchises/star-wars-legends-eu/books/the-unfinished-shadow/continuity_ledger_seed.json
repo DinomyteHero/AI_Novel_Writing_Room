@@ -1,0 +1,381 @@
+{
+  "source": "Planning conversion from Bible v8.5, Chapter Outlines v4.1, Character Voice & Life Sheet v1.4",
+  "created_at": "2026-05-18T03:34:16+00:00",
+  "events": [
+    {
+      "event_id": "seed_r_01",
+      "event_type": "revelation",
+      "scene_id": "ch01_sc01",
+      "subject": "reader",
+      "details": {
+        "revelation_id": "R_01",
+        "recipient": "reader"
+      },
+      "confidence": 1.0,
+      "extractor_version": "planning_seed_v1",
+      "human_verified": true,
+      "redacted": false,
+      "created_at": "2026-05-18T03:34:16+00:00"
+    },
+    {
+      "event_id": "seed_r_02",
+      "event_type": "revelation",
+      "scene_id": "ch04_sc01",
+      "subject": "Ben (partial — senses Force-trauma but does not yet know the killer's identity)",
+      "details": {
+        "revelation_id": "R_02",
+        "recipient": "Ben (partial — senses Force-trauma but does not yet know the killer's identity)"
+      },
+      "confidence": 1.0,
+      "extractor_version": "planning_seed_v1",
+      "human_verified": true,
+      "redacted": false,
+      "created_at": "2026-05-18T03:34:16+00:00"
+    },
+    {
+      "event_id": "seed_r_03",
+      "event_type": "revelation",
+      "scene_id": "ch04_sc01",
+      "subject": "Ben",
+      "details": {
+        "revelation_id": "R_03",
+        "recipient": "Ben"
+      },
+      "confidence": 1.0,
+      "extractor_version": "planning_seed_v1",
+      "human_verified": true,
+      "redacted": false,
+      "created_at": "2026-05-18T03:34:16+00:00"
+    },
+    {
+      "event_id": "seed_r_04",
+      "event_type": "revelation",
+      "scene_id": "ch12_sc01",
+      "subject": "Ben, reader",
+      "details": {
+        "revelation_id": "R_04",
+        "recipient": "Ben, reader"
+      },
+      "confidence": 1.0,
+      "extractor_version": "planning_seed_v1",
+      "human_verified": true,
+      "redacted": false,
+      "created_at": "2026-05-18T03:34:16+00:00"
+    },
+    {
+      "event_id": "seed_r_05",
+      "event_type": "revelation",
+      "scene_id": "ch17_sc01",
+      "subject": "Ben, reader",
+      "details": {
+        "revelation_id": "R_05",
+        "recipient": "Ben, reader"
+      },
+      "confidence": 1.0,
+      "extractor_version": "planning_seed_v1",
+      "human_verified": true,
+      "redacted": false,
+      "created_at": "2026-05-18T03:34:16+00:00"
+    },
+    {
+      "event_id": "seed_r_06",
+      "event_type": "revelation",
+      "scene_id": "ch15_sc01",
+      "subject": "Ben, Talon, reader",
+      "details": {
+        "revelation_id": "R_06",
+        "recipient": "Ben, Talon, reader"
+      },
+      "confidence": 1.0,
+      "extractor_version": "planning_seed_v1",
+      "human_verified": true,
+      "redacted": false,
+      "created_at": "2026-05-18T03:34:16+00:00"
+    },
+    {
+      "event_id": "seed_r_07",
+      "event_type": "revelation",
+      "scene_id": "ch27_sc01",
+      "subject": "Ben, reader (semi-explicit)",
+      "details": {
+        "revelation_id": "R_07",
+        "recipient": "Ben, reader (semi-explicit)"
+      },
+      "confidence": 1.0,
+      "extractor_version": "planning_seed_v1",
+      "human_verified": true,
+      "redacted": false,
+      "created_at": "2026-05-18T03:34:16+00:00"
+    },
+    {
+      "event_id": "seed_r_08",
+      "event_type": "revelation",
+      "scene_id": "ch20_sc01",
+      "subject": "reader (Ch 20 Tess POV), Ben (Ch 22 through Talon's confession), Talon (always knew)",
+      "details": {
+        "revelation_id": "R_08",
+        "recipient": "reader (Ch 20 Tess POV), Ben (Ch 22 through Talon's confession), Talon (always knew)"
+      },
+      "confidence": 1.0,
+      "extractor_version": "planning_seed_v1",
+      "human_verified": true,
+      "redacted": false,
+      "created_at": "2026-05-18T03:34:16+00:00"
+    },
+    {
+      "event_id": "seed_r_09",
+      "event_type": "revelation",
+      "scene_id": "ch20_sc01",
+      "subject": "Talon (immediate recognition), Ben (when Talon names it), reader",
+      "details": {
+        "revelation_id": "R_09",
+        "recipient": "Talon (immediate recognition), Ben (when Talon names it), reader"
+      },
+      "confidence": 1.0,
+      "extractor_version": "planning_seed_v1",
+      "human_verified": true,
+      "redacted": false,
+      "created_at": "2026-05-18T03:34:16+00:00"
+    },
+    {
+      "event_id": "seed_r_10",
+      "event_type": "revelation",
+      "scene_id": "ch29_sc01",
+      "subject": "Ben, Talon, Sela, reader",
+      "details": {
+        "revelation_id": "R_10",
+        "recipient": "Ben, Talon, Sela, reader"
+      },
+      "confidence": 1.0,
+      "extractor_version": "planning_seed_v1",
+      "human_verified": true,
+      "redacted": false,
+      "created_at": "2026-05-18T03:34:16+00:00"
+    },
+    {
+      "event_id": "seed_r_11",
+      "event_type": "revelation",
+      "scene_id": "ch30_sc01",
+      "subject": "reader (image-fragment only)",
+      "details": {
+        "revelation_id": "R_11",
+        "recipient": "reader (image-fragment only)"
+      },
+      "confidence": 1.0,
+      "extractor_version": "planning_seed_v1",
+      "human_verified": true,
+      "redacted": false,
+      "created_at": "2026-05-18T03:34:16+00:00"
+    },
+    {
+      "event_id": "seed_r_12",
+      "event_type": "revelation",
+      "scene_id": "ch33_sc01",
+      "subject": "Talon (suspects in Ch 34; names it without rupturing), Luke (senses incompleteness in Ch 36; does not force the answer), reader",
+      "details": {
+        "revelation_id": "R_12",
+        "recipient": "Talon (suspects in Ch 34; names it without rupturing), Luke (senses incompleteness in Ch 36; does not force the answer), reader"
+      },
+      "confidence": 1.0,
+      "extractor_version": "planning_seed_v1",
+      "human_verified": true,
+      "redacted": false,
+      "created_at": "2026-05-18T03:34:16+00:00"
+    },
+    {
+      "event_id": "seed_r_13",
+      "event_type": "revelation",
+      "scene_id": "ch38_sc01",
+      "subject": "reader (Ch 38 image only)",
+      "details": {
+        "revelation_id": "R_13",
+        "recipient": "reader (Ch 38 image only)"
+      },
+      "confidence": 1.0,
+      "extractor_version": "planning_seed_v1",
+      "human_verified": true,
+      "redacted": false,
+      "created_at": "2026-05-18T03:34:16+00:00"
+    },
+    {
+      "event_id": "seed_r_14",
+      "event_type": "revelation",
+      "scene_id": "ch37_sc01",
+      "subject": "reader (Ch 37 only)",
+      "details": {
+        "revelation_id": "R_14",
+        "recipient": "reader (Ch 37 only)"
+      },
+      "confidence": 1.0,
+      "extractor_version": "planning_seed_v1",
+      "human_verified": true,
+      "redacted": false,
+      "created_at": "2026-05-18T03:34:16+00:00"
+    },
+    {
+      "event_id": "seed_status_elya_dead",
+      "event_type": "status_change",
+      "scene_id": "ch01_sc01",
+      "subject": "Commander Elya Rane",
+      "details": {
+        "status_id": "life_state",
+        "new_value": "dead"
+      },
+      "confidence": 1.0,
+      "extractor_version": "planning_seed_v1",
+      "human_verified": true,
+      "redacted": false,
+      "created_at": "2026-05-18T03:34:16+00:00"
+    },
+    {
+      "event_id": "seed_status_ben_legally_compromised",
+      "event_type": "status_change",
+      "scene_id": "ch09_sc01",
+      "subject": "Ben Skywalker",
+      "details": {
+        "status_id": "legal_position",
+        "new_value": "compromised by Tarn Velos prison escape"
+      },
+      "confidence": 1.0,
+      "extractor_version": "planning_seed_v1",
+      "human_verified": true,
+      "redacted": false,
+      "created_at": "2026-05-18T03:34:16+00:00"
+    },
+    {
+      "event_id": "seed_status_talon_free_hunted",
+      "event_type": "status_change",
+      "scene_id": "ch09_sc01",
+      "subject": "Talon Veyr",
+      "details": {
+        "status_id": "legal_position",
+        "new_value": "escaped prisoner and forced partner"
+      },
+      "confidence": 1.0,
+      "extractor_version": "planning_seed_v1",
+      "human_verified": true,
+      "redacted": false,
+      "created_at": "2026-05-18T03:34:16+00:00"
+    },
+    {
+      "event_id": "seed_status_iressa_dead",
+      "event_type": "status_change",
+      "scene_id": "ch15_sc01",
+      "subject": "Iressa Vossk",
+      "details": {
+        "status_id": "life_state",
+        "new_value": "dead after preserving transmission"
+      },
+      "confidence": 1.0,
+      "extractor_version": "planning_seed_v1",
+      "human_verified": true,
+      "redacted": false,
+      "created_at": "2026-05-18T03:34:16+00:00"
+    },
+    {
+      "event_id": "seed_status_talon_framed",
+      "event_type": "status_change",
+      "scene_id": "ch20_sc01",
+      "subject": "Talon Veyr",
+      "details": {
+        "status_id": "legal_position",
+        "new_value": "framed for current Coruscant crime"
+      },
+      "confidence": 1.0,
+      "extractor_version": "planning_seed_v1",
+      "human_verified": true,
+      "redacted": false,
+      "created_at": "2026-05-18T03:34:16+00:00"
+    },
+    {
+      "event_id": "seed_status_korda_dead",
+      "event_type": "status_change",
+      "scene_id": "ch20_sc01",
+      "subject": "Bren Korda",
+      "details": {
+        "status_id": "life_state",
+        "new_value": "dead public fall guy"
+      },
+      "confidence": 1.0,
+      "extractor_version": "planning_seed_v1",
+      "human_verified": true,
+      "redacted": false,
+      "created_at": "2026-05-18T03:34:16+00:00"
+    },
+    {
+      "event_id": "seed_status_aevyn_survives",
+      "event_type": "status_change",
+      "scene_id": "ch38_sc01",
+      "subject": "Aevyn Soris",
+      "details": {
+        "status_id": "life_state",
+        "new_value": "secretly survived Glasswell"
+      },
+      "confidence": 1.0,
+      "extractor_version": "planning_seed_v1",
+      "human_verified": true,
+      "redacted": false,
+      "created_at": "2026-05-18T03:34:16+00:00"
+    },
+    {
+      "event_id": "seed_loc_ben_to_coruscant",
+      "event_type": "location_change",
+      "scene_id": "ch03_sc01",
+      "subject": "Ben Skywalker",
+      "details": {
+        "from_location": "Shedu Maad",
+        "to_location": "Coruscant"
+      },
+      "confidence": 1.0,
+      "extractor_version": "planning_seed_v1",
+      "human_verified": true,
+      "redacted": false,
+      "created_at": "2026-05-18T03:34:16+00:00"
+    },
+    {
+      "event_id": "seed_loc_ben_talon_to_iresh",
+      "event_type": "location_change",
+      "scene_id": "ch23_sc01",
+      "subject": "Ben Skywalker / Talon Veyr",
+      "details": {
+        "from_location": "Coruscant",
+        "to_location": "Iresh"
+      },
+      "confidence": 1.0,
+      "extractor_version": "planning_seed_v1",
+      "human_verified": true,
+      "redacted": false,
+      "created_at": "2026-05-18T03:34:16+00:00"
+    },
+    {
+      "event_id": "seed_loc_ben_return_shedu_maad",
+      "event_type": "location_change",
+      "scene_id": "ch36_sc01",
+      "subject": "Ben Skywalker",
+      "details": {
+        "from_location": "Iresh / Coruscant aftermath",
+        "to_location": "Shedu Maad"
+      },
+      "confidence": 1.0,
+      "extractor_version": "planning_seed_v1",
+      "human_verified": true,
+      "redacted": false,
+      "created_at": "2026-05-18T03:34:16+00:00"
+    },
+    {
+      "event_id": "seed_possession_ben_holocron",
+      "event_type": "possession",
+      "scene_id": "ch33_sc01",
+      "subject": "Ben Skywalker",
+      "details": {
+        "item": "unfinished holocron",
+        "action": "acquired"
+      },
+      "confidence": 1.0,
+      "extractor_version": "planning_seed_v1",
+      "human_verified": true,
+      "redacted": false,
+      "created_at": "2026-05-18T03:34:16+00:00"
+    }
+  ]
+}

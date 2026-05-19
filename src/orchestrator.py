@@ -40,6 +40,8 @@ from src.agents.plot_architect import PlotArchitect
 from src.agents.commercial_rewrite import CommercialRewrite
 from src.agents.prose_stylist import ProseStylist
 from src.agents.quality_polish import QualityPolish
+from src.agents.rhythm_editor import apply_rhythm_edits
+from src.quality.rhythm_validator import validate_rhythm
 from src.memory.context_assembler import ContextAssembler
 from src.model_router import ModelRouter
 from src.run_ledger import RunLedger
@@ -103,6 +105,10 @@ class Orchestrator:
         presence_checker: Optional["PresenceChecker"] = None,
         line_writer: Optional["LineWriter"] = None,
         micro_repair: Optional["MicroRepair"] = None,
+        # Rhythm-editor agent: literal-edit pass for detected RhythmValidator
+        # issues. Same safety class as micro_repair. Default None → flag is a
+        # no-op even when runtime.rhythm_editor.enabled is true.
+        rhythm_editor: Optional["RhythmEditor"] = None,
         # Phase 3 optional dependencies:
         metrics_dashboard: Optional["MetricsDashboard"] = None,
         character_specialist: Optional["CharacterSpecialist"] = None,
@@ -192,6 +198,45 @@ class Orchestrator:
         self.presence_checker = presence_checker
         self.line_writer = line_writer
         self.micro_repair = micro_repair
+        self.rhythm_editor = rhythm_editor
+
+        # Rhythm validator + editor runtime flags.
+        rhythm_validator_cfg = (
+            self.runtime_flags.get("runtime") or {}
+        ).get("rhythm_validator") or {}
+        self._rhythm_validator_enabled = bool(
+            rhythm_validator_cfg.get("enabled", False)
+        )
+        self._rhythm_validator_thresholds = (
+            rhythm_validator_cfg.get("thresholds") or {}
+        )
+        rhythm_editor_cfg = (
+            self.runtime_flags.get("runtime") or {}
+        ).get("rhythm_editor") or {}
+        self._rhythm_editor_enabled = bool(
+            rhythm_editor_cfg.get("enabled", False) and self.rhythm_editor is not None
+        )
+        self._rhythm_editor_trigger_codes = set(
+            rhythm_editor_cfg.get("trigger_codes")
+            or [
+                "rhythm.em_dash_overuse",
+                "rhythm.staccato_cluster",
+                "rhythm.opener_monotone",
+                "rhythm.abstract_tic",
+            ]
+        )
+        self._rhythm_editor_max_trigger_codes = int(
+            rhythm_editor_cfg.get("max_trigger_codes", 5)
+        )
+        self._rhythm_editor_max_edits = int(
+            rhythm_editor_cfg.get("max_edits", 8)
+        )
+        self._rhythm_editor_max_total_changed_chars = int(
+            rhythm_editor_cfg.get("max_total_changed_chars", 1500)
+        )
+        self._rhythm_editor_max_changed_ratio = float(
+            rhythm_editor_cfg.get("max_changed_ratio", 0.15)
+        )
 
         # Phase 3 optional components
         self.metrics_dashboard = metrics_dashboard
@@ -741,6 +786,22 @@ class Orchestrator:
                     payload={"reason": "agent_routing.line_writer missing"},
                 )
 
+            # Rhythm validation + literal-edit pass (flag-gated). When the
+            # flags are off this is a no-op. The editor is bounded by the
+            # same safety caps as micro_repair: literal substrings only,
+            # max-edits cap, total changed-char cap, ratio ceiling.
+            rhythm_telemetry: dict = {}
+            rhythm_edit_applied = False
+            prose_before_rhythm = prose
+            if self._rhythm_validator_enabled or self._rhythm_editor_enabled:
+                prose, rhythm_telemetry = await self._maybe_rhythm_validate_and_edit(
+                    prose=prose,
+                    scene_card=scene_card,
+                    chapter_number=chapter_num,
+                    scene_number=scene_num,
+                )
+                rhythm_edit_applied = prose != prose_before_rhythm
+
             print("  [Lean] Skipping gates, checks, broad polish, and post-save agents")
             output_path = self._save_chapter(chapter_num, scene_num, prose)
             word_count = len(prose.split())
@@ -758,6 +819,10 @@ class Orchestrator:
             ]
             if not line_edit_attempted:
                 skipped_stages.insert(0, "line_writer")
+            if not self._rhythm_validator_enabled:
+                skipped_stages.append("rhythm_validator")
+            if not self._rhythm_editor_enabled:
+                skipped_stages.append("rhythm_editor")
             self.ledger.emit_info(
                 "lean_prose_only_saved",
                 chapter_number=chapter_num,
@@ -768,6 +833,9 @@ class Orchestrator:
                     "line_edit_enabled": bool(self._lean_line_edit),
                     "line_edit_attempted": line_edit_attempted,
                     "line_edit_applied": line_edit_applied,
+                    "rhythm_validator_enabled": self._rhythm_validator_enabled,
+                    "rhythm_editor_enabled": self._rhythm_editor_enabled,
+                    "rhythm_edit_applied": rhythm_edit_applied,
                     "skipped_stages": skipped_stages,
                 },
             )
@@ -2539,6 +2607,217 @@ class Orchestrator:
             )
 
         return updated_prose, applied_count, total_changed_chars
+
+    async def _maybe_rhythm_validate_and_edit(
+        self,
+        *,
+        prose: str,
+        scene_card: dict,
+        chapter_number: int,
+        scene_number: int,
+    ) -> tuple[str, dict]:
+        """Run RhythmValidator and optionally RhythmEditor on the prose.
+
+        Two flag-gated stages:
+        - ``runtime.rhythm_validator.enabled`` → measure rhythm, emit
+          revision_debt rows for any issues. Never blocks; never mutates prose.
+        - ``runtime.rhythm_editor.enabled`` → if the validator finds at least
+          one *actionable* issue (em_dash_overuse / staccato_cluster /
+          opener_monotone / abstract_tic), call the RhythmEditor LLM and apply
+          its proposed edits under deterministic safety caps. The
+          ``dialogue_starved`` code is *not* in the trigger set — adding
+          dialogue is generative work that belongs in the drafter.
+
+        Returns ``(prose, telemetry)`` where ``telemetry`` carries the pre-
+        and post-edit metrics for the ledger payload. When both flags are
+        off this is a noop and ``telemetry`` is empty.
+        """
+        telemetry: dict = {}
+        if not (self._rhythm_validator_enabled or self._rhythm_editor_enabled):
+            return prose, telemetry
+
+        # Resolve dialogue requirement from the scene card.
+        require_dialogue = not (
+            scene_card.get("dialogue_density_target") == "low"
+            or scene_card.get("dialogue_expectation") == "interior"
+        )
+        thresholds = self._rhythm_validator_thresholds or None
+        try:
+            pre_result = validate_rhythm(
+                prose,
+                scope="scene",
+                scope_id=f"ch{chapter_number:02d}_sc{scene_number:02d}",
+                thresholds=thresholds,
+                require_dialogue=require_dialogue,
+            )
+        except Exception as exc:  # noqa: BLE001
+            self.ledger.emit_warn(
+                "rhythm_validation_error",
+                chapter_number=chapter_number,
+                scene_number=scene_number,
+                agent_role="rhythm_validator",
+                payload={"error": f"{exc.__class__.__name__}: {exc}"},
+            )
+            return prose, telemetry
+
+        pre_payload = pre_result.to_dict()
+        telemetry["pre_edit"] = pre_payload
+        self.ledger.emit_info(
+            "rhythm_validation",
+            chapter_number=chapter_number,
+            scene_number=scene_number,
+            agent_role="rhythm_validator",
+            payload={
+                "passed": pre_result.passed,
+                "issue_count": len(pre_result.issues),
+                "metrics": pre_payload["metrics"],
+            },
+        )
+
+        # Flow each validator issue into the revision_debt store.
+        if self._active_debt_store is not None and pre_result.issues:
+            try:
+                from src.pipeline.revision_debt_producers import emit_rhythm_advisory
+            except ImportError:
+                emit_rhythm_advisory = None  # type: ignore[assignment]
+            if emit_rhythm_advisory is not None:
+                scope = {
+                    "level": "scene",
+                    "chapter_number": chapter_number,
+                    "scene_number": scene_number,
+                }
+                for issue in pre_result.issues:
+                    emit_rhythm_advisory(
+                        self._active_debt_store,
+                        ledger=self.ledger,
+                        scope=scope,
+                        issue={
+                            "code": issue.code,
+                            "severity": issue.severity,
+                            "message": issue.message,
+                            "metric_value": issue.metric_value,
+                            "threshold": issue.threshold,
+                        },
+                        metrics=pre_payload["metrics"],
+                    )
+
+        if not self._rhythm_editor_enabled:
+            return prose, telemetry
+
+        actionable = [
+            i for i in pre_result.issues
+            if i.code in self._rhythm_editor_trigger_codes
+        ]
+        if not actionable:
+            self.ledger.emit_info(
+                "rhythm_edit_skipped",
+                chapter_number=chapter_number,
+                scene_number=scene_number,
+                agent_role="rhythm_editor",
+                payload={"reason": "no_actionable_issues"},
+            )
+            return prose, telemetry
+        if len(pre_result.issues) > self._rhythm_editor_max_trigger_codes:
+            self.ledger.emit_info(
+                "rhythm_edit_skipped",
+                chapter_number=chapter_number,
+                scene_number=scene_number,
+                agent_role="rhythm_editor",
+                payload={
+                    "reason": "confusion_threshold",
+                    "issue_count": len(pre_result.issues),
+                    "threshold": self._rhythm_editor_max_trigger_codes,
+                },
+            )
+            return prose, telemetry
+
+        self.ledger.emit_info(
+            "rhythm_edit_fired",
+            chapter_number=chapter_number,
+            scene_number=scene_number,
+            agent_role="rhythm_editor",
+            payload={"actionable_count": len(actionable)},
+        )
+
+        try:
+            editor_result = await self.rhythm_editor.run({
+                "prose": prose,
+                "scene_card": scene_card,
+                "rhythm_issues": [
+                    {
+                        "code": i.code,
+                        "severity": i.severity,
+                        "message": i.message,
+                        "metric_value": i.metric_value,
+                        "threshold": i.threshold,
+                    }
+                    for i in actionable
+                ],
+            })
+        except Exception as exc:  # noqa: BLE001
+            self.ledger.emit_warn(
+                "rhythm_edit_error",
+                chapter_number=chapter_number,
+                scene_number=scene_number,
+                agent_role="rhythm_editor",
+                payload={"error": f"{exc.__class__.__name__}: {exc}"},
+            )
+            return prose, telemetry
+
+        edits = editor_result.get("edits", [])
+        patched, audit = apply_rhythm_edits(
+            prose,
+            edits,
+            max_edits=self._rhythm_editor_max_edits,
+            max_total_changed_chars=self._rhythm_editor_max_total_changed_chars,
+            max_changed_ratio=self._rhythm_editor_max_changed_ratio,
+        )
+        applied_count = sum(1 for a in audit if a["action"] == "applied")
+        rejected_count = sum(1 for a in audit if a["action"] == "rejected")
+
+        if applied_count == 0:
+            self.ledger.emit_info(
+                "rhythm_edit_complete",
+                chapter_number=chapter_number,
+                scene_number=scene_number,
+                agent_role="rhythm_editor",
+                payload={
+                    "summary": editor_result.get("summary", ""),
+                    "proposed": len(edits),
+                    "applied": 0,
+                    "rejected": rejected_count,
+                    "rejection_reasons": [a.get("reason") for a in audit if a["action"] == "rejected"],
+                },
+            )
+            return prose, telemetry
+
+        try:
+            post_result = validate_rhythm(
+                patched,
+                scope="scene",
+                scope_id=f"ch{chapter_number:02d}_sc{scene_number:02d}__rhythm_edit",
+                thresholds=thresholds,
+                require_dialogue=require_dialogue,
+            )
+            telemetry["post_edit"] = post_result.to_dict()
+        except Exception:  # noqa: BLE001 -- post-edit metrics are advisory
+            telemetry["post_edit"] = None
+
+        self.ledger.emit_info(
+            "rhythm_edit_complete",
+            chapter_number=chapter_number,
+            scene_number=scene_number,
+            agent_role="rhythm_editor",
+            payload={
+                "summary": editor_result.get("summary", ""),
+                "proposed": len(edits),
+                "applied": applied_count,
+                "rejected": rejected_count,
+                "pre_em_dash_per_1k": pre_payload["metrics"]["em_dashes_per_1k_words"],
+                "post_em_dash_per_1k": telemetry.get("post_edit", {}).get("metrics", {}).get("em_dashes_per_1k_words") if telemetry.get("post_edit") else None,
+            },
+        )
+        return patched, telemetry
 
     async def _maybe_micro_repair(
         self,

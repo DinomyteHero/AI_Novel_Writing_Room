@@ -38,7 +38,39 @@
           "chapter_number": { "type": "integer", "minimum": 1 },
           "chapter_title": { "type": "string" },
           "synopsis": { "type": "string" },
-          "pov_character": { "type": "string" },
+          "pov_character": {
+            "type": "string",
+            "description": "Single dominant POV for the chapter. When the chapter braids multiple POVs across scenes, this is the dominant or framing POV; the full POV sequence lives in `pov_sequence`."
+          },
+          "pov_sequence": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string" },
+            "description": "Optional ordered list of POV characters across this chapter's scenes. When omitted, defaults to a single-POV chapter using `pov_character`. When present, signals planning intent to braid multiple POVs in this chapter (e.g. [\"Ben\", \"Tess\", \"Ben\"] for an A-B-A weave). scene-card-authoring consumes this as a constraint hint when generating per-scene cards: scene 1 inherits the first entry, scene 2 the second, etc."
+          },
+          "scene_briefs": {
+            "type": "array",
+            "description": "Optional per-scene brief stubs that signal scene-count and dramatic-shape intent at outline time. When present, scene-card-authoring uses these as seeds rather than generating cards from chapter synopsis alone. `pov` here is authoritative and must align with `pov_sequence` when both are present.",
+            "items": {
+              "type": "object",
+              "required": ["scene_number"],
+              "additionalProperties": false,
+              "properties": {
+                "scene_number": { "type": "integer", "minimum": 1 },
+                "pov": { "type": "string" },
+                "thread": {
+                  "type": "string",
+                  "description": "Which plot or character thread this scene advances — useful when the chapter braids multiple threads (e.g. 'Ben investigation', 'Tess board-clearing', 'Aevyn Force-side')."
+                },
+                "turning_point_hint": { "type": "string" },
+                "structural_role": {
+                  "type": "string",
+                  "enum": ["hook", "escalation", "reveal", "decision", "aftermath"],
+                  "description": "Narrative function of this scene within the braided chapter."
+                }
+              }
+            }
+          },
           "structural_phase": { "type": "string" },
           "arc_phases_active": {
             "type": "array",

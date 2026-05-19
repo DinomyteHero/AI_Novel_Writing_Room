@@ -1,0 +1,63 @@
+{
+  "chapter_number": 14,
+  "scene_number": 1,
+  "structural_phase": "first_pinch",
+  "scene_role": "escalation",
+  "pov_character": "Ben / Talon",
+  "mission": "Cinderline hits the archive as a cleanup team, not a battlefield unit. They seal exits, wipe cameras, trigger old quarantine protocols, and try to leave no clean version of the room behind. Vara Senn appears as an attached Force specialist, making the scene psychologically unsafe. Before taking Iressa hostage, Vara engages Ben in a short, cramped lightsaber clash. Vara/Ben clash beat: Vara fights with blunt Lost Tribe aggression: pressure, fear, domination, and taunts. Ben recognizes elements of Lost Tribe training, allowing a brief Vestara Khai scar-tissue mention. The fight is short, ugly, and consequential, not a grand duel.",
+  "why_now": "Chapter 14 occupies the first_pinch phase and carries the next locked outline turn.",
+  "conflict": "Vara should be dangerous but not Ben’s true mirror. Ben can handle the fight, but Vara recognizes that combat will not quickly work and changes tactics. This is Pinch Point 1 — the antagonist shows organized lethality. Restraint is about to cost something.",
+  "conflict_type": "external",
+  "dialogue_expectation": "dialogue_led",
+  "turning_point": "Vara senses Iressa has hidden something.",
+  "closing_hook": "Vara senses Iressa has hidden something.",
+  "characters_present": [
+    "Ben Skywalker",
+    "Talon Veyr",
+    "Iressa Vossk",
+    "Vara Senn"
+  ],
+  "setting": "Coruscant, the decommissioned GAG quarantine archive — narrow rows of cabinet-style data storage, single emergency strip lighting along the floor. Cinderline arrives as a cleanup team: they seal exits, wipe cameras, and trigger old quarantine protocols to scrub the site. Vara Senn engages Ben in a cramped, ugly lightsaber clash between cabinet rows. Confined space, no room for grand form.",
+  "emotional_trajectory": "Vara should be dangerous but not Ben’s true mirror. Ben can handle the fight, but Vara recognizes that combat will not quickly work and changes tactics. This is Pinch Point 1 — the antagonist shows organized lethality. Restraint is about to cost something.",
+  "stakes": {
+    "personal": "Preserve the POV-specific fear, wound, and immediate want from Character Voice & Life Sheet v1.4.",
+    "interpersonal": "Preserve the relationship pressure named in the outline and character interaction rules.",
+    "external": "Preserve the chapter-level mystery/action consequence and the end-hook pressure."
+  },
+  "sensory_details": "Use only physical details implied by the source outline and bible; do not add new mythology or abstract Force explanation.",
+  "canon_elements_needed": [
+    "Iressa / Civitas / manifest reconstruction logic"
+  ],
+  "target_word_count": 2800,
+  "active_subplots": [
+    "SUB_02",
+    "SUB_05"
+  ],
+  "plot_threads_advanced": [
+    "chapter_14_locked_outline_action"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "promises_progressed": [
+    "PP_01",
+    "PP_02",
+    "PP_05",
+    "PP_08",
+    "PP_10",
+    "PP_12"
+  ],
+  "hook_actions": [],
+  "revelations": [],
+  "pov_arc_phase": "Ben:lie_challenged; Aevyn:lie_reinforced; Iressa:lie_challenged",
+  "notes": "Source: Chapter Outlines v4.1. Act: Act One — The Body / The Prison / The Partnership. Chapter title: Cleanup Team (Pinch Point 1).\n\nReader-onboarding note: Vara is a former Lost Tribe-trained contractor, not the main Sith villain. She is a crude contrast to Aevyn: crowbar versus scalpel.\n\nCharacter voice focus: preserve the exact v1.4 character behavior and dialogue rules for the chapter POV and named participants. Plot first, character second, theme through consequences.",
+  "scene_voice_permissions": {
+    "notes": "Use Character Voice & Life Sheet v1.4 as controlling source for dialogue, behavior, humor, fear, wounds, and interaction rules. Preserve commercial readability: goal, obstacle, movement, reversal, hook.",
+    "anti_patterns": [
+      "do not write theme as thesis",
+      "do not add new plot mythology",
+      "do not let Iresh become abstract before it is physically clear",
+      "do not make Dorrin a third lead or secret mentor"
+    ],
+    "pov_arc_phase": "Ben:lie_challenged; Aevyn:lie_reinforced; Iressa:lie_challenged"
+  }
+}

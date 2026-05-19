@@ -1,0 +1,38 @@
+{
+  "chapter_number": 38,
+  "chapter_mission": "Far below the broken Glasswell, where the floodwater has gone still, a cold white-blue spark flickers once in the dark.",
+  "chapter_turn": "Final image: Aevyn survived, changed.",
+  "structural_phase": "resolution",
+  "pov_allocation": [
+    "Distant",
+    "image"
+  ],
+  "scene_count": 1,
+  "scene_plan": [
+    {
+      "scene_number": 1,
+      "role": "aftermath",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 800,
+      "purpose": "Far below the broken Glasswell, where the floodwater has gone still, a cold white-blue spark flickers once in the dark."
+    }
+  ],
+  "reveal_payload": [
+    "R_13"
+  ],
+  "hook_movements": {
+    "planted": [
+      "HK_09"
+    ],
+    "advanced": [],
+    "resolved": []
+  },
+  "subplot_obligations": [
+    "SUB_06"
+  ],
+  "relationship_turns": [],
+  "pacing_curve": "falling",
+  "exit_vector": "Final image: Aevyn survived, changed.",
+  "chapter_word_target": 800,
+  "notes": "Source: Chapter Outlines v4.1. Act: Act One — The Body / The Prison / The Partnership. Chapter title: White-Blue Spark.\n\nCharacter voice focus: preserve the exact v1.4 character behavior and dialogue rules for the chapter POV and named participants. Plot first, character second, theme through consequences."
+}

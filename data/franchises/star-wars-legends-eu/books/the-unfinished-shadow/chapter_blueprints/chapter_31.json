@@ -1,0 +1,33 @@
+{
+  "chapter_number": 31,
+  "chapter_mission": "Ben first tries the ordinary Jedi path during the collapse. It is too slow. Remembering Iressa emotionally rather than philosophically, he acts decisively with Jacen-shaped crisis clarity and saves lives. Some people are grateful; some are shaken by how it felt to be moved or commanded.",
+  "chapter_turn": "Aevyn recognizes the pattern: Jacen taught Ben that.",
+  "structural_phase": "climax",
+  "pov_allocation": [
+    "Ben"
+  ],
+  "scene_count": 1,
+  "scene_plan": [
+    {
+      "scene_number": 1,
+      "role": "escalation",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 3800,
+      "purpose": "Ben first tries the ordinary Jedi path during the collapse. It is too slow."
+    }
+  ],
+  "reveal_payload": [],
+  "hook_movements": {
+    "planted": [],
+    "advanced": [],
+    "resolved": []
+  },
+  "subplot_obligations": [
+    "SUB_03"
+  ],
+  "relationship_turns": [],
+  "pacing_curve": "rising",
+  "exit_vector": "Aevyn recognizes the pattern: Jacen taught Ben that.",
+  "chapter_word_target": 3800,
+  "notes": "Source: Chapter Outlines v4.1. Act: Act One — The Body / The Prison / The Partnership. Chapter title: Too Slow.\n\nCharacter voice focus: preserve the exact v1.4 character behavior and dialogue rules for the chapter POV and named participants. Plot first, character second, theme through consequences."
+}

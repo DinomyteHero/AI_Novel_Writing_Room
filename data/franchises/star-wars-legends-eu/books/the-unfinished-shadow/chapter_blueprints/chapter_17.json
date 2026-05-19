@@ -1,0 +1,38 @@
+{
+  "chapter_number": 17,
+  "chapter_mission": "Ben visits the Foundation. Aelia is warm, prepared, legitimate, and hard to attack because the charity’s public work is real. Add a genuine charity warmth beat: she remembers a scholarship recipient, corrects a child’s name, notices a veteran’s discomfort, or writes a condolence note by hand while Ben watches. She gently makes Ben feel young and underprepared. Civilian-awkwardness beat: While waiting to see Aelia, Ben is offered tea or water by a young Foundation staffer who clearly recognizes him but is trying to be professional. Ben over-explains why he is there, then catches himself and goes quiet. The staffer notices and is polite about it. This is the second of two recognition-bracing moments (the first was the Civitas lunchroom), and it pays off Aelia’s later social victory — Ben is already on the back foot before he sits down with her.",
+  "chapter_turn": "Talon spots Bren Korda.",
+  "structural_phase": "attack",
+  "pov_allocation": [
+    "Ben"
+  ],
+  "scene_count": 1,
+  "scene_plan": [
+    {
+      "scene_number": 1,
+      "role": "escalation",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 3200,
+      "purpose": "Ben visits the Foundation. Aelia is warm, prepared, legitimate, and hard to attack because the charity’s public work is real."
+    }
+  ],
+  "reveal_payload": [
+    "R_05"
+  ],
+  "hook_movements": {
+    "planted": [
+      "HK_04"
+    ],
+    "advanced": [],
+    "resolved": []
+  },
+  "subplot_obligations": [
+    "SUB_04",
+    "SUB_05"
+  ],
+  "relationship_turns": [],
+  "pacing_curve": "rising",
+  "exit_vector": "Talon spots Bren Korda.",
+  "chapter_word_target": 3200,
+  "notes": "Source: Chapter Outlines v4.1. Act: Act One — The Body / The Prison / The Partnership. Chapter title: The Candle Room.\n\nReader-onboarding note: Explain the Foundation through what Ben sees: scholarship walls, occupied grief rooms, casualty records the government misplaced, and families who genuinely need the organization. Whatever the Vigil is, it has hidden inside something people need.\n\nCharacter voice focus: preserve the exact v1.4 character behavior and dialogue rules for the chapter POV and named participants. Plot first, character second, theme through consequences."
+}

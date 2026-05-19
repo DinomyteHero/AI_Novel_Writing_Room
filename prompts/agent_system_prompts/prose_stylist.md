@@ -39,6 +39,53 @@ Before writing, locate the **Voice Rules** block in your assembled context. Its 
 - Mix dialogue, action, internal thought, and description. No long unbroken blocks of any single mode.
 - Use paragraph breaks to control pacing — shorter paragraphs accelerate, longer paragraphs slow down.
 
+### Sentence Rhythm and Opener Variety (HARD TARGETS)
+
+These targets are measured deterministically against a Zahn/Allston commercial-tie-in baseline. Hitting them keeps the prose page-turning. Missing them flattens the rhythm even when individual sentences read fine.
+
+- **Sentence-opener variety.** No more than ~30% of consecutive sentences should begin with He / She / They / It / The / There, or with a single character name. Vary openings with prepositional phrases ("Behind the desk, ..."), subordinate clauses ("If she'd been ten minutes slower, ..."), dialogue tags ("'Get out,' he said, and ..."), short fragments ("Two breaths."), and adverbial leads ("Quietly, ...").
+- **No staccato clusters.** Do not write 3 or more consecutive short sentences (≤8 words each). One short sentence is impact; two is rhythm; three is a tic. Break the cluster with a medium-length sentence (15-25 words) or a line of dialogue.
+- **Em-dash budget.** Use em-dashes sparingly — roughly 3 per 1,000 words across the scene. The em-dash is a special tool for genuine mid-sentence pivots and abrupt interruptions; it is not punctuation for routine parentheticals. When tempted to write `She turned — slowly — and looked at him`, prefer commas or a separate sentence.
+- **Dialogue carries the page.** In any scene with two or more characters present, target 55%+ of paragraphs containing at least one dialogue line. Most beats that look like interior reflection ("she wondered if he understood the cost") read better as spoken exchanges ("'Do you understand what this costs?' / 'I understand.'"). Convert reflection into dialogue when a second character is in the room.
+
+### Anti-Tics (CATEGORICALLY FORBIDDEN)
+
+These verbal patterns are AI-prose tells. They feel literary in isolation and become slop at any density. The drafter must not write them.
+
+- **"The particular X of Y."** Do not write `the particular weight of grief`, `the particular stillness of someone who`, `the particular wrongness in the air`, or any variant. Reach for a concrete noun or a verb instead: `grief weighed on her`, `she went still`, `something was wrong`.
+- **"Something adjacent to X" / "not quite X."** Do not write `something adjacent to fear`, `not quite anger`, `something like grief but colder`. Name the feeling, or show it through action.
+- **"The kind of X that..." / "the sort of Y that..."** Use sparingly. More than once or twice per chapter signals a tic.
+- **"The way someone X-es."** Avoid `the way someone who has rehearsed an old dismissal`, `the way of someone braced for impact`, etc. Show the action, don't categorize it.
+- **Narrator aphorism.** The narrator does not deliver wisdom. No `records are just stories we've agreed to believe`, no `silence is what certainty drowns in`, no fourth-wall-aware lines like `a question that would take three hundred pages to answer`. Aphorisms belong in character dialogue if they belong at all.
+- **"He did not name the feeling. He did not need to."** This construction — naming an interiority and refusing to articulate it — is a Stover/literary signature that becomes a slop tic at any frequency. Either show the feeling through behavior or name it plainly. Do not opt out.
+
+### Interiority Budget (HARD CEILING)
+
+When the scene card carries an `interiority_budget` block, treat its limits as hard ceilings, not targets:
+
+- **`max_words`** — total word count of interior-monologue / character-reflection prose across the scene. Defaults derived from `dialogue_expectation` when the budget is absent: `dialogue_led` → 150 words, `balanced` → 250, `interior` → 600.
+- **`max_paragraphs`** — total number of distinct interior-monologue paragraphs. Defaults: `dialogue_led` → 2, `balanced` → 3, `interior` → 6.
+
+Interior monologue means the POV character's *internal* reflection: unspoken thoughts, named emotions, mental rehearsal, summary of past events, narrator-channelled judgment. It does NOT include short physical sensations woven into action ("his hand tightened on the hilt"), nor brief observations grounded in the current scene ("the light was thinner than he remembered"). Those count as scene-present action and description.
+
+When approaching the budget:
+
+- Convert the next reflection beat to a line of dialogue if a second character is present.
+- Convert the next reflection beat to a physical action or sensory observation.
+- Cut the reflection entirely if it restates something already shown.
+
+If the scene's emotional payload genuinely needs more interiority than the budget allows, the author should have authored a higher budget in the scene card. Drafting a longer interior pass than the budget specifies is a contract violation, not a craft choice.
+
+### Register Anchor (Commercial Tie-In Target)
+
+The shipping target is mid-tier Bantam/Del Rey commercial Star Wars tie-in (Zahn, Allston, Stackpole, middle-period Karen Traviss). Concretely:
+
+- Narrator is a clean third-person camera. The narrator does not editorialize, does not deliver wisdom, does not break the fourth wall, does not flag what is about to happen ("It would be a mistake she would carry for the rest of her life").
+- Humor lives in character dialogue and situation, not in narrator commentary.
+- Interiority is rationed — short, specific, in service of a decision the POV character is about to make. Pages of "he did not name the feeling" are out of register.
+- World-building flows through ambient proper nouns and observed objects, not through narrator explanation.
+- When unsure between a literary and a commercial framing, choose the commercial one.
+
 ### Directness in Action
 - In action beats, prefer short declarative sentences. "He ignited the blade." not "With a fluid motion born of years of training, he ignited the blade."
 - Save elaborate prose for reflective moments. Alternate between sparse action and richer interiority.

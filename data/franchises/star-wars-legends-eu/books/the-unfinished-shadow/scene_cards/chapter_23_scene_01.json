@@ -1,0 +1,58 @@
+{
+  "chapter_number": 23,
+  "scene_number": 1,
+  "structural_phase": "attack",
+  "scene_role": "escalation",
+  "pov_character": "Ben",
+  "mission": "Ben and Talon confirm the offworld destination and finalize the off-grid transit plan. Luke can only offer limited quiet support without making the case official. They prepare to leave.",
+  "why_now": "Chapter 23 occupies the attack phase and carries the next locked outline turn.",
+  "conflict": "Ben and Talon confirm the offworld destination and finalize the off-grid transit plan. Luke can only offer limited quiet support without making the case official.",
+  "conflict_type": "internal",
+  "dialogue_expectation": "balanced",
+  "turning_point": "Act turn. Ben and Talon leave for Iresh, knowing the Vigil/Foundation is already moving to recover something Jacen left there. # Act Three — Iresh / Glasswell / Aevyn Act purpose: The story shifts from Coruscant conspiracy thriller to strange-world expedition and Force climax. Ben confronts Aevyn, saves lives through Jacen-shaped crisis logic, defeats Aevyn without letting Jacen own what Ben does, and secures the unfinished holocron.",
+  "closing_hook": "Act turn. Ben and Talon leave for Iresh, knowing the Vigil/Foundation is already moving to recover something Jacen left there. # Act Three — Iresh / Glasswell / Aevyn Act purpose: The story shifts from Coruscant conspiracy thriller to strange-world expedition and Force climax. Ben confronts Aevyn, saves lives through Jacen-shaped crisis logic, defeats Aevyn without letting Jacen own what Ben does, and secures the unfinished holocron.",
+  "characters_present": [
+    "Ben Skywalker",
+    "Talon Veyr",
+    "Aevyn Soris",
+    "Luke Skywalker"
+  ],
+  "setting": "Coruscant, the Skywalker family apartment then a low-profile civilian transit dock. Ben and Talon finalize the off-grid transit plan, pack what little gear they can carry, and board a civilian cargo hauler bound for Iresh. Luke offers what quiet support he can from Shedu Maad without making the case official.",
+  "emotional_trajectory": "",
+  "stakes": {
+    "personal": "Preserve the POV-specific fear, wound, and immediate want from Character Voice & Life Sheet v1.4.",
+    "interpersonal": "Preserve the relationship pressure named in the outline and character interaction rules.",
+    "external": "Preserve the chapter-level mystery/action consequence and the end-hook pressure."
+  },
+  "sensory_details": "Use only physical details implied by the source outline and bible; do not add new mythology or abstract Force explanation.",
+  "canon_elements_needed": [],
+  "target_word_count": 1800,
+  "active_subplots": [],
+  "plot_threads_advanced": [
+    "chapter_23_locked_outline_action"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "promises_progressed": [
+    "PP_02",
+    "PP_04",
+    "PP_05",
+    "PP_06",
+    "PP_10",
+    "PP_12"
+  ],
+  "hook_actions": [],
+  "revelations": [],
+  "pov_arc_phase": "Ben arc per concept_seed ensemble_cast.weiland_arc.arc_phase_map",
+  "notes": "Source: Chapter Outlines v4.1. Act: Act One — The Body / The Prison / The Partnership. Chapter title: Iresh.\n\nCharacter voice focus: preserve the exact v1.4 character behavior and dialogue rules for the chapter POV and named participants. Plot first, character second, theme through consequences.",
+  "scene_voice_permissions": {
+    "notes": "Use Character Voice & Life Sheet v1.4 as controlling source for dialogue, behavior, humor, fear, wounds, and interaction rules. Preserve commercial readability: goal, obstacle, movement, reversal, hook.",
+    "anti_patterns": [
+      "do not write theme as thesis",
+      "do not add new plot mythology",
+      "do not let Iresh become abstract before it is physically clear",
+      "do not make Dorrin a third lead or secret mentor"
+    ],
+    "pov_arc_phase": "Ben arc per concept_seed ensemble_cast.weiland_arc.arc_phase_map"
+  }
+}

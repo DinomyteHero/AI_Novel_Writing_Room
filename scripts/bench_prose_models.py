@@ -40,6 +40,7 @@ from src.agents.micro_repair import MicroRepair  # noqa: E402
 from src.agents.plot_architect import PlotArchitect  # noqa: E402
 from src.agents.prose_stylist import ProseStylist  # noqa: E402
 from src.agents.quality_polish import QualityPolish  # noqa: E402
+from src.agents.rhythm_editor import RhythmEditor, apply_rhythm_edits  # noqa: E402
 from src.memory.context_assembler import ContextAssembler  # noqa: E402
 from src.model_router import ModelRouter  # noqa: E402
 from src.pipeline.final_copy import (  # noqa: E402
@@ -51,6 +52,7 @@ from src.pipeline.final_copy import (  # noqa: E402
 )
 from src.project_paths import ProjectPaths  # noqa: E402
 from src.quality.literal_repair import apply_literal_repairs  # noqa: E402
+from src.quality.rhythm_validator import validate_rhythm  # noqa: E402
 from src.quality.scene_contract_validator import (  # noqa: E402
     load_contract,
     validate_prose_contract,
@@ -670,6 +672,13 @@ async def run_bench(
     contract_repair_max_changed_ratio: float = 0.12,
     final_copy_model: str | None = None,
     final_copy_temperature: float = 0.45,
+    rhythm_metrics: bool = False,
+    rhythm_edit: bool = False,
+    rhythm_edit_model: str | None = None,
+    rhythm_edit_temperature: float = 0.2,
+    rhythm_edit_max_edits: int = 8,
+    rhythm_edit_max_total_changed_chars: int = 1500,
+    rhythm_edit_max_changed_ratio: float = 0.15,
 ) -> None:
     # Bootstrap
     router = ModelRouter(config_path)
@@ -724,6 +733,20 @@ async def run_bench(
     quality_polish = QualityPolish(router) if polish_model else None
     micro_repair = MicroRepair(router) if contract_repair_model else None
     literary_polish = LiteraryPolish(router) if final_copy_model else None
+    rhythm_editor = RhythmEditor(router) if rhythm_edit else None
+    if rhythm_editor and rhythm_edit_model:
+        apply_model_override(
+            router,
+            "rhythm_editor",
+            rhythm_edit_model,
+            rhythm_edit_temperature,
+            2400,
+        )
+        print(
+            f"[override] rhythm_editor -> {rhythm_edit_model} "
+            f"({MODEL_ALIASES.get(rhythm_edit_model, rhythm_edit_model)}) "
+            f"@ t={rhythm_edit_temperature:.2f}"
+        )
 
     if plot_architect_model:
         apply_model_override(router, "plot_architect", plot_architect_model, 0.4)
@@ -891,6 +914,36 @@ async def run_bench(
             "est_cost_usd": round(cost, 4),
             "output_file": artifact_ref(out_path, paths),
         }
+
+        if rhythm_metrics:
+            # Decide whether to require dialogue based on the scene card's
+            # dialogue_density_target / dialogue_expectation. An `interior` /
+            # `low` scene should not be penalised for dialogue starvation.
+            density_target = scene_card.get("dialogue_density_target")
+            dialogue_expectation = scene_card.get("dialogue_expectation")
+            require_dialogue = not (
+                density_target == "low"
+                or dialogue_expectation == "interior"
+            )
+            rhythm_result = validate_rhythm(
+                prose,
+                scope="scene",
+                scope_id=f"ch{ch:02d}_sc{sc:02d}__{cfg['label']}",
+                require_dialogue=require_dialogue,
+            )
+            result_entry["rhythm_metrics"] = rhythm_result.to_dict()
+            metrics_summary = rhythm_result.metrics
+            issue_count = len(rhythm_result.issues)
+            print(
+                f"  [rhythm] em-dash/1k={metrics_summary.em_dashes_per_1k_words:.1f} "
+                f"runs={metrics_summary.short_sentence_runs} "
+                f"opener={metrics_summary.default_opener_pct:.0f}% "
+                f"dialogue={metrics_summary.dialogue_bearing_paragraph_pct:.0f}% "
+                f"tics={metrics_summary.abstract_constructions_per_1k_words:.2f} "
+                f"-> {'PASS' if rhythm_result.passed else f'{issue_count} issue(s)'}"
+            )
+            for issue in rhythm_result.issues:
+                print(f"    [{issue.severity}] {issue.code}")
 
         downstream_prose = prose
         downstream_stem = cfg["label"]
@@ -1094,6 +1147,133 @@ async def run_bench(
                     else Path(line_edit_entry["output_file"]).stem
                 )
                 downstream_label = f"{cfg['label']} line edit {edit_model}"
+
+        # --- Optional rhythm-editor pass ---
+        # Runs after line-edit (or after prose-stylist if no line edit) on
+        # whatever is in downstream_prose. Detects rhythm issues with
+        # RhythmValidator, calls the LLM editor for bounded literal-edit
+        # patches, and applies them under deterministic safety caps. Same
+        # safety model as micro_repair.
+        if rhythm_editor is not None:
+            pre_edit_rhythm = validate_rhythm(
+                downstream_prose,
+                scope="scene",
+                scope_id=f"ch{ch:02d}_sc{sc:02d}",
+                require_dialogue=not (
+                    scene_card.get("dialogue_density_target") == "low"
+                    or scene_card.get("dialogue_expectation") == "interior"
+                ),
+            )
+            trigger_codes = {
+                "rhythm.em_dash_overuse",
+                "rhythm.staccato_cluster",
+                "rhythm.opener_monotone",
+                "rhythm.abstract_tic",
+            }
+            actionable_issues = [
+                i for i in pre_edit_rhythm.issues
+                if i.code in trigger_codes
+            ]
+            if not actionable_issues:
+                print("  [rhythm_edit] no actionable issues; skipping")
+            elif len(pre_edit_rhythm.issues) > 5:
+                print(
+                    f"  [rhythm_edit] {len(pre_edit_rhythm.issues)} issues "
+                    f"exceeds confusion threshold; skipping"
+                )
+            else:
+                print(
+                    f"  [rhythm_edit] {len(actionable_issues)} actionable "
+                    f"issue(s) detected; invoking editor"
+                )
+                rhythm_edit_start = time.time()
+                try:
+                    editor_result = await rhythm_editor.run({
+                        "prose": downstream_prose,
+                        "scene_card": scene_card,
+                        "rhythm_issues": [
+                            {
+                                "code": i.code,
+                                "severity": i.severity,
+                                "message": i.message,
+                                "metric_value": i.metric_value,
+                                "threshold": i.threshold,
+                            }
+                            for i in actionable_issues
+                        ],
+                    })
+                except Exception as e:
+                    print(
+                        f"    [ERROR] rhythm editor failed: "
+                        f"{e.__class__.__name__}: {e}"
+                    )
+                    editor_result = {"summary": "", "edits": []}
+                rhythm_edit_duration = time.time() - rhythm_edit_start
+                edits_proposed = editor_result.get("edits", [])
+                patched_prose, audit = apply_rhythm_edits(
+                    downstream_prose,
+                    edits_proposed,
+                    max_edits=rhythm_edit_max_edits,
+                    max_total_changed_chars=rhythm_edit_max_total_changed_chars,
+                    max_changed_ratio=rhythm_edit_max_changed_ratio,
+                )
+                applied = [a for a in audit if a["action"] == "applied"]
+                rejected = [a for a in audit if a["action"] == "rejected"]
+                print(
+                    f"    proposed={len(edits_proposed)} "
+                    f"applied={len(applied)} "
+                    f"rejected={len(rejected)} "
+                    f"in {rhythm_edit_duration:.1f}s"
+                )
+                for a in rejected[:3]:
+                    print(f"      rejected: {a.get('reason')}")
+
+                # Write the patched prose + audit + post-edit metrics.
+                rhythm_edit_path = (
+                    bench_dir / f"{cfg['label']}__RHYTHM_EDIT.md"
+                )
+                rhythm_edit_path.write_text(patched_prose, encoding="utf-8")
+                post_edit_rhythm = validate_rhythm(
+                    patched_prose,
+                    scope="scene",
+                    scope_id=f"ch{ch:02d}_sc{sc:02d}__rhythm_edit",
+                    require_dialogue=not (
+                        scene_card.get("dialogue_density_target") == "low"
+                        or scene_card.get("dialogue_expectation") == "interior"
+                    ),
+                )
+                post_metrics = post_edit_rhythm.metrics
+                print(
+                    f"  [rhythm post-edit] em-dash/1k="
+                    f"{post_metrics.em_dashes_per_1k_words:.1f} "
+                    f"runs={post_metrics.short_sentence_runs} "
+                    f"opener={post_metrics.default_opener_pct:.0f}% "
+                    f"dialogue={post_metrics.dialogue_bearing_paragraph_pct:.0f}% "
+                    f"tics={post_metrics.abstract_constructions_per_1k_words:.2f} "
+                    f"-> {'PASS' if post_edit_rhythm.passed else f'{len(post_edit_rhythm.issues)} issue(s)'}"
+                )
+                result_entry["rhythm_edit"] = {
+                    "duration_s": round(rhythm_edit_duration, 1),
+                    "summary": editor_result.get("summary", ""),
+                    "proposed": len(edits_proposed),
+                    "applied": len(applied),
+                    "rejected": len(rejected),
+                    "pre_edit_metrics": pre_edit_rhythm.to_dict()["metrics"],
+                    "post_edit_metrics": post_edit_rhythm.to_dict()["metrics"],
+                    "pre_edit_issues": [
+                        {"code": i.code, "severity": i.severity}
+                        for i in pre_edit_rhythm.issues
+                    ],
+                    "post_edit_issues": [
+                        {"code": i.code, "severity": i.severity}
+                        for i in post_edit_rhythm.issues
+                    ],
+                    "audit": audit,
+                    "output_file": artifact_ref(rhythm_edit_path, paths),
+                }
+                downstream_prose = patched_prose
+                downstream_stem = rhythm_edit_path.stem
+                downstream_label = f"{cfg['label']} rhythm edit"
 
         # --- Optional polish step ---
         if quality_polish is not None and polish_model:
@@ -1429,6 +1609,56 @@ def main() -> None:
         default=0.45,
         help="Temperature for --final-copy-model. Default: 0.45.",
     )
+    p.add_argument(
+        "--rhythm-metrics",
+        action="store_true",
+        help="Compute prose-rhythm metrics (em-dash density, short-sentence "
+             "runs, opener variance, dialogue-bearing fraction, abstract-tic "
+             "density) for every prose variant and include them in "
+             "bench_summary.json. Targets are calibrated against a Zahn / "
+             "Scoundrels baseline.",
+    )
+    p.add_argument(
+        "--rhythm-edit",
+        action="store_true",
+        help="After ProseStylist (and optional line edit), run the "
+             "RhythmEditor LLM agent to fix detected rhythm issues via "
+             "bounded literal substring edits. Same safety model as "
+             "micro_repair. Pre and post metrics are recorded.",
+    )
+    p.add_argument(
+        "--rhythm-edit-model",
+        default=None,
+        help="Short-name model override for the RhythmEditor pass (e.g. "
+             "'deepseekpro', 'gpt54_mini'). Defaults to whatever the agent "
+             "routing maps for 'rhythm_editor' in settings.yaml.",
+    )
+    p.add_argument(
+        "--rhythm-edit-temperature",
+        type=float,
+        default=0.2,
+        help="Temperature for the RhythmEditor LLM call. Default: 0.2.",
+    )
+    p.add_argument(
+        "--rhythm-edit-max-edits",
+        type=int,
+        default=8,
+        help="Maximum applied edits per scene. Default: 8.",
+    )
+    p.add_argument(
+        "--rhythm-edit-max-total-changed-chars",
+        type=int,
+        default=1500,
+        help="Maximum cumulative changed characters across applied edits. "
+             "Default: 1500.",
+    )
+    p.add_argument(
+        "--rhythm-edit-max-changed-ratio",
+        type=float,
+        default=0.15,
+        help="Maximum changed characters as a ratio of prose length. "
+             "Default: 0.15.",
+    )
     args = p.parse_args()
 
     models_filter = None
@@ -1458,6 +1688,13 @@ def main() -> None:
         contract_repair_max_changed_ratio=args.contract_repair_max_changed_ratio,
         final_copy_model=args.final_copy_model,
         final_copy_temperature=args.final_copy_temperature,
+        rhythm_metrics=args.rhythm_metrics,
+        rhythm_edit=args.rhythm_edit,
+        rhythm_edit_model=args.rhythm_edit_model,
+        rhythm_edit_temperature=args.rhythm_edit_temperature,
+        rhythm_edit_max_edits=args.rhythm_edit_max_edits,
+        rhythm_edit_max_total_changed_chars=args.rhythm_edit_max_total_changed_chars,
+        rhythm_edit_max_changed_ratio=args.rhythm_edit_max_changed_ratio,
     ))
 
 

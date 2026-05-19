@@ -418,6 +418,88 @@ def emit_scene_reviewer_other(
     )
 
 
+def emit_rhythm_advisory(
+    store: Optional[RevisionDebtStore],
+    *,
+    ledger=None,
+    scope: Mapping[str, Any],
+    issue: Mapping[str, Any],
+    metrics: Mapping[str, Any] | None = None,
+) -> str | None:
+    """RhythmValidator advisory: one row per detected rhythm issue.
+
+    ``issue`` is a serialised ``RhythmIssue`` (code, severity, message,
+    metric_value, threshold). ``code`` is mapped to its closed-enum category
+    name. Unknown codes route to ``editorial.other`` so the wrapper never
+    rejects a future RhythmValidator code with a hard error.
+    """
+    code = issue.get("code") or ""
+    severity = (issue.get("severity") or "low").lower()
+    if severity not in {"low", "medium", "high"}:
+        severity = "low"
+
+    code_to_category = {
+        "rhythm.em_dash_overuse": "prose.rhythm.em_dash_overuse",
+        "rhythm.staccato_cluster": "prose.rhythm.staccato_cluster",
+        "rhythm.opener_monotone": "prose.rhythm.opener_monotone",
+        "rhythm.dialogue_starved": "prose.rhythm.dialogue_starved",
+        "rhythm.abstract_tic": "prose.rhythm.abstract_tic",
+    }
+    category = code_to_category.get(code, "editorial.other")
+
+    details: dict[str, Any] = {
+        "code": code,
+        "metric_value": issue.get("metric_value"),
+        "threshold": issue.get("threshold"),
+    }
+    if metrics:
+        details["metrics_snapshot"] = dict(metrics)
+    return _write(
+        store,
+        ledger=ledger,
+        producer="rhythm_validator",
+        scope=scope,
+        category=category,
+        severity=severity,
+        summary=str(issue.get("message") or code or "rhythm advisory"),
+        details=details,
+        fix_scope="scene",
+    )
+
+
+def emit_continuity_break(
+    store: Optional[RevisionDebtStore],
+    *,
+    ledger=None,
+    scope: Mapping[str, Any],
+    break_kind: str,
+    summary: str,
+    details: Mapping[str, Any] | None = None,
+) -> str | None:
+    """Cross-chapter continuity validator finding.
+
+    ``break_kind`` is one of ``character_state``, ``location``,
+    ``object_location``. Unknown kinds route to ``editorial.other``.
+    """
+    kind_to_category = {
+        "character_state": "prose.continuity.character_state_break",
+        "location": "prose.continuity.location_break",
+        "object_location": "prose.continuity.object_location_break",
+    }
+    category = kind_to_category.get(break_kind, "editorial.other")
+    return _write(
+        store,
+        ledger=ledger,
+        producer="continuity_validator",
+        scope=scope,
+        category=category,
+        severity="medium",
+        summary=summary[:200],
+        details=dict(details or {}),
+        fix_scope="chapter",
+    )
+
+
 __all__ = [
     "emit_canon_advisory",
     "emit_canon_fix_rejected",
@@ -431,5 +513,7 @@ __all__ = [
     "emit_compression_advisory",
     "emit_scene_reviewer_finding",
     "emit_scene_reviewer_other",
+    "emit_rhythm_advisory",
+    "emit_continuity_break",
     "emit_status_update",
 ]
