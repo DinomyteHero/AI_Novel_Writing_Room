@@ -159,7 +159,7 @@ The current production default is lean mode:
 PlotArchitect -> ProseStylist -> LineWriter -> save
 ```
 
-Run production with the normal CLI for the book. The `LineWriter` step runs only while `runtime.lean_prose_only.line_edit.enabled` is true and `agent_routing.line_writer` is configured. Keep broad gates, per-scene quality polish, save-blockers, post-save LLM analysis, and full literary copy passes as opt-in diagnostics rather than the default drafting path.
+Run production with the normal CLI for the book. The `LineWriter` step runs while `runtime.lean_prose_only.line_edit.enabled` is true and `agent_routing.line_writer` is configured — the shipping default. The lean pipeline has no save-time gates, no quality-polish pass, and no save-blocker layer; the structural framework is enforced upstream at planning and scene-card validation time. Full literary-copy passes run after the draft, not during it.
 
 ## 6. Export The Manuscript
 

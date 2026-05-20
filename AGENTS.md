@@ -12,7 +12,7 @@ A multi-agent fiction generation system. Humans plan a novel through a
 **workflow kit** (six per-surface skills that produce
 `workflows/*.json`); `scripts/compile_bundle.py` merges those into a
 `concept_seed.json` + `scene_cards/`; then the autonomous pipeline
-drafts, line-edits, evaluates, and saves each scene.
+drafts, line-edits, and saves each scene in a single lean forward pass.
 
 ## The two-tier model
 

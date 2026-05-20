@@ -1,6 +1,8 @@
 # AI Writers' Room — Architecture Upgrade Implementation Spec
 
-**Status:** Historical implementation spec. Slices 1–6 have since landed or evolved in code; use `CLAUDE.md`, `config/settings.yaml`, and the current user-guide/reference docs for operational behavior.
+> **Archived 2026-05-19 — superseded by the lean teardown.** Slices 1, 4, and 5 (diagnostic gate / state firewall, continuity event log, sociogram) were removed; Slices 2, 3, and 6 (chapter packet + revision debt, promise ledger, manuscript lifecycle) shipped and are documented in [CLAUDE.md](../../CLAUDE.md). This slice-by-slice playbook is retained for historical traceability only — do not execute it.
+
+**Status:** Historical implementation spec. Slices 1–6 have since landed, evolved, or been removed in code; use `CLAUDE.md`, `config/settings.yaml`, and the current user-guide/reference docs for operational behavior.
 **Last revised:** 2026-04-20
 **Authoring context:** This document supersedes the earlier "revised phased roadmap." It consolidates the eight patch-level refinements (successor classifier, debt write-matrix, packet consistency model, promise progression semantics, gap-note lifecycle, Phase 0 JSON audit, polish bench extension, slice renumbering) into a single implementation playbook.
 

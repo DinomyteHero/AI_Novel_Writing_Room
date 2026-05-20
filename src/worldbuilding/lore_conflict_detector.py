@@ -15,8 +15,7 @@ produce flags from multiple passes):
    normalized, punctuation-stripped) are also flagged at medium severity.
 2. ``canon_rule_violation`` — the provisional entry's content or tags
    reference a term listed in ``canon_profile.cross_continuity_violations``
-   or ``canon_profile.anachronistic_terms``. These are the same strings
-   the canon_expert agent flags in-prose — we catch them here too so the
+   or ``canon_profile.anachronistic_terms``. We catch them here so the
    lore store doesn't quietly drift.
 3. ``timeline_contradiction`` — the provisional entry's ``(valid_from,
    valid_until)`` window overlaps with a canonical entry that shares the
@@ -50,8 +49,8 @@ class ConflictFlag:
     """A single lore conflict flag.
 
     Emitted to the run ledger and exposed to callers verbatim. Stable
-    shape so downstream consumers (ChapterGateCritic, promote_lore.py,
-    eventual UI) can rely on field names.
+    shape so downstream consumers (promote_lore.py, eventual UI) can rely
+    on field names.
     """
 
     entry_id: str

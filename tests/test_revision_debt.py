@@ -22,7 +22,6 @@ from src.pipeline.revision_debt import (
     RevisionDebtStore,
 )
 from src.pipeline.revision_debt_producers import (
-    emit_blocker_record,
     emit_canon_advisory,
     emit_canon_fix_rejected,
     emit_canon_polish_drift,
@@ -249,12 +248,6 @@ def test_producer_emits_debt_added_with_level_info():
         "presence_near_miss", "presence_checker",
     ),
     (
-        emit_blocker_record,
-        {"scope": {"level": "scene", "chapter_number": 1},
-         "blocker_categories": ["CANON_BLOCKER"], "gap_id": "gap_x"},
-        "blocker_record", "state_firewall",
-    ),
-    (
         emit_wordcount_drift,
         {"scope": {"level": "chapter", "chapter_number": 1},
          "target": 3000, "actual": 2000, "pct_drift": -33.3},
@@ -288,17 +281,6 @@ def test_write_matrix_row_produces_expected_category(wrapper, kwargs, category, 
     assert row["category"] == category
     assert row["producer"] == producer
     assert row["severity"] in SEVERITIES
-
-
-def test_blocker_record_severity_pinned_high():
-    store = _store()
-    ledger = _LedgerStub()
-    debt_id = emit_blocker_record(
-        store, ledger=ledger,
-        scope={"level": "scene", "chapter_number": 1},
-        blocker_categories=["CANON_BLOCKER"],
-    )
-    assert store.get(debt_id)["severity"] == "high"
 
 
 def test_wordcount_drift_severity_crosses_30pct_band():

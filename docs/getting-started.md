@@ -28,7 +28,7 @@ Not all dependencies are required. The pipeline gracefully degrades when optiona
 | httpx, pyyaml, pydantic | Core (all phases) |
 | pytest, pytest-asyncio | Running tests |
 | chromadb, sentence-transformers, numpy | Phase 2 (memory, canon, RAG) |
-| nltk, scikit-learn | Phase 3 (quality metrics) |
+| nltk, scikit-learn | Optional prose-analysis tooling |
 | python-docx, ebooklib | Phase 4 (DOCX/EPUB export) |
 | fastapi, uvicorn, websockets | Web dashboard |
 
@@ -125,7 +125,7 @@ python -m src.main \
     --chapter 1 --phase 1
 ```
 
-With the shipping runtime flags, this runs the lean scene path: `PlotArchitect -> ProseStylist -> [LineWriter] -> save`. The fuller forward-only relay is still available for diagnostics by disabling `runtime.lean_prose_only`; in that path gates emit telemetry, compression below 60% reverts to the gate-passed draft, and the save-blocker layer is the single hard-failure point.
+This runs the lean scene path: `PlotArchitect -> ProseStylist -> [LineWriter] -> save`. The pipeline is a single forward pass — there is no save-time gate, polish pass, or save-blocker layer; the drafter lands the scene contract on the first pass.
 
 Output goes to `output/star-wars-legends-eu/the-ruusan-atonement/runs/<auto-timestamp>/chapters/`.
 
@@ -151,7 +151,7 @@ python -m src.main \
     --phase 5
 ```
 
-Phase 5 enables the highest pipeline depth, including story state, quality metrics, milestone gates, physics enforcement, session persistence, chapter blueprint generation, and the `ChapterGateCritic` when the non-lean path reaches those stages. The shipping lean scene path still skips broad gates, per-scene polish, save-blockers, and post-save LLM analysis by default.
+Phase 5 enables the highest pipeline depth: story state, chapter memory, the post-save memory chain, session persistence, and chapter blueprint generation. The per-scene drafting path is the same lean forward pass at every phase.
 
 ### Export the Manuscript
 
@@ -193,7 +193,7 @@ Run the test suite to confirm everything is installed correctly:
 pytest
 ```
 
-Approximately 1,950 tests are collected across 140 test files. If some tests are skipped due to missing optional dependencies (chromadb, sentence-transformers, fastapi), that's expected — the tests for those subsystems are skipped when their dependencies aren't installed.
+If some tests are skipped due to missing optional dependencies (chromadb, sentence-transformers, fastapi), that's expected — the tests for those subsystems are skipped when their dependencies aren't installed.
 
 ## Three Workflows
 
@@ -243,13 +243,13 @@ python -m src.main \
 
 Best for: maximum creative control over every scene. Skip `--generate-outline` entirely — just place your concept seed and scene card JSON files in the book directory. See the [scene card template](scene-card-template.md).
 
-See [Concept Workshop](user-guide/concept-workshop.md) and [Workflow Kit](user-guide/workflow-kit.md) for detailed guides.
+See [Workflow Kit](user-guide/workflow-kit.md) for the detailed guide.
 
 ## Next Steps
 
 - [CLI Usage](user-guide/cli-usage.md) — All CLI flags and workflows
 - [Workflow Kit](user-guide/workflow-kit.md) — Six-surface concept authoring
 - [Web Interface](user-guide/web-interface.md) — Dashboard walkthrough
-- [Concept Workshop](user-guide/concept-workshop.md) — Legacy 11-step protocol
-- [Benchmarking](development/benchmarking.md) — A/B model and pipeline evaluation
+- [New Manuscript Workflow](user-guide/new-manuscript-workflow.md) — End-to-end path from idea chat to export
+- [Benchmarking](development/benchmarking.md) — Prose-model A/B evaluation
 - [System Overview](architecture/system-overview.md) — How the system works

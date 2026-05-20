@@ -51,11 +51,9 @@ def test_migrate_all_runs_every_script(tmp_path: Path):
         capture_output=True, text=True, cwd=REPO_ROOT,
     )
     assert result.returncode == 0, result.stderr
-    # Slice 2/3/4/5 migrations seed their DBs fresh.
+    # Slice 2/3 migrations seed their DBs fresh.
     assert (state_dir / "revision_debt.db").exists()
     assert (state_dir / "promise_ledger.db").exists()
-    assert (state_dir / "continuity_log.db").exists()
-    assert (state_dir / "sociogram.db").exists()
 
 
 def test_migrate_all_is_idempotent(tmp_path: Path):
@@ -76,8 +74,5 @@ def test_migrate_all_dry_run_does_not_write(tmp_path: Path):
     )
     assert result.returncode == 0, result.stderr
     state_dir = tmp_path / "output" / "f" / "b" / "state"
-    # Dry-run must not create the Slice 3/4/5 DBs. Slice 1/2 scripts already
-    # respected --dry-run before this wave; Slice 3/4/5 wrappers are new.
+    # Dry-run must not create the Slice 3 promise-ledger DB.
     assert not (state_dir / "promise_ledger.db").exists()
-    assert not (state_dir / "continuity_log.db").exists()
-    assert not (state_dir / "sociogram.db").exists()

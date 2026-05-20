@@ -49,12 +49,8 @@ EVENT_TYPES = [
     # Relay refactor Stage 3: LineWriter telemetry
     "line_writer_error",
     "line_writer_collapsed",
-    # Architecture upgrade Slice 1: state firewall + Phase 0 audit.
-    # Payload shapes are documented in docs/architecture/architecture_upgrade_spec.md §11.4.
-    "scene_isolated",          # error — StateFirewall isolates a scene
-    "gap_note_recorded",       # warn  — gap row written to SQLite
+    # Slice 6 manuscript lifecycle: gap resolution via the patch workflow.
     "gap_note_resolved",       # info  — gap resolved via patch workflow
-    "phase0_audit_emitted",    # info  — audit_phase0.py completed
     # Architecture upgrade Slice 2: chapter packet + revision debt.
     "packet_base_compiled",    # info  — ChapterPacketCompiler.compile_base done
     "packet_overlay_written",  # info  — per-scene overlay built (carries overlay_version)
@@ -66,25 +62,6 @@ EVENT_TYPES = [
     "promise_progressed",      # info  — scene card declared a progression beat
     "promise_paid",            # info  — payoff_scene recorded
     "promise_overdue",         # warn  — list_overdue surfaced a promise at packet time
-    # Architecture upgrade Slice 4: continuity event log.
-    "continuity_event_recorded",    # info — event appended above threshold
-    "continuity_events_suppressed", # warn — count of sub-threshold events dropped
-    "continuity_extractor_error",   # warn — extractor call failed; scene still saved
-    # Architecture upgrade Slice 5: sociogram.
-    "sociogram_delta_applied",      # info — scene_card relationship_deltas row applied
-    "sociogram_suggestion_recorded",# info — suggest_mode proposal landed in revision debt
-    # Architecture upgrade §11.1: CanonExpert relocation. Event types
-    # reserved at the inventory level so producers can emit safely once the
-    # relocation lands (the flag triad in config/settings.yaml is already
-    # default-off). See docs/architecture/architecture_upgrade_spec.md §11.1.
-    "canon_early_pass_fired",       # info — pre-polish canon pass ran
-    "canon_polish_drift_detected",  # warn — second pass found drift after polish
-    "canon_fix_applied",            # info — whitelisted local_fix applied
-    "canon_fix_rejected",           # warn — suggested fix was outside the whitelist
-    # Forward Relay v4: smart single corrective rerun.
-    "corrective_rerun_fired",       # info — rerun triggered on fail_structural
-    "corrective_rerun_skipped",     # info — rerun candidate but trigger rules rejected
-    "corrective_rerun_complete",    # info — rerun finished; downstream proceeds
 ]
 
 

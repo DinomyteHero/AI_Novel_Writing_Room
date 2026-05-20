@@ -279,45 +279,6 @@ def render_scene_voice_contract(
     return "\n".join(lines)
 
 
-def render_canon_voice_permissions(
-    scene_card: Mapping[str, object] | None,
-) -> str:
-    """Render CanonExpert's scene-level voice-permissions section."""
-    permissions = normalize_scene_voice_permissions(scene_card)
-    if not permissions.has_canon_surface:
-        return ""
-
-    parts = [
-        "## Scene-Level Voice Permissions (READ BEFORE FLAGGING FRANCHISE_VOICE)",
-        "The following scene-level authorizations override franchise-wide voice "
-        "rules for THIS scene only. A phrase or metaphor permitted here is NOT "
-        "a franchise_voice violation; treating it as one is a false positive.",
-    ]
-    if permissions.notes:
-        parts.append("\n### Scene-card notes (verbatim)")
-        parts.append(permissions.notes)
-    if permissions.heightened_interiority_permitted:
-        if permissions.uses_legacy_stover_guidance:
-            parts.append("\n### stover_permitted: true")
-            parts.append(
-                "This scene permits Stover-style prose intensity \u2014 heightened "
-                "physicality, metaphysical direct address, sharper abstraction. "
-                "Do not flag such moves as franchise_voice drift."
-            )
-        else:
-            parts.append("\n### authorized_modes: heightened_interiority")
-            parts.append(
-                "This scene permits heightened interior density \u2014 sharper "
-                "abstraction, elevated internal pressure, and more direct "
-                "metaphysical articulation when earned. Do not flag such moves "
-                "as franchise_voice drift."
-            )
-    if permissions.anti_patterns:
-        parts.append("\n### Scene-card anti-patterns (for context only)")
-        parts.extend(f"- {item}" for item in permissions.anti_patterns)
-    return "\n".join(parts)
-
-
 # Top-level scene-card fields that have been superseded by the additive
 # `scene_voice_permissions` block. Authors should migrate into the nested
 # shape; the readers above still accept these for backwards compatibility,

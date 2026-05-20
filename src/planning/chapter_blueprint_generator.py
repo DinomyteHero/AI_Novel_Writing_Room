@@ -397,7 +397,7 @@ class ChapterBlueprintGenerator:
 def _blueprint_path(
     franchise_slug: str, book_slug: str, chapter_number: int, base_dir: str = ".",
 ) -> Path:
-    """Canonical path matching the location ChapterGateCritic loads from."""
+    """Canonical path the chapter packet compiler loads blueprints from."""
     return (
         Path(base_dir)
         / "data"

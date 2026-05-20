@@ -2,6 +2,8 @@
 
 The web interface exposes a REST API at `/api/` and a WebSocket endpoint for real-time events. The backend is built with FastAPI (`src/ui/app.py`).
 
+> **Preview surface.** The web UI is a preview surface. Some endpoints predate the 2026-05-19 lean teardown and still accept request fields or expose counters for removed subsystems (gates, milestone gates, the LLM judge); those are flagged inline below. The CLI (`python -m src.main`) is the production-quality entry point.
+
 ## ProjectPaths
 
 `src/project_paths.py` resolves all file paths for a project. Construct via `ProjectPaths.from_concept_seed(seed, run_id=...)` or `ProjectPaths.from_concept_seed_path(path, run_id=...)`. Key slugs and properties (full list in [src/project_paths.py](../../src/project_paths.py)):
@@ -75,20 +77,18 @@ Start a pipeline run as a background task.
 |-------|------|---------|-------------|
 | concept_seed_path | string? | null | Override concept seed path |
 | scene_cards_dir | string? | null | Override scene cards directory |
-| phase | int | 4 | Pipeline phase (1–5). Phases 6–7 are runtime-orthogonal and activate via other fields / `--runtime-flag` overrides. |
-| raw_draft | bool | false | Skip Quality Polish + Final Gate; save the Scene-Gate-passed draft |
-| no_milestones | bool | false | Skip milestone gates |
-| judge | bool | false | Run LLM judge evaluation |
+| phase | int | 4 | Pipeline phase (1–5) |
 | chapter | int? | null | Generate only this chapter |
 | franchise | string? | null | Franchise namespace |
 | book | string? | null | Book identifier |
 | series | string? | null | Series identifier for shared state |
 | run_name | string? | null | Custom run ID (default: auto-timestamped) |
-| generate_blueprints | bool | true | Phase 5: auto-generate missing chapter blueprints when `phase >= 5`. Set `false` to skip generation and only use hand-authored blueprints. |
+| generate_blueprints | bool | true | Phase 5: auto-generate missing chapter blueprints when `phase >= 5`. Set `false` to use only hand-authored blueprints. |
 | regenerate_blueprints | bool | false | Phase 5: overwrite existing blueprints. Default preserves hand-authored files. |
-| strict_lore | bool | false | Phase 7.2: promote high-severity `LoreConflictDetector` flags to blocking. Advisory by default — flags land in the run ledger but don't fail the scene. |
-| universe_id | string? | null | Deprecated alias for `franchise`. Kept for existing frontend clients; new callers should send `franchise`. |
-| project_id | string? | null | Deprecated alias for `book`. Kept for existing frontend clients; new callers should send `book`. |
+| universe_id | string? | null | Deprecated alias for `franchise` |
+| project_id | string? | null | Deprecated alias for `book` |
+
+The request model also accepts `raw_draft`, `no_milestones`, `judge`, and `strict_lore` for backward compatibility, but the lean pipeline **ignores** them — the gate, milestone-gate, LLM-judge, and strict-lore subsystems were removed in the 2026-05-19 lean teardown.
 
 **Response:** `{ session_id, status, total_chapters }`
 
@@ -98,9 +98,9 @@ Start a pipeline run as a background task.
 GET /api/pipeline/status
 ```
 
-**Response:** `{ state, session_id, current_chapter, total_chapters, completed_chapters, error, milestone_info }`
+**Response:** `{ state, session_id, current_chapter, total_chapters, completed_chapters, error }`
 
-Pipeline states: `idle`, `running`, `paused`, `milestone_pending`, `completed`, `failed`
+Pipeline states: `idle`, `running`, `paused`, `completed`, `failed`
 
 ### Pause Pipeline
 
@@ -134,7 +134,7 @@ POST /api/pipeline/milestone/approve
 
 **Request body:** `{ should_continue: bool }`
 
-Approve or reject a milestone gate.
+Retained for API compatibility. The lean pipeline does not pause for milestone gates, so this endpoint is not exercised by current runs.
 
 ---
 
@@ -164,7 +164,7 @@ Returns full prose for a chapter/scene.
 GET /api/chapters/{chapter_num}/{scene_num}/metrics
 ```
 
-Returns quality metrics from the chapter log.
+Returns the chapter log entry (word count, structural phase, POV, summary, save status).
 
 ### Get Chapter Evaluation
 
@@ -172,9 +172,9 @@ Returns quality metrics from the chapter log.
 GET /api/chapters/{chapter_num}/{scene_num}/evaluation
 ```
 
-Returns gate critic and LLM judge evaluations.
+Queries the run ledger for any gate or judge evaluation events recorded for the chapter. The lean pipeline emits neither, so for lean runs this returns only the identifiers.
 
-**Response:** `{ chapter_number, scene_number, gate_evaluation, judge_evaluation }`
+**Response:** `{ chapter_number, scene_number }` (legacy `gate_evaluation` / `judge_evaluation` keys appear only if such events exist in the ledger)
 
 ### Get Manuscript Summary
 
@@ -299,7 +299,7 @@ GET /api/concept-seed
 ### Query Events
 
 ```
-GET /api/ledger/events?event_type=gate_pass&chapter=1&agent_role=gate_critic&limit=50
+GET /api/ledger/events?event_type=agent_complete&chapter=1&agent_role=prose_stylist&limit=50
 ```
 
 All query parameters are optional. `limit` range: 1-500, default: 50.
@@ -318,7 +318,7 @@ GET /api/ledger/events/latest?limit=20
 GET /api/ledger/summary
 ```
 
-**Response:** `{ total_events, events_by_type, gate_pass_count, gate_fail_count, gate_pass_rate }`
+**Response:** `{ total_events, events_by_type, gate_pass_count, gate_fail_count, gate_pass_rate, save_blocked_count }`. The `gate_*` and `save_blocked_count` fields are legacy counters that stay at `0` for lean runs — the lean pipeline emits no gate or save-blocked events.
 
 ---
 

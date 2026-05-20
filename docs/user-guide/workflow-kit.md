@@ -158,8 +158,7 @@ their existing import paths.
 
 Phase 4 deliberately does not touch:
 
-- **Chapter blueprint generation** and `ChapterGateCritic` instantiation
-  (Phase 5).
+- **Chapter blueprint generation** (Phase 5).
 - **Series transitions** — `spawn_next_book.py`, `branch_point`
   enforcement (Phase 6).
 - **Closed-loop lore** — `lore_extractor` post-scene loop,

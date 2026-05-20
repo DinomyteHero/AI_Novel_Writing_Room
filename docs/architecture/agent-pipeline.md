@@ -1,12 +1,21 @@
 # Agent Pipeline
 
-This document describes how the multi-agent generation loop works, from scene card input to saved chapter.
+This document describes how the lean multi-agent generation loop works, from scene card input to saved chapter.
 
-## Default Production Mode
+## The Lean Forward Pass
 
-The current production default is lean mode (`runtime.lean_prose_only.enabled: true`): `PlotArchitect -> ProseStylist -> LineWriter -> save`. In that path, broad scene gates, QualityPolish, FinalGate, CanonExpert, PresenceChecker, chapter gates, and post-save LLM analysis are skipped unless explicitly enabled for a diagnostic or benchmark run.
+The pipeline drafts each scene in a **single forward pass**. There are no gates, no save-blocker layer, no quarantine, no retries:
 
-The fuller relay documented below remains real code and is still useful for experiments, telemetry, and non-lean runs. For final manuscript work after export, use the [Manuscript Production Lifecycle](manuscript-production-lifecycle.md): full manuscript review, targeted revision, targeted cleanup, optional literary donor pass, and deterministic validation.
+```
+PlotArchitect -> ProseStylist -> [LineWriter] -> [RhythmValidator -> RhythmEditor]
+  -> save -> post-save memory
+```
+
+`[...]` steps are optional. `LineWriter` runs when `runtime.lean_prose_only.line_edit.enabled` is true and an `agent_routing.line_writer` entry exists (the shipping default). The rhythm stages are flag-gated and default-off.
+
+The drafter is expected to land the scene contract on the first pass. The structural framework (Brooks beat map + Weiland arc map + scene contract) is enforced *upstream*, at planning and scene-card validation time; the chapter packet hands the drafter a single inspectable runtime contract. There is no save-time editorial gate to catch drift — quality is a planning-and-prompt problem, not a retry problem.
+
+After a manuscript is drafted, manuscript-level editorial passes run separately — see [Manuscript Production Lifecycle](manuscript-production-lifecycle.md).
 
 ## BaseAgent Pattern
 
@@ -19,11 +28,11 @@ class BaseAgent(ABC):
         self.role = role
         self.system_prompt = self._load_system_prompt()  # from prompts/agent_system_prompts/{role}.md
 
-    async def run(self, context: dict) -> dict:       # Free-text response
-    async def run_structured(self, context: dict) -> dict:  # JSON response
+    async def run(self, context: dict) -> dict:               # Free-text response
+    async def run_structured(self, context: dict) -> dict:    # JSON response
 
     @abstractmethod
-    def _format_context(self, context: dict) -> str:   # Build user prompt
+    def _format_context(self, context: dict) -> str:          # Build user prompt
     @abstractmethod
     def _parse_response(self, response: str, context: dict) -> dict:  # Parse output
 ```
@@ -36,150 +45,93 @@ Each agent:
 
 ## Agent Roles
 
+### Scene-path agents
+
 | Agent | File | Role Key | Task |
 |-------|------|----------|------|
 | PlotArchitect | `src/agents/plot_architect.py` | `plot_architect` | Scene card -> typed generation brief (JSON per `schemas/generation_brief.json`) |
-| ProseStylist | `src/agents/prose_stylist.py` | `prose_stylist` | Typed generation brief + context -> draft prose |
-| LineWriter | `src/agents/line_writer.py` | `line_writer` | Optional line-editing pass (GPT-5.4 Mini @ t=0.35 in the shipping config). Preserves beats, POV, characters_present, canon while rewriting sentence-level rhythm, imagery, and voice texture. In lean mode it runs when `runtime.lean_prose_only.line_edit.enabled: true`; in non-lean runs it is skipped in `--raw-draft` and when no `line_writer` routing entry is configured. |
-| GateCritic | `src/agents/gate_critic.py` | `gate_critic` | Prose -> structured pass/fail evaluation (Scene Gate). Advisory only under the forward-only relay — verdicts are logged but do not block or retry. |
-| QualityPolish | `src/agents/quality_polish.py` | `quality_polish` | Single bounded expression-level polish pass (replaces Craft Editor + 3 revision bands) |
-| FinalGate | `src/agents/final_gate.py` | `final_gate` | Contract check on the current post-polish text. Advisory only — emits `final_gate_rejection` with `advisory_only=True`; prose still proceeds unless the compression guard has already reverted it or the save-blocker layer fires. |
-| CanonExpert | `src/agents/canon_expert.py` | `canon_expert` | Continuity editor. Runs **after FinalGate** as the last reader on the current post-polish text; its verdict feeds the `CANON_BLOCKER` save-blocker. Franchise-agnostic, template-driven: reads `canon_profile` from the concept seed. |
-| PresenceChecker | `src/agents/presence_checker.py` | `presence_checker` | Save-blocker agent. Detects named characters who speak or act in the prose despite being absent from the scene card's `characters_present` list; fires `CHARACTER_PRESENCE_BLOCKER`. |
-| MicroRepair | `src/agents/micro_repair.py` | `micro_repair` | Optional bounded post-check repair agent. Converts presence findings into exact literal substitutions only; never rewrites paragraphs, adds beats, or introduces new names. Disabled by default. |
-| ChapterGateCritic | `src/agents/chapter_gate_critic.py` | `chapter_gate_critic` | Whole-chapter evaluation against the blueprint + composition heuristics |
-| CharacterSpecialist | `src/agents/character_specialist.py` | `character_specialist` | Out-of-character detection (supplementary) |
-| Summarizer | `src/agents/summarizer.py` | `summarizer` | Chapter compression to summary + state diff |
-| OutlinePlanner | `src/planning/scene_card_generator.py` | `outline_planner` | Concept seed -> structured outline |
-| JudgeEvaluator | `src/quality/llm_judge.py` | `judge_evaluator` | LLM-as-judge 5-dimension evaluation |
-| ManuscriptReviewer | `src/agents/manuscript_reviewer.py` | `manuscript_reviewer` | GPT-5.4 full-manuscript evaluation that produces the editorial docket for targeted revision |
+| ProseStylist | `src/agents/prose_stylist.py` | `prose_stylist` | Primary drafter. Generation brief + chapter packet -> draft prose |
+| LineWriter | `src/agents/line_writer.py` | `line_writer` | Optional single post-draft line-edit pass. Preserves beats, turning point, POV, `characters_present`, and canon while rewriting sentence-level rhythm, imagery, and voice texture. Takes an **explicitly wired** context dict — does not reach into the ambient `ContextAssembler`. |
+| RhythmEditor | `src/agents/rhythm_editor.py` | `rhythm_editor` | Optional bounded literal-edit pass that fixes rhythm issues flagged by `RhythmValidator`. Exact-span replacements only; deterministic safety caps enforced by `apply_rhythm_edits()`. Default off (`runtime.rhythm_editor.enabled`). |
+| Summarizer | `src/agents/summarizer.py` | `summarizer` | Post-save: scene summary + state diff that feed chapter memory, story state, and the contradiction scan |
 
-## Per-Chapter Flow (Orchestrator)
+`RhythmValidator` (`src/quality/rhythm_validator.py`) is a deterministic analyzer, not an LLM agent — it measures five prose-rhythm metrics and emits advisory revision-debt rows. It never blocks a save.
 
-The Orchestrator (`src/orchestrator.py`) processes each scene card through this flow:
+### Auxiliary agents (not in the per-scene path)
 
-### 1. Pre-Chapter Validation (Phase 4)
+| Agent | File | Role Key | Task |
+|-------|------|----------|------|
+| SeedBuilder | `src/agents/seed_builder.py` | `seed_builder` | Converts a planning manuscript into a concept seed (`--import-summary`) |
+| EditorialConsultant | `src/agents/editorial_consultant.py` | `editorial_consultant` | Compile-time qualitative editorial review used by `scripts/compile_bundle.py` |
+| CanonScout | `src/agents/canon_scout.py` | `canon_scout` | Pre-run canon-guidance authoring (`scripts/canon_scout.py`) |
+| LiteraryPolish | `src/agents/literary_polish.py` | `literary_polish` | Post-production literary-polish pass (final pre-publication sweep) |
+| ManuscriptReviewer | `src/agents/manuscript_reviewer.py` | `manuscript_reviewer` | Full-manuscript developmental review; output lands in revision-debt rows |
 
-PhysicsEnforcer runs pre-chapter validation: causality chains, revelation timing, promise/payoff consistency.
+See [`src/agents/README.md`](../../src/agents/README.md) for the scene-path / utility split.
 
-### 2. Context Assembly
+## Per-Scene Flow (Orchestrator)
 
-ContextAssembler (`src/memory/context_assembler.py`) builds the prompt payload with a four-tier memory system:
-- Story bible + concept seed
-- Act-level summary
-- ChromaDB chapter summaries (semantic retrieval)
-- Recent prose from prior chapters
-- Canon RAG results (when available)
-- Character knowledge and voice sheets
+The Orchestrator (`src/orchestrator.py::run_chapter`) processes each scene card through this flow.
 
-### 3. Generation Brief
+### 1. Context Assembly + Chapter Packet
 
-PlotArchitect reads the scene card and produces a generation brief -- a structured document that translates the scene card's structural requirements into actionable writing instructions. The orchestrator injects a current character state snapshot (locations, emotional states, arc phases) so the brief reflects accurate story state.
+`ContextAssembler` (`src/memory/context_assembler.py`) builds the flat prompt payload with a four-tier memory system: story bible, act-level summary, ChromaDB chapter summaries (semantic retrieval), recent prose, plus canon RAG, worldbuilding lore/terminology, character knowledge, and voice sheets when available.
 
-### 4. Prose Draft
+When `runtime.chapter_packet.enabled` is true (the shipping default), `ChapterPacketCompiler` (`src/pipeline/chapter_packet.py`) builds the drafter's single inspectable runtime contract: a per-chapter **base** composed once, then a per-scene **overlay** that adds the current scene card and trusted state. The overlay renderer embeds the flat `ContextAssembler` output, so the packet is a strict token-superset of flat context. On a compile error a `packet_fallback_flat` warn event fires and the drafter falls back to flat context (`runtime.chapter_packet.fallback_on_error`).
 
-ProseStylist takes the generation brief + assembled context and drafts the chapter prose. Dynamic overused words from the cross-scene tracker (see [Quality and Revision](quality-and-revision.md#cross-scene-overused-word-tracker)) are injected into the Prose Stylist prompt for subsequent scenes, helping avoid manuscript-level repetition.
+### 2. Generation Brief
 
-### 5. Line Editing (optional)
+`PlotArchitect` reads the scene card and produces a typed generation brief (`schemas/generation_brief.json`) — a per-beat plan that translates the scene card's structural requirements into actionable writing instructions. The orchestrator injects a current character-state snapshot, hook agenda, and active subplots so the brief reflects accurate story state.
 
-LineWriter runs an optional line-editing pass between ProseStylist and the next stage. It receives the source prose, scene card, generation brief, characters_present list, franchise profile, and POV approach as an explicitly wired context dict so it cannot reach into ambient ContextAssembler state. LineWriter preserves the structural beats, turning point, POV, and canon while rewriting sentence-level rhythm, imagery, and voice texture. In lean mode it runs when `runtime.lean_prose_only.line_edit.enabled` is true; in non-lean mode it is skipped in `--raw-draft` mode and when no `line_writer` routing entry is configured. If LineWriter infrastructure fails or its output collapses below 40% of the source word count, the orchestrator falls back to the drafter's prose and emits a warn-level `line_writer_error` or `line_writer_collapsed` event.
+### 3. Prose Draft
 
-### 6. Scene Gate Evaluation (advisory)
+`ProseStylist` takes the generation brief plus the chapter packet (or flat context on fallback) and drafts the scene prose. Dynamic cross-scene feedback — overused words flagged in prior scenes, description-ratio drift — is injected into the prompt so the drafter avoids manuscript-level repetition.
 
-GateCritic evaluates the draft against a structural rubric and returns a structured `CriticFailure` JSON with:
-- Overall verdict: `pass`, `fail_structural`, `fail_voice`, or `fail_polish`
-- Failure codes from `config/failure_codes.yaml`
-- **Calibration anchors**: scores use a 0.60-1.00 scale with defined anchor points
-- **Chain-of-thought reasoning**: the critic includes a `reasoning` field explaining its evaluation logic
+### 4. Line Editing (optional)
 
-Under the forward-only relay (Stage 1a+), the verdict is **advisory only**: the orchestrator logs the evaluation to the ledger and proceeds to QualityPolish regardless of outcome. The old routing logic (`fail_structural` → full rewrite, `fail_voice` → targeted revision) has been removed; `max_structural_retries` and `max_voice_retries` are pinned to `0` and have no runtime effect. Retaining Gate Critic as telemetry lets bench analyses and the run ledger surface craft concerns without blocking the pipeline.
+`LineWriter` runs a single line-edit pass after the drafter when `runtime.lean_prose_only.line_edit.enabled` is true and a `line_writer` routing entry exists. It receives an explicitly wired context dict (source prose, scene card, generation brief, `characters_present`, franchise profile, POV approach) so it cannot reach into ambient `ContextAssembler` state. It preserves the structural beats, turning point, POV, and canon while rewriting sentence-level rhythm, imagery, and voice texture.
 
-### 7. Quality Polish
+If LineWriter crashes, the orchestrator keeps the drafter prose and emits a warn-level `line_writer_error` event. If its output collapses below 40% of the source word count, the orchestrator keeps the drafter prose and emits `line_writer_collapsed`. Neither degradation aborts the scene.
 
-QualityPolish runs a single bounded expression-level pass on the gate-passed prose. It **can** fix show-don't-tell violations, word choice, AI-tells, sentence rhythm, and dialogue tags. It **cannot** add/remove beats or characters, change the turning point, or extend past the closing hook. Quality Polish replaces the previous Craft Editor + 3 revision bands — see `docs/architecture/pipeline-redesign.md` for the rationale.
+### 5. Rhythm Validation + Edit (optional, advisory)
 
-In lean production mode, this step is skipped. LineWriter is the only post-draft scene-level edit before save; manuscript-level cleanup happens after export.
+When `runtime.rhythm_validator.enabled` is true, `RhythmValidator` measures five rhythm metrics (em-dash density, consecutive short-sentence runs, default-opener percentage, dialogue-bearing paragraph percentage, abstract-construction tic density) and emits revision-debt rows of category `prose.rhythm.*`. It only measures — it never blocks or mutates prose.
 
-### 8. Compression Guard + Final Gate (advisory)
+When `runtime.rhythm_editor.enabled` is also true and the validator finds at least one actionable issue, `RhythmEditor` proposes bounded literal substring edits. `apply_rhythm_edits()` enforces deterministic safety caps (per-call edit count, total changed-char budget, changed-ratio ceiling) regardless of model output. Both stages are default-off; neither can abort a save.
 
-Two signals catch polish drift before the prose is saved:
+### 6. Save
 
-1. **Compression guard** (deterministic): if polished word count < 60% of pre-polish word count, emits a `compression_guard_fired` event with `reverted: true` and keeps the gate-passed draft instead. Downstream FinalGate, CanonExpert, PresenceChecker, and save-blocker checks evaluate the reverted prose.
-2. **Final Gate** (LLM + deterministic): runs a contract check on the current post-polish text — characters present, closing hook boundary, word-count floor. On rejection it emits `final_gate_rejection` with `advisory_only=True`; the prose still proceeds unless the compression guard has already reverted it or the save-blocker layer fires. Passing the gate emits `final_gate_complete`.
+The post-edit prose is written to `<run_dir>/chapters/chapter_NN_scene_MM.md` and a `lean_prose_only_saved` info event fires. The save status is `saved_clean` (the normal outcome) or `saved_with_advisory`. There is no failure path that prevents a scene from saving.
 
-Under the old pipeline the Final Gate was the save-path's unit-of-truth. Post-Stage-1 it is telemetry; the save-blocker layer (step 10) is the new unit-of-truth for whether a scene writes to disk at all.
+### 7. Post-Save Memory
 
-### 9. Continuity Editor (CanonExpert)
+After the scene is saved, the orchestrator runs the memory chain. Every stage is wrapped in a broad error guard — a crash emits a warn-level event (`post_save_error` with a `stage` tag) but never aborts the saved scene; next-scene state may be stale, so the warn is load-bearing.
 
-CanonExpert runs **after** FinalGate, as the last reader on the current post-polish prose. The canon expert is a franchise-agnostic, template-driven agent: it reads the `canon_profile` section from the concept seed (franchise name, continuity rules, cross-continuity violations, anachronistic terms) and uses those plus RAG retrieval to drive validation. There are zero franchise-specific strings hardcoded in the agent. Its verdict feeds the `CANON_BLOCKER` save-blocker in step 10: `verdict == "fail"` with any finding at `critical` or `moderate` severity fires the blocker; lower severities are advisory only.
+1. **Summarizer** compresses the scene to a summary + state-diff JSON. The orchestrator injects a current state snapshot and arc-state guidance so the diff carries accurate `old_value` fields.
+2. **ChapterMemory** stores the summary in ChromaDB.
+3. **StateDiffApplier** sanitizes the diff (fuzzy-matching near-miss enum values, correcting `old_value` mismatches, stripping no-ops) then applies it to SQLite.
+4. **Chapter/scene log** records word count, structural phase, POV, and revision status in story state.
+5. **ContradictionScanner** checks the new state against prior state across five scan types (truth, belief, promises, timeline, relationships).
+6. **Worldbuilding extraction** runs when a `lore_service` and franchise binding are present: `lore_extractor` writes `provisional` lore entries, and `LoreConflictDetector` scans them and emits advisory `lore_conflicts` events. Extraction and conflict detection are advisory — they never block a saved scene.
 
-When `runtime.canon_expert.apply_local_fixes=true`, whitelisted `local_fixes` can be applied as narrow literal substitutions before the save-blocker layer. If any such fix changes the prose, CanonExpert is rerun on the patched text so blocker decisions are based on the repaired artifact rather than the stale pre-fix report.
+If `runtime.promise_ledger.enabled` is on, the orchestrator also records declared promise deltas (`promises_progressed`, `promises_paid`) from the scene card and surfaces newly overdue promises as warn-level `promise_overdue` telemetry.
 
-### 10. Save-Blocker Layer + Quarantine
+## Post-Draft: Manuscript Production
 
-The only hard stopping point in the relay. Three blocker categories run after the continuity editor (see [`src/pipeline/save_blockers.py`](../../src/pipeline/save_blockers.py)):
-
-1. **`CHARACTER_PRESENCE_BLOCKER`** — dedicated PresenceChecker agent detects named characters who speak or act in the prose despite being absent from the scene card's `characters_present` list.
-2. **`CANON_BLOCKER`** — CanonExpert (continuity editor) returned `verdict == "fail"` with at least one finding at `critical` or `moderate` severity.
-3. **POV advisory** — regex heuristic flags non-POV interiority verbs. Advisory only in v1; will be promoted to a blocker after corpus validation.
-
-When `runtime.micro_repair.enabled=true`, the orchestrator precomputes presence violations before blocker evaluation and gives them to MicroRepair. MicroRepair may propose only exact literal substitutions. Deterministic guardrails enforce: one literal match only, bounded diff size, bounded changed-text ratio, and no replacement containing the absent character's name. If a safe patch lands, PresenceChecker reruns on the patched prose before save; otherwise the original blocker path proceeds unchanged.
-
-A non-empty blocker list causes the orchestrator to write the offending scene's prose + blockers.json + brief.json to `<project>/quarantine/chNN_scMM/` and raise `SaveBlockedError`, aborting the entire run. No partial chapters ship: quarantine-on-first-blocker policy.
-
-### 11. Post-Save Pipeline (Phase 2+)
-
-After the chapter is saved:
-1. **Summarizer** compresses the chapter to a summary + state diff JSON. The orchestrator injects a current state snapshot (characters, subplots, hooks with their exact current values) so the Summarizer can produce accurate `old_value` fields. The Summarizer prompt includes all valid enum values and arc-type-specific phase progressions.
-2. **ChapterMemory** stores the summary in ChromaDB
-3. **StateDiffApplier** sanitizes the diff (fuzzy-matching near-miss enum values, correcting `old_value` mismatches, stripping no-ops) then applies it to SQLite
-4. **ContradictionScanner** checks the new state against prior state for inconsistencies (5 scan types: truth, belief, promises, timeline, relationships)
-
-### 12. Quality Metrics and Milestones (Phase 3+)
-
-1. **MetricsDashboard** runs pure-Python checkers (no LLM calls) and feeds results into Quality Polish:
-   - RepetitionDetector, PacingAnalyzer, VoiceChecker, SlopDetector
-   - Weighted average score, pass threshold >= 0.6
-   - Metrics advise; they do not block. Under the forward-only relay, blocking is exclusively the save-blocker layer's job.
-2. **CharacterSpecialist** detects out-of-character behavior (supplementary, non-blocking)
-3. **MilestoneGates** pause the pipeline at structural checkpoints (first plot point, midpoint, second plot point) for user approval
-
-### 13. Chapter Gate (after all scenes in the chapter are saved)
-
-ChapterGateCritic evaluates the assembled chapter after every scene has been saved. When a `chapter_blueprint.json` exists at `data/franchises/{franchise}/books/{book}/chapter_blueprints/chapter_{NN}.json`, the critic's prompt includes blueprint-aware checks (chapter mission, chapter turn, reveal payload, subplot obligations, pacing curve, exit vector) alongside the existing composition heuristics. Blueprint checks are advisory — failures surface in `chapter_level_failures` for diagnostics rather than blocking the save.
-
-### 14. LLM Judge (Phase 4, optional)
-
-JudgeEvaluator uses a cloud model to score the chapter across 5 dimensions defined in `config/eval_rubric.yaml`.
-
-## Post-Manuscript Production
-
-After a lean manuscript is exported, the default production path moves from per-scene agents to manuscript-level editorial control:
-
-1. Run `manuscript_reviewer` on GPT-5.4 to create a full-book docket.
-2. Apply targeted revision patches for major docket items.
-3. Run targeted cleanup as the default polish branch.
-4. Optionally run full literary polish as a comparison or donor branch, then cherry-pick only safe improvements.
-5. Apply the final docket pass and run `scripts/manuscript_final_validation.py`.
-
-The targeted cleanup branch is the production base unless manual comparison shows a concrete reason to choose otherwise. Full literary polish is not the default master because it can introduce visible prose style and tonal drift.
+The per-scene pipeline produces raw scene prose; manuscript-level editorial happens afterward and never rewrites prose in place during a drafting run. The default path: export the manuscript, run `manuscript_reviewer` on GPT-5.4 to produce an editorial docket, apply targeted revision and cleanup patches through `scripts/patch_workflow.py`, optionally run `literary_polish` as a donor/comparison branch, then run deterministic final validation. See [Manuscript Production Lifecycle](manuscript-production-lifecycle.md) and [Quality and Revision](quality-and-revision.md).
 
 ## Event Logging
 
 Every step emits a typed event to the RunLedger. Events carry a `level` field (`info`, `warn`, `error`) in the payload. The canonical list lives in [`src/run_ledger.py`](../../src/run_ledger.py); current event types include:
 
-- `pipeline_start`, `pipeline_complete`
-- `chapter_start`, `agent_start`, `agent_complete`
-- `gate_pass`, `gate_fail` (advisory under the forward-only relay)
-- `line_writer_error`, `line_writer_collapsed` (Stage 3 — LineWriter fallback signals)
-- `final_gate_complete`, `final_gate_rejection` (rejection carries `advisory_only=True`)
-- `compression_guard_fired` (warn; `reverted=True` when the guard keeps the gate-passed draft)
-- `save_blocked` (run aborted; scene quarantined)
-- `continuity_editor_complete` (CanonExpert verdict used by the CANON_BLOCKER)
-- `continuity_editor_recheck_complete` (CanonExpert rerun after applied local fixes)
-- `micro_repair_fired`, `micro_repair_applied`, `micro_repair_rejected`, `micro_repair_complete`
-- `chapter_word_count_telemetry` (chapter-close advisory at ±15% / ±15-30% / >30% thresholds)
-- `state_diff_proposed`, `state_diff_committed`
-- `contradiction_scan`, `summarizer_complete`
-- `milestone_reached`, `milestone_gate_paused`
-- `judge_evaluation`, `export_complete`
+- `pipeline_start`, `pipeline_complete`, `chapter_start`
+- `agent_start`, `agent_complete`
+- `lean_prose_only_saved` (carries line-edit and rhythm telemetry)
+- `line_writer_error`, `line_writer_collapsed`, `lean_line_edit_unavailable`
+- `rhythm_validation`, `rhythm_edit_fired`, `rhythm_edit_complete`, `rhythm_edit_skipped`
+- `packet_base_compiled`, `packet_overlay_written`, `packet_fallback_flat`
+- `revision_debt_added`, `revision_debt_updated`
+- `promise_progressed`, `promise_paid`, `promise_overdue`
+- `summarizer_complete`, `state_diff_proposed`, `state_diff_committed`, `contradiction_scan`
+- `lore_conflicts`, `post_save_error`
+- `chapter_blueprints_generated`, `session_resume`, `session_save`

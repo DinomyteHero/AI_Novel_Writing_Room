@@ -1,11 +1,11 @@
-"""Tests for the LineWriter agent (Stage 3 of the relay v3 refactor).
+"""Tests for the LineWriter agent.
 
 Covers:
 - Unit: context formatting includes source prose + preservation constraints;
   wrapping markdown fences are stripped; empty outputs are tolerated.
-- Orchestrator integration: when LineWriter is wired, its output becomes the
-  input to gate_critic and downstream stages; when it collapses or errors,
-  the orchestrator falls back to drafter prose and emits a warn event.
+- Orchestrator integration: when LineWriter is wired and the lean line-edit
+  flag is on, its output becomes the saved prose; when it collapses or
+  errors, the orchestrator falls back to drafter prose and emits a warn event.
 """
 
 import json
@@ -152,20 +152,17 @@ class TestLineWriterAgent:
 class TestOrchestratorLineWriterIntegration:
     """With LineWriter wired, its revised prose flows downstream."""
 
-    async def test_line_writer_output_feeds_gate_critic(
+    async def test_line_writer_output_is_saved(
         self, mock_router, mock_assembler, ledger, temp_dir, sample_scene_card
     ):
         drafter_prose = " ".join(["draft"] * 100)
         line_writer_prose = " ".join(["edited"] * 95)
-        polished_prose = " ".join(["polished"] * 92)
 
         async def fake_complete(agent_role, messages, *args, **kwargs):
             if agent_role == "prose_stylist":
                 return drafter_prose
             if agent_role == "line_writer":
                 return line_writer_prose
-            if agent_role == "quality_polish":
-                return polished_prose
             return "mock"
 
         mock_router.complete = AsyncMock(side_effect=fake_complete)
@@ -178,40 +175,19 @@ class TestOrchestratorLineWriterIntegration:
             ledger=ledger,
             manuscripts_dir=str(Path(temp_dir) / "manuscripts"),
             line_writer=line_writer,
+            runtime_flags={"runtime": {"lean_prose_only": {"line_edit": {"enabled": True}}}},
         )
         result = await orch.run_chapter(sample_scene_card)
 
-        # Saved file is the polished line-edited prose.
+        # Saved file is the line-edited prose.
         saved = Path(result["output_path"]).read_text(encoding="utf-8")
-        assert saved == polished_prose
+        assert saved == line_writer_prose
 
         # Ledger got an agent_complete for line_writer.
         events = ledger.get_events(agent_role="line_writer")
         event_types = {e["event_type"] for e in events}
         assert "agent_start" in event_types
         assert "agent_complete" in event_types
-
-    async def test_line_writer_skipped_in_raw_draft_mode(
-        self, mock_router, mock_assembler, ledger, temp_dir, sample_scene_card
-    ):
-        drafter_prose = " ".join(["draft"] * 100)
-        mock_router.complete = AsyncMock(return_value=drafter_prose)
-        mock_router.complete_structured = AsyncMock(return_value=_make_gate_pass_dict())
-
-        line_writer = LineWriter(mock_router)
-        orch = Orchestrator(
-            router=mock_router,
-            context_assembler=mock_assembler,
-            ledger=ledger,
-            manuscripts_dir=str(Path(temp_dir) / "manuscripts"),
-            line_writer=line_writer,
-            raw_draft=True,
-        )
-        await orch.run_chapter(sample_scene_card)
-
-        # No line_writer events in raw_draft mode.
-        events = ledger.get_events(agent_role="line_writer")
-        assert events == []
 
     async def test_line_writer_error_falls_back_to_drafter(
         self, mock_router, mock_assembler, ledger, temp_dir, sample_scene_card
@@ -238,6 +214,7 @@ class TestOrchestratorLineWriterIntegration:
             ledger=ledger,
             manuscripts_dir=str(Path(temp_dir) / "manuscripts"),
             line_writer=line_writer,
+            runtime_flags={"runtime": {"lean_prose_only": {"line_edit": {"enabled": True}}}},
         )
         result = await orch.run_chapter(sample_scene_card)
 
@@ -275,6 +252,7 @@ class TestOrchestratorLineWriterIntegration:
             ledger=ledger,
             manuscripts_dir=str(Path(temp_dir) / "manuscripts"),
             line_writer=line_writer,
+            runtime_flags={"runtime": {"lean_prose_only": {"line_edit": {"enabled": True}}}},
         )
         await orch.run_chapter(sample_scene_card)
 

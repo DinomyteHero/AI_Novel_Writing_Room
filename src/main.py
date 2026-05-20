@@ -95,34 +95,6 @@ def _write_reproducibility_snapshot(
     )
 
 
-def _scene_had_advisory(result: dict) -> bool:
-    """Return True if any advisory gate fired for a saved scene.
-
-    Relay v3 (Stage 1i): a scene is considered 'saved_with_advisory' when
-    the scene-level gate verdict was not 'pass', when Final Gate rejected
-    the polish, when the legacy polish_rejected flag was set, or when the
-    continuity editor returned a non-pass verdict (any canon finding).
-    'saved_clean' means all gates green.
-    """
-    if result.get("polish_rejected"):
-        return True
-    evaluation = result.get("evaluation") or {}
-    gate_verdict = evaluation.get("verdict")
-    if gate_verdict not in (None, "pass", "skipped"):
-        return True
-    if gate_verdict == "skipped":
-        # Skipped-gate scenes have no verdict; treat as advisory because the
-        # save path did not go through a full gate check.
-        return True
-    final_gate = result.get("final_gate") or {}
-    if final_gate and final_gate.get("verdict") not in (None, "pass"):
-        return True
-    continuity = result.get("continuity_report") or {}
-    if continuity and continuity.get("verdict") == "fail":
-        return True
-    return False
-
-
 def check_plan_approval(
     concept_seed: dict,
     *,
@@ -158,21 +130,6 @@ def check_plan_approval(
         "Or bypass this gate with --allow-unapproved-plan (not recommended)."
     )
     return False, msg
-
-
-def _count_quarantined_scenes(ledger) -> int:
-    """Count 'save_blocked' events in the ledger.
-
-    Used for the three-count CLI summary. Each save_blocked event corresponds
-    to one quarantined scene (the orchestrator aborts after the first one).
-    """
-    if ledger is None:
-        return 0
-    try:
-        events = ledger.get_events(event_type="save_blocked", limit=1000)
-    except Exception:
-        return 0
-    return len(events)
 
 
 def load_scene_cards(scene_cards_dir: str, chapter: int | None = None) -> list[dict]:
@@ -231,8 +188,6 @@ def build_chapter_packet_compiler(
     chapter: int | None = None,
     story_state=None,
     promise_ledger=None,
-    continuity_log=None,
-    sociogram=None,
 ):
     """Construct the runtime chapter-packet compiler used by CLI runs."""
     from src.pipeline.canon_guidance import CanonGuidanceStore
@@ -248,8 +203,6 @@ def build_chapter_packet_compiler(
         assembler=assembler,
         story_state=story_state,
         promise_ledger=promise_ledger,
-        continuity_log=continuity_log,
-        sociogram=sociogram,
         canon_guidance_store=canon_guidance_store,
     )
 
@@ -332,63 +285,26 @@ def _init_phase2(concept_seed_path: str, config: dict, manuscripts_dir: str,
     )
 
 
-def _cli_milestone_prompt(milestone_info: dict) -> bool:
-    """Prompt user at CLI for milestone gate approval."""
-    print(f"\n{'='*60}")
-    print(f"  MILESTONE: {milestone_info['milestone_name']}")
-    print(f"  Chapter {milestone_info.get('chapter_number', '?')}")
-    print(f"{'='*60}")
-    print(f"\n  New phase constraints:")
-    for constraint in milestone_info.get("constraints", []):
-        print(f"    - {constraint}")
-    response = input("\n  Continue? [y/n]: ").strip().lower()
-    return response in ("y", "yes", "")
+def _init_phase4(router, ledger, config, concept_seed):
+    """Initialize Phase 4 components still used outside the Orchestrator.
 
-
-def _init_phase4(router, ledger, config, concept_seed, embedding_function,
-                  no_milestones=False, judge=False):
-    """Initialize Phase 4 components.
-
-    Returns (physics_enforcer, metrics_dashboard, character_specialist,
-             milestone_gates, pipeline_session, scene_card_generator,
-             export_manager, judge_evaluator)
-    or Nones for unavailable components.
+    Returns (physics_enforcer, pipeline_session, scene_card_generator,
+    export_manager). PhysicsEnforcer + SceneCardGenerator back
+    ``--generate-outline``; PipelineSession backs ``--resume``;
+    ExportManager backs ``--export``. None of these are passed to the
+    lean Orchestrator.
     """
     physics_enforcer = None
-    metrics_dashboard = None
-    character_specialist = None
-    milestone_gates = None
     pipeline_session = None
     scene_card_generator = None
     export_manager = None
-    judge_evaluator = None
 
-    # Physics enforcer
+    # Physics enforcer (used by SceneCardGenerator for --generate-outline)
     try:
         from src.planning.physics_enforcer import PhysicsEnforcer
         physics_enforcer = PhysicsEnforcer(concept_seed)
     except ImportError as e:
         print(f"  Warning: PhysicsEnforcer not available: {e}")
-
-    # Quality metrics and character specialist (same as Phase 3)
-    try:
-        from src.quality.metrics_dashboard import MetricsDashboard
-        from src.agents.character_specialist import CharacterSpecialist
-        from src.quality.milestone_gates import MilestoneGates
-
-        metrics_dashboard = MetricsDashboard(
-            negative_constraints_path=str(Path("config") / "negative_constraints.yaml"),
-            embedding_function=embedding_function,
-        )
-        character_specialist = CharacterSpecialist(router)
-
-        if not no_milestones:
-            milestone_gates = MilestoneGates(
-                ledger=ledger,
-                on_pause_callback=_cli_milestone_prompt,
-            )
-    except ImportError as e:
-        print(f"  Warning: Quality components not available: {e}")
 
     # Pipeline session
     try:
@@ -412,50 +328,7 @@ def _init_phase4(router, ledger, config, concept_seed, embedding_function,
     except ImportError:
         pass
 
-    # LLM Judge
-    if judge:
-        try:
-            from src.quality.llm_judge import JudgeEvaluator
-            judge_evaluator = JudgeEvaluator(router)
-        except ImportError as e:
-            print(f"  Warning: JudgeEvaluator not available: {e}")
-
-    return (
-        physics_enforcer, metrics_dashboard,
-        character_specialist, milestone_gates, pipeline_session,
-        scene_card_generator, export_manager, judge_evaluator,
-    )
-
-
-def _init_phase3(router, ledger, config, embedding_function, no_milestones=False):
-    """Initialize Phase 3 components.
-
-    Returns (metrics_dashboard, character_specialist, milestone_gates)
-    or all Nones if imports fail.
-    """
-    try:
-        from src.agents.character_specialist import CharacterSpecialist
-        from src.quality.metrics_dashboard import MetricsDashboard
-        from src.quality.milestone_gates import MilestoneGates
-    except ImportError as e:
-        print(f"Warning: Phase 3 dependencies not available: {e}")
-        return None, None, None
-
-    metrics_dashboard = MetricsDashboard(
-        negative_constraints_path=str(Path("config") / "negative_constraints.yaml"),
-        embedding_function=embedding_function,
-    )
-
-    character_specialist = CharacterSpecialist(router)
-
-    milestone_gates = None
-    if not no_milestones:
-        milestone_gates = MilestoneGates(
-            ledger=ledger,
-            on_pause_callback=_cli_milestone_prompt,
-        )
-
-    return metrics_dashboard, character_specialist, milestone_gates
+    return physics_enforcer, pipeline_session, scene_card_generator, export_manager
 
 
 async def _ensure_chapter_blueprints(
@@ -563,14 +436,14 @@ async def main():
         type=int,
         default=1,
         choices=[1, 2, 3, 4, 5],
-        help="Pipeline phase: 1 = basic, 2 = memory/canon, 3 = quality/milestones, 4 = full, 5 = chapter blueprints + chapter gate critic (default: 1)",
+        help="Pipeline phase: 1 = basic, 2 = memory/canon, 4 = sessions/export, 5 = chapter blueprints (default: 1)",
     )
     parser.add_argument(
         "--no-blueprints",
         action="store_true",
         help="Phase 5: skip chapter blueprint auto-generation. "
              "Hand-authored blueprints at data/franchises/<fr>/books/<bk>/chapter_blueprints/ "
-             "are still loaded by ChapterGateCritic if present.",
+             "are still loaded by the chapter-packet compiler if present.",
     )
     parser.add_argument(
         "--regenerate-blueprints",
@@ -582,35 +455,6 @@ async def main():
         "--no-revision",
         action="store_true",
         help=argparse.SUPPRESS,
-    )
-    parser.add_argument(
-        "--raw-draft",
-        action="store_true",
-        help="Non-lean baseline mode: skip Quality Polish and Final Gate. "
-             "Saves the Scene-Gate-passed draft directly. Use this to measure "
-             "drafting plus gate telemetry before the polish stage.",
-    )
-    parser.add_argument(
-        "--skip-gate-loop",
-        action="store_true",
-        help="Skip the Gate Critic stage entirely and synthesize a 'skipped' "
-             "verdict. The forward-only relay has no rewrite loop anymore, so "
-             "this flag only bypasses the gate-critic LLM call; Quality Polish "
-             "and Final Gate still run (unless --raw-draft is also set). Useful "
-             "for bench configs and cheap runs where gate telemetry is not needed. "
-             "Flag name is historical from the retry-era pipeline.",
-    )
-    parser.add_argument(
-        "--strict-lore",
-        action="store_true",
-        help="Phase 7.2: promote high-severity LoreConflictDetector flags "
-             "to blocking status (default is advisory — flags are recorded "
-             "in the run ledger but do not fail the scene).",
-    )
-    parser.add_argument(
-        "--no-milestones",
-        action="store_true",
-        help="Skip milestone gate pausing (Phase 3/4 only)",
     )
     # Phase 4 arguments
     parser.add_argument(
@@ -666,19 +510,15 @@ async def main():
         help="Session ID to resume (default: auto-generated)",
     )
     parser.add_argument(
-        "--judge",
-        action="store_true",
-        help="Run LLM-as-judge evaluation after generation",
-    )
-    parser.add_argument(
         "--runtime-flag",
         action="append",
         default=None,
         metavar="KEY=VALUE",
         help=(
-            "Override a runtime flag (architecture upgrade, Slice 1+). "
-            "Use dotted keys, e.g. --runtime-flag runtime.firewall.enabled=true. "
-            "May be repeated. See docs/architecture/architecture_upgrade_spec.md §4.2."
+            "Override a runtime flag. Use dotted keys, e.g. "
+            "--runtime-flag runtime.rhythm_validator.enabled=true. May be "
+            "repeated. Resolution precedence is documented in the runtime: "
+            "block of config/settings.yaml."
         ),
     )
     parser.add_argument(
@@ -746,7 +586,7 @@ async def main():
     if args.no_revision:
         print(
             "  Warning: --no-revision is deprecated. The 3-band revision pipeline has been "
-            "removed; the flag is a no-op. Use --raw-draft for pre-polish baseline mode."
+            "removed; the flag is a no-op."
         )
 
     # Web server mode
@@ -884,11 +724,8 @@ async def main():
         concept_seed=concept_seed,
         cli_overrides=getattr(args, "runtime_flag", None),
     )
-    lean_prose_only = bool(
-        ((runtime_flags.get("runtime") or {}).get("lean_prose_only") or {}).get(
-            "enabled", False
-        )
-    )
+    # The pipeline is lean-only; the only variant axis left is whether the
+    # lean line-edit pass runs.
     _lean_cfg = (runtime_flags.get("runtime") or {}).get("lean_prose_only") or {}
     _lean_line_edit_cfg = _lean_cfg.get("line_edit", {})
     if isinstance(_lean_line_edit_cfg, dict):
@@ -937,16 +774,12 @@ async def main():
     # config_snapshot.yaml but produced materially different prose because
     # prompt text changed between them.
     if paths.run_dir is not None:
-        # Record which post-gate variant ran: the pipeline has one canonical
-        # polish stage now (Quality Polish + Final Gate). Raw-draft skips it.
-        if lean_prose_only:
-            _pipeline_variant = (
-                "lean_prose_line_edit" if lean_line_edit else "lean_prose_only"
-            )
-        else:
-            _pipeline_variant = (
-                "raw_draft" if args.raw_draft else "quality_polish"
-            )
+        # The pipeline is lean-only now: PlotArchitect -> ProseStylist ->
+        # [LineWriter] -> save. The variant records whether the lean
+        # line-edit pass ran.
+        _pipeline_variant = (
+            "lean_prose_line_edit" if lean_line_edit else "lean_prose_only"
+        )
         _write_reproducibility_snapshot(paths.run_dir, args, _pipeline_variant)
         print(f"  Prompt + invocation snapshot: {paths.run_dir}")
 
@@ -983,29 +816,14 @@ async def main():
     summarizer = None
     state_diff_applier = None
     contradiction_scanner = None
-    canon_expert = None
-    # Relay Stage 1g — presence_checker is a cheap contract-check agent; instantiate
-    # eagerly so the save-blocker layer always has it available.
-    from src.agents.presence_checker import PresenceChecker
-    presence_checker = PresenceChecker(router)
 
-    # Relay Stage 3 — LineWriter runs as the line-editing pass after the
-    # drafter. Only instantiate when agent_routing.line_writer is configured
-    # (bench configs and cheap-run configs can omit it to keep runs light).
-    # In raw-draft mode the orchestrator also skips the call.
+    # LineWriter runs as the lean line-editing pass after the drafter. Only
+    # instantiate when agent_routing.line_writer is configured (bench configs
+    # and cheap-run configs can omit it to keep runs light).
     line_writer = None
     if config.get("agent_routing", {}).get("line_writer"):
         from src.agents.line_writer import LineWriter
         line_writer = LineWriter(router)
-
-    # Forward Relay v4 â€” bounded post-check repair stage. The runtime flag
-    # decides whether it ever runs; routing presence decides whether the
-    # agent can be instantiated for experiment configs.
-    micro_repair = None
-    if config.get("agent_routing", {}).get("micro_repair"):
-        from src.agents.micro_repair import MicroRepair
-
-        micro_repair = MicroRepair(router)
 
     # Rhythm-editor literal-edit pass. Runtime flag decides whether it ever
     # runs; routing presence decides whether the agent can be instantiated.
@@ -1037,29 +855,6 @@ async def main():
             state_diff_applier = StateDiffApplier(story_state, knowledge_layers, ledger)
             contradiction_scanner = ContradictionScanner(story_state, knowledge_layers, ledger)
 
-            # CanonExpert is the runtime save-blocker validator. CanonDB/RAG
-            # evidence is optional; profile-only validation must still run for
-            # projects that use static Canon Scout sidecars instead of a rigid
-            # prebuilt canon database.
-            try:
-                from src.agents.canon_expert import CanonExpert
-
-                ranker = None
-                if canon_db:
-                    try:
-                        from src.rag.canon_evidence import CanonEvidenceRanker
-                        from src.rag.hybrid_search import HybridSearch
-
-                        hybrid = HybridSearch(canon_db)
-                        ranker = CanonEvidenceRanker(hybrid)
-                    except (ImportError, Exception) as e:
-                        print(f"  Warning: CanonDB evidence disabled: {e}")
-                canon_expert = CanonExpert(router, canon_evidence=ranker)
-                if ranker is None:
-                    print("  CanonExpert initialized in profile-only mode")
-            except (ImportError, Exception) as e:
-                print(f"  Warning: CanonExpert not available: {e}")
-
             print("  Phase 2 components initialized")
         else:
             print("  Phase 2 initialization incomplete — running in Phase 1 mode")
@@ -1081,68 +876,21 @@ async def main():
     except UnboundLocalError:
         ledger = RunLedger(db_path=ledger_path, run_id=run_id)
 
-    # Initialize Phase 3 components if requested
-    metrics_dashboard = None
-    character_specialist = None
-    milestone_gates = None
-
-    if args.phase >= 3:
-        print("Initializing Phase 3 components...")
-        # Phase 3 requires Phase 2 to be initialized
-        try:
-            ef = None
-            try:
-                from src.rag.embedding import get_embedding_function
-                embed_cfg = config.get("pipeline", {}).get("embeddings", {})
-                ef = get_embedding_function(use_mock=embed_cfg.get("use_mock", True))
-            except Exception:
-                pass
-
-            metrics_dashboard, character_specialist, milestone_gates = (
-                _init_phase3(
-                    router, ledger, config, ef,
-                    no_milestones=args.no_milestones,
-                )
-            )
-            components = []
-            if metrics_dashboard:
-                components.append("quality metrics")
-            if character_specialist:
-                components.append("character specialist")
-            if milestone_gates:
-                components.append("milestone gates")
-            print(f"  Phase 3 components: {', '.join(components) or 'none'}")
-        except Exception as e:
-            print(f"  Phase 3 initialization error: {e}")
-
-    # Phase 4 components
+    # Phase 4 components — none are passed to the lean Orchestrator; these
+    # back stand-alone CLI modes (--generate-outline, --resume, --export).
     physics_enforcer = None
     pipeline_session = None
     session_id = None
     scene_card_generator = None
     export_manager = None
-    judge_evaluator = None
 
     if args.phase >= 4:
         print("Initializing Phase 4 components...")
         try:
-            ef = None
-            try:
-                from src.rag.embedding import get_embedding_function
-                embed_cfg = config.get("pipeline", {}).get("embeddings", {})
-                ef = get_embedding_function(use_mock=embed_cfg.get("use_mock", True))
-            except Exception:
-                pass
-
             (
-                physics_enforcer, metrics_dashboard,
-                character_specialist, milestone_gates, pipeline_session,
-                scene_card_generator, export_manager, judge_evaluator,
-            ) = _init_phase4(
-                router, ledger, config, concept_seed, ef,
-                no_milestones=args.no_milestones,
-                judge=args.judge,
-            )
+                physics_enforcer, pipeline_session,
+                scene_card_generator, export_manager,
+            ) = _init_phase4(router, ledger, config, concept_seed)
 
             components = []
             if physics_enforcer:
@@ -1153,19 +901,11 @@ async def main():
                 components.append("scene card generator")
             if export_manager:
                 components.append("export manager")
-            if judge_evaluator:
-                components.append("LLM judge")
             print(f"  Phase 4 components: {', '.join(components) or 'none'}")
         except Exception as e:
             print(f"  Phase 4 initialization error: {e}")
 
-    # Phase 5: Chapter Gate Critic — constructed below AFTER the
-    # worldbuilding lore_service is built, so Phase 7.4 can pass
-    # lore_service + universe_id into the critic for lore-consistency
-    # checks.
-    chapter_gate_critic = None
-
-    # Worldbuilding service (optional, requires --universe-id)
+    # Worldbuilding service (optional, requires --franchise)
     lore_service = None
     if franchise_slug:
         try:
@@ -1204,24 +944,6 @@ async def main():
             assembler.project_id = book_id
         except (ImportError, Exception) as e:
             print(f"  Warning: Worldbuilding service not available: {e}")
-
-    # Phase 5: instantiate ChapterGateCritic. Wired to lore_service +
-    # universe_id when available so Phase 7.4 lore_consistency_check runs.
-    if args.phase >= 5:
-        print("Initializing Phase 5 components...")
-        try:
-            from src.agents.chapter_gate_critic import ChapterGateCritic
-            chapter_gate_critic = ChapterGateCritic(
-                router,
-                lore_service=lore_service,
-                universe_id=franchise_slug,
-            )
-            if lore_service and franchise_slug:
-                print("  Phase 5 components: chapter gate critic (lore-aware)")
-            else:
-                print("  Phase 5 components: chapter gate critic")
-        except ImportError as e:
-            print(f"  Warning: ChapterGateCritic not available: {e}")
 
     # Phase 4: Generate scene cards from concept seed if requested
     if args.generate_outline and scene_card_generator:
@@ -1266,6 +988,15 @@ async def main():
     elif pipeline_session and args.phase >= 4:
         session_id = args.session_id or pipeline_session.generate_session_id()
 
+    # Revision-debt store — structured advisories (rhythm validator, etc.)
+    # persist to output/<franchise>/<book>/state/revision_debt.db. The
+    # runtime.revision_debt.enabled flag gates whether the orchestrator
+    # actually writes to it.
+    from src.pipeline.revision_debt import RevisionDebtStore
+    revision_debt_store = RevisionDebtStore(
+        db_path=str(paths.state_dir / "revision_debt.db")
+    )
+
     chapter_packet_compiler = build_chapter_packet_compiler(
         concept_seed=concept_seed,
         paths=paths,
@@ -1279,28 +1010,15 @@ async def main():
         context_assembler=assembler,
         ledger=ledger,
         manuscripts_dir=manuscripts_dir,
-        max_structural_retries=pipeline_cfg.get("max_structural_retries", 3),
-        max_voice_retries=pipeline_cfg.get("max_voice_retries", 2),
-        runtime_flags=runtime_flags,
-        chapter_packet_compiler=chapter_packet_compiler,
         summarizer=summarizer,
         state_diff_applier=state_diff_applier,
         contradiction_scanner=contradiction_scanner,
         chapter_memory=chapter_memory,
         story_state=story_state,
-        canon_expert=canon_expert,
-        presence_checker=presence_checker,
         line_writer=line_writer,
-        micro_repair=micro_repair,
         rhythm_editor=rhythm_editor,
-        metrics_dashboard=metrics_dashboard,
-        character_specialist=character_specialist,
-        milestone_gates=milestone_gates,
-        physics_enforcer=physics_enforcer,
         pipeline_session=pipeline_session,
         session_id=session_id,
-        judge_evaluator=judge_evaluator,
-        chapter_gate_critic=chapter_gate_critic,
         lore_service=lore_service,
         universe_id=franchise_slug,
         project_id=book_id,
@@ -1312,9 +1030,10 @@ async def main():
                 .get("enabled", True)
             )
         ),
-        strict_lore=bool(getattr(args, "strict_lore", False)),
-        raw_draft=args.raw_draft,
-        skip_gate_loop=args.skip_gate_loop,
+        runtime_flags=runtime_flags,
+        chapter_packet_compiler=chapter_packet_compiler,
+        revision_debt_store=revision_debt_store,
+        promise_ledger=None,
     )
 
     # Create session if Phase 4
@@ -1340,7 +1059,7 @@ async def main():
     # Phase 5: ensure chapter blueprints exist for every chapter being run.
     # Hand-authored blueprints take precedence (skip-if-exists). Requires
     # franchise_slug and book_id so blueprints land at the canonical path
-    # ChapterGateCritic loads from.
+    # the chapter-packet compiler loads from.
     if (
         args.phase >= 5
         and not args.no_blueprints
@@ -1368,49 +1087,20 @@ async def main():
         print(f"Scenes saved: {len(results)}")
         print(f"Total word count: {total_words:,}")
 
-        # Relay v3 (Stage 1i): three-count summary reflecting the new status
-        # vocabulary. Scenes whose saved prose survived all gates are
-        # 'saved_clean'; any advisory signal (compression, final-gate,
-        # continuity/pov advisory) degrades to 'saved_with_advisory'. The
-        # 'quarantined' count comes from save_blocked ledger events, not the
-        # results list — quarantined scenes never reach the results array
-        # because run_pipeline aborts on the first blocker.
-        scenes_saved_clean = 0
-        scenes_saved_with_advisory = 0
-        for r in results:
-            if _scene_had_advisory(r):
-                scenes_saved_with_advisory += 1
-            else:
-                scenes_saved_clean += 1
-        scenes_quarantined = _count_quarantined_scenes(ledger)
-        print(f"  saved_clean:          {scenes_saved_clean}")
-        print(f"  saved_with_advisory:  {scenes_saved_with_advisory}")
-        print(f"  quarantined:          {scenes_quarantined}")
+        # The lean pipeline has no gate/polish/save-blocker layer, so every
+        # saved scene is 'saved_clean' and no scene is quarantined mid-run.
+        print(f"  saved_clean:          {len(results)}")
 
         for r in results:
-            status = "saved_with_advisory" if _scene_had_advisory(r) else "saved_clean"
             flags = len(r.get("contradiction_flags", []))
             flag_str = f", flags={flags}" if flags else ""
-            quality_str = ""
-            if "quality_metrics" in r:
-                qs = r["quality_metrics"]["overall_score"]
-                quality_str = f", quality={qs:.2f}"
-            char_str = ""
-            if "character_analysis" in r:
-                char_str = f", chars={r['character_analysis']['verdict']}"
-            judge_str = ""
-            if "judge_evaluation" in r:
-                js = r["judge_evaluation"]["overall_score"]
-                judge_str = f", judge={js:.1f}/10"
             print(
                 f"  Chapter {r['chapter_number']}.{r['scene_number']}: "
-                f"{r['word_count']:,} words, status={status}"
-                f"{flag_str}{quality_str}{char_str}{judge_str}"
+                f"{r['word_count']:,} words, status=saved_clean{flag_str}"
             )
 
-        # Architecture upgrade Slice 1: surface open gap notes from the
-        # state firewall. Runs regardless of whether the firewall flag was
-        # on — an open gap from an earlier run still deserves attention.
+        # Surface open gap notes from story state. An open gap from an
+        # earlier run still deserves attention.
         if story_state is not None:
             try:
                 open_gaps = story_state.list_open_gaps()
@@ -1456,6 +1146,10 @@ async def main():
         try:
             if story_state:
                 story_state.close()
+        except Exception:
+            pass
+        try:
+            revision_debt_store.close()
         except Exception:
             pass
         # Async client cleanup — skip on interrupt to avoid event loop teardown errors

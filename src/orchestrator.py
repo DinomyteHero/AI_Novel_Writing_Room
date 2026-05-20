@@ -1,32 +1,16 @@
 """Event-driven orchestrator for the chapter generation pipeline.
 
-Non-lean flow (per scene card) under the forward-only relay:
-  PlotArchitect -> ProseStylist -> [LineWriter] -> GateCritic (advisory)
-  -> QualityMetrics -> [CommercialRewrite] -> QualityPolish -> compression guard
-  -> FinalGate (advisory) -> CanonExpert -> save-blocker layer -> save | quarantine
+Lean per-scene flow (per scene card):
+  PlotArchitect -> ProseStylist -> [LineWriter] -> [RhythmValidator/RhythmEditor]
+  -> save -> post-save memory
 All steps emit typed events to the RunLedger.
 
-Gates are telemetry, not control flow. GateCritic and FinalGate run to
-produce failure codes but do not trigger rewrites — max_structural_retries
-and max_voice_retries are pinned to 0 and retained only as a rollback valve.
-Polished prose is the canonical saved output unless the compression guard
-reverts severe polish collapse (<60% of the gate-passed draft). Final Gate is
-advisory only and does not revert. The only hard-failure path is the
-save-blocker layer (CHARACTER_PRESENCE_BLOCKER, CANON_BLOCKER
-critical/moderate), which quarantines the scene to
-<project>/quarantine/chNN_scMM/ and aborts the run.
+Post-save memory (when dependencies provided):
+  Summarizer -> ChromaDB storage -> StateDiff -> ContradictionScanner
+  -> worldbuilding extraction
 
-Phase 2 additions (when dependencies provided):
-  After save: Summarizer -> ChromaDB storage -> StateDiff -> ContradictionScanner
-
-Phase 3 additions (when dependencies provided):
-  After save: CharacterSpecialist -> MilestoneGate check
-
-Phase 4 additions (when dependencies provided):
-  Before PlotArchitect: PhysicsEnforcer pre-chapter validation
-  After save: PhysicsEnforcer post-chapter validation
-  After quality metrics: JudgeEvaluator LLM-as-judge scoring
-  Session persistence: save/resume via PipelineSession
+The chapter packet is the drafter's runtime contract. Revision-debt rows and
+rhythm telemetry are advisory and never block a save.
 """
 
 import json
@@ -34,12 +18,8 @@ import time
 from pathlib import Path
 from typing import Any, Callable, Optional, TYPE_CHECKING
 
-from src.agents.final_gate import FinalGate
-from src.agents.gate_critic import GateCritic
 from src.agents.plot_architect import PlotArchitect
-from src.agents.commercial_rewrite import CommercialRewrite
 from src.agents.prose_stylist import ProseStylist
-from src.agents.quality_polish import QualityPolish
 from src.agents.rhythm_editor import apply_rhythm_edits
 from src.quality.rhythm_validator import validate_rhythm
 from src.memory.context_assembler import ContextAssembler
@@ -47,44 +27,29 @@ from src.model_router import ModelRouter
 from src.run_ledger import RunLedger
 
 if TYPE_CHECKING:
-    from src.agents.canon_expert import CanonExpert
-    from src.agents.chapter_gate_critic import ChapterGateCritic
-    from src.agents.character_specialist import CharacterSpecialist
     from src.agents.line_writer import LineWriter
-    from src.agents.micro_repair import MicroRepair
-    from src.agents.presence_checker import PresenceChecker
+    from src.agents.rhythm_editor import RhythmEditor
     from src.agents.summarizer import Summarizer
     from src.memory.chapter_memory import ChapterMemory
     from src.memory.contradiction_scanner import ContradictionScanner
     from src.memory.state_diff import StateDiffApplier
     from src.memory.story_state import StoryState
-    from src.agents.continuity_extractor import ContinuityExtractor
-    from src.memory.continuity_log import ContinuityLog
     from src.memory.promise_ledger import PromiseLedger
-    from src.memory.sociogram import Sociogram
     from src.pipeline.chapter_packet import ChapterPacketCompiler
     from src.pipeline.revision_debt import RevisionDebtStore
-    from src.quality.metrics_dashboard import MetricsDashboard
-    from src.quality.milestone_gates import MilestoneGates
-    from src.planning.physics_enforcer import PhysicsEnforcer
     from src.pipeline_session import PipelineSession
-    from src.quality.llm_judge import JudgeEvaluator
     from src.worldbuilding.lore_service import LoreService
 
 
 class Orchestrator:
     """Event-driven pipeline orchestrator.
 
-    Manages the per-chapter generation loop. In shipping lean mode this is:
-    PlotArchitect -> ProseStylist -> [LineWriter] -> save. In non-lean mode:
-    PlotArchitect -> ProseStylist -> [LineWriter] -> GateCritic telemetry
-      -> [corrective_rerun?] -> QualityMetrics -> CommercialRewrite
-      -> QualityPolish -> compression guard -> FinalGate telemetry
-      -> CanonExpert -> save-blockers -> save | quarantine.
+    Manages the per-scene generation loop:
+    PlotArchitect -> ProseStylist -> [LineWriter] -> [RhythmValidator/
+    RhythmEditor] -> save.
 
-    Phase 2 (optional): After save, runs Summarizer -> state diff -> contradiction scan.
-    Phase 3 (optional): Quality metrics, character specialist, milestones.
-    Phase 4 (optional): Physics enforcement, session persistence, LLM judge.
+    Post-save (optional, when dependencies provided): Summarizer -> state
+    diff -> contradiction scan -> worldbuilding extraction.
     """
 
     def __init__(
@@ -93,69 +58,31 @@ class Orchestrator:
         context_assembler: ContextAssembler,
         ledger: RunLedger,
         manuscripts_dir: str = "output/_fallback/manuscripts",
-        max_structural_retries: int = 3,
-        max_voice_retries: int = 2,
-        # Phase 2 optional dependencies:
+        # Post-save memory dependencies:
         summarizer: Optional["Summarizer"] = None,
         state_diff_applier: Optional["StateDiffApplier"] = None,
         contradiction_scanner: Optional["ContradictionScanner"] = None,
         chapter_memory: Optional["ChapterMemory"] = None,
         story_state: Optional["StoryState"] = None,
-        canon_expert: Optional["CanonExpert"] = None,
-        presence_checker: Optional["PresenceChecker"] = None,
+        # Lean scene-path agents:
         line_writer: Optional["LineWriter"] = None,
-        micro_repair: Optional["MicroRepair"] = None,
-        # Rhythm-editor agent: literal-edit pass for detected RhythmValidator
-        # issues. Same safety class as micro_repair. Default None → flag is a
-        # no-op even when runtime.rhythm_editor.enabled is true.
         rhythm_editor: Optional["RhythmEditor"] = None,
-        # Phase 3 optional dependencies:
-        metrics_dashboard: Optional["MetricsDashboard"] = None,
-        character_specialist: Optional["CharacterSpecialist"] = None,
-        milestone_gates: Optional["MilestoneGates"] = None,
-        # Phase 4 optional dependencies:
-        physics_enforcer: Optional["PhysicsEnforcer"] = None,
+        # Session persistence:
         pipeline_session: Optional["PipelineSession"] = None,
         session_id: Optional[str] = None,
-        judge_evaluator: Optional["JudgeEvaluator"] = None,
-        # Chapter-level evaluation:
-        chapter_gate_critic: Optional["ChapterGateCritic"] = None,
         # Worldbuilding optional dependency:
         lore_service: Optional["LoreService"] = None,
         universe_id: Optional[str] = None,
         project_id: Optional[str] = None,
         worldbuilding_auto_extract: bool = False,
-        strict_lore: bool = False,
-        raw_draft: bool = False,
-        skip_gate_loop: bool = False,
-        # Architecture upgrade Slice 1: state-firewall runtime flags.
-        # None defers to config/settings.yaml defaults (firewall off → run
-        # aborts on blocker, preserving pre-Slice-1 behavior).
+        # Runtime flags (resolved settings.yaml + per-book overrides).
         runtime_flags: Optional[dict] = None,
-        # Architecture upgrade Slice 2: chapter packet + revision debt.
-        # Both default None → flag-off path (no packet compilation, advisories
-        # stay ledger-only). When runtime.chapter_packet.enabled is true the
-        # caller must supply chapter_packet_compiler; otherwise packet flag is
-        # ignored (fallback to flat assembly). Same for revision_debt_store.
+        # Chapter packet + revision debt. Both default None -> flag-off path.
         chapter_packet_compiler: Optional["ChapterPacketCompiler"] = None,
         revision_debt_store: Optional["RevisionDebtStore"] = None,
-        # Architecture upgrade Slice 3: promise ledger. When the flag is on,
-        # scene-save-time calls record_progression / record_payoff for each
-        # declared promise_id on the scene card. The chapter-packet compiler
-        # pulls list_top_urgent into the overlay via its own reference; pass
-        # the same PromiseLedger instance here and to the compiler.
+        # Promise ledger. When the flag is on, scene-save-time calls
+        # record_progression / record_payoff for each declared promise_id.
         promise_ledger: Optional["PromiseLedger"] = None,
-        # Architecture upgrade Slice 4: continuity event log + extractor.
-        # Both stay dormant unless runtime.continuity_log.enabled is true AND
-        # both collaborators are supplied. The extractor runs *after* save so
-        # blocker-quarantined prose never produces trusted events.
-        continuity_log: Optional["ContinuityLog"] = None,
-        continuity_extractor: Optional["ContinuityExtractor"] = None,
-        # Architecture upgrade Slice 5: sociogram. Scene-card
-        # ``relationship_deltas`` flow into the store at save time. The
-        # chapter-packet compiler queries the same instance for the
-        # overlay's ``relationship_context`` field.
-        sociogram: Optional["Sociogram"] = None,
     ):
         self.router = router
         self.assembler = context_assembler
@@ -163,15 +90,6 @@ class Orchestrator:
         self.runtime_flags = runtime_flags or {}
         self.manuscripts_dir = Path(manuscripts_dir)
         self.manuscripts_dir.mkdir(parents=True, exist_ok=True)
-        # Quarantine directory sits beside manuscripts so the project layout
-        # keeps saved chapters and save-blocker artifacts side-by-side:
-        #   <run_output>/chapters/   — saved prose
-        #   <run_output>/quarantine/ — scenes that tripped save-blockers
-        self.quarantine_dir = self.manuscripts_dir.parent / "quarantine"
-        self.max_structural_retries = max_structural_retries
-        self.max_voice_retries = max_voice_retries
-        self.raw_draft = raw_draft
-        self.skip_gate_loop = skip_gate_loop
         lean_cfg = (self.runtime_flags.get("runtime") or {}).get("lean_prose_only") or {}
         self._lean_prose_only = bool(lean_cfg.get("enabled", False))
         line_edit_cfg = lean_cfg.get("line_edit", {})
@@ -180,24 +98,18 @@ class Orchestrator:
         else:
             self._lean_line_edit = bool(line_edit_cfg)
 
-        # Initialize Phase 1 agents
+        # Lean scene-path agents
         self.plot_architect = PlotArchitect(router)
         self.prose_stylist = ProseStylist(router)
-        self.gate_critic = GateCritic(router)
-        self.commercial_rewrite = CommercialRewrite(router)
-        self.quality_polish = QualityPolish(router)
-        self.final_gate = FinalGate(router)
 
-        # Phase 2 optional components
+        # Post-save memory components
         self.summarizer = summarizer
         self.state_diff_applier = state_diff_applier
         self.contradiction_scanner = contradiction_scanner
         self.chapter_memory = chapter_memory
         self.story_state = story_state
-        self.canon_expert = canon_expert
-        self.presence_checker = presence_checker
+        # Lean scene-path optional agents
         self.line_writer = line_writer
-        self.micro_repair = micro_repair
         self.rhythm_editor = rhythm_editor
 
         # Rhythm validator + editor runtime flags.
@@ -238,29 +150,17 @@ class Orchestrator:
             rhythm_editor_cfg.get("max_changed_ratio", 0.15)
         )
 
-        # Phase 3 optional components
-        self.metrics_dashboard = metrics_dashboard
-        self.character_specialist = character_specialist
-        self.milestone_gates = milestone_gates
-
-        # Phase 4 optional components
-        self.physics_enforcer = physics_enforcer
+        # Session persistence
         self.pipeline_session = pipeline_session
         self.session_id = session_id
-        self.judge_evaluator = judge_evaluator
-
-        # Chapter-level evaluation
-        self.chapter_gate_critic = chapter_gate_critic
 
         # Worldbuilding optional components
         self.lore_service = lore_service
         self._universe_id = universe_id
         self._project_id = project_id
         self._worldbuilding_auto_extract = worldbuilding_auto_extract
-        # Phase 7.2 — advisory by default (decision D3). Strict mode marks
-        # high-severity lore_conflicts flags on the scene result so callers
-        # can treat them as failures.
-        self._strict_lore = strict_lore
+        # Lore-conflict strict mode is dormant — no CLI flag wires it on.
+        self._strict_lore = False
 
         # Architecture upgrade Slice 2 — chapter packet + revision debt.
         # Both stay dormant unless runtime.chapter_packet.enabled /
@@ -302,205 +202,8 @@ class Orchestrator:
             and self.promise_ledger is not None
         )
 
-        # Architecture upgrade Slice 4 \u2014 continuity event log + extractor.
-        # Both must be attached AND the flag on for trusted-event recording to
-        # fire. Suppressed (sub-threshold) events go *nowhere* except a warn
-        # count event (spec \u00a78.3.2).
-        self.continuity_log = continuity_log
-        self.continuity_extractor = continuity_extractor
-        continuity_cfg = (
-            self.runtime_flags.get("runtime", {}).get("continuity_log", {}) or {}
-        )
-        self._continuity_log_enabled = bool(
-            continuity_cfg.get("enabled", False)
-            and self.continuity_log is not None
-            and self.continuity_extractor is not None
-        )
-        try:
-            self._continuity_min_confidence = float(
-                continuity_cfg.get("min_confidence", 0.85)
-            )
-        except (TypeError, ValueError):
-            self._continuity_min_confidence = 0.85
-
-        # Architecture upgrade Slice 5 \u2014 sociogram. Scene-card
-        # ``relationship_deltas`` fire at save time when the flag is on.
-        # Overlay rendering uses the same store via ChapterPacketCompiler.
-        self.sociogram = sociogram
-        self._sociogram_enabled = bool(
-            self.runtime_flags.get("runtime", {}).get("sociogram", {}).get("enabled", False)
-            and self.sociogram is not None
-        )
-
-        # Architecture upgrade Slice 1 — Phase 0 prompt capture.
-        # When runtime.phase0_audit.enabled is on, instantiate a snapshot
-        # writer and attach to every agent. Scenes get opened via
-        # phase0_snapshot.start_scene() at the top of each scene loop.
-        self.phase0_snapshot = None
-        phase0_cfg = (
-            self.runtime_flags.get("runtime", {}).get("phase0_audit", {})
-        )
-        if phase0_cfg.get("enabled", False):
-            from src.pipeline.phase0_capture import Phase0PromptSnapshot
-            # Conventional layout: manuscripts_dir is <run_dir>/chapters, so
-            # its parent is <run_dir>. When callers pass a non-conventional
-            # manuscripts_dir, this falls back to dumping beside the chapters
-            # folder, which is fine for inspection.
-            run_dir = self.manuscripts_dir.parent
-            self.phase0_snapshot = Phase0PromptSnapshot(run_dir=run_dir)
-            for agent in (
-                self.plot_architect, self.prose_stylist, self.gate_critic,
-                self.commercial_rewrite, self.quality_polish, self.final_gate,
-                self.line_writer, self.micro_repair,
-                self.canon_expert, self.presence_checker,
-                self.chapter_gate_critic, self.character_specialist,
-                self.summarizer,
-            ):
-                if agent is not None:
-                    agent.attach_phase0_snapshot(self.phase0_snapshot)
-
-    @staticmethod
-    def _is_last_scene_in_chapter(current_index: int, sorted_cards: list[dict]) -> bool:
-        """Check if the current card is the last scene in its chapter."""
-        if current_index >= len(sorted_cards) - 1:
-            return True  # Last card overall
-        current_ch = sorted_cards[current_index]["chapter_number"]
-        next_ch = sorted_cards[current_index + 1]["chapter_number"]
-        return current_ch != next_ch
-
-    async def maybe_run_chapter_gate_after_scene(
-        self,
-        scene_index: int,
-        active_cards: list[dict],
-        results: list[dict],
-    ) -> None:
-        """Run chapter-close hooks after the last scene in a chapter.
-
-        Shared between Orchestrator.run_pipeline and WebOrchestrator.run_pipeline
-        so both surfaces honour the same semantics. No-op when the scene is not
-        the last in its chapter. Two close-hooks run here:
-
-        1. Chapter-level gate (if ``self.chapter_gate_critic`` is wired). Mutates
-           the most recent result in-place with ``chapter_gate``.
-        2. Word-count telemetry (Stage 1h). Always runs; never blocks.
-        """
-        if self._lean_prose_only:
-            return
-
-        if not self._is_last_scene_in_chapter(scene_index, active_cards):
-            return
-
-        chapter_num = active_cards[scene_index]["chapter_number"]
-        ch_cards = [c for c in active_cards if c["chapter_number"] == chapter_num]
-        ch_results = [r for r in results if r.get("chapter_number") == chapter_num]
-
-        if self.chapter_gate_critic:
-            try:
-                ch_eval = await self._run_chapter_gate(chapter_num, ch_cards, ch_results)
-            except Exception as exc:  # noqa: BLE001
-                # ChapterGateCritic is advisory; a crash here (prompt-template
-                # regression, blueprint parse error, LLM parse failure) must
-                # never abort the run after scenes have been saved.
-                self.ledger.emit_warn(
-                    "chapter_gate_complete",
-                    chapter_number=chapter_num,
-                    payload={
-                        "status": "error",
-                        "error": f"{type(exc).__name__}: {exc}",
-                    },
-                )
-                print(
-                    f"  [WARN] Chapter gate critic crashed: "
-                    f"{type(exc).__name__}: {exc} — chapter completion continues"
-                )
-            else:
-                results[-1]["chapter_gate"] = ch_eval
-                if not ch_eval["chapter_passed"]:
-                    failures = len(ch_eval.get("chapter_level_failures", []))
-                    print(
-                        f"  Chapter {chapter_num} failed chapter-level gate "
-                        f"({failures} issue(s))"
-                    )
-
-        # Word-count telemetry — chapter-level drift only, never blocks.
-        from src.pipeline.word_count_telemetry import (
-            emit_chapter_word_count_telemetry,
-        )
-        try:
-            telemetry_payload = emit_chapter_word_count_telemetry(
-                self.ledger,
-                chapter_number=chapter_num,
-                chapter_results=ch_results,
-                franchise_slug=self._universe_id,
-                book_slug=self._project_id,
-            )
-            # Slice 2: debt row when drift exceeds the info band (|pct| > 15).
-            # Noop when flag off.
-            drift = telemetry_payload.get("drift_fraction")
-            target = telemetry_payload.get("target_word_count")
-            actual = telemetry_payload.get("actual_word_count")
-            if drift is not None and target and abs(drift) > 0.15:
-                from src.pipeline.revision_debt_producers import emit_wordcount_drift
-
-                emit_wordcount_drift(
-                    self._active_debt_store,
-                    ledger=self.ledger,
-                    scope={"level": "chapter", "chapter_number": chapter_num},
-                    target=int(target),
-                    actual=int(actual or 0),
-                    pct_drift=float(drift) * 100.0,
-                )
-        except Exception as e:
-            # Telemetry failure must never block chapter completion.
-            print(
-                f"  [WARN] word-count telemetry failed: {e.__class__.__name__}: {e}"
-            )
-
-    async def _run_chapter_gate(
-        self,
-        chapter_number: int,
-        chapter_cards: list[dict],
-        chapter_results: list[dict],
-    ) -> dict:
-        """Run the chapter-level gate critic after the last scene in a chapter.
-
-        Passes franchise/book identifiers so ChapterGateCritic can locate the
-        matching chapter_blueprint.json. Absent or unparseable blueprint
-        falls back gracefully to composition-only checks.
-        """
-        scene_prose = []
-        for result in chapter_results:
-            path = Path(result["output_path"])
-            if path.exists():
-                scene_prose.append(path.read_text(encoding="utf-8"))
-
-        context = {
-            "scene_cards": chapter_cards,
-            "scene_prose": scene_prose,
-            "chapter_number": chapter_number,
-        }
-        if self._universe_id:
-            context["franchise_slug"] = self._universe_id
-        if self._project_id:
-            context["book_slug"] = self._project_id
-
-        evaluation = await self.chapter_gate_critic.run(context)
-
-        self.ledger.emit(
-            "chapter_gate_complete",
-            chapter_number=chapter_number,
-            payload={
-                "passed": evaluation["chapter_passed"],
-                "failure_count": len(evaluation.get("chapter_level_failures", [])),
-                "blueprint_used": evaluation.get("blueprint_used", False),
-            },
-        )
-
-        return evaluation
-
     async def run_pipeline(self, scene_cards: list[dict]) -> list[dict]:
         """Run the full pipeline for a list of scene cards."""
-        # Phase 4: Filter out completed chapters if resuming a session
         active_cards = scene_cards
         if self.pipeline_session and self.session_id:
             active_cards = self.pipeline_session.get_pending_cards(
@@ -514,7 +217,6 @@ class Orchestrator:
                     payload={"session_id": self.session_id, "skipped": skipped},
                 )
 
-        # Sort scene cards by (chapter_number, scene_number) for correct ordering
         active_cards = sorted(
             active_cards,
             key=lambda c: (c["chapter_number"], c.get("scene_number", 1)),
@@ -522,10 +224,6 @@ class Orchestrator:
 
         self.ledger.emit("pipeline_start", payload={"total_scenes": len(active_cards)})
         results = []
-
-        # Lazy import to avoid circular concerns and keep the pipeline package
-        # optional for callers that don't exercise save-blockers.
-        from src.pipeline.save_blockers import SaveBlockedError, should_abort_run
 
         try:
             for i, scene_card in enumerate(active_cards):
@@ -535,68 +233,16 @@ class Orchestrator:
                 print(f"Chapter {chapter_num}, Scene {scene_num}")
                 print(f"{'='*60}")
 
-                # Phase 0 prompt capture: open a per-scene subdir. No-op when
-                # runtime.phase0_audit.enabled is off (snapshot is None).
-                if self.phase0_snapshot is not None:
-                    self.phase0_snapshot.start_scene(
-                        chapter=chapter_num, scene=scene_num,
-                    )
-
-                try:
-                    result = await self.run_chapter(scene_card)
-                except SaveBlockedError as e:
-                    if should_abort_run(self.runtime_flags):
-                        # Pre-Slice-1 behavior: abort the entire run on first
-                        # blocker. No partial chapters, no silent skips.
-                        print(f"\n{'=' * 60}")
-                        print("PIPELINE ABORTED — save-blocker fired")
-                        print(f"{'=' * 60}")
-                        print(str(e))
-                        break
-
-                    decision = self._handle_firewall(
-                        scene_card=scene_card,
-                        error=e,
-                        active_cards=active_cards,
-                        current_index=i,
-                    )
-                    print(
-                        f"\n[STATE-FIREWALL] isolated {scene_card['chapter_number']}.{scene_card.get('scene_number', 1)} "
-                        f"→ gap_id={decision.gap_id}"
-                    )
-                    if decision.soft_halted_scenes:
-                        print(
-                            f"  soft_halt: {', '.join(decision.soft_halted_scenes)}"
-                        )
-                    if decision.continue_with_gap_note:
-                        print(
-                            f"  continue_with_note: {', '.join(decision.continue_with_gap_note)}"
-                        )
-                    if not decision.continue_run:
-                        print("[STATE-FIREWALL] soft-halting run — open gaps require human review.")
-                        break
-                    # Skip the isolated scene and advance.
-                    continue
-
+                result = await self.run_chapter(scene_card)
                 results.append(result)
 
-                # Phase 4: Save session progress after each chapter
                 if self.pipeline_session and self.session_id:
                     self.pipeline_session.mark_chapter_complete(
                         self.session_id, chapter_num, scene_num, result
                     )
-
-                # Chapter-level gate: run after last scene in chapter
-                await self.maybe_run_chapter_gate_after_scene(i, active_cards, results)
-
-                # Check if milestone gate aborted the pipeline
-                if result.get("milestone_abort"):
-                    print(f"\nPipeline paused at milestone: {result['milestone']['milestone_name']}")
-                    break
         except KeyboardInterrupt:
             print("\nPipeline interrupted — saving session...")
         finally:
-            # Phase 4: Save session on exit
             if self.pipeline_session and self.session_id:
                 self.pipeline_session.save(
                     self.session_id,
@@ -613,93 +259,6 @@ class Orchestrator:
         )
         return results
 
-    def _handle_firewall(
-        self,
-        *,
-        scene_card: dict,
-        error,
-        active_cards: list[dict],
-        current_index: int,
-    ):
-        """Route a save-blocker through :class:`StateFirewall`.
-
-        Collects the subsequent scenes relevant to the classifier — the
-        remaining scenes in the current chapter plus the first scene of the
-        next chapter — and delegates the isolation + classification work.
-        Returns the :class:`FirewallDecision` so ``run_pipeline`` can decide
-        whether to break the scene loop.
-        """
-        from types import SimpleNamespace
-
-        from src.pipeline.state_firewall import StateFirewall
-        from src.pipeline.successor_classifier import SuccessorClassifier
-
-        chapter_num = int(scene_card["chapter_number"])
-
-        remaining = active_cards[current_index + 1:]
-        same_chapter_remaining = [
-            c for c in remaining
-            if int(c["chapter_number"]) == chapter_num
-        ]
-        next_chapter_scenes = [
-            c for c in remaining
-            if int(c["chapter_number"]) == chapter_num + 1
-        ]
-        first_of_next: list[dict] = []
-        if next_chapter_scenes:
-            # Earliest by scene_number.
-            first_of_next = [
-                min(next_chapter_scenes, key=lambda c: int(c["scene_number"])),
-            ]
-        subsequent = [*same_chapter_remaining, *first_of_next]
-
-        flags = self.runtime_flags or {}
-        classifier_cfg = (
-            flags.get("runtime", {})
-            .get("firewall", {})
-            .get("successor_classifier", {})
-        )
-        classifier = SuccessorClassifier(
-            jaccard_threshold=float(classifier_cfg.get("jaccard_threshold", 0.5)),
-            adjacency_max_for_continue=int(classifier_cfg.get("adjacency_max_for_continue", 1)),
-        )
-
-        project_paths_shim = SimpleNamespace(quarantine_dir=self.quarantine_dir)
-
-        firewall = StateFirewall(
-            project_paths=project_paths_shim,
-            story_state=self.story_state,
-            classifier=classifier,
-            ledger=self.ledger,
-            runtime_flags=flags,
-        )
-
-        blockers = getattr(error, "blockers", [])
-        brief = None  # Pre-save state; the caller's brief is not currently
-        # captured on the SaveBlockedError. Slice 6's patch workflow will
-        # hydrate this by reading quarantine/brief.json.
-        decision = firewall.handle_blocker(
-            scene_card=scene_card,
-            prose="",  # already persisted by write_quarantine before raise
-            brief=brief,
-            blockers=blockers,
-            subsequent_scenes=subsequent,
-        )
-        # Slice 2: persist a high-severity blocker_record row. Noop when flag off.
-        from src.pipeline.revision_debt_producers import emit_blocker_record
-        emit_blocker_record(
-            self._active_debt_store,
-            ledger=self.ledger,
-            scope={
-                "level": "scene",
-                "chapter_number": chapter_num,
-                "scene_number": int(scene_card.get("scene_number", 1)),
-            },
-            blocker_categories=[getattr(b, "code", str(b)) for b in blockers],
-            gap_id=getattr(decision, "gap_id", None),
-        )
-        return decision
-
     @staticmethod
     def _lean_skipped_evaluation() -> dict:
         """Synthetic evaluation payload for the prose-only runtime path."""
@@ -715,7 +274,7 @@ class Orchestrator:
         }
 
     async def run_chapter(self, scene_card: dict) -> dict:
-        """Run the full pipeline for a single scene card."""
+        """Run the lean pipeline for a single scene card."""
         chapter_num = scene_card["chapter_number"]
         scene_num = scene_card.get("scene_number", 1)
 
@@ -726,608 +285,60 @@ class Orchestrator:
             payload={"mission": scene_card.get("mission", "")},
         )
 
-        # Phase 4: Pre-chapter physics validation.
-        # Demoted to a sanity net: when the concept_seed carries
-        # ``compile_metadata.physics_validated = True`` the compile-time
-        # validator in ``scripts/compile_bundle.py`` has already covered the
-        # full corpus, so re-running per-scene here would duplicate work and
-        # catch nothing new. Skip with an info event in that case. When the
-        # flag is absent or False, fall through to the advisory check so
-        # hand-edited seeds or legacy projects still get coverage.
-        physics_pre = None
-        upstream_seed = getattr(self.assembler, "concept_seed", {}) or {}
-        upstream_validated = (
-            upstream_seed.get("compile_metadata", {}).get("physics_validated")
-            is True
-        )
-        if self.physics_enforcer and upstream_validated:
-            self.ledger.emit(
-                "physics_pre_skipped_upstream_validated",
-                chapter_number=chapter_num,
-                scene_number=scene_num,
-                payload={"reason": "compile_metadata.physics_validated=True"},
-            )
-        elif self.physics_enforcer:
-            print("  [P4] Physics pre-check...")
-            physics_pre = self.physics_enforcer.validate_pre_chapter(scene_card)
-            self.ledger.emit(
-                "physics_validation_pre",
-                chapter_number=chapter_num,
-                scene_number=scene_num,
-                payload={"passed": physics_pre["passed"], "issue_count": len(physics_pre["issues"])},
-            )
-            if physics_pre["recommendations"]:
-                for rec in physics_pre["recommendations"][:3]:
-                    print(f"    Physics: {rec}")
-
         # Step 1: Plot Architect generates the brief
-        print("  [1/5] Plot Architect generating brief...")
+        print("  [1/4] Plot Architect generating brief...")
         generation_brief = await self._run_plot_architect(scene_card)
 
         # Step 2: Prose Stylist drafts the scene
-        print("  [2/5] Prose Stylist drafting...")
+        print("  [2/4] Prose Stylist drafting...")
         prose = await self._run_prose_stylist(scene_card, generation_brief)
 
-        if self._lean_prose_only:
-            line_edit_attempted = False
-            line_edit_applied = False
-            if self._lean_line_edit and self.line_writer and not self.raw_draft:
-                source_before_line_edit = prose
-                line_edit_attempted = True
-                prose = await self._run_line_writer(
-                    scene_card, generation_brief, prose
-                )
-                line_edit_applied = prose != source_before_line_edit
-            elif self._lean_line_edit and not self.line_writer:
-                self.ledger.emit_warn(
-                    "lean_line_edit_unavailable",
-                    chapter_number=chapter_num,
-                    scene_number=scene_num,
-                    payload={"reason": "agent_routing.line_writer missing"},
-                )
-
-            # Rhythm validation + literal-edit pass (flag-gated). When the
-            # flags are off this is a no-op. The editor is bounded by the
-            # same safety caps as micro_repair: literal substrings only,
-            # max-edits cap, total changed-char cap, ratio ceiling.
-            rhythm_telemetry: dict = {}
-            rhythm_edit_applied = False
-            prose_before_rhythm = prose
-            if self._rhythm_validator_enabled or self._rhythm_editor_enabled:
-                prose, rhythm_telemetry = await self._maybe_rhythm_validate_and_edit(
-                    prose=prose,
-                    scene_card=scene_card,
-                    chapter_number=chapter_num,
-                    scene_number=scene_num,
-                )
-                rhythm_edit_applied = prose != prose_before_rhythm
-
-            print("  [Lean] Skipping gates, checks, broad polish, and post-save agents")
-            output_path = self._save_chapter(chapter_num, scene_num, prose)
-            word_count = len(prose.split())
-            skipped_stages = [
-                "gate_critic",
-                "corrective_rerun",
-                "quality_metrics",
-                "commercial_rewrite",
-                "quality_polish",
-                "final_gate",
-                "canon_expert",
-                "save_blockers",
-                "micro_repair",
-                "post_save_agents",
-            ]
-            if not line_edit_attempted:
-                skipped_stages.insert(0, "line_writer")
-            if not self._rhythm_validator_enabled:
-                skipped_stages.append("rhythm_validator")
-            if not self._rhythm_editor_enabled:
-                skipped_stages.append("rhythm_editor")
-            self.ledger.emit_info(
-                "lean_prose_only_saved",
-                chapter_number=chapter_num,
-                scene_number=scene_num,
-                payload={
-                    "word_count": word_count,
-                    "output_path": str(output_path),
-                    "line_edit_enabled": bool(self._lean_line_edit),
-                    "line_edit_attempted": line_edit_attempted,
-                    "line_edit_applied": line_edit_applied,
-                    "rhythm_validator_enabled": self._rhythm_validator_enabled,
-                    "rhythm_editor_enabled": self._rhythm_editor_enabled,
-                    "rhythm_edit_applied": rhythm_edit_applied,
-                    "skipped_stages": skipped_stages,
-                },
-            )
-            print(f"  Saved: {output_path}")
-            return {
-                "chapter_number": chapter_num,
-                "scene_number": scene_num,
-                "output_path": str(output_path),
-                "evaluation": self._lean_skipped_evaluation(),
-                "word_count": word_count,
-                "lean_prose_only": True,
-                "line_edit_attempted": line_edit_attempted,
-                "line_edit_applied": line_edit_applied,
-            }
-
-        # Relay v3 (Stage 1f): Canon expert no longer runs mid-stream — it
-        # moves to the LAST reader position (continuity_editor) just before
-        # the save-blocker check. See below.
-
-        # Relay v3 (Stage 3): optional LineWriter pass between drafter and
-        # gate. Preserves structure/POV/canon/characters_present; rewrites
-        # for sentence-level rhythm, imagery, and voice texture. Gate_critic
-        # and downstream stages evaluate the line-edited prose.
-        if self.line_writer and not self.raw_draft:
+        # Step 3: optional LineWriter line-edit pass
+        line_edit_attempted = False
+        line_edit_applied = False
+        if self._lean_line_edit and self.line_writer:
+            source_before_line_edit = prose
+            line_edit_attempted = True
             prose = await self._run_line_writer(
                 scene_card, generation_brief, prose
             )
-
-        # Step 3: Gate Critic evaluates
-        print("  [3/5] Gate Critic evaluating...")
-        evaluation, prose = await self._gate_loop(scene_card, prose, generation_brief)
-
-        # Forward Relay v4 — smart single corrective rerun.
-        # Flag-gated (runtime.corrective_rerun.enabled), narrow trigger set
-        # (MISSING_TURNING_POINT / CLOSING_HOOK_VIOLATION), and skipped when
-        # the first draft emits too many codes or collapses below the word
-        # count floor. At most one rerun per scene — no loop semantics.
-        prose = await self._maybe_corrective_rerun(
-            scene_card=scene_card,
-            generation_brief=generation_brief,
-            prose=prose,
-            evaluation=evaluation,
-        )
-        gate_passed_prose = prose
-        gate_passed_wc = len(gate_passed_prose.split())
-
-        # Quality Metrics run on gate-passed prose so flags can feed Quality Polish
-        # and the cross-scene overused-words accumulator stays consistent.
-        quality_metrics = None
-        if self.metrics_dashboard:
-            print("  [3.5/5] Quality metrics running...")
-            prior_chapters = self._load_prior_chapters(chapter_num)
-            voice_notes = self._get_pov_voice_notes(scene_card)
-            quality_metrics = self.metrics_dashboard.analyze_chapter(
-                gate_passed_prose,
-                scene_card,
-                prior_chapters=prior_chapters,
-                voice_notes=voice_notes,
+            line_edit_applied = prose != source_before_line_edit
+        elif self._lean_line_edit and not self.line_writer:
+            self.ledger.emit_warn(
+                "lean_line_edit_unavailable",
+                chapter_number=chapter_num,
+                scene_number=scene_num,
+                payload={"reason": "agent_routing.line_writer missing"},
             )
-            status = "PASS" if quality_metrics["passed"] else "FAIL"
-            print(f"    Quality: {quality_metrics['overall_score']:.2f} ({status})")
-            if quality_metrics["flags"]:
-                for flag in quality_metrics["flags"][:5]:
-                    print(f"    - {flag}")
-            # Slice 2: one debt row per quality flag. Noop when flag off.
-            from src.pipeline.revision_debt_producers import emit_metric_advisory
-            scope = {
-                "level": "scene",
-                "chapter_number": chapter_num,
-                "scene_number": scene_num,
-            }
-            for flag in quality_metrics.get("flags", []) or []:
-                emit_metric_advisory(
-                    self._active_debt_store,
-                    ledger=self.ledger,
-                    scope=scope,
-                    metric_name=str(flag)[:60],
-                    value=float(quality_metrics.get("overall_score", 0.0)),
-                    threshold=float(
-                        quality_metrics.get("threshold", 0.0) or 0.0
-                    ),
-                    bands_over=0,
-                    details={"flag": str(flag)},
-                )
-            # Accumulate overused words for dynamic Prose Stylist constraints
-            if not hasattr(self, "_chapter_overused_words"):
-                self._chapter_overused_words = set()
-            for scene_result in quality_metrics.get("per_scene", []):
-                rep = scene_result.get("repetition", {})
-                for w in rep.get("flagged_words", []):
-                    self._chapter_overused_words.add(w["word"])
-            # Track description ratio for cross-scene feedback
-            if not hasattr(self, "_scene_description_ratios"):
-                self._scene_description_ratios = []
-            for scene_result in quality_metrics.get("per_scene", []):
-                pacing = scene_result.get("pacing", {})
-                dist = pacing.get("scene_type_distribution", {})
-                desc_ratio = dist.get("description", 0) + dist.get("introspection", 0)
-                self._scene_description_ratios.append(desc_ratio)
 
-        if not self.raw_draft:
-            rewritten_prose = await self._maybe_commercial_rewrite(
+        # Step 4: rhythm validation + literal-edit pass (flag-gated, no-op when off)
+        rhythm_telemetry: dict = {}
+        rhythm_edit_applied = False
+        prose_before_rhythm = prose
+        if self._rhythm_validator_enabled or self._rhythm_editor_enabled:
+            prose, rhythm_telemetry = await self._maybe_rhythm_validate_and_edit(
+                prose=prose,
                 scene_card=scene_card,
-                generation_brief=generation_brief,
-                prose=gate_passed_prose,
-                evaluation=evaluation,
-                quality_metrics=quality_metrics,
-            )
-            if rewritten_prose != gate_passed_prose:
-                gate_passed_prose = rewritten_prose
-                gate_passed_wc = len(gate_passed_prose.split())
-
-        # Steps 4-5: Quality Polish + compression guard + Final Gate
-        # (skipped in --raw-draft baseline mode — save gate-passed prose directly)
-        final_gate_result: Optional[dict] = None
-        polish_rejected = False
-        rejection_reason: Optional[str] = None
-        if self.raw_draft:
-            print("  [4/5] Quality Polish skipped (--raw-draft baseline mode)")
-            print("  [5/5] Final Gate skipped (--raw-draft baseline mode)")
-            final_prose = gate_passed_prose
-        else:
-            # Step 4: Quality Polish — single bounded expression-level pass.
-            # Relay v3 (Stage 1f): canon_notes is always empty here because
-            # the canon expert now runs post-polish as the continuity editor.
-            # Quality Polish remains a pure copy-editing pass.
-            print("  [4/5] Quality Polish running...")
-            polish_result = await self.quality_polish.run({
-                "prose": gate_passed_prose,
-                "scene_card": scene_card,
-                "quality_metrics": quality_metrics,
-                "negative_constraints": self.assembler.get_negative_constraints(),
-                "canon_notes": "",
-            })
-            polished_prose = polish_result["prose"]
-
-            # Compression guard — revert-on-regression.
-            # When polish compresses the draft below 60% of the gate-passed
-            # word count, we treat the polish as damaged and keep the
-            # gate-passed prose instead. Below 60% is the threshold at which
-            # aggressive summarization / sentence-level collapse has been
-            # observed to hollow scenes; reverting is safer than shipping a
-            # degraded scene under the forward-only relay. The advisory event
-            # still fires so humans see the regression; payload adds
-            # reverted=True to distinguish from the pure-telemetry era.
-            polished_wc = len(polished_prose.split())
-            if gate_passed_wc and polished_wc < 0.6 * gate_passed_wc:
-                pct = polished_wc / gate_passed_wc * 100
-                print(
-                    f"    Compression guard reverted: polish cut {gate_passed_wc} -> {polished_wc} "
-                    f"({pct:.0f}%) — kept gate-passed draft"
-                )
-                self.ledger.emit_warn(
-                    "compression_guard_fired",
-                    chapter_number=chapter_num,
-                    scene_number=scene_num,
-                    payload={
-                        "gate_word_count": gate_passed_wc,
-                        "polish_word_count": polished_wc,
-                        "advisory_only": False,
-                        "reverted": True,
-                    },
-                )
-                # Slice 2: structured advisory row. Noop when flag off.
-                from src.pipeline.revision_debt_producers import (
-                    emit_compression_advisory,
-                )
-                emit_compression_advisory(
-                    self._active_debt_store,
-                    ledger=self.ledger,
-                    scope={
-                        "level": "scene",
-                        "chapter_number": chapter_num,
-                        "scene_number": scene_num,
-                    },
-                    pre_polish_words=gate_passed_wc,
-                    post_polish_words=polished_wc,
-                    ratio=polished_wc / gate_passed_wc if gate_passed_wc else 0.0,
-                )
-                # Revert so the saved prose is the gate-passed draft, not the
-                # degraded polish. Downstream stages (FinalGate, CanonExpert,
-                # PresenceChecker, save-blocker layer) re-evaluate the reverted
-                # prose — FinalGate verdict on the gate-passed draft is the
-                # authoritative telemetry from here on.
-                polished_prose = gate_passed_prose
-                polished_wc = gate_passed_wc
-
-            # Final Gate — Stage 1c of the relay refactor.
-            # Runs as telemetry. Its verdict is logged but does NOT control the
-            # save path; polished_prose is always the saved prose unless a
-            # save-blocker fires (Stage 1f) downstream.
-            print("  [5/5] Final Gate evaluating polish output (advisory)...")
-            final_gate_result = await self.final_gate.run({
-                "prose": polished_prose,
-                "scene_card": scene_card,
-                "gate_passed_word_count": gate_passed_wc,
-            })
-            if final_gate_result["verdict"] != "pass":
-                failure_codes = [fc["code"] for fc in final_gate_result.get("failure_codes", [])]
-                print(
-                    f"    Final Gate advisory: verdict={final_gate_result['verdict']}, "
-                    f"codes={failure_codes} — kept polished output (forward-only)"
-                )
-                self.ledger.emit(
-                    "final_gate_rejection",
-                    chapter_number=chapter_num,
-                    scene_number=scene_num,
-                    payload={
-                        "verdict": final_gate_result["verdict"],
-                        "failure_codes": failure_codes,
-                        "advisory_only": True,
-                    },
-                )
-                # Slice 2: one debt row per failure code.
-                from src.pipeline.revision_debt_producers import (
-                    emit_final_gate_advisory,
-                )
-                scope = {
-                    "level": "scene",
-                    "chapter_number": chapter_num,
-                    "scene_number": scene_num,
-                }
-                for fc in final_gate_result.get("failure_codes", []):
-                    emit_final_gate_advisory(
-                        self._active_debt_store,
-                        ledger=self.ledger,
-                        scope=scope,
-                        failure=fc,
-                    )
-            else:
-                print("    Final Gate: pass")
-                self.ledger.emit(
-                    "final_gate_complete",
-                    chapter_number=chapter_num,
-                    scene_number=scene_num,
-                    payload={"verdict": "pass"},
-                )
-            final_prose = polished_prose
-
-        # Relay v3 (Stage 1f): Continuity Editor runs on FINAL prose.
-        # Canon expert is now the last reader before save-blockers — this is
-        # the only position where its verdict can reflect the saved artifact.
-        continuity_report: Optional[dict] = None
-        if self.canon_expert:
-            print("  [Continuity] Canon expert validating FINAL prose...")
-            try:
-                continuity_report = await self.canon_expert.run({
-                    "prose": final_prose,
-                    "scene_card": scene_card,
-                    "concept_seed": getattr(self.assembler, "concept_seed", {}),
-                })
-                verdict_str = continuity_report.get("verdict", "pass")
-                n_violations = len(continuity_report.get("violations", []) or [])
-                print(f"    Continuity: {verdict_str} ({n_violations} finding(s))")
-                self.ledger.emit(
-                    "continuity_editor_complete",
-                    chapter_number=chapter_num,
-                    scene_number=scene_num,
-                    payload={
-                        "verdict": verdict_str,
-                        "violation_count": n_violations,
-                    },
-                )
-                # Slice 2: one debt row per canon advisory/violation. Noop when flag off.
-                from src.pipeline.revision_debt_producers import emit_canon_advisory
-                scope = {
-                    "level": "scene",
-                    "chapter_number": chapter_num,
-                    "scene_number": scene_num,
-                }
-                for advisory in continuity_report.get("advisory_notes", []) or []:
-                    emit_canon_advisory(
-                        self._active_debt_store,
-                        ledger=self.ledger,
-                        scope=scope,
-                        advisory=advisory,
-                    )
-                for violation in continuity_report.get("violations", []) or []:
-                    emit_canon_advisory(
-                        self._active_debt_store,
-                        ledger=self.ledger,
-                        scope=scope,
-                        advisory=violation,
-                    )
-            except Exception as e:
-                print(f"    Continuity editor: error ({e.__class__.__name__}) — skipping")
-                continuity_report = None
-
-        # Slice 11.1 (Forward Relay v4): apply whitelisted CanonExpert
-        # local_fixes as literal substitutions on final_prose. Narrow-repair
-        # alternative to sending moderate canon findings through a full
-        # ProseStylist rerun. Noop when the flag is off or the report has no
-        # local_fixes.
-        if continuity_report:
-            canon_fixed_prose = self._maybe_apply_canon_local_fixes(
-                prose=final_prose,
-                continuity_report=continuity_report,
                 chapter_number=chapter_num,
                 scene_number=scene_num,
             )
-            if canon_fixed_prose != final_prose and self.canon_expert:
-                try:
-                    continuity_report = await self.canon_expert.run(
-                        {
-                            "prose": canon_fixed_prose,
-                            "scene_card": scene_card,
-                            "concept_seed": getattr(
-                                self.assembler, "concept_seed", {}
-                            ),
-                        }
-                    )
-                    verdict_str = continuity_report.get("verdict", "pass")
-                    n_violations = len(
-                        continuity_report.get("violations", []) or []
-                    )
-                    self.ledger.emit_info(
-                        "continuity_editor_recheck_complete",
-                        chapter_number=chapter_num,
-                        scene_number=scene_num,
-                        payload={
-                            "verdict": verdict_str,
-                            "violation_count": n_violations,
-                            "stage": "canon_local_fixes",
-                        },
-                    )
-                    print(
-                        f"    Continuity recheck: {verdict_str} "
-                        f"({n_violations} finding(s))"
-                    )
-                    final_prose = canon_fixed_prose
-                except Exception as e:  # noqa: BLE001
-                    self.ledger.emit_warn(
-                        "continuity_editor_recheck_error",
-                        chapter_number=chapter_num,
-                        scene_number=scene_num,
-                        payload={
-                            "stage": "canon_local_fixes",
-                            "error": f"{type(e).__name__}: {e}",
-                        },
-                    )
-                    print(
-                        "    Continuity recheck: error "
-                        f"({e.__class__.__name__}) — reverting local fixes"
-                    )
-            else:
-                final_prose = canon_fixed_prose
+            rhythm_edit_applied = prose != prose_before_rhythm
 
-        # Relay v3 (Stage 1f): Save-blocker check. Three categories —
-        #   CHARACTER_PRESENCE_BLOCKER (PresenceChecker agent)
-        #   CANON_BLOCKER             (continuity_report verdict + severity)
-        #   POV_ADVISORY              (heuristic; logs but never blocks in v1)
-        # Abort-on-first-blocker: quarantine the scene and raise
-        # SaveBlockedError so run_pipeline halts the whole run.
-        from src.pipeline.save_blockers import (
-            SaveBlockedError,
-            check_save_blockers,
-            collect_presence_violations,
-            detect_pov_advisory,
-            write_quarantine,
-        )
-
-        pov_hits = detect_pov_advisory(final_prose, scene_card)
-        if pov_hits:
-            self.ledger.emit(
-                "pov_advisory",
-                chapter_number=chapter_num,
-                scene_number=scene_num,
-                payload={
-                    "hit_count": len(pov_hits),
-                    "hits": pov_hits[:10],
-                    "advisory_only": True,
-                },
-            )
-            print(f"  [POV] Advisory: {len(pov_hits)} suspect span(s) — no block in v1")
-
-        presence_violations = await collect_presence_violations(
-            prose=final_prose,
-            scene_card=scene_card,
-            presence_checker=self.presence_checker,
-        )
-        final_prose, continuity_report, micro_repair_changed = (
-            await self._maybe_micro_repair(
-                prose=final_prose,
-                scene_card=scene_card,
-                continuity_report=continuity_report,
-                presence_violations=presence_violations,
-                chapter_number=chapter_num,
-                scene_number=scene_num,
-            )
-        )
-
-        blockers = await check_save_blockers(
-            prose=final_prose,
-            scene_card=scene_card,
-            continuity_report=continuity_report,
-            presence_checker=self.presence_checker,
-            presence_violations=None if micro_repair_changed else presence_violations,
-        )
-
-        if blockers:
-            scene_dir = write_quarantine(
-                quarantine_root=self.quarantine_dir,
-                chapter_number=chapter_num,
-                scene_number=scene_num,
-                prose=final_prose,
-                blockers=blockers,
-                brief=generation_brief,
-                scene_card=scene_card,
-            )
-            self.ledger.emit(
-                "save_blocked",
-                chapter_number=chapter_num,
-                scene_number=scene_num,
-                payload={
-                    "blocker_count": len(blockers),
-                    "blocker_codes": [b.code for b in blockers],
-                    "quarantine_path": str(scene_dir),
-                },
-            )
-            print(
-                f"  [SAVE-BLOCKED] {len(blockers)} blocker(s) — scene quarantined at {scene_dir}"
-            )
-            raise SaveBlockedError(
-                blockers=blockers,
-                quarantine_path=scene_dir,
-                chapter_number=chapter_num,
-                scene_number=scene_num,
-            )
-
-        # Save the chapter
-        output_path = self._save_chapter(chapter_num, scene_num, final_prose)
+        output_path = self._save_chapter(chapter_num, scene_num, prose)
+        word_count = len(prose.split())
         print(f"  Saved: {output_path}")
 
-        # Architecture upgrade Slice 3 \u2014 record declared promise deltas.
-        # Scene cards are the source of truth (spec \u00a77.1 declarative model);
-        # SceneReviewer-suggested progressions are explicitly *not* written
-        # here \u2014 those land as editorial.scene_reviewer revision-debt rows.
-        self._maybe_record_promise_deltas(scene_card)
-
-        # Architecture upgrade Slice 4 — extract narrow continuity events
-        # from the saved prose. Threshold-filtered inside the helper; sub-
-        # threshold rows are suppressed entirely (not logged, not stored) so
-        # hallucinated facts can never reach the packet.
-        await self._maybe_extract_continuity(scene_card, final_prose)
-
-        # Architecture upgrade Slice 5 — apply declared relationship deltas.
-        # Scene cards are the source of truth (spec §9.1 declarative model).
-        self._maybe_apply_relationship_deltas(scene_card)
-
-        # Phase 4: Post-chapter physics validation
-        physics_post = None
-        if self.physics_enforcer:
-            try:
-                physics_post = self.physics_enforcer.validate_post_chapter(
-                    scene_card, final_prose, chapter_num
-                )
-            except Exception as exc:  # noqa: BLE001
-                # Physics validation is advisory; never abort a saved scene
-                # because post-save instrumentation crashed.
-                self.ledger.emit_warn(
-                    "physics_validation_post",
-                    chapter_number=chapter_num,
-                    scene_number=scene_num,
-                    payload={
-                        "status": "error",
-                        "error": f"{type(exc).__name__}: {exc}",
-                    },
-                )
-                physics_post = None
-            else:
-                self.ledger.emit(
-                    "physics_validation_post",
-                    chapter_number=chapter_num,
-                    scene_number=scene_num,
-                    payload={"passed": physics_post["passed"], "issue_count": len(physics_post["issues"])},
-                )
-                if physics_post["issues"]:
-                    print(f"  [P4] Physics post-check: {len(physics_post['issues'])} issue(s)")
-
-        # Phase 2: Post-save processing
+        # Post-save memory: summarizer -> state diff -> contradiction scan
+        # -> worldbuilding extraction. Wrapped so a failure never aborts a
+        # saved scene; next-scene state may be stale, so the warn is load-bearing.
         summary_text = None
-        contradiction_flags = []
+        contradiction_flags: list[dict] = []
         if self.summarizer:
             try:
                 summary_text, contradiction_flags = await self._run_post_save(
-                    scene_card, final_prose, evaluation,
-                    polish_rejected=polish_rejected,
+                    scene_card, prose, self._lean_skipped_evaluation(),
                 )
             except Exception as exc:  # noqa: BLE001
-                # Summarizer / state-diff / chapter-memory failures cascade
-                # into missing state for the *next* scene; surface loudly but
-                # never abort the already-saved scene.
                 self.ledger.emit_warn(
                     "post_save_error",
                     chapter_number=chapter_num,
@@ -1342,103 +353,39 @@ class Orchestrator:
                     f"{type(exc).__name__}: {exc} — scene saved, state may be stale"
                 )
 
-        # Phase 3: Character Specialist (supplementary, after Phase 2)
-        character_analysis = None
-        if self.character_specialist:
-            print("  [P3-3] Character specialist running...")
-            char_context = {
-                "prose": final_prose,
-                "scene_card": scene_card,
-                "character_voices": self.assembler.get_character_voices(
-                    scene_card.get("characters_present", [])
-                ),
-                "character_knowledge": "",
-                "character_profiles": self._get_character_profiles(scene_card),
-            }
-            try:
-                character_analysis = await self.character_specialist.run(char_context)
-                print(f"    Character verdict: {character_analysis['verdict']}")
-            except Exception as exc:  # noqa: BLE001
-                self.ledger.emit_warn(
-                    "post_save_error",
-                    chapter_number=chapter_num,
-                    scene_number=scene_num,
-                    payload={
-                        "stage": "character_specialist",
-                        "error": f"{type(exc).__name__}: {exc}",
-                    },
-                )
-                print(f"    Character specialist crashed ({type(exc).__name__}) — skipping")
-                character_analysis = None
+        # Slice 3 — record declared promise deltas (no-op when flag off).
+        self._maybe_record_promise_deltas(scene_card)
 
-        # Phase 4: LLM-as-Judge evaluation
-        judge_evaluation = None
-        if self.judge_evaluator:
-            print("  [P4] LLM Judge evaluating...")
-            try:
-                judge_evaluation = await self.judge_evaluator.evaluate_chapter({
-                    "prose": final_prose,
-                    "scene_card": scene_card,
-                })
-            except Exception as exc:  # noqa: BLE001
-                self.ledger.emit_warn(
-                    "post_save_error",
-                    chapter_number=chapter_num,
-                    scene_number=scene_num,
-                    payload={
-                        "stage": "judge_evaluator",
-                        "error": f"{type(exc).__name__}: {exc}",
-                    },
-                )
-                print(f"    LLM Judge crashed ({type(exc).__name__}) — skipping")
-                judge_evaluation = None
-            else:
-                self.ledger.emit(
-                    "judge_evaluation",
-                    chapter_number=chapter_num,
-                    scene_number=scene_num,
-                    payload={"overall_score": judge_evaluation.get("overall_score", 0)},
-                )
-                print(f"    Judge score: {judge_evaluation.get('overall_score', 0):.1f}/10")
+        self.ledger.emit_info(
+            "lean_prose_only_saved",
+            chapter_number=chapter_num,
+            scene_number=scene_num,
+            payload={
+                "word_count": word_count,
+                "output_path": str(output_path),
+                "line_edit_enabled": bool(self._lean_line_edit),
+                "line_edit_attempted": line_edit_attempted,
+                "line_edit_applied": line_edit_applied,
+                "rhythm_validator_enabled": self._rhythm_validator_enabled,
+                "rhythm_editor_enabled": self._rhythm_editor_enabled,
+                "rhythm_edit_applied": rhythm_edit_applied,
+            },
+        )
 
         result = {
             "chapter_number": chapter_num,
             "scene_number": scene_num,
             "output_path": str(output_path),
-            "evaluation": evaluation,
-            "word_count": len(final_prose.split()),
+            "evaluation": self._lean_skipped_evaluation(),
+            "word_count": word_count,
+            "lean_prose_only": True,
+            "line_edit_attempted": line_edit_attempted,
+            "line_edit_applied": line_edit_applied,
         }
-
         if summary_text:
             result["summary"] = summary_text
         if contradiction_flags:
             result["contradiction_flags"] = contradiction_flags
-        if final_gate_result is not None:
-            result["final_gate"] = final_gate_result
-        if continuity_report is not None:
-            result["continuity_report"] = continuity_report
-        if polish_rejected:
-            result["polish_rejected"] = True
-            result["polish_rejection_reason"] = rejection_reason
-        if quality_metrics:
-            result["quality_metrics"] = quality_metrics
-        if character_analysis:
-            result["character_analysis"] = character_analysis
-        if physics_pre:
-            result["physics_pre"] = physics_pre
-        if physics_post:
-            result["physics_post"] = physics_post
-        if judge_evaluation:
-            result["judge_evaluation"] = judge_evaluation
-
-        # Phase 3: Milestone Gate check (at the very end)
-        if self.milestone_gates:
-            milestone_info = self.milestone_gates.check(scene_card)
-            if milestone_info:
-                result["milestone"] = milestone_info
-                if not milestone_info.get("continue", True):
-                    result["milestone_abort"] = True
-
         return result
 
     async def _run_post_save(
@@ -1548,23 +495,15 @@ class Orchestrator:
                 fc["code"] for fc in evaluation.get("failure_codes", [])
             ]
             word_count = len(prose.split())
-            # Relay v3 (Stage 1i) — status vocabulary collapsed to three
-            # saved-scene states:
-            #   - 'saved_clean'          — all gates green
-            #   - 'saved_with_advisory'  — any gate fired advisory-level signal
+            # Status vocabulary collapsed to three saved-scene states:
+            #   - 'saved_clean'          — saved with no advisory
+            #   - 'saved_with_advisory'  — an advisory-level signal fired
             #   - 'quarantined'          — scene blocked pre-save (not written
-            #                              through this path; reserved for
-            #                              manual quarantine flags)
-            #
-            # Scene-gate verdict drives the distinction: any non-pass verdict
-            # (fail_*, skipped) plus any polish_rejected flag degrades the
-            # save to 'saved_with_advisory'. --raw-draft saves as
-            # 'saved_clean' because the user explicitly opted out of gates.
-            advisory_fired = (
-                polish_rejected
-                or (not self.raw_draft and evaluation.get("verdict") != "pass")
-            )
-            if advisory_fired:
+            #                              through this path)
+            # The lean path runs no save-time gates, so a scene that reaches
+            # this point saves clean unless an explicit polish_rejected flag
+            # is threaded through.
+            if polish_rejected:
                 revision_status = "saved_with_advisory"
             else:
                 revision_status = "saved_clean"
@@ -1987,115 +926,6 @@ class Orchestrator:
                 },
             )
 
-    # ------------------------------------------------------------------
-    # Slice 4 continuity-extractor hook. Called post-save so quarantined
-    # scenes never produce trusted events. Suppressed rows go nowhere
-    # except a warn-count telemetry event.
-    # ------------------------------------------------------------------
-    async def _maybe_extract_continuity(self, scene_card: dict, prose: str) -> None:
-        if not self._continuity_log_enabled:
-            return
-        chapter_number = scene_card.get("chapter_number")
-        scene_number = scene_card.get("scene_number", 1)
-        if chapter_number is None or not prose:
-            return
-        try:
-            concept_seed = getattr(self.assembler, "concept_seed", {}) or {}
-        except Exception:  # noqa: BLE001
-            concept_seed = {}
-        try:
-            events = await self.continuity_extractor.extract(
-                prose=prose, scene_card=scene_card, concept_seed=concept_seed,
-            )
-        except Exception as exc:  # noqa: BLE001
-            self.ledger.emit_warn(
-                "continuity_extractor_error",
-                chapter_number=chapter_number, scene_number=scene_number,
-                payload={"error": f"{type(exc).__name__}: {exc}"},
-            )
-            return
-
-        threshold = float(self._continuity_min_confidence)
-        trusted: list[dict] = []
-        suppressed: list[dict] = []
-        for ev in events or []:
-            conf = float(ev.get("confidence", 0.0))
-            if conf >= threshold:
-                trusted.append(ev)
-            else:
-                suppressed.append(ev)
-
-        for ev in trusted:
-            try:
-                event_id = self.continuity_log.append(ev)
-            except Exception as exc:  # noqa: BLE001
-                # Store-rejected row \u2014 log as warn-count but do not raise.
-                self.ledger.emit_warn(
-                    "continuity_extractor_error",
-                    chapter_number=chapter_number, scene_number=scene_number,
-                    payload={
-                        "error": f"append-rejected: {type(exc).__name__}: {exc}",
-                        "event_type": ev.get("event_type"),
-                    },
-                )
-                continue
-            self.ledger.emit_info(
-                "continuity_event_recorded",
-                chapter_number=chapter_number, scene_number=scene_number,
-                payload={
-                    "event_id": event_id,
-                    "event_type": ev.get("event_type"),
-                    "subject": ev.get("subject"),
-                    "confidence": ev.get("confidence"),
-                },
-            )
-
-        if suppressed:
-            # Spec \u00a78.3.2: only a count lands \u2014 no event content, no
-            # per-row payload. Hallucinations stay invisible downstream.
-            self.ledger.emit_warn(
-                "continuity_events_suppressed",
-                chapter_number=chapter_number, scene_number=scene_number,
-                payload={
-                    "count": len(suppressed),
-                    "threshold": threshold,
-                    "extractor_version": events[0].get("extractor_version")
-                    if events else None,
-                },
-            )
-
-    # ------------------------------------------------------------------
-    # Slice 5 sociogram hook. Called post-save so quarantined scenes never
-    # shift relationship state. No-op when flag off or no store attached.
-    # ------------------------------------------------------------------
-    def _maybe_apply_relationship_deltas(self, scene_card: dict) -> None:
-        if not self._sociogram_enabled:
-            return
-        try:
-            updates = self.sociogram.apply_scene_deltas(scene_card=scene_card)
-        except Exception as exc:  # noqa: BLE001
-            # Sociogram failure is advisory \u2014 do not abort the scene save.
-            self.ledger.emit_warn(
-                "sociogram_delta_applied",
-                chapter_number=scene_card.get("chapter_number"),
-                scene_number=scene_card.get("scene_number", 1),
-                payload={"error": f"{type(exc).__name__}: {exc}"},
-            )
-            return
-        chapter_number = scene_card.get("chapter_number")
-        scene_number = scene_card.get("scene_number", 1)
-        for update in updates:
-            self.ledger.emit_info(
-                "sociogram_delta_applied",
-                chapter_number=chapter_number, scene_number=scene_number,
-                payload={
-                    "edge_id": update.get("edge_id"),
-                    "trust": update.get("trust"),
-                    "warmth": update.get("warmth"),
-                    "power_balance": update.get("power_balance"),
-                },
-            )
-
     async def _run_prose_stylist(
         self,
         scene_card: dict,
@@ -2175,7 +1005,7 @@ class Orchestrator:
         generation_brief: dict,
         source_prose: str,
     ) -> str:
-        """Run the LineWriter pass between drafter and gate_critic.
+        """Run the LineWriter line-edit pass after the drafter.
 
         Preservation-critical context (scene_card, generation_brief,
         characters_present, franchise_profile_text, pov_approach) is passed
@@ -2255,358 +1085,6 @@ class Orchestrator:
             },
         )
         return revised
-
-    async def _gate_loop(
-        self,
-        scene_card: dict,
-        prose: str,
-        generation_brief: dict,
-    ) -> tuple[dict, str]:
-        """Run the Gate Critic once as telemetry; return the original prose.
-
-        Method name is historical. Under the forward-only relay there is no
-        loop and no retries — Gate Critic evaluates the draft exactly once and
-        its verdict is logged to the ledger. The prose is returned unchanged;
-        downstream stages (metrics, polish, final gate, canon expert) always
-        proceed. `generation_brief` is the typed dict from Plot Architect,
-        kept in the signature for future reuse but currently unused in the
-        forward-only path.
-        """
-        if self.skip_gate_loop:
-            # Accept the first draft without running gate_critic at all.
-            # Synthesize a "skipped" evaluation compatible with downstream
-            # consumers (all score accesses use .get() with defaults).
-            chapter_num = scene_card["chapter_number"]
-            scene_num = scene_card.get("scene_number", 1)
-            print(f"  [3/5] Gate Critic skipped (--skip-gate-loop)")
-            self.ledger.emit(
-                "gate_critic_skipped",
-                chapter_number=chapter_num,
-                scene_number=scene_num,
-                payload={"reason": "skip_gate_loop flag"},
-            )
-            evaluation = {
-                "verdict": "skipped",
-                "structural_score": None,
-                "voice_score": None,
-                "polish_score": None,
-                "failure_codes": [],
-                "severity": None,
-                "route_to": None,
-            }
-            return evaluation, prose
-
-        # Relay v1 (Stage 1a): Gate Critic runs ONCE as telemetry.
-        # No retries — the pipeline is forward-only. Gate findings are logged
-        # to the ledger so humans can review; they do not control save flow.
-        # Failed verdicts get advisory logs; the original prose is always
-        # returned and the pipeline proceeds to copy editor / save-blocker.
-        chapter_num = scene_card["chapter_number"]
-        scene_num = scene_card.get("scene_number", 1)
-        attempt_id = f"ch{chapter_num}_scene{scene_num}_gate"
-
-        start = time.time()
-        self.ledger.emit(
-            "agent_start",
-            chapter_number=chapter_num,
-            scene_number=scene_num,
-            agent_role="gate_critic",
-            attempt_id=attempt_id,
-        )
-
-        try:
-            evaluation = await self.gate_critic.run({
-                "prose": prose,
-                "scene_card": scene_card,
-                "bible_summary": self.assembler.get_bible_summary(),
-            })
-        except (json.JSONDecodeError, KeyError) as e:
-            # JSON parse failure — emit an advisory and synthesize a neutral evaluation.
-            # Under the relay we do not retry; downstream stages handle the prose as-is.
-            print(f"    Gate: JSON parse error ({e.__class__.__name__}) — continuing without verdict (advisory)")
-            evaluation = {
-                "verdict": "skipped",
-                "failure_codes": [{"code": "JSON_PARSE_ERROR", "location": "gate_critic", "description": str(e), "fix_hint": "N/A under forward-only relay"}],
-                "severity": None,
-                "route_to": None,
-                "structural_score": None,
-                "voice_score": None,
-                "polish_score": None,
-            }
-
-        duration_ms = int((time.time() - start) * 1000)
-        self.ledger.emit(
-            "agent_complete",
-            chapter_number=chapter_num,
-            scene_number=scene_num,
-            agent_role="gate_critic",
-            payload={"duration_ms": duration_ms},
-            attempt_id=attempt_id,
-        )
-
-        verdict = evaluation.get("verdict", "unknown")
-        s_score = evaluation.get("structural_score") or 0
-        v_score = evaluation.get("voice_score") or 0
-        p_score = evaluation.get("polish_score") or 0
-        fc_codes = [fc["code"] for fc in evaluation.get("failure_codes", [])]
-
-        # Single telemetry event. Event-type names are left as-is in Stage 1a;
-        # vocabulary migration lands in Stage 1i.
-        event_type = "gate_pass" if verdict == "pass" else "gate_fail"
-        self.ledger.emit(
-            event_type,
-            chapter_number=chapter_num,
-            scene_number=scene_num,
-            payload={
-                "verdict": verdict,
-                "scores": {
-                    "structural": s_score,
-                    "voice": v_score,
-                    "polish": p_score,
-                },
-                "failure_codes": fc_codes,
-                "forward_only": True,
-            },
-            attempt_id=attempt_id,
-        )
-        if fc_codes:
-            print(f"    Gate: {verdict} | structural={s_score:.2f} voice={v_score:.2f} polish={p_score:.2f} | {', '.join(fc_codes)} (advisory — no retry)")
-        else:
-            print(f"    Gate: {verdict} | structural={s_score:.2f} voice={v_score:.2f} polish={p_score:.2f}")
-
-        # Slice 2: one debt row per non_blocking failure code. Noop when flag off.
-        from src.pipeline.revision_debt_producers import emit_gate_critic_advisory
-        scope = {
-            "level": "scene",
-            "chapter_number": chapter_num,
-            "scene_number": scene_num,
-        }
-        for fc in evaluation.get("failure_codes", []) or []:
-            # Gate critic emits three severities {blocker, non_blocking, advisory}.
-            # Only non-pass verdicts with structured codes need rows; severity
-            # mapping happens in the producer wrapper.
-            emit_gate_critic_advisory(
-                self._active_debt_store,
-                ledger=self.ledger,
-                scope=scope,
-                failure=fc,
-            )
-
-        # Forward-only: always return the original prose regardless of verdict.
-        return evaluation, prose
-
-    def _maybe_apply_canon_local_fixes(
-        self,
-        *,
-        prose: str,
-        continuity_report: dict,
-        chapter_number: int,
-        scene_number: int,
-    ) -> str:
-        """Apply CanonExpert ``local_fixes`` as narrow literal substitutions.
-
-        Slice 11.1 (Forward Relay v4). Default-off; requires both
-        ``runtime.canon_expert.apply_local_fixes=true`` AND a non-empty
-        ``local_fixes_whitelist``. Fixes whose category is outside the
-        whitelist emit ``canon_fix_rejected`` and are left for human review.
-        Each applied fix emits ``canon_fix_applied`` plus a canon debt row.
-        """
-        ce_cfg = (self.runtime_flags.get("runtime") or {}).get("canon_expert") or {}
-        if not ce_cfg.get("apply_local_fixes", False):
-            return prose
-        whitelist = set(ce_cfg.get("local_fixes_whitelist") or [])
-        local_fixes = continuity_report.get("local_fixes") or []
-        if not local_fixes:
-            return prose
-
-        from src.pipeline.revision_debt_producers import emit_canon_advisory
-
-        scope = {
-            "level": "scene",
-            "chapter_number": chapter_number,
-            "scene_number": scene_number,
-        }
-
-        updated_prose = prose
-        for fix in local_fixes:
-            category = fix.get("category", "")
-            pattern = fix.get("pattern", "")
-            replacement = fix.get("replacement", "")
-            reason = fix.get("reason", "")
-
-            if category not in whitelist:
-                self.ledger.emit_warn(
-                    "canon_fix_rejected",
-                    chapter_number=chapter_number,
-                    scene_number=scene_number,
-                    payload={
-                        "category": category,
-                        "pattern_preview": pattern[:80],
-                        "reason": "category_not_whitelisted",
-                    },
-                )
-                continue
-
-            if pattern not in updated_prose:
-                # Model proposed a fix whose pattern does not appear literally.
-                # Skip silently rather than doing fuzzy match — narrow-repair
-                # must be safe-by-construction.
-                self.ledger.emit_warn(
-                    "canon_fix_rejected",
-                    chapter_number=chapter_number,
-                    scene_number=scene_number,
-                    payload={
-                        "category": category,
-                        "pattern_preview": pattern[:80],
-                        "reason": "pattern_not_in_prose",
-                    },
-                )
-                continue
-
-            updated_prose = updated_prose.replace(pattern, replacement)
-            self.ledger.emit_info(
-                "canon_fix_applied",
-                chapter_number=chapter_number,
-                scene_number=scene_number,
-                payload={
-                    "category": category,
-                    "pattern_preview": pattern[:80],
-                    "replacement_preview": replacement[:80],
-                    "reason": reason[:200] if reason else "",
-                },
-            )
-            emit_canon_advisory(
-                self._active_debt_store,
-                ledger=self.ledger,
-                scope=scope,
-                advisory={
-                    "category": f"canon.local_fix_applied:{category}",
-                    "severity": "minor",
-                    "text": pattern,
-                    "explanation": reason or "whitelisted local fix applied",
-                    "suggestion": replacement,
-                },
-            )
-
-        return updated_prose
-
-    @staticmethod
-    def _count_canon_blockers(continuity_report: Optional[dict]) -> int:
-        if not continuity_report or continuity_report.get("verdict") != "fail":
-            return 0
-        count = 0
-        for violation in continuity_report.get("violations", []) or []:
-            if violation.get("category") == "post_divergence_drift":
-                continue
-            if violation.get("severity") in ("critical", "moderate"):
-                count += 1
-        return count
-
-    def _apply_micro_repairs(
-        self,
-        *,
-        prose: str,
-        repairs: list[dict],
-        forbidden_names: set[str],
-        chapter_number: int,
-        scene_number: int,
-    ) -> tuple[str, int, int]:
-        """Apply exact-span repairs under deterministic safety caps.
-
-        Returns ``(updated_prose, applied_count, changed_chars)``. Individual
-        rejected repairs emit ``micro_repair_rejected`` ledger rows.
-        """
-        cfg = (self.runtime_flags.get("runtime") or {}).get("micro_repair") or {}
-        max_repairs = int(cfg.get("max_repairs", 2) or 2)
-        max_total_changed_chars = int(cfg.get("max_total_changed_chars", 500) or 500)
-        max_changed_ratio = float(cfg.get("max_changed_ratio", 0.12) or 0.12)
-
-        updated_prose = prose
-        original_chars = max(1, len(prose))
-        total_changed_chars = 0
-        applied_count = 0
-        seen_patterns: set[str] = set()
-
-        def _reject(repair: dict, reason: str) -> None:
-            self.ledger.emit_warn(
-                "micro_repair_rejected",
-                chapter_number=chapter_number,
-                scene_number=scene_number,
-                agent_role="micro_repair",
-                payload={
-                    "reason": reason,
-                    "issue_type": repair.get("issue_type", ""),
-                    "pattern_preview": str(repair.get("pattern", ""))[:120],
-                    "replacement_preview": str(repair.get("replacement", ""))[:120],
-                },
-            )
-
-        for index, repair in enumerate(repairs or []):
-            if index >= max_repairs:
-                _reject(repair, "max_repairs_exceeded")
-                continue
-
-            issue_type = str(repair.get("issue_type", "")).strip()
-            pattern = repair.get("pattern", "")
-            replacement = repair.get("replacement", "")
-            reason = str(repair.get("reason", "")).strip()
-
-            if issue_type != "presence_violation":
-                _reject(repair, "unsupported_issue_type")
-                continue
-            if not isinstance(pattern, str) or not pattern:
-                _reject(repair, "empty_pattern")
-                continue
-            if not isinstance(replacement, str):
-                _reject(repair, "non_string_replacement")
-                continue
-            if pattern == replacement:
-                _reject(repair, "no_op_replacement")
-                continue
-            if pattern in seen_patterns:
-                _reject(repair, "duplicate_pattern")
-                continue
-
-            occurrence_count = updated_prose.count(pattern)
-            if occurrence_count == 0:
-                _reject(repair, "pattern_not_in_prose")
-                continue
-            if occurrence_count != 1:
-                _reject(repair, "ambiguous_pattern_occurrences")
-                continue
-
-            replacement_norm = replacement.casefold()
-            if any(name.casefold() in replacement_norm for name in forbidden_names if name):
-                _reject(repair, "forbidden_name_in_replacement")
-                continue
-
-            changed_chars = max(len(pattern), len(replacement))
-            next_total = total_changed_chars + changed_chars
-            if next_total > max_total_changed_chars:
-                _reject(repair, "changed_char_budget_exceeded")
-                continue
-            if max_changed_ratio > 0 and (next_total / original_chars) > max_changed_ratio:
-                _reject(repair, "changed_ratio_exceeded")
-                continue
-
-            updated_prose = updated_prose.replace(pattern, replacement, 1)
-            total_changed_chars = next_total
-            applied_count += 1
-            seen_patterns.add(pattern)
-            self.ledger.emit_info(
-                "micro_repair_applied",
-                chapter_number=chapter_number,
-                scene_number=scene_number,
-                agent_role="micro_repair",
-                payload={
-                    "issue_type": issue_type,
-                    "pattern_preview": pattern[:120],
-                    "replacement_preview": replacement[:120],
-                    "reason": reason[:200],
-                },
-            )
-
-        return updated_prose, applied_count, total_changed_chars
 
     async def _maybe_rhythm_validate_and_edit(
         self,
@@ -2819,507 +1297,9 @@ class Orchestrator:
         )
         return patched, telemetry
 
-    async def _maybe_micro_repair(
-        self,
-        *,
-        prose: str,
-        scene_card: dict,
-        continuity_report: Optional[dict],
-        presence_violations: list[dict],
-        chapter_number: int,
-        scene_number: int,
-    ) -> tuple[str, Optional[dict], bool]:
-        """Run the bounded post-check repair stage when safe to do so.
-
-        Currently this stage only acts on presence violations, using the
-        dedicated ``micro_repair`` agent to propose exact-span substitutions.
-        If the prose changes, CanonExpert is rerun on the patched text before
-        the save-blocker layer executes.
-        """
-        cfg = (self.runtime_flags.get("runtime") or {}).get("micro_repair") or {}
-        if not cfg.get("enabled", False):
-            return prose, continuity_report, False
-        if self.micro_repair is None or not presence_violations:
-            return prose, continuity_report, False
-
-        repair_requests = [
-            {
-                "issue_type": "presence_violation",
-                "character": v.get("character", ""),
-                "evidence": v.get("evidence", ""),
-            }
-            for v in presence_violations
-        ]
-        forbidden_names = {
-            str(v.get("character", "")).strip()
-            for v in presence_violations
-            if str(v.get("character", "")).strip()
-        }
-
-        self.ledger.emit_info(
-            "micro_repair_fired",
-            chapter_number=chapter_number,
-            scene_number=scene_number,
-            agent_role="micro_repair",
-            payload={
-                "presence_violation_count": len(presence_violations),
-                "forbidden_names": sorted(forbidden_names),
-            },
-        )
-        print("  [Repair] Micro repair attempting exact-span patch...")
-
-        try:
-            result = await self.micro_repair.run(
-                {
-                    "prose": prose,
-                    "scene_card": scene_card,
-                    "repair_requests": repair_requests,
-                    "franchise_profile_text": self.assembler.get_franchise_profile_text(),
-                }
-            )
-        except Exception as exc:  # noqa: BLE001
-            self.ledger.emit_warn(
-                "micro_repair_error",
-                chapter_number=chapter_number,
-                scene_number=scene_number,
-                agent_role="micro_repair",
-                payload={"stage": "agent", "error": f"{type(exc).__name__}: {exc}"},
-            )
-            print(f"    Micro repair: error ({exc.__class__.__name__}) — skipping")
-            return prose, continuity_report, False
-
-        repairs = result.get("repairs") or []
-        updated_prose, applied_count, changed_chars = self._apply_micro_repairs(
-            prose=prose,
-            repairs=repairs,
-            forbidden_names=forbidden_names,
-            chapter_number=chapter_number,
-            scene_number=scene_number,
-        )
-
-        if applied_count == 0 or updated_prose == prose:
-            self.ledger.emit_info(
-                "micro_repair_complete",
-                chapter_number=chapter_number,
-                scene_number=scene_number,
-                agent_role="micro_repair",
-                payload={
-                    "requested_repair_count": len(repairs),
-                    "applied_repair_count": 0,
-                    "changed_chars": 0,
-                    "summary": result.get("summary", "")[:200],
-                    "canon_blocker_count": self._count_canon_blockers(continuity_report),
-                    "text_changed": False,
-                },
-            )
-            print("    Micro repair: no safe exact-span patch applied")
-            return prose, continuity_report, False
-
-        updated_continuity = continuity_report
-        if self.canon_expert:
-            try:
-                updated_continuity = await self.canon_expert.run(
-                    {
-                        "prose": updated_prose,
-                        "scene_card": scene_card,
-                        "concept_seed": getattr(self.assembler, "concept_seed", {}),
-                    }
-                )
-            except Exception as exc:  # noqa: BLE001
-                self.ledger.emit_warn(
-                    "micro_repair_error",
-                    chapter_number=chapter_number,
-                    scene_number=scene_number,
-                    agent_role="micro_repair",
-                    payload={
-                        "stage": "canon_recheck",
-                        "error": f"{type(exc).__name__}: {exc}",
-                    },
-                )
-                updated_continuity = continuity_report
-
-        canon_blocker_count = self._count_canon_blockers(updated_continuity)
-        self.ledger.emit_info(
-            "micro_repair_complete",
-            chapter_number=chapter_number,
-            scene_number=scene_number,
-            agent_role="micro_repair",
-            payload={
-                "requested_repair_count": len(repairs),
-                "applied_repair_count": applied_count,
-                "changed_chars": changed_chars,
-                "summary": result.get("summary", "")[:200],
-                "canon_blocker_count": canon_blocker_count,
-                "text_changed": True,
-            },
-        )
-        print(
-            f"    Micro repair: applied {applied_count} patch(es) "
-            f"({changed_chars} chars changed)"
-        )
-        return updated_prose, updated_continuity, True
-
-    def _commercial_rewrite_reasons(
-        self,
-        *,
-        evaluation: dict,
-        quality_metrics: Optional[dict],
-    ) -> list[str]:
-        """Return concrete trigger reasons for the commercial rewrite lane."""
-        cfg = (self.runtime_flags.get("runtime") or {}).get("commercial_rewrite") or {}
-
-        trigger_codes = set(cfg.get("trigger_failure_codes") or [])
-        trigger_keywords = [
-            str(k).casefold()
-            for k in (cfg.get("trigger_flag_keywords") or [])
-            if str(k).strip()
-        ]
-        min_quality_score = cfg.get("min_quality_score")
-
-        reasons: list[str] = []
-
-        for fc in evaluation.get("failure_codes", []) or []:
-            if not isinstance(fc, dict):
-                continue
-            code = fc.get("code")
-            if code in trigger_codes:
-                description = fc.get("description") or fc.get("fix_hint") or ""
-                reason = f"Gate finding {code}"
-                if description:
-                    reason += f": {description}"
-                reasons.append(reason)
-
-        if quality_metrics:
-            if min_quality_score is not None:
-                try:
-                    score = float(quality_metrics.get("overall_score", 1.0))
-                    threshold = float(min_quality_score)
-                except (TypeError, ValueError):
-                    score = 1.0
-                    threshold = 0.0
-                if score < threshold:
-                    reasons.append(
-                        f"Quality score {score:.2f} below commercial rewrite threshold {threshold:.2f}"
-                    )
-
-            for flag in quality_metrics.get("flags", []) or []:
-                flag_text = str(flag)
-                flag_folded = flag_text.casefold()
-                if any(keyword in flag_folded for keyword in trigger_keywords):
-                    reasons.append(f"Quality metric flag: {flag_text}")
-
-        # Preserve order while de-duping repeated flags.
-        deduped: list[str] = []
-        seen: set[str] = set()
-        for reason in reasons:
-            if reason not in seen:
-                deduped.append(reason)
-                seen.add(reason)
-        return deduped
-
-    async def _maybe_commercial_rewrite(
-        self,
-        *,
-        scene_card: dict,
-        generation_brief: dict,
-        prose: str,
-        evaluation: dict,
-        quality_metrics: Optional[dict],
-    ) -> str:
-        """Run one bounded commercial rewrite when configured triggers match."""
-        cfg = (self.runtime_flags.get("runtime") or {}).get("commercial_rewrite") or {}
-        if not cfg.get("enabled", False):
-            return prose
-
-        chapter_num = scene_card["chapter_number"]
-        scene_num = scene_card.get("scene_number", 1)
-        reasons = self._commercial_rewrite_reasons(
-            evaluation=evaluation,
-            quality_metrics=quality_metrics,
-        )
-        if not reasons:
-            self.ledger.emit_info(
-                "commercial_rewrite_skipped",
-                chapter_number=chapter_num,
-                scene_number=scene_num,
-                agent_role="commercial_rewrite",
-                payload={"skip_reason": "no_trigger_match"},
-            )
-            return prose
-
-        source_wc = len(prose.split())
-        if source_wc == 0:
-            self.ledger.emit_warn(
-                "commercial_rewrite_rejected",
-                chapter_number=chapter_num,
-                scene_number=scene_num,
-                agent_role="commercial_rewrite",
-                payload={
-                    "reason": "empty_source_prose",
-                    "source_word_count": 0,
-                    "rewritten_word_count": 0,
-                    "ratio": 0.0,
-                },
-            )
-            print("    Commercial rewrite skipped (empty source prose) — keeping draft")
-            return prose
-
-        self.ledger.emit_info(
-            "commercial_rewrite_fired",
-            chapter_number=chapter_num,
-            scene_number=scene_num,
-            agent_role="commercial_rewrite",
-            payload={
-                "reasons": reasons,
-                "source_word_count": source_wc,
-            },
-        )
-        print("  [3.7/5] Commercial rewrite running...")
-
-        try:
-            result = await self.commercial_rewrite.run(
-                {
-                    "source_prose": prose,
-                    "scene_card": scene_card,
-                    "generation_brief": generation_brief,
-                    "gate_evaluation": evaluation,
-                    "quality_metrics": quality_metrics or {},
-                    "diagnostic_reasons": reasons,
-                    "negative_constraints": self.assembler.get_negative_constraints(),
-                    "pov_approach": self.assembler.get_pov_approach(),
-                    "franchise_profile_text": self.assembler.get_franchise_profile_text(),
-                }
-            )
-            rewritten = result.get("prose", "") or ""
-        except Exception as exc:  # noqa: BLE001
-            self.ledger.emit_warn(
-                "commercial_rewrite_error",
-                chapter_number=chapter_num,
-                scene_number=scene_num,
-                agent_role="commercial_rewrite",
-                payload={"error": f"{type(exc).__name__}: {exc}"},
-            )
-            print(f"    Commercial rewrite: error ({exc.__class__.__name__}) — keeping draft")
-            return prose
-
-        rewritten_wc = len(rewritten.split())
-        min_ratio = float(cfg.get("min_word_count_ratio", 0.75))
-        max_ratio = float(cfg.get("max_word_count_ratio", 1.35))
-        ratio = (rewritten_wc / source_wc) if source_wc else 0.0
-
-        if not rewritten.strip():
-            reason = "empty_output"
-        elif source_wc and ratio < min_ratio:
-            reason = "below_word_count_floor"
-        elif source_wc and max_ratio > 0 and ratio > max_ratio:
-            reason = "above_word_count_ceiling"
-        else:
-            reason = ""
-
-        if reason:
-            self.ledger.emit_warn(
-                "commercial_rewrite_rejected",
-                chapter_number=chapter_num,
-                scene_number=scene_num,
-                agent_role="commercial_rewrite",
-                payload={
-                    "reason": reason,
-                    "source_word_count": source_wc,
-                    "rewritten_word_count": rewritten_wc,
-                    "ratio": round(ratio, 3),
-                    "min_word_count_ratio": min_ratio,
-                    "max_word_count_ratio": max_ratio,
-                },
-            )
-            print(
-                f"    Commercial rewrite rejected ({reason}; "
-                f"{source_wc}->{rewritten_wc} words) — keeping draft"
-            )
-            return prose
-
-        self.ledger.emit_info(
-            "commercial_rewrite_complete",
-            chapter_number=chapter_num,
-            scene_number=scene_num,
-            agent_role="commercial_rewrite",
-            payload={
-                "source_word_count": source_wc,
-                "rewritten_word_count": rewritten_wc,
-                "ratio": round(ratio, 3),
-                "reasons": reasons,
-            },
-        )
-        print(
-            f"    Commercial rewrite: kept revised prose "
-            f"({source_wc}->{rewritten_wc} words)"
-        )
-        return rewritten
-
-    async def _maybe_corrective_rerun(
-        self,
-        *,
-        scene_card: dict,
-        generation_brief: dict,
-        prose: str,
-        evaluation: dict,
-    ) -> str:
-        """Fire a single corrective rerun when the flag is on and triggers match.
-
-        Forward Relay v4. Bounded to exactly one attempt — returns the rerun
-        output when the rules fire, the unchanged prose otherwise. Never loops.
-        All decisions land in the ledger:
-        - ``corrective_rerun_skipped`` (info) when flag is on but a rule rejects
-          the candidate. Payload includes ``skip_reason`` so operators can see
-          why a legitimate-looking failure did not trigger a rerun.
-        - ``corrective_rerun_fired`` (info) before the rerun executes.
-        - ``corrective_rerun_complete`` (info) after the rerun returns.
-        """
-        cfg = (self.runtime_flags.get("runtime") or {}).get("corrective_rerun") or {}
-        if not cfg.get("enabled", False):
-            return prose
-
-        chapter_num = scene_card["chapter_number"]
-        scene_num = scene_card.get("scene_number", 1)
-
-        verdict = evaluation.get("verdict")
-        failure_codes = evaluation.get("failure_codes") or []
-        codes = [fc.get("code") for fc in failure_codes if isinstance(fc, dict)]
-
-        trigger_codes = set(cfg.get("trigger_codes") or [])
-        max_codes = int(cfg.get("max_failure_codes", 3))
-        min_wc_ratio = float(cfg.get("min_word_count_ratio", 0.5))
-
-        def _skip(reason: str, **extra):
-            payload = {"skip_reason": reason, "codes": codes, "verdict": verdict}
-            payload.update(extra)
-            self.ledger.emit_info(
-                "corrective_rerun_skipped",
-                chapter_number=chapter_num,
-                scene_number=scene_num,
-                payload=payload,
-            )
-            print(f"    Rerun: skipped ({reason})")
-
-        if verdict != "fail_structural":
-            # Only structural misses are candidates. Voice issues go to polish;
-            # polish failures are already advisory.
-            return prose
-
-        matched_triggers = [c for c in codes if c in trigger_codes]
-        if not matched_triggers:
-            _skip("no_trigger_code_match")
-            return prose
-
-        if len(codes) > max_codes:
-            _skip("too_many_failure_codes", failure_code_count=len(codes), max_allowed=max_codes)
-            return prose
-
-        target_wc = int(scene_card.get("target_word_count") or 0)
-        if target_wc > 0:
-            draft_wc = len(prose.split())
-            ratio = draft_wc / target_wc
-            if ratio < min_wc_ratio:
-                _skip(
-                    "draft_below_word_count_floor",
-                    draft_word_count=draft_wc,
-                    target_word_count=target_wc,
-                    ratio=round(ratio, 3),
-                    min_ratio=min_wc_ratio,
-                )
-                return prose
-
-        pre_wc = len(prose.split())
-        self.ledger.emit_info(
-            "corrective_rerun_fired",
-            chapter_number=chapter_num,
-            scene_number=scene_num,
-            payload={
-                "trigger_codes": matched_triggers,
-                "all_codes": codes,
-                "pre_rerun_word_count": pre_wc,
-            },
-        )
-        print(
-            f"    Rerun: fired (triggers={matched_triggers}) — re-drafting with failure context"
-        )
-
-        failure_context = self._format_failure_context(evaluation)
-        reran = await self._run_prose_stylist(
-            scene_card, generation_brief, failure_context=failure_context
-        )
-
-        self.ledger.emit_info(
-            "corrective_rerun_complete",
-            chapter_number=chapter_num,
-            scene_number=scene_num,
-            payload={
-                "trigger_codes": matched_triggers,
-                "pre_rerun_word_count": pre_wc,
-                "post_rerun_word_count": len(reran.split()),
-            },
-        )
-        return reran
-
-    def _format_failure_context(self, evaluation: dict) -> str:
-        """Format failure codes into revision notes for the Prose Stylist."""
-        lines = ["The previous draft was rejected for the following reasons:\n"]
-        for fc in evaluation.get("failure_codes", []):
-            lines.append(f"**{fc['code']}** at {fc.get('location', 'unspecified')}:")
-            lines.append(f"  {fc['description']}")
-            if fc.get("fix_hint"):
-                lines.append(f"  Fix: {fc['fix_hint']}")
-            lines.append("")
-        return "\n".join(lines)
-
     def _save_chapter(self, chapter_num: int, scene_num: int, prose: str) -> Path:
         """Save the final prose to a markdown file."""
         filename = f"chapter_{chapter_num:02d}_scene_{scene_num:02d}.md"
         output_path = self.manuscripts_dir / filename
         output_path.write_text(prose, encoding="utf-8")
         return output_path
-
-    def _load_prior_chapters(self, current_chapter: int) -> list[str]:
-        """Load prose from prior chapters for cross-chapter analysis."""
-        prior = []
-        for ch in range(max(1, current_chapter - 3), current_chapter):
-            # Load all scenes of each prior chapter
-            pattern = f"chapter_{ch:02d}_scene_*.md"
-            scene_files = sorted(self.manuscripts_dir.glob(pattern))
-            for sf in scene_files:
-                prior.append(sf.read_text(encoding="utf-8"))
-        return prior
-
-    def _get_prior_summary(self, scene_card: dict) -> str:
-        """Get a summary of recent chapters for revision context."""
-        chapter_num = scene_card.get("chapter_number", 1)
-        if self.chapter_memory:
-            recent = self.chapter_memory.get_recent_summaries(n=2)
-            if recent and "No previous" not in recent:
-                return recent
-        # Fallback: truncated tail of previous chapter prose
-        prev = self.assembler.get_previous_scene(chapter_num, 1)
-        if prev:
-            return prev[-1500:] if len(prev) > 1500 else prev
-        return ""
-
-    def _get_pov_voice_notes(self, scene_card: dict) -> str:
-        """Extract POV character's voice notes from the concept seed."""
-        pov = scene_card.get("pov_character", "")
-        if not pov:
-            return ""
-        # Try to get voice notes via context assembler
-        voices = self.assembler.get_character_voices([pov])
-        return voices
-
-    def _get_character_profiles(self, scene_card: dict) -> list[dict]:
-        """Get character profiles for present characters from concept seed."""
-        characters_present = scene_card.get("characters_present", [])
-        if not characters_present or not hasattr(self.assembler, 'concept_seed'):
-            return []
-
-        profiles = []
-        cast = self.assembler.concept_seed.get("ensemble_cast", [])
-        for char in cast:
-            if char.get("name") in characters_present:
-                profiles.append(char)
-        return profiles

@@ -101,8 +101,8 @@ async def start_pipeline(body: PipelineStartRequest, request: Request):
 
     # Phase 5: ensure chapter blueprints exist for every chapter being run.
     # Hand-authored blueprints take precedence (skip-if-exists). Requires
-    # franchise and book slugs so blueprints land at the canonical path
-    # ChapterGateCritic loads from.
+    # franchise and book slugs so blueprints land at the canonical path the
+    # chapter packet compiler loads from.
     if (
         body.phase >= 5
         and body.generate_blueprints
@@ -283,7 +283,7 @@ async def _ensure_chapter_blueprints(
 
 
 def _create_web_orchestrator(state, concept_seed_path, concept_seed, body):
-    """Create a WebOrchestrator with all configured components."""
+    """Create a WebOrchestrator with the lean-pipeline components."""
     from src.memory.context_assembler import ContextAssembler
     from src.pipeline.canon_guidance import CanonGuidanceStore
     from src.pipeline.chapter_packet import ChapterPacketCompiler
@@ -291,11 +291,9 @@ def _create_web_orchestrator(state, concept_seed_path, concept_seed, body):
     from src.runtime_flags import load_runtime_flags
     from src.ui.web_orchestrator import WebOrchestrator
 
-    pipeline_cfg = state.config.get("pipeline", {})
-
     # Accept both the canonical franchise/book fields and the deprecated
-    # universe_id/project_id aliases. ContextAssembler and ChapterGateCritic
-    # keep the legacy parameter names internally for now.
+    # universe_id/project_id aliases. ContextAssembler keeps the legacy
+    # parameter names internally for now.
     universe_id = body.franchise or body.universe_id
     project_id = body.book or body.project_id
 
@@ -326,26 +324,9 @@ def _create_web_orchestrator(state, concept_seed_path, concept_seed, body):
     )
     runtime_flags = load_runtime_flags(concept_seed=concept_seed)
 
-    # Save-blocker and post-check agents. Keep this aligned with the CLI path:
-    # presence checking should always be available, while CanonExpert can run
-    # in profile-only mode without a CanonDB/RAG evidence store.
-    presence_checker = None
-    canon_expert = None
+    # Lean scene-path optional agents.
     line_writer = None
-    micro_repair = None
-    try:
-        from src.agents.presence_checker import PresenceChecker
-
-        presence_checker = PresenceChecker(state.router)
-    except ImportError:
-        pass
-    if body.phase >= 2:
-        try:
-            from src.agents.canon_expert import CanonExpert
-
-            canon_expert = CanonExpert(state.router)
-        except ImportError:
-            pass
+    rhythm_editor = None
     if state.config.get("agent_routing", {}).get("line_writer"):
         try:
             from src.agents.line_writer import LineWriter
@@ -353,76 +334,15 @@ def _create_web_orchestrator(state, concept_seed_path, concept_seed, body):
             line_writer = LineWriter(state.router)
         except ImportError:
             pass
-    if state.config.get("agent_routing", {}).get("micro_repair"):
+    if state.config.get("agent_routing", {}).get("rhythm_editor"):
         try:
-            from src.agents.micro_repair import MicroRepair
+            from src.agents.rhythm_editor import RhythmEditor
 
-            micro_repair = MicroRepair(state.router)
+            rhythm_editor = RhythmEditor(state.router)
         except ImportError:
             pass
 
-    # Optional Phase 3/4 components
-    metrics_dashboard = None
-    character_specialist = None
-    milestone_gates = None
-    physics_enforcer = None
-    judge_evaluator = None
-
-    if body.phase >= 3:
-        try:
-            from src.quality.metrics_dashboard import MetricsDashboard
-            from src.agents.character_specialist import CharacterSpecialist
-
-            ef = state.embedding_function
-            metrics_dashboard = MetricsDashboard(
-                negative_constraints_path=str(Path("config") / "negative_constraints.yaml"),
-                embedding_function=ef,
-            )
-            character_specialist = CharacterSpecialist(state.router)
-        except ImportError:
-            pass
-
-        if not body.no_milestones:
-            try:
-                from src.quality.milestone_gates import MilestoneGates
-                milestone_gates = MilestoneGates(
-                    ledger=state.ledger,
-                    on_pause_callback=state.pipeline_manager.milestone_callback,
-                )
-            except ImportError:
-                pass
-
-    if body.phase >= 4:
-        try:
-            from src.planning.physics_enforcer import PhysicsEnforcer
-            physics_enforcer = PhysicsEnforcer(concept_seed)
-        except ImportError:
-            pass
-
-        if body.judge:
-            try:
-                from src.quality.llm_judge import JudgeEvaluator
-                judge_evaluator = JudgeEvaluator(state.router)
-            except ImportError:
-                pass
-
-    # Phase 5: chapter-level gate critic. Always instantiate when phase >= 5;
-    # the critic falls back to composition-only checks if no blueprint exists.
-    # Phase 7.4: when lore_service + universe_id are available, the critic
-    # retrieves canonical lore for a lore_consistency_check.
-    chapter_gate_critic = None
-    if body.phase >= 5:
-        try:
-            from src.agents.chapter_gate_critic import ChapterGateCritic
-            chapter_gate_critic = ChapterGateCritic(
-                state.router,
-                lore_service=state.lore_service,
-                universe_id=universe_id,
-            )
-        except ImportError:
-            pass
-
-    # Phase 2 components
+    # Post-save memory components.
     summarizer = None
     state_diff_applier = None
     contradiction_scanner = None
@@ -448,8 +368,6 @@ def _create_web_orchestrator(state, concept_seed_path, concept_seed, body):
         context_assembler=assembler,
         ledger=state.ledger,
         manuscripts_dir=state.manuscripts_dir,
-        max_structural_retries=pipeline_cfg.get("max_structural_retries", 3),
-        max_voice_retries=pipeline_cfg.get("max_voice_retries", 2),
         runtime_flags=runtime_flags,
         chapter_packet_compiler=chapter_packet_compiler,
         summarizer=summarizer,
@@ -457,16 +375,8 @@ def _create_web_orchestrator(state, concept_seed_path, concept_seed, body):
         contradiction_scanner=contradiction_scanner,
         chapter_memory=state.chapter_memory,
         story_state=state.story_state,
-        canon_expert=canon_expert,
-        presence_checker=presence_checker,
         line_writer=line_writer,
-        micro_repair=micro_repair,
-        metrics_dashboard=metrics_dashboard,
-        character_specialist=character_specialist,
-        milestone_gates=milestone_gates,
-        physics_enforcer=physics_enforcer,
-        judge_evaluator=judge_evaluator,
-        chapter_gate_critic=chapter_gate_critic,
+        rhythm_editor=rhythm_editor,
         pipeline_manager=state.pipeline_manager,
         lore_service=state.lore_service,
         universe_id=universe_id,
@@ -479,6 +389,4 @@ def _create_web_orchestrator(state, concept_seed_path, concept_seed, body):
                 .get("enabled", True)
             )
         ),
-        strict_lore=body.strict_lore,
-        raw_draft=body.raw_draft,
     )

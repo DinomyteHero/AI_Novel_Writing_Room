@@ -366,9 +366,9 @@ def compile_bundle(
     )
 
     # Phase 6.3b: copy branch_point from the on-disk universe_meta into the
-    # seed's meta so canon_expert can read it at runtime from context alone.
-    # No-op when the universe_meta file doesn't exist yet (fresh project) or
-    # has no populated branch_point block (non-AU franchises).
+    # seed's meta so it is readable at runtime from context alone. No-op when
+    # the universe_meta file doesn't exist yet (fresh project) or has no
+    # populated branch_point block (non-AU franchises).
     universe_meta_path = paths.universe_meta_path
     if universe_meta_path and universe_meta_path.exists():
         try:

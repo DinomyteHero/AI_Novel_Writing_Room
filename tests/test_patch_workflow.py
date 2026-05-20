@@ -15,7 +15,6 @@ from pathlib import Path
 import pytest
 
 from src.memory.promise_ledger import PromiseLedger
-from src.memory.sociogram import Sociogram
 from src.memory.story_state import StoryState
 
 
@@ -78,11 +77,6 @@ def _make_project(tmp_path: Path, *, with_quarantine: bool = False) -> tuple[Pat
             concept_seed=json.loads(seed_path.read_text(encoding="utf-8")),
             scene_cards=[],
         )
-    with Sociogram(db_path=str(state_dir / "sociogram.db")) as graph:
-        graph.initialize_from_planning(
-            concept_seed=json.loads(seed_path.read_text(encoding="utf-8")),
-        )
-
     # Open an empty story_state.db so resolve_gap has a schema to write to.
     story = StoryState(db_path=str(state_dir / "story_state.db"))
     if with_quarantine:
@@ -144,7 +138,7 @@ def test_accept_isolated_promotes_quarantined_prose(tmp_path: Path):
     }
 
 
-def test_accept_isolated_replays_promise_and_sociogram(tmp_path: Path):
+def test_accept_isolated_replays_promise(tmp_path: Path):
     seed_path, run_dir = _make_project(tmp_path, with_quarantine=True)
     result = _run_cli([
         "accept-isolated", "ch01_sc02",
@@ -161,9 +155,6 @@ def test_accept_isolated_replays_promise_and_sociogram(tmp_path: Path):
         entry["scene_id"] == "ch01_sc02" and entry["source"] == "scene_card"
         for entry in row["progression_log"]
     )
-    with Sociogram(db_path=str(state_dir / "sociogram.db")) as graph:
-        edge = graph.get_edge("A", "B")
-    assert edge is not None and edge["trust"] == 0.2
 
 
 def test_replace_overwrites_prose_and_marks_stale(tmp_path: Path):

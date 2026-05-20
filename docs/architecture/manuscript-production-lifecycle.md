@@ -20,11 +20,13 @@ preflight
 
 Standby tooling remains wired for diagnostics, bench runs, and recovery work:
 
-- Full relay gates: `gate_critic`, `quality_polish`, `final_gate`, `canon_expert`, `presence_checker`, save blockers.
-- Default-off repair and memory slices: `corrective_rerun`, `micro_repair`, `revision_debt`, `promise_ledger`, `continuity_log`, `sociogram`.
-- Post-save/advisory agents: `summarizer`, `character_specialist`, `chapter_gate_critic`, `judge_evaluator`.
+- Flag-gated infrastructure (default off): `revision_debt`, `promise_ledger`.
+- Flag-gated prose telemetry (default off): `rhythm_validator`, `rhythm_editor`, `continuity_validator`.
+- Off-path diagnostics: the scene-contract validator + literal repair, exposed through `scripts/bench_prose_models.py`.
 
-Do not treat standby tooling as dead code. It is intentionally outside the default path, but still useful when changing model routing, recovering a problem run, or evaluating whether a slice is ready to enable for a specific book.
+The gate / save-blocker / quarantine / retry machinery (`gate_critic`, `quality_polish`, `final_gate`, `canon_expert`, `presence_checker`, `micro_repair`, `chapter_gate_critic`, the save-blocker layer, the continuity-event log, and the sociogram) was **removed** in the 2026-05-19 lean teardown — it is not standby tooling, it no longer exists in the codebase.
+
+Do not treat the genuine standby flags as dead code. They are intentionally outside the default path, but still useful when changing model routing, recovering a problem run, or evaluating whether a flag is ready to enable for a specific book.
 
 ## Default Flow
 
@@ -52,7 +54,7 @@ The live config keeps production lean:
 | Targeted cleanup | GPT-5.4 export/pass tooling | Default final polish branch. |
 | Full literary polish | GPT-5.4 export/pass tooling | Optional donor/comparison branch only. |
 
-Broad scene gates, per-scene quality polish, final gates, presence checks, and chapter gates remain useful for diagnostics and experiments, but they are skipped by default when `runtime.lean_prose_only.enabled` is true. `runtime.chapter_packet.enabled` stays on because the packet is the drafter's inspectable scene contract.
+Broad scene gates, per-scene quality polish, final gates, presence checks, and chapter gates were removed in the lean teardown — the per-scene pipeline has no save-time editorial gate at all. `runtime.chapter_packet.enabled` stays on because the packet is the drafter's inspectable scene contract.
 
 ## Config Shape
 

@@ -1,18 +1,12 @@
-"""Tests for Tier 3 post-save error hardening in Orchestrator.run_chapter.
+"""Tests for post-save error hardening in Orchestrator.run_chapter.
 
-When any of the following post-save stages crash, the scene must still be
-saved and the run must continue; the crash lands as a warn-level ledger event
-so human operators see the regression.
+When a post-save stage crashes, the scene must still be saved and the run
+must continue; the crash lands as a warn-level ledger event so human
+operators see the regression.
 
 Covered stages:
 - PromiseLedger._maybe_record_promise_deltas (Slice 3 hook)
 - _run_post_save (summarizer + state-diff + chapter memory)
-- physics_enforcer.validate_post_chapter
-- character_specialist.run
-- judge_evaluator.evaluate_chapter
-
-The chapter gate critic has its own crash-guard test in this module because
-it fires at the end of each chapter from run_pipeline, not run_chapter.
 """
 
 from pathlib import Path
@@ -150,76 +144,3 @@ class TestPostSaveStageHardening:
         ]
         assert crashes, "expected a post_save_error event for run_post_save"
         assert "RuntimeError" in crashes[0]["payload"].get("error", "")
-
-    async def test_physics_enforcer_crash_emits_warn(
-        self, mock_router, mock_assembler, ledger, temp_dir, sample_scene_card
-    ):
-        orchestrator = _make_orchestrator(mock_router, mock_assembler, ledger, temp_dir)
-        # Pre-check returns a valid dict so only the post-check crash path
-        # is exercised; otherwise the pre-check fires first and muddies the
-        # assertion.
-        physics = MagicMock()
-        physics.validate_pre_chapter.return_value = {
-            "passed": True,
-            "issues": [],
-            "recommendations": [],
-        }
-        physics.validate_post_chapter.side_effect = ValueError("physics exploded")
-        orchestrator.physics_enforcer = physics
-
-        result = await orchestrator.run_chapter(sample_scene_card)
-
-        assert Path(result["output_path"]).exists()
-
-        phys = [
-            e for e in ledger.get_events() if e["event_type"] == "physics_validation_post"
-        ]
-        assert phys
-        # The error-path emit has status=error, not passed/issue_count.
-        err_events = [e for e in phys if e["payload"].get("status") == "error"]
-        assert err_events
-        assert err_events[0]["payload"].get("level") == "warn"
-
-    async def test_character_specialist_crash_emits_warn(
-        self, mock_router, mock_assembler, ledger, temp_dir, sample_scene_card
-    ):
-        orchestrator = _make_orchestrator(mock_router, mock_assembler, ledger, temp_dir)
-        orchestrator.character_specialist = MagicMock()
-        orchestrator.character_specialist.run = AsyncMock(
-            side_effect=RuntimeError("char specialist boom")
-        )
-
-        result = await orchestrator.run_chapter(sample_scene_card)
-
-        assert Path(result["output_path"]).exists()
-
-        crashes = [
-            e for e in ledger.get_events()
-            if e["event_type"] == "post_save_error"
-            and e["payload"].get("stage") == "character_specialist"
-        ]
-        assert crashes
-
-    async def test_judge_evaluator_crash_emits_warn(
-        self, mock_router, mock_assembler, ledger, temp_dir, sample_scene_card
-    ):
-        orchestrator = _make_orchestrator(mock_router, mock_assembler, ledger, temp_dir)
-        orchestrator.judge_evaluator = MagicMock()
-        orchestrator.judge_evaluator.evaluate_chapter = AsyncMock(
-            side_effect=RuntimeError("judge boom")
-        )
-
-        result = await orchestrator.run_chapter(sample_scene_card)
-
-        assert Path(result["output_path"]).exists()
-
-        crashes = [
-            e for e in ledger.get_events()
-            if e["event_type"] == "post_save_error"
-            and e["payload"].get("stage") == "judge_evaluator"
-        ]
-        assert crashes
-        # judge_evaluation success event should NOT have fired.
-        assert not [
-            e for e in ledger.get_events() if e["event_type"] == "judge_evaluation"
-        ]

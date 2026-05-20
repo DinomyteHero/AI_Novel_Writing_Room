@@ -646,10 +646,9 @@ class ContextAssembler:
             lines.append(force_guide)
 
         # Franchise terminology notes live on canon_profile, not voice_def
-        # and not canon_constraints. Without this surfacing the rules
+        # and not canon_constraints. Surfacing them here gets the rules
         # (e.g. "turbolifts not elevators", "the Force is a living presence,
-        # not a measurable phenomenon") never reach the drafter — canon_expert
-        # was already enforcing these rules at save time from the same field.
+        # not a measurable phenomenon") in front of the drafter.
         canon_profile = self.concept_seed.get("canon_profile") or {}
         terminology_notes = canon_profile.get("franchise_terminology_notes", "")
         if terminology_notes:

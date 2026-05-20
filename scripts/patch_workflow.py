@@ -13,7 +13,7 @@ Subcommands:
         Promote a quarantined scene at <project>/quarantine/chNN_scMM/prose.md
         to a trusted saved scene in the run manuscripts dir. Resolves every
         open gap whose isolated_scene matches; marks downstream overlays
-        stale; re-applies the scene card's declarative state.
+        stale; re-applies the scene card's declarative promise state.
 
     replace <scene_id> --from <path> [--gap <gap_id>] [--notes <text>]
         Overwrite a saved scene with new prose. Optionally resolves a
@@ -128,10 +128,6 @@ class _PatchEnv:
         from src.memory.promise_ledger import PromiseLedger
         return PromiseLedger(db_path=str(self.paths.state_dir / "promise_ledger.db"))
 
-    def open_sociogram(self):
-        from src.memory.sociogram import Sociogram
-        return Sociogram(db_path=str(self.paths.state_dir / "sociogram.db"))
-
 
 # --------------------------------------------------------------------------- #
 # Replay                                                                      #
@@ -139,10 +135,10 @@ class _PatchEnv:
 
 
 def _replay_declarative_state(env: _PatchEnv, *, scene_id: str) -> dict:
-    """Replay scene-card-declared promise + sociogram state. Returns a
-    summary dict the caller uses for logging."""
+    """Replay scene-card-declared promise state. Returns a summary dict the
+    caller uses for logging."""
     card = _load_scene_card(env.book_dir, scene_id)
-    summary = {"scene_id": scene_id, "promise_updates": 0, "sociogram_updates": 0,
+    summary = {"scene_id": scene_id, "promise_updates": 0,
                "scene_card_found": card is not None}
     if card is None:
         return summary
@@ -169,16 +165,6 @@ def _replay_declarative_state(env: _PatchEnv, *, scene_id: str) -> dict:
                     continue
         finally:
             pl.close()
-
-    # Sociogram replay.
-    socio_path = env.paths.state_dir / "sociogram.db"
-    if socio_path.exists():
-        graph = env.open_sociogram()
-        try:
-            updates = graph.apply_scene_deltas(scene_card=card)
-            summary["sociogram_updates"] = len(updates)
-        finally:
-            graph.close()
     return summary
 
 
@@ -266,8 +252,7 @@ def cmd_accept_isolated(env: _PatchEnv, scene_id: str, *, notes: str) -> int:
     print(
         f"accept-isolated: gaps_resolved={gaps_resolved} "
         f"stale_markers={stale_written} "
-        f"promise_updates={replay['promise_updates']} "
-        f"sociogram_updates={replay['sociogram_updates']}"
+        f"promise_updates={replay['promise_updates']}"
     )
     return 0
 
@@ -309,8 +294,7 @@ def cmd_replace(
     replay = _replay_declarative_state(env, scene_id=scene_id)
     print(
         f"replace: stale_markers={stale_written} "
-        f"promise_updates={replay['promise_updates']} "
-        f"sociogram_updates={replay['sociogram_updates']}"
+        f"promise_updates={replay['promise_updates']}"
     )
     return 0
 

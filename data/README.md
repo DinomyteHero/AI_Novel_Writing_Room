@@ -6,7 +6,6 @@ Runtime output lives under `output/`, which has a deliberately mixed status:
 
 - **Gitignored** (per-user runtime state): `output/*/*/state/`, `output/*/*/runs/`, `output/_fallback/`, and `output/runs-logs/`. Pipeline runs and per-run state land here and are never committed by default. Copy any evidence worth sharing into `docs/` (e.g. `docs/editorial/<topic>.md`) before relying on it long-term.
 - **Tracked when committed** (finalized manuscripts): `output/<franchise>/<book>/export/` holds publishable manuscript builds (`chapter_index.md` + per-chapter markdown). Commit only when a build is worth preserving as a reference output.
-- **Unmanaged**: `output/<franchise>/<book>/quarantine/` is per-user save-blocker output. Add it to a personal `.git/info/exclude` if your workflow produces it regularly.
 
 If you're looking for "where does my run's output go?" — it's `output/{franchise}/{book}/runs/{run_id}/`, gitignored by default. Bench captures and historical archives that used to live there have been pulled out of the tree as regenerable artifacts; rerun them from `scripts/bench_prose_models.py` if you need the comparisons.
 
@@ -37,7 +36,6 @@ Authoritative path resolver: [`src/project_paths.py`](../src/project_paths.py). 
 | Per-run manuscripts, config snapshot, prompt snapshot | `output/{franchise}/{book}/runs/{run_id}/` | **Gitignored** (`output/*/*/runs/`). Force-add only if you have a specific reason to commit a run — the default posture is regenerate-on-demand. |
 | Accumulated story state, chapter memory, run ledger | `output/{franchise}/{book}/state/` (or `output/{franchise}/{series}/state/` if series-scoped) | **Gitignored** (`output/*/*/state/`) |
 | Fallback for runs without a `ProjectPaths` context | `output/_fallback/` | **Gitignored** |
-| Quarantined scenes (save-blocker aborts) | `output/{franchise}/{book}/quarantine/` | Tracked if committed — usually per-user, consider a local exclude |
 | Exported manuscripts (md / docx / epub) | `output/{franchise}/{book}/export/` | Tracked if committed — usually per-user, consider a local exclude |
 | Worldbuilding databases (SQLite + Chroma) | `data/franchises/{franchise}/worldbuilding.db`, `data/franchises/{franchise}/worldbuilding_vectors/` | **Gitignored** via config paths |
 | Canon retrieval index (Chroma) | `data/franchises/{franchise}/canon_db/` | **Gitignored** |
@@ -87,8 +85,8 @@ rm -rf output/*/*/state/ output/_fallback/
 # Per-user runs (everything under runs/ is gitignored — safe to nuke).
 rm -rf output/*/*/runs/
 
-# Per-user export/quarantine artifacts
-rm -rf output/*/*/export/ output/*/*/quarantine/
+# Per-user export artifacts
+rm -rf output/*/*/export/
 
 # --- Python + tooling caches ---
 

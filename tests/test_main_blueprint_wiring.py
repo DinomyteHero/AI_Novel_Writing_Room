@@ -3,7 +3,6 @@
 Covers:
 - _ensure_chapter_blueprints helper (skip-if-exists, force, no-op cases)
 - CLI parser accepts --phase 5, --no-blueprints, --regenerate-blueprints
-- ChapterGateCritic is importable on the path main.py uses
 
 The full main() async entry is too coupled to settings/router/ledger to
 unit-test directly — the smaller helper covers the meaningful logic.
@@ -219,35 +218,8 @@ class TestCliParser:
 
 
 class TestPhase5Plumbing:
-    def test_chapter_gate_critic_passed_to_orchestrator(self):
-        """Verify main.py wires ChapterGateCritic into the Orchestrator
-        constructor (regression check on the Phase 5 plumbing change)."""
-        main_src = (Path(__file__).parent.parent / "src" / "main.py").read_text(encoding="utf-8")
-        # The constructor call should pass chapter_gate_critic kwarg
-        assert "chapter_gate_critic=chapter_gate_critic" in main_src
-
-    def test_phase_5_init_block_present(self):
-        main_src = (Path(__file__).parent.parent / "src" / "main.py").read_text(encoding="utf-8")
-        # Phase 5 init must instantiate the critic gated on phase >= 5.
-        # Phase 7.4 extended the constructor to accept lore_service +
-        # universe_id, so the call is multi-arg — match the signature
-        # start rather than the exact single-arg form.
-        assert "if args.phase >= 5:" in main_src
-        assert "ChapterGateCritic(" in main_src
-        assert "router" in main_src
-
     def test_blueprint_helper_called_for_runtime_path(self):
         main_src = (Path(__file__).parent.parent / "src" / "main.py").read_text(encoding="utf-8")
         # _ensure_chapter_blueprints must be called from runtime path AND
         # generate-outline path — at least 2 invocations
         assert main_src.count("_ensure_chapter_blueprints(") >= 3  # 1 def + 2 awaits
-
-    def test_chapter_gate_critic_importable(self):
-        """Smoke test: the import path main.py uses must resolve."""
-        from src.agents.chapter_gate_critic import ChapterGateCritic  # noqa: F401
-
-    def test_canon_expert_profile_only_mode_is_wired(self):
-        main_src = (Path(__file__).parent.parent / "src" / "main.py").read_text(encoding="utf-8")
-        assert "CanonExpert(router, canon_evidence=ranker)" in main_src
-        assert "CanonExpert initialized in profile-only mode" in main_src
-        assert "CanonExpert skipped" not in main_src

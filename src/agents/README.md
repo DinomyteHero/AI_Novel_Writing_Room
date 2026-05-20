@@ -5,35 +5,34 @@ the live per-scene generation path.
 
 ## 1. Live Scene Pipeline
 
-These are the agents that matter when you ask "what runs for a normal scene?"
+These are the agents that run for a normal scene. The lean pipeline is a single
+forward pass — no gates, no save-blockers, no retries:
 
-Core hot path (full forward-only relay; bypassed in the lean shipping
-default `PlotArchitect → ProseStylist → LineWriter → save`):
+```
+PlotArchitect → ProseStylist → [LineWriter] → [RhythmEditor] → save
+```
+
 - `plot_architect.py`
+  Generates the typed generation brief from the scene card.
 - `prose_stylist.py`
-- `gate_critic.py`
-- `quality_polish.py`
-- `final_gate.py`
-- `canon_expert.py`
-- `presence_checker.py`
-- `summarizer.py` (post-save but load-bearing for state/memory)
-
-Optional scene-path agents:
+  Primary drafter. Drafts the scene against the chapter packet.
 - `line_writer.py`
-  Default-on in lean mode. Extra line-edit pass between drafter and save.
-- `commercial_rewrite.py`
-  Flag-gated post-metrics rewrite slot in the non-lean relay
-  (`_maybe_commercial_rewrite`, between QualityMetrics and QualityPolish).
-- `micro_repair.py`
-  Default-off. Exact-span post-check patch stage for presence findings.
-- `character_specialist.py`
-  Supplementary post-save analysis, not a save-path blocker.
-- `chapter_gate_critic.py`
-  Chapter-level evaluation, not a per-scene hot-path agent.
-- `continuity_extractor.py`
-  Default-off, threshold-gated. Post-save continuity-event extraction for
-  the continuity log slice (Slice 4). Risky LLM-extracted slice — see
-  `runtime.continuity_log.*` flags.
+  Single post-draft line-edit pass. Default-on in the lean path
+  (`runtime.lean_prose_only.line_edit.enabled`). Takes an explicitly wired
+  context dict — does not reach into the ambient `ContextAssembler`. Collapsed
+  or crashed output falls back to drafter prose with a warn event.
+- `rhythm_editor.py`
+  Default-off (`runtime.rhythm_editor.enabled`). Bounded literal-edit pass that
+  fixes rhythm issues flagged by `RhythmValidator`
+  (`src/quality/rhythm_validator.py`). Exact-span replacements only; safety
+  caps enforced by `apply_rhythm_edits`.
+
+Post-save (still load-bearing, but after the scene is written):
+
+- `summarizer.py`
+  Produces the scene summary + state diff that feed chapter memory, story
+  state, and the contradiction scan. Wrapped in a broad error guard — a
+  crash never aborts a saved scene.
 
 ## 2. Active Non-Scene Utilities
 
@@ -51,13 +50,13 @@ These are still real code, but they belong to other workflows:
 - `literary_polish.py`
   Post-production literary-polish pass. Used by
   `scripts/final_copy_existing.py` and `scripts/bench_prose_models.py`.
-  Not part of the per-scene relay; intended for the final pre-publication
+  Not part of the per-scene pipeline; intended for the final pre-publication
   sweep.
 - `manuscript_reviewer.py`
   Full-manuscript developmental review. **No CLI wrapper** — invoked
   manually from a Python REPL when a review is wanted. Routing config,
-  prompt, and tests exist; the agent is intentionally kept as a
-  buildable utility for the manuscript-production lifecycle.
+  prompt, and tests exist; the agent is kept as a buildable utility for the
+  manuscript-production lifecycle.
 
 ## 3. Base Class
 
@@ -66,12 +65,12 @@ These are still real code, but they belong to other workflows:
 
 ## What To Treat As Stale
 
-The stale concepts are mostly architectural terms, not these files:
+The stale concepts are mostly architectural terms:
 
 - The old multi-band revision pipeline is gone.
-- `--no-revision` survives only as a hidden compatibility flag.
-- "Craft Editor" / "SceneReviewer" wording in comments or archived docs refers
-  to historical pipeline shapes, not live runtime behavior.
+- The forward-only relay with gates, save-blockers, and quarantine is gone —
+  the pipeline is a single lean forward pass.
+- `--no-revision` survives only as a hidden, no-op compatibility flag.
 
 If you are simplifying the scene pipeline, focus on the files listed under
 "Live Scene Pipeline" first. Do not assume everything under `src/agents/` is

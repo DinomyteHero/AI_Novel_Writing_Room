@@ -173,11 +173,11 @@ def install_seed(
     paths.ensure_dirs()
     paths.ensure_franchise_meta(seed)
 
-    # Phase 6.3b: copy branch_point from universe_meta into the seed so
-    # canon_expert can read it from context at runtime (see D4 in the Phase
-    # 6/7 plan). Runs AFTER ensure_franchise_meta so that a freshly-written
-    # meta file still reflects any universe the user pre-populated. No-op
-    # when no branch_point is declared — back-compat safe.
+    # Phase 6.3b: copy branch_point from universe_meta into the seed so it
+    # is readable from context at runtime (see D4 in the Phase 6/7 plan).
+    # Runs AFTER ensure_franchise_meta so that a freshly-written meta file
+    # still reflects any universe the user pre-populated. No-op when no
+    # branch_point is declared — back-compat safe.
     universe_meta_path = paths.universe_meta_path
     if universe_meta_path and universe_meta_path.exists():
         try:

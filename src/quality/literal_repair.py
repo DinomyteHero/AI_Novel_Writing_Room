@@ -13,7 +13,7 @@ def apply_literal_repairs(
     max_total_changed_chars: int = 500,
     max_changed_ratio: float = 0.12,
 ) -> dict[str, Any]:
-    """Apply safe exact-span replacements returned by MicroRepair.
+    """Apply a list of safe exact-span literal prose replacements.
 
     Repairs are intentionally conservative: each pattern must occur exactly
     once in the current prose, and the cumulative replacement span must fit

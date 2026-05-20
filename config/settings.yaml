@@ -69,39 +69,21 @@ agent_routing:
   # ---------------------------------------------------------------------------
 
   # PROSE — DeepSeek V4 Pro is the primary drafter in the lean architecture.
-  # The live path keeps broad gates/polish/rewrite agents disabled, then runs
-  # one bounded sentence-level edit before saving.
+  # The live path drafts, then runs one bounded sentence-level edit before
+  # saving.
   prose_stylist:          { backend: cloud, model: deepseekpro, params: { temperature: 0.70, max_tokens: 8192, provider: { order: [deepseek], only: [deepseek], allow_fallbacks: false } } }
   line_writer:            { backend: cloud, model: gpt54_mini, params: { temperature: 0.35, max_tokens: 8192 } }
-  # Retained for opt-in experiments; skipped by default via runtime.lean_prose_only.
-  commercial_rewrite:     { backend: cloud, model: gpt54_mini, params: { temperature: 0.45, max_tokens: 8192 } }
 
   # LineWriter is active in lean mode as the single post-generation edit.
   # GPT 5.4 Mini proved more reliable than DeepSeek V4 Flash in cleanup A/Bs.
   # To A/B DeepSeek V4 Flash, override this routing to model: deepseek.
 
-  # GATE/EVAL — retained as opt-in tooling. The default lean path skips these
-  # checks so DeepSeek V4 Pro plus the lean line edit is the saved artifact.
-  gate_critic:            { backend: cloud, model: grok41fast, params: { temperature: 0.3 } }
-  chapter_gate_critic:    { backend: cloud, model: grok41fast, params: { temperature: 0.3 } }
-  final_gate:             { backend: cloud, model: grok41fast, params: { temperature: 0.2 } }
   judge_evaluator:        { backend: cloud, model: grok420, params: { temperature: 0.2 } }
   manuscript_reviewer:    { backend: cloud, model: gpt54, params: { temperature: 0.3, max_tokens: 16000 } }
-  # Relay Stage 1g â€” binary check for characters who speak/act while absent from characters_present.
-  presence_checker:       { backend: cloud, model: grok41fast, params: { temperature: 0.1, max_tokens: 1000 } }
-  # Bounded exact-span patch generator. Used for scene-contract misses before
-  # final copy and as the post-polish "velvet rope" scrub. DeepSeek V4 Pro
-  # gets the full scene contract and must avoid every forbidden synonym in the
-  # failed check, then deterministic code applies only literal substitutions.
-  micro_repair:           { backend: cloud, model: deepseekpro, params: { temperature: 0.1, max_tokens: 1800, reasoning: { effort: "none" }, provider: { order: [deepseek], only: [deepseek], allow_fallbacks: false } } }
   # Rhythm-editor agent: literal substring edits to fix detected rhythm
-  # issues from RhythmValidator. Same safety model as micro_repair. Default
-  # off via runtime flag; routing entry must exist for the agent to load.
+  # issues from RhythmValidator. Default off via runtime flag; routing entry
+  # must exist for the agent to load.
   rhythm_editor:          { backend: cloud, model: deepseekpro, params: { temperature: 0.2, max_tokens: 2400, reasoning: { effort: "none" }, provider: { order: [deepseek], only: [deepseek], allow_fallbacks: false } } }
-  # Architecture upgrade Slice 4 â€” narrow post-save continuity event extraction
-  # from saved prose. Grok 4.1 Fast at t=0.0 for deterministic structured output.
-  # max_tokens=2048 is well more than enough for the 5-type narrow schema.
-  continuity_extractor:   { backend: cloud, model: grok41fast, params: { temperature: 0.0, max_tokens: 2048 } }
 
   # ---------------------------------------------------------------------------
   # PLANNING / COMPILE-TIME UTILITIES
@@ -117,9 +99,6 @@ agent_routing:
   chapter_blueprint_synthesizer: { backend: cloud, model: gemini, params: { temperature: 0.4, max_tokens: 8192 } }
   canon_scout:            { backend: cloud, model: grok41fast, params: { temperature: 0.1, max_tokens: 1800 } }
 
-  # POLISH - skipped by default in lean production; retained for opt-in
-  # non-lean runs and diagnostics.
-  quality_polish:         { backend: cloud, model: gpt54_mini, params: { temperature: 0.5, max_tokens: 8192 } }
   # FINAL COPY - opt-in literary taste pass after manuscript review. This is
   # a donor/comparison branch, not the default production master.
   literary_polish:        { backend: cloud, model: gpt54, params: { temperature: 0.45, max_tokens: 12000 } }
@@ -136,21 +115,14 @@ agent_routing:
   voice_checker:          { backend: cloud, model: mistral_small4, params: { temperature: 0.3 } }
   stress_test:            { backend: cloud, model: deepseek, params: { temperature: 0.5 } }
 
-  # UTILITY â€” Grok 4.1 Fast for orchestration, DeepSeek for analytics,
-  # Grok 4.20 for canon_expert (franchise knowledge; revisit after baseline).
+  # UTILITY â€” Grok 4.1 Fast for orchestration, DeepSeek for analytics.
   orchestrator:           { backend: cloud, model: grok41fast }
-  canon_expert:           { backend: cloud, model: grok420, params: { temperature: 0.2 } }
   summarizer:             { backend: cloud, model: deepseek, params: { temperature: 0.2 } }
-  character_specialist:   { backend: cloud, model: deepseek, params: { temperature: 0.3 } }
   lore_extractor:         { backend: cloud, model: deepseek, params: { temperature: 0.2, max_tokens: 8192 } }
   worldbuilding_coherence_reviewer: { backend: cloud, model: grok420, params: { temperature: 0.3 } }
 
 # Pipeline settings
 pipeline:
-  # Relay refactor (Stage 1e): retries zeroed. Orchestrator is forward-only.
-  # Keys retained as a rollback valve â€” raise to re-enable gate-driven rewrites.
-  max_structural_retries: 0
-  max_voice_retries: 0
   max_http_retries: 2
   embeddings:
     use_mock: true  # Set to false for real semantic similarity (requires sentence-transformers)
@@ -183,11 +155,8 @@ worldbuilding:
 #
 # Everything else below is STANDBY tooling — wired so it can be flipped on
 # for diagnostic, recovery, or bench runs without code changes:
-#   Slice infrastructure: phase0_audit, firewall, revision_debt,
-#                         promise_ledger, continuity_log, sociogram
-#   Full-relay opt-ins:   canon_expert.early_position,
-#                         canon_expert.apply_local_fixes,
-#                         corrective_rerun, commercial_rewrite, micro_repair
+#   Slice infrastructure: revision_debt, promise_ledger
+#   Prose telemetry:      rhythm_validator, rhythm_editor, continuity_validator
 #   Final-copy script:    final_copy.* (consumed by
 #                         scripts/final_copy_existing.py)
 #
@@ -198,25 +167,15 @@ worldbuilding:
 #   data/franchises/<franchise>/books/<book>/runtime_overrides.yaml
 #
 # See docs/architecture/manuscript-production-lifecycle.md for the production
-# lifecycle; per-slice notes in docs/architecture/architecture_upgrade_spec.md
-# and CLAUDE.md.
+# lifecycle; the chapter packet / promise ledger / revision debt slices are
+# documented in CLAUDE.md.
 runtime:
   # Lean DeepSeek architecture: PlotArchitect -> ProseStylist -> LineWriter -> save.
-  # This bypasses advisory gates, quality/polish/rewrite passes, save-blocker
-  # agents, chapter gates, and post-save LLM analysis while preserving a
-  # narrow line-edit cleanup pass for repeated card residue and Legends register.
+  # The line-edit cleanup pass handles repeated card residue and Legends register.
   lean_prose_only:
     enabled: true
     line_edit:
       enabled: true
-  phase0_audit:
-    enabled: false
-  firewall:
-    enabled: false
-    successor_classifier:
-      enabled: false
-      jaccard_threshold: 0.5
-      adjacency_max_for_continue: 1
   chapter_packet:
     # Shipping default (D4a). Phase 0 audit + packet parity both pass for
     # Ruusan and Betrayal at HEAD; the packet is now the drafter's single
@@ -227,83 +186,12 @@ runtime:
     fallback_on_error: true
   revision_debt:
     enabled: false
-  canon_expert:
-    early_position: false
-    apply_local_fixes: false
-    local_fixes_whitelist: []
   promise_ledger:
     enabled: false
-  continuity_log:
-    enabled: false
-    min_confidence: 0.85
-  sociogram:
-    enabled: false
-    suggest_mode: false
-  # Forward Relay v4: smart single corrective rerun.
-  # When enabled, GateCritic verdict `fail_structural` with specific narrow
-  # trigger codes causes ProseStylist to re-draft once with structured
-  # `failure_context`. Bounded to exactly one attempt per scene. The legacy
-  # `pipeline.max_structural_retries` / `max_voice_retries` stay pinned at 0;
-  # this flag is the only path to a non-zero-retry drafter call.
-  corrective_rerun:
-    enabled: false
-    # Only fire the rerun when the GateCritic verdict is fail_structural AND
-    # at least one of the listed codes appears. Narrow by design: subjective
-    # codes (WEAK_TURNING_POINT, OPENING_HOOK_MISMATCH) intentionally excluded
-    # so the rerun acts only on hard contract misses the drafter can fix.
-    trigger_codes:
-      - MISSING_TURNING_POINT
-      - CLOSING_HOOK_VIOLATION
-    # Skip the rerun if the drafter emitted more failure codes than this â€”
-    # >N codes signals brief confusion, and a rerun amplifies noise.
-    max_failure_codes: 3
-    # Skip the rerun if the draft came in below this ratio of target word
-    # count (collapsed output is a different failure mode; rerun won't help).
-    min_word_count_ratio: 0.5
-  # Bounded scene-level craft rewrite. Distinct from corrective_rerun (hard
-  # structural contract repair) and quality_polish (expression-only copy pass).
-  # This pass may rebalance paragraphs and convert telling/description-heavy
-  # delivery into enacted choices while preserving beats, POV, characters, and
-  # closing hook. Trigger-gated and protected by word-count guards. Default
-  # off while prompt/model variants are being benchmarked.
-  commercial_rewrite:
-    enabled: false
-    trigger_failure_codes:
-      - TELLING_NOT_SHOWING
-      - PROSE_CLICHE_BURST
-      - TERMINOLOGY_DRIFT
-      - VOICE_DEFINITION_VIOLATION
-      - OPENING_HOOK_MISMATCH
-    trigger_flag_keywords:
-      - show-don't-tell
-      - telling
-      - repeated n-gram
-      - semantically similar
-      - scene type imbalance
-      - description
-      - overused words
-      - cliche
-      - clichÃ©
-    min_quality_score: 0.72
-    min_word_count_ratio: 0.75
-    max_word_count_ratio: 1.35
-  # Exact-span post-check repair stage. Safe-off by default in the live
-  # orchestrator, but enabled by the final-copy scripts as the post-polish
-  # velvet-rope scrub. Used only for narrow issues that can be fixed with
-  # literal substitutions and then revalidated.
-  micro_repair:
-    enabled: false
-    max_repairs: 5
-    max_total_changed_chars: 1000
-    max_changed_ratio: 0.12
   final_copy:
     enabled: false
     literary_polish_model: gpt54
     literary_polish_temperature: 0.45
-    post_polish_contract_repair_model: deepseekpro
-    post_polish_contract_repair_temperature: 0.1
-    post_polish_contract_repair_max_repairs: 5
-    post_polish_contract_repair_max_total_changed_chars: 1000
   # Deterministic prose-rhythm validator. Pure measurement + threshold
   # bands derived from a Zahn (Scoundrels, 2013) corpus baseline. Emits
   # revision-debt rows of category prose.rhythm.*. Never blocks a save.

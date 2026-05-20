@@ -1,11 +1,10 @@
 """Slice 2 revision-debt store.
 
 SQLite-backed store for structured advisories emitted by the pipeline. Every
-advisory-producing stage (CanonExpert, GateCritic, FinalGate, MetricsDashboard,
-PresenceChecker near-misses, compression guard, word-count telemetry,
-StateFirewall, SceneReviewer) writes a row here via a wrapper in
-``src/pipeline/revision_debt_producers.py``. The orchestrator never calls
-``add`` directly.
+advisory-producing stage (RhythmValidator, CrossChapterContinuityValidator,
+word-count telemetry, compression guard, SceneReviewer) writes a row here via a
+wrapper in ``src/pipeline/revision_debt_producers.py``. The orchestrator never
+calls ``add`` directly.
 
 Invariants (spec \u00a76.2):
 

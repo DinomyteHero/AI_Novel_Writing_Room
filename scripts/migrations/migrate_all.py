@@ -10,8 +10,6 @@ Scripts invoked (in order):
     scripts/migrations/migrate_gap_notes.py         (Slice 1)
     scripts/migrations/migrate_revision_debt.py     (Slice 2)
     scripts/migrations/migrate_promise_ledger.py    (Slice 3)
-    scripts/migrations/migrate_continuity_log.py    (Slice 4)
-    scripts/migrations/migrate_sociogram.py         (Slice 5)
 
 Usage:
     py -3 scripts/migrations/migrate_all.py [--dry-run] [--base-dir <path>]
@@ -29,8 +27,6 @@ MIGRATIONS: list[tuple[str, str]] = [
     ("Slice 1 - gap_notes",         "scripts/migrations/migrate_gap_notes.py"),
     ("Slice 2 - revision_debt",     "scripts/migrations/migrate_revision_debt.py"),
     ("Slice 3 - promise_ledger",    "scripts/migrations/migrate_promise_ledger.py"),
-    ("Slice 4 - continuity_log",    "scripts/migrations/migrate_continuity_log.py"),
-    ("Slice 5 - sociogram",         "scripts/migrations/migrate_sociogram.py"),
 ]
 
 

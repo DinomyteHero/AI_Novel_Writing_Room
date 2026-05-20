@@ -13,9 +13,9 @@ The prompt should define:
 - Evaluation criteria or constraints
 
 Look at existing prompts for examples:
-- `prompts/agent_system_prompts/gate_critic.md` -- Structured JSON output with failure codes
+- `prompts/agent_system_prompts/plot_architect.md` -- Structured JSON output (the typed generation brief)
 - `prompts/agent_system_prompts/prose_stylist.md` -- Free-text prose output
-- `prompts/agent_system_prompts/character_specialist.md` -- Structured analysis with JSON
+- `prompts/agent_system_prompts/line_writer.md` -- Free-text prose output (a constrained edit pass)
 
 ## Step 2: Implement the Agent Class
 
@@ -87,24 +87,17 @@ Follow the optional dependency pattern -- always check for `None` so lower phase
 
 ## Template-Driven Agent Pattern
 
-For agents that need to work across multiple franchises without hardcoded franchise-specific strings, use the **template-driven agent pattern**. The Canon Expert agent is the reference implementation of this approach.
+For agents that need to work across multiple franchises without hardcoded franchise-specific strings, use the **template-driven agent pattern**.
 
 Key principles:
 
 - The agent's system prompt is franchise-agnostic -- it contains no hardcoded franchise names, lore, or terminology
-- All franchise-specific context is read from the concept seed's `canon_profile` at runtime and injected into the prompt template
-- The `canon_profile` (constructed during Step 1 of the Concept Workshop) provides franchise name, continuity rules, key canon elements, cross-continuity violations to avoid, and canon-specific terminology
+- All franchise-specific context is read at runtime from the concept seed (`canon_profile`, `voice_definition`) and the franchise canon-guidance store, then injected into the prompt template
 - This makes the agent automatically work for any franchise without code changes
 
-When building a new agent that needs franchise awareness, follow the Canon Expert's pattern: define a generic prompt template with placeholder sections, and populate them from the concept seed's structured data at runtime. Avoid embedding franchise-specific knowledge in the prompt file itself.
+When building a new agent that needs franchise awareness, define a generic prompt template with placeholder sections and populate them from the concept seed's structured data at runtime. `ProseStylist` and `LineWriter` are reference implementations — both receive `franchise_profile_text` as explicitly wired runtime context. Avoid embedding franchise-specific knowledge in the prompt file itself.
 
-## Step 5: Legacy — Revision Band Prompts
-
-> **Deprecated.** The 3-band revision pipeline and `src/revision/` module were removed in the [pipeline redesign](../architecture/pipeline-redesign.md). Polish is now a single bounded `quality_polish` pass guarded by a compression check and the Final Gate.
->
-> New "polish-like" behaviors should extend [`src/agents/quality_polish.py`](../../src/agents/quality_polish.py) or add a new agent that runs alongside it — not a revision band. Both the old `prompts/revision_prompts/` directory and the `AdaptiveRevisionPipeline` machinery have been removed; any references to them in older docs describe a dead code path.
-
-## Step 6: Write Tests
+## Step 5: Write Tests
 
 Create `tests/test_my_agent.py`. Use the `mock_router` fixture to provide canned LLM responses:
 

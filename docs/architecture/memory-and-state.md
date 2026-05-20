@@ -111,7 +111,7 @@ All arcs start at `lie_established` (the universal initial phase). `advance_arc_
 
 **Arc self-transitions** are now allowed: a character can transition from a phase to the same phase (e.g., `lie_reinforced` -> `lie_reinforced`). This prevents false rejection of scenes that reinforce the current arc phase without advancing it. The state diff applier treats self-transitions as valid no-ops for the phase column while still recording updated evidence.
 
-**Rejected transition feedback**: When an arc phase transition is rejected (e.g., attempting to skip a phase), the rejection reason is included in the feedback context passed back to the Prose Stylist for the next revision attempt.
+**Rejected transition feedback**: When an arc phase transition is rejected (e.g., attempting to skip a phase), the rejection reason is carried into the next scene's Summarizer context so the Summarizer proposes a valid state diff. The lean pipeline has no retries — the feedback flows forward to the next scene, never back into a re-draft of the current one.
 
 ### subplots (Phase 5)
 

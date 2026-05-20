@@ -1,5 +1,7 @@
 # Pipeline Redesign
 
+> **Archived 2026-05-19 — superseded by the lean teardown.** The forward-only relay this brief designed (gates, save-blockers, compression guard, quarantine, Final Gate) has been removed from the codebase. For the current lean single-pass pipeline see [CLAUDE.md](../../CLAUDE.md) and [agent-pipeline.md](../architecture/agent-pipeline.md). The body below is retained for design-decision history only.
+
 > ## ⚠️ STATUS: HISTORICAL DESIGN BRIEF
 >
 > This document is the **planning brief** that drove the redesign — not a description of the shipped system. Retained for design-decision history and traceability, but **do not rely on the body below as current documentation**.

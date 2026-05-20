@@ -31,13 +31,13 @@ pytest -v
 pytest tests/test_orchestrator.py
 
 # Tests matching a pattern
-pytest -k "test_gate_critic"
+pytest -k "test_orchestrator"
 
 # With output capture disabled (for debugging)
 pytest -s
 ```
 
-The test suite has roughly 150 test files covering the major pipeline, workflow, UI, migration, and memory surfaces. Tests use pytest with pytest-asyncio for async test support.
+The test suite covers the major pipeline, workflow, UI, migration, and memory surfaces. Tests use pytest with pytest-asyncio for async test support.
 
 ### Test Fixtures
 
@@ -65,9 +65,9 @@ src/
 |-- runtime_flags.py     # Runtime flag merge and CLI override resolution
 |-- run_ledger.py        # Event logging
 |-- pipeline_session.py  # Session persistence
-|-- agents/              # 21 agent implementations and utilities
-|-- pipeline/            # Chapter packet, preflight, save blockers, final copy
-|-- memory/              # Story state, chapter memory, ledgers, continuity, sociogram
+|-- agents/              # Scene-path agents and editorial/import utilities
+|-- pipeline/            # Chapter packet, revision debt, canon guidance, preflight, final copy
+|-- memory/              # Story state, chapter memory, context assembly, promise ledger
 |-- rag/                 # Canon retrieval
 |-- quality/             # Quality metrics, scene-contract checks, literal repair
 |-- planning/            # Story physics and planning helpers
@@ -118,7 +118,7 @@ All pipeline actions should emit events to the RunLedger. Use descriptive event 
 
 ### Error Handling
 
-Failed LLM calls retry with backoff (handled by ModelRouter). Agent-level failures use structured failure codes, not exceptions. Pipeline-level errors are caught by the Orchestrator and logged.
+Failed LLM calls retry with backoff (handled by ModelRouter). Post-save stages are wrapped in broad error guards — a crash emits a warn-level ledger event but never aborts a saved scene. Pipeline-level errors are caught by the Orchestrator and logged.
 
 ## Git Workflow
 
@@ -129,6 +129,6 @@ The project uses GitHub with pull requests. Branch from `main` for new work.
 If you're new to the codebase, read these in order:
 1. `src/agents/base_agent.py` -- The agent abstraction
 2. `src/model_router.py` -- How LLM calls are routed
-3. `src/orchestrator.py` -- The pipeline flow (read the docstring at the top)
+3. `src/orchestrator.py` -- The lean pipeline flow (read the docstring at the top)
 4. `config/settings.yaml` -- Configuration structure
-5. `config/failure_codes.yaml` -- The failure taxonomy
+5. `CLAUDE.md` -- The pipeline contract and runtime-flag reference

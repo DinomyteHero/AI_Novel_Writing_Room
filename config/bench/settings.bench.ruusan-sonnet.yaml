@@ -110,27 +110,8 @@ agent_routing:
   # instantiate" and Orchestrator._run_scene then skips the call.
   # line_writer:            { backend: cloud, model: gpt54, params: { temperature: 0.8, max_tokens: 12000 } }
 
-  # GATE/EVAL â€” Forward Relay v4: GateCritic moved off Haiku to Grok 4.1 Fast
-  # to break same-family bias (drafter + 3 judges were all Anthropic). GateCritic
-  # is the advice source for the smart corrective rerun, so its family bias has
-  # the most leverage on downstream regenerations. FinalGate + PresenceChecker
-  # stay on Haiku â€” narrower contract checks, same-family matters less.
-  # If structured-JSON reliability regresses, fall back to `glm` (z-ai/glm-5.1).
-  gate_critic:            { backend: cloud, model: grok41fast, params: { temperature: 0.3 } }
-  chapter_gate_critic:    { backend: cloud, model: haiku, params: { temperature: 0.3 } }
-  final_gate:             { backend: cloud, model: haiku, params: { temperature: 0.2 } }
   judge_evaluator:        { backend: cloud, model: grok420, params: { temperature: 0.2 } }
   manuscript_reviewer:    { backend: cloud, model: kimi, params: { temperature: 0.3 } }
-  # Relay Stage 1g â€” binary check for characters who speak/act while absent from characters_present.
-  presence_checker:       { backend: cloud, model: haiku, params: { temperature: 0.1, max_tokens: 1000 } }
-  # Bounded post-check patch generator. Returns exact literal substitutions
-  # only; the orchestrator enforces repair-count + diff-budget caps and
-  # revalidates after patching before save.
-  micro_repair:           { backend: cloud, model: haiku, params: { temperature: 0.1, max_tokens: 1500 } }
-  # Architecture upgrade Slice 4 â€” narrow post-save continuity event extraction
-  # from saved prose. Haiku at t=0.0 for determinism and cost. max_tokens=2048
-  # is well more than enough for the 5-type narrow schema.
-  continuity_extractor:   { backend: cloud, model: haiku, params: { temperature: 0.0, max_tokens: 2048 } }
 
   # ---------------------------------------------------------------------------
   # PLANNING / COMPILE-TIME UTILITIES
@@ -146,11 +127,6 @@ agent_routing:
   chapter_blueprint_synthesizer: { backend: cloud, model: gemini, params: { temperature: 0.4, max_tokens: 8192 } }
   canon_scout:            { backend: cloud, model: grok41fast, params: { temperature: 0.1, max_tokens: 1800 } }
 
-  # POLISH â€” GPT 5.4-mini matches the line_writer's family (gpt-5.4)
-  # for style consistency across the post-draft chain. Rubric 82.55 on
-  # EQBench Creative Writing v3.
-  quality_polish:         { backend: cloud, model: gpt54_mini, params: { temperature: 0.5, max_tokens: 8192 } }
-
   # EDITORIAL â€” plan-time qualitative review (Hat 1: Brooks/Weiland structural; Hat 2: genre-reader). One call per compile; advisory output.
   editorial_consultant:   { backend: cloud, model: claude, params: { temperature: 0.4, max_tokens: 16384 } }
 
@@ -163,12 +139,9 @@ agent_routing:
   voice_checker:          { backend: cloud, model: mistral_small4, params: { temperature: 0.3 } }
   stress_test:            { backend: cloud, model: deepseek, params: { temperature: 0.5 } }
 
-  # UTILITY â€” Grok 4.1 Fast for orchestration, DeepSeek for analytics,
-  # Grok 4.20 for canon_expert (franchise knowledge; revisit after baseline).
+  # UTILITY â€” Grok 4.1 Fast for orchestration, DeepSeek for analytics.
   orchestrator:           { backend: cloud, model: grok41fast }
-  canon_expert:           { backend: cloud, model: grok420, params: { temperature: 0.2 } }
   summarizer:             { backend: cloud, model: deepseek, params: { temperature: 0.2 } }
-  character_specialist:   { backend: cloud, model: deepseek, params: { temperature: 0.3 } }
   lore_extractor:         { backend: cloud, model: deepseek, params: { temperature: 0.2, max_tokens: 8192 } }
   worldbuilding_coherence_reviewer: { backend: cloud, model: grok420, params: { temperature: 0.3 } }
 

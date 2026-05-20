@@ -2,12 +2,8 @@
 
 from abc import ABC, abstractmethod
 from pathlib import Path
-from typing import TYPE_CHECKING, Optional
 
 from src.model_router import ModelRouter
-
-if TYPE_CHECKING:
-    from src.pipeline.phase0_capture import Phase0PromptSnapshot
 
 
 class BaseAgent(ABC):
@@ -21,16 +17,6 @@ class BaseAgent(ABC):
         self.router = router
         self.role = role
         self.system_prompt = self._load_system_prompt()
-        # Architecture upgrade Slice 1: when runtime.phase0_audit.enabled is
-        # on, the orchestrator attaches a snapshot writer that captures the
-        # rendered messages before each router call. Defaults to None so
-        # behavior is unchanged when the flag is off.
-        self._phase0_snapshot: Optional["Phase0PromptSnapshot"] = None
-
-    def attach_phase0_snapshot(
-        self, snapshot: Optional["Phase0PromptSnapshot"],
-    ) -> None:
-        self._phase0_snapshot = snapshot
 
     def _load_system_prompt(self) -> str:
         prompt_path = Path(f"prompts/agent_system_prompts/{self.role}.md")
@@ -60,14 +46,6 @@ class BaseAgent(ABC):
             # without editing the agent prompts.
             messages.append({"role": "system", "content": franchise_profile})
         messages.append({"role": "user", "content": self._format_context(context)})
-        # Phase 0 prompt capture (Slice 1). _build_messages is the choke point
-        # every agent uses before calling the router — including agents that
-        # override run() / run_structured() with their own flow (e.g.
-        # gate_critic, final_gate, plot_architect). Dumping here guarantees
-        # all seven pipeline stages land in phase0_debug/ when the snapshot
-        # is attached.
-        if self._phase0_snapshot is not None:
-            self._phase0_snapshot.dump(self.role, messages)
         return messages
 
     @abstractmethod

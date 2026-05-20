@@ -12,8 +12,9 @@ Use this template when generating scene cards in an external LLM chat (Claude, C
 Follow these rules when creating scene cards:
 
 ### Scene Count
-- Each chapter MUST contain **2-4 scenes** (default 3)
-- Single-scene chapters are reserved for rare high-impact moments (climax, major plot points) — **maximum 3** in the entire novel
+- A chapter carries **as many or as few scenes as the dramatic need calls for** — the schema enforces no minimum scene count per chapter.
+- Only split a chapter when each resulting scene carries its own distinct turning point, its own mission for the POV character, and its own emotional arc. If two candidate scenes share a turning point, fold them into one.
+- A chapter with one load-bearing scene is healthier than a chapter padded with three scenes that share a beat.
 
 ### Bickham Scene & Sequel
 Alternate these scene types within chapters:

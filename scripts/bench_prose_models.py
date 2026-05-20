@@ -36,10 +36,8 @@ load_dotenv()  # searches CWD then walks up; finds .env in main repo from worktr
 
 from src.agents.line_writer import LineWriter  # noqa: E402
 from src.agents.literary_polish import LiteraryPolish  # noqa: E402
-from src.agents.micro_repair import MicroRepair  # noqa: E402
 from src.agents.plot_architect import PlotArchitect  # noqa: E402
 from src.agents.prose_stylist import ProseStylist  # noqa: E402
-from src.agents.quality_polish import QualityPolish  # noqa: E402
 from src.agents.rhythm_editor import RhythmEditor, apply_rhythm_edits  # noqa: E402
 from src.memory.context_assembler import ContextAssembler  # noqa: E402
 from src.model_router import ModelRouter  # noqa: E402
@@ -51,12 +49,7 @@ from src.pipeline.final_copy import (  # noqa: E402
     validate_final_copy,
 )
 from src.project_paths import ProjectPaths  # noqa: E402
-from src.quality.literal_repair import apply_literal_repairs  # noqa: E402
 from src.quality.rhythm_validator import validate_rhythm  # noqa: E402
-from src.quality.scene_contract_validator import (  # noqa: E402
-    load_contract,
-    validate_prose_contract,
-)
 
 
 # Pricing per million tokens (OpenRouter models API, 2026-04-24).
@@ -252,56 +245,6 @@ def apply_model_override(router, agent_role: str, model_short: str, temperature:
         }
 
 
-def default_scene_contract_path(scene_card_path: str | Path, scene_card: dict) -> Path:
-    """Return the conventional scene-contract path for a scene card."""
-
-    card_path = Path(scene_card_path)
-    book_dir = card_path.parent.parent
-    ch = int(scene_card["chapter_number"])
-    sc = int(scene_card.get("scene_number", 1))
-    return book_dir / "scene_contracts" / f"ch{ch:02d}_sc{sc:02d}.json"
-
-
-def summarize_contract_validation(result: dict) -> str:
-    """Compact status string for bench output."""
-
-    status = "PASS" if result.get("passed") else "FAIL"
-    return (
-        f"{status} ({result.get('hard_failure_count', 0)} hard / "
-        f"{result.get('failure_count', 0)} total)"
-    )
-
-
-def contract_failures_to_repair_requests(validation: dict) -> list[dict]:
-    """Convert hard scene-contract failures into MicroRepair requests."""
-
-    requests = []
-    for failure in validation.get("failures") or []:
-        if failure.get("severity", "error") != "error":
-            continue
-        request = {
-            "issue_type": failure.get("check_id", "scene_contract_failure"),
-            "message": failure.get("message", ""),
-            "pattern": failure.get("pattern"),
-        }
-        for key in ("speaker", "line", "excerpt"):
-            if key in failure:
-                request[key] = failure[key]
-        requests.append(request)
-    return requests
-
-
-def contract_validation_summary_entry(validation: dict, output_file: Path, paths) -> dict:
-    """Small bench-summary payload for a validation artifact."""
-
-    return {
-        "passed": validation["passed"],
-        "failure_count": validation["failure_count"],
-        "hard_failure_count": validation["hard_failure_count"],
-        "output_file": artifact_ref(output_file, paths),
-    }
-
-
 def artifact_ref(path: Path, paths) -> str:
     """Return a stable artifact reference for bench summaries."""
 
@@ -317,120 +260,18 @@ def artifact_ref(path: Path, paths) -> str:
         return str(path)
 
 
-def artifact_path(ref: str | Path, paths) -> Path:
-    """Resolve a bench-summary artifact reference back to a path."""
-
-    path = Path(ref)
-    if path.is_absolute():
-        return path
-    return Path(getattr(paths, "base", ".")) / path
-
-
-async def run_contract_repair(
-    *,
-    micro_repair: MicroRepair | None,
-    repair_model: str | None,
-    prose: str,
-    validation: dict,
-    scene_contract: dict,
-    scene_card: dict,
-    bench_dir: Path,
-    output_stem: str,
-    paths,
-    max_repairs: int,
-    max_total_changed_chars: int,
-    max_changed_ratio: float,
-) -> dict | None:
-    """Run MicroRepair on hard contract failures, apply, and revalidate."""
-
-    if micro_repair is None or repair_model is None or validation.get("passed"):
-        return None
-
-    repair_requests = contract_failures_to_repair_requests(validation)
-    if not repair_requests:
-        return None
-
-    print(
-        f"    [contract_repair] {repair_model} on "
-        f"{len(repair_requests)} hard failure(s) ..."
-    )
-    repair_result = await micro_repair.run({
-        "prose": prose,
-        "scene_card": scene_card,
-        "scene_contract": scene_contract,
-        "repair_requests": repair_requests,
-    })
-    repair_json_path = bench_dir / f"{output_stem}__CONTRACT_REPAIR_{repair_model}.json"
-    repair_json_path.write_text(
-        json.dumps(repair_result, indent=2, ensure_ascii=False),
-        encoding="utf-8",
-    )
-
-    application = apply_literal_repairs(
-        prose,
-        repair_result.get("repairs", []),
-        max_repairs=max_repairs,
-        max_total_changed_chars=max_total_changed_chars,
-        max_changed_ratio=max_changed_ratio,
-    )
-    repaired_prose = application["prose"]
-    repaired_path = bench_dir / f"{output_stem}__CONTRACT_REPAIRED_{repair_model}.md"
-    repaired_path.write_text(repaired_prose, encoding="utf-8")
-
-    repaired_validation = validate_prose_contract(repaired_prose, scene_contract)
-    repaired_validation_path = (
-        bench_dir / f"{output_stem}__CONTRACT_REPAIRED_{repair_model}__CONTRACT.json"
-    )
-    repaired_validation_path.write_text(
-        json.dumps(repaired_validation, indent=2, ensure_ascii=False),
-        encoding="utf-8",
-    )
-
-    print(
-        "    [contract_repair] applied "
-        f"{len(application['applied'])}/{len(repair_result.get('repairs', []))}; "
-        f"{summarize_contract_validation(repaired_validation)}"
-    )
-
-    return {
-        "model_short": repair_model,
-        "repair_output_file": artifact_ref(repair_json_path, paths),
-        "output_file": artifact_ref(repaired_path, paths),
-        "application": {
-            "applied_count": len(application["applied"]),
-            "skipped_count": len(application["skipped"]),
-            "changed_char_count": application["changed_char_count"],
-            "change_budget": application["change_budget"],
-            "applied": application["applied"],
-            "skipped": application["skipped"],
-        },
-        "scene_contract_validation": contract_validation_summary_entry(
-            repaired_validation,
-            repaired_validation_path,
-            paths,
-        ),
-    }
-
-
 async def run_final_copy_pass(
     *,
     literary_polish: LiteraryPolish | None,
     final_copy_model: str | None,
-    micro_repair: MicroRepair | None,
-    contract_repair_model: str | None,
     source_prose: str,
     source_stem: str,
     source_label: str,
     scene_card: dict,
     generation_brief: dict,
-    scene_contract: dict | None,
-    scene_contract_validation: dict | None,
     bench_dir: Path,
     paths,
     franchise_profile_text: str,
-    contract_repair_max_repairs: int,
-    contract_repair_max_total_changed_chars: int,
-    contract_repair_max_changed_ratio: float,
 ) -> dict | None:
     """Run final-copy diagnostics, optional literary polish, and revalidation."""
 
@@ -441,8 +282,6 @@ async def run_final_copy_pass(
     lockfile = build_continuity_lockfile(
         scene_card=scene_card,
         generation_brief=generation_brief,
-        scene_contract=scene_contract,
-        contract_validation=scene_contract_validation,
         source_label=source_label,
     )
     motif_ledger = build_motif_ledger(
@@ -491,8 +330,6 @@ async def run_final_copy_pass(
         "motif_ledger": motif_ledger,
         "copydesk_report": copydesk_report,
         "voltage_report": voltage_report,
-        "scene_contract": scene_contract,
-        "scene_contract_validation": scene_contract_validation,
         "franchise_profile_text": franchise_profile_text,
     })
     final_prose = polish_result["prose"]
@@ -514,7 +351,6 @@ async def run_final_copy_pass(
 
     validation = validate_final_copy(
         final_prose,
-        scene_contract=scene_contract,
         source_word_count=len(source_prose.split()),
         scene_card=scene_card,
     )
@@ -526,93 +362,12 @@ async def run_final_copy_pass(
         encoding="utf-8",
     )
 
-    contract_validation = validation.get("scene_contract_validation")
-    if contract_validation is not None:
-        print(
-            "    [contract] "
-            f"{summarize_contract_validation(contract_validation)}"
-        )
-
-    post_repair_entry = None
-    if (
-        scene_contract is not None
-        and contract_validation is not None
-        and not contract_validation.get("passed")
-    ):
-        post_repair_entry = await run_contract_repair(
-            micro_repair=micro_repair,
-            repair_model=contract_repair_model,
-            prose=final_prose,
-            validation=contract_validation,
-            scene_contract=scene_contract,
-            scene_card=scene_card,
-            bench_dir=bench_dir,
-            output_stem=f"{source_stem}__FINAL_COPY_{final_copy_model}",
-            paths=paths,
-            max_repairs=contract_repair_max_repairs,
-            max_total_changed_chars=contract_repair_max_total_changed_chars,
-            max_changed_ratio=contract_repair_max_changed_ratio,
-        )
-        if post_repair_entry is not None:
-            repaired_path = artifact_path(post_repair_entry["output_file"], paths)
-            repaired_prose = repaired_path.read_text(encoding="utf-8")
-            repaired_validation = validate_final_copy(
-                repaired_prose,
-                scene_contract=scene_contract,
-                source_word_count=len(source_prose.split()),
-                scene_card=scene_card,
-            )
-            repaired_validation_path = (
-                bench_dir
-                / f"{source_stem}__FINAL_COPY_{final_copy_model}"
-                f"__CONTRACT_REPAIRED_{contract_repair_model}__VALIDATION.json"
-            )
-            repaired_validation_path.write_text(
-                json.dumps(repaired_validation, indent=2, ensure_ascii=False),
-                encoding="utf-8",
-            )
-            post_repair_entry["validation"] = {
-                "passed": repaired_validation["passed"],
-                "output_file": artifact_ref(repaired_validation_path, paths),
-                "copydesk_passed": repaired_validation["copydesk"]["passed"],
-                "voltage_total": repaired_validation[
-                    "read_aloud_voltage"
-                ]["total_score"],
-                "scene_contract_validation": (
-                    None
-                    if repaired_validation.get("scene_contract_validation") is None
-                    else {
-                        "passed": repaired_validation[
-                            "scene_contract_validation"
-                        ]["passed"],
-                        "failure_count": repaired_validation[
-                            "scene_contract_validation"
-                        ]["failure_count"],
-                        "hard_failure_count": repaired_validation[
-                            "scene_contract_validation"
-                        ]["hard_failure_count"],
-                    }
-                ),
-            }
-            if repaired_validation["passed"]:
-                final_prose = repaired_prose
-                final_wc = len(final_prose.split())
-                final_cc = len(final_prose)
-                final_path = repaired_path
-                validation = repaired_validation
-                validation_path = repaired_validation_path
-                contract_validation = validation.get("scene_contract_validation")
-
     print(
         f"    final copy in {duration:.1f}s - {final_wc}w / {final_cc}c "
         f"(~{in_tokens}in + {out_tokens}out = ~${cost:.4f})"
     )
 
-    raw_output_file = bench_dir / f"{source_stem}__FINAL_COPY_{final_copy_model}.md"
-    raw_validation_file = (
-        bench_dir / f"{source_stem}__FINAL_COPY_{final_copy_model}__VALIDATION.json"
-    )
-    entry = {
+    return {
         "model_short": final_copy_model,
         "model_full": final_copy_full,
         "duration_s": round(duration, 1),
@@ -632,23 +387,8 @@ async def run_final_copy_pass(
             "output_file": artifact_ref(validation_path, paths),
             "copydesk_passed": validation["copydesk"]["passed"],
             "voltage_total": validation["read_aloud_voltage"]["total_score"],
-            "scene_contract_validation": (
-                None
-                if contract_validation is None
-                else {
-                    "passed": contract_validation["passed"],
-                    "failure_count": contract_validation["failure_count"],
-                    "hard_failure_count": contract_validation["hard_failure_count"],
-                }
-            ),
         },
     }
-    if post_repair_entry is not None:
-        entry["post_polish_contract_repair"] = post_repair_entry
-        if post_repair_entry.get("validation", {}).get("passed"):
-            entry["raw_output_file"] = artifact_ref(raw_output_file, paths)
-            entry["raw_validation"] = artifact_ref(raw_validation_file, paths)
-    return entry
 
 
 async def run_bench(
@@ -661,15 +401,6 @@ async def run_bench(
     plot_architect_model: str | None = None,
     line_edit_model: str | None = None,
     line_edit_temperature: float = 0.35,
-    polish_model: str | None = None,
-    scene_contract_path: str | None = None,
-    auto_scene_contract: bool = False,
-    fail_on_contract: bool = False,
-    contract_repair_model: str | None = None,
-    contract_repair_temperature: float = 0.1,
-    contract_repair_max_repairs: int = 5,
-    contract_repair_max_total_changed_chars: int = 1000,
-    contract_repair_max_changed_ratio: float = 0.12,
     final_copy_model: str | None = None,
     final_copy_temperature: float = 0.45,
     rhythm_metrics: bool = False,
@@ -704,24 +435,6 @@ async def run_bench(
     print(f"[scene] Ch{ch}S{sc} — pov={scene_card.get('pov_character')} "
           f"target={scene_card.get('target_word_count')}w")
 
-    scene_contract = None
-    resolved_contract_path = None
-    if scene_contract_path:
-        resolved_contract_path = Path(scene_contract_path)
-    elif auto_scene_contract:
-        auto_path = default_scene_contract_path(scene_card_path, scene_card)
-        if auto_path.exists():
-            resolved_contract_path = auto_path
-        else:
-            print(f"[contract] no scene contract found at {auto_path}")
-    if resolved_contract_path:
-        if not resolved_contract_path.exists():
-            print(f"[FATAL] scene contract path not found: {resolved_contract_path}")
-            await router.close()
-            return
-        scene_contract = load_contract(resolved_contract_path)
-        print(f"[contract] loaded {resolved_contract_path}")
-
     assembler = ContextAssembler(concept_seed_path=concept_seed_path)
     line_edit_models = [
         model.strip() for model in (line_edit_model or "").split(",") if model.strip()
@@ -730,8 +443,6 @@ async def run_bench(
     plot_architect = PlotArchitect(router)
     prose_stylist = ProseStylist(router)
     line_writer = LineWriter(router) if line_edit_models else None
-    quality_polish = QualityPolish(router) if polish_model else None
-    micro_repair = MicroRepair(router) if contract_repair_model else None
     literary_polish = LiteraryPolish(router) if final_copy_model else None
     rhythm_editor = RhythmEditor(router) if rhythm_edit else None
     if rhythm_editor and rhythm_edit_model:
@@ -752,23 +463,6 @@ async def run_bench(
         apply_model_override(router, "plot_architect", plot_architect_model, 0.4)
         print(f"[override] plot_architect -> {plot_architect_model} "
               f"({MODEL_ALIASES.get(plot_architect_model, plot_architect_model)}) @ t=0.4")
-    if contract_repair_model:
-        apply_model_override(
-            router,
-            "micro_repair",
-            contract_repair_model,
-            contract_repair_temperature,
-            1800,
-        )
-        print(
-            f"[override] micro_repair -> {contract_repair_model} "
-            f"({MODEL_ALIASES.get(contract_repair_model, contract_repair_model)}) "
-            f"@ t={contract_repair_temperature:.2f}"
-        )
-        if scene_contract is None:
-            print("[contract_repair] ignored because no scene contract is loaded")
-            micro_repair = None
-            contract_repair_model = None
     if final_copy_model:
         apply_model_override(
             router,
@@ -858,7 +552,6 @@ async def run_bench(
               f"{[c['label'] for c in configs]}")
 
     results: list[dict] = []
-    any_contract_fail = False
     for cfg in configs:
         print(f"\n[prose_stylist] {cfg['label']} ({cfg['model_full']}, "
               f"temp={cfg['temperature']})…")
@@ -948,64 +641,6 @@ async def run_bench(
         downstream_prose = prose
         downstream_stem = cfg["label"]
         downstream_label = cfg["label"]
-        downstream_contract_validation = None
-
-        if scene_contract is not None:
-            validation = validate_prose_contract(prose, scene_contract)
-            downstream_contract_validation = validation
-            validation_path = bench_dir / f"{cfg['label']}__CONTRACT.json"
-            validation_path.write_text(
-                json.dumps(validation, indent=2, ensure_ascii=False),
-                encoding="utf-8",
-            )
-            result_entry["scene_contract_validation"] = (
-                contract_validation_summary_entry(validation, validation_path, paths)
-            )
-            print(f"  [contract] {summarize_contract_validation(validation)}")
-            if not validation["passed"]:
-                for failure in validation["failures"][:5]:
-                    location = (
-                        f" line {failure['line']}" if "line" in failure else ""
-                    )
-                    speaker = (
-                        f" {failure['speaker']}" if "speaker" in failure else ""
-                    )
-                    print(
-                        f"    - {failure['severity']} {failure['check_id']}"
-                        f"{speaker}{location}: {failure['message']}"
-                    )
-                repair_entry = await run_contract_repair(
-                    micro_repair=micro_repair,
-                    repair_model=contract_repair_model,
-                    prose=prose,
-                    validation=validation,
-                    scene_contract=scene_contract,
-                    scene_card=scene_card,
-                    bench_dir=bench_dir,
-                    output_stem=cfg["label"],
-                    paths=paths,
-                    max_repairs=contract_repair_max_repairs,
-                    max_total_changed_chars=contract_repair_max_total_changed_chars,
-                    max_changed_ratio=contract_repair_max_changed_ratio,
-                )
-                if repair_entry is not None:
-                    result_entry["contract_repair"] = repair_entry
-                    repair_validation = repair_entry["scene_contract_validation"]
-                    if repair_validation["passed"]:
-                        downstream_prose = artifact_path(
-                            repair_entry["output_file"],
-                            paths,
-                        ).read_text(encoding="utf-8")
-                        downstream_stem = artifact_path(
-                            repair_entry["output_file"],
-                            paths,
-                        ).stem
-                        downstream_label = f"{cfg['label']} contract repair"
-                        downstream_contract_validation = repair_validation
-                    else:
-                        any_contract_fail = True
-                else:
-                    any_contract_fail = True
 
         # --- Optional post-generation line edit ---
         if line_writer is not None and line_edit_models:
@@ -1073,87 +708,17 @@ async def run_bench(
                     "est_cost_usd": round(le_cost, 4),
                     "output_file": artifact_ref(line_edit_path, paths),
                 }
-                if scene_contract is not None:
-                    validation = validate_prose_contract(
-                        line_edited_prose,
-                        scene_contract,
-                    )
-                    downstream_contract_validation = validation
-                    validation_path = (
-                        bench_dir
-                        / f"{cfg['label']}__LINE_EDIT_{edit_model}__CONTRACT.json"
-                    )
-                    validation_path.write_text(
-                        json.dumps(validation, indent=2, ensure_ascii=False),
-                        encoding="utf-8",
-                    )
-                    line_edit_entry["scene_contract_validation"] = (
-                        contract_validation_summary_entry(
-                            validation,
-                            validation_path,
-                            paths,
-                        )
-                    )
-                    print(
-                        "    [contract] "
-                        f"{summarize_contract_validation(validation)}"
-                    )
-                    if not validation["passed"]:
-                        repair_entry = await run_contract_repair(
-                            micro_repair=micro_repair,
-                            repair_model=contract_repair_model,
-                            prose=line_edited_prose,
-                            validation=validation,
-                            scene_contract=scene_contract,
-                            scene_card=scene_card,
-                            bench_dir=bench_dir,
-                            output_stem=f"{cfg['label']}__LINE_EDIT_{edit_model}",
-                            paths=paths,
-                            max_repairs=contract_repair_max_repairs,
-                            max_total_changed_chars=(
-                                contract_repair_max_total_changed_chars
-                            ),
-                            max_changed_ratio=contract_repair_max_changed_ratio,
-                        )
-                        if repair_entry is not None:
-                            line_edit_entry["contract_repair"] = repair_entry
-                            repair_validation = repair_entry[
-                                "scene_contract_validation"
-                            ]
-                            if repair_validation["passed"]:
-                                line_edited_prose = artifact_path(
-                                    repair_entry["output_file"],
-                                    paths,
-                                ).read_text(encoding="utf-8")
-                                downstream_contract_validation = repair_validation
-                            else:
-                                any_contract_fail = True
-                        else:
-                            any_contract_fail = True
                 result_entry["line_edits"].append(line_edit_entry)
                 result_entry["line_edit"] = line_edit_entry
                 downstream_prose = line_edited_prose
-                downstream_stem = (
-                    artifact_path(
-                        line_edit_entry.get("contract_repair", {}).get(
-                            "output_file",
-                            line_edit_entry["output_file"],
-                        ),
-                        paths,
-                    ).stem
-                    if line_edit_entry.get("contract_repair", {}).get(
-                        "scene_contract_validation", {}
-                    ).get("passed")
-                    else Path(line_edit_entry["output_file"]).stem
-                )
+                downstream_stem = Path(line_edit_entry["output_file"]).stem
                 downstream_label = f"{cfg['label']} line edit {edit_model}"
 
         # --- Optional rhythm-editor pass ---
         # Runs after line-edit (or after prose-stylist if no line edit) on
         # whatever is in downstream_prose. Detects rhythm issues with
         # RhythmValidator, calls the LLM editor for bounded literal-edit
-        # patches, and applies them under deterministic safety caps. Same
-        # safety model as micro_repair.
+        # patches, and applies them under deterministic safety caps.
         if rhythm_editor is not None:
             pre_edit_rhythm = validate_rhythm(
                 downstream_prose,
@@ -1275,182 +840,31 @@ async def run_bench(
                 downstream_stem = rhythm_edit_path.stem
                 downstream_label = f"{cfg['label']} rhythm edit"
 
-        # --- Optional polish step ---
-        if quality_polish is not None and polish_model:
-            apply_model_override(router, "quality_polish", polish_model, 0.4)
-            polish_full = MODEL_ALIASES.get(polish_model, polish_model)
-            print(f"  [polish] {polish_model} ({polish_full}) @ t=0.4 …")
-            polish_start = time.time()
-            try:
-                polish_result = await quality_polish.run({
-                    "prose": downstream_prose,
-                    "scene_card": scene_card,
-                    "quality_metrics": {},
-                    "negative_constraints": neg_constraints,
-                    "canon_notes": "",
-                })
-                polished_prose = polish_result["prose"]
-            except Exception as e:
-                print(f"    [ERROR] polish failed: {e.__class__.__name__}: {e}")
-                polished_prose = None
-
-            if polished_prose is not None:
-                polish_duration = time.time() - polish_start
-                polished_wc = len(polished_prose.split())
-                polished_cc = len(polished_prose)
-                p_in = count_tokens_rough(
-                    downstream_prose + json.dumps(scene_card) + neg_constraints
-                )
-                p_out = count_tokens_rough(polished_prose)
-                p_cost = estimate_cost(polish_full, p_in, p_out)
-                print(f"    polished in {polish_duration:.1f}s — {polished_wc}w / {polished_cc}c "
-                      f"(~{p_in}in + {p_out}out = ~${p_cost:.4f})")
-
-                polished_path = bench_dir / f"{cfg['label']}__POLISHED.md"
-                polished_path.write_text(polished_prose, encoding="utf-8")
-                result_entry["polish"] = {
-                    "model_short": polish_model,
-                    "model_full": polish_full,
-                    "duration_s": round(polish_duration, 1),
-                    "word_count": polished_wc,
-                    "char_count": polished_cc,
-                    "est_in_tokens": p_in,
-                    "est_out_tokens": p_out,
-                    "est_cost_usd": round(p_cost, 4),
-                    "output_file": artifact_ref(polished_path, paths),
-                }
-                if scene_contract is not None:
-                    validation = validate_prose_contract(polished_prose, scene_contract)
-                    downstream_contract_validation = validation
-                    validation_path = bench_dir / f"{cfg['label']}__POLISHED__CONTRACT.json"
-                    validation_path.write_text(
-                        json.dumps(validation, indent=2, ensure_ascii=False),
-                        encoding="utf-8",
-                    )
-                    result_entry["polish"]["scene_contract_validation"] = (
-                        contract_validation_summary_entry(
-                            validation,
-                            validation_path,
-                            paths,
-                        )
-                    )
-                    print(
-                        "    [contract] "
-                        f"{summarize_contract_validation(validation)}"
-                    )
-                    if not validation["passed"]:
-                        repair_entry = await run_contract_repair(
-                            micro_repair=micro_repair,
-                            repair_model=contract_repair_model,
-                            prose=polished_prose,
-                            validation=validation,
-                            scene_contract=scene_contract,
-                            scene_card=scene_card,
-                            bench_dir=bench_dir,
-                            output_stem=f"{cfg['label']}__POLISHED",
-                            paths=paths,
-                            max_repairs=contract_repair_max_repairs,
-                            max_total_changed_chars=(
-                                contract_repair_max_total_changed_chars
-                            ),
-                            max_changed_ratio=contract_repair_max_changed_ratio,
-                        )
-                        if repair_entry is not None:
-                            result_entry["polish"]["contract_repair"] = repair_entry
-                            repair_validation = repair_entry[
-                                "scene_contract_validation"
-                            ]
-                            if repair_validation["passed"]:
-                                polished_prose = artifact_path(
-                                    repair_entry["output_file"],
-                                    paths,
-                                ).read_text(encoding="utf-8")
-                                downstream_contract_validation = repair_validation
-                            else:
-                                any_contract_fail = True
-                        else:
-                            any_contract_fail = True
-                downstream_prose = polished_prose
-                downstream_stem = (
-                    artifact_path(
-                        result_entry["polish"].get("contract_repair", {}).get(
-                            "output_file",
-                            result_entry["polish"]["output_file"],
-                        ),
-                        paths,
-                    ).stem
-                    if result_entry["polish"].get("contract_repair", {}).get(
-                        "scene_contract_validation", {}
-                    ).get("passed")
-                    else Path(result_entry["polish"]["output_file"]).stem
-                )
-                downstream_label = f"{cfg['label']} polish"
-
         # --- Optional final literary copy step ---
         if literary_polish is not None and final_copy_model:
-            if (
-                scene_contract is not None
-                and downstream_contract_validation is not None
-                and not downstream_contract_validation.get("passed")
-            ):
-                result_entry["final_copy_skipped"] = {
-                    "reason": "source_failed_scene_contract",
-                    "source_label": downstream_label,
-                    "hard_failure_count": downstream_contract_validation.get(
-                        "hard_failure_count",
-                        0,
-                    ),
-                    "failure_count": downstream_contract_validation.get(
-                        "failure_count",
-                        0,
-                    ),
-                }
-                print(
-                    "  [final_copy] skipped because source still fails "
-                    "scene contract"
+            try:
+                final_copy_entry = await run_final_copy_pass(
+                    literary_polish=literary_polish,
+                    final_copy_model=final_copy_model,
+                    source_prose=downstream_prose,
+                    source_stem=downstream_stem,
+                    source_label=downstream_label,
+                    scene_card=scene_card,
+                    generation_brief=brief,
+                    bench_dir=bench_dir,
+                    paths=paths,
+                    franchise_profile_text=franchise_profile_text,
                 )
-                any_contract_fail = True
-            else:
-                try:
-                    final_copy_entry = await run_final_copy_pass(
-                        literary_polish=literary_polish,
-                        final_copy_model=final_copy_model,
-                        micro_repair=micro_repair,
-                        contract_repair_model=contract_repair_model,
-                        source_prose=downstream_prose,
-                        source_stem=downstream_stem,
-                        source_label=downstream_label,
-                        scene_card=scene_card,
-                        generation_brief=brief,
-                        scene_contract=scene_contract,
-                        scene_contract_validation=downstream_contract_validation,
-                        bench_dir=bench_dir,
-                        paths=paths,
-                        franchise_profile_text=franchise_profile_text,
-                        contract_repair_max_repairs=contract_repair_max_repairs,
-                        contract_repair_max_total_changed_chars=(
-                            contract_repair_max_total_changed_chars
-                        ),
-                        contract_repair_max_changed_ratio=(
-                            contract_repair_max_changed_ratio
-                        ),
-                    )
-                    if final_copy_entry is not None:
-                        result_entry["final_copy"] = final_copy_entry
-                        contract_summary = (
-                            final_copy_entry.get("validation", {})
-                            .get("scene_contract_validation")
-                        )
-                        if contract_summary and not contract_summary.get("passed"):
-                            any_contract_fail = True
-                except Exception as e:
-                    print(
-                        f"    [ERROR] final copy failed: "
-                        f"{e.__class__.__name__}: {e}"
-                    )
-                    result_entry["final_copy"] = {
-                        "error": f"{e.__class__.__name__}: {e}"
-                    }
+                if final_copy_entry is not None:
+                    result_entry["final_copy"] = final_copy_entry
+            except Exception as e:
+                print(
+                    f"    [ERROR] final copy failed: "
+                    f"{e.__class__.__name__}: {e}"
+                )
+                result_entry["final_copy"] = {
+                    "error": f"{e.__class__.__name__}: {e}"
+                }
 
         results.append(result_entry)
 
@@ -1460,19 +874,10 @@ async def run_bench(
     # --- Step 3: write summary ---
     summary = {
         "scene_card_path": scene_card_path,
-        "scene_contract_path": (
-            str(resolved_contract_path) if resolved_contract_path else None
-        ),
         "scene_label": f"Ch{ch}S{sc}",
         "pov_character": scene_card.get("pov_character"),
         "target_word_count": scene_card.get("target_word_count"),
         "plot_architect_duration_s": round(pa_duration, 1),
-        "contract_repair_model": contract_repair_model,
-        "contract_repair_max_repairs": contract_repair_max_repairs,
-        "contract_repair_max_total_changed_chars": (
-            contract_repair_max_total_changed_chars
-        ),
-        "contract_repair_max_changed_ratio": contract_repair_max_changed_ratio,
         "final_copy_model": final_copy_model,
         "final_copy_temperature": final_copy_temperature,
         "results": results,
@@ -1495,9 +900,6 @@ async def run_bench(
     print(f"{'TOTAL prose calls':<30} {'':>7} {'':>8} {'$' + str(round(total, 4)):>10}")
 
     await router.close()
-    if fail_on_contract and any_contract_fail:
-        print("[contract] --fail-on-contract requested and at least one output failed.")
-        raise SystemExit(2)
 
 
 def main() -> None:
@@ -1547,57 +949,6 @@ def main() -> None:
         help="Temperature for --line-edit-model. Default: 0.35.",
     )
     p.add_argument(
-        "--polish-model",
-        default=None,
-        help="Short-name of model to run quality_polish on each prose output "
-             "(e.g. 'haiku'). Skips polish step when omitted.",
-    )
-    p.add_argument(
-        "--scene-contract",
-        default=None,
-        help="Path to a scene_contract JSON file to validate each prose output.",
-    )
-    p.add_argument(
-        "--auto-scene-contract",
-        action="store_true",
-        help="Load data/.../scene_contracts/chNN_scMM.json when present.",
-    )
-    p.add_argument(
-        "--fail-on-contract",
-        action="store_true",
-        help="Exit nonzero if any generated output fails the scene contract.",
-    )
-    p.add_argument(
-        "--contract-repair-model",
-        default=None,
-        help="Short-name model for bounded exact-span contract repair "
-             "(e.g. 'deepseekpro' or 'gpt54_mini'). Requires a scene contract.",
-    )
-    p.add_argument(
-        "--contract-repair-temperature",
-        type=float,
-        default=0.1,
-        help="Temperature for --contract-repair-model. Default: 0.1.",
-    )
-    p.add_argument(
-        "--contract-repair-max-repairs",
-        type=int,
-        default=5,
-        help="Maximum exact-span repairs to apply per output. Default: 5.",
-    )
-    p.add_argument(
-        "--contract-repair-max-total-changed-chars",
-        type=int,
-        default=1000,
-        help="Maximum cumulative replacement span per output. Default: 1000.",
-    )
-    p.add_argument(
-        "--contract-repair-max-changed-ratio",
-        type=float,
-        default=0.12,
-        help="Maximum replacement span as a ratio of prose length. Default: 0.12.",
-    )
-    p.add_argument(
         "--final-copy-model",
         default=None,
         help="Short-name model for the final literary copy pass "
@@ -1623,8 +974,8 @@ def main() -> None:
         action="store_true",
         help="After ProseStylist (and optional line edit), run the "
              "RhythmEditor LLM agent to fix detected rhythm issues via "
-             "bounded literal substring edits. Same safety model as "
-             "micro_repair. Pre and post metrics are recorded.",
+             "bounded literal substring edits. Pre and post metrics are "
+             "recorded.",
     )
     p.add_argument(
         "--rhythm-edit-model",
@@ -1675,17 +1026,6 @@ def main() -> None:
         plot_architect_model=args.plot_architect_model,
         line_edit_model=args.line_edit_model,
         line_edit_temperature=args.line_edit_temperature,
-        polish_model=args.polish_model,
-        scene_contract_path=args.scene_contract,
-        auto_scene_contract=args.auto_scene_contract,
-        fail_on_contract=args.fail_on_contract,
-        contract_repair_model=args.contract_repair_model,
-        contract_repair_temperature=args.contract_repair_temperature,
-        contract_repair_max_repairs=args.contract_repair_max_repairs,
-        contract_repair_max_total_changed_chars=(
-            args.contract_repair_max_total_changed_chars
-        ),
-        contract_repair_max_changed_ratio=args.contract_repair_max_changed_ratio,
         final_copy_model=args.final_copy_model,
         final_copy_temperature=args.final_copy_temperature,
         rhythm_metrics=args.rhythm_metrics,

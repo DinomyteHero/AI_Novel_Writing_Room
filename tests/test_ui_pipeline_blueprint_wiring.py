@@ -1,9 +1,8 @@
 """Tests for Phase 5 wiring in src/ui/routes/pipeline.py.
 
 Mirrors tests/test_main_blueprint_wiring.py for the UI route. Covers the
-_ensure_chapter_blueprints helper (UI variant), the PipelineStartRequest
-fields, and the static plumbing checks confirming WebOrchestrator receives
-the chapter_gate_critic when phase >= 5.
+_ensure_chapter_blueprints helper (UI variant) and the PipelineStartRequest
+fields.
 """
 
 from __future__ import annotations
@@ -141,52 +140,19 @@ class TestUiEnsureChapterBlueprints:
 
 
 # --------------------------------------------------------------------------- #
-# Plumbing: WebOrchestrator wired with chapter_gate_critic when phase >= 5     #
+# Plumbing: blueprint helper wired into the UI start-pipeline route           #
 # --------------------------------------------------------------------------- #
 
 
 class TestUiPhase5Plumbing:
-    """Static checks on the source of pipeline.py and web_orchestrator.py
-    confirm the Phase 5 plumbing changes survive future edits."""
+    """Static checks on the source of pipeline.py confirm the blueprint
+    plumbing survives future edits."""
 
-    def test_pipeline_py_initializes_critic_when_phase_5(self):
+    def test_pipeline_py_passes_line_writer_to_web_orchestrator(self):
         src = (Path(__file__).parent.parent / "src" / "ui" / "routes" / "pipeline.py").read_text(encoding="utf-8")
-        assert "if body.phase >= 5:" in src
-        # Phase 7.4 extended the constructor to accept lore_service +
-        # universe_id, so match the call site start rather than the exact
-        # single-arg form.
-        assert "ChapterGateCritic(" in src
-        assert "state.router" in src
-
-    def test_pipeline_py_passes_critic_to_web_orchestrator(self):
-        src = (Path(__file__).parent.parent / "src" / "ui" / "routes" / "pipeline.py").read_text(encoding="utf-8")
-        assert "chapter_gate_critic=chapter_gate_critic" in src
-
-    def test_pipeline_py_passes_save_blocker_agents_to_web_orchestrator(self):
-        src = (Path(__file__).parent.parent / "src" / "ui" / "routes" / "pipeline.py").read_text(encoding="utf-8")
-        assert "canon_expert=canon_expert" in src
-        assert "presence_checker=presence_checker" in src
         assert "line_writer=line_writer" in src
-        assert "micro_repair=micro_repair" in src
 
     def test_pipeline_py_calls_blueprint_helper_in_start_pipeline(self):
         src = (Path(__file__).parent.parent / "src" / "ui" / "routes" / "pipeline.py").read_text(encoding="utf-8")
         # Helper definition + at least one invocation
         assert src.count("_ensure_chapter_blueprints(") >= 2
-
-    def test_web_orchestrator_invokes_chapter_gate_helper(self):
-        """WebOrchestrator's run_pipeline override must call the shared
-        Phase 5 chapter-gate helper so the UI surface honours blueprints."""
-        src = (Path(__file__).parent.parent / "src" / "ui" / "web_orchestrator.py").read_text(encoding="utf-8")
-        assert "maybe_run_chapter_gate_after_scene" in src
-
-    def test_web_orchestrator_honors_firewall_runtime_flag(self):
-        src = (Path(__file__).parent.parent / "src" / "ui" / "web_orchestrator.py").read_text(encoding="utf-8")
-        assert "should_abort_run" in src
-        assert "_handle_firewall" in src
-
-    def test_orchestrator_exposes_chapter_gate_helper(self):
-        """The shared helper must exist on Orchestrator (parent class) so
-        both run_pipeline implementations can call it."""
-        from src.orchestrator import Orchestrator
-        assert hasattr(Orchestrator, "maybe_run_chapter_gate_after_scene")

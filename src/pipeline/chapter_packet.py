@@ -17,8 +17,9 @@ when ``runtime.chapter_packet.enabled: true``.
   a flat-assembly snapshot (voice rules, constraints, character voices, recent
   prose) so the drafter prompt is a token-superset of the legacy flat path.
 
-Active promises (Slice 3), continuity events (Slice 4), and relationship
-context (Slice 5) are wired through optional dependencies and stay empty here.
+Active promises (Slice 3) are wired through an optional ``promise_ledger``
+dependency. The ``continuity_events`` and ``relationship_context`` packet
+fields stay empty.
 
 Persistence is the orchestrator's job (spec \u00a76.1.1): base \u2192
 ``runs/<run_id>/chapter_packets/chapter_NN.json``; overlay \u2192
@@ -331,10 +332,11 @@ class ChapterPacket:
 class ChapterPacketCompiler:
     """Builds chapter packets from planning artifacts + trusted state.
 
-    Constructor takes optional Slice-3/4/5 collaborators; those stay ``None``
-    for Slice 2 and the corresponding packet fields stay empty. Deliberately
-    does not hold a reference to the orchestrator \u2014 callers pass in what the
-    compiler needs per call.
+    Constructor takes an optional ``promise_ledger`` collaborator (Slice 3);
+    when ``None`` the ``active_promises`` packet field stays empty. The
+    ``continuity_events`` and ``relationship_context`` fields are unpopulated.
+    Deliberately does not hold a reference to the orchestrator \u2014 callers pass
+    in what the compiler needs per call.
     """
 
     def __init__(
@@ -345,8 +347,6 @@ class ChapterPacketCompiler:
         assembler: Optional["ContextAssembler"] = None,
         story_state: Optional["StoryState"] = None,
         promise_ledger=None,           # Slice 3
-        continuity_log=None,           # Slice 4
-        sociogram=None,                # Slice 5
         canon_guidance_store=None,
         exemplar_snippets: list[dict] | None = None,
         anti_exemplar_snippets: list[dict] | None = None,
@@ -356,8 +356,6 @@ class ChapterPacketCompiler:
         self.assembler = assembler
         self.story_state = story_state
         self.promise_ledger = promise_ledger
-        self.continuity_log = continuity_log
-        self.sociogram = sociogram
         self.canon_guidance_store = canon_guidance_store
         self.exemplar_snippets = list(exemplar_snippets or [])
         self.anti_exemplar_snippets = list(anti_exemplar_snippets or [])
@@ -391,8 +389,6 @@ class ChapterPacketCompiler:
         exit_vector = self._build_exit_vector(blueprint)
 
         active_promises = self._fetch_active_promises(chapter_number=chapter_number)
-        continuity_events = self._fetch_continuity_events(chapter_number=chapter_number)
-        relationship_context = self._fetch_relationship_context(chapter_number=chapter_number)
 
         return ChapterPacket(
             chapter_number=chapter_number,
@@ -406,12 +402,12 @@ class ChapterPacketCompiler:
             reveal_deadlines=reveal_deadlines,
             canon_slices=canon_slices,
             canon_guidance={},
-            relationship_context=relationship_context,
+            relationship_context={},
             exit_vector=exit_vector,
             trusted_state_gap_notes=[],
             exemplar_snippets=list(self.exemplar_snippets),
             anti_exemplar_snippets=list(self.anti_exemplar_snippets),
-            continuity_events=continuity_events,
+            continuity_events=[],
             scene_number=None,
             scene_card={},
             flat_context_snapshot="",
@@ -440,21 +436,13 @@ class ChapterPacketCompiler:
 
         # Slice 3 (spec \u00a77.3): overlay uses scene-scoped ``list_top_urgent``
         # so the drafter sees the most urgent promises at *this* scene, not a
-        # chapter-wide snapshot. Slice 4/5 follow the same "refresh at overlay"
-        # pattern once their stores are populated.
+        # chapter-wide snapshot.
         scene_id = _scene_id(base.chapter_number, scene_number) if scene_number else None
         active_promises = self._fetch_active_promises_for_scene(
             chapter_number=base.chapter_number, scene_id=scene_id,
         )
         total_active = self._count_active_promises_for_scene(
             chapter_number=base.chapter_number, scene_id=scene_id,
-        )
-        continuity_events = self._fetch_continuity_events_for_scene(
-            chapter_number=base.chapter_number, scene_id=scene_id,
-            scene_card=scene_card,
-        )
-        relationship_context = self._fetch_relationship_context_for_scene(
-            chapter_number=base.chapter_number, scene_card=scene_card,
         )
         canon_guidance = self._fetch_canon_guidance_for_scene(
             chapter_number=base.chapter_number,
@@ -474,8 +462,6 @@ class ChapterPacketCompiler:
             flat_context_snapshot=flat_snapshot,
             active_promises=active_promises,
             active_promises_total_count=total_active,
-            continuity_events=continuity_events,
-            relationship_context=relationship_context,
             canon_guidance=canon_guidance,
             pov_arc_pressure=scene_pov_arc_pressure,
         )
@@ -674,86 +660,6 @@ class ChapterPacketCompiler:
             logger.exception("promise_ledger count_active failed")
             return 0
 
-    def _fetch_continuity_events(self, *, chapter_number: int) -> list[dict]:
-        """Base-packet hook: chapter-scoped continuity events.
-
-        Used by ``compile_base`` when the scene is not yet known. Overlay
-        callers use ``_fetch_continuity_events_for_scene`` to narrow by the
-        scene's POV and characters_present so the drafter does not wade
-        through unrelated rows.
-        """
-        if self.continuity_log is None:
-            return []
-        try:
-            return list(self.continuity_log.events_for_chapter(chapter_number))
-        except Exception:  # noqa: BLE001
-            logger.exception("continuity_log.events_for_chapter failed")
-            return []
-
-    def _fetch_continuity_events_for_scene(
-        self,
-        *,
-        chapter_number: int,
-        scene_id: str | None,
-        scene_card: Mapping[str, Any] | None,
-    ) -> list[dict]:
-        """Overlay hook: chapter events filtered to those whose subject is
-        the POV or among ``characters_present``, bounded to strictly-before
-        ``scene_id`` so the scene does not see its own events (spec \u00a78.1
-        narrow-events invariant \u2014 only prior-state continuity propagates)."""
-        base_rows = self._fetch_continuity_events(chapter_number=chapter_number)
-        if not base_rows:
-            return []
-        if scene_card is None:
-            return base_rows
-        subjects: set[str] = set()
-        pov = scene_card.get("pov_character")
-        if isinstance(pov, str) and pov:
-            subjects.add(pov)
-        for char in scene_card.get("characters_present") or []:
-            if isinstance(char, str) and char:
-                subjects.add(char)
-        if not subjects:
-            return base_rows
-        out: list[dict] = []
-        for row in base_rows:
-            if row.get("subject") in subjects and not _scene_id_strictly_at_or_after(
-                row.get("scene_id"), scene_id,
-            ):
-                out.append(row)
-        return out
-
-    def _fetch_relationship_context(self, *, chapter_number: int) -> dict:
-        """Base-packet hook: chapter-scoped relationship snapshot.
-
-        Used by ``compile_base`` before the scene is known. Overlay callers
-        go through ``_fetch_relationship_context_for_scene`` so the POV /
-        characters_present filter is applied per Slice 5.
-        """
-        if self.sociogram is None:
-            return {}
-        try:
-            return dict(self.sociogram.snapshot_for_chapter(chapter_number))
-        except Exception:  # noqa: BLE001
-            logger.exception("sociogram.snapshot_for_chapter failed")
-            return {}
-
-    def _fetch_relationship_context_for_scene(
-        self, *, chapter_number: int, scene_card: Mapping[str, Any] | None,
-    ) -> dict:
-        """Overlay hook: prefer the Sociogram's ``context_for_scene`` when
-        available (narrows to POV + characters_present dyads); otherwise
-        fall back to the chapter-scoped snapshot."""
-        if self.sociogram is None:
-            return {}
-        method = getattr(self.sociogram, "context_for_scene", None)
-        if callable(method) and scene_card is not None:
-            try:
-                return dict(method(scene_card=scene_card))
-            except Exception:  # noqa: BLE001
-                logger.exception("sociogram.context_for_scene failed")
-        return self._fetch_relationship_context(chapter_number=chapter_number)
-
     def _render_flat_context_snapshot(self, scene_card: Mapping[str, Any]) -> str:
         """Inline the legacy ContextAssembler output so the packet is a strict
         token-superset of flat. Missing assembler \u2192 empty string; callers who
@@ -814,7 +720,6 @@ def _enrich_pov_arc_pressure_for_scene(
     return enriched
 
 
-_SCENE_ID_RE = re.compile(r"^ch(\d{2})_sc(\d{2})$")
 _PLANNING_ID_RE = re.compile(r"\b(?:R\d{2}[a-z]?|H\d{2}|PP\d{2}|SP-[A-Z]|SP\d+)\b")
 
 _MODEL_FACING_SCENE_CARD_OMIT_KEYS = {
@@ -829,18 +734,6 @@ _MODEL_FACING_SCENE_CARD_OMIT_KEYS = {
     "hook_actions",
     "revelations",
 }
-
-
-def _scene_id_strictly_at_or_after(scene_a: str | None, scene_b: str | None) -> bool:
-    """True when ``scene_a`` is >= ``scene_b``. Used by the overlay's
-    continuity filter to keep a scene from seeing its own events."""
-    if not scene_a or not scene_b:
-        return False
-    ma = _SCENE_ID_RE.match(scene_a)
-    mb = _SCENE_ID_RE.match(scene_b)
-    if ma is None or mb is None:
-        return False
-    return (int(ma.group(1)), int(ma.group(2))) >= (int(mb.group(1)), int(mb.group(2)))
 
 
 def _model_facing_scene_card(scene_card: Mapping[str, Any]) -> dict:

@@ -1,27 +1,19 @@
 # Benchmarking
 
-> **Status note (2026-04-21):** Treat the archived `BENCH_*` outputs and April 17-19 routing summaries as **historical only**. Ruusan's concept seed, chapter blueprints, scene cards, and prompt stack have all been materially revised since those benches were run. Do **not** use the older results as the sole basis for a production routing change; re-bench on current inputs first.
+> **Status note.** Bench numbers go stale fast. The pipeline shape changed materially in the 2026-05-19 lean teardown (gates, polish, save-blockers removed), and Ruusan's planning artifacts and prompt stack have been revised repeatedly. **All pre-2026-04-21 bench numbers are invalidated.** Before making any drafter or line-editor routing decision, re-run the target scene under the current config to re-establish a baseline. Treat archived `BENCH_*` outputs as historical only.
 
-Two benchmarking tools live in the repo:
-
-1. **`scripts/bench_prose_models.py`** — single-scene, same-brief, model-A/B/C comparison for the `prose_stylist` (and optionally `plot_architect` and `quality_polish`) roles.
-2. **`--skip-gate-loop` CLI flag** — runs the non-lean pipeline on real scene cards without the GateCritic LLM telemetry call, so "stripped" pipeline behaviour can be compared against the full telemetry path with the same config.
-
-Both are designed for **apples-to-apples model evaluation**: swap one lever at a time and compare outputs on the same scene card with the same generation brief. Older benches remain useful as historical artifacts, but after a material planning or prompt revision they should be treated as stale until rerun on the current inputs.
-
----
+`scripts/bench_prose_models.py` is the single benchmarking tool: a single-scene, same-brief model A/B/C comparison for the `prose_stylist` role, with optional line-edit, rhythm-edit, and final-copy passes layered on top. It is designed for **apples-to-apples model evaluation** — swap one lever at a time and compare outputs on the same scene card with the same generation brief.
 
 ## When to bench
 
 Run a bench when you:
 
-- Want to swap the `prose_stylist` model (or `plot_architect`, or `quality_polish`) and need to know if the new model's voice, word-count discipline, and ensemble handling hold up against the current production pick.
-- Are deciding whether GateCritic telemetry is worth its cost on a specific scene archetype.
-- Need a defensible artifact to justify the routing choice for arc-critical scenes (midpoint, pinch points, climax) that justify a more expensive model.
+- Want to swap the `prose_stylist` model (or `plot_architect`, `line_writer`) and need to know whether the new model's voice, word-count discipline, and rhythm metrics hold up against the current production pick.
+- Need a defensible artifact to justify a routing choice for arc-critical scenes (midpoint, pinch points, climax) that might justify a more expensive model.
 
-Skip a bench for purely mechanical changes (bug fixes, logging, non-behavioral refactors) — use the test suite and `--raw-draft` runs instead. If you changed the concept seed, scene cards, franchise profile, prompt stack, or routing around the role you are evaluating, the prior bench is no longer authoritative.
+Skip a bench for purely mechanical changes (bug fixes, logging, non-behavioral refactors) — use the test suite instead. If you changed the concept seed, scene cards, franchise profile, prompt stack, or routing around the role you are evaluating, the prior bench is no longer authoritative.
 
----
+Word-count discipline remains the load-bearing metric; rhythm metrics (`--rhythm-metrics`) are the secondary signal. Collect cost numbers fresh — do not compare against archived bench tables.
 
 ## `scripts/bench_prose_models.py` — single-scene model matrix
 
@@ -33,185 +25,84 @@ One `plot_architect` call produces one generation brief; the script then calls `
 python scripts/bench_prose_models.py \
     --concept-seed data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/concept_seed.json \
     --scene-card   data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/scene_cards/chapter_01_scene_01.json \
-    --run-name     bench-2026-04-17-prose
+    --run-name     bench-prose
 ```
 
-Default config: `config/settings.yaml`. Output lands at `output/<franchise>/<book>/runs/<run_name>/`.
+Output lands at `output/<franchise>/<book>/runs/<run_name>/`.
 
 ### Flags
 
 | Flag | Description |
 |------|-------------|
-| `--concept-seed PATH` | Concept seed JSON (franchise-scoped path). Required. |
+| `--concept-seed PATH` | Concept seed JSON. Default: the Ruusan seed. |
 | `--scene-card PATH` | Scene card JSON. The script benches prose for exactly this scene. |
-| `--run-name NAME` | Output directory name under `runs/`. Use a descriptive slug so bench artifacts are easy to find later. |
-| `--config PATH` | Path to a settings YAML. Default: `config/settings.yaml`. Pass `config/bench/settings.bench.sonnet.yaml` or `config/bench/settings.bench.gpt.yaml` to freeze the surrounding pipeline. |
-| `--models FILTER` | Comma-separated list of model labels or short names to include (e.g. `deepseek,kimi26,qwen`). Default: run all configs currently listed in `BENCH_CONFIGS`. |
-| `--reuse-brief-from PATH` | Path to an existing `generation_brief.json` to reuse instead of calling `plot_architect`. Keeps a bench apples-to-apples with a prior run. |
-| `--plot-architect-model SHORT` | Override `plot_architect` routing (e.g. `grok420`). Ignored when `--reuse-brief-from` is set. |
-| `--polish-model SHORT` | Run `quality_polish` on each prose output with the named model (e.g. `haiku`). Writes a separate `<label>__POLISHED.md` file. |
-
-### Default model matrix
-
-The script benches the configurations listed in `BENCH_CONFIGS` by default. Short names map to full OpenRouter slugs:
-
-| Short | Full | Current use |
-|-------|------|-------------|
-| `claude` | `anthropic/claude-sonnet-4.6` | Former production prose / bench candidate |
-| `haiku` | `anthropic/claude-haiku-4.5` | Legacy judge/polish candidate |
-| `deepseek` | `deepseek/deepseek-v4-flash` | Summarizer, lore_extractor |
-| `deepseekpro` | `deepseek/deepseek-v4-pro` | Current lean production prose |
-| `qwen` | `qwen/qwen3.6-plus` | Bench-only |
-| `kimi` | `moonshotai/kimi-k2.5` | Bench candidate |
-| `kimi26` | `moonshotai/kimi-k2.6` | Bench-only |
-| `grok420` | `x-ai/grok-4.20` | Canon expert, judge_evaluator |
-| `grok41fast` | `x-ai/grok-4.1-fast` | GateCritic / FinalGate / PresenceChecker / orchestration |
-| `glm` | `z-ai/glm-5.1` | Bench-only |
-| `minimax` | `minimax/minimax-m2.7` | Prose candidate |
-| `mimo25pro` | `xiaomi/mimo-v2.5-pro` | Bench-only |
-| `gpt54` | `openai/gpt-5.4` | Manuscript reviewer / literary donor branch / bench candidate |
-| `gpt54mini` | `openai/gpt-5.4-mini` | Current lean LineWriter / bench candidate |
-| `gemini` | `google/gemini-3.1-pro-preview` | Plot architect, outline planner |
-| `gemini_flash` | `google/gemini-3-flash-preview` | Bench-only |
-
-Each default config runs at `temperature=0.70` on the prose call (with a `claude` variant at 0.80 retained to compare against past production config). Override via the `BENCH_CONFIGS` list in the script when you need a different temperature sweep.
-
-### Cost and runtime
-
-The script prints a per-call cost estimate and a grand-total line at the end. Indicative costs per scene (1,250-1,600 word target):
-
-| Model | Cost | Notes |
-|-------|------|-------|
-| `deepseek` | ~$0.003 | Cheapest; reliable word-count discipline |
-| `gemini_flash` | ~$0.009 | Cheap; occasionally truncates |
-| `grok420` | ~$0.025 | Good commercial register, ~half the cost of Sonnet |
-| `claude` (Sonnet 4.6) | ~$0.04-0.05 | Best commercial register + best word-count discipline |
-| `gpt54` | ~$0.05-0.06 | Sharpest sentence punch; overshoots word count 134%+ |
-
-A focused comparison run is usually cheap, but the full default matrix changes as new candidates are added. Budget roughly `$0.50-$1.00` for a thorough single-scene model sweep and `$2-$3` for a full-chapter A/B.
+| `--run-name NAME` | Output directory name under `runs/`. Use a descriptive slug. |
+| `--config PATH` | Settings YAML. Default: `config/settings.yaml`. Pass a `config/bench/*.yaml` snapshot to freeze the surrounding pipeline. |
+| `--models FILTER` | Comma-separated model labels/short names to include (e.g. `deepseekpro,gpt54`). Default: run all configs in `BENCH_CONFIGS`. |
+| `--reuse-brief-from PATH` | Reuse an existing `generation_brief.json` instead of calling `plot_architect`. Keeps a second bench wave apples-to-apples with the first. |
+| `--plot-architect-model SHORT` | Override `plot_architect` routing. Ignored when `--reuse-brief-from` is set. |
+| `--line-edit-model SHORT[,SHORT]` | Run `LineWriter` on each prose output with the named model(s). Skips the line edit when omitted. |
+| `--line-edit-temperature FLOAT` | Temperature for `--line-edit-model`. Default: `0.35`. |
+| `--final-copy-model SHORT` | Run the post-draft literary-copy pass with the named model. Skips final-copy artifacts when omitted. |
+| `--final-copy-temperature FLOAT` | Temperature for `--final-copy-model`. Default: `0.45`. |
+| `--rhythm-metrics` | Compute RhythmValidator metrics (em-dash density, short-sentence runs, opener variance, dialogue-bearing fraction, abstract-tic density) for every prose variant and embed them in `bench_summary.json`. |
+| `--rhythm-edit` | After ProseStylist (and optional line edit), run the RhythmEditor pass with bounded literal edits; pre/post metrics are recorded. |
+| `--rhythm-edit-model SHORT` | Model override for the RhythmEditor pass. Defaults to the `rhythm_editor` routing. |
+| `--rhythm-edit-temperature FLOAT` | Temperature for the RhythmEditor call. Default: `0.2`. |
+| `--rhythm-edit-max-edits INT` | Max applied edits per scene. Default: `8`. |
+| `--rhythm-edit-max-total-changed-chars INT` | Max cumulative changed characters. Default: `1500`. |
+| `--rhythm-edit-max-changed-ratio FLOAT` | Max changed characters as a ratio of prose length. Default: `0.15`. |
 
 ### Output layout
 
 ```
 output/<franchise>/<book>/runs/<run_name>/
-├── bench_summary.json              # Machine-readable results (words, cost, tokens, paths)
+├── bench_summary.json              # Machine-readable results (words, cost, tokens, rhythm metrics, paths)
 ├── generation_brief.json           # The single shared plot_architect output
 ├── <label>.md                      # One markdown file per model config
-├── <label>__POLISHED.md            # (optional, when --polish-model is used)
 └── ...
 ```
 
-The script restores the original routing before exiting, so running a bench does not leak configuration changes into subsequent runs.
+The script prints a per-call cost estimate and a grand total, then restores the original routing before exiting, so a bench does not leak configuration changes into subsequent runs.
 
 ### Reusing an existing brief
 
-To A/B a second wave of models against the same brief the first wave used:
+To A/B a second wave of models against the brief the first wave used:
 
 ```bash
 python scripts/bench_prose_models.py \
     --concept-seed ... --scene-card ... \
-    --run-name bench-2026-04-17-prose-v2 \
-    --reuse-brief-from output/.../runs/bench-2026-04-17-prose/generation_brief.json \
-    --models grok420,glm,gpt54
+    --run-name bench-prose-v2 \
+    --reuse-brief-from output/.../runs/bench-prose/generation_brief.json \
+    --models gpt54,deepseekpro
 ```
-
----
-
-## `--skip-gate-loop` - full-vs-stripped telemetry comparison
-
-GateCritic adds cost and latency even though it no longer controls retries. For a given prose-stylist model, the `--skip-gate-loop` flag skips that LLM call and synthesizes a `skipped` verdict, so you can measure:
-
-- Whether GateCritic telemetry changes downstream polish decisions enough to matter.
-- Whether gate findings are worth collecting on scenes that were already passable.
-
-In non-lean runs, QualityPolish and FinalGate still run unless combined with `--raw-draft`. In lean runs, broad gates and polish are already skipped by `runtime.lean_prose_only`.
-
-### Example: full vs stripped on Chapter 1
-
-```bash
-# Full telemetry path - Sonnet prose with GateCritic call
-python -m src.main \
-    data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/concept_seed.json \
-    data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/scene_cards \
-    --franchise star-wars-legends-eu --book the-ruusan-atonement \
-    --chapter 1 --config config/bench/settings.bench.sonnet.yaml \
-    --run-name bench-ch1-sonnet-FULL
-
-# Stripped telemetry path - same config, no GateCritic call
-python -m src.main \
-    data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/concept_seed.json \
-    data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/scene_cards \
-    --franchise star-wars-legends-eu --book the-ruusan-atonement \
-    --chapter 1 --config config/bench/settings.bench.sonnet.yaml \
-    --skip-gate-loop \
-    --run-name bench-ch1-sonnet-STRIPPED
-```
-
-Repeat both with `config/bench/settings.bench.gpt.yaml` to produce the four-cell matrix (model × pipeline depth). The `runs/` directory becomes self-documenting:
-
-```
-runs/
-├── bench-ch1-sonnet-FULL/
-├── bench-ch1-sonnet-STRIPPED/
-├── bench-ch1-gpt-FULL/
-└── bench-ch1-gpt-STRIPPED/
-```
-
-Each run saves its own `config_snapshot.yaml`, `invocation.json`, and `prompts_snapshot/` alongside the generated chapters.
-
----
 
 ## Bench configs
 
-Frozen routing snapshots live in `config/bench/`:
+Frozen routing snapshots live in `config/bench/` (e.g. `settings.bench.sonnet.yaml`, `settings.bench.gpt.yaml`). They freeze the surrounding pipeline so only the lever under test changes. `config/bench/experimental-model-aliases.yaml` is the alias reference for candidates that are not part of the shipping routing in `config/settings.yaml`.
 
-- **`config/bench/settings.bench.sonnet.yaml`** — `prose_stylist` on Sonnet 4.6 @ t=0.70, `plot_architect` on Grok 4.20, `quality_polish` on Haiku 4.5.
-- **`config/bench/settings.bench.gpt.yaml`** — identical except `prose_stylist` on GPT 5.4 @ t=0.70, and adds `gpt54: openai/gpt-5.4` to the cloud models map.
-
-Both have Anthropic prompt caching enabled (`anthropic_ttl: 1h`) so repeated scene runs in the same chapter batch amortize input cost.
-
-These two bench configs intentionally omit the `runtime:` block, so CLI runs with them execute the non-lean relay. They are comparison fixtures, not the shipping routing in `config/settings.yaml`.
-
-Add new bench configs as `config/bench/settings.bench.<label>.yaml` when introducing a new prose candidate for chapter-scale comparison.
-Use `config/bench/experimental-model-aliases.yaml` as the bench-only alias reference when adding candidates that are not routed by `config/settings.yaml`.
-
----
+Add a new bench config as `config/bench/settings.bench.<label>.yaml` when introducing a new prose candidate for chapter-scale comparison. Bench runs use the lean pipeline — there is no separate non-lean path; a bench config simply leaves the optional rhythm/debt flags off unless the bench targets them.
 
 ## Writing up a bench
 
-Every meaningful bench should land a short markdown summary alongside its outputs. The existing analyses in `output/star-wars-legends-eu/the-ruusan-atonement/runs/` are the canonical examples:
+Every meaningful bench should land a short markdown summary alongside its outputs. Each summary should contain:
 
-| File | What it covers |
-|------|----------------|
-| `BENCH_SUMMARY_2026-04-17.md` | First prose-model sweep (v1): raw cost/words per model |
-| `BENCH_SUMMARY_2026-04-17-v2.md` | Expanded analysis (v2): adds tier list and anti-pattern compliance |
-| `BENCH_SUMMARY_2026-04-17-v3.md` | Sonnet at t=0.70 added; updates recommendation after temp correction |
-| `BENCH_PIPELINE_ANALYSIS.md` | Step-by-step Grok-architect + Sonnet/GPT-prose + Haiku-polish pipeline analysis |
-| `GATE_LOOP_COMPARISON.md` | Historical full-vs-stripped pipeline analysis using `--skip-gate-loop` |
-
-Each summary should contain:
-
-1. **Test configuration** — which models at which temperatures, which scenes, total cost.
-2. **Raw numbers** — words, coverage vs target, duration, cost per call.
+1. **Test configuration** — which models at which temperatures, which scene, total cost.
+2. **Raw numbers** — words, coverage vs target, duration, cost per call, rhythm metrics.
 3. **Qualitative observations** — voice, register, ensemble handling, anti-pattern compliance, word-count discipline.
-4. **Tier list or ranking** — which models are production-ready, which are disqualified, why.
-5. **Recommendation** — a concrete proposed change to `config/settings.yaml` or a decision to leave the routing as-is.
+4. **Ranking** — which models are production-ready, which are disqualified, why.
+5. **Recommendation** — a concrete proposed change to `config/settings.yaml`, or a decision to leave routing as-is.
 
-Keep summaries dated. The `v2`, `v3` suffix convention is fine when you need to revise a prior analysis.
-
----
+Keep summaries dated.
 
 ## What the bench does *not* do
 
-- It does **not** bench agents other than `prose_stylist`, `plot_architect`, and (optionally) `quality_polish`. Benching `gate_critic`, `canon_expert`, `summarizer`, or `judge_evaluator` requires a different harness.
-- It does **not** validate franchise canon. Use a human reviewer or `canon_expert` with the normal pipeline for that.
-- It does **not** replace the `--judge` LLM-as-judge evaluation — the judge runs on full saved chapters, the bench runs on raw prose-stylist output.
+- It benches the `prose_stylist` role (with optional `plot_architect`, `line_writer`, `rhythm_editor`, and final-copy layers). Benching `summarizer` or other utilities requires a different harness.
+- It does **not** validate franchise canon — use a human reviewer or the canon-guidance preflight for that.
+- It does **not** run the full post-save memory chain; it benches scene prose, not chapter memory or state diffs.
 
 ## Pointers
 
 - Script: [`scripts/bench_prose_models.py`](../../scripts/bench_prose_models.py)
-- Bench configs: [`config/bench/settings.bench.sonnet.yaml`](../../config/bench/settings.bench.sonnet.yaml), [`config/bench/settings.bench.gpt.yaml`](../../config/bench/settings.bench.gpt.yaml)
-- Analyses: `output/star-wars-legends-eu/the-ruusan-atonement/runs/BENCH_*.md`
-- Related CLI flags: [`--skip-gate-loop`](../user-guide/cli-usage.md#pipeline-mode-flags), `--raw-draft`, `--judge`
-- Historical routing rationale: [`docs/archive/model-selection-and-cost-review-2026-04-17.md`](../archive/model-selection-and-cost-review-2026-04-17.md)
+- Bench configs: [`config/bench/`](../../config/bench/)
 - Current production workflow: [`docs/user-guide/new-manuscript-workflow.md`](../user-guide/new-manuscript-workflow.md)

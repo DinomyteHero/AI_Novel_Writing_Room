@@ -12,16 +12,16 @@ git clone https://github.com/DinomyteHero/AI_Novel_Writing_Room.git
 cd AI_Novel_Writing_Room
 pip install -r requirements.txt
 cp .env.example .env            # then fill in OPENROUTER_API_KEY
-pytest -q                       # ~1,950 tests, ~2 minutes
+pytest -q                       # full suite, ~2 minutes
 ```
 
 ## Before you open a PR
 
 - **Read [CLAUDE.md](CLAUDE.md) first** if your change touches the agent
-  pipeline, save-blocker layer, runtime flags, or any of the trusted-state
-  stores. The forward-only relay has hard rules — most importantly, **don't
-  re-introduce retry loops** and **keep the save-blocker layer as the only
-  hard-failure path**.
+  pipeline, the chapter packet, runtime flags, or any of the trusted-state
+  stores. The lean pipeline has hard rules — most importantly, **don't
+  re-introduce gates, a save-blocker layer, or retry loops**. The per-scene
+  pipeline is a single forward pass.
 - **Tests matter.** Add tests for new behaviour. Run the full suite locally;
   CI will run it again.
 - **Don't add comments explaining what the code does** — well-named
@@ -41,7 +41,7 @@ through [SECURITY.md](SECURITY.md), not the public issue tracker.
 
 - **Bug fixes** — always.
 - **New agents or pipeline stages** — please discuss in an issue first; the
-  forward-only-relay invariant constrains where new stages can live.
+  lean single-pass invariant constrains where new stages can live.
 - **Documentation improvements** — always welcome, and a good first PR.
 - **New franchise worked-examples** — welcome, but follow the IP posture in
   [DISCLAIMER.md](DISCLAIMER.md): non-commercial, transformative,

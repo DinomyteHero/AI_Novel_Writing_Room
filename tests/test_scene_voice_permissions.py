@@ -3,7 +3,6 @@
 from src.prompting.scene_voice_permissions import (
     detect_legacy_voice_fields,
     normalize_scene_voice_permissions,
-    render_canon_voice_permissions,
     render_scene_voice_contract,
 )
 
@@ -115,35 +114,3 @@ def test_render_scene_voice_contract_uses_generic_permission_copy():
     assert "### Heightened Interiority Permission" in rendered
     assert "Heightened interior density is not permitted in this scene" in rendered
     assert "Stover" not in rendered
-
-
-def test_render_canon_voice_permissions_only_surfaces_true_stover_flag():
-    rendered = render_canon_voice_permissions({
-        "notes": "Use one consistent metaphor.",
-        "anti_patterns": ["No exposition dump"],
-        "stover_permitted": True,
-    })
-
-    assert "Scene-Level Voice Permissions" in rendered
-    assert "Use one consistent metaphor." in rendered
-    assert "stover_permitted: true" in rendered
-    assert "Stover-style prose intensity" in rendered
-    assert "- No exposition dump" in rendered
-
-
-def test_render_canon_voice_permissions_supports_generic_authorized_mode():
-    rendered = render_canon_voice_permissions({
-        "scene_voice_permissions": {
-            "notes": "Sharper inward pressure is allowed here.",
-            "authorized_modes": ["heightened_interiority"],
-        }
-    })
-
-    assert "authorized_modes: heightened_interiority" in rendered
-    assert "heightened interior density" in rendered
-    assert "Stover-style" not in rendered
-
-
-def test_render_canon_voice_permissions_omits_section_for_false_only():
-    rendered = render_canon_voice_permissions({"stover_permitted": False})
-    assert rendered == ""

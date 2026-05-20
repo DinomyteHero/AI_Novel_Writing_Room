@@ -1,154 +1,65 @@
 # Quality and Revision
 
-Current production defaults to lean mode, where the per-scene refinement stack is bypassed and LineWriter is the only post-draft scene edit. Quality and revision decisions then move to the full-manuscript lifecycle: GPT-5.4 review, targeted revision, targeted cleanup, final docket pass, and deterministic validation.
+The lean pipeline runs **no save-time quality gate**. Prose flows through a single forward pass and saves directly — there is no GateCritic, no QualityPolish, no FinalGate, no save-blocker layer, and no retry loop.
 
-The system uses pure-Python quality metrics (no LLM calls) to score scenes, then runs a bounded LLM refinement pass (QualityPolish) whose output is checked by a compression guard and a Final Gate before it is saved. Under the forward-only relay, FinalGate verdicts are **advisory**: the polished prose is saved unless the compression guard reverts to the gate-passed draft or the save-blocker layer fires. The only hard-failure path is save-blockers (CHARACTER_PRESENCE_BLOCKER, CANON_BLOCKER critical/moderate, POV advisory), which quarantines the scene and aborts the run.
+Quality is a planning-and-prompt problem, not a retry problem. The structural framework (Brooks beat map + Weiland arc map + the scene contract) is enforced **upstream**, at planning and scene-card validation time. The chapter packet hands the drafter a single inspectable runtime contract so it can land the scene on the first pass. The remaining quality machinery is **advisory** (deterministic telemetry written to a human-review store) or **post-production** (manuscript-level review that runs after a draft is complete).
 
-> **Note — pipeline redesign.** Earlier builds ran a multi-band revision pipeline (StructuralContinuity → SceneEmotion → LineCopy → optional DialoguePolish / WorldbuildingCoherence) after the Gate. That pipeline has been removed entirely. Polish is now a single pass followed by a Final Gate advisory and the save-blocker layer. The old `prompts/revision_prompts/` directory and `src/revision/` module that backed the revision bands have both been deleted; older docs that reference them describe a dead code path.
+## Quality enforced upstream
 
-## Quality Metrics
+The drafter never sees a save-time gate, so the leverage moves earlier:
 
-`src/quality/metrics_dashboard.py` aggregates 4 independent checkers:
+- **Workflow kit + `compile_bundle.py`.** Each surface validates against its schema; the bundle compiler runs JSON-schema validation and cross-surface reference validation. Bad scene cards fail a `--strict` compile.
+- **Preflight.** `scripts/preflight_run.py` runs deterministic checks on planning artifacts before any LLM call — scene-card schema validity, cross-surface references, canon-guidance coverage.
+- **Chapter packet.** `src/pipeline/chapter_packet.py` composes the drafter's runtime contract from the blueprint, seed, scene card, and trusted state. A drafter working from a complete, inspectable contract is the lean pipeline's substitute for a corrective gate.
 
-### RepetitionDetector (`src/quality/repetition_detector.py`)
+## Deterministic prose telemetry (advisory)
 
-Detects repetitive patterns:
-- Word frequency analysis (over-used words)
-- N-gram repetition (repeated phrases)
-- Paragraph-opening similarity (varied opener diversity)
-- Semantic similarity between paragraphs (via embeddings when available)
+Two pure analyzers measure prose without an LLM call. Both are default-off so shipping books keep current behavior until a per-book review approves the telemetry surface. Neither can block or mutate a save.
 
-Configurable parameters (set via constructor or loaded from concept seed `quality_overrides`):
-- `word_frequency_allowlist` — franchise-specific words excluded from overuse detection (e.g., "Force", "lightsaber" for Star Wars). Case-insensitive.
-- `semantic_similarity_threshold` — cosine similarity above which paragraph pairs are flagged (default: 0.85). Raise for franchise-dense prose.
-- `adjacency_window` — when set, only compares paragraphs within N positions of each other, reducing false positives from distant thematic echoes.
+### RhythmValidator (`src/quality/rhythm_validator.py`)
 
-### PacingAnalyzer (`src/quality/pacing_analyzer.py`)
+Pure measurement of five rhythm metrics:
 
-Measures prose rhythm:
-- Sentence length variance (monotonous vs. varied)
-- Dialogue ratio (balance of dialogue to narration)
-- Scene type classification
-- Event density (action pacing) -- thresholds recalibrated from (2-10)/1k words to (20-65)/1k words to better reflect the density of well-paced fiction
+- em-dash density per 1,000 words
+- consecutive short-sentence runs (staccato clusters)
+- default-opener percentage (He/She/They/It/The/There)
+- dialogue-bearing paragraph percentage
+- abstract-construction tic density (the "particular X" family, "something adjacent", "not quite Y", etc.)
 
-### VoiceChecker (`src/quality/voice_checker.py`)
+Default thresholds are calibrated against the *Scoundrels* (Zahn, 2013) corpus baseline. The validator returns a `RhythmResult` and emits issues at `low` (advisory band) or `medium` (warn band) as revision-debt rows of category `prose.rhythm.*`. Runtime flag: `runtime.rhythm_validator.enabled` (default false). When `runtime.rhythm_editor.enabled` is also on, `RhythmEditor` consumes the issues and proposes bounded literal edits — see [Agent Pipeline](agent-pipeline.md#5-rhythm-validation--edit-optional-advisory).
 
-Enforces style constraints from `config/negative_constraints.yaml`:
-- Banned phrase detection (faux profundity, sensory cliches, magic adverbs, AI tells)
-- Adverb density limits
-- Metaphor cooldown (distance between figurative language)
-- Voice fidelity scoring
+### CrossChapterContinuityValidator (`src/quality/cross_chapter_validator.py`)
 
-In Phase 5, per-project voice definition rules from the concept seed's `voice_definition` field (defined during the Concept Workshop's Voice Discovery step) are merged with the static negative constraints, enabling project-specific anti-slop rules and anti-patterns.
+A pre-draft check that walks the ordered scene-card list at bundle-compile time and flags **declared** discontinuities in character state, location, and plot-object holders. It only fires on declared contradictions — silence is not a continuity break. It recognizes `_NATURAL_TRANSITIONS` (alive→wounded, alive→dead) and `_REQUIRES_BRIDGE` transitions (dead→alive) where an off-page event must explain the change. Findings land as revision-debt rows of category `prose.continuity.*`. Runtime flag: `runtime.continuity_validator.enabled` (default false).
 
-### SlopDetector (`src/quality/slop_detector.py`)
+## Revision-debt store
 
-Identifies AI-typical writing patterns:
-- AI-tell word lists (from negative constraints)
-- Burstiness scoring (unnatural pattern repetition)
-- Show-don't-tell flagging
-- Filler pattern detection
+`src/pipeline/revision_debt.py` (`RevisionDebtStore`) persists structured advisories to `output/<franchise>/<book>/state/revision_debt.db` (separate from `story_state.db` to keep that file's migration surface stable). It is a structured store for human triage — **nothing in the save path reads it to decide whether to save**.
 
-### Scoring
+- The `category` enum is **closed** — `CATEGORIES` in the module and the `enum` in `schemas/revision_debt.json` stay in lockstep; `store.add` raises on an unknown category.
+- `owner_or_reviewer_notes` is human-only: an agent attempting to write to it raises.
+- Every advisory stage routes through a wrapper in `src/pipeline/revision_debt_producers.py` (`emit_rhythm_advisory`, `emit_continuity_break`, `emit_metric_advisory`, etc.). Wrappers short-circuit to noop when `runtime.revision_debt.enabled` is false; the orchestrator never calls `store.add` directly.
+- `src/pipeline/chapter_memos.py` synthesizes debt + pending promises into per-chapter and milestone human-review memos. The CLI at `scripts/debt_cli.py` supports `list`, `update`, `memo chapter`, and `memo milestone`.
 
-MetricsDashboard runs all 4 checkers and computes a weighted average:
-- Each checker contributes 0.25 weight
-- Pass threshold: overall score >= 0.6
-- Results are stored in the chapter log
+`runtime.revision_debt.enabled` is default-off pending per-book sign-off.
 
-### Structured Quality Flags
+## Anti-slop constraints
 
-Quality metrics produce structured flags that are passed to QualityPolish so the refinement pass can target specific issues instead of rewriting broadly:
+`config/negative_constraints.yaml` defines banned phrases (faux profundity, sensory clichés, magic adverbs, AI-tells) and structural rules (adverb density, sentence-length variance, repeated-opener ceiling, metaphor cooldown). The `ContextAssembler` bakes the banned-phrase list into the drafter's prompt, so anti-slop guidance reaches the drafter at draft time rather than being checked after the fact. Per-project voice rules from the concept seed's `voice_definition` are merged with these static constraints.
 
-- **flagged_words**: A dictionary of overused words with counts (e.g., `{"whispered": 7, "nodded": 5}`). Passed to QualityPolish for targeted replacement with count context.
-- **description_ratio**: The ratio of descriptive narration to total prose. When this exceeds 0.60 (60% description), it is passed to QualityPolish to trigger description rebalancing.
+## Scene-contract validator (bench / diagnostic)
 
-### Cross-Scene Overused Word Tracker
+`src/quality/scene_contract_validator.py` + `src/quality/literal_repair.py` provide deterministic per-scene contract checks (turning point present, characters present, structural-phase-appropriate moves). They are **not** in the per-scene shipping path — `scripts/validate_scene_contract.py` runs them as a standalone diagnostic for recovery work.
 
-A manuscript-level tracker aggregates overused words across all generated scenes (not just per-chapter). After each chapter, newly flagged words are merged into the tracker. These accumulated overused words are dynamically injected into the Prose Stylist prompt for subsequent scenes, helping the drafting agent proactively avoid manuscript-level repetition patterns.
+## Manuscript-level review (post-production)
 
-## Full Relay Refinement Path: QualityPolish → Compression Guard → Final Gate
+After the per-scene pipeline finishes and prose is saved, manuscript-level editorial passes run separately. They never rewrite prose in place during a drafting run — mutations route through `scripts/patch_workflow.py`.
 
-In non-lean runs, after a draft passes the Scene Gate, the orchestrator runs a single bounded refinement pass and validates its output before saving.
+- **Manuscript reviewer.** `src/agents/manuscript_reviewer.py` consumes the assembled manuscript for a developmental-pass review (the live route uses GPT-5.4). Output becomes an editorial docket; categorized issues can also land in revision-debt rows for human triage.
+- **Literary polish + final copy.** `src/agents/literary_polish.py` + `src/pipeline/final_copy.py` run a higher-tier line-level polish *after* drafting. Targeted cleanup is the default final polish branch; full literary polish is an opt-in donor/comparison branch. Configured under `runtime.final_copy.*`.
 
-### QualityPolish (`src/agents/quality_polish.py`)
-
-A single LLM pass that receives the Gate-passed draft plus the structured quality flags (flagged_words, description_ratio, etc.) and produces a refined version. Unlike the old multi-band pipeline, QualityPolish does not recursively re-edit — it makes one pass and hands off.
-
-### Compression Guard
-
-The orchestrator rejects polish output that significantly drops or compresses material relative to the Gate-passed draft. If the polished word count falls below 60% of the gate-passed draft, the saved candidate reverts to the gate-passed draft and `compression_guard_fired` is emitted with `reverted: true`.
-
-### Final Gate (`src/agents/final_gate.py`)
-
-Validates the polished prose against the scene card contract:
-
-- Closing-hook boundary (the scene ends where the card says it should)
-- Turning point is identifiable in the final prose (no polish-induced flattening)
-
-Final Gate emits structural failure codes (`CLOSING_HOOK_VIOLATION`, `MISSING_TURNING_POINT`, `WEAK_TURNING_POINT`) — see [`config/failure_codes.yaml`](../../config/failure_codes.yaml). Under the forward-only relay, a rejection emits a `final_gate_rejection` event tagged `advisory_only` and does not block or retry. Severe compression has already been handled by the compression guard; remaining hard failures are handled by the save-blocker layer.
-
-Forward Relay v4 narrowed FinalGate's scope: `CHARACTER_PRESENCE_VIOLATION` is no longer emitted (PresenceChecker at save time is the sole authority), and word-count enforcement moved to `src/pipeline/word_count_telemetry.py` at chapter-close. Only closing-hook and turning-point regression remain.
-
-### Retry loops — removed (Stage 1a)
-
-The old per-gate retry loops have been neutered. Scene Gate and Final Gate now run exactly once per scene and emit telemetry only; the orchestrator does not branch back to ProseStylist on failure. The `max_structural_retries` and `max_voice_retries` keys in `config/settings.yaml` are set to `0` and kept only for rollback; setting them higher has no effect in the current orchestrator. Structural/voice/polish failure codes are still useful as ledger signals and bench diagnostics, but they do not gate the save.
-
-The single hard stopping point is the save-blocker layer (see [`src/pipeline/save_blockers.py`](../../src/pipeline/save_blockers.py)): when a CHARACTER_PRESENCE or CANON (critical/moderate) blocker fires, the run aborts and the offending scene is written to `<project>/quarantine/chNN_scMM/{prose.md, blockers.json, brief.json}`.
-
-## Milestone Gates
-
-`src/quality/milestone_gates.py` pauses the pipeline at structural checkpoints for user approval:
-
-| Milestone | When |
-|-----------|------|
-| first_plot_point | ~25% through the story |
-| midpoint | ~50% through the story |
-| second_plot_point | ~75% through the story |
-
-At each gate:
-1. The pipeline pauses
-2. New phase constraints are displayed
-3. The user approves or rejects
-4. Events are logged to the RunLedger
-
-Milestone gates fire once per structural phase. A `_fired_milestones` set tracks which milestones have already been triggered, preventing duplicate gates when multiple chapters fall within the same structural window (dedup).
-
-In CLI mode, this is an interactive `y/n` prompt. In web mode, a modal appears in the dashboard.
-
-Can be disabled with `--no-milestones`.
-
-## Character Specialist
-
-`src/agents/character_specialist.py` runs out-of-character (OOC) detection on each chapter. It's a supplementary check -- it doesn't block the pipeline. It reports:
-- Characters whose behavior diverges from their established profile
-- Knowledge consistency issues (characters acting on knowledge they shouldn't have)
-- Emotional arc continuity
-
-## LLM Judge (Phase 4)
-
-`src/quality/llm_judge.py` uses a cloud model to evaluate chapters across 5 dimensions defined in `config/eval_rubric.yaml`. This is an expensive evaluation (cloud API call) and is only run when `--judge` is passed.
-
-## Manuscript Reviewer (Phase 5)
-
-`src/agents/manuscript_reviewer.py` performs full-manuscript-level review using dual personas (Literary Critic and Structural Editor). Unlike the per-chapter LLM Judge, the Manuscript Reviewer evaluates the complete work and outputs categorized issues with severity levels (critical/major/minor/suggestion) and an overall recommendation (approve/revise_specific_chapters/major_revision_needed). The live route uses GPT-5.4 for this role.
-
-## Current Manuscript-Level Revision Policy
-
-The manuscript reviewer creates an editorial docket. It does not directly produce the final manuscript.
-
-The current default sequence is:
-
-1. Export the lean manuscript.
-2. Review the full manuscript with GPT-5.4.
-3. Apply targeted revision patches against the docket, including earlier chapters when a clean baseline is desired.
-4. Run targeted cleanup as the default final polish branch.
-5. Run full literary polish only as a donor/comparison branch.
-6. Apply the final docket pass.
-7. Validate the candidate with `scripts/manuscript_final_validation.py`.
-
-The targeted cleanup branch is the production base because it has shown the best balance of readability, tonal fit, and line discipline. Full literary polish can be attractive, but it should be mined for isolated improvements rather than accepted wholesale.
+See [Manuscript Production Lifecycle](manuscript-production-lifecycle.md) for the full operator sequence.
 
 ## Gold Evaluation Corpus
 
-`data/eval_corpus/` contains 3 reference chapters used for calibrating quality metrics. These provide ground-truth baselines for the quality scoring system.
+`data/eval_corpus/` contains reference chapters used to calibrate the deterministic prose analyzers — they provide the ground-truth baselines for the rhythm thresholds.

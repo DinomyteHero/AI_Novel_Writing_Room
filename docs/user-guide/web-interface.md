@@ -17,7 +17,7 @@ python -m src.ui.server <concept_seed> [options]
 | `--phase {1,2,3,4,5}` | `4` | Pipeline phase |
 | `--dev` | off | Enable auto-reload for development |
 
-> **Preview mode.** The web UI currently runs in preview mode — consecutive runs through the dashboard are **not** run-isolated and can overwrite chapter output. The dashboard displays an amber banner to this effect. For production-quality output use the CLI (`python -m src.main`) with `--run-name`, which writes to a per-run directory under `output/<franchise>/<book>/runs/<run_id>/`.
+> **Preview mode.** The web UI is a preview surface. Consecutive runs through the dashboard are **not** run-isolated and can overwrite chapter output; the dashboard shows an amber banner to this effect. Some endpoints predate the 2026-05-19 lean teardown and still expose fields for removed subsystems (see [API Reference](../reference/api-reference.md)). For production-quality output use the CLI (`python -m src.main`) with `--run-name`, which writes to a per-run directory under `output/<franchise>/<book>/runs/<run_id>/`.
 
 Alternatively, use the main CLI with `--server`:
 
@@ -35,33 +35,20 @@ Start, pause, and resume pipeline runs. The form exposes a small, fixed surface:
 - Concept seed path (optional override)
 - Scene cards directory (optional override)
 - Phase selection (1–5)
-- Milestone-gate toggle
-- LLM judge toggle
 
-The REST API (`POST /api/pipeline/start`) accepts more fields (`chapter` filter, `raw_draft`, `strict_lore`, blueprint controls, franchise/book/series scoping) that the form does not surface; use the CLI or hit the API directly for those. See the [API Reference](../reference/api-reference.md).
+The REST API (`POST /api/pipeline/start`) accepts additional fields (`chapter` filter, blueprint controls, franchise/book/series scoping) that the form does not surface; use the CLI or hit the API directly for those. See the [API Reference](../reference/api-reference.md).
 
 ### Event Log
 
-Real-time event stream showing every pipeline action as it happens. Events are delivered via WebSocket and include:
-- Agent start/complete events
-- Gate pass/fail results (advisory under the forward-only relay)
-- State diff commits
-- Milestone gate pauses
+Real-time event stream showing every pipeline action as it happens. Events are delivered via WebSocket and carry a `level` (`info` / `warn` / `error`). They include:
+- Agent start/complete events (PlotArchitect, ProseStylist, LineWriter)
+- Scene-save events (`lean_prose_only_saved`)
+- Chapter-packet compile events
+- Post-save memory events (summarizer, state diff, contradiction scan)
 
 ### Chapter Viewer
 
-Browse generated chapters with formatted prose. View per-chapter data:
-- Full chapter text
-- Quality metric scores
-- Gate critic evaluation
-- LLM judge evaluation (if enabled)
-
-### Quality Dashboard
-
-Visualize quality metrics across the manuscript:
-- Repetition, pacing, voice, and slop scores per chapter
-- Overall manuscript score
-- Charts via Recharts
+Browse generated chapters with formatted prose. View the full chapter text and per-scene word count.
 
 ### Story State
 
@@ -73,10 +60,6 @@ Explore the SQLite story state (Phase 2+):
 - Timeline entries
 - Chekhov's guns (unfired items)
 
-## Milestone Approval
-
-When the pipeline hits a milestone gate (first plot point, midpoint, or second plot point), the pipeline pauses and a modal appears in the dashboard. You can approve or reject to continue or stop the pipeline.
-
 ## WebSocket Events
 
 The dashboard connects to `ws://localhost:8000/ws/pipeline` for real-time events. Events are JSON objects matching the RunLedger format:
@@ -87,8 +70,8 @@ The dashboard connects to `ws://localhost:8000/ws/pipeline` for real-time events
   "chapter_number": 1,
   "scene_number": 1,
   "agent_role": "prose_stylist",
-  "payload": { ... },
-  "timestamp": "2026-04-08T10:30:00"
+  "payload": { "level": "info" },
+  "timestamp": "2026-05-19T10:30:00"
 }
 ```
 

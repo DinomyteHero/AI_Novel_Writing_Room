@@ -73,13 +73,13 @@ def parse_cli_overrides(raw_items: list[str] | None) -> dict:
 
     Example::
 
-        parse_cli_overrides(["runtime.firewall.enabled=true",
-                             "runtime.firewall.successor_classifier.jaccard_threshold=0.4"])
+        parse_cli_overrides(["runtime.rhythm_validator.enabled=true",
+                             "runtime.rhythm_validator.thresholds.em_dash_per_1k=4.0"])
 
     returns::
 
-        {"runtime": {"firewall": {"enabled": True,
-                                  "successor_classifier": {"jaccard_threshold": 0.4}}}}
+        {"runtime": {"rhythm_validator": {"enabled": True,
+                                          "thresholds": {"em_dash_per_1k": 4.0}}}}
     """
     out: dict = {}
     if not raw_items:
@@ -214,7 +214,7 @@ def resolve_flag(
     base_dir: str | Path = ".",
     default: Any = None,
 ) -> Any:
-    """Resolve a single dotted flag key (e.g. ``runtime.firewall.enabled``)."""
+    """Resolve a single dotted flag key (e.g. ``runtime.lean_prose_only.enabled``)."""
     merged = load_runtime_flags(
         concept_seed=concept_seed,
         cli_overrides=cli_overrides,

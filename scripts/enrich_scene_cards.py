@@ -2,9 +2,7 @@
 
 Runs PlotArchitect against each scene card in a (franchise, book) pair and
 writes the generated brief's structured fields back onto the scene card so
-the card itself carries the planning data the drafter needs. After this
-runs, the deterministic brief assembler (src/pipeline/brief_assembler.py)
-can consume the card directly without re-invoking PlotArchitect at runtime.
+the card itself carries the planning data the drafter needs.
 
 Fields promoted from the brief onto the scene card:
 - ``turning_point`` (object) \u2192 scene_card.turning_point_detail
@@ -15,8 +13,8 @@ Fields promoted from the brief onto the scene card:
 
 Legacy string fields (``turning_point: str``, ``emotional_trajectory: str``)
 are left in place \u2014 the dual-phase D2(c) migration keeps them valid until
-a later cut. The brief assembler will prefer the enriched fields when
-present and fall back to the legacy strings when absent.
+a later cut. Downstream consumers prefer the enriched fields when present
+and fall back to the legacy strings when absent.
 
 Usage:
     python scripts/enrich_scene_cards.py \\
@@ -59,7 +57,6 @@ load_dotenv()
 from src.agents.plot_architect import PlotArchitect  # noqa: E402
 from src.memory.context_assembler import ContextAssembler  # noqa: E402
 from src.model_router import ModelRouter  # noqa: E402
-from src.pipeline.brief_assembler import BriefAssembler  # noqa: E402
 from src.project_paths import ProjectPaths  # noqa: E402
 
 
@@ -363,8 +360,7 @@ def _build_offline_brief(card: dict) -> dict[str, Any]:
     turning_detail = _derive_turning_point_detail(card, emotional_arc)
     key_beats = _derive_key_beats(card, emotional_arc, turning_detail)
 
-    assembled = BriefAssembler().assemble(card)
-    brief = dict(assembled.brief)
+    brief: dict[str, Any] = {}
     brief["turning_point"] = turning_detail
     brief["emotional_arc"] = emotional_arc
 

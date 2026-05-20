@@ -2,7 +2,7 @@
 
 > **Status:** experimental research project. Active development; APIs and pipeline shape change between commits.
 
-A multi-agent system that writes novel-length (60–80K word) fiction. A human plans the book through a series of guided chats; a coordinated pipeline of language-model agents then drafts, reviews, polishes, and exports the manuscript — chapter by chapter, with full audit trails.
+A multi-agent system that writes novel-length (60–80K word) fiction. A human plans the book through a series of guided chats; a coordinated pipeline of language-model agents then drafts, line-edits, and exports the manuscript — chapter by chapter, with full audit trails.
 
 It works for franchise fanfiction (with optional canon-aware checking) or wholly original worlds, and is configured per-franchise / per-book.
 
@@ -10,12 +10,12 @@ It works for franchise fanfiction (with optional canon-aware checking) or wholly
 
 If you want the engineering hook before the install instructions, this is it:
 
-- **Forward-only scene relay.** No retry loops. Gates are advisory telemetry. The only hard-failure path is a save-blocker layer that writes failed scenes to a quarantine folder so the run continues or can be patched later.
-- **Declarative trusted-state stores** (promise ledger, sociogram, continuity log) that the drafter sees through a single chapter-packet contract — not through ambient context-soup.
-- **Author-led, not LLM-led, planning.** Six structured surfaces (universe, canon, voice, characters, outline, scene cards) are shaped by the human first; the pipeline only drafts what the author has already settled.
+- **Lean forward-pass pipeline.** One drafting pass per scene — no gates, no retry loops, no save-blocker layer. Quality is enforced *upstream* at planning time, so the drafter lands the scene contract on the first pass.
+- **A single chapter-packet contract.** The drafter sees a declarative, inspectable runtime packet compiled from the blueprint, seed, and scene card — not ambient context-soup. Trusted-state stores (a promise ledger, a revision-debt store) plug into the same packet.
+- **Author-led, not LLM-led, planning.** Structured surfaces (idea session, universe, canon, voice, characters, outline, scene cards) are shaped by the human first; the pipeline only drafts what the author has already settled.
 - **Per-run output isolation** with full prompt + ledger snapshots — every drafting run is reproducible from inputs.
 
-For the architectural details and current slice-by-slice work, see [CLAUDE.md](CLAUDE.md) and [docs/architecture/](docs/architecture/).
+For the architectural details, see [CLAUDE.md](CLAUDE.md) and [docs/architecture/](docs/architecture/).
 
 ## How a book gets made — A to Z
 
@@ -84,7 +84,7 @@ The workflow has three phases. **Phase 1 (planning) is human-driven.** **Phase 2
 
 ### Phase 2 — Production (pipeline-driven)
 
-4. **Preflight.** Deterministic, offline checks before you spend any tokens — schema validity, cross-surface references, canon coverage, presence chains. See [`scripts/preflight_run.py`](scripts/preflight_run.py).
+4. **Preflight.** Deterministic, offline checks before you spend any tokens — schema validity, cross-surface references, canon-guidance coverage. See [`scripts/preflight_run.py`](scripts/preflight_run.py).
 
 5. **Lean drafting run.** The shipping default is the lean per-scene path:
 
@@ -92,7 +92,7 @@ The workflow has three phases. **Phase 1 (planning) is human-driven.** **Phase 2
    PlotArchitect ─▶ ProseStylist (drafter) ─▶ LineWriter ─▶ save
    ```
 
-   Each scene goes through the same forward-only relay. Save-blockers (character presence, canon, POV) are the only thing that can abort the run; everything else is telemetry. The fuller relay (gates, polish, canon expert, micro-repair) is available as opt-in for diagnostic or strict-canon runs.
+   Every scene runs this single forward pass. There are no gates, no save-blocker layer, and no retries — quality is enforced upstream at planning time. See [How the per-scene pipeline works](#how-the-per-scene-pipeline-works).
 
    ```bash
    python -m src.main \
@@ -114,7 +114,7 @@ The workflow has three phases. **Phase 1 (planning) is human-driven.** **Phase 2
 ### Phase 3 — Review and polish (human + pipeline)
 
 7. **Full manuscript review.** A GPT-5.4 read of the whole manuscript produces an editorial docket — pacing flags, motif over-use, voice drift, structural problems.
-8. **Targeted revision.** The docket is converted into concrete per-chapter edits, applied as a narrow rewrite pass.
+8. **Targeted revision.** The docket is converted into concrete per-chapter edits, applied as a narrow rewrite pass through `scripts/patch_workflow.py`.
 9. **Targeted cleanup.** A line-level cleanup pass on the revised manuscript. **This is the production master** — a full literary rewrite is available as an optional donor / comparison branch but not the default. See [Manuscript Production Lifecycle](docs/architecture/manuscript-production-lifecycle.md).
 10. **Final validation.** A deterministic check on chapter count, scene count, residual assistant artefacts, and meta/process language ([`scripts/manuscript_final_validation.py`](scripts/manuscript_final_validation.py)).
 11. **Final export.** The validated manuscript ships as the artifact under `output/<franchise>/<book>/export/`.
@@ -178,47 +178,36 @@ python -m src.ui.server \
   data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/concept_seed.json
 ```
 
-Open http://localhost:8000 in your browser. Live pipeline control, event stream over WebSocket, chapter / quality / state inspectors.
+Open http://localhost:8000 in your browser. Live pipeline control, event stream over WebSocket, chapter / state inspectors.
 
 ## How the per-scene pipeline works
 
-In **lean mode** (the shipping default, `runtime.lean_prose_only.enabled: true`), every scene runs:
+Every scene runs a single **lean forward pass**:
 
 ```text
-PlotArchitect ─▶ ProseStylist ─▶ LineWriter ─▶ save
+PlotArchitect ─▶ ProseStylist ─▶ [LineWriter] ─▶ save
 ```
 
-When lean is disabled (diagnostic runs, strict-canon books), the same scene runs through the **fuller forward-only relay** — gates and polish are inserted but never block. The full sequence is:
+1. **PlotArchitect** reads a scene card and produces a typed generation brief.
+2. **ProseStylist (drafter)** drafts prose from the brief plus the **chapter packet** — a single inspectable runtime contract compiled from the blueprint, seed, and scene card.
+3. **LineWriter** is an optional single line-edit pass that preserves beats, turning point, POV, characters present, and canon while rewriting sentence-level rhythm and voice texture.
+4. The prose is **saved** directly. Two optional, flag-gated rhythm stages (RhythmValidator → RhythmEditor) can run before the save; both are advisory and default-off.
 
-1. **PlotArchitect** reads a scene card and produces a generation brief.
-2. **ProseStylist (drafter)** drafts prose from the brief + assembled context.
-3. **LineWriter** is an optional line-editing pass that preserves beats, turning point, POV, characters present, and canon while rewriting sentence-level rhythm and voice texture.
-4. **GateCritic** evaluates the draft against a structural rubric — telemetry only; verdicts log but do not block.
-5. **QualityMetrics** scores the draft (repetition, pacing, voice, AI-tell detection) via pure-Python checkers — no LLM call.
-6. **QualityPolish (copy editor)** makes a single bounded refinement pass against the flagged metrics.
-7. **Compression guard** reverts to the gate-passed draft if polish cuts below 60% of the pre-polish word count (warn event with `reverted: true`).
-8. **FinalGate** validates polished prose against the scene contract — advisory only.
-9. **Continuity Editor (canon_expert)** runs on the final polished prose. Last reader before save.
-10. **Save-blocker layer** — the only hard-failure path. Three categories: `CHARACTER_PRESENCE_BLOCKER`, `CANON_BLOCKER`, `POV_ADVISORY` (advisory in v1). When a blocker fires, the run aborts; the scene lands at `<project>/quarantine/chNN_scMM/{prose.md, blockers.json, brief.json}`.
+There is no save-time gate, no quality-polish pass, no save-blocker layer, no quarantine, and no retry loop. Quality is enforced *upstream* — at planning and scene-card validation time — so the drafter lands the scene contract on the first pass. Every saved scene is `saved_clean` (or `saved_with_advisory` if an advisory signal fired). Every step emits typed events (level: info / warn / error) to the RunLedger.
 
-Scenes save as `saved_clean` (all gates green), `saved_with_advisory` (any gate fired an advisory-level signal), or never save (save-blocker fires, run aborts). Every step emits typed events (level: info / warn / error) to the RunLedger.
+After the scene saves, a post-save memory chain runs (Phase 2+): Summarizer → ChromaDB chapter memory → state diff → contradiction scan → worldbuilding extraction. Each post-save stage is wrapped in an error guard — a crash there never aborts a saved scene.
 
 Pipeline depth is selectable with `--phase 1..5`:
 
 | Pipeline depth | Adds |
 |----------------|------|
-| 1 | Lean: PlotArchitect → ProseStylist → [LineWriter] → save. Non-lean adds GateCritic, QualityPolish, FinalGate, Continuity Editor, Save-Blocker. |
-| 2 | Summarizer + StateDiff + ContradictionScanner (chapter memory, SQLite story state, ChromaDB, canon RAG) |
-| 3 | CharacterSpecialist (OOC detection) + MilestoneGates (structural checkpoints at 25 / 50 / 75%) |
-| 4 | PhysicsEnforcer + PipelineSession (save / resume) + optional LLM judge (`--judge`) |
-| 5 | Chapter blueprint generation + ChapterGateCritic + chapter word-count telemetry |
+| 1 | Lean drafting: PlotArchitect → ProseStylist → [LineWriter] → save |
+| 2 | Story state (SQLite), chapter memory (ChromaDB), canon RAG, and the post-save memory chain |
+| 3 | No additional subsystems beyond Phase 2 |
+| 4 | Session persistence (save / resume), export, scene-card generation |
+| 5 | Chapter blueprint auto-generation |
 
-Closed-loop lore (Phases 6–7, available in non-lean / full-relay runs):
-
-- **Series continuation** — `scripts/spawn_next_book.py`, `branch_point` context in `canon_expert`, series-level shared state
-- **Post-save lore extraction** — `lore_extractor` writes provisional lore after each scene; `scripts/promote_lore.py` reviews / promotes; `--strict-lore` makes high-severity conflict flags blocking
-
-Orthogonal feature sets available at any depth: voice definition, K.M. Weiland character arcs, style fingerprinting, manuscript review, web dashboard, multi-format export, prose-model bench. See [Benchmarking](docs/development/benchmarking.md).
+Optional flag-gated tooling, off by default: the revision-debt store, the promise ledger, the rhythm validator / editor, and the cross-chapter continuity validator. Post-production passes (GPT-5.4 manuscript review, literary polish) run after a draft, not during it. See [Benchmarking](docs/development/benchmarking.md).
 
 ## Directory Structure
 
@@ -227,6 +216,7 @@ Orthogonal feature sets available at any depth: voice definition, K.M. Weiland c
 data/franchises/<franchise>/books/<book>/
 ├── concept_seed.json          # Story concept with canon_profile
 ├── scene_cards/               # Per-chapter scene cards
+├── chapter_blueprints/        # Per-chapter planning artifacts
 └── workflows/                 # Authored surface artifacts + idea session
 ```
 
@@ -240,9 +230,8 @@ data/projects/<slug>/
 **Outputs (run-scoped):**
 ```
 output/<franchise>/<book>/
-├── runs/<run_id>/             # Per-scene saves, prompts snapshot, ledger
+├── runs/<run_id>/             # Per-scene saves, chapter packets, prompts snapshot, ledger
 ├── export/<export_name>/      # Stitched manuscripts
-├── quarantine/                # Save-blocker isolated scenes
 └── state/                     # SQLite + ChromaDB stores
 ```
 
@@ -261,29 +250,29 @@ output/<franchise>/<series>/state/
 | [New Manuscript Workflow](docs/user-guide/new-manuscript-workflow.md) | End-to-end path from idea chat to final validated export |
 | [Idea Session Capture](docs/user-guide/idea-session-capture.md) | Guided planning chat capture before the six workflow surfaces |
 | [Workflow Kit](docs/user-guide/workflow-kit.md) | Six-surface concept authoring (universe / canon / voice / characters / outline / scene cards) |
-| [Final Copy Pipeline](docs/user-guide/final-copy-pipeline.md) | Scene-level final-copy diagnostics and donor-polish lane |
+| [Final Copy Pipeline](docs/user-guide/final-copy-pipeline.md) | Scene-level literary-copy diagnostics and donor-polish lane |
 | [Web Interface](docs/user-guide/web-interface.md) | Dashboard walkthrough |
 | **Architecture** | |
 | [System Overview](docs/architecture/system-overview.md) | Components, data flow, directory structure |
-| [Agent Pipeline](docs/architecture/agent-pipeline.md) | Multi-agent generation loop |
-| [Manuscript Production Lifecycle](docs/architecture/manuscript-production-lifecycle.md) | Lean production, full review, targeted cleanup, optional literary donor branch, and final validation |
+| [Agent Pipeline](docs/architecture/agent-pipeline.md) | The lean multi-agent generation loop |
+| [Manuscript Production Lifecycle](docs/architecture/manuscript-production-lifecycle.md) | Lean production, full review, targeted cleanup, optional literary donor branch, final validation |
 | [Memory & State](docs/architecture/memory-and-state.md) | SQLite, ChromaDB, knowledge layers |
-| [Quality & Revision](docs/architecture/quality-and-revision.md) | Metrics, QualityPolish, compression guard, Final Gate, milestone gates |
+| [Quality & Revision](docs/architecture/quality-and-revision.md) | The lean quality model: upstream enforcement, advisory telemetry, post-production review |
 | **Reference** | |
 | [API Reference](docs/reference/api-reference.md) | FastAPI endpoints and WebSocket events |
-| [Configuration](docs/reference/configuration.md) | settings.yaml, failure codes, constraints |
+| [Configuration](docs/reference/configuration.md) | settings.yaml, runtime flags, constraints |
 | [Schemas](docs/reference/schemas.md) | JSON schema definitions |
 | **Development** | |
 | [Contributing](docs/development/contributing.md) | Dev setup, testing, code style |
 | [Adding Agents](docs/development/adding-agents.md) | How to extend the agent system |
-| [Benchmarking](docs/development/benchmarking.md) | Prose-model bench, bench configs, pipeline A/B methodology |
+| [Benchmarking](docs/development/benchmarking.md) | Prose-model bench, bench configs, A/B methodology |
 
-Historical implementation briefs and the rollout roadmap are preserved in [docs/archive/](docs/archive/).
+Historical implementation briefs and superseded design docs are preserved in [docs/archive/](docs/archive/).
 
 ## Tests
 
 ```bash
-pytest                              # Run all tests (~1,950 collected, ~140s)
+pytest                              # Run the full suite
 pytest -k "test_orchestrator"       # Run a subset
 ```
 
@@ -303,6 +292,6 @@ The license covers the pipeline software. It does not grant rights in any third-
 
 ## Connect
 
-Built by **Louis Bouwer**. If this project is useful to you, or you'd like to chat about multi-agent fiction generation, language-model orchestration, or the engineering behind the forward-only relay, please feel free to say hi and connect on LinkedIn:
+Built by **Louis Bouwer**. If this project is useful to you, or you'd like to chat about multi-agent fiction generation, language-model orchestration, or the engineering behind the lean pipeline, please feel free to say hi and connect on LinkedIn:
 
 [LinkedIn Profile Link](https://www.linkedin.com/in/louisbouwer3/)

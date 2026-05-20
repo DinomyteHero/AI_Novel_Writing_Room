@@ -5,17 +5,11 @@ Every advisory-producing stage calls one of these functions rather than
 
     Producer              | Condition                             | Category                        | Default severity
     --------------------- | ------------------------------------- | ------------------------------- | ----------------
-    CanonExpert           | advisory_notes[*] emitted             | canon                           | from advisory
-    CanonExpert           | local_fixes rejected by whitelist     | canon_fix_rejected              | low
-    CanonExpert (late)    | polish drift detected                 | editorial.canon_polish_drift    | medium
-    GateCritic            | failure_codes with non_blocking sev.  | editorial.gate_advisory         | from failure
-    FinalGate             | Any output (always advisory)          | editorial.final_gate_advisory   | from failure
-    QualityMetrics        | Metric exceeds threshold              | metric                          | low<1-band, medium beyond
-    PresenceChecker       | Confidence in [0.5, blocker_thresh)   | presence_near_miss              | low
-    StateFirewall         | Scene isolated                        | blocker_record                  | high (pinned)
     word_count_telemetry  | Drift > \u00b115%                          | wordcount_drift                 | low <30%, medium >30%
     compression_guard     | Polish shrinks below 60% of pre       | compression_advisory            | medium
     SceneReviewer         | Any categorical finding               | editorial.scene_reviewer        | from finding
+    RhythmValidator       | Rhythm metric exceeds threshold       | prose.rhythm.*                  | from issue
+    ContinuityValidator   | Declared cross-chapter discontinuity  | prose.continuity.*              | medium
 
 All wrappers accept ``store: RevisionDebtStore | None``. When ``None`` (or
 ``runtime.revision_debt.enabled: false``), the wrapper is a noop and returns
@@ -294,31 +288,6 @@ def emit_presence_near_miss(
     )
 
 
-def emit_blocker_record(
-    store: Optional[RevisionDebtStore],
-    *,
-    ledger=None,
-    scope: Mapping[str, Any],
-    blocker_categories: list[str],
-    gap_id: str | None = None,
-) -> str | None:
-    """StateFirewall isolated a scene. Severity pinned to 'high'."""
-    return _write(
-        store,
-        ledger=ledger,
-        producer="state_firewall",
-        scope=scope,
-        category="blocker_record",
-        severity="high",
-        summary=f"Scene isolated: {', '.join(blocker_categories) or 'unknown categories'}",
-        details={
-            "blocker_categories": list(blocker_categories),
-            "gap_id": gap_id,
-        },
-        fix_scope="scene",
-    )
-
-
 def emit_wordcount_drift(
     store: Optional[RevisionDebtStore],
     *,
@@ -508,7 +477,6 @@ __all__ = [
     "emit_final_gate_advisory",
     "emit_metric_advisory",
     "emit_presence_near_miss",
-    "emit_blocker_record",
     "emit_wordcount_drift",
     "emit_compression_advisory",
     "emit_scene_reviewer_finding",

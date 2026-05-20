@@ -363,35 +363,22 @@ class TestPipelineIntegration:
         chapter_starts = [e for e in all_events if e["event_type"] == "chapter_start"]
         assert len(chapter_starts) == SCENE_COUNT
 
-        # Per-scene agent events: plot_architect, prose_stylist, gate_critic.
-        # Quality Polish and Final Gate run via run()/run_structured directly
-        # and don't emit agent_start events.
-        for agent_role in ["plot_architect", "prose_stylist", "gate_critic"]:
+        # Per-scene agent events: plot_architect, prose_stylist.
+        for agent_role in ["plot_architect", "prose_stylist"]:
             agent_starts = [
                 e for e in all_events
                 if e["event_type"] == "agent_start" and e["agent_role"] == agent_role
             ]
-            # At least one per scene; possibly more with gate retries.
             assert len(agent_starts) >= SCENE_COUNT, (
                 f"Expected at least {SCENE_COUNT} agent_start events for "
                 f"{agent_role}, got {len(agent_starts)}"
             )
 
-        # Every scene exits the gate loop with either a pass or a non-blocking
-        # polish-level fail. (Scene cards across the Ruusan book span target
-        # word counts 800-1700, while the mock prose is a fixed length; some
-        # scenes trip the programmatic WORD_COUNT_VIOLATION check, which is a
-        # non-blocking fail_polish verdict that still proceeds to polish.)
-        gate_exits = [
-            e for e in all_events if e["event_type"] in ("gate_pass", "gate_fail")
+        # Every scene saves via the lean path.
+        lean_saves = [
+            e for e in all_events if e["event_type"] == "lean_prose_only_saved"
         ]
-        assert len(gate_exits) >= SCENE_COUNT
-
-        # Final Gate completions — one per scene (polish output validated).
-        final_gate_completes = [
-            e for e in all_events if e["event_type"] == "final_gate_complete"
-        ]
-        assert len(final_gate_completes) == SCENE_COUNT
+        assert len(lean_saves) == SCENE_COUNT
 
         # Phase 2 events — summarizer + state diff run per scene.
         summarizer_completes = [
