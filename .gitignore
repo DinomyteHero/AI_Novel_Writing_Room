@@ -56,6 +56,11 @@ build/
 # See data/README.md for the full layout.
 output/*/*/state/
 
+# Stitched manuscript exports — regenerable pipeline output. Ignored by
+# default; force-add a curated reference build (git add -f) when one is
+# worth committing, e.g. the bundled Ruusan example.
+output/*/*/export/
+
 # Generated model run artifacts can contain very long diagnostic filenames.
 # Keep them out of normal commits; copy curated evidence into docs/ when needed.
 output/*/*/runs/

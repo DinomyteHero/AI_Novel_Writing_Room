@@ -2,10 +2,10 @@
 
 This directory holds **tracked, canonical inputs** for the pipeline: story concept seeds, scene cards, chapter blueprints, and evaluation references.
 
-Runtime output lives under `output/`, which has a deliberately mixed status:
+Runtime output lives under `output/` and is gitignored — it is regenerable from the inputs in `data/`:
 
-- **Gitignored** (per-user runtime state): `output/*/*/state/`, `output/*/*/runs/`, `output/_fallback/`, and `output/runs-logs/`. Pipeline runs and per-run state land here and are never committed by default. Copy any evidence worth sharing into `docs/` (e.g. `docs/editorial/<topic>.md`) before relying on it long-term.
-- **Tracked when committed** (finalized manuscripts): `output/<franchise>/<book>/export/` holds publishable manuscript builds (`chapter_index.md` + per-chapter markdown). Commit only when a build is worth preserving as a reference output.
+- **Gitignored** (per-user runtime state): `output/*/*/state/`, `output/*/*/runs/`, `output/*/*/export/`, `output/_fallback/`, and `output/runs-logs/`. Pipeline runs, per-run state, and stitched manuscript exports land here and are never committed by default. Copy any evidence worth sharing into `docs/` (e.g. `docs/editorial/<topic>.md`) before relying on it long-term.
+- **Force-add a curated reference build** when one is worth preserving in the repo: `git add -f output/<franchise>/<book>/export/<build>/`. The shipped Ruusan example manuscript was committed this way and stays tracked.
 
 If you're looking for "where does my run's output go?" — it's `output/{franchise}/{book}/runs/{run_id}/`, gitignored by default. Bench captures and historical archives that used to live there have been pulled out of the tree as regenerable artifacts; rerun them from `scripts/bench_prose_models.py` if you need the comparisons.
 
@@ -36,7 +36,7 @@ Authoritative path resolver: [`src/project_paths.py`](../src/project_paths.py). 
 | Per-run manuscripts, config snapshot, prompt snapshot | `output/{franchise}/{book}/runs/{run_id}/` | **Gitignored** (`output/*/*/runs/`). Force-add only if you have a specific reason to commit a run — the default posture is regenerate-on-demand. |
 | Accumulated story state, chapter memory, run ledger | `output/{franchise}/{book}/state/` (or `output/{franchise}/{series}/state/` if series-scoped) | **Gitignored** (`output/*/*/state/`) |
 | Fallback for runs without a `ProjectPaths` context | `output/_fallback/` | **Gitignored** |
-| Exported manuscripts (md / docx / epub) | `output/{franchise}/{book}/export/` | Tracked if committed — usually per-user, consider a local exclude |
+| Exported manuscripts (md / docx / epub) | `output/{franchise}/{book}/export/` | **Gitignored** (`output/*/*/export/`). Force-add a curated reference build with `git add -f`. |
 | Worldbuilding databases (SQLite + Chroma) | `data/franchises/{franchise}/worldbuilding.db`, `data/franchises/{franchise}/worldbuilding_vectors/` | **Gitignored** via config paths |
 | Canon retrieval index (Chroma) | `data/franchises/{franchise}/canon_db/` | **Gitignored** |
 
