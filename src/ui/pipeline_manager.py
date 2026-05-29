@@ -158,3 +158,18 @@ class PipelineManager:
         self._milestone_info = None
         self._milestone_future = None
         self.pause_event.set()
+
+    async def stop(self) -> None:
+        """Cancel any in-flight run and await its teardown, then reset.
+
+        reset() alone only cancels the task; without awaiting it the run's
+        finally block (session save) races interpreter teardown at shutdown.
+        """
+        task = self._task
+        if task is not None and not task.done():
+            task.cancel()
+            try:
+                await task
+            except BaseException:  # noqa: BLE001 -- CancelledError or teardown error
+                pass
+        self.reset()

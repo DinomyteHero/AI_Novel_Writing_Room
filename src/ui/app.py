@@ -125,7 +125,10 @@ def create_app(
 
         # Shutdown — each component wrapped individually so one failure
         # doesn't prevent the rest from cleaning up.
-        state.pipeline_manager.reset()
+        try:
+            await state.pipeline_manager.stop()
+        except Exception:
+            logger.exception("Error stopping pipeline_manager")
 
         for label, closer in [
             ("connection_manager", state.connection_manager.stop_broadcaster),
@@ -229,7 +232,12 @@ def _init_story_state(state: AppState, concept_seed_path: str, pipeline_cfg: dic
             from src.memory.chapter_memory import ChapterMemory
             from src.rag.embedding import get_embedding_function
 
-            ef = get_embedding_function(use_mock=True)
+            # Honor the configured embedding mode rather than hardcoding mock.
+            # The CLI follows pipeline.embeddings.use_mock; the web server must
+            # too, or a real-vector (768-d) collection built by the CLI fails to
+            # open against the web's mock (384-d) function.
+            emb_cfg = (pipeline_cfg or {}).get("embeddings", {}) or {}
+            ef = get_embedding_function(use_mock=bool(emb_cfg.get("use_mock", True)))
             state.embedding_function = ef
             chapter_memory_dir = str(paths.chapter_memory_dir) if paths else pipeline_cfg.get(
                 "chapter_memory_dir", "output/_fallback/chapter_memory"

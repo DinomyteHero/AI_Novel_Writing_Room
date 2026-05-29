@@ -162,16 +162,21 @@ def parse_extraction_result(raw_result: str) -> list[dict]:
             logger.info("Lore extractor: stripped %d chars of preamble before JSON", first_brace)
             text = text[first_brace:]
 
-        # Strip postamble text after JSON
-        last_brace = max(text.rfind('}'), text.rfind(']'))
-        if last_brace != -1:
-            text = text[:last_brace + 1]
-
         if had_fences or had_preamble:
             logger.info("Lore extractor: model output required cleanup (fences=%s, preamble=%s)",
                         had_fences, had_preamble)
 
-        data = json.loads(text)
+        # Parse the first complete JSON value and ignore any trailing prose.
+        # raw_decode is robust to a postamble that itself contains braces
+        # (e.g. "...note: use {x}."), which a rfind('}') slice would corrupt.
+        try:
+            data, _end = json.JSONDecoder().raw_decode(text)
+        except json.JSONDecodeError:
+            # Fallback: trim to the last closing bracket and retry once.
+            last_brace = max(text.rfind('}'), text.rfind(']'))
+            if last_brace == -1:
+                raise
+            data = json.loads(text[:last_brace + 1])
     except json.JSONDecodeError:
         logger.warning(
             "Failed to parse extraction result as JSON. Raw (first 500 chars): %s",
