@@ -12,56 +12,57 @@ from pathlib import Path
 from typing import Optional
 
 
-# Valid event types from the design doc
+# Reference list of event types emitted by the lean pipeline. Advisory only:
+# emit() does not validate against this — it documents the current surface.
+# Gate / quarantine / relay event types were removed with the lean teardown.
 EVENT_TYPES = [
     "pipeline_start",
     "chapter_start",
     "agent_start",
     "agent_complete",
-    "gate_pass",
-    "gate_fail",
-    # Final Gate / Quality Polish events (Phase 1 pipeline redesign)
-    "final_gate_complete",
-    "final_gate_rejection",
-    "compression_guard_fired",
+    "scene_error",             # error — a scene failed; the run continues
+    "prose_empty",             # warn  — drafter returned empty prose
+    "lean_prose_only_saved",   # info  — scene saved on the lean path
+    "post_save_error",         # warn  — a post-save stage crashed; scene still saved
     "state_diff_proposed",
     "state_diff_committed",
-    "milestone_reached",
-    "milestone_gate_paused",
-    "pipeline_complete",
     "contradiction_scan",
     "summarizer_complete",
+    "judge_evaluation",
+    "lore_conflicts",
+    "milestone_reached",
+    "pipeline_complete",
     # Phase 4 event types:
     "physics_validation_pre",
     "physics_validation_post",
-    "judge_evaluation",
     "session_save",
     "session_resume",
     "outline_generated",
     "export_complete",
-    # Relay refactor Stage 1f: save-blocker / continuity-editor events
-    "continuity_editor_complete",
-    "save_blocked",
-    "pov_advisory",
-    "presence_check_error",
-    # Relay refactor Stage 1h: chapter-level word-count telemetry
+    # Word-count + LineWriter telemetry:
     "chapter_word_count_telemetry",
-    # Relay refactor Stage 3: LineWriter telemetry
     "line_writer_error",
     "line_writer_collapsed",
+    # Rhythm validator / editor telemetry (flag-gated):
+    "rhythm_validation",
+    "rhythm_validation_error",
+    "rhythm_edit_fired",
+    "rhythm_edit_skipped",
+    "rhythm_edit_complete",
+    "rhythm_edit_error",
     # Slice 6 manuscript lifecycle: gap resolution via the patch workflow.
-    "gap_note_resolved",       # info  — gap resolved via patch workflow
+    "gap_note_resolved",
     # Architecture upgrade Slice 2: chapter packet + revision debt.
-    "packet_base_compiled",    # info  — ChapterPacketCompiler.compile_base done
-    "packet_overlay_written",  # info  — per-scene overlay built (carries overlay_version)
-    "packet_fallback_flat",    # warn  — packet compilation raised; fell back to flat assembly
-    "revision_debt_added",     # info  — new debt row
-    "revision_debt_updated",   # info  — debt status changed
+    "packet_base_compiled",
+    "packet_overlay_written",
+    "packet_fallback_flat",
+    "revision_debt_added",
+    "revision_debt_updated",
     # Architecture upgrade Slice 3: promise ledger.
-    "promise_planted",         # info  — setup_scene recorded
-    "promise_progressed",      # info  — scene card declared a progression beat
-    "promise_paid",            # info  — payoff_scene recorded
-    "promise_overdue",         # warn  — list_overdue surfaced a promise at packet time
+    "promise_planted",
+    "promise_progressed",
+    "promise_paid",
+    "promise_overdue",
 ]
 
 

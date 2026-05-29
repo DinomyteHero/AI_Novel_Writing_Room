@@ -180,9 +180,12 @@ class OutlinePlanner(BaseAgent):
             f"Generate scene cards for {range_label} with MULTIPLE SCENES PER CHAPTER.\n"
             f"{range_instruction}\n"
             f"SCENE COUNT RULES:\n"
-            f"- Each chapter MUST contain 2-4 scenes (default 3).\n"
-            f"- Single-scene chapters are allowed ONLY for high-impact set-piece moments "
-            f"(climax, major plot points) — maximum 3 single-scene chapters in the entire novel.\n"
+            f"- Size each chapter to its dramatic need: 1-4 scenes. There is NO "
+            f"minimum — a chapter built around one load-bearing scene is healthier "
+            f"than one padded with scenes that share a turning point.\n"
+            f"- Only split a chapter when each resulting scene carries its OWN "
+            f"distinct turning point, mission, and emotional arc. If two candidate "
+            f"scenes would share a turning point, fold them into one.\n"
             f"- Per-scene target word count: ~{per_scene_target} words.\n"
             f"- Sum of scene target_word_counts per chapter must be within 90-110% "
             f"of {per_chapter} words.\n\n"
@@ -419,19 +422,32 @@ class SceneCardGenerator:
             if not failed_indices:
                 break
 
-            # Regenerate failed cards (simplified: regenerate all and keep good ones)
             regen_result = await self.planner.run_structured(
                 {"concept_seed": concept_seed}
             )
             new_cards = regen_result.get(
                 "scene_cards", regen_result.get("outline", [])
             )
+            if not isinstance(new_cards, list):
+                new_cards = []
             new_cards = [self._ensure_defaults(c, concept_seed) for c in new_cards]
 
-            # Replace only the failed cards if we have enough new ones
+            # Replace each failed card by its (chapter, scene) identity, NOT by
+            # list index. The regenerated batch may carry a different per-chapter
+            # scene count, so positional alignment could overwrite an unrelated
+            # chapter's card (e.g. clobber ch3 with ch20).
+            new_by_key = {
+                (c.get("chapter_number"), c.get("scene_number")): c
+                for c in new_cards
+            }
             for idx in failed_indices:
-                if idx < len(new_cards):
-                    scene_cards[idx] = new_cards[idx]
+                key = (
+                    scene_cards[idx].get("chapter_number"),
+                    scene_cards[idx].get("scene_number"),
+                )
+                replacement = new_by_key.get(key)
+                if replacement is not None:
+                    scene_cards[idx] = replacement
 
         return scene_cards
 
@@ -580,8 +596,8 @@ class SceneCardGenerator:
         for ch_num, group in groupby(sorted_cards, key=lambda c: c.get("chapter_number", 0)):
             scenes = list(group)
 
-            if len(scenes) < 2:
-                warnings.append(f"Chapter {ch_num}: only {len(scenes)} scene(s) — expected 2-4")
+            # No minimum scene count: a single load-bearing scene is a healthy
+            # chapter (scene-count discipline). Keep a soft upper sanity bound.
             if len(scenes) > 5:
                 warnings.append(f"Chapter {ch_num}: {len(scenes)} scenes — exceeds maximum of 5")
 

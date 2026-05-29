@@ -38,7 +38,7 @@ import json
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Mapping
+from typing import Any
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
@@ -156,12 +156,18 @@ def _replay_declarative_state(env: _PatchEnv, *, scene_id: str) -> dict:
                     )
                     summary["promise_updates"] += 1
                 except KeyError:
+                    print(f"  [WARN] patch replay: unknown promise_id {pid!r} "
+                          "(planning drift) — skipped")
+                    summary.setdefault("unknown_promises", []).append(pid)
                     continue
             for pid in card.get("promises_paid") or []:
                 try:
                     pl.record_payoff(promise_id=pid, scene_id=scene_id)
                     summary["promise_updates"] += 1
                 except KeyError:
+                    print(f"  [WARN] patch replay: unknown promise_id {pid!r} "
+                          "(planning drift) — skipped")
+                    summary.setdefault("unknown_promises", []).append(pid)
                     continue
         finally:
             pl.close()

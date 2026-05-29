@@ -8,7 +8,7 @@ run_chapter() and all agent logic is inherited unchanged.
 """
 
 from src.orchestrator import Orchestrator
-from src.ui.pipeline_manager import PipelineManager, PipelineState
+from src.ui.pipeline_manager import PipelineManager
 
 
 class WebOrchestrator(Orchestrator):

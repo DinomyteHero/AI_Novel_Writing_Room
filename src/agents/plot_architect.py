@@ -97,6 +97,16 @@ class PlotArchitect(BaseAgent):
         """
         messages = self._build_messages(context)
         brief = await self.router.complete_structured(self.role, messages)
+        if not isinstance(brief, dict):
+            # A model that returns a top-level JSON array/scalar would otherwise
+            # crash the drafter (it calls brief.get(...) unconditionally) and,
+            # through the scene loop, take down the whole run. Degrade to an
+            # empty brief instead.
+            print(
+                f"    PlotArchitect: model returned non-object JSON "
+                f"({type(brief).__name__}) — using empty brief"
+            )
+            brief = {}
 
         missing = [f for f in REQUIRED_BRIEF_FIELDS if f not in brief]
         if missing:

@@ -85,11 +85,14 @@ async def test_pipeline_manager_double_start():
         return []
 
     await pm.start(blocking_pipeline())
+    await asyncio.sleep(0)  # let the first task start before it is cancelled
 
+    second = blocking_pipeline()
     with pytest.raises(RuntimeError, match="already running"):
-        await pm.start(blocking_pipeline())
+        await pm.start(second)
+    second.close()  # start() raised before awaiting it; close to avoid a warning
 
-    pm.reset()
+    await pm.stop()
 
 
 @pytest.mark.asyncio

@@ -47,27 +47,15 @@ async def get_ledger_summary(request: Request):
     """Get aggregate statistics from the run ledger."""
     state = get_app_state(request)
 
-    # Count events by type
     all_events = state.ledger.get_events(limit=10000)
     type_counts: dict[str, int] = {}
     for ev in all_events:
         t = ev.get("event_type", "unknown")
         type_counts[t] = type_counts.get(t, 0) + 1
 
-    gate_pass = type_counts.get("gate_pass", 0)
-    gate_fail = type_counts.get("gate_fail", 0)
-    gate_total = gate_pass + gate_fail
-    # Relay v3 (Stage 1i): save_blocked event count maps 1:1 to quarantined
-    # scenes, since the orchestrator aborts on the first blocker.
-    save_blocked_count = type_counts.get("save_blocked", 0)
-
     return {
         "total_events": len(all_events),
         "events_by_type": type_counts,
-        "gate_pass_count": gate_pass,
-        "gate_fail_count": gate_fail,
-        "gate_pass_rate": gate_pass / gate_total if gate_total > 0 else None,
-        "save_blocked_count": save_blocked_count,
     }
 
 

@@ -7,7 +7,6 @@ lifespan management, and all API routes.
 import asyncio
 import json
 import logging
-import re
 from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import Optional
@@ -15,7 +14,6 @@ from typing import Optional
 import yaml
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 
 from src.model_router import ModelRouter
@@ -125,7 +123,10 @@ def create_app(
 
         # Shutdown — each component wrapped individually so one failure
         # doesn't prevent the rest from cleaning up.
-        state.pipeline_manager.reset()
+        try:
+            await state.pipeline_manager.stop()
+        except Exception:
+            logger.exception("Error stopping pipeline_manager")
 
         for label, closer in [
             ("connection_manager", state.connection_manager.stop_broadcaster),
@@ -229,7 +230,12 @@ def _init_story_state(state: AppState, concept_seed_path: str, pipeline_cfg: dic
             from src.memory.chapter_memory import ChapterMemory
             from src.rag.embedding import get_embedding_function
 
-            ef = get_embedding_function(use_mock=True)
+            # Honor the configured embedding mode rather than hardcoding mock.
+            # The CLI follows pipeline.embeddings.use_mock; the web server must
+            # too, or a real-vector (768-d) collection built by the CLI fails to
+            # open against the web's mock (384-d) function.
+            emb_cfg = (pipeline_cfg or {}).get("embeddings", {}) or {}
+            ef = get_embedding_function(use_mock=bool(emb_cfg.get("use_mock", True)))
             state.embedding_function = ef
             chapter_memory_dir = str(paths.chapter_memory_dir) if paths else pipeline_cfg.get(
                 "chapter_memory_dir", "output/_fallback/chapter_memory"
@@ -238,7 +244,7 @@ def _init_story_state(state: AppState, concept_seed_path: str, pipeline_cfg: dic
                 persist_directory=chapter_memory_dir,
                 embedding_function=ef,
             )
-        except (ImportError, Exception) as e:
+        except Exception as e:
             logger.warning("ChapterMemory not available: %s", e)
 
     except ImportError as e:
@@ -275,7 +281,7 @@ def _init_worldbuilding(state: AppState, config: dict,
         state.lore_service = LoreService(db=wb_db, vectorstore=wb_vs)
 
         logger.info("Worldbuilding service initialized (db=%s)", db_path)
-    except (ImportError, Exception) as e:
+    except Exception as e:
         logger.warning("Worldbuilding service not available: %s", e)
 
 

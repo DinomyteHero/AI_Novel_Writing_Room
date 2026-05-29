@@ -146,9 +146,13 @@ class ManuscriptReviewer(BaseAgent):
         """Run the manuscript reviewer and return structured evaluation."""
         messages = self._build_messages(context)
         result = await self.router.complete_structured(self.role, messages)
+        if not isinstance(result, dict):
+            result = {}
 
         # Normalize the result
         issues = result.get("issues", [])
+        if not isinstance(issues, list):
+            issues = []
         review_persona = result.get("review_persona", {})
         overall_assessment = result.get("overall_assessment", "")
         recommendation = result.get("recommendation", "major_revision_needed")
@@ -156,6 +160,8 @@ class ManuscriptReviewer(BaseAgent):
         # Validate and normalize each issue
         normalized_issues = []
         for issue in issues:
+            if not isinstance(issue, dict):
+                continue
             severity = issue.get("severity", "minor")
             if severity not in SEVERITY_LEVELS:
                 severity = "minor"

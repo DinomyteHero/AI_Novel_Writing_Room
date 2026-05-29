@@ -13,7 +13,6 @@ import argparse
 import json
 import re
 import sys
-from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -203,7 +202,7 @@ def main() -> None:
     print(f"\nStitched manuscript: {manuscript_path}")
     print(f"Chapters: {len(per_chapter_wc)}/38")
     print(f"Total words: {total_wc:,}")
-    print(f"\nWhole-book rhythm metrics:")
+    print("\nWhole-book rhythm metrics:")
     print(f"  em-dash density: {m.em_dashes_per_1k_words:.2f}/1k words")
     print(f"  short-sentence runs: {m.short_sentence_runs}")
     print(f"  default opener %: {m.default_opener_pct:.1f}%")

@@ -34,7 +34,7 @@ to escalate to a hard fail. The validator itself never blocks.
 from __future__ import annotations
 
 import re
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Any, Mapping
 
 
@@ -44,6 +44,9 @@ _WORD_RE = re.compile(r"[A-Za-z]+(?:[''’][A-Za-z]+)*")
 _SENTENCE_SPLIT_RE = re.compile(r"(?<=[.!?])\s+(?=[A-Z\"'“‘])")
 _PARAGRAPH_SPLIT_RE = re.compile(r"\n\s*\n")
 _DIALOGUE_QUOTE_RE = re.compile(r"[\"“”]")
+# ``--`` as an em-dash substitute, but NOT inside a numeric range (1995--2003)
+# or a markdown horizontal rule (---).
+_DASH_DASH_EM_RE = re.compile(r"(?<![\d-])--(?![\d-])")
 
 # Sentence-opener classes that, when used too often, flatten the prose rhythm.
 # Conservative — only the four big default-opener buckets, not every pronoun.
@@ -176,7 +179,7 @@ def compute_metrics(prose: str) -> RhythmMetrics:
     ]
     sentence_count = len(sentences)
 
-    em_dashes = full_text.count("—") + full_text.count("--")
+    em_dashes = full_text.count("—") + len(_DASH_DASH_EM_RE.findall(full_text))
 
     sentence_lens = [len(_WORD_RE.findall(s)) for s in sentences]
     short_sentence_count = sum(1 for length in sentence_lens if length <= 8)
@@ -205,8 +208,11 @@ def compute_metrics(prose: str) -> RhythmMetrics:
         len(pat.findall(full_text)) for pat in _TIC_PATTERNS
     )
 
-    per_1k = lambda n: (1000.0 * n / word_count) if word_count else 0.0
-    pct = lambda n, d: (100.0 * n / d) if d else 0.0
+    def per_1k(n):
+        return (1000.0 * n / word_count) if word_count else 0.0
+
+    def pct(n, d):
+        return (100.0 * n / d) if d else 0.0
 
     return RhythmMetrics(
         word_count=word_count,
@@ -240,9 +246,17 @@ def validate_rhythm(
     contemplative scene). Defaults to True because most scenes have a second
     character present and should carry dialogue.
     """
+    caller_overrode_thresholds = thresholds is not None
     thresholds = dict(thresholds or DEFAULT_THRESHOLDS)
 
     metrics = compute_metrics(prose)
+    # Empty / whitespace-only prose has no rhythm to measure; every metric is 0,
+    # which would otherwise trip the dialogue-starved floor. Pass cleanly.
+    if metrics.word_count == 0 or metrics.paragraph_count == 0:
+        return RhythmResult(
+            scope=scope, scope_id=scope_id, passed=True,
+            metrics=metrics, issues=(),
+        )
     issues: list[RhythmIssue] = []
 
     def _band(metric_value: float, *, advisory: float, warn: float, higher_is_worse: bool) -> str | None:
@@ -280,6 +294,10 @@ def validate_rhythm(
 
     # 2. consecutive short-sentence runs
     runs_thresh = thresholds["short_sentence_runs_per_chapter"]
+    if scope == "scene" and not caller_overrode_thresholds:
+        # The per-chapter calibration (4/8) never fires on a single ~1.5k-word
+        # scene; scale to the scene grain so staccato is actually detectable.
+        runs_thresh = {"advisory": 2, "warn": 4}
     severity = _band(
         metrics.short_sentence_runs,
         advisory=runs_thresh["advisory"],

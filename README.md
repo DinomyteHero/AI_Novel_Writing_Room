@@ -276,13 +276,13 @@ pytest                              # Run the full suite
 pytest -k "test_orchestrator"       # Run a subset
 ```
 
-## A note on the bundled example output
+## A note on the bundled example
 
-The repo ships with one end-to-end pipeline run as a reference: **The Ruusan Atonement**, a fan-fiction concept set in the Star Wars Legends Expanded Universe (New Sith Wars era). The artifact at [`output/star-wars-legends-eu/the-ruusan-atonement/export/production-lean-full-20260425-010838-targeted-revision-1/`](output/star-wars-legends-eu/the-ruusan-atonement/export/production-lean-full-20260425-010838-targeted-revision-1/) is a 28-chapter, ~113,000-word manuscript produced by running the pipeline all the way through draft → GPT-5.4 review → targeted revision.
+The repo ships the full **planning inputs** for one end-to-end reference book: **The Ruusan Atonement**, a fan-fiction concept set in the Star Wars Legends Expanded Universe (New Sith Wars era). Running the pipeline on those inputs produces a 28-chapter, ~113,000-word manuscript (draft → GPT-5.4 review → targeted revision).
 
-**It is a base test of the pipeline, not an example of polished storytelling.** The point of the bundled run is to demonstrate that the system can take guided author planning all the way through to a reviewed, validated long-form manuscript — not to ship a novel for reading. Treat it as a reference output, not an editorial benchmark.
+The generated manuscript itself is **not committed** — everything under `output/` is gitignored to keep the repository lean. The inputs that produce it are checked in at [`data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/`](data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/), so the run is reproducible from the inputs alone — see [Run the bundled example](#run-the-bundled-example).
 
-The pipeline inputs that produced it are checked in at [`data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/`](data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/), so the run is reproducible from the inputs alone.
+**Treat it as a base test of the pipeline, not an example of polished storytelling.** The point is to demonstrate that the system can take guided author planning all the way through to a reviewed, validated long-form manuscript — not to ship a novel for reading.
 
 ## License
 

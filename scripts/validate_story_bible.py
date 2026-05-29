@@ -600,7 +600,7 @@ def main():
     story_logic_audit(seed, cards)
 
     # Task 3
-    pipeline_ok = pipeline_readiness(seed, cards)
+    pipeline_readiness(seed, cards)
 
     # ---------------------------------------------------------------------------
     # TASK 4: Report
@@ -642,15 +642,15 @@ def main():
 
     # Pipeline
     pipeline_issues = categories.get("pipeline", [])
-    print(f"\n3. PIPELINE READINESS")
+    print("\n3. PIPELINE READINESS")
     print("-" * 40)
     if pipeline_issues:
         for i in pipeline_issues:
             sev = i["severity"].upper()
             print(f"  [{sev}] {i['file']}: {i['description']}")
-        print(f"  Result: FAIL")
+        print("  Result: FAIL")
     else:
-        print(f"  Result: PASS")
+        print("  Result: PASS")
 
     # Summary
     critical = len([i for i in issues if i["severity"] == "critical"])

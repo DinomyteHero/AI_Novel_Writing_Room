@@ -79,7 +79,7 @@ class VoiceChecker:
         """Scan prose against all banned phrase categories."""
         hits = []
         prose_lower = prose.lower()
-        lines = prose.split("\n")
+        prose.split("\n")
 
         for category, phrases in self.banned_phrases.items():
             for phrase in phrases:

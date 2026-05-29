@@ -6,7 +6,6 @@ import logging
 import os
 import random
 import re
-from pathlib import Path
 from typing import Optional
 
 import httpx
@@ -52,6 +51,8 @@ class ModelRouter:
                     self.mode,
                 )
 
+        self._validate_routing()
+
     async def _get_local_client(self) -> httpx.AsyncClient:
         if self._local_client is None:
             timeout = self.config["models"]["local"].get("timeout_seconds", 300.0)
@@ -96,14 +97,17 @@ class ModelRouter:
             **params,
         }
 
-        # Prompt caching for Anthropic models (OpenRouter top-level cache_control)
+        # Prompt caching for Anthropic models. OpenRouter/Anthropic expect
+        # cache_control on a message *content block*, not at the request top
+        # level (the latter is silently ignored). Mark the large static system
+        # prompt as the cache breakpoint.
         caching_cfg = self.config.get("pipeline", {}).get("prompt_caching", {})
         if caching_cfg.get("enabled", False) and model.startswith("anthropic/"):
             ttl = str(caching_cfg.get("anthropic_ttl", "1h"))
             cache_control = {"type": "ephemeral"}
             if ttl == "1h":
                 cache_control["ttl"] = "1h"
-            payload["cache_control"] = cache_control
+            payload["messages"] = self._apply_cache_control(messages, cache_control)
 
         if backend == "local":
             client = await self._get_local_client()
@@ -140,21 +144,29 @@ class ModelRouter:
                         "LLM response missing choices for "
                         f"{agent_role} (model={model}): {error_text}"
                     )
+                finish_reason = choices[0].get("finish_reason")
                 content = choices[0]["message"]["content"]
                 if content is None:
                     logger.warning(
                         "LLM returned null content for %s (finish_reason=%s)",
                         agent_role,
-                        choices[0].get("finish_reason", "unknown"),
+                        finish_reason or "unknown",
                     )
                     return ""
+                if finish_reason == "length":
+                    logger.warning(
+                        "LLM output for %s was truncated at the token limit "
+                        "(finish_reason=length, model=%s, chars=%d) — the result "
+                        "is incomplete; raise max_tokens for this role.",
+                        agent_role, model, len(content),
+                    )
                 return content
             except httpx.HTTPStatusError as e:
                 if e.response.status_code in (502, 503) and attempt < max_retries:
                     await asyncio.sleep((2 ** attempt) + random.uniform(0, 1))
                     continue
                 raise
-            except (httpx.ConnectError, httpx.ReadTimeout) as e:
+            except (httpx.ConnectError, httpx.ReadTimeout):
                 if attempt < max_retries:
                     await asyncio.sleep((2 ** attempt) + random.uniform(0, 1))
                     continue
@@ -169,6 +181,30 @@ class ModelRouter:
                     continue
                 raise
         raise RuntimeError("Unreachable: retry loop exhausted")
+
+    @staticmethod
+    def _apply_cache_control(messages: list[dict], cache_control: dict) -> list[dict]:
+        """Return a copy of messages with cache_control on the LAST system
+        message (rendered as a content-block array). Anthropic caches the whole
+        prefix up to and including the marked block, so the last system message
+        (the large static prompt) is the right breakpoint. No-op if there is no
+        string-content system message.
+        """
+        out = [dict(m) for m in messages]
+        target = None
+        for i, m in enumerate(out):
+            if m.get("role") == "system" and isinstance(m.get("content"), str):
+                target = i
+        if target is not None:
+            out[target] = {
+                "role": "system",
+                "content": [{
+                    "type": "text",
+                    "text": out[target]["content"],
+                    "cache_control": cache_control,
+                }],
+            }
+        return out
 
     @staticmethod
     def _strip_fences(text: str) -> str:
@@ -279,6 +315,31 @@ class ModelRouter:
         model_key = routing.get("model", "primary_moe")
         models = self.config["models"][backend]["models"]
         return models.get(model_key, model_key)
+
+    def _validate_routing(self) -> None:
+        """Warn at load time about agent_routing models that resolve to neither
+        a known alias nor a literal provider model id, catching a typo'd alias
+        before it becomes a 400 at request time.
+        """
+        for role, cfg in (self.config.get("agent_routing") or {}).items():
+            if not isinstance(cfg, dict):
+                continue
+            model_key = cfg.get("model")
+            if not model_key:
+                continue
+            backend = cfg.get("backend") if self.mode == "hybrid" else self.mode
+            models = (
+                self.config.get("models", {})
+                .get(backend or self.mode, {})
+                .get("models", {})
+            )
+            if model_key not in models and "/" not in str(model_key):
+                logger.warning(
+                    "agent_routing[%s].model=%r is neither a known %s alias nor "
+                    "a literal provider model id; calls for this role will likely "
+                    "fail at request time.",
+                    role, model_key, backend or self.mode,
+                )
 
     def _resolve_params(self, routing: dict) -> dict:
         backend = routing["backend"]

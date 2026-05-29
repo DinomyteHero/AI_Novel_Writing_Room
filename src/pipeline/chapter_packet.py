@@ -453,8 +453,12 @@ class ChapterPacketCompiler:
             base.pov_arc_pressure, scene_card
         )
 
+        # Deep-copy the base first: replace() copies references, not contents,
+        # so a consumer mutating a carried-over field (pressure_ladder,
+        # canon_slices, exemplar_snippets, ...) would otherwise corrupt the
+        # immutable base and every sibling overlay.
         overlay = replace(
-            base,
+            copy.deepcopy(base),
             overlay_version=base.overlay_version + 1,
             scene_number=scene_number,
             scene_card=dict(scene_card),

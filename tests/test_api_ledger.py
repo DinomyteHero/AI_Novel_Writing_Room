@@ -67,7 +67,7 @@ async def test_ledger_summary(client):
     assert resp.status_code == 200
     data = resp.json()
     assert data["total_events"] >= 4
-    assert data["gate_pass_count"] >= 1
+    assert data["events_by_type"].get("gate_pass", 0) >= 1
 
 
 @pytest.mark.asyncio

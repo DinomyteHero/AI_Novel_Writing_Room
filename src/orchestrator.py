@@ -16,7 +16,7 @@ rhythm telemetry are advisory and never block a save.
 import json
 import time
 from pathlib import Path
-from typing import Any, Callable, Optional, TYPE_CHECKING
+from typing import Any, Optional, TYPE_CHECKING
 
 from src.agents.plot_architect import PlotArchitect
 from src.agents.prose_stylist import ProseStylist
@@ -233,7 +233,32 @@ class Orchestrator:
                 print(f"Chapter {chapter_num}, Scene {scene_num}")
                 print(f"{'='*60}")
 
-                result = await self.run_chapter(scene_card)
+                try:
+                    result = await self.run_chapter(scene_card)
+                except KeyboardInterrupt:
+                    raise
+                except Exception as exc:  # noqa: BLE001
+                    # One scene's failure must not abort the remaining chapters.
+                    # Record it, emit an error event, and continue so a long
+                    # multi-chapter run survives a single bad scene. The scene is
+                    # NOT marked complete, so a resumed run will retry it.
+                    self.ledger.emit_error(
+                        "scene_error",
+                        chapter_number=chapter_num,
+                        scene_number=scene_num,
+                        payload={"error": f"{type(exc).__name__}: {exc}"},
+                    )
+                    print(
+                        f"  [ERROR] Chapter {chapter_num} scene {scene_num} failed: "
+                        f"{type(exc).__name__}: {exc} — skipping, continuing run"
+                    )
+                    results.append({
+                        "chapter_number": chapter_num,
+                        "scene_number": scene_num,
+                        "error": f"{type(exc).__name__}: {exc}",
+                        "status": "failed",
+                    })
+                    continue
                 results.append(result)
 
                 if self.pipeline_session and self.session_id:
@@ -450,11 +475,11 @@ class Orchestrator:
 
         # Validate summarizer output completeness
         if not summary_text:
-            print(f"  [WARN] Summarizer returned empty summary — downstream context will be degraded")
+            print("  [WARN] Summarizer returned empty summary — downstream context will be degraded")
         if not state_diff or not state_diff.get("changes"):
-            print(f"  [WARN] Summarizer returned empty state_diff — story state will not update")
+            print("  [WARN] Summarizer returned empty state_diff — story state will not update")
         if not established_concepts:
-            print(f"  [WARN] Summarizer returned no established_concepts — concept maturity tracking inactive for this scene")
+            print("  [WARN] Summarizer returned no established_concepts — concept maturity tracking inactive for this scene")
 
         # Step 6: Store summary in ChromaDB
         if self.chapter_memory and summary_text:
@@ -471,7 +496,7 @@ class Orchestrator:
                 metadata=meta,
                 scene_number=scene_num,
             )
-            print(f"  [P2-2] Summary stored in ChromaDB")
+            print("  [P2-2] Summary stored in ChromaDB")
 
         # Step 7: Apply state diff to SQLite
         if self.state_diff_applier and state_diff.get("changes"):
@@ -482,7 +507,7 @@ class Orchestrator:
                 if not hasattr(self, "_rejected_transitions"):
                     self._rejected_transitions = []
                 self._rejected_transitions.extend(rejected)
-            print(f"  [P2-3] State diff applied")
+            print("  [P2-3] State diff applied")
 
         # Step 8: Update chapter log and scene log
         if self.story_state:
@@ -528,7 +553,7 @@ class Orchestrator:
                 failure_codes=failure_codes,
                 revision_status=revision_status,
             )
-            print(f"  [P2-4] Chapter/scene log updated")
+            print("  [P2-4] Chapter/scene log updated")
 
         # Step 9: Contradiction scanner
         if self.contradiction_scanner:
@@ -541,7 +566,7 @@ class Orchestrator:
                     f"{len(contradiction_flags)} flag(s)"
                 )
             else:
-                print(f"  [P2-5] Contradiction scanner: clean")
+                print("  [P2-5] Contradiction scanner: clean")
 
         # Step 10: Worldbuilding extraction (if enabled)
         if (self.lore_service and self._worldbuilding_auto_extract
@@ -559,7 +584,7 @@ class Orchestrator:
                 if new_entry_ids:
                     print(f"  [WB] Extracted {len(new_entry_ids)} provisional lore entries")
                 else:
-                    print(f"  [WARN] Worldbuilding extraction returned 0 entries — check lore_extractor JSON parsing or universe FK")
+                    print("  [WARN] Worldbuilding extraction returned 0 entries — check lore_extractor JSON parsing or universe FK")
             except Exception as e:
                 print(f"  [WARN] Worldbuilding extraction failed: {e.__class__.__name__}: {e}")
                 _logger.warning("Worldbuilding extraction failed: %s", e)
@@ -944,15 +969,20 @@ class Orchestrator:
             agent_role="prose_stylist",
         )
 
-        assembled_context = self.assembler.assemble(scene_card)
-
         # Slice 2: build the chapter packet overlay for this scene when the
-        # flag is on. The packet renderer embeds a flat-context snapshot so
-        # the drafter prompt remains a token-superset of the legacy flat path.
-        # On any failure, emit packet_fallback_flat and fall back to
-        # assembled_context — runtime.chapter_packet.fallback_on_error gates
-        # whether a raise bubbles up when fallback is not wanted.
+        # flag is on. The packet renderer embeds its own flat-context snapshot,
+        # so the legacy flat assembly is only needed for the fallback path.
         chapter_packet = self._maybe_compile_overlay(scene_card)
+
+        # Only run the (canon-RAG + worldbuilding-retrieval) flat assembly when
+        # it is actually used: the packet path is off, or its overlay failed to
+        # compile. On the packet hot path the overlay already embedded the
+        # assemble() output, so recomputing it here is pure waste (a redundant
+        # retrieval per scene).
+        if chapter_packet is None:
+            assembled_context = self.assembler.assemble(scene_card)
+        else:
+            assembled_context = ""
 
         # Build dynamic cross-scene feedback. The base banned-phrase list
         # from config/negative_constraints.yaml is already baked into
@@ -987,17 +1017,27 @@ class Orchestrator:
             # the flat assembled_context path (spec §6.1.4 precedence rule).
             prose_context["chapter_packet"] = chapter_packet
         result = await self.prose_stylist.run(prose_context)
+        prose = result.get("prose", "") if isinstance(result, dict) else ""
 
         duration_ms = int((time.time() - start) * 1000)
+        word_count = len(prose.split())
+        if not prose.strip():
+            self.ledger.emit_warn(
+                "prose_empty",
+                chapter_number=scene_card["chapter_number"],
+                scene_number=scene_card.get("scene_number", 1),
+                agent_role="prose_stylist",
+                payload={"reason": "drafter returned empty prose"},
+            )
         self.ledger.emit(
             "agent_complete",
             chapter_number=scene_card["chapter_number"],
             scene_number=scene_card.get("scene_number", 1),
             agent_role="prose_stylist",
-            payload={"duration_ms": duration_ms, "word_count": len(result["prose"].split())},
+            payload={"duration_ms": duration_ms, "word_count": word_count},
         )
 
-        return result["prose"]
+        return prose
 
     async def _run_line_writer(
         self,

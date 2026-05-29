@@ -20,7 +20,7 @@ import logging
 from collections import OrderedDict
 from itertools import groupby
 from pathlib import Path
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING
 
 from src.agents.base_agent import BaseAgent
 

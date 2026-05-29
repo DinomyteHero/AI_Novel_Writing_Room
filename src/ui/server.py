@@ -37,7 +37,7 @@ def run_server(
         phase=phase,
     )
 
-    print(f"Starting AI Writers' Room web server...")
+    print("Starting AI Writers' Room web server...")
     print(f"  Config: {config_path}")
     print(f"  Concept seed: {concept_seed_path}")
     print(f"  Phase: {phase}")

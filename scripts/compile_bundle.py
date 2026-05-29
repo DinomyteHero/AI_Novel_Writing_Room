@@ -48,6 +48,10 @@ if str(REPO_ROOT) not in sys.path:
 from src.concept_workshop.compliance_validator import validate_concept_seed  # noqa: E402
 from src.planning.physics_enforcer import PhysicsEnforcer  # noqa: E402
 from src.project_paths import ProjectPaths, _slugify_franchise  # noqa: E402
+from src.quality.cross_chapter_validator import (  # noqa: E402
+    validate_cross_chapter_continuity,
+)
+from src.runtime_flags import resolve_flag  # noqa: E402
 from src.prompting.scene_voice_permissions import detect_legacy_voice_fields  # noqa: E402
 from workflows._shared.scene_card_references import (  # noqa: E402
     validate_all_scene_card_references,
@@ -56,7 +60,6 @@ from workflows._shared.scene_card_translator import translate_scene_card  # noqa
 from workflows._shared.seed_transforms import (  # noqa: E402
     apply_arc_phase_maps,
     apply_branch_point,
-    apply_canon_constraints,
     apply_canon_profile,
     apply_force_mechanics,
     apply_hooks,
@@ -65,11 +68,9 @@ from workflows._shared.seed_transforms import (  # noqa: E402
     apply_referenced_characters,
     apply_relationship_arcs,
     apply_revelation_schedule,
-    apply_stress_test_scores,
     apply_subplots,
     apply_terminology_registry,
     apply_voice_definition,
-    apply_workshop_origin,
     move_to_extended_metadata,
     normalize_enums,
 )
@@ -94,6 +95,7 @@ class CompileReport:
     scene_card_errors: list[str] = field(default_factory=list)
     physics: dict = field(default_factory=dict)
     editorial: dict = field(default_factory=dict)
+    continuity: dict = field(default_factory=dict)
     warnings: list[str] = field(default_factory=list)
     generated_at: str = ""
 
@@ -110,6 +112,7 @@ class CompileReport:
             "scene_card_errors": self.scene_card_errors,
             "physics": self.physics,
             "editorial": self.editorial,
+            "continuity": self.continuity,
             "warnings": self.warnings,
             "generated_at": self.generated_at,
         }
@@ -245,11 +248,11 @@ def _write_scene_cards(
     Wipes existing chapter_*_scene_*.json files first so removed cards
     don't linger from a previous compile.
     """
-    output_dir.mkdir(parents=True, exist_ok=True)
-    for stale in output_dir.glob("chapter_*_scene_*.json"):
-        stale.unlink()
-
-    written = 0
+    # Translate + validate into memory FIRST; only mutate the on-disk tree once
+    # we know we have cards to write. A translation failure on every card would
+    # otherwise wipe a previously-compiled scene_cards/ tree (the live pipeline
+    # input) and write nothing back.
+    rendered: list[tuple[str, str]] = []
     for card in cards:
         try:
             translated = translate_scene_card(
@@ -278,13 +281,24 @@ def _write_scene_cards(
                 f"(see D1 in docs; readers still honor the legacy shape)"
             )
         filename = f"chapter_{ch:02d}_scene_{sn:02d}.json"
-        path = output_dir / filename
-        path.write_text(
+        rendered.append((
+            filename,
             json.dumps(translated, indent=2, ensure_ascii=False) + "\n",
-            encoding="utf-8",
+        ))
+
+    if not rendered:
+        report.warnings.append(
+            "no scene cards translated successfully; leaving the existing "
+            "scene_cards/ tree untouched"
         )
-        written += 1
-    return written
+        return 0
+
+    output_dir.mkdir(parents=True, exist_ok=True)
+    for stale in output_dir.glob("chapter_*_scene_*.json"):
+        stale.unlink()
+    for filename, content in rendered:
+        (output_dir / filename).write_text(content, encoding="utf-8")
+    return len(rendered)
 
 
 def compile_bundle(
@@ -463,6 +477,22 @@ def compile_bundle(
             "skipped": "no scene cards on disk",
         }
 
+    # Cross-chapter continuity (flag-gated: runtime.continuity_validator.enabled,
+    # default off). Pure analysis over the ordered cards; declared
+    # discontinuities surface in the report for the operator.
+    if translated_cards and resolve_flag(
+        "runtime.continuity_validator.enabled",
+        concept_seed=seed, base_dir=base_dir, default=False,
+    ):
+        continuity_report = validate_cross_chapter_continuity(translated_cards)
+        report.continuity = continuity_report.to_dict()
+        high_breaks = [b for b in continuity_report.breaks if b.severity == "high"]
+        if high_breaks:
+            report.warnings.append(
+                f"continuity: {len(high_breaks)} high-severity break(s) — "
+                "see compile_report.continuity"
+            )
+
     # Persist seed (after physics stamping so the flag lands in the written file).
     paths.concept_seed_path.write_text(
         json.dumps(seed, indent=2, ensure_ascii=False) + "\n",
@@ -591,7 +621,7 @@ def _format_summary(report: CompileReport) -> str:
     """Human-readable stdout summary mirroring ValidationReport.format()."""
     lines: list[str] = [
         f"Bundle compile: {report.franchise}/{report.book}",
-        f"  surfaces present: "
+        "  surfaces present: "
         + ", ".join(name for name, present in report.surfaces_present.items() if present),
     ]
     if report.surfaces_missing:

@@ -103,7 +103,7 @@ class SlopDetector:
         """Scan for known AI-tell words and phrases."""
         hits = []
         prose_lower = prose.lower()
-        lines = prose.split("\n")
+        prose.split("\n")
 
         for tell in self.ai_tells:
             tell_lower = tell.lower()

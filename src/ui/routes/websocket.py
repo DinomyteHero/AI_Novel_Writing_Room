@@ -2,7 +2,6 @@
 
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect
 
-from src.ui.app import get_app_state
 
 router = APIRouter(tags=["websocket"])
 

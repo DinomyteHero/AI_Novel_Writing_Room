@@ -34,7 +34,7 @@ import sqlite3
 import re
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Iterable, Mapping, Optional
+from typing import Any, Iterable, Mapping
 
 logger = logging.getLogger(__name__)
 
@@ -47,7 +47,7 @@ STATUSES: frozenset[str] = frozenset({
 })
 SOURCES: frozenset[str] = frozenset({"scene_card", "manual", "planning"})
 
-_SCENE_ID_RE = re.compile(r"^ch(\d{2})_sc(\d{2})$")
+_SCENE_ID_RE = re.compile(r"^ch(\d{2,})_sc(\d{2,})$")
 _CHAPTER_REF_RE = re.compile(r"(\d+)")
 
 
@@ -272,6 +272,9 @@ class PromiseLedger:
         if existing is not None:
             progression_log = existing["progression_log"] or json.dumps([])
             created_at = existing["created_at"] or now
+        # On conflict we deliberately do NOT update `status`: re-seeding from
+        # planning must not clobber a runtime status advanced by
+        # record_progression / record_payoff / record_broken.
         self.conn.execute(
             """
             INSERT INTO promise_ledger (
@@ -284,7 +287,6 @@ class PromiseLedger:
                 setup_scene = excluded.setup_scene,
                 payoff_scene = excluded.payoff_scene,
                 due_by_scene = excluded.due_by_scene,
-                status = excluded.status,
                 updated_at = excluded.updated_at
             """,
             (

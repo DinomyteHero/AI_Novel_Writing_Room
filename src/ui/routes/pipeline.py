@@ -7,6 +7,7 @@ from typing import Optional
 from fastapi import APIRouter, HTTPException, Request
 from pydantic import BaseModel
 
+from src.project_paths import _slugify_franchise, slugify_title
 from src.ui.app import get_app_state
 from src.ui.pipeline_manager import PipelineState
 
@@ -82,8 +83,11 @@ async def start_pipeline(body: PipelineStartRequest, request: Request):
 
     # Resolve canonical scoping — prefer the new fields; fall back to
     # deprecated universe_id/project_id for older clients.
-    franchise_slug = body.franchise or body.universe_id
-    book_slug = body.book or body.project_id
+    # Sanitize every caller-supplied slug through the canonical slugifiers so a
+    # "../" or absolute segment can't escape the data/ or output/ trees (these
+    # slugs flow into ProjectPaths and ensure_dirs()/mkdir).
+    franchise_slug = _slugify_franchise(body.franchise or body.universe_id or "") or None
+    book_slug = slugify_title(body.book or body.project_id or "") or None
 
     # Apply run-level isolation when run_name is provided. Mirrors the CLI
     # ProjectPaths(..., run_id=run_name) flow so web runs land at
@@ -91,11 +95,13 @@ async def start_pipeline(body: PipelineStartRequest, request: Request):
     # book-level chapters/ default that app lifespan wires up.
     if body.run_name:
         from src.project_paths import ProjectPaths
-        paths = ProjectPaths.from_concept_seed(concept_seed, run_id=body.run_name)
+        paths = ProjectPaths.from_concept_seed(
+            concept_seed, run_id=slugify_title(body.run_name)
+        )
         if franchise_slug:
             paths.franchise_slug = franchise_slug
         if body.series:
-            paths.series_slug = body.series
+            paths.series_slug = slugify_title(body.series)
         paths.ensure_dirs()
         state.manuscripts_dir = str(paths.manuscripts_dir)
 
@@ -294,8 +300,8 @@ def _create_web_orchestrator(state, concept_seed_path, concept_seed, body):
     # Accept both the canonical franchise/book fields and the deprecated
     # universe_id/project_id aliases. ContextAssembler keeps the legacy
     # parameter names internally for now.
-    universe_id = body.franchise or body.universe_id
-    project_id = body.book or body.project_id
+    universe_id = _slugify_franchise(body.franchise or body.universe_id or "") or None
+    project_id = slugify_title(body.book or body.project_id or "") or None
 
     assembler = ContextAssembler(
         concept_seed_path=concept_seed_path,

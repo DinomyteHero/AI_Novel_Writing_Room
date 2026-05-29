@@ -25,11 +25,12 @@ class CanonScout(BaseAgent):
 
     async def run(self, context: dict) -> dict:
         messages = self._build_messages(context)
-        return await self.router.complete_structured(
+        result = await self.router.complete_structured(
             self.role,
             messages,
             override_params={"temperature": 0.1, "max_tokens": 1800},
         )
+        return result if isinstance(result, dict) else {}
 
     def _format_context(self, context: dict) -> str:
         concept_seed = context.get("concept_seed", {}) or {}

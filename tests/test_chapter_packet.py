@@ -159,6 +159,26 @@ def test_base_is_frozen_dataclass(compiler):
         base.overlay_version = 5
 
 
+def test_overlay_does_not_share_mutable_fields_with_base(compiler):
+    """Mutating a carried-over list on an overlay must not corrupt the base or
+    sibling overlays (replace() shares references without the deep-copy)."""
+    base = compiler.compile_base(chapter_number=1)
+    base_ladder_len = len(base.pressure_ladder)
+    card = {
+        "chapter_number": 1, "scene_number": 1,
+        "pov_character": "Ben", "mission": "m",
+    }
+    overlay1 = compiler.compile_overlay(base=base, scene_card=card)
+    overlay2 = compiler.compile_overlay(base=base, scene_card=card)
+
+    assert overlay1.pressure_ladder is not base.pressure_ladder
+    overlay1.pressure_ladder.append(
+        {"scene_number": 99, "label": "injected", "note": ""}
+    )
+    assert len(base.pressure_ladder) == base_ladder_len
+    assert len(overlay2.pressure_ladder) == base_ladder_len
+
+
 def test_overlay_does_not_mutate_base(compiler):
     base = compiler.compile_base(chapter_number=1)
     scene_card = {

@@ -26,7 +26,6 @@ from __future__ import annotations
 import json
 import logging
 import re
-from typing import Any
 
 from src.agents.base_agent import BaseAgent
 
@@ -59,7 +58,10 @@ class EditorialConsultant(BaseAgent):
         physics_report = context.get("physics_report") or {}
 
         meta = concept_seed.get("meta", {}) or {}
-        total_chapters = meta.get("target_chapters", len(chapter_blueprints)) or 1
+        try:
+            total_chapters = int(meta.get("target_chapters") or len(chapter_blueprints) or 1)
+        except (TypeError, ValueError):
+            total_chapters = len(chapter_blueprints) or 1
 
         parts: list[str] = []
 

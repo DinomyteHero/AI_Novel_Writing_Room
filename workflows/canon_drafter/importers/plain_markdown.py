@@ -5,7 +5,6 @@ from __future__ import annotations
 from pathlib import Path
 
 from workflows._shared.markdown_parser import (
-    join_prose,
     parse_bullets,
     parse_kv_block,
     parse_sections,
