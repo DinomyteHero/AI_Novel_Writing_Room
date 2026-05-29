@@ -202,18 +202,21 @@ class StateDiffApplier:
             payload={"diff": diff, "pre_state_hash": pre_hash},
         )
 
-        # Apply changes
+        # Apply changes atomically: a partial diff must never be committed, so
+        # any uncaught failure rolls the whole batch back. Per-update field
+        # errors are still caught inside each handler and skipped.
         changes = diff.get("changes", {})
-        self._apply_character_updates(changes.get("character_updates", []), chapter_number, scene_number)
-        self._apply_plot_thread_updates(changes.get("plot_thread_updates", []))
-        self._apply_new_knowledge(changes.get("new_knowledge", []), chapter_number)
-        # Phase 5 change types
-        self._apply_subplot_updates(changes.get("subplot_updates", []))
-        self._apply_hook_updates(changes.get("hook_updates", []), chapter_number)
-        rejected_transitions = self._apply_arc_phase_updates(
-            changes.get("arc_phase_updates", []), chapter_number, scene_card
-        )
-        self._apply_terminology_updates(changes.get("terminology_updates", []))
+        with self.state.transaction():
+            self._apply_character_updates(changes.get("character_updates", []), chapter_number, scene_number)
+            self._apply_plot_thread_updates(changes.get("plot_thread_updates", []))
+            self._apply_new_knowledge(changes.get("new_knowledge", []), chapter_number)
+            # Phase 5 change types
+            self._apply_subplot_updates(changes.get("subplot_updates", []))
+            self._apply_hook_updates(changes.get("hook_updates", []), chapter_number)
+            rejected_transitions = self._apply_arc_phase_updates(
+                changes.get("arc_phase_updates", []), chapter_number, scene_card
+            )
+            self._apply_terminology_updates(changes.get("terminology_updates", []))
 
         # Store rejected transitions for Summarizer feedback
         self.last_rejected_transitions = rejected_transitions
@@ -279,7 +282,7 @@ class StateDiffApplier:
             kwargs["last_appearance_scene"] = scene_number
             try:
                 self.state.update_character(char_id, **kwargs)
-            except (sqlite3.IntegrityError, sqlite3.OperationalError) as e:
+            except (sqlite3.IntegrityError, sqlite3.OperationalError, ValueError) as e:
                 logger.warning(
                     "Character update rejected for '%s' field '%s' = %r: %s",
                     char_id, field, new_value, e,
@@ -306,7 +309,7 @@ class StateDiffApplier:
                     )
                 else:
                     self.state.update_plot_thread(thread_id, **{field: new_value})
-            except (sqlite3.IntegrityError, sqlite3.OperationalError) as e:
+            except (sqlite3.IntegrityError, sqlite3.OperationalError, ValueError) as e:
                 logger.warning(
                     "Plot thread update rejected for '%s' field '%s' = %r: %s",
                     thread_id, field, new_value, e,
@@ -353,7 +356,7 @@ class StateDiffApplier:
                     chapter=chapter_number,
                     source=source,
                 )
-            except (sqlite3.IntegrityError, sqlite3.OperationalError) as e:
+            except (sqlite3.IntegrityError, sqlite3.OperationalError, ValueError) as e:
                 logger.warning(
                     "Knowledge entry rejected for '%s' fact '%s': %s",
                     char_id, fact_id, e,
@@ -386,7 +389,7 @@ class StateDiffApplier:
                     )
                 else:
                     self.state.update_subplot(subplot_id, **{field: new_value})
-            except (sqlite3.IntegrityError, sqlite3.OperationalError) as e:
+            except (sqlite3.IntegrityError, sqlite3.OperationalError, ValueError) as e:
                 logger.warning(
                     "Subplot update rejected for '%s' field '%s' = %r: %s",
                     subplot_id, field, new_value, e,
@@ -437,7 +440,7 @@ class StateDiffApplier:
                     )
                     if field and field != "current_status":
                         self.state.update_hook(hook_id, **{field: new_value})
-                except (sqlite3.IntegrityError, sqlite3.OperationalError) as e:
+                except (sqlite3.IntegrityError, sqlite3.OperationalError, ValueError) as e:
                     logger.warning(
                         "Hook create/update rejected for '%s': %s", hook_id, e,
                     )
@@ -445,7 +448,7 @@ class StateDiffApplier:
                 if field:
                     try:
                         self.state.update_hook(hook_id, **{field: new_value})
-                    except (sqlite3.IntegrityError, sqlite3.OperationalError) as e:
+                    except (sqlite3.IntegrityError, sqlite3.OperationalError, ValueError) as e:
                         logger.warning(
                             "Hook update rejected for '%s' field '%s' = %r: %s",
                             hook_id, field, new_value, e,
@@ -491,7 +494,7 @@ class StateDiffApplier:
                     chapter=chapter_number,
                     evidence=evidence,
                 )
-            except (sqlite3.IntegrityError, sqlite3.OperationalError) as e:
+            except (sqlite3.IntegrityError, sqlite3.OperationalError, ValueError) as e:
                 logger.warning(
                     "Arc phase update rejected for '%s' phase '%s': %s",
                     char_id, new_phase, e,
@@ -544,7 +547,7 @@ class StateDiffApplier:
                     new_value = update.get("new_value")
                     if field and new_value is not None:
                         self.state.update_term(term, **{field: new_value})
-            except (sqlite3.IntegrityError, sqlite3.OperationalError) as e:
+            except (sqlite3.IntegrityError, sqlite3.OperationalError, ValueError) as e:
                 logger.warning(
                     "Terminology update rejected for '%s': %s", term, e,
                 )

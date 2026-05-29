@@ -14,6 +14,7 @@ import json
 import logging
 import re
 import sqlite3
+from contextlib import contextmanager
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Optional
@@ -728,11 +729,16 @@ class StoryState:
 
         self.conn = sqlite3.connect(str(path))
         self.conn.row_factory = sqlite3.Row
+        # Deferred-commit support: while a transaction() is active, individual
+        # write helpers skip their commit so a multi-write operation (a state
+        # diff) is atomic. _table_columns_cache backs _assert_known_columns.
+        self._in_transaction = False
+        self._table_columns_cache: dict[str, set[str]] = {}
         self.conn.execute("PRAGMA foreign_keys = ON")
         self.conn.execute("PRAGMA journal_mode = WAL")
         self.conn.execute("PRAGMA busy_timeout = 5000")
         self.conn.executescript(_SCHEMA_SQL)
-        self.conn.commit()
+        self._maybe_commit()
 
         # Seed baseline migration version if schema_migrations is empty
         row = self.conn.execute(
@@ -743,7 +749,7 @@ class StoryState:
                 "INSERT INTO schema_migrations (version, description) VALUES (?, ?)",
                 (1, "Baseline: Phase 1-4 schema (7 tables)"),
             )
-            self.conn.commit()
+            self._maybe_commit()
 
         # Run pending migrations
         self._run_migrations()
@@ -757,7 +763,7 @@ class StoryState:
                 "INSERT INTO characters (id, name) VALUES (?, ?)",
                 ("__world__", "__world__"),
             )
-            self.conn.commit()
+            self._maybe_commit()
 
     def _run_migrations(self) -> None:
         """Apply any pending schema migrations in order."""
@@ -774,7 +780,7 @@ class StoryState:
                     "INSERT INTO schema_migrations (version, description) VALUES (?, ?)",
                     (version, description),
                 )
-                self.conn.commit()
+                self._maybe_commit()
                 logger.info("Migration v%d applied successfully", version)
 
     def get_schema_version(self) -> int:
@@ -797,6 +803,49 @@ class StoryState:
     def _rows_to_dicts(self, rows: list[sqlite3.Row]) -> list[dict]:
         """Convert a list of sqlite3.Row objects to plain dicts."""
         return [dict(r) for r in rows]
+
+    def _maybe_commit(self) -> None:
+        """Commit immediately unless inside an explicit transaction()."""
+        if not self._in_transaction:
+            self.conn.commit()
+
+    @contextmanager
+    def transaction(self):
+        """Group writes into one atomic transaction.
+
+        While active, write helpers defer their commit; the block commits once
+        on success and rolls back on any exception, so a partially-applied
+        state diff can never be committed. Re-entrant: a nested call runs
+        inline under the outermost transaction.
+        """
+        if self._in_transaction:
+            yield
+            return
+        self._in_transaction = True
+        try:
+            yield
+            self.conn.commit()
+        except BaseException:
+            self.conn.rollback()
+            raise
+        finally:
+            self._in_transaction = False
+
+    def _assert_known_columns(self, table: str, kwargs: dict) -> None:
+        """Reject kwargs keys that are not real columns of ``table``.
+
+        State-diff field names originate from LLM output; without this guard an
+        unknown or injected key is interpolated straight into the UPDATE SET
+        clause. ``table`` is always a hardcoded literal, never user input.
+        """
+        cols = self._table_columns_cache.get(table)
+        if cols is None:
+            cur = self.conn.execute(f"PRAGMA table_info({table})")
+            cols = {row[1] for row in cur.fetchall()}
+            self._table_columns_cache[table] = cols
+        invalid = set(kwargs) - cols
+        if invalid:
+            raise ValueError(f"Invalid column(s) for {table}: {sorted(invalid)}")
 
     # ------------------------------------------------------------------
     # Characters
@@ -825,7 +874,7 @@ class StoryState:
                 json.dumps(inventory) if inventory is not None else None,
             ),
         )
-        self.conn.commit()
+        self._maybe_commit()
 
     def get_character(self, id: str) -> dict | None:
         """Fetch a single character by ID."""
@@ -860,7 +909,7 @@ class StoryState:
         self.conn.execute(
             f"UPDATE characters SET {set_clause} WHERE id = ?", values
         )
-        self.conn.commit()
+        self._maybe_commit()
 
     def get_all_characters(self) -> list[dict]:
         """Return every character as a list of dicts (excludes __world__ sentinel)."""
@@ -1059,7 +1108,7 @@ class StoryState:
                 source,
             ),
         )
-        self.conn.commit()
+        self._maybe_commit()
 
     def get_knowledge(
         self,
@@ -1107,7 +1156,7 @@ class StoryState:
                VALUES (?, ?, ?, ?, ?)""",
             (character_a, character_b, relationship_type, status, last_updated_chapter),
         )
-        self.conn.commit()
+        self._maybe_commit()
 
     def get_relationships(self, character_id: str) -> list[dict]:
         """Return all relationships involving a character (either side)."""
@@ -1138,7 +1187,7 @@ class StoryState:
                 WHERE character_a = ? AND character_b = ?""",
             values,
         )
-        self.conn.commit()
+        self._maybe_commit()
 
     # ------------------------------------------------------------------
     # Plot Threads
@@ -1170,7 +1219,7 @@ class StoryState:
                 resolution_notes,
             ),
         )
-        self.conn.commit()
+        self._maybe_commit()
 
     def get_plot_thread(self, id: str) -> dict | None:
         """Fetch a single plot thread by ID."""
@@ -1204,7 +1253,7 @@ class StoryState:
         self.conn.execute(
             f"UPDATE plot_threads SET {set_clause} WHERE id = ?", values
         )
-        self.conn.commit()
+        self._maybe_commit()
 
     def get_active_threads(self) -> list[dict]:
         """Return all plot threads whose status is not 'resolved'."""
@@ -1244,7 +1293,7 @@ class StoryState:
                 json.dumps(key_events) if key_events is not None else None,
             ),
         )
-        self.conn.commit()
+        self._maybe_commit()
 
     def get_timeline(self, chapter_number: int | None = None) -> list[dict]:
         """Return timeline entries, optionally filtered by chapter."""
@@ -1284,7 +1333,7 @@ class StoryState:
                VALUES (?, ?, ?, ?)""",
             (id, item_description, planted_chapter, planted_context),
         )
-        self.conn.commit()
+        self._maybe_commit()
 
     def fire_chekhov_gun(
         self, id: str, fired_chapter: int, fired_status: str = "fired"
@@ -1294,7 +1343,7 @@ class StoryState:
             "UPDATE chekhov_guns SET fired_chapter = ?, fired_status = ? WHERE id = ?",
             (fired_chapter, fired_status, id),
         )
-        self.conn.commit()
+        self._maybe_commit()
 
     def get_unfired_guns(self) -> list[dict]:
         """Return all Chekhov guns that have not been fired yet."""
@@ -1335,7 +1384,7 @@ class StoryState:
                 revision_status,
             ),
         )
-        self.conn.commit()
+        self._maybe_commit()
 
     def get_chapter_log(self, chapter_number: int) -> dict | None:
         """Fetch a single chapter log entry."""
@@ -1361,13 +1410,14 @@ class StoryState:
         if "failure_codes" in kwargs and kwargs["failure_codes"] is not None:
             kwargs["failure_codes"] = json.dumps(kwargs["failure_codes"])
 
+        self._assert_known_columns("chapter_log", kwargs)
         set_clause = ", ".join(f"{k} = ?" for k in kwargs)
         values = list(kwargs.values()) + [chapter_number]
         self.conn.execute(
             f"UPDATE chapter_log SET {set_clause} WHERE chapter_number = ?",
             values,
         )
-        self.conn.commit()
+        self._maybe_commit()
 
     # ------------------------------------------------------------------
     # Scene Log (multi-scene chapter support)
@@ -1404,7 +1454,7 @@ class StoryState:
                 revision_status,
             ),
         )
-        self.conn.commit()
+        self._maybe_commit()
 
     def get_scene_log(self, chapter_number: int, scene_number: int) -> dict | None:
         """Fetch a single scene log entry by (chapter, scene)."""
@@ -1455,13 +1505,14 @@ class StoryState:
         if "failure_codes" in kwargs and kwargs["failure_codes"] is not None:
             kwargs["failure_codes"] = json.dumps(kwargs["failure_codes"])
 
+        self._assert_known_columns("scene_log", kwargs)
         set_clause = ", ".join(f"{k} = ?" for k in kwargs)
         values = list(kwargs.values()) + [chapter_number, scene_number]
         self.conn.execute(
             f"UPDATE scene_log SET {set_clause} WHERE chapter_number = ? AND scene_number = ?",
             values,
         )
-        self.conn.commit()
+        self._maybe_commit()
 
     # ------------------------------------------------------------------
     # Character Arcs (Weiland)
@@ -1493,7 +1544,7 @@ class StoryState:
                 json.dumps(arc_phase_targets) if arc_phase_targets is not None else None,
             ),
         )
-        self.conn.commit()
+        self._maybe_commit()
 
     def get_character_arc(
         self, character_id: str, book_number: int = 1
@@ -1518,13 +1569,14 @@ class StoryState:
             return
         if "arc_phase_targets" in kwargs and kwargs["arc_phase_targets"] is not None:
             kwargs["arc_phase_targets"] = json.dumps(kwargs["arc_phase_targets"])
+        self._assert_known_columns("character_arcs", kwargs)
         set_clause = ", ".join(f"{k} = ?" for k in kwargs)
         values = list(kwargs.values()) + [character_id, book_number]
         self.conn.execute(
             f"UPDATE character_arcs SET {set_clause} WHERE character_id = ? AND book_number = ?",
             values,
         )
-        self.conn.commit()
+        self._maybe_commit()
 
     def get_all_character_arcs(self, book_number: int | None = None) -> list[dict]:
         """Return all character arcs, optionally filtered by book."""
@@ -1650,7 +1702,7 @@ class StoryState:
                 current_status, book_number,
             ),
         )
-        self.conn.commit()
+        self._maybe_commit()
 
     def get_subplot(self, subplot_id: str) -> dict | None:
         """Fetch a single subplot by ID."""
@@ -1674,12 +1726,13 @@ class StoryState:
             kwargs["characters_involved"] = json.dumps(kwargs["characters_involved"])
         if "interweave_points" in kwargs and kwargs["interweave_points"] is not None:
             kwargs["interweave_points"] = json.dumps(kwargs["interweave_points"])
+        self._assert_known_columns("subplots", kwargs)
         set_clause = ", ".join(f"{k} = ?" for k in kwargs)
         values = list(kwargs.values()) + [subplot_id]
         self.conn.execute(
             f"UPDATE subplots SET {set_clause} WHERE subplot_id = ?", values
         )
-        self.conn.commit()
+        self._maybe_commit()
 
     def get_active_subplots(self, book_number: int | None = None) -> list[dict]:
         """Return subplots that are not resolved or abandoned."""
@@ -1749,7 +1802,7 @@ class StoryState:
                 priority, related_subplot, current_status, None, 0,
             ),
         )
-        self.conn.commit()
+        self._maybe_commit()
 
     def get_hook(self, hook_id: str) -> dict | None:
         """Fetch a single hook by ID."""
@@ -1769,12 +1822,13 @@ class StoryState:
             return
         if "advancement_chapters" in kwargs and kwargs["advancement_chapters"] is not None:
             kwargs["advancement_chapters"] = json.dumps(kwargs["advancement_chapters"])
+        self._assert_known_columns("hooks", kwargs)
         set_clause = ", ".join(f"{k} = ?" for k in kwargs)
         values = list(kwargs.values()) + [hook_id]
         self.conn.execute(
             f"UPDATE hooks SET {set_clause} WHERE hook_id = ?", values
         )
-        self.conn.commit()
+        self._maybe_commit()
 
     def get_all_hooks(self, book_number: int | None = None) -> list[dict]:
         """Return all hooks, optionally filtered by planted_book."""
@@ -1927,7 +1981,7 @@ class StoryState:
                 definition, category, first_appearance_chapter, book_number,
             ),
         )
-        self.conn.commit()
+        self._maybe_commit()
 
     def get_term(self, term: str) -> dict | None:
         """Fetch a single term by its canonical form."""
@@ -1947,12 +2001,13 @@ class StoryState:
             return
         if "aliases" in kwargs and kwargs["aliases"] is not None:
             kwargs["aliases"] = json.dumps(kwargs["aliases"])
+        self._assert_known_columns("terminology_registry", kwargs)
         set_clause = ", ".join(f"{k} = ?" for k in kwargs)
         values = list(kwargs.values()) + [term]
         self.conn.execute(
             f"UPDATE terminology_registry SET {set_clause} WHERE term = ?", values
         )
-        self.conn.commit()
+        self._maybe_commit()
 
     def get_all_terms(self, book_number: int | None = None) -> list[dict]:
         """Return all terms, optionally filtered by book."""
@@ -2011,7 +2066,7 @@ class StoryState:
                VALUES (?, ?, ?, ?)""",
             (source_layer, change_description, json.dumps(affected_chapters), resolution_method),
         )
-        self.conn.commit()
+        self._maybe_commit()
         return cursor.lastrowid
 
     def get_propagation_debt(self, debt_id: int) -> dict | None:
@@ -2047,7 +2102,7 @@ class StoryState:
             "UPDATE propagation_debts SET resolved_at = CURRENT_TIMESTAMP, resolution_method = ? WHERE id = ?",
             (resolution_method, debt_id),
         )
-        self.conn.commit()
+        self._maybe_commit()
 
     # ------------------------------------------------------------------
     # Utility
@@ -2347,7 +2402,7 @@ class StoryState:
                 gap.get("resolution_notes"),
             ),
         )
-        self.conn.commit()
+        self._maybe_commit()
         return gap["gap_id"]
 
     def list_open_gaps(self, *, chapter_number: int | None = None) -> list[dict]:
@@ -2388,7 +2443,7 @@ class StoryState:
         )
         if cursor.rowcount == 0:
             raise KeyError(f"resolve_gap: no gap with gap_id={gap_id!r}")
-        self.conn.commit()
+        self._maybe_commit()
 
     def list_gaps_affecting(self, scene_id: str) -> list[dict]:
         """Return every gap (any status) whose ``affected_scenes`` contains
