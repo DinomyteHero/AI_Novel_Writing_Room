@@ -942,7 +942,7 @@ async def main():
             assembler.lore_service = lore_service
             assembler.universe_id = franchise_slug
             assembler.project_id = book_id
-        except (ImportError, Exception) as e:
+        except Exception as e:
             print(f"  Warning: Worldbuilding service not available: {e}")
 
     # Phase 4: Generate scene cards from concept seed if requested

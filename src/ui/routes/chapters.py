@@ -103,21 +103,14 @@ async def get_chapter_metrics(chapter_num: int, scene_num: int, request: Request
 
 @router.get("/chapters/{chapter_num}/{scene_num}/evaluation")
 async def get_chapter_evaluation(chapter_num: int, scene_num: int, request: Request):
-    """Get gate critic and LLM judge evaluations for a chapter."""
+    """Get the LLM judge evaluation for a chapter.
+
+    The lean pipeline runs no save-time gate, so there is no gate verdict to
+    report (the old gate_pass/gate_fail events are never emitted).
+    """
     state = get_app_state(request)
 
     result = {"chapter_number": chapter_num, "scene_number": scene_num}
-
-    # Get gate verdict from ledger
-    gate_events = state.ledger.get_events(
-        chapter_number=chapter_num, event_type="gate_pass", limit=1
-    )
-    if not gate_events:
-        gate_events = state.ledger.get_events(
-            chapter_number=chapter_num, event_type="gate_fail", limit=1
-        )
-    if gate_events:
-        result["gate_evaluation"] = gate_events[-1].get("payload", {})
 
     # Get judge evaluation from ledger
     judge_events = state.ledger.get_events(

@@ -246,7 +246,7 @@ def _init_story_state(state: AppState, concept_seed_path: str, pipeline_cfg: dic
                 persist_directory=chapter_memory_dir,
                 embedding_function=ef,
             )
-        except (ImportError, Exception) as e:
+        except Exception as e:
             logger.warning("ChapterMemory not available: %s", e)
 
     except ImportError as e:
@@ -283,7 +283,7 @@ def _init_worldbuilding(state: AppState, config: dict,
         state.lore_service = LoreService(db=wb_db, vectorstore=wb_vs)
 
         logger.info("Worldbuilding service initialized (db=%s)", db_path)
-    except (ImportError, Exception) as e:
+    except Exception as e:
         logger.warning("Worldbuilding service not available: %s", e)
 
 
