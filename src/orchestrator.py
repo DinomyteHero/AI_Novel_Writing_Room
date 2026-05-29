@@ -233,7 +233,32 @@ class Orchestrator:
                 print(f"Chapter {chapter_num}, Scene {scene_num}")
                 print(f"{'='*60}")
 
-                result = await self.run_chapter(scene_card)
+                try:
+                    result = await self.run_chapter(scene_card)
+                except KeyboardInterrupt:
+                    raise
+                except Exception as exc:  # noqa: BLE001
+                    # One scene's failure must not abort the remaining chapters.
+                    # Record it, emit an error event, and continue so a long
+                    # multi-chapter run survives a single bad scene. The scene is
+                    # NOT marked complete, so a resumed run will retry it.
+                    self.ledger.emit_error(
+                        "scene_error",
+                        chapter_number=chapter_num,
+                        scene_number=scene_num,
+                        payload={"error": f"{type(exc).__name__}: {exc}"},
+                    )
+                    print(
+                        f"  [ERROR] Chapter {chapter_num} scene {scene_num} failed: "
+                        f"{type(exc).__name__}: {exc} — skipping, continuing run"
+                    )
+                    results.append({
+                        "chapter_number": chapter_num,
+                        "scene_number": scene_num,
+                        "error": f"{type(exc).__name__}: {exc}",
+                        "status": "failed",
+                    })
+                    continue
                 results.append(result)
 
                 if self.pipeline_session and self.session_id:
@@ -987,17 +1012,27 @@ class Orchestrator:
             # the flat assembled_context path (spec §6.1.4 precedence rule).
             prose_context["chapter_packet"] = chapter_packet
         result = await self.prose_stylist.run(prose_context)
+        prose = result.get("prose", "") if isinstance(result, dict) else ""
 
         duration_ms = int((time.time() - start) * 1000)
+        word_count = len(prose.split())
+        if not prose.strip():
+            self.ledger.emit_warn(
+                "prose_empty",
+                chapter_number=scene_card["chapter_number"],
+                scene_number=scene_card.get("scene_number", 1),
+                agent_role="prose_stylist",
+                payload={"reason": "drafter returned empty prose"},
+            )
         self.ledger.emit(
             "agent_complete",
             chapter_number=scene_card["chapter_number"],
             scene_number=scene_card.get("scene_number", 1),
             agent_role="prose_stylist",
-            payload={"duration_ms": duration_ms, "word_count": len(result["prose"].split())},
+            payload={"duration_ms": duration_ms, "word_count": word_count},
         )
 
-        return result["prose"]
+        return prose
 
     async def _run_line_writer(
         self,

@@ -136,21 +136,25 @@ class Summarizer(BaseAgent):
             }
 
     def _normalize_result(self, result: dict) -> dict:
-        """Ensure the result has the expected structure."""
-        if "summary" not in result:
+        """Ensure the result has the expected structure.
+
+        Coerces non-dict model output (a top-level JSON array/scalar, or a
+        null/string ``state_diff``) to safe defaults. Without this a malformed
+        summary raises ``AttributeError`` in the post-save chain and silently
+        drops every state update for the scene.
+        """
+        if not isinstance(result, dict):
+            result = {}
+        if not isinstance(result.get("summary"), str):
             result["summary"] = ""
-        result.setdefault("established_concepts", [])
-        if "state_diff" not in result:
-            result["state_diff"] = {
-                "chapter_number": 0,
-                "changes": {
-                    "character_updates": [],
-                    "plot_thread_updates": [],
-                    "new_knowledge": [],
-                },
-            }
+        if not isinstance(result.get("established_concepts"), list):
+            result["established_concepts"] = []
+        if not isinstance(result.get("state_diff"), dict):
+            result["state_diff"] = {"chapter_number": 0, "changes": {}}
         # Ensure changes sub-object exists
-        changes = result["state_diff"].setdefault("changes", {})
+        if not isinstance(result["state_diff"].get("changes"), dict):
+            result["state_diff"]["changes"] = {}
+        changes = result["state_diff"]["changes"]
         changes.setdefault("character_updates", [])
         changes.setdefault("plot_thread_updates", [])
         changes.setdefault("new_knowledge", [])

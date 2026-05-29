@@ -140,14 +140,22 @@ class ModelRouter:
                         "LLM response missing choices for "
                         f"{agent_role} (model={model}): {error_text}"
                     )
+                finish_reason = choices[0].get("finish_reason")
                 content = choices[0]["message"]["content"]
                 if content is None:
                     logger.warning(
                         "LLM returned null content for %s (finish_reason=%s)",
                         agent_role,
-                        choices[0].get("finish_reason", "unknown"),
+                        finish_reason or "unknown",
                     )
                     return ""
+                if finish_reason == "length":
+                    logger.warning(
+                        "LLM output for %s was truncated at the token limit "
+                        "(finish_reason=length, model=%s, chars=%d) — the result "
+                        "is incomplete; raise max_tokens for this role.",
+                        agent_role, model, len(content),
+                    )
                 return content
             except httpx.HTTPStatusError as e:
                 if e.response.status_code in (502, 503) and attempt < max_retries:
