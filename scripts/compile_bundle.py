@@ -248,11 +248,11 @@ def _write_scene_cards(
     Wipes existing chapter_*_scene_*.json files first so removed cards
     don't linger from a previous compile.
     """
-    output_dir.mkdir(parents=True, exist_ok=True)
-    for stale in output_dir.glob("chapter_*_scene_*.json"):
-        stale.unlink()
-
-    written = 0
+    # Translate + validate into memory FIRST; only mutate the on-disk tree once
+    # we know we have cards to write. A translation failure on every card would
+    # otherwise wipe a previously-compiled scene_cards/ tree (the live pipeline
+    # input) and write nothing back.
+    rendered: list[tuple[str, str]] = []
     for card in cards:
         try:
             translated = translate_scene_card(
@@ -281,13 +281,24 @@ def _write_scene_cards(
                 f"(see D1 in docs; readers still honor the legacy shape)"
             )
         filename = f"chapter_{ch:02d}_scene_{sn:02d}.json"
-        path = output_dir / filename
-        path.write_text(
+        rendered.append((
+            filename,
             json.dumps(translated, indent=2, ensure_ascii=False) + "\n",
-            encoding="utf-8",
+        ))
+
+    if not rendered:
+        report.warnings.append(
+            "no scene cards translated successfully; leaving the existing "
+            "scene_cards/ tree untouched"
         )
-        written += 1
-    return written
+        return 0
+
+    output_dir.mkdir(parents=True, exist_ok=True)
+    for stale in output_dir.glob("chapter_*_scene_*.json"):
+        stale.unlink()
+    for filename, content in rendered:
+        (output_dir / filename).write_text(content, encoding="utf-8")
+    return len(rendered)
 
 
 def compile_bundle(
