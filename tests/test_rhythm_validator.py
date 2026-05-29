@@ -250,6 +250,21 @@ def test_custom_thresholds_can_relax_a_check():
     assert "rhythm.staccato_cluster" not in codes
 
 
+# --- edge cases -------------------------------------------------------------
+
+
+def test_numeric_range_not_counted_as_em_dash():
+    metrics = compute_metrics("The war ran from 1995--2003 and again 2010--2012.")
+    assert metrics.em_dashes == 0
+
+
+def test_empty_or_whitespace_prose_passes_cleanly():
+    for prose in ("", "   \n\n  "):
+        result = validate_rhythm(prose, scope="scene", require_dialogue=True)
+        assert result.passed
+        assert result.issues == ()
+
+
 # --- to_dict roundtrip ------------------------------------------------------
 
 

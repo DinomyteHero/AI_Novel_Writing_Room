@@ -48,6 +48,10 @@ if str(REPO_ROOT) not in sys.path:
 from src.concept_workshop.compliance_validator import validate_concept_seed  # noqa: E402
 from src.planning.physics_enforcer import PhysicsEnforcer  # noqa: E402
 from src.project_paths import ProjectPaths, _slugify_franchise  # noqa: E402
+from src.quality.cross_chapter_validator import (  # noqa: E402
+    validate_cross_chapter_continuity,
+)
+from src.runtime_flags import resolve_flag  # noqa: E402
 from src.prompting.scene_voice_permissions import detect_legacy_voice_fields  # noqa: E402
 from workflows._shared.scene_card_references import (  # noqa: E402
     validate_all_scene_card_references,
@@ -94,6 +98,7 @@ class CompileReport:
     scene_card_errors: list[str] = field(default_factory=list)
     physics: dict = field(default_factory=dict)
     editorial: dict = field(default_factory=dict)
+    continuity: dict = field(default_factory=dict)
     warnings: list[str] = field(default_factory=list)
     generated_at: str = ""
 
@@ -110,6 +115,7 @@ class CompileReport:
             "scene_card_errors": self.scene_card_errors,
             "physics": self.physics,
             "editorial": self.editorial,
+            "continuity": self.continuity,
             "warnings": self.warnings,
             "generated_at": self.generated_at,
         }
@@ -462,6 +468,22 @@ def compile_bundle(
             "by_category": {},
             "skipped": "no scene cards on disk",
         }
+
+    # Cross-chapter continuity (flag-gated: runtime.continuity_validator.enabled,
+    # default off). Pure analysis over the ordered cards; declared
+    # discontinuities surface in the report for the operator.
+    if translated_cards and resolve_flag(
+        "runtime.continuity_validator.enabled",
+        concept_seed=seed, base_dir=base_dir, default=False,
+    ):
+        continuity_report = validate_cross_chapter_continuity(translated_cards)
+        report.continuity = continuity_report.to_dict()
+        high_breaks = [b for b in continuity_report.breaks if b.severity == "high"]
+        if high_breaks:
+            report.warnings.append(
+                f"continuity: {len(high_breaks)} high-severity break(s) — "
+                "see compile_report.continuity"
+            )
 
     # Persist seed (after physics stamping so the flag lands in the written file).
     paths.concept_seed_path.write_text(
