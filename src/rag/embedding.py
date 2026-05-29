@@ -5,6 +5,7 @@ or other backends. Includes a mock implementation for testing.
 """
 
 import hashlib
+import math
 import struct
 from typing import Protocol
 
@@ -67,6 +68,11 @@ class MockEmbeddingFunction:
         # Repeat hash bytes to fill the dimension
         repeated = h * ((self.dimension * 4 // len(h)) + 1)
         floats = struct.unpack(f"<{self.dimension}f", repeated[: self.dimension * 4])
+        # Raw hash bytes reinterpreted as IEEE-754 float32 can be NaN/Inf;
+        # replace any non-finite component with 0.0 so the vector is valid.
+        # ChromaDB rejects embeddings containing NaN/Infinity, and the
+        # `norm == 0` guard below does not catch NaN (NaN == 0 is False).
+        floats = [x if math.isfinite(x) else 0.0 for x in floats]
         # Normalize to unit vector
         norm = sum(x * x for x in floats) ** 0.5
         if norm == 0:
