@@ -144,16 +144,16 @@ class ContextAssembler:
             f"**Tone**: {meta.get('tone', 'Unknown')}",
             f"**POV**: {meta.get('pov_structure', 'Unknown')}",
             "",
-            f"## Premise",
+            "## Premise",
             f"**What If**: {premise.get('what_if', '')}",
             f"**CDQ**: {premise.get('central_dramatic_question', '')}",
             "",
-            f"## Conflict",
+            "## Conflict",
             f"**Antagonist**: {conflict.get('primary_antagonistic_force', {}).get('identity', '')}",
             f"**Motivation**: {conflict.get('primary_antagonistic_force', {}).get('motivation', '')}",
             f"**Lock-in**: {conflict.get('lock_in_mechanism', '')}",
             "",
-            f"## Theme",
+            "## Theme",
             f"**Premise**: {theme.get('thematic_premise', '')}",
         ]
 
@@ -170,7 +170,7 @@ class ContextAssembler:
         # Add force mechanics if present
         mechanics = seed.get("force_mechanics", {})
         if mechanics:
-            parts.append(f"\n## Special Mechanics")
+            parts.append("\n## Special Mechanics")
             parts.append(f"**Rule**: {mechanics.get('primary_rule', '')}")
 
         # Add canon constraints
@@ -347,7 +347,7 @@ class ContextAssembler:
         act_summary = self._get_act_summary(scene_card)
         if act_summary:
             components.append(
-                f"## Current Act Summary\n"
+                "## Current Act Summary\n"
                 + _truncate_to_budget(act_summary, TOKEN_BUDGETS["act_summary"])
             )
 
@@ -356,7 +356,7 @@ class ContextAssembler:
             recent = self.chapter_memory.get_recent_summaries(n=3)
             if recent and "No previous" not in recent:
                 components.append(
-                    f"## Recent Chapters\n"
+                    "## Recent Chapters\n"
                     + _truncate_to_budget(
                         recent, TOKEN_BUDGETS["chapter_summaries"]
                     )
@@ -371,7 +371,7 @@ class ContextAssembler:
         canon_context = self._get_canon_context(scene_card)
         if canon_context:
             components.append(
-                f"## Canon Reference\n"
+                "## Canon Reference\n"
                 + _truncate_to_budget(canon_context, TOKEN_BUDGETS["canon_rag"])
             )
 
@@ -380,7 +380,7 @@ class ContextAssembler:
             wb_lore = self._assemble_worldbuilding_lore(scene_card)
             if wb_lore:
                 components.append(
-                    f"## Worldbuilding Lore\n"
+                    "## Worldbuilding Lore\n"
                     + _truncate_to_budget(
                         wb_lore, TOKEN_BUDGETS["worldbuilding_lore"]
                     )
@@ -414,7 +414,7 @@ class ContextAssembler:
             voices = self.get_character_voices(characters_present)
             if voices:
                 components.append(
-                    f"## Character Voices\n"
+                    "## Character Voices\n"
                     + _truncate_to_budget(
                         voices, TOKEN_BUDGETS["character_voices"]
                     )
@@ -427,7 +427,7 @@ class ContextAssembler:
             )
             if knowledge and "No character beliefs" not in knowledge:
                 components.append(
-                    f"## Character Knowledge States\n"
+                    "## Character Knowledge States\n"
                     + _truncate_to_budget(
                         knowledge, TOKEN_BUDGETS["character_knowledge"]
                     )

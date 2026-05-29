@@ -20,7 +20,6 @@ from __future__ import annotations
 import argparse
 import asyncio
 import json
-import re
 import sys
 import time
 from datetime import datetime, timezone
@@ -369,7 +368,7 @@ async def run_batch(
         )
 
     print("\n" + "=" * 70)
-    print(f"BATCH COMPLETE")
+    print("BATCH COMPLETE")
     print(f"  scenes: {len(scene_card_paths)}")
     print(f"  total cost: ${total_cost:.4f}")
     print(f"  wall time: {batch_summary['wall_time_s']}s ({batch_summary['wall_time_s']/60:.1f} min)")

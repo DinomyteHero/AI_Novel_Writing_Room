@@ -9,14 +9,12 @@ Phase 5 additions:
 - subplot_updates, hook_updates, arc_phase_updates, terminology_updates handlers
 """
 
-import json
 import logging
 import sqlite3
 
 from src.memory.knowledge_layers import KnowledgeLayers
 from src.memory.story_state import (
     ALL_ARC_PHASES,
-    ARC_PHASE_PROGRESSIONS,
     CONCEPT_SEED_PHASE_MAP,
     HOOK_STATUSES,
     SUBPLOT_STATUSES,

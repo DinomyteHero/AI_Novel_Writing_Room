@@ -26,8 +26,8 @@ report dict matching the existing ``scene_contract_validator`` shape so
 from __future__ import annotations
 
 import re
-from dataclasses import dataclass, field
-from typing import Any, Iterable, Mapping, Sequence
+from dataclasses import dataclass
+from typing import Any, Mapping, Sequence
 
 
 _STATE_NORMALIZE = {
@@ -281,8 +281,8 @@ def validate_cross_chapter_continuity(
 
         prev_end = _collect_end_states(prev)
         next_start = _collect_start_states(nxt)
-        prev_chars = set(prev.get("characters_present") or [])
-        next_chars = set(nxt.get("characters_present") or [])
+        set(prev.get("characters_present") or [])
+        set(nxt.get("characters_present") or [])
 
         if not prev_end and not next_start:
             skipped += 1

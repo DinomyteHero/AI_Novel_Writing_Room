@@ -60,7 +60,6 @@ from workflows._shared.scene_card_translator import translate_scene_card  # noqa
 from workflows._shared.seed_transforms import (  # noqa: E402
     apply_arc_phase_maps,
     apply_branch_point,
-    apply_canon_constraints,
     apply_canon_profile,
     apply_force_mechanics,
     apply_hooks,
@@ -69,11 +68,9 @@ from workflows._shared.seed_transforms import (  # noqa: E402
     apply_referenced_characters,
     apply_relationship_arcs,
     apply_revelation_schedule,
-    apply_stress_test_scores,
     apply_subplots,
     apply_terminology_registry,
     apply_voice_definition,
-    apply_workshop_origin,
     move_to_extended_metadata,
     normalize_enums,
 )
@@ -613,7 +610,7 @@ def _format_summary(report: CompileReport) -> str:
     """Human-readable stdout summary mirroring ValidationReport.format()."""
     lines: list[str] = [
         f"Bundle compile: {report.franchise}/{report.book}",
-        f"  surfaces present: "
+        "  surfaces present: "
         + ", ".join(name for name, present in report.surfaces_present.items() if present),
     ]
     if report.surfaces_missing:

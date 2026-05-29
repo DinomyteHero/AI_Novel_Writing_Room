@@ -78,7 +78,7 @@ def migrate(project_slug: str, franchise_slug: str, base_dir: str = ".") -> None
     print(f"  Inputs: {new_book}")
     print(f"  State:  {new_state}")
     print(f"  Legacy: {new_legacy_run}")
-    print(f"\nOld directories were NOT deleted. Remove manually when satisfied:")
+    print("\nOld directories were NOT deleted. Remove manually when satisfied:")
     print(f"  rm -rf {old_project}")
     print(f"  rm -rf {old_output}")
 

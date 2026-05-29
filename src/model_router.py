@@ -6,7 +6,6 @@ import logging
 import os
 import random
 import re
-from pathlib import Path
 from typing import Optional
 
 import httpx
@@ -167,7 +166,7 @@ class ModelRouter:
                     await asyncio.sleep((2 ** attempt) + random.uniform(0, 1))
                     continue
                 raise
-            except (httpx.ConnectError, httpx.ReadTimeout) as e:
+            except (httpx.ConnectError, httpx.ReadTimeout):
                 if attempt < max_retries:
                     await asyncio.sleep((2 ** attempt) + random.uniform(0, 1))
                     continue

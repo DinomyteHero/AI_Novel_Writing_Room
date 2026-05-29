@@ -7,7 +7,6 @@ lifespan management, and all API routes.
 import asyncio
 import json
 import logging
-import re
 from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import Optional
@@ -15,7 +14,6 @@ from typing import Optional
 import yaml
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 
 from src.model_router import ModelRouter

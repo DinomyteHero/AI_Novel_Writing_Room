@@ -16,7 +16,7 @@ rhythm telemetry are advisory and never block a save.
 import json
 import time
 from pathlib import Path
-from typing import Any, Callable, Optional, TYPE_CHECKING
+from typing import Any, Optional, TYPE_CHECKING
 
 from src.agents.plot_architect import PlotArchitect
 from src.agents.prose_stylist import ProseStylist
@@ -475,11 +475,11 @@ class Orchestrator:
 
         # Validate summarizer output completeness
         if not summary_text:
-            print(f"  [WARN] Summarizer returned empty summary — downstream context will be degraded")
+            print("  [WARN] Summarizer returned empty summary — downstream context will be degraded")
         if not state_diff or not state_diff.get("changes"):
-            print(f"  [WARN] Summarizer returned empty state_diff — story state will not update")
+            print("  [WARN] Summarizer returned empty state_diff — story state will not update")
         if not established_concepts:
-            print(f"  [WARN] Summarizer returned no established_concepts — concept maturity tracking inactive for this scene")
+            print("  [WARN] Summarizer returned no established_concepts — concept maturity tracking inactive for this scene")
 
         # Step 6: Store summary in ChromaDB
         if self.chapter_memory and summary_text:
@@ -496,7 +496,7 @@ class Orchestrator:
                 metadata=meta,
                 scene_number=scene_num,
             )
-            print(f"  [P2-2] Summary stored in ChromaDB")
+            print("  [P2-2] Summary stored in ChromaDB")
 
         # Step 7: Apply state diff to SQLite
         if self.state_diff_applier and state_diff.get("changes"):
@@ -507,7 +507,7 @@ class Orchestrator:
                 if not hasattr(self, "_rejected_transitions"):
                     self._rejected_transitions = []
                 self._rejected_transitions.extend(rejected)
-            print(f"  [P2-3] State diff applied")
+            print("  [P2-3] State diff applied")
 
         # Step 8: Update chapter log and scene log
         if self.story_state:
@@ -553,7 +553,7 @@ class Orchestrator:
                 failure_codes=failure_codes,
                 revision_status=revision_status,
             )
-            print(f"  [P2-4] Chapter/scene log updated")
+            print("  [P2-4] Chapter/scene log updated")
 
         # Step 9: Contradiction scanner
         if self.contradiction_scanner:
@@ -566,7 +566,7 @@ class Orchestrator:
                     f"{len(contradiction_flags)} flag(s)"
                 )
             else:
-                print(f"  [P2-5] Contradiction scanner: clean")
+                print("  [P2-5] Contradiction scanner: clean")
 
         # Step 10: Worldbuilding extraction (if enabled)
         if (self.lore_service and self._worldbuilding_auto_extract
@@ -584,7 +584,7 @@ class Orchestrator:
                 if new_entry_ids:
                     print(f"  [WB] Extracted {len(new_entry_ids)} provisional lore entries")
                 else:
-                    print(f"  [WARN] Worldbuilding extraction returned 0 entries — check lore_extractor JSON parsing or universe FK")
+                    print("  [WARN] Worldbuilding extraction returned 0 entries — check lore_extractor JSON parsing or universe FK")
             except Exception as e:
                 print(f"  [WARN] Worldbuilding extraction failed: {e.__class__.__name__}: {e}")
                 _logger.warning("Worldbuilding extraction failed: %s", e)

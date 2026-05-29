@@ -34,7 +34,7 @@ to escalate to a hard fail. The validator itself never blocks.
 from __future__ import annotations
 
 import re
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Any, Mapping
 
 
@@ -208,8 +208,11 @@ def compute_metrics(prose: str) -> RhythmMetrics:
         len(pat.findall(full_text)) for pat in _TIC_PATTERNS
     )
 
-    per_1k = lambda n: (1000.0 * n / word_count) if word_count else 0.0
-    pct = lambda n, d: (100.0 * n / d) if d else 0.0
+    def per_1k(n):
+        return (1000.0 * n / word_count) if word_count else 0.0
+
+    def pct(n, d):
+        return (100.0 * n / d) if d else 0.0
 
     return RhythmMetrics(
         word_count=word_count,

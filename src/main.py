@@ -13,7 +13,6 @@ from dotenv import load_dotenv
 
 load_dotenv()  # Load .env before any module reads os.environ
 
-import re
 
 from src.memory.context_assembler import ContextAssembler
 from src.model_router import ModelRouter
@@ -213,11 +212,8 @@ def _init_phase2(concept_seed_path: str, config: dict, manuscripts_dir: str,
     chapter_memory, canon_db, summarizer, state_diff_applier, contradiction_scanner)
     or all Nones if imports fail."""
     try:
-        from src.agents.summarizer import Summarizer
         from src.memory.chapter_memory import ChapterMemory
-        from src.memory.contradiction_scanner import ContradictionScanner
         from src.memory.knowledge_layers import KnowledgeLayers
-        from src.memory.state_diff import StateDiffApplier
         from src.memory.story_state import StoryState
         from src.rag.embedding import get_embedding_function
     except ImportError as e:
@@ -1125,7 +1121,7 @@ async def main():
 
         # Phase 4: Export after pipeline
         if args.export and export_manager:
-            print(f"\nExporting manuscript...")
+            print("\nExporting manuscript...")
             formats = [f.strip() for f in args.export_formats.split(",")]
             export_results = export_manager.export_all(output_dir=export_dir, formats=formats)
             for fmt, path in export_results.items():

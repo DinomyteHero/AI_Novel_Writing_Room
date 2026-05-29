@@ -9,7 +9,6 @@ import json
 import re
 import logging
 from pathlib import Path
-from typing import Optional
 
 from src.rag.canon_db import CanonDB
 
@@ -270,7 +269,6 @@ class WikiIngester:
             return []
 
         target_min_words = 500
-        target_max_words = 700
         overlap_min_words = 100
         overlap_max_words = 150
         overlap_target = (overlap_min_words + overlap_max_words) // 2

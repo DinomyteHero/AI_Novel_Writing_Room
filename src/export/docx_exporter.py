@@ -5,9 +5,8 @@ from pathlib import Path
 
 try:
     from docx import Document
-    from docx.shared import Pt, Inches, Cm
+    from docx.shared import Pt, Inches
     from docx.enum.text import WD_ALIGN_PARAGRAPH
-    from docx.oxml.ns import qn
 
     HAS_DOCX = True
 except ImportError:

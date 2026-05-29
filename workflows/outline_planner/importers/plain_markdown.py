@@ -6,7 +6,6 @@ import re
 from pathlib import Path
 
 from workflows._shared.markdown_parser import (
-    parse_bullets,
     parse_kv_block,
     parse_sections,
     read_text,

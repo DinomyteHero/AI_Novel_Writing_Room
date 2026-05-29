@@ -115,9 +115,7 @@ def validate_current_run(
         category="concept_seed_schema",
         path=paths.concept_seed_path,
     )
-    if require_plan_approval and not (
-        (concept_seed.get("compile_metadata") or {}).get("plan_approved") is True
-    ):
+    if require_plan_approval and (concept_seed.get("compile_metadata") or {}).get("plan_approved") is not True:
         report.add_error(
             "plan_approval",
             "concept_seed.compile_metadata.plan_approved is not true",
