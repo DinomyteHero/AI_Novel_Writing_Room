@@ -969,15 +969,20 @@ class Orchestrator:
             agent_role="prose_stylist",
         )
 
-        assembled_context = self.assembler.assemble(scene_card)
-
         # Slice 2: build the chapter packet overlay for this scene when the
-        # flag is on. The packet renderer embeds a flat-context snapshot so
-        # the drafter prompt remains a token-superset of the legacy flat path.
-        # On any failure, emit packet_fallback_flat and fall back to
-        # assembled_context — runtime.chapter_packet.fallback_on_error gates
-        # whether a raise bubbles up when fallback is not wanted.
+        # flag is on. The packet renderer embeds its own flat-context snapshot,
+        # so the legacy flat assembly is only needed for the fallback path.
         chapter_packet = self._maybe_compile_overlay(scene_card)
+
+        # Only run the (canon-RAG + worldbuilding-retrieval) flat assembly when
+        # it is actually used: the packet path is off, or its overlay failed to
+        # compile. On the packet hot path the overlay already embedded the
+        # assemble() output, so recomputing it here is pure waste (a redundant
+        # retrieval per scene).
+        if chapter_packet is None:
+            assembled_context = self.assembler.assemble(scene_card)
+        else:
+            assembled_context = ""
 
         # Build dynamic cross-scene feedback. The base banned-phrase list
         # from config/negative_constraints.yaml is already baked into

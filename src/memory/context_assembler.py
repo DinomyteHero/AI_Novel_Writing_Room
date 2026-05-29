@@ -971,9 +971,19 @@ class ContextAssembler:
         if not result["ids"]:
             return ""
 
-        # Collect all concepts from recent summaries (keyed by concept_id)
+        # Bound the scan to the most recent summaries: merging every summary's
+        # metadata on every scene is O(scenes^2) over a book, and concepts last
+        # seen dozens of scenes ago don't belong in the current "do not restate"
+        # list. Sort by (chapter, scene) and keep only the recent window.
+        recent_window = 40
+        metadatas = sorted(
+            (m for m in (result["metadatas"] or []) if m),
+            key=lambda m: (m.get("chapter_number", 0) or 0, m.get("scene_number", 0) or 0),
+        )[-recent_window:]
+
+        # Collect concepts from the recent summaries (keyed by concept_id)
         merged: dict[str, dict] = {}
-        for meta in result["metadatas"]:
+        for meta in metadatas:
             raw = meta.get("established_concepts", "")
             if not raw:
                 continue
