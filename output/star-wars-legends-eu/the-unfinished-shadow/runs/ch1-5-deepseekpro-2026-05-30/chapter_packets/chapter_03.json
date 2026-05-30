@@ -1,0 +1,34 @@
+{
+  "chapter_number": 3,
+  "overlay_version": 0,
+  "mission": "Ben holo-calls Luke while Luke/family are temporarily offworld rather than physically present at Shedu Maad. The conversation is paternal in register - Luke listens carefully, asks two or three quiet questions, and they classify the matter as sensitive but not yet proof. Luke tells Ben to verify quietly and come back if it is larger. He is careful because an official Jedi move (which would have to come from Saba and the Council) could relitigate GAG publicly and scatter the trail before there is anything concrete to hold. Ben is impatient with that caution because the case already feels personally meaningful.",
+  "chapter_turn": "Ben leaves Shedu Maad for Coruscant to find Elya.",
+  "pressure_ladder": [
+    {
+      "scene_number": 1,
+      "label": "decision",
+      "note": "Ben holo-calls Luke while Luke/family are temporarily offworld rather than physically present at Shedu Maad. The conversation is paternal in register - Luke listens carefully, asks two or three quiet questions, and they classify the matter as sensitive but not yet proof."
+    }
+  ],
+  "pov_arc_pressure": {
+    "pov_character": "Ben",
+    "structural_phase": "setup",
+    "pacing_curve": "rising"
+  },
+  "next_scene_obligations": [],
+  "active_promises": [],
+  "active_promises_total_count": 0,
+  "reveal_deadlines": [],
+  "canon_slices": [],
+  "canon_guidance": {},
+  "relationship_context": {},
+  "exit_vector": {
+    "summary": "Ben leaves Shedu Maad for Coruscant to find Elya."
+  },
+  "trusted_state_gap_notes": [],
+  "exemplar_snippets": [],
+  "anti_exemplar_snippets": [],
+  "continuity_events": [],
+  "scene_card": {},
+  "rendered_markdown": ""
+}

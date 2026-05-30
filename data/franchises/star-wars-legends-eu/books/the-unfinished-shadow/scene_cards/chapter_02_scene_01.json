@@ -5,30 +5,32 @@
   "scene_role": "escalation",
   "pov_character": "Ben Skywalker",
   "mission": "Ben begins at Shedu Maad in a state of quiet disconnection: respected, loved, and included, but not at ease among peers or ordinary Jedi social life. Luke and close family are temporarily offworld, leaving Ben not abandoned but alone when the past reaches him. Add living Shedu Maad texture: training rooms, shared meals, Hapan architecture and security formality rubbing against Jedi informality. Include a brief light Allana/Amelia cameo or near-cameo while she is visiting for the week - ordinary family texture only, not plot machinery. Ben is included in ordinary banter, but the room turns careful around him once his history is remembered. The obsolete GAG identity-address alert arrives and unsettles him before the content does. He recognizes the channel as a dead part of his old GAG service marker routed through standard HoloNet infrastructure, not Jedi comms. His hand covers the sender code before he realizes he is hiding it.",
-  "why_now": "Chapter 2 occupies the setup phase and carries the next locked outline turn.",
-  "conflict": "Ben should feel young, defensive, lonely without being self-pitying, and secretly hungry for meaningful work. Shedu Maad should show that he has care but little ease. The message scares him because it comes from old GAG history, but it also gives him an unwanted sense of purpose: perhaps the part of his past everyone avoids can help him do something good.",
+  "why_now": "Ben is at Shedu Maad without Luke or close family, in a life where he is cared for but not quite at ease, when Elya's message finds his old GAG service marker. The past has an address for him, and there is no one present who can share the weight of that.",
+  "conflict": "Ben wants to be a normal part of Shedu Maad life — included, competent, not handled carefully. His obstacle is that the room turns careful around him whenever Jacen or GAG brushes the conversation, and he cannot fix that by being better at training. Then the dead channel fires, and he has a new problem: a message from someone using his old GAG service marker, telling him the past is still running.",
   "conflict_type": "internal",
   "dialogue_expectation": "dialogue_led",
   "turning_point": "Ben holo-calls Luke before leaving for Coruscant.",
   "closing_hook": "Ben holo-calls Luke before leaving for Coruscant.",
   "characters_present": [
     "Ben Skywalker",
-    "Luke Skywalker",
     "Amelia Solo"
   ],
-  "setting": "Shedu Maad (Hapes Cluster), Jedi Order headquarters complex. Mid-morning training salle, refectory tables, and Ben's quarters. Hapan architecture: high windows, cool stone, formal protocol overlaid on Jedi informality. Allana Solo (under her 'Amelia' identity) is visiting that week; warm but guarded family-life texture. Ben moves through public spaces respected but not at ease. The obsolete GAG identity-address alert arrives on a private holocomm in his quarters.",
+  "setting": "Shedu Maad (Hapes Cluster), Jedi Order headquarters complex — the Order's home since the end of Fate of the Jedi, at the invitation of Queen Mother Tenel Ka Djo and the Hapes Consortium. Mid-morning training salle, refectory tables, and Ben's quarters. Hapan architecture: high windows, cool stone, formal security protocol layered over Jedi informality — the Consortium's courtesy toward the Order is also its oversight. Grand Master Saba Sebatyne's presence gives the complex its gravity: Barabel stillness that fills a corridor without effort. Allana Solo (under her 'Amelia' identity) is visiting that week; warm but guarded family-life texture. Ben moves through public spaces respected but not at ease. The obsolete GAG identity-address alert arrives on a private holocomm in his quarters.",
   "emotional_trajectory": "Ben should feel young, defensive, lonely without being self-pitying, and secretly hungry for meaningful work. Shedu Maad should show that he has care but little ease. The message scares him because it comes from old GAG history, but it also gives him an unwanted sense of purpose: perhaps the part of his past everyone avoids can help him do something good.",
   "stakes": {
-    "personal": "Preserve the POV-specific fear, wound, and immediate want from Character Voice & Life Sheet v1.4.",
-    "interpersonal": "Preserve the relationship pressure named in the outline and character interaction rules.",
-    "external": "Preserve the chapter-level mystery/action consequence and the end-hook pressure."
+    "personal": "Ben’s fear is that his GAG history is not just a wound — it is a shape that still fits certain rooms. The message using his old service marker confirms it. His deeper hunger is for meaningful work that makes his past useful rather than only shameful.",
+    "interpersonal": "The Shedu Maad community cares about Ben and cannot quite be normal around him. The Allana/Amelia cameo shows what ordinary family warmth looks like when the history is not in the room — and underlines how alone Ben is with this message the moment he receives it.",
+    "external": "The GAG dead-drop channel finding Ben means someone still has the old routing. If the message is real, one of Jacen’s last orders has two lives and a woman named E.R. is trying to get Ben to look at it before something stops her."
   },
-  "sensory_details": "Use only physical details implied by the source outline and bible; do not add new mythology or abstract Force explanation.",
+  "sensory_details": "Hapan stone corridors in the training-salle wing — cool, high-ceilinged, formal Consortium protocol layered over Jedi informality. Ben notices the Hapan security details at the refectory entrance: standing watch in palace-house livery, polite and absolute, a reminder that the Order lives here as guests. He notices ambient conversational silences that form when someone near him remembers his name. In his quarters, the holocomm alert: a degraded channel flag that should not exist, routing through old GAG infrastructure rather than Jedi comms.",
   "canon_elements_needed": [
     "Shedu Maad / Hapes Jedi HQ continuity",
     "GAG / Jacen / Caedus continuity",
     "One Sith background shadow only",
-    "Amelia / Allana ordinary-life cameo permission: warm brief texture only, no plot function"
+    "Amelia / Allana ordinary-life cameo permission: warm brief texture only, no plot function",
+    "Hapes Consortium hosting the Jedi Order post-FOTJ — Queen Mother Tenel Ka Djo's political gift and its attendant friction",
+    "Grand Master Saba Sebatyne (41 ABY) — Barabel gravity, current Order leadership",
+    "Hapan court security protocol grinding against Jedi informality as lived daily texture"
   ],
   "target_word_count": 2800,
   "active_subplots": [],
@@ -45,8 +47,45 @@
   ],
   "hook_actions": [],
   "revelations": [],
-  "pov_arc_phase": "Ben:lie_established",
-  "notes": "Source: Chapter Outlines v4.1. Act: Act One — The Body / The Prison / The Partnership. Chapter title: Manifest Fragment.\n\nReader-onboarding note: Briefly orient non-expert readers: Ben is Luke’s son; Jacen Solo was family/teacher and became Darth Caedus; Ben served under Jacen/GAG as a fourteen-year-old; Mara’s death remains part of the wound; the Jedi Order is now based at Shedu Maad after relocating at the end of FOTJ. Keep this to short, emotionally grounded exposition.\n\nCharacter voice focus: preserve the exact v1.4 character behavior and dialogue rules for the chapter POV and named participants. Plot first, character second, theme through consequences.",
+  "turning_point_detail": {
+    "trigger": "Ben reads Elya's message — GAG is still active, one of Jacen's last orders has two lives, come alone — and his hand covers the sender code before he realizes he is hiding it.",
+    "shift": "Ben decides he needs to tell Luke. Not the Order. Not Saba. Luke. The case is personal before it is institutional.",
+    "cost": "He is now carrying old GAG history in a place where everyone else has agreed to let it rest. The ease he has been trying to build at Shedu Maad is already over."
+  },
+  "emotional_arc": {
+    "start": "Ben is restless and slightly displaced — cared for but not quite at ease, moving through Shedu Maad life that includes him without ever being quite normal around him.",
+    "shift": "The dead-channel alert fires and the room his past has been living in opens. He is scared before he reads the content, and scared in a different way after.",
+    "end": "He holo-calls Luke. He is already halfway out the door in everything but geography."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Ben moves through Shedu Maad morning — training salle, shared meal, a brief ordinary exchange with Amelia — included in the rhythm of the place but not fully inside it.",
+      "state_change": "The gap between belonging and ease is visible: Ben is cared for, but the room still adjusts when his history enters it.",
+      "pov_reaction": "The practiced move of staying pleasant while clocking exactly how the silence shifts — not resentment, just the low-grade fatigue of being the thing people handle carefully."
+    },
+    {
+      "beat_description": "Someone near him mentions Jacen, and the conversational temperature in the room drops a degree before anyone can stop it.",
+      "state_change": "Ben is reminded, briefly and publicly, that his history is not only his — it belongs to everyone in the room whether they want it to.",
+      "pov_reaction": "The slight tightening at the jaw; the decision to find something else to look at before his face does anything useful."
+    },
+    {
+      "beat_description": "In his quarters, a degraded-channel alert fires on his private holocomm — the signal routed through old GAG infrastructure, not Jedi comms, on a channel that should not exist anymore.",
+      "state_change": "The dead past has an address for him; someone still has the routing.",
+      "pov_reaction": "The stillness before reading — the body knowing what kind of message uses a dead channel before the mind catches up."
+    },
+    {
+      "beat_description": "Ben reads the message: GAG is still active, one of Jacen's last orders has two lives, come alone, signed E.R.",
+      "state_change": "The message is real, specific, and from someone in danger who used his old service marker to find him.",
+      "pov_reaction": "The unwanted clarity — this is the first thing in months that feels like it matters, and hating that it does and needing it to be real at the same time."
+    },
+    {
+      "beat_description": "Ben's hand covers the sender code on the screen before he registers the movement; then he calls Luke.",
+      "state_change": "He has already decided the case is personal before he makes it institutional by telling his father.",
+      "pov_reaction": "The hand moving without permission — the old cover-your-tracks reflex, GAG-shaped, still running. He notices it. He does not remove the hand."
+    }
+  ],
+  "pov_arc_phase": "Ben Skywalker:lie_established",
+  "notes": "Source: Chapter Outlines v4.1. Act: Act One — The Body / The Prison / The Partnership. Chapter title: Manifest Fragment.\n\nReader-onboarding note: Briefly orient non-expert readers: Ben is Luke’s son; Jacen Solo was family/teacher and became Darth Caedus; Ben served under Jacen/GAG as a fourteen-year-old; Mara’s death remains part of the wound; the Jedi Order is now based at Shedu Maad after relocating at the end of FOTJ. Keep this to short, emotionally grounded exposition.\n\nTexture thread: The Hapes Consortium hosts the Order at Tenel Ka Djo’s invitation — the drafter should let Ben feel this as a daily friction: Hapan security protocols are courteous and unmovable, a reminder he is a guest inside a palace-state, not a Jedi temple. Amelia’s visit is texture only; her Hapan upbringing makes her comfortable in protocols that still catch Ben sideways.\n\nCharacter voice focus: preserve the exact v1.4 character behavior and dialogue rules for the chapter POV and named participants. Plot first, character second, theme through consequences.",
   "scene_voice_permissions": {
     "notes": "Use Character Voice & Life Sheet v1.4 as controlling source for dialogue, behavior, humor, fear, wounds, and interaction rules. Preserve commercial readability: goal, obstacle, movement, reversal, hook.",
     "anti_patterns": [
@@ -55,6 +94,6 @@
       "do not let Iresh become abstract before it is physically clear",
       "do not make Dorrin a third lead or secret mentor"
     ],
-    "pov_arc_phase": "Ben:lie_established"
+    "pov_arc_phase": "Ben Skywalker:lie_established"
   }
 }

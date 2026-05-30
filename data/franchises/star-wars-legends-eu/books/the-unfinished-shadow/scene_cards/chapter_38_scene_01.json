@@ -5,8 +5,8 @@
   "scene_role": "aftermath",
   "pov_character": "Distant / image",
   "mission": "Far below the broken Glasswell, where the floodwater has gone still, a cold white-blue spark flickers once in the dark.",
-  "why_now": "Chapter 38 occupies the resolution phase and carries the next locked outline turn.",
-  "conflict": "Far below the broken Glasswell, where the floodwater has gone still, a cold white-blue spark flickers once in the dark.",
+  "why_now": "Everyone has left Iresh. The water has settled. What the dark holds now is what was left behind.",
+  "conflict": "The final image belongs to the Glasswell's dark and what persists inside it — a cold white-blue spark that is not dead and not unchanged.",
   "conflict_type": "external",
   "dialogue_expectation": "balanced",
   "turning_point": "Final image: Aevyn survived, changed.",
@@ -17,11 +17,38 @@
   "setting": "Iresh, deep beneath the broken Glasswell — the lowest chamber of the collapsed cavern system, far below the surface. Absolute cold. Absolute dark. The floodwater has gone still. Mineral dust settled across every surface. No light reaches this depth. Then, at the deepest point, a single cold white-blue spark flickers once and holds. The dark remembers it.",
   "emotional_trajectory": "",
   "stakes": {
-    "personal": "Preserve the POV-specific fear, wound, and immediate want from Character Voice & Life Sheet v1.4.",
-    "interpersonal": "Preserve the relationship pressure named in the outline and character interaction rules.",
-    "external": "Preserve the chapter-level mystery/action consequence and the end-hook pressure."
+    "personal": "The spark is all that is left of Aevyn — not a character POV, not an interior, just the fact that something survived the dark and the cold.",
+    "interpersonal": "No relationship is active here. The image is solitary: the dark, the water, the spark.",
+    "external": "The spark flickers once and holds. The dark remembers it. What comes next for Aevyn is outside this book."
   },
-  "sensory_details": "Use only physical details implied by the source outline and bible; do not add new mythology or abstract Force explanation.",
+  "sensory_details": "Absolute cold. Absolute dark. Floodwater that has gone still and flat, not turbulent — settled into itself after the violence of the collapse. Mineral dust on every surface. No sound except the distant drip of water from somewhere above. The pale mineral walls are invisible in the dark. Then, at the deepest point of the lowest chamber, a cold white-blue spark — not light, not warmth, just a specific color of persistence.",
+  "turning_point_detail": {
+    "trigger": "The floodwater goes still in the deepest chamber — all motion spent, the collapse finished, the surface world gone.",
+    "shift": "A cold white-blue spark flickers once in the absolute dark. It holds.",
+    "cost": "Nothing is resolved. Aevyn survived, changed, alone, in the dark below the place his certainty broke."
+  },
+  "emotional_arc": {
+    "start": "Dark, cold, still — the aftermath of destruction.",
+    "shift": "The spark.",
+    "end": "The dark remembers it."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Absolute dark fills the lowest Glasswell chamber — floodwater gone still, mineral dust settled across every surface, no sound from above.",
+      "state_change": "The violence of the collapse is spent; what remains is cold, settled, and complete.",
+      "pov_reaction": "the quality of the dark — not empty, accumulated"
+    },
+    {
+      "beat_description": "A cold white-blue spark flickers once at the deepest point of the chamber.",
+      "state_change": "Something in the dark has not ended — not light, not warmth, just a specific color of persistence.",
+      "pov_reaction": "the color before the meaning of it; the flicker registered by no one"
+    },
+    {
+      "beat_description": "The spark holds.",
+      "state_change": "Aevyn survived, changed, alone — the dark remembers it.",
+      "pov_reaction": "the stillness after the flicker; no witness, only the fact"
+    }
+  ],
   "canon_elements_needed": [
     "Iresh physical geography and local survival rules"
   ],
@@ -47,7 +74,7 @@
     "R_13"
   ],
   "pov_arc_phase": "Aevyn:arc_resolved_tragic",
-  "notes": "Source: Chapter Outlines v4.1. Act: Act One — The Body / The Prison / The Partnership. Chapter title: White-Blue Spark.\n\nCharacter voice focus: preserve the exact v1.4 character behavior and dialogue rules for the chapter POV and named participants. Plot first, character second, theme through consequences.",
+  "notes": "Source: Chapter Outlines v4.1. Act: Coda — Dangerous Aftermath. Chapter title: White-Blue Spark.\n\nCharacter voice focus: preserve the exact v1.4 character behavior and dialogue rules for the chapter POV and named participants. Plot first, character second, theme through consequences.",
   "scene_voice_permissions": {
     "notes": "Use Character Voice & Life Sheet v1.4 as controlling source for dialogue, behavior, humor, fear, wounds, and interaction rules. Preserve commercial readability: goal, obstacle, movement, reversal, hook.",
     "anti_patterns": [

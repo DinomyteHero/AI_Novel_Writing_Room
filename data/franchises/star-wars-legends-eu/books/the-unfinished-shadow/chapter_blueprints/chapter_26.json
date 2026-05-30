@@ -1,6 +1,6 @@
 {
   "chapter_number": 26,
-  "chapter_mission": "Ben, Talon, and Sela observe the Foundation/Vigil field camp: legitimate-looking survey work with Cinderline/Greyline security underneath.",
+  "chapter_mission": "Ben, Talon, and Sela observe the Foundation/Vigil field camp: legitimate-looking survey work with Greyline/Greyline security underneath.",
   "chapter_turn": "Ben senses Aevyn’s Force presence.",
   "structural_phase": "attack",
   "pov_allocation": [
@@ -13,7 +13,7 @@
       "role": "escalation",
       "dialogue_expectation": "balanced",
       "target_word_count": 2000,
-      "purpose": "Ben, Talon, and Sela observe the Foundation/Vigil field camp: legitimate-looking survey work with Cinderline/Greyline security underneath."
+      "purpose": "Ben, Talon, and Sela observe the Foundation/Vigil field camp: legitimate-looking survey work with Greyline/Greyline security underneath."
     }
   ],
   "reveal_payload": [],
@@ -30,5 +30,5 @@
   "pacing_curve": "steady",
   "exit_vector": "Ben senses Aevyn’s Force presence.",
   "chapter_word_target": 2000,
-  "notes": "Source: Chapter Outlines v4.1. Act: Act One — The Body / The Prison / The Partnership. Chapter title: Memorial Survey.\n\nCharacter voice focus: preserve the exact v1.4 character behavior and dialogue rules for the chapter POV and named participants. Plot first, character second, theme through consequences."
+  "notes": "Source: Chapter Outlines v4.1. Act: Act Three — Iresh / Glasswell / Aevyn. Chapter title: Memorial Survey.\n\nCharacter voice focus: preserve the exact v1.4 character behavior and dialogue rules for the chapter POV and named participants. Plot first, character second, theme through consequences."
 }

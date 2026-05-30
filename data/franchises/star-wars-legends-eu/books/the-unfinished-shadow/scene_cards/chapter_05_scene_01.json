@@ -5,34 +5,32 @@
   "scene_role": "escalation",
   "pov_character": "Ben",
   "mission": "Ben and Inspector Cale Dorrin cross-reference the fragment’s surviving GAG audit/handler marker against Elya’s old assignment logs, supervision records, and postwar prosecution files. Dorrin discovers that Talon Veyr worked under Elya in the records/logistics environment after Maro Tess reassigned him out of field duty, and that Talon’s later transfer-chain conviction involved manifest/authorization patterns close to the recovered fragment. Ben identifies Talon as the person likely to recognize the shipment fraud pattern, not as a magic decoder. Ben tries the legal route first, using Dorrin’s lawful access and Luke’s quiet support rather than a prison break.",
-  "why_now": "Ben does the responsible thing. Dorrin finds relevance, not certainty: Talon worked under Elya and later got convicted around similar records machinery. That responsible legal query is what alerts the people watching old GAG case files and manifest markers.",
-  "conflict": "Ben does the responsible thing. Dorrin finds relevance, not certainty: Talon worked under Elya and later got convicted around similar records machinery. That responsible legal query is what alerts the people watching old GAG case files and manifest markers.",
+  "why_now": "Ben and Dorrin have a name but not access. The only lawful path to Talon Veyr runs through Dorrin's case authority and a formal visitor request — and that request, once filed, wakes the alert systems watching the old GAG manifest trail.",
+  "conflict": "Ben wants to reach Talon through legitimate channels quickly enough to get the information before anyone else does. Dorrin can open the lawful doors but he moves at the speed of procedure. The tension is not between Ben and Dorrin — they are working together — but between the correct path and the timeline the case is already running on.",
   "conflict_type": "internal",
   "dialogue_expectation": "balanced",
   "turning_point": "Ben departs for Tarn Velos.",
   "closing_hook": "Ben departs for Tarn Velos.",
   "characters_present": [
     "Ben Skywalker",
-    "Talon Veyr",
-    "Commander Elya Rane",
-    "Luke Skywalker",
-    "Cale Dorrin",
-    "Colonel Maro Tess"
+    "Cale Dorrin"
   ],
-  "setting": "Coruscant, GA Justice records facility — a secure cross-reference room with banked holoprojectors and Dorrin's small adjoining office. Sterile, procedural, fluorescent. Ben sits across the desk from Dorrin as the Inspector pulls Elya's old GAG assignment logs and the prosecution files that point to Talon Veyr.",
+  "setting": "Coruscant, GA Justice records facility — a secure cross-reference room with banked holoprojectors and Dorrin's small adjoining office. Sterile, procedural, fluorescent. This is capital procedure under Chief of State Dorvan's government: the machinery still runs; access still costs paperwork; Dorrin still has to file a formal request to pull GAG prosecution records from the post-war archive. Procedure, not trust. Ben sits across the desk from Dorrin as the Inspector pulls Elya's old GAG assignment logs and the prosecution files that point to Talon Veyr.",
   "emotional_trajectory": "",
   "stakes": {
-    "personal": "Preserve the POV-specific fear, wound, and immediate want from Character Voice & Life Sheet v1.4.",
-    "interpersonal": "Preserve the relationship pressure named in the outline and character interaction rules.",
-    "external": "Preserve the chapter-level mystery/action consequence and the end-hook pressure."
+    "personal": "Ben is learning GAG logistics vocabulary against his will — cross-referencing manifest authorization patterns, transfer-chain conviction records, handler markers. He understands this world more fluently than he wants to, and Dorrin notices.",
+    "interpersonal": "Dorrin is helpful and procedurally honest, but he is also watching Ben. Every time Ben anticipates a GAG system or reads a record chain faster than he should, Dorrin gets a little quieter. The friction is subtle: Dorrin is building a file on Ben too.",
+    "external": "The lawful visitor request for Talon is the right move. It is also the move that trips the alert. Whoever is watching old GAG manifest audit markers and prosecution files gets a signal the moment the request goes through. Ben departs for Tarn Velos not knowing the clock has started."
   },
-  "sensory_details": "Use only physical details implied by the source outline and bible; do not add new mythology or abstract Force explanation.",
+  "sensory_details": "GA Justice records facility — banked holoprojectors, Dorrin’s small adjacent office, fluorescent and sterile. Holo-displays of old GAG assignment logs and prosecution files stack up in the air between them. The visitor badge clipped to Ben’s collar has ALLIED PARTY stamped across it in orange — the GA’s procedural answer to a Jedi with no institutional standing on this world. Ben sits across the desk with the fragment in a sealed evidence sleeve, trying not to read the files too fast.",
   "canon_elements_needed": [
     "GAG / Jacen / Caedus continuity",
     "Cale Dorrin official-access limits",
     "Tarn Velos prison geography and legal stakes",
     "Iressa / Civitas / manifest reconstruction logic",
-    "One Sith background shadow only"
+    "One Sith background shadow only",
+    "GA post-war procedural normalcy under Chief of State Dorvan — records access runs on paperwork and inter-agency courtesy, not trust",
+    "Coruscant as the world that exiled the Order: Ben's visitor badge reflects his institutional non-status here"
   ],
   "target_word_count": 1800,
   "active_subplots": [],
@@ -49,8 +47,45 @@
   ],
   "hook_actions": [],
   "revelations": [],
-  "pov_arc_phase": "Ben arc per concept_seed ensemble_cast.weiland_arc.arc_phase_map",
-  "notes": "Source: Chapter Outlines v4.1. Act: Act One — The Body / The Prison / The Partnership. Chapter title: The Man Who Can Read It.\n\nReader-facing clarity note: Ben does the responsible thing. Dorrin finds relevance, not certainty: Talon worked under Elya and later got convicted around similar records machinery. That responsible legal query is what alerts the people watching old GAG case files and manifest markers.\n\nCharacter voice focus: preserve the exact v1.4 character behavior and dialogue rules for the chapter POV and named participants. Plot first, character second, theme through consequences.",
+  "turning_point_detail": {
+    "trigger": "Dorrin confirms relevance: Talon Veyr worked under Elya after Tess reassigned him, and his later conviction involved manifest/authorization patterns close to what is in the recovered fragment. Not proof — relevance.",
+    "shift": "Ben files the lawful visitor request for Tarn Velos. He is doing the right thing. The request immediately notifies the systems watching the old GAG trail.",
+    "cost": "The correct path is the tripwire. Ben will not know this until the prison alarm changes pitch in Chapter 6."
+  },
+  "emotional_arc": {
+    "start": "Ben is professionally focused, working with Dorrin through records that should be dry but keep touching things he knows from the inside.",
+    "shift": "He recognizes the manifest-authorization patterns faster than he should, and he sees Dorrin clock it. He does not explain himself.",
+    "end": "He boards a shuttle for Tarn Velos. He is doing everything right and has no idea the query just lit up a board somewhere."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Dorrin pulls Elya's old GAG assignment logs and supervision records from the cross-reference room's banked holoprojectors; Talon Veyr's name appears in the postwar supervision files.",
+      "state_change": "The personnel trail connects Talon to Elya's records environment and to the kind of manifest work the fragment represents.",
+      "pov_reaction": "Ben tracking the data display faster than the Inspector is moving — the GAG logistics vocabulary coming back without invitation, fluent and slightly unwelcome."
+    },
+    {
+      "beat_description": "The cross-reference confirms Talon's later transfer-chain conviction involved manifest-authorization patterns similar to the audit trace on the recovered fragment.",
+      "state_change": "Talon Veyr goes from a name in a file to the specific person most likely to recognize what the fragment's shipment fraud looks like from the inside.",
+      "pov_reaction": "Dorrin going quieter — Ben registers it, understands what it means, and does not explain himself."
+    },
+    {
+      "beat_description": "Ben identifies Talon as a witness who can recognize the pattern, not a decoder — the value is his lived operational knowledge of this records environment.",
+      "state_change": "The investigation's next step is now clear: the legal route to Tarn Velos.",
+      "pov_reaction": "The brief internal check — is he doing this right, is this what Elya sent the message for — followed by the decision to keep moving."
+    },
+    {
+      "beat_description": "Dorrin files the lawful visitor request for Tarn Velos; Ben reads manifest authorization patterns in the display faster than a records auditor should and neither of them says anything about it.",
+      "state_change": "The correct legal move is made; the request, once filed, notifies systems watching old GAG case trails.",
+      "pov_reaction": "The recognition that Dorrin is building a file on him too — the slight recalibration, the choice to leave it alone rather than explain."
+    },
+    {
+      "beat_description": "Ben boards a shuttle for Tarn Velos, doing everything correctly, unaware the visitor query has already lit up a board somewhere.",
+      "state_change": "The legal path is taken; the alarm it triggered is already running.",
+      "pov_reaction": "The clean feeling of having done the right thing — which is about to become the specific shape of a mistake he did not know he was making."
+    }
+  ],
+  "pov_arc_phase": "Ben Skywalker:lie_established",
+  "notes": "Source: Chapter Outlines v4.1. Act: Act One — The Body / The Prison / The Partnership. Chapter title: The Man Who Can Read It.\n\nReader-facing clarity note: Ben does the responsible thing. Dorrin finds relevance, not certainty: Talon worked under Elya and later got convicted around similar records machinery. That responsible legal query is what alerts the people watching old GAG case files and manifest markers.\n\nTexture thread: The GA's procedural machinery — inter-agency paperwork, allied-party access badges, Dorvan-era bureaucratic normalcy — is the texture of Coruscant's post-war ordinary life. The drafter should let it feel slightly absurd alongside the seriousness of what Ben is doing: the capital runs on procedure whether or not anyone trusts anyone.\n\nCharacter voice focus: preserve the exact v1.4 character behavior and dialogue rules for the chapter POV and named participants. Plot first, character second, theme through consequences.",
   "scene_voice_permissions": {
     "notes": "Use Character Voice & Life Sheet v1.4 as controlling source for dialogue, behavior, humor, fear, wounds, and interaction rules. Preserve commercial readability: goal, obstacle, movement, reversal, hook.",
     "anti_patterns": [
@@ -59,6 +94,6 @@
       "do not let Iresh become abstract before it is physically clear",
       "do not make Dorrin a third lead or secret mentor"
     ],
-    "pov_arc_phase": "Ben arc per concept_seed ensemble_cast.weiland_arc.arc_phase_map"
+    "pov_arc_phase": "Ben Skywalker:lie_established"
   }
 }

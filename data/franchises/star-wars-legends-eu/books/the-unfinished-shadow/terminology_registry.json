@@ -150,7 +150,7 @@
     "aliases": [
       "Jacen"
     ],
-    "definition": "Pre-fall identity. Ben's cousin, mentor, and Force teacher during the GAG / Caedus period. Son of Han Solo and Leia Organa Solo; brother of Jaina. Killed at the Battle of Shedu Maad in 40 ABY. His Force odyssey (NJO through LotF) produced the Vergerean / Lumiya-inflected techniques he later systematized as Recognition, Deepening, and Holding in the unfinished holocron.",
+    "definition": "Pre-fall identity. Ben's cousin, mentor, and Force teacher during the GAG / Caedus period. Son of Han Solo and Leia Organa Solo; brother of Jaina. Killed at the Battle of Shedu Maad in 41 ABY. His Force odyssey (NJO through LotF) produced the Vergerean / Lumiya-inflected techniques he later systematized as Recognition and Holding in the unfinished holocron.",
     "category": "character_name",
     "first_appearance": 1,
     "usage_notes": "Naming discipline: 'Jacen' for the pre-fall mentor identity, 'Caedus' for the Sith-Lord identity. POVs choose by emotional load — see canon_profile.franchise_terminology_notes. Aevyn ONLY uses 'Jacen'."
@@ -309,7 +309,7 @@
   {
     "canonical_form": "Shedu Maad",
     "aliases": [],
-    "definition": "Hapes Cluster world where the Jedi Order relocated permanently at the end of FOTJ (44 ABY) and where the Order still maintains its headquarters in 47 ABY. The Battle of Shedu Maad (40 ABY) was where Darth Caedus was killed at the close of LotF.",
+    "definition": "Hapes Cluster world where the Jedi Order relocated permanently at the end of FOTJ (44 ABY) and where the Order still maintains its headquarters in 47 ABY. The Battle of Shedu Maad (41 ABY) was where Darth Caedus was killed at the close of LotF.",
     "category": "place_name",
     "first_appearance": 2,
     "usage_notes": "Pronounced SHEH-doo MAHD. The Shedu Maad Memorial Foundation takes its name from the post-war reconstruction of the battle's losses."
@@ -431,15 +431,7 @@
     "definition": "Colonel Maro Tess's private security firm. Publicly provides donor-event security, archive protection, offworld survey security, threat assessments, personnel vetting, hostile-environment logistics, and private protection for charities/civic institutions. Privately serves as the Vigil's operational arm.",
     "category": "organization",
     "first_appearance": 19,
-    "usage_notes": "Full name on first use, 'Greyline' thereafter. Greyline's contractor arm for direct action is Cinderline."
-  },
-  {
-    "canonical_form": "Cinderline",
-    "aliases": [],
-    "definition": "Mercenary contractor arm Greyline uses for direct action (snatch operations, archive cleanups, frame-ups, asset disposals). The Vigil's plausibly-deniable muscle. Executes the Tarn Velos prison snatch (PP1 prelude), the GAG archive cleanup (PP1), the cache raid and Talon frame (PP2), and the Iresh staging.",
-    "category": "organization",
-    "first_appearance": 7,
-    "usage_notes": "Cinderline operations are professional and procedural — frame-ups, false-cover snatches, professional cache destructions. NOT crude or theatrical."
+    "usage_notes": "Full name on first use, 'Greyline' thereafter. For direct action — snatch operations, cleanups, frame-ups, asset disposals — Greyline fields plausibly-deniable contractor teams under the same firm; there is no separate brand. Operations are professional and procedural, never crude or theatrical."
   },
   {
     "canonical_form": "Imperial Remnant",
@@ -484,7 +476,7 @@
       "the holocron",
       "Jacen's holocron"
     ],
-    "definition": "An unfinished working holocron assembled during the Legacy of the Force period from fragments of Jacen Solo's Force-odyssey notes, Vergerean thought, Lumiya's Sith inheritance, GAG-era observations, and Jacen's private systematization of Recognition, Deepening, and Holding. Part notebook, part training device, part confession, part contingency, part laboratory. Hidden on Iresh near the Glasswell in old offworld survey / GAG-era storage equipment.",
+    "definition": "An unfinished working holocron assembled during the Legacy of the Force period from fragments of Jacen Solo's Force-odyssey notes, Vergerean thought, Lumiya's Sith inheritance, GAG-era observations, and Jacen's private systematization of Recognition and Holding. Part notebook, part training device, part confession, part contingency, part laboratory. Hidden on Iresh near the Glasswell in old offworld survey / GAG-era storage equipment.",
     "category": "artifact",
     "first_appearance": 15,
     "usage_notes": "NOT a completed Sith weapon. Reader-facing language treats it as 'Jacen's notebook on how to shape people from the inside, and the Vigil wants to finish the work.' Ben secures it in Ch 33 and preserves it through the coda — his omission to Luke in Ch 36 is technically true and morally incomplete."
@@ -519,7 +511,7 @@
       "the secondary cache",
       "the cache"
     ],
-    "definition": "Iressa Vossk's off-record reconstruction workshop, separate from Civitas Archive Systems. A quiet leased space in a Coruscant records-warehouse district (or basement workshop / sympathetic-small-business backroom — drafter's choice). Houses the old GAG tools, encrypted dead drops, and personal archive instincts she officially renounced. Not connected to Civitas or her residence in any public record. Where Ben and Talon spend several days continuing reconstruction after Iressa's death. RAIDED AND BURNED by Cinderline at PP2 (Ch 20) — the documentary case for Saba becomes unrecoverable.",
+    "definition": "Iressa Vossk's off-record reconstruction workshop, separate from Civitas Archive Systems. A quiet leased space in a Coruscant records-warehouse district (or basement workshop / sympathetic-small-business backroom — drafter's choice). Houses the old GAG tools, encrypted dead drops, and personal archive instincts she officially renounced. Not connected to Civitas or her residence in any public record. Where Ben and Talon spend several days continuing reconstruction after Iressa's death. RAIDED AND BURNED by Greyline at PP2 (Ch 20) — the documentary case for Saba becomes unrecoverable.",
     "category": "artifact",
     "first_appearance": 13,
     "usage_notes": "Established in Ch 13 as a passing detail — one line, no emphasis. Becomes the target of PP2's first beat. The raid happens OFF-SCREEN for Ben; he arrives after, and the loss lands through the destroyed space, not through action."
@@ -569,30 +561,20 @@
     "aliases": [
       "Recognition"
     ],
-    "definition": "The most coherent and potentially useful of Jacen Solo's three systematized identity-shaping techniques. Tied to self-perception, trauma, memory, and identity-mapping. Used clinically, it could help someone understand who they are; used coercively, it forces a subject's identity to surface in legible form for the practitioner. The technique Aevyn was running when the corridor moment fractured his attention with Jacen.",
+    "definition": "The more coherent and potentially useful of Jacen Solo's two systematized identity-shaping techniques — his inward turn of Aing-Tii flow-walking fused with Force empathy. Where flow-walking reads the currents of the wider Force, Recognition reads the currents of a single person: the charged memories and decisions that define an identity. Used clinically, it could help someone understand who they are; used coercively, it forces a subject's identity to surface in legible form for the practitioner (Aevyn's lethal interrogation method). Practiced recursively on oneself, it is also how a marginal Force-sensitive deepens a thin connection — the path Aevyn took under Jacen. The technique Aevyn was running when the corridor moment fractured his attention with Jacen.",
     "category": "magic_system",
     "first_appearance": 15,
     "usage_notes": "Capitalized when used as the technique's proper name; lowercase 'recognition' for ordinary uses of the English word. Distinguish carefully in narration."
-  },
-  {
-    "canonical_form": "Deepening (Force technique)",
-    "aliases": [
-      "Deepening"
-    ],
-    "definition": "The second of Jacen Solo's three systematized techniques. Recursive self-training. Promising but dangerous: can help marginal Force-sensitives grow but risks turning the self into an object of manipulation. The technique Aevyn personally benefited from under Jacen's intermittent attention.",
-    "category": "magic_system",
-    "first_appearance": 15,
-    "usage_notes": "Capitalized when used as the technique's proper name."
   },
   {
     "canonical_form": "Holding (Force technique)",
     "aliases": [
       "Holding"
     ],
-    "definition": "The third and least complete of Jacen Solo's three systematized techniques. Concerned with sustaining memory, identity, emotional continuity, and Force-impressions past natural decay. The most dangerous of the three. The Vigil's intended weaponized use case: identity-level influence on high-value targets — nudging powerful people to experience Sith-favorable choices as their own judgment.",
+    "definition": "The less complete and more dangerous of Jacen Solo's two systematized techniques — a fusion of battle meditation, the Fallanassi White Current, and Lumiya's will-domination. Concerned with sustaining a shaped impression — memory, identity, emotional continuity, a single decision — in another mind past natural decay. The Vigil's intended weaponized use case: identity-level influence on high-value targets, nudging powerful people to experience Sith-favorable choices as their own judgment.",
     "category": "magic_system",
     "first_appearance": 15,
-    "usage_notes": "Capitalized when used as the technique's proper name. The Holding technique is what makes Jacen's unfinished holocron strategically valuable to the One Sith."
+    "usage_notes": "Capitalized when used as the technique's proper name. Holding is what makes Jacen's unfinished holocron strategically valuable to the One Sith."
   },
   {
     "canonical_form": "the Jacen-derived method",
@@ -600,7 +582,7 @@
       "Aevyn's method",
       "the Force-interrogation method"
     ],
-    "definition": "Aevyn Soris's weaponized Force-interrogation method. A precise blend of memory pressure, Recognition, and Holding. Kills by pushing the subject's mind and body past survivable limits. The precision is what makes it morally and physically worse than crude torture — it forces the subject's memories into clarity rather than fragmenting them.",
+    "definition": "Aevyn Soris's weaponized Force-interrogation method: Recognition turned coercive — Jacen's inward flow-walking forced on a victim, dragging their charged memories to the surface faster than the mind and body can survive. Kills by precision rather than savagery: it forces the subject's memories into clarity rather than fragmenting them, which is what makes it worse than crude torture.",
     "category": "magic_system",
     "first_appearance": 1,
     "usage_notes": "Used to kill Elya Rane in Ch 1 (off-screen of the extraction; on-screen of the death) and used to pressure Iressa Vossk's secondary cache and identity in Vara's hostage attempt in Ch 14-15 (which fails — Vara is not Aevyn, and her cruder version reaches its limit before extraction completes)."
@@ -828,7 +810,7 @@
   },
   {
     "term": "Battle of Shedu Maad",
-    "definition": "The decisive engagement at the close of the Second Galactic Civil War in 40 ABY. Darth Caedus was killed; Jacen Solo's death; the war ended. Site of significant casualties on both sides. The Memorial Foundation takes its name from the post-war reconstruction of these losses.",
+    "definition": "The decisive engagement at the close of the Second Galactic Civil War in 41 ABY. Darth Caedus was killed; Jacen Solo's death; the war ended. Site of significant casualties on both sides. The Memorial Foundation takes its name from the post-war reconstruction of these losses.",
     "category": "concept",
     "first_appearance": 1,
     "usage_notes": "Characters refer to it as 'Shedu Maad' (the battle) and to the planet as 'Shedu Maad' (the Jedi HQ); context disambiguates."
@@ -875,5 +857,109 @@
     "category": "character_name",
     "first_appearance": 2,
     "usage_notes": "May appear briefly under Amelia identity at Shedu Maad. Not plot-active, not POV, not told about Elya message, and not part of Ben investigation. Ch 37 may still carry oblique adversary language such as the Hapan question."
+  },
+  {
+    "canonical_form": "flow-walking",
+    "aliases": [
+      "flow walking"
+    ],
+    "definition": "Canonical Aing-Tii Force discipline (Order of the Sacred Circle) that lets a practitioner walk the currents of the Force to perceive and relive moments, chiefly in the past. Jacen Solo learned it on his Force odyssey and abused it during the Legacy of the Force period. The canonical root of his systematized Recognition technique.",
+    "category": "magic_system",
+    "first_appearance": "background reference",
+    "usage_notes": "Real Legends technique — use as the canon lineage of Recognition. Reader-facing prose need not name it; it grounds the holocron's contents in established Force lore rather than invented mysticism."
+  },
+  {
+    "canonical_form": "the White Current",
+    "aliases": [
+      "White Current"
+    ],
+    "definition": "The Fallanassi discipline of illusion and concealment — shaping what others perceive. A canonical Legends Force tradition. One of the strands Jacen Solo fused into his systematized Holding technique.",
+    "category": "magic_system",
+    "first_appearance": "background reference",
+    "usage_notes": "Canon lineage anchor for Holding. Background grounding, not a reader-facing label."
+  },
+  {
+    "canonical_form": "battle meditation",
+    "aliases": [],
+    "definition": "Canonical Force art for influencing the will, morale, and coordination of many minds at once. A strand Jacen Solo fused, with the White Current and Lumiya's Sith will-domination, into his systematized Holding technique.",
+    "category": "magic_system",
+    "first_appearance": "background reference",
+    "usage_notes": "Canon lineage anchor for Holding."
+  },
+  {
+    "canonical_form": "the Coruscant Jedi Temple",
+    "aliases": [
+      "the Jedi Temple",
+      "the Temple"
+    ],
+    "definition": "The Jedi Order's monumental former headquarters on Coruscant. After the Order relocated to Shedu Maad at the end of Fate of the Jedi (44 ABY), the Temple is no longer Order property — it stands as a monument to the exile. Ben works his Coruscant case in the shadow of the building his family once helped lead, on a world whose Senate voted the Order out.",
+    "category": "place_name",
+    "first_appearance": 4,
+    "usage_notes": "Texture for Ben's displacement across Acts 1-2 — one image, a wound, not a tour. The Skywalker apartment is the last Skywalker presence on the world that pushed the Order out."
+  },
+  {
+    "canonical_form": "the Second Galactic Civil War",
+    "aliases": [
+      "the war",
+      "the Caedus war"
+    ],
+    "definition": "The 40-41 ABY war (Galactic Alliance against the Corellian-led Confederation) during which Jacen Solo fell to Darth Caedus, built the GAG, and murdered Mara Jade. Named engagements include the battles of Fondor and Kuat; it ended at the Battle of Shedu Maad in 41 ABY, where Caedus died. The war Jacen's duplicated manifest dates from, and the source of most of the Foundation's war dead.",
+    "category": "concept",
+    "first_appearance": "background reference",
+    "usage_notes": "Reader-facing shorthand 'the war'. Ground the Foundation's grief, the manifest's date, and Talon's/Iressa's GAG history here. One term, then one consequence."
+  },
+  {
+    "canonical_form": "the Yuuzhan Vong War",
+    "aliases": [
+      "the Vong War"
+    ],
+    "definition": "The 25-29 ABY extragalactic invasion that devastated the galaxy a generation before Book 1 — including the Fall of Coruscant (27 ABY) and a vast refugee crisis. The formative trauma of Talon Veyr's generation; he came of age inside its evacuation corridors.",
+    "category": "concept",
+    "first_appearance": "background reference",
+    "usage_notes": "Talon's-war anchor. Surfaces as personal history (Ch 22, Ch 23 transit), never as exposition."
+  },
+  {
+    "canonical_form": "the Fall of Coruscant",
+    "aliases": [],
+    "definition": "The Yuuzhan Vong capture of Coruscant in 27 ABY and the mass civilian evacuation that followed. Talon Veyr survived it as a boy, in the evacuation corridors and refugee transports — the origin of his instinct for exits, blind spots, and how large systems lose people.",
+    "category": "concept",
+    "first_appearance": 22,
+    "usage_notes": "Talon's specific war wound. He names it in the Ch 23 transit scene when the humor valve thins; do not over-explain."
+  },
+  {
+    "canonical_form": "the Aing-Tii",
+    "aliases": [
+      "the Order of the Sacred Circle"
+    ],
+    "definition": "A reclusive Force-using species of the Kathol Rift who practice flow-walking — walking the currents of the Force to perceive and relive moments. Jacen Solo studied with them during his Force odyssey and learned the technique he later turned inward as Recognition.",
+    "category": "faction",
+    "first_appearance": 23,
+    "usage_notes": "Canon lineage for Recognition and for Iresh's regional placement near the Kathol Rift. Background grounding, surfaced through Ben's dread in the transit."
+  },
+  {
+    "canonical_form": "the Fallanassi",
+    "aliases": [],
+    "definition": "A reclusive Force-using religious community who practice the White Current, the discipline of illusion and concealment. A stop on Jacen Solo's Force odyssey and one strand of his systematized Holding technique.",
+    "category": "faction",
+    "first_appearance": 23,
+    "usage_notes": "Canon lineage for Holding. Background grounding."
+  },
+  {
+    "canonical_form": "the Kathol Rift",
+    "aliases": [
+      "the Rift"
+    ],
+    "definition": "A remote, hazardous region of the Outer Rim toward Wild Space, home of the Aing-Tii. A waypoint on Jacen Solo's Force odyssey; Iresh sits on the wild edge near it, which is how Jacen found the place he later used to hide the unfinished holocron.",
+    "category": "place_name",
+    "first_appearance": 23,
+    "usage_notes": "Grounds Iresh in named Legends geography and ties it to Jacen's pilgrimage."
+  },
+  {
+    "canonical_form": "Vergere",
+    "aliases": [],
+    "definition": "A Fosh Force-user and Jacen Solo's mentor during the Yuuzhan Vong War, whose ambiguous teachings ('the Force is a tool; there is no light or dark, only what you do') seeded the philosophy underneath Jacen's later odyssey and fall. Long dead by Book 1 — a name in the holocron's lineage, not a character.",
+    "category": "character_name",
+    "first_appearance": 23,
+    "usage_notes": "Background lineage for the holocron and Jacen's thought. Mention only; never on-page."
   }
 ]

@@ -2,6 +2,8 @@ Untitled Star Wars Legends Novel
 
 High-Level Chapter Outlines v4.1
 
+Revision note (v4.2 pass): Force techniques re-grounded in Legends disciplines and tightened to two (Recognition + Holding; “Deepening” folded into Recognition); Greyline absorbs Cinderline (one firm); Caedus / Battle of Shedu Maad dated 41 ABY; Aevyn’s interrogation is “weaponized Recognition”; Iressa’s Midpoint revelation now reads Jacen’s own sealed annotation rather than inferring purpose from records. See Planning Bible Appendix B (v8.6 entry).
+
 Source: Planning Bible v8.5 full working draft. Includes the v4.0 chapter consolidation pass plus v4.1 continuity, grounding, Dorrin, Shedu Maad texture, Ben/Talon friendship, and Ben GAG/Jacen self-definition updates.
 
 Commercial drafting rule: Show emotion, theme, and moral contradiction through action. Tell only logistics, clues, and necessary orientation.
@@ -16,7 +18,7 @@ Old Ch 1 + Ch 2 (Elya hook) merged into new Ch 1.
 
 Old Ch 7 + Ch 8 (prison arrival + visitor room) merged into new Ch 6.
 
-Old Ch 9 + Ch 10 (Cinderline attack + Ben break-cover) merged into new Ch 7.
+Old Ch 9 + Ch 10 (Greyline attack + Ben break-cover) merged into new Ch 7.
 
 Old Ch 12 (Rusk POV) dropped.
 
@@ -130,7 +132,7 @@ POV: Commander Elya Rane
 
 Core story action: Elya finds a duplicated wartime quarantine/survey shipment manifest from the final days before the Battle of Shedu Maad. One version is public and boring; the hidden duplicate carries the same shipment identity, a quarantine/survey disguise, conflicting destination data, and enough metadata to show Jacen Solo personally encrypted it shortly before his death. She realizes this is not a clerical duplicate: one of Jacen’s last orders had two lives. She remembers the old wrong approval field where she once quietly removed Ben’s name because he had been fourteen and she could not bear one more child being turned into a clean bureaucratic answer. She sends Ben the obsolete GAG-coded message through an identity-address/dead-drop protocol tied to his old service marker: GAG is still active. One of Jacen’s last orders has two lives. Come alone. — E.R. Then she hears someone arrive.
 
-Aevyn reaches her. He uses a Jacen-derived blend of memory pressure, Recognition, and Holding to extract part of the lead. The method is precise, intimate, and controlled rather than showy. He learns that Elya contacted Ben, preserved a missing piece, and found a Jacen-sealed duplicate manifest pointing toward Iresh. He pushes the mind and body past what they can survive. Elya dies — but the damaged manifest fragment she preserved remains beyond what Aevyn fully extracts.
+Aevyn reaches her. He uses weaponized Recognition — Jacen’s inward flow-walking turned on a living victim’s memories — to extract part of the lead. The method is precise, intimate, and controlled rather than showy. He learns that Elya contacted Ben, preserved a missing piece, and found a Jacen-sealed duplicate manifest pointing toward Iresh. He pushes the mind and body past what they can survive. Elya dies — but the damaged manifest fragment she preserved remains beyond what Aevyn fully extracts.
 
 Emotional readability target: Elya should be competent, afraid, and briefly human before the plot kills her. The reader should feel that a decent person is being erased, not merely that an inciting incident has occurred. Aevyn should be frightening before he is explained — avoid sympathy or backstory here; make the reader feel the wrongness of his method.
 
@@ -202,13 +204,13 @@ End hook: The prison alarm changes pitch; Talon notices it is wrong.
 
 POV: Ben / Talon
 
-Core story action: Cinderline begins the prison snatch under false procedural cover. Lysa manipulates systems; Talon reads the pattern before Ben can. The first snatch team breaches the wing.
+Core story action: Greyline begins the prison snatch under false procedural cover. Lysa manipulates systems; Talon reads the pattern before Ben can. The first snatch team breaches the wing.
 
 Ben breaks cover and saves Talon physically, disabling rather than killing and protecting confused prison staff. His restraint is active, not passive — he chooses non-lethal Force work and lightsaber control even when speed would be easier.
 
 Emotional readability target: Ben should look heroic here. The later moral danger works better if the reader first sees that his instincts are genuinely protective. Talon’s growing recognition that Ben is good at this, even constrained, should land underneath his complaints.
 
-Continuity note: This is the consolidated lockdown-and-rescue chapter (formerly Chapters 9 and 10). The Cinderline reveal flows directly into Ben’s response without a chapter break.
+Continuity note: This is the consolidated lockdown-and-rescue chapter (formerly Chapters 9 and 10). The Greyline reveal flows directly into Ben’s response without a chapter break.
 
 End hook: Ben can win the fight, but Talon says they are going the wrong way.
 
@@ -220,7 +222,7 @@ Core story action: Talon proves he is partner, not cargo, by reading maintenance
 
 Emotional readability target: This is the equality beat: Ben saves Talon; Talon gets them out. The partnership is forced into existence through action before either of them has admitted it.
 
-End hook: Cinderline adjusts pursuit when the expected escape route fails and pushes them toward the exposed sea-wall route.
+End hook: Greyline adjusts pursuit when the expected escape route fails and pushes them toward the exposed sea-wall route.
 
 ## Chapter 9 — Storm Line (First Plot Point)
 
@@ -298,7 +300,7 @@ End hook: The archive wakes. Iressa realizes someone else has recently queried o
 
 POV: Ben / Talon
 
-Core story action: Cinderline hits the archive as a cleanup team, not a battlefield unit. They seal exits, wipe cameras, trigger old quarantine protocols, and try to leave no clean version of the room behind. Vara Senn appears as an attached Force specialist, making the scene psychologically unsafe. Before taking Iressa hostage, Vara engages Ben in a short, cramped lightsaber clash.
+Core story action: Greyline hits the archive as a cleanup team, not a battlefield unit. They seal exits, wipe cameras, trigger old quarantine protocols, and try to leave no clean version of the room behind. Vara Senn appears as an attached Force specialist, making the scene psychologically unsafe. Before taking Iressa hostage, Vara engages Ben in a short, cramped lightsaber clash.
 
 Vara/Ben clash beat: Vara fights with blunt Lost Tribe aggression: pressure, fear, domination, and taunts. Ben recognizes elements of Lost Tribe training, allowing a brief Vestara Khai scar-tissue mention. The fight is short, ugly, and consequential, not a grand duel.
 
@@ -312,7 +314,7 @@ End hook: Vara senses Iressa has hidden something.
 
 POV: Ben
 
-Core story action: After the short clash fails to give Vara control, she takes Iressa hostage and pressures her memory. Ben sees a Jacen-shaped coercive option and refuses it. Iressa finishes corrupting the enemy’s copy and transmits her dying package to Ben and Talon — two things at once. First, the documentary chain Ben would need to bring Saba to make an institutional case. Second, the strategic revelation: she has figured out why the Vigil wants Jacen’s unfinished holocron specifically. The work on Recognition, Deepening, and Holding is not just dangerous knowledge — the Vigil intends to use it (with Aevyn’s help, as Jacen’s surviving student) for identity-level influence on high-value targets. She names the category of threat, not specific names. She dies denying Vara the clean version. Her fear should come out as herself: practical irritation, file anger, or one last debt/fee joke rather than sentimental martyrdom.
+Core story action: After the short clash fails to give Vara control, she takes Iressa hostage and pressures her memory. Ben sees a Jacen-shaped coercive option and refuses it. Iressa finishes corrupting the enemy’s copy and transmits her dying package to Ben and Talon — two things at once. First, the documentary chain Ben would need to bring Saba to make an institutional case. Second, the strategic revelation: reconstructing around Jacen’s encryption, she recovered a fragment of Jacen’s own sealed annotation inside the hidden manifest layer — his words, not her inference — naming what the cache is for. The work on Recognition and Holding is not just dangerous knowledge — the Vigil intends to use it (with Aevyn’s help, as Jacen’s surviving student) for identity-level influence on high-value targets. She names the category of threat, not specific names. She dies denying Vara the clean version. Her fear should come out as herself: practical irritation, file anger, or one last debt/fee joke rather than sentimental martyrdom.
 
 Emotional readability target: Iressa dies with agency. Ben’s guilt matters, but she is not reduced to a lesson for him. The reader must clearly understand that Ben saw another possible way, that it might have worked, and that it would have violated a mind. The transmission Iressa sends carries the strategic stakes forward — from this point on, Ben and the reader know what is really at stake on Iresh.
 
@@ -392,9 +394,9 @@ Core story action: This chapter is the Squeeze. It compounds three antagonist-pr
 
 Beat 1 — Tess clears the board. Open from Tess’s POV. He determines Korda has become too visible and orders Korda’s elimination. The killing is shaped as a public fall-guy narrative: rogue security director, illegal contractors, no institutional culpability for the Foundation. Tess does not gloat. He treats the death as logistics. “Korda was becoming visible. This cleans the board.” He then orders the Iresh operation accelerated specifically because Ben Skywalker and Talon Veyr are now actively involved. The acceleration is not a panic move — it is a calculated adjustment to the threat profile.
 
-Beat 2 — The cache raid. Ben and Talon return to Iressa’s secondary cache (where they have been working since the Midpoint) to find it raided and burned. No bodies. No witnesses. The cache is professionally destroyed in a way that means the documentary reconstruction — the case Ben was building for Saba — is unrecoverable. The professionalism is the threat. Someone told Cinderline where the cache was; the breach point is not identifiable. Whatever case Ben was going to bring back to Shedu Maad is now ash.
+Beat 2 — The cache raid. Ben and Talon return to Iressa’s secondary cache (where they have been working since the Midpoint) to find it raided and burned. No bodies. No witnesses. The cache is professionally destroyed in a way that means the documentary reconstruction — the case Ben was building for Saba — is unrecoverable. The professionalism is the threat. Someone told Greyline where the cache was; the breach point is not identifiable. Whatever case Ben was going to bring back to Shedu Maad is now ash.
 
-Beat 3 — The frame and the tempo signal. Within hours of the cache raid, a warrant goes out for Talon on a current Coruscant crime he could not have committed. Planted biometric or comm signature evidence. The frame is professionally constructed in a way Talon recognizes — Tess’s tradecraft fingerprint is on it. Specific cover-identity construction patterns, a particular routing of the planted evidence. Talon does not rage. He goes quiet. The valve does not shut; it freezes. Simultaneously, Talon reads through public-facing indicators (freight aggregator patterns, civil-aviation filings using cover names, a still-floating old contact declining a casual meet) that Cinderline has accelerated Iresh staging past the timeline they captured from Korda. Whatever margin Ben thought he had is gone.
+Beat 3 — The frame and the tempo signal. Within hours of the cache raid, a warrant goes out for Talon on a current Coruscant crime he could not have committed. Planted biometric or comm signature evidence. The frame is professionally constructed in a way Talon recognizes — Tess’s tradecraft fingerprint is on it. Specific cover-identity construction patterns, a particular routing of the planted evidence. Talon does not rage. He goes quiet. The valve does not shut; it freezes. Simultaneously, Talon reads through public-facing indicators (freight aggregator patterns, civil-aviation filings using cover names, a still-floating old contact declining a casual meet) that Greyline has accelerated Iresh staging past the timeline they captured from Korda. Whatever margin Ben thought he had is gone.
 
 Cumulative effect: The documentary path is closed (cache destroyed). Talon’s legal cover is destroyed (frame). The timeline is destroyed (acceleration). Even with Saba’s full institutional support, there is no case to bring her and no time to bring it. The only door still open is going to Iresh themselves, immediately, off-grid.
 
@@ -406,7 +408,7 @@ Emotional readability target: Tess should feel terrifying because he is calm and
 
 Reader-onboarding / clarity note: Plain-language consequence: the bad guys just closed every option Ben had except the most dangerous one. They did it surgically. They did it because Ben is involved. The clock is no longer theoretical.
 
-Craft notes: - The cache raid happens off-screen for Ben. He arrives after. The reader experiences the loss through the destroyed space. - Who told Cinderline where the cache was stays unanswered. The drafter should plant the question without resolving it. - Tess’s tradecraft fingerprint on the frame should be quiet, not declamatory. Talon notices, gives one small reaction, names it in a sentence when Ben asks.
+Craft notes: - The cache raid happens off-screen for Ben. He arrives after. The reader experiences the loss through the destroyed space. - Who told Greyline where the cache was stays unanswered. The drafter should plant the question without resolving it. - Tess’s tradecraft fingerprint on the frame should be quiet, not declamatory. Talon notices, gives one small reaction, names it in a sentence when Ben asks.
 
 End hook: Ben and Talon, hiding in the Skywalker family apartment, begin preparing the off-grid transit to Iresh.
 
@@ -437,6 +439,8 @@ POV: Ben
 Core story action: Ben and Talon confirm the offworld destination and finalize the off-grid transit plan. Luke can only offer limited quiet support without making the case official. They prepare to leave.
 
 End hook: Act turn. Ben and Talon leave for Iresh, knowing the Vigil/Foundation is already moving to recover something Jacen left there.
+
+Scene note (v4.2 texture pass): Chapter 23 now carries a second scene — the Coruscant→Iresh hyperspace crossing (POV Ben, ~2,800 words). The forced partnership becomes real through behavior; Talon names the Fall of Coruscant evacuations he survived as a boy; Ben reckons with Iresh as a stop on Jacen's Force odyssey (the Aing-Tii of the Kathol Rift, the Fallanassi, Vergere) and privately decides he will use what Jacen left in him to save lives. The odyssey lore lands as Ben's dread and Talon's history, never as exposition. Brooks milestones unchanged.
 
 # Act Three — Iresh / Glasswell / Aevyn
 
@@ -474,7 +478,7 @@ End hook: They find signs of the Foundation operation near taboo ground.
 
 POV: Ben
 
-Core story action: Ben, Talon, and Sela observe the Foundation/Vigil field camp: legitimate-looking survey work with Cinderline/Greyline security underneath.
+Core story action: Ben, Talon, and Sela observe the Foundation/Vigil field camp: legitimate-looking survey work with Greyline security underneath.
 
 End hook: Ben senses Aevyn’s Force presence.
 
@@ -490,7 +494,7 @@ End hook: Aevyn confirms Jacen left something near the Glasswell.
 
 POV: Sela
 
-Core story action: Sela finds evidence Tavi is alive or recently alive near the Glasswell exclusion zone: a guide token, field recorder, damaged pack, warning mark, altered path sign, or practical note. The evidence should reveal personality, not just plot: Tavi jokes, complains about Sela being right too often, promises to pay someone back, or leaves a practical warning that shows he knew the risk but needed the money/opportunity. Nix/Cinderline pressure the group.
+Core story action: Sela finds evidence Tavi is alive or recently alive near the Glasswell exclusion zone: a guide token, field recorder, damaged pack, warning mark, altered path sign, or practical note. The evidence should reveal personality, not just plot: Tavi jokes, complains about Sela being right too often, promises to pay someone back, or leaves a practical warning that shows he knew the risk but needed the money/opportunity. Nix/Greyline pressure the group.
 
 Emotional readability target: Tavi must become a person before he becomes a rescue objective. Sela’s anger should crack into fear.
 
@@ -502,7 +506,7 @@ End hook: The expedition begins moving heavy equipment toward the Glasswell.
 
 POV: Talon or Ben
 
-Core story action: The group discovers Jacen’s cache was hidden in old offworld survey/GAG storage equipment near the Glasswell, not in a mystical altar. Talon recognizes the storage logic. Ben recognizes the Force wrongness. Sela recognizes the local danger. When they get close enough to scan the outer data layers, Ben confirms what Iressa told them in her dying transmission at the Midpoint: the holocron is unfinished, containing Jacen’s work on Recognition, Deepening, and Holding — exactly the identity-shaping techniques the Vigil intends to weaponize with Aevyn’s help.
+Core story action: The group discovers Jacen’s cache was hidden in old offworld survey/GAG storage equipment near the Glasswell, not in a mystical altar. Talon recognizes the storage logic. Ben recognizes the Force wrongness. Sela recognizes the local danger. When they get close enough to scan the outer data layers, Ben confirms what Iressa told them in her dying transmission at the Midpoint: the holocron is unfinished, containing Jacen’s work on Recognition and Holding — exactly the identity-shaping techniques the Vigil intends to weaponize with Aevyn’s help.
 
 The SPP function here is embodiment rather than revelation. Ben already knew (from Iressa) what the holocron was for. Seeing the cache, seeing Aevyn already at work on it, makes the threat concrete. There is no way to stop Aevyn from getting at the holocron cleanly. The only options left are rescue (saving Tavi and the locals from what Aevyn’s work is about to break) and denial (keeping Aevyn from leaving with the full prize).
 
@@ -680,7 +684,7 @@ Old Ch 1 + Ch 2 merged into new Ch 1 (Elya hook as one extended chapter).
 
 Old Ch 7 + Ch 8 merged into new Ch 6 (prison arrival + visitor room).
 
-Old Ch 9 + Ch 10 merged into new Ch 7 (Cinderline attack + Ben break-cover).
+Old Ch 9 + Ch 10 merged into new Ch 7 (Greyline attack + Ben break-cover).
 
 Old Ch 12 (Rusk POV) dropped.
 

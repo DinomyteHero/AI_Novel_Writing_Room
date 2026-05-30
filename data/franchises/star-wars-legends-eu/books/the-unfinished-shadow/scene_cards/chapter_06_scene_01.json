@@ -5,8 +5,8 @@
   "scene_role": "escalation",
   "pov_character": "Ben",
   "mission": "Ben arrives at Tarn Velos Coastal Detention Works, a storm-lashed industrial coastal prison. He moves through processing under his low-profile cover as a GA Justice records auditor and is shown to the visitor room. Talon is brought in. Talon enters as quick, funny, restless, and difficult. He recognizes the duplicated manifest fragment as a cloned shipment identity, not a clerical mistake, and clocks Ben as Skywalker, Jedi, and former GAG. His jokes test Ben, hide fear, and keep the visitor room from becoming solemn. Include a humanizing prison-habit beat: Talon sits where he can see the door, counts guards mid-joke, keeps his hands visible, pockets food automatically, or otherwise reveals how prison trained his body before he can hide it.",
-  "why_now": "Chapter 6 occupies the setup phase and carries the next locked outline turn.",
-  "conflict": "Talon must be enjoyable immediately, but the reader should sense pressure under the performance. The prison environment — storm sound through the walls, cold metal, sea air through the ventilation — should ground the meeting in a real place.",
+  "why_now": "Ben has one shot at Talon before whoever is watching the old GAG manifest trail moves to shut the interview down. He has to get Talon to recognize the fragment and trust him enough to say so — inside a prison visitor room, under time pressure neither of them knows is already running.",
+  "conflict": "Ben wants Talon to look at the fragment and confirm what it is. Talon's goal is to survive the visitor room without revealing anything to someone he does not trust yet — and a Jedi with GAG history showing up with a wartime manifest is not a simple thing to trust. Talon tests Ben with jokes while measuring him; Ben has to stay steady enough to pass the test while the meeting burns time they do not know they are losing.",
   "conflict_type": "environmental",
   "dialogue_expectation": "dialogue_led",
   "turning_point": "The prison alarm changes pitch; Talon notices it is wrong.",
@@ -18,11 +18,11 @@
   "setting": "Tarn Velos Coastal Detention Works, a storm-lashed industrial coastal prison on a remote world. Ben moves through processing under his low-profile cover as a GA Justice records auditor. The visitor room: gray durasteel walls, sea-air through the ventilation, the constant percussive rhythm of distant storm surge on the sea wall, a single transparisteel panel between Ben and Talon.",
   "emotional_trajectory": "Talon must be enjoyable immediately, but the reader should sense pressure under the performance. The prison environment — storm sound through the walls, cold metal, sea air through the ventilation — should ground the meeting in a real place.",
   "stakes": {
-    "personal": "Preserve the POV-specific fear, wound, and immediate want from Character Voice & Life Sheet v1.4.",
-    "interpersonal": "Preserve the relationship pressure named in the outline and character interaction rules.",
-    "external": "Preserve the chapter-level mystery/action consequence and the end-hook pressure."
+    "personal": "Ben has to talk to someone who worked under Elya, got ground up by the same GAG machinery he was shaped by, and went to prison for it. He is looking across a transparisteel panel at someone who got the version of Jacen’s world that did not have a Jedi father and a way out.",
+    "interpersonal": "Talon clocks Ben as Skywalker, Jedi, and former GAG within seconds. He does not stop joking, but the jokes are doing work: reading Ben’s patience, checking his tells, figuring out whether he is another system representative or something different. Ben has to pass this test under time pressure he does not know is running.",
+    "external": "Talon recognizes the fragment as a cloned shipment identity, not a clerical mistake. That confirmation is the case shifting from suspicion to evidence — but the prison alarm is already changing pitch by the time Talon says it."
   },
-  "sensory_details": "Use only physical details implied by the source outline and bible; do not add new mythology or abstract Force explanation.",
+  "sensory_details": "The visitor room: gray durasteel, the constant percussive rhythm of distant storm surge on the sea wall, cold metal table, recycled air with a salt undertone. Ben notices the exits and the angle of the guard station before he sits. Talon enters and immediately chooses the chair with the door sightline — then makes a joke before Ben can note it.",
   "canon_elements_needed": [
     "GAG / Jacen / Caedus continuity",
     "Tarn Velos prison geography and legal stakes",
@@ -53,6 +53,43 @@
     }
   ],
   "revelations": [],
+  "turning_point_detail": {
+    "trigger": "Talon looks at the fragment and names it: cloned shipment identity, not a clerical error. Someone dressed a secret as quarantine cargo. The confirmation arrives just as the prison alarm changes pitch.",
+    "shift": "Talon hears the alarm and says they are going the wrong way — he knows what the wrong alarm sounds like.",
+    "cost": "The meeting that was supposed to produce a name and a lead has just become a prison emergency. Ben's legal cover goes with it."
+  },
+  "emotional_arc": {
+    "start": "Ben is professionally patient, using the interview format, watching Talon work through his test-jokes. He is here for a confirmation, not a rescue.",
+    "shift": "Talon confirms the fragment and Ben feels the case click into focus — for about four seconds. Then the alarm changes pitch.",
+    "end": "Whatever came next in the legal plan is over. Ben is now in a prison that is about to become a crisis, across from a man he came to interview and is about to have to protect."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Ben clears processing at Tarn Velos under his GA Justice records-auditor cover and is shown to the visitor room.",
+      "state_change": "Ben is inside the prison with legal standing — for now — and a time limit he does not know is already running.",
+      "pov_reaction": "The familiar read of a controlled environment: exits, guard station angle, camera coverage — catalogued before he sits down, not because he chose to but because the habit is faster than his attention."
+    },
+    {
+      "beat_description": "Talon enters, picks the chair with the door sightline before Ben can note it, and pockets something from the table without appearing to decide to.",
+      "state_change": "Talon's prison-formed habits are visible before he says a word; the visitor room is his terrain more than Ben's.",
+      "pov_reaction": "The involuntary recognition — that is a person who has been here long enough to memorize the room; the small discomfort of knowing what that costs."
+    },
+    {
+      "beat_description": "Talon clocks Ben as Skywalker, Jedi, and former GAG in roughly thirty seconds; every joke he makes is a calibration.",
+      "state_change": "Talon is running his test; Ben has to pass it without forcing it, under time pressure he does not know he is losing.",
+      "pov_reaction": "Holding steady under the jokes — not performing patience, actually patient, because he understands what the jokes are doing and they are not wrong."
+    },
+    {
+      "beat_description": "Ben shows Talon the fragment; Talon names it without hesitation — cloned shipment identity dressed as quarantine cargo, not a clerical mistake.",
+      "state_change": "The fragment is confirmed as deliberate concealment; the case moves from suspicion to evidence.",
+      "pov_reaction": "The four seconds of clarity — the case clicking into place, the feeling that Elya's warning was right — followed immediately by the alarm."
+    },
+    {
+      "beat_description": "The prison alarm changes pitch; Talon's humor goes flat and he says that's wrong.",
+      "state_change": "The visitor-room interview is over; something outside has changed the shape of the room.",
+      "pov_reaction": "The shift in register — from a meeting that was going well to a situation that is already running; the body adjusting before the brain finishes the calculation."
+    }
+  ],
   "pov_arc_phase": "Talon:lie_established",
   "notes": "Source: Chapter Outlines v4.1. Act: Act One — The Body / The Prison / The Partnership. Chapter title: Visitor Room.\n\nContinuity note: This is the consolidated arrival-and-meeting chapter (formerly Chapters 7 and 8). Ben’s arrival at the prison is the opening beat; Talon’s entry into the visitor room is the chapter’s hinge.\n\nCharacter voice focus: preserve the exact v1.4 character behavior and dialogue rules for the chapter POV and named participants. Plot first, character second, theme through consequences.",
   "scene_voice_permissions": {

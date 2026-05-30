@@ -1,0 +1,34 @@
+{
+  "chapter_number": 2,
+  "overlay_version": 0,
+  "mission": "Ben begins at Shedu Maad in a state of quiet disconnection: respected, loved, and included, but not at ease among peers or ordinary Jedi social life. Luke and close family are temporarily offworld, leaving Ben not abandoned but alone when the past reaches him. Add living Shedu Maad texture: training rooms, shared meals, Hapan architecture and security formality rubbing against Jedi informality. Include a brief light Allana/Amelia cameo or near-cameo while she is visiting for the week - ordinary family texture only, not plot machinery. Ben is included in ordinary banter, but the room turns careful around him once his history is remembered. The obsolete GAG identity-address alert arrives and unsettles him before the content does. He recognizes the channel as a dead part of his old GAG service marker routed through standard HoloNet infrastructure, not Jedi comms. His hand covers the sender code before he realizes he is hiding it.",
+  "chapter_turn": "Ben holo-calls Luke before leaving for Coruscant.",
+  "pressure_ladder": [
+    {
+      "scene_number": 1,
+      "label": "escalation",
+      "note": "Ben begins at Shedu Maad in a state of quiet disconnection: respected, loved, and included, but not at ease among peers or ordinary Jedi social life. Luke and close family are temporarily offworld, leaving Ben not abandoned but alone when the past reaches him."
+    }
+  ],
+  "pov_arc_pressure": {
+    "pov_character": "Ben Skywalker",
+    "structural_phase": "setup",
+    "pacing_curve": "rising"
+  },
+  "next_scene_obligations": [],
+  "active_promises": [],
+  "active_promises_total_count": 0,
+  "reveal_deadlines": [],
+  "canon_slices": [],
+  "canon_guidance": {},
+  "relationship_context": {},
+  "exit_vector": {
+    "summary": "Ben holo-calls Luke before leaving for Coruscant."
+  },
+  "trusted_state_gap_notes": [],
+  "exemplar_snippets": [],
+  "anti_exemplar_snippets": [],
+  "continuity_events": [],
+  "scene_card": {},
+  "rendered_markdown": ""
+}

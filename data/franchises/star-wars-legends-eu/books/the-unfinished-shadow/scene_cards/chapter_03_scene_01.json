@@ -5,26 +5,24 @@
   "scene_role": "decision",
   "pov_character": "Ben",
   "mission": "Ben holo-calls Luke while Luke/family are temporarily offworld rather than physically present at Shedu Maad. The conversation is paternal in register - Luke listens carefully, asks two or three quiet questions, and they classify the matter as sensitive but not yet proof. Luke tells Ben to verify quietly and come back if it is larger. He is careful because an official Jedi move (which would have to come from Saba and the Council) could relitigate GAG publicly and scatter the trail before there is anything concrete to hold. Ben is impatient with that caution because the case already feels personally meaningful.",
-  "why_now": "Chapter 3 occupies the setup phase and carries the next locked outline turn.",
-  "conflict": "Luke must be present and loving, not absent — even on holo. The geographic distance (Shedu Maad to Coruscant) and the institutional distance (Luke no longer Grand Master) are both real but understated. Ben should bristle at being managed while still understanding why Luke is careful. Luke should sense that Ben is not only alarmed; he is drawn to the case. One quiet line of texture: Luke looks tired in a way Ben doesn’t quite remember, his eyes seem further away even when he’s looking right at Ben. Ben notices. Ben doesn’t ask.",
+  "why_now": "Ben has a message from a GAG records officer who is probably in danger, a fragment of Jacen's encrypted wartime orders, and no institutional authority to act — he needs Luke's read before he does anything he cannot undo.",
+  "conflict": "Ben wants Luke to say go — validate the urgency, short-circuit the process, tell him to move. Luke instead says verify quietly and come back if it’s larger. The institutional reason is real (an official Jedi move would scatter the trail before there is proof), but Ben hears it as management. The fight is about care and control wearing each other’s clothes.",
   "conflict_type": "interpersonal",
   "dialogue_expectation": "dialogue_led",
   "turning_point": "Ben leaves Shedu Maad for Coruscant to find Elya.",
   "closing_hook": "Ben leaves Shedu Maad for Coruscant to find Elya.",
   "characters_present": [
     "Ben Skywalker",
-    "Commander Elya Rane",
-    "Luke Skywalker",
-    "Saba Sebatyne"
+    "Luke Skywalker"
   ],
   "setting": "Shedu Maad, Ben's quarters at the Jedi compound — late afternoon, Hapan sunlight angled across the floor. Holocall to Luke (who is temporarily off-world for family/diplomatic business). The room is sparse: a single training mat, an old training-blade rack, a holoframe Ben does not look at directly during the call.",
   "emotional_trajectory": "Luke must be present and loving, not absent — even on holo. The geographic distance (Shedu Maad to Coruscant) and the institutional distance (Luke no longer Grand Master) are both real but understated. Ben should bristle at being managed while still understanding why Luke is careful. Luke should sense that Ben is not only alarmed; he is drawn to the case. One quiet line of texture: Luke looks tired in a way Ben doesn’t quite remember, his eyes seem further away even when he’s looking right at Ben. Ben notices. Ben doesn’t ask.",
   "stakes": {
-    "personal": "Preserve the POV-specific fear, wound, and immediate want from Character Voice & Life Sheet v1.4.",
-    "interpersonal": "Preserve the relationship pressure named in the outline and character interaction rules.",
-    "external": "Preserve the chapter-level mystery/action consequence and the end-hook pressure."
+    "personal": "Ben’s fear is that the case is personally meaningful to him in a way that is not purely investigative — and that Luke can see this. His wound: being categorized as Jacen’s victim means his GAG past only counts as damage, not as knowledge. This case might change that.",
+    "interpersonal": "Luke is loving and sees more than Ben wants. Ben hears caution as the Order managing him again. Luke notices Ben is not just alarmed; he is drawn. Neither says this directly. Ben also notices Luke looks tired in a way he does not remember — further away even when looking right at him. He does not ask.",
+    "external": "If Ben goes to Coruscant quietly and Elya is already dead, he is arriving at a sealed crime scene with no official standing. If he waits for proper channels, whatever Elya found may be cleaned up before anyone with authority can see it."
   },
-  "sensory_details": "Use only physical details implied by the source outline and bible; do not add new mythology or abstract Force explanation.",
+  "sensory_details": "Ben’s quarters at Shedu Maad: late afternoon Hapan light angled across the floor, sparse room — training mat, blade rack, a holoframe he does not look at directly during the call. Luke’s holo image wavers slightly with the offworld lag; his eyes look tired in a way Ben does not quite remember.",
   "canon_elements_needed": [
     "Shedu Maad / Hapes Jedi HQ continuity",
     "GAG / Jacen / Caedus continuity"
@@ -45,7 +43,44 @@
   ],
   "hook_actions": [],
   "revelations": [],
-  "pov_arc_phase": "Ben arc per concept_seed ensemble_cast.weiland_arc.arc_phase_map",
+  "turning_point_detail": {
+    "trigger": "Luke says verify quietly and come back if it is larger. He does not say no. Ben understands this is the most permission Luke can give without making the case official.",
+    "shift": "Ben decides to go to Coruscant. He is not defying Luke; he is reading the precise gap in what Luke said.",
+    "cost": "He is going alone to a sealed murder scene with no official standing, carrying a message from a dead-drop channel and a hunch that the past is not finished. If he is wrong, the damage is only to him. If he is right, the damage will be to everyone who helped the old record hold."
+  },
+  "emotional_arc": {
+    "start": "Ben calls Luke wanting validation and permission — he is alarmed, drawn, and slightly ashamed of being drawn.",
+    "shift": "Luke listens, asks his careful questions, gives the cautious read. Ben bristles and understands the caution at the same time, which is worse than simple disagreement.",
+    "end": "Ben hangs up and is already packing. He is going. He tells himself it is because of Elya. It is also because this is the first thing in a long time that feels like it might matter."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Ben lays out the message, the dead-drop channel, and the fragment; Luke listens on holo from off-world without interrupting.",
+      "state_change": "Luke has enough to form an opinion; Ben has given him all of it, which means he is also giving Luke the power to say stop.",
+      "pov_reaction": "The tension of waiting for the verdict — watching the holo-image of his father's face for the exact quality of silence that tells him whether Luke is worried or is managing him."
+    },
+    {
+      "beat_description": "Luke asks two quiet questions and concludes the matter is sensitive but not yet proof — too early for an official Jedi move.",
+      "state_change": "The institutional frame closes: this stays unofficial, quiet, and personal until there is something concrete.",
+      "pov_reaction": "The specific frustration of understanding the reason while still needing the answer to be different — he is not wrong that Luke is right, and that is the worst part."
+    },
+    {
+      "beat_description": "Luke explains that an official Jedi escalation would scatter the trail before there is anything to hold — GAG politics are still radioactive and too many people survived by pretending they helped nothing.",
+      "state_change": "Ben understands the institutional logic; it does not make the urgency smaller.",
+      "pov_reaction": "Luke's eyes look tired in a way Ben does not quite recognize — further away even when looking right at him. Ben notices. Ben does not ask."
+    },
+    {
+      "beat_description": "Ben pushes back on the caution; Luke listens and does not retreat, but he also does not mistake Ben's alarm for the whole of what is happening.",
+      "state_change": "Luke sees that Ben is not only alarmed — he is drawn to the case, and the draw is personal.",
+      "pov_reaction": "The defensive pull to make this only about Elya, only about duty — and the awareness that Luke can see through both."
+    },
+    {
+      "beat_description": "Luke says verify quietly and come back if it is larger; Ben hangs up and begins packing.",
+      "state_change": "Ben is leaving Shedu Maad for Coruscant. He is going, and both of them understand this.",
+      "pov_reaction": "The brief flat moment after the call ends — not relief, not vindication; more like the door clicking shut on a room that had been safe."
+    }
+  ],
+  "pov_arc_phase": "Ben Skywalker:lie_established",
   "notes": "Source: Chapter Outlines v4.1. Act: Act One — The Body / The Prison / The Partnership. Chapter title: Quietly.\n\nReader-onboarding note: Use Luke to clarify why reopening GAG is dangerous: GAG was not just Jacen, and too many people survived by pretending they had not helped build it. Also seed: the Order is at Shedu Maad now, Saba is Grand Master, Luke is a senior Master and Ben’s father — Luke can advise but not convene. This is brief; one or two natural lines.\n\nCharacter voice focus: preserve the exact v1.4 character behavior and dialogue rules for the chapter POV and named participants. Plot first, character second, theme through consequences.",
   "scene_voice_permissions": {
     "notes": "Use Character Voice & Life Sheet v1.4 as controlling source for dialogue, behavior, humor, fear, wounds, and interaction rules. Preserve commercial readability: goal, obstacle, movement, reversal, hook.",
@@ -55,6 +90,6 @@
       "do not let Iresh become abstract before it is physically clear",
       "do not make Dorrin a third lead or secret mentor"
     ],
-    "pov_arc_phase": "Ben arc per concept_seed ensemble_cast.weiland_arc.arc_phase_map"
+    "pov_arc_phase": "Ben Skywalker:lie_established"
   }
 }

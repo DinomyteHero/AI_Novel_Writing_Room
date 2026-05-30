@@ -392,7 +392,7 @@ Pinch Point 1 (Ch 14-15) — The archive cleanup attack and Iressa’s hostage d
 
 Midpoint (Ch 16) — In the aftermath of Iressa’s death, Ben examines the dying transmission Iressa preserved. It carries the documentary chain and the identity-shaping revelation about why the Vigil wants the holocron. Ben holo-calls Luke, then Saba; the institutional path is correct but too slow. Ben makes the proactive decision to act outside official channels — they will go to Iresh themselves. The Midpoint is the moment Ben pivots from investigator to active disruptor. Lands at ~42%, slightly early of canonical 50% but the function is preserved.
 
-Pinch Point 2 (Ch 20 — locked, see Section 15A) — The Squeeze. Cinderline destroys Iressa’s secondary cache (and the documentary case Ben was building for Saba); Talon is framed for a current Coruscant crime, ending Luke’s quiet legal cover; Talon reads the Iresh acceleration through public-facing indicators and recognizes Tess’s tradecraft fingerprint. Every door except Iresh closes. Ben and Talon relocate to the Skywalker apartment as final refuge. Lands at ~53%, somewhat early of canonical 62-75% but compounds with PP1 and Midpoint to deliver maximum pressure into Act Three’s run-up.
+Pinch Point 2 (Ch 20 — locked, see Section 15A) — The Squeeze. Greyline destroys Iressa’s secondary cache (and the documentary case Ben was building for Saba); Talon is framed for a current Coruscant crime, ending Luke’s quiet legal cover; Talon reads the Iresh acceleration through public-facing indicators and recognizes Tess’s tradecraft fingerprint. Every door except Iresh closes. Ben and Talon relocate to the Skywalker apartment as final refuge. Lands at ~53%, somewhat early of canonical 62-75% but compounds with PP1 and Midpoint to deliver maximum pressure into Act Three’s run-up.
 
 Second Plot Point (Ch 29) — At the cache site on Iresh, Ben confirms what Iressa told him at the Midpoint. The holocron’s unfinished work, Aevyn’s presence as the surviving student who can complete it, the Vigil’s intent to use it for identity-shaping later — all of this becomes physically embodied. The SPP is not a revelation here (the revelation lives at the Midpoint). It is the moment the known threat becomes inescapable: Aevyn is already cracking the cache, and the only remaining options are rescue and denial of the full prize. Lands at ~76%, inside the canonical window.
 
@@ -620,7 +620,7 @@ Ben communicates with Luke through two short holo calls during Acts Two and Thre
 
 The first call happens after Iressa’s death (Midpoint) and before PP2. Ben reports what he has found: the Foundation, the Vigil, the Iresh thread, the identity-shaping nature of the holocron. The call is paternal in register — Luke listens carefully, asks two or three quiet perceptive questions, and tells Ben to bring this to Saba through the Council. He does not tell Ben to wait for him; he knows he cannot return in time. He tells Ben to be careful with what his father cannot be careful about for him.
 
-A separate holo call to Saba follows. This is the formal institutional report. Saba listens with her particular Barabel gravity, asks her own sharp questions, and tells Ben the Order will review the case properly. He should return to Shedu Maad in person and bring the documentary chain. Saba is being correct. The review process is honest. It will also take weeks Ben does not have, and Cinderline destroys the documentary chain before Ben can even leave Coruscant.
+A separate holo call to Saba follows. This is the formal institutional report. Saba listens with her particular Barabel gravity, asks her own sharp questions, and tells Ben the Order will review the case properly. He should return to Shedu Maad in person and bring the documentary chain. Saba is being correct. The review process is honest. It will also take weeks Ben does not have, and Greyline destroys the documentary chain before Ben can even leave Coruscant.
 
 The second Luke call happens after PP2, briefly, from the Skywalker apartment. Ben tells Luke the evidence is gone, Talon is hunted, Iresh is moving. Luke does not tell Ben to come to Shedu Maad. He does not tell him to go to Iresh. He says he understands and he will do what he can from where he is. The call ends with Luke knowing what Ben has just decided to do. The “Gone where?” exchange in the coda is the third Luke conversation, and it is the only one in person.
 
@@ -686,7 +686,7 @@ This gives the opening a personal charge: Elya is not contacting Luke Skywalker,
 
 ### Aevyn’s role
 
-Aevyn Soris reaches Elya first. He uses a Jacen-derived Force interrogation - a weaponized blend of memory pressure, Recognition, and Holding - to force Elya’s memories into clarity and extract part of the lead. The method is precise rather than savage. That makes it worse. Elya dies because Aevyn pushes the mind/body past what it can survive.
+Aevyn Soris reaches Elya first. He uses weaponized Recognition — Jacen’s inward flow-walking turned on a living victim, dragging memory to the surface faster than the mind can bear — to force Elya’s memories into clarity and extract part of the lead. The method is precise rather than savage. That makes it worse. Elya dies because Aevyn pushes the mind/body past what it can survive.
 
 Aevyn should be frightening before he is explained. The reader does not need his full wound yet. The opening experience of him should be intimate, invasive, controlled, and wrong.
 
@@ -740,7 +740,7 @@ Talon Veyr survived by being funny before anyone noticed he was afraid.
 
 ### Past
 
-Talon came of age in the shadow of the Yuuzhan Vong War. He was young enough for the war to shape him and old enough to remember the survival lessons: evacuation corridors, ration fraud, refugee transports, bad checkpoints, ruined city levels, people disappearing into bureaucratic gaps. He learned early that charm could get someone through a door, speed could get them out of a bad room, and jokes could keep fear from becoming contagious.
+Talon came of age in the shadow of the Yuuzhan Vong War. He was a child during the Fall of Coruscant in 27 ABY — young enough for the war to shape him and old enough to remember the survival lessons: evacuation corridors, ration fraud, refugee transports, bad checkpoints, ruined city levels, people disappearing into bureaucratic gaps. The exits-before-faces instinct that later makes him a GAG field asset was learned in those corridors as a boy. He learned early that charm could get someone through a door, speed could get them out of a bad room, and jokes could keep fear from becoming contagious.
 
 He joined the security apparatus because he believed order mattered. He was not born anti-authority. He became anti-command because he saw too many commanders confuse control with competence.
 
@@ -1012,7 +1012,7 @@ Iressa’s dying act is a transmission to Ben and Talon that carries two things,
 
 The documentary chain. Her best reconstruction of the manifest trail, the Foundation connection, the Korda link, and the Iresh destination. This is what Ben would later need to bring to Saba to make an institutional case against the Vigil.
 
-The identity-shaping revelation. Iressa figured out, in her final reconstruction work, why the Vigil wants Jacen’s holocron specifically. The unfinished work — Recognition, Deepening, Holding — is not just dangerous knowledge. The Vigil intends to use it (with Aevyn’s help, as Jacen’s surviving student) for identity-level influence work on high-value targets later. She does not name Dorvan. She names the category of threat: techniques that could nudge powerful people into experiencing Sith-favorable choices as their own judgment.
+The identity-shaping revelation. Reconstructing around Jacen’s encryption, Iressa recovered a fragment of Jacen’s own sealed annotation — a few lines in his hand, riding inside the hidden manifest layer — that names what the cache is for. She is not inferring a metaphysical purpose from shipping records; she is reading it in Jacen’s words. The unfinished work — Recognition and Holding — is not just dangerous knowledge. The Vigil intends to use it (with Aevyn’s help, as Jacen’s surviving student) for identity-level influence work on high-value targets later. She does not name Dorvan. She names the category of threat: techniques that could nudge powerful people into experiencing Sith-favorable choices as their own judgment.
 
 This second piece is what gives Ben’s Act 3 confrontation strategic weight. Without it, Iresh is just “stop them from getting an artifact.” With it, Iresh is “stop them from getting the tool that lets them rewrite people.”
 
@@ -1028,15 +1028,15 @@ It is not connected to her residence.
 
 It contains the tools, old terminals, and personal archive instincts that let her reconstruct around Jacen’s encryption.
 
-Cinderline does not know about it during Acts One and Two.
+Greyline does not know about it during Acts One and Two.
 
 Iressa mentions it in passing during the Civitas/Index sequence so the reader knows it exists before it becomes a target.
 
 After Iressa’s death at the archive, Ben and Talon spend several days working at her secondary cache, continuing the reconstruction with what she left behind in her notes and tools, building the documentary case that will go to Saba. They sleep there. They eat there. It is briefly their operational base.
 
-At PP2, Cinderline finds the cache. Ben and Talon return to find it raided and burned. The reconstruction work is unrecoverable. Iressa’s tools, her notes, the documentary case Ben was building — gone. Cinderline did not need to fight; they just needed to know where the cache lived. Which means someone told them. Operational security is broken at a point Ben cannot identify.
+At PP2, Greyline finds the cache. Ben and Talon return to find it raided and burned. The reconstruction work is unrecoverable. Iressa’s tools, her notes, the documentary case Ben was building — gone. Greyline did not need to fight; they just needed to know where the cache lived. Which means someone told them. Operational security is broken at a point Ben cannot identify.
 
-This is the moment the documentary path to exposing the Foundation closes, even with Saba and Luke’s full support. Iressa’s death now carries an additional retroactive cost: she died protecting the evidence, and Cinderline has now successfully destroyed it anyway.
+This is the moment the documentary path to exposing the Foundation closes, even with Saba and Luke’s full support. Iressa’s death now carries an additional retroactive cost: she died protecting the evidence, and Greyline has now successfully destroyed it anyway.
 
 After the raid, Ben and Talon relocate to the Skywalker apartment as their final refuge for the run-up to Iresh.
 
@@ -1108,7 +1108,7 @@ Ben and Talon receive a partial clean fragment.
 
 The sequence now escalates through the Vara/Ben clash:
 
-Cinderline breaches the archive.
+Greyline breaches the archive.
 
 Ben disables mercenaries while protecting Iressa and Talon.
 
@@ -1154,7 +1154,7 @@ scholarships for children of GA service members;
 
 grief counseling;
 
-casualty-record preservation;
+casualty-record preservation for the dead of the Second Galactic Civil War — the battles of Fondor and Kuat, and the long casualty lists of the Battle of Shedu Maad — and for the Yuuzhan Vong War generation before them, the Fall of Coruscant and the refugee fleets;
 
 legal/benefits advocacy;
 
@@ -1252,13 +1252,13 @@ Korda later becomes too visible. Maro Tess kills, frames, abandons, or sacrifice
 
 This is the second major antagonist-pressure beat, structurally Pinch Point 2. It happens around the 5/8 mark of the novel and closes every door except going to Iresh off-grid. It compounds three pressures within hours of each other.
 
-1. The cache raid. Cinderline locates and destroys Iressa’s secondary cache (see Section 9). Ben and Talon return to find the cache burned, the reconstruction work unrecoverable, no bodies, no witnesses. The professionalism of the raid is the threat. The breach of operational security is unidentified. Iressa’s documentary case — the package Ben was building for Saba — is ash.
+1. The cache raid. Greyline locates and destroys Iressa’s secondary cache (see Section 9). Ben and Talon return to find the cache burned, the reconstruction work unrecoverable, no bodies, no witnesses. The professionalism of the raid is the threat. The breach of operational security is unidentified. Iressa’s documentary case — the package Ben was building for Saba — is ash.
 
-2. Talon framed. Within hours of the raid, Cinderline pushes through (via cutouts) a planted-evidence frame on Talon for a current Coruscant crime. Not a historical GAG-era charge resurfaced — a fresh crime, with biometric or comm signature spoofed into the scene. The frame is operationally crude but procedurally devastating. A warrant goes out. Luke can no longer maintain quiet legal cover for Talon without a public Jedi Order fight that would damage the Order at exactly the moment it has no Coruscant institutional footing. Talon goes from “complicated legal situation” to “actively hunted.”
+2. Talon framed. Within hours of the raid, Greyline pushes through (via cutouts) a planted-evidence frame on Talon for a current Coruscant crime. Not a historical GAG-era charge resurfaced — a fresh crime, with biometric or comm signature spoofed into the scene. The frame is operationally crude but procedurally devastating. A warrant goes out. Luke can no longer maintain quiet legal cover for Talon without a public Jedi Order fight that would damage the Order at exactly the moment it has no Coruscant institutional footing. Talon goes from “complicated legal situation” to “actively hunted.”
 
 The frame carries Tess’s tradecraft fingerprint. Tess made specific operational choices in constructing it — the particular kind of cover identity used, the routing of the planted evidence, a phrasing in a leaked statement — that other handlers would not make. Talon recognizes the work. He does not rage. He goes cold. This is Tess saying I see you through professional craft. The valve does not shut; it freezes.
 
-3. The Iresh acceleration. While processing the frame and the cache loss, Talon reads secondary public-facing indicators that tell him Cinderline has accelerated the Iresh operation past Ben’s planning horizon. He cannot tap live channels (years out of date from prison) but he can read patterns: shipping flows through public freight aggregators, procurement spikes in a specific category, civil-aviation filings using cover-name construction patterns he recognizes, one of his still-floating old contacts declining a casual meet in a way that means I am working, do not pull on this. The Vigil is staging extraction equipment for Iresh, and the timeline is shorter than the materials they captured from Korda suggested.
+3. The Iresh acceleration. While processing the frame and the cache loss, Talon reads secondary public-facing indicators that tell him Greyline has accelerated the Iresh operation past Ben’s planning horizon. He cannot tap live channels (years out of date from prison) but he can read patterns: shipping flows through public freight aggregators, procurement spikes in a specific category, civil-aviation filings using cover-name construction patterns he recognizes, one of his still-floating old contacts declining a casual meet in a way that means I am working, do not pull on this. The Vigil is staging extraction equipment for Iresh, and the timeline is shorter than the materials they captured from Korda suggested.
 
 ### What this closes
 
@@ -1284,7 +1284,7 @@ They live there for two or three days while preparing for Iresh: planning the of
 
 The cache raid happens off-screen from Ben. He arrives after. The reader experiences it through Ben and Talon walking into the destroyed space, not through an action scene. This is the right register — the threat is professional invisibility, not combat.
 
-Who told Cinderline where Iressa’s cache was should remain unanswered in Book 1. It can be a Book 2 thread, or it can stay ambient (a coworker leaned on, a forgotten contact, a small breach Iressa herself never noticed). The unanswered version is creepier and serves the novel’s institutional-decay theme.
+Who told Greyline where Iressa’s cache was should remain unanswered in Book 1. It can be a Book 2 thread, or it can stay ambient (a coworker leaned on, a forgotten contact, a small breach Iressa herself never noticed). The unanswered version is creepier and serves the novel’s institutional-decay theme.
 
 Talon’s tradecraft-fingerprint recognition of Tess should be quiet, not declamatory. He notices the way the frame is constructed, gives one small reaction (a pause, a shift in posture), and moves on. Ben asks. Talon answers in a sentence. That is enough.
 
@@ -1404,17 +1404,17 @@ Lumiya’s Sith inheritance;
 
 GAG-era observations and experiments;
 
-Jacen’s private attempts to systematize Recognition, Deepening, and Holding.
+Jacen’s private attempts to systematize two identity-shaping techniques — Recognition and Holding (detailed below).
 
 It is part notebook, part training device, part confession, part contingency, and part laboratory.
 
 ### Development state
 
-Recognition: most coherent and potentially useful; tied to self-perception, trauma, memory, and identity-mapping.
+Jacen’s odyssey gave him pieces of several real Force traditions — Aing-Tii flow-walking, the Fallanassi White Current, battle meditation, Vergere’s teachings, and Lumiya’s Sith inheritance. The holocron systematizes them into two identity-shaping techniques. (An earlier draft split the second into “Deepening” and “Holding”; they are now one technique, and “Deepening” survives only as a use of Recognition.)
 
-Deepening: promising but dangerous; recursive self-training that can help marginal Force-sensitives grow but risks turning the self into an object of manipulation.
+Recognition: most coherent and potentially useful. Jacen’s inward turn of Aing-Tii flow-walking fused with Force empathy — where flow-walking reads the currents of the wider Force, Recognition reads the currents of a single person: the charged memories and decisions that define an identity. Used clinically it could help someone understand who they are and map their own trauma; used coercively it forces a subject’s identity to the surface in legible form (the weaponized version is how Aevyn killed Elya). Practiced recursively on oneself, it is also how a marginal Force-sensitive like Aevyn grew a thin connection under Jacen — the work the earlier draft called “Deepening.”
 
-Holding: least complete and most dangerous; concerned with sustaining memory, identity, emotional continuity, and Force-impressions past natural decay.
+Holding: least complete and most dangerous. A fusion of battle meditation, the Fallanassi White Current, and Lumiya’s will-domination — sustaining a shaped impression (memory, identity, emotional continuity, a single decision) in another mind past natural decay, so the target experiences an implanted choice as their own judgment. This is the technique the One Sith covet.
 
 ### Why Ben preserves it
 
@@ -1506,7 +1506,7 @@ local warning markers removed because they “interfered with equipment.”
 
 ### Why Jacen chose Iresh
 
-Jacen discovered Iresh during his Force odyssey, between better-known stops. He later routed his unfinished holocron there through GAG black-channel logistics.
+Jacen discovered Iresh during his Force odyssey, on the wild edge near the Kathol Rift — between better-known stops like the Aing-Tii who taught him to walk the currents of the Force and the Fallanassi of the White Current. He later routed his unfinished holocron there through GAG black-channel logistics.
 
 Iresh was meant to be:
 
@@ -1514,7 +1514,7 @@ a temporary dead drop;
 
 a future laboratory cache;
 
-a place where the planet’s natural properties could help stabilize unstable work around Recognition, Deepening, and Holding.
+a place where the planet’s natural properties could help stabilize unstable work around Recognition and Holding.
 
 Jacen intended to return after the war. He died at Shedu Maad before he could.
 
@@ -2034,6 +2034,28 @@ Characters do not exist to say the theme. They exist to want things, avoid pain,
 
 ## Appendix B. Change Log
 
+### v8.7 — Named-Legends texturing + transit breathing scene
+
+Adds named-Legends texture and one new breathing scene. No plot threads cut, no chapters renumbered, Brooks milestones unchanged.
+
+- New breathing scene — Ch 23 gains a second scene, the Coruscant→Iresh hyperspace crossing (POV Ben, ~2,800 words): the forced partnership becomes real through behavior, Talon names the Fall of Coruscant evacuations he survived as a boy, and Ben reckons with Iresh as a stop on Jacen's Force odyssey and privately decides to use what Jacen left in him. Ch 23 is now a two-scene chapter.
+- Coruscant-as-exile (Acts 1-2): the capital that voted the Order out, the vacated Coruscant Jedi Temple, GA Justice and Dorvan's "procedure, not trust" — surfaced through Ben's displacement.
+- Foundation war-dead grounded in named Legends battles (§12): the Second Galactic Civil War (Fondor, Kuat, the Battle of Shedu Maad) and the Yuuzhan Vong War (the Fall of Coruscant, the refugee fleets), so the Vigil's parasitism on real grief lands.
+- Hapes / Shedu Maad court (Ch 2): the Order as guests of the Hapes Consortium under Queen Mother Tenel Ka, Hapan protocol against Jedi informality, Saba's Barabel gravity.
+- Jacen's odyssey made real (§19, Ch 27): the Aing-Tii of the Kathol Rift (flow-walking → Recognition), the Fallanassi and the White Current (→ Holding), Vergere — surfaced as Ben's dread and Aevyn's cold expertise, never as a lecture. Iresh placed near the Kathol Rift on Jacen's pilgrimage route.
+- Talon's war (§7): the Fall of Coruscant named as the origin of his exits-before-faces instinct.
+- 8 named-Legends registry terms added (Coruscant Jedi Temple, Second Galactic Civil War, Yuuzhan Vong War, Fall of Coruscant, the Aing-Tii, the Fallanassi, the Kathol Rift, Vergere).
+
+### v8.6 — Legends-alignment, Greyline merge, canon-date, and clue-logic pass
+
+Keeps the full narrative spine and every plot thread; sharpens grounding.
+
+- Force techniques re-grounded in canonical Legends disciplines and tightened from three named techniques to two. Recognition is now Jacen’s inward turn of Aing-Tii flow-walking fused with Force empathy; Holding is a fusion of battle meditation, the Fallanassi White Current, and Lumiya’s will-domination. “Deepening” is folded into Recognition (recursive self-practice). Aevyn’s interrogation is “weaponized Recognition.” (Sections 17–18.)
+- Greyline and Cinderline merged into one firm. Greyline Strategic Services fields its own plausibly-deniable contractor teams for direct action; the separate “Cinderline” brand is removed throughout. (Sections 15A, 16, 22.)
+- Canon date corrected: the Battle of Shedu Maad / Caedus’s death is 41 ABY (Invincible), not 40, reconciling with the 40–41 ABY Second Galactic Civil War range.
+- Clue-logic firmed (Section 9 / Chapter 15): Iressa’s Midpoint identity-shaping revelation now comes from a fragment of Jacen’s own sealed annotation recovered inside the hidden manifest layer — his words — rather than a records analyst inferring a metaphysical purpose from shipping data.
+- Companion artifacts (concept_seed.json, terminology_registry, canon_profile, 38 scene cards + chapter blueprints, character sheets) updated in lockstep; canon date, characters-present accuracy, act labels, and arc-type vocabulary corrected.
+
 ### v8.3 — Structural pass
 
 This revision applies a Brooks Story Engineering structural overlay, expands key character backstories, and brings the novel into full alignment with Fate of the Jedi and Crucible continuity. The narrative spine of the novel is unchanged; what shifted is precision, grounding, and continuity.
@@ -2058,7 +2080,7 @@ Old Ch 1 + Ch 2 (Elya hook in two chapters) merged into new Ch 1.
 
 Old Ch 7 + Ch 8 (prison arrival + visitor room) merged into new Ch 6.
 
-Old Ch 9 + Ch 10 (Cinderline attack + Ben break-cover) merged into new Ch 7.
+Old Ch 9 + Ch 10 (Greyline attack + Ben break-cover) merged into new Ch 7.
 
 Old Ch 12 (Rusk POV) dropped.
 

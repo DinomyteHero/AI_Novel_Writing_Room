@@ -1,6 +1,6 @@
 {
   "chapter_number": 14,
-  "chapter_mission": "Cinderline hits the archive as a cleanup team, not a battlefield unit. They seal exits, wipe cameras, trigger old quarantine protocols, and try to leave no clean version of the room behind. Vara Senn appears as an attached Force specialist, making the scene psychologically unsafe. Before taking Iressa hostage, Vara engages Ben in a short, cramped lightsaber clash. Vara/Ben clash beat: Vara fights with blunt Lost Tribe aggression: pressure, fear, domination, and taunts. Ben recognizes elements of Lost Tribe training, allowing a brief Vestara Khai scar-tissue mention. The fight is short, ugly, and consequential, not a grand duel.",
+  "chapter_mission": "Greyline hits the archive as a cleanup team, not a battlefield unit. They seal exits, wipe cameras, trigger old quarantine protocols, and try to leave no clean version of the room behind. Vara Senn appears as an attached Force specialist, making the scene psychologically unsafe. Before taking Iressa hostage, Vara engages Ben in a short, cramped lightsaber clash. Vara/Ben clash beat: Vara fights with blunt Lost Tribe aggression: pressure, fear, domination, and taunts. Ben recognizes elements of Lost Tribe training, allowing a brief Vestara Khai scar-tissue mention. The fight is short, ugly, and consequential, not a grand duel.",
   "chapter_turn": "Vara senses Iressa has hidden something.",
   "structural_phase": "first_pinch",
   "pov_allocation": [
@@ -14,7 +14,7 @@
       "role": "escalation",
       "dialogue_expectation": "dialogue_led",
       "target_word_count": 2800,
-      "purpose": "Cinderline hits the archive as a cleanup team, not a battlefield unit. They seal exits, wipe cameras, trigger old quarantine protocols, and try to leave no clean version of the room behind."
+      "purpose": "Greyline hits the archive as a cleanup team, not a battlefield unit. They seal exits, wipe cameras, trigger old quarantine protocols, and try to leave no clean version of the room behind."
     }
   ],
   "reveal_payload": [],
@@ -31,5 +31,5 @@
   "pacing_curve": "rising",
   "exit_vector": "Vara senses Iressa has hidden something.",
   "chapter_word_target": 2800,
-  "notes": "Source: Chapter Outlines v4.1. Act: Act One — The Body / The Prison / The Partnership. Chapter title: Cleanup Team (Pinch Point 1).\n\nReader-onboarding note: Vara is a former Lost Tribe-trained contractor, not the main Sith villain. She is a crude contrast to Aevyn: crowbar versus scalpel.\n\nCharacter voice focus: preserve the exact v1.4 character behavior and dialogue rules for the chapter POV and named participants. Plot first, character second, theme through consequences."
+  "notes": "Source: Chapter Outlines v4.1. Act: Act Two — Coruscant Investigation / Foundation / The Vigil. Chapter title: Cleanup Team (Pinch Point 1).\n\nReader-onboarding note: Vara is a former Lost Tribe-trained contractor, not the main Sith villain. She is a crude contrast to Aevyn: crowbar versus scalpel.\n\nCharacter voice focus: preserve the exact v1.4 character behavior and dialogue rules for the chapter POV and named participants. Plot first, character second, theme through consequences."
 }

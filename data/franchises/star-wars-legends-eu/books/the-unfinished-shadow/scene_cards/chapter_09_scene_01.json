@@ -5,8 +5,8 @@
   "scene_role": "decision",
   "pov_character": "Ben / Talon",
   "mission": "Ben and Talon cross storm-exposed gantries and sea-wall system while pursued. Ben protects people; Talon gets them to a skiff or shuttle. They escape Tarn Velos. The First Plot Point lands here: Ben has crossed a threshold he cannot uncross. He has broken cover, freed a convicted prisoner, generated a public crisis, and committed himself to the case in a way that makes returning to the way things were impossible. The forced partnership with Talon is the new condition of his life.",
-  "why_now": "Chapter 9 occupies the first_plot_point phase and carries the next locked outline turn.",
-  "conflict": "The escape should feel costly, not triumphant. Ben knows what he has just done. Talon knows what Ben has just done for him and is not yet sure what it will cost either of them.",
+  "why_now": "The sea-wall route is the last exit. Ben and Talon are on the gantries above storm surf with Greyline still in pursuit, and escape is the only option left. This is where Ben crosses the threshold he cannot uncross.",
+  "conflict": "Ben wants to get Talon off the planet alive without anyone else dying. His obstacle is storm-exposed gantries, active Greyline pursuit, and the fact that the fastest solutions involve Force methods that would look bad in any official report. He chooses protection over speed at every moment. The cost is visible in his face by the time they make the skiff.",
   "conflict_type": "external",
   "dialogue_expectation": "balanced",
   "turning_point": "They escape Tarn Velos, but the legal mess is now unavoidable.",
@@ -18,11 +18,11 @@
   "setting": "Tarn Velos sea-wall system — storm-exposed gantries above the breaking surf, wind hammering sideways, transparisteel panels rattling in their frames. Beyond the gantries, the cliff drop into a churning sea. Ben and Talon cross to a maintenance skiff. The escape is costly and ugly, not triumphant.",
   "emotional_trajectory": "The escape should feel costly, not triumphant. Ben knows what he has just done. Talon knows what Ben has just done for him and is not yet sure what it will cost either of them.",
   "stakes": {
-    "personal": "Preserve the POV-specific fear, wound, and immediate want from Character Voice & Life Sheet v1.4.",
-    "interpersonal": "Preserve the relationship pressure named in the outline and character interaction rules.",
-    "external": "Preserve the chapter-level mystery/action consequence and the end-hook pressure."
+    "personal": "Ben has broken cover, freed a convicted prisoner, generated a public crisis, and committed to the case in a way that makes returning to his previous life impossible. The First Plot Point is a door. He knows he has just walked through it.",
+    "interpersonal": "Talon knows what Ben just did for him — not as an abstract favor but as a specific cost. He is not grateful in a simple way; he is unsure what it means that a Jedi chose him as a cause. The dynamic shifts: Ben is no longer interviewing Talon. They are in this together.",
+    "external": "They escape Tarn Velos, but the legal situation is now unavoidable. A convicted prisoner is free, a prison is in crisis, and a Jedi with GAG history used Force abilities on a security contractor team. Whatever Dorrin's official position was before, it is complicated now."
   },
-  "sensory_details": "Use only physical details implied by the source outline and bible; do not add new mythology or abstract Force explanation.",
+  "sensory_details": "Storm-exposed gantries above breaking surf — wind hammering sideways, transparisteel panels rattling in their frames, the drop to churning dark water visible below every step. Ben uses the Force to steady panels, deflect grappling hooks, move Talon when he cannot move fast enough. Salt spray everywhere. The skiff is small and battered and waiting.",
   "canon_elements_needed": [
     "Tarn Velos prison geography and legal stakes"
   ],
@@ -52,6 +52,43 @@
     }
   ],
   "revelations": [],
+  "turning_point_detail": {
+    "trigger": "They make the skiff and clear the prison's proximity — escaped, alive, together. The storm is still running. Ben sits in the skiff and does the accounting.",
+    "shift": "The First Plot Point: Ben has crossed the threshold. He broke cover, freed a convicted prisoner, generated a public crisis. He cannot return to the life he had at Shedu Maad this morning.",
+    "cost": "The legal mess is unavoidable. Dorrin will have questions. Luke will have to contain fallout. Talon is free and hunted and Ben is responsible for both of those things."
+  },
+  "emotional_arc": {
+    "start": "Ben is in motion — fast, protective, choosing the harder slower path at every point because that is what he actually is.",
+    "shift": "They make the skiff. The immediate crisis is over. Ben has a moment to feel what he just did.",
+    "end": "The escape does not feel triumphant. Ben knows the weight of the threshold he crossed. Talon knows it too, and is not yet sure what it means that he let Ben do it."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Ben and Talon cross storm-exposed gantries above breaking surf with Greyline still in pursuit; Ben uses the Force to steady panels and manage the pursuit without theatrical heroics.",
+      "state_change": "They are moving across the worst possible terrain in the worst possible conditions, and they are still moving.",
+      "pov_reaction": "The narrowed field — wind, footing, Talon's position, the pursuit angle — everything else edited out; this is the version of pressure he handles well and he knows it."
+    },
+    {
+      "beat_description": "They reach the maintenance skiff — battered, barely adequate — and Ben gets them clear of Tarn Velos in deteriorating storm visibility.",
+      "state_change": "The prison is behind them; the immediate crisis is over; the legal situation is not.",
+      "pov_reaction": "The moment when the field narrows back out — all the things he edited during the crossing returning at once, starting with the weight of what he just did."
+    },
+    {
+      "beat_description": "Silence in the skiff with the storm running around them; Ben does the accounting of what he chose at Tarn Velos.",
+      "state_change": "Ben is across the First Plot Point threshold — broke cover, freed a convicted prisoner, generated a public crisis — and the accounting is quiet and specific.",
+      "pov_reaction": "Not regret — the settled weight of a decision that was real; the difference between knowing what something costs and having paid it."
+    },
+    {
+      "beat_description": "Talon says something that is not quite gratitude; Ben says something that is not quite reassurance.",
+      "state_change": "Neither of them names the partnership or the debt — but the dynamic between them has shifted from interview to something without a cleaner word.",
+      "pov_reaction": "The recognition that this is how it starts — not a declaration but a fact already in progress; the slight relief that neither of them tried to make it larger."
+    },
+    {
+      "beat_description": "Neither of them knows what comes next; the skiff moves away from Tarn Velos through the storm.",
+      "state_change": "The escape is complete; the life Ben had at Shedu Maad this morning is definitively over.",
+      "pov_reaction": "The forward-facing blankness — not fear, not purpose yet; the moment between a door closing and knowing where the next one is."
+    }
+  ],
   "pov_arc_phase": "Ben:lie_reinforced; Talon:lie_reinforced",
   "notes": "Source: Chapter Outlines v4.1. Act: Act One — The Body / The Prison / The Partnership. Chapter title: Storm Line (First Plot Point).\n\nCharacter voice focus: preserve the exact v1.4 character behavior and dialogue rules for the chapter POV and named participants. Plot first, character second, theme through consequences.",
   "scene_voice_permissions": {

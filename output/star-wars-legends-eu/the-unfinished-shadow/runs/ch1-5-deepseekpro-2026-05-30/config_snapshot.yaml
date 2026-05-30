@@ -1,0 +1,231 @@
+agent_routing:
+  canon_scout:
+    backend: cloud
+    model: grok41fast
+    params:
+      max_tokens: 1800
+      temperature: 0.1
+  chapter_blueprint_synthesizer:
+    backend: cloud
+    model: gemini
+    params:
+      max_tokens: 8192
+      temperature: 0.4
+  concept_workshop:
+    backend: cloud
+    model: gemini
+    params:
+      max_tokens: 8192
+      temperature: 0.7
+  editorial_consultant:
+    backend: cloud
+    model: claude
+    params:
+      max_tokens: 16384
+      temperature: 0.4
+  judge_evaluator:
+    backend: cloud
+    model: grok420
+    params:
+      temperature: 0.2
+  line_writer:
+    backend: cloud
+    model: gpt54_mini
+    params:
+      max_tokens: 8192
+      temperature: 0.35
+  literary_polish:
+    backend: cloud
+    model: gpt54
+    params:
+      max_tokens: 12000
+      temperature: 0.45
+  lore_extractor:
+    backend: cloud
+    model: deepseek
+    params:
+      max_tokens: 8192
+      temperature: 0.2
+  manuscript_reviewer:
+    backend: cloud
+    model: gpt54
+    params:
+      max_tokens: 16000
+      temperature: 0.3
+  orchestrator:
+    backend: cloud
+    model: grok41fast
+  outline_planner:
+    backend: cloud
+    model: gemini
+    params:
+      max_tokens: 32768
+      temperature: 0.5
+  plot_architect:
+    backend: cloud
+    model: deepseekpro
+    params:
+      max_tokens: 4096
+      provider:
+        allow_fallbacks: false
+        only:
+        - deepseek
+        order:
+        - deepseek
+      temperature: 0.4
+  prose_stylist:
+    backend: cloud
+    model: deepseekpro
+    params:
+      max_tokens: 8192
+      provider:
+        allow_fallbacks: false
+        only:
+        - deepseek
+        order:
+        - deepseek
+      temperature: 0.7
+  rhythm_editor:
+    backend: cloud
+    model: deepseekpro
+    params:
+      max_tokens: 2400
+      provider:
+        allow_fallbacks: false
+        only:
+        - deepseek
+        order:
+        - deepseek
+      reasoning:
+        effort: none
+      temperature: 0.2
+  seed_builder:
+    backend: cloud
+    model: gemini
+    params:
+      max_tokens: 16384
+      temperature: 0.3
+  stress_test:
+    backend: cloud
+    model: deepseek
+    params:
+      temperature: 0.5
+  summarizer:
+    backend: cloud
+    model: deepseek
+    params:
+      temperature: 0.2
+  voice_checker:
+    backend: cloud
+    model: mistral_small4
+    params:
+      temperature: 0.3
+  worldbuilding_coherence_reviewer:
+    backend: cloud
+    model: grok420
+    params:
+      temperature: 0.3
+deployment_mode: cloud
+models:
+  cloud:
+    api_key_env: OPENROUTER_API_KEY
+    base_url: https://openrouter.ai/api/v1
+    default_params:
+      claude:
+        max_tokens: 8192
+        temperature: 0.4
+      deepseek:
+        max_tokens: 4096
+        reasoning:
+          effort: none
+        temperature: 0.3
+      deepseekpro:
+        max_tokens: 8192
+        reasoning:
+          effort: none
+        temperature: 0.3
+      gemini:
+        max_tokens: 8192
+        temperature: 0.6
+      gpt54:
+        max_tokens: 12000
+        temperature: 0.8
+      gpt54_mini:
+        max_tokens: 8192
+        temperature: 0.5
+      grok41fast:
+        max_tokens: 8192
+        temperature: 0.3
+      grok420:
+        max_tokens: 8192
+        temperature: 0.3
+      mistral_small4:
+        max_tokens: 4096
+        temperature: 0.3
+    models:
+      claude: anthropic/claude-sonnet-4.6
+      deepseek: deepseek/deepseek-v4-flash
+      deepseekpro: deepseek/deepseek-v4-pro
+      gemini: google/gemini-3.1-pro-preview
+      gpt54: openai/gpt-5.4
+      gpt54_mini: openai/gpt-5.4-mini
+      grok41fast: x-ai/grok-4.1-fast
+      grok420: x-ai/grok-4.20
+      mistral_small4: mistralai/mistral-small-2603
+    provider: openrouter
+    timeout_seconds: 300
+  local:
+    base_url: http://localhost:8080/v1
+    default_params: {}
+    inference_backend: llama-server
+    models: {}
+    timeout_seconds: 300
+pipeline:
+  embeddings:
+    model: nomic-ai/nomic-embed-text-v1.5
+    use_mock: true
+  max_http_retries: 2
+  prompt_caching:
+    anthropic_ttl: 1h
+    enabled: true
+runtime:
+  chapter_packet:
+    enabled: true
+    fallback_on_error: true
+  continuity_validator:
+    enabled: false
+  final_copy:
+    enabled: false
+    literary_polish_model: gpt54
+    literary_polish_temperature: 0.45
+  lean_prose_only:
+    enabled: true
+    line_edit:
+      enabled: true
+  promise_ledger:
+    enabled: false
+  revision_debt:
+    enabled: false
+  rhythm_editor:
+    enabled: false
+    max_changed_ratio: 0.15
+    max_edits: 8
+    max_total_changed_chars: 1500
+    max_trigger_codes: 5
+    trigger_codes:
+    - rhythm.em_dash_overuse
+    - rhythm.staccato_cluster
+    - rhythm.opener_monotone
+    - rhythm.abstract_tic
+  rhythm_validator:
+    enabled: false
+    thresholds: {}
+worldbuilding:
+  auto_extraction:
+    auto_promote: false
+    enabled: true
+  default_top_k: 5
+  include_provisional_in_context: false
+  terminology:
+    always_include: true
+  walk_parents: true

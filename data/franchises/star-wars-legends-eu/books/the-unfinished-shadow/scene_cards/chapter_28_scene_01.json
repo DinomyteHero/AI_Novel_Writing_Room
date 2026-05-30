@@ -4,25 +4,61 @@
   "structural_phase": "attack",
   "scene_role": "escalation",
   "pov_character": "Sela",
-  "mission": "Sela finds evidence Tavi is alive or recently alive near the Glasswell exclusion zone: a guide token, field recorder, damaged pack, warning mark, altered path sign, or practical note. The evidence should reveal personality, not just plot: Tavi jokes, complains about Sela being right too often, promises to pay someone back, or leaves a practical warning that shows he knew the risk but needed the money/opportunity. Nix/Cinderline pressure the group.",
-  "why_now": "Chapter 28 occupies the attack phase and carries the next locked outline turn.",
-  "conflict": "Tavi must become a person before he becomes a rescue objective. Sela’s anger should crack into fear. Reader-onboarding / grounding note: Tavi is younger, practical, overconfident, loved, and pressured into taking work he knew was dangerous. His presence gives the Glasswell rescue immediate human stakes.",
+  "mission": "Sela finds evidence Tavi is alive or recently alive near the Glasswell exclusion zone: a guide token, field recorder, damaged pack, warning mark, altered path sign, or practical note. The evidence should reveal personality, not just plot: Tavi jokes, complains about Sela being right too often, promises to pay someone back, or leaves a practical warning that shows he knew the risk but needed the money/opportunity. Nix/Greyline pressure the group.",
+  "why_now": "Sela has followed guide-marks only Tavi would have made, and they lead toward the exclusion zone — which means he went inside, which means he may still be inside. She cannot wait for Ben’s timeline; she needs to know if her brother is alive.",
+  "conflict": "The physical evidence of Tavi’s presence is specific and personal — carved marks, a joke scratched under a supply crate lip — which makes him real and immediate, but it also means Sela has to accept that he knew the risk and went in anyway, which is harder to forgive than being tricked.",
   "conflict_type": "external",
   "dialogue_expectation": "balanced",
   "turning_point": "The expedition begins moving heavy equipment toward the Glasswell.",
   "closing_hook": "The expedition begins moving heavy equipment toward the Glasswell.",
   "characters_present": [
-    "Sela Dray",
-    "Tavi"
+    "Sela Dray"
   ],
-  "setting": "Iresh, the Glasswell exclusion zone perimeter — a series of guide-markers Tavi Dray carved before he was paid into the expedition. Sela follows the marks to evidence of where Tavi went and what he found. The Foundation's Cinderline detail pressures the group from a distance.",
+  "setting": "Iresh, the Glasswell exclusion zone perimeter — a series of guide-markers Tavi Dray carved before he was paid into the expedition. Sela follows the marks to evidence of where Tavi went and what he found. The Foundation's Greyline detail pressures the group from a distance.",
   "emotional_trajectory": "Tavi must become a person before he becomes a rescue objective. Sela’s anger should crack into fear. Reader-onboarding / grounding note: Tavi is younger, practical, overconfident, loved, and pressured into taking work he knew was dangerous. His presence gives the Glasswell rescue immediate human stakes.",
   "stakes": {
-    "personal": "Preserve the POV-specific fear, wound, and immediate want from Character Voice & Life Sheet v1.4.",
-    "interpersonal": "Preserve the relationship pressure named in the outline and character interaction rules.",
-    "external": "Preserve the chapter-level mystery/action consequence and the end-hook pressure."
+    "personal": "Sela has been angry since Tavi went missing — anger is easier — but the carved marks in Tavi's hand are not the marks of someone who was deceived. They are the marks of someone who went in knowing and left a note for Sela anyway. The anger is cracking.",
+    "interpersonal": "Greyline personnel are pressuring the group from outside the perimeter, treating Sela's guide-work as unauthorized access and using bureaucratic cover the way the Foundation has used everything on Iresh — as a tool to remove inconvenient locals from their operation.",
+    "external": "The expedition moving heavy equipment toward the Glasswell means Aevyn's timeline has accelerated past what Ben estimated from the ridge observation — whatever is happening below is happening faster than they planned."
   },
-  "sensory_details": "Use only physical details implied by the source outline and bible; do not add new mythology or abstract Force explanation.",
+  "sensory_details": "Sela's POV: the smell of the exclusion zone is different from the plateau — deeper cold, mineral sharpness from the Glasswell venting below, and the wet-clay smell of disturbed Iresh sediment. She finds Tavi's field recorder wedged under a supply crate that was not there last week. The recording is damaged but the first few seconds are him: joking, complaining about the cold, promising to pay her back the four credits she lent him before he left.",
+  "turning_point_detail": {
+    "trigger": "Sela finds Tavi's field recorder under a Foundation supply crate near the exclusion zone entrance. The recording is partially damaged but enough survives to confirm his voice, his timing, and the last guide-mark he left before going below. He knew the risk. He made the marks anyway.",
+    "shift": "Sela's anger at the Foundation — clean, directed, useful — becomes fear for Tavi specifically. The marks are not a guide's professional notation; they are private signals only she would read. He was thinking of her when he left them.",
+    "cost": "The expedition simultaneously begins moving heavy equipment on grav-sleds toward the Glasswell entrance — which means the cache operation has reached its extraction phase and the timeline Ben was working from is already wrong."
+  },
+  "emotional_arc": {
+    "start": "Sela follows the guide-marks with practiced efficiency and something close to hope — evidence of Tavi is better than silence, and anger is a useful thing to move fast on.",
+    "shift": "Finding the recorder and hearing his voice cracks the anger into something rawer. He went in knowing. He left messages only she would find. He was afraid and went anyway.",
+    "end": "When the heavy equipment begins moving, Sela straightens up and her fear converts back into something operational — she knows the inside of the Glasswell approach better than anyone the Foundation brought. If Tavi is below, she is the one who can get to him."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Sela follows Tavi's guide-marks along the exclusion zone perimeter — small carvings in rock faces and altered path signs using a private code she taught him.",
+      "state_change": "The marks confirm Tavi was here recently and moving with intention, not panic.",
+      "pov_reaction": "the controlled focus of reading something familiar in the wrong context; anger doing the work of hope"
+    },
+    {
+      "beat_description": "Sela finds Tavi's damaged field recorder under a Foundation supply crate; the surviving fragment has his voice joking about the cold and promising to pay back the four credits she lent him.",
+      "state_change": "Tavi becomes a specific person — his timing, his humor, his particular way of being afraid and going forward anyway — rather than a missing-person category.",
+      "pov_reaction": "the anger cracking; the specific rawness of a voice in the wrong place"
+    },
+    {
+      "beat_description": "A carved mark nearby names the route Tavi took into the Glasswell approach — he went in voluntarily, knew the risk, and left the marks for Sela specifically.",
+      "state_change": "The evidence shifts from 'Tavi was taken' to 'Tavi chose' — which is harder to be angry at and harder to forgive.",
+      "pov_reaction": "the specific grief of recognizing a deliberate decision; anger losing its clean target"
+    },
+    {
+      "beat_description": "Greyline personnel arrive and attempt to clear Sela from the perimeter under Foundation access protocols; she refuses to move until they escalate to physical removal.",
+      "state_change": "The Foundation's bureaucratic pressure is exposed as coercion — Sela names it by refusing to treat it as legitimate.",
+      "pov_reaction": "the steadying effect of a clear opponent; anger redirected toward something she can plant her feet against"
+    },
+    {
+      "beat_description": "The heavy equipment grav-sleds begin moving toward the Glasswell entrance — the extraction phase is running and Ben's timeline has already slipped.",
+      "state_change": "The operation has escalated to extraction; the window to stop it is closing faster than anyone planned for.",
+      "pov_reaction": "the fear converting back into operational clarity; she knows the inside of the Glasswell approach and no one else here does"
+    }
+  ],
   "canon_elements_needed": [
     "Iresh physical geography and local survival rules"
   ],
@@ -48,7 +84,7 @@
   "hook_actions": [],
   "revelations": [],
   "pov_arc_phase": "",
-  "notes": "Source: Chapter Outlines v4.1. Act: Act One — The Body / The Prison / The Partnership. Chapter title: Tavi.\n\nCharacter voice focus: preserve the exact v1.4 character behavior and dialogue rules for the chapter POV and named participants. Plot first, character second, theme through consequences.",
+  "notes": "Source: Chapter Outlines v4.1. Act: Act Three — Iresh / Glasswell / Aevyn. Chapter title: Tavi.\n\nCharacter voice focus: preserve the exact v1.4 character behavior and dialogue rules for the chapter POV and named participants. Plot first, character second, theme through consequences.",
   "scene_voice_permissions": {
     "notes": "Use Character Voice & Life Sheet v1.4 as controlling source for dialogue, behavior, humor, fear, wounds, and interaction rules. Preserve commercial readability: goal, obstacle, movement, reversal, hook.",
     "anti_patterns": [

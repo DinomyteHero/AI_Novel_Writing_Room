@@ -4,9 +4,9 @@
   "structural_phase": "setup",
   "scene_role": "escalation",
   "pov_character": "Ben / Talon",
-  "mission": "Cinderline begins the prison snatch under false procedural cover. Lysa manipulates systems; Talon reads the pattern before Ben can. The first snatch team breaches the wing. Ben breaks cover and saves Talon physically, disabling rather than killing and protecting confused prison staff. His restraint is active, not passive — he chooses non-lethal Force work and lightsaber control even when speed would be easier.",
-  "why_now": "Chapter 7 occupies the setup phase and carries the next locked outline turn.",
-  "conflict": "Ben should look heroic here. The later moral danger works better if the reader first sees that his instincts are genuinely protective. Talon’s growing recognition that Ben is good at this, even constrained, should land underneath his complaints.",
+  "mission": "Greyline begins the prison snatch under false procedural cover. Lysa manipulates systems; Talon reads the pattern before Ben can. The first snatch team breaches the wing. Ben breaks cover and saves Talon physically, disabling rather than killing and protecting confused prison staff. His restraint is active, not passive — he chooses non-lethal Force work and lightsaber control even when speed would be easier.",
+  "why_now": "The lawful visitor request Ben filed in Chapter 5 woke a Greyline alert system watching the old GAG manifest trail. Greyline is now moving to remove Talon before Ben learns enough to identify the shipment fraud — a snatch operation dressed as prison procedure.",
+  "conflict": "Ben wants to protect Talon and the confused prison staff without breaking cover or escalating to lethal force. His obstacle is a Greyline snatch team that has better numbers, institutional camouflage, and no restraint requirement. Ben’s constraint is active choice, not weakness — but it costs him speed and means he cannot simply end the fight.",
   "conflict_type": "external",
   "dialogue_expectation": "balanced",
   "turning_point": "Ben can win the fight, but Talon says they are going the wrong way.",
@@ -16,14 +16,14 @@
     "Talon Veyr",
     "Lysa"
   ],
-  "setting": "Tarn Velos prison interior — the visitor wing corridor, then the cell block as Cinderline begins the snatch under false procedural cover. Storm-lit from outside through narrow slit windows; emergency strips along the floor; the prison alarm pitch goes wrong before any visible threat appears. Lockdown protocols cycle in the background.",
+  "setting": "Tarn Velos prison interior — the visitor wing corridor, then the cell block as Greyline begins the snatch under false procedural cover. Storm-lit from outside through narrow slit windows; emergency strips along the floor; the prison alarm pitch goes wrong before any visible threat appears. Lockdown protocols cycle in the background.",
   "emotional_trajectory": "Ben should look heroic here. The later moral danger works better if the reader first sees that his instincts are genuinely protective. Talon’s growing recognition that Ben is good at this, even constrained, should land underneath his complaints.",
   "stakes": {
-    "personal": "Preserve the POV-specific fear, wound, and immediate want from Character Voice & Life Sheet v1.4.",
-    "interpersonal": "Preserve the relationship pressure named in the outline and character interaction rules.",
-    "external": "Preserve the chapter-level mystery/action consequence and the end-hook pressure."
+    "personal": "Ben's restraint — choosing non-lethal Force work and lightsaber control when speed would be easier — is his genuine instinct. The reader needs to see this before the story makes it cost something. His fear is not the Greyline team; it is what happens to Talon if Ben is not fast enough while also being careful enough.",
+    "interpersonal": "Talon reads the Greyline pattern before Ben does, which shifts the dynamic: Ben is the Force specialist, but Talon is the one who understands what kind of operation this is. The partnership's logic starts to form in the middle of a firefight — Talon recognizes it is not a prison emergency, it is a snatch.",
+    "external": "Ben wins the immediate fight. His legal cover is already destroyed — there is no version of this where his GA Justice records-auditor story survives. He has to get Talon out or Talon disappears into a Greyline custody that has no legal address."
   },
-  "sensory_details": "Use only physical details implied by the source outline and bible; do not add new mythology or abstract Force explanation.",
+  "sensory_details": "Prison corridor emergency lighting — red strips along the floor, storm light through slit windows making hard shadows. The lockdown alarm cycling in the background at the wrong pitch. The smell of salt water, machine oil, and the specific plastoid scent of body armor that does not match any prison-security spec.",
   "canon_elements_needed": [
     "Tarn Velos prison geography and legal stakes"
   ],
@@ -45,8 +45,45 @@
   ],
   "hook_actions": [],
   "revelations": [],
-  "pov_arc_phase": "Ben arc per concept_seed ensemble_cast.weiland_arc.arc_phase_map",
-  "notes": "Source: Chapter Outlines v4.1. Act: Act One — The Body / The Prison / The Partnership. Chapter title: Break Cover.\n\nContinuity note: This is the consolidated lockdown-and-rescue chapter (formerly Chapters 9 and 10). The Cinderline reveal flows directly into Ben’s response without a chapter break.\n\nCharacter voice focus: preserve the exact v1.4 character behavior and dialogue rules for the chapter POV and named participants. Plot first, character second, theme through consequences.",
+  "turning_point_detail": {
+    "trigger": "Ben wins the first engagement — he has disabled the snatch team and has a clear corridor. Talon says they are going the wrong way.",
+    "shift": "Talon knows the prison well enough to know the expected escape route is what Greyline is covering. The logical exit is the trap. They have to go somewhere Ben has not planned for.",
+    "cost": "Ben's legal cover is gone. He is now a Jedi who broke an officer's cover identity during an active GA Justice-linked investigation and is helping a convicted prisoner navigate a prison under lockdown. Whatever comes next, the authorities Dorrin represents are going to have questions."
+  },
+  "emotional_arc": {
+    "start": "Ben is focused and protective — this is exactly the kind of pressure he handles well and he knows it. He is not afraid; he is working.",
+    "shift": "He wins the fight and has the exit — then Talon redirects him. The moment of competence becomes a moment of having to trust someone who has been in this building longer.",
+    "end": "Ben follows Talon's read. The partnership's terms are being set in action before either of them has named what this is."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Lysa manipulates prison systems remotely and the lockdown alarm cycles at the wrong pitch; Talon reads it before Ben does and names it — this is a snatch, not a prison emergency.",
+      "state_change": "The threat is identified as an external extraction operation in institutional camouflage, not a random crisis.",
+      "pov_reaction": "Ben clocking that Talon got there first — the recalibration; the shift from interview subject to operational equal happening faster than expected."
+    },
+    {
+      "beat_description": "A Greyline snatch team breaches the visitor wing under false procedural cover.",
+      "state_change": "The operation is active; Ben's GA Justice cover identity is about to become irrelevant.",
+      "pov_reaction": "The pre-engagement stillness — threat assessment running, the choice to not reach for the lightsaber yet forming and then dissolving as the first contact clears the doorframe."
+    },
+    {
+      "beat_description": "Ben breaks cover: lightsaber out, non-lethal Force work, protecting confused prison staff and Talon simultaneously.",
+      "state_change": "Ben's legal cover is gone; what replaces it is a Jedi in active restraint mode in a prison corridor.",
+      "pov_reaction": "The narrowing of focus — not fear, the working version; the part of him that is very good at this sliding into position and the rest of him watching to make sure it stays within limits."
+    },
+    {
+      "beat_description": "Ben disables the first Greyline team through deliberate non-lethal choices — Force control, lightsaber deflection, no kills.",
+      "state_change": "The immediate threat is neutralized; Ben's restraint is demonstrably active, not accidental.",
+      "pov_reaction": "The physical cost of the slower method — aware of it, choosing it anyway; the small satisfaction of doing this right when faster would have been easier."
+    },
+    {
+      "beat_description": "Ben has disabled the team and has a clear corridor exit; Talon says they are going the wrong way.",
+      "state_change": "The logical escape route is the one Greyline is covering; Talon's prison knowledge overrides Ben's tactical read.",
+      "pov_reaction": "The moment of having to trust someone he came here to question — the brief resistance, then the decision to follow, because Talon read the alarm correctly before Ben did."
+    }
+  ],
+  "pov_arc_phase": "Ben Skywalker:lie_established",
+  "notes": "Source: Chapter Outlines v4.1. Act: Act One — The Body / The Prison / The Partnership. Chapter title: Break Cover.\n\nContinuity note: This is the consolidated lockdown-and-rescue chapter (formerly Chapters 9 and 10). The Greyline reveal flows directly into Ben’s response without a chapter break.\n\nCharacter voice focus: preserve the exact v1.4 character behavior and dialogue rules for the chapter POV and named participants. Plot first, character second, theme through consequences.",
   "scene_voice_permissions": {
     "notes": "Use Character Voice & Life Sheet v1.4 as controlling source for dialogue, behavior, humor, fear, wounds, and interaction rules. Preserve commercial readability: goal, obstacle, movement, reversal, hook.",
     "anti_patterns": [
@@ -55,6 +92,6 @@
       "do not let Iresh become abstract before it is physically clear",
       "do not make Dorrin a third lead or secret mentor"
     ],
-    "pov_arc_phase": "Ben arc per concept_seed ensemble_cast.weiland_arc.arc_phase_map"
+    "pov_arc_phase": "Ben Skywalker:lie_established"
   }
 }

@@ -1,0 +1,58 @@
+{
+  "chapter_number": 1,
+  "overlay_version": 0,
+  "mission": "Elya finds a duplicated wartime quarantine/survey shipment manifest from the final days before the Battle of Shedu Maad. One version is public and boring; the hidden duplicate carries the same shipment identity, a quarantine/survey disguise, conflicting destination data, and enough metadata to show Jacen Solo personally encrypted it shortly before his death. She realizes this is not a clerical duplicate: one of Jacen\u2019s last orders had two lives. She remembers the old wrong approval field where she once quietly removed Ben\u2019s name because he had been fourteen and she could not bear one more child being turned into a clean bureaucratic answer. She sends Ben the obsolete GAG-coded message through an identity-address/dead-drop protocol tied to his old service marker: GAG is still active. One of Jacen\u2019s last orders has two lives. Come alone. \u2014 E.R. Then she hears someone arrive. Aevyn reaches her. He uses a Jacen-derived form of weaponized Recognition to extract part of the lead. The method is precise, intimate, and controlled rather than showy. He learns that Elya contacted Ben, preserved a missing piece, and found a Jacen-sealed duplicate manifest pointing toward Iresh. He pushes the mind and body past what they can survive. Elya dies \u2014 but the damaged manifest fragment she preserved remains beyond what Aevyn fully extracts.",
+  "chapter_turn": "Elya dies. The fragment survives.",
+  "pressure_ladder": [
+    {
+      "scene_number": 1,
+      "label": "hook",
+      "note": "Elya finds a duplicated wartime quarantine/survey shipment manifest from the final days before the Battle of Shedu Maad. One version is public and boring; the hidden duplicate carries the same shipment identity, a quarantine/survey disguise, conflicting destination data, and enough metadata to show Jacen Solo personally encrypted it shortly before his death."
+    }
+  ],
+  "pov_arc_pressure": {
+    "pov_character": "Commander Elya Rane",
+    "structural_phase": "setup",
+    "pacing_curve": "rising"
+  },
+  "next_scene_obligations": [
+    {
+      "kind": "subplot",
+      "note": "Foundation / Vigil Operational Machinery (Greyline / Greyline / Korda): Primary plot-driving antagonist infrastructure"
+    },
+    {
+      "kind": "reveal",
+      "note": "The duplicated wartime quarantine/survey shipment manifest exists, personally encrypted by Jacen Solo shortly before his death."
+    },
+    {
+      "kind": "hook_planted",
+      "note": "Why did Jacen Solo personally encrypt a duplicated wartime shipment manifest days before Shedu Maad, and why did the hidden copy go somewhere the public shipment never went? Reader-facing form: why did one of Jacen's last shipments have two lives? Resolved at the Midpoint when Iressa's dying transmission reveals the holocron's identity-shaping purpose.: hard"
+    },
+    {
+      "kind": "hook_planted",
+      "note": "Who killed Elya Rane, and what is the precision of the method? The Force-trauma Ben senses in Ch 4 names the killer through behavior. Aevyn is unsettled into semi-revelation in Ch 27.: hard"
+    }
+  ],
+  "active_promises": [],
+  "active_promises_total_count": 0,
+  "reveal_deadlines": [
+    {
+      "revelation_id": "R_01",
+      "note": "The duplicated wartime quarantine/survey shipment manifest exists, personally encrypted by Jacen Solo shortly before his death.",
+      "due_by_scene": "ch01_close",
+      "status": "pending"
+    }
+  ],
+  "canon_slices": [],
+  "canon_guidance": {},
+  "relationship_context": {},
+  "exit_vector": {
+    "summary": "Elya dies. The fragment survives."
+  },
+  "trusted_state_gap_notes": [],
+  "exemplar_snippets": [],
+  "anti_exemplar_snippets": [],
+  "continuity_events": [],
+  "scene_card": {},
+  "rendered_markdown": ""
+}

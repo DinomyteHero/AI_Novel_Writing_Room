@@ -22,7 +22,7 @@
   },
   "canon_constraints": {
     "continuity": "Star Wars Legends (Expanded Universe), post-Fate of the Jedi, 47 ABY. Crucible (45 ABY) canonical; Legacy comics did NOT happen; the One Sith on Korriban remain in patient pre-emergence under Darth Krayt, glimpsed only as an off-page hand.",
-    "divergence_point": "Diverges from published Legends continuity by (a) excising the Legacy comics future entirely — no Darth Krayt galactic war, no Cade Skywalker, no fall of the Galactic Alliance to the One Sith; (b) introducing Aevyn Soris, a marginal Force-sensitive Jedi-rejected at fourteen who joined the GAG as a young adult and became Jacen Solo's side-project Force student during the Caedus period (Ben Skywalker remained Jacen's primary fourteen-year-old apprentice; Aevyn lived in the gaps); (c) introducing Jacen's unfinished holocron — a working device assembled during the LotF period systematizing Recognition, Deepening, and Holding — hidden on Iresh in old GAG-era survey/storage equipment near the Glasswell; (d) introducing the Shedu Maad Memorial Foundation as a legitimate post-war veterans' charity whose hidden inner ring (the Vigil) preserves Jacen-derived 'clarity, resilience, steadiness, preparation' ideology and seeks to recover and finish the holocron.",
+    "divergence_point": "Diverges from published Legends continuity by (a) excising the Legacy comics future entirely — no Darth Krayt galactic war, no Cade Skywalker, no fall of the Galactic Alliance to the One Sith; (b) introducing Aevyn Soris, a marginal Force-sensitive Jedi-rejected at fourteen who joined the GAG as a young adult and became Jacen Solo's side-project Force student during the Caedus period (Ben Skywalker remained Jacen's primary fourteen-year-old apprentice; Aevyn lived in the gaps); (c) introducing Jacen's unfinished holocron — a working device assembled during the LotF period systematizing Recognition and Holding — hidden on Iresh in old GAG-era survey/storage equipment near the Glasswell; (d) introducing the Shedu Maad Memorial Foundation as a legitimate post-war veterans' charity whose hidden inner ring (the Vigil) preserves Jacen-derived 'clarity, resilience, steadiness, preparation' ideology and seeks to recover and finish the holocron.",
     "canon_preserved": [
       "Ben Skywalker as Jedi Knight, son of Luke Skywalker and Mara Jade Skywalker; aged ~21 in 47 ABY.",
       "Jacen Solo's fall to Darth Caedus during the Legacy of the Force period and his murder of Mara Jade.",
@@ -36,15 +36,15 @@
       "Vestara Khai canonically alive and active off-page under the alias 'Savara Raine' as a free-agent dark-side-trained contractor (per Crucible) — never on-page in Book 1.",
       "Tahiri Veila as a Jedi Knight in good standing at Shedu Maad in 47 ABY, Ben's recent working colleague — single passing reference allowed, never as a Caedus reference.",
       "The One Sith on Korriban under Darth Krayt as a real organization in patient pre-emergence, never on-page beyond a single off-page 'hand'.",
-      "Jacen Solo's Force odyssey (NJO-LotF transition) as the source-material for his later systematization of Recognition / Deepening / Holding: Vergerean thought; Lumiya's Sith inheritance; experiments performed during the GAG/Caedus period.",
+      "Jacen Solo's Force odyssey (NJO-LotF transition) as the source-material for his later systematization of Recognition and Holding: Vergerean thought; Lumiya's Sith inheritance; experiments performed during the GAG/Caedus period.",
       "Standard Legends Force ontology: light and dark as natural moral-polar properties; Force wounds remain wounds; holocrons as crystalline storage devices for Jedi or Sith teachings."
     ],
     "canon_overridden": [
       "Legacy comics continuity (Star Wars: Legacy / Cade Skywalker / Krayt-led galactic war) — entirely excised. The One Sith remain on Korriban in pre-emergence; they do not invade or seize the Galactic Alliance.",
       "Aevyn Soris is a NEW character (not in published Legends): one of Jacen Solo's surviving Force students from the GAG/Caedus period, established as a side project running alongside Jacen's primary apprenticeship of Ben.",
       "The duplicated wartime quarantine/survey shipment manifest personally encrypted by Jacen Solo shortly before the Battle of Shedu Maad is a NEW canonical artifact specific to this novel.",
-      "The unfinished holocron's specific contents — Jacen's systematized Recognition, Deepening, and Holding work as identity-shaping technique categories — are this novel's named extrapolation from Jacen's canonical Force-odyssey behavior. Compatible with established Legends; not previously named in published material.",
-      "The Shedu Maad Memorial Foundation (public charity), the Vigil (hidden inner ring), Greyline Strategic Services (Tess's firm), and Cinderline (mercenary contractor arm) are NEW post-war Coruscant-political institutions introduced for this novel.",
+      "The unfinished holocron's specific contents — Jacen's systematized Recognition and Holding work as identity-shaping technique categories — are this novel's named extrapolation from Jacen's canonical Force-odyssey behavior. Compatible with established Legends; not previously named in published material.",
+      "The Shedu Maad Memorial Foundation (public charity), the Vigil (hidden inner ring), and Greyline Strategic Services (Tess's firm, which fields its own plausibly-deniable contractor teams for direct action) are NEW post-war Coruscant-political institutions introduced for this novel.",
       "Iresh (remote wind-scoured planet near the edge of known space) and the Glasswell (taboo sinkhole/cavern beneath a mirror-lake, pale translucent mineral) are NEW Outer Rim locations introduced for this novel. Iresh's Force character — preserves charged impressions of memory/identity/decision but does NOT reveal truth or prophecy — is original to this novel and does NOT extend Mortis-adjacent mythology.",
       "Tarn Velos Coastal Detention Works (storm-lashed industrial coastal prison world) and Civitas Archive Systems (Coruscant civic-records restoration and compliance firm) are NEW Book 1 settings.",
       "Allana Solo / Amelia is treated as a dangerous gray zone in adversary awareness only — referenced obliquely in Ch 37 from the Vigil/One Sith POV ('the Hapan question' / 'the unresolved succession thread'). Never named on-page; never enters Ben's awareness. Her identity remains publicly deniable in-universe."
@@ -152,7 +152,7 @@
         {
           "rule_number": 5,
           "name": "Show-before-name (Force, theme, wound)",
-          "content": "Render body-experience first; name the mechanism second. Diagnostic vocabulary (Recognition, Deepening, Holding, Jacen-derived crisis logic) is earned by experiential rendering and may not arrive on the page until the body has felt the thing. The reader feels the wrongness before the word for the wrongness arrives."
+          "content": "Render body-experience first; name the mechanism second. Diagnostic vocabulary (Recognition and Holding, Jacen-derived crisis logic) is earned by experiential rendering and may not arrive on the page until the body has felt the thing. The reader feels the wrongness before the word for the wrongness arrives."
         },
         {
           "rule_number": 6,
@@ -308,7 +308,7 @@
       "Dialogue attribution using anything other than said/asked more than 20% of the time",
       "Back-to-back paragraphs starting with the same word"
     ],
-    "force_description_guidelines": "The Force is rendered through experiential and mystical language — NOT clinical or scientific framing. Avoid 'energy field' as description; avoid 'ambient hum of the Force' entirely. Luke's generation understands the Force as a LIVING PRESENCE, not a measurable phenomenon.\n\nBODY BEFORE NAME: Force perception lands as body-sensation first; narration or characters name what they sensed only after the body has felt it. Reaching for the Force returns texture, density, direction — never an explanation. Recognition / Deepening / Holding may be NAMED in dialogue (Iressa transmits them in Ch 15-16; Ben reads them off the cache in Ch 29) but never explained beyond their plain-language consequences. Plain-language consequence of the Midpoint revelation: 'It's Jacen's notebook on how to shape people from the inside, and the Vigil wants to finish the work.'\n\nIRESH MEMORY MECHANIC: Iresh PRESERVES charged impressions of memory, identity, and decision under pressure. Impressions felt strongly on Iresh are emotionally charged but NOT objectively reliable. Sela's practical translation: 'Do not trust what you feel here just because it feels strong.' Iresh does NOT show the future, reveal truth, or grant prophecy.\n\nTHE GLASSWELL: a natural site Jacen Solo exploited for practical concealment — NOT a Sith temple, Jedi ruin, or mystical treasure chamber. Cache hidden in old offworld survey / GAG-era storage equipment. Forcing the Glasswell to remember the moment Jacen sealed it (Aevyn's Ch 30 act) destabilizes the natural site: water enters, mineral supports crack, scaffolds break. The mythic and the physical converge through STRUCTURAL FAILURE, not mystical reveal.\n\nAEVYN'S BLADE: the cold white-blue unstable lightsaber is a VISUAL TELL, NOT exposition. Its instability escalates when Ben successfully uses Jacen-derived crisis logic during the Ch 31-32 duel. Aevyn registers Ben as Jacen's primary student through the blade's behavior before either of them speaks the fact. The drafter MUST let the image do the work; explain nothing.\n\nBEN'S JACEN-DERIVED CRISIS LOGIC: not a Force technique — a mindset. How to see panic, timing, exits, the whole room, and the cost of hesitation. Surfaces SUBTLY in Ben's behavior throughout Acts 1-2 (Ch 6 visitor room, Ch 7 prison breakout). Surfaces DECISIVELY at the Glasswell rescue (Ch 31). Ben experiences it as discomfort with his own competence; other characters see it before he names it. Aevyn's recognition of it is the duel's pivot.",
+    "force_description_guidelines": "The Force is rendered through experiential and mystical language — NOT clinical or scientific framing. Avoid 'energy field' as description; avoid 'ambient hum of the Force' entirely. Luke's generation understands the Force as a LIVING PRESENCE, not a measurable phenomenon.\n\nBODY BEFORE NAME: Force perception lands as body-sensation first; narration or characters name what they sensed only after the body has felt it. Reaching for the Force returns texture, density, direction — never an explanation. Recognition and Holding may be NAMED in dialogue (Iressa transmits them in Ch 15-16; Ben reads them off the cache in Ch 29) but never explained beyond their plain-language consequences. Plain-language consequence of the Midpoint revelation: 'It's Jacen's notebook on how to shape people from the inside, and the Vigil wants to finish the work.'\n\nIRESH MEMORY MECHANIC: Iresh PRESERVES charged impressions of memory, identity, and decision under pressure. Impressions felt strongly on Iresh are emotionally charged but NOT objectively reliable. Sela's practical translation: 'Do not trust what you feel here just because it feels strong.' Iresh does NOT show the future, reveal truth, or grant prophecy.\n\nTHE GLASSWELL: a natural site Jacen Solo exploited for practical concealment — NOT a Sith temple, Jedi ruin, or mystical treasure chamber. Cache hidden in old offworld survey / GAG-era storage equipment. Forcing the Glasswell to remember the moment Jacen sealed it (Aevyn's Ch 30 act) destabilizes the natural site: water enters, mineral supports crack, scaffolds break. The mythic and the physical converge through STRUCTURAL FAILURE, not mystical reveal.\n\nAEVYN'S BLADE: the cold white-blue unstable lightsaber is a VISUAL TELL, NOT exposition. Its instability escalates when Ben successfully uses Jacen-derived crisis logic during the Ch 31-32 duel. Aevyn registers Ben as Jacen's primary student through the blade's behavior before either of them speaks the fact. The drafter MUST let the image do the work; explain nothing.\n\nBEN'S JACEN-DERIVED CRISIS LOGIC: not a Force technique — a mindset. How to see panic, timing, exits, the whole room, and the cost of hesitation. Surfaces SUBTLY in Ben's behavior throughout Acts 1-2 (Ch 6 visitor room, Ch 7 prison breakout). Surfaces DECISIVELY at the Glasswell rescue (Ch 31). Ben experiences it as discomfort with his own competence; other characters see it before he names it. Aevyn's recognition of it is the duel's pivot.",
     "pacing_feel": "Conspiracy-thriller cadence across Acts 1-2 (murder, fragment, prison break, archive attack, charity reveal). Operational-thriller acceleration through the PP2 Squeeze (Ch 20). Strange-world expedition register across Act 3 (Iresh wind, paths, chimes, Tavi rescue, Glasswell collapse). Rescue-then-duel climax (Ch 31-32 as one sustained beat). Quiet coda with morally incomplete preservation (Ch 35-38).\n\nWORD-COUNT TARGET: 105,000 words across 38 chapters (~2,760 words per chapter average) with deliberate variance. RUN LONGER than average: Ch 1 (consolidated Elya hook); Ch 11 (Skywalker apartment introduction); Ch 16 (Midpoint Iressa transmission + Luke + Saba calls + Ben's pivot); Ch 20 (PP2 three-part Squeeze + apartment return + Luke holo); Ch 31-32 (Glasswell rescue + duel as sustained climax beat). RUN SHORTER than average: the connective-tissue chapters (Ch 3, Ch 5, Ch 10, Ch 21, Ch 23, Ch 26, Ch 27, Ch 35, Ch 37, Ch 38).\n\nBEAT-ON-BEAT SCENE RHYTHM: every chapter must have IMMEDIATE STORY ACTION even if the reader misses the theme. Goal / obstacle / movement / reversal / hook. The chapter ends with a question the reader carries to the next chapter. End hooks per Chapter Outlines v4.1 are LOCKED — do not soften or move them.\n\nSCENE-COUNT DISCIPLINE: most chapters carry ONE load-bearing scene. Multi-scene chapters (Ch 7, Ch 8 split-POV, Ch 14-15 archive, Ch 16 Midpoint, Ch 20 PP2, Ch 31-32 climax) earn the split because each scene carries a distinct turning point, mission, and emotional arc. Do NOT pad single-scene chapters with redundant beats.",
     "narrative_voice_notes": "READER PROMISE: A post-Fate of the Jedi Legends conspiracy thriller written to commercial-novel quality. Murder, clue, prison break, uneasy partnership, archive attack, respected charity with a hidden inner ring, offworld Force-site climax, rescue, duel, and a morally dangerous ending. The reader should finish remembering a tense Star Wars adventure with Ben Skywalker, a great rogue partner, a creepy Jacen legacy mystery, an offworld Force-site climax, and a morally dangerous ending. Only AFTERWARD should the deeper themes — restraint can cost lives, Jacen's crisis logic can save lives, forbidden knowledge may be necessary to heal or protect — fully settle in.\n\nCENTRAL THEMATIC ARGUMENT: Ben's danger is not that he wants to become Jacen; it is that he wants to make sure Jacen was not meaningless. His most defensible choices and his most dangerous choices can be the same choices.\n\nREFERENCE-AUTHOR FRAMING: The Allston / Zahn / Traviss / Tana French anchors are REGISTER SAMPLES for sentence-level rhythm and dialogue density — NOT voice templates. The bible explicitly forbids imitating any specific Star Wars author. When in doubt, the character-first prose rule (bible §0C) overrides any reference-author convention.\n\nRESOLVED RULES FROM IDEA-SESSION: (a) Post-Crucible Luke texture is implication only — one quiet line per holo scene (tired eyes, longer pauses, eyes further away even when looking directly at Ben); Ben notices and does NOT ask; Mortis is NEVER named on-page. (b) Allana / Amelia is NEVER named on-page and NEVER enters Ben's awareness — the only acknowledgment is the Ch 37 oblique Tess-POV reference to 'the Hapan question' / 'the unresolved succession thread' in the adversary's awareness. (c) Vara Senn disappears into the contractor pool after PP1 and does NOT return on-page. (d) Aelia steps down quietly in Ch 35 with no criminal liability; private moral collapse visible, unpunished. (e) The One Sith hand in Ch 37 remains UNNAMED — off-page voice / message / presence only.\n\nSTAR WARS VOCABULARY DISCIPLINE: see canon.json canon_profile.anachronistic_terms and franchise_terminology_notes for the full mapping. The drafter MUST consult canon.json before introducing any new technology, ship class, species, or institution."
   },
@@ -508,9 +508,9 @@
     },
     {
       "subplot_id": "SUB_05",
-      "name": "Foundation / Vigil Operational Machinery (Cinderline / Greyline / Korda)",
+      "name": "Foundation / Vigil Operational Machinery (Greyline / Greyline / Korda)",
       "function": "Primary plot-driving antagonist infrastructure",
-      "arc_summary": "Aevyn's Ch 1 method (precision rather than savagery) signals the operational level. Cinderline's prison snatch (Ch 7) and archive cleanup (Ch 14-15) establish the contractor arm. Korda's spotting at the Foundation (Ch 17) names the old-GAG-in-respectable-clothing layer. Talon's bait + Korda chase (Ch 18-19) yields the Iresh operational evidence. Tess's PP2 board-clearing (Ch 20) — Korda dead, Iressa's cache burned, Talon framed — is the machinery at peak operational tempo. The Iresh field camp (Ch 26) is the apparatus deployed. Aevyn forces the cache (Ch 30); the duel (Ch 32) and flood (Ch 33) collapse the operation. Foundation survives diminished in Ch 35; the machinery outlives this operation in Ch 37.",
+      "arc_summary": "Aevyn's Ch 1 method (precision rather than savagery) signals the operational level. Greyline's prison snatch (Ch 7) and archive cleanup (Ch 14-15) establish the contractor arm. Korda's spotting at the Foundation (Ch 17) names the old-GAG-in-respectable-clothing layer. Talon's bait + Korda chase (Ch 18-19) yields the Iresh operational evidence. Tess's PP2 board-clearing (Ch 20) — Korda dead, Iressa's cache burned, Talon framed — is the machinery at peak operational tempo. The Iresh field camp (Ch 26) is the apparatus deployed. Aevyn forces the cache (Ch 30); the duel (Ch 32) and flood (Ch 33) collapse the operation. Foundation survives diminished in Ch 35; the machinery outlives this operation in Ch 37.",
       "chapters_active": [
         1,
         7,
@@ -591,7 +591,7 @@
       "hook_type": "soft",
       "planted_in": 20,
       "resolved_in": "unresolved",
-      "description": "Who told Cinderline where Iressa's secondary cache was? The breach point at PP2 is deliberately not identified. A coworker leaned on? A forgotten contact? A small breach Iressa herself never noticed? The unanswered version is creepier and serves the novel's institutional-decay theme. Available as a Book 2 thread or as ambient unanswered weight."
+      "description": "Who told Greyline where Iressa's secondary cache was? The breach point at PP2 is deliberately not identified. A coworker leaned on? A forgotten contact? A small breach Iressa herself never noticed? The unanswered version is creepier and serves the novel's institutional-decay theme. Available as a Book 2 thread or as ambient unanswered weight."
     },
     {
       "hook_id": "HK_08",
@@ -624,7 +624,7 @@
     },
     {
       "revelation_id": "R_02",
-      "what": "Aevyn killed Elya using a precise Jacen-derived method (memory pressure, Recognition, Holding) — precision rather than savagery.",
+      "what": "Aevyn killed Elya using a precise Jacen-derived method (weaponized Recognition) — precision rather than savagery.",
       "known_by": [
         "Aevyn",
         "reader"
@@ -681,7 +681,7 @@
     },
     {
       "revelation_id": "R_06",
-      "what": "The holocron is Jacen's unfinished work on Recognition, Deepening, and Holding — identity-shaping techniques. The Vigil intends to weaponize them for identity-level influence on high-value targets, with Aevyn as the only surviving student who can finish the work.",
+      "what": "The holocron is Jacen's unfinished work on Recognition and Holding — identity-shaping techniques. The Vigil intends to weaponize them for identity-level influence on high-value targets, with Aevyn as the only surviving student who can finish the work.",
       "known_by": [
         "Iressa (reconstructed in death)",
         "Vigil leadership",
@@ -820,20 +820,20 @@
   ],
   "structural_notes": {
     "brooks_alignment": {
-      "part_1_setup": "Chs 1-9 (~24%). Coruscant + Tarn Velos. Elya Rane's discovery and murder by Aevyn opens the central mystery; Ben recovers the damaged Jacen-encrypted manifest fragment; Ben tries the legal route to reach Talon Veyr in prison and is forced into a rescue when Cinderline arrives. The Lie (Ben's: the GAG year has been categorized away) is established and reinforced. Closes with Ben breaking cover at the storm-line escape.",
+      "part_1_setup": "Chs 1-9 (~24%). Coruscant + Tarn Velos. Elya Rane's discovery and murder by Aevyn opens the central mystery; Ben recovers the damaged Jacen-encrypted manifest fragment; Ben tries the legal route to reach Talon Veyr in prison and is forced into a rescue when Greyline arrives. The Lie (Ben's: the GAG year has been categorized away) is established and reinforced. Closes with Ben breaking cover at the storm-line escape.",
       "inciting_incident": "Ch 4 (~11%) 'Not Well' — Ben arrives too late at Elya's murder scene, senses Force-trauma, and recovers the damaged Jacen-sealed duplicate manifest fragment. The case becomes Ben's.",
       "first_plot_point": "Ch 9 (~24%) 'Storm Line' — Ben and Talon cross storm-exposed gantries and sea-wall while pursued. Ben broke cover, freed a convicted prisoner, generated a public crisis. The forced partnership with Talon is the door Ben cannot return through. Within the canonical 20-25% Brooks window.",
-      "part_2_response": "Chs 10-15 (~25-39%). Coruscant. Ben and Talon become a real investigative pair: Iressa Vossk at Civitas Archive Systems reconstructs the manifest trail; the GAG quarantine archive yields enough to point at the Foundation. Cinderline + Vara hit the archive; Iressa dies after Ben refuses the Jacen-shaped coercive move.",
-      "first_pinch_point": "Chs 14-15 (~37-39%) 'Cleanup Team' / 'The Bad Way' — Cinderline archive cleanup with Vara Senn as Force specialist. Vara/Ben short ugly lightsaber clash, then Vara takes Iressa hostage. Ben refuses the Jacen-shaped coercive move. Iressa dies actively denying Vara a clean copy and transmitting the two-part dying package. The antagonist shows organized lethality; restraint costs the first life.",
-      "midpoint": "Ch 16 (~42%) 'No Good Version' — Iressa's transmission carries the documentary chain AND the identity-shaping revelation (the Vigil intends to use the holocron's Recognition/Deepening/Holding with Aevyn's help). Ben holo-calls Luke, then Saba: both correct, both too slow. Ben pivots from investigator to active disruptor — going to Iresh themselves. Slightly early of canonical 50% but compounded with PP1 in the same chapter.",
+      "part_2_response": "Chs 10-15 (~25-39%). Coruscant. Ben and Talon become a real investigative pair: Iressa Vossk at Civitas Archive Systems reconstructs the manifest trail; the GAG quarantine archive yields enough to point at the Foundation. Greyline + Vara hit the archive; Iressa dies after Ben refuses the Jacen-shaped coercive move.",
+      "first_pinch_point": "Chs 14-15 (~37-39%) 'Cleanup Team' / 'The Bad Way' — Greyline archive cleanup with Vara Senn as Force specialist. Vara/Ben short ugly lightsaber clash, then Vara takes Iressa hostage. Ben refuses the Jacen-shaped coercive move. Iressa dies actively denying Vara a clean copy and transmitting the two-part dying package. The antagonist shows organized lethality; restraint costs the first life.",
+      "midpoint": "Ch 16 (~42%) 'No Good Version' — Iressa's transmission carries the documentary chain AND the identity-shaping revelation (the Vigil intends to use the holocron's Recognition and Holding with Aevyn's help). Ben holo-calls Luke, then Saba: both correct, both too slow. Ben pivots from investigator to active disruptor — going to Iresh themselves. Slightly early of canonical 50% but compounded with PP1 in the same chapter.",
       "part_3_attack": "Chs 17-30 (~45-79%). Coruscant + Iresh transit + Iresh. Ben goes on offense: visits the Foundation and meets Aelia (social defeat); Talon spots Korda; Talon's manifest-correction bait surfaces Korda; chase leads to Iresh evidence. PP2 Squeeze closes every door. Off-grid transit. Iresh arrival, Sela alliance, Tavi seeded, Aevyn confronted, the cache discovered.",
       "second_pinch_point": "Ch 20 (~53%) 'Containment' — THE SQUEEZE. Three-part compounding pressure within hours: (1) Tess kills Korda as public fall guy and orders Iresh acceleration because Skywalker and Veyr are now involved; (2) Iressa's secondary cache is professionally raided and burned — the documentary case for Saba is unrecoverable, breach point unidentified; (3) Talon is framed for a current Coruscant crime with Tess's tradecraft fingerprint. Documentary path closed, legal cover destroyed, timeline destroyed. Relocation to the Skywalker apartment as final refuge. Slightly early of canonical 62-75% but compounds with PP1+Midpoint to deliver maximum pressure into Act 3's run-up.",
-      "second_plot_point": "Ch 29 (~76%) 'The Cache Site' — at the Glasswell, Ben confirms what Iressa told them at the Midpoint — the holocron's unfinished Recognition/Deepening/Holding work, Aevyn's presence as surviving student, the Vigil's intent. EMBODIMENT not revelation: the known threat becomes concrete. Only options left are rescue and denial. Within the canonical window.",
+      "second_plot_point": "Ch 29 (~76%) 'The Cache Site' — at the Glasswell, Ben confirms what Iressa told them at the Midpoint — the holocron's unfinished Recognition and Holding work, Aevyn's presence as surviving student, the Vigil's intent. EMBODIMENT not revelation: the known threat becomes concrete. Only options left are rescue and denial. Within the canonical window.",
       "part_4_resolution": "Chs 31-38 (~82-100%). The Glasswell. Climax + flood + Iresh aftermath + Coruscant coda. Ben uses Jacen-shaped crisis logic to save Tavi and locals; defeats Aevyn in the consolidated duel; secures the unfinished holocron. Aelia steps down. Korda is the dead fall guy. Luke senses Ben's incomplete answer. Tess survives. White-blue spark in the dark.",
       "climax": "Chs 31-32 (~82-84%) 'Too Slow' / 'What He Left' — Ch 31 rescue first (Ben saves Tavi, Sela's locals, others through Jacen-shaped crisis logic; Aevyn recognizes the pattern); Ch 32 duel second (consolidated lightsaber duel across the collapsing Glasswell, two students of Jacen arguing through action). Ben wins by refusing to let Jacen own what he does with the lessons. The climax functions as ONE sustained beat rather than two."
     },
     "_scene_count_discipline": "38 chapters total. Most chapters carry ONE load-bearing scene. Multi-scene split-POV chapters (Ch 7, 9, 14-15, 16, 20, 33) earn the split because each scene carries a distinct turning point, mission, and emotional arc. Locked humanizing beats (Ch 2, 6, 11, 12, 17, 24, 28, 34) are woven into existing chapters as scene-level character texture, NOT separate scenes or chapters. Chapter Outlines v4.1 preserves the v4.0 consolidation of 9 chapter pairs from v3.3's 47-chapter draft — see continuity_note fields per consolidated chapter.",
-    "_consolidation_history": "v4.0 consolidations from v3.3 (47 -> 38 chapters): old Ch 1+2 -> new Ch 1 (Elya hook); old Ch 7+8 -> new Ch 6 (prison arrival + visitor room); old Ch 9+10 -> new Ch 7 (Cinderline attack + Ben break-cover); old Ch 12 (Rusk POV) dropped; old Ch 17+18 -> new Ch 13 (reconstruction + archive entry); old Ch 23+24 -> new Ch 18 (Korda spotted + trap set); old Ch 25+26 -> new Ch 19 (chase + capture); old Ch 31+32 -> new Ch 24 (Iresh arrival + Sela refuses); old Ch 40+41 -> new Ch 32 (duel + victory as continuous climax). FPP shifted from 30% to 24% by the consolidation, landing inside the canonical Brooks 20-25% window.",
+    "_consolidation_history": "v4.0 consolidations from v3.3 (47 -> 38 chapters): old Ch 1+2 -> new Ch 1 (Elya hook); old Ch 7+8 -> new Ch 6 (prison arrival + visitor room); old Ch 9+10 -> new Ch 7 (Greyline attack + Ben break-cover); old Ch 12 (Rusk POV) dropped; old Ch 17+18 -> new Ch 13 (reconstruction + archive entry); old Ch 23+24 -> new Ch 18 (Korda spotted + trap set); old Ch 25+26 -> new Ch 19 (chase + capture); old Ch 31+32 -> new Ch 24 (Iresh arrival + Sela refuses); old Ch 40+41 -> new Ch 32 (duel + victory as continuous climax). FPP shifted from 30% to 24% by the consolidation, landing inside the canonical Brooks 20-25% window.",
     "_act_structure": "Three-act + coda. Act 1 Chs 1-10 (murder, clue, legal approach, prison break, Ben/Talon partnership forced into being); Act 2 Chs 11-23 (Coruscant investigation, Iressa death, Foundation/Vigil reveal, Korda/Tess escalation, Iresh lead); Act 3 Chs 24-34 (Iresh expedition, Sela/Tavi stakes, Aevyn, Glasswell collapse, duel, holocron recovered); Coda Chs 35-38 (public containment, Ben's morally incomplete holocron choice, One Sith adjustment, Aevyn survival hint)."
   },
   "terminology_registry": [
@@ -988,7 +988,7 @@
       "aliases": [
         "Jacen"
       ],
-      "definition": "Pre-fall identity. Ben's cousin, mentor, and Force teacher during the GAG / Caedus period. Son of Han Solo and Leia Organa Solo; brother of Jaina. Killed at the Battle of Shedu Maad in 40 ABY. His Force odyssey (NJO through LotF) produced the Vergerean / Lumiya-inflected techniques he later systematized as Recognition, Deepening, and Holding in the unfinished holocron.",
+      "definition": "Pre-fall identity. Ben's cousin, mentor, and Force teacher during the GAG / Caedus period. Son of Han Solo and Leia Organa Solo; brother of Jaina. Killed at the Battle of Shedu Maad in 41 ABY. His Force odyssey (NJO through LotF) produced the Vergerean / Lumiya-inflected techniques he later systematized as Recognition and Holding in the unfinished holocron.",
       "category": "character_name",
       "first_appearance": 1,
       "usage_notes": "Naming discipline: 'Jacen' for the pre-fall mentor identity, 'Caedus' for the Sith-Lord identity. POVs choose by emotional load — see canon_profile.franchise_terminology_notes. Aevyn ONLY uses 'Jacen'."
@@ -1147,7 +1147,7 @@
     {
       "canonical_form": "Shedu Maad",
       "aliases": [],
-      "definition": "Hapes Cluster world where the Jedi Order relocated permanently at the end of FOTJ (44 ABY) and where the Order still maintains its headquarters in 47 ABY. The Battle of Shedu Maad (40 ABY) was where Darth Caedus was killed at the close of LotF.",
+      "definition": "Hapes Cluster world where the Jedi Order relocated permanently at the end of FOTJ (44 ABY) and where the Order still maintains its headquarters in 47 ABY. The Battle of Shedu Maad (41 ABY) was where Darth Caedus was killed at the close of LotF.",
       "category": "place_name",
       "first_appearance": 2,
       "usage_notes": "Pronounced SHEH-doo MAHD. The Shedu Maad Memorial Foundation takes its name from the post-war reconstruction of the battle's losses."
@@ -1269,15 +1269,7 @@
       "definition": "Colonel Maro Tess's private security firm. Publicly provides donor-event security, archive protection, offworld survey security, threat assessments, personnel vetting, hostile-environment logistics, and private protection for charities/civic institutions. Privately serves as the Vigil's operational arm.",
       "category": "organization",
       "first_appearance": 19,
-      "usage_notes": "Full name on first use, 'Greyline' thereafter. Greyline's contractor arm for direct action is Cinderline."
-    },
-    {
-      "canonical_form": "Cinderline",
-      "aliases": [],
-      "definition": "Mercenary contractor arm Greyline uses for direct action (snatch operations, archive cleanups, frame-ups, asset disposals). The Vigil's plausibly-deniable muscle. Executes the Tarn Velos prison snatch (PP1 prelude), the GAG archive cleanup (PP1), the cache raid and Talon frame (PP2), and the Iresh staging.",
-      "category": "organization",
-      "first_appearance": 7,
-      "usage_notes": "Cinderline operations are professional and procedural — frame-ups, false-cover snatches, professional cache destructions. NOT crude or theatrical."
+      "usage_notes": "Full name on first use, 'Greyline' thereafter. For direct action — snatch operations, cleanups, frame-ups, asset disposals — Greyline fields plausibly-deniable contractor teams under the same firm; there is no separate brand. Operations are professional and procedural, never crude or theatrical."
     },
     {
       "canonical_form": "Imperial Remnant",
@@ -1322,7 +1314,7 @@
         "the holocron",
         "Jacen's holocron"
       ],
-      "definition": "An unfinished working holocron assembled during the Legacy of the Force period from fragments of Jacen Solo's Force-odyssey notes, Vergerean thought, Lumiya's Sith inheritance, GAG-era observations, and Jacen's private systematization of Recognition, Deepening, and Holding. Part notebook, part training device, part confession, part contingency, part laboratory. Hidden on Iresh near the Glasswell in old offworld survey / GAG-era storage equipment.",
+      "definition": "An unfinished working holocron assembled during the Legacy of the Force period from fragments of Jacen Solo's Force-odyssey notes, Vergerean thought, Lumiya's Sith inheritance, GAG-era observations, and Jacen's private systematization of Recognition and Holding. Part notebook, part training device, part confession, part contingency, part laboratory. Hidden on Iresh near the Glasswell in old offworld survey / GAG-era storage equipment.",
       "category": "artifact",
       "first_appearance": 15,
       "usage_notes": "NOT a completed Sith weapon. Reader-facing language treats it as 'Jacen's notebook on how to shape people from the inside, and the Vigil wants to finish the work.' Ben secures it in Ch 33 and preserves it through the coda — his omission to Luke in Ch 36 is technically true and morally incomplete."
@@ -1357,7 +1349,7 @@
         "the secondary cache",
         "the cache"
       ],
-      "definition": "Iressa Vossk's off-record reconstruction workshop, separate from Civitas Archive Systems. A quiet leased space in a Coruscant records-warehouse district (or basement workshop / sympathetic-small-business backroom — drafter's choice). Houses the old GAG tools, encrypted dead drops, and personal archive instincts she officially renounced. Not connected to Civitas or her residence in any public record. Where Ben and Talon spend several days continuing reconstruction after Iressa's death. RAIDED AND BURNED by Cinderline at PP2 (Ch 20) — the documentary case for Saba becomes unrecoverable.",
+      "definition": "Iressa Vossk's off-record reconstruction workshop, separate from Civitas Archive Systems. A quiet leased space in a Coruscant records-warehouse district (or basement workshop / sympathetic-small-business backroom — drafter's choice). Houses the old GAG tools, encrypted dead drops, and personal archive instincts she officially renounced. Not connected to Civitas or her residence in any public record. Where Ben and Talon spend several days continuing reconstruction after Iressa's death. RAIDED AND BURNED by Greyline at PP2 (Ch 20) — the documentary case for Saba becomes unrecoverable.",
       "category": "artifact",
       "first_appearance": 13,
       "usage_notes": "Established in Ch 13 as a passing detail — one line, no emphasis. Becomes the target of PP2's first beat. The raid happens OFF-SCREEN for Ben; he arrives after, and the loss lands through the destroyed space, not through action."
@@ -1407,30 +1399,20 @@
       "aliases": [
         "Recognition"
       ],
-      "definition": "The most coherent and potentially useful of Jacen Solo's three systematized identity-shaping techniques. Tied to self-perception, trauma, memory, and identity-mapping. Used clinically, it could help someone understand who they are; used coercively, it forces a subject's identity to surface in legible form for the practitioner. The technique Aevyn was running when the corridor moment fractured his attention with Jacen.",
+      "definition": "The more coherent and potentially useful of Jacen Solo's two systematized identity-shaping techniques — his inward turn of Aing-Tii flow-walking fused with Force empathy. Where flow-walking reads the currents of the wider Force, Recognition reads the currents of a single person: the charged memories and decisions that define an identity. Used clinically, it could help someone understand who they are; used coercively, it forces a subject's identity to surface in legible form for the practitioner (Aevyn's lethal interrogation method). Practiced recursively on oneself, it is also how a marginal Force-sensitive deepens a thin connection — the path Aevyn took under Jacen. The technique Aevyn was running when the corridor moment fractured his attention with Jacen.",
       "category": "magic_system",
       "first_appearance": 15,
       "usage_notes": "Capitalized when used as the technique's proper name; lowercase 'recognition' for ordinary uses of the English word. Distinguish carefully in narration."
-    },
-    {
-      "canonical_form": "Deepening (Force technique)",
-      "aliases": [
-        "Deepening"
-      ],
-      "definition": "The second of Jacen Solo's three systematized techniques. Recursive self-training. Promising but dangerous: can help marginal Force-sensitives grow but risks turning the self into an object of manipulation. The technique Aevyn personally benefited from under Jacen's intermittent attention.",
-      "category": "magic_system",
-      "first_appearance": 15,
-      "usage_notes": "Capitalized when used as the technique's proper name."
     },
     {
       "canonical_form": "Holding (Force technique)",
       "aliases": [
         "Holding"
       ],
-      "definition": "The third and least complete of Jacen Solo's three systematized techniques. Concerned with sustaining memory, identity, emotional continuity, and Force-impressions past natural decay. The most dangerous of the three. The Vigil's intended weaponized use case: identity-level influence on high-value targets — nudging powerful people to experience Sith-favorable choices as their own judgment.",
+      "definition": "The less complete and more dangerous of Jacen Solo's two systematized techniques — a fusion of battle meditation, the Fallanassi White Current, and Lumiya's will-domination. Concerned with sustaining a shaped impression — memory, identity, emotional continuity, a single decision — in another mind past natural decay. The Vigil's intended weaponized use case: identity-level influence on high-value targets, nudging powerful people to experience Sith-favorable choices as their own judgment.",
       "category": "magic_system",
       "first_appearance": 15,
-      "usage_notes": "Capitalized when used as the technique's proper name. The Holding technique is what makes Jacen's unfinished holocron strategically valuable to the One Sith."
+      "usage_notes": "Capitalized when used as the technique's proper name. Holding is what makes Jacen's unfinished holocron strategically valuable to the One Sith."
     },
     {
       "canonical_form": "the Jacen-derived method",
@@ -1438,7 +1420,7 @@
         "Aevyn's method",
         "the Force-interrogation method"
       ],
-      "definition": "Aevyn Soris's weaponized Force-interrogation method. A precise blend of memory pressure, Recognition, and Holding. Kills by pushing the subject's mind and body past survivable limits. The precision is what makes it morally and physically worse than crude torture — it forces the subject's memories into clarity rather than fragmenting them.",
+      "definition": "Aevyn Soris's weaponized Force-interrogation method: Recognition turned coercive — Jacen's inward flow-walking forced on a victim, dragging their charged memories to the surface faster than the mind and body can survive. Kills by precision rather than savagery: it forces the subject's memories into clarity rather than fragmenting them, which is what makes it worse than crude torture.",
       "category": "magic_system",
       "first_appearance": 1,
       "usage_notes": "Used to kill Elya Rane in Ch 1 (off-screen of the extraction; on-screen of the death) and used to pressure Iressa Vossk's secondary cache and identity in Vara's hostage attempt in Ch 14-15 (which fails — Vara is not Aevyn, and her cruder version reaches its limit before extraction completes)."
@@ -1666,7 +1648,7 @@
     },
     {
       "term": "Battle of Shedu Maad",
-      "definition": "The decisive engagement at the close of the Second Galactic Civil War in 40 ABY. Darth Caedus was killed; Jacen Solo's death; the war ended. Site of significant casualties on both sides. The Memorial Foundation takes its name from the post-war reconstruction of these losses.",
+      "definition": "The decisive engagement at the close of the Second Galactic Civil War in 41 ABY. Darth Caedus was killed; Jacen Solo's death; the war ended. Site of significant casualties on both sides. The Memorial Foundation takes its name from the post-war reconstruction of these losses.",
       "category": "concept",
       "first_appearance": 1,
       "usage_notes": "Characters refer to it as 'Shedu Maad' (the battle) and to the planet as 'Shedu Maad' (the Jedi HQ); context disambiguates."
@@ -1713,6 +1695,110 @@
       "category": "character_name",
       "first_appearance": 2,
       "usage_notes": "May appear briefly under Amelia identity at Shedu Maad. Not plot-active, not POV, not told about Elya message, and not part of Ben investigation. Ch 37 may still carry oblique adversary language such as the Hapan question."
+    },
+    {
+      "canonical_form": "flow-walking",
+      "aliases": [
+        "flow walking"
+      ],
+      "definition": "Canonical Aing-Tii Force discipline (Order of the Sacred Circle) that lets a practitioner walk the currents of the Force to perceive and relive moments, chiefly in the past. Jacen Solo learned it on his Force odyssey and abused it during the Legacy of the Force period. The canonical root of his systematized Recognition technique.",
+      "category": "magic_system",
+      "first_appearance": "background reference",
+      "usage_notes": "Real Legends technique — use as the canon lineage of Recognition. Reader-facing prose need not name it; it grounds the holocron's contents in established Force lore rather than invented mysticism."
+    },
+    {
+      "canonical_form": "the White Current",
+      "aliases": [
+        "White Current"
+      ],
+      "definition": "The Fallanassi discipline of illusion and concealment — shaping what others perceive. A canonical Legends Force tradition. One of the strands Jacen Solo fused into his systematized Holding technique.",
+      "category": "magic_system",
+      "first_appearance": "background reference",
+      "usage_notes": "Canon lineage anchor for Holding. Background grounding, not a reader-facing label."
+    },
+    {
+      "canonical_form": "battle meditation",
+      "aliases": [],
+      "definition": "Canonical Force art for influencing the will, morale, and coordination of many minds at once. A strand Jacen Solo fused, with the White Current and Lumiya's Sith will-domination, into his systematized Holding technique.",
+      "category": "magic_system",
+      "first_appearance": "background reference",
+      "usage_notes": "Canon lineage anchor for Holding."
+    },
+    {
+      "canonical_form": "the Coruscant Jedi Temple",
+      "aliases": [
+        "the Jedi Temple",
+        "the Temple"
+      ],
+      "definition": "The Jedi Order's monumental former headquarters on Coruscant. After the Order relocated to Shedu Maad at the end of Fate of the Jedi (44 ABY), the Temple is no longer Order property — it stands as a monument to the exile. Ben works his Coruscant case in the shadow of the building his family once helped lead, on a world whose Senate voted the Order out.",
+      "category": "place_name",
+      "first_appearance": 4,
+      "usage_notes": "Texture for Ben's displacement across Acts 1-2 — one image, a wound, not a tour. The Skywalker apartment is the last Skywalker presence on the world that pushed the Order out."
+    },
+    {
+      "canonical_form": "the Second Galactic Civil War",
+      "aliases": [
+        "the war",
+        "the Caedus war"
+      ],
+      "definition": "The 40-41 ABY war (Galactic Alliance against the Corellian-led Confederation) during which Jacen Solo fell to Darth Caedus, built the GAG, and murdered Mara Jade. Named engagements include the battles of Fondor and Kuat; it ended at the Battle of Shedu Maad in 41 ABY, where Caedus died. The war Jacen's duplicated manifest dates from, and the source of most of the Foundation's war dead.",
+      "category": "concept",
+      "first_appearance": "background reference",
+      "usage_notes": "Reader-facing shorthand 'the war'. Ground the Foundation's grief, the manifest's date, and Talon's/Iressa's GAG history here. One term, then one consequence."
+    },
+    {
+      "canonical_form": "the Yuuzhan Vong War",
+      "aliases": [
+        "the Vong War"
+      ],
+      "definition": "The 25-29 ABY extragalactic invasion that devastated the galaxy a generation before Book 1 — including the Fall of Coruscant (27 ABY) and a vast refugee crisis. The formative trauma of Talon Veyr's generation; he came of age inside its evacuation corridors.",
+      "category": "concept",
+      "first_appearance": "background reference",
+      "usage_notes": "Talon's-war anchor. Surfaces as personal history (Ch 22, Ch 23 transit), never as exposition."
+    },
+    {
+      "canonical_form": "the Fall of Coruscant",
+      "aliases": [],
+      "definition": "The Yuuzhan Vong capture of Coruscant in 27 ABY and the mass civilian evacuation that followed. Talon Veyr survived it as a boy, in the evacuation corridors and refugee transports — the origin of his instinct for exits, blind spots, and how large systems lose people.",
+      "category": "concept",
+      "first_appearance": 22,
+      "usage_notes": "Talon's specific war wound. He names it in the Ch 23 transit scene when the humor valve thins; do not over-explain."
+    },
+    {
+      "canonical_form": "the Aing-Tii",
+      "aliases": [
+        "the Order of the Sacred Circle"
+      ],
+      "definition": "A reclusive Force-using species of the Kathol Rift who practice flow-walking — walking the currents of the Force to perceive and relive moments. Jacen Solo studied with them during his Force odyssey and learned the technique he later turned inward as Recognition.",
+      "category": "faction",
+      "first_appearance": 23,
+      "usage_notes": "Canon lineage for Recognition and for Iresh's regional placement near the Kathol Rift. Background grounding, surfaced through Ben's dread in the transit."
+    },
+    {
+      "canonical_form": "the Fallanassi",
+      "aliases": [],
+      "definition": "A reclusive Force-using religious community who practice the White Current, the discipline of illusion and concealment. A stop on Jacen Solo's Force odyssey and one strand of his systematized Holding technique.",
+      "category": "faction",
+      "first_appearance": 23,
+      "usage_notes": "Canon lineage for Holding. Background grounding."
+    },
+    {
+      "canonical_form": "the Kathol Rift",
+      "aliases": [
+        "the Rift"
+      ],
+      "definition": "A remote, hazardous region of the Outer Rim toward Wild Space, home of the Aing-Tii. A waypoint on Jacen Solo's Force odyssey; Iresh sits on the wild edge near it, which is how Jacen found the place he later used to hide the unfinished holocron.",
+      "category": "place_name",
+      "first_appearance": 23,
+      "usage_notes": "Grounds Iresh in named Legends geography and ties it to Jacen's pilgrimage."
+    },
+    {
+      "canonical_form": "Vergere",
+      "aliases": [],
+      "definition": "A Fosh Force-user and Jacen Solo's mentor during the Yuuzhan Vong War, whose ambiguous teachings ('the Force is a tool; there is no light or dark, only what you do') seeded the philosophy underneath Jacen's later odyssey and fall. Long dead by Book 1 — a name in the holocron's lineage, not a character.",
+      "category": "character_name",
+      "first_appearance": 23,
+      "usage_notes": "Background lineage for the holocron and Jacen's thought. Mention only; never on-page."
     }
   ],
   "canon_profile": {
@@ -1843,27 +1929,26 @@
       "Real-world pop culture references (no '21st-century idioms', no real-world brand names, no internet/meme references).",
       "Out-of-universe authorial framing in narration (no chapter titles invoking real-world songs, films, or book titles; no in-prose narrator addressing the reader directly)."
     ],
-    "franchise_terminology_notes": "STAR WARS VOCABULARY DISCIPLINE — datapads not tablets, transparisteel not glass, durasteel not steel, turbolifts not elevators, comlinks not radios, blasters not guns, hyperspace not warp, parsecs as distance not time, klicks for short distances.\n\nFORCE PROSE RULE — the Force is rendered through experiential and mystical language, not clinical or scientific framing. Avoid 'energy field' as a description; Luke's generation understands the Force as a living presence, not a measurable phenomenon. Force abilities surface as body-sensations first, named only after the body has felt them.\n\nNAMING DISCIPLINE — 'Jacen' for the pre-fall identity (Ben's cousin, mentor, the boy Mara raised in part); 'Caedus' for the Sith-Lord identity (the war crimes, the murder of Mara). POVs choose by emotional load: Ben slides between both, mostly 'Jacen' when remembering training and 'Caedus' when accusing; Aevyn refuses 'Caedus'; Aelia privately thinks 'Jacen' but never publicly defends 'Darth Caedus'; Tess avoids both names in operational dialogue. Talon uses 'Caedus' when contemptuous, 'Jacen' when Ben is in earshot and he is trying not to wound him.\n\nINSTITUTIONAL NAMES — full name on first use, abbreviation thereafter: Galactic Alliance Guard (GAG); Shedu Maad Memorial Foundation (the Foundation); Greyline Strategic Services (Greyline). 'Cinderline' and 'the Vigil' have no abbreviation. 'Civitas' may stand alone for Civitas Archive Systems after first introduction in Ch 12.\n\nPOST-CRUCIBLE TEXTURE — Mortis is NEVER named on-page. One quiet line of texture in Ch 3 (Luke looks tired in a way Ben doesn't remember; eyes further away; longer pauses) is the entire treatment. Ben notices and does NOT ask. A reader who knows Crucible reads it as Mortis aftermath; a reader who does not reads it as a father aging into something new.\n\nINVESTIGATION VOCABULARY — keep reader-facing clue vocabulary in physical-thriller terms: fragment, duplicate manifest, quarantine disguise, archive, Foundation link, Iresh manifest/authorization. Technical GAG/archive language may appear in expert dialogue (Iressa, Talon) for flavor, but every technical phrase translates to a concrete object, danger, location, or next action within two sentences.\n\nV8.5 GROUNDING UPDATES - Cale Dorrin is a grounded official contact only: access, records, limits, friction. Allana / Amelia may appear as brief Shedu Maad ordinary-life texture under the Amelia identity, but never becomes plot-active in Book 1. The Ben/Talon friendship is behavioral and practical; the future-call offer stays plain."
+    "franchise_terminology_notes": "STAR WARS VOCABULARY DISCIPLINE — datapads not tablets, transparisteel not glass, durasteel not steel, turbolifts not elevators, comlinks not radios, blasters not guns, hyperspace not warp, parsecs as distance not time, klicks for short distances.\n\nFORCE PROSE RULE — the Force is rendered through experiential and mystical language, not clinical or scientific framing. Avoid 'energy field' as a description; Luke's generation understands the Force as a living presence, not a measurable phenomenon. Force abilities surface as body-sensations first, named only after the body has felt them.\n\nNAMING DISCIPLINE — 'Jacen' for the pre-fall identity (Ben's cousin, mentor, the boy Mara raised in part); 'Caedus' for the Sith-Lord identity (the war crimes, the murder of Mara). POVs choose by emotional load: Ben slides between both, mostly 'Jacen' when remembering training and 'Caedus' when accusing; Aevyn refuses 'Caedus'; Aelia privately thinks 'Jacen' but never publicly defends 'Darth Caedus'; Tess avoids both names in operational dialogue. Talon uses 'Caedus' when contemptuous, 'Jacen' when Ben is in earshot and he is trying not to wound him.\n\nINSTITUTIONAL NAMES — full name on first use, abbreviation thereafter: Galactic Alliance Guard (GAG); Shedu Maad Memorial Foundation (the Foundation); Greyline Strategic Services (Greyline). 'the Vigil' has no abbreviation. 'Civitas' may stand alone for Civitas Archive Systems after first introduction in Ch 12.\n\nPOST-CRUCIBLE TEXTURE — Mortis is NEVER named on-page. One quiet line of texture in Ch 3 (Luke looks tired in a way Ben doesn't remember; eyes further away; longer pauses) is the entire treatment. Ben notices and does NOT ask. A reader who knows Crucible reads it as Mortis aftermath; a reader who does not reads it as a father aging into something new.\n\nINVESTIGATION VOCABULARY — keep reader-facing clue vocabulary in physical-thriller terms: fragment, duplicate manifest, quarantine disguise, archive, Foundation link, Iresh manifest/authorization. Technical GAG/archive language may appear in expert dialogue (Iressa, Talon) for flavor, but every technical phrase translates to a concrete object, danger, location, or next action within two sentences.\n\nV8.5 GROUNDING UPDATES - Cale Dorrin is a grounded official contact only: access, records, limits, friction. Allana / Amelia may appear as brief Shedu Maad ordinary-life texture under the Amelia identity, but never becomes plot-active in Book 1. The Ben/Talon friendship is behavioral and practical; the future-call offer stays plain."
   },
   "force_mechanics": {
-    "primary_rule": "The Force behaves canonically for Legends — light and dark as natural moral-polar properties, Force wounds remain wounds. Iresh and the Glasswell PRESERVE INTENSITY: the planet (and the cavern system beneath the Glasswell's mirror-lake especially) holds charged impressions of memory, identity, and decision under pressure. Iresh does not show the future, reveal objective truth, or grant prophecy. The unfinished holocron is Jacen Solo's private systematization of RECOGNITION, DEEPENING, and HOLDING — identity-shaping techniques aimed at self-perception, recursive self-training, and the preservation of memory/identity/Force-impressions past natural decay. It is part notebook, part training device, part confession, part contingency, part laboratory. It is NOT a completed Sith weapon.",
+    "primary_rule": "The Force behaves canonically for Legends — light and dark as natural moral-polar properties, Force wounds remain wounds. Iresh and the Glasswell PRESERVE INTENSITY: the planet (and the cavern system beneath the Glasswell's mirror-lake especially) holds charged impressions of memory, identity, and decision under pressure. Iresh does not show the future, reveal objective truth, or grant prophecy. The unfinished holocron is Jacen Solo's private systematization of two identity-shaping techniques distilled from his Force odyssey — RECOGNITION (an inward turn of Aing-Tii flow-walking fused with Force empathy, reading the charged memories and decisions that define a person) and HOLDING (a fusion of battle meditation, the Fallanassi White Current, and Lumiya's will-domination that sustains a shaped impression in another mind past natural decay). It is part notebook, part training device, part confession, part contingency, part laboratory. It is NOT a completed Sith weapon.",
     "implications": [
       "Iresh's Force character is preservation, not revelation. Impressions felt strongly on Iresh are emotionally charged but not objectively reliable. Sela's practical translation: 'Do not trust what you feel here just because it feels strong.'",
       "The Glasswell is a natural site Jacen Solo recognized as useful — a sinkhole/cavern beneath a mirror-lake, lined with pale translucent mineral that holds pressure-impressions unusually well. It is NOT a Sith temple, Jedi ruin, or mystical treasure chamber. The cache itself is hidden in old offworld survey equipment or a concealed GAG-era storage unit embedded near the Glasswell — practical, deniable, Jacen-like.",
       "Forcing the Glasswell to remember the moment Jacen sealed it (as Aevyn does in Ch 30) destabilizes the natural site: water enters, mineral supports crack, survey scaffolds break. The mythic and the physical converge — the cavern's beauty turns to terror through structural failure, not mystical revelation.",
-      "Aevyn's Jacen-derived Force-interrogation method (the one that killed Elya Rane in Ch 1) is a weaponized blend of memory pressure, Recognition, and Holding — precise rather than savage. The method extracts memory by forcing the subject's body and mind past survivable limits. The precision is what makes it morally and physically worse than crude torture.",
-      "Recognition (the most coherent and potentially useful of the three techniques): tied to self-perception, trauma, memory, and identity-mapping. Used clinically, it could help someone understand who they are. Used coercively, it forces a subject's identity to surface in legible form for the practitioner.",
-      "Deepening (promising but dangerous): recursive self-training that can help marginal Force-sensitives grow but risks turning the self into an object of manipulation. This is the technique Aevyn personally benefitted from under Jacen's intermittent attention.",
-      "Holding (least complete, most dangerous): concerned with sustaining memory, identity, emotional continuity, and Force-impressions past natural decay. The Vigil's intended use case: identity-level influence on high-value targets — nudging powerful people to experience Sith-favorable choices as their own judgment.",
+      "Aevyn's Jacen-derived Force-interrogation method (the one that killed Elya Rane in Ch 1) is weaponized Recognition — Jacen's inward flow-walking turned on a victim, dragging their charged memories to the surface faster than the mind and body can survive. It is precise rather than savage; the precision is what makes it morally and physically worse than crude torture.",
+      "Recognition (the more coherent and potentially useful of the two techniques): Jacen's inward turn of Aing-Tii flow-walking fused with Force empathy — instead of walking the currents of the wider Force, it reads the currents of a single person, the charged memories and decisions that define an identity. Used clinically, it could help someone understand who they are and map their own trauma; used coercively, it forces a subject's identity to surface in legible form for the practitioner. Practiced recursively on oneself, it is also how a marginal Force-sensitive like Aevyn deepened a thin connection under Jacen's intermittent attention.",
+      "Holding (the less complete and more dangerous of the two): Jacen's fusion of battle meditation, the Fallanassi White Current, and Lumiya's will-domination, concerned with sustaining a shaped impression — memory, identity, emotional continuity, a single decision — in another mind past natural decay. The Vigil's intended use case: identity-level influence on high-value targets, nudging powerful people to experience Sith-favorable choices as their own judgment.",
       "Ben Skywalker can use Force pressure and command in the Jacen-taught way — the GAG-era crisis logic that lets him see panic, exits, timing, and the cost of hesitation in a moment — but refuses to violate another mind. At Ch 14-15 (PP1) he sees a Jacen-shaped coercive move that might save Iressa and chooses not to take it; the line holds and Iressa dies.",
       "Ben's Jacen-derived crisis logic is morally legitimate when it saves lives (Glasswell rescue, Ch 31) and morally dangerous when it persuades the user that his most defensible choice is also his most expensive one. The novel does NOT settle which is which; that is the thematic argument.",
       "Aevyn's self-built lightsaber emits a cold white-blue blade that shivers along the edge, crackles faintly under pressure, fractures into small white-blue forks when his control strains, and becomes more unstable when he is emotionally pressed. The instability is the work of a competent man who was never formally trained in lightsaber construction or form — combat instinct from GAG plus Force exercises from Jacen, no tradition to bridge them. During the Ch 31-32 duel, the blade fractures MORE visibly when Ben successfully uses Jacen-derived logic — a visual tell, NOT exposition. Aevyn registers Ben as Jacen's primary student through the blade's behavior before either of them speaks the fact.",
       "Vara Senn's dark-side Force methods are crude — pressure, fear, domination — and are explicitly framed as the Lost Tribe lineage. They are intentionally cruder than Aevyn's; Vara is the warning shot, Aevyn is the mirror. Ben recognizes Lost Tribe footwork during the Ch 14-15 archive clash, allowing a brief Vestara Khai scar-tissue beat without bringing Vestara on-page.",
       "Crucible aftermath: Luke is post-Mortis-encounter and stepped back from active galactic crisis-management work. On Mortis-adjacent metaphysical content — never named on-page — Luke is quieter than he used to be, his eyes look tired in a way Ben doesn't quite remember, his pauses are longer. This texture is implication only, lifted from the Crucible novel by Troy Denning; the drafter must NOT explain it on the page.",
-      "The One Sith on Korriban under Darth Krayt remain in patient pre-emergence. Their Book 1 footprint is one off-page 'hand' that learns Iresh failed in Ch 37 and adjusts the broader infiltration program. The unfinished holocron's value to them is the identity-shaping potential of Recognition / Deepening / Holding seeded into future high-value targets (Wynn Dorvan as eventual target, never compromised in Book 1).",
+      "The One Sith on Korriban under Darth Krayt remain in patient pre-emergence. Their Book 1 footprint is one off-page 'hand' that learns Iresh failed in Ch 37 and adjusts the broader infiltration program. The unfinished holocron's value to them is the identity-shaping potential of Recognition and Holding seeded into future high-value targets (Wynn Dorvan as eventual target, never compromised in Book 1).",
       "Holocron canon (Legends standard): crystalline storage devices imprinted with Force resonance to preserve teachings, exercises, and the personality of the keeper. Holocrons can be Jedi-aligned or Sith-aligned. Jacen's holocron is anomalous because it is UNFINISHED — a work-in-progress assembled from heterogeneous sources, opened by exercise-driven engagement rather than gatekeeper-test, capable of being used by a marginal Force-sensitive (Aevyn) with the right method."
     ],
-    "canon_grounding": "Builds on established Legends precedents: Jacen Solo's Force odyssey across the New Jedi Order / Dark Nest / Legacy of the Force novels; Vergerean thought (Yuuzhan'tar / Ossus monastery exposure); Lumiya's Sith inheritance (LotF: Bloodlines, Sacrifice); Jacen's GAG-era experiments documented across LotF; Crucible (2013) Mortis-adjacent encounter for Luke/Leia/Han's post-active state; Fate of the Jedi (Outcast through Apocalypse) for the Order's relocation to Shedu Maad and Saba Sebatyne's ascension to Grand Master; standard Legends holocron canon (Tales of the Jedi, KOTOR-era references, Dark Empire). The named Recognition / Deepening / Holding categories, Aevyn Soris as Jacen's surviving student, the unfinished holocron's Iresh-cache placement, the duplicated wartime quarantine manifest, and the Shedu Maad Memorial Foundation / Vigil / Greyline / Cinderline are original era-language and infrastructure layered onto those canon foundations — not proof of new universal ontology. Iresh's preservation-of-impressions character extrapolates from FOTJ / Crucible vergence-and-lore-site lineage but does NOT extend Mortis-adjacent mythology; Iresh is its own simpler thing."
+    "canon_grounding": "Builds on established Legends precedents: Jacen Solo's Force odyssey across the New Jedi Order / Dark Nest / Legacy of the Force novels — including the Aing-Tii flow-walking he learned and later abused, the Fallanassi White Current, and battle meditation; Vergerean thought (Yuuzhan'tar / Ossus monastery exposure); Lumiya's Sith inheritance (LotF: Bloodlines, Sacrifice); Jacen's GAG-era experiments documented across LotF; Crucible (2013) Mortis-adjacent encounter for Luke/Leia/Han's post-active state; Fate of the Jedi (Outcast through Apocalypse) for the Order's relocation to Shedu Maad and Saba Sebatyne's ascension to Grand Master; standard Legends holocron canon (Tales of the Jedi, KOTOR-era references, Dark Empire). The named Recognition and Holding categories, Aevyn Soris as Jacen's surviving student, the unfinished holocron's Iresh-cache placement, the duplicated wartime quarantine manifest, and the Shedu Maad Memorial Foundation / Vigil / Greyline are original era-language and infrastructure layered onto those canon foundations — not proof of new universal ontology. Iresh's preservation-of-impressions character extrapolates from FOTJ / Crucible vergence-and-lore-site lineage but does NOT extend Mortis-adjacent mythology; Iresh is its own simpler thing."
   },
   "ensemble_cast": [
     {
@@ -1952,23 +2037,23 @@
       "name": "Aevyn Soris",
       "role": "Primary antagonist (Force / mythic); Ben's true mirror — the other student of Jacen",
       "age": "28",
-      "force_status": "Marginal Force-sensitive (politely declined by the Jedi at fourteen). Jacen-trained in Recognition, Deepening, and Holding. No formal Jedi lightsaber tradition; combat instinct from GAG operational training.",
+      "force_status": "Marginal Force-sensitive (politely declined by the Jedi at fourteen). Jacen-trained in Recognition and Holding. No formal Jedi lightsaber tradition; combat instinct from GAG operational training.",
       "three_dimensions": {
         "surface": "Quiet, exact, private. Calm in the way someone is calm when they have spent years rehearsing the exact words of an old dismissal. Aligns tools at exact angles. Dislikes generic praise. Speaks softer when angry, not louder. Carries a self-built cold white-blue lightsaber that shivers along the edge — the work of a competent man who was never formally trained in lightsaber construction or form.",
         "backstory_inner_demons": "AEVYN'S CORRIDOR FLASHBACK (preserved verbatim from Planning Bible §17 and Character Voice & Life Sheet v1.4 — the single sharpest character detail in the project; surfaces in Aevyn's Ch 30 POV ONLY as image-fragment, NEVER as exposition, NEVER as speech): Aevyn was at a side console in a working area, running a Recognition exercise Jacen had given him. Jacen was actually present — watching, correcting in real time. It was the longest sustained attention Jacen had given him. Then fourteen-year-old Ben came down the corridor. Jacen looked up, saw the boy, straightened. He said something brief to Aevyn — 'Good. Keep going. We'll review later.' — and walked off with Ben. The 'later' never came. Days passed. When Jacen surfaced again, he picked up where they had left off, gave Aevyn another correction, and acted as though nothing had happened. Because from Jacen's perspective, nothing had happened. He had simply had a thing to do. Aevyn remembers the exact words of the brief dismissal. He remembers Jacen's posture as he turned. He remembers what he was practicing when the moment broke. Ben does not remember Aevyn at all. The wound is not 'Jacen left me' or 'the Jedi rejected me.' The wound is 'Jacen had Ben. I was what he did when Ben wasn't available.' Layered under that: the Jedi rejection at fourteen (a Mid Rim Jedi Knight on a recruiting sweep at a regional outreach office, the forgettable phrase 'we're not able to offer placement at this time'), and GAG dissolving in disgrace after the war — losing his institutional home for the second time.",
-        "action_under_pressure": "Speaks softer when angry. Treats his unstable lightsaber like an argument he keeps trying to perfect. Uses Jacen-derived memory pressure / Recognition / Holding to extract information from subjects, killing by pushing mind and body past survivable limits — precision rather than savagery. Forces the Glasswell to remember the moment Jacen sealed it; cracks the cache. In the duel, his blade fractures more visibly when Ben uses Jacen-derived crisis logic successfully — a visual tell Aevyn cannot suppress."
+        "action_under_pressure": "Speaks softer when angry. Treats his unstable lightsaber like an argument he keeps trying to perfect. Uses weaponized Recognition to extract information from subjects, killing by pushing mind and body past survivable limits — precision rather than savagery. Forces the Glasswell to remember the moment Jacen sealed it; cracks the cache. In the duel, his blade fractures more visibly when Ben uses Jacen-derived crisis logic successfully — a visual tell Aevyn cannot suppress."
       },
       "weiland_arc": {
         "lie_believed": "Jacen Solo can be separated from Darth Caedus — Jacen was his teacher, Darth Caedus was what the war did to him — and finishing Jacen's unfinished work honors the teacher without inheriting the crimes.",
         "ghost": "The corridor moment (see backstory): Jacen leaving a Recognition session with him to walk off with fourteen-year-old Ben, the 'later' that never came. Compounded by the Jedi rejection at fourteen and GAG's post-war disgrace. He was useful, not chosen.",
-        "want": "Recover Jacen's unfinished holocron and finish the lesson — Recognition, Deepening, Holding made operational.",
+        "want": "Recover Jacen's unfinished holocron and finish the lesson — Recognition and Holding made operational.",
         "need": "Admit he was useful, not chosen — that Jacen's attention was always partial and the work was always side-project.",
         "arc_type": "corruption",
         "arc_summary": "Corruption arc. Aevyn opens the book having already made the foundational choice (Jacen is salvageable; the work must be finished; he is the one to finish it). The book is the consequence of that choice. Ben's restraint, Iressa's preservation, the Glasswell's structural failure, and Ben's use-without-surrender of Jacen's lessons together glimpse the Truth — that Jacen WAS Caedus, that Aevyn was useful and not chosen, that the lesson finishes him rather than the other way around. He rejects the glimpse and pushes through. Defeated at the Glasswell, presumed dead; the white-blue spark in Ch 38 confirms survival without resolution. Book 2 seed.",
         "initial_phase": "lie_established",
         "arc_phase_map": {
           "lie_established": "Ch 1 (Wrong Field) — Force-interrogates and kills Commander Elya Rane using Jacen-derived method. The precision feels like vindication of Jacen's training. Aevyn is already past the foundational corruption choice; the book finds him there.",
-          "lie_reinforced": "Ch 14-15 (PP1 archive cleanup) — the Vigil's operation depends on him as Jacen's surviving student; Vara and Cinderline are crude muscle while he is the necessary mythic component. Confirms his centrality — confirms he is Jacen's.",
+          "lie_reinforced": "Ch 14-15 (PP1 archive cleanup) — the Vigil's operation depends on him as Jacen's surviving student; Vara and Greyline are crude muscle while he is the necessary mythic component. Confirms his centrality — confirms he is Jacen's.",
           "lie_deepened": "Ch 27 (The Other Student) — first direct/semi-direct encounter with Ben on Iresh. Aevyn unsettles Ben by knowing private Jacen-shaped details. Sees in Ben the primary student he was never; uses the encounter to confirm that his version of Jacen is the correct one.",
           "point_of_no_return": "Ch 30 (Opening) — forces the cache open by making the Glasswell remember the moment Jacen sealed it. The corridor flashback surfaces as fragment when the Glasswell begins to answer. He chooses to continue.",
           "lie_acted_upon": "Ch 32 (What He Left — climax duel) — turns on Ben; the cold white-blue blade fractures more visibly each time Ben uses Jacen-derived logic. Aevyn glimpses the Truth — Ben uses the lessons WITHOUT surrendering ownership, which means Aevyn's whole premise is wrong — and rejects the glimpse. He pushes through the duel as though winning would settle which of them Jacen actually meant.",
@@ -1992,7 +2077,7 @@
         "ghost": "A career of running black-channel logistics for a regime that lost. Saw too many commanders confuse morality with hesitation, then watched hesitation get people killed. Tess never made that mistake; the people who did paid the cost. He survived by being precise.",
         "want": "Contain exposure, preserve useful assets, continue the Vigil's operation, advance the broader One Sith program.",
         "need": "Recognize that the precision is itself the cost — that every clean board he leaves behind is another instance of the harm he refuses to feel. (Unmet; arc is static.)",
-        "arc_type": "negative",
+        "arc_type": "flat",
         "arc_summary": "Static villain. Tess does not change in Book 1. He is the calm endpoint of crisis logic with no moral counterweight, and the book's argument is that systems shaped by his kind of clarity continue running long after the visible apparatus collapses. Korda dies; Aelia steps down; the Iresh operation fails. Tess retreats, categorizes the loss, and continues. The lie is unchanged because the world has not yet refused to reward it.",
         "initial_phase": "lie_established",
         "arc_phase_map": {
@@ -2214,7 +2299,7 @@
     {
       "name": "Vara Senn",
       "role": "Former Lost Tribe of Sith apprentice now doing mercenary work. Dangerous but undisciplined; uses pressure, fear, and domination — crude dark-side contrast to Aevyn's refined Jacen-derived method. Engages Ben in a short ugly lightsaber clash at the Ch 14-15 archive cleanup, then takes Iressa hostage when combat doesn't quickly work. Disappears into the contractor pool after PP1; does NOT return on-page in Book 1. Book 2 seed.",
-      "initial_location": "Coruscant — attached to the Cinderline archive cleanup team at the old GAG quarantine archive (Ch 14)",
+      "initial_location": "Coruscant — attached to the Greyline archive cleanup team at the old GAG quarantine archive (Ch 14)",
       "initial_emotional_state": "Sharp, status-conscious, irritated by the indignity of selling Force talent to clients who pay late"
     },
     {
@@ -2243,7 +2328,7 @@
     },
     {
       "name": "Lysa",
-      "role": "Cinderline systems operative involved in Tarn Velos prison manipulation."
+      "role": "Greyline systems operative involved in Tarn Velos prison manipulation."
     },
     {
       "name": "Tavi",
@@ -2263,9 +2348,9 @@
   "conflict": {
     "primary_antagonistic_force": {
       "type": "civic conspiracy with mythic Force shadow",
-      "identity": "The Vigil — the hidden inner ring of the Shedu Maad Memorial Foundation. Publicly fronted by Aelia Vandros (Executive Director, late fifties, former Senate staffer and war-widow). Operationally architected by Colonel Maro Tess (former senior GAG operations officer, current Greyline Strategic Services strategist, knowing One Sith asset). Mythic recovery agent: Aevyn Soris (28, Jacen Solo's surviving Force student, the side project who lived in the gaps while Ben was Jacen's primary fourteen-year-old apprentice). Mercenary contractors: Cinderline (operational arm) and Vara Senn (former Lost Tribe apprentice, archive specialist). Distant: an unnamed One Sith hand.",
-      "motivation": "The Vigil believes the galaxy keeps nearly dying because leaders hesitate, panic, compromise, or wait too long. Jacen failed — but he SAW something real. His unfinished work on Recognition, Deepening, and Holding is, to them, the missing toolkit for clarity, resilience, steadiness, and preparation in the next crisis. They do not call it brainwashing; they call it correction and continuity. Aelia wants the dead to have meant something. Tess wants control because hesitation kills. Aevyn wants to finish the lesson Jacen started with him — and prove he was chosen, not merely useful. The unnamed One Sith hand wants identity-level influence techniques to seed into a broader infiltration program of which Dorvan is a future target, not yet a victim.",
-      "escalation": "Hook (Ch 1): Aevyn Force-interrogates and kills Commander Elya Rane to extract the trail to Jacen's unfinished holocron — precise method, not savage, which makes it worse. PP1 prelude: Cinderline runs a procedural-cover snatch at Tarn Velos prison to remove Talon Veyr before Ben can learn enough; Ben breaks cover and rescues him, creating a public legal crisis. PP1 (Ch 14-15): Cinderline + Vara Senn hit the GAG archive as a cleanup team, Vara takes Iressa hostage when combat fails, Iressa dies after Ben refuses a Jacen-shaped coercive move. PP2 (Ch 20): the three-part Squeeze — Tess kills Korda as public fall-guy, Iressa's secondary cache is professionally raided and burned (the documentary case for Saba is unrecoverable), and Talon is framed for a current Coruscant crime with Tess's tradecraft fingerprint while the Iresh staging accelerates past Ben's planning horizon. Climax (Ch 31-32): Aevyn cracks the cache at the Glasswell; the natural site destabilizes; Tavi and locals are trapped; the duel becomes inevitable. Each escalation compounds across institutional, logistical, and Force dimensions simultaneously."
+      "identity": "The Vigil — the hidden inner ring of the Shedu Maad Memorial Foundation. Publicly fronted by Aelia Vandros (Executive Director, late fifties, former Senate staffer and war-widow). Operationally architected by Colonel Maro Tess (former senior GAG operations officer, current Greyline Strategic Services strategist, knowing One Sith asset). Mythic recovery agent: Aevyn Soris (28, Jacen Solo's surviving Force student, the side project who lived in the gaps while Ben was Jacen's primary fourteen-year-old apprentice). Mercenary contractors: Greyline (operational arm) and Vara Senn (former Lost Tribe apprentice, archive specialist). Distant: an unnamed One Sith hand.",
+      "motivation": "The Vigil believes the galaxy keeps nearly dying because leaders hesitate, panic, compromise, or wait too long. Jacen failed — but he SAW something real. His unfinished work on Recognition and Holding is, to them, the missing toolkit for clarity, resilience, steadiness, and preparation in the next crisis. They do not call it brainwashing; they call it correction and continuity. Aelia wants the dead to have meant something. Tess wants control because hesitation kills. Aevyn wants to finish the lesson Jacen started with him — and prove he was chosen, not merely useful. The unnamed One Sith hand wants identity-level influence techniques to seed into a broader infiltration program of which Dorvan is a future target, not yet a victim.",
+      "escalation": "Hook (Ch 1): Aevyn Force-interrogates and kills Commander Elya Rane to extract the trail to Jacen's unfinished holocron — precise method, not savage, which makes it worse. PP1 prelude: Greyline runs a procedural-cover snatch at Tarn Velos prison to remove Talon Veyr before Ben can learn enough; Ben breaks cover and rescues him, creating a public legal crisis. PP1 (Ch 14-15): Greyline + Vara Senn hit the GAG archive as a cleanup team, Vara takes Iressa hostage when combat fails, Iressa dies after Ben refuses a Jacen-shaped coercive move. PP2 (Ch 20): the three-part Squeeze — Tess kills Korda as public fall-guy, Iressa's secondary cache is professionally raided and burned (the documentary case for Saba is unrecoverable), and Talon is framed for a current Coruscant crime with Tess's tradecraft fingerprint while the Iresh staging accelerates past Ben's planning horizon. Climax (Ch 31-32): Aevyn cracks the cache at the Glasswell; the natural site destabilizes; Tavi and locals are trapped; the duel becomes inevitable. Each escalation compounds across institutional, logistical, and Force dimensions simultaneously."
     },
     "secondary_pressures": [
       "Institutional slowness: the Jedi Order's correct review process under Saba Sebatyne is too slow for the antagonist's operational tempo. Going to Saba properly takes weeks Ben does not have, and PP2 destroys the documentary case before Ben could even leave Coruscant.",
@@ -2311,7 +2396,7 @@
       "GAG",
       "Vigil",
       "Foundation",
-      "Cinderline",
+      "Greyline",
       "Greyline",
       "Skywalker",
       "Solo",
@@ -2354,7 +2439,6 @@
       "skiff",
       "blaster",
       "Recognition",
-      "Deepening",
       "Holding"
     ]
   },

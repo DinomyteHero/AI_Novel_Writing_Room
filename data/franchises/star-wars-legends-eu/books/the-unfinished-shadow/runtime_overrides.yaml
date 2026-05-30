@@ -22,6 +22,10 @@ runtime:
   # what the LLM returns. Same safety model as micro_repair.
   rhythm_editor:
     enabled: true
+    # Codes must match RhythmValidator's emitted RhythmIssue.code values
+    # (src/quality/rhythm_validator.py), which are unprefixed `rhythm.*`.
+    # The orchestrator matches these literally (orchestrator.py), so a
+    # `prose.rhythm.*` prefix here silently disables the editor.
     trigger_codes:
       - rhythm.em_dash_overuse
       - rhythm.staccato_cluster
