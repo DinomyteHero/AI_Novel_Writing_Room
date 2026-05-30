@@ -1,0 +1,39 @@
+{
+  "chapter_number": 19,
+  "chapter_mission": "Ben and Talon follow Korda’s response through a Coruscant logistics annex / civic archive loading dock / restricted transit bay. The trail leads to a restricted Foundation/Greyline transfer node. They nearly corner Korda. Korda triggers a prepared escape — a lockdown, a false emergency, a diversion — but Ben and Talon still capture a physical proof object: a restricted field authorization, cargo manifest, courier cylinder, datapad, or Foundation/Greyline transfer record pointing to an offworld Foundation mission. Reader-onboarding / clarity note: Korda is not guarding a dead file. He is guarding an active operation. Plain-language consequence: the Vigil is not just hiding history; they are running a current operation against Jacen’s cache.",
+  "chapter_turn": "Destination: Iresh. The operation is already moving.",
+  "structural_phase": "attack",
+  "pov_allocation": [
+    "Ben",
+    "Talon"
+  ],
+  "scene_count": 1,
+  "scene_plan": [
+    {
+      "scene_number": 1,
+      "role": "escalation",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 2800,
+      "purpose": "Ben and Talon follow Korda’s response through a Coruscant logistics annex / civic archive loading dock / restricted transit bay. The trail leads to a restricted Foundation/Greyline transfer node."
+    }
+  ],
+  "reveal_payload": [],
+  "hook_movements": {
+    "planted": [
+      "HK_05"
+    ],
+    "advanced": [],
+    "resolved": [
+      "HK_04"
+    ]
+  },
+  "subplot_obligations": [
+    "SUB_04",
+    "SUB_05"
+  ],
+  "relationship_turns": [],
+  "pacing_curve": "rising",
+  "exit_vector": "Destination: Iresh. The operation is already moving.",
+  "chapter_word_target": 2800,
+  "notes": "Source: Chapter Outlines v4.1. Act: Act Two — Coruscant Investigation / Foundation / The Vigil. Chapter title: Korda Runs.\n\nContinuity note: This is the consolidated chase-and-near-capture chapter (formerly Chapters 25 and 26).\n\nCharacter voice focus: preserve the exact v1.4 character behavior and dialogue rules for the chapter POV and named participants. Plot first, character second, theme through consequences."
+}

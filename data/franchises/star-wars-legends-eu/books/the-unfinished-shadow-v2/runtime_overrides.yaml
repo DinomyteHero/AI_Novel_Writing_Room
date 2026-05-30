@@ -1,0 +1,51 @@
+# Runtime overrides for "The Unfinished Shadow".
+#
+# This book is the test bed for the upgraded pipeline rhythm + register
+# tooling. The shipping books (Ruusan, Betrayal) keep these flags off per
+# the shipping-book guards in tests/test_runtime_flags.py — this book opts
+# in explicitly so the regenerated chapters exercise the new ProseStylist
+# prompt, RhythmValidator telemetry, and RhythmEditor literal-edit pass.
+
+runtime:
+  # Lean prose path stays default (PlotArchitect -> ProseStylist -> LineWriter -> save).
+  # The lean line-edit pass benefits directly from the new prompt without any
+  # additional toggles.
+
+  # Rhythm validator: deterministic measurement of em-dash density, staccato
+  # clusters, opener variance, dialogue density, and abstract-construction
+  # tics on each scene. Emits revision_debt rows for human review.
+  rhythm_validator:
+    enabled: true
+
+  # Rhythm editor: bounded literal-edit pass that fixes detected rhythm
+  # issues. Safety caps in apply_rhythm_edits are enforced regardless of
+  # what the LLM returns. Same safety model as micro_repair.
+  rhythm_editor:
+    enabled: true
+    trigger_codes:
+      - prose.rhythm.em_dash_overuse
+      - prose.rhythm.staccato_cluster
+      - prose.rhythm.opener_monotone
+      - prose.rhythm.abstract_tic
+    max_trigger_codes: 5
+    max_edits: 8
+    max_total_changed_chars: 1500
+    max_changed_ratio: 0.15
+
+  # Revision debt store: structured advisories from the rhythm validator and
+  # other producers land in output/<franchise>/<book>/state/revision_debt.db
+  # for human review.
+  revision_debt:
+    enabled: true
+
+  # Chapter packet is shipping default (true) but pin explicitly so this book
+  # always uses the post-D4a inspectable runtime contract.
+  chapter_packet:
+    enabled: true
+    fallback_on_error: true
+
+  # Cross-chapter continuity validator runs at bundle-compile time. Skip on
+  # this book until end_state / start_state fields have been backfilled onto
+  # the existing 38 scene cards. Validator would otherwise be a no-op.
+  continuity_validator:
+    enabled: false

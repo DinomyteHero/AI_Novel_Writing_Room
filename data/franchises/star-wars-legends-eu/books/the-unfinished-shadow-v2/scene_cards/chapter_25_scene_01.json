@@ -1,0 +1,98 @@
+{
+  "chapter_number": 25,
+  "scene_number": 1,
+  "structural_phase": "attack",
+  "scene_role": "escalation",
+  "pov_character": "Sela or Ben",
+  "mission": "Sela guides them through Iresh and demonstrates local rules around memory-heavy places. Iresh does not cause madness; the danger is forcing memory/identity pressure into resonance.",
+  "why_now": "Sela has agreed to guide them, but agreement is not knowledge — they need to understand Iresh's specific dangers before they walk into the exclusion zone, and Sela will only explain the rules once.",
+  "conflict": "Ben is Force-sensitive and can feel the pressure-impressions that Iresh amplifies, which makes him both more useful and more dangerous on the path to the Glasswell — Sela knows this and is trying to calibrate how much to trust his instincts versus override them with local rules.",
+  "conflict_type": "environmental",
+  "dialogue_expectation": "balanced",
+  "turning_point": "They find signs of the Foundation operation near taboo ground.",
+  "closing_hook": "They find signs of the Foundation operation near taboo ground.",
+  "characters_present": [
+    "Ben Skywalker",
+    "Sela Dray"
+  ],
+  "setting": "Iresh, the approach paths from the settlement to the Glasswell exclusion zone. Wind across the high plateau; black reeds bending in clusters; stacked stone path-markers; metal chimes set every fifty meters; thin aurora-like veils high in the gray sky.",
+  "emotional_trajectory": "Keep the metaphysics simple: Iresh preserves charged impressions; it does not reveal objective truth or prophecy. Reader-onboarding / clarity note: Include one plain explanation: Iresh did not show the future. It held moments too strongly, like footprints pressed into wet clay. Sela warns them not to trust what they feel just because it feels strong.",
+  "stakes": {
+    "personal": "Ben's Force sense is firing constantly on Iresh — old impressions of decision and identity pressing at the edge of his awareness — and some of what surfaces feels like Jacen. He cannot tell yet whether that is the planet or himself.",
+    "interpersonal": "Sela's authority on this path is practical and non-negotiable, but Ben is used to being the one who reads the room. Every time he defers to her rules, he is practicing something he does not yet fully know how to do.",
+    "external": "The Foundation's survey team cut guide-markers and removed chime-sensors from the outer approaches, which means the path toward the Glasswell is now partially unmapped and Sela's route has gaps she has not walked since the damage was done."
+  },
+  "sensory_details": "The high plateau opens under a heavy gray sky with aurora-like veils thin against the cloud layer. Stacked stone path-markers every thirty meters, some toppled or missing — the Foundation team pulled three for equipment clearance. Wind across black reed clusters makes a sound like sustained exhaling. Ben's boots disturb white mineral dust that takes a long time to settle.",
+  "turning_point_detail": {
+    "trigger": "Sela halts the group at a section of path where a chime-line has been cut and the reed bed beyond is flat and motionless in still air — the combination that her local rules say means leave. She says it plainly: 'Not today. Different way.' Ben presses; she says the Foundation team used this route and now she does not.",
+    "shift": "They find Foundation equipment stakes driven into taboo stone near the Glasswell perimeter's outer edge — recent anchor holes, supply crate scuffs, a cut guide-rope still hanging from a drilled bolt. The enemy was here, worked here, ignored the rules here.",
+    "cost": "The detour Sela picks to avoid the dangerous stretch adds time they do not have, and the Foundation's presence at the perimeter confirms the Glasswell operation is already fully staged."
+  },
+  "emotional_arc": {
+    "start": "Ben is in listening mode — he has agreed to Sela's rules and is trying to follow them honestly — but he is also scanning Force-pressure from every direction and the impressions are unsettling.",
+    "shift": "When Sela halts at the cut chime-line and calmly names what it means, Ben stops thinking of her rules as customs to respect and starts understanding them as the only map that works here.",
+    "end": "The Foundation equipment stakes at the taboo edge change the scene's register from expedition to reconnaissance. Ben no longer needs Sela to translate the danger — he can see it in the anchor holes."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Sela walks and explains the local rules — three concrete prohibitions with survival reasons for each, no metaphysics attached.",
+      "state_change": "Ben gains usable operational knowledge of Iresh's specific dangers in plain language he can act on.",
+      "pov_reaction": "the effort of listening for rules rather than patterns; Force impressions pressing in at the edge of attention while he tracks Sela's words"
+    },
+    {
+      "beat_description": "Ben's Force sense catches an old charged impression from the path — one that feels Jacen-shaped — and he does not say it aloud.",
+      "state_change": "The Iresh environment registers as personally threatening to Ben in a way that has nothing to do with the Foundation.",
+      "pov_reaction": "the reflex to catalog and suppress; the specific discomfort of a private recognition in a public moment"
+    },
+    {
+      "beat_description": "Sela halts at a cut chime-line and a flat, motionless reed bed, names the rule plainly, and reroutes without debate.",
+      "state_change": "Ben defers to her authority without argument — the rules are functional, not negotiable.",
+      "pov_reaction": "the decision not to press; something closer to trust than compliance settling in"
+    },
+    {
+      "beat_description": "The detour brings them to the Glasswell perimeter's outer edge, where Foundation anchor stakes have been drilled into taboo stone.",
+      "state_change": "The enemy's advance is confirmed as physical and recent — anchor holes, supply crate scuffs, a cut guide-rope still hanging.",
+      "pov_reaction": "the shift from expedition to reconnaissance; urgency that tightens without showing"
+    },
+    {
+      "beat_description": "Ben and Sela read the anchor stakes the same way: the Foundation team was already this far in and is not done.",
+      "state_change": "Both of them now share the same threat assessment without needing to negotiate it.",
+      "pov_reaction": "the flat weight of confirmation — no surprise, just the timeline moving faster than he wanted"
+    }
+  ],
+  "canon_elements_needed": [
+    "Iresh physical geography and local survival rules"
+  ],
+  "target_word_count": 2500,
+  "active_subplots": [
+    "SUB_03"
+  ],
+  "plot_threads_advanced": [
+    "chapter_25_locked_outline_action"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "promises_progressed": [
+    "PP_02",
+    "PP_04",
+    "PP_05",
+    "PP_06",
+    "PP_07",
+    "PP_10",
+    "PP_12"
+  ],
+  "hook_actions": [],
+  "revelations": [],
+  "pov_arc_phase": "Ben Skywalker:moment_of_truth",
+  "notes": "Source: Chapter Outlines v4.1. Act: Act Three — Iresh / Glasswell / Aevyn. Chapter title: Some Places Remember Too Loudly.\n\nCharacter voice focus: preserve the exact v1.4 character behavior and dialogue rules for the chapter POV and named participants. Plot first, character second, theme through consequences.",
+  "scene_voice_permissions": {
+    "notes": "Use Character Voice & Life Sheet v1.4 as controlling source for dialogue, behavior, humor, fear, wounds, and interaction rules. Preserve commercial readability: goal, obstacle, movement, reversal, hook.",
+    "anti_patterns": [
+      "do not write theme as thesis",
+      "do not add new plot mythology",
+      "do not let Iresh become abstract before it is physically clear",
+      "do not make Dorrin a third lead or secret mentor"
+    ],
+    "pov_arc_phase": "Ben Skywalker:moment_of_truth"
+  }
+}

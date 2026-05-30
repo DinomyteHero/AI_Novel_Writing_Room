@@ -1,0 +1,36 @@
+{
+  "chapter_number": 16,
+  "chapter_mission": "Aftermath of Iressa’s death. Talon presses Ben about the option he refused. Ben cannot cleanly answer whether it would have worked. While they process the loss, they examine Iressa’s dying transmission and find what she actually sent: a documentary reconstruction tying the Foundation, Korda, and the Iresh thread together — and the strategic revelation about the holocron’s identity-shaping purpose. Ben does the correct thing first. He holo-calls Luke at Shedu Maad. Luke listens, asks his quiet careful questions, and tells Ben that this needs to go to Saba. Ben then holo-calls Saba Sebatyne, Grand Master. Saba listens with Barabel gravity, asks her own sharp questions, and tells Ben the Order will review the case properly. He should return to Shedu Maad in person and bring the documentary chain to the Council. The review will be careful. It will take time. Ben hangs up the call and looks at Talon. They both know what Saba’s “review” means in the timeframe they have. The Vigil is already moving on Iresh. The institutional path, even with Luke and Saba’s full support, is going to be too slow. This is the moment Ben pivots. He decides to keep building the documentary case from Iressa’s tools and notes while preparing to act outside official channels. He is no longer waiting for the Order to validate his findings. He is going to Iresh — if he can get there in time and the evidence holds, the Council can ratify what he did afterward. If he is wrong, he answers for it. Either way, waiting is no longer an option. The Midpoint reversal: Ben stops reacting and starts moving. He goes on offense.",
+  "chapter_turn": "Ben and Talon relocate operations to Iressa’s secondary cache and begin assembling what they need to move on Iresh themselves. The story has shifted from investigation to active disruption.",
+  "structural_phase": "midpoint",
+  "pov_allocation": [
+    "Ben",
+    "Talon"
+  ],
+  "scene_count": 1,
+  "scene_plan": [
+    {
+      "scene_number": 1,
+      "role": "reveal",
+      "dialogue_expectation": "dialogue_led",
+      "target_word_count": 4500,
+      "purpose": "Aftermath of Iressa’s death. Talon presses Ben about the option he refused."
+    }
+  ],
+  "reveal_payload": [],
+  "hook_movements": {
+    "planted": [],
+    "advanced": [],
+    "resolved": [
+      "HK_01"
+    ]
+  },
+  "subplot_obligations": [
+    "SUB_02"
+  ],
+  "relationship_turns": [],
+  "pacing_curve": "rising",
+  "exit_vector": "Ben and Talon relocate operations to Iressa’s secondary cache and begin assembling what they need to move on Iresh themselves. The story has shifted from investigation to active disruption.",
+  "chapter_word_target": 4500,
+  "notes": "Source: Chapter Outlines v4.1. Act: Act Two — Coruscant Investigation / Foundation / The Vigil. Chapter title: No Good Version (Midpoint).\n\nCharacter voice focus: preserve the exact v1.4 character behavior and dialogue rules for the chapter POV and named participants. Plot first, character second, theme through consequences."
+}

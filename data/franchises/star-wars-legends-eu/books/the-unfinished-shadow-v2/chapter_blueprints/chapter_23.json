@@ -1,0 +1,38 @@
+{
+  "chapter_number": 23,
+  "chapter_mission": "Ben and Talon confirm the offworld destination and finalize the off-grid transit plan. Luke can only offer limited quiet support without making the case official. They prepare to leave.",
+  "chapter_turn": "Act turn. Ben and Talon leave for Iresh, knowing the Vigil/Foundation is already moving to recover something Jacen left there.",
+  "structural_phase": "attack",
+  "pov_allocation": [
+    "Ben"
+  ],
+  "scene_count": 2,
+  "scene_plan": [
+    {
+      "scene_number": 1,
+      "role": "escalation",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 1800,
+      "purpose": "Ben and Talon confirm the offworld destination and finalize the off-grid transit plan. Luke can only offer limited quiet support without making the case official."
+    },
+    {
+      "scene_number": 2,
+      "role": "decision",
+      "dialogue_expectation": "dialogue_led",
+      "target_word_count": 2800,
+      "purpose": "The Coruscant→Iresh crossing: three days off-grid in hyperspace. The forced partnership becomes real (Talon names the Fall of Coruscant evacuations he survived as a boy); Ben reckons with Iresh as a stop on Jacen's Force odyssey (the Aing-Tii of the Kathol Rift, the Fallanassi, Vergere) and privately decides he will use what Jacen left in him to save lives. Homes the Jacen's-odyssey and Talon's-war texture threads."
+    }
+  ],
+  "reveal_payload": [],
+  "hook_movements": {
+    "planted": [],
+    "advanced": [],
+    "resolved": []
+  },
+  "subplot_obligations": [],
+  "relationship_turns": [],
+  "pacing_curve": "steady",
+  "exit_vector": "Act turn. Ben and Talon leave for Iresh, knowing the Vigil/Foundation is already moving to recover something Jacen left there.",
+  "chapter_word_target": 4600,
+  "notes": "Source: Chapter Outlines v4.1. Act: Act Two — Coruscant Investigation / Foundation / The Vigil. Chapter title: Iresh.\n\nCharacter voice focus: preserve the exact v1.4 character behavior and dialogue rules for the chapter POV and named participants. Plot first, character second, theme through consequences."
+}

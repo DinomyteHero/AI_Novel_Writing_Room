@@ -1,0 +1,37 @@
+{
+  "chapter_number": 9,
+  "chapter_mission": "Ben and Talon cross storm-exposed gantries and sea-wall system while pursued. Ben protects people; Talon gets them to a skiff or shuttle. They escape Tarn Velos. The First Plot Point lands here: Ben has crossed a threshold he cannot uncross. He has broken cover, freed a convicted prisoner, generated a public crisis, and committed himself to the case in a way that makes returning to the way things were impossible. The forced partnership with Talon is the new condition of his life.",
+  "chapter_turn": "They escape Tarn Velos, but the legal mess is now unavoidable.",
+  "structural_phase": "first_plot_point",
+  "pov_allocation": [
+    "Ben",
+    "Talon"
+  ],
+  "scene_count": 1,
+  "scene_plan": [
+    {
+      "scene_number": 1,
+      "role": "decision",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 3800,
+      "purpose": "Ben and Talon cross storm-exposed gantries and sea-wall system while pursued. Ben protects people; Talon gets them to a skiff or shuttle."
+    }
+  ],
+  "reveal_payload": [],
+  "hook_movements": {
+    "planted": [],
+    "advanced": [],
+    "resolved": [
+      "HK_03"
+    ]
+  },
+  "subplot_obligations": [
+    "SUB_01",
+    "SUB_05"
+  ],
+  "relationship_turns": [],
+  "pacing_curve": "rising",
+  "exit_vector": "They escape Tarn Velos, but the legal mess is now unavoidable.",
+  "chapter_word_target": 3800,
+  "notes": "Source: Chapter Outlines v4.1. Act: Act One — The Body / The Prison / The Partnership. Chapter title: Storm Line (First Plot Point).\n\nCharacter voice focus: preserve the exact v1.4 character behavior and dialogue rules for the chapter POV and named participants. Plot first, character second, theme through consequences."
+}

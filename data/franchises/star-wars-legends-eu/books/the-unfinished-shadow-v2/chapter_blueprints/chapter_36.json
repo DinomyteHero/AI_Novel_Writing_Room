@@ -1,0 +1,34 @@
+{
+  "chapter_number": 36,
+  "chapter_mission": "Ben has returned to Shedu Maad after Iresh. This is the first in-person conversation between Ben and Luke since the holo calls. Luke asks about the holocron. Ben says it is gone, then clarifies only that it is somewhere it cannot hurt anyone. Luke senses the incompleteness and does not force the answer. Ben privately justifies learning what he needs before disposing of it. He is not lying. He is not telling the truth either. Thread Ben’s self-definition here: he is beginning to understand that being a good Jedi does not mean becoming a mirror image of Luke, and surviving Jacen does not mean pretending Jacen taught him nothing. He keeps his voice steady, but his hand tightens around the edge of the table as he answers. Recommended exchange: Luke: The holocron? Ben: Gone. Luke: Gone where? Ben: Somewhere it can’t hurt anyone. Luke: That wasn’t what I asked. Ben: I know.",
+  "chapter_turn": "Luke senses the incompleteness but does not force the answer.",
+  "structural_phase": "resolution",
+  "pov_allocation": [
+    "Ben",
+    "Luke"
+  ],
+  "scene_count": 1,
+  "scene_plan": [
+    {
+      "scene_number": 1,
+      "role": "aftermath",
+      "dialogue_expectation": "dialogue_led",
+      "target_word_count": 2500,
+      "purpose": "Ben has returned to Shedu Maad after Iresh. This is the first in-person conversation between Ben and Luke since the holo calls."
+    }
+  ],
+  "reveal_payload": [],
+  "hook_movements": {
+    "planted": [
+      "HK_08"
+    ],
+    "advanced": [],
+    "resolved": []
+  },
+  "subplot_obligations": [],
+  "relationship_turns": [],
+  "pacing_curve": "falling",
+  "exit_vector": "Luke senses the incompleteness but does not force the answer.",
+  "chapter_word_target": 2500,
+  "notes": "Source: Chapter Outlines v4.1. Act: Coda — Dangerous Aftermath. Chapter title: It’s Gone.\n\nCharacter voice focus: preserve the exact v1.4 character behavior and dialogue rules for the chapter POV and named participants. Plot first, character second, theme through consequences."
+}
