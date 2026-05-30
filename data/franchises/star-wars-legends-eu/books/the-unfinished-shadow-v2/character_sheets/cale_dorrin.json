@@ -1,0 +1,21 @@
+{
+  "id": "cale_dorrin",
+  "name": "Cale Dorrin",
+  "role": "Inspector; GA Justice / Coruscant Security investigator assigned to sensitive old-GAG and political-crime cases. Grounded official contact only: scene access, records checks, procedural pushback, and legal friction.",
+  "age": "",
+  "force_status": "",
+  "three_dimensions": {
+    "surface": "Dorrin is a GA Justice / Coruscant Security investigator assigned to sensitive old-GAG and political-crime cases. He is the grounded official face of the first investigation: scene access, records checks, procedural friction, and legal consequence.",
+    "backstory_inner_demons": "That good people will skip process because they are right, and bad people will use the damage afterward.",
+    "action_under_pressure": "Dorrin lets Ben into Elya’s sealed scene under limits; checks Elya’s old GAG assignment/supervision records; discovers that Talon Veyr worked under Elya after Tess reassigned him out of field duty; and connects Talon’s later transfer-chain conviction to manifest/authorization patterns similar to Ben’s fragment. He cannot decode the fragment or solve the conspiracy. He identifies relevance and opens lawful doors. Do not make Dorrin too important. He is not the third lead, not corrupt, not secretly Vigil, and not another doomed mentor. His value is practical access and grounded pushback."
+  },
+  "voice_notes": "Plain, procedural, dry. No grand speeches. No secret-mentor warmth. He speaks in case terms and lets discomfort show as irritation.\n\n“You can sense whatever you like. I need something I can put in front of a magistrate.” “I checked Rane’s old assignment logs. Veyr’s name came up. That does not make him innocent. It makes him relevant.” “You asked me for lawful access. I gave it to you. Twelve hours later the prison is burning and my witness is gone.” “I can open a door for you, Master Skywalker. I cannot keep it open after you blow the wall out.”\n\nDry, tired, practical. He is funny because he is not impressed by mythic urgency.\n\nProfessional, skeptical, controlled. Will help when evidence gives him a reason. Will push back when Ben acts like a Jedi instinct can replace a record.\n\nDo not make Dorrin too important. He is not the third lead, not corrupt, not secretly Vigil, and not another doomed mentor. His value is practical access and grounded pushback.",
+  "arc_type": "steadfast",
+  "thematic_role": "Inspector; GA Justice / Coruscant Security investigator assigned to sensitive old-GAG and political-crime cases. Grounded official contact only: scene access, records checks, procedural pushback, and legal friction.",
+  "avoid_list": [
+    "Do not write theme as thesis.",
+    "Do not make dialogue interchangeable with other cast members.",
+    "Do not make Dorrin a third lead.",
+    "Do not make Dorrin a secret mentor, corrupt reveal, hidden GAG survivor, or doomed ally."
+  ]
+}

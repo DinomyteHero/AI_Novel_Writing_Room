@@ -1,0 +1,103 @@
+{
+  "chapter_number": 30,
+  "scene_number": 1,
+  "structural_phase": "attack",
+  "scene_role": "escalation",
+  "pov_character": "Aevyn or Ben",
+  "mission": "Aevyn uses Jacen-derived techniques to force the cache open. The Glasswell initially seems beautiful and responsive, then destabilizes. Tavi is trapped or revealed below as water begins entering and the scaffold/mineral supports fail.",
+  "why_now": "Aevyn has the cache partially open and cannot stop now without losing the work — and the Glasswell is answering the Recognition pressure in ways that are structurally catastrophic. The moment is moving faster than any plan.",
+  "conflict": "Aevyn does not want to destroy the Glasswell — it is the site Jacen chose, the resonance he intended to use, and flooding it is a kind of second death for Jacen's work. But the technique requires more force than the structure can sustain, and Aevyn cannot stop at the threshold.",
+  "conflict_type": "environmental",
+  "dialogue_expectation": "interior",
+  "turning_point": "The cavern cracks and water begins entering.",
+  "closing_hook": "The cavern cracks and water begins entering.",
+  "characters_present": [
+    "Ben Skywalker",
+    "Aevyn Soris",
+    "Tavi"
+  ],
+  "setting": "Iresh, the Glasswell main chamber — the mirror-lake reflection above, the cavern dark below, pale mineral walls catching the blue glow of Aevyn's unstable blade and the ambient luminescence of the Glasswell itself. Survey platforms and scaffolding ring the formation. The seal cracks open as the chapter progresses; mineral support begins to fail and water begins to seep through the stone. The technique Aevyn is applying is flow-walking turned on a place rather than a person — making the Glasswell remember the specific moment Jacen sealed the cache. The Aing-Tii used it to walk through time; Aevyn is using it to force an impression back into mineral.",
+  "emotional_trajectory": "Physical clarity matters more than mystical explanation: where people are, what is breaking, who is trapped, and what Ben can or cannot do. Reader-onboarding / clarity note: Aevyn is not simply unlocking the cache; he is making the place remember the moment Jacen sealed it. The Glasswell answers, then breaks.",
+  "stakes": {
+    "personal": "Aevyn presses through the disintegration of the one place where Jacen's work could be completed — and the Glasswell's amplified impressions are showing him the moment Jacen sealed the cache, which means he is experiencing Jacen's presence at the site while the site destroys itself. The thing he came for is costing the thing that made it possible.",
+    "interpersonal": "Tavi is below the main chamber, trapped against a collapsed scaffold section as water begins entering from the mirror-lake above. Aevyn is aware of this and it does not slow him. That absence of response is its own kind of horror.",
+    "external": "The survey scaffolds are failing in sequence — the oldest anchor points first — and the lower chamber has become a trap. Ben cannot get to Tavi through the main access route because the scaffold collapse has blocked the descent ladder."
+  },
+  "sensory_details": "The Glasswell at the moment it breaks: pale mineral walls shifting from luminescent to fractured, the light inside the cracks wrong — too white, too cold. The mirror-lake reflection on the upper dome swings and tilts as the structure moves. The first water enters as seepage along the eastern fault, then as a thin curtain, then as a serious stream. The cold hits immediately and the smell changes — mineral, organic, something very old disturbed from below. One concrete anchor: in the moment before the dome cracks, the Glasswell briefly returns Jacen's impression exactly as he left it — the recognition resonance arriving clean, then overshooting. What Aevyn gets is one second of Jacen's actual presence at the site, then the structure's failure. Flow-walking turned on a place cannot be walked back from.",
+  "turning_point_detail": {
+    "trigger": "Aevyn forces the final seal — Recognition pressed to the maximum, making the Glasswell remember the moment Jacen compressed the holocron into the container. The resonance returns exactly as Jacen produced it, then overshoots. The upper chamber dome cracks along its full diameter and the mirror-lake above begins draining through.",
+    "shift": "Tavi is revealed below — visible through the newly broken scaffold grid, trapped against the far wall of the lower basin, water already at his waist. Aevyn has the holocron container. Ben has to decide which problem he is solving.",
+    "cost": "The collapse cannot be stopped and the main access ladder is blocked. The only way to Tavi is the dangerous water route Sela warned them about — the one that runs through a section of flooded cavern where the chimes are gone and the mineral holds memory too strongly."
+  },
+  "emotional_arc": {
+    "start": "Aevyn at the threshold of completion — this is the closest to Jacen's actual presence he has been since Shedu Maad, and the pressure of it is both gratification and grief.",
+    "shift": "The moment the dome cracks and the water begins, Aevyn understands that forcing the Recognition technique past safe limits has destroyed the site Jacen chose. He has the holocron, and the place is gone.",
+    "end": "Aevyn secures the container and watches the collapse with his face composed but his lightsaber housing already in his hand. The duel with Ben is not a matter of if now — it is a matter of when the water level makes the platform untenable."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Aevyn applies the final sustained Recognition pressure and the Glasswell amplifies past its structural limit — the dome cracks along its full diameter.",
+      "state_change": "The site Jacen chose is destroyed by the act of retrieving what Jacen left; the acquisition succeeds and the vessel breaks.",
+      "pov_reaction": "the sound of something large failing; the shift from a tense operation to an emergency with no pause between"
+    },
+    {
+      "beat_description": "Water begins entering at serious volume and the scaffolding fails in sequence from oldest anchors first.",
+      "state_change": "The collapse sequence is now mechanical and irreversible — the chamber is being lost in a predictable order.",
+      "pov_reaction": "the cold arriving before the water does; the calculation of time before positions become untenable"
+    },
+    {
+      "beat_description": "Tavi becomes visible in the lower basin through the broken scaffold grid, trapped against the far wall with water already at his waist.",
+      "state_change": "The rescue problem is now specific, timed, and competing directly with the threat problem.",
+      "pov_reaction": "the narrowing of attention to two points: Tavi's position, Aevyn's position; everything else going peripheral"
+    },
+    {
+      "beat_description": "Aevyn secures the holocron container without hesitation and does not attempt to stop the collapse.",
+      "state_change": "Aevyn's priority is confirmed without ambiguity — the container, not the people, not the site.",
+      "pov_reaction": "the recognition landing as data rather than outrage; what to do with Aevyn is downstream of what to do about Tavi"
+    },
+    {
+      "beat_description": "Ben looks at Tavi in the rising water, then at Aevyn holding the container, and the scene ends on that bifurcation.",
+      "state_change": "The choice between rescue and denial is Ben's to make, right now, with the platform separating beneath him.",
+      "pov_reaction": "the suspension before the decision; two directions pulling at the same moment with equal urgency"
+    }
+  ],
+  "canon_elements_needed": [
+    "GAG / Jacen / Caedus continuity",
+    "Iresh physical geography and local survival rules",
+    "Aing-Tii flow-walking applied to a place: Aevyn forces the Glasswell to remember the moment Jacen sealed the cache — this is the technique turned on stone and mineral rather than a person, and the Glasswell cannot hold it"
+  ],
+  "target_word_count": 2800,
+  "active_subplots": [
+    "SUB_05"
+  ],
+  "plot_threads_advanced": [
+    "chapter_30_locked_outline_action"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "promises_progressed": [
+    "PP_02",
+    "PP_04",
+    "PP_05",
+    "PP_06",
+    "PP_07",
+    "PP_10",
+    "PP_12"
+  ],
+  "hook_actions": [],
+  "revelations": [
+    "R_11"
+  ],
+  "pov_arc_phase": "Aevyn:point_of_no_return",
+  "notes": "Source: Chapter Outlines v4.1. Act: Act Three — Iresh / Glasswell / Aevyn. Chapter title: Opening.\n\nCharacter voice focus: preserve the exact v1.4 character behavior and dialogue rules for the chapter POV and named participants. Plot first, character second, theme through consequences.\n\nDrafter texture cue (light): name the technique only once, in Aevyn's interior — flow-walking applied to a place rather than a person, a thing the Aing-Tii never intended for mineral and water. One consequence: the Glasswell returns Jacen's presence for one beat, then breaks. Do not explain it twice. The structure failing is the argument.",
+  "scene_voice_permissions": {
+    "notes": "Use Character Voice & Life Sheet v1.4 as controlling source for dialogue, behavior, humor, fear, wounds, and interaction rules. Preserve commercial readability: goal, obstacle, movement, reversal, hook.",
+    "anti_patterns": [
+      "do not write theme as thesis",
+      "do not add new plot mythology",
+      "do not let Iresh become abstract before it is physically clear",
+      "do not make Dorrin a third lead or secret mentor"
+    ],
+    "pov_arc_phase": "Aevyn:point_of_no_return"
+  }
+}

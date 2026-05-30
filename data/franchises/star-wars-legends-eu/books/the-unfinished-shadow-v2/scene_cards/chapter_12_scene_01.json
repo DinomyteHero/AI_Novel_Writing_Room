@@ -1,0 +1,103 @@
+{
+  "chapter_number": 12,
+  "scene_number": 1,
+  "structural_phase": "response",
+  "scene_role": "escalation",
+  "pov_character": "Talon or Ben",
+  "mission": "Talon finds Iressa by baiting an old private debt-marker through a legitimate records-correction channel. Ben and Talon interrupt Iressa during an ordinary workday at Civitas Archive Systems, a respectable civic-records restoration and compliance firm. Iressa is now a former GAG Manifest Integrity Analyst: she knows duplicate manifests, quarantine classifications, restricted transfer corrections, and the difference between clerical damage and deliberate concealment. She denies knowing Talon before proving she does, moves them away from coworkers/security/cameras, charges a “Jedi complication fee,” lies about her exits, and changes the amount Talon owes her every time she mentions it. Civitas office beat: Give Iressa one coworker or ordinary office-life interaction before the old world swallows her day: someone calls her by her clean professional name, reminds her about a meeting, complains about a shared report, or asks whether she is still coming to lunch. Iressa lies smoothly to protect that person from Ben/Talon and from the trouble following them. Civitas lunchroom beat: While Iressa manages the disruption, Ben briefly waits in an employee lunchroom / visitor break area. An ordinary Civitas employee notices that he looks familiar but cannot immediately place him. Ben is polite but awkward, bracing for recognition as Luke’s son, Mara’s son, Jacen/Caedus’s survivor, the former GAG boy, or a Jedi from the war years. Instead, he is pulled into painfully normal small talk. The employee offers him half a sandwich — “you look like one of those guys who forgets to eat” — and asks if he works in compliance. Ben takes the food, answers vaguely, feels ridiculous standing there with a murder clue in his pocket while making office-real small talk about caf and record migrations.",
+  "why_now": "Iressa is the only person who can prove the cloned shipment identity from surrounding records damage — Talon found her through an old debt-marker because she knows how she hides. Every hour she's left undisturbed is an hour she might vanish or get warned off by someone still watching the old records trail.",
+  "conflict": "Ben and Talon need Iressa's expertise and her trust, but she's spent years building a respectable life she has no interest in torching for a Jedi with a damaged manifest. She has to be cornered into helping — and she charges for it every step of the way.",
+  "conflict_type": "internal",
+  "dialogue_expectation": "dialogue_led",
+  "turning_point": "Iressa recognizes the fragment as a cloned shipment identity under quarantine/survey disguise, not a simple duplicate.",
+  "closing_hook": "Iressa recognizes the fragment as a cloned shipment identity under quarantine/survey disguise, not a simple duplicate.",
+  "characters_present": [
+    "Ben Skywalker",
+    "Talon Veyr",
+    "Iressa Vossk"
+  ],
+  "setting": "Coruscant, Civitas Archive Systems — a respectable civic-records restoration and compliance firm occupying the fourteenth through sixteenth floors of an aging commercial tower. Civitas specializes in restoring war-damaged casualty and displacement files: the Second Galactic Civil War and the Yuuzhan Vong War between them produced gaps in the public record that a firm like this still charges to close. Iressa Vossk works here under a clean professional identity. The reception area has muted grays and blues, a Sullustan receptionist, badge-readers on inner doors. Iressa's office is at the end of a hall lined with cubicles; her nameplate reads IRESSA VOSSK, SENIOR RECORDS RESTORATION ANALYST. An employee lunchroom is two doors down (Ben waits there during a beat).",
+  "emotional_trajectory": "Make Iressa fun, competent, selfish, unexpectedly decent, and visibly invested in the fragile normal life she has built. Make Ben young and human in the lunchroom beat without making him socially helpless.",
+  "stakes": {
+    "personal": "The lunchroom beat: Ben braces for recognition as Luke's son, Mara's son, the former GAG boy — and instead gets normal small talk about caf and record migrations. He is holding a fragment that points to a murder and a conspiracy, standing in an office break room, eating half a stranger's sandwich. The ordinariness of it is somehow harder than the danger.",
+    "interpersonal": "Iressa treats Ben as a complication, not a hero — she charges a Jedi complication fee, denies knowing Talon, moves them away from cameras, and changes Talon's debt total every time she references it. Talon finds her through an old debt-marker because he knows exactly how she lies. Their old archive-world dynamic runs underneath every line.",
+    "external": "If Iressa recognizes the fragment as a cloned shipment identity and confirms it for Greyline-watchers to notice, she may already be flagged before she finishes helping. The fragile life she has built is the hostage she doesn't know Vara is already thinking about."
+  },
+  "sensory_details": "The Civitas reception area smells of recycled corporate air and a faint chemical note from the floor sealant — the particular anonymous scent of a building that has been regularly cleaned and never fully lived in. On the wall beside the lift bank, a small plaque: CIVITAS ARCHIVE SYSTEMS — RESTORING CORUSCANT'S RECORD SINCE 29 ABY. The war that started those records gaps is the same war that produced Iressa. Iressa's office at the end of the hall has one window that faces another building's utility conduit; her nameplate is polished but the edge is slightly dented. In the employee lunchroom, the caf machine makes the same sound twice before it dispenses, and the half-sandwich the coworker offers Ben is wrapped in something the factory printed a corporate wellness logo on.",
+  "canon_elements_needed": [
+    "GAG / Jacen / Caedus continuity",
+    "Iressa / Civitas / manifest reconstruction logic",
+    "Civitas as a post-war records firm: casualty and displacement files damaged in the Second Galactic Civil War and the Yuuzhan Vong War — Coruscant's boring post-war normalcy as a business sector",
+    "Second Galactic Civil War record-keeping gaps as the professional context that makes Iressa's skills valuable and legitimate"
+  ],
+  "target_word_count": 3500,
+  "active_subplots": [
+    "SUB_02"
+  ],
+  "plot_threads_advanced": [
+    "chapter_12_locked_outline_action"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "promises_progressed": [
+    "PP_01",
+    "PP_02",
+    "PP_05",
+    "PP_08",
+    "PP_10",
+    "PP_12"
+  ],
+  "turning_point_detail": {
+    "trigger": "Iressa holds the fragment under the light, tilts it, and identifies the duplicate not from the manifest itself but from the way the records around it were damaged — inspection gaps in exactly the right shape, correction logs that corroborate nothing.",
+    "shift": "Suspicion becomes evidence: this wasn't a clerical error. Someone deliberately cloned a shipment identity and disguised a secret as quarantine cargo. Iressa's professional contempt shifts into something colder — she recognizes what this took.",
+    "cost": "By reading the fragment aloud, Iressa has made herself part of the discovery. She knows it. She charges for it anyway."
+  },
+  "emotional_arc": {
+    "start": "Ben is competent and quietly relieved to have a lead — but the lunchroom beat makes him feel ridiculous, human, and twenty-one.",
+    "shift": "Watching Iressa decode the fragment with brisk professional certainty, Ben realizes he is in a room where the language being spoken is half-familiar in the worst possible way: he knew some of this because Jacen's world used the same codes.",
+    "end": "The fragment is confirmed. Ben has proof. He also has a new liability: a woman who understands the shape of this better than he does, who has now touched the buried trail."
+  },
+  "key_beats": [
+    {
+      "beat_description": "A coworker reminds Iressa about a meeting as Ben and Talon arrive; she lies smoothly and steers the colleague away without breaking her professional register.",
+      "state_change": "Iressa's ordinary-life surface is confirmed as real and actively maintained — it costs her something specific to protect it from the trouble now in her corridor.",
+      "pov_reaction": "The clarity that comes from watching someone perform competence under pressure — a flat, recognizing focus."
+    },
+    {
+      "beat_description": "Talon's debt-marker surfaces Iressa: she appears, denies knowing him, and moves them away from cameras while charging a Jedi complication fee.",
+      "state_change": "The dynamic locks into a professional negotiation with built-in deniability — Iressa is helping, but on terms she controls.",
+      "pov_reaction": "The slight displacement of being the third party in a room where the other two already have a language — watching, not quite following."
+    },
+    {
+      "beat_description": "Ben waits in the employee lunchroom; a coworker offers him half a sandwich and asks if he works in compliance.",
+      "state_change": "Ben's Jedi/Skywalker identity fails to trigger recognition — he is absorbed into ordinary office life for ninety seconds.",
+      "pov_reaction": "The absurdity of standing here with a murder clue landing as a slightly delayed realization — not quite funny, not quite grim."
+    },
+    {
+      "beat_description": "Iressa reads the fragment under the light and identifies the duplicate from the damage pattern in the surrounding records, not from the manifest itself.",
+      "state_change": "Suspicion becomes evidence: the inspection gaps, the correction logs, the corroborating nothing — the shape of deliberate concealment is visible to someone who knows how to look.",
+      "pov_reaction": "The half-familiar archival language landing in a register Ben doesn't want to recognize — a tightening without a name for it."
+    },
+    {
+      "beat_description": "Iressa confirms the fragment is not a clerical duplicate but a cloned shipment identity dressed as quarantine cargo, and states she knows where this kind of record went to be proven.",
+      "state_change": "The fragment stops being a clue and becomes a key to a specific location — and Iressa has now touched the buried trail.",
+      "pov_reaction": "The investigation clicking one notch forward while a different counter starts — Iressa's involvement registered as a new liability before the usefulness."
+    }
+  ],
+  "hook_actions": [],
+  "revelations": [
+    "R_04"
+  ],
+  "pov_arc_phase": "Iressa:lie_established",
+  "notes": "Source: Chapter Outlines v4.1. Act: Act Two — Coruscant Investigation / Foundation / The Vigil. Chapter title: Iressa Vossk Does Not Know You.\n\nReader-onboarding note: Iressa’s job should show how former GAG-adjacent people survived after the war: by becoming boring, useful, and respectable. Talon finds her because he knows how she lies.\n\nTexture thread: Civitas is the post-war ordinary life made literal — a firm that profits from closing the record gaps that two wars left. The drafter should let it be genuinely mundane: this is what Coruscant looks like when it is not at war and not in crisis. The plaque founded in 29 ABY is enough; no further war accounting needed.\n\nCharacter voice focus: preserve the exact v1.4 character behavior and dialogue rules for the chapter POV and named participants. Plot first, character second, theme through consequences.",
+  "scene_voice_permissions": {
+    "notes": "Use Character Voice & Life Sheet v1.4 as controlling source for dialogue, behavior, humor, fear, wounds, and interaction rules. Preserve commercial readability: goal, obstacle, movement, reversal, hook.",
+    "anti_patterns": [
+      "do not write theme as thesis",
+      "do not add new plot mythology",
+      "do not let Iresh become abstract before it is physically clear",
+      "do not make Dorrin a third lead or secret mentor"
+    ],
+    "pov_arc_phase": "Iressa:lie_established"
+  }
+}

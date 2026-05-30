@@ -1,0 +1,101 @@
+{
+  "chapter_number": 22,
+  "scene_number": 1,
+  "structural_phase": "attack",
+  "scene_role": "escalation",
+  "pov_character": "Talon",
+  "mission": "Talon tells Ben more about Tess, Operation Glasshook, Operation Nightglass, Marael Sen, and the remembered GAG corridor moment: ‘Move her first.’ This is not a lore dump; it is Talon finally letting Ben see where Tess placed him and why that still burns. Tess was Talon’s former mentor and senior commander. During a wartime GAG interdiction mission on Coruscant, Talon disobeyed Tess to save trapped troops and civilians at the cost of the mission. Tess reassigned him out of field duty as punishment and “education,” intending to teach him to see the whole operation. The war collapsed before Tess could bring him back, and Talon’s reassignment became the record that ruined him.",
+  "why_now": "Tess's tradecraft fingerprint on the frame was not theoretical — Talon recognized it in one sentence at the cache. Now, the night before they leave for Iresh, Ben needs to understand what Tess is capable of and what he means to Talon specifically. This is the last moment of honest accounting before Iresh makes everything operational.",
+  "conflict": "Talon avoids the truth by filling the space — fixing something not broken, changing the subject, eating too fast, joking badly. Then stopping. The specific thing he's been avoiding is not the story about Glasshook. It's the part about why Tess's judgment still has weight even now: Tess saw Talon accurately and used the best parts of him. That's the wound that doesn't resolve.",
+  "conflict_type": "external",
+  "dialogue_expectation": "balanced",
+  "turning_point": "If Tess is involved, Iresh is not a theory; it is an operation.",
+  "closing_hook": "If Tess is involved, Iresh is not a theory; it is an operation.",
+  "characters_present": [
+    "Ben Skywalker",
+    "Talon Veyr"
+  ],
+  "setting": "Coruscant, the Skywalker family apartment — late evening. Talon's POV: he tells Ben about Maro Tess, Operation Glasshook, the corridor moment, and the reassignment that ruined him. They are at the kitchen table; one lamp is on; cups of bad caf between them.",
+  "emotional_trajectory": "The scene should make Tess feel like the adult who quietly arranged the childhood nightmare. Talon should avoid the truth before he says it: fixing a device that is not broken, changing the subject, eating too fast, joking badly, then stopping. Possible emotional line: “He said field work had made me sentimental. Logistics would teach me scale.” / “Did it?” / “It taught me how easy it is to lose people in paperwork.”",
+  "stakes": {
+    "personal": "Talon’s fear is that Tess saw him accurately — and the accurate assessment was what made the ruin possible. He saved people in Operation Glasshook, was punished for it, and the punishment placed him in the logistics network that later made him look guilty. The wound is not that Tess was wrong. It’s that Tess was right about what Talon could do and decided it made him improvable, not trustworthy.",
+    "interpersonal": "Ben is the first person Talon has told this to, in this much detail, without deflecting into the joke version first. He doesn’t call it trust. He changes the subject twice before he says it. Ben doesn’t push — he asks once and lets the silence do the rest. This is the scene where Talon, for the first time, lets Ben see the shape of what Tess cost him.",
+    "external": "If Tess is involved, Iresh is not a theory — it is an operation run by a man who treats people as adjustable logistics and has decades of experience doing it. Understanding Tess’s methodology before they face him on Iresh is the practical purpose of this scene. The emotional purpose is that Talon finally says it out loud."
+  },
+  "sensory_details": "The apartment kitchen table, late evening, one lamp on — the rest of the room in the dark that the holo-glow from the street partially fills. Bad caf in cups between them. Talon's chair is pulled slightly sideways, not quite facing Ben directly. The family holo on the shelf is not visible from this angle. Talon has his hands around the cup even though it's not warm enough to warrant it. At some point in the conversation — not announced — Talon mentions the evacuation: he was a boy when the Yuuzhan Vong took Coruscant, one of the refugee-fleet kids the New Republic got out before the planet fell. He does not dwell on it. He says it the way you mention a fact that explains something else and moves on. The evacuation is why his records begin on a different world — and why the GAG, when Tess found him years later, already understood that he could follow a logistics chain under pressure.",
+  "canon_elements_needed": [
+    "GAG / Jacen / Caedus continuity",
+    "Fall of Coruscant (Yuuzhan Vong War) — Talon was a refugee-fleet child evacuated when the planet fell; his civilian records begin off-world",
+    "Second Galactic Civil War GAG service — Tess recruited Talon for his logistics-under-pressure capability, which the evacuation forged; this pays off in the Ch 23 transit scene"
+  ],
+  "target_word_count": 3000,
+  "active_subplots": [
+    "SUB_01"
+  ],
+  "plot_threads_advanced": [
+    "chapter_22_locked_outline_action"
+  ],
+  "promises_planted": [],
+  "promises_paid": [
+    "PP_08"
+  ],
+  "promises_progressed": [
+    "PP_02",
+    "PP_04",
+    "PP_05",
+    "PP_06",
+    "PP_10",
+    "PP_12"
+  ],
+  "turning_point_detail": {
+    "trigger": "Talon stops deflecting. He says the line he's been circling: 'He said field work had made me sentimental. Logistics would teach me scale.' Ben asks if it did. Talon says: 'It taught me how easy it is to lose people in paperwork.'",
+    "shift": "The frame is no longer just a tradecraft trick Talon recognized. It is Tess using the same methodology he used to place Talon in the records network: adjusting someone's position to make them more useful, or in this case, more contained. Talon understands this is not personal. That's what makes it worse.",
+    "cost": "Talon has now given Ben the emotional context to understand what they're actually walking into on Iresh — not just a logistics operation but a man who has been doing this for twenty years and doesn't lose sleep over it."
+  },
+  "emotional_arc": {
+    "start": "Talon is avoidance in motion — fixing something not broken, eating too fast, joking badly. Ben watches and waits.",
+    "shift": "The joke version of the story runs out. Talon says the real version in the plainest language he can manage, then goes quiet.",
+    "end": "Both of them sit with it. Neither names what the exchange was. It was the first time Talon let Ben see the wound without armor on it. The scene ends on the practical: if Tess is involved, Iresh is an operation."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Talon avoids the truth by filling space — fixing a device not broken, changing the subject, eating too fast, joking badly, then stopping mid-joke.",
+      "state_change": "The avoidance pattern makes visible how much weight the real version carries — the filling-of-space is itself information.",
+      "pov_reaction": "Watching it and not naming it — the single question asked once, then the silence doing the rest of the work."
+    },
+    {
+      "beat_description": "Talon tells Ben about Maro Tess as mentor and senior commander: Operation Glasshook, the saved civilians, the cost of the mission, Tess's judgment that field work had made him sentimental.",
+      "state_change": "Tess becomes a person rather than a tradecraft fingerprint — someone who saw Talon accurately and used the accuracy against him.",
+      "pov_reaction": "The particular attention of someone being told something they were not trusted with before — not filling the silence, letting it accumulate."
+    },
+    {
+      "beat_description": "Talon tells Ben about the reassignment to records and logistics under Elya Rane — the punishment that moved him into the network that later made him look guilty.",
+      "state_change": "The conviction is reframed: not a random fall but a specific placement that created the appearance of guilt from a position of punishment.",
+      "pov_reaction": "The recognition of the mechanism landing quietly — not outrage, the kind of understanding that makes something worse by making it clearer."
+    },
+    {
+      "beat_description": "Talon says the key line: 'He said field work had made me sentimental. Logistics would teach me scale.' Ben asks if it did. Talon: 'It taught me how easy it is to lose people in paperwork.'",
+      "state_change": "The wound is named in the plainest language Talon can manage — the frame is not just tradecraft, it is the same methodology applied twice.",
+      "pov_reaction": "Sitting with it without moving to fix it — the understanding that this is the first time Talon has said it without armor, and responding to that."
+    },
+    {
+      "beat_description": "Both of them sit with it; neither names what the exchange was; the scene ends on the practical: if Tess is involved, Iresh is an operation run by a man who has been doing this for twenty years.",
+      "state_change": "The emotional context is in place before the operational mission — Ben now understands what they're walking into beyond logistics.",
+      "pov_reaction": "The shift back to the operational frame as a mutual accommodation rather than an escape — the practical conclusion neither of them had to say first."
+    }
+  ],
+  "hook_actions": [],
+  "revelations": [],
+  "pov_arc_phase": "Talon:moment_of_truth; Tess:lie_reinforced",
+  "notes": "Source: Chapter Outlines v4.1. Act: Act Two — Coruscant Investigation / Foundation / The Vigil. Chapter title: Maro Tess.\n\nTexture thread: The Fall of Coruscant evacuation is Talon's one anchor — mentioned once, not dwelt on, offered as the fact that explains why his records start off-world and why the GAG found him useful. It is character, not lecture. The drafter should let Talon drop it mid-detour and continue toward Glasshook without breaking rhythm. This seeds the Ch 23 transit scene: Talon knows how to move under pressure because he has been doing it since he was ten.\n\nCharacter voice focus: preserve the exact v1.4 character behavior and dialogue rules for the chapter POV and named participants. Plot first, character second, theme through consequences.",
+  "scene_voice_permissions": {
+    "notes": "Use Character Voice & Life Sheet v1.4 as controlling source for dialogue, behavior, humor, fear, wounds, and interaction rules. Preserve commercial readability: goal, obstacle, movement, reversal, hook.",
+    "anti_patterns": [
+      "do not write theme as thesis",
+      "do not add new plot mythology",
+      "do not let Iresh become abstract before it is physically clear",
+      "do not make Dorrin a third lead or secret mentor"
+    ],
+    "pov_arc_phase": "Talon:moment_of_truth; Tess:lie_reinforced"
+  }
+}

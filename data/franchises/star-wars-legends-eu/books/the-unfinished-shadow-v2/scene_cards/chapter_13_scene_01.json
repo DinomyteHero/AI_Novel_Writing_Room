@@ -1,0 +1,100 @@
+{
+  "chapter_number": 13,
+  "scene_number": 1,
+  "structural_phase": "response",
+  "scene_role": "escalation",
+  "pov_character": "Ben",
+  "mission": "Iressa reconstructs the damaged manifest trail using legitimate Civitas tools and hidden old-GAG habits beneath them. She does not simply break Jacen’s encryption; she reconstructs around it through surrounding records: inspection gaps, correction logs, duplicate cargo seals, quarantine overrides, loading dock scans, archive timestamps, and records damaged in the same shape. The serious work happens not at Civitas but at her secondary cache — a quiet leased space she maintains off-record, away from her professional life. She mentions it briefly to Ben and Talon in passing, more to assert her own privacy than to brief them. She identifies a decommissioned GAG quarantine archive / cargo records site where the hidden copy can be proven. Ben, Talon, and Iressa then enter the old quarantine archive / cargo records site. Iressa starts splitting/corrupting data so the enemy cannot get a clean copy while preserving enough proof for Ben and Talon.",
+  "why_now": "Iressa can identify the cloned manifest from surrounding damage, but proving it requires touching the decommissioned GAG quarantine archive itself — the site where the hidden copy can be corroborated. She also establishes her secondary cache here as a passing detail, more to assert control than to brief them. The serious reconstruction work happens off the Civitas clock before someone with eyes on old records markers notices what she's pulling.",
+  "conflict": "The reconstruction work demands moving from Iressa's public professional life into her hidden one. Ben watches Talon and Iressa speak a records-world language he partly understands — because Jacen's GAG used the same architecture — and he hates that he understands it at all. The archive waking at the end means they've been noticed.",
+  "conflict_type": "internal",
+  "dialogue_expectation": "balanced",
+  "turning_point": "The archive wakes. Iressa realizes someone else has recently queried or guarded the same buried records, and now they have arrived.",
+  "closing_hook": "The archive wakes. Iressa realizes someone else has recently queried or guarded the same buried records, and now they have arrived.",
+  "characters_present": [
+    "Ben Skywalker",
+    "Talon Veyr",
+    "Iressa Vossk"
+  ],
+  "setting": "Coruscant. Two locations: Iressa's office at Civitas Archive Systems for the reconstruction work (where she pulls inspection gaps, correction logs, and old archive timestamps); then the decommissioned GAG quarantine archive / cargo records site — a dim sub-basement records vault she leads Ben and Talon into through a sympathetic side entrance. The vault smells of old plasticast and dust.",
+  "emotional_trajectory": "Make the decoding physical and character-revealing rather than a terminal lecture. Ben should realize Talon and Iressa are speaking a language he partly understands and hates understanding. Reader-onboarding / clarity note: Plain-language consequence: this was not a clerical duplicate. Someone cloned a shipment identity and dressed a secret up as medical/quarantine cargo so no one would open the crate. This is where suspicion becomes evidence: the archive can prove the duplicate was deliberate and point toward who is still protecting it.",
+  "stakes": {
+    "personal": "Ben recognizes pieces of the archival language Talon and Iressa are using — quarantine override markers, duplicate cargo seals, inspection gap signatures — because Jacen’s GAG used the same systems. He knows more than he wants to. The reconstruction makes his past useful and uncomfortable at the same time.",
+    "interpersonal": "Iressa is doing something she swore she wouldn’t do again: touching buried records. She treats it as professional work and charges for every complication. Talon reads her tells and doesn’t comment. Their old archive-world dynamic is functional, wary, and running beneath every exchange like a second manifest.",
+    "external": "Iressa mentions her secondary cache in passing — one line, a privacy assertion more than a briefing — but that detail will matter later. More immediately: the archive waking means someone else queried or guarded these records recently, and now they know Ben and Talon have arrived at the proof site."
+  },
+  "sensory_details": "The decommissioned archive sub-basement smells of old plasticast and a faint metallic damp — the same combination Ben associates with GAG secondary facilities from when he was fourteen. The strip lighting along the floor gives everything a double-shadow. Iressa's hands move across the cabinet interfaces with the particular economy of someone who has done this without looking for years. The terminal she connects her chip to makes one short sound when it verifies, then nothing.",
+  "canon_elements_needed": [
+    "GAG / Jacen / Caedus continuity",
+    "Iressa / Civitas / manifest reconstruction logic"
+  ],
+  "target_word_count": 3500,
+  "active_subplots": [
+    "SUB_02",
+    "SUB_05"
+  ],
+  "plot_threads_advanced": [
+    "chapter_13_locked_outline_action"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "promises_progressed": [
+    "PP_01",
+    "PP_02",
+    "PP_05",
+    "PP_08",
+    "PP_10",
+    "PP_12"
+  ],
+  "turning_point_detail": {
+    "trigger": "A terminal in the archive cabinet row wakes: an access log entry, a queried index marker, a timestamp that is too recent. Iressa identifies it as someone who guarded these records — or queried them — in the past few weeks.",
+    "shift": "They are no longer the only people who know where the proof lives. Someone is protecting the archive, or recently pulled from it. The enemy isn't just watching old names — they're watching the site itself.",
+    "cost": "Iressa starts splitting and corrupting the data so a clean copy can't be extracted by anyone else. This burns her professional cover further and makes her a target rather than a witness."
+  },
+  "emotional_arc": {
+    "start": "Ben is observational and tense — watching Iressa and Talon work the archive with competence he partly shares and resents sharing.",
+    "shift": "The archive waking pulls Ben out of observation and into threat assessment — exits, exits, exits. The old GAG smell of the basement and his own automatic scan of the room tells him something he doesn't want to confirm.",
+    "end": "The proof exists. Iressa is already corrupting the enemy's copy. They're no longer investigating — they've been found at the site. The scene tips toward what comes next."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Iressa reconstructs the manifest trail at her secondary cache using old-GAG methods, mentioning the cache's location in passing as a privacy assertion rather than a briefing.",
+      "state_change": "The cache is established as a real place — a detail that registers as texture now and will matter later.",
+      "pov_reaction": "Filing it without marking it — the professional reflex of noting a coordinate without letting it become a thought."
+    },
+    {
+      "beat_description": "Ben, Talon, and Iressa enter the decommissioned GAG quarantine archive through a side entrance; Ben clocks the strip lighting, the plasticast smell, the cabinet-row layout.",
+      "state_change": "The investigation moves into a physical site connected to Jacen's operational infrastructure — the past is no longer archival, it has a room.",
+      "pov_reaction": "The smell arriving before the visual recognition — the body knowing the room type before the mind names it."
+    },
+    {
+      "beat_description": "Iressa works the cabinet interfaces pulling inspection gaps, correction logs, and archive timestamps; Talon translates; Ben understands more of the archival language than he wants to.",
+      "state_change": "The proof begins to assemble — the damage pattern confirms deliberate concealment — and Ben's partial fluency in the language is an unwanted given.",
+      "pov_reaction": "The slight internal resistance when a term lands correctly — the pull to not have recognized it."
+    },
+    {
+      "beat_description": "Iressa begins splitting and corrupting the archive data, preserving a copy for Ben and Talon while denying a clean extraction to anyone else.",
+      "state_change": "Iressa moves from witness to active participant — burning her professional cover further to protect the proof.",
+      "pov_reaction": "Watching her hands work with the economy of someone who has done this without looking — the specific competence that means she decided before she moved."
+    },
+    {
+      "beat_description": "A terminal in the cabinet row wakes: a recent access timestamp shows someone else queried or guarded these records in the past few weeks.",
+      "state_change": "They are no longer the only people who know where the proof lives — the cleanup team has been watching this site.",
+      "pov_reaction": "The exits-and-angles scan firing automatically — the room recategorizing from work environment to threat environment without a pause between."
+    }
+  ],
+  "hook_actions": [],
+  "revelations": [],
+  "pov_arc_phase": "Iressa:lie_challenged",
+  "notes": "Source: Chapter Outlines v4.1. Act: Act Two — Coruscant Investigation / Foundation / The Vigil. Chapter title: The Index Under the Index.\n\nContinuity note: This is the consolidated reconstruction-and-archive chapter (formerly Chapters 17 and 18). Iressa’s secondary cache is established here as a passing detail — one line, no emphasis. It will become the target of PP2.\n\nCharacter voice focus: preserve the exact v1.4 character behavior and dialogue rules for the chapter POV and named participants. Plot first, character second, theme through consequences.",
+  "scene_voice_permissions": {
+    "notes": "Use Character Voice & Life Sheet v1.4 as controlling source for dialogue, behavior, humor, fear, wounds, and interaction rules. Preserve commercial readability: goal, obstacle, movement, reversal, hook.",
+    "anti_patterns": [
+      "do not write theme as thesis",
+      "do not add new plot mythology",
+      "do not let Iresh become abstract before it is physically clear",
+      "do not make Dorrin a third lead or secret mentor"
+    ],
+    "pov_arc_phase": "Iressa:lie_challenged"
+  }
+}

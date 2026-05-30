@@ -1,0 +1,19 @@
+{
+  "id": "colonel_maro_tess",
+  "name": "Colonel Maro Tess",
+  "role": "Primary antagonist (operational); architect of the Vigil's field operations; knowing One Sith asset",
+  "age": "~49",
+  "force_status": "Non-Force-sensitive; knowing One Sith asset (the hand glimpsed in Ch 37 has Tess's loyalty, not his Force-faith)",
+  "three_dimensions": {
+    "surface": "Plain, calm, operational. Greyline Strategic Services strategist providing donor-event security, archive protection, offworld survey security, threat assessments. Speaks like a man who sorts lives into categories and acts before emotion can complicate the board. Does not posture. Does not explain more than required. NO villain poetry. Uses first names when it asserts ownership — especially with Talon.",
+    "backstory_inner_demons": "Former senior GAG operations officer. During the war, oversaw black-channel logistics and security operations that moved detainees, sealed cargo, evidence, classified personnel, Jacen-related material, and off-book transfers through emergency routes. Knew what the network was truly for. Saw Talon Veyr clearly as a young field agent — field instinct, movement, exits, timing, people-reading — and intended to bring him back to field duty after the Glasshook discipline taught him to see the whole operation rather than only the people in front of him. The war collapsed before that plan could complete. He believes Caedus was not wrong to seek control; he believes Caedus failed because he was too visible, rushed, and emotionally compromised. Post-war, the Vigil's project was the natural continuation.",
+    "action_under_pressure": "Removes sentiment from decisions. Treats failures as logistics. At PP2, decides Korda has become too visible and orders the killing the way another man would order a supply transfer — 'Korda was becoming visible. This cleans the board.' Then orders the Iresh operation accelerated specifically because Skywalker and Veyr are now actively involved. The acceleration is not panic; it is a calculated adjustment to the threat profile. When Iresh fails, he does not panic — 'Iresh failed.' 'Completely?' 'No.' — and retreats deeper into One Sith service."
+  },
+  "voice_notes": "Plain, calm, operational. No villain poetry.\n\nGood Tess: “Korda can carry the public version.” “He’s dead.” “That helps.” “Iresh failed.” “Completely?” “No.” “Skywalker moved as trained.” “Do not punish panic. Use it or remove it.” “Talon always did understand exits.” “You saved the people in front of you. You lost the people I needed you to think about.” Avoid Tess saying: “History belongs to those who manage its losses.” Better: “The report needs one responsible name. Korda’s will do.”\n\nAlmost none. If present, it is dry, administrative, and lethal.\n\nPlain, measured, difficult to provoke. Does not posture. Does not explain more than required.\n\nTess should be terrifying because he is normal. Failure does not embarrass him; it gives him new categories.",
+  "arc_type": "steadfast",
+  "thematic_role": "Tests the theme as the calm, operational endpoint of crisis logic with no moral counterweight. Treats people as logistics. Survives Book 1 and retreats deeper into One Sith service — proving the system Ben is touching is older and longer than this one operation.",
+  "avoid_list": [
+    "Do not write theme as thesis.",
+    "Do not make dialogue interchangeable with other cast members."
+  ]
+}

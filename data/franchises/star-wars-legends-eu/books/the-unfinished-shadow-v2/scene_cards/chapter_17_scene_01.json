@@ -1,0 +1,114 @@
+{
+  "chapter_number": 17,
+  "scene_number": 1,
+  "structural_phase": "attack",
+  "scene_role": "escalation",
+  "pov_character": "Ben",
+  "mission": "Ben visits the Foundation. Aelia is warm, prepared, legitimate, and hard to attack because the charity’s public work is real. Add a genuine charity warmth beat: she remembers a scholarship recipient, corrects a child’s name, notices a veteran’s discomfort, or writes a condolence note by hand while Ben watches. She gently makes Ben feel young and underprepared. Civilian-awkwardness beat: While waiting to see Aelia, Ben is offered tea or water by a young Foundation staffer who clearly recognizes him but is trying to be professional. Ben over-explains why he is there, then catches himself and goes quiet. The staffer notices and is polite about it. This is the second of two recognition-bracing moments (the first was the Civitas lunchroom), and it pays off Aelia’s later social victory — Ben is already on the back foot before he sits down with her.",
+  "why_now": "Iressa’s transmission tying the Foundation to the Iresh thread means Ben now has to test the connection face-to-face — an unannounced visit is the only version that doesn’t give the Foundation time to prepare a cleaner surface. He needs to read Aelia directly and, crucially, needs Talon positioned outside to watch who moves when a Skywalker walks in.",
+  "conflict": "Aelia beats Ben socially because the Foundation’s public work is real, her warmth is real, and she makes Ben feel young and underprepared without saying anything dishonest. Ben can’t attack what he can’t flatten. The recognition-bracing beat at the front desk already puts him on the back foot before he sits down.",
+  "conflict_type": "external",
+  "dialogue_expectation": "balanced",
+  "turning_point": "Talon spots Bren Korda.",
+  "closing_hook": "Talon spots Bren Korda.",
+  "characters_present": [
+    "Ben Skywalker",
+    "Talon Veyr",
+    "Aelia Vandros",
+    "Bren Korda"
+  ],
+  "setting": "Coruscant, the Shedu Maad Memorial Foundation main building — a polished civic-charity complex with scholarship walls in the lobby, memorial holos in alcoves, and quiet grief rooms behind frosted transparisteel doors. The scholarship walls are engraved stone, not screens: family names and service citations from the Second Galactic Civil War (the battles of Fondor and Kuat appear in the mid-register columns) and the Yuuzhan Vong War (Fall of Coruscant refugee-fleet families in a separate wing). A sub-panel near the lift commemorates the Battle of Shedu Maad itself. Aelia Vandros's office is on an upper floor: warm lighting, a single framed photo of her late husband, and handwritten condolence notes on the desk — one mid-sentence, ink dry, addressed to a family whose son appears on the scholarship wall downstairs. The Candle Room (the Vigil's private chamber) is glimpsed through a half-open door.",
+  "emotional_trajectory": "Aelia should beat Ben socially. The reader should understand why ordinary grieving families trust her. Ben’s over-explaining at the front desk is small, human, and twenty-one.",
+  "stakes": {
+    "personal": "Ben over-explains his purpose at the front desk, catches himself, goes quiet. A young staffer notices and is polite about it. This is the second recognition-bracing moment after the Civitas lunchroom, and the effect compounds — by the time he sits down with Aelia, Ben is already on the back foot. He is twenty-one in a room that knows exactly how to make him feel it.",
+    "interpersonal": "Aelia beats Ben without trying hard: she remembers a scholarship recipient by name, corrects a child’s name in a file, notices a veteran’s discomfort across the room — all while holding a conversation with Ben. Her warmth is power deployed so naturally it doesn’t look like power. Ben can’t morally flatten her because what she does is real.",
+    "external": "The Foundation’s public work is genuine. The Vigil is hidden inside something people need. If Ben is wrong about the Foundation or misreads Aelia’s knowledge of it, he destroys something legitimate. Talon, positioned outside, spots Bren Korda — the end hook that confirms the operational connection exists."
+  },
+  "sensory_details": "The Foundation lobby smells of warm lighting and something floral, antiseptic-adjacent — the particular scent of a space professionally maintained to feel like comfort. Scholarship walls line the entry atrium in real engraved stone, not screens: Ben passes Fondor names, Kuat names, a Fall of Coruscant refugee-fleet column, a Shedu Maad sub-panel. The names are real and the stone is real and the grief is real. Aelia's office has warm lamp light, a single framed photograph, and a handwritten condolence note on the desk in mid-sentence addressed to a family on that wall downstairs — Ben can see the ink is dry from where she left it to greet him. Through a half-open door behind her assistant's station, Ben catches a glimpse of the Candle Room: interior lamp-glow, darker wood, chairs arranged inward.",
+  "canon_elements_needed": [
+    "Iressa / Civitas / manifest reconstruction logic",
+    "Foundation / Vigil public-charity reality",
+    "One Sith background shadow only",
+    "Second Galactic Civil War dead named on the scholarship walls: battles of Fondor and Kuat",
+    "Yuuzhan Vong War dead: Fall of Coruscant refugee-fleet families in a dedicated wing",
+    "Battle of Shedu Maad commemorative sub-panel — the Foundation's name is its own grief record",
+    "Aelia's handwritten condolence notes to named war-dead families: what makes the Vigil hiding inside this real grief morally legible"
+  ],
+  "target_word_count": 3200,
+  "active_subplots": [
+    "SUB_04",
+    "SUB_05"
+  ],
+  "plot_threads_advanced": [
+    "chapter_17_locked_outline_action"
+  ],
+  "promises_planted": [
+    "PP_06"
+  ],
+  "promises_paid": [],
+  "promises_progressed": [
+    "PP_02",
+    "PP_05",
+    "PP_08",
+    "PP_10",
+    "PP_12"
+  ],
+  "turning_point_detail": {
+    "trigger": "Talon signals Ben through a brief coded contact — he's spotted Bren Korda moving through the Foundation's external perimeter, dressed in Foundation security consultant credentials.",
+    "shift": "The institutional connection is no longer inferential. Korda — old GAG security system in a clean suit — is present. The Foundation isn't merely a Vigil front; it has operational GAG-linked security infrastructure embedded in it.",
+    "cost": "Ben now has to leave the Aelia conversation without letting her read that the Korda sighting changed anything. She is watching him with the particular warmth of someone who is very good at noticing what people aren't saying."
+  },
+  "emotional_arc": {
+    "start": "Ben enters the Foundation professionally competent and socially on the back foot — the front-desk moment has already cost him composure before he reaches Aelia.",
+    "shift": "Aelia beats him socially and doesn't gloat about it. She makes him feel twenty-one while also making it clear she understands the Caedus years through a lens of grief rather than condemnation. Ben can't dismiss her. He can't trust her. Both things are true.",
+    "end": "The Korda signal arrives. Ben closes the conversation without showing it landed. He is more certain of the Foundation connection and more uncertain about Aelia than when he walked in."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Ben over-explains his purpose at the Foundation front desk to a young staffer who recognizes him but is trying to be professional, then catches himself and goes quiet.",
+      "state_change": "Ben is already on the back foot before he reaches Aelia — the second recognition-bracing failure in the arc compounds the first.",
+      "pov_reaction": "The catch — the mid-sentence awareness of what he is doing — and the stop, which is somehow worse than the over-explaining. While he waits, he reads the scholarship wall: Fondor, Kuat, the refugee-fleet column. Real names. The Vigil is hiding inside real grief, and whatever he does next has to be careful enough not to break that."
+    },
+    {
+      "beat_description": "Aelia demonstrates genuine charity warmth: she recalls a scholarship recipient by name, notices a veteran's discomfort across the room, and continues handwriting a condolence note while talking to Ben.",
+      "state_change": "The Foundation's public work is confirmed as real — whatever the Vigil is, it has hidden itself inside something people actually need.",
+      "pov_reaction": "The particular difficulty of watching competence deployed as warmth — the recognition that he cannot morally flatten this woman from this position."
+    },
+    {
+      "beat_description": "Ben catches a glimpse through the half-open Candle Room door — warm interior lamp light, chairs arranged inward — and cannot pursue it without announcing that he's looking.",
+      "state_change": "The Vigil's interior structure is visible but unconfirmable — Ben has to leave the observation on the shelf.",
+      "pov_reaction": "Eyes moving away from the door on purpose — the discipline of not looking where he wants to look."
+    },
+    {
+      "beat_description": "Aelia beats Ben socially in the meeting: she makes him feel young and underprepared while projecting warmth rather than advantage.",
+      "state_change": "Ben leaves the conversation more certain about the Foundation connection and more uncertain about Aelia's specific knowledge of it.",
+      "pov_reaction": "The social displacement — being handled expertly and knowing it and not being able to counter it — sitting somewhere between irritation and unwilling respect."
+    },
+    {
+      "beat_description": "Talon signals from outside: Bren Korda spotted at the Foundation's external perimeter in Foundation security consultant credentials.",
+      "state_change": "The institutional connection shifts from inferential to confirmed — old GAG security infrastructure is embedded inside the Foundation's operational layer.",
+      "pov_reaction": "Closing the Aelia conversation without letting the signal land on his face — the effort of that held in the jaw."
+    }
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "HK_04",
+      "action": "plant"
+    }
+  ],
+  "revelations": [
+    "R_05"
+  ],
+  "pov_arc_phase": "Aelia:lie_established; Aelia:lie_reinforced",
+  "notes": "Source: Chapter Outlines v4.1. Act: Act Two — Coruscant Investigation / Foundation / The Vigil. Chapter title: The Candle Room.\n\nReader-onboarding note: Explain the Foundation through what Ben sees: scholarship walls, occupied grief rooms, casualty records the government misplaced, and families who genuinely need the organization. Whatever the Vigil is, it has hidden inside something people need.\n\nTexture thread (KEY): The scholarship walls carry real war-dead names — Fondor, Kuat (Second Galactic Civil War), Fall of Coruscant refugee fleets (Yuuzhan Vong War), Battle of Shedu Maad. Aelia's handwritten condolence notes go to families on those walls. The drafter must let the grief be real: the Vigil's moral cover is not cynical costuming — it is the Foundation's actual work. Ben cannot flatten this. This is what makes the scene dramatically difficult.\n\nCharacter voice focus: preserve the exact v1.4 character behavior and dialogue rules for the chapter POV and named participants. Plot first, character second, theme through consequences.",
+  "scene_voice_permissions": {
+    "notes": "Use Character Voice & Life Sheet v1.4 as controlling source for dialogue, behavior, humor, fear, wounds, and interaction rules. Preserve commercial readability: goal, obstacle, movement, reversal, hook.",
+    "anti_patterns": [
+      "do not write theme as thesis",
+      "do not add new plot mythology",
+      "do not let Iresh become abstract before it is physically clear",
+      "do not make Dorrin a third lead or secret mentor"
+    ],
+    "pov_arc_phase": "Aelia:lie_established; Aelia:lie_reinforced"
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "chapter_number": 35,
+  "chapter_mission": "Aelia steps down in public disgrace to preserve the Foundation’s legitimate charitable work. Korda is the official dead fall guy.",
+  "chapter_turn": "Ben knows the public story is incomplete.",
+  "structural_phase": "resolution",
+  "pov_allocation": [
+    "Ben",
+    "public aftermath"
+  ],
+  "scene_count": 1,
+  "scene_plan": [
+    {
+      "scene_number": 1,
+      "role": "aftermath",
+      "dialogue_expectation": "balanced",
+      "target_word_count": 2000,
+      "purpose": "Aelia steps down in public disgrace to preserve the Foundation’s legitimate charitable work. Korda is the official dead fall guy."
+    }
+  ],
+  "reveal_payload": [],
+  "hook_movements": {
+    "planted": [],
+    "advanced": [],
+    "resolved": []
+  },
+  "subplot_obligations": [
+    "SUB_04"
+  ],
+  "relationship_turns": [],
+  "pacing_curve": "falling",
+  "exit_vector": "Ben knows the public story is incomplete.",
+  "chapter_word_target": 2000,
+  "notes": "Source: Chapter Outlines v4.1. Act: Coda — Dangerous Aftermath. Chapter title: The Foundation Survives.\n\nCharacter voice focus: preserve the exact v1.4 character behavior and dialogue rules for the chapter POV and named participants. Plot first, character second, theme through consequences."
+}

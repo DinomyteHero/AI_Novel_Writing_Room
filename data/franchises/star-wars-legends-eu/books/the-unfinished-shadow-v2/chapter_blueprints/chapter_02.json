@@ -1,0 +1,31 @@
+{
+  "chapter_number": 2,
+  "chapter_mission": "Ben begins at Shedu Maad in a state of quiet disconnection: respected, loved, and included, but not at ease among peers or ordinary Jedi social life. Luke and close family are temporarily offworld, leaving Ben not abandoned but alone when the past reaches him. Add living Shedu Maad texture: training rooms, shared meals, Hapan architecture and security formality rubbing against Jedi informality. Include a brief light Allana/Amelia cameo or near-cameo while she is visiting for the week - ordinary family texture only, not plot machinery. Ben is included in ordinary banter, but the room turns careful around him once his history is remembered. The obsolete GAG identity-address alert arrives and unsettles him before the content does. He recognizes the channel as a dead part of his old GAG service marker routed through standard HoloNet infrastructure, not Jedi comms. His hand covers the sender code before he realizes he is hiding it.",
+  "chapter_turn": "Ben holo-calls Luke before leaving for Coruscant.",
+  "structural_phase": "setup",
+  "pov_allocation": [
+    "Ben Skywalker"
+  ],
+  "scene_count": 1,
+  "scene_plan": [
+    {
+      "scene_number": 1,
+      "role": "escalation",
+      "dialogue_expectation": "dialogue_led",
+      "target_word_count": 2800,
+      "purpose": "Ben begins at Shedu Maad in a state of quiet disconnection: respected, loved, and included, but not at ease among peers or ordinary Jedi social life. Luke and close family are temporarily offworld, leaving Ben not abandoned but alone when the past reaches him."
+    }
+  ],
+  "reveal_payload": [],
+  "hook_movements": {
+    "planted": [],
+    "advanced": [],
+    "resolved": []
+  },
+  "subplot_obligations": [],
+  "relationship_turns": [],
+  "pacing_curve": "rising",
+  "exit_vector": "Ben holo-calls Luke before leaving for Coruscant.",
+  "chapter_word_target": 2800,
+  "notes": "Source: Chapter Outlines v4.1. Act: Act One — The Body / The Prison / The Partnership. Chapter title: Manifest Fragment.\n\nReader-onboarding note: Briefly orient non-expert readers: Ben is Luke’s son; Jacen Solo was family/teacher and became Darth Caedus; Ben served under Jacen/GAG as a fourteen-year-old; Mara’s death remains part of the wound; the Jedi Order is now based at Shedu Maad after relocating at the end of FOTJ. Keep this to short, emotionally grounded exposition.\n\nCharacter voice focus: preserve the exact v1.4 character behavior and dialogue rules for the chapter POV and named participants. Plot first, character second, theme through consequences."
+}

@@ -1,0 +1,19 @@
+{
+  "id": "elya_rane",
+  "name": "Elya Rane",
+  "role": "Opening POV; former GAG commander and murder victim whose discovery launches the case",
+  "age": "",
+  "force_status": "",
+  "three_dimensions": {
+    "surface": "Elya is the opening victim and the normal-person lens into GAG history. She is competent, afraid, morally compromised but decent enough in one crucial moment. She once moved Ben’s name out of a wrong approval field because he was a child. She also supervised Talon after Tess grounded him from field duty and moved him into records/logistics work.",
+    "backstory_inner_demons": "That the system she survived is still alive, and that she helped keep it alive. She was not a grand hero. She made compromises. But she also made one small human correction that protected Ben from becoming a clean bureaucratic answer.",
+    "action_under_pressure": "Thinks in files and fields to avoid thinking in bodies. Uses procedural caution to manage fear. Tells herself she is only verifying until she knows she is already choosing. File inconsistencies, duplicate manifests, missing names, wrong timestamps, systems built to move when touched. Do not overextend Elya. She needs to be human enough to matter, not so detailed that the opening stalls."
+  },
+  "voice_notes": "Practical, tense, grounded. She should orient new readers to GAG through consequences, not lectures.\n\nGood Elya register: Emergency custody became protected transfer. Interrogation became review. Children became approval fields if no one moved their names in time. She had not saved Ben Skywalker. Not really. She had only made history work harder to blame a child. “GAG is still active. One of Jacen’s last orders has two lives. Come alone. — E.R.” Avoid Elya register: “The moral legacy of the Galactic Alliance Guard continues to haunt the postwar political order.” Better: Elya had learned that governments did not bury crimes all at once. They renamed them first.\n\nMinimal in the opening. Dry, practical, tired.\n\nCareful, records-trained, watches systems more than people until people become dangerous.\n\nDo not overextend Elya. She needs to be human enough to matter, not so detailed that the opening stalls.",
+  "arc_type": "steadfast",
+  "thematic_role": "Opening POV; former GAG commander and murder victim whose discovery launches the case",
+  "avoid_list": [
+    "Do not write theme as thesis.",
+    "Do not make dialogue interchangeable with other cast members."
+  ]
+}

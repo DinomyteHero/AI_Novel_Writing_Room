@@ -1,0 +1,94 @@
+{
+  "chapter_number": 23,
+  "scene_number": 2,
+  "structural_phase": "attack",
+  "scene_role": "decision",
+  "pov_character": "Ben",
+  "mission": "Three days in hyperspace on the civilian hauler, off-grid and committed. Ben reckons with where they are going: Iresh sits on the wild edge Jacen crossed during his Force odyssey, between the better-known stops — the Aing-Tii of the Kathol Rift who taught him to walk the currents of the Force, the Fallanassi, the lessons Vergere left him. Jacen routed the holocron to a place on his own pilgrimage, which means he chose it for a reason. In the quiet the forced partnership with Talon stops being a transaction and becomes the thing neither of them will name; Talon, who reads exits the way other people read faces, finally says where he learned it — a Yuuzhan Vong War evacuation he came up inside as a boy, during the Fall of Coruscant. Ben uses a steadiness Jacen taught him to settle himself for what is coming, and hates how well it works.",
+  "why_now": "The running is over and the fighting has not started. This is the only stretch of quiet between the Squeeze and Iresh — the one place the partnership and the cost of Ben's decision can be felt before the strange-world expedition swallows them. The reader needs to understand who Ben and Talon are to each other, and what Jacen's odyssey was, before the Glasswell.",
+  "conflict": "Ben wants to walk into Iresh certain of what he will and will not do with what Jacen taught him; the crossing will not give him that certainty. The obstacle is internal and relational — three days with nothing to do but feel the weight, a partner who sees him too clearly, and the slow recognition that the calm he is using to steady himself is Jacen's calm. Talon wants to keep the register light and cannot quite, because the place they are going is exactly the kind of place that gets people lost.",
+  "conflict_type": "internal",
+  "dialogue_expectation": "dialogue_led",
+  "turning_point": "The partnership stops being a transaction. Neither of them says it; Talon's war story and Ben's refusal to look away from it are the proof. Ben privately decides he will use what Jacen left in him if it saves lives, and carries that decision into Iresh unspoken.",
+  "closing_hook": "The hauler drops toward Iresh — pale cliffs, dark water, long wind below. Whatever Ben decided in transit, the place will test it.",
+  "characters_present": [
+    "Ben Skywalker",
+    "Talon Veyr"
+  ],
+  "setting": "The civilian cargo hauler, three days into the off-grid run toward the Outer Rim edge near the Kathol region. A cramped cargo-class passenger compartment: bolted bunks, a galley that dispenses bad caf, a single transparisteel viewport showing the mottled blue of hyperspace. Anonymous, functional, nowhere to be except with each other. Talon's bunk faces the hatch out of habit.",
+  "emotional_trajectory": "",
+  "stakes": {
+    "personal": "Ben is carrying his decision toward the only test that matters: he is going to use Jacen's crisis logic against Jacen's surviving student to stop Jacen's unfinished work. The crossing is where he stops being able to pretend the GAG year was something done only to him — the steadiness, the room-reading, the calm under load are his now, and he will need them.",
+    "interpersonal": "The forced partnership becomes a real one here, through behavior rather than declaration. Talon hands Ben one true piece of himself — the war he came up inside — and Ben's job is simply not to flinch or fix it. What they are to each other gets decided in this scene and never gets named.",
+    "external": "They are off-grid with no backup, no official status, and no documentary case left. The Vigil's expedition is already on Iresh under legitimate cover. Whatever Ben understands about Jacen's odyssey now is the only intelligence he carries into a place he has never seen."
+  },
+  "sensory_details": "The mottled blue of hyperspace through the one viewport, and the way it makes the compartment feel both safe and erased. The hauler's old-freighter hum in the deck plates; the chemical aftertaste of galley caf; cold that the heaters never quite beat in a cargo-class hold. Ben notices Talon's bunk faces the hatch before Talon does, and says nothing.",
+  "canon_elements_needed": [
+    "Jacen Solo's Force odyssey — Aing-Tii of the Kathol Rift (flow-walking), the Fallanassi (the White Current), Vergere's teachings",
+    "Yuuzhan Vong War / the Fall of Coruscant — refugee-evacuation history for Talon's backstory",
+    "Ben/Talon partnership arc (behavioral, never declared)",
+    "Iresh physical geography and local survival rules"
+  ],
+  "target_word_count": 2800,
+  "active_subplots": [],
+  "plot_threads_advanced": [
+    "chapter_23_transit_partnership_beat"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "promises_progressed": [
+    "PP_02",
+    "PP_05"
+  ],
+  "turning_point_detail": {
+    "trigger": "Talon, talking about how he reads every exit, drops the joke for once and names the Fall of Coruscant evacuations he survived as a boy; Ben does not look away or try to fix it.",
+    "shift": "The partnership crosses from transaction to trust, and Ben — steadying his own fear with a calm he knows came from Jacen — privately resolves to use what Jacen left in him if it will save lives on Iresh.",
+    "cost": "Ben can no longer tell himself the GAG year only happened to him; owning Jacen's tools is the first step onto the road the whole book warns about, taken here for the most defensible of reasons."
+  },
+  "emotional_arc": {
+    "start": "Ben is operational and contained — three days of enforced stillness he is managing by treating it as a transit task, not a reckoning.",
+    "shift": "The destination resolves from a coordinate into Jacen's pilgrimage, and Talon's war story turns the compartment into a place where the partnership becomes real; Ben feels both the trust and the pull of Jacen's calm in the same breath.",
+    "end": "He is steady in a way he distrusts — decided, quiet, carrying a resolution he will not say aloud as the hauler reverts over Iresh."
+  },
+  "key_beats": [
+    {
+      "beat_description": "In the off-watch hours Ben traces the route on the hauler's nav and sees Iresh sitting on the wild edge Jacen crossed on his Force odyssey, between the Aing-Tii of the Kathol Rift and the Fallanassi.",
+      "state_change": "The destination stops being a coordinate and becomes Jacen's pilgrimage — which means Jacen chose Iresh for a reason Ben is going to have to understand.",
+      "pov_reaction": "The old reflex to map terrain before he means to; the unwelcome click of understanding Jacen the way only a student can."
+    },
+    {
+      "beat_description": "Talon needles Ben about the caf and the bunk, then asks what is actually waiting on Iresh; Ben gives him the plain version — a place that remembers too hard, where Jacen hid the work.",
+      "state_change": "The odyssey lore lands as shared stakes rather than exposition; Talon now understands what 'remembers too hard' is going to cost them.",
+      "pov_reaction": "Relief at being asked something he can answer in objects and danger instead of feelings."
+    },
+    {
+      "beat_description": "The talk drifts to how Talon reads every exit; for once he does not joke it away and names the Fall of Coruscant evacuations he came up inside as a boy.",
+      "state_change": "Talon hands Ben a real piece of himself and the partnership crosses from transaction to trust.",
+      "pov_reaction": "The discipline of holding still so the moment does not spook — not filling the silence, not fixing it."
+    },
+    {
+      "beat_description": "Ben uses a steadiness Jacen taught him to settle his own fear for what is coming, and catches himself doing it.",
+      "state_change": "Ben's self-definition sharpens: the tools that will save lives on Iresh are Jacen's tools, and he decides he will use them.",
+      "pov_reaction": "The competence arriving uninvited; the specific distaste of being good at the thing he survived."
+    },
+    {
+      "beat_description": "The hauler's klaxon calls the reversion; through the viewport Iresh resolves — pale cliffs, dark water, a long wind off the highlands.",
+      "state_change": "The quiet ends and the expedition begins; whatever Ben decided in transit is now something he carries into a place that will test it.",
+      "pov_reaction": "The decision settling into a weight he will hold rather than say."
+    }
+  ],
+  "hook_actions": [],
+  "revelations": [],
+  "pov_arc_phase": "Ben Skywalker:moment_of_truth",
+  "notes": "Source: New breathing scene (v8.7 named-Legends texture pass) — Ch 23 second scene, the Coruscant→Iresh crossing. Act: Act Two→Three transition (no milestone impact). Homes two texture threads: Jacen's Force odyssey (Aing-Tii / Kathol Rift / flow-walking, the Fallanassi / White Current, Vergere) and Talon's Yuuzhan Vong War anchor (the Fall of Coruscant evacuations). Character voice focus: Ben controlled-direct, short emotional lines; Talon fast-irreverent with the valve thinning when his war surfaces. The odyssey lore MUST land as Ben's dread and Talon's history — one term, then one consequence — never as a lecture. Plot first, character second, theme through consequence.",
+  "scene_voice_permissions": {
+    "notes": "Use Character Voice & Life Sheet v1.4 as controlling source for dialogue, behavior, humor, fear, wounds, and interaction rules. Preserve commercial readability: goal, obstacle, movement, reversal, hook. This is a two-hander breathing beat — dialogue-led, earned quiet, no plot machinery.",
+    "anti_patterns": [
+      "do not write theme as thesis",
+      "do not let the Jacen-odyssey lore become exposition — surface it through Ben's dread and Talon's questions, one term then one consequence",
+      "do not let the partnership be named or declared — it is shown through behavior",
+      "do not let Iresh become abstract before it is physically clear"
+    ],
+    "pov_arc_phase": "Ben Skywalker:moment_of_truth"
+  }
+}

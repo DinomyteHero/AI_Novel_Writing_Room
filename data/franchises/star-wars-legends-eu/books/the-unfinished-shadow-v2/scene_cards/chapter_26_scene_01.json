@@ -1,0 +1,101 @@
+{
+  "chapter_number": 26,
+  "scene_number": 1,
+  "structural_phase": "attack",
+  "scene_role": "escalation",
+  "pov_character": "Ben",
+  "mission": "Ben, Talon, and Sela observe the Foundation/Vigil field camp: legitimate-looking survey work with Greyline/Greyline security underneath.",
+  "why_now": "The Foundation camp is active and close to the Glasswell — Ben needs to understand the operation's size, security posture, and timeline before any move can be planned, and the only way to do that is direct observation from the ridge.",
+  "conflict": "The camp looks procedurally legitimate from the ridge — survey markers, Foundation-branded equipment sleds, professional uniformed personnel — and Ben cannot act on what he suspects without proof that the Greyline security underneath is there for something other than protecting survey workers.",
+  "conflict_type": "internal",
+  "dialogue_expectation": "balanced",
+  "turning_point": "Ben senses Aevyn’s Force presence.",
+  "closing_hook": "Ben senses Aevyn’s Force presence.",
+  "characters_present": [
+    "Ben Skywalker",
+    "Talon Veyr",
+    "Sela Dray"
+  ],
+  "setting": "Iresh, observation ridge above the Foundation/Vigil field camp — pale cliffs, mineral dust on the wind, Greyline security in unmarked grays patrolling a survey-classified perimeter. Foundation-branded equipment sleds and a small landing pad. Ben senses Aevyn's Force presence from the ridge before he sees him.",
+  "emotional_trajectory": "",
+  "stakes": {
+    "personal": "From the observation ridge Ben automatically reads the camp the way GAG training taught him to — patrol intervals, sight lines, over-watched approaches, which Foundation staffers look like they do not know what the security is actually for. He notices himself doing it and does not stop.",
+    "interpersonal": "Talon is counting guards in his head — Ben can tell by the way his eyes track — and he has not made a joke in ten minutes. Sela is watching the section of camp nearest the path she warned them not to use, and her jaw is set.",
+    "external": "If Ben cannot identify Aevyn’s location and the cache’s approximate position from this ridge, they will have to go inside the perimeter blind — with no local legal cover and Greyline security authorized to detain anyone who approaches without Foundation credentials."
+  },
+  "sensory_details": "Pale mineral dust on the wind from the cliff face below the ridge — it leaves a fine coating on everything exposed for more than a few minutes. The camp’s equipment hum carries upslope. Ben notices the Foundation-branded canopy is staked with military-grade anchor bolts, not the quick-release civilian type. Below them, the mirror-lake surface catches the overcast sky in flat gray.",
+  "turning_point_detail": {
+    "trigger": "Ben extends his Force awareness past the camp's perimeter — not scanning for threats, just listening — and finds something that is not Greyline security or Foundation staffers. A presence that is quiet, controlled, and oriented inward rather than outward. Someone who knows how to not be read.",
+    "shift": "Ben knows what that kind of Force presence means: it is not a soldier's focused alertness or a civilian's absence of awareness. It is the deliberate stillness of someone with training. Aevyn is inside the camp, and he is already working.",
+    "cost": "Ben cannot tell how close Aevyn is to the cache. Every hour of observation is an hour Aevyn has been at it."
+  },
+  "emotional_arc": {
+    "start": "Ben is in GAG-trained observation mode — professional, objective, reading the camp like a logistics problem — and keeping the discomfort of how natural that feels at arm's length.",
+    "shift": "The moment his Force sense finds Aevyn's presence, professional observation becomes personal recognition. He knows that kind of stillness. Jacen taught him to practice it.",
+    "end": "Ben pulls back from the Force contact before Aevyn can sense the touch, but the confirmation lands like a weight: Aevyn is there, he is operational, and the time for reconnaissance is ending."
+  },
+  "key_beats": [
+    {
+      "beat_description": "The three of them hold the observation ridge and read the camp: Talon counts Greyline personnel and patrol intervals, Sela marks blocked Foundation paths, Ben reads the legitimacy surface and the security mass underneath.",
+      "state_change": "They complete a shared reconnaissance assessment — the camp's cover is identified as functional but over-secured.",
+      "pov_reaction": "the automatic satisfaction of a pattern completing correctly; the discomfort of noticing how automatic it is"
+    },
+    {
+      "beat_description": "Ben identifies the security posture as over-weighted for a standard survey — too many Greyline personnel in unmarked grays, too many sight lines toward the Glasswell side.",
+      "state_change": "The camp's legitimate surface is stripped away in his assessment — what remains is a security operation with charitable cover.",
+      "pov_reaction": "GAG-trained read completing without effort; a familiar competence he has not decided whether to own"
+    },
+    {
+      "beat_description": "Ben extends Force awareness carefully into the camp and finds Aevyn's deliberately quiet presence near the Glasswell access.",
+      "state_change": "Aevyn's location inside the perimeter is confirmed — he is already operational, not staging.",
+      "pov_reaction": "recognition before identification; the specific texture of someone who was taught how to not be read"
+    },
+    {
+      "beat_description": "Ben pulls back before Aevyn can feel the probe, but the confirmation is complete.",
+      "state_change": "Ben now knows Aevyn's position without triggering a counter-awareness.",
+      "pov_reaction": "the breath held and released; the weight of confirmed intelligence settling"
+    },
+    {
+      "beat_description": "Ben tells Talon and Sela what he found; Talon counts what it means for their timeline and stops joking.",
+      "state_change": "The group's operational posture shifts — reconnaissance is over, and they are now planning against a known active threat.",
+      "pov_reaction": "the relief of having something concrete to report; the beginning of the next calculation"
+    }
+  ],
+  "canon_elements_needed": [
+    "Foundation / Vigil public-charity reality",
+    "Iresh physical geography and local survival rules"
+  ],
+  "target_word_count": 2000,
+  "active_subplots": [
+    "SUB_03",
+    "SUB_05"
+  ],
+  "plot_threads_advanced": [
+    "chapter_26_locked_outline_action"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "promises_progressed": [
+    "PP_02",
+    "PP_04",
+    "PP_05",
+    "PP_06",
+    "PP_07",
+    "PP_10",
+    "PP_12"
+  ],
+  "hook_actions": [],
+  "revelations": [],
+  "pov_arc_phase": "Ben Skywalker:moment_of_truth",
+  "notes": "Source: Chapter Outlines v4.1. Act: Act Three — Iresh / Glasswell / Aevyn. Chapter title: Memorial Survey.\n\nCharacter voice focus: preserve the exact v1.4 character behavior and dialogue rules for the chapter POV and named participants. Plot first, character second, theme through consequences.",
+  "scene_voice_permissions": {
+    "notes": "Use Character Voice & Life Sheet v1.4 as controlling source for dialogue, behavior, humor, fear, wounds, and interaction rules. Preserve commercial readability: goal, obstacle, movement, reversal, hook.",
+    "anti_patterns": [
+      "do not write theme as thesis",
+      "do not add new plot mythology",
+      "do not let Iresh become abstract before it is physically clear",
+      "do not make Dorrin a third lead or secret mentor"
+    ],
+    "pov_arc_phase": "Ben Skywalker:moment_of_truth"
+  }
+}

@@ -1,0 +1,965 @@
+[
+  {
+    "canonical_form": "Ben Skywalker",
+    "aliases": [
+      "Ben",
+      "Skywalker"
+    ],
+    "definition": "Protagonist. Jedi Knight, age ~21 in 47 ABY. Son of Luke Skywalker and Mara Jade Skywalker. Briefly apprenticed to Jacen Solo as a fourteen-year-old; served in the Galactic Alliance Guard under Jacen; turned against Caedus by the end of the war. Lost Mara to Jacen/Caedus. Categorized by family as victim, by Order as survivor; neither category fully honest.",
+    "category": "character_name",
+    "first_appearance": 2,
+    "usage_notes": "Talon calls him 'Skywalker' when guarded, 'Ben' when trust slips through. Sela calls him 'Skywalker' through Ch 28, then 'Ben' from Ch 34 onward. Aevyn calls him 'Ben Skywalker' — full name, never shortened — because the full name is the wound."
+  },
+  {
+    "canonical_form": "Talon Veyr",
+    "aliases": [
+      "Talon",
+      "Veyr"
+    ],
+    "definition": "Co-protagonist / partner. 28, human, Coruscanti. Former GAG field agent turned black-channel logistics/security officer; imprisoned at Tarn Velos at story start. Was Colonel Maro Tess's protégé until Operation Glasshook; was reassigned into logistics/records after disobeying Tess to save trapped civilians. The reassignment became the record that ruined him.",
+    "category": "character_name",
+    "first_appearance": 6,
+    "usage_notes": "Tess calls him 'Talon' — first name — with proprietary calm; Talon hates it. Korda's 'Veyr. I assumed they had better locks.' is the only line where Korda uses his surname."
+  },
+  {
+    "canonical_form": "Aevyn Soris",
+    "aliases": [
+      "Aevyn",
+      "Soris"
+    ],
+    "definition": "True mirror antagonist. 28, human. Jacen Solo's surviving Force student from the GAG/Caedus period. Marginal Force-sensitive politely rejected by the Jedi at fourteen at a regional outreach office; later joined GAG as a young adult as a field analyst / operations specialist before the Caedus period; Jacen found him there and treated him as a side project while Ben remained the primary fourteen-year-old apprentice. Wields a self-built unstable cold white-blue lightsaber.",
+    "category": "character_name",
+    "first_appearance": 1,
+    "usage_notes": "Aevyn refuses to call Jacen 'Caedus' — uses 'Jacen' only. The corridor flashback wound-image (Jacen leaving a session with Aevyn to walk off with young Ben) surfaces as fragment in his Act 3 POV — NEVER as exposition or speech. Aevyn presumed dead at Glasswell collapse; cold white-blue spark in Ch 38 confirms survival to the reader only."
+  },
+  {
+    "canonical_form": "Colonel Maro Tess",
+    "aliases": [
+      "Tess",
+      "Maro Tess",
+      "the Colonel"
+    ],
+    "definition": "Operational antagonist. Late forties, ~49. Former senior GAG operations officer; current Greyline Strategic Services strategist; operational architect for the Vigil; knowing One Sith asset. Was Talon Veyr's senior commander and mentor figure during the war; reassigned Talon out of field duty after Operation Glasshook. Believes power is real, hesitation kills, and morality is usually written after control has been secured.",
+    "category": "character_name",
+    "first_appearance": 20,
+    "usage_notes": "Survives Book 1 and retreats deeper into One Sith service in Ch 37. NO villain poetry — Tess speaks operationally, like a man who sorts lives into categories. Treats failures as logistics."
+  },
+  {
+    "canonical_form": "Aelia Vandros",
+    "aliases": [
+      "Aelia",
+      "Vandros",
+      "Director Vandros"
+    ],
+    "definition": "Public-face antagonist. Late fifties, human. Executive Director of the Shedu Maad Memorial Foundation. Former Senate staffer and widow from the Second Galactic Civil War. Warm, polished, prepared, genuinely compassionate, dangerous because much of what she says is true. Writes condolence notes by hand; remembers scholarship recipients' names; never publicly defends 'Darth Caedus'. Steps down in public disgrace in Ch 35 to preserve the Foundation's legitimate charitable work; no criminal liability.",
+    "category": "character_name",
+    "first_appearance": 17,
+    "usage_notes": "Privately thinks of Jacen as Jacen, never as Caedus. Beats Ben SOCIALLY at the Ch 17 Foundation visit before she is exposed operationally."
+  },
+  {
+    "canonical_form": "Bren Korda",
+    "aliases": [
+      "Korda",
+      "Director Korda"
+    ],
+    "definition": "Foundation security director. Early forties, human. Old GAG security lieutenant in respectable clothing. Director of Protective Services for the Shedu Maad Memorial Foundation; privately coordinates Foundation logistics with old GAG-linked security and mercenary contractors. Talon knew him during GAG and disliked him.",
+    "category": "character_name",
+    "first_appearance": 17,
+    "usage_notes": "Killed/discarded by Tess in PP2 (Ch 20) as the public fall guy for the conspiracy's exposed crimes. Smooth with superiors, cruel through process, never openly messy when witnesses matter."
+  },
+  {
+    "canonical_form": "Iressa Vossk",
+    "aliases": [
+      "Iressa",
+      "Vossk"
+    ],
+    "definition": "Short-arc Act 2 ally. Human or near-human (possibly Kiffar-descended without making psychometry a major plot feature). Former GAG Manifest Integrity Analyst; current senior records-restoration analyst at Civitas Archive Systems. Specialized in wartime cargo discrepancies, duplicate manifests, quarantine classifications, restricted transfer corrections. Charges Ben a 'Jedi complication fee' on first meeting. Renamed from working name 'Mira Vossk' in v8.3 to avoid name collision with Mara.",
+    "category": "character_name",
+    "first_appearance": 12,
+    "usage_notes": "Dies at the GAG archive in Ch 15 actively denying Vara Senn a clean copy and transmitting the two-part dying package (documentary chain + identity-shaping revelation) to Ben and Talon. Old Iressa buried discrepancies; new Iressa preserves one."
+  },
+  {
+    "canonical_form": "Vara Senn",
+    "aliases": [
+      "Vara",
+      "Senn"
+    ],
+    "definition": "Warning-shot dark-side contractor. Former Lost Tribe of Sith apprentice now doing mercenary work. Dangerous but undisciplined; sells Force talent to clients who pay late and resents the indignity. Uses pressure, fear, and domination — crude dark-side contrast to Aevyn's refined Jacen-derived method.",
+    "category": "character_name",
+    "first_appearance": 14,
+    "usage_notes": "Engages Ben in a short ugly lightsaber clash at the Ch 14-15 archive cleanup, then takes Iressa hostage when combat doesn't work. Drops a brief Vestara Khai mention as scar-tissue test. Disappears into the contractor pool after the archive; does NOT return on-page in Book 1. Book 2 seed."
+  },
+  {
+    "canonical_form": "Sela Dray",
+    "aliases": [
+      "Sela",
+      "Dray"
+    ],
+    "definition": "Iresh local guide / settlement liaison. Early thirties, human or near-human. Knows weather, paths, taboo ground, chime-lines, and what offworlders break when they arrive with causes. Dislikes Ben and Talon as offworlders but recognizes they may be the only tools available to stop worse offworlders. Survives Book 1.",
+    "category": "character_name",
+    "first_appearance": 24,
+    "usage_notes": "Refuses Force theory; speaks in survival rules. Saves Tavi and locals through local knowledge Ben does NOT have — distinct climax job. Calls Ben 'Skywalker' through Ch 28; shifts to 'Ben' from Ch 34 onward, conditional trust only."
+  },
+  {
+    "canonical_form": "Tavi Dray",
+    "aliases": [
+      "Tavi"
+    ],
+    "definition": "Sela's younger relative / apprentice figure. Iresh local pressured/paid by the Foundation into the Glasswell zone as a guide. Younger, practical, overconfident, loved. Trapped below during Aevyn's forced opening of the Glasswell cache; rescued by Ben's Jacen-shaped crisis logic at Ch 31; imperfect reunion with Sela in Ch 34.",
+    "category": "character_name",
+    "first_appearance": 24,
+    "usage_notes": "Tavi must be PRESENT before he is endangered — seeded through a carved guide-token, field recorder, local guide marks, prior warning, or a child/family member asking after him."
+  },
+  {
+    "canonical_form": "Commander Elya Rane",
+    "aliases": [
+      "Elya",
+      "Rane",
+      "Commander Rane"
+    ],
+    "definition": "Opening victim and normal-person history lens. Former GAG records/logistics officer. Discovers the duplicated wartime quarantine/survey shipment manifest in Ch 1 and contacts Ben through an obsolete GAG-coded channel because she once quietly removed Ben's name from a wrong approval field when he was fourteen. Murdered by Aevyn through Jacen-derived Force-interrogation.",
+    "category": "character_name",
+    "first_appearance": 1,
+    "usage_notes": "POV of Ch 1 in full through her death. Should be briefly competent, afraid, and human before the plot kills her. The fragment she preserved survives beyond what Aevyn extracts."
+  },
+  {
+    "canonical_form": "Luke Skywalker",
+    "aliases": [
+      "Luke",
+      "Master Skywalker",
+      "Ben's father"
+    ],
+    "definition": "Senior Master of the Jedi Order, Ben's father. No longer Grand Master (Saba Sebatyne assumed the title at the end of FOTJ). Based at Shedu Maad through the novel; communicates with Ben on Coruscant by holo. Post-Crucible state: quieter, eyes further away, longer pauses — implication only, Mortis never named.",
+    "category": "character_name",
+    "first_appearance": 3,
+    "usage_notes": "Three Book 1 conversations: Ch 3 first holo call (paternal advice, classify the matter as sensitive but not catastrophic); Ch 16 Midpoint paternal+institutional call (directs Ben to Saba); Ch 20 brief PP2 second holo call from the Skywalker apartment (Luke understands what Ben has decided, does not try to stop him). Ch 36 is the first in-person exchange since the holo calls — the 'Gone where?' coda. NEVER use 'As Grand Master, I must...' — he is no longer Grand Master."
+  },
+  {
+    "canonical_form": "Mara Jade Skywalker",
+    "aliases": [
+      "Mara",
+      "Mara Jade"
+    ],
+    "definition": "Ben's mother. Murdered by Jacen Solo during the LotF / Second Galactic Civil War period. Appears in Book 1 only as memory, family-holo presence, and Ben's emotional wound. Has not been seen on-page (alive) since LotF: Sacrifice.",
+    "category": "character_name",
+    "first_appearance": 2,
+    "usage_notes": "Mentions of Mara are a vulnerability point for Ben — they should feel earned, not used as cheap emotional levers. The Ch 11 Skywalker apartment beat surfaces her absence through a preserved family holo, not through dialogue or memory exposition."
+  },
+  {
+    "canonical_form": "Jacen Solo",
+    "aliases": [
+      "Jacen"
+    ],
+    "definition": "Pre-fall identity. Ben's cousin, mentor, and Force teacher during the GAG / Caedus period. Son of Han Solo and Leia Organa Solo; brother of Jaina. Killed at the Battle of Shedu Maad in 41 ABY. His Force odyssey (NJO through LotF) produced the Vergerean / Lumiya-inflected techniques he later systematized as Recognition and Holding in the unfinished holocron.",
+    "category": "character_name",
+    "first_appearance": 1,
+    "usage_notes": "Naming discipline: 'Jacen' for the pre-fall mentor identity, 'Caedus' for the Sith-Lord identity. POVs choose by emotional load — see canon_profile.franchise_terminology_notes. Aevyn ONLY uses 'Jacen'."
+  },
+  {
+    "canonical_form": "Darth Caedus",
+    "aliases": [
+      "Caedus"
+    ],
+    "definition": "Sith-Lord identity of Jacen Solo during the LotF Second Galactic Civil War. Architect of the Galactic Alliance Guard's wartime excesses, murder of Mara Jade Skywalker, killed at the Battle of Shedu Maad. References in Book 1 are emotionally loaded; the name appears in narration when the speaker means the war-crimes identity, not the mentor.",
+    "category": "character_name",
+    "first_appearance": 1,
+    "usage_notes": "Aelia NEVER publicly defends 'Darth Caedus' — civic, memorial, therapeutic language only. Aevyn REFUSES 'Caedus'. Tess avoids both names in operational dialogue."
+  },
+  {
+    "canonical_form": "Saba Sebatyne",
+    "aliases": [
+      "Saba",
+      "Grand Master Sebatyne"
+    ],
+    "definition": "Grand Master of the Jedi Order. Barabel. Assumed the title at the end of Fate of the Jedi when Luke Skywalker stepped down. Measured, fierce when needed, committed to bringing institutional stability to an Order that has been through too many crises. Based at Shedu Maad.",
+    "category": "character_name",
+    "first_appearance": 16,
+    "usage_notes": "Appears in one Ch 16 holo call from Ben (institutional report after Iressa's death). Speaks with Barabel gravity — careful, sharp questions, formal review register. The slowness of her correct review process is the institutional pressure that forces Ben's Midpoint pivot; Saba is NOT the villain."
+  },
+  {
+    "canonical_form": "Wynn Dorvan",
+    "aliases": [
+      "Chief of State Dorvan",
+      "Dorvan",
+      "Wynn"
+    ],
+    "definition": "Chief of State of the Galactic Alliance circa 47 ABY. Quiet, competent, careful — restoring procedure after repeated crises. NOT brainwashed or mind-controlled in Book 1. Future high-value target in a broader One Sith identity-shaping infiltration program, not yet a Book 1 puppet.",
+    "category": "character_name",
+    "first_appearance": "Ch 37 (off-page reference)",
+    "usage_notes": "Mentioned only as context for the Dorvan administration's 'return to normalcy' political register. The unnamed One Sith hand in Ch 37 considers Dorvan as a future target."
+  },
+  {
+    "canonical_form": "Jagged Fel",
+    "aliases": [
+      "Jag",
+      "Fel"
+    ],
+    "definition": "Head of State of the Imperial Remnant. Stable post-FOTJ. Brief reference only.",
+    "category": "character_name",
+    "first_appearance": "background reference",
+    "usage_notes": "No on-page appearance. Mentioned only to establish the post-FOTJ galactic state."
+  },
+  {
+    "canonical_form": "Tenel Ka Djo",
+    "aliases": [
+      "Tenel Ka"
+    ],
+    "definition": "Queen Mother of Hapes. Allana Solo's mother. Stable post-FOTJ on the Hapan throne; Jedi-trained.",
+    "category": "character_name",
+    "first_appearance": "background reference",
+    "usage_notes": "No on-page appearance. The Jedi Order's Shedu Maad presence is in the Hapes Cluster; Hapan political stability under Tenel Ka is what makes that base viable."
+  },
+  {
+    "canonical_form": "Vestara Khai",
+    "aliases": [
+      "Vestara",
+      "Savara Raine"
+    ],
+    "definition": "Former Lost Tribe apprentice; canonically alive and active off-page under the alias 'Savara Raine' as a free-agent dark-side-trained contractor per Crucible (45 ABY). Ben's prior love interest who chose the dark side. NOT in Book 1 beyond scar-tissue mention.",
+    "category": "character_name",
+    "first_appearance": "Ch 14-15 mention only",
+    "usage_notes": "Vara Senn drops Vestara's name during the Ch 14-15 archive clash to test whether the name still lands. The drafter knows the canonical Vestara is currently OUT THERE doing things; write Ben's reaction with active threat in mind but never make the resonance explicit on the page."
+  },
+  {
+    "canonical_form": "Tahiri Veila",
+    "aliases": [
+      "Tahiri"
+    ],
+    "definition": "Jedi Knight in good standing at Shedu Maad in 47 ABY. Per Crucible, served alongside Ben to rescue Luke and Leia from the Qrephs. Ben's recent working colleague.",
+    "category": "character_name",
+    "first_appearance": "optional passing reference",
+    "usage_notes": "At most one passing reference if natural — e.g., Talon asking who else Ben has been on operations with. NEVER as a Caedus reference. Her LotF connection to Caedus is not mentioned in this novel."
+  },
+  {
+    "canonical_form": "Han Solo",
+    "aliases": [
+      "Han"
+    ],
+    "definition": "Effectively retired post-Crucible. Off-page in Book 1.",
+    "category": "character_name",
+    "first_appearance": "background reference",
+    "usage_notes": "Mention only — never on-page. Han and Leia are with family, possibly at Shedu Maad or elsewhere."
+  },
+  {
+    "canonical_form": "Leia Organa Solo",
+    "aliases": [
+      "Leia"
+    ],
+    "definition": "Effectively retired post-Crucible. Off-page in Book 1. Should be told enough to feel the Caedus resonance, but not brought into the conspiracy plot.",
+    "category": "character_name",
+    "first_appearance": "background reference",
+    "usage_notes": "Mention only — never on-page. The novel does not bring her into the Vigil investigation."
+  },
+  {
+    "canonical_form": "Allana Solo",
+    "aliases": [
+      "Amelia Solo",
+      "Amelia"
+    ],
+    "definition": "Daughter of Tenel Ka Djo and Jacen Solo, hidden as 'Amelia Solo' under Han and Leia's guardianship per FOTJ. Publicly deniable; suspected/known by some. Treated as a dangerous gray zone in Book 1 — referenced obliquely in Ch 37 (Tess / One Sith hand POV) as 'the Hapan question' or similar; never named on-page, never enters Ben's awareness.",
+    "category": "character_name",
+    "first_appearance": "Ch 37 oblique reference only",
+    "usage_notes": "HARD CONSTRAINT: never named on-page. The Ch 37 reference is the only acknowledgement that the Vigil has clocked her existence. The Hapan-line phrasing should be specific enough that a Legends-aware reader recognizes her and a new reader sees one more unfinished asset on the adversary's desk."
+  },
+  {
+    "canonical_form": "Jaina Solo",
+    "aliases": [
+      "Jaina"
+    ],
+    "definition": "Jacen Solo's twin sister. Effectively retired or out-of-frame in Book 1. Deliberately excluded — bringing her into the Vigil investigation would be using her grief.",
+    "category": "character_name",
+    "first_appearance": "not in Book 1",
+    "usage_notes": "HARD CONSTRAINT: not in Book 1. No on-page appearance, no mention beyond at most a single passing reference if absolutely needed."
+  },
+  {
+    "canonical_form": "Darth Krayt",
+    "aliases": [
+      "Krayt"
+    ],
+    "definition": "Leader of the One Sith on Korriban. In patient pre-emergence; never on-page in Book 1. The Legacy-comics future where Krayt led a galactic war against the Galactic Alliance does NOT happen in this continuity.",
+    "category": "character_name",
+    "first_appearance": "never on-page",
+    "usage_notes": "HARD CONSTRAINT: never on-page. Referenced only as 'the hand' or 'the long game' in Ch 37 from Tess or the One Sith hand's perspective."
+  },
+  {
+    "canonical_form": "Coruscant",
+    "aliases": [],
+    "definition": "Galactic Alliance capital world. Anchors Acts 1-2 of the novel. The Jedi Order has NO institutional foothold here in 47 ABY — the Coruscant Jedi Temple was relinquished at the end of FOTJ (44 ABY) after the Senate voted to remove the Order following the Lost Tribe crisis. The Skywalker family apartment is the last Skywalker presence on a world that pushed the Order out.",
+    "category": "place_name",
+    "first_appearance": 2
+  },
+  {
+    "canonical_form": "Iresh",
+    "aliases": [],
+    "definition": "Remote wind-scoured world near the edge of known space. Anchors Act 3. Pale mineral cliffs; cold highlands; dark water; black reed marshes; thin forests; long winds; wind-carved stone arches; shallow mirror-lakes; stacked stone path-markers; metal chimes / wind markers; thin aurora-like veils in the sky. Iresh's Force character: preserves charged impressions of memory, identity, and decision under pressure. Does NOT reveal truth or prophecy.",
+    "category": "place_name",
+    "first_appearance": 23,
+    "usage_notes": "Iresh is a place BEFORE it is a metaphor. Every Act 3 chapter must include at least one grounding anchor (weather / terrain / local custom / physical danger / Sela's practical knowledge / Tavi's human stake / clear spatial geography). The Force atmosphere rides on top of that, not in place of it."
+  },
+  {
+    "canonical_form": "the Glasswell",
+    "aliases": [
+      "Glasswell"
+    ],
+    "definition": "Taboo cavern/sinkhole system on Iresh, located beneath a mirror-lake and lined with pale translucent mineral that holds pressure-impressions unusually well. The cache hiding Jacen Solo's unfinished holocron is concealed near the Glasswell in old offworld survey equipment or a GAG-era storage unit — practical, deniable, Jacen-like. Local phrase: 'Some places remember too loudly.'",
+    "category": "place_name",
+    "first_appearance": 24,
+    "usage_notes": "NOT a Sith temple, Jedi ruin, or mystical treasure chamber. The cavern's geography MUST be physically clear before it collapses in Ch 30-32 (mirror-lake above; sinkhole below; pale mineral walls; survey scaffold; cache embedded in survey/GAG equipment; lower ledge where Tavi is trapped; one main path out; one dangerous water route)."
+  },
+  {
+    "canonical_form": "Shedu Maad",
+    "aliases": [],
+    "definition": "Hapes Cluster world where the Jedi Order relocated permanently at the end of FOTJ (44 ABY) and where the Order still maintains its headquarters in 47 ABY. The Battle of Shedu Maad (41 ABY) was where Darth Caedus was killed at the close of LotF.",
+    "category": "place_name",
+    "first_appearance": 2,
+    "usage_notes": "Pronounced SHEH-doo MAHD. The Shedu Maad Memorial Foundation takes its name from the post-war reconstruction of the battle's losses."
+  },
+  {
+    "canonical_form": "Hapes Cluster",
+    "aliases": [
+      "Hapes",
+      "Hapan Consortium"
+    ],
+    "definition": "Star cluster on the borders of the Inner Rim, ruled by the Hapan Consortium under Queen Mother Tenel Ka Djo. Houses Shedu Maad and the Jedi Order's current headquarters.",
+    "category": "place_name",
+    "first_appearance": 2
+  },
+  {
+    "canonical_form": "Tarn Velos Coastal Detention Works",
+    "aliases": [
+      "Tarn Velos",
+      "the Coastal Detention Works"
+    ],
+    "definition": "Storm-lashed industrial coastal prison world where Talon Veyr is held at story start. Features: sea-wall system, waste runoff systems, gantries, storm shutters, camera lag, maintenance habits. Setting of the Ch 6-9 prison sequence including the FPP storm-line escape.",
+    "category": "place_name",
+    "first_appearance": 5,
+    "usage_notes": "The prison must be a physical action environment, not a generic prison. Wind, rain, sea spray, cold metal, storm sound through the walls — sensory anchors throughout the sequence."
+  },
+  {
+    "canonical_form": "Civitas Archive Systems",
+    "aliases": [
+      "Civitas"
+    ],
+    "definition": "Coruscant civic-records restoration and compliance firm. Repairs damaged public records, casualty files, displacement registries, charity/government archive errors, and legacy war database inconsistencies. Iressa Vossk's respectable cover employer. Setting of the Ch 12 introduction including the Civitas lunchroom small-talk beat.",
+    "category": "place_name",
+    "first_appearance": 12,
+    "usage_notes": "Civitas must feel like a real workplace before it becomes the wound: ordinary coworkers, mundane office politics, painfully normal small talk about caf and record migrations."
+  },
+  {
+    "canonical_form": "The Candle Room",
+    "aliases": [
+      "Candle Room"
+    ],
+    "definition": "Memorial chamber in the Shedu Maad Memorial Foundation's headquarters. Publicly a place for names, lights, personal tokens, and grief rituals. After hours, the Vigil's meeting place.",
+    "category": "place_name",
+    "first_appearance": 17
+  },
+  {
+    "canonical_form": "the Skywalker family apartment",
+    "aliases": [
+      "the apartment",
+      "Luke's apartment"
+    ],
+    "definition": "Skywalker family residence on Coruscant. The last Skywalker presence on the world that pushed the Order out at the end of FOTJ. Preserved family holo (Mara, Luke, young Ben) on a shelf; Luke's quiet stack of old mission logs. Used as one-night supply stop in Ch 11; becomes Ben and Talon's final refuge for the PP2 run-up to Iresh.",
+    "category": "place_name",
+    "first_appearance": 11,
+    "usage_notes": "A human breather, not a nostalgia shrine. Two objects only carry weight (the family holo + Luke's mission logs). The Ch 11 and Ch 20+ visits must feel like different beats — first a brush past the wound, then a return to it."
+  },
+  {
+    "canonical_form": "Korriban",
+    "aliases": [],
+    "definition": "Sith homeworld in the Outer Rim. Home of the One Sith in patient pre-emergence under Darth Krayt. Never on-page in Book 1; mentioned only as the long-game shadow behind Tess's operation.",
+    "category": "place_name",
+    "first_appearance": "background reference"
+  },
+  {
+    "canonical_form": "Galactic Alliance",
+    "aliases": [
+      "the Alliance",
+      "GA"
+    ],
+    "definition": "The ruling galactic polity in 47 ABY. Chief of State: Wynn Dorvan. Successor to the New Republic after the Yuuzhan Vong War. In return-to-normalcy mode after repeated crises. Working line: 'The Dorvan administration has restored procedure, not trust.'",
+    "category": "faction",
+    "first_appearance": 2
+  },
+  {
+    "canonical_form": "Jedi Order",
+    "aliases": [
+      "the Order"
+    ],
+    "definition": "Headquartered at Shedu Maad (Hapes Cluster) under Grand Master Saba Sebatyne, having relocated permanently from the Coruscant Temple at the end of FOTJ (44 ABY). Luke Skywalker is a senior Master on the Council, stepped back after Crucible.",
+    "category": "organization",
+    "first_appearance": 2,
+    "usage_notes": "The Order has NO institutional foothold on Coruscant in 47 ABY. This matters for the novel: Ben is operating on a planet where the Jedi have no base, no resources, no political cover."
+  },
+  {
+    "canonical_form": "Galactic Alliance Guard",
+    "aliases": [
+      "GAG"
+    ],
+    "definition": "Wartime security force from the Second Galactic Civil War (LotF era) that became morally corrupt under Jacen Solo's command. Dissolved in disgrace after Shedu Maad. The afterlife of GAG — its records, its survivors, its hidden logistics network — is the novel's central conspiracy substrate.",
+    "category": "organization",
+    "first_appearance": 1,
+    "usage_notes": "Full name on first use, 'GAG' thereafter. The novel's GAG history is shown through PERSONAL CONSEQUENCES — files, names, fields, euphemisms, small moral choices — not as a lore lecture."
+  },
+  {
+    "canonical_form": "Shedu Maad Memorial Foundation",
+    "aliases": [
+      "the Foundation",
+      "the Memorial Foundation"
+    ],
+    "definition": "Legitimate post-war veterans' and war-families charity formed after the Second Galactic Civil War and the Battle of Shedu Maad. Public work: scholarships for children of GA service members; grief counseling; casualty-record preservation; legal/benefits advocacy; memorial events; veteran networking; grants to local war memorials. Most members and staff are innocent. Aelia Vandros is Executive Director.",
+    "category": "organization",
+    "first_appearance": 12,
+    "usage_notes": "Full name on first use, 'the Foundation' thereafter. The public charitable work is REAL — Ben cannot morally flatten the organization without losing."
+  },
+  {
+    "canonical_form": "The Vigil",
+    "aliases": [
+      "Vigil"
+    ],
+    "definition": "The Shedu Maad Memorial Foundation's hidden inner ring. Began as a private donor/remembrance circle for families who believed the official postwar story left too much buried. Became the ideological core preserving Jacen-derived work. Belief: the galaxy keeps nearly dying because leaders hesitate, panic, compromise, or wait too long; Jacen failed but saw something real. Language: clarity, resilience, steadiness, correction, continuity, moral courage, preparation. NOT 'brainwashing'.",
+    "category": "faction",
+    "first_appearance": 15,
+    "usage_notes": "The Vigil's language is civic and therapeutic, never theological or theatrical. Members do not call themselves Sith and do not publicly defend Caedus."
+  },
+  {
+    "canonical_form": "Greyline Strategic Services",
+    "aliases": [
+      "Greyline"
+    ],
+    "definition": "Colonel Maro Tess's private security firm. Publicly provides donor-event security, archive protection, offworld survey security, threat assessments, personnel vetting, hostile-environment logistics, and private protection for charities/civic institutions. Privately serves as the Vigil's operational arm.",
+    "category": "organization",
+    "first_appearance": 19,
+    "usage_notes": "Full name on first use, 'Greyline' thereafter. For direct action — snatch operations, cleanups, frame-ups, asset disposals — Greyline fields plausibly-deniable contractor teams under the same firm; there is no separate brand. Operations are professional and procedural, never crude or theatrical."
+  },
+  {
+    "canonical_form": "Imperial Remnant",
+    "aliases": [
+      "the Remnant"
+    ],
+    "definition": "The successor state of the Galactic Empire, stable under Head of State Jagged Fel in 47 ABY. Off-page in Book 1.",
+    "category": "faction",
+    "first_appearance": "background reference"
+  },
+  {
+    "canonical_form": "the Lost Tribe of Sith",
+    "aliases": [
+      "the Lost Tribe",
+      "the Tribe"
+    ],
+    "definition": "Sith order discovered and engaged during the Fate of the Jedi arc. Largely scattered and broken by 47 ABY. Vara Senn is a former apprentice now doing mercenary work; Vestara Khai is canonically active off-page under the alias 'Savara Raine'.",
+    "category": "faction",
+    "first_appearance": 14,
+    "usage_notes": "Mentioned in Book 1 only as scar tissue and Vara Senn's institutional origin. Not an active organizational antagonist in this novel."
+  },
+  {
+    "canonical_form": "the One Sith",
+    "aliases": [
+      "the One Sith hand"
+    ],
+    "definition": "The Sith order on Korriban under Darth Krayt, in patient pre-emergence in 47 ABY. The Vigil is a client / asset of the One Sith's broader identity-shaping infiltration program. In Book 1 the One Sith appear only as a single off-page 'hand' that learns Iresh failed in Ch 37 and adjusts the program.",
+    "category": "faction",
+    "first_appearance": "Ch 37 (off-page hand only)",
+    "usage_notes": "HARD CONSTRAINT: the One Sith are glimpsed or implied only. The hand has no name in Book 1."
+  },
+  {
+    "canonical_form": "Brotherhood of Darkness",
+    "aliases": [],
+    "definition": "Pre-Reformations Sith order. Background reference only in this novel — mentioned in conjunction with general Sith historiography or Aevyn's reading of Sith lineage. Not relevant to Book 1 plot.",
+    "category": "faction",
+    "first_appearance": "background reference"
+  },
+  {
+    "canonical_form": "the unfinished holocron",
+    "aliases": [
+      "the holocron",
+      "Jacen's holocron"
+    ],
+    "definition": "An unfinished working holocron assembled during the Legacy of the Force period from fragments of Jacen Solo's Force-odyssey notes, Vergerean thought, Lumiya's Sith inheritance, GAG-era observations, and Jacen's private systematization of Recognition and Holding. Part notebook, part training device, part confession, part contingency, part laboratory. Hidden on Iresh near the Glasswell in old offworld survey / GAG-era storage equipment.",
+    "category": "artifact",
+    "first_appearance": 15,
+    "usage_notes": "NOT a completed Sith weapon. Reader-facing language treats it as 'Jacen's notebook on how to shape people from the inside, and the Vigil wants to finish the work.' Ben secures it in Ch 33 and preserves it through the coda — his omission to Luke in Ch 36 is technically true and morally incomplete."
+  },
+  {
+    "canonical_form": "the duplicated wartime quarantine/survey shipment manifest",
+    "aliases": [
+      "the duplicate manifest",
+      "the duplicated manifest",
+      "the manifest",
+      "the fragment"
+    ],
+    "definition": "A duplicated wartime quarantine/survey shipment manifest from the final days before the Battle of Shedu Maad. One version is public and boring; the hidden duplicate carries the same shipment identity, a quarantine/survey disguise, conflicting destination data, and enough metadata to show Jacen Solo personally encrypted it shortly before his death. The opening clue chain.",
+    "category": "artifact",
+    "first_appearance": 1,
+    "usage_notes": "Reader-facing question is simple: 'Why did one of Jacen's last shipments have two lives?' The fragment Ben recovers from Elya's murder scene in Ch 4 is the DAMAGED clean copy; Iressa Vossk reconstructs around Jacen's encryption to prove the lie. Investigation vocabulary stays in physical terms — fragment, duplicate manifest, quarantine disguise, archive."
+  },
+  {
+    "canonical_form": "Aevyn's lightsaber",
+    "aliases": [
+      "the cold white-blue blade",
+      "the unstable blade"
+    ],
+    "definition": "Self-built lightsaber Aevyn Soris assembled during his postwar pilgrimage from salvaged components, a crystal found outside the Jedi tradition, and focusing adjustments derived from Jacen Solo's unfinished notes. Cold white-blue blade. Shivers along the edge. Crackles faintly under pressure. Fractures into small white-blue forks when his control strains. Becomes more unstable when he is emotionally pressed.",
+    "category": "artifact",
+    "first_appearance": 27,
+    "usage_notes": "NOT red and NOT obviously Sith-coded. The instability is the work of a competent man who was never formally trained in lightsaber construction or form. Visual TELL — during the Ch 31-32 duel the blade fractures MORE visibly when Ben successfully uses Jacen-derived logic. NEVER expose this in exposition or dialogue; let the image do the work."
+  },
+  {
+    "canonical_form": "Iressa's secondary cache",
+    "aliases": [
+      "the secondary cache",
+      "the cache"
+    ],
+    "definition": "Iressa Vossk's off-record reconstruction workshop, separate from Civitas Archive Systems. A quiet leased space in a Coruscant records-warehouse district (or basement workshop / sympathetic-small-business backroom — drafter's choice). Houses the old GAG tools, encrypted dead drops, and personal archive instincts she officially renounced. Not connected to Civitas or her residence in any public record. Where Ben and Talon spend several days continuing reconstruction after Iressa's death. RAIDED AND BURNED by Greyline at PP2 (Ch 20) — the documentary case for Saba becomes unrecoverable.",
+    "category": "artifact",
+    "first_appearance": 13,
+    "usage_notes": "Established in Ch 13 as a passing detail — one line, no emphasis. Becomes the target of PP2's first beat. The raid happens OFF-SCREEN for Ben; he arrives after, and the loss lands through the destroyed space, not through action."
+  },
+  {
+    "canonical_form": "the wrong approval field",
+    "aliases": [
+      "the wrong approval"
+    ],
+    "definition": "A GAG record from the wartime period that would have made fourteen-year-old Ben Skywalker look more responsible for an ugly authorization chain than he truly was. Commander Elya Rane quietly removed Ben's name from this approval field — not because she loved the Jedi or because she was heroic, but because even inside GAG she thought someone should remember Ben was a child. The small human correction that connects Elya to Ben personally and motivates her Ch 1 message.",
+    "category": "concept",
+    "first_appearance": 1,
+    "usage_notes": "Pay it off in Ch 2 (Ben remembering it before opening the message) and Ch 4 (after the murder, the weight of why she contacted him specifically)."
+  },
+  {
+    "canonical_form": "Operation Glasshook",
+    "aliases": [
+      "Glasshook"
+    ],
+    "definition": "Working name for the wartime GAG interdiction mission on Coruscant during which Talon Veyr disobeyed Colonel Maro Tess's order to stay on a high-value courier/data asset, diverting the extraction route to save trapped civilians and GA personnel at the cost of the mission. Tess reassigned Talon out of field duty as punishment/'education', intending to teach him to see the whole operation rather than only the people in front of him. The reassignment became the record that ruined Talon.",
+    "category": "concept",
+    "first_appearance": 22,
+    "usage_notes": "The defining wound between Talon and Tess. Surfaces in dialogue in Ch 22 ('He said field work had made me sentimental. Logistics would teach me scale.' / 'Did it?' / 'It taught me how easy it is to lose people in paperwork.')."
+  },
+  {
+    "canonical_form": "Operation Nightglass",
+    "aliases": [
+      "Nightglass"
+    ],
+    "definition": "GAG wartime operation referenced in Talon's history (Ch 22). Less developed than Glasshook; a name only, used to extend the texture of Talon's wartime experience without committing to a specific incident.",
+    "category": "concept",
+    "first_appearance": 22,
+    "usage_notes": "Flavor reference only — no plot weight. Drafter may invent texture for a single line if needed."
+  },
+  {
+    "canonical_form": "the corridor moment",
+    "aliases": [
+      "the corridor flashback"
+    ],
+    "definition": "Aevyn Soris's specific wound-image. Aevyn at a side console running a Recognition exercise Jacen Solo had given him, Jacen actually present and watching/correcting; fourteen-year-old Ben coming down the corridor; Jacen looking up, saying 'Good. Keep going. We'll review later,' and walking off with Ben. The 'later' never came. The single sharpest character detail in the project.",
+    "category": "concept",
+    "first_appearance": 30,
+    "usage_notes": "Surfaces as a fragment in Aevyn's Act 3 POV — a brief, controlled flash that breaks through when he confronts Ben. NEVER as exposition. NEVER as speech. Just the corridor, Jacen turning, Ben walking past."
+  },
+  {
+    "canonical_form": "Recognition (Force technique)",
+    "aliases": [
+      "Recognition"
+    ],
+    "definition": "The more coherent and potentially useful of Jacen Solo's two systematized identity-shaping techniques — his inward turn of Aing-Tii flow-walking fused with Force empathy. Where flow-walking reads the currents of the wider Force, Recognition reads the currents of a single person: the charged memories and decisions that define an identity. Used clinically, it could help someone understand who they are; used coercively, it forces a subject's identity to surface in legible form for the practitioner (Aevyn's lethal interrogation method). Practiced recursively on oneself, it is also how a marginal Force-sensitive deepens a thin connection — the path Aevyn took under Jacen. The technique Aevyn was running when the corridor moment fractured his attention with Jacen.",
+    "category": "magic_system",
+    "first_appearance": 15,
+    "usage_notes": "Capitalized when used as the technique's proper name; lowercase 'recognition' for ordinary uses of the English word. Distinguish carefully in narration."
+  },
+  {
+    "canonical_form": "Holding (Force technique)",
+    "aliases": [
+      "Holding"
+    ],
+    "definition": "The less complete and more dangerous of Jacen Solo's two systematized techniques — a fusion of battle meditation, the Fallanassi White Current, and Lumiya's will-domination. Concerned with sustaining a shaped impression — memory, identity, emotional continuity, a single decision — in another mind past natural decay. The Vigil's intended weaponized use case: identity-level influence on high-value targets, nudging powerful people to experience Sith-favorable choices as their own judgment.",
+    "category": "magic_system",
+    "first_appearance": 15,
+    "usage_notes": "Capitalized when used as the technique's proper name. Holding is what makes Jacen's unfinished holocron strategically valuable to the One Sith."
+  },
+  {
+    "canonical_form": "the Jacen-derived method",
+    "aliases": [
+      "Aevyn's method",
+      "the Force-interrogation method"
+    ],
+    "definition": "Aevyn Soris's weaponized Force-interrogation method: Recognition turned coercive — Jacen's inward flow-walking forced on a victim, dragging their charged memories to the surface faster than the mind and body can survive. Kills by precision rather than savagery: it forces the subject's memories into clarity rather than fragmenting them, which is what makes it worse than crude torture.",
+    "category": "magic_system",
+    "first_appearance": 1,
+    "usage_notes": "Used to kill Elya Rane in Ch 1 (off-screen of the extraction; on-screen of the death) and used to pressure Iressa Vossk's secondary cache and identity in Vara's hostage attempt in Ch 14-15 (which fails — Vara is not Aevyn, and her cruder version reaches its limit before extraction completes)."
+  },
+  {
+    "canonical_form": "Jacen-derived crisis logic",
+    "aliases": [
+      "crisis logic"
+    ],
+    "definition": "Not a Force technique — a mindset Jacen Solo taught Ben Skywalker during the GAG year. How to see panic, timing, exits, the whole room, and the cost of hesitation in a moment. Surfaces in Ben's behavior subtly throughout Book 1 and decisively during the Glasswell rescue (Ch 31), where it saves Tavi, Sela's locals, and others. The lesson Aevyn recognizes when Ben uses it: 'He taught you that.'",
+    "category": "concept",
+    "first_appearance": 2,
+    "usage_notes": "The most legible Jacen-lesson the novel can show. Ben experiences it as discomfort with his own competence; other characters see it before he names it. The drafter must show, not name, until late."
+  },
+  {
+    "canonical_form": "ABY",
+    "aliases": [
+      "After the Battle of Yavin"
+    ],
+    "definition": "Star Wars Legends dating convention: years counted from the Battle of Yavin (the destruction of the first Death Star). Used in sourcebooks and out-of-universe reference. NEVER used by characters in-universe — characters reference events directly ('after Caedus', 'two years after Crucible').",
+    "category": "concept",
+    "first_appearance": "never in-prose",
+    "usage_notes": "Background convention only. Appears in canon documentation, never in narration or dialogue."
+  },
+  {
+    "canonical_form": "Human",
+    "aliases": [],
+    "definition": "Sentient bipedal species, the most numerically dominant in the galaxy. Capitalized per Lucasfilm style guide.",
+    "category": "species",
+    "first_appearance": 1,
+    "usage_notes": "Always capitalized. Most main characters are Human (Ben, Talon, Aevyn, Tess, Aelia, Korda, Elya, Vara)."
+  },
+  {
+    "canonical_form": "Barabel",
+    "aliases": [],
+    "definition": "Reptilian species native to Barab I. Known for keen senses, gravity-dense culture, and martial directness. Grand Master Saba Sebatyne is Barabel.",
+    "category": "species",
+    "first_appearance": 16,
+    "usage_notes": "Saba's speech register carries Barabel gravity — careful, sharp, formal. Some Barabel speech patterns use 'this one' for self-reference; the drafter may apply this sparingly."
+  },
+  {
+    "canonical_form": "Kiffar",
+    "aliases": [],
+    "definition": "Near-Human species from Kiffu and Kiffex. Some Kiffar possess psychometry (the ability to read impressions from objects through touch). Iressa Vossk may be Kiffar-descended, but the novel does NOT make psychometry a major plot feature.",
+    "category": "species",
+    "first_appearance": "optional",
+    "usage_notes": "Iressa's exact heritage is flexible — drafter may keep her Human or render her as Kiffar-descended at their discretion. Psychometry stays off-page if used."
+  },
+  {
+    "term": "Jedi Knight",
+    "definition": "Standard rank within the Jedi Order, achieved after the trials. Ben Skywalker holds this rank.",
+    "category": "title_rank",
+    "first_appearance": 2
+  },
+  {
+    "term": "Jedi Master",
+    "definition": "Senior rank within the Jedi Order, granted by Council elevation in recognition of teaching and judgment.",
+    "category": "title_rank",
+    "first_appearance": "background"
+  },
+  {
+    "term": "senior Master",
+    "definition": "Informal designation for Masters of recognized standing on the Council. Luke Skywalker holds this position post-Crucible.",
+    "category": "title_rank",
+    "first_appearance": 3
+  },
+  {
+    "term": "Grand Master",
+    "definition": "Leader of the Jedi Order. Saba Sebatyne holds this title in 47 ABY, having assumed it at the end of FOTJ when Luke Skywalker stepped down.",
+    "category": "title_rank",
+    "first_appearance": 3,
+    "usage_notes": "Luke never references the title for himself. When characters address Saba, use 'Grand Master' formally; 'Saba' informally only for those with the standing (Luke, perhaps a small number of Masters)."
+  },
+  {
+    "term": "Colonel",
+    "definition": "Senior GAG operations rank. Maro Tess held this rank during the war and continues to be addressed as such by Talon and others who knew him then.",
+    "category": "title_rank",
+    "first_appearance": 20
+  },
+  {
+    "term": "Commander",
+    "definition": "Senior GAG records/logistics rank. Elya Rane held this rank during and after the war.",
+    "category": "title_rank",
+    "first_appearance": 1
+  },
+  {
+    "term": "Executive Director",
+    "definition": "Aelia Vandros's title at the Shedu Maad Memorial Foundation.",
+    "category": "title_rank",
+    "first_appearance": 17
+  },
+  {
+    "term": "Director of Protective Services",
+    "definition": "Bren Korda's title at the Shedu Maad Memorial Foundation.",
+    "category": "title_rank",
+    "first_appearance": 17
+  },
+  {
+    "term": "Chief of State",
+    "definition": "Head of the Galactic Alliance executive. Wynn Dorvan holds this position in 47 ABY.",
+    "category": "title_rank",
+    "first_appearance": "background"
+  },
+  {
+    "term": "Queen Mother",
+    "definition": "Reigning monarch of the Hapan Consortium. Tenel Ka Djo holds this position in 47 ABY.",
+    "category": "title_rank",
+    "first_appearance": "background"
+  },
+  {
+    "term": "Head of State",
+    "definition": "Leader of the Imperial Remnant. Jagged Fel holds this position in 47 ABY.",
+    "category": "title_rank",
+    "first_appearance": "background"
+  },
+  {
+    "term": "lightsaber",
+    "definition": "Plasma-blade weapon constructed around a focusing crystal, the traditional weapon of the Jedi and Sith. Color varies by crystal source and tradition. Ben Skywalker's blade is Jedi-standard; Aevyn's is a self-built unstable cold white-blue.",
+    "category": "technology",
+    "first_appearance": 7
+  },
+  {
+    "term": "holocron",
+    "definition": "Crystalline storage device imprinted with Force resonance to preserve teachings, exercises, and the personality of the keeper. Can be Jedi-aligned or Sith-aligned. Jacen Solo's holocron is anomalous because it is UNFINISHED — see 'the unfinished holocron'.",
+    "category": "technology",
+    "first_appearance": 15
+  },
+  {
+    "term": "comlink",
+    "definition": "Personal communication device. Standard equipment for civilian and military use.",
+    "category": "technology",
+    "first_appearance": "early"
+  },
+  {
+    "term": "datapad",
+    "definition": "Portable computing/display device. Replaces 'tablet' or 'laptop' in all in-prose use.",
+    "category": "technology",
+    "first_appearance": 2
+  },
+  {
+    "term": "holo",
+    "definition": "Three-dimensional projection technology — used for communication (holo call), entertainment (holovid), and imagery (preserved family holo). Ben's communication with Luke during the novel is by holo call.",
+    "category": "technology",
+    "first_appearance": 2
+  },
+  {
+    "term": "HoloNet",
+    "definition": "Galaxy-wide communications and broadcast network. The medium for news coverage of the Foundation scandal in Ch 35.",
+    "category": "technology",
+    "first_appearance": 35
+  },
+  {
+    "term": "hyperspace",
+    "definition": "Faster-than-light travel medium. Standard Star Wars FTL convention; ships make jumps via hyperdrive.",
+    "category": "technology",
+    "first_appearance": 10
+  },
+  {
+    "term": "hyperdrive",
+    "definition": "The propulsion system that allows ships to travel through hyperspace. Classifications follow Legends conventions.",
+    "category": "technology",
+    "first_appearance": "background"
+  },
+  {
+    "term": "bacta",
+    "definition": "Liquid healing medium used to treat wounds and burns. Standard Legends medical convention; characters with injuries spend time in bacta after the Ch 7 prison escape and the Ch 31-32 climax.",
+    "category": "technology",
+    "first_appearance": 10
+  },
+  {
+    "term": "skiff",
+    "definition": "Light atmospheric craft used for short transport. Talon and Ben extract from Tarn Velos by skiff/shuttle in Ch 9.",
+    "category": "technology",
+    "first_appearance": 9
+  },
+  {
+    "term": "transparisteel",
+    "definition": "Transparent armor-grade material used for ship viewports and high-rise windows. Replaces 'glass' in in-prose use.",
+    "category": "technology",
+    "first_appearance": "background"
+  },
+  {
+    "term": "durasteel",
+    "definition": "Standard high-strength alloy. Replaces 'steel' in in-prose use.",
+    "category": "technology",
+    "first_appearance": "background"
+  },
+  {
+    "term": "chime line",
+    "definition": "Iresh local custom — wind-chime arrays strung along paths to warn locals when wind patterns shift dangerously. Sela Dray repairs a chime line during her introduction in Ch 24. Chimes going silent is a warning sign in Iresh's local survival vocabulary.",
+    "category": "cultural_term",
+    "first_appearance": 24,
+    "usage_notes": "Sela's example survival rule: 'If the chimes stop, run. You can argue about what it means after you are not dead.'"
+  },
+  {
+    "term": "black reed",
+    "definition": "Iresh marsh flora. Forms dense dark stands along the lower paths near the Glasswell exclusion zone. Crossing them after the chimes stop is one of Sela's named survival prohibitions.",
+    "category": "cultural_term",
+    "first_appearance": 24
+  },
+  {
+    "term": "path marker",
+    "definition": "Iresh local convention — stacked stone markers indicating safe routes through wind-carved highlands and marsh. The Foundation/Vigil's offworld survey crews have removed some markers because they 'interfered with equipment' — one of the visible local harms.",
+    "category": "cultural_term",
+    "first_appearance": 24
+  },
+  {
+    "term": "mirror-lake",
+    "definition": "Iresh geographic feature — shallow lakes whose still surfaces reflect the highlands. The Glasswell sinkhole opens directly beneath one such mirror-lake.",
+    "category": "cultural_term",
+    "first_appearance": 24
+  },
+  {
+    "term": "GA Justice",
+    "definition": "The Galactic Alliance's judicial/legal enforcement arm. Ben uses a low-profile GA Justice records-auditor cover to enter Tarn Velos in Ch 6. Luke calls in quiet favors with GA Justice contacts during the Ch 10 aftermath of the prison escape.",
+    "category": "organization",
+    "first_appearance": 5
+  },
+  {
+    "term": "Second Galactic Civil War",
+    "definition": "The post-Yuuzhan Vong era war (40-41 ABY) that produced Jacen Solo's fall to Caedus, the murder of Mara Jade, the Galactic Alliance Guard's wartime crimes, and the Battle of Shedu Maad. Background context for the novel — the war that produced the Foundation, the Vigil, Tess, Korda, and Talon's ruin.",
+    "category": "concept",
+    "first_appearance": "background",
+    "usage_notes": "Characters reference it directly ('the war', 'during Caedus', 'before Shedu Maad'); the formal name appears only in narration when needed for clarity."
+  },
+  {
+    "term": "Battle of Shedu Maad",
+    "definition": "The decisive engagement at the close of the Second Galactic Civil War in 41 ABY. Darth Caedus was killed; Jacen Solo's death; the war ended. Site of significant casualties on both sides. The Memorial Foundation takes its name from the post-war reconstruction of these losses.",
+    "category": "concept",
+    "first_appearance": 1,
+    "usage_notes": "Characters refer to it as 'Shedu Maad' (the battle) and to the planet as 'Shedu Maad' (the Jedi HQ); context disambiguates."
+  },
+  {
+    "term": "Crucible",
+    "definition": "OUT-OF-UNIVERSE reference — the 2013 Troy Denning novel that establishes Luke/Leia/Han's Mortis-adjacent metaphysical encounter and effective retirement. Used here ONLY in canon documentation; characters do NOT reference 'Crucible' on-page.",
+    "category": "other",
+    "first_appearance": "never in-prose",
+    "usage_notes": "On-page, characters reference 'what happened two years ago' or 'after the Aramatak business' or simply notice Luke's quieter manner without naming the event. Mortis is NEVER named on-page."
+  },
+  {
+    "canonical_form": "Cale Dorrin",
+    "aliases": [
+      "Inspector Dorrin",
+      "Inspector Cale Dorrin",
+      "Dorrin"
+    ],
+    "definition": "GA Justice / Coruscant Security investigator assigned to sensitive old-GAG and political-crime cases. Gives Act One grounded official access, records checks, procedural friction, and legal consequence; not a third lead, secret mentor, corrupt reveal, or doomed ally.",
+    "category": "character_name",
+    "first_appearance": 4,
+    "usage_notes": "Dorrin lets Ben into Elya sealed scene under limits, connects Elya to Talon through records, and keeps lawful evidence pressure present. He cannot decode the fragment or solve the conspiracy."
+  },
+  {
+    "canonical_form": "obsolete GAG identity-address protocol",
+    "aliases": [
+      "GAG identity-address",
+      "dead-drop protocol",
+      "old GAG service marker"
+    ],
+    "definition": "The deprecated GAG routing protocol Elya Rane uses to reach Ben at Shedu Maad through his old service marker. It rides standard HoloNet infrastructure but bypasses Jedi institutional comms. Locked message: GAG is still active. One of Jacen last orders has two lives. Come alone. - E.R.",
+    "category": "technology",
+    "first_appearance": 2,
+    "usage_notes": "This is not a clean official message. It proves the old machinery still has an address for Ben."
+  },
+  {
+    "canonical_form": "Amelia Solo",
+    "aliases": [
+      "Allana Solo",
+      "Allana",
+      "Amelia"
+    ],
+    "definition": "Public/cover identity context for Allana Solo during a brief Shedu Maad ordinary-life cameo or near-cameo. She is Jacen Solo and Tenel Ka Djo daughter, publicly deniable, and future-danger adjacent, but Book 1 uses her only as warm family texture and adversary-awareness gray zone.",
+    "category": "character_name",
+    "first_appearance": 2,
+    "usage_notes": "May appear briefly under Amelia identity at Shedu Maad. Not plot-active, not POV, not told about Elya message, and not part of Ben investigation. Ch 37 may still carry oblique adversary language such as the Hapan question."
+  },
+  {
+    "canonical_form": "flow-walking",
+    "aliases": [
+      "flow walking"
+    ],
+    "definition": "Canonical Aing-Tii Force discipline (Order of the Sacred Circle) that lets a practitioner walk the currents of the Force to perceive and relive moments, chiefly in the past. Jacen Solo learned it on his Force odyssey and abused it during the Legacy of the Force period. The canonical root of his systematized Recognition technique.",
+    "category": "magic_system",
+    "first_appearance": "background reference",
+    "usage_notes": "Real Legends technique — use as the canon lineage of Recognition. Reader-facing prose need not name it; it grounds the holocron's contents in established Force lore rather than invented mysticism."
+  },
+  {
+    "canonical_form": "the White Current",
+    "aliases": [
+      "White Current"
+    ],
+    "definition": "The Fallanassi discipline of illusion and concealment — shaping what others perceive. A canonical Legends Force tradition. One of the strands Jacen Solo fused into his systematized Holding technique.",
+    "category": "magic_system",
+    "first_appearance": "background reference",
+    "usage_notes": "Canon lineage anchor for Holding. Background grounding, not a reader-facing label."
+  },
+  {
+    "canonical_form": "battle meditation",
+    "aliases": [],
+    "definition": "Canonical Force art for influencing the will, morale, and coordination of many minds at once. A strand Jacen Solo fused, with the White Current and Lumiya's Sith will-domination, into his systematized Holding technique.",
+    "category": "magic_system",
+    "first_appearance": "background reference",
+    "usage_notes": "Canon lineage anchor for Holding."
+  },
+  {
+    "canonical_form": "the Coruscant Jedi Temple",
+    "aliases": [
+      "the Jedi Temple",
+      "the Temple"
+    ],
+    "definition": "The Jedi Order's monumental former headquarters on Coruscant. After the Order relocated to Shedu Maad at the end of Fate of the Jedi (44 ABY), the Temple is no longer Order property — it stands as a monument to the exile. Ben works his Coruscant case in the shadow of the building his family once helped lead, on a world whose Senate voted the Order out.",
+    "category": "place_name",
+    "first_appearance": 4,
+    "usage_notes": "Texture for Ben's displacement across Acts 1-2 — one image, a wound, not a tour. The Skywalker apartment is the last Skywalker presence on the world that pushed the Order out."
+  },
+  {
+    "canonical_form": "the Second Galactic Civil War",
+    "aliases": [
+      "the war",
+      "the Caedus war"
+    ],
+    "definition": "The 40-41 ABY war (Galactic Alliance against the Corellian-led Confederation) during which Jacen Solo fell to Darth Caedus, built the GAG, and murdered Mara Jade. Named engagements include the battles of Fondor and Kuat; it ended at the Battle of Shedu Maad in 41 ABY, where Caedus died. The war Jacen's duplicated manifest dates from, and the source of most of the Foundation's war dead.",
+    "category": "concept",
+    "first_appearance": "background reference",
+    "usage_notes": "Reader-facing shorthand 'the war'. Ground the Foundation's grief, the manifest's date, and Talon's/Iressa's GAG history here. One term, then one consequence."
+  },
+  {
+    "canonical_form": "the Yuuzhan Vong War",
+    "aliases": [
+      "the Vong War"
+    ],
+    "definition": "The 25-29 ABY extragalactic invasion that devastated the galaxy a generation before Book 1 — including the Fall of Coruscant (27 ABY) and a vast refugee crisis. The formative trauma of Talon Veyr's generation; he came of age inside its evacuation corridors.",
+    "category": "concept",
+    "first_appearance": "background reference",
+    "usage_notes": "Talon's-war anchor. Surfaces as personal history (Ch 22, Ch 23 transit), never as exposition."
+  },
+  {
+    "canonical_form": "the Fall of Coruscant",
+    "aliases": [],
+    "definition": "The Yuuzhan Vong capture of Coruscant in 27 ABY and the mass civilian evacuation that followed. Talon Veyr survived it as a boy, in the evacuation corridors and refugee transports — the origin of his instinct for exits, blind spots, and how large systems lose people.",
+    "category": "concept",
+    "first_appearance": 22,
+    "usage_notes": "Talon's specific war wound. He names it in the Ch 23 transit scene when the humor valve thins; do not over-explain."
+  },
+  {
+    "canonical_form": "the Aing-Tii",
+    "aliases": [
+      "the Order of the Sacred Circle"
+    ],
+    "definition": "A reclusive Force-using species of the Kathol Rift who practice flow-walking — walking the currents of the Force to perceive and relive moments. Jacen Solo studied with them during his Force odyssey and learned the technique he later turned inward as Recognition.",
+    "category": "faction",
+    "first_appearance": 23,
+    "usage_notes": "Canon lineage for Recognition and for Iresh's regional placement near the Kathol Rift. Background grounding, surfaced through Ben's dread in the transit."
+  },
+  {
+    "canonical_form": "the Fallanassi",
+    "aliases": [],
+    "definition": "A reclusive Force-using religious community who practice the White Current, the discipline of illusion and concealment. A stop on Jacen Solo's Force odyssey and one strand of his systematized Holding technique.",
+    "category": "faction",
+    "first_appearance": 23,
+    "usage_notes": "Canon lineage for Holding. Background grounding."
+  },
+  {
+    "canonical_form": "the Kathol Rift",
+    "aliases": [
+      "the Rift"
+    ],
+    "definition": "A remote, hazardous region of the Outer Rim toward Wild Space, home of the Aing-Tii. A waypoint on Jacen Solo's Force odyssey; Iresh sits on the wild edge near it, which is how Jacen found the place he later used to hide the unfinished holocron.",
+    "category": "place_name",
+    "first_appearance": 23,
+    "usage_notes": "Grounds Iresh in named Legends geography and ties it to Jacen's pilgrimage."
+  },
+  {
+    "canonical_form": "Vergere",
+    "aliases": [],
+    "definition": "A Fosh Force-user and Jacen Solo's mentor during the Yuuzhan Vong War, whose ambiguous teachings ('the Force is a tool; there is no light or dark, only what you do') seeded the philosophy underneath Jacen's later odyssey and fall. Long dead by Book 1 — a name in the holocron's lineage, not a character.",
+    "category": "character_name",
+    "first_appearance": 23,
+    "usage_notes": "Background lineage for the holocron and Jacen's thought. Mention only; never on-page."
+  }
+]

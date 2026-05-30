@@ -1,0 +1,40 @@
+{
+  "chapter_number": 33,
+  "chapter_mission": "The Glasswell collapses/floods. Ben secures the holocron, Sela and Tavi survive, Talon disrupts Greyline extraction / reroutes escape logistics, and Aevyn is presumed dead.",
+  "chapter_turn": "The Iresh operation is broken; the holocron is in Ben’s possession.",
+  "structural_phase": "resolution",
+  "pov_allocation": [
+    "Ben",
+    "Sela",
+    "Talon"
+  ],
+  "scene_count": 1,
+  "scene_plan": [
+    {
+      "scene_number": 1,
+      "role": "escalation",
+      "dialogue_expectation": "dialogue_led",
+      "target_word_count": 3200,
+      "purpose": "The Glasswell collapses/floods. Ben secures the holocron, Sela and Tavi survive, Talon disrupts Greyline extraction / reroutes escape logistics, and Aevyn is presumed dead."
+    }
+  ],
+  "reveal_payload": [
+    "R_12"
+  ],
+  "hook_movements": {
+    "planted": [],
+    "advanced": [],
+    "resolved": []
+  },
+  "subplot_obligations": [
+    "SUB_01",
+    "SUB_03",
+    "SUB_04",
+    "SUB_05"
+  ],
+  "relationship_turns": [],
+  "pacing_curve": "rising",
+  "exit_vector": "The Iresh operation is broken; the holocron is in Ben’s possession.",
+  "chapter_word_target": 3200,
+  "notes": "Source: Chapter Outlines v4.1. Act: Act Three — Iresh / Glasswell / Aevyn. Chapter title: The Flood.\n\nCharacter voice focus: preserve the exact v1.4 character behavior and dialogue rules for the chapter POV and named participants. Plot first, character second, theme through consequences."
+}
