@@ -1,6 +1,13 @@
 {
   "chapter_number": 5,
   "scene_number": 1,
+  "pov_knowledge_state": {
+    "blocked_facts": [
+      "That filing the lawful visitor request for Tarn Velos trips an alert and wakes whoever watches the old GAG trail. This is dramatic irony for the reader; Ben must NOT know, hint at, or intuit it. He believes he is doing the careful, correct thing.",
+      "The identity of whoever is watching the old GAG manifest and prosecution records."
+    ],
+    "uncertainty_notes": "Ben is focused on reaching Talon through legitimate channels; he has no idea the query is a tripwire."
+  },
   "structural_phase": "setup",
   "scene_role": "escalation",
   "pov_character": "Ben",

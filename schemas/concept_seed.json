@@ -24,6 +24,11 @@
           "description": "Optional descriptive phrase elaborating on the canon_status. Use for era/divergence context."
         },
         "era": { "type": "string" },
+        "timeline_anchors": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Optional list of short fixed timeline/continuity facts surfaced in every chapter packet's 'Timeline Anchor' section (e.g. 'Story opens 47 ABY', 'Ben is ~20'). Honored by the drafter as hard continuity. Empty/omitted = no Timeline Anchor section."
+        },
         "tone": {
           "type": "string",
           "enum": ["dark_gritty", "adventurous_hopeful", "political_intrigue", "character_study", "heroic_with_weight"],

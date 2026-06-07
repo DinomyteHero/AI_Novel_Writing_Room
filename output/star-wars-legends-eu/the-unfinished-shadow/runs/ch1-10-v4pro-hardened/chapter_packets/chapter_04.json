@@ -1,0 +1,65 @@
+{
+  "chapter_number": 4,
+  "overlay_version": 0,
+  "mission": "Ben arrives on Coruscant roughly half a day after Elya sent the message. The body is not warm-on-the-floor fresh, but the investigation is fresh: access controlled, first reports unfinished, official assumptions still forming. Inspector Cale Dorrin, a GA Justice / Coruscant Security investigator assigned to sensitive old-GAG and political-crime cases, controls the scene and lets Ben in under limits because Elya\u2019s message makes him relevant and Luke has quietly vouched for the urgency. Ben senses Force-trauma and recovers the damaged Jacen-sealed duplicate manifest fragment hidden by Elya\u2019s records instincts, not in an obvious safe.",
+  "chapter_turn": "Dorrin\u2019s first records check points toward an old GAG personnel/prosecution trail Ben cannot interpret alone.",
+  "timeline_anchor": [
+    "Story opens in 47 ABY. Characters never say 'ABY'; they reference events directly (e.g. 'after Caedus', 'before Shedu Maad', 'since we lost Luke at Crucible').",
+    "The Battle of Shedu Maad, where Jacen/Caedus died and the GAG war (Second Galactic Civil War) ended, was about 6 years ago (41 ABY). The GAG, its dead-drop channels, and its operational infrastructure were all decommissioned then, about 6 years ago (NOT 3 years ago).",
+    "Ben Skywalker served in the GAG as a 14-year-old during that war; he is about 21 now.",
+    "Elya removing 14-year-old Ben's name from the wrong approval field happened during the war, about 6 years ago.",
+    "The Jedi Order relocated permanently to Shedu Maad at the close of Fate of the Jedi, about 3 years ago (44 ABY); Saba Sebatyne is Grand Master, Luke a senior Master.",
+    "Crucible was about 2 years ago (45 ABY); Luke has seemed 'further away' since (Mortis is never named on the page)."
+  ],
+  "pressure_ladder": [
+    {
+      "scene_number": 1,
+      "label": "reveal",
+      "note": "Ben arrives on Coruscant roughly half a day after Elya sent the message. The body is not warm-on-the-floor fresh, but the investigation is fresh: access controlled, first reports unfinished, official assumptions still forming."
+    }
+  ],
+  "pov_arc_pressure": {
+    "pov_character": "Ben",
+    "structural_phase": "setup",
+    "pacing_curve": "rising"
+  },
+  "next_scene_obligations": [
+    {
+      "kind": "reveal",
+      "note": "Aevyn killed Elya using a precise Jacen-derived method (weaponized Recognition) \u2014 precision rather than savagery."
+    },
+    {
+      "kind": "reveal",
+      "note": "Jacen's personal encryption marker is on the fragment Ben recovers \u2014 this is not a clerical duplicate."
+    }
+  ],
+  "active_promises": [],
+  "active_promises_total_count": 0,
+  "reveal_deadlines": [
+    {
+      "revelation_id": "R_02",
+      "note": "Aevyn killed Elya using a precise Jacen-derived method (weaponized Recognition) \u2014 precision rather than savagery.",
+      "due_by_scene": "ch04_close",
+      "status": "pending"
+    },
+    {
+      "revelation_id": "R_03",
+      "note": "Jacen's personal encryption marker is on the fragment Ben recovers \u2014 this is not a clerical duplicate.",
+      "due_by_scene": "ch04_close",
+      "status": "pending"
+    }
+  ],
+  "canon_slices": [],
+  "canon_guidance": {},
+  "relationship_context": {},
+  "exit_vector": {
+    "summary": "Dorrin\u2019s first records check points toward an old GAG personnel/prosecution trail Ben cannot interpret alone."
+  },
+  "trusted_state_gap_notes": [],
+  "exemplar_snippets": [],
+  "anti_exemplar_snippets": [],
+  "continuity_events": [],
+  "scene_card": {},
+  "pov_knowledge_horizon": {},
+  "rendered_markdown": ""
+}

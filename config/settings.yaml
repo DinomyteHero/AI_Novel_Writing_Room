@@ -83,7 +83,7 @@ agent_routing:
   # Rhythm-editor agent: literal substring edits to fix detected rhythm
   # issues from RhythmValidator. Default off via runtime flag; routing entry
   # must exist for the agent to load.
-  rhythm_editor:          { backend: cloud, model: deepseekpro, params: { temperature: 0.2, max_tokens: 2400, reasoning: { effort: "none" }, provider: { order: [deepseek], only: [deepseek], allow_fallbacks: false } } }
+  rhythm_editor:          { backend: cloud, model: deepseekpro, params: { temperature: 0.2, max_tokens: 4096, reasoning: { effort: "none" }, provider: { order: [deepseek], only: [deepseek], allow_fallbacks: false } } }
 
   # ---------------------------------------------------------------------------
   # PLANNING / COMPILE-TIME UTILITIES

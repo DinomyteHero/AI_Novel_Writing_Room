@@ -1,0 +1,48 @@
+{
+  "chapter_number": 7,
+  "overlay_version": 0,
+  "mission": "Greyline begins the prison snatch under false procedural cover. Lysa manipulates systems; Talon reads the pattern before Ben can. The first snatch team breaches the wing. Ben breaks cover and saves Talon physically, disabling rather than killing and protecting confused prison staff. His restraint is active, not passive \u2014 he chooses non-lethal Force work and lightsaber control even when speed would be easier.",
+  "chapter_turn": "Ben can win the fight, but Talon says they are going the wrong way.",
+  "timeline_anchor": [
+    "Story opens in 47 ABY. Characters never say 'ABY'; they reference events directly (e.g. 'after Caedus', 'before Shedu Maad', 'since we lost Luke at Crucible').",
+    "The Battle of Shedu Maad, where Jacen/Caedus died and the GAG war (Second Galactic Civil War) ended, was about 6 years ago (41 ABY). The GAG, its dead-drop channels, and its operational infrastructure were all decommissioned then, about 6 years ago (NOT 3 years ago).",
+    "Ben Skywalker served in the GAG as a 14-year-old during that war; he is about 21 now.",
+    "Elya removing 14-year-old Ben's name from the wrong approval field happened during the war, about 6 years ago.",
+    "The Jedi Order relocated permanently to Shedu Maad at the close of Fate of the Jedi, about 3 years ago (44 ABY); Saba Sebatyne is Grand Master, Luke a senior Master.",
+    "Crucible was about 2 years ago (45 ABY); Luke has seemed 'further away' since (Mortis is never named on the page)."
+  ],
+  "pressure_ladder": [
+    {
+      "scene_number": 1,
+      "label": "escalation",
+      "note": "Greyline begins the prison snatch under false procedural cover. Lysa manipulates systems; Talon reads the pattern before Ben can."
+    }
+  ],
+  "pov_arc_pressure": {
+    "pov_character": "Ben",
+    "structural_phase": "setup",
+    "pacing_curve": "rising"
+  },
+  "next_scene_obligations": [
+    {
+      "kind": "subplot",
+      "note": "Foundation / Vigil Operational Machinery (Greyline / Greyline / Korda): Primary plot-driving antagonist infrastructure"
+    }
+  ],
+  "active_promises": [],
+  "active_promises_total_count": 0,
+  "reveal_deadlines": [],
+  "canon_slices": [],
+  "canon_guidance": {},
+  "relationship_context": {},
+  "exit_vector": {
+    "summary": "Ben can win the fight, but Talon says they are going the wrong way."
+  },
+  "trusted_state_gap_notes": [],
+  "exemplar_snippets": [],
+  "anti_exemplar_snippets": [],
+  "continuity_events": [],
+  "scene_card": {},
+  "pov_knowledge_horizon": {},
+  "rendered_markdown": ""
+}

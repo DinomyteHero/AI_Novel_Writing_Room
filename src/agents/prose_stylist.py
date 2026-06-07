@@ -236,6 +236,39 @@ class ProseStylist(BaseAgent):
                 "downstream pipeline does not hard-reject off-target scenes "
                 "but consistent undershoot is a quality signal."
             )
+        density_target = scene_card.get("dialogue_density_target")
+        if density_target:
+            task_lines.append(
+                f"DIALOGUE DENSITY TARGET: {density_target}. "
+                "high = 55%+ of paragraphs carry a dialogue line; medium = 35-55%; "
+                "low = <35%. Calibrate this scene's dialogue load to the target; "
+                "in a high/medium target, convert reflection beats into spoken "
+                "exchange rather than narrating around them."
+            )
+
+        interiority_budget = scene_card.get("interiority_budget") or {}
+        if isinstance(interiority_budget, dict) and (
+            interiority_budget.get("max_words") or interiority_budget.get("max_paragraphs")
+        ):
+            mw = interiority_budget.get("max_words")
+            mp = interiority_budget.get("max_paragraphs")
+            bits = []
+            if mw:
+                bits.append(f"{mw} words")
+            if mp:
+                bits.append(f"{mp} paragraphs")
+            line = (
+                "INTERIORITY BUDGET (hard ceiling): "
+                + " / ".join(bits)
+                + " of interior-monologue / reflection prose across the entire "
+                "scene. This is a ceiling, not a target; convert overflow "
+                "reflection into dialogue, action, or sensory observation."
+            )
+            rationale = interiority_budget.get("rationale")
+            if rationale:
+                line += f" Rationale: {rationale}"
+            task_lines.append(line)
+
         if closing_hook:
             task_lines.append(
                 f'SCENE BOUNDARY: The scene ENDS at the closing hook: "{closing_hook}". '

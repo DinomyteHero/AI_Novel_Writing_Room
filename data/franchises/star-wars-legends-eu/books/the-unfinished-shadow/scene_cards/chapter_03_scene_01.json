@@ -1,6 +1,14 @@
 {
   "chapter_number": 3,
   "scene_number": 1,
+  "pov_knowledge_state": {
+    "blocked_facts": [
+      "The fragment's contents and that the hidden manifest points to Iresh. Ben has NOT recovered or read the fragment yet; he has only Elya's four-line dead-drop message. Do not let him cite Iresh or the manifest's contents.",
+      "Elya Rane's name/identity. Her message is signed only 'E.R.'; Ben cannot name her or her profession yet.",
+      "That the duplicate manifest carries Jacen's personal encryption marker. Ben learns that detail only when he reads the recovered fragment in a later chapter."
+    ],
+    "uncertainty_notes": "At this point Ben knows only what the message said: the GAG channel is active, one of Jacen's last orders has two lives, come alone, signed E.R."
+  },
   "structural_phase": "setup",
   "scene_role": "decision",
   "pov_character": "Ben",

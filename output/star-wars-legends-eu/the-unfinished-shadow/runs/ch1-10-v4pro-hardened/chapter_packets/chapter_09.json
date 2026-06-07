@@ -1,0 +1,56 @@
+{
+  "chapter_number": 9,
+  "overlay_version": 0,
+  "mission": "Ben and Talon cross storm-exposed gantries and sea-wall system while pursued. Ben protects people; Talon gets them to a skiff or shuttle. They escape Tarn Velos. The First Plot Point lands here: Ben has crossed a threshold he cannot uncross. He has broken cover, freed a convicted prisoner, generated a public crisis, and committed himself to the case in a way that makes returning to the way things were impossible. The forced partnership with Talon is the new condition of his life.",
+  "chapter_turn": "They escape Tarn Velos, but the legal mess is now unavoidable.",
+  "timeline_anchor": [
+    "Story opens in 47 ABY. Characters never say 'ABY'; they reference events directly (e.g. 'after Caedus', 'before Shedu Maad', 'since we lost Luke at Crucible').",
+    "The Battle of Shedu Maad, where Jacen/Caedus died and the GAG war (Second Galactic Civil War) ended, was about 6 years ago (41 ABY). The GAG, its dead-drop channels, and its operational infrastructure were all decommissioned then, about 6 years ago (NOT 3 years ago).",
+    "Ben Skywalker served in the GAG as a 14-year-old during that war; he is about 21 now.",
+    "Elya removing 14-year-old Ben's name from the wrong approval field happened during the war, about 6 years ago.",
+    "The Jedi Order relocated permanently to Shedu Maad at the close of Fate of the Jedi, about 3 years ago (44 ABY); Saba Sebatyne is Grand Master, Luke a senior Master.",
+    "Crucible was about 2 years ago (45 ABY); Luke has seemed 'further away' since (Mortis is never named on the page)."
+  ],
+  "pressure_ladder": [
+    {
+      "scene_number": 1,
+      "label": "decision",
+      "note": "Ben and Talon cross storm-exposed gantries and sea-wall system while pursued. Ben protects people; Talon gets them to a skiff or shuttle."
+    }
+  ],
+  "pov_arc_pressure": {
+    "pov_character": "Ben",
+    "structural_phase": "first_plot_point",
+    "pacing_curve": "rising"
+  },
+  "next_scene_obligations": [
+    {
+      "kind": "subplot",
+      "note": "Talon / Tess Mentor Wound (Glasshook \u2192 PP2 frame): Character-driven antagonist thread; the ownership wound between Talon Veyr and his former GAG mentor Colonel Maro Tess"
+    },
+    {
+      "kind": "subplot",
+      "note": "Foundation / Vigil Operational Machinery (Greyline / Greyline / Korda): Primary plot-driving antagonist infrastructure"
+    },
+    {
+      "kind": "hook_resolved",
+      "note": "Is Talon Veyr the right partner, or has Ben made a catastrophic mistake breaking cover for him? The storm-line escape answers through action: Ben saves Talon physically, Talon gets them out operationally.: hard"
+    }
+  ],
+  "active_promises": [],
+  "active_promises_total_count": 0,
+  "reveal_deadlines": [],
+  "canon_slices": [],
+  "canon_guidance": {},
+  "relationship_context": {},
+  "exit_vector": {
+    "summary": "They escape Tarn Velos, but the legal mess is now unavoidable."
+  },
+  "trusted_state_gap_notes": [],
+  "exemplar_snippets": [],
+  "anti_exemplar_snippets": [],
+  "continuity_events": [],
+  "scene_card": {},
+  "pov_knowledge_horizon": {},
+  "rendered_markdown": ""
+}

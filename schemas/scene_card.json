@@ -57,6 +57,16 @@
         }
       }
     },
+    "pov_knowledge_state": {
+      "type": "object",
+      "description": "Optional per-scene POV epistemic boundary surfaced in the chapter packet's POV Knowledge Horizon section. Constrains what the POV character may know, reference, or act on in this scene.",
+      "additionalProperties": false,
+      "properties": {
+        "known_facts": { "type": "array", "items": { "type": "string" }, "description": "Facts the POV character currently knows as the scene opens." },
+        "blocked_facts": { "type": "array", "items": { "type": "string" }, "description": "Facts the POV character must NOT know, reference, or intuit yet." },
+        "uncertainty_notes": { "type": "string", "description": "Free-text note on what the POV is uncertain about." }
+      }
+    },
     "turning_point": { "type": "string", "minLength": 1 },
     "turning_point_detail": {
       "type": "object",

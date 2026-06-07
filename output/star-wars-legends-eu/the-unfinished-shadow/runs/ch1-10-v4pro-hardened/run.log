@@ -1,0 +1,181 @@
+Initializing AI Writers' Room...
+  Cloud API reachable, key valid
+  Project: [star-wars-legends-eu/[the-unfinished-cycle]/the-unfinished-shadow/@ch1-10-v4pro-hardened]
+  Config snapshot: output\star-wars-legends-eu\the-unfinished-shadow\runs\ch1-10-v4pro-hardened\config_snapshot.yaml
+  Prompt + invocation snapshot: output\star-wars-legends-eu\the-unfinished-shadow\runs\ch1-10-v4pro-hardened
+Initializing Phase 2 components...
+  Phase 2 components initialized
+Initializing Phase 4 components...
+  Phase 4 components: physics enforcer, session persistence, scene card generator, export manager
+  Worldbuilding service initialized (universe=star-wars-legends-eu)
+Loaded 10 scene card(s)
+Deployment mode: cloud
+Pipeline phase: 5
+Output directory: output\star-wars-legends-eu\the-unfinished-shadow\runs\ch1-10-v4pro-hardened\chapters
+
+============================================================
+Chapter 1, Scene 1
+============================================================
+  [1/4] Plot Architect generating brief...
+  [2/4] Prose Stylist drafting...
+  [2.5/5] Line Writer editing...
+  Saved: output\star-wars-legends-eu\the-unfinished-shadow\runs\ch1-10-v4pro-hardened\chapters\chapter_01_scene_01.md
+  [P2-1] Summarizer running...
+  [P2-2] Summary stored in ChromaDB
+  [P2-3] State diff applied
+  [P2-4] Chapter/scene log updated
+  [P2-5] Contradiction scanner: clean
+  [WB] Extracted 5 provisional lore entries
+  [WB] LoreConflictDetector: 2 flag(s) (0 high)
+
+============================================================
+Chapter 2, Scene 1
+============================================================
+  [1/4] Plot Architect generating brief...
+  [2/4] Prose Stylist drafting...
+  [2.5/5] Line Writer editing...
+  Saved: output\star-wars-legends-eu\the-unfinished-shadow\runs\ch1-10-v4pro-hardened\chapters\chapter_02_scene_01.md
+  [P2-1] Summarizer running...
+  [P2-2] Summary stored in ChromaDB
+  [P2-3] State diff applied
+  [P2-4] Chapter/scene log updated
+  [P2-5] Contradiction scanner: 1 flag(s)
+  [WB] Extracted 1 provisional lore entries
+
+============================================================
+Chapter 3, Scene 1
+============================================================
+  [1/4] Plot Architect generating brief...
+  [2/4] Prose Stylist drafting...
+  [2.5/5] Line Writer editing...
+  Saved: output\star-wars-legends-eu\the-unfinished-shadow\runs\ch1-10-v4pro-hardened\chapters\chapter_03_scene_01.md
+  [P2-1] Summarizer running...
+  [P2-2] Summary stored in ChromaDB
+  [P2-3] State diff applied
+  [P2-4] Chapter/scene log updated
+  [P2-5] Contradiction scanner: clean
+  [WB] Extracted 7 provisional lore entries
+  [WB] LoreConflictDetector: 1 flag(s) (0 high)
+
+============================================================
+Chapter 4, Scene 1
+============================================================
+  [1/4] Plot Architect generating brief...
+  [2/4] Prose Stylist drafting...
+  [2.5/5] Line Writer editing...
+  Saved: output\star-wars-legends-eu\the-unfinished-shadow\runs\ch1-10-v4pro-hardened\chapters\chapter_04_scene_01.md
+  [P2-1] Summarizer running...
+  [WARN] Summarizer returned no established_concepts — concept maturity tracking inactive for this scene
+  [P2-2] Summary stored in ChromaDB
+  [P2-3] State diff applied
+  [P2-4] Chapter/scene log updated
+  [P2-5] Contradiction scanner: clean
+  [WB] Extracted 6 provisional lore entries
+
+============================================================
+Chapter 5, Scene 1
+============================================================
+  [1/4] Plot Architect generating brief...
+  [2/4] Prose Stylist drafting...
+  [2.5/5] Line Writer editing...
+  Saved: output\star-wars-legends-eu\the-unfinished-shadow\runs\ch1-10-v4pro-hardened\chapters\chapter_05_scene_01.md
+  [P2-1] Summarizer running...
+  [P2-2] Summary stored in ChromaDB
+  [P2-3] State diff applied
+  [P2-4] Chapter/scene log updated
+  [P2-5] Contradiction scanner: clean
+  [WB] Extracted 8 provisional lore entries
+  [WB] LoreConflictDetector: 3 flag(s) (0 high)
+
+============================================================
+Chapter 6, Scene 1
+============================================================
+  [1/4] Plot Architect generating brief...
+  [2/4] Prose Stylist drafting...
+  [2.5/5] Line Writer editing...
+  Saved: output\star-wars-legends-eu\the-unfinished-shadow\runs\ch1-10-v4pro-hardened\chapters\chapter_06_scene_01.md
+  [P2-1] Summarizer running...
+  [P2-2] Summary stored in ChromaDB
+  [P2-3] State diff applied
+  [P2-4] Chapter/scene log updated
+  [P2-5] Contradiction scanner: clean
+  [WB] Extracted 9 provisional lore entries
+  [WB] LoreConflictDetector: 3 flag(s) (0 high)
+
+============================================================
+Chapter 7, Scene 1
+============================================================
+  [1/4] Plot Architect generating brief...
+  [2/4] Prose Stylist drafting...
+  [2.5/5] Line Writer editing...
+  Saved: output\star-wars-legends-eu\the-unfinished-shadow\runs\ch1-10-v4pro-hardened\chapters\chapter_07_scene_01.md
+  [P2-1] Summarizer running...
+  [P2-2] Summary stored in ChromaDB
+Auto-registering unknown character 'lys a' from state diff. Consider adding them to the concept seed's referenced_characters array.
+  [P2-3] State diff applied
+  [P2-4] Chapter/scene log updated
+  [P2-5] Contradiction scanner: clean
+  [WB] Extracted 10 provisional lore entries
+  [WB] LoreConflictDetector: 5 flag(s) (0 high)
+
+============================================================
+Chapter 8, Scene 1
+============================================================
+  [1/4] Plot Architect generating brief...
+  [2/4] Prose Stylist drafting...
+  [2.5/5] Line Writer editing...
+  Saved: output\star-wars-legends-eu\the-unfinished-shadow\runs\ch1-10-v4pro-hardened\chapters\chapter_08_scene_01.md
+  [P2-1] Summarizer running...
+  [P2-2] Summary stored in ChromaDB
+  [P2-3] State diff applied
+  [P2-4] Chapter/scene log updated
+  [P2-5] Contradiction scanner: clean
+  [WB] Extracted 5 provisional lore entries
+  [WB] LoreConflictDetector: 3 flag(s) (0 high)
+
+============================================================
+Chapter 9, Scene 1
+============================================================
+  [1/4] Plot Architect generating brief...
+  [2/4] Prose Stylist drafting...
+  [2.5/5] Line Writer editing...
+  Saved: output\star-wars-legends-eu\the-unfinished-shadow\runs\ch1-10-v4pro-hardened\chapters\chapter_09_scene_01.md
+  [P2-1] Summarizer running...
+  [P2-2] Summary stored in ChromaDB
+  [P2-3] State diff applied
+  [P2-4] Chapter/scene log updated
+  [P2-5] Contradiction scanner: clean
+  [WB] Extracted 7 provisional lore entries
+  [WB] LoreConflictDetector: 3 flag(s) (0 high)
+
+============================================================
+Chapter 10, Scene 1
+============================================================
+  [1/4] Plot Architect generating brief...
+  [2/4] Prose Stylist drafting...
+  [2.5/5] Line Writer editing...
+  Saved: output\star-wars-legends-eu\the-unfinished-shadow\runs\ch1-10-v4pro-hardened\chapters\chapter_10_scene_01.md
+  [P2-1] Summarizer running...
+  [P2-2] Summary stored in ChromaDB
+  [P2-3] State diff applied
+  [P2-4] Chapter/scene log updated
+  [P2-5] Contradiction scanner: clean
+  [WB] Extracted 6 provisional lore entries
+  [WB] LoreConflictDetector: 1 flag(s) (0 high)
+
+============================================================
+Pipeline Complete
+============================================================
+Scenes saved: 10
+Total word count: 29,325
+  saved_clean:          10
+  Chapter 1.1: 3,419 words, status=saved_clean
+  Chapter 2.1: 2,590 words, status=saved_clean, flags=1
+  Chapter 3.1: 2,090 words, status=saved_clean
+  Chapter 4.1: 2,537 words, status=saved_clean
+  Chapter 5.1: 2,032 words, status=saved_clean
+  Chapter 6.1: 3,617 words, status=saved_clean
+  Chapter 7.1: 4,451 words, status=saved_clean
+  Chapter 8.1: 2,554 words, status=saved_clean
+  Chapter 9.1: 3,525 words, status=saved_clean
+  Chapter 10.1: 2,510 words, status=saved_clean

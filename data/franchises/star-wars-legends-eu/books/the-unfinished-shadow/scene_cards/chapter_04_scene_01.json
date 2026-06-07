@@ -1,10 +1,21 @@
 {
   "chapter_number": 4,
   "scene_number": 1,
+  "pov_knowledge_state": {
+    "known_facts": [
+      "Elya's four-line dead-drop message and that she used Ben's old GAG service marker.",
+      "That Elya is now dead and this is her sealed crime scene."
+    ],
+    "blocked_facts": [
+      "The killer's identity. Ben senses a precise, controlled Force-method and recognizes its shape with dread, but does NOT yet know it is Aevyn (Aevyn is unnamed to Ben here).",
+      "Talon Veyr's name and relevance. It surfaces only via Dorrin's records check near the end of this scene; do not let Ben anticipate it before the search returns it."
+    ],
+    "uncertainty_notes": "Ben learns the Iresh destination and Jacen's encryption marker only when he and Dorrin read the recovered fragment within this scene; he does not arrive already knowing them."
+  },
   "structural_phase": "setup",
   "scene_role": "reveal",
   "pov_character": "Ben",
-  "mission": "Ben arrives on Coruscant roughly half a day after Elya sent the message. The body is not warm-on-the-floor fresh, but the investigation is fresh: access controlled, first reports unfinished, official assumptions still forming. Inspector Cale Dorrin, a GA Justice / Coruscant Security investigator assigned to sensitive old-GAG and political-crime cases, controls the scene and lets Ben in under limits because Elya’s message makes him relevant and Luke has quietly vouched for the urgency. Ben senses Force-trauma and recovers the damaged Jacen-sealed duplicate manifest fragment hidden by Elya’s records instincts, not in an obvious safe.",
+  "mission": "Ben arrives on Coruscant roughly half a day after Elya sent the message. The body is not warm-on-the-floor fresh, but the investigation is fresh: access controlled, first reports unfinished, official assumptions still forming. Inspector Cale Dorrin, a GA Justice / Coruscant Security investigator assigned to sensitive old-GAG and political-crime cases, controls the scene and lets Ben in under limits because Elya’s message makes him relevant and Luke has quietly vouched for the urgency. Ben senses Force-trauma and recovers the damaged Jacen-sealed duplicate manifest fragment hidden by Elya’s records instincts in the gap behind a dark, decommissioned workstation’s power-coupling housing (heat-degraded, exactly where she wedged it in Chapter 1, not an obvious safe); the killer searched but never found it.",
   "why_now": "Ben arrives half a day after Elya sent the message. The scene is still fresh and still controllable — access locked down, first reports still forming, official assumptions not yet hardened into a closed file. If he is going to recover anything Elya preserved, it has to be now.",
   "conflict": "Ben wants to recover the fragment Elya hid and understand what it means. His obstacle is Dorrin, who has legal authority over the scene and will let Ben in only so far as Elya’s message makes him relevant — not as far as Ben’s Force sense says he needs to go. Ben has to work within Dorrin’s limits to get what Elya left.",
   "conflict_type": "internal",

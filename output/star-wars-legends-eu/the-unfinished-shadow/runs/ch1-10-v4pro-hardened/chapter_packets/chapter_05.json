@@ -1,0 +1,43 @@
+{
+  "chapter_number": 5,
+  "overlay_version": 0,
+  "mission": "Ben and Inspector Cale Dorrin cross-reference the fragment\u2019s surviving GAG audit/handler marker against Elya\u2019s old assignment logs, supervision records, and postwar prosecution files. Dorrin discovers that Talon Veyr worked under Elya in the records/logistics environment after Maro Tess reassigned him out of field duty, and that Talon\u2019s later transfer-chain conviction involved manifest/authorization patterns close to the recovered fragment. Ben identifies Talon as the person likely to recognize the shipment fraud pattern, not as a magic decoder. Ben tries the legal route first, using Dorrin\u2019s lawful access and Luke\u2019s quiet support rather than a prison break.",
+  "chapter_turn": "Ben departs for Tarn Velos.",
+  "timeline_anchor": [
+    "Story opens in 47 ABY. Characters never say 'ABY'; they reference events directly (e.g. 'after Caedus', 'before Shedu Maad', 'since we lost Luke at Crucible').",
+    "The Battle of Shedu Maad, where Jacen/Caedus died and the GAG war (Second Galactic Civil War) ended, was about 6 years ago (41 ABY). The GAG, its dead-drop channels, and its operational infrastructure were all decommissioned then, about 6 years ago (NOT 3 years ago).",
+    "Ben Skywalker served in the GAG as a 14-year-old during that war; he is about 21 now.",
+    "Elya removing 14-year-old Ben's name from the wrong approval field happened during the war, about 6 years ago.",
+    "The Jedi Order relocated permanently to Shedu Maad at the close of Fate of the Jedi, about 3 years ago (44 ABY); Saba Sebatyne is Grand Master, Luke a senior Master.",
+    "Crucible was about 2 years ago (45 ABY); Luke has seemed 'further away' since (Mortis is never named on the page)."
+  ],
+  "pressure_ladder": [
+    {
+      "scene_number": 1,
+      "label": "escalation",
+      "note": "Ben and Inspector Cale Dorrin cross-reference the fragment\u2019s surviving GAG audit/handler marker against Elya\u2019s old assignment logs, supervision records, and postwar prosecution files. Dorrin discovers that Talon Veyr worked under Elya in the records/logistics environment after Maro Tess reassigned him out of field duty, and that Talon\u2019s later transfer-chain conviction involved manifest/authorization patterns close to the recovered fragment."
+    }
+  ],
+  "pov_arc_pressure": {
+    "pov_character": "Ben",
+    "structural_phase": "setup",
+    "pacing_curve": "rising"
+  },
+  "next_scene_obligations": [],
+  "active_promises": [],
+  "active_promises_total_count": 0,
+  "reveal_deadlines": [],
+  "canon_slices": [],
+  "canon_guidance": {},
+  "relationship_context": {},
+  "exit_vector": {
+    "summary": "Ben departs for Tarn Velos."
+  },
+  "trusted_state_gap_notes": [],
+  "exemplar_snippets": [],
+  "anti_exemplar_snippets": [],
+  "continuity_events": [],
+  "scene_card": {},
+  "pov_knowledge_horizon": {},
+  "rendered_markdown": ""
+}

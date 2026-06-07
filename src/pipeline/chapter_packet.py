@@ -60,6 +60,9 @@ class ChapterPacket:
     overlay_version: int = 0
     mission: str = ""
     chapter_turn: str = ""
+    # Book-scoped fixed continuity facts from concept_seed.meta.timeline_anchors.
+    # Rendered every chapter; empty (no-op) when the seed omits the field.
+    timeline_anchor: list[str] = field(default_factory=list)
     pressure_ladder: list[dict] = field(default_factory=list)
     pov_arc_pressure: dict = field(default_factory=dict)
     next_scene_obligations: list[dict] = field(default_factory=list)
@@ -80,6 +83,9 @@ class ChapterPacket:
     continuity_events: list[dict] = field(default_factory=list)   # Slice 4
     scene_number: int | None = None
     scene_card: dict = field(default_factory=dict)
+    # Per-scene POV epistemic boundary from scene_card.pov_knowledge_state.
+    # Empty (no-op) when the card omits the field.
+    pov_knowledge_horizon: dict = field(default_factory=dict)
     # Cached flat-context snapshot so overlays can be a strict token-superset
     # of the ContextAssembler.assemble() output. Written at overlay-compile time.
     flat_context_snapshot: str = ""
@@ -147,6 +153,16 @@ class ChapterPacket:
             parts.append("### Chapter Turn")
             parts.append(self.chapter_turn)
 
+        if self.timeline_anchor:
+            parts.append("")
+            parts.append("### Timeline Anchor")
+            parts.append(
+                "Fixed continuity facts for this book. Honor them exactly; "
+                "characters reference events directly, never by ABY date."
+            )
+            for item in self.timeline_anchor:
+                parts.append(f"- {item}")
+
         if self.pressure_ladder:
             parts.append("")
             parts.append("### Pressure Ladder")
@@ -210,6 +226,27 @@ class ChapterPacket:
                 "(e.g., \"something had happened, but the details remained "
                 "unclear to her\") rather than invent specifics."
             )
+
+        if self.pov_knowledge_horizon:
+            parts.append("")
+            parts.append("### POV Knowledge Horizon")
+            known = self.pov_knowledge_horizon.get("known_facts") or []
+            blocked = self.pov_knowledge_horizon.get("blocked_facts") or []
+            notes = self.pov_knowledge_horizon.get("uncertainty_notes") or ""
+            if known:
+                parts.append("The POV character currently knows:")
+                for fact in known:
+                    parts.append(f"- {fact}")
+            if blocked:
+                parts.append(
+                    "The POV character does NOT yet know the following. Do not let "
+                    "them reference, act on, or intuit these in dialogue, "
+                    "interiority, or narration filtered through them:"
+                )
+                for fact in blocked:
+                    parts.append(f"- {fact}")
+            if notes:
+                parts.append(f"Uncertainty: {notes}")
 
         if self.active_promises:
             # Slice 3 (spec \u00a77.3): split urgent vs overdue, render with
@@ -390,11 +427,20 @@ class ChapterPacketCompiler:
 
         active_promises = self._fetch_active_promises(chapter_number=chapter_number)
 
+        meta = self.concept_seed.get("meta") or {}
+        raw_anchors = meta.get("timeline_anchors")
+        timeline_anchor = (
+            [str(a).strip() for a in raw_anchors if str(a).strip()]
+            if isinstance(raw_anchors, list)
+            else []
+        )
+
         return ChapterPacket(
             chapter_number=chapter_number,
             overlay_version=0,
             mission=mission,
             chapter_turn=chapter_turn,
+            timeline_anchor=timeline_anchor,
             pressure_ladder=pressure_ladder,
             pov_arc_pressure=pov_arc_pressure,
             next_scene_obligations=next_scene_obligations,
@@ -452,6 +498,7 @@ class ChapterPacketCompiler:
         scene_pov_arc_pressure = _enrich_pov_arc_pressure_for_scene(
             base.pov_arc_pressure, scene_card
         )
+        pov_knowledge_horizon = _extract_pov_knowledge_horizon(scene_card)
 
         # Deep-copy the base first: replace() copies references, not contents,
         # so a consumer mutating a carried-over field (pressure_ladder,
@@ -468,6 +515,7 @@ class ChapterPacketCompiler:
             active_promises_total_count=total_active,
             canon_guidance=canon_guidance,
             pov_arc_pressure=scene_pov_arc_pressure,
+            pov_knowledge_horizon=pov_knowledge_horizon,
         )
         return replace(overlay, rendered_markdown=overlay.render_markdown())
 
@@ -722,6 +770,28 @@ def _enrich_pov_arc_pressure_for_scene(
         enriched["pov_character"] = scene_pov
 
     return enriched
+
+
+def _extract_pov_knowledge_horizon(scene_card: Mapping[str, Any]) -> dict:
+    """Normalize the optional scene-card ``pov_knowledge_state`` block.
+
+    Drops empty entries so a sparse declaration stays sparse and the renderer
+    only emits a section when the card actually constrains POV knowledge.
+    """
+    raw = scene_card.get("pov_knowledge_state")
+    if not isinstance(raw, Mapping):
+        return {}
+    out: dict[str, Any] = {}
+    known = [str(x).strip() for x in (raw.get("known_facts") or []) if str(x).strip()]
+    blocked = [str(x).strip() for x in (raw.get("blocked_facts") or []) if str(x).strip()]
+    notes = str(raw.get("uncertainty_notes") or "").strip()
+    if known:
+        out["known_facts"] = known
+    if blocked:
+        out["blocked_facts"] = blocked
+    if notes:
+        out["uncertainty_notes"] = notes
+    return out
 
 
 _PLANNING_ID_RE = re.compile(r"\b(?:R\d{2}[a-z]?|H\d{2}|PP\d{2}|SP-[A-Z]|SP\d+)\b")

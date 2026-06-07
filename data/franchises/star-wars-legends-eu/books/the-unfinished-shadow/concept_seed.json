@@ -5,6 +5,14 @@
     "canon_status": "AU",
     "canon_status_description": "Post-Fate of the Jedi (47 ABY) Legends continuity. Legacy comics did not happen. The One Sith on Korriban remain in patient pre-emergence under Darth Krayt. All other post-FOTJ continuity is preserved, including Crucible (45 ABY): Luke/Leia/Han had a Mortis-adjacent metaphysical encounter and stepped back from active galactic crisis-management work; the Jedi Order relocated permanently from Coruscant to Shedu Maad (Hapes Cluster) at the end of FOTJ (44 ABY); Saba Sebatyne assumed the Grand Master role when Luke stepped down.",
     "era": "Legacy Era, post-Fate of the Jedi, 47 ABY",
+    "timeline_anchors": [
+      "Story opens in 47 ABY. Characters never say 'ABY'; they reference events directly (e.g. 'after Caedus', 'before Shedu Maad', 'since we lost Luke at Crucible').",
+      "The Battle of Shedu Maad, where Jacen/Caedus died and the GAG war (Second Galactic Civil War) ended, was about 6 years ago (41 ABY). The GAG, its dead-drop channels, and its operational infrastructure were all decommissioned then, about 6 years ago (NOT 3 years ago).",
+      "Ben Skywalker served in the GAG as a 14-year-old during that war; he is about 21 now.",
+      "Elya removing 14-year-old Ben's name from the wrong approval field happened during the war, about 6 years ago.",
+      "The Jedi Order relocated permanently to Shedu Maad at the close of Fate of the Jedi, about 3 years ago (44 ABY); Saba Sebatyne is Grand Master, Luke a senior Master.",
+      "Crucible was about 2 years ago (45 ABY); Luke has seemed 'further away' since (Mortis is never named on the page)."
+    ],
     "tone": "heroic_with_weight",
     "tone_description": "Postwar conspiracy thriller register. Cinematic clarity, adventure momentum, lived-in technology, dry humor, mythic Force awe when earned. Commercial readability beats literary flourish. Reader pleasure before theme — the deeper themes (restraint can cost lives, Jacen's crisis logic can save lives, forbidden knowledge may be necessary to heal or protect) settle in as aftertaste, not as thesis.",
     "target_word_count": 105000,

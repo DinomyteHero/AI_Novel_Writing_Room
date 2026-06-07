@@ -24,6 +24,11 @@
     },
     "mission": { "type": "string" },
     "chapter_turn": { "type": "string" },
+    "timeline_anchor": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Book-scoped fixed timeline/continuity facts from concept_seed.meta.timeline_anchors; rendered every chapter. Empty when the seed omits the field."
+    },
     "pressure_ladder": {
       "type": "array",
       "items": {
@@ -178,6 +183,16 @@
       "type": "object",
       "description": "Copy of the current scene card; present on overlays.",
       "additionalProperties": true
+    },
+    "pov_knowledge_horizon": {
+      "type": "object",
+      "description": "Per-scene POV epistemic boundary from scene_card.pov_knowledge_state. Empty when the card omits it.",
+      "additionalProperties": false,
+      "properties": {
+        "known_facts": { "type": "array", "items": { "type": "string" } },
+        "blocked_facts": { "type": "array", "items": { "type": "string" } },
+        "uncertainty_notes": { "type": "string" }
+      }
     },
     "rendered_markdown": {
       "type": "string",
