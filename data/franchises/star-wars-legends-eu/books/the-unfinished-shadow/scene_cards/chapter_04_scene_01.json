@@ -108,5 +108,17 @@
       "do not make Dorrin a third lead or secret mentor"
     ],
     "pov_arc_phase": "Ben Skywalker:lie_established"
-  }
+  },
+  "objects_at_open": {
+    "jacen_manifest_fragment": "hidden behind the records-office power-coupling housing"
+  },
+  "objects_at_close": {
+    "jacen_manifest_fragment": "Ben Skywalker"
+  },
+  "dialogue_density_target": "medium",
+  "interiority_budget": {
+    "max_words": 250,
+    "max_paragraphs": 3
+  },
+  "opening_mode": "sensory_hook"
 }

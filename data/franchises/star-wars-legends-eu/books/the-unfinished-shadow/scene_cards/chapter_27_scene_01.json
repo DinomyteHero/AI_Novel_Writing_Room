@@ -57,7 +57,7 @@
     {
       "beat_description": "Aevyn confirms the holocron is near the Glasswell and ends the conversation on his terms.",
       "state_change": "Ben has the confirmation he came for and has given up nothing useful — but Aevyn has established that he sees the GAG-trained part of Ben that no one else names.",
-      "pov_reaction": "not relief at having information — unease at having been read; the particular exposure of being seen clearly by the wrong person"
+      "pov_reaction": "not relief at having information — unease at having been read; the exposure of being seen clearly by the wrong person"
     }
   ],
   "canon_elements_needed": [
@@ -102,5 +102,11 @@
       "do not make Dorrin a third lead or secret mentor"
     ],
     "pov_arc_phase": "Aevyn:lie_deepened"
-  }
+  },
+  "dialogue_density_target": "high",
+  "interiority_budget": {
+    "max_words": 250,
+    "max_paragraphs": 3
+  },
+  "opening_mode": "in_medias_res"
 }

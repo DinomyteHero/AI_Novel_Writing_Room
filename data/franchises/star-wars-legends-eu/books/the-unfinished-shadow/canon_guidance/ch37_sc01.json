@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch37_sc01",
+  "chapter_number": 37,
+  "scene_number": 1,
+  "model": "deepseek/deepseek-v4-flash",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "f8514bc97850051dae7ab58ae7ce24eeccf2f9df085e781c128d30e052c85406",
+  "review_status": "unreviewed",
+  "confidence": 0.92,
+  "hard_constraints": [
+    "Tess is a non-Force-sensitive operative; no Force abilities, no Force-sensitivity as part of his characterization.",
+    "The One Sith hand is never named, never appears on-page, and communicates only through a deniable encrypted courier channel.",
+    "Wynn Dorvan remains a future target, not compromised in Book 1; no suggestion of mind-control, brainwashing, or puppet status.",
+    "Tess does not gloat, monologue, or express theatrical villainy; his register is clinical, operational, and calm.",
+    "Iresh failure is a data point, not a defeat; Tess categorizes assets used, assets lost, remaining assets, revised approach.",
+    "The holocron container was not recovered by GA Security after the Glasswell collapse per the scene card's turning point detail.",
+    "Ben Skywalker's actions at the Glasswell are flagged for two behavior patterns: Jacen-derived crisis clarity and container non-recovery.",
+    "Tess's extraction logistics begin at the end of the scene; he leaves Coruscant jurisdiction for a Greyline affiliate site.",
+    "The encrypted courier channel is deleted after use; Tess does not maintain open contact with the One Sith hand."
+  ],
+  "canon_risks": [
+    "Risk of implying Tess has direct, frequent contact with the One Sith leadership, which could over-expose the One Sith in Book 1 per the contract's constraint that they remain a background shadow.",
+    "Risk of making the One Sith hand seem angry or emotionally reactive, which would contradict the 'patient pre-emergence' and 'long-game' characterization.",
+    "Risk of implicating Dorvan as already compromised if Tess's report flags him as a current asset rather than a future target.",
+    "Risk of the scene feeling too abstract or bureaucratic if Tess's interiority becomes clinical without sensory grounding in the physical space."
+  ],
+  "legends_continuity_notes": [
+    "The One Sith under Darth Krayt in Legends (pre-Legacy comics) are in patient pre-emergence on Korriban; their only Book 1 footprint is this off-page hand. No known Legends source names their courier protocols or operational tempo for the pre-emergence period.",
+    "Tess's Greyline Strategic Services is a Book 1 original organization; no Legends precedent for its structure or affiliate sites, but the existence of such a firm is consistent with post-war corporate security in Legends.",
+    "Dorvan's status as an uncompromised future target aligns with his Legends portrayal as a competent, stable Chief of State in FOTJ.",
+    "The encrypted courier channel method is plausible in Legends setting; no hard canon on One Sith communication methods in pre-emergence."
+  ],
+  "possible_disney_bleed": [
+    "Avoid 'First Order', 'Resistance', 'Starkiller Base', 'Inquisitorius', 'World Between Worlds', 'kyber bleeding', 'High Republic', 'sequel trilogy' terminology.",
+    "Avoid any suggestion that the One Sith hand is part of a reborn 'Sith Eternal' or 'Final Order' (Disney concepts).",
+    "Avoid 'Red Blade' or 'bleeding crystal' language; Aevyn's cold white-blue blade is a self-built hybrid, not a bled kyber crystal.",
+    "Avoid any Disney-canon Mandalorian references; this novel's Mandalorians follow Legends Resol'nare if mentioned."
+  ],
+  "required_context_for_drafter": [
+    "The scene occurs after the Glasswell collapse (Ch 32-33) and Ben's coda with Luke (Ch 36); Tess is processing post-Iresh intelligence.",
+    "The One Sith hand is the only on-page appearance of the One Sith in Book 1; it must feel like a shadow, not a full reveal.",
+    "Ben kept the holocron container (Ch 33, Ch 36); this is the operationally significant fact Tess notes.",
+    "Tess's assessment of Ben's crisis clarity is based on the rescue at the Glasswell lower basin (Ch 31).",
+    "Dorvan is a future target for identity-shaping infiltration; Tess's report flags his status as unchanged, not as an active operation.",
+    "The Greyline secure office is a different location from the Squeeze (Ch 20); sensory details should reinforce its anonymity.",
+    "Tess is not Force-sensitive; any reference to 'feeling' or 'sensing' must be avoided in his POV."
+  ],
+  "allowed_au_divergences": [
+    "One Sith hand contact via encrypted courier channel is original to this novel, compatible with Legends context.",
+    "Tess's role as a knowing One Sith asset is an authorized AU divergence; no Legends source places a non-Force-sensitive operative in the pre-emergence One Sith network.",
+    "Greyline Strategic Services as a post-war private security firm is an original institution.",
+    "The Iresh failure as a deferred objective for the One Sith infiltration program is original to this novel."
+  ],
+  "open_questions": [
+    "What specific wording should the One Sith hand's acknowledgment use? (Three words or fewer, recalibrating, not punishing.)",
+    "Should Tess's extraction logistics include a brief mention of a Greyline asset or facility name? The scene card says 'Greyline affiliate site outside the Coruscant jurisdiction' \u2014 a name could add texture but risk over-specifying.",
+    "How much detail should Tess's interior assessment of Ben's crisis clarity include? The scene card flags it as a data point; the degree of detail affects the scene's tone.",
+    "What is the exact phrasing of the encrypted pulse notification sound? 'The same sound as any other notification' is the current guidance; a specific auditory detail may help grounding."
+  ]
+}

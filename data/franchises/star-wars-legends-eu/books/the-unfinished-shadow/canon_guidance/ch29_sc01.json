@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch29_sc01",
+  "chapter_number": 29,
+  "scene_number": 1,
+  "model": "deepseek/deepseek-v4-flash",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "c1545f6c2f2e4edf7adcc07333a3b585cf8eafd6ed48c4f159a818aafecd23e4",
+  "review_status": "unreviewed",
+  "confidence": 0.92,
+  "hard_constraints": [
+    "The cache is hidden in old offworld survey/GAG storage equipment, not a mystical altar or Sith temple.",
+    "Aevyn is already at work on the cache when the group arrives; they are too late to prevent the opening.",
+    "The Glasswell is a natural sinkhole/cavern beneath a mirror-lake, not a Sith temple or Jedi ruin.",
+    "Ben already knows from Iressa's transmission that the holocron contains Recognition and Holding techniques.",
+    "The only options left are rescue (saving Tavi and locals) and denial (keeping Aevyn from leaving with the full prize).",
+    "Aevyn's technique destabilizes the Glasswell physically; the first crack appears in the upper chamber wall.",
+    "Talon identifies the container model as standard GAG quarantine-survey rotation.",
+    "Ben recognizes the odyssey-logic: Jacen chose Iresh because it is near the Kathol Rift, a waypoint on his Force odyssey.",
+    "The scene is dialogue-led with high dialogue density.",
+    "Interiority budget: max 250 words, max 3 paragraphs.",
+    "Opening mode: in medias res.",
+    "POV is either Talon or Ben (not yet assigned).",
+    "No new plot mythology or abstract Force concepts introduced.",
+    "Iresh's Force character: preserves charged impressions of memory/identity/decision, does NOT reveal truth or prophecy.",
+    "The Glasswell is NOT a Sith temple, Jedi ruin, or mystical treasure chamber."
+  ],
+  "canon_risks": [
+    "Risk of making the Glasswell feel like a Sith temple or mystical treasure chamber; it must remain a natural site Jacen exploited.",
+    "Risk of Ben reacting with surprise or horror when he already knows from Iressa what the holocron contains; his reaction should be quiet confirmation, not shock.",
+    "Risk of merging Talon's and Ben's parallel recognitions into a single reaction; they must remain separate and sequential.",
+    "Risk of introducing new Force mechanics or expanding the holocron's capabilities beyond Recognition and Holding.",
+    "Risk of making Aevyn's technique appear theatrical or savage; it should be precise and calm, not crude.",
+    "Risk of the cache feeling like a mystical altar; it must be ordinary GAG survey equipment.",
+    "Risk of the Kathol Rift reference becoming exposition-heavy; it should be a single grounding detail, not a lore dump."
+  ],
+  "legends_continuity_notes": [
+    "Jacen Solo's Force odyssey included the Aing-Tii (flow-walking), Fallanassi (White Current), and Vergerean thought; these are the canonical roots of Recognition and Holding.",
+    "The Kathol Rift is a known Legends region, home of the Aing-Tii; Iresh sitting near it ties Jacen's choice to his pilgrimage.",
+    "GAG quarantine containers were standard field equipment; Talon's recognition of the model is grounded in his GAG logistics/records role.",
+    "The unfinished holocron is a new artifact but built on established Legends holocron canon (crystalline storage, Force resonance).",
+    "Aevyn's Recognition technique is weaponized flow-walking; flow-walking is a canonical Aing-Tii discipline Jacen learned and abused.",
+    "The Glasswell's preservation-of-impressions character is original but extrapolates from Legends vergence/lore-site lineage (e.g., Ossus, Byss).",
+    "Jacen's practical concealment (ordinary survey equipment) is consistent with his character: mystical insight plus cold logistics."
+  ],
+  "possible_disney_bleed": [
+    "Avoid 'World Between Worlds' (Disney-only Force concept).",
+    "Avoid 'kyber crystal bleeding' (Disney-only Sith crystal mechanic).",
+    "Avoid 'Inquisitorius' as a post-Imperial organization (Disney-only).",
+    "Avoid 'High Republic' terminology or concepts.",
+    "Avoid 'Ben Solo' naming; 'Ben' is unambiguously Ben Skywalker.",
+    "Avoid 'Starkiller Base', 'First Order', 'Resistance' (sequel trilogy, Disney-only).",
+    "Avoid Disney Mandalorian conventions ('The Way', etc.); Legends Mandalorians follow Resol'nare."
+  ],
+  "required_context_for_drafter": [
+    "Ben already knows from Iressa's dying transmission (Midpoint, Ch 16) that the holocron contains Recognition and Holding; this scene embodies that knowledge, not reveals it.",
+    "Talon's recognition of the GAG container model is tied to his post-Glasshook reassignment into records/logistics; it carries the specific misery of seeing how he was used.",
+    "Ben's recognition of the odyssey-logic (Iresh near Kathol Rift) is separate from Talon's; it lands as understanding that Jacen planned this with calm practicality.",
+    "Aevyn is already applying Recognition to force the container's seal; the Glasswell amplifies the pressure, causing structural stress.",
+    "The first crack appears in the upper chamber wall above the lower approach where Tavi is trapped.",
+    "The group realizes simultaneously that the collapse is beginning and that stopping Aevyn cleanly is no longer an option.",
+    "Sela recognizes the local danger (chime lines, taboo ground, structural instability) and will act on local knowledge.",
+    "The scene's emotional trajectory: Ben enters running contingency plans, sees the cache, confirms Iressa was right, braces rather than reacts, then shifts from threat-assessment to emergency-assessment when the crack appears.",
+    "The scene must be physically clear before the Force atmosphere rides on top: geography of the upper chamber, the mineral ledge, the survey container, the lower approach where Tavi is.",
+    "No paragraph contains more than one invented bureaucratic/technical term; every technical phrase translates to immediate human stakes within two sentences."
+  ],
+  "allowed_au_divergences": [
+    "Aevyn Soris is a new character (Jacen's side-project Force student, not in published Legends).",
+    "The unfinished holocron and its specific contents (Recognition and Holding) are new artifacts.",
+    "The duplicated wartime manifest is a new canonical artifact.",
+    "Iresh and the Glasswell are new locations with original Force character (preservation of impressions, not prophecy).",
+    "The Shedu Maad Memorial Foundation, Vigil, and Greyline Strategic Services are new post-war institutions.",
+    "Legacy comics future (Darth Krayt galactic war, Cade Skywalker) is excised; One Sith remain in pre-emergence.",
+    "The cache being in ordinary GAG survey equipment is consistent with Jacen's practical concealment style."
+  ],
+  "open_questions": [
+    "Which POV (Talon or Ben) carries this scene? The scene card allows either; the drafter needs to decide based on which recognition (Talon's storage logic or Ben's odyssey-logic) should land first and carry the emotional weight.",
+    "How much of Aevyn's technique should be visible on the page? The scene card says he is 'applying sustained Recognition pressure' but does not specify how that looks or sounds to the POV character.",
+    "Should the first crack be visible to the group immediately, or should it be a sound first (the hum shifting pitch) before the visual?",
+    "How does Sela's local knowledge manifest in this scene? She recognizes the danger, but does she speak it aloud or act on it physically?",
+    "Is Tavi's location below the upper chamber explicitly known to the group at this point, or is it inferred from the Foundation's survey records?",
+    "What is the exact spatial relationship between the upper chamber entrance, the survey container ledge, and the lower approach where Tavi is trapped? The scene card implies verticality but does not specify distances."
+  ]
+}

@@ -102,5 +102,11 @@
       "do not make Dorrin a third lead or secret mentor"
     ],
     "pov_arc_phase": "Ben Skywalker:lie_established"
-  }
+  },
+  "dialogue_density_target": "high",
+  "interiority_budget": {
+    "max_words": 150,
+    "max_paragraphs": 2
+  },
+  "opening_mode": "in_medias_res"
 }

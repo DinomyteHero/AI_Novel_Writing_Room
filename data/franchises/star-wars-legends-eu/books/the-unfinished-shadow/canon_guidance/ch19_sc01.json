@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch19_sc01",
+  "chapter_number": 19,
+  "scene_number": 1,
+  "model": "deepseek/deepseek-v4-flash",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "0dfb5c8676bd48e48a7c9f108def5a0c3c5d5d1efc2e4530aa00e0bfc3a7ecaa",
+  "review_status": "unreviewed",
+  "confidence": 0.95,
+  "hard_constraints": [
+    "Korda escapes via a prepared lockdown/diversion; Ben and Talon capture a physical proof object (restricted field authorization, courier cylinder, or Foundation/Greyline transfer record) that names Iresh as the destination.",
+    "The GA restricted-transit placard is the single concrete object explaining why Ben cannot call Dorrin to lock down the space. No additional exposition about Coruscant's post-war logistics architecture.",
+    "Ben's exits-and-angles scan runs automatically, a Jacen-derived habit he does not reflect on in the moment.",
+    "Korda's prepared escape implies he expected this follow-through; he treats Ben and Talon as proficient.",
+    "The physical proof object is the first artifact that cannot be explained as coincidence: Korda is guarding an active operation, not a dead file.",
+    "No new plot mythology, no theme-as-thesis, no making Iresh abstract before it is physically clear.",
+    "Preserve commercial readability: goal, obstacle, movement, reversal, hook.",
+    "Use Character Voice & Life Sheet v1.4 as controlling source for dialogue, behavior, humor, fear, wounds, and interaction rules."
+  ],
+  "canon_risks": [
+    "The GA restricted-transit logistics license and Verity district cargo-lane architecture are invented for this novel. Ensure they are described as post-war reconstruction infrastructure, not as a pre-existing Legends institution. No contradiction with known Legends Coruscant geography (e.g., the Verity district is not named in published Legends; treat it as a minor district that fits the post-war texture).",
+    "Korda's escape must not imply Force use or Sith training. He is a non-Force-sensitive former GAG security lieutenant using conventional security tradecraft.",
+    "Ben's automatic exits-and-angles scan must be shown as a Jacen-derived habit, not a Jedi technique. It is crisis logic, not a Force power."
+  ],
+  "legends_continuity_notes": [
+    "Coruscant's post-war reconstruction after the Yuuzhan Vong War (25-29 ABY) and the Second Galactic Civil War (40-41 ABY) included extensive re-licensing of cargo lanes and transit corridors. The GA Logistics Oversight Bureau is a plausible post-war institution; it fits the 'return to normalcy' texture of the Dorvan administration.",
+    "The Verity district is not a named location in published Legends. It can be treated as a minor commercial/archive district on Coruscant, consistent with the planet's urban sprawl.",
+    "GAG-era security tradecraft (camera-lag patterns, prepared escape routes, false emergency lockdowns) are consistent with Korda's background as a former GAG security lieutenant. No Force involvement needed."
+  ],
+  "possible_disney_bleed": [
+    "Avoid any reference to 'First Order', 'Resistance', 'Starkiller Base', or sequel-trilogy institutions.",
+    "Avoid 'Inquisitorius' as a post-Imperial organization (Legends Inquisitorius is Empire-era only).",
+    "Avoid 'kyber bleeding' or any Disney-canon lightsaber crystal lore.",
+    "Avoid 'World Between Worlds' or any Disney-canon Force concept.",
+    "Avoid 'Mandalorian' conventions from Disney+ (e.g., 'The Way'). Legends Mandalorians follow Resol'nare."
+  ],
+  "required_context_for_drafter": [
+    "The GA restricted-transit placard is the whole explanation for why Ben cannot call Dorrin. One beat, one consequence. No further exposition.",
+    "Korda's escape is a prepared contingency, not improvisation. He expected someone to follow the bait and read the route.",
+    "The physical proof object (restricted field authorization, courier cylinder, or transfer record) is the first concrete artifact that names Iresh as the destination. The operation is already moving.",
+    "Ben's automatic exits-and-angles scan is a Jacen-derived habit. He does not reflect on it in the moment. It will matter later (Ch 31 Glasswell rescue).",
+    "Korda's escape compresses the timeline. Whatever margin Ben thought he had is gone.",
+    "The Verity district loading bay is a commercial logistics space trying to look unremarkable. Sensory details: hydraulic fluid smell, courier droids on repeating loops, slightly too-clean signage, blue-and-white GA Restricted Transit placard."
+  ],
+  "allowed_au_divergences": [
+    "The Verity district and its loading bay are invented for this novel.",
+    "The GA restricted-transit logistics license and the GA Logistics Oversight Bureau are invented for this novel.",
+    "Korda's prepared escape route and the specific lockdown/diversion mechanism are invented for this scene.",
+    "The physical proof object (restricted field authorization, courier cylinder, or transfer record) is invented for this novel."
+  ],
+  "open_questions": [
+    "Is the Verity district's location on Coruscant consistent with the known geography of the planet? (No published Legends map names it; treat as a minor district.)",
+    "Does the GA Logistics Oversight Bureau appear in any published Legends source? (Not to my knowledge; treat as invented.)",
+    "What specific form does the physical proof object take? (Scene card allows restricted field authorization, courier cylinder, datapad, or Foundation/Greyline transfer record. Drafter's choice.)",
+    "Does Korda's escape route involve any named Coruscant location that might conflict with published Legends? (Avoid named districts like the Senate District, Uscru Entertainment District, etc. Keep it generic.)"
+  ]
+}

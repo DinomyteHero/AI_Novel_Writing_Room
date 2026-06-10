@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch28_sc01",
+  "chapter_number": 28,
+  "scene_number": 1,
+  "model": "deepseek/deepseek-v4-flash",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "73b5a08804e1e6d3179671fb626aa8d61d21a974a10890bf21d564ca4838dbbd",
+  "review_status": "unreviewed",
+  "confidence": 0.95,
+  "hard_constraints": [
+    "Sela Dray is the POV character for this scene. She is an Iresh local guide/settlement liaison, early thirties, human or near-human. She refuses Force theory and speaks in survival rules. She calls Ben 'Skywalker' through Ch 28; the shift to 'Ben' begins in Ch 34.",
+    "Tavi Dray is Sela's younger relative/apprentice figure. He is younger, practical, overconfident, loved. He was pressured/paid by the Foundation into the Glasswell exclusion zone as a guide. He must be present as a person before he becomes a rescue objective.",
+    "The Glasswell is a natural sinkhole/cavern beneath a mirror-lake, lined with pale translucent mineral. It is NOT a Sith temple, Jedi ruin, or mystical treasure chamber. The cache is hidden in old offworld survey/GAG-era storage equipment near it.",
+    "Iresh's Force character is preservation of charged impressions, not revelation of truth or prophecy. Sela's rule: 'Do not trust what you feel here just because it feels strong.'",
+    "Greyline Strategic Services is the Vigil's operational arm. They use professional, procedural methods, not crude or theatrical ones. They apply bureaucratic cover as a tool.",
+    "The expedition moving heavy equipment toward the Glasswell means Aevyn's timeline has accelerated past Ben's estimate. This is the extraction phase.",
+    "No ABY/BBY dating in narration or dialogue. Characters reference events directly ('after Caedus', 'before Shedu Maad').",
+    "Star Wars vocabulary: datapads not tablets, transparisteel not glass, durasteel not steel, turbolifts not elevators, comlinks not radios, blasters not guns, hyperspace not warp.",
+    "Force prose is experiential and mystical, never clinical. Avoid 'energy field' framing. Sela does not use Force theory.",
+    "No real-world pop culture references, no Wookieepedia-style taxonomy, no film/book references."
+  ],
+  "canon_risks": [
+    "Risk: The scene might imply that Iresh's impressions reveal objective truth. The contract explicitly states Iresh does NOT show the future, reveal objective truth, or grant prophecy. Sela's dialogue must reinforce that impressions are emotionally charged but not reliable.",
+    "Risk: The scene might treat the Glasswell as a Sith temple or Jedi ruin. It is a natural site. The cache is in practical, deniable survey/GAG equipment.",
+    "Risk: The scene might introduce Force abilities or mechanics not grounded in Legends. Sela is non-Force-sensitive; her knowledge is local survival, not Force theory.",
+    "Risk: The scene might use Disney-canon terminology or concepts (e.g., 'kyber', 'bleeding', 'World Between Worlds'). Avoid all Disney-only terms.",
+    "Risk: The scene might make Greyline's pressure theatrical or villainous. They are professional and procedural; their coercion is bureaucratic, not crude."
+  ],
+  "legends_continuity_notes": [
+    "Iresh is a new Outer Rim location introduced for this novel. Its Force character (preservation of charged impressions) is original and does NOT extend Mortis-adjacent mythology.",
+    "The Glasswell is a natural sinkhole/cavern. No Sith or Jedi history is attached to it. Jacen Solo recognized it as useful for hiding the cache because of its impression-preserving mineral.",
+    "Greyline Strategic Services is a new post-war Coruscant institution. It is the Vigil's operational arm, not a separate Sith organization.",
+    "The Shedu Maad Memorial Foundation is a legitimate post-war charity. Its public work is real. The Vigil is its hidden inner ring.",
+    "Sela Dray is a new character. She is not Force-sensitive. Her knowledge is local survival: weather, paths, chime-lines, taboo ground.",
+    "Tavi Dray is a new character. He is Sela's younger relative/apprentice figure. He is not Force-sensitive."
+  ],
+  "possible_disney_bleed": [
+    "Avoid 'kyber crystal' or 'bleeding' as a lightsaber mechanic. Legends Sith use synthetic crystals.",
+    "Avoid 'World Between Worlds' or any Rebels-era Force concept.",
+    "Avoid 'Inquisitorius' as a post-Imperial organization. Legends Inquisitorius is Empire-era only.",
+    "Avoid 'High Republic' references.",
+    "Avoid 'Ben Solo' or any sequel-trilogy naming. 'Ben' is unambiguously Ben Skywalker.",
+    "Avoid 'The Way' or other Disney Mandalorian conventions. Legends Mandalorians follow Resol'nare."
+  ],
+  "required_context_for_drafter": [
+    "Sela has been angry since Tavi went missing. Anger is easier than fear. The carved marks in Tavi's hand are private signals only she would read. He was thinking of her when he left them.",
+    "The field recorder fragment: Tavi's voice joking, complaining about the cold, promising to pay back the four credits she lent him. This makes him a specific person, not a missing-person category.",
+    "The carved mark naming the route Tavi took into the Glasswell approach: he went in voluntarily, knew the risk, and left the marks for Sela specifically. This is harder to forgive than being tricked.",
+    "Greyline personnel arrive and attempt to clear Sela from the perimeter under Foundation access protocols. She refuses to move until they escalate to physical removal. This exposes the Foundation's bureaucratic pressure as coercion.",
+    "The heavy equipment grav-sleds begin moving toward the Glasswell entrance. The extraction phase is running. Ben's timeline has already slipped.",
+    "Sela knows the inside of the Glasswell approach better than anyone the Foundation brought. If Tavi is below, she is the one who can get to him.",
+    "The scene's emotional trajectory: Sela's anger cracks into fear, then converts back into operational clarity when the equipment moves.",
+    "The scene's turning point: Sela finds Tavi's field recorder. The expedition begins moving heavy equipment toward the Glasswell."
+  ],
+  "allowed_au_divergences": [
+    "Iresh and the Glasswell are new locations. Their Force character (preservation of impressions) is original to this novel.",
+    "Sela Dray and Tavi Dray are new characters.",
+    "The Shedu Maad Memorial Foundation, the Vigil, and Greyline Strategic Services are new post-war institutions.",
+    "The duplicated wartime manifest and the unfinished holocron are new artifacts.",
+    "Aevyn Soris is a new character: Jacen Solo's side-project Force student from the GAG/Caedus period."
+  ],
+  "open_questions": [
+    "What specific private code did Sela teach Tavi for the guide-marks? The scene card mentions 'a private code she taught him' but does not specify. The drafter may invent a simple system (e.g., angle of a carved line, number of stacked stones, a particular symbol).",
+    "What is the exact content of the field recorder fragment beyond the joke about the cold and the four credits? The drafter may add one or two more lines of Tavi's personality (e.g., a complaint about the Foundation's equipment, a promise to buy Sela a drink, a mention of a local landmark).",
+    "How does Greyline physically pressure Sela? The scene card says 'attempt to clear Sela from the perimeter under Foundation access protocols' and 'escalate to physical removal.' The drafter may decide the specific escalation (e.g., a Greyline operative steps into her path, a hand on her arm, a verbal threat about trespassing).",
+    "What is the exact timing of the heavy equipment movement relative to Sela finding the recorder? The scene card implies they happen in close succession. The drafter may decide the order (e.g., she hears the grav-sleds before she finds the recorder, or the equipment begins moving as she straightens up from the recorder)."
+  ]
+}

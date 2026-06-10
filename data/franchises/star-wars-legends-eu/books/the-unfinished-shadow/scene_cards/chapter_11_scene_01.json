@@ -2,15 +2,15 @@
   "chapter_number": 11,
   "scene_number": 1,
   "structural_phase": "response",
-  "scene_role": "escalation",
+  "scene_role": "aftermath",
   "pov_character": "Ben",
-  "mission": "Ben and Talon return from Tarn Velos under pressure. Luke (off-world at Shedu Maad) is doing what he can from distance to contain contradictory prison reports. Because bringing Talon straight to the Jedi would make the case official before there is anything Saba could act on, Ben takes him to the old Skywalker family apartment on Coruscant as a temporary hideout and supply stop. The apartment exposes more of Ben’s family history than Ben intends: a preserved family holo on a shelf, Luke’s quiet stack of old mission logs left where he placed them years ago, traces of Ben’s own GAG past in things he never threw away. Talon jokes until he realizes the room is not funny. Using the recovered fragment and the apartment’s old secure terminal, Talon identifies Iressa Vossk as the person who can prove where the hidden duplicate manifest went.",
+  "mission": "Ben and Talon return from Tarn Velos under pressure. Luke (off-world at Shedu Maad) is doing what he can from distance to contain contradictory prison reports. Because bringing Talon straight to the Jedi would make the case official before there is anything Saba could act on, Ben takes him to the old Skywalker family apartment on Coruscant as a temporary hideout and supply stop. The apartment exposes more of Ben's family history than Ben intends: a preserved family holo on a shelf, Luke's quiet stack of old mission logs left where he placed them years ago, traces of Ben's own GAG past in things he never threw away. Talon jokes until he realizes the room is not funny.",
   "why_now": "The prison escape has burned every safe location Ben had — he can’t bring Talon to the Jedi without making the case official before there is anything Saba can act on. The apartment is the only place the Vigil doesn’t have an address for either of them, and the old secure terminal there is the only tool left to identify the next lead.",
-  "conflict": "Ben needs Talon’s expertise to crack the fragment’s next clue, but bringing a convicted prisoner into the family apartment means exposing the wound the room carries. Talon’s jokes probe the room until the family holo stops him — Ben’s silence is more revealing than anything he could say.",
+  "conflict": "Ben needs the apartment to be a tool — a safe address with a secure terminal — and the apartment refuses to be only that. Talon's nervous humor keeps probing surfaces Ben has sealed, and the room answers questions Talon hasn't asked yet.",
   "conflict_type": "internal",
   "dialogue_expectation": "dialogue_led",
-  "turning_point": "Talon names Iressa Vossk, and Ben realizes the next lead is not in a battlefield, prison, or Jedi archive — it is inside someone’s carefully rebuilt ordinary life.",
-  "closing_hook": "Talon names Iressa Vossk, and Ben realizes the next lead is not in a battlefield, prison, or Jedi archive — it is inside someone’s carefully rebuilt ordinary life.",
+  "turning_point": "Talon makes a small dark joke about the family holo, reads Ben's face, and stops.",
+  "closing_hook": "Talon makes a small dark joke about the family holo, reads Ben's face, and stops — the room has told him what Ben wouldn't.",
   "characters_present": [
     "Ben Skywalker",
     "Talon Veyr"
@@ -33,7 +33,7 @@
     "Luke's mission logs as the work set down when the Order left Coruscant — unforgotten, uncollected",
     "Vacated Jedi Temple: present in the city but not visible from this apartment; absence as a felt fact, not a view"
   ],
-  "target_word_count": 4200,
+  "target_word_count": 2000,
   "active_subplots": [
     "SUB_01"
   ],
@@ -43,22 +43,18 @@
   "promises_planted": [],
   "promises_paid": [],
   "promises_progressed": [
-    "PP_01",
     "PP_02",
-    "PP_05",
-    "PP_08",
-    "PP_10",
-    "PP_12"
+    "PP_08"
   ],
   "turning_point_detail": {
-    "trigger": "Talon runs the fragment's audit signature against his own memory of the old transfer chain and names Iressa Vossk — not as a guess but as the only analyst he ever knew who could prove a cloned identity from surrounding records damage.",
-    "shift": "Ben realizes the next lead isn't in a battlefield or archive. It's inside someone's carefully rebuilt ordinary life — and reaching her means disturbing it.",
-    "cost": "Ben has now brought a convicted prisoner into the family apartment and shared the secure terminal. If anything goes wrong from here, there is no version of this that looks like the right call."
+    "trigger": "Talon's reflexive dark joke lands on the family holo — Mara, Luke, a younger Ben — before he has registered what he is joking about.",
+    "shift": "Talon reads Ben's face and stops himself mid-line. For the first time the partnership has a floor under it: Talon has seen what this costs Ben and chosen not to make it smaller.",
+    "cost": "Ben's professional surface has cracked in front of a convicted prisoner he is supposed to be managing. He cannot take it back, and the apartment will not pretend it didn't happen."
   },
   "emotional_arc": {
-    "start": "Controlled and competent — Ben is managing the practical crisis (hiding Talon, accessing the terminal) and suppressing the emotional weight of being back in the apartment.",
+    "start": "Controlled and competent — Ben is managing the practical crisis and suppressing the emotional weight of being back in the apartment.",
     "shift": "Talon's accidental probe of the family holo — the dark joke, the stopped look — cracks Ben's professional surface. For a moment, Talon sees more than Ben intended to show.",
-    "end": "Ben refocuses on the work. The wound is covered. But something has shifted in the room: Talon is no longer just cargo, and Ben can feel that he has shown something he can't take back."
+    "end": "Neither of them names it. Ben puts the kettle of work back on; Talon's jokes change register — quieter, aimed at himself instead of the room."
   },
   "key_beats": [
     {
@@ -75,22 +71,12 @@
       "beat_description": "Talon makes a small dark joke about the family holo, reads Ben's face, and stops.",
       "state_change": "The dynamic shifts: Talon stops performing and the room goes genuinely quiet for the first time.",
       "pov_reaction": "The face closing happens before the decision to close it — then the effort to keep working, hands finding the terminal."
-    },
-    {
-      "beat_description": "Ben and Talon work the secure terminal together; Talon runs the recovered fragment against the transfer-chain pattern he carries from his own conviction record.",
-      "state_change": "The investigation moves from reconnaissance to active identification — the fragment is no longer just evidence, it's a key.",
-      "pov_reaction": "Leaning into the work with relief — the terminal is ground that doesn't shift under him."
-    },
-    {
-      "beat_description": "Talon names Iressa Vossk as the only analyst who could prove a cloned shipment identity from the damage pattern around the missing records.",
-      "state_change": "The next lead resolves: it is not in an archive or a prison but inside someone's carefully rebuilt ordinary life.",
-      "pov_reaction": "The recognition landing as something heavier than useful — the pull toward what that costs her, held back."
     }
   ],
   "hook_actions": [],
   "revelations": [],
   "pov_arc_phase": "Talon:lie_challenged",
-  "notes": "Source: Chapter Outlines v4.1. Act: Act Two — Coruscant Investigation / Foundation / The Vigil. Chapter title: Back Through the Rain.\n\nReader-onboarding note: Use physical objects, but only two primary: the family holo (Mara, Luke, young Ben — the photo Luke kept) and Luke’s stack of old mission logs (the work he set down years ago and never returned to). The Jade Shadow registry is a third, lighter object — one glance from Talon, no commentary. All three are texture, not Chekhov’s gun. The reader should understand that Ben’s family loves him, but the apartment holds wounds no one has fully sorted. Avoid stacking too many objects — the room should breathe.\n\nTexture thread: The Jade Shadow registry is Mara’s last practical handwriting in the apartment — ship maintenance, not sentiment. The drafter should let it be what it is: a working document Mara kept for a ship that no longer needs it.\n\nContinuity note: This is the first time Talon sees the apartment. Ben and Talon will return here later (post-PP2) under very different circumstances. The drafter should write this visit as a one-night brush past the wound, so that the eventual return reads as a return.\n\nCharacter voice focus: preserve the exact v1.4 character behavior and dialogue rules for the chapter POV and named participants. Plot first, character second, theme through consequences.",
+  "notes": "Source: Chapter Outlines v4.1. Act: Act Two — Coruscant Investigation / Foundation / The Vigil. Chapter title: Back Through the Rain.\n\nReader-onboarding note: Use physical objects, but only two primary: the family holo (Mara, Luke, young Ben — the photo Luke kept) and Luke’s stack of old mission logs (the work he set down years ago and never returned to). The Jade Shadow registry is a third, lighter object — one glance from Talon, no commentary. All three are texture, not Chekhov’s gun. The reader should understand that Ben’s family loves him, but the apartment holds wounds no one has fully sorted. Avoid stacking too many objects — the room should breathe.\n\nTexture thread: The Jade Shadow registry is Mara’s last practical handwriting in the apartment — ship maintenance, not sentiment. The drafter should let it be what it is: a working document Mara kept for a ship that no longer needs it.\n\nContinuity note: This is the first time Talon sees the apartment. Ben and Talon will return here later (post-PP2) under very different circumstances. The drafter should write this visit as a one-night brush past the wound, so that the eventual return reads as a return.\n\nCharacter voice focus: preserve the exact v1.4 character behavior and dialogue rules for the chapter POV and named participants. Plot first, character second, theme through consequences.\n\nSplit note (2026-06-09): this card is one half of the original consolidated chapter card, split so per-scene length targets sit inside the drafter's deliverable range. The chapter's full arc spans both scenes.",
   "scene_voice_permissions": {
     "notes": "Use Character Voice & Life Sheet v1.4 as controlling source for dialogue, behavior, humor, fear, wounds, and interaction rules. Preserve commercial readability: goal, obstacle, movement, reversal, hook.",
     "anti_patterns": [
@@ -100,5 +86,12 @@
       "do not make Dorrin a third lead or secret mentor"
     ],
     "pov_arc_phase": "Talon:lie_challenged"
-  }
+  },
+  "dialogue_density_target": "high",
+  "interiority_budget": {
+    "max_words": 250,
+    "max_paragraphs": 3,
+    "rationale": "the apartment's objects carry the weight — Ben's interiority stays clipped while Talon's patter fills and then respects the silence"
+  },
+  "opening_mode": "contrast"
 }

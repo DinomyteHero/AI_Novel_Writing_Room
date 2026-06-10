@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch01_sc01",
+  "chapter_number": 1,
+  "scene_number": 1,
+  "model": "deepseek/deepseek-v4-flash",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "7a11b7961b60964b85a21f11ce776305704a9d50120183cafdaa277e08981697",
+  "review_status": "unreviewed",
+  "confidence": 0.95,
+  "hard_constraints": [
+    "Elya Rane is POV for this scene; she must die by scene end.",
+    "Aevyn Soris enters without Elya hearing footsteps; his method is weaponized Recognition (precise, intimate, not savage).",
+    "The manifest fragment is hidden by Elya behind a decommissioned workstation's power-coupling housing, not in a safe or obvious location.",
+    "Elya sends Ben an obsolete GAG-coded message via his old service marker before Aevyn arrives.",
+    "The scene is set in a narrow internal records office on Coruscant, third floor, Coruscant Bureau of Post-Conflict Logistics, at 0233-0300.",
+    "No Jedi, no lightsabers, no Force abilities beyond Aevyn's Recognition.",
+    "Elya's memory of removing Ben's name from the wrong approval field must appear as interior reflection, not exposition.",
+    "Aevyn is frightening before he is explained; no sympathy or backstory for him in this scene.",
+    "The fragment survives beyond what Aevyn extracts; this is the only piece he cannot fully recover.",
+    "Elya's death is the inciting incident; the reader should feel a decent person is being erased."
+  ],
+  "canon_risks": [
+    "Risk of making Aevyn's method feel like crude torture rather than precise, intimate extraction. The scene must show control, not savagery.",
+    "Risk of over-explaining the GAG dead-drop protocol or the wrong approval field; these should surface through Elya's interiority, not as lore dumps.",
+    "Risk of making Elya a passive victim; she must be competent, afraid, and human before the plot kills her.",
+    "Risk of introducing Iresh or the holocron too explicitly in this scene; the fragment points toward Iresh but the scene should not name the holocron.",
+    "Risk of violating the 'no ABY/BBY dating' rule; characters reference events directly ('after Caedus', 'before Shedu Maad')."
+  ],
+  "legends_continuity_notes": [
+    "The Battle of Shedu Maad (41 ABY) is about 6 years before this scene; the GAG was dissolved in disgrace after the war.",
+    "Jacen Solo died at Shedu Maad; his personal encryption on a wartime manifest is a significant clue.",
+    "The Coruscant Bureau of Post-Conflict Logistics is a plausible post-war government office handling leftover wartime records.",
+    "Elya's rank of Commander is consistent with GAG records/logistics officer seniority.",
+    "Ben Skywalker was 14 during the GAG period; he is about 21 now (47 ABY).",
+    "The Jedi Order relocated to Shedu Maad (Hapes Cluster) at the end of Fate of the Jedi (44 ABY), about 3 years ago.",
+    "Luke Skywalker is a senior Master, no longer Grand Master; Saba Sebatyne is Grand Master."
+  ],
+  "possible_disney_bleed": [
+    "Avoid 'Inquisitorius', 'World Between Worlds', 'kyber bleeding', 'High Republic', 'sequel trilogy' references.",
+    "Avoid 'Ben Solo' confusion; 'Ben' is unambiguously Ben Skywalker.",
+    "Avoid 'The Way' or Disney Mandalorian conventions; Legends Mandalorians follow Resol'nare.",
+    "Avoid 'energy field' framing for the Force; use experiential, mystical language."
+  ],
+  "required_context_for_drafter": [
+    "Elya's motivation: she once quietly removed 14-year-old Ben's name from a wrong approval field; this is the personal connection that makes her contact him.",
+    "The duplicated manifest: one public/boring version, one hidden duplicate with Jacen's personal encryption, conflicting destination data, pointing toward Iresh.",
+    "Aevyn's method: weaponized Recognition (inward Aing-Tii flow-walking fused with Force empathy, reading charged memories/decisions; kills by pushing mind and body past survivable limits).",
+    "The fragment is hidden by records instinct, not procedure; residual heat from the power coupling partially degrades it.",
+    "Elya's message: 'GAG is still active. One of Jacen's last orders has two lives. Come alone. \u2014 E.R.'",
+    "The scene is the hook; the reader's first experience of the novel is sustained pressure.",
+    "No lightsabers, no Jedi, no Force abilities beyond Aevyn's Recognition.",
+    "Elya's death is the inciting incident; the fragment surviving is the mystery's lifeline."
+  ],
+  "allowed_au_divergences": [
+    "Aevyn Soris is a NEW character (not in published Legends); his existence and method are project-authorized.",
+    "The duplicated wartime manifest is a NEW artifact specific to this novel.",
+    "The GAG dead-drop protocol and Elya's specific service marker are project-authorized.",
+    "The wrong approval field incident is project-authorized backstory.",
+    "Iresh and the Glasswell are NEW locations; the fragment points toward Iresh but the scene does not need to name the Glasswell."
+  ],
+  "open_questions": [
+    "Should the scene explicitly name 'Iresh' in Elya's discovery, or leave it as 'a remote world near the Kathol Rift'? The scene card says the fragment points toward Iresh; the chapter blueprint says 'pointing toward Iresh.' Clarify: does Elya know the destination is Iresh, or only that the hidden copy went somewhere the public shipment never went?",
+    "The scene card says Elya hides the fragment 'by records instinct' behind a power-coupling housing. Is there any specific GAG-era training or habit that would make this her instinctive choice? Or is it simply a practical, undocumented hiding place?",
+    "The scene card says Aevyn 'extracts part of the lead' and learns Elya contacted Ben and preserved a missing piece. Does Aevyn learn the specific location (Iresh) from Elya, or only that the manifest points somewhere? This affects how much the Vigil knows going into Act 2.",
+    "The scene card says the fragment is 'partially degraded' by residual heat. Is this degradation intentional (Elya's choice) or accidental (the hiding place's side effect)? The chapter blueprint says 'the damaged manifest fragment she preserved remains beyond what Aevyn fully extracts' \u2014 this implies the damage is a consequence of the hiding place, not a deliberate act."
+  ]
+}

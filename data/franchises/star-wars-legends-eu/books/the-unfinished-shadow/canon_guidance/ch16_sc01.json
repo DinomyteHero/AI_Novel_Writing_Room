@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch16_sc01",
+  "chapter_number": 16,
+  "scene_number": 1,
+  "model": "deepseek/deepseek-v4-flash",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "e2522cf195e7f5ef1f9d3396f0fb85d07325b7c893e16c0ffa37678d6660d866",
+  "review_status": "unreviewed",
+  "confidence": 0.92,
+  "hard_constraints": [
+    "Ben is 21, Talon is 28, Iressa is dead, Aevyn is 28.",
+    "The Jedi Order relocated to Shedu Maad (Hapes Cluster) at the end of FOTJ (44 ABY). The Coruscant Temple is no longer Order property.",
+    "Luke is a senior Master, not Grand Master. Saba Sebatyne is Grand Master.",
+    "Mortis is never named on-page. Luke's post-Crucible state is implication only (tired, eyes further away, longer pauses).",
+    "Ben's GAG service was at age 14, about 6 years ago (41 ABY). The GAG was dissolved after Shedu Maad.",
+    "Iressa's secondary cache is a quiet leased basement workshop, not connected to Civitas or her residence.",
+    "The holocron is unfinished, not a completed Sith weapon. It systematizes Recognition and Holding.",
+    "Recognition and Holding are capitalized as proper technique names.",
+    "No ABY/BBY dating in narration or dialogue. Characters reference events directly.",
+    "No 'Legends' or 'Canon' as in-universe concepts.",
+    "Star Wars vocabulary: datapads, transparisteel, durasteel, turbolifts, comlinks, blasters, hyperspace, parsecs, klicks.",
+    "'Jedi' is both singular and plural. 'Darth' capitalized before a name.",
+    "American English spellings.",
+    "Ben's decision to move outside official channels is quiet, not declamatory.",
+    "The two holo calls (Luke, then Saba) are short. Luke's is paternal; Saba's is institutional.",
+    "Saba is not the villain. The slowness of institutional review is the pressure.",
+    "Iressa's dying transmission contains two layers: documentary chain and strategic revelation about identity-shaping, with Jacen's own annotation.",
+    "Talon presses Ben about the coercive option he refused in Ch 14-15. Ben cannot cleanly answer whether it would have worked.",
+    "The scene is dialogue-led, high dialogue density.",
+    "Interiority budget: max 250 words, max 3 paragraphs. Grief processed through Talon's questions and the screen's contents, not through monologue.",
+    "Opening mode: contrast."
+  ],
+  "canon_risks": [
+    "Risk of making Luke seem conveniently fooled or absent. Luke is emotionally intelligent; he senses Ben's pivot in his voice and does not try to stop him, but the drafter must not make him seem unaware.",
+    "Risk of making Saba seem obstructive or villainous. Her correct review process is the institutional pressure that forces Ben's pivot; she is not the antagonist.",
+    "Risk of over-explaining the holocron's purpose in exposition. The revelation should land through Jacen's annotation on the screen, not through Ben or Talon narrating it.",
+    "Risk of Ben's pivot feeling like arrogance rather than necessity. The scene must show that Ben tried the right way first (the holo calls) and that the institutional path is too slow for the threat timeline.",
+    "Risk of Talon's pressing Ben about the refused option becoming a lecture. It should be a direct, honest question that Ben cannot cleanly answer, not a moralizing speech.",
+    "Risk of the transmission's contents being too abstract. The documentary chain and the identity-shaping revelation must be concrete and legible to the reader.",
+    "Risk of the scene becoming static (two people in a room talking). The emotional trajectory and the turning point must provide momentum.",
+    "Risk of violating the 'no theme as thesis' rule. The thematic argument (restraint can cost lives) should land through behavior and consequence, not through dialogue."
+  ],
+  "legends_continuity_notes": [
+    "Shedu Maad is a Hapes Cluster world. The Jedi Order relocated there at the end of FOTJ (44 ABY) after the Senate voted to remove them from Coruscant following the Lost Tribe crisis.",
+    "Saba Sebatyne is Barabel. Her speech register carries Barabel gravity: careful, sharp, formal. Some Barabel speech patterns use 'this one' for self-reference; the drafter may apply this sparingly.",
+    "Luke Skywalker is a senior Master on the Council, no longer Grand Master. He stepped down at the end of FOTJ. His post-Crucible state is quieter, eyes further away, longer pauses. Mortis is never named.",
+    "The Galactic Alliance Guard (GAG) was dissolved in disgrace after the Battle of Shedu Maad (41 ABY). Its records, survivors, and hidden logistics network are the novel's central conspiracy substrate.",
+    "Iressa Vossk was a former GAG Manifest Integrity Analyst. She specialized in wartime cargo discrepancies, duplicate manifests, quarantine classifications, restricted transfer corrections.",
+    "Jacen Solo's Force odyssey included Aing-Tii flow-walking, Fallanassi White Current, battle meditation, Vergerean thought, and Lumiya's Sith inheritance. Recognition and Holding are his systematized extrapolations from these.",
+    "The Kathol Rift is a remote Outer Rim region near Wild Space, home of the Aing-Tii. Iresh sits on the wild edge near it.",
+    "The One Sith on Korriban under Darth Krayt remain in patient pre-emergence. They are glimpsed only as an off-page hand in Book 1."
+  ],
+  "possible_disney_bleed": [
+    "No 'World Between Worlds' (Disney Canon Force concept from Rebels).",
+    "No 'kyber crystal bleeding' mechanic (Disney Canon lore; Legends Sith use synthetic crystals).",
+    "No 'Inquisitorius' as a post-Imperial organization (Disney Canon structure; Legends Inquisitorius is Empire-era only).",
+    "No 'Ben Solo' (Disney Canon character). 'Ben' in this novel is unambiguously Ben Skywalker.",
+    "No 'High Republic' terminology or concepts.",
+    "No 'sequel trilogy' entities (First Order, Resistance, Starkiller Base).",
+    "No Disney-canon Mandalorian conventions ('The Way' as creed; Legends Mandalorians follow Resol'nare)."
+  ],
+  "required_context_for_drafter": [
+    "Iressa's secondary cache is a quiet leased basement workshop in a Coruscant records-warehouse district. It smells of soldering paste and old datachip cases. Old terminals, hand-labelled crates of datachips.",
+    "The holo projector for the Luke call is small and set on a crate. Luke's face in the projection looks tired in a way Ben doesn't quite remember, his eyes slightly further away even when he's looking right at Ben.",
+    "The Saba call is colder \u2014 Barabel gravity through a mid-grade encrypting chip, no warmth in the static.",
+    "Ben and Talon have been working in this cache for several days after the archive disaster (Ch 14-15).",
+    "The transmission Iressa sent contains two layers: (1) a documentary reconstruction tying the Foundation, Korda, and the Iresh thread together; (2) the strategic revelation that Jacen's unfinished holocron systematizes Recognition and Holding for identity-level influence, with Jacen's own sealed annotation naming the cache's purpose.",
+    "Talon's question about the refused option refers to the Jacen-shaped coercive move Ben saw and refused in Ch 14-15 (the archive hostage situation where Iressa died).",
+    "Ben's pivot is quiet. He does not announce it. He simply starts working on what comes next. Talon notices and follows.",
+    "The documentary case is at Iressa's secondary cache. Moving to Iresh has to start now.",
+    "The Vigil is already moving on Iresh. The institutional review process takes weeks Ben does not have.",
+    "Ben's decision to move outside official channels is not arrogance; it is necessity after trying the right way first."
+  ],
+  "allowed_au_divergences": [
+    "Aevyn Soris is a NEW character: Jacen Solo's surviving Force student from the GAG/Caedus period, a side project running alongside Ben's primary apprenticeship.",
+    "The duplicated wartime quarantine/survey shipment manifest personally encrypted by Jacen Solo is a NEW artifact.",
+    "The unfinished holocron's specific contents (Recognition and Holding as named identity-shaping techniques) are this novel's named extrapolation from Jacen's canonical Force-odyssey behavior.",
+    "The Shedu Maad Memorial Foundation (public charity), the Vigil (hidden inner ring), and Greyline Strategic Services are NEW post-war Coruscant-political institutions.",
+    "Iresh and the Glasswell are NEW Outer Rim locations. Iresh's Force character (preserves charged impressions of memory/identity/decision but does NOT reveal truth or prophecy) is original to this novel.",
+    "Iressa's secondary cache is a NEW setting specific to this novel.",
+    "The Legacy comics future (Darth Krayt galactic war, Cade Skywalker, fall of the GA) is entirely excised. The One Sith remain in pre-emergence."
+  ],
+  "open_questions": [
+    "Is Iressa Kiffar-descended or Human? The bible allows flexibility; the drafter may choose. Psychometry stays off-page if used.",
+    "What specific sensory details anchor the secondary cache? The bible specifies 'smell of soldering paste and old datachip cases' but the drafter may add other grounded details.",
+    "How long exactly has Ben and Talon been working in the cache? The bible says 'several days' but the drafter may specify more precisely if needed.",
+    "What is the exact wording of Jacen's annotation in the transmission? The bible says it 'makes the purpose unmistakable' but does not provide the specific text. The drafter must invent it, keeping it in Jacen's voice (clinical, precise, morally ambiguous).",
+    "Does Talon eat or drink anything during this scene? The bible does not specify; the drafter may add small physical actions for texture.",
+    "What time of day is it on Coruscant? Not specified; the drafter may choose for atmosphere."
+  ]
+}

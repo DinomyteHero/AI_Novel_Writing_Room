@@ -23,12 +23,12 @@
     "interpersonal": "Iressa is doing something she swore she wouldn’t do again: touching buried records. She treats it as professional work and charges for every complication. Talon reads her tells and doesn’t comment. Their old archive-world dynamic is functional, wary, and running beneath every exchange like a second manifest.",
     "external": "Iressa mentions her secondary cache in passing — one line, a privacy assertion more than a briefing — but that detail will matter later. More immediately: the archive waking means someone else queried or guarded these records recently, and now they know Ben and Talon have arrived at the proof site."
   },
-  "sensory_details": "The decommissioned archive sub-basement smells of old plasticast and a faint metallic damp — the same combination Ben associates with GAG secondary facilities from when he was fourteen. The strip lighting along the floor gives everything a double-shadow. Iressa's hands move across the cabinet interfaces with the particular economy of someone who has done this without looking for years. The terminal she connects her chip to makes one short sound when it verifies, then nothing.",
+  "sensory_details": "The decommissioned archive sub-basement smells of old plasticast and a faint metallic damp — the same combination Ben associates with GAG secondary facilities from when he was fourteen. The strip lighting along the floor gives everything a double-shadow. Iressa's hands move across the cabinet interfaces with the economy of someone who has done this without looking for years. The terminal she connects her chip to makes one short sound when it verifies, then nothing.",
   "canon_elements_needed": [
     "GAG / Jacen / Caedus continuity",
     "Iressa / Civitas / manifest reconstruction logic"
   ],
-  "target_word_count": 3500,
+  "target_word_count": 3200,
   "active_subplots": [
     "SUB_02",
     "SUB_05"
@@ -96,5 +96,11 @@
       "do not make Dorrin a third lead or secret mentor"
     ],
     "pov_arc_phase": "Iressa:lie_challenged"
-  }
+  },
+  "dialogue_density_target": "medium",
+  "interiority_budget": {
+    "max_words": 250,
+    "max_paragraphs": 3
+  },
+  "opening_mode": "in_medias_res"
 }

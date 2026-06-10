@@ -20,7 +20,7 @@
   "setting": "Coruscant, same GAG quarantine archive — Vara holds Iressa hostage in the server-room aisle. Emergency lights pulse red. Iressa is bleeding from the ribs. Ben sees the Jacen-shaped coercive option and refuses it. Iressa transmits her dying package before Vara kills her.",
   "emotional_trajectory": "Iressa dies with agency. Ben’s guilt matters, but she is not reduced to a lesson for him. The reader must clearly understand that Ben saw another possible way, that it might have worked, and that it would have violated a mind. The transmission Iressa sends carries the strategic stakes forward — from this point on, Ben and the reader know what is really at stake on Iresh. Reader-onboarding / clarity note: Keep the Force ethics simple: Ben can use pressure and command in a way Jacen once taught, but refuses to cross that line. The death proves restraint can cost lives. Iressa’s short arc is clear: old Iressa buried discrepancies; new Iressa preserves one. Plain-language consequence of the revelation: this isn’t a completed Sith weapon. It’s Jacen’s notebook on how to shape people from the inside, and the Vigil wants to finish the work using the only student who could.",
   "stakes": {
-    "personal": "Ben sees the Jacen-shaped coercive option with the particular clarity of someone who was taught it by demonstration. The wound is not that the option exists — it’s that he knows exactly how to use it. Refusing costs him certainty about the outcome. This is the scene that proves his restraint is a choice, not a limitation.",
+    "personal": "Ben sees the Jacen-shaped coercive option with the clarity of someone who was taught it by demonstration. The wound is not that the option exists — it’s that he knows exactly how to use it. Refusing costs him certainty about the outcome. This is the scene that proves his restraint is a choice, not a limitation.",
     "interpersonal": "Iressa’s fear comes out as file anger and one last fee/debt joke rather than a plea. She is still herself while Vara presses her. The moment her transmission completes is the moment she has finished the job she owed — old Iressa buried discrepancies, new Iressa preserved one. Her arc closes as action, not martyrdom.",
     "external": "Iressa’s dying transmission carries two things: the documentary chain (the case Ben could bring to Saba) and the strategic revelation — Jacen’s unfinished holocron systematizes Recognition and Holding for identity-level influence on high-value targets. Iressa recovered a fragment of Jacen’s own sealed annotation naming the cache’s purpose by reconstructing around his encryption. She didn’t infer it; she found his own words. The Vigil intends to use Aevyn, as Jacen’s surviving student, to finish the work."
   },
@@ -109,5 +109,15 @@
       "do not make Dorrin a third lead or secret mentor"
     ],
     "pov_arc_phase": "Ben:lie_challenged; Iressa:moment_of_truth; Iressa:arc_resolved"
-  }
+  },
+  "end_state": {
+    "Iressa Vossk": "dead"
+  },
+  "dialogue_density_target": "high",
+  "interiority_budget": {
+    "max_words": 250,
+    "max_paragraphs": 3,
+    "rationale": "one tight interior wave when Ben sees the Jacen-shaped option; the rest is spoken pressure"
+  },
+  "opening_mode": "in_medias_res"
 }

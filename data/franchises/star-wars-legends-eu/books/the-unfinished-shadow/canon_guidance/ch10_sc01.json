@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch10_sc01",
+  "chapter_number": 10,
+  "scene_number": 1,
+  "model": "deepseek/deepseek-v4-flash",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "7cec38c7edf2cf45ab89700a261bf49d2b45462abd0f73c827149b7ae11b0165",
+  "review_status": "unreviewed",
+  "confidence": 0.9,
+  "hard_constraints": [
+    "Ben and Talon are back on Coruscant after the Tarn Velos escape. They are legally exposed and operating without institutional cover.",
+    "Talon gives Ben the next lead: Iressa Vossk, former GAG Manifest Integrity Analyst. This is the scene's primary plot advancement.",
+    "Talon stays with the investigation because the Greyline snatch operation proves the lie that ruined him is part of an active, ongoing operation, not isolated history.",
+    "Cale Dorrin contacts Ben via holocall: official in tone, strained in register, caught between believing Ben may be right and the fact that Ben helped a convicted prisoner escape.",
+    "Luke Skywalker is off-world, managing fallout from a distance via holocall fragments. He is at Shedu Maad, not Coruscant.",
+    "The setting is a cheap civilian transit hub in a forgettable Coruscant district: neon-lit, anonymous, recycled air, street-level food stalls.",
+    "Talon's humor valve is closed. He is exhausted, hunted, and accepting small kindnesses from Ben without deflecting them.",
+    "Ben's POV arc phase is 'lie_reinforced' \u2014 he categorizes his own competence as professionalism, not as Jacen's grammar.",
+    "No new plot mythology, no abstract Force metaphysics, no Iresh references in this scene.",
+    "Dorrin is not a third lead, secret mentor, or corrupt reveal. He is a strained official contact only."
+  ],
+  "canon_risks": [
+    "Risk: portraying Luke as too involved or too distant. Luke is at Shedu Maad, managing fallout from a distance via favors and quiet influence. He is not on Coruscant, not convening the Council, and not sending Jedi backup. His role is paternal damage control, not operational command.",
+    "Risk: making Dorrin too helpful or too obstructive. He is a GA Justice / Coruscant Security inspector assigned to sensitive old-GAG cases. He can give Ben limited access and procedural friction, but he cannot decode the fragment or solve the conspiracy. He is building a record.",
+    "Risk: implying the Jedi Order has institutional resources on Coruscant. The Order has NO institutional foothold on Coruscant in 47 ABY \u2014 the Temple was vacated in 44 ABY. Ben is operating alone, without Order resources or political cover.",
+    "Risk: making Talon's decision to stay feel like gratitude rather than logic. The scene card explicitly states: 'Talon joins not out of gratitude, but because the attack proves the lie that ruined him was only one layer of something larger.' The dramatic engine is Talon's own calculation, not Ben's rescue.",
+    "Risk: anachronistic terms. Use 'comlink' not 'radio', 'datapad' not 'tablet', 'transparisteel' not 'glass', 'durasteel' not 'steel', 'turbolift' not 'elevator', 'blaster' not 'gun'."
+  ],
+  "legends_continuity_notes": [
+    "The Galactic Alliance Guard (GAG) was dissolved in disgrace after the Battle of Shedu Maad (41 ABY). Its records, survivors, and hidden logistics network are the novel's central conspiracy substrate.",
+    "Iressa Vossk is a former GAG Manifest Integrity Analyst who specialized in wartime cargo discrepancies, duplicate manifests, quarantine classifications, and restricted transfer corrections. She is currently a senior records-restoration analyst at Civitas Archive Systems.",
+    "Cale Dorrin is a GA Justice / Coruscant Security inspector assigned to sensitive old-GAG and political-crime cases. He is a grounded official contact, not a third lead.",
+    "Luke Skywalker is a senior Master on the Jedi Council, no longer Grand Master (Saba Sebatyne holds the title). He is based at Shedu Maad. His post-Crucible state is quieter, with longer pauses \u2014 implication only, Mortis never named.",
+    "The Coruscant Jedi Temple was relinquished at the end of Fate of the Jedi (44 ABY) after the Senate voted to remove the Order following the Lost Tribe crisis. The Skywalker family apartment is the last Skywalker presence on Coruscant."
+  ],
+  "possible_disney_bleed": [
+    "No 'Ben Solo' \u2014 'Ben' is unambiguously Ben Skywalker.",
+    "No 'Inquisitorius' as a post-Imperial organization.",
+    "No 'World Between Worlds' or 'kyber bleeding' mechanics.",
+    "No 'High Republic' references.",
+    "No sequel-trilogy entities (First Order, Resistance, Starkiller Base).",
+    "No Disney-canon Mandalorian conventions ('The Way'). Legends Mandalorians follow Resol'nare."
+  ],
+  "required_context_for_drafter": [
+    "Ben and Talon are exhausted, still wet from the storm at Tarn Velos, and legally exposed. The partnership exists but has not been named.",
+    "Talon's humor valve is closed. He is not joking. He is tired, hunted, and being shown small kindnesses he does not know how to refuse.",
+    "Ben is carrying the weight of the threshold he crossed at Tarn Velos \u2014 freed a convicted prisoner, broke cover, generated a public crisis. He wants this to matter.",
+    "Dorrin's holocall is strained: he is caught between 'Ben may be right' and 'Ben helped a prisoner escape.' He is building a record.",
+    "Luke's holocall fragments are quiet damage control from a distance. He is calling in favors, not sending backup.",
+    "Talon gives the name 'Iressa Vossk' as the next lead. She is the person who can prove the duplicate manifest was deliberate concealment, not clerical error.",
+    "Talon stays because the Greyline snatch operation proves the lie that ruined him is part of an active, ongoing operation. He wants to know by whom.",
+    "The scene's emotional trajectory: Talon's valve closed, Ben's weight, Dorrin's strain, Luke's distance. The partnership becomes real through Talon's choice, not Ben's rescue."
+  ],
+  "allowed_au_divergences": [
+    "Aevyn Soris is a NEW character: marginal Force-sensitive, Jedi-rejected at fourteen, joined GAG as a young adult, became Jacen Solo's side-project Force student during the Caedus period.",
+    "Jacen's unfinished holocron is a NEW artifact: a working device assembled during the LotF period, systematizing Recognition and Holding.",
+    "The duplicated wartime manifest is a NEW artifact: a quarantine/survey shipment manifest personally encrypted by Jacen Solo shortly before the Battle of Shedu Maad.",
+    "Iresh and the Glasswell are NEW locations: Iresh preserves charged impressions of memory, identity, and decision under pressure. The Glasswell is a natural sinkhole/cavern, NOT a Sith temple or Jedi ruin.",
+    "The Shedu Maad Memorial Foundation, the Vigil, and Greyline Strategic Services are NEW post-war Coruscant-political institutions."
+  ],
+  "open_questions": [
+    "What specific favors does Luke call in from a distance? The scene card says 'calling in what favors he still has' \u2014 the drafter may need to invent one or two plausible GA Justice / Coruscant Security contacts that Luke can reach without being on-world.",
+    "What is the exact content of Dorrin's holocall? The scene card says 'strained official contact caught between Ben may be right and Ben just helped a convicted prisoner escape' \u2014 the drafter needs to decide how much Dorrin knows about the manifest fragment and the conspiracy at this point.",
+    "What small kindnesses does Ben offer Talon? The scene card says 'small kindnesses he does not know how to refuse' \u2014 the drafter may choose food, a dry place, not asking for justification, etc.",
+    "How does Talon phrase the Iressa Vossk lead? The scene card says 'Talon gives Ben the next lead: Iressa Vossk' \u2014 the drafter needs to decide how much Talon explains about who she is and why she can help."
+  ]
+}

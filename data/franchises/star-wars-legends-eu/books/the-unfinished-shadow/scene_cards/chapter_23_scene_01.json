@@ -53,7 +53,7 @@
     {
       "beat_description": "Final preparations in the apartment: small packs, civilian cover, nothing that announces them; Talon claims the better bunk allocation through sustained complaint.",
       "state_change": "The decision made chapters ago executes as logistics — the emotional weight of leaving is carried by what the room has held, not by what is said.",
-      "pov_reaction": "The family holo on the shelf noted and left — not approached, not named — and the particular act of choosing not to say goodbye to a room."
+      "pov_reaction": "The family holo on the shelf noted and left — not approached, not named — and the act of choosing not to say goodbye to a room."
     },
     {
       "beat_description": "Luke's quiet support is confirmed — limited, off-record, from Shedu Maad; both of them understand what 'limited' means without it being said.",
@@ -89,5 +89,11 @@
       "do not make Dorrin a third lead or secret mentor"
     ],
     "pov_arc_phase": "Ben Skywalker:moment_of_truth"
-  }
+  },
+  "dialogue_density_target": "medium",
+  "interiority_budget": {
+    "max_words": 150,
+    "max_paragraphs": 2
+  },
+  "opening_mode": "in_medias_res"
 }

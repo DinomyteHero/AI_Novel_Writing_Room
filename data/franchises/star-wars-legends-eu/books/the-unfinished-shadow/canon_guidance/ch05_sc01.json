@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch05_sc01",
+  "chapter_number": 5,
+  "scene_number": 1,
+  "model": "deepseek/deepseek-v4-flash",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "d4a7dd90af93bf07a7ed240fb7782a74d85622e27d45fe3b430466d072c47a57",
+  "review_status": "unreviewed",
+  "confidence": 0.85,
+  "hard_constraints": [
+    "Ben must NOT know, hint at, or intuit that the lawful visitor request for Tarn Velos trips an alert. This is dramatic irony for the reader.",
+    "Ben must NOT know the identity of whoever is watching the old GAG manifest and prosecution records.",
+    "Dorrin is a grounded official contact only: access, records, friction, limits. He is NOT a third lead, secret mentor, corrupt reveal, or doomed ally.",
+    "The GA Justice records facility is procedural and sterile. Coruscant is the world that exiled the Order; Ben's visitor badge reflects his institutional non-status.",
+    "Star Wars vocabulary: datapads not tablets, transparisteel not glass, durasteel not steel, turbolifts not elevators, comlinks not radios, blasters not guns, hyperspace not warp.",
+    "No ABY/BBY dating in narration or dialogue. Characters reference events directly.",
+    "No meta-references: no 'Legends'/'Canon' as concepts, no Wookieepedia-style taxonomy, no real-world pop culture.",
+    "Force prose is experiential and mystical, never clinical. Avoid 'energy field' framing.",
+    "Ben's interiority budget: max 150 words, max 2 paragraphs for the entire scene.",
+    "The scene must open in medias res.",
+    "Ben's POV arc phase is 'lie_established' \u2013 the GAG year is something he keeps in a drawer. His competence with GAG logistics vocabulary should feel fluent and slightly unwelcome.",
+    "Dorrin must go quieter when Ben reads the records too fast. This is the subtle friction: Dorrin is building a file on Ben too.",
+    "The lawful visitor request for Tarn Velos is the correct legal move. It is also the move that trips the alert. Ben departs unaware."
+  ],
+  "canon_risks": [
+    "Risk: Ben's fluency with GAG logistics vocabulary might be written as too comfortable or proud. It should feel like an unwelcome skill returning without invitation.",
+    "Risk: Dorrin's role might be inflated beyond 'grounded official contact.' He must not become a third lead, secret mentor, or corrupt reveal.",
+    "Risk: The GA Justice records facility might be described with anachronistic terms (e.g., 'computer' instead of 'terminal' or 'console'). Use Star Wars vocabulary discipline.",
+    "Risk: The scene might include exposition about the post-war GA political environment that feels like a lore dump. Keep exposition packets short (1-3 sentences) and return immediately to action, dialogue, or character reaction.",
+    "Risk: Ben's internal reaction to the GAG records might exceed the interiority budget (max 150 words, max 2 paragraphs)."
+  ],
+  "legends_continuity_notes": [
+    "The GA Justice records facility operates under Chief of State Wynn Dorvan's administration. The working line is: 'The Dorvan administration has restored procedure, not trust.'",
+    "The Jedi Order has NO institutional foothold on Coruscant in 47 ABY. The Coruscant Jedi Temple was vacated in 44 ABY after the Senate vote. Ben's visitor badge with 'ALLIED PARTY' reflects this.",
+    "Talon Veyr's transfer-chain conviction is a post-war legal outcome from the GAG logistics network. His record was ruined by the reassignment after Operation Glasshook.",
+    "Elya Rane was a GAG records/logistics officer. She once quietly removed 14-year-old Ben's name from a wrong approval field. This is the personal connection that motivated her Ch 1 message.",
+    "Maro Tess was Talon's senior commander and mentor. He reassigned Talon out of field duty after Operation Glasshook as punishment/'education.'",
+    "The GAG was dissolved in disgrace after the Battle of Shedu Maad (41 ABY). Its records, survivors, and hidden logistics network are the novel's central conspiracy substrate.",
+    "The One Sith on Korriban under Darth Krayt remain in patient pre-emergence. They are glimpsed only as an off-page hand in Book 1. No on-page presence here."
+  ],
+  "possible_disney_bleed": [
+    "Avoid 'Inquisitorius' as a post-Imperial organization (Disney Canon only). Legends Inquisitorius is Empire-era only.",
+    "Avoid 'World Between Worlds' (Disney Canon Force concept from Rebels \u2013 incompatible with Legends Force ontology).",
+    "Avoid 'kyber crystal bleeding' mechanic (Disney Canon lore \u2013 Legends Sith use synthetic crystals).",
+    "Avoid 'High Republic' references (Disney Canon publishing initiative \u2013 does not exist in Legends).",
+    "Avoid 'sequel trilogy' entities (First Order, Resistance, Starkiller Base \u2013 do not exist in Legends).",
+    "Avoid Disney-canon naming for shared characters (e.g., 'Ben' = Ben Solo. 'Ben' in this novel is unambiguously Ben Skywalker.)",
+    "Avoid Disney-canon Mandalorian conventions (e.g., 'The Way' as Mandalorian creed \u2013 Legends Mandalorians follow Resol'nare)."
+  ],
+  "required_context_for_drafter": [
+    "The scene's turning point is that Ben files the lawful visitor request for Tarn Velos. This is the correct legal move. It is also the move that trips the alert. Ben departs unaware.",
+    "Dorrin discovers that Talon Veyr worked under Elya in the records/logistics environment after Maro Tess reassigned him out of field duty, and that Talon's later transfer-chain conviction involved manifest/authorization patterns close to the recovered fragment.",
+    "Ben identifies Talon as the person likely to recognize the shipment fraud pattern, not as a magic decoder. The value is Talon's lived operational knowledge of this records environment.",
+    "The emotional arc: Ben starts professionally focused, working with Dorrin through records that should be dry but keep touching things he knows from the inside. He recognizes the manifest-authorization patterns faster than he should, and he sees Dorrin clock it. He does not explain himself. He ends boarding a shuttle for Tarn Velos, doing everything right, unaware the query just lit up a board somewhere.",
+    "The key beats: (1) Dorrin pulls Elya's old GAG assignment logs; Talon's name appears. (2) Cross-reference confirms Talon's conviction involved manifest-authorization patterns similar to the fragment. (3) Ben identifies Talon as a witness who can recognize the pattern. (4) Dorrin files the lawful visitor request; Ben reads records too fast; Dorrin goes quieter. (5) Ben boards a shuttle for Tarn Velos, unaware of the alert.",
+    "Texture thread: The GA's procedural machinery \u2013 inter-agency paperwork, allied-party access badges, Dorvan-era bureaucratic normalcy \u2013 is the texture of Coruscant's post-war ordinary life. Let it feel slightly absurd alongside the seriousness of what Ben is doing.",
+    "Ben's interiority: max 150 words, max 2 paragraphs. The interiority should focus on his discomfort with his own fluency in GAG logistics vocabulary and his awareness that Dorrin is watching him.",
+    "The scene must open in medias res. No preamble or establishing shots before the action starts.",
+    "The scene's conflict type is 'internal' \u2013 the tension is between the correct path and the timeline the case is already running on. The conflict is not between Ben and Dorrin; they are working together."
+  ],
+  "allowed_au_divergences": [
+    "Aevyn Soris is a NEW character: marginal Force-sensitive, Jedi-rejected at fourteen, joined the GAG as a young adult, became Jacen Solo's side-project Force student during the Caedus period.",
+    "Jacen's unfinished holocron is a NEW artifact: a working device assembled during the LotF period, systematizing Recognition and Holding.",
+    "The duplicated wartime manifest is a NEW artifact: a quarantine/survey shipment manifest personally encrypted by Jacen Solo shortly before the Battle of Shedu Maad; the hidden duplicate points to Iresh.",
+    "Iresh and the Glasswell are NEW locations: Iresh preserves charged impressions of memory, identity, and decision under pressure. The Glasswell is a natural sinkhole/cavern beneath a mirror-lake \u2013 NOT a Sith temple or Jedi ruin.",
+    "The Shedu Maad Memorial Foundation, the Vigil, and Greyline Strategic Services are NEW post-war Coruscant-political institutions.",
+    "Legacy comics future is excised entirely: no Darth Krayt galactic war, no Cade Skywalker, no GA fall. The One Sith remain on Korriban in pre-emergence."
+  ],
+  "open_questions": [
+    "Is there any specific Legends source that describes the post-war GA Justice records facility or inter-agency access procedures for former GAG personnel? If so, does this scene conflict with it?",
+    "Is there any Legends source that describes the specific legal status of former GAG members or the post-war prosecution of GAG logistics officers? If so, does Talon's transfer-chain conviction align with it?",
+    "Is there any Legends source that describes the specific bureaucratic procedures for visiting Tarn Velos Coastal Detention Works? If so, does this scene's lawful visitor request process conflict with it?",
+    "Is there any Legends source that describes the specific layout or atmosphere of a GA Justice records cross-reference room? If not, the drafter has freedom to invent.",
+    "Is there any Legends source that describes the specific post-war political environment on Coruscant under Chief of State Wynn Dorvan, particularly regarding Jedi access to government facilities? If so, does Ben's 'ALLIED PARTY' visitor badge align with it?"
+  ]
+}

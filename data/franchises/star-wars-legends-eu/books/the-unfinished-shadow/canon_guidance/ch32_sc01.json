@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch32_sc01",
+  "chapter_number": 32,
+  "scene_number": 1,
+  "model": "deepseek/deepseek-v4-flash",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "50d7bb0b192c2752dea36152de465583478f78ac7c4136e4e5b03e8a05381129",
+  "review_status": "unreviewed",
+  "confidence": 0.9,
+  "hard_constraints": [
+    "The duel is two students of Jacen arguing through action over what his lessons mean. Ben must use what Jacen taught him without surrendering ownership of himself.",
+    "Aevyn's blade fractures more visibly when his control strains, especially when Ben uses Jacen-derived logic successfully. This is a visual tell, never exposition.",
+    "The corridor moment surfaces as a fragment of Recognition aimed at Ben mid-duel. It is never exposition or speech. It surfaces as image: side-console, Jacen turning, the boy walking past.",
+    "Ben does not violate Aevyn's mind and does not pretend Jacen taught him nothing real.",
+    "The duel happens across a tilting durasteel survey platform bolted into the mineral shelf, with rising water, cracking pale mineral, broken survey scaffolds, mirror-lake reflections, and the unstable holocron cache nearby.",
+    "No thesis dialogue. Let blade choices, restraint, refusal, and survival carry the meaning.",
+    "Interiority rides inside the exchanges in single breaths, never pausing the fight. Max 200 words of interiority, max 2 paragraphs.",
+    "The scene opens in medias res.",
+    "Aevyn's blade is cold white-blue, shivers along the edge, crackles faintly under pressure. Ben's blade is steadier green.",
+    "The corridor moment is the single sharpest character detail in the project. It surfaces as fragment in Aevyn's POV (Ch 30) and here as a Recognition strike aimed at Ben. Never as exposition or speech."
+  ],
+  "canon_risks": [
+    "Risk: The corridor moment could be over-explained or turned into dialogue. It must remain a fragmentary image, never a speech or exposition.",
+    "Risk: The duel could become a thematic debate about Jacen/Caedus rather than an argument through action. Avoid thesis dialogue.",
+    "Risk: Ben's use of Jacen-derived crisis logic could be framed as a Force technique rather than a mindset. It is not a Force technique; it is a taught mindset.",
+    "Risk: Aevyn's blade instability could be explained in exposition. It must remain a visual tell only.",
+    "Risk: The Recognition strike could be framed as a named technique in the duel. It should surface as the corridor image arriving, not as a named ability.",
+    "Risk: The duel could pause for reflection. The fight and the argument are the same event; interiority must be brief and embedded in action."
+  ],
+  "legends_continuity_notes": [
+    "Jacen Solo's Force odyssey included Aing-Tii flow-walking, Fallanassi White Current, battle meditation, Vergerean thought, and Lumiya's Sith inheritance. Recognition is his inward turn of flow-walking fused with Force empathy.",
+    "The corridor moment is the wound: Aevyn at a side console running a Recognition exercise, Jacen present and correcting, fourteen-year-old Ben coming down the corridor, Jacen turning and walking off with Ben. The 'later' never came.",
+    "Ben served in the GAG under Jacen as a fourteen-year-old. He turned against Caedus by the end of the war. The Order treated his turn as victim's recovery; the deeper internal work was never done.",
+    "Aevyn was a marginal Force-sensitive rejected by the Jedi at fourteen, joined GAG as a young adult, became Jacen's side-project Force student during the Caedus period.",
+    "The Glasswell is a natural sinkhole/cavern beneath a mirror-lake, lined with pale translucent mineral that holds pressure-impressions. It is NOT a Sith temple or Jedi ruin.",
+    "Forcing the Glasswell to remember (as Aevyn did in Ch 30) destabilizes the site physically: water enters, mineral supports crack, survey scaffolds break."
+  ],
+  "possible_disney_bleed": [
+    "No kyber crystal bleeding mechanic. Legends Sith use synthetic crystals.",
+    "No World Between Worlds. The corridor moment is a memory/impression, not a metaphysical portal.",
+    "No Inquisitorius as a post-Imperial organization.",
+    "No High Republic concepts or terminology.",
+    "No sequel-trilogy entities (First Order, Resistance, Starkiller Base).",
+    "No Ben Solo. 'Ben' is unambiguously Ben Skywalker."
+  ],
+  "required_context_for_drafter": [
+    "The duel is the climax of the Ben/Aevyn dyad. Aevyn's arc phase is 'lie_acted_upon' and 'lie_consequence'. He is fighting to prove that using Jacen's lessons is an admission Aevyn should have had access to them first.",
+    "Ben's arc phase is 'new_truth_demonstrated'. He has already used Jacen-shaped crisis logic to save Tavi and locals in Ch 31. The duel is the test of whether he can use the lessons without surrendering ownership.",
+    "The corridor moment is the single sharpest character detail in the project. It surfaces here as a Recognition strike aimed at Ben. It must arrive as image, not explanation.",
+    "Aevyn's blade fractures more visibly when Ben uses Jacen-derived logic successfully. This is the visual tell that Aevyn's control is straining.",
+    "The duel is not about winning by being a better Jedi. It is about whether Ben can hold the line between using Jacen's tools and becoming Jacen's instrument.",
+    "The holocron cache is nearby and unstable. The platform is tilting. The water is rising. The physical stakes are real and immediate.",
+    "Ben's steadier green blade vs. Aevyn's unstable cold white-blue blade. The contrast is visual and thematic.",
+    "Aevyn's grievance is comprehensible: he was useful, not chosen. Ben does not remember him from the GAG year. That asymmetry is the wound Aevyn fights from."
+  ],
+  "allowed_au_divergences": [
+    "Aevyn Soris is a NEW character: Jacen's side-project Force student during the Caedus period, not in published Legends.",
+    "The unfinished holocron and its systematized Recognition and Holding techniques are NEW artifacts specific to this novel.",
+    "The corridor moment is original to this novel.",
+    "Iresh and the Glasswell are NEW locations. Iresh's Force character (preservation of impressions, not revelation) is original.",
+    "The Vigil, Greyline Strategic Services, and the Shedu Maad Memorial Foundation are NEW post-war institutions."
+  ],
+  "open_questions": [
+    "Does the corridor moment need any sensory detail beyond the image (side-console, Jacen turning, the boy walking past)? The scene card does not specify; the drafter should keep it minimal.",
+    "How does Ben receive the Recognition strike? The scene card says 'the image arriving without shock because he has carried it' but does not specify the physical/emotional sensation. The drafter should keep it brief and embodied.",
+    "Does Aevyn speak during the duel? The scene card says 'avoid thesis dialogue' but does not forbid all speech. The drafter should use minimal, functional dialogue if any.",
+    "What is the exact state of the holocron cache during the duel? The scene card says 'unstable holocron cache nearby' but does not specify if it is accessible, damaged, or in the water."
+  ]
+}

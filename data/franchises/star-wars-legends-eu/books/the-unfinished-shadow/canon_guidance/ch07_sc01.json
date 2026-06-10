@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch07_sc01",
+  "chapter_number": 7,
+  "scene_number": 1,
+  "model": "deepseek/deepseek-v4-flash",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "80a72a47d81b224c55255eb1257799ea31d6bbfa91ef34fe9b0aec894744d677",
+  "review_status": "unreviewed",
+  "confidence": 0.95,
+  "hard_constraints": [
+    "Ben's restraint is active, not passive: he chooses non-lethal Force work and lightsaber control even when speed would be easier. No kills by Ben in this scene.",
+    "Talon reads the Greyline snatch pattern before Ben does. Talon's prison knowledge overrides Ben's tactical read.",
+    "Ben's GA Justice records-auditor cover identity is destroyed by the end of the scene.",
+    "The partnership's logic forms through action, not declaration. Talon redirects Ben's escape route.",
+    "No Disney-canon terms: no 'Inquisitorius', 'World Between Worlds', 'kyber bleeding', 'Ben Solo'.",
+    "Star Wars vocabulary: datapads not tablets, transparisteel not glass, durasteel not steel, turbolifts not elevators, comlinks not radios, blasters not guns.",
+    "Force prose is experiential, not clinical. No 'energy field' framing. Abilities surface as body-sensations first.",
+    "Ben's POV arc phase is 'lie_established' \u2014 the GAG year is something he keeps in a drawer. His competence here is professionalism, not yet recognized as Jacen's grammar.",
+    "Talon's POV arc phase is 'lie_established' \u2014 he performs irreverence as armor, but the prison-habit beat (sitting facing the door, counting guards, pocketing food) is active.",
+    "No ABY/BBY dating in narration or dialogue. Characters reference events directly.",
+    "No real-world pop culture references, no Wookieepedia-style taxonomy, no out-of-universe authorial framing.",
+    "Capitalize 'Human', lowercase 'galaxy' unless starting a sentence.",
+    "'Jedi' is both singular and plural \u2014 never 'Jedis'.",
+    "American English spellings throughout."
+  ],
+  "canon_risks": [
+    "Risk: Ben's lightsaber use in a prison corridor could be read as excessive force. Mitigation: scene explicitly shows him disabling rather than killing, protecting confused prison staff, and choosing the slower method deliberately.",
+    "Risk: The Greyline snatch team's institutional camouflage (false procedural cover) must not imply any official GA Justice or Coruscant Security corruption. Greyline is a private firm acting outside legal channels.",
+    "Risk: Talon's prison knowledge (reading the alarm pattern, knowing the escape route is the trap) must feel earned from his incarceration, not from omniscience. He has been in this building longer.",
+    "Risk: The scene must not accidentally introduce Disney-canon Force mechanics (e.g., kyber bleeding, World Between Worlds). The Force here is Legends-standard: light/dark as moral-polar properties, Force wounds remain wounds.",
+    "Risk: Ben's non-lethal Force work must not feel like a 'Jedi pacifism' trope. It is active restraint \u2014 a choice that costs him speed and physical effort, not a philosophical refusal to fight."
+  ],
+  "legends_continuity_notes": [
+    "Tarn Velos Coastal Detention Works is a NEW Book 1 setting (project-introduced). No published Legends material covers this prison.",
+    "Greyline Strategic Services is a NEW post-war Coruscant-political institution (project-introduced). No published Legends material covers this firm.",
+    "The Galactic Alliance Guard (GAG) was dissolved in disgrace after the Battle of Shedu Maad (41 ABY). Its records, survivors, and hidden logistics network are the novel's central conspiracy substrate.",
+    "Ben Skywalker served in the GAG as a fourteen-year-old during the Second Galactic Civil War (40-41 ABY). He is about 21 now (47 ABY).",
+    "The Jedi Order has NO institutional foothold on Coruscant in 47 ABY. The Coruscant Temple was vacated in 44 ABY after the Senate vote. Ben is operating on a planet where the Jedi have no base, no resources, no political cover.",
+    "Luke Skywalker is a senior Master on the Council, no longer Grand Master (Saba Sebatyne holds the title). He is based at Shedu Maad (Hapes Cluster).",
+    "The One Sith on Korriban under Darth Krayt remain in patient pre-emergence. They are NOT on-page in this scene. Greyline is a knowing One Sith asset, but this is not revealed in this scene."
+  ],
+  "possible_disney_bleed": [
+    "No 'Inquisitorius' as a post-Imperial organization (Disney Canon only).",
+    "No 'World Between Worlds' (Disney Canon Force concept).",
+    "No 'kyber crystal bleeding' mechanic (Disney Canon lore).",
+    "No 'Ben Solo' (Disney Canon character). 'Ben' in this novel is unambiguously Ben Skywalker.",
+    "No 'High Republic' references.",
+    "No 'First Order' or 'Resistance' references.",
+    "No 'Starkiller Base' references.",
+    "No Disney-canon Mandalorian conventions (e.g., 'The Way'). Legends Mandalorians follow Resol'nare."
+  ],
+  "required_context_for_drafter": [
+    "The scene is set in Tarn Velos prison interior \u2014 visitor wing corridor, then cell block. Storm-lit from outside through narrow slit windows; emergency strips along the floor; the prison alarm pitch goes wrong before any visible threat appears.",
+    "Lysa is a Greyline systems operative manipulating prison systems remotely. She is not a named character with backstory in this scene \u2014 she is a function.",
+    "Ben's GA Justice records-auditor cover was filed in Chapter 5. That lawful request woke a Greyline alert system watching the old GAG manifest trail. Greyline is now moving to remove Talon before Ben learns enough to identify the shipment fraud.",
+    "Ben's restraint is his genuine instinct. The reader needs to see this before the story makes it cost something (Iressa's death in Ch 14-15, where Ben refuses a Jacen-shaped coercive move and she dies).",
+    "Talon's prison knowledge: he has been incarcerated at Tarn Velos since before story start. He knows the alarm patterns, guard habits, maintenance routes, and camera lag. This is not new information \u2014 it is survival knowledge.",
+    "The partnership's terms are being set in action before either character names what this is. Talon redirects Ben's escape route because the logical exit is the trap Greyline is covering.",
+    "Ben's emotional trajectory: he should look heroic here. The later moral danger works better if the reader first sees that his instincts are genuinely protective. Talon's growing recognition that Ben is good at this, even constrained, should land underneath his complaints.",
+    "The scene's turning point: Ben wins the first engagement and has a clear corridor exit. Talon says they are going the wrong way. Ben follows Talon's read.",
+    "No Force technique names in narration unless the body has already felt the sensation. Recognition and Holding are not named in this scene.",
+    "Ben's lightsaber is Jedi-standard (green or blue \u2014 drafter's choice, consistent with earlier chapters). Aevyn's cold white-blue blade does not appear in this scene."
+  ],
+  "allowed_au_divergences": [
+    "Tarn Velos Coastal Detention Works is a NEW location (project-introduced).",
+    "Greyline Strategic Services is a NEW organization (project-introduced).",
+    "Lysa is a NEW character (project-introduced, minor).",
+    "The duplicated wartime quarantine/survey shipment manifest is a NEW artifact (project-introduced).",
+    "The Vigil (hidden inner ring of the Shedu Maad Memorial Foundation) is a NEW faction (project-introduced).",
+    "Aevyn Soris is a NEW character (project-introduced). He does not appear in this scene.",
+    "Jacen's unfinished holocron is a NEW artifact (project-introduced). It does not appear in this scene.",
+    "Iresh and the Glasswell are NEW locations (project-introduced). They do not appear in this scene."
+  ],
+  "open_questions": [
+    "What specific false procedural cover does Greyline use for the snatch? (e.g., 'prison transfer order', 'medical emergency', 'security audit') \u2014 drafter's choice, must be plausible within GA Justice / Coruscant Security procedures.",
+    "How does Lysa manipulate the prison systems? (e.g., remote override of lockdown protocols, spoofed authorization codes, camera loop) \u2014 drafter's choice, must feel like professional tradecraft, not magic.",
+    "What is the exact layout of the visitor wing corridor and cell block? (e.g., number of doors, guard stations, window positions, maintenance access points) \u2014 drafter's choice, must be physically clear for the action.",
+    "How many Greyline operatives are in the snatch team? (e.g., 4-6) \u2014 drafter's choice, must be enough to feel like a threat but not so many that Ben's non-lethal victory feels implausible.",
+    "What specific non-lethal Force techniques does Ben use? (e.g., Force push, lightsaber deflection, disarming strikes) \u2014 drafter's choice, must be consistent with Legends Jedi combat and Ben's established skill set.",
+    "How does Talon physically redirect Ben's escape route? (e.g., grabbing his arm, pointing to a maintenance hatch, naming a specific corridor) \u2014 drafter's choice, must be clear and immediate.",
+    "What is the exact prison alarm pitch change that Talon reads? (e.g., a specific frequency, a pattern of cycling, a delay in the lockdown sequence) \u2014 drafter's choice, must feel like expert observation.",
+    "Are there any confused prison staff present? (e.g., guards, medics, administrative personnel) \u2014 drafter's choice, Ben must protect them as part of his restraint."
+  ]
+}

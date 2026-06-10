@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch23_sc01",
+  "chapter_number": 23,
+  "scene_number": 1,
+  "model": "deepseek/deepseek-v4-flash",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "5001ce7d374a1d3096c6dce0bb47226b6417fe6f04054a1cd3b7258307129ee7",
+  "review_status": "unreviewed",
+  "confidence": 0.85,
+  "hard_constraints": [
+    "Ben and Talon leave Coruscant for Iresh on a civilian cargo hauler with no official backing.",
+    "Luke offers limited quiet support from Shedu Maad without making the case official.",
+    "The Vigil/Foundation expedition is already on Iresh under legitimate cover.",
+    "No Jedi credentials, no official status, no legal protection if something goes wrong.",
+    "The scene executes the decision made in earlier chapters; it does not re-debate it.",
+    "Ben's POV arc phase is 'moment_of_truth' \u2014 he is using Jacen's crisis logic deliberately.",
+    "The family holo on the shelf is noted but not approached or named.",
+    "Talon's humor is present but not random; it hides fear or punctures solemnity.",
+    "No new plot mythology, no abstract Force theory, no naming of Mortis or Crucible.",
+    "Iresh is a place before it is a metaphor \u2014 grounding sensory details required.",
+    "The apartment setting: recycled air, low light, Talon's chair facing the door.",
+    "The transit dock: low-traffic civilian freight slip, fuel-cell smell, queuing droids.",
+    "The cargo hauler interior: functional and anonymous.",
+    "Ben's interiority limited to 150 words and 2 paragraphs max.",
+    "Opening mode: in medias res."
+  ],
+  "canon_risks": [
+    "Risk of making Luke's 'limited quiet support' feel like institutional abandonment rather than realistic constraint. Luke is a senior Master, not Grand Master; he cannot convene the Order or arrive in time. The scene must show his support as genuine but structurally limited.",
+    "Risk of Ben's decision to use Jacen's crisis logic feeling like a clean moral victory rather than the morally compromised choice the arc requires. The moment_of_truth phase means he is using the tools deliberately, not accidentally.",
+    "Risk of the off-grid transit plan feeling too easy or too convenient. The civilian cargo hauler should feel like a real logistical compromise, not a plot convenience.",
+    "Risk of Talon's humor undercutting the weight of the departure. The scene needs the partnership's behavioral trust without making the departure feel casual.",
+    "Risk of the family holo beat becoming sentimental. It should be noted and left, not approached or named."
+  ],
+  "legends_continuity_notes": [
+    "The Jedi Order has no institutional foothold on Coruscant in 47 ABY \u2014 the Temple was vacated in 44 ABY after the Senate vote. Ben is operating on a world that pushed the Order out.",
+    "Luke Skywalker is a senior Master on the Council, not Grand Master. Saba Sebatyne holds the Grand Master title. Luke stepped back after Crucible (45 ABY) and is quieter, with longer pauses.",
+    "The Skywalker family apartment on Coruscant is the last Skywalker presence on the world that pushed the Order out.",
+    "Iresh is near the Kathol Rift, a stop on Jacen Solo's Force odyssey (Aing-Tii, Fallanassi, Vergere). This is background texture, not plot.",
+    "The Fall of Coruscant (27 ABY, Yuuzhan Vong War) is Talon's formative trauma \u2014 he survived the evacuation corridors as a boy. This surfaces in scene 2 of the chapter, not scene 1.",
+    "Jacen Solo's Force odyssey included the Aing-Tii (flow-walking), the Fallanassi (White Current), Vergerean thought, and Lumiya's Sith inheritance. These are the canon lineages for Recognition and Holding.",
+    "The One Sith on Korriban remain in pre-emergence under Darth Krayt. They are not on-page in Book 1."
+  ],
+  "possible_disney_bleed": [
+    "No 'World Between Worlds' \u2014 incompatible with Legends Force ontology.",
+    "No 'kyber bleeding' mechanic \u2014 Legends Sith use synthetic crystals.",
+    "No 'Inquisitorius' as a post-Imperial organization \u2014 Legends Inquisitorius is Empire-era only.",
+    "No 'Ben Solo' \u2014 'Ben' is unambiguously Ben Skywalker.",
+    "No 'High Republic' terminology or concepts.",
+    "No 'sequel trilogy' entities (First Order, Resistance, Starkiller Base).",
+    "No 'The Way' or Disney Mandalorian conventions \u2014 Legends Mandalorians follow Resol'nare."
+  ],
+  "required_context_for_drafter": [
+    "The scene executes the decision made in earlier chapters. Ben is not re-debating whether to go; he is preparing to leave.",
+    "The Vigil/Foundation expedition is already on Iresh under legitimate cover. Ben and Talon are racing against an operation that has already started.",
+    "Luke's support is limited because he is geographically distant (Shedu Maad, multiple hyperspace jumps from Coruscant) and institutionally constrained (no longer Grand Master, cannot convene the Order quickly).",
+    "The off-grid transit plan means no backup, no official status, no legal protection. This is the last moment before the act turns from investigation to expedition.",
+    "Ben's emotional trajectory: composed and operational at start, shift at boarding (the weight of leaving is real but not melodramatic), end with something close to relief (the ambiguity of what to do is over).",
+    "Talon's behavior: packs his bag, complains about the hauler's cargo-class passenger compartment, does not make a speech. The friendship is present through action, not declaration.",
+    "The family holo on the shelf is noted and left \u2014 not approached, not named. This is the second time Ben has been in the apartment (first was Ch 11).",
+    "The transit dock sensory details: low-traffic civilian freight slip, fuel-cell smell, queuing droids that never quite stop moving.",
+    "The cargo hauler interior: functional and anonymous.",
+    "Ben's interiority: max 150 words, max 2 paragraphs. The scene is balanced dialogue, not internal monologue."
+  ],
+  "allowed_au_divergences": [
+    "Aevyn Soris as Jacen Solo's surviving Force student (side project while Ben was primary apprentice).",
+    "Jacen's unfinished holocron systematizing Recognition and Holding.",
+    "The duplicated wartime quarantine/survey shipment manifest personally encrypted by Jacen.",
+    "Iresh and the Glasswell as new locations with preservation-of-impressions Force character.",
+    "The Shedu Maad Memorial Foundation, the Vigil, and Greyline Strategic Services as new post-war institutions.",
+    "The corridor flashback (Aevyn's wound-image) \u2014 surfaces in Ch 30, not here.",
+    "Ben's decision to use Jacen's crisis logic deliberately is the authorized moral compromise of the arc."
+  ],
+  "open_questions": [
+    "What specific 'limited quiet support' does Luke offer? The scene card says it is confirmed but does not specify the form. Options: a contact on Iresh, a credit line, a backup extraction signal, a legal cover story. The drafter should choose one concrete form that feels real and insufficient.",
+    "What is the exact name/type of the civilian cargo hauler? The scene card says 'civilian cargo hauler' but does not specify a model. The drafter may invent a generic freighter name or use a Legends-appropriate model (e.g., YT-series, Action VI, etc.).",
+    "Does Talon make any specific complaint about the hauler's passenger compartment? The scene card says he 'complains about the hauler's cargo-class passenger compartment' but does not specify the complaint. The drafter may invent a specific grievance (e.g., no viewport, bad caf, cold bunk, etc.).",
+    "Does Ben have any specific gear or item he packs that carries emotional weight? The scene card says 'small packs, civilian-cover small, nothing that announces them.' The drafter may choose one small personal item (e.g., a comlink from Mara, a datapad with old GAG notes, etc.) but should not overdo it.",
+    "Is there any specific moment of eye contact or silence between Ben and Talon that carries the weight of the departure? The scene card says the friendship is present through action, not declaration. The drafter may choose one small behavioral beat (e.g., Talon stops complaining for a second, Ben looks at the apartment door, etc.)."
+  ]
+}

@@ -1,0 +1,103 @@
+{
+  "chapter_number": 32,
+  "scene_number": 2,
+  "structural_phase": "climax",
+  "scene_role": "decision",
+  "pov_character": "Ben",
+  "mission": "The corridor moment is inside Ben's awareness and Aevyn presses through its wake, certain it landed. It did. Ben does not block the impression — he lets it arrive, names it to himself without flinching, and keeps his blade exactly where it needs to be. Aevyn's blade fractures into three simultaneous white-blue forks when he realizes Ben received the corridor moment and did not stop — not because Ben suppressed it, but because Ben accepted it. Ben wins by using what Jacen taught him without surrendering ownership of himself: he does not violate Aevyn's mind, and he does not pretend Jacen taught him nothing real. Aevyn is defeated as the Glasswell gives way; Ben grabs the holocron container where it has fallen as the platform separates from the wall.",
+  "why_now": "The Recognition strike was Aevyn's last and best weapon — if it does not break Ben in the next exchange, nothing will, and both of them know the Glasswell is seconds from deciding the duel for them.",
+  "conflict": "Ben against the impression and the man at once: hold the corridor moment without dipping, hold the blade against a Force-user with nothing left to lose, and hold his own line — win without violating Aevyn's mind, on a platform that is coming apart under both of them.",
+  "conflict_type": "external",
+  "dialogue_expectation": "balanced",
+  "turning_point": "Aevyn is defeated as the Glasswell gives way.",
+  "closing_hook": "Aevyn is defeated as the Glasswell gives way.",
+  "characters_present": [
+    "Ben Skywalker",
+    "Aevyn Soris"
+  ],
+  "setting": "Iresh, the Glasswell main chamber — now mostly flooded, the basin a churning sheet of white-blue water. Ben and Aevyn duel across a tilting durasteel survey platform bolted into the mineral shelf. The platform groans and shifts; pale mineral cracks spider across the walls; falling scaffold sections crash into the rising water. Aevyn's white-blue blade casts cold light with no heat in it.",
+  "emotional_trajectory": "The duel is an argument through action. Avoid thesis dialogue; let blade choices, restraint, refusal, and survival carry the meaning. The blade’s instability tracking Aevyn’s emotional state is a visual tell — when Ben uses Jacen-derived logic successfully, the blade fractures more visibly.",
+  "stakes": {
+    "personal": "Ben cannot let himself fight this duel as pure Jedi orthodoxy — Aevyn’s operator instincts and Jacen-derived techniques would beat that version of him on this platform. He has to bring the same Jacen-shaped tools and hold onto the line about what he will and will not do with them. The line is real, but it is narrow.",
+    "interpersonal": "Aevyn fights like someone who has a grievance to prove through the fight itself — his blade choices carry the argument: Ben had everything, buried the lessons, and is now using them while denying Aevyn the only thing that would have made the disparity fair. Aevyn’s white-blue blade fractures more visibly each time Ben’s Jacen-derived instincts work.",
+    "external": "The corridor moment surfaces during the duel — not as Aevyn’s speech, but as a fragment of Recognition aimed at Ben: the side-console, Jacen turning, the boy walking past. Aevyn uses it as a technique. Ben does not let it land cleanly enough to stop him."
+  },
+  "sensory_details": "The tilting survey platform: durasteel that groans when they move together, the surface angled three degrees and worsening. Cold white-blue light from Aevyn’s blade throwing no warmth onto the water below. Ben’s steadier green blade. Pale mineral cracks in curtains off the walls. The water is dark and very still between the impacts of falling stone.",
+  "turning_point_detail": {
+    "trigger": "Aevyn attempts the weaponized Recognition — a targeted version that surfaces the corridor moment inside Ben's awareness, trying to fracture his concentration with the image of Jacen turning toward the younger boy. Ben does not block the impression. He lets it arrive, names it to himself without flinching, and keeps his blade exactly where it needs to be.",
+    "shift": "Aevyn's blade fractures into three simultaneous white-blue forks when he realizes Ben received the corridor moment and did not stop — not because Ben suppressed it, but because Ben accepted it. Aevyn's technique worked and it did not matter. That is worse than if Ben had simply defended against it.",
+    "cost": "Ben defeats Aevyn without violating his mind and without pretending Jacen taught him nothing. The Glasswell gives way entirely as Aevyn goes down. Ben grabs the holocron container from where it has fallen and the platform begins separating from the wall."
+  },
+  "emotional_arc": {
+    "start": "Ben enters the duel knowing exactly what it is: two students of Jacen arguing in the only language Aevyn will hear. He is resolved but not untouched — Aevyn's grievance is comprehensible, and comprehensible grievances are harder to fight than ideology.",
+    "shift": "The corridor moment arrives through weaponized Recognition and Ben holds it without dipping. Not suppressed — held. This is the moment the duel's argument resolves: Ben can carry what Jacen left him without being owned by it.",
+    "end": "Ben stands on a separating platform with the holocron container and Aevyn falling into the dark water below. He has won by doing exactly what Aevyn accused him of — using Jacen's lessons while refusing to let Jacen own the outcome — and the refusal was real."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Aevyn presses through the impression's wake, certain the corridor moment has fractured Ben's concentration — and meets a blade that is exactly where it needs to be.",
+      "state_change": "The destabilization gambit has failed in the only way Aevyn cannot process: not resisted, absorbed.",
+      "pov_reaction": "the held breath of carrying the image and the blade at once — accepting the memory's weight instead of spending strength refusing it"
+    },
+    {
+      "beat_description": "Ben receives the corridor impression, holds it without flinching, keeps his blade exactly where it needs to be, and does not stop.",
+      "state_change": "Aevyn's technique worked and was not enough — Ben accepted the impression rather than defending against it, which breaks the technique's logic.",
+      "pov_reaction": "the steadiness of holding something rather than suppressing it; no triumph, just the fact of still being on his feet"
+    },
+    {
+      "beat_description": "Ben wins; the Glasswell gives way entirely; he grabs the holocron container where it has fallen and the platform begins separating from the wall.",
+      "state_change": "The duel is resolved and the site is lost simultaneously — Ben exits with the container and the argument won, the platform going beneath him.",
+      "pov_reaction": "the surge of forward movement before thought catches up; the container in his hand as the platform goes"
+    }
+  ],
+  "canon_elements_needed": [
+    "GAG / Jacen / Caedus continuity",
+    "Iresh physical geography and local survival rules",
+    "Unfinished holocron / Recognition and Holding"
+  ],
+  "target_word_count": 2300,
+  "active_subplots": [
+    "SUB_05"
+  ],
+  "plot_threads_advanced": [
+    "chapter_32_locked_outline_action"
+  ],
+  "promises_planted": [],
+  "promises_paid": [
+    "PP_04"
+  ],
+  "promises_progressed": [
+    "PP_07",
+    "PP_12"
+  ],
+  "hook_actions": [
+    {
+      "hook_id": "HK_06",
+      "action": "resolve"
+    }
+  ],
+  "revelations": [],
+  "pov_arc_phase": "Aevyn:lie_acted_upon; Aevyn:lie_consequence",
+  "notes": "Source: Chapter Outlines v4.1. Act: Act Three — Iresh / Glasswell / Aevyn. Chapter title: What He Left (Climax).\n\nContinuity note: This is the consolidated duel-and-victory chapter (formerly Chapters 40 and 41). The climax functions as one sustained beat rather than two.\n\nCharacter voice focus: preserve the exact v1.4 character behavior and dialogue rules for the chapter POV and named participants. Plot first, character second, theme through consequences.\n\nSplit note (2026-06-09): this card is one half of the original consolidated chapter card, split so per-scene length targets sit inside the drafter's deliverable range. The chapter's full arc spans both scenes.",
+  "scene_voice_permissions": {
+    "notes": "Use Character Voice & Life Sheet v1.4 as controlling source for dialogue, behavior, humor, fear, wounds, and interaction rules. Preserve commercial readability: goal, obstacle, movement, reversal, hook.",
+    "anti_patterns": [
+      "do not write theme as thesis",
+      "do not add new plot mythology",
+      "do not let Iresh become abstract before it is physically clear",
+      "do not make Dorrin a third lead or secret mentor"
+    ],
+    "pov_arc_phase": "Aevyn:lie_acted_upon; Aevyn:lie_consequence"
+  },
+  "dialogue_density_target": "medium",
+  "interiority_budget": {
+    "max_words": 250,
+    "max_paragraphs": 3,
+    "rationale": "the corridor moment surfaces once, held in a single interior wave; the rest is blade, water, and Aevyn's fracturing control"
+  },
+  "opening_mode": "in_medias_res",
+  "anti_patterns": [
+    "do not pause the duel for reflection longer than a breath — the fight and the argument are the same event"
+  ],
+  "opening_hook": ""
+}

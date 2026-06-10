@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch16_sc02",
+  "chapter_number": 16,
+  "scene_number": 2,
+  "model": "deepseek/deepseek-v4-flash",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "d44596f69c36df7a840e95ae738e9cb3cc992ba5fbfc73fdd6a42217715e1022",
+  "review_status": "unreviewed",
+  "confidence": 0.92,
+  "hard_constraints": [
+    "Ben must holo-call Luke first, then Saba. Luke directs to Saba; Saba orders a proper Council review that will take weeks.",
+    "Ben's pivot to active disruption must be quiet, not declamatory. He starts working on what comes next without announcing the decision; Talon notices and follows.",
+    "Luke's post-Crucible state is implication only: one quiet line of texture (tired in a way Ben doesn't quite remember, eyes further away, longer pauses). Mortis is never named on-page.",
+    "Saba is not the villain. The slowness of the correct institutional process is the pressure, not Saba's character.",
+    "Iressa's secondary cache is a quiet leased basement workshop in a warehouse district, separate from Civitas and her residence. Smells of soldering paste and old datachip cases.",
+    "The documentary chain from Iressa's transmission includes both the evidence tying Foundation/Korda/Iresh and the strategic revelation about the holocron's identity-shaping purpose (Recognition and Holding).",
+    "Talon presses Ben about the option he refused in the archive (the Jacen-shaped coercive move that might have saved Iressa). Ben cannot cleanly answer whether it would have worked.",
+    "Ben's decision to move outside official channels is not arrogance; it follows trying the correct path first.",
+    "No ABY/BBY dating in narration or dialogue. Characters reference events directly ('after Caedus', 'before Shedu Maad').",
+    "Star Wars vocabulary: datapads not tablets, comlinks not radios, blasters not guns, transparisteel not glass, durasteel not steel, turbolifts not elevators.",
+    "Force prose is experiential and mystical, never clinical. Avoid 'energy field' framing.",
+    "Capitalize 'Human'; lowercase 'galaxy'; 'Jedi' singular and plural (never 'Jedis').",
+    "No real-world pop culture references, no film/book references, no Wookieepedia-style taxonomy."
+  ],
+  "canon_risks": [
+    "Risk of making Saba seem obstructive or villainous. She must be correct and careful, not slow out of negligence.",
+    "Risk of Ben's pivot feeling like a rejection of Luke's authority or the Order's process. It must feel like a necessary choice after the correct path was tried and found too slow.",
+    "Risk of the holo calls becoming exposition dumps. They must be short, emotionally loaded, and advance the decision rather than recapping plot.",
+    "Risk of Talon's pressing question about the refused option becoming a lecture. It should be a direct, uncomfortable question that Ben cannot cleanly answer, not a thematic speech.",
+    "Risk of Iressa's death being sentimentalized. Her transmission should be practical and specific, not a martyr's farewell."
+  ],
+  "legends_continuity_notes": [
+    "Luke Skywalker is a senior Master on the Council, no longer Grand Master. Saba Sebatyne is Grand Master. Luke never references 'As Grand Master' for himself.",
+    "The Jedi Order relocated permanently to Shedu Maad in the Hapes Cluster at the end of Fate of the Jedi (44 ABY). The Coruscant Temple was vacated. Ben is operating on a world where the Order has no institutional foothold.",
+    "Saba Sebatyne is Barabel. Her speech register carries Barabel gravity: careful, sharp, formal. She may use 'this one' for self-reference sparingly.",
+    "Crucible (45 ABY) is the novel establishing Luke/Leia/Han's Mortis-adjacent encounter and effective retirement. Characters do not reference 'Crucible' on-page; they reference 'what happened two years ago' or simply notice Luke's quieter manner.",
+    "Jacen Solo's Force odyssey (Aing-Tii flow-walking, Fallanassi White Current, battle meditation, Vergerean thought, Lumiya's inheritance) is the canonical root of Recognition and Holding as systematized in the unfinished holocron.",
+    "The One Sith on Korriban under Darth Krayt remain in patient pre-emergence. They are not on-page in Book 1 beyond a single off-page 'hand' in Ch 37."
+  ],
+  "possible_disney_bleed": [
+    "No High Republic terminology or concepts.",
+    "No World Between Worlds.",
+    "No Inquisitorius as a post-Imperial organization.",
+    "No kyber crystal bleeding mechanic (Legends Sith use synthetic crystals).",
+    "No sequel-trilogy entities (First Order, Resistance, Starkiller Base).",
+    "No Disney-canon Mandalorian conventions ('The Way' as creed).",
+    "No Ben Solo references. 'Ben' is unambiguously Ben Skywalker.",
+    "No Ahsoka Tano post-Rebels characterization."
+  ],
+  "required_context_for_drafter": [
+    "The Midpoint pivot is the moment Ben stops being a victim of the past and starts acting on it. His decision to move outside official channels is quiet, not declamatory.",
+    "Talon's pressing question about the refused option is the first honest conversation between them about what Jacen actually taught Ben \u2014 not the category, but the specific usable version Ben carries.",
+    "Iressa's dying transmission contains two things: the documentary chain (tying Foundation, Korda, Iresh) and the strategic revelation (the holocron systematizes Recognition and Holding for identity-level influence; Iressa found Jacen's own sealed annotation naming the cache's purpose).",
+    "The institutional path is not refused out of arrogance; it is refused after being tried. Luke and Saba are both correct and supportive. The slowness is the problem, not the people.",
+    "Ben's decision should be shown through action (starting to work on what comes next) rather than narrated as a decision speech.",
+    "The scene's emotional trajectory: grief/guilt over Iressa (Talon's question cuts) -> the holo calls confirm the right channels are too slow -> quiet pivot to active disruption.",
+    "Sensory details: Iressa's cache smells of soldering paste and old datachip cases. Luke's holo projection shows him tired in a way Ben doesn't quite remember. Saba's call is colder, Barabel gravity through a mid-grade encrypting chip."
+  ],
+  "allowed_au_divergences": [
+    "Aevyn Soris as Jacen's surviving side-project Force student (not in published Legends).",
+    "The unfinished holocron as a new artifact systematizing Recognition and Holding.",
+    "The duplicated wartime manifest as a new canonical artifact.",
+    "The Shedu Maad Memorial Foundation, the Vigil, and Greyline Strategic Services as new post-war institutions.",
+    "Iresh and the Glasswell as new Outer Rim locations with original Force character (preservation of impressions, not revelation or prophecy).",
+    "Tarn Velos Coastal Detention Works and Civitas Archive Systems as new Book 1 settings.",
+    "Legacy comics future (Darth Krayt galactic war, Cade Skywalker) entirely excised. The One Sith remain in pre-emergence."
+  ],
+  "open_questions": [
+    "Does the scene need any specific technical detail about how Iressa's transmission was encoded or transmitted? The card says 'dying transmission' but does not specify format or method.",
+    "Should the holo calls include any specific dialogue about the Mortis-adjacent encounter? The contract says 'implication only' and 'Mortis is never named on-page' \u2014 the drafter should confirm this means no direct reference even in Luke's dialogue.",
+    "Is there any specific Barabel speech pattern required for Saba beyond 'this one' for self-reference? The terminology registry notes this is optional and sparing.",
+    "The scene card mentions 'several days' of work at Iressa's secondary cache after the archive disaster. Does this timeline need to be specified in the scene or can it be implied?",
+    "Should Talon's pressing question about the refused option include any specific reference to the Jacen-shaped coercive move from Ch 14-15, or should it remain general?"
+  ]
+}

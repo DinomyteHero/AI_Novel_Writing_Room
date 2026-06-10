@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch11_sc01",
+  "chapter_number": 11,
+  "scene_number": 1,
+  "model": "deepseek/deepseek-v4-flash",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "599b560513302f2ef6e2f4556334883dc66163d2a9bd3db5803ede5b22ed2d44",
+  "review_status": "unreviewed",
+  "confidence": 0.95,
+  "hard_constraints": [
+    "Ben is 21, Talon is 28. Talon is non-Force-sensitive.",
+    "The apartment is the last Skywalker presence on Coruscant; the Jedi Temple is vacated and the Order has no institutional foothold on Coruscant in 47 ABY.",
+    "Luke is at Shedu Maad, not Coruscant; he is a senior Master, not Grand Master. He is doing what he can from distance to contain contradictory prison reports.",
+    "Mara Jade Skywalker is dead (murdered by Jacen/Caedus). She appears only as memory, holo, or trace objects.",
+    "The family holo shows Mara, Luke, and young Ben. The Jade Shadow maintenance registry is Mara's handwriting, a working document, not a sentimental keepsake.",
+    "Luke's mission logs are the work he set down when the Order relocated to Shedu Maad; they are texture, not Chekhov's gun.",
+    "Talon's joke about the holo must land, then stop when he reads Ben's face. This is the first moment Talon treats Ben as a person rather than a job.",
+    "The scene must end with Talon naming Iressa Vossk as the next lead.",
+    "No ABY/BBY dating in narration or dialogue. No 'Legends' or 'Canon' as in-universe concepts. No real-world pop culture references.",
+    "Star Wars vocabulary: datapads not tablets, transparisteel not glass, durasteel not steel, turbolifts not elevators, comlinks not radios, blasters not guns, hyperspace not warp.",
+    "'Jedi' is both singular and plural. 'Darth' capitalized before a name. 'Human' capitalized. 'galaxy' lowercase.",
+    "Ben's interiority budget: max 250 words, max 3 paragraphs. The apartment's objects carry the weight.",
+    "No paragraph contains more than one invented bureaucratic/technical term. Every technical phrase translated to immediate human stakes within two sentences.",
+    "Avoid 'system' as the default GAG metaphor; prefer logistics network, shipment trail, records chain, transfer chain, or operation.",
+    "Use 'Jacen' for the pre-fall identity, 'Caedus' for the Sith-Lord identity. POV character (Ben) may slide between both; Talon uses 'Caedus' when contemptuous, 'Jacen' when Ben is in earshot and he is trying not to wound him.",
+    "Mortis is NEVER named on-page. Luke's post-Crucible state is implication only (one quiet line of texture in Ch 3; not in this scene).",
+    "The apartment is a human breather, not a nostalgia shrine. Only two primary objects carry weight (the family holo and Luke's mission logs); the Jade Shadow registry is a lighter third object (one glance from Talon, no commentary).",
+    "This is Talon's first time in the apartment. The drafter should write this visit as a one-night brush past the wound, so that the eventual return (post-PP2) reads as a return.",
+    "The scene is dialogue-led. Talon's patter fills the silence until the holo joke stops him."
+  ],
+  "canon_risks": [
+    "Risk of making the apartment feel like a museum or shrine rather than a lived-in, wounded space. The contract specifies 'a human breather, not a nostalgia shrine.'",
+    "Risk of over-explaining the vacated Jedi Temple. It should be present as an absence, not a view or a lecture.",
+    "Risk of Talon's humor becoming random quips rather than serving the scene (hiding fear, measuring the room, or puncturing solemnity). The contract specifies 'Talon's jokes should either move the scene, hide fear, or puncture solemnity. Random quips are not enough.'",
+    "Risk of Ben's interiority exceeding the budget (250 words, 3 paragraphs). The scene card explicitly limits this.",
+    "Risk of using the Jade Shadow registry as a Chekhov's gun or emotional lever. It is texture only; Talon's eyes move to it once and Ben does not explain it.",
+    "Risk of making the holo joke land too early or too late. The turning point is specific: Talon makes a small dark joke about the family holo, reads Ben's face, and stops. The shift is that Talon stops performing and the room goes genuinely quiet.",
+    "Risk of Ben explaining the apartment's history to Talon. The scene card says 'the instinct to explain something fires and is swallowed; covering with movement to the terminal instead.'",
+    "Risk of introducing new plot mythology or Force mechanics in this scene. The scene is aftermath and character, not revelation.",
+    "Risk of making the apartment feel too large or too grand. It is a small residential unit, not a mansion."
+  ],
+  "legends_continuity_notes": [
+    "The Skywalker family apartment on Coruscant is established in Legends as the residence Luke and Mara kept during the NJO and post-NJO era. After the Jedi Order relocated to Shedu Maad at the end of Fate of the Jedi (44 ABY), the apartment remained as the last Skywalker presence on Coruscant.",
+    "Mara Jade Skywalker's death at the hands of Jacen Solo (Darth Caedus) occurred in Legacy of the Force: Sacrifice (2007). Her ship, the Jade Shadow, was a modified Star Courier-class vessel; the maintenance registry would be a practical document, not a sentimental one.",
+    "Luke's mission logs: Luke stepped down as Grand Master at the end of Fate of the Jedi (44 ABY) and became a senior Master. The logs represent work he set down when the Order relocated, not a secret or a plot device.",
+    "The vacated Jedi Temple: after the Lost Tribe crisis (FOTJ), the Senate voted to remove the Jedi Order from Coruscant. The Temple is no longer Order property; it stands as a monument to the exile.",
+    "Talon Veyr is a new character (AU), but his GAG history and prison record are consistent with the post-war environment: GAG was dissolved in disgrace after the Battle of Shedu Maad (41 ABY).",
+    "Iressa Vossk is a new character (AU), a former GAG Manifest Integrity Analyst now working at Civitas Archive Systems. Her existence is consistent with the post-war records environment."
+  ],
+  "possible_disney_bleed": [
+    "No reference to 'Ben Solo' or any sequel-trilogy Skywalker lineage. 'Ben' is unambiguously Ben Skywalker.",
+    "No reference to the World Between Worlds, kyber bleeding, or Inquisitorius.",
+    "No reference to the High Republic or any Disney-canon-only Force concepts.",
+    "No reference to Disney-canon Mandalorian conventions (e.g., 'The Way').",
+    "No reference to Ahsoka Tano post-Rebels (her Legends material is limited and mostly pre-2014).",
+    "No reference to Starkiller Base, First Order, or Resistance.",
+    "No reference to 'The Force Awakens' or any sequel-trilogy era."
+  ],
+  "required_context_for_drafter": [
+    "The prison escape (Ch 6-9) has burned every safe location Ben had. He cannot bring Talon to the Jedi without making the case official before there is anything Saba can act on. The apartment is the only place the Vigil doesn't have an address for either of them.",
+    "Luke is at Shedu Maad, doing what he can from distance to contain contradictory prison reports. He is not on Coruscant and cannot arrive in time.",
+    "The apartment's secure terminal is the only tool left to identify the next lead. Talon will use it to name Iressa Vossk.",
+    "The family holo shows Mara, Luke, and young Ben. It is the photo Luke kept. Talon's joke about it is the turning point: he reads Ben's face and stops.",
+    "The Jade Shadow registry is Mara's last practical handwriting in the apartment. Talon's eyes move to it once; Ben does not explain it. It is texture, not a plot point.",
+    "Talon's humor register: he jokes fastest when most frightened. The holo joke is a reflexive probe that lands on something real. When he reads Ben's face, he stops himself mid-line. This is the first moment the partnership has a floor under it.",
+    "Ben's emotional trajectory: starts controlled and competent, cracks when Talon's joke lands on the holo, ends with neither of them naming it and Talon's jokes changing register (quieter, aimed at himself instead of the room).",
+    "The scene must end with Talon naming Iressa Vossk as the next lead. The exit vector is: 'Talon names Iressa Vossk, and Ben realizes the next lead is not in a battlefield, prison, or Jedi archive \u2014 it is inside someone's carefully rebuilt ordinary life.'"
+  ],
+  "allowed_au_divergences": [
+    "The Skywalker family apartment is a known location; its specific contents (the family holo, Luke's mission logs, the Jade Shadow registry) are AU texture choices, not canon violations.",
+    "Talon Veyr is an AU character; his presence in the apartment is an AU divergence.",
+    "Iressa Vossk is an AU character; her identification as the next lead is an AU divergence.",
+    "The apartment's secure terminal being used for this purpose is an AU divergence (no canon precedent for or against)."
+  ],
+  "open_questions": [
+    "Is there any canon source specifying the exact contents of the Skywalker family apartment on Coruscant post-FOTJ? The contract treats it as a small residential unit; no further detail is needed.",
+    "Is the Jade Shadow's maintenance registry a known object in Legends? The ship is canonical; the registry is a plausible AU texture choice.",
+    "Does Luke's stack of mission logs have any specific canon content? The contract treats them as 'the work he set down when they relocated to Shedu Maad and never came back to collect' \u2014 no further detail is needed.",
+    "Is there any canon source specifying the exact date of the Jedi Order's relocation from Coruscant to Shedu Maad? The contract says 44 ABY (end of FOTJ). This is consistent with Legends.",
+    "Is there any canon source specifying the exact state of the Coruscant Jedi Temple in 47 ABY? The contract says it is vacated and no longer Order property. This is consistent with Legends."
+  ]
+}

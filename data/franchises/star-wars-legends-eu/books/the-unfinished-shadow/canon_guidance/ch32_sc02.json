@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch32_sc02",
+  "chapter_number": 32,
+  "scene_number": 2,
+  "model": "deepseek/deepseek-v4-flash",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "ac7d6ca67be2415f45a9faba836d78d6aecbd2157a6f3b1c1c945426f380e32c",
+  "review_status": "unreviewed",
+  "confidence": 0.95,
+  "hard_constraints": [
+    "Ben does not violate Aevyn's mind. He wins by using Jacen-derived crisis logic without surrendering ownership of himself.",
+    "The corridor moment surfaces as a fragment of Recognition aimed at Ben, never as exposition or speech. Ben receives it, holds it without flinching, and keeps his blade where it needs to be.",
+    "Aevyn's blade fractures more visibly when Ben uses Jacen-derived logic successfully. This is a visual tell, never explained in exposition or dialogue.",
+    "The duel is an argument through action. Avoid thesis dialogue; let blade choices, restraint, refusal, and survival carry the meaning.",
+    "The Glasswell gives way entirely as Aevyn is defeated. Ben grabs the holocron container from where it has fallen as the platform separates from the wall.",
+    "Mortis is never named on-page. Luke's post-Crucible state is implication only.",
+    "No ABY/BBY dating in narration or dialogue. Characters reference events directly.",
+    "Star Wars vocabulary discipline: datapads not tablets, transparisteel not glass, durasteel not steel, turbolifts not elevators, comlinks not radios, blasters not guns, hyperspace not warp.",
+    "Force prose is experiential and mystical, never clinical. Avoid 'energy field' framing. Abilities surface as body-sensations first, named only after the body has felt them.",
+    "The corridor moment is Aevyn's specific wound-image: side console, Recognition exercise, Jacen present, fourteen-year-old Ben coming down the corridor, Jacen turning, 'Good. Keep going. We'll review later,' walking off with Ben. The 'later' never came. This surfaces as fragment in Aevyn's POV only, never as exposition or speech."
+  ],
+  "canon_risks": [
+    "Risk of making the duel a simple Jedi vs. dark sider confrontation. The contract requires it to be two students of Jacen arguing through action over what his lessons mean. Ben must not fight as pure Jedi orthodoxy; Aevyn's operator instincts and Jacen-derived techniques would beat that version of him.",
+    "Risk of Aevyn's blade being described as red or obviously Sith-coded. It is cold white-blue, shivers along the edge, crackles faintly under pressure, fractures into white-blue forks when his control strains. NOT red. NOT obviously Sith-coded.",
+    "Risk of the corridor moment being over-explained or delivered as speech. It must remain a fragment of Recognition aimed at Ben, never exposition.",
+    "Risk of Ben suppressing the corridor impression rather than accepting it. The turning point requires Ben to let it arrive, name it to himself without flinching, and keep his blade exactly where it needs to be. Not suppressed \u2014 held.",
+    "Risk of the Glasswell being described as a Sith temple or Jedi ruin. It is a natural sinkhole/cavern beneath a mirror-lake, lined with pale translucent mineral. The cache is hidden in old offworld survey/GAG-era storage equipment \u2014 practical, deniable, Jacen-like.",
+    "Risk of Iresh's Force character being treated as revealing objective truth or prophecy. Iresh preserves charged impressions of memory, identity, and decision under pressure. It does NOT show the future, reveal objective truth, or grant prophecy."
+  ],
+  "legends_continuity_notes": [
+    "Jacen Solo's Force odyssey (NJO-LotF) included Aing-Tii flow-walking, Fallanassi White Current, battle meditation, Vergerean thought, and Lumiya's Sith inheritance. Recognition is his inward turn of flow-walking fused with Force empathy. Holding is his fusion of battle meditation, the White Current, and Lumiya's will-domination.",
+    "The unfinished holocron is Jacen's private systematization of Recognition and Holding. Part notebook, part training device, part confession, part contingency, part laboratory. NOT a completed Sith weapon.",
+    "Aevyn's self-built lightsaber instability is the work of a competent man who was never formally trained in lightsaber construction or form \u2014 combat instinct from GAG plus Force exercises from Jacen, no tradition to bridge them.",
+    "The One Sith on Korriban under Darth Krayt remain in patient pre-emergence. They are not on-page in Book 1 beyond a single off-page 'hand' in Ch 37.",
+    "The Jedi Order relocated to Shedu Maad (Hapes Cluster) at the end of FOTJ (44 ABY). Saba Sebatyne is Grand Master. Luke is a senior Master, stepped back post-Crucible.",
+    "Crucible (45 ABY) established Luke/Leia/Han's Mortis-adjacent encounter and effective retirement. Mortis is never named on-page."
+  ],
+  "possible_disney_bleed": [
+    "No kyber crystal bleeding mechanic (Disney Canon lore \u2014 Legends Sith use synthetic crystals).",
+    "No World Between Worlds (Disney Canon Force concept from Rebels \u2014 incompatible with Legends Force ontology).",
+    "No Inquisitorius as a formal post-Imperial organization (Legends Inquisitorius is Empire-era only).",
+    "No High Republic terminology or concepts.",
+    "No sequel-trilogy entities (First Order, Resistance, Starkiller Base, Ben Solo).",
+    "No Disney-canon Mandalorian conventions ('The Way' as creed \u2014 Legends Mandalorians follow Resol'nare)."
+  ],
+  "required_context_for_drafter": [
+    "The duel is the climax of the Ben/Aevyn dyad. Aevyn's arc: lie_acted_upon \u2192 lie_consequence. Ben's arc: new_truth_demonstrated (using Jacen-shaped crisis logic to save lives without surrendering ownership).",
+    "The corridor moment is the single sharpest character detail in the project. It surfaces here as a fragment of Recognition aimed at Ben. Aevyn uses it as a technique. Ben does not block it \u2014 he lets it arrive, names it to himself, and keeps his blade where it needs to be.",
+    "Aevyn's blade fractures more visibly when Ben uses Jacen-derived logic successfully. This is a visual tell that Aevyn cannot suppress. It shows that Ben's use of the lessons destabilizes Aevyn's control.",
+    "Ben wins by using what Jacen taught him without violating Aevyn's mind and without pretending Jacen taught him nothing real. The line is narrow but real.",
+    "The Glasswell is physically clear before it collapses: mirror-lake above, sinkhole below, pale mineral walls, survey scaffold, cache embedded in survey/GAG equipment, lower ledge where Tavi was trapped, one main path out, one dangerous water route. The duel happens across a tilting durasteel survey platform bolted into the mineral shelf.",
+    "The holocron container falls during the duel. Ben grabs it as the platform separates from the wall. He preserves it through the coda \u2014 his omission to Luke in Ch 36 is technically true and morally incomplete.",
+    "Aevyn is presumed dead at the Glasswell collapse. The cold white-blue spark in Ch 38 confirms survival to the reader only."
+  ],
+  "allowed_au_divergences": [
+    "Aevyn Soris is a NEW character: marginal Force-sensitive, Jedi-rejected at fourteen, joined GAG as a young adult, became Jacen Solo's side-project Force student during the Caedus period while Ben remained the primary fourteen-year-old apprentice.",
+    "Jacen's unfinished holocron is a NEW artifact: a working device assembled during the LotF period, systematizing Recognition and Holding.",
+    "The duplicated wartime manifest is a NEW artifact: a quarantine/survey shipment manifest personally encrypted by Jacen Solo shortly before the Battle of Shedu Maad; the hidden duplicate points to Iresh.",
+    "Iresh and the Glasswell are NEW locations: Iresh preserves charged impressions of memory, identity, and decision under pressure. The Glasswell is a natural sinkhole/cavern beneath a mirror-lake \u2014 NOT a Sith temple or Jedi ruin.",
+    "The Shedu Maad Memorial Foundation, the Vigil, and Greyline Strategic Services are NEW post-war Coruscant-political institutions.",
+    "Legacy comics future (Darth Krayt galactic war, Cade Skywalker) is entirely excised. The One Sith remain in pre-emergence."
+  ],
+  "open_questions": [
+    "Does the corridor moment fragment need any specific sensory detail (light, sound, temperature) to land effectively as a Recognition impression? The contract specifies it surfaces as image-fragment only, but the drafter may need to decide how much sensory texture carries the emotional weight.",
+    "The scene card specifies the platform is 'tilting three degrees and worsening.' Is there a specific moment when the angle becomes critical for the duel's choreography, or does the drafter have freedom to escalate the instability as needed?",
+    "The holocron container falls during the duel. Does Ben grab it before or after Aevyn is defeated? The scene card says 'Ben grabs the holocron container where it has fallen as the platform separates from the wall' \u2014 the timing relative to Aevyn's defeat may affect the emotional beat.",
+    "Is there any specific Legends precedent for how a Force-user's lightsaber blade visually responds to emotional destabilization? The project uses this as a visual tell for Aevyn, but the drafter may need to confirm it does not contradict established Legends lightsaber behavior."
+  ]
+}

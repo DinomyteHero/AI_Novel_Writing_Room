@@ -11,6 +11,13 @@ runtime:
   # The lean line-edit pass benefits directly from the new prompt without any
   # additional toggles.
 
+  # Length calibration, measured on this book's climax scene (4 bench samples,
+  # 2026-06-09): DeepSeek V4 Pro delivers ~43-58% of any asked word count, so
+  # the rendered ask is inflated 1.8x to land delivered prose near the card
+  # targets. Telemetry still measures drift against the un-inflated targets.
+  lean_prose_only:
+    length_calibration: 1.8
+
   # Rhythm validator: deterministic measurement of em-dash density, staccato
   # clusters, opener variance, dialogue density, and abstract-construction
   # tics on each scene. Emits revision_debt rows for human review.
@@ -32,8 +39,12 @@ runtime:
       - rhythm.opener_monotone
       - rhythm.abstract_tic
     max_trigger_codes: 5
-    max_edits: 8
-    max_total_changed_chars: 1500
+    # Caps raised from the 8/1500 shipping defaults for this book: DeepSeek
+    # V4 Pro drafts carry 13-20 em-dashes per 1k words (bench 2026-06-09),
+    # and cutting toward the ~3/1k budget needs more, smaller literal edits
+    # than the default budget allows. Ratio ceiling unchanged.
+    max_edits: 20
+    max_total_changed_chars: 3500
     max_changed_ratio: 0.15
 
   # Revision debt store: structured advisories from the rhythm validator and
@@ -48,8 +59,24 @@ runtime:
     enabled: true
     fallback_on_error: true
 
-  # Cross-chapter continuity validator runs at bundle-compile time. Skip on
-  # this book until end_state / start_state fields have been backfilled onto
-  # the existing 38 scene cards. Validator would otherwise be a no-op.
+  # Promise ledger (Slice 3): seeded from this book's planning (12 promises,
+  # PP_01..PP_12) via scripts/migrations/migrate_promise_ledger.py into the
+  # series-scoped state at output/.../the-unfinished-cycle/state/. Packet
+  # overlays surface the top-5 urgency-ranked promises per scene; scene-card
+  # promises_progressed / promises_paid record deltas at save time.
+  promise_ledger:
+    enabled: true
+
+  # Declared-state apply: scene-card end_state declarations write
+  # characters.status at save time (declarations win over the Summarizer's
+  # extracted diff); start_state declarations are verified against
+  # accumulated state and drift lands as a continuity advisory.
+  declared_state:
+    enabled: true
+
+  # Cross-chapter continuity validator: start_state / end_state / objects_at_*
+  # declarations were backfilled onto the cards (2026-06-09, explicit-only:
+  # deaths, captures, the Aevyn presumed-dead arc, fragment + holocron
+  # custody). Validates clean at HEAD — 0 breaks, 29 silent pairs.
   continuity_validator:
-    enabled: false
+    enabled: true

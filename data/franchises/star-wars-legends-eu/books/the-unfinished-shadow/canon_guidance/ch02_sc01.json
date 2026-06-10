@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch02_sc01",
+  "chapter_number": 2,
+  "scene_number": 1,
+  "model": "deepseek/deepseek-v4-flash",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "377092ab611c6a6a0e2f00238e78381f75ecaeb63fb1d71285a2203bf0070acb",
+  "review_status": "unreviewed",
+  "confidence": 0.95,
+  "hard_constraints": [
+    "Ben Skywalker is the sole POV for this scene.",
+    "Luke Skywalker is offworld; Ben is alone when the message arrives.",
+    "Allana Solo appears briefly under the 'Amelia' identity as ordinary family texture only, not plot machinery.",
+    "The obsolete GAG identity-address alert arrives on a private holocomm in Ben's quarters, routed through old GAG infrastructure, not Jedi comms.",
+    "Ben's hand covers the sender code before he realizes he is hiding it.",
+    "Ben holo-calls Luke before leaving for Coruscant.",
+    "Mortis is never named on-page.",
+    "Crucible is never named on-page; Luke's post-Crucible state is implication only (quieter, eyes further away, longer pauses).",
+    "No ABY/BBY dating in narration or dialogue.",
+    "No 'Legends' or 'Canon' as in-universe concepts.",
+    "Star Wars vocabulary discipline: datapads not tablets, transparisteel not glass, durasteel not steel, turbolifts not elevators, comlinks not radios, blasters not guns, hyperspace not warp.",
+    "'Jedi' is both singular and plural; 'Darth' capitalized before a name; 'Human' capitalized; 'galaxy' lowercase.",
+    "Ben's GAG history is shown through personal consequences, not lore lecture.",
+    "The message text: 'GAG is still active. One of Jacen's last orders has two lives. Come alone. - E.R.'",
+    "Ben's arc phase is 'lie_established': the GAG year is something he keeps in a drawer."
+  ],
+  "canon_risks": [
+    "Risk: Over-explaining the post-FOTJ relocation or Crucible aftermath in exposition. Keep to short, emotionally grounded references.",
+    "Risk: Making the Shedu Maad setting feel like a generic Jedi temple rather than a Hapan-hosted complex with formal security protocols.",
+    "Risk: Allana/Amelia cameo becoming plot-relevant or emotionally heavy. It must be warm, brief, and ordinary.",
+    "Risk: Ben's internal state becoming self-pitying. He should feel restless and displaced, not victimized.",
+    "Risk: The GAG message arriving too dramatically. It should unsettle before the content does.",
+    "Risk: Using 'Caedus' in narration when Ben would think 'Jacen' for the pre-fall mentor identity. Ben slides between both; the scene's emotional load likely favors 'Jacen' for the remembered teacher."
+  ],
+  "legends_continuity_notes": [
+    "Shedu Maad is a Hapes Cluster world; the Jedi Order relocated there at the end of Fate of the Jedi (44 ABY) after the Senate voted to remove them from Coruscant following the Lost Tribe crisis.",
+    "Saba Sebatyne is Grand Master; Luke Skywalker is a senior Master, no longer Grand Master.",
+    "The Hapes Consortium hosts the Order at Queen Mother Tenel Ka Djo's invitation; this is a political gift with attendant friction.",
+    "Allana Solo (Jacen and Tenel Ka's daughter) lives under the cover identity 'Amelia Solo' with Han and Leia; her Hapan upbringing makes her comfortable with protocols that catch Ben sideways.",
+    "The GAG was dissolved in disgrace after the Battle of Shedu Maad (41 ABY); its infrastructure was supposed to be decommissioned.",
+    "Ben served in the GAG as a fourteen-year-old under Jacen; this is a known part of his history that the Order and family treat as victimhood/survival.",
+    "Jacen Solo's fall to Darth Caedus, his murder of Mara Jade, and his death at Shedu Maad are the emotional background of Ben's wound.",
+    "The One Sith on Korriban remain in pre-emergence; they are not visible in this scene."
+  ],
+  "possible_disney_bleed": [
+    "No 'Ben Solo' references; 'Ben' is unambiguously Ben Skywalker.",
+    "No High Republic, World Between Worlds, Inquisitorius, sequel-trilogy entities, kyber-bleeding, or Disney Mandalorian conventions.",
+    "No 'The Way' or other Disney-canon Mandalorian terminology.",
+    "No 'Starkiller Base', 'First Order', 'Resistance'.",
+    "No 'Ahsoka Tano' post-Rebels characterization.",
+    "No 'force bond' as a Disney-canon concept; use Legends Force-bond conventions if needed."
+  ],
+  "required_context_for_drafter": [
+    "Ben is ~21, a Jedi Knight, son of Luke Skywalker and Mara Jade Skywalker.",
+    "Jacen Solo was Ben's cousin, mentor, and Force teacher during the GAG year; he became Darth Caedus and murdered Mara.",
+    "Ben turned against Caedus by the end of the war; the Order treated his turn as victim's recovery; the family treated it as survival.",
+    "Ben is secretly hungry for meaningful work that makes his past useful rather than only shameful.",
+    "The message arrives on a dead GAG channel that should not exist; this proves the old machinery still has an address for Ben.",
+    "Luke is offworld; Ben is alone with this message.",
+    "The scene's emotional trajectory: restless displacement -> unsettled by the dead channel -> scared by the content -> purposeful decision to call Luke.",
+    "Ben's hand covering the sender code is a GAG-shaped reflex he notices and does not correct.",
+    "The Shedu Maad setting should feel lived-in: training salle, refectory, Hapan security details, cool stone corridors, high windows."
+  ],
+  "allowed_au_divergences": [
+    "Aevyn Soris is a NEW character (Jacen's side-project Force student, not in published Legends).",
+    "The duplicated wartime manifest is a NEW artifact specific to this novel.",
+    "The unfinished holocron's specific contents (Recognition and Holding) are this novel's named extrapolation from Jacen's canonical behavior.",
+    "The Shedu Maad Memorial Foundation, the Vigil, and Greyline Strategic Services are NEW post-war institutions.",
+    "Iresh and the Glasswell are NEW locations; Iresh's Force character (preservation of impressions, not truth/prophecy) is original.",
+    "Allana/Amelia appears as brief ordinary-life texture only, not plot-active."
+  ],
+  "open_questions": [
+    "Is Luke's specific offworld location mentioned or left vague? The contract says 'temporarily offworld' but does not specify where.",
+    "Should the Allana/Amelia cameo include any dialogue, or is it a visual/atmospheric beat only?",
+    "How much of Ben's internal reaction to the GAG channel should be explicit vs. shown through physical detail (hand covering the code)?",
+    "Is there a specific Hapan security protocol detail that should be used for texture (e.g., palace-house livery, formal address, checkpoint procedures)?"
+  ]
+}

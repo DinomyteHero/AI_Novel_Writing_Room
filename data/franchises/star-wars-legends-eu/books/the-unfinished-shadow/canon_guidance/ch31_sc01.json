@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch31_sc01",
+  "chapter_number": 31,
+  "scene_number": 1,
+  "model": "deepseek/deepseek-v4-flash",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "2652af308e628ce0be62418705674ce037e41834a233d83680b88504c298798d",
+  "review_status": "unreviewed",
+  "confidence": 0.95,
+  "hard_constraints": [
+    "Ben's crisis clarity must NOT be a Force mind-trick. It is a GAG-derived crisis-perception framework: reading bodies, exits, timing, weight, water level, falling stone, and panic vectors. It moves people efficiently with minimal input, not by overriding their will.",
+    "The rescue must be clearly heroic before it becomes unsettling. Reader must understand why the ordinary Jedi approach fails (water, blocked routes, panic, collapsing supports, Tavi's time running out).",
+    "Aevyn's line 'He taught you that' is a confirmation, not an accusation. It must land in the quiet after crisis, with no defense available that would not be an admission.",
+    "Iressa's death surfaces as a physical memory (the moment Ben chose not to act and what it cost), not as a philosophical thought.",
+    "The rescued Foundation personnel must show disquiet (they were moved efficiently, they noticed they did not choose to follow) but not injury. The distinction between saved and handled matters.",
+    "Ben's emotional trajectory: rescue first, duel second. His dangerous choice must come from compassion and urgency, not aggression.",
+    "No Force mind-trick, no clinical 'energy field' framing. Force prose is experiential and mystical: body-sensations first, named only after the body has felt them.",
+    "No ABY/BBY dating in narration or dialogue. Characters reference events directly ('after Caedus', 'before Shedu Maad').",
+    "No 'Legends'/'Canon' as in-universe concepts.",
+    "Star Wars vocabulary: datapads not tablets, transparisteel not glass, durasteel not steel, turbolifts not elevators, comlinks not radios, blasters not guns, hyperspace not warp.",
+    "'Jedi' is both singular and plural (never 'Jedis'). 'Darth' capitalized before a name. 'Human' capitalized. 'galaxy' lowercase.",
+    "Ben's POV arc phase is 'new_truth_demonstrated' \u2013 he uses Jacen-shaped crisis logic without surrendering ownership of himself to Jacen.",
+    "The Glasswell is a natural sinkhole/cavern, NOT a Sith temple or Jedi ruin. Its Force character is preservation of charged impressions, not revelation or prophecy.",
+    "Mortis is NEVER named on-page. Luke's post-Crucible state is implication only (quieter, eyes further away, longer pauses).",
+    "Aevyn's lightsaber is cold white-blue, shivers along the edge, fractures more visibly when Ben uses Jacen-derived logic successfully \u2013 a visual tell, NOT exposition.",
+    "The holocron is NOT a completed Sith weapon. It is part notebook, part training device, part confession, part contingency, part laboratory."
+  ],
+  "canon_risks": [
+    "Risk: Ben's crisis clarity could read as a Force mind-trick if not carefully distinguished from mental manipulation. The scene card explicitly says it is NOT a mind-trick, but the drafter must ensure the prose shows it as perception/command clarity, not will-override.",
+    "Risk: The rescued personnel's disquiet could be overplayed into trauma or injury, violating the scene card's instruction that they are 'not injured \u2013 but handled.' The distinction must be clear.",
+    "Risk: Aevyn's line 'He taught you that' could land as an accusation or villain gloat rather than a quiet confirmation. The scene card specifies it is not an accusation.",
+    "Risk: The ordinary Jedi approach failing could be written as a critique of Jedi methods rather than a practical constraint of the collapsing environment. The failure must be situational (water, panic, time), not philosophical.",
+    "Risk: Ben's emotional trajectory could shift from rescue to aggression too early. The scene card specifies 'rescue first, duel second' and that the dangerous choice comes from compassion and urgency.",
+    "Risk: Iressa's memory could become a philosophical reflection rather than a physical/emotional memory. The scene card specifies it surfaces 'not as a thought but as a physical memory.'",
+    "Risk: The Glasswell's collapse could be written as mystical revelation rather than structural failure. The scene card and canon constraints specify it is a natural site destabilized by forcing it to remember."
+  ],
+  "legends_continuity_notes": [
+    "Jacen Solo's crisis-logic training of Ben is consistent with the GAG/Caedus period in Legacy of the Force. Ben was fourteen, served under Jacen, and learned operational thinking that included reading panic, exits, timing, and the cost of hesitation.",
+    "The 'ordinary Jedi approach' (coordination, patience, trust) is consistent with Luke's post-RotJ Jedi philosophy as depicted in Legends (e.g., NJO, Dark Nest, FOTJ).",
+    "Iressa's death in Ch 15 is the emotional trigger for Ben's pivot. Her dying transmission (documentary chain + identity-shaping revelation) is the Midpoint revelation that forces Ben to act outside institutional channels.",
+    "Aevyn's recognition of Jacen's method is consistent with his backstory: he was Jacen's side-project Force student, practiced Recognition under Jacen, and would recognize the same framework in Ben's behavior.",
+    "The Glasswell's preservation-of-impressions character is original to this novel but consistent with Legends vergence/lore-site lineage (e.g., FOTJ's Sinkhole Station, Crucible's Mortis-adjacent encounter). It does NOT extend Mortis mythology.",
+    "The One Sith remain in pre-emergence on Korriban. No on-page appearance in Book 1. The hand in Ch 37 is the only footprint."
+  ],
+  "possible_disney_bleed": [
+    "No 'World Between Worlds' (Disney Canon Force concept from Rebels).",
+    "No 'kyber bleeding' mechanic (Disney Canon lore \u2013 Legends Sith use synthetic crystals).",
+    "No 'Inquisitorius' as a post-Imperial organization (Disney Canon structure).",
+    "No 'Ben Solo' naming (this Ben is unambiguously Ben Skywalker).",
+    "No 'High Republic' terminology or concepts.",
+    "No 'sequel trilogy' entities (First Order, Resistance, Starkiller Base).",
+    "No Disney-canon Mandalorian conventions ('The Way' as creed \u2013 Legends Mandalorians follow Resol'nare)."
+  ],
+  "required_context_for_drafter": [
+    "The rescue is a precision problem: Tavi is chest-deep in rising cold water, the scaffold above him is failing, and the ordinary coordination approach is too slow. Ben has minutes.",
+    "Ben's crisis clarity is a GAG-derived perception framework, not a Force power. It narrows his awareness to bodies, exits, timing, weight, water level, falling stone, and panic vectors. It lets him move people efficiently with minimal input.",
+    "Iressa's death (Ch 15) is the emotional trigger: Ben chose not to use a Jacen-shaped coercive move that might have saved her, and she died. That memory surfaces here as a physical sensation, not a thought.",
+    "Aevyn is watching from the upper platform with the holocron container. He recognizes the crisis clarity because he practiced the same framework under Jacen.",
+    "The rescued Foundation personnel's disquiet is not injury \u2013 they were moved efficiently and noticed they did not choose to follow. The distinction between 'saved' and 'handled' is critical.",
+    "The Glasswell is actively collapsing: water rising, ceiling cracking in three places, stone falling in steady curtains, the scaffold ring twisted and half-submerged.",
+    "Ben's POV arc phase is 'new_truth_demonstrated': he uses Jacen-shaped crisis logic without surrendering ownership of himself to Jacen. The rescue is heroic and unsettling simultaneously.",
+    "The duel with Aevyn follows immediately (Ch 32). This scene sets up the duel by establishing that Ben's method is recognizable as Jacen's and that Aevyn sees it."
+  ],
+  "allowed_au_divergences": [
+    "Aevyn Soris as Jacen's surviving side-project Force student (NEW character).",
+    "Jacen's unfinished holocron systematizing Recognition and Holding (NEW artifact).",
+    "The duplicated wartime quarantine/survey manifest personally encrypted by Jacen (NEW artifact).",
+    "Iresh and the Glasswell as a natural site preserving charged impressions (NEW location).",
+    "The Shedu Maad Memorial Foundation, the Vigil, and Greyline Strategic Services (NEW post-war institutions).",
+    "Legacy comics future excised entirely (no Darth Krayt galactic war, no Cade Skywalker).",
+    "The One Sith remain in pre-emergence on Korriban, glimpsed only as an off-page hand in Ch 37."
+  ],
+  "open_questions": [
+    "Does the scene card's instruction that Ben 'stops asking Tavi to follow instructions and shifts to directing' require any specific GAG-era terminology or protocol name? The drafter may need to invent a plausible operational term (e.g., 'directive mode,' 'command clarity') or leave it unnamed.",
+    "The scene card specifies that some rescued Foundation personnel look at Ben with disquiet. How many? One or two specific characters, or a general reaction? The drafter may need to decide whether to name a specific survey worker or keep it as a crowd reaction.",
+    "The scene card says Ben's crisis clarity 'does not manipulate Tavi's mind.' Does Ben need to internally distinguish this from a Force mind-trick, or is the distinction clear from the prose? The drafter should ensure the prose shows the difference without explicit internal commentary.",
+    "The scene card specifies that Aevyn's line lands 'in the quiet afterward.' Is there a specific beat of silence before or after the line? The drafter may need to decide the pacing of that moment."
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch34_sc01",
+  "chapter_number": 34,
+  "scene_number": 1,
+  "model": "deepseek/deepseek-v4-flash",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "8b81047c46ddcf343b6e44f3a508bdc3a8883273ebc510da6534c5b5e5dddd3e",
+  "review_status": "unreviewed",
+  "confidence": 0.92,
+  "hard_constraints": [
+    "The holocron is NOT destroyed on Iresh. Ben keeps it. The decision must arrive as a fact, not a dramatic moment.",
+    "Talon's future-call offer uses reluctant humor. He will complain first, then come. Specific joke references allowed: prison food, Hutt paperwork, dressing a Wookiee for a diplomatic reception, charging double.",
+    "Sela shifts calling Ben from 'Skywalker' to 'Ben' in this chapter (first use). Conditional trust only, not ownership. By the canon contract, she calls him 'Ben' from Ch 34 onward.",
+    "Tavi survives the Glasswell collapse and his reunion with Sela is imperfect: anger, relief, practical care, no easy sentimentality.",
+    "Ben and Talon return to Coruscant. The case is mostly resolved; the dangerous knowledge (the holocron) is unresolved.",
+    "No chapter title referencing real-world songs, films, or books."
+  ],
+  "canon_risks": [
+    "The scene takes place on Iresh's eastern plateau after the Glasswell collapse. The canon contract describes Iresh as 'wind-scoured world' with 'pale mineral cliffs; cold highlands; dark water; black reed marshes; thin forests; long winds; wind-carved stone arches; shallow mirror-lakes; stacked stone path-markers; metal chimes / wind markers; thin aurora-like veils.' The plateau should match this.",
+    "The holocron is an unfinished artifact, not a completed Sith weapon. Ben's justification for keeping it must align with the canon constraint: 'notebook, training device, confession, contingency, laboratory.' It is not simply an 'evil object.'",
+    "Talon's future-call offer must not become sentimental or poetic. It is 'plain and grounded,' delivered with humor.",
+    "Sela's distrust of offworlders is established. The canon states: 'Offworlders with causes always break this place.' Her conditional respect for Ben must respect that.",
+    "Ben's GAG past is known to Sela (or suspected) only through behavior. She should not know details about Jacen or the holocron unless natural from context."
+  ],
+  "legends_continuity_notes": [
+    "In 47 ABY, the Jedi Order is based at Shedu Maad. Coruscant has no Jedi Temple or institutional foothold. Ben returns to a world where Jedi are politically suspect.",
+    "Iresh is a new Outer Rim world introduced in this novel. Its Force character (preservation of impressions, not prophecy) is original.",
+    "Talon Veyr is a new character, but his GAG history and Operation Glasshook (disobeying Tess to save civilians) fit the Legends GAG setting as described in the Legacy of the Force novels.",
+    "The Shedu Maad Memorial Foundation's public charitable work is genuine. Aelia Vandros steps down to preserve it.",
+    "Crucible (45 ABY) remains canonical background. Luke's post-Mortis state is implied only, never named."
+  ],
+  "possible_disney_bleed": [
+    "No references to the World Between Worlds, kyber bleeding, Inquisitorius, First Order, Resistance, or sequel-trilogy entities.",
+    "'Ben' must be unambiguously Ben Skywalker, not Ben Solo.",
+    "No Disney-canon Mandalorian conventions (e.g., 'The Way'). Legends Mandalorians follow Resol'nare.",
+    "No High Republic or post-April 2014 Disney-canon-only material."
+  ],
+  "required_context_for_drafter": [
+    "The holocron container is on Ben's belt. He checks its seal. Talon notes he is not destroying it.",
+    "Talon has not seen the holocron contents directly but knows it was Jacen's work. His suspicion is based on behavior, not knowledge.",
+    "Sela and Tavi's reunion occurs against a supply crate on the eastern plateau. The sensory anchor is wind carrying mineral dust and floodwater smell.",
+    "Ben stands at the ramp, not joining the reunion. This is correct and lonely.",
+    "The departure window is narrow: Foundation-affiliated GA security is inbound.",
+    "Talon's future-call is the most serious thing he has said all novel; it is disguised as a joke so Ben can accept it.",
+    "Ben's decision to keep the holocron is made quietly, half-consciously, as 'the only defensible option available.'"
+  ],
+  "allowed_au_divergences": [
+    "Aevyn Soris, the unfinished holocron, the duplicated manifest, the Shedu Maad Memorial Foundation, the Vigil, Greyline Strategic Services, Iresh, and the Glasswell are all original to this novel and authorized.",
+    "The holocron's contents (Recognition and Holding) are named extrapolations from Jacen's canonical Force odyssey.",
+    "One Sith pre-emergence on Korriban; Legacy comics excision."
+  ],
+  "open_questions": [
+    "Does Sela know or suspect that Ben is a Jedi? The scene card suggests she 'respects Ben conditionally' but does not specify her knowledge of his Force use. The canon contract says she calls him 'Skywalker' until Ch 28 (she already shifted in Ch 34 per instructions). Should she remark on his Jedi nature or the nature of his 'crisis logic' at the Glasswell?",
+    "Does Tavi know about the holocron? The scene card implies Tavi was trapped below during Aevyn's forced opening but the holocron was retrieved. Should Tavi mention seeing something unusual in the cache?",
+    "How explicit is Talon's knowledge of the holocron's nature? He knows it is Jacen's work. Does he know about Recognition and Holding? The scene card says he 'suspects Ben's holocron decision is not clean' but the dialogue is 'You're not going to tell me you're destroying it.' This is vague enough to avoid forcing more explanation. If more specificity is needed, note in open questions.",
+    "What is the exact state of the Glasswell after the collapse? The scene mentions 'floodwater from the broken Glasswell below' but does not detail structural aftermath. The drafter may need to decide whether the site is completely destroyed or merely destabilized."
+  ]
+}

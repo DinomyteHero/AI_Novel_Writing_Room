@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch09_sc01",
+  "chapter_number": 9,
+  "scene_number": 1,
+  "model": "deepseek/deepseek-v4-flash",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "016ec0f329ae6d90bf61ca9c20a8be270c004dd41ceb0a220bb6b348a84c4537",
+  "review_status": "unreviewed",
+  "confidence": 0.95,
+  "hard_constraints": [
+    "Ben and Talon cross storm-exposed gantries and sea-wall system while pursued by Greyline. Ben uses the Force to steady panels, deflect grappling hooks, and move Talon when needed, but must avoid theatrical heroics.",
+    "The escape is costly and ugly, not triumphant. Ben knows he has crossed a threshold he cannot uncross.",
+    "Talon gets them to a maintenance skiff or shuttle. The skiff is small, battered, barely adequate.",
+    "The First Plot Point lands: Ben has broken cover, freed a convicted prisoner, generated a public crisis, and committed himself to the case in a way that makes returning to his previous life impossible.",
+    "The forced partnership with Talon is the new condition of Ben's life. Neither names the partnership or the debt explicitly.",
+    "No Jedi Order institutional resources are available on Coruscant. The Order has no foothold there in 47 ABY.",
+    "Ben's GAG past is not named or exposited in this scene. It surfaces through behavior (clocks exits, threat angles, moves people efficiently) not through dialogue or internal monologue.",
+    "No Mortis, no Crucible naming, no ABY/BBY dating. Characters reference events directly ('after Caedus', 'during the war').",
+    "Star Wars vocabulary: datapads not tablets, transparisteel not glass, durasteel not steel, turbolifts not elevators, comlinks not radios, blasters not guns, hyperspace not warp.",
+    "Force prose is experiential and mystical, never clinical. Avoid 'energy field' framing. Abilities surface as body-sensations first, named only after the body has felt them.",
+    "Ben's interiority budget: max 150 words, max 2 paragraphs for the entire scene.",
+    "The scene opens in medias res."
+  ],
+  "canon_risks": [
+    "Risk of making Ben's Force use too theatrical or showy. The scene card specifies 'without theatrical heroics' and 'protection over speed.' Ben should use the Force to steady panels, deflect grappling hooks, and move Talon, but not in a way that feels like a Jedi action setpiece. The cost should be visible in his face.",
+    "Risk of Talon becoming too grateful or sentimental. The scene card says 'Talon offers something just short of gratitude; Ben answers with something just short of reassurance.' Talon's humor valve should be present but thinned by the gravity of the escape.",
+    "Risk of the escape feeling triumphant. The scene card explicitly says 'The escape should feel costly, not triumphant.' The storm, the battered skiff, Ben's quiet accounting, and the legal mess ahead all reinforce this.",
+    "Risk of introducing new plot mythology or Force mechanics. The scene is a physical action sequence with Force-assisted movement, not a revelation scene. No new Force abilities, no new artifacts, no new lore.",
+    "Risk of making the legal stakes too abstract. The scene card says 'the legal situation is now unavoidable' and 'Dorrin will have questions.' The drafter should keep this concrete: Ben knows he has broken cover, freed a prisoner, and used Force abilities on a security contractor team. The consequences are specific, not vague."
+  ],
+  "legends_continuity_notes": [
+    "Tarn Velos Coastal Detention Works is a NEW location introduced for this novel. It is a storm-lashed industrial coastal prison world. The sea-wall system, gantries, storm shutters, camera lag, and maintenance habits are the key physical features established in the terminology registry.",
+    "The Galactic Alliance Guard (GAG) was dissolved in disgrace after the Battle of Shedu Maad (41 ABY). Its records, survivors, and hidden logistics network are the novel's central conspiracy substrate. Ben served in the GAG as a fourteen-year-old under Jacen Solo.",
+    "The Jedi Order has NO institutional foothold on Coruscant in 47 ABY. The Coruscant Jedi Temple was relinquished at the end of Fate of the Jedi (44 ABY) after the Senate voted to remove the Order following the Lost Tribe crisis. Ben is operating on a planet where the Jedi have no base, no resources, no political cover.",
+    "Luke Skywalker is a senior Master on the Council at Shedu Maad, no longer Grand Master. He is post-Crucible (quieter, eyes further away, longer pauses). He will have to contain fallout from Ben's actions, but he is geographically distant and institutionally limited.",
+    "Greyline Strategic Services is Colonel Maro Tess's private security firm. It serves as the Vigil's operational arm. Greyline teams are professional and procedural, never crude or theatrical. They are pursuing Ben and Talon across the gantries.",
+    "The storm-line escape (FPP) is the moment Ben's forced partnership with Talon becomes the new condition of his life. This is the door Ben cannot return through."
+  ],
+  "possible_disney_bleed": [
+    "No 'Inquisitorius' as a post-Imperial organization. Legends Inquisitorius is Empire-era only.",
+    "No 'World Between Worlds' or any Disney Canon Force concept.",
+    "No 'kyber crystal bleeding' mechanic. Legends Sith use synthetic crystals.",
+    "No 'Ben Solo' or any sequel-trilogy reference. 'Ben' is unambiguously Ben Skywalker.",
+    "No 'High Republic' terminology or concepts.",
+    "No Disney Mandalorian conventions (e.g., 'The Way'). Legends Mandalorians follow Resol'nare.",
+    "No 'First Order' or 'Resistance' terminology.",
+    "No 'Starkiller Base' or any sequel-trilogy superweapon.",
+    "No 'Ahsoka Tano' post-Rebels characterization (some Legends material exists but most characterization is Disney Canon)."
+  ],
+  "required_context_for_drafter": [
+    "Ben is 21 years old, a Jedi Knight, son of Luke Skywalker and Mara Jade Skywalker. He served in the GAG under Jacen Solo as a fourteen-year-old. He turned against Caedus by the end of the war. The GAG year is something he keeps in a drawer.",
+    "Talon Veyr is 28, a former GAG field agent turned black-channel logistics/security officer. He was imprisoned at Tarn Velos at story start. He was Colonel Maro Tess's prot\u00e9g\u00e9 until Operation Glasshook, where he disobeyed Tess to save trapped civilians. Tess reassigned him into logistics/records as punishment. The reassignment became the record that ruined him.",
+    "The escape from Tarn Velos is the First Plot Point. Ben has crossed a threshold he cannot uncross. He has broken cover, freed a convicted prisoner, generated a public crisis, and committed himself to the case in a way that makes returning to the way things were impossible.",
+    "The partnership with Talon is forced, not chosen. Neither names it. The dynamic shifts from interview to something without a cleaner word.",
+    "The storm is a physical presence: wind hammering sideways, transparisteel panels rattling, salt spray, the drop to churning dark water visible below every step.",
+    "Ben uses the Force to steady panels, deflect grappling hooks, and move Talon when he cannot move fast enough. This is protection over speed. The cost is visible in his face.",
+    "The skiff is small, battered, barely adequate. The escape is costly and ugly, not triumphant.",
+    "Ben's interiority budget is limited: max 150 words, max 2 paragraphs. The scene opens in medias res and maintains commercial readability: goal, obstacle, movement, reversal, hook.",
+    "The legal mess is now unavoidable. Dorrin will have questions. Luke will have to contain fallout. Talon is free and hunted and Ben is responsible for both of those things."
+  ],
+  "allowed_au_divergences": [
+    "Tarn Velos Coastal Detention Works is a NEW location specific to this novel.",
+    "Greyline Strategic Services is a NEW organization specific to this novel.",
+    "The forced partnership between Ben and Talon is a NEW relationship dynamic specific to this novel.",
+    "The First Plot Point threshold (Ben breaking cover, freeing a prisoner, generating a public crisis) is a NEW plot development specific to this novel.",
+    "The storm-line escape sequence is a NEW action setpiece specific to this novel.",
+    "Ben's use of Jacen-derived crisis logic (clocks exits, threat angles, moves people efficiently) is a NEW behavioral detail specific to this novel, extrapolated from Jacen's canonical training of Ben during the GAG year."
+  ],
+  "open_questions": [
+    "The exact geography of Tarn Velos sea-wall system and gantries is not specified beyond 'storm-exposed gantries above breaking surf' and 'sea-wall system.' The drafter may need to invent specific physical details (number of gantries, distance to skiff, height above water, etc.) to make the action sequence work. These should be kept simple and functional.",
+    "The exact number and behavior of Greyline pursuers on the gantries is not specified. The drafter should keep them as a threat presence without overcomplicating the action. They are professional and procedural, not theatrical.",
+    "The exact model and condition of the maintenance skiff is not specified. It should be small, battered, barely adequate. The drafter may choose a specific skiff type from Legends or invent a generic one.",
+    "The exact legal charges Ben will face for breaking cover and freeing a prisoner are not specified. The drafter should keep this as a looming consequence without detailing the legal code. Dorrin will have questions; Luke will have to contain fallout.",
+    "The exact timing of the storm (how long it lasts, when it clears) is not specified. The drafter should use the storm as a physical and emotional pressure throughout the escape, then let it recede as the scene closes."
+  ]
+}

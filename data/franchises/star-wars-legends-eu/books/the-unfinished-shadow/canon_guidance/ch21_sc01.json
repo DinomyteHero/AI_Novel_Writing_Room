@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch21_sc01",
+  "chapter_number": 21,
+  "scene_number": 1,
+  "model": "deepseek/deepseek-v4-flash",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "3d8ec141bb3313c8fc424885f1d9c649d24c07090ac4fe84ccbc056a29c79294",
+  "review_status": "unreviewed",
+  "confidence": 0.95,
+  "hard_constraints": [
+    "Ben is POV for this scene; Talon and Luke (by holo) are present.",
+    "Luke is a senior Master, not Grand Master; never reference 'As Grand Master' for himself.",
+    "Mortis is never named on-page; Luke's post-Crucible state is implication only (quieter, eyes further away, longer pauses).",
+    "The Skywalker apartment is the last Skywalker presence on Coruscant; the Jedi Order has no institutional foothold here.",
+    "The Foundation's public charitable work is real and genuine; Ben cannot morally flatten it.",
+    "Aelia is pressured toward stepping down to preserve the Foundation's mission; she is not arrested or criminally liable.",
+    "Korda is the dead public fall guy; the public story frames him as the rogue center.",
+    "The cover story is professionally constructed and emotionally true to ordinary viewers; it cannot be countered with the evidence Ben no longer has.",
+    "Ben, Talon, and Luke all see the cover is too neat and built in advance.",
+    "The only counter is showing up on Iresh before the operation completes.",
+    "Use Star Wars vocabulary: datapads not tablets, transparisteel not glass, durasteel not steel, turbolifts not elevators, comlinks not radios, blasters not guns, HoloNet not internet.",
+    "Capitalize 'Human'; lowercase 'galaxy'; 'Jedi' singular and plural (never 'Jedis').",
+    "No ABY/BBY dating in narration or dialogue; characters reference events directly.",
+    "No real-world pop culture references, no film/book references, no Wookieepedia-style taxonomy.",
+    "No paragraph contains more than one invented bureaucratic/technical term; every technical phrase translates to immediate human stakes within two sentences.",
+    "Ben's interiority budget: max 150 words, max 2 paragraphs.",
+    "Opening mode: dialogue_hook."
+  ],
+  "canon_risks": [
+    "Risk of making Luke too conveniently fooled or absent; he is emotionally intelligent and sees the structural tell independently.",
+    "Risk of making the Foundation's public work seem hollow or performative; it is genuinely helpful to grieving families, which is why the cover story is effective.",
+    "Risk of making Aelia seem purely villainous; she is pressured to step down to protect the real charity, and her warmth is not an act.",
+    "Risk of over-explaining the post-Crucible texture; one quiet line of Luke's manner is sufficient.",
+    "Risk of using 'system' as default GAG metaphor; prefer logistics network, shipment trail, records chain, transfer chain, or operation.",
+    "Risk of making the cover story seem sloppy; it is professionally constructed and built in advance."
+  ],
+  "legends_continuity_notes": [
+    "The Second Galactic Civil War (40-41 ABY) and the Yuuzhan Vong War (25-29 ABY) are the wars whose dead are named on the Foundation's scholarship walls.",
+    "The Foundation's scholarship walls include engraved names from Fondor, Kuat, and the refugee fleets.",
+    "The Jedi Order relocated to Shedu Maad in 44 ABY after the Senate voted to remove them from Coruscant following the Lost Tribe crisis.",
+    "Luke's post-Crucible state is from the 2013 novel Crucible by Troy Denning; Mortis is never named on-page.",
+    "The Skywalker apartment is the last Skywalker presence on Coruscant; the Coruscant Jedi Temple is no longer Order property.",
+    "The Galactic Alliance is under Chief of State Wynn Dorvan; the Dorvan administration has restored procedure, not trust."
+  ],
+  "possible_disney_bleed": [
+    "Avoid 'World Between Worlds' (Disney Canon Force concept).",
+    "Avoid 'Inquisitorius' as a post-Imperial organization (Disney Canon structure).",
+    "Avoid 'kyber crystal bleeding' mechanic (Disney Canon lore).",
+    "Avoid 'The Way' as Mandalorian creed (Disney Canon).",
+    "Avoid 'Ben Solo' (Disney Canon character); 'Ben' is unambiguously Ben Skywalker.",
+    "Avoid 'First Order', 'Resistance', 'Starkiller Base' (sequel trilogy).",
+    "Avoid 'High Republic' references."
+  ],
+  "required_context_for_drafter": [
+    "The public story frames Korda as the rogue security director who hired illegal contractors; no Foundation culpability.",
+    "Aelia is pressured to step down to protect the Foundation's charitable mission; the warmth shown her is genuine.",
+    "The cover story is built in advance, not improvised; Tess prepared this narrative.",
+    "Ben, Talon, and Luke all see the structural tell: the story resolves too cleanly and too quickly for an organization that size.",
+    "The only evidence that can override the narrative is stopping the Iresh operation in real time.",
+    "The apartment's daytime light is cold-gray and dry; Talon has claimed the chair facing the door.",
+    "The news B-roll cuts to the scholarship walls Ben walked past in Ch 17; the real grief is being used as backdrop.",
+    "Ben's POV arc phase is 'moment_of_truth' (Midpoint pivot); he has already decided to go to Iresh, and this scene confirms there is no institutional alternative.",
+    "Luke's holo call is the third of three Book 1 conversations (Ch 3, Ch 16, Ch 20); this is the PP2 brief call from the apartment.",
+    "The scene closes the analytical phase; Ben and Talon continue preparing for Iresh."
+  ],
+  "allowed_au_divergences": [
+    "The Shedu Maad Memorial Foundation (public charity) and the Vigil (hidden inner ring) are NEW post-war Coruscant-political institutions.",
+    "Greyline Strategic Services is a NEW organization.",
+    "Aevyn Soris is a NEW character (Jacen's side-project Force student).",
+    "The unfinished holocron and its contents (Recognition and Holding) are NEW artifacts.",
+    "The duplicated wartime manifest is a NEW artifact.",
+    "Iresh and the Glasswell are NEW locations.",
+    "The One Sith remain in pre-emergence; Legacy comics future is excised."
+  ],
+  "open_questions": [
+    "None identified for this scene; all elements are covered by the supplied planning artifacts."
+  ]
+}

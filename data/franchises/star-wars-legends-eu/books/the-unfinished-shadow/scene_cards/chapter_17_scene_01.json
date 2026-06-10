@@ -24,7 +24,7 @@
     "interpersonal": "Aelia beats Ben without trying hard: she remembers a scholarship recipient by name, corrects a child’s name in a file, notices a veteran’s discomfort across the room — all while holding a conversation with Ben. Her warmth is power deployed so naturally it doesn’t look like power. Ben can’t morally flatten her because what she does is real.",
     "external": "The Foundation’s public work is genuine. The Vigil is hidden inside something people need. If Ben is wrong about the Foundation or misreads Aelia’s knowledge of it, he destroys something legitimate. Talon, positioned outside, spots Bren Korda — the end hook that confirms the operational connection exists."
   },
-  "sensory_details": "The Foundation lobby smells of warm lighting and something floral, antiseptic-adjacent — the particular scent of a space professionally maintained to feel like comfort. Scholarship walls line the entry atrium in real engraved stone, not screens: Ben passes Fondor names, Kuat names, a Fall of Coruscant refugee-fleet column, a Shedu Maad sub-panel. The names are real and the stone is real and the grief is real. Aelia's office has warm lamp light, a single framed photograph, and a handwritten condolence note on the desk in mid-sentence addressed to a family on that wall downstairs — Ben can see the ink is dry from where she left it to greet him. Through a half-open door behind her assistant's station, Ben catches a glimpse of the Candle Room: interior lamp-glow, darker wood, chairs arranged inward.",
+  "sensory_details": "The Foundation lobby smells of warm lighting and something floral, antiseptic-adjacent — the scent of a space professionally maintained to feel like comfort. Scholarship walls line the entry atrium in real engraved stone, not screens: Ben passes Fondor names, Kuat names, a Fall of Coruscant refugee-fleet column, a Shedu Maad sub-panel. The names are real and the stone is real and the grief is real. Aelia's office has warm lamp light, a single framed photograph, and a handwritten condolence note on the desk in mid-sentence addressed to a family on that wall downstairs — Ben can see the ink is dry from where she left it to greet him. Through a half-open door behind her assistant's station, Ben catches a glimpse of the Candle Room: interior lamp-glow, darker wood, chairs arranged inward.",
   "canon_elements_needed": [
     "Iressa / Civitas / manifest reconstruction logic",
     "Foundation / Vigil public-charity reality",
@@ -56,7 +56,7 @@
   "turning_point_detail": {
     "trigger": "Talon signals Ben through a brief coded contact — he's spotted Bren Korda moving through the Foundation's external perimeter, dressed in Foundation security consultant credentials.",
     "shift": "The institutional connection is no longer inferential. Korda — old GAG security system in a clean suit — is present. The Foundation isn't merely a Vigil front; it has operational GAG-linked security infrastructure embedded in it.",
-    "cost": "Ben now has to leave the Aelia conversation without letting her read that the Korda sighting changed anything. She is watching him with the particular warmth of someone who is very good at noticing what people aren't saying."
+    "cost": "Ben now has to leave the Aelia conversation without letting her read that the Korda sighting changed anything. She is watching him with the warmth of someone who is very good at noticing what people aren't saying."
   },
   "emotional_arc": {
     "start": "Ben enters the Foundation professionally competent and socially on the back foot — the front-desk moment has already cost him composure before he reaches Aelia.",
@@ -72,7 +72,7 @@
     {
       "beat_description": "Aelia demonstrates genuine charity warmth: she recalls a scholarship recipient by name, notices a veteran's discomfort across the room, and continues handwriting a condolence note while talking to Ben.",
       "state_change": "The Foundation's public work is confirmed as real — whatever the Vigil is, it has hidden itself inside something people actually need.",
-      "pov_reaction": "The particular difficulty of watching competence deployed as warmth — the recognition that he cannot morally flatten this woman from this position."
+      "pov_reaction": "The difficulty of watching competence deployed as warmth — the recognition that he cannot morally flatten this woman from this position."
     },
     {
       "beat_description": "Ben catches a glimpse through the half-open Candle Room door — warm interior lamp light, chairs arranged inward — and cannot pursue it without announcing that he's looking.",
@@ -110,5 +110,11 @@
       "do not make Dorrin a third lead or secret mentor"
     ],
     "pov_arc_phase": "Aelia:lie_established; Aelia:lie_reinforced"
-  }
+  },
+  "dialogue_density_target": "high",
+  "interiority_budget": {
+    "max_words": 150,
+    "max_paragraphs": 2
+  },
+  "opening_mode": "sensory_hook"
 }

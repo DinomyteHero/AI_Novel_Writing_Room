@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch06_sc01",
+  "chapter_number": 6,
+  "scene_number": 1,
+  "model": "deepseek/deepseek-v4-flash",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "727d51dbaa0217d5d6d3de2392b6308d357ddabeac4080d67513e2f5d1e4757d",
+  "review_status": "unreviewed",
+  "confidence": 0.95,
+  "hard_constraints": [
+    "Tarn Velos Coastal Detention Works is a storm-lashed industrial coastal prison. Features: sea-wall system, waste runoff systems, gantries, storm shutters, camera lag, maintenance habits.",
+    "Ben enters under low-profile cover as a GA Justice records auditor.",
+    "Talon enters as quick, funny, restless, and difficult. He recognizes the duplicated manifest fragment as a cloned shipment identity, not a clerical mistake.",
+    "Talon clocks Ben as Skywalker, Jedi, and former GAG within seconds.",
+    "Include a humanizing prison-habit beat: Talon sits where he can see the door, counts guards mid-joke, keeps his hands visible, pockets food automatically, or similar.",
+    "The prison alarm changes pitch; Talon notices it is wrong. This is the turning point and closing hook.",
+    "Ben's POV only. Interiority budget: max 150 words, max 2 paragraphs.",
+    "No ABY/BBY dating in prose. No 'Legends' or 'Canon' as in-universe terms.",
+    "Star Wars vocabulary discipline: datapads not tablets, transparisteel not glass, durasteel not steel, turbolifts not elevators, comlinks not radios, blasters not guns.",
+    "Force prose is experiential and mystical, never clinical. Not applicable in this scene (no Force use), but follow the pattern if any Force sensing occurs.",
+    "'Jacen' not 'Caedus' in Talon's speech when referring to the mentor figure; Talon uses 'Caedus' when contemptuous, 'Jacen' when Ben is in earshot and he is trying not to wound him. Here, Talon is still measuring Ben, so default to 'Caedus' or circumlocution.",
+    "Capitalize 'Human', lowercase 'galaxy'. 'Jedi' singular and plural (never 'Jedis'). 'Darth' capitalized before a name.",
+    "Opening mode: sensory hook."
+  ],
+  "canon_risks": [
+    "Tarn Velos Coastal Detention Works is a NEW location not previously established in Legends. Ensure it does not contradict any known prison or detention facility from the post-NJO era. The prison's existence is acceptable given the galaxy's many unrecorded worlds.",
+    "Talon Veyr is a NEW character. Confirm that his GAG service record and Operation Glasshook backstory do not conflict with known GAG operations or personnel. No published Legends material describes Talon, so no direct conflict exists, but ensure his rank, assignments, and timeline (e.g., serving under Elya Rane, reassigned after Glasshook) do not overlap with established GAG characters' histories (e.g., Ben's own service, which is already canonically vague pre-FOTJ).",
+    "The cloned shipment identity concept: Jacen Solo personally encrypted a wartime quarantine/survey manifest before the Battle of Shedu Maad. This is a NEW artifact. Ensure the manifest's domain (survey/quarantine shipments) does not conflict with any known Jacen-era records; it is plausible given GAG's broad mandate.",
+    "The prison alarm's 'wrong' pitch: Talon's recognition of an alarm anomaly implies GAG familiarity with security protocols. This is consistent with his GAG training, but ensure the alarm itself does not imply a specific GAG-created system that contradicts post-war decommissioning.",
+    "Ben's cover as GA Justice records auditor: The GA Justice department exists in Legends, but Ben's ability to assume this cover with minimal preparation (he just learned about the manifest from Elya's message) may strain plausibility if the cover requires pre-arranged credentials. The planning notes indicate Luke called in favors (Ch 10), but that is later; at this point Ben may have used his own connections or the message itself as justification. Ensure this does not create a plot hole about how Ben arranged the cover so quickly."
+  ],
+  "legends_continuity_notes": [
+    "The Galactic Alliance Guard (GAG) was formally dissolved after the war, but many of its members found civilian roles. Elya Rane is a former GAG records officer who later worked in logistics/records management. Talon Veyr was a field agent turned black-channel logistics/security officer. Their continued activity post-GAG is consistent with many former GAG personnel remaining in various sectors.",
+    "The post-war period (47 ABY) under Chief of State Wynn Dorvan is characterized by 'return to normalcy' but not trust. Ben's cover as a GA Justice records auditor is plausible; GA Justice handles sensitive old-GAG and political-crime cases (as Inspector Cale Dorrin's assignment confirms later).",
+    "Tarn Velos as a detention world: no specific Legends prison is named for this era, but there are many remote prison worlds (e.g., Kessel, Spire, etc.). A coastal, storm-lashed industrial facility is consistent with Legends aesthetics.",
+    "The Terminus-level security and visitor room protocols: Ben's cover would likely involve documented authority or a court order. The scene card implies he has a legal standing that is time-limited and contingent; that is enough for a first meeting.",
+    "Talon's observation of the alarm pitch: Guards and long-term inmates often develop acute awareness of routine sounds. This is a common thriller trope and does not require special explanation."
+  ],
+  "possible_disney_bleed": [
+    "Avoid any reference to the First Order, Resistance, or sequel-trilogy era. Tarn Velos should not evoke Starkiller Base or other Disney-original locations.",
+    "No kyber crystal bleeding mechanic. The manifest is quarantine/survey cargo, not weaponized kyber.",
+    "No Inquisitorius or Disney-canon Inquisitor procedures. GAG intelligence methods are distinct.",
+    "No 'The Way' or other Disney-canon Mandalorian conventions. Not relevant here, but guard uniforms or prison culture should not echo it.",
+    "No World Between Worlds, no Mortis mythology. The alarm and prison environment are purely physical.",
+    "No Ben Solo. 'Ben' = Ben Skywalker unequivocally."
+  ],
+  "required_context_for_drafter": [
+    "This scene is the first meeting between Ben and Talon. Talon's character arc begins here with the 'lie_established' phase: he performs irreverence as armor, hides fear, uses jokes to test people. The prison-habit beat (sitting facing door, counting guards, pocketing food) is his primary showing of wound/defense early on.",
+    "Ben's own arc phase: 'lie_reinforced' (though the chapter blueprint notes Ben's arc phase as 'lie_established' in the scene card's pov_arc_phase; the inconsistency is likely a minor slip; use the scene card: 'lie_established' for Ben here, meaning he still believes the GAG year is categorized away). The scene card says 'Talon:lie_established' in pov_arc_phase, but the 'pov_reaction' beats suggest Ben's own established lie (GAG year is inert) is present as well. Treat both as established at start of scene.",
+    "The duplicated manifest fragment: Ben has it on a datapad or physical chip. Talon recognizes it as a cloned shipment identity (same identity number, but one public and one hidden, dressed as quarantine cargo). This is not a code-breaking moment; Talon's recognition comes from his GAG logistics training and familiarity with the era's manifest euphemisms.",
+    "The alarm change: It's not a random or scripted drill. The pitch change is Talon's clue that Greyline has begun its operation to extract him or eliminate witnesses. This is the FPP (First Push Point) beginning.",
+    "Ben's cover is low-profile but does not give him authority to stop the alarm or the coming extraction. The legal cover ends the moment the alarm goes live.",
+    "Talon's body language: he pockets food (a preserved ration bar or something) without deciding to. This signals long-term survival reflex. He sits in the chair that lets him face the door and see the guard station. His hands remain visible on the table or in sight, also prison-learned.",
+    "The visitor room is physically described: gray durasteel walls, sea-air through ventilation, surge on sea wall, cold metal table, one transparisteel panel between them. Ben catalogs exits and guard angle before sitting.",
+    "Dialogue: high density. Talon tests Ben with quick, edgy humor. Ben stays steady, not reactive. The conversation moves from general testing to the fragment to the alarm within about 3200 words."
+  ],
+  "allowed_au_divergences": [
+    "Talon Veyr is a NEW character, fully within AU scope.",
+    "The duplicated manifest is a NEW artifact.",
+    "Tarn Velos is a new setting.",
+    "The prison alarm as a sign of Greyline intervention is new to this plot.",
+    "Operation Glasshook (referenced later) is new backstory."
+  ],
+  "open_questions": [
+    "What specific low-profile GA Justice cover exactly does Ben use? The scene says 'records auditor' but does not specify the exact credential. Does he have a physical badge, an access code, or a verbal authorization? Clarify to maintain consistency across scenes.",
+    "How long has Talon been at Tarn Velos? The scene card implies 'long enough to memorize the room' but no specific sentence. This might emerge in dialogue or be left implied.",
+    "Is the prisoner transport/food pocketing routine specific to Tarn Velos or a universal GAG habit? The scene card says 'pockets food automatically' - it could be prison habit or a trace of his GAG training. The drafter may decide based on pacing.",
+    "Does Ben sense anything through the Force in the visitor room? The scene says the Force is not used here, but the emotional trajectory mentions Ben sensing tension. It is safest to avoid Force sensing entirely in a first meeting to emphasize Talon's non-Force world. The scene card's emotional arc notes do not require it.",
+    "The alarm pitch change: What is the exact cause? The scene card says 'something outside has changed the shape of the room' - likely the Greyline extraction team's approach or environmental sabotage. The drafter should decide the proximate cause (e.g., sea-wall breach, prison security override, guard alarm) to keep it concrete.",
+    "Is there a specific alarm code or color Talon uses? The scene says 'going the wrong way' which implies he knows the alarm's meanings. The drafter may add one sentence: 'That's the response alarm, not the evacuation alarm - someone inside the facility triggered a distress.' Or similar. Keep it simple."
+  ]
+}

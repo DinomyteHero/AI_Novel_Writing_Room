@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch08_sc01",
+  "chapter_number": 8,
+  "scene_number": 1,
+  "model": "deepseek/deepseek-v4-flash",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "a3b8f4255f5225fff6e109d660d35d02da905d95a5d71f90beb359fc769cb611",
+  "review_status": "unreviewed",
+  "confidence": 0.95,
+  "hard_constraints": [
+    "Talon Veyr is non-Force-sensitive; he navigates by prison habit, camera lag, and maintenance knowledge, not by the Force.",
+    "Ben Skywalker is a Jedi Knight; he may use Force sense to track Talon's route or sense pursuit, but the scene's primary navigation belongs to Talon.",
+    "The partnership is forced into existence through action; neither character has admitted it yet.",
+    "Talon's complaints are a mechanism to keep fear from becoming visible; do not have him articulate his fear directly.",
+    "Greyline adjusts pursuit when the expected escape route fails; this is a deliberate herding, not random pursuit.",
+    "The sea-wall route is exposed gantries above storm surf; it is the worst option and becomes the only option.",
+    "No Force abilities beyond basic Force sense; no lightsaber use in this scene.",
+    "No new plot mythology or exposition about Iresh, the holocron, or the Vigil in this scene.",
+    "Maintain commercial readability: goal, obstacle, movement, reversal, hook.",
+    "Do not write theme as thesis; put theme into behavior, pressure, cost, and consequence."
+  ],
+  "canon_risks": [
+    "Risk of making Talon's prison knowledge feel like a Force ability; it must remain purely observational and experiential.",
+    "Risk of Ben using Force abilities that would be too showy or draw attention in a prison lockdown; keep Force sense subtle and internal.",
+    "Risk of the Greyline adjustment feeling omniscient; it should be explained by sensor feeds or motion tracking, not precognition.",
+    "Risk of Talon's complaints becoming random quips rather than fear-management; each complaint should serve the scene's tension or character."
+  ],
+  "legends_continuity_notes": [
+    "Tarn Velos Coastal Detention Works is a new setting for this novel; no prior Legends material describes it.",
+    "Greyline Strategic Services is a new organization; its operational methods (sensor tracking, real-time pursuit adjustment) are consistent with Legends-era private security firms.",
+    "The Galactic Alliance Guard (GAG) was dissolved after the Battle of Shedu Maad (41 ABY); Talon's prison knowledge comes from his GAG-era training and his years of imprisonment, not from any ongoing GAG infrastructure.",
+    "Storm conditions on a coastal prison world are consistent with Legends-era prison settings (e.g., Kessel, Spice Mines of Kessel)."
+  ],
+  "possible_disney_bleed": [
+    "Avoid any reference to 'Inquisitorius' as a post-Imperial organization; Legends Inquisitorius is Empire-era only.",
+    "Avoid 'World Between Worlds' or any Disney-canon Force concept.",
+    "Avoid 'kyber bleeding' or any Disney-canon lightsaber crystal lore.",
+    "Avoid 'First Order' or 'Resistance' terminology.",
+    "Avoid 'Mandalorian' conventions from Disney canon (e.g., 'The Way'); Legends Mandalorians follow Resol'nare."
+  ],
+  "required_context_for_drafter": [
+    "Talon Veyr was a GAG field agent under Colonel Maro Tess; his prison knowledge comes from that training and from years of imprisonment at Tarn Velos.",
+    "Ben Skywalker served in the GAG as a fourteen-year-old; he has some familiarity with GAG operational methods but not with Tarn Velos specifically.",
+    "Greyline is Tess's firm; the adjustment in pursuit indicates Tess or his operatives are reading the prison's sensors in real time.",
+    "The sea-wall route is exposed to storm surf and active pursuit; it is the worst option and becomes the only option.",
+    "Talon's complaints are a fear-management mechanism; he talks to keep fear from becoming visible.",
+    "The partnership is being forged through action; neither character has admitted it yet."
+  ],
+  "allowed_au_divergences": [
+    "Tarn Velos Coastal Detention Works is a new setting; its geography and security systems are original to this novel.",
+    "Greyline Strategic Services is a new organization; its operational methods are original.",
+    "Talon Veyr's backstory (Operation Glasshook, his reassignment, his imprisonment) is original to this novel.",
+    "The specific maintenance routes, camera lag patterns, and prison work-pattern knowledge Talon uses are original to this scene."
+  ],
+  "open_questions": [
+    "What specific sensor or camera system does Greyline use to track Ben and Talon through the prison? (Drafter's choice; keep consistent with Legends-era technology.)",
+    "How many Greyline operatives are pursuing? (Drafter's choice; keep the threat level clear but not overwhelming.)",
+    "What is the exact layout of the sea-wall route? (Drafter's choice; ensure it is physically clear and dangerous.)",
+    "Does Ben use Force sense to detect the pursuit adjustment before Talon does, or does Talon read it from the prison's systems? (Drafter's choice; either is consistent with the scene's mission.)"
+  ]
+}

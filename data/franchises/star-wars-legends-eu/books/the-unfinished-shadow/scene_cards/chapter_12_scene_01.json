@@ -23,14 +23,14 @@
     "interpersonal": "Iressa treats Ben as a complication, not a hero — she charges a Jedi complication fee, denies knowing Talon, moves them away from cameras, and changes Talon's debt total every time she references it. Talon finds her through an old debt-marker because he knows exactly how she lies. Their old archive-world dynamic runs underneath every line.",
     "external": "If Iressa recognizes the fragment as a cloned shipment identity and confirms it for Greyline-watchers to notice, she may already be flagged before she finishes helping. The fragile life she has built is the hostage she doesn't know Vara is already thinking about."
   },
-  "sensory_details": "The Civitas reception area smells of recycled corporate air and a faint chemical note from the floor sealant — the particular anonymous scent of a building that has been regularly cleaned and never fully lived in. On the wall beside the lift bank, a small plaque: CIVITAS ARCHIVE SYSTEMS — RESTORING CORUSCANT'S RECORD SINCE 29 ABY. The war that started those records gaps is the same war that produced Iressa. Iressa's office at the end of the hall has one window that faces another building's utility conduit; her nameplate is polished but the edge is slightly dented. In the employee lunchroom, the caf machine makes the same sound twice before it dispenses, and the half-sandwich the coworker offers Ben is wrapped in something the factory printed a corporate wellness logo on.",
+  "sensory_details": "The Civitas reception area smells of recycled corporate air and a faint chemical note from the floor sealant — the anonymous scent of a building that has been regularly cleaned and never fully lived in. On the wall beside the lift bank, a small plaque: CIVITAS ARCHIVE SYSTEMS — RESTORING CORUSCANT'S RECORD SINCE 29 ABY. The war that started those records gaps is the same war that produced Iressa. Iressa's office at the end of the hall has one window that faces another building's utility conduit; her nameplate is polished but the edge is slightly dented. In the employee lunchroom, the caf machine makes the same sound twice before it dispenses, and the half-sandwich the coworker offers Ben is wrapped in something the factory printed a corporate wellness logo on.",
   "canon_elements_needed": [
     "GAG / Jacen / Caedus continuity",
     "Iressa / Civitas / manifest reconstruction logic",
     "Civitas as a post-war records firm: casualty and displacement files damaged in the Second Galactic Civil War and the Yuuzhan Vong War — Coruscant's boring post-war normalcy as a business sector",
     "Second Galactic Civil War record-keeping gaps as the professional context that makes Iressa's skills valuable and legitimate"
   ],
-  "target_word_count": 3500,
+  "target_word_count": 3200,
   "active_subplots": [
     "SUB_02"
   ],
@@ -99,5 +99,14 @@
       "do not make Dorrin a third lead or secret mentor"
     ],
     "pov_arc_phase": "Iressa:lie_established"
-  }
+  },
+  "dialogue_density_target": "high",
+  "interiority_budget": {
+    "max_words": 150,
+    "max_paragraphs": 2
+  },
+  "opening_mode": "in_medias_res",
+  "anti_patterns": [
+    "do not compress the Civitas small-talk into summary — the sandwich exchange plays out line by line"
+  ]
 }

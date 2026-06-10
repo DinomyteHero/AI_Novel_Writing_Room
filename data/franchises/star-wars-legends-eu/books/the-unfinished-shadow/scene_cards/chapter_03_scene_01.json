@@ -75,7 +75,7 @@
     {
       "beat_description": "Luke explains that an official Jedi escalation would scatter the trail before there is anything to hold — GAG politics are still radioactive and too many people survived by pretending they helped nothing.",
       "state_change": "Ben understands the institutional logic; it does not make the urgency smaller.",
-      "pov_reaction": "Luke's eyes look tired in a way Ben does not quite recognize — further away even when looking right at him. Ben notices. Ben does not ask."
+      "pov_reaction": "Luke's eyes look tired in a way Ben has not seen before — further away even when looking right at him. Ben notices. Ben does not ask."
     },
     {
       "beat_description": "Ben pushes back on the caution; Luke listens and does not retreat, but he also does not mistake Ben's alarm for the whole of what is happening.",
@@ -99,5 +99,11 @@
       "do not make Dorrin a third lead or secret mentor"
     ],
     "pov_arc_phase": "Ben Skywalker:lie_established"
-  }
+  },
+  "dialogue_density_target": "high",
+  "interiority_budget": {
+    "max_words": 150,
+    "max_paragraphs": 2
+  },
+  "opening_mode": "dialogue_hook"
 }

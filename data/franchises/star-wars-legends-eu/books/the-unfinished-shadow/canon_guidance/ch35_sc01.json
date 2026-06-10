@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch35_sc01",
+  "chapter_number": 35,
+  "scene_number": 1,
+  "model": "deepseek/deepseek-v4-flash",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "edc8f26d56a7442d9d6e4b36c328ad397ffe8d723acd41981623a6c4d23e9321",
+  "review_status": "unreviewed",
+  "confidence": 0.95,
+  "hard_constraints": [
+    "Aelia Vandros steps down in public disgrace to preserve the Foundation's legitimate charitable work. Korda is the official dead fall guy.",
+    "Ben knows the public story is incomplete.",
+    "The Foundation's public charitable work is real and must be portrayed as such.",
+    "The name-wall in the atrium lists war dead from the Yuuzhan Vong War, Second Galactic Civil War, and Battle of Shedu Maad.",
+    "Aelia meets Ben's gaze once across the atrium with controlled recognition.",
+    "Ben leaves before the press conference ends.",
+    "No new plot mythology or revelations introduced in this scene.",
+    "The Vigil's ideology and method survive inside the Foundation; Tess survives; the One Sith purpose survives.",
+    "Ben cannot prove how incomplete the public story is.",
+    "The scene is Ben's POV (close third, past tense)."
+  ],
+  "canon_risks": [
+    "Risk: portraying Aelia as purely villainous or the Foundation as purely a front. The contract requires the Foundation's legitimate charitable work to be real and Aelia's compassion genuine.",
+    "Risk: implying the Foundation's name-wall includes Disney-only conflicts or eras. Must list only Legends-era wars: Yuuzhan Vong War, Second Galactic Civil War, Battle of Shedu Maad.",
+    "Risk: having Ben or Aelia reference 'ABY' or 'BBY' dating in dialogue or narration.",
+    "Risk: using anachronistic terms (e.g., 'press conference' is acceptable as a generic term for a media event, but avoid 'news conference' if it sounds too modern; 'newsfeed projectors' is fine)."
+  ],
+  "legends_continuity_notes": [
+    "The Yuuzhan Vong War (25-29 ABY) is the foundational trauma of Talon Veyr's generation and the oldest named grief cohort on the Foundation's wall.",
+    "The Second Galactic Civil War (40-41 ABY) produced the GAG, Jacen's fall, Mara's murder, and the Battle of Shedu Maad. The Foundation's mandate began here.",
+    "The Battle of Shedu Maad (41 ABY) is the Foundation's namesake engagement; Caedus died there. The loss gave the charity its credibility and its cover.",
+    "The Jedi Order relocated to Shedu Maad in 44 ABY (post-FOTJ). The Foundation is named for the battle, not the planet's later Jedi presence.",
+    "Wynn Dorvan is Chief of State in 47 ABY. The Dorvan administration has restored procedure, not trust.",
+    "The Coruscant Jedi Temple was vacated in 44 ABY. Ben operates on a world where the Jedi have no institutional foothold."
+  ],
+  "possible_disney_bleed": [
+    "Avoid any reference to the First Order, Resistance, Starkiller Base, or sequel-trilogy conflicts.",
+    "Avoid 'The Way' or any Disney-canon Mandalorian conventions.",
+    "Avoid 'kyber bleeding' or any Disney-canon lightsaber crystal lore.",
+    "Avoid 'World Between Worlds' or any Disney-canon Force concept.",
+    "Avoid 'High Republic' references.",
+    "Avoid 'Inquisitorius' as a post-Imperial organization.",
+    "Avoid 'Ben Solo' \u2014 'Ben' is unambiguously Ben Skywalker."
+  ],
+  "required_context_for_drafter": [
+    "The Foundation's public charitable work (scholarships, grief counseling, casualty-record preservation, legal/benefits advocacy, memorial events) is real and has helped thousands of families. Aelia's warmth for it is genuine.",
+    "The Vigil is the hidden inner ring that preserved Jacen-derived ideology. Aelia is its public face but not its operational architect (Tess is).",
+    "Korda was the Foundation's security director, an old GAG lieutenant, and was killed by Tess as the public fall guy in PP2 (Ch 20).",
+    "Ben has the unfinished holocron in his belt pouch. He cannot bring it into the open without explaining things he has decided not to explain.",
+    "Iressa Vossk's secondary cache was destroyed by Greyline in PP2. Talon's testimony is compromised by the Coruscant frame. Tess's fingerprints are not provable in a public forum.",
+    "The name-wall is engraved, not projected. Families paid to have names there. This is the concrete anchor Ben cannot argue with.",
+    "Aelia's arc in this scene is 'bleaker truth accepted' \u2014 she knows the harm she helped enable is uglier than her conviction, but she steps down to preserve the part she can still defend.",
+    "Ben's emotional state: flat recognition of a well-built lie that contains real things; frustration without a clean outlet; the knowledge settling as something to carry rather than solve."
+  ],
+  "allowed_au_divergences": [
+    "The Shedu Maad Memorial Foundation (public charity) and the Vigil (hidden inner ring) are original to this novel.",
+    "Aelia Vandros is an original character.",
+    "Bren Korda is an original character.",
+    "The specific name-wall layout (three columns by war) is original to this novel.",
+    "The Foundation's specific charitable programs (scholarships, grief counseling, casualty-record preservation, legal/benefits advocacy, memorial events) are original to this novel."
+  ],
+  "open_questions": [
+    "Is there any specific Legends-era protocol for how a charity like the Foundation would handle a public resignation and scandal? (Not critical \u2014 the scene is about the emotional and narrative truth, not bureaucratic procedure.)",
+    "Should the name-wall include any specific named casualties from Legends material (e.g., known characters who died at Shedu Maad) or remain generic? The scene card says 'the names are engraved, not projected' \u2014 generic is safer unless a specific name adds weight without distracting.",
+    "Is there any Legends-era precedent for a charity named after a battle that later becomes a Jedi headquarters? (The Foundation is named for the Battle of Shedu Maad, not the planet; the Jedi moved there later. No conflict, but worth noting for texture.)"
+  ]
+}

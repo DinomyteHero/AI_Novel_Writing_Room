@@ -23,7 +23,7 @@
     "interpersonal": "Talon is doing this while Ben watches, which means Ben now sees Talon use the skills that got Talon convicted. Talon knows he's being watched. He does it anyway because the only way to catch the people who put him here is to look like them one more time.",
     "external": "If Korda responds to the fake manifest correction, the Foundation is actively guarding the hidden shipment trail — not preserving history, running an operation. Korda's indirect response confirms it. The Vigil is operational."
   },
-  "sensory_details": "Iressa's secondary cache at mid-evening: the warehouse district has the particular quality of silence that comes from the absence of anything organic — no wind through gaps, just the low hum of climate infrastructure and foot traffic sparse enough to notice. Talon works at the terminal with the same body posture Ben has seen on his better moments — slightly forward, focused, the jokes turned off. The manifest correction he submits is forty-seven words of administrative language that reads like nothing. That's the point.",
+  "sensory_details": "Iressa's secondary cache at mid-evening: the warehouse district has the quality of silence that comes from the absence of anything organic — no wind through gaps, just the low hum of climate infrastructure and foot traffic sparse enough to notice. Talon works at the terminal with the same body posture Ben has seen on his better moments — slightly forward, focused, the jokes turned off. The manifest correction he submits is forty-seven words of administrative language that reads like nothing. That's the point.",
   "canon_elements_needed": [
     "GAG / Jacen / Caedus continuity",
     "Iressa / Civitas / manifest reconstruction logic",
@@ -67,7 +67,7 @@
     {
       "beat_description": "Talon constructs a fake manifest correction using Iressa's tools — forty-seven words of administrative language designed to look routine but flag specifically to anyone still watching the old shipment trail.",
       "state_change": "The bait is set: an old version of Talon is back on the board, visible to the same system that categorized and ruined him.",
-      "pov_reaction": "Talon working with his jokes fully off — the body posture forward, focused — and the particular quality of watching someone do something they swore they wouldn't do again."
+      "pov_reaction": "Talon working with his jokes fully off — the body posture forward, focused — and the quality of watching someone do something they swore they wouldn't do again."
     },
     {
       "beat_description": "Ben watches Talon work with the skills that got Talon convicted; neither of them names what that means.",
@@ -98,5 +98,11 @@
       "do not make Dorrin a third lead or secret mentor"
     ],
     "pov_arc_phase": "Ben Skywalker:moment_of_truth"
-  }
+  },
+  "dialogue_density_target": "medium",
+  "interiority_budget": {
+    "max_words": 150,
+    "max_paragraphs": 2
+  },
+  "opening_mode": "in_medias_res"
 }

@@ -95,5 +95,11 @@
       "do not make Dorrin a third lead or secret mentor"
     ],
     "pov_arc_phase": "Aelia:bleaker_truth_accepted; Aelia:arc_resolved_bleak"
-  }
+  },
+  "dialogue_density_target": "medium",
+  "interiority_budget": {
+    "max_words": 250,
+    "max_paragraphs": 3
+  },
+  "opening_mode": "contrast"
 }

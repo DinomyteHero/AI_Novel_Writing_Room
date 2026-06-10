@@ -1,0 +1,91 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch25_sc01",
+  "chapter_number": 25,
+  "scene_number": 1,
+  "model": "deepseek/deepseek-v4-flash",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "ecf608180e50242392c75552f5e3fe95f344057d56b035683fac2d968598df8d",
+  "review_status": "unreviewed",
+  "confidence": 0.9,
+  "hard_constraints": [
+    "Iresh preserves charged impressions of memory, identity, and decision under pressure; it does NOT show the future, reveal objective truth, or grant prophecy.",
+    "The Glasswell is a natural sinkhole/cavern beneath a mirror-lake lined with pale translucent mineral \u2014 NOT a Sith temple or Jedi ruin.",
+    "Sela's rule: 'Do not trust what you feel here just because it feels strong.'",
+    "Ben's Force sense is experiential and mystical, never clinical; abilities surface as body-sensations first, named only after the body has felt them.",
+    "No ABY/BBY dating in narration or dialogue; characters reference events directly ('after Caedus', 'before Shedu Maad').",
+    "No 'Legends'/'Canon' as in-universe concepts; no Wookieepedia-style taxonomy.",
+    "Star Wars vocabulary: datapads not tablets, transparisteel not glass, durasteel not steel, comlinks not radios, blasters not guns, hyperspace not warp.",
+    "Capitalize 'Human'; lowercase 'galaxy'; 'Jedi' singular and plural (never 'Jedis').",
+    "American English spellings throughout.",
+    "No paragraph contains more than one invented bureaucratic/technical term; every technical phrase translated to immediate human stakes within two sentences.",
+    "Investigation vocabulary stays in physical thriller terms: fragment, duplicate manifest, quarantine disguise, archive, Foundation link, Iresh manifest/authorization.",
+    "Ben should rarely name his fear directly; other characters' reactions should often reveal it.",
+    "Sela speaks from local survival knowledge, not Force theory.",
+    "The One Sith remain a background shadow in Book 1 \u2014 glimpsed or implied only, never fully revealed.",
+    "Crucible aftermath (Luke's post-Mortis state) is implication only \u2014 Mortis is never named on-page.",
+    "Allana / Amelia is never named on-page; Ch 37 oblique reference only.",
+    "Jaina Solo is not in Book 1; no on-page appearance, no mention beyond at most a single passing reference if absolutely needed.",
+    "Vestara Khai: mention only (Vara Senn's archive scar-tissue line in Ch 14-15); never on-page.",
+    "Tahiri Veila: at most one passing reference if natural; never as a Caedus reference.",
+    "Han, Leia: mention only \u2014 never on-page.",
+    "The Skywalker apartment is the last Skywalker presence on Coruscant; the Jedi Order has NO institutional foothold on Coruscant in 47 ABY.",
+    "Sela calls Ben 'Skywalker' through Ch 28; shifts to 'Ben' from Ch 34 onward \u2014 conditional trust only."
+  ],
+  "canon_risks": [
+    "Risk: Portraying Iresh as causing madness or revealing objective truth. The scene must clearly establish that Iresh preserves charged impressions but does NOT reveal truth or prophecy. Include the plain explanation from the scene card: 'Iresh did not show the future. It held moments too strongly, like footprints pressed into wet clay.'",
+    "Risk: Making the Glasswell feel like a Sith temple or Jedi ruin. It is a natural site Jacen recognized as useful. The scene should not introduce any mystical architecture or ancient inscriptions.",
+    "Risk: Ben's Force sense becoming clinical or analytical. Keep it experiential: body-sensations, pressure at the edge of awareness, the specific discomfort of a private recognition.",
+    "Risk: Sela speaking in Force theory. She must speak in survival rules only \u2014 concrete prohibitions with practical reasons, no metaphysics.",
+    "Risk: Introducing new Force mechanics or expanding Iresh's lore beyond preservation of impressions. The scene should not add new mythology.",
+    "Risk: Ben naming his fear directly. The scene card shows he suppresses a Jacen-shaped impression without saying it aloud \u2014 that is the correct approach.",
+    "Risk: Using 'system' as the default GAG metaphor; prefer logistics network, shipment trail, records chain, transfer chain, or operation.",
+    "Risk: Over-explaining the Force. Keep exposition packets short (1-3 sentences); return immediately to action, dialogue, or character reaction."
+  ],
+  "legends_continuity_notes": [
+    "Iresh is a new Outer Rim location introduced for this novel; its Force character (preservation of impressions) is original and does NOT extend Mortis-adjacent mythology.",
+    "Jacen Solo's Force odyssey included the Aing-Tii (flow-walking), Fallanassi (White Current), and Vergerean thought \u2014 these are the canonical roots of Recognition and Holding, but they should not be named in this scene.",
+    "The Kathol Rift is a canonical Legends region near where Iresh sits; it grounds Iresh in named Legends geography and ties it to Jacen's pilgrimage, but should not be mentioned in this scene unless natural.",
+    "The Jedi Order relocated to Shedu Maad in 44 ABY; Ben is operating on Coruscant with no institutional support \u2014 this is the correct post-FOTJ state.",
+    "Saba Sebatyne is Grand Master; Luke is a senior Master, no longer Grand Master \u2014 this is correct per FOTJ and Crucible.",
+    "The One Sith on Korriban under Darth Krayt remain in pre-emergence; they are not on-page in Book 1 beyond a single off-page 'hand' in Ch 37."
+  ],
+  "possible_disney_bleed": [
+    "No 'World Between Worlds' \u2014 incompatible with Legends Force ontology.",
+    "No 'kyber crystal bleeding' \u2014 Legends Sith use synthetic crystals.",
+    "No 'Inquisitorius' as a post-Imperial organization \u2014 Legends Inquisitorius is Empire-era only.",
+    "No 'High Republic' \u2014 does not exist in Legends.",
+    "No 'sequel trilogy' entities (First Order, Resistance, Starkiller Base, Ben Solo).",
+    "No Disney-canon Mandalorian conventions ('The Way') \u2014 Legends Mandalorians follow Resol'nare.",
+    "No 'Ahsoka Tano' post-Rebels appearances \u2014 most characterization is Disney Canon.",
+    "No 'Mortis' named on-page \u2014 the Crucible aftermath is implication only."
+  ],
+  "required_context_for_drafter": [
+    "This is Ch 25, Act Three \u2014 the attack phase. The scene is an escalation: Sela guides Ben through Iresh, demonstrating local rules around memory-heavy places. The turning point is finding signs of the Foundation operation near taboo ground.",
+    "POV is Sela or Ben (scene card says 'Sela or Ben'). The scene card's key beats are written from Ben's perspective; if POV is Sela, adjust the internal experience accordingly.",
+    "Ben's arc phase is 'moment_of_truth' \u2014 the Lie is cracking: the GAG-shaped tools are his to use, not just to guard against. This scene should show him beginning to understand that his Force sense on Iresh is useful, not just dangerous.",
+    "Sela's authority on this path is practical and non-negotiable. Ben defers to her rules \u2014 this is him practicing something he does not yet fully know how to do.",
+    "The Foundation team has already been here: they cut guide-markers, removed chime-sensors, and drilled anchor stakes into taboo stone. The enemy's advance is confirmed as physical and recent.",
+    "The detour Sela picks adds time they do not have. The timeline is accelerating.",
+    "Ben's Force sense catches an old charged impression that feels Jacen-shaped \u2014 he does not say it aloud. This is the correct handling: the reflex to catalog and suppress, the specific discomfort of a private recognition in a public moment.",
+    "The scene must include one plain explanation of Iresh's Force character: 'Iresh did not show the future. It held moments too strongly, like footprints pressed into wet clay.'",
+    "Sela's three concrete prohibitions should have survival reasons, no metaphysics attached. Example from the scene card: 'If the chimes stop, run. You can argue about what it means after you are not dead.'",
+    "The Foundation equipment stakes at the taboo edge change the scene's register from expedition to reconnaissance. Ben no longer needs Sela to translate the danger \u2014 he can see it in the anchor holes."
+  ],
+  "allowed_au_divergences": [
+    "Iresh and the Glasswell are NEW locations \u2014 not in published Legends.",
+    "The Shedu Maad Memorial Foundation, the Vigil, and Greyline Strategic Services are NEW post-war Coruscant-political institutions.",
+    "Aevyn Soris is a NEW character \u2014 Jacen's side-project Force student during the Caedus period.",
+    "Jacen's unfinished holocron is a NEW artifact \u2014 systematizing Recognition and Holding.",
+    "The duplicated wartime quarantine/survey shipment manifest is a NEW canonical artifact.",
+    "Legacy comics future is excised entirely \u2014 no Darth Krayt galactic war, no Cade Skywalker, no GA fall.",
+    "The One Sith on Korriban remain in pre-emergence; they do not invade or seize the Galactic Alliance."
+  ],
+  "open_questions": [
+    "Is the POV for this scene Sela or Ben? The scene card says 'Sela or Ben' \u2014 the drafter needs to decide. If Sela, the internal experience will be different (no Force sense, local survival knowledge only).",
+    "What are Sela's three concrete prohibitions? The scene card mentions 'three concrete prohibitions with survival reasons for each' but does not specify them. The drafter needs to invent them, keeping them practical and non-metaphysical.",
+    "What exactly does the Foundation equipment at the taboo edge look like? Anchor holes, supply crate scuffs, a cut guide-rope \u2014 but the specific equipment type (survey stakes, sensor tripods, etc.) is left to the drafter.",
+    "How long is the detour Sela picks? The scene says it 'adds time they do not have' but does not specify how much. The drafter should keep it vague or set a specific time pressure.",
+    "Does Ben's Jacen-shaped impression come from the path itself or from his own memories? The scene card says 'an old charged impression from the path \u2014 one that feels Jacen-shaped' \u2014 this is intentionally ambiguous. The drafter should keep it ambiguous: Ben cannot tell whether it is the planet or himself."
+  ]
+}

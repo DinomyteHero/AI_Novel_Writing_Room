@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch13_sc01",
+  "chapter_number": 13,
+  "scene_number": 1,
+  "model": "deepseek/deepseek-v4-flash",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "c67780514c229982f94d82549a52202181e1e70287efd73e57ddbf909806c44a",
+  "review_status": "unreviewed",
+  "confidence": 0.85,
+  "hard_constraints": [
+    "Iressa's secondary cache is established as a passing detail (one line, no emphasis) in this scene; it becomes the target of PP2 in Ch 20.",
+    "The decommissioned GAG quarantine archive is a dim sub-basement records vault, not a Sith temple or Jedi ruin.",
+    "Ben's partial fluency in GAG archival language is an unwanted given; he recognizes terms like quarantine override markers, duplicate cargo seals, inspection gap signatures because Jacen's GAG used the same systems.",
+    "Iressa begins splitting/corrupting data to deny a clean copy to the enemy while preserving proof for Ben and Talon.",
+    "The archive waking at the end means someone else has recently queried or guarded these records; the cleanup team is watching the site.",
+    "No new plot mythology or Force mechanics introduced in this scene.",
+    "No ABY/BBY dating in narration or dialogue; characters reference events directly.",
+    "Star Wars vocabulary: datapads not tablets, transparisteel not glass, durasteel not steel, turbolifts not elevators, comlinks not radios, blasters not guns.",
+    "'Jedi' is both singular and plural; never 'Jedis'.",
+    "Capitalize 'Human'; lowercase 'galaxy'.",
+    "American English spellings throughout.",
+    "No real-world pop culture references, no Wookieepedia-style taxonomy, no film/book references.",
+    "Force prose is experiential and mystical, never clinical; avoid 'energy field' framing.",
+    "Iressa's death in Ch 15 is canonical; she does not survive this scene.",
+    "The scene must maintain commercial readability: goal, obstacle, movement, reversal, hook."
+  ],
+  "canon_risks": [
+    "Risk of over-explaining GAG archival terminology; every technical phrase must translate to a concrete object, danger, location, or next action within two sentences.",
+    "Risk of making Ben's partial fluency feel like exposition rather than an unwanted given; his recognition should arrive as body-sensation or automatic reflex, not as a lecture.",
+    "Risk of Iressa's secondary cache being over-emphasized; it must be a single passing line, not a briefing.",
+    "Risk of the archive waking feeling like a generic thriller beat rather than a specific consequence of the Vigil's surveillance.",
+    "Risk of the scene becoming a terminal lecture on manifest reconstruction; the decoding must be physical and character-revealing."
+  ],
+  "legends_continuity_notes": [
+    "The GAG quarantine archive is a decommissioned facility from the Second Galactic Civil War (40-41 ABY), about 6 years before the novel's present (47 ABY).",
+    "Jacen Solo's GAG used quarantine/survey shipment disguises to move sensitive material; this is consistent with his canonical operational methods during the LotF period.",
+    "Iressa's old-GAG habits (inspection gaps, correction logs, duplicate cargo seals, quarantine overrides, loading dock scans, archive timestamps) are consistent with her canonical role as a former GAG Manifest Integrity Analyst.",
+    "The archive sub-basement's sensory details (old plasticast, metallic damp, strip lighting, double-shadow) are consistent with GAG secondary facilities from the wartime period.",
+    "Ben's automatic threat assessment (exits, angles) is consistent with his Jacen-derived crisis logic, which is a mindset taught during the GAG year, not a Force technique."
+  ],
+  "possible_disney_bleed": [
+    "No kyber crystal bleeding mechanic (Disney-only; Legends Sith use synthetic crystals).",
+    "No World Between Worlds (Disney-only Force concept).",
+    "No Inquisitorius as a post-Imperial organization (Disney-only; Legends Inquisitorius is Empire-era only).",
+    "No High Republic terminology or concepts.",
+    "No sequel-trilogy entities (First Order, Resistance, Starkiller Base).",
+    "No Disney-canon naming for 'Ben' (Ben Solo); this is unambiguously Ben Skywalker.",
+    "No Disney-canon Mandalorian conventions (e.g., 'The Way'); Legends Mandalorians follow Resol'nare."
+  ],
+  "required_context_for_drafter": [
+    "The duplicated manifest is a wartime quarantine/survey shipment manifest personally encrypted by Jacen Solo shortly before the Battle of Shedu Maad; one version is public and boring, the hidden duplicate carries the same shipment identity with conflicting destination data.",
+    "Iressa's reconstruction does not break Jacen's encryption; she reconstructs around it through surrounding records (inspection gaps, correction logs, duplicate cargo seals, quarantine overrides, loading dock scans, archive timestamps, records damaged in the same shape).",
+    "The archive waking means someone else (the Vigil/Greyline) has recently queried or guarded these records; the cleanup team is watching the site.",
+    "Ben's partial fluency in GAG archival language is an unwanted given; he hates that he understands it at all.",
+    "Iressa's secondary cache is mentioned in passing as a privacy assertion, not a briefing; it will become the target of PP2 in Ch 20.",
+    "The scene's emotional trajectory: Ben should realize Talon and Iressa are speaking a language he partly understands and hates understanding.",
+    "Plain-language consequence for reader onboarding: this was not a clerical duplicate; someone cloned a shipment identity and dressed a secret up as medical/quarantine cargo so no one would open the crate.",
+    "The scene tips toward what comes next: the proof exists, Iressa is corrupting the enemy's copy, and they've been found at the site."
+  ],
+  "allowed_au_divergences": [
+    "Iressa Vossk is a NEW character (not in published Legends); her specific history as a GAG Manifest Integrity Analyst and her secondary cache are original to this novel.",
+    "The decommissioned GAG quarantine archive is a NEW setting specific to this novel.",
+    "The duplicated manifest is a NEW canonical artifact specific to this novel.",
+    "Iressa's secondary cache is a NEW location specific to this novel.",
+    "The Vigil's surveillance of the archive is part of the novel's original conspiracy infrastructure."
+  ],
+  "open_questions": [
+    "Is the decommissioned GAG quarantine archive located on Coruscant or elsewhere? The scene card says 'Coruscant' but does not specify the district or sector.",
+    "What specific sensory details should anchor the archive sub-basement beyond 'old plasticast and a faint metallic damp'? The scene card mentions strip lighting and double-shadow, but additional details (e.g., ambient temperature, sound level, presence of droids or security systems) are not specified.",
+    "How does Iressa access the archive? The scene card says 'through a sympathetic side entrance' but does not specify the nature of that entrance or who maintains it.",
+    "What is the exact nature of the 'recent access timestamp'? The scene card says 'someone else has recently queried or guarded the same buried records' but does not specify whether it was a Greyline operative, a Vigil member, or an automated system.",
+    "Does Ben's partial fluency in GAG archival language extend to recognizing specific operational codes or unit designations? The scene card says he 'understands more of the archival language than he wants to' but does not specify the depth of his knowledge."
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch14_sc01",
+  "chapter_number": 14,
+  "scene_number": 1,
+  "model": "deepseek/deepseek-v4-flash",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "df479f80ba93f9d5a0848418fdeee9da7db99fd8d9e72b4413a5fb15459e8637",
+  "review_status": "unreviewed",
+  "confidence": 0.92,
+  "hard_constraints": [
+    "Vara Senn is a former Lost Tribe apprentice, not a Sith Lord. Her Force methods are crude: pressure, fear, domination. She is a crowbar, not a scalpel.",
+    "The lightsaber clash is short, cramped, and ugly \u2014 thrust, redirect, slam in a narrow aisle. Not a grand duel.",
+    "Ben recognizes elements of Lost Tribe training in Vara's patterns. This allows a brief Vestara Khai scar-tissue mention, but Vestara is never on-page.",
+    "Vara abandons the lightsaber fight when she senses Iressa is still working. She pivots to hostage tactics.",
+    "Greyline arrives as a cleanup team: seal exits, wipe cameras, trigger old quarantine protocols. They are not a battlefield unit.",
+    "The archive is a decommissioned GAG quarantine archive on Coruscant. Narrow rows of cabinet-style data storage, single emergency strip lighting along the floor.",
+    "Ben's restraint is visible as restraint \u2014 he has room to escalate and does not take it. This is the lie-challenged phase for Ben.",
+    "Iressa is at the terminal finishing data corruption/transmission. Her death occurs in Ch 15, not Ch 14.",
+    "Talon reads exit geometry from behind a cabinet row. He is not in the direct fight.",
+    "No Force technique is named in narration before the body has felt it. Avoid clinical or scientific framing of the Force.",
+    "Use Star Wars vocabulary: datapads, transparisteel, durasteel, comlinks, blasters, turbolifts, etc.",
+    "No ABY/BBY dating in narration or dialogue. Characters reference events directly.",
+    "No real-world pop culture references, no Wookieepedia-style taxonomy, no out-of-universe authorial framing.",
+    "Capitalize 'Human', lowercase 'galaxy', 'Jedi' singular and plural, 'Darth' capitalized before a name.",
+    "American English spellings throughout."
+  ],
+  "canon_risks": [
+    "Vara Senn is a new character not in published Legends. Ensure she does not contradict any established Lost Tribe lore (e.g., she is a former apprentice, not a high-ranking member).",
+    "The GAG quarantine archive is a new setting. Ensure it does not conflict with known GAG infrastructure from the Legacy of the Force novels.",
+    "Ben's recognition of Lost Tribe combat patterns must be consistent with his canonical experience with Vestara Khai and the Lost Tribe during Fate of the Jedi.",
+    "The archive's quarantine protocols being triggered by Greyline should not imply any ongoing GAG authority \u2014 GAG was dissolved after the war.",
+    "Vara's Force-pressure and manufactured fear should not be confused with the refined Jacen-derived Recognition technique used by Aevyn. Vara is crude."
+  ],
+  "legends_continuity_notes": [
+    "The Lost Tribe of Sith was encountered during the Fate of the Jedi arc (44 ABY). They were largely scattered and broken by 47 ABY. Vara Senn as a former apprentice doing mercenary work is plausible.",
+    "Vestara Khai is canonically alive and active off-page under the alias 'Savara Raine' per Crucible (45 ABY). Ben's scar-tissue reaction to Lost Tribe patterns is consistent with his history.",
+    "The GAG was dissolved in disgrace after the Battle of Shedu Maad (41 ABY). Its archives would be decommissioned and possibly maintained by civilian contractors or GA Justice.",
+    "Coruscant in 47 ABY has no Jedi institutional foothold. The Jedi Temple was vacated in 44 ABY. Ben operates without Order resources or political cover.",
+    "Standard Legends holocron canon applies: crystalline storage devices imprinted with Force resonance. Not relevant to this scene but good context."
+  ],
+  "possible_disney_bleed": [
+    "No Inquisitorius as a post-Imperial organization. Vara is Lost Tribe, not Inquisitorius.",
+    "No kyber crystal bleeding mechanic. Vara's lightsaber (if she has one) would use a synthetic crystal per Legends.",
+    "No World Between Worlds, no High Republic references, no sequel-trilogy entities.",
+    "No Disney-canon Mandalorian conventions. Not relevant to this scene but worth flagging.",
+    "No 'Ben' as Ben Solo. Ben is unambiguously Ben Skywalker."
+  ],
+  "required_context_for_drafter": [
+    "This is Pinch Point 1. The antagonist shows organized lethality. Restraint is about to cost something.",
+    "Ben is in the lie-challenged phase: he sees a Jacen-shaped coercive move that might save Iressa and refuses it. Iressa dies in Ch 15. The cost of restraint is demonstrated here.",
+    "Vara is not the main antagonist. She is a warning shot. Aevyn is the true mirror.",
+    "The archive is sealed. Every second Ben holds the aisle is a second Iressa has at the terminal. The turning point is Vara sensing Iressa is still working.",
+    "Talon's role is to track exits and read the room. He is not in the direct fight but his awareness is critical.",
+    "The Vestara Khai mention should be brief \u2014 a scar-tissue reflex, not a full emotional beat. Ben knows this style and knows how to counter it more aggressively than he is willing to.",
+    "The fight is cramped: cabinet rows narrow, lightsaber cannot be swung freely. Only thrust, redirect, slam. Emergency strip lighting pulses red when quarantine protocol triggers.",
+    "Vara smells of armor sealant and something chemical associated with Lost Tribe Force-pressure. The sensation arrives before she speaks.",
+    "Iressa's transmission is the two-part dying package: documentary chain plus identity-shaping revelation. She finishes corrupting the enemy copy and transmits before Vara takes her hostage.",
+    "Ben's restraint is visible as restraint \u2014 he has room to escalate and does not take it. This is the key character beat for Ben in this scene."
+  ],
+  "allowed_au_divergences": [
+    "Vara Senn is a new character (former Lost Tribe apprentice, mercenary). Not in published Legends.",
+    "The decommissioned GAG quarantine archive is a new setting for this novel.",
+    "Greyline Strategic Services is a new organization (Tess's firm).",
+    "The archive cleanup operation is original to this novel.",
+    "Ben's recognition of Lost Tribe patterns and the Vestara scar-tissue mention are consistent with canon but the specific scene is original."
+  ],
+  "open_questions": [
+    "Does Vara Senn have a lightsaber? The scene card implies she engages Ben in a lightsaber clash. If so, what color? (Legends Lost Tribe used various colors, often red or synthetic.)",
+    "What specific quarantine protocols does Greyline trigger? Need to ensure they are plausible for a decommissioned GAG archive.",
+    "How does Vara sense Iressa is hiding something? Through crude Force-pressure reading? Body language? The scene card says 'reads Iressa's body language' but also implies Force sensitivity.",
+    "What is the exact nature of the 'chemical' smell Ben associates with Lost Tribe Force-pressure? This needs to be a sensory detail that does not contradict established lore.",
+    "Is Talon armed? He is a former GAG field agent recently escaped from prison. Does he have a blaster or other weapon in this scene?"
+  ]
+}

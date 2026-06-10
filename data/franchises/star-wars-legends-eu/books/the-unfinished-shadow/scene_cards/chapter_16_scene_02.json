@@ -1,0 +1,98 @@
+{
+  "chapter_number": 16,
+  "scene_number": 2,
+  "structural_phase": "midpoint",
+  "scene_role": "decision",
+  "pov_character": "Ben / Talon",
+  "mission": "Ben does the correct thing first. He holo-calls Luke at Shedu Maad. Luke listens, asks his quiet careful questions, and tells Ben that this needs to go to Saba. Ben then holo-calls Saba Sebatyne, Grand Master. Saba listens with Barabel gravity, asks her own sharp questions, and tells Ben the Order will review the case properly: return to Shedu Maad in person, bring the documentary chain to the Council. The review will be careful. It will take time. Ben hangs up and looks at Talon. They both know what Saba's review means in the timeframe they have — the Vigil is already moving on Iresh. This is the moment Ben pivots: he starts working on what comes next without announcing the decision, and Talon notices and follows. Operations relocate to Iressa's secondary cache.",
+  "why_now": "The documentary chain exists and the right channels are honest — and too slow. The Vigil is already moving on Iresh. Ben has to choose between waiting for institutional protection and getting there in time, and the calls he makes in this scene are him finding out the choice is real.",
+  "conflict": "Everyone on these calls is right. Luke is right to send it to Saba; Saba is right that a proper review takes time; Ben is right that the time does not exist. The conflict is between three correct positions — and Ben is the only one close enough to the clock to act on it.",
+  "conflict_type": "interpersonal",
+  "dialogue_expectation": "dialogue_led",
+  "turning_point": "Ben and Talon relocate operations to Iressa’s secondary cache and begin assembling what they need to move on Iresh themselves. The story has shifted from investigation to active disruption.",
+  "closing_hook": "Ben and Talon relocate operations to Iressa’s secondary cache and begin assembling what they need to move on Iresh themselves. The story has shifted from investigation to active disruption.",
+  "characters_present": [
+    "Ben Skywalker",
+    "Talon Veyr",
+    "Luke Skywalker",
+    "Saba Sebatyne"
+  ],
+  "setting": "Coruscant, Iressa's secondary cache — a quiet leased basement workshop in the warehouse district she had maintained for years, separate from Civitas and from her residence. Old terminals, hand-labelled crates of datachips, the smell of soldering paste. Ben and Talon work here for several days after the archive disaster. Two short holocalls (Luke first, then Saba) happen from this room.",
+  "emotional_trajectory": "Iressa’s death proves restraint can cost lives. The Midpoint should land as both emotional cost and strategic clarity. Ben’s decision should feel like the moment he stops being a victim of the past and starts acting on it — even when the method carries danger. The two holo calls (Luke, Saba) should establish that Ben tried the right way first. The institutional path is not refused out of arrogance; it is refused after being tried. Saba is not the villain. The slowness is. Reader-onboarding / clarity note: Plain-language consequence: Iressa died protecting the clue. The clue tells them the enemy is already on Iresh and tells them why it matters (identity-shaping). The Order will review the case properly, which means weeks Ben does not have. He chooses to keep building evidence and prepare to move on Iresh himself. Continuity / craft notes: - This is Pinch Point 1’s emotional aftermath and the Midpoint structural pivot, in the same chapter. - The drafter should not let the holo calls become exposition. They are short. Luke’s call is paternal; Saba’s call is institutional. Both end with Ben understanding the cost of doing things the right way. - Ben’s decision should be quiet, not declamatory. He does not announce it. He simply starts working on what comes next. Talon notices and follows.",
+  "stakes": {
+    "personal": "The Midpoint is the moment Ben stops being a victim of the past and starts acting on it. His decision to move outside official channels is quiet, not declamatory — but it is the moment his self-definition engine shifts. He is not waiting for the Order to tell him what his past means. He is going to use it.",
+    "interpersonal": "Talon presses Ben about the option he refused in the archive. Ben can't cleanly answer whether it would have worked. This is the first honest conversation between them about what Jacen actually taught Ben — not the category of it, but the specific usable version that Ben carries. Talon doesn't simplify it. Neither does Ben.",
+    "external": "Iressa's dying transmission contains two things: the documentary chain needed to bring Saba a case, and the strategic revelation — Jacen's unfinished holocron systematizes Recognition and Holding for identity-level influence, and Iressa found Jacen's own sealed annotation naming the cache's purpose. The Vigil intends to use Aevyn, as Jacen's surviving student, to complete the work on Iresh. The institutional path is too slow. The documentary case is at Iressa's secondary cache. Moving to Iresh has to start now."
+  },
+  "sensory_details": "Iressa's secondary cache smells of soldering paste and old datachip cases — a workspace, not a home. The holo projector for the Luke call is small and set on a crate; Luke's face in the projection looks tired in a way Ben doesn't quite remember, his eyes slightly further away even when he's looking right at Ben. The Saba call is colder — Barabel gravity through a mid-grade encrypting chip, no warmth in the static.",
+  "canon_elements_needed": [
+    "Shedu Maad / Hapes Jedi HQ continuity",
+    "Iressa / Civitas / manifest reconstruction logic",
+    "Foundation / Vigil public-charity reality",
+    "Iresh physical geography and local survival rules",
+    "Unfinished holocron / Recognition and Holding"
+  ],
+  "target_word_count": 2300,
+  "active_subplots": [
+    "SUB_02"
+  ],
+  "plot_threads_advanced": [
+    "chapter_16_locked_outline_action"
+  ],
+  "promises_planted": [],
+  "promises_paid": [],
+  "promises_progressed": [
+    "PP_02",
+    "PP_05",
+    "PP_10"
+  ],
+  "turning_point_detail": {
+    "trigger": "Ben hangs up Saba's call and looks at Talon. They both know what a proper Council review means in the time they have. Ben starts working on what comes next without announcing the decision.",
+    "shift": "The Midpoint reversal: Ben stops reacting and starts moving. He goes on offense. The investigation is over. The disruption begins.",
+    "cost": "If Ben is wrong about Iresh, he answers for it without the Order's backing. If he is right and something goes wrong, there is no institutional protection. He knows this and starts planning anyway."
+  },
+  "emotional_arc": {
+    "start": "Grief and guilt over Iressa — Talon's direct question about the refused option cuts through. Ben can't give a clean answer.",
+    "shift": "The holo calls confirm that the right channels exist, are honest, and are too slow. Ben's decision is quiet — not dramatic. He just starts working.",
+    "end": "The Midpoint: Ben is no longer waiting. He has committed to Iresh outside official channels. Talon has noticed and is following. The story has shifted from investigation to active disruption."
+  },
+  "key_beats": [
+    {
+      "beat_description": "Ben holo-calls Luke — the conversation is paternal, careful, and quiet; Luke hears more than Ben says and tells him to bring it to Saba.",
+      "state_change": "The institutional path opens: Luke is handling the case correctly and the correct handling is going to be too slow.",
+      "pov_reaction": "The relief of Luke not arguing, and the thing underneath the relief that knows what that means."
+    },
+    {
+      "beat_description": "Ben holo-calls Saba; she listens with institutional precision and tells him to return to Shedu Maad with the documentary chain — the review will be careful and take time.",
+      "state_change": "The right channel exists and is honest and is not going to arrive in the timeframe available.",
+      "pov_reaction": "Hanging up and sitting with it — not anger at Saba, the stillness of a door closing that was always going to close."
+    },
+    {
+      "beat_description": "Ben starts working on what comes next without announcing the decision; Talon notices and follows; operations relocate to Iressa's secondary cache.",
+      "state_change": "The Midpoint reversal executes: Ben stops reacting and starts moving — the investigation is over, the disruption begins.",
+      "pov_reaction": "The shift from waiting to moving registered as something close to relief — the ambiguity of what to do replaced by the clarity of having decided."
+    }
+  ],
+  "hook_actions": [],
+  "revelations": [],
+  "pov_arc_phase": "Ben:moment_of_truth",
+  "notes": "Source: Chapter Outlines v4.1. Act: Act Two — Coruscant Investigation / Foundation / The Vigil. Chapter title: No Good Version (Midpoint).\n\nCharacter voice focus: preserve the exact v1.4 character behavior and dialogue rules for the chapter POV and named participants. Plot first, character second, theme through consequences.\n\nSplit note (2026-06-09): this card is one half of the original consolidated chapter card, split so per-scene length targets sit inside the drafter's deliverable range. The chapter's full arc spans both scenes.",
+  "scene_voice_permissions": {
+    "notes": "Use Character Voice & Life Sheet v1.4 as controlling source for dialogue, behavior, humor, fear, wounds, and interaction rules. Preserve commercial readability: goal, obstacle, movement, reversal, hook.",
+    "anti_patterns": [
+      "do not write theme as thesis",
+      "do not add new plot mythology",
+      "do not let Iresh become abstract before it is physically clear",
+      "do not make Dorrin a third lead or secret mentor"
+    ],
+    "pov_arc_phase": "Ben:moment_of_truth"
+  },
+  "dialogue_density_target": "high",
+  "interiority_budget": {
+    "max_words": 250,
+    "max_paragraphs": 3,
+    "rationale": "the Midpoint pivot is quiet — shown in what Ben starts doing, not narrated as a decision speech"
+  },
+  "opening_mode": "dialogue_hook",
+  "opening_hook": ""
+}

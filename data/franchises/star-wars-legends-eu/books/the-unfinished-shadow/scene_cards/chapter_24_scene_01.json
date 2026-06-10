@@ -65,7 +65,7 @@
     "Foundation / Vigil public-charity reality",
     "Iresh physical geography and local survival rules"
   ],
-  "target_word_count": 3500,
+  "target_word_count": 3200,
   "active_subplots": [
     "SUB_03"
   ],
@@ -97,5 +97,11 @@
       "do not make Dorrin a third lead or secret mentor"
     ],
     "pov_arc_phase": "Ben Skywalker:moment_of_truth"
-  }
+  },
+  "dialogue_density_target": "medium",
+  "interiority_budget": {
+    "max_words": 250,
+    "max_paragraphs": 3
+  },
+  "opening_mode": "sensory_hook"
 }

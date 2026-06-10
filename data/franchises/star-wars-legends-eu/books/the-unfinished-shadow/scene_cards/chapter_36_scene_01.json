@@ -98,5 +98,17 @@
       "do not make Dorrin a third lead or secret mentor"
     ],
     "pov_arc_phase": "Ben:arc_resolved"
-  }
+  },
+  "objects_at_close": {
+    "jacen_holocron": "hidden by Ben Skywalker"
+  },
+  "dialogue_density_target": "high",
+  "interiority_budget": {
+    "max_words": 250,
+    "max_paragraphs": 3
+  },
+  "opening_mode": "contrast",
+  "anti_patterns": [
+    "do not have Luke press past Ben's deflection — the scene's weight is the question he chooses not to force"
+  ]
 }

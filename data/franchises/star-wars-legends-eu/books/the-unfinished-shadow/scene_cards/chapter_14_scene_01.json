@@ -75,7 +75,7 @@
     {
       "beat_description": "Talon reads exit geometry from behind the nearest cabinet row while Iressa continues the data corruption at the terminal behind Ben's fighting line.",
       "state_change": "The defensive perimeter is distributed across three people without coordination — Iressa working, Talon mapping, Ben holding.",
-      "pov_reaction": "The peripheral awareness of the terminal sounds behind him — the particular attention that splits without losing the thread."
+      "pov_reaction": "The peripheral awareness of the terminal sounds behind him — the attention that splits without losing the thread."
     },
     {
       "beat_description": "Vara reads Iressa's focused working stillness during the clash and abandons the lightsaber fight to pivot toward hostage tactics.",
@@ -96,5 +96,11 @@
       "do not make Dorrin a third lead or secret mentor"
     ],
     "pov_arc_phase": "Ben:lie_challenged; Aevyn:lie_reinforced; Iressa:lie_challenged"
-  }
+  },
+  "dialogue_density_target": "medium",
+  "interiority_budget": {
+    "max_words": 150,
+    "max_paragraphs": 2
+  },
+  "opening_mode": "in_medias_res"
 }

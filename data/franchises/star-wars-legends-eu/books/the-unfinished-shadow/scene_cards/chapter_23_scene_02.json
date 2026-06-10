@@ -90,5 +90,12 @@
       "do not let Iresh become abstract before it is physically clear"
     ],
     "pov_arc_phase": "Ben Skywalker:moment_of_truth"
-  }
+  },
+  "dialogue_density_target": "high",
+  "interiority_budget": {
+    "max_words": 350,
+    "max_paragraphs": 3,
+    "rationale": "room for Ben's private decision about Jacen's lessons; the rest belongs to the conversation"
+  },
+  "opening_mode": "contrast"
 }

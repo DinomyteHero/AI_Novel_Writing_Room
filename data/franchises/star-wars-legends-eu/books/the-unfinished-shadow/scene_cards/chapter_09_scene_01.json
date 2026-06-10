@@ -26,7 +26,7 @@
   "canon_elements_needed": [
     "Tarn Velos prison geography and legal stakes"
   ],
-  "target_word_count": 3800,
+  "target_word_count": 3200,
   "active_subplots": [
     "SUB_01",
     "SUB_05"
@@ -79,7 +79,7 @@
       "pov_reaction": "Not regret — the settled weight of a decision that was real; the difference between knowing what something costs and having paid it."
     },
     {
-      "beat_description": "Talon says something that is not quite gratitude; Ben says something that is not quite reassurance.",
+      "beat_description": "Talon offers something just short of gratitude; Ben answers with something just short of reassurance.",
       "state_change": "Neither of them names the partnership or the debt — but the dynamic between them has shifted from interview to something without a cleaner word.",
       "pov_reaction": "The recognition that this is how it starts — not a declaration but a fact already in progress; the slight relief that neither of them tried to make it larger."
     },
@@ -100,5 +100,14 @@
       "do not make Dorrin a third lead or secret mentor"
     ],
     "pov_arc_phase": "Ben:lie_reinforced; Talon:lie_reinforced"
-  }
+  },
+  "end_state": {
+    "Talon Veyr": "free"
+  },
+  "dialogue_density_target": "medium",
+  "interiority_budget": {
+    "max_words": 150,
+    "max_paragraphs": 2
+  },
+  "opening_mode": "in_medias_res"
 }

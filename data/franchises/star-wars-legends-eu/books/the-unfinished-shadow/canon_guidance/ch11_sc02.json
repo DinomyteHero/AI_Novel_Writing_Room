@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch11_sc02",
+  "chapter_number": 11,
+  "scene_number": 2,
+  "model": "deepseek/deepseek-v4-flash",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "2707baa585f7918717844b344004424d781c1f5d6f230f5969a2e9aa2c82b7bf",
+  "review_status": "unreviewed",
+  "confidence": 0.95,
+  "hard_constraints": [
+    "Ben is 21, Talon is 28. Talon is non-Force-sensitive.",
+    "The apartment is the last Skywalker presence on Coruscant; the Jedi Temple is vacated and the Order relocated to Shedu Maad (44 ABY).",
+    "Luke is at Shedu Maad, not on Coruscant; he communicates by holo only in this chapter.",
+    "Mara Jade Skywalker is dead (murdered by Jacen/Caedus). She appears only as memory, holo, and the Jade Shadow maintenance registry.",
+    "The Jade Shadow maintenance registry is Mara's handwriting, a working document, not a sentimental object. Talon glances at it once; Ben does not explain it.",
+    "The family holo shows Mara, Luke, and young Ben. It is static, not a holographic recording.",
+    "Talon's joke about the holo must stop when he sees Ben's face close. This is the first moment Talon treats Ben as a person rather than a job.",
+    "The apartment's secure terminal is the only machine they can use without triggering a Vigil tripwire.",
+    "Talon runs the fragment's audit signature against transfer-chain patterns from his own conviction record. This is the first time he uses his old GAG skills in front of Ben.",
+    "Iressa Vossk is named as the only analyst who could prove a cloned shipment identity from surrounding records damage. She is a former GAG Manifest Integrity Analyst, now at Civitas Archive Systems.",
+    "The chapter ends with Ben realizing the next lead is inside someone's carefully rebuilt ordinary life.",
+    "No ABY/BBY dating in narration or dialogue. Characters reference events directly ('after Caedus', 'before Shedu Maad').",
+    "No real-world pop culture references, no Wookieepedia-style taxonomy, no 'Legends' or 'Canon' as in-universe concepts.",
+    "Star Wars vocabulary: datapads not tablets, transparisteel not glass, durasteel not steel, turbolifts not elevators, comlinks not radios, blasters not guns, hyperspace not warp.",
+    "Force prose is experiential and mystical, not clinical. Avoid 'energy field' framing.",
+    "Ben's interiority is limited to 150 words and 2 paragraphs total for the scene.",
+    "The scene is dialogue-led; conflict is internal (Talon using old skills, Ben being seen in the apartment).",
+    "The apartment is a human breather, not a nostalgia shrine. Only two primary objects carry weight: the family holo and Luke's mission logs. The Jade Shadow registry is a lighter third object."
+  ],
+  "canon_risks": [
+    "Risk: The apartment's secure terminal might be assumed to have Jedi Order encryption or direct links to Shedu Maad. In 47 ABY, the Order has no institutional foothold on Coruscant; the terminal should be a civilian-grade or personal unit, not a Jedi-encrypted military node.",
+    "Risk: Talon's ability to run the fragment's audit signature against his own conviction record could imply he has perfect memory of every transfer chain. Keep it plausible: he remembers the pattern of the damage, not every detail, and the search narrows to Iressa because she was the only one who could reconstruct from surrounding records.",
+    "Risk: The family holo showing Mara, Luke, and young Ben could be read as a holographic recording (moving image). It is a static holo, like a photograph. Clarify through narration if needed.",
+    "Risk: The Jade Shadow maintenance registry in Mara's handwriting could be treated as a plot device (e.g., containing a hidden message). It is texture only; Talon glances at it once, Ben does not explain it, and it is never referenced again.",
+    "Risk: Ben's emotional reaction to the apartment could become too interior or sentimental. The scene is dialogue-led; Ben's interiority is capped at 150 words. Show his discomfort through behavior (e.g., not looking at the holo, moving past the logs quickly) rather than internal monologue.",
+    "Risk: Talon's joke about the holo could be too dark or disrespectful, breaking the reader's sympathy. It should be a small, dark quip that stops when he sees Ben's face. The beat is about Talon learning to read Ben, not about the joke itself."
+  ],
+  "legends_continuity_notes": [
+    "The Skywalker family apartment on Coruscant is established in Legends as the residence Luke and Mara kept during the NJO and LotF eras. After the Order relocated to Shedu Maad (44 ABY), the apartment remained as a private residence, not a Jedi facility.",
+    "Mara Jade Skywalker's Jade Shadow is her personal starship, featured in Legends novels (e.g., Survivor's Quest, the LotF series). The maintenance registry is a plausible artifact of her ownership.",
+    "Luke's mission logs are a reference to his post-Crucible retirement from active crisis management. He left them behind when the Order moved, symbolizing his stepped-back role.",
+    "The vacated Jedi Temple is a known landmark on Coruscant; its absence is a felt fact for Ben, who grew up there.",
+    "Iressa Vossk's role as a former GAG Manifest Integrity Analyst is consistent with the GAG's wartime bureaucracy, which included extensive record-keeping and cargo tracking (per LotF novels).",
+    "Talon's conviction record and transfer-chain knowledge are consistent with his backstory: he was reassigned to logistics after Operation Glasshook and later imprisoned for refusing to validate a cleaned-up official version."
+  ],
+  "possible_disney_bleed": [
+    "Avoid any reference to the Coruscant Jedi Temple as a 'Jedi Temple' in the sense of the Disney-era prequel trilogy depiction (e.g., the Temple as a massive structure with a central spire). In Legends, the Temple is the same building but the description should not evoke the Disney-canon visual style.",
+    "Avoid 'Ben Solo' or any sequel-trilogy associations with the name 'Ben'.",
+    "Avoid 'kyber crystal bleeding' or any Disney-canon lightsaber crystal lore. Aevyn's lightsaber is self-built from salvaged components and a crystal found outside Jedi tradition; no bleeding mechanic.",
+    "Avoid 'Inquisitorius' as a post-Imperial organization. In Legends, the Inquisitorius is Empire-era only.",
+    "Avoid 'World Between Worlds' or any Disney-canon Force concept.",
+    "Avoid 'High Republic' references entirely."
+  ],
+  "required_context_for_drafter": [
+    "The chapter is set in 47 ABY, three years after Fate of the Jedi, two years after Crucible. The Jedi Order is at Shedu Maad; Luke is a senior Master, not Grand Master.",
+    "Ben is operating on Coruscant without Jedi institutional support. The apartment is a private residence, not a safe house with Order resources.",
+    "Talon is a convicted prisoner who escaped Tarn Velos with Ben's help. He is legally compromised and cannot go to official authorities.",
+    "The fragment is heat-damaged and partial. Talon's identification of Iressa is based on her unique ability to reconstruct from surrounding records damage, not on any direct evidence in the fragment itself.",
+    "The apartment's secure terminal is old but functional; it is not connected to any Jedi network. Ben uses it because it is the only machine that won't trigger a Vigil tripwire.",
+    "The emotional arc of the scene: Ben starts controlled and competent, cracks when Talon probes the family holo, then refocuses on the work. Talon starts as a joker, accidentally touches something real, and shifts to a more serious register.",
+    "The scene is the first time Talon sees the apartment. The drafter should write it as a one-night brush past the wound, so that the eventual return (post-PP2) reads as a return.",
+    "The Jade Shadow registry is Mara's handwriting, but it is a working document (ship maintenance), not a sentimental keepsake. Talon's glance is a moment of recognition, not a plot point."
+  ],
+  "allowed_au_divergences": [
+    "The Skywalker apartment's specific contents (family holo, Luke's mission logs, Jade Shadow registry) are original to this novel and not drawn from published Legends material.",
+    "Talon's ability to run the fragment's audit signature against his own conviction record is an extrapolation of his GAG logistics background, not a previously established skill.",
+    "Iressa Vossk is a new character; her specific expertise in proving cloned shipment identities from surrounding records damage is original to this novel.",
+    "The apartment's secure terminal is a narrative convenience; its exact specifications are not canon-bound."
+  ],
+  "open_questions": [
+    "Does the apartment have any specific security measures (e.g., a security droid, a hidden safe) that should be mentioned? The scene card does not specify; the drafter may assume standard civilian security (locked door, basic alarm) unless otherwise directed.",
+    "Is the family holo a physical photograph or a holographic projection? The scene card says 'preserved family holo on a shelf' and 'static and present.' The drafter should treat it as a static holographic image (like a photograph) unless the project bible specifies otherwise.",
+    "How old is young Ben in the family holo? The scene card does not specify. The drafter may choose an age that feels appropriate (e.g., 10-12, before the GAG year) without contradicting canon.",
+    "Does Talon recognize the Jade Shadow registry by name, or does he just notice Mara's handwriting? The scene card says 'Talon's eyes move to it once and Ben does not explain it.' The drafter may choose whether Talon knows what it is or simply registers it as a personal object."
+  ]
+}

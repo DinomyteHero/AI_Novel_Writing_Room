@@ -1,0 +1,93 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch12_sc01",
+  "chapter_number": 12,
+  "scene_number": 1,
+  "model": "deepseek/deepseek-v4-flash",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "1424050417c0cb8f7a19fbf822fb052f7092bebc9cb3f7728be8a9b1d1ab693a",
+  "review_status": "unreviewed",
+  "confidence": 0.95,
+  "hard_constraints": [
+    "Iressa Vossk is a former GAG Manifest Integrity Analyst, now a Senior Records Restoration Analyst at Civitas Archive Systems. She is NOT a Jedi, Force-sensitive, or Kiffar-psychometric in this scene.",
+    "Civitas Archive Systems is a legitimate post-war civic-records restoration firm, founded in 29 ABY. It is NOT a front for the Vigil or any conspiracy.",
+    "The fragment is a cloned shipment identity under quarantine/survey disguise, not a simple duplicate. This is the turning point.",
+    "Ben's lunchroom beat: he is offered half a sandwich, asked if he works in compliance, and engages in painfully normal small talk about caf and record migrations. He does NOT reveal his identity or the murder clue.",
+    "Iressa charges a 'Jedi complication fee,' denies knowing Talon before proving she does, moves them away from coworkers/security/cameras, lies about her exits, and changes Talon's debt amount every time she mentions it.",
+    "Iressa's ordinary-life surface is real and actively maintained. She lies smoothly to protect a coworker from the trouble following Ben and Talon.",
+    "The scene uses Star Wars vocabulary: datapads, comlinks, transparisteel, durasteel, turbolifts, blasters, HoloNet, caf. No anachronisms (tablets, glass, steel, elevators, radios, guns, internet, email, laptop, smartphone, GPS, AI, PowerPoint).",
+    "No ABY/BBY dating in narration or dialogue. Characters reference events directly ('after Caedus', 'during the Vong War', 'before Shedu Maad').",
+    "No meta-references: no 'Legends,' 'Canon,' Wookieepedia-style taxonomy, real-world pop culture, or film/book references.",
+    "Force prose is experiential and mystical, never clinical. No 'energy field' framing. Ben's Force awareness is body-sensation first, named only after the body has felt it.",
+    "Ben is 21, a Jedi Knight. He is competent, polite, controlled, dry under pressure. He does not name his fear directly.",
+    "Talon is 28, non-Force-sensitive, fast-talking, irreverent, funny until the joke stops working. He calls Ben 'Skywalker' when guarded, 'Ben' when trust slips through.",
+    "Iressa is brisk, transactional, office-cynical. She sounds like someone with a calendar invite in twelve minutes and a fake name with dental benefits.",
+    "The scene is dialogue-led, internal conflict type, rising pacing curve.",
+    "The chapter title is 'Iressa Vossk Does Not Know You.'"
+  ],
+  "canon_risks": [
+    "Risk of making Iressa too sympathetic or heroic too early. She should be competent, selfish, unexpectedly decent, and visibly invested in her fragile normal life. Her death in Ch 15 should land because she was alive, specific, and acting, not because she was a saint.",
+    "Risk of over-explaining GAG or the Second Galactic Civil War. The Civitas plaque (founded in 29 ABY) is enough war context. No lore dumps.",
+    "Risk of making Ben socially helpless in the lunchroom beat. He is awkward but not incapable. He takes the food, answers vaguely, feels ridiculous. He is not a child.",
+    "Risk of making the lunchroom beat too long or too sentimental. It should be 90 seconds of painfully normal small talk, not a character moment that derails pacing.",
+    "Risk of Iressa's debt-marker or Talon's history with her becoming a lore dump. Their old archive-world dynamic should run underneath every line, not be explained in exposition.",
+    "Risk of the fragment's identification becoming a technobabble puzzle. Iressa identifies the duplicate from the damage pattern in surrounding records (inspection gaps, correction logs, corroborating nothing). Keep it physical and intuitive, not a jargon stack.",
+    "Risk of Ben's Jacen-derived crisis logic surfacing too early or too explicitly. He should feel the half-familiar archival language landing in a register he doesn't want to recognize, but not name it as Jacen's grammar yet."
+  ],
+  "legends_continuity_notes": [
+    "Civitas Archive Systems is a NEW post-war Coruscant institution introduced for this novel. It is not in published Legends. It is a legitimate firm, not a front.",
+    "Iressa Vossk is a NEW character. She is a former GAG Manifest Integrity Analyst. Her GAG role is consistent with Legends-era GAG structure (LotF novels).",
+    "The Second Galactic Civil War (40-41 ABY) and the Yuuzhan Vong War (25-29 ABY) are the two wars that produced the record gaps Civitas charges to close. Both are canonical Legends events.",
+    "The Galactic Alliance Guard (GAG) was dissolved in disgrace after the Battle of Shedu Maad (41 ABY). Former GAG personnel surviving by becoming boring, useful, and respectable is consistent with post-war Legends texture.",
+    "Coruscant in 47 ABY: the Jedi Order has NO institutional foothold. The Coruscant Jedi Temple was relinquished at the end of FOTJ (44 ABY). Ben is operating on a planet where the Jedi have no base, no resources, no political cover.",
+    "The Skywalker family apartment is the last Skywalker presence on Coruscant. This is consistent with post-FOTJ Legends.",
+    "Ben's age (~21) and status (Jedi Knight) are consistent with post-Crucible Legends (Crucible is 45 ABY; Ben was ~19 then).",
+    "Jacen Solo's fall to Darth Caedus, the GAG's wartime crimes, and the Battle of Shedu Maad are canonical Legends events (LotF series).",
+    "The One Sith on Korriban under Darth Krayt remain in pre-emergence. They are NOT on-page in this scene. No reference to them.",
+    "Vestara Khai is canonically alive and active off-page under the alias 'Savara Raine' (per Crucible). She is NOT in this scene. No reference to her.",
+    "Tahiri Veila is a Jedi Knight at Shedu Maad. She is NOT in this scene. No reference to her.",
+    "Allana Solo / Amelia is NOT in this scene. No reference to her.",
+    "Jaina Solo is NOT in this scene. No reference to her."
+  ],
+  "possible_disney_bleed": [
+    "No 'High Republic' references.",
+    "No 'World Between Worlds' references.",
+    "No 'Inquisitorius' as a post-Imperial organization.",
+    "No 'Starkiller Base,' 'First Order,' 'Resistance.'",
+    "No 'kyber crystal bleeding' mechanic.",
+    "No 'Ben Solo' (Ben is unambiguously Ben Skywalker).",
+    "No Disney-canon Mandalorian conventions ('The Way,' etc.).",
+    "No 'Ahsoka Tano' post-Rebels characterization.",
+    "No 'sequel trilogy' entities or terminology.",
+    "No 'Disney+' original content references."
+  ],
+  "required_context_for_drafter": [
+    "Iressa's secondary cache (established in Ch 13) is NOT in this scene. This scene is at Civitas Archive Systems during her ordinary workday.",
+    "The fragment Ben carries is the damaged clean copy recovered from Elya Rane's murder scene (Ch 4). It carries Jacen Solo's personal encryption marker.",
+    "Talon found Iressa by baiting an old private debt-marker through a legitimate records-correction channel. This is established off-screen before the scene opens.",
+    "Iressa's death in Ch 15 (PP1 archive cleanup) is the structural pivot of Act 2. This scene establishes her as competent, transactional, and alive. The drafter should not foreshadow her death.",
+    "The lunchroom beat is the only moment in the novel where Ben is absorbed into ordinary civilian life without his identity triggering recognition. It is a brief human breather, not a thematic statement.",
+    "Ben's emotional trajectory in this scene: starts competent and quietly relieved to have a lead; the lunchroom beat makes him feel ridiculous, human, and twenty-one; watching Iressa decode the fragment, he realizes the half-familiar archival language is from Jacen's world. He does not name this realization.",
+    "Iressa's emotional trajectory: she is fun, competent, selfish, unexpectedly decent, and visibly invested in the fragile normal life she has built. By the end of the scene, she has touched the buried trail and knows it.",
+    "Talon's role: he finds Iressa, baits the debt-marker, and manages the old archive-world dynamic. He is the bridge between Ben and Iressa. His humor is present but not dominant.",
+    "The scene is dialogue-led. The conflict is internal (Iressa's resistance to being pulled back into GAG trouble). The turning point is Iressa recognizing the fragment as a cloned shipment identity.",
+    "The closing hook is the same as the turning point: Iressa recognizes the fragment as a cloned shipment identity under quarantine/survey disguise, not a simple duplicate. This confirms the conspiracy and locks Iressa into the investigation.",
+    "The scene advances subplot SUB_02 (the investigation into the duplicated manifest and the Vigil).",
+    "The scene progresses promises PP_01, PP_02, PP_05, PP_08, PP_10, PP_12 (the investigation, the partnership, the conspiracy, the fragment, the archive trail, the Iresh connection).",
+    "The scene reveals R_04 (the fragment is a cloned shipment identity, not a simple duplicate)."
+  ],
+  "allowed_au_divergences": [
+    "Iressa Vossk is a NEW character not in published Legends.",
+    "Civitas Archive Systems is a NEW setting not in published Legends.",
+    "The cloned shipment identity under quarantine/survey disguise is a NEW artifact specific to this novel.",
+    "The debt-marker between Talon and Iressa is a NEW relationship detail specific to this novel.",
+    "The lunchroom beat (Ben being absorbed into ordinary civilian life without recognition) is a NEW character moment specific to this novel."
+  ],
+  "open_questions": [
+    "Is the POV for this scene Talon or Ben? The scene card lists 'Talon or Ben' as POV. The drafter should choose based on which POV best serves the scene's emotional trajectory and the chapter's overall arc. Talon POV would emphasize the old archive-world dynamic and Iressa's resistance; Ben POV would emphasize the lunchroom beat and the half-familiar Jacen-shaped language.",
+    "What is the exact nature of the debt-marker Talon uses to find Iressa? The scene card says 'an old private debt-marker through a legitimate records-correction channel.' The drafter may invent a specific mechanism (a flagged correction request, a shared GAG-era dead-drop code, a mutual contact) as long as it is practical and deniable.",
+    "What is the coworker's name and species in the lunchroom beat? The scene card specifies 'an ordinary Civitas employee' who offers Ben half a sandwich. The drafter may invent a name and species (Human or near-Human recommended) as long as the interaction remains painfully normal and brief.",
+    "Does Iressa have any visible tells that she is already being watched by Greyline or the Vigil? The scene card notes that 'if Iressa recognizes the fragment as a cloned shipment identity and confirms it for Greyline-watchers to notice, she may already be flagged before she finishes helping.' The drafter may add a subtle beat (a glance at the door, a hesitation, a check of her comlink) but should not foreshadow her death or make the threat explicit in this scene.",
+    "What is the exact wording of the Jedi complication fee? The scene card specifies Iressa charges a 'Jedi complication fee.' The drafter may invent a specific amount or phrasing as long as it is consistent with Iressa's transactional, office-cynical voice."
+  ]
+}

@@ -66,7 +66,7 @@
     {
       "beat_description": "Talon tells Ben about Maro Tess as mentor and senior commander: Operation Glasshook, the saved civilians, the cost of the mission, Tess's judgment that field work had made him sentimental.",
       "state_change": "Tess becomes a person rather than a tradecraft fingerprint — someone who saw Talon accurately and used the accuracy against him.",
-      "pov_reaction": "The particular attention of someone being told something they were not trusted with before — not filling the silence, letting it accumulate."
+      "pov_reaction": "The attention of someone being told something they were not trusted with before — not filling the silence, letting it accumulate."
     },
     {
       "beat_description": "Talon tells Ben about the reassignment to records and logistics under Elya Rane — the punishment that moved him into the network that later made him look guilty.",
@@ -97,5 +97,12 @@
       "do not make Dorrin a third lead or secret mentor"
     ],
     "pov_arc_phase": "Talon:moment_of_truth; Tess:lie_reinforced"
-  }
+  },
+  "dialogue_density_target": "high",
+  "interiority_budget": {
+    "max_words": 250,
+    "max_paragraphs": 3,
+    "rationale": "Ben listens; his interiority stays brief so Talon's telling carries the scene"
+  },
+  "opening_mode": "contrast"
 }

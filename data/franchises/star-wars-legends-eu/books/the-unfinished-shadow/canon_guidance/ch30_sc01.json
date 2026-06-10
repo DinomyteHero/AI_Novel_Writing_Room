@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch30_sc01",
+  "chapter_number": 30,
+  "scene_number": 1,
+  "model": "deepseek/deepseek-v4-flash",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "ab1dd3079d5afea2828f61525a1367e663de5cbb475c985b7fc7685ec343a559",
+  "review_status": "unreviewed",
+  "confidence": 0.85,
+  "hard_constraints": [
+    "Aevyn's technique is flow-walking turned on a place, not a person \u2014 making the Glasswell remember the moment Jacen sealed the cache. Name the technique only once, in Aevyn's interior.",
+    "The Glasswell is a natural sinkhole/cavern beneath a mirror-lake, lined with pale translucent mineral. NOT a Sith temple, Jedi ruin, or mystical treasure chamber.",
+    "Iresh preserves charged impressions of memory, identity, and decision under pressure. It does NOT show the future, reveal objective truth, or grant prophecy.",
+    "Forcing the Glasswell to remember destabilizes the site physically: water enters, mineral supports crack, survey scaffolds break.",
+    "Aevyn's lightsaber is cold white-blue, shivers along the edge, crackles under pressure, fractures into white-blue forks when his control strains. The instability is visual TELL, never exposition.",
+    "Ben's POV must show Jacen-derived crisis logic as body-sensation first, named only after the body has felt it. Avoid clinical Force framing.",
+    "Tavi is trapped below with water rising. Ben must decide between rescue and denial of the holocron.",
+    "Aevyn secures the holocron container without hesitation and does not attempt to stop the collapse.",
+    "No ABY/BBY dating in narration or dialogue. Characters reference events directly.",
+    "No Mortis naming on-page. No Legacy comics, High Republic, World Between Worlds, Inquisitorius, sequel-trilogy entities, kyber-bleeding, Disney Mandalorian conventions.",
+    "Star Wars vocabulary: datapads not tablets, transparisteel not glass, durasteel not steel, turbolifts not elevators, comlinks not radios, blasters not guns, hyperspace not warp.",
+    "Capitalize 'Human', lowercase 'galaxy', 'Jedi' singular and plural, 'Darth' capitalized before a name.",
+    "No real-world pop culture references, no Wookieepedia-style taxonomy, no film/book references."
+  ],
+  "canon_risks": [
+    "Risk of over-explaining flow-walking or Aing-Tii lore. The technique should be shown through Aevyn's interior and the Glasswell's response, not through exposition.",
+    "Risk of making the Glasswell feel like a Sith temple or Jedi ruin. It must remain a natural site that holds impressions unusually well.",
+    "Risk of making Iresh's Force character feel like prophecy or objective truth. Sela's rule: 'Do not trust what you feel here just because it feels strong.'",
+    "Risk of Aevyn's lightsaber being read as Sith-coded. It is NOT red and NOT obviously Sith; the instability is from lack of formal training, not dark-side corruption.",
+    "Risk of Ben's crisis logic feeling like a named Force power rather than a mindset. Show it through behavior, not labels.",
+    "Risk of the scene becoming mystical rather than physical. The collapse must be mechanically clear: water, mineral, scaffold, positions, timing."
+  ],
+  "legends_continuity_notes": [
+    "Flow-walking is a canonical Aing-Tii Force discipline from the Kathol Rift, learned by Jacen Solo during his Force odyssey (NJO-LotF). Turning it on a place rather than a person is an extrapolation, not a violation.",
+    "The Glasswell's preservation-of-impressions character extrapolates from FOTJ/Crucible vergence-and-lore-site lineage but does NOT extend Mortis-adjacent mythology.",
+    "Jacen's holocron is an unfinished work-in-progress, not a completed Sith weapon. It systematizes Recognition and Holding from his canonical Force-odyssey strands (Aing-Tii, Fallanassi White Current, battle meditation, Lumiya's will-domination).",
+    "The One Sith on Korriban under Darth Krayt remain in pre-emergence. No on-page appearance in Book 1.",
+    "Crucible aftermath: Luke is post-Mortis-encounter, quieter, eyes further away. Mortis never named on-page.",
+    "Vestara Khai is canonically active off-page under alias 'Savara Raine' per Crucible. Not on-page in Book 1."
+  ],
+  "possible_disney_bleed": [
+    "Avoid 'World Between Worlds' \u2014 incompatible with Legends Force ontology.",
+    "Avoid 'kyber crystal bleeding' \u2014 Legends Sith use synthetic crystals.",
+    "Avoid 'Inquisitorius' as a post-Imperial organization \u2014 Legends Inquisitorius is Empire-era only.",
+    "Avoid 'High Republic' \u2014 does not exist in Legends.",
+    "Avoid 'Ben Solo' \u2014 'Ben' is unambiguously Ben Skywalker.",
+    "Avoid Disney Mandalorian conventions ('The Way') \u2014 Legends Mandalorians follow Resol'nare."
+  ],
+  "required_context_for_drafter": [
+    "Aevyn's corridor flashback (Jacen leaving a Recognition session with Aevyn to walk off with fourteen-year-old Ben) surfaces as fragment in Aevyn's POV when the Glasswell begins to answer. NEVER as exposition or speech.",
+    "The Glasswell returns Jacen's impression for one beat before breaking. Aevyn experiences Jacen's actual presence at the site for a second, then the structure fails.",
+    "Ben does not remember Aevyn from the GAG year. Aevyn remembers Ben as the primary student who walked past the corridor moment.",
+    "Tavi is Sela Dray's younger relative/apprentice figure. Sela has warned against the Glasswell. Tavi took the Foundation's money against Sela's warnings.",
+    "The main access ladder is blocked by scaffold collapse. The only way to Tavi is the dangerous water route Sela warned about \u2014 flooded cavern where chimes are gone and mineral holds memory too strongly.",
+    "Aevyn's priority is the holocron container, not the people or the site. This is confirmed without ambiguity.",
+    "Ben's choice at scene end: rescue Tavi or deny Aevyn the holocron. The platform is separating beneath him."
+  ],
+  "allowed_au_divergences": [
+    "Aevyn Soris is a NEW character \u2014 Jacen's side-project Force student during the Caedus period, not in published Legends.",
+    "Jacen's unfinished holocron is a NEW artifact \u2014 systematizing Recognition and Holding, hidden on Iresh.",
+    "The duplicated wartime manifest is a NEW artifact \u2014 personally encrypted by Jacen before Shedu Maad.",
+    "Iresh and the Glasswell are NEW locations \u2014 original to this novel.",
+    "The Shedu Maad Memorial Foundation, the Vigil, and Greyline Strategic Services are NEW post-war Coruscant-political institutions.",
+    "Legacy comics future is excised entirely \u2014 no Darth Krayt galactic war, no Cade Skywalker."
+  ],
+  "open_questions": [
+    "Is the POV for this scene Aevyn or Ben? The scene card says 'Aevyn or Ben' \u2014 the drafter needs to decide. Aevyn POV would allow the corridor flashback and the experience of Jacen's presence; Ben POV would focus on the rescue/denial choice.",
+    "What is the exact physical layout of the Glasswell main chamber? The scene card mentions survey platforms, scaffolding, a descent ladder, a lower basin, and a dangerous water route. The drafter needs to establish clear spatial geography before the collapse.",
+    "How does Aevyn secure the holocron container? Is it physically retrieved from the cache, or does the container become accessible through the forced opening?",
+    "What is Tavi's exact position and condition? Trapped against the far wall of the lower basin, water at his waist \u2014 but is he injured? Conscious? Does he have a comlink?",
+    "Does Ben have any equipment that could help with the water route rescue? Rope, breathing gear, lightsaber for cutting?",
+    "Is the dangerous water route the same one Sela warned about in Ch 24-25? The scene card references it \u2014 the drafter should ensure consistency with earlier chapters."
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch27_sc01",
+  "chapter_number": 27,
+  "scene_number": 1,
+  "model": "deepseek/deepseek-v4-flash",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "fa1f5d484c03c75773d878f0ad8cefcc3026fd772a510f2d15438962591df768",
+  "review_status": "unreviewed",
+  "confidence": 0.92,
+  "hard_constraints": [
+    "Ben and Aevyn meet directly for the first time in this scene. No blades drawn. No full fight.",
+    "Aevyn uses a Recognition-adjacent technique to surface a specific detail from Ben's past: the stance correction Jacen gave Ben at fourteen, in language Jacen used. This is NOT a full weaponized application, just a directed noticing.",
+    "Aevyn confirms the holocron is near the Glasswell. He ends the conversation on his terms.",
+    "Aevyn's lightsaber is clipped but visible, housing slightly asymmetrical, self-built. Do not describe the blade color or behavior here (that comes in Ch 30/32).",
+    "Aevyn speaks of the Aing-Tii, Fallanassi/White Current, and Vergere as cold scholarship, not reverence. One term, one consequence.",
+    "Ben's POV: the encounter leaves him unsettled because Aevyn sees the GAG-trained part of him that no one else acknowledges.",
+    "No exposition of the corridor flashback. It surfaces only as Aevyn's private wound-image in Ch 30.",
+    "No mention of Mortis, Crucible by name, or ABY/BBY dating.",
+    "Use Star Wars vocabulary: datapads, comlinks, blasters, transparisteel, durasteel, turbolifts, etc.",
+    "Capitalize 'Human', lowercase 'galaxy', 'Jedi' singular and plural.",
+    "No real-world pop culture references, no out-of-universe framing."
+  ],
+  "canon_risks": [
+    "Risk: Aevyn's knowledge of Jacen's private instruction could feel like he was a primary student rather than a side project. The scene must establish he was present and observant, not central. Use the stance correction detail as something he witnessed, not something Jacen taught him directly.",
+    "Risk: The Aing-Tii flow-walking, Fallanassi White Current, and Vergerean thought are all canonical Legends elements. Do not invent new Force mechanics or imply Aevyn has mastered them. He names them as lineage, not as personal abilities.",
+    "Risk: Ben's reaction must not imply he remembers Aevyn from the GAG year. The canon is clear: Ben does not remember Aevyn at all. The asymmetry is the threat.",
+    "Risk: The setting (Iresh, near the Glasswell) must remain a natural site, not a Sith temple or Jedi ruin. The wind-scoured shelf above the cavern entrance is cold, exposed, gray sky. No mystical architecture."
+  ],
+  "legends_continuity_notes": [
+    "Aing-Tii flow-walking: canonical Legends Force discipline from the Kathol Rift. Jacen Solo learned it during his Force odyssey (NJO/LotF). It allows perception and reliving of past moments. Recognition is Jacen's inward turn of this technique.",
+    "Fallanassi White Current: canonical Legends Force tradition of illusion and concealment. One strand of Jacen's Holding technique.",
+    "Vergere: Fosh Force-user, Jacen's mentor during the Yuuzhan Vong War. Her ambiguous teachings ('the Force is a tool') seeded Jacen's later philosophy. Long dead by 47 ABY.",
+    "Kathol Rift: remote Outer Rim region near Wild Space, home of the Aing-Tii. Iresh sits on its wild edge, which is how Jacen found the planet.",
+    "Jacen Solo's Force odyssey: spanned NJO, Dark Nest, and LotF. Included study with Aing-Tii, Fallanassi, and Vergere's teachings, plus Lumiya's Sith inheritance.",
+    "Ben Skywalker was Jacen's primary fourteen-year-old apprentice during the GAG/Caedus period. Aevyn was a side project, living in the gaps.",
+    "The GAG year (40-41 ABY) is about 6 years before the novel's present (47 ABY). Ben is ~21."
+  ],
+  "possible_disney_bleed": [
+    "No 'World Between Worlds' (Disney Canon Force concept from Rebels).",
+    "No 'kyber bleeding' mechanic (Disney Canon lore; Legends Sith use synthetic crystals).",
+    "No 'Inquisitorius' as a post-Imperial organization (Disney Canon structure).",
+    "No 'High Republic' references.",
+    "No 'Ben Solo' confusion. 'Ben' is unambiguously Ben Skywalker.",
+    "No 'The Way' or other Disney Mandalorian conventions.",
+    "No sequel trilogy entities (First Order, Resistance, Starkiller Base)."
+  ],
+  "required_context_for_drafter": [
+    "This is the first direct encounter between Ben and Aevyn. Ben does not know Aevyn exists before this scene (he learned of 'another student' from Iressa's dying transmission in Ch 15, but has no face or name).",
+    "Aevyn's wound: he was Jacen's side project, not the primary student. The corridor moment (Jacen leaving a session with Aevyn to walk off with young Ben) is his core wound-image, but it is NEVER exposited here. It surfaces only as fragment in Aevyn's Ch 30 POV.",
+    "Aevyn's lightsaber is self-built, unstable, cold white-blue. Do not describe its color or behavior in this scene. It is clipped and visible; the asymmetry of the housing is enough.",
+    "Ben's emotional trajectory: starts as investigation (wanting intelligence), shifts to recognition (Aevyn was present, not a file-reader), ends with unease (being seen clearly by the wrong person).",
+    "The scene's turning point: Aevyn uses Jacen-specific private knowledge (the stance correction language) to establish he was there. Ben understands Aevyn was another student.",
+    "Aevyn confirms the holocron is near the Glasswell. He does not threaten. He does not need to.",
+    "The setting: Iresh, wind-scoured shelf above the Glasswell entrance. Cold, exposed, gray sky. The low drone of the Glasswell audible through the rock underfoot. The Kathol Rift is a distant reference point.",
+    "Ben has no backup, no cover, and no script for this conversation. Aevyn chose the ground.",
+    "The scene advances promises PP_02, PP_04, PP_05, PP_06, PP_07, PP_10, PP_12. Resolves hook HK_02. Delivers revelation R_07."
+  ],
+  "allowed_au_divergences": [
+    "Aevyn Soris is a NEW character (not in published Legends). His existence as Jacen's side-project Force student is an authorized AU divergence.",
+    "The unfinished holocron and its contents (Recognition and Holding) are new extrapolations from Jacen's canonical Force odyssey.",
+    "Iresh and the Glasswell are new locations. The Glasswell is a natural sinkhole/cavern, not a Sith temple or Jedi ruin.",
+    "The Shedu Maad Memorial Foundation, the Vigil, and Greyline Strategic Services are new post-war institutions.",
+    "The duplicated wartime manifest is a new artifact."
+  ],
+  "open_questions": [
+    "Should Aevyn name himself in this scene, or remain unnamed until later? The scene card does not specify. If unnamed, Ben's POV would refer to him as 'the man' or similar until identification. If named, Aevyn might offer his name as a form of control. Recommend: Aevyn does not offer his name; Ben does not ask. The asymmetry of knowledge (Aevyn knows Ben; Ben does not know Aevyn) is the point.",
+    "Should the stance correction detail be explicitly described (e.g., 'your weight was too far forward on the back foot, and Jacen told you to shift it') or left as a vague reference? The scene card says 'language Jacen used for a correction at fourteen.' Recommend specific enough to feel real, not so specific it becomes a lore lecture. One concrete physical detail (weight distribution, grip angle, foot placement) is enough.",
+    "Does Aevyn mention the holocron by name, or refer to it obliquely ('what he left', 'the work')? The scene card says 'confirms Jacen left something near the Glasswell.' Recommend oblique reference; 'holocron' is a specific term that might come later. 'What he left' or 'the unfinished work' keeps the mystery."
+  ]
+}

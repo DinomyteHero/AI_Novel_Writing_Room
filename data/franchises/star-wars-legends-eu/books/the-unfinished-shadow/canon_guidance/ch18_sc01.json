@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch18_sc01",
+  "chapter_number": 18,
+  "scene_number": 1,
+  "model": "deepseek/deepseek-v4-flash",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "2e425556eb2fe767daf725d489e186a8eaf399be9956b40b0c56c85caf15a9b2",
+  "review_status": "unreviewed",
+  "confidence": 0.92,
+  "hard_constraints": [
+    "Talon's humor thins when Korda is present; Korda makes Talon feel contaminated, not merely suspicious.",
+    "The fake manifest correction is 47 words of administrative language designed to look routine but flag specifically to anyone watching the old shipment trail.",
+    "Korda responds indirectly (courier dispatch, routing pattern, etc.) \u2014 not a direct confrontation.",
+    "Talon uses Iressa's tools (from the secondary cache) to submit the correction.",
+    "Ben watches Talon work with the skills that got Talon convicted; neither names what that means.",
+    "The scene confirms the Foundation is actively guarding the shipment trail in real time \u2014 not preserving history.",
+    "Talon's bait-setting feels like re-entering the room that ruined his life because the only way to catch the people who put him there is to look like them again.",
+    "No new plot mythology or Force mechanics introduced in this scene.",
+    "Setting: Iressa's secondary cache (Coruscant warehouse district, mid-evening) then Foundation external surface for Korda's response.",
+    "POV: Talon and Ben (split-POV close third, past tense)."
+  ],
+  "canon_risks": [
+    "Risk of making Korda too competent or too theatrical \u2014 he should be smooth with superiors, cruel through process, never openly messy when witnesses matter. His indirect response should feel like a professional recognizing bait, not a villain monologuing.",
+    "Risk of over-explaining the GAG records system or the manifest correction mechanics \u2014 keep reader-facing vocabulary in physical thriller terms (correction, query, bait, response).",
+    "Risk of Talon's internal wound becoming exposition rather than behavior \u2014 his humor thinning is the signal; he should not articulate 'this feels like being contaminated' in dialogue or narration.",
+    "Risk of Ben's POV becoming judgmental about Talon's methods \u2014 Ben should witness without commentary, letting the discomfort sit in the reader's awareness."
+  ],
+  "legends_continuity_notes": [
+    "GAG was dissolved in disgrace after the Battle of Shedu Maad (41 ABY). Its records infrastructure was supposed to be decommissioned, but fragments survived in private hands, charity archives, and old routing protocols.",
+    "Korda was a GAG security lieutenant during the war \u2014 not a senior commander like Tess, but senior enough to know the shipment trail and have access to old routing codes.",
+    "Talon's old authorization profile would still be in residual GAG databases \u2014 not actively monitored, but queryable by someone with the right access (like Korda).",
+    "Iressa's secondary cache contains old GAG manifest tools and encrypted dead drops \u2014 not illegal to possess, but incriminating if discovered by the wrong eyes.",
+    "The Foundation's public charitable work is real and legitimate \u2014 scholarships, grief counseling, casualty-record preservation. Korda's presence as security director is publicly defensible (protecting grieving families from media intrusion)."
+  ],
+  "possible_disney_bleed": [
+    "No kyber crystal bleeding mechanic \u2014 Legends Sith use synthetic crystals.",
+    "No Inquisitorius as a post-Imperial organization \u2014 Legends Inquisitorius is Empire-era only.",
+    "No World Between Worlds or Mortis mythology \u2014 Iresh's Force character is its own simpler thing.",
+    "No 'The Way' or Disney Mandalorian conventions \u2014 Legends Mandalorians follow Resol'nare.",
+    "No sequel-trilogy entities (First Order, Resistance, Starkiller Base)."
+  ],
+  "required_context_for_drafter": [
+    "Korda is the Foundation's Director of Protective Services \u2014 a legitimate title for a legitimate charity. His GAG past is not public knowledge.",
+    "Talon's prison sentence resulted from refusing a deal that would have required him to validate the cleaned-up official version of GAG operations. Korda represents the system that offered the deal and the people who took it.",
+    "The fake manifest correction is not hacking \u2014 it is Talon using his knowledge of GAG records procedures to submit a query that looks like routine records maintenance. The specificity (Jacen's encryption marker, the quarantine classification, the shipment date) is what flags it to anyone watching.",
+    "Korda's indirect response (courier dispatch, unusual records query routed through Foundation channels) is the confirmation that the Vigil is operational \u2014 not just preserving history but actively guarding the shipment trail.",
+    "Ben's POV arc phase is 'moment of truth' \u2014 he is beginning to accept that the GAG-shaped tools are his to use, not just to guard against. Watching Talon deploy his compromised past deliberately is part of that acceptance.",
+    "Talon's emotional trajectory: controlled focus \u2192 contamination feeling (Korda's presence) \u2192 quiet after proof acquired. He does not name what seeing Korda cost him."
+  ],
+  "allowed_au_divergences": [
+    "Aevyn Soris as Jacen's surviving side-project Force student (not in published Legends).",
+    "The duplicated wartime manifest as a new canonical artifact.",
+    "The Shedu Maad Memorial Foundation, the Vigil, and Greyline Strategic Services as new post-war institutions.",
+    "Iressa's secondary cache as a new location (off-record reconstruction workshop).",
+    "Talon's specific GAG history (Operation Glasshook, Tess's reassignment) is original to this novel but compatible with established Legends GAG infrastructure."
+  ],
+  "open_questions": [
+    "What specific form does Korda's indirect response take? The scene card suggests 'a courier dispatch, an unusual records query routed through Foundation channels, a specific pattern Talon reads as deliberate' \u2014 drafter to choose the most legible option.",
+    "Does Talon name the response pattern aloud to Ben, or does Ben infer it from Talon's reaction? The scene card allows either; drafter to choose based on pacing.",
+    "How much of the 47-word manifest correction text should appear on the page? The scene card implies it should be shown briefly (to demonstrate its boring specificity) but not lingered on."
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch17_sc01",
+  "chapter_number": 17,
+  "scene_number": 1,
+  "model": "deepseek/deepseek-v4-flash",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "51921b421c69cd9364f936aa638433c08e2e09060f1c749e9c1a1e10e2190f6e",
+  "review_status": "unreviewed",
+  "confidence": 0.95,
+  "hard_constraints": [
+    "The Foundation's public charitable work is real and must be shown as such: scholarship walls with engraved names from the Second Galactic Civil War (Fondor, Kuat) and the Yuuzhan Vong War (Fall of Coruscant refugee-fleet families), a Battle of Shedu Maad sub-panel, occupied grief rooms, casualty records the government misplaced.",
+    "Aelia Vandros must beat Ben socially without dishonesty: she remembers a scholarship recipient by name, corrects a child's name in a file, notices a veteran's discomfort across the room, writes a condolence note by hand while Ben watches.",
+    "Ben must over-explain his purpose at the front desk to a young staffer who recognizes him, then catch himself and go quiet. This is the second recognition-bracing moment after the Civitas lunchroom (Ch 12).",
+    "Talon spots Bren Korda at the Foundation's external perimeter in Foundation security consultant credentials. This is the turning point and closing hook.",
+    "Ben catches a glimpse of the Candle Room through a half-open door but cannot pursue it without announcing he is looking.",
+    "The Candle Room is the Vigil's private meeting chamber, not a public space. It is glimpsed only: warm interior lamp light, darker wood, chairs arranged inward.",
+    "Aelia's office contains a single framed photo of her late husband and a handwritten condolence note mid-sentence, ink dry, addressed to a family on the scholarship wall.",
+    "Ben's emotional trajectory: enters professionally competent and socially on the back foot; Aelia beats him socially without gloating; he leaves more certain of the Foundation connection and more uncertain about Aelia's specific knowledge.",
+    "No Force use in this scene beyond Ben's passive awareness. No lightsabers. No exposition about the Vigil's ideology.",
+    "No mention of ABY/BBY dating, 'Legends'/'Canon', or real-world pop culture.",
+    "Star Wars vocabulary: datapads not tablets, transparisteel not glass, durasteel not steel, comlinks not radios, blasters not guns, HoloNet not internet.",
+    "'Jedi' is singular and plural; 'Human' capitalized; 'galaxy' lowercase.",
+    "Ben uses 'Jacen' or 'Caedus' by emotional load. In this scene, likely 'Jacen' when thinking of the mentor, 'Caedus' when thinking of the war crimes. Aelia privately thinks of him as 'Jacen' but never publicly defends 'Darth Caedus'."
+  ],
+  "canon_risks": [
+    "Risk: portraying the Foundation as purely cynical or the Vigil as openly Sith. The contract requires the Foundation's public work to be genuine and the Vigil's language to be civic/therapeutic, not theological.",
+    "Risk: making Aelia too obviously villainous. She must be warm, prepared, and legitimate; her danger is credibility, not volume.",
+    "Risk: over-explaining the Vigil's ideology or the Candle Room's purpose. The scene should only hint at the inner ring through the half-open door and Aelia's careful language.",
+    "Risk: Ben using Force empathy or recognition on Aelia. He is a Jedi Knight but the contract specifies he refuses to violate another mind; this scene is social, not Force-based.",
+    "Risk: introducing new characters or plot mythology not in the scene card or chapter blueprint."
+  ],
+  "legends_continuity_notes": [
+    "The Second Galactic Civil War (40-41 ABY) included the battles of Fondor and Kuat. These are appropriate named engagements for the scholarship walls.",
+    "The Yuuzhan Vong War (25-29 ABY) included the Fall of Coruscant (27 ABY) and massive refugee evacuations. The refugee-fleet families wing is consistent with Legends.",
+    "The Battle of Shedu Maad (41 ABY) ended the war and killed Darth Caedus. The Foundation's name derives from this battle.",
+    "The Jedi Order relocated to Shedu Maad in the Hapes Cluster at the end of Fate of the Jedi (44 ABY). Ben is operating on Coruscant without institutional Jedi support.",
+    "The Coruscant Jedi Temple was vacated in 44 ABY after the Senate vote. The Skywalker apartment is the last Skywalker presence on the planet.",
+    "Aelia Vandros is a new character (not in published Legends). Her backstory as a former Senate staffer and war widow is original to this novel.",
+    "Bren Korda is a new character (not in published Legends). His role as old GAG security in Foundation clothing is original.",
+    "The Shedu Maad Memorial Foundation and the Vigil are new organizations introduced for this novel."
+  ],
+  "possible_disney_bleed": [
+    "No High Republic references (Disney Canon initiative).",
+    "No World Between Worlds (Disney Canon Force concept).",
+    "No Inquisitorius as a post-Imperial organization (Disney Canon structure).",
+    "No kyber crystal bleeding mechanic (Disney Canon lore).",
+    "No sequel-trilogy entities (First Order, Resistance, Starkiller Base).",
+    "No Disney-canon Mandalorian conventions ('The Way' as creed).",
+    "No Ben Solo (the name 'Ben' is unambiguously Ben Skywalker)."
+  ],
+  "required_context_for_drafter": [
+    "This is the second recognition-bracing moment for Ben (the first was the Civitas lunchroom in Ch 12). The effect compounds: Ben is already on the back foot before he sits down with Aelia.",
+    "The Foundation's public work is real. The Vigil is hidden inside something people need. Ben cannot morally flatten the organization without losing.",
+    "Aelia's warmth is power deployed so naturally it doesn't look like power. She beats Ben socially without saying anything dishonest.",
+    "The Korda sighting confirms the operational connection between the Foundation and old GAG security infrastructure. Ben must close the conversation without letting Aelia read that the signal landed.",
+    "The Candle Room is glimpsed only. Ben cannot pursue it without announcing he is looking.",
+    "Ben is 21 years old. Aelia is in her late fifties. The age and experience gap is part of the social dynamic.",
+    "The scholarship walls carry real war-dead names. The drafter must let the grief be real: the Vigil's moral cover is not cynical costuming.",
+    "Aelia's handwritten condolence note is mid-sentence, ink dry, addressed to a family on the scholarship wall. She left it to greet Ben."
+  ],
+  "allowed_au_divergences": [
+    "Aevyn Soris as Jacen Solo's surviving Force student (side project while Ben was primary apprentice).",
+    "Jacen's unfinished holocron systematizing Recognition and Holding.",
+    "The duplicated wartime quarantine/survey shipment manifest personally encrypted by Jacen Solo.",
+    "The Shedu Maad Memorial Foundation (public charity) and the Vigil (hidden inner ring).",
+    "Greyline Strategic Services as Tess's operational arm.",
+    "Iresh and the Glasswell as new locations with preservation-of-impressions Force character.",
+    "Tarn Velos Coastal Detention Works and Civitas Archive Systems as new settings.",
+    "Aelia Vandros, Bren Korda, and other new characters as described."
+  ],
+  "open_questions": [
+    "Should the young staffer at the front desk have a name or remain anonymous? The scene card does not specify.",
+    "Should the condolence note Aelia is writing name a specific family from the scholarship wall, or remain generic? The scene card suggests it is addressed to a family on the wall but does not name them.",
+    "How much of the Candle Room's interior should Ben glimpse? The scene card specifies 'warm interior lamp light, darker wood, chairs arranged inward' but the exact level of detail is left to the drafter.",
+    "Should Talon's signal to Ben be described in detail (e.g., a specific code or gesture) or left as a brief narrative beat? The scene card says 'brief coded contact' but does not specify the method."
+  ]
+}

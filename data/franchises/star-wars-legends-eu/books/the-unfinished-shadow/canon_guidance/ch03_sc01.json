@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch03_sc01",
+  "chapter_number": 3,
+  "scene_number": 1,
+  "model": "deepseek/deepseek-v4-flash",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "90f2a61af5d934631dba825bc806d657e0120d9aed2dd7e41f80108920f61c0c",
+  "review_status": "unreviewed",
+  "confidence": 0.95,
+  "hard_constraints": [
+    "Ben has NOT recovered or read the fragment yet; he only knows Elya's four-line dead-drop message. Do not let him cite Iresh or the manifest's contents.",
+    "Elya Rane's name/identity is unknown to Ben; her message is signed only 'E.R.'",
+    "Ben learns the duplicate manifest carries Jacen's personal encryption marker only when he reads the recovered fragment in a later chapter.",
+    "Luke is temporarily offworld for family/diplomatic business; the holo call is from Ben's quarters at Shedu Maad.",
+    "Luke is a senior Master, no longer Grand Master; Saba Sebatyne is Grand Master. Luke can advise but not convene the Order.",
+    "One quiet line of post-Crucible texture: Luke looks tired in a way Ben doesn't quite remember, eyes further away. Mortis is NEVER named on-page.",
+    "Ben must not name his fear directly; other characters' reactions should reveal it.",
+    "No paragraph contains more than one invented bureaucratic/technical term.",
+    "Use 'Jacen' for the pre-fall identity; 'Caedus' for the Sith-Lord identity. Ben slides between both, mostly 'Jacen' when remembering training.",
+    "GAG = Galactic Alliance Guard. Full name on first use, abbreviation thereafter.",
+    "Shedu Maad = Jedi Order headquarters in the Hapes Cluster since the post-FOTJ relocation (44 ABY).",
+    "The Coruscant Jedi Temple was vacated in 44 ABY; the Order has NO institutional foothold on Coruscant in 47 ABY.",
+    "No ABY/BBY dating in character speech or narration.",
+    "No 'Legends'/'Canon' as in-universe concepts.",
+    "Star Wars vocabulary: datapads not tablets, transparisteel not glass, durasteel not steel, turbolifts not elevators, comlinks not radios, blasters not guns, hyperspace not warp.",
+    "'Jedi' is both singular and plural; 'Darth' capitalized as a title before a name.",
+    "American English spellings throughout.",
+    "Force prose is experiential and mystical, never clinical. Avoid 'energy field' framing.",
+    "Ben's Jacen-derived crisis logic surfaces subtly; show, not name, until late.",
+    "The chapter title is 'Quietly'."
+  ],
+  "canon_risks": [
+    "Risk of making Luke seem absent or conveniently fooled. He is emotionally intelligent, not conveniently fooled. He should sense Ben is drawn to the case personally, not just alarmed.",
+    "Risk of over-explaining the post-Crucible texture. One quiet line only; Mortis never named.",
+    "Risk of making the institutional caution feel like obstruction rather than legitimate concern. Luke's caution is real and correct: an official Jedi move could scatter the trail before there is proof.",
+    "Risk of Ben sounding petulant rather than impatient. He understands the reason for caution even as he bristles.",
+    "Risk of using 'Grand Master' for Luke. He is no longer Grand Master; Saba holds the title.",
+    "Risk of anachronistic terms: no 'tablet', 'glass', 'steel', 'elevator', 'radio', 'gun', 'warp'."
+  ],
+  "legends_continuity_notes": [
+    "Shedu Maad is a Hapes Cluster world; the Jedi Order relocated there permanently at the end of Fate of the Jedi (44 ABY) after the Senate voted to remove them from Coruscant following the Lost Tribe crisis.",
+    "Saba Sebatyne assumed the Grand Master role when Luke stepped down at the end of FOTJ.",
+    "Luke, Leia, and Han had a Mortis-adjacent metaphysical encounter during Crucible (45 ABY); Luke has seemed 'further away' since. This is implication only, never explained on the page.",
+    "The Galactic Alliance Guard (GAG) was dissolved in disgrace after the Battle of Shedu Maad (41 ABJ). Reopening GAG records is politically radioactive because too many people survived by pretending they had not helped build it.",
+    "Ben served in the GAG as a fourteen-year-old under Jacen; his turn against Caedus was real but circumstantial. The deeper internal work was never done.",
+    "The Skywalker family apartment on Coruscant is the last Skywalker presence on a world that pushed the Order out.",
+    "Jacen Solo's Force odyssey included Aing-Tii flow-walking, Fallanassi White Current, battle meditation, Vergerean thought, and Lumiya's Sith inheritance."
+  ],
+  "possible_disney_bleed": [
+    "No 'Ben Solo' - 'Ben' is unambiguously Ben Skywalker.",
+    "No 'World Between Worlds' - incompatible with Legends Force ontology.",
+    "No 'High Republic' - does not exist in Legends.",
+    "No 'Inquisitorius' as a post-Imperial organization - Legends Inquisitorius is Empire-era only.",
+    "No 'kyber bleeding' mechanic - Legends Sith use synthetic crystals.",
+    "No 'sequel trilogy' entities (First Order, Resistance, Starkiller Base).",
+    "No Disney-canon Mandalorian conventions ('The Way') - Legends Mandalorians follow Resol'nare."
+  ],
+  "required_context_for_drafter": [
+    "Ben is at Shedu Maad, the Jedi Order's headquarters in the Hapes Cluster. He is lonely and quietly restless among peers who go careful around his history.",
+    "The obsolete GAG-coded message arrived in Ch 2; Ben's hand covered the sender code before he realized he was hiding it. The GAG year is something he keeps in a drawer.",
+    "Elya Rane's message: 'GAG is still active. One of Jacen's last orders has two lives. Come alone. - E.R.'",
+    "Ben does not know Elya's name or identity; only the initials E.R.",
+    "Luke is temporarily offworld for family/diplomatic business; the call is via holo with offworld lag.",
+    "Ben's quarters are sparse: training mat, old training-blade rack, a holoframe he does not look at directly during the call.",
+    "The institutional reason for caution: an official Jedi move (which would have to come from Saba and the Council) could relitigate GAG publicly and scatter the trail before there is anything concrete to hold.",
+    "Ben's personal stake: the case feels personally meaningful because it might make his GAG past count as knowledge, not just damage.",
+    "Luke's post-Crucible state: one quiet line of texture - tired in a way Ben doesn't remember, eyes further away. Ben notices and does NOT ask.",
+    "The chapter ends with Ben leaving Shedu Maad for Coruscant to find Elya."
+  ],
+  "allowed_au_divergences": [
+    "Aevyn Soris is a NEW character: marginal Force-sensitive, Jedi-rejected at fourteen, joined GAG as a young adult, became Jacen Solo's side-project Force student during the Caedus period.",
+    "Jacen's unfinished holocron is a NEW artifact: a working device assembled during the LotF period, systematizing Recognition and Holding.",
+    "The duplicated wartime manifest is a NEW artifact: a quarantine/survey shipment manifest personally encrypted by Jacen Solo shortly before the Battle of Shedu Maad.",
+    "Iresh and the Glasswell are NEW locations: Iresh preserves charged impressions of memory, identity, and decision under pressure. The Glasswell is a natural sinkhole/cavern, NOT a Sith temple or Jedi ruin.",
+    "The Shedu Maad Memorial Foundation, the Vigil, and Greyline Strategic Services are NEW post-war Coruscant-political institutions.",
+    "Legacy comics future is entirely excised: no Darth Krayt galactic war, no Cade Skywalker, no GA fall. The One Sith remain on Korriban in pre-emergence."
+  ],
+  "open_questions": [
+    "Is Luke's offworld location specified or left vague? The scene card says 'temporarily off-world for family/diplomatic business' - drafter may choose to name a specific location or leave it general.",
+    "Should the holoframe in Ben's quarters be described? It is noted as present but Ben does not look at it directly. Drafter may decide whether to specify its content (likely a family holo of Mara, Luke, and young Ben).",
+    "How much of the GAG political context should Luke explain in dialogue vs. leaving as subtext? The scene card notes 'one or two natural lines' to clarify why reopening GAG is dangerous."
+  ]
+}

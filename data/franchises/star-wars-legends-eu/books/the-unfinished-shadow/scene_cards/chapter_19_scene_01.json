@@ -23,7 +23,7 @@
     "interpersonal": "Korda's prepared escape implies he expected this kind of follow-through — that someone who understood the bait would also understand the route. He is treating Ben and Talon as proficient. That is its own kind of contamination: being taken seriously by someone this operationally clean.",
     "external": "The physical proof object captured — a restricted field authorization, courier cylinder, or Foundation/Greyline transfer record — points to an offworld Foundation mission that is already moving. Korda is not guarding a dead file. He is actively staging a current operation. Destination: Iresh."
   },
-  "sensory_details": "The Verity district loading bay has the particular sensory mix of a commercial logistics space trying to look unremarkable: industrial bay door seals that smell of hydraulic fluid, courier droids running on repeating loops, the slightly too-clean signage of a facility that was recently organized. A GA Restricted Transit placard is mounted beside the main bay door — blue and white, standard post-war reconstruction issue. It means Dorrin's writ doesn't cover this space without a separate authorization Ben doesn't have time to file. Korda moves through the space like someone who knows exactly where every camera's lag is — Ben clocks this and adjusts.",
+  "sensory_details": "The Verity district loading bay has the sensory mix of a commercial logistics space trying to look unremarkable: industrial bay door seals that smell of hydraulic fluid, courier droids running on repeating loops, the slightly too-clean signage of a facility that was recently organized. A GA Restricted Transit placard is mounted beside the main bay door — blue and white, standard post-war reconstruction issue. It means Dorrin's writ doesn't cover this space without a separate authorization Ben doesn't have time to file. Korda moves through the space like someone who knows exactly where every camera's lag is — Ben clocks this and adjusts.",
   "canon_elements_needed": [
     "GAG / Jacen / Caedus continuity",
     "Iressa / Civitas / manifest reconstruction logic",
@@ -73,7 +73,7 @@
     {
       "beat_description": "Korda triggers the prepared lockdown: false emergency, diversion, escape route — Ben and Talon navigate it without losing each other.",
       "state_change": "Korda escapes, but the lockdown reveals how much preparation was invested in this contingency — this transfer node was defended.",
-      "pov_reaction": "Moving through the controlled scramble with the particular attention of someone who is out-resourced and knows it — faster, not harder."
+      "pov_reaction": "Moving through the controlled scramble with the attention of someone who is out-resourced and knows it — faster, not harder."
     },
     {
       "beat_description": "In the scramble, Ben and Talon capture a physical proof object — a restricted field authorization or Foundation/Greyline transfer record pointing to an offworld Foundation mission.",
@@ -108,5 +108,11 @@
       "do not make Dorrin a third lead or secret mentor"
     ],
     "pov_arc_phase": "Aelia:lie_challenged"
-  }
+  },
+  "dialogue_density_target": "medium",
+  "interiority_budget": {
+    "max_words": 150,
+    "max_paragraphs": 2
+  },
+  "opening_mode": "in_medias_res"
 }

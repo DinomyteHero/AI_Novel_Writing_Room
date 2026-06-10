@@ -2687,6 +2687,7 @@
     },
     "plan_approved": true,
     "plan_approved_at": "2026-05-18T13:12:21Z",
-    "plan_approved_by": "lbouw"
+    "plan_approved_by": "lbouw",
+    "managed_by": "direct"
   }
 }

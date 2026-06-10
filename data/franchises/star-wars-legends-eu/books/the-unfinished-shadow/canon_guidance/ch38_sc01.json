@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch38_sc01",
+  "chapter_number": 38,
+  "scene_number": 1,
+  "model": "deepseek/deepseek-v4-flash",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "956fd30625793103c4458b4c7fc4ea5171561fcc4880f34566d0d9f72d25e159",
+  "review_status": "unreviewed",
+  "confidence": 0.95,
+  "hard_constraints": [
+    "Aevyn Soris survives the Glasswell collapse and is alive at the end of Book 1.",
+    "The cold white-blue spark is the only image of Aevyn in this scene. No interiority, no dialogue, no POV.",
+    "The spark is not light, not warmth, not a Force glow\u2014just a specific color of persistence.",
+    "No character other than Aevyn is present in this scene.",
+    "The scene is a distant/image POV, not a character POV. No named narrator.",
+    "Iresh's Force character is preservation of charged impressions, not revelation or prophecy. The dark 'remembers' the spark in that sense, not as a mystical entity.",
+    "No Mortis, no World Between Worlds, no sequel-trilogy concepts.",
+    "No ABY/BBY dating in narration.",
+    "No real-world pop culture references.",
+    "No 'Legends' or 'Canon' as in-universe concepts.",
+    "The scene must be physically grounded: absolute cold, absolute dark, still floodwater, mineral dust, distant drip.",
+    "The spark holds. It does not grow, speak, or reveal anything beyond its own persistence.",
+    "Aevyn's arc is 'arc_resolved_tragic'\u2014he is broken-open, stripped of certainties, not destroyed.",
+    "No new plot mythology or Force mechanics introduced in this scene.",
+    "The scene pays off PP_10 (Aevyn's survival) and plants HK_09 (the spark as a Book 2 seed).",
+    "Interiority budget: max 100 words, max 1 paragraph, rationale 'distant cinematic close\u2014the image carries it'.",
+    "Dialogue density target: low. No dialogue in this scene.",
+    "Opening mode: sensory_hook."
+  ],
+  "canon_risks": [
+    "Risk of implying the Glasswell or Iresh has a will or consciousness. The dark 'remembers' must be read as the planet's natural preservation of charged impressions, not as a sentient entity.",
+    "Risk of making the spark feel like a Force ghost or a Sith spirit. It is Aevyn's lightsaber crystal or his own Force presence persisting, not a ghost.",
+    "Risk of introducing a new Force power (e.g., 'surviving through the Force alone') that is not grounded in Legends mechanics. Aevyn's survival should be physical\u2014he was not killed by the collapse, not resurrected.",
+    "Risk of the scene feeling like a sequel hook rather than a thematic coda. The spark is the cost of the book's argument, not a promise of more action.",
+    "Risk of using 'white-blue' in a way that echoes Disney-canon kyber bleeding or Ahsoka's white blades. Aevyn's blade is self-built from salvaged components and a non-Jedi crystal; the color is cold and unstable, not pure or redeemed."
+  ],
+  "legends_continuity_notes": [
+    "Legends has precedent for Force-users surviving catastrophic collapses through physical endurance and the Force (e.g., Luke surviving the Emperor's trap on the second Death Star, Jacen surviving various ordeals). Aevyn's survival is plausible without new mechanics.",
+    "Iresh's preservation-of-impressions character is original to this novel but compatible with Legends vergence-and-lore-site lineage (e.g., Ossus, the Valley of the Jedi, the Lake of Apparitions on Nam Chorios). The dark 'remembering' the spark is consistent with that lineage.",
+    "Aevyn's lightsaber is self-built from salvaged components and a crystal found outside Jedi tradition. The cold white-blue color and instability are consistent with a non-traditional construction, not a Sith or Jedi standard.",
+    "The scene's solitary, cold, dark aftermath echoes the tone of Legends coda chapters like the end of *The Unifying Force* (the galaxy rebuilding) or *Crucible* (the three heroes stepping back). It is a quiet image, not a cliffhanger."
+  ],
+  "possible_disney_bleed": [
+    "Avoid 'World Between Worlds'\u2014that is Disney-canon only and incompatible with Legends Force ontology.",
+    "Avoid 'kyber bleeding'\u2014Legends Sith use synthetic crystals, not bled kyber.",
+    "Avoid 'Inquisitorius' as a post-Imperial organization\u2014Legends Inquisitorius is Empire-era only.",
+    "Avoid 'Ben Solo'\u2014'Ben' in this novel is unambiguously Ben Skywalker.",
+    "Avoid 'the Way' or any Disney Mandalorian conventions\u2014Legends Mandalorians follow Resol'nare.",
+    "Avoid 'Starkiller Base', 'First Order', 'Resistance'\u2014sequel trilogy does not exist in Legends.",
+    "Avoid 'High Republic' terminology or concepts."
+  ],
+  "required_context_for_drafter": [
+    "Aevyn Soris is a marginal Force-sensitive, Jedi-rejected at fourteen, later trained by Jacen Solo as a side project during the GAG/Caedus period. He wields a self-built unstable cold white-blue lightsaber.",
+    "The Glasswell is a natural sinkhole/cavern beneath a mirror-lake on Iresh, lined with pale translucent mineral that holds pressure-impressions. It is NOT a Sith temple or Jedi ruin.",
+    "Aevyn forced the Glasswell to remember the moment Jacen sealed the cache (Ch 30), which destabilized the site and caused the collapse. He was presumed dead.",
+    "The cold white-blue spark is Aevyn's lightsaber crystal or his Force presence\u2014not a ghost, not a new entity. It is the same color as his blade, which fractures under emotional pressure.",
+    "The scene is the final image of the book. It should feel like a period, not an ellipsis\u2014though it is a period that leaves a trace.",
+    "No one witnesses the spark. The reader is the only witness.",
+    "The dark 'remembers' the spark in the sense that Iresh preserves charged impressions. The planet does not have a will; it holds what was left behind."
+  ],
+  "allowed_au_divergences": [
+    "Aevyn Soris is a NEW character not in published Legends.",
+    "The unfinished holocron and its contents (Recognition and Holding) are NEW extrapolations from Jacen's canonical Force odyssey.",
+    "Iresh and the Glasswell are NEW locations.",
+    "The Shedu Maad Memorial Foundation, the Vigil, and Greyline Strategic Services are NEW institutions.",
+    "The Legacy comics future (Darth Krayt's galactic war, Cade Skywalker) is excised. The One Sith remain in pre-emergence.",
+    "Aevyn's survival and the spark are authorized AU elements for Book 2 seeding."
+  ],
+  "open_questions": [
+    "Is the spark Aevyn's lightsaber crystal, his physical body, or his Force presence? The scene card says 'the spark is all that is left of Aevyn'\u2014clarify for the drafter whether it is his blade, his hand, or an abstract image. The current language suggests an abstract image, but the drafter may need a concrete anchor.",
+    "Should the spark have any sensory quality beyond color (e.g., faint heat, a sound, a smell)? The scene card specifies 'not light, not warmth'\u2014but the drafter may need one additional sensory detail to ground the image.",
+    "Is there any sound in the scene? The scene card mentions 'distant drip of water from somewhere above'\u2014confirm this is the only sound, or if silence is absolute.",
+    "Does the spark 'hold' indefinitely, or does it flicker and then stabilize? The scene card says 'flickers once and holds'\u2014confirm the sequence: one flicker, then steady persistence.",
+    "Is the spark visible to anyone in-universe? The scene card says 'no witness, only the fact'\u2014confirm that no character (not even Aevyn) is aware of the spark as a visual phenomenon. It is for the reader alone."
+  ]
+}

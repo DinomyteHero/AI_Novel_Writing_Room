@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch33_sc01",
+  "chapter_number": 33,
+  "scene_number": 1,
+  "model": "deepseek/deepseek-v4-flash",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "2b77023bc8b86542dda6f20b454cf2a595727253b45ebdc1677b34364d56febc",
+  "review_status": "unreviewed",
+  "confidence": 0.95,
+  "hard_constraints": [
+    "The Glasswell is a natural sinkhole/cavern, NOT a Sith temple or Jedi ruin.",
+    "Iresh preserves charged impressions of memory/identity/decision, NOT objective truth or prophecy.",
+    "Forcing the Glasswell to remember destabilizes it physically (water enters, mineral supports crack, survey scaffolds break).",
+    "Ben's crisis logic is Jacen-derived but morally legitimate when saving lives; the novel does NOT settle whether it is dangerous.",
+    "Aevyn is presumed dead at the Glasswell collapse; the white-blue spark in Ch 38 confirms survival to the reader only.",
+    "Talon's climax job is to disrupt Greyline extraction and reroute escape logistics, NOT to become a non-Force observer.",
+    "Sela saves people through local knowledge Ben does NOT have.",
+    "Ben secures the holocron and does NOT destroy it; Talon notices.",
+    "The holocron is an UNFINISHED working device, NOT a completed Sith weapon.",
+    "No Mortis naming on-page.",
+    "No Legacy comics references.",
+    "No Disney-canon Force mechanics (kyber bleeding, World Between Worlds, etc.).",
+    "Star Wars vocabulary: datapads, transparisteel, durasteel, turbolifts, comlinks, blasters, hyperspace, parsecs as distance, klicks for short distances.",
+    "Force prose is experiential and mystical, never clinical; avoid 'energy field' framing.",
+    "No ABY/BBY dating in narration or dialogue.",
+    "No real-world pop culture references.",
+    "No authorial framing or direct reader address."
+  ],
+  "canon_risks": [
+    "Risk: The Glasswell collapse could be written as a mystical event rather than a physical consequence of forcing the site to remember. The canon contract explicitly states the collapse is structural failure, not mystical revelation.",
+    "Risk: Ben's crisis logic could be framed as a Force technique rather than a mindset Jacen taught. The canon contract distinguishes crisis logic (mindset) from Recognition/Holding (Force techniques).",
+    "Risk: Aevyn's presumed death could be written as definitive. The Ch 38 white-blue spark confirms survival to the reader; the scene should leave ambiguity without telegraphing the spark.",
+    "Risk: The holocron could be treated as a completed Sith weapon. It is explicitly an unfinished notebook/training device/confession/laboratory.",
+    "Risk: Talon's role could drift into non-Force observer commentary. The scene card specifies he has a practical plot job (disrupting Greyline extraction).",
+    "Risk: Sela's local knowledge could be undercut by Ben's Force abilities. The canon contract requires Sela to save people through knowledge Ben does not have."
+  ],
+  "legends_continuity_notes": [
+    "Iresh is a new Outer Rim location near the Kathol Rift, consistent with Jacen's Force odyssey geography.",
+    "The Aing-Tii flow-walking lineage grounds Recognition; the Fallanassi White Current and battle meditation ground Holding.",
+    "Jacen's GAG-era experiments are canonical (LotF period); the holocron is a new extrapolation.",
+    "The One Sith on Korriban remain in pre-emergence; no on-page appearance in Book 1.",
+    "Vestara Khai is canonically active off-page as 'Savara Raine' per Crucible; not on-page in Book 1.",
+    "Luke's post-Crucible state is implication only (quieter, eyes further away, longer pauses); Mortis never named.",
+    "The Jedi Order has no institutional foothold on Coruscant in 47 ABY; Ben operates without Order resources."
+  ],
+  "possible_disney_bleed": [
+    "Avoid 'kyber crystal' as a lightsaber crystal source; Legends uses synthetic crystals for Sith and natural crystals for Jedi, but the bleeding mechanic is Disney-only.",
+    "Avoid 'World Between Worlds' as a Force concept; it is Disney-only and incompatible with Legends Force ontology.",
+    "Avoid 'Inquisitorius' as a post-Imperial organization; Legends Inquisitorius is Empire-era only.",
+    "Avoid 'High Republic' references; it does not exist in Legends.",
+    "Avoid 'Ben Solo' naming; 'Ben' is unambiguously Ben Skywalker.",
+    "Avoid Disney Mandalorian conventions ('The Way'); Legends Mandalorians follow Resol'nare."
+  ],
+  "required_context_for_drafter": [
+    "The Glasswell collapse is triggered by Aevyn forcing the site to remember the moment Jacen sealed the cache (Ch 30). The physical destabilization is the consequence.",
+    "Ben's crisis logic in this scene is the same mindset Jacen taught him during the GAG year; it saves Tavi and others. Aevyn recognized it in Ch 31: 'He taught you that.'",
+    "Talon's disruption of Greyline extraction is his climax job; it proves his field instinct was never the problem, only the record that ruined him.",
+    "Sela's service tunnel knowledge is local and pre-Foundation; she moves through it at speed in the dark, relying on memory and touch.",
+    "The holocron container is in Ben's hand from the moment he grabbed it off the platform (Ch 32). He has not let go. Talon's look at the hauler ramp is the first external acknowledgment of the omission.",
+    "Aevyn is not behind them; the water is rising. No body is recovered. The ambiguity is intentional.",
+    "The Greyline extraction beacon is a prepared emergency system; Talon reads it, pulls the power coupling, and takes the access cylinder. No fight, just systems knowledge.",
+    "The Foundation camp scatters without operational command after the collapse; the Iresh operation is broken logistically, not by direct confrontation."
+  ],
+  "allowed_au_divergences": [
+    "Aevyn Soris is a NEW character (not in published Legends): Jacen's side-project Force student.",
+    "The unfinished holocron is a NEW artifact: Jacen's systematization of Recognition and Holding.",
+    "The duplicated wartime manifest is a NEW artifact specific to this novel.",
+    "The Shedu Maad Memorial Foundation, the Vigil, and Greyline Strategic Services are NEW post-war institutions.",
+    "Iresh and the Glasswell are NEW locations; Iresh's Force character (preservation of impressions, not truth/prophecy) is original.",
+    "Tarn Velos Coastal Detention Works and Civitas Archive Systems are NEW Book 1 settings.",
+    "Allana Solo / Amelia is treated as a dangerous gray zone in adversary awareness only (Ch 37 oblique reference); never named on-page, never enters Ben's awareness."
+  ],
+  "open_questions": [
+    "Does the scene need to specify how Talon knows the Greyline extraction beacon's power coupling location? The scene card implies he reads the system on arrival, but the drafter may need a brief establishing beat.",
+    "Is there a specific number of Foundation workers Sela guides through the tunnel? The scene card says 'two Foundation workers' but the chapter blueprint does not specify; the drafter may need to confirm or invent.",
+    "Does Ben use Force-pressure to hold a ceiling section clear of the exit? The scene card specifies this; the drafter should ensure the physical description is clear and the effort is felt.",
+    "Is the cargo hauler at the eastern plateau pad pre-established in earlier Iresh chapters? The scene card assumes it; the drafter may need to verify or add a brief establishing reference."
+  ]
+}

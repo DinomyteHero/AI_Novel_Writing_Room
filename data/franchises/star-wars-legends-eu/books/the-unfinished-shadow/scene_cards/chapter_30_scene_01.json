@@ -99,5 +99,11 @@
       "do not make Dorrin a third lead or secret mentor"
     ],
     "pov_arc_phase": "Aevyn:point_of_no_return"
-  }
+  },
+  "dialogue_density_target": "low",
+  "interiority_budget": {
+    "max_words": 600,
+    "max_paragraphs": 6
+  },
+  "opening_mode": "sensory_hook"
 }

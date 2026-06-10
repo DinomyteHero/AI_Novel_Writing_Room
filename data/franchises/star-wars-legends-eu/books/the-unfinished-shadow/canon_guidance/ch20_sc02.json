@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "scene_id": "ch20_sc02",
+  "chapter_number": 20,
+  "scene_number": 2,
+  "model": "deepseek/deepseek-v4-flash",
+  "prompt_version": "canon_scout_v1",
+  "input_hash": "46e68774d46af6617ff8cf9965dcb32d6d1ff5704606cc269f00715b648b4ba0",
+  "review_status": "unreviewed",
+  "confidence": 0.95,
+  "hard_constraints": [
+    "Tess POV opens the scene: operational, calm, no gloating. Korda's death is logistics.",
+    "The cache raid is experienced by Ben and Talon after the fact \u2014 they arrive at a destroyed space, no enemy present.",
+    "Talon's frame carries Tess's tradecraft fingerprint: specific cover-identity construction patterns, particular routing of planted evidence. Talon recognizes it in one sentence and goes cold.",
+    "The second Luke holo-call from the apartment is brief, quiet, ends without resolution. Luke does not tell Ben to come to Shedu Maad or to go to Iresh. He says he understands and will do what he can from where he is.",
+    "The apartment is the one address neither Ben nor Talon has ever connected to an operation.",
+    "Who told Greyline where the cache was stays unanswered \u2014 planted, not resolved.",
+    "No new plot mythology or Force mechanics introduced.",
+    "Iresh staging acceleration is a calculated adjustment, not panic.",
+    "Talon's reaction to the frame is cold stillness, not rage.",
+    "The Luke call is the quietest and most painful beat in the chapter."
+  ],
+  "canon_risks": [
+    "Risk: The scene might imply that Luke has institutional authority to intervene on Coruscant in 47 ABY. The Jedi Order has no foothold on Coruscant; Luke's quiet legal cover is through personal contacts, not Order resources. Ensure the holo-call and frame consequences reflect this.",
+    "Risk: The cache raid's professionalism might be mistaken for a Force-sensitive operation. It is Greyline's work \u2014 non-Force-sensitive, procedural, traceable to Tess's operational style.",
+    "Risk: Talon's frame must be a current Coruscant crime, not a GAG-era crime. The frame is planted evidence for something recent, not a reopened old case."
+  ],
+  "legends_continuity_notes": [
+    "The Skywalker family apartment on Coruscant is the last Skywalker presence on a world that pushed the Jedi Order out in 44 ABY. It is not a Jedi facility \u2014 it is a private residence.",
+    "Luke's post-Crucible state (quieter, eyes further away, longer pauses) should texture the holo-call without being named. Mortis is never mentioned.",
+    "The Galactic Alliance Guard (GAG) was dissolved in disgrace after the Battle of Shedu Maad (41 ABY). Its records, infrastructure, and personnel networks are the novel's conspiracy substrate.",
+    "Tess's tradecraft fingerprint is a GAG-era operational signature \u2014 specific patterns in cover-identity construction and evidence routing that Talon would recognize from their shared service."
+  ],
+  "possible_disney_bleed": [
+    "No Inquisitorius, no kyber bleeding, no World Between Worlds, no sequel-trilogy entities.",
+    "No 'Ben Solo' \u2014 'Ben' is unambiguously Ben Skywalker.",
+    "No Disney-canon Mandalorian conventions (Resol'nare is the Legends standard).",
+    "No High Republic terminology or concepts."
+  ],
+  "required_context_for_drafter": [
+    "The scene is the second pinch point (PP2) \u2014 three antagonist-pressure beats compound within hours: Korda's death/fall-guy narrative, the cache raid, and Talon's frame.",
+    "The documentary reconstruction Ben was building for Saba is unrecoverable. The case cannot be brought through institutional channels.",
+    "Talon's frame ends Luke's quiet legal cover \u2014 the planted evidence is current and professionally constructed.",
+    "Greyline's Iresh staging has accelerated past the timeline Ben captured from Korda. The clock is no longer theoretical.",
+    "The apartment becomes the final refuge for the run-up to Iresh. The family holo is on the shelf \u2014 noted, not approached.",
+    "The question of who told Greyline where the cache was is planted and unanswered. It should feel like a loose thread, not a plot hole.",
+    "Tess's POV should feel terrifying because he is calm and operational \u2014 he treats the killing as logistics, not emotion."
+  ],
+  "allowed_au_divergences": [
+    "Aevyn Soris as Jacen's surviving side-project Force student (new character).",
+    "The unfinished holocron and its systematized Recognition/Holding techniques (new artifacts).",
+    "The duplicated wartime manifest (new artifact).",
+    "Iresh and the Glasswell (new locations with original Force character \u2014 preservation of impressions, not prophecy).",
+    "The Shedu Maad Memorial Foundation, the Vigil, and Greyline Strategic Services (new post-war institutions).",
+    "Tarn Velos Coastal Detention Works and Civitas Archive Systems (new settings)."
+  ],
+  "open_questions": [
+    "Who told Greyline where Iressa's secondary cache was? The scene plants this question without answering it \u2014 is it meant to be a known character (e.g., a Civitas coworker, a GAG survivor) or an unknown leak? The drafter should leave it unresolved per the scene card, but the question may need a future answer.",
+    "The specific current Coruscant crime Talon is framed for is not specified in the scene card. Does the drafter need to invent a crime type (e.g., data theft, accessory to murder, conspiracy) that fits Tess's tradecraft fingerprint and Talon's profile?",
+    "The scene card mentions 'public-facing indicators' Talon reads to confirm Iresh acceleration \u2014 freight aggregator patterns, civil-aviation filings, a declining contact. Are these specific enough for the drafter, or does the drafter need more detail on what Talon sees?"
+  ]
+}

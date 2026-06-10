@@ -27,7 +27,7 @@
   "canon_elements_needed": [
     "Tarn Velos prison geography and legal stakes"
   ],
-  "target_word_count": 3800,
+  "target_word_count": 3200,
   "active_subplots": [
     "SUB_05"
   ],
@@ -93,5 +93,14 @@
       "do not make Dorrin a third lead or secret mentor"
     ],
     "pov_arc_phase": "Ben Skywalker:lie_established"
-  }
+  },
+  "start_state": {
+    "Talon Veyr": "captured"
+  },
+  "dialogue_density_target": "medium",
+  "interiority_budget": {
+    "max_words": 150,
+    "max_paragraphs": 2
+  },
+  "opening_mode": "in_medias_res"
 }
