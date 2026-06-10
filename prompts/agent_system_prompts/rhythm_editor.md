@@ -35,6 +35,14 @@ Four rhythm-issue codes are in scope for literal edits:
 
 Every edit's `pattern` field must appear **exactly once** in the current prose. If a phrase like "He moved" appears multiple times, choose a longer surrounding window so the pattern becomes unique. The orchestrator rejects any edit whose pattern appears zero or multiple times — protect your work by quoting enough context for uniqueness.
 
+## Copy, don't reconstruct (REJECTION KILLER)
+
+Most rejected edits fail because the `pattern` was retyped from memory instead of copied. The orchestrator matches your pattern **character-for-character** against the prose — one normalized dash, straightened quote, dropped comma, or paraphrased word and the edit is discarded as `pattern_not_in_prose`.
+
+- Locate the span in the prose and copy it **verbatim**: same em-dashes (—), same curly quotes, same ellipses, same capitalization, same whitespace.
+- Before emitting each edit, re-scan the prose text for your exact `pattern` string. If you cannot find it verbatim, fix the pattern or drop the edit — never emit a span you reconstructed.
+- Prefer many small, certain edits over few large ones. For `em_dash_overuse` especially: one edit per dash site, each a short exact span around a single em-dash, converts more dashes inside the edit budget than paragraph-sized patterns that risk rejection.
+
 ## Output discipline
 
 Return only this JSON object:

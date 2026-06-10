@@ -280,18 +280,31 @@ def test_initialize_from_planning_seeds_story_physics_rows(ledger):
     )
     assert count == 2
 
+    # Planning declares where payoffs are SCHEDULED \u2014 seeding never marks a
+    # promise paid. Runtime record_payoff (scene save / patch replay) is the
+    # only writer of status='paid' / payoff_scene.
     pp01 = ledger.get("PP01")
     assert pp01 is not None
     assert pp01["setup_scene"] == "ch01_sc01"
-    assert pp01["payoff_scene"] == "ch05_sc04"
-    assert pp01["status"] == "paid"
+    assert pp01["payoff_scene"] is None
+    assert pp01["status"] == "planted"
+    assert pp01["due_by_scene"] == "ch05_sc04"  # card-refined from ch05_sc99
     assert pp01["promise_type"] == "plot"  # setup_payoff \u2192 plot
 
     pp02 = ledger.get("PP02")
     assert pp02["setup_scene"] == "ch01_sc01"
-    assert pp02["payoff_scene"] == "ch11_sc99"  # chapter-end sentinel
+    assert pp02["payoff_scene"] is None
     assert pp02["status"] == "planted"
+    assert pp02["due_by_scene"] == "ch11_sc99"  # chapter-end sentinel
     assert pp02["promise_type"] == "character"
+
+    # Both must be visible to the packet compiler before their due scenes \u2014
+    # this is the regression that left list_top_urgent empty on a freshly
+    # seeded book whose cards declared future payoffs.
+    active_ids = {
+        e["promise_id"] for e in ledger.list_top_urgent(at_scene="ch02_sc01", n=5)
+    }
+    assert active_ids == {"PP01", "PP02"}
 
 
 def test_initialize_from_planning_is_idempotent(ledger):

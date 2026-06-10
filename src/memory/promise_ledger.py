@@ -150,7 +150,11 @@ class PromiseLedger:
         1. ``concept_seed.story_physics.promise_payoff_ledger`` \u2014 canonical list.
         2. ``scene_card.promises_planted[i]`` \u2014 sets ``setup_scene`` for the
            matching ``promise_id`` if not already set by (1).
-        3. ``scene_card.promises_paid[i]`` \u2014 sets ``payoff_scene`` + ``status=paid``.
+        3. ``scene_card.promises_paid[i]`` \u2014 planning declaration of where the
+           payoff is *scheduled*: refines ``due_by_scene`` to the earliest
+           declared paying scene. Seeding never marks a promise paid \u2014
+           runtime ``record_payoff`` (scene save or patch replay) is the only
+           writer of ``status='paid'`` / ``payoff_scene``.
         """
         # Coerce input once; scene cards get walked twice.
         cards = [dict(c) for c in scene_cards]
@@ -192,15 +196,15 @@ class PromiseLedger:
             if planted_ch is not None:
                 setup_scene = _scene_id(planted_ch, 1)
 
-            payoff_scene: str | None = None
-            if payoff_ch is not None:
-                payoff_scene = _scene_id_for_chapter_end(payoff_ch)
-
             due_by_scene: str | None = None
             if payoff_ch is not None:
                 due_by_scene = _scene_id_for_chapter_end(payoff_ch)
 
-            if status == "paid" and payoff_scene is None and payoff_ch is not None:
+            # A planned payoff chapter is a due date, not a completed payoff.
+            # payoff_scene stays NULL unless planning *explicitly* marks the
+            # promise paid (e.g. a mid-series re-seed of a finished book).
+            payoff_scene: str | None = None
+            if status == "paid" and payoff_ch is not None:
                 payoff_scene = _scene_id_for_chapter_end(payoff_ch)
 
             seeds[pid] = {
@@ -209,7 +213,7 @@ class PromiseLedger:
                 "setup_scene": setup_scene,
                 "payoff_scene": payoff_scene,
                 "due_by_scene": due_by_scene,
-                "status": status if status else ("paid" if payoff_scene else "planted"),
+                "status": status or "planted",
             }
         return seeds
 
@@ -253,10 +257,12 @@ class PromiseLedger:
                         "status": "planted",
                     },
                 )
-                existing = entry.get("payoff_scene")
-                if existing is None or _scene_id_lt(sid, existing):
-                    entry["payoff_scene"] = sid
-                entry["status"] = "paid"
+                # The card declares where the payoff is scheduled — refine the
+                # due date to the earliest declared paying scene. Status and
+                # payoff_scene belong to runtime record_payoff.
+                existing_due = entry.get("due_by_scene")
+                if existing_due is None or _scene_id_lt(sid, existing_due):
+                    entry["due_by_scene"] = sid
         # Any promise with no setup_scene is unusable; drop it so writes
         # don't violate the NOT NULL constraint.
         return {pid: e for pid, e in seeds.items() if e.get("setup_scene")}

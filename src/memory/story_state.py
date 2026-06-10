@@ -212,6 +212,7 @@ _SCHEMA_SQL = """
 CREATE TABLE IF NOT EXISTS characters (
     id TEXT PRIMARY KEY,
     name TEXT NOT NULL,
+    status TEXT,
     current_location TEXT,
     emotional_state TEXT,
     arc_position TEXT,
@@ -708,6 +709,21 @@ def _migrate_v6_to_v7(conn: sqlite3.Connection) -> None:
     """)
 
 
+def _migrate_v7_to_v8(conn: sqlite3.Connection) -> None:
+    """Declared state: add characters.status for trusted physical state.
+
+    Holds the normalized scene-card state vocabulary (alive / wounded /
+    unconscious / dead / captured / free / off_screen). Written by the
+    orchestrator from declared scene-card ``end_state`` when
+    ``runtime.declared_state.enabled`` is on; declarations overwrite
+    whatever the Summarizer's extracted diff proposed. Idempotent: fresh
+    databases already get the column from _SCHEMA_SQL, so skip when present.
+    """
+    cols = {row[1] for row in conn.execute("PRAGMA table_info(characters)")}
+    if "status" not in cols:
+        conn.execute("ALTER TABLE characters ADD COLUMN status TEXT")
+
+
 # Ordered list of migrations. Each entry is (version, description, callable).
 _MIGRATIONS: list[tuple[int, str, callable]] = [
     (2, "Phase 5: character arcs, subplot board, hook ledger, terminology, propagation debts, style fingerprint", _migrate_v1_to_v2),
@@ -716,6 +732,7 @@ _MIGRATIONS: list[tuple[int, str, callable]] = [
     (5, "Pipeline redesign: retire craft_edited/revised; add polished and final_gate_rejected", _migrate_v4_to_v5),
     (6, "Relay v3: collapse revision_status to saved_clean/saved_with_advisory/quarantined", _migrate_v5_to_v6),
     (7, "Architecture upgrade Slice 1: gap_notes table for state-firewall isolations", _migrate_v6_to_v7),
+    (8, "Declared state: characters.status column for trusted physical state", _migrate_v7_to_v8),
 ]
 
 
@@ -888,7 +905,7 @@ class StoryState:
         return d
 
     _CHARACTER_COLUMNS = {
-        "name", "current_location", "emotional_state",
+        "name", "status", "current_location", "emotional_state",
         "arc_position", "inventory",
         "last_appearance_chapter", "last_appearance_scene",
     }

@@ -63,6 +63,14 @@ EVENT_TYPES = [
     "promise_progressed",
     "promise_paid",
     "promise_overdue",
+    # Declared-state apply (runtime.declared_state.enabled).
+    "declared_state_applied",
+    "declared_state_conflict",
+    "declared_state_unknown_character",
+    "declared_state_error",
+    # Chapter-close memo emission (rides runtime.revision_debt.enabled).
+    "chapter_memo_written",
+    "chapter_memo_error",
 ]
 
 

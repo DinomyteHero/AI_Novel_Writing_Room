@@ -332,3 +332,30 @@ def test_shipping_books_keep_rhythm_editor_off(book_slug: str):
     assert rhythm_editor["max_edits"] <= 10
     assert rhythm_editor["max_total_changed_chars"] <= 2500
     assert rhythm_editor["max_changed_ratio"] <= 0.20
+
+
+@pytest.mark.parametrize("book_slug", [
+    "the-ruusan-atonement",
+    "legacy-of-the-force-betrayal",
+])
+def test_shipping_books_keep_declared_state_off(book_slug: str):
+    """Declared-state apply writes characters.status from scene-card
+    end_state declarations at save time. The shipping books' scene cards
+    don't carry start_state / end_state fields, so enabling the flag would
+    be a no-op at best; keep off until their cards are migrated and a
+    per-book parity test confirms the writes.
+    """
+    import json
+    seed_path = Path(
+        f"data/franchises/star-wars-legends-eu/books/{book_slug}/concept_seed.json"
+    )
+    if not seed_path.exists():
+        pytest.skip(f"seed not present: {seed_path}")
+    with seed_path.open(encoding="utf-8") as fh:
+        seed = json.load(fh)
+
+    merged = load_runtime_flags(concept_seed=seed)
+    assert merged["runtime"]["declared_state"]["enabled"] is False, (
+        f"{book_slug} must keep runtime.declared_state.enabled=false until "
+        "its scene cards carry declarations and a per-book parity test passes"
+    )

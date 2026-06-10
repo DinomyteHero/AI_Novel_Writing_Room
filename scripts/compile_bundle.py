@@ -20,9 +20,15 @@ compile_report.json).
 Usage:
     python scripts/compile_bundle.py --franchise <slug> --book <slug>
                                      [--base-dir .] [--strict]
+                                     [--force-overwrite-newer]
 
 ``--strict`` makes warnings fail-exit; default is report-only on the
 scene_cards-empty case (pipeline auto-generates downstream).
+
+A hand-edit drift guard refuses to overwrite ``concept_seed.json`` /
+``scene_cards/`` that were never produced by this compiler (no
+``compile_report.json``) or were modified after the last compile while
+the workflow surfaces went stale; ``--force-overwrite-newer`` overrides.
 """
 
 from __future__ import annotations
@@ -80,6 +86,11 @@ SCENE_CARD_SCHEMA_PATH = REPO_ROOT / "schemas" / "scene_card.json"
 
 # Required surfaces. Missing any of these always fails (exit 1).
 _REQUIRED_SURFACES = ("universe", "canon", "voice", "characters", "outline")
+
+# Mtime slack for the hand-edit drift guard, covering coarse filesystem
+# timestamp granularity and the seed/cards/report writes of a single
+# compile landing a moment apart.
+_DRIFT_MTIME_TOLERANCE_SECONDS = 2.0
 
 
 @dataclass
@@ -301,6 +312,115 @@ def _write_scene_cards(
     return len(rendered)
 
 
+def _check_hand_edit_drift(paths: ProjectPaths) -> str | None:
+    """Return a refusal message when compiling would clobber hand edits.
+
+    Pure mtime + existence checks. Two shapes block:
+
+    - compiled artifacts exist but ``compile_report.json`` does not — the
+      seed / cards were installed, ingested, or hand-authored, never
+      produced by this compiler, so the workflow surfaces cannot be
+      trusted to regenerate them;
+    - the newest compiled artifact was modified after the last compile
+      (newer than ``compile_report.json``) and is newer than every
+      workflow surface — the live artifacts drifted while the surfaces
+      went stale.
+
+    Artifacts no newer than the last compile report are machine-written
+    and never block, so recompiles stay idempotent. Workflow surfaces
+    newer than the hand edits also pass: editing the surfaces signals
+    intent to recompile.
+    """
+    # Declared provenance beats mtime forensics: a seed stamped
+    # compile_metadata.managed_by='direct' is hand-maintained by design and
+    # never recompiled without the explicit override.
+    if paths.concept_seed_path.exists():
+        try:
+            seed = json.loads(paths.concept_seed_path.read_text(encoding="utf-8"))
+            managed_by = (seed.get("compile_metadata") or {}).get("managed_by")
+        except (OSError, json.JSONDecodeError):
+            managed_by = None
+        if managed_by == "direct":
+            return (
+                "hand-edit drift guard: concept_seed.json declares "
+                "compile_metadata.managed_by='direct' — this book is "
+                "maintained by editing the compiled artifacts directly, and "
+                "recompiling from workflows/ would overwrite them. Remove the "
+                "marker after reconciling workflows/*.json, or re-run with "
+                "--force-overwrite-newer to overwrite."
+            )
+
+    artifacts: list[Path] = []
+    if paths.concept_seed_path.exists():
+        artifacts.append(paths.concept_seed_path)
+    if paths.scene_cards_dir.exists():
+        artifacts.extend(paths.scene_cards_dir.glob("chapter_*_scene_*.json"))
+    if not artifacts:
+        return None
+
+    newest_artifact = max(artifacts, key=lambda p: p.stat().st_mtime)
+    artifact_mtime = newest_artifact.stat().st_mtime
+
+    sources: list[Path] = []
+    if paths.workflows_dir.exists():
+        sources.extend(paths.workflows_dir.glob("*.json"))
+        per_card_dir = paths.workflows_dir / "scene_cards"
+        if per_card_dir.exists():
+            sources.extend(per_card_dir.glob("chapter_*_scene_*.json"))
+    newest_source = (
+        max(sources, key=lambda p: p.stat().st_mtime) if sources else None
+    )
+
+    def _stamp(ts: float) -> str:
+        return datetime.fromtimestamp(ts, tz=timezone.utc).strftime(
+            "%Y-%m-%dT%H:%M:%SZ"
+        )
+
+    comparison = (
+        f"newest compiled artifact: {newest_artifact.name} "
+        f"({_stamp(artifact_mtime)}); "
+        + (
+            f"newest workflow surface: {newest_source.name} "
+            f"({_stamp(newest_source.stat().st_mtime)})"
+            if newest_source is not None
+            else "no workflow surface artifacts found"
+        )
+    )
+
+    report_path = paths.book_dir / "compile_report.json"
+    if not report_path.exists():
+        return (
+            "hand-edit drift guard: concept_seed.json / scene_cards/ already "
+            f"exist under {paths.book_dir} but compile_bundle has never run "
+            "here (no compile_report.json) — they were installed or "
+            "hand-authored, and recompiling from workflows/ would overwrite "
+            f"them. {comparison}. Reconcile workflows/*.json with the live "
+            "artifacts first, or re-run with --force-overwrite-newer to "
+            "overwrite."
+        )
+
+    if (
+        artifact_mtime
+        <= report_path.stat().st_mtime + _DRIFT_MTIME_TOLERANCE_SECONDS
+    ):
+        return None
+
+    if (
+        newest_source is None
+        or artifact_mtime
+        > newest_source.stat().st_mtime + _DRIFT_MTIME_TOLERANCE_SECONDS
+    ):
+        return (
+            "hand-edit drift guard: compiled artifacts under "
+            f"{paths.book_dir} were modified after the last compile and are "
+            "newer than every workflow surface — recompiling would regress "
+            f"those hand edits. {comparison}. Reconcile workflows/*.json "
+            "with the live artifacts first, or re-run with "
+            "--force-overwrite-newer to overwrite."
+        )
+    return None
+
+
 def compile_bundle(
     *,
     franchise_slug: str,
@@ -309,6 +429,7 @@ def compile_bundle(
     strict: bool = False,
     validate_scene_cards: bool = True,
     editorial_router: "ModelRouter | None" = None,
+    force_overwrite_newer: bool = False,
 ) -> CompileReport:
     """Compile the bundle for one (franchise, book) pair.
 
@@ -326,6 +447,15 @@ def compile_bundle(
         book=book_slug,
         generated_at=datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
     )
+
+    if not force_overwrite_newer:
+        drift = _check_hand_edit_drift(paths)
+        if drift:
+            report.preflight_errors.append(drift)
+            # Deliberately no _write_report here: a report stamped by a
+            # blocked run would satisfy the no-prior-compile check and let
+            # the next invocation sail past the guard.
+            return report
 
     # Load surfaces.
     surfaces: dict[str, dict | None] = {
@@ -492,6 +622,11 @@ def compile_bundle(
                 f"continuity: {len(high_breaks)} high-severity break(s) — "
                 "see compile_report.continuity"
             )
+
+    # Provenance: every compiler-written seed is workflow-kit-managed. Books
+    # maintained by direct edits flip this to 'direct' by hand, which the
+    # drift guard honors on later compiles.
+    seed.setdefault("compile_metadata", {})["managed_by"] = "workflow_kit"
 
     # Persist seed (after physics stamping so the flag lands in the written file).
     paths.concept_seed_path.write_text(
@@ -714,6 +849,15 @@ def _parse_args(argv: list[str]) -> argparse.Namespace:
         default="config/settings.yaml",
         help="ModelRouter config path (only used with --editorial-review).",
     )
+    parser.add_argument(
+        "--force-overwrite-newer",
+        action="store_true",
+        help=(
+            "Override the hand-edit drift guard: overwrite concept_seed.json "
+            "and scene_cards/ even when they are newer than the workflow "
+            "surfaces or were never produced by compile_bundle."
+        ),
+    )
     return parser.parse_args(argv)
 
 
@@ -730,6 +874,7 @@ def main(argv: list[str] | None = None) -> int:
         strict=args.strict,
         validate_scene_cards=not args.no_validate_scene_cards,
         editorial_router=editorial_router,
+        force_overwrite_newer=args.force_overwrite_newer,
     )
     print(_format_summary(report))
     return 1 if report_has_failures(report, strict=args.strict) else 0

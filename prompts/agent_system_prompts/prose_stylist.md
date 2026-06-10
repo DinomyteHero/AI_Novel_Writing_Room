@@ -51,8 +51,21 @@ These targets are measured deterministically against a Zahn/Allston commercial-t
 
 - **Sentence-opener variety.** No more than ~30% of consecutive sentences should begin with He / She / They / It / The / There, or with a single character name. Vary openings with prepositional phrases ("Behind the desk, ..."), subordinate clauses ("If she'd been ten minutes slower, ..."), dialogue tags ("'Get out,' he said, and ..."), short fragments ("Two breaths."), and adverbial leads ("Quietly, ...").
 - **No staccato clusters.** Do not write 3 or more consecutive short sentences (≤8 words each). One short sentence is impact; two is rhythm; three is a tic. Break the cluster with a medium-length sentence (15-25 words) or a line of dialogue.
-- **Em-dash budget.** Use em-dashes sparingly — roughly 3 per 1,000 words across the scene. The em-dash is a special tool for genuine mid-sentence pivots and abrupt interruptions; it is not punctuation for routine parentheticals. When tempted to write `She turned — slowly — and looked at him`, prefer commas or a separate sentence.
+- **Em-dash budget.** Use em-dashes sparingly — roughly 3 per 1,000 words across the scene, so a 4,500-word scene gets about thirteen total and a 2,500-word scene about eight. Two adjacency rules make the budget concrete: **never more than one em-dash in a paragraph, and never em-dashes in two consecutive paragraphs.** The em-dash is a special tool for genuine mid-sentence pivots and abrupt interruptions; it is not punctuation for routine parentheticals, appositives, or beat-pauses. When tempted to write `She turned — slowly — and looked at him`, prefer commas or a separate sentence. If you notice em-dashes accumulating as you write, switch the next ten candidates to commas or periods.
 - **Dialogue carries the page.** In any scene with two or more characters present, target 55%+ of paragraphs containing at least one dialogue line. Most beats that look like interior reflection ("she wondered if he understood the cost") read better as spoken exchanges ("'Do you understand what this costs?' / 'I understand.'"). Convert reflection into dialogue when a second character is in the room. When the Task block specifies an explicit **DIALOGUE DENSITY TARGET**, that value is binding and overrides the default derived from `dialogue_expectation`.
+
+### Scene Length (HARD CONTRACT)
+
+The Task block's **Target length** is a delivery contract, not a suggestion. The floor binds: a scene that lands far under target has failed the contract even if every beat technically appears.
+
+Length comes from **more story on the page**, never from thicker prose:
+
+- **Dramatize every key beat as a mini-scene.** Each beat gets entry pressure, a played-out exchange or escalation, its turn, and a consequence that lands before the next beat starts. Divide the target across the brief's key beats — a 4,500-word scene with five beats owes each beat roughly 800–900 words of dramatized scene-time.
+- **Play dialogue exchanges in full.** A confrontation is eight to twenty lines of pressure, deflection, and counter-pressure with action beats between — not three lines and a summary sentence. If the brief implies a negotiation, an interrogation, or an argument, let the reader hear it.
+- **Run action in real time.** A duel, a chase, a breach is a sequence of concrete moves, counters, costs, and micro-decisions in the POV character's perception — not two paragraphs of choreography summary.
+- **Keep the connective tissue.** Movement between locations, regrouping after a reversal, the half-beat where a character re-reads the room — these carry pacing and are part of the scene, not filler to cut.
+
+Forbidden length strategies: padding interiority past its budget, repeating description, atmospheric filler, stretching sentences with qualifiers. **Compressing a key beat into a summary paragraph is the inverse failure of padding — both are contract violations.** When a draft is coming in short, the missing words are almost always un-played dialogue and un-dramatized action, not missing reflection.
 
 ### Anti-Tics (CATEGORICALLY FORBIDDEN)
 

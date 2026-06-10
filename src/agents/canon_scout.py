@@ -25,11 +25,10 @@ class CanonScout(BaseAgent):
 
     async def run(self, context: dict) -> dict:
         messages = self._build_messages(context)
-        result = await self.router.complete_structured(
-            self.role,
-            messages,
-            override_params={"temperature": 0.1, "max_tokens": 1800},
-        )
+        # No override_params: agent_routing supplies temperature/max_tokens.
+        # A hardcoded max_tokens here once truncated dense-scene guidance
+        # mid-JSON — and capped the corrective retry identically.
+        result = await self.router.complete_structured(self.role, messages)
         return result if isinstance(result, dict) else {}
 
     def _format_context(self, context: dict) -> str:

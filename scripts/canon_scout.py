@@ -262,31 +262,41 @@ async def _execute(plan: dict[str, Any], args: argparse.Namespace) -> None:
     }
     store: CanonGuidanceStore = plan["store"]
 
-    try:
-        for target in plan["targets"]:
-            if not target["should_run"]:
-                continue
-            card = cards_by_scene[target["scene_id"]]
-            blueprint = plan["blueprints"].get(int(card.get("chapter_number") or 0), {})
-            prompt_text = build_canon_scout_context(
-                concept_seed=plan["concept_seed"],
-                chapter_blueprint=blueprint,
-                scene_card=card,
-                canon_contract_text=store.contract_text(),
+    failures: list[tuple[str, str]] = []
+    # Bounded concurrency: sidecars are independent per-scene files, and the
+    # dominant cost is provider latency on ~30k-token prompts. The per-scene
+    # wait_for cap turns a wedged retry stack (300s httpx timeout x 3 HTTP
+    # attempts x structured-output retry) into a recorded failure instead of
+    # a quarter-hour stall; a re-run retries just the missing scenes.
+    semaphore = asyncio.Semaphore(4)
+
+    async def _scout_one(target: dict) -> None:
+        card = cards_by_scene[target["scene_id"]]
+        blueprint = plan["blueprints"].get(int(card.get("chapter_number") or 0), {})
+        prompt_text = build_canon_scout_context(
+            concept_seed=plan["concept_seed"],
+            chapter_blueprint=blueprint,
+            scene_card=card,
+            canon_contract_text=store.contract_text(),
+        )
+        if not args.no_prompt_snapshots:
+            snapshot_dir = paths.canon_guidance_dir / "_prompt_snapshots"
+            snapshot_dir.mkdir(parents=True, exist_ok=True)
+            (snapshot_dir / f"{target['scene_id']}.md").write_text(
+                prompt_text,
+                encoding="utf-8",
             )
-            if not args.no_prompt_snapshots:
-                snapshot_dir = paths.canon_guidance_dir / "_prompt_snapshots"
-                snapshot_dir.mkdir(parents=True, exist_ok=True)
-                (snapshot_dir / f"{target['scene_id']}.md").write_text(
-                    prompt_text,
-                    encoding="utf-8",
+        try:
+            async with semaphore:
+                result = await asyncio.wait_for(
+                    scout.run({
+                        "concept_seed": plan["concept_seed"],
+                        "chapter_blueprint": blueprint,
+                        "scene_card": card,
+                        "canon_contract_text": store.contract_text(),
+                    }),
+                    timeout=300.0,
                 )
-            result = await scout.run({
-                "concept_seed": plan["concept_seed"],
-                "chapter_blueprint": blueprint,
-                "scene_card": card,
-                "canon_contract_text": store.contract_text(),
-            })
             payload = store.prepare_payload(
                 model_output=result,
                 model=plan["model"],
@@ -295,9 +305,27 @@ async def _execute(plan: dict[str, Any], args: argparse.Namespace) -> None:
                 scene_card=card,
             )
             path = store.write(payload)
-            print(f"Wrote {path}")
+        except Exception as exc:  # noqa: BLE001
+            failures.append(
+                (target["scene_id"], f"{type(exc).__name__}: {exc}")
+            )
+            print(f"FAILED {target['scene_id']}: {type(exc).__name__}: {exc}")
+            return
+        print(f"Wrote {path}")
+
+    try:
+        await asyncio.gather(*(
+            _scout_one(target)
+            for target in plan["targets"]
+            if target["should_run"]
+        ))
     finally:
         await router.close()
+    if failures:
+        print(f"\n{len(failures)} scene(s) failed; re-run to retry just those:")
+        for scene_id, err in failures:
+            print(f"  - {scene_id}: {err}")
+    return len(failures)
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -311,8 +339,8 @@ def main(argv: list[str] | None = None) -> int:
     if args.rekey_only:
         _rekey(plan, args)
         return 0
-    asyncio.run(_execute(plan, args))
-    return 0
+    failures = asyncio.run(_execute(plan, args))
+    return 0 if not failures else 2
 
 
 if __name__ == "__main__":

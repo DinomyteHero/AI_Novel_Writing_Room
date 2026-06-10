@@ -221,21 +221,32 @@ class ProseStylist(BaseAgent):
             "The scene must contain the turning point specified in the brief.",
         ]
         if target_words:
+            try:
+                calibration = float(context.get("length_calibration") or 1.0)
+            except (TypeError, ValueError):
+                calibration = 1.0
+            if calibration > 0 and calibration != 1.0:
+                target_words = int(round(target_words * calibration))
             floor = int(target_words * 0.90)
-            ceiling = int(target_words * 1.10)
-            task_lines.append(
-                f"Target length: {target_words} words. "
-                f"Aim to land within {floor}\u2013{ceiling} words (\u00b110% of target). "
-                "Treat the target as a soft floor, not a ceiling: if your "
-                "first full pass through the brief's beats is coming in short, "
-                "add the scene depth the beats actually need -- room for the "
-                "dialogue to breathe, for physical actions to land, for "
-                "interior reactions to register -- rather than compressing each "
-                "beat to a sentence. If you significantly exceed the ceiling, "
-                "check that every paragraph is earning its length; the "
-                "downstream pipeline does not hard-reject off-target scenes "
-                "but consistent undershoot is a quality signal."
+            ceiling = int(target_words * 1.15)
+            length_line = (
+                f"TARGET LENGTH (HARD CONTRACT): {target_words} words. "
+                f"Minimum {floor}; ceiling {ceiling}. A draft far under the "
+                "minimum has compressed key beats into summary -- that is a "
+                "contract violation, not a style choice. Reach length by "
+                "playing dialogue exchanges in full and running action in "
+                "real time, never by padding interiority or description."
             )
+            key_beats = scene_card.get("key_beats") or generation_brief.get(
+                "key_beats"
+            )
+            if isinstance(key_beats, list) and len(key_beats) >= 2:
+                per_beat = int(target_words / len(key_beats))
+                length_line += (
+                    f" Budget roughly {per_beat} words of dramatized "
+                    f"scene-time per key beat ({len(key_beats)} beats)."
+                )
+            task_lines.append(length_line)
         density_target = scene_card.get("dialogue_density_target")
         if density_target:
             task_lines.append(

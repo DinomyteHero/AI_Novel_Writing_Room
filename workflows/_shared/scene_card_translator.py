@@ -232,8 +232,11 @@ def translate_scene_card(
     # object when present so mixed migration states do not silently lose them.
     # Also preserve the post-PlotArchitect planning fields
     # (turning_point_detail, emotional_arc, opening_mode, key_beats,
-    # anti_patterns) and the Slice-3/4/5 memory fields
-    # (relationship_deltas, promises_progressed, depends_on) so they survive
+    # anti_patterns), the Slice-3/4/5 memory fields (relationship_deltas,
+    # promises_progressed, depends_on), the rhythm/interiority contracts
+    # (dialogue_density_target, interiority_budget, pov_knowledge_state), and
+    # the declared-state continuity fields (start_state, end_state,
+    # objects_at_open, objects_at_close, off_page_events) so they survive
     # the compile round-trip.
     for field in (
         "anti_patterns",
@@ -248,6 +251,14 @@ def translate_scene_card(
         "relationship_deltas",
         "promises_progressed",
         "depends_on",
+        "dialogue_density_target",
+        "interiority_budget",
+        "pov_knowledge_state",
+        "start_state",
+        "end_state",
+        "objects_at_open",
+        "objects_at_close",
+        "off_page_events",
     ):
         if field in seed_card:
             card[field] = seed_card[field]

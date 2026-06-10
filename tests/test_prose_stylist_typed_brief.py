@@ -304,3 +304,39 @@ class TestAgentIntegration:
         assert "### Heightened Interiority Permission" in user_content
         assert "Heightened interior density is permitted in this scene" in user_content
         assert "Stover" not in user_content
+
+
+def test_length_calibration_inflates_rendered_ask_only():
+    """length_calibration multiplies the rendered word-count ask; the scene
+    card's target stays the planning truth telemetry measures against."""
+    ps = ProseStylist(MagicMock())
+    context = {
+        "generation_brief": _minimal_brief(),
+        "assembled_context": "ctx",
+        "scene_card": {
+            "chapter_number": 1, "scene_number": 1,
+            "pov_character": "Alex", "mission": "m", "conflict": "c",
+            "turning_point": "t", "target_word_count": 2300,
+        },
+        "length_calibration": 1.8,
+    }
+    messages = ps._build_messages(context)
+    user_text = "\n".join(m["content"] for m in messages if m["role"] == "user")
+    assert "4140" in user_text
+    assert "2300" not in user_text.split("TARGET LENGTH", 1)[1][:300]
+
+
+def test_length_calibration_defaults_to_identity():
+    ps = ProseStylist(MagicMock())
+    context = {
+        "generation_brief": _minimal_brief(),
+        "assembled_context": "ctx",
+        "scene_card": {
+            "chapter_number": 1, "scene_number": 1,
+            "pov_character": "Alex", "mission": "m", "conflict": "c",
+            "turning_point": "t", "target_word_count": 2300,
+        },
+    }
+    messages = ps._build_messages(context)
+    user_text = "\n".join(m["content"] for m in messages if m["role"] == "user")
+    assert "TARGET LENGTH (HARD CONTRACT): 2300 words" in user_text

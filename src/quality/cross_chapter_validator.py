@@ -66,6 +66,7 @@ _NATURAL_TRANSITIONS = {
     ("captured", "off_screen"),
     ("free", "alive"),
     ("free", "captured"),
+    ("free", "off_screen"),
     ("off_screen", "alive"),
     ("off_screen", "wounded"),
     ("off_screen", "captured"),
@@ -252,6 +253,43 @@ def _bridged(card: Mapping[str, Any], subject: str) -> bool:
         if isinstance(text, str) and bridge_re.search(text):
             return True
     return False
+
+
+# --- public helpers (runtime declared-state apply) ---------------------------
+#
+# The orchestrator's declared-state hook reuses the same field collectors and
+# transition taxonomy as the compile-time validator so the two surfaces can
+# never drift on what a declaration means.
+
+
+def collect_start_states(card: Mapping[str, Any]) -> dict[str, str]:
+    """Declared per-character start states, normalized. See _collect_start_states."""
+    return _collect_start_states(card)
+
+
+def collect_end_states(card: Mapping[str, Any]) -> dict[str, str]:
+    """Declared per-character end states, normalized. See _collect_end_states."""
+    return _collect_end_states(card)
+
+
+def classify_transition(prev_state: str, next_state: str) -> str:
+    """Classify a character-state transition.
+
+    Returns ``same`` / ``natural`` / ``requires_bridge`` / ``suspicious``.
+    """
+    if prev_state == next_state:
+        return "same"
+    transition = (prev_state, next_state)
+    if transition in _NATURAL_TRANSITIONS:
+        return "natural"
+    if transition in _REQUIRES_BRIDGE:
+        return "requires_bridge"
+    return "suspicious"
+
+
+def has_bridge(card: Mapping[str, Any], subject: str) -> bool:
+    """True when the card declares an off-page bridge for ``subject``."""
+    return _bridged(card, subject)
 
 
 # --- main entry point -------------------------------------------------------

@@ -253,6 +253,103 @@
       "type": "array",
       "items": { "type": "string", "pattern": "^ch\\d{2}_sc\\d{2}$" },
       "description": "Scene IDs (format chNN_scMM) that this scene directly depends on. Used by SuccessorClassifier (src/pipeline/successor_classifier.py) to classify this scene as an immediate-sequel soft-halt when any listed predecessor is isolated by the state firewall. Authors set this manually; no auto-inference in v1. Optional — missing means classifier falls through to heuristic rules."
+    },
+    "start_state": {
+      "description": "Declared per-character physical state as the scene OPENS. Consumed by the cross-chapter continuity validator (compile time) and verified against accumulated story state by the orchestrator's declared-state hook (runtime, flag runtime.declared_state.enabled). Only declare what the card text already establishes — silence is not a continuity break. Either a {character_name: state} mapping or an array of {character, state} entries.",
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string",
+            "enum": ["alive", "wounded", "injured", "unconscious", "dead", "killed", "captured", "captive", "escaped", "free", "off_screen", "off-screen", "offscreen"]
+          }
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["character", "state"],
+            "additionalProperties": false,
+            "properties": {
+              "character": { "type": "string", "minLength": 1 },
+              "state": {
+                "type": "string",
+                "enum": ["alive", "wounded", "injured", "unconscious", "dead", "killed", "captured", "captive", "escaped", "free", "off_screen", "off-screen", "offscreen"]
+              }
+            }
+          }
+        }
+      ]
+    },
+    "end_state": {
+      "description": "Declared per-character physical state as the scene CLOSES. The authoritative writer to story_state characters.status at save time when runtime.declared_state.enabled is on — declarations win over the Summarizer's extracted diff. Same shapes and vocabulary as start_state.",
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string",
+            "enum": ["alive", "wounded", "injured", "unconscious", "dead", "killed", "captured", "captive", "escaped", "free", "off_screen", "off-screen", "offscreen"]
+          }
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["character", "state"],
+            "additionalProperties": false,
+            "properties": {
+              "character": { "type": "string", "minLength": 1 },
+              "state": {
+                "type": "string",
+                "enum": ["alive", "wounded", "injured", "unconscious", "dead", "killed", "captured", "captive", "escaped", "free", "off_screen", "off-screen", "offscreen"]
+              }
+            }
+          }
+        }
+      ]
+    },
+    "objects_at_open": {
+      "description": "Declared plot-object → holder/location mapping as the scene opens. Consumed by the cross-chapter continuity validator. Holder strings are compared verbatim (lowercased) across consecutive scenes — use consistent names. Either {object: holder} or an array of {object, holder|location} entries.",
+      "oneOf": [
+        { "type": "object", "additionalProperties": { "type": "string" } },
+        {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["object"],
+            "additionalProperties": false,
+            "properties": {
+              "object": { "type": "string", "minLength": 1 },
+              "holder": { "type": "string" },
+              "location": { "type": "string" }
+            }
+          }
+        }
+      ]
+    },
+    "objects_at_close": {
+      "description": "Declared plot-object → holder/location mapping as the scene closes. Same shapes and comparison rules as objects_at_open.",
+      "oneOf": [
+        { "type": "object", "additionalProperties": { "type": "string" } },
+        {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["object"],
+            "additionalProperties": false,
+            "properties": {
+              "object": { "type": "string", "minLength": 1 },
+              "holder": { "type": "string" },
+              "location": { "type": "string" }
+            }
+          }
+        }
+      ]
+    },
+    "off_page_events": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Declared off-page events bridging otherwise-suspicious state transitions (e.g. 'Aevyn survived the Glasswell collapse and escaped before the sweep'). The continuity validator and the runtime declared-state hook accept a requires-bridge transition (like dead → alive) only when an entry here mentions the subject with a survival/escape/recovery verb."
     }
   }
 }

@@ -42,21 +42,40 @@ def _find_output_state_dirs(output_root: Path) -> list[Path]:
     return sorted(p for p in output_root.rglob("state") if p.is_dir())
 
 
-def _resolve_book_for_state(state_dir: Path, data_root: Path) -> Path | None:
-    """Find the source book dir under ``data/franchises/`` that seeds this state dir.
+def _resolve_book_dirs_for_state(state_dir: Path, data_root: Path) -> list[Path]:
+    """Find the source book dir(s) under ``data/franchises/`` for this state dir.
 
-    Layout: ``output/<franchise>/<book>/state/`` mirrors
-    ``data/franchises/<franchise>/books/<book>/``.
+    Direct layout: ``output/<franchise>/<book>/state/`` mirrors
+    ``data/franchises/<franchise>/books/<book>/``. Series-scoped layout:
+    ``output/<franchise>/<series>/state/`` (used when concept_seed.meta
+    sets ``series_id``) has no same-named book dir — fall back to every
+    book in the franchise whose ``meta.series_id`` matches, so a
+    series-shared ledger seeds from each member book's planning.
     """
     try:
-        book_slug = state_dir.parent.name
+        slug = state_dir.parent.name
         franchise_slug = state_dir.parent.parent.name
     except Exception:  # noqa: BLE001
-        return None
-    book_dir = data_root / franchise_slug / "books" / book_slug
-    if not book_dir.exists():
-        return None
-    return book_dir
+        return []
+    books_root = data_root / franchise_slug / "books"
+    direct = books_root / slug
+    if direct.exists():
+        return [direct]
+    if not books_root.exists():
+        return []
+    members: list[Path] = []
+    for book_dir in sorted(p for p in books_root.iterdir() if p.is_dir()):
+        seed_path = book_dir / "concept_seed.json"
+        if not seed_path.exists():
+            continue
+        try:
+            seed = _load_json(seed_path)
+        except Exception:  # noqa: BLE001
+            continue
+        meta = seed.get("meta") if isinstance(seed, dict) else None
+        if isinstance(meta, dict) and meta.get("series_id") == slug:
+            members.append(book_dir)
+    return members
 
 
 def _load_scene_cards(book_dir: Path) -> list[dict]:
@@ -152,8 +171,8 @@ def main() -> int:
     rows_migrated = 0
     errors = 0
     for state_dir in state_dirs:
-        book_dir = _resolve_book_for_state(state_dir, data_root=data_root)
-        if book_dir is None:
+        book_dirs = _resolve_book_dirs_for_state(state_dir, data_root=data_root)
+        if not book_dirs:
             print(f"  [skip]   {state_dir.relative_to(base)}  (no matching book dir)")
             continue
         db_path = state_dir / "promise_ledger.db"
@@ -163,20 +182,25 @@ def main() -> int:
         if args.dry_run:
             continue
 
-        try:
-            new_flag, rows = _seed_one_book(
-                state_dir=state_dir, book_dir=book_dir, dry_run=False,
-            )
-        except Exception as exc:  # noqa: BLE001
-            errors += 1
-            print(f"        ! ERROR: {type(exc).__name__}: {exc}")
-            continue
-        if new_flag:
+        dir_created = False
+        dir_errors = 0
+        for book_dir in book_dirs:
+            try:
+                new_flag, rows = _seed_one_book(
+                    state_dir=state_dir, book_dir=book_dir, dry_run=False,
+                )
+            except Exception as exc:  # noqa: BLE001
+                errors += 1
+                dir_errors += 1
+                print(f"        ! ERROR ({book_dir.name}): {type(exc).__name__}: {exc}")
+                continue
+            dir_created = dir_created or bool(new_flag)
+            rows_migrated += rows
+            print(f"        seeded {rows} promise(s) from {book_dir.name}")
+        if dir_created:
             created += 1
-        else:
+        elif dir_errors == 0:
             already += 1
-        rows_migrated += rows
-        print(f"        seeded {rows} promise(s)")
 
     print()
     if args.dry_run:

@@ -993,12 +993,29 @@ async def main():
         db_path=str(paths.state_dir / "revision_debt.db")
     )
 
+    # Promise ledger (Slice 3) — declaration-driven setup/payoff tracking at
+    # <state_dir>/promise_ledger.db (series-scoped when meta.series_id is
+    # set). Constructed only when the flag resolves on: the packet compiler
+    # populates active_promises from ledger presence, so packets must stay
+    # promise-free for books that haven't signed off.
+    promise_ledger = None
+    if bool(
+        (runtime_flags.get("runtime") or {})
+        .get("promise_ledger", {})
+        .get("enabled", False)
+    ):
+        from src.memory.promise_ledger import PromiseLedger
+        promise_ledger = PromiseLedger(
+            db_path=str(paths.state_dir / "promise_ledger.db")
+        )
+
     chapter_packet_compiler = build_chapter_packet_compiler(
         concept_seed=concept_seed,
         paths=paths,
         assembler=assembler,
         chapter=args.chapter,
         story_state=story_state,
+        promise_ledger=promise_ledger,
     )
 
     orchestrator = Orchestrator(
@@ -1029,7 +1046,7 @@ async def main():
         runtime_flags=runtime_flags,
         chapter_packet_compiler=chapter_packet_compiler,
         revision_debt_store=revision_debt_store,
-        promise_ledger=None,
+        promise_ledger=promise_ledger,
     )
 
     # Create session if Phase 4

@@ -32,6 +32,17 @@ If a hard rule is in tension with a freedom below, the hard rule wins.
 - Concrete sensory grounding — add or sharpen sight, sound, touch, smell, kinetic detail that was underplayed in the source.
 - Dialogue beat-timing — adjust the interleaving of beat, action, and speech so dialogue breathes and lands.
 
+## Rhythm targets (FIRST-PRIORITY edits, measured deterministically)
+
+Before any taste-level edit, sweep the source against these measured targets and fix every violation you find. These are the edits that earn your pass:
+
+1. **Em-dash excess.** Target ~3 per 1,000 words; never more than one per paragraph, never in consecutive paragraphs. Replace surplus em-dashes with commas, periods, or a recast sentence — keep the words, change the punctuation.
+2. **Staccato clusters.** Three or more consecutive short sentences (≤8 words) is a tic. Fuse one pair into a medium sentence or interpose a line of dialogue.
+3. **Opener monotony.** If more than ~30% of sentences open with He / She / They / It / The / There or a bare character name, recast openings with prepositional phrases, subordinate clauses, dialogue, or action leads.
+4. **Anti-tic phrases.** Kill on sight: "the particular X of Y", "something adjacent to X", "not quite X", "the kind of X that" (beyond once per scene), "the way someone who...", and the "did not name the feeling" construction. Replace with a concrete noun, a plain naming, or behavior.
+
+If the source already sits inside all four targets, leave its rhythm alone and spend your edit on imagery and voice.
+
 ## What you do NOT do
 
 - You do not rewrite scenes. If the source is boring, tighten it; do not replace it.

@@ -92,6 +92,14 @@ class Orchestrator:
         self.manuscripts_dir.mkdir(parents=True, exist_ok=True)
         lean_cfg = (self.runtime_flags.get("runtime") or {}).get("lean_prose_only") or {}
         self._lean_prose_only = bool(lean_cfg.get("enabled", False))
+        # Measured 2026-06-09 (4 bench samples): DeepSeek V4 Pro delivers
+        # ~43-58% of any asked word count. The calibration factor inflates the
+        # rendered ask so delivered length lands near the card's true target;
+        # telemetry still measures against the card target. 1.0 = no change.
+        try:
+            self._length_calibration = float(lean_cfg.get("length_calibration", 1.0))
+        except (TypeError, ValueError):
+            self._length_calibration = 1.0
         line_edit_cfg = lean_cfg.get("line_edit", {})
         if isinstance(line_edit_cfg, dict):
             self._lean_line_edit = bool(line_edit_cfg.get("enabled", False))
@@ -202,6 +210,17 @@ class Orchestrator:
             and self.promise_ledger is not None
         )
 
+        # Declared-state apply. When the flag is on and story_state was
+        # passed, scene-card end_state declarations write characters.status
+        # after post-save — declarations win over the Summarizer's extracted
+        # diff — and start_state declarations are verified against the
+        # accumulated trusted state, with drift surfacing as a continuity
+        # advisory rather than a block.
+        self._declared_state_enabled = bool(
+            self.runtime_flags.get("runtime", {}).get("declared_state", {}).get("enabled", False)
+            and self.story_state is not None
+        )
+
     async def run_pipeline(self, scene_cards: list[dict]) -> list[dict]:
         """Run the full pipeline for a list of scene cards."""
         active_cards = scene_cards
@@ -258,6 +277,7 @@ class Orchestrator:
                         "error": f"{type(exc).__name__}: {exc}",
                         "status": "failed",
                     })
+                    self._maybe_write_chapter_memo(active_cards, i)
                     continue
                 results.append(result)
 
@@ -265,6 +285,7 @@ class Orchestrator:
                     self.pipeline_session.mark_chapter_complete(
                         self.session_id, chapter_num, scene_num, result
                     )
+                self._maybe_write_chapter_memo(active_cards, i)
         except KeyboardInterrupt:
             print("\nPipeline interrupted — saving session...")
         finally:
@@ -377,6 +398,10 @@ class Orchestrator:
                     f"  [WARN] post-save processing crashed: "
                     f"{type(exc).__name__}: {exc} — scene saved, state may be stale"
                 )
+
+        # Declared scene-card state overrides the Summarizer's extracted
+        # diff (no-op when flag off).
+        self._maybe_apply_declared_state(scene_card)
 
         # Slice 3 — record declared promise deltas (no-op when flag off).
         self._maybe_record_promise_deltas(scene_card)
@@ -951,6 +976,183 @@ class Orchestrator:
                 },
             )
 
+    # ------------------------------------------------------------------
+    # Chapter-close memo hook. Rides runtime.revision_debt.enabled: when the
+    # debt store is live, the operator's triage artifact is written
+    # automatically at each chapter boundary instead of waiting for a
+    # debt_cli invocation. Error-guarded — a memo failure never aborts a run.
+    # ------------------------------------------------------------------
+    def _maybe_write_chapter_memo(self, cards: list[dict], index: int) -> None:
+        if not self._revision_debt_enabled:
+            return
+        chapter_number = cards[index].get("chapter_number")
+        if chapter_number is None:
+            return
+        if (
+            index + 1 < len(cards)
+            and cards[index + 1].get("chapter_number") == chapter_number
+        ):
+            return
+        try:
+            from src.pipeline.chapter_memos import ChapterCloseMemoGenerator
+
+            generator = ChapterCloseMemoGenerator(
+                debt_store=self.revision_debt_store,
+                story_state=self.story_state,
+                promise_ledger=(
+                    self.promise_ledger if self._promise_ledger_enabled else None
+                ),
+            )
+            memo = generator.generate(chapter_number=int(chapter_number))
+            memo_path = generator.write(
+                memo, memos_dir=self.manuscripts_dir.parent / "memos",
+            )
+        except Exception as exc:  # noqa: BLE001
+            self.ledger.emit_warn(
+                "chapter_memo_error",
+                chapter_number=chapter_number,
+                payload={"error": f"{type(exc).__name__}: {exc}"},
+            )
+            return
+        self.ledger.emit_info(
+            "chapter_memo_written",
+            chapter_number=chapter_number,
+            payload={
+                "memo_path": str(memo_path),
+                "open_debt_count": len(
+                    (memo.get("debt_summary") or {}).get("open_debt_ids") or []
+                ),
+            },
+        )
+        print(f"  Chapter {chapter_number} close memo: {memo_path}")
+
+    # ------------------------------------------------------------------
+    # Declared-state hook. Called from the save path after post-save memory
+    # so scene-card declarations overwrite whatever the Summarizer's diff
+    # extracted — trusted state comes from planning declarations, never LLM
+    # inference. No-op when the flag is off or no story_state was attached.
+    # ------------------------------------------------------------------
+    def _maybe_apply_declared_state(self, scene_card: dict) -> None:
+        if not self._declared_state_enabled:
+            return
+        chapter_number = scene_card.get("chapter_number")
+        scene_number = scene_card.get("scene_number", 1)
+        if chapter_number is None:
+            return
+
+        from src.quality.cross_chapter_validator import (
+            classify_transition,
+            collect_end_states,
+            collect_start_states,
+            has_bridge,
+        )
+
+        declared_start = collect_start_states(scene_card)
+        declared_end = collect_end_states(scene_card)
+        if not declared_start and not declared_end:
+            return
+
+        try:
+            by_name = {
+                str(row.get("name", "")).strip().lower(): row
+                for row in self.story_state.get_all_characters()
+            }
+        except Exception as exc:  # noqa: BLE001
+            self.ledger.emit_warn(
+                "declared_state_error",
+                chapter_number=chapter_number, scene_number=scene_number,
+                payload={"error": f"{type(exc).__name__}: {exc}"},
+            )
+            return
+
+        scene_id = f"ch{int(chapter_number):02d}_sc{int(scene_number):02d}"
+        scope = {
+            "level": "scene",
+            "chapter_number": chapter_number,
+            "scene_number": scene_number,
+        }
+
+        # start_state verification: declared entry state vs accumulated
+        # trusted state. Drift is advisory — the end_state declaration still
+        # applies below; the human decides whether planning or state is wrong.
+        for name, declared in declared_start.items():
+            row = by_name.get(name.strip().lower())
+            current = (row or {}).get("status")
+            if row is None or not current or current == declared:
+                continue
+            verdict = classify_transition(current, declared)
+            if verdict == "natural":
+                continue
+            if verdict == "requires_bridge" and has_bridge(scene_card, name):
+                continue
+            self.ledger.emit_warn(
+                "declared_state_conflict",
+                chapter_number=chapter_number, scene_number=scene_number,
+                payload={
+                    "character": name,
+                    "trusted_state": current,
+                    "declared_start_state": declared,
+                    "transition": verdict,
+                },
+            )
+            try:
+                from src.pipeline.revision_debt_producers import emit_continuity_break
+            except ImportError:
+                emit_continuity_break = None  # type: ignore[assignment]
+            if emit_continuity_break is not None:
+                emit_continuity_break(
+                    self._active_debt_store,
+                    ledger=self.ledger,
+                    scope=scope,
+                    break_kind="character_state",
+                    summary=(
+                        f"{name}: trusted state {current!r} but {scene_id} "
+                        f"declares start_state {declared!r}"
+                    ),
+                    details={
+                        "source": "declared_state_runtime",
+                        "trusted_state": current,
+                        "declared_start_state": declared,
+                        "transition": verdict,
+                    },
+                )
+
+        applied: dict[str, str] = {}
+        for name, state in declared_end.items():
+            row = by_name.get(name.strip().lower())
+            if row is None:
+                self.ledger.emit_warn(
+                    "declared_state_unknown_character",
+                    chapter_number=chapter_number, scene_number=scene_number,
+                    payload={"character": name, "declared_state": state},
+                )
+                continue
+            try:
+                self.story_state.update_character(
+                    row["id"],
+                    status=state,
+                    last_appearance_chapter=int(chapter_number),
+                    last_appearance_scene=int(scene_number),
+                )
+            except Exception as exc:  # noqa: BLE001
+                self.ledger.emit_warn(
+                    "declared_state_error",
+                    chapter_number=chapter_number, scene_number=scene_number,
+                    payload={
+                        "character": name,
+                        "error": f"{type(exc).__name__}: {exc}",
+                    },
+                )
+                continue
+            applied[name] = state
+
+        if applied:
+            self.ledger.emit_info(
+                "declared_state_applied",
+                chapter_number=chapter_number, scene_number=scene_number,
+                payload={"scene_id": scene_id, "applied": applied},
+            )
+
     async def _run_prose_stylist(
         self,
         scene_card: dict,
@@ -1010,6 +1212,7 @@ class Orchestrator:
             "scene_card": scene_card,
             "pov_approach": self.assembler.get_pov_approach(),
             "franchise_profile_text": self.assembler.get_franchise_profile_text(),
+            "length_calibration": self._length_calibration,
         }
         if chapter_packet is not None:
             # Only attach when the overlay compiled cleanly. The absence of

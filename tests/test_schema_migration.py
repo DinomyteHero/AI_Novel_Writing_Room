@@ -16,11 +16,12 @@ class TestSchemaMigration:
         Schema v6 was added by the relay v3 refactor (collapses the
         revision_status enum to draft / saved_clean / saved_with_advisory
         / quarantined). Schema v7 was added by Slice 1 of the architecture
-        upgrade (gap_notes table for state-firewall isolations).
+        upgrade (gap_notes table for state-firewall isolations). Schema v8
+        adds characters.status for the declared-state apply.
         """
         db_path = str(Path(temp_dir) / "test.db")
         state = StoryState(db_path=db_path)
-        assert state.get_schema_version() == 7
+        assert state.get_schema_version() == 8
         state.close()
 
     def test_migration_creates_phase5_tables(self, temp_dir):
@@ -64,9 +65,10 @@ class TestSchemaMigration:
             "SELECT version FROM schema_migrations ORDER BY version"
         ).fetchall()
         # Should have exactly one entry per migration, no duplicates.
-        # v7 adds the gap_notes table (Slice 1 architecture upgrade).
+        # v7 adds the gap_notes table (Slice 1 architecture upgrade);
+        # v8 adds characters.status (declared-state apply).
         versions = [r["version"] for r in rows]
-        assert versions == [1, 2, 3, 4, 5, 6, 7]
+        assert versions == [1, 2, 3, 4, 5, 6, 7, 8]
         state2.close()
 
     def test_existing_data_preserved_after_migration(self, temp_dir):

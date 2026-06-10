@@ -71,8 +71,10 @@ agent_routing:
   # PROSE — DeepSeek V4 Pro is the primary drafter in the lean architecture.
   # The live path drafts, then runs one bounded sentence-level edit before
   # saving.
-  prose_stylist:          { backend: cloud, model: deepseekpro, params: { temperature: 0.70, max_tokens: 8192, provider: { order: [deepseek], only: [deepseek], allow_fallbacks: false } } }
-  line_writer:            { backend: cloud, model: gpt54_mini, params: { temperature: 0.35, max_tokens: 8192 } }
+  # max_tokens 12000: a 4,500-word scene needs ~6.5k completion tokens; the
+  # hard length contract must never be clipped by the completion ceiling.
+  prose_stylist:          { backend: cloud, model: deepseekpro, params: { temperature: 0.70, max_tokens: 12000, provider: { order: [deepseek], only: [deepseek], allow_fallbacks: false } } }
+  line_writer:            { backend: cloud, model: gpt54_mini, params: { temperature: 0.35, max_tokens: 12000 } }
 
   # LineWriter is active in lean mode as the single post-generation edit.
   # GPT 5.4 Mini proved more reliable than DeepSeek V4 Flash in cleanup A/Bs.
@@ -97,7 +99,12 @@ agent_routing:
   seed_builder:           { backend: cloud, model: gemini, params: { temperature: 0.3, max_tokens: 16384 } }
   plot_architect:         { backend: cloud, model: deepseekpro, params: { temperature: 0.4, max_tokens: 4096, provider: { order: [deepseek], only: [deepseek], allow_fallbacks: false } } }
   chapter_blueprint_synthesizer: { backend: cloud, model: gemini, params: { temperature: 0.4, max_tokens: 8192 } }
-  canon_scout:            { backend: cloud, model: grok41fast, params: { temperature: 0.1, max_tokens: 1800 } }
+  # DeepSeek V4 Flash: grok41fast's OpenRouter id 404s (model retired), and
+  # the committed provider is DeepSeek anyway. Structured-output path is the
+  # same one plot_architect exercises on DeepSeek. max_tokens 8192: guidance
+  # JSON for the densest scenes runs past 4096 and a clipped completion
+  # fails the JSON parse (measured 2026-06-09: failures at ~4.3-4.6k tokens).
+  canon_scout:            { backend: cloud, model: deepseek, params: { temperature: 0.1, max_tokens: 8192 } }
 
   # FINAL COPY - opt-in literary taste pass after manuscript review. This is
   # a donor/comparison branch, not the default production master.
@@ -176,6 +183,11 @@ runtime:
     enabled: true
     line_edit:
       enabled: true
+    # Multiplier applied to the rendered word-count ask (not to the card's
+    # target, which telemetry still measures against). Measured 2026-06-09:
+    # DeepSeek V4 Pro delivers ~43-58% of any ask, so books set ~1.8 in their
+    # runtime_overrides to land delivered length near planning intent.
+    length_calibration: 1.0
   chapter_packet:
     # Shipping default (D4a). Phase 0 audit + packet parity both pass for
     # Ruusan and Betrayal at HEAD; the packet is now the drafter's single
@@ -187,6 +199,15 @@ runtime:
   revision_debt:
     enabled: false
   promise_ledger:
+    enabled: false
+  # Declared-state apply. When on, scene-card end_state declarations write
+  # characters.status at save time — declarations win over the Summarizer's
+  # extracted state diff — and start_state declarations are verified against
+  # accumulated story state, with drift surfacing as a declared_state_conflict
+  # warn event plus a prose.continuity.character_state_break revision-debt
+  # row. Default off so shipping books keep current behavior until their
+  # scene cards carry the start_state / end_state fields.
+  declared_state:
     enabled: false
   final_copy:
     enabled: false
