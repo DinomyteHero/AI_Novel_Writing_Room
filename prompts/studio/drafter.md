@@ -32,8 +32,6 @@ finished chapter prose.
   already written, follow what's written and keep it plausible.
 - Match the voice the bible describes. If the book so far has an established
   voice, keep it, but don't copy its repeated phrases or images.
-- Follow the author's voice notes over the craft guide below wherever they
-  differ.
 
 ## Output
 

@@ -62,11 +62,9 @@ See the [Studio guide](docs/user-guide/studio.md) for details.
 ## Craft, loosely
 
 Craft guidance lives in one short file,
-[`prompts/studio/craft_guide.md`](prompts/studio/craft_guide.md). It gives you
-lenses, not rules: an eight-line "story spine", six questions worth answering
-eventually, "but/therefore, not and then", promises that progress and pay
-off, and wins that come with a catch. The planning chat and the drafter both
-use it, and your own notes in the story bible always win over it.
+[`prompts/studio/craft_guide.md`](prompts/studio/craft_guide.md): a handful
+of friendly lenses, not rules, that the planning chat, the drafter and the
+reviewer all share. Your own notes in the story bible always win over it.
 
 ## Models
 

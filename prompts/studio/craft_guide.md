@@ -64,6 +64,18 @@ forward: a question, a turn, a door opening.
 Chapters can be long or short, one scene or several. Size them to what
 happens in them, not to a quota.
 
+## Everything matters to someone
+
+Readers look for meaning in everything on the page. For any character, place
+or event, it helps to know: **what does this change, reveal, or make harder
+for someone we care about?** The answer can be small. A location can add
+pressure, a side character can show another side of the lead, and a joke can
+let the reader breathe before something hard. "It's fun" counts too.
+
+This is a question for rereading, not for the first draft. Put things in
+freely while drafting; when you look back, notice what isn't pulling its
+weight, and give it a job or let it go.
+
 ## On the page
 
 - **Be concrete.** A named thing, a specific sound, an exact gesture beats a

@@ -1,8 +1,8 @@
 # Studio: Write a Book in Conversation
 
 The studio is the simplest way to make a book here. You plan in plain
-conversation, the plan lives in two Markdown files you can edit any time, and
-each chapter is drafted by a model that reads the whole book so far.
+conversation, the plan lives in a few Markdown files you can edit any time,
+and each chapter is drafted by a model that reads the whole book so far.
 
 There are no schemas to fill in and no compile step. Your book is one folder:
 
@@ -25,8 +25,9 @@ ignores, so it stays private to your machine. A fanfiction book's folder is
 In Claude Code, start the **story-session** skill and tell it what you have:
 a one-line idea, a few characters, a rough outline, or a document to paste
 in. It files what you bring into the story bible, character sheets and
-outline in your own words, then helps you flesh it out with options and questions. In Codex,
-point it at `.claude/skills/story-session/SKILL.md` (see `AGENTS.md`).
+outline in your own words, then helps you flesh it out with options and
+questions. In Codex, point it at `.claude/skills/story-session/SKILL.md` (see
+`AGENTS.md`).
 
 The files keep up with the conversation, and you can edit them yourself at
 any point. The session re-reads them before every change, so your edits win.
@@ -78,8 +79,8 @@ python scripts/studio.py export --title "My Novel"
 ## How it works
 
 Every call sends the whole book: the story bible, the character sheets, the
-outline and every chapter written so far, in full. Nothing is summarised or looked up, so
-continuity comes from the model seeing everything. A finished 80,000-word
+outline and every chapter written so far, in full. Nothing is summarised or
+looked up, so continuity comes from the model seeing everything. A finished 80,000-word
 novel plus its notes is roughly 150–200K tokens, well inside the ~1M-token
 windows of the default models. The tool refuses to send more than 900K
 tokens in one call.
@@ -91,11 +92,9 @@ Models are set in `config/settings.yaml`:
 - `agent_routing.studio_reader` writes reviews (Gemini 3.1 Pro by default).
 
 Craft guidance is deliberately loose: `prompts/studio/craft_guide.md` holds a
-handful of lenses that both the planning chat and the drafter use: an
-eight-line story spine, six questions, "but/therefore" linking, promises
-that progress and pay off, wins that come with a catch, a test for chapters,
-and notes on prose. Your own notes in
-the story bible always win over it.
+handful of lenses, not rules, that the planning chat, the drafter and the
+reviewer all share. It's short and written for writers, so it's worth a read.
+Your own notes in the story bible always win over it.
 
 Things to know:
 

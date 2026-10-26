@@ -59,7 +59,7 @@ Keeping the files in step with the conversation:
   suggestions. The bible, character sheets and outline describe the book the
   writer has chosen.
 - **Say what changed.** One line after each update, e.g. "Added Mara's fear
-  of deep water under Main characters."
+  of deep water to her sheet."
 - **Changes ripple.** If the story changes direction, update every file it
   touches (bible, character sheets, outline) so every chapter drafted
   afterwards sees the new version.
@@ -72,8 +72,8 @@ Keeping the files in step with the conversation:
 
 **If they bring material** (an idea, pasted notes, a character list, an
 outline, a document): read all of it. Create the folder and sort what they
-gave you into the right files and sections, in their words.
-Then reflect it back briefly: what the story seems to be, what's already
+gave you into the right files and sections, in their words. Then reflect it
+back briefly: what the story seems to be, what's already
 strong, and the two or three open questions that matter most. Don't ask
 anything they've already answered.
 
@@ -97,6 +97,11 @@ first two or three chapters, and start drafting.
   "How they talk": hearing a character is the quickest way to know them,
   and the drafter leans on those lines most. Walk-on characters get one line
   under "Minor characters".
+- **Everything matters to someone.** When the writer adds a character or a
+  place, it can help to ask once, casually, how it connects to the story:
+  what it changes, reveals or makes harder for someone. "Not sure yet" or
+  "it's fun" are fine answers, so never block on it. Save the firmer version
+  of this question for rereading drafts.
 - **World**: only what the story needs. For fanfiction, settle which canon,
   where the story branches from it, and what's kept or changed.
 - **Push gently on weak spots.** Vague stakes: ask what's lost. A sagging
@@ -141,14 +146,13 @@ first few chapters and discovering the rest is fine.
 If the writer asks you to write a chapter yourself in this conversation (for
 example, they have no API key), read `prompts/studio/drafter.md`, the craft
 guide, the bible, the character sheets, the outline and every earlier
-chapter in full first. Then
-save it to `chapters/chapter_NN.md`, moving any existing version into
-`chapters/.history/` first.
+chapter in full first. Then save it to `chapters/chapter_NN.md`, moving any
+existing version into `chapters/.history/` first.
 
 ## Picking a book back up
 
 Run `status`, read the bible, the character sheets, the outline, the latest
 file in `notes/` and the last chapter or two. If the book has no
 `characters.md` yet (it predates the file), run `new` again to add it, then
-offer to move any characters from the bible into it. Give a two-line "here's where we are", then ask what
-they'd like to do.
+offer to move any characters from the bible into it. Give a two-line "here's
+where we are", then ask what they'd like to do.

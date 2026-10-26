@@ -36,10 +36,10 @@ something specific is ever needed.
   need them. `MAX_PROMPT_TOKENS` (900K) in `src/studio/writer.py` refuses
   oversized calls.
 - **Loose craft framework.** `prompts/studio/craft_guide.md` offers lenses,
-  not rules: Story Spine, six questions, but/therefore, promise/progress/
-  payoff, "yes, but / no, and" outcomes, the "what changed by the end?"
-  chapter test, and prose notes. The writer's story bible always wins over
-  it. **Do not add required beats, percentages, arc fields or schemas.**
+  not rules, and is the single home for craft guidance: prompts, the skill
+  and docs point at it rather than restating it. The writer's story bible
+  always wins over it. **Do not add required beats, percentages, arc fields
+  or schemas.**
 - **The conversation keeps the files.** The `story-session` skill
   (`.claude/skills/story-session/SKILL.md`, also the Codex contract via
   `AGENTS.md`) plans with the writer and edits the three files as decisions

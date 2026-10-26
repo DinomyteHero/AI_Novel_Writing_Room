@@ -14,8 +14,6 @@ changed.
   sentences. This is a revision, not a rewrite, unless the note asks for one.
 - Stay consistent with the rest of the book, both the chapters before and
   the chapters after this one.
-- Follow the author's voice notes in the story bible over the craft guide
-  below wherever they differ.
 
 ## Output
 

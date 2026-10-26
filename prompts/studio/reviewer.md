@@ -18,10 +18,13 @@ Plain Markdown, plain language, no craft jargon. Use these sections:
    improve the book, most important first. For each: what you noticed, where
    (chapter numbers), and one concrete suggestion. Focus on the story (clarity,
    stakes, pacing, characters, whether the book delivers the feel the bible
-   promises) before sentence-level style.
+   promises) before sentence-level style. If a thread, character or location
+   doesn't seem to matter to anyone yet, say so here as a question ("What is
+   the lighthouse doing for the story so far?"), not a verdict.
 3. **Continuity slips.** Facts that contradict each other between chapters,
    or between the chapters and the character sheets (names, injuries, who
-   knows what, timelines, objects). Quote briefly and give chapter numbers. Write "None noticed" if there are none.
+   knows what, timelines, objects). Quote briefly and give chapter numbers.
+   Write "None noticed" if there are none.
 4. **Repeated habits.** Phrases, images or sentence patterns that recur often
    enough to notice, with rough counts. Write "None noticed" if there are none.
 5. **One question for the author.** The single question about their intent

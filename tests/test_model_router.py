@@ -1,6 +1,5 @@
 """Tests for ModelRouter."""
 
-import json
 from unittest.mock import AsyncMock, MagicMock
 
 import pytest
@@ -133,7 +132,7 @@ class TestModelRouterCloudRouting:
 
 
 class TestModelRouterCompletion:
-    """Test the complete() and complete_structured() methods."""
+    """Test the complete() method."""
 
     @pytest.mark.asyncio
     async def test_complete_calls_local_backend(self, settings_yaml):
@@ -153,100 +152,10 @@ class TestModelRouterCompletion:
         assert result == "Generated text"
         mock_client.post.assert_called_once()
 
-    @pytest.mark.asyncio
-    async def test_complete_structured_parses_json(self, settings_yaml):
-        router = ModelRouter(settings_yaml)
 
-        mock_response = MagicMock()
-        mock_response.json.return_value = {
-            "choices": [{"message": {"content": '{"verdict": "pass", "score": 0.9}'}}]
-        }
-        mock_response.raise_for_status = MagicMock()
 
-        mock_client = AsyncMock()
-        mock_client.post = AsyncMock(return_value=mock_response)
-        router._local_client = mock_client
 
-        result = await router.complete_structured("planner", [{"role": "user", "content": "test"}])
-        assert result["verdict"] == "pass"
-        assert result["score"] == 0.9
 
-    @pytest.mark.asyncio
-    async def test_complete_structured_strips_markdown_fences(self, settings_yaml):
-        router = ModelRouter(settings_yaml)
-
-        mock_response = MagicMock()
-        mock_response.json.return_value = {
-            "choices": [{"message": {"content": '```json\n{"verdict": "pass"}\n```'}}]
-        }
-        mock_response.raise_for_status = MagicMock()
-
-        mock_client = AsyncMock()
-        mock_client.post = AsyncMock(return_value=mock_response)
-        router._local_client = mock_client
-
-        result = await router.complete_structured("planner", [{"role": "user", "content": "test"}])
-        assert result["verdict"] == "pass"
-
-    @pytest.mark.asyncio
-    async def test_complete_structured_strips_uppercase_json_fence(self, settings_yaml):
-        router = ModelRouter(settings_yaml)
-
-        mock_response = MagicMock()
-        mock_response.json.return_value = {
-            "choices": [{"message": {"content": '```JSON\n{"verdict": "pass"}\n```'}}]
-        }
-        mock_response.raise_for_status = MagicMock()
-
-        mock_client = AsyncMock()
-        mock_client.post = AsyncMock(return_value=mock_response)
-        router._local_client = mock_client
-
-        result = await router.complete_structured("planner", [{"role": "user", "content": "test"}])
-        assert result["verdict"] == "pass"
-
-    @pytest.mark.asyncio
-    async def test_complete_structured_retries_on_bad_json(self, settings_yaml):
-        """First response is invalid JSON, retry produces valid JSON."""
-        router = ModelRouter(settings_yaml)
-
-        bad_response = MagicMock()
-        bad_response.json.return_value = {
-            "choices": [{"message": {"content": "Sure! Here is the JSON:\n{broken"}}]
-        }
-        bad_response.raise_for_status = MagicMock()
-
-        good_response = MagicMock()
-        good_response.json.return_value = {
-            "choices": [{"message": {"content": '{"verdict": "pass", "score": 0.8}'}}]
-        }
-        good_response.raise_for_status = MagicMock()
-
-        mock_client = AsyncMock()
-        mock_client.post = AsyncMock(side_effect=[bad_response, good_response])
-        router._local_client = mock_client
-
-        result = await router.complete_structured("planner", [{"role": "user", "content": "test"}])
-        assert result["verdict"] == "pass"
-        assert mock_client.post.call_count == 2
-
-    @pytest.mark.asyncio
-    async def test_complete_structured_raises_after_two_failures(self, settings_yaml):
-        """Both attempts produce invalid JSON — should raise JSONDecodeError."""
-        router = ModelRouter(settings_yaml)
-
-        bad_response = MagicMock()
-        bad_response.json.return_value = {
-            "choices": [{"message": {"content": "not json at all"}}]
-        }
-        bad_response.raise_for_status = MagicMock()
-
-        mock_client = AsyncMock()
-        mock_client.post = AsyncMock(return_value=bad_response)
-        router._local_client = mock_client
-
-        with pytest.raises(json.JSONDecodeError):
-            await router.complete_structured("planner", [{"role": "user", "content": "test"}])
 
     @pytest.mark.asyncio
     async def test_complete_retries_on_429(self, settings_yaml):

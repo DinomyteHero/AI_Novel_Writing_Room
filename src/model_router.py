@@ -5,17 +5,12 @@ import json
 import logging
 import os
 import random
-import re
 from typing import Optional
 
 import httpx
 import yaml
 
 logger = logging.getLogger(__name__)
-
-# Regex for stripping markdown code fences: ```json, ```JSON, ``` json, etc.
-_FENCE_OPEN = re.compile(r"^```\s*\w*\s*\n", re.IGNORECASE)
-_FENCE_CLOSE = re.compile(r"\n```\s*$")
 
 
 class ModelRouter:
@@ -205,56 +200,6 @@ class ModelRouter:
                 }],
             }
         return out
-
-    @staticmethod
-    def _strip_fences(text: str) -> str:
-        """Strip markdown code fences from a string."""
-        cleaned = text.strip()
-        if _FENCE_OPEN.match(cleaned):
-            cleaned = _FENCE_OPEN.sub("", cleaned, count=1)
-            cleaned = _FENCE_CLOSE.sub("", cleaned)
-        return cleaned.strip()
-
-    async def complete_structured(
-        self,
-        agent_role: str,
-        messages: list[dict],
-        override_params: Optional[dict] = None,
-    ) -> dict:
-        """Send a completion request expecting structured JSON output.
-
-        Retries once on JSON parse failure with a corrective prompt.
-        On second failure, raises json.JSONDecodeError for callers to handle.
-        """
-        json_instruction = {
-            "role": "system",
-            "content": "Respond with valid JSON only. No markdown, no preamble.",
-        }
-        messages_with_json = [json_instruction] + messages
-
-        raw = await self.complete(agent_role, messages_with_json, override_params)
-        cleaned = self._strip_fences(raw)
-
-        try:
-            return json.loads(cleaned)
-        except json.JSONDecodeError:
-            # One retry: send the broken output back with a corrective prompt
-            retry_messages = messages_with_json + [
-                {"role": "assistant", "content": raw},
-                {
-                    "role": "user",
-                    "content": (
-                        "Your previous response was not valid JSON. "
-                        "Return ONLY the corrected JSON object. "
-                        "No markdown fences, no commentary, no explanation."
-                    ),
-                },
-            ]
-            retry_raw = await self.complete(
-                agent_role, retry_messages, override_params
-            )
-            retry_cleaned = self._strip_fences(retry_raw)
-            return json.loads(retry_cleaned)
 
     async def health_check(self) -> tuple[bool, str]:
         """Verify API connectivity and key validity.

@@ -17,25 +17,17 @@ models:
       deepseekpro: deepseek/deepseek-v4-pro
       gemini: google/gemini-3.1-pro-preview
       claude: anthropic/claude-sonnet-4.6
-    default_params:
-      deepseekpro:
-        temperature: 0.3
-        max_tokens: 8192
-        reasoning:
-          effort: "none"
-      gemini:
-        temperature: 0.6
-        max_tokens: 8192
-      claude:
-        temperature: 0.4
-        max_tokens: 8192
+    default_params: {}
 
 # Every studio call sends the whole book, so these models need ~1M-token
 # context windows. studio_writer drafts, revises and polishes; studio_reader
 # writes whole-book reader notes. To try another model, change `model` to
-# another key under models.cloud.models (or add one there).
+# another key under models.cloud.models (or add one there). All request
+# settings live here in `params`, so they follow the role, not the model.
+# studio_writer pins OpenRouter to DeepSeek's own servers (`provider`); remove
+# that pin if you point it at a different model.
 agent_routing:
-  studio_writer:          { backend: cloud, model: deepseekpro, params: { temperature: 0.75, max_tokens: 16000, provider: { order: [deepseek], only: [deepseek], allow_fallbacks: false } } }
+  studio_writer:          { backend: cloud, model: deepseekpro, params: { temperature: 0.75, max_tokens: 16000, reasoning: { effort: "none" }, provider: { order: [deepseek], only: [deepseek], allow_fallbacks: false } } }
   studio_reader:          { backend: cloud, model: gemini, params: { temperature: 0.3, max_tokens: 8192 } }
 
 pipeline:
