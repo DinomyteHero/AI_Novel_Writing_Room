@@ -1,9 +1,8 @@
 """Pre-draft cross-chapter continuity validator.
 
-Catches the class of bug that produced the Aevyn Ch 32/33 break in the
-unfinished-shadow B run: scene N ends with character X in state P at location
-L, scene N+1 opens with X in a contradicting state at a contradicting
-location, with no scene-card field explaining the transition.
+Catches the class of bug where scene N ends with character X in state P at
+location L, scene N+1 opens with X in a contradicting state at a
+contradicting location, with no scene-card field explaining the transition.
 
 This runs at bundle-compile time on the ordered scene-card list. No prose, no
 LLM. Pure metadata check on declared fields:

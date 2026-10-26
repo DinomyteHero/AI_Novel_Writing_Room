@@ -304,6 +304,11 @@ class ProjectPaths:
         """
         return self.book_dir / "workflows"
 
+    @property
+    def story_dir(self) -> Path:
+        """Studio book folder: story bible, outline, chapters and notes."""
+        return self.book_dir / "story"
+
     # --- Output base paths ---
 
     @property

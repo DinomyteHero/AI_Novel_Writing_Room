@@ -17,6 +17,33 @@ If you want the engineering hook before the install instructions, this is it:
 
 For the architectural details, see [CLAUDE.md](CLAUDE.md) and [docs/architecture/](docs/architecture/).
 
+## The simple way: the studio
+
+For a new book, start here. You don't need to know any writing theory.
+
+1. **Plan in conversation.** In Claude Code, use the `story-session` skill and
+   bring whatever you have: an idea, some characters, a rough outline. The
+   chat helps you flesh it out and keeps two plain files up to date as you
+   talk: `story_bible.md` and `outline.md`. Edit them yourself whenever you
+   like.
+2. **Draft chapter by chapter.** Each draft is written by a model that reads
+   your whole book so far, so it remembers everything:
+
+   ```bash
+   python scripts/studio.py new --title "My Novel"
+   python scripts/studio.py draft next --title "My Novel"
+   python scripts/studio.py revise 1 --title "My Novel" --note "more banter, less brooding"
+   python scripts/studio.py review --title "My Novel"
+   python scripts/studio.py export --title "My Novel"
+   ```
+
+Craft guidance is deliberately loose: a handful of lenses in
+[`prompts/studio/craft_guide.md`](prompts/studio/craft_guide.md), not rules.
+See the [Studio guide](docs/user-guide/studio.md).
+
+The rest of this README describes the original multi-stage pipeline, which
+is still supported for existing books.
+
 ## How a book gets made — A to Z
 
 The workflow has three phases. **Phase 1 (planning) is human-driven.** **Phase 2 (production) is pipeline-driven.** **Phase 3 (review and polish) is a human/pipeline collaboration.**

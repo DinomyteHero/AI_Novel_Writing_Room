@@ -1,8 +1,8 @@
 """Tests for src/quality/cross_chapter_validator.py.
 
-The canonical bug we're guarding against: in the unfinished-shadow B run,
-Ch 32 ended with Aevyn alive on the ridge face and Ch 33 opened with Aevyn
-back in the collapsing chamber. The validator should catch the equivalent
+The canonical bug we're guarding against: one chapter ends with a character
+alive on a ridge face and the next opens with them back in a collapsing
+chamber. The validator should catch the equivalent
 declared discontinuity at scene-card compile time, before any drafting.
 """
 

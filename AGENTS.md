@@ -14,6 +14,22 @@ A multi-agent fiction generation system. Humans plan a novel through a
 `concept_seed.json` + `scene_cards/`; then the autonomous pipeline
 drafts, line-edits, and saves each scene in a single lean forward pass.
 
+## Start here for new books: the studio
+
+New books, original or fanfiction, should use the **studio**, the simple
+core. Plan in plain conversation by following
+`.claude/skills/story-session/SKILL.md` (it is plain Markdown; read it and
+follow it as your conversation guide). The plan lives in two living Markdown
+files, `story_bible.md` and `outline.md`, that you update as the
+conversation goes and the writer can edit by hand; re-read them before
+every edit. Drafting, revision and review go through `scripts/studio.py`,
+which sends the whole book to the model on every call. Craft guidance is the
+deliberately loose `prompts/studio/craft_guide.md`. See
+`docs/user-guide/studio.md`.
+
+Everything below describes the older workflow-kit pipeline, which is still
+supported for existing books.
+
 ## The two-tier model
 
 The user does the **creative tier** (idea-session, taste calls,
@@ -107,7 +123,8 @@ Then `scripts/compile_bundle.py` merges them into `concept_seed.json`.
 
 ## Structural framework (load-bearing)
 
-Two named frameworks govern the structural tier. **Honor them.**
+Two named frameworks govern the workflow-kit structural tier. **Honor them
+there.** (The studio deliberately uses the loose craft guide instead.)
 
 - **Brooks Story Engineering** — the outline-planner produces a four-part
   beat map (setup, response, attack, resolution) with explicit

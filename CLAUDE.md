@@ -6,6 +6,17 @@ Load-bearing notes for working on this codebase. Read before making changes.
 
 A multi-agent fiction generation system. Humans plan a novel through the **workflow kit** (per-surface skills that produce `workflows/*.json`); `scripts/compile_bundle.py` merges those into a `concept_seed.json` + `scene_cards/`; then the **autonomous pipeline** drafts, line-edits, and saves each scene. Franchise-scoped, book-scoped, with per-run output isolation.
 
+## Studio: the simple core (start new books here)
+
+The studio is the recommended path for new books and the long-term direction of the project: plain Markdown files, whole-book context, one model call per step, loose craft guidance. It runs **alongside** the pipeline below and shares only `ModelRouter` and `ProjectPaths` with it.
+
+- **Files are the book.** `ProjectPaths.story_dir` (`<book_dir>/story/`) holds `story_bible.md`, `outline.md` (one `## Chapter N` heading per chapter, title optional), `chapters/chapter_NN.md`, `chapters/.history/` (every replaced version), `notes/` and `export/`. Original books resolve to `data/projects/<slug>/story/`, which is gitignored and therefore private to the machine.
+- **Whole-book context, nothing retrieved.** Every call sends the story bible, the outline and every drafted chapter in full (`src/studio/prompts.py`); stable material comes first for prefix caching, the task last. No summarizer, state store, RAG, packet or ledger. `MAX_PROMPT_TOKENS` (900K) refuses oversized calls. Routing: `agent_routing.studio_writer` (draft / revise / polish) and `agent_routing.studio_reader` (review); both need ~1M-token windows.
+- **Loose craft framework.** `prompts/studio/craft_guide.md` is lenses, not rules (six questions, a loose shape, the "what changed by the end?" chapter test, prose notes). The author's story bible always wins over it. Do not re-introduce required beats, percentages or arc fields into the studio.
+- **Conversation keeps the files.** The `story-session` skill (`.claude/skills/story-session/SKILL.md`, also the Codex contract via `AGENTS.md`) plans with the writer and edits the two living files as decisions land. It re-reads before every edit (manual edits win) and only records what the writer agreed to.
+- **Safety.** `draft` refuses to overwrite without `--force`; every replacement moves the old file to `.history/`; an empty response saves nothing (`StudioError`).
+- CLI: `scripts/studio.py {new|status|draft <n|next>|revise|polish|review|export}`. Tests: `tests/test_studio.py`. User guide: `docs/user-guide/studio.md`.
+
 ## The pipeline is lean — one forward pass, no gates
 
 Prose flows through a **single forward pass**. There are no gates, no save-blocker layer, no quarantine, no retries, and no canon/presence validation in the save path. The canonical per-scene order (as implemented in `src/orchestrator.py::run_chapter`):
@@ -23,7 +34,7 @@ Rules:
 
 - **The drafter lands the contract on the first pass.** The structural framework (Brooks beat map + Weiland arc map + scene contract) is enforced *upstream* at planning + scene-card validation time, and the chapter packet hands the drafter a single inspectable runtime contract. There is no save-time editorial gate to catch drift — quality is a planning-and-prompt problem, not a retry problem.
 - **No retries.** There is no retry branch in the relay. Do not add one. There is no `max_structural_retries` / `max_voice_retries`; those keys were removed.
-- **Length calibration is a rendering multiplier, not a planning change.** `runtime.lean_prose_only.length_calibration` (default 1.0) inflates the word-count ask rendered into the drafter's Task block; the scene card's `target_word_count` stays the planning truth. Measured 2026-06-09: DeepSeek V4 Pro delivers ~43-58% of any asked length, so The Unfinished Shadow sets 1.8 in its runtime_overrides. Tune per book from bench evidence, never by feel.
+- **Length calibration is a rendering multiplier, not a planning change.** `runtime.lean_prose_only.length_calibration` (default 1.0) inflates the word-count ask rendered into the drafter's Task block; the scene card's `target_word_count` stays the planning truth. Measured 2026-06-09: DeepSeek V4 Pro delivered ~43-58% of any asked length, so a book drafted on it needs ~1.8 in its runtime_overrides. Tune per book from bench evidence, never by feel.
 - **LineWriter is the single post-draft edit.** `runtime.lean_prose_only.line_edit.enabled: true` (shipping default) runs `LineWriter` once after the drafter when `agent_routing.line_writer` is present. Disable just the line edit with `runtime.lean_prose_only.line_edit.enabled: false`. LineWriter takes an **explicitly wired** context dict — do not let it reach into ambient `ContextAssembler`. Collapsed output (<40% source word count) falls back to drafter prose with a warn event (`line_writer_collapsed`); a LineWriter crash also degrades to drafter prose (`line_writer_error`).
 - **RhythmValidator + RhythmEditor are advisory.** They run after LineWriter, both flag-gated and default-off. RhythmValidator only measures and emits revision-debt rows — it never blocks or mutates. RhythmEditor applies bounded literal edits under deterministic safety caps. Neither can abort a save.
 - **Revision-debt rows and rhythm telemetry are advisory.** They are a structured store for human triage. Nothing in the save path reads them to decide whether to save.
@@ -164,6 +175,7 @@ Always route I/O through `src/project_paths.ProjectPaths`. Do not hand-construct
 
 | Concern | Path |
 |--------|------|
+| Studio (simple core) | `src/studio/`, `scripts/studio.py`, `prompts/studio/`, `templates/story/`, `.claude/skills/story-session/SKILL.md` |
 | Pipeline orchestration | `src/orchestrator.py` |
 | CLI entry point | `src/main.py` |
 | Model routing (YAML → backend) | `src/model_router.py` |
@@ -200,9 +212,11 @@ Always route I/O through `src/project_paths.ProjectPaths`. Do not hand-construct
 | Migration wrappers | `scripts/migrations/migrate_all.py`, plus per-store `scripts/migrations/migrate_*.py` scripts |
 | Canonical shared helpers | `workflows/_shared/seed_transforms.py`, `workflows/_shared/scene_card_translator.py`, `workflows/voice_discovery/api.py` |
 
-## Workflow kit is the only supported authoring path
+## Workflow kit: the pipeline's authoring path
 
-The interactive `src.concept_workshop.workshop_runner` CLI was **removed**. Do not reference it in docs or code. New projects go through the per-surface skills, in order:
+New books should use the studio (above). The workflow kit remains the authoring path for books on the pipeline.
+
+The interactive `src.concept_workshop.workshop_runner` CLI was **removed**. Do not reference it in docs or code. Pipeline projects go through the per-surface skills, in order:
 
 1. **`idea-session-capture`** (front door, Claude/Codex portable) — captures the author's intent, decisions, and open questions; pre-seeds the six structural surfaces.
 2. **`universe-builder`** — premise, conflict, theme, setting.
@@ -214,7 +228,7 @@ The interactive `src.concept_workshop.workshop_runner` CLI was **removed**. Do n
 
 Then `scripts/compile_bundle.py` merges the surface outputs into the canonical `concept_seed.json`.
 
-**Hand-edit drift guard + provenance.** `compile_bundle.py` refuses to overwrite `concept_seed.json` / `scene_cards/` when they were never produced by a compile here (no `compile_report.json`), when they were hand-edited after the last compile while the workflow surfaces went stale (mtime check), or when the seed declares `compile_metadata.managed_by: "direct"` — the marker for ingested, hand-maintained books (The Unfinished Shadow is one; its `workflows/` skeleton is stale by design). Override with `--force-overwrite-newer`. Compiler-written seeds always stamp `managed_by: "workflow_kit"`. A blocked run writes nothing, not even the compile report.
+**Hand-edit drift guard + provenance.** `compile_bundle.py` refuses to overwrite `concept_seed.json` / `scene_cards/` when they were never produced by a compile here (no `compile_report.json`), when they were hand-edited after the last compile while the workflow surfaces went stale (mtime check), or when the seed declares `compile_metadata.managed_by: "direct"` — the marker for ingested, hand-maintained books whose `workflows/` skeleton is stale by design. Override with `--force-overwrite-newer`. Compiler-written seeds always stamp `managed_by: "workflow_kit"`. A blocked run writes nothing, not even the compile report.
 
 Canonical helpers live under `workflows/_shared/` (`seed_transforms.py`, `scene_card_translator.py`) and `workflows/voice_discovery/api.py` (`VoiceDiscovery`). The old re-export shims at `src/concept_workshop/{seed_transforms,scene_card_translator,voice_discovery}.py` have been removed. The remaining modules under `src/concept_workshop/` (`compliance_validator.py`, `series_manager.py`, `stress_test.py`) are canonical, not shims, and are still the right import path.
 

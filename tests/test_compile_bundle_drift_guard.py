@@ -1,6 +1,6 @@
 """Hand-edit drift guard — compile must not clobber hand-maintained outputs.
 
-Regression for the Unfinished Shadow shape: ``workflows/`` holds a stale
+Regression for the hand-maintained book shape: ``workflows/`` holds a stale
 idea-session skeleton while ``concept_seed.json`` + ``scene_cards/`` are
 hand-maintained directly and ``compile_bundle`` was never run there (no
 ``compile_report.json``). Recompiling would regress the seed and wipe the

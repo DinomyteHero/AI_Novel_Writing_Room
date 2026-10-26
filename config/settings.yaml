@@ -63,6 +63,14 @@ models:
 # In 'local' or 'cloud' mode, ALL agents use the deployment_mode backend.
 agent_routing:
   # ---------------------------------------------------------------------------
+  # STUDIO (scripts/studio.py) — every call sends the whole book, so these
+  # models need ~1M-token context windows. studio_writer drafts, revises and
+  # polishes; studio_reader writes whole-book reader notes.
+  # ---------------------------------------------------------------------------
+  studio_writer:          { backend: cloud, model: deepseekpro, params: { temperature: 0.75, max_tokens: 16000, provider: { order: [deepseek], only: [deepseek], allow_fallbacks: false } } }
+  studio_reader:          { backend: cloud, model: gemini, params: { temperature: 0.3, max_tokens: 8192 } }
+
+  # ---------------------------------------------------------------------------
   # LIVE SCENE PIPELINE
   # These entries are the ones to inspect first when reasoning about normal
   # per-scene cost and complexity.

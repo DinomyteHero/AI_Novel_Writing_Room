@@ -11,6 +11,7 @@ docs/
 ├── scene-card-template.md    # Scene-card field reference for external authoring
 ├── workshop-summary-template.md  # Planning-manuscript template for --import-summary
 ├── user-guide/
+│   ├── studio.md             # Simple core: plan in conversation, draft with whole-book context
 │   ├── cli-usage.md          # CLI commands and flags
 │   ├── new-manuscript-workflow.md  # End-to-end operator path
 │   ├── idea-session-capture.md     # Front-door planning chat
