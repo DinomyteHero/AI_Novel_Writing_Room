@@ -26,18 +26,22 @@ favour of this design and is in git history if something specific is needed.
 
 - **Files are the book.** Books live in `library/` (gitignored: private by
   default; `--library` or `WRITERS_ROOM_LIBRARY` points elsewhere). A
-  standalone book is a series of one; series files (`series_bible.md`,
-  `characters.md`) appear when a second book is added. Each book folder
+  standalone book is a series of one; `series_bible.md` appears when a
+  second book is added. Each book folder
   (`books/NN-<slug>/`) holds `story_bible.md`, `characters.md`, `outline.md`
   (one `## Chapter N` heading per chapter, optional `Words: N` line),
   `manuscript/` (+ `.history/`, `.provenance.json`), `notes/`, `runs/`,
   optional `story_so_far.md`, and `export/`. The model is in
   `src/studio/project.py` (`Library`, `Series`, `Book`, `Plan`).
-- **Each thing lives in one place.** Characters only in a `characters.md`;
-  shared series material only in the series files. No duplication between
-  files, so they can't contradict each other.
+- **Each thing lives in one place.** Characters only in a book's
+  `characters.md`, never in a bible; shared series material only in
+  `series_bible.md`. Characters and outlines always belong to a book: a new
+  book in a series starts with a copy of the previous book's `characters.md`
+  (`Book.create(previous=...)`), so nobody is lost and each book shows who
+  its people are by then. That copy is the one deliberate overlap; earlier
+  books are settled history, sent in full or as `story_so_far.md`.
 - **Whole-book context, nothing retrieved.** Every call sends the series
-  files, earlier books (in full, or their `story_so_far.md` when present),
+  bible, earlier books (in full, or their `story_so_far.md` when present),
   this book's plan, and the relevant chapters in full
   (`src/studio/prompts.py`). Stable material first for prefix caching; the
   task last. **Do not add summarisers, retrieval, state stores, ledgers or

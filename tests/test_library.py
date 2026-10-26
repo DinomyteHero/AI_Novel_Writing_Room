@@ -28,7 +28,7 @@ def test_standalone_book_is_a_series_of_one(library: Library):
     assert book.read_plan().series_bible == ""
 
 
-def test_adding_a_book_creates_series_files_and_numbers_it(library: Library):
+def test_adding_a_book_creates_series_bible_and_numbers_it(library: Library):
     first, _ = library.new_book("The Dark Lighthouse")
     first.bible_path.write_text("# The Dark Lighthouse\n\nmine\n", encoding="utf-8")
     second, written = library.new_book("Low Tide", series_title="The Dark Lighthouse")
@@ -37,6 +37,17 @@ def test_adding_a_book_creates_series_files_and_numbers_it(library: Library):
     assert {p.name for p in written} >= {"series_bible.md", "characters.md"}
     assert first.bible_path.read_text(encoding="utf-8") == "# The Dark Lighthouse\n\nmine\n"
     assert second.label == "The Dark Lighthouse, book 2: Low Tide"
+
+
+def test_a_new_book_carries_the_cast_forward(library: Library):
+    first, _ = library.new_book("Book One", series_title="Cycle")
+    sheets = "## Mara\n- **How they talk:** dry, quick.\n"
+    first.characters_path.write_text("# Characters: Book One\n\n" + sheets, encoding="utf-8")
+    second, _ = library.new_book("Book Two", series_title="Cycle")
+    assert second.characters_path.read_text(encoding="utf-8") == "# Characters: Book Two\n\n" + sheets
+    assert first.characters_path.read_text(encoding="utf-8") == "# Characters: Book One\n\n" + sheets
+    assert not (second.series.root / "characters.md").exists()
+    assert second.series.plan_files() == [second.series.bible_path]
 
 
 def test_new_series_starts_with_series_files(library: Library):
@@ -147,7 +158,7 @@ def test_prompt_order_puts_series_first_and_task_last(library: Library):
     system, user = messages[0]["content"], messages[1]["content"]
     assert "Co-Writer" in system and "Loose Craft Guide" in system
     order = [
-        "# Series bible", "# Recurring characters", "# Earlier book 1: Book One (full text)",
+        "# Series bible", "# Earlier book 1: Book One (full text)",
         "BOOK ONE TEXT", "# Story bible", "# Characters", "# Outline", "# The book so far", "# Task",
     ]
     positions = [user.index(marker) for marker in order]

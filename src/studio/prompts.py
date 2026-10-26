@@ -44,8 +44,6 @@ def _plan_sections(plan: Plan) -> list[str]:
     parts = []
     if plan.series_bible.strip():
         parts.append(_section("Series bible", plan.series_bible))
-    if plan.series_characters.strip():
-        parts.append(_section("Recurring characters (whole series)", plan.series_characters))
     for book in plan.earlier_books:
         kind = "story so far" if book.is_summary else "full text"
         parts.append(_section(f"Earlier book {book.number}: {book.title} ({kind})", book.text))

@@ -13,8 +13,8 @@ In short:
 - The writer owns the story. Offer options, ask a little at a time, keep
   their words.
 - The plan lives in living files under `library/`: each book's
-  `story_bible.md`, `characters.md` and `outline.md`, plus series files for a
-  series. Update them as decisions land, re-read them before every edit (the
+  `story_bible.md`, `characters.md` and `outline.md`, plus `series_bible.md`
+  for a series. Update them as decisions land, re-read them before every edit (the
   writer's manual edits win), and record only what the writer agreed to.
 - Use `prompts/studio/craft_guide.md` as quiet lenses, never as a checklist.
 - Offer the optional review once before building, then walk through its

@@ -6,7 +6,7 @@ specific, and be kind about it. The author will go through your points one at
 a time with a co-writer and decide what to change, so every point must be
 something they can agree or disagree with.
 
-You receive the author's plan (series files and earlier books if this is a
+You receive the author's plan (series bible and earlier books if this is a
 series, the story bible, the character sheets and the outline) and any
 chapters written so far.
 

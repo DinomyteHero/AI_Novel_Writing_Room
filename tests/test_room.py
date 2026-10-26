@@ -62,7 +62,7 @@ async def test_review_reads_everything_and_writes_notes(book):
 def series_with_mara(library):
     first, _ = library.new_book("Book One", series_title="Cycle")
     second, _ = library.new_book("Book Two", series_title="Cycle")
-    second.series.characters_path.write_text("## Mara\n", encoding="utf-8")
+    second.characters_path.write_text("## Mara\n", encoding="utf-8")
     first.characters_path.write_text("## Mara\n- Mara's boat.\n", encoding="utf-8")
     first.outline_path.write_text("## Chapter 1\n- Mara sails.\n", encoding="utf-8")
     first.write_chapter(1, "Mara ran the Marathon. Mara's hands shook.", first.read_plan(), "build")
@@ -85,7 +85,7 @@ def test_rename_apply_is_whole_word_and_keeps_chapters_current(series_with_mara)
     room.apply_rename(second, "Mara", "Maren")
     chapter = first.chapter_path(1).read_text(encoding="utf-8")
     assert chapter == "Maren ran the Marathon. Maren's hands shook.\n"
-    assert "Maren" in second.series.characters_path.read_text(encoding="utf-8")
+    assert "Maren" in second.characters_path.read_text(encoding="utf-8")
     assert first.notes_dir.joinpath("review_1.md").read_text(encoding="utf-8") == "Mara"
     assert first.chapter_state(1, first.read_plan()) == "current"
 

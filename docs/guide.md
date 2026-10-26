@@ -25,15 +25,18 @@ library/my-novel/
     export/              the whole book in one file
 ```
 
-A series adds two shared files and numbers its books:
+A series adds one shared file and numbers its books:
 
 ```text
 library/my-series/
   series_bible.md        the shared world, rules and the arc across books
-  characters.md          the recurring cast
   books/01-book-one/ ...
   books/02-book-two/ ...
 ```
+
+Characters and outlines always belong to a book. A new book starts with a
+copy of the previous book's `characters.md`, so the whole cast comes along and
+you can update who they've become without touching the earlier book.
 
 When the library holds more than one book, name the one you mean with
 `--title` (and `--series` if two series share a title).

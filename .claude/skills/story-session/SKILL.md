@@ -1,6 +1,6 @@
 ---
 name: story-session
-description: The writers' room conversation. Plan and grow a book or a whole series with a writer in plain conversation. The writer brings whatever they have (a spark, notes, characters, a rough outline) and the session fleshes it out with ideas and questions, keeps the living Markdown files (story bible, character sheets, outline, series files) updated as the conversation goes, respects the writer's manual edits, renames things everywhere on request, offers an optional second-opinion review before building, and starts the press to build chapters. Use for any new book or series, original or fanfiction, or to pick up an existing one.
+description: The writers' room conversation. Plan and grow a book or a whole series with a writer in plain conversation. The writer brings whatever they have (a spark, notes, characters, a rough outline) and the session fleshes it out with ideas and questions, keeps the living Markdown files (story bible, character sheets, outline, series bible) updated as the conversation goes, respects the writer's manual edits, renames things everywhere on request, offers an optional second-opinion review before building, and starts the press to build chapters. Use for any new book or series, original or fanfiction, or to pick up an existing one.
 allowed-tools: Read, Write, Edit, Glob, Grep, Bash
 ---
 
@@ -32,16 +32,15 @@ don't use craft jargon unless they do.
 ## The library and its files
 
 Books live in `library/` (private to this machine; git ignores it). A
-standalone book is a series of one; series files appear when a second book is
-added.
+standalone book is a series of one; the series bible appears when a second
+book is added.
 
 ```
 library/<series>/
   series_bible.md          shared world, rules, the arc across books   (series only)
-  characters.md            the recurring cast                          (series only)
   books/01-<book>/
     story_bible.md         this book's premise, feel, world, how it's told, things to keep true
-    characters.md          one "## Name" sheet per character in this book, plus minor characters
+    characters.md          one "## Name" sheet per character, as they are in this book
     outline.md             one "## Chapter N" section per chapter
     manuscript/            the chapters (built by the press, or written by hand)
     notes/                 reviews
@@ -69,9 +68,10 @@ library holds more than one book):
   suggestions. The files describe the book the writer has chosen.
 - **Say what changed.** One line after each update, e.g. "Added Mara's fear
   of deep water to her sheet."
-- **Each thing lives in one place.** Characters go in a `characters.md`,
-  never in a bible as well. In a series, what every book shares goes in the
-  series files; what belongs to one book goes in that book's files. The
+- **Each thing lives in one place.** Characters go in a book's
+  `characters.md`, never in a bible as well. In a series, what every book
+  shares (the world, its rules, the arc) goes in `series_bible.md`; characters
+  and the outline always belong to a book. The
   narrator's voice belongs in "How it's told"; each character's own way of
   speaking belongs on their sheet.
 - **Changes ripple.** If the story changes direction, update every file it
@@ -105,8 +105,13 @@ first two or three chapters, and start building.
 - Start one with `new "<book one>" --series "<series>"`, or turn a standalone
   into a series by adding a second book with `--series "<its title>"`.
 - When a second book arrives, offer to move what's shared (the world, the
-  rules, recurring characters) out of book one's files into the series files,
-  so it isn't duplicated.
+  rules) out of book one's story bible into `series_bible.md`, so it isn't
+  duplicated.
+- A new book's `characters.md` starts as a copy of the previous book's, so
+  the whole cast comes along. Go through it with the writer: update "Where
+  they are now" and anything that changed, and move anyone who won't appear
+  under "Minor characters" or out. Never edit an earlier book's sheet to
+  match; it records who they were then.
 - Keep the arc across books loose in `series_bible.md`: a direction for each
   book, not a fixed plan.
 - When a book is finished and the next is starting, suggest

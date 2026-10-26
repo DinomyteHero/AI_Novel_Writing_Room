@@ -3,11 +3,10 @@
     library/                              private by default (gitignored)
       <series>/
         series_bible.md                   shared world and the arc across books (series only)
-        characters.md                     the recurring cast (series only)
         books/
           01-<book>/
             story_bible.md                this book's premise, feel, world and voice
-            characters.md                 characters in this book
+            characters.md                 who everyone is in this book
             outline.md                    one "## Chapter N" section per chapter
             manuscript/chapter_NN.md      the current chapters
             manuscript/.history/          every replaced version
@@ -17,8 +16,11 @@
             story_so_far.md               optional: what later books need to know
             export/manuscript.md
 
-A standalone book is a series of one: the series-level files only appear once
-a second book is added, so a single book has just three planning files.
+A standalone book is a series of one: the series bible only appears once a
+second book is added, so a single book has just three planning files.
+Characters always belong to a book. A new book in a series starts with a copy
+of the previous book's characters.md, so nobody is lost between books and
+each book can show who its people have become.
 """
 
 from __future__ import annotations
@@ -115,7 +117,6 @@ class Plan:
     """
 
     series_bible: str
-    series_characters: str
     earlier_books: tuple[EarlierBook, ...]
     story_bible: str
     characters: str
@@ -142,9 +143,7 @@ class Plan:
     def background_fingerprint(self) -> str:
         """Everything except the outline: a change here may affect any chapter."""
         return _digest(
-            "\n".join(
-                [self.series_bible, self.series_characters, self.story_bible, self.characters]
-            )
+            "\n".join([self.series_bible, self.story_bible, self.characters])
         )
 
     def outline_fingerprint(self, number: int) -> str | None:
@@ -158,9 +157,8 @@ class Plan:
             "characters.md": self.characters,
             "outline.md": self.outline,
         }
-        if self.series_bible or self.series_characters:
+        if self.series_bible:
             files["series_bible.md"] = self.series_bible
-            files["series_characters.md"] = self.series_characters
         return files
 
 
@@ -224,19 +222,34 @@ class Book:
     def export_path(self) -> Path:
         return self.root / "export" / "manuscript.md"
 
-    def create(self, title: str) -> list[Path]:
-        """Write any missing starter files. Never overwrites."""
+    def create(self, title: str, previous: "Book | None" = None) -> list[Path]:
+        """Write any missing starter files. Never overwrites.
+
+        With ``previous``, characters.md starts as a copy of that book's sheets.
+        """
         self.manuscript_dir.mkdir(parents=True, exist_ok=True)
         self.notes_dir.mkdir(parents=True, exist_ok=True)
-        return [
-            _write_template(name, target, title)
-            for name, target in (
-                ("story_bible.md", self.bible_path),
-                ("characters.md", self.characters_path),
-                ("outline.md", self.outline_path),
-            )
-            if not target.exists()
-        ]
+        written = []
+        for name, target in (
+            ("story_bible.md", self.bible_path),
+            ("characters.md", self.characters_path),
+            ("outline.md", self.outline_path),
+        ):
+            if target.exists():
+                continue
+            if target == self.characters_path and previous and previous.characters_path.exists():
+                text = _read(previous.characters_path)
+                heading = f"# Characters: {title}"
+                lines = text.splitlines()
+                if lines and lines[0].startswith("# "):
+                    text = "\n".join([heading] + lines[1:]) + "\n"
+                else:
+                    text = heading + "\n\n" + text
+                target.write_text(text, encoding="utf-8")
+                written.append(target)
+            else:
+                written.append(_write_template(name, target, title))
+        return written
 
     def plan_files(self) -> list[Path]:
         """Every planning file this book's chapters are built from."""
@@ -256,7 +269,6 @@ class Book:
                 earlier.append(EarlierBook(book.number, book.title, text, False))
         return Plan(
             series_bible=_read(self.series.bible_path),
-            series_characters=_read(self.series.characters_path),
             earlier_books=tuple(earlier),
             story_bible=_read(self.bible_path),
             characters=_read(self.characters_path),
@@ -357,10 +369,6 @@ class Series:
         return self.root / "series_bible.md"
 
     @property
-    def characters_path(self) -> Path:
-        return self.root / "characters.md"
-
-    @property
     def books_dir(self) -> Path:
         return self.root / "books"
 
@@ -375,26 +383,18 @@ class Series:
         return sorted(books, key=lambda b: b.number)
 
     def plan_files(self) -> list[Path]:
-        return [p for p in (self.bible_path, self.characters_path) if p.exists()]
+        return [self.bible_path] if self.bible_path.exists() else []
 
     def add_book(self, title: str, series_title: str | None = None) -> tuple[Book, list[Path]]:
-        if any(book.slug == slugify(title) for book in self.books()):
+        books = self.books()
+        if any(book.slug == slugify(title) for book in books):
             raise StudioError(f"This series already has a book called '{title}'.")
-        number = max((b.number for b in self.books()), default=0) + 1
+        number = max((b.number for b in books), default=0) + 1
         book = Book(self, self.books_dir / f"{number:02d}-{slugify(title)}")
-        written = book.create(title)
-        if number > 1 or series_title:
-            written += self.make_series_files(series_title)
+        written = book.create(title, previous=books[-1] if books else None)
+        if (number > 1 or series_title) and not self.bible_path.exists():
+            written.append(_write_template("series_bible.md", self.bible_path, series_title or self.title))
         return book, written
-
-    def make_series_files(self, title: str | None = None) -> list[Path]:
-        title = title or self.title
-        written = []
-        if not self.bible_path.exists():
-            written.append(_write_template("series_bible.md", self.bible_path, title))
-        if not self.characters_path.exists():
-            written.append(_write_template("series_characters.md", self.characters_path, title))
-        return written
 
 
 class Library:
