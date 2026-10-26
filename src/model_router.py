@@ -31,6 +31,7 @@ class ModelRouter:
         self.mode = self.config["deployment_mode"]
         self._local_client: Optional[httpx.AsyncClient] = None
         self._cloud_client: Optional[httpx.AsyncClient] = None
+        self.usage_log: list[dict] = []
 
         # Warn when per-agent backend overrides are present but will be ignored
         if self.mode in ("local", "cloud"):
@@ -139,6 +140,14 @@ class ModelRouter:
                         "LLM response missing choices for "
                         f"{agent_role} (model={model}): {error_text}"
                     )
+                usage = data.get("usage") or {}
+                self.usage_log.append({
+                    "role": agent_role,
+                    "model": model,
+                    "prompt_tokens": usage.get("prompt_tokens", 0),
+                    "completion_tokens": usage.get("completion_tokens", 0),
+                    "cost": usage.get("cost"),
+                })
                 finish_reason = choices[0].get("finish_reason")
                 content = choices[0]["message"]["content"]
                 if content is None:
@@ -218,14 +227,21 @@ class ModelRouter:
                 return False, f"Local server error: {e}"
         else:
             try:
+                # /models is public, so only /key proves the key itself works.
                 client = await self._get_cloud_client()
-                response = await client.get("/models", params={"limit": 1})
+                response = await client.get("/key")
                 if response.status_code == 401:
                     return False, "Invalid API key (401 Unauthorized)"
                 if response.status_code == 403:
                     return False, "API key lacks permissions (403 Forbidden)"
                 response.raise_for_status()
-                return True, "Cloud API reachable, key valid"
+                info = response.json().get("data") or {}
+                message = "Cloud API reachable, key valid"
+                if info.get("usage") is not None:
+                    message += f"; credits used so far: {info['usage']:.2f}"
+                if info.get("limit") is not None:
+                    message += f" of a {info['limit']:.2f} limit"
+                return True, message
             except httpx.ConnectError:
                 return False, "Cannot connect to OpenRouter (network error)"
             except httpx.TimeoutException:

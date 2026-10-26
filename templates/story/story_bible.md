@@ -3,7 +3,8 @@
 Everything the co-writer needs to know about your book. Write in whatever way
 is natural to you: sentences, bullet points, half-thoughts. Leave a section
 blank or write "not sure yet" if you haven't decided. You can change anything
-here at any time; every chapter drafted afterwards will see the new version.
+here at any time; every chapter built afterwards will see the new version. In
+a series, things every book shares belong in the series' series_bible.md.
 
 ## The story in a sentence
 

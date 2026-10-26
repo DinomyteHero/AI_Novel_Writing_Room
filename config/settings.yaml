@@ -19,16 +19,27 @@ models:
       claude: anthropic/claude-sonnet-4.6
     default_params: {}
 
-# Every studio call sends the whole book, so these models need ~1M-token
-# context windows. studio_writer drafts, revises and polishes; studio_reader
-# writes whole-book reader notes. To try another model, change `model` to
-# another key under models.cloud.models (or add one there). All request
-# settings live here in `params`, so they follow the role, not the model.
+# Every call sends the whole book, so these models need ~1M-token context
+# windows. studio_writer drafts and revises; studio_critic critiques each
+# press draft (a different model catches different blind spots);
+# studio_reader writes room reviews and story-so-far notes. To try another
+# model, change `model` to another key under models.cloud.models (or add one
+# there). All request settings live here in `params`, so they follow the
+# role, not the model. No role caps its output length (max_tokens), so each
+# model can answer at full length; add one to `params` only if you need it.
 # studio_writer pins OpenRouter to DeepSeek's own servers (`provider`); remove
 # that pin if you point it at a different model.
 agent_routing:
-  studio_writer:          { backend: cloud, model: deepseekpro, params: { temperature: 0.75, max_tokens: 16000, reasoning: { effort: "none" }, provider: { order: [deepseek], only: [deepseek], allow_fallbacks: false } } }
-  studio_reader:          { backend: cloud, model: gemini, params: { temperature: 0.3, max_tokens: 8192 } }
+  studio_writer:          { backend: cloud, model: deepseekpro, params: { temperature: 0.75, reasoning: { effort: "none" }, provider: { order: [deepseek], only: [deepseek], allow_fallbacks: false } } }
+  studio_critic:          { backend: cloud, model: gemini, params: { temperature: 0.2 } }
+  studio_reader:          { backend: cloud, model: gemini, params: { temperature: 0.3 } }
+
+# The press (scripts/press.py build).
+press:
+  revision_rounds: 1            # critique-and-revise rounds per chapter; 0 = draft only
+  default_chapter_words: 3000   # used when an outline section has no "Words: N" line
+  length_calibration: 1.0       # multiplies the length asked for; raise it if chapters come in short
+  min_revision_ratio: 0.6       # discard a revision shorter than this share of what it revised
 
 pipeline:
   max_http_retries: 2

@@ -20,8 +20,8 @@ ruff check .
 - **Keep craft guidance loose.** `prompts/studio/craft_guide.md` offers lenses,
   not rules. Changes there should make it friendlier for new writers, not
   stricter.
-- **Add tests** for new behaviour. Tests must not call real models; use a fake
-  router like the one in `tests/test_studio.py`.
+- **Add tests** for new behaviour. Tests must not call real models; use
+  `tests/fakes.py::FakeRouter`.
 
 ## Bugs and questions
 

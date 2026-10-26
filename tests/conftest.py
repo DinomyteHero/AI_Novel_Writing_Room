@@ -50,3 +50,40 @@ def settings_yaml(temp_dir):
     config_path = config_dir / "settings.yaml"
     config_path.write_text(yaml.dump(settings), encoding="utf-8")
     return str(config_path)
+
+
+OUTLINE = """# Outline
+
+Intro text that isn't a chapter.
+
+## Chapter 1: The Storm
+- Mara finds the lighthouse dark.
+- Words: 2,500
+
+## Chapter 2
+- The keeper is missing.
+
+### chapter 3 — Low Tide
+- She finds the boat.
+- **Length:** ~1800
+"""
+
+
+@pytest.fixture
+def library(tmp_path):
+    from src.studio.project import Library
+
+    return Library(tmp_path / "library")
+
+
+@pytest.fixture
+def book(library):
+    book, _ = library.new_book("The Dark Lighthouse")
+    book.bible_path.write_text(
+        "# The Dark Lighthouse\n\nMara is a lighthouse keeper's niece.\n", encoding="utf-8"
+    )
+    book.characters_path.write_text(
+        '## Mara\n- **How she talks:** dry\n  - "Nineteen years to ask."\n', encoding="utf-8"
+    )
+    book.outline_path.write_text(OUTLINE, encoding="utf-8")
+    return book

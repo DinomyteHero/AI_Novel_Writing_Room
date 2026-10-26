@@ -1,0 +1,77 @@
+"""One way to call a model: size-checked, fence-stripped, never empty."""
+
+from __future__ import annotations
+
+import re
+from dataclasses import dataclass
+from typing import TYPE_CHECKING
+
+from src.studio.project import StudioError
+from src.studio.prompts import message_tokens
+
+if TYPE_CHECKING:
+    from src.model_router import ModelRouter
+
+WRITER_ROLE = "studio_writer"
+CRITIC_ROLE = "studio_critic"
+READER_ROLE = "studio_reader"
+
+# Headroom below the ~1M-token windows of the default models, leaving room
+# for the response.
+MAX_PROMPT_TOKENS = 900_000
+
+_FENCE = re.compile(r"^```[a-zA-Z]*\n(.*)\n```$", re.DOTALL)
+
+
+def _clean(text: str) -> str:
+    text = text.strip()
+    match = _FENCE.match(text)
+    return match.group(1).strip() if match else text
+
+
+async def complete(router: "ModelRouter", role: str, messages: list[dict]) -> str:
+    size = message_tokens(messages)
+    if size > MAX_PROMPT_TOKENS:
+        raise StudioError(
+            f"This call would send about {size:,} tokens, more than the "
+            f"{MAX_PROMPT_TOKENS:,} the tool allows. For a long series, write "
+            "story-so-far notes for finished books (press.py story-so-far) so "
+            "later books send those instead of the full text."
+        )
+    text = _clean(await router.complete(role, messages))
+    if not text:
+        raise StudioError("The model returned an empty response; nothing was saved.")
+    return text
+
+
+@dataclass
+class Usage:
+    calls: int = 0
+    prompt_tokens: int = 0
+    completion_tokens: int = 0
+    cost: float | None = None
+
+    @classmethod
+    def since(cls, router: "ModelRouter", start: int) -> "Usage":
+        usage = cls()
+        for entry in router.usage_log[start:]:
+            usage.calls += 1
+            usage.prompt_tokens += entry.get("prompt_tokens") or 0
+            usage.completion_tokens += entry.get("completion_tokens") or 0
+            if entry.get("cost") is not None:
+                usage.cost = (usage.cost or 0.0) + entry["cost"]
+        return usage
+
+    def add(self, other: "Usage") -> None:
+        self.calls += other.calls
+        self.prompt_tokens += other.prompt_tokens
+        self.completion_tokens += other.completion_tokens
+        if other.cost is not None:
+            self.cost = (self.cost or 0.0) + other.cost
+
+    def describe(self) -> str:
+        text = (
+            f"{self.calls} call(s), {self.prompt_tokens:,} tokens in, "
+            f"{self.completion_tokens:,} out"
+        )
+        return text + (f", cost {self.cost:.4f} credits" if self.cost is not None else "")

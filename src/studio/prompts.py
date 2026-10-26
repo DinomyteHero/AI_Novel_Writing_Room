@@ -1,16 +1,16 @@
-"""Message builders for the studio. Pure functions over a StoryProject.
+"""Message builders. Pure functions over a Plan and the chapters on disk.
 
-Every call sends the whole book: the story bible, the outline and every
-drafted chapter in full. Nothing is summarised or retrieved. The stable
-material comes first so providers with prefix caching can reuse it across
-calls; the task comes last, where the model attends to it most reliably.
+Every call sends the whole book: the series and book plans, any earlier books,
+and every relevant chapter in full. Nothing is summarised or retrieved by the
+tool itself. Stable material comes first so providers with prefix caching can
+reuse it across calls; the task comes last, where models attend most reliably.
 """
 
 from __future__ import annotations
 
 from pathlib import Path
 
-from src.studio.project import ChapterPlan, StoryProject, estimate_tokens
+from src.studio.project import ChapterPlan, Plan, estimate_tokens
 
 PROMPTS_DIR = Path(__file__).resolve().parents[2] / "prompts" / "studio"
 
@@ -22,10 +22,7 @@ POLISH_NOTE = (
     "means, and roughly the same length."
 )
 
-_DEFAULT_LENGTH = (
-    "Write it at the length the chapter needs. Most novel chapters run 2,000 "
-    "to 4,000 words; play scenes out in full rather than summarising them."
-)
+NO_CHANGES = "No changes needed"
 
 
 def _prompt(name: str) -> str:
@@ -39,59 +36,131 @@ def _system(role_prompt: str) -> dict:
     }
 
 
-def _book_sections(project: StoryProject, chapters: dict[int, str], heading: str) -> list[str]:
-    parts = ["# Story bible\n\n" + (project.read_bible().strip() or "(empty)")]
-    if project.characters_path.exists():
-        parts.append("# Characters\n\n" + (project.read_characters().strip() or "(empty)"))
-    parts.append("# Outline\n\n" + (project.read_outline().strip() or "(empty)"))
-    if chapters:
-        parts.append(f"# {heading}\n\n" + "\n\n".join(t.strip() for t in chapters.values()))
-    else:
-        parts.append(f"# {heading}\n\n(No chapters written yet.)")
+def _section(heading: str, text: str) -> str:
+    return f"# {heading}\n\n" + (text.strip() or "(empty)")
+
+
+def _plan_sections(plan: Plan) -> list[str]:
+    parts = []
+    if plan.series_bible.strip():
+        parts.append(_section("Series bible", plan.series_bible))
+    if plan.series_characters.strip():
+        parts.append(_section("Recurring characters (whole series)", plan.series_characters))
+    for book in plan.earlier_books:
+        kind = "story so far" if book.is_summary else "full text"
+        parts.append(_section(f"Earlier book {book.number}: {book.title} ({kind})", book.text))
+    parts.append(_section("Story bible", plan.story_bible))
+    parts.append(_section("Characters", plan.characters))
+    parts.append(_section("Outline", plan.outline))
     return parts
 
 
-def _chapter_label(plan: ChapterPlan) -> str:
-    return f"Chapter {plan.number}" + (f": {plan.title}" if plan.title else "")
+def _chapters_section(heading: str, chapters: dict[int, str]) -> str:
+    if not chapters:
+        return f"# {heading}\n\n(No chapters written yet.)"
+    return f"# {heading}\n\n" + "\n\n".join(text.strip() for text in chapters.values())
+
+
+def _messages(role: str, parts: list[str]) -> list[dict]:
+    return [_system(_prompt(role)), {"role": "user", "content": "\n\n".join(parts)}]
+
+
+def _label(chapter: ChapterPlan) -> str:
+    return f"Chapter {chapter.number}" + (f": {chapter.title}" if chapter.title else "")
+
+
+def _before(chapters: dict[int, str], number: int) -> dict[int, str]:
+    return {n: text for n, text in chapters.items() if n < number}
+
+
+def _notes(chapter: ChapterPlan) -> str:
+    return chapter.notes or "(none: use the outline as a whole)"
 
 
 def draft_messages(
-    project: StoryProject,
-    plan: ChapterPlan,
-    words: int | None = None,
+    plan: Plan,
+    chapter: ChapterPlan,
+    chapters: dict[int, str],
+    words: int,
     note: str | None = None,
 ) -> list[dict]:
-    earlier = {n: t for n, t in project.drafted_chapters().items() if n < plan.number}
     task = [
-        f"# Task\n\nWrite {_chapter_label(plan)}.",
-        "Outline notes for this chapter:\n\n" + (plan.notes or "(none: use the outline as a whole)"),
-        f"Aim for roughly {words:,} words." if words else _DEFAULT_LENGTH,
+        f"# Task\n\nWrite {_label(chapter)}.",
+        "Outline notes for this chapter:\n\n" + _notes(chapter),
+        f"Aim for roughly {words:,} words. Play scenes out in full rather than "
+        "summarising them.",
     ]
     if note:
         task.append("Note from the author:\n\n" + note.strip())
-    user = _book_sections(project, earlier, "The book so far") + ["\n\n".join(task)]
-    return [_system(_prompt("drafter")), {"role": "user", "content": "\n\n".join(user)}]
+    return _messages(
+        "drafter",
+        _plan_sections(plan)
+        + [_chapters_section("The book so far", _before(chapters, chapter.number))]
+        + ["\n\n".join(task)],
+    )
 
 
-def revise_messages(project: StoryProject, number: int, note: str) -> list[dict]:
-    chapters = project.drafted_chapters()
-    current = chapters.pop(number)
+def critique_messages(
+    plan: Plan,
+    chapter: ChapterPlan,
+    chapters: dict[int, str],
+    draft: str,
+    target_words: int,
+) -> list[dict]:
+    task = (
+        f"# Draft of {_label(chapter)}\n\n{draft.strip()}\n\n"
+        f"# Task\n\nCritique this draft. Outline notes for this chapter:\n\n"
+        f"{_notes(chapter)}\n\nThe author planned roughly {target_words:,} words."
+    )
+    return _messages(
+        "critic",
+        _plan_sections(plan)
+        + [_chapters_section("The book so far", _before(chapters, chapter.number)), task],
+    )
+
+
+def revise_messages(
+    plan: Plan, chapters: dict[int, str], number: int, current: str, note: str
+) -> list[dict]:
+    rest = {n: text for n, text in chapters.items() if n != number}
     task = (
         f"# Chapter {number} (the chapter to revise)\n\n{current.strip()}\n\n"
-        f"# Author's note\n\n{note.strip()}"
+        f"# Revision notes\n\n{note.strip()}"
     )
-    user = _book_sections(
-        project, chapters, f"The rest of the book (chapter {number} is shown separately below)"
-    ) + [task]
-    return [_system(_prompt("reviser")), {"role": "user", "content": "\n\n".join(user)}]
+    return _messages(
+        "reviser",
+        _plan_sections(plan)
+        + [
+            _chapters_section(
+                f"The rest of the book (chapter {number} is shown separately below)", rest
+            ),
+            task,
+        ],
+    )
 
 
-def review_messages(project: StoryProject) -> list[dict]:
-    chapters = project.drafted_chapters()
-    task = f"# Task\n\nWrite your reader notes on the {len(chapters)} chapter(s) above."
-    user = _book_sections(project, chapters, "The book so far") + [task]
-    return [_system(_prompt("reviewer")), {"role": "user", "content": "\n\n".join(user)}]
+def review_messages(plan: Plan, chapters: dict[int, str]) -> list[dict]:
+    if chapters:
+        task = f"# Task\n\nReview the plan and the {len(chapters)} drafted chapter(s) above."
+    else:
+        task = "# Task\n\nReview the plan above. No chapters have been drafted yet."
+    return _messages(
+        "reviewer",
+        _plan_sections(plan) + [_chapters_section("The book so far", chapters), task],
+    )
+
+
+def story_so_far_messages(plan: Plan, chapters: dict[int, str]) -> list[dict]:
+    task = "# Task\n\nWrite the story-so-far notes for the finished book above."
+    return _messages(
+        "story_so_far",
+        _plan_sections(plan) + [_chapters_section("The finished book", chapters), task],
+    )
 
 
 def message_tokens(messages: list[dict]) -> int:
     return estimate_tokens("".join(m["content"] for m in messages))
+
+
+def plan_tokens(plan: Plan) -> int:
+    return estimate_tokens("".join(_plan_sections(plan)))

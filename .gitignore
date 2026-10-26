@@ -25,9 +25,9 @@ Thumbs.db
 .claude/worktrees/
 .codex/
 
-# Original books stay private to this machine. Fanfiction books under
-# data/franchises/ are tracked; add a line here to keep yours private too.
-data/projects/
+# Your books stay private to this machine by default. To version a book,
+# point --library (or WRITERS_ROOM_LIBRARY) at a folder in your own repo.
+library/
 
 # Environment variables
 .env

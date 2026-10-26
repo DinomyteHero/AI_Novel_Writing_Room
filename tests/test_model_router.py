@@ -151,11 +151,27 @@ class TestModelRouterCompletion:
         result = await router.complete("studio_writer", [{"role": "user", "content": "test"}])
         assert result == "Generated text"
         mock_client.post.assert_called_once()
+        assert router.usage_log[-1]["prompt_tokens"] == 0
 
+    @pytest.mark.asyncio
+    async def test_complete_records_usage_and_cost(self, settings_yaml):
+        router = ModelRouter(settings_yaml)
+        mock_response = MagicMock()
+        mock_response.json.return_value = {
+            "choices": [{"message": {"content": "Text"}}],
+            "usage": {"prompt_tokens": 1200, "completion_tokens": 300, "cost": 0.0042},
+        }
+        mock_response.raise_for_status = MagicMock()
+        router._local_client = AsyncMock(post=AsyncMock(return_value=mock_response))
 
-
-
-
+        await router.complete("studio_writer", [{"role": "user", "content": "test"}])
+        assert router.usage_log == [{
+            "role": "studio_writer",
+            "model": "test-model",
+            "prompt_tokens": 1200,
+            "completion_tokens": 300,
+            "cost": 0.0042,
+        }]
 
     @pytest.mark.asyncio
     async def test_complete_retries_on_429(self, settings_yaml):
@@ -241,6 +257,7 @@ class TestModelRouterHealthCheck:
         mock_response = MagicMock()
         mock_response.status_code = 200
         mock_response.raise_for_status = MagicMock()
+        mock_response.json = MagicMock(return_value={"data": {"usage": 1.5, "limit": 10}})
 
         mock_client = AsyncMock()
         mock_client.get = AsyncMock(return_value=mock_response)
@@ -249,6 +266,8 @@ class TestModelRouterHealthCheck:
         ok, msg = await router.health_check()
         assert ok is True
         assert "reachable" in msg.lower()
+        assert "1.50 of a 10.00 limit" in msg
+        mock_client.get.assert_awaited_once_with("/key")
 
     @pytest.mark.asyncio
     async def test_health_check_cloud_auth_failure(self, temp_dir):

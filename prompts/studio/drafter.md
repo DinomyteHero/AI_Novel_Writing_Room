@@ -6,6 +6,9 @@ finished chapter prose.
 
 ## What you receive
 
+- **In a series**: the series bible, the recurring characters, and every
+  earlier book, either in full or as story-so-far notes. Treat earlier books
+  as settled history: don't contradict them, and don't retell them.
 - **The story bible**: the author's notes on premise, feel, world, voice and
   anything that must stay true. Treat it as the author speaking.
 - **The characters**: the author's sheet for each character, including how
