@@ -1,0 +1,13 @@
+{
+  "name": "writers-room",
+  "description": "Writers Room: plan and write novels and series with Claude.",
+  "owner": { "name": "DinomyteHero" },
+  "plugins": [
+    {
+      "name": "writers-room",
+      "source": "./",
+      "description": "Plan a book or series in conversation, keep living Markdown files, and build chapters with a draft, critique and revise press.",
+      "category": "writing"
+    }
+  ]
+}

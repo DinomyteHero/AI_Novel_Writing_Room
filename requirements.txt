@@ -1,4 +1,5 @@
 httpx>=0.27.0
+anthropic>=2.3.0  # only used when a role runs on the direct Anthropic backend
 pyyaml>=6.0
 python-dotenv>=1.0.0
 

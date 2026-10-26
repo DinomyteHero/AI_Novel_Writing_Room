@@ -150,13 +150,16 @@ async def _build_chapter(
     chapter: ChapterPlan,
     settings: PressSettings,
     run_dir: Path,
+    on_step: Callable[[int, str], None] | None = None,
 ) -> ChapterResult:
+    step = on_step or (lambda number, name: None)
     start = len(router.usage_log)
     folder = run_dir / f"chapter_{chapter.number:02d}"
     folder.mkdir(parents=True)
     chapters = book.drafted_chapters()
     target = settings.target_words(chapter)
 
+    step(chapter.number, "drafting")
     text = await complete(
         router,
         WRITER_ROLE,
@@ -166,6 +169,7 @@ async def _build_chapter(
     result = ChapterResult(chapter.number, chapter.title, target, count_words(text))
 
     for round_number in range(1, settings.revision_rounds + 1):
+        step(chapter.number, "critiquing")
         critique = await complete(
             router, CRITIC_ROLE, prompts.critique_messages(plan, chapter, chapters, text, target)
         )
@@ -173,6 +177,7 @@ async def _build_chapter(
         if _is_no_changes(critique):
             result.notes.append(f"Round {round_number}: the critic asked for no changes.")
             break
+        step(chapter.number, "revising")
         revised = await complete(
             router,
             WRITER_ROLE,
@@ -247,7 +252,11 @@ async def build(
     plan: Plan | None = None,
     on_start: Callable[[ChapterPlan], None] | None = None,
     on_done: Callable[[ChapterResult], None] | None = None,
+    on_step: Callable[[int, str], None] | None = None,
+    should_stop: Callable[[], bool] | None = None,
 ) -> BuildResult:
+    """Build ``numbers`` in order. ``should_stop`` is checked before each
+    chapter, so a stop request finishes the chapter in progress first."""
     plan = plan or book.read_plan()
     run_dir = book.runs_dir / datetime.now().strftime("%Y%m%d-%H%M%S")
     suffix = 2
@@ -262,10 +271,12 @@ async def build(
     results: list[ChapterResult] = []
     total = Usage()
     for number in numbers:
+        if should_stop and should_stop():
+            break
         if on_start:
             on_start(chapters[number])
         chapter_result = await _build_chapter(
-            book, router, plan, chapters[number], settings, run_dir
+            book, router, plan, chapters[number], settings, run_dir, on_step
         )
         if on_done:
             on_done(chapter_result)

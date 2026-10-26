@@ -1,26 +1,64 @@
-deployment_mode: cloud  # local | cloud | hybrid
+deployment_mode: hybrid  # each role below names its own backend
 
+# Backends: where model calls go. Each needs only the API key named by
+# api_key_env (put keys in .env, or enter them in the app's Settings). All
+# but `anthropic` speak the OpenAI-compatible chat-completions API; that one
+# uses the Anthropic SDK. The app lists each backend's `models` to choose from.
 models:
-  local:
-    inference_backend: llama-server
-    base_url: http://localhost:8080/v1
-    timeout_seconds: 300
-    models: {}
-    default_params: {}
-
   cloud:
+    label: OpenRouter
     provider: openrouter
     base_url: https://openrouter.ai/api/v1
     api_key_env: OPENROUTER_API_KEY
     timeout_seconds: 300
     models:
-      deepseekpro: deepseek/deepseek-v4-pro
-      gemini: google/gemini-3.1-pro-preview
-      claude: anthropic/claude-sonnet-4.6
+      deepseekpro: { id: deepseek/deepseek-v4-pro, label: DeepSeek V4 Pro }
+      gemini: { id: google/gemini-3.1-pro-preview, label: Gemini 3.1 Pro }
+      claude: { id: anthropic/claude-opus-5.5, label: Claude Opus 5.5 }
+      claudesonnet: { id: anthropic/claude-sonnet-5.5, label: Claude Sonnet 5.5 }
+      gpt: { id: openai/gpt-5.5, label: GPT-5.5 }
+    default_params: {}
+
+  anthropic:
+    label: Anthropic
+    api: anthropic
+    api_key_env: ANTHROPIC_API_KEY
+    timeout_seconds: 600
+    models:
+      opus: { id: claude-opus-5-5, label: Claude Opus 5.5 }
+      sonnet: { id: claude-sonnet-5-5, label: Claude Sonnet 5.5 }
+    default_params: {}
+
+  openai:
+    label: OpenAI
+    base_url: https://api.openai.com/v1
+    api_key_env: OPENAI_API_KEY
+    timeout_seconds: 300
+    models:
+      gpt: { id: gpt-5.5, label: GPT-5.5 }
+    default_params: {}
+
+  google:
+    label: Google
+    base_url: https://generativelanguage.googleapis.com/v1beta/openai
+    api_key_env: GEMINI_API_KEY
+    timeout_seconds: 300
+    models:
+      gemini: { id: gemini-3.1-pro-preview, label: Gemini 3.1 Pro }
+    default_params: {}
+
+  local:
+    label: On this computer
+    inference_backend: llama-server
+    base_url: http://localhost:8080/v1
+    timeout_seconds: 600
+    models:
+      local: { id: local-model, label: Local model }
     default_params: {}
 
 # Every call sends the whole book, so these models need ~1M-token context
-# windows. studio_writer drafts and revises; studio_critic critiques each
+# windows. studio_chat is the room's conversation in the app (it edits the
+# plan files); studio_writer drafts and revises; studio_critic critiques each
 # press draft (a different model catches different blind spots);
 # studio_reader writes room reviews and story-so-far notes. To try another
 # model, change `model` to another key under models.cloud.models (or add one
@@ -28,8 +66,10 @@ models:
 # role, not the model. No role caps its output length (max_tokens), so each
 # model can answer at full length; add one to `params` only if you need it.
 # studio_writer pins OpenRouter to DeepSeek's own servers (`provider`); remove
-# that pin if you point it at a different model.
+# that pin if you point it at a different model. The app's Settings page
+# writes your choices to config/settings.local.yaml, which overrides these.
 agent_routing:
+  studio_chat:            { backend: cloud, model: claude, params: {} }
   studio_writer:          { backend: cloud, model: deepseekpro, params: { temperature: 0.75, reasoning: { effort: "none" }, provider: { order: [deepseek], only: [deepseek], allow_fallbacks: false } } }
   studio_critic:          { backend: cloud, model: gemini, params: { temperature: 0.2 } }
   studio_reader:          { backend: cloud, model: gemini, params: { temperature: 0.3 } }

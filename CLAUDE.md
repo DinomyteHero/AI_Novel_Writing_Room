@@ -17,6 +17,18 @@ A tool that helps writers, often new ones, plan and write novels and series
   → revise → save. Press commands (`scripts/press.py`): `build next|all|N`,
   `story-so-far`, `export`.
 
+Writers reach both halves three ways, all over the same files and code:
+
+- **The app** (`scripts/app.py`): a local web app in the browser, laid out
+  like Claude (projects, chats, a files panel, Settings for providers). A
+  chat model from the writer's own provider (`studio_chat`) follows the same
+  `story-session` skill through tools (`src/studio/chat.py`).
+- **The Claude plugin** (`.claude-plugin/`): for Cowork and Claude Code.
+  Claude follows the skill and edits files itself; a stdio MCP server
+  (`scripts/mcp_server.py` → `src/studio/mcp.py`) adds books, reviews,
+  renames and background builds.
+- **The command line** (`scripts/room.py`, `scripts/press.py`).
+
 The files are the only contract between the halves. This repository used to
 hold a large multi-agent pipeline (scene cards, chapter packets, state
 databases, retrieval, ledgers, validators, a web console); it was deleted in
@@ -31,7 +43,8 @@ favour of this design and is in git history if something specific is needed.
   (`books/NN-<slug>/`) holds `story_bible.md`, `characters.md`, `outline.md`
   (one `## Chapter N` heading per chapter, optional `Words: N` line),
   `manuscript/` (+ `.history/`, `.provenance.json`), `notes/`, `runs/`,
-  optional `story_so_far.md`, and `export/`. The model is in
+  optional `story_so_far.md`, optional `reference/`, and `export/`. A series
+  may have its own `reference/` too. The app keeps chats in `<series>/chats/`. The model is in
   `src/studio/project.py` (`Library`, `Series`, `Book`, `Plan`).
 - **Each thing lives in one place.** Characters only in a book's
   `characters.md`, never in a bible; shared series material only in
@@ -41,7 +54,7 @@ favour of this design and is in git history if something specific is needed.
   its people are by then. That copy is the one deliberate overlap; earlier
   books are settled history, sent in full or as `story_so_far.md`.
 - **Whole-book context, nothing retrieved.** Every call sends the series
-  bible, earlier books (in full, or their `story_so_far.md` when present),
+  bible, reference notes (`.md`/`.txt` in `reference/`, read in full), earlier books (in full, or their `story_so_far.md` when present),
   this book's plan, and the relevant chapters in full
   (`src/studio/prompts.py`). Stable material first for prefix caching; the
   task last. **Do not add summarisers, retrieval, state stores, ledgers or
@@ -75,8 +88,18 @@ favour of this design and is in git history if something specific is needed.
   guards this.
 - **Errors are for writers.** `StudioError` messages are shown as-is, in
   plain language with the fix included. Missing API keys and network
-  failures are caught in `src/studio/cli.py` and explained, never shown as
-  tracebacks.
+  failures are caught in `src/studio/cli.py`, `src/app/server.py` and
+  `src/studio/mcp.py` and explained, never shown as tracebacks.
+- **One skill, three front ends.** `.claude/skills/story-session/SKILL.md` is
+  the only conversation guide. The app's `prompts/studio/room_chat.md` and the
+  plugin's tools map its commands; don't fork the guide per front end.
+- **Append-only chat turns.** The app sends earlier turns as plain text and
+  the current files only with the newest message, never editing what was sent
+  (prompt caching, and Claude's thinking-block binding, depend on it).
+- **Providers are backends.** Each entry under `models` in
+  `config/settings.yaml` is a backend; `api: anthropic` uses the Anthropic SDK,
+  the rest the OpenAI-compatible API. The app writes the writer's choices to
+  the gitignored `config/settings.local.yaml` and keys to `.env`.
 
 ## Layout
 
@@ -88,22 +111,27 @@ favour of this design and is in git history if something specific is needed.
 | Room operations | `src/studio/room.py` |
 | Press: build loop, estimate, story-so-far, export | `src/studio/press.py` |
 | Command-line front ends | `src/studio/cli.py`, `scripts/room.py`, `scripts/press.py` |
+| The app's room chat (tools, undo, review calls) | `src/studio/chat.py`, `prompts/studio/room_chat.md` |
+| Background builds (app and plugin) | `src/studio/jobs.py` |
+| The app: backend, local server, page | `src/app/api.py`, `src/app/server.py`, `src/app/static/`, `scripts/app.py` |
+| The Claude plugin: manifest, marketplace, commands, MCP tools | `.claude-plugin/`, `commands/`, `src/studio/mcp.py`, `scripts/mcp_server.py` |
 | Model prompts + craft guide | `prompts/studio/` |
 | Starter files | `templates/story/` |
 | The Room's conversation | `.claude/skills/story-session/SKILL.md` |
-| Model routing (OpenRouter / llama-server), usage log, key check | `src/model_router.py`, `config/settings.yaml` |
+| Model routing (providers, overlay, tool calls), usage log, key check | `src/model_router.py`, `config/settings.yaml` |
 | Writer-facing guide | `docs/guide.md` |
 
-Routing roles: `studio_writer` (draft, revise, polish), `studio_critic` (press
-critique), `studio_reader` (review, story-so-far). All need ~1M-token context
-windows.
+Routing roles: `studio_chat` (the app's room chat), `studio_writer` (draft,
+revise, polish), `studio_critic` (press critique), `studio_reader` (review,
+story-so-far). All need ~1M-token context windows.
 
 ## Testing
 
 - `pytest -q` and `ruff check .`. CI runs both.
 - Tests never call real models: `tests/fakes.py::FakeRouter` returns scripted
-  replies per role and records every call and its usage. CLI tests swap it in
-  for `cli._router`.
+  replies per role (including `chat()` tool calls) and records every call and
+  its usage. CLI tests swap it in for `cli._router`; app and MCP tests pass it
+  as the router factory.
 
 ## Conventions
 

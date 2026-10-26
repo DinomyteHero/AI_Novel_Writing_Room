@@ -1,0 +1,171 @@
+"""The Writers Room app: a small local web server and the page it serves.
+
+Run it with ``python scripts/app.py``. It listens on this computer only and
+opens the app in the browser. Every API call must carry the token printed into
+the page, so other websites can't drive it.
+"""
+
+from __future__ import annotations
+
+import json
+import logging
+import mimetypes
+import secrets
+import threading
+import webbrowser
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+from pathlib import Path
+from urllib.parse import parse_qs, urlparse
+
+import httpx
+
+from src.app.api import App
+from src.studio.project import StudioError
+
+STATIC = Path(__file__).resolve().parent / "static"
+logger = logging.getLogger(__name__)
+
+
+def routes(app: App) -> dict:
+    """(method, path) -> handler taking the request's parameters."""
+    return {
+        ("GET", "/api/state"): lambda p: {
+            "projects": app.projects(), "recents": app.recents(),
+            "providers": [x for x in app.settings()["providers"] if x["connected"]],
+        },
+        ("GET", "/api/project"): lambda p: app.project(p["project"], p.get("book")),
+        ("GET", "/api/file"): lambda p: app.read_file(p["project"], p["path"]),
+        ("GET", "/api/chat"): lambda p: app.load_chat(p["project"], p["chat"]),
+        ("GET", "/api/settings"): lambda p: app.settings(),
+        ("GET", "/api/build"): lambda p: app.build_status(p["project"], p.get("book")),
+        ("GET", "/api/estimate"): lambda p: app.estimate(p["project"], p.get("book"), p["which"]),
+        ("POST", "/api/projects"): lambda p: app.create_project(p.get("idea", ""), p.get("kind", "book")),
+        ("POST", "/api/chats"): lambda p: app.new_chat(p["project"]),
+        ("POST", "/api/send"): lambda p: app.send(
+            p["project"], p["chat"], p.get("text", ""), p.get("attachments"), p.get("book")
+        ),
+        ("POST", "/api/undo"): lambda p: app.undo(p["project"], p["chat"], p["item"]),
+        ("POST", "/api/build"): lambda p: app.build(
+            p["project"], p.get("book"), p["which"], p.get("chat"), p.get("item")
+        ),
+        ("POST", "/api/build/decline"): lambda p: app.decline_build(p["project"], p["chat"], p["item"]),
+        ("POST", "/api/build/stop"): lambda p: app.stop_build(p["project"], p.get("book")),
+        ("POST", "/api/file"): lambda p: app.save_file(p["project"], p["path"], p["text"]),
+        ("POST", "/api/reference"): lambda p: app.add_reference(
+            p["project"], p.get("scope", "book"), p.get("book"), p["name"], p["data"]
+        ),
+        ("POST", "/api/reference/remove"): lambda p: app.remove_reference(p["project"], p["path"], p.get("book")),
+        ("POST", "/api/attachment"): lambda p: app.attachment(p["name"], p["data"]),
+        ("POST", "/api/review"): lambda p: app.review(p["project"], p.get("book")),
+        ("POST", "/api/review/call"): lambda p: app.review_call(p["project"], p["path"], p["number"], p["call"]),
+        ("POST", "/api/export"): lambda p: app.export(p["project"], p.get("book")),
+        ("POST", "/api/settings/key"): lambda p: app.set_key(p["backend"], p.get("value", "")),
+        ("POST", "/api/settings/check"): lambda p: app.check(p["backend"]),
+        ("POST", "/api/settings/role"): lambda p: app.set_role(p["role"], p["backend"], p["model"]),
+        ("POST", "/api/settings/press"): lambda p: app.set_press(
+            p.get("revision_rounds"), p.get("default_chapter_words")
+        ),
+    }
+
+
+def make_handler(app: App, token: str):
+    table = routes(app)
+    local_hosts = ("127.0.0.1", "localhost")
+
+    class Handler(BaseHTTPRequestHandler):
+        def log_message(self, fmt, *args):  # quiet by default
+            logger.debug(fmt, *args)
+
+        def _send(self, status: int, body: bytes, kind: str) -> None:
+            self.send_response(status)
+            self.send_header("Content-Type", kind)
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Cache-Control", "no-store")
+            self.end_headers()
+            self.wfile.write(body)
+
+        def _json(self, status: int, data) -> None:
+            self._send(status, json.dumps(data, ensure_ascii=False).encode("utf-8"), "application/json")
+
+        def _static(self, path: str) -> None:
+            name = "index.html" if path in ("/", "/index.html") else path.removeprefix("/static/")
+            target = (STATIC / name).resolve()
+            if STATIC.resolve() not in target.parents or not target.is_file():
+                self._send(404, b"Not found", "text/plain")
+                return
+            body = target.read_bytes()
+            if target.name == "index.html":
+                body = body.replace(b"__WRITERS_ROOM_TOKEN__", token.encode())
+            kind = mimetypes.guess_type(target.name)[0] or "application/octet-stream"
+            self._send(200, body, kind + ("; charset=utf-8" if kind.startswith("text/") or kind.endswith("javascript") else ""))
+
+        def _api(self, method: str) -> None:
+            url = urlparse(self.path)
+            if self.headers.get("X-Writers-Room-Token") != token:
+                self._json(403, {"error": "Reload the page: the app was restarted."})
+                return
+            handler = table.get((method, url.path))
+            if handler is None:
+                self._json(404, {"error": "Unknown request."})
+                return
+            params = {k: v[0] for k, v in parse_qs(url.query).items()}
+            if method == "POST":
+                length = int(self.headers.get("Content-Length") or 0)
+                if length:
+                    params.update(json.loads(self.rfile.read(length) or b"{}"))
+            try:
+                self._json(200, handler(params))
+            except StudioError as exc:
+                self._json(400, {"error": str(exc)})
+            except KeyError as exc:
+                self._json(400, {"error": f"Missing {exc} in the request."})
+            except httpx.HTTPStatusError as exc:
+                code = exc.response.status_code
+                hint = " Check your key in Settings." if code in (401, 403) else ""
+                self._json(502, {"error": f"The model service answered with an error ({code}).{hint} Nothing half-done was saved."})
+            except httpx.HTTPError as exc:
+                self._json(502, {"error": f"Couldn't reach the model service ({exc}). Check your connection and try again."})
+            except Exception as exc:  # shown to the writer, never a traceback
+                if type(exc).__module__.startswith("anthropic"):
+                    self._json(502, {"error": f"The Anthropic API returned an error: {exc}"})
+                    return
+                logger.exception("Request failed")
+                self._json(500, {"error": f"Something went wrong: {exc}"})
+
+        def _local(self) -> bool:
+            # Refuse requests addressed to any other name, so a web page can't
+            # reach the app by pointing its own domain at this computer.
+            host = (self.headers.get("Host") or "").rsplit(":", 1)[0].strip("[]")
+            if host in local_hosts:
+                return True
+            self._send(403, b"Forbidden", "text/plain")
+            return False
+
+        def do_GET(self):
+            if not self._local():
+                return
+            if self.path.startswith("/api/"):
+                self._api("GET")
+            else:
+                self._static(urlparse(self.path).path)
+
+        def do_POST(self):
+            if self._local():
+                self._api("POST")
+
+    return Handler
+
+
+def serve(app: App, host: str = "127.0.0.1", port: int = 8765, open_browser: bool = True) -> None:
+    token = secrets.token_urlsafe(24)
+    server = ThreadingHTTPServer((host, port), make_handler(app, token))
+    url = f"http://{host}:{server.server_address[1]}/"
+    print(f"Writers Room is running at {url}\nKeep this window open while you write; press Ctrl+C to quit.")
+    if open_browser:
+        threading.Timer(0.6, lambda: webbrowser.open(url)).start()
+    try:
+        server.serve_forever()
+    except KeyboardInterrupt:
+        print("\nClosed. Your books are in", app.library.root)
+    finally:
+        server.server_close()

@@ -29,6 +29,9 @@ Thumbs.db
 # point --library (or WRITERS_ROOM_LIBRARY) at a folder in your own repo.
 library/
 
+# Your app settings (model choices, local server address)
+config/settings.local.yaml
+
 # Environment variables
 .env
 .env.*

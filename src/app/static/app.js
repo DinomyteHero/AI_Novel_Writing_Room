@@ -1,0 +1,989 @@
+/* Writers Rooms: the app's page. Plain JavaScript, no build step.
+   State lives in S; render() redraws from it; clicks go through data-act. */
+"use strict";
+
+const S = {
+  view: "home",
+  projects: [], recents: [], providers: [],
+  project: null, data: null, thread: null,
+  chat: null, panel: false, doc: null,
+  home: { draft: "", mode: "", menu: false, note: "" },
+  draft: "", projectDraft: "", pending: [],
+  busy: null, creating: false,
+  expanded: {}, tipDismissed: false,
+  settings: null, providerInput: {}, providerMsg: {},
+  job: null, jobKey: null, trayHidden: false,
+  modal: null, toast: "",
+};
+
+/* ---------- helpers ---------- */
+
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const fmt = (n) => Number(n || 0).toLocaleString("en-US");
+const attr = (o) => Object.entries(o).map(([k, v]) => `data-${k}="${esc(v)}"`).join(" ");
+
+const ICONS = {
+  plus: '<path d="M12 5v14M5 12h14"/>',
+  chat: '<path d="M4 5h16v11H8l-4 4V5z"/>',
+  folder: '<path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"/>',
+  bulb: '<path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.7.7 1 1.5 1 2.5h6c0-1 .3-1.8 1-2.5A6 6 0 0 0 12 3z"/>',
+  chev: '<path d="M9 6l6 6-6 6"/>',
+  back: '<path d="M15 6l-6 6 6 6"/>',
+  arrow: '<path d="M5 12h14M13 6l6 6-6 6"/>',
+  clip: '<path d="M21 11l-8.5 8.5a5 5 0 0 1-7-7L14 4a3.5 3.5 0 0 1 5 5l-8.5 8.5a2 2 0 0 1-3-3L15 7"/>',
+  x: '<path d="M6 6l12 12M18 6L6 18"/>',
+  doc: '<path d="M7 3h7l5 5v13H7V3z"/><path d="M14 3v5h5"/>',
+  pen: '<path d="M4 20h4L19 9l-4-4L4 16v4z"/>',
+  check: '<path d="M5 12.5l4.5 4.5L19 7.5"/>',
+  layers: '<path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/>',
+  panel: '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M15 4v16"/>',
+  sliders: '<path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/>',
+  book: '<path d="M5 4h10a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3V4z"/><path d="M5 17a3 3 0 0 1 3-3h10"/>',
+};
+const ic = (name, size = 18, color = "currentColor", width = 1.9) =>
+  `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="${color}" stroke-width="${width}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[name]}</svg>`;
+
+async function api(method, path, params) {
+  let url = path;
+  const init = { method, headers: { "X-Writers-Room-Token": window.WR_TOKEN } };
+  if (method === "GET" && params) url += "?" + new URLSearchParams(Object.entries(params).filter(([, v]) => v != null));
+  if (method === "POST") {
+    init.headers["Content-Type"] = "application/json";
+    init.body = JSON.stringify(params || {});
+  }
+  let res;
+  try {
+    res = await fetch(url, init);
+  } catch (e) {
+    throw new Error("The app isn't responding. Is the Writers Room window still open?");
+  }
+  const data = await res.json().catch(() => ({ error: "The app sent back something unexpected." }));
+  if (!res.ok) throw new Error(data.error || "Something went wrong.");
+  return data;
+}
+const get = (p, q) => api("GET", p, q);
+const post = (p, b) => api("POST", p, b);
+
+function fail(err) {
+  S.toast = err.message || String(err);
+  render();
+}
+
+function md(text) {
+  const inline = (s) => esc(s)
+    .replace(/`([^`]+)`/g, "<code>$1</code>")
+    .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
+    .replace(/(^|[^*])\*([^*\s][^*]*)\*/g, "$1<em>$2</em>")
+    .replace(/(^|\W)_([^_\s][^_]*)_(?=\W|$)/g, "$1<em>$2</em>");
+  const out = [];
+  let list = null, para = [];
+  const flush = () => {
+    if (para.length) out.push(`<p>${para.map(inline).join("<br>")}</p>`);
+    para = [];
+    if (list) { out.push(`</${list}>`); list = null; }
+  };
+  for (const raw of String(text || "").split("\n")) {
+    const line = raw.replace(/\s+$/, "");
+    let m;
+    if (!line.trim()) { flush(); continue; }
+    if ((m = line.match(/^(#{1,4})\s+(.*)$/))) { flush(); out.push(`<h${m[1].length}>${inline(m[2])}</h${m[1].length}>`); continue; }
+    if ((m = line.match(/^\s*([-*]|\d+\.)\s+(.*)$/))) {
+      if (para.length) { out.push(`<p>${para.map(inline).join("<br>")}</p>`); para = []; }
+      const kind = /\d/.test(m[1]) ? "ol" : "ul";
+      if (list !== kind) {
+        if (list) out.push(`</${list}>`);
+        out.push(kind === "ol" ? `<ol start="${parseInt(m[1], 10)}">` : "<ul>");
+        list = kind;
+      }
+      out.push(`<li>${inline(m[2])}</li>`);
+      continue;
+    }
+    if (list && /^\s{2,}/.test(raw)) { out[out.length - 1] = out[out.length - 1].replace(/<\/li>$/, "<br>" + inline(line.trim()) + "</li>"); continue; }
+    if (list) { out.push(`</${list}>`); list = null; }
+    para.push(line);
+  }
+  flush();
+  return out.join("");
+}
+
+function readFile(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(String(reader.result).split(",")[1] || "");
+    reader.onerror = () => reject(new Error(`Couldn't read ${file.name}.`));
+    reader.readAsDataURL(file);
+  });
+}
+
+/* ---------- data ---------- */
+
+async function refreshState() {
+  const state = await get("/api/state");
+  S.projects = state.projects;
+  S.recents = state.recents;
+  S.providers = state.providers;
+}
+
+async function loadProject(pid, book) {
+  const [data, thread] = await Promise.all([
+    get("/api/project", { project: pid, book }),
+    get("/api/chat", { project: pid, chat: "project" }),
+  ]);
+  S.project = pid;
+  S.data = data;
+  S.thread = thread;
+  S.expanded[pid] = true;
+  watchJob(data.build);
+}
+
+async function refreshProject() {
+  if (!S.project) return;
+  S.data = await get("/api/project", { project: S.project, book: S.data && S.data.book.folder });
+  if (S.doc && S.doc.path && !S.doc.editing) {
+    try { S.doc.data = await get("/api/file", { project: S.project, path: S.doc.path }); } catch (e) { S.doc = null; }
+  }
+}
+
+/* ---------- build progress ---------- */
+
+let pollTimer = null;
+function watchJob(job) {
+  if (!job) return;
+  const changed = !S.job || S.job.state !== job.state;
+  S.job = job;
+  S.jobKey = { project: S.project, book: job.book };
+  if (job.state === "running") {
+    S.trayHidden = false;
+    if (!pollTimer) pollTimer = setInterval(pollJob, 2000);
+  } else if (changed && pollTimer) {
+    clearInterval(pollTimer);
+    pollTimer = null;
+  }
+}
+
+async function pollJob() {
+  if (!S.jobKey) return;
+  try {
+    const job = await get("/api/build", S.jobKey);
+    const before = S.job;
+    S.job = job;
+    const progressed = !before || before.results.length !== job.results.length || before.state !== job.state;
+    if (job.state !== "running") {
+      clearInterval(pollTimer);
+      pollTimer = null;
+    }
+    if (progressed) {
+      await refreshProject();
+      if (job.state !== "running") {
+        if (S.view === "chat" && S.chat) S.chat = await get("/api/chat", { project: S.chat.project, chat: S.chat.id });
+        if (S.view === "project") S.thread = await get("/api/chat", { project: S.project, chat: "project" });
+        await refreshState();
+      }
+    }
+    render();
+  } catch (e) { /* keep polling quietly */ }
+}
+
+/* ---------- actions ---------- */
+
+const ACT = {
+  async home() { S.view = "home"; S.home.note = ""; render(); focus("home-composer"); },
+  async go(d) {
+    S.view = d.view;
+    if (d.view === "settings") S.settings = await get("/api/settings").catch((e) => (fail(e), null));
+    render();
+  },
+  async newProject() { S.view = "home"; S.home.menu = true; S.home.note = ""; render(); focus("home-composer"); },
+  toggleMenu() { S.home.menu = !S.home.menu; render(); },
+  pickMode(d) { S.home.mode = d.mode; S.home.menu = false; render(); focus("home-composer"); },
+  clearMode() { S.home.mode = ""; render(); },
+  chipDraft(d) { S.home.draft = d.text; if (d.mode) S.home.mode = d.mode; render(); focus("home-composer"); },
+  async sendHome() {
+    const idea = S.home.draft.trim();
+    if (!idea) { S.home.note = "Type an idea first, even a single line."; return render(); }
+    if (!S.providers.length) { S.home.note = "Connect a model provider first. It takes a minute, in Settings."; return render(); }
+    S.creating = true; render();
+    try {
+      const res = await post("/api/projects", { idea, kind: S.home.mode || "book" });
+      S.home = { draft: "", mode: "", menu: false, note: "" };
+      await refreshState();
+      await loadProject(res.project);
+      S.view = "project"; S.doc = null;
+    } catch (e) { S.toast = e.message; }
+    S.creating = false; render();
+  },
+  async toggleProject(d) { S.expanded[d.project] = !S.expanded[d.project]; render(); },
+  async openProject(d) {
+    try { await loadProject(d.project); S.view = "project"; S.doc = null; S.projectDraft = S.projectDraft || ""; } catch (e) { return fail(e); }
+    render();
+  },
+  async switchBook(d) {
+    try { S.data = await get("/api/project", { project: S.project, book: d.book }); S.doc = null; } catch (e) { return fail(e); }
+    render();
+  },
+  async openChat(d) {
+    try {
+      const chat = await get("/api/chat", { project: d.project, chat: d.chat });
+      if (S.project !== d.project || !S.data) await loadProject(d.project);
+      S.chat = chat; S.view = "chat"; S.panel = false; S.doc = null; S.draft = "";
+    } catch (e) { return fail(e); }
+    render(); focus("composer");
+  },
+  async newChat(d) {
+    try {
+      const chat = await post("/api/chats", { project: d.project });
+      await loadProject(d.project);
+      S.chat = chat; S.view = "chat"; S.panel = false; S.doc = null;
+      await refreshState();
+    } catch (e) { return fail(e); }
+    render(); focus("composer");
+  },
+  async send(d) {
+    const inThread = d.where === "thread";
+    const text = (inThread ? S.projectDraft : S.draft).trim();
+    if (!text && !S.pending.length) return;
+    const cid = inThread ? "project" : S.chat.id;
+    const record = inThread ? S.thread : S.chat;
+    record.items = record.items.concat([{ kind: "user", id: "tmp", text, files: S.pending.map((p) => p.name) }]);
+    const attachments = S.pending;
+    if (inThread) S.projectDraft = ""; else S.draft = "";
+    S.pending = [];
+    S.busy = { chat: cid, project: S.project };
+    render();
+    try {
+      const updated = await post("/api/send", { project: S.project, chat: cid, text, attachments, book: S.data && S.data.book.folder });
+      if (inThread) S.thread = updated; else S.chat = updated;
+      if (updated.project !== S.project) S.doc = null;
+      S.project = updated.project;
+      S.data = await get("/api/project", { project: S.project, book: updated.book });
+      const review = updated.items.slice(record.items.length - 1).find((i) => i.kind === "review");
+      if (review) S.doc = { path: review.file, data: null };
+      if (S.doc && S.doc.path && !S.doc.editing) S.doc.data = await get("/api/file", { project: S.project, path: S.doc.path }).catch(() => S.doc.data);
+      if (review && !inThread) S.panel = true;
+      await refreshState();
+    } catch (e) {
+      record.items = record.items.filter((i) => i.id !== "tmp");
+      if (inThread) S.projectDraft = text; else S.draft = text;
+      S.pending = attachments;
+      S.toast = e.message;
+    }
+    S.busy = null;
+    render();
+    focus(inThread ? "project-composer" : "composer");
+  },
+  async quick(d) {
+    if (S.view === "chat") { S.draft = d.text; return ACT.send({ where: "chat" }); }
+    S.projectDraft = d.text; return ACT.send({ where: "thread" });
+  },
+  attach() { pickFiles("attach"); },
+  removePending(d) { S.pending.splice(Number(d.index), 1); render(); },
+  async undo(d) {
+    try {
+      const record = await post("/api/undo", { project: S.project, chat: d.chat, item: d.item });
+      if (d.chat === "project") S.thread = record; else S.chat = record;
+      await refreshProject();
+    } catch (e) { return fail(e); }
+    render();
+  },
+  async approve(d) {
+    try {
+      const job = await post("/api/build", { project: S.project, book: d.book, which: d.which, chat: d.chat, item: d.item });
+      if (d.chat === "project") S.thread = await get("/api/chat", { project: S.project, chat: "project" });
+      else S.chat = await get("/api/chat", { project: S.project, chat: d.chat });
+      watchJob(job);
+      await refreshProject();
+    } catch (e) { return fail(e); }
+    render();
+  },
+  async decline(d) {
+    try {
+      const record = await post("/api/build/decline", { project: S.project, chat: d.chat, item: d.item });
+      if (d.chat === "project") S.thread = record; else S.chat = record;
+    } catch (e) { return fail(e); }
+    render();
+  },
+  async buildAsk(d) {
+    try {
+      const est = await get("/api/estimate", { project: S.project, book: S.data.book.folder, which: d.which });
+      S.modal = { kind: "build", which: d.which, ...est };
+    } catch (e) { return fail(e); }
+    render();
+  },
+  async buildGo() {
+    const which = S.modal.which;
+    S.modal = null;
+    const cid = S.view === "chat" && S.chat ? S.chat.id : "project";
+    try {
+      const job = await post("/api/build", { project: S.project, book: S.data.book.folder, which, chat: cid });
+      watchJob(job);
+      await refreshProject();
+    } catch (e) { return fail(e); }
+    render();
+  },
+  async stopBuild() {
+    try { S.job = await post("/api/build/stop", S.jobKey); } catch (e) { return fail(e); }
+    render();
+  },
+  hideTray() { S.trayHidden = true; render(); },
+  closeModal() { S.modal = null; render(); },
+  closeToast() { S.toast = ""; render(); },
+  togglePanel() { S.panel = !S.panel; if (!S.panel) S.doc = null; render(); },
+  closePanel() { S.panel = false; S.doc = null; render(); },
+  showFiles() { S.doc = null; render(); },
+  async openFile(d) {
+    try { S.doc = { path: d.path, data: await get("/api/file", { project: S.project, path: d.path }) }; } catch (e) { return fail(e); }
+    S.panel = true; render();
+  },
+  openEmptyChapter(d) { S.doc = { empty: Number(d.number), title: d.title }; S.panel = true; render(); },
+  editDoc() { S.doc.editing = true; S.doc.text = S.doc.data.text; render(); focus("doc-editor"); },
+  cancelEdit() { S.doc.editing = false; render(); },
+  async saveDoc() {
+    try {
+      S.doc.data = await post("/api/file", { project: S.project, path: S.doc.path, text: S.doc.text });
+      S.doc.editing = false;
+      await refreshProject();
+    } catch (e) { return fail(e); }
+    render();
+  },
+  addReference(d) { pickFiles("ref", d.scope); },
+  async removeReference(d) {
+    try { S.data = await post("/api/reference/remove", { project: S.project, path: d.path, book: S.data.book.folder }); } catch (e) { return fail(e); }
+    render();
+  },
+  async review() {
+    S.busy = { review: true }; render();
+    try {
+      const file = await post("/api/review", { project: S.project, book: S.data.book.folder });
+      S.doc = { path: file.path, data: file }; S.panel = true;
+      await refreshProject();
+    } catch (e) { S.toast = e.message; }
+    S.busy = null; render();
+  },
+  async reviewCall(d) {
+    const point = S.doc.data.points.find((p) => String(p.number) === d.number);
+    const calls = { agree: "Agreed.", disagree: "Disagreed: keep it as it is.", own: "My own fix (in the chat)." };
+    try { S.doc.data = await post("/api/review/call", { project: S.project, path: S.doc.path, number: Number(d.number), call: calls[d.call] }); } catch (e) { return fail(e); }
+    const message = `Point ${d.number} of the review ("${point.title}"): `;
+    if (d.call === "agree") return ACT.quick({ text: message + "I agree. Please make the suggested change." });
+    if (d.call === "own") {
+      if (S.view === "chat") S.draft = message + "instead, "; else S.projectDraft = message + "instead, ";
+      render(); return focus(S.view === "chat" ? "composer" : "project-composer");
+    }
+    render();
+  },
+  async exportBook() {
+    try {
+      const res = await post("/api/export", { project: S.project, book: S.data.book.folder });
+      const blob = new Blob([res.text], { type: "text/markdown" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = `${S.data.book.title}.md`;
+      a.click();
+      await refreshProject();
+    } catch (e) { return fail(e); }
+    render();
+  },
+  dismissTip() { S.tipDismissed = true; render(); },
+  async connect(d) {
+    const p = S.settings.providers.find((x) => x.key === d.backend);
+    try {
+      if (p.connected && !S.providerInput[d.backend]) {
+        S.settings = await post("/api/settings/key", { backend: d.backend, value: "" });
+        S.providerMsg[d.backend] = { ok: true, text: "Disconnected." };
+      } else {
+        const value = (S.providerInput[d.backend] || "").trim();
+        if (!value) { S.providerMsg[d.backend] = { ok: false, text: p.kind === "address" ? "Enter the address your local server runs on." : "Paste a key first." }; return render(); }
+        S.providerMsg[d.backend] = { ok: true, text: "Checking…" }; render();
+        S.settings = await post("/api/settings/key", { backend: d.backend, value });
+        const check = await post("/api/settings/check", { backend: d.backend });
+        S.providerMsg[d.backend] = { ok: check.ok, text: check.message };
+        S.providerInput[d.backend] = "";
+      }
+      await refreshState();
+    } catch (e) { S.providerMsg[d.backend] = { ok: false, text: e.message }; }
+    render();
+  },
+  async setRole(d) {
+    try { S.settings = await post("/api/settings/role", { role: d.role, backend: d.backend, model: d.model }); } catch (e) { return fail(e); }
+    render();
+  },
+  async setPress(d) {
+    const body = {}; body[d.field] = Number(d.value);
+    try { S.settings = await post("/api/settings/press", body); } catch (e) { return fail(e); }
+    render();
+  },
+  async helpTry(d) {
+    const card = HELP[Number(d.index)];
+    if (card.home !== undefined) { S.view = "home"; S.home.draft = card.home; render(); return focus("home-composer"); }
+    if (card.open) return ACT.openProject({ project: S.projects[0].id });
+    const target = S.projects[0];
+    if (!target) { S.view = "home"; S.home.draft = card.ask; render(); return focus("home-composer"); }
+    await ACT.openProject({ project: target.id });
+    S.projectDraft = card.ask; render(); focus("project-composer");
+  },
+};
+
+function focus(id) {
+  setTimeout(() => {
+    const el = document.getElementById(id);
+    if (el) { el.focus(); if (el.setSelectionRange) el.setSelectionRange(el.value.length, el.value.length); }
+  }, 0);
+}
+
+function pickFiles(purpose, scope) {
+  const input = document.getElementById("file-input");
+  input.value = "";
+  input.onchange = async () => {
+    for (const file of input.files) {
+      try {
+        const data = await readFile(file);
+        if (purpose === "attach") {
+          S.pending.push(await post("/api/attachment", { name: file.name, data }));
+        } else {
+          S.data = await post("/api/reference", { project: S.project, scope, book: S.data.book.folder, name: file.name, data });
+        }
+      } catch (e) { S.toast = e.message; }
+    }
+    render();
+  };
+  input.click();
+}
+
+/* ---------- views ---------- */
+
+function sidebar() {
+  const nav = (act, icon, label, on, extra = {}) =>
+    `<button type="button" class="nav-btn ${on ? "on" : ""}" ${attr({ act, ...extra })}>${icon}${label}</button>`;
+  const inChat = S.view === "chat" && S.chat;
+  const projects = S.projects.map((p) => {
+    const open = !!S.expanded[p.id];
+    const here = (S.view === "project" || S.view === "chat") && S.project === p.id;
+    const chats = open ? `<div class="side-chats">
+      ${p.chats.map((c) => `<button type="button" class="side-chat ${inChat && S.chat.id === c.id && S.chat.project === p.id ? "on" : ""}" ${attr({ act: "openChat", project: p.id, chat: c.id })}>${esc(c.title)}</button>`).join("")}
+      <button type="button" class="side-chat add" ${attr({ act: "newChat", project: p.id })}>${ic("plus", 12, "currentColor", 2.6)} New chat</button>
+    </div>` : "";
+    return `<div><div class="side-project ${here ? "on" : ""}">
+      <button type="button" class="icon-btn" aria-expanded="${open}" aria-label="${open ? "Hide" : "Show"} chats in ${esc(p.title)}" ${attr({ act: "toggleProject", project: p.id })}><span style="display:inline-flex;transform:rotate(${open ? 90 : 0}deg);transition:transform .15s">${ic("chev", 14, "currentColor", 2.2)}</span></button>
+      <button type="button" class="side-row" ${attr({ act: "openProject", project: p.id })}>${ic("folder", 16, "#8F4F0C", 1.8)}<span class="name">${esc(p.title)}</span><span class="muted" style="font-size:12px">${p.chats.length || ""}</span></button>
+    </div>${chats}</div>`;
+  }).join("");
+  const recents = S.recents.slice(0, 12).map((r) =>
+    `<button type="button" class="recent ${inChat && S.chat.id === r.id ? "on" : ""}" ${attr({ act: "openChat", project: r.project, chat: r.id })}><span class="t">${esc(r.title)}</span><span class="muted" style="font-size:12px">${esc(r.projectTitle)}</span></button>`).join("");
+  const count = S.providers.length;
+  const summary = count === 0 ? "No model provider yet" : count === 1 ? `${S.providers[0].name} connected` : `${count} providers connected`;
+  const tip = count === 0 && !S.tipDismissed && S.view !== "settings"
+    ? `<div class="tip" role="note"><span style="flex:1">Connect a provider to start.</span><button type="button" class="go" ${attr({ act: "go", view: "settings" })}>Connect</button><button type="button" class="icon-btn" style="width:24px;height:24px;color:#E3D6C3" aria-label="Dismiss" ${attr({ act: "dismissTip" })}>${ic("x", 10, "currentColor", 2.8)}</button></div>` : "";
+  return `<nav class="side" aria-label="Writers Rooms">
+    <div class="brand">${ic("book", 20, "currentColor", 1.8)}Writers Rooms</div>
+    <div class="nav">
+      <button type="button" class="nav-btn" ${attr({ act: "home" })}><span class="plus">${ic("plus", 14, "currentColor", 2.4)}</span><b>New chat</b></button>
+      ${nav("go", ic("chat"), "Chats", S.view === "chats", { view: "chats" })}
+      ${nav("go", ic("folder"), "Projects", S.view === "projects" || S.view === "project", { view: "projects" })}
+      ${nav("go", ic("bulb"), "Writing help", S.view === "help", { view: "help" })}
+    </div>
+    <div class="side-scroll">
+      <div class="side-head"><span class="label">Projects</span><button type="button" class="icon-btn" style="margin-left:auto" aria-label="New project" ${attr({ act: "newProject" })}>${ic("plus", 14, "currentColor", 2.4)}</button></div>
+      ${projects || '<span class="muted" style="font-size:13px;padding:2px 10px 6px">No projects yet.</span>'}
+      <div style="height:14px"></div>
+      <span class="label" style="padding:0 10px 6px">Recents</span>
+      ${recents || '<span class="muted" style="font-size:13px;padding:0 10px">Your chats will show up here.</span>'}
+    </div>
+    ${tip}
+    <button type="button" class="settings-btn ${S.view === "settings" ? "on" : ""}" ${attr({ act: "go", view: "settings" })}>
+      <span class="avatar">You</span><span style="flex:1;min-width:0;display:flex;flex-direction:column"><b style="font-size:13px">Settings</b><span class="muted" style="font-size:12px">${esc(summary)}</span></span>${ic("sliders", 18, "currentColor", 1.8)}
+    </button>
+  </nav>`;
+}
+
+function homeView() {
+  const h = S.home;
+  const menu = h.menu ? `<div class="menu" role="menu" aria-label="Start a new project">
+      <button type="button" role="menuitem" ${attr({ act: "pickMode", mode: "book" })}><b style="font-size:14px">New book</b><span class="muted" style="font-size:12px">One story, start to finish.</span></button>
+      <button type="button" role="menuitem" ${attr({ act: "pickMode", mode: "series" })}><b style="font-size:14px">New series</b><span class="muted" style="font-size:12px">Several books sharing a world. Each book keeps its own characters and outline.</span></button>
+    </div>` : "";
+  const chip = h.mode ? `<span class="mode-chip">${h.mode === "series" ? "New series" : "New book"}<button type="button" aria-label="Remove" ${attr({ act: "clearMode" })}>${ic("x", 10, "currentColor", 2.8)}</button></span>` : "";
+  const latest = S.projects[0];
+  const chips = [
+    latest ? `<button type="button" class="chip" ${attr({ act: "openProject", project: latest.id })}>Continue ${esc(latest.title)}</button>` : "",
+    `<button type="button" class="chip" ${attr({ act: "chipDraft", mode: "series", text: "A series about a radio station on a storm-cut island, three books, each one a different winter." })}>Plan a series</button>`,
+    `<button type="button" class="chip" ${attr({ act: "chipDraft", text: "Here's my rough outline:\n1. She arrives.\n2. Something is wrong.\n3. …" })}>Paste an outline</button>`,
+  ].join("");
+  const placeholder = h.mode === "series" ? "Describe your series: the world, the people, where it goes across books…" : "Describe an idea, paste your notes, or anything you have…";
+  return `<div class="home"><div class="home-inner">
+    <h1>What are we writing today?</h1>
+    <div class="composer-box">
+      <label for="home-composer" class="sr">Describe an idea</label>
+      <textarea id="home-composer" rows="3" placeholder="${esc(placeholder)}" data-model="home.draft" data-enter="sendHome">${esc(h.draft)}</textarea>
+      <div class="composer-row">
+        <button type="button" class="square" style="margin-left:-4px" aria-label="Start a new book or series" aria-haspopup="menu" aria-expanded="${h.menu}" ${attr({ act: "toggleMenu" })}>${ic("plus", 16, "currentColor", 2.2)}</button>
+        ${chip}${menu}
+        <button type="button" class="send" aria-label="Start" ${attr({ act: "sendHome" })}>${ic("arrow", 18, "currentColor", 2.2)}</button>
+      </div>
+    </div>
+    ${h.note ? `<p class="home-note">${esc(h.note)}</p>` : ""}
+    <div class="chips">${chips}</div>
+  </div></div>`;
+}
+
+function projectsView() {
+  const cards = S.projects.map((p) => `<button type="button" class="project-card" ${attr({ act: "openProject", project: p.id })}>
+    ${ic("folder", 22, "#8F4F0C", 1.8)}<b style="font-size:17px">${esc(p.title)}</b>
+    <span class="muted" style="font-size:13px">${esc(p.kind)}</span>
+    <span class="muted" style="margin-top:auto;font-size:12px">${p.chapters} chapter${p.chapters === 1 ? "" : "s"} written · ${p.chats.length} chat${p.chats.length === 1 ? "" : "s"}</span>
+  </button>`).join("");
+  return `<div class="scroll"><div class="page">
+    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap"><h1 class="big">Projects</h1>
+      <button type="button" class="btn" style="margin-left:auto" ${attr({ act: "newProject" })}>${ic("plus", 16, "currentColor", 2.2)} New project</button></div>
+    <p class="lead">Each book or series is a project: its plan, chapters and every chat about it, in one place.</p>
+    ${cards ? `<div class="grid">${cards}</div>` : '<p class="lead">No projects yet. Start one from the home page with an idea, even a single line.</p>'}
+  </div></div>`;
+}
+
+function chatsView() {
+  const rows = S.recents.map((r) => `<button type="button" class="row" ${attr({ act: "openChat", project: r.project, chat: r.id })}>
+    <span class="grow"><b style="font-size:15px">${esc(r.title)}</b><span class="snip">${esc(r.projectTitle)} · ${esc(r.snippet)}</span></span>
+    <span class="muted" style="font-size:12px;white-space:nowrap">${esc((r.updated || "").slice(0, 10))}</span></button>`).join("");
+  return `<div class="scroll"><div class="page narrow">
+    <h1 class="big">Chats</h1>
+    ${rows ? `<div class="rows">${rows}</div>` : '<p class="lead">No chats yet. Each project page has its own ongoing chat too.</p>'}
+  </div></div>`;
+}
+
+function shortPath(path) {
+  return String(path).replace(/^books\/(\d+)-[^/]+\//, (_, n) => (S.data && S.data.isSeries ? `Book ${Number(n)} · ` : ""));
+}
+
+function itemsHtml(record, where) {
+  if (!record) return "";
+  const cid = record.id;
+  const out = record.items.map((m) => {
+    if (m.kind === "user") {
+      return `<div class="bubble-wrap">${m.files && m.files.length ? `<span class="files-line">${ic("clip", 13)} ${esc(m.files.join(", "))}</span>` : ""}${m.text ? `<div class="bubble">${esc(m.text)}</div>` : ""}</div>`;
+    }
+    if (m.kind === "assistant") return `<div class="said">${esc(m.text)}</div>`;
+    if (m.kind === "activity") {
+      const canView = /\.(md|txt)$/.test(m.file);
+      const canUndo = m.before != null || m.after != null;
+      return `<div class="activity ${m.undone ? "undone" : ""}">${ic("pen", 16, "#8F4F0C", 2)}
+        <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3px">
+          <div class="what">${m.undone ? "Undid" : esc(m.verb)} <span class="mono" style="color:var(--ink)">${esc(shortPath(m.file))}</span></div>
+          <div class="text">${esc(m.text)}</div></div>
+        <div style="display:flex;gap:2px;flex:none">
+          ${canView ? `<button type="button" class="link" ${attr({ act: "openFile", path: m.file })}>View</button>` : ""}
+          ${canUndo ? `<button type="button" class="link" ${attr({ act: "undo", chat: cid, item: m.id })}>${m.undone ? "Redo" : "Undo"}</button>` : ""}
+        </div></div>`;
+    }
+    if (m.kind === "approval") {
+      const resolved = m.status === "approved" ? "Building. Progress shows at the bottom right." : m.status === "declined" ? "Not now. Ask whenever you're ready." : "";
+      return `<div class="approval"><div style="display:flex;gap:10px;align-items:flex-start">${ic("layers", 18, "#8F4F0C", 2)}
+        <div style="display:flex;flex-direction:column;gap:3px"><b style="font-size:15px">${esc(m.title)}</b><span class="muted" style="font-size:13px;line-height:1.5">${esc(m.detail)}</span></div></div>
+        ${m.status === "pending" ? `<div style="display:flex;gap:8px;flex-wrap:wrap;padding-left:28px">
+          <button type="button" class="btn" ${attr({ act: "approve", chat: cid, item: m.id, book: m.book, which: m.which })}>Build</button>
+          <button type="button" class="btn ghost" ${attr({ act: "decline", chat: cid, item: m.id })}>Not now</button></div>`
+          : `<span class="muted" style="padding-left:28px;font-size:13px">${esc(resolved)}</span>`}
+      </div>`;
+    }
+    if (m.kind === "review") {
+      return `<div class="result">${ic("doc", 16, "#8F4F0C", 2)}<span style="flex:1;font-size:14px">A second opinion is ready. Go through it point by point: agree, disagree, or make your own fix.</span>
+        <button type="button" class="link" ${attr({ act: "openFile", path: m.file })}>Open</button></div>`;
+    }
+    if (m.kind === "result") {
+      return `<div class="result">${ic("check", 16, "#8F4F0C", 2.6)}<span style="flex:1;font-size:14px;line-height:1.45">${esc(m.text)}</span>
+        ${m.report ? `<button type="button" class="link" ${attr({ act: "openFile", path: m.report })}>View report</button>` : ""}</div>`;
+    }
+    return "";
+  });
+  if (S.busy && S.busy.chat === cid && S.busy.project === record.project) {
+    out.push(`<div class="thinking"><span class="dots"><span></span><span></span><span></span></span> Reading your files and thinking…</div>`);
+  }
+  if (where === "thread" && !record.items.length && !S.busy) {
+    out.push(`<p class="muted" style="margin:0;font-size:14px;line-height:1.5">Nothing here yet. Share an idea or a change, and it lands in the files on the right. This conversation keeps going; you never need to start over.</p>`);
+  }
+  return out.join("");
+}
+
+function pendingHtml() {
+  if (!S.pending.length) return "";
+  return `<div class="pending">${S.pending.map((a, i) => `<span class="attach"><b>${esc(a.name)}</b><span class="muted">about ${fmt(a.tokens)} tokens</span>
+    <button type="button" class="icon-btn" style="width:26px;height:26px" aria-label="Remove ${esc(a.name)}" ${attr({ act: "removePending", index: i })}>${ic("x", 12, "currentColor", 2.6)}</button></span>`).join("")}</div>`;
+}
+
+function composer(id, model, placeholder, where) {
+  const busy = !!S.busy;
+  return `<div class="bar">
+    <label for="${id}" class="sr">Message</label>
+    <button type="button" class="icon-btn" style="width:38px;height:38px" aria-label="Attach a file" ${attr({ act: "attach" })}>${ic("clip")}</button>
+    <textarea id="${id}" rows="1" placeholder="${esc(placeholder)}" data-model="${model}" data-enter="send" data-where="${where}">${esc(model === "draft" ? S.draft : S.projectDraft)}</textarea>
+    <button type="button" class="send" aria-label="Send" ${busy ? "disabled" : ""} ${attr({ act: "send", where })}>${ic("arrow", 18, "currentColor", 2.2)}</button>
+  </div>`;
+}
+
+function projectView() {
+  const d = S.data;
+  if (!d) return "";
+  const books = d.isSeries && d.books.length > 1
+    ? `<div class="pills">${d.books.map((b) => `<button type="button" class="pill ${b.folder === d.book.folder ? "on" : ""}" ${attr({ act: "switchBook", book: b.folder })}>Book ${b.number} · ${esc(b.title)}</button>`).join("")}</div>` : "";
+  const project = S.projects.find((p) => p.id === d.id);
+  const chats = project ? project.chats : [];
+  return `<div class="scroll"><div class="page narrow">
+    <button type="button" class="link muted" style="align-self:flex-start" ${attr({ act: "go", view: "projects" })}>${ic("back", 16, "currentColor", 2)} All projects</button>
+    <div style="display:flex;flex-direction:column;gap:6px"><h1 class="big" style="font-size:32px">${esc(d.title)}</h1>
+      <span class="muted" style="font-size:15px">${esc(d.kind)}${d.isSeries ? ` · working on book ${d.book.number}` : ""} · ${fmt(d.words)} words written</span></div>
+    ${books}
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div><h2 class="sub">${d.isSeries ? "Talk about the series" : "Talk about the book"}</h2>
+        <span class="muted" style="font-size:13px">${d.isSeries ? "Changes land in the series bible, or in one book's own files." : "Changes land in the files on the right."}</span></div>
+      <div class="thread"><div class="msgs-inner">${itemsHtml(S.thread, "thread")}</div></div>
+      ${pendingHtml()}
+      ${composer("project-composer", "projectDraft", d.isSeries ? "Add to the series: the world, a rule, where it goes next…" : "Rename someone, add a scene idea, ask a question…", "thread")}
+      <div class="chips" style="justify-content:flex-start">
+        <button type="button" class="chip" ${attr({ act: "quick", text: "Could you get a second opinion on my plan?" })}>Review my plan</button>
+        <button type="button" class="chip" ${attr({ act: "quick", text: "Where are we? What's written and what's next?" })}>Where are we?</button>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <div style="display:flex;align-items:center;gap:8px"><h2 class="sub">Separate chats</h2>
+        <button type="button" class="link" style="margin-left:auto" ${attr({ act: "newChat", project: d.id })}>${ic("plus", 12, "currentColor", 2.6)} New chat</button></div>
+      ${chats.length ? `<div class="rows">${chats.map((c) => `<button type="button" class="row" ${attr({ act: "openChat", project: d.id, chat: c.id })}>
+          <span class="grow"><b style="font-size:15px">${esc(c.title)}</b><span class="snip">${esc(c.snippet)}</span></span>
+          <span class="muted" style="font-size:12px;white-space:nowrap">${esc((c.updated || "").slice(0, 10))}</span></button>`).join("")}</div>`
+        : '<span class="muted" style="font-size:13px">None yet. Start one when you want to dig into a single question on its own.</span>'}
+    </div>
+  </div></div>`;
+}
+
+function chatView() {
+  const c = S.chat;
+  if (!c) return "";
+  return `<div style="flex:1;min-height:0;display:flex;flex-direction:column">
+    <div class="chat-head">
+      <button type="button" class="link muted" style="font-size:14px" ${attr({ act: "openProject", project: c.project })}>${esc(S.data ? S.data.title : "")}</button>
+      <span class="muted" aria-hidden="true">/</span>
+      <b style="font-size:14px;padding:0 6px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(c.title)}</b>
+      <button type="button" class="btn ghost small" style="margin-left:auto" aria-pressed="${S.panel}" ${attr({ act: "togglePanel" })}>${ic("panel", 16, "currentColor", 1.8)} Files</button>
+    </div>
+    <div class="msgs"><div class="msgs-inner">${itemsHtml(c, "chat")}</div></div>
+    <div class="composer-wrap"><div class="composer-inner">
+      <div style="display:flex;flex-wrap:wrap;gap:8px">
+        <button type="button" class="chip" ${attr({ act: "quick", text: "Could you get a second opinion on my plan?" })}>Review my plan</button>
+        <button type="button" class="chip" ${attr({ act: "quick", text: "Where are we? What's written and what's next?" })}>Where are we?</button>
+      </div>
+      ${pendingHtml()}
+      ${composer("composer", "draft", "Talk about your story…", "chat")}
+    </div></div>
+  </div>`;
+}
+
+function fileRow(act, label, meta, extra, right = "") {
+  return `<button type="button" class="file-row" ${attr({ act, ...extra })}>${ic("doc", 16, "#6B5E50", 1.8)}
+    <span class="grow"><span class="name">${esc(label)}</span>${meta ? `<span class="muted" style="font-size:12px">${esc(meta)}</span>` : ""}</span>${right}</button>`;
+}
+
+function filesPanel() {
+  const d = S.data;
+  const groups = d.groups.map((g) => `<div class="group">
+    <div class="group-head"><span class="label">${esc(g.label)}</span><span class="muted" style="margin-left:auto;font-size:12px">${esc(g.status)}</span></div>
+    ${g.hint ? `<span class="hint">${esc(g.hint)}</span>` : ""}
+    ${g.files.map((f) => fileRow("openFile", f.label, "", { path: f.path })).join("") || '<span class="hint">Nothing yet.</span>'}
+  </div>`).join("");
+  const refs = d.reference.map((r) => `<div class="group">
+    <div class="group-head"><span class="label">${esc(r.label)}</span>
+      <button type="button" class="link" style="margin-left:auto;font-size:12px" ${attr({ act: "addReference", scope: r.scope })}>${ic("plus", 12, "currentColor", 2.6)} Add files</button></div>
+    <span class="hint">${esc(r.hint)}</span>
+    ${r.files.map((f) => `<div style="display:flex;align-items:flex-start;gap:2px">${fileRow("openFile", f.name, `${f.size} · about ${fmt(f.tokens)} tokens per call`, { path: f.path }, f.warn ? "" : "")}
+      <button type="button" class="icon-btn" style="height:36px" aria-label="Remove ${esc(f.name)} from reference" ${attr({ act: "removeReference", path: f.path })}>${ic("x", 12, "currentColor", 2.6)}</button></div>
+      ${f.warn ? `<span class="hint warn">${esc(f.warn)}</span>` : ""}`).join("") || '<span class="hint">Nothing here yet.</span>'}
+  </div>`).join("");
+  const job = S.job && S.jobKey && S.jobKey.project === d.id && S.job.book === d.book.folder ? S.job : null;
+  const running = job && job.state === "running";
+  const written = d.chapters.filter((c) => c.state !== "missing").length;
+  const next = d.chapters.find((c) => c.state === "missing");
+  const status = running ? `Building chapter ${job.current || job.numbers[job.results.length]}…`
+    : !d.chapters.length ? "The outline has no chapters yet. Plan a few in the chat first."
+    : `${written} of ${d.chapters.length} chapters written.` + (next ? ` Next up: chapter ${next.number}${next.title ? ", " + next.title : ""}.` : " Every outlined chapter is written.");
+  const chapters = d.chapters.map((c) => {
+    const building = running && job.current === c.number;
+    const icon = building ? `<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="6" fill="#8F4F0C"/></svg>`
+      : c.state !== "missing" ? ic("check", 16, "#8F4F0C", 2.6) : `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A39483" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="7"/></svg>`;
+    const meta = building ? "building" : c.words ? fmt(c.words) : "";
+    const flag = c.state === "outline changed" ? '<span class="state warn">outline changed</span>' : c.state === "plan changed" ? '<span class="state" title="Built before later changes to the bible or characters">plan changed</span>' : "";
+    const extra = c.state === "missing" ? { act: "openEmptyChapter", number: c.number, title: c.title } : { act: "openFile", path: c.path };
+    return `<button type="button" class="file-row" style="padding:8px" ${attr(extra)}>${icon}
+      <span style="flex:1;min-width:0;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${c.number}. ${esc(c.title || "Untitled")}</span>${flag}
+      <span class="muted" style="font-size:12px;font-variant-numeric:tabular-nums">${meta}</span></button>`;
+  }).join("");
+  return `
+    ${groups}
+    <div style="display:flex;flex-direction:column;gap:14px">${refs}
+      <span class="hint">${d.referenceTokens ? `Every chat and build reads about ${fmt(d.referenceTokens)} tokens of reference.` : "Add canon notes, research or a style sample (.md, .txt or .docx)."}</span></div>
+    <div class="group" style="gap:6px"><span class="label" style="padding:0 8px">Build${d.isSeries ? ` · Book ${d.book.number}` : ""}</span>
+      <div class="build-box"><span style="font-size:14px;line-height:1.45">${esc(status)}</span>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button type="button" class="btn small" ${running || !next ? "disabled" : ""} ${attr({ act: "buildAsk", which: "next" })}>Build next chapter</button>
+          <button type="button" class="btn ghost small" ${running || !next ? "disabled" : ""} ${attr({ act: "buildAsk", which: "all" })}>Build all remaining</button></div>
+        <div class="muted" style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:12px">${esc(d.defaults)}
+          <button type="button" class="link" style="font-size:12px;padding:4px 6px" ${attr({ act: "go", view: "settings" })}>Change</button></div>
+      </div></div>
+    <div class="group"><span class="label" style="padding:0 8px 4px">Manuscript · ${written} of ${d.chapters.length} · ${fmt(d.words)} words</span>
+      ${chapters || '<span class="hint">Chapters appear here once the outline has "## Chapter 1" sections.</span>'}</div>
+    <div class="group"><div class="group-head"><span class="label">Notes</span></div>
+      <button type="button" class="link" style="align-self:flex-start" ${S.busy && S.busy.review ? "disabled" : ""} ${attr({ act: "review" })}>${S.busy && S.busy.review ? "Reading your book…" : "Get a second opinion"}</button>
+      ${d.reviews.map((r) => fileRow("openFile", "Review · " + r.name.replace(/^review_|\.md$/g, ""), "", { path: r.path })).join("")}
+      ${d.runs.map((r) => fileRow("openFile", "Build report · " + r.name, "", { path: r.path })).join("")}
+      ${written ? `<button type="button" class="link" style="align-self:flex-start" ${attr({ act: "exportBook" })}>Export the whole book</button>` : ""}
+    </div>`;
+}
+
+function reviewHtml(data) {
+  const text = data.text;
+  const first = text.search(/^###\s*\d+\./m);
+  const intro = first > 0 ? text.slice(0, first) : "";
+  const lastPoint = [...text.matchAll(/^###\s*\d+\..*$/gm)].pop();
+  let tail = "";
+  if (lastPoint) {
+    const after = text.slice(lastPoint.index + lastPoint[0].length);
+    const t = after.search(/^##\s/m);
+    tail = t >= 0 ? after.slice(t) : "";
+  }
+  const points = data.points.map((p) => `<div class="point">
+    <b style="font-size:15px">${p.number}. ${esc(p.title)}</b>
+    <div class="body doc" style="font-size:14px">${md(p.body)}</div>
+    ${p.call ? `<span class="call">Your call: ${esc(p.call)}</span>` : `<div style="display:flex;gap:6px;flex-wrap:wrap">
+      <button type="button" class="btn small" ${attr({ act: "reviewCall", number: p.number, call: "agree" })}>Agree</button>
+      <button type="button" class="btn ghost small" ${attr({ act: "reviewCall", number: p.number, call: "disagree" })}>Disagree</button>
+      <button type="button" class="btn ghost small" ${attr({ act: "reviewCall", number: p.number, call: "own" })}>My own fix</button></div>`}
+  </div>`).join("");
+  return `<div class="doc">${md(intro)}</div><div style="display:flex;flex-direction:column;gap:12px">${points}</div><div class="doc">${md(tail)}</div>`;
+}
+
+function docPanel() {
+  const doc = S.doc;
+  if (doc.empty) {
+    return `<p style="margin:0;font-size:14px;line-height:1.55" class="muted">Chapter ${doc.empty}${doc.title ? ": " + esc(doc.title) : ""} isn't written yet.</p>
+      <button type="button" class="btn" style="align-self:flex-start" ${attr({ act: "buildAsk", which: doc.empty })}>Build this chapter</button>`;
+  }
+  const data = doc.data;
+  if (doc.editing) {
+    return `<label for="doc-editor" class="sr">Edit ${esc(doc.path)}</label>
+      <textarea id="doc-editor" class="editor" data-model="doc.text">${esc(doc.text)}</textarea>
+      <div style="display:flex;gap:8px"><button type="button" class="btn" ${attr({ act: "saveDoc" })}>Save</button><button type="button" class="btn ghost" ${attr({ act: "cancelEdit" })}>Cancel</button></div>
+      <span class="hint" style="padding:0">Your edits win: the chat re-reads every file before it changes anything.</span>`;
+  }
+  const isChapter = /manuscript\/chapter_\d+\.md$/.test(doc.path);
+  const number = isChapter ? Number(doc.path.match(/chapter_(\d+)/)[1]) : null;
+  const actions = [
+    data.editable ? `<button type="button" class="btn ghost small" ${attr({ act: "editDoc" })}>${ic("pen", 14, "currentColor", 2)} Edit</button>` : "",
+    isChapter ? `<button type="button" class="btn ghost small" ${attr({ act: "buildAsk", which: number })}>Rebuild</button>` : "",
+  ].join("");
+  const body = data.points ? reviewHtml(data) : `<div class="doc">${md(data.text)}</div>`;
+  return `${actions ? `<div style="display:flex;gap:8px;flex-wrap:wrap">${actions}</div>` : ""}${body}
+    ${isChapter ? '<span class="hint" style="padding:0">To change this chapter, describe what you want in the chat ("make the ending colder"), or edit it yourself. Earlier versions are kept.</span>' : ""}`;
+}
+
+function panel() {
+  if (!S.data) return "";
+  let title = "Project files", desc = S.data.title, body;
+  if (S.doc) {
+    if (S.doc.empty) { title = `Chapter ${S.doc.empty}`; desc = "Not written yet"; }
+    else { title = S.doc.path.split("/").pop(); desc = S.doc.path.split("/").slice(0, -1).join("/") + (S.doc.data.words ? ` · ${fmt(S.doc.data.words)} words` : ""); }
+    body = docPanel();
+  } else {
+    body = filesPanel();
+  }
+  return `<aside class="panel" aria-label="Project files">
+    <div class="panel-head">
+      ${S.doc ? `<button type="button" class="icon-btn" aria-label="All files" ${attr({ act: "showFiles" })}>${ic("back", 18, "currentColor", 2)}</button>` : ""}
+      <div class="titles"><b>${esc(title)}</b><span class="muted" style="font-size:12px">${esc(desc)}</span></div>
+      ${S.view === "chat" ? `<button type="button" class="icon-btn" aria-label="Close files" ${attr({ act: "closePanel" })}>${ic("x", 18, "currentColor", 2)}</button>` : ""}
+    </div>
+    <div class="panel-body">${body}</div>
+  </aside>`;
+}
+
+function settingsView() {
+  const st = S.settings;
+  if (!st) return `<div class="scroll"><div class="page narrow"><h1 class="big">Settings</h1><p class="lead">Loading…</p></div></div>`;
+  const providers = st.providers.map((p) => {
+    const msg = S.providerMsg[p.key];
+    const status = p.connected ? "Connected" : "Not connected";
+    return `<div class="card provider">
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><b style="font-size:16px">${esc(p.name)}</b>
+        ${p.recommended ? '<span class="badge">Recommended</span>' : ""}<span class="status-pill ${p.connected ? "ok" : ""}" style="margin-left:auto">${status}</span></div>
+      <span class="muted" style="font-size:14px;line-height:1.5">${esc(p.blurb)}</span>
+      <label class="sr" for="provider-${esc(p.key)}">${p.kind === "address" ? "Server address" : "API key"} for ${esc(p.name)}</label>
+      <div class="key-row">
+        <input id="provider-${esc(p.key)}" type="${p.kind === "address" ? "text" : "password"}" autocomplete="off"
+          placeholder="${esc(p.connected ? (p.kind === "address" ? p.address : `Saved key ${p.masked}`) : (p.kind === "address" ? "http://localhost:11434/v1" : "Paste your API key"))}"
+          data-model="providerInput.${esc(p.key)}" value="${esc(S.providerInput[p.key] || "")}">
+        <button type="button" class="btn ghost" ${attr({ act: "connect", backend: p.key })}>${p.connected ? "Disconnect" : p.kind === "address" ? "Connect" : "Check key"}</button>
+      </div>
+      ${msg ? `<span style="font-size:13px" class="${msg.ok ? "" : "warn"}">${esc(msg.text)}</span>` : ""}
+      ${p.env ? `<span class="hint" style="padding:0">Saved on this computer in .env as ${esc(p.env)}.</span>` : ""}
+    </div>`;
+  }).join("");
+  const roles = st.roles.map((r) => `<div class="role">
+    <div><b style="font-size:15px">${esc(r.label)}</b> <span class="muted" style="font-size:13px">${esc(r.blurb)}</span></div>
+    <div class="pills">${r.options.map((o) => `<button type="button" class="pill ${o.backend === r.current.backend && o.model === r.current.model ? "on" : ""}" ${attr({ act: "setRole", role: r.key, backend: o.backend, model: o.model })}>${esc(o.label)} · ${esc(o.provider)}</button>`).join("")}</div>
+    ${!r.options.length ? '<span class="warn" style="font-size:12px">Connect a provider above to choose a model.</span>' : !r.available ? `<span class="warn" style="font-size:12px">Currently set to ${esc(r.current.model)} on ${esc(r.current.backend)}, which isn't connected. Pick one above.</span>` : ""}
+  </div>`).join("");
+  const pill = (field, value, label, on) => `<button type="button" class="pill ${on ? "on" : ""}" ${attr({ act: "setPress", field, value })}>${label}</button>`;
+  return `<div class="scroll"><div class="page narrow">
+    <h1 class="big">Settings</h1>
+    <p class="lead">Connect at least one model provider. Your keys stay on this computer.</p>
+    <div style="display:flex;flex-direction:column;gap:12px">${providers}</div>
+    <h2 class="sub" style="font-size:18px">Who does what</h2>
+    <p class="lead" style="font-size:14px;margin-top:-14px">Every call sends the whole book, so pick models with large context windows (about 1M tokens).</p>
+    <div class="card" style="padding:4px 18px">${roles}</div>
+    <h2 class="sub" style="font-size:18px">Building chapters</h2>
+    <div class="card" style="padding:4px 18px">
+      <div class="role"><div><b style="font-size:15px">Revision rounds</b> <span class="muted" style="font-size:13px">Critique-and-revise passes after each draft. One is usually best.</span></div>
+        <div class="pills">${[0, 1, 2].map((n) => pill("revision_rounds", n, n === 0 ? "Draft only" : n === 1 ? "1 round" : "2 rounds", st.press.revision_rounds === n)).join("")}</div></div>
+      <div class="role"><div><b style="font-size:15px">Chapter length</b> <span class="muted" style="font-size:13px">Used when the outline doesn't say.</span></div>
+        <div class="pills">${[2000, 3000, 4000].map((n) => pill("default_chapter_words", n, `About ${fmt(n)} words`, st.press.default_chapter_words === n)).join("")}</div></div>
+    </div>
+  </div></div>`;
+}
+
+const HELP = [
+  { kind: "Getting started", title: "Start with whatever you have", body: "A single line, a character, a scene you can picture. You don't need a plan, and \"not sure yet\" is a fine answer: some things only show up on the page.", tryLabel: "Start a book", home: "" },
+  { kind: "Shape", title: "The whole story in eight lines", body: "Fill in these openers (Kenn Adams's Story Spine, made famous by Pixar). If you can, you have a beginning, a middle that builds, and an ending. Leave lines blank and discover them later.", example: "Once upon a time…\nEvery day…\nBut one day…\nBecause of that… (three times)\nUntil finally…\nAnd ever since then…", tryLabel: "Fill it in with me", home: "Help me fill in the eight-line story spine for my idea: " },
+  { kind: "Shape", title: "Six questions worth answering, eventually", body: "Who do we follow and what do they want? What is in the way? What happens if they fail? Do they change? How should it feel? Roughly where does it end up?", tryLabel: "Work through them", home: "Ask me the six questions, a couple at a time, about my idea: " },
+  { kind: "Momentum", title: "\"But\" and \"therefore\", not \"and then\"", body: "Each event should happen because of the last one, or despite it. \"This happens, and then that\" is a list; \"this, therefore that, but then this\" is a story.", example: "She finds the boat, therefore she searches the cove, but the rope was cut.", tryLabel: "Check my outline", ask: "Check my outline for any \"and then\" links between chapters." },
+  { kind: "Momentum", title: "Promises, progress, payoff", body: "Early on, a book makes promises: a mystery, a romance, a rivalry, a danger. Readers keep turning pages while those promises move forward, and finish happy when they pay off.", tryLabel: "What have I promised?", ask: "Which promises has my book made so far, and where do they pay off?" },
+  { kind: "Momentum", title: "Wins come with a catch", body: "When a character tries something, the most interesting results are \"yes, but\" (they get it, and it costs them) or \"no, and\" (they fail, and things get worse). Too many clean wins and the tension drains away.", example: "Yes, she keeps the lamp lit, but the storm wrecks the radio.\nNo, Jonah won't talk, and now his father knows she's asking.", tryLabel: "Make my middle harder", ask: "Where could my middle use a \"yes, but\" or a \"no, and\"?" },
+  { kind: "Chapters", title: "What changed?", body: "The one useful test for a chapter: what is different at the end than at the start? A new fact, a changed relationship, a decision, a loss. If nothing changed, it is probably part of its neighbour.", tryLabel: "Test my chapters", ask: "Does every chapter in my outline change something?" },
+  { kind: "Purpose", title: "Everything matters to someone", body: "For any character, place or event, ask what it changes, reveals or makes harder for someone we care about. Small answers count, and \"it's fun\" counts too. Ask it when rereading, not while drafting.", tryLabel: "Find loose threads", ask: "Is anything in my plan not pulling its weight yet?" },
+  { kind: "On the page", title: "Make it concrete", body: "A named thing, a specific sound, an exact gesture beats a general feeling. Let characters talk instead of summarising them. Show the moment and trust the reader; don't explain the emotion afterwards.", example: "\"Her coffee had gone cold an hour ago\" carries more than \"she was tired\"." },
+  { kind: "Working with the room", title: "Getting the most from your co-writer", body: "Talk naturally and change your mind freely; the files keep up. Edit any file yourself whenever you like. Ask for a second opinion before building, then build two or three chapters one at a time before building the rest. Nothing is lost: every old version is kept." },
+];
+
+function helpView() {
+  const cards = HELP.map((c, i) => {
+    const canTry = c.home !== undefined || c.ask;
+    return `<div class="card help-card"><span class="label" style="color:var(--accent)">${esc(c.kind)}</span>
+      <b style="font-size:17px">${esc(c.title)}</b><span style="font-size:14px;line-height:1.55">${esc(c.body)}</span>
+      ${c.example ? `<pre>${esc(c.example)}</pre>` : ""}
+      ${canTry ? `<button type="button" class="link" style="align-self:flex-start;margin-top:auto" ${attr({ act: "helpTry", index: i })}>${esc(c.tryLabel)} ${ic("arrow", 14, "currentColor", 2.2)}</button>` : ""}</div>`;
+  }).join("");
+  return `<div class="scroll"><div class="page">
+    <h1 class="big">Writing help</h1>
+    <p class="lead">Lenses, not rules. Use what helps and ignore the rest; your own story always wins. Your co-writer knows all of these too, so just ask.</p>
+    <div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(300px,1fr))">${cards}</div>
+  </div></div>`;
+}
+
+function tray() {
+  const job = S.job;
+  if (!job || S.trayHidden) return "";
+  if (job.state === "running") {
+    const order = ["drafting", "critiquing", "revising"];
+    const at = order.indexOf(job.step);
+    const stages = order.map((s, i) => `<span class="${i === at ? "on" : i < at ? "past" : ""}">${s[0].toUpperCase() + s.slice(1)}</span>`).join("");
+    const done = job.results.length;
+    return `<div class="tray" role="status">
+      <div style="display:flex;align-items:baseline;gap:8px"><b style="font-size:14px">Building chapter ${job.current || job.numbers[done]}</b><span style="margin-left:auto;font-size:12px;color:#E3D6C3">${done + 1} of ${job.numbers.length}</span></div>
+      <div class="stages">${stages}</div>
+      <div style="display:flex;gap:8px;align-items:center"><button type="button" ${job.stopping ? "disabled" : ""} ${attr({ act: "stopBuild" })}>${job.stopping ? "Stopping after this chapter" : "Stop after this chapter"}</button>
+        <button type="button" class="plain" ${attr({ act: "hideTray" })}>Hide</button></div>
+    </div>`;
+  }
+  const title = job.state === "failed" ? "The build stopped" : job.state === "stopped" ? "Stopped" : "Build finished";
+  const detail = job.state === "failed" ? job.error : `${job.results.length} chapter(s) · ${job.usage || ""}`;
+  const report = job.report || "";
+  return `<div class="tray" role="status"><b style="font-size:14px">${esc(title)}</b><span style="font-size:13px;line-height:1.45;color:#E3D6C3">${esc(detail)}</span>
+    <div style="display:flex;gap:8px">${report && job.state !== "failed" ? `<button type="button" ${attr({ act: "openFile", path: report })}>View report</button>` : ""}<button type="button" class="plain" ${attr({ act: "hideTray" })}>Dismiss</button></div></div>`;
+}
+
+function modal() {
+  if (!S.modal) return "";
+  const m = S.modal;
+  return `<div class="modal-back"><div class="modal" role="dialog" aria-modal="true" aria-label="${esc(m.title)}">
+    <b style="font-size:17px">${esc(m.title)}</b><span class="muted" style="font-size:14px;line-height:1.5">${esc(m.detail)}</span>
+    <span class="muted" style="font-size:13px;line-height:1.5">Each chapter is drafted, then critiqued by a second model and revised (${esc(S.data ? S.data.defaults : "")}), then saved. You can keep planning while it runs.</span>
+    <div style="display:flex;gap:8px;justify-content:flex-end"><button type="button" class="btn ghost" ${attr({ act: "closeModal" })}>Cancel</button><button type="button" class="btn" ${attr({ act: "buildGo" })}>Build</button></div>
+  </div></div>`;
+}
+
+function render() {
+  const keep = {};
+  for (const sel of [".panel", ".scroll", ".side-scroll", ".msgs", ".thread"]) {
+    const el = document.querySelector(sel);
+    if (el) keep[sel] = el.scrollTop;
+  }
+  const active = document.activeElement && document.activeElement.id;
+  const caret = active && document.activeElement.selectionStart;
+  const views = { home: homeView, projects: projectsView, chats: chatsView, project: projectView, chat: chatView, settings: settingsView, help: helpView };
+  const showPanel = S.view === "project" || (S.view === "chat" && S.panel);
+  document.getElementById("app").innerHTML = sidebar()
+    + `<main class="main">${(views[S.view] || homeView)()}</main>`
+    + (showPanel ? panel() : "")
+    + tray() + modal()
+    + (S.toast ? `<div class="toast" role="alert"><span style="flex:1">${esc(S.toast)}</span><button type="button" aria-label="Dismiss" ${attr({ act: "closeToast" })}>✕</button></div>` : "")
+    + (S.creating ? `<div class="overlay-busy"><div class="thinking" style="font-size:16px"><span class="dots"><span></span><span></span><span></span></span> Setting up your project and reading your idea. This can take a minute…</div></div>` : "");
+  for (const [sel, top] of Object.entries(keep)) {
+    const el = document.querySelector(sel);
+    if (el && sel !== ".msgs" && sel !== ".thread") el.scrollTop = top;
+  }
+  if (active) {
+    const el = document.getElementById(active);
+    if (el) { el.focus(); if (caret != null && el.setSelectionRange) el.setSelectionRange(caret, caret); }
+  }
+  for (const ta of document.querySelectorAll(".bar textarea")) autosize(ta);
+}
+
+function autosize(ta) {
+  ta.style.height = "auto";
+  ta.style.height = Math.min(ta.scrollHeight, 200) + "px";
+}
+
+/* ---------- events ---------- */
+
+function setPath(path, value) {
+  const keys = path.split(".");
+  let obj = S;
+  while (keys.length > 1) obj = obj[keys.shift()];
+  obj[keys[0]] = value;
+}
+
+document.addEventListener("click", (e) => {
+  const el = e.target.closest("[data-act]");
+  if (!el || el.disabled) return;
+  const fn = ACT[el.dataset.act];
+  if (!fn) return;
+  e.preventDefault();
+  Promise.resolve(fn(el.dataset, el)).catch(fail);
+});
+
+document.addEventListener("input", (e) => {
+  const el = e.target;
+  if (el.dataset && el.dataset.model) {
+    setPath(el.dataset.model, el.value);
+    if (el.closest(".bar")) autosize(el);
+  }
+});
+
+document.addEventListener("keydown", (e) => {
+  const el = e.target;
+  if (e.key === "Escape") {
+    if (S.modal) { S.modal = null; render(); }
+    else if (S.home.menu) { S.home.menu = false; render(); }
+    return;
+  }
+  if (e.key === "Enter" && !e.shiftKey && el.dataset && el.dataset.enter && !e.isComposing) {
+    e.preventDefault();
+    if (S.busy && el.dataset.enter === "send") return;
+    Promise.resolve(ACT[el.dataset.enter]({ where: el.dataset.where })).catch(fail);
+  }
+});
+
+(async function start() {
+  try {
+    await refreshState();
+    if (!S.providers.length) {
+      S.view = "settings";
+      S.settings = await get("/api/settings");
+    }
+  } catch (e) { S.toast = e.message; }
+  render();
+  focus("home-composer");
+})();

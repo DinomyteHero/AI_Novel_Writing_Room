@@ -10,8 +10,8 @@ import sys
 from pathlib import Path
 
 import httpx
-import yaml
 
+from src.model_router import load_config
 from src.studio import press, room
 from src.studio.project import Book, Library, StudioError, count_words
 
@@ -45,13 +45,12 @@ def _router(args: argparse.Namespace):
     from src.model_router import ModelRouter
 
     router = ModelRouter(args.config)
-    if router.mode != "local":
-        key_name = router.config["models"]["cloud"]["api_key_env"]
-        if not os.environ.get(key_name):
-            raise StudioError(
-                f"No API key found. Copy .env.example to .env, paste your key after "
-                f"{key_name}=, then run: python scripts/room.py check"
-            )
+    missing = router.missing_keys()
+    if missing:
+        raise StudioError(
+            f"No API key found for {', '.join(missing)}. Copy .env.example to .env, paste "
+            f"your key after {missing[0]}=, then run: python scripts/room.py check"
+        )
     return router
 
 
@@ -182,8 +181,7 @@ def cmd_check(args: argparse.Namespace) -> int:
 
 
 def _settings(args: argparse.Namespace) -> press.PressSettings:
-    with open(args.config, encoding="utf-8") as f:
-        settings = press.PressSettings.from_config(yaml.safe_load(f) or {})
+    settings = press.PressSettings.from_config(load_config(args.config))
     if args.rounds is not None:
         settings = dataclasses.replace(settings, revision_rounds=args.rounds)
     return settings

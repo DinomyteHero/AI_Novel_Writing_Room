@@ -1,0 +1,62 @@
+{
+  "name": "writers-room",
+  "displayName": "Writers Room",
+  "version": "1.0.0",
+  "description": "Plan a book or a whole series in plain conversation while Claude keeps your story bible, character sheets and outline up to date, then build chapters with a draft, critique and revise press on your own model provider.",
+  "author": { "name": "DinomyteHero" },
+  "repository": "https://github.com/DinomyteHero/AI_Novel_Writing_Room",
+  "license": "Apache-2.0",
+  "keywords": ["writing", "novel", "fiction", "fanfiction", "series", "outline"],
+  "skills": ["./.claude/skills/"],
+  "userConfig": {
+    "library": {
+      "type": "directory",
+      "title": "Library folder",
+      "description": "Where your books live. Leave empty to keep them in a 'library' folder inside the folder you're working in.",
+      "required": false
+    },
+    "openrouter_api_key": {
+      "type": "string",
+      "title": "OpenRouter API key",
+      "description": "Used to build chapters and for second opinions. One key reaches every model. Get one at openrouter.ai/keys.",
+      "sensitive": true,
+      "required": false
+    },
+    "anthropic_api_key": {
+      "type": "string",
+      "title": "Anthropic API key (optional)",
+      "description": "Only if you've pointed a role at the direct Anthropic backend in config/settings.yaml.",
+      "sensitive": true,
+      "required": false
+    },
+    "openai_api_key": {
+      "type": "string",
+      "title": "OpenAI API key (optional)",
+      "description": "Only if you've pointed a role at the direct OpenAI backend.",
+      "sensitive": true,
+      "required": false
+    },
+    "gemini_api_key": {
+      "type": "string",
+      "title": "Google Gemini API key (optional)",
+      "description": "Only if you've pointed a role at the direct Google backend.",
+      "sensitive": true,
+      "required": false
+    }
+  },
+  "mcpServers": {
+    "writers-room": {
+      "command": "python3",
+      "args": ["${CLAUDE_PLUGIN_ROOT}/scripts/mcp_server.py"],
+      "env": {
+        "WRITERS_ROOM_LIBRARY": "${user_config.library}",
+        "WRITERS_ROOM_PROJECT_DIR": "${CLAUDE_PROJECT_DIR}",
+        "WRITERS_ROOM_DATA": "${CLAUDE_PLUGIN_DATA}",
+        "OPENROUTER_API_KEY": "${user_config.openrouter_api_key}",
+        "ANTHROPIC_API_KEY": "${user_config.anthropic_api_key}",
+        "OPENAI_API_KEY": "${user_config.openai_api_key}",
+        "GEMINI_API_KEY": "${user_config.gemini_api_key}"
+      }
+    }
+  }
+}

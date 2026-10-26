@@ -5,6 +5,11 @@ lives in a few Markdown files you can edit any time. **The Press** turns that
 plan into chapters on its own: draft, critique, revise, save. Every model call
 reads your whole plan and every chapter before the one it's working on.
 
+You can work in three ways, all on the same files: **the app**
+(`python scripts/app.py`, in your browser), **the Claude plugin** (in Cowork
+or Claude Code), or **the command line**. The README shows how to install
+each; this guide covers what they do.
+
 ## Your library
 
 Books live in `library/`, which git ignores, so your work stays on your
@@ -38,16 +43,37 @@ Characters and outlines always belong to a book. A new book starts with a
 copy of the previous book's `characters.md`, so the whole cast comes along and
 you can update who they've become without touching the earlier book.
 
+### Reference files
+
+Canon notes, research or a sample of the voice you want can go in a
+`reference/` folder: a book's own (`books/01-my-novel/reference/`) or, in a
+series, the series' (`library/my-series/reference/`), which every book reads.
+Every model call reads these in full, so keep them to what matters; a large
+file adds its size to every call. Only `.md` and `.txt` files are read (the
+app converts `.docx` for you). Images can't be read by the writing models;
+describe what matters in the bible instead.
+
 When the library holds more than one book, name the one you mean with
 `--title` (and `--series` if two series share a title).
 
 ## The Room: plan in conversation
 
-In Claude Code, use the **story-session** skill and tell it what you have: a
-one-line idea, a few characters, a rough outline, or a document to paste in.
-It files what you bring in your own words, then helps you flesh it out with
-options and questions. In Codex, point it at
-`.claude/skills/story-session/SKILL.md` (see `AGENTS.md`).
+Tell the chat what you have: a one-line idea, a few characters, a rough
+outline, or a document to paste in. It files what you bring in your own
+words, then helps you flesh it out with options and questions.
+
+- **In the app**, type your idea on the home page (the **+** starts a book or
+  a series). Each project page has an ongoing chat about the whole book, and
+  you can open separate chats for single questions. Every file change shows
+  as a card with **Undo**; the files panel on the right shows the plan, your
+  reference files, the Build buttons and the manuscript, and you can edit any
+  plan file there.
+- **With the Claude plugin**, just say what you're writing, or use
+  `/writers-room:start`. Claude follows the same conversation guide and edits
+  the files itself.
+- **In Claude Code in this repository**, use the **story-session** skill. In
+  Codex, point it at `.claude/skills/story-session/SKILL.md` (see
+  `AGENTS.md`).
 
 The files keep up with the conversation, and you can edit them yourself at
 any point. The chat re-reads them before every change, so your edits win.
@@ -171,12 +197,21 @@ python scripts/press.py export          # export/manuscript.md
 
 ## Settings
 
-`config/settings.yaml` holds:
+In the app, **Settings** (bottom left) connects providers, picks which model
+plays each role and sets the build options. It saves your keys in `.env` and
+your choices in `config/settings.local.yaml`, both private to your computer.
+The plugin asks for your key when you install it.
 
-- **Models.** `studio_writer` drafts and revises (DeepSeek V4 Pro);
-  `studio_critic` critiques press drafts and `studio_reader` writes reviews
-  and story-so-far notes (both Gemini 3.1 Pro). No role caps its output
-  length.
+Underneath, `config/settings.yaml` holds:
+
+- **Providers.** OpenRouter (recommended: one key, every model), Anthropic,
+  OpenAI, Google, and a model running on your own computer (Ollama or
+  llama.cpp). Each needs only its key, named by `api_key_env`.
+- **Roles.** `studio_chat` is the app's planning chat (Claude Opus 5.5);
+  `studio_writer` drafts and revises (DeepSeek V4 Pro); `studio_critic`
+  critiques press drafts and `studio_reader` writes reviews and story-so-far
+  notes (both Gemini 3.1 Pro). Every call sends the whole book, so pick models
+  with ~1M-token context windows. No role caps its output length.
 - **Press options.** `revision_rounds` (1), `default_chapter_words` (3000),
   `length_calibration` (1.0) and `min_revision_ratio` (0.6).
 

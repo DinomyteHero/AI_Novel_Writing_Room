@@ -1,10 +1,22 @@
-"""Routes agent LLM calls to the appropriate backend based on config."""
+"""Routes each role's model calls to the provider configured for it.
+
+Backends are the entries under ``models`` in config/settings.yaml. Most speak
+the OpenAI-compatible chat-completions API (OpenRouter, OpenAI, Google's
+Gemini endpoint, a local llama-server or Ollama); a backend with
+``api: anthropic`` goes through the official Anthropic SDK instead.
+
+``config/settings.local.yaml``, when present, is laid over the base settings.
+The app writes the writer's choices there (which model plays which role, build
+settings, a local server address), so settings.yaml stays as shipped.
+"""
 
 import asyncio
+import copy
 import json
 import logging
 import os
 import random
+from pathlib import Path
 from typing import Optional
 
 import httpx
@@ -12,17 +24,52 @@ import yaml
 
 logger = logging.getLogger(__name__)
 
+# Anthropic requires an output limit on every request. This is the most the
+# current models allow, so it caps nothing in practice; responses stream so a
+# long one can't hit a request timeout.
+ANTHROPIC_MAX_TOKENS = 128_000
+# Models that take Anthropic's server-side refusal fallback ("default" form).
+_FALLBACK_MODELS = ("claude-fable-5-1", "claude-opus-5-5", "claude-opus-5", "claude-sonnet-5-5")
+_FALLBACK_BETA = "server-side-fallback-2026-07-01"
+# Request settings that only make sense for OpenAI-compatible providers.
+_OPENAI_ONLY_PARAMS = {"temperature", "top_p", "top_k", "min_p", "reasoning", "provider"}
+
+
+def local_overlay_path(config_path: str | Path) -> Path:
+    path = Path(config_path)
+    return path.with_name(f"{path.stem}.local{path.suffix}")
+
+
+def _merge(base: dict, overlay: dict, replace: tuple[str, ...] = ("agent_routing",)) -> dict:
+    """Deep-merge ``overlay`` into a copy of ``base``. Each role under
+    agent_routing is replaced whole, so a role moved to another model doesn't
+    keep the old model's provider-specific params."""
+    out = copy.deepcopy(base)
+    for key, value in (overlay or {}).items():
+        if key in replace and isinstance(value, dict):
+            out[key] = {**(out.get(key) or {}), **copy.deepcopy(value)}
+        elif isinstance(value, dict) and isinstance(out.get(key), dict):
+            out[key] = _merge(out[key], value, replace=())
+        else:
+            out[key] = copy.deepcopy(value)
+    return out
+
+
+def load_config(config_path: str | Path) -> dict:
+    with open(config_path, encoding="utf-8") as f:
+        config = yaml.safe_load(f) or {}
+    overlay = local_overlay_path(config_path)
+    if overlay.exists():
+        with open(overlay, encoding="utf-8") as f:
+            config = _merge(config, yaml.safe_load(f) or {})
+    return config
+
 
 class ModelRouter:
-    """Routes agent LLM calls to the appropriate backend based on config.
-
-    All agent code calls the router; the router reads the config to determine
-    which backend (llama-server local or OpenRouter cloud) handles each request.
-    """
+    """Routes role calls to the appropriate backend based on config."""
 
     def __init__(self, config_path: str = "config/settings.yaml"):
-        with open(config_path, encoding="utf-8") as f:
-            self.config = yaml.safe_load(f)
+        self.config = load_config(config_path)
         for key in ("deployment_mode", "models"):
             if key not in self.config:
                 raise ValueError(
@@ -31,6 +78,8 @@ class ModelRouter:
         self.mode = self.config["deployment_mode"]
         self._local_client: Optional[httpx.AsyncClient] = None
         self._cloud_client: Optional[httpx.AsyncClient] = None
+        self._clients: dict[str, httpx.AsyncClient] = {}
+        self._anthropic_clients: dict = {}
         self.usage_log: list[dict] = []
 
         # Warn when per-agent backend overrides are present but will be ignored
@@ -49,31 +98,84 @@ class ModelRouter:
 
         self._validate_routing()
 
+    # ------------------------------------------------------------------ #
+    # Backends
+    # ------------------------------------------------------------------ #
+
+    def backend_config(self, backend: str) -> dict:
+        return self.config["models"][backend]
+
+    def is_anthropic(self, backend: str) -> bool:
+        return self.backend_config(backend).get("api") == "anthropic"
+
+    def api_key(self, backend: str) -> str:
+        env = self.backend_config(backend).get("api_key_env")
+        return os.environ.get(env, "") if env else ""
+
+    def backends_in_use(self) -> list[str]:
+        roles = (self.config.get("agent_routing") or {}).keys()
+        return sorted({self._get_routing(role)["backend"] for role in roles})
+
+    def missing_keys(self) -> list[str]:
+        """Env var names of API keys the configured roles need but don't have."""
+        missing = []
+        for backend in self.backends_in_use():
+            env = self.backend_config(backend).get("api_key_env")
+            if env and not os.environ.get(env):
+                missing.append(env)
+        return missing
+
     async def _get_local_client(self) -> httpx.AsyncClient:
-        if self._local_client is None:
-            timeout = self.config["models"]["local"].get("timeout_seconds", 300.0)
-            self._local_client = httpx.AsyncClient(
-                base_url=self.config["models"]["local"]["base_url"],
-                timeout=float(timeout),
-            )
-        return self._local_client
+        return await self._get_client("local")
 
     async def _get_cloud_client(self) -> httpx.AsyncClient:
-        if self._cloud_client is None:
-            cloud_cfg = self.config["models"]["cloud"]
-            api_key = os.environ.get(cloud_cfg["api_key_env"], "")
+        return await self._get_client("cloud")
+
+    async def _get_client(self, backend: str) -> httpx.AsyncClient:
+        """An OpenAI-compatible client for ``backend``."""
+        current = {"local": self._local_client, "cloud": self._cloud_client}.get(
+            backend, self._clients.get(backend)
+        )
+        if current is not None:
+            return current
+        cfg = self.backend_config(backend)
+        headers = {}
+        if cfg.get("api_key_env"):
+            api_key = self.api_key(backend)
             if not api_key:
                 logger.warning(
-                    "Cloud API key env var '%s' is empty — cloud requests will fail",
-                    cloud_cfg["api_key_env"],
+                    "API key env var '%s' is empty — requests to %s will fail",
+                    cfg["api_key_env"], backend,
                 )
-            timeout = cloud_cfg.get("timeout_seconds", 300.0)
-            self._cloud_client = httpx.AsyncClient(
-                base_url=cloud_cfg["base_url"],
-                headers={"Authorization": f"Bearer {api_key}"},
-                timeout=float(timeout),
+            headers["Authorization"] = f"Bearer {api_key}"
+        client = httpx.AsyncClient(
+            base_url=cfg["base_url"],
+            headers=headers,
+            timeout=float(cfg.get("timeout_seconds", 300.0)),
+        )
+        if backend == "local":
+            self._local_client = client
+        elif backend == "cloud":
+            self._cloud_client = client
+        else:
+            self._clients[backend] = client
+        return client
+
+    def _get_anthropic_client(self, backend: str):
+        if backend not in self._anthropic_clients:
+            from anthropic import AsyncAnthropic
+
+            cfg = self.backend_config(backend)
+            self._anthropic_clients[backend] = AsyncAnthropic(
+                api_key=self.api_key(backend) or None,
+                timeout=float(cfg.get("timeout_seconds", 600.0)),
+                max_retries=int(self.config.get("pipeline", {}).get("max_http_retries", 2)),
             )
-        return self._cloud_client
+        return self._anthropic_clients[backend]
+
+    # ------------------------------------------------------------------ #
+    # Calls
+    # ------------------------------------------------------------------ #
 
     async def complete(
         self,
@@ -86,12 +188,71 @@ class ModelRouter:
         backend = routing["backend"]
         model = self._resolve_model(routing)
         params = {**self._resolve_params(routing), **(override_params or {})}
+        if self.is_anthropic(backend):
+            system = "\n\n".join(m["content"] for m in messages if m["role"] == "system")
+            rest = [m for m in messages if m["role"] != "system"]
+            reply = await self._anthropic_call(agent_role, backend, model, system, rest, [], params)
+            return reply["content"]
+        message = await self._openai_call(agent_role, backend, model, messages, params)
+        return message.get("content") or ""
 
-        payload = {
-            "model": model,
-            "messages": messages,
-            **params,
-        }
+    async def chat(
+        self,
+        agent_role: str,
+        system: str,
+        messages: list[dict],
+        tools: list[dict],
+    ) -> dict:
+        """One step of a tool-using conversation.
+
+        ``messages`` use a neutral shape: ``{"role": "user", "content": str}``,
+        ``{"role": "assistant", "content": str, "tool_calls": [...], "native": ...}``
+        and ``{"role": "tool", "tool_call_id": str, "content": str}``. ``tools``
+        are ``{"name", "description", "parameters"}`` (JSON schema). Returns
+        ``{"content": str, "tool_calls": [{"id", "name", "arguments"}], "native": ...}``;
+        pass the whole dict back as the assistant message to continue, so each
+        provider gets its own message back unchanged.
+        """
+        routing = self._get_routing(agent_role)
+        backend = routing["backend"]
+        model = self._resolve_model(routing)
+        params = self._resolve_params(routing)
+        if self.is_anthropic(backend):
+            return await self._anthropic_call(
+                agent_role, backend, model, system, _to_anthropic(messages), tools, params
+            )
+        payload_messages = [{"role": "system", "content": system}] + _to_openai(messages)
+        openai_tools = [
+            {"type": "function", "function": {
+                "name": t["name"], "description": t["description"], "parameters": t["parameters"],
+            }}
+            for t in tools
+        ]
+        message = await self._openai_call(
+            agent_role, backend, model, payload_messages, params, tools=openai_tools
+        )
+        calls = []
+        for call in message.get("tool_calls") or []:
+            raw = call.get("function", {}).get("arguments") or "{}"
+            try:
+                arguments = json.loads(raw) if isinstance(raw, str) else dict(raw)
+            except json.JSONDecodeError:
+                arguments = {"_invalid_json": raw}
+            calls.append({"id": call.get("id"), "name": call["function"]["name"], "arguments": arguments})
+        return {"content": message.get("content") or "", "tool_calls": calls, "native": message}
+
+    async def _openai_call(
+        self,
+        agent_role: str,
+        backend: str,
+        model: str,
+        messages: list[dict],
+        params: dict,
+        tools: Optional[list[dict]] = None,
+    ) -> dict:
+        payload = {"model": model, "messages": messages, **params}
+        if tools:
+            payload["tools"] = tools
 
         # Prompt caching for Anthropic models. OpenRouter/Anthropic expect
         # cache_control on a message *content block*, not at the request top
@@ -105,11 +266,7 @@ class ModelRouter:
                 cache_control["ttl"] = "1h"
             payload["messages"] = self._apply_cache_control(messages, cache_control)
 
-        if backend == "local":
-            client = await self._get_local_client()
-        else:
-            client = await self._get_cloud_client()
-
+        client = await self._get_client(backend)
         max_retries = self.config.get("pipeline", {}).get("max_http_retries", 2)
         for attempt in range(max_retries + 1):
             try:
@@ -149,22 +306,21 @@ class ModelRouter:
                     "cost": usage.get("cost"),
                 })
                 finish_reason = choices[0].get("finish_reason")
-                content = choices[0]["message"]["content"]
-                if content is None:
+                message = choices[0]["message"]
+                if message.get("content") is None and not message.get("tool_calls"):
                     logger.warning(
                         "LLM returned null content for %s (finish_reason=%s)",
                         agent_role,
                         finish_reason or "unknown",
                     )
-                    return ""
                 if finish_reason == "length":
                     logger.warning(
                         "LLM output for %s was truncated at the token limit "
                         "(finish_reason=length, model=%s, chars=%d) — the result "
                         "is incomplete; raise max_tokens for this role.",
-                        agent_role, model, len(content),
+                        agent_role, model, len(message.get("content") or ""),
                     )
-                return content
+                return message
             except httpx.HTTPStatusError as e:
                 if e.response.status_code in (502, 503) and attempt < max_retries:
                     await asyncio.sleep((2 ** attempt) + random.uniform(0, 1))
@@ -185,6 +341,55 @@ class ModelRouter:
                     continue
                 raise
         raise RuntimeError("Unreachable: retry loop exhausted")
+
+    async def _anthropic_call(
+        self,
+        agent_role: str,
+        backend: str,
+        model: str,
+        system: str,
+        messages: list[dict],
+        tools: list[dict],
+        params: dict,
+    ) -> dict:
+        client = self._get_anthropic_client(backend)
+        kwargs = {
+            "model": model,
+            "max_tokens": int(params.get("max_tokens", ANTHROPIC_MAX_TOKENS)),
+            "messages": messages,
+        }
+        kwargs.update({k: v for k, v in params.items() if k not in _OPENAI_ONLY_PARAMS | {"max_tokens"}})
+        if system:
+            kwargs["system"] = [{"type": "text", "text": system, "cache_control": {"type": "ephemeral"}}]
+        if tools:
+            kwargs["tools"] = [
+                {"name": t["name"], "description": t["description"], "input_schema": t["parameters"]}
+                for t in tools
+            ]
+        if model in _FALLBACK_MODELS:
+            kwargs["betas"] = [_FALLBACK_BETA]
+            kwargs["fallbacks"] = "default"
+        async with client.beta.messages.stream(**kwargs) as stream:
+            message = await stream.get_final_message()
+        usage = message.usage
+        self.usage_log.append({
+            "role": agent_role,
+            "model": model,
+            "prompt_tokens": (usage.input_tokens or 0)
+            + (getattr(usage, "cache_read_input_tokens", 0) or 0)
+            + (getattr(usage, "cache_creation_input_tokens", 0) or 0),
+            "completion_tokens": usage.output_tokens or 0,
+            "cost": None,
+        })
+        if message.stop_reason == "refusal":
+            logger.warning("The model declined the request for %s (model=%s)", agent_role, model)
+        text = "".join(b.text for b in message.content if b.type == "text")
+        calls = [
+            {"id": b.id, "name": b.name, "arguments": dict(b.input or {})}
+            for b in message.content
+            if b.type == "tool_use"
+        ]
+        return {"content": text, "tool_calls": calls, "native": list(message.content)}
 
     @staticmethod
     def _apply_cache_control(messages: list[dict], cache_control: dict) -> list[dict]:
@@ -210,44 +415,81 @@ class ModelRouter:
             }
         return out
 
-    async def health_check(self) -> tuple[bool, str]:
-        """Verify API connectivity and key validity.
+    # ------------------------------------------------------------------ #
+    # Checks
+    # ------------------------------------------------------------------ #
 
-        Returns (success, message).
-        """
-        if self.mode == "local":
+    async def health_check(self) -> tuple[bool, str]:
+        """Verify that every backend the roles use is reachable and accepts its key."""
+        backends = ["local"] if self.mode == "local" else (
+            ["cloud"] if self.mode == "cloud" else self.backends_in_use() or ["cloud"]
+        )
+        results = [await self.check_backend(b) for b in backends]
+        if len(results) == 1:
+            return results[0]
+        ok = all(r[0] for r in results)
+        return ok, "; ".join(f"{b}: {msg}" for b, (_, msg) in zip(backends, results))
+
+    async def check_backend(self, backend: str) -> tuple[bool, str]:
+        cfg = self.backend_config(backend)
+        if self.is_anthropic(backend):
+            return await self._check_anthropic(backend)
+        if backend == "local" or not cfg.get("api_key_env"):
             try:
-                client = await self._get_local_client()
+                client = await self._get_client(backend)
                 response = await client.get("/models")
                 response.raise_for_status()
                 return True, "Local server reachable"
             except httpx.ConnectError:
-                return False, "Local server unreachable at " + self.config["models"]["local"]["base_url"]
+                return False, "Local server unreachable at " + cfg["base_url"]
             except Exception as e:
                 return False, f"Local server error: {e}"
-        else:
-            try:
-                # /models is public, so only /key proves the key itself works.
-                client = await self._get_cloud_client()
-                response = await client.get("/key")
-                if response.status_code == 401:
-                    return False, "Invalid API key (401 Unauthorized)"
-                if response.status_code == 403:
-                    return False, "API key lacks permissions (403 Forbidden)"
-                response.raise_for_status()
+        name = cfg.get("label") or cfg.get("provider") or backend
+        try:
+            client = await self._get_client(backend)
+            # OpenRouter's /models is public, so only /key proves the key works.
+            openrouter = "openrouter.ai" in cfg.get("base_url", "")
+            response = await client.get("/key" if openrouter else "/models")
+            if response.status_code == 401:
+                return False, "Invalid API key (401 Unauthorized)"
+            if response.status_code == 403:
+                return False, "API key lacks permissions (403 Forbidden)"
+            response.raise_for_status()
+            message = "Cloud API reachable, key valid"
+            if openrouter:
                 info = response.json().get("data") or {}
-                message = "Cloud API reachable, key valid"
                 if info.get("usage") is not None:
                     message += f"; credits used so far: {info['usage']:.2f}"
                 if info.get("limit") is not None:
                     message += f" of a {info['limit']:.2f} limit"
-                return True, message
-            except httpx.ConnectError:
-                return False, "Cannot connect to OpenRouter (network error)"
-            except httpx.TimeoutException:
-                return False, "OpenRouter connection timed out"
-            except Exception as e:
-                return False, f"Health check failed: {e}"
+            return True, message
+        except httpx.ConnectError:
+            return False, f"Cannot connect to {name} (network error)"
+        except httpx.TimeoutException:
+            return False, f"{name} connection timed out"
+        except Exception as e:
+            return False, f"Health check failed: {e}"
+
+    async def _check_anthropic(self, backend: str) -> tuple[bool, str]:
+        import anthropic
+
+        if not self.api_key(backend):
+            return False, "No API key set"
+        try:
+            await self._get_anthropic_client(backend).models.list(limit=1)
+            return True, "Anthropic API reachable, key valid"
+        except anthropic.AuthenticationError:
+            return False, "Invalid API key (401 Unauthorized)"
+        except anthropic.PermissionDeniedError:
+            return False, "API key lacks permissions (403 Forbidden)"
+        except anthropic.APIConnectionError:
+            return False, "Cannot connect to Anthropic (network error)"
+        except anthropic.APIStatusError as e:
+            return False, f"Health check failed: {e.status_code}"
+
+    # ------------------------------------------------------------------ #
+    # Routing
+    # ------------------------------------------------------------------ #
 
     def _get_routing(self, agent_role: str) -> dict:
         if self.mode == "local":
@@ -274,8 +516,9 @@ class ModelRouter:
     def _resolve_model(self, routing: dict) -> str:
         backend = routing["backend"]
         model_key = routing.get("model", "primary_moe")
-        models = self.config["models"][backend]["models"]
-        return models.get(model_key, model_key)
+        models = self.config["models"][backend].get("models") or {}
+        model = models.get(model_key, model_key)
+        return model["id"] if isinstance(model, dict) else model
 
     def _validate_routing(self) -> None:
         """Warn at load time about agent_routing models that resolve to neither
@@ -293,8 +536,9 @@ class ModelRouter:
                 self.config.get("models", {})
                 .get(backend or self.mode, {})
                 .get("models", {})
-            )
-            if model_key not in models and "/" not in str(model_key):
+            ) or {}
+            known_ids = {m["id"] if isinstance(m, dict) else m for m in models.values()}
+            if model_key not in models and model_key not in known_ids and "/" not in str(model_key):
                 logger.warning(
                     "agent_routing[%s].model=%r is neither a known %s alias nor "
                     "a literal provider model id; calls for this role will likely "
@@ -313,13 +557,61 @@ class ModelRouter:
         override = routing.get("params", {})
         return {**base_params, **override}
 
-    # ------------------------------------------------------------------ #
-    # Concept Workshop session helpers
-    # ------------------------------------------------------------------ #
-
     async def close(self):
         """Close HTTP clients."""
-        if self._local_client:
-            await self._local_client.aclose()
-        if self._cloud_client:
-            await self._cloud_client.aclose()
+        for client in [self._local_client, self._cloud_client, *self._clients.values()]:
+            if client:
+                await client.aclose()
+        for client in self._anthropic_clients.values():
+            await client.close()
+
+
+def _to_openai(messages: list[dict]) -> list[dict]:
+    out = []
+    for m in messages:
+        if m["role"] == "assistant":
+            if isinstance(m.get("native"), dict):
+                out.append(m["native"])
+                continue
+            entry = {"role": "assistant", "content": m.get("content") or ""}
+            if m.get("tool_calls"):
+                entry["tool_calls"] = [
+                    {"id": c["id"], "type": "function",
+                     "function": {"name": c["name"], "arguments": json.dumps(c["arguments"])}}
+                    for c in m["tool_calls"]
+                ]
+            out.append(entry)
+        elif m["role"] == "tool":
+            out.append({"role": "tool", "tool_call_id": m["tool_call_id"], "content": m["content"]})
+        else:
+            out.append({"role": m["role"], "content": m["content"]})
+    return out
+
+
+def _to_anthropic(messages: list[dict]) -> list[dict]:
+    out: list[dict] = []
+    for m in messages:
+        if m["role"] == "assistant":
+            if isinstance(m.get("native"), list):
+                content = m["native"]
+            else:
+                content = [{"type": "text", "text": m.get("content") or "(no reply)"}]
+                content += [
+                    {"type": "tool_use", "id": c["id"], "name": c["name"], "input": c["arguments"]}
+                    for c in m.get("tool_calls") or []
+                ]
+            out.append({"role": "assistant", "content": content})
+        elif m["role"] == "tool":
+            block = {"type": "tool_result", "tool_use_id": m["tool_call_id"], "content": m["content"]}
+            if m.get("is_error"):
+                block["is_error"] = True
+            last = out[-1] if out else None
+            if last and last["role"] == "user" and isinstance(last["content"], list) and all(
+                b.get("type") == "tool_result" for b in last["content"]
+            ):
+                last["content"].append(block)
+            else:
+                out.append({"role": "user", "content": [block]})
+        else:
+            out.append({"role": "user", "content": m["content"]})
+    return out

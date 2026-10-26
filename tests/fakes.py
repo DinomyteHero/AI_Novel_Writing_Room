@@ -22,6 +22,25 @@ class FakeRouter:
         )
         return reply
 
+    async def chat(self, role: str, system: str, messages: list[dict], tools: list[dict]) -> dict:
+        """Scripted replies are strings (a final answer) or dicts with
+        ``tool_calls`` as ``[(name, arguments), ...]``."""
+        self.calls.append((role, [{"role": "system", "content": system}] + list(messages)))
+        queue = self.responses.get(role)
+        reply = queue.pop(0) if queue else "Done."
+        if callable(reply):
+            reply = reply(messages)
+        self.usage_log.append(
+            {"role": role, "model": "fake", "prompt_tokens": 100, "completion_tokens": 10, "cost": 0.001}
+        )
+        if isinstance(reply, str):
+            return {"content": reply, "tool_calls": [], "native": None}
+        calls = [
+            {"id": f"call{i}", "name": name, "arguments": args}
+            for i, (name, args) in enumerate(reply.get("tool_calls", []))
+        ]
+        return {"content": reply.get("content", ""), "tool_calls": calls, "native": None}
+
     async def health_check(self) -> tuple[bool, str]:
         return self.health
 

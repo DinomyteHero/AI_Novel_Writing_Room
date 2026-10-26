@@ -7,8 +7,8 @@ writing theory.
 
 ## Two halves: the Room and the Press
 
-**The Room** is where you think. You talk with a planning chat (the
-`story-session` skill in Claude Code). Bring whatever you have: a one-line
+**The Room** is where you think. You talk with a planning chat (in the app,
+or Claude with the Writers Room plugin). Bring whatever you have: a one-line
 idea, some characters, a rough outline. The chat helps you flesh it out with
 ideas and questions, and keeps your book's files up to date as you talk:
 the story bible, the character sheets and the outline. Edit them yourself
@@ -33,21 +33,51 @@ a report of what it did.
                        └──────── react, revise, change the plan ◀─────────┘
 ```
 
-## Quick start
+## Three ways to use it
 
-You need Python 3.10+ and an [OpenRouter](https://openrouter.ai/) API key.
+All three work on the same files, so you can switch between them.
+
+### The app
+
+A writing app in your browser, laid out like Claude: projects, chats, and a
+files panel that fills in as you talk. You need Python 3.10+ and an API key
+from [OpenRouter](https://openrouter.ai/keys) (one key reaches every model;
+Anthropic, OpenAI, Google or a model on your own computer also work).
 
 ```bash
 git clone https://github.com/DinomyteHero/AI_Novel_Writing_Room.git
 cd AI_Novel_Writing_Room
 pip install -r requirements.txt
-cp .env.example .env              # then paste your OPENROUTER_API_KEY into .env
-python scripts/room.py check      # confirms the key works
+python scripts/app.py             # opens http://127.0.0.1:8765/
 ```
 
-Then plan in the `story-session` chat, or by hand:
+Add your key in **Settings** (bottom left), then type an idea on the home
+page. The **+** under the box starts a new book or a series. Each project
+page has an ongoing chat about the book; the Build buttons in the files
+panel run the Press.
+
+### The Claude plugin (Cowork and Claude Code)
+
+Claude itself becomes the Room: it plans with you and edits the files, and
+the plugin's tools add second opinions, renames and the Press. In Cowork, go
+to **Customize > Plugins > Add > Add marketplace**, choose **Add from a
+repository**, enter `DinomyteHero/AI_Novel_Writing_Room`, then install
+**Writers Room** and add your OpenRouter key in its settings. In Claude Code:
 
 ```bash
+claude plugin marketplace add DinomyteHero/AI_Novel_Writing_Room
+claude plugin install writers-room@writers-room
+```
+
+Then say what you're writing, or use `/writers-room:start`,
+`/writers-room:review` and `/writers-room:build`. The plugin's tools need
+Python 3.10+ on your computer; they install what else they need on first run.
+
+### The command line
+
+```bash
+cp .env.example .env              # then paste your OPENROUTER_API_KEY into .env
+python scripts/room.py check      # confirms the key works
 python scripts/room.py new "My Novel"           # or add --series "My Series"
 python scripts/room.py review                   # optional second opinion
 python scripts/press.py build next              # one chapter, then read it
@@ -68,9 +98,11 @@ Your own notes in the story bible always win over it.
 
 ## Models
 
-Set in [`config/settings.yaml`](config/settings.yaml): DeepSeek V4 Pro writes
-and revises; Gemini 3.1 Pro critiques and reviews. Both have roughly 1M-token
-context windows, enough for a full novel and its plan in every call.
+Set in [`config/settings.yaml`](config/settings.yaml), or in the app's
+Settings: Claude Opus 5.5 is the app's planning chat, DeepSeek V4 Pro writes
+and revises, and Gemini 3.1 Pro critiques and reviews, all through
+OpenRouter by default. Each has a roughly 1M-token context window, enough for
+a full novel and its plan in every call.
 
 ## License
 

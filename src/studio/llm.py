@@ -12,6 +12,7 @@ from src.studio.prompts import message_tokens
 if TYPE_CHECKING:
     from src.model_router import ModelRouter
 
+CHAT_ROLE = "studio_chat"
 WRITER_ROLE = "studio_writer"
 CRITIC_ROLE = "studio_critic"
 READER_ROLE = "studio_reader"

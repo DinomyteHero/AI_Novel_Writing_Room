@@ -21,6 +21,9 @@ In short:
   points with the writer. Build with `scripts/press.py`; plan, review,
   rename and revise with `scripts/room.py`.
 
+The same guide drives the browser app (`scripts/app.py`) and the Claude
+plugin (`.claude-plugin/`); see `CLAUDE.md`.
+
 ## Working on the code
 
 See `CLAUDE.md` for the design rules. Above all: whole-book context, plain

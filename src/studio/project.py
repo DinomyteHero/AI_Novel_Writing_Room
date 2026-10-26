@@ -3,11 +3,13 @@
     library/                              private by default (gitignored)
       <series>/
         series_bible.md                   shared world and the arc across books (series only)
+        reference/                        optional: notes every book reads (canon, research)
         books/
           01-<book>/
             story_bible.md                this book's premise, feel, world and voice
             characters.md                 who everyone is in this book
             outline.md                    one "## Chapter N" section per chapter
+            reference/                    optional: notes only this book reads
             manuscript/chapter_NN.md      the current chapters
             manuscript/.history/          every replaced version
             manuscript/.provenance.json   which plan each chapter was built from
@@ -44,6 +46,7 @@ _WORDS_LINE = re.compile(
 )
 _CHAPTER_FILE = re.compile(r"^chapter_(\d+)\.md$")
 _BOOK_DIR = re.compile(r"^(\d+)-(.+)$")
+REFERENCE_SUFFIXES = (".md", ".txt")
 
 
 class StudioError(Exception):
@@ -84,6 +87,16 @@ def _write_template(name: str, target: Path, title: str) -> Path:
     return target
 
 
+def _reference(folder: Path) -> list[tuple[str, str]]:
+    if not folder.is_dir():
+        return []
+    return [
+        (path.name, _read(path))
+        for path in sorted(folder.iterdir())
+        if path.is_file() and path.suffix.lower() in REFERENCE_SUFFIXES
+    ]
+
+
 def _heading_title(path: Path) -> str | None:
     first = _read(path).lstrip().splitlines()[:1]
     if first and first[0].startswith("# "):
@@ -121,6 +134,7 @@ class Plan:
     story_bible: str
     characters: str
     outline: str
+    reference: tuple[tuple[str, str], ...] = ()
 
     def chapters(self) -> dict[int, ChapterPlan]:
         matches = list(_CHAPTER_HEADING.finditer(self.outline))
@@ -143,7 +157,10 @@ class Plan:
     def background_fingerprint(self) -> str:
         """Everything except the outline: a change here may affect any chapter."""
         return _digest(
-            "\n".join([self.series_bible, self.story_bible, self.characters])
+            "\n".join(
+                [self.series_bible, self.story_bible, self.characters]
+                + [f"{name}\n{text}" for name, text in self.reference]
+            )
         )
 
     def outline_fingerprint(self, number: int) -> str | None:
@@ -159,6 +176,8 @@ class Plan:
         }
         if self.series_bible:
             files["series_bible.md"] = self.series_bible
+        for name, text in self.reference:
+            files[f"reference/{name}"] = text
         return files
 
 
@@ -193,6 +212,10 @@ class Book:
     @property
     def outline_path(self) -> Path:
         return self.root / "outline.md"
+
+    @property
+    def reference_dir(self) -> Path:
+        return self.root / "reference"
 
     @property
     def manuscript_dir(self) -> Path:
@@ -254,7 +277,14 @@ class Book:
     def plan_files(self) -> list[Path]:
         """Every planning file this book's chapters are built from."""
         own = [p for p in (self.bible_path, self.characters_path, self.outline_path) if p.exists()]
-        return self.series.plan_files() + own
+        refs = [
+            p
+            for folder in (self.series.reference_dir, self.reference_dir)
+            if folder.is_dir()
+            for p in sorted(folder.iterdir())
+            if p.is_file() and p.suffix.lower() in REFERENCE_SUFFIXES
+        ]
+        return self.series.plan_files() + own + refs
 
     def read_plan(self) -> Plan:
         earlier = []
@@ -273,6 +303,7 @@ class Book:
             story_bible=_read(self.bible_path),
             characters=_read(self.characters_path),
             outline=_read(self.outline_path),
+            reference=tuple(_reference(self.series.reference_dir) + _reference(self.reference_dir)),
         )
 
     def chapter_path(self, number: int) -> Path:
@@ -367,6 +398,10 @@ class Series:
     @property
     def bible_path(self) -> Path:
         return self.root / "series_bible.md"
+
+    @property
+    def reference_dir(self) -> Path:
+        return self.root / "reference"
 
     @property
     def books_dir(self) -> Path:
