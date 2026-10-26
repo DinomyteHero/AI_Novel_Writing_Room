@@ -1,7 +1,7 @@
-"""Web server entry point for the AI Writers' Room.
+"""Read-only web console entry point for the AI Writers' Room.
 
 Usage:
-    python -m src.ui.server data/projects/the-ruusan-atonement/concept_seed.json
+    python -m src.ui.server data/franchises/<franchise>/books/<book>/concept_seed.json
     python -m src.ui.server concept_seed.json --port 8080 --dev
 """
 
@@ -14,10 +14,10 @@ def run_server(
     config_path: str = "config/settings.yaml",
     host: str = "127.0.0.1",
     port: int = 8000,
-    phase: int = 4,
+    phase: int = 1,
     dev: bool = False,
 ) -> None:
-    """Start the FastAPI server with uvicorn."""
+    """Start the read-only FastAPI console with uvicorn."""
     try:
         import uvicorn
     except ImportError:
@@ -28,7 +28,7 @@ def run_server(
         from src.ui.app import create_app
     except ImportError as e:
         print(f"Error: FastAPI dependencies not available: {e}")
-        print("Run: pip install fastapi uvicorn[standard] websockets")
+        print("Run: pip install fastapi uvicorn[standard]")
         sys.exit(1)
 
     app = create_app(
@@ -37,10 +37,10 @@ def run_server(
         phase=phase,
     )
 
-    print("Starting AI Writers' Room web server...")
+    print("Starting AI Writers' Room read-only console...")
     print(f"  Config: {config_path}")
     print(f"  Concept seed: {concept_seed_path}")
-    print(f"  Phase: {phase}")
+    print(f"  Phase (informational): {phase}")
     print(f"  URL: http://{host}:{port}")
 
     uvicorn.run(
@@ -80,9 +80,9 @@ def main():
     parser.add_argument(
         "--phase",
         type=int,
-        default=4,
+        default=1,
         choices=[1, 2, 3, 4, 5],
-        help="Pipeline phase (default: 4). Phase 5 enables chapter blueprints.",
+        help="Informational; the console is phase-independent.",
     )
     parser.add_argument(
         "--dev",

@@ -25,16 +25,15 @@ Not all dependencies are required. The pipeline gracefully degrades when optiona
 
 | Dependency | Required For |
 |-----------|-------------|
-| httpx, pyyaml, pydantic | Core (all phases) |
+| httpx, pyyaml, python-dotenv | Core (all phases) |
 | pytest, pytest-asyncio | Running tests |
 | chromadb, sentence-transformers, numpy | Phase 2 (memory, canon, RAG) |
-| nltk, scikit-learn | Optional prose-analysis tooling |
 | python-docx, ebooklib | Phase 4 (DOCX/EPUB export) |
-| fastapi, uvicorn, websockets | Web dashboard |
+| fastapi, uvicorn | Read-only web console |
 
 ### Frontend Setup (Optional)
 
-If you want to use the web dashboard:
+If you want to use the read-only web console:
 
 ```bash
 cd src/ui/frontend
@@ -172,7 +171,8 @@ python -m src.ui.server \
     data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/concept_seed.json
 ```
 
-Open http://localhost:8000.
+Open http://localhost:8000. The console is read-only: saved chapters and ledger
+events only. Drafting and export run through the CLI.
 
 ### Migrate Existing Data
 
@@ -205,6 +205,7 @@ Scaffold a fresh project from templates, author each surface, then compile and r
 python scripts/init_project.py --title "My Novel" --franchise "My Franchise" --depth original_light
 # Author via workflow kit surfaces (chat skills, api.py, or markdown importers)
 python scripts/compile_bundle.py --franchise my-franchise --book my-novel
+python scripts/approve_plan.py --franchise my-franchise --book my-novel
 python -m src.main \
     data/franchises/my-franchise/books/my-novel/concept_seed.json \
     data/franchises/my-franchise/books/my-novel/scene_cards \
@@ -222,9 +223,9 @@ Develop your concept in any LLM chat (Claude, ChatGPT, Gemini), import it, then 
 ```bash
 python -m src.main --import-summary manuscript.md --project my-novel --phase 5
 python -m src.main \
-    data/franchises/my-franchise/books/my-novel/concept_seed.json \
-    data/franchises/my-franchise/books/my-novel/scene_cards \
-    --franchise my-franchise --book my-novel \
+    data/projects/my-novel/concept_seed.json \
+    data/projects/my-novel/scene_cards \
+    --project my-novel \
     --generate-outline --phase 5
 ```
 
@@ -235,6 +236,7 @@ Best for: creative freedom during concept development, with automated scene card
 Develop both your concept seed AND scene cards in an external LLM chat, then run the pipeline directly:
 
 ```bash
+python scripts/approve_plan.py --franchise my-franchise --book my-novel
 python -m src.main \
     data/franchises/my-franchise/books/my-novel/concept_seed.json \
     data/franchises/my-franchise/books/my-novel/scene_cards \
@@ -249,7 +251,7 @@ See [Workflow Kit](user-guide/workflow-kit.md) for the detailed guide.
 
 - [CLI Usage](user-guide/cli-usage.md) — All CLI flags and workflows
 - [Workflow Kit](user-guide/workflow-kit.md) — Six-surface concept authoring
-- [Web Interface](user-guide/web-interface.md) — Dashboard walkthrough
+- [Web Interface](user-guide/web-interface.md) — Read-only console
 - [New Manuscript Workflow](user-guide/new-manuscript-workflow.md) — End-to-end path from idea chat to export
 - [Benchmarking](development/benchmarking.md) — Prose-model A/B evaluation
 - [System Overview](architecture/system-overview.md) — How the system works

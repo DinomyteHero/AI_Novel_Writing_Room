@@ -31,7 +31,7 @@ async def test_health_endpoint(client):
     data = resp.json()
     assert data["status"] == "ok"
     assert data["phase"] == 1
-    assert data["pipeline_state"] == "idle"
+    assert data["pipeline_state"] == "read_only"
 
 
 @pytest.mark.asyncio
@@ -44,4 +44,4 @@ async def test_app_creation(app):
 async def test_health_includes_pipeline_state(client):
     resp = await client.get("/api/health")
     data = resp.json()
-    assert data["pipeline_state"] in ("idle", "running", "paused", "completed", "failed", "milestone_pending")
+    assert data["pipeline_state"] == "read_only"

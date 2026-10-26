@@ -59,6 +59,7 @@ The command creates:
 ```text
 data/franchises/<franchise>/books/<book>/workflows/idea_session/
   capture.json
+  story_brief.json
   session.md
   README.md
   raw_transcript.md                 # optional, when --from-transcript is used
@@ -71,7 +72,7 @@ data/franchises/<franchise>/books/<book>/workflows/idea_session/
     scene_cards.md
 ```
 
-Use `session.md` during the chat. Use `capture.json` and the handoff files once decisions are settled enough to carry forward.
+Use `session.md` during the chat. Use `capture.json` and the handoff files once decisions are settled enough to carry forward. Add author-owned claims to `story_brief.json` as you go; inferred claims stay proposed until confirmed.
 
 Check readiness:
 
@@ -80,6 +81,20 @@ python scripts/idea_session_capture.py status \
   --title "My Novel" \
   --franchise "My Franchise"
 ```
+
+Review the Story Brief gaps before moving on:
+
+```bash
+python scripts/story_brief.py gaps \
+  --title "My Novel" \
+  --franchise "My Franchise"
+python scripts/story_brief.py sheets \
+  --title "My Novel" \
+  --franchise "My Franchise"
+```
+
+`gaps` ranks what still changes the book. `sheets` writes reviewable
+Markdown projections under `workflows/idea_session/sheets/`.
 
 ## 2. Deepen The Six Workflow Surfaces
 
@@ -139,7 +154,18 @@ data/franchises/<franchise>/books/<book>/
 
 Treat `compile_report.json` as the first quality gate. Fix missing surfaces, schema errors, reference errors, or semantic warnings before drafting.
 
-## 4. Preflight Before Spending Tokens
+## 4. Approve The Plan
+
+Drafting is gated on `compile_metadata.plan_approved`. Review the compiled
+seed and `compile_report.json`, then stamp approval:
+
+```bash
+python scripts/approve_plan.py \
+  --franchise <franchise-slug> \
+  --book <book-slug>
+```
+
+## 5. Preflight Before Spending Tokens
 
 Run deterministic preflight checks before production:
 
@@ -149,9 +175,9 @@ python scripts/preflight_run.py \
   --book <book-slug>
 ```
 
-Do not start production if the inputs still contain placeholders, missing cast references, unresolved continuity questions, or scene-card gaps that should have been authored.
+Do not start production if the inputs still contain placeholders, missing cast references, unresolved continuity questions, or scene-card gaps that should have been authored. Missing chapter blueprints are a warning: phase 5 generates them, or the packet falls back to flat context.
 
-## 5. Run Lean Production
+## 6. Run Lean Production
 
 The current production default is lean mode:
 
@@ -161,7 +187,7 @@ PlotArchitect -> ProseStylist -> LineWriter -> save
 
 Run production with the normal CLI for the book. The `LineWriter` step runs while `runtime.lean_prose_only.line_edit.enabled` is true and `agent_routing.line_writer` is configured — the shipping default. The lean pipeline has no save-time gates, no quality-polish pass, and no save-blocker layer; the structural framework is enforced upstream at planning and scene-card validation time. Full literary-copy passes run after the draft, not during it.
 
-## 6. Export The Manuscript
+## 7. Export The Manuscript
 
 After the run finishes, stitch the manuscript:
 
@@ -172,7 +198,7 @@ python scripts/manuscript_export.py \
   --export-dir output/<franchise>/<book>/export/<export-name>
 ```
 
-## 7. Review, Revise, And Clean Up
+## 8. Review, Revise, And Clean Up
 
 Use the validated post-Ruusan lifecycle:
 
@@ -186,7 +212,7 @@ Use the validated post-Ruusan lifecycle:
 
 Targeted cleanup is the production base unless a manual comparison gives a specific reason to choose otherwise.
 
-## 8. Validate Final Candidate
+## 9. Validate Final Candidate
 
 Before export, validate the final manuscript:
 

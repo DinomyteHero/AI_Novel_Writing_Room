@@ -145,12 +145,9 @@ def test_milestone_memo_gap_resolution_rate(tmp_path):
     ss.resolve_gap("gap_resolved", resolved_by="human_patch_accept", notes="x")
     gen = MilestoneMemoGenerator(debt_store=store, story_state=ss)
     memo = gen.generate(through_chapter=2)
-    # story_state.list_open_gaps() returns open-only; the generator uses that.
+    # Milestone memos include closed gaps so the resolution rate is meaningful.
     assert memo["open_gap_count"] == 1
-    # 100% of the returned gaps (the open one) are not resolved, which is
-    # expected because list_open_gaps only surfaces open rows. This matches
-    # the memo's documented behavior.
-    assert memo["gap_resolution_rate"] == 0.0
+    assert memo["gap_resolution_rate"] == 0.5
 
 
 def test_empty_store_emits_no_open_advisory_items():

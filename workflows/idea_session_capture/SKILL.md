@@ -110,6 +110,89 @@ This pre-seeds `workflows/{universe,canon,voice,characters,outline}.json`
 with everything the capture knows. The downstream surface sessions open
 to a partly-filled draft, not a blank file.
 
+## Story Brief: the plan model behind the chat
+
+`story_brief.json` is the canonical planning model. It stores **claims**, not
+a mutable character blob. Each claim carries `entity_type`, `entity_id`,
+`field`, `value`, `origin` (`author`, `inferred`, `delegated`, `import`),
+`confidence`, `status` (`proposed`, `confirmed`, `rejected`, `superseded`),
+and an optional `source_quote`.
+
+Use the claim API instead of hand-editing the brief:
+
+```python
+capture.add_claim(entity_type="character", entity_id="mara",
+                  field="want", value="To clear her name.")
+inferred = capture.add_claim(entity_type="character", entity_id="mara",
+                             field="lie_believed",
+                             value="That distance keeps people safe.",
+                             origin="inferred")
+capture.confirm_claim(inferred["claim_id"])
+capture.reject_claim("clm_0004")
+```
+
+After a free-form turn, extract candidates instead of asking the author to fill
+forms:
+
+```python
+added = await capture.infer_claims(turn_text, router)
+# all returned claims are origin=inferred, status=proposed
+```
+
+Ask for gap options or delegate a fill:
+
+```python
+options = await capture.gap_options_with_model("character:mara:want", router)
+claim = await capture.fill_gap_with_model("character:mara:want", router)
+```
+
+Rules:
+
+- **Confirmed** = the author owns it. **Proposed** = inferred and awaiting
+  review. **Delegated** = the author said "you choose"; it flows downstream but
+  stays visibly delegated.
+- A new confirmed claim supersedes the older value for the same entity/field.
+  Nothing is silently overwritten.
+- Character, location, theme, and plot sheets are projections. Do not edit
+  the generated Markdown as the source of truth; change the claim.
+- `capture.story_coverage()` reports confirmed/proposed counts, essential gaps,
+  and whether the brief is ready to expand.
+- `capture.next_questions()` returns gaps ranked by downstream impact.
+  `capture.gap_options(gap_id)` returns deterministic options; use
+  `gap_options_with_model(gap_id, router)` when a model is available.
+
+### Gap policy
+
+- **Blocking and high-impact** (protagonist lie, ending change, central rule):
+  ask, or propose two or three concrete options with consequences.
+- **Important but inferable**: propose, mark `inferred`/`proposed`, confirm in
+  review.
+- **Texture** (names, taverns, minor lore): scaffold, mark `delegated` or
+  `proposed`, batch-review.
+- **Intentionally mysterious**: record as an open question, not a gap to fill.
+
+Never invent canon, cast, or plot facts silently. "I don't know" is a valid
+answer; offer options, "not yet," "surprise me," or "this is a mystery."
+
+### Writer modes
+
+- **Guide me** — ask before filling anything load-bearing.
+- **Draft for me** — propose fills, mark assumptions, review in batches.
+- **Surprise me** — choose and mark `delegated`; the author revises what they
+  hate.
+
+### Review sheets
+
+```bash
+python scripts/story_brief.py status --title "<title>" --franchise "<franchise>"
+python scripts/story_brief.py gaps   --title "<title>" --franchise "<franchise>"
+python scripts/story_brief.py sheets --title "<title>" --franchise "<franchise>"
+```
+
+Sheets land under `workflows/idea_session/sheets/`. `approved` means no
+proposed claims and no open gaps for that entity; otherwise the sheet is
+`draft` and includes "Assumptions To Review" and "Open Gaps" sections.
+
 ## Capture rules (HARD)
 
 - Separate **settled decisions** from **open questions**. Don't merge.
@@ -145,6 +228,7 @@ Optional flags for relationship metadata:
 This creates:
 
 - `workflows/idea_session/capture.json` (state, mutated through api)
+- `workflows/idea_session/story_brief.json` (claim ledger + open questions)
 - `workflows/idea_session/session.md` (free-form chat notes)
 - `workflows/idea_session/surface_handoffs/*.md` (per-surface briefs)
 - `workflows/idea_session/raw_transcript.md` (optional, if `--from-transcript`)
@@ -164,9 +248,19 @@ capture.set_north_star(
 capture.add_decision(surface="characters", topic="Protagonist arc",
                      decision="Negative-change arc — she fails to choose family",
                      confidence="settled")
+capture.add_claim(entity_type="character", entity_id="mara", field="name",
+                  value="Mara Vance")
+capture.add_claim(entity_type="character", entity_id="mara", field="want",
+                  value="To get her daughter out of the country.")
+capture.add_claim(entity_type="character", entity_id="mara",
+                  field="lie_believed",
+                  value="That distance keeps people safe.",
+                  origin="inferred")
 capture.add_open_question(surface="canon", question="Is this our world or a near-future variant?")
 capture.update_handoff("characters", status="seeded",
                        settled_inputs=["Protagonist: Mara, 52, ex-MI6"])
+print(capture.story_coverage())
+print(capture.next_questions(3))
 capture.expand_to_surface_drafts()
 ```
 

@@ -23,7 +23,7 @@ Rules:
 
 - **The drafter lands the contract on the first pass.** The structural framework (Brooks beat map + Weiland arc map + scene contract) is enforced *upstream* at planning + scene-card validation time, and the chapter packet hands the drafter a single inspectable runtime contract. There is no save-time editorial gate to catch drift — quality is a planning-and-prompt problem, not a retry problem.
 - **No retries.** There is no retry branch in the relay. Do not add one. There is no `max_structural_retries` / `max_voice_retries`; those keys were removed.
-- **Length calibration is a rendering multiplier, not a planning change.** `runtime.lean_prose_only.length_calibration` (default 1.0) inflates the word-count ask rendered into the drafter's Task block; the scene card's `target_word_count` stays the planning truth and word-count telemetry still measures drift against it. Measured 2026-06-09: DeepSeek V4 Pro delivers ~43-58% of any asked length, so The Unfinished Shadow sets 1.8 in its runtime_overrides. Tune per book from bench evidence, never by feel.
+- **Length calibration is a rendering multiplier, not a planning change.** `runtime.lean_prose_only.length_calibration` (default 1.0) inflates the word-count ask rendered into the drafter's Task block; the scene card's `target_word_count` stays the planning truth. Measured 2026-06-09: DeepSeek V4 Pro delivers ~43-58% of any asked length, so The Unfinished Shadow sets 1.8 in its runtime_overrides. Tune per book from bench evidence, never by feel.
 - **LineWriter is the single post-draft edit.** `runtime.lean_prose_only.line_edit.enabled: true` (shipping default) runs `LineWriter` once after the drafter when `agent_routing.line_writer` is present. Disable just the line edit with `runtime.lean_prose_only.line_edit.enabled: false`. LineWriter takes an **explicitly wired** context dict — do not let it reach into ambient `ContextAssembler`. Collapsed output (<40% source word count) falls back to drafter prose with a warn event (`line_writer_collapsed`); a LineWriter crash also degrades to drafter prose (`line_writer_error`).
 - **RhythmValidator + RhythmEditor are advisory.** They run after LineWriter, both flag-gated and default-off. RhythmValidator only measures and emits revision-debt rows — it never blocks or mutates. RhythmEditor applies bounded literal edits under deterministic safety caps. Neither can abort a save.
 - **Revision-debt rows and rhythm telemetry are advisory.** They are a structured store for human triage. Nothing in the save path reads them to decide whether to save.
@@ -34,7 +34,7 @@ Rules:
 
 ## The lean prose path
 
-`runtime.lean_prose_only.enabled: true` is the shipping default and describes **the** pipeline. The orchestrator drafts the scene, runs the configured `LineWriter` once before saving (`runtime.lean_prose_only.line_edit.enabled: true`), optionally runs the rhythm stages, then saves prose directly as `saved_clean`.
+`runtime.lean_prose_only.enabled: true` is the shipping default and describes **the** pipeline. The orchestrator drafts the scene, runs the configured `LineWriter` once before saving (`runtime.lean_prose_only.line_edit.enabled: true`), optionally runs the rhythm stages, then saves prose as `saved_clean` or `saved_with_advisory`. Empty prose fails the scene instead of writing a zero-word file.
 
 Why it is safe: the structural framework (Brooks beat map + Weiland arc map + scene contract) is enforced *upstream* at planning + scene-card validation time, and the post-D2(c) enriched scene cards + chapter packet give the drafter enough information to land the contract on the first pass. There is no separate "full relay" — gates, save-blockers, and quarantine were removed from the codebase, not merely flag-gated off.
 
@@ -55,7 +55,7 @@ Slice 2 ships the drafter's single inspectable runtime contract and the structur
 
 Slice 3 ships the first trusted stateful-memory artifact: a **declaration-driven** promise ledger. Populated from planning + scene cards, never inferred by LLMs. `runtime.promise_ledger.enabled` defaults `false` on Ruusan and Betrayal until their per-book parity tests land.
 
-- **Store.** `src/memory/promise_ledger.py` (`PromiseLedger`) backs `output/<franchise>/<book>/state/promise_ledger.db`. `initialize_from_planning(concept_seed, scene_cards)` seeds from `story_physics.promise_payoff_ledger` + scene-card `promises_planted` / `promises_paid` (idempotent; existing `progression_log` preserved). **Seeding never marks a promise paid**: scene-card `promises_paid` is the *scheduled* payoff location and only refines `due_by_scene`; runtime `record_payoff` (scene save or patch replay) is the sole writer of `status='paid'` / `payoff_scene`. Scene IDs use `chNN_scMM`; the sentinel `chNN_sc99` represents chapter-end when planning only names a chapter. `initialize_from_planning` drops entries with no derivable `setup_scene` rather than writing a row that would fail the NOT NULL constraint.
+- **Store.** `src/memory/promise_ledger.py` (`PromiseLedger`) backs `output/<franchise>/<book>/state/promise_ledger.db`. `initialize_from_planning(concept_seed, scene_cards)` seeds from the canonical top-level `promise_payoff_ledger` or the legacy `story_physics.promise_payoff_ledger`, plus scene-card `promises_planted` / `promises_paid` (idempotent; existing `progression_log` preserved). **Seeding never marks a promise paid**: scene-card `promises_paid` is the *scheduled* payoff location and only refines `due_by_scene`; runtime `record_payoff` (scene save or patch replay) is the sole writer of `status='paid'` / `payoff_scene`. Re-seeding preserves a runtime `payoff_scene` once the promise is terminal. Scene IDs use `chNN_scMM`; the sentinel `chNN_sc99` represents chapter-end when planning only names a chapter. `initialize_from_planning` drops entries with no derivable `setup_scene` rather than writing a row that would fail the NOT NULL constraint.
 - **Wiring.** `src/main.py` constructs the ledger at `paths.state_dir / "promise_ledger.db"` (series-scoped when `meta.series_id` is set) **only when the flag resolves on**, and passes it to both `build_chapter_packet_compiler` and the `Orchestrator` — packets must stay promise-free for books that haven't signed off.
 - **Trust model.** Ledger rows move through `record_progression` / `record_payoff` / `record_broken` only. `overdue` is derived at read time (`list_overdue`), never stored.
 - **Scene-card contract.** Optional field `promises_progressed: [<promise_id>, ...]`. At save time the orchestrator (`_maybe_record_promise_deltas`) appends one entry to each promise's `progression_log` with `source='scene_card'` and emits a `promise_progressed` info event. `promises_paid` emits `promise_paid`. Unknown IDs emit a warn-level event (planning drift) but do not abort the run.
@@ -100,16 +100,16 @@ Two deterministic validators, scoped narrowly at the patterns a Zahn/Allston com
 
 Two pre-run subsystems run before any drafting:
 
-- **Canon guidance store + canon_scout agent.** `src/pipeline/canon_guidance.py` + `src/agents/canon_scout.py`. Persists franchise-level canon tips (terminology, mechanics, period detail) at `data/franchises/<franchise>/canon_guidance.json`. The chapter packet's `canon_guidance` field surfaces relevant entries to the drafter via the "Static Canon Guidance" section in the rendered packet. CLI: `scripts/canon_scout.py` for authoring; `data/franchises/<f>/canon_guidance.json` is read at packet compile time. Coverage gaps surface as preflight warnings.
-- **Preflight runner.** `src/pipeline/run_preflight.py` + `scripts/preflight_run.py`. Runs deterministic checks on planning artifacts before any LLM call: scene-card schema validity, cross-surface references resolve, canon guidance coverage. Surfaces all findings as a single report so the operator never wastes a run on a planning gap that could have been caught in seconds.
+- **Canon guidance store + canon_scout agent.** `src/pipeline/canon_guidance.py` + `src/agents/canon_scout.py`. Persists per-scene canon tips (terminology, mechanics, period detail) as sidecars under `<book>/canon_guidance/chNN_scMM.json`. The chapter packet's `canon_guidance` field surfaces relevant entries to the drafter via the "Static Canon Guidance" section in the rendered packet. CLI: `scripts/canon_scout.py` for authoring. Coverage gaps surface as preflight errors when a canon contract exists.
+- **Preflight runner.** `src/pipeline/run_preflight.py` + `scripts/preflight_run.py`. Runs deterministic checks on planning artifacts before any LLM call: concept-seed and scene-card schema validity, chapter-blueprint presence, canon guidance coverage, and packet compilation. Cross-surface reference validation lives in `scripts/compile_bundle.py`, not preflight. Missing blueprints are a warning because phase 5 can generate them.
 
 ## Manuscript-level passes (post-production, opt-in)
 
 Three off-path subsystems extend the per-scene pipeline without touching the lean per-scene path:
 
-- **`src/quality/scene_contract_validator.py` + `src/quality/literal_repair.py`**. Deterministic per-scene contract checks (turning point present, characters present, structural-phase-appropriate moves). Not in the per-scene shipping path; `scripts/validate_scene_contract.py` runs them as a standalone diagnostic (`--contract <json> --prose <file>`) for recovery work.
+- **`src/quality/scene_contract_validator.py`**. Deterministic per-scene contract checks (turning point present, characters present, structural-phase-appropriate moves). Not in the per-scene shipping path; `scripts/validate_scene_contract.py` runs them as a standalone diagnostic (`--contract <json> --prose <file>`) for recovery work.
 - **Literary polish + final-copy.** `src/agents/literary_polish.py` + `src/pipeline/final_copy.py` + `scripts/final_copy_existing.py`. A post-production pass that runs *after* the per-scene pipeline finishes and prose is saved. Routes to a higher-tier model (default `gpt54`) for line-level literary polish. **Not** part of the per-scene pipeline; intended for the final pre-publication sweep, not for every drafting run. Configured under `runtime.final_copy.*`.
-- **Manuscript reviewer.** `src/agents/manuscript_reviewer.py` consumes the assembled manuscript for a developmental-pass review. Output lands in revision-debt rows (Slice 2) for human triage.
+- **Manuscript reviewer.** `src/agents/manuscript_reviewer.py` consumes the assembled manuscript for a developmental-pass review and returns structured JSON. It has no CLI wrapper and does not write revision-debt rows; persist findings manually or via a follow-up script.
 
 These three are the "manuscript lifecycle" implementations of the design at `docs/architecture/manuscript_lifecycle_design.md`. The per-scene pipeline does not invoke them.
 
@@ -119,10 +119,14 @@ These three are the "manuscript lifecycle" implementations of the design at `doc
 
 - **Claude Code:** invokes the skill registered at `.claude/skills/idea-session-capture/SKILL.md` (thin wrapper; points at the workflow SKILL).
 - **Codex:** reads `AGENTS.md` at the repo root, which orients to the workflow kit and the idea-session conversation contract.
-- **Headless:** `from workflows.idea_session_capture import IdeaSessionCapture; cap = IdeaSessionCapture(title, franchise); cap.init_workspace(); cap.set_north_star(...); cap.add_decision(...); cap.expand_to_surface_drafts()`.
-- **CLI:** `python scripts/idea_session_capture.py {init|status|expand}`.
+- **Headless:** `from workflows.idea_session_capture import IdeaSessionCapture; cap = IdeaSessionCapture(title, franchise); cap.init_workspace(); cap.set_north_star(...); cap.add_decision(...); cap.add_claim(...); cap.expand_to_surface_drafts()`.
+- **CLI:** `python scripts/idea_session_capture.py {init|status|expand}` plus `python scripts/story_brief.py {init|status|gaps|claim|fill|sheets}`.
+- **Story Brief:** `workflows/idea_session/story_brief.json` is the canonical claim ledger. Claims carry `origin` (`author`/`inferred`/`delegated`/`import`), `confidence`, `status` (`proposed`/`confirmed`/`rejected`/`superseded`), `impact`, and an optional source quote. A confirmed claim supersedes the previous confirmed value for the same entity/field; nothing is overwritten silently. `src/planning/story_brief.py` owns the model, gap detection (`detect_gaps`), coverage (`coverage`), and Markdown sheet rendering. `src/planning/gap_filler.py` supplies deterministic options and an optional model-backed proposal path.
+- **Gap policy:** blocking/high-impact gaps are asked or proposed with options; inferable gaps are proposed and marked `proposed`; texture is scaffolded; intentional mysteries stay open questions. `delegated` claims flow downstream but remain visibly delegated.
+- **Review sheets:** `IdeaSessionCapture.write_review_sheets()` writes `sheets/characters/*.md`, `sheets/locations/*.md`, `sheets/themes/*.md`, `sheets/plot.md`, `sheets/world.md`, and `sheets/review.md` from confirmed claims. Sheets are projections, not a second source of truth.
+- **Expansion uses claims:** `expand_to_surface_drafts()` reads confirmed claims for character names/roles, universe premise, voice POV/register, and outline beats. Proposed claims do not enter surface drafts.
 
-`expand_to_surface_drafts()` is the bridge from the creative tier to the structural tier: it reads a populated capture and pre-seeds `workflows/{universe,canon,voice,characters,outline}.json` skeletons (and `workflows/scene_cards/_intent.md`). Existing artifacts are skipped unless `force=True`. The downstream surface sessions open to a partly-filled draft, not a blank file — the user does the creative thinking, the agent does the structural fleshing-out.
+`expand_to_surface_drafts()` is the bridge from the creative tier to the structural tier: it reads a populated capture and confirmed Story Brief claims, then pre-seeds `workflows/{universe,canon,voice,characters,outline}.json` skeletons (and `workflows/scene_cards/_intent.md`). Existing artifacts are skipped unless `force=True`. The downstream surface sessions open to a partly-filled draft, not a blank file — the user does the creative thinking, the agent does the structural fleshing-out.
 
 ## Scene-count discipline (less is more)
 
@@ -169,26 +173,27 @@ Always route I/O through `src/project_paths.ProjectPaths`. Do not hand-construct
 | Chapter packet (Slice 2, shipping default ON) | `src/pipeline/chapter_packet.py` |
 | Canon guidance store + canon_scout agent | `src/pipeline/canon_guidance.py`, `src/agents/canon_scout.py`, `scripts/canon_scout.py` |
 | Pre-run preflight | `src/pipeline/run_preflight.py`, `scripts/preflight_run.py` |
-| Scene-contract validator + literal repair (bench/diagnostic) | `src/quality/scene_contract_validator.py`, `src/quality/literal_repair.py` |
+| Scene-contract validator (bench/diagnostic) | `src/quality/scene_contract_validator.py` |
 | Rhythm validator (deterministic prose telemetry, default off) | `src/quality/rhythm_validator.py` |
 | Rhythm editor agent (literal-edit pass, default off) | `src/agents/rhythm_editor.py`, `prompts/agent_system_prompts/rhythm_editor.md` |
 | Cross-chapter continuity validator (default off) | `src/quality/cross_chapter_validator.py` |
 | Literary polish + final-copy (post-production) | `src/agents/literary_polish.py`, `src/pipeline/final_copy.py`, `scripts/final_copy_existing.py` |
 | Manuscript reviewer (developmental pass) | `src/agents/manuscript_reviewer.py` |
 | Idea-session capture (Claude/Codex portable) | `workflows/idea_session_capture/api.py`, `scripts/idea_session_capture.py`, `AGENTS.md` |
+| Story Brief / claim ledger / review sheets | `src/planning/story_brief.py`, `src/planning/gap_filler.py`, `src/planning/session_extractor.py`, `scripts/story_brief.py` |
+| Legacy character/voice migration | `scripts/migrate_legacy_character_data.py` |
 | Scene-card cross-surface validator | `workflows/_shared/scene_card_references.py` |
 | Scene-card enrichment migration | `scripts/enrich_scene_cards.py` |
 | Revision-debt store + producers (Slice 2) | `src/pipeline/revision_debt.py`, `src/pipeline/revision_debt_producers.py` |
 | Chapter memos | `src/pipeline/chapter_memos.py` |
 | Promise ledger (Slice 3) | `src/memory/promise_ledger.py` |
-| Word-count telemetry | `src/pipeline/word_count_telemetry.py` |
 | Ledger (typed events) | `src/run_ledger.py` |
 | Context assembly | `src/memory/context_assembler.py` |
 | Story state / knowledge / chapter memory | `src/memory/` |
 | Canon RAG | `src/rag/` |
 | Worldbuilding (lore DB + vectors) | `src/worldbuilding/` |
 | Quality metrics | `src/quality/` |
-| Web API + frontend | `src/ui/` |
+| Read-only web console | `src/ui/` |
 | Workflow-kit surfaces (skills) | `.claude/skills/<surface>/` + `workflows/<surface>/` |
 | Bundle compiler (workflows → concept_seed) | `scripts/compile_bundle.py` |
 | Manuscript patch workflow (Slice 6) | `scripts/patch_workflow.py`, `scripts/manuscript_export.py` |
@@ -219,7 +224,7 @@ Canonical helpers live under `workflows/_shared/` (`seed_transforms.py`, `scene_
 
 - Full suite: `pytest -q`.
 - Some tests skip without optional deps (chromadb, sentence-transformers, fastapi); that is expected.
-- Web-path regression set: `pytest tests/test_websocket_ledger.py tests/test_run_ledger.py tests/test_api_pipeline.py tests/test_api_ledger.py tests/test_ui_pipeline_blueprint_wiring.py -q`.
+- Web-console regression set: `pytest tests/test_run_ledger.py tests/test_api_ledger.py tests/test_api_chapters.py tests/test_api_health.py -q`.
 
 ### Windows Python invocation
 

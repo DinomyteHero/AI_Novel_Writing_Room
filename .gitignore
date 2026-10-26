@@ -55,6 +55,8 @@ build/
 # Pipeline runtime — canonical per-project output (franchise-scoped).
 # See data/README.md for the full layout.
 output/*/*/state/
+output/*/*/chapters/
+output/*/*/chapter_packets/
 
 # Stitched manuscript exports — regenerable pipeline output. Ignored by
 # default; force-add a curated reference build (git add -f) when one is
@@ -106,4 +108,5 @@ data/franchises/*/worldbuilding_vectors/
 
 # Environment variables
 .env
-.env.local
+.env.*
+!.env.example

@@ -151,9 +151,10 @@ def validate_current_run(
         }
     )
     for chapter_number in missing_blueprints:
-        report.add_error(
+        report.add_warning(
             "chapter_blueprints",
-            f"missing chapter blueprint for chapter {chapter_number}",
+            f"missing chapter blueprint for chapter {chapter_number}; "
+            "phase 5 will generate it or the packet will fall back to flat context",
             paths.chapter_blueprints_dir / f"chapter_{chapter_number:02d}.json",
         )
 

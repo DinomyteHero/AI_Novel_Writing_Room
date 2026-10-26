@@ -15,8 +15,9 @@ docs/
 │   ├── new-manuscript-workflow.md  # End-to-end operator path
 │   ├── idea-session-capture.md     # Front-door planning chat
 │   ├── workflow-kit.md       # Six-surface concept authoring
+│   ├── story-brief.md        # Claim ledger, gap policy, review sheets
 │   ├── final-copy-pipeline.md      # Post-draft literary-copy lane
-│   ├── web-interface.md      # Web dashboard walkthrough
+│   ├── web-interface.md      # Read-only web console
 │   └── concept-workshop.md   # Removed-subsystem redirect to the workflow kit
 ├── architecture/
 │   ├── system-overview.md    # Components, data flow, directory layout

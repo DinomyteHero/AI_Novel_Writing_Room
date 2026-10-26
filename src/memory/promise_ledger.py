@@ -177,10 +177,22 @@ class PromiseLedger:
     ) -> dict[str, dict]:
         seeds: dict[str, dict] = {}
         physics = concept_seed.get("story_physics") or {}
-        raw_list = physics.get("promise_payoff_ledger") or []
-        for raw in raw_list:
-            if not isinstance(raw, Mapping):
-                continue
+        physics_list = physics.get("promise_payoff_ledger") or []
+        top_level_list = concept_seed.get("promise_payoff_ledger") or []
+
+        # The workflow-kit compiler writes the canonical ledger at the top
+        # level; ingested books have historically carried it under
+        # story_physics. Accept both, with the canonical top-level entry
+        # winning if the same promise_id appears in both places.
+        combined: dict[str, Mapping] = {}
+        for raw in physics_list:
+            if isinstance(raw, Mapping) and raw.get("promise_id"):
+                combined[str(raw["promise_id"])] = raw
+        for raw in top_level_list:
+            if isinstance(raw, Mapping) and raw.get("promise_id"):
+                combined[str(raw["promise_id"])] = raw
+
+        for raw in combined.values():
             pid = raw.get("promise_id")
             if not pid:
                 continue
@@ -270,14 +282,21 @@ class PromiseLedger:
     def _upsert(self, *, pid: str, entry: Mapping[str, Any]) -> None:
         now = _iso_now()
         existing = self.conn.execute(
-            "SELECT progression_log, created_at FROM promise_ledger WHERE promise_id = ?",
+            "SELECT progression_log, created_at, status, payoff_scene "
+            "FROM promise_ledger WHERE promise_id = ?",
             (pid,),
         ).fetchone()
         progression_log = json.dumps([])
         created_at = now
+        payoff_scene = entry.get("payoff_scene")
         if existing is not None:
             progression_log = existing["progression_log"] or json.dumps([])
             created_at = existing["created_at"] or now
+            # Runtime payoff/broken/retired state is authoritative. A
+            # planning re-seed must not erase where a promise was paid, even
+            # though it deliberately does not change the terminal status.
+            if existing["status"] in ("paid", "broken", "retired"):
+                payoff_scene = existing["payoff_scene"]
         # On conflict we deliberately do NOT update `status`: re-seeding from
         # planning must not clobber a runtime status advanced by
         # record_progression / record_payoff / record_broken.
@@ -300,7 +319,7 @@ class PromiseLedger:
                 entry.get("description", ""),
                 entry.get("promise_type"),
                 entry.get("setup_scene"),
-                entry.get("payoff_scene"),
+                payoff_scene,
                 entry.get("due_by_scene"),
                 entry.get("status", "planted"),
                 progression_log,

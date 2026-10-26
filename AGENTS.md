@@ -51,6 +51,10 @@ capture.set_north_star(
 capture.add_decision(
     surface="voice", topic="POV", decision="...", confidence="settled",
 )
+capture.add_claim(
+    entity_type="character", entity_id="mara", field="want",
+    value="To clear her name.",
+)
 capture.add_open_question(
     surface="characters", question="...", why_it_matters="...",
 )
@@ -60,6 +64,8 @@ capture.update_handoff(
     settled_inputs=[...],
     questions_to_resolve=[...],
 )
+print(capture.story_coverage())              # gaps + readiness
+capture.write_review_sheets()                # workflows/idea_session/sheets/
 capture.expand_to_surface_drafts()           # pre-seed the six surfaces
 ```
 
@@ -77,6 +83,8 @@ CLI equivalents (when you'd rather shell out):
 python scripts/idea_session_capture.py init   --title "..." --franchise "..."
 python scripts/idea_session_capture.py status --title "..." --franchise "..."
 python scripts/idea_session_capture.py expand --title "..." --franchise "..."
+python scripts/story_brief.py status --title "..." --franchise "..."
+python scripts/story_brief.py sheets --title "..." --franchise "..."
 ```
 
 ## The six downstream surfaces

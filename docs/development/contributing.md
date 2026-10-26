@@ -52,7 +52,7 @@ Common fixtures are defined in `tests/conftest.py`:
 - `mock_embedding_function` -- A deterministic mock for ChromaDB
 - `chapter_memory` -- ChapterMemory with mock embeddings
 
-Phase 5 has additional fixtures in `tests/conftest_phase5.py` for FastAPI test client and WebSocket testing.
+Phase 5 has additional fixtures in `tests/conftest_phase5.py` for the read-only FastAPI test client.
 
 ## Project Structure
 
@@ -69,13 +69,13 @@ src/
 |-- pipeline/            # Chapter packet, revision debt, canon guidance, preflight, final copy
 |-- memory/              # Story state, chapter memory, context assembly, promise ledger
 |-- rag/                 # Canon retrieval
-|-- quality/             # Quality metrics, scene-contract checks, literal repair
+|-- quality/             # Scene-contract checks, rhythm/continuity validators
 |-- planning/            # Story physics and planning helpers
 |-- worldbuilding/       # Lore DB and vector helpers
 |-- export/              # Export formats
 |-- concept_workshop/    # Remaining canonical concept helpers
 |-- prompting/           # Prompt rendering helpers
-`-- ui/                  # FastAPI app, routes, WebSocket ledger, React frontend
+`-- ui/                  # Read-only FastAPI app + React frontend
 
 scripts/
 |-- migrations/          # One-shot and idempotent migration scripts

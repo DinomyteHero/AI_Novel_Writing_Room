@@ -1,4 +1,4 @@
-"""Tests for run ledger and sessions API endpoints."""
+"""Tests for read-only run-ledger API endpoints."""
 
 import json
 from pathlib import Path
@@ -19,12 +19,16 @@ def app(temp_dir, settings_yaml, sample_concept_seed):
 
 @pytest_asyncio.fixture
 async def client(app):
-    # Seed the ledger with test events
     state = app.state._app_state
     state.ledger.emit("pipeline_start", payload={"total_scenes": 5})
-    state.ledger.emit("chapter_start", chapter_number=1, scene_number=1, payload={"mission": "test"})
-    state.ledger.emit("gate_pass", chapter_number=1, scene_number=1, payload={"verdict": "pass"})
-    state.ledger.emit("gate_fail", chapter_number=2, scene_number=1, payload={"verdict": "fail_structural"})
+    state.ledger.emit(
+        "lean_prose_only_saved", chapter_number=1, scene_number=1,
+        payload={"word_count": 100},
+    )
+    state.ledger.emit(
+        "scene_error", chapter_number=2, scene_number=1,
+        payload={"error": "boom"},
+    )
 
     transport = ASGITransport(app=app)
     async with AsyncClient(transport=transport, base_url="http://test") as c:
@@ -35,15 +39,15 @@ async def client(app):
 async def test_get_events(client):
     resp = await client.get("/api/ledger/events")
     assert resp.status_code == 200
-    assert resp.json()["count"] >= 4
+    assert resp.json()["count"] >= 3
 
 
 @pytest.mark.asyncio
 async def test_get_events_filtered(client):
-    resp = await client.get("/api/ledger/events?event_type=gate_pass")
+    resp = await client.get("/api/ledger/events?event_type=scene_error")
     assert resp.status_code == 200
     events = resp.json()["events"]
-    assert all(e["event_type"] == "gate_pass" for e in events)
+    assert all(e["event_type"] == "scene_error" for e in events)
 
 
 @pytest.mark.asyncio
@@ -59,31 +63,3 @@ async def test_latest_events(client):
     resp = await client.get("/api/ledger/events/latest?limit=3")
     assert resp.status_code == 200
     assert resp.json()["count"] <= 3
-
-
-@pytest.mark.asyncio
-async def test_ledger_summary(client):
-    resp = await client.get("/api/ledger/summary")
-    assert resp.status_code == 200
-    data = resp.json()
-    assert data["total_events"] >= 4
-    assert data["events_by_type"].get("gate_pass", 0) >= 1
-
-
-@pytest.mark.asyncio
-async def test_sessions_list(client):
-    resp = await client.get("/api/sessions")
-    assert resp.status_code == 200
-    assert "sessions" in resp.json()
-
-
-@pytest.mark.asyncio
-async def test_session_not_found(client):
-    resp = await client.get("/api/sessions/nonexistent")
-    assert resp.status_code in (404, 503)
-
-
-@pytest.mark.asyncio
-async def test_delete_session_not_found(client):
-    resp = await client.delete("/api/sessions/nonexistent")
-    assert resp.status_code in (404, 503)

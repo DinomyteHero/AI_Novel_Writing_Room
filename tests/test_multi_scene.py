@@ -11,6 +11,9 @@ from unittest.mock import MagicMock
 
 import pytest
 
+from src.orchestrator import Orchestrator
+from src.run_ledger import RunLedger
+
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -331,3 +334,39 @@ class TestMissionUniqueness:
         ]
         warnings = SceneCardGenerator._validate_chapter_composition(cards)
         assert not any("similar missions" in w.lower() for w in warnings)
+
+
+def test_orchestrator_chapter_log_aggregates_all_scenes(story_state, tmp_path):
+    """chapter_log must sum scene words, not keep only the last scene."""
+    story_state.add_scene_log(
+        chapter_number=1, scene_number=1, word_count=1200,
+        structural_phase="setup", pov_character="Alex", summary="Scene one",
+    )
+    story_state.add_scene_log(
+        chapter_number=1, scene_number=2, word_count=1100,
+        structural_phase="response", pov_character="Alex", summary="Scene two",
+    )
+    ledger = RunLedger(db_path=str(tmp_path / "ledger.db"))
+    orch = Orchestrator(
+        router=MagicMock(),
+        context_assembler=MagicMock(),
+        ledger=ledger,
+        manuscripts_dir=str(tmp_path / "manuscripts"),
+        story_state=story_state,
+    )
+    try:
+        orch._refresh_chapter_log(
+            chapter_num=1,
+            scene_card={"chapter_number": 1, "structural_phase": "response"},
+            summary_text="Scene two",
+            scores={"structural": 1.0},
+            failure_codes=[],
+            revision_status="saved_clean",
+        )
+    finally:
+        ledger.close()
+
+    log = story_state.get_chapter_log(1)
+    assert log["word_count"] == 2300
+    assert "Scene one" in log["summary"]
+    assert "Scene two" in log["summary"]

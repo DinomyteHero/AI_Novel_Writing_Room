@@ -2421,6 +2421,13 @@ class StoryState:
         self._maybe_commit()
         return gap["gap_id"]
 
+    def list_all_gaps(self) -> list[dict]:
+        """Return every gap note, regardless of status."""
+        rows = self.conn.execute(
+            "SELECT * FROM gap_notes ORDER BY created_at"
+        ).fetchall()
+        return [self._hydrate_gap_row(r) for r in rows]
+
     def list_open_gaps(self, *, chapter_number: int | None = None) -> list[dict]:
         """Return open gaps, optionally filtered to those affecting a chapter.
 

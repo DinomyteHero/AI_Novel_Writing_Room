@@ -72,16 +72,16 @@ Both local and cloud model sections accept a `timeout_seconds` field controlling
 ```yaml
 agent_routing:
   # LIVE SCENE PIPELINE
-  prose_stylist:   { backend: cloud, model: deepseekpro, params: { temperature: 0.70, max_tokens: 8192 } }
-  line_writer:     { backend: cloud, model: gpt54_mini,  params: { temperature: 0.35, max_tokens: 8192 } }
-  rhythm_editor:   { backend: cloud, model: deepseekpro, params: { temperature: 0.2,  max_tokens: 2400 } }
+  prose_stylist:   { backend: cloud, model: deepseekpro, params: { temperature: 0.70, max_tokens: 12000 } }
+  line_writer:     { backend: cloud, model: gpt54_mini,  params: { temperature: 0.35, max_tokens: 12000 } }
+  rhythm_editor:   { backend: cloud, model: deepseekpro, params: { temperature: 0.2,  max_tokens: 4096 } }
 
   # PLANNING / COMPILE-TIME UTILITIES
-  plot_architect:                { backend: cloud, model: deepseek, params: { temperature: 0.4, max_tokens: 4096 } }
+  plot_architect:                { backend: cloud, model: deepseekpro, params: { temperature: 0.4, max_tokens: 4096 } }
   outline_planner:               { backend: cloud, model: gemini,   params: { temperature: 0.5, max_tokens: 32768 } }
   seed_builder:                  { backend: cloud, model: gemini,   params: { temperature: 0.3, max_tokens: 16384 } }
   chapter_blueprint_synthesizer: { backend: cloud, model: gemini,   params: { temperature: 0.4, max_tokens: 8192 } }
-  canon_scout:                   { backend: cloud, model: grok41fast, params: { temperature: 0.1, max_tokens: 1800 } }
+  canon_scout:                   { backend: cloud, model: deepseek, params: { temperature: 0.1, max_tokens: 8192 } }
   editorial_consultant:          { backend: cloud, model: claude,   params: { temperature: 0.4, max_tokens: 16384 } }
 
   # POST-SAVE MEMORY / POST-PRODUCTION

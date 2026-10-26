@@ -349,10 +349,9 @@ async def _ensure_chapter_blueprints(
         return
 
     print("Checking chapter blueprints...")
-    bp_dir = (
-        Path("data") / "franchises" / franchise_slug / "books" / book_slug
-        / "chapter_blueprints"
-    )
+    bp_dir = ProjectPaths(
+        book_slug, franchise_slug=franchise_slug,
+    ).chapter_blueprints_dir
     existing_chapters: set[int] = set()
     if bp_dir.exists():
         for path in bp_dir.glob("chapter_*.json"):
@@ -598,7 +597,7 @@ async def main():
             )
         except ImportError as e:
             print(f"Error: Web server dependencies not available: {e}")
-            print("Run: pip install fastapi uvicorn[standard] websockets")
+            print("Run: pip install fastapi uvicorn[standard]")
             sys.exit(1)
         return
 
@@ -746,11 +745,17 @@ async def main():
         )
     else:
         paths = ProjectPaths.from_concept_seed(concept_seed, run_id=run_id)
-        # CLI overrides for franchise/series
+        # CLI overrides for franchise/series/book
         if franchise_slug:
             paths.franchise_slug = franchise_slug
         if series_slug:
             paths.series_slug = series_slug
+    # `--book` is the canonical book slug. If omitted, use the slug derived
+    # from the seed title so blueprint generation and output paths agree.
+    if book_id:
+        paths.project_slug = book_id
+    else:
+        book_id = paths.project_slug
     paths.ensure_dirs()
     paths.ensure_franchise_meta(concept_seed)
     print(f"  Project: [{paths.display_name}]")
@@ -788,6 +793,18 @@ async def main():
     # Phase 4: Export-only mode — skip everything else
     if args.export_only:
         try:
+            if not args.output_dir:
+                # Export the latest run's chapters (or the book-level chapters
+                # directory) instead of the empty directory for a brand-new run.
+                candidates = sorted(
+                    paths.export_dir.parent.glob("runs/*/chapters"),
+                    key=lambda p: p.stat().st_mtime,
+                    reverse=True,
+                )
+                manuscripts_dir = str(
+                    candidates[0] if candidates
+                    else paths.export_dir.parent / "chapters"
+                )
             from src.export.export_manager import ExportManager
             export_manager = ExportManager(manuscripts_dir, concept_seed)
             formats = [f.strip() for f in args.export_formats.split(",")]
@@ -1089,6 +1106,7 @@ async def main():
             regenerate=args.regenerate_blueprints,
         )
 
+    exit_code = 0
     try:
         results = await orchestrator.run_pipeline(scene_cards)
 
@@ -1096,21 +1114,36 @@ async def main():
         print(f"\n{'='*60}")
         print("Pipeline Complete")
         print(f"{'='*60}")
-        total_words = sum(r["word_count"] for r in results)
-        print(f"Scenes saved: {len(results)}")
+        saved_results = [r for r in results if r.get("status") != "failed"]
+        failed_results = [r for r in results if r.get("status") == "failed"]
+        total_words = sum(int(r.get("word_count") or 0) for r in saved_results)
+        clean_count = sum(
+            1 for r in saved_results
+            if r.get("revision_status", "saved_clean") == "saved_clean"
+        )
+        advisory_count = len(saved_results) - clean_count
+        print(f"Scenes saved: {len(saved_results)}")
+        print(f"Scenes failed: {len(failed_results)}")
         print(f"Total word count: {total_words:,}")
+        print(f"  saved_clean:          {clean_count}")
+        print(f"  saved_with_advisory:  {advisory_count}")
 
-        # The lean pipeline has no gate/polish/save-blocker layer, so every
-        # saved scene is 'saved_clean' and no scene is quarantined mid-run.
-        print(f"  saved_clean:          {len(results)}")
-
-        for r in results:
+        for r in saved_results:
             flags = len(r.get("contradiction_flags", []))
             flag_str = f", flags={flags}" if flags else ""
             print(
                 f"  Chapter {r['chapter_number']}.{r['scene_number']}: "
-                f"{r['word_count']:,} words, status=saved_clean{flag_str}"
+                f"{int(r.get('word_count') or 0):,} words, "
+                f"status={r.get('revision_status', 'saved_clean')}{flag_str}"
             )
+        if failed_results:
+            exit_code = 1
+            print("\nFailed scenes:")
+            for r in failed_results:
+                print(
+                    f"  Chapter {r.get('chapter_number')}.{r.get('scene_number')}: "
+                    f"{r.get('error', 'unknown error')}"
+                )
 
         # Surface open gap notes from story state. An open gap from an
         # earlier run still deserves attention.
@@ -1171,6 +1204,9 @@ async def main():
                 await router.close()
             except Exception:
                 pass
+
+    if exit_code:
+        raise SystemExit(exit_code)
 
 
 def cli():

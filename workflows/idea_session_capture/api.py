@@ -35,6 +35,9 @@ from textwrap import dedent
 from typing import Any
 
 from src.project_paths import ProjectPaths, _slugify_franchise, slugify_title
+from src.planning import story_brief as sb
+from src.planning.gap_filler import propose_options, propose_options_with_model
+from src.planning.session_extractor import extract_claims
 from workflows._shared.schema_loader import load_surface_schema
 
 logger = logging.getLogger(__name__)
@@ -50,6 +53,8 @@ SURFACES: tuple[str, ...] = (
 )
 
 CAPTURE_FILENAME = "capture.json"
+STORY_BRIEF_FILENAME = "story_brief.json"
+SHEETS_DIRNAME = "sheets"
 SESSION_FILENAME = "session.md"
 SURFACE_HANDOFF_DIRNAME = "surface_handoffs"
 RAW_TRANSCRIPT_FILENAME = "raw_transcript.md"
@@ -109,6 +114,14 @@ class IdeaSessionCapture:
     @property
     def capture_path(self) -> Path:
         return self.workspace / CAPTURE_FILENAME
+
+    @property
+    def story_brief_path(self) -> Path:
+        return self.workspace / STORY_BRIEF_FILENAME
+
+    @property
+    def sheets_dir(self) -> Path:
+        return self.workspace / SHEETS_DIRNAME
 
     @property
     def session_path(self) -> Path:
@@ -215,6 +228,12 @@ class IdeaSessionCapture:
             written.append(self.capture_path)
         else:
             skipped.append(self.capture_path)
+
+        brief = sb.new_brief(self.title, self.franchise)
+        if self._write_json(self.story_brief_path, brief, force=force):
+            written.append(self.story_brief_path)
+        else:
+            skipped.append(self.story_brief_path)
 
         if self._write_text(
             self.session_path,
@@ -407,6 +426,201 @@ class IdeaSessionCapture:
             ns["avoid"] = list(avoid)
         self.save(capture)
 
+    # ---- story brief / claim ledger ------------------------------------
+
+    def load_story_brief(self) -> dict[str, Any]:
+        """Load the plan model, creating a blank one for older captures."""
+        if not self.story_brief_path.exists():
+            brief = sb.new_brief(self.title, self.franchise)
+            sb.save_brief(self.story_brief_path, brief)
+            return brief
+        return sb.load_brief(self.story_brief_path)
+
+    def save_story_brief(self, brief: dict[str, Any]) -> None:
+        sb.save_brief(self.story_brief_path, brief)
+
+    def add_claim(
+        self,
+        *,
+        entity_type: str,
+        field: str,
+        value: Any,
+        entity_id: str | None = None,
+        origin: str = "author",
+        confidence: str | None = None,
+        status: str | None = None,
+        source_quote: str = "",
+        impact: str | None = None,
+    ) -> dict[str, Any]:
+        brief = self.load_story_brief()
+        claim = sb.add_claim(
+            brief,
+            entity_type=entity_type,
+            entity_id=entity_id,
+            field=field,
+            value=value,
+            origin=origin,
+            confidence=confidence,
+            status=status,
+            source_quote=source_quote,
+            impact=impact,
+        )
+        self.save_story_brief(brief)
+        return claim
+
+    async def infer_claims(
+        self,
+        turn_text: str,
+        router: Any,
+        *,
+        max_claims: int = 8,
+    ) -> list[dict[str, Any]]:
+        """Extract candidate claims from one author turn as proposals."""
+        brief = self.load_story_brief()
+        candidates = await extract_claims(
+            router, turn_text, brief, max_claims=max_claims,
+        )
+        added: list[dict[str, Any]] = []
+        for candidate in candidates:
+            try:
+                added.append(sb.add_claim(
+                    brief,
+                    entity_type=candidate["entity_type"],
+                    entity_id=candidate.get("entity_id"),
+                    field=candidate["field"],
+                    value=candidate["value"],
+                    origin="inferred",
+                    confidence=candidate.get("confidence", "inferred"),
+                    status="proposed",
+                    source_quote=candidate.get("source_quote", ""),
+                ))
+            except ValueError:
+                continue
+        if added:
+            self.save_story_brief(brief)
+        return added
+
+    def confirm_claim(self, claim_id: str) -> dict[str, Any]:
+        brief = self.load_story_brief()
+        claim = sb.confirm_claim(brief, claim_id)
+        self.save_story_brief(brief)
+        return claim
+
+    def reject_claim(self, claim_id: str) -> dict[str, Any]:
+        brief = self.load_story_brief()
+        claim = sb.reject_claim(brief, claim_id)
+        self.save_story_brief(brief)
+        return claim
+
+    def delegate_claim(self, claim_id: str, *, rationale: str = "") -> dict[str, Any]:
+        brief = self.load_story_brief()
+        claim = sb.delegate_claim(brief, claim_id, rationale=rationale)
+        self.save_story_brief(brief)
+        return claim
+
+    def add_gap(
+        self,
+        *,
+        entity_type: str,
+        field: str,
+        question: str,
+        entity_id: str | None = None,
+        why_it_matters: str = "",
+        blocking: bool = False,
+    ) -> dict[str, Any]:
+        brief = self.load_story_brief()
+        item = sb.add_question(
+            brief,
+            entity_type=entity_type,
+            entity_id=entity_id,
+            field=field,
+            question=question,
+            why_it_matters=why_it_matters,
+            blocking=blocking,
+        )
+        self.save_story_brief(brief)
+        return item
+
+    def story_coverage(self) -> dict[str, Any]:
+        return sb.coverage(self.load_story_brief())
+
+    def next_questions(self, n: int = 3) -> list[dict[str, Any]]:
+        return sb.next_questions(self.load_story_brief(), n=n)
+
+    def gap_options(self, gap_id: str, n: int = 3) -> list[str]:
+        gap = self._find_gap(gap_id)
+        return propose_options(gap, self.load_story_brief(), n=n)
+
+    async def gap_options_with_model(self, gap_id: str, router: Any, n: int = 3) -> list[str]:
+        gap = self._find_gap(gap_id)
+        return await propose_options_with_model(
+            gap, self.load_story_brief(), router, n=n,
+        )
+
+    def fill_gap(
+        self,
+        gap_id: str,
+        *,
+        value: str | None = None,
+        mode: str = "delegate",
+        rationale: str = "",
+    ) -> dict[str, Any]:
+        """Fill a gap with an author value or a generated/delegated scaffold."""
+        gap = self._find_gap(gap_id)
+        if value is None:
+            options = self.gap_options(gap_id)
+            if not options:
+                raise ValueError(f"no options available for gap {gap_id}")
+            value = options[0]
+        if mode not in ("author", "delegate", "propose"):
+            raise ValueError("mode must be author, delegate, or propose")
+        origin = {"author": "author", "delegate": "delegated", "propose": "inferred"}[mode]
+        status = "proposed" if mode == "propose" else "confirmed"
+        claim = self.add_claim(
+            entity_type=str(gap["entity_type"]),
+            entity_id=str(gap["entity_id"]),
+            field=str(gap["field"]),
+            value=value,
+            origin=origin,
+            status=status,
+            source_quote=rationale,
+        )
+        # Close any matching open question so the review list stays clean.
+        brief = self.load_story_brief()
+        for question in brief.get("questions") or []:
+            if (
+                question.get("status") == "open"
+                and question.get("entity_type") == gap.get("entity_type")
+                and question.get("field") == gap.get("field")
+                and question.get("entity_id") in (None, gap.get("entity_id"))
+            ):
+                question["status"] = "resolved"
+        self.save_story_brief(brief)
+        return claim
+
+    async def fill_gap_with_model(
+        self,
+        gap_id: str,
+        router: Any,
+        *,
+        mode: str = "delegate",
+    ) -> dict[str, Any]:
+        """Ask the planning model for options, then fill the first one."""
+        options = await self.gap_options_with_model(gap_id, router)
+        if not options:
+            raise ValueError(f"model returned no options for gap {gap_id}")
+        return self.fill_gap(gap_id, value=options[0], mode=mode, rationale="model proposal")
+
+    def write_review_sheets(self) -> list[Path]:
+        """Write character/location/theme/plot Markdown projections."""
+        return sb.write_sheets(self.load_story_brief(), self.sheets_dir)
+
+    def _find_gap(self, gap_id: str) -> dict[str, Any]:
+        for gap in sb.detect_gaps(self.load_story_brief()):
+            if gap.get("gap_id") == gap_id:
+                return gap
+        raise KeyError(f"unknown gap_id: {gap_id}")
+
     # ---- expansion -----------------------------------------------------
 
     def expand_to_surface_drafts(
@@ -430,6 +644,7 @@ class IdeaSessionCapture:
         to deepen.
         """
         capture = self.load()
+        brief = self.load_story_brief()
         target_surfaces = surfaces or list(SURFACES)
         written: list[Path] = []
         skipped: list[Path] = []
@@ -458,7 +673,7 @@ class IdeaSessionCapture:
                 continue
 
             artifact_path = self.paths.workflows_dir / f"{surface}.json"
-            draft = self._build_surface_draft(surface, capture)
+            draft = self._build_surface_draft(surface, capture, brief)
             errors = _validate_surface_draft(surface, draft)
             if errors:
                 raise RuntimeError(
@@ -573,6 +788,8 @@ class IdeaSessionCapture:
             "next_steps": [
                 "Fill session.md during the idea chat.",
                 "Move settled notes into capture.json decisions and surface_handoffs.",
+                "Add confirmed claims to story_brief.json as the eight writer decisions settle.",
+                "Run `python scripts/story_brief.py status` to see gaps before expanding.",
                 "Run `python scripts/idea_session_capture.py expand` to pre-seed the six surfaces.",
                 "Author the six workflow-kit surfaces from the seeded drafts.",
                 "Run scripts/compile_bundle.py after the six surfaces are ready.",
@@ -632,6 +849,12 @@ class IdeaSessionCapture:
 
             -
 
+            ## Story Brief Review
+
+            - `story_brief.json` is the canonical planning model: claims carry origin, confidence, status, and source.
+            - `sheets/` holds reviewable character, location, theme, and plot projections.
+            - Confirmed = author-owned. Proposed = inferred, awaiting review. Delegated = the author said "you choose."
+
             ## Surface Notes
 
             ### Universe
@@ -666,6 +889,11 @@ class IdeaSessionCapture:
 
             - `capture.json` — machine-readable session state (mutated by
               both Claude Code and Codex through `IdeaSessionCapture`).
+            - `story_brief.json` — canonical claim ledger: characters,
+              locations, themes, plot, world, voice, and open questions.
+            - `sheets/` — reviewable Markdown projections generated from the
+              brief (`characters/*.md`, `locations/*.md`, `themes/*.md`,
+              `plot.md`).
             - `session.md` — live planning notes; free-form.
             - `raw_transcript.md` — optional pasted/exported chat transcript.
             - `surface_handoffs/*.md` — per-surface notes the downstream
@@ -677,14 +905,18 @@ class IdeaSessionCapture:
                or Codex via `AGENTS.md`).
             2. Mutate state through `IdeaSessionCapture` calls; the agent
                does the conversation, the api does the writes.
-            3. When north-star is settled and you have at least a few
+            3. Add author-owned claims to `story_brief.json`; inferred
+               values stay `proposed` until confirmed.
+            4. Run `python scripts/story_brief.py status` to see gaps, then
+               `python scripts/story_brief.py sheets` for review sheets.
+            5. When north-star is settled and you have at least a few
                decisions, run:
                ```bash
                python scripts/idea_session_capture.py expand --title "<title>" --franchise "<franchise>"
                ```
                This pre-seeds the six workflow-kit surface artifacts.
-            4. Author each surface from its seeded draft.
-            5. Compile with `python scripts/compile_bundle.py`.
+            6. Author each surface from its seeded draft.
+            7. Compile with `python scripts/compile_bundle.py`.
             """
         )
 
@@ -777,13 +1009,16 @@ class IdeaSessionCapture:
         self,
         surface: str,
         capture: dict[str, Any],
+        brief: dict[str, Any],
     ) -> dict[str, Any]:
         """Build a schema-valid skeleton surface artifact from capture state.
 
         Each skeleton passes the surface validator on write — required
         fields land with EDIT_ME placeholders that satisfy minLength /
         minItems / enum constraints. The downstream surface session
-        replaces the placeholders with real content.
+        replaces the placeholders with real content. Confirmed Story Brief
+        claims are used where they exist; proposed/delegated claims remain
+        visible through the review sheets.
         """
         north_star = capture.get("north_star") or {}
         relationship = capture.get("relationship") or {}
@@ -856,21 +1091,49 @@ class IdeaSessionCapture:
             artifact: dict[str, Any] = {**common_envelope}
             artifact["meta"] = meta
             artifact["universe_meta"] = universe_meta
+            brief_pitch = sb.resolve_value(brief, "intent", "book", "one_sentence_pitch")
+            brief_premise = sb.resolve_value(brief, "plot", "main", "premise")
+            brief_core = sb.resolve_value(brief, "intent", "book", "emotional_core")
+            brief_promise = sb.resolve_value(brief, "intent", "book", "reader_promise")
+            brief_theme = sb.resolve_value(brief, "theme", "main", "question")
             # Optional sections — fill only when the capture has content.
-            if north_star.get("one_sentence_pitch"):
-                artifact["premise"] = {
-                    "what_if": (
+            pitch = brief_pitch or north_star.get("one_sentence_pitch")
+            if pitch:
+                premise_text = brief_premise or pitch
+                what_if = (
+                    premise_text if len(str(premise_text)) >= 50
+                    else (
                         f"<EDIT_ME — restate as a >=50-char 'What if' premise. "
-                        f"Seed: {north_star['one_sentence_pitch']}"
-                    ),
-                    "logline": north_star["one_sentence_pitch"],
+                        f"Seed: {premise_text}"
+                    )
+                )
+                artifact["premise"] = {
+                    "what_if": what_if,
+                    "logline": pitch,
                 }
-            if north_star.get("emotional_core") or north_star.get("author_intent"):
+            if brief_promise:
+                artifact.setdefault("extended_metadata", {})["reader_promise"] = brief_promise
+            brief_locations = [
+                {
+                    "id": loc_id,
+                    "name": sb.entity_name(brief, "location", loc_id),
+                    "function": sb.resolve_value(brief, "location", loc_id, "function"),
+                    "control": sb.resolve_value(brief, "location", loc_id, "control"),
+                }
+                for loc_id in sb.entity_ids(brief, "location")
+            ]
+            if brief_locations:
+                artifact.setdefault("extended_metadata", {})["locations"] = brief_locations
+            brief_world_rule = sb.resolve_value(brief, "world", "world", "rule")
+            if brief_world_rule:
+                artifact.setdefault("extended_metadata", {})["world_rules"] = [brief_world_rule]
+            if brief_core or brief_theme or north_star.get("emotional_core") or north_star.get("author_intent"):
                 artifact["theme"] = {}
-                if north_star.get("emotional_core"):
-                    artifact["theme"]["thematic_premise"] = north_star["emotional_core"]
+                thematic = brief_theme or brief_core or north_star.get("emotional_core")
+                if thematic:
+                    artifact["theme"]["thematic_premise"] = thematic
             if north_star.get("non_negotiables") or north_star.get("avoid"):
-                artifact["extended_metadata"] = {}
+                artifact.setdefault("extended_metadata", {})
                 if north_star.get("non_negotiables"):
                     artifact["extended_metadata"]["non_negotiables"] = list(
                         north_star["non_negotiables"]
@@ -911,6 +1174,12 @@ class IdeaSessionCapture:
                 "anti_slop_rules": [],
                 "anti_patterns": [],
             }
+            brief_pov = sb.resolve_value(brief, "voice", "book", "pov")
+            brief_register = sb.resolve_value(brief, "voice", "book", "register")
+            if brief_pov:
+                voice_def["pov_approach"] = str(brief_pov)
+            if brief_register:
+                voice_def["prose_register"] = str(brief_register)
             if north_star.get("author_intent"):
                 voice_def["narrative_voice_notes"] = north_star["author_intent"]
             artifact["voice_definition"] = voice_def
@@ -932,18 +1201,49 @@ class IdeaSessionCapture:
                     "to choose under stakes; >=50 chars.>"
                 ),
             }
-            artifact["ensemble_cast"] = [
-                {
-                    "name": "<EDIT_ME — Protagonist Name>",
-                    "role": "protagonist",
-                    "three_dimensions": dict(placeholder_three_dim),
-                },
-                {
+            cast: list[dict[str, Any]] = []
+            for char_id in sb.entity_ids(brief, "character"):
+                values = sb.entity_values(brief, "character", char_id)
+                name = sb.entity_name(brief, "character", char_id)
+                dimensions = dict(placeholder_three_dim)
+                surface = str(values.get("surface") or "")
+                if len(surface) >= 50:
+                    dimensions["surface"] = surface
+                wound = str(values.get("ghost") or values.get("lie_believed") or "")
+                if len(wound) >= 50:
+                    dimensions["backstory_inner_demons"] = wound
+                pressure = str(values.get("action_under_pressure") or "")
+                if len(pressure) >= 50:
+                    dimensions["action_under_pressure"] = pressure
+                item: dict[str, Any] = {
+                    "name": name,
+                    "role": str(values.get("role") or "supporting"),
+                    "three_dimensions": dimensions,
+                }
+                for key in ("want", "need", "lie_believed", "arc_type", "voice"):
+                    if values.get(key):
+                        item[key] = values[key]
+                cast.append(item)
+            if not cast:
+                cast = [
+                    {
+                        "name": "<EDIT_ME — Protagonist Name>",
+                        "role": "protagonist",
+                        "three_dimensions": dict(placeholder_three_dim),
+                    },
+                    {
+                        "name": "<EDIT_ME — Antagonist or Co-Lead Name>",
+                        "role": "antagonist",
+                        "three_dimensions": dict(placeholder_three_dim),
+                    },
+                ]
+            elif len(cast) == 1:
+                cast.append({
                     "name": "<EDIT_ME — Antagonist or Co-Lead Name>",
                     "role": "antagonist",
                     "three_dimensions": dict(placeholder_three_dim),
-                },
-            ]
+                })
+            artifact["ensemble_cast"] = cast
             artifact["referenced_characters"] = []
             artifact["relationship_arcs"] = []
             artifact["_weiland_notes"] = (
@@ -955,19 +1255,25 @@ class IdeaSessionCapture:
 
         if surface == "outline":
             artifact = {**common_envelope}
+            brief_beats = {
+                "inciting_incident": sb.resolve_value(brief, "plot", "main", "inciting_incident"),
+                "midpoint": sb.resolve_value(brief, "plot", "main", "midpoint"),
+                "climax": sb.resolve_value(brief, "plot", "main", "climax"),
+                "part_4_resolution": sb.resolve_value(brief, "plot", "main", "resolution"),
+            }
             artifact["structural_notes"] = {
                 "brooks_alignment": {
                     "part_1_setup": "",
-                    "inciting_incident": "",
+                    "inciting_incident": str(brief_beats["inciting_incident"] or ""),
                     "first_plot_point": "",
                     "part_2_response": "",
                     "first_pinch_point": "",
-                    "midpoint": "",
+                    "midpoint": str(brief_beats["midpoint"] or ""),
                     "part_3_attack": "",
                     "second_pinch_point": "",
                     "second_plot_point": "",
-                    "part_4_resolution": "",
-                    "climax": "",
+                    "part_4_resolution": str(brief_beats["part_4_resolution"] or ""),
+                    "climax": str(brief_beats["climax"] or ""),
                 },
                 "_scene_count_discipline": (
                     "Chapters carry as many or as few scenes as the dramatic "

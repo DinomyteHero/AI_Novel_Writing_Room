@@ -1,6 +1,6 @@
 ---
 name: idea-session-capture
-description: Workflow-kit front door for the first author-led planning chat. Run a four-pass session (Spark → Foundation → Deepening → Production Handoff) and preserve decisions, open questions, and per-surface handoff briefs that the six downstream surfaces (universe, canon, voice, characters, outline, scene_cards) consume. Use when starting a new project from a fuzzy idea, or when revisiting north-star intent before re-authoring surfaces. Produces workflows/idea_session/capture.json + session.md + surface_handoffs/*.md.
+description: Workflow-kit front door for the first author-led planning chat. Run a four-pass session (Spark → Foundation → Deepening → Production Handoff), capture decisions and open questions, and maintain a claim-ledger Story Brief with reviewable character/location/theme/plot/world sheets. Use when starting a new project from a fuzzy idea, or when revisiting north-star intent before re-authoring surfaces. Produces workflows/idea_session/capture.json + story_brief.json + sheets/ + surface_handoffs/*.md.
 allowed-tools: Read, Write, Edit, Glob, Grep, Bash
 ---
 
@@ -17,8 +17,10 @@ The api.py entry point is
 `workflows.idea_session_capture.api.IdeaSessionCapture`. With a capture
 already populated, `IdeaSessionCapture.expand_to_surface_drafts()` pre-seeds
 `workflows/{universe,canon,voice,characters,outline}.json` skeletons from
-the capture so the downstream surface authors open a partly-filled draft
-instead of a blank file.
+the capture and confirmed Story Brief claims so the downstream surface authors
+open a partly-filled draft instead of a blank file. `write_review_sheets()`
+writes the reviewable character/location/theme/plot/world Markdown under
+`workflows/idea_session/sheets/`.
 
 This surface is the **only** surface that is portable Claude Code ↔ Codex:
 the conversation lives in `workflows/idea_session_capture/SKILL.md` (a plain

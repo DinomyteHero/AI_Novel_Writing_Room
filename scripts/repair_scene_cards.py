@@ -4,8 +4,8 @@
 Fills gaps WITHOUT clobbering authored content (every field is filled only when
 it is blank or a placeholder):
 
-- stakes.personal       <- POV character's Fear / Private wound from the voice
-                           profile
+- stakes.personal       <- POV character's Fear / Private wound from the
+                           Story Brief claim ledger
 - stakes.interpersonal  <- a relationship-dynamics prompt
 - sensory_details       <- a sensory-focus prompt
 - pov_arc_phase         <- "<Character>:<phase>" derived from the Weiland
@@ -23,7 +23,14 @@ from __future__ import annotations
 import argparse
 import json
 import re
+import sys
 from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from src.planning import story_brief as sb  # noqa: E402
 
 _PLACEHOLDER_RE = re.compile(r"EDIT_ME|TODO|per concept_seed|placeholder", re.IGNORECASE)
 
@@ -91,8 +98,8 @@ def get_active_phase(chapter, chapter_to_phase: dict[int, str]) -> str | None:
 
 def repair_cards(book_dir: Path, *, dry_run: bool = False) -> int:
     scene_cards_dir = book_dir / "scene_cards"
-    voice_dir = book_dir / "voice_profiles"
     concept_seed_path = book_dir / "concept_seed.json"
+    brief_path = book_dir / "workflows" / "idea_session" / "story_brief.json"
 
     if not concept_seed_path.exists():
         print(f"Error: {concept_seed_path} not found.")
@@ -104,26 +111,33 @@ def repair_cards(book_dir: Path, *, dry_run: bool = False) -> int:
     seed = json.loads(concept_seed_path.read_text(encoding="utf-8"))
     ensemble_cast = seed.get("ensemble_cast", []) or []
 
-    voice_profiles: dict[str, dict] = {}
-    if voice_dir.is_dir():
-        for vp_path in voice_dir.glob("*.json"):
-            try:
-                vp = json.loads(vp_path.read_text(encoding="utf-8"))
-            except (json.JSONDecodeError, OSError):
-                continue
-            if isinstance(vp, dict) and vp.get("id"):
-                voice_profiles[vp["id"]] = vp
-
+    character_voices: dict[str, dict] = {}
     arc_maps: dict[str, dict[int, str]] = {}
+    if brief_path.exists():
+        brief = sb.load_brief(brief_path)
+        for char_id in sb.entity_ids(brief, "character"):
+            values = sb.entity_values(brief, "character", char_id)
+            name = str(values.get("name") or char_id.replace("_", " ").title())
+            fields = {
+                "Fear": values.get("fear"),
+                "Private wound": values.get("private_wound") or values.get("ghost"),
+            }
+            profile = {"id": char_id, "name": name, "fields": fields}
+            character_voices[char_id] = profile
+            character_voices[name] = profile
+            phase_map = values.get("arc_phase_map")
+            if isinstance(phase_map, dict):
+                arc_maps[name] = parse_arc_phases(phase_map)
+
     for char in ensemble_cast:
         if not isinstance(char, dict) or not char.get("name"):
             continue
-        arc_maps[char["name"]] = parse_arc_phases(
+        arc_maps.setdefault(char["name"], parse_arc_phases(
             (char.get("weiland_arc") or {}).get("arc_phase_map", {})
-        )
+        ))
 
     cast_names = list(arc_maps.keys())
-    vp_ids = list(voice_profiles.keys())
+    vp_ids = list(character_voices.keys())
 
     changed = 0
     skipped = 0
@@ -141,7 +155,7 @@ def repair_cards(book_dir: Path, *, dry_run: bool = False) -> int:
 
         if pov_token:
             vp_id = _resolve(pov_token, vp_ids)
-            vp = voice_profiles.get(vp_id) if vp_id else None
+            vp = character_voices.get(vp_id) if vp_id else None
 
             stakes = card.get("stakes")
             if not isinstance(stakes, dict):

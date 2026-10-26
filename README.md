@@ -126,7 +126,7 @@ For the full operator path, see [New Manuscript Workflow](docs/user-guide/new-ma
 ### Prerequisites
 
 - Python 3.10+
-- Node.js 18+ (for the optional web dashboard)
+- Node.js 18+ (for the optional read-only web console)
 - An [OpenRouter](https://openrouter.ai/) API key (cloud / hybrid mode), or a local [llama-server](https://github.com/ggerganov/llama.cpp) instance (local mode)
 
 ### Installation
@@ -165,7 +165,16 @@ The conversational front door is the idea-session capture:
 python scripts/idea_session_capture.py init --title "My Novel" --franchise "My Franchise"
 ```
 
-That workspace captures the early chat, decisions, and open questions, then pre-seeds the six workflow surfaces. From there, follow [New Manuscript Workflow](docs/user-guide/new-manuscript-workflow.md) for the full A-to-Z path.
+That workspace captures the early chat, decisions, and open questions, and
+maintains `story_brief.json` — the claim ledger for characters, locations,
+themes, plot, world, and voice. Check coverage and write review sheets:
+
+```bash
+python scripts/story_brief.py status --title "My Novel" --franchise "My Franchise"
+python scripts/story_brief.py sheets --title "My Novel" --franchise "My Franchise"
+```
+
+Then pre-seed the six workflow surfaces. From there, follow [New Manuscript Workflow](docs/user-guide/new-manuscript-workflow.md) for the full A-to-Z path.
 
 ### Run the web interface (optional)
 
@@ -178,7 +187,9 @@ python -m src.ui.server \
   data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/concept_seed.json
 ```
 
-Open http://localhost:8000 in your browser. Live pipeline control, event stream over WebSocket, chapter / state inspectors.
+Open http://localhost:8000 in your browser. The web app is a **read-only
+review console**: saved chapters and ledger events only. Drafting, review
+actions, and export run through the CLI.
 
 ## How the per-scene pipeline works
 
@@ -249,9 +260,10 @@ output/<franchise>/<series>/state/
 | [CLI Usage](docs/user-guide/cli-usage.md) | All CLI flags and examples |
 | [New Manuscript Workflow](docs/user-guide/new-manuscript-workflow.md) | End-to-end path from idea chat to final validated export |
 | [Idea Session Capture](docs/user-guide/idea-session-capture.md) | Guided planning chat capture before the six workflow surfaces |
+| [Story Brief](docs/user-guide/story-brief.md) | Claim ledger, gap policy, and reviewable character/location/theme/plot sheets |
 | [Workflow Kit](docs/user-guide/workflow-kit.md) | Six-surface concept authoring (universe / canon / voice / characters / outline / scene cards) |
 | [Final Copy Pipeline](docs/user-guide/final-copy-pipeline.md) | Scene-level literary-copy diagnostics and donor-polish lane |
-| [Web Interface](docs/user-guide/web-interface.md) | Dashboard walkthrough |
+| [Web Interface](docs/user-guide/web-interface.md) | Read-only book/chapter console |
 | **Architecture** | |
 | [System Overview](docs/architecture/system-overview.md) | Components, data flow, directory structure |
 | [Agent Pipeline](docs/architecture/agent-pipeline.md) | The lean multi-agent generation loop |
@@ -259,7 +271,7 @@ output/<franchise>/<series>/state/
 | [Memory & State](docs/architecture/memory-and-state.md) | SQLite, ChromaDB, knowledge layers |
 | [Quality & Revision](docs/architecture/quality-and-revision.md) | The lean quality model: upstream enforcement, advisory telemetry, post-production review |
 | **Reference** | |
-| [API Reference](docs/reference/api-reference.md) | FastAPI endpoints and WebSocket events |
+| [API Reference](docs/reference/api-reference.md) | Read-only FastAPI endpoints |
 | [Configuration](docs/reference/configuration.md) | settings.yaml, runtime flags, constraints |
 | [Schemas](docs/reference/schemas.md) | JSON schema definitions |
 | **Development** | |
@@ -280,7 +292,10 @@ pytest -k "test_orchestrator"       # Run a subset
 
 The repo ships the full **planning inputs** for one end-to-end reference book: **The Ruusan Atonement**, a fan-fiction concept set in the Star Wars Legends Expanded Universe (New Sith Wars era). Running the pipeline on those inputs produces a 28-chapter, ~113,000-word manuscript (draft → GPT-5.4 review → targeted revision).
 
-The generated manuscript itself is **not committed** — everything under `output/` is gitignored to keep the repository lean. The inputs that produce it are checked in at [`data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/`](data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/), so the run is reproducible from the inputs alone — see [Run the bundled example](#run-the-bundled-example).
+The generated manuscript itself is **not part of the default repository**. Most
+runtime output is gitignored (`output/*/*/state/`, `export/`, and `runs/`), but
+a few curated reference run files may be force-added. The inputs that produce a
+book are checked in at [`data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/`](data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/), so the run is reproducible from the inputs alone — see [Run the bundled example](#run-the-bundled-example).
 
 **Treat it as a base test of the pipeline, not an example of polished storytelling.** The point is to demonstrate that the system can take guided author planning all the way through to a reviewed, validated long-form manuscript — not to ship a novel for reading.
 

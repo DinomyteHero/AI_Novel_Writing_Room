@@ -68,21 +68,3 @@ async def test_manuscript_summary(client):
     data = resp.json()
     assert data["chapter_count"] == 2
     assert data["total_word_count"] > 0
-
-
-@pytest.mark.asyncio
-async def test_export_not_available(client):
-    resp = await client.post("/api/export", json={"formats": ["md"]})
-    assert resp.status_code == 503
-
-
-@pytest.mark.asyncio
-async def test_download_no_exports(client):
-    resp = await client.get("/api/export/download/md")
-    assert resp.status_code == 404
-
-
-@pytest.mark.asyncio
-async def test_download_invalid_format(client):
-    resp = await client.get("/api/export/download/pdf")
-    assert resp.status_code == 400

@@ -55,7 +55,7 @@ A pre-draft check that walks the ordered scene-card list at bundle-compile time 
 
 After the per-scene pipeline finishes and prose is saved, manuscript-level editorial passes run separately. They never rewrite prose in place during a drafting run — mutations route through `scripts/patch_workflow.py`.
 
-- **Manuscript reviewer.** `src/agents/manuscript_reviewer.py` consumes the assembled manuscript for a developmental-pass review (the live route uses GPT-5.4). Output becomes an editorial docket; categorized issues can also land in revision-debt rows for human triage.
+- **Manuscript reviewer.** `src/agents/manuscript_reviewer.py` consumes the assembled manuscript for a developmental-pass review (the live route uses GPT-5.4) and returns structured JSON. It has no CLI wrapper and does not write revision-debt rows; persist the findings manually.
 - **Literary polish + final copy.** `src/agents/literary_polish.py` + `src/pipeline/final_copy.py` run a higher-tier line-level polish *after* drafting. Targeted cleanup is the default final polish branch; full literary polish is an opt-in donor/comparison branch. Configured under `runtime.final_copy.*`.
 
 See [Manuscript Production Lifecycle](manuscript-production-lifecycle.md) for the full operator sequence.

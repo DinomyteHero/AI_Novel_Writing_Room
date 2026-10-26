@@ -377,3 +377,44 @@ def test_pending_as_of_chapter_includes_unpaid_from_prior_chapters(ledger):
     ])
     pending = ledger.pending_as_of_chapter(3)
     assert [r["promise_id"] for r in pending] == ["P1"]
+
+
+def test_initialize_reads_canonical_top_level_ledger(ledger):
+    """Workflow-kit seeds carry the ledger at the top level."""
+    concept_seed = {
+        "promise_payoff_ledger": [{
+            "promise_id": "PP01",
+            "description": "top-level promise",
+            "planted_chapter": 2,
+            "payoff_chapter": 8,
+            "type": "plot",
+        }],
+    }
+
+    assert ledger.initialize_from_planning(
+        concept_seed=concept_seed, scene_cards=[],
+    ) == 1
+    row = ledger.get("PP01")
+    assert row["description"] == "top-level promise"
+    assert row["setup_scene"] == "ch02_sc01"
+    assert row["due_by_scene"] == "ch08_sc99"
+
+
+def test_reseed_preserves_runtime_payoff_scene(ledger):
+    """Planning re-seeds must not erase where a paid promise was paid."""
+    concept_seed = {
+        "promise_payoff_ledger": [{
+            "promise_id": "PP01",
+            "description": "x",
+            "planted_chapter": 1,
+            "type": "plot",
+        }],
+    }
+    ledger.initialize_from_planning(concept_seed=concept_seed, scene_cards=[])
+    ledger.record_payoff(promise_id="PP01", scene_id="ch01_sc02")
+
+    ledger.initialize_from_planning(concept_seed=concept_seed, scene_cards=[])
+
+    row = ledger.get("PP01")
+    assert row["status"] == "paid"
+    assert row["payoff_scene"] == "ch01_sc02"

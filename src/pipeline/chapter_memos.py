@@ -148,7 +148,14 @@ def _render_markdown(memo: Mapping[str, Any]) -> str:
         parts.append("")
         parts.append("## Pending Promises")
         for p in memo["pending_promises"]:
-            parts.append(f"- {p}")
+            if isinstance(p, Mapping):
+                label = p.get("promise_id") or p.get("id") or "?"
+                description = p.get("description") or p.get("summary") or ""
+                due = p.get("due_by_scene")
+                suffix = f" (due {due})" if due else ""
+                parts.append(f"- {label}: {description}{suffix}")
+            else:
+                parts.append(f"- {p}")
 
     if memo.get("debt_trend"):
         parts.append("")
@@ -194,6 +201,7 @@ class ChapterCloseMemoGenerator:
             if self.debt_store is not None
             else []
         )
+        open_rows = [r for r in debt_rows if r.get("status") == "open"]
         gap_rows: list[dict] = []
         if self.story_state is not None:
             try:
@@ -202,8 +210,8 @@ class ChapterCloseMemoGenerator:
                 logger.exception("list_open_gaps failed for chapter %s", chapter_number)
         pending_promises = self._pending_promises(chapter_number)
 
-        presence_near_misses = _count_by_category(debt_rows, "presence_near_miss")
-        compression_events = _count_by_category(debt_rows, "compression_advisory")
+        presence_near_misses = _count_by_category(open_rows, "presence_near_miss")
+        compression_events = _count_by_category(open_rows, "compression_advisory")
         wc_events = [r for r in debt_rows if r.get("category") == "wordcount_drift"]
         max_abs_pct = 0.0
         for r in wc_events:
@@ -216,9 +224,9 @@ class ChapterCloseMemoGenerator:
             "chapter_number": chapter_number,
             "generated_at": datetime.now(timezone.utc).isoformat(),
             "debt_summary": {
-                "counts_by_category": _counts_by(debt_rows, "category"),
-                "counts_by_severity": _counts_by(debt_rows, "severity"),
-                "open_debt_ids": _open_ids(debt_rows),
+                "counts_by_category": _counts_by(open_rows, "category"),
+                "counts_by_severity": _counts_by(open_rows, "severity"),
+                "open_debt_ids": _open_ids(open_rows),
             },
             "gap_notes": _gap_summary(gap_rows),
             "open_gap_count": sum(1 for g in gap_rows if g.get("status") == "open"),
@@ -230,7 +238,7 @@ class ChapterCloseMemoGenerator:
                 "max_abs_pct": max_abs_pct,
             },
             "human_attention_items": _synthesize_attention_items(
-                rows=debt_rows, gaps=gap_rows, pending_promises=pending_promises,
+                rows=open_rows, gaps=gap_rows, pending_promises=pending_promises,
             ),
         }
         return memo
@@ -277,6 +285,7 @@ class MilestoneMemoGenerator:
 
     def generate(self, *, through_chapter: int) -> dict:
         all_rows = self.debt_store.list_all() if self.debt_store is not None else []
+        open_rows = [r for r in all_rows if r.get("status") == "open"]
         per_chapter: list[dict] = []
         for ch in range(1, through_chapter + 1):
             rows_ch = [
@@ -291,48 +300,57 @@ class MilestoneMemoGenerator:
         gap_rows: list[dict] = []
         if self.story_state is not None:
             try:
-                # No chapter filter \u2014 pull everything and aggregate.
-                gap_rows = self.story_state.list_open_gaps()
+                # Milestone memos need the resolution rate, so include closed
+                # gaps as well as open ones.
+                gap_rows = self.story_state.list_all_gaps()
             except Exception:  # noqa: BLE001
-                logger.exception("list_open_gaps failed for milestone memo")
+                logger.exception("list_all_gaps failed for milestone memo")
 
         resolved = sum(1 for g in gap_rows if g.get("status") in ("resolved", "overruled"))
         total = len(gap_rows)
         resolution_rate = resolved / total if total else 1.0
         open_count = sum(1 for g in gap_rows if g.get("status") == "open")
 
-        # Recommend any chapter with a high-severity or canon debt row.
+        # Recommend any chapter with an open high-severity or canon debt row.
         recommended = sorted({
             (r.get("scope") or {}).get("chapter_number")
-            for r in all_rows
+            for r in open_rows
             if r.get("severity") == "high" or r.get("category") == "canon"
         } - {None})
 
         pending_promises = self._pending_promises(through_chapter)
+        wc_events = [r for r in all_rows if r.get("category") == "wordcount_drift"]
+        max_abs_pct = max(
+            (
+                abs(float((r.get("details") or {}).get("pct_drift") or 0.0))
+                for r in wc_events
+            ),
+            default=0.0,
+        )
 
         memo = {
             "kind": "milestone",
             "through_chapter": through_chapter,
             "generated_at": datetime.now(timezone.utc).isoformat(),
             "debt_summary": {
-                "counts_by_category": _counts_by(all_rows, "category"),
-                "counts_by_severity": _counts_by(all_rows, "severity"),
-                "open_debt_ids": _open_ids(all_rows),
+                "counts_by_category": _counts_by(open_rows, "category"),
+                "counts_by_severity": _counts_by(open_rows, "severity"),
+                "open_debt_ids": _open_ids(open_rows),
             },
             "debt_trend": per_chapter,
             "gap_notes": _gap_summary(gap_rows),
             "gap_resolution_rate": resolution_rate,
             "open_gap_count": open_count,
             "pending_promises": pending_promises,
-            "presence_near_misses": _count_by_category(all_rows, "presence_near_miss"),
-            "compression_events": _count_by_category(all_rows, "compression_advisory"),
+            "presence_near_misses": _count_by_category(open_rows, "presence_near_miss"),
+            "compression_events": _count_by_category(open_rows, "compression_advisory"),
             "word_count_drift": {
-                "events": _count_by_category(all_rows, "wordcount_drift"),
-                "max_abs_pct": 0.0,
+                "events": len(wc_events),
+                "max_abs_pct": max_abs_pct,
             },
             "recommended_review_chapters": list(recommended),
             "human_attention_items": _synthesize_attention_items(
-                rows=all_rows, gaps=gap_rows, pending_promises=pending_promises,
+                rows=open_rows, gaps=gap_rows, pending_promises=pending_promises,
             ),
         }
         return memo

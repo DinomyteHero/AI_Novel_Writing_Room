@@ -197,18 +197,6 @@ def negative_constraints():
 
 
 @pytest.fixture
-def metrics_dashboard(mock_embedding_function):
-    """MetricsDashboard with mock embedding."""
-    from src.quality.metrics_dashboard import MetricsDashboard
-    return MetricsDashboard(
-        negative_constraints_path=str(
-            Path(__file__).parent.parent / "config" / "negative_constraints.yaml"
-        ),
-        embedding_function=mock_embedding_function,
-    )
-
-
-@pytest.fixture
 def sample_prose():
     """Clean prose for quality testing — no AI-tells or banned phrases."""
     return (

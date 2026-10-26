@@ -87,6 +87,15 @@ def status_command(args: argparse.Namespace) -> int:
         "Ready for expand: "
         + ("yes" if snapshot.ready_for_expand else "no (set north_star pitch + add a decision)")
     )
+    try:
+        cov = capture.story_coverage()
+        print(
+            "Story Brief: "
+            f"{cov['claims_confirmed']} confirmed, {cov['claims_proposed']} proposed, "
+            f"{cov['gaps_essential']} essential gaps"
+        )
+    except FileNotFoundError:
+        pass
     print("Surface handoffs:")
     for surface in SURFACES:
         block = snapshot.handoff_status.get(surface, {})

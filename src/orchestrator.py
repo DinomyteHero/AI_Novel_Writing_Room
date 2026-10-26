@@ -230,7 +230,7 @@ class Orchestrator:
             )
             if len(active_cards) < len(scene_cards):
                 skipped = len(scene_cards) - len(active_cards)
-                print(f"Resuming session '{self.session_id}' — skipping {skipped} completed chapter(s)")
+                print(f"Resuming session '{self.session_id}' — skipping {skipped} completed scene(s)")
                 self.ledger.emit(
                     "session_resume",
                     payload={"session_id": self.session_id, "skipped": skipped},
@@ -301,7 +301,15 @@ class Orchestrator:
 
         self.ledger.emit(
             "pipeline_complete",
-            payload={"chapters_generated": len(results)},
+            payload={
+                "chapters_generated": sum(
+                    1 for r in results if r.get("status") != "failed"
+                ),
+                "scenes_processed": len(results),
+                "scenes_failed": sum(
+                    1 for r in results if r.get("status") == "failed"
+                ),
+            },
         )
         return results
 
@@ -342,13 +350,15 @@ class Orchestrator:
         # Step 3: optional LineWriter line-edit pass
         line_edit_attempted = False
         line_edit_applied = False
+        advisory = False
         if self._lean_line_edit and self.line_writer:
             source_before_line_edit = prose
             line_edit_attempted = True
-            prose = await self._run_line_writer(
+            prose, line_edit_advisory = await self._run_line_writer(
                 scene_card, generation_brief, prose
             )
             line_edit_applied = prose != source_before_line_edit
+            advisory = advisory or line_edit_advisory
         elif self._lean_line_edit and not self.line_writer:
             self.ledger.emit_warn(
                 "lean_line_edit_unavailable",
@@ -369,35 +379,39 @@ class Orchestrator:
                 scene_number=scene_num,
             )
             rhythm_edit_applied = prose != prose_before_rhythm
+            pre_edit = rhythm_telemetry.get("pre_edit") or {}
+            if pre_edit.get("issues"):
+                advisory = True
+
+        if not prose.strip():
+            # Do not write an empty file over a prior good save or report a
+            # zero-word scene as complete. run_pipeline records this as a
+            # failed scene and continues with the rest of the run.
+            raise RuntimeError(
+                f"drafter returned empty prose for chapter {chapter_num}, "
+                f"scene {scene_num}"
+            )
 
         output_path = self._save_chapter(chapter_num, scene_num, prose)
         word_count = len(prose.split())
         print(f"  Saved: {output_path}")
 
         # Post-save memory: summarizer -> state diff -> contradiction scan
-        # -> worldbuilding extraction. Wrapped so a failure never aborts a
-        # saved scene; next-scene state may be stale, so the warn is load-bearing.
+        # -> worldbuilding extraction. Each stage is guarded inside
+        # _run_post_save; this outer guard is the last-resort protection.
         summary_text = None
         contradiction_flags: list[dict] = []
         if self.summarizer:
             try:
                 summary_text, contradiction_flags = await self._run_post_save(
                     scene_card, prose, self._lean_skipped_evaluation(),
+                    advisory=advisory,
                 )
             except Exception as exc:  # noqa: BLE001
-                self.ledger.emit_warn(
-                    "post_save_error",
-                    chapter_number=chapter_num,
-                    scene_number=scene_num,
-                    payload={
-                        "stage": "run_post_save",
-                        "error": f"{type(exc).__name__}: {exc}",
-                    },
+                self._post_save_warn(
+                    "run_post_save", chapter_num, scene_num, exc,
                 )
-                print(
-                    f"  [WARN] post-save processing crashed: "
-                    f"{type(exc).__name__}: {exc} — scene saved, state may be stale"
-                )
+                print("  Scene saved; next-scene state may be stale")
 
         # Declared scene-card state overrides the Summarizer's extracted
         # diff (no-op when flag off).
@@ -413,6 +427,9 @@ class Orchestrator:
             payload={
                 "word_count": word_count,
                 "output_path": str(output_path),
+                "revision_status": (
+                    "saved_with_advisory" if advisory else "saved_clean"
+                ),
                 "line_edit_enabled": bool(self._lean_line_edit),
                 "line_edit_attempted": line_edit_attempted,
                 "line_edit_applied": line_edit_applied,
@@ -428,6 +445,7 @@ class Orchestrator:
             "output_path": str(output_path),
             "evaluation": self._lean_skipped_evaluation(),
             "word_count": word_count,
+            "revision_status": "saved_with_advisory" if advisory else "saved_clean",
             "lean_prose_only": True,
             "line_edit_attempted": line_edit_attempted,
             "line_edit_applied": line_edit_applied,
@@ -438,18 +456,101 @@ class Orchestrator:
             result["contradiction_flags"] = contradiction_flags
         return result
 
+    def _post_save_warn(
+        self,
+        stage: str,
+        chapter_num: int,
+        scene_num: int,
+        exc: Exception,
+    ) -> None:
+        """Record a post-save stage failure without aborting the scene."""
+        error = f"{type(exc).__name__}: {exc}"
+        self.ledger.emit_warn(
+            "post_save_error",
+            chapter_number=chapter_num,
+            scene_number=scene_num,
+            payload={"stage": stage, "error": error},
+        )
+        print(f"  [WARN] post-save stage '{stage}' failed: {error}")
+
+    def _refresh_chapter_log(
+        self,
+        *,
+        chapter_num: int,
+        scene_card: dict,
+        summary_text: str,
+        scores: dict,
+        failure_codes: list,
+        revision_status: str,
+    ) -> None:
+        """Rewrite the chapter row as an aggregate of its scene rows.
+
+        ``chapter_log`` is keyed by chapter_number, so writing it per scene
+        would leave only the last scene's word count and summary. Rebuild it
+        from ``scene_log`` after each scene instead.
+        """
+        scenes = self.story_state.get_chapter_scenes(chapter_num)
+        if not scenes:
+            return
+
+        total_words = sum(int(s.get("word_count") or 0) for s in scenes)
+        merged_scores: dict[str, float] = {}
+        score_series: dict[str, list[float]] = {}
+        for scene in scenes:
+            for key, value in (scene.get("quality_scores") or {}).items():
+                if isinstance(value, (int, float)):
+                    score_series.setdefault(key, []).append(float(value))
+        for key, values in score_series.items():
+            merged_scores[key] = sum(values) / len(values)
+
+        merged_failures = sorted({
+            code
+            for scene in scenes
+            for code in (scene.get("failure_codes") or [])
+        })
+
+        summaries = [
+            f"Scene {scene.get('scene_number')}: {scene.get('summary')}"
+            for scene in scenes
+            if scene.get("summary")
+        ]
+        latest = max(scenes, key=lambda s: int(s.get("scene_number") or 0))
+        overall_status = (
+            "saved_with_advisory"
+            if any(
+                scene.get("revision_status") == "saved_with_advisory"
+                for scene in scenes
+            )
+            else "saved_clean"
+        )
+
+        self.story_state.add_chapter_log(
+            chapter_number=chapter_num,
+            word_count=total_words,
+            structural_phase=latest.get("structural_phase") or scene_card.get("structural_phase", ""),
+            pov_character=latest.get("pov_character") or scene_card.get("pov_character", ""),
+            summary="\n\n".join(summaries) or summary_text,
+            quality_scores=merged_scores or scores,
+            failure_codes=merged_failures or failure_codes,
+            revision_status=overall_status or revision_status,
+        )
+
     async def _run_post_save(
         self,
         scene_card: dict,
         prose: str,
         evaluation: dict,
         *,
-        polish_rejected: bool = False,
+        advisory: bool = False,
     ) -> tuple[Optional[str], list[dict]]:
-        """Phase 2 post-save processing: summarize, update state, scan."""
+        """Phase 2 post-save processing: summarize, update state, scan.
+
+        Every stage is independently error-guarded: a failure in one stage
+        emits a ``post_save_error`` warn and the remaining stages still run.
+        """
         chapter_num = scene_card["chapter_number"]
         scene_num = scene_card.get("scene_number", 1)
-        summary_text = None
+        summary_text: Optional[str] = None
         contradiction_flags = []
 
         # Step 5: Summarizer produces summary + state diff
@@ -483,58 +584,71 @@ class Orchestrator:
             summarizer_context["rejected_transitions"] = self._rejected_transitions
             self._rejected_transitions = []
 
-        summary_result = await self.summarizer.run(summarizer_context)
-
-        duration_ms = int((time.time() - start) * 1000)
-        self.ledger.emit(
-            "summarizer_complete",
-            chapter_number=chapter_num,
-            scene_number=scene_num,
-            agent_role="summarizer",
-            payload={"duration_ms": duration_ms},
-        )
+        summary_result: dict = {}
+        try:
+            raw_summary = await self.summarizer.run(summarizer_context)
+            summary_result = raw_summary if isinstance(raw_summary, dict) else {}
+            duration_ms = int((time.time() - start) * 1000)
+            self.ledger.emit(
+                "summarizer_complete",
+                chapter_number=chapter_num,
+                scene_number=scene_num,
+                agent_role="summarizer",
+                payload={"duration_ms": duration_ms},
+            )
+        except Exception as exc:  # noqa: BLE001 - post-save must not abort the scene
+            self._post_save_warn("summarizer", chapter_num, scene_num, exc)
 
         summary_text = summary_result.get("summary", "")
         state_diff = summary_result.get("state_diff", {})
         established_concepts = summary_result.get("established_concepts", [])
 
         # Validate summarizer output completeness
-        if not summary_text:
-            print("  [WARN] Summarizer returned empty summary — downstream context will be degraded")
-        if not state_diff or not state_diff.get("changes"):
-            print("  [WARN] Summarizer returned empty state_diff — story state will not update")
-        if not established_concepts:
-            print("  [WARN] Summarizer returned no established_concepts — concept maturity tracking inactive for this scene")
+        if summary_result:
+            if not summary_text:
+                print("  [WARN] Summarizer returned empty summary — downstream context will be degraded")
+            if not state_diff or not state_diff.get("changes"):
+                print("  [WARN] Summarizer returned empty state_diff — story state will not update")
+            if not established_concepts:
+                print("  [WARN] Summarizer returned no established_concepts — concept maturity tracking inactive for this scene")
 
         # Step 6: Store summary in ChromaDB
         if self.chapter_memory and summary_text:
-            meta = {
-                "structural_phase": scene_card.get("structural_phase", ""),
-                "pov_character": scene_card.get("pov_character", ""),
-            }
-            # Store established concepts as JSON string in metadata
-            if established_concepts:
-                meta["established_concepts"] = json.dumps(established_concepts)
-            self.chapter_memory.add_summary(
-                chapter_num,
-                summary_text,
-                metadata=meta,
-                scene_number=scene_num,
-            )
-            print("  [P2-2] Summary stored in ChromaDB")
+            try:
+                meta = {
+                    "structural_phase": scene_card.get("structural_phase", ""),
+                    "pov_character": scene_card.get("pov_character", ""),
+                }
+                # Store established concepts as JSON string in metadata
+                if established_concepts:
+                    meta["established_concepts"] = json.dumps(established_concepts)
+                self.chapter_memory.add_summary(
+                    chapter_num,
+                    summary_text,
+                    metadata=meta,
+                    scene_number=scene_num,
+                )
+                print("  [P2-2] Summary stored in ChromaDB")
+            except Exception as exc:  # noqa: BLE001 - post-save must not abort the scene
+                self._post_save_warn("chapter_memory", chapter_num, scene_num, exc)
 
         # Step 7: Apply state diff to SQLite
         if self.state_diff_applier and state_diff.get("changes"):
-            self.state_diff_applier.apply_diff(state_diff, chapter_num, scene_num, scene_card=scene_card)
-            # Capture rejected transitions for Summarizer feedback on next scene
-            rejected = getattr(self.state_diff_applier, "last_rejected_transitions", [])
-            if rejected:
-                if not hasattr(self, "_rejected_transitions"):
-                    self._rejected_transitions = []
-                self._rejected_transitions.extend(rejected)
-            print("  [P2-3] State diff applied")
+            try:
+                self.state_diff_applier.apply_diff(
+                    state_diff, chapter_num, scene_num, scene_card=scene_card,
+                )
+                # Capture rejected transitions for Summarizer feedback on next scene
+                rejected = getattr(self.state_diff_applier, "last_rejected_transitions", [])
+                if rejected:
+                    if not hasattr(self, "_rejected_transitions"):
+                        self._rejected_transitions = []
+                    self._rejected_transitions.extend(rejected)
+                print("  [P2-3] State diff applied")
+            except Exception as exc:  # noqa: BLE001 - post-save must not abort the scene
+                self._post_save_warn("state_diff", chapter_num, scene_num, exc)
 
-        # Step 8: Update chapter log and scene log
+        # Step 8: Update scene log, then rebuild the chapter aggregate.
         if self.story_state:
             scores = {
                 "structural": evaluation.get("structural_score", 0),
@@ -545,53 +659,46 @@ class Orchestrator:
                 fc["code"] for fc in evaluation.get("failure_codes", [])
             ]
             word_count = len(prose.split())
-            # Status vocabulary collapsed to three saved-scene states:
-            #   - 'saved_clean'          — saved with no advisory
-            #   - 'saved_with_advisory'  — an advisory-level signal fired
-            #   - 'quarantined'          — scene blocked pre-save (not written
-            #                              through this path)
-            # The lean path runs no save-time gates, so a scene that reaches
-            # this point saves clean unless an explicit polish_rejected flag
-            # is threaded through.
-            if polish_rejected:
-                revision_status = "saved_with_advisory"
-            else:
-                revision_status = "saved_clean"
-            self.story_state.add_chapter_log(
-                chapter_number=chapter_num,
-                word_count=word_count,
-                structural_phase=scene_card.get("structural_phase", ""),
-                pov_character=scene_card.get("pov_character", ""),
-                summary=summary_text,
-                quality_scores=scores,
-                failure_codes=failure_codes,
-                revision_status=revision_status,
-            )
-            self.story_state.add_scene_log(
-                chapter_number=chapter_num,
-                scene_number=scene_num,
-                word_count=word_count,
-                structural_phase=scene_card.get("structural_phase", ""),
-                pov_character=scene_card.get("pov_character", ""),
-                summary=summary_text,
-                quality_scores=scores,
-                failure_codes=failure_codes,
-                revision_status=revision_status,
-            )
-            print("  [P2-4] Chapter/scene log updated")
+            revision_status = "saved_with_advisory" if advisory else "saved_clean"
+            try:
+                self.story_state.add_scene_log(
+                    chapter_number=chapter_num,
+                    scene_number=scene_num,
+                    word_count=word_count,
+                    structural_phase=scene_card.get("structural_phase", ""),
+                    pov_character=scene_card.get("pov_character", ""),
+                    summary=summary_text,
+                    quality_scores=scores,
+                    failure_codes=failure_codes,
+                    revision_status=revision_status,
+                )
+                self._refresh_chapter_log(
+                    chapter_num=chapter_num,
+                    scene_card=scene_card,
+                    summary_text=summary_text,
+                    scores=scores,
+                    failure_codes=failure_codes,
+                    revision_status=revision_status,
+                )
+                print("  [P2-4] Chapter/scene log updated")
+            except Exception as exc:  # noqa: BLE001 - post-save must not abort the scene
+                self._post_save_warn("story_state_log", chapter_num, scene_num, exc)
 
         # Step 9: Contradiction scanner
         if self.contradiction_scanner:
-            contradiction_flags = self.contradiction_scanner.scan(
-                chapter_num, prose, scene_card, scene_num
-            )
-            if contradiction_flags:
-                print(
-                    f"  [P2-5] Contradiction scanner: "
-                    f"{len(contradiction_flags)} flag(s)"
+            try:
+                contradiction_flags = self.contradiction_scanner.scan(
+                    chapter_num, prose, scene_card, scene_num
                 )
-            else:
-                print("  [P2-5] Contradiction scanner: clean")
+                if contradiction_flags:
+                    print(
+                        f"  [P2-5] Contradiction scanner: "
+                        f"{len(contradiction_flags)} flag(s)"
+                    )
+                else:
+                    print("  [P2-5] Contradiction scanner: clean")
+            except Exception as exc:  # noqa: BLE001 - post-save must not abort the scene
+                self._post_save_warn("contradiction_scan", chapter_num, scene_num, exc)
 
         # Step 10: Worldbuilding extraction (if enabled)
         if (self.lore_service and self._worldbuilding_auto_extract
@@ -1247,7 +1354,7 @@ class Orchestrator:
         scene_card: dict,
         generation_brief: dict,
         source_prose: str,
-    ) -> str:
+    ) -> tuple[str, bool]:
         """Run the LineWriter line-edit pass after the drafter.
 
         Preservation-critical context (scene_card, generation_brief,
@@ -1255,6 +1362,9 @@ class Orchestrator:
         EXPLICITLY — the agent does not reach back into the ambient assembler
         for those. Failures degrade to the source prose with a warn-level
         ledger event; they never block the pipeline.
+
+        Returns ``(prose, advisory)``. ``advisory`` is true when the edit
+        failed or collapsed and the drafter text was kept.
         """
         chapter_num = scene_card["chapter_number"]
         scene_num = scene_card.get("scene_number", 1)
@@ -1288,7 +1398,7 @@ class Orchestrator:
                 scene_number=scene_num,
                 payload={"error_class": e.__class__.__name__, "error": str(e)},
             )
-            return source_prose
+            return source_prose, True
 
         # Guardrail: if the edit collapsed below a sane floor, keep the
         # drafter prose rather than saving a degraded scene. 40% is a wide
@@ -1313,7 +1423,7 @@ class Orchestrator:
                     "ratio": revised_wc / source_wc if source_wc else 0,
                 },
             )
-            return source_prose
+            return source_prose, True
 
         duration_ms = int((time.time() - start) * 1000)
         self.ledger.emit(
@@ -1327,7 +1437,7 @@ class Orchestrator:
                 "revised_word_count": revised_wc,
             },
         )
-        return revised
+        return revised, False
 
     async def _maybe_rhythm_validate_and_edit(
         self,

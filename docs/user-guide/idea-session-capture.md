@@ -53,8 +53,16 @@ This writes:
 ```text
 data/franchises/<franchise>/books/<book>/workflows/idea_session/
   capture.json
+  story_brief.json
   session.md
   README.md
+  sheets/
+    characters/
+    locations/
+    themes/
+    plot.md
+    world.md
+    review.md
   surface_handoffs/
     universe.md
     canon.md
@@ -84,6 +92,23 @@ python scripts/idea_session_capture.py status \
 ```
 
 The status command reports decision counts, open-question counts, and the readiness of each surface handoff.
+
+## Story Brief And Gaps
+
+The capture workspace also contains `story_brief.json`, the author-owned claim
+ledger for characters, locations, themes, plot, world, and voice. Claims carry
+an origin (`author`, `inferred`, `delegated`, `import`), confidence, status, and
+optional source quote. Inferred values stay `proposed` until confirmed.
+
+```bash
+python scripts/story_brief.py status --title "Working Title" --franchise "Franchise Or Original Universe"
+python scripts/story_brief.py gaps   --title "Working Title" --franchise "Franchise Or Original Universe"
+python scripts/story_brief.py sheets --title "Working Title" --franchise "Franchise Or Original Universe"
+```
+
+`status` reports coverage and the highest-leverage gaps. `sheets` writes
+reviewable Markdown projections under `workflows/idea_session/sheets/`. See
+[Story Brief](story-brief.md) for the claim model, gap policy, and CLI.
 
 ## Conversation Ladder
 

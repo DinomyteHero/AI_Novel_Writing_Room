@@ -140,7 +140,44 @@ class TestPostSaveStageHardening:
         crashes = [
             e for e in ledger.get_events()
             if e["event_type"] == "post_save_error"
-            and e["payload"].get("stage") == "run_post_save"
+            and e["payload"].get("stage") == "summarizer"
         ]
-        assert crashes, "expected a post_save_error event for run_post_save"
-        assert "RuntimeError" in crashes[0]["payload"].get("error", "")
+        assert crashes, "expected a post_save_error event for the summarizer stage"
+
+    async def test_memory_failure_does_not_skip_state_diff(
+        self, mock_router, mock_assembler, ledger, temp_dir, sample_scene_card
+    ):
+        orchestrator = _make_orchestrator(mock_router, mock_assembler, ledger, temp_dir)
+        orchestrator.summarizer = MagicMock()
+        orchestrator.summarizer.run = AsyncMock(return_value={
+            "summary": "A summary",
+            "state_diff": {"changes": {"character_updates": []}},
+        })
+        orchestrator.chapter_memory = MagicMock()
+        orchestrator.chapter_memory.add_summary.side_effect = RuntimeError("chroma down")
+        orchestrator.state_diff_applier = MagicMock()
+        orchestrator.story_state = MagicMock()
+        orchestrator.story_state.get_state_snapshot.return_value = {}
+        orchestrator.story_state.get_all_character_arcs.return_value = []
+        orchestrator.story_state.get_chapter_scenes.return_value = []
+
+        await orchestrator._run_post_save(
+            sample_scene_card,
+            "one two three four five",
+            {"structural_score": 1.0, "voice_score": 1.0, "polish_score": 1.0,
+             "failure_codes": []},
+        )
+
+        orchestrator.state_diff_applier.apply_diff.assert_called_once()
+        stages = {
+            e["payload"].get("stage")
+            for e in ledger.get_events()
+            if e["event_type"] == "post_save_error"
+        }
+        assert "chapter_memory" in stages
+        memory_events = [
+            e for e in ledger.get_events()
+            if e["event_type"] == "post_save_error"
+            and e["payload"].get("stage") == "chapter_memory"
+        ]
+        assert "RuntimeError" in memory_events[0]["payload"].get("error", "")

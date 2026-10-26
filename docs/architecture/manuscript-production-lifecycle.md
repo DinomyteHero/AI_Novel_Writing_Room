@@ -47,7 +47,7 @@ The live config keeps production lean:
 
 | Stage | Current role | Policy |
 |---|---|---|
-| Scene brief | `plot_architect` on DeepSeek V4 Flash | Cheap structured JSON pass. |
+| Scene brief | `plot_architect` on DeepSeek V4 Pro | Cheap structured JSON pass. |
 | Draft prose | `prose_stylist` on DeepSeek V4 Pro | Primary lean-mode drafter. |
 | Scene line edit | `line_writer` on GPT-5.4 Mini | One bounded post-draft edit before save. |
 | Manuscript review | `manuscript_reviewer` on GPT-5.4 | Produces the full-work editorial docket. |

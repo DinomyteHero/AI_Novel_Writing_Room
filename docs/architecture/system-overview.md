@@ -8,7 +8,7 @@ The AI Writers' Room is a multi-agent fiction generation system organized around
 
 Story authoring happens through the **workflow kit** — seven per-surface skills that each own one slice of the concept:
 
-1. `idea-session-capture` — front-door planning chat; captures north-star intent, decisions, open questions, and per-surface handoff notes
+1. `idea-session-capture` — front-door planning chat; captures north-star intent, decisions, open questions, and a claim-ledger Story Brief with reviewable character/location/theme/plot/world sheets
 2. `universe-builder` — meta + premise + conflict + theme
 3. `canon-drafter` — canon profile, canon constraints, terminology
 4. `voice-discovery` — POV, register, anti-slop rules, character voices
@@ -16,7 +16,7 @@ Story authoring happens through the **workflow kit** — seven per-surface skill
 6. `outline-planner` — structural outline (Brooks four-part beat map), subplots, hooks, revelations, promises
 7. `scene-card-authoring` — per-scene cards
 
-`idea-session-capture` is the optional front door: it stores a loose planning chat under `workflows/idea_session/` and pre-seeds the six structural surfaces. Each structural surface writes a JSON artifact under `workflows/<surface>/`. `scripts/compile_bundle.py` merges those artifacts into the canonical **concept seed** (`concept_seed.json`) and **scene cards** (one JSON per chapter/scene) that the pipeline consumes.
+`idea-session-capture` is the optional front door: it stores a loose planning chat and `story_brief.json` under `workflows/idea_session/`, generates reviewable sheets, and pre-seeds the six structural surfaces from confirmed claims. Each structural surface writes a JSON artifact under `workflows/<surface>/`. `scripts/compile_bundle.py` merges those artifacts into the canonical **concept seed** (`concept_seed.json`) and **scene cards** (one JSON per chapter/scene) that the pipeline consumes.
 
 The older monolithic `workshop_runner.py` CLI has been removed; see [workflow-kit.md](../user-guide/workflow-kit.md) for the supported authoring path.
 
@@ -156,7 +156,7 @@ The lean per-scene pipeline controller. Runs `PlotArchitect → ProseStylist →
 
 ### RunLedger (`src/run_ledger.py`)
 
-An append-only SQLite event log. Every pipeline action emits a typed event with chapter/scene context, a `level` (`info` / `warn` / `error`), and a JSON payload. The ledger drives the web dashboard's real-time event stream.
+An append-only SQLite event log. Every pipeline action emits a typed event with chapter/scene context, a `level` (`info` / `warn` / `error`), and a JSON payload. The read-only web console exposes the event stream via `GET /api/ledger/events`.
 
 ## Deployment Modes
 
@@ -177,5 +177,5 @@ Set via `deployment_mode` in `config/settings.yaml`.
 | Persistent State | SQLite (story state, run ledger, revision debt, promise ledger, worldbuilding) |
 | Vector Memory | ChromaDB (chapter summaries, canon DB, worldbuilding lore) |
 | Export | python-docx, ebooklib |
-| Web Backend | FastAPI, uvicorn, WebSockets |
-| Web Frontend | React, Vite, TypeScript, TailwindCSS, Recharts |
+| Web Backend | FastAPI, uvicorn (read-only) |
+| Web Frontend | React, Vite, TypeScript, TailwindCSS |

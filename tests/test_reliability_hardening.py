@@ -3,7 +3,7 @@
 Locks in the fixes that keep a long multi-chapter run alive:
 - one scene's exception must not abort the remaining scenes (run_pipeline guard)
 - a non-dict generation brief must not crash the drafter (type-confusion guard)
-- empty drafter prose must emit a warn rather than silently saving a 0-word scene
+- empty drafter prose must fail the scene rather than silently saving a 0-word file
 """
 
 from pathlib import Path
@@ -85,6 +85,15 @@ async def test_run_pipeline_survives_one_failing_scene(
     errs = [e for e in ledger.get_events() if e["event_type"] == "scene_error"]
     assert errs and "RuntimeError" in errs[0]["payload"].get("error", "")
 
+    complete = [
+        e for e in ledger.get_events() if e["event_type"] == "pipeline_complete"
+    ]
+    assert complete
+    payload = complete[-1]["payload"]
+    assert payload["chapters_generated"] == 2
+    assert payload["scenes_processed"] == 3
+    assert payload["scenes_failed"] == 1
+
 
 async def test_non_dict_brief_does_not_crash_drafter(
     mock_router, mock_assembler, ledger, temp_dir, sample_scene_card
@@ -99,7 +108,7 @@ async def test_non_dict_brief_does_not_crash_drafter(
     assert Path(result["output_path"]).exists()
 
 
-async def test_empty_prose_emits_warn(
+async def test_empty_prose_fails_scene(
     mock_router, mock_assembler, ledger, temp_dir, sample_scene_card
 ):
     orch = _build(mock_router, mock_assembler, ledger, temp_dir)
@@ -109,8 +118,11 @@ async def test_empty_prose_emits_warn(
 
     mock_router.complete = AsyncMock(side_effect=empty_complete)
 
-    await orch.run_chapter(sample_scene_card)
+    with pytest.raises(RuntimeError, match="empty prose"):
+        await orch.run_chapter(sample_scene_card)
 
     warns = [e for e in ledger.get_events() if e["event_type"] == "prose_empty"]
     assert warns
     assert warns[0]["payload"].get("level") == "warn"
+    # No zero-word file should have been written.
+    assert not list(Path(temp_dir).glob("manuscripts/*.md"))

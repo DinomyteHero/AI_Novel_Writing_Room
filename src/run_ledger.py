@@ -28,9 +28,7 @@ EVENT_TYPES = [
     "state_diff_committed",
     "contradiction_scan",
     "summarizer_complete",
-    "judge_evaluation",
     "lore_conflicts",
-    "milestone_reached",
     "pipeline_complete",
     # Phase 4 event types:
     "physics_validation_pre",
@@ -40,7 +38,6 @@ EVENT_TYPES = [
     "outline_generated",
     "export_complete",
     # Word-count + LineWriter telemetry:
-    "chapter_word_count_telemetry",
     "line_writer_error",
     "line_writer_collapsed",
     # Rhythm validator / editor telemetry (flag-gated):
