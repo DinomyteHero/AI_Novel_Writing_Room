@@ -4,46 +4,62 @@ These are lenses, not rules. Use the ones that help this story and ignore the
 rest. A story that breaks every line below and still works is a story that
 works. The author's own notes in the story bible always win over this guide.
 
+## The whole story in eight lines
+
+The quickest way to find a story's shape is to fill in these openers
+(Kenn Adams's "Story Spine", made famous by Pixar):
+
+> Once upon a time... Every day... But one day... Because of that...
+> Because of that... Because of that... Until finally... And ever since
+> then...
+
+If you can fill it in, you have a beginning, a middle that builds and an
+ending. It's fine to leave lines blank and discover them while drafting.
+
 ## Six questions worth answering (eventually)
 
-You do not need all six before you start. "Not sure yet" is a fine answer;
-some of these only become clear while drafting.
+"Not sure yet" is a fine answer; some of these only become clear on the page.
 
-1. **Who do we follow, and what do they want?** Something they can chase on
-   the page: a person, a place, a result, a way out.
-2. **What's in the way?** People, circumstances, their own habits. Stories
-   run on pressure; the obstacle should push back.
+1. **Who do we follow, and what do they want?** Something they can chase:
+   a person, a place, a result, a way out.
+2. **What's in the way?** People, circumstances, their own habits. The
+   obstacle should push back.
 3. **What happens if they fail?** The stakes can be the world or one
    friendship. They only need to matter to the character.
-4. **What do they get wrong?** Many good stories have a character who
-   believes something untrue and learns better, or refuses to and pays for
-   it. Some don't: a steady hero who changes the people around them is just
-   as valid.
+4. **Do they change?** Many good stories have a character who learns
+   something about themselves. Some don't: a steady hero who changes the
+   people around them is just as good.
 5. **What should it feel like?** Cosy, tense, funny, aching, epic. This is the
    promise to the reader, and it matters more than any plot point.
 6. **Roughly where does it end up?** A direction, not a destination. It can
    change.
 
-## A loose shape
+## Keeping it moving
 
-Most stories, whatever framework they're described in, move like this:
-
-- **Beginning.** We meet someone in their normal, and something disrupts it.
-- **Middle.** Things get harder. Somewhere around the middle the character
-  stops only reacting and starts acting on purpose, often because they
-  learned something.
-- **End.** The pressure peaks, the character makes the choice the story has
-  been building toward, and the big question gets answered.
-
-Three acts, four parts, a hero's journey, Save the Cat: they are all different
-maps of this same ground. No percentages, no required beats. If your story
-wants a different shape, follow it.
+- **"But" and "therefore", not "and then".** Each event should happen
+  *because of* the last one, or *despite* it. "This happens, and then that
+  happens" is a list. "This happens, therefore that, but then this" is a
+  story. (A rule from the creators of *South Park*.)
+- **Promises, progress, payoff.** Early on the book makes promises: a
+  mystery, a romance, a rivalry, a danger. Readers keep turning pages while
+  those promises visibly move forward, and they finish happy when the
+  promises pay off. Don't open threads you'll forget about. (Brandon
+  Sanderson's framing.)
+- **Wins come with a catch.** When a character tries something, the most
+  interesting results are usually "yes, but" (they get it, and it costs
+  them or causes a new problem) or "no, and" (they fail, and things get
+  worse). A clean win now and then is a relief; too many and the tension
+  drains away.
+- **Characters do things.** Readers love effort more than success. A lead
+  who wants something and acts on it beats one who waits for the plot to
+  arrive.
 
 ## Chapters
 
 The one useful test for a chapter: **what is different at the end than at the
 start?** A new fact, a changed relationship, a decision, a loss. If nothing
-changed, the chapter is probably part of its neighbour.
+changed, the chapter is probably part of its neighbour. End chapters leaning
+forward: a question, a turn, a door opening.
 
 Chapters can be long or short, one scene or several. Size them to what
 happens in them, not to a quota.
@@ -62,8 +78,6 @@ happens in them, not to a quota.
   do, and nothing they couldn't.
 - **Vary the rhythm.** Mix short and long sentences. Don't start every
   sentence the same way.
-- **Keep momentum.** End chapters leaning forward: a question, a turn, a door
-  opening.
 
 ## Things that make prose sound machine-made
 
@@ -76,8 +90,10 @@ Watch for these and replace them with something plain and specific:
 - runs of three or more very short sentences for effect
 - the same image or phrase coming back again and again
 
-## The plan is a map, not a contract
+## Plan a little or a lot
 
-If a chapter wants to go somewhere better than the outline said, let it, then
-update the story bible and outline so the rest of the book knows. Discovery
-while drafting is part of writing, not a failure of planning.
+Some writers outline every chapter; others start from a "what if" situation
+and discover the story as they go (Stephen King works this way). Both are
+real ways to write a book. The outline is a map, not a contract: if a chapter
+wants to go somewhere better, let it, then update the story bible and outline
+so the rest of the book knows.

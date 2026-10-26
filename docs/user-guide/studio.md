@@ -82,8 +82,10 @@ Models are set in `config/settings.yaml`:
 - `agent_routing.studio_reader` writes reviews (Gemini 3.1 Pro by default).
 
 Craft guidance is deliberately loose: `prompts/studio/craft_guide.md` holds a
-handful of lenses (six questions, a loose shape, a test for chapters, notes
-on prose) that both the planning chat and the drafter use. Your own notes in
+handful of lenses that both the planning chat and the drafter use: an
+eight-line story spine, six questions, "but/therefore" linking, promises
+that progress and pay off, wins that come with a catch, a test for chapters,
+and notes on prose. Your own notes in
 the story bible always win over it.
 
 Things to know:

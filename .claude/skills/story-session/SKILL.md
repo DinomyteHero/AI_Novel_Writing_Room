@@ -70,9 +70,14 @@ Then reflect it back briefly: what the story seems to be, what's already
 strong, and the two or three open questions that matter most. Don't ask
 anything they've already answered.
 
-**If they bring only a spark**: ask what it is, then work through the six
-questions in the craft guide conversationally, a couple at a time, offering
-options whenever they're stuck.
+**If they bring only a spark**: ask what it is. A good quick start is to fill
+in the craft guide's eight-line story ("Once upon a time... Every day... But
+one day...") together, offering options for each line they're stuck on. Then
+work through the six questions conversationally, a couple at a time.
+
+**If they'd rather discover the story by writing**, that's a real way to
+work. Settle a "what if" situation, a main character and a feel, outline the
+first two or three chapters, and start drafting.
 
 ## Fleshing it out
 
@@ -84,8 +89,11 @@ options whenever they're stuck.
 - **World**: only what the story needs. For fanfiction, settle which canon,
   where the story branches from it, and what's kept or changed.
 - **Push gently on weak spots.** Vague stakes: ask what's lost. A sagging
-  middle: offer complications. A passive lead: ask what they'd do if no one
-  helped.
+  middle: offer "yes, but" and "no, and" complications. A passive lead: ask
+  what they'd do if no one helped. Events joined by "and then": look for the
+  "therefore" or "but" that links them.
+- **Track the promises.** Note the mysteries, romances and rivalries the book
+  opens, and check each one moves forward and gets paid off.
 - **Check the feel.** Every so often, check the plan still delivers what the
   bible says the book should feel like.
 
