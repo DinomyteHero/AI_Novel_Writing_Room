@@ -77,11 +77,46 @@ def test_book_paths(tmp_path: Path):
 
 def test_create_writes_templates_without_overwriting(tmp_path: Path):
     proj = StoryProject.for_book("The Dark Lighthouse", base_dir=str(tmp_path))
-    assert {p.name for p in proj.create()} == {"story_bible.md", "outline.md"}
+    assert {p.name for p in proj.create()} == {"story_bible.md", "characters.md", "outline.md"}
     assert proj.read_bible().startswith("# The Dark Lighthouse")
     proj.bible_path.write_text("mine", encoding="utf-8")
     assert proj.create() == []
     assert proj.read_bible() == "mine"
+
+
+def test_new_bible_points_to_characters_file(tmp_path: Path):
+    proj = StoryProject.for_book("The Dark Lighthouse", base_dir=str(tmp_path))
+    proj.create()
+    assert "## Main characters" not in proj.read_bible()
+    assert "characters.md" in proj.read_bible()
+    assert proj.read_characters().startswith("# Characters: The Dark Lighthouse")
+
+
+def test_character_sheets_sit_between_bible_and_outline(project: StoryProject):
+    project.characters_path.write_text(
+        "## Mara\n- **How she talks:** dry\n  - \"Nineteen years to ask.\"", encoding="utf-8"
+    )
+    router = FakeRouter()
+    _run(draft_chapter(project, router, 1))
+    user = router.calls[0][1][1]["content"]
+    assert "Nineteen years to ask." in user
+    assert user.index("# Story bible") < user.index("# Characters") < user.index("# Outline")
+    assert "sample" in router.calls[0][1][0]["content"]
+
+
+def test_book_without_characters_file_still_drafts(project: StoryProject):
+    project.characters_path.unlink()
+    router = FakeRouter()
+    _run(draft_chapter(project, router, 1))
+    assert "# Characters" not in router.calls[0][1][1]["content"]
+    assert project.read_characters() == ""
+
+
+def test_create_adds_characters_to_an_older_book(project: StoryProject):
+    project.characters_path.unlink()
+    bible = project.read_bible()
+    assert [p.name for p in project.create()] == ["characters.md"]
+    assert project.read_bible() == bible
 
 
 def test_outline_parsing_is_loose(project: StoryProject):

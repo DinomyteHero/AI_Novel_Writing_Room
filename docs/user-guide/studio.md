@@ -8,7 +8,8 @@ There are no schemas to fill in and no compile step. Your book is one folder:
 
 ```text
 story/
-  story_bible.md     premise, feel, characters, world, voice, things to keep true
+  story_bible.md     premise, feel, world, how it's told, things to keep true
+  characters.md      a sheet per character: wants, obstacles, how they talk
   outline.md         one "## Chapter N" section per chapter
   chapters/          chapter_01.md, chapter_02.md, ... (earlier versions in .history/)
   notes/             reader reviews
@@ -23,8 +24,8 @@ ignores, so it stays private to your machine. A fanfiction book's folder is
 
 In Claude Code, start the **story-session** skill and tell it what you have:
 a one-line idea, a few characters, a rough outline, or a document to paste
-in. It files what you bring into the story bible and outline in your own
-words, then helps you flesh it out with options and questions. In Codex,
+in. It files what you bring into the story bible, character sheets and
+outline in your own words, then helps you flesh it out with options and questions. In Codex,
 point it at `.claude/skills/story-session/SKILL.md` (see `AGENTS.md`).
 
 The files keep up with the conversation, and you can edit them yourself at
@@ -41,10 +42,18 @@ python scripts/studio.py new --title "My Novel"
 python scripts/studio.py new --title "My Fic" --franchise "Star Wars (Legends EU)"
 ```
 
-This creates the folder with a starter `story_bible.md` and `outline.md`.
-Fill them in however suits you. The only format rule is that each chapter in
-the outline starts with a `## Chapter N` heading (a title after it is
-optional).
+This creates the folder with a starter `story_bible.md`, `characters.md` and
+`outline.md`. Fill them in however suits you. The only format rule is that
+each chapter in the outline starts with a `## Chapter N` heading (a title
+after it is optional).
+
+In `characters.md`, each character gets a `## Name` section. The suggested
+lines (wants, what's in the way, how they talk, and so on) are prompts, not
+required fields. The most useful one is **How they talk**: two or three
+sample lines of dialogue help the co-writer keep each character sounding
+like themselves. Walk-on characters get one line each under "Minor
+characters". For a book made before `characters.md` existed, run `new` again
+to add it; existing files are never overwritten.
 
 ## 3. Draft, revise, review
 
@@ -68,8 +77,8 @@ python scripts/studio.py export --title "My Novel"
 
 ## How it works
 
-Every call sends the whole book: the story bible, the outline and every
-chapter written so far, in full. Nothing is summarised or looked up, so
+Every call sends the whole book: the story bible, the character sheets, the
+outline and every chapter written so far, in full. Nothing is summarised or looked up, so
 continuity comes from the model seeing everything. A finished 80,000-word
 novel plus its notes is roughly 150–200K tokens, well inside the ~1M-token
 windows of the default models. The tool refuses to send more than 900K

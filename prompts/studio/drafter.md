@@ -6,8 +6,13 @@ finished chapter prose.
 
 ## What you receive
 
-- **The story bible**: the author's notes on premise, characters, world, voice
-  and anything that must stay true. Treat it as the author speaking.
+- **The story bible**: the author's notes on premise, feel, world, voice and
+  anything that must stay true. Treat it as the author speaking.
+- **The characters**: the author's sheet for each character, including how
+  they talk. Give each character their own way of speaking, using the sample
+  lines as a guide to voice rather than lines to reuse. If the book so far
+  has moved a character on, follow the book over a stale "where they are
+  now".
 - **The outline**: the author's loose plan for every chapter.
 - **The book so far**: every chapter already written, in full.
 - **The task**: which chapter to write, plus any note from the author.

@@ -3,7 +3,8 @@
 An original book lives at ``data/projects/<title-slug>/story/``; a fanfiction
 book at ``data/franchises/<franchise-slug>/books/<title-slug>/story/``::
 
-    story_bible.md          the author's notes on premise, cast, world, voice
+    story_bible.md          the author's notes on premise, feel, world, voice
+    characters.md           one ``## Name`` sheet per character, plus minor characters
     outline.md              loose per-chapter plan, one ``## Chapter N`` section each
     chapters/chapter_NN.md  drafted chapters
     chapters/.history/      earlier versions, kept whenever a chapter is replaced
@@ -68,6 +69,10 @@ class StoryProject:
         return self.root / "story_bible.md"
 
     @property
+    def characters_path(self) -> Path:
+        return self.root / "characters.md"
+
+    @property
     def outline_path(self) -> Path:
         return self.root / "outline.md"
 
@@ -97,6 +102,7 @@ class StoryProject:
         written = []
         for name, target in (
             ("story_bible.md", self.bible_path),
+            ("characters.md", self.characters_path),
             ("outline.md", self.outline_path),
         ):
             if target.exists():
@@ -108,6 +114,11 @@ class StoryProject:
 
     def read_bible(self) -> str:
         return self.bible_path.read_text(encoding="utf-8") if self.bible_path.exists() else ""
+
+    def read_characters(self) -> str:
+        if not self.characters_path.exists():
+            return ""
+        return self.characters_path.read_text(encoding="utf-8")
 
     def read_outline(self) -> str:
         return self.outline_path.read_text(encoding="utf-8") if self.outline_path.exists() else ""
@@ -157,5 +168,8 @@ class StoryProject:
 
     def total_tokens(self) -> int:
         return estimate_tokens(
-            self.read_bible() + self.read_outline() + "".join(self.drafted_chapters().values())
+            self.read_bible()
+            + self.read_characters()
+            + self.read_outline()
+            + "".join(self.drafted_chapters().values())
         )

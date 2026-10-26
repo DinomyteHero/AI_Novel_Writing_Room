@@ -1,6 +1,6 @@
 ---
 name: story-session
-description: Plan and write a book with a writer in plain conversation. The writer brings whatever they have (a spark, notes, characters, a rough outline) and the session fleshes it out with ideas and questions, keeps the book's living files (story_bible.md, outline.md) updated as the conversation goes, respects the writer's own manual edits, and drafts, revises and reviews chapters with scripts/studio.py. Use for any new book, original or fanfiction, or to pick up an existing studio book.
+description: Plan and write a book with a writer in plain conversation. The writer brings whatever they have (a spark, notes, characters, a rough outline) and the session fleshes it out with ideas and questions, keeps the book's living files (story_bible.md, characters.md, outline.md) updated as the conversation goes, respects the writer's own manual edits, and drafts, revises and reviews chapters with scripts/studio.py. Use for any new book, original or fanfiction, or to pick up an existing studio book.
 allowed-tools: Read, Write, Edit, Glob, Grep, Bash
 ---
 
@@ -34,7 +34,8 @@ The book lives in one folder of plain Markdown that the writer can open and
 edit any time:
 
 ```
-story_bible.md     premise, feel, characters, world, voice, things to keep true
+story_bible.md     premise, feel, world, how it's told, things to keep true
+characters.md      one "## Name" sheet per character, plus minor characters
 outline.md         one "## Chapter N" section per chapter
 chapters/          drafted chapters (chapter_01.md, ...)
 notes/             reader reviews
@@ -55,17 +56,23 @@ Keeping the files in step with the conversation:
   in chat, ask which one wins; never silently undo it.
 - **Only agreed things go into the story.** Your un-accepted ideas stay in
   the chat, or go under "Notes and open questions" clearly marked as
-  suggestions. The bible and outline describe the book the writer has chosen.
+  suggestions. The bible, character sheets and outline describe the book the
+  writer has chosen.
 - **Say what changed.** One line after each update, e.g. "Added Mara's fear
   of deep water under Main characters."
-- **Changes ripple.** If the story changes direction, update both the bible
-  and the outline so every chapter drafted afterwards sees the new version.
+- **Changes ripple.** If the story changes direction, update every file it
+  touches (bible, character sheets, outline) so every chapter drafted
+  afterwards sees the new version.
+- **Each thing lives in one place.** Characters go in `characters.md`, never
+  in the bible as well, so the two files can't contradict each other. The
+  book's narrator voice belongs in the bible's "How it's told"; each
+  character's own way of speaking belongs on their sheet.
 
 ## Starting a book
 
 **If they bring material** (an idea, pasted notes, a character list, an
 outline, a document): read all of it. Create the folder and sort what they
-gave you into the right sections of the bible and outline, in their words.
+gave you into the right files and sections, in their words.
 Then reflect it back briefly: what the story seems to be, what's already
 strong, and the two or three open questions that matter most. Don't ask
 anything they've already answered.
@@ -85,7 +92,11 @@ first two or three chapters, and start drafting.
   not variations of one.
 - **Characters**: what they want, what's in their way, how they talk, and,
   if it suits the story, what they believe that isn't true. A contradiction
-  or a habit often brings a character alive faster than a backstory.
+  or a habit often brings a character alive faster than a backstory. Draft
+  two or three sample lines of dialogue together for each main character's
+  "How they talk": hearing a character is the quickest way to know them,
+  and the drafter leans on those lines most. Walk-on characters get one line
+  under "Minor characters".
 - **World**: only what the story needs. For fanfiction, settle which canon,
   where the story branches from it, and what's kept or changed.
 - **Push gently on weak spots.** Vague stakes: ask what's lost. A sagging
@@ -119,19 +130,25 @@ first few chapters and discovering the rest is fine.
   `polish N`. Earlier versions are kept in `chapters/.history/`. The writer can
   also edit chapter files by hand; treat their edits as part of the book.
 - If drafting turns up something better than the plan (a character who came
-  alive, a sharper twist), suggest updating the bible and outline.
+  alive, a sharper twist), suggest updating the bible, sheets and outline.
+- After a chapter changes a character's situation (an injury, a secret
+  learned, a new alliance), offer to update their "Where they are now" line.
+  It's for the writer's benefit, so ask rather than doing it silently.
 - Every few chapters, or when asked, run `review` for whole-book reader notes
   in `notes/`, and go through them together, most important first.
 - `status` shows progress; `export` stitches the book into one file.
 
 If the writer asks you to write a chapter yourself in this conversation (for
 example, they have no API key), read `prompts/studio/drafter.md`, the craft
-guide, the bible, the outline and every earlier chapter in full first. Then
+guide, the bible, the character sheets, the outline and every earlier
+chapter in full first. Then
 save it to `chapters/chapter_NN.md`, moving any existing version into
 `chapters/.history/` first.
 
 ## Picking a book back up
 
-Run `status`, read the bible, the outline, the latest file in `notes/` and the
-last chapter or two. Give a two-line "here's where we are", then ask what
+Run `status`, read the bible, the character sheets, the outline, the latest
+file in `notes/` and the last chapter or two. If the book has no
+`characters.md` yet (it predates the file), run `new` again to add it, then
+offer to move any characters from the bible into it. Give a two-line "here's where we are", then ask what
 they'd like to do.

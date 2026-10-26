@@ -10,12 +10,12 @@ theory.
 1. **Plan in conversation.** In Claude Code, use the `story-session` skill and
    bring whatever you have: a one-line idea, some characters, a rough outline,
    or notes to paste in. The chat helps you flesh it out with ideas and
-   questions, and keeps two plain files up to date as you talk:
-   `story_bible.md` and `outline.md`. Edit them yourself whenever you like;
-   your edits always win.
+   questions, and keeps three plain files up to date as you talk:
+   `story_bible.md`, `characters.md` and `outline.md`. Edit them yourself
+   whenever you like; your edits always win.
 2. **Draft chapter by chapter.** Each chapter is written by a model that reads
-   your whole book so far (the story bible, the outline and every chapter in
-   full), so it remembers everything.
+   your whole book so far (the story bible, character sheets, outline and
+   every chapter in full), so it remembers everything.
 3. **Revise and review.** Ask for changes in plain words ("more banter, less
    brooding"), get a light polish, or have the model read the whole book and
    write you friendly, specific notes.
@@ -24,7 +24,8 @@ Your book is one folder of Markdown files you can open in any editor:
 
 ```text
 story/
-  story_bible.md     premise, feel, characters, world, voice, things to keep true
+  story_bible.md     premise, feel, world, how it's told, things to keep true
+  characters.md      a sheet per character: wants, obstacles, how they talk
   outline.md         one "## Chapter N" section per chapter
   chapters/          chapter_01.md, chapter_02.md, ... (earlier versions in .history/)
   notes/             reader reviews

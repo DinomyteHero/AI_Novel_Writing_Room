@@ -40,10 +40,10 @@ def _system(role_prompt: str) -> dict:
 
 
 def _book_sections(project: StoryProject, chapters: dict[int, str], heading: str) -> list[str]:
-    parts = [
-        "# Story bible\n\n" + (project.read_bible().strip() or "(empty)"),
-        "# Outline\n\n" + (project.read_outline().strip() or "(empty)"),
-    ]
+    parts = ["# Story bible\n\n" + (project.read_bible().strip() or "(empty)")]
+    if project.characters_path.exists():
+        parts.append("# Characters\n\n" + (project.read_characters().strip() or "(empty)"))
+    parts.append("# Outline\n\n" + (project.read_outline().strip() or "(empty)"))
     if chapters:
         parts.append(f"# {heading}\n\n" + "\n\n".join(t.strip() for t in chapters.values()))
     else:

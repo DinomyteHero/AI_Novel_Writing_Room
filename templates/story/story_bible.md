@@ -12,15 +12,10 @@ here at any time; every chapter drafted afterwards will see the new version.
 The tone, and what a reader should get from this book (laughs, dread, a
 good cry, a big adventure).
 
-## Main characters
-
-For each: who they are, what they want, what's in their way, and how they
-talk.
-
 ## The world
 
 Where and when it's set, and anything about how it works that a reader
-needs to understand.
+needs to understand. (Characters have their own file: characters.md.)
 
 ## How it's told
 

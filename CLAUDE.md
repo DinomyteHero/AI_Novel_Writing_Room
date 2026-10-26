@@ -17,14 +17,19 @@ something specific is ever needed.
 ## Design rules
 
 - **Files are the book.** A book is a folder of Markdown the writer can open
-  and edit: `story_bible.md`, `outline.md` (one `## Chapter N` heading per
-  chapter, title optional), `chapters/chapter_NN.md`, `chapters/.history/`
-  (every replaced version), `notes/` and `export/`. Original books live at
+  and edit: `story_bible.md`, `characters.md` (one `## Name` sheet per
+  character plus a "Minor characters" list), `outline.md` (one `## Chapter N`
+  heading per chapter, title optional), `chapters/chapter_NN.md`,
+  `chapters/.history/` (every replaced version), `notes/` and `export/`. Original books live at
   `data/projects/<slug>/story/` (gitignored, so private to the machine);
   fanfiction at `data/franchises/<franchise-slug>/books/<slug>/story/`. Paths
   come from `src/studio/project.py::book_root`.
+- **Each thing lives in one place.** Characters live only in `characters.md`,
+  never duplicated into the bible, so the files can't contradict each other.
+  The narrator's voice is in the bible's "How it's told"; each character's
+  own voice is on their sheet.
 - **Whole-book context, nothing retrieved.** Every call sends the story
-  bible, the outline and every drafted chapter in full
+  bible, the character sheets, the outline and every drafted chapter in full
   (`src/studio/prompts.py`). Stable material comes first for prefix caching;
   the task comes last. **Do not add summarisers, retrieval, state stores,
   ledgers or validators.** If the model can read the whole book, it doesn't
@@ -37,7 +42,7 @@ something specific is ever needed.
   it. **Do not add required beats, percentages, arc fields or schemas.**
 - **The conversation keeps the files.** The `story-session` skill
   (`.claude/skills/story-session/SKILL.md`, also the Codex contract via
-  `AGENTS.md`) plans with the writer and edits the two files as decisions
+  `AGENTS.md`) plans with the writer and edits the three files as decisions
   land. It re-reads before every edit (manual edits win) and only records
   what the writer agreed to.
 - **Never lose the writer's work.** `draft` refuses to overwrite without

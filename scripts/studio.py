@@ -60,9 +60,9 @@ def cmd_new(project: StoryProject, args: argparse.Namespace) -> None:
     for path in written:
         print(f"  created {path.name}")
     if not written:
-        print("  (story_bible.md and outline.md already exist; nothing overwritten)")
-    print("\nNext: fill in story_bible.md and outline.md (or plan them in a chat with")
-    print("the story-session skill), then run:")
+        print("  (all starter files already exist; nothing overwritten)")
+    print("\nNext: fill in story_bible.md, characters.md and outline.md (or plan them")
+    print("in a chat with the story-session skill), then run:")
     print(f'  python scripts/studio.py draft next --title "{project.title}"')
 
 
