@@ -1,110 +1,33 @@
-# Python bytecode
+# Python
 __pycache__/
 *.py[cod]
-*$py.class
-
-# Virtual environments
 .venv/
 venv/
 env/
-
-# IDE / editor
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
-
-# OS files
-Thumbs.db
-.DS_Store
-
-# Claude Code local settings
-.claude/settings.local.json
-
-# Codex auto-generated files
-.codex/
-.codex_tmp_test/
-.tmp/
-
-# pytest / coverage
 .pytest_cache/
-.pytest_tmp_root/
-.pytest_basetemp*/
-# Local pytest basetemp/probe dirs.
-test-tmp*/
-mode-test-*/
-codex_test_runtime_basetemp*/
-codex_pytest_lineedit_tmp/
-codex_pytest_tmp_*/
-.codex_pytest_tmp_*/
-pytest-temp-basetest/
-pytest-cache-files-*/
-test-output/
-tmp_diagnostic/
-tmp_pytest_codex_run/
-htmlcov/
+.ruff_cache/
 .coverage
-coverage.xml
-
-# Distribution / packaging
+htmlcov/
 dist/
 build/
 *.egg-info/
 
-# Pipeline runtime — canonical per-project output (franchise-scoped).
-# See data/README.md for the full layout.
-output/*/*/state/
-output/*/*/chapters/
-output/*/*/chapter_packets/
+# Editors / OS
+.vscode/
+.idea/
+*.swp
+*~
+.DS_Store
+Thumbs.db
 
-# Stitched manuscript exports — regenerable pipeline output. Ignored by
-# default; force-add a curated reference build (git add -f) when one is
-# worth committing, e.g. the bundled Ruusan example.
-output/*/*/export/
-
-# Generated model run artifacts can contain very long diagnostic filenames.
-# Keep them out of normal commits; copy curated evidence into docs/ when needed.
-output/*/*/runs/
-output/runs-logs/
-
-# Phase 0 audit runs are regenerated on demand from scripts/audit_phase0.py.
-# The canonical committed evidence lives in docs/audits/phase0_*.md; the
-# per-run phase0_debug/ prompt dumps are regeneratable artifacts.
-output/*/*/runs/phase0_*/
-.tmp/canon_scout_full_*/
-.tmp/chapter_bench_*/
-.tmp/haiku_bench_*/
-
-# Fallback runtime dirs, used when ProjectPaths isn't supplied (ad-hoc
-# scripts, tests, UI fallbacks). Updated defaults in src/ route here.
-output/_fallback/
-
-# Legacy root-level data/ dirs (pre-franchise). The code no longer writes
-# to these; patterns remain so existing user checkouts don't show stray
-# runtime files in git status. Safe to delete — see data/README.md.
-data/manuscripts/
-data/export/
-data/sessions/
-data/projects/
-data/universes/
-data/models/
-data/canon_dbs/
-data/worldbuilding.db
-data/worldbuilding_vectors/
-data/projects/*/state/sessions/
-
-# Runtime databases anywhere under data/ (franchise-scoped worldbuilding
-# and canon DBs live under data/franchises/{franchise}/, still gitignored).
-data/franchises/*/worldbuilding.db
-data/franchises/*/worldbuilding_vectors/
-**/canon_db/
-*.db-journal
-*.db-wal
-*.db-shm
-
-# Claude Code worktrees
+# Claude Code / Codex local files
+.claude/settings.local.json
 .claude/worktrees/
+.codex/
+
+# Original books stay private to this machine. Fanfiction books under
+# data/franchises/ are tracked; add a line here to keep yours private too.
+data/projects/
 
 # Environment variables
 .env

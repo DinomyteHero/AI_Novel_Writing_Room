@@ -14,251 +14,32 @@ models:
     api_key_env: OPENROUTER_API_KEY
     timeout_seconds: 300
     models:
-      gemini: google/gemini-3.1-pro-preview
-      deepseek: deepseek/deepseek-v4-flash
       deepseekpro: deepseek/deepseek-v4-pro
+      gemini: google/gemini-3.1-pro-preview
       claude: anthropic/claude-sonnet-4.6
-      grok420: x-ai/grok-4.20
-      grok41fast: x-ai/grok-4.1-fast
-      mistral_small4: mistralai/mistral-small-2603
-      # GPT 5.4: manuscript review and opt-in literary donor/comparison passes.
-      gpt54: openai/gpt-5.4
-      # GPT 5.4 Mini: lean LineWriter plus opt-in quality polish.
-      gpt54_mini: openai/gpt-5.4-mini
     default_params:
-      gemini:
-        temperature: 0.6
-        max_tokens: 8192
-      deepseek:
-        temperature: 0.3
-        max_tokens: 4096
-        reasoning:
-          effort: "none"
       deepseekpro:
         temperature: 0.3
         max_tokens: 8192
         reasoning:
           effort: "none"
+      gemini:
+        temperature: 0.6
+        max_tokens: 8192
       claude:
         temperature: 0.4
         max_tokens: 8192
-      grok420:
-        temperature: 0.3
-        max_tokens: 8192
-      grok41fast:
-        temperature: 0.3
-        max_tokens: 8192
-      mistral_small4:
-        temperature: 0.3
-        max_tokens: 4096
-      gpt54:
-        temperature: 0.8
-        max_tokens: 12000
-      gpt54_mini:
-        temperature: 0.5
-        max_tokens: 8192
 
-# Agent-to-model mapping
-# NOTE: The 'backend' field is ONLY honoured in 'hybrid' deployment_mode.
-# In 'local' or 'cloud' mode, ALL agents use the deployment_mode backend.
+# Every studio call sends the whole book, so these models need ~1M-token
+# context windows. studio_writer drafts, revises and polishes; studio_reader
+# writes whole-book reader notes. To try another model, change `model` to
+# another key under models.cloud.models (or add one there).
 agent_routing:
-  # ---------------------------------------------------------------------------
-  # STUDIO (scripts/studio.py) — every call sends the whole book, so these
-  # models need ~1M-token context windows. studio_writer drafts, revises and
-  # polishes; studio_reader writes whole-book reader notes.
-  # ---------------------------------------------------------------------------
   studio_writer:          { backend: cloud, model: deepseekpro, params: { temperature: 0.75, max_tokens: 16000, provider: { order: [deepseek], only: [deepseek], allow_fallbacks: false } } }
   studio_reader:          { backend: cloud, model: gemini, params: { temperature: 0.3, max_tokens: 8192 } }
 
-  # ---------------------------------------------------------------------------
-  # LIVE SCENE PIPELINE
-  # These entries are the ones to inspect first when reasoning about normal
-  # per-scene cost and complexity.
-  # ---------------------------------------------------------------------------
-
-  # PROSE — DeepSeek V4 Pro is the primary drafter in the lean architecture.
-  # The live path drafts, then runs one bounded sentence-level edit before
-  # saving.
-  # max_tokens 12000: a 4,500-word scene needs ~6.5k completion tokens; the
-  # hard length contract must never be clipped by the completion ceiling.
-  prose_stylist:          { backend: cloud, model: deepseekpro, params: { temperature: 0.70, max_tokens: 12000, provider: { order: [deepseek], only: [deepseek], allow_fallbacks: false } } }
-  line_writer:            { backend: cloud, model: gpt54_mini, params: { temperature: 0.35, max_tokens: 12000 } }
-
-  # LineWriter is active in lean mode as the single post-generation edit.
-  # GPT 5.4 Mini proved more reliable than DeepSeek V4 Flash in cleanup A/Bs.
-  # To A/B DeepSeek V4 Flash, override this routing to model: deepseek.
-
-  judge_evaluator:        { backend: cloud, model: grok420, params: { temperature: 0.2 } }
-  manuscript_reviewer:    { backend: cloud, model: gpt54, params: { temperature: 0.3, max_tokens: 16000 } }
-  # Rhythm-editor agent: literal substring edits to fix detected rhythm
-  # issues from RhythmValidator. Default off via runtime flag; routing entry
-  # must exist for the agent to load.
-  rhythm_editor:          { backend: cloud, model: deepseekpro, params: { temperature: 0.2, max_tokens: 4096, reasoning: { effort: "none" }, provider: { order: [deepseek], only: [deepseek], allow_fallbacks: false } } }
-
-  # ---------------------------------------------------------------------------
-  # PLANNING / COMPILE-TIME UTILITIES
-  # Not part of the live per-scene drafting hot path.
-  # ---------------------------------------------------------------------------
-
-  # PLANNING — Gemini Pro for long-context one-off authoring; DeepSeek V4 Pro
-  # for the per-scene plot_architect structured JSON pass.
-  concept_workshop:       { backend: cloud, model: gemini, params: { temperature: 0.7, max_tokens: 8192 } }
-  outline_planner:        { backend: cloud, model: gemini, params: { temperature: 0.5, max_tokens: 32768 } }
-  seed_builder:           { backend: cloud, model: gemini, params: { temperature: 0.3, max_tokens: 16384 } }
-  plot_architect:         { backend: cloud, model: deepseekpro, params: { temperature: 0.4, max_tokens: 4096, provider: { order: [deepseek], only: [deepseek], allow_fallbacks: false } } }
-  chapter_blueprint_synthesizer: { backend: cloud, model: gemini, params: { temperature: 0.4, max_tokens: 8192 } }
-  # DeepSeek V4 Flash: grok41fast's OpenRouter id 404s (model retired), and
-  # the committed provider is DeepSeek anyway. Structured-output path is the
-  # same one plot_architect exercises on DeepSeek. max_tokens 8192: guidance
-  # JSON for the densest scenes runs past 4096 and a clipped completion
-  # fails the JSON parse (measured 2026-06-09: failures at ~4.3-4.6k tokens).
-  canon_scout:            { backend: cloud, model: deepseek, params: { temperature: 0.1, max_tokens: 8192 } }
-
-  # FINAL COPY - opt-in literary taste pass after manuscript review. This is
-  # a donor/comparison branch, not the default production master.
-  literary_polish:        { backend: cloud, model: gpt54, params: { temperature: 0.45, max_tokens: 12000 } }
-
-  # EDITORIAL â€” plan-time qualitative review (Hat 1: Brooks/Weiland structural; Hat 2: genre-reader). One call per compile; advisory output.
-  editorial_consultant:   { backend: cloud, model: claude, params: { temperature: 0.4, max_tokens: 16384 } }
-
-  # ---------------------------------------------------------------------------
-  # AUXILIARY / BENCH / NON-SCENE UTILITIES
-  # Real code, but not part of the normal scene save path.
-  # ---------------------------------------------------------------------------
-
-  # STRUCTURAL REVISION â€” Mistral Small 4 for voice check, DeepSeek for stress test
-  voice_checker:          { backend: cloud, model: mistral_small4, params: { temperature: 0.3 } }
-  stress_test:            { backend: cloud, model: deepseek, params: { temperature: 0.5 } }
-
-  # UTILITY â€” Grok 4.1 Fast for orchestration, DeepSeek for analytics.
-  orchestrator:           { backend: cloud, model: grok41fast }
-  summarizer:             { backend: cloud, model: deepseek, params: { temperature: 0.2 } }
-  lore_extractor:         { backend: cloud, model: deepseek, params: { temperature: 0.2, max_tokens: 8192 } }
-  worldbuilding_coherence_reviewer: { backend: cloud, model: grok420, params: { temperature: 0.3 } }
-
-# Pipeline settings
 pipeline:
   max_http_retries: 2
-  embeddings:
-    use_mock: true  # Set to false for real semantic similarity (requires sentence-transformers)
-    model: nomic-ai/nomic-embed-text-v1.5
   prompt_caching:
-    enabled: true  # Enable prompt caching for supported providers (reduces input costs)
-    anthropic_ttl: 1h  # Cache TTL for Anthropic models: "5m" (1.25x write) or "1h" (2x write, better for sequential pipelines)
-
-# Worldbuilding persistence
-# Paths are resolved by ProjectPaths (franchise-scoped). Set db_path /
-# vectors_dir here only if you need to override the franchise default
-# for an ad-hoc run.
-worldbuilding:
-  default_top_k: 5
-  walk_parents: true
-  include_provisional_in_context: false
-  auto_extraction:
-    enabled: true
-    auto_promote: false
-  terminology:
-    always_include: true
-
-# Runtime flags.
-#
-# PRODUCTION DEFAULTS ARE LEAN. Effective default-on (do not disable on
-# shipping books without per-book sign-off):
-#   lean_prose_only.enabled
-#   lean_prose_only.line_edit.enabled
-#   chapter_packet.enabled
-#
-# Everything else below is STANDBY tooling — wired so it can be flipped on
-# for diagnostic, recovery, or bench runs without code changes:
-#   Slice infrastructure: revision_debt, promise_ledger
-#   Prose telemetry:      rhythm_validator, rhythm_editor, continuity_validator
-#   Final-copy script:    final_copy.* (consumed by
-#                         scripts/final_copy_existing.py)
-#
-# Resolution precedence (src/runtime_flags.py):
-#   CLI --runtime-flag > book runtime_overrides.yaml
-#     > franchise runtime_overrides.yaml > this file
-# Per-book overrides live at:
-#   data/franchises/<franchise>/books/<book>/runtime_overrides.yaml
-#
-# See docs/architecture/manuscript-production-lifecycle.md for the production
-# lifecycle; the chapter packet / promise ledger / revision debt slices are
-# documented in CLAUDE.md.
-runtime:
-  # Lean DeepSeek architecture: PlotArchitect -> ProseStylist -> LineWriter -> save.
-  # The line-edit cleanup pass handles repeated card residue and Legends register.
-  lean_prose_only:
-    enabled: true
-    line_edit:
-      enabled: true
-    # Multiplier applied to the rendered word-count ask (not to the card's
-    # target, which telemetry still measures against). Measured 2026-06-09:
-    # DeepSeek V4 Pro delivers ~43-58% of any ask, so books set ~1.8 in their
-    # runtime_overrides to land delivered length near planning intent.
-    length_calibration: 1.0
-  chapter_packet:
-    # Shipping default (D4a). Phase 0 audit + packet parity both pass for
-    # Ruusan and Betrayal at HEAD; the packet is now the drafter's single
-    # inspectable runtime contract. fallback_on_error stays true so a
-    # compile regression reverts to the legacy flat context instead of
-    # aborting the run.
-    enabled: true
-    fallback_on_error: true
-  revision_debt:
-    enabled: false
-  promise_ledger:
-    enabled: false
-  # Declared-state apply. When on, scene-card end_state declarations write
-  # characters.status at save time — declarations win over the Summarizer's
-  # extracted state diff — and start_state declarations are verified against
-  # accumulated story state, with drift surfacing as a declared_state_conflict
-  # warn event plus a prose.continuity.character_state_break revision-debt
-  # row. Default off so shipping books keep current behavior until their
-  # scene cards carry the start_state / end_state fields.
-  declared_state:
-    enabled: false
-  final_copy:
-    enabled: false
-    literary_polish_model: gpt54
-    literary_polish_temperature: 0.45
-  # Deterministic prose-rhythm validator. Pure measurement + threshold
-  # bands derived from a Zahn (Scoundrels, 2013) corpus baseline. Emits
-  # revision-debt rows of category prose.rhythm.*. Never blocks a save.
-  # Default off so shipping books keep their current behavior until a
-  # per-book review approves the telemetry surface.
-  rhythm_validator:
-    enabled: false
-    # Override DEFAULT_THRESHOLDS keys here if a book needs custom bands.
-    # Schema matches src/quality/rhythm_validator.DEFAULT_THRESHOLDS.
-    thresholds: {}
-  # Rhythm-editor LLM pass. When enabled, runs after RhythmValidator detects
-  # warn-band issues and applies bounded literal edits. Deterministic safety
-  # caps in src/agents/rhythm_editor.apply_rhythm_edits are enforced
-  # regardless of what the model returns. Default off so a model regression
-  # cannot silently rewrite shipping prose.
-  rhythm_editor:
-    enabled: false
-    # Only fire when the listed issue codes appear in RhythmValidator output.
-    # `rhythm.dialogue_starved` is intentionally absent: dialogue-density
-    # fixes require generative work the drafter should do, not the editor.
-    trigger_codes:
-      - rhythm.em_dash_overuse
-      - rhythm.staccato_cluster
-      - rhythm.opener_monotone
-      - rhythm.abstract_tic
-    # Skip the rhythm-editor pass when there are more issue codes than this -
-    # >N codes signals the drafter produced low-quality prose and a literal
-    # edit pass would be patching noise rather than fixing rhythm.
-    max_trigger_codes: 5
-    # Bounded safety caps applied by apply_rhythm_edits. Widening these is
-    # a deliberate decision; the shipping defaults are intentionally tight.
-    max_edits: 8
-    max_total_changed_chars: 1500
-    max_changed_ratio: 0.15
-  # Cross-chapter continuity validator. Runs at bundle-compile time, before
-  # any drafting begins, to catch character status / location / plot-object
-  # discontinuities across scene boundaries. Pure deterministic check on
-  # scene-card metadata. Default off so existing shipping bundles continue
-  # to compile unchanged.
-  continuity_validator:
-    enabled: false
+    enabled: true  # Prompt caching for supported providers (reduces input costs)
+    anthropic_ttl: 1h  # Anthropic cache TTL: "5m" (1.25x write) or "1h" (2x write)

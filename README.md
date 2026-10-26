@@ -1,339 +1,83 @@
 # AI Writers' Room
 
-> **Status:** experimental research project. Active development; APIs and pipeline shape change between commits.
+A friendly tool for writing a novel with an AI co-writer: fanfiction or your
+own original world. You bring the idea; it helps you shape it, then drafts
+the book with you chapter by chapter. You don't need to know any writing
+theory.
 
-A multi-agent system that writes novel-length (60–80K word) fiction. A human plans the book through a series of guided chats; a coordinated pipeline of language-model agents then drafts, line-edits, and exports the manuscript — chapter by chapter, with full audit trails.
-
-It works for franchise fanfiction (with optional canon-aware checking) or wholly original worlds, and is configured per-franchise / per-book.
-
-## What makes this project interesting
-
-If you want the engineering hook before the install instructions, this is it:
-
-- **Lean forward-pass pipeline.** One drafting pass per scene — no gates, no retry loops, no save-blocker layer. Quality is enforced *upstream* at planning time, so the drafter lands the scene contract on the first pass.
-- **A single chapter-packet contract.** The drafter sees a declarative, inspectable runtime packet compiled from the blueprint, seed, and scene card — not ambient context-soup. Trusted-state stores (a promise ledger, a revision-debt store) plug into the same packet.
-- **Author-led, not LLM-led, planning.** Structured surfaces (idea session, universe, canon, voice, characters, outline, scene cards) are shaped by the human first; the pipeline only drafts what the author has already settled.
-- **Per-run output isolation** with full prompt + ledger snapshots — every drafting run is reproducible from inputs.
-
-For the architectural details, see [CLAUDE.md](CLAUDE.md) and [docs/architecture/](docs/architecture/).
-
-## The simple way: the studio
-
-For a new book, start here. You don't need to know any writing theory.
+## How it works
 
 1. **Plan in conversation.** In Claude Code, use the `story-session` skill and
-   bring whatever you have: an idea, some characters, a rough outline. The
-   chat helps you flesh it out and keeps two plain files up to date as you
-   talk: `story_bible.md` and `outline.md`. Edit them yourself whenever you
-   like.
-2. **Draft chapter by chapter.** Each draft is written by a model that reads
-   your whole book so far, so it remembers everything:
+   bring whatever you have: a one-line idea, some characters, a rough outline,
+   or notes to paste in. The chat helps you flesh it out with ideas and
+   questions, and keeps two plain files up to date as you talk:
+   `story_bible.md` and `outline.md`. Edit them yourself whenever you like;
+   your edits always win.
+2. **Draft chapter by chapter.** Each chapter is written by a model that reads
+   your whole book so far (the story bible, the outline and every chapter in
+   full), so it remembers everything.
+3. **Revise and review.** Ask for changes in plain words ("more banter, less
+   brooding"), get a light polish, or have the model read the whole book and
+   write you friendly, specific notes.
 
-   ```bash
-   python scripts/studio.py new --title "My Novel"
-   python scripts/studio.py draft next --title "My Novel"
-   python scripts/studio.py revise 1 --title "My Novel" --note "more banter, less brooding"
-   python scripts/studio.py review --title "My Novel"
-   python scripts/studio.py export --title "My Novel"
-   ```
-
-Craft guidance is deliberately loose: a handful of lenses in
-[`prompts/studio/craft_guide.md`](prompts/studio/craft_guide.md), not rules.
-See the [Studio guide](docs/user-guide/studio.md).
-
-The rest of this README describes the original multi-stage pipeline, which
-is still supported for existing books.
-
-## How a book gets made — A to Z
-
-The workflow has three phases. **Phase 1 (planning) is human-driven.** **Phase 2 (production) is pipeline-driven.** **Phase 3 (review and polish) is a human/pipeline collaboration.**
+Your book is one folder of Markdown files you can open in any editor:
 
 ```text
-┌─────────────────────────────────────────────────────────────────────┐
-│                      PHASE 1 — PLANNING (HUMAN)                     │
-│                                                                     │
-│  Idea Session ──▶ Six Workflow Surfaces ──▶ compile_bundle.py       │
-│  (loose chat)     (universe, canon, voice,    (validates +          │
-│                    characters, outline,        merges into           │
-│                    scene cards)                concept_seed.json)    │
-└─────────────────────────────────────────────────────────────────────┘
-                                  │
-                                  ▼
-┌─────────────────────────────────────────────────────────────────────┐
-│                  PHASE 2 — PRODUCTION (PIPELINE)                    │
-│                                                                     │
-│  preflight ──▶ Lean drafting run ──▶ manuscript export              │
-│  (deterministic   (PlotArchitect ─▶     (stitches scenes into       │
-│   checks)          ProseStylist ─▶       a single manuscript        │
-│                    LineWriter ─▶          plus chapter index)       │
-│                    save, per scene)                                 │
-└─────────────────────────────────────────────────────────────────────┘
-                                  │
-                                  ▼
-┌─────────────────────────────────────────────────────────────────────┐
-│             PHASE 3 — REVIEW & POLISH (HUMAN + PIPELINE)            │
-│                                                                     │
-│  GPT-5.4 manuscript review ──▶ Targeted revision ──▶                │
-│  Targeted cleanup ──▶ Final validation ──▶ Final export             │
-└─────────────────────────────────────────────────────────────────────┘
+story/
+  story_bible.md     premise, feel, characters, world, voice, things to keep true
+  outline.md         one "## Chapter N" section per chapter
+  chapters/          chapter_01.md, chapter_02.md, ... (earlier versions in .history/)
+  notes/             reader reviews
+  export/            the whole book in one file
 ```
 
-### Phase 1 — Planning (human-driven)
+## Quick start
 
-1. **Idea Session Capture.** A loose front-door planning chat. You describe the spark — a premise, an image, a character, a relationship pressure — and the session captures decisions, open questions, and per-surface handoff notes. It does *not* commit you to a full outline yet. See [Idea Session Capture](docs/user-guide/idea-session-capture.md).
-
-   ```bash
-   python scripts/idea_session_capture.py init --title "My Novel" --franchise "My Franchise"
-   ```
-
-   When the north star is clear enough, `expand_to_surface_drafts()` pre-seeds the six structural surfaces with `<EDIT_ME …>` skeletons — partly-filled, schema-valid drafts that downstream surface chats fill in.
-
-2. **Six workflow surfaces.** Each surface is a focused authoring chat (a Claude Code Skill, with a headless API for scripting):
-
-   | Surface | Owns |
-   |---|---|
-   | `universe` | premise, conflict, theme, setting, target shape |
-   | `canon` | continuity rules, canon profile, terminology |
-   | `voice` | POV, register, anti-slop rules, character voices |
-   | `characters` | cast, K.M. Weiland arcs (lie / ghost / want / need), relationships |
-   | `outline` | Brooks four-part beat map, chapters with scene counts sized to the beat |
-   | `scene_cards` | per-scene production contract (mission, turning point, characters present, key beats) |
-
-   The surfaces inherit from the idea-session handoff notes. They are validated independently and again at compile time.
-
-3. **`compile_bundle.py`.** Cross-surface validation + merge. The output is a canonical `concept_seed.json` plus per-scene cards under `scene_cards/`:
-
-   ```bash
-   python scripts/compile_bundle.py --franchise <slug> --book <slug>
-   ```
-
-   Treat `compile_report.json` as the first quality gate. Fix any cross-surface gaps before drafting.
-
-### Phase 2 — Production (pipeline-driven)
-
-4. **Preflight.** Deterministic, offline checks before you spend any tokens — schema validity, cross-surface references, canon-guidance coverage. See [`scripts/preflight_run.py`](scripts/preflight_run.py).
-
-5. **Lean drafting run.** The shipping default is the lean per-scene path:
-
-   ```text
-   PlotArchitect ─▶ ProseStylist (drafter) ─▶ LineWriter ─▶ save
-   ```
-
-   Every scene runs this single forward pass. There are no gates, no save-blocker layer, and no retries — quality is enforced upstream at planning time. See [How the per-scene pipeline works](#how-the-per-scene-pipeline-works).
-
-   ```bash
-   python -m src.main \
-     data/franchises/<franchise>/books/<book>/concept_seed.json \
-     data/franchises/<franchise>/books/<book>/scene_cards \
-     --franchise <franchise> --book <book> \
-     --run-name first-draft --phase 5
-   ```
-
-6. **Manuscript export.** Stitch the per-scene saves into a single manuscript:
-
-   ```bash
-   python scripts/manuscript_export.py \
-     --seed data/franchises/<franchise>/books/<book>/concept_seed.json \
-     --run-dir output/<franchise>/<book>/runs/<run-id> \
-     --export-dir output/<franchise>/<book>/export/<export-name>
-   ```
-
-### Phase 3 — Review and polish (human + pipeline)
-
-7. **Full manuscript review.** A GPT-5.4 read of the whole manuscript produces an editorial docket — pacing flags, motif over-use, voice drift, structural problems.
-8. **Targeted revision.** The docket is converted into concrete per-chapter edits, applied as a narrow rewrite pass through `scripts/patch_workflow.py`.
-9. **Targeted cleanup.** A line-level cleanup pass on the revised manuscript. **This is the production master** — a full literary rewrite is available as an optional donor / comparison branch but not the default. See [Manuscript Production Lifecycle](docs/architecture/manuscript-production-lifecycle.md).
-10. **Final validation.** A deterministic check on chapter count, scene count, residual assistant artefacts, and meta/process language ([`scripts/manuscript_final_validation.py`](scripts/manuscript_final_validation.py)).
-11. **Final export.** The validated manuscript ships as the artifact under `output/<franchise>/<book>/export/`.
-
-For the full operator path, see [New Manuscript Workflow](docs/user-guide/new-manuscript-workflow.md).
-
-## Quick Start
-
-### Prerequisites
-
-- Python 3.10+
-- Node.js 18+ (for the optional read-only web console)
-- An [OpenRouter](https://openrouter.ai/) API key (cloud / hybrid mode), or a local [llama-server](https://github.com/ggerganov/llama.cpp) instance (local mode)
-
-### Installation
+You need Python 3.10+ and an [OpenRouter](https://openrouter.ai/) API key.
 
 ```bash
 git clone https://github.com/DinomyteHero/AI_Novel_Writing_Room.git
 cd AI_Novel_Writing_Room
 pip install -r requirements.txt
+cp .env.example .env          # then paste your OPENROUTER_API_KEY into .env
 ```
 
-Set your OpenRouter API key (cloud or hybrid mode):
+Then:
 
 ```bash
-export OPENROUTER_API_KEY=your_key_here
+python scripts/studio.py new --title "My Novel"
+# fanfiction: add --franchise "Star Wars (Legends EU)"
+
+python scripts/studio.py draft next --title "My Novel"
+python scripts/studio.py revise 1 --title "My Novel" --note "more banter, less brooding"
+python scripts/studio.py polish 1 --title "My Novel"
+python scripts/studio.py review --title "My Novel"
+python scripts/studio.py status --title "My Novel"
+python scripts/studio.py export --title "My Novel"
 ```
 
-### Run the bundled example
+See the [Studio guide](docs/user-guide/studio.md) for details.
 
-A single end-to-end pipeline run is checked into the repo as a reference. To re-draft it from inputs:
+## Craft, loosely
 
-```bash
-python -m src.main \
-  data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/concept_seed.json \
-  data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/scene_cards \
-  --franchise star-wars-legends-eu --book the-ruusan-atonement \
-  --run-name first-draft --phase 5
-```
+Craft guidance lives in one short file,
+[`prompts/studio/craft_guide.md`](prompts/studio/craft_guide.md). It gives you
+lenses, not rules: an eight-line "story spine", six questions worth answering
+eventually, "but/therefore, not and then", promises that progress and pay
+off, and wins that come with a catch. The planning chat and the drafter both
+use it, and your own notes in the story bible always win over it.
 
-The flat `data/projects/<slug>/` layout is also supported for ad-hoc projects, but the franchise-scoped layout above is what the bundled example uses.
+## Models
 
-### Start a brand-new project
+Set in [`config/settings.yaml`](config/settings.yaml):
 
-The conversational front door is the idea-session capture:
+- `studio_writer` drafts, revises and polishes (DeepSeek V4 Pro by default).
+- `studio_reader` writes reviews (Gemini 3.1 Pro by default).
 
-```bash
-python scripts/idea_session_capture.py init --title "My Novel" --franchise "My Franchise"
-```
-
-That workspace captures the early chat, decisions, and open questions, and
-maintains `story_brief.json` — the claim ledger for characters, locations,
-themes, plot, world, and voice. Check coverage and write review sheets:
-
-```bash
-python scripts/story_brief.py status --title "My Novel" --franchise "My Franchise"
-python scripts/story_brief.py sheets --title "My Novel" --franchise "My Franchise"
-```
-
-Then pre-seed the six workflow surfaces. From there, follow [New Manuscript Workflow](docs/user-guide/new-manuscript-workflow.md) for the full A-to-Z path.
-
-### Run the web interface (optional)
-
-```bash
-# Build the frontend (first time only)
-cd src/ui/frontend && npm install && npm run build && cd ../../..
-
-# Start the server
-python -m src.ui.server \
-  data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/concept_seed.json
-```
-
-Open http://localhost:8000 in your browser. The web app is a **read-only
-review console**: saved chapters and ledger events only. Drafting, review
-actions, and export run through the CLI.
-
-## How the per-scene pipeline works
-
-Every scene runs a single **lean forward pass**:
-
-```text
-PlotArchitect ─▶ ProseStylist ─▶ [LineWriter] ─▶ save
-```
-
-1. **PlotArchitect** reads a scene card and produces a typed generation brief.
-2. **ProseStylist (drafter)** drafts prose from the brief plus the **chapter packet** — a single inspectable runtime contract compiled from the blueprint, seed, and scene card.
-3. **LineWriter** is an optional single line-edit pass that preserves beats, turning point, POV, characters present, and canon while rewriting sentence-level rhythm and voice texture.
-4. The prose is **saved** directly. Two optional, flag-gated rhythm stages (RhythmValidator → RhythmEditor) can run before the save; both are advisory and default-off.
-
-There is no save-time gate, no quality-polish pass, no save-blocker layer, no quarantine, and no retry loop. Quality is enforced *upstream* — at planning and scene-card validation time — so the drafter lands the scene contract on the first pass. Every saved scene is `saved_clean` (or `saved_with_advisory` if an advisory signal fired). Every step emits typed events (level: info / warn / error) to the RunLedger.
-
-After the scene saves, a post-save memory chain runs (Phase 2+): Summarizer → ChromaDB chapter memory → state diff → contradiction scan → worldbuilding extraction. Each post-save stage is wrapped in an error guard — a crash there never aborts a saved scene.
-
-Pipeline depth is selectable with `--phase 1..5`:
-
-| Pipeline depth | Adds |
-|----------------|------|
-| 1 | Lean drafting: PlotArchitect → ProseStylist → [LineWriter] → save |
-| 2 | Story state (SQLite), chapter memory (ChromaDB), canon RAG, and the post-save memory chain |
-| 3 | No additional subsystems beyond Phase 2 |
-| 4 | Session persistence (save / resume), export, scene-card generation |
-| 5 | Chapter blueprint auto-generation |
-
-Optional flag-gated tooling, off by default: the revision-debt store, the promise ledger, the rhythm validator / editor, and the cross-chapter continuity validator. Post-production passes (GPT-5.4 manuscript review, literary polish) run after a draft, not during it. See [Benchmarking](docs/development/benchmarking.md).
-
-## Directory Structure
-
-**Inputs (franchise-scoped):**
-```
-data/franchises/<franchise>/books/<book>/
-├── concept_seed.json          # Story concept with canon_profile
-├── scene_cards/               # Per-chapter scene cards
-├── chapter_blueprints/        # Per-chapter planning artifacts
-└── workflows/                 # Authored surface artifacts + idea session
-```
-
-**Inputs (flat, backward-compatible for ad-hoc projects):**
-```
-data/projects/<slug>/
-├── concept_seed.json
-└── scene_cards/
-```
-
-**Outputs (run-scoped):**
-```
-output/<franchise>/<book>/
-├── runs/<run_id>/             # Per-scene saves, chapter packets, prompts snapshot, ledger
-├── export/<export_name>/      # Stitched manuscripts
-└── state/                     # SQLite + ChromaDB stores
-```
-
-**Series shared state (when `--series` is set):**
-```
-output/<franchise>/<series>/state/
-```
-
-## Documentation
-
-| Guide | Description |
-|-------|-------------|
-| [Getting Started](docs/getting-started.md) | Installation, configuration, first run |
-| **User Guides** | |
-| [CLI Usage](docs/user-guide/cli-usage.md) | All CLI flags and examples |
-| [New Manuscript Workflow](docs/user-guide/new-manuscript-workflow.md) | End-to-end path from idea chat to final validated export |
-| [Idea Session Capture](docs/user-guide/idea-session-capture.md) | Guided planning chat capture before the six workflow surfaces |
-| [Story Brief](docs/user-guide/story-brief.md) | Claim ledger, gap policy, and reviewable character/location/theme/plot sheets |
-| [Workflow Kit](docs/user-guide/workflow-kit.md) | Six-surface concept authoring (universe / canon / voice / characters / outline / scene cards) |
-| [Final Copy Pipeline](docs/user-guide/final-copy-pipeline.md) | Scene-level literary-copy diagnostics and donor-polish lane |
-| [Web Interface](docs/user-guide/web-interface.md) | Read-only book/chapter console |
-| **Architecture** | |
-| [System Overview](docs/architecture/system-overview.md) | Components, data flow, directory structure |
-| [Agent Pipeline](docs/architecture/agent-pipeline.md) | The lean multi-agent generation loop |
-| [Manuscript Production Lifecycle](docs/architecture/manuscript-production-lifecycle.md) | Lean production, full review, targeted cleanup, optional literary donor branch, final validation |
-| [Memory & State](docs/architecture/memory-and-state.md) | SQLite, ChromaDB, knowledge layers |
-| [Quality & Revision](docs/architecture/quality-and-revision.md) | The lean quality model: upstream enforcement, advisory telemetry, post-production review |
-| **Reference** | |
-| [API Reference](docs/reference/api-reference.md) | Read-only FastAPI endpoints |
-| [Configuration](docs/reference/configuration.md) | settings.yaml, runtime flags, constraints |
-| [Schemas](docs/reference/schemas.md) | JSON schema definitions |
-| **Development** | |
-| [Contributing](docs/development/contributing.md) | Dev setup, testing, code style |
-| [Adding Agents](docs/development/adding-agents.md) | How to extend the agent system |
-| [Benchmarking](docs/development/benchmarking.md) | Prose-model bench, bench configs, A/B methodology |
-
-Historical implementation briefs and superseded design docs are preserved in [docs/archive/](docs/archive/).
-
-## Tests
-
-```bash
-pytest                              # Run the full suite
-pytest -k "test_orchestrator"       # Run a subset
-```
-
-## A note on the bundled example
-
-The repo ships the full **planning inputs** for one end-to-end reference book: **The Ruusan Atonement**, a fan-fiction concept set in the Star Wars Legends Expanded Universe (New Sith Wars era). Running the pipeline on those inputs produces a 28-chapter, ~113,000-word manuscript (draft → GPT-5.4 review → targeted revision).
-
-The generated manuscript itself is **not part of the default repository**. Most
-runtime output is gitignored (`output/*/*/state/`, `export/`, and `runs/`), but
-a few curated reference run files may be force-added. The inputs that produce a
-book are checked in at [`data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/`](data/franchises/star-wars-legends-eu/books/the-ruusan-atonement/), so the run is reproducible from the inputs alone — see [Run the bundled example](#run-the-bundled-example).
-
-**Treat it as a base test of the pipeline, not an example of polished storytelling.** The point is to demonstrate that the system can take guided author planning all the way through to a reviewed, validated long-form manuscript — not to ship a novel for reading.
+Both have roughly 1M-token context windows, enough for a full novel and its
+notes. The tool refuses to send more than 900K tokens in one call.
 
 ## License
 
-Apache License 2.0 — see [LICENSE](LICENSE).
-
-The license covers the pipeline software. It does not grant rights in any third-party franchise material that the bundled example or evaluation corpus happens to reference; see [DISCLAIMER](DISCLAIMER.md) for the non-commercial fan-content posture and rightsholder takedown contact.
-
-## Connect
-
-Built by **Louis Bouwer**. If this project is useful to you, or you'd like to chat about multi-agent fiction generation, language-model orchestration, or the engineering behind the lean pipeline, please feel free to say hi and connect on LinkedIn:
-
-[LinkedIn Profile Link](https://www.linkedin.com/in/louisbouwer3/)
+Apache 2.0. See [LICENSE](LICENSE) and [DISCLAIMER.md](DISCLAIMER.md) for
+notes on fanfiction and third-party material.

@@ -19,6 +19,7 @@ from src.studio import (
     revise_chapter,
 )
 from src.studio import writer
+from src.studio.project import slugify
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -60,7 +61,12 @@ def project(tmp_path: Path) -> StoryProject:
     return proj
 
 
-def test_paths_follow_project_paths(tmp_path: Path):
+def test_slugify():
+    assert slugify("Star Wars (Legends EU)") == "star-wars-legends-eu"
+    assert slugify("  The Dark   Lighthouse! ") == "the-dark-lighthouse"
+
+
+def test_book_paths(tmp_path: Path):
     original = StoryProject.for_book("The Dark Lighthouse", base_dir=str(tmp_path))
     fic = StoryProject.for_book("Red Sky", "Star Wars (Legends EU)", base_dir=str(tmp_path))
     assert original.root == tmp_path / "data" / "projects" / "the-dark-lighthouse" / "story"

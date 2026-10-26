@@ -1,6 +1,7 @@
 """A studio book: plain Markdown files a writer can open and edit directly.
 
-Layout under ``ProjectPaths.story_dir``::
+An original book lives at ``data/projects/<title-slug>/story/``; a fanfiction
+book at ``data/franchises/<franchise-slug>/books/<title-slug>/story/``::
 
     story_bible.md          the author's notes on premise, cast, world, voice
     outline.md              loose per-chapter plan, one ``## Chapter N`` section each
@@ -16,8 +17,6 @@ import re
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
-
-from src.project_paths import ProjectPaths, _slugify_franchise, slugify_title
 
 TEMPLATES_DIR = Path(__file__).resolve().parents[2] / "templates" / "story"
 
@@ -35,6 +34,20 @@ class ChapterPlan:
     notes: str
 
 
+def slugify(name: str) -> str:
+    """'Star Wars (Legends EU)' -> 'star-wars-legends-eu'"""
+    slug = re.sub(r"[^a-z0-9\s_-]", "", name.lower().strip())
+    slug = re.sub(r"[\s_]+", "-", slug)
+    return re.sub(r"-+", "-", slug).strip("-")
+
+
+def book_root(title: str, franchise: str | None = None, base_dir: str = ".") -> Path:
+    base = Path(base_dir) / "data"
+    if franchise:
+        return base / "franchises" / slugify(franchise) / "books" / slugify(title) / "story"
+    return base / "projects" / slugify(title) / "story"
+
+
 def estimate_tokens(text: str) -> int:
     return len(text) // 4
 
@@ -48,12 +61,7 @@ class StoryProject:
     def for_book(
         cls, title: str, franchise: str | None = None, base_dir: str = "."
     ) -> "StoryProject":
-        paths = ProjectPaths(
-            slugify_title(title),
-            base_dir=base_dir,
-            franchise_slug=_slugify_franchise(franchise) if franchise else None,
-        )
-        return cls(paths.story_dir, title=title)
+        return cls(book_root(title, franchise, base_dir), title=title)
 
     @property
     def bible_path(self) -> Path:

@@ -29,9 +29,9 @@ provide a clear timeline within thirty days for non-trivial issues.
   against any URL associated with this codebase. Static analysis of the
   source tree is welcome.
 - **Trademark or copyright concerns** about third-party franchise material
-  the pipeline operates on. Those belong in [DISCLAIMER.md](DISCLAIMER.md);
+  the tool is used with. Those belong in [DISCLAIMER.md](DISCLAIMER.md);
   open a regular issue or contact the maintainer for takedown requests.
-- **Issues in upstream dependencies** (FastAPI, ChromaDB, llama.cpp, etc.).
+- **Issues in upstream dependencies** (httpx, PyYAML, llama.cpp, etc.).
   Please report those to the relevant project. If a dependency vulnerability
   affects how this project uses it, that part is in scope.
 
