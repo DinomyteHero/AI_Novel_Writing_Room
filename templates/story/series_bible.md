@@ -8,7 +8,8 @@ share. Leave anything blank or write "not sure yet".
 
 ## The world
 
-Where and when it's set, and how it works, for every book.
+Where and when it's set, and how it works, for every book. Places that come
+back get a line each so they stay the same.
 
 ## The arc across books
 

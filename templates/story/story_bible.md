@@ -16,7 +16,9 @@ good cry, a big adventure).
 ## The world
 
 Where and when it's set, and anything about how it works that a reader
-needs to understand. (Characters have their own file: characters.md.)
+needs to understand. Places that come back get a line each (how they look,
+sound, smell) so they stay the same from chapter to chapter. (Characters have
+their own file: characters.md.)
 
 ## How it's told
 

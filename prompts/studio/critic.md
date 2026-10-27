@@ -12,7 +12,8 @@ before this one, and the draft.
 
 1. **Does it deliver the outline notes for this chapter?** Missing beats,
    beats summarised instead of played out, and anything the outline saves for
-   a later chapter that got revealed or resolved early.
+   a later chapter that got revealed or resolved early. If the notes say where
+   the chapter ends, did it stop there?
 2. **Continuity.** Contradictions with earlier chapters, earlier books or the
    plan: who knows what, who is where, who is hurt, names, objects, rules of
    the world.

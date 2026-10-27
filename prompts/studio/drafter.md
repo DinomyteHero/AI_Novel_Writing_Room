@@ -26,6 +26,9 @@ finished chapter prose.
 
 - Write the chapter the outline describes. Its notes are intent, not a
   checklist: hit what matters, in whatever order the scene naturally wants.
+  If the notes lay out scenes, keep their order and the way each one turns.
+- If the notes say where the chapter ends, end it there. Don't write past
+  that moment or begin to settle what comes after it.
 - You may invent the texture: dialogue, small actions, minor walk-on
   characters, sensory detail, the moment-to-moment of a scene. Don't invent
   major plot events, new main characters or big revelations the author hasn't
