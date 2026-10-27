@@ -226,3 +226,15 @@ async def test_size_is_checked_every_step_and_too_long_is_explained(book, monkey
 
     with pytest.raises(StudioError, match="story-so-far"):
         await chat.run_turn(book.series, book, FakeRouter({"studio_chat": [refuse]}), [], "Hi.", SETTINGS)
+
+
+async def test_ideas_tool_saves_a_file_the_writer_goes_through(book):
+    router = FakeRouter({
+        "studio_chat": [{"tool_calls": [("ideas", {})]}, "Here are some directions. Shall we start with the first?"],
+        "studio_reader": ["### 1. The keeper's secret\n\n**Your call:**\n"],
+    })
+    result = await chat.run_turn(book.series, book, router, [], "I'm stuck.", SETTINGS)
+    [item] = result.items
+    assert item["kind"] == "ideas" and "/notes/ideas_" in item["file"]
+    [_, assistant] = chat.history_entries("I'm stuck.", [], result)
+    assert "[Asked a second model for ideas:" in assistant["content"]

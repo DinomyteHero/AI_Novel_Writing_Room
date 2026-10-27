@@ -78,3 +78,9 @@ def test_review_rename_and_errors_come_back_as_text(book, library, tmp_path):
     assert "Maren" in book.characters_path.read_text(encoding="utf-8")
     assert call(tools, "revise_chapter", chapter=9, note="x") == ("Chapter 9 hasn't been written yet.", True)
     assert call(tools, "new_book")[1] is True
+
+
+def test_ideas_come_back_as_text(book, library, tmp_path):
+    router = FakeRouter({"studio_reader": ["### 1. A gap\n\n**Your call:**\n"]})
+    text, error = call(tools_for(library, router, tmp_path), "ideas")
+    assert not error and "### 1. A gap" in text and "ideas_" in text

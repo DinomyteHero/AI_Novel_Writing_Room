@@ -50,7 +50,7 @@ library/<series>/
 **Commands or tools.** This guide names the repository's commands. With the
 Writers Room plugin (Cowork or Claude Code), the `writers-room` tools do the
 same jobs: `list_books` (which also shows where the library is), `new_book`,
-`status`, `review`, `rename`, `estimate_build`, `start_build`,
+`status`, `review`, `ideas`, `rename`, `estimate_build`, `start_build`,
 `build_status`, `stop_build`, `revise_chapter`, `story_so_far`, `export`,
 `check` and `craft_guide`. Wherever this guide says to run a command, use the
 matching tool, and edit the plan files directly in the folder `list_books`
@@ -64,6 +64,8 @@ library holds more than one book):
   `--series "<series>"` to start a series or add the next book to one.
 - `python scripts/room.py books` and `status` show what exists and what's
   out of date.
+- `python scripts/room.py ideas` asks a second model for options where the
+  plan is thinnest (see "When the writer is stuck").
 
 ## Keeping the files in step with the conversation
 
@@ -116,7 +118,15 @@ first two or three chapters, and start building.
   into a series by adding a second book with `--series "<its title>"`.
 - When a second book arrives, offer to move what's shared (the world, the
   rules) out of book one's story bible into `series_bible.md`, so it isn't
-  duplicated.
+  duplicated. Move only what's still true in the new book. If the next book
+  changes setting or genre (say, fantasy characters crossing into a
+  science-fiction world), each book keeps its own world in its story bible,
+  and the series bible holds what carries across: where the characters come
+  from, the rules that travel with them, how the worlds connect, and the arc.
+- Every book's chapters read the series bible, so a surprise saved for a
+  later book (a twist, a change of world) goes in "The arc across books"
+  marked as not to be revealed before that book, with any hints the writer
+  wants planted earlier.
 - A new book's `characters.md` starts as a copy of the previous book's, so
   the whole cast comes along. Go through it with the writer: update "Where
   they are now" and anything that changed, and move anyone who won't appear
@@ -162,6 +172,16 @@ first two or three chapters, and start building.
   what they'd do if no one helped. Events joined by "and then": look for the
   "therefore" or "but" that links them. A subplot that never touches the
   main story: ask how it could complicate it, cost it something or mirror it.
+- **When the writer is stuck.** If they say they're stuck or out of ideas,
+  don't answer with more questions. Find the one gap that matters most right
+  now (often what the lead wants, what's in the way, or what happens in the
+  middle), offer three genuinely different directions with your pick and
+  why, and once they choose, record it and move to the next gap. For a
+  second mind, offer `python scripts/room.py ideas`: a different model reads
+  everything and writes two or three options for each of the thinnest parts
+  to `notes/ideas_<time>.md`. Go through them like a review: one at a time,
+  record each choice on its "**Your call:**" line, and make only the edits
+  the writer picks.
 - **Track the threads.** When the book opens a mystery, a romance, a rivalry
   or a danger, or a character sets out to change, add a line under
   `## The threads` at the top of `outline.md`: what's opened and roughly

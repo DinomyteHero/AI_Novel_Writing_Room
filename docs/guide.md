@@ -168,6 +168,22 @@ you go through the points one at a time; the chat records your decision under
 each one and makes only the changes you agree to. The chat offers a review
 once when you're ready to build; skipping it is fine.
 
+### Stuck? Fresh ideas
+
+Tell the chat you're stuck (in the app, the **I'm stuck** button) and it
+picks the gap that matters most and offers three directions. For a second
+mind:
+
+```bash
+python scripts/room.py ideas
+```
+
+A different model reads everything and writes two or three options for each
+of the thinnest parts of your plan to `notes/`, with its pick and a blank
+**Your call** line. In the app it's **Get fresh ideas** under Notes. Go
+through them like a review: use the pick, skip it, or choose something else.
+Nothing goes into your plan until you choose.
+
 ## The Press: build chapters
 
 ```bash

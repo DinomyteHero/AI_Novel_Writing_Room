@@ -137,6 +137,13 @@ def cmd_review(args: argparse.Namespace) -> None:
     print(f"Saved {_show(path)}\nGo through it point by point in the story-session chat, or open it yourself.")
 
 
+def cmd_ideas(args: argparse.Namespace) -> None:
+    book = _book(args)
+    print(f"Asking a second model for ideas on {book.label}...")
+    path = asyncio.run(_with_router(args, lambda r: room.ideas(book, r)))
+    print(f"Saved {_show(path)}\nGo through them one at a time in the story-session chat, or open it yourself.")
+
+
 def cmd_revise(args: argparse.Namespace) -> None:
     book = _book(args)
     print(f"Revising chapter {args.chapter}...")
@@ -273,6 +280,9 @@ def room_parser() -> argparse.ArgumentParser:
     sub.add_parser("review", parents=[common], help="A second model reviews everything so far").set_defaults(
         handler=cmd_review
     )
+    sub.add_parser(
+        "ideas", parents=[common], help="A second model offers options where the plan is thin"
+    ).set_defaults(handler=cmd_ideas)
     revise = sub.add_parser("revise", parents=[common], help="Change a chapter with a note")
     revise.add_argument("chapter", type=int)
     revise.add_argument("--note", required=True, help="What you'd like changed")

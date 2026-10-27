@@ -9,11 +9,13 @@ share. Leave anything blank or write "not sure yet".
 ## The world
 
 Where and when it's set, and how it works, for every book. Places that come
-back get a line each so they stay the same.
+back get a line each so they stay the same. If books are set in different
+worlds, each book's story bible holds its own; say here how they connect.
 
 ## The arc across books
 
 Where the series as a whole is heading. A direction, not a destination.
+Mark anything a later book reveals as not to be given away before then.
 
 ## How it's told
 

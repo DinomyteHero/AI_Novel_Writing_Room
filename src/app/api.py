@@ -44,7 +44,7 @@ ROLES = [
     ("studio_chat", "Chat", "Talks with you and edits your files."),
     ("studio_writer", "Writer", "Drafts and revises chapters."),
     ("studio_critic", "Critic", "Critiques each draft. A different model catches different things."),
-    ("studio_reader", "Reviewer", "Second opinions on your plan."),
+    ("studio_reader", "Reviewer", "Second opinions and fresh ideas for your plan."),
     ("studio_notes", "Story so far", "Notes on a finished book for the books after it."),
 ]
 PROVIDER_BLURBS = {
@@ -54,6 +54,11 @@ PROVIDER_BLURBS = {
     "google": "Gemini models, directly from Google AI Studio.",
     "local": "A model running on this computer with Ollama or llama.cpp. Free and private, but slower and less capable.",
 }
+
+
+def _point_file(path: Path) -> bool:
+    """A review or ideas file: numbered points, each with a "Your call" line."""
+    return path.parent.name == "notes" and path.name.startswith(("review_", "ideas_"))
 
 
 def _now() -> str:
@@ -265,6 +270,7 @@ class App:
         settings = self.press_settings()
         missing = [c["number"] for c in chapters if c["state"] == "missing"]
         reviews = sorted(book.notes_dir.glob("review_*.md"), reverse=True) if book.notes_dir.exists() else []
+        ideas = sorted(book.notes_dir.glob("ideas_*.md"), reverse=True) if book.notes_dir.exists() else []
         runs = sorted((p for p in book.runs_dir.glob("*/report.md")), reverse=True) if book.runs_dir.exists() else []
         return {
             "id": pid,
@@ -280,6 +286,7 @@ class App:
             "words": sum(c["words"] for c in chapters),
             "missing": missing,
             "reviews": [{"name": p.name, "path": rel(p)} for p in reviews],
+            "ideas": [{"name": p.name, "path": rel(p)} for p in ideas],
             "runs": [{"name": p.parent.name, "path": rel(p)} for p in runs],
             "build": self._snap(series, job),
             "defaults": (
@@ -300,8 +307,9 @@ class App:
         text = target.read_text(encoding="utf-8", errors="replace")
         editable = chat.writable(series, target) or target.parent.name == "manuscript"
         result = {"path": path, "text": text, "version": chat.version(text), "editable": editable, "words": count_words(text)}
-        if target.parent.name == "notes" and target.name.startswith("review_"):
+        if _point_file(target):
             result["points"] = chat.review_points(text)
+            result["kind"] = "ideas" if target.name.startswith("ideas_") else "review"
         return result
 
     def save_file(self, pid: str, path: str, text: str, expected_version: str | None = None) -> dict:
@@ -604,8 +612,8 @@ class App:
     def review_call(self, pid: str, path: str, number: int, call: str) -> dict:
         series = self.series(pid)
         target = chat.resolve(series, path)
-        if target.parent.name != "notes" or not target.name.startswith("review_"):
-            raise StudioError("That isn't a review.")
+        if not _point_file(target):
+            raise StudioError("That isn't a review or an ideas file.")
         chat.record_call(target, int(number), call)
         return self.read_file(pid, path)
 
@@ -613,6 +621,12 @@ class App:
         series = self.series(pid)
         book = self.book(series, folder)
         path = self._run(lambda r: room.review(book, r))
+        return self.read_file(pid, chat.rel(series, path))
+
+    def ideas(self, pid: str, folder: str | None = None) -> dict:
+        series = self.series(pid)
+        book = self.book(series, folder)
+        path = self._run(lambda r: room.ideas(book, r))
         return self.read_file(pid, chat.rel(series, path))
 
     # --- press ----------------------------------------------------------------

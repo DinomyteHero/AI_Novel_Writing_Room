@@ -10,8 +10,8 @@ A tool that helps writers, often new ones, plan and write novels and series
 - **The Room** (interactive): the writer plans in conversation through the
   `story-session` skill; the plan lives in living Markdown files the chat
   updates as decisions land and the writer can edit by hand. Room commands
-  (`scripts/room.py`): `new`, `books`, `status`, `review`, `revise`, `polish`,
-  `rename`, `check`.
+  (`scripts/room.py`): `new`, `books`, `status`, `review`, `ideas`, `revise`,
+  `polish`, `rename`, `check`.
 - **The Press** (automated): builds chapters from the plan with no one
   present. Per chapter: draft (writer model) → critique (a different model)
   → revise → save. Press commands (`scripts/press.py`): `build next|all|N`,
@@ -80,6 +80,8 @@ favour of this design and is in git history if something specific is needed.
 - **The review is an optional gate.** `room.py review` writes numbered points
   with a blank `**Your call:**` line; the skill walks the writer through
   them and applies only agreed edits. Never make review mandatory.
+  `room.py ideas` uses the same shape for options where the plan is thin;
+  a model never fills in the plan unasked.
 - **Loose craft framework.** `prompts/studio/craft_guide.md` is the single
   home for craft guidance (lenses, not rules); prompts, the skill and docs
   point at it rather than restating it. The writer's bible always wins. **Do

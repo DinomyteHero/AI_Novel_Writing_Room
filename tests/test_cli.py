@@ -126,3 +126,10 @@ def test_service_errors_are_explained(run, monkeypatch):
     monkeypatch.setattr(run.router, "complete", fail)
     code, out = run("press", "build", "next")
     assert code == 1 and "couldn't get an answer from the model service" in out
+
+
+def test_ideas_command(run):
+    run("room", "new", "The Dark Lighthouse")
+    run.router.responses = {READER_ROLE: ["### 1. A gap\n\n**Your call:**"]}
+    code, out = run("room", "ideas")
+    assert code == 0 and "notes/ideas_" in out.replace("\\", "/")

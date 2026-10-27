@@ -11,6 +11,7 @@ uses, so where it tells you to run a command, use the matching tool instead:
 | `room.py new ... --series` (add the next book) | `add_book` |
 | `room.py rename` (preview, then `--apply`) | `rename` with `apply: false`, then `apply: true` once the writer agrees |
 | `room.py review` | `review` |
+| `room.py ideas` | `ideas` |
 | `room.py revise N --note` | `revise_chapter` |
 | `room.py status` | `status` |
 | `press.py build` | `propose_build`: the writer starts the build from the card it shows |
