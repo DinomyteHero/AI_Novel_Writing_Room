@@ -159,7 +159,8 @@ class TestModelRouterCompletion:
         mock_response = MagicMock()
         mock_response.json.return_value = {
             "choices": [{"message": {"content": "Text"}}],
-            "usage": {"prompt_tokens": 1200, "completion_tokens": 300, "cost": 0.0042},
+            "usage": {"prompt_tokens": 1200, "completion_tokens": 300, "cost": 0.0042,
+                      "prompt_tokens_details": {"cached_tokens": 1000}},
         }
         mock_response.raise_for_status = MagicMock()
         router._local_client = AsyncMock(post=AsyncMock(return_value=mock_response))
@@ -170,6 +171,8 @@ class TestModelRouterCompletion:
             "model": "test-model",
             "prompt_tokens": 1200,
             "completion_tokens": 300,
+            "cached_tokens": 1000,
+            "cache_write_tokens": 0,
             "cost": 0.0042,
         }]
 
