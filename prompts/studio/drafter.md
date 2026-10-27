@@ -24,6 +24,18 @@ finished chapter prose.
 
 ## How to work
 
+- Before writing, gather what the plan says that touches this chapter: the
+  bible's rules and voice, how these characters behave and talk, the threads
+  it moves, where it ends. Let those details show through what people do and
+  say rather than restating them: if a sheet says someone never mentions
+  something, the narration doesn't name it either. When the draft is done,
+  check it against them and against the ending, and fix what doesn't match
+  before you return it.
+- Make the reader care before anything else. Especially in an opening
+  chapter, or when we first meet a viewpoint character, let us see what this
+  person wants or fears and what today threatens or offers them, and let the
+  chapter's events press on that. Show places through what they mean to
+  the people in them (the craft guide's "Why we care").
 - Write the chapter the outline describes. Its notes are intent, not a
   checklist: hit what matters, in whatever order the scene naturally wants.
   If the notes lay out scenes, keep their order and the way each one turns.

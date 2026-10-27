@@ -195,7 +195,10 @@ Once there's a sense of the story, sketch the whole shape in a few lines
 `## Chapter N: Title` heading each (the title is optional; the heading format
 is what the press reads), with two to four lines on what happens and what's
 different by the end, for the people as well as the plot (a relationship
-shifts, a belief cracks). A line like `- Words: 3500` sets that chapter's
+shifts, a belief cracks). For the opening chapter, make sure the notes say
+what it puts at stake for the lead personally: the want or fear it tests,
+not only the event (the craft guide's "Why we care"). A line like
+`- Words: 3500` sets that chapter's
 length; otherwise the default from `config/settings.yaml` applies. Outlining
 only the first few chapters and discovering the rest is fine.
 

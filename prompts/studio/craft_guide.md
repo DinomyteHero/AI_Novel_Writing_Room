@@ -69,6 +69,18 @@ works when something shifts in how someone feels or sees, even slightly. Some
 whole books run this way, moved by feeling more than by plot. (Donald Maass,
 *The Emotional Craft of Fiction*.)
 
+## Why we care
+
+Readers don't care about an event; they care about what it does to someone.
+On the first page they are hunting for three things: whose story this is,
+what's happening, and what's at stake *for this person*. We care when
+something the lead has wanted or feared for a long time is put to the test,
+so let us see that want early, through what they do and notice, and let the
+event press on exactly that. The same goes for a place: it earns the
+reader's attention through what it means to the person standing in it. A
+striking situation with no personal stake is just an interesting problem.
+(Lisa Cron, *Wired for Story*.)
+
 ## Chapters
 
 The first page of the book matters most: show that something is already off,
@@ -178,6 +190,8 @@ Watch for these and replace them with something plain and specific:
 - an em-dash in every paragraph
 - runs of three or more very short sentences for effect
 - the same image or phrase coming back again and again
+- prose that falls into a regular beat or echoes its own phrase endings, so
+  the narration reads like verse (unless the bible asks for that voice)
 - stock phrases: "a testament to", "a tapestry of", "a mix of emotions",
   "a breath she didn't know she was holding", "sent a shiver down his spine"
 

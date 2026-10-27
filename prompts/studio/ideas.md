@@ -21,6 +21,8 @@ example:
   back
 - a character with no want, no way of talking, or no reason to be there yet
 - a thread that's opened and never moves, or never touches the main story
+- a detail the chapters plant that the plan never picks up (an object, a
+  line, a habit) and that readers will expect to matter
 - a part of the world the story leans on but hasn't settled
 
 Choose the gaps that matter most, at most six, most important first.
