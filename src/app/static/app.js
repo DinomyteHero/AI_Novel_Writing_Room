@@ -274,6 +274,10 @@ const ACT = {
     S.view = d.view; S.reader = null;
     if (d.view === "settings") S.settings = await get("/api/settings").catch((e) => (fail(e), null));
     render();
+    // A saved key isn't proof it works: check each one quietly in the background.
+    if (d.view === "settings" && S.settings) {
+      S.settings.providers.filter((p) => p.connected && p.kind === "key").forEach((p) => ACT.checkKey({ backend: p.key }));
+    }
   },
   async newProject() { S.view = "home"; S.home.menu = true; S.home.note = ""; render(); focus("home-composer"); },
   toggleMenu() { S.home.menu = !S.home.menu; render(); },
@@ -549,7 +553,7 @@ const ACT = {
   async connect(d) {
     const p = S.settings.providers.find((x) => x.key === d.backend);
     try {
-      if (p.connected && !S.providerInput[d.backend]) {
+      if (p.connected) {
         S.settings = await post("/api/settings/key", { backend: d.backend, value: "" });
         S.providerMsg[d.backend] = { ok: true, text: "Disconnected." };
       } else {
@@ -561,6 +565,23 @@ const ACT = {
         S.providerMsg[d.backend] = { ok: check.ok, text: check.message };
         S.providerInput[d.backend] = "";
       }
+      await refreshState();
+    } catch (e) { S.providerMsg[d.backend] = { ok: false, text: e.message }; }
+    render();
+  },
+  async checkKey(d) {
+    // With a new key typed in, save it first; otherwise test the saved one.
+    const value = (S.providerInput[d.backend] || "").trim();
+    S.providerMsg[d.backend] = { ok: true, text: "Checking…" }; render();
+    try {
+      if (value) {
+        S.settings = await post("/api/settings/key", { backend: d.backend, value });
+        S.providerInput[d.backend] = "";
+      }
+      const check = await post("/api/settings/check", { backend: d.backend });
+      S.providerMsg[d.backend] = {
+        ok: check.ok, text: check.ok ? check.message : `${check.message}. Paste a fresh key and press Check.`,
+      };
       await refreshState();
     } catch (e) { S.providerMsg[d.backend] = { ok: false, text: e.message }; }
     render();
@@ -1159,16 +1180,18 @@ function settingsView() {
   if (!st) return `<div class="scroll"><div class="page narrow"><h1 class="big">Settings</h1><p class="lead">Loading…</p></div></div>`;
   const providers = st.providers.map((p) => {
     const msg = S.providerMsg[p.key];
-    const status = p.connected ? "Connected" : "Not connected";
+    const failing = p.connected && msg && !msg.ok;
+    const status = failing ? "Not working" : p.connected ? "Connected" : "Not connected";
     return `<div class="card provider">
       <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><b style="font-size:16px">${esc(p.name)}</b>
-        ${p.recommended ? '<span class="badge">Recommended</span>' : ""}<span class="status-pill ${p.connected ? "ok" : ""}" style="margin-left:auto">${status}</span></div>
+        ${p.recommended ? '<span class="badge">Recommended</span>' : ""}<span class="status-pill ${p.connected && !failing ? "ok" : ""}" style="margin-left:auto">${status}</span></div>
       <span class="muted" style="font-size:14px;line-height:1.5">${esc(p.blurb)}</span>
       <label class="sr" for="provider-${esc(p.key)}">${p.kind === "address" ? "Server address" : "API key"} for ${esc(p.name)}</label>
       <div class="key-row">
         <input id="provider-${esc(p.key)}" type="${p.kind === "address" ? "text" : "password"}" autocomplete="off"
           placeholder="${esc(p.connected ? (p.kind === "address" ? p.address : `Saved key ${p.masked}`) : (p.kind === "address" ? "http://localhost:11434/v1" : "Paste your API key"))}"
           data-model="providerInput.${esc(p.key)}" value="${esc(S.providerInput[p.key] || "")}">
+        ${p.connected ? `<button type="button" class="btn ghost" ${attr({ act: "checkKey", backend: p.key })}>Check</button>` : ""}
         <button type="button" class="btn ghost" ${attr({ act: "connect", backend: p.key })}>${p.connected ? "Disconnect" : p.kind === "address" ? "Connect" : "Check key"}</button>
       </div>
       ${msg ? `<span style="font-size:13px" class="${msg.ok ? "" : "warn"}">${esc(msg.text)}</span>` : ""}

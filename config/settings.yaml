@@ -21,6 +21,7 @@ models:
       claude: { id: anthropic/claude-opus-5.5, label: Claude Opus 5.5 }
       claudesonnet: { id: anthropic/claude-sonnet-5.5, label: Claude Sonnet 5.5 }
       gpt: { id: openai/gpt-5.5, label: GPT-5.5 }
+      minimax: { id: minimax/minimax-m3.1-flash, label: MiniMax M3.1 Flash }
       # AionLabs' storytelling systems: several models behind one endpoint,
       # tuned to keep tension up. Their 262K-token window holds one book of
       # up to about 150K words, not a whole series, so try them as the writer

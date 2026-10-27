@@ -140,11 +140,13 @@ def test_plan_changed_since_review(book):
     assert book.plan_changed_since_review()
     review = book.notes_dir / "review_20260101-000000.md"
     review.write_text("notes", encoding="utf-8")
-    old = review.stat().st_mtime - 100
+    # Set every time explicitly: "now" can land in the same clock tick as the
+    # review on coarse filesystems.
+    reviewed = review.stat().st_mtime
     for path in book.plan_files():
-        os.utime(path, (old, old))
+        os.utime(path, (reviewed - 100, reviewed - 100))
     assert not book.plan_changed_since_review()
-    os.utime(book.outline_path, None)
+    os.utime(book.outline_path, (reviewed + 100, reviewed + 100))
     assert book.plan_changed_since_review()
 
 

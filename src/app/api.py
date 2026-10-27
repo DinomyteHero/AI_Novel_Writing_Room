@@ -611,17 +611,18 @@ class App:
         raise StudioError("That message isn't in this chat any more.")
 
     def undo(self, pid: str, cid: str, item_id: str) -> dict:
-        if pid in self._turns:
-            raise StudioError("Stop the current planning turn before undoing a change.")
-        series = self.series(pid)
-        record = self.load_chat(pid, cid)
-        i, item = self._item(record, item_id)
-        record["items"][i] = chat.undo(series, item)
-        state = "undid" if record["items"][i]["undone"] else "redid"
-        record["history"].append({"role": "user", "content": f"[The writer {state} the change: {item['verb']} {item['file']}: {item['text']}]"})
-        record["history"].append({"role": "assistant", "content": "Noted."})
-        record["updated"] = _now()
-        return self._save_chat(pid, record)
+        with self._lock:
+            if pid in self._turns:
+                raise StudioError("Stop the current planning turn before undoing a change.")
+            series = self.series(pid)
+            record = self.load_chat(pid, cid)
+            i, item = self._item(record, item_id)
+            record["items"][i] = chat.undo(series, item)
+            state = "undid" if record["items"][i]["undone"] else "redid"
+            record["history"].append({"role": "user", "content": f"[The writer {state} the change: {item['verb']} {item['file']}: {item['text']}]"})
+            record["history"].append({"role": "assistant", "content": "Noted."})
+            record["updated"] = _now()
+            return self._save_chat(pid, record)
 
     # --- review ---------------------------------------------------------------
 
@@ -658,8 +659,11 @@ class App:
         self.router_check()
 
         def finished(job: jobs.BuildJob) -> None:
-            if not cid:
-                return
+            if cid:
+                with self._lock:  # a planning turn may be updating the same chat
+                    report(job)
+
+        def report(job: jobs.BuildJob) -> None:
             record = self.load_chat(pid, cid)
             snap = job.snapshot()
             if snap["state"] == "failed":
