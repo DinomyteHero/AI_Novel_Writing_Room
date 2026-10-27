@@ -84,7 +84,7 @@ def test_review_rename_and_export(run):
     _outline(run)
     run.router.responses = {READER_ROLE: ["### 1. Stakes\n\n**Your call:**"]}
     code, out = run("room", "review")
-    assert code == 0 and "notes/review_" in out
+    assert code == 0 and "notes/review_" in out.replace("\\", "/")
 
     run("press", "build", "1", "--rounds", "0")
     code, out = run("room", "rename", "Mara", "Maren")
@@ -95,7 +95,7 @@ def test_review_rename_and_export(run):
     assert "Maren finds the lighthouse dark" in outline
 
     code, out = run("press", "export")
-    assert code == 0 and "export/manuscript.md" in out
+    assert code == 0 and "export/manuscript.md" in out.replace("\\", "/")
 
 
 def test_check_exit_code(run):

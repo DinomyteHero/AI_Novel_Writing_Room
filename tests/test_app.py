@@ -202,3 +202,145 @@ def test_server_requires_the_token_and_returns_plain_errors(tmp_path, config):
         assert error.value.code == 403
     finally:
         server.shutdown()
+
+
+def test_chat_references_survive_reload_and_message_only_is_temporary(tmp_path, config, book):
+    app, router = make_app(tmp_path, config)
+    app.library = Library(book.series.root.parent)
+    pid = book.series.root.name
+    app.send(pid, "project", "Read these", [
+        {"name": "canon.md", "text": "The ferry runs Tuesdays.", "scope": "chat"},
+        {"name": "temporary.md", "text": "A one-turn experiment.", "scope": "message"},
+    ])
+    assert "A one-turn experiment." in router.calls[0][1][-1]["content"]
+    app2 = app_api.App(app.library, config, tmp_path / ".env", make_router=lambda: router)
+    app2.send(pid, "project", "When does the ferry run?")
+    sent = router.calls[-1][1][-1]["content"]
+    assert "The ferry runs Tuesdays." in sent and "A one-turn experiment." not in sent
+    assert not book.read_plan().reference  # Chat attachments don't silently reach the Press.
+    attachment = app2.load_chat(pid, "project")["attachments"][0]
+    app2.forget_attachment(pid, "project", attachment["path"])
+    app2.send(pid, "project", "Continue")
+    assert "The ferry runs Tuesdays." not in router.calls[-1][1][-1]["content"]
+
+
+def test_reference_scopes_and_filename_collisions(tmp_path, config, book):
+    app, _ = make_app(tmp_path, config)
+    app.library = Library(book.series.root.parent)
+    pid = book.series.root.name
+    app.send(pid, "project", "Keep these", [
+        {"name": "canon.md", "text": "Book canon.", "scope": "book"},
+        {"name": "canon.md", "text": "More canon.", "scope": "book"},
+        {"name": "world.md", "text": "Series canon.", "scope": "series"},
+    ])
+    assert (book.reference_dir / "canon.md").read_text() == "Book canon."
+    assert (book.reference_dir / "canon-2.md").read_text() == "More canon."
+    next_book, _ = book.series.add_book("Next")
+    assert next_book.read_plan().reference == (("world.md", "Series canon."),)
+
+
+def test_failed_turn_keeps_completed_changes_and_undo(tmp_path, config, book):
+    def fail(messages):
+        raise RuntimeError("Connection lost")
+
+    rel = f"books/{book.root.name}/outline.md"
+    router = FakeRouter({"studio_chat": [
+        {"tool_calls": [("edit_file", {"path": rel, "old_text": "## Chapter 2", "new_text": "## Chapter 2: Gone", "summary": "Named chapter"})]}, fail,
+    ]})
+    app, _ = make_app(tmp_path, config, router)
+    app.library = Library(book.series.root.parent)
+    events = []
+    record = app.send(book.series.root.name, "project", "Name chapter 2", on_event=events.append)
+    assert record["turn"]["state"] == "failed"
+    activity = next(i for i in record["items"] if i["kind"] == "activity")
+    assert any(e["kind"] == "item" for e in events)
+    assert "Named chapter" in record["history"][-1]["content"]
+    app.undo(book.series.root.name, "project", activity["id"])
+    assert "Chapter 2: Gone" not in book.outline_path.read_text()
+
+
+def test_stop_cancels_waiting_model_but_keeps_completed_tool(tmp_path, config, book):
+    import asyncio
+
+    waiting, cancelled = threading.Event(), threading.Event()
+    rel = f"books/{book.root.name}/outline.md"
+
+    class Slow(FakeRouter):
+        async def chat(self, *args, **kwargs):
+            if self.calls:
+                waiting.set()
+                try:
+                    await asyncio.Event().wait()
+                finally:
+                    cancelled.set()
+            return await super().chat(*args, **kwargs)
+
+    router = Slow({"studio_chat": [{"tool_calls": [("edit_file", {
+        "path": rel, "old_text": "## Chapter 2", "new_text": "## Chapter 2: Gone", "summary": "Named chapter",
+    })]}]})
+    app, _ = make_app(tmp_path, config, router)
+    app.library = Library(book.series.root.parent)
+    pid = book.series.root.name
+    worker = threading.Thread(target=lambda: app.send(pid, "project", "Name chapter 2"), daemon=True)
+    worker.start()
+    try:
+        assert waiting.wait(5)
+        assert any(i["kind"] == "activity" for i in app.load_chat(pid, "project")["items"])
+        with pytest.raises(StudioError, match="already working"):
+            app.send(pid, "project", "Another request")
+    finally:
+        app.stop_turn(pid, "project")
+        worker.join(5)
+    assert not worker.is_alive() and cancelled.is_set()
+    assert app.load_chat(pid, "project")["turn"]["state"] == "stopped"
+    assert "Chapter 2: Gone" in book.outline_path.read_text()
+
+
+def test_restart_recovers_pending_turn_once(tmp_path, config, book):
+    app, _ = make_app(tmp_path, config)
+    app.library = Library(book.series.root.parent)
+    pid = book.series.root.name
+    record = app.load_chat(pid, "project")
+    record["items"] = [{"kind": "user", "text": "An idea", "id": "u"},
+                       {"kind": "activity", "verb": "Edited", "file": "outline.md", "text": "Saved a decision", "id": "a"}]
+    record["turn"] = {"state": "running", "prompt": "An idea", "files": [], "start": 1, "text": "Partial reply"}
+    app._save_chat(pid, record)
+    recovered = app.load_chat(pid, "project")
+    assert recovered["turn"]["state"] == "interrupted"
+    assert "Saved a decision" in recovered["history"][-1]["content"]
+    assert len(app.load_chat(pid, "project")["history"]) == 2
+
+
+def test_editor_and_selection_detect_changed_files(tmp_path, config, book):
+    app, _ = make_app(tmp_path, config)
+    app.library = Library(book.series.root.parent)
+    pid, path = book.series.root.name, f"books/{book.root.name}/outline.md"
+    opened = app.read_file(pid, path)
+    book.outline_path.write_text("New manual plan", encoding="utf-8")
+    with pytest.raises(StudioError, match="changed while"):
+        app.save_file(pid, path, "Old plan", opened["version"])
+    with pytest.raises(StudioError, match="selected document changed"):
+        app.send(pid, "project", "Discuss", selection={"path": path, "version": opened["version"], "text": "Chapter 1"})
+    assert book.outline_path.read_text() == "New manual plan"
+
+
+def test_streaming_http_sends_events_and_requires_token(tmp_path, config):
+    app, _ = make_app(tmp_path, config, FakeRouter({"studio_chat": ["A live reply."]}))
+    pid = app.create_project("An idea", defer=True)["project"]
+    server = ThreadingHTTPServer(("127.0.0.1", 0), make_handler(app, "secret"))
+    threading.Thread(target=server.serve_forever, daemon=True).start()
+    url = f"http://127.0.0.1:{server.server_address[1]}/api/send/stream"
+    body = json.dumps({"project": pid, "chat": "project", "text": "Let's plan"}).encode()
+    try:
+        with pytest.raises(urllib.error.HTTPError) as error:
+            urllib.request.urlopen(urllib.request.Request(url, data=body))
+        assert error.value.code == 403
+        request = urllib.request.Request(url, data=body, headers={"X-Writers-Room-Token": "secret"})
+        with urllib.request.urlopen(request) as response:
+            assert response.headers["Content-Type"].startswith("application/x-ndjson")
+            events = [json.loads(line) for line in response]
+        assert events[0]["kind"] == "started" and events[-1]["kind"] == "done"
+        assert any(e["kind"] == "text" and e["text"] == "A live reply." for e in events)
+    finally:
+        server.shutdown()
+        server.server_close()

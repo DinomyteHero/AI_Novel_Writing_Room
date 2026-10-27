@@ -30,7 +30,10 @@ async def revise_chapter(
         raise StudioError('Say what you\'d like changed, e.g. --note "more banter, less brooding".')
     plan = book.read_plan()
     messages = prompts.revise_messages(plan, chapters, number, chapters[number], note)
-    return book.write_chapter(number, await complete(router, WRITER_ROLE, messages), plan, source)
+    text = await complete(router, WRITER_ROLE, messages)
+    if book.chapter_path(number).read_text(encoding="utf-8").strip() != chapters[number].strip():
+        raise StudioError("This chapter changed while I was revising it. Your edit was kept; ask me to revise it again.")
+    return book.write_chapter(number, text, plan, source)
 
 
 async def polish_chapter(book: Book, router: "ModelRouter", number: int) -> Path:

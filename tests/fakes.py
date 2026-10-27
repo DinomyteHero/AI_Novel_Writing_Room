@@ -22,7 +22,7 @@ class FakeRouter:
         )
         return reply
 
-    async def chat(self, role: str, system: str, messages: list[dict], tools: list[dict]) -> dict:
+    async def chat(self, role: str, system: str, messages: list[dict], tools: list[dict], on_text=None) -> dict:
         """Scripted replies are strings (a final answer) or dicts with
         ``tool_calls`` as ``[(name, arguments), ...]``."""
         self.calls.append((role, [{"role": "system", "content": system}] + list(messages)))
@@ -34,6 +34,8 @@ class FakeRouter:
             {"role": role, "model": "fake", "prompt_tokens": 100, "completion_tokens": 10, "cost": 0.001}
         )
         if isinstance(reply, str):
+            if on_text:
+                on_text(reply)
             return {"content": reply, "tool_calls": [], "native": None}
         calls = [
             {"id": f"call{i}", "name": name, "arguments": args}

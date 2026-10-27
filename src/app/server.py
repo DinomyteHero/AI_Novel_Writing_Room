@@ -39,18 +39,21 @@ def routes(app: App) -> dict:
         ("GET", "/api/settings"): lambda p: app.settings(),
         ("GET", "/api/build"): lambda p: app.build_status(p["project"], p.get("book")),
         ("GET", "/api/estimate"): lambda p: app.estimate(p["project"], p.get("book"), p["which"]),
-        ("POST", "/api/projects"): lambda p: app.create_project(p.get("idea", ""), p.get("kind", "book")),
+        ("POST", "/api/projects"): lambda p: app.create_project(p.get("idea", ""), p.get("kind", "book"), p.get("defer", False)),
         ("POST", "/api/chats"): lambda p: app.new_chat(p["project"]),
         ("POST", "/api/send"): lambda p: app.send(
-            p["project"], p["chat"], p.get("text", ""), p.get("attachments"), p.get("book")
+            p["project"], p["chat"], p.get("text", ""), p.get("attachments"), p.get("book"),
+            selection=p.get("selection"), explore=p.get("explore", False)
         ),
+        ("POST", "/api/chat/stop"): lambda p: app.stop_turn(p["project"], p["chat"]),
+        ("POST", "/api/chat/attachment/remove"): lambda p: app.forget_attachment(p["project"], p["chat"], p["path"]),
         ("POST", "/api/undo"): lambda p: app.undo(p["project"], p["chat"], p["item"]),
         ("POST", "/api/build"): lambda p: app.build(
             p["project"], p.get("book"), p["which"], p.get("chat"), p.get("item")
         ),
         ("POST", "/api/build/decline"): lambda p: app.decline_build(p["project"], p["chat"], p["item"]),
         ("POST", "/api/build/stop"): lambda p: app.stop_build(p["project"], p.get("book")),
-        ("POST", "/api/file"): lambda p: app.save_file(p["project"], p["path"], p["text"]),
+        ("POST", "/api/file"): lambda p: app.save_file(p["project"], p["path"], p["text"], p.get("version")),
         ("POST", "/api/reference"): lambda p: app.add_reference(
             p["project"], p.get("scope", "book"), p.get("book"), p["name"], p["data"]
         ),
@@ -105,7 +108,8 @@ def make_handler(app: App, token: str):
                 self._json(403, {"error": "Reload the page: the app was restarted."})
                 return
             handler = table.get((method, url.path))
-            if handler is None:
+            streaming = method == "POST" and url.path == "/api/send/stream"
+            if handler is None and not streaming:
                 self._json(404, {"error": "Unknown request."})
                 return
             params = {k: v[0] for k, v in parse_qs(url.query).items()}
@@ -114,6 +118,8 @@ def make_handler(app: App, token: str):
                 if length:
                     params.update(json.loads(self.rfile.read(length) or b"{}"))
             try:
+                if streaming:
+                    return self._stream_turn(params)
                 self._json(200, handler(params))
             except StudioError as exc:
                 self._json(400, {"error": str(exc)})
@@ -131,6 +137,36 @@ def make_handler(app: App, token: str):
                     return
                 logger.exception("Request failed")
                 self._json(500, {"error": f"Something went wrong: {exc}"})
+
+        def _stream_turn(self, params: dict) -> None:
+            self.send_response(200)
+            self.send_header("Content-Type", "application/x-ndjson; charset=utf-8")
+            self.send_header("Cache-Control", "no-store")
+            self.send_header("Connection", "close")
+            self.end_headers()
+            self.close_connection = True
+            disconnected = False
+
+            def emit(event):
+                nonlocal disconnected
+                if disconnected:
+                    return
+                try:
+                    self.wfile.write((json.dumps(event, ensure_ascii=False) + "\n").encode("utf-8"))
+                    self.wfile.flush()
+                except OSError:
+                    disconnected = True
+                    app.stop_turn(params.get("project", ""), params.get("chat", ""))
+
+            try:
+                app.send(params["project"], params["chat"], params.get("text", ""),
+                         params.get("attachments"), params.get("book"), on_event=emit,
+                         selection=params.get("selection"), explore=params.get("explore", False))
+            except (StudioError, KeyError) as exc:
+                emit({"kind": "error", "text": str(exc)})
+            except Exception:
+                logger.exception("Could not start a planning turn")
+                emit({"kind": "error", "text": "Couldn't start this turn. Reopen the chat to check saved changes before trying again."})
 
         def _local(self) -> bool:
             # Refuse requests addressed to any other name, so a web page can't

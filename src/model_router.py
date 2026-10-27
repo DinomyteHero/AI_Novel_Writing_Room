@@ -17,7 +17,7 @@ import logging
 import os
 import random
 from pathlib import Path
-from typing import Optional
+from typing import Callable, Optional
 
 import httpx
 import yaml
@@ -202,6 +202,7 @@ class ModelRouter:
         system: str,
         messages: list[dict],
         tools: list[dict],
+        on_text: Callable[[str], None] | None = None,
     ) -> dict:
         """One step of a tool-using conversation.
 
@@ -219,7 +220,7 @@ class ModelRouter:
         params = self._resolve_params(routing)
         if self.is_anthropic(backend):
             return await self._anthropic_call(
-                agent_role, backend, model, system, _to_anthropic(messages), tools, params
+                agent_role, backend, model, system, _to_anthropic(messages), tools, params, on_text
             )
         payload_messages = [{"role": "system", "content": system}] + _to_openai(messages)
         openai_tools = [
@@ -229,7 +230,7 @@ class ModelRouter:
             for t in tools
         ]
         message = await self._openai_call(
-            agent_role, backend, model, payload_messages, params, tools=openai_tools
+            agent_role, backend, model, payload_messages, params, tools=openai_tools, on_text=on_text
         )
         calls = []
         for call in message.get("tool_calls") or []:
@@ -249,6 +250,7 @@ class ModelRouter:
         messages: list[dict],
         params: dict,
         tools: Optional[list[dict]] = None,
+        on_text: Callable[[str], None] | None = None,
     ) -> dict:
         payload = {"model": model, "messages": messages, **params}
         if tools:
@@ -268,15 +270,25 @@ class ModelRouter:
 
         client = await self._get_client(backend)
         max_retries = self.config.get("pipeline", {}).get("max_http_retries", 2)
+        streamed = False
+
+        def received(text):
+            nonlocal streamed
+            streamed = True
+            on_text(text)
+
         for attempt in range(max_retries + 1):
             try:
-                response = await client.post("/chat/completions", json=payload)
-                if response.status_code == 429 and attempt < max_retries:
-                    retry_after = int(response.headers.get("retry-after", "5"))
-                    await asyncio.sleep(min(retry_after, 30))
-                    continue
-                response.raise_for_status()
-                data = response.json()
+                if on_text:
+                    data = await self._openai_stream(client, payload, received)
+                else:
+                    response = await client.post("/chat/completions", json=payload)
+                    if response.status_code == 429 and attempt < max_retries:
+                        retry_after = int(response.headers.get("retry-after", "5"))
+                        await asyncio.sleep(min(retry_after, 30))
+                        continue
+                    response.raise_for_status()
+                    data = response.json()
                 choices = data.get("choices")
                 if not choices:
                     error_payload = data.get("error", data)
@@ -322,25 +334,67 @@ class ModelRouter:
                     )
                 return message
             except httpx.HTTPStatusError as e:
-                if e.response.status_code in (502, 503) and attempt < max_retries:
+                if not streamed and e.response.status_code in (429, 502, 503) and attempt < max_retries:
                     await asyncio.sleep((2 ** attempt) + random.uniform(0, 1))
                     continue
                 raise
             except (httpx.ConnectError, httpx.ReadTimeout):
-                if attempt < max_retries:
-                    await asyncio.sleep((2 ** attempt) + random.uniform(0, 1))
-                    continue
-                raise
-            except asyncio.CancelledError:
-                if attempt < max_retries:
-                    logger.warning(
-                        "Request cancelled (timeout) on attempt %d/%d for %s — retrying",
-                        attempt + 1, max_retries + 1, agent_role,
-                    )
+                if not streamed and attempt < max_retries:
                     await asyncio.sleep((2 ** attempt) + random.uniform(0, 1))
                     continue
                 raise
         raise RuntimeError("Unreachable: retry loop exhausted")
+
+    @staticmethod
+    async def _openai_stream(client, payload: dict, on_text: Callable[[str], None]) -> dict:
+        message = {"role": "assistant", "content": ""}
+        calls, reasoning = {}, {}
+        usage, finish = {}, None
+        async with client.stream("POST", "/chat/completions", json={
+            **payload, "stream": True, "stream_options": {"include_usage": True},
+        }) as response:
+            if response.is_error:
+                await response.aread()
+            response.raise_for_status()
+            async for line in response.aiter_lines():
+                if not line.startswith("data:"):
+                    continue
+                raw = line[5:].strip()
+                if raw == "[DONE]":
+                    break
+                if not raw:
+                    continue
+                chunk = json.loads(raw)
+                if chunk.get("error"):
+                    raise RuntimeError("The model service interrupted its reply. Try again.")
+                usage = chunk.get("usage") or usage
+                for choice in chunk.get("choices") or []:
+                    if choice.get("index", 0) != 0:
+                        continue
+                    finish = choice.get("finish_reason") or finish
+                    delta = choice.get("delta") or {}
+                    for key in ("content", "reasoning", "refusal"):
+                        if delta.get(key):
+                            message[key] = message.get(key, "") + delta[key]
+                            if key == "content":
+                                on_text(delta[key])
+                    for part in delta.get("reasoning_details") or []:
+                        entry = reasoning.setdefault(part.get("index", 0), {})
+                        for key, value in part.items():
+                            entry[key] = entry.get(key, "") + value if key in ("text", "signature", "data") and isinstance(value, str) else value
+                    for part in delta.get("tool_calls") or []:
+                        entry = calls.setdefault(part["index"], {"id": "", "type": "function", "function": {"name": "", "arguments": ""}})
+                        if part.get("id"):
+                            entry["id"] = part["id"]
+                        for key in ("name", "arguments"):
+                            entry["function"][key] += (part.get("function") or {}).get(key) or ""
+        if finish is None or finish == "length":
+            raise RuntimeError("The model's reply ended before it was complete. Try again; no unfinished tool call was applied.")
+        if calls:
+            message["tool_calls"] = [calls[i] for i in sorted(calls)]
+        if reasoning:
+            message["reasoning_details"] = [reasoning[i] for i in sorted(reasoning)]
+        return {"choices": [{"message": message, "finish_reason": finish}], "usage": usage}
 
     async def _anthropic_call(
         self,
@@ -351,6 +405,7 @@ class ModelRouter:
         messages: list[dict],
         tools: list[dict],
         params: dict,
+        on_text: Callable[[str], None] | None = None,
     ) -> dict:
         client = self._get_anthropic_client(backend)
         kwargs = {
@@ -370,7 +425,12 @@ class ModelRouter:
             kwargs["betas"] = [_FALLBACK_BETA]
             kwargs["fallbacks"] = "default"
         async with client.beta.messages.stream(**kwargs) as stream:
+            if on_text:
+                async for text in stream.text_stream:
+                    on_text(text)
             message = await stream.get_final_message()
+        if on_text and message.stop_reason == "max_tokens":
+            raise RuntimeError("The model's reply ended before it was complete. Try again; no unfinished tool call was applied.")
         usage = message.usage
         self.usage_log.append({
             "role": agent_role,

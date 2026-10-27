@@ -168,3 +168,41 @@ def test_only_one_build_per_book(book):
     gate.set()
     job.join(10)
     assert job.snapshot()["state"] == "finished"
+
+
+async def test_exploring_cannot_write_even_if_model_requests_it(book):
+    before = book.outline_path.read_text(encoding="utf-8")
+    router = FakeRouter({"studio_chat": [
+        {"tool_calls": [("write_file", {"path": outline_path(book), "content": "changed", "summary": "Oops"})]},
+        "Here are some ideas instead.",
+    ]})
+    result = await chat.run_turn(book.series, book, router, [], "What if?", SETTINGS, explore=True)
+    assert book.outline_path.read_text(encoding="utf-8") == before
+    assert result.items == []
+    assert "exploring only" in router.calls[1][1][-1]["content"]
+
+
+async def test_selected_chapter_edit_preserves_surrounding_text_and_history(book):
+    original = "# Chapter 1\n\nBefore.\n\nThe light went out.\n\nAfter.\n"
+    book.write_chapter(1, original, book.read_plan(), "manual")
+    path = f"books/{book.root.name}/manuscript/chapter_01.md"
+    router = FakeRouter({"studio_chat": [
+        {"tool_calls": [("edit_passage", {"old_text": "The light went out.", "new_text": "Mara killed the light.", "summary": "Made Mara act"})]},
+        "Changed the passage.",
+    ]})
+    result = await chat.run_turn(book.series, book, router, [], "Make her act", SETTINGS,
+                                 selection={"path": path, "version": chat.version(original)})
+    assert book.chapter_path(1).read_text(encoding="utf-8") == original.replace("The light went out.", "Mara killed the light.")
+    assert any(p.read_text(encoding="utf-8") == original for p in book.history_dir.glob("*.md"))
+    assert result.items[0]["before"] == original
+
+
+async def test_whole_file_replacement_refuses_a_new_manual_edit(book):
+    def change_while_thinking(messages):
+        book.bible_path.write_text("# The author's new direction\n", encoding="utf-8")
+        return {"tool_calls": [("write_file", {"path": f"books/{book.root.name}/story_bible.md", "content": "Old idea", "summary": "Replace"})]}
+
+    router = FakeRouter({"studio_chat": [change_while_thinking, "I'll read it again."]})
+    await chat.run_turn(book.series, book, router, [], "Update it", SETTINGS)
+    assert book.bible_path.read_text(encoding="utf-8") == "# The author's new direction\n"
+    assert "Read" in router.calls[1][1][-1]["content"]

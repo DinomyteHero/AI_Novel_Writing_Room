@@ -12,8 +12,11 @@ import asyncio
 import base64
 import io
 import json
+import logging
 import os
 import re
+import threading
+import time
 import zipfile
 from datetime import datetime
 from pathlib import Path
@@ -97,6 +100,8 @@ class App:
         self.config_path = Path(config_path)
         self.env_path = Path(env_path)
         self._make_router = make_router
+        self._lock = threading.RLock()
+        self._turns: dict[str, dict] = {}
 
     # --- models -----------------------------------------------------------
 
@@ -171,7 +176,7 @@ class App:
             candidate = f"{title} {n}"
         return candidate
 
-    def create_project(self, idea: str, kind: str = "book") -> dict:
+    def create_project(self, idea: str, kind: str = "book", defer: bool = False) -> dict:
         if not idea.strip():
             raise StudioError("Type an idea first, even a single line.")
         self.router_check()  # fail before creating anything if no provider is set up
@@ -180,7 +185,7 @@ class App:
             book, _ = self.library.new_book("Untitled book", series_title=series_title)
         else:
             book, _ = self.library.new_book(self._unique("Untitled book"))
-        record = self.send(book.series.root.name, PROJECT_CHAT, idea)
+        record = self.load_chat(book.series.root.name, PROJECT_CHAT) if defer else self.send(book.series.root.name, PROJECT_CHAT, idea)
         return {"project": record["project"], "chat": record}
 
     def project(self, pid: str, folder: str | None = None) -> dict:
@@ -293,34 +298,41 @@ class App:
             raise StudioError(f"{path} doesn't exist yet.")
         text = target.read_text(encoding="utf-8", errors="replace")
         editable = chat.writable(series, target) or target.parent.name == "manuscript"
-        result = {"path": path, "text": text, "editable": editable, "words": count_words(text)}
+        result = {"path": path, "text": text, "version": chat.version(text), "editable": editable, "words": count_words(text)}
         if target.parent.name == "notes" and target.name.startswith("review_"):
             result["points"] = chat.review_points(text)
         return result
 
-    def save_file(self, pid: str, path: str, text: str) -> dict:
+    def save_file(self, pid: str, path: str, text: str, expected_version: str | None = None) -> dict:
         """The writer's own edit. A chapter's previous version goes to history."""
         series = self.series(pid)
         target = chat.resolve(series, path)
-        if target.parent.name == "manuscript" and target.name.startswith("chapter_"):
-            if target.exists():
-                history = target.parent / ".history"
-                history.mkdir(exist_ok=True)
-                stamp = datetime.now().strftime("%Y%m%d-%H%M%S")
-                (history / f"{target.stem}.{stamp}.md").write_text(target.read_text(encoding="utf-8"), encoding="utf-8")
-        elif not chat.writable(series, target):
+        if not (target.parent.name == "manuscript" and re.fullmatch(r"chapter_\d+\.md", target.name)) and not chat.writable(series, target):
             raise StudioError(f"{path} can't be edited here.")
-        target.parent.mkdir(parents=True, exist_ok=True)
-        target.write_text(text.rstrip() + "\n", encoding="utf-8")
+        with self._lock:
+            current = target.read_text(encoding="utf-8") if target.exists() else ""
+            if expected_version is not None and chat.version(current) != expected_version:
+                raise StudioError("This file changed while you were editing. Your draft is still in the editor. Copy it, then reopen the file to compare before saving.")
+            chat.save_text(target, text.rstrip() + "\n")
         return self.read_file(pid, path)
+
+    def _keep_reference(self, folder: Path, name: str, text: str) -> Path:
+        safe = re.sub(r"[^\w.\- ]", "", Path(name).stem).strip() or "reference"
+        with self._lock:
+            folder.mkdir(parents=True, exist_ok=True)
+            target = folder / f"{safe}.md"
+            n = 2
+            while target.exists():
+                target = folder / f"{safe}-{n}.md"
+                n += 1
+            target.write_text(text, encoding="utf-8")
+        return target
 
     def add_reference(self, pid: str, scope: str, folder: str | None, name: str, data_b64: str) -> dict:
         series = self.series(pid)
         target_dir = series.reference_dir if scope == "series" else self.book(series, folder).reference_dir
         filename, text = to_text(name, base64.b64decode(data_b64))
-        safe = re.sub(r"[^\w.\- ]", "", filename).strip() or "reference.md"
-        target_dir.mkdir(parents=True, exist_ok=True)
-        (target_dir / safe).write_text(text, encoding="utf-8")
+        self._keep_reference(target_dir, filename, text)
         return self.project(pid, folder)
 
     def remove_reference(self, pid: str, path: str, folder: str | None = None) -> dict:
@@ -346,6 +358,13 @@ class App:
         return self._chats_dir(series) / f"{cid}.json"
 
     def load_chat(self, pid: str, cid: str) -> dict:
+        with self._lock:
+            return self._load_chat(pid, cid)
+
+    def _load_chat(self, pid: str, cid: str) -> dict:
+        active = self._turns.get(pid)
+        if active and active["record"]["id"] == cid:
+            return active["record"]
         series = self.series(pid)
         path = self._chat_path(series, cid)
         if not path.exists():
@@ -353,13 +372,19 @@ class App:
                 return {"id": cid, "project": pid, "title": "Project chat", "book": None,
                         "created": _now(), "updated": "", "items": [], "history": []}
             raise StudioError("That chat doesn't exist.")
-        return json.loads(path.read_text(encoding="utf-8"))
+        record = json.loads(path.read_text(encoding="utf-8"))
+        if record.get("turn", {}).get("state") == "running":
+            self._finish_turn(pid, record, "interrupted", "The app stopped during this turn. Completed changes have been kept. Send a follow-up to continue.")
+        return record
 
     def _save_chat(self, pid: str, record: dict) -> dict:
         series = self.series(pid)
         path = self._chat_path(series, record["id"])
         path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text(json.dumps(record, indent=1, ensure_ascii=False), encoding="utf-8")
+        with self._lock:
+            temporary = path.with_suffix(f".{threading.get_ident()}.tmp")
+            temporary.write_text(json.dumps(record, indent=1, ensure_ascii=False), encoding="utf-8")
+            temporary.replace(path)
         return record
 
     def _chat_summaries(self, series: Series) -> list[dict]:
@@ -398,31 +423,131 @@ class App:
         }
         return self._save_chat(pid, record)
 
-    def send(self, pid: str, cid: str, text: str, attachments: list[dict] | None = None, folder: str | None = None) -> dict:
-        series = self.series(pid)
-        record = self.load_chat(pid, cid)
-        book = self.book(series, folder or record.get("book"))
-        files = [(a["name"], a["text"]) for a in attachments or []]
-        if not text.strip() and not files:
-            raise StudioError("Type a message first.")
-        settings = self.press_settings()
-        result = self._run(lambda r: chat.run_turn(
-            series, book, r, record["history"], text, settings, files
-        ))
-        record["items"].append({
-            "kind": "user", "id": chat.new_id("m"), "text": text.strip(), "files": [n for n, _ in files],
-        })
-        record["items"] += result.items
-        record["items"].append({"kind": "assistant", "id": chat.new_id("m"), "text": result.reply})
-        record["history"] += chat.history_entries(text, files, result)
-        record["book"] = result.book.root.name if result.book else book.root.name
-        if record["title"] in ("New chat", "Project chat") and cid != PROJECT_CHAT and text.strip():
-            words = text.split()
-            record["title"] = " ".join(words[:6]) + ("…" if len(words) > 6 else "")
-        record["updated"] = _now()
-        self._save_chat(pid, record)
-        pid = self._settle_names(pid)
-        return self.load_chat(pid, cid)
+    def send(self, pid: str, cid: str, text: str, attachments: list[dict] | None = None,
+             folder: str | None = None, on_event: Callable | None = None,
+             selection: dict | None = None, explore: bool = False) -> dict:
+        notify = on_event or (lambda event: None)
+        with self._lock:
+            if pid in self._turns:
+                raise StudioError("The Room is already working in this project. Stop that turn or wait for it to finish.")
+            series = self.series(pid)
+            record = self.load_chat(pid, cid)
+            book = self.book(series, folder or record.get("book"))
+            if not text.strip() and not attachments:
+                raise StudioError("Type a message first.")
+            prompt = text.strip()
+            if selection:
+                selected = self.read_file(pid, selection["path"])
+                if selected["version"] != selection.get("version"):
+                    raise StudioError("The selected document changed. Open it and select the passage again.")
+                prompt = f"Selected passage from {selection['path']} (as displayed):\n{selection['text']}\n\n{prompt}"
+            if explore:
+                prompt += "\n\n[Just exploring: do not change any files.]"
+            for a in attachments or []:
+                if a.get("scope", "chat") not in ("message", "chat", "book", "series") or not isinstance(a.get("text"), str) or not isinstance(a.get("name"), str):
+                    raise StudioError("Choose where to keep each attachment and try again.")
+            self.router_check()
+            settings = self.press_settings()
+            files, added = [], []
+            for a in attachments or []:
+                scope = a.get("scope", "chat")
+                entry = {"name": a["name"], "scope": scope}
+                if scope == "message":
+                    files.append((a["name"], a["text"]))
+                else:
+                    target = {"chat": self._chats_dir(series) / f"{cid}-files", "book": book.reference_dir, "series": series.reference_dir}[scope]
+                    path = self._keep_reference(target, a["name"], a["text"])
+                    entry["path"] = chat.rel(series, path)
+                    if scope == "chat":
+                        record.setdefault("attachments", []).append(entry)
+                added.append(entry)
+            for a in record.get("attachments", []):
+                path = chat.resolve(series, a["path"])
+                if path.is_file():
+                    files.append((a["name"], path.read_text(encoding="utf-8")))
+            record["items"].append({"kind": "user", "id": chat.new_id("m"), "text": text.strip(),
+                                    "files": [a["name"] for a in added], "attachments": added,
+                                    "selection": selection, "explore": explore})
+            record["turn"] = {"id": chat.new_id("t"), "state": "running", "phase": "Reading your files…",
+                              "text": "", "prompt": prompt, "start": len(record["items"]),
+                              "files": [a["name"] for a in added]}
+            record["book"] = book.root.name
+            if record["title"] in ("New chat", "Project chat") and cid != PROJECT_CHAT and text.strip():
+                record["title"] = " ".join(text.split()[:6]) + ("…" if len(text.split()) > 6 else "")
+            cancel = threading.Event()
+            self._turns[pid] = {"record": record, "cancel": cancel}
+            history = list(record["history"])
+            self._save_chat(pid, record)
+
+        last_save = time.monotonic()
+
+        def event(e):
+            nonlocal last_save
+            with self._lock:
+                turn = record["turn"]
+                if e["kind"] == "phase":
+                    turn["phase"], turn["text"] = e["text"], ""
+                elif e["kind"] == "text":
+                    turn["text"] += e["text"]
+                elif e["kind"] == "item":
+                    record["items"].append(e["item"])
+                    record["book"] = e.get("book", record["book"])
+                    turn["text"] = ""
+                if e["kind"] != "text" or time.monotonic() - last_save > 0.5:
+                    record["updated"] = _now()
+                    self._save_chat(pid, record)
+                    last_save = time.monotonic()
+            notify(e)
+
+        try:
+            notify({"kind": "started", "record": record})
+            result = self._run(lambda r: chat.run_turn(
+                series, book, r, history, prompt, settings, files,
+                on_event=event, should_stop=cancel.is_set, explore=explore, write_lock=self._lock,
+                selection=selection,
+            ))
+            record["book"] = result.book.root.name if result.book else record["book"]
+            self._finish_turn(pid, record, "finished", result.reply)
+        except chat.TurnStopped:
+            self._finish_turn(pid, record, "stopped", "Stopped. Completed changes have been kept. Send your next instruction whenever you're ready.")
+        except Exception as exc:
+            logging.getLogger(__name__).exception("Planning turn failed")
+            detail = str(exc) if isinstance(exc, StudioError) else "The model service couldn't finish this turn. Check your connection and provider settings."
+            self._finish_turn(pid, record, "failed", detail + " Completed changes have been kept; send a follow-up to continue.")
+        finally:
+            with self._lock:
+                self._turns.pop(pid, None)
+                pid = self._settle_names(pid)
+                record = self.load_chat(pid, cid)
+        notify({"kind": "done", "record": record})
+        return record
+
+    def _finish_turn(self, pid: str, record: dict, state: str, reply: str) -> None:
+        with self._lock:
+            turn = record["turn"]
+            if state != "finished" and turn.get("text", "").strip():
+                record["items"].append({"kind": "assistant", "id": chat.new_id("m"), "text": turn["text"], "incomplete": True})
+            items = record["items"][turn["start"]:]
+            record["history"] += chat.history_entries(turn["prompt"], [(n, "") for n in turn["files"]], chat.TurnResult(reply, items))
+            record["items"].append({"kind": "assistant", "id": chat.new_id("m"), "text": reply})
+            turn.update(state=state, text="", phase="")
+            record["updated"] = _now()
+            self._save_chat(pid, record)
+
+    def stop_turn(self, pid: str, cid: str) -> dict:
+        with self._lock:
+            active = self._turns.get(pid)
+            if active and active["record"]["id"] == cid:
+                active["cancel"].set()
+            return {"stopping": bool(active and active["record"]["id"] == cid)}
+
+    def forget_attachment(self, pid: str, cid: str, path: str) -> dict:
+        with self._lock:
+            if pid in self._turns:
+                raise StudioError("Stop the current turn before removing its reference.")
+            record = self.load_chat(pid, cid)
+            record["attachments"] = [a for a in record.get("attachments", []) if a["path"] != path]
+            return self._save_chat(pid, record)
 
     def _settle_names(self, pid: str) -> str:
         """Once an untitled project has a real name, rename its folders to match,
@@ -461,6 +586,8 @@ class App:
         raise StudioError("That message isn't in this chat any more.")
 
     def undo(self, pid: str, cid: str, item_id: str) -> dict:
+        if pid in self._turns:
+            raise StudioError("Stop the current planning turn before undoing a change.")
         series = self.series(pid)
         record = self.load_chat(pid, cid)
         i, item = self._item(record, item_id)

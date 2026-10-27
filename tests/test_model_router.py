@@ -324,8 +324,8 @@ class TestTimeoutConfiguration:
         assert local_cfg.get("timeout_seconds") == 300
 
     @pytest.mark.asyncio
-    async def test_complete_retries_on_cancelled_error(self, settings_yaml):
-        """asyncio.CancelledError should be retried like a timeout."""
+    async def test_complete_propagates_cancellation_without_retry(self, settings_yaml):
+        """Stopping a planning tool must not silently start another request."""
         import asyncio
 
         router = ModelRouter(settings_yaml)
@@ -343,6 +343,76 @@ class TestTimeoutConfiguration:
         )
         router._local_client = mock_client
 
-        result = await router.complete("studio_writer", [{"role": "user", "content": "test"}])
-        assert result == "ok"
-        assert mock_client.post.call_count == 2
+        with pytest.raises(asyncio.CancelledError):
+            await router.complete("studio_writer", [{"role": "user", "content": "test"}])
+        assert mock_client.post.call_count == 1
+
+
+async def test_streaming_chat_assembles_tools_reasoning_and_usage(settings_yaml):
+    import json
+    import httpx
+
+    chunks = [
+        {"choices": [{"index": 0, "delta": {"content": "I will "}}]},
+        {"choices": [{"index": 0, "delta": {"content": "check it.", "reasoning_details": [{"index": 0, "type": "reasoning.encrypted", "data": "abc", "format": "test"}]}}]},
+        {"choices": [{"index": 0, "delta": {"tool_calls": [{"index": 0, "id": "call_1", "function": {"name": "read_file", "arguments": '{"path":'}}]}}]},
+        {"choices": [{"index": 0, "delta": {"tool_calls": [{"index": 0, "function": {"arguments": '"outline.md"}'}}]}, "finish_reason": "tool_calls"}]},
+        {"choices": [], "usage": {"prompt_tokens": 100, "completion_tokens": 20, "cost": 0.01}},
+    ]
+
+    def respond(request):
+        payload = json.loads(request.content)
+        assert payload["stream"] and payload["stream_options"]["include_usage"]
+        return httpx.Response(200, text="\n\n".join("data: " + json.dumps(c) for c in chunks) + "\n\ndata: [DONE]\n")
+
+    router = ModelRouter(settings_yaml)
+    router._local_client = httpx.AsyncClient(base_url="https://test.invalid", transport=httpx.MockTransport(respond))
+    pieces = []
+    try:
+        answer = await router.chat("studio_writer", "System", [{"role": "user", "content": "Read"}], [], on_text=pieces.append)
+    finally:
+        await router.close()
+    assert pieces == ["I will ", "check it."]
+    assert answer["tool_calls"] == [{"id": "call_1", "name": "read_file", "arguments": {"path": "outline.md"}}]
+    assert answer["native"]["reasoning_details"][0]["data"] == "abc"
+    assert router.usage_log[-1]["cost"] == 0.01
+
+
+@pytest.mark.parametrize("ending", ["", ', "finish_reason": "length"'])
+async def test_incomplete_stream_never_returns_an_executable_tool(settings_yaml, ending):
+    import httpx
+
+    response = '{"choices":[{"delta":{"tool_calls":[{"index":0,"id":"a","function":{"name":"write_file","arguments":"{}"}}]}' + ending + '}]}'
+    router = ModelRouter(settings_yaml)
+    router._local_client = httpx.AsyncClient(base_url="https://test.invalid", transport=httpx.MockTransport(lambda request: httpx.Response(200, text="data: " + response + "\n")))
+    try:
+        with pytest.raises(RuntimeError, match="before it was complete"):
+            await router.chat("studio_writer", "System", [], [], on_text=lambda text: None)
+    finally:
+        await router.close()
+
+
+async def test_anthropic_stream_emits_text_and_preserves_native_blocks(settings_yaml):
+    from types import SimpleNamespace
+
+    async def texts():
+        yield "First "
+        yield "second."
+
+    blocks = [SimpleNamespace(type="thinking", thinking="private", signature="signature"),
+              SimpleNamespace(type="text", text="First second."),
+              SimpleNamespace(type="tool_use", id="call1", name="status", input={})]
+    stream = SimpleNamespace(text_stream=texts(), get_final_message=AsyncMock(return_value=SimpleNamespace(
+        content=blocks, usage=SimpleNamespace(input_tokens=10, output_tokens=3), stop_reason="tool_use")))
+    context = MagicMock()
+    context.__aenter__ = AsyncMock(return_value=stream)
+    context.__aexit__ = AsyncMock(return_value=None)
+    client = MagicMock()
+    client.beta.messages.stream.return_value = context
+    router = ModelRouter(settings_yaml)
+    router._get_anthropic_client = lambda backend: client
+    pieces = []
+    result = await router._anthropic_call("studio_chat", "anthropic", "test", "system", [], [], {}, pieces.append)
+    assert pieces == ["First ", "second."]
+    assert result["native"] == blocks
+    assert result["tool_calls"] == [{"id": "call1", "name": "status", "arguments": {}}]

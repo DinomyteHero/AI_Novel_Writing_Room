@@ -80,6 +80,44 @@ any point. The chat re-reads them before every change, so your edits win.
 You don't need a finished plan to start building; a premise, a main character
 and the first few chapters are plenty.
 
+### Working together in the app
+
+The reply appears as it is written, with activity such as reading a file or
+updating the outline. **Stop** cancels the current turn; edits already made
+are kept and still have their change cards. You can then send a different
+instruction. One planning turn runs per project at a time.
+
+Open a document and highlight a passage to **Discuss**, **Suggest
+alternatives**, or **Revise** it. These actions put the passage and its file
+into the message box so you can add your instructions before sending.
+An agreed passage edit preserves the rest of the document and the previous
+version. **Just exploring** lets you discuss possibilities with file-changing
+tools disabled; turn it off when you want to apply a decision.
+
+Expand **Compare changes** on a change card to see the before and after text
+with nearby context. **Undo** refuses to overwrite a newer edit. Manual
+editing also checks whether the file changed after you opened it, keeping
+your unsaved draft in the editor if it did.
+
+When attaching a file, choose where it belongs:
+
+- **This chat (planning only)** is the default. Its text remains available
+  when you return to this conversation, including after restarting the app.
+- **This message only** supplies it for one turn.
+- **Book reference** makes it available to this book's chats and the Press.
+- **Series reference** makes it available across the series.
+
+**References in this chat** lists retained attachments. You can open them or
+remove them from future context. Removal leaves the saved copy on disk.
+Uploads with the same name get separate filenames instead of replacing one
+another.
+
+Completed planning actions are saved during the turn. If a connection or
+model fails, the chat keeps those actions and any partial reply. After an
+app restart, an unfinished turn is marked interrupted; send a follow-up to
+continue without automatically repeating its edits. Builds still require
+the local app process to stay running.
+
 Or plan by hand:
 
 ```bash

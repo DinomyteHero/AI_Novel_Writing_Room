@@ -14,6 +14,7 @@ const S = {
   settings: null, providerInput: {}, providerMsg: {},
   job: null, jobKey: null, trayHidden: false,
   modal: null, toast: "",
+  selection: null, explore: false,
 };
 
 /* ---------- helpers ---------- */
@@ -63,6 +64,62 @@ async function api(method, path, params) {
 }
 const get = (p, q) => api("GET", p, q);
 const post = (p, b) => api("POST", p, b);
+
+async function streamTurn(params, receive) {
+  const response = await fetch("/api/send/stream", {
+    method: "POST", headers: { "Content-Type": "application/json", "X-Writers-Room-Token": window.WR_TOKEN },
+    body: JSON.stringify(params),
+  });
+  if (!response.ok) throw new Error((await response.json()).error || "Couldn't start this turn.");
+  const reader = response.body.getReader(), decoder = new TextDecoder();
+  let buffer = "", finished = false;
+  try {
+    while (true) {
+      const { value, done } = await reader.read();
+      buffer += decoder.decode(value, { stream: !done });
+      const lines = buffer.split("\n"); buffer = lines.pop();
+      for (const line of lines) {
+        if (!line.trim()) continue;
+        const event = JSON.parse(line);
+        if (event.kind === "error") throw new Error(event.text);
+        receive(event);
+        if (event.kind === "done") finished = true;
+      }
+      if (done) break;
+    }
+    if (!finished) throw new Error("The connection was interrupted. Reopen this chat to check saved changes before continuing.");
+  } finally { reader.releaseLock(); }
+}
+
+function updateLive(record) {
+  for (const el of document.querySelectorAll("[data-live-chat]")) {
+    if (el.dataset.liveChat !== record.id || el.dataset.project !== record.project) continue;
+    el.querySelector(".live-phase").textContent = record.turn.phase || "Working…";
+    el.querySelector(".live-text").textContent = record.turn.text || "";
+  }
+}
+
+let turnPoll = null;
+function watchTurn(record) {
+  if (!record || record.turn?.state !== "running" || turnPoll) return;
+  const pid = record.project, cid = record.id;
+  S.busy = { project: pid, chat: cid };
+  turnPoll = setInterval(async () => {
+    try {
+      const current = await get("/api/chat", { project: pid, chat: cid });
+      const old = cid === "project" ? S.thread : S.chat;
+      if (S.project === pid) {
+        if (cid === "project") S.thread = current;
+        else if (S.chat?.id === cid) S.chat = current;
+      }
+      if (current.turn?.state !== "running") {
+        clearInterval(turnPoll); turnPoll = null; S.busy = null;
+        await refreshProject(); await refreshState(); render();
+      } else if (old?.items.length !== current.items.length) { await refreshProject(); render(); }
+      else updateLive(current);
+    } catch (e) { clearInterval(turnPoll); turnPoll = null; S.busy = null; fail(e); }
+  }, 1000);
+}
 
 function fail(err) {
   S.toast = err.message || String(err);
@@ -134,13 +191,21 @@ async function loadProject(pid, book) {
   S.thread = thread;
   S.expanded[pid] = true;
   watchJob(data.build);
+  watchTurn(thread);
 }
 
 async function refreshProject() {
   if (!S.project) return;
-  S.data = await get("/api/project", { project: S.project, book: S.data && S.data.book.folder });
-  if (S.doc && S.doc.path && !S.doc.editing) {
-    try { S.doc.data = await get("/api/file", { project: S.project, path: S.doc.path }); } catch (e) { S.doc = null; }
+  const pid = S.project, book = S.data?.book.folder;
+  const data = await get("/api/project", { project: pid, book });
+  if (S.project !== pid || S.data?.book.folder !== book) return;
+  S.data = data;
+  const doc = S.doc;
+  if (doc?.path && !doc.editing) {
+    try {
+      const content = await get("/api/file", { project: pid, path: doc.path });
+      if (S.project === pid && S.doc === doc && !doc.editing) doc.data = content;
+    } catch (e) { if (S.doc === doc && !doc.editing) S.doc = null; }
   }
 }
 
@@ -204,20 +269,24 @@ const ACT = {
     if (!S.providers.length) { S.home.note = "Connect a model provider first. It takes a minute, in Settings."; return render(); }
     S.creating = true; render();
     try {
-      const res = await post("/api/projects", { idea, kind: S.home.mode || "book" });
+      const res = await post("/api/projects", { idea, kind: S.home.mode || "book", defer: true });
       S.home = { draft: "", mode: "", menu: false, note: "" };
       await refreshState();
       await loadProject(res.project);
       S.view = "project"; S.doc = null;
+      S.creating = false; S.projectDraft = idea;
+      await ACT.send({ where: "thread" });
     } catch (e) { S.toast = e.message; }
     S.creating = false; render();
   },
   async toggleProject(d) { S.expanded[d.project] = !S.expanded[d.project]; render(); },
   async openProject(d) {
+    S.selection = null;
     try { await loadProject(d.project); S.view = "project"; S.doc = null; S.projectDraft = S.projectDraft || ""; } catch (e) { return fail(e); }
     render();
   },
   async switchBook(d) {
+    S.selection = null;
     try { S.data = await get("/api/project", { project: S.project, book: d.book }); S.doc = null; } catch (e) { return fail(e); }
     render();
   },
@@ -226,6 +295,7 @@ const ACT = {
       const chat = await get("/api/chat", { project: d.project, chat: d.chat });
       if (S.project !== d.project || !S.data) await loadProject(d.project);
       S.chat = chat; S.view = "chat"; S.panel = false; S.doc = null; S.draft = "";
+      S.selection = null; watchTurn(chat);
     } catch (e) { return fail(e); }
     render(); focus("composer");
   },
@@ -234,42 +304,95 @@ const ACT = {
       const chat = await post("/api/chats", { project: d.project });
       await loadProject(d.project);
       S.chat = chat; S.view = "chat"; S.panel = false; S.doc = null;
+      S.selection = null;
       await refreshState();
     } catch (e) { return fail(e); }
     render(); focus("composer");
   },
   async send(d) {
+    if (S.busy) return;
     const inThread = d.where === "thread";
     const text = (inThread ? S.projectDraft : S.draft).trim();
     if (!text && !S.pending.length) return;
     const cid = inThread ? "project" : S.chat.id;
-    const record = inThread ? S.thread : S.chat;
+    let record = inThread ? S.thread : S.chat;
+    const previousTurn = record.turn?.id;
+    const pid = S.project, book = S.data?.book.folder, selection = S.selection, explore = S.explore;
     record.items = record.items.concat([{ kind: "user", id: "tmp", text, files: S.pending.map((p) => p.name) }]);
     const attachments = S.pending;
     if (inThread) S.projectDraft = ""; else S.draft = "";
     S.pending = [];
+    S.selection = null;
     S.busy = { chat: cid, project: S.project };
     render();
+    let started = false;
+    const place = () => {
+      if (S.thread?.id === cid && (S.thread.project === pid || S.thread.project === record.project)) S.thread = record;
+      if (S.chat?.id === cid && (S.chat.project === pid || S.chat.project === record.project)) S.chat = record;
+    };
     try {
-      const updated = await post("/api/send", { project: S.project, chat: cid, text, attachments, book: S.data && S.data.book.folder });
-      if (inThread) S.thread = updated; else S.chat = updated;
-      if (updated.project !== S.project) S.doc = null;
-      S.project = updated.project;
-      S.data = await get("/api/project", { project: S.project, book: updated.book });
-      const review = updated.items.slice(record.items.length - 1).find((i) => i.kind === "review");
-      if (review) S.doc = { path: review.file, data: null };
-      if (S.doc && S.doc.path && !S.doc.editing) S.doc.data = await get("/api/file", { project: S.project, path: S.doc.path }).catch(() => S.doc.data);
-      if (review && !inThread) S.panel = true;
+      await streamTurn({ project: pid, chat: cid, text, attachments, book, selection, explore }, (event) => {
+        if (event.kind === "started" || event.kind === "done") {
+          record = event.record; started = true; place(); render();
+        } else if (event.kind === "text") {
+          record.turn.text += event.text; updateLive(record);
+        } else if (event.kind === "phase") {
+          record.turn.phase = event.text; record.turn.text = ""; updateLive(record);
+        } else if (event.kind === "item") {
+          record.items.push(event.item); record.turn.text = ""; place(); render();
+          if (S.project === pid && event.item.file) refreshProject().then(render).catch(() => {});
+        }
+      });
+      if (S.project === pid) {
+        if (record.project !== pid) { S.doc = null; S.selection = null; }
+        S.project = record.project;
+        if (S.data?.book.folder === book && record.book !== book) {
+          S.data = await get("/api/project", { project: S.project, book: record.book });
+          S.doc = null; S.selection = null;
+        }
+        await refreshProject();
+        const review = record.items.slice(record.turn.start).find((i) => i.kind === "review");
+        if (review && (inThread ? S.view === "project" : S.chat?.id === cid)) {
+          S.doc = { path: review.file, data: await get("/api/file", { project: S.project, path: review.file }) }; S.panel = true;
+        }
+      }
       await refreshState();
     } catch (e) {
-      record.items = record.items.filter((i) => i.id !== "tmp");
-      if (inThread) S.projectDraft = text; else S.draft = text;
-      S.pending = attachments;
+      try {
+        const recovered = await get("/api/chat", { project: pid, chat: cid });
+        if (recovered.turn?.id && recovered.turn.id !== previousTurn) {
+          record = recovered; started = true; place();
+        }
+      } catch (_) { /* Keep the last visible state if the server is unavailable. */ }
+      if (!started) {
+        record.items = record.items.filter((i) => i.id !== "tmp");
+        if (inThread) S.projectDraft = text; else S.draft = text;
+        S.pending = attachments; S.selection = selection;
+      }
       S.toast = e.message;
     }
     S.busy = null;
+    if (record.turn?.state === "running") watchTurn(record);
     render();
     focus(inThread ? "project-composer" : "composer");
+  },
+  async stopChat(d) {
+    await post("/api/chat/stop", { project: d.project, chat: d.chat });
+    const record = d.chat === "project" ? S.thread : S.chat;
+    if (record?.turn) { record.turn.phase = "Stopping… Completed changes will be kept."; updateLive(record); }
+  },
+  clearSelection() { S.selection = null; render(); },
+  async forgetAttachment(d) {
+    const record = await post("/api/chat/attachment/remove", { project: S.project, chat: d.chat, path: d.path });
+    if (d.chat === "project") S.thread = record; else S.chat = record;
+    render();
+  },
+  passage(d) {
+    if (!S.selection) return;
+    const requests = { discuss: "Let's discuss this passage.", alternatives: "Suggest three alternatives for this passage; don't change the file yet.", revise: "Revise this passage: " };
+    S.explore = d.intent !== "revise";
+    if (S.view === "chat") S.draft = requests[d.intent]; else S.projectDraft = requests[d.intent];
+    render(); focus(S.view === "chat" ? "composer" : "project-composer");
   },
   async quick(d) {
     if (S.view === "chat") { S.draft = d.text; return ACT.send({ where: "chat" }); }
@@ -339,7 +462,7 @@ const ACT = {
   cancelEdit() { S.doc.editing = false; render(); },
   async saveDoc() {
     try {
-      S.doc.data = await post("/api/file", { project: S.project, path: S.doc.path, text: S.doc.text });
+      S.doc.data = await post("/api/file", { project: S.project, path: S.doc.path, text: S.doc.text, version: S.doc.data.version });
       S.doc.editing = false;
       await refreshProject();
     } catch (e) { return fail(e); }
@@ -438,7 +561,7 @@ function pickFiles(purpose, scope) {
       try {
         const data = await readFile(file);
         if (purpose === "attach") {
-          S.pending.push(await post("/api/attachment", { name: file.name, data }));
+          S.pending.push({ ...await post("/api/attachment", { name: file.name, data }), scope: "chat" });
         } else {
           S.data = await post("/api/reference", { project: S.project, scope, book: S.data.book.folder, name: file.name, data });
         }
@@ -553,14 +676,38 @@ function shortPath(path) {
   return String(path).replace(/^books\/(\d+)-[^/]+\//, (_, n) => (S.data && S.data.isSeries ? `Book ${Number(n)} · ` : ""));
 }
 
+function changeHtml(item) {
+  if (item.before == null && item.after == null) return "";
+  const before = String(item.before || "").split("\n"), after = String(item.after || "").split("\n");
+  let start = 0, end = 0;
+  while (start < Math.min(before.length, after.length) && before[start] === after[start]) start++;
+  while (end < Math.min(before.length, after.length) - start && before[before.length - 1 - end] === after[after.length - 1 - end]) end++;
+  const excerpt = (lines) => (start > 2 ? "…\n" : "") + lines.slice(Math.max(0, start - 2), end > 2 ? lines.length - end + 2 : lines.length).join("\n") + (end > 2 ? "\n…" : "");
+  return `<details class="change-view" data-change-id="${esc(item.id)}"><summary>Compare changes</summary>
+    <div class="change-columns"><section><b>Before</b><pre class="change-before">${esc(item.before == null ? "New file" : excerpt(before))}</pre></section>
+    <section><b>After</b><pre class="change-after">${esc(item.after == null ? "File removed" : excerpt(after))}</pre></section></div></details>`;
+}
+
+function liveHtml(record) {
+  if (record.turn?.state !== "running") return "";
+  return `<div class="live-turn" data-live-chat="${esc(record.id)}" data-project="${esc(record.project)}">
+    <div class="live-status"><span class="live-phase" role="status">${esc(record.turn.phase || "Working…")}</span>
+    <button type="button" class="btn ghost small" ${attr({ act: "stopChat", project: record.project, chat: record.id })}>Stop</button></div>
+    <div class="said live-text">${esc(record.turn.text || "")}</div></div>`;
+}
+
 function itemsHtml(record, where) {
   if (!record) return "";
   const cid = record.id;
   const out = record.items.map((m) => {
     if (m.kind === "user") {
-      return `<div class="bubble-wrap">${m.files && m.files.length ? `<span class="files-line">${ic("clip", 13)} ${esc(m.files.join(", "))}</span>` : ""}${m.text ? `<div class="bubble">${esc(m.text)}</div>` : ""}</div>`;
+      const scopes = { message: "this message only", chat: "kept in chat", book: "book reference", series: "series reference" };
+      const names = m.attachments?.length ? m.attachments.map(a => `${a.name} · ${scopes[a.scope]}`).join(", ") : (m.files || []).join(", ");
+      return `<div class="bubble-wrap">${names ? `<span class="files-line">${ic("clip", 13)} ${esc(names)}</span>` : ""}
+        ${m.selection ? `<blockquote class="passage-quote"><b>${esc(shortPath(m.selection.path))}</b><br>${esc(m.selection.text)}</blockquote>` : ""}
+        ${m.explore ? '<span class="muted">Just exploring</span>' : ""}${m.text ? `<div class="bubble">${esc(m.text)}</div>` : ""}</div>`;
     }
-    if (m.kind === "assistant") return `<div class="said">${esc(m.text)}</div>`;
+    if (m.kind === "assistant") return `<div class="said">${m.incomplete ? '<span class="muted">Partial reply · interrupted</span><br>' : ""}${esc(m.text)}</div>`;
     if (m.kind === "activity") {
       const canView = /\.(md|txt)$/.test(m.file);
       const canUndo = m.before != null || m.after != null;
@@ -571,7 +718,7 @@ function itemsHtml(record, where) {
         <div style="display:flex;gap:2px;flex:none">
           ${canView ? `<button type="button" class="link" ${attr({ act: "openFile", path: m.file })}>View</button>` : ""}
           ${canUndo ? `<button type="button" class="link" ${attr({ act: "undo", chat: cid, item: m.id })}>${m.undone ? "Redo" : "Undo"}</button>` : ""}
-        </div></div>`;
+        </div>${changeHtml(m)}</div>`;
     }
     if (m.kind === "approval") {
       const resolved = m.status === "approved" ? "Building. Progress shows at the bottom right." : m.status === "declined" ? "Not now. Ask whenever you're ready." : "";
@@ -593,7 +740,8 @@ function itemsHtml(record, where) {
     }
     return "";
   });
-  if (S.busy && S.busy.chat === cid && S.busy.project === record.project) {
+  if (record.turn?.state === "running") out.push(liveHtml(record));
+  else if (S.busy && S.busy.chat === cid && S.busy.project === record.project) {
     out.push(`<div class="thinking"><span class="dots"><span></span><span></span><span></span></span> Reading your files and thinking…</div>`);
   }
   if (where === "thread" && !record.items.length && !S.busy) {
@@ -605,12 +753,19 @@ function itemsHtml(record, where) {
 function pendingHtml() {
   if (!S.pending.length) return "";
   return `<div class="pending">${S.pending.map((a, i) => `<span class="attach"><b>${esc(a.name)}</b><span class="muted">about ${fmt(a.tokens)} tokens</span>
+    <label>Keep in <select data-attachment-scope="${i}" aria-label="Where to keep ${esc(a.name)}">
+      ${[["chat", "This chat (planning only)"], ["message", "This message only"], ["book", "Book reference"], ["series", "Series reference"]].map(([v, label]) => `<option value="${v}" ${a.scope === v ? "selected" : ""}>${label}</option>`).join("")}</select></label>
     <button type="button" class="icon-btn" style="width:26px;height:26px" aria-label="Remove ${esc(a.name)}" ${attr({ act: "removePending", index: i })}>${ic("x", 12, "currentColor", 2.6)}</button></span>`).join("")}</div>`;
 }
 
 function composer(id, model, placeholder, where) {
   const busy = !!S.busy;
-  return `<div class="bar">
+  const record = where === "thread" ? S.thread : S.chat;
+  const references = record?.attachments || [];
+  return `<div class="session-controls"><label><input type="checkbox" data-explore ${S.explore ? "checked" : ""}> Just exploring · leave files unchanged</label>
+    ${references.length ? `<details><summary>References in this chat (${references.length})</summary>${references.map(a => `<div class="chat-reference"><button type="button" class="link" ${attr({ act: "openFile", path: a.path })}>${esc(a.name)}</button><button type="button" class="link" ${busy ? "disabled" : ""} ${attr({ act: "forgetAttachment", chat: record.id, path: a.path })}>Remove from context</button></div>`).join("")}</details>` : ""}</div>
+    ${S.selection ? `<div class="selected-passage"><b>Selected in ${esc(shortPath(S.selection.path))}</b><blockquote>${esc(S.selection.text)}</blockquote><button type="button" class="link" ${attr({ act: "clearSelection" })}>Clear selection</button></div>` : ""}
+    <div class="bar">
     <label for="${id}" class="sr">Message</label>
     <button type="button" class="icon-btn" style="width:38px;height:38px" aria-label="Attach a file" ${attr({ act: "attach" })}>${ic("clip")}</button>
     <textarea id="${id}" rows="1" placeholder="${esc(placeholder)}" data-model="${model}" data-enter="send" data-where="${where}">${esc(model === "draft" ? S.draft : S.projectDraft)}</textarea>
@@ -775,8 +930,11 @@ function docPanel() {
     data.editable ? `<button type="button" class="btn ghost small" ${attr({ act: "editDoc" })}>${ic("pen", 14, "currentColor", 2)} Edit</button>` : "",
     isChapter ? `<button type="button" class="btn ghost small" ${attr({ act: "buildAsk", which: number })}>Rebuild</button>` : "",
   ].join("");
-  const body = data.points ? reviewHtml(data) : `<div class="doc">${md(data.text)}</div>`;
-  return `${actions ? `<div style="display:flex;gap:8px;flex-wrap:wrap">${actions}</div>` : ""}${body}
+  const body = data.points ? reviewHtml(data) : `<div class="doc" id="passage-document">${md(data.text)}</div>`;
+  const selected = S.selection?.path === doc.path;
+  return `${actions ? `<div style="display:flex;gap:8px;flex-wrap:wrap">${actions}</div>` : ""}
+    ${!data.points ? `<div class="passage-actions"><span class="hint" id="passage-hint">${selected ? "Passage selected" : "Highlight a passage to work on it together."}</span>
+      <div>${[["discuss", "Discuss"], ["alternatives", "Suggest alternatives"], ...(data.editable ? [["revise", "Revise"]] : [])].map(([intent, label]) => `<button type="button" class="btn ghost small" data-passage-action ${selected ? "" : "disabled"} ${attr({ act: "passage", intent })}>${label}</button>`).join("")}</div></div>` : ""}${body}
     ${isChapter ? '<span class="hint" style="padding:0">To change this chapter, describe what you want in the chat ("make the ending colder"), or edit it yourself. Earlier versions are kept.</span>' : ""}`;
 }
 
@@ -905,6 +1063,7 @@ function modal() {
 }
 
 function render() {
+  const openChanges = [...document.querySelectorAll("details[data-change-id][open]")].map(el => el.dataset.changeId);
   const keep = {};
   for (const sel of [".panel", ".scroll", ".side-scroll", ".msgs", ".thread"]) {
     const el = document.querySelector(sel);
@@ -929,6 +1088,7 @@ function render() {
     if (el) { el.focus(); if (caret != null && el.setSelectionRange) el.setSelectionRange(caret, caret); }
   }
   for (const ta of document.querySelectorAll(".bar textarea")) autosize(ta);
+  for (const el of document.querySelectorAll("details[data-change-id]")) el.open = openChanges.includes(el.dataset.changeId);
 }
 
 function autosize(ta) {
@@ -960,6 +1120,21 @@ document.addEventListener("input", (e) => {
     setPath(el.dataset.model, el.value);
     if (el.closest(".bar")) autosize(el);
   }
+});
+
+document.addEventListener("change", (e) => {
+  if (e.target.matches("[data-attachment-scope]")) S.pending[Number(e.target.dataset.attachmentScope)].scope = e.target.value;
+  if (e.target.matches("[data-explore]")) S.explore = e.target.checked;
+});
+
+document.addEventListener("selectionchange", () => {
+  const selection = window.getSelection(), doc = document.getElementById("passage-document");
+  if (!doc || !selection || selection.isCollapsed || !doc.contains(selection.anchorNode) || !doc.contains(selection.focusNode) || !S.doc?.data) return;
+  const text = selection.toString().trim();
+  if (!text) return;
+  S.selection = { path: S.doc.path, version: S.doc.data.version, text };
+  for (const button of document.querySelectorAll("[data-passage-action]")) button.disabled = false;
+  document.getElementById("passage-hint").textContent = "Passage selected";
 });
 
 document.addEventListener("keydown", (e) => {

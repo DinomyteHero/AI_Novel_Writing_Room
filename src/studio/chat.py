@@ -13,10 +13,14 @@ reasoning to the conversation see an append-only history.
 
 from __future__ import annotations
 
+import asyncio
+import hashlib
 import re
+import threading
+from contextlib import suppress
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Callable
 
 from src.studio import press, prompts, room
 from src.studio.llm import CHAT_ROLE, MAX_PROMPT_TOKENS
@@ -135,6 +139,11 @@ _SUMMARY = {"type": "string", "description": "One plain line for the writer, e.g
 
 TOOLS = [
     {
+        "name": "edit_passage",
+        "description": "Change the writer's selected passage in its document. Read the document first and copy the exact old_text, including Markdown. Keep everything outside that passage unchanged. Available only when the writer selected text; preserves chapter history.",
+        "parameters": _schema({"old_text": {"type": "string"}, "new_text": {"type": "string"}, "summary": _SUMMARY}, ["old_text", "new_text", "summary"]),
+    },
+    {
         "name": "read_file",
         "description": "Read any file in the project, e.g. an earlier book's characters.md or a chapter.",
         "parameters": _schema({"path": _PATH}, ["path"]),
@@ -234,12 +243,15 @@ class TurnResult:
 
 
 class _Tools:
-    def __init__(self, series: Series, book: Book, router: "ModelRouter", settings: press.PressSettings):
+    def __init__(self, series: Series, book: Book, router: "ModelRouter", settings: press.PressSettings, write_lock=None, selection=None):
         self.series = series
         self.book = book
         self.router = router
         self.settings = settings
         self.items: list[dict] = []
+        self.write_lock = write_lock or threading.RLock()
+        self.selection = selection
+        self.seen = {p: p.read_text(encoding="utf-8") for p in book.plan_files() if p.is_file()}
 
     def _activity(self, verb: str, path: Path, summary: str, before: str | None, after: str | None) -> None:
         self.items.append({
@@ -247,9 +259,13 @@ class _Tools:
             "text": summary.strip() or f"{verb} {path.name}", "before": before, "after": after,
         })
 
-    def _write(self, path: Path, text: str) -> None:
-        path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text(text, encoding="utf-8")
+    def _write(self, path: Path, text: str, expected: str | None) -> None:
+        with self.write_lock:
+            current = path.read_text(encoding="utf-8") if path.exists() else None
+            if current != expected:
+                raise StudioError(f"{rel(self.series, path)} changed while I was working. Read it again before editing.")
+            save_text(path, text)
+            self.seen[path] = text
 
     async def run(self, name: str, args: dict) -> str:
         handler = getattr(self, f"t_{name}", None)
@@ -263,7 +279,9 @@ class _Tools:
         target = resolve(self.series, path)
         if not target.is_file():
             raise StudioError(f"{path} doesn't exist.")
-        return target.read_text(encoding="utf-8")
+        text = target.read_text(encoding="utf-8")
+        self.seen[target] = text
+        return text
 
     async def t_edit_file(self, path: str, old_text: str, new_text: str, summary: str = "") -> str:
         target = resolve(self.series, path)
@@ -279,17 +297,45 @@ class _Tools:
                 "Read the file and copy a longer, exact passage."
             )
         updated = text.replace(old_text, new_text)
-        self._write(target, updated)
+        self._write(target, updated, text)
         self._activity("Edited", target, summary, text, updated)
         return f"Saved {path}."
+
+    async def t_edit_passage(self, old_text: str, new_text: str, summary: str) -> str:
+        if not self.selection:
+            raise StudioError("The writer hasn't selected a passage.")
+        target = resolve(self.series, self.selection["path"])
+        with self.write_lock:
+            before = target.read_text(encoding="utf-8")
+            if version(before) != self.selection["version"]:
+                raise StudioError("The selected document changed. Ask the writer to select the passage again.")
+            if not old_text or before.count(old_text) != 1:
+                raise StudioError("Read the document and copy one exact, unique passage, including its Markdown.")
+            after = before.replace(old_text, new_text, 1)
+            chapter = re.fullmatch(r"chapter_(\d+)\.md", target.name) if target.parent.name == "manuscript" else None
+            if chapter:
+                selected_book = next((b for b in self.series.books() if b.manuscript_dir == target.parent), None)
+                if selected_book is None:
+                    raise StudioError("That chapter isn't in this series.")
+                selected_book.write_chapter(int(chapter[1]), after, selected_book.read_plan(), "passage")
+                after = target.read_text(encoding="utf-8")
+            elif writable(self.series, target):
+                self._write(target, after, before)
+            else:
+                raise StudioError("That document can't be edited here.")
+            self.selection = {**self.selection, "version": version(after)}
+            self._activity("Edited passage", target, summary, before, after)
+        return f"Saved the passage in {rel(self.series, target)}."
 
     async def t_write_file(self, path: str, content: str, summary: str = "") -> str:
         target = resolve(self.series, path)
         if not writable(self.series, target):
             raise StudioError(f"{path} isn't a planning file you can write. Use revise_chapter for chapters.")
         before = target.read_text(encoding="utf-8") if target.exists() else None
+        if before is not None and self.seen.get(target) != before:
+            raise StudioError(f"Read {path} again before replacing it; it may have changed.")
         text = content.rstrip() + "\n"
-        self._write(target, text)
+        self._write(target, text, before)
         self._activity("Created" if before is None else "Filled", target, summary, before, text)
         return f"Saved {path}."
 
@@ -314,6 +360,7 @@ class _Tools:
     async def t_add_book(self, title: str) -> str:
         book, written = self.series.add_book(title)
         self.book = book
+        self.seen.update({p: p.read_text(encoding="utf-8") for p in written})
         self.items.append({
             "kind": "activity", "id": new_id("a"), "verb": "Added", "file": f"Book {book.number}: {title}",
             "text": "With its own story bible, characters (copied from the previous book) and outline.",
@@ -327,11 +374,12 @@ class _Tools:
         return path.read_text(encoding="utf-8")
 
     async def t_revise_chapter(self, chapter: int, note: str) -> str:
+        before = self.book.chapter_path(int(chapter)).read_text(encoding="utf-8") if self.book.chapter_path(int(chapter)).exists() else None
         path = await room.revise_chapter(self.book, self.router, int(chapter), note)
         self.items.append({
             "kind": "activity", "id": new_id("a"), "verb": "Revised", "file": rel(self.series, path),
             "text": note.strip()[:200] + " (the earlier version is in manuscript/.history/)",
-            "before": None, "after": None,
+            "before": before, "after": path.read_text(encoding="utf-8"),
         })
         return f"Revised chapter {chapter}; the earlier version is kept in history."
 
@@ -369,6 +417,8 @@ class _Tools:
 
 
 def _transcript_line(item: dict) -> str | None:
+    if item["kind"] == "assistant":
+        return item["text"]
     if item["kind"] == "activity":
         return f"[{item['verb']} {item['file']}: {item['text']}]"
     if item["kind"] == "approval":
@@ -376,6 +426,39 @@ def _transcript_line(item: dict) -> str | None:
     if item["kind"] == "review":
         return f"[Ran a review: {item['file']}]"
     return None
+
+
+def version(text: str) -> str:
+    return hashlib.sha256(text.encode("utf-8")).hexdigest()
+
+
+def save_text(path: Path, text: str) -> None:
+    """Keep the writer's previous text beside the file before replacing it."""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    if path.exists():
+        history = path.parent / ".history"
+        history.mkdir(exist_ok=True)
+        (history / f"{path.stem}.{new_id('v')}{path.suffix}").write_text(path.read_text(encoding="utf-8"), encoding="utf-8")
+    path.write_text(text, encoding="utf-8")
+
+
+class TurnStopped(Exception):
+    pass
+
+
+async def _cancellable(work, should_stop):
+    task = asyncio.create_task(work)
+    try:
+        while not task.done():
+            if should_stop():
+                raise TurnStopped()
+            await asyncio.wait({task}, timeout=0.1)
+        return task.result()
+    finally:
+        if not task.done():
+            task.cancel()
+            with suppress(asyncio.CancelledError):
+                await task
 
 
 async def run_turn(
@@ -386,18 +469,26 @@ async def run_turn(
     text: str,
     settings: press.PressSettings,
     attachments: list[tuple[str, str]] = (),
+    on_event: Callable[[dict], None] | None = None,
+    should_stop: Callable[[], bool] = lambda: False,
+    explore: bool = False,
+    write_lock=None,
+    selection: dict | None = None,
 ) -> TurnResult:
     """One writer message and everything the chat does in reply.
 
     ``history`` holds earlier turns as plain ``user``/``assistant`` messages and
     is not changed; the caller appends ``user_entry`` and the returned reply.
     """
-    tools = _Tools(series, book, router, settings)
+    emit = on_event or (lambda event: None)
+    tools = _Tools(series, book, router, settings, write_lock, selection)
     message = files_message(series, book)
     for name, body in attachments:
         message += "\n\n" + prompts._section(f"Attached by the writer: {name}", body)
     message += "\n\n# The writer says\n\n" + (text.strip() or "(only the attachment above)")
     system = system_prompt()
+    if explore:
+        message += "\n\nFor this turn, just explore ideas. Do not change any files or start work."
     messages = list(history) + [{"role": "user", "content": message}]
     size = estimate_tokens(system + "".join(str(m.get("content", "")) for m in messages))
     if size > MAX_PROMPT_TOKENS:
@@ -408,20 +499,40 @@ async def run_turn(
 
     reply = ""
     for _ in range(MAX_STEPS):
-        answer = await router.chat(CHAT_ROLE, system, messages, TOOLS)
+        if should_stop():
+            raise TurnStopped()
+        emit({"kind": "phase", "text": "Thinking about your story…"})
+        available = [t for t in TOOLS if (not explore or t["name"] in ("read_file", "status")) and (selection or t["name"] != "edit_passage")]
+        kwargs = {"on_text": lambda text: emit({"kind": "text", "text": text})} if on_event else {}
+        answer = await _cancellable(router.chat(CHAT_ROLE, system, messages, available, **kwargs), should_stop)
         messages.append({"role": "assistant", **answer})
         if not answer["tool_calls"]:
             reply = answer["content"].strip()
             break
+        if answer["content"].strip():
+            emit({"kind": "item", "item": {"kind": "assistant", "id": new_id("m"), "text": answer["content"].strip()}})
         for call in answer["tool_calls"]:
+            if should_stop():
+                raise TurnStopped()
+            labels = {"read_file": "Reading", "edit_file": "Updating", "write_file": "Writing", "edit_passage": "Updating the selected passage…",
+                      "review": "Reading the book for a second opinion…", "revise_chapter": "Revising the chapter…",
+                      "rename": "Checking names…", "add_book": "Adding the next book…",
+                      "status": "Checking the book…", "propose_build": "Preparing a build estimate…",
+                      "story_so_far": "Writing story-so-far notes…"}
+            emit({"kind": "phase", "text": labels.get(call["name"], "Working…") + (" " + call["arguments"].get("path", "") if call["name"] in ("read_file", "edit_file", "write_file") else "")})
+            start = len(tools.items)
             try:
-                result = await tools.run(call["name"], dict(call["arguments"]))
+                if explore and call["name"] not in ("read_file", "status"):
+                    raise StudioError("This turn is for exploring only. No files were changed.")
+                result = await _cancellable(tools.run(call["name"], dict(call["arguments"])), should_stop)
                 error = False
             except StudioError as exc:
                 result, error = f"Error: {exc}", True
             except TypeError as exc:
                 result, error = f"Error: wrong arguments for {call['name']} ({exc}).", True
             messages.append({"role": "tool", "tool_call_id": call["id"], "content": result, "is_error": error})
+            for item in tools.items[start:]:
+                emit({"kind": "item", "item": item, "book": tools.book.root.name})
     else:
         reply = "I stopped there because that was a lot of steps at once. Tell me what to do next."
     if not reply:
@@ -457,7 +568,7 @@ def undo(series: Series, item: dict) -> dict:
     if restore is None:
         path.unlink()
     else:
-        path.write_text(restore, encoding="utf-8")
+        save_text(path, restore)
     return {**item, "undone": not undone}
 
 

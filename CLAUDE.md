@@ -96,6 +96,14 @@ favour of this design and is in git history if something specific is needed.
 - **Append-only chat turns.** The app sends earlier turns as plain text and
   the current files only with the newest message, never editing what was sent
   (prompt caching, and Claude's thinking-block binding, depend on it).
+- **Planning progress is recoverable.** `/api/send/stream` emits text and tool
+  activity as newline-delimited JSON. The existing chat JSON saves completed
+  actions during the turn and marks interrupted turns on reopening. Stop
+  cancels pending model work; completed edits remain. No separate job store.
+  Retained chat attachments live beside the chat in `<id>-files/`; only book
+  and series references reach the Press. Exploring turns expose read-only
+  tools. Selected-passage edits preserve chapter history, and manual saves
+  check the document version before replacing it.
 - **Providers are backends.** Each entry under `models` in
   `config/settings.yaml` is a backend; `api: anthropic` uses the Anthropic SDK,
   the rest the OpenAI-compatible API. The app writes the writer's choices to
