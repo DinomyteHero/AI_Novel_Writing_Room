@@ -6,6 +6,8 @@ import re
 from dataclasses import dataclass
 from typing import TYPE_CHECKING
 
+import httpx
+
 from src.studio.project import StudioError
 from src.studio.prompts import message_tokens
 
@@ -53,6 +55,47 @@ def too_long(exc: Exception) -> bool:
     except Exception:  # an unread streaming body
         body = ""
     return bool(_TOO_LONG.search(f"{exc} {body}"))
+
+
+def _provider_detail(response) -> str:
+    try:
+        error = response.json().get("error")
+    except Exception:  # no body, an unread stream, or not JSON
+        return ""
+    message = error.get("message") if isinstance(error, dict) else error
+    return f": {str(message).strip()[:200]}" if message else ""
+
+
+def provider_error(exc: Exception) -> str | None:
+    """A failed model call explained for the writer, or None if ``exc`` isn't
+    one. Covers httpx (OpenRouter and the OpenAI-compatible services) and the
+    Anthropic SDK, whose errors both carry the HTTP status."""
+    if not isinstance(exc, httpx.HTTPError) and not type(exc).__module__.startswith("anthropic"):
+        return None
+    response = getattr(exc, "response", None)
+    code = getattr(exc, "status_code", None) or getattr(response, "status_code", None)
+    if code is None:
+        return (
+            f"Couldn't get an answer from the model service ({type(exc).__name__}). "
+            "Check your internet connection and try again."
+        )
+    if code in (401, 403):
+        return (
+            f"The model service turned down your API key ({code}). It may be mistyped, "
+            "revoked or expired: replace it with a fresh key from your provider."
+        )
+    if code == 402:
+        return "Your model provider account is out of credit (402). Add credit there, then try again."
+    if code == 404:
+        return (
+            f"The model service doesn't offer the chosen model (404){_provider_detail(response)}. "
+            "Choose another model for this role."
+        )
+    if code in (408, 429):
+        return f"The model service is busy or limiting this key ({code}). Wait a minute and try again."
+    if code >= 500:
+        return f"The model service is having trouble ({code}). Try again in a few minutes."
+    return f"The model service refused the request ({code}){_provider_detail(response)}."
 
 
 async def complete(router: "ModelRouter", role: str, messages: list[dict]) -> str:

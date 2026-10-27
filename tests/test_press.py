@@ -30,6 +30,46 @@ def test_select_chapters(book):
         press.select_chapters(book, plan, "soon")
 
 
+def test_chapters_with_no_notes_are_not_built(book):
+    book.outline_path.write_text(
+        "# Outline\n\n## Chapter 1\n\n- What happens: Mara finds the light dark.\n\n"
+        "## Chapter 2\n\n- What happens:\n- Ends at (optional):\n\n## Chapter 3\n\n-\n\n"
+        "## Chapter 4: The Storm\n",
+        encoding="utf-8",
+    )
+    plan = book.read_plan()
+    assert [plan.chapter(n).blank for n in (1, 2, 3, 4)] == [False, True, True, False]
+    # "all" stops before the first chapter with no notes, since chapters build in order.
+    assert press.select_chapters(book, plan, "all") == [1]
+    assert press.select_chapters(book, plan, "4") == [4]
+    with pytest.raises(StudioError, match="Chapter 2 has no notes"):
+        press.select_chapters(book, plan, "2")
+    book.write_chapter(1, "x", plan, "build")
+    for which in ("next", "all"):
+        with pytest.raises(StudioError, match="Chapter 2 has no notes"):
+            press.select_chapters(book, plan, which)
+
+
+def test_provider_errors_are_explained_for_writers():
+    import httpx
+
+    from src.studio.llm import provider_error
+
+    def status(code, body=None):
+        request = httpx.Request("POST", "https://openrouter.ai/api/v1/chat/completions")
+        return httpx.HTTPStatusError("x", request=request, response=httpx.Response(code, json=body, request=request))
+
+    assert "turned down your API key (401)" in provider_error(status(401))
+    assert "out of credit" in provider_error(status(402))
+    assert "doesn't offer the chosen model (404): No such model" in provider_error(
+        status(404, {"error": {"message": "No such model"}})
+    )
+    assert "busy" in provider_error(status(429))
+    assert "having trouble (503)" in provider_error(status(503))
+    assert "Check your internet connection" in provider_error(httpx.ConnectError("no route"))
+    assert provider_error(RuntimeError("boom")) is None
+
+
 def test_settings_from_config_and_lengths(book):
     settings = press.PressSettings.from_config(
         {"press": {"revision_rounds": 2, "length_calibration": 1.5, "default_chapter_words": 2000}}

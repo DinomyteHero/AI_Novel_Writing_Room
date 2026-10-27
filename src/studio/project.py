@@ -44,6 +44,9 @@ _WORDS_LINE = re.compile(
     r"^[ \t]*[-*]?[ \t]*\**(?:length|words)\**[ \t]*:\**[ \t]*~?[ \t]*([\d,]+)",
     re.IGNORECASE | re.MULTILINE,
 )
+# A line with nothing in it yet: "-", or a starter-template label like
+# "- What happens:" with its answer still blank.
+_EMPTY_NOTE = re.compile(r"[-*]?[ \t]*(?:[^:\n]{1,60}:)?[ \t]*")
 _CHAPTER_FILE = re.compile(r"^chapter_(\d+)\.md$")
 _BOOK_DIR = re.compile(r"^(\d+)-(.+)$")
 REFERENCE_SUFFIXES = (".md", ".txt")
@@ -110,6 +113,11 @@ class ChapterPlan:
     title: str
     notes: str
     words: int | None
+
+    @property
+    def blank(self) -> bool:
+        """No title and no notes yet, as the starter outline arrives."""
+        return not self.title and all(_EMPTY_NOTE.fullmatch(line.strip()) for line in self.notes.splitlines())
 
 
 @dataclass(frozen=True)

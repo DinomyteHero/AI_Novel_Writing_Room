@@ -68,20 +68,41 @@ def select_chapters(book: Book, plan: Plan, which: str) -> list[int]:
     if not outlined:
         raise StudioError("The outline has no '## Chapter N' sections yet, so there's nothing to build.")
     missing = [n for n in outlined if book.chapter_state(n, plan) == "missing"]
+    chapters = plan.chapters()
+
+    def unplanned(number: int) -> StudioError:
+        return StudioError(
+            f"Chapter {number} has no notes in the outline yet, so there's nothing to build it "
+            "from. Say what happens in it (a line is enough), in the chat or in outline.md, "
+            "then build."
+        )
+
     if which == "next":
         if not missing:
             raise StudioError("Every chapter in the outline is written. Add chapters, or rebuild one by number.")
+        if chapters[missing[0]].blank:
+            raise unplanned(missing[0])
         return missing[:1]
     if which == "all":
         if not missing:
             raise StudioError("Every chapter in the outline is written. Rebuild one by number if you want.")
-        return missing
+        # Chapters build in order, so stop before the first one with no notes.
+        ready = []
+        for n in missing:
+            if chapters[n].blank:
+                break
+            ready.append(n)
+        if not ready:
+            raise unplanned(missing[0])
+        return ready
     try:
         number = int(which)
     except ValueError:
         raise StudioError(f"'{which}' isn't 'next', 'all' or a chapter number.") from None
     if number not in outlined:
         raise StudioError(f"outline.md has no '## Chapter {number}' section.")
+    if chapters[number].blank:
+        raise unplanned(number)
     return [number]
 
 

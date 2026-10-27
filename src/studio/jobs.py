@@ -13,9 +13,8 @@ import threading
 from datetime import datetime
 from typing import Callable
 
-import httpx
-
 from src.studio import press
+from src.studio.llm import provider_error
 from src.studio.project import Book, StudioError
 
 logger = logging.getLogger(__name__)
@@ -103,15 +102,15 @@ class BuildJob:
             self.state = "stopped" if len(self.results) < len(self.numbers) else "finished"
         except StudioError as exc:
             self.state, self.error = "failed", str(exc)
-        except httpx.HTTPError as exc:
+        except Exception as exc:  # shown to the writer rather than lost on a thread
+            explained = provider_error(exc)
+            if explained is None:
+                logger.exception("Build failed")
             self.state = "failed"
             self.error = (
-                f"Couldn't get an answer from the model service ({exc}). Chapters finished "
-                "before this were saved; nothing half-done was."
+                f"{explained} Chapters finished before this were saved; nothing half-done was."
+                if explained else f"The build stopped unexpectedly: {exc}"
             )
-        except Exception as exc:  # shown to the writer rather than lost on a thread
-            logger.exception("Build failed")
-            self.state, self.error = "failed", f"The build stopped unexpectedly: {exc}"
         finally:
             self.current = self.step = None
             await router.close()

@@ -17,9 +17,8 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import parse_qs, urlparse
 
-import httpx
-
 from src.app.api import App
+from src.studio.llm import provider_error
 from src.studio.project import StudioError
 
 STATIC = Path(__file__).resolve().parent / "static"
@@ -125,15 +124,10 @@ def make_handler(app: App, token: str):
                 self._json(400, {"error": str(exc)})
             except KeyError as exc:
                 self._json(400, {"error": f"Missing {exc} in the request."})
-            except httpx.HTTPStatusError as exc:
-                code = exc.response.status_code
-                hint = " Check your key in Settings." if code in (401, 403) else ""
-                self._json(502, {"error": f"The model service answered with an error ({code}).{hint} Nothing half-done was saved."})
-            except httpx.HTTPError as exc:
-                self._json(502, {"error": f"Couldn't reach the model service ({exc}). Check your connection and try again."})
             except Exception as exc:  # shown to the writer, never a traceback
-                if type(exc).__module__.startswith("anthropic"):
-                    self._json(502, {"error": f"The Anthropic API returned an error: {exc}"})
+                explained = provider_error(exc)
+                if explained:
+                    self._json(502, {"error": f"{explained} Nothing half-done was saved."})
                     return
                 logger.exception("Request failed")
                 self._json(500, {"error": f"Something went wrong: {exc}"})

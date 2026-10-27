@@ -26,7 +26,7 @@ import yaml
 
 from src.model_router import ModelRouter, load_config, local_overlay_path
 from src.studio import chat, jobs, press, prompts
-from src.studio.llm import LONG_PROMPT_TOKENS, MAX_PROMPT_TOKENS
+from src.studio.llm import LONG_PROMPT_TOKENS, MAX_PROMPT_TOKENS, provider_error
 from src.studio.project import (
     REFERENCE_SUFFIXES,
     Book,
@@ -535,7 +535,9 @@ class App:
             self._finish_turn(pid, record, "stopped", "Stopped. Completed changes have been kept. Send your next instruction whenever you're ready.")
         except Exception as exc:
             logging.getLogger(__name__).exception("Planning turn failed")
-            detail = str(exc) if isinstance(exc, StudioError) else "The model service couldn't finish this turn. Check your connection and provider settings."
+            detail = str(exc) if isinstance(exc, StudioError) else (
+                provider_error(exc) or "Something went wrong during this turn."
+            )
             self._finish_turn(pid, record, "failed", detail + " Completed changes have been kept; send a follow-up to continue.")
         finally:
             with self._lock:

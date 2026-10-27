@@ -9,10 +9,9 @@ import os
 import sys
 from pathlib import Path
 
-import httpx
-
 from src.model_router import load_config
 from src.studio import press, room
+from src.studio.llm import provider_error
 from src.studio.project import Book, Library, StudioError, count_words
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -329,11 +328,13 @@ def _run(parser: argparse.ArgumentParser, argv: list[str] | None) -> int:
     except StudioError as exc:
         print(f"Error: {exc}", file=sys.stderr)
         return 1
-    except httpx.HTTPError as exc:
+    except Exception as exc:
+        explained = provider_error(exc)
+        if explained is None:
+            raise
         print(
-            f"Error: couldn't get an answer from the model service ({exc}). Anything "
-            "finished before this was saved; nothing half-done was. Try again, or run "
-            "'room.py check' to test your key.",
+            f"Error: {explained} Anything finished before this was saved; nothing "
+            "half-done was. Run 'room.py check' to test your key.",
             file=sys.stderr,
         )
         return 1

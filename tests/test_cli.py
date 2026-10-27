@@ -110,6 +110,7 @@ def test_missing_api_key_is_explained(tmp_path, monkeypatch, capsys):
     monkeypatch.delenv("OPENROUTER_API_KEY", raising=False)
     library = ["--library", str(tmp_path / "library")]
     cli.room_main(["new", "The Dark Lighthouse", *library])
+    next((tmp_path / "library").glob("*/books/*/outline.md")).write_text(OUTLINE, encoding="utf-8")
     code = cli.press_main(["build", "next", *library])
     err = capsys.readouterr().err
     assert code == 1 and "No API key found" in err and "Traceback" not in err
@@ -125,7 +126,7 @@ def test_service_errors_are_explained(run, monkeypatch):
     _outline(run)
     monkeypatch.setattr(run.router, "complete", fail)
     code, out = run("press", "build", "next")
-    assert code == 1 and "couldn't get an answer from the model service" in out
+    assert code == 1 and "Couldn't get an answer from the model service" in out
 
 
 def test_ideas_command(run):

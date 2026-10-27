@@ -42,6 +42,10 @@ def _ensure_dependencies() -> None:
         return
     if not python.exists():
         venv.EnvBuilder(with_pip=True).create(env_dir)
+    if os.name == "nt":
+        # Windows has no real exec: os.execv starts a new process and ends this
+        # one, so the plugin host would see its server exit. Run it as a child.
+        sys.exit(subprocess.call([str(python), __file__, *sys.argv[1:]]))
     os.execv(str(python), [str(python), __file__, *sys.argv[1:]])
 
 

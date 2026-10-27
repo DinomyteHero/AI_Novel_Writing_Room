@@ -15,9 +15,8 @@ import sys
 from pathlib import Path
 from typing import Callable, TextIO
 
-import httpx
-
 from src.studio import jobs, press, room
+from src.studio.llm import provider_error
 from src.studio.project import Book, Library, StudioError
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -268,8 +267,11 @@ def handle(tools: Tools, message: dict) -> dict | None:
             text, error = str(exc), True
         except KeyError as exc:
             text, error = f"Missing argument {exc}.", True
-        except httpx.HTTPError as exc:
-            text, error = f"Couldn't get an answer from the model service ({exc}). Try check.", True
+        except Exception as exc:
+            explained = provider_error(exc)
+            if explained is None:
+                raise
+            text, error = f"{explained} The check tool tests the key.", True
         result = {"content": [{"type": "text", "text": text}], "isError": error}
     else:
         return {"jsonrpc": "2.0", "id": mid, "error": {"code": -32601, "message": f"Method not found: {method}"}}

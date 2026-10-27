@@ -259,6 +259,20 @@ def test_failed_turn_keeps_completed_changes_and_undo(tmp_path, config, book):
     assert "Chapter 2: Gone" not in book.outline_path.read_text()
 
 
+def test_a_rejected_key_is_named_in_the_chat(tmp_path, config, book):
+    import httpx
+
+    def reject(messages):
+        request = httpx.Request("POST", "https://openrouter.ai/api/v1/chat/completions")
+        raise httpx.HTTPStatusError("401", request=request, response=httpx.Response(401, request=request))
+
+    app, _ = make_app(tmp_path, config, FakeRouter({"studio_chat": [reject]}))
+    app.library = Library(book.series.root.parent)
+    record = app.send(book.series.root.name, "project", "Hello")
+    assert record["turn"]["state"] == "failed"
+    assert "turned down your API key (401)" in record["items"][-1]["text"]
+
+
 def test_stop_cancels_waiting_model_but_keeps_completed_tool(tmp_path, config, book):
     import asyncio
 
