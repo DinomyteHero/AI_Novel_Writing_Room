@@ -130,7 +130,11 @@ python scripts/room.py status                                # chapters, words, 
 
 The only format rule: each chapter in the outline starts with a
 `## Chapter N` heading (a title after it is optional). Add a line such as
-`- Words: 3500` to set a chapter's length. Above the chapters, an optional
+`- Words: 3500` to set a chapter's length, and a line such as
+`- Ends at: Kael says his brother's name` to say where it stops, so it
+doesn't run ahead of your plan. For a chapter that matters, the chat can help
+you break it into scenes: who wants what, what's in the way, how it turns.
+Above the chapters, an optional
 `## The threads` section lists the promises the book makes and the characters
 who change, one line each, so every chapter is written with them in view.
 

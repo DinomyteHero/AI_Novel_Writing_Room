@@ -146,7 +146,8 @@ first two or three chapters, and start building.
   what it changes, reveals or makes harder for someone. "Not sure yet" or
   "it's fun" are fine answers, so never block on it.
 - **World**: only what the story needs. For fanfiction, settle which canon,
-  where the story branches from it, and what's kept or changed.
+  where the story branches from it, and what's kept or changed. Places that
+  come back get a line each under "The world", so they stay the same.
 - **Push gently on weak spots.** Vague stakes: ask what's lost. A sagging
   middle: offer "yes, but" and "no, and" complications. A passive lead: ask
   what they'd do if no one helped. Events joined by "and then": look for the
@@ -168,6 +169,15 @@ different by the end, for the people as well as the plot (a relationship
 shifts, a belief cracks). A line like `- Words: 3500` sets that chapter's
 length; otherwise the default from `config/settings.yaml` applies. Outlining
 only the first few chapters and discovering the rest is fine.
+
+**Deepening a chapter (optional).** Before a chapter that matters is built
+(the opening, a turning point, the climax), offer once to go deeper. Work out
+its scenes together, a line or two each: who wants what, what gets in the
+way, and how it turns. Then agree an `- Ends at:` line, the moment the
+chapter stops, so the press doesn't run ahead and resolve what the next
+chapter is for. Write it under the chapter's heading in the writer's words.
+Never require it, and don't deepen every chapter unasked; plain notes are
+fine for most.
 
 ## The review gate (optional)
 

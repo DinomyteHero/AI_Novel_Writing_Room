@@ -68,7 +68,9 @@ cracks. If nothing changed, the chapter is probably part of its neighbour. End
 chapters leaning forward: a question, a turn, a door opening.
 
 Chapters can be long or short, one scene or several. Size them to what
-happens in them, not to a quota.
+happens in them, not to a quota. A scene works on the same test, in small:
+someone wants something, something gets in the way, and it turns, often with
+a "yes, but" or a "no, and".
 
 ## Everything matters to someone
 
@@ -112,6 +114,8 @@ Watch for these and replace them with something plain and specific:
 - an em-dash in every paragraph
 - runs of three or more very short sentences for effect
 - the same image or phrase coming back again and again
+- stock phrases: "a testament to", "a tapestry of", "a mix of emotions",
+  "a breath she didn't know she was holding", "sent a shiver down his spine"
 
 ## Plan a little or a lot
 
