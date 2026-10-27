@@ -254,7 +254,7 @@ def test_failed_turn_keeps_completed_changes_and_undo(tmp_path, config, book):
     assert record["turn"]["state"] == "failed"
     activity = next(i for i in record["items"] if i["kind"] == "activity")
     assert any(e["kind"] == "item" for e in events)
-    assert "Named chapter" in record["history"][-1]["content"]
+    assert "Named chapter" in record["history"][-2]["content"]
     app.undo(book.series.root.name, "project", activity["id"])
     assert "Chapter 2: Gone" not in book.outline_path.read_text()
 
@@ -321,8 +321,8 @@ def test_restart_recovers_pending_turn_once(tmp_path, config, book):
     app._save_chat(pid, record)
     recovered = app.load_chat(pid, "project")
     assert recovered["turn"]["state"] == "interrupted"
-    assert "Saved a decision" in recovered["history"][-1]["content"]
-    assert len(app.load_chat(pid, "project")["history"]) == 2
+    assert "Saved a decision" in recovered["history"][-2]["content"]
+    assert len(app.load_chat(pid, "project")["history"]) == 4
 
 
 def test_editor_and_selection_detect_changed_files(tmp_path, config, book):

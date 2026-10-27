@@ -229,10 +229,76 @@ async def test_size_is_checked_every_step_and_too_long_is_explained(book, monkey
 
 
 async def test_the_chat_model_gives_reviews_and_ideas_itself(book):
-    # In the app, the selected chat model does reviews and ideas in the
-    # conversation; no other model is called and no tool hands them off.
-    assert not {"review", "ideas"} & {t["name"] for t in chat.TOOLS}
-    assert "give the second opinion or the ideas yourself" in chat.system_prompt()
+    # In the app, the selected chat model does reviews in the conversation;
+    # ideas come from it too unless the writer wants a second model's.
+    assert "review" not in {t["name"] for t in chat.TOOLS}
+    assert "give the second opinion yourself" in chat.system_prompt()
     router = FakeRouter({"studio_chat": ["### 1. The middle is thin\n\nTwo options: …"]})
     result = await chat.run_turn(book.series, book, router, [], "I'm stuck.", SETTINGS)
     assert router.roles() == ["studio_chat"] and result.reply.startswith("### 1.")
+
+
+async def test_the_chat_can_ask_a_second_model_for_ideas(book):
+    router = FakeRouter({
+        "studio_chat": [{"tool_calls": [("ideas", {})]}, "Here's what the other model offered."],
+        "studio_reader": ["### 1. A gap\n\n**What's open:** the middle.\n\n**Your call:**"],
+    })
+    result = await chat.run_turn(book.series, book, router, [], "Give me more options.", SETTINGS)
+    assert router.roles() == ["studio_chat", "studio_reader", "studio_chat"]
+    [item] = result.items
+    assert item["verb"] == "Wrote" and "/notes/ideas_" in item["file"]
+    assert "### 1. A gap" in router.calls[2][1][-1]["content"]
+
+
+async def test_change_records_stay_out_of_the_models_own_replies(book):
+    rel = outline_path(book)
+    router = FakeRouter({"studio_chat": [
+        {"tool_calls": [("edit_file", {"path": rel, "old_text": "- She finds the boat.",
+                                       "new_text": "- She finds the boat, cut loose.", "summary": "Cut the boat loose"})]},
+        "Done.",
+    ]})
+    result = await chat.run_turn(book.series, book, router, [], "Cut it loose.", SETTINGS)
+    history = chat.history_entries("Cut it loose.", [], result)
+    assert [h["role"] for h in history] == ["user", "assistant", "user", "assistant"]
+    assert history[1]["content"] == "Done." and "[Edited" not in history[1]["content"]
+    assert history[2]["content"].startswith("[From the app, not the writer")
+    assert f"- Edited {rel}: Cut the boat loose" in history[2]["content"]
+
+
+async def test_a_reply_that_claims_an_unmade_edit_is_sent_back_to_make_it(book):
+    rel = outline_path(book)
+    router = FakeRouter({"studio_chat": [
+        f"[Edited {rel}: Kept the boat]\n\nFiled: the guard kept his boat.",
+        {"tool_calls": [("edit_file", {"path": rel, "old_text": "- She finds the boat.",
+                                       "new_text": "- She finds the boat the guard kept.", "summary": "Kept the boat"})]},
+        "Filed: the guard kept his boat.",
+    ]})
+    result = await chat.run_turn(book.series, book, router, [], "Keep that.", SETTINGS)
+    assert "the guard kept." in book.outline_path.read_text(encoding="utf-8")
+    assert result.reply == "Filed: the guard kept his boat."
+    nudge = router.calls[1][1][-1]
+    assert nudge["role"] == "user" and "only change through tool calls" in nudge["content"]
+
+
+async def test_a_prose_claim_of_filing_in_a_turn_that_changed_nothing_is_flagged(book):
+    router = FakeRouter({"studio_chat": [
+        "Good. Filed the boat-taking on his line.",
+        "Good. Filed the boat-taking on his line.",
+    ]})
+    result = await chat.run_turn(book.series, book, router, [], "Keep that.", SETTINGS)
+    assert "only change through tool calls" in router.calls[1][1][-1]["content"]
+    assert result.reply.endswith("(Nothing was changed in your files this turn.)")
+    # A plain "nothing filed yet" isn't a claim, so it goes through untouched.
+    router = FakeRouter({"studio_chat": ["Nothing filed yet: say the word."]})
+    result = await chat.run_turn(book.series, book, router, [], "What if?", SETTINGS)
+    assert result.reply == "Nothing filed yet: say the word." and len(router.calls) == 1
+
+
+async def test_a_claimed_edit_that_never_happens_is_removed_and_flagged(book):
+    before = book.outline_path.read_text(encoding="utf-8")
+    claim = f"[Edited {outline_path(book)}: Kept the boat]\n\nFiled."
+    router = FakeRouter({"studio_chat": [claim, claim]})
+    result = await chat.run_turn(book.series, book, router, [], "Keep that.", SETTINGS)
+    assert book.outline_path.read_text(encoding="utf-8") == before and not result.items
+    assert "[Edited" not in result.reply and result.reply.startswith("Filed.")
+    assert "Nothing was changed in your files this turn" in result.reply

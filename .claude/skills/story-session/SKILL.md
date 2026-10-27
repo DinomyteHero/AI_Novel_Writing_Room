@@ -77,9 +77,23 @@ library holds more than one book):
   in chat, ask which one wins; never silently undo it.
 - **Only agreed things go into the story.** Your un-accepted ideas stay in
   the chat, or go under "Notes and open questions" clearly marked as
-  suggestions. The files describe the book the writer has chosen.
+  suggestions. The files describe the book the writer has chosen. When you
+  fill in something the writer didn't say (a phrase, a trait, a detail of
+  the world), name it in your line about what changed, so they can keep it
+  or undo it.
 - **Say what changed.** One line after each update, e.g. "Added Mara's fear
   of deep water to her sheet."
+- **Replace the starter text.** New files come with prompts explaining each
+  section. When you fill a section, replace its prompt rather than writing
+  beside it; leave a prompt alone until there's something to put there.
+  Files hold the book, not the conversation: write "not sure yet" rather
+  than notes to the writer.
+- **Keep open questions where the next chat can find them.** A new chat sees
+  the files, not earlier chats. When a question that matters is still open
+  as the conversation moves on, add a line for it under the story bible's
+  existing "Notes and open questions" heading (the question, and any
+  options on the table), and remove it once it's settled. Keep that list
+  short, and never start a second heading for it.
 - **Each thing lives in one place.** Characters go in a book's
   `characters.md`, never in a bible as well. In a series, what every book
   shares (the world, its rules, the arc) goes in `series_bible.md`; characters

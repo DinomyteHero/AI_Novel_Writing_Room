@@ -204,6 +204,15 @@ TOOLS = [
         ),
     },
     {
+        "name": "ideas",
+        "description": (
+            "Ask a different model for options where the plan is thinnest, for when the writer "
+            "wants more variety or a fresh mind. Saves them to notes/ and returns them; go "
+            "through them with the writer one at a time."
+        ),
+        "parameters": _schema({}, []),
+    },
+    {
         "name": "status",
         "description": "Chapters, word counts and what's out of date in the current book.",
         "parameters": _schema({}, []),
@@ -370,6 +379,12 @@ class _Tools:
         })
         return f"Revised chapter {chapter}; the earlier version is kept in history."
 
+    async def t_ideas(self) -> str:
+        path = await room.ideas(self.book, self.router)
+        text = path.read_text(encoding="utf-8")
+        self._activity("Wrote", path, "Ideas from a second model", None, text)
+        return text
+
     async def t_status(self) -> str:
         report = room.status(self.book)
         lines = [f"{self.book.label}: {report.total_words:,} words written."]
@@ -403,14 +418,32 @@ class _Tools:
         return f"Saved {rel(self.series, path)}."
 
 
-def _transcript_line(item: dict) -> str | None:
-    if item["kind"] == "assistant":
-        return item["text"]
+def _change_line(item: dict) -> str | None:
     if item["kind"] == "activity":
-        return f"[{item['verb']} {item['file']}: {item['text']}]"
+        return f"- {item['verb']} {item['file']}: {item['text']}"
     if item["kind"] == "approval":
-        return f"[Offered a build card: {item['title']}]"
+        return f"- Offered a build card: {item['title']}"
     return None
+
+
+# A reply line that reads like a change card. Only tool calls change files, so
+# a model that writes these has described an edit without making it.
+_CLAIMED_CHANGE = re.compile(
+    r"^[ \t]*\[(?:Edited|Filled|Created|Wrote|Renamed|Added|Revised|Offered)\b[^\]\n]*\][ \t]*$\n?",
+    re.MULTILINE,
+)
+# "Filed the boat on his line." in a turn that changed nothing.
+_CLAIMED_SAVE = re.compile(
+    r"(?:^|[.!?:]\s+|—\s*)(?:Filed|Saved|Added|Updated|Recorded)\b"
+    r"|\bI(?:'ve| have)? (?:filed|saved|added|updated|recorded)\b",
+    re.MULTILINE,
+)
+_UNSAVED = (
+    "[From the app, not the writer: your reply says files were changed, but files only change "
+    "through tool calls, and none made that change. If the writer agreed to it, make it now with "
+    "the tools; if not, reply again without saying it was filed, and without lines like "
+    "\"[Edited ...]\".]"
+)
 
 
 def version(text: str) -> str:
@@ -478,6 +511,7 @@ async def run_turn(
     messages = list(history) + [{"role": "user", "content": message, "parts": [message]}]
 
     reply = ""
+    nudged = explore
     for _ in range(MAX_STEPS):
         if should_stop():
             raise TurnStopped()
@@ -499,6 +533,16 @@ async def run_turn(
         messages.append({"role": "assistant", **answer})
         if not answer["tool_calls"]:
             reply = answer["content"].strip()
+            if _CLAIMED_CHANGE.search(reply) or (not tools.items and _CLAIMED_SAVE.search(reply)):
+                if not nudged:
+                    nudged = True
+                    messages.append({"role": "user", "content": _UNSAVED})
+                    continue
+                note = (
+                    "Only the changes shown above as cards were saved to your files."
+                    if tools.items else "Nothing was changed in your files this turn."
+                )
+                reply = f"{_CLAIMED_CHANGE.sub('', reply).strip()}\n\n({note})".strip()
             break
         if answer["content"].strip():
             emit({"kind": "item", "item": {"kind": "assistant", "id": new_id("m"), "text": answer["content"].strip()}})
@@ -509,6 +553,7 @@ async def run_turn(
                       "revise_chapter": "Revising the chapter…",
                       "rename": "Checking names…", "add_book": "Adding the next book…",
                       "status": "Checking the book…", "propose_build": "Preparing a build estimate…",
+                      "ideas": "Asking another model for ideas…",
                       "story_so_far": "Writing story-so-far notes…"}
             emit({"kind": "phase", "text": labels.get(call["name"], "Working…") + (" " + call["arguments"].get("path", "") if call["name"] in ("read_file", "edit_file", "write_file") else "")})
             start = len(tools.items)
@@ -536,11 +581,21 @@ def history_entries(text: str, attachments: list[tuple[str, str]], result: TurnR
     user = text.strip()
     if attachments:
         user += "\n\n[Attached: " + ", ".join(name for name, _ in attachments) + "]"
-    lines = [line for line in (_transcript_line(i) for i in result.items) if line]
-    return [
+    said = [i["text"] for i in result.items if i["kind"] == "assistant"]
+    entries = [
         {"role": "user", "content": user or "(attachment)"},
-        {"role": "assistant", "content": "\n".join(lines + [result.reply])},
+        {"role": "assistant", "content": "\n".join(said + [result.reply])},
     ]
+    # The app's record of what changed, kept out of the model's own replies so
+    # it never learns that writing "[Edited ...]" is how a file gets changed.
+    changes = [line for line in (_change_line(i) for i in result.items) if line]
+    if changes:
+        entries += [
+            {"role": "user", "content": "[From the app, not the writer: during that reply you made "
+                                        "these changes with tools.]\n" + "\n".join(changes)},
+            {"role": "assistant", "content": "Noted."},
+        ]
+    return entries
 
 
 def undo(series: Series, item: dict) -> dict:

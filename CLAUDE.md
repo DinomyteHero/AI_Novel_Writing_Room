@@ -83,7 +83,8 @@ favour of this design and is in git history if something specific is needed.
   `room.py ideas` uses the same shape for options where the plan is thin;
   a model never fills in the plan unasked. In the app there are no review or
   ideas buttons: the writer asks in a chat and the selected chat model does
-  it in the conversation (`prompts/studio/room_chat.md`); the project page
+  it in the conversation (`prompts/studio/room_chat.md`), calling its `ideas`
+  tool when the writer wants a second model's options; the project page
   starts a new chat for each piece of work.
 - **Loose craft framework.** `prompts/studio/craft_guide.md` is the single
   home for craft guidance (lenses, not rules); prompts, the skill and docs

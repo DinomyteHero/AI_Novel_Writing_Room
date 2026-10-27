@@ -45,7 +45,7 @@ ROLES = [
     ("studio_chat", "Chat", "Talks with you and edits your files."),
     ("studio_writer", "Writer", "Drafts and revises chapters."),
     ("studio_critic", "Critic", "Critiques each draft. A different model catches different things."),
-    ("studio_reader", "Reviewer", "Second opinions and ideas asked for from the command line or the Claude plugin. In the app, the chat model does these itself."),
+    ("studio_reader", "Reviewer", "Ideas from a different model when you ask the chat for more options, and second opinions from the command line or the Claude plugin."),
     ("studio_notes", "Story so far", "Notes on a finished book for the books after it."),
 ]
 PROVIDER_BLURBS = {
