@@ -351,7 +351,7 @@ const ACT = {
           S.doc = null; S.selection = null;
         }
         await refreshProject();
-        const review = record.items.slice(record.turn.start).find((i) => i.kind === "review");
+        const review = record.items.slice(record.turn.start).find((i) => i.kind === "review" || i.kind === "ideas");
         if (review && (inThread ? S.view === "project" : S.chat?.id === cid)) {
           S.doc = { path: review.file, data: await get("/api/file", { project: S.project, path: review.file }) }; S.panel = true;
         }
@@ -473,10 +473,11 @@ const ACT = {
     try { S.data = await post("/api/reference/remove", { project: S.project, path: d.path, book: S.data.book.folder }); } catch (e) { return fail(e); }
     render();
   },
-  async review() {
-    S.busy = { review: true }; render();
+  async review(d) {
+    const kind = d && d.kind === "ideas" ? "ideas" : "review";
+    S.busy = { [kind]: true }; render();
     try {
-      const file = await post("/api/review", { project: S.project, book: S.data.book.folder });
+      const file = await post("/api/" + kind, { project: S.project, book: S.data.book.folder });
       S.doc = { path: file.path, data: file }; S.panel = true;
       await refreshProject();
     } catch (e) { S.toast = e.message; }
@@ -484,10 +485,13 @@ const ACT = {
   },
   async reviewCall(d) {
     const point = S.doc.data.points.find((p) => String(p.number) === d.number);
-    const calls = { agree: "Agreed.", disagree: "Disagreed: keep it as it is.", own: "My own fix (in the chat)." };
+    const ideas = S.doc.data.kind === "ideas";
+    const calls = ideas
+      ? { agree: "Use the pick.", disagree: "Not now.", own: "Something else (in the chat)." }
+      : { agree: "Agreed.", disagree: "Disagreed: keep it as it is.", own: "My own fix (in the chat)." };
     try { S.doc.data = await post("/api/review/call", { project: S.project, path: S.doc.path, number: Number(d.number), call: calls[d.call] }); } catch (e) { return fail(e); }
-    const message = `Point ${d.number} of the review ("${point.title}"): `;
-    if (d.call === "agree") return ACT.quick({ text: message + "I agree. Please make the suggested change." });
+    const message = ideas ? `Idea ${d.number} ("${point.title}"): ` : `Point ${d.number} of the review ("${point.title}"): `;
+    if (d.call === "agree") return ACT.quick({ text: message + (ideas ? "let's go with your pick. Please add it to the plan." : "I agree. Please make the suggested change.") });
     if (d.call === "own") {
       if (S.view === "chat") S.draft = message + "instead, "; else S.projectDraft = message + "instead, ";
       render(); return focus(S.view === "chat" ? "composer" : "project-composer");
@@ -730,8 +734,11 @@ function itemsHtml(record, where) {
           : `<span class="muted" style="padding-left:28px;font-size:13px">${esc(resolved)}</span>`}
       </div>`;
     }
-    if (m.kind === "review") {
-      return `<div class="result">${ic("doc", 16, "#8F4F0C", 2)}<span style="flex:1;font-size:14px">A second opinion is ready. Go through it point by point: agree, disagree, or make your own fix.</span>
+    if (m.kind === "review" || m.kind === "ideas") {
+      const text = m.kind === "ideas"
+        ? "Fresh ideas are ready. Go through them one at a time: use the pick, skip it, or choose something else."
+        : "A second opinion is ready. Go through it point by point: agree, disagree, or make your own fix.";
+      return `<div class="result">${ic("doc", 16, "#8F4F0C", 2)}<span style="flex:1;font-size:14px">${text}</span>
         <button type="button" class="link" ${attr({ act: "openFile", path: m.file })}>Open</button></div>`;
     }
     if (m.kind === "result") {
@@ -794,6 +801,7 @@ function projectView() {
       <div class="chips" style="justify-content:flex-start">
         <button type="button" class="chip" ${attr({ act: "quick", text: "Could you get a second opinion on my plan?" })}>Review my plan</button>
         <button type="button" class="chip" ${attr({ act: "quick", text: "Where are we? What's written and what's next?" })}>Where are we?</button>
+        <button type="button" class="chip" ${attr({ act: "quick", text: "I'm stuck. Can you help me work out what comes next?" })}>I'm stuck</button>
       </div>
     </div>
     <div style="display:flex;flex-direction:column;gap:8px">
@@ -822,6 +830,7 @@ function chatView() {
       <div style="display:flex;flex-wrap:wrap;gap:8px">
         <button type="button" class="chip" ${attr({ act: "quick", text: "Could you get a second opinion on my plan?" })}>Review my plan</button>
         <button type="button" class="chip" ${attr({ act: "quick", text: "Where are we? What's written and what's next?" })}>Where are we?</button>
+        <button type="button" class="chip" ${attr({ act: "quick", text: "I'm stuck. Can you help me work out what comes next?" })}>I'm stuck</button>
       </div>
       ${pendingHtml()}
       ${composer("composer", "draft", "Talk about your story…", "chat")}
@@ -882,8 +891,10 @@ function filesPanel() {
     <div class="group"><span class="label" style="padding:0 8px 4px">Manuscript · ${written} of ${d.chapters.length} · ${fmt(d.words)} words</span>
       ${chapters || '<span class="hint">Chapters appear here once the outline has "## Chapter 1" sections.</span>'}</div>
     <div class="group"><div class="group-head"><span class="label">Notes</span></div>
-      <button type="button" class="link" style="align-self:flex-start" ${S.busy && S.busy.review ? "disabled" : ""} ${attr({ act: "review" })}>${S.busy && S.busy.review ? "Reading your book…" : "Get a second opinion"}</button>
+      <button type="button" class="link" style="align-self:flex-start" ${S.busy ? "disabled" : ""} ${attr({ act: "review" })}>${S.busy && S.busy.review ? "Reading your book…" : "Get a second opinion"}</button>
+      <button type="button" class="link" style="align-self:flex-start" ${S.busy ? "disabled" : ""} ${attr({ act: "review", kind: "ideas" })}>${S.busy && S.busy.ideas ? "Thinking up ideas…" : "Get fresh ideas"}</button>
       ${d.reviews.map((r) => fileRow("openFile", "Review · " + r.name.replace(/^review_|\.md$/g, ""), "", { path: r.path })).join("")}
+      ${(d.ideas || []).map((r) => fileRow("openFile", "Ideas · " + r.name.replace(/^ideas_|\.md$/g, ""), "", { path: r.path })).join("")}
       ${d.runs.map((r) => fileRow("openFile", "Build report · " + r.name, "", { path: r.path })).join("")}
       ${written ? `<button type="button" class="link" style="align-self:flex-start" ${attr({ act: "exportBook" })}>Export the whole book</button>` : ""}
     </div>`;
@@ -891,6 +902,7 @@ function filesPanel() {
 
 function reviewHtml(data) {
   const text = data.text;
+  const labels = data.kind === "ideas" ? ["Use the pick", "Not now", "Something else"] : ["Agree", "Disagree", "My own fix"];
   const first = text.search(/^###\s*\d+\./m);
   const intro = first > 0 ? text.slice(0, first) : "";
   const lastPoint = [...text.matchAll(/^###\s*\d+\..*$/gm)].pop();
@@ -904,9 +916,9 @@ function reviewHtml(data) {
     <b style="font-size:15px">${p.number}. ${esc(p.title)}</b>
     <div class="body doc" style="font-size:14px">${md(p.body)}</div>
     ${p.call ? `<span class="call">Your call: ${esc(p.call)}</span>` : `<div style="display:flex;gap:6px;flex-wrap:wrap">
-      <button type="button" class="btn small" ${attr({ act: "reviewCall", number: p.number, call: "agree" })}>Agree</button>
-      <button type="button" class="btn ghost small" ${attr({ act: "reviewCall", number: p.number, call: "disagree" })}>Disagree</button>
-      <button type="button" class="btn ghost small" ${attr({ act: "reviewCall", number: p.number, call: "own" })}>My own fix</button></div>`}
+      <button type="button" class="btn small" ${attr({ act: "reviewCall", number: p.number, call: "agree" })}>${labels[0]}</button>
+      <button type="button" class="btn ghost small" ${attr({ act: "reviewCall", number: p.number, call: "disagree" })}>${labels[1]}</button>
+      <button type="button" class="btn ghost small" ${attr({ act: "reviewCall", number: p.number, call: "own" })}>${labels[2]}</button></div>`}
   </div>`).join("");
   return `<div class="doc">${md(intro)}</div><div style="display:flex;flex-direction:column;gap:12px">${points}</div><div class="doc">${md(tail)}</div>`;
 }

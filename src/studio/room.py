@@ -46,8 +46,22 @@ async def review(book: Book, router: "ModelRouter") -> Path:
     if not (plan.story_bible.strip() or plan.outline.strip()):
         raise StudioError("There's nothing to review yet. Fill in the story bible or outline first.")
     text = await complete(router, READER_ROLE, prompts.review_messages(plan, book.drafted_chapters()))
+    return _save_note(book, "review", text)
+
+
+async def ideas(book: Book, router: "ModelRouter") -> Path:
+    """A second model offers options where the plan is thinnest, in the same
+    numbered shape as a review, so the writer picks one point at a time."""
+    plan = book.read_plan()
+    if not (plan.story_bible.strip() or plan.outline.strip()):
+        raise StudioError("There's nothing to build on yet. Tell the chat your idea, or fill in the story bible first.")
+    text = await complete(router, READER_ROLE, prompts.ideas_messages(plan, book.drafted_chapters()))
+    return _save_note(book, "ideas", text)
+
+
+def _save_note(book: Book, kind: str, text: str) -> Path:
     book.notes_dir.mkdir(parents=True, exist_ok=True)
-    path = book.notes_dir / f"review_{datetime.now():%Y%m%d-%H%M%S}.md"
+    path = book.notes_dir / f"{kind}_{datetime.now():%Y%m%d-%H%M%S}.md"
     path.write_text(text + "\n", encoding="utf-8")
     return path
 

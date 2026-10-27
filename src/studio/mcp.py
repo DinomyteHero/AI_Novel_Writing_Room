@@ -50,6 +50,10 @@ TOOLS = [
      "description": "A second model reviews the plan and chapters and saves numbered points with a blank "
                     "'Your call' line. Takes a minute or two. Returns the review.",
      "inputSchema": _schema(_BOOK)},
+    {"name": "ideas",
+     "description": "A second model offers two or three options for each of the thinnest parts of the plan, "
+                    "with a blank 'Your call' line each. For when the writer is stuck. Returns the ideas.",
+     "inputSchema": _schema(_BOOK)},
     {"name": "rename",
      "description": "Rename someone or something everywhere in the series (whole words). apply=false previews; "
                     "apply only after the writer agrees.",
@@ -150,6 +154,11 @@ class Tools:
     def review(self, args: dict) -> str:
         book = self._book(args)
         path = self._with_router(lambda r: room.review(book, r))
+        return f"Saved {path}\n\n" + path.read_text(encoding="utf-8")
+
+    def ideas(self, args: dict) -> str:
+        book = self._book(args)
+        path = self._with_router(lambda r: room.ideas(book, r))
         return f"Saved {path}\n\n" + path.read_text(encoding="utf-8")
 
     def rename(self, args: dict) -> str:

@@ -105,3 +105,13 @@ async def test_check_passes_the_router_answer_through():
     router = FakeRouter()
     router.health = (False, "Invalid API key (401 Unauthorized)")
     assert await room.check(router) == (False, "Invalid API key (401 Unauthorized)")
+
+
+async def test_ideas_offer_options_in_the_review_shape(book):
+    router = FakeRouter({READER_ROLE: ["### 1. Why the light went dark\n\n**Options:**\n- **A.** x\n\n**Your call:**"]})
+    path = await room.ideas(book, router)
+    assert router.roles() == [READER_ROLE]
+    assert "Fresh Ideas" in router.system_message(0)
+    assert "lighthouse keeper's niece" in router.user_message(0)
+    assert path.parent == book.notes_dir and path.name.startswith("ideas_")
+    assert book.latest_review() is None  # ideas aren't a review

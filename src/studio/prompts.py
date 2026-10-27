@@ -158,6 +158,14 @@ def review_messages(plan: Plan, chapters: dict[int, str]) -> list[dict]:
     )
 
 
+def ideas_messages(plan: Plan, chapters: dict[int, str]) -> list[dict]:
+    task = "# Task\n\nOffer ideas where the plan above is thinnest."
+    return _messages(
+        "ideas",
+        _plan_sections(plan) + _chapters_parts("The book so far", chapters) + [task],
+    )
+
+
 def story_so_far_messages(plan: Plan, chapters: dict[int, str]) -> list[dict]:
     task = "# Task\n\nWrite the story-so-far notes for the finished book above."
     return _messages(

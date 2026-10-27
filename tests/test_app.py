@@ -344,3 +344,17 @@ def test_streaming_http_sends_events_and_requires_token(tmp_path, config):
     finally:
         server.shutdown()
         server.server_close()
+
+
+def test_ideas_open_as_points_with_their_own_choices(tmp_path, config, book):
+    app, router = make_app(tmp_path, config)
+    app.library = Library(book.series.root.parent)
+    pid = book.series.root.name
+    router.responses["studio_reader"] = ["Thin in the middle.\n\n### 1. The keeper's secret\n\n**Options:**\n- **A.** x\n\n**Your call:**\n"]
+    file = app.ideas(pid)
+    assert file["kind"] == "ideas" and [p["title"] for p in file["points"]] == ["The keeper's secret"]
+    assert app.project(pid)["ideas"][0]["path"] == file["path"]
+    updated = app.review_call(pid, file["path"], 1, "Use the pick.")
+    assert updated["points"][0]["call"] == "Use the pick."
+    with pytest.raises(StudioError, match="isn't a review"):
+        app.review_call(pid, f"books/{book.root.name}/outline.md", 1, "x")
