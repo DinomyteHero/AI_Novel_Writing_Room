@@ -218,6 +218,9 @@ class ModelRouter:
         backend = routing["backend"]
         model = self._resolve_model(routing)
         params = self._resolve_params(routing)
+        # Tools in a role's params are OpenRouter server tools (web search,
+        # web fetch) that OpenRouter runs itself; they join the chat's own.
+        server_tools = params.pop("tools", [])
         # Steps within one chat turn are seconds apart, so the conversation's
         # cache marker uses the cheaper 5-minute entry.
         if self.is_anthropic(backend):
@@ -231,7 +234,7 @@ class ModelRouter:
                 "name": t["name"], "description": t["description"], "parameters": t["parameters"],
             }}
             for t in tools
-        ]
+        ] + list(server_tools)
         message = await self._openai_call(
             agent_role, backend, model, payload_messages, params, tools=openai_tools, on_text=on_text,
             cache_ttl="5m",

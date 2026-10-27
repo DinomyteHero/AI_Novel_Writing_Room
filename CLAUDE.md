@@ -134,8 +134,10 @@ favour of this design and is in git history if something specific is needed.
 | Writer-facing guide | `docs/guide.md` |
 
 Routing roles: `studio_chat` (the app's room chat), `studio_writer` (draft,
-revise, polish), `studio_critic` (press critique), `studio_reader` (review,
-story-so-far). All need ~1M-token context windows.
+revise, polish), `studio_critic` (press critique), `studio_reader` (review),
+`studio_notes` (story-so-far). All need ~1M-token context windows. A role's
+`params.tools` adds OpenRouter server tools (web search, web fetch) to the
+chat's own.
 
 ## Testing
 

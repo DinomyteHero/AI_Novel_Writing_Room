@@ -20,7 +20,7 @@ from pathlib import Path
 from typing import TYPE_CHECKING, Callable
 
 from src.studio import prompts
-from src.studio.llm import CRITIC_ROLE, LONG_PROMPT_TOKENS, READER_ROLE, WRITER_ROLE, Usage, complete
+from src.studio.llm import CRITIC_ROLE, LONG_PROMPT_TOKENS, NOTES_ROLE, WRITER_ROLE, Usage, complete
 from src.studio.project import Book, ChapterPlan, Plan, StudioError, count_words
 
 if TYPE_CHECKING:
@@ -311,7 +311,7 @@ async def story_so_far(book: Book, router: "ModelRouter") -> Path:
     if not chapters:
         raise StudioError("This book has no chapters yet, so there's no story so far to write.")
     text = await complete(
-        router, READER_ROLE, prompts.story_so_far_messages(book.read_plan(), chapters)
+        router, NOTES_ROLE, prompts.story_so_far_messages(book.read_plan(), chapters)
     )
     if book.story_so_far_path.exists():
         book.history_dir.mkdir(parents=True, exist_ok=True)

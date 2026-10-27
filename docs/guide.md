@@ -254,11 +254,14 @@ Underneath, `config/settings.yaml` holds:
 - **Providers.** OpenRouter (recommended: one key, every model), Anthropic,
   OpenAI, Google, and a model running on your own computer (Ollama or
   llama.cpp). Each needs only its key, named by `api_key_env`.
-- **Roles.** `studio_chat` is the app's planning chat (Claude Opus 5.5);
-  `studio_writer` drafts and revises (DeepSeek V4 Pro); `studio_critic`
-  critiques press drafts and `studio_reader` writes reviews and story-so-far
-  notes (both Gemini 3.1 Pro). Every call sends the whole book, so pick models
-  with ~1M-token context windows. No role caps its output length.
+- **Roles.** `studio_chat` is the app's planning chat, which can also search
+  the web and read pages (DeepSeek V4.1 Flash 1017); `studio_writer` drafts
+  and revises (DeepSeek V4.1 Flash 1017 at maximum reasoning effort);
+  `studio_critic` critiques press drafts and `studio_reader` writes reviews
+  (both Gemini 4 Argon); `studio_notes` writes story-so-far notes (DeepSeek
+  V4.1 Flash 1017). Every call sends the whole book, so pick models with
+  ~1M-token context windows. No role caps its output length. Web searches
+  cost a little extra through OpenRouter (under a cent each).
 - **Press options.** `revision_rounds` (1), `default_chapter_words` (3000),
   `length_calibration` (1.0) and `min_revision_ratio` (0.6).
 

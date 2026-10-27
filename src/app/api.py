@@ -44,7 +44,8 @@ ROLES = [
     ("studio_chat", "Chat", "Talks with you and edits your files."),
     ("studio_writer", "Writer", "Drafts and revises chapters."),
     ("studio_critic", "Critic", "Critiques each draft. A different model catches different things."),
-    ("studio_reader", "Reviewer", "Second opinions and story-so-far notes."),
+    ("studio_reader", "Reviewer", "Second opinions on your plan."),
+    ("studio_notes", "Story so far", "Notes on a finished book for the books after it."),
 ]
 PROVIDER_BLURBS = {
     "cloud": "One key for every model here: DeepSeek, Gemini, Claude, GPT and more. Pay as you go.",

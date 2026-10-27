@@ -7,7 +7,7 @@ import dataclasses
 import pytest
 
 from src.studio import press
-from src.studio.llm import CRITIC_ROLE, READER_ROLE, WRITER_ROLE
+from src.studio.llm import CRITIC_ROLE, NOTES_ROLE, WRITER_ROLE
 from src.studio.project import StudioError
 from tests.fakes import FakeRouter
 
@@ -136,7 +136,7 @@ async def test_story_so_far_is_written_archived_and_used_by_later_books(library)
     with pytest.raises(StudioError, match="no chapters yet"):
         await press.story_so_far(first, FakeRouter())
     first.write_chapter(1, "# Chapter 1\n\nFULL", first.read_plan(), "build")
-    router = FakeRouter({READER_ROLE: ["SUMMARY ONE", "SUMMARY TWO"]})
+    router = FakeRouter({NOTES_ROLE: ["SUMMARY ONE", "SUMMARY TWO"]})
     await press.story_so_far(first, router)
     await press.story_so_far(first, router)
     assert first.story_so_far_path.read_text(encoding="utf-8") == "SUMMARY TWO\n"
