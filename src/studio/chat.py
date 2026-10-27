@@ -197,22 +197,6 @@ TOOLS = [
         "parameters": _schema({"title": {"type": "string"}}, ["title"]),
     },
     {
-        "name": "review",
-        "description": (
-            "Ask a second model for a review of the current book. Takes a minute or two. Only "
-            "when the writer wants a second opinion; then go through the points with them."
-        ),
-        "parameters": _schema({}, []),
-    },
-    {
-        "name": "ideas",
-        "description": (
-            "Ask a second model for options where the plan is thinnest. Takes a minute or two. "
-            "When the writer is stuck or wants a second mind; then go through the ideas with them."
-        ),
-        "parameters": _schema({}, []),
-    },
-    {
         "name": "revise_chapter",
         "description": "Rewrite a written chapter of the current book following the writer's note.",
         "parameters": _schema(
@@ -376,16 +360,6 @@ class _Tools:
         })
         return "Created:\n" + "\n".join(f"- {rel(self.series, p)}" for p in written)
 
-    async def t_review(self) -> str:
-        path = await room.review(self.book, self.router)
-        self.items.append({"kind": "review", "id": new_id("r"), "file": rel(self.series, path)})
-        return path.read_text(encoding="utf-8")
-
-    async def t_ideas(self) -> str:
-        path = await room.ideas(self.book, self.router)
-        self.items.append({"kind": "ideas", "id": new_id("r"), "file": rel(self.series, path)})
-        return path.read_text(encoding="utf-8")
-
     async def t_revise_chapter(self, chapter: int, note: str) -> str:
         before = self.book.chapter_path(int(chapter)).read_text(encoding="utf-8") if self.book.chapter_path(int(chapter)).exists() else None
         path = await room.revise_chapter(self.book, self.router, int(chapter), note)
@@ -436,10 +410,6 @@ def _transcript_line(item: dict) -> str | None:
         return f"[{item['verb']} {item['file']}: {item['text']}]"
     if item["kind"] == "approval":
         return f"[Offered a build card: {item['title']}]"
-    if item["kind"] == "review":
-        return f"[Ran a review: {item['file']}]"
-    if item["kind"] == "ideas":
-        return f"[Asked a second model for ideas: {item['file']}]"
     return None
 
 
@@ -536,7 +506,6 @@ async def run_turn(
             if should_stop():
                 raise TurnStopped()
             labels = {"read_file": "Reading", "edit_file": "Updating", "write_file": "Writing", "edit_passage": "Updating the selected passage…",
-                      "review": "Reading the book for a second opinion…", "ideas": "Asking a second model for ideas…",
                       "revise_chapter": "Revising the chapter…",
                       "rename": "Checking names…", "add_book": "Adding the next book…",
                       "status": "Checking the book…", "propose_build": "Preparing a build estimate…",

@@ -10,8 +10,7 @@ uses, so where it tells you to run a command, use the matching tool instead:
 | edit or create a file | `edit_file` for a targeted change, `write_file` for a new or empty file |
 | `room.py new ... --series` (add the next book) | `add_book` |
 | `room.py rename` (preview, then `--apply`) | `rename` with `apply: false`, then `apply: true` once the writer agrees |
-| `room.py review` | `review` |
-| `room.py ideas` | `ideas` |
+| `room.py review` or `room.py ideas` | nothing: in this app you give the second opinion or the ideas yourself (below) |
 | `room.py revise N --note` | `revise_chapter` |
 | `room.py status` | `status` |
 | `press.py build` | `propose_build`: the writer starts the build from the card it shows |
@@ -19,6 +18,14 @@ uses, so where it tells you to run a command, use the matching tool instead:
 
 (The guide's notes about the Claude plugin's tools don't apply here; your
 tools are the ones in this table.)
+
+When the writer asks for a review, or is stuck and wants ideas, do it
+yourself in this conversation rather than handing it to another model. For a
+review, read everything and give numbered points, most important first: what
+you noticed, why it matters, and the change you'd suggest. For ideas, take the
+gaps that matter most and give two or three genuinely different options for
+each, with your pick and why. Then go through them one at a time and change
+files only for what the writer chooses.
 
 The app already created the project and its starter files, so you never need
 to start a book yourself. A new project starts as "Untitled book" or

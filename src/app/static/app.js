@@ -15,7 +15,7 @@ const S = {
   job: null, jobKey: null, trayHidden: false,
   modal: null, toast: "",
   selection: null, explore: false,
-  theme: savedTheme(), drawer: false, picker: false, reader: null,
+  theme: savedTheme(), drawer: false, picker: false, reader: null, files: false,
 };
 
 /* ---------- helpers ---------- */
@@ -292,14 +292,14 @@ const ACT = {
       await loadProject(res.project);
       S.view = "project"; S.doc = null;
       S.creating = false; S.projectDraft = idea;
-      await ACT.send({ where: "thread" });
+      await ACT.startChat();
     } catch (e) { S.toast = e.message; }
     S.creating = false; render();
   },
   async toggleProject(d) { S.expanded[d.project] = !S.expanded[d.project]; render(); },
   async openProject(d) {
     S.selection = null; S.reader = null;
-    try { await loadProject(d.project); S.view = "project"; S.doc = null; S.projectDraft = S.projectDraft || ""; } catch (e) { return fail(e); }
+    try { await loadProject(d.project); S.view = "project"; S.doc = null; S.files = false; S.projectDraft = S.projectDraft || ""; } catch (e) { return fail(e); }
     render();
   },
   async switchBook(d) {
@@ -368,10 +368,6 @@ const ACT = {
           S.doc = null; S.selection = null;
         }
         await refreshProject();
-        const review = record.items.slice(record.turn.start).find((i) => i.kind === "review" || i.kind === "ideas");
-        if (review && (inThread ? S.view === "project" : S.chat?.id === cid)) {
-          S.doc = { path: review.file, data: await get("/api/file", { project: S.project, path: review.file }) }; S.panel = true;
-        }
       }
       await refreshState();
     } catch (e) {
@@ -414,8 +410,21 @@ const ACT = {
   },
   async quick(d) {
     if (S.view === "chat") { S.draft = d.text; return ACT.send({ where: "chat" }); }
-    S.projectDraft = d.text; return ACT.send({ where: "thread" });
+    S.projectDraft = d.text; return ACT.startChat();
   },
+  async startChat() {
+    const text = S.projectDraft.trim();
+    if (!text && !S.pending.length) return focus("project-composer");
+    try {
+      const chat = await post("/api/chats", { project: S.project });
+      S.chat = chat; S.view = "chat"; S.panel = false; S.doc = null; S.reader = null; S.files = false;
+      S.draft = text; S.projectDraft = "";
+      await refreshState();
+    } catch (e) { return fail(e); }
+    return ACT.send({ where: "chat" });
+  },
+  showProjectFiles() { S.files = true; S.doc = null; render(); },
+  hideProjectFiles() { S.files = false; S.doc = null; render(); },
   attach() { pickFiles("attach"); },
   removePending(d) { S.pending.splice(Number(d.index), 1); render(); },
   async undo(d) {
@@ -473,7 +482,7 @@ const ACT = {
   showFiles() { S.doc = null; render(); },
   async openFile(d) {
     try { S.doc = { path: d.path, data: await get("/api/file", { project: S.project, path: d.path }) }; } catch (e) { return fail(e); }
-    S.panel = true; render();
+    S.panel = true; S.files = true; render();
   },
   openEmptyChapter(d) { S.doc = { empty: Number(d.number), title: d.title }; S.panel = true; render(); },
   editDoc() { S.doc.editing = true; S.doc.text = S.doc.data.text; render(); focus("doc-editor"); },
@@ -490,16 +499,6 @@ const ACT = {
   async removeReference(d) {
     try { S.data = await post("/api/reference/remove", { project: S.project, path: d.path, book: S.data.book.folder }); } catch (e) { return fail(e); }
     render();
-  },
-  async review(d) {
-    const kind = d && d.kind === "ideas" ? "ideas" : "review";
-    S.busy = { [kind]: true }; render();
-    try {
-      const file = await post("/api/" + kind, { project: S.project, book: S.data.book.folder });
-      S.doc = { path: file.path, data: file }; S.panel = true;
-      await refreshProject();
-    } catch (e) { S.toast = e.message; }
-    S.busy = null; render();
   },
   async reviewCall(d) {
     const point = S.doc.data.points.find((p) => String(p.number) === d.number);
@@ -747,7 +746,7 @@ function liveHtml(record) {
     <div class="said live-text">${md(record.turn.text || "")}</div></div>`;
 }
 
-function itemsHtml(record, where) {
+function itemsHtml(record) {
   if (!record) return "";
   const cid = record.id;
   const out = [];
@@ -772,9 +771,6 @@ function itemsHtml(record, where) {
   if (record.turn?.state === "running") out.push(liveHtml(record));
   else if (S.busy && S.busy.chat === cid && S.busy.project === record.project) {
     out.push(`<div class="thinking"><span class="dots"><span></span><span></span><span></span></span> Reading your files and thinking…</div>`);
-  }
-  if (where === "thread" && !record.items.length && !S.busy) {
-    out.push(`<p class="muted" style="margin:0;font-size:15px;line-height:1.55">Nothing here yet. Share an idea or a change, and it lands in the files on the right. This conversation keeps going; you never need to start over.</p>`);
   }
   return out.join("");
 }
@@ -877,31 +873,66 @@ function pickerHtml(role) {
 
 function quickChips() {
   return `<div class="chips" style="justify-content:flex-start">
-    <button type="button" class="chip" ${attr({ act: "quick", text: "Could you get a second opinion on my plan?" })}>Review my plan</button>
     <button type="button" class="chip" ${attr({ act: "quick", text: "Where are we? What's written and what's next?" })}>Where are we?</button>
-    <button type="button" class="chip" ${attr({ act: "quick", text: "I'm stuck. Can you help me work out what comes next?" })}>I'm stuck</button>
   </div>`;
 }
+
+const shortDate = (iso) => {
+  const day = iso ? new Date(iso) : null;
+  return day && !isNaN(day) ? day.toLocaleDateString("en-US", { month: "short", day: "numeric" }) : "";
+};
 
 function projectView() {
   const d = S.data;
   if (!d) return "";
   const books = d.isSeries && d.books.length > 1
     ? `<div class="pills">${d.books.map((b) => `<button type="button" class="pill ${b.folder === d.book.folder ? "on" : ""}" ${attr({ act: "switchBook", book: b.folder })}>Book ${b.number} · ${esc(b.title)}</button>`).join("")}</div>` : "";
-  return `<div class="convo">
-    <div class="chat-head project-head">
-      <button type="button" class="icon-btn" aria-label="All projects" ${attr({ act: "go", view: "projects" })}>${ic("back", 18, "currentColor", 2)}</button>
-      <div class="titles"><b>${esc(d.title)}</b>
-        <span class="muted">${esc(d.kind)}${d.isSeries ? ` · working on book ${d.book.number}` : ""} · ${fmt(d.words)} words written · ${d.isSeries ? "changes land in the series bible or one book's files" : "changes land in the files on the right"}</span></div>
-      ${books}
+  const project = S.projects.find((p) => p.id === d.id);
+  const chats = (project ? project.chats : []).slice();
+  if (S.thread?.items?.length) chats.push({ id: "project", title: "Project chat", updated: S.thread.updated || "" });
+  chats.sort((a, b) => String(b.updated).localeCompare(String(a.updated)));
+  const recents = chats.map((c) => `<button type="button" class="recent-row" ${attr({ act: "openChat", project: d.id, chat: c.id })}>
+      <span class="t">${esc(c.title)}</span><span class="muted">${esc(shortDate(c.updated))}</span></button>`).join("");
+  return `<div class="scroll"><div class="project-home">
+    <nav class="crumbs" aria-label="Breadcrumb"><button type="button" class="link muted" ${attr({ act: "go", view: "projects" })}>Projects</button><span class="muted" aria-hidden="true">/</span><span>${esc(d.title)}</span></nav>
+    <h1 class="project-title">${esc(d.title)}</h1>
+    ${books}
+    ${S.selection ? `<div class="selected-passage"><b>Selected in ${esc(shortPath(S.selection.path))}</b><blockquote>${esc(S.selection.text)}</blockquote><button type="button" class="link" ${attr({ act: "clearSelection" })}>Clear selection</button></div>` : ""}
+    <div class="composer-box">
+      <label for="project-composer" class="sr">Start a new chat in ${esc(d.title)}</label>
+      <textarea id="project-composer" rows="2" placeholder="${esc(`New chat in ${d.title}`)}" data-model="projectDraft" data-enter="startChat">${esc(S.projectDraft)}</textarea>
+      <div class="composer-row">
+        <button type="button" class="square" style="margin-left:-4px" aria-label="Attach a file" ${attr({ act: "attach" })}>${ic("clip", 16, "currentColor", 2)}</button>
+        <button type="button" class="send" aria-label="Start the chat" ${S.busy ? "disabled" : ""} ${attr({ act: "startChat" })}>${ic("arrow", 18, "currentColor", 2.2)}</button>
+      </div>
     </div>
-    <div class="msgs"><div class="msgs-inner">${itemsHtml(S.thread, "thread")}</div></div>
-    <div class="composer-wrap"><div class="composer-inner">
-      ${quickChips()}
-      ${pendingHtml()}
-      ${composer("project-composer", "projectDraft", d.isSeries ? "Add to the series: the world, a rule, where it goes next…" : "Rename someone, add a scene idea, ask a question…", "thread")}
-    </div></div>
-  </div>`;
+    ${pendingHtml()}
+    ${modelLine()}
+    <section class="recents" aria-label="Recent chats"><span class="label">Recents</span>
+      ${recents || '<p class="muted" style="margin:0;font-size:14px;line-height:1.55">No chats yet. Start one above: plan a scene, ask for a review, or say you\'re stuck.</p>'}</section>
+  </div></div>`;
+}
+
+/* The project page's right column: one line per part of the book. */
+function projectOverview() {
+  const d = S.data;
+  const job = bookJob(d);
+  const written = d.chapters.filter((c) => c.state !== "missing").length;
+  const next = d.chapters.find((c) => c.state === "missing");
+  const refs = d.reference.reduce((n, r) => n + r.files.length, 0);
+  const notes = d.reviews.length + (d.ideas || []).length + d.runs.length;
+  const row = (icon, label, meta, action, act) => `<div class="ov-row">${ic(icon, 18, "var(--muted)", 1.8)}
+    <span class="ov-label">${esc(label)}</span><span class="muted ov-meta">${esc(meta)}</span>
+    ${action ? `<button type="button" class="link" ${attr(act)}>${esc(action)}</button>` : ""}</div>`;
+  const building = job && job.state === "running";
+  return `<aside class="overview" aria-label="About this project">
+    ${row("doc", "Plan", d.isSeries ? `book ${d.book.number}` : "bible, characters, outline", "View", { act: "showProjectFiles" })}
+    ${row("clip", "Reference", refs ? `${refs} file${refs === 1 ? "" : "s"}` : "", "Add", { act: "addReference", scope: d.reference[0].scope })}
+    ${row("book", "Manuscript", d.chapters.length ? `${written} of ${d.chapters.length} chapters` : "no chapters yet",
+      building ? "" : next ? "Build" : written ? "View" : "", building ? {} : next ? { act: "buildAsk", which: "next" } : { act: "showProjectFiles" })}
+    ${row("layers", "Notes", notes ? `${notes}` : "", notes ? "View" : "", { act: "showProjectFiles" })}
+    <span class="muted ov-foot">${building ? esc(buildStatus(d, job)) + " · " : ""}${esc(d.kind)} · ${fmt(d.words)} words · whole book ${fmtK(d.context.tokens)} of ${fmtK(d.context.limit)} tokens</span>
+  </aside>`;
 }
 
 function chatView() {
@@ -914,7 +945,7 @@ function chatView() {
       <b style="font-size:14px;padding:0 6px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(c.title)}</b>
       <button type="button" class="btn ghost small" style="margin-left:auto" aria-pressed="${S.panel}" ${attr({ act: "togglePanel" })}>${ic("panel", 16, "currentColor", 1.8)} Files</button>
     </div>
-    <div class="msgs"><div class="msgs-inner">${itemsHtml(c, "chat")}</div></div>
+    <div class="msgs"><div class="msgs-inner">${itemsHtml(c)}</div></div>
     <div class="composer-wrap"><div class="composer-inner">
       ${quickChips()}
       ${pendingHtml()}
@@ -948,8 +979,6 @@ function filesPanel() {
   const written = d.chapters.filter((c) => c.state !== "missing").length;
   const next = d.chapters.find((c) => c.state === "missing");
   const status = buildStatus(d, job);
-  const project = S.projects.find((p) => p.id === d.id);
-  const chats = project ? project.chats : [];
   const chapters = d.chapters.map((c) => {
     const building = running && job.current === c.number;
     const icon = building ? `<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" style="color:var(--accent)"><circle cx="12" cy="12" r="6" fill="currentColor"/></svg>`
@@ -977,19 +1006,13 @@ function filesPanel() {
     <div class="group"><span class="label" style="padding:0 8px 4px">Manuscript · ${written} of ${d.chapters.length} · ${fmt(d.words)} words</span>
       ${chapters || '<span class="hint">Chapters appear here once the outline has "## Chapter 1" sections.</span>'}</div>
     <div class="group"><div class="group-head"><span class="label">Notes</span></div>
-      <button type="button" class="link" style="align-self:flex-start" ${S.busy ? "disabled" : ""} ${attr({ act: "review" })}>${S.busy && S.busy.review ? "Reading your book…" : "Get a second opinion"}</button>
-      <button type="button" class="link" style="align-self:flex-start" ${S.busy ? "disabled" : ""} ${attr({ act: "review", kind: "ideas" })}>${S.busy && S.busy.ideas ? "Thinking up ideas…" : "Get fresh ideas"}</button>
+      ${d.reviews.length || (d.ideas || []).length || d.runs.length || written ? "" : '<span class="hint">Build reports appear here. For a review or ideas, ask in a chat.</span>'}
       ${d.reviews.map((r) => fileRow("openFile", "Review · " + r.name.replace(/^review_|\.md$/g, ""), "", { path: r.path })).join("")}
       ${(d.ideas || []).map((r) => fileRow("openFile", "Ideas · " + r.name.replace(/^ideas_|\.md$/g, ""), "", { path: r.path })).join("")}
       ${d.runs.map((r) => fileRow("openFile", "Build report · " + r.name, "", { path: r.path })).join("")}
       ${written ? `<button type="button" class="link" style="align-self:flex-start" ${attr({ act: "exportBook" })}>Export the whole book</button>` : ""}
     </div>
-    <div class="group"><div class="group-head"><span class="label">Separate chats</span>
-      <button type="button" class="link" style="margin-left:auto;font-size:12px" ${attr({ act: "newChat", project: d.id })}>${ic("plus", 12, "currentColor", 2.6)} New chat</button></div>
-      ${chats.map((c) => `<button type="button" class="file-row" ${attr({ act: "openChat", project: d.id, chat: c.id })}>${ic("chat", 16, "var(--muted)", 1.8)}
-        <span class="grow"><span class="name">${esc(c.title)}</span><span class="muted" style="font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(c.snippet)}</span></span></button>`).join("")
-        || '<span class="hint">Start one to dig into a single question on its own.</span>'}
-    </div>`;
+`;
 }
 
 function bookJob(d) {
@@ -1122,7 +1145,8 @@ function panel() {
   }
   return `<aside class="panel" aria-label="Project files">
     <div class="panel-head">
-      ${S.doc ? `<button type="button" class="icon-btn" aria-label="All files" ${attr({ act: "showFiles" })}>${ic("back", 18, "currentColor", 2)}</button>` : ""}
+      ${S.doc ? `<button type="button" class="icon-btn" aria-label="All files" ${attr({ act: "showFiles" })}>${ic("back", 18, "currentColor", 2)}</button>`
+        : S.view === "project" ? `<button type="button" class="icon-btn" aria-label="Back to the project" ${attr({ act: "hideProjectFiles" })}>${ic("back", 18, "currentColor", 2)}</button>` : ""}
       <div class="titles"><b>${esc(title)}</b><span class="muted" style="font-size:12px">${esc(desc)}</span></div>
       ${S.view === "chat" ? `<button type="button" class="icon-btn" aria-label="Close files" ${attr({ act: "closePanel" })}>${ic("x", 18, "currentColor", 2)}</button>` : ""}
     </div>
@@ -1185,7 +1209,7 @@ const HELP = [
   { kind: "Chapters", title: "What changed?", body: "The one useful test for a chapter: what is different at the end than at the start? A new fact, a changed relationship, a decision, a loss, a belief that cracks. If nothing changed, it is probably part of its neighbour.", tryLabel: "Test my chapters", ask: "Does every chapter in my outline change something?" },
   { kind: "Purpose", title: "Everything matters to someone", body: "For any character, place or event, ask what it changes, reveals or makes harder for someone we care about. Small answers count, and \"it's fun\" counts too. A subplot earns its place by running into the main story. Ask it when rereading, not while drafting.", tryLabel: "Find loose threads", ask: "Is anything in my plan not pulling its weight yet?" },
   { kind: "On the page", title: "Make it concrete", body: "A named thing, a specific sound, an exact gesture beats a general feeling. Let characters talk instead of summarising them. Let us inside the viewpoint character: what they notice, think and decide. Show the moment and trust the reader; don't label the emotion afterwards.", example: "\"Her coffee had gone cold an hour ago\" carries more than \"she was tired\"." },
-  { kind: "Working with the room", title: "Getting the most from your co-writer", body: "Talk naturally and change your mind freely; the files keep up. Edit any file yourself whenever you like. Ask for a second opinion before building, then build two or three chapters one at a time before building the rest. Nothing is lost: every old version is kept." },
+  { kind: "Working with the room", title: "Getting the most from your co-writer", body: "Talk naturally and change your mind freely; the files keep up. Edit any file yourself whenever you like. Ask the chat for a second opinion before building (a new chat keeps it separate), then build two or three chapters one at a time before building the rest. Nothing is lost: every old version is kept." },
 ];
 
 function helpView() {
@@ -1249,7 +1273,9 @@ function render() {
   const app = document.getElementById("app");
   app.className = "wr-app" + (S.drawer ? " drawer-open" : "");
   const reading = S.reader && S.data && (S.view === "project" || S.view === "chat");
-  const side = reading ? "" : S.view === "project" || (S.view === "chat" && S.panel) ? panel() : S.view === "chat" ? rail() : "";
+  const side = reading ? ""
+    : S.view === "project" ? (S.doc || S.files ? panel() : projectOverview())
+    : S.view === "chat" ? (S.panel ? panel() : rail()) : "";
   app.innerHTML = mobileBar() + sidebar()
     + `<main class="main">${reading ? readerView() : (views[S.view] || homeView)()}</main>`
     + side

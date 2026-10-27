@@ -347,11 +347,14 @@ def test_streaming_http_sends_events_and_requires_token(tmp_path, config):
 
 
 def test_ideas_open_as_points_with_their_own_choices(tmp_path, config, book):
-    app, router = make_app(tmp_path, config)
+    # Ideas files come from room.py ideas or the plugin; the app opens them.
+    app, _ = make_app(tmp_path, config)
     app.library = Library(book.series.root.parent)
     pid = book.series.root.name
-    router.responses["studio_reader"] = ["Thin in the middle.\n\n### 1. The keeper's secret\n\n**Options:**\n- **A.** x\n\n**Your call:**\n"]
-    file = app.ideas(pid)
+    book.notes_dir.mkdir(parents=True, exist_ok=True)
+    (book.notes_dir / "ideas_20261027-190000.md").write_text(
+        "Thin in the middle.\n\n### 1. The keeper's secret\n\n**Options:**\n- **A.** x\n\n**Your call:**\n", encoding="utf-8")
+    file = app.read_file(pid, f"books/{book.root.name}/notes/ideas_20261027-190000.md")
     assert file["kind"] == "ideas" and [p["title"] for p in file["points"]] == ["The keeper's secret"]
     assert app.project(pid)["ideas"][0]["path"] == file["path"]
     updated = app.review_call(pid, file["path"], 1, "Use the pick.")

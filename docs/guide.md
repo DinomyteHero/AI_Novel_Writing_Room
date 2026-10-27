@@ -83,10 +83,12 @@ and the first few chapters are plenty.
 
 ### Working together in the app
 
-The project page is one long conversation about the book, with the files on
-the right; separate chats for single questions are listed there too. Beside
-a separate chat, a rail shows how much of the model's limit the book uses,
-the build, and every file the chat changed. Under the message box you can
+A project's page is kept simple, like a project in Claude: a box that starts
+a new chat, your recent chats, and one line each for the plan, reference,
+manuscript and notes (**View** opens the files). Start a new chat for each
+piece of work: a scene, a review, a brainstorm. Beside a chat, a rail shows
+how much of the model's limit the book uses, the build, and every file the
+chat changed. Under the message box you can
 see and change the chat model and its reasoning effort. Open a chapter and
 press **Read** for a wide, book-like reading view; highlight a passage there
 to discuss or revise it. The theme button beside Settings switches between
@@ -176,13 +178,15 @@ numbered points to `notes/`, each with what it noticed, why it matters and a
 suggested change, plus a blank **Your call** line. In the story-session chat,
 you go through the points one at a time; the chat records your decision under
 each one and makes only the changes you agree to. The chat offers a review
-once when you're ready to build; skipping it is fine.
+once when you're ready to build; skipping it is fine. In the app, just ask
+in a chat: the chat model you've selected gives the review itself, point by
+point (switch models in the picker under the message box for a fresh eye).
 
 ### Stuck? Fresh ideas
 
-Tell the chat you're stuck (in the app, the **I'm stuck** button) and it
-picks the gap that matters most and offers three directions. For a second
-mind:
+Tell the chat you're stuck and it picks the gap that matters most and offers
+three directions. In the app, the selected chat model does this itself. From
+the command line or the Claude plugin, for a second mind:
 
 ```bash
 python scripts/room.py ideas
@@ -190,7 +194,7 @@ python scripts/room.py ideas
 
 A different model reads everything and writes two or three options for each
 of the thinnest parts of your plan to `notes/`, with its pick and a blank
-**Your call** line. In the app it's **Get fresh ideas** under Notes. Go
+**Your call** line. The app opens these files on a point-by-point screen. Go
 through them like a review: use the pick, skip it, or choose something else.
 Nothing goes into your plan until you choose.
 

@@ -60,8 +60,6 @@ def routes(app: App) -> dict:
         ("POST", "/api/reference/remove"): lambda p: app.remove_reference(p["project"], p["path"], p.get("book")),
         ("POST", "/api/attachment"): lambda p: app.attachment(p["name"], p["data"]),
         ("POST", "/api/settings/effort"): lambda p: app.set_effort(p["role"], p.get("effort") or ""),
-        ("POST", "/api/review"): lambda p: app.review(p["project"], p.get("book")),
-        ("POST", "/api/ideas"): lambda p: app.ideas(p["project"], p.get("book")),
         ("POST", "/api/review/call"): lambda p: app.review_call(p["project"], p["path"], p["number"], p["call"]),
         ("POST", "/api/export"): lambda p: app.export(p["project"], p.get("book")),
         ("POST", "/api/settings/key"): lambda p: app.set_key(p["backend"], p.get("value", "")),

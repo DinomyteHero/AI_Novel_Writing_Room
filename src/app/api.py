@@ -25,7 +25,7 @@ from typing import Callable
 import yaml
 
 from src.model_router import ModelRouter, load_config, local_overlay_path
-from src.studio import chat, jobs, press, prompts, room
+from src.studio import chat, jobs, press, prompts
 from src.studio.llm import LONG_PROMPT_TOKENS, MAX_PROMPT_TOKENS
 from src.studio.project import (
     REFERENCE_SUFFIXES,
@@ -45,7 +45,7 @@ ROLES = [
     ("studio_chat", "Chat", "Talks with you and edits your files."),
     ("studio_writer", "Writer", "Drafts and revises chapters."),
     ("studio_critic", "Critic", "Critiques each draft. A different model catches different things."),
-    ("studio_reader", "Reviewer", "Second opinions and fresh ideas for your plan."),
+    ("studio_reader", "Reviewer", "Second opinions and ideas asked for from the command line or the Claude plugin. In the app, the chat model does these itself."),
     ("studio_notes", "Story so far", "Notes on a finished book for the books after it."),
 ]
 PROVIDER_BLURBS = {
@@ -631,17 +631,6 @@ class App:
         chat.record_call(target, int(number), call)
         return self.read_file(pid, path)
 
-    def review(self, pid: str, folder: str | None = None) -> dict:
-        series = self.series(pid)
-        book = self.book(series, folder)
-        path = self._run(lambda r: room.review(book, r))
-        return self.read_file(pid, chat.rel(series, path))
-
-    def ideas(self, pid: str, folder: str | None = None) -> dict:
-        series = self.series(pid)
-        book = self.book(series, folder)
-        path = self._run(lambda r: room.ideas(book, r))
-        return self.read_file(pid, chat.rel(series, path))
 
     # --- press ----------------------------------------------------------------
 

@@ -81,7 +81,10 @@ favour of this design and is in git history if something specific is needed.
   with a blank `**Your call:**` line; the skill walks the writer through
   them and applies only agreed edits. Never make review mandatory.
   `room.py ideas` uses the same shape for options where the plan is thin;
-  a model never fills in the plan unasked.
+  a model never fills in the plan unasked. In the app there are no review or
+  ideas buttons: the writer asks in a chat and the selected chat model does
+  it in the conversation (`prompts/studio/room_chat.md`); the project page
+  starts a new chat for each piece of work.
 - **Loose craft framework.** `prompts/studio/craft_guide.md` is the single
   home for craft guidance (lenses, not rules); prompts, the skill and docs
   point at it rather than restating it. The writer's bible always wins. **Do
