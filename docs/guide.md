@@ -45,7 +45,8 @@ you can update who they've become without touching the earlier book.
 
 ### Reference files
 
-Canon notes, research or a sample of the voice you want can go in a
+Canon notes, research, a fuller setting (`setting.md`, for a world that has
+outgrown the bible) or a sample of the voice you want can go in a
 `reference/` folder: a book's own (`books/01-my-novel/reference/`) or, in a
 series, the series' (`library/my-series/reference/`), which every book reads.
 Every model call reads these in full, so keep them to what matters; a large

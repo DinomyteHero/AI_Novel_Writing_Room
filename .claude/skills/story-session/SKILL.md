@@ -148,6 +148,15 @@ first two or three chapters, and start building.
 - **World**: only what the story needs. For fanfiction, settle which canon,
   where the story branches from it, and what's kept or changed. Places that
   come back get a line each under "The world", so they stay the same.
+- **A setting file when the world gets big.** Every call reads the `.md` and `.txt` files in
+  a book's `reference/` folder (or, in a series, the series' `reference/`)
+  in full. When the world outgrows a few lines in the bible, offer to move
+  the detail into `reference/setting.md` and leave a short summary in "The
+  world" that points to it, so nothing is written twice. For fanfiction,
+  offer early to start `reference/canon.md`: the places, factions, rules and
+  timeline the story relies on, and where it departs from canon, since
+  models half-remember most canons. Don't create either unasked for a small
+  story.
 - **Push gently on weak spots.** Vague stakes: ask what's lost. A sagging
   middle: offer "yes, but" and "no, and" complications. A passive lead: ask
   what they'd do if no one helped. Events joined by "and then": look for the
