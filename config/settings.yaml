@@ -12,6 +12,8 @@ models:
     api_key_env: OPENROUTER_API_KEY
     timeout_seconds: 300
     models:
+      deepseekflash: { id: deepseek/deepseek-v4.1-flash-1017, label: DeepSeek V4.1 Flash 1017 }
+      geminiargon: { id: google/gemini-4-argon, label: Gemini 4 Argon }
       deepseekpro: { id: deepseek/deepseek-v4-pro, label: DeepSeek V4 Pro }
       gemini: { id: google/gemini-3.1-pro-preview, label: Gemini 3.1 Pro }
       claude: { id: anthropic/claude-opus-5.5, label: Claude Opus 5.5 }
@@ -58,21 +60,26 @@ models:
 
 # Every call sends the whole book, so these models need ~1M-token context
 # windows. studio_chat is the room's conversation in the app (it edits the
-# plan files); studio_writer drafts and revises; studio_critic critiques each
-# press draft (a different model catches different blind spots);
-# studio_reader writes room reviews and story-so-far notes. To try another
-# model, change `model` to another key under models.cloud.models (or add one
-# there). All request settings live here in `params`, so they follow the
-# role, not the model. No role caps its output length (max_tokens), so each
-# model can answer at full length; add one to `params` only if you need it.
-# studio_writer pins OpenRouter to DeepSeek's own servers (`provider`); remove
-# that pin if you point it at a different model. The app's Settings page
-# writes your choices to config/settings.local.yaml, which overrides these.
+# plan files, and can search the web and read pages through OpenRouter's
+# server tools); studio_writer drafts and revises at maximum reasoning effort;
+# studio_critic critiques each press draft (a different model catches
+# different blind spots); studio_reader writes room reviews; studio_notes
+# writes story-so-far notes. To try another model, change `model` to another
+# key under models.cloud.models (or add one there). All request settings live
+# here in `params`, so they follow the role, not the model. No role caps its
+# output length (max_tokens), so each model can answer at full length; add one
+# to `params` only if you need it. The DeepSeek roles pin OpenRouter to
+# DeepSeek's own servers (`provider`) rather than reduced-precision hosts;
+# remove that pin if you point a role at a different model. The Gemini roles
+# set no temperature: the model reasons by default and is tuned at its own
+# settings. The app's Settings page writes your choices to
+# config/settings.local.yaml, which overrides these.
 agent_routing:
-  studio_chat:            { backend: cloud, model: claude, params: {} }
-  studio_writer:          { backend: cloud, model: deepseekpro, params: { temperature: 0.75, reasoning: { effort: "none" }, provider: { order: [deepseek], only: [deepseek], allow_fallbacks: false } } }
-  studio_critic:          { backend: cloud, model: gemini, params: { temperature: 0.2 } }
-  studio_reader:          { backend: cloud, model: gemini, params: { temperature: 0.3 } }
+  studio_chat:            { backend: cloud, model: deepseekflash, params: { provider: { order: [deepseek], only: [deepseek], allow_fallbacks: false }, tools: [{ type: "openrouter:web_search" }, { type: "openrouter:web_fetch", parameters: { max_content_tokens: 50000 } }] } }
+  studio_writer:          { backend: cloud, model: deepseekflash, params: { temperature: 0.75, reasoning: { effort: "max" }, provider: { order: [deepseek], only: [deepseek], allow_fallbacks: false } } }
+  studio_critic:          { backend: cloud, model: geminiargon, params: {} }
+  studio_reader:          { backend: cloud, model: geminiargon, params: {} }
+  studio_notes:           { backend: cloud, model: deepseekflash, params: { provider: { order: [deepseek], only: [deepseek], allow_fallbacks: false } } }
 
 # The press (scripts/press.py build).
 press:

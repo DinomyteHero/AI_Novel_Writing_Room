@@ -154,7 +154,7 @@ def test_settings_write_keys_and_choices_outside_settings_yaml(tmp_path, config,
     # Moving the writer drops the DeepSeek-only provider pin.
     assert overlay["agent_routing"]["studio_writer"] == {"backend": "cloud", "model": "claude", "params": {}}
     assert app.press_settings().revision_rounds == 2
-    assert app.config()["agent_routing"]["studio_critic"]["model"] == "gemini"
+    assert app.config()["agent_routing"]["studio_critic"]["model"] == "geminiargon"
     assert config.read_text(encoding="utf-8") == before
 
     with pytest.raises(StudioError, match="one line"):

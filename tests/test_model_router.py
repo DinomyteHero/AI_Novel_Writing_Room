@@ -419,3 +419,26 @@ async def test_anthropic_stream_emits_text_and_preserves_native_blocks(settings_
     assert pieces == ["First ", "second."]
     assert result["native"] == blocks
     assert result["tool_calls"] == [{"id": "call1", "name": "status", "arguments": {}}]
+
+
+async def test_a_roles_server_tools_join_the_chats_own_tools(settings_yaml):
+    import json
+    import httpx
+
+    payloads = []
+
+    def respond(request):
+        payloads.append(json.loads(request.content))
+        return httpx.Response(200, json={"choices": [{"message": {"content": "Found it."}}]})
+
+    router = ModelRouter(settings_yaml)
+    router.config["agent_routing"]["studio_writer"]["params"]["tools"] = [{"type": "openrouter:web_search"}]
+    router._local_client = httpx.AsyncClient(base_url="https://test.invalid", transport=httpx.MockTransport(respond))
+    own = [{"name": "status", "description": "Status", "parameters": {"type": "object", "properties": {}}}]
+    try:
+        await router.chat("studio_writer", "System", [{"role": "user", "content": "Look it up"}], own)
+    finally:
+        await router.close()
+    [payload] = payloads
+    assert [t.get("type") for t in payload["tools"]] == ["function", "openrouter:web_search"]
+    assert payload["tools"][0]["function"]["name"] == "status"

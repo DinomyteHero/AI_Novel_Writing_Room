@@ -196,5 +196,5 @@ def test_default_settings_have_no_output_caps():
     import yaml
 
     config = yaml.safe_load((Path(__file__).parents[1] / "config" / "settings.yaml").read_text())
-    for role in ("studio_writer", "studio_critic", "studio_reader"):
+    for role in ("studio_chat", "studio_writer", "studio_critic", "studio_reader", "studio_notes"):
         assert "max_tokens" not in config["agent_routing"][role].get("params", {}), role

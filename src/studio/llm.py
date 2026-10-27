@@ -16,6 +16,7 @@ CHAT_ROLE = "studio_chat"
 WRITER_ROLE = "studio_writer"
 CRITIC_ROLE = "studio_critic"
 READER_ROLE = "studio_reader"
+NOTES_ROLE = "studio_notes"
 
 # Headroom below the ~1M-token windows of the default models, leaving room
 # for the response.
