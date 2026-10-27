@@ -60,6 +60,15 @@ side by side.
   who wants something and acts on it beats one who waits for the plot to
   arrive.
 
+## Quiet scenes count
+
+The lines above are about pressure, and most books need it. Not every scene
+does. A scene where little happens on the outside can move a lot inside: a
+realisation, a relationship settling, a place the reader wants to stay in. It
+works when something shifts in how someone feels or sees, even slightly. Some
+whole books run this way, moved by feeling more than by plot. (Donald Maass,
+*The Emotional Craft of Fiction*.)
+
 ## Chapters
 
 The first page of the book matters most: show that something is already off,
@@ -92,6 +101,30 @@ This is a question for rereading, not for the first draft. Put things in
 freely while drafting; when you look back, notice what isn't pulling its
 weight, and give it a job or let it go.
 
+## People
+
+Characters are often found more than built. A list of traits rarely brings
+someone alive; one of these usually does:
+
+- **A contradiction.** Kind but vain, brave but careless with small things.
+  The "but" is where readers start to believe.
+- **A secret.** Something they hide, from others or from themselves.
+- **A wound.** An old hurt that shapes what they reach for and what they
+  avoid.
+
+None of these is needed up front. Often a character shows who they are in a
+scene first, and the sheet catches up. (David Corbett, *The Art of
+Character*.)
+
+## Worlds
+
+A made-up world needs to be consistent more than complete. Readers forgive
+what's left out; they notice what contradicts itself. Hints of things beyond
+the story, a war nobody explains or a city only named, make a world feel
+larger than the page, and readers fill the gaps themselves. Settle what the
+story leans on and leave the rest open until a chapter needs it. (After Mark
+J. P. Wolf, *Building Imaginary Worlds*.)
+
 ## On the page
 
 - **Be concrete.** A named thing, a specific sound, an exact gesture beats a
@@ -100,6 +133,13 @@ weight, and give it a job or let it go.
 - **Let people talk.** When two characters share a room, dialogue usually
   does more work than description. Let arguments and negotiations play out
   rather than summarising them.
+- **Say less than they mean.** People talk around what matters. A line that
+  states the feeling outright ("I'm angry because you left") usually lands
+  flatter than one where it leaks through something else. (Robert McKee,
+  *Dialogue*.)
+- **Give each person their own words.** Cover the names: can you still tell
+  who's speaking? Vocabulary, rhythm and what someone bothers to mention all
+  carry it.
 - **Trust the reader.** Show the moment and let it land. Don't label the
   emotion afterwards ("she felt betrayed"); let what the character thinks and
   does show it.
@@ -116,6 +156,18 @@ weight, and give it a job or let it go.
 - **Vary the rhythm.** Mix short and long sentences. Don't start every
   sentence the same way.
 
+## Rereading a draft
+
+For revision, not the first pass (Renni Browne and Dave King, *Self-Editing
+for Fiction Writers*):
+
+- **Once is usually enough.** A feeling or a point made twice is weaker than
+  one made once, well.
+- **Page time follows importance.** A long passage about something minor
+  tells the reader it matters.
+- **Fewer small gestures.** A nod, a sigh or a glance between every line of
+  dialogue slows it down. Keep the ones that say something.
+
 ## Things that make prose sound machine-made
 
 Watch for these and replace them with something plain and specific:
@@ -128,6 +180,31 @@ Watch for these and replace them with something plain and specific:
 - the same image or phrase coming back again and again
 - stock phrases: "a testament to", "a tapestry of", "a mix of emotions",
   "a breath she didn't know she was holding", "sent a shiver down his spine"
+
+## Getting past the first idea
+
+Asked to invent something new, people reach for the most familiar example
+and copy it: asked to imagine animals from another planet, most draw
+creatures with Earth's eyes and legs. Language models do this even more.
+Fresher ideas come from naming what the obvious version takes for granted,
+changing that, and following where it leads. The story's own constraints
+help: the more an idea has to fit this world and these people, the less
+generic it gets. And give a strange idea a minute before judging it; some
+only make sense once they're developed. (Thomas Ward's research, in *The
+Creative Cognition Approach*.)
+
+## If you like a named structure
+
+Some writers think in a named structure, and each has something worth
+borrowing: *Save the Cat!* (Jessica Brody's novel version) for what readers
+of a given kind of story come for; the hero's journey (Christopher Vogler,
+*The Writer's Journey*) for roles such as mentor, trickster or shapeshifter
+that a character can play for a while; John Truby's *The Anatomy of Story*
+for a cast where each person is a different answer to the lead's problem.
+Use their terms when the writer does, or when someone is stuck and a map
+would help. Don't fit a story to one, and don't treat a missing beat as a
+flaw. Vogler calls his a form, not a formula; that's the way to hold all of
+them.
 
 ## Plan a little or a lot
 

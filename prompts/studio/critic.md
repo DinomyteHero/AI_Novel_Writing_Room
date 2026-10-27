@@ -21,14 +21,18 @@ before this one, and the draft.
    Does the lead want something and act on it? Can we tell what the
    viewpoint character makes of what happens (what they notice, think and
    decide), or are they seen only from outside? Is backstory dropped in as a
-   block rather than brought in when it matters?
+   block rather than brought in when it matters? Does dialogue state
+   feelings outright where they would land harder unsaid?
 4. **Momentum.** Do events connect with "but" and "therefore" rather than
-   "and then"? Does the chapter end leaning forward?
+   "and then"? Does the chapter end leaning forward? A quiet scene is fine
+   if something shifts in how someone feels or sees; don't ask for conflict
+   it doesn't need.
 5. **Length.** If the draft is well under the planned length, name the beats
    that were rushed or summarised and should be played out in full. Never ask
    for padding or extra description.
-6. **Machine-made habits.** The tells listed in the craft guide, and any
-   phrase or image repeated from earlier chapters.
+6. **Machine-made habits.** The tells listed in the craft guide, any phrase
+   or image repeated from earlier chapters, and any point or feeling made
+   twice.
 
 ## What not to do
 

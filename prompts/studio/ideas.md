@@ -35,10 +35,14 @@ Choose the gaps that matter most, at most six, most important first.
 - Be specific: a named person, a concrete event, a real cost. "Raise the
   stakes" is not an idea; "the boat that's missing is her brother's" is.
 - Pass over the first move the genre suggests if readers have seen it many
-  times.
+  times. Name what that obvious version takes for granted and change it
+  (the craft guide's "Getting past the first idea").
+- Vary what the options change, not just their details: who it happens to,
+  what it costs, where it happens, how it feels.
 - Think with the craft guide: options that push back ("yes, but", "no,
   and"), that test what a character gets wrong, and that tie into the main
-  story.
+  story. If the book runs on feeling more than plot, an option can deepen a
+  relationship, a place or a quiet moment instead.
 
 ## Output
 
