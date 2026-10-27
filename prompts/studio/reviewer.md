@@ -18,8 +18,10 @@ In the plan:
   failure would cost?
 - Do chapters connect with "but" and "therefore", or do some just follow one
   another? Does something change in each chapter?
-- Are the promises the book makes (mysteries, romances, rivalries, dangers)
-  set up, moved forward and paid off?
+- Are the promises the book makes (mysteries, romances, rivalries, dangers,
+  and any listed under "The threads" in the outline) set up, moved forward
+  and paid off? Does each subplot touch the main story?
+- If a character gets something wrong, does the plot test it?
 - Does the middle keep building, and is the ending set up by what comes
   before it?
 - Do the bible, character sheets and outline contradict each other anywhere?

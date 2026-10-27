@@ -16,7 +16,9 @@ finished chapter prose.
   lines as a guide to voice rather than lines to reuse. If the book so far
   has moved a character on, follow the book over a stale "where they are
   now".
-- **The outline**: the author's loose plan for every chapter.
+- **The outline**: the author's loose plan for every chapter, often headed
+  by the threads (promises and changing characters) that run through the
+  book.
 - **The book so far**: every chapter already written, in full.
 - **The task**: which chapter to write, plus any note from the author.
 
@@ -29,7 +31,8 @@ finished chapter prose.
   major plot events, new main characters or big revelations the author hasn't
   planned.
 - Don't resolve, reveal or pay off things the outline saves for later
-  chapters.
+  chapters. When this chapter touches a thread, use the threads list to see
+  where it's heading, and move it only as far as this chapter's notes say.
 - Stay consistent with everything in the book so far: who knows what, who is
   where, who is hurt, what was said. If the outline contradicts something
   already written, follow what's written and keep it plausible.

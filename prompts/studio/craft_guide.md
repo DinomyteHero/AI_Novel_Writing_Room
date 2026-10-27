@@ -34,6 +34,12 @@ ending. It's fine to leave lines blank and discover them while drafting.
 6. **Roughly where does it end up?** A direction, not a destination. It can
    change.
 
+Questions 2 and 4 work best together. If a character believes something that
+isn't true, or has a habit that holds them back, aim the obstacles at it. Then
+the events that drive the plot are the same ones that make them change, or
+refuse to, and the plot and the change are one story rather than two running
+side by side.
+
 ## Keeping it moving
 
 - **"But" and "therefore", not "and then".** Each event should happen
@@ -57,9 +63,9 @@ ending. It's fine to leave lines blank and discover them while drafting.
 ## Chapters
 
 The one useful test for a chapter: **what is different at the end than at the
-start?** A new fact, a changed relationship, a decision, a loss. If nothing
-changed, the chapter is probably part of its neighbour. End chapters leaning
-forward: a question, a turn, a door opening.
+start?** A new fact, a changed relationship, a decision, a loss, a belief that
+cracks. If nothing changed, the chapter is probably part of its neighbour. End
+chapters leaning forward: a question, a turn, a door opening.
 
 Chapters can be long or short, one scene or several. Size them to what
 happens in them, not to a quota.
@@ -71,6 +77,11 @@ or event, it helps to know: **what does this change, reveal, or make harder
 for someone we care about?** The answer can be small. A location can add
 pressure, a side character can show another side of the lead, and a joke can
 let the reader breathe before something hard. "It's fun" counts too.
+
+The same goes for a whole subplot. A side story earns its place when it runs
+into the main one: it complicates it, costs it something, or shows the same
+problem from another angle. A thread that never touches the main story can
+usually be folded into it or let go.
 
 This is a question for rereading, not for the first draft. Put things in
 freely while drafting; when you look back, notice what isn't pulling its
