@@ -358,3 +358,37 @@ def test_ideas_open_as_points_with_their_own_choices(tmp_path, config, book):
     assert updated["points"][0]["call"] == "Use the pick."
     with pytest.raises(StudioError, match="isn't a review"):
         app.review_call(pid, f"books/{book.root.name}/outline.md", 1, "x")
+
+
+def test_project_reports_book_size_and_titles_from_chapter_headings(tmp_path, config, book):
+    app, _ = make_app(tmp_path, config)
+    app.library = Library(book.series.root.parent)
+    book.write_chapter(2, "# Chapter 2: Low Water\n\nShe waited.", book.read_plan(), "build")
+    data = app.project(book.series.root.name)
+    titles = {c["number"]: c["title"] for c in data["chapters"]}
+    assert titles[1] == "The Storm"  # from the outline
+    assert titles[2] == "Low Water"  # the outline has none, so the chapter's own heading
+    assert 0 < data["context"]["tokens"] < data["context"]["limit"]
+
+
+def test_chat_model_effort_and_web_search_follow_the_settings(tmp_path, config, monkeypatch):
+    monkeypatch.setenv("OPENROUTER_API_KEY", "sk-or-test")
+    app, _ = make_app(tmp_path, config)
+    chat_role = lambda s: next(r for r in s["roles"] if r["key"] == "studio_chat")  # noqa: E731
+    role = chat_role(app.settings())
+    assert role["web"] and role["effort"] == "" and "max" in role["efforts"]
+
+    role = chat_role(app.set_effort("studio_chat", "low"))
+    assert role["effort"] == "low" and role["web"]  # the web tools stay
+    role = chat_role(app.set_effort("studio_chat", ""))
+    assert role["effort"] == ""
+
+    role = chat_role(app.set_role("studio_chat", "cloud", "geminiargon"))
+    assert role["web"] and role["efforts"] == ["low", "medium", "high"]
+    routing = app.config()["agent_routing"]["studio_chat"]
+    assert "provider" not in routing["params"]  # the DeepSeek-only pin doesn't follow
+    # Off OpenRouter the server tools would be refused, so they're dropped.
+    app.set_role("studio_chat", "openai", "gpt")
+    assert "tools" not in app.config()["agent_routing"]["studio_chat"]["params"]
+    with pytest.raises(StudioError, match="Unknown role"):
+        app.set_effort("nobody", "high")

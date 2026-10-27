@@ -3,7 +3,9 @@ deployment_mode: hybrid  # each role below names its own backend
 # Backends: where model calls go. Each needs only the API key named by
 # api_key_env (put keys in .env, or enter them in the app's Settings). All
 # but `anthropic` speak the OpenAI-compatible chat-completions API; that one
-# uses the Anthropic SDK. The app lists each backend's `models` to choose from.
+# uses the Anthropic SDK. The app lists each backend's `models` to choose from;
+# a model's `efforts` are the reasoning efforts it accepts, which the app
+# offers next to the chat box.
 models:
   cloud:
     label: OpenRouter
@@ -12,8 +14,8 @@ models:
     api_key_env: OPENROUTER_API_KEY
     timeout_seconds: 300
     models:
-      deepseekflash: { id: deepseek/deepseek-v4.1-flash-1017, label: DeepSeek V4.1 Flash 1017 }
-      geminiargon: { id: google/gemini-4-argon, label: Gemini 4 Argon }
+      deepseekflash: { id: deepseek/deepseek-v4.1-flash-1017, label: DeepSeek V4.1 Flash 1017, efforts: [none, low, high, max] }
+      geminiargon: { id: google/gemini-4-argon, label: Gemini 4 Argon, efforts: [low, medium, high] }
       deepseekpro: { id: deepseek/deepseek-v4-pro, label: DeepSeek V4 Pro }
       gemini: { id: google/gemini-3.1-pro-preview, label: Gemini 3.1 Pro }
       claude: { id: anthropic/claude-opus-5.5, label: Claude Opus 5.5 }

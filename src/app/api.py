@@ -25,7 +25,8 @@ from typing import Callable
 import yaml
 
 from src.model_router import ModelRouter, load_config, local_overlay_path
-from src.studio import chat, jobs, press, room
+from src.studio import chat, jobs, press, prompts, room
+from src.studio.llm import LONG_PROMPT_TOKENS, MAX_PROMPT_TOKENS
 from src.studio.project import (
     REFERENCE_SUFFIXES,
     Book,
@@ -54,6 +55,16 @@ PROVIDER_BLURBS = {
     "google": "Gemini models, directly from Google AI Studio.",
     "local": "A model running on this computer with Ollama or llama.cpp. Free and private, but slower and less capable.",
 }
+
+
+_WRITTEN_HEADING = re.compile(r"#\s*chapter\s+\d+\s*[:.\-–—]?\s*(.*)", re.IGNORECASE)
+
+
+def _written_title(text: str) -> str:
+    """The title in a written chapter's own heading ("# Chapter 1: The Storm")."""
+    first = text.lstrip().splitlines()[:1]
+    match = _WRITTEN_HEADING.fullmatch(first[0].strip()) if first else None
+    return match.group(1).strip() if match else ""
 
 
 def _point_file(path: Path) -> bool:
@@ -260,7 +271,7 @@ class App:
         for n in sorted(set(outlined) | set(drafted)):
             chapters.append({
                 "number": n,
-                "title": outlined[n].title if n in outlined else "",
+                "title": (outlined[n].title if n in outlined else "") or _written_title(drafted.get(n, "")),
                 "words": count_words(drafted[n]) if n in drafted else 0,
                 "state": book.chapter_state(n, plan),
                 "path": rel(book.chapter_path(n)),
@@ -272,6 +283,7 @@ class App:
         reviews = sorted(book.notes_dir.glob("review_*.md"), reverse=True) if book.notes_dir.exists() else []
         ideas = sorted(book.notes_dir.glob("ideas_*.md"), reverse=True) if book.notes_dir.exists() else []
         runs = sorted((p for p in book.runs_dir.glob("*/report.md")), reverse=True) if book.runs_dir.exists() else []
+        context = prompts.plan_tokens(plan) + sum(estimate_tokens(t) for t in drafted.values())
         return {
             "id": pid,
             "title": series.title,
@@ -288,6 +300,8 @@ class App:
             "reviews": [{"name": p.name, "path": rel(p)} for p in reviews],
             "ideas": [{"name": p.name, "path": rel(p)} for p in ideas],
             "runs": [{"name": p.parent.name, "path": rel(p)} for p in runs],
+            # What every call about this book sends, against the size limit.
+            "context": {"tokens": context, "limit": MAX_PROMPT_TOKENS, "long": LONG_PROMPT_TOKENS},
             "build": self._snap(series, job),
             "defaults": (
                 ("Draft only" if settings.revision_rounds == 0 else
@@ -775,8 +789,14 @@ class App:
                     })
             current = {"backend": routing.get("backend"), "model": routing.get("model")}
             ok = any(o["backend"] == current["backend"] and o["model"] == current["model"] for o in options)
-            roles.append({"key": role, "label": label, "blurb": blurb, "current": current,
-                          "options": options, "available": ok})
+            params = routing.get("params") or {}
+            model = (config["models"].get(current["backend"] or "", {}).get("models") or {}).get(current["model"])
+            roles.append({
+                "key": role, "label": label, "blurb": blurb, "current": current, "options": options, "available": ok,
+                "effort": (params.get("reasoning") or {}).get("effort", ""),
+                "efforts": (model.get("efforts") if isinstance(model, dict) else None) or [],
+                "web": any(t.get("type") == "openrouter:web_search" for t in params.get("tools") or []),
+            })
         settings = press.PressSettings.from_config(config)
         return {
             "providers": providers, "roles": roles,
@@ -833,8 +853,27 @@ class App:
         with open(self.config_path, encoding="utf-8") as f:
             base = (yaml.safe_load(f) or {}).get("agent_routing", {}).get(role, {})
         params = base.get("params", {}) if (base.get("backend"), base.get("model")) == (backend, model) else {}
+        current = (self.config().get("agent_routing") or {}).get(role, {}).get("params") or {}
+        if backend == "cloud" and "tools" in current:
+            # OpenRouter's server tools (web search) work with any model there.
+            params = {**params, "tools": current["tools"]}
         overlay = self._overlay()
         overlay.setdefault("agent_routing", {})[role] = {"backend": backend, "model": model, "params": params}
+        self._write_overlay(overlay)
+        return self.settings()
+
+    def set_effort(self, role: str, effort: str) -> dict:
+        """Set (or, with an empty effort, clear) a role's reasoning effort."""
+        if role not in dict((r, None) for r, _, _ in ROLES):
+            raise StudioError("Unknown role.")
+        routing = (self.config().get("agent_routing") or {}).get(role) or {}
+        params = {k: v for k, v in (routing.get("params") or {}).items() if k != "reasoning"}
+        if effort:
+            params["reasoning"] = {"effort": effort}
+        overlay = self._overlay()
+        overlay.setdefault("agent_routing", {})[role] = {
+            "backend": routing.get("backend"), "model": routing.get("model"), "params": params,
+        }
         self._write_overlay(overlay)
         return self.settings()
 

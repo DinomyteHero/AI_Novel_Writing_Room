@@ -1,4 +1,4 @@
-/* Writers Rooms: the app's page. Plain JavaScript, no build step.
+/* Writers Room: the app's page. Plain JavaScript, no build step.
    State lives in S; render() redraws from it; clicks go through data-act. */
 "use strict";
 
@@ -15,6 +15,7 @@ const S = {
   job: null, jobKey: null, trayHidden: false,
   modal: null, toast: "",
   selection: null, explore: false,
+  theme: savedTheme(), drawer: false, picker: false, reader: null,
 };
 
 /* ---------- helpers ---------- */
@@ -40,9 +41,25 @@ const ICONS = {
   panel: '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M15 4v16"/>',
   sliders: '<path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/>',
   book: '<path d="M5 4h10a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3V4z"/><path d="M5 17a3 3 0 0 1 3-3h10"/>',
+  menu: '<path d="M4 7h16M4 12h16M4 17h16"/>',
+  sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
+  moon: '<path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/>',
+  auto: '<circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/>',
+  read: '<path d="M3 5h6a3 3 0 0 1 3 3v12a2 2 0 0 0-2-2H3V5z"/><path d="M21 5h-6a3 3 0 0 0-3 3v12a2 2 0 0 1 2-2h7V5z"/>',
+  down: '<path d="M6 9l6 6 6-6"/>',
 };
+// Strokes use currentColor so a colour can be a CSS variable and follow the theme.
 const ic = (name, size = 18, color = "currentColor", width = 1.9) =>
-  `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="${color}" stroke-width="${width}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[name]}</svg>`;
+  `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor"${color === "currentColor" ? "" : ` style="color:${color}"`} stroke-width="${width}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[name]}</svg>`;
+const fmtK = (n) => (n >= 1000 ? `${fmt(Math.round(n / 1000))}K` : fmt(n));
+
+function savedTheme() {
+  try { return localStorage.getItem("wr-theme") || "auto"; } catch (e) { return "auto"; }
+}
+function applyTheme() {
+  if (S.theme === "auto") delete document.documentElement.dataset.theme;
+  else document.documentElement.dataset.theme = S.theme;
+}
 
 async function api(method, path, params) {
   let url = path;
@@ -95,7 +112,7 @@ function updateLive(record) {
   for (const el of document.querySelectorAll("[data-live-chat]")) {
     if (el.dataset.liveChat !== record.id || el.dataset.project !== record.project) continue;
     el.querySelector(".live-phase").textContent = record.turn.phase || "Working…";
-    el.querySelector(".live-text").textContent = record.turn.text || "";
+    el.querySelector(".live-text").innerHTML = md(record.turn.text || "");
   }
 }
 
@@ -254,7 +271,7 @@ async function pollJob() {
 const ACT = {
   async home() { S.view = "home"; S.home.note = ""; render(); focus("home-composer"); },
   async go(d) {
-    S.view = d.view;
+    S.view = d.view; S.reader = null;
     if (d.view === "settings") S.settings = await get("/api/settings").catch((e) => (fail(e), null));
     render();
   },
@@ -281,7 +298,7 @@ const ACT = {
   },
   async toggleProject(d) { S.expanded[d.project] = !S.expanded[d.project]; render(); },
   async openProject(d) {
-    S.selection = null;
+    S.selection = null; S.reader = null;
     try { await loadProject(d.project); S.view = "project"; S.doc = null; S.projectDraft = S.projectDraft || ""; } catch (e) { return fail(e); }
     render();
   },
@@ -294,7 +311,7 @@ const ACT = {
     try {
       const chat = await get("/api/chat", { project: d.project, chat: d.chat });
       if (S.project !== d.project || !S.data) await loadProject(d.project);
-      S.chat = chat; S.view = "chat"; S.panel = false; S.doc = null; S.draft = "";
+      S.chat = chat; S.view = "chat"; S.panel = false; S.doc = null; S.draft = ""; S.reader = null;
       S.selection = null; watchTurn(chat);
     } catch (e) { return fail(e); }
     render(); focus("composer");
@@ -389,6 +406,7 @@ const ACT = {
   },
   passage(d) {
     if (!S.selection) return;
+    S.reader = null;
     const requests = { discuss: "Let's discuss this passage.", alternatives: "Suggest three alternatives for this passage; don't change the file yet.", revise: "Revise this passage: " };
     S.explore = d.intent !== "revise";
     if (S.view === "chat") S.draft = requests[d.intent]; else S.projectDraft = requests[d.intent];
@@ -511,6 +529,24 @@ const ACT = {
     render();
   },
   dismissTip() { S.tipDismissed = true; render(); },
+  toggleDrawer() { S.drawer = !S.drawer; render(); },
+  cycleTheme() {
+    S.theme = { auto: "light", light: "dark", dark: "auto" }[S.theme] || "auto";
+    try { localStorage.setItem("wr-theme", S.theme); } catch (e) { /* the choice lasts this visit only */ }
+    applyTheme(); render();
+  },
+  togglePicker() { S.picker = !S.picker; render(); },
+  async setEffort(d) {
+    try { S.settings = await post("/api/settings/effort", { role: d.role, effort: d.effort }); } catch (e) { return fail(e); }
+    render();
+  },
+  async readChapter(d) {
+    try { S.reader = { path: d.path, data: await get("/api/file", { project: S.project, path: d.path }) }; } catch (e) { return fail(e); }
+    S.selection = null; render();
+    const scroller = document.querySelector(".reader-scroll");
+    if (scroller) scroller.scrollTop = 0;
+  },
+  closeReader() { S.reader = null; S.selection = null; render(); },
   async connect(d) {
     const p = S.settings.providers.find((x) => x.key === d.backend);
     try {
@@ -591,17 +627,18 @@ function sidebar() {
     </div>` : "";
     return `<div><div class="side-project ${here ? "on" : ""}">
       <button type="button" class="icon-btn" aria-expanded="${open}" aria-label="${open ? "Hide" : "Show"} chats in ${esc(p.title)}" ${attr({ act: "toggleProject", project: p.id })}><span style="display:inline-flex;transform:rotate(${open ? 90 : 0}deg);transition:transform .15s">${ic("chev", 14, "currentColor", 2.2)}</span></button>
-      <button type="button" class="side-row" ${attr({ act: "openProject", project: p.id })}>${ic("folder", 16, "#8F4F0C", 1.8)}<span class="name">${esc(p.title)}</span><span class="muted" style="font-size:12px">${p.chats.length || ""}</span></button>
+      <button type="button" class="side-row" ${attr({ act: "openProject", project: p.id })}>${ic("folder", 16, "var(--accent)", 1.8)}<span class="name">${esc(p.title)}</span><span class="muted" style="font-size:12px">${p.chats.length || ""}</span></button>
     </div>${chats}</div>`;
   }).join("");
   const recents = S.recents.slice(0, 12).map((r) =>
     `<button type="button" class="recent ${inChat && S.chat.id === r.id ? "on" : ""}" ${attr({ act: "openChat", project: r.project, chat: r.id })}><span class="t">${esc(r.title)}</span><span class="muted" style="font-size:12px">${esc(r.projectTitle)}</span></button>`).join("");
   const count = S.providers.length;
+  const themeName = { auto: "match the system", light: "light", dark: "dark" }[S.theme];
   const summary = count === 0 ? "No model provider yet" : count === 1 ? `${S.providers[0].name} connected` : `${count} providers connected`;
   const tip = count === 0 && !S.tipDismissed && S.view !== "settings"
-    ? `<div class="tip" role="note"><span style="flex:1">Connect a provider to start.</span><button type="button" class="go" ${attr({ act: "go", view: "settings" })}>Connect</button><button type="button" class="icon-btn" style="width:24px;height:24px;color:#E3D6C3" aria-label="Dismiss" ${attr({ act: "dismissTip" })}>${ic("x", 10, "currentColor", 2.8)}</button></div>` : "";
-  return `<nav class="side" aria-label="Writers Rooms">
-    <div class="brand">${ic("book", 20, "currentColor", 1.8)}Writers Rooms</div>
+    ? `<div class="tip" role="note"><span style="flex:1">Connect a provider to start.</span><button type="button" class="go" ${attr({ act: "go", view: "settings" })}>Connect</button><button type="button" class="icon-btn" style="width:24px;height:24px;color:var(--tray-muted)" aria-label="Dismiss" ${attr({ act: "dismissTip" })}>${ic("x", 10, "currentColor", 2.8)}</button></div>` : "";
+  return `<nav class="side" aria-label="Writers Room">
+    <div class="brand">${ic("book", 20, "currentColor", 1.8)}Writers Room</div>
     <div class="nav">
       <button type="button" class="nav-btn" ${attr({ act: "home" })}><span class="plus">${ic("plus", 14, "currentColor", 2.4)}</span><b>New chat</b></button>
       ${nav("go", ic("chat"), "Chats", S.view === "chats", { view: "chats" })}
@@ -616,10 +653,20 @@ function sidebar() {
       ${recents || '<span class="muted" style="font-size:13px;padding:0 10px">Your chats will show up here.</span>'}
     </div>
     ${tip}
-    <button type="button" class="settings-btn ${S.view === "settings" ? "on" : ""}" ${attr({ act: "go", view: "settings" })}>
-      <span class="avatar">You</span><span style="flex:1;min-width:0;display:flex;flex-direction:column"><b style="font-size:13px">Settings</b><span class="muted" style="font-size:12px">${esc(summary)}</span></span>${ic("sliders", 18, "currentColor", 1.8)}
-    </button>
+    <div class="side-foot">
+      <button type="button" class="settings-btn ${S.view === "settings" ? "on" : ""}" ${attr({ act: "go", view: "settings" })}>
+        <span class="avatar">You</span><span style="flex:1;min-width:0;display:flex;flex-direction:column"><b style="font-size:13px">Settings</b><span class="muted" style="font-size:12px">${esc(summary)}</span></span>${ic("sliders", 18, "currentColor", 1.8)}
+      </button>
+      <button type="button" class="icon-btn" style="margin-right:10px" title="Theme: ${esc(themeName)}" aria-label="Theme: ${esc(themeName)}. Change theme" ${attr({ act: "cycleTheme" })}>${ic(S.theme === "light" ? "sun" : S.theme === "dark" ? "moon" : "auto", 18, "currentColor", 1.9)}</button>
+    </div>
   </nav>`;
+}
+
+function mobileBar() {
+  return `<header class="mobile-bar">
+    <button type="button" class="icon-btn" aria-label="Menu" aria-expanded="${S.drawer}" ${attr({ act: "toggleDrawer" })}>${ic("menu", 20, "currentColor", 2)}</button>
+    <span class="brand" style="padding:0">${ic("book", 18, "currentColor", 1.8)}Writers Room</span>
+  </header>${S.drawer ? `<div class="drawer-back" ${attr({ act: "toggleDrawer" })}></div>` : ""}`;
 }
 
 function homeView() {
@@ -654,7 +701,7 @@ function homeView() {
 
 function projectsView() {
   const cards = S.projects.map((p) => `<button type="button" class="project-card" ${attr({ act: "openProject", project: p.id })}>
-    ${ic("folder", 22, "#8F4F0C", 1.8)}<b style="font-size:17px">${esc(p.title)}</b>
+    ${ic("folder", 22, "var(--accent)", 1.8)}<b style="font-size:17px">${esc(p.title)}</b>
     <span class="muted" style="font-size:13px">${esc(p.kind)}</span>
     <span class="muted" style="margin-top:auto;font-size:12px">${p.chapters} chapter${p.chapters === 1 ? "" : "s"} written · ${p.chats.length} chat${p.chats.length === 1 ? "" : "s"}</span>
   </button>`).join("");
@@ -697,64 +744,84 @@ function liveHtml(record) {
   return `<div class="live-turn" data-live-chat="${esc(record.id)}" data-project="${esc(record.project)}">
     <div class="live-status"><span class="live-phase" role="status">${esc(record.turn.phase || "Working…")}</span>
     <button type="button" class="btn ghost small" ${attr({ act: "stopChat", project: record.project, chat: record.id })}>Stop</button></div>
-    <div class="said live-text">${esc(record.turn.text || "")}</div></div>`;
+    <div class="said live-text">${md(record.turn.text || "")}</div></div>`;
 }
 
 function itemsHtml(record, where) {
   if (!record) return "";
   const cid = record.id;
-  const out = record.items.map((m) => {
-    if (m.kind === "user") {
-      const scopes = { message: "this message only", chat: "kept in chat", book: "book reference", series: "series reference" };
-      const names = m.attachments?.length ? m.attachments.map(a => `${a.name} · ${scopes[a.scope]}`).join(", ") : (m.files || []).join(", ");
-      return `<div class="bubble-wrap">${names ? `<span class="files-line">${ic("clip", 13)} ${esc(names)}</span>` : ""}
-        ${m.selection ? `<blockquote class="passage-quote"><b>${esc(shortPath(m.selection.path))}</b><br>${esc(m.selection.text)}</blockquote>` : ""}
-        ${m.explore ? '<span class="muted">Just exploring</span>' : ""}${m.text ? `<div class="bubble">${esc(m.text)}</div>` : ""}</div>`;
+  const out = [];
+  let run = [];
+  const flush = () => {
+    if (run.length === 1) out.push(itemHtml(run[0], cid));
+    else if (run.length > 1) {
+      const files = [...new Set(run.map((m) => shortPath(m.file)))];
+      const names = files.slice(0, 3).join(", ") + (files.length > 3 ? ` and ${files.length - 3} more` : "");
+      out.push(`<details class="activity-group" data-group-id="${esc(run[0].id)}"><summary>${ic("pen", 15, "var(--accent)", 2)}
+        <span>Made ${run.length} changes</span><span class="muted names">${esc(names)}</span></summary>
+        <div class="activity-list">${run.map((m) => itemHtml(m, cid)).join("")}</div></details>`);
     }
-    if (m.kind === "assistant") return `<div class="said">${m.incomplete ? '<span class="muted">Partial reply · interrupted</span><br>' : ""}${esc(m.text)}</div>`;
-    if (m.kind === "activity") {
-      const canView = /\.(md|txt)$/.test(m.file);
-      const canUndo = m.before != null || m.after != null;
-      return `<div class="activity ${m.undone ? "undone" : ""}">${ic("pen", 16, "#8F4F0C", 2)}
-        <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3px">
-          <div class="what">${m.undone ? "Undid" : esc(m.verb)} <span class="mono" style="color:var(--ink)">${esc(shortPath(m.file))}</span></div>
-          <div class="text">${esc(m.text)}</div></div>
-        <div style="display:flex;gap:2px;flex:none">
-          ${canView ? `<button type="button" class="link" ${attr({ act: "openFile", path: m.file })}>View</button>` : ""}
-          ${canUndo ? `<button type="button" class="link" ${attr({ act: "undo", chat: cid, item: m.id })}>${m.undone ? "Redo" : "Undo"}</button>` : ""}
-        </div>${changeHtml(m)}</div>`;
-    }
-    if (m.kind === "approval") {
-      const resolved = m.status === "approved" ? "Building. Progress shows at the bottom right." : m.status === "declined" ? "Not now. Ask whenever you're ready." : "";
-      return `<div class="approval"><div style="display:flex;gap:10px;align-items:flex-start">${ic("layers", 18, "#8F4F0C", 2)}
-        <div style="display:flex;flex-direction:column;gap:3px"><b style="font-size:15px">${esc(m.title)}</b><span class="muted" style="font-size:13px;line-height:1.5">${esc(m.detail)}</span></div></div>
-        ${m.status === "pending" ? `<div style="display:flex;gap:8px;flex-wrap:wrap;padding-left:28px">
-          <button type="button" class="btn" ${attr({ act: "approve", chat: cid, item: m.id, book: m.book, which: m.which })}>Build</button>
-          <button type="button" class="btn ghost" ${attr({ act: "decline", chat: cid, item: m.id })}>Not now</button></div>`
-          : `<span class="muted" style="padding-left:28px;font-size:13px">${esc(resolved)}</span>`}
-      </div>`;
-    }
-    if (m.kind === "review" || m.kind === "ideas") {
-      const text = m.kind === "ideas"
-        ? "Fresh ideas are ready. Go through them one at a time: use the pick, skip it, or choose something else."
-        : "A second opinion is ready. Go through it point by point: agree, disagree, or make your own fix.";
-      return `<div class="result">${ic("doc", 16, "#8F4F0C", 2)}<span style="flex:1;font-size:14px">${text}</span>
-        <button type="button" class="link" ${attr({ act: "openFile", path: m.file })}>Open</button></div>`;
-    }
-    if (m.kind === "result") {
-      return `<div class="result">${ic("check", 16, "#8F4F0C", 2.6)}<span style="flex:1;font-size:14px;line-height:1.45">${esc(m.text)}</span>
-        ${m.report ? `<button type="button" class="link" ${attr({ act: "openFile", path: m.report })}>View report</button>` : ""}</div>`;
-    }
-    return "";
-  });
+    run = [];
+  };
+  for (const m of record.items) {
+    if (m.kind === "activity") { run.push(m); continue; }
+    flush();
+    out.push(itemHtml(m, cid));
+  }
+  flush();
   if (record.turn?.state === "running") out.push(liveHtml(record));
   else if (S.busy && S.busy.chat === cid && S.busy.project === record.project) {
     out.push(`<div class="thinking"><span class="dots"><span></span><span></span><span></span></span> Reading your files and thinking…</div>`);
   }
   if (where === "thread" && !record.items.length && !S.busy) {
-    out.push(`<p class="muted" style="margin:0;font-size:14px;line-height:1.5">Nothing here yet. Share an idea or a change, and it lands in the files on the right. This conversation keeps going; you never need to start over.</p>`);
+    out.push(`<p class="muted" style="margin:0;font-size:15px;line-height:1.55">Nothing here yet. Share an idea or a change, and it lands in the files on the right. This conversation keeps going; you never need to start over.</p>`);
   }
   return out.join("");
+}
+
+function itemHtml(m, cid) {
+  if (m.kind === "user") {
+    const scopes = { message: "this message only", chat: "kept in chat", book: "book reference", series: "series reference" };
+    const names = m.attachments?.length ? m.attachments.map(a => `${a.name} · ${scopes[a.scope]}`).join(", ") : (m.files || []).join(", ");
+    return `<div class="bubble-wrap">${names ? `<span class="files-line">${ic("clip", 13)} ${esc(names)}</span>` : ""}
+      ${m.selection ? `<blockquote class="passage-quote"><b>${esc(shortPath(m.selection.path))}</b><br>${esc(m.selection.text)}</blockquote>` : ""}
+      ${m.explore ? '<span class="muted">Just exploring</span>' : ""}${m.text ? `<div class="bubble">${esc(m.text)}</div>` : ""}</div>`;
+  }
+  if (m.kind === "assistant") return `<div class="said">${m.incomplete ? '<p class="muted">Partial reply · interrupted</p>' : ""}${md(m.text)}</div>`;
+  if (m.kind === "activity") {
+    const canView = /\.(md|txt)$/.test(m.file);
+    const canUndo = m.before != null || m.after != null;
+    return `<div class="activity ${m.undone ? "undone" : ""}">${ic("pen", 16, "var(--accent)", 2)}
+      <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3px">
+        <div class="what">${m.undone ? "Undid" : esc(m.verb)} <span class="mono" style="color:var(--ink)">${esc(shortPath(m.file))}</span></div>
+        <div class="text">${esc(m.text)}</div></div>
+      <div style="display:flex;gap:2px;flex:none">
+        ${canView ? `<button type="button" class="link" ${attr({ act: "openFile", path: m.file })}>View</button>` : ""}
+        ${canUndo ? `<button type="button" class="link" ${attr({ act: "undo", chat: cid, item: m.id })}>${m.undone ? "Redo" : "Undo"}</button>` : ""}
+      </div>${changeHtml(m)}</div>`;
+  }
+  if (m.kind === "approval") {
+    const resolved = m.status === "approved" ? "Building. Progress shows at the bottom right." : m.status === "declined" ? "Not now. Ask whenever you're ready." : "";
+    return `<div class="approval"><div style="display:flex;gap:10px;align-items:flex-start">${ic("layers", 18, "var(--accent)", 2)}
+      <div style="display:flex;flex-direction:column;gap:3px"><b style="font-size:15px">${esc(m.title)}</b><span class="muted" style="font-size:13px;line-height:1.5">${esc(m.detail)}</span></div></div>
+      ${m.status === "pending" ? `<div style="display:flex;gap:8px;flex-wrap:wrap;padding-left:28px">
+        <button type="button" class="btn" ${attr({ act: "approve", chat: cid, item: m.id, book: m.book, which: m.which })}>Build</button>
+        <button type="button" class="btn ghost" ${attr({ act: "decline", chat: cid, item: m.id })}>Not now</button></div>`
+        : `<span class="muted" style="padding-left:28px;font-size:13px">${esc(resolved)}</span>`}
+    </div>`;
+  }
+  if (m.kind === "review" || m.kind === "ideas") {
+    const text = m.kind === "ideas"
+      ? "Fresh ideas are ready. Go through them one at a time: use the pick, skip it, or choose something else."
+      : "A second opinion is ready. Go through it point by point: agree, disagree, or make your own fix.";
+    return `<div class="result">${ic("doc", 16, "var(--accent)", 2)}<span style="flex:1;font-size:14px">${text}</span>
+      <button type="button" class="link" ${attr({ act: "openFile", path: m.file })}>Open</button></div>`;
+  }
+  if (m.kind === "result") {
+    return `<div class="result">${ic("check", 16, "var(--accent)", 2.6)}<span style="flex:1;font-size:14px;line-height:1.45">${esc(m.text)}</span>
+      ${m.report ? `<button type="button" class="link" ${attr({ act: "openFile", path: m.report })}>View report</button>` : ""}</div>`;
+  }
+  return "";
 }
 
 function pendingHtml() {
@@ -777,6 +844,42 @@ function composer(id, model, placeholder, where) {
     <button type="button" class="icon-btn" style="width:38px;height:38px" aria-label="Attach a file" ${attr({ act: "attach" })}>${ic("clip")}</button>
     <textarea id="${id}" rows="1" placeholder="${esc(placeholder)}" data-model="${model}" data-enter="send" data-where="${where}">${esc(model === "draft" ? S.draft : S.projectDraft)}</textarea>
     <button type="button" class="send" aria-label="Send" ${busy ? "disabled" : ""} ${attr({ act: "send", where })}>${ic("arrow", 18, "currentColor", 2.2)}</button>
+  </div>${modelLine()}`;
+}
+
+function chatRole() {
+  return S.settings?.roles?.find((r) => r.key === "studio_chat");
+}
+
+function modelLine() {
+  const role = chatRole();
+  if (!role) return "";
+  const current = role.options.find((o) => o.backend === role.current.backend && o.model === role.current.model);
+  const parts = [current ? current.label : role.current.model];
+  if (role.effort) parts.push(`${role.effort[0].toUpperCase() + role.effort.slice(1)} effort`);
+  if (role.web) parts.push("Web");
+  return `<div class="composer-meta"><span class="muted">The room's chat model</span>
+    <div style="position:relative;margin-left:auto;min-width:0">
+      <button type="button" class="model-btn" aria-haspopup="true" aria-expanded="${S.picker}" ${attr({ act: "togglePicker" })}><span>${esc(parts.join(" · "))}</span>${ic("down", 14, "currentColor", 2.2)}</button>
+      ${S.picker ? pickerHtml(role) : ""}</div></div>`;
+}
+
+function pickerHtml(role) {
+  const models = role.options.map((o) => `<button type="button" class="pill ${o.backend === role.current.backend && o.model === role.current.model ? "on" : ""}" ${attr({ act: "setRole", role: role.key, backend: o.backend, model: o.model })}>${esc(o.label)}</button>`).join("");
+  const efforts = role.efforts.length ? `<span class="label">Reasoning effort</span><div class="pills">
+      ${[["", "Default"], ...role.efforts.map((e) => [e, e[0].toUpperCase() + e.slice(1)])].map(([value, label]) => `<button type="button" class="pill ${role.effort === value ? "on" : ""}" ${attr({ act: "setEffort", role: role.key, effort: value })}>${esc(label)}</button>`).join("")}</div>
+      <span class="hint" style="padding:0">Higher effort thinks longer before each reply: better on hard questions, slower and costlier.</span>` : "";
+  return `<div class="picker" role="dialog" aria-label="Chat model">
+    <span class="label">Model</span><div class="pills">${models || '<span class="hint" style="padding:0">Connect a provider in Settings.</span>'}</div>
+    ${efforts}
+    <button type="button" class="link" style="align-self:flex-start;padding-left:0" ${attr({ act: "go", view: "settings" })}>Every role in Settings</button></div>`;
+}
+
+function quickChips() {
+  return `<div class="chips" style="justify-content:flex-start">
+    <button type="button" class="chip" ${attr({ act: "quick", text: "Could you get a second opinion on my plan?" })}>Review my plan</button>
+    <button type="button" class="chip" ${attr({ act: "quick", text: "Where are we? What's written and what's next?" })}>Where are we?</button>
+    <button type="button" class="chip" ${attr({ act: "quick", text: "I'm stuck. Can you help me work out what comes next?" })}>I'm stuck</button>
   </div>`;
 }
 
@@ -785,40 +888,26 @@ function projectView() {
   if (!d) return "";
   const books = d.isSeries && d.books.length > 1
     ? `<div class="pills">${d.books.map((b) => `<button type="button" class="pill ${b.folder === d.book.folder ? "on" : ""}" ${attr({ act: "switchBook", book: b.folder })}>Book ${b.number} · ${esc(b.title)}</button>`).join("")}</div>` : "";
-  const project = S.projects.find((p) => p.id === d.id);
-  const chats = project ? project.chats : [];
-  return `<div class="scroll"><div class="page narrow">
-    <button type="button" class="link muted" style="align-self:flex-start" ${attr({ act: "go", view: "projects" })}>${ic("back", 16, "currentColor", 2)} All projects</button>
-    <div style="display:flex;flex-direction:column;gap:6px"><h1 class="big" style="font-size:32px">${esc(d.title)}</h1>
-      <span class="muted" style="font-size:15px">${esc(d.kind)}${d.isSeries ? ` · working on book ${d.book.number}` : ""} · ${fmt(d.words)} words written</span></div>
-    ${books}
-    <div style="display:flex;flex-direction:column;gap:10px">
-      <div><h2 class="sub">${d.isSeries ? "Talk about the series" : "Talk about the book"}</h2>
-        <span class="muted" style="font-size:13px">${d.isSeries ? "Changes land in the series bible, or in one book's own files." : "Changes land in the files on the right."}</span></div>
-      <div class="thread"><div class="msgs-inner">${itemsHtml(S.thread, "thread")}</div></div>
+  return `<div class="convo">
+    <div class="chat-head project-head">
+      <button type="button" class="icon-btn" aria-label="All projects" ${attr({ act: "go", view: "projects" })}>${ic("back", 18, "currentColor", 2)}</button>
+      <div class="titles"><b>${esc(d.title)}</b>
+        <span class="muted">${esc(d.kind)}${d.isSeries ? ` · working on book ${d.book.number}` : ""} · ${fmt(d.words)} words written · ${d.isSeries ? "changes land in the series bible or one book's files" : "changes land in the files on the right"}</span></div>
+      ${books}
+    </div>
+    <div class="msgs"><div class="msgs-inner">${itemsHtml(S.thread, "thread")}</div></div>
+    <div class="composer-wrap"><div class="composer-inner">
+      ${quickChips()}
       ${pendingHtml()}
       ${composer("project-composer", "projectDraft", d.isSeries ? "Add to the series: the world, a rule, where it goes next…" : "Rename someone, add a scene idea, ask a question…", "thread")}
-      <div class="chips" style="justify-content:flex-start">
-        <button type="button" class="chip" ${attr({ act: "quick", text: "Could you get a second opinion on my plan?" })}>Review my plan</button>
-        <button type="button" class="chip" ${attr({ act: "quick", text: "Where are we? What's written and what's next?" })}>Where are we?</button>
-        <button type="button" class="chip" ${attr({ act: "quick", text: "I'm stuck. Can you help me work out what comes next?" })}>I'm stuck</button>
-      </div>
-    </div>
-    <div style="display:flex;flex-direction:column;gap:8px">
-      <div style="display:flex;align-items:center;gap:8px"><h2 class="sub">Separate chats</h2>
-        <button type="button" class="link" style="margin-left:auto" ${attr({ act: "newChat", project: d.id })}>${ic("plus", 12, "currentColor", 2.6)} New chat</button></div>
-      ${chats.length ? `<div class="rows">${chats.map((c) => `<button type="button" class="row" ${attr({ act: "openChat", project: d.id, chat: c.id })}>
-          <span class="grow"><b style="font-size:15px">${esc(c.title)}</b><span class="snip">${esc(c.snippet)}</span></span>
-          <span class="muted" style="font-size:12px;white-space:nowrap">${esc((c.updated || "").slice(0, 10))}</span></button>`).join("")}</div>`
-        : '<span class="muted" style="font-size:13px">None yet. Start one when you want to dig into a single question on its own.</span>'}
-    </div>
-  </div></div>`;
+    </div></div>
+  </div>`;
 }
 
 function chatView() {
   const c = S.chat;
   if (!c) return "";
-  return `<div style="flex:1;min-height:0;display:flex;flex-direction:column">
+  return `<div class="convo">
     <div class="chat-head">
       <button type="button" class="link muted" style="font-size:14px" ${attr({ act: "openProject", project: c.project })}>${esc(S.data ? S.data.title : "")}</button>
       <span class="muted" aria-hidden="true">/</span>
@@ -827,11 +916,7 @@ function chatView() {
     </div>
     <div class="msgs"><div class="msgs-inner">${itemsHtml(c, "chat")}</div></div>
     <div class="composer-wrap"><div class="composer-inner">
-      <div style="display:flex;flex-wrap:wrap;gap:8px">
-        <button type="button" class="chip" ${attr({ act: "quick", text: "Could you get a second opinion on my plan?" })}>Review my plan</button>
-        <button type="button" class="chip" ${attr({ act: "quick", text: "Where are we? What's written and what's next?" })}>Where are we?</button>
-        <button type="button" class="chip" ${attr({ act: "quick", text: "I'm stuck. Can you help me work out what comes next?" })}>I'm stuck</button>
-      </div>
+      ${quickChips()}
       ${pendingHtml()}
       ${composer("composer", "draft", "Talk about your story…", "chat")}
     </div></div>
@@ -839,7 +924,7 @@ function chatView() {
 }
 
 function fileRow(act, label, meta, extra, right = "") {
-  return `<button type="button" class="file-row" ${attr({ act, ...extra })}>${ic("doc", 16, "#6B5E50", 1.8)}
+  return `<button type="button" class="file-row" ${attr({ act, ...extra })}>${ic("doc", 16, "var(--muted)", 1.8)}
     <span class="grow"><span class="name">${esc(label)}</span>${meta ? `<span class="muted" style="font-size:12px">${esc(meta)}</span>` : ""}</span>${right}</button>`;
 }
 
@@ -858,17 +943,17 @@ function filesPanel() {
       <button type="button" class="icon-btn" style="height:36px" aria-label="Remove ${esc(f.name)} from reference" ${attr({ act: "removeReference", path: f.path })}>${ic("x", 12, "currentColor", 2.6)}</button></div>
       ${f.warn ? `<span class="hint warn">${esc(f.warn)}</span>` : ""}`).join("") || '<span class="hint">Nothing here yet.</span>'}
   </div>`).join("");
-  const job = S.job && S.jobKey && S.jobKey.project === d.id && S.job.book === d.book.folder ? S.job : null;
+  const job = bookJob(d);
   const running = job && job.state === "running";
   const written = d.chapters.filter((c) => c.state !== "missing").length;
   const next = d.chapters.find((c) => c.state === "missing");
-  const status = running ? `Building chapter ${job.current || job.numbers[job.results.length]}…`
-    : !d.chapters.length ? "The outline has no chapters yet. Plan a few in the chat first."
-    : `${written} of ${d.chapters.length} chapters written.` + (next ? ` Next up: chapter ${next.number}${next.title ? ", " + next.title : ""}.` : " Every outlined chapter is written.");
+  const status = buildStatus(d, job);
+  const project = S.projects.find((p) => p.id === d.id);
+  const chats = project ? project.chats : [];
   const chapters = d.chapters.map((c) => {
     const building = running && job.current === c.number;
-    const icon = building ? `<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="6" fill="#8F4F0C"/></svg>`
-      : c.state !== "missing" ? ic("check", 16, "#8F4F0C", 2.6) : `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A39483" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="7"/></svg>`;
+    const icon = building ? `<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" style="color:var(--accent)"><circle cx="12" cy="12" r="6" fill="currentColor"/></svg>`
+      : c.state !== "missing" ? ic("check", 16, "var(--accent)", 2.6) : `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="color:var(--faint)" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="7"/></svg>`;
     const meta = building ? "building" : c.words ? fmt(c.words) : "";
     const flag = c.state === "outline changed" ? '<span class="state warn">outline changed</span>' : c.state === "plan changed" ? '<span class="state" title="Built before later changes to the bible or characters">plan changed</span>' : "";
     const extra = c.state === "missing" ? { act: "openEmptyChapter", number: c.number, title: c.title } : { act: "openFile", path: c.path };
@@ -877,6 +962,7 @@ function filesPanel() {
       <span class="muted" style="font-size:12px;font-variant-numeric:tabular-nums">${meta}</span></button>`;
   }).join("");
   return `
+    <div class="group" style="gap:6px"><span class="label" style="padding:0 8px">Context</span><div style="padding:0 8px;display:flex;flex-direction:column;gap:6px">${contextHtml()}</div></div>
     ${groups}
     <div style="display:flex;flex-direction:column;gap:14px">${refs}
       <span class="hint">${d.referenceTokens ? `Every chat and build reads about ${fmt(d.referenceTokens)} tokens of reference.` : "Add canon notes, research or a style sample (.md, .txt or .docx)."}</span></div>
@@ -897,7 +983,80 @@ function filesPanel() {
       ${(d.ideas || []).map((r) => fileRow("openFile", "Ideas · " + r.name.replace(/^ideas_|\.md$/g, ""), "", { path: r.path })).join("")}
       ${d.runs.map((r) => fileRow("openFile", "Build report · " + r.name, "", { path: r.path })).join("")}
       ${written ? `<button type="button" class="link" style="align-self:flex-start" ${attr({ act: "exportBook" })}>Export the whole book</button>` : ""}
+    </div>
+    <div class="group"><div class="group-head"><span class="label">Separate chats</span>
+      <button type="button" class="link" style="margin-left:auto;font-size:12px" ${attr({ act: "newChat", project: d.id })}>${ic("plus", 12, "currentColor", 2.6)} New chat</button></div>
+      ${chats.map((c) => `<button type="button" class="file-row" ${attr({ act: "openChat", project: d.id, chat: c.id })}>${ic("chat", 16, "var(--muted)", 1.8)}
+        <span class="grow"><span class="name">${esc(c.title)}</span><span class="muted" style="font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(c.snippet)}</span></span></button>`).join("")
+        || '<span class="hint">Start one to dig into a single question on its own.</span>'}
     </div>`;
+}
+
+function bookJob(d) {
+  return S.job && S.jobKey && S.jobKey.project === d.id && S.job.book === d.book.folder ? S.job : null;
+}
+
+function buildStatus(d, job) {
+  const written = d.chapters.filter((c) => c.state !== "missing").length;
+  const next = d.chapters.find((c) => c.state === "missing");
+  if (job && job.state === "running") return `Building chapter ${job.current || job.numbers[job.results.length]}…`;
+  if (!d.chapters.length) return "The outline has no chapters yet. Plan a few in the chat first.";
+  return `${written} of ${d.chapters.length} chapters written.` + (next ? ` Next up: chapter ${next.number}${next.title ? ", " + next.title : ""}.` : " Every outlined chapter is written.");
+}
+
+function contextHtml() {
+  const c = S.data?.context;
+  if (!c) return "";
+  const share = c.tokens / c.limit;
+  const long = c.tokens > c.long;
+  return `<div class="meter-row"><span class="muted">Every message and build sends the whole book</span><b>${fmtK(c.tokens)} / ${fmtK(c.limit)}</b></div>
+    <div class="meter" role="meter" aria-label="Book size against the limit" aria-valuemin="0" aria-valuemax="${c.limit}" aria-valuenow="${c.tokens}"><span class="${long ? "long" : ""}" style="width:${Math.max(1, Math.min(100, Math.round(share * 100)))}%"></span></div>
+    ${long ? `<span class="hint warn" style="padding:0">Past about ${fmtK(c.long)} tokens, models read less reliably. Story-so-far notes for finished books help.</span>` : ""}`;
+}
+
+/* The right rail beside a chat, like Cowork's: context, build, what changed. */
+function rail() {
+  const c = S.chat, d = S.data;
+  if (!c || !d) return "";
+  const job = bookJob(d);
+  const running = job && job.state === "running";
+  const next = d.chapters.find((x) => x.state === "missing");
+  const changed = new Map();
+  for (const m of c.items) if (m.kind === "activity" && !m.undone) changed.set(m.file, m);
+  const outputs = c.items.filter((m) => m.kind === "review" || m.kind === "ideas" || (m.kind === "result" && m.report));
+  const order = ["drafting", "critiquing", "revising"];
+  const stages = running ? `<div class="stages light">${order.map((s, i) => `<span class="${i === order.indexOf(job.step) ? "on" : i < order.indexOf(job.step) ? "past" : ""}">${s[0].toUpperCase() + s.slice(1)}</span>`).join("")}</div>` : "";
+  const label = (m) => (m.kind === "ideas" ? "Fresh ideas" : m.kind === "review" ? "Second opinion" : "Build report");
+  return `<aside class="rail" aria-label="This chat">
+    <section class="rail-card"><span class="label">Context</span>${contextHtml()}</section>
+    <section class="rail-card"><span class="label">Build${d.isSeries ? ` · Book ${d.book.number}` : ""}</span>
+      <span style="font-size:13px;line-height:1.45">${esc(buildStatus(d, job))}</span>${stages}
+      ${!running && next ? `<button type="button" class="btn small" style="align-self:flex-start" ${attr({ act: "buildAsk", which: "next" })}>Build next chapter</button>` : ""}</section>
+    <section class="rail-card"><div style="display:flex;align-items:baseline"><span class="label">Changes</span><span class="muted" style="margin-left:auto;font-size:12px">${changed.size ? `${changed.size} file${changed.size === 1 ? "" : "s"}` : ""}</span></div>
+      ${changed.size ? [...changed.values()].map((m) => fileRow("openFile", shortPath(m.file), m.text, { path: m.file })).join("") : '<span class="hint" style="padding:0">Nothing changed in this chat yet.</span>'}</section>
+    ${outputs.length ? `<section class="rail-card"><span class="label">Outputs</span>${outputs.map((m) => fileRow("openFile", label(m), shortPath(m.file || m.report), { path: m.file || m.report })).join("")}</section>` : ""}
+    <button type="button" class="link" style="align-self:flex-start" ${attr({ act: "togglePanel" })}>${ic("panel", 14, "currentColor", 1.8)} All project files</button>
+  </aside>`;
+}
+
+/* A chapter, wide and centred, for reading rather than working on. */
+function readerView() {
+  const r = S.reader;
+  const written = (S.data?.chapters || []).filter((c) => c.state !== "missing");
+  const at = written.findIndex((c) => c.path === r.path);
+  const step = (c, text) => (c ? `<button type="button" class="btn ghost small" ${attr({ act: "readChapter", path: c.path })}>${text}</button>` : "<span></span>");
+  const selected = S.selection?.path === r.path;
+  const prev = written[at - 1], next = written[at + 1];
+  return `<div class="scroll reader-scroll">
+    <div class="reader-head">
+      <button type="button" class="btn ghost small" ${attr({ act: "closeReader" })}>${ic("back", 14, "currentColor", 2.2)} Back</button>
+      <span class="muted" style="font-size:13px">${esc(S.data.title)} · ${fmt(r.data.words)} words</span>
+      <span class="hint" id="passage-hint" style="margin-left:auto;padding:0">${selected ? "Passage selected" : "Highlight a passage to work on it."}</span>
+      ${[["discuss", "Discuss"], ["alternatives", "Alternatives"], ["revise", "Revise"]].map(([intent, text]) => `<button type="button" class="btn ghost small" data-passage-action ${selected ? "" : "disabled"} ${attr({ act: "passage", intent })}>${text}</button>`).join("")}
+    </div>
+    <article class="reader" id="passage-document">${md(r.data.text)}</article>
+    ${prev || next ? `<nav class="reader-nav" aria-label="Chapters">${step(prev, prev ? `← Chapter ${prev.number}` : "")}${step(next, next ? `Chapter ${next.number} →` : "")}</nav>` : ""}
+  </div>`;
 }
 
 function reviewHtml(data) {
@@ -940,6 +1099,7 @@ function docPanel() {
   const number = isChapter ? Number(doc.path.match(/chapter_(\d+)/)[1]) : null;
   const actions = [
     data.editable ? `<button type="button" class="btn ghost small" ${attr({ act: "editDoc" })}>${ic("pen", 14, "currentColor", 2)} Edit</button>` : "",
+    isChapter ? `<button type="button" class="btn ghost small" ${attr({ act: "readChapter", path: doc.path })}>${ic("read", 14, "currentColor", 2)} Read</button>` : "",
     isChapter ? `<button type="button" class="btn ghost small" ${attr({ act: "buildAsk", which: number })}>Rebuild</button>` : "",
   ].join("");
   const body = data.points ? reviewHtml(data) : `<div class="doc" id="passage-document">${md(data.text)}</div>`;
@@ -1052,7 +1212,7 @@ function tray() {
     const stages = order.map((s, i) => `<span class="${i === at ? "on" : i < at ? "past" : ""}">${s[0].toUpperCase() + s.slice(1)}</span>`).join("");
     const done = job.results.length;
     return `<div class="tray" role="status">
-      <div style="display:flex;align-items:baseline;gap:8px"><b style="font-size:14px">Building chapter ${job.current || job.numbers[done]}</b><span style="margin-left:auto;font-size:12px;color:#E3D6C3">${done + 1} of ${job.numbers.length}</span></div>
+      <div style="display:flex;align-items:baseline;gap:8px"><b style="font-size:14px">Building chapter ${job.current || job.numbers[done]}</b><span style="margin-left:auto;font-size:12px;color:var(--tray-muted)">${done + 1} of ${job.numbers.length}</span></div>
       <div class="stages">${stages}</div>
       <div style="display:flex;gap:8px;align-items:center"><button type="button" ${job.stopping ? "disabled" : ""} ${attr({ act: "stopBuild" })}>${job.stopping ? "Stopping after this chapter" : "Stop after this chapter"}</button>
         <button type="button" class="plain" ${attr({ act: "hideTray" })}>Hide</button></div>
@@ -1061,7 +1221,7 @@ function tray() {
   const title = job.state === "failed" ? "The build stopped" : job.state === "stopped" ? "Stopped" : "Build finished";
   const detail = job.state === "failed" ? job.error : `${job.results.length} chapter(s) · ${job.usage || ""}`;
   const report = job.report || "";
-  return `<div class="tray" role="status"><b style="font-size:14px">${esc(title)}</b><span style="font-size:13px;line-height:1.45;color:#E3D6C3">${esc(detail)}</span>
+  return `<div class="tray" role="status"><b style="font-size:14px">${esc(title)}</b><span style="font-size:13px;line-height:1.45;color:var(--tray-muted)">${esc(detail)}</span>
     <div style="display:flex;gap:8px">${report && job.state !== "failed" ? `<button type="button" ${attr({ act: "openFile", path: report })}>View report</button>` : ""}<button type="button" class="plain" ${attr({ act: "hideTray" })}>Dismiss</button></div></div>`;
 }
 
@@ -1078,23 +1238,27 @@ function modal() {
 function render() {
   const openChanges = [...document.querySelectorAll("details[data-change-id][open]")].map(el => el.dataset.changeId);
   const keep = {};
-  for (const sel of [".panel", ".scroll", ".side-scroll", ".msgs", ".thread"]) {
+  const openGroups = [...document.querySelectorAll("details[data-group-id][open]")].map(el => el.dataset.groupId);
+  for (const sel of [".panel", ".rail", ".scroll", ".side-scroll", ".msgs"]) {
     const el = document.querySelector(sel);
     if (el) keep[sel] = el.scrollTop;
   }
   const active = document.activeElement && document.activeElement.id;
   const caret = active && document.activeElement.selectionStart;
   const views = { home: homeView, projects: projectsView, chats: chatsView, project: projectView, chat: chatView, settings: settingsView, help: helpView };
-  const showPanel = S.view === "project" || (S.view === "chat" && S.panel);
-  document.getElementById("app").innerHTML = sidebar()
-    + `<main class="main">${(views[S.view] || homeView)()}</main>`
-    + (showPanel ? panel() : "")
+  const app = document.getElementById("app");
+  app.className = "wr-app" + (S.drawer ? " drawer-open" : "");
+  const reading = S.reader && S.data && (S.view === "project" || S.view === "chat");
+  const side = reading ? "" : S.view === "project" || (S.view === "chat" && S.panel) ? panel() : S.view === "chat" ? rail() : "";
+  app.innerHTML = mobileBar() + sidebar()
+    + `<main class="main">${reading ? readerView() : (views[S.view] || homeView)()}</main>`
+    + side
     + tray() + modal()
     + (S.toast ? `<div class="toast" role="alert"><span style="flex:1">${esc(S.toast)}</span><button type="button" aria-label="Dismiss" ${attr({ act: "closeToast" })}>✕</button></div>` : "")
     + (S.creating ? `<div class="overlay-busy"><div class="thinking" style="font-size:16px"><span class="dots"><span></span><span></span><span></span></span> Setting up your project and reading your idea. This can take a minute…</div></div>` : "");
   for (const [sel, top] of Object.entries(keep)) {
     const el = document.querySelector(sel);
-    if (el && sel !== ".msgs" && sel !== ".thread") el.scrollTop = top;
+    if (el && sel !== ".msgs") el.scrollTop = top;
   }
   if (active) {
     const el = document.getElementById(active);
@@ -1102,6 +1266,7 @@ function render() {
   }
   for (const ta of document.querySelectorAll(".bar textarea")) autosize(ta);
   for (const el of document.querySelectorAll("details[data-change-id]")) el.open = openChanges.includes(el.dataset.changeId);
+  for (const el of document.querySelectorAll("details[data-group-id]")) el.open = openGroups.includes(el.dataset.groupId);
 }
 
 function autosize(ta) {
@@ -1124,6 +1289,8 @@ document.addEventListener("click", (e) => {
   const fn = ACT[el.dataset.act];
   if (!fn) return;
   e.preventDefault();
+  if (S.drawer && el.dataset.act !== "toggleDrawer") S.drawer = false;
+  if (S.picker && !["togglePicker", "setRole", "setEffort"].includes(el.dataset.act)) S.picker = false;
   Promise.resolve(fn(el.dataset, el)).catch(fail);
 });
 
@@ -1142,10 +1309,11 @@ document.addEventListener("change", (e) => {
 
 document.addEventListener("selectionchange", () => {
   const selection = window.getSelection(), doc = document.getElementById("passage-document");
-  if (!doc || !selection || selection.isCollapsed || !doc.contains(selection.anchorNode) || !doc.contains(selection.focusNode) || !S.doc?.data) return;
+  const source = S.reader || S.doc;
+  if (!doc || !selection || selection.isCollapsed || !doc.contains(selection.anchorNode) || !doc.contains(selection.focusNode) || !source?.data) return;
   const text = selection.toString().trim();
   if (!text) return;
-  S.selection = { path: S.doc.path, version: S.doc.data.version, text };
+  S.selection = { path: source.path, version: source.data.version, text };
   for (const button of document.querySelectorAll("[data-passage-action]")) button.disabled = false;
   document.getElementById("passage-hint").textContent = "Passage selected";
 });
@@ -1154,7 +1322,10 @@ document.addEventListener("keydown", (e) => {
   const el = e.target;
   if (e.key === "Escape") {
     if (S.modal) { S.modal = null; render(); }
+    else if (S.picker) { S.picker = false; render(); }
+    else if (S.drawer) { S.drawer = false; render(); }
     else if (S.home.menu) { S.home.menu = false; render(); }
+    else if (S.reader) { S.reader = null; render(); }
     return;
   }
   if (e.key === "Enter" && !e.shiftKey && el.dataset && el.dataset.enter && !e.isComposing) {
@@ -1165,12 +1336,11 @@ document.addEventListener("keydown", (e) => {
 });
 
 (async function start() {
+  applyTheme();
   try {
     await refreshState();
-    if (!S.providers.length) {
-      S.view = "settings";
-      S.settings = await get("/api/settings");
-    }
+    S.settings = await get("/api/settings");
+    if (!S.providers.length) S.view = "settings";
   } catch (e) { S.toast = e.message; }
   render();
   focus("home-composer");
