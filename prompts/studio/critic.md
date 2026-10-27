@@ -24,9 +24,11 @@ before this one, and the draft.
    block rather than brought in when it matters? Does dialogue state
    feelings outright where they would land harder unsaid?
 4. **Momentum.** Do events connect with "but" and "therefore" rather than
-   "and then"? Does the chapter end leaning forward? A quiet scene is fine
-   if something shifts in how someone feels or sees; don't ask for conflict
-   it doesn't need.
+   "and then"? Does the chapter end leaning forward? Is tension defused too
+   easily: people agreeing because it's convenient, an opponent giving way
+   without a reason, a problem settled in the scene that raised it? A quiet
+   scene is fine if something shifts in how someone feels or sees; don't ask
+   for conflict it doesn't need.
 5. **Length.** If the draft is well under the planned length, name the beats
    that were rushed or summarised and should be played out in full. Never ask
    for padding or extra description.

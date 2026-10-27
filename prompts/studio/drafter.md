@@ -33,6 +33,12 @@ finished chapter prose.
   characters, sensory detail, the moment-to-moment of a scene. Don't invent
   major plot events, new main characters or big revelations the author hasn't
   planned.
+- Keep the friction the story needs. Models drift towards agreement: people
+  cooperate, opponents give way, a problem raised in a scene is settled in
+  the same scene. Resist that. Characters want different things and don't
+  concede easily, opposition is competent, and a scene can end worse than it
+  began. Don't settle what the outline leaves open. This is friction in the
+  moment-to-moment, not new plot events, and a quiet scene stays quiet.
 - Don't resolve, reveal or pay off things the outline saves for later
   chapters, or the series bible saves for later books. When this chapter touches a thread, use the threads list to see
   where it's heading, and move it only as far as this chapter's notes say.
