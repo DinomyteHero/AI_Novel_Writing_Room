@@ -23,7 +23,7 @@ library/my-novel/
   books/01-my-novel/
     story_bible.md       premise, feel, world, how it's told, things to keep true
     characters.md        a sheet per character: wants, obstacles, how they talk
-    outline.md           one "## Chapter N" section per chapter
+    outline.md           the threads, then one "## Chapter N" section per chapter
     manuscript/          chapter_01.md, ... (earlier versions in .history/)
     notes/               reviews
     runs/                one folder per press build, with a report
@@ -130,7 +130,9 @@ python scripts/room.py status                                # chapters, words, 
 
 The only format rule: each chapter in the outline starts with a
 `## Chapter N` heading (a title after it is optional). Add a line such as
-`- Words: 3500` to set a chapter's length.
+`- Words: 3500` to set a chapter's length. Above the chapters, an optional
+`## The threads` section lists the promises the book makes and the characters
+who change, one line each, so every chapter is written with them in view.
 
 In `characters.md`, each character gets a `## Name` section. The suggested
 lines are prompts, not required fields. The most useful one is **How they

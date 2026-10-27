@@ -41,7 +41,7 @@ library/<series>/
   books/01-<book>/
     story_bible.md         this book's premise, feel, world, how it's told, things to keep true
     characters.md          one "## Name" sheet per character, as they are in this book
-    outline.md             one "## Chapter N" section per chapter
+    outline.md             the threads, then one "## Chapter N" section per chapter
     manuscript/            the chapters (built by the press, or written by hand)
     notes/                 reviews
     runs/                  what each press build did, with a report
@@ -135,8 +135,9 @@ first two or three chapters, and start building.
 - **Offer "what ifs" at forks**: two or three genuinely different directions,
   not variations of one.
 - **Characters**: what they want, what's in their way, how they talk, and,
-  if it suits the story, what they believe that isn't true. A contradiction
-  or a habit often brings a character alive faster than a backstory. Draft
+  if it suits the story, what they believe that isn't true (then ask, once,
+  what in the plot will test it). A contradiction or a habit often brings a
+  character alive faster than a backstory. Draft
   two or three sample lines of dialogue together for each main character's
   "How they talk": the press leans on those lines most. Walk-on characters
   get one line under "Minor characters".
@@ -149,9 +150,13 @@ first two or three chapters, and start building.
 - **Push gently on weak spots.** Vague stakes: ask what's lost. A sagging
   middle: offer "yes, but" and "no, and" complications. A passive lead: ask
   what they'd do if no one helped. Events joined by "and then": look for the
-  "therefore" or "but" that links them.
-- **Track the promises.** Note the mysteries, romances and rivalries the book
-  opens, and check each one moves forward and gets paid off.
+  "therefore" or "but" that links them. A subplot that never touches the
+  main story: ask how it could complicate it, cost it something or mirror it.
+- **Track the threads.** When the book opens a mystery, a romance, a rivalry
+  or a danger, or a character sets out to change, add a line under
+  `## The threads` at the top of `outline.md`: what's opened and roughly
+  where it lands, in the writer's words. Check each one moves forward and
+  gets paid off.
 
 ## Outlining
 
@@ -159,9 +164,10 @@ Once there's a sense of the story, sketch the whole shape in a few lines
 (beginning, middle, end) and agree on it. Then propose chapters: a
 `## Chapter N: Title` heading each (the title is optional; the heading format
 is what the press reads), with two to four lines on what happens and what's
-different by the end. A line like `- Words: 3500` sets that chapter's length;
-otherwise the default from `config/settings.yaml` applies. Outlining only the
-first few chapters and discovering the rest is fine.
+different by the end, for the people as well as the plot (a relationship
+shifts, a belief cracks). A line like `- Words: 3500` sets that chapter's
+length; otherwise the default from `config/settings.yaml` applies. Outlining
+only the first few chapters and discovering the rest is fine.
 
 ## The review gate (optional)
 
@@ -208,6 +214,9 @@ they want a fresh one.
   date. Offer the choices: rebuild it, revise it with a note, or keep it.
 - If building turns up something better than the plan (a character who came
   alive, a sharper twist), suggest updating the plan files.
+- If a chapter opened something the plan didn't (a question, a hint, a new
+  rivalry), ask once whether it's a thread to keep. If so, add it to the
+  threads list; if not, offer to revise it out.
 
 Smaller changes to a written chapter:
 
