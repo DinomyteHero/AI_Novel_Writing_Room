@@ -62,6 +62,9 @@ side by side.
 
 ## Chapters
 
+The first page of the book matters most: show that something is already off,
+or about to change, for someone we can care about.
+
 The one useful test for a chapter: **what is different at the end than at the
 start?** A new fact, a changed relationship, a decision, a loss, a belief that
 cracks. If nothing changed, the chapter is probably part of its neighbour. End
@@ -97,10 +100,19 @@ weight, and give it a job or let it go.
 - **Let people talk.** When two characters share a room, dialogue usually
   does more work than description. Let arguments and negotiations play out
   rather than summarising them.
-- **Trust the reader.** Show the moment and let it land. Don't explain the
-  emotion afterwards.
+- **Trust the reader.** Show the moment and let it land. Don't label the
+  emotion afterwards ("she felt betrayed"); let what the character thinks and
+  does show it.
 - **Stay with the viewpoint character.** Readers see, know and feel what they
   do, and nothing they couldn't.
+- **Let us inside.** Readers come for what happens *to someone*: what the
+  viewpoint character notices, what they think it means and what they decide
+  to do about it, in their own terms. A line of their reasoning at the right
+  moment carries more than a paragraph of action seen from outside. (Lisa
+  Cron's *Wired for Story* makes the case.)
+- **Bring in the past when it matters now.** A memory or a piece of backstory
+  belongs on the page when it changes how the character reads this moment,
+  and then in a line or two, not a block.
 - **Vary the rhythm.** Mix short and long sentences. Don't start every
   sentence the same way.
 

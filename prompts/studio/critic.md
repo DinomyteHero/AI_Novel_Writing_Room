@@ -18,7 +18,10 @@ before this one, and the draft.
    plan: who knows what, who is where, who is hurt, names, objects, rules of
    the world.
 3. **Characters.** Does each one sound like their sheet's "How they talk"?
-   Does the lead want something and act on it?
+   Does the lead want something and act on it? Can we tell what the
+   viewpoint character makes of what happens (what they notice, think and
+   decide), or are they seen only from outside? Is backstory dropped in as a
+   block rather than brought in when it matters?
 4. **Momentum.** Do events connect with "but" and "therefore" rather than
    "and then"? Does the chapter end leaning forward?
 5. **Length.** If the draft is well under the planned length, name the beats
