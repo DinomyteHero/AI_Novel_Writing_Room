@@ -83,6 +83,16 @@ and the first few chapters are plenty.
 
 ### Working together in the app
 
+The project page is one long conversation about the book, with the files on
+the right; separate chats for single questions are listed there too. Beside
+a separate chat, a rail shows how much of the model's limit the book uses,
+the build, and every file the chat changed. Under the message box you can
+see and change the chat model and its reasoning effort. Open a chapter and
+press **Read** for a wide, book-like reading view; highlight a passage there
+to discuss or revise it. The theme button beside Settings switches between
+light, dark and your system's setting. On a phone, the menu button opens the
+sidebar.
+
 The reply appears as it is written, with activity such as reading a file or
 updating the outline. **Stop** cancels the current turn; edits already made
 are kept and still have their change cards. You can then send a different
