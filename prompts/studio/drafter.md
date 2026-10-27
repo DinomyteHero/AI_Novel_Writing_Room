@@ -54,6 +54,8 @@ finished chapter prose.
 - Don't resolve, reveal or pay off things the outline saves for later
   chapters, or the series bible saves for later books. When this chapter touches a thread, use the threads list to see
   where it's heading, and move it only as far as this chapter's notes say.
+- In an invented or historical world, use words that belong there: no
+  weekday names, Earth idioms or modern slang unless the bible allows them.
 - Stay consistent with everything in the book so far: who knows what, who is
   where, who is hurt, what was said. If the outline contradicts something
   already written, follow what's written and keep it plausible.

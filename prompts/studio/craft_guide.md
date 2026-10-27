@@ -83,9 +83,6 @@ striking situation with no personal stake is just an interesting problem.
 
 ## Chapters
 
-The first page of the book matters most: show that something is already off,
-or about to change, for someone we can care about.
-
 The one useful test for a chapter: **what is different at the end than at the
 start?** A new fact, a changed relationship, a decision, a loss, a belief that
 cracks. If nothing changed, the chapter is probably part of its neighbour. End
@@ -145,23 +142,18 @@ J. P. Wolf, *Building Imaginary Worlds*.)
 - **Let people talk.** When two characters share a room, dialogue usually
   does more work than description. Let arguments and negotiations play out
   rather than summarising them.
-- **Say less than they mean.** People talk around what matters. A line that
-  states the feeling outright ("I'm angry because you left") usually lands
-  flatter than one where it leaks through something else. (Robert McKee,
-  *Dialogue*.)
+- **Say less than they mean, and trust the reader.** People talk around what
+  matters, and a feeling lands harder when it leaks through what someone
+  says or does than when it's labelled ("I'm angry because you left", "she
+  felt betrayed"). (Robert McKee, *Dialogue*.)
 - **Give each person their own words.** Cover the names: can you still tell
   who's speaking? Vocabulary, rhythm and what someone bothers to mention all
   carry it.
-- **Trust the reader.** Show the moment and let it land. Don't label the
-  emotion afterwards ("she felt betrayed"); let what the character thinks and
-  does show it.
-- **Stay with the viewpoint character.** Readers see, know and feel what they
-  do, and nothing they couldn't.
-- **Let us inside.** Readers come for what happens *to someone*: what the
-  viewpoint character notices, what they think it means and what they decide
-  to do about it, in their own terms. A line of their reasoning at the right
-  moment carries more than a paragraph of action seen from outside. (Lisa
-  Cron's *Wired for Story* makes the case.)
+- **Stay inside the viewpoint character.** Readers see, know and feel only
+  what they do, and they come for what they notice, what they think it means
+  and what they decide. A line of their reasoning at the right moment carries
+  more than a paragraph of action seen from outside. (Lisa Cron, *Wired for
+  Story*.)
 - **Bring in the past when it matters now.** A memory or a piece of backstory
   belongs on the page when it changes how the character reads this moment,
   and then in a line or two, not a block.
@@ -189,7 +181,6 @@ Watch for these and replace them with something plain and specific:
 - naming a feeling only to say the character "didn't name it"
 - an em-dash in every paragraph
 - runs of three or more very short sentences for effect
-- the same image or phrase coming back again and again
 - prose that falls into a regular beat or echoes its own phrase endings, so
   the narration reads like verse (unless the bible asks for that voice)
 - stock phrases: "a testament to", "a tapestry of", "a mix of emotions",
@@ -206,6 +197,26 @@ help: the more an idea has to fit this world and these people, the less
 generic it gets. And give a strange idea a minute before judging it; some
 only make sense once they're developed. (Thomas Ward's research, in *The
 Creative Cognition Approach*.)
+
+A model's own familiar example is the world of systems, records and
+paperwork it learned from, so its ideas drift there whatever the genre:
+
+- **Names:** the Quiet, the Concord or Concordance, the Registry, the
+  Archive, the Last Map, the Assessor.
+- **Heroes:** an archivist, a curator, a registrar, a cartographer, a clerk.
+- **Engines:** deleted or redacted records, a hidden archive, a map that
+  reopens the routes, the network or the magic slowly failing.
+- **Villains:** an institution, a standard or a ledger-keeping order; the
+  benevolent order that keeps a noble lie; "the horror is that the system
+  works".
+- **Framings:** "it isn't a cult, it's the standards"; "someone finally found
+  the receipts".
+
+None of these is wrong, and a writer who wants a bureaucratic satire or an
+archivist hero should have one. The trouble is when one turns up uninvited,
+especially in a story meant to run on feeling, myth or adventure. Ask
+whether this book asked for it; if not, change what it takes for granted,
+and if it stays, make it specific to this world and these people.
 
 ## If you like a named structure
 

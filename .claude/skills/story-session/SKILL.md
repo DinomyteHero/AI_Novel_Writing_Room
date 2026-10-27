@@ -179,7 +179,9 @@ first two or three chapters, and start building.
   summary in "The world" that points to it, so nothing is written twice. For
   fanfiction, offer early to start `reference/canon.md`: the places, factions,
   rules and timeline the story relies on, and where it departs from canon,
-  since models half-remember most canons. Don't create either unasked for a
+  since models half-remember most canons. Check each fact against a source
+  (search the web if you can) and note where it came from; never fill it
+  from memory alone. Don't create either unasked for a
   small story.
 - **Push gently on weak spots.** Vague stakes: ask what's lost. A sagging
   middle: offer "yes, but" and "no, and" complications. A passive lead: ask

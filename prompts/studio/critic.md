@@ -14,9 +14,11 @@ before this one, and the draft.
    beats summarised instead of played out, and anything the outline saves for
    a later chapter that got revealed or resolved early. If the notes say where
    the chapter ends, did it stop there?
-2. **Continuity.** Contradictions with earlier chapters, earlier books or the
-   plan: who knows what, who is where, who is hurt, names, objects, rules of
-   the world.
+2. **Continuity.** Contradictions with earlier chapters, earlier books, the
+   plan or the reference notes (in fan fiction, the canon notes): who knows
+   what, who is where, who is hurt, names, objects, rules of the world. In an
+   invented or historical world, words that don't belong there (weekday
+   names, Earth idioms, modern slang) unless the bible allows them.
 3. **Why we care.** Would a reader care what happens next? Especially in
    an opening chapter: by the end, do we know whose story it is, what
    they want, and what's at stake for them? Does the chapter's event press
