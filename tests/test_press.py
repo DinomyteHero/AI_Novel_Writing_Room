@@ -153,3 +153,38 @@ def test_export_stitches_chapters_in_order(book):
     book.write_chapter(1, "# Chapter 1\n\nONE", plan, "build")
     text = press.export_book(book).read_text(encoding="utf-8")
     assert text.startswith("# The Dark Lighthouse") and text.index("ONE") < text.index("TWO")
+
+
+async def test_a_prompt_too_long_for_the_model_is_explained():
+    from src.studio.llm import complete
+
+    def refuse(messages):
+        raise RuntimeError("prompt is too long: 1,200,000 tokens > 1,000,000 maximum")
+
+    def fail(messages):
+        raise RuntimeError("boom")
+
+    router = FakeRouter({WRITER_ROLE: [refuse, fail]})
+    with pytest.raises(StudioError, match="story-so-far"):
+        await complete(router, WRITER_ROLE, [{"role": "user", "content": "x"}])
+    with pytest.raises(RuntimeError, match="boom"):
+        await complete(router, WRITER_ROLE, [{"role": "user", "content": "x"}])
+
+
+def test_estimate_warns_only_when_one_call_gets_very_long(book):
+    estimate = press.estimate(book, book.read_plan(), [1, 2], SETTINGS)
+    assert 0 < estimate.largest_call < estimate.input_tokens
+    assert "less reliably" not in estimate.describe()
+    long = dataclasses.replace(estimate, largest_call=600_000)
+    assert "600,000 tokens" in long.describe() and "story-so-far" in long.describe()
+
+
+def test_usage_reports_what_came_from_cache():
+    from src.studio.llm import Usage
+
+    router = FakeRouter()
+    router.usage_log += [{"prompt_tokens": 1000, "completion_tokens": 10, "cached_tokens": 800},
+                         {"prompt_tokens": 1000, "completion_tokens": 10}]
+    usage = Usage.since(router, 0)
+    assert usage.cached_tokens == 800
+    assert "2,000 tokens in (800 read from cache)" in usage.describe()

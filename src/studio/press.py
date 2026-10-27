@@ -20,7 +20,7 @@ from pathlib import Path
 from typing import TYPE_CHECKING, Callable
 
 from src.studio import prompts
-from src.studio.llm import CRITIC_ROLE, READER_ROLE, WRITER_ROLE, Usage, complete
+from src.studio.llm import CRITIC_ROLE, LONG_PROMPT_TOKENS, READER_ROLE, WRITER_ROLE, Usage, complete
 from src.studio.project import Book, ChapterPlan, Plan, StudioError, count_words
 
 if TYPE_CHECKING:
@@ -90,12 +90,20 @@ class Estimate:
     calls: int
     input_tokens: int
     output_tokens: int
+    largest_call: int = 0
 
     def describe(self) -> str:
-        return (
+        text = (
             f"about {self.calls} model call(s), roughly {self.input_tokens:,} tokens in "
             f"and {self.output_tokens:,} out"
         )
+        if self.largest_call > LONG_PROMPT_TOKENS:
+            text += (
+                f". The largest call sends about {self.largest_call:,} tokens; models read "
+                "prompts that long less reliably, so if earlier books are finished, "
+                "story-so-far notes for them would help"
+            )
+        return text
 
 
 def estimate(book: Book, plan: Plan, numbers: list[int], settings: PressSettings) -> Estimate:
@@ -103,10 +111,11 @@ def estimate(book: Book, plan: Plan, numbers: list[int], settings: PressSettings
     base = prompts.plan_tokens(plan) + _SYSTEM_TOKENS
     existing = {n: count_words(t) * TOKENS_PER_WORD for n, t in book.drafted_chapters().items()}
     chapters = plan.chapters()
-    calls = input_tokens = output_tokens = 0
+    calls = input_tokens = output_tokens = largest = 0
     for number in numbers:
         before = sum(t for n, t in existing.items() if n < number)
         draft = settings.asked_words(chapters[number]) * TOKENS_PER_WORD
+        largest = max(largest, base + before + (draft + _CRITIQUE_TOKENS if settings.revision_rounds else 0))
         calls += 1 + 2 * settings.revision_rounds
         input_tokens += base + before
         output_tokens += draft
@@ -114,7 +123,7 @@ def estimate(book: Book, plan: Plan, numbers: list[int], settings: PressSettings
             input_tokens += (base + before + draft) + (base + before + draft + _CRITIQUE_TOKENS)
             output_tokens += _CRITIQUE_TOKENS + draft
         existing[number] = draft
-    return Estimate(calls, int(input_tokens), int(output_tokens))
+    return Estimate(calls, int(input_tokens), int(output_tokens), int(largest))
 
 
 @dataclass

@@ -4,6 +4,11 @@ Every call sends the whole book: the series and book plans, any earlier books,
 and every relevant chapter in full. Nothing is summarised or retrieved by the
 tool itself. Stable material comes first so providers with prefix caching can
 reuse it across calls; the task comes last, where models attend most reliably.
+
+The user message also carries its sections as ``parts``, each chapter its own,
+with ``cache_upto`` counting the parts that come before the task. Providers
+that need explicit cache markers (Anthropic) cache at a part boundary, so the
+next chapter's call can reuse everything up to the chapter before it.
 """
 
 from __future__ import annotations
@@ -55,14 +60,20 @@ def _plan_sections(plan: Plan) -> list[str]:
     return parts
 
 
-def _chapters_section(heading: str, chapters: dict[int, str]) -> str:
+def _chapters_parts(heading: str, chapters: dict[int, str]) -> list[str]:
     if not chapters:
-        return f"# {heading}\n\n(No chapters written yet.)"
-    return f"# {heading}\n\n" + "\n\n".join(text.strip() for text in chapters.values())
+        return [f"# {heading}\n\n(No chapters written yet.)"]
+    return [f"# {heading}"] + [text.strip() for text in chapters.values()]
+
+
+def _chapters_section(heading: str, chapters: dict[int, str]) -> str:
+    return "\n\n".join(_chapters_parts(heading, chapters))
 
 
 def _messages(role: str, parts: list[str]) -> list[dict]:
-    return [_system(_prompt(role)), {"role": "user", "content": "\n\n".join(parts)}]
+    """The last part is the task; everything before it is the cacheable book."""
+    user = {"role": "user", "content": "\n\n".join(parts), "parts": parts, "cache_upto": len(parts) - 1}
+    return [_system(_prompt(role)), user]
 
 
 def _label(chapter: ChapterPlan) -> str:
@@ -95,7 +106,7 @@ def draft_messages(
     return _messages(
         "drafter",
         _plan_sections(plan)
-        + [_chapters_section("The book so far", _before(chapters, chapter.number))]
+        + _chapters_parts("The book so far", _before(chapters, chapter.number))
         + ["\n\n".join(task)],
     )
 
@@ -115,7 +126,8 @@ def critique_messages(
     return _messages(
         "critic",
         _plan_sections(plan)
-        + [_chapters_section("The book so far", _before(chapters, chapter.number)), task],
+        + _chapters_parts("The book so far", _before(chapters, chapter.number))
+        + [task],
     )
 
 
@@ -130,12 +142,8 @@ def revise_messages(
     return _messages(
         "reviser",
         _plan_sections(plan)
-        + [
-            _chapters_section(
-                f"The rest of the book (chapter {number} is shown separately below)", rest
-            ),
-            task,
-        ],
+        + _chapters_parts("The rest of the book (the chapter to revise is shown below)", rest)
+        + [task],
     )
 
 
@@ -146,7 +154,7 @@ def review_messages(plan: Plan, chapters: dict[int, str]) -> list[dict]:
         task = "# Task\n\nReview the plan above. No chapters have been drafted yet."
     return _messages(
         "reviewer",
-        _plan_sections(plan) + [_chapters_section("The book so far", chapters), task],
+        _plan_sections(plan) + _chapters_parts("The book so far", chapters) + [task],
     )
 
 
@@ -154,7 +162,7 @@ def story_so_far_messages(plan: Plan, chapters: dict[int, str]) -> list[dict]:
     task = "# Task\n\nWrite the story-so-far notes for the finished book above."
     return _messages(
         "story_so_far",
-        _plan_sections(plan) + [_chapters_section("The finished book", chapters), task],
+        _plan_sections(plan) + _chapters_parts("The finished book", chapters) + [task],
     )
 
 

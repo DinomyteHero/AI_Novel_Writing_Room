@@ -190,7 +190,7 @@ class ModelRouter:
         params = {**self._resolve_params(routing), **(override_params or {})}
         if self.is_anthropic(backend):
             system = "\n\n".join(m["content"] for m in messages if m["role"] == "system")
-            rest = [m for m in messages if m["role"] != "system"]
+            rest = _to_anthropic([m for m in messages if m["role"] != "system"], self._cache_control())
             reply = await self._anthropic_call(agent_role, backend, model, system, rest, [], params)
             return reply["content"]
         message = await self._openai_call(agent_role, backend, model, messages, params)
@@ -218,9 +218,12 @@ class ModelRouter:
         backend = routing["backend"]
         model = self._resolve_model(routing)
         params = self._resolve_params(routing)
+        # Steps within one chat turn are seconds apart, so the conversation's
+        # cache marker uses the cheaper 5-minute entry.
         if self.is_anthropic(backend):
             return await self._anthropic_call(
-                agent_role, backend, model, system, _to_anthropic(messages), tools, params, on_text
+                agent_role, backend, model, system, _to_anthropic(messages, self._cache_control("5m")),
+                tools, params, on_text,
             )
         payload_messages = [{"role": "system", "content": system}] + _to_openai(messages)
         openai_tools = [
@@ -230,7 +233,8 @@ class ModelRouter:
             for t in tools
         ]
         message = await self._openai_call(
-            agent_role, backend, model, payload_messages, params, tools=openai_tools, on_text=on_text
+            agent_role, backend, model, payload_messages, params, tools=openai_tools, on_text=on_text,
+            cache_ttl="5m",
         )
         calls = []
         for call in message.get("tool_calls") or []:
@@ -251,22 +255,22 @@ class ModelRouter:
         params: dict,
         tools: Optional[list[dict]] = None,
         on_text: Callable[[str], None] | None = None,
+        cache_ttl: str | None = None,
     ) -> dict:
-        payload = {"model": model, "messages": messages, **params}
+        # Anthropic models behind OpenRouter cache only at explicit markers on
+        # content blocks (a request-level marker is ignored there): one on the
+        # static system prompt, one where a message's stable parts end. Other
+        # providers cache matching prefixes on their own and get plain text.
+        cache_control = self._cache_control() if model.startswith("anthropic/") else None
+        if cache_control:
+            messages = self._apply_cache_control(messages, cache_control)
+        payload = {
+            "model": model,
+            "messages": _with_parts(messages, cache_control and self._cache_control(cache_ttl)),
+            **params,
+        }
         if tools:
             payload["tools"] = tools
-
-        # Prompt caching for Anthropic models. OpenRouter/Anthropic expect
-        # cache_control on a message *content block*, not at the request top
-        # level (the latter is silently ignored). Mark the large static system
-        # prompt as the cache breakpoint.
-        caching_cfg = self.config.get("pipeline", {}).get("prompt_caching", {})
-        if caching_cfg.get("enabled", False) and model.startswith("anthropic/"):
-            ttl = str(caching_cfg.get("anthropic_ttl", "1h"))
-            cache_control = {"type": "ephemeral"}
-            if ttl == "1h":
-                cache_control["ttl"] = "1h"
-            payload["messages"] = self._apply_cache_control(messages, cache_control)
 
         client = await self._get_client(backend)
         max_retries = self.config.get("pipeline", {}).get("max_http_retries", 2)
@@ -310,11 +314,14 @@ class ModelRouter:
                         f"{agent_role} (model={model}): {error_text}"
                     )
                 usage = data.get("usage") or {}
+                details = usage.get("prompt_tokens_details") or {}
                 self.usage_log.append({
                     "role": agent_role,
                     "model": model,
                     "prompt_tokens": usage.get("prompt_tokens", 0),
                     "completion_tokens": usage.get("completion_tokens", 0),
+                    "cached_tokens": details.get("cached_tokens") or 0,
+                    "cache_write_tokens": details.get("cache_write_tokens") or 0,
                     "cost": usage.get("cost"),
                 })
                 finish_reason = choices[0].get("finish_reason")
@@ -415,7 +422,9 @@ class ModelRouter:
         }
         kwargs.update({k: v for k, v in params.items() if k not in _OPENAI_ONLY_PARAMS | {"max_tokens"}})
         if system:
-            kwargs["system"] = [{"type": "text", "text": system, "cache_control": {"type": "ephemeral"}}]
+            kwargs["system"] = [{"type": "text", "text": system}]
+            if cache_control := self._cache_control():
+                kwargs["system"][0]["cache_control"] = cache_control
         if tools:
             kwargs["tools"] = [
                 {"name": t["name"], "description": t["description"], "input_schema": t["parameters"]}
@@ -439,6 +448,8 @@ class ModelRouter:
             + (getattr(usage, "cache_read_input_tokens", 0) or 0)
             + (getattr(usage, "cache_creation_input_tokens", 0) or 0),
             "completion_tokens": usage.output_tokens or 0,
+            "cached_tokens": getattr(usage, "cache_read_input_tokens", 0) or 0,
+            "cache_write_tokens": getattr(usage, "cache_creation_input_tokens", 0) or 0,
             "cost": None,
         })
         if message.stop_reason == "refusal":
@@ -450,6 +461,15 @@ class ModelRouter:
             if b.type == "tool_use"
         ]
         return {"content": text, "tool_calls": calls, "native": list(message.content)}
+
+    def _cache_control(self, ttl: str | None = None) -> dict | None:
+        """A cache marker with the configured TTL (or ``ttl``), or None when
+        prompt caching is turned off."""
+        caching = self.config.get("pipeline", {}).get("prompt_caching", {})
+        if not caching.get("enabled", False):
+            return None
+        ttl = ttl or str(caching.get("anthropic_ttl", "1h"))
+        return {"type": "ephemeral", "ttl": "1h"} if ttl == "1h" else {"type": "ephemeral"}
 
     @staticmethod
     def _apply_cache_control(messages: list[dict], cache_control: dict) -> list[dict]:
@@ -626,6 +646,30 @@ class ModelRouter:
             await client.close()
 
 
+def _blocks(message: dict, cache_control: dict | None) -> list[dict]:
+    """A message's ``parts`` as text blocks, with the marker on the last part
+    before ``cache_upto`` (the end of what stays the same between calls)."""
+    blocks = [{"type": "text", "text": part} for part in message["parts"]]
+    upto = message.get("cache_upto", len(blocks))
+    if cache_control and 0 < upto <= len(blocks):
+        blocks[upto - 1]["cache_control"] = cache_control
+    return blocks
+
+
+def _with_parts(messages: list[dict], cache_control: dict | None) -> list[dict]:
+    """OpenAI-format messages without the ``parts`` bookkeeping: content
+    blocks with a cache marker when one is given, plain text otherwise."""
+    out = []
+    for m in messages:
+        if "parts" in m:
+            plain = {k: v for k, v in m.items() if k not in ("parts", "cache_upto")}
+            if cache_control:
+                plain["content"] = _blocks(m, cache_control)
+            m = plain
+        out.append(m)
+    return out
+
+
 def _to_openai(messages: list[dict]) -> list[dict]:
     out = []
     for m in messages:
@@ -644,11 +688,11 @@ def _to_openai(messages: list[dict]) -> list[dict]:
         elif m["role"] == "tool":
             out.append({"role": "tool", "tool_call_id": m["tool_call_id"], "content": m["content"]})
         else:
-            out.append({"role": m["role"], "content": m["content"]})
+            out.append({k: m[k] for k in ("role", "content", "parts", "cache_upto") if k in m})
     return out
 
 
-def _to_anthropic(messages: list[dict]) -> list[dict]:
+def _to_anthropic(messages: list[dict], cache_control: dict | None = None) -> list[dict]:
     out: list[dict] = []
     for m in messages:
         if m["role"] == "assistant":
@@ -672,6 +716,8 @@ def _to_anthropic(messages: list[dict]) -> list[dict]:
                 last["content"].append(block)
             else:
                 out.append({"role": "user", "content": [block]})
+        elif "parts" in m:
+            out.append({"role": "user", "content": _blocks(m, cache_control)})
         else:
             out.append({"role": "user", "content": m["content"]})
     return out

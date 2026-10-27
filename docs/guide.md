@@ -226,8 +226,10 @@ python scripts/press.py story-so-far --title "Book One"
 ```
 
 Later books read each earlier book in full until it has `story_so_far.md`,
-then read the notes instead. A model call is refused above 900K tokens; the
-error says to write story-so-far notes when a series gets that long.
+then read the notes instead. The build estimate warns once a single call
+passes about 500K tokens, where models start to read less reliably, and a
+call is refused above 900K tokens (or when the model says it's too long); the
+message says to write story-so-far notes when a series gets that long.
 
 ### Export
 

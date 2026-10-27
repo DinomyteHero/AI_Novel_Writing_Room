@@ -23,7 +23,7 @@ from pathlib import Path
 from typing import TYPE_CHECKING, Callable
 
 from src.studio import press, prompts, room
-from src.studio.llm import CHAT_ROLE, MAX_PROMPT_TOKENS
+from src.studio.llm import CHAT_ROLE, MAX_PROMPT_TOKENS, TOO_LONG, too_long
 from src.studio.project import (
     REFERENCE_SUFFIXES,
     Book,
@@ -489,22 +489,28 @@ async def run_turn(
     system = system_prompt()
     if explore:
         message += "\n\nFor this turn, just explore ideas. Do not change any files or start work."
-    messages = list(history) + [{"role": "user", "content": message}]
-    size = estimate_tokens(system + "".join(str(m.get("content", "")) for m in messages))
-    if size > MAX_PROMPT_TOKENS:
-        raise StudioError(
-            f"This chat would send about {size:,} tokens, more than the {MAX_PROMPT_TOKENS:,} "
-            "the tool allows. Start a new chat, or write story-so-far notes for finished books."
-        )
+    # One part, cached whole: each step of this turn re-sends it unchanged.
+    messages = list(history) + [{"role": "user", "content": message, "parts": [message]}]
 
     reply = ""
     for _ in range(MAX_STEPS):
         if should_stop():
             raise TurnStopped()
+        size = estimate_tokens(system + "".join(str(m.get("content", "")) for m in messages))
+        if size > MAX_PROMPT_TOKENS:
+            raise StudioError(
+                f"This chat would send about {size:,} tokens, more than the {MAX_PROMPT_TOKENS:,} "
+                "the tool allows. Start a new chat, or write story-so-far notes for finished books."
+            )
         emit({"kind": "phase", "text": "Thinking about your story…"})
         available = [t for t in TOOLS if (not explore or t["name"] in ("read_file", "status")) and (selection or t["name"] != "edit_passage")]
         kwargs = {"on_text": lambda text: emit({"kind": "text", "text": text})} if on_event else {}
-        answer = await _cancellable(router.chat(CHAT_ROLE, system, messages, available, **kwargs), should_stop)
+        try:
+            answer = await _cancellable(router.chat(CHAT_ROLE, system, messages, available, **kwargs), should_stop)
+        except Exception as exc:
+            if too_long(exc):
+                raise StudioError(TOO_LONG + " Or start a new chat.") from exc
+            raise
         messages.append({"role": "assistant", **answer})
         if not answer["tool_calls"]:
             reply = answer["content"].strip()

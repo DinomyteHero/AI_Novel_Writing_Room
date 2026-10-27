@@ -57,10 +57,14 @@ favour of this design and is in git history if something specific is needed.
   bible, reference notes (`.md`/`.txt` in `reference/`, read in full), earlier books (in full, or their `story_so_far.md` when present),
   this book's plan, and the relevant chapters in full
   (`src/studio/prompts.py`). Stable material first for prefix caching; the
-  task last. **Do not add summarisers, retrieval, state stores, ledgers or
+  task last. The user message also carries its sections as `parts` (each
+  chapter its own) so the router can put Claude's cache marker just before
+  the task. **Do not add summarisers, retrieval, state stores, ledgers or
   validators.** `story_so_far.md` is the one exception, and it's an ordinary
   file the writer can read and edit. `MAX_PROMPT_TOKENS` (900K) in
-  `src/studio/llm.py` refuses oversized calls.
+  `src/studio/llm.py` refuses oversized calls, a provider's own "too long"
+  error is explained the same way, and the build estimate warns above
+  `LONG_PROMPT_TOKENS` (500K).
 - **The press builds on a frozen plan.** `build` reads the `Plan` once and
   snapshots it into `runs/<id>/plan/`, so room edits mid-build can't split a
   book across two plans. Chapters build in order, each reading the finished

@@ -206,3 +206,23 @@ async def test_whole_file_replacement_refuses_a_new_manual_edit(book):
     await chat.run_turn(book.series, book, router, [], "Update it", SETTINGS)
     assert book.bible_path.read_text(encoding="utf-8") == "# The author's new direction\n"
     assert "Read" in router.calls[1][1][-1]["content"]
+
+
+async def test_size_is_checked_every_step_and_too_long_is_explained(book, monkeypatch):
+    rel = outline_path(book)
+    router = FakeRouter({"studio_chat": [
+        {"tool_calls": [("edit_file", {"path": rel, "old_text": "- She finds the boat.",
+                                       "new_text": "- She finds the rope.", "summary": "Rope"})]},
+        "Done.",
+    ]})
+    # Pretend the tool result pushed the conversation over the limit.
+    monkeypatch.setattr(chat, "estimate_tokens", lambda text: 10**9 if f"Saved {rel}." in text else 0)
+    with pytest.raises(StudioError, match="Start a new chat"):
+        await chat.run_turn(book.series, book, router, [], "Change it.", SETTINGS)
+    assert "She finds the rope." in book.outline_path.read_text(encoding="utf-8")  # completed edits stay
+
+    def refuse(messages):
+        raise RuntimeError("This model's maximum context length is 1000000 tokens")
+
+    with pytest.raises(StudioError, match="story-so-far"):
+        await chat.run_turn(book.series, book, FakeRouter({"studio_chat": [refuse]}), [], "Hi.", SETTINGS)
