@@ -90,7 +90,8 @@ beside the conversation. Start a new chat for each piece of work: a scene, a
 review, a brainstorm. **Build** at the top of a chat opens the estimate card,
 where you choose the next chapter or all remaining. Under the message box you
 can see and change the chat model and its reasoning effort; each chat keeps
-its own choice. Open a chapter and
+its own choice. The picker has a search bar and lists current models only;
+older models are hidden. Open a chapter and
 press **Read** for a wide, book-like reading view; highlight a passage and
 press **Ask about this**, then type what you want. The theme is in
 **Settings > Appearance**. On a phone, the menu button opens the sidebar.
@@ -315,7 +316,9 @@ python scripts/press.py export          # export/manuscript.md
 In the app, **Settings** (bottom left) connects providers, picks the models
 for the Press and background reads, and sets the build options, appearance
 and review preferences. The chat model and reasoning effort are chosen in
-each chat, under its message box, and each chat keeps its own. Settings saves
+each chat, under its message box, and each chat keeps its own. Under
+**Who does what**, each role is a dropdown; older models are hidden from
+both lists. Settings saves
 your keys in `.env` and your role choices in `config/settings.local.yaml`,
 both private to your computer. The plugin asks for your key when you install
 it.

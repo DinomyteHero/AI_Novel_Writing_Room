@@ -15,7 +15,7 @@ const S = {
   job: null, jobKey: null, trayHidden: false,
   modal: null, toast: "",
   selection: null, editMode: savedReview() ? "ask" : "auto",
-  theme: savedTheme(), drawer: false, picker: false, reader: null,
+  theme: savedTheme(), drawer: false, picker: false, modelQuery: "", reader: null,
 };
 
 /* ---------- helpers ---------- */
@@ -569,9 +569,9 @@ const ACT = {
     try { localStorage.setItem("wr-review", S.editMode === "ask" ? "1" : "0"); } catch (e) { /* the choice lasts this visit only */ }
     render();
   },
-  togglePicker() { S.picker = !S.picker; render(); },
+  togglePicker() { S.picker = !S.picker; if (!S.picker) S.modelQuery = ""; render(); },
   async setChatModel(d) {
-    try { S.chat = await post("/api/chat/model", { project: S.project, chat: S.chat.id, backend: d.backend, model: d.model }); } catch (e) { return fail(e); }
+    try { S.chat = await post("/api/chat/model", { project: S.project, chat: S.chat.id, backend: d.backend, model: d.model }); S.modelQuery = ""; } catch (e) { return fail(e); }
     render();
   },
   async setChatEffort(d) {
@@ -930,13 +930,17 @@ function modelLine() {
 }
 
 function pickerHtml(role, sel) {
-  const models = role.options.map((o) => `<button type="button" class="pill ${o.backend === sel.backend && o.model === sel.model ? "on" : ""}" title="${esc(o.provider)}" ${attr({ act: "setChatModel", backend: o.backend, model: o.model })}>${esc(o.label)}</button>`).join("");
+  const q = (S.modelQuery || "").trim().toLowerCase();
+  const shown = q ? role.options.filter((o) => `${o.label} ${o.provider} ${o.model}`.toLowerCase().includes(q)) : role.options;
+  const models = shown.map((o) => `<button type="button" class="pill ${o.backend === sel.backend && o.model === sel.model ? "on" : ""}" title="${esc(o.provider)}" ${attr({ act: "setChatModel", backend: o.backend, model: o.model })}>${esc(o.label)}</button>`).join("");
   const efforts = sel.efforts.length ? `<span class="label">Reasoning effort</span><div class="pills">
       ${[["", "Default"], ...sel.efforts.map((e) => [e, e[0].toUpperCase() + e.slice(1)])].map(([value, label]) => `<button type="button" class="pill ${sel.effort === value ? "on" : ""}" ${attr({ act: "setChatEffort", effort: value })}>${esc(label)}</button>`).join("")}</div>
       <span class="hint" style="padding:0">Higher effort thinks longer before each reply: better on hard questions, slower and costlier.</span>` : "";
-  const missing = !sel.option ? '<span class="warn" style="font-size:12px">This chat\'s model isn\'t connected. Pick another above.</span>' : "";
+  const missing = !sel.option ? '<span class="warn" style="font-size:12px">This chat\'s model isn\'t offered any more. Pick another above.</span>' : "";
+  const empty = q ? "No model matches." : "Connect a provider in Settings.";
   return `<div class="picker" role="dialog" aria-label="Chat model">
-    <span class="label">Model</span><div class="pills">${models || '<span class="hint" style="padding:0">Connect a provider in Settings.</span>'}</div>
+    <input type="search" id="model-search" class="picker-search" placeholder="Search models" aria-label="Search models" data-model-query value="${esc(S.modelQuery)}">
+    <span class="label">Model</span><div class="pills">${models || `<span class="hint" style="padding:0">${empty}</span>`}</div>
     ${missing}
     ${efforts}
     <span class="hint" style="padding:0">Each chat keeps its own model and effort.</span>
@@ -1201,11 +1205,23 @@ function settingsView() {
       ${p.env ? `<span class="hint" style="padding:0">Saved on this computer in .env as ${esc(p.env)}.</span>` : ""}
     </div>`;
   }).join("");
-  const roles = st.roles.filter((r) => r.key !== "studio_chat").map((r) => `<div class="role">
-    <div><b style="font-size:15px">${esc(r.label)}</b> <span class="muted" style="font-size:13px">${esc(r.blurb)}</span></div>
-    <div class="pills">${r.options.map((o) => `<button type="button" class="pill ${o.backend === r.current.backend && o.model === r.current.model ? "on" : ""}" ${attr({ act: "setRole", role: r.key, backend: o.backend, model: o.model })}>${esc(o.label)} · ${esc(o.provider)}</button>`).join("")}</div>
-    ${!r.options.length ? '<span class="warn" style="font-size:12px">Connect a provider above to choose a model.</span>' : !r.available ? `<span class="warn" style="font-size:12px">Currently set to ${esc(r.current.model)} on ${esc(r.current.backend)}, which isn't connected. Pick one above.</span>` : ""}
-  </div>`).join("");
+  const roles = st.roles.filter((r) => r.key !== "studio_chat").map((r) => {
+    const current = r.options.find((o) => o.backend === r.current.backend && o.model === r.current.model);
+    const groups = [...new Set(r.options.map((o) => o.provider))].map((provider) => {
+      const options = r.options.filter((o) => o.provider === provider).map((o) =>
+        `<option value="${esc(o.backend)}|${esc(o.model)}" ${o.backend === r.current.backend && o.model === r.current.model ? "selected" : ""}>${esc(o.label)}</option>`
+      ).join("");
+      return `<optgroup label="${esc(provider)}">${options}</optgroup>`;
+    }).join("");
+    const select = r.options.length
+      ? `<select class="model-select" data-role-select data-role="${esc(r.key)}" aria-label="Model for ${esc(r.label)}">${current ? "" : '<option value="" selected disabled>Choose a model…</option>'}${groups}</select>`
+      : '<select class="model-select" disabled aria-label="No models available"><option>No models connected</option></select>';
+    return `<div class="role">
+      <div><b style="font-size:15px">${esc(r.label)}</b> <span class="muted" style="font-size:13px">${esc(r.blurb)}</span></div>
+      ${select}
+      ${!r.options.length ? '<span class="warn" style="font-size:12px">Connect a provider above to choose a model.</span>' : !r.available ? `<span class="warn" style="font-size:12px">Currently set to ${esc(r.current.model)} on ${esc(r.current.backend)}, which isn't offered. Pick one above.</span>` : ""}
+    </div>`;
+  }).join("");
   const pill = (field, value, label, on) => `<button type="button" class="pill ${on ? "on" : ""}" ${attr({ act: "setPress", field, value })}>${label}</button>`;
   return `<div class="scroll"><div class="page narrow">
     <h1 class="big">Settings</h1>
@@ -1320,6 +1336,7 @@ function modal() {
 }
 
 function render() {
+  if (!S.picker) S.modelQuery = "";
   const openChanges = [...document.querySelectorAll("details[data-change-id][open]")].map(el => el.dataset.changeId);
   const keep = {};
   const openGroups = [...document.querySelectorAll("details[data-group-id][open]")].map(el => el.dataset.groupId);
@@ -1378,8 +1395,19 @@ document.addEventListener("click", (e) => {
   Promise.resolve(fn(el.dataset, el)).catch(fail);
 });
 
+document.addEventListener("click", (e) => {
+  if (!S.picker) return;
+  if (e.target.closest(".picker") || e.target.closest(".model-btn")) return;
+  S.picker = false; S.modelQuery = ""; render();
+});
+
 document.addEventListener("input", (e) => {
   const el = e.target;
+  if (el.dataset && "modelQuery" in el.dataset) {
+    S.modelQuery = el.value;
+    render();
+    return;
+  }
   if (el.dataset && el.dataset.model) {
     setPath(el.dataset.model, el.value);
     if (el.closest(".bar")) autosize(el);
@@ -1388,6 +1416,10 @@ document.addEventListener("input", (e) => {
 
 document.addEventListener("change", (e) => {
   if (e.target.matches("[data-attachment-scope]")) S.pending[Number(e.target.dataset.attachmentScope)].scope = e.target.value;
+  if (e.target.matches("[data-role-select]")) {
+    const [backend, model] = e.target.value.split("|");
+    if (backend && model) Promise.resolve(ACT.setRole({ role: e.target.dataset.role, backend, model })).catch(fail);
+  }
 });
 
 document.addEventListener("selectionchange", () => {

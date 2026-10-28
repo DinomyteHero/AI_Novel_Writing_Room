@@ -514,12 +514,16 @@ def test_project_reports_book_size_and_titles_from_chapter_headings(tmp_path, co
     assert app.project(book.series.root.name)["context"]["limit"] == 262_000
 
 
-def test_a_chat_keeps_its_own_model_and_effort(tmp_path, config, book):
+def test_a_chat_keeps_its_own_model_and_effort(tmp_path, config, book, monkeypatch):
+    monkeypatch.setenv("OPENROUTER_API_KEY", "sk-or-test")
     app, router = make_app(tmp_path, config)
     app.library = Library(book.series.root.parent)
     pid = book.series.root.name
     first = app.new_chat(pid)
     second = app.new_chat(pid)
+
+    offered = {o["model"] for role in app.settings()["roles"] for o in role["options"]}
+    assert {"deepseekpro", "gemini", "gpt"}.isdisjoint(offered)
 
     app.set_chat_model(pid, first["id"], "cloud", "deepseekflash")
     record = app.set_chat_effort(pid, first["id"], "high")
@@ -543,6 +547,10 @@ def test_a_chat_keeps_its_own_model_and_effort(tmp_path, config, book):
         app.set_chat_effort(pid, first["id"], "max")
     with pytest.raises(StudioError, match="isn't available"):
         app.set_chat_model(pid, first["id"], "cloud", "not-a-model")
+    with pytest.raises(StudioError, match="isn't available"):
+        app.set_chat_model(pid, first["id"], "cloud", "deepseekpro")
+    with pytest.raises(StudioError, match="isn't available"):
+        app.set_role("studio_writer", "cloud", "gpt")
 
 
 def test_chat_model_effort_and_web_search_follow_the_settings(tmp_path, config, monkeypatch):

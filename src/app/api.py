@@ -501,7 +501,8 @@ class App:
         """Choose the model for one chat. New model means the old effort is cleared."""
         config = self.config()
         models = ((config.get("models") or {}).get(backend) or {}).get("models") or {}
-        if model not in models:
+        entry = models.get(model)
+        if entry is None or (isinstance(entry, dict) and entry.get("hidden")):
             raise StudioError("That model isn't available. Pick another in the chat.")
         with self._lock:
             record = self._load_chat(pid, cid)
@@ -971,6 +972,8 @@ class App:
             options = []
             for b in connected:
                 for alias, model in (config["models"][b].get("models") or {}).items():
+                    if isinstance(model, dict) and model.get("hidden"):
+                        continue
                     options.append({
                         "backend": b, "model": alias,
                         "label": (model.get("label") if isinstance(model, dict) else model) or alias,
@@ -1040,6 +1043,10 @@ class App:
     def set_role(self, role: str, backend: str, model: str) -> dict:
         if role not in dict((r, None) for r, _, _ in ROLES):
             raise StudioError("Unknown role.")
+        config = self.config()
+        entry = ((config.get("models") or {}).get(backend) or {}).get("models", {}).get(model)
+        if entry is None or (isinstance(entry, dict) and entry.get("hidden")):
+            raise StudioError("That model isn't available.")
         with open(self.config_path, encoding="utf-8") as f:
             base = (yaml.safe_load(f) or {}).get("agent_routing", {}).get(role, {})
         params = base.get("params", {}) if (base.get("backend"), base.get("model")) == (backend, model) else {}
