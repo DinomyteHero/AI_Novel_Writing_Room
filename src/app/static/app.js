@@ -686,7 +686,7 @@ function sidebar() {
   return `<nav class="side" aria-label="Writers Room">
     <div class="brand">${ic("book", 20, "currentColor", 1.8)}Writers Room</div>
     <div class="nav">
-      <button type="button" class="nav-btn" ${attr({ act: "home" })}><span class="plus">${ic("plus", 14, "currentColor", 2.4)}</span><b>New book</b></button>
+      <button type="button" class="nav-btn" ${attr({ act: "home" })}><span class="plus">${ic("plus", 14, "currentColor", 2.4)}</span><b>New chat</b></button>
     </div>
     <div class="side-scroll">
       <div class="side-head"><span class="label">Books</span></div>
