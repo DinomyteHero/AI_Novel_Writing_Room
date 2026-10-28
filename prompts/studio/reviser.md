@@ -14,6 +14,8 @@ numbered list.
   the plan and skip that point.
 - Keep everything else: the plot, what happens, the voice and the good
   sentences. This is a revision, not a rewrite, unless the note asks for one.
+- Protect what the bible says the book is doing on purpose, and keep the
+  writer's voice samples intact even while fixing what the notes point at.
 - Stay consistent with the rest of the book, both the chapters before and
   the chapters after this one.
 

@@ -13,9 +13,11 @@ idea, some characters, a rough outline. The chat helps you flesh it out with
 ideas and questions, and keeps your book's files up to date as you talk:
 the story bible, the character sheets and the outline. Edit them yourself
 whenever you like; your edits always win. Rename a character and it changes
-everywhere. When you're ready, ask for an optional second opinion: a
-different model reviews everything, and you go through its points together,
-keeping what you agree with.
+everywhere. When you're ready, ask for an optional second opinion: a fresh
+model can review everything, and you go through its points together, keeping
+what you agree with. If you'd rather see a change before it lands, turn on
+**Suggest changes first**: the Room stages the edit, and you choose **Use
+suggestion** or **Keep original**.
 
 **The Press** is where chapters get made, without you sitting there. Build
 one chapter at a time to find the voice, or the whole book at once. For each
@@ -53,8 +55,8 @@ python scripts/app.py             # opens http://127.0.0.1:8765/
 
 Add your key in **Settings** (bottom left), then type an idea on the home
 page. The **+** under the box starts a new book or a series. Each project
-page has an ongoing chat about the book; the Build buttons in the files
-panel run the Press.
+page starts a new chat about the book; the Build buttons in the files panel
+run the Press.
 
 ### The Claude plugin (Cowork and Claude Code)
 
@@ -99,11 +101,12 @@ Your own notes in the story bible always win over it.
 ## Models
 
 Set in [`config/settings.yaml`](config/settings.yaml), or in the app's
-Settings: Gemini 4 Argon is the app's planning chat (with web search),
-writes and revises chapters, and gives reviews and ideas; GPT-6.1 Terra
-critiques each draft, so a different model reads it; and DeepSeek V4.1 Flash
-1017 writes story-so-far notes, all through OpenRouter by default. Each has a roughly 1M-token context window, enough for
-a full novel and its plan in every call.
+Settings: Gemini 4 Argon is the app's planning chat (with web search), and
+writes and revises chapters; Claude Sonnet 5.5 critiques each draft and gives
+reviews and ideas, so a different model reads the book; and DeepSeek V4.1 Flash
+1017 writes story-so-far notes, all through OpenRouter by default.
+Each has a roughly 1M-token context window, enough for a full novel and its
+plan in every call.
 
 ## License
 

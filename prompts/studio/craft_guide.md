@@ -4,6 +4,74 @@ These are lenses, not rules. Use the ones that help this story and ignore the
 rest. A story that breaks every line below and still works is a story that
 works. The author's own notes in the story bible always win over this guide.
 
+## Start with the writer's problem
+
+Don't apply the whole guide. Pick the one or two lenses that fit what the
+writer is actually asking, and ask before prescribing.
+
+| They say | Try | Ask first |
+|---|---|---|
+| "The middle sags" | promises/progress/payoff; try/fail; the midpoint; the emotional plot | Which promise has stopped moving? What does the lead try and lose? What changes at the midpoint? |
+| "The lead feels flat" | desire/fear/contradiction; the lie they believe; the character web | What do they want that costs them? What do they believe that isn't true? Who is the answer to their problem? |
+| "The dialogue is on the nose" | dialogue as action; text and subtext; R.U.E. | What does each speaker want from the other in this beat? What are they not saying? |
+| "The prose sounds generic" | concrete detail; machine-made habits; the writer's own voice sample | Which line could only this character say? What is being explained that could be played out? |
+| "The world feels thin" | invention/completeness/consistency; world gestalten | What does the story lean on? What is implied but never explained? |
+| "The opening doesn't hook" | the reader's promise; why we care; the story question | Whose story is this, what do they want, and what does today cost them? |
+| "The next book feels like a repeat" | the series promise; character change across books; escalating cost | What is different about who they are now? What promise does this book make that the last one didn't? |
+| "I don't know where to start revising" | what changed; page time; proportion; the revision questions below | What is the one problem that, fixed, would make the rest easier? |
+
+Stop after the lens has done its job. A lens is a question to hold, not a
+checklist to complete. If two lenses disagree, name the tradeoff and let the
+writer choose; don't split the difference.
+
+## When the books disagree
+
+The shelf is not one method. Some useful arguments to hold in view:
+
+- **A map or an organism?** *Save the Cat!* offers a beat map for a
+  reader-facing story; John Truby builds from a premise, a moral argument and
+  a character web. A tight beat sheet can make a commercial novel feel
+  inevitable; it can also sand off the strangeness that makes a book worth
+  reading. Offer the map when the writer is lost, not as a test of whether the
+  book is good.
+- **Plot first or character first?** A plot-driven book can find its people
+  through what the plot forces them to do; a character-driven book can find its
+  plot through what its people want. Both can work. The question is which one
+  this book is actually doing, not which is nobler.
+- **Show or tell?** "Show, don't tell" is a useful correction for summary and
+  labelled emotion. It is not a law: close interiority, summary that covers
+  years in a line, and a narrator's direct address can all be the right move.
+  Donald Maass's "other mode" is a reminder that telling can be intimate when
+  it is inside a character's mind rather than a report about them.
+- **A formula or a form?** Christopher Vogler calls the hero's journey a form,
+  not a formula. Use the stages and archetypes as roles a story can play, not
+  as stations it must visit. A missing mentor is not a defect.
+- **A novel or a game?** Crawford's agency and choice-and-consequence are
+  useful for branching fiction, but a novel's reader is not a player. Don't
+  turn a linear book into a choice tree to make it feel interactive; make the
+  reader's inferences active instead.
+
+## The reader's promise
+
+Genre is a promise about the experience, not a set of required scenes. A
+romance promises a relationship that will be tested and worth the wait; a
+mystery promises a question the reader can play with; horror promises dread
+and a reckoning; a literary novel may promise a voice and a question rather
+than a plot. Settle what this book promises, then decide which conventions
+serve that promise and which ones this book deliberately breaks. A broken
+promise is not the same as a convention left out.
+
+## What this book is doing on purpose
+
+Some choices will look like mistakes to a general craft lens: a slow opening, a
+static character, an unreliable narrator, a stylised grammar, a romance with
+no conventional happy ending, a chapter that is only atmosphere. If the writer
+chose it, it belongs in the story bible under "What this book is doing on
+purpose." Then the useful question is not "does this follow the rule?" but
+"does the intended effect land for a reader?" Critics should raise the effect,
+not the departure, and should never ask the writer to justify an intentional
+choice to the software.
+
 ## The whole story in eight lines
 
 The quickest way to find a story's shape is to fill in these openers
@@ -59,6 +127,14 @@ side by side.
 - **Characters do things.** Readers love effort more than success. A lead
   who wants something and acts on it beats one who waits for the plot to
   arrive.
+- **Try, fail, learn, try again.** A story is a run of attempts, not a run of
+  events. Let the lead's plan meet an obstacle, cost something, and change the
+  next plan. (Christopher Vogler's tests and ordeal; John Truby's plan and
+  battle.)
+- **Make the obstacle personal.** The best opposition is not a delay; it is
+  the answer to what the lead gets wrong. A villain who only wants to rule the
+  world is a weather event. A villain who is right about the lead's weakness is
+  a story.
 
 ## Quiet scenes count
 
@@ -68,6 +144,12 @@ realisation, a relationship settling, a place the reader wants to stay in. It
 works when something shifts in how someone feels or sees, even slightly. Some
 whole books run this way, moved by feeling more than by plot. (Donald Maass,
 *The Emotional Craft of Fiction*.)
+
+It helps to know which story you are telling: the **outer story** is what
+happens; the **inner story** is what it costs and changes in someone. A quiet
+scene can carry the inner story alone, but it still needs a turn: a decision,
+an admission, a new understanding, a refusal. If nothing shifts, it is not a
+quiet scene; it is a pause.
 
 ## Why we care
 
@@ -80,6 +162,21 @@ event press on exactly that. The same goes for a place: it earns the
 reader's attention through what it means to the person standing in it. A
 striking situation with no personal stake is just an interesting problem.
 (Lisa Cron, *Wired for Story*.)
+
+Two questions sharpen it:
+
+- **What is the story question?** The thing the reader wants to know the
+  answer to: will she get home, will he say it, who took the child. If you
+  cannot state it in a sentence, the reader may not know what to wait for.
+- **What does the lead believe that isn't true?** A want is what they chase;
+  the misbelief is what makes the chase hard in the way that only this person
+  would find hard. Aim the plot at the misbelief, and the external conflict and
+  the inner change become one story. When the lead finally sees clearly, the
+  reader feels the change, not just the victory.
+
+Cause and effect is the reader's oxygen: this happened, *therefore* that, *but
+then* this. A sequence of interesting events with no "therefore" is a list of
+scenes, not a story.
 
 ## Chapters
 
@@ -125,6 +222,23 @@ None of these is needed up front. Often a character shows who they are in a
 scene first, and the sheet catches up. (David Corbett, *The Art of
 Character*.)
 
+Three more questions are worth asking, not always in the same conversation:
+
+- **What do they want, and what do they need?** The want drives the plot; the
+  need is what would actually make them whole. The gap between them is the
+  story's engine, and it can be small: to be respected versus to be known.
+- **What are they afraid of?** Not a phobia; the thing they will organise their
+  life to avoid. The fear explains the contradiction and makes the obstacle
+  bite.
+- **Who is the answer to their problem?** In a strong cast, the opponent and
+  the allies are different answers to the same question the lead is avoiding.
+  The opponent is often the shadow of the lead's own flaw: what they could
+  become, or what they already are. (John Truby's character web and opponent.)
+
+Let the reader infer the want from what a character does under pressure. A
+sheet is a place to think, not a form to fill; the scene is where the character
+becomes real.
+
 ## Worlds
 
 A made-up world needs to be consistent more than complete. Readers forgive
@@ -133,6 +247,14 @@ the story, a war nobody explains or a city only named, make a world feel
 larger than the page, and readers fill the gaps themselves. Settle what the
 story leans on and leave the rest open until a chapter needs it. (After Mark
 J. P. Wolf, *Building Imaginary Worlds*.)
+
+Completeness is an effect, not an inventory. A world feels complete when the
+story implies ordinary life beyond the frame: who grows the food, what the
+roads are like in rain, what children are told about the war. A history that
+predates the hero is more convincing than an explanation of the magic system.
+World gestalten means the reader assembles the world from fragments; give them
+a few sturdy fragments and trust them to build the rest. Explain what the
+current scene needs, and only then.
 
 ## On the page
 
@@ -160,6 +282,38 @@ J. P. Wolf, *Building Imaginary Worlds*.)
 - **Vary the rhythm.** Mix short and long sentences. Don't start every
   sentence the same way.
 
+### Dialogue is action
+
+Every line is a move. A character speaks to get something: to persuade, wound,
+deflect, bargain, be forgiven, change the subject. The **text** is what they
+say; the **subtext** is what they are doing and what it costs them to do it.
+If a line only delivers information the reader could infer, cut it or give it a
+job. If two people agree easily, the scene is probably over.
+
+- **Let the other person's line change the first.** Dialogue is action and
+  reaction, not alternating speeches.
+- **Resist the urge to explain (R.U.E.).** If the line already makes the
+  feeling clear, the adverb, the said-bookism and the explanatory beat are
+  doing the reader's work for them. Keep the beat that shows what the words
+  cost, not the one that labels them.
+- **Cover the names.** If you cannot tell who is speaking with the tags
+  removed, the voices are not distinct enough yet. Vocabulary, rhythm and what
+  a person notices are more reliable than a catchphrase.
+
+### Viewpoint and proportion
+
+- **Whose scene is it?** Stay with the character who has the most to lose in
+  the scene. Their noticing, reasoning and deciding are the reader's way in.
+- **Psychic distance is adjustable.** A sentence can be outside a character
+  ("she crossed the room") or inside ("the room had shrunk since morning");
+  move closer when the meaning matters, further when the scene needs speed.
+  Don't hop heads inside a scene without a deliberate break.
+- **Page time is meaning.** A paragraph of summary can cover a year; a page of
+  scene can cover ten seconds. Spend the reader's time where the change is.
+- **Interior monologue is not a report.** A thought should sound like the
+  character thinking, not like the author explaining the character to the
+  reader.
+
 ## Rereading a draft
 
 For revision, not the first pass (Renni Browne and Dave King, *Self-Editing
@@ -171,6 +325,21 @@ for Fiction Writers*):
   tells the reader it matters.
 - **Fewer small gestures.** A nod, a sigh or a glance between every line of
   dialogue slows it down. Keep the ones that say something.
+- **Find the explaining.** Where does the narration tell the reader what to
+  feel, or explain a joke, a motive or a line of dialogue? Cut the explanation
+  and see whether the scene still carries it. (Browne and King's R.U.E.)
+- **Check the point of view.** Whose scene is it, and does every observation
+  belong to that person? A sentence that knows more than the viewpoint
+  character can know is a small leak in the reader's trust.
+- **Check the proportion.** Is the most important moment getting the most page
+  time, or is the reader hearing about it after the fact? Move the scene onto
+  the page and summarise the travel.
+- **Read the dialogue aloud.** If you run out of breath, if every line has the
+  same rhythm, or if you cannot tell who is speaking, the page is doing the
+  work the voice should do.
+
+After the line edit, reread for the whole book: what changed, what is still
+promised, and what the reader is waiting to know.
 
 ## Things that make prose sound machine-made
 
@@ -221,15 +390,20 @@ and if it stays, make it specific to this world and these people.
 ## If you like a named structure
 
 Some writers think in a named structure, and each has something worth
-borrowing: *Save the Cat!* (Jessica Brody's novel version) for what readers
-of a given kind of story come for; the hero's journey (Christopher Vogler,
-*The Writer's Journey*) for roles such as mentor, trickster or shapeshifter
-that a character can play for a while; John Truby's *The Anatomy of Story*
-for a cast where each person is a different answer to the lead's problem.
-Use their terms when the writer does, or when someone is stuck and a map
-would help. Don't fit a story to one, and don't treat a missing beat as a
-flaw. Vogler calls his a form, not a formula; that's the way to hold all of
-them.
+borrowing. Use their terms when the writer does, or when someone is stuck and
+a map would help.
+
+| Structure | What it gives you | How to hold it |
+|---|---|---|
+| *Save the Cat!* (Jessica Brody's novel version) | A fifteen-beat map (opening image, theme, set-up, catalyst, debate, break into two, B story, fun and games, midpoint, bad guys close in, all is lost, dark night, break into three, finale, final image) and ten story genres based on the kind of change the book is making | A diagnostic for pace and promise, not a grid to fill. Ask which beats the book already has; do not add missing ones to satisfy the map. |
+| *The Writer's Journey* (Christopher Vogler) | Twelve stages (ordinary world, call, refusal, mentor, threshold, tests, approach, ordeal, reward, road back, resurrection, return) and archetypes (hero, mentor, guardian, herald, shapeshifter, shadow, ally, trickster) | A form, not a formula. Characters can play an archetype for a while and stop; a missing mentor is not a flaw. |
+| *The Anatomy of Story* (John Truby) | Seven steps (weakness/need, desire, opponent, plan, battle, self-revelation, new equilibrium), a moral argument, and a character web | An organic alternative to beat sheets. It is strongest when the book has a moral question and a cast designed around it; it can feel mechanical when applied to a quiet, episodic book. |
+
+The three disagree about where structure comes from: an audience-facing beat
+map, a mythic pattern, or a premise and a moral argument. That disagreement is
+useful. Ask the writer which one sounds like the book they are writing, then use
+that one lightly. Don't fit a story to all three, and don't treat a missing beat
+as a flaw.
 
 ## Plan a little or a lot
 
@@ -238,3 +412,33 @@ and discover the story as they go (Stephen King works this way). Both are
 real ways to write a book. The outline is a map, not a contract: if a chapter
 wants to go somewhere better, let it, then update the story bible and outline
 so the rest of the book knows.
+
+## A series is not a long book
+
+A series needs two structures at once. Each book needs its own promise, its own
+antagonist, its own change and its own ending; the series needs a larger
+question that the books answer in sequence. A reader who starts with book three
+should still get a complete story, even if some of its meaning depends on the
+first two.
+
+- **Give each book a job.** Book one may be "can they get out?"; book two may be
+  "what does getting out cost?"; book three may be "what are they willing to
+  become?" If two books have the same job, one of them is probably a chapter.
+- **Escalate the cost, not just the stakes.** A bigger army is less interesting
+  than a choice that costs the lead something they cannot get back.
+- **Let people change between books.** The character sheet for book two is not
+  a copy of book one's with a new plot; it is who they are now. Keep the cast
+  forward, then update what the events of the last book did to them.
+- **Keep the world's rules stable; let its meaning change.** A series can
+  reveal that the magic was always a bargain, but it should not quietly change
+  what the magic costs.
+- **Write the story-so-far notes before the next book needs them.** They are
+  the one deliberate compression in this tool: the writer can read and edit
+  them, and later books read them instead of the full text.
+- **Don't repeat the first book's transformation.** If the lead learned to
+  trust in book one, book two cannot be "learns to trust" again. Ask what the
+  next book tests that the last one did not.
+
+A series bible should say what the series promises, what each book is for, and
+what must not be revealed before its book. A standalone is a series of one;
+these questions still apply, just with a shorter arc.

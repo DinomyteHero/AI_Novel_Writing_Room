@@ -57,6 +57,16 @@ def test_new_series_starts_with_series_files(library: Library):
     assert book.series.title == "The Unfinished Cycle"
 
 
+def test_templates_ask_for_the_editorial_brief(library: Library):
+    book, _ = library.new_book("The Glass Harbor")
+    bible = book.bible_path.read_text(encoding="utf-8")
+    assert "## The reader's promise" in bible
+    assert "## What this book is doing on purpose" in bible
+    book_one, _ = library.new_book("Book One", series_title="The Salt Road")
+    series_bible = book_one.series.bible_path.read_text(encoding="utf-8")
+    assert "## The series promise" in series_bible
+    assert "## Each book's job" in series_bible
+
 def test_duplicate_titles_are_refused(library: Library):
     library.new_book("The Dark Lighthouse")
     with pytest.raises(StudioError, match="already a book or series"):
@@ -200,3 +210,12 @@ def test_default_settings_have_no_output_caps():
     config = yaml.safe_load((Path(__file__).parents[1] / "config" / "settings.yaml").read_text())
     for role in ("studio_chat", "studio_writer", "studio_critic", "studio_reader", "studio_notes"):
         assert "max_tokens" not in config["agent_routing"][role].get("params", {}), role
+
+
+def test_default_critic_is_sonnet_5_5():
+    import yaml
+
+    config = yaml.safe_load((Path(__file__).parents[1] / "config" / "settings.yaml").read_text())
+    critic = config["agent_routing"]["studio_critic"]
+    assert critic["backend"] == "cloud" and critic["model"] == "claudesonnet"
+    assert critic["params"] == {}

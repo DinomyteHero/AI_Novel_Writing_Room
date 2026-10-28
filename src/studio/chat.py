@@ -23,7 +23,7 @@ from pathlib import Path
 from typing import TYPE_CHECKING, Callable
 
 from src.studio import press, prompts, room
-from src.studio.llm import CHAT_ROLE, MAX_PROMPT_TOKENS, TOO_LONG, too_long
+from src.studio.llm import CHAT_ROLE, MAX_PROMPT_TOKENS, TOO_LONG, Usage, too_long
 from src.studio.project import (
     REFERENCE_SUFFIXES,
     Book,
@@ -204,6 +204,26 @@ TOOLS = [
         ),
     },
     {
+        "name": "review",
+        "description": (
+            "Ask a different model for a second opinion on the plan and chapters. Saves numbered "
+            "points with a 'Your call' line to notes/ and returns them. Use when the writer asks "
+            "for a review, or when you planned the book yourself and a fresh model would help. "
+            "Go through the points with the writer one at a time."
+        ),
+        "parameters": _schema({}, []),
+    },
+    {
+        "name": "fresh_eyes",
+        "description": (
+            "Ask a reader who has not seen the plan to read one written chapter. It receives only "
+            "the chapter, not the outline, bible or earlier chapters, so it reacts as a reader. "
+            "Saves its notes to notes/ and returns them; use when the writer wants a reader's "
+            "reaction rather than a plan-aware critique."
+        ),
+        "parameters": _schema({"chapter": {"type": "integer"}}, ["chapter"]),
+    },
+    {
         "name": "ideas",
         "description": (
             "Ask a different model for options where the plan is thinnest, for when the writer "
@@ -243,10 +263,12 @@ class TurnResult:
     reply: str
     items: list[dict] = field(default_factory=list)
     book: Book | None = None
+    usage: Usage = field(default_factory=Usage)
 
 
 class _Tools:
-    def __init__(self, series: Series, book: Book, router: "ModelRouter", settings: press.PressSettings, write_lock=None, selection=None):
+    def __init__(self, series: Series, book: Book, router: "ModelRouter", settings: press.PressSettings,
+                 write_lock=None, selection=None, edit_mode: str = "auto"):
         self.series = series
         self.book = book
         self.router = router
@@ -254,13 +276,31 @@ class _Tools:
         self.items: list[dict] = []
         self.write_lock = write_lock or threading.RLock()
         self.selection = selection
+        self.edit_mode = edit_mode
         self.seen = {p: p.read_text(encoding="utf-8") for p in book.plan_files() if p.is_file()}
 
-    def _activity(self, verb: str, path: Path, summary: str, before: str | None, after: str | None) -> None:
+    def _stage(self, path: Path, before: str | None, after: str, summary: str,
+               verb: str = "Edited") -> bool:
+        """In 'ask' mode, show the writer the change instead of saving it."""
+        if self.edit_mode != "ask":
+            return False
         self.items.append({
-            "kind": "activity", "id": new_id("a"), "verb": verb, "file": rel(self.series, path),
-            "text": summary.strip() or f"{verb} {path.name}", "before": before, "after": after,
+            "kind": "proposal", "id": new_id("p"), "verb": verb,
+            "file": rel(self.series, path), "before": before, "after": after,
+            "text": summary.strip() or f"{verb} {path.name}", "status": "pending",
         })
+        return True
+
+    def _activity(self, verb: str, path: Path | str, summary: str, before: str | None,
+                  after: str | None, changes: list[dict] | None = None) -> None:
+        item = {
+            "kind": "activity", "id": new_id("a"), "verb": verb,
+            "file": path if isinstance(path, str) else rel(self.series, path),
+            "text": summary.strip() or f"{verb} {path}", "before": before, "after": after,
+        }
+        if changes is not None:
+            item["changes"] = changes
+        self.items.append(item)
 
     def _write(self, path: Path, text: str, expected: str | None) -> None:
         with self.write_lock:
@@ -300,6 +340,8 @@ class _Tools:
                 "Read the file and copy a longer, exact passage."
             )
         updated = text.replace(old_text, new_text)
+        if self._stage(target, text, updated, summary):
+            return f"Staged {path} for the writer's approval; nothing was saved. They can use it or keep the original."
         self._write(target, updated, text)
         self._activity("Edited", target, summary, text, updated)
         return f"Saved {path}."
@@ -316,16 +358,23 @@ class _Tools:
                 raise StudioError("Read the document and copy one exact, unique passage, including its Markdown.")
             after = before.replace(old_text, new_text, 1)
             chapter = re.fullmatch(r"chapter_(\d+)\.md", target.name) if target.parent.name == "manuscript" else None
+            selected_book = None
             if chapter:
                 selected_book = next((b for b in self.series.books() if b.manuscript_dir == target.parent), None)
                 if selected_book is None:
                     raise StudioError("That chapter isn't in this series.")
+            elif not writable(self.series, target):
+                raise StudioError("That document can't be edited here.")
+            if self._stage(target, before, after, summary, "Edited passage"):
+                return (
+                    f"Staged the passage in {rel(self.series, target)}; nothing was saved. "
+                    "The writer can use it or keep the original."
+                )
+            if chapter:
                 selected_book.write_chapter(int(chapter[1]), after, selected_book.read_plan(), "passage")
                 after = target.read_text(encoding="utf-8")
-            elif writable(self.series, target):
-                self._write(target, after, before)
             else:
-                raise StudioError("That document can't be edited here.")
+                self._write(target, after, before)
             self.selection = {**self.selection, "version": version(after)}
             self._activity("Edited passage", target, summary, before, after)
         return f"Saved the passage in {rel(self.series, target)}."
@@ -338,27 +387,54 @@ class _Tools:
         if before is not None and self.seen.get(target) != before:
             raise StudioError(f"Read {path} again before replacing it; it may have changed.")
         text = content.rstrip() + "\n"
+        verb = "Created" if before is None else "Filled"
+        if self._stage(target, before, text, summary, verb):
+            return f"Staged {path} for the writer's approval; nothing was saved. They can use it or keep the original."
         self._write(target, text, before)
-        self._activity("Created" if before is None else "Filled", target, summary, before, text)
+        self._activity(verb, target, summary, before, text)
         return f"Saved {path}."
 
     async def t_rename(self, old: str, new: str, apply: bool = False) -> str:
-        hits = room.apply_rename(self.book, old, new) if apply else room.find_name(self.book, old)
-        if not hits:
+        if not apply:
+            hits = room.find_name(self.book, old)
+            if not hits:
+                return f"'{old}' doesn't appear anywhere in the series."
+            total = sum(h.count for h in hits)
+            lines = [f"- {rel(self.series, h.path)}: {h.count}" for h in hits]
+            return (
+                f"Preview only, nothing changed: {total} occurrence(s) in {len(hits)} file(s):\n"
+                + "\n".join(lines)
+            )
+
+        preview = room.find_name(self.book, old)
+        if not preview:
             return f"'{old}' doesn't appear anywhere in the series."
+        before = {hit.path: hit.path.read_text(encoding="utf-8") for hit in preview}
+        provenance = {}
+        for other in self.series.books():
+            path = other.provenance_path
+            provenance[path] = path.read_text(encoding="utf-8") if path.exists() else None
+        hits = room.apply_rename(self.book, old, new)
         total = sum(h.count for h in hits)
+        changes = [
+            {"file": rel(self.series, path), "before": text,
+             "after": path.read_text(encoding="utf-8")}
+            for path, text in before.items()
+        ]
+        for path, text in provenance.items():
+            now = path.read_text(encoding="utf-8") if path.exists() else None
+            if now != text:
+                changes.append({
+                    "file": rel(self.series, path), "before": text, "after": now,
+                })
         lines = [f"- {rel(self.series, h.path)}: {h.count}" for h in hits]
-        if apply:
-            self.items.append({
-                "kind": "activity", "id": new_id("a"), "verb": "Renamed", "file": f"{old} → {new}",
-                "text": f"{total} change(s) in {len(hits)} file(s). Earlier versions of chapters stay in history.",
-                "before": None, "after": None,
-            })
-            return f"Replaced {total} occurrence(s) in {len(hits)} file(s):\n" + "\n".join(lines)
-        return (
-            f"Preview only, nothing changed: {total} occurrence(s) in {len(hits)} file(s):\n"
-            + "\n".join(lines)
+        self._activity(
+            "Renamed", f"{old} → {new}",
+            f"{total} change(s) in {len(hits)} file(s). Earlier versions of every "
+            "changed file are in its .history folder.",
+            None, None, changes=changes,
         )
+        return f"Replaced {total} occurrence(s) in {len(hits)} file(s):\n" + "\n".join(lines)
 
     async def t_add_book(self, title: str) -> str:
         book, written = self.series.add_book(title)
@@ -372,7 +448,14 @@ class _Tools:
         return "Created:\n" + "\n".join(f"- {rel(self.series, p)}" for p in written)
 
     async def t_revise_chapter(self, chapter: int, note: str) -> str:
-        before = self.book.chapter_path(int(chapter)).read_text(encoding="utf-8") if self.book.chapter_path(int(chapter)).exists() else None
+        target = self.book.chapter_path(int(chapter))
+        before = target.read_text(encoding="utf-8") if target.exists() else None
+        if self.edit_mode == "ask":
+            text = await room.revise_chapter(
+                self.book, self.router, int(chapter), note, apply=False
+            )
+            self._stage(target, before, str(text), note.strip()[:200] or "Revised chapter", "Revised")
+            return f"Staged the revision of chapter {chapter}; nothing was saved. The writer can use it or keep the original."
         path = await room.revise_chapter(self.book, self.router, int(chapter), note)
         self.items.append({
             "kind": "activity", "id": new_id("a"), "verb": "Revised", "file": rel(self.series, path),
@@ -380,6 +463,18 @@ class _Tools:
             "before": before, "after": path.read_text(encoding="utf-8"),
         })
         return f"Revised chapter {chapter}; the earlier version is kept in history."
+
+    async def t_review(self) -> str:
+        path = await room.review(self.book, self.router)
+        text = path.read_text(encoding="utf-8")
+        self._activity("Wrote", path, "A second opinion from a different model", None, text)
+        return text
+
+    async def t_fresh_eyes(self, chapter: int) -> str:
+        path = await room.fresh_eyes(self.book, self.router, int(chapter))
+        text = path.read_text(encoding="utf-8")
+        self._activity("Wrote", path, f"Fresh-eyes notes on chapter {chapter}", None, text)
+        return text
 
     async def t_ideas(self) -> str:
         path = await room.ideas(self.book, self.router)
@@ -415,8 +510,10 @@ class _Tools:
         return "The writer now sees a build card with Build and Not now buttons. Don't start it yourself."
 
     async def t_story_so_far(self) -> str:
+        before = self.book.story_so_far_path.read_text(encoding="utf-8") if self.book.story_so_far_path.exists() else None
         path = await press.story_so_far(self.book, self.router)
-        self._activity("Wrote", path, "Story-so-far notes for later books", None, path.read_text(encoding="utf-8"))
+        text = path.read_text(encoding="utf-8")
+        self._activity("Wrote", path, "Story-so-far notes for later books", before, text)
         return f"Saved {rel(self.series, path)}."
 
 
@@ -494,6 +591,7 @@ async def run_turn(
     explore: bool = False,
     write_lock=None,
     selection: dict | None = None,
+    edit_mode: str = "auto",
 ) -> TurnResult:
     """One writer message and everything the chat does in reply.
 
@@ -501,7 +599,8 @@ async def run_turn(
     is not changed; the caller appends ``user_entry`` and the returned reply.
     """
     emit = on_event or (lambda event: None)
-    tools = _Tools(series, book, router, settings, write_lock, selection)
+    usage_start = len(router.usage_log)
+    tools = _Tools(series, book, router, settings, write_lock, selection, edit_mode)
     message = files_message(series, book)
     for name, body in attachments:
         message += "\n\n" + prompts._section(f"Attached by the writer: {name}", body)
@@ -509,6 +608,12 @@ async def run_turn(
     system = system_prompt()
     if explore:
         message += "\n\nFor this turn, just explore ideas. Do not change any files or start work."
+    if edit_mode == "ask":
+        message += (
+            "\n\nFor this turn, stage each planning-file edit, passage edit or chapter revision "
+            "as a proposal instead of saving it. The writer will see the suggested text and choose "
+            "Use suggestion or Keep original. Tell them what you staged; do not say it is saved."
+        )
     # One part, cached whole: each step of this turn re-sends it unchanged.
     messages = list(history) + [{"role": "user", "content": message, "parts": [message]}]
 
@@ -535,14 +640,19 @@ async def run_turn(
         messages.append({"role": "assistant", **answer})
         if not answer["tool_calls"]:
             reply = answer["content"].strip()
-            if _CLAIMED_CHANGE.search(reply) or (not tools.items and _CLAIMED_SAVE.search(reply)):
+            made_change = any(i["kind"] == "activity" for i in tools.items)
+            if _CLAIMED_CHANGE.search(reply) or (not made_change and _CLAIMED_SAVE.search(reply)):
                 if not nudged:
                     nudged = True
                     messages.append({"role": "user", "content": _UNSAVED})
                     continue
                 note = (
                     "Only the changes shown above as cards were saved to your files."
-                    if tools.items else "Nothing was changed in your files this turn."
+                    if made_change else (
+                        "Nothing was saved. The suggestions above are waiting for your decision."
+                        if any(i["kind"] == "proposal" for i in tools.items)
+                        else "Nothing was changed in your files this turn."
+                    )
                 )
                 reply = f"{_CLAIMED_CHANGE.sub('', reply).strip()}\n\n({note})".strip()
             break
@@ -555,9 +665,21 @@ async def run_turn(
                       "revise_chapter": "Revising the chapter…",
                       "rename": "Checking names…", "add_book": "Adding the next book…",
                       "status": "Checking the book…", "propose_build": "Preparing a build estimate…",
+                      "review": "Getting a second opinion from another model…",
+                      "fresh_eyes": "Reading the chapter as a fresh reader…",
                       "ideas": "Asking another model for ideas…",
                       "story_so_far": "Writing story-so-far notes…"}
             emit({"kind": "phase", "text": labels.get(call["name"], "Working…") + (" " + call["arguments"].get("path", "") if call["name"] in ("read_file", "edit_file", "write_file") else "")})
+            args = call["arguments"]
+            target = (args.get("path") or args.get("chapter") or args.get("which")
+                      or args.get("title") or args.get("old") or "")
+            if call["name"] == "edit_passage" and selection:
+                target = selection.get("path", "")
+            if call["name"] == "rename" and args.get("new"):
+                target = f"{args.get('old', '')} → {args['new']}"
+            tool_id = call["id"] or new_id("tc")
+            emit({"kind": "tool", "id": tool_id, "name": call["name"],
+                  "target": str(target or ""), "status": "running"})
             start = len(tools.items)
             try:
                 if explore and call["name"] not in ("read_file", "status"):
@@ -568,14 +690,20 @@ async def run_turn(
                 result, error = f"Error: {exc}", True
             except TypeError as exc:
                 result, error = f"Error: wrong arguments for {call['name']} ({exc}).", True
+            emit({"kind": "tool", "id": tool_id, "name": call["name"],
+                  "target": str(target or ""), "status": "error" if error else "done",
+                  "detail": str(result)[:300] if error else ""})
             messages.append({"role": "tool", "tool_call_id": call["id"], "content": result, "is_error": error})
             for item in tools.items[start:]:
                 emit({"kind": "item", "item": item, "book": tools.book.root.name})
     else:
         reply = "I stopped there because that was a lot of steps at once. Tell me what to do next."
     if not reply:
-        reply = "Done." if tools.items else "Sorry, I didn't get an answer back. Try again?"
-    return TurnResult(reply, tools.items, tools.book)
+        if any(i["kind"] == "proposal" for i in tools.items):
+            reply = "I staged the suggestions; choose Use suggestion or Keep original."
+        else:
+            reply = "Done." if tools.items else "Sorry, I didn't get an answer back. Try again?"
+    return TurnResult(reply, tools.items, tools.book, Usage.since(router, usage_start))
 
 
 def history_entries(text: str, attachments: list[tuple[str, str]], result: TurnResult) -> list[dict]:
@@ -602,10 +730,30 @@ def history_entries(text: str, attachments: list[tuple[str, str]], result: TurnR
 
 def undo(series: Series, item: dict) -> dict:
     """Swap a file back to how it was before (or after, to redo) an activity."""
+    undone = bool(item.get("undone"))
+    changes = item.get("changes")
+    if changes:
+        expected_key, restore_key = ("before", "after") if undone else ("after", "before")
+        resolved = []
+        for change in changes:
+            path = resolve(series, change["file"])
+            current = path.read_text(encoding="utf-8") if path.exists() else None
+            if current != change.get(expected_key):
+                raise StudioError(
+                    f"{change['file']} has changed since then, so undoing would lose those "
+                    "changes. Open the file to change it by hand, or ask in the chat."
+                )
+            resolved.append((path, change.get(restore_key)))
+        for path, restore in resolved:
+            if restore is None:
+                path.unlink(missing_ok=True)
+            else:
+                save_text(path, restore)
+        return {**item, "undone": not undone}
+
     if item.get("after") is None and item.get("before") is None:
         raise StudioError("This change can't be undone from here.")
     path = resolve(series, item["file"])
-    undone = bool(item.get("undone"))
     expected, restore = (item["before"], item["after"]) if undone else (item["after"], item["before"])
     current = path.read_text(encoding="utf-8") if path.exists() else None
     if current != expected:

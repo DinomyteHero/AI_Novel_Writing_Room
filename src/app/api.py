@@ -25,7 +25,7 @@ from typing import Callable
 import yaml
 
 from src.model_router import ModelRouter, load_config, local_overlay_path
-from src.studio import chat, jobs, press, prompts
+from src.studio import chat, jobs, press
 from src.studio.llm import LONG_PROMPT_TOKENS, MAX_PROMPT_TOKENS, provider_error
 from src.studio.project import (
     REFERENCE_SUFFIXES,
@@ -35,6 +35,7 @@ from src.studio.project import (
     StudioError,
     count_words,
     estimate_tokens,
+    history_copy,
     slugify,
 )
 
@@ -58,6 +59,25 @@ PROVIDER_BLURBS = {
 
 
 _WRITTEN_HEADING = re.compile(r"#\s*chapter\s+\d+\s*[:.\-–—]?\s*(.*)", re.IGNORECASE)
+
+
+def context_limit(config: dict) -> int:
+    """The smallest known context window among the models the roles use.
+
+    Most configured models are ~1M; a role pointed at a smaller model (for
+    example Aion's 262K) needs the meter and the build estimate to say so.
+    """
+    limits = []
+    models = config.get("models") or {}
+    for routing in (config.get("agent_routing") or {}).values():
+        if not isinstance(routing, dict):
+            continue
+        backend = routing.get("backend")
+        model = routing.get("model")
+        entry = ((models.get(backend) or {}).get("models") or {}).get(model)
+        if isinstance(entry, dict) and entry.get("context"):
+            limits.append(int(entry["context"]))
+    return min([MAX_PROMPT_TOKENS, *limits]) if limits else MAX_PROMPT_TOKENS
 
 
 def _written_title(text: str) -> str:
@@ -283,7 +303,28 @@ class App:
         reviews = sorted(book.notes_dir.glob("review_*.md"), reverse=True) if book.notes_dir.exists() else []
         ideas = sorted(book.notes_dir.glob("ideas_*.md"), reverse=True) if book.notes_dir.exists() else []
         runs = sorted((p for p in book.runs_dir.glob("*/report.md")), reverse=True) if book.runs_dir.exists() else []
-        context = prompts.plan_tokens(plan) + sum(estimate_tokens(t) for t in drafted.values())
+        interrupted = ""
+        if book.runs_dir.exists() and not (job and job.state == "running"):
+            unfinished = sorted(
+                (p for p in book.runs_dir.iterdir()
+                 if p.is_dir() and (p / "plan").is_dir() and not (p / "report.md").exists()),
+                key=lambda p: p.name,
+            )
+            if unfinished:
+                interrupted = rel(unfinished[-1])
+        parts = [
+            {"label": "Series bible", "tokens": estimate_tokens(plan.series_bible)},
+            {"label": "Reference notes", "tokens": sum(estimate_tokens(t) for _, t in plan.reference)},
+            {"label": "Earlier books", "tokens": sum(estimate_tokens(b.text) for b in plan.earlier_books)},
+            {"label": "Story bible", "tokens": estimate_tokens(plan.story_bible)},
+            {"label": "Characters", "tokens": estimate_tokens(plan.characters)},
+            {"label": "Outline", "tokens": estimate_tokens(plan.outline)},
+            {"label": "Chapters", "tokens": sum(estimate_tokens(t) for t in drafted.values())},
+        ]
+        parts = [part for part in parts if part["tokens"]]
+        context = sum(part["tokens"] for part in parts)
+        limit = context_limit(self.config())
+        long = min(LONG_PROMPT_TOKENS, int(limit * 0.6))
         return {
             "id": pid,
             "title": series.title,
@@ -300,8 +341,9 @@ class App:
             "reviews": [{"name": p.name, "path": rel(p)} for p in reviews],
             "ideas": [{"name": p.name, "path": rel(p)} for p in ideas],
             "runs": [{"name": p.parent.name, "path": rel(p)} for p in runs],
+            "interrupted": interrupted,
             # What every call about this book sends, against the size limit.
-            "context": {"tokens": context, "limit": MAX_PROMPT_TOKENS, "long": LONG_PROMPT_TOKENS},
+            "context": {"tokens": context, "limit": limit, "long": long, "parts": parts},
             "build": self._snap(series, job),
             "defaults": (
                 ("Draft only" if settings.revision_rounds == 0 else
@@ -363,7 +405,9 @@ class App:
         target = chat.resolve(series, path)
         if target.parent.name != "reference" or not target.is_file():
             raise StudioError("That isn't a reference file.")
-        target.unlink()
+        with self._lock:
+            history_copy(target)
+            target.unlink()
         return self.project(pid, folder)
 
     def attachment(self, name: str, data_b64: str) -> dict:
@@ -417,13 +461,19 @@ class App:
             for path in folder.glob("*.json"):
                 try:
                     record = json.loads(path.read_text(encoding="utf-8"))
-                except json.JSONDecodeError:
+                except (OSError, json.JSONDecodeError):
                     continue
-                said = [i for i in record["items"] if i["kind"] in ("user", "assistant")]
+                items = record.get("items") if isinstance(record, dict) else None
+                if not isinstance(items, list) or not record.get("id"):
+                    # A half-written or older chat shouldn't take down the library;
+                    # leave the file alone and show the others.
+                    continue
+                said = [i for i in items if isinstance(i, dict)
+                        and i.get("kind") in ("user", "assistant") and i.get("text")]
                 snippet = said[-1]["text"] if said else ""
                 out.append({
-                    "id": record["id"], "title": record["title"], "updated": record.get("updated", ""),
-                    "snippet": snippet[:140],
+                    "id": record["id"], "title": record.get("title", "Untitled chat"),
+                    "updated": record.get("updated", ""), "snippet": snippet[:140],
                 })
         out.sort(key=lambda c: c["updated"], reverse=True)
         return out
@@ -448,8 +498,10 @@ class App:
 
     def send(self, pid: str, cid: str, text: str, attachments: list[dict] | None = None,
              folder: str | None = None, on_event: Callable | None = None,
-             selection: dict | None = None, explore: bool = False) -> dict:
+             selection: dict | None = None, explore: bool = False,
+             edit_mode: str = "auto") -> dict:
         notify = on_event or (lambda event: None)
+        edit_mode = "ask" if edit_mode == "ask" else "auto"
         with self._lock:
             if pid in self._turns:
                 raise StudioError("The Room is already working in this project. Stop that turn or wait for it to finish.")
@@ -493,8 +545,9 @@ class App:
                                     "selection": selection, "explore": explore})
             record["turn"] = {"id": chat.new_id("t"), "state": "running", "phase": "Reading your files…",
                               "text": "", "prompt": prompt, "start": len(record["items"]),
-                              "files": [a["name"] for a in added]}
+                              "files": [a["name"] for a in added], "tools": []}
             record["book"] = book.root.name
+            record["edit_mode"] = edit_mode
             if record["title"] in ("New chat", "Project chat") and cid != PROJECT_CHAT and text.strip():
                 record["title"] = " ".join(text.split()[:6]) + ("…" if len(text.split()) > 6 else "")
             cancel = threading.Event()
@@ -516,6 +569,14 @@ class App:
                     record["items"].append(e["item"])
                     record["book"] = e.get("book", record["book"])
                     turn["text"] = ""
+                elif e["kind"] == "tool":
+                    tools = turn.setdefault("tools", [])
+                    entry = next((t for t in tools if t.get("id") == e.get("id")), None)
+                    value = {k: e.get(k) for k in ("id", "name", "target", "status", "detail")}
+                    if entry is None:
+                        tools.append(value)
+                    else:
+                        entry.update(value)
                 if e["kind"] != "text" or time.monotonic() - last_save > 0.5:
                     record["updated"] = _now()
                     self._save_chat(pid, record)
@@ -527,9 +588,10 @@ class App:
             result = self._run(lambda r: chat.run_turn(
                 series, book, r, history, prompt, settings, files,
                 on_event=event, should_stop=cancel.is_set, explore=explore, write_lock=self._lock,
-                selection=selection,
+                selection=selection, edit_mode=edit_mode,
             ))
             record["book"] = result.book.root.name if result.book else record["book"]
+            record["turn"]["usage"] = result.usage.describe()
             self._finish_turn(pid, record, "finished", result.reply)
         except chat.TurnStopped:
             self._finish_turn(pid, record, "stopped", "Stopped. Completed changes have been kept. Send your next instruction whenever you're ready.")
@@ -550,6 +612,9 @@ class App:
     def _finish_turn(self, pid: str, record: dict, state: str, reply: str) -> None:
         with self._lock:
             turn = record["turn"]
+            for tool in turn.get("tools", []):
+                if tool.get("status") == "running":
+                    tool["status"] = "stopped"
             if state != "finished" and turn.get("text", "").strip():
                 record["items"].append({"kind": "assistant", "id": chat.new_id("m"), "text": turn["text"], "incomplete": True})
             items = record["items"][turn["start"]:]
@@ -634,6 +699,67 @@ class App:
         chat.record_call(target, int(number), call)
         return self.read_file(pid, path)
 
+    def decide_proposal(self, pid: str, cid: str, item_id: str, decision: str) -> dict:
+        """Accept a staged change, or keep the writer's original text."""
+        if decision not in ("accept", "keep"):
+            raise StudioError("That isn't a choice for this suggestion.")
+        with self._lock:
+            if pid in self._turns:
+                raise StudioError("Wait for the Room to finish this turn before deciding on a suggestion.")
+            series = self.series(pid)
+            record = self.load_chat(pid, cid)
+            i, item = self._item(record, item_id)
+            if item.get("kind") != "proposal":
+                raise StudioError("That item isn't a suggested change.")
+            if item.get("status") != "pending":
+                raise StudioError("That suggestion has already been decided.")
+
+            if decision == "keep":
+                record["items"][i] = {**item, "status": "rejected"}
+                record["history"] += [
+                    {"role": "user", "content": f"[The writer kept their original text instead of the staged change: {item['text']}]"},
+                    {"role": "assistant", "content": "Noted."},
+                ]
+                record["updated"] = _now()
+                return self._save_chat(pid, record)
+
+            target = chat.resolve(series, item["file"])
+            current = target.read_text(encoding="utf-8") if target.exists() else None
+            chapter = re.fullmatch(r"chapter_(\d+)\.md", target.name) if target.parent.name == "manuscript" else None
+            if not chapter and not chat.writable(series, target):
+                raise StudioError("That suggestion points at a file the Room can't write.")
+            if current != item.get("before"):
+                record["items"][i] = {**item, "status": "stale"}
+                record["history"] += [
+                    {"role": "user", "content": "[The writer accepted a staged change, but the file had changed since it was staged. Both versions were kept.]"},
+                    {"role": "assistant", "content": "Noted."},
+                ]
+                record["updated"] = _now()
+                return self._save_chat(pid, record)
+
+            if item.get("after") is None:
+                raise StudioError("That suggestion has no new text to apply.")
+            target_book = next((b for b in series.books() if b.manuscript_dir == target.parent), None) if chapter else None
+            if chapter and not target_book:
+                raise StudioError("That chapter isn't in this series any more.")
+            if chapter and target_book:
+                target_book.write_chapter(
+                    int(chapter[1]), item["after"], target_book.read_plan(), "passage"
+                )
+            else:
+                chat.save_text(target, item["after"])
+            record["items"][i] = {
+                "kind": "activity", "id": item["id"], "verb": item.get("verb", "Edited"),
+                "file": item["file"], "text": item["text"], "before": item.get("before"),
+                "after": item["after"],
+            }
+            record["history"] += [
+                {"role": "user", "content": f"[The writer accepted the staged change: {item['text']}]"},
+                {"role": "assistant", "content": "Noted."},
+            ]
+            record["updated"] = _now()
+            return self._save_chat(pid, record)
+
 
     # --- press ----------------------------------------------------------------
 
@@ -646,6 +772,12 @@ class App:
         existing = [n for n in numbers if book.chapter_path(n).exists()]
         listed = ", ".join(str(n) for n in numbers)
         detail = guess.describe().capitalize() + "."
+        limit = context_limit(self.config())
+        if guess.largest_call > limit:
+            detail += (
+                f" The selected model can read about {limit:,} tokens, so this build would exceed "
+                "its window. Choose a larger model or write story-so-far notes for finished books."
+            )
         if existing:
             detail += " This replaces the current version; the old one is kept in history."
         return {"numbers": numbers, "title": f"Build chapter{'s' if len(numbers) > 1 else ''} {listed}?",

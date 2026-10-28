@@ -72,6 +72,75 @@ async def test_tool_errors_go_back_to_the_model_and_nothing_outside_is_touched(b
     assert result.items == []
 
 
+async def test_ask_mode_stages_an_edit_without_saving(book):
+    rel = outline_path(book)
+    before = book.outline_path.read_text(encoding="utf-8")
+    router = FakeRouter({"studio_chat": [
+        {"tool_calls": [("edit_file", {
+            "path": rel, "old_text": "## Chapter 2", "new_text": "## Chapter 2: Gone",
+            "summary": "Named chapter 2",
+        })]},
+        "Staged it; choose whether to use it.",
+    ]})
+    result = await chat.run_turn(book.series, book, router, [], "Name it", SETTINGS, edit_mode="ask")
+    [proposal] = result.items
+    assert proposal["kind"] == "proposal" and proposal["status"] == "pending"
+    assert proposal["before"] == before and "## Chapter 2: Gone" in proposal["after"]
+    assert book.outline_path.read_text(encoding="utf-8") == before
+    assert "Staged" in router.calls[1][1][-1]["content"]
+
+
+async def test_ask_mode_stages_a_chapter_revision_without_saving(book):
+    book.write_chapter(1, "# Chapter 1\n\nOriginal.", book.read_plan(), "build")
+    router = FakeRouter({
+        "studio_chat": [
+            {"tool_calls": [("revise_chapter", {"chapter": 1, "note": "make it colder"})]},
+            "Staged the revision.",
+        ],
+        "studio_writer": ["# Chapter 1\n\nColder."],
+    })
+    result = await chat.run_turn(book.series, book, router, [], "Make it colder", SETTINGS, edit_mode="ask")
+    [proposal] = result.items
+    assert proposal["kind"] == "proposal" and proposal["verb"] == "Revised"
+    assert proposal["after"].startswith("# Chapter 1\n\nColder.")
+    assert book.chapter_path(1).read_text(encoding="utf-8") == "# Chapter 1\n\nOriginal.\n"
+
+
+async def test_ask_mode_stages_a_selected_passage_without_saving(book):
+    original = "# Chapter 1\n\nBefore.\n\nThe light went out.\n\nAfter.\n"
+    book.write_chapter(1, original, book.read_plan(), "manual")
+    path = f"books/{book.root.name}/manuscript/chapter_01.md"
+    router = FakeRouter({"studio_chat": [
+        {"tool_calls": [("edit_passage", {"old_text": "The light went out.",
+                                          "new_text": "Mara killed the light.",
+                                          "summary": "Made Mara act"})]},
+        "Staged the passage.",
+    ]})
+    result = await chat.run_turn(
+        book.series, book, router, [], "Make her act", SETTINGS, edit_mode="ask",
+        selection={"path": path, "version": chat.version(original)},
+    )
+    [proposal] = result.items
+    assert proposal["kind"] == "proposal" and proposal["verb"] == "Edited passage"
+    assert book.chapter_path(1).read_text(encoding="utf-8") == original
+    assert "Mara killed the light." in proposal["after"]
+
+
+async def test_another_turn_unaffected_by_a_staged_proposal(book):
+    rel = outline_path(book)
+    router = FakeRouter({"studio_chat": [
+        {"tool_calls": [("edit_file", {
+            "path": rel, "old_text": "## Chapter 2", "new_text": "## Chapter 2: Gone",
+            "summary": "Named chapter 2",
+        })]},
+        "Staged.",
+        "The plan still says Chapter 2.",
+    ]})
+    await chat.run_turn(book.series, book, router, [], "Name it", SETTINGS, edit_mode="ask")
+    await chat.run_turn(book.series, book, router, [], "What does it say?", SETTINGS)
+    assert "## Chapter 2: Gone" not in book.outline_path.read_text(encoding="utf-8")
+
+
 async def test_undo_and_redo_and_refuse_after_a_manual_edit(book):
     rel = outline_path(book)
     before = book.outline_path.read_text(encoding="utf-8")
@@ -88,6 +157,57 @@ async def test_undo_and_redo_and_refuse_after_a_manual_edit(book):
     with pytest.raises(StudioError, match="changed since"):
         chat.undo(book.series, redone)
     assert book.outline_path.read_text(encoding="utf-8") == "The writer's own edit.\n"
+
+
+async def test_tool_events_stream_running_and_done(book):
+    rel = outline_path(book)
+    events = []
+    router = FakeRouter({"studio_chat": [
+        {"tool_calls": [("edit_file", {
+            "path": rel, "old_text": "## Chapter 2", "new_text": "## Chapter 2: Gone",
+            "summary": "Named chapter 2",
+        })]},
+        "Done.",
+    ]})
+    await chat.run_turn(book.series, book, router, [], "Name it", SETTINGS, on_event=events.append)
+    tools = [e for e in events if e["kind"] == "tool" and e["id"] == "call0"]
+    assert [t["status"] for t in tools] == ["running", "done"]
+    assert tools[0]["name"] == "edit_file" and tools[0]["target"] == rel
+
+
+async def test_story_so_far_undo_restores_the_previous_notes(book):
+    book.write_chapter(1, "# Chapter 1\n\nA chapter.", book.read_plan(), "build")
+    book.story_so_far_path.write_text("OLD NOTES\n", encoding="utf-8")
+    router = FakeRouter({
+        "studio_chat": [{"tool_calls": [("story_so_far", {})]}, "Saved."],
+        "studio_notes": ["NEW NOTES"],
+    })
+    result = await chat.run_turn(book.series, book, router, [], "Write the notes", SETTINGS)
+    [item] = result.items
+    assert item["before"] == "OLD NOTES\n" and item["after"] == "NEW NOTES\n"
+    chat.undo(book.series, item)
+    assert book.story_so_far_path.read_text(encoding="utf-8") == "OLD NOTES\n"
+
+
+async def test_rename_keeps_history_and_can_be_undone(book):
+    book.write_chapter(1, "# Chapter 1\n\nMara went out.", book.read_plan(), "build")
+    original_chapter = book.chapter_path(1).read_text(encoding="utf-8")
+    original_characters = book.characters_path.read_text(encoding="utf-8")
+    router = FakeRouter({"studio_chat": [
+        {"tool_calls": [("rename", {"old": "Mara", "new": "Maren", "apply": True})]},
+        "Renamed.",
+    ]})
+    result = await chat.run_turn(book.series, book, router, [], "Rename Mara", SETTINGS)
+    [item] = result.items
+    assert item["verb"] == "Renamed" and item["changes"]
+    assert "Maren went out." in book.chapter_path(1).read_text(encoding="utf-8")
+    assert any("Mara went out." in p.read_text(encoding="utf-8")
+               for p in book.history_dir.glob("*.md"))
+    undone = chat.undo(book.series, item)
+    assert undone["undone"]
+    assert book.chapter_path(1).read_text(encoding="utf-8") == original_chapter
+    assert book.characters_path.read_text(encoding="utf-8") == original_characters
+    assert book.chapter_state(1, book.read_plan()) == "current"
 
 
 async def test_add_book_switches_to_it_and_carries_the_cast(book):
@@ -228,14 +348,41 @@ async def test_size_is_checked_every_step_and_too_long_is_explained(book, monkey
         await chat.run_turn(book.series, book, FakeRouter({"studio_chat": [refuse]}), [], "Hi.", SETTINGS)
 
 
-async def test_the_chat_model_gives_reviews_and_ideas_itself(book):
-    # In the app, the selected chat model does reviews in the conversation;
-    # ideas come from it too unless the writer wants a second model's.
-    assert "review" not in {t["name"] for t in chat.TOOLS}
-    assert "give the second opinion yourself" in chat.system_prompt()
+async def test_the_chat_model_can_review_itself_or_ask_a_fresh_model(book):
+    # The chat can give its own review, but the app also offers a second
+    # opinion from the studio_reader model.
+    assert "review" in {t["name"] for t in chat.TOOLS}
+    assert "a fresh model sees different things" in chat.system_prompt()
     router = FakeRouter({"studio_chat": ["### 1. The middle is thin\n\nTwo options: …"]})
     result = await chat.run_turn(book.series, book, router, [], "I'm stuck.", SETTINGS)
     assert router.roles() == ["studio_chat"] and result.reply.startswith("### 1.")
+
+
+async def test_the_chat_can_ask_for_a_fresh_eyes_read(book):
+    book.write_chapter(1, "# Chapter 1\n\nA line on the page.", book.read_plan(), "build")
+    router = FakeRouter({
+        "studio_chat": [{"tool_calls": [("fresh_eyes", {"chapter": 1})]}, "Here's the reader's reaction."],
+        "studio_reader": ["What held me: the line."],
+    })
+    result = await chat.run_turn(book.series, book, router, [], "Read it fresh", SETTINGS)
+    assert router.roles() == ["studio_chat", "studio_reader", "studio_chat"]
+    [item] = result.items
+    assert item["verb"] == "Wrote" and "/notes/fresh_eyes_" in item["file"]
+    assert "lighthouse keeper's niece" not in router.calls[1][1][1]["content"]
+
+
+async def test_the_chat_can_ask_a_different_model_for_a_review(book):
+    router = FakeRouter({
+        "studio_chat": [{"tool_calls": [("review", {})]}, "Here's the second opinion."],
+        "studio_reader": ["### 1. The ferry thread stalls\n\n**What I noticed:** "
+                          "chapters five and six never mention it.\n\n**Your call:**"],
+    })
+    result = await chat.run_turn(book.series, book, router, [], "Can I get a second opinion?", SETTINGS)
+    assert router.roles() == ["studio_chat", "studio_reader", "studio_chat"]
+    [item] = result.items
+    assert item["verb"] == "Wrote" and "/notes/review_" in item["file"]
+    assert item["text"] == "A second opinion from a different model"
+    assert "### 1. The ferry thread stalls" in router.calls[2][1][-1]["content"]
 
 
 async def test_the_chat_can_ask_a_second_model_for_ideas(book):

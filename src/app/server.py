@@ -42,11 +42,15 @@ def routes(app: App) -> dict:
         ("POST", "/api/chats"): lambda p: app.new_chat(p["project"]),
         ("POST", "/api/send"): lambda p: app.send(
             p["project"], p["chat"], p.get("text", ""), p.get("attachments"), p.get("book"),
-            selection=p.get("selection"), explore=p.get("explore", False)
+            selection=p.get("selection"), explore=p.get("explore", False),
+            edit_mode=p.get("edit_mode", "auto"),
         ),
         ("POST", "/api/chat/stop"): lambda p: app.stop_turn(p["project"], p["chat"]),
         ("POST", "/api/chat/attachment/remove"): lambda p: app.forget_attachment(p["project"], p["chat"], p["path"]),
         ("POST", "/api/undo"): lambda p: app.undo(p["project"], p["chat"], p["item"]),
+        ("POST", "/api/proposal"): lambda p: app.decide_proposal(
+            p["project"], p["chat"], p["item"], p["decision"]
+        ),
         ("POST", "/api/build"): lambda p: app.build(
             p["project"], p.get("book"), p["which"], p.get("chat"), p.get("item")
         ),
@@ -155,7 +159,8 @@ def make_handler(app: App, token: str):
             try:
                 app.send(params["project"], params["chat"], params.get("text", ""),
                          params.get("attachments"), params.get("book"), on_event=emit,
-                         selection=params.get("selection"), explore=params.get("explore", False))
+                         selection=params.get("selection"), explore=params.get("explore", False),
+                         edit_mode=params.get("edit_mode", "auto"))
             except (StudioError, KeyError) as exc:
                 emit({"kind": "error", "text": str(exc)})
             except Exception:

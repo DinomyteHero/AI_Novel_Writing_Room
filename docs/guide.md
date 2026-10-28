@@ -64,11 +64,11 @@ outline, or a document to paste in. It files what you bring in your own
 words, then helps you flesh it out with options and questions.
 
 - **In the app**, type your idea on the home page (the **+** starts a book or
-  a series). Each project page has an ongoing chat about the whole book, and
-  you can open separate chats for single questions. Every file change shows
-  as a card with **Undo**; the files panel on the right shows the plan, your
-  reference files, the Build buttons and the manuscript, and you can edit any
-  plan file there.
+  a series). Each project page starts a new chat about the whole book; start
+  another for a single question or a separate piece of work. Every file change
+  shows as a card with **Undo**; the files panel on the right shows the plan,
+  your reference files, the Build buttons and the manuscript, and you can edit
+  any plan file there.
 - **With the Claude plugin**, just say what you're writing, or use
   `/writers-room:start`. Claude follows the same conversation guide and edits
   the files itself.
@@ -96,9 +96,13 @@ light, dark and your system's setting. On a phone, the menu button opens the
 sidebar.
 
 The reply appears as it is written, with activity such as reading a file or
-updating the outline. **Stop** cancels the current turn; edits already made
-are kept and still have their change cards. You can then send a different
-instruction. One planning turn runs per project at a time.
+updating the outline. A small line under the reply shows what that turn cost:
+the number of model calls and the tokens in and out. While the turn runs, a
+work log shows what the Room is reading, checking, searching or changing; it
+stays under the reply as a record. Open the context meter's **What the book
+sends** to see the token cost of each part. **Stop** cancels the current turn;
+edits already made are kept and still have their change cards. You can then
+send a different instruction. One planning turn runs per project at a time.
 
 Open a document and highlight a passage to **Discuss**, **Suggest
 alternatives**, or **Revise** it. These actions put the passage and its file
@@ -106,6 +110,12 @@ into the message box so you can add your instructions before sending.
 An agreed passage edit preserves the rest of the document and the previous
 version. **Just exploring** lets you discuss possibilities with file-changing
 tools disabled; turn it off when you want to apply a decision.
+
+**Suggest changes first** stages planning edits, passage edits and chapter
+revisions instead of saving them. Each one appears as a card with **Use
+suggestion** and **Keep original**. If the file changed after the suggestion
+was staged, it is marked stale and both versions are kept. Once accepted, it
+becomes a normal change card with **Undo**.
 
 Expand **Compare changes** on a change card to see the before and after text
 with nearby context. **Undo** refuses to overwrite a newer edit. Manual
@@ -129,7 +139,9 @@ Completed planning actions are saved during the turn. If a connection or
 model fails, the chat keeps those actions and any partial reply. After an
 app restart, an unfinished turn is marked interrupted; send a follow-up to
 continue without automatically repeating its edits. Builds still require
-the local app process to stay running.
+the local app process to stay running. If it stops before a run writes its
+report, the files panel says the build was interrupted; finished chapters are
+saved and starting a new build is safe.
 
 Or plan by hand:
 
@@ -145,16 +157,27 @@ The only format rule: each chapter in the outline starts with a
 `## Chapter N` heading (a title after it is optional). Add a line such as
 `- Words: 3500` to set a chapter's length, and a line such as
 `- Ends at: Kael says his brother's name` to say where it stops, so it
-doesn't run ahead of your plan. For a chapter that matters, the chat can help
-you break it into scenes: who wants what, what's in the way, how it turns.
-Above the chapters, an optional
+doesn't run ahead of your plan. Optional `POV`, `Threads moved` and
+`Emotional turn` lines help when a chapter needs them. For a chapter that
+matters, the chat can help you break it into scenes: who wants what, what's in
+the way, how it turns. Above the chapters, an optional
 `## The threads` section lists the promises the book makes and the characters
 who change, one line each, so every chapter is written with them in view.
+
+In the story bible, **The reader's promise** names the experience the book
+owes a reader (its genre or tradition, books it should sit beside, what would
+feel like a betrayal). **What this book is doing on purpose** records the
+choices a general craft rule would call mistakes: a slow opening, a static
+character, an unreliable narrator, a stylised voice. The co-writer and critic
+read both before the craft guide; they outrank it. A deliberate choice is
+judged by whether its effect lands, not by whether it follows the rule.
 
 In `characters.md`, each character gets a `## Name` section. The suggested
 lines are prompts, not required fields. The most useful one is **How they
 talk**: two or three sample lines help every model keep each character
-sounding like themselves.
+sounding like themselves. Optional lines for what they want and need, what
+they believe that isn't true, and what they're afraid of give the story
+something to test.
 
 ### Renaming
 
@@ -163,9 +186,11 @@ python scripts/room.py rename "Mara" "Maren"            # shows every match, cha
 python scripts/room.py rename "Mara" "Maren" --apply    # makes the change
 ```
 
-A rename covers the whole series: plans, chapters and story-so-far notes. It
-matches whole words only ("Mara's" changes, "Marathon" doesn't) and leaves
-history, build runs and reviews as a record of what was.
+A rename covers the whole series: plans, reference notes, chapters and
+story-so-far notes. It matches whole words only ("Mara's" changes, "Marathon"
+doesn't) and leaves build runs and reviews as a record of what was. Every
+changed file keeps its previous version in `.history/`, and the change card in
+the app can undo the whole rename.
 
 ### The review gate (optional)
 
@@ -174,19 +199,24 @@ python scripts/room.py review
 ```
 
 A different model reads everything (the plan and any chapters) and writes
-numbered points to `notes/`, each with what it noticed, why it matters and a
-suggested change, plus a blank **Your call** line. In the story-session chat,
-you go through the points one at a time; the chat records your decision under
-each one and makes only the changes you agree to. The chat offers a review
-once when you're ready to build; skipping it is fine. In the app, just ask
-in a chat: the chat model you've selected gives the review itself, point by
-point (switch models in the picker under the message box for a fresh eye).
+numbered points to `notes/`, each with the passage it noticed, what it does to
+a reader, why it matters for the book's promise, a suggested change, another
+option and what to protect, plus a blank **Your call** line. In the
+story-session chat, you go through the points one at a time; the chat records
+your decision under each one and makes only the changes you agree to. The chat
+offers a review once when you're ready to build; skipping it is fine. In the
+app, just ask in a chat. The chat can give its own view, or call the review
+tool to bring in a different model and save numbered points to `notes/`, then
+walk you through them. For a reader's reaction rather than a plan check, ask
+for a fresh-eyes read of one chapter: that model sees only the chapter, not
+the plan or earlier chapters.
 
 ### Stuck? Fresh ideas
 
 Tell the chat you're stuck and it picks the gap that matters most and offers
-three directions. In the app, the selected chat model does this itself. From
-the command line or the Claude plugin, for a second mind:
+three directions. In the app, the selected chat model can do this itself, or
+call its ideas tool for a different model's options. From the command line or
+the Claude plugin, for a second mind:
 
 ```bash
 python scripts/room.py ideas
@@ -287,11 +317,13 @@ Underneath, `config/settings.yaml` holds:
 - **Roles.** `studio_chat` is the app's planning chat, which can also search
   the web and read pages, and `studio_writer` drafts and revises at high
   reasoning effort (both Gemini 4 Argon); `studio_critic` critiques press
-  drafts (GPT-6.1 Terra, so a different model reads every draft);
-  `studio_reader` writes reviews and ideas (Gemini 4 Argon); `studio_notes`
-  writes story-so-far notes (DeepSeek V4.1 Flash 1017). Every call sends
-  the whole book, so pick models with ~1M-token context windows. No role caps its output length. Web searches
-  cost a little extra through OpenRouter (under a cent each).
+  drafts (Claude Sonnet 5.5, a different model from the writer);
+  `studio_reader` writes reviews and ideas (also Sonnet 5.5; switch it to
+  Opus, Kimi or GLM if you want a second opinion from a separate family);
+  `studio_notes` writes story-so-far notes (DeepSeek V4.1 Flash 1017). Every call sends the
+  whole book, so pick models with ~1M-token context windows. No role caps its
+  output length. Web searches cost a little extra through OpenRouter (under a
+  cent each).
 - **Press options.** `revision_rounds` (1), `default_chapter_words` (3000),
   `length_calibration` (1.0) and `min_revision_ratio` (0.6).
 

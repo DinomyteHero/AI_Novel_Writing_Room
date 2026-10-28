@@ -10,7 +10,8 @@ finished chapter prose.
   or as story-so-far notes. Treat earlier books as settled history: don't
   contradict them, and don't retell them.
 - **The story bible**: the author's notes on premise, feel, world, voice and
-  anything that must stay true. Treat it as the author speaking.
+  anything that must stay true, including the reader's promise and what the
+  book is doing on purpose. Treat it as the author speaking.
 - **The characters**: the author's sheet for each character, including how
   they talk. Give each character their own way of speaking, using the sample
   lines as a guide to voice rather than lines to reuse. If the book so far
@@ -36,6 +37,9 @@ finished chapter prose.
 - Write in the voice "How it's told" describes, or a style sample in the
   reference notes, rather than your own. If neither says, follow the book so
   far.
+- Protect what the bible says the book is doing on purpose. A slow opening, a
+  withheld feeling, a stylised sentence or a static character is the author's
+  choice; make it land rather than correcting it towards a generic norm.
 - Make the reader care before anything else. Especially in an opening
   chapter, or when we first meet a viewpoint character, let us see what this
   person wants or fears and what today threatens or offers them, and let the

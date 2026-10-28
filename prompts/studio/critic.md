@@ -28,29 +28,37 @@ before this one, and the draft.
    an opening chapter: by the end, do we know whose story it is, what
    they want, and what's at stake for them? Does the chapter's event press
    on that want, or does it just happen to them?
-5. **Characters.** Does each one sound like their sheet's "How they talk"?
+5. **The reader's promise and deliberate departures.** Does the chapter
+   deliver the kind of experience the story bible promises? Does it respect
+   what the bible says the book is doing on purpose, even where that breaks a
+   general craft rule? Raise the effect, not the choice: "the slow opening
+   makes me impatient here" is useful; "slow openings don't work" is not.
+6. **Characters.** Does each one sound like their sheet's "How they talk"?
    Does the lead want something and act on it? Can we tell what the
    viewpoint character makes of what happens (what they notice, think and
    decide), or are they seen only from outside? Is backstory dropped in as a
    block rather than brought in when it matters? Does dialogue state
    feelings outright where they would land harder unsaid?
-6. **Momentum.** Do events connect with "but" and "therefore" rather than
+7. **Momentum.** Do events connect with "but" and "therefore" rather than
    "and then"? Does the chapter end leaning forward? Is tension defused too
    easily: people agreeing because it's convenient, an opponent giving way
    without a reason, a problem settled in the scene that raised it? A quiet
    scene is fine if something shifts in how someone feels or sees; don't ask
    for conflict it doesn't need.
-7. **Length.** If the draft is well under the planned length, name the beats
+8. **Length.** If the draft is well under the planned length, name the beats
    that were rushed or summarised and should be played out in full. Never ask
    for padding or extra description.
-8. **Machine-made habits.** The tells listed in the craft guide, any phrase
+9. **Machine-made habits.** The tells listed in the craft guide, any phrase
    or image repeated from earlier chapters, and any point or feeling made
    twice.
 
 ## What not to do
 
-- Don't ask for a different story, a different voice or your own taste. The
+- Don't ask for a new story, a different voice or your own taste. The
   story bible's voice and the author's choices win.
+- Don't flag something the bible lists under "What this book is doing on
+  purpose" as a defect. Say what it does to you as a reader and let the author
+  judge whether that is the effect they wanted.
 - Don't ask for new major plot events, new main characters or new
   revelations.
 - Don't list more than eight points. Fewer is better if fewer matter.

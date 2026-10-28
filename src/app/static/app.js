@@ -14,7 +14,7 @@ const S = {
   settings: null, providerInput: {}, providerMsg: {},
   job: null, jobKey: null, trayHidden: false,
   modal: null, toast: "",
-  selection: null, explore: false,
+  selection: null, explore: false, editMode: "auto",
   theme: savedTheme(), drawer: false, picker: false, reader: null, files: false,
 };
 
@@ -112,6 +112,8 @@ function updateLive(record) {
   for (const el of document.querySelectorAll("[data-live-chat]")) {
     if (el.dataset.liveChat !== record.id || el.dataset.project !== record.project) continue;
     el.querySelector(".live-phase").textContent = record.turn.phase || "Working…";
+    const tools = el.querySelector(".live-tools");
+    if (tools) tools.innerHTML = toolItems(record.turn.tools);
     el.querySelector(".live-text").innerHTML = md(record.turn.text || "");
   }
 }
@@ -230,7 +232,11 @@ async function refreshProject() {
 
 let pollTimer = null;
 function watchJob(job) {
-  if (!job) return;
+  if (!job) {
+    if (pollTimer) { clearInterval(pollTimer); pollTimer = null; }
+    S.job = null; S.jobKey = null;
+    return;
+  }
   const changed = !S.job || S.job.state !== job.state;
   S.job = job;
   S.jobKey = { project: S.project, book: job.book };
@@ -269,7 +275,7 @@ async function pollJob() {
 /* ---------- actions ---------- */
 
 const ACT = {
-  async home() { S.view = "home"; S.home.note = ""; render(); focus("home-composer"); },
+  async home() { S.view = "home"; S.home.note = ""; S.editMode = "auto"; render(); focus("home-composer"); },
   async go(d) {
     S.view = d.view; S.reader = null;
     if (d.view === "settings") S.settings = await get("/api/settings").catch((e) => (fail(e), null));
@@ -288,6 +294,7 @@ const ACT = {
     const idea = S.home.draft.trim();
     if (!idea) { S.home.note = "Type an idea first, even a single line."; return render(); }
     if (!S.providers.length) { S.home.note = "Connect a model provider first. It takes a minute, in Settings."; return render(); }
+    S.editMode = "auto"; S.pending = []; S.explore = false;
     S.creating = true; render();
     try {
       const res = await post("/api/projects", { idea, kind: S.home.mode || "book", defer: true });
@@ -302,12 +309,13 @@ const ACT = {
   },
   async toggleProject(d) { S.expanded[d.project] = !S.expanded[d.project]; render(); },
   async openProject(d) {
-    S.selection = null; S.reader = null;
-    try { await loadProject(d.project); S.view = "project"; S.doc = null; S.files = false; S.projectDraft = S.projectDraft || ""; } catch (e) { return fail(e); }
+    S.selection = null; S.reader = null; S.pending = []; S.explore = false;
+    S.projectDraft = ""; S.draft = ""; S.editMode = "auto";
+    try { await loadProject(d.project); S.view = "project"; S.doc = null; S.files = false; } catch (e) { return fail(e); }
     render();
   },
   async switchBook(d) {
-    S.selection = null;
+    S.selection = null; S.pending = []; S.explore = false; S.editMode = "auto";
     try { S.data = await get("/api/project", { project: S.project, book: d.book }); S.doc = null; } catch (e) { return fail(e); }
     render();
   },
@@ -316,7 +324,8 @@ const ACT = {
       const chat = await get("/api/chat", { project: d.project, chat: d.chat });
       if (S.project !== d.project || !S.data) await loadProject(d.project);
       S.chat = chat; S.view = "chat"; S.panel = false; S.doc = null; S.draft = ""; S.reader = null;
-      S.selection = null; watchTurn(chat);
+      S.selection = null; S.pending = []; S.explore = false; S.projectDraft = "";
+      S.editMode = chat.edit_mode === "ask" ? "ask" : "auto"; watchTurn(chat);
     } catch (e) { return fail(e); }
     render(); focus("composer");
   },
@@ -325,7 +334,8 @@ const ACT = {
       const chat = await post("/api/chats", { project: d.project });
       await loadProject(d.project);
       S.chat = chat; S.view = "chat"; S.panel = false; S.doc = null;
-      S.selection = null;
+      S.selection = null; S.pending = []; S.explore = false; S.draft = ""; S.projectDraft = "";
+      S.editMode = "auto";
       await refreshState();
     } catch (e) { return fail(e); }
     render(); focus("composer");
@@ -352,7 +362,7 @@ const ACT = {
       if (S.chat?.id === cid && (S.chat.project === pid || S.chat.project === record.project)) S.chat = record;
     };
     try {
-      await streamTurn({ project: pid, chat: cid, text, attachments, book, selection, explore }, (event) => {
+      await streamTurn({ project: pid, chat: cid, text, attachments, book, selection, explore, edit_mode: S.editMode }, (event) => {
         if (event.kind === "started" || event.kind === "done") {
           record = event.record; started = true; place(); render();
         } else if (event.kind === "text") {
@@ -362,6 +372,11 @@ const ACT = {
         } else if (event.kind === "item") {
           record.items.push(event.item); record.turn.text = ""; place(); render();
           if (S.project === pid && event.item.file) refreshProject().then(render).catch(() => {});
+        } else if (event.kind === "tool") {
+          const tools = record.turn.tools || (record.turn.tools = []);
+          const entry = tools.find((t) => t.id === event.id);
+          if (entry) Object.assign(entry, event); else tools.push({ ...event });
+          updateLive(record);
         }
       });
       if (S.project === pid) {
@@ -389,6 +404,7 @@ const ACT = {
       S.toast = e.message;
     }
     S.busy = null;
+    S.explore = false;
     if (record.turn?.state === "running") watchTurn(record);
     render();
     focus(inThread ? "project-composer" : "composer");
@@ -501,6 +517,8 @@ const ACT = {
   },
   addReference(d) { pickFiles("ref", d.scope); },
   async removeReference(d) {
+    const name = String(d.path).split("/").pop();
+    if (!window.confirm(`Move ${name} to history? A copy stays in reference/.history.`)) return;
     try { S.data = await post("/api/reference/remove", { project: S.project, path: d.path, book: S.data.book.folder }); } catch (e) { return fail(e); }
     render();
   },
@@ -517,6 +535,16 @@ const ACT = {
       if (S.view === "chat") S.draft = message + "instead, "; else S.projectDraft = message + "instead, ";
       render(); return focus(S.view === "chat" ? "composer" : "project-composer");
     }
+    render();
+  },
+  async decideProposal(d) {
+    try {
+      const record = await post("/api/proposal", {
+        project: S.project, chat: d.chat, item: d.item, decision: d.decision,
+      });
+      if (d.chat === "project") S.thread = record; else S.chat = record;
+      await refreshProject();
+    } catch (e) { return fail(e); }
     render();
   },
   async exportBook() {
@@ -748,6 +776,11 @@ function shortPath(path) {
 }
 
 function changeHtml(item) {
+  if (item.changes?.length) {
+    const files = item.changes.map((c) => shortPath(c.file)).join("\n");
+    return `<details class="change-view" data-change-id="${esc(item.id)}"><summary>${item.changes.length} files changed</summary>
+      <pre class="change-after">${esc(files)}</pre></details>`;
+  }
   if (item.before == null && item.after == null) return "";
   const before = String(item.before || "").split("\n"), after = String(item.after || "").split("\n");
   let start = 0, end = 0;
@@ -759,11 +792,28 @@ function changeHtml(item) {
     <section><b>After</b><pre class="change-after">${esc(item.after == null ? "File removed" : excerpt(after))}</pre></section></div></details>`;
 }
 
+function toolLabel(name) {
+  return ({ read_file: "Read", edit_file: "Edited", write_file: "Wrote",
+    edit_passage: "Edited passage", revise_chapter: "Revised",
+    rename: "Renamed", add_book: "Added book", status: "Checked",
+    propose_build: "Prepared build", review: "Reviewed", ideas: "Asked for ideas",
+    story_so_far: "Wrote story-so-far" })[name] || String(name).replace(/_/g, " ");
+}
+
+function toolItems(tools) {
+  if (!tools?.length) return "";
+  return tools.map((t) => `<div class="tool-row ${esc(t.status)}" title="${esc(t.detail || "")}">
+    <span class="tool-dot" aria-hidden="true"></span><b>${esc(toolLabel(t.name))}</b>
+    ${t.target ? `<span class="mono">${esc(shortPath(t.target))}</span>` : ""}
+    <span class="muted">${esc(t.status === "running" ? "working" : t.status)}</span></div>`).join("");
+}
+
 function liveHtml(record) {
   if (record.turn?.state !== "running") return "";
   return `<div class="live-turn" data-live-chat="${esc(record.id)}" data-project="${esc(record.project)}">
     <div class="live-status"><span class="live-phase" role="status">${esc(record.turn.phase || "Working…")}</span>
     <button type="button" class="btn ghost small" ${attr({ act: "stopChat", project: record.project, chat: record.id })}>Stop</button></div>
+    <div class="live-tools">${toolItems(record.turn.tools)}</div>
     <div class="said live-text">${md(record.turn.text || "")}</div></div>`;
 }
 
@@ -793,7 +843,11 @@ function itemsHtml(record) {
   else if (S.busy && S.busy.chat === cid && S.busy.project === record.project) {
     out.push(`<div class="thinking"><span class="dots"><span></span><span></span><span></span></span> Reading your files and thinking…</div>`);
   }
-  return out.join("");
+  const usage = record.turn?.usage && record.turn.state !== "running"
+    ? `<div class="turn-usage">This turn: ${esc(record.turn.usage)}</div>` : "";
+  const work = record.turn?.tools?.length && record.turn.state !== "running"
+    ? `<details class="work-log"><summary>What the Room did (${record.turn.tools.length} step${record.turn.tools.length === 1 ? "" : "s"})</summary>${toolItems(record.turn.tools)}</details>` : "";
+  return out.join("") + work + usage;
 }
 
 function itemHtml(m, cid) {
@@ -805,9 +859,24 @@ function itemHtml(m, cid) {
       ${m.explore ? '<span class="muted">Just exploring</span>' : ""}${m.text ? `<div class="bubble">${esc(m.text)}</div>` : ""}</div>`;
   }
   if (m.kind === "assistant") return `<div class="said">${m.incomplete ? '<p class="muted">Partial reply · interrupted</p>' : ""}${md(m.text)}</div>`;
+  if (m.kind === "proposal") {
+    const pending = m.status === "pending";
+    const status = m.status === "stale"
+      ? '<span class="warn" style="font-size:13px">The file changed since this was staged. Both versions are kept.</span>'
+      : m.status === "rejected" ? '<span class="muted" style="font-size:13px">Kept your original.</span>' : "";
+    return `<div class="proposal ${esc(m.status)}">
+      <div style="display:flex;gap:10px;align-items:flex-start">${ic("pen", 16, "var(--accent)", 2)}
+        <div style="display:flex;flex-direction:column;gap:3px;min-width:0"><b style="font-size:14px">${esc(m.text)}</b>
+        <span class="mono muted" style="font-size:12px">${esc(shortPath(m.file))}</span></div></div>
+      ${changeHtml(m)}
+      ${pending ? `<div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button type="button" class="btn small" ${attr({ act: "decideProposal", chat: cid, item: m.id, decision: "accept" })}>Use suggestion</button>
+        <button type="button" class="btn ghost small" ${attr({ act: "decideProposal", chat: cid, item: m.id, decision: "keep" })}>Keep original</button></div>` : status}
+    </div>`;
+  }
   if (m.kind === "activity") {
     const canView = /\.(md|txt)$/.test(m.file);
-    const canUndo = m.before != null || m.after != null;
+    const canUndo = m.before != null || m.after != null || (m.changes && m.changes.length);
     return `<div class="activity ${m.undone ? "undone" : ""}">${ic("pen", 16, "var(--accent)", 2)}
       <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3px">
         <div class="what">${m.undone ? "Undid" : esc(m.verb)} <span class="mono" style="color:var(--ink)">${esc(shortPath(m.file))}</span></div>
@@ -854,6 +923,7 @@ function composer(id, model, placeholder, where) {
   const record = where === "thread" ? S.thread : S.chat;
   const references = record?.attachments || [];
   return `<div class="session-controls"><label><input type="checkbox" data-explore ${S.explore ? "checked" : ""}> Just exploring · leave files unchanged</label>
+    <label title="Planning files, passages and chapter revisions. Builds and renames still ask separately."><input type="checkbox" data-ask-edits ${S.editMode === "ask" ? "checked" : ""}> Suggest changes first</label>
     ${references.length ? `<details><summary>References in this chat (${references.length})</summary>${references.map(a => `<div class="chat-reference"><button type="button" class="link" ${attr({ act: "openFile", path: a.path })}>${esc(a.name)}</button><button type="button" class="link" ${busy ? "disabled" : ""} ${attr({ act: "forgetAttachment", chat: record.id, path: a.path })}>Remove from context</button></div>`).join("")}</details>` : ""}</div>
     ${S.selection ? `<div class="selected-passage"><b>Selected in ${esc(shortPath(S.selection.path))}</b><blockquote>${esc(S.selection.text)}</blockquote><button type="button" class="link" ${attr({ act: "clearSelection" })}>Clear selection</button></div>` : ""}
     <div class="bar">
@@ -1018,6 +1088,7 @@ function filesPanel() {
       <span class="hint">${d.referenceTokens ? `Every chat and build reads about ${fmt(d.referenceTokens)} tokens of reference.` : "Add canon notes, research or a style sample (.md, .txt or .docx)."}</span></div>
     <div class="group" style="gap:6px"><span class="label" style="padding:0 8px">Build${d.isSeries ? ` · Book ${d.book.number}` : ""}</span>
       <div class="build-box"><span style="font-size:14px;line-height:1.45">${esc(status)}</span>
+        ${d.interrupted ? `<span class="hint warn" style="padding:0">A previous build stopped before it wrote its report. Finished chapters are saved; start a new build when you're ready.</span>` : ""}
         <div style="display:flex;gap:8px;flex-wrap:wrap">
           <button type="button" class="btn small" ${running || !next ? "disabled" : ""} ${attr({ act: "buildAsk", which: "next" })}>Build next chapter</button>
           <button type="button" class="btn ghost small" ${running || !next ? "disabled" : ""} ${attr({ act: "buildAsk", which: "all" })}>Build all remaining</button></div>
@@ -1053,8 +1124,10 @@ function contextHtml() {
   if (!c) return "";
   const share = c.tokens / c.limit;
   const long = c.tokens > c.long;
+  const parts = c.parts || [];
   return `<div class="meter-row"><span class="muted">Every message and build sends the whole book</span><b>${fmtK(c.tokens)} / ${fmtK(c.limit)}</b></div>
     <div class="meter" role="meter" aria-label="Book size against the limit" aria-valuemin="0" aria-valuemax="${c.limit}" aria-valuenow="${c.tokens}"><span class="${long ? "long" : ""}" style="width:${Math.max(1, Math.min(100, Math.round(share * 100)))}%"></span></div>
+    ${parts.length ? `<details class="context-parts"><summary>What the book sends</summary>${parts.map((p) => `<div class="context-part"><span>${esc(p.label)}</span><b>${fmtK(p.tokens)}</b></div>`).join("")}</details>` : ""}
     ${long ? `<span class="hint warn" style="padding:0">Past about ${fmtK(c.long)} tokens, models read less reliably. Story-so-far notes for finished books help.</span>` : ""}`;
 }
 
@@ -1232,6 +1305,12 @@ const HELP = [
   { kind: "Chapters", title: "What changed?", body: "The one useful test for a chapter: what is different at the end than at the start? A new fact, a changed relationship, a decision, a loss, a belief that cracks. If nothing changed, it is probably part of its neighbour.", tryLabel: "Test my chapters", ask: "Does every chapter in my outline change something?" },
   { kind: "Purpose", title: "Everything matters to someone", body: "For any character, place or event, ask what it changes, reveals or makes harder for someone we care about. Small answers count, and \"it's fun\" counts too. A subplot earns its place by running into the main story. Ask it when rereading, not while drafting.", tryLabel: "Find loose threads", ask: "Is anything in my plan not pulling its weight yet?" },
   { kind: "On the page", title: "Make it concrete", body: "A named thing, a specific sound, an exact gesture beats a general feeling. Let characters talk instead of summarising them. Let us inside the viewpoint character: what they notice, think and decide. Show the moment and trust the reader; don't label the emotion afterwards.", example: "\"Her coffee had gone cold an hour ago\" carries more than \"she was tired\"." },
+  { kind: "Craft", title: "What is this book promising?", body: "Genre is a promise about the experience, not a set of required scenes: a romance, a mystery, a horror, a literary novel each owe the reader something. Name the promise, then decide which conventions serve it and which ones this book deliberately breaks. Put it under The reader's promise in the story bible.", tryLabel: "Name the promise", ask: "Help me name the reader's promise for this book, and which conventions we're keeping or breaking." },
+  { kind: "Craft", title: "Some choices are on purpose", body: "A slow opening, a static character, an unreliable narrator, a stylised voice: a general rule may call these mistakes. If you chose them, record them under What this book is doing on purpose. The useful question is whether the effect lands for a reader, not whether it follows the rule.", tryLabel: "Protect a choice", ask: "Which choices in my plan look like mistakes to a general rule but are deliberate? Help me record them." },
+  { kind: "Craft", title: "A scene needs a turn", body: "Someone wants something, something gets in the way, and the scene turns: a yes-but, a no-and, a decision, a new understanding. A quiet scene can work if something shifts inside someone. If nothing changes, it is probably part of its neighbour.", tryLabel: "Test a scene", ask: "Does this chapter's main scene turn? What does someone want, what gets in the way, and what changes?" },
+  { kind: "Craft", title: "Dialogue is action", body: "Every line is a move: to persuade, wound, deflect, bargain or be forgiven. The text is what is said; the subtext is what the character is doing. If a line only delivers information the reader could infer, cut it or give it a job. Read it aloud and cover the names.", tryLabel: "Look at a scene", ask: "Where is my dialogue on the nose? What does each speaker want from the other, and what are they not saying?" },
+  { kind: "Craft", title: "A series is not a long book", body: "Each book needs its own promise, antagonist, change and ending; the series needs a larger question. Give each book a job the last one didn't, escalate the cost rather than just the stakes, and let people change between books. Two books with the same job are usually one book.", tryLabel: "Check the series", ask: "Does each book in my series have its own job and change, or am I repeating the same story?" },
+  { kind: "Craft", title: "A reader who hasn't seen the plan", body: "The plan-aware critic asks whether a chapter does its job. A fresh-eyes read asks something different: what holds a reader, where they drift, what they expect next. Ask for a fresh-eyes read of one chapter; it sees only the chapter, not the outline or earlier books.", tryLabel: "Read a chapter fresh", ask: "Give me a fresh-eyes read of chapter 1." },
   { kind: "Working with the room", title: "Getting the most from your co-writer", body: "Talk naturally and change your mind freely; the files keep up. Edit any file yourself whenever you like. Ask the chat for a second opinion before building (a new chat keeps it separate), then build two or three chapters one at a time before building the rest. Nothing is lost: every old version is kept." },
 ];
 
@@ -1354,6 +1433,7 @@ document.addEventListener("input", (e) => {
 document.addEventListener("change", (e) => {
   if (e.target.matches("[data-attachment-scope]")) S.pending[Number(e.target.dataset.attachmentScope)].scope = e.target.value;
   if (e.target.matches("[data-explore]")) S.explore = e.target.checked;
+  if (e.target.matches("[data-ask-edits]")) S.editMode = e.target.checked ? "ask" : "auto";
 });
 
 document.addEventListener("selectionchange", () => {

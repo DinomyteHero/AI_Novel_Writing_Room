@@ -107,6 +107,18 @@ async def test_check_passes_the_router_answer_through():
     assert await room.check(router) == (False, "Invalid API key (401 Unauthorized)")
 
 
+async def test_fresh_eyes_sees_only_the_chapter(book):
+    book.write_chapter(1, "# Chapter 1\n\nA line on the page.", book.read_plan(), "build")
+    router = FakeRouter({READER_ROLE: ["What held me: the line."]})
+    path = await room.fresh_eyes(book, router, 1)
+    assert router.roles() == [READER_ROLE]
+    assert "Fresh Eyes" in router.system_message(0)
+    user = router.user_message(0)
+    assert "A line on the page." in user
+    assert "lighthouse keeper's niece" not in user  # no plan leaks in
+    assert path.parent == book.notes_dir and path.name.startswith("fresh_eyes_")
+
+
 async def test_ideas_offer_options_in_the_review_shape(book):
     router = FakeRouter({READER_ROLE: ["### 1. Why the light went dark\n\n**Options:**\n- **A.** x\n\n**Your call:**"]})
     path = await room.ideas(book, router)

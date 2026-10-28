@@ -32,6 +32,9 @@ library/
 # Your app settings (model choices, local server address)
 config/settings.local.yaml
 
+# Local evaluation and model-comparison runs
+output/
+
 # Environment variables
 .env
 .env.*

@@ -11,11 +11,18 @@ them true to who everyone is in this book.
 
 - **In a line:**
 - **Wants:**
+- **Needs (optional):** what would actually make them whole, as opposed to what
+  they are chasing.
 - **In the way:**
+- **Believes (optional):** the thing they believe that isn't true, which the
+  story will test.
+- **Afraid of (optional):** what they will organise their life to avoid.
 - **How they talk:**
   - "A line they might say."
 - **With others:**
 - **Gets wrong (optional):**
+- **Changes by the end (optional):** what they would have to admit, lose or
+  choose.
 - **Quick facts:**
 - **Where they are now:**
 

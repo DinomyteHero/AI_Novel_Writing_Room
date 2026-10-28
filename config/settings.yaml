@@ -23,14 +23,14 @@ models:
       gpt: { id: openai/gpt-5.5, label: GPT-5.5 }
       terra: { id: openai/gpt-6.1-terra, label: GPT-6.1 Terra }
       haiku: { id: anthropic/claude-haiku-5.5, label: Claude Haiku 5.5 }
-      glm: { id: z-ai/glm-5.3, label: GLM 5.3 }
+      glm: { id: z-ai/glm-5.3, label: GLM 5.3, context: 1000000, efforts: [max] }
       minimax: { id: minimax/minimax-m3.1-flash, label: MiniMax M3.1 Flash }
       # AionLabs' storytelling systems: several models behind one endpoint,
       # tuned to keep tension up. Their 262K-token window holds one book of
       # up to about 150K words, not a whole series, so try them as the writer
       # on a standalone book.
-      aion: { id: aion-labs/aion-3.5, label: Aion 3.5 (262K context) }
-      aionmini: { id: aion-labs/aion-3.5-mini, label: Aion 3.5 Mini (262K context) }
+      aion: { id: aion-labs/aion-3.5, label: Aion 3.5 (262K context), context: 262000 }
+      aionmini: { id: aion-labs/aion-3.5-mini, label: Aion 3.5 Mini (262K context), context: 262000 }
     default_params: {}
 
   anthropic:
@@ -74,23 +74,28 @@ models:
 # windows. studio_chat is the room's conversation in the app (it edits the
 # plan files, and can search the web and read pages through OpenRouter's
 # server tools); studio_writer drafts and revises at high reasoning effort;
-# studio_critic critiques each press draft (a different model catches
-# different blind spots); studio_reader writes room reviews; studio_notes
-# writes story-so-far notes. To try another model, change `model` to another
-# key under models.cloud.models (or add one there). All request settings live
-# here in `params`, so they follow the role, not the model. No role caps its
-# output length (max_tokens), so each model can answer at full length; add one
-# to `params` only if you need it. The DeepSeek roles pin OpenRouter to
-# DeepSeek's own servers (`provider`) rather than reduced-precision hosts;
-# remove that pin if you point a role at a different model. The Gemini roles
-# set no temperature: the model reasons by default and is tuned at its own
-# settings. The app's Settings page writes your choices to
+# studio_critic critiques each press draft (Claude Sonnet 5.5: a different
+# model from the Gemini writer, and strong enough to read every chapter);
+# studio_reader writes room reviews and ideas (also Sonnet 5.5; switch it to
+# Opus, Kimi or GLM if you want a second opinion from a separate family);
+# studio_notes writes story-so-far notes. To try another model, change `model`
+# to another key under models.cloud.models (or add one there). All request
+# settings live here in `params`, so they follow the role, not the model. No
+# role caps its output length (max_tokens), so each model can answer at full
+# length; add one to `params` only if you need it. The DeepSeek roles pin
+# OpenRouter to DeepSeek's own servers (`provider`) rather than reduced-precision
+# hosts; remove that pin if you point a role at a different model. The Gemini
+# roles set no temperature: the model reasons by default and is tuned at its
+# own settings. The app's Settings page writes your choices to
 # config/settings.local.yaml, which overrides these.
 agent_routing:
   studio_chat:            { backend: cloud, model: geminiargon, params: { tools: [{ type: "openrouter:web_search" }, { type: "openrouter:web_fetch", parameters: { max_content_tokens: 50000 } }] } }
+  # Gemini is the value default for drafting; for the strongest prose on a
+  # standalone book, switch studio_writer to cloud/claude (Opus 5.5) with
+  # reasoning effort high. It costs more per call but reads the same 1M window.
   studio_writer:          { backend: cloud, model: geminiargon, params: { reasoning: { effort: "high" } } }
-  studio_critic:          { backend: cloud, model: terra, params: {} }
-  studio_reader:          { backend: cloud, model: geminiargon, params: {} }
+  studio_critic:          { backend: cloud, model: claudesonnet, params: {} }
+  studio_reader:          { backend: cloud, model: claudesonnet, params: {} }
   studio_notes:           { backend: cloud, model: deepseekflash, params: { provider: { order: [deepseek], only: [deepseek], allow_fallbacks: false } } }
 
 # The press (scripts/press.py build).

@@ -30,6 +30,7 @@ from __future__ import annotations
 import hashlib
 import json
 import re
+import shutil
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
@@ -81,6 +82,30 @@ def _digest(text: str) -> str:
 
 def _read(path: Path) -> str:
     return path.read_text(encoding="utf-8") if path.exists() else ""
+
+
+def history_copy(path: Path) -> Path | None:
+    """Keep the current text beside the file before it is replaced or removed."""
+    if not path.exists() or not path.is_file():
+        return None
+    history = path.parent / ".history"
+    history.mkdir(exist_ok=True)
+    stamp = datetime.now().strftime("%Y%m%d-%H%M%S-%f")
+    target = history / f"{path.stem}.{stamp}{path.suffix}"
+    suffix = 2
+    while target.exists():
+        target = history / f"{path.stem}.{stamp}-{suffix}{path.suffix}"
+        suffix += 1
+    shutil.copy2(path, target)
+    return target
+
+
+def save_with_history(path: Path, text: str) -> None:
+    """Replace a text file, keeping the previous version in its .history folder."""
+    if path.exists():
+        history_copy(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(text, encoding="utf-8")
 
 
 def _write_template(name: str, target: Path, title: str) -> Path:

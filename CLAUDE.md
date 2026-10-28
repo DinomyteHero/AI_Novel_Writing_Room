@@ -82,17 +82,28 @@ favour of this design and is in git history if something specific is needed.
   them and applies only agreed edits. Never make review mandatory.
   `room.py ideas` uses the same shape for options where the plan is thin;
   a model never fills in the plan unasked. In the app there are no review or
-  ideas buttons: the writer asks in a chat and the selected chat model does
-  it in the conversation (`prompts/studio/room_chat.md`), calling its `ideas`
-  tool when the writer wants a second model's options; the project page
-  starts a new chat for each piece of work.
+  ideas buttons: the writer asks in a chat, and the chat can do either in the
+  conversation or call its `review`/`ideas` tools to bring in the
+  `studio_reader` model and save numbered notes; `fresh_eyes` gives a reader
+  pass on one chapter without the plan. The project page starts a new chat for
+  each piece of work.
 - **Loose craft framework.** `prompts/studio/craft_guide.md` is the single
   home for craft guidance (lenses, not rules); prompts, the skill and docs
-  point at it rather than restating it. The writer's bible always wins. **Do
-  not add required beats, percentages, arc fields or schemas.**
+  point at it rather than restating it. The writer's bible always wins, and
+  the bible's "The reader's promise" and "What this book is doing on purpose"
+  outrank the guide. **Do not add required beats, percentages, arc fields or
+  schemas.**
 - **Never lose the writer's work.** Every replacement goes to `.history/`;
   rebuilding an existing chapter asks first (`--yes` skips); an empty model
-  response saves nothing; renames preview before `--apply`.
+  response saves nothing; renames preview before `--apply`, keep the previous
+  text and can be undone; removing a reference moves it to `reference/.history`
+  instead of deleting it.
+- **Suggestions are proposals.** "Suggest changes first" makes `edit_file`,
+  `write_file`, `edit_passage` and `revise_chapter` stage a `proposal` item
+  instead of saving; the writer accepts or keeps it. Acceptance compares the
+  current text with the proposal's `before`, marks it stale rather than
+  overwriting a newer edit, and turns the accepted item into a normal activity
+  with Undo. Builds remain their own operation.
 - **No output caps by default.** Roles in `config/settings.yaml` set no
   `max_tokens`; `tests/test_library.py::test_default_settings_have_no_output_caps`
   guards this.

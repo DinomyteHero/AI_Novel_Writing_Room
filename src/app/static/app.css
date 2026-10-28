@@ -206,6 +206,7 @@ h2.sub { margin: 0; font-size: 15px; font-weight: 700; }
 .said > :first-child { margin-top: 0; }
 .said > :last-child { margin-bottom: 0; }
 .thinking { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 14px; }
+.turn-usage { font-size: 11px; color: var(--faint); padding: 2px 0 8px; font-variant-numeric: tabular-nums; }
 .dots span { display: inline-block; width: 6px; height: 6px; margin-right: 3px; border-radius: 50%; background: var(--accent); animation: blink 1.2s infinite both; }
 .dots span:nth-child(2) { animation-delay: .2s; } .dots span:nth-child(3) { animation-delay: .4s; }
 @keyframes blink { 0%, 80%, 100% { opacity: .2; } 40% { opacity: 1; } }
@@ -215,6 +216,8 @@ h2.sub { margin: 0; font-size: 15px; font-weight: 700; }
 .activity .text { font-size: 14px; overflow-wrap: anywhere; }
 .activity.undone .text { color: var(--muted); text-decoration: line-through; }
 .approval { display: flex; flex-direction: column; gap: 10px; background: var(--paper); border: 1.5px solid var(--accent); border-radius: 12px; padding: 14px 16px; }
+.proposal { display: flex; flex-direction: column; gap: 10px; background: var(--paper); border: 1.5px solid var(--accent); border-radius: 12px; padding: 14px 16px; }
+.proposal.rejected, .proposal.stale { border-color: var(--line-strong); }
 .result { display: flex; gap: 10px; align-items: center; background: var(--soft); border-radius: 10px; padding: 10px 12px; }
 .files-line { font-size: 13px; color: var(--muted); }
 .composer-wrap { flex: none; padding: 10px 24px 18px; }
@@ -254,6 +257,17 @@ h2.sub { margin: 0; font-size: 15px; font-weight: 700; }
 /* settings */
 .live-turn { width: 100%; min-width: 0; }
 .live-status { display: flex; gap: 12px; align-items: center; justify-content: space-between; color: var(--muted); font-size: 13px; }
+.live-tools { display: flex; flex-direction: column; gap: 2px; margin-top: 8px; }
+.tool-row { display: flex; align-items: baseline; gap: 8px; font-size: 12px; color: var(--muted); padding: 1px 0; }
+.tool-row b { font-size: 12px; font-weight: 600; color: var(--ink); }
+.tool-row .muted { margin-left: auto; font-size: 11px; }
+.tool-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--faint); flex: none; }
+.tool-row.running .tool-dot { background: var(--accent); animation: blink 1.2s infinite; }
+.tool-row.error .tool-dot { background: var(--warn); }
+.tool-row.done .tool-dot { background: var(--accent); }
+.work-log { border: 1px solid var(--line-soft); border-radius: 8px; padding: 4px 10px; font-size: 12px; display: flex; flex-direction: column; }
+.work-log summary { cursor: pointer; color: var(--muted); padding: 4px 0; }
+.work-log .tool-row { padding: 2px 0; }
 .live-text { margin-top: 12px; }
 .live-text:empty { display: none; }
 .session-controls { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 12px; color: var(--muted); align-items: center; }
@@ -351,6 +365,10 @@ h2.sub { margin: 0; font-size: 15px; font-weight: 700; }
 .meter { height: 6px; border-radius: 999px; background: var(--line-soft); overflow: hidden; }
 .meter span { display: block; height: 100%; background: var(--accent); border-radius: 999px; }
 .meter span.long { background: var(--warn); }
+.context-parts { font-size: 12px; color: var(--muted); }
+.context-parts summary { cursor: pointer; padding: 5px 0 2px; }
+.context-part { display: flex; justify-content: space-between; gap: 8px; padding: 2px 0; }
+.context-part b { color: var(--ink); font-variant-numeric: tabular-nums; }
 
 /* the rail beside a chat */
 .rail { flex: none; width: 300px; overflow-y: auto; background: var(--bg); border-left: 1px solid var(--line); padding: 14px; display: flex; flex-direction: column; gap: 12px; }

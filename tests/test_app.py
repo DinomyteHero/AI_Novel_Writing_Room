@@ -43,6 +43,86 @@ def write_bible(messages):
     })]}
 
 
+def test_a_staged_change_can_be_used_kept_or_marked_stale(tmp_path, config, book):
+    app, router = make_app(tmp_path, config)
+    app.library = Library(book.series.root.parent)
+    pid = book.series.root.name
+    rel = f"books/{book.root.name}/outline.md"
+    original = book.outline_path.read_text(encoding="utf-8")
+
+    router.responses["studio_chat"] = [
+        {"tool_calls": [("edit_file", {
+            "path": rel, "old_text": "## Chapter 2", "new_text": "## Chapter 2: Gone",
+            "summary": "Named chapter 2",
+        })]},
+        "Staged it.",
+    ]
+    record = app.send(pid, "project", "Name chapter 2", edit_mode="ask")
+    proposal = next(i for i in record["items"] if i["kind"] == "proposal")
+    assert book.outline_path.read_text(encoding="utf-8") == original
+    record = app.decide_proposal(pid, "project", proposal["id"], "accept")
+    accepted = next(i for i in record["items"] if i["id"] == proposal["id"])
+    assert accepted["kind"] == "activity" and "## Chapter 2: Gone" in book.outline_path.read_text()
+    assert any("## Chapter 2" in p.read_text(encoding="utf-8") for p in book.root.glob(".history/*"))
+    assert app.undo(pid, "project", proposal["id"])["items"]  # the accepted change is undoable
+
+    router.responses["studio_chat"] = [
+        {"tool_calls": [("edit_file", {
+            "path": rel, "old_text": "## Chapter 2", "new_text": "## Chapter 2: Gone",
+            "summary": "Named chapter 2",
+        })]},
+        "Staged it again.",
+    ]
+    record = app.send(pid, "project", "Try again", edit_mode="ask")
+    proposal = next(i for i in record["items"] if i["kind"] == "proposal")
+    record = app.decide_proposal(pid, "project", proposal["id"], "keep")
+    kept = next(i for i in record["items"] if i["id"] == proposal["id"])
+    assert kept["status"] == "rejected" and "## Chapter 2: Gone" not in book.outline_path.read_text()
+
+    router.responses["studio_chat"] = [
+        {"tool_calls": [("edit_file", {
+            "path": rel, "old_text": "## Chapter 2", "new_text": "## Chapter 2: Gone",
+            "summary": "Named chapter 2",
+        })]},
+        "Staged a third time.",
+    ]
+    record = app.send(pid, "project", "One more", edit_mode="ask")
+    proposal = next(i for i in record["items"] if i["kind"] == "proposal" and i["status"] == "pending")
+    book.outline_path.write_text("The writer edited this at the same time.\n", encoding="utf-8")
+    record = app.decide_proposal(pid, "project", proposal["id"], "accept")
+    stale = next(i for i in record["items"] if i["id"] == proposal["id"])
+    assert stale["status"] == "stale"
+    assert book.outline_path.read_text(encoding="utf-8") == "The writer edited this at the same time.\n"
+
+
+def test_a_staged_chapter_revision_can_be_accepted(tmp_path, config, book):
+    app, router = make_app(tmp_path, config)
+    app.library = Library(book.series.root.parent)
+    book.write_chapter(1, "# Chapter 1\n\nOriginal.", book.read_plan(), "build")
+    router.responses["studio_chat"] = [
+        {"tool_calls": [("revise_chapter", {"chapter": 1, "note": "colder"})]},
+        "Staged the revision.",
+    ]
+    router.responses["studio_writer"] = ["# Chapter 1\n\nColder."]
+    record = app.send(book.series.root.name, "project", "Make it colder", edit_mode="ask")
+    proposal = next(i for i in record["items"] if i["kind"] == "proposal")
+    assert book.chapter_path(1).read_text(encoding="utf-8") == "# Chapter 1\n\nOriginal.\n"
+    app.decide_proposal(book.series.root.name, "project", proposal["id"], "accept")
+    assert book.chapter_path(1).read_text(encoding="utf-8") == "# Chapter 1\n\nColder.\n"
+    assert any("Original." in p.read_text(encoding="utf-8") for p in book.history_dir.glob("*.md"))
+
+
+def test_an_unfinished_run_is_reported_as_interrupted(tmp_path, config, book):
+    app, _ = make_app(tmp_path, config)
+    app.library = Library(book.series.root.parent)
+    run = book.runs_dir / "20260101-000000"
+    (run / "plan").mkdir(parents=True)
+    data = app.project(book.series.root.name)
+    assert data["interrupted"] == f"books/{book.root.name}/runs/20260101-000000"
+    (run / "report.md").write_text("done\n", encoding="utf-8")
+    assert app.project(book.series.root.name)["interrupted"] == ""
+
+
 def test_new_project_runs_the_first_turn_in_the_project_chat(tmp_path, config):
     app, router = make_app(tmp_path, config, FakeRouter({"studio_chat": [write_bible, "What should we call Mara's uncle?"]}))
     result = app.create_project("A lighthouse keeper's niece finds the light dark.")
@@ -81,11 +161,25 @@ def test_send_undo_and_chat_listing(tmp_path, config, book):
     chat = app.new_chat(pid)
     record = app.send(pid, chat["id"], "Call chapter 2 Gone")
     activity = next(i for i in record["items"] if i["kind"] == "activity")
+    assert record["turn"]["usage"].startswith("2 call(s)")
     assert "Chapter 2: Gone" in book.outline_path.read_text(encoding="utf-8")
     assert record["title"] == "Call chapter 2 Gone"
     record = app.undo(pid, chat["id"], activity["id"])
     assert "Chapter 2: Gone" not in book.outline_path.read_text(encoding="utf-8")
     assert app.recents()[0]["title"] == "Call chapter 2 Gone"
+
+
+def test_a_corrupt_chat_is_skipped_not_fatal(tmp_path, config, book):
+    app, _ = make_app(tmp_path, config)
+    app.library = Library(book.series.root.parent)
+    chats = book.series.root / "chats"
+    chats.mkdir()
+    (chats / "broken.json").write_text(
+        json.dumps({"id": "broken", "title": "Broken", "updated": "2026-01-01"}), encoding="utf-8"
+    )
+    projects = app.projects()
+    assert projects and all(c["id"] != "broken" for p in projects for c in p["chats"])
+    assert not any(c["id"] == "broken" for c in app.recents())
 
 
 def test_build_from_a_card_records_the_result(tmp_path, config, book):
@@ -122,6 +216,18 @@ def test_reference_upload_reads_word_files_and_refuses_images(tmp_path, config, 
         app.add_reference(pid, "book", None, "map.png", base64.b64encode(b"x").decode())
 
 
+def test_removing_a_reference_keeps_a_history_copy(tmp_path, config, book):
+    app, _ = make_app(tmp_path, config)
+    app.library = Library(book.series.root.parent)
+    pid = book.series.root.name
+    app.add_reference(pid, "book", None, "canon.md", base64.b64encode(b"The ferry runs Tuesdays.").decode())
+    ref = book.reference_dir / "canon.md"
+    app.remove_reference(pid, f"books/{book.root.name}/reference/canon.md")
+    assert not ref.exists()
+    copies = list((book.reference_dir / ".history").glob("canon.*.md"))
+    assert copies and "The ferry runs Tuesdays." in copies[0].read_text(encoding="utf-8")
+
+
 def test_writer_edits_keep_the_old_chapter_and_refuse_odd_paths(tmp_path, config, book):
     app, _ = make_app(tmp_path, config)
     app.library = Library(book.series.root.parent)
@@ -154,7 +260,7 @@ def test_settings_write_keys_and_choices_outside_settings_yaml(tmp_path, config,
     # Moving the writer drops the old model's own settings (its reasoning effort).
     assert overlay["agent_routing"]["studio_writer"] == {"backend": "cloud", "model": "claude", "params": {}}
     assert app.press_settings().revision_rounds == 2
-    assert app.config()["agent_routing"]["studio_critic"]["model"] == "terra"
+    assert app.config()["agent_routing"]["studio_critic"]["model"] == "claudesonnet"
     assert config.read_text(encoding="utf-8") == before
 
     with pytest.raises(StudioError, match="one line"):
@@ -386,6 +492,11 @@ def test_project_reports_book_size_and_titles_from_chapter_headings(tmp_path, co
     assert titles[1] == "The Storm"  # from the outline
     assert titles[2] == "Low Water"  # the outline has none, so the chapter's own heading
     assert 0 < data["context"]["tokens"] < data["context"]["limit"]
+    assert data["context"]["parts"]
+    assert sum(p["tokens"] for p in data["context"]["parts"]) == data["context"]["tokens"]
+    # A role on a smaller model makes the meter honest about that model.
+    app.set_role("studio_writer", "cloud", "aion")
+    assert app.project(book.series.root.name)["context"]["limit"] == 262_000
 
 
 def test_chat_model_effort_and_web_search_follow_the_settings(tmp_path, config, monkeypatch):

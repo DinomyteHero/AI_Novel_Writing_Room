@@ -20,9 +20,16 @@ so nothing gets forgotten halfway. "Not sure yet" is fine.
 
 - What happens:
 - What's different by the end:
+- POV / where and when (optional):
+- Threads moved (optional):
+- Emotional turn (optional): what someone feels, admits or decides, beyond the
+  plot.
 - Ends at (optional):
 
 ## Chapter 2
 
 - What happens:
 - What's different by the end:
+- POV / where and when (optional):
+- Threads moved (optional):
+- Emotional turn (optional):

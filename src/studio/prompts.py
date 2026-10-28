@@ -174,6 +174,14 @@ def story_so_far_messages(plan: Plan, chapters: dict[int, str]) -> list[dict]:
     )
 
 
+def fresh_eyes_messages(text: str) -> list[dict]:
+    """A reader who has not seen the plan; deliberately no plan or craft guide."""
+    return [
+        {"role": "system", "content": _prompt("fresh_eyes")},
+        {"role": "user", "content": text.strip()},
+    ]
+
+
 def message_tokens(messages: list[dict]) -> int:
     return estimate_tokens("".join(m["content"] for m in messages))
 

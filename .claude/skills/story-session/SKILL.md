@@ -155,7 +155,12 @@ first two or three chapters, and start building.
   under "Minor characters" or out. Never edit an earlier book's sheet to
   match; it records who they were then.
 - Keep the arc across books loose in `series_bible.md`: a direction for each
-  book, not a fixed plan.
+  book, not a fixed plan. Say what each book is for under "Each book's job":
+  the one promise it makes that the last book didn't, and what it leaves for
+  the next. Two books with the same job are usually one book.
+- When the series is planned, add its promise under "The series promise": what
+  a reader gets from the whole run, and what must not be revealed before its
+  book.
 - When a book is finished and the next is starting, suggest
   `python scripts/press.py story-so-far --title "<finished book>"`. Later books
   then read those notes instead of the full text, which keeps long series
@@ -183,6 +188,14 @@ first two or three chapters, and start building.
   Without it the press writes in its own voice. If the writer has a page
   they'd like it to sound like (their own writing, or a short passage they
   choose), offer to keep it as `reference/style_sample.md`.
+- **The reader's promise, and what the book is doing on purpose.** Settle what
+  kind of experience the book promises a reader (its genre or tradition, a
+  couple of books it should sit beside, what would feel like a betrayal) and
+  the choices a general rule would call mistakes: a slow opening, a static
+  character, an unreliable narrator, a stylised voice. Put both in the story
+  bible. The co-writer and the critic read them before the craft guide, and
+  they outrank it. A deliberate choice is judged by whether its effect lands,
+  not by whether it follows the rule.
 - **World**: only what the story needs. For fanfiction, settle which canon,
   where the story branches from it, and what's kept or changed. Places that
   come back get a line each under "The world", so they stay the same.

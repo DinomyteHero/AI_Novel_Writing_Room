@@ -30,8 +30,9 @@ Choose the gaps that matter most, at most six, most important first.
 ## How to offer ideas
 
 - Build on what's there. Every option must fit the author's premise, feel,
-  world, characters and things to keep true, and contradict nothing in the
-  plan or the chapters.
+  world, characters, "The reader's promise" and "What this book is doing on
+  purpose", and contradict nothing in the plan or the chapters. An option that
+  quietly fixes a deliberate choice is not an option.
 - Give two or three options per gap that are genuinely different
   directions, not variations of one. At least one should surprise.
 - Be specific: a named person, a concrete event, a real cost. "Raise the

@@ -14,15 +14,23 @@ from typing import TYPE_CHECKING
 
 from src.studio import prompts
 from src.studio.llm import READER_ROLE, WRITER_ROLE, complete
-from src.studio.project import Book, StudioError, count_words, estimate_tokens
+from src.studio.project import (
+    REFERENCE_SUFFIXES,
+    Book,
+    StudioError,
+    count_words,
+    estimate_tokens,
+    save_with_history,
+)
 
 if TYPE_CHECKING:
     from src.model_router import ModelRouter
 
 
 async def revise_chapter(
-    book: Book, router: "ModelRouter", number: int, note: str, source: str = "revise"
-) -> Path:
+    book: Book, router: "ModelRouter", number: int, note: str, source: str = "revise",
+    apply: bool = True,
+) -> Path | str:
     chapters = book.drafted_chapters()
     if number not in chapters:
         raise StudioError(f"Chapter {number} hasn't been written yet.")
@@ -33,6 +41,8 @@ async def revise_chapter(
     text = await complete(router, WRITER_ROLE, messages)
     if book.chapter_path(number).read_text(encoding="utf-8").strip() != chapters[number].strip():
         raise StudioError("This chapter changed while I was revising it. Your edit was kept; ask me to revise it again.")
+    if not apply:
+        return text
     return book.write_chapter(number, text, plan, source)
 
 
@@ -59,6 +69,15 @@ async def ideas(book: Book, router: "ModelRouter") -> Path:
     return _save_note(book, "ideas", text)
 
 
+async def fresh_eyes(book: Book, router: "ModelRouter", number: int) -> Path:
+    """A reader with only one chapter: no plan, no earlier chapters, no craft guide."""
+    chapters = book.drafted_chapters()
+    if number not in chapters:
+        raise StudioError(f"Chapter {number} hasn't been written yet.")
+    text = await complete(router, READER_ROLE, prompts.fresh_eyes_messages(chapters[number]))
+    return _save_note(book, "fresh_eyes", text)
+
+
 def _save_note(book: Book, kind: str, text: str) -> Path:
     book.notes_dir.mkdir(parents=True, exist_ok=True)
     path = book.notes_dir / f"{kind}_{datetime.now():%Y%m%d-%H%M%S}.md"
@@ -82,12 +101,19 @@ def _name_pattern(name: str) -> re.Pattern:
 
 
 def rename_scope(book: Book) -> list[Path]:
-    """Every file a rename touches: the series' plans, every book's plan,
-    chapters and story-so-far notes. History, runs and reviews are left as
-    a record of what was."""
+    """Every file a rename touches: the series' plans and reference notes, every
+    book's plan, reference notes, chapters and story-so-far notes. History, runs
+    and reviews are left as a record of what was."""
     files = list(book.series.plan_files())
+    for folder in (book.series.reference_dir,):
+        if folder.is_dir():
+            files += [p for p in sorted(folder.iterdir())
+                      if p.is_file() and p.suffix.lower() in REFERENCE_SUFFIXES]
     for other in book.series.books():
         files += [p for p in (other.bible_path, other.characters_path, other.outline_path) if p.exists()]
+        if other.reference_dir.is_dir():
+            files += [p for p in sorted(other.reference_dir.iterdir())
+                      if p.is_file() and p.suffix.lower() in REFERENCE_SUFFIXES]
         files += sorted(other.manuscript_dir.glob("chapter_*.md"))
         if other.story_so_far_path.exists():
             files.append(other.story_so_far_path)
@@ -123,7 +149,7 @@ def apply_rename(book: Book, old: str, new: str) -> list[RenameHit]:
     pattern = _name_pattern(old)
     for hit in hits:
         text = hit.path.read_text(encoding="utf-8")
-        hit.path.write_text(pattern.sub(new, text), encoding="utf-8")
+        save_with_history(hit.path, pattern.sub(new, text))
     for other in book.series.books():
         plan = other.read_plan()
         for number in current[other.root]:
