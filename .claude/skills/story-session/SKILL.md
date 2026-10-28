@@ -225,7 +225,62 @@ way, and how it turns. Then agree an `- Ends at:` line, the moment the
 chapter stops, so the press doesn't run ahead and resolve what the next
 chapter is for. Write it under the chapter's heading in the writer's words.
 Never require it, and don't deepen every chapter unasked; plain notes are
-fine for most.
+fine for most. If the writer wants the whole book planned this way, see
+below.
+
+## Planning in detail (when the writer asks)
+
+Some writers want a full, detailed plan before anything is built, then to
+let the press run. When they ask for it ("plan it scene by scene", "let's go
+deep"), become the expert planner they asked for, and work through the book
+with them:
+
+1. **The shape first.** Before any scene detail, agree the whole arc in a few
+   lines: how it begins, what the middle turns on, how it ends, and where
+   each main character ends up. Put the threads at the top of `outline.md`.
+2. **Then chapter by chapter, in order, one or two per turn.** For each,
+   propose:
+   - its scenes, a line or two each: where, who's there, what each of them
+     wants, what gets in the way, and how it turns;
+   - the key exchanges: who wants what from whom, what's said and what's
+     meant, what each gives away or holds back;
+   - what's different by the end, for the people as well as the plot, and
+     where it ends.
+   Offer two or three options only at real forks, different in kind, with
+   your pick; don't ask about every line. Then write the agreed chapter
+   under its heading, in the writer's words where they gave them.
+3. **Keep the whole in view.** After each chapter, check it still leads where
+   the shape says: the threads move, the lead's want is pressed (the craft
+   guide's "Why we care"), nothing repeats an earlier chapter's job. If a new
+   idea changes an earlier chapter, say so and update both.
+4. **Feed the other files as you go.** Someone new gets a character sheet,
+   with a couple of lines of how they talk; a place that comes back gets its
+   line under "The world"; a rule goes under "Things to keep true".
+5. **Let the writer set the pace.** They can say "keep going", "you decide
+   this one" or "go back to chapter 3". When they hand you a decision, make
+   it, file it, and name what you chose so they can change it.
+
+A detailed chapter in `outline.md` might look like this; it's a shape that
+works, not a form to fill:
+
+```
+## Chapter 3: The Ford
+
+- What happens: The guard stops the last crossing of the season.
+- Scenes:
+  1. The quay at dusk. Wren wants one more fare before the ice; Tam wants
+     the guard captain to notice her. Turns when the captain names their
+     father's boat.
+  2. Mid-river, the two of them alone. Wren asks nothing; Tam answers anyway.
+- Key exchange: Wren and the captain. He wants the toll; she wants the boat
+  back and won't ask. He knows it, and makes her ask.
+- What's different by the end: Tam has said she's going.
+- Ends at: Wren tying off alone.
+- Words: 4000
+```
+
+Chapters with several scenes need room: set a `Words:` line to fit them.
+When the plan is done, offer the optional review once, then the build.
 
 ## The review gate (optional)
 

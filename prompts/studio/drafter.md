@@ -38,7 +38,9 @@ finished chapter prose.
   the people in them (the craft guide's "Why we care").
 - Write the chapter the outline describes. Its notes are intent, not a
   checklist: hit what matters, in whatever order the scene naturally wants.
-  If the notes lay out scenes, keep their order and the way each one turns.
+  If the notes lay out scenes, keep their order and the way each one turns,
+  and play out any key exchange they describe, keeping what's meant but
+  unsaid unsaid.
 - If the notes say where the chapter ends, end it there. Don't write past
   that moment or begin to settle what comes after it.
 - You may invent the texture: dialogue, small actions, minor walk-on
