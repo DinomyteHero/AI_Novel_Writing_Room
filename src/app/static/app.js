@@ -290,7 +290,6 @@ const ACT = {
   toggleMenu() { S.home.menu = !S.home.menu; render(); },
   pickMode(d) { S.home.mode = d.mode; S.home.menu = false; render(); focus("home-composer"); },
   clearMode() { S.home.mode = ""; render(); },
-  chipDraft(d) { S.home.draft = d.text; if (d.mode) S.home.mode = d.mode; render(); focus("home-composer"); },
   async sendHome() {
     const idea = S.home.draft.trim();
     if (!idea) { S.home.note = "Type an idea first, even a single line."; return render(); }
@@ -717,10 +716,9 @@ function homeView() {
     </div>` : "";
   const chip = h.mode ? `<span class="mode-chip">${h.mode === "series" ? "New series" : "New book"}<button type="button" aria-label="Remove" ${attr({ act: "clearMode" })}>${ic("x", 10, "currentColor", 2.8)}</button></span>` : "";
   const latest = S.projects[0];
-  const chips = [
-    latest ? `<button type="button" class="chip" ${attr({ act: "openProject", project: latest.id })}>Continue ${esc(latest.title)}</button>` : "",
-    `<button type="button" class="chip" ${attr({ act: "chipDraft", text: "Here's my rough outline:\n1. She arrives.\n2. Something is wrong.\n3. …" })}>Paste an outline</button>`,
-  ].join("");
+  const chips = latest
+    ? `<button type="button" class="chip" ${attr({ act: "openProject", project: latest.id })}>Continue ${esc(latest.title)}</button>`
+    : "";
   const placeholder = h.mode === "series" ? "Describe your series: the world, the people, where it goes across books…" : "Describe an idea, paste your notes, or anything you have…";
   return `<div class="home"><div class="home-inner">
     <h1>What are we writing today?</h1>
@@ -734,7 +732,7 @@ function homeView() {
       </div>
     </div>
     ${h.note ? `<p class="home-note">${esc(h.note)}</p>` : ""}
-    <div class="chips">${chips}</div>
+    ${chips ? `<div class="chips">${chips}</div>` : ""}
   </div></div>`;
 }
 
