@@ -376,7 +376,9 @@ class ModelRouter:
                     continue
                 chunk = json.loads(raw)
                 if chunk.get("error"):
-                    raise RuntimeError("The model service interrupted its reply. Try again.")
+                    error = chunk["error"]
+                    detail = error.get("message") if isinstance(error, dict) else error
+                    raise RuntimeError(f"The model service interrupted its reply ({str(detail)[:200]}). Try again.")
                 usage = chunk.get("usage") or usage
                 for choice in chunk.get("choices") or []:
                     if choice.get("index", 0) != 0:
@@ -388,6 +390,8 @@ class ModelRouter:
                             message[key] = message.get(key, "") + delta[key]
                             if key == "content":
                                 on_text(delta[key])
+                    if delta.get("annotations"):
+                        message.setdefault("annotations", []).extend(delta["annotations"])
                     for part in delta.get("reasoning_details") or []:
                         entry = reasoning.setdefault(part.get("index", 0), {})
                         for key, value in part.items():
@@ -673,12 +677,34 @@ def _with_parts(messages: list[dict], cache_control: dict | None) -> list[dict]:
     return out
 
 
+def _sources_note(annotations: list[dict]) -> str:
+    """The web results a server-side search showed the model, written back
+    into its own message: providers don't return them on later steps, and a
+    model that can't see its sources goes looking for them again."""
+    seen, lines = set(), []
+    for item in annotations:
+        cite = item.get("url_citation") or {}
+        url = cite.get("url")
+        if not url or url in seen:
+            continue
+        seen.add(url)
+        snippet = " ".join((cite.get("content") or "").split())[:800]
+        lines.append(f"- {cite.get('title') or url} ({url}): {snippet}")
+    if not lines:
+        return ""
+    return "\n\n[Web results you saw while writing this, kept so you can use them:]\n" + "\n".join(lines)
+
+
 def _to_openai(messages: list[dict]) -> list[dict]:
     out = []
     for m in messages:
         if m["role"] == "assistant":
             if isinstance(m.get("native"), dict):
-                out.append(m["native"])
+                native = dict(m["native"])
+                found = native.pop("annotations", None)
+                if found:
+                    native["content"] = (native.get("content") or "") + _sources_note(found)
+                out.append(native)
                 continue
             entry = {"role": "assistant", "content": m.get("content") or ""}
             if m.get("tool_calls"):

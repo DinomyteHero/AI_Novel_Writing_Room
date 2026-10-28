@@ -381,6 +381,34 @@ async def test_streaming_chat_assembles_tools_reasoning_and_usage(settings_yaml)
     assert router.usage_log[-1]["cost"] == 0.01
 
 
+async def test_web_results_stay_visible_on_the_next_step(settings_yaml):
+    import json
+
+    import httpx
+
+    from src.model_router import _to_openai
+
+    cite = {"type": "url_citation", "url_citation": {
+        "url": "https://starwars.fandom.com/wiki/Battle_of_Endor/Legends", "title": "Battle of Endor",
+        "content": "The Battle of Endor was fought in 4 ABY."}}
+    chunks = [
+        {"choices": [{"index": 0, "delta": {"content": "Checked.", "annotations": [cite, cite]}}]},
+        {"choices": [{"index": 0, "delta": {"tool_calls": [{"index": 0, "id": "c", "function": {"name": "status", "arguments": "{}"}}]}, "finish_reason": "tool_calls"}]},
+    ]
+    router = ModelRouter(settings_yaml)
+    router._local_client = httpx.AsyncClient(base_url="https://test.invalid", transport=httpx.MockTransport(
+        lambda request: httpx.Response(200, text="\n\n".join("data: " + json.dumps(c) for c in chunks) + "\n\ndata: [DONE]\n")))
+    try:
+        answer = await router.chat("studio_writer", "System", [], [], on_text=lambda text: None)
+    finally:
+        await router.close()
+    assert answer["content"] == "Checked."
+    [sent] = _to_openai([{"role": "assistant", **answer}])
+    assert "annotations" not in sent
+    assert sent["content"].startswith("Checked.\n\n[Web results you saw")
+    assert sent["content"].count("Battle_of_Endor/Legends") == 1 and "4 ABY" in sent["content"]
+
+
 @pytest.mark.parametrize("ending", ["", ', "finish_reason": "length"'])
 async def test_incomplete_stream_never_returns_an_executable_tool(settings_yaml, ending):
     import httpx
