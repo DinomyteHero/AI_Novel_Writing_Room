@@ -4,7 +4,7 @@
 
 const S = {
   view: "home",
-  projects: [], recents: [], providers: [],
+  projects: [], providers: [],
   project: null, data: null, thread: null,
   chat: null, panel: false, doc: null,
   home: { draft: "", mode: "", menu: false, note: "" },
@@ -14,8 +14,8 @@ const S = {
   settings: null, providerInput: {}, providerMsg: {},
   job: null, jobKey: null, trayHidden: false,
   modal: null, toast: "",
-  selection: null, explore: false, editMode: "auto",
-  theme: savedTheme(), drawer: false, picker: false, reader: null, files: false,
+  selection: null, editMode: savedReview() ? "ask" : "auto",
+  theme: savedTheme(), drawer: false, picker: false, reader: null,
 };
 
 /* ---------- helpers ---------- */
@@ -55,6 +55,9 @@ const fmtK = (n) => (n >= 1000 ? `${fmt(Math.round(n / 1000))}K` : fmt(n));
 
 function savedTheme() {
   try { return localStorage.getItem("wr-theme") || "auto"; } catch (e) { return "auto"; }
+}
+function savedReview() {
+  try { return localStorage.getItem("wr-review") === "1"; } catch (e) { return false; }
 }
 function applyTheme() {
   if (S.theme === "auto") delete document.documentElement.dataset.theme;
@@ -196,7 +199,6 @@ function readFile(file) {
 async function refreshState() {
   const state = await get("/api/state");
   S.projects = state.projects;
-  S.recents = state.recents;
   S.providers = state.providers;
 }
 
@@ -275,9 +277,9 @@ async function pollJob() {
 /* ---------- actions ---------- */
 
 const ACT = {
-  async home() { S.view = "home"; S.home.note = ""; S.editMode = "auto"; render(); focus("home-composer"); },
+  async home() { S.view = "home"; S.home.note = ""; S.reader = null; S.panel = false; S.doc = null; render(); focus("home-composer"); },
   async go(d) {
-    S.view = d.view; S.reader = null;
+    S.view = d.view; S.reader = null; S.panel = false; S.doc = null;
     if (d.view === "settings") S.settings = await get("/api/settings").catch((e) => (fail(e), null));
     render();
     // A saved key isn't proof it works: check each one quietly in the background.
@@ -285,7 +287,6 @@ const ACT = {
       S.settings.providers.filter((p) => p.connected && p.kind === "key").forEach((p) => ACT.checkKey({ backend: p.key }));
     }
   },
-  async newProject() { S.view = "home"; S.home.menu = true; S.home.note = ""; render(); focus("home-composer"); },
   toggleMenu() { S.home.menu = !S.home.menu; render(); },
   pickMode(d) { S.home.mode = d.mode; S.home.menu = false; render(); focus("home-composer"); },
   clearMode() { S.home.mode = ""; render(); },
@@ -294,7 +295,7 @@ const ACT = {
     const idea = S.home.draft.trim();
     if (!idea) { S.home.note = "Type an idea first, even a single line."; return render(); }
     if (!S.providers.length) { S.home.note = "Connect a model provider first. It takes a minute, in Settings."; return render(); }
-    S.editMode = "auto"; S.pending = []; S.explore = false;
+    S.pending = [];
     S.creating = true; render();
     try {
       const res = await post("/api/projects", { idea, kind: S.home.mode || "book", defer: true });
@@ -309,13 +310,13 @@ const ACT = {
   },
   async toggleProject(d) { S.expanded[d.project] = !S.expanded[d.project]; render(); },
   async openProject(d) {
-    S.selection = null; S.reader = null; S.pending = []; S.explore = false;
-    S.projectDraft = ""; S.draft = ""; S.editMode = "auto";
-    try { await loadProject(d.project); S.view = "project"; S.doc = null; S.files = false; } catch (e) { return fail(e); }
+    S.selection = null; S.reader = null; S.pending = [];
+    S.projectDraft = ""; S.draft = ""; S.panel = false; S.doc = null;
+    try { await loadProject(d.project); S.view = "project"; } catch (e) { return fail(e); }
     render();
   },
   async switchBook(d) {
-    S.selection = null; S.pending = []; S.explore = false; S.editMode = "auto";
+    S.selection = null; S.pending = [];
     try { S.data = await get("/api/project", { project: S.project, book: d.book }); S.doc = null; } catch (e) { return fail(e); }
     render();
   },
@@ -324,8 +325,8 @@ const ACT = {
       const chat = await get("/api/chat", { project: d.project, chat: d.chat });
       if (S.project !== d.project || !S.data) await loadProject(d.project);
       S.chat = chat; S.view = "chat"; S.panel = false; S.doc = null; S.draft = ""; S.reader = null;
-      S.selection = null; S.pending = []; S.explore = false; S.projectDraft = "";
-      S.editMode = chat.edit_mode === "ask" ? "ask" : "auto"; watchTurn(chat);
+      S.selection = null; S.pending = []; S.projectDraft = "";
+      watchTurn(chat);
     } catch (e) { return fail(e); }
     render(); focus("composer");
   },
@@ -334,8 +335,7 @@ const ACT = {
       const chat = await post("/api/chats", { project: d.project });
       await loadProject(d.project);
       S.chat = chat; S.view = "chat"; S.panel = false; S.doc = null;
-      S.selection = null; S.pending = []; S.explore = false; S.draft = ""; S.projectDraft = "";
-      S.editMode = "auto";
+      S.selection = null; S.pending = []; S.draft = ""; S.projectDraft = "";
       await refreshState();
     } catch (e) { return fail(e); }
     render(); focus("composer");
@@ -348,7 +348,7 @@ const ACT = {
     const cid = inThread ? "project" : S.chat.id;
     let record = inThread ? S.thread : S.chat;
     const previousTurn = record.turn?.id;
-    const pid = S.project, book = S.data?.book.folder, selection = S.selection, explore = S.explore;
+    const pid = S.project, book = S.data?.book.folder, selection = S.selection;
     record.items = record.items.concat([{ kind: "user", id: "tmp", text, files: S.pending.map((p) => p.name) }]);
     const attachments = S.pending;
     if (inThread) S.projectDraft = ""; else S.draft = "";
@@ -362,7 +362,7 @@ const ACT = {
       if (S.chat?.id === cid && (S.chat.project === pid || S.chat.project === record.project)) S.chat = record;
     };
     try {
-      await streamTurn({ project: pid, chat: cid, text, attachments, book, selection, explore, edit_mode: S.editMode }, (event) => {
+      await streamTurn({ project: pid, chat: cid, text, attachments, book, selection, edit_mode: S.editMode }, (event) => {
         if (event.kind === "started" || event.kind === "done") {
           record = event.record; started = true; place(); render();
         } else if (event.kind === "text") {
@@ -404,7 +404,6 @@ const ACT = {
       S.toast = e.message;
     }
     S.busy = null;
-    S.explore = false;
     if (record.turn?.state === "running") watchTurn(record);
     render();
     focus(inThread ? "project-composer" : "composer");
@@ -420,13 +419,11 @@ const ACT = {
     if (d.chat === "project") S.thread = record; else S.chat = record;
     render();
   },
-  passage(d) {
+  askPassage() {
     if (!S.selection) return;
-    S.reader = null;
-    const requests = { discuss: "Let's discuss this passage.", alternatives: "Suggest three alternatives for this passage; don't change the file yet.", revise: "Revise this passage: " };
-    S.explore = d.intent !== "revise";
-    if (S.view === "chat") S.draft = requests[d.intent]; else S.projectDraft = requests[d.intent];
-    render(); focus(S.view === "chat" ? "composer" : "project-composer");
+    S.reader = null; S.panel = false; S.doc = null;
+    render();
+    focus(S.view === "chat" ? "composer" : "project-composer");
   },
   async quick(d) {
     if (S.view === "chat") { S.draft = d.text; return ACT.send({ where: "chat" }); }
@@ -437,14 +434,12 @@ const ACT = {
     if (!text && !S.pending.length) return focus("project-composer");
     try {
       const chat = await post("/api/chats", { project: S.project });
-      S.chat = chat; S.view = "chat"; S.panel = false; S.doc = null; S.reader = null; S.files = false;
+      S.chat = chat; S.view = "chat"; S.panel = false; S.doc = null; S.reader = null;
       S.draft = text; S.projectDraft = "";
       await refreshState();
     } catch (e) { return fail(e); }
     return ACT.send({ where: "chat" });
   },
-  showProjectFiles() { S.files = true; S.doc = null; render(); },
-  hideProjectFiles() { S.files = false; S.doc = null; render(); },
   attach() { pickFiles("attach"); },
   removePending(d) { S.pending.splice(Number(d.index), 1); render(); },
   async undo(d) {
@@ -479,8 +474,8 @@ const ACT = {
     } catch (e) { return fail(e); }
     render();
   },
-  async buildGo() {
-    const which = S.modal.which;
+  async buildGo(d) {
+    const which = d.which || S.modal.which;
     S.modal = null;
     const cid = S.view === "chat" && S.chat ? S.chat.id : "project";
     try {
@@ -502,7 +497,7 @@ const ACT = {
   showFiles() { S.doc = null; render(); },
   async openFile(d) {
     try { S.doc = { path: d.path, data: await get("/api/file", { project: S.project, path: d.path }) }; } catch (e) { return fail(e); }
-    S.panel = true; S.files = true; render();
+    S.panel = true; render();
   },
   openEmptyChapter(d) { S.doc = { empty: Number(d.number), title: d.title }; S.panel = true; render(); },
   editDoc() { S.doc.editing = true; S.doc.text = S.doc.data.text; render(); focus("doc-editor"); },
@@ -561,10 +556,15 @@ const ACT = {
   },
   dismissTip() { S.tipDismissed = true; render(); },
   toggleDrawer() { S.drawer = !S.drawer; render(); },
-  cycleTheme() {
-    S.theme = { auto: "light", light: "dark", dark: "auto" }[S.theme] || "auto";
+  setTheme(d) {
+    S.theme = d.theme;
     try { localStorage.setItem("wr-theme", S.theme); } catch (e) { /* the choice lasts this visit only */ }
     applyTheme(); render();
+  },
+  setReview(d) {
+    S.editMode = d.value === "ask" ? "ask" : "auto";
+    try { localStorage.setItem("wr-review", S.editMode === "ask" ? "1" : "0"); } catch (e) { /* the choice lasts this visit only */ }
+    render();
   },
   togglePicker() { S.picker = !S.picker; render(); },
   async setEffort(d) {
@@ -663,8 +663,6 @@ function pickFiles(purpose, scope) {
 /* ---------- views ---------- */
 
 function sidebar() {
-  const nav = (act, icon, label, on, extra = {}) =>
-    `<button type="button" class="nav-btn ${on ? "on" : ""}" ${attr({ act, ...extra })}>${icon}${label}</button>`;
   const inChat = S.view === "chat" && S.chat;
   const projects = S.projects.map((p) => {
     const open = !!S.expanded[p.id];
@@ -678,34 +676,24 @@ function sidebar() {
       <button type="button" class="side-row" ${attr({ act: "openProject", project: p.id })}>${ic("folder", 16, "var(--accent)", 1.8)}<span class="name">${esc(p.title)}</span><span class="muted" style="font-size:12px">${p.chats.length || ""}</span></button>
     </div>${chats}</div>`;
   }).join("");
-  const recents = S.recents.slice(0, 12).map((r) =>
-    `<button type="button" class="recent ${inChat && S.chat.id === r.id ? "on" : ""}" ${attr({ act: "openChat", project: r.project, chat: r.id })}><span class="t">${esc(r.title)}</span><span class="muted" style="font-size:12px">${esc(r.projectTitle)}</span></button>`).join("");
   const count = S.providers.length;
-  const themeName = { auto: "match the system", light: "light", dark: "dark" }[S.theme];
   const summary = count === 0 ? "No model provider yet" : count === 1 ? `${S.providers[0].name} connected` : `${count} providers connected`;
   const tip = count === 0 && !S.tipDismissed && S.view !== "settings"
     ? `<div class="tip" role="note"><span style="flex:1">Connect a provider to start.</span><button type="button" class="go" ${attr({ act: "go", view: "settings" })}>Connect</button><button type="button" class="icon-btn" style="width:24px;height:24px;color:var(--tray-muted)" aria-label="Dismiss" ${attr({ act: "dismissTip" })}>${ic("x", 10, "currentColor", 2.8)}</button></div>` : "";
   return `<nav class="side" aria-label="Writers Room">
     <div class="brand">${ic("book", 20, "currentColor", 1.8)}Writers Room</div>
     <div class="nav">
-      <button type="button" class="nav-btn" ${attr({ act: "home" })}><span class="plus">${ic("plus", 14, "currentColor", 2.4)}</span><b>New chat</b></button>
-      ${nav("go", ic("chat"), "Chats", S.view === "chats", { view: "chats" })}
-      ${nav("go", ic("folder"), "Projects", S.view === "projects" || S.view === "project", { view: "projects" })}
-      ${nav("go", ic("bulb"), "Writing help", S.view === "help", { view: "help" })}
+      <button type="button" class="nav-btn" ${attr({ act: "home" })}><span class="plus">${ic("plus", 14, "currentColor", 2.4)}</span><b>New book</b></button>
     </div>
     <div class="side-scroll">
-      <div class="side-head"><span class="label">Projects</span><button type="button" class="icon-btn" style="margin-left:auto" aria-label="New project" ${attr({ act: "newProject" })}>${ic("plus", 14, "currentColor", 2.4)}</button></div>
-      ${projects || '<span class="muted" style="font-size:13px;padding:2px 10px 6px">No projects yet.</span>'}
-      <div style="height:14px"></div>
-      <span class="label" style="padding:0 10px 6px">Recents</span>
-      ${recents || '<span class="muted" style="font-size:13px;padding:0 10px">Your chats will show up here.</span>'}
+      <div class="side-head"><span class="label">Books</span></div>
+      ${projects || '<span class="muted" style="font-size:13px;padding:2px 10px 6px">No books yet.</span>'}
     </div>
     ${tip}
     <div class="side-foot">
       <button type="button" class="settings-btn ${S.view === "settings" ? "on" : ""}" ${attr({ act: "go", view: "settings" })}>
         <span class="avatar">You</span><span style="flex:1;min-width:0;display:flex;flex-direction:column"><b style="font-size:13px">Settings</b><span class="muted" style="font-size:12px">${esc(summary)}</span></span>${ic("sliders", 18, "currentColor", 1.8)}
       </button>
-      <button type="button" class="icon-btn" style="margin-right:10px" title="Theme: ${esc(themeName)}" aria-label="Theme: ${esc(themeName)}. Change theme" ${attr({ act: "cycleTheme" })}>${ic(S.theme === "light" ? "sun" : S.theme === "dark" ? "moon" : "auto", 18, "currentColor", 1.9)}</button>
     </div>
   </nav>`;
 }
@@ -727,7 +715,6 @@ function homeView() {
   const latest = S.projects[0];
   const chips = [
     latest ? `<button type="button" class="chip" ${attr({ act: "openProject", project: latest.id })}>Continue ${esc(latest.title)}</button>` : "",
-    `<button type="button" class="chip" ${attr({ act: "chipDraft", mode: "series", text: "A series about a radio station on a storm-cut island, three books, each one a different winter." })}>Plan a series</button>`,
     `<button type="button" class="chip" ${attr({ act: "chipDraft", text: "Here's my rough outline:\n1. She arrives.\n2. Something is wrong.\n3. …" })}>Paste an outline</button>`,
   ].join("");
   const placeholder = h.mode === "series" ? "Describe your series: the world, the people, where it goes across books…" : "Describe an idea, paste your notes, or anything you have…";
@@ -744,30 +731,6 @@ function homeView() {
     </div>
     ${h.note ? `<p class="home-note">${esc(h.note)}</p>` : ""}
     <div class="chips">${chips}</div>
-  </div></div>`;
-}
-
-function projectsView() {
-  const cards = S.projects.map((p) => `<button type="button" class="project-card" ${attr({ act: "openProject", project: p.id })}>
-    ${ic("folder", 22, "var(--accent)", 1.8)}<b style="font-size:17px">${esc(p.title)}</b>
-    <span class="muted" style="font-size:13px">${esc(p.kind)}</span>
-    <span class="muted" style="margin-top:auto;font-size:12px">${p.chapters} chapter${p.chapters === 1 ? "" : "s"} written · ${p.chats.length} chat${p.chats.length === 1 ? "" : "s"}</span>
-  </button>`).join("");
-  return `<div class="scroll"><div class="page">
-    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap"><h1 class="big">Projects</h1>
-      <button type="button" class="btn" style="margin-left:auto" ${attr({ act: "newProject" })}>${ic("plus", 16, "currentColor", 2.2)} New project</button></div>
-    <p class="lead">Each book or series is a project: its plan, chapters and every chat about it, in one place.</p>
-    ${cards ? `<div class="grid">${cards}</div>` : '<p class="lead">No projects yet. Start one from the home page with an idea, even a single line.</p>'}
-  </div></div>`;
-}
-
-function chatsView() {
-  const rows = S.recents.map((r) => `<button type="button" class="row" ${attr({ act: "openChat", project: r.project, chat: r.id })}>
-    <span class="grow"><b style="font-size:15px">${esc(r.title)}</b><span class="snip">${esc(r.projectTitle)} · ${esc(r.snippet)}</span></span>
-    <span class="muted" style="font-size:12px;white-space:nowrap">${esc((r.updated || "").slice(0, 10))}</span></button>`).join("");
-  return `<div class="scroll"><div class="page narrow">
-    <h1 class="big">Chats</h1>
-    ${rows ? `<div class="rows">${rows}</div>` : '<p class="lead">No chats yet. Each project page has its own ongoing chat too.</p>'}
   </div></div>`;
 }
 
@@ -922,9 +885,8 @@ function composer(id, model, placeholder, where) {
   const busy = !!S.busy;
   const record = where === "thread" ? S.thread : S.chat;
   const references = record?.attachments || [];
-  return `<div class="session-controls"><label><input type="checkbox" data-explore ${S.explore ? "checked" : ""}> Just exploring · leave files unchanged</label>
-    <label title="Planning files, passages and chapter revisions. Builds and renames still ask separately."><input type="checkbox" data-ask-edits ${S.editMode === "ask" ? "checked" : ""}> Suggest changes first</label>
-    ${references.length ? `<details><summary>References in this chat (${references.length})</summary>${references.map(a => `<div class="chat-reference"><button type="button" class="link" ${attr({ act: "openFile", path: a.path })}>${esc(a.name)}</button><button type="button" class="link" ${busy ? "disabled" : ""} ${attr({ act: "forgetAttachment", chat: record.id, path: a.path })}>Remove from context</button></div>`).join("")}</details>` : ""}</div>
+  const attached = references.length ? `<div class="session-controls"><details><summary>References in this chat (${references.length})</summary>${references.map(a => `<div class="chat-reference"><button type="button" class="link" ${attr({ act: "openFile", path: a.path })}>${esc(a.name)}</button><button type="button" class="link" ${busy ? "disabled" : ""} ${attr({ act: "forgetAttachment", chat: record.id, path: a.path })}>Remove from context</button></div>`).join("")}</details></div>` : "";
+  return `${attached}
     ${S.selection ? `<div class="selected-passage"><b>Selected in ${esc(shortPath(S.selection.path))}</b><blockquote>${esc(S.selection.text)}</blockquote><button type="button" class="link" ${attr({ act: "clearSelection" })}>Clear selection</button></div>` : ""}
     <div class="bar">
     <label for="${id}" class="sr">Message</label>
@@ -962,12 +924,6 @@ function pickerHtml(role) {
     <button type="button" class="link" style="align-self:flex-start;padding-left:0" ${attr({ act: "go", view: "settings" })}>Every role in Settings</button></div>`;
 }
 
-function quickChips() {
-  return `<div class="chips" style="justify-content:flex-start">
-    <button type="button" class="chip" ${attr({ act: "quick", text: "Where are we? What's written and what's next?" })}>Where are we?</button>
-  </div>`;
-}
-
 const shortDate = (iso) => {
   const day = iso ? new Date(iso) : null;
   return day && !isNaN(day) ? day.toLocaleDateString("en-US", { month: "short", day: "numeric" }) : "";
@@ -984,9 +940,13 @@ function projectView() {
   chats.sort((a, b) => String(b.updated).localeCompare(String(a.updated)));
   const recents = chats.map((c) => `<button type="button" class="recent-row" ${attr({ act: "openChat", project: d.id, chat: c.id })}>
       <span class="t">${esc(c.title)}</span><span class="muted">${esc(shortDate(c.updated))}</span></button>`).join("");
+  const written = d.chapters.filter((c) => c.state !== "missing").length;
   return `<div class="scroll"><div class="project-home">
-    <nav class="crumbs" aria-label="Breadcrumb"><button type="button" class="link muted" ${attr({ act: "go", view: "projects" })}>Projects</button><span class="muted" aria-hidden="true">/</span><span>${esc(d.title)}</span></nav>
-    <h1 class="project-title">${esc(d.title)}</h1>
+    <div style="display:flex;align-items:flex-start;gap:12px;flex-wrap:wrap">
+      <h1 class="project-title" style="flex:1">${esc(d.title)}</h1>
+      <button type="button" class="btn ghost small" aria-pressed="${S.panel}" ${attr({ act: "togglePanel" })}>${ic("panel", 16, "currentColor", 1.8)} Book</button>
+    </div>
+    <p class="lead" style="margin:0">${esc(d.kind)} · ${written} of ${d.chapters.length} chapters · ${fmt(d.words)} words</p>
     ${books}
     ${S.selection ? `<div class="selected-passage"><b>Selected in ${esc(shortPath(S.selection.path))}</b><blockquote>${esc(S.selection.text)}</blockquote><button type="button" class="link" ${attr({ act: "clearSelection" })}>Clear selection</button></div>` : ""}
     <div class="composer-box">
@@ -998,47 +958,29 @@ function projectView() {
       </div>
     </div>
     ${pendingHtml()}
-    ${modelLine()}
     <section class="recents" aria-label="Recent chats"><span class="label">Recents</span>
       ${recents || '<p class="muted" style="margin:0;font-size:14px;line-height:1.55">No chats yet. Start one above: plan a scene, ask for a review, or say you\'re stuck.</p>'}</section>
   </div></div>`;
 }
 
-/* The project page's right column: one line per part of the book. */
-function projectOverview() {
-  const d = S.data;
-  const job = bookJob(d);
-  const written = d.chapters.filter((c) => c.state !== "missing").length;
-  const next = d.chapters.find((c) => c.state === "missing");
-  const refs = d.reference.reduce((n, r) => n + r.files.length, 0);
-  const notes = d.reviews.length + (d.ideas || []).length + d.runs.length;
-  const row = (icon, label, meta, action, act) => `<div class="ov-row">${ic(icon, 18, "var(--muted)", 1.8)}
-    <span class="ov-label">${esc(label)}</span><span class="muted ov-meta">${esc(meta)}</span>
-    ${action ? `<button type="button" class="link" ${attr(act)}>${esc(action)}</button>` : ""}</div>`;
-  const building = job && job.state === "running";
-  return `<aside class="overview" aria-label="About this project">
-    ${row("doc", "Plan", d.isSeries ? `book ${d.book.number}` : "bible, characters, outline", "View", { act: "showProjectFiles" })}
-    ${row("clip", "Reference", refs ? `${refs} file${refs === 1 ? "" : "s"}` : "", "Add", { act: "addReference", scope: d.reference[0].scope })}
-    ${row("book", "Manuscript", d.chapters.length ? `${written} of ${d.chapters.length} chapters` : "no chapters yet",
-      building ? "" : next ? "Build" : written ? "View" : "", building ? {} : next ? { act: "buildAsk", which: "next" } : { act: "showProjectFiles" })}
-    ${row("layers", "Notes", notes ? `${notes}` : "", notes ? "View" : "", { act: "showProjectFiles" })}
-    <span class="muted ov-foot">${building ? esc(buildStatus(d, job)) + " · " : ""}${esc(d.kind)} · ${fmt(d.words)} words · whole book ${fmtK(d.context.tokens)} of ${fmtK(d.context.limit)} tokens</span>
-  </aside>`;
-}
-
 function chatView() {
   const c = S.chat;
   if (!c) return "";
+  const next = S.data?.chapters.some((x) => x.state === "missing");
+  const job = bookJob(S.data);
+  const building = job && job.state === "running";
   return `<div class="convo">
     <div class="chat-head">
       <button type="button" class="link muted" style="font-size:14px" ${attr({ act: "openProject", project: c.project })}>${esc(S.data ? S.data.title : "")}</button>
       <span class="muted" aria-hidden="true">/</span>
       <b style="font-size:14px;padding:0 6px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(c.title)}</b>
-      <button type="button" class="btn ghost small" style="margin-left:auto" aria-pressed="${S.panel}" ${attr({ act: "togglePanel" })}>${ic("panel", 16, "currentColor", 1.8)} Files</button>
+      <div style="margin-left:auto;display:flex;gap:8px;align-items:center">
+        <button type="button" class="btn ghost small" aria-pressed="${S.panel}" ${attr({ act: "togglePanel" })}>${ic("panel", 16, "currentColor", 1.8)} Book</button>
+        ${next ? `<button type="button" class="btn small" ${building ? "disabled" : ""} ${attr({ act: "buildAsk", which: "next" })}>${building ? "Building…" : "Build"}</button>` : ""}
+      </div>
     </div>
     <div class="msgs"><div class="msgs-inner">${itemsHtml(c)}</div></div>
     <div class="composer-wrap"><div class="composer-inner">
-      ${quickChips()}
       ${pendingHtml()}
       ${composer("composer", "draft", "Talk about your story…", "chat")}
     </div></div>
@@ -1068,7 +1010,6 @@ function filesPanel() {
   const job = bookJob(d);
   const running = job && job.state === "running";
   const written = d.chapters.filter((c) => c.state !== "missing").length;
-  const next = d.chapters.find((c) => c.state === "missing");
   const status = buildStatus(d, job);
   const chapters = d.chapters.map((c) => {
     const building = running && job.current === c.number;
@@ -1089,9 +1030,7 @@ function filesPanel() {
     <div class="group" style="gap:6px"><span class="label" style="padding:0 8px">Build${d.isSeries ? ` · Book ${d.book.number}` : ""}</span>
       <div class="build-box"><span style="font-size:14px;line-height:1.45">${esc(status)}</span>
         ${d.interrupted ? `<span class="hint warn" style="padding:0">A previous build stopped before it wrote its report. Finished chapters are saved; start a new build when you're ready.</span>` : ""}
-        <div style="display:flex;gap:8px;flex-wrap:wrap">
-          <button type="button" class="btn small" ${running || !next ? "disabled" : ""} ${attr({ act: "buildAsk", which: "next" })}>Build next chapter</button>
-          <button type="button" class="btn ghost small" ${running || !next ? "disabled" : ""} ${attr({ act: "buildAsk", which: "all" })}>Build all remaining</button></div>
+        <span class="hint" style="padding:0">${S.view === "project" ? "Start a chat, then use Build at the top of it." : "Use Build at the top of the chat. Next chapter or all remaining is your choice there."}</span>
         <div class="muted" style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:12px">${esc(d.defaults)}
           <button type="button" class="link" style="font-size:12px;padding:4px 6px" ${attr({ act: "go", view: "settings" })}>Change</button></div>
       </div></div>
@@ -1131,31 +1070,6 @@ function contextHtml() {
     ${long ? `<span class="hint warn" style="padding:0">Past about ${fmtK(c.long)} tokens, models read less reliably. Story-so-far notes for finished books help.</span>` : ""}`;
 }
 
-/* The right rail beside a chat, like Cowork's: context, build, what changed. */
-function rail() {
-  const c = S.chat, d = S.data;
-  if (!c || !d) return "";
-  const job = bookJob(d);
-  const running = job && job.state === "running";
-  const next = d.chapters.find((x) => x.state === "missing");
-  const changed = new Map();
-  for (const m of c.items) if (m.kind === "activity" && !m.undone) changed.set(m.file, m);
-  const outputs = c.items.filter((m) => m.kind === "review" || m.kind === "ideas" || (m.kind === "result" && m.report));
-  const order = ["drafting", "critiquing", "revising"];
-  const stages = running ? `<div class="stages light">${order.map((s, i) => `<span class="${i === order.indexOf(job.step) ? "on" : i < order.indexOf(job.step) ? "past" : ""}">${s[0].toUpperCase() + s.slice(1)}</span>`).join("")}</div>` : "";
-  const label = (m) => (m.kind === "ideas" ? "Fresh ideas" : m.kind === "review" ? "Second opinion" : "Build report");
-  return `<aside class="rail" aria-label="This chat">
-    <section class="rail-card"><span class="label">Context</span>${contextHtml()}</section>
-    <section class="rail-card"><span class="label">Build${d.isSeries ? ` · Book ${d.book.number}` : ""}</span>
-      <span style="font-size:13px;line-height:1.45">${esc(buildStatus(d, job))}</span>${stages}
-      ${!running && next ? `<button type="button" class="btn small" style="align-self:flex-start" ${attr({ act: "buildAsk", which: "next" })}>Build next chapter</button>` : ""}</section>
-    <section class="rail-card"><div style="display:flex;align-items:baseline"><span class="label">Changes</span><span class="muted" style="margin-left:auto;font-size:12px">${changed.size ? `${changed.size} file${changed.size === 1 ? "" : "s"}` : ""}</span></div>
-      ${changed.size ? [...changed.values()].map((m) => fileRow("openFile", shortPath(m.file), m.text, { path: m.file })).join("") : '<span class="hint" style="padding:0">Nothing changed in this chat yet.</span>'}</section>
-    ${outputs.length ? `<section class="rail-card"><span class="label">Outputs</span>${outputs.map((m) => fileRow("openFile", label(m), shortPath(m.file || m.report), { path: m.file || m.report })).join("")}</section>` : ""}
-    <button type="button" class="link" style="align-self:flex-start" ${attr({ act: "togglePanel" })}>${ic("panel", 14, "currentColor", 1.8)} All project files</button>
-  </aside>`;
-}
-
 /* A chapter, wide and centred, for reading rather than working on. */
 function readerView() {
   const r = S.reader;
@@ -1168,8 +1082,8 @@ function readerView() {
     <div class="reader-head">
       <button type="button" class="btn ghost small" ${attr({ act: "closeReader" })}>${ic("back", 14, "currentColor", 2.2)} Back</button>
       <span class="muted" style="font-size:13px">${esc(S.data.title)} · ${fmt(r.data.words)} words</span>
-      <span class="hint" id="passage-hint" style="margin-left:auto;padding:0">${selected ? "Passage selected" : "Highlight a passage to work on it."}</span>
-      ${[["discuss", "Discuss"], ["alternatives", "Alternatives"], ["revise", "Revise"]].map(([intent, text]) => `<button type="button" class="btn ghost small" data-passage-action ${selected ? "" : "disabled"} ${attr({ act: "passage", intent })}>${text}</button>`).join("")}
+      <span class="hint" id="passage-hint" style="margin-left:auto;padding:0">${selected ? "Passage selected" : "Highlight a passage, then ask in the chat."}</span>
+      <button type="button" class="btn small" data-passage-action ${selected ? "" : "disabled"} ${attr({ act: "askPassage" })}>Ask about this</button>
     </div>
     <article class="reader" id="passage-document">${md(r.data.text)}</article>
     ${prev || next ? `<nav class="reader-nav" aria-label="Chapters">${step(prev, prev ? `← Chapter ${prev.number}` : "")}${step(next, next ? `Chapter ${next.number} →` : "")}</nav>` : ""}
@@ -1202,8 +1116,7 @@ function reviewHtml(data) {
 function docPanel() {
   const doc = S.doc;
   if (doc.empty) {
-    return `<p style="margin:0;font-size:14px;line-height:1.55" class="muted">Chapter ${doc.empty}${doc.title ? ": " + esc(doc.title) : ""} isn't written yet.</p>
-      <button type="button" class="btn" style="align-self:flex-start" ${attr({ act: "buildAsk", which: doc.empty })}>Build this chapter</button>`;
+    return `<p style="margin:0;font-size:14px;line-height:1.55" class="muted">Chapter ${doc.empty}${doc.title ? ": " + esc(doc.title) : ""} isn't written yet. Plan it in the chat, then use Build at the top.</p>`;
   }
   const data = doc.data;
   if (doc.editing) {
@@ -1213,23 +1126,21 @@ function docPanel() {
       <span class="hint" style="padding:0">Your edits win: the chat re-reads every file before it changes anything.</span>`;
   }
   const isChapter = /manuscript\/chapter_\d+\.md$/.test(doc.path);
-  const number = isChapter ? Number(doc.path.match(/chapter_(\d+)/)[1]) : null;
   const actions = [
     data.editable ? `<button type="button" class="btn ghost small" ${attr({ act: "editDoc" })}>${ic("pen", 14, "currentColor", 2)} Edit</button>` : "",
     isChapter ? `<button type="button" class="btn ghost small" ${attr({ act: "readChapter", path: doc.path })}>${ic("read", 14, "currentColor", 2)} Read</button>` : "",
-    isChapter ? `<button type="button" class="btn ghost small" ${attr({ act: "buildAsk", which: number })}>Rebuild</button>` : "",
   ].join("");
   const body = data.points ? reviewHtml(data) : `<div class="doc" id="passage-document">${md(data.text)}</div>`;
   const selected = S.selection?.path === doc.path;
   return `${actions ? `<div style="display:flex;gap:8px;flex-wrap:wrap">${actions}</div>` : ""}
-    ${!data.points ? `<div class="passage-actions"><span class="hint" id="passage-hint">${selected ? "Passage selected" : "Highlight a passage to work on it together."}</span>
-      <div>${[["discuss", "Discuss"], ["alternatives", "Suggest alternatives"], ...(data.editable ? [["revise", "Revise"]] : [])].map(([intent, label]) => `<button type="button" class="btn ghost small" data-passage-action ${selected ? "" : "disabled"} ${attr({ act: "passage", intent })}>${label}</button>`).join("")}</div></div>` : ""}${body}
+    ${!data.points ? `<div class="passage-actions"><span class="hint" id="passage-hint">${selected ? "Passage selected" : "Highlight a passage, then ask in the chat."}</span>
+      <div><button type="button" class="btn small" data-passage-action ${selected ? "" : "disabled"} ${attr({ act: "askPassage" })}>Ask about this</button></div></div>` : ""}${body}
     ${isChapter ? '<span class="hint" style="padding:0">To change this chapter, describe what you want in the chat ("make the ending colder"), or edit it yourself. Earlier versions are kept.</span>' : ""}`;
 }
 
 function panel() {
   if (!S.data) return "";
-  let title = "Project files", desc = S.data.title, body;
+  let title = "Book", desc = S.data.title, body;
   if (S.doc) {
     if (S.doc.empty) { title = `Chapter ${S.doc.empty}`; desc = "Not written yet"; }
     else { title = S.doc.path.split("/").pop(); desc = S.doc.path.split("/").slice(0, -1).join("/") + (S.doc.data.words ? ` · ${fmt(S.doc.data.words)} words` : ""); }
@@ -1237,12 +1148,11 @@ function panel() {
   } else {
     body = filesPanel();
   }
-  return `<aside class="panel" aria-label="Project files">
+  return `<aside class="panel" aria-label="Book">
     <div class="panel-head">
-      ${S.doc ? `<button type="button" class="icon-btn" aria-label="All files" ${attr({ act: "showFiles" })}>${ic("back", 18, "currentColor", 2)}</button>`
-        : S.view === "project" ? `<button type="button" class="icon-btn" aria-label="Back to the project" ${attr({ act: "hideProjectFiles" })}>${ic("back", 18, "currentColor", 2)}</button>` : ""}
+      ${S.doc ? `<button type="button" class="icon-btn" aria-label="All files" ${attr({ act: "showFiles" })}>${ic("back", 18, "currentColor", 2)}</button>` : ""}
       <div class="titles"><b>${esc(title)}</b><span class="muted" style="font-size:12px">${esc(desc)}</span></div>
-      ${S.view === "chat" ? `<button type="button" class="icon-btn" aria-label="Close files" ${attr({ act: "closePanel" })}>${ic("x", 18, "currentColor", 2)}</button>` : ""}
+      <button type="button" class="icon-btn" aria-label="Close the book" ${attr({ act: "closePanel" })}>${ic("x", 18, "currentColor", 2)}</button>
     </div>
     <div class="panel-body">${body}</div>
   </aside>`;
@@ -1291,6 +1201,24 @@ function settingsView() {
       <div class="role"><div><b style="font-size:15px">Chapter length</b> <span class="muted" style="font-size:13px">Used when the outline doesn't say.</span></div>
         <div class="pills">${[2000, 3000, 4000].map((n) => pill("default_chapter_words", n, `About ${fmt(n)} words`, st.press.default_chapter_words === n)).join("")}</div></div>
     </div>
+    <h2 class="sub" style="font-size:18px">Changes</h2>
+    <div class="card" style="padding:4px 18px">
+      <div class="role"><div><b style="font-size:15px">Review changes before saving</b> <span class="muted" style="font-size:13px">The Room stages edits, passages and chapter revisions; you choose Use suggestion or Keep original.</span></div>
+        <div class="pills">
+          <button type="button" class="pill ${S.editMode === "auto" ? "on" : ""}" ${attr({ act: "setReview", value: "auto" })}>Save as we talk</button>
+          <button type="button" class="pill ${S.editMode === "ask" ? "on" : ""}" ${attr({ act: "setReview", value: "ask" })}>Show me first</button>
+        </div></div>
+    </div>
+    <h2 class="sub" style="font-size:18px">Appearance</h2>
+    <div class="card" style="padding:4px 18px">
+      <div class="role"><div><b style="font-size:15px">Theme</b> <span class="muted" style="font-size:13px">Follow the system, or pin light or dark.</span></div>
+        <div class="pills">${[["auto", "Match system"], ["light", "Light"], ["dark", "Dark"]].map(([value, label]) => `<button type="button" class="pill ${S.theme === value ? "on" : ""}" ${attr({ act: "setTheme", theme: value })}>${label}</button>`).join("")}</div></div>
+    </div>
+    <h2 class="sub" style="font-size:18px">Writing help</h2>
+    <div class="card" style="padding:4px 18px">
+      <div class="role"><div><b style="font-size:15px">Craft notes</b> <span class="muted" style="font-size:13px">Lenses, not rules. Read them, or ask the Room about any of them.</span></div>
+        <button type="button" class="btn ghost" ${attr({ act: "go", view: "help" })}>Open writing help</button></div>
+    </div>
   </div></div>`;
 }
 
@@ -1323,6 +1251,7 @@ function helpView() {
       ${canTry ? `<button type="button" class="link" style="align-self:flex-start;margin-top:auto" ${attr({ act: "helpTry", index: i })}>${esc(c.tryLabel)} ${ic("arrow", 14, "currentColor", 2.2)}</button>` : ""}</div>`;
   }).join("");
   return `<div class="scroll"><div class="page">
+    <button type="button" class="link muted" style="align-self:flex-start" ${attr({ act: "go", view: "settings" })}>← Settings</button>
     <h1 class="big">Writing help</h1>
     <p class="lead">Lenses, not rules. Use what helps and ignore the rest; your own story always wins. Your co-writer knows all of these too, so just ask.</p>
     <div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(300px,1fr))">${cards}</div>
@@ -1354,10 +1283,19 @@ function tray() {
 function modal() {
   if (!S.modal) return "";
   const m = S.modal;
+  const all = m.which === "all";
+  const label = all
+    ? `Build ${m.numbers.length} chapter${m.numbers.length === 1 ? "" : "s"}`
+    : `Build chapter ${m.numbers[0]}`;
+  const other = all ? "next" : "all";
   return `<div class="modal-back"><div class="modal" role="dialog" aria-modal="true" aria-label="${esc(m.title)}">
     <b style="font-size:17px">${esc(m.title)}</b><span class="muted" style="font-size:14px;line-height:1.5">${esc(m.detail)}</span>
     <span class="muted" style="font-size:13px;line-height:1.5">Each chapter is drafted, then critiqued by a second model and revised (${esc(S.data ? S.data.defaults : "")}), then saved. You can keep planning while it runs.</span>
-    <div style="display:flex;gap:8px;justify-content:flex-end"><button type="button" class="btn ghost" ${attr({ act: "closeModal" })}>Cancel</button><button type="button" class="btn" ${attr({ act: "buildGo" })}>Build</button></div>
+    <div style="display:flex;gap:10px;align-items:center;justify-content:flex-end">
+      <button type="button" class="link" ${attr({ act: "buildAsk", which: other })}>${all ? "Just the next chapter" : "Build all remaining instead"}</button>
+      <button type="button" class="btn ghost" ${attr({ act: "closeModal" })}>Cancel</button>
+      <button type="button" class="btn" ${attr({ act: "buildGo", which: m.which })}>${esc(label)}</button>
+    </div>
   </div></div>`;
 }
 
@@ -1365,19 +1303,17 @@ function render() {
   const openChanges = [...document.querySelectorAll("details[data-change-id][open]")].map(el => el.dataset.changeId);
   const keep = {};
   const openGroups = [...document.querySelectorAll("details[data-group-id][open]")].map(el => el.dataset.groupId);
-  for (const sel of [".panel", ".rail", ".scroll", ".side-scroll", ".msgs"]) {
+  for (const sel of [".panel", ".scroll", ".side-scroll", ".msgs"]) {
     const el = document.querySelector(sel);
     if (el) keep[sel] = el.scrollTop;
   }
   const active = document.activeElement && document.activeElement.id;
   const caret = active && document.activeElement.selectionStart;
-  const views = { home: homeView, projects: projectsView, chats: chatsView, project: projectView, chat: chatView, settings: settingsView, help: helpView };
+  const views = { home: homeView, project: projectView, chat: chatView, settings: settingsView, help: helpView };
   const app = document.getElementById("app");
   app.className = "wr-app" + (S.drawer ? " drawer-open" : "");
   const reading = S.reader && S.data && (S.view === "project" || S.view === "chat");
-  const side = reading ? ""
-    : S.view === "project" ? (S.doc || S.files ? panel() : projectOverview())
-    : S.view === "chat" ? (S.panel ? panel() : rail()) : "";
+  const side = reading || !(S.view === "project" || S.view === "chat") || !S.panel ? "" : panel();
   app.innerHTML = mobileBar() + sidebar()
     + `<main class="main">${reading ? readerView() : (views[S.view] || homeView)()}</main>`
     + side
@@ -1432,8 +1368,6 @@ document.addEventListener("input", (e) => {
 
 document.addEventListener("change", (e) => {
   if (e.target.matches("[data-attachment-scope]")) S.pending[Number(e.target.dataset.attachmentScope)].scope = e.target.value;
-  if (e.target.matches("[data-explore]")) S.explore = e.target.checked;
-  if (e.target.matches("[data-ask-edits]")) S.editMode = e.target.checked ? "ask" : "auto";
 });
 
 document.addEventListener("selectionchange", () => {

@@ -16,8 +16,8 @@ whenever you like; your edits always win. Rename a character and it changes
 everywhere. When you're ready, ask for an optional second opinion: a fresh
 model can review everything, and you go through its points together, keeping
 what you agree with. If you'd rather see a change before it lands, turn on
-**Suggest changes first**: the Room stages the edit, and you choose **Use
-suggestion** or **Keep original**.
+**Review changes before saving** in Settings: the Room stages the edit, and
+you choose **Use suggestion** or **Keep original**.
 
 **The Press** is where chapters get made, without you sitting there. Build
 one chapter at a time to find the voice, or the whole book at once. For each
@@ -41,10 +41,11 @@ All three work on the same files, so you can switch between them.
 
 ### The app
 
-A writing app in your browser, laid out like Claude: projects, chats, and a
-files panel that fills in as you talk. You need Python 3.10+ and an API key
-from [OpenRouter](https://openrouter.ai/keys) (one key reaches every model;
-Anthropic, OpenAI, Google or a model on your own computer also work).
+A writing app in your browser, laid out like Claude: books, chats, and a
+**Book** panel that opens beside the conversation. You need Python 3.10+ and
+an API key from [OpenRouter](https://openrouter.ai/keys) (one key reaches
+every model; Anthropic, OpenAI, Google or a model on your own computer also
+work).
 
 ```bash
 git clone https://github.com/DinomyteHero/AI_Novel_Writing_Room.git
@@ -55,8 +56,8 @@ python scripts/app.py             # opens http://127.0.0.1:8765/
 
 Add your key in **Settings** (bottom left), then type an idea on the home
 page. The **+** under the box starts a new book or a series. Each project
-page starts a new chat about the book; the Build buttons in the files panel
-run the Press.
+page starts a new chat about the book; **Build** at the top of a chat runs
+the Press, after showing its estimate.
 
 ### The Claude plugin (Cowork and Claude Code)
 

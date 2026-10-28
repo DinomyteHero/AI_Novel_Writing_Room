@@ -66,9 +66,9 @@ words, then helps you flesh it out with options and questions.
 - **In the app**, type your idea on the home page (the **+** starts a book or
   a series). Each project page starts a new chat about the whole book; start
   another for a single question or a separate piece of work. Every file change
-  shows as a card with **Undo**; the files panel on the right shows the plan,
-  your reference files, the Build buttons and the manuscript, and you can edit
-  any plan file there.
+  shows as a card with **Undo**; **Book** opens the plan, your reference
+  files, the manuscript and the build status, and you can edit any plan file
+  there. **Build** at the top of a chat runs the Press.
 - **With the Claude plugin**, just say what you're writing, or use
   `/writers-room:start`. Claude follows the same conversation guide and edits
   the files itself.
@@ -84,38 +84,36 @@ and the first few chapters are plenty.
 ### Working together in the app
 
 A project's page is kept simple, like a project in Claude: a box that starts
-a new chat, your recent chats, and one line each for the plan, reference,
-manuscript and notes (**View** opens the files). Start a new chat for each
-piece of work: a scene, a review, a brainstorm. Beside a chat, a rail shows
-how much of the model's limit the book uses, the build, and every file the
-chat changed. Under the message box you can
-see and change the chat model and its reasoning effort. Open a chapter and
-press **Read** for a wide, book-like reading view; highlight a passage there
-to discuss or revise it. The theme button beside Settings switches between
-light, dark and your system's setting. On a phone, the menu button opens the
-sidebar.
+a new chat, your recent chats, and a **Book** button that opens the plan,
+reference, manuscript and notes. The same **Book** button in a chat opens it
+beside the conversation. Start a new chat for each piece of work: a scene, a
+review, a brainstorm. **Build** at the top of a chat opens the estimate card,
+where you choose the next chapter or all remaining. Under the message box you
+can see and change the chat model and its reasoning effort. Open a chapter and
+press **Read** for a wide, book-like reading view; highlight a passage and
+press **Ask about this**, then type what you want. The theme is in
+**Settings > Appearance**. On a phone, the menu button opens the sidebar.
 
 The reply appears as it is written, with activity such as reading a file or
 updating the outline. A small line under the reply shows what that turn cost:
 the number of model calls and the tokens in and out. While the turn runs, a
 work log shows what the Room is reading, checking, searching or changing; it
-stays under the reply as a record. Open the context meter's **What the book
+stays under the reply as a record. Open the Book panel's **What the book
 sends** to see the token cost of each part. **Stop** cancels the current turn;
 edits already made are kept and still have their change cards. You can then
 send a different instruction. One planning turn runs per project at a time.
 
-Open a document and highlight a passage to **Discuss**, **Suggest
-alternatives**, or **Revise** it. These actions put the passage and its file
-into the message box so you can add your instructions before sending.
-An agreed passage edit preserves the rest of the document and the previous
-version. **Just exploring** lets you discuss possibilities with file-changing
-tools disabled; turn it off when you want to apply a decision.
+Selecting a passage puts its document and text into the message box, so you
+can ask for a discussion, alternatives or a change in your own words. An
+agreed passage edit preserves the rest of the document and the previous
+version. If you say you are just exploring, the Room discusses without
+changing files.
 
-**Suggest changes first** stages planning edits, passage edits and chapter
-revisions instead of saving them. Each one appears as a card with **Use
-suggestion** and **Keep original**. If the file changed after the suggestion
-was staged, it is marked stale and both versions are kept. Once accepted, it
-becomes a normal change card with **Undo**.
+**Settings > Changes > Review changes before saving** stages planning edits,
+passage edits and chapter revisions instead of saving them. Each one appears
+as a card with **Use suggestion** and **Keep original**. If the file changed
+after the suggestion was staged, it is marked stale and both versions are
+kept. Once accepted, it becomes a normal change card with **Undo**.
 
 Expand **Compare changes** on a change card to see the before and after text
 with nearby context. **Undo** refuses to overwrite a newer edit. Manual
@@ -140,7 +138,7 @@ model fails, the chat keeps those actions and any partial reply. After an
 app restart, an unfinished turn is marked interrupted; send a follow-up to
 continue without automatically repeating its edits. Builds still require
 the local app process to stay running. If it stops before a run writes its
-report, the files panel says the build was interrupted; finished chapters are
+report, the Book panel says the build was interrupted; finished chapters are
 saved and starting a new build is safe.
 
 Or plan by hand:

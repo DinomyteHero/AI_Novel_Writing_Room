@@ -20,7 +20,7 @@ A tool that helps writers, often new ones, plan and write novels and series
 Writers reach both halves three ways, all over the same files and code:
 
 - **The app** (`scripts/app.py`): a local web app in the browser, laid out
-  like Claude (projects, chats, a files panel, Settings for providers). A
+  like Claude (books, chats, a Book panel, Settings for providers). A
   chat model from the writer's own provider (`studio_chat`) follows the same
   `story-session` skill through tools (`src/studio/chat.py`).
 - **The Claude plugin** (`.claude-plugin/`): for Cowork and Claude Code.
@@ -98,12 +98,20 @@ favour of this design and is in git history if something specific is needed.
   response saves nothing; renames preview before `--apply`, keep the previous
   text and can be undone; removing a reference moves it to `reference/.history`
   instead of deleting it.
-- **Suggestions are proposals.** "Suggest changes first" makes `edit_file`,
-  `write_file`, `edit_passage` and `revise_chapter` stage a `proposal` item
-  instead of saving; the writer accepts or keeps it. Acceptance compares the
-  current text with the proposal's `before`, marks it stale rather than
-  overwriting a newer edit, and turns the accepted item into a normal activity
-  with Undo. Builds remain their own operation.
+- **Suggestions are proposals.** "Review changes before saving" in Settings
+  makes `edit_file`, `write_file`, `edit_passage` and `revise_chapter` stage a
+  `proposal` item instead of saving; the writer accepts or keeps it. Acceptance
+  compares the current text with the proposal's `before`, marks it stale rather
+  than overwriting a newer edit, and turns the accepted item into a normal
+  activity with Undo. Builds remain their own operation.
+- **Buttons are for consent, not capability.** The app's chat is the command
+  surface: if a sentence can do it, don't give it a button. Visible controls
+  are navigation, Send/Stop/Attach, Build (which spends money), Use
+  suggestion/Keep original, Undo, Save, and Settings. One Build entry point
+  opens the estimate card; one Book panel holds the plan, reference,
+  manuscript, notes and context. Do not add feature buttons for review, ideas,
+  explore or modes; the model calls its tools, and preferences live in
+  Settings.
 - **No output caps by default.** Roles in `config/settings.yaml` set no
   `max_tokens`; `tests/test_library.py::test_default_settings_have_no_output_caps`
   guards this.
@@ -122,9 +130,11 @@ favour of this design and is in git history if something specific is needed.
   actions during the turn and marks interrupted turns on reopening. Stop
   cancels pending model work; completed edits remain. No separate job store.
   Retained chat attachments live beside the chat in `<id>-files/`; only book
-  and series references reach the Press. Exploring turns expose read-only
-  tools. Selected-passage edits preserve chapter history, and manual saves
-  check the document version before replacing it.
+  and series references reach the Press. The API still accepts read-only
+  `explore` turns; the app has no explore toggle, and the chat treats "just
+  exploring" as read-only by instruction. Selected-passage edits preserve
+  chapter history, and manual saves check the document version before
+  replacing it.
 - **Providers are backends.** Each entry under `models` in
   `config/settings.yaml` is a backend; `api: anthropic` uses the Anthropic SDK,
   the rest the OpenAI-compatible API. The app writes the writer's choices to

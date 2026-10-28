@@ -35,6 +35,9 @@ config/settings.local.yaml
 # Local evaluation and model-comparison runs
 output/
 
+# Local test scratch
+.test-tmp/
+
 # Environment variables
 .env
 .env.*

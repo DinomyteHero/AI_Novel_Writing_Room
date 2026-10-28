@@ -38,7 +38,7 @@ The working system is smaller and more complete than the phrase "Cowork clone" s
 | Capability | Where it lives | Status | What is still missing |
 |---|---|---|---|
 | Library, series, books, plans, provenance | `src/studio/project.py` | Working | A formal library format version and migration path |
-| Room chat with file tools, streaming, undo, explore mode, passage selection | `src/studio/chat.py`, `src/app/api.py`, `src/app/static/app.js` | Working | Inline proposal comparison and accept/keep; the editor is a textarea |
+| Room chat with file tools, streaming, undo, explore mode, passage selection | `src/studio/chat.py`, `src/app/api.py`, `src/app/static/app.js` | Working | Focus mode; a real manuscript surface |
 | Reader, chapter navigation, selection actions | `src/app/static/app.js` | Working | Focus mode, tracked changes, a real manuscript surface |
 | Press: estimate, draft → critique → revise, run folder, report | `src/studio/press.py` | Working | A writer-facing brief before the build; currency estimates |
 | Background builds, stop after chapter, progress snapshot | `src/studio/jobs.py` | Working | Durable jobs; recovery after the process dies |
@@ -70,36 +70,40 @@ That means much of the "Cowork for writing" architecture is already built. The r
 
 ## 4. The workspace
 
-Use one book workspace. The document gets the most space; the Room expands during planning and becomes a companion panel while writing.
+Two surfaces, not seven: the conversation and the book. The book panel opens
+beside the conversation when the writer needs it and closes when they don't.
+The writer's prose and the Room get the space; the tool's features do not.
 
 ```text
-Library / book switcher         The Glass Harbor                  Saved
-┌────────────────┬───────────────────────────────────┬─────────────────────┐
-│ The Room       │ Document title + local controls   │ The Room            │
-│ Manuscript     │                                   │                     │
-│ Story plan     │ Chapter, outline, character sheet │ Your request        │
-│ References     │ or proposed change                │ Reading / working   │
-│ Drafting       │                                   │ Advice + evidence   │
-│                │ The writer's work is central      │                     │
-│ Craft notes    │                                   │ Explore / Work      │
-│ Settings       │                                   │ Message composer    │
-└────────────────┴───────────────────────────────────┴─────────────────────┘
+Books / chats          The Glass Harbor                    Book
+┌──────────────┬──────────────────────────────┬─────────────────────┐
+│ New book     │ The Room                     │ Story bible         │
+│              │                              │ Characters          │
+│ The Glass    │  conversation, activity,     │ Outline             │
+│ Harbor       │  change cards, build card    │ Reference           │
+│  · Chat 1    │                              │ Manuscript          │
+│  · Chat 2    │  [ Ask about this passage ]  │ Build status        │
+│              │  Message …            Send   │ Context             │
+│ Settings     │                              │ Notes               │
+└──────────────┴──────────────────────────────┴─────────────────────┘
 ```
-
-The Room is one shared conversation surface. Moving between documents does not create another assistant persona or erase the task. A writer can still start separate chats for separate pieces of work, as the app already does.
 
 | Surface | What the writer sees | Main interaction |
 |---|---|---|
-| Library | Book covers or quiet title rows, last opened document, series membership | Continue a book, start one, or bring existing material |
-| The Room | A task conversation with attached documents and compact action receipts | "Help me make the confrontation less predictable." Open the relevant document alongside it. |
-| Manuscript | Chapter list, generous reading column, selection tools, history | Write directly; discuss or revise a selection; compare a suggestion |
-| Story plan | Story bible, characters, outline, series bible | Edit the actual Markdown, with a readable view and a source view |
-| References | Book and series reference notes, source links, research conversations | Read a reference or decide which findings belong in the book |
-| Drafting | Chapter scope, brief, context/call estimate, current stage, results | Draft the next chapter or an explicitly chosen batch; stop after the current chapter |
-| Craft notes | The shared guide, its sources, and the book's intentional departures | Read why a lens might help; ask about its application in the Room |
-| Settings | Provider setup, role choices, library folder, appearance, connections | Choose where model requests go and inspect connection access |
+| Library | One row per book, expanding to its chats | Continue a book, start one, or open a chat |
+| The Room | A conversation with attached documents and compact action receipts | "Help me make the confrontation less predictable." |
+| Book | Plan files, reference, manuscript, build status, context, notes | Read or edit the Markdown, open a chapter, build |
+| Settings | Providers, roles, press defaults, appearance, review preference, writing help | Choose models and how changes are saved |
 
-History, context, and change comparisons are contextual panels, not competing top-level destinations. Review and brainstorming continue to start in conversation; do not add separate Review or Ideas buttons.
+**What is deliberately not a surface.** Project files, Manuscript, Story plan,
+References, Drafting and Craft notes are all inside the Book panel or inside
+Settings. There is no second rail beside the chat, and no Review, Ideas,
+Explore or mode buttons in the composer. Review and brainstorming start in
+conversation; the chat calls its `review`, `ideas` and `fresh_eyes` tools. A
+build starts from one **Build** button and always shows its card first.
+
+History, context, and change comparisons are contextual panels, not competing
+top-level destinations.
 
 ### The main journeys
 
@@ -109,7 +113,7 @@ History, context, and change comparisons are contextual panels, not competing to
 | **Explore and decide** | The writer discusses possibilities; agreed decisions are recorded in the right file. | Explore is read-only. An explicit instruction is authority to edit; a speculative "what if" is a proposal to discuss. |
 | **Write with a partner** | The writer selects a passage and asks for a change. The Room reads the chapter and the book, names the tradeoff, and proposes a replacement. | Show Original and Suggested, a short explanation, and **Use suggestion / Keep original**. Apply against the exact source version. |
 | **Get useful editorial feedback** | "Where does the middle lose momentum?" Feedback appears in the conversation beside linked passages. | Each substantial observation names what happened on the page, the likely reader effect, the link to the writer's intent, and a possible response. |
-| **Delegate a draft** | The writer chooses a chapter or batch and sees the brief, length, stopping point, models, and estimate. | Offer the optional plan review once before building. Never require it. |
+| **Delegate a draft** | The writer presses Build and sees the brief, length, stopping point, models, estimate, and the next/all choice. | Offer the optional plan review once before building. Never require it. |
 | **Research without rewriting the story** | Research begins in the Room with the writer's question. Findings carry a source URL and uncertainty. | "Save to book references" or "Save to series references" makes the scope explicit. A web page is information, never instructions. |
 | **Continue a series and export** | Series-level material is visibly separate from the book's own. Later books read story-so-far notes instead of full text. | Never retroactively overwrite an earlier book's cast. Export in chapter order. |
 
@@ -117,9 +121,9 @@ History, context, and change comparisons are contextual panels, not competing to
 
 - Retain the current amber, paper, ink, and warm gray palette, with a dark theme. Use accent colour for the current action or selection, not every panel.
 - Use Archivo or the system family for controls and Literata or Georgia for prose. Manuscript text starts around 18–20px with comfortable line spacing and a roughly 60–75-character reading measure.
-- At a wide desktop size, start near 190px navigation and 300–340px Room panel; let the document take the rest. Panels collapse. Focus mode hides navigation and the Room until recalled.
-- On smaller screens, keep one primary surface visible and open the Room as a full-width companion view. Preserve document selection and scroll position when switching. Do not squeeze three columns onto a phone.
-- Use labels such as "Story plan," "Keep original," and "Stop after this chapter." Keep model-routing and protocol language in Settings or details.
+- At a wide desktop size, start near 264px navigation and a 440px Book panel; let the conversation and the document take the rest. Either panel closes. Reading a chapter hides both.
+- On smaller screens, keep one primary surface visible and open the Book panel as a full-width companion view. Preserve document selection and scroll position when switching. Do not squeeze three columns onto a phone.
+- Use labels such as "Book," "Keep original," and "Stop after this chapter." Keep model-routing and protocol language in Settings or details.
 - All actions need keyboard access and visible focus. Compare changes with text labels as well as colour. Announce saves and completed actions without reading every streamed token aloud.
 
 ---
@@ -160,7 +164,7 @@ writer message
 | `propose_build` | Show a build card with an estimate | The writer presses Build; the model cannot start it |
 | `story_so_far` | Write notes later books read instead of full text | Replaces only with history kept |
 
-**Explore mode** exposes only `read_file` and `status`. **Passage selection** is the only way `edit_passage` becomes available. The model sees the selected text and the document path; the app checks the document version again before applying.
+**An explore turn**, when a host asks for one, exposes only `read_file` and `status`. The app has no explore toggle: it treats "just exploring" as read-only by instruction. **Passage selection** is the only way `edit_passage` becomes available. The model sees the selected text and the document path; the app checks the document version again before applying.
 
 ### Write safety
 
@@ -595,9 +599,15 @@ Open a chapter, select a passage, state a goal, discuss the effect, compare a su
 
 ### Slice 2 — The book becomes navigable (2–3 weeks)
 
-A document-centred project page, story-plan views that edit the real Markdown, references with visible scope, a shared Room across documents, focus mode, and a context manifest.
+One Book panel that edits the real Markdown: plan, reference, manuscript,
+context and notes, opened beside the conversation. A chapter opens wide for
+reading; a selected passage goes into the message box. Focus mode closes the
+panel. No new top-level destinations.
 
-**Acceptance:** the writer can move from library to chapter to outline without losing the Room; the context panel names what was sent and its token size; manual edits still win; mobile shows one surface at a time.
+**Acceptance:** the writer can move from library to chat to chapter to outline
+without losing the Room; the panel names what was sent and its token size;
+manual edits still win; mobile shows one surface at a time; at rest the chat
+shows only navigation, the composer, Book and Build.
 
 ### Slice 3 — Craft knowledge earns the claim (3–4 weeks)
 
