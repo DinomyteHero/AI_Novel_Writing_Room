@@ -211,11 +211,12 @@ async def test_rename_keeps_history_and_can_be_undone(book):
 
 
 async def test_add_book_switches_to_it_and_carries_the_cast(book):
-    router = FakeRouter({"studio_chat": [{"tool_calls": [("add_book", {"title": "Low Tide"})]}, "Book 2 is ready."]})
+    router = FakeRouter({"studio_chat": [{"tool_calls": [("add_book", {"title": "Low Tide", "series_title": "The Salt Road"})]}, "Book 2 is ready."]})
     result = await chat.run_turn(book.series, book, router, [], "A sequel!", SETTINGS)
     assert result.book.number == 2 and result.book.title == "Low Tide"
     assert "Nineteen years to ask." in result.book.characters_path.read_text(encoding="utf-8")
-    assert book.series.bible_path.exists()
+    assert book.series.bible_path.read_text(encoding="utf-8").startswith("# The Salt Road")
+    assert result.book.series.title == "The Salt Road"
 
 
 async def test_propose_build_makes_a_card_and_builds_nothing(book):

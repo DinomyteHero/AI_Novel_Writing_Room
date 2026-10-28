@@ -192,9 +192,13 @@ TOOLS = [
         "name": "add_book",
         "description": (
             "Add the next book to the series (turning a standalone into a series). Its "
-            "characters.md starts as a copy of the previous book's. Then work on the new book."
+            "characters.md starts as a copy of the previous book's. Pass series_title when "
+            "the series needs its own name; otherwise it takes the first book's title. Then "
+            "work on the new book."
         ),
-        "parameters": _schema({"title": {"type": "string"}}, ["title"]),
+        "parameters": _schema(
+            {"title": {"type": "string"}, "series_title": {"type": "string"}}, ["title"]
+        ),
     },
     {
         "name": "revise_chapter",
@@ -436,8 +440,8 @@ class _Tools:
         )
         return f"Replaced {total} occurrence(s) in {len(hits)} file(s):\n" + "\n".join(lines)
 
-    async def t_add_book(self, title: str) -> str:
-        book, written = self.series.add_book(title)
+    async def t_add_book(self, title: str, series_title: str = "") -> str:
+        book, written = self.series.add_book(title, series_title.strip() or None)
         self.book = book
         self.seen.update({p: p.read_text(encoding="utf-8") for p in written})
         self.items.append({
@@ -445,7 +449,13 @@ class _Tools:
             "text": "With its own story bible, characters (copied from the previous book) and outline.",
             "before": None, "after": None,
         })
-        return "Created:\n" + "\n".join(f"- {rel(self.series, p)}" for p in written)
+        note = ""
+        if self.series.bible_path in written:
+            note = (
+                " A series bible was created. Offer to move what is shared (the world, its rules,"
+                " the arc) out of book one's story bible into it, so it isn't duplicated."
+            )
+        return "Created:\n" + "\n".join(f"- {rel(self.series, p)}" for p in written) + note
 
     async def t_revise_chapter(self, chapter: int, note: str) -> str:
         target = self.book.chapter_path(int(chapter))

@@ -312,7 +312,8 @@ const ACT = {
   async openProject(d) {
     S.selection = null; S.reader = null; S.pending = [];
     S.projectDraft = ""; S.draft = ""; S.panel = false; S.doc = null;
-    try { await loadProject(d.project); S.view = "project"; } catch (e) { return fail(e); }
+    const book = S.project === d.project && S.data ? S.data.book.folder : undefined;
+    try { await loadProject(d.project, book); S.view = "project"; } catch (e) { return fail(e); }
     render();
   },
   async switchBook(d) {
@@ -323,7 +324,9 @@ const ACT = {
   async openChat(d) {
     try {
       const chat = await get("/api/chat", { project: d.project, chat: d.chat });
-      if (S.project !== d.project || !S.data) await loadProject(d.project);
+      if (S.project !== d.project || !S.data || S.data.book.folder !== chat.book) {
+        await loadProject(d.project, chat.book || undefined);
+      }
       S.chat = chat; S.view = "chat"; S.panel = false; S.doc = null; S.draft = ""; S.reader = null;
       S.selection = null; S.pending = []; S.projectDraft = "";
       watchTurn(chat);
@@ -332,8 +335,9 @@ const ACT = {
   },
   async newChat(d) {
     try {
+      const book = S.project === d.project && S.data ? S.data.book.folder : undefined;
       const chat = await post("/api/chats", { project: d.project });
-      await loadProject(d.project);
+      await loadProject(d.project, book);
       S.chat = chat; S.view = "chat"; S.panel = false; S.doc = null;
       S.selection = null; S.pending = []; S.draft = ""; S.projectDraft = "";
       await refreshState();
@@ -974,6 +978,7 @@ function chatView() {
       <button type="button" class="link muted" style="font-size:14px" ${attr({ act: "openProject", project: c.project })}>${esc(S.data ? S.data.title : "")}</button>
       <span class="muted" aria-hidden="true">/</span>
       <b style="font-size:14px;padding:0 6px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(c.title)}</b>
+      ${S.data?.isSeries ? `<span class="muted" style="font-size:12px;white-space:nowrap" title="${esc(S.data.book.title)}">Book ${S.data.book.number}</span>` : ""}
       <div style="margin-left:auto;display:flex;gap:8px;align-items:center">
         <button type="button" class="btn ghost small" aria-pressed="${S.panel}" ${attr({ act: "togglePanel" })}>${ic("panel", 16, "currentColor", 1.8)} Book</button>
         ${next ? `<button type="button" class="btn small" ${building ? "disabled" : ""} ${attr({ act: "buildAsk", which: "next" })}>${building ? "Building…" : "Build"}</button>` : ""}

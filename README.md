@@ -13,11 +13,13 @@ idea, some characters, a rough outline. The chat helps you flesh it out with
 ideas and questions, and keeps your book's files up to date as you talk:
 the story bible, the character sheets and the outline. Edit them yourself
 whenever you like; your edits always win. Rename a character and it changes
-everywhere. When you're ready, ask for an optional second opinion: a fresh
-model can review everything, and you go through its points together, keeping
-what you agree with. If you'd rather see a change before it lands, turn on
-**Review changes before saving** in Settings: the Room stages the edit, and
-you choose **Use suggestion** or **Keep original**.
+everywhere. A standalone book is a series of one: when you're ready for a
+sequel, ask the Room to add the next book, and it becomes a series. When
+you're ready, ask for an optional second opinion: a fresh model can review
+everything, and you go through its points together, keeping what you agree
+with. If you'd rather see a change before it lands, turn on **Review changes
+before saving** in Settings: the Room stages the edit, and you choose **Use
+suggestion** or **Keep original**.
 
 **The Press** is where chapters get made, without you sitting there. Build
 one chapter at a time to find the voice, or the whole book at once. For each

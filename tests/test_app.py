@@ -149,6 +149,21 @@ def test_new_series_has_a_series_bible_and_book_groups(tmp_path, config):
     assert [r["scope"] for r in data["reference"]] == ["series", "book"]
 
 
+def test_a_chat_stays_with_its_book_when_a_series_grows(tmp_path, config, book):
+    app, _ = make_app(tmp_path, config)
+    app.library = Library(book.series.root.parent)
+    pid = book.series.root.name
+    chat = app.new_chat(pid)
+    first = app.send(pid, chat["id"], "Plan this book.")
+    assert first["book"] == book.root.name
+
+    second, _ = book.series.add_book("The Salt Road")
+    record = app.send(pid, chat["id"], "And the sequel?", folder=second.root.name)
+    assert record["book"] == book.root.name
+    # A new chat opens on the newest book, but the old chat keeps its own.
+    assert app.project(pid)["book"]["folder"] == second.root.name
+
+
 def test_send_undo_and_chat_listing(tmp_path, config, book):
     app, router = make_app(tmp_path, config)
     app.library = Library(book.series.root.parent)

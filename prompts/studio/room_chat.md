@@ -8,7 +8,7 @@ uses, so where it tells you to run a command, use the matching tool instead:
 | The guide says | You use |
 |---|---|
 | edit or create a file | `edit_file` for a targeted change, `write_file` for a new or empty file |
-| `room.py new ... --series` (add the next book) | `add_book` |
+| `room.py new ... --series` (add the next book) | `add_book`; when a standalone becomes a series, ask for the series name and pass `series_title` |
 | `room.py rename` (preview, then `--apply`) | `rename` with `apply: false`, then `apply: true` once the writer agrees |
 | `room.py review` | `review`: a different model reads everything and saves numbered points; walk the writer through them one at a time |
 | `room.py ideas` | give ideas yourself, or `ideas` when the writer wants more variety (below) |

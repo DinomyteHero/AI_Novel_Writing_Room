@@ -507,7 +507,7 @@ class App:
                 raise StudioError("The Room is already working in this project. Stop that turn or wait for it to finish.")
             series = self.series(pid)
             record = self.load_chat(pid, cid)
-            book = self.book(series, folder or record.get("book"))
+            book = self.book(series, record.get("book") or folder)
             if not text.strip() and not attachments:
                 raise StudioError("Type a message first.")
             prompt = text.strip()

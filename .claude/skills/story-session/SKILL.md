@@ -137,7 +137,8 @@ first two or three chapters, and start building.
 ## Planning a series
 
 - Start one with `new "<book one>" --series "<series>"`, or turn a standalone
-  into a series by adding a second book with `--series "<its title>"`.
+  into a series by adding a second book with `--series "<its title>"`. Ask
+  what the series should be called; it may differ from the first book's title.
 - When a second book arrives, offer to move what's shared (the world, the
   rules) out of book one's story bible into `series_bible.md`, so it isn't
   duplicated. Move only what's still true in the new book. If the next book

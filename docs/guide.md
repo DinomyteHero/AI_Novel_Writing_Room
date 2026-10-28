@@ -282,6 +282,15 @@ version. Every rebuild, revision and polish keeps the previous version in
 
 ### Series
 
+To turn a standalone into a series, ask the Room to add the next book (or
+run `python scripts/room.py new "Book Two" --series "Book One's Title"`). The
+project becomes a series: a `series_bible.md` appears, the books are
+numbered, and the new book starts with a copy of the first book's
+characters. Decide what the series is called (edit the heading in
+`series_bible.md` if it differs from book one), then move the world, rules
+and arc that both books share out of book one's story bible and into the
+series bible. The Room can do that with you.
+
 When a book is finished, write notes for the books after it:
 
 ```bash
