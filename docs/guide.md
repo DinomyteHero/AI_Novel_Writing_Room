@@ -89,7 +89,8 @@ reference, manuscript and notes. The same **Book** button in a chat opens it
 beside the conversation. Start a new chat for each piece of work: a scene, a
 review, a brainstorm. **Build** at the top of a chat opens the estimate card,
 where you choose the next chapter or all remaining. Under the message box you
-can see and change the chat model and its reasoning effort. Open a chapter and
+can see and change the chat model and its reasoning effort; each chat keeps
+its own choice. Open a chapter and
 press **Read** for a wide, book-like reading view; highlight a passage and
 press **Ask about this**, then type what you want. The theme is in
 **Settings > Appearance**. On a phone, the menu button opens the sidebar.
@@ -311,26 +312,30 @@ python scripts/press.py export          # export/manuscript.md
 
 ## Settings
 
-In the app, **Settings** (bottom left) connects providers, picks which model
-plays each role and sets the build options. It saves your keys in `.env` and
-your choices in `config/settings.local.yaml`, both private to your computer.
-The plugin asks for your key when you install it.
+In the app, **Settings** (bottom left) connects providers, picks the models
+for the Press and background reads, and sets the build options, appearance
+and review preferences. The chat model and reasoning effort are chosen in
+each chat, under its message box, and each chat keeps its own. Settings saves
+your keys in `.env` and your role choices in `config/settings.local.yaml`,
+both private to your computer. The plugin asks for your key when you install
+it.
 
 Underneath, `config/settings.yaml` holds:
 
 - **Providers.** OpenRouter (recommended: one key, every model), Anthropic,
   OpenAI, Google, and a model running on your own computer (Ollama or
   llama.cpp). Each needs only its key, named by `api_key_env`.
-- **Roles.** `studio_chat` is the app's planning chat, which can also search
-  the web and read pages, and `studio_writer` drafts and revises at high
-  reasoning effort (both Gemini 4 Argon); `studio_critic` critiques press
-  drafts (Claude Sonnet 5.5, a different model from the writer);
-  `studio_reader` writes reviews and ideas (also Sonnet 5.5; switch it to
-  Opus, Kimi or GLM if you want a second opinion from a separate family);
-  `studio_notes` writes story-so-far notes (DeepSeek V4.1 Flash 1017). Every call sends the
-  whole book, so pick models with ~1M-token context windows. No role caps its
-  output length. Web searches cost a little extra through OpenRouter (under a
-  cent each).
+- **Roles.** `studio_chat` is the default for the app's chat, which can also
+  search the web and read pages; each chat can pick a different model and
+  reasoning effort. `studio_writer` drafts and revises at high reasoning
+  effort (both Gemini 4 Argon); `studio_critic` critiques press drafts (Claude
+  Sonnet 5.5, a different model from the writer); `studio_reader` writes
+  reviews and ideas (also Sonnet 5.5; switch it to Opus, Kimi or GLM if you
+  want a second opinion from a separate family); `studio_notes` writes
+  story-so-far notes (DeepSeek V4.1 Flash 1017). Every call sends the whole
+  book, so pick models with ~1M-token context windows. No role caps its output
+  length. Web searches cost a little extra through OpenRouter (under a cent
+  each).
 - **Press options.** `revision_rounds` (1), `default_chapter_words` (3000),
   `length_calibration` (1.0) and `min_revision_ratio` (0.6).
 

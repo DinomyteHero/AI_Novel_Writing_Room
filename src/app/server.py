@@ -46,6 +46,12 @@ def routes(app: App) -> dict:
             edit_mode=p.get("edit_mode", "auto"),
         ),
         ("POST", "/api/chat/stop"): lambda p: app.stop_turn(p["project"], p["chat"]),
+        ("POST", "/api/chat/model"): lambda p: app.set_chat_model(
+            p["project"], p["chat"], p["backend"], p["model"]
+        ),
+        ("POST", "/api/chat/effort"): lambda p: app.set_chat_effort(
+            p["project"], p["chat"], p.get("effort") or ""
+        ),
         ("POST", "/api/chat/attachment/remove"): lambda p: app.forget_attachment(p["project"], p["chat"], p["path"]),
         ("POST", "/api/undo"): lambda p: app.undo(p["project"], p["chat"], p["item"]),
         ("POST", "/api/proposal"): lambda p: app.decide_proposal(

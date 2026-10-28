@@ -8,6 +8,7 @@ class FakeRouter:
         self.responses = {role: list(items) for role, items in (responses or {}).items()}
         self.default = default
         self.calls: list[tuple[str, list[dict]]] = []
+        self.routings: list[dict | None] = []
         self.usage_log: list[dict] = []
         self.health = (True, "Cloud API reachable, key valid")
 
@@ -22,9 +23,11 @@ class FakeRouter:
         )
         return reply
 
-    async def chat(self, role: str, system: str, messages: list[dict], tools: list[dict], on_text=None) -> dict:
+    async def chat(self, role: str, system: str, messages: list[dict], tools: list[dict], on_text=None,
+                   routing: dict | None = None) -> dict:
         """Scripted replies are strings (a final answer) or dicts with
         ``tool_calls`` as ``[(name, arguments), ...]``."""
+        self.routings.append(routing)
         self.calls.append((role, [{"role": "system", "content": system}] + list(messages)))
         queue = self.responses.get(role)
         reply = queue.pop(0) if queue else "Done."

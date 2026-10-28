@@ -103,13 +103,14 @@ Your own notes in the story bible always win over it.
 
 ## Models
 
-Set in [`config/settings.yaml`](config/settings.yaml), or in the app's
-Settings: Gemini 4 Argon is the app's planning chat (with web search), and
-writes and revises chapters; Claude Sonnet 5.5 critiques each draft and gives
-reviews and ideas, so a different model reads the book; and DeepSeek V4.1 Flash
-1017 writes story-so-far notes, all through OpenRouter by default.
-Each has a roughly 1M-token context window, enough for a full novel and its
-plan in every call.
+Set in [`config/settings.yaml`](config/settings.yaml) and, for the Press,
+in the app's Settings: Gemini 4 Argon is the default chat model (with web
+search) and writes and revises chapters. Each chat can switch its own model
+and reasoning effort under the message box. Claude Sonnet 5.5 critiques each
+draft and gives reviews and ideas, so a different model reads the book; and
+DeepSeek V4.1 Flash 1017 writes story-so-far notes, all through OpenRouter by
+default. Each has a roughly 1M-token context window, enough for a full novel
+and its plan in every call.
 
 ## License
 

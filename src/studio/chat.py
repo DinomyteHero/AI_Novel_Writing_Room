@@ -602,6 +602,7 @@ async def run_turn(
     write_lock=None,
     selection: dict | None = None,
     edit_mode: str = "auto",
+    routing: dict | None = None,
 ) -> TurnResult:
     """One writer message and everything the chat does in reply.
 
@@ -640,7 +641,11 @@ async def run_turn(
             )
         emit({"kind": "phase", "text": "Thinking about your story…"})
         available = [t for t in TOOLS if (not explore or t["name"] in ("read_file", "status")) and (selection or t["name"] != "edit_passage")]
-        kwargs = {"on_text": lambda text: emit({"kind": "text", "text": text})} if on_event else {}
+        kwargs = {}
+        if on_event:
+            kwargs["on_text"] = lambda text: emit({"kind": "text", "text": text})
+        if routing:
+            kwargs["routing"] = routing
         try:
             answer = await _cancellable(router.chat(CHAT_ROLE, system, messages, available, **kwargs), should_stop)
         except Exception as exc:

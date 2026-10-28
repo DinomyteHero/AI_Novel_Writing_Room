@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import asyncio
 import base64
+import copy
 import io
 import json
 import logging
@@ -496,6 +497,66 @@ class App:
         }
         return self._save_chat(pid, record)
 
+    def set_chat_model(self, pid: str, cid: str, backend: str, model: str) -> dict:
+        """Choose the model for one chat. New model means the old effort is cleared."""
+        config = self.config()
+        models = ((config.get("models") or {}).get(backend) or {}).get("models") or {}
+        if model not in models:
+            raise StudioError("That model isn't available. Pick another in the chat.")
+        with self._lock:
+            record = self._load_chat(pid, cid)
+            current = record.get("model") or {}
+            if current.get("backend") == backend and current.get("model") == model:
+                return record
+            record["model"] = {"backend": backend, "model": model}
+            record["effort"] = ""
+            self._save_chat(pid, record)
+            return record
+
+    def set_chat_effort(self, pid: str, cid: str, effort: str) -> dict:
+        """Set this chat's reasoning effort, checked against its model."""
+        config = self.config()
+        with self._lock:
+            record = self._load_chat(pid, cid)
+            chosen = record.get("model") or {}
+            base = (config.get("agent_routing") or {}).get("studio_chat") or {}
+            backend = chosen.get("backend") or base.get("backend")
+            model = chosen.get("model") or base.get("model")
+            entry = (((config.get("models") or {}).get(backend) or {}).get("models") or {}).get(model)
+            efforts = entry.get("efforts") if isinstance(entry, dict) else []
+            if effort and effort not in (efforts or []):
+                raise StudioError("That effort isn't available for this model.")
+            record["effort"] = effort
+            self._save_chat(pid, record)
+            return record
+
+    def _chat_routing(self, record: dict) -> dict | None:
+        """The routing for a chat's chosen model, or None to use the studio_chat role."""
+        config = self.config()
+        base = (config.get("agent_routing") or {}).get("studio_chat") or {}
+        chosen = record.get("model") or {}
+        backend = chosen.get("backend") or base.get("backend")
+        model = chosen.get("model") or base.get("model")
+        if not backend or not model:
+            return None
+        models = ((config.get("models") or {}).get(backend) or {}).get("models") or {}
+        if model not in models:
+            return None
+        base_params = copy.deepcopy(base.get("params") or {})
+        changed = (backend, model) != (base.get("backend"), base.get("model"))
+        params = {} if changed else copy.deepcopy(base_params)
+        # OpenRouter server tools belong to the chat wherever it runs on cloud.
+        if changed and backend == "cloud" and base_params.get("tools"):
+            params["tools"] = copy.deepcopy(base_params["tools"])
+        if "effort" in record:
+            params.pop("reasoning", None)
+            effort = record.get("effort") or ""
+            if effort:
+                params["reasoning"] = {"effort": effort}
+        if not changed and params == base_params:
+            return None
+        return {"backend": backend, "model": model, "params": params}
+
     def send(self, pid: str, cid: str, text: str, attachments: list[dict] | None = None,
              folder: str | None = None, on_event: Callable | None = None,
              selection: dict | None = None, explore: bool = False,
@@ -523,6 +584,7 @@ class App:
                     raise StudioError("Choose where to keep each attachment and try again.")
             self.router_check()
             settings = self.press_settings()
+            routing = self._chat_routing(record)
             files, added = [], []
             for a in attachments or []:
                 scope = a.get("scope", "chat")
@@ -588,7 +650,7 @@ class App:
             result = self._run(lambda r: chat.run_turn(
                 series, book, r, history, prompt, settings, files,
                 on_event=event, should_stop=cancel.is_set, explore=explore, write_lock=self._lock,
-                selection=selection, edit_mode=edit_mode,
+                selection=selection, edit_mode=edit_mode, routing=routing,
             ))
             record["book"] = result.book.root.name if result.book else record["book"]
             record["turn"]["usage"] = result.usage.describe()
@@ -913,6 +975,7 @@ class App:
                         "backend": b, "model": alias,
                         "label": (model.get("label") if isinstance(model, dict) else model) or alias,
                         "provider": config["models"][b].get("label", b),
+                        "efforts": (model.get("efforts") if isinstance(model, dict) else None) or [],
                     })
             current = {"backend": routing.get("backend"), "model": routing.get("model")}
             ok = any(o["backend"] == current["backend"] and o["model"] == current["model"] for o in options)

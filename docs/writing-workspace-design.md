@@ -93,7 +93,7 @@ Books / chats          The Glass Harbor                    Book
 | Library | One row per book, expanding to its chats | Continue a book, start one, or open a chat |
 | The Room | A conversation with attached documents and compact action receipts | "Help me make the confrontation less predictable." |
 | Book | Plan files, reference, manuscript, build status, context, notes | Read or edit the Markdown, open a chapter, build |
-| Settings | Providers, roles, press defaults, appearance, review preference, writing help | Choose models and how changes are saved |
+| Settings | Providers, models for the Press and background reads, press defaults, appearance, review preference, writing help | Choose where model requests go and how changes are saved; the chat model is chosen in each chat |
 
 **What is deliberately not a surface.** Project files, Manuscript, Story plan,
 References, Drafting and Craft notes are all inside the Book panel or inside
@@ -452,7 +452,7 @@ The app is a small HTTP API over the studio operations. The browser never talks 
 |---|---|
 | Library | `GET /api/state`, `GET /api/project`, `POST /api/projects` |
 | Files | `GET /api/file`, `POST /api/file`, `POST /api/reference`, `POST /api/reference/remove`, `POST /api/attachment` |
-| Chats | `GET /api/chat`, `POST /api/chats`, `POST /api/send`, `POST /api/send/stream`, `POST /api/chat/stop`, `POST /api/chat/attachment/remove` |
+| Chats | `GET /api/chat`, `POST /api/chats`, `POST /api/send`, `POST /api/send/stream`, `POST /api/chat/stop`, `POST /api/chat/model`, `POST /api/chat/effort`, `POST /api/chat/attachment/remove` |
 | Changes | `POST /api/undo`, `POST /api/review/call` |
 | Press | `GET /api/estimate`, `POST /api/build`, `POST /api/build/decline`, `POST /api/build/stop`, `GET /api/build`, `POST /api/export` |
 | Settings | `GET /api/settings`, `POST /api/settings/key`, `POST /api/settings/check`, `POST /api/settings/role`, `POST /api/settings/effort`, `POST /api/settings/press` |
@@ -467,6 +467,8 @@ All calls carry a per-run token in `X-Writers-Room-Token`; the server refuses a 
   "project": "the-glass-harbor",
   "title": "Make the confrontation less predictable",
   "book": "01-the-glass-harbor",
+  "model": {"backend": "cloud", "model": "geminiargon"},
+  "effort": "high",
   "items": [
     {"kind": "user", "id": "m...", "text": "...", "selection": null, "explore": false},
     {"kind": "activity", "id": "a...", "verb": "Edited", "file": "books/01.../outline.md",

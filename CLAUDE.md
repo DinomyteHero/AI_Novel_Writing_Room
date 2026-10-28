@@ -112,6 +112,11 @@ favour of this design and is in git history if something specific is needed.
   manuscript, notes and context. Do not add feature buttons for review, ideas,
   explore or modes; the model calls its tools, and preferences live in
   Settings.
+- **The chat model is per chat.** Each chat stores its own `model` and
+  `effort` in the chat JSON; the selector under the composer writes them. The
+  configured `studio_chat` routing is only the default for a chat with no
+  choice. Press and background roles stay in Settings; do not move them into
+  the chat selector.
 - **No output caps by default.** Roles in `config/settings.yaml` set no
   `max_tokens`; `tests/test_library.py::test_default_settings_have_no_output_caps`
   guards this.
@@ -160,11 +165,11 @@ favour of this design and is in git history if something specific is needed.
 | Model routing (providers, overlay, tool calls), usage log, key check | `src/model_router.py`, `config/settings.yaml` |
 | Writer-facing guide | `docs/guide.md` |
 
-Routing roles: `studio_chat` (the app's room chat), `studio_writer` (draft,
-revise, polish), `studio_critic` (press critique), `studio_reader` (review),
-`studio_notes` (story-so-far). All need ~1M-token context windows. A role's
-`params.tools` adds OpenRouter server tools (web search, web fetch) to the
-chat's own.
+Routing roles: `studio_chat` (the app's default chat model; a chat can
+override it), `studio_writer` (draft, revise, polish), `studio_critic` (press
+critique), `studio_reader` (review), `studio_notes` (story-so-far). All need
+~1M-token context windows. A role's `params.tools` adds OpenRouter server tools
+(web search, web fetch) to the chat's own.
 
 ## Testing
 

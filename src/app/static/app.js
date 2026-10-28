@@ -277,7 +277,7 @@ async function pollJob() {
 /* ---------- actions ---------- */
 
 const ACT = {
-  async home() { S.view = "home"; S.home.note = ""; S.reader = null; S.panel = false; S.doc = null; render(); focus("home-composer"); },
+  async home() { S.view = "home"; S.home.note = ""; S.reader = null; S.panel = false; S.doc = null; S.picker = false; render(); focus("home-composer"); },
   async go(d) {
     S.view = d.view; S.reader = null; S.panel = false; S.doc = null;
     if (d.view === "settings") S.settings = await get("/api/settings").catch((e) => (fail(e), null));
@@ -310,7 +310,7 @@ const ACT = {
   async toggleProject(d) { S.expanded[d.project] = !S.expanded[d.project]; render(); },
   async openProject(d) {
     S.selection = null; S.reader = null; S.pending = [];
-    S.projectDraft = ""; S.draft = ""; S.panel = false; S.doc = null;
+    S.projectDraft = ""; S.draft = ""; S.panel = false; S.doc = null; S.picker = false;
     const book = S.project === d.project && S.data ? S.data.book.folder : undefined;
     try { await loadProject(d.project, book); S.view = "project"; } catch (e) { return fail(e); }
     render();
@@ -327,7 +327,7 @@ const ACT = {
         await loadProject(d.project, chat.book || undefined);
       }
       S.chat = chat; S.view = "chat"; S.panel = false; S.doc = null; S.draft = ""; S.reader = null;
-      S.selection = null; S.pending = []; S.projectDraft = "";
+      S.selection = null; S.pending = []; S.projectDraft = ""; S.picker = false;
       watchTurn(chat);
     } catch (e) { return fail(e); }
     render(); focus("composer");
@@ -338,7 +338,7 @@ const ACT = {
       const chat = await post("/api/chats", { project: d.project });
       await loadProject(d.project, book);
       S.chat = chat; S.view = "chat"; S.panel = false; S.doc = null;
-      S.selection = null; S.pending = []; S.draft = ""; S.projectDraft = "";
+      S.selection = null; S.pending = []; S.draft = ""; S.projectDraft = ""; S.picker = false;
       await refreshState();
     } catch (e) { return fail(e); }
     render(); focus("composer");
@@ -570,8 +570,12 @@ const ACT = {
     render();
   },
   togglePicker() { S.picker = !S.picker; render(); },
-  async setEffort(d) {
-    try { S.settings = await post("/api/settings/effort", { role: d.role, effort: d.effort }); } catch (e) { return fail(e); }
+  async setChatModel(d) {
+    try { S.chat = await post("/api/chat/model", { project: S.project, chat: S.chat.id, backend: d.backend, model: d.model }); } catch (e) { return fail(e); }
+    render();
+  },
+  async setChatEffort(d) {
+    try { S.chat = await post("/api/chat/effort", { project: S.project, chat: S.chat.id, effort: d.effort }); } catch (e) { return fail(e); }
     render();
   },
   async readChapter(d) {
@@ -902,28 +906,41 @@ function chatRole() {
   return S.settings?.roles?.find((r) => r.key === "studio_chat");
 }
 
+function chatSelection(role) {
+  const chosen = S.chat?.model || null;
+  const backend = chosen?.backend || role.current.backend;
+  const model = chosen?.model || role.current.model;
+  const option = role.options.find((o) => o.backend === backend && o.model === model);
+  const hasEffort = S.chat && Object.prototype.hasOwnProperty.call(S.chat, "effort");
+  const effort = hasEffort ? (S.chat.effort || "") : (chosen ? "" : (role.effort || ""));
+  return { backend, model, option, effort, efforts: option?.efforts || [] };
+}
+
 function modelLine() {
   const role = chatRole();
   if (!role) return "";
-  const current = role.options.find((o) => o.backend === role.current.backend && o.model === role.current.model);
-  const parts = [current ? current.label : role.current.model];
-  if (role.effort) parts.push(`${role.effort[0].toUpperCase() + role.effort.slice(1)} effort`);
-  if (role.web) parts.push("Web");
-  return `<div class="composer-meta"><span class="muted">The room's chat model</span>
+  const sel = chatSelection(role);
+  const parts = [sel.option ? sel.option.label : sel.model];
+  if (sel.effort) parts.push(`${sel.effort[0].toUpperCase() + sel.effort.slice(1)} effort`);
+  if (role.web && sel.backend === "cloud") parts.push("Web");
+  return `<div class="composer-meta"><span class="muted">Chat model</span>
     <div style="position:relative;margin-left:auto;min-width:0">
       <button type="button" class="model-btn" aria-haspopup="true" aria-expanded="${S.picker}" ${attr({ act: "togglePicker" })}><span>${esc(parts.join(" · "))}</span>${ic("down", 14, "currentColor", 2.2)}</button>
-      ${S.picker ? pickerHtml(role) : ""}</div></div>`;
+      ${S.picker ? pickerHtml(role, sel) : ""}</div></div>`;
 }
 
-function pickerHtml(role) {
-  const models = role.options.map((o) => `<button type="button" class="pill ${o.backend === role.current.backend && o.model === role.current.model ? "on" : ""}" ${attr({ act: "setRole", role: role.key, backend: o.backend, model: o.model })}>${esc(o.label)}</button>`).join("");
-  const efforts = role.efforts.length ? `<span class="label">Reasoning effort</span><div class="pills">
-      ${[["", "Default"], ...role.efforts.map((e) => [e, e[0].toUpperCase() + e.slice(1)])].map(([value, label]) => `<button type="button" class="pill ${role.effort === value ? "on" : ""}" ${attr({ act: "setEffort", role: role.key, effort: value })}>${esc(label)}</button>`).join("")}</div>
+function pickerHtml(role, sel) {
+  const models = role.options.map((o) => `<button type="button" class="pill ${o.backend === sel.backend && o.model === sel.model ? "on" : ""}" title="${esc(o.provider)}" ${attr({ act: "setChatModel", backend: o.backend, model: o.model })}>${esc(o.label)}</button>`).join("");
+  const efforts = sel.efforts.length ? `<span class="label">Reasoning effort</span><div class="pills">
+      ${[["", "Default"], ...sel.efforts.map((e) => [e, e[0].toUpperCase() + e.slice(1)])].map(([value, label]) => `<button type="button" class="pill ${sel.effort === value ? "on" : ""}" ${attr({ act: "setChatEffort", effort: value })}>${esc(label)}</button>`).join("")}</div>
       <span class="hint" style="padding:0">Higher effort thinks longer before each reply: better on hard questions, slower and costlier.</span>` : "";
+  const missing = !sel.option ? '<span class="warn" style="font-size:12px">This chat\'s model isn\'t connected. Pick another above.</span>' : "";
   return `<div class="picker" role="dialog" aria-label="Chat model">
     <span class="label">Model</span><div class="pills">${models || '<span class="hint" style="padding:0">Connect a provider in Settings.</span>'}</div>
+    ${missing}
     ${efforts}
-    <button type="button" class="link" style="align-self:flex-start;padding-left:0" ${attr({ act: "go", view: "settings" })}>Every role in Settings</button></div>`;
+    <span class="hint" style="padding:0">Each chat keeps its own model and effort.</span>
+    <button type="button" class="link" style="align-self:flex-start;padding-left:0" ${attr({ act: "go", view: "settings" })}>Press roles in Settings</button></div>`;
 }
 
 const shortDate = (iso) => {
@@ -1184,7 +1201,7 @@ function settingsView() {
       ${p.env ? `<span class="hint" style="padding:0">Saved on this computer in .env as ${esc(p.env)}.</span>` : ""}
     </div>`;
   }).join("");
-  const roles = st.roles.map((r) => `<div class="role">
+  const roles = st.roles.filter((r) => r.key !== "studio_chat").map((r) => `<div class="role">
     <div><b style="font-size:15px">${esc(r.label)}</b> <span class="muted" style="font-size:13px">${esc(r.blurb)}</span></div>
     <div class="pills">${r.options.map((o) => `<button type="button" class="pill ${o.backend === r.current.backend && o.model === r.current.model ? "on" : ""}" ${attr({ act: "setRole", role: r.key, backend: o.backend, model: o.model })}>${esc(o.label)} · ${esc(o.provider)}</button>`).join("")}</div>
     ${!r.options.length ? '<span class="warn" style="font-size:12px">Connect a provider above to choose a model.</span>' : !r.available ? `<span class="warn" style="font-size:12px">Currently set to ${esc(r.current.model)} on ${esc(r.current.backend)}, which isn't connected. Pick one above.</span>` : ""}
@@ -1195,7 +1212,7 @@ function settingsView() {
     <p class="lead">Connect at least one model provider. Your keys stay on this computer.</p>
     <div style="display:flex;flex-direction:column;gap:12px">${providers}</div>
     <h2 class="sub" style="font-size:18px">Who does what</h2>
-    <p class="lead" style="font-size:14px;margin-top:-14px">Every call sends the whole book, so pick models with large context windows (about 1M tokens).</p>
+    <p class="lead" style="font-size:14px;margin-top:-14px">The chat model and reasoning effort are chosen in each chat, under its message box. These roles are for the Press and background reads. Every call sends the whole book, so pick models with large context windows (about 1M tokens).</p>
     <div class="card" style="padding:4px 18px">${roles}</div>
     <h2 class="sub" style="font-size:18px">Building chapters</h2>
     <div class="card" style="padding:4px 18px">
@@ -1357,7 +1374,7 @@ document.addEventListener("click", (e) => {
   if (!fn) return;
   e.preventDefault();
   if (S.drawer && el.dataset.act !== "toggleDrawer") S.drawer = false;
-  if (S.picker && !["togglePicker", "setRole", "setEffort"].includes(el.dataset.act)) S.picker = false;
+  if (S.picker && !["togglePicker", "setChatModel", "setChatEffort"].includes(el.dataset.act)) S.picker = false;
   Promise.resolve(fn(el.dataset, el)).catch(fail);
 });
 

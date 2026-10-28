@@ -470,3 +470,21 @@ async def test_a_roles_server_tools_join_the_chats_own_tools(settings_yaml):
     [payload] = payloads
     assert [t.get("type") for t in payload["tools"]] == ["function", "openrouter:web_search"]
     assert payload["tools"][0]["function"]["name"] == "status"
+
+
+async def test_an_explicit_routing_overrides_the_role(settings_yaml):
+    router = ModelRouter(settings_yaml)
+    seen = {}
+
+    async def fake_call(agent_role, backend, model, messages, params, **kwargs):
+        seen.update(backend=backend, model=model, params=params)
+        return {"choices": [{"message": {"content": "ok"}, "finish_reason": "stop"}], "usage": {}}
+
+    router._openai_call = fake_call
+    await router.chat(
+        "studio_chat", "System", [{"role": "user", "content": "Hi"}], [],
+        routing={"backend": "cloud", "model": "primary", "params": {"temperature": 0.2}},
+    )
+    assert seen["backend"] == "cloud"
+    assert seen["model"] == "anthropic/claude-sonnet-4-20250514"
+    assert seen["params"]["temperature"] == 0.2

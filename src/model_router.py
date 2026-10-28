@@ -203,6 +203,7 @@ class ModelRouter:
         messages: list[dict],
         tools: list[dict],
         on_text: Callable[[str], None] | None = None,
+        routing: dict | None = None,
     ) -> dict:
         """One step of a tool-using conversation.
 
@@ -214,7 +215,7 @@ class ModelRouter:
         pass the whole dict back as the assistant message to continue, so each
         provider gets its own message back unchanged.
         """
-        routing = self._get_routing(agent_role)
+        routing = routing or self._get_routing(agent_role)
         backend = routing["backend"]
         model = self._resolve_model(routing)
         params = self._resolve_params(routing)

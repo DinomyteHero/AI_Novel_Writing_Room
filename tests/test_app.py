@@ -514,6 +514,37 @@ def test_project_reports_book_size_and_titles_from_chapter_headings(tmp_path, co
     assert app.project(book.series.root.name)["context"]["limit"] == 262_000
 
 
+def test_a_chat_keeps_its_own_model_and_effort(tmp_path, config, book):
+    app, router = make_app(tmp_path, config)
+    app.library = Library(book.series.root.parent)
+    pid = book.series.root.name
+    first = app.new_chat(pid)
+    second = app.new_chat(pid)
+
+    app.set_chat_model(pid, first["id"], "cloud", "deepseekflash")
+    record = app.set_chat_effort(pid, first["id"], "high")
+    assert record["model"] == {"backend": "cloud", "model": "deepseekflash"}
+    assert record["effort"] == "high"
+
+    app.send(pid, first["id"], "Hello")
+    routing = router.routings[-1]
+    assert routing["backend"] == "cloud" and routing["model"] == "deepseekflash"
+    assert routing["params"]["reasoning"] == {"effort": "high"}
+    assert any(t.get("type") == "openrouter:web_search" for t in routing["params"]["tools"])
+
+    # The other chat still uses the studio_chat default.
+    app.send(pid, second["id"], "Hello")
+    assert router.routings[-1] is None
+
+    # A new model clears the old model's effort.
+    record = app.set_chat_model(pid, first["id"], "cloud", "geminiargon")
+    assert record["effort"] == ""
+    with pytest.raises(StudioError, match="isn't available for this model"):
+        app.set_chat_effort(pid, first["id"], "max")
+    with pytest.raises(StudioError, match="isn't available"):
+        app.set_chat_model(pid, first["id"], "cloud", "not-a-model")
+
+
 def test_chat_model_effort_and_web_search_follow_the_settings(tmp_path, config, monkeypatch):
     monkeypatch.setenv("OPENROUTER_API_KEY", "sk-or-test")
     app, _ = make_app(tmp_path, config)
