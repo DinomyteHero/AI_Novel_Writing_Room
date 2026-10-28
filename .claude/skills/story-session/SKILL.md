@@ -295,6 +295,23 @@ works, not a form to fill:
 Chapters with several scenes need room: set a `Words:` line to fit them.
 When the plan is done, offer the optional review once, then the build.
 
+## Before building
+
+When the writer says they're ready to build, look over the plan first and
+raise only what would hurt the chapters, in one short message:
+
+- "How it's told" doesn't say how the book should sound (register, a book it
+  should read like, spelling). Ask; without it the press writes in its own
+  voice.
+- In fan fiction, the canon notes have no texture section. Add one yourself,
+  sourced, and say so.
+- A chapter about to be built has thin notes, or depends on an open question.
+- Someone who changes over the book has no note of where this chapter finds
+  them.
+
+Fix what the writer answers, then go on. If nothing needs raising, say so in
+a line. This is a check, not a gate: if the writer says build anyway, build.
+
 ## The review gate (optional)
 
 When the writer says they're ready to build, ask once: "Want a second opinion

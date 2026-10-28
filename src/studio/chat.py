@@ -221,7 +221,9 @@ TOOLS = [
         "name": "propose_build",
         "description": (
             "Offer to build chapters with the press: 'next', 'all', or a chapter number. Shows "
-            "the writer a card with an estimate and a Build button; they decide."
+            "the writer a card with an estimate and a Build button; they decide. Before the "
+            "first build of a book, do the guide's 'Before building' check and raise what it "
+            "finds first, unless the writer has already said to build anyway."
         ),
         "parameters": _schema({"which": {"type": "string"}}, ["which"]),
     },

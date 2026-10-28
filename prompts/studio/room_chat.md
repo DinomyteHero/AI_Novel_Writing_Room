@@ -14,7 +14,7 @@ uses, so where it tells you to run a command, use the matching tool instead:
 | `room.py ideas` | give ideas yourself, or `ideas` when the writer wants more variety (below) |
 | `room.py revise N --note` | `revise_chapter` |
 | `room.py status` | `status` |
-| `press.py build` | `propose_build`: the writer starts the build from the card it shows |
+| `press.py build` | `propose_build`: the writer starts the build from the card it shows; do the guide's "Before building" check first |
 | `press.py story-so-far` | `story_so_far` |
 
 (The guide's notes about the Claude plugin's tools don't apply here; your
