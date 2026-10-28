@@ -25,6 +25,7 @@ from typing import Callable
 
 import yaml
 
+from src import model_catalog
 from src.model_router import PROVIDER_ORDER, ModelRouter, load_config, local_overlay_path
 from src.studio import chat, jobs, press
 from src.studio.llm import LONG_PROMPT_TOKENS, MAX_PROMPT_TOKENS, provider_error
@@ -81,6 +82,28 @@ def context_limit(config: dict) -> int:
         if isinstance(entry, dict) and entry.get("context"):
             limits.append(int(entry["context"]))
     return min([MAX_PROMPT_TOKENS, *limits]) if limits else MAX_PROMPT_TOKENS
+
+
+def _role_price(config: dict, role: str) -> dict | None:
+    routing = (config.get("agent_routing") or {}).get(role) or {}
+    models = ((config.get("models") or {}).get(routing.get("backend")) or {}).get("models") or {}
+    entry = models.get(routing.get("model"))
+    return entry.get("price") if isinstance(entry, dict) else None
+
+
+def build_cost(config: dict, guess: press.Estimate) -> float | None:
+    """Dollars for a build at the writer's and critic's list prices, or None
+    when a price isn't known (only OpenRouter's catalog gives them)."""
+    writer, critic = _role_price(config, "studio_writer"), _role_price(config, "studio_critic")
+    if not writer or (guess.critic_input_tokens and not critic):
+        return None
+    critic = critic or {"in": 0, "out": 0}
+    return (
+        (guess.input_tokens - guess.critic_input_tokens) * writer["in"]
+        + (guess.output_tokens - guess.critic_output_tokens) * writer["out"]
+        + guess.critic_input_tokens * critic["in"]
+        + guess.critic_output_tokens * critic["out"]
+    ) / 1_000_000
 
 
 def _written_title(text: str) -> str:
@@ -173,12 +196,16 @@ class App:
         env_path: Path,
         make_router: Callable[[], object] | None = None,
         library_source: str = "default",
+        fetch_catalog: Callable[[], list[dict]] = model_catalog.fetch,
     ):
         self.library = library
         self.library_source = library_source
         self.config_path = Path(config_path)
         self.env_path = Path(env_path)
         self._make_router = make_router
+        self._fetch_catalog = fetch_catalog
+        self._catalog_lock = threading.Lock()
+        self._catalog_failed = float("-inf")
         self._lock = threading.RLock()
         self._turns: dict[str, dict] = {}
         self._summaries: dict[Path, tuple] = {}
@@ -914,7 +941,12 @@ class App:
         existing = [n for n in numbers if book.chapter_path(n).exists()]
         listed = ", ".join(str(n) for n in numbers)
         detail = guess.describe().capitalize() + "."
-        limit = context_limit(self.config())
+        config = self.config()
+        cost = build_cost(config, guess)
+        if cost is not None:
+            detail += (f" At list prices that's roughly {'under $0.01' if cost < 0.01 else f'${cost:,.2f}'};"
+                       " prompt caching usually brings it down.")
+        limit = context_limit(config)
         if guess.largest_call > limit:
             detail += (
                 f" The selected model can read about {limit:,} tokens, so this build would exceed "
@@ -1058,11 +1090,17 @@ class App:
                 for alias, model in (config["models"][b].get("models") or {}).items():
                     if isinstance(model, dict) and model.get("hidden"):
                         continue
+                    entry = model if isinstance(model, dict) else {}
+                    context = int(entry.get("context") or 0)
                     options.append({
                         "backend": b, "model": alias,
-                        "label": (model.get("label") if isinstance(model, dict) else model) or alias,
+                        "label": entry.get("label") or (model if isinstance(model, str) else "") or alias,
                         "provider": config["models"][b].get("label", b),
-                        "efforts": (model.get("efforts") if isinstance(model, dict) else None) or [],
+                        "efforts": entry.get("efforts") or [],
+                        # Dollars per million tokens read and written, from OpenRouter's catalog.
+                        "price": entry.get("price"),
+                        "context": context,
+                        "small": 0 < context < MAX_PROMPT_TOKENS,
                     })
             current = {"backend": routing.get("backend"), "model": routing.get("model")}
             ok = any(o["backend"] == current["backend"] and o["model"] == current["model"] for o in options)
@@ -1087,6 +1125,26 @@ class App:
                       "default_chapter_words": settings.default_chapter_words},
             "library": {"path": str(self.library.root), "source": self.library_source},
         }
+
+    def refresh_models(self) -> dict:
+        """Update the OpenRouter model list once it's a day old. The page asks
+        when Settings or the chat's model picker opens and doesn't wait; on any
+        failure the lists stay as they were, and it tries again an hour later."""
+        config = self.config()
+        cloud = config["models"].get("cloud") or {}
+        if "openrouter.ai" not in str(cloud.get("base_url", "")) or not self._connected(config, "cloud"):
+            return {"updated": False}
+        if not model_catalog.stale(self.config_path) or time.monotonic() - self._catalog_failed < 3600:
+            return {"updated": False}
+        if not self._catalog_lock.acquire(blocking=False):
+            return {"updated": False}
+        try:
+            updated = model_catalog.refresh(self.config_path, self._fetch_catalog)
+        finally:
+            self._catalog_lock.release()
+        if not updated:
+            self._catalog_failed = time.monotonic()
+        return {"updated": updated}
 
     def use_automatic(self) -> dict:
         """Forget the writer's model choices for the Press roles."""

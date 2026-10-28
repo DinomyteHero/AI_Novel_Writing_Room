@@ -77,6 +77,7 @@ def routes(app: App) -> dict:
         ("POST", "/api/settings/check"): lambda p: app.check(p["backend"]),
         ("POST", "/api/settings/role"): lambda p: app.set_role(p["role"], p["backend"], p["model"]),
         ("POST", "/api/settings/automatic"): lambda p: app.use_automatic(),
+        ("POST", "/api/models/refresh"): lambda p: app.refresh_models(),
         ("POST", "/api/settings/library"): lambda p: app.set_library(p.get("path", "")),
         ("POST", "/api/settings/press"): lambda p: app.set_press(
             p.get("revision_rounds"), p.get("default_chapter_words")

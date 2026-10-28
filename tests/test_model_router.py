@@ -3,8 +3,11 @@
 from unittest.mock import AsyncMock, MagicMock
 
 import pytest
+import yaml
 
-from src.model_router import ModelRouter
+from src import model_catalog
+from src.model_router import ModelRouter, load_config
+from tests.fakes import CATALOG, CATALOG_NOW, DAY
 
 
 class TestModelRouterRouting:
@@ -488,3 +491,72 @@ async def test_an_explicit_routing_overrides_the_role(settings_yaml):
     assert seen["backend"] == "cloud"
     assert seen["model"] == "anthropic/claude-sonnet-4-20250514"
     assert seen["params"]["temperature"] == 0.2
+
+
+def test_catalog_families_ignore_versions_and_releases():
+    family = model_catalog.family
+    assert family("anthropic/claude-opus-5.5") == family("anthropic/claude-opus-5") == "anthropic/claude-opus"
+    assert family("deepseek/deepseek-v4.1-flash-1017") == "deepseek/deepseek-flash"
+    assert family("google/gemini-3.1-pro-preview") == family("google/gemini-2.5-pro") == "google/gemini-pro"
+    assert family("openai/gpt-6.2-terra") != family("openai/gpt-6.2-mini")
+
+
+def test_the_catalog_offers_the_newest_of_each_recent_family():
+    found = model_catalog.discovered(model_catalog.slim(CATALOG))
+    offered = {model_id for model_id, entry in found.items() if not entry.get("hidden")}
+    assert offered == {
+        "google/gemini-4-argon", "anthropic/claude-sonnet-5.5", "anthropic/claude-opus-5.6",
+        "openai/gpt-6.2-terra", "openai/gpt-6.2-mini", "x-ai/grok-5",
+    }
+    # Superseded in its family, or a family with nothing recent: kept, hidden.
+    assert found["x-ai/grok-4.7"]["hidden"] and found["mistralai/mistral-large-2407"]["hidden"]
+    assert found["anthropic/claude-opus-5.5"]["hidden"]
+    # Coding, image and other makers' models, and variants, are left out.
+    assert not {"qwen/qwen3-coder", "google/gemini-5-image", "meta-llama/llama-5",
+                "anthropic/claude-opus-5.6:batch"} & set(found)
+    terra = found["openai/gpt-6.2-terra"]
+    assert terra["label"] == "GPT-6.2 Terra" and terra["price"] == {"in": 1.0, "out": 5.0}
+    assert terra["efforts"] == ["low", "medium", "high"] and terra["discovered"]
+
+
+def test_discovered_models_are_offered_but_never_picked_automatically(tmp_path, monkeypatch):
+    config = tmp_path / "settings.yaml"
+    config.write_text(yaml.safe_dump({
+        "deployment_mode": "hybrid",
+        "models": {
+            "cloud": {"base_url": "https://openrouter.ai/api/v1", "api_key_env": "OPENROUTER_API_KEY",
+                      "models": {"opus": {"id": "anthropic/claude-opus-5.5", "label": "Claude Opus 5.5", "hidden": True}}},
+            "anthropic": {"api": "anthropic", "api_key_env": "ANTHROPIC_API_KEY",
+                          "models": {"opus": {"id": "claude-opus-5-5"}}},
+        },
+        "agent_routing": {"studio_writer": {"backend": "anthropic", "model": "opus", "params": {}}},
+    }), encoding="utf-8")
+    monkeypatch.setenv("OPENROUTER_API_KEY", "sk-or-test")
+    assert model_catalog.refresh(config, lambda: CATALOG, now=CATALOG_NOW)
+    loaded = load_config(config)
+    cloud = loaded["models"]["cloud"]["models"]
+    assert "openai/gpt-6.2-terra" in cloud
+    # The configured entry keeps its alias and its hidden flag, and gains a price.
+    assert "anthropic/claude-opus-5.5" not in cloud
+    assert cloud["opus"]["hidden"] and cloud["opus"]["price"] == {"in": 4.0, "out": 20.0}
+    # The writer's provider has no key, but nothing moves onto a discovered model.
+    assert loaded["agent_routing"]["studio_writer"]["backend"] == "anthropic"
+    # A role set to a discovered id still resolves once the catalog drops it.
+    model_catalog.cache_path(config).unlink()
+    router = ModelRouter(str(config))
+    assert router._resolve_model({"backend": "cloud", "model": "openai/gpt-6.2-terra"}) == "openai/gpt-6.2-terra"
+
+
+def test_the_catalog_cache_is_kept_for_a_day_and_survives_failures(tmp_path):
+    config = tmp_path / "settings.yaml"
+    assert model_catalog.stale(config)
+    assert model_catalog.refresh(config, lambda: CATALOG, now=CATALOG_NOW)
+    assert not model_catalog.stale(config, now=CATALOG_NOW + DAY - 60)
+    assert model_catalog.stale(config, now=CATALOG_NOW + DAY)
+
+    def offline():
+        raise OSError("no network")
+
+    assert not model_catalog.refresh(config, offline)
+    assert not model_catalog.refresh(config, lambda: {"unexpected": "shape"})
+    assert len(model_catalog.load(config)) == len(CATALOG)

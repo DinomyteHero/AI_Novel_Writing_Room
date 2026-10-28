@@ -8,8 +8,10 @@ Gemini endpoint, a local llama-server or Ollama); a backend with
 ``config/settings.local.yaml``, when present, is laid over the base settings.
 The app writes the writer's choices there (which model plays which role, build
 settings, a local server address, the library folder), so settings.yaml stays
-as shipped. A role the writer hasn't chosen is automatic: when its provider has
-no key, it moves to a provider that does (``automatic_routing``).
+as shipped. OpenRouter's catalog, cached by ``model_catalog``, adds prices and
+newer models to the OpenRouter backend. A role the writer hasn't chosen is
+automatic: when its provider has no key, it moves to a provider that does
+(``automatic_routing``).
 """
 
 import asyncio
@@ -24,6 +26,8 @@ from typing import Callable, Optional
 
 import httpx
 import yaml
+
+from src import model_catalog
 
 logger = logging.getLogger(__name__)
 
@@ -73,6 +77,7 @@ def load_config(config_path: str | Path) -> dict:
         with open(path, encoding="utf-8") as f:
             overlay = yaml.safe_load(f) or {}
         config = _merge(config, overlay)
+    config = model_catalog.apply(config, model_catalog.load(config_path))
     return automatic_routing(config, overlay)
 
 
@@ -94,9 +99,10 @@ def automatic_routing(config: dict, overlay: dict) -> dict:
     """Move each role the writer hasn't chosen off a provider with no key.
 
     A role in the overlay is the writer's choice and stays. A role on a keyed
-    backend whose key is missing moves to the first suitable model on a
-    connected backend, without the old model's params. With nothing
-    connected, roles stay put so the missing key can be explained.
+    backend whose key is missing moves to the first suitable configured model
+    on a connected backend, without the old model's params; models found in
+    OpenRouter's catalog are only offered. With nothing connected, roles stay
+    put so the missing key can be explained.
     """
     chosen = set((overlay.get("agent_routing") or {}).keys())
     models = config.get("models") or {}
@@ -106,7 +112,8 @@ def automatic_routing(config: dict, overlay: dict) -> dict:
         for backend in connected
         for alias, entry in ((models[backend] or {}).get("models") or {}).items()
         if not (isinstance(entry, dict) and (
-            entry.get("hidden") or int(entry.get("context") or _AUTO_MIN_CONTEXT) < _AUTO_MIN_CONTEXT
+            entry.get("hidden") or entry.get("discovered")
+            or int(entry.get("context") or _AUTO_MIN_CONTEXT) < _AUTO_MIN_CONTEXT
         ))
     ]
     if not candidates:
