@@ -99,10 +99,10 @@ Your own notes in the story bible always win over it.
 ## Models
 
 Set in [`config/settings.yaml`](config/settings.yaml), or in the app's
-Settings: DeepSeek V4.1 Flash 1017 is the app's planning chat (with web
-search) and writes and revises at maximum reasoning effort, Gemini 4 Argon
-critiques drafts and reviews plans, and DeepSeek V4.1 Flash 1017 writes
-story-so-far notes, all through OpenRouter by default. Each has a roughly 1M-token context window, enough for
+Settings: Gemini 4 Argon is the app's planning chat (with web search),
+writes and revises chapters, and gives reviews and ideas; GPT-6.1 Terra
+critiques each draft, so a different model reads it; and DeepSeek V4.1 Flash
+1017 writes story-so-far notes, all through OpenRouter by default. Each has a roughly 1M-token context window, enough for
 a full novel and its plan in every call.
 
 ## License
