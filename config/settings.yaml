@@ -84,7 +84,7 @@ models:
 # settings. The app's Settings page writes your choices to
 # config/settings.local.yaml, which overrides these.
 agent_routing:
-  studio_chat:            { backend: cloud, model: deepseekflash, params: { provider: { order: [deepseek], only: [deepseek], allow_fallbacks: false }, tools: [{ type: "openrouter:web_search" }, { type: "openrouter:web_fetch", parameters: { max_content_tokens: 50000 } }] } }
+  studio_chat:            { backend: cloud, model: geminiargon, params: { tools: [{ type: "openrouter:web_search" }, { type: "openrouter:web_fetch", parameters: { max_content_tokens: 50000 } }] } }
   studio_writer:          { backend: cloud, model: deepseekflash, params: { temperature: 0.75, reasoning: { effort: "max" }, provider: { order: [deepseek], only: [deepseek], allow_fallbacks: false } } }
   studio_critic:          { backend: cloud, model: geminiargon, params: {} }
   studio_reader:          { backend: cloud, model: geminiargon, params: {} }

@@ -393,17 +393,17 @@ def test_chat_model_effort_and_web_search_follow_the_settings(tmp_path, config, 
     app, _ = make_app(tmp_path, config)
     chat_role = lambda s: next(r for r in s["roles"] if r["key"] == "studio_chat")  # noqa: E731
     role = chat_role(app.settings())
-    assert role["web"] and role["effort"] == "" and "max" in role["efforts"]
+    assert role["web"] and role["effort"] == "" and role["efforts"] == ["low", "medium", "high"]
 
     role = chat_role(app.set_effort("studio_chat", "low"))
     assert role["effort"] == "low" and role["web"]  # the web tools stay
     role = chat_role(app.set_effort("studio_chat", ""))
     assert role["effort"] == ""
 
-    role = chat_role(app.set_role("studio_chat", "cloud", "geminiargon"))
-    assert role["web"] and role["efforts"] == ["low", "medium", "high"]
+    role = chat_role(app.set_role("studio_chat", "cloud", "deepseekflash"))
+    assert role["web"] and "max" in role["efforts"]
     routing = app.config()["agent_routing"]["studio_chat"]
-    assert "provider" not in routing["params"]  # the DeepSeek-only pin doesn't follow
+    assert "provider" not in routing["params"]  # no other role's provider pin comes along
     # Off OpenRouter the server tools would be refused, so they're dropped.
     app.set_role("studio_chat", "openai", "gpt")
     assert "tools" not in app.config()["agent_routing"]["studio_chat"]["params"]
