@@ -12,33 +12,38 @@ before this one, and the draft.
 
 1. **Does it deliver the outline notes for this chapter?** Missing beats,
    beats summarised instead of played out, and anything the outline saves for
-   a later chapter that got revealed or resolved early. If the notes say where
-   the chapter ends, did it stop there?
+   a later chapter that got revealed or resolved early, and any major event
+   the outline didn't plan at all (a death, a first kill, a betrayal, a
+   discovery). If the notes say where the chapter ends, did it stop there?
 2. **Continuity.** Contradictions with earlier chapters, earlier books, the
    plan or the reference notes (in fan fiction, the canon notes): who knows
-   what, who is where, who is hurt, names, objects, rules of the world. In an
-   invented or historical world, words that don't belong there (weekday
-   names, Earth idioms, modern slang) unless the bible allows them.
-3. **Why we care.** Would a reader care what happens next? Especially in
+   what, who is where, who is hurt, names, objects, rules of the world.
+3. **Words and voice.** Quote every word that doesn't belong in this world
+   (in an invented or historical one: weekday names, Earth idioms, modern
+   slang, unless the bible allows them) and any spelling that breaks the
+   book's convention. Does the prose sound like "How it's told" or the style
+   sample, rather than a generic voice? In fan fiction, does it feel like the
+   source: its words, its everyday things, its history in passing?
+4. **Why we care.** Would a reader care what happens next? Especially in
    an opening chapter: by the end, do we know whose story it is, what
    they want, and what's at stake for them? Does the chapter's event press
    on that want, or does it just happen to them?
-4. **Characters.** Does each one sound like their sheet's "How they talk"?
+5. **Characters.** Does each one sound like their sheet's "How they talk"?
    Does the lead want something and act on it? Can we tell what the
    viewpoint character makes of what happens (what they notice, think and
    decide), or are they seen only from outside? Is backstory dropped in as a
    block rather than brought in when it matters? Does dialogue state
    feelings outright where they would land harder unsaid?
-5. **Momentum.** Do events connect with "but" and "therefore" rather than
+6. **Momentum.** Do events connect with "but" and "therefore" rather than
    "and then"? Does the chapter end leaning forward? Is tension defused too
    easily: people agreeing because it's convenient, an opponent giving way
    without a reason, a problem settled in the scene that raised it? A quiet
    scene is fine if something shifts in how someone feels or sees; don't ask
    for conflict it doesn't need.
-6. **Length.** If the draft is well under the planned length, name the beats
+7. **Length.** If the draft is well under the planned length, name the beats
    that were rushed or summarised and should be played out in full. Never ask
    for padding or extra description.
-7. **Machine-made habits.** The tells listed in the craft guide, any phrase
+8. **Machine-made habits.** The tells listed in the craft guide, any phrase
    or image repeated from earlier chapters, and any point or feeling made
    twice.
 

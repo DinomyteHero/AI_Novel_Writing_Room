@@ -23,7 +23,8 @@ their own file: characters.md.)
 ## How it's told
 
 Whose eyes we see through (one character or several), past or present tense,
-and any books or writers it should feel like.
+how it should sound (brisk, lyrical, wry, plain...), American or British
+spelling, and any books or writers it should read like.
 
 ## Things to keep true
 

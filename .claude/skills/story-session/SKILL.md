@@ -169,6 +169,12 @@ first two or three chapters, and start building.
   place, it can help to ask once, casually, how it connects to the story:
   what it changes, reveals or makes harder for someone. "Not sure yet" or
   "it's fun" are fine answers, so never block on it.
+- **How it sounds.** Before chapters are built, settle the voice as well as
+  the viewpoint: brisk or lyrical, wry or earnest, a book or writer it should
+  read like, and American or British spelling. Put it under "How it's told".
+  Without it the press writes in its own voice. If the writer has a page
+  they'd like it to sound like (their own writing, or a short passage they
+  choose), offer to keep it as `reference/style_sample.md`.
 - **World**: only what the story needs. For fanfiction, settle which canon,
   where the story branches from it, and what's kept or changed. Places that
   come back get a line each under "The world", so they stay the same.
@@ -181,7 +187,11 @@ first two or three chapters, and start building.
   rules and timeline the story relies on, and where it departs from canon,
   since models half-remember most canons. Check each fact against a source
   (search the web if you can) and note where it came from; never fill it
-  from memory alone. Don't create either unasked for a
+  from memory alone. Give it a short texture section too, so chapters feel
+  like the source and not just consistent with it: the words people use
+  (oaths, slang, titles), everyday tech and objects, what ordinary people
+  remember of the big events and how they talk about them, and a few lines
+  or images the source's readers know. Don't create either unasked for a
   small story.
 - **Push gently on weak spots.** Vague stakes: ask what's lost. A sagging
   middle: offer "yes, but" and "no, and" complications. A passive lead: ask
@@ -245,7 +255,10 @@ with them:
    - the key exchanges: who wants what from whom, what's said and what's
      meant, what each gives away or holds back;
    - what's different by the end, for the people as well as the plot, and
-     where it ends.
+     where it ends;
+   - for anyone who changes over the book, where this chapter finds them on
+     the way ("still flinches", "has stopped flinching"), so a slow turn
+     doesn't arrive all at once.
    Offer two or three options only at real forks, different in kind, with
    your pick; don't ask about every line. Then write the agreed chapter
    under its heading, in the writer's words where they gave them.
