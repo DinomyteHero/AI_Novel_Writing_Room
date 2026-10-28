@@ -92,6 +92,16 @@ def test_estimate_counts_calls_and_grows_with_chapters(book):
     assert no_rounds.calls == 1
 
 
+async def test_build_snapshots_reference_notes_too(book):
+    book.reference_dir.mkdir(parents=True, exist_ok=True)
+    (book.reference_dir / "canon.md").write_text("# Canon\n\nJacen is 30.", encoding="utf-8")
+    router = FakeRouter({WRITER_ROLE: [LONG], CRITIC_ROLE: ["No changes needed: it works."]})
+    result = await press.build(book, router, [1], SETTINGS)
+    snapshot = result.run_dir / "plan" / "reference" / "canon.md"
+    assert snapshot.read_text(encoding="utf-8") == "# Canon\n\nJacen is 30."
+    assert book.chapter_path(1).exists()
+
+
 async def test_build_drafts_critiques_revises_and_records_everything(book):
     router = FakeRouter({
         WRITER_ROLE: [LONG, LONGER],

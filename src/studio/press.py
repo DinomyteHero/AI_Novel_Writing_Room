@@ -295,7 +295,9 @@ async def build(
         suffix += 1
     (run_dir / "plan").mkdir(parents=True)
     for name, text in plan.files().items():
-        (run_dir / "plan" / name).write_text(text, encoding="utf-8")
+        target = run_dir / "plan" / name
+        target.parent.mkdir(parents=True, exist_ok=True)  # reference notes sit in a subfolder
+        target.write_text(text, encoding="utf-8")
 
     chapters = plan.chapters()
     results: list[ChapterResult] = []
