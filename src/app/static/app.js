@@ -48,11 +48,48 @@ const ICONS = {
   auto: '<circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/>',
   read: '<path d="M3 5h6a3 3 0 0 1 3 3v12a2 2 0 0 0-2-2H3V5z"/><path d="M21 5h-6a3 3 0 0 0-3 3v12a2 2 0 0 1 2-2h7V5z"/>',
   down: '<path d="M6 9l6 6 6-6"/>',
+  quill: '<path d="M20 3.5C12.5 4.5 7.5 9.5 6.5 17.5c7-.5 12-5 13.5-14z"/><path d="M4 20.5l9.5-10.5"/>',
+  eye: '<path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/>',
+  refresh: '<path d="M19.5 10.5A8 8 0 0 0 5.2 7.2L4 8.5"/><path d="M4 4v4.5h4.5"/><path d="M4.5 13.5a8 8 0 0 0 14.3 3.3l1.2-1.3"/><path d="M20 20v-4.5h-4.5"/>',
+  cloud: '<path d="M7.5 18.5h9.5a4 4 0 0 0 .6-7.95 5.5 5.5 0 0 0-10.7-1A4.5 4.5 0 0 0 7.5 18.5z"/>',
+  key: '<circle cx="8" cy="15.5" r="4"/><path d="M11 12.5l8.5-8.5M16 7l2.5 2.5M13.5 9.5l2 2"/>',
+  laptop: '<rect x="5" y="5" width="14" height="10" rx="1.5"/><path d="M3 19h18"/>',
+  globe: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.4 2.6 3.6 5.6 3.6 9s-1.2 6.4-3.6 9c-2.4-2.6-3.6-5.6-3.6-9S9.6 5.6 12 3z"/>',
+  people: '<circle cx="9" cy="8" r="3.2"/><path d="M3.5 19.5a5.5 5.5 0 0 1 11 0"/><path d="M15.5 5a3 3 0 0 1 0 6M17 14.5a5.5 5.5 0 0 1 3.5 5"/>',
+  list: '<path d="M9 6h11M9 12h11M9 18h11M4.5 6h.01M4.5 12h.01M4.5 18h.01"/>',
+  history: '<path d="M3.5 12a8.5 8.5 0 1 0 2.5-6L3.5 8.5"/><path d="M3.5 4v4.5H8"/><path d="M12 7.5V12l3 2"/>',
+  page: '<path d="M7 3h7l5 5v13H7V3z"/><path d="M14 3v5h5M10 13h6M10 17h4"/>',
+  bookmark: '<path d="M7 3.5h10v17l-5-3.5-5 3.5v-17z"/>',
+  clipboard: '<rect x="5" y="4.5" width="14" height="16.5" rx="2"/><path d="M9 4.5V3h6v1.5M9 10h6M9 14h6M9 18h3"/>',
+  alert: '<circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5M12 16.5h.01"/>',
+  save: '<path d="M12 4v11M7 10l5 5 5-5M5 20h14"/>',
 };
 // Strokes use currentColor so a colour can be a CSS variable and follow the theme.
 const ic = (name, size = 18, color = "currentColor", width = 1.9) =>
   `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor"${color === "currentColor" ? "" : ` style="color:${color}"`} stroke-width="${width}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[name]}</svg>`;
 const fmtK = (n) => (n >= 1000 ? `${fmt(Math.round(n / 1000))}K` : fmt(n));
+
+// The open book. While the Room works, a page turns; `still` leaves it open.
+// The turn's phase comes from the clock so a redraw doesn't restart it.
+const TURN_MS = 2400;
+function logo(size = 20, width = 1.9, still = false) {
+  const page = still ? "" : `<path class="logo-page" style="animation-delay:-${Date.now() % TURN_MS}ms" d="M12 6.5c2.25-1.5 5.5-1.7 8.5-.8v12c-3-.9-6.25-.7-8.5.8z"/>`;
+  const lines = size >= 40 ? '<path class="logo-lines" d="M6 9.6c1.5-.4 3-.3 4.4.3M6 12.6c1.5-.4 3-.3 4.4.3M13.6 9.9c1.4-.6 2.9-.7 4.4-.3M13.6 12.9c1.4-.6 2.9-.7 4.4-.3"/>' : "";
+  return `<svg class="logo" width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${width}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M12 6.5c-2.25-1.5-5.5-1.7-8.5-.8v12c3-.9 6.25-.7 8.5.8M12 6.5c2.25-1.5 5.5-1.7 8.5-.8v12c-3-.9-6.25-.7-8.5.8M12 6.5v12"/>${lines}${page}</svg>`;
+}
+
+const empty = (icon, html) => `<div class="empty">${ic(icon, 18, "var(--accent)", 1.8)}<span>${html}</span></div>`;
+
+function fileIcon(path) {
+  const p = String(path || "");
+  const kinds = [[/series_bible\.md$/, "globe"], [/story_bible\.md$/, "book"], [/characters\.md$/, "people"],
+    [/outline\.md$/, "list"], [/story_so_far\.md$/, "history"], [/manuscript\//, "page"], [/(^|\/)reference\//, "bookmark"],
+    [/notes\/review_/, "eye"], [/notes\/ideas_/, "bulb"], [/(^|\/)runs\//, "clipboard"]];
+  return (kinds.find(([re]) => re.test(p)) || [null, "doc"])[1];
+}
+
+const providerIcon = (p) => (p.kind === "address" ? "laptop" : p.key === "cloud" ? "cloud" : "key");
 
 function savedTheme() {
   try { return localStorage.getItem("wr-theme") || "auto"; } catch (e) { return "auto"; }
@@ -713,14 +750,14 @@ function sidebar() {
   const tip = count === 0 && !S.tipDismissed && S.view !== "settings"
     ? `<div class="tip" role="note"><span style="flex:1">Connect a provider to start.</span><button type="button" class="go" ${attr({ act: "go", view: "settings" })}>Connect</button><button type="button" class="icon-btn" style="width:24px;height:24px;color:var(--tray-muted)" aria-label="Dismiss" ${attr({ act: "dismissTip" })}>${ic("x", 10, "currentColor", 2.8)}</button></div>` : "";
   return `<nav class="side" aria-label="Writers Room">
-    <div class="brand">${ic("book", 20, "currentColor", 1.8)}Writers Room</div>
+    <div class="brand">${logo(22, 1.8, true)}Writers Room</div>
     <div class="nav">
       <button type="button" class="nav-btn" ${attr({ act: "home" })}><span class="plus">${ic("plus", 14, "currentColor", 2.4)}</span><b>New chat</b></button>
       <button type="button" class="nav-btn ${S.view === "help" ? "on" : ""}" ${attr({ act: "go", view: "help" })}><span style="width:24px;display:inline-flex;justify-content:center;color:var(--accent)">${ic("bulb", 18, "currentColor", 1.8)}</span>Writing help</button>
     </div>
     <div class="side-scroll">
       <div class="side-head"><span class="label">Books</span></div>
-      ${projects || '<span class="muted" style="font-size:13px;padding:2px 10px 6px">No books yet.</span>'}
+      ${projects || empty("quill", "<b>No books yet.</b> Your first one starts with a single line.")}
     </div>
     ${tip}
     <div class="side-foot">
@@ -734,7 +771,7 @@ function sidebar() {
 function mobileBar() {
   return `<header class="mobile-bar">
     <button type="button" class="icon-btn" aria-label="Menu" aria-expanded="${S.drawer}" ${attr({ act: "toggleDrawer" })}>${ic("menu", 20, "currentColor", 2)}</button>
-    <span class="brand" style="padding:0">${ic("book", 18, "currentColor", 1.8)}Writers Room</span>
+    <span class="brand" style="padding:0">${logo(20, 1.8, true)}Writers Room</span>
   </header>${S.drawer ? `<div class="drawer-back" ${attr({ act: "toggleDrawer" })}></div>` : ""}`;
 }
 
@@ -751,6 +788,7 @@ function homeView() {
     : "";
   const placeholder = h.mode === "series" ? "Describe your series: the world, the people, where it goes across books…" : "Describe an idea, paste your notes, or anything you have…";
   return `<div class="home"><div class="home-inner">
+    <span class="home-mark">${logo(40, 1.3, true)}</span>
     <h1>What are we writing today?</h1>
     <div class="composer-box">
       <label for="home-composer" class="sr">Describe an idea</label>
@@ -762,7 +800,7 @@ function homeView() {
       </div>
     </div>
     ${h.note ? `<p class="home-note">${esc(h.note)}</p>` : ""}
-    ${chips ? `<div class="chips">${chips}</div>` : ""}
+    ${chips ? `<div class="chips">${chips}</div>` : `<p class="home-hint">A single line is enough to start: a character, a place, a scene you can picture. The Room asks the rest.</p>`}
   </div></div>`;
 }
 
@@ -806,7 +844,7 @@ function toolItems(tools) {
 function liveHtml(record) {
   if (record.turn?.state !== "running") return "";
   return `<div class="live-turn" data-live-chat="${esc(record.id)}" data-project="${esc(record.project)}">
-    <div class="live-status"><span class="live-phase" role="status">${esc(record.turn.phase || "Working…")}</span>
+    <div class="live-status"><span class="live-now">${logo()}<span class="live-phase" role="status">${esc(record.turn.phase || "Working…")}</span></span>
     <button type="button" class="btn ghost small" ${attr({ act: "stopChat", project: record.project, chat: record.id })}>Stop</button></div>
     <div class="live-tools">${toolItems(record.turn.tools)}</div>
     <div class="said live-text">${md(record.turn.text || "")}</div></div>`;
@@ -836,7 +874,7 @@ function itemsHtml(record) {
   flush();
   if (record.turn?.state === "running") out.push(liveHtml(record));
   else if (S.busy && S.busy.chat === cid && S.busy.project === record.project) {
-    out.push(`<div class="thinking"><span class="dots"><span></span><span></span><span></span></span> Reading your files and thinking…</div>`);
+    out.push(`<div class="thinking" role="status">${logo()} Reading your files and thinking…</div>`);
   }
   const usage = record.turn?.usage && record.turn.state !== "running"
     ? `<div class="turn-usage">This turn: ${esc(record.turn.usage)}</div>` : "";
@@ -1001,7 +1039,7 @@ function projectView() {
       <h1 class="project-title" style="flex:1">${esc(d.title)}</h1>
       <button type="button" class="btn ghost small" aria-pressed="${S.panel}" ${attr({ act: "togglePanel" })}>${ic("panel", 16, "currentColor", 1.8)} Book</button>
     </div>
-    <p class="lead" style="margin:0">${esc(d.kind)} · ${written} of ${d.chapters.length} chapters · ${fmt(d.words)} words</p>
+    <p class="lead" style="margin:0">${esc(d.kind)} · ${d.chapters.length ? `${written} of ${d.chapters.length} chapters · ${fmt(d.words)} words` : "Planning, no chapters yet"}</p>
     ${books}
     ${S.selection ? `<div class="selected-passage"><b>Selected in ${esc(shortPath(S.selection.path))}</b><blockquote>${esc(S.selection.text)}</blockquote><button type="button" class="link" ${attr({ act: "clearSelection" })}>Clear selection</button></div>` : ""}
     <div class="composer-box">
@@ -1015,7 +1053,7 @@ function projectView() {
     </div>
     ${pendingHtml()}
     <section class="recents" aria-label="Recent chats"><span class="label">Recents</span>
-      ${recents || '<p class="muted" style="margin:0;font-size:14px;line-height:1.55">No chats yet. Start one above: plan a scene, ask for a review, or say you\'re stuck.</p>'}</section>
+      ${recents || empty("chat", "<b>No chats yet.</b> Start one above: plan a scene, ask for a review, or say you're stuck.")}</section>
   </div></div>`;
 }
 
@@ -1045,7 +1083,7 @@ function chatView() {
 }
 
 function fileRow(act, label, meta, extra, right = "") {
-  return `<button type="button" class="file-row" ${attr({ act, ...extra })}>${ic("doc", 16, "var(--muted)", 1.8)}
+  return `<button type="button" class="file-row" ${attr({ act, ...extra })}>${ic(fileIcon(extra.path), 16, "var(--accent)", 1.8)}
     <span class="grow"><span class="name">${esc(label)}</span>${meta ? `<span class="muted" style="font-size:12px">${esc(meta)}</span>` : ""}</span>${right}</button>`;
 }
 
@@ -1062,7 +1100,7 @@ function filesPanel() {
     <span class="hint">${esc(r.hint)}</span>
     ${r.files.map((f) => `<div style="display:flex;align-items:flex-start;gap:2px">${fileRow("openFile", f.name, `${f.size} · about ${fmt(f.tokens)} tokens per call`, { path: f.path }, f.warn ? "" : "")}
       <button type="button" class="icon-btn" style="height:36px" aria-label="Remove ${esc(f.name)} from reference" ${attr({ act: "removeReference", path: f.path })}>${ic("x", 12, "currentColor", 2.6)}</button></div>
-      ${f.warn ? `<span class="hint warn">${esc(f.warn)}</span>` : ""}`).join("") || '<span class="hint">Nothing here yet.</span>'}
+      ${f.warn ? `<span class="hint warn">${esc(f.warn)}</span>` : ""}`).join("") || empty("bookmark", "<b>No reference yet.</b> Add canon notes, research or a style sample: .md, .txt, .docx, .html or .epub.")}
   </div>`).join("");
   const job = bookJob(d);
   const running = job && job.state === "running";
@@ -1070,7 +1108,7 @@ function filesPanel() {
   const status = buildStatus(d, job);
   const chapters = d.chapters.map((c) => {
     const building = running && job.current === c.number;
-    const icon = building ? `<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" style="color:var(--accent)"><circle cx="12" cy="12" r="6" fill="currentColor"/></svg>`
+    const icon = building ? logo(16, 2)
       : c.state !== "missing" ? ic("check", 16, "var(--accent)", 2.6) : `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="color:var(--faint)" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="7"/></svg>`;
     const meta = building ? "building" : c.words ? fmt(c.words) : "";
     const flag = c.state === "outline changed" ? '<span class="state warn">outline changed</span>' : c.state === "plan changed" ? '<span class="state" title="Built before later changes to the bible or characters">plan changed</span>' : "";
@@ -1083,21 +1121,21 @@ function filesPanel() {
     <div class="group" style="gap:6px"><span class="label" style="padding:0 8px">Context</span><div style="padding:0 8px;display:flex;flex-direction:column;gap:6px">${contextHtml()}</div></div>
     ${groups}
     <div style="display:flex;flex-direction:column;gap:14px">${refs}
-      <span class="hint">${d.referenceTokens ? `Every chat and build reads about ${fmt(d.referenceTokens)} tokens of reference.` : "Add canon notes, research or a style sample (.md, .txt or .docx)."}</span></div>
+      ${d.referenceTokens ? `<span class="hint">Every chat and build reads about ${fmt(d.referenceTokens)} tokens of reference.</span>` : ""}</div>
     <div class="group" style="gap:6px"><span class="label" style="padding:0 8px">Build${d.isSeries ? ` · Book ${d.book.number}` : ""}</span>
       <div class="build-box"><span style="font-size:14px;line-height:1.45">${esc(status)}</span>
         ${d.interrupted ? `<span class="hint warn" style="padding:0">A previous build stopped before it wrote its report. Finished chapters are saved; start a new build when you're ready.</span>` : ""}
         <span class="hint" style="padding:0">${S.view === "project" ? "Start a chat, then use Build at the top of it." : "Use Build at the top of the chat. Next chapter or all remaining is your choice there."}</span>
         <span class="muted" style="font-size:12px">${esc(d.defaults)}. Change these when you build.</span>
       </div></div>
-    <div class="group"><span class="label" style="padding:0 8px 4px">Manuscript · ${written} of ${d.chapters.length} · ${fmt(d.words)} words</span>
-      ${chapters || '<span class="hint">Chapters appear here once the outline has "## Chapter 1" sections.</span>'}</div>
+    <div class="group"><span class="label" style="padding:0 8px 4px">Manuscript${d.chapters.length ? ` · ${written} of ${d.chapters.length} · ${fmt(d.words)} words` : ""}</span>
+      ${chapters || empty("page", "<b>No chapters yet.</b> Plan a few in a chat. Each <code>## Chapter</code> heading in the outline shows up here, ready to build.")}</div>
     <div class="group"><div class="group-head"><span class="label">Notes</span></div>
-      ${d.reviews.length || (d.ideas || []).length || d.runs.length || written ? "" : '<span class="hint">Build reports appear here. For a review or ideas, ask in a chat.</span>'}
+      ${d.reviews.length || (d.ideas || []).length || d.runs.length || written ? "" : empty("clipboard", "Build reports land here. For a review or fresh ideas, ask in a chat.")}
       ${d.reviews.map((r) => fileRow("openFile", "Review · " + r.name.replace(/^review_|\.md$/g, ""), "", { path: r.path })).join("")}
       ${(d.ideas || []).map((r) => fileRow("openFile", "Ideas · " + r.name.replace(/^ideas_|\.md$/g, ""), "", { path: r.path })).join("")}
       ${d.runs.map((r) => fileRow("openFile", "Build report · " + r.name, "", { path: r.path })).join("")}
-      ${written ? `<button type="button" class="link" style="align-self:flex-start" ${attr({ act: "exportBook" })}>Export the whole book</button>` : ""}
+      ${written ? `<button type="button" class="link" style="align-self:flex-start" ${attr({ act: "exportBook" })}>${ic("save", 14, "currentColor", 2)} Export the whole book</button>` : ""}
     </div>
 `;
 }
@@ -1207,6 +1245,7 @@ function panel() {
   return `<aside class="panel" aria-label="Book">
     <div class="panel-head">
       ${S.doc ? `<button type="button" class="icon-btn" aria-label="All files" ${attr({ act: "showFiles" })}>${ic("back", 18, "currentColor", 2)}</button>` : ""}
+      ${ic(!S.doc ? "book" : S.doc.empty ? "page" : fileIcon(S.doc.path), 18, "var(--accent)", 1.8)}
       <div class="titles"><b>${esc(title)}</b><span class="muted" style="font-size:12px">${esc(desc)}</span></div>
       <button type="button" class="icon-btn" aria-label="Close the book" ${attr({ act: "closePanel" })}>${ic("x", 18, "currentColor", 2)}</button>
     </div>
@@ -1221,6 +1260,7 @@ function providerAdd(others) {
   const options = others.map((x) => `<option value="${esc(x.key)}" ${x.key === p.key ? "selected" : ""}>${esc(x.name)}${x.recommended ? " (recommended)" : ""}</option>`).join("");
   return `<div class="card provider">
       <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+        <span class="prov-ic">${ic(providerIcon(p), 17)}</span>
         <label for="add-provider" style="font-size:15px;font-weight:700">Add a provider</label>
         <select id="add-provider" class="model-select" style="flex:1;min-width:200px" data-provider-select>${options}</select>
       </div>
@@ -1242,9 +1282,10 @@ function providerRow(p) {
   const failing = msg && !msg.ok;
   return `<div class="role">
       <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+        <span class="prov-ic">${ic(providerIcon(p), 17)}</span>
         <b style="font-size:15px">${esc(p.name)}</b>
         <span class="muted mono" style="font-size:12px" title="${esc(p.env ? `Saved in .env as ${p.env}` : "")}">${esc(p.kind === "address" ? p.address : `Saved key ${p.masked}`)}</span>
-        <span class="status-pill ${failing ? "" : "ok"}" style="margin-left:auto">${failing ? "Not working" : "Connected"}</span>
+        <span class="status-pill ${failing ? "bad" : "ok"}" style="margin-left:auto">${failing ? `${ic("alert", 13, "currentColor", 2.2)}Not working` : `${ic("check", 13, "currentColor", 2.8)}Connected`}</span>
         ${p.kind === "key" ? `<button type="button" class="btn ghost small" ${attr({ act: "checkKey", backend: p.key })}>Check</button>` : ""}
         <button type="button" class="btn ghost small" ${attr({ act: "connect", backend: p.key })}>Disconnect</button>
       </div>
@@ -1365,10 +1406,11 @@ function tray() {
   if (job.state === "running") {
     const order = ["drafting", "critiquing", "revising"];
     const at = order.indexOf(job.step);
-    const stages = order.map((s, i) => `<span class="${i === at ? "on" : i < at ? "past" : ""}">${s[0].toUpperCase() + s.slice(1)}</span>`).join("");
+    const icons = { drafting: "quill", critiquing: "eye", revising: "refresh" };
+    const stages = order.map((s, i) => `<span class="${i === at ? "on" : i < at ? "past" : ""}">${ic(icons[s], 13, "currentColor", 2)}${s[0].toUpperCase() + s.slice(1)}</span>`).join("");
     const done = job.results.length;
     return `<div class="tray" role="status">
-      <div style="display:flex;align-items:baseline;gap:8px"><b style="font-size:14px">Building chapter ${job.current || job.numbers[done]}</b><span style="margin-left:auto;font-size:12px;color:var(--tray-muted)">${done + 1} of ${job.numbers.length}</span></div>
+      <div style="display:flex;align-items:center;gap:8px">${logo(20)}<b style="font-size:14px">Building chapter ${job.current || job.numbers[done]}</b><span style="margin-left:auto;font-size:12px;color:var(--tray-muted)">${done + 1} of ${job.numbers.length}</span></div>
       <div class="stages">${stages}</div>
       <div style="display:flex;gap:8px;align-items:center"><button type="button" ${job.stopping ? "disabled" : ""} ${attr({ act: "stopBuild" })}>${job.stopping ? "Stopping after this chapter" : "Stop after this chapter"}</button>
         <button type="button" class="plain" ${attr({ act: "hideTray" })}>Hide</button></div>
@@ -1377,7 +1419,7 @@ function tray() {
   const title = job.state === "failed" ? "The build stopped" : job.state === "stopped" ? "Stopped" : "Build finished";
   const detail = job.state === "failed" ? job.error : `${job.results.length} chapter(s) · ${job.usage || ""}`;
   const report = job.report || "";
-  return `<div class="tray" role="status"><b style="font-size:14px">${esc(title)}</b><span style="font-size:13px;line-height:1.45;color:var(--tray-muted)">${esc(detail)}</span>
+  return `<div class="tray" role="status"><b style="font-size:14px;display:flex;align-items:center;gap:8px">${ic(job.state === "failed" ? "alert" : "check", 17, "currentColor", job.state === "failed" ? 2 : 2.6)}${esc(title)}</b><span style="font-size:13px;line-height:1.45;color:var(--tray-muted)">${esc(detail)}</span>
     <div style="display:flex;gap:8px">${report && job.state !== "failed" ? `<button type="button" ${attr({ act: "openFile", path: report })}>View report</button>` : ""}<button type="button" class="plain" ${attr({ act: "hideTray" })}>Dismiss</button></div></div>`;
 }
 
@@ -1433,7 +1475,7 @@ function render() {
     + side
     + tray() + modal()
     + (S.toast ? `<div class="toast" role="alert"><span style="flex:1">${esc(S.toast)}</span><button type="button" aria-label="Dismiss" ${attr({ act: "closeToast" })}>✕</button></div>` : "")
-    + (S.creating ? `<div class="overlay-busy"><div class="thinking" style="font-size:16px"><span class="dots"><span></span><span></span><span></span></span> Setting up your project and reading your idea. This can take a minute…</div></div>` : "");
+    + (S.creating ? `<div class="overlay-busy"><div class="thinking" role="status" style="font-size:16px">${logo(28, 1.7)} Setting up your project and reading your idea. This can take a minute…</div></div>` : "");
   for (const [sel, top] of Object.entries(keep)) {
     const el = document.querySelector(sel);
     if (el && sel !== ".msgs") el.scrollTop = top;
@@ -1531,6 +1573,7 @@ document.addEventListener("keydown", (e) => {
 
 (async function start() {
   applyTheme();
+  document.getElementById("app").innerHTML = `<div class="boot" role="status">${logo(56, 1.2)}<span class="serif">Opening the Writers Room…</span></div>`;
   try {
     await refreshState();
     S.settings = await get("/api/settings");
