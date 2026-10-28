@@ -21,5 +21,6 @@ numbered list.
 
 ## Output
 
-Return only the full revised chapter, starting with its `# Chapter N: Title`
-heading line. No commentary, no list of changes.
+Return only the full revised chapter, starting with its heading line as it
+was (`# Chapter N: Title`, or `# Prologue` and the like). No commentary, no
+list of changes.

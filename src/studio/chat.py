@@ -30,6 +30,7 @@ from src.studio.project import (
     Series,
     StudioError,
     estimate_tokens,
+    read_text,
 )
 
 if TYPE_CHECKING:
@@ -281,7 +282,7 @@ class _Tools:
         self.write_lock = write_lock or threading.RLock()
         self.selection = selection
         self.edit_mode = edit_mode
-        self.seen = {p: p.read_text(encoding="utf-8") for p in book.plan_files() if p.is_file()}
+        self.seen = {p: read_text(p) for p in book.plan_files() if p.is_file()}
 
     def _stage(self, path: Path, before: str | None, after: str, summary: str,
                verb: str = "Edited") -> bool:
@@ -308,7 +309,7 @@ class _Tools:
 
     def _write(self, path: Path, text: str, expected: str | None) -> None:
         with self.write_lock:
-            current = path.read_text(encoding="utf-8") if path.exists() else None
+            current = read_text(path) if path.exists() else None
             if current != expected:
                 raise StudioError(f"{rel(self.series, path)} changed while I was working. Read it again before editing.")
             save_text(path, text)
@@ -326,7 +327,7 @@ class _Tools:
         target = resolve(self.series, path)
         if not target.is_file():
             raise StudioError(f"{path} doesn't exist.")
-        text = target.read_text(encoding="utf-8")
+        text = read_text(target)
         self.seen[target] = text
         return text
 
@@ -336,7 +337,7 @@ class _Tools:
             raise StudioError(f"{path} isn't a planning file you can edit. Use revise_chapter for chapters.")
         if not target.is_file():
             raise StudioError(f"{path} doesn't exist yet; use write_file.")
-        text = target.read_text(encoding="utf-8")
+        text = read_text(target)
         count = text.count(old_text) if old_text else 0
         if count != 1:
             raise StudioError(
@@ -355,7 +356,7 @@ class _Tools:
             raise StudioError("The writer hasn't selected a passage.")
         target = resolve(self.series, self.selection["path"])
         with self.write_lock:
-            before = target.read_text(encoding="utf-8")
+            before = read_text(target)
             if version(before) != self.selection["version"]:
                 raise StudioError("The selected document changed. Ask the writer to select the passage again.")
             if not old_text or before.count(old_text) != 1:
@@ -376,7 +377,7 @@ class _Tools:
                 )
             if chapter:
                 selected_book.write_chapter(int(chapter[1]), after, selected_book.read_plan(), "passage")
-                after = target.read_text(encoding="utf-8")
+                after = read_text(target)
             else:
                 self._write(target, after, before)
             self.selection = {**self.selection, "version": version(after)}
@@ -387,7 +388,7 @@ class _Tools:
         target = resolve(self.series, path)
         if not writable(self.series, target):
             raise StudioError(f"{path} isn't a planning file you can write. Use revise_chapter for chapters.")
-        before = target.read_text(encoding="utf-8") if target.exists() else None
+        before = read_text(target) if target.exists() else None
         if before is not None and self.seen.get(target) != before:
             raise StudioError(f"Read {path} again before replacing it; it may have changed.")
         text = content.rstrip() + "\n"
@@ -413,20 +414,20 @@ class _Tools:
         preview = room.find_name(self.book, old)
         if not preview:
             return f"'{old}' doesn't appear anywhere in the series."
-        before = {hit.path: hit.path.read_text(encoding="utf-8") for hit in preview}
+        before = {hit.path: read_text(hit.path) for hit in preview}
         provenance = {}
         for other in self.series.books():
             path = other.provenance_path
-            provenance[path] = path.read_text(encoding="utf-8") if path.exists() else None
+            provenance[path] = read_text(path) if path.exists() else None
         hits = room.apply_rename(self.book, old, new)
         total = sum(h.count for h in hits)
         changes = [
             {"file": rel(self.series, path), "before": text,
-             "after": path.read_text(encoding="utf-8")}
+             "after": read_text(path)}
             for path, text in before.items()
         ]
         for path, text in provenance.items():
-            now = path.read_text(encoding="utf-8") if path.exists() else None
+            now = read_text(path) if path.exists() else None
             if now != text:
                 changes.append({
                     "file": rel(self.series, path), "before": text, "after": now,
@@ -443,7 +444,7 @@ class _Tools:
     async def t_add_book(self, title: str, series_title: str = "") -> str:
         book, written = self.series.add_book(title, series_title.strip() or None)
         self.book = book
-        self.seen.update({p: p.read_text(encoding="utf-8") for p in written})
+        self.seen.update({p: read_text(p) for p in written})
         self.items.append({
             "kind": "activity", "id": new_id("a"), "verb": "Added", "file": f"Book {book.number}: {title}",
             "text": "With its own story bible, characters (copied from the previous book) and outline.",
@@ -459,7 +460,7 @@ class _Tools:
 
     async def t_revise_chapter(self, chapter: int, note: str) -> str:
         target = self.book.chapter_path(int(chapter))
-        before = target.read_text(encoding="utf-8") if target.exists() else None
+        before = read_text(target) if target.exists() else None
         if self.edit_mode == "ask":
             text = await room.revise_chapter(
                 self.book, self.router, int(chapter), note, apply=False
@@ -470,25 +471,25 @@ class _Tools:
         self.items.append({
             "kind": "activity", "id": new_id("a"), "verb": "Revised", "file": rel(self.series, path),
             "text": note.strip()[:200] + " (the earlier version is in manuscript/.history/)",
-            "before": before, "after": path.read_text(encoding="utf-8"),
+            "before": before, "after": read_text(path),
         })
         return f"Revised chapter {chapter}; the earlier version is kept in history."
 
     async def t_review(self) -> str:
         path = await room.review(self.book, self.router)
-        text = path.read_text(encoding="utf-8")
+        text = read_text(path)
         self._activity("Wrote", path, "A second opinion from a different model", None, text)
         return text
 
     async def t_fresh_eyes(self, chapter: int) -> str:
         path = await room.fresh_eyes(self.book, self.router, int(chapter))
-        text = path.read_text(encoding="utf-8")
+        text = read_text(path)
         self._activity("Wrote", path, f"Fresh-eyes notes on chapter {chapter}", None, text)
         return text
 
     async def t_ideas(self) -> str:
         path = await room.ideas(self.book, self.router)
-        text = path.read_text(encoding="utf-8")
+        text = read_text(path)
         self._activity("Wrote", path, "Ideas from a second model", None, text)
         return text
 
@@ -520,9 +521,9 @@ class _Tools:
         return "The writer now sees a build card with Build and Not now buttons. Don't start it yourself."
 
     async def t_story_so_far(self) -> str:
-        before = self.book.story_so_far_path.read_text(encoding="utf-8") if self.book.story_so_far_path.exists() else None
+        before = read_text(self.book.story_so_far_path) if self.book.story_so_far_path.exists() else None
         path = await press.story_so_far(self.book, self.router)
-        text = path.read_text(encoding="utf-8")
+        text = read_text(path)
         self._activity("Wrote", path, "Story-so-far notes for later books", before, text)
         return f"Saved {rel(self.series, path)}."
 
@@ -565,7 +566,7 @@ def save_text(path: Path, text: str) -> None:
     if path.exists():
         history = path.parent / ".history"
         history.mkdir(exist_ok=True)
-        (history / f"{path.stem}.{new_id('v')}{path.suffix}").write_text(path.read_text(encoding="utf-8"), encoding="utf-8")
+        (history / f"{path.stem}.{new_id('v')}{path.suffix}").write_text(read_text(path), encoding="utf-8")
     path.write_text(text, encoding="utf-8")
 
 
@@ -752,7 +753,7 @@ def undo(series: Series, item: dict) -> dict:
         resolved = []
         for change in changes:
             path = resolve(series, change["file"])
-            current = path.read_text(encoding="utf-8") if path.exists() else None
+            current = read_text(path) if path.exists() else None
             if current != change.get(expected_key):
                 raise StudioError(
                     f"{change['file']} has changed since then, so undoing would lose those "
@@ -770,7 +771,7 @@ def undo(series: Series, item: dict) -> dict:
         raise StudioError("This change can't be undone from here.")
     path = resolve(series, item["file"])
     expected, restore = (item["before"], item["after"]) if undone else (item["after"], item["before"])
-    current = path.read_text(encoding="utf-8") if path.exists() else None
+    current = read_text(path) if path.exists() else None
     if current != expected:
         raise StudioError(
             f"{item['file']} has changed since then, so undoing would lose those changes. "
@@ -807,7 +808,7 @@ def review_points(text: str) -> list[dict]:
 
 def record_call(path: Path, number: int, call: str) -> None:
     """Fill in a review point's "Your call" line."""
-    text = path.read_text(encoding="utf-8")
+    text = read_text(path)
     matches = list(_POINT.finditer(text))
     for i, match in enumerate(matches):
         if int(match.group(1)) != number:

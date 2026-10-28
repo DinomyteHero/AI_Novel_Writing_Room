@@ -16,7 +16,7 @@ import yaml
 from src.app import api as app_api
 from src.app.server import make_handler
 from src.studio import jobs
-from src.studio.project import Library, StudioError
+from src.studio.project import Library, StudioError, locate_library
 from tests.fakes import FakeRouter
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -574,3 +574,127 @@ def test_chat_model_effort_and_web_search_follow_the_settings(tmp_path, config, 
     assert "tools" not in app.config()["agent_routing"]["studio_chat"]["params"]
     with pytest.raises(StudioError, match="Unknown role"):
         app.set_effort("nobody", "high")
+
+
+def test_a_new_chat_starts_on_the_model_picked_before_it(tmp_path, config, book, monkeypatch):
+    monkeypatch.setenv("OPENROUTER_API_KEY", "sk-or-test")
+    app, router = make_app(tmp_path, config)
+    app.library = Library(book.series.root.parent)
+    pid = book.series.root.name
+
+    record = app.new_chat(pid, "cloud", "geminiargon", "high")
+    assert record["model"] == {"backend": "cloud", "model": "geminiargon"} and record["effort"] == "high"
+    app.send(pid, record["id"], "Hello")
+    assert router.routings[-1]["model"] == "geminiargon"
+    assert router.routings[-1]["params"]["reasoning"] == {"effort": "high"}
+
+    # Only an effort: the default model, at that effort.
+    assert app.new_chat(pid, effort="low")["effort"] == "low"
+    assert "model" not in app.new_chat(pid)
+    with pytest.raises(StudioError, match="isn't available"):
+        app.new_chat(pid, "cloud", "deepseekpro")
+
+
+def test_the_library_folder_is_chosen_in_settings_and_remembered(tmp_path, config):
+    app, _ = make_app(tmp_path, config)
+    assert app.settings()["library"]["source"] == "default"
+    elsewhere = tmp_path / "Novels"
+    with pytest.raises(StudioError, match="can't find a folder"):
+        app.set_library(str(elsewhere))
+    with pytest.raises(StudioError, match="full path"):
+        app.set_library("Novels")
+    elsewhere.mkdir()
+    (elsewhere / "Old Book").mkdir()  # not a series: ignored
+
+    settings = app.set_library(f'"{elsewhere}"')
+    assert settings["library"] == {"path": str(elsewhere), "source": "saved"}
+    assert app.library.root == elsewhere and app.projects() == []
+    app.library.new_book("Moved Here")
+    assert [p["title"] for p in app.projects()] == ["Moved Here"]
+
+    # The next start, and the command line, find it too; a flag or the environment wins.
+    root = config.parent.parent
+    assert locate_library(root) == (elsewhere, "saved")
+    assert locate_library(root, str(tmp_path / "flagged"))[1] == "flag"
+
+
+def test_roles_nobody_chose_move_to_a_connected_provider(tmp_path, config, monkeypatch):
+    app, _ = make_app(tmp_path, config)
+    routing = lambda: app.config()["agent_routing"]  # noqa: E731
+    assert routing()["studio_writer"]["backend"] == "cloud"  # nothing connected: as shipped
+
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "sk-ant-test")
+    assert routing()["studio_writer"] == {"backend": "anthropic", "model": "opus", "params": {}}
+    # The second-opinion roles take a different model from the writer.
+    assert routing()["studio_critic"]["model"] == "sonnet"
+    assert routing()["studio_reader"]["model"] == "sonnet"
+    settings = app.settings()
+    assert settings["automatic"]
+    writer = next(r for r in settings["roles"] if r["key"] == "studio_writer")
+    assert writer["available"] and writer["currentLabel"] == "Claude Opus 5.5"
+
+    # A writer's own choice stays, and is no longer automatic until they say so.
+    assert not app.set_role("studio_critic", "anthropic", "opus")["automatic"]
+    assert routing()["studio_critic"]["model"] == "opus"
+    assert app.use_automatic()["automatic"]
+    assert routing()["studio_critic"]["model"] == "sonnet"
+
+    # With OpenRouter connected, the shipped choices are used as they are.
+    monkeypatch.setenv("OPENROUTER_API_KEY", "sk-or-test")
+    assert routing()["studio_writer"]["model"] == "geminiargon"
+
+
+def test_the_build_card_carries_the_build_options(tmp_path, config, book, monkeypatch):
+    monkeypatch.setenv("OPENROUTER_API_KEY", "sk-or-test")
+    app, _ = make_app(tmp_path, config)
+    app.library = Library(book.series.root.parent)
+    pid = book.series.root.name
+    estimate = app.estimate(pid, None, "all")
+    # Chapter 1 and 3 have lengths in the outline; chapter 2 doesn't.
+    assert estimate["press"] == {"revision_rounds": 1, "default_chapter_words": 3000, "unsized": 1}
+    app.set_press(revision_rounds=0, default_chapter_words=4000)
+    assert app.estimate(pid, None, "all")["press"]["revision_rounds"] == 0
+    assert app.estimate(pid, None, "1")["press"]["unsized"] == 0
+
+
+def test_reference_upload_reads_web_pages_and_ebooks(tmp_path, config, book):
+    app, _ = make_app(tmp_path, config)
+    app.library = Library(book.series.root.parent)
+    pid = book.series.root.name
+    page = b"<html><head><style>p{}</style></head><body><h1>Chapter 1</h1><p>The ferry&rsquo;s late.</p></body></html>"
+    app.add_reference(pid, "book", None, "work.html", base64.b64encode(page).decode())
+    buffer = io.BytesIO()
+    with zipfile.ZipFile(buffer, "w") as epub:
+        epub.writestr("META-INF/container.xml", '<container><rootfiles><rootfile full-path="OEBPS/content.opf"/></rootfiles></container>')
+        epub.writestr("OEBPS/content.opf", '<package><manifest><item id="b" href="two.xhtml"/><item id="a" href="one.xhtml"/>'
+                      '</manifest><spine><itemref idref="a"/><itemref idref="b"/></spine></package>')
+        epub.writestr("OEBPS/one.xhtml", "<html><body><p>First.</p></body></html>")
+        epub.writestr("OEBPS/two.xhtml", "<html><body><p>Second.</p></body></html>")
+    app.add_reference(pid, "book", None, "canon.epub", base64.b64encode(buffer.getvalue()).decode())
+    reference = dict(book.read_plan().reference)
+    assert reference["work.md"] == "Chapter 1\n\nThe ferry\u2019s late.\n"
+    assert reference["canon.md"] == "First.\n\nSecond.\n"
+
+
+def test_folders_keep_their_names_while_a_build_runs(tmp_path, config, monkeypatch):
+    app, _ = make_app(tmp_path, config)
+    book, _ = app.library.new_book("Untitled book")
+    book.bible_path.write_text("# The Ferry\n", encoding="utf-8")
+
+    class Running:
+        state = "running"
+
+    monkeypatch.setattr(jobs, "job_for", lambda b: Running())
+    assert app._settle_names("untitled-book") == "untitled-book"
+    assert book.root.exists()
+    monkeypatch.setattr(jobs, "job_for", lambda b: None)
+    assert app._settle_names("untitled-book") == "the-ferry"
+
+
+def test_a_build_that_cannot_start_does_not_stay_running(book):
+    def broken():
+        raise RuntimeError("no client")
+
+    job = jobs.BuildJob(book, broken, [1], app_api.press.PressSettings())
+    job.start().join(10)
+    assert job.state == "failed" and "no client" in job.error

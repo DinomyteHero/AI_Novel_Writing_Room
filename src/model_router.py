@@ -7,7 +7,9 @@ Gemini endpoint, a local llama-server or Ollama); a backend with
 
 ``config/settings.local.yaml``, when present, is laid over the base settings.
 The app writes the writer's choices there (which model plays which role, build
-settings, a local server address), so settings.yaml stays as shipped.
+settings, a local server address, the library folder), so settings.yaml stays
+as shipped. A role the writer hasn't chosen is automatic: when its provider has
+no key, it moves to a provider that does (``automatic_routing``).
 """
 
 import asyncio
@@ -16,6 +18,7 @@ import json
 import logging
 import os
 import random
+import uuid
 from pathlib import Path
 from typing import Callable, Optional
 
@@ -33,6 +36,12 @@ _FALLBACK_MODELS = ("claude-fable-5-1", "claude-opus-5-5", "claude-opus-5", "cla
 _FALLBACK_BETA = "server-side-fallback-2026-07-01"
 # Request settings that only make sense for OpenAI-compatible providers.
 _OPENAI_ONLY_PARAMS = {"temperature", "top_p", "top_k", "min_p", "reasoning", "provider"}
+# The order providers are listed in, and tried in when a role picks its own model.
+PROVIDER_ORDER = ["cloud", "anthropic", "openai", "google", "local"]
+# Every call sends the whole book; automatic choices skip smaller windows.
+_AUTO_MIN_CONTEXT = 1_000_000
+# Roles that read the writer's work are better as a different model from it.
+_SECOND_OPINION_ROLES = ("studio_critic", "studio_reader")
 
 
 def local_overlay_path(config_path: str | Path) -> Path:
@@ -58,10 +67,68 @@ def _merge(base: dict, overlay: dict, replace: tuple[str, ...] = ("agent_routing
 def load_config(config_path: str | Path) -> dict:
     with open(config_path, encoding="utf-8") as f:
         config = yaml.safe_load(f) or {}
-    overlay = local_overlay_path(config_path)
-    if overlay.exists():
-        with open(overlay, encoding="utf-8") as f:
-            config = _merge(config, yaml.safe_load(f) or {})
+    overlay = {}
+    path = local_overlay_path(config_path)
+    if path.exists():
+        with open(path, encoding="utf-8") as f:
+            overlay = yaml.safe_load(f) or {}
+        config = _merge(config, overlay)
+    return automatic_routing(config, overlay)
+
+
+def connected_backends(config: dict, overlay: dict) -> list[str]:
+    """Backends with a key in the environment (or, for local, an address the
+    writer saved), in PROVIDER_ORDER."""
+    models = config.get("models") or {}
+    names = [b for b in PROVIDER_ORDER if b in models] + [b for b in models if b not in PROVIDER_ORDER]
+    saved_local = ((overlay.get("models") or {}).get("local") or {}).get("base_url")
+    out = []
+    for backend in names:
+        env = (models[backend] or {}).get("api_key_env")
+        if (env and os.environ.get(env)) or (backend == "local" and saved_local):
+            out.append(backend)
+    return out
+
+
+def automatic_routing(config: dict, overlay: dict) -> dict:
+    """Move each role the writer hasn't chosen off a provider with no key.
+
+    A role in the overlay is the writer's choice and stays. A role on a keyed
+    backend whose key is missing moves to the first suitable model on a
+    connected backend, without the old model's params. With nothing
+    connected, roles stay put so the missing key can be explained.
+    """
+    chosen = set((overlay.get("agent_routing") or {}).keys())
+    models = config.get("models") or {}
+    connected = connected_backends(config, overlay)
+    candidates = [
+        (backend, alias)
+        for backend in connected
+        for alias, entry in ((models[backend] or {}).get("models") or {}).items()
+        if not (isinstance(entry, dict) and (
+            entry.get("hidden") or int(entry.get("context") or _AUTO_MIN_CONTEXT) < _AUTO_MIN_CONTEXT
+        ))
+    ]
+    if not candidates:
+        return config
+
+    def stranded(cfg: dict) -> bool:
+        env = (models.get(cfg.get("backend")) or {}).get("api_key_env")
+        return bool(env) and not os.environ.get(env)
+
+    config = copy.deepcopy(config)
+    routing = config.get("agent_routing") or {}
+    order = sorted(routing, key=lambda role: role in _SECOND_OPINION_ROLES)  # writer first
+    for role in order:
+        cfg = routing[role]
+        if role in chosen or not isinstance(cfg, dict) or not stranded(cfg):
+            continue
+        pick = candidates[0]
+        writer = routing.get("studio_writer") or {}
+        if role in _SECOND_OPINION_ROLES:
+            others = [c for c in candidates if c != (writer.get("backend"), writer.get("model"))]
+            pick = (others or candidates)[0]
+        routing[role] = {"backend": pick[0], "model": pick[1], "params": {}}
     return config
 
 
@@ -81,6 +148,7 @@ class ModelRouter:
         self._clients: dict[str, httpx.AsyncClient] = {}
         self._anthropic_clients: dict = {}
         self.usage_log: list[dict] = []
+        self.session_id = uuid.uuid4().hex
 
         # Warn when per-agent backend overrides are present but will be ignored
         if self.mode in ("local", "cloud"):
@@ -275,6 +343,10 @@ class ModelRouter:
         }
         if tools:
             payload["tools"] = tools
+        if "openrouter.ai" in str(self.backend_config(backend).get("base_url", "")):
+            # Keeps one build's or one chat turn's calls on the same provider,
+            # whose prompt cache holds the book from the call before.
+            payload.setdefault("session_id", self.session_id)
 
         client = await self._get_client(backend)
         max_retries = self.config.get("pipeline", {}).get("max_http_retries", 2)

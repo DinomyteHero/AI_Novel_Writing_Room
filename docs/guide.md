@@ -13,8 +13,10 @@ each; this guide covers what they do.
 ## Your library
 
 Books live in `library/`, which git ignores, so your work stays on your
-machine. To keep it somewhere else (a synced folder, your own git repository),
-pass `--library <folder>` or set `WRITERS_ROOM_LIBRARY`.
+machine. To keep them somewhere else (a synced folder, your own git
+repository), choose the folder in the app under **Settings > Library folder**;
+the command line and the plugin use it too. For one run, `--library <folder>`
+or `WRITERS_ROOM_LIBRARY` takes precedence.
 
 A standalone book is a series of one:
 
@@ -51,8 +53,9 @@ outgrown the bible) or a sample of the voice you want can go in a
 series, the series' (`library/my-series/reference/`), which every book reads.
 Every model call reads these in full, so keep them to what matters; a large
 file adds its size to every call. Only `.md` and `.txt` files are read (the
-app converts `.docx` for you). Images can't be read by the writing models;
-describe what matters in the bible instead.
+app converts `.docx`, `.html` and `.epub` for you, such as a story downloaded
+from AO3). Images can't be read by the writing models; describe what matters
+in the bible instead.
 
 When the library holds more than one book, name the one you mean with
 `--title` (and `--series` if two series share a title).
@@ -88,13 +91,16 @@ a new chat, your recent chats, and a **Book** button that opens the plan,
 reference, manuscript and notes. The same **Book** button in a chat opens it
 beside the conversation. Start a new chat for each piece of work: a scene, a
 review, a brainstorm. **Build** at the top of a chat opens the estimate card,
-where you choose the next chapter or all remaining. Under the message box you
-can see and change the chat model and its reasoning effort; each chat keeps
-its own choice. The picker has a search bar and lists current models only;
+where you choose the next chapter or all remaining, how many revision rounds
+to run, and a chapter length for chapters the outline doesn't size. Under the
+message box you can see and change the chat model and its reasoning effort;
+each chat keeps its own choice. The box that starts a chat, on the home page
+or a project's page, has the same picker, so the first message already goes
+to the model you chose. The picker has a search bar and lists current models only;
 older models are hidden. Open a chapter and
 press **Read** for a wide, book-like reading view; highlight a passage and
-press **Ask about this**, then type what you want. The theme is in
-**Settings > Appearance**. On a phone, the menu button opens the sidebar.
+press **Ask about this**, then type what you want. **Writing help** in the
+sidebar collects the craft notes. The theme is in **Settings > Preferences**. On a phone, the menu button opens the sidebar.
 
 The reply appears as it is written, with activity such as reading a file or
 updating the outline. A small line under the reply shows what that turn cost:
@@ -111,7 +117,7 @@ agreed passage edit preserves the rest of the document and the previous
 version. If you say you are just exploring, the Room discusses without
 changing files.
 
-**Settings > Changes > Review changes before saving** stages planning edits,
+**Settings > Preferences > Edits from the chat > Show me first** stages planning edits,
 passage edits and chapter revisions instead of saving them. Each one appears
 as a card with **Use suggestion** and **Keep original**. If the file changed
 after the suggestion was staged, it is marked stale and both versions are
@@ -313,14 +319,21 @@ python scripts/press.py export          # export/manuscript.md
 
 ## Settings
 
-In the app, **Settings** (bottom left) connects providers, picks the models
-for the Press and background reads, and sets the build options, appearance
-and review preferences. The chat model and reasoning effort are chosen in
-each chat, under its message box, and each chat keeps its own. Under
-**Who does what**, each role is a dropdown; older models are hidden from
-both lists. Settings saves
-your keys in `.env` and your role choices in `config/settings.local.yaml`,
-both private to your computer. The plugin asks for your key when you install
+In the app, **Settings** (bottom left) connects providers, shows the models
+for the Press and background reads, chooses the library folder, and holds
+the theme and review preferences. Connected providers show as one line each;
+to add another, pick it from the **Add a provider** list and paste its key. The chat model and reasoning effort
+are chosen in each chat, under its message box, and each chat keeps its own.
+Build options are on the Build card.
+
+Models start as **Automatic**: each role uses the model shipped in
+`config/settings.yaml`, and if that provider has no key, the first suitable
+model (about 1M tokens of context) on a provider you have connected, with the
+critic and reviewer on a different model from the writer where possible.
+**Choose models myself** opens a dropdown per role; **Use automatic choices
+instead** goes back. Older models are hidden from every list. Settings saves
+your keys in `.env` and your choices (roles, library folder, build options)
+in `config/settings.local.yaml`, both private to your computer. The plugin asks for your key when you install
 it.
 
 Underneath, `config/settings.yaml` holds:

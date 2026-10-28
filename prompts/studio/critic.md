@@ -42,15 +42,18 @@ before this one, and the draft.
 7. **Momentum.** Do events connect with "but" and "therefore" rather than
    "and then"? Does the chapter end leaning forward? Is tension defused too
    easily: people agreeing because it's convenient, an opponent giving way
-   without a reason, a problem settled in the scene that raised it? A quiet
-   scene is fine if something shifts in how someone feels or sees; don't ask
-   for conflict it doesn't need.
+   without a reason, a problem settled in the scene that raised it, an
+   ending softened into reassurance the plan didn't ask for (the craft
+   guide's "The pull towards comfort")? A quiet scene is fine if something
+   shifts in how someone feels or sees; don't ask for conflict it doesn't
+   need.
 8. **Length.** If the draft is well under the planned length, name the beats
    that were rushed or summarised and should be played out in full. Never ask
    for padding or extra description.
 9. **Machine-made habits.** The tells listed in the craft guide, any phrase
    or image repeated from earlier chapters, and any point or feeling made
-   twice.
+   twice. Quote the generic choices too: the image, name or line any book
+   would use, where this world and these people offer a specific one.
 
 ## What not to do
 

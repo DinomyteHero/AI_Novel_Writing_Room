@@ -37,7 +37,10 @@ favour of this design and is in git history if something specific is needed.
 ## Design rules
 
 - **Files are the book.** Books live in `library/` (gitignored: private by
-  default; `--library` or `WRITERS_ROOM_LIBRARY` points elsewhere). A
+  default). `locate_library` in `src/studio/project.py` is the one resolver
+  for the app, CLI and plugin: `--library`, then `WRITERS_ROOM_LIBRARY`, then
+  `library:` in `config/settings.local.yaml` (Settings > Library folder), then
+  `./library`. A
   standalone book is a series of one; `series_bible.md` appears when a
   second book is added. Each book folder
   (`books/NN-<slug>/`) holds `story_bible.md`, `characters.md`, `outline.md`
@@ -145,6 +148,13 @@ favour of this design and is in git history if something specific is needed.
   `config/settings.yaml` is a backend; `api: anthropic` uses the Anthropic SDK,
   the rest the OpenAI-compatible API. The app writes the writer's choices to
   the gitignored `config/settings.local.yaml` and keys to `.env`.
+- **Roles are automatic until chosen.** A role with no entry in the overlay
+  whose provider has no key moves, in `load_config`
+  (`automatic_routing`), to the first visible ~1M-context model on a
+  connected provider; critic and reviewer prefer a model other than the
+  writer's. Nothing connected leaves the shipped routing so the missing key
+  is explained. Settings shows the resolved models and hides the dropdowns
+  behind "Choose models myself"; build options live on the Build card.
 
 ## Layout
 

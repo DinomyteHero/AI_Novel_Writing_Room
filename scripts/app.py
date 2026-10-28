@@ -5,7 +5,6 @@
 """
 
 import argparse
-import os
 import sys
 from pathlib import Path
 
@@ -18,14 +17,14 @@ load_dotenv(ROOT / ".env")
 
 from src.app.api import App  # noqa: E402
 from src.app.server import serve  # noqa: E402
-from src.studio.project import Library  # noqa: E402
+from src.studio.project import Library, locate_library  # noqa: E402
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(prog="app.py", description=__doc__.splitlines()[0])
     parser.add_argument("--port", type=int, default=8765)
-    parser.add_argument("--library", help="Library folder (default: ./library)")
+    parser.add_argument("--library", help="Library folder (default: the one chosen in Settings, or ./library)")
     parser.add_argument("--no-browser", action="store_true", help="Don't open the browser")
     args = parser.parse_args()
-    library = Path(args.library or os.environ.get("WRITERS_ROOM_LIBRARY") or ROOT / "library")
-    app = App(Library(library), ROOT / "config" / "settings.yaml", ROOT / ".env")
+    library, source = locate_library(ROOT, args.library)
+    app = App(Library(library), ROOT / "config" / "settings.yaml", ROOT / ".env", library_source=source)
     serve(app, port=args.port, open_browser=not args.no_browser)

@@ -20,6 +20,7 @@ from src.studio.project import (
     StudioError,
     count_words,
     estimate_tokens,
+    read_text,
     save_with_history,
 )
 
@@ -39,7 +40,7 @@ async def revise_chapter(
     plan = book.read_plan()
     messages = prompts.revise_messages(plan, chapters, number, chapters[number], note)
     text = await complete(router, WRITER_ROLE, messages)
-    if book.chapter_path(number).read_text(encoding="utf-8").strip() != chapters[number].strip():
+    if read_text(book.chapter_path(number)).strip() != chapters[number].strip():
         raise StudioError("This chapter changed while I was revising it. Your edit was kept; ask me to revise it again.")
     if not apply:
         return text
@@ -126,7 +127,7 @@ def find_name(book: Book, name: str) -> list[RenameHit]:
     pattern = _name_pattern(name)
     hits = []
     for path in rename_scope(book):
-        lines = path.read_text(encoding="utf-8").splitlines()
+        lines = read_text(path).splitlines()
         matching = [line.strip() for line in lines if pattern.search(line)]
         count = sum(len(pattern.findall(line)) for line in lines)
         if count:
@@ -148,7 +149,7 @@ def apply_rename(book: Book, old: str, new: str) -> list[RenameHit]:
         ]
     pattern = _name_pattern(old)
     for hit in hits:
-        text = hit.path.read_text(encoding="utf-8")
+        text = read_text(hit.path)
         save_with_history(hit.path, pattern.sub(new, text))
     for other in book.series.books():
         plan = other.read_plan()

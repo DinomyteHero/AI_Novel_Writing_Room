@@ -29,11 +29,15 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import re
 import shutil
+import unicodedata
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
+
+import yaml
 
 TEMPLATES_DIR = Path(__file__).resolve().parents[2] / "templates" / "story"
 
@@ -57,11 +61,29 @@ class StudioError(Exception):
     """A problem the writer can fix. The message is shown to them as-is."""
 
 
+_RESERVED_NAMES = {"con", "prn", "aux", "nul"} | {f"{d}{n}" for d in ("com", "lpt") for n in range(1, 10)}
+# Two slugs sit in every book path (series and book), and Windows refuses
+# paths over 260 characters unless long paths are switched on.
+_MAX_SLUG = 48
+# Chinese and Japanese put no spaces between words; like word processors,
+# count each character as a word.
+_CJK = re.compile(r"[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff]")
+_CJK_PUNCTUATION = re.compile(r"[\u3000-\u303f\uff01-\uff0f\uff1a-\uff1f]")
+
+
+def _fold(char: str) -> str:
+    """'é' -> 'e'; letters with no plain-Latin form ('ガ', '한') stay as they are."""
+    plain = "".join(c for c in unicodedata.normalize("NFKD", char) if not unicodedata.combining(c))
+    return plain if plain.isascii() else char
+
+
 def slugify(name: str) -> str:
-    """'Star Wars (Legends EU)' -> 'star-wars-legends-eu'"""
-    slug = re.sub(r"[^a-z0-9\s_-]", "", name.lower().strip())
+    """'Star Wars (Legends EU)' -> 'star-wars-legends-eu', 'Café Noir' -> 'cafe-noir'.
+    Letters in any script are kept, so a title in Japanese still has a folder."""
+    slug = re.sub(r"[^\w\s-]", "", "".join(_fold(c) for c in name.lower().strip()))
     slug = re.sub(r"[\s_]+", "-", slug)
-    return re.sub(r"-+", "-", slug).strip("-")
+    slug = re.sub(r"-+", "-", slug).strip("-")[:_MAX_SLUG].strip("-")
+    return f"{slug}-book" if slug in _RESERVED_NAMES else slug
 
 
 def estimate_tokens(text: str) -> int:
@@ -73,15 +95,30 @@ def count_words(text: str) -> int:
     lines = text.strip().splitlines()
     if lines and lines[0].startswith("#"):
         lines = lines[1:]
-    return len(" ".join(lines).split())
+    body = " ".join(lines)
+    return len(_CJK.findall(body)) + len(_CJK_PUNCTUATION.sub(" ", _CJK.sub(" ", body)).split())
 
 
 def _digest(text: str) -> str:
     return hashlib.sha256(text.strip().encode("utf-8")).hexdigest()[:16]
 
 
+def decode_text(data: bytes) -> str:
+    """Text as the writer's editor saved it: a UTF-8 byte-order mark is
+    dropped, and a file in the older Windows encoding still opens."""
+    try:
+        text = data.decode("utf-8-sig")
+    except UnicodeDecodeError:
+        text = data.decode("cp1252", errors="replace")
+    return text.replace("\r\n", "\n").replace("\r", "\n")
+
+
+def read_text(path: Path) -> str:
+    return decode_text(path.read_bytes())
+
+
 def _read(path: Path) -> str:
-    return path.read_text(encoding="utf-8") if path.exists() else ""
+    return read_text(path) if path.exists() else ""
 
 
 def history_copy(path: Path) -> Path | None:
@@ -327,8 +364,8 @@ class Book:
             if book.story_so_far_path.exists():
                 text = _read(book.story_so_far_path)
                 earlier.append(EarlierBook(book.number, book.title, text, True))
-            elif book.drafted_chapters():
-                text = "\n\n".join(t.strip() for t in book.drafted_chapters().values())
+            elif chapters := book.drafted_chapters():
+                text = "\n\n".join(t.strip() for t in chapters.values())
                 earlier.append(EarlierBook(book.number, book.title, text, False))
         return Plan(
             series_bible=_read(self.series.bible_path),
@@ -349,7 +386,7 @@ class Book:
         for path in self.manuscript_dir.iterdir():
             match = _CHAPTER_FILE.match(path.name)
             if match and path.is_file():
-                chapters[int(match.group(1))] = path.read_text(encoding="utf-8")
+                chapters[int(match.group(1))] = read_text(path)
         return dict(sorted(chapters.items()))
 
     def _provenance(self) -> dict:
@@ -465,6 +502,23 @@ class Series:
         return book, written
 
 
+def locate_library(root: Path, flag: str | None = None) -> tuple[Path, str]:
+    """Where the books are, and what said so: the --library flag, then
+    WRITERS_ROOM_LIBRARY, then the folder chosen in the app's Settings
+    (``library:`` in config/settings.local.yaml), then ``<root>/library``."""
+    if flag:
+        return Path(flag).expanduser(), "flag"
+    env = os.environ.get("WRITERS_ROOM_LIBRARY", "").strip()
+    if env:
+        return Path(env).expanduser(), "env"
+    overlay = Path(root) / "config" / "settings.local.yaml"
+    if overlay.exists():
+        saved = (yaml.safe_load(overlay.read_text(encoding="utf-8")) or {}).get("library")
+        if saved:
+            return Path(str(saved)).expanduser(), "saved"
+    return Path(root) / "library", "default"
+
+
 class Library:
     def __init__(self, root: Path):
         self.root = Path(root)
@@ -500,7 +554,8 @@ class Library:
         if series:
             books = [b for b in books if b.series.root.name == slugify(series)]
         if title:
-            books = [b for b in books if b.slug == slugify(title)]
+            # Also by title, for folders named before slugs kept accents and other scripts.
+            books = [b for b in books if slugify(title) in (b.slug, slugify(b.title))]
         if len(books) == 1:
             return books[0]
         if not books:

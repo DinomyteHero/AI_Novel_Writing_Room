@@ -8,6 +8,15 @@ import pytest
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 
+@pytest.fixture(autouse=True)
+def no_provider_keys(monkeypatch):
+    """Tests never call real models, and a key or library in the shell mustn't
+    change which provider a role uses or where books are."""
+    for env in ("OPENROUTER_API_KEY", "ANTHROPIC_API_KEY", "OPENAI_API_KEY", "GEMINI_API_KEY",
+                "WRITERS_ROOM_LIBRARY"):
+        monkeypatch.delenv(env, raising=False)
+
+
 @pytest.fixture
 def temp_dir(tmp_path):
     return str(tmp_path)

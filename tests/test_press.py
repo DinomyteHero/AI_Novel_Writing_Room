@@ -238,3 +238,11 @@ def test_usage_reports_what_came_from_cache():
     usage = Usage.since(router, 0)
     assert usage.cached_tokens == 800
     assert "2,000 tokens in (800 read from cache)" in usage.describe()
+
+
+async def test_a_declined_draft_is_not_saved_as_a_chapter(book):
+    router = FakeRouter({WRITER_ROLE: ["I can't write this chapter as described."]})
+    with pytest.raises(StudioError, match="declined or answered something else") as caught:
+        await press.build(book, router, [1], SETTINGS)
+    assert not book.chapter_path(1).exists()
+    assert "draft.md" in str(caught.value)

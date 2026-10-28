@@ -61,6 +61,12 @@ class BuildJob:
     def _run(self) -> None:
         try:
             asyncio.run(self._build())
+        except Exception as exc:
+            # Never leave a book showing "building" forever, which would also
+            # refuse every later build of it.
+            logger.exception("Build failed to run")
+            self.state, self.error = "failed", f"The build couldn't run: {exc}"
+            self.current = self.step = None
         finally:
             if self.on_finish:
                 try:
@@ -90,6 +96,10 @@ class BuildJob:
             router = self.make_router()
         except StudioError as exc:
             self.state, self.error = "failed", str(exc)
+            return
+        except Exception as exc:
+            logger.exception("Couldn't set up the models for a build")
+            self.state, self.error = "failed", f"Couldn't set up the models for this build: {exc}"
             return
         try:
             result = await press.build(

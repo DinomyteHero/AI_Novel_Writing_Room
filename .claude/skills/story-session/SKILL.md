@@ -150,6 +150,10 @@ first two or three chapters, and start building.
   later book (a twist, a change of world) goes in "The arc across books"
   marked as not to be revealed before that book, with any hints the writer
   wants planted earlier.
+- A world can outgrow one book before a second book exists. When the
+  writer wants to build out the world for later stories, offer to start
+  `series_bible.md` now and move the lasting world material into it; the
+  book becomes a series of one, and adding book two later changes nothing.
 - A new book's `characters.md` starts as a copy of the previous book's, so
   the whole cast comes along. Go through it with the writer: update "Where
   they are now" and anything that changed, and move anyone who won't appear
@@ -186,6 +190,9 @@ first two or three chapters, and start building.
 - **How it sounds.** Before chapters are built, settle the voice as well as
   the viewpoint: brisk or lyrical, wry or earnest, a book or writer it should
   read like, and American or British spelling. Put it under "How it's told".
+  If the book is in a language other than English, say so there and keep
+  the plan files in that language too; the press writes in the plan's
+  language.
   Without it the press writes in its own voice. If the writer has a page
   they'd like it to sound like (their own writing, or a short passage they
   choose), offer to keep it as `reference/style_sample.md`.
@@ -196,7 +203,11 @@ first two or three chapters, and start building.
   character, an unreliable narrator, a stylised voice. Put both in the story
   bible. The co-writer and the critic read them before the craft guide, and
   they outrank it. A deliberate choice is judged by whether its effect lands,
-  not by whether it follows the rule.
+  not by whether it follows the rule. Settle the ending's feel here too
+  (hopeful, bittersweet, tragic, open), and whether sex and violence are on
+  the page or off it; without it, models drift towards comfort and soften
+  what the book needs to be hard (the craft guide's "The pull towards
+  comfort").
 - **World**: only what the story needs. For fanfiction, settle which canon,
   where the story branches from it, and what's kept or changed. Places that
   come back get a line each under "The world", so they stay the same.
@@ -216,7 +227,9 @@ first two or three chapters, and start building.
   (oaths, slang, titles), everyday tech and objects, what ordinary people
   remember of the big events and how they talk about them, and a few lines
   or images the source's readers know. Don't create either unasked for a
-  small story.
+  small story. Write canon notes in your own words: facts, a few short
+  quoted lines at most, never pasted chapters of the source. Whole books
+  sent with every call cost a lot and add nothing the notes can't carry.
 - **Push gently on weak spots.** Vague stakes: ask what's lost. A sagging
   middle: offer "yes, but" and "no, and" complications. A passive lead: ask
   what they'd do if no one helped. Events joined by "and then": look for the
@@ -251,6 +264,14 @@ not only the event (the craft guide's "Why we care"). A line like
 `- Words: 3500` sets that chapter's
 length; otherwise the default from `config/settings.yaml` applies. Outlining
 only the first few chapters and discovering the rest is fine.
+
+The press reads only `## Chapter N` headings, numbered from 1 in reading
+order. A prologue, epilogue or interlude is a numbered chapter with that
+title (`## Chapter 1: Prologue`); the press heads it just "Prologue". When the
+writer brings or hand-writes an outline in another shape ("Chapter One",
+"Prologue", bold or unheaded lines, Part headings), offer to convert the
+headings and keep their notes word for word. Part headings can stay as plain
+lines in the notes.
 
 **Deepening a chapter (optional).** Before a chapter that matters is built
 (the opening, a turning point, the climax), offer once to go deeper. Work out
@@ -377,6 +398,11 @@ they want a fresh one.
   chapter(s), and give a short, honest take: what works, and one thing worth
   considering. Mention any notes the report raised, such as a chapter coming
   in short or a revision being discarded.
+- If a build stops because the model declined a chapter, read its reply in
+  the run folder with the writer. Often the notes are ambiguous and a
+  clearer line fixes it; sometimes the provider won't write that material,
+  and another writer model in Settings is the answer. Never try to trick a
+  model past its provider's rules.
 - If a chapter's outline changes after it was built, `status` marks it out of
   date. Offer the choices: rebuild it, revise it with a note, or keep it.
 - If building turns up something better than the plan (a character who came

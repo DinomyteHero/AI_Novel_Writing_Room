@@ -302,6 +302,9 @@ h2.sub { margin: 0; font-size: 15px; font-weight: 700; }
 .role:last-child { border-bottom: 0; }
 .model-select { width: 100%; max-width: 480px; font: inherit; font-size: 14px; padding: 9px 12px; border: 1px solid var(--line-strong); border-radius: 8px; background: var(--paper); color: var(--ink); }
 .pills { display: flex; flex-wrap: wrap; gap: 6px; }
+.disclosure > summary { cursor: pointer; font-size: 14px; font-weight: 600; color: var(--accent); padding: 4px 0; }
+.build-options { display: grid; grid-template-columns: auto 1fr; gap: 8px 12px; align-items: center; padding: 4px 0; }
+@media (max-width: 480px) { .build-options { grid-template-columns: 1fr; } .build-options .hint { grid-column: auto !important; } }
 
 /* help */
 .help-card { display: flex; flex-direction: column; gap: 8px; padding: 18px; }

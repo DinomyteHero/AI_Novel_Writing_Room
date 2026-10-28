@@ -39,7 +39,9 @@ def routes(app: App) -> dict:
         ("GET", "/api/build"): lambda p: app.build_status(p["project"], p.get("book")),
         ("GET", "/api/estimate"): lambda p: app.estimate(p["project"], p.get("book"), p["which"]),
         ("POST", "/api/projects"): lambda p: app.create_project(p.get("idea", ""), p.get("kind", "book"), p.get("defer", False)),
-        ("POST", "/api/chats"): lambda p: app.new_chat(p["project"]),
+        ("POST", "/api/chats"): lambda p: app.new_chat(
+            p["project"], p.get("backend") or "", p.get("model") or "", p.get("effort")
+        ),
         ("POST", "/api/send"): lambda p: app.send(
             p["project"], p["chat"], p.get("text", ""), p.get("attachments"), p.get("book"),
             selection=p.get("selection"), explore=p.get("explore", False),
@@ -74,6 +76,8 @@ def routes(app: App) -> dict:
         ("POST", "/api/settings/key"): lambda p: app.set_key(p["backend"], p.get("value", "")),
         ("POST", "/api/settings/check"): lambda p: app.check(p["backend"]),
         ("POST", "/api/settings/role"): lambda p: app.set_role(p["role"], p["backend"], p["model"]),
+        ("POST", "/api/settings/automatic"): lambda p: app.use_automatic(),
+        ("POST", "/api/settings/library"): lambda p: app.set_library(p.get("path", "")),
         ("POST", "/api/settings/press"): lambda p: app.set_press(
             p.get("revision_rounds"), p.get("default_chapter_words")
         ),

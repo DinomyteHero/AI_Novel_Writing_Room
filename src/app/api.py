@@ -25,7 +25,7 @@ from typing import Callable
 
 import yaml
 
-from src.model_router import ModelRouter, load_config, local_overlay_path
+from src.model_router import PROVIDER_ORDER, ModelRouter, load_config, local_overlay_path
 from src.studio import chat, jobs, press
 from src.studio.llm import LONG_PROMPT_TOKENS, MAX_PROMPT_TOKENS, provider_error
 from src.studio.project import (
@@ -35,21 +35,23 @@ from src.studio.project import (
     Series,
     StudioError,
     count_words,
+    decode_text,
     estimate_tokens,
     history_copy,
+    read_text,
     slugify,
 )
 
 PROJECT_CHAT = "project"
 LARGE_REFERENCE_TOKENS = 50_000
-PROVIDER_ORDER = ["cloud", "anthropic", "openai", "google", "local"]
 ROLES = [
     ("studio_chat", "Chat", "Talks with you and edits your files."),
     ("studio_writer", "Writer", "Drafts and revises chapters."),
     ("studio_critic", "Critic", "Critiques each draft. A different model catches different things."),
-    ("studio_reader", "Reviewer", "Ideas from a different model when you ask the chat for more options, and second opinions from the command line or the Claude plugin."),
+    ("studio_reader", "Reviewer", "Second opinions and fresh ideas from a different model."),
     ("studio_notes", "Story so far", "Notes on a finished book for the books after it."),
 ]
+PRESS_ROLES = ("studio_writer", "studio_critic", "studio_reader", "studio_notes")
 PROVIDER_BLURBS = {
     "cloud": "One key for every model here: DeepSeek, Gemini, Claude, GPT and more. Pay as you go.",
     "anthropic": "Claude models, directly from Anthropic.",
@@ -97,11 +99,48 @@ def _now() -> str:
     return datetime.now().isoformat(timespec="seconds")
 
 
+def _html_text(markup: str) -> str:
+    """Readable text from a web page or an e-book chapter."""
+    import html
+
+    markup = re.sub(r"<(script|style|head)\b.*?</\1>", "", markup, flags=re.DOTALL | re.IGNORECASE)
+    markup = re.sub(r"<br\s*/?>|</(p|div|h[1-6]|li|blockquote|tr)>", "\n\n", markup, flags=re.IGNORECASE)
+    text = html.unescape(re.sub(r"<[^>]+>", "", markup))
+    lines = [" ".join(line.split()) for line in text.splitlines()]
+    return re.sub(r"\n{3,}", "\n\n", "\n".join(lines)).strip()
+
+
+def _epub_text(data: bytes) -> str:
+    """An EPUB's chapters in reading order (the spine of its package file)."""
+    with zipfile.ZipFile(io.BytesIO(data)) as book:
+        container = book.read("META-INF/container.xml").decode("utf-8", errors="replace")
+        opf_path = re.search(r'full-path="([^"]+)"', container).group(1)
+        opf = book.read(opf_path).decode("utf-8", errors="replace")
+        base = opf_path.rsplit("/", 1)[0] + "/" if "/" in opf_path else ""
+        items = {}
+        for tag in re.findall(r"<item\b[^>]*>", opf):
+            item_id, href = re.search(r'\bid="([^"]+)"', tag), re.search(r'\bhref="([^"]+)"', tag)
+            if item_id and href:
+                items[item_id.group(1)] = href.group(1)
+        order = re.findall(r'<itemref\b[^>]*\bidref="([^"]+)"', opf)
+        parts = [_html_text(book.read(base + items[i]).decode("utf-8", errors="replace"))
+                 for i in order if i in items]
+    return "\n\n".join(p for p in parts if p)
+
+
 def to_text(name: str, data: bytes) -> tuple[str, str]:
     """A file the writer added, as (markdown name, text) the models can read."""
     suffix = Path(name).suffix.lower()
     if suffix in REFERENCE_SUFFIXES or suffix == ".markdown":
-        return Path(name).stem + (".md" if suffix != ".txt" else ".txt"), data.decode("utf-8", errors="replace")
+        return Path(name).stem + (".md" if suffix != ".txt" else ".txt"), decode_text(data)
+    if suffix in (".html", ".htm"):
+        return Path(name).stem + ".md", _html_text(decode_text(data)) + "\n"
+    if suffix == ".epub":
+        try:
+            text = _epub_text(data)
+        except (zipfile.BadZipFile, KeyError, AttributeError):
+            raise StudioError(f"{name} doesn't look like an EPUB I can read.") from None
+        return Path(name).stem + ".md", text + "\n"
     if suffix == ".docx":
         try:
             with zipfile.ZipFile(io.BytesIO(data)) as docx:
@@ -121,8 +160,8 @@ def to_text(name: str, data: bytes) -> tuple[str, str]:
             "in it instead (a sentence or two in the chat is plenty)."
         )
     raise StudioError(
-        f"I can read .md, .txt and .docx files. For {name}, copy its text into a .txt "
-        "file or paste it into the chat."
+        f"I can read .md, .txt, .docx, .html and .epub files. For {name}, copy its text "
+        "into a .txt file or paste it into the chat."
     )
 
 
@@ -133,13 +172,16 @@ class App:
         config_path: Path,
         env_path: Path,
         make_router: Callable[[], object] | None = None,
+        library_source: str = "default",
     ):
         self.library = library
+        self.library_source = library_source
         self.config_path = Path(config_path)
         self.env_path = Path(env_path)
         self._make_router = make_router
         self._lock = threading.RLock()
         self._turns: dict[str, dict] = {}
+        self._summaries: dict[Path, tuple] = {}
 
     # --- models -----------------------------------------------------------
 
@@ -263,7 +305,7 @@ class App:
                 for p in sorted(folder_path.iterdir()):
                     if not p.is_file() or p.suffix.lower() not in REFERENCE_SUFFIXES:
                         continue
-                    tokens = estimate_tokens(p.read_text(encoding="utf-8", errors="replace"))
+                    tokens = estimate_tokens(read_text(p))
                     files.append({
                         "name": p.name, "path": rel(p), "tokens": tokens,
                         "size": f"{max(1, p.stat().st_size // 1024)} KB",
@@ -288,6 +330,7 @@ class App:
         plan = book.read_plan()
         outlined = plan.chapters()
         drafted = book.drafted_chapters()
+        settings = self.press_settings()
         chapters = []
         for n in sorted(set(outlined) | set(drafted)):
             chapters.append({
@@ -296,11 +339,10 @@ class App:
                 "words": count_words(drafted[n]) if n in drafted else 0,
                 "state": book.chapter_state(n, plan),
                 "path": rel(book.chapter_path(n)),
-                "planned": self.press_settings().target_words(outlined[n]) if n in outlined else 0,
+                "planned": settings.target_words(outlined[n]) if n in outlined else 0,
             })
         job = jobs.job_for(book)
-        settings = self.press_settings()
-        missing = [c["number"] for c in chapters if c["state"] == "missing"]
+        missing =[c["number"] for c in chapters if c["state"] == "missing"]
         reviews = sorted(book.notes_dir.glob("review_*.md"), reverse=True) if book.notes_dir.exists() else []
         ideas = sorted(book.notes_dir.glob("ideas_*.md"), reverse=True) if book.notes_dir.exists() else []
         runs = sorted((p for p in book.runs_dir.glob("*/report.md")), reverse=True) if book.runs_dir.exists() else []
@@ -361,7 +403,7 @@ class App:
         target = chat.resolve(series, path)
         if not target.is_file():
             raise StudioError(f"{path} doesn't exist yet.")
-        text = target.read_text(encoding="utf-8", errors="replace")
+        text = read_text(target)
         editable = chat.writable(series, target) or target.parent.name == "manuscript"
         result = {"path": path, "text": text, "version": chat.version(text), "editable": editable, "words": count_words(text)}
         if _point_file(target):
@@ -376,7 +418,7 @@ class App:
         if not (target.parent.name == "manuscript" and re.fullmatch(r"chapter_\d+\.md", target.name)) and not chat.writable(series, target):
             raise StudioError(f"{path} can't be edited here.")
         with self._lock:
-            current = target.read_text(encoding="utf-8") if target.exists() else ""
+            current = read_text(target) if target.exists() else ""
             if expected_version is not None and chat.version(current) != expected_version:
                 raise StudioError("This file changed while you were editing. Your draft is still in the editor. Copy it, then reopen the file to compare before saving.")
             chat.save_text(target, text.rstrip() + "\n")
@@ -452,7 +494,16 @@ class App:
         with self._lock:
             temporary = path.with_suffix(f".{threading.get_ident()}.tmp")
             temporary.write_text(json.dumps(record, indent=1, ensure_ascii=False), encoding="utf-8")
-            temporary.replace(path)
+            # On Windows a file being read elsewhere (OneDrive syncing it, an
+            # antivirus scan) can't be replaced for a moment; wait it out.
+            for attempt in range(10):
+                try:
+                    temporary.replace(path)
+                    break
+                except PermissionError:
+                    if attempt == 9:
+                        raise
+                    time.sleep(0.05 * (attempt + 1))
         return record
 
     def _chat_summaries(self, series: Series) -> list[dict]:
@@ -460,7 +511,16 @@ class App:
         out = []
         if folder.is_dir():
             for path in folder.glob("*.json"):
+                # Long chats carry every change's before-and-after text, so
+                # read each file again only when it has changed.
                 try:
+                    stat = path.stat()
+                    key = (stat.st_mtime_ns, stat.st_size)
+                    cached = self._summaries.get(path)
+                    if cached and cached[0] == key:
+                        if cached[1]:
+                            out.append(cached[1])
+                        continue
                     record = json.loads(path.read_text(encoding="utf-8"))
                 except (OSError, json.JSONDecodeError):
                     continue
@@ -468,14 +528,17 @@ class App:
                 if not isinstance(items, list) or not record.get("id"):
                     # A half-written or older chat shouldn't take down the library;
                     # leave the file alone and show the others.
+                    self._summaries[path] = (key, None)
                     continue
                 said = [i for i in items if isinstance(i, dict)
                         and i.get("kind") in ("user", "assistant") and i.get("text")]
                 snippet = said[-1]["text"] if said else ""
-                out.append({
+                summary = {
                     "id": record["id"], "title": record.get("title", "Untitled chat"),
                     "updated": record.get("updated", ""), "snippet": snippet[:140],
-                })
+                }
+                self._summaries[path] = (key, summary)
+                out.append(summary)
         out.sort(key=lambda c: c["updated"], reverse=True)
         return out
 
@@ -487,7 +550,8 @@ class App:
         out.sort(key=lambda c: c["updated"], reverse=True)
         return out
 
-    def new_chat(self, pid: str) -> dict:
+    def new_chat(self, pid: str, backend: str = "", model: str = "", effort: str | None = None) -> dict:
+        """A new chat, on the model (and effort) picked before it started, if any."""
         series = self.series(pid)
         record = {
             "id": chat.new_id("c"), "project": pid, "title": "New chat", "book": None,
@@ -495,7 +559,12 @@ class App:
             "items": [{"kind": "assistant", "id": chat.new_id("m"), "text":
                        f"What would you like to work on in {series.title}? I can see its plan, chapters and notes."}],
         }
-        return self._save_chat(pid, record)
+        record = self._save_chat(pid, record)
+        if backend and model:
+            record = self.set_chat_model(pid, record["id"], backend, model)
+        if effort is not None:
+            record = self.set_chat_effort(pid, record["id"], effort)
+        return record
 
     def set_chat_model(self, pid: str, cid: str, backend: str, model: str) -> dict:
         """Choose the model for one chat. New model means the old effort is cleared."""
@@ -706,23 +775,32 @@ class App:
         """Once an untitled project has a real name, rename its folders to match,
         so the library on disk reads like the app. Returns the project's id."""
         series = self.series(pid)
+        # A running build writes into these folders, so they keep their names
+        # until it finishes; a folder Windows or OneDrive has open is tried again
+        # after the next turn.
+        building = any((job := jobs.job_for(b)) and job.state == "running" for b in series.books())
         moved: list[tuple[str, str]] = []
         for book in series.books():
             slug = slugify(book.title)
-            job = jobs.job_for(book)
-            if (book.slug.startswith("untitled-book") and slug and not slug.startswith("untitled")
-                    and not (job and job.state == "running")):
-                target = book.root.with_name(f"{book.number:02d}-{slug}")
-                if not target.exists():
-                    moved.append((book.root.name, target.name))
+            if building or not book.slug.startswith("untitled-book") or not slug or slug.startswith("untitled"):
+                continue
+            target = book.root.with_name(f"{book.number:02d}-{slug}")
+            if not target.exists():
+                try:
                     book.root.rename(target)
+                except OSError:
+                    continue
+                moved.append((book.root.name, target.name))
         new_pid = pid
         slug = slugify(series.title)
-        if pid.startswith("untitled-") and slug and not slug.startswith("untitled"):
+        if not building and pid.startswith("untitled-") and slug and not slug.startswith("untitled"):
             target = self.library.root / slug
             if not target.exists():
-                series.root.rename(target)
-                new_pid = slug
+                try:
+                    series.root.rename(target)
+                    new_pid = slug
+                except OSError:
+                    pass
         if moved or new_pid != pid:
             for path in (self.library.root / new_pid / "chats").glob("*.json"):
                 text = path.read_text(encoding="utf-8")
@@ -787,7 +865,7 @@ class App:
                 return self._save_chat(pid, record)
 
             target = chat.resolve(series, item["file"])
-            current = target.read_text(encoding="utf-8") if target.exists() else None
+            current = read_text(target) if target.exists() else None
             chapter = re.fullmatch(r"chapter_(\d+)\.md", target.name) if target.parent.name == "manuscript" else None
             if not chapter and not chat.writable(series, target):
                 raise StudioError("That suggestion points at a file the Room can't write.")
@@ -831,7 +909,8 @@ class App:
         book = self.book(series, folder)
         plan = book.read_plan()
         numbers = press.select_chapters(book, plan, str(which))
-        guess = press.estimate(book, plan, numbers, self.press_settings())
+        settings = self.press_settings()
+        guess = press.estimate(book, plan, numbers, settings)
         existing = [n for n in numbers if book.chapter_path(n).exists()]
         listed = ", ".join(str(n) for n in numbers)
         detail = guess.describe().capitalize() + "."
@@ -843,8 +922,13 @@ class App:
             )
         if existing:
             detail += " This replaces the current version; the old one is kept in history."
+        chapters = plan.chapters().values()
         return {"numbers": numbers, "title": f"Build chapter{'s' if len(numbers) > 1 else ''} {listed}?",
-                "detail": detail}
+                "detail": detail,
+                "press": {"revision_rounds": settings.revision_rounds,
+                          "default_chapter_words": settings.default_chapter_words,
+                          # Chapter length only matters when the outline leaves one unsized.
+                          "unsized": sum(1 for c in chapters if c.number in numbers and not c.words)}}
 
     def build(self, pid: str, folder: str | None, which: str, cid: str | None = None, item_id: str | None = None) -> dict:
         series = self.series(pid)
@@ -984,18 +1068,56 @@ class App:
             ok = any(o["backend"] == current["backend"] and o["model"] == current["model"] for o in options)
             params = routing.get("params") or {}
             model = (config["models"].get(current["backend"] or "", {}).get("models") or {}).get(current["model"])
+            label_now = next((o["label"] for o in options
+                              if o["backend"] == current["backend"] and o["model"] == current["model"]), current["model"])
             roles.append({
                 "key": role, "label": label, "blurb": blurb, "current": current, "options": options, "available": ok,
+                "currentLabel": label_now or "",
                 "effort": (params.get("reasoning") or {}).get("effort", ""),
                 "efforts": (model.get("efforts") if isinstance(model, dict) else None) or [],
                 "web": any(t.get("type") == "openrouter:web_search" for t in params.get("tools") or []),
             })
         settings = press.PressSettings.from_config(config)
+        chosen = (self._overlay().get("agent_routing") or {}).keys()
         return {
             "providers": providers, "roles": roles,
+            # Automatic until the writer picks a model for one of the Press roles.
+            "automatic": not any(role in chosen for role in PRESS_ROLES),
             "press": {"revision_rounds": settings.revision_rounds,
                       "default_chapter_words": settings.default_chapter_words},
+            "library": {"path": str(self.library.root), "source": self.library_source},
         }
+
+    def use_automatic(self) -> dict:
+        """Forget the writer's model choices for the Press roles."""
+        overlay = self._overlay()
+        routing = overlay.get("agent_routing") or {}
+        for role in PRESS_ROLES:
+            routing.pop(role, None)
+        if routing:
+            overlay["agent_routing"] = routing
+        else:
+            overlay.pop("agent_routing", None)
+        self._write_overlay(overlay)
+        return self.settings()
+
+    def set_library(self, path: str) -> dict:
+        """Work from another library folder, and remember it for next time."""
+        raw = path.strip().strip('"')
+        if not raw:
+            raise StudioError("Type or paste the folder's full path first.")
+        folder = Path(raw).expanduser()
+        if not folder.is_absolute():
+            raise StudioError(f"Use the folder's full path, like C:\\Users\\you\\Documents\\Novels (not {raw}).")
+        if not folder.is_dir():
+            raise StudioError(f"I can't find a folder at {folder}. Create it first, or check the path.")
+        overlay = self._overlay()
+        overlay["library"] = str(folder)
+        self._write_overlay(overlay)
+        with self._lock:
+            self.library = Library(folder)
+            self.library_source = "saved"
+        return self.settings()
 
     def set_key(self, backend: str, value: str) -> dict:
         config = self.config()

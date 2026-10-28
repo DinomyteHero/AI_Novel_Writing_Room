@@ -16,6 +16,7 @@ const S = {
   modal: null, toast: "",
   selection: null, editMode: savedReview() ? "ask" : "auto",
   theme: savedTheme(), drawer: false, picker: false, modelQuery: "", reader: null,
+  nextChat: {}, libraryInput: null, addProvider: "",
 };
 
 /* ---------- helpers ---------- */
@@ -436,7 +437,12 @@ const ACT = {
     const text = S.projectDraft.trim();
     if (!text && !S.pending.length) return focus("project-composer");
     try {
-      const chat = await post("/api/chats", { project: S.project });
+      const next = S.nextChat;
+      const chat = await post("/api/chats", {
+        project: S.project, backend: next.model?.backend, model: next.model?.model,
+        effort: Object.prototype.hasOwnProperty.call(next, "effort") ? next.effort : null,
+      });
+      S.nextChat = {};
       S.chat = chat; S.view = "chat"; S.panel = false; S.doc = null; S.reader = null;
       S.draft = text; S.projectDraft = "";
       await refreshState();
@@ -571,10 +577,13 @@ const ACT = {
   },
   togglePicker() { S.picker = !S.picker; if (!S.picker) S.modelQuery = ""; render(); },
   async setChatModel(d) {
+    // Before a chat exists, the choice waits for the chat this composer starts.
+    if (S.view !== "chat") { S.nextChat = { model: { backend: d.backend, model: d.model }, effort: "" }; S.modelQuery = ""; return render(); }
     try { S.chat = await post("/api/chat/model", { project: S.project, chat: S.chat.id, backend: d.backend, model: d.model }); S.modelQuery = ""; } catch (e) { return fail(e); }
     render();
   },
   async setChatEffort(d) {
+    if (S.view !== "chat") { S.nextChat = { ...S.nextChat, effort: d.effort }; return render(); }
     try { S.chat = await post("/api/chat/effort", { project: S.project, chat: S.chat.id, effort: d.effort }); } catch (e) { return fail(e); }
     render();
   },
@@ -627,7 +636,23 @@ const ACT = {
   },
   async setPress(d) {
     const body = {}; body[d.field] = Number(d.value);
-    try { S.settings = await post("/api/settings/press", body); } catch (e) { return fail(e); }
+    try {
+      S.settings = await post("/api/settings/press", body);
+      if (S.modal?.kind === "build") return ACT.buildAsk({ which: S.modal.which });
+    } catch (e) { return fail(e); }
+    render();
+  },
+  async useAutomatic() {
+    try { S.settings = await post("/api/settings/automatic"); } catch (e) { return fail(e); }
+    render();
+  },
+  async setLibrary() {
+    const path = (S.libraryInput ?? S.settings.library.path).trim();
+    try { S.settings = await post("/api/settings/library", { path }); } catch (e) { return fail(e); }
+    S.libraryInput = null;
+    S.project = null; S.data = null; S.thread = null; S.chat = null; S.doc = null; S.reader = null;
+    watchJob(null);
+    await refreshState().catch(fail);
     render();
   },
   async helpTry(d) {
@@ -691,6 +716,7 @@ function sidebar() {
     <div class="brand">${ic("book", 20, "currentColor", 1.8)}Writers Room</div>
     <div class="nav">
       <button type="button" class="nav-btn" ${attr({ act: "home" })}><span class="plus">${ic("plus", 14, "currentColor", 2.4)}</span><b>New chat</b></button>
+      <button type="button" class="nav-btn ${S.view === "help" ? "on" : ""}" ${attr({ act: "go", view: "help" })}><span style="width:24px;display:inline-flex;justify-content:center;color:var(--accent)">${ic("bulb", 18, "currentColor", 1.8)}</span>Writing help</button>
     </div>
     <div class="side-scroll">
       <div class="side-head"><span class="label">Books</span></div>
@@ -731,8 +757,8 @@ function homeView() {
       <textarea id="home-composer" rows="3" placeholder="${esc(placeholder)}" data-model="home.draft" data-enter="sendHome">${esc(h.draft)}</textarea>
       <div class="composer-row">
         <button type="button" class="square" style="margin-left:-4px" aria-label="Start a new book or series" aria-haspopup="menu" aria-expanded="${h.menu}" ${attr({ act: "toggleMenu" })}>${ic("plus", 16, "currentColor", 2.2)}</button>
-        ${chip}${menu}
-        <button type="button" class="send" aria-label="Start" ${attr({ act: "sendHome" })}>${ic("arrow", 18, "currentColor", 2.2)}</button>
+        ${chip}${menu}${modelButton() || '<span style="margin-left:auto"></span>'}
+        <button type="button" class="send" style="margin-left:0" aria-label="Start" ${attr({ act: "sendHome" })}>${ic("arrow", 18, "currentColor", 2.2)}</button>
       </div>
     </div>
     ${h.note ? `<p class="home-note">${esc(h.note)}</p>` : ""}
@@ -907,26 +933,32 @@ function chatRole() {
 }
 
 function chatSelection(role) {
-  const chosen = S.chat?.model || null;
+  // In a chat, its own choice; on the home and project pages, the one for the chat they start.
+  const record = S.view === "chat" ? S.chat : S.nextChat;
+  const chosen = record?.model || null;
   const backend = chosen?.backend || role.current.backend;
   const model = chosen?.model || role.current.model;
   const option = role.options.find((o) => o.backend === backend && o.model === model);
-  const hasEffort = S.chat && Object.prototype.hasOwnProperty.call(S.chat, "effort");
-  const effort = hasEffort ? (S.chat.effort || "") : (chosen ? "" : (role.effort || ""));
+  const hasEffort = record && Object.prototype.hasOwnProperty.call(record, "effort");
+  const effort = hasEffort ? (record.effort || "") : (chosen ? "" : (role.effort || ""));
   return { backend, model, option, effort, efforts: option?.efforts || [] };
 }
 
-function modelLine() {
+function modelButton() {
   const role = chatRole();
   if (!role) return "";
   const sel = chatSelection(role);
   const parts = [sel.option ? sel.option.label : sel.model];
   if (sel.effort) parts.push(`${sel.effort[0].toUpperCase() + sel.effort.slice(1)} effort`);
   if (role.web && sel.backend === "cloud") parts.push("Web");
-  return `<div class="composer-meta"><span class="muted">Chat model</span>
-    <div style="position:relative;margin-left:auto;min-width:0">
-      <button type="button" class="model-btn" aria-haspopup="true" aria-expanded="${S.picker}" ${attr({ act: "togglePicker" })}><span>${esc(parts.join(" · "))}</span>${ic("down", 14, "currentColor", 2.2)}</button>
-      ${S.picker ? pickerHtml(role, sel) : ""}</div></div>`;
+  return `<div style="position:relative;margin-left:auto;min-width:0">
+      <button type="button" class="model-btn" aria-haspopup="true" aria-expanded="${S.picker}" aria-label="Chat model: ${esc(parts.join(", "))}" ${attr({ act: "togglePicker" })}><span>${esc(parts.join(" · "))}</span>${ic("down", 14, "currentColor", 2.2)}</button>
+      ${S.picker ? pickerHtml(role, sel) : ""}</div>`;
+}
+
+function modelLine() {
+  const button = modelButton();
+  return button ? `<div class="composer-meta"><span class="muted">Chat model</span>${button}</div>` : "";
 }
 
 function pickerHtml(role, sel) {
@@ -943,7 +975,7 @@ function pickerHtml(role, sel) {
     <span class="label">Model</span><div class="pills">${models || `<span class="hint" style="padding:0">${empty}</span>`}</div>
     ${missing}
     ${efforts}
-    <span class="hint" style="padding:0">Each chat keeps its own model and effort.</span>
+    <span class="hint" style="padding:0">${S.view === "chat" ? "Each chat keeps its own model and effort." : "For the chat this starts. Each chat keeps its own."}</span>
     <button type="button" class="link" style="align-self:flex-start;padding-left:0" ${attr({ act: "go", view: "settings" })}>Press roles in Settings</button></div>`;
 }
 
@@ -977,7 +1009,8 @@ function projectView() {
       <textarea id="project-composer" rows="2" placeholder="${esc(`New chat in ${d.title}`)}" data-model="projectDraft" data-enter="startChat">${esc(S.projectDraft)}</textarea>
       <div class="composer-row">
         <button type="button" class="square" style="margin-left:-4px" aria-label="Attach a file" ${attr({ act: "attach" })}>${ic("clip", 16, "currentColor", 2)}</button>
-        <button type="button" class="send" aria-label="Start the chat" ${S.busy ? "disabled" : ""} ${attr({ act: "startChat" })}>${ic("arrow", 18, "currentColor", 2.2)}</button>
+        ${modelButton() || '<span style="margin-left:auto"></span>'}
+        <button type="button" class="send" style="margin-left:0" aria-label="Start the chat" ${S.busy ? "disabled" : ""} ${attr({ act: "startChat" })}>${ic("arrow", 18, "currentColor", 2.2)}</button>
       </div>
     </div>
     ${pendingHtml()}
@@ -1055,8 +1088,7 @@ function filesPanel() {
       <div class="build-box"><span style="font-size:14px;line-height:1.45">${esc(status)}</span>
         ${d.interrupted ? `<span class="hint warn" style="padding:0">A previous build stopped before it wrote its report. Finished chapters are saved; start a new build when you're ready.</span>` : ""}
         <span class="hint" style="padding:0">${S.view === "project" ? "Start a chat, then use Build at the top of it." : "Use Build at the top of the chat. Next chapter or all remaining is your choice there."}</span>
-        <div class="muted" style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:12px">${esc(d.defaults)}
-          <button type="button" class="link" style="font-size:12px;padding:4px 6px" ${attr({ act: "go", view: "settings" })}>Change</button></div>
+        <span class="muted" style="font-size:12px">${esc(d.defaults)}. Change these when you build.</span>
       </div></div>
     <div class="group"><span class="label" style="padding:0 8px 4px">Manuscript · ${written} of ${d.chapters.length} · ${fmt(d.words)} words</span>
       ${chapters || '<span class="hint">Chapters appear here once the outline has "## Chapter 1" sections.</span>'}</div>
@@ -1182,78 +1214,112 @@ function panel() {
   </aside>`;
 }
 
-function settingsView() {
-  const st = S.settings;
-  if (!st) return `<div class="scroll"><div class="page narrow"><h1 class="big">Settings</h1><p class="lead">Loading…</p></div></div>`;
-  const providers = st.providers.map((p) => {
-    const msg = S.providerMsg[p.key];
-    const failing = p.connected && msg && !msg.ok;
-    const status = failing ? "Not working" : p.connected ? "Connected" : "Not connected";
-    return `<div class="card provider">
-      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><b style="font-size:16px">${esc(p.name)}</b>
-        ${p.recommended ? '<span class="badge">Recommended</span>' : ""}<span class="status-pill ${p.connected && !failing ? "ok" : ""}" style="margin-left:auto">${status}</span></div>
+// One card for adding a provider: pick it from the list, then paste its key or address.
+function providerAdd(others) {
+  const p = others.find((x) => x.key === S.addProvider) || others[0];
+  const msg = S.providerMsg[p.key];
+  const options = others.map((x) => `<option value="${esc(x.key)}" ${x.key === p.key ? "selected" : ""}>${esc(x.name)}${x.recommended ? " (recommended)" : ""}</option>`).join("");
+  return `<div class="card provider">
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+        <label for="add-provider" style="font-size:15px;font-weight:700">Add a provider</label>
+        <select id="add-provider" class="model-select" style="flex:1;min-width:200px" data-provider-select>${options}</select>
+      </div>
       <span class="muted" style="font-size:14px;line-height:1.5">${esc(p.blurb)}</span>
       <label class="sr" for="provider-${esc(p.key)}">${p.kind === "address" ? "Server address" : "API key"} for ${esc(p.name)}</label>
       <div class="key-row">
         <input id="provider-${esc(p.key)}" type="${p.kind === "address" ? "text" : "password"}" autocomplete="off"
-          placeholder="${esc(p.connected ? (p.kind === "address" ? p.address : `Saved key ${p.masked}`) : (p.kind === "address" ? "http://localhost:11434/v1" : "Paste your API key"))}"
+          placeholder="${esc(p.kind === "address" ? "http://localhost:11434/v1" : "Paste your API key")}"
           data-model="providerInput.${esc(p.key)}" value="${esc(S.providerInput[p.key] || "")}">
-        ${p.connected ? `<button type="button" class="btn ghost" ${attr({ act: "checkKey", backend: p.key })}>Check</button>` : ""}
-        <button type="button" class="btn ghost" ${attr({ act: "connect", backend: p.key })}>${p.connected ? "Disconnect" : p.kind === "address" ? "Connect" : "Check key"}</button>
+        <button type="button" class="btn ghost" ${attr({ act: "connect", backend: p.key })}>${p.kind === "address" ? "Connect" : "Check key"}</button>
       </div>
       ${msg ? `<span style="font-size:13px" class="${msg.ok ? "" : "warn"}">${esc(msg.text)}</span>` : ""}
       ${p.env ? `<span class="hint" style="padding:0">Saved on this computer in .env as ${esc(p.env)}.</span>` : ""}
     </div>`;
+}
+
+function providerRow(p) {
+  const msg = S.providerMsg[p.key];
+  const failing = msg && !msg.ok;
+  return `<div class="role">
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+        <b style="font-size:15px">${esc(p.name)}</b>
+        <span class="muted mono" style="font-size:12px" title="${esc(p.env ? `Saved in .env as ${p.env}` : "")}">${esc(p.kind === "address" ? p.address : `Saved key ${p.masked}`)}</span>
+        <span class="status-pill ${failing ? "" : "ok"}" style="margin-left:auto">${failing ? "Not working" : "Connected"}</span>
+        ${p.kind === "key" ? `<button type="button" class="btn ghost small" ${attr({ act: "checkKey", backend: p.key })}>Check</button>` : ""}
+        <button type="button" class="btn ghost small" ${attr({ act: "connect", backend: p.key })}>Disconnect</button>
+      </div>
+      ${failing && p.kind === "key" ? `<div class="key-row">
+        <label class="sr" for="provider-${esc(p.key)}">New API key for ${esc(p.name)}</label>
+        <input id="provider-${esc(p.key)}" type="password" autocomplete="off" placeholder="Paste a fresh key" data-model="providerInput.${esc(p.key)}" value="${esc(S.providerInput[p.key] || "")}">
+        <button type="button" class="btn ghost" ${attr({ act: "checkKey", backend: p.key })}>Check key</button></div>` : ""}
+      ${msg ? `<span style="font-size:13px" class="${msg.ok ? "muted" : "warn"}">${esc(msg.text)}</span>` : ""}
+    </div>`;
+}
+
+function roleSelect(r) {
+  const current = r.options.find((o) => o.backend === r.current.backend && o.model === r.current.model);
+  const groups = [...new Set(r.options.map((o) => o.provider))].map((provider) => {
+    const options = r.options.filter((o) => o.provider === provider).map((o) =>
+      `<option value="${esc(o.backend)}|${esc(o.model)}" ${o.backend === r.current.backend && o.model === r.current.model ? "selected" : ""}>${esc(o.label)}</option>`
+    ).join("");
+    return `<optgroup label="${esc(provider)}">${options}</optgroup>`;
   }).join("");
-  const roles = st.roles.filter((r) => r.key !== "studio_chat").map((r) => {
-    const current = r.options.find((o) => o.backend === r.current.backend && o.model === r.current.model);
-    const groups = [...new Set(r.options.map((o) => o.provider))].map((provider) => {
-      const options = r.options.filter((o) => o.provider === provider).map((o) =>
-        `<option value="${esc(o.backend)}|${esc(o.model)}" ${o.backend === r.current.backend && o.model === r.current.model ? "selected" : ""}>${esc(o.label)}</option>`
-      ).join("");
-      return `<optgroup label="${esc(provider)}">${options}</optgroup>`;
-    }).join("");
-    const select = r.options.length
-      ? `<select class="model-select" data-role-select data-role="${esc(r.key)}" aria-label="Model for ${esc(r.label)}">${current ? "" : '<option value="" selected disabled>Choose a model…</option>'}${groups}</select>`
-      : '<select class="model-select" disabled aria-label="No models available"><option>No models connected</option></select>';
-    return `<div class="role">
+  const select = r.options.length
+    ? `<select class="model-select" data-role-select data-role="${esc(r.key)}" aria-label="Model for ${esc(r.label)}">${current ? "" : '<option value="" selected disabled>Choose a model…</option>'}${groups}</select>`
+    : '<select class="model-select" disabled aria-label="No models available"><option>No models connected</option></select>';
+  return `<div class="role">
       <div><b style="font-size:15px">${esc(r.label)}</b> <span class="muted" style="font-size:13px">${esc(r.blurb)}</span></div>
       ${select}
-      ${!r.options.length ? '<span class="warn" style="font-size:12px">Connect a provider above to choose a model.</span>' : !r.available ? `<span class="warn" style="font-size:12px">Currently set to ${esc(r.current.model)} on ${esc(r.current.backend)}, which isn't offered. Pick one above.</span>` : ""}
+      ${r.options.length && !r.available ? `<span class="warn" style="font-size:12px">Currently set to ${esc(r.current.model)} on ${esc(r.current.backend)}, which isn't offered. Pick one above.</span>` : ""}
     </div>`;
-  }).join("");
-  const pill = (field, value, label, on) => `<button type="button" class="pill ${on ? "on" : ""}" ${attr({ act: "setPress", field, value })}>${label}</button>`;
+}
+
+function settingsView() {
+  const st = S.settings;
+  if (!st) return `<div class="scroll"><div class="page narrow"><h1 class="big">Settings</h1><p class="lead">Loading…</p></div></div>`;
+  const connected = st.providers.filter((p) => p.connected);
+  const others = st.providers.filter((p) => !p.connected);
+  const providers = (connected.length ? `<div class="card" style="padding:0 18px">${connected.map(providerRow).join("")}</div>` : "")
+    + (others.length ? providerAdd(others) : "");
+  const roles = st.roles.filter((r) => r.key !== "studio_chat");
+  const summary = `<div class="card" style="padding:4px 18px">${roles.map((r) => `<div class="role" style="flex-direction:row;align-items:baseline;gap:10px;flex-wrap:wrap">
+      <b style="font-size:15px;min-width:110px">${esc(r.label)}</b><span style="font-size:14px">${esc(r.currentLabel)}</span>
+      <span class="muted" style="font-size:12px;flex-basis:100%">${esc(r.blurb)}</span></div>`).join("")}</div>`;
+  const chooser = `<div class="card" style="padding:4px 18px">${roles.map(roleSelect).join("")}</div>`;
+  const models = !connected.length ? '<p class="hint" style="padding:0">Connect a provider above, and models are picked for you.</p>'
+    : st.automatic
+      ? `${summary}<details class="disclosure" data-keep-open="models"><summary>Choose models myself</summary><div style="padding-top:10px">${chooser}</div></details>`
+      : `${chooser}<button type="button" class="link" style="align-self:flex-start;padding-left:0" ${attr({ act: "useAutomatic" })}>Use automatic choices instead</button>`;
+  const lib = st.library;
+  const libraryInput = S.libraryInput ?? lib.path;
+  const override = lib.source === "flag" || lib.source === "env"
+    ? `<span class="hint" style="padding:0">This run was started with ${lib.source === "flag" ? "--library" : "WRITERS_ROOM_LIBRARY"}, which wins again next time the app starts.</span>` : "";
+  const pill = (act, on, label, extra) => `<button type="button" class="pill ${on ? "on" : ""}" ${attr({ act, ...extra })}>${label}</button>`;
   return `<div class="scroll"><div class="page narrow">
     <h1 class="big">Settings</h1>
-    <p class="lead">Connect at least one model provider. Your keys stay on this computer.</p>
-    <div style="display:flex;flex-direction:column;gap:12px">${providers}</div>
-    <h2 class="sub" style="font-size:18px">Who does what</h2>
-    <p class="lead" style="font-size:14px;margin-top:-14px">The chat model and reasoning effort are chosen in each chat, under its message box. These roles are for the Press and background reads. Every call sends the whole book, so pick models with large context windows (about 1M tokens).</p>
-    <div class="card" style="padding:4px 18px">${roles}</div>
-    <h2 class="sub" style="font-size:18px">Building chapters</h2>
-    <div class="card" style="padding:4px 18px">
-      <div class="role"><div><b style="font-size:15px">Revision rounds</b> <span class="muted" style="font-size:13px">Critique-and-revise passes after each draft. One is usually best.</span></div>
-        <div class="pills">${[0, 1, 2].map((n) => pill("revision_rounds", n, n === 0 ? "Draft only" : n === 1 ? "1 round" : "2 rounds", st.press.revision_rounds === n)).join("")}</div></div>
-      <div class="role"><div><b style="font-size:15px">Chapter length</b> <span class="muted" style="font-size:13px">Used when the outline doesn't say.</span></div>
-        <div class="pills">${[2000, 3000, 4000].map((n) => pill("default_chapter_words", n, `About ${fmt(n)} words`, st.press.default_chapter_words === n)).join("")}</div></div>
+    <h2 class="sub" style="font-size:18px">Model providers</h2>
+    <p class="lead" style="font-size:14px;margin-top:-14px">${connected.length ? "Your keys stay on this computer." : "Connect at least one to start. Your keys stay on this computer."}</p>
+    ${providers}
+    <h2 class="sub" style="font-size:18px">Models${connected.length && st.automatic ? ' <span class="badge" style="vertical-align:middle">Automatic</span>' : ""}</h2>
+    <p class="lead" style="font-size:14px;margin-top:-14px">The chat model is chosen in each chat, under its message box. These roles build chapters and give second opinions. Every call sends the whole book, so they need large context windows (about 1M tokens).</p>
+    ${models}
+    <h2 class="sub" style="font-size:18px">Library folder</h2>
+    <p class="lead" style="font-size:14px;margin-top:-14px">Where your books are kept, as plain files you can open, copy and back up.</p>
+    <div class="card provider">
+      <label class="sr" for="library-path">Library folder</label>
+      <div class="key-row">
+        <input id="library-path" type="text" autocomplete="off" spellcheck="false" data-model="libraryInput" value="${esc(libraryInput)}">
+        <button type="button" class="btn ghost" ${attr({ act: "setLibrary" })}>Use this folder</button>
+      </div>
+      <span class="hint" style="padding:0">Paste the full path of an existing folder. Books in the old folder stay where they are.</span>
+      ${override}
     </div>
-    <h2 class="sub" style="font-size:18px">Changes</h2>
+    <h2 class="sub" style="font-size:18px">Preferences</h2>
     <div class="card" style="padding:4px 18px">
-      <div class="role"><div><b style="font-size:15px">Review changes before saving</b> <span class="muted" style="font-size:13px">The Room stages edits, passages and chapter revisions; you choose Use suggestion or Keep original.</span></div>
-        <div class="pills">
-          <button type="button" class="pill ${S.editMode === "auto" ? "on" : ""}" ${attr({ act: "setReview", value: "auto" })}>Save as we talk</button>
-          <button type="button" class="pill ${S.editMode === "ask" ? "on" : ""}" ${attr({ act: "setReview", value: "ask" })}>Show me first</button>
-        </div></div>
-    </div>
-    <h2 class="sub" style="font-size:18px">Appearance</h2>
-    <div class="card" style="padding:4px 18px">
-      <div class="role"><div><b style="font-size:15px">Theme</b> <span class="muted" style="font-size:13px">Follow the system, or pin light or dark.</span></div>
-        <div class="pills">${[["auto", "Match system"], ["light", "Light"], ["dark", "Dark"]].map(([value, label]) => `<button type="button" class="pill ${S.theme === value ? "on" : ""}" ${attr({ act: "setTheme", theme: value })}>${label}</button>`).join("")}</div></div>
-    </div>
-    <h2 class="sub" style="font-size:18px">Writing help</h2>
-    <div class="card" style="padding:4px 18px">
-      <div class="role"><div><b style="font-size:15px">Craft notes</b> <span class="muted" style="font-size:13px">Lenses, not rules. Read them, or ask the Room about any of them.</span></div>
-        <button type="button" class="btn ghost" ${attr({ act: "go", view: "help" })}>Open writing help</button></div>
+      <div class="role"><div><b style="font-size:15px">Edits from the chat</b> <span class="muted" style="font-size:13px">Save them as you talk, or stage each one so you choose Use suggestion or Keep original.</span></div>
+        <div class="pills">${pill("setReview", S.editMode === "auto", "Save as we talk", { value: "auto" })}${pill("setReview", S.editMode === "ask", "Show me first", { value: "ask" })}</div></div>
+      <div class="role"><div><b style="font-size:15px">Theme</b></div>
+        <div class="pills">${[["auto", "Match system"], ["light", "Light"], ["dark", "Dark"]].map(([value, label]) => pill("setTheme", S.theme === value, label, { theme: value })).join("")}</div></div>
     </div>
   </div></div>`;
 }
@@ -1287,7 +1353,6 @@ function helpView() {
       ${canTry ? `<button type="button" class="link" style="align-self:flex-start;margin-top:auto" ${attr({ act: "helpTry", index: i })}>${esc(c.tryLabel)} ${ic("arrow", 14, "currentColor", 2.2)}</button>` : ""}</div>`;
   }).join("");
   return `<div class="scroll"><div class="page">
-    <button type="button" class="link muted" style="align-self:flex-start" ${attr({ act: "go", view: "settings" })}>← Settings</button>
     <h1 class="big">Writing help</h1>
     <p class="lead">Lenses, not rules. Use what helps and ignore the rest; your own story always wins. Your co-writer knows all of these too, so just ask.</p>
     <div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(300px,1fr))">${cards}</div>
@@ -1324,9 +1389,20 @@ function modal() {
     ? `Build ${m.numbers.length} chapter${m.numbers.length === 1 ? "" : "s"}`
     : `Build chapter ${m.numbers[0]}`;
   const other = all ? "next" : "all";
+  const p = m.press || {};
+  const pill = (field, value, text) => `<button type="button" class="pill ${p[field] === value ? "on" : ""}" ${attr({ act: "setPress", field, value })}>${text}</button>`;
+  const how = p.revision_rounds === 0 ? "Each chapter is drafted and saved."
+    : `Each chapter is drafted, critiqued by a second model and revised${p.revision_rounds > 1 ? ` (${p.revision_rounds} rounds)` : ""}, then saved.`;
   return `<div class="modal-back"><div class="modal" role="dialog" aria-modal="true" aria-label="${esc(m.title)}">
     <b style="font-size:17px">${esc(m.title)}</b><span class="muted" style="font-size:14px;line-height:1.5">${esc(m.detail)}</span>
-    <span class="muted" style="font-size:13px;line-height:1.5">Each chapter is drafted, then critiqued by a second model and revised (${esc(S.data ? S.data.defaults : "")}), then saved. You can keep planning while it runs.</span>
+    <div class="build-options">
+      <span class="label">Revision</span>
+      <div class="pills">${pill("revision_rounds", 0, "Draft only")}${pill("revision_rounds", 1, "1 round")}${pill("revision_rounds", 2, "2 rounds")}</div>
+      ${p.unsized ? `<span class="label">Length</span>
+      <div class="pills">${[2000, 3000, 4000].map((n) => pill("default_chapter_words", n, `About ${fmt(n)} words`)).join("")}</div>
+      <span class="hint" style="padding:0;grid-column:2">For chapters the outline doesn't size. A "Words:" line in the outline wins.</span>` : ""}
+    </div>
+    <span class="muted" style="font-size:13px;line-height:1.5">${how} One revision round is usually best. You can keep planning while it runs.</span>
     <div style="display:flex;gap:10px;align-items:center;justify-content:flex-end">
       <button type="button" class="link" ${attr({ act: "buildAsk", which: other })}>${all ? "Just the next chapter" : "Build all remaining instead"}</button>
       <button type="button" class="btn ghost" ${attr({ act: "closeModal" })}>Cancel</button>
@@ -1340,6 +1416,7 @@ function render() {
   const openChanges = [...document.querySelectorAll("details[data-change-id][open]")].map(el => el.dataset.changeId);
   const keep = {};
   const openGroups = [...document.querySelectorAll("details[data-group-id][open]")].map(el => el.dataset.groupId);
+  const openKept = [...document.querySelectorAll("details[data-keep-open][open]")].map(el => el.dataset.keepOpen);
   for (const sel of [".panel", ".scroll", ".side-scroll", ".msgs"]) {
     const el = document.querySelector(sel);
     if (el) keep[sel] = el.scrollTop;
@@ -1368,6 +1445,7 @@ function render() {
   for (const ta of document.querySelectorAll(".bar textarea")) autosize(ta);
   for (const el of document.querySelectorAll("details[data-change-id]")) el.open = openChanges.includes(el.dataset.changeId);
   for (const el of document.querySelectorAll("details[data-group-id]")) el.open = openGroups.includes(el.dataset.groupId);
+  for (const el of document.querySelectorAll("details[data-keep-open]")) el.open = openKept.includes(el.dataset.keepOpen);
 }
 
 function autosize(ta) {
@@ -1416,6 +1494,7 @@ document.addEventListener("input", (e) => {
 
 document.addEventListener("change", (e) => {
   if (e.target.matches("[data-attachment-scope]")) S.pending[Number(e.target.dataset.attachmentScope)].scope = e.target.value;
+  if (e.target.matches("[data-provider-select]")) { S.addProvider = e.target.value; render(); }
   if (e.target.matches("[data-role-select]")) {
     const [backend, model] = e.target.value.split("|");
     if (backend && model) Promise.resolve(ACT.setRole({ role: e.target.dataset.role, backend, model })).catch(fail);

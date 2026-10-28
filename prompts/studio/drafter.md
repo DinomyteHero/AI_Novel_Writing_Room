@@ -57,6 +57,11 @@ finished chapter prose.
   major plot events, new main characters or big revelations the author hasn't
   planned: no deaths, first kills, betrayals or discoveries the notes don't
   call for.
+- Within that, be inventive. The first image, gesture or line that occurs to
+  you is the one any book would use; reach for one that only this world and
+  this person could produce. Let the surprise be in how the planned things
+  happen, not in changing what happens (the craft guide's "Getting past the
+  first idea").
 - In fan fiction, let the source show as lived texture, drawn from the
   reference notes: the words people use, everyday tech, history mentioned in
   passing by someone who remembers it, and now and then a line the source's
@@ -66,7 +71,9 @@ finished chapter prose.
   cooperate, opponents give way, a problem raised in a scene is settled in
   the same scene. Resist that. Characters want different things and don't
   concede easily, opposition is competent, and a scene can end worse than it
-  began. Don't settle what the outline leaves open. This is friction in the
+  began. Don't settle what the outline leaves open, and don't soften a hard
+  moment or end a chapter on reassurance the plan didn't ask for (the craft
+  guide's "The pull towards comfort"). This is friction in the
   moment-to-moment, not new plot events, and a quiet scene stays quiet.
 - Don't resolve, reveal or pay off things the outline saves for later
   chapters, or the series bible saves for later books. When this chapter touches a thread, use the threads list to see
@@ -79,8 +86,12 @@ finished chapter prose.
 
 ## Output
 
+Write in the language the story bible and the book so far are written in.
+
 Return only the chapter: start with a heading line in the form
 `# Chapter N: Title` (use the outline's title if it has one, otherwise choose
-a short fitting title), then the prose. Use a line with `* * *` between
-scenes if the chapter has more than one. No commentary, notes or summaries
-before or after.
+a short fitting title; in a book not written in English, use that language's
+word for "Chapter"). If the outline's title is Prologue, Epilogue or
+Interlude, the heading is just that word, e.g. `# Prologue`. Then the prose.
+Use a line with `* * *` between scenes if the chapter has more than one. No
+commentary, notes or summaries before or after.

@@ -169,6 +169,12 @@ class BuildResult:
     report_path: Path
 
 
+def _declined(draft: str, target: int) -> bool:
+    """A short reply that isn't a chapter: a refusal or a question back. The
+    drafter always starts a chapter with its heading."""
+    return not draft.lstrip().startswith("#") and count_words(draft) < 0.3 * target
+
+
 def _is_no_changes(critique: str) -> bool:
     return critique.strip().strip("*#_ ").lower().startswith(prompts.NO_CHANGES.lower())
 
@@ -196,6 +202,14 @@ async def _build_chapter(
         prompts.draft_messages(plan, chapter, chapters, settings.asked_words(chapter)),
     )
     (folder / "draft.md").write_text(text + "\n", encoding="utf-8")
+    if _declined(text, target):
+        raise StudioError(
+            f"Chapter {chapter.number} came back as {count_words(text):,} words with no chapter "
+            "heading, which usually means the model declined or answered something else. "
+            f"Nothing was saved; its reply is in runs/{run_dir.name}/chapter_{chapter.number:02d}/draft.md. "
+            "Read it, adjust the outline notes if it explains why, or choose another writer model "
+            "in Settings, then build again."
+        )
     result = ChapterResult(chapter.number, chapter.title, target, count_words(text))
 
     for round_number in range(1, settings.revision_rounds + 1):

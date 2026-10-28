@@ -219,3 +219,39 @@ def test_default_critic_is_sonnet_5_5():
     critic = config["agent_routing"]["studio_critic"]
     assert critic["backend"] == "cloud" and critic["model"] == "claudesonnet"
     assert critic["params"] == {}
+
+
+def test_slugs_keep_other_scripts_fold_accents_and_fit_windows():
+    from src.studio.project import slugify
+
+    assert slugify("Star Wars (Legends EU)") == "star-wars-legends-eu"
+    assert slugify("Café Noir") == "cafe-noir"
+    assert slugify("火影忍者 外伝") == "火影忍者-外伝"
+    assert slugify("Война и мир") == "война-и-мир"
+    assert slugify("Con") == "con-book"
+    assert len(slugify("The " + "very " * 40 + "long title")) <= 48
+    assert not slugify("A " + "b" * 46 + " c").endswith("-")
+
+
+def test_a_book_titled_in_another_script_can_be_created_and_found(library):
+    book, _ = library.new_book("風の谷")
+    assert book.root.name == "01-風の谷"
+    assert library.find_book("風の谷").root == book.root
+
+
+def test_words_are_counted_in_chinese_and_japanese_too():
+    from src.studio.project import count_words
+
+    assert count_words("# Chapter 1\n\nShe kept the light.") == 4
+    assert count_words("灯台の火を守る。") == 7
+    assert count_words("Mara 说：走吧") == 4
+
+
+def test_files_saved_by_other_editors_still_open(book):
+    from src.studio.project import read_text
+
+    book.bible_path.write_bytes("\ufeff# Le Phare\r\n\r\nUne île.".encode("utf-8"))
+    book.characters_path.write_bytes("## Zoë\n- naïve".encode("cp1252"))
+    assert book.title == "Le Phare"
+    assert read_text(book.bible_path) == "# Le Phare\n\nUne île."
+    assert "Zoë" in book.read_plan().characters

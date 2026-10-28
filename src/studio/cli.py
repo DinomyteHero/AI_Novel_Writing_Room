@@ -5,20 +5,19 @@ from __future__ import annotations
 import argparse
 import asyncio
 import dataclasses
-import os
 import sys
 from pathlib import Path
 
 from src.model_router import load_config
 from src.studio import press, room
 from src.studio.llm import provider_error
-from src.studio.project import Book, Library, StudioError, count_words
+from src.studio.project import Book, Library, StudioError, count_words, locate_library
 
 ROOT = Path(__file__).resolve().parents[2]
 
 
 def _library(args: argparse.Namespace) -> Library:
-    return Library(Path(args.library or os.environ.get("WRITERS_ROOM_LIBRARY") or ROOT / "library"))
+    return Library(locate_library(ROOT, args.library)[0])
 
 
 def _book(args: argparse.Namespace) -> Book:
@@ -255,7 +254,7 @@ def _common() -> argparse.ArgumentParser:
     common = argparse.ArgumentParser(add_help=False)
     common.add_argument("--title", help="The book (not needed when the library has only one)")
     common.add_argument("--series", help="The series, when titles are shared across series")
-    common.add_argument("--library", help="Library folder (default: ./library)")
+    common.add_argument("--library", help="Library folder (default: the one chosen in the app, or ./library)")
     common.add_argument("--config", default=str(ROOT / "config" / "settings.yaml"), help=argparse.SUPPRESS)
     return common
 

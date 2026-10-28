@@ -354,18 +354,70 @@ Watch for these and replace them with something plain and specific:
   the narration reads like verse (unless the bible asks for that voice)
 - stock phrases: "a testament to", "a tapestry of", "a mix of emotions",
   "a breath she didn't know she was holding", "sent a shiver down his spine"
+- the "not X, but Y" turn ("It wasn't fear. It was something older."), used
+  to sound profound rather than to correct a real misreading
+- the same few names whatever the world (Elara, Kael, Lyra, Voss, Thorne,
+  Seraphina) and the same sensory shorthand (ozone, copper on the tongue,
+  petrichor, a jaw that tightens)
+- characters who explain their feelings fully and calmly, in the vocabulary
+  of a therapist ("I need you to hear me", "that's not fair to either of
+  us"), where real people deflect, joke, go quiet or say the wrong thing
+- everyone, including the villain and the child, speaking in the narrator's
+  voice
+- a scene or chapter that ends on a reflective summary or a hopeful line
+  instead of the moment itself
+- an opponent who explains their reasoning at length, or yields once argued
+  with
+
+## The pull towards comfort
+
+Language models are trained to be agreeable, and it leaks into their
+fiction. Arguments end in understanding within the scene, apologies are
+accepted at once, opponents turn out reasonable or incompetent, a risk pays
+off, grief resolves into a lesson, and the ending reassures. Studies of
+model-written stories find they reach for happy endings and the familiar
+fall-and-recover shape far more often than human writers do, and almost
+never end in decline. Lenses for pushing back:
+
+- **Let it cost.** A win takes something with it: a relationship, a belief,
+  a body part, a chance that won't come again.
+- **Let people be wrong for a while.** A character can hold a mistaken view,
+  act on it, and be hurt by it before they see it, or never see it.
+- **Let opposition be competent.** The opponent has reasons, resources and
+  good days; they win some rounds, and the hero's best plan can fail.
+- **Let a scene end worse than it began.** Not every conversation clears the
+  air; some make it thicker.
+- **Earn the reconciliation.** If two people make up, ask what it cost each
+  of them to say it, and what is still unsaid.
+- **Let the ending be what the book promised.** Bitter, ambiguous and tragic
+  endings are real choices, and a book that has been building towards one
+  shouldn't swerve at the last page.
+
+None of this is a rule. A cozy book can be cozy on purpose, and the
+reader's promise decides; the point is that comfort should be chosen, not
+arrived at because the model drifted there.
 
 ## Getting past the first idea
 
 Asked to invent something new, people reach for the most familiar example
 and copy it: asked to imagine animals from another planet, most draw
-creatures with Earth's eyes and legs. Language models do this even more.
-Fresher ideas come from naming what the obvious version takes for granted,
+creatures with Earth's eyes and legs. Language models do this even more:
+asked the same question, different models hand different people the same
+ideas. Fresher ideas come from naming what the obvious version takes for granted,
 changing that, and following where it leads. The story's own constraints
 help: the more an idea has to fit this world and these people, the less
-generic it gets. And give a strange idea a minute before judging it; some
+generic it gets, and models converge far less once they are working from a
+rich, particular plan. And give a strange idea a minute before judging it; some
 only make sense once they're developed. (Thomas Ward's research, in *The
 Creative Cognition Approach*.)
+
+The same holds on the page. When a detail, an image, a gesture or a line
+of dialogue arrives, it is usually the one any writer would reach for;
+the second or third that comes to mind, drawn from this world and this
+person, is usually the one only this book could have. Surprise works best in
+how something happens rather than in what happens: the plan says she leaves;
+how she leaves, what she takes, what she says at the door are where
+invention lives.
 
 A model's own familiar example is the world of systems, records and
 paperwork it learned from, so its ideas drift there whatever the genre:

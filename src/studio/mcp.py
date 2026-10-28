@@ -17,7 +17,7 @@ from typing import Callable, TextIO
 
 from src.studio import jobs, press, room
 from src.studio.llm import provider_error
-from src.studio.project import Book, Library, StudioError
+from src.studio.project import Book, Library, StudioError, locate_library
 
 ROOT = Path(__file__).resolve().parents[2]
 PROTOCOL_VERSION = "2025-06-18"
@@ -83,11 +83,8 @@ TOOLS = [
 
 
 def default_library() -> Path:
-    configured = os.environ.get("WRITERS_ROOM_LIBRARY", "").strip()
-    if configured:
-        return Path(configured).expanduser()
     project = os.environ.get("WRITERS_ROOM_PROJECT_DIR", "").strip() or os.getcwd()
-    return Path(project) / "library"
+    return locate_library(Path(project))[0]
 
 
 class Tools:
