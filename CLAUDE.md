@@ -147,7 +147,17 @@ favour of this design and is in git history if something specific is needed.
 - **Providers are backends.** Each entry under `models` in
   `config/settings.yaml` is a backend; `api: anthropic` uses the Anthropic SDK,
   the rest the OpenAI-compatible API. The app writes the writer's choices to
-  the gitignored `config/settings.local.yaml` and keys to `.env`.
+  the gitignored `config/settings.local.yaml` and keys to `.env`. When
+  Settings or the chat's model picker opens and OpenRouter is connected, the
+  app refreshes OpenRouter's public catalog if the cache
+  (`config/openrouter_models.json`, gitignored) is over a day old
+  (`src/model_catalog.py`). It doesn't poll, nothing waits on the refresh, and
+  a failure keeps the cached or curated list. `load_config` adds catalog prices
+  and context sizes to the curated `models.cloud.models`. It also adds the
+  newest model of each recent family from the main makers, keyed by OpenRouter
+  id and marked `discovered`. Older catalog models are kept `hidden: true`, so
+  chats and roles that chose them keep working. Automatic routing never picks
+  a discovered model.
 - **Roles are automatic until chosen.** A role with no entry in the overlay
   whose provider has no key moves, in `load_config`
   (`automatic_routing`), to the first visible ~1M-context model on a
@@ -174,6 +184,7 @@ favour of this design and is in git history if something specific is needed.
 | Starter files | `templates/story/` |
 | The Room's conversation | `.claude/skills/story-session/SKILL.md` |
 | Model routing (providers, overlay, tool calls), usage log, key check | `src/model_router.py`, `config/settings.yaml` |
+| OpenRouter's catalog (daily cache, newer models, prices) | `src/model_catalog.py` |
 | Writer-facing guide | `docs/guide.md` |
 
 Routing roles: `studio_chat` (the app's default chat model; a chat can

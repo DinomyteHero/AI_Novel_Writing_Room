@@ -5,7 +5,10 @@ deployment_mode: hybrid  # each role below names its own backend
 # but `anthropic` speak the OpenAI-compatible chat-completions API; that one
 # uses the Anthropic SDK. The app lists each backend's `models` to choose from;
 # a model's `efforts` are the reasoning efforts it accepts, which the app
-# offers next to the chat box.
+# offers next to the chat box. For OpenRouter (`cloud`), the app also offers
+# the newest models of the main makers from OpenRouter's public catalog, with
+# prices, refreshed at most daily into config/openrouter_models.json; the
+# models listed here come first and are the only automatic choices.
 models:
   cloud:
     label: OpenRouter
@@ -31,8 +34,8 @@ models:
       # tuned to keep tension up. Their 262K-token window holds one book of
       # up to about 150K words, not a whole series, so try them as the writer
       # on a standalone book.
-      aion: { id: aion-labs/aion-3.5, label: Aion 3.5 (262K context), context: 262000 }
-      aionmini: { id: aion-labs/aion-3.5-mini, label: Aion 3.5 Mini (262K context), context: 262000 }
+      aion: { id: aion-labs/aion-3.5, label: Aion 3.5, context: 262000 }
+      aionmini: { id: aion-labs/aion-3.5-mini, label: Aion 3.5 Mini, context: 262000 }
     default_params: {}
 
   anthropic:

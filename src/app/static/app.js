@@ -68,6 +68,10 @@ const ICONS = {
 const ic = (name, size = 18, color = "currentColor", width = 1.9) =>
   `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor"${color === "currentColor" ? "" : ` style="color:${color}"`} stroke-width="${width}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[name]}</svg>`;
 const fmtK = (n) => (n >= 1000 ? `${fmt(Math.round(n / 1000))}K` : fmt(n));
+const usd = (n) => `$${n >= 10 ? Math.round(n) : Number.isInteger(n) ? n : n.toFixed(2)}`;
+// A model's price per million tokens (read / written), and a warning when a long book won't fit.
+const modelNote = (o) => [o.price ? `${usd(o.price.in)} / ${usd(o.price.out)}` : "", o.small ? `${fmtK(o.context)} context` : ""].filter(Boolean).join(" · ");
+const PRICE_HINT = "Prices are dollars per million tokens read / written. A model showing its context size can't hold a long book.";
 
 // The open book. While the Room works, a page turns; `still` leaves it open.
 // The turn's phase comes from the clock so a redraw doesn't restart it.
@@ -240,6 +244,16 @@ async function refreshState() {
   S.providers = state.providers;
 }
 
+// OpenRouter's newest models and prices. The server fetches them at most once
+// a day; nothing waits for it, and on failure the lists shown stay.
+async function refreshModels() {
+  try {
+    if (!(await post("/api/models/refresh")).updated) return;
+    S.settings = await get("/api/settings");
+    render();
+  } catch (e) { /* keep the lists already shown */ }
+}
+
 async function loadProject(pid, book) {
   const [data, thread] = await Promise.all([
     get("/api/project", { project: pid, book }),
@@ -323,6 +337,7 @@ const ACT = {
     // A saved key isn't proof it works: check each one quietly in the background.
     if (d.view === "settings" && S.settings) {
       S.settings.providers.filter((p) => p.connected && p.kind === "key").forEach((p) => ACT.checkKey({ backend: p.key }));
+      refreshModels();
     }
   },
   toggleMenu() { S.home.menu = !S.home.menu; render(); },
@@ -612,7 +627,7 @@ const ACT = {
     try { localStorage.setItem("wr-review", S.editMode === "ask" ? "1" : "0"); } catch (e) { /* the choice lasts this visit only */ }
     render();
   },
-  togglePicker() { S.picker = !S.picker; if (!S.picker) S.modelQuery = ""; render(); },
+  togglePicker() { S.picker = !S.picker; if (!S.picker) S.modelQuery = ""; render(); if (S.picker) refreshModels(); },
   async setChatModel(d) {
     // Before a chat exists, the choice waits for the chat this composer starts.
     if (S.view !== "chat") { S.nextChat = { model: { backend: d.backend, model: d.model }, effort: "" }; S.modelQuery = ""; return render(); }
@@ -645,6 +660,7 @@ const ACT = {
         const check = await post("/api/settings/check", { backend: d.backend });
         S.providerMsg[d.backend] = { ok: check.ok, text: check.message };
         S.providerInput[d.backend] = "";
+        refreshModels();
       }
       await refreshState();
     } catch (e) { S.providerMsg[d.backend] = { ok: false, text: e.message }; }
@@ -1002,7 +1018,10 @@ function modelLine() {
 function pickerHtml(role, sel) {
   const q = (S.modelQuery || "").trim().toLowerCase();
   const shown = q ? role.options.filter((o) => `${o.label} ${o.provider} ${o.model}`.toLowerCase().includes(q)) : role.options;
-  const models = shown.map((o) => `<button type="button" class="pill ${o.backend === sel.backend && o.model === sel.model ? "on" : ""}" title="${esc(o.provider)}" ${attr({ act: "setChatModel", backend: o.backend, model: o.model })}>${esc(o.label)}</button>`).join("");
+  const models = shown.map((o) => {
+    const note = modelNote(o);
+    return `<button type="button" class="pill ${o.backend === sel.backend && o.model === sel.model ? "on" : ""}" title="${esc(o.provider)}" ${attr({ act: "setChatModel", backend: o.backend, model: o.model })}>${esc(o.label)}${note ? ` <small>${esc(note)}</small>` : ""}</button>`;
+  }).join("");
   const efforts = sel.efforts.length ? `<span class="label">Reasoning effort</span><div class="pills">
       ${[["", "Default"], ...sel.efforts.map((e) => [e, e[0].toUpperCase() + e.slice(1)])].map(([value, label]) => `<button type="button" class="pill ${sel.effort === value ? "on" : ""}" ${attr({ act: "setChatEffort", effort: value })}>${esc(label)}</button>`).join("")}</div>
       <span class="hint" style="padding:0">Higher effort thinks longer before each reply: better on hard questions, slower and costlier.</span>` : "";
@@ -1010,7 +1029,8 @@ function pickerHtml(role, sel) {
   const empty = q ? "No model matches." : "Connect a provider in Settings.";
   return `<div class="picker" role="dialog" aria-label="Chat model">
     <input type="search" id="model-search" class="picker-search" placeholder="Search models" aria-label="Search models" data-model-query value="${esc(S.modelQuery)}">
-    <span class="label">Model</span><div class="pills">${models || `<span class="hint" style="padding:0">${empty}</span>`}</div>
+    <span class="label">Model</span><div class="pills picker-models">${models || `<span class="hint" style="padding:0">${empty}</span>`}</div>
+    ${shown.some((o) => o.price) ? '<span class="hint" style="padding:0">Prices: dollars per million tokens, read / written.</span>' : ""}
     ${missing}
     ${efforts}
     <span class="hint" style="padding:0">${S.view === "chat" ? "Each chat keeps its own model and effort." : "For the chat this starts. Each chat keeps its own."}</span>
@@ -1300,9 +1320,10 @@ function providerRow(p) {
 function roleSelect(r) {
   const current = r.options.find((o) => o.backend === r.current.backend && o.model === r.current.model);
   const groups = [...new Set(r.options.map((o) => o.provider))].map((provider) => {
-    const options = r.options.filter((o) => o.provider === provider).map((o) =>
-      `<option value="${esc(o.backend)}|${esc(o.model)}" ${o.backend === r.current.backend && o.model === r.current.model ? "selected" : ""}>${esc(o.label)}</option>`
-    ).join("");
+    const options = r.options.filter((o) => o.provider === provider).map((o) => {
+      const note = modelNote(o);
+      return `<option value="${esc(o.backend)}|${esc(o.model)}" ${o.backend === r.current.backend && o.model === r.current.model ? "selected" : ""}>${esc(o.label)}${note ? ` · ${esc(note)}` : ""}</option>`;
+    }).join("");
     return `<optgroup label="${esc(provider)}">${options}</optgroup>`;
   }).join("");
   const select = r.options.length
@@ -1326,7 +1347,8 @@ function settingsView() {
   const summary = `<div class="card" style="padding:4px 18px">${roles.map((r) => `<div class="role" style="flex-direction:row;align-items:baseline;gap:10px;flex-wrap:wrap">
       <b style="font-size:15px;min-width:110px">${esc(r.label)}</b><span style="font-size:14px">${esc(r.currentLabel)}</span>
       <span class="muted" style="font-size:12px;flex-basis:100%">${esc(r.blurb)}</span></div>`).join("")}</div>`;
-  const chooser = `<div class="card" style="padding:4px 18px">${roles.map(roleSelect).join("")}</div>`;
+  const noted = roles.some((r) => r.options.some((o) => modelNote(o)));
+  const chooser = `<div class="card" style="padding:4px 18px">${roles.map(roleSelect).join("")}</div>${noted ? `<p class="hint" style="padding:0">${PRICE_HINT}</p>` : ""}`;
   const models = !connected.length ? '<p class="hint" style="padding:0">Connect a provider above, and models are picked for you.</p>'
     : st.automatic
       ? `${summary}<details class="disclosure" data-keep-open="models"><summary>Choose models myself</summary><div style="padding-top:10px">${chooser}</div></details>`

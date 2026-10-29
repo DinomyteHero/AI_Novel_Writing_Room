@@ -10,14 +10,16 @@ import zipfile
 from http.server import ThreadingHTTPServer
 from pathlib import Path
 
+import httpx
 import pytest
 import yaml
 
+from src import model_catalog
 from src.app import api as app_api
 from src.app.server import make_handler
-from src.studio import jobs
+from src.studio import jobs, press
 from src.studio.project import Library, StudioError, locate_library
-from tests.fakes import FakeRouter
+from tests.fakes import CATALOG, FakeRouter, catalog_model
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -30,9 +32,11 @@ def config(tmp_path):
     return path
 
 
-def make_app(tmp_path, config, router=None):
+def make_app(tmp_path, config, router=None, fetch=lambda: CATALOG):
     router = router or FakeRouter()
-    return app_api.App(Library(tmp_path / "library"), config, tmp_path / ".env", make_router=lambda: router), router
+    return app_api.App(
+        Library(tmp_path / "library"), config, tmp_path / ".env", make_router=lambda: router, fetch_catalog=fetch,
+    ), router
 
 
 def write_bible(messages):
@@ -593,6 +597,92 @@ def test_a_new_chat_starts_on_the_model_picked_before_it(tmp_path, config, book,
     assert "model" not in app.new_chat(pid)
     with pytest.raises(StudioError, match="isn't available"):
         app.new_chat(pid, "cloud", "deepseekpro")
+
+
+def test_openrouter_models_are_offered_with_prices_and_refreshed_daily(tmp_path, config, book, monkeypatch):
+    catalog, fetched = list(CATALOG), []
+
+    def fetch():
+        fetched.append(1)
+        return catalog
+
+    app, router = make_app(tmp_path, config, fetch=fetch)
+    app.library = Library(book.series.root.parent)
+    pid = book.series.root.name
+
+    def chat_options():
+        role = next(r for r in app.settings()["roles"] if r["key"] == "studio_chat")
+        return {o["model"]: o for o in role["options"]}
+
+    # Only once OpenRouter is connected.
+    assert app.refresh_models() == {"updated": False} and not fetched
+    monkeypatch.setenv("OPENROUTER_API_KEY", "sk-or-test")
+    routing = app.config()["agent_routing"]
+    assert "openai/gpt-6.2-terra" not in chat_options() and chat_options()["geminiargon"]["price"] is None
+
+    assert app.refresh_models() == {"updated": True}
+    assert app.refresh_models() == {"updated": False} and len(fetched) == 1  # fresh for a day
+    options = chat_options()
+    assert options["geminiargon"]["price"] == {"in": 2.0, "out": 10.0} and not options["geminiargon"]["small"]
+    assert options["openai/gpt-6.2-terra"]["label"] == "GPT-6.2 Terra"
+    assert options["openai/gpt-6.2-mini"]["small"] and options["openai/gpt-6.2-mini"]["context"] == 400_000
+    # Superseded models aren't offered, and a configured one isn't listed twice.
+    assert "x-ai/grok-4.7" not in options and "anthropic/claude-opus-5.5" not in options
+    # New models are only offered: no role moves to one.
+    assert app.config()["agent_routing"] == routing
+
+    # A chat and a role can choose one.
+    cid = app.new_chat(pid, "cloud", "x-ai/grok-5")["id"]
+    app.send(pid, cid, "Hello")
+    assert router.routings[-1]["model"] == "x-ai/grok-5"
+    app.set_role("studio_writer", "cloud", "anthropic/claude-opus-5.6")
+    assert app.config()["agent_routing"]["studio_writer"]["model"] == "anthropic/claude-opus-5.6"
+
+    # A day later a newer Grok takes its place in the lists; the chat keeps its choice.
+    catalog.append(catalog_model("x-ai/grok-5.1", "xAI: Grok 5.1", 0))
+    cache = model_catalog.cache_path(config)
+    cache.write_text(json.dumps({**json.loads(cache.read_text(encoding="utf-8")), "fetched": 0}), encoding="utf-8")
+    assert app.refresh_models() == {"updated": True}
+    options = chat_options()
+    assert "x-ai/grok-5.1" in options and "x-ai/grok-5" not in options
+    app.send(pid, cid, "Hello again")
+    assert router.routings[-1]["model"] == "x-ai/grok-5"
+    with pytest.raises(StudioError, match="isn't available"):
+        app.new_chat(pid, "cloud", "x-ai/grok-5")
+
+
+def test_a_failed_model_refresh_keeps_the_lists_and_waits_before_trying_again(tmp_path, config, monkeypatch):
+    monkeypatch.setenv("OPENROUTER_API_KEY", "sk-or-test")
+    tries = []
+
+    def offline():
+        tries.append(1)
+        raise httpx.ConnectError("offline")
+
+    app, _ = make_app(tmp_path, config, fetch=offline)
+    roles = app.settings()["roles"]
+    assert app.refresh_models() == {"updated": False}
+    assert app.refresh_models() == {"updated": False} and len(tries) == 1
+    assert app.settings()["roles"] == roles
+
+
+def test_the_build_card_gives_a_rough_cost_from_catalog_prices(tmp_path, config, book, monkeypatch):
+    monkeypatch.setenv("OPENROUTER_API_KEY", "sk-or-test")
+    app, _ = make_app(tmp_path, config)
+    app.library = Library(book.series.root.parent)
+    pid = book.series.root.name
+    assert "$" not in app.estimate(pid, None, "all")["detail"]  # no prices yet
+    app.refresh_models()
+    assert "At list prices that's roughly $" in app.estimate(pid, None, "all")["detail"]
+
+    # The writer (Gemini 4 Argon, $2/$10) drafts and revises; the critic
+    # (Claude Sonnet 5.5, $3/$15) critiques.
+    guess = press.Estimate(3, 3_000_000, 20_000, critic_input_tokens=1_000_000, critic_output_tokens=10_000)
+    assert app_api.build_cost(app.config(), guess) == pytest.approx(2 * 2 + 0.01 * 10 + 1 * 3 + 0.01 * 15)
+    # No price for the critic's model: no figure, unless the build has no critique.
+    app.set_role("studio_critic", "cloud", "minimax")
+    assert app_api.build_cost(app.config(), guess) is None
+    assert app_api.build_cost(app.config(), press.Estimate(1, 1_000_000, 0)) == pytest.approx(2)
 
 
 def test_the_library_folder_is_chosen_in_settings_and_remembered(tmp_path, config):

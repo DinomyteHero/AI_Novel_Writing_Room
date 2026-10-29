@@ -112,6 +112,9 @@ class Estimate:
     input_tokens: int
     output_tokens: int
     largest_call: int = 0
+    # The critic's share of the tokens above; the writer has the rest.
+    critic_input_tokens: int = 0
+    critic_output_tokens: int = 0
 
     def describe(self) -> str:
         text = (
@@ -132,7 +135,7 @@ def estimate(book: Book, plan: Plan, numbers: list[int], settings: PressSettings
     base = prompts.plan_tokens(plan) + _SYSTEM_TOKENS
     existing = {n: count_words(t) * TOKENS_PER_WORD for n, t in book.drafted_chapters().items()}
     chapters = plan.chapters()
-    calls = input_tokens = output_tokens = largest = 0
+    calls = input_tokens = output_tokens = largest = critic_input = critic_output = 0
     for number in numbers:
         before = sum(t for n, t in existing.items() if n < number)
         draft = settings.asked_words(chapters[number]) * TOKENS_PER_WORD
@@ -143,8 +146,10 @@ def estimate(book: Book, plan: Plan, numbers: list[int], settings: PressSettings
         for _ in range(settings.revision_rounds):
             input_tokens += (base + before + draft) + (base + before + draft + _CRITIQUE_TOKENS)
             output_tokens += _CRITIQUE_TOKENS + draft
+            critic_input += base + before + draft
+            critic_output += _CRITIQUE_TOKENS
         existing[number] = draft
-    return Estimate(calls, int(input_tokens), int(output_tokens), int(largest))
+    return Estimate(calls, int(input_tokens), int(output_tokens), int(largest), int(critic_input), int(critic_output))
 
 
 @dataclass

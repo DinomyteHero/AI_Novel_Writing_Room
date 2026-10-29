@@ -29,8 +29,10 @@ Thumbs.db
 # point --library (or WRITERS_ROOM_LIBRARY) at a folder in your own repo.
 library/
 
-# Your app settings (model choices, local server address)
+# Your app settings (model choices, local server address) and the cached
+# OpenRouter model list
 config/settings.local.yaml
+config/openrouter_models.json
 
 # Local evaluation and model-comparison runs
 output/

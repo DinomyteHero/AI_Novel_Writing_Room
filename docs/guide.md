@@ -331,10 +331,25 @@ Models start as **Automatic**: each role uses the model shipped in
 model (about 1M tokens of context) on a provider you have connected, with the
 critic and reviewer on a different model from the writer where possible.
 **Choose models myself** opens a dropdown per role; **Use automatic choices
-instead** goes back. Older models are hidden from every list. Settings saves
+instead** goes back. Older models are hidden from every list.
+
+With OpenRouter connected, the lists stay current by themselves. When you
+open Settings or a chat's model picker and the list is more than a day old,
+the app fetches OpenRouter's public model catalog in the background. It adds
+the newest model of each family from Anthropic, Google, OpenAI, DeepSeek, xAI,
+Moonshot, Z.ai, Qwen and Mistral, after the models shipped in
+`config/settings.yaml`. Each OpenRouter model shows its price in dollars per
+million tokens read / written. A model that shows its context size (for
+example "400K context") can't hold a long book. New models are only offered:
+no role or chat switches to one by itself. When a newer version replaces a
+model in the lists, chats and roles that chose it keep using it. If the
+catalog can't be reached, the lists stay as they were. The Build card adds a
+rough dollar figure from the writer's and critic's list prices; prompt caching
+usually makes the real cost lower. Settings saves
 your keys in `.env` and your choices (roles, library folder, build options)
-in `config/settings.local.yaml`, both private to your computer. The plugin asks for your key when you install
-it.
+in `config/settings.local.yaml`, and the cached catalog in
+`config/openrouter_models.json`, all private to your computer. The plugin asks
+for your key when you install it.
 
 Underneath, `config/settings.yaml` holds:
 
