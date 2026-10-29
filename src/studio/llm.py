@@ -125,6 +125,7 @@ class Usage:
     completion_tokens: int = 0
     cached_tokens: int = 0
     cost: float | None = None
+    web_searches: int = 0
 
     @classmethod
     def since(cls, router: "ModelRouter", start: int) -> "Usage":
@@ -134,6 +135,7 @@ class Usage:
             usage.prompt_tokens += entry.get("prompt_tokens") or 0
             usage.completion_tokens += entry.get("completion_tokens") or 0
             usage.cached_tokens += entry.get("cached_tokens") or 0
+            usage.web_searches += entry.get("web_searches") or 0
             if entry.get("cost") is not None:
                 usage.cost = (usage.cost or 0.0) + entry["cost"]
         return usage
@@ -143,6 +145,7 @@ class Usage:
         self.prompt_tokens += other.prompt_tokens
         self.completion_tokens += other.completion_tokens
         self.cached_tokens += other.cached_tokens
+        self.web_searches += other.web_searches
         if other.cost is not None:
             self.cost = (self.cost or 0.0) + other.cost
 
@@ -152,4 +155,6 @@ class Usage:
             f"{self.calls} call(s), {self.prompt_tokens:,} tokens in{cached}, "
             f"{self.completion_tokens:,} out"
         )
+        if self.web_searches:
+            text += f", {self.web_searches} web search{'es' if self.web_searches != 1 else ''}"
         return text + (f", cost {self.cost:.4f} credits" if self.cost is not None else "")

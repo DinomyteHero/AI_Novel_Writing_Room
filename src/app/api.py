@@ -721,8 +721,11 @@ class App:
             with self._lock:
                 turn = record["turn"]
                 if e["kind"] == "phase":
-                    turn["phase"], turn["text"] = e["text"], ""
+                    # Text still showing is a draft being redone: it stays until new text replaces it.
+                    turn["phase"], turn["fresh"] = e["text"], True
                 elif e["kind"] == "text":
+                    if turn.pop("fresh", False):
+                        turn["text"] = ""
                     turn["text"] += e["text"]
                 elif e["kind"] == "item":
                     record["items"].append(e["item"])
@@ -779,6 +782,7 @@ class App:
             items = record["items"][turn["start"]:]
             record["history"] += chat.history_entries(turn["prompt"], [(n, "") for n in turn["files"]], chat.TurnResult(reply, items))
             record["items"].append({"kind": "assistant", "id": chat.new_id("m"), "text": reply})
+            turn.pop("fresh", None)
             turn.update(state=state, text="", phase="")
             record["updated"] = _now()
             self._save_chat(pid, record)

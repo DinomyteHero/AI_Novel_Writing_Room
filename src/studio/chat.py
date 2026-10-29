@@ -631,6 +631,7 @@ async def run_turn(
 
     reply = ""
     nudged = explore
+    phase = "Thinking about your story…"
     for _ in range(MAX_STEPS):
         if should_stop():
             raise TurnStopped()
@@ -640,13 +641,15 @@ async def run_turn(
                 f"This chat would send about {size:,} tokens, more than the {MAX_PROMPT_TOKENS:,} "
                 "the tool allows. Start a new chat, or write story-so-far notes for finished books."
             )
-        emit({"kind": "phase", "text": "Thinking about your story…"})
+        emit({"kind": "phase", "text": phase})
+        phase = "Thinking about your story…"
         available = [t for t in TOOLS if (not explore or t["name"] in ("read_file", "status")) and (selection or t["name"] != "edit_passage")]
         kwargs = {}
         if on_event:
             kwargs["on_text"] = lambda text: emit({"kind": "text", "text": text})
         if routing:
             kwargs["routing"] = routing
+        step_start = len(router.usage_log)
         try:
             answer = await _cancellable(router.chat(CHAT_ROLE, system, messages, available, **kwargs), should_stop)
         except Exception as exc:
@@ -654,6 +657,13 @@ async def run_turn(
                 raise StudioError(TOO_LONG + " Or start a new chat.") from exc
             raise
         messages.append({"role": "assistant", **answer})
+        # Web searches run at the provider, out of sight: show what was found
+        # so "I checked" can be checked, and keep it for later turns to cite.
+        searched = sum(e.get("web_searches") or 0 for e in router.usage_log[step_start:])
+        if searched or answer.get("sources"):
+            item = {"kind": "sources", "id": new_id("s"), "searches": searched, "sources": answer.get("sources") or []}
+            tools.items.append(item)
+            emit({"kind": "item", "item": item, "book": tools.book.root.name})
         if not answer["tool_calls"]:
             reply = answer["content"].strip()
             made_change = any(i["kind"] == "activity" for i in tools.items)
@@ -661,6 +671,8 @@ async def run_turn(
                 if not nudged:
                     nudged = True
                     messages.append({"role": "user", "content": _UNSAVED})
+                    # The page keeps this draft, dimmed, until the redone reply starts.
+                    phase = "Checking that reply against your files…"
                     continue
                 note = (
                     "Only the changes shown above as cards were saved to your files."
@@ -735,12 +747,17 @@ def history_entries(text: str, attachments: list[tuple[str, str]], result: TurnR
     # The app's record of what changed, kept out of the model's own replies so
     # it never learns that writing "[Edited ...]" is how a file gets changed.
     changes = [line for line in (_change_line(i) for i in result.items) if line]
+    pages = list({s["url"]: f"- {s['title']} ({s['url']})" for i in result.items if i["kind"] == "sources"
+                  for s in i["sources"]}.values())
+    notes = []
     if changes:
-        entries += [
-            {"role": "user", "content": "[From the app, not the writer: during that reply you made "
-                                        "these changes with tools.]\n" + "\n".join(changes)},
-            {"role": "assistant", "content": "Noted."},
-        ]
+        notes.append("[From the app, not the writer: during that reply you made these changes "
+                     "with tools.]\n" + "\n".join(changes))
+    if pages:
+        notes.append("[From the app, not the writer: web pages your searches found during that "
+                     "reply. Cite these when you note where a fact came from.]\n" + "\n".join(pages))
+    if notes:
+        entries += [{"role": "user", "content": "\n\n".join(notes)}, {"role": "assistant", "content": "Noted."}]
     return entries
 
 

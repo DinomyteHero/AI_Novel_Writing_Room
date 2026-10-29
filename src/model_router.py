@@ -323,7 +323,8 @@ class ModelRouter:
             except json.JSONDecodeError:
                 arguments = {"_invalid_json": raw}
             calls.append({"id": call.get("id"), "name": call["function"]["name"], "arguments": arguments})
-        return {"content": message.get("content") or "", "tool_calls": calls, "native": message}
+        return {"content": message.get("content") or "", "tool_calls": calls, "native": message,
+                "sources": _citations(message.get("annotations"))}
 
     async def _openai_call(
         self,
@@ -406,6 +407,7 @@ class ModelRouter:
                     "cached_tokens": details.get("cached_tokens") or 0,
                     "cache_write_tokens": details.get("cache_write_tokens") or 0,
                     "cost": usage.get("cost"),
+                    "web_searches": (usage.get("server_tool_use") or {}).get("web_search_requests") or 0,
                 })
                 finish_reason = choices[0].get("finish_reason")
                 message = choices[0]["message"]
@@ -754,6 +756,19 @@ def _with_parts(messages: list[dict], cache_control: dict | None) -> list[dict]:
                 plain["content"] = _blocks(m, cache_control)
             m = plain
         out.append(m)
+    return out
+
+
+def _citations(annotations: list[dict] | None) -> list[dict]:
+    """The pages a server-side web search showed the model, once each, for
+    the writer to see beside the reply."""
+    seen, out = set(), []
+    for item in annotations or []:
+        cite = item.get("url_citation") or {}
+        url = cite.get("url")
+        if url and url not in seen:
+            seen.add(url)
+            out.append({"title": cite.get("title") or url, "url": url})
     return out
 
 

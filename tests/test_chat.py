@@ -433,8 +433,12 @@ async def test_a_prose_claim_of_filing_in_a_turn_that_changed_nothing_is_flagged
         "Good. Filed the boat-taking on his line.",
         "Good. Filed the boat-taking on his line.",
     ]})
-    result = await chat.run_turn(book.series, book, router, [], "Keep that.", SETTINGS)
+    events = []
+    result = await chat.run_turn(book.series, book, router, [], "Keep that.", SETTINGS, on_event=events.append)
     assert "only change through tool calls" in router.calls[1][1][-1]["content"]
+    # The writer is told why the reply they were reading is being redone.
+    phases = [e["text"] for e in events if e["kind"] == "phase"]
+    assert phases == ["Thinking about your story…", "Checking that reply against your files…"]
     assert result.reply.endswith("(Nothing was changed in your files this turn.)")
     # A plain "nothing filed yet" isn't a claim, so it goes through untouched.
     router = FakeRouter({"studio_chat": ["Nothing filed yet: say the word."]})
@@ -450,3 +454,24 @@ async def test_a_claimed_edit_that_never_happens_is_removed_and_flagged(book):
     assert book.outline_path.read_text(encoding="utf-8") == before and not result.items
     assert "[Edited" not in result.reply and result.reply.startswith("Filed.")
     assert "Nothing was changed in your files this turn" in result.reply
+
+
+async def test_web_searches_are_shown_and_kept_for_later_turns(book):
+    page = {"title": "Jori Lekauf", "url": "https://starwars.fandom.com/wiki/Jori_Lekauf"}
+    router = FakeRouter({"studio_chat": [
+        {"content": "He died on Vulpter.", "sources": [page], "web_searches": 2},
+        "From memory, worth checking.",
+    ]})
+    events = []
+    result = await chat.run_turn(book.series, book, router, [], "Is Jori alive?", SETTINGS, on_event=events.append)
+
+    [item] = result.items
+    assert item["kind"] == "sources" and item["searches"] == 2 and item["sources"] == [page]
+    assert any(e["kind"] == "item" and e["item"] is item for e in events)
+    assert "2 web searches" in result.usage.describe()
+    history = chat.history_entries("Is Jori alive?", [], result)
+    assert "Jori Lekauf (https://starwars.fandom.com/wiki/Jori_Lekauf)" in history[2]["content"]
+
+    # A reply that searched nothing leaves no sources and no claim of one.
+    quiet = await chat.run_turn(book.series, book, router, history, "And Shevu?", SETTINGS)
+    assert quiet.items == [] and "web search" not in quiet.usage.describe()
