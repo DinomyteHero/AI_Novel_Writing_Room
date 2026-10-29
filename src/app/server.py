@@ -7,10 +7,12 @@ the page, so other websites can't drive it.
 
 from __future__ import annotations
 
+import errno
 import json
 import logging
 import mimetypes
 import secrets
+import socket
 import threading
 import webbrowser
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
@@ -202,9 +204,27 @@ def make_handler(app: App, token: str):
     return Handler
 
 
+class _Server(ThreadingHTTPServer):
+    def server_bind(self):
+        # On Windows, SO_REUSEADDR lets a second copy bind a port that's in use
+        # and quietly answer some of its requests; claim the port outright.
+        if hasattr(socket, "SO_EXCLUSIVEADDRUSE"):
+            self.allow_reuse_address = False
+            self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_EXCLUSIVEADDRUSE, 1)
+        super().server_bind()
+
+
 def serve(app: App, host: str = "127.0.0.1", port: int = 8765, open_browser: bool = True) -> None:
     token = secrets.token_urlsafe(24)
-    server = ThreadingHTTPServer((host, port), make_handler(app, token))
+    try:
+        server = _Server((host, port), make_handler(app, token))
+    except OSError as exc:
+        if exc.errno not in (errno.EADDRINUSE, errno.EACCES):
+            raise
+        raise SystemExit(
+            f"Port {port} is already in use. The Writers Room may already be running: open "
+            f"http://{host}:{port}/ or close that window first. To run another copy, add --port {port + 1}."
+        ) from exc
     url = f"http://{host}:{server.server_address[1]}/"
     print(f"Writers Room is running at {url}\nKeep this window open while you write; press Ctrl+C to quit.")
     if open_browser:

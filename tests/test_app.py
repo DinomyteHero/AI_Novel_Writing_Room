@@ -296,6 +296,23 @@ def test_missing_key_is_explained_before_anything_is_created(tmp_path, config, m
     assert not (tmp_path / "library").exists()
 
 
+def test_a_second_copy_explains_the_port_is_taken_instead_of_sharing_it(tmp_path, config):
+    import socket
+
+    from src.app.server import serve
+
+    app, _ = make_app(tmp_path, config)
+    first = socket.socket()
+    first.bind(("127.0.0.1", 0))
+    first.listen()
+    port = first.getsockname()[1]
+    try:
+        with pytest.raises(SystemExit, match=f"Port {port} is already in use"):
+            serve(app, port=port, open_browser=False)
+    finally:
+        first.close()
+
+
 def test_server_requires_the_token_and_returns_plain_errors(tmp_path, config):
     app, _ = make_app(tmp_path, config)
     server = ThreadingHTTPServer(("127.0.0.1", 0), make_handler(app, "secret"))

@@ -64,7 +64,8 @@ class FakeRouter:
     async def chat(self, role: str, system: str, messages: list[dict], tools: list[dict], on_text=None,
                    routing: dict | None = None) -> dict:
         """Scripted replies are strings (a final answer) or dicts with
-        ``tool_calls`` as ``[(name, arguments), ...]``."""
+        ``tool_calls`` as ``[(name, arguments), ...]``, and optionally the
+        ``sources`` and ``web_searches`` a provider-side web search returns."""
         self.routings.append(routing)
         self.calls.append((role, [{"role": "system", "content": system}] + list(messages)))
         queue = self.responses.get(role)
@@ -72,7 +73,8 @@ class FakeRouter:
         if callable(reply):
             reply = reply(messages)
         self.usage_log.append(
-            {"role": role, "model": "fake", "prompt_tokens": 100, "completion_tokens": 10, "cost": 0.001}
+            {"role": role, "model": "fake", "prompt_tokens": 100, "completion_tokens": 10, "cost": 0.001,
+             "web_searches": reply.get("web_searches", 0) if isinstance(reply, dict) else 0}
         )
         if isinstance(reply, str):
             if on_text:
@@ -82,7 +84,8 @@ class FakeRouter:
             {"id": f"call{i}", "name": name, "arguments": args}
             for i, (name, args) in enumerate(reply.get("tool_calls", []))
         ]
-        return {"content": reply.get("content", ""), "tool_calls": calls, "native": None}
+        return {"content": reply.get("content", ""), "tool_calls": calls, "native": None,
+                "sources": reply.get("sources", [])}
 
     async def health_check(self) -> tuple[bool, str]:
         return self.health

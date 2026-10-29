@@ -177,6 +177,7 @@ class TestModelRouterCompletion:
             "cached_tokens": 1000,
             "cache_write_tokens": 0,
             "cost": 0.0042,
+            "web_searches": 0,
         }]
 
     @pytest.mark.asyncio
@@ -397,6 +398,7 @@ async def test_web_results_stay_visible_on_the_next_step(settings_yaml):
     chunks = [
         {"choices": [{"index": 0, "delta": {"content": "Checked.", "annotations": [cite, cite]}}]},
         {"choices": [{"index": 0, "delta": {"tool_calls": [{"index": 0, "id": "c", "function": {"name": "status", "arguments": "{}"}}]}, "finish_reason": "tool_calls"}]},
+        {"choices": [], "usage": {"prompt_tokens": 10, "completion_tokens": 2, "server_tool_use": {"web_search_requests": 2}}},
     ]
     router = ModelRouter(settings_yaml)
     router._local_client = httpx.AsyncClient(base_url="https://test.invalid", transport=httpx.MockTransport(
@@ -406,6 +408,9 @@ async def test_web_results_stay_visible_on_the_next_step(settings_yaml):
     finally:
         await router.close()
     assert answer["content"] == "Checked."
+    # The writer sees each page once, and how many searches it took.
+    assert answer["sources"] == [{"title": "Battle of Endor", "url": "https://starwars.fandom.com/wiki/Battle_of_Endor/Legends"}]
+    assert router.usage_log[-1]["web_searches"] == 2
     [sent] = _to_openai([{"role": "assistant", **answer}])
     assert "annotations" not in sent
     assert sent["content"].startswith("Checked.\n\n[Web results you saw")

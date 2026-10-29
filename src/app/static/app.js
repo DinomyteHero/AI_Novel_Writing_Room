@@ -159,7 +159,9 @@ function updateLive(record) {
     el.querySelector(".live-phase").textContent = record.turn.phase || "Working…";
     const tools = el.querySelector(".live-tools");
     if (tools) tools.innerHTML = toolItems(record.turn.tools);
-    el.querySelector(".live-text").innerHTML = md(record.turn.text || "");
+    const live = el.querySelector(".live-text");
+    live.innerHTML = md(record.turn.text || "");
+    live.classList.toggle("superseded", !!record.turn.fresh);
   }
 }
 
@@ -193,7 +195,7 @@ function fail(err) {
 function md(text) {
   const inline = (s) => esc(s)
     .replace(/`([^`]+)`/g, "<code>$1</code>")
-    .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
+    .replace(/\*\*((?:[^*]|\*[^*]+\*)+)\*\*/g, "<strong>$1</strong>")
     .replace(/(^|[^*])\*([^*\s][^*]*)\*/g, "$1<em>$2</em>")
     .replace(/(^|\W)_([^_\s][^_]*)_(?=\W|$)/g, "$1<em>$2</em>");
   const out = [];
@@ -412,6 +414,8 @@ const ACT = {
     S.selection = null;
     S.busy = { chat: cid, project: S.project };
     render();
+    const msgs = document.querySelector(".msgs");
+    if (msgs) msgs.scrollTop = 0;
     let started = false;
     const place = () => {
       if (S.thread?.id === cid && (S.thread.project === pid || S.thread.project === record.project)) S.thread = record;
@@ -422,9 +426,10 @@ const ACT = {
         if (event.kind === "started" || event.kind === "done") {
           record = event.record; started = true; place(); render();
         } else if (event.kind === "text") {
+          if (record.turn.fresh) { record.turn.text = ""; record.turn.fresh = false; }
           record.turn.text += event.text; updateLive(record);
         } else if (event.kind === "phase") {
-          record.turn.phase = event.text; record.turn.text = ""; updateLive(record);
+          record.turn.phase = event.text; record.turn.fresh = true; updateLive(record);
         } else if (event.kind === "item") {
           record.items.push(event.item); record.turn.text = ""; place(); render();
           if (S.project === pid && event.item.file) refreshProject().then(render).catch(() => {});
@@ -863,7 +868,7 @@ function liveHtml(record) {
     <div class="live-status"><span class="live-now">${logo()}<span class="live-phase" role="status">${esc(record.turn.phase || "Working…")}</span></span>
     <button type="button" class="btn ghost small" ${attr({ act: "stopChat", project: record.project, chat: record.id })}>Stop</button></div>
     <div class="live-tools">${toolItems(record.turn.tools)}</div>
-    <div class="said live-text">${md(record.turn.text || "")}</div></div>`;
+    <div class="said live-text${record.turn.fresh ? " superseded" : ""}">${md(record.turn.text || "")}</div></div>`;
 }
 
 function itemsHtml(record) {
@@ -955,6 +960,15 @@ function itemHtml(m, cid) {
   if (m.kind === "result") {
     return `<div class="result">${ic("check", 16, "var(--accent)", 2.6)}<span style="flex:1;font-size:14px;line-height:1.45">${esc(m.text)}</span>
       ${m.report ? `<button type="button" class="link" ${attr({ act: "openFile", path: m.report })}>View report</button>` : ""}</div>`;
+  }
+  if (m.kind === "sources") {
+    const links = (m.sources || []).filter((s) => /^https?:\/\//i.test(s.url));
+    const what = m.searches ? `Searched the web${m.searches > 1 ? ` ${m.searches} times` : ""}` : "Found on the web";
+    if (!links.length) return `<div class="sources-none muted">${ic("globe", 15)} ${what}; no pages came back</div>`;
+    return `<details class="activity-group sources" data-keep-open="${esc(m.id)}"><summary>${ic("globe", 15, "var(--accent)", 2)}
+      <span>${what}</span><span class="muted names">${links.length} source${links.length === 1 ? "" : "s"}</span></summary>
+      <ul>${links.map((s) => `<li><a href="${esc(s.url)}" target="_blank" rel="noopener noreferrer">${esc(s.title)}</a>
+        <span class="muted mono">${esc(s.url.split("/")[2])}</span></li>`).join("")}</ul></details>`;
   }
   return "";
 }
@@ -1094,7 +1108,7 @@ function chatView() {
         ${next ? `<button type="button" class="btn small" ${building ? "disabled" : ""} ${attr({ act: "buildAsk", which: "next" })}>${building ? "Building…" : "Build"}</button>` : ""}
       </div>
     </div>
-    <div class="msgs"><div class="msgs-inner">${itemsHtml(c)}</div></div>
+    <div class="msgs" data-chat="${esc(c.project)}/${esc(c.id)}"><div class="msgs-inner">${itemsHtml(c)}</div></div>
     <div class="composer-wrap"><div class="composer-inner">
       ${pendingHtml()}
       ${composer("composer", "draft", "Talk about your story…", "chat")}
@@ -1481,10 +1495,15 @@ function render() {
   const keep = {};
   const openGroups = [...document.querySelectorAll("details[data-group-id][open]")].map(el => el.dataset.groupId);
   const openKept = [...document.querySelectorAll("details[data-keep-open][open]")].map(el => el.dataset.keepOpen);
-  for (const sel of [".panel", ".scroll", ".side-scroll", ".msgs"]) {
+  for (const sel of [".panel", ".scroll", ".side-scroll"]) {
     const el = document.querySelector(sel);
     if (el) keep[sel] = el.scrollTop;
   }
+  // The chat sticks to its newest line (column-reverse) unless the writer has
+  // scrolled up to read; then keep the same lines in view when it redraws.
+  const msgs = document.querySelector(".msgs");
+  const readingAt = msgs && msgs.scrollTop < -2
+    ? { chat: msgs.dataset.chat, fromTop: msgs.scrollTop + msgs.scrollHeight - msgs.clientHeight } : null;
   const active = document.activeElement && document.activeElement.id;
   const caret = active && document.activeElement.selectionStart;
   const views = { home: homeView, project: projectView, chat: chatView, settings: settingsView, help: helpView };
@@ -1500,7 +1519,7 @@ function render() {
     + (S.creating ? `<div class="overlay-busy"><div class="thinking" role="status" style="font-size:16px">${logo(28, 1.7)} Setting up your project and reading your idea. This can take a minute…</div></div>` : "");
   for (const [sel, top] of Object.entries(keep)) {
     const el = document.querySelector(sel);
-    if (el && sel !== ".msgs") el.scrollTop = top;
+    if (el) el.scrollTop = top;
   }
   if (active) {
     const el = document.getElementById(active);
@@ -1510,6 +1529,14 @@ function render() {
   for (const el of document.querySelectorAll("details[data-change-id]")) el.open = openChanges.includes(el.dataset.changeId);
   for (const el of document.querySelectorAll("details[data-group-id]")) el.open = openGroups.includes(el.dataset.groupId);
   for (const el of document.querySelectorAll("details[data-keep-open]")) el.open = openKept.includes(el.dataset.keepOpen);
+  const newMsgs = document.querySelector(".msgs");
+  if (readingAt && newMsgs && newMsgs.dataset.chat === readingAt.chat) {
+    newMsgs.scrollTop = readingAt.fromTop - (newMsgs.scrollHeight - newMsgs.clientHeight);
+  }
+  // The address remembers the open book or chat, so a reload comes back to it.
+  const place = S.view === "chat" && S.chat ? `#chat/${encodeURIComponent(S.chat.project)}/${encodeURIComponent(S.chat.id)}`
+    : S.view === "project" && S.project ? `#project/${encodeURIComponent(S.project)}` : "";
+  if (location.hash !== place) history.replaceState(null, "", place || location.pathname);
 }
 
 function autosize(ta) {
@@ -1601,6 +1628,11 @@ document.addEventListener("keydown", (e) => {
     S.settings = await get("/api/settings");
     if (!S.providers.length) S.view = "settings";
   } catch (e) { S.toast = e.message; }
+  const [where, pid, cid] = location.hash.slice(1).split("/").map(decodeURIComponent);
+  if (S.view === "home" && S.projects?.some((p) => p.id === pid)) {
+    if (where === "chat" && cid) return ACT.openChat({ project: pid, chat: cid });
+    if (where === "project") return ACT.openProject({ project: pid });
+  }
   render();
   focus("home-composer");
 })();

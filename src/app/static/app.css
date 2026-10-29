@@ -293,6 +293,7 @@ h2.sub { margin: 0; font-size: 15px; font-weight: 700; }
 .work-log .tool-row { padding: 2px 0; }
 .live-text { margin-top: 12px; }
 .live-text:empty { display: none; }
+.live-text.superseded { opacity: .5; }
 .session-controls { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 12px; color: var(--muted); align-items: center; }
 .session-controls label { display: flex; gap: 6px; align-items: center; }
 .session-controls details { flex: 1; min-width: 180px; }
@@ -383,6 +384,10 @@ h2.sub { margin: 0; font-size: 15px; font-weight: 700; }
 .activity-group > summary::after { content: "▸"; margin-left: auto; color: var(--muted); }
 .activity-group[open] > summary::after { content: "▾"; }
 .activity-group .names { min-width: 0; font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sources ul { margin: 0; padding: 0 14px 10px 36px; font-size: 13px; line-height: 1.6; }
+.sources li { overflow-wrap: anywhere; }
+.sources a { color: var(--accent); }
+.sources-none { display: flex; align-items: center; gap: 8px; font-size: 13px; }
 .activity-list { display: flex; flex-direction: column; gap: 8px; padding: 0 10px 10px; }
 .activity-list .activity { background: var(--bg); }
 
