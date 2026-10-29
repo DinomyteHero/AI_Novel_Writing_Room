@@ -2,6 +2,8 @@
 
 Design proposal · 27 October 2026 · Product and system design. For discussion, not an implemented feature specification.
 
+**Status, 28 October 2026.** Slice 1 has shipped (staged suggestions with Use suggestion and Keep original), slice 2 all but focus mode (the Book panel, the reading view, a selected passage into the message box, and what each message sends), and most of slice 4 (the Build card's estimate with a rough list-price cost, Stop after this chapter, interrupted-build messages). Slices 3, 5 and 6 are open. The rest of this document describes the app as it stood on 27 October; [`CLAUDE.md`](../CLAUDE.md) and the [guide](guide.md) describe it now.
+
 **Thesis.** A writing partner that holds the whole book in view, helps the writer make choices, and turns those choices into a manuscript the writer owns.
 
 Take the useful interaction pattern from Cowork: give it a goal, watch the work, steer it, and review the result in the files. Make every part of that experience specific to writing: story intent, character voice, continuity, scene work, revision, and research. [Cowork product overview](https://claude.com/product/cowork)

@@ -50,6 +50,16 @@ def test_chapters_with_no_notes_are_not_built(book):
             press.select_chapters(book, plan, which)
 
 
+def test_a_new_book_has_nothing_to_build_yet(tmp_path):
+    from src.studio.project import Library
+
+    book, _ = Library(tmp_path).new_book("Lantern")
+    plan = book.read_plan()
+    assert all(plan.chapter(n).blank for n in (1, 2))
+    with pytest.raises(StudioError, match="Chapter 1 has no notes"):
+        press.select_chapters(book, plan, "all")
+
+
 def test_provider_errors_are_explained_for_writers():
     import httpx
 

@@ -101,8 +101,8 @@ favour of this design and is in git history if something specific is needed.
   response saves nothing; renames preview before `--apply`, keep the previous
   text and can be undone; removing a reference moves it to `reference/.history`
   instead of deleting it.
-- **Suggestions are proposals.** "Review changes before saving" in Settings
-  makes `edit_file`, `write_file`, `edit_passage` and `revise_chapter` stage a
+- **Suggestions are proposals.** "Edits from the chat: Show me first" in
+  Settings > Preferences makes `edit_file`, `write_file`, `edit_passage` and `revise_chapter` stage a
   `proposal` item instead of saving; the writer accepts or keeps it. Acceptance
   compares the current text with the proposal's `before`, marks it stale rather
   than overwriting a newer edit, and turns the accepted item into a normal

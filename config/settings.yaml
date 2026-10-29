@@ -54,7 +54,8 @@ models:
     api_key_env: OPENAI_API_KEY
     timeout_seconds: 300
     models:
-      gpt: { id: gpt-5.5, label: GPT-5.5 }
+      terra: { id: gpt-6.1-terra, label: GPT-6.1 Terra }
+      gpt: { id: gpt-5.5, label: GPT-5.5, hidden: true }
     default_params: {}
 
   google:
@@ -63,7 +64,8 @@ models:
     api_key_env: GEMINI_API_KEY
     timeout_seconds: 300
     models:
-      gemini: { id: gemini-3.1-pro-preview, label: Gemini 3.1 Pro }
+      argon: { id: gemini-4-argon, label: Gemini 4 Argon }
+      gemini: { id: gemini-3.1-pro-preview, label: Gemini 3.1 Pro, hidden: true }
     default_params: {}
 
   local:
@@ -81,13 +83,13 @@ models:
 # server tools); studio_writer drafts and revises at high reasoning effort;
 # studio_critic critiques each press draft (Claude Sonnet 5.5: a different
 # model from the Gemini writer, and strong enough to read every chapter);
-# studio_reader writes room reviews and ideas (also Sonnet 5.5; switch it to
-# Opus, Kimi or GLM if you want a second opinion from a separate family);
-# studio_notes writes story-so-far notes. To try another model, change `model`
+# studio_reader writes room reviews and ideas (also Sonnet 5.5, so a
+# different family from the writer reads the book); studio_notes writes
+# story-so-far notes. To try another model, change `model`
 # to another key under models.cloud.models (or add one there). All request
 # settings live here in `params`, so they follow the role, not the model. No
 # role caps its output length (max_tokens), so each model can answer at full
-# length; add one to `params` only if you need it. The DeepSeek roles pin
+# length; add one to `params` only if you need it. The DeepSeek role pins
 # OpenRouter to DeepSeek's own servers (`provider`) rather than reduced-precision
 # hosts; remove that pin if you point a role at a different model. The Gemini
 # roles set no temperature: the model reasons by default and is tuned at its

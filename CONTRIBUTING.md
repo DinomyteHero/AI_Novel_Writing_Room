@@ -5,7 +5,7 @@ Thanks for considering a contribution.
 ```bash
 git clone https://github.com/DinomyteHero/AI_Novel_Writing_Room.git
 cd AI_Novel_Writing_Room
-pip install -r requirements.txt
+pip install -r requirements.txt ruff
 cp .env.example .env            # then fill in OPENROUTER_API_KEY
 pytest -q
 ruff check .

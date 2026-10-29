@@ -25,21 +25,21 @@
     "anthropic_api_key": {
       "type": "string",
       "title": "Anthropic API key (optional)",
-      "description": "Only if you've pointed a role at the direct Anthropic backend in config/settings.yaml.",
+      "description": "Optional: Claude models directly from Anthropic. With no OpenRouter key, the roles use it by themselves.",
       "sensitive": true,
       "required": false
     },
     "openai_api_key": {
       "type": "string",
       "title": "OpenAI API key (optional)",
-      "description": "Only if you've pointed a role at the direct OpenAI backend.",
+      "description": "Optional: GPT models directly from OpenAI. With no OpenRouter key, the roles use it by themselves.",
       "sensitive": true,
       "required": false
     },
     "gemini_api_key": {
       "type": "string",
       "title": "Google Gemini API key (optional)",
-      "description": "Only if you've pointed a role at the direct Google backend.",
+      "description": "Optional: Gemini models directly from Google. With no OpenRouter key, the roles use it by themselves.",
       "sensitive": true,
       "required": false
     }

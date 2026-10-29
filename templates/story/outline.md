@@ -4,7 +4,8 @@ One section per chapter, each starting with a `## Chapter N` heading (a title
 after it is optional). Underneath, a few lines on what happens and what
 changes by the end. Rough is fine; the co-writer fills in the moment-to-moment.
 For a chapter that matters, you can go further: a few lines per scene, and
-where the chapter ends, so it doesn't run ahead of your plan. Add, remove or
+where the chapter ends, so it doesn't run ahead of your plan. An emotional turn
+is what someone feels, admits or decides, beyond the plot. Add, remove or
 reorder chapters whenever you like.
 
 ## The threads
@@ -22,8 +23,7 @@ so nothing gets forgotten halfway. "Not sure yet" is fine.
 - What's different by the end:
 - POV / where and when (optional):
 - Threads moved (optional):
-- Emotional turn (optional): what someone feels, admits or decides, beyond the
-  plot.
+- Emotional turn (optional):
 - Ends at (optional):
 
 ## Chapter 2

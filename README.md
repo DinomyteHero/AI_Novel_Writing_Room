@@ -17,9 +17,9 @@ everywhere. A standalone book is a series of one: when you're ready for a
 sequel, ask the Room to add the next book, and it becomes a series. When
 you're ready, ask for an optional second opinion: a fresh model can review
 everything, and you go through its points together, keeping what you agree
-with. If you'd rather see a change before it lands, turn on **Review changes
-before saving** in Settings: the Room stages the edit, and you choose **Use
-suggestion** or **Keep original**.
+with. If you'd rather see a change before it lands, set **Edits from the
+chat** to **Show me first** in Settings: the Room stages the edit, and you
+choose **Use suggestion** or **Keep original**.
 
 **The Press** is where chapters get made, without you sitting there. Build
 one chapter at a time to find the voice, or the whole book at once. For each
@@ -75,7 +75,7 @@ claude plugin install writers-room@writers-room
 ```
 
 Then say what you're writing, or use `/writers-room:start`,
-`/writers-room:review` and `/writers-room:build`. The plugin's tools need
+`/writers-room:ideas`, `/writers-room:review` and `/writers-room:build`. The plugin's tools need
 Python 3.10+ on your computer; they install what else they need on first run.
 
 ### The command line
@@ -92,7 +92,8 @@ python scripts/press.py export
 ```
 
 Your books live in `library/`, which git ignores, so they stay private to
-your machine. See the [guide](docs/guide.md) for everything else.
+your machine; to keep them elsewhere, choose a folder under **Settings >
+Library folder**. See the [guide](docs/guide.md) for everything else.
 
 ## Craft, loosely
 
@@ -103,14 +104,17 @@ Your own notes in the story bible always win over it.
 
 ## Models
 
-Set in [`config/settings.yaml`](config/settings.yaml) and, for the Press,
-in the app's Settings: Gemini 4 Argon is the default chat model (with web
-search) and writes and revises chapters. Each chat can switch its own model
-and reasoning effort under the message box. Claude Sonnet 5.5 critiques each
-draft and gives reviews and ideas, so a different model reads the book; and
-DeepSeek V4.1 Flash 1017 writes story-so-far notes, all through OpenRouter by
-default. Each has a roughly 1M-token context window, enough for a full novel
-and its plan in every call.
+Shipped in [`config/settings.yaml`](config/settings.yaml), all through
+OpenRouter: Gemini 4 Argon is the default chat model (with web search) and
+writes and revises chapters; Claude Sonnet 5.5 critiques each draft and gives
+reviews and ideas, so a different model reads the book; DeepSeek V4.1 Flash
+1017 writes story-so-far notes. Each has a roughly 1M-token context window,
+enough for a full novel and its plan in every call.
+
+Each chat can switch its own model and reasoning effort under the message
+box. Connect a different provider instead and the roles move to its models by
+themselves; **Choose models myself** in Settings picks them by hand. With
+OpenRouter, the model lists keep up with new releases and show prices.
 
 ## License
 

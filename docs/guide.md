@@ -361,8 +361,8 @@ Underneath, `config/settings.yaml` holds:
   reasoning effort. `studio_writer` drafts and revises at high reasoning
   effort (both Gemini 4 Argon); `studio_critic` critiques press drafts (Claude
   Sonnet 5.5, a different model from the writer); `studio_reader` writes
-  reviews and ideas (also Sonnet 5.5; switch it to Opus, Kimi or GLM if you
-  want a second opinion from a separate family); `studio_notes` writes
+  reviews and ideas (also Sonnet 5.5, so a different family from the writer
+  reads the book); `studio_notes` writes
   story-so-far notes (DeepSeek V4.1 Flash 1017). Every call sends the whole
   book, so pick models with ~1M-token context windows. No role caps its output
   length. Web searches cost a little extra through OpenRouter (under a cent

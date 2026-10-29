@@ -24,14 +24,14 @@ provide a clear timeline within thirty days for non-trivial issues.
 
 ## Out of scope
 
-- **Automated vulnerability scanners against deployed instances.** This is a
-  research project run on personal infrastructure; please don't run scanners
-  against any URL associated with this codebase. Static analysis of the
-  source tree is welcome.
+- **Automated vulnerability scanners against other people's machines.** The
+  app runs on the writer's own computer (it listens on 127.0.0.1) and there is
+  no hosted instance. Static analysis of the source tree is welcome.
 - **Trademark or copyright concerns** about third-party franchise material
   the tool is used with. Those belong in [DISCLAIMER.md](DISCLAIMER.md);
   open a regular issue or contact the maintainer for takedown requests.
-- **Issues in upstream dependencies** (httpx, PyYAML, llama.cpp, etc.).
+- **Issues in upstream dependencies** (httpx, PyYAML, the Anthropic SDK,
+  a local model server such as llama.cpp, etc.).
   Please report those to the relevant project. If a dependency vulnerability
   affects how this project uses it, that part is in scope.
 

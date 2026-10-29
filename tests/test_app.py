@@ -574,7 +574,7 @@ def test_chat_model_effort_and_web_search_follow_the_settings(tmp_path, config, 
     routing = app.config()["agent_routing"]["studio_chat"]
     assert "provider" not in routing["params"]  # no other role's provider pin comes along
     # Off OpenRouter the server tools would be refused, so they're dropped.
-    app.set_role("studio_chat", "openai", "gpt")
+    app.set_role("studio_chat", "openai", "terra")
     assert "tools" not in app.config()["agent_routing"]["studio_chat"]["params"]
     with pytest.raises(StudioError, match="Unknown role"):
         app.set_effort("nobody", "high")
