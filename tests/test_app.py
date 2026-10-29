@@ -153,6 +153,25 @@ def test_new_series_has_a_series_bible_and_book_groups(tmp_path, config):
     assert [r["scope"] for r in data["reference"]] == ["series", "book"]
 
 
+def test_the_title_can_be_set_from_the_project_page(tmp_path, config):
+    app, _ = make_app(tmp_path, config)
+    pid = app.create_project("A lighthouse keeper's niece.", defer=True)["project"]
+    with pytest.raises(StudioError):
+        app.set_title(pid, "   ")
+    pid = app.set_title(pid, "The Dark  Lighthouse")["project"]
+    assert pid == "the-dark-lighthouse"
+    data = app.project(pid)
+    assert data["title"] == "The Dark Lighthouse" and data["book"]["folder"] == "01-the-dark-lighthouse"
+    bible = app.library.root / pid / "books" / "01-the-dark-lighthouse"
+    assert (bible / "story_bible.md").read_text(encoding="utf-8").startswith("# The Dark Lighthouse\n")
+    assert any("# Untitled book" in p.read_text(encoding="utf-8") for p in (bible / ".history").glob("story_bible.*"))
+
+    series = app.create_project("Three winters.", kind="series", defer=True)["project"]
+    series = app.set_title(series, "The Island Winters")["project"]
+    assert app.project(series)["title"] == "The Island Winters"
+    assert app.project(series)["book"]["title"] == "Untitled book"
+
+
 def test_a_chat_stays_with_its_book_when_a_series_grows(tmp_path, config, book):
     app, _ = make_app(tmp_path, config)
     app.library = Library(book.series.root.parent)

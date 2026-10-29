@@ -67,6 +67,7 @@ def routes(app: App) -> dict:
         ("POST", "/api/build/decline"): lambda p: app.decline_build(p["project"], p["chat"], p["item"]),
         ("POST", "/api/build/stop"): lambda p: app.stop_build(p["project"], p.get("book")),
         ("POST", "/api/file"): lambda p: app.save_file(p["project"], p["path"], p["text"], p.get("version")),
+        ("POST", "/api/title"): lambda p: app.set_title(p["project"], p.get("title", ""), p.get("book")),
         ("POST", "/api/reference"): lambda p: app.add_reference(
             p["project"], p.get("scope", "book"), p.get("book"), p["name"], p["data"]
         ),
