@@ -365,9 +365,22 @@ const ACT = {
   async toggleProject(d) { S.expanded[d.project] = !S.expanded[d.project]; render(); },
   async openProject(d) {
     S.selection = null; S.reader = null; S.pending = [];
-    S.projectDraft = ""; S.draft = ""; S.panel = false; S.doc = null; S.picker = false;
+    S.projectDraft = ""; S.draft = ""; S.panel = false; S.doc = null; S.picker = false; S.titleDraft = null;
     const book = S.project === d.project && S.data ? S.data.book.folder : undefined;
     try { await loadProject(d.project, book); S.view = "project"; } catch (e) { return fail(e); }
+    render();
+  },
+  editTitle() { S.titleDraft = S.data.title; render(); const el = document.getElementById("title-editor"); el.focus(); el.select(); },
+  cancelTitle() { S.titleDraft = null; render(); },
+  async saveTitle() {
+    const title = (S.titleDraft || "").trim();
+    if (!title || title === S.data.title) return ACT.cancelTitle();
+    try {
+      const { project } = await post("/api/title", { project: S.project, title, book: S.data.book.folder });
+      S.titleDraft = null;
+      await refreshState();
+      await loadProject(project, project === S.project ? S.data.book.folder : undefined);
+    } catch (e) { return fail(e); }
     render();
   },
   async switchBook(d) {
@@ -1051,6 +1064,26 @@ function pickerHtml(role, sel) {
     <button type="button" class="link" style="align-self:flex-start;padding-left:0" ${attr({ act: "go", view: "settings" })}>Press roles in Settings</button></div>`;
 }
 
+function placePicker() {
+  // The picker opens upward; the scrolling area around the composer would cut
+  // it off, so open it on the roomier side and shrink the model list to fit.
+  const pop = document.querySelector(".picker");
+  if (!pop) return;
+  const anchor = pop.parentElement.getBoundingClientRect();
+  let clip = pop.parentElement.parentElement;
+  while (clip && clip !== document.body && getComputedStyle(clip).overflowY === "visible") clip = clip.parentElement;
+  const box = clip.getBoundingClientRect();
+  const top = Math.max(box.top, 0) + 8, bottom = Math.min(box.bottom, innerHeight) - 8;
+  const above = anchor.bottom - 32 - top, below = bottom - (anchor.top + 32);
+  if (pop.offsetHeight <= above) return;
+  if (below > above) pop.classList.add("below");
+  const room = Math.max(above, below);
+  const models = pop.querySelector(".picker-models");
+  const over = pop.offsetHeight - room;
+  if (over > 0 && models) models.style.maxHeight = `${Math.max(64, models.clientHeight - over)}px`;
+  if (pop.offsetHeight > room) pop.style.maxHeight = `${room}px`;
+}
+
 const shortDate = (iso) => {
   const day = iso ? new Date(iso) : null;
   return day && !isNaN(day) ? day.toLocaleDateString("en-US", { month: "short", day: "numeric" }) : "";
@@ -1070,7 +1103,10 @@ function projectView() {
   const written = d.chapters.filter((c) => c.state !== "missing").length;
   return `<div class="scroll"><div class="project-home">
     <div style="display:flex;align-items:flex-start;gap:12px;flex-wrap:wrap">
-      <h1 class="project-title" style="flex:1">${esc(d.title)}</h1>
+      <h1 class="project-title" style="flex:1">${S.titleDraft == null
+        ? `<button type="button" class="title-btn" title="Rename" ${attr({ act: "editTitle" })}>${esc(d.title)}</button>`
+        : `<input id="title-editor" class="title-input" aria-label="Title" maxlength="200" data-model="titleDraft" data-enter="saveTitle" value="${esc(S.titleDraft)}">
+          <span class="title-actions"><button type="button" class="btn small" ${attr({ act: "saveTitle" })}>Save</button><button type="button" class="link" ${attr({ act: "cancelTitle" })}>Cancel</button></span>`}</h1>
       <button type="button" class="btn ghost small" aria-pressed="${S.panel}" ${attr({ act: "togglePanel" })}>${ic("panel", 16, "currentColor", 1.8)} Book</button>
     </div>
     <p class="lead" style="margin:0">${esc(d.kind)} · ${d.chapters.length ? `${written} of ${d.chapters.length} chapters · ${fmt(d.words)} words` : "Planning, no chapters yet"}</p>
@@ -1526,6 +1562,7 @@ function render() {
     if (el) { el.focus(); if (caret != null && el.setSelectionRange) el.setSelectionRange(caret, caret); }
   }
   for (const ta of document.querySelectorAll(".bar textarea")) autosize(ta);
+  placePicker();
   for (const el of document.querySelectorAll("details[data-change-id]")) el.open = openChanges.includes(el.dataset.changeId);
   for (const el of document.querySelectorAll("details[data-group-id]")) el.open = openGroups.includes(el.dataset.groupId);
   for (const el of document.querySelectorAll("details[data-keep-open]")) el.open = openKept.includes(el.dataset.keepOpen);
@@ -1606,7 +1643,8 @@ document.addEventListener("selectionchange", () => {
 document.addEventListener("keydown", (e) => {
   const el = e.target;
   if (e.key === "Escape") {
-    if (S.modal) { S.modal = null; render(); }
+    if (el.id === "title-editor") ACT.cancelTitle();
+    else if (S.modal) { S.modal = null; render(); }
     else if (S.picker) { S.picker = false; render(); }
     else if (S.drawer) { S.drawer = false; render(); }
     else if (S.home.menu) { S.home.menu = false; render(); }

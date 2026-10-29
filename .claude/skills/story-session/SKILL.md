@@ -115,6 +115,11 @@ library holds more than one book):
   match across the series, show the writer the count, and after they agree
   run it again with `--apply`. It matches whole words only and leaves history,
   runs and reviews untouched as a record.
+- **The title is the bible's heading.** A book's name is the `# ` heading at
+  the top of its `story_bible.md`; a series' is the heading of
+  `series_bible.md`. A book started without a name is "Untitled book": once
+  the writer settles on one, change that heading. The folder may keep its
+  old name, which is fine.
 
 ## Starting a book
 

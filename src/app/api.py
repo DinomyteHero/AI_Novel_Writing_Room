@@ -451,6 +451,27 @@ class App:
             chat.save_text(target, text.rstrip() + "\n")
         return self.read_file(pid, path)
 
+    def set_title(self, pid: str, title: str, folder: str | None = None) -> dict:
+        """The project's name is the heading of its series bible, or of the book's
+        story bible when there is no series bible. Returns the project's id,
+        which changes when an untitled project's folders take the new name."""
+        title = " ".join(title.split())
+        if not title:
+            raise StudioError("Type a title first.")
+        series = self.series(pid)
+        target = series.bible_path if series.bible_path.exists() else self.book(series, folder).bible_path
+        with self._lock:
+            if pid in self._turns:
+                raise StudioError("Stop the current turn, or let it finish, before renaming the book.")
+            lines = read_text(target).splitlines() if target.exists() else []
+            first = next((i for i, line in enumerate(lines) if line.strip()), None)
+            if first is not None and lines[first].startswith("# "):
+                lines[first] = f"# {title}"
+            else:
+                lines[:0] = [f"# {title}", ""]
+            chat.save_text(target, "\n".join(lines).rstrip() + "\n")
+            return {"project": self._settle_names(pid)}
+
     def _keep_reference(self, folder: Path, name: str, text: str) -> Path:
         safe = re.sub(r"[^\w.\- ]", "", Path(name).stem).strip() or "reference"
         with self._lock:

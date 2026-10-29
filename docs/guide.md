@@ -198,6 +198,12 @@ doesn't) and leaves build runs and reviews as a record of what was. Every
 changed file keeps its previous version in `.history/`, and the change card in
 the app can undo the whole rename.
 
+To name the book itself (a new one starts as "Untitled book"), click its
+title on the project page in the app, tell the chat the title, or change the
+`# ` heading at the top of `story_bible.md` yourself. A series takes its name
+from the heading of `series_bible.md`. The app renames an untitled project's
+folders to match; elsewhere they keep their first name, which doesn't matter.
+
 ### The review gate (optional)
 
 ```bash
