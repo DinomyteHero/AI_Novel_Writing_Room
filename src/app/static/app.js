@@ -1051,6 +1051,26 @@ function pickerHtml(role, sel) {
     <button type="button" class="link" style="align-self:flex-start;padding-left:0" ${attr({ act: "go", view: "settings" })}>Press roles in Settings</button></div>`;
 }
 
+function placePicker() {
+  // The picker opens upward; the scrolling area around the composer would cut
+  // it off, so open it on the roomier side and shrink the model list to fit.
+  const pop = document.querySelector(".picker");
+  if (!pop) return;
+  const anchor = pop.parentElement.getBoundingClientRect();
+  let clip = pop.parentElement.parentElement;
+  while (clip && clip !== document.body && getComputedStyle(clip).overflowY === "visible") clip = clip.parentElement;
+  const box = clip.getBoundingClientRect();
+  const top = Math.max(box.top, 0) + 8, bottom = Math.min(box.bottom, innerHeight) - 8;
+  const above = anchor.bottom - 32 - top, below = bottom - (anchor.top + 32);
+  if (pop.offsetHeight <= above) return;
+  if (below > above) pop.classList.add("below");
+  const room = Math.max(above, below);
+  const models = pop.querySelector(".picker-models");
+  const over = pop.offsetHeight - room;
+  if (over > 0 && models) models.style.maxHeight = `${Math.max(64, models.clientHeight - over)}px`;
+  if (pop.offsetHeight > room) pop.style.maxHeight = `${room}px`;
+}
+
 const shortDate = (iso) => {
   const day = iso ? new Date(iso) : null;
   return day && !isNaN(day) ? day.toLocaleDateString("en-US", { month: "short", day: "numeric" }) : "";
@@ -1526,6 +1546,7 @@ function render() {
     if (el) { el.focus(); if (caret != null && el.setSelectionRange) el.setSelectionRange(caret, caret); }
   }
   for (const ta of document.querySelectorAll(".bar textarea")) autosize(ta);
+  placePicker();
   for (const el of document.querySelectorAll("details[data-change-id]")) el.open = openChanges.includes(el.dataset.changeId);
   for (const el of document.querySelectorAll("details[data-group-id]")) el.open = openGroups.includes(el.dataset.groupId);
   for (const el of document.querySelectorAll("details[data-keep-open]")) el.open = openKept.includes(el.dataset.keepOpen);
