@@ -30,6 +30,7 @@ from src.model_router import PROVIDER_ORDER, ModelRouter, load_config, local_ove
 from src.studio import chat, jobs, press
 from src.studio.llm import LONG_PROMPT_TOKENS, MAX_PROMPT_TOKENS, provider_error
 from src.studio.project import (
+    BIBLES,
     REFERENCE_SUFFIXES,
     Book,
     Library,
@@ -208,6 +209,7 @@ class App:
         self._catalog_failed = float("-inf")
         self._lock = threading.RLock()
         self._turns: dict[str, dict] = {}
+        self._moved: dict[str, str] = {}
         self._summaries: dict[Path, tuple] = {}
 
     # --- models -----------------------------------------------------------
@@ -243,6 +245,9 @@ class App:
     # --- projects -----------------------------------------------------------
 
     def series(self, pid: str) -> Series:
+        # A page watching a turn may still ask by the name the turn just changed.
+        if not (self.library.root / pid).exists():
+            pid = self._moved.get(pid, pid)
         series = Series(self.library.root / pid)
         if not pid or "/" in pid or ".." in pid or not series.books():
             raise StudioError("That project isn't in the library any more.")
@@ -375,13 +380,13 @@ class App:
         runs = sorted((p for p in book.runs_dir.glob("*/report.md")), reverse=True) if book.runs_dir.exists() else []
         interrupted = ""
         if book.runs_dir.exists() and not (job and job.state == "running"):
-            unfinished = sorted(
-                (p for p in book.runs_dir.iterdir()
-                 if p.is_dir() and (p / "plan").is_dir() and not (p / "report.md").exists()),
+            # Only the newest run matters: a later build has moved past older ones.
+            started = sorted(
+                (p for p in book.runs_dir.iterdir() if p.is_dir() and (p / "plan").is_dir()),
                 key=lambda p: p.name,
             )
-            if unfinished:
-                interrupted = rel(unfinished[-1])
+            if started and not (started[-1] / "report.md").exists():
+                interrupted = rel(started[-1])
         parts = [
             {"label": "Series bible", "tokens": estimate_tokens(plan.series_bible)},
             {"label": "Reference notes", "tokens": sum(estimate_tokens(t) for _, t in plan.reference)},
@@ -448,17 +453,21 @@ class App:
             current = read_text(target) if target.exists() else ""
             if expected_version is not None and chat.version(current) != expected_version:
                 raise StudioError("This file changed while you were editing. Your draft is still in the editor. Copy it, then reopen the file to compare before saving.")
+            if target.name in BIBLES:
+                series.untie_titles()
             chat.save_text(target, text.rstrip() + "\n")
         return self.read_file(pid, path)
 
     def set_title(self, pid: str, title: str, folder: str | None = None) -> dict:
         """The project's name is the heading of its series bible, or of the book's
         story bible when there is no series bible. Returns the project's id,
-        which changes when an untitled project's folders take the new name."""
+        which changes when an untitled project's folders take the new name, and
+        the open book's folder under that name."""
         title = " ".join(title.split())
         if not title:
             raise StudioError("Type a title first.")
         series = self.series(pid)
+        number = self.book(series, folder).number
         target = series.bible_path if series.bible_path.exists() else self.book(series, folder).bible_path
         with self._lock:
             if pid in self._turns:
@@ -469,8 +478,11 @@ class App:
                 lines[first] = f"# {title}"
             else:
                 lines[:0] = [f"# {title}", ""]
+            series.untie_titles()
             chat.save_text(target, "\n".join(lines).rstrip() + "\n")
-            return {"project": self._settle_names(pid)}
+            new_pid = self._settle_names(pid)
+            books = self.series(new_pid).books()
+            return {"project": new_pid, "book": next(b.root.name for b in books if b.number == number)}
 
     def _keep_reference(self, folder: Path, name: str, text: str) -> Path:
         safe = re.sub(r"[^\w.\- ]", "", Path(name).stem).strip() or "reference"
@@ -527,7 +539,7 @@ class App:
         path = self._chat_path(series, cid)
         if not path.exists():
             if cid == PROJECT_CHAT:
-                return {"id": cid, "project": pid, "title": "Project chat", "book": None,
+                return {"id": cid, "project": series.root.name, "title": "Project chat", "book": None,
                         "created": _now(), "updated": "", "items": [], "history": []}
             raise StudioError("That chat doesn't exist.")
         record = json.loads(path.read_text(encoding="utf-8"))
@@ -781,7 +793,7 @@ class App:
         except Exception as exc:
             logging.getLogger(__name__).exception("Planning turn failed")
             detail = str(exc) if isinstance(exc, StudioError) else (
-                provider_error(exc) or "Something went wrong during this turn."
+                provider_error(exc) or f"Something went wrong during this turn ({str(exc)[:200]})."
             )
             self._finish_turn(pid, record, "failed", detail + " Completed changes have been kept; send a follow-up to continue.")
         finally:
@@ -851,6 +863,7 @@ class App:
                 try:
                     series.root.rename(target)
                     new_pid = slug
+                    self._moved[pid] = new_pid
                 except OSError:
                     pass
         if moved or new_pid != pid:
@@ -940,6 +953,8 @@ class App:
                     int(chapter[1]), item["after"], target_book.read_plan(), "passage"
                 )
             else:
+                if target.name in BIBLES:
+                    series.untie_titles()
                 chat.save_text(target, item["after"])
             record["items"][i] = {
                 "kind": "activity", "id": item["id"], "verb": item.get("verb", "Edited"),
@@ -1011,6 +1026,11 @@ class App:
                     f"{'Stopped' if snap['state'] == 'stopped' else 'Finished'}: chapter(s) {done}, "
                     f"{words:,} words. {snap['usage'] or ''}"
                 ).strip()
+            # A discarded revision or an overlong chapter shouldn't wait to be
+            # found in the report; this line also tells the chat model.
+            notes = [f"Chapter {r['number']}: {note}" for r in snap["results"] for note in r["notes"]]
+            if notes:
+                text = " ".join([text.rstrip(".") + "."] + notes)
             record["items"].append({
                 "kind": "result", "id": chat.new_id("m"), "text": text,
                 "report": chat.rel(series, Path(snap["report"])) if snap["report"] else "",

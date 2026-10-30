@@ -74,8 +74,12 @@ favour of this design and is in git history if something specific is needed.
   ones before it.
 - **One bounded automatic revision.** `press.revision_rounds` defaults to 1.
   "No changes needed" from the critic skips the revision; a revision shorter
-  than `min_revision_ratio` of its input is discarded. Do not stack more
-  automated passes by default; extra rounds flatten voice and lose length.
+  than `min_revision_ratio` of its input or the planned length, whichever is
+  smaller, is discarded (an overlong draft cut back to its plan is doing what
+  was asked). Do not stack more automated passes by default; extra rounds
+  flatten voice and lose length. A build that fails still writes its report,
+  and the next build uses a draft it already paid for if nothing it was written
+  from has changed.
 - **Provenance, not gates.** `.provenance.json` records the outline and
   background fingerprints each chapter was built from. `chapter_state` reports
   `outline changed` (actionable) or `plan changed` (informational). Nothing
@@ -136,7 +140,8 @@ favour of this design and is in git history if something specific is needed.
   (prompt caching, and Claude's thinking-block binding, depend on it).
 - **Planning progress is recoverable.** `/api/send/stream` emits text and tool
   activity as newline-delimited JSON. The existing chat JSON saves completed
-  actions during the turn and marks interrupted turns on reopening. Stop
+  actions during the turn and marks interrupted turns on reopening. A closed or
+  reloaded page doesn't stop a turn; reopening the chat picks it up. Stop
   cancels pending model work; completed edits remain. No separate job store.
   Retained chat attachments live beside the chat in `<id>-files/`; only book
   and series references reach the Press. The API still accepts read-only

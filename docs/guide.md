@@ -110,6 +110,8 @@ stays under the reply as a record. Open the Book panel's **What the book
 sends** to see the token cost of each part. **Stop** cancels the current turn;
 edits already made are kept and still have their change cards. You can then
 send a different instruction. One planning turn runs per project at a time.
+Closing or reloading the page doesn't stop a turn: it carries on, and opening
+the chat again shows it, with **Stop** still there.
 
 Selecting a passage puts its document and text into the message box, so you
 can ask for a discussion, alternatives or a change in your own words. An
@@ -147,7 +149,9 @@ app restart, an unfinished turn is marked interrupted; send a follow-up to
 continue without automatically repeating its edits. Builds still require
 the local app process to stay running. If it stops before a run writes its
 report, the Book panel says the build was interrupted; finished chapters are
-saved and starting a new build is safe.
+saved and starting a new build is safe. If a model call fails during a build,
+the report says what happened, and building again uses the draft it already
+paid for unless the plan or an earlier chapter has changed since.
 
 Or plan by hand:
 
@@ -257,8 +261,10 @@ For each chapter:
    notes, the bible, the character sheets, continuity and the craft guide,
    and lists what to fix, or says no changes are needed.
 3. **Revise.** The writer model revises using the critique. If a revision
-   comes back much shorter than what it revised, it's discarded and the
-   earlier text is kept.
+   comes back much shorter than both what it revised and your planned length,
+   it's discarded and the earlier text is kept; the chat and the report tell
+   you, and the critic's notes stay in the run folder. Cutting an overlong
+   draft back towards your plan is fine.
 4. **Save.** The result goes into `manuscript/`.
 
 Chapters build in order, so each one reads the finished chapters before it.
@@ -271,7 +277,10 @@ another.
 Every build makes `runs/<time>/` containing a copy of the plan it used, each
 chapter's draft, critique and revision, and `report.md` with words, revisions
 kept, token usage and cost. If chapters keep coming in short, raise
-`press.length_calibration` in `config/settings.yaml`.
+`press.length_calibration` in `config/settings.yaml`; if they keep running
+long, lower it. The estimate allows for drafts running up to twice their
+planned length and for a reasoning model's thinking, so a well-behaved model
+often costs less than it says.
 
 Suggested rhythm: build the first two or three chapters one at a time, read
 them, adjust the plan, then `build all`.

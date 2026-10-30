@@ -31,6 +31,19 @@ from src import model_catalog
 
 logger = logging.getLogger(__name__)
 
+
+class ModelServiceError(RuntimeError):
+    """The provider failed without an HTTP status. Its message is written for the writer."""
+
+
+def _retry_delay(retry_after: str | None) -> int:
+    """Seconds to wait from a Retry-After header, which may also be a date."""
+    try:
+        return max(0, min(int(retry_after or 5), 30))
+    except ValueError:
+        return 5
+
+
 # Anthropic requires an output limit on every request. This is the most the
 # current models allow, so it caps nothing in practice; responses stream so a
 # long one can't hit a request timeout.
@@ -372,8 +385,7 @@ class ModelRouter:
                 else:
                     response = await client.post("/chat/completions", json=payload)
                     if response.status_code == 429 and attempt < max_retries:
-                        retry_after = int(response.headers.get("retry-after", "5"))
-                        await asyncio.sleep(min(retry_after, 30))
+                        await asyncio.sleep(_retry_delay(response.headers.get("retry-after")))
                         continue
                     response.raise_for_status()
                     data = response.json()
@@ -393,9 +405,8 @@ class ModelRouter:
                         )
                         await asyncio.sleep((2 ** attempt) + random.uniform(0, 1))
                         continue
-                    raise RuntimeError(
-                        "LLM response missing choices for "
-                        f"{agent_role} (model={model}): {error_text}"
+                    raise ModelServiceError(
+                        f"The model service sent back no answer ({model}): {error_text[:200]}. Try again."
                     )
                 usage = data.get("usage") or {}
                 details = usage.get("prompt_tokens_details") or {}
@@ -430,7 +441,9 @@ class ModelRouter:
                     await asyncio.sleep((2 ** attempt) + random.uniform(0, 1))
                     continue
                 raise
-            except (httpx.ConnectError, httpx.ReadTimeout):
+            except httpx.TransportError:
+                # Includes a connection dropped mid-answer. Nothing has been
+                # shown or acted on until the reply is complete, so asking again is safe.
                 if not streamed and attempt < max_retries:
                     await asyncio.sleep((2 ** attempt) + random.uniform(0, 1))
                     continue
@@ -460,7 +473,7 @@ class ModelRouter:
                 if chunk.get("error"):
                     error = chunk["error"]
                     detail = error.get("message") if isinstance(error, dict) else error
-                    raise RuntimeError(f"The model service interrupted its reply ({str(detail)[:200]}). Try again.")
+                    raise ModelServiceError(f"The model service interrupted its reply ({str(detail)[:200]}). Try again.")
                 usage = chunk.get("usage") or usage
                 for choice in chunk.get("choices") or []:
                     if choice.get("index", 0) != 0:
@@ -485,7 +498,7 @@ class ModelRouter:
                         for key in ("name", "arguments"):
                             entry["function"][key] += (part.get("function") or {}).get(key) or ""
         if finish is None or finish == "length":
-            raise RuntimeError("The model's reply ended before it was complete. Try again; no unfinished tool call was applied.")
+            raise ModelServiceError("The model's reply ended before it was complete. Try again; no unfinished tool call was applied.")
         if calls:
             message["tool_calls"] = [calls[i] for i in sorted(calls)]
         if reasoning:
@@ -528,7 +541,7 @@ class ModelRouter:
                     on_text(text)
             message = await stream.get_final_message()
         if on_text and message.stop_reason == "max_tokens":
-            raise RuntimeError("The model's reply ended before it was complete. Try again; no unfinished tool call was applied.")
+            raise ModelServiceError("The model's reply ended before it was complete. Try again; no unfinished tool call was applied.")
         usage = message.usage
         self.usage_log.append({
             "role": agent_role,

@@ -167,8 +167,9 @@ def make_handler(app: App, token: str):
                     self.wfile.write((json.dumps(event, ensure_ascii=False) + "\n").encode("utf-8"))
                     self.wfile.flush()
                 except OSError:
+                    # A reload or a closed tab. The turn carries on and is saved
+                    # as it goes; reopening the chat picks it up, Stop included.
                     disconnected = True
-                    app.stop_turn(params.get("project", ""), params.get("chat", ""))
 
             try:
                 app.send(params["project"], params["chat"], params.get("text", ""),

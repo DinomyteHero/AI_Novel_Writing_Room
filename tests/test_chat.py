@@ -475,3 +475,21 @@ async def test_web_searches_are_shown_and_kept_for_later_turns(book):
     # A reply that searched nothing leaves no sources and no claim of one.
     quiet = await chat.run_turn(book.series, book, router, history, "And Shevu?", SETTINGS)
     assert quiet.items == [] and "web search" not in quiet.usage.describe()
+
+
+async def test_an_edit_matches_across_curly_and_straight_quotes(book):
+    book.outline_path.write_text("## Chapter 1\n- Sam’s “test” of Holt\n", encoding="utf-8")
+    router = FakeRouter({"studio_chat": [
+        {"tool_calls": [("edit_file", {"path": outline_path(book), "old_text": "Sam's \"test\"", "new_text": "The trial", "summary": ""})]},
+        "Done.",
+    ]})
+    await chat.run_turn(book.series, book, router, [], "Edit it", SETTINGS)
+    assert book.outline_path.read_text(encoding="utf-8") == "## Chapter 1\n- The trial of Holt\n"
+
+    book.outline_path.write_text("- Sam’s test\n- Sam's test\n", encoding="utf-8")
+    router = FakeRouter({"studio_chat": [
+        {"tool_calls": [("edit_file", {"path": outline_path(book), "old_text": "Sam“s test", "new_text": "changed", "summary": ""})]},
+        "Sorry.",
+    ]})
+    await chat.run_turn(book.series, book, router, [], "Edit it", SETTINGS)
+    assert "changed" not in book.outline_path.read_text(encoding="utf-8")  # no single match, so nothing changes

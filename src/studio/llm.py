@@ -8,6 +8,7 @@ from typing import TYPE_CHECKING
 
 import httpx
 
+from src.model_router import ModelServiceError
 from src.studio.project import StudioError
 from src.studio.prompts import message_tokens
 
@@ -70,11 +71,21 @@ def provider_error(exc: Exception) -> str | None:
     """A failed model call explained for the writer, or None if ``exc`` isn't
     one. Covers httpx (OpenRouter and the OpenAI-compatible services) and the
     Anthropic SDK, whose errors both carry the HTTP status."""
+    if isinstance(exc, ModelServiceError):
+        return str(exc)
     if not isinstance(exc, httpx.HTTPError) and not type(exc).__module__.startswith("anthropic"):
         return None
     response = getattr(exc, "response", None)
     code = getattr(exc, "status_code", None) or getattr(response, "status_code", None)
     if code is None:
+        if isinstance(exc, (httpx.ReadError, httpx.WriteError, httpx.RemoteProtocolError)):
+            return (
+                "The connection to the model service dropped before it finished answering, "
+                "even after trying again. Try once more; if it keeps happening, check your "
+                "internet connection or choose another model."
+            )
+        if isinstance(exc, httpx.TimeoutException):
+            return "The model service took too long to answer. Try again, or choose another model."
         return (
             f"Couldn't get an answer from the model service ({type(exc).__name__}). "
             "Check your internet connection and try again."

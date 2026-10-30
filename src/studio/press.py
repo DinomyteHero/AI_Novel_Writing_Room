@@ -6,29 +6,48 @@ For each chapter, in order:
       -> critique (critic model) -> revise (writer model)   x revision_rounds
       -> save to manuscript/
 
-A revision that comes back much shorter than the text it revised is
-discarded. Each build gets a run folder holding a snapshot of the plan, every
-draft, critique and revision, and a report, so the writer can see exactly what
-the automatic revision changed and why.
+A revision that comes back much shorter than both the text it revised and the
+planned length is discarded. Each build gets a run folder holding a snapshot of
+the plan, every draft, critique and revision, and a report, so the writer can
+see exactly what the automatic revision changed and why.
 """
 
 from __future__ import annotations
 
+import logging
 from dataclasses import dataclass, field
 from datetime import datetime
 from pathlib import Path
 from typing import TYPE_CHECKING, Callable
 
 from src.studio import prompts
-from src.studio.llm import CRITIC_ROLE, LONG_PROMPT_TOKENS, NOTES_ROLE, WRITER_ROLE, Usage, complete
-from src.studio.project import Book, ChapterPlan, Plan, StudioError, count_words
+from src.studio.llm import (
+    CRITIC_ROLE,
+    LONG_PROMPT_TOKENS,
+    NOTES_ROLE,
+    WRITER_ROLE,
+    Usage,
+    complete,
+    provider_error,
+)
+from src.studio.project import Book, ChapterPlan, Plan, StudioError, count_words, read_text
 
 if TYPE_CHECKING:
     from src.model_router import ModelRouter
 
+logger = logging.getLogger(__name__)
+
 TOKENS_PER_WORD = 1.33
-_CRITIQUE_TOKENS = 800
+_CRITIQUE_TOKENS = 1_500
 _SYSTEM_TOKENS = 2_500
+# Measured on real builds: drafts ran up to twice the words asked for, and a
+# reasoning model's thinking bills as about as much output again.
+_DRAFT_OVERRUN = 2.0
+_THINKING_OUTPUT = 2.0
+# And providers counted prompts about a fifth higher than this word-based sum.
+_PROMPT_MARGIN = 1.25
+# A chapter this far past its plan gets a note in the report.
+_LONG_CHAPTER = 1.5
 
 
 @dataclass(frozen=True)
@@ -131,25 +150,30 @@ class Estimate:
 
 
 def estimate(book: Book, plan: Plan, numbers: list[int], settings: PressSettings) -> Estimate:
-    """A rough upper-bound guess, from the plan size and planned chapter lengths."""
+    """A rough upper-bound guess, from the plan size and planned chapter lengths,
+    allowing for drafts that overrun and for a reasoning model's thinking."""
     base = prompts.plan_tokens(plan) + _SYSTEM_TOKENS
     existing = {n: count_words(t) * TOKENS_PER_WORD for n, t in book.drafted_chapters().items()}
     chapters = plan.chapters()
     calls = input_tokens = output_tokens = largest = critic_input = critic_output = 0
     for number in numbers:
         before = sum(t for n, t in existing.items() if n < number)
-        draft = settings.asked_words(chapters[number]) * TOKENS_PER_WORD
+        draft = settings.asked_words(chapters[number]) * TOKENS_PER_WORD * _DRAFT_OVERRUN
         largest = max(largest, base + before + (draft + _CRITIQUE_TOKENS if settings.revision_rounds else 0))
         calls += 1 + 2 * settings.revision_rounds
         input_tokens += base + before
-        output_tokens += draft
+        output_tokens += draft * _THINKING_OUTPUT
         for _ in range(settings.revision_rounds):
             input_tokens += (base + before + draft) + (base + before + draft + _CRITIQUE_TOKENS)
-            output_tokens += _CRITIQUE_TOKENS + draft
+            output_tokens += _CRITIQUE_TOKENS + draft * _THINKING_OUTPUT
             critic_input += base + before + draft
             critic_output += _CRITIQUE_TOKENS
         existing[number] = draft
-    return Estimate(calls, int(input_tokens), int(output_tokens), int(largest), int(critic_input), int(critic_output))
+    margin = _PROMPT_MARGIN
+    return Estimate(
+        calls, int(input_tokens * margin), int(output_tokens), int(largest * margin),
+        int(critic_input * margin), int(critic_output),
+    )
 
 
 @dataclass
@@ -184,6 +208,24 @@ def _is_no_changes(critique: str) -> bool:
     return critique.strip().strip("*#_ ").lower().startswith(prompts.NO_CHANGES.lower())
 
 
+def _paid_draft(book: Book, plan: Plan, chapter: ChapterPlan, chapters: dict[int, str], target: int) -> Path | None:
+    """The draft a failed build already paid for, if a new one would be written
+    from the same things: same plan, same chapters before it, never saved."""
+    if book.chapter_path(chapter.number).exists() or book.was_saved(chapter.number):
+        return None
+    drafts = sorted(book.runs_dir.glob(f"*/chapter_{chapter.number:02d}/draft.md"), key=lambda p: p.parts[-3])
+    if not drafts:
+        return None
+    draft = drafts[-1]
+    snapshot = draft.parents[1] / "plan"
+    if {p.relative_to(snapshot).as_posix(): read_text(p) for p in snapshot.rglob("*") if p.is_file()} != plan.files():
+        return None
+    written = draft.stat().st_mtime
+    if any(book.chapter_path(n).stat().st_mtime > written for n in chapters if n < chapter.number):
+        return None
+    return None if _declined(read_text(draft), target) else draft
+
+
 async def _build_chapter(
     book: Book,
     router: "ModelRouter",
@@ -201,11 +243,15 @@ async def _build_chapter(
     target = settings.target_words(chapter)
 
     step(chapter.number, "drafting")
-    text = await complete(
-        router,
-        WRITER_ROLE,
-        prompts.draft_messages(plan, chapter, chapters, settings.asked_words(chapter)),
-    )
+    paid = _paid_draft(book, plan, chapter, chapters, target)
+    if paid:
+        text = read_text(paid).strip()
+    else:
+        text = await complete(
+            router,
+            WRITER_ROLE,
+            prompts.draft_messages(plan, chapter, chapters, settings.asked_words(chapter)),
+        )
     (folder / "draft.md").write_text(text + "\n", encoding="utf-8")
     if _declined(text, target):
         raise StudioError(
@@ -216,6 +262,8 @@ async def _build_chapter(
             "in Settings, then build again."
         )
     result = ChapterResult(chapter.number, chapter.title, target, count_words(text))
+    if paid:
+        result.notes.append(f"Used the draft from run {paid.parts[-3]}, which a failed build had already paid for.")
 
     for round_number in range(1, settings.revision_rounds + 1):
         step(chapter.number, "critiquing")
@@ -233,11 +281,15 @@ async def _build_chapter(
             prompts.revise_messages(plan, chapters, chapter.number, text, critique),
         )
         (folder / f"revision_{round_number}.md").write_text(revised + "\n", encoding="utf-8")
-        ratio = count_words(revised) / max(count_words(text), 1)
-        if ratio < settings.min_revision_ratio:
+        # An overlong draft cut back towards its plan is doing what was asked,
+        # so the shorter of the two is what the revision has to hold on to.
+        base = min(count_words(text), target)
+        words = count_words(revised)
+        if words < settings.min_revision_ratio * base:
             result.notes.append(
-                f"Round {round_number}: the revision came back at {ratio:.0%} of the "
-                "length it revised, so it was discarded and the earlier text kept."
+                f"Round {round_number}: the revision came back at {words:,} words, {words / max(base, 1):.0%} of "
+                f"the {base:,} it had to keep, so it was discarded and the earlier text kept. "
+                f"The critic's notes are in critique_{round_number}.md if you want to apply them."
             )
             break
         text = revised
@@ -250,17 +302,23 @@ async def _build_chapter(
             f"Came in at {result.final_words:,} of the planned {target:,} words. If this "
             "keeps happening, raise press.length_calibration in config/settings.yaml."
         )
+    elif result.final_words > _LONG_CHAPTER * target:
+        result.notes.append(
+            f"Came in at {result.final_words:,} of the planned {target:,} words. If this "
+            "keeps happening, lower press.length_calibration in config/settings.yaml."
+        )
     result.usage = Usage.since(router, start)
     return result
 
 
-def _write_report(book: Book, result: BuildResult, settings: PressSettings) -> None:
+def _write_report(book: Book, result: BuildResult, settings: PressSettings, failure: str = "") -> None:
     lines = [
         f"# Build report: {book.label}",
         "",
         f"Run folder: `{result.run_dir.name}`. Revision rounds per chapter: "
         f"{settings.revision_rounds}. Length calibration: {settings.length_calibration}.",
         "",
+        *([f"**This build stopped early.** {failure}", ""] if failure else []),
         "| Chapter | Planned words | Draft words | Final words | Revisions kept | Usage |",
         "|---|---|---|---|---|---|",
     ]
@@ -321,31 +379,49 @@ async def build(
     chapters = plan.chapters()
     results: list[ChapterResult] = []
     total = Usage()
-    for number in numbers:
-        if should_stop and should_stop():
-            break
-        if on_start:
-            on_start(chapters[number])
-        chapter_result = await _build_chapter(
-            book, router, plan, chapters[number], settings, run_dir, on_step
-        )
-        if on_done:
-            on_done(chapter_result)
-        results.append(chapter_result)
-        total.add(chapter_result.usage)
+    start = len(router.usage_log)
 
-    live = book.read_plan()
-    states = {n: book.chapter_state(n, live) for n in sorted(live.chapters())}
-    result = BuildResult(
-        run_dir,
-        results,
-        total,
-        outline_changed=[n for n, s in states.items() if s == "outline changed"],
-        plan_changed=[n for n, s in states.items() if s == "plan changed"],
-        report_path=run_dir / "report.md",
-    )
-    _write_report(book, result, settings)
-    return result
+    def report(failure: str = "") -> BuildResult:
+        live = book.read_plan()
+        states = {n: book.chapter_state(n, live) for n in sorted(live.chapters())}
+        result = BuildResult(
+            run_dir,
+            results,
+            total,
+            outline_changed=[n for n, s in states.items() if s == "outline changed"],
+            plan_changed=[n for n, s in states.items() if s == "plan changed"],
+            report_path=run_dir / "report.md",
+        )
+        _write_report(book, result, settings, failure)
+        return result
+
+    number = None
+    try:
+        for number in numbers:
+            if should_stop and should_stop():
+                break
+            if on_start:
+                on_start(chapters[number])
+            chapter_result = await _build_chapter(
+                book, router, plan, chapters[number], settings, run_dir, on_step
+            )
+            if on_done:
+                on_done(chapter_result)
+            results.append(chapter_result)
+            total.add(chapter_result.usage)
+    except Exception as exc:
+        # Finished chapters and what the build spent still deserve a record,
+        # including the calls for the chapter it stopped on.
+        total = Usage.since(router, start)
+        failure = f"Chapter {number} failed: {provider_error(exc) or exc}"
+        if (run_dir / f"chapter_{number:02d}" / "draft.md").exists():
+            failure += " Its draft is in the run folder, and building again uses it if the plan hasn't changed."
+        try:
+            exc.report_path = report(failure).report_path
+        except Exception:
+            logger.exception("Couldn't write the report for a failed build")
+        raise
+    return report()
 
 
 async def story_so_far(book: Book, router: "ModelRouter") -> Path:

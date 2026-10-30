@@ -57,6 +57,9 @@ _BOOK_DIR = re.compile(r"^(\d+)-(.+)$")
 REFERENCE_SUFFIXES = (".md", ".txt")
 
 
+BIBLES = ("story_bible.md", "series_bible.md")
+
+
 class StudioError(Exception):
     """A problem the writer can fix. The message is shown to them as-is."""
 
@@ -169,6 +172,11 @@ def _heading_title(path: Path) -> str | None:
     return None
 
 
+def _without_title(text: str) -> str:
+    lines = text.lstrip().split("\n")
+    return "\n".join(lines[1:]) if lines[0].startswith("# ") else text
+
+
 @dataclass(frozen=True)
 class ChapterPlan:
     number: int
@@ -225,10 +233,18 @@ class Plan:
         return self.chapters().get(number)
 
     def background_fingerprint(self) -> str:
-        """Everything except the outline: a change here may affect any chapter."""
+        """Everything except the outline: a change here may affect any chapter.
+        A bible's title doesn't count; naming the book changes no chapter."""
+        return self._background(_without_title(self.series_bible), _without_title(self.story_bible))
+
+    def titled_fingerprint(self) -> str:
+        """The fingerprint as chapters saved before titles stopped counting hold it."""
+        return self._background(self.series_bible, self.story_bible)
+
+    def _background(self, series_bible: str, story_bible: str) -> str:
         return _digest(
             "\n".join(
-                [self.series_bible, self.story_bible, self.characters]
+                [series_bible, story_bible, self.characters]
                 + [f"{name}\n{text}" for name, text in self.reference]
             )
         )
@@ -395,6 +411,9 @@ class Book:
         except json.JSONDecodeError:
             return {}
 
+    def was_saved(self, number: int) -> bool:
+        return str(number) in self._provenance()
+
     def record(self, number: int, plan: Plan, source: str) -> None:
         data = self._provenance()
         data[str(number)] = {
@@ -437,9 +456,21 @@ class Book:
             return "current"
         if entry.get("outline") != plan.outline_fingerprint(number):
             return "outline changed"
-        if entry.get("background") != plan.background_fingerprint():
+        if entry.get("background") not in (plan.background_fingerprint(), plan.titled_fingerprint()):
             return "plan changed"
         return "current"
+
+    def untie_title(self) -> None:
+        """Move current chapters off the fingerprint that includes the title, so
+        changing it next doesn't mark them out of date."""
+        data = self._provenance()
+        plan = self.read_plan()
+        old, new = plan.titled_fingerprint(), plan.background_fingerprint()
+        stale = [entry for entry in data.values() if entry.get("background") == old]
+        if stale and old != new:
+            for entry in stale:
+                entry["background"] = new
+            self.provenance_path.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
 
     def latest_review(self) -> Path | None:
         reviews = sorted(self.notes_dir.glob("review_*.md")) if self.notes_dir.exists() else []
@@ -456,6 +487,10 @@ class Book:
 class Series:
     def __init__(self, root: Path):
         self.root = Path(root)
+
+    def untie_titles(self) -> None:
+        for book in self.books():
+            book.untie_title()
 
     @property
     def title(self) -> str:

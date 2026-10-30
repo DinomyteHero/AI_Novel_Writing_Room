@@ -3,11 +3,15 @@
 from __future__ import annotations
 
 import dataclasses
+import os
+import time
 
+import httpx
 import pytest
 
+from src.model_router import ModelServiceError
 from src.studio import press
-from src.studio.llm import CRITIC_ROLE, NOTES_ROLE, WRITER_ROLE
+from src.studio.llm import CRITIC_ROLE, NOTES_ROLE, WRITER_ROLE, provider_error
 from src.studio.project import StudioError
 from tests.fakes import FakeRouter
 
@@ -256,3 +260,98 @@ async def test_a_declined_draft_is_not_saved_as_a_chapter(book):
         await press.build(book, router, [1], SETTINGS)
     assert not book.chapter_path(1).exists()
     assert "draft.md" in str(caught.value)
+
+
+async def test_an_overlong_draft_cut_towards_its_plan_is_kept(book):
+    # Chapter 1 plans 2,500 words. The draft runs far over, and the revision does as the critic asks.
+    draft, cut = "# Chapter\n\n" + "word " * 6000, "# Chapter\n\n" + "word " * 2600
+    router = FakeRouter({WRITER_ROLE: [draft, cut], CRITIC_ROLE: ["1. Cut the repeats."]})
+    result = await press.build(book, router, [1], SETTINGS)
+    assert result.chapters[0].revisions_kept == 1 and result.chapters[0].notes == []
+    assert book.chapter_path(1).read_text(encoding="utf-8").strip() == cut.strip()
+
+
+async def test_a_revision_far_below_the_plan_is_still_discarded_and_says_where_the_notes_are(book):
+    draft = "# Chapter\n\n" + "word " * 6000
+    router = FakeRouter({WRITER_ROLE: [draft, "# Chapter\n\n" + "word " * 1000], CRITIC_ROLE: ["1. Cut."]})
+    result = await press.build(book, router, [1], SETTINGS)
+    assert result.chapters[0].revisions_kept == 0
+    assert "discarded" in result.chapters[0].notes[0] and "critique_1.md" in result.chapters[0].notes[0]
+    assert "lower press.length_calibration" in result.chapters[0].notes[1]
+
+
+class _Drops(FakeRouter):
+    """Loses the connection on the nth model call."""
+
+    def __init__(self, responses, drop_on):
+        super().__init__(responses)
+        self.drop_on, self.made = drop_on, 0
+
+    async def complete(self, role, messages):
+        self.made += 1
+        if self.made == self.drop_on:
+            raise httpx.ReadError("connection reset")
+        return await super().complete(role, messages)
+
+
+async def _fail_on_chapter_2_critique(book):
+    router = _Drops({WRITER_ROLE: [LONG, LONGER], CRITIC_ROLE: ["No changes needed"]}, drop_on=4)
+    with pytest.raises(httpx.ReadError) as caught:
+        await press.build(book, router, [1, 2], SETTINGS)
+    return caught.value
+
+
+async def test_a_failed_build_writes_a_report_and_the_next_one_uses_the_paid_draft(book):
+    failure = await _fail_on_chapter_2_critique(book)
+    report = failure.report_path.read_text(encoding="utf-8")
+    assert "stopped early" in report and "Chapter 2 failed" in report and "dropped" in report
+    assert "| 1: The Storm |" in report and "Total: 3 call(s)" in report
+    assert book.chapter_path(1).exists() and not book.chapter_path(2).exists()
+
+    router = FakeRouter({CRITIC_ROLE: ["No changes needed"]})
+    result = await press.build(book, router, [2], SETTINGS)
+    assert router.roles() == [CRITIC_ROLE]
+    assert "already paid for" in result.chapters[0].notes[0]
+    assert book.chapter_path(2).read_text(encoding="utf-8").strip() == LONGER.strip()
+
+    # Once saved, building the chapter again means a new draft.
+    router = FakeRouter({CRITIC_ROLE: ["No changes needed"]})
+    await press.build(book, router, [2], SETTINGS)
+    assert router.roles()[0] == WRITER_ROLE
+
+
+async def test_a_paid_draft_is_not_used_once_the_plan_changes(book):
+    await _fail_on_chapter_2_critique(book)
+    book.characters_path.write_text("## Mara\n- Someone new.\n", encoding="utf-8")
+    router = FakeRouter({CRITIC_ROLE: ["No changes needed"]})
+    await press.build(book, router, [2], SETTINGS)
+    assert router.roles()[0] == WRITER_ROLE
+
+
+async def test_a_paid_draft_is_not_used_once_an_earlier_chapter_changes(book):
+    await _fail_on_chapter_2_critique(book)
+    later = time.time() + 60
+    os.utime(book.chapter_path(1), (later, later))
+    router = FakeRouter({CRITIC_ROLE: ["No changes needed"]})
+    await press.build(book, router, [2], SETTINGS)
+    assert router.roles()[0] == WRITER_ROLE
+
+
+async def test_a_declined_draft_is_never_reused(book):
+    with pytest.raises(StudioError):
+        await press.build(book, FakeRouter({WRITER_ROLE: ["I can't write this chapter as described."]}), [1], SETTINGS)
+    router = FakeRouter({WRITER_ROLE: [LONG], CRITIC_ROLE: ["No changes needed"]})
+    await press.build(book, router, [1], SETTINGS)
+    assert router.roles()[0] == WRITER_ROLE
+
+
+def test_estimate_allows_for_overrun_and_thinking(book):
+    estimate = press.estimate(book, book.read_plan(), [1], SETTINGS)
+    # Chapter 1 plans 2,500 words: a draft and a revision, double the words, thinking on top.
+    assert estimate.output_tokens > 2500 * press.TOKENS_PER_WORD * 2 * 2 * 2
+
+
+def test_provider_errors_name_a_dropped_connection_and_pass_on_the_services_words():
+    assert "dropped before it finished" in provider_error(httpx.ReadError("reset"))
+    assert "took too long" in provider_error(httpx.ReadTimeout("slow"))
+    assert provider_error(ModelServiceError("It said why.")) == "It said why."

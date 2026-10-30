@@ -565,3 +565,58 @@ def test_the_catalog_cache_is_kept_for_a_day_and_survives_failures(tmp_path):
     assert not model_catalog.refresh(config, offline)
     assert not model_catalog.refresh(config, lambda: {"unexpected": "shape"})
     assert len(model_catalog.load(config)) == len(CATALOG)
+
+
+async def test_a_dropped_connection_is_asked_again_until_text_has_arrived(settings_yaml, monkeypatch):
+    import httpx
+
+    monkeypatch.setattr("src.model_router.asyncio.sleep", AsyncMock())
+    attempts = []
+
+    def respond(request):
+        attempts.append(1)
+        if len(attempts) == 1:
+            raise httpx.ReadError("connection reset")
+        return httpx.Response(200, text='data: {"choices":[{"index":0,"delta":{"content":"Back."},"finish_reason":"stop"}]}\n\ndata: [DONE]\n')
+
+    router = ModelRouter(settings_yaml)
+    router._local_client = httpx.AsyncClient(base_url="https://test.invalid", transport=httpx.MockTransport(respond))
+    pieces = []
+    try:
+        await router.chat("studio_writer", "System", [{"role": "user", "content": "Hi"}], [], on_text=pieces.append)
+    finally:
+        await router.close()
+    assert len(attempts) == 2 and pieces == ["Back."]
+
+
+async def test_a_connection_dropped_after_text_arrived_is_not_asked_again(settings_yaml):
+    import httpx
+
+    class Drops(httpx.AsyncByteStream):
+        async def __aiter__(self):
+            yield b'data: {"choices":[{"index":0,"delta":{"content":"Half"}}]}\n\n'
+            raise httpx.ReadError("connection reset")
+
+    attempts = []
+
+    def respond(request):
+        attempts.append(1)
+        return httpx.Response(200, stream=Drops())
+
+    router = ModelRouter(settings_yaml)
+    router._local_client = httpx.AsyncClient(base_url="https://test.invalid", transport=httpx.MockTransport(respond))
+    try:
+        with pytest.raises(httpx.ReadError):
+            await router.chat("studio_writer", "System", [{"role": "user", "content": "Hi"}], [], on_text=lambda text: None)
+    finally:
+        await router.close()
+    assert len(attempts) == 1
+
+
+def test_retry_after_can_be_seconds_or_a_date():
+    from src.model_router import _retry_delay
+
+    assert _retry_delay("3") == 3
+    assert _retry_delay("999") == 30
+    assert _retry_delay(None) == 5
+    assert _retry_delay("Wed, 21 Oct 2026 07:28:00 GMT") == 5
