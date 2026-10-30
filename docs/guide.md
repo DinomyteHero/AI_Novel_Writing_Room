@@ -96,8 +96,8 @@ to run, and a chapter length for chapters the outline doesn't size. Under the
 message box you can see and change the chat model and its reasoning effort;
 each chat keeps its own choice. The box that starts a chat, on the home page
 or a project's page, has the same picker, so the first message already goes
-to the model you chose. The picker has a search bar and lists current models only;
-older models are hidden. Open a chapter and
+to the model you chose. The picker has a search bar, then a short suggested list,
+then all current models from A to Z; older models are hidden. Open a chapter and
 press **Read** for a wide, book-like reading view; highlight a passage and
 press **Ask about this**, then type what you want. **Writing help** in the
 sidebar collects the craft notes. The theme is in **Settings > Preferences**. On a phone, the menu button opens the sidebar.

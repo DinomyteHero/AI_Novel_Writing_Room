@@ -665,6 +665,10 @@ def test_openrouter_models_are_offered_with_prices_and_refreshed_daily(tmp_path,
     assert options["geminiargon"]["price"] == {"in": 2.0, "out": 10.0} and not options["geminiargon"]["small"]
     assert options["openai/gpt-6.2-terra"]["label"] == "GPT-6.2 Terra"
     assert options["openai/gpt-6.2-mini"]["small"] and options["openai/gpt-6.2-mini"]["context"] == 400_000
+    # The picker's suggestions come from the settings, in their order, and the catalog adds none.
+    assert [m for m, o in options.items() if o["suggested"]] == [
+        "geminiargon", "claude", "claudesonnet", "terra", "deepseekflash", "aion",
+    ]
     # Superseded models aren't offered, and a configured one isn't listed twice.
     assert "x-ai/grok-4.7" not in options and "anthropic/claude-opus-5.5" not in options
     # New models are only offered: no role moves to one.
