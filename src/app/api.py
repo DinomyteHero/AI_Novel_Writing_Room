@@ -1142,6 +1142,7 @@ class App:
                         "label": entry.get("label") or (model if isinstance(model, str) else "") or alias,
                         "provider": config["models"][b].get("label", b),
                         "efforts": entry.get("efforts") or [],
+                        "suggested": bool(entry.get("suggested")),
                         # Dollars per million tokens read and written, from OpenRouter's catalog.
                         "price": entry.get("price"),
                         "context": context,

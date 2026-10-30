@@ -659,7 +659,14 @@ const ACT = {
     try { localStorage.setItem("wr-review", S.editMode === "ask" ? "1" : "0"); } catch (e) { /* the choice lasts this visit only */ }
     render();
   },
-  togglePicker() { S.picker = !S.picker; if (!S.picker) S.modelQuery = ""; render(); if (S.picker) refreshModels(); },
+  togglePicker() {
+    S.picker = !S.picker;
+    if (!S.picker) S.modelQuery = "";
+    render();
+    if (!S.picker) return;
+    document.querySelector(".picker-models .on")?.scrollIntoView({ block: "nearest" });
+    refreshModels();
+  },
   async setChatModel(d) {
     // Before a chat exists, the choice waits for the chat this composer starts.
     if (S.view !== "chat") { S.nextChat = { model: { backend: d.backend, model: d.model }, effort: "" }; S.modelQuery = ""; return render(); }
@@ -1059,23 +1066,32 @@ function modelLine() {
 function pickerHtml(role, sel) {
   const q = (S.modelQuery || "").trim().toLowerCase();
   const shown = q ? role.options.filter((o) => `${o.label} ${o.provider} ${o.model}`.toLowerCase().includes(q)) : role.options;
-  const models = shown.map((o) => {
+  const several = new Set(role.options.map((o) => o.provider)).size > 1;
+  const row = (o) => {
     const note = modelNote(o);
-    return `<button type="button" class="pill ${o.backend === sel.backend && o.model === sel.model ? "on" : ""}" title="${esc(o.provider)}" ${attr({ act: "setChatModel", backend: o.backend, model: o.model })}>${esc(o.label)}${note ? ` <small>${esc(note)}</small>` : ""}</button>`;
-  }).join("");
+    const on = o.backend === sel.backend && o.model === sel.model;
+    return `<button type="button" class="model-row ${on ? "on" : ""}" aria-pressed="${on}" title="${esc(o.provider)}" ${attr({ act: "setChatModel", backend: o.backend, model: o.model })}>
+      <span class="name">${esc(o.label)}</span>${several ? `<span class="from">${esc(o.provider)}</span>` : ""}${note ? `<small>${esc(note)}</small>` : ""}${on ? ic("check", 14, "currentColor", 2.4) : ""}</button>`;
+  };
+  const az = [...shown].sort((a, b) => a.label.localeCompare(b.label, undefined, { sensitivity: "base", numeric: true })).map(row).join("");
+  const suggested = q ? [] : role.options.filter((o) => o.suggested);
+  const models = suggested.length
+    ? `<div class="picker-group"><span class="label">Suggested</span>${suggested.map(row).join("")}</div>
+       <div class="picker-group"><span class="label">All models</span>${az}</div>`
+    : az;
   const efforts = sel.efforts.length ? `<span class="label">Reasoning effort</span><div class="pills">
       ${[["", "Default"], ...sel.efforts.map((e) => [e, e[0].toUpperCase() + e.slice(1)])].map(([value, label]) => `<button type="button" class="pill ${sel.effort === value ? "on" : ""}" ${attr({ act: "setChatEffort", effort: value })}>${esc(label)}</button>`).join("")}</div>
-      <span class="hint" style="padding:0">Higher effort thinks longer before each reply: better on hard questions, slower and costlier.</span>` : "";
+      <span class="hint" style="padding:0">Higher thinks longer: better on hard questions, costlier.</span>` : "";
   const missing = !sel.option ? '<span class="warn" style="font-size:12px">This chat\'s model isn\'t offered any more. Pick another above.</span>' : "";
   const empty = q ? "No model matches." : "Connect a provider in Settings.";
   return `<div class="picker" role="dialog" aria-label="Chat model">
     <input type="search" id="model-search" class="picker-search" placeholder="Search models" aria-label="Search models" data-model-query value="${esc(S.modelQuery)}">
-    <span class="label">Model</span><div class="pills picker-models">${models || `<span class="hint" style="padding:0">${empty}</span>`}</div>
+    <div class="picker-models">${models || `<span class="hint" style="padding:0">${empty}</span>`}</div>
     ${shown.some((o) => o.price) ? '<span class="hint" style="padding:0">Prices: dollars per million tokens, read / written.</span>' : ""}
     ${missing}
     ${efforts}
-    <span class="hint" style="padding:0">${S.view === "chat" ? "Each chat keeps its own model and effort." : "For the chat this starts. Each chat keeps its own."}</span>
-    <button type="button" class="link" style="align-self:flex-start;padding-left:0" ${attr({ act: "go", view: "settings" })}>Press roles in Settings</button></div>`;
+    <div class="picker-foot"><span class="hint" style="padding:0">Each chat keeps its own.</span>
+    <button type="button" class="link" style="padding:0" ${attr({ act: "go", view: "settings" })}>Press roles in Settings</button></div></div>`;
 }
 
 function placePicker() {
@@ -1083,6 +1099,8 @@ function placePicker() {
   // it off, so open it on the roomier side and shrink the model list to fit.
   const pop = document.querySelector(".picker");
   if (!pop) return;
+  const overhang = 8 - pop.getBoundingClientRect().left;
+  if (overhang > 0) pop.style.right = `${-overhang}px`;
   const anchor = pop.parentElement.getBoundingClientRect();
   let clip = pop.parentElement.parentElement;
   while (clip && clip !== document.body && getComputedStyle(clip).overflowY === "visible") clip = clip.parentElement;
@@ -1094,7 +1112,7 @@ function placePicker() {
   const room = Math.max(above, below);
   const models = pop.querySelector(".picker-models");
   const over = pop.offsetHeight - room;
-  if (over > 0 && models) models.style.maxHeight = `${Math.max(64, models.clientHeight - over)}px`;
+  if (over > 0 && models) models.style.maxHeight = `${Math.max(96, models.clientHeight - over)}px`;
   if (pop.offsetHeight > room) pop.style.maxHeight = `${room}px`;
 }
 
@@ -1550,7 +1568,7 @@ function render() {
   const keep = {};
   const openGroups = [...document.querySelectorAll("details[data-group-id][open]")].map(el => el.dataset.groupId);
   const openKept = [...document.querySelectorAll("details[data-keep-open][open]")].map(el => el.dataset.keepOpen);
-  for (const sel of [".panel", ".scroll", ".side-scroll"]) {
+  for (const sel of [".panel", ".scroll", ".side-scroll", ".picker-models"]) {
     const el = document.querySelector(sel);
     if (el) keep[sel] = el.scrollTop;
   }

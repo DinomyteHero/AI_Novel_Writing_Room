@@ -16,12 +16,13 @@ models:
     base_url: https://openrouter.ai/api/v1
     api_key_env: OPENROUTER_API_KEY
     timeout_seconds: 300
+    # suggested: true puts a model at the top of the chat's model picker, in this order.
     models:
-      deepseekflash: { id: deepseek/deepseek-v4.1-flash-1017, label: DeepSeek V4.1 Flash 1017, efforts: [none, low, high, max] }
-      geminiargon: { id: google/gemini-4-argon, label: Gemini 4 Argon, efforts: [low, medium, high] }
-      claude: { id: anthropic/claude-opus-5.5, label: Claude Opus 5.5 }
-      claudesonnet: { id: anthropic/claude-sonnet-5.5, label: Claude Sonnet 5.5 }
-      terra: { id: openai/gpt-6.1-terra, label: GPT-6.1 Terra }
+      geminiargon: { id: google/gemini-4-argon, label: Gemini 4 Argon, efforts: [low, medium, high], suggested: true }
+      claude: { id: anthropic/claude-opus-5.5, label: Claude Opus 5.5, suggested: true }
+      claudesonnet: { id: anthropic/claude-sonnet-5.5, label: Claude Sonnet 5.5, suggested: true }
+      terra: { id: openai/gpt-6.1-terra, label: GPT-6.1 Terra, suggested: true }
+      deepseekflash: { id: deepseek/deepseek-v4.1-flash-1017, label: DeepSeek V4.1 Flash 1017, efforts: [none, low, high, max], suggested: true }
       haiku: { id: anthropic/claude-haiku-5.5, label: Claude Haiku 5.5 }
       glm: { id: z-ai/glm-5.3, label: GLM 5.3, context: 1000000, efforts: [max] }
       minimax: { id: minimax/minimax-m3.1-flash, label: MiniMax M3.1 Flash }
@@ -34,7 +35,7 @@ models:
       # tuned to keep tension up. Their 262K-token window holds one book of
       # up to about 150K words, not a whole series, so try them as the writer
       # on a standalone book.
-      aion: { id: aion-labs/aion-3.5, label: Aion 3.5, context: 262000 }
+      aion: { id: aion-labs/aion-3.5, label: Aion 3.5, context: 262000, suggested: true }
       aionmini: { id: aion-labs/aion-3.5-mini, label: Aion 3.5 Mini, context: 262000 }
     default_params: {}
 
@@ -44,8 +45,8 @@ models:
     api_key_env: ANTHROPIC_API_KEY
     timeout_seconds: 600
     models:
-      opus: { id: claude-opus-5-5, label: Claude Opus 5.5 }
-      sonnet: { id: claude-sonnet-5-5, label: Claude Sonnet 5.5 }
+      opus: { id: claude-opus-5-5, label: Claude Opus 5.5, suggested: true }
+      sonnet: { id: claude-sonnet-5-5, label: Claude Sonnet 5.5, suggested: true }
     default_params: {}
 
   openai:
@@ -54,7 +55,7 @@ models:
     api_key_env: OPENAI_API_KEY
     timeout_seconds: 300
     models:
-      terra: { id: gpt-6.1-terra, label: GPT-6.1 Terra }
+      terra: { id: gpt-6.1-terra, label: GPT-6.1 Terra, suggested: true }
       gpt: { id: gpt-5.5, label: GPT-5.5, hidden: true }
     default_params: {}
 
@@ -64,7 +65,7 @@ models:
     api_key_env: GEMINI_API_KEY
     timeout_seconds: 300
     models:
-      argon: { id: gemini-4-argon, label: Gemini 4 Argon }
+      argon: { id: gemini-4-argon, label: Gemini 4 Argon, suggested: true }
       gemini: { id: gemini-3.1-pro-preview, label: Gemini 3.1 Pro, hidden: true }
     default_params: {}
 
