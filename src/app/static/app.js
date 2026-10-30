@@ -174,7 +174,9 @@ function watchTurn(record) {
     try {
       const current = await get("/api/chat", { project: pid, chat: cid });
       const old = cid === "project" ? S.thread : S.chat;
-      if (S.project === pid) {
+      // The turn may have named an untitled book, moving its folders.
+      if (S.project === pid && current.project !== pid) S.project = current.project;
+      if (S.project === current.project) {
         if (cid === "project") S.thread = current;
         else if (S.chat?.id === cid) S.chat = current;
       }
@@ -376,10 +378,16 @@ const ACT = {
     const title = (S.titleDraft || "").trim();
     if (!title || title === S.data.title) return ACT.cancelTitle();
     try {
-      const { project } = await post("/api/title", { project: S.project, title, book: S.data.book.folder });
+      const folder = S.data.book.folder;
+      const moved = await post("/api/title", { project: S.project, title, book: folder });
       S.titleDraft = null;
       await refreshState();
-      await loadProject(project, project === S.project ? S.data.book.folder : undefined);
+      await loadProject(moved.project, moved.book);
+      // Anything open in the Book panel moved with the folder; an unsaved edit stays.
+      for (const held of [S.doc, S.selection]) {
+        if (held?.path) held.path = held.path.replace(`books/${folder}/`, `books/${moved.book}/`);
+      }
+      await refreshProject();
     } catch (e) { return fail(e); }
     render();
   },
@@ -571,7 +579,13 @@ const ACT = {
   hideTray() { S.trayHidden = true; render(); },
   closeModal() { S.modal = null; render(); },
   closeToast() { S.toast = ""; render(); },
-  togglePanel() { S.panel = !S.panel; if (!S.panel) S.doc = null; render(); },
+  async togglePanel() {
+    S.panel = !S.panel;
+    if (!S.panel) S.doc = null;
+    render();
+    // The command line or a text editor may have added files since this loaded.
+    if (S.panel) { await refreshProject(); render(); }
+  },
   closePanel() { S.panel = false; S.doc = null; render(); },
   showFiles() { S.doc = null; render(); },
   async openFile(d) {
@@ -1225,11 +1239,16 @@ function buildStatus(d, job) {
 function contextHtml() {
   const c = S.data?.context;
   if (!c) return "";
-  const share = c.tokens / c.limit;
+  // A chat can choose a smaller model than the Press roles use.
+  const role = chatRole();
+  const limit = Math.min(c.limit, (role && chatSelection(role).option?.context) || c.limit);
+  const share = c.tokens / limit;
   const long = c.tokens > c.long;
+  const tight = limit < c.limit && share > 0.8;
   const parts = c.parts || [];
-  return `<div class="meter-row"><span class="muted">Every message and build sends the whole book</span><b>${fmtK(c.tokens)} / ${fmtK(c.limit)}</b></div>
-    <div class="meter" role="meter" aria-label="Book size against the limit" aria-valuemin="0" aria-valuemax="${c.limit}" aria-valuenow="${c.tokens}"><span class="${long ? "long" : ""}" style="width:${Math.max(1, Math.min(100, Math.round(share * 100)))}%"></span></div>
+  return `<div class="meter-row"><span class="muted">Every message and build sends the whole book</span><b>${fmtK(c.tokens)} / ${fmtK(limit)}</b></div>
+    <div class="meter" role="meter" aria-label="Book size against the limit" aria-valuemin="0" aria-valuemax="${limit}" aria-valuenow="${c.tokens}"><span class="${long || tight ? "long" : ""}" style="width:${Math.max(1, Math.min(100, Math.round(share * 100)))}%"></span></div>
+    ${tight ? `<span class="hint warn" style="padding:0">This chat's model reads about ${fmtK(limit)} tokens, and the chat's history counts too. If it refuses a message, pick a larger model.</span>` : ""}
     ${parts.length ? `<details class="context-parts"><summary>What the book sends</summary>${parts.map((p) => `<div class="context-part"><span>${esc(p.label)}</span><b>${fmtK(p.tokens)}</b></div>`).join("")}</details>` : ""}
     ${long ? `<span class="hint warn" style="padding:0">Past about ${fmtK(c.long)} tokens, models read less reliably. Story-so-far notes for finished books help.</span>` : ""}`;
 }
@@ -1492,7 +1511,7 @@ function tray() {
   const detail = job.state === "failed" ? job.error : `${job.results.length} chapter(s) · ${job.usage || ""}`;
   const report = job.report || "";
   return `<div class="tray" role="status"><b style="font-size:14px;display:flex;align-items:center;gap:8px">${ic(job.state === "failed" ? "alert" : "check", 17, "currentColor", job.state === "failed" ? 2 : 2.6)}${esc(title)}</b><span style="font-size:13px;line-height:1.45;color:var(--tray-muted)">${esc(detail)}</span>
-    <div style="display:flex;gap:8px">${report && job.state !== "failed" ? `<button type="button" ${attr({ act: "openFile", path: report })}>View report</button>` : ""}<button type="button" class="plain" ${attr({ act: "hideTray" })}>Dismiss</button></div></div>`;
+    <div style="display:flex;gap:8px">${report ? `<button type="button" ${attr({ act: "openFile", path: report })}>View report</button>` : ""}<button type="button" class="plain" ${attr({ act: "hideTray" })}>Dismiss</button></div></div>`;
 }
 
 function modal() {

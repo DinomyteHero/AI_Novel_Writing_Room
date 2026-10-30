@@ -25,6 +25,7 @@ from typing import TYPE_CHECKING, Callable
 from src.studio import press, prompts, room
 from src.studio.llm import CHAT_ROLE, MAX_PROMPT_TOKENS, TOO_LONG, Usage, too_long
 from src.studio.project import (
+    BIBLES,
     REFERENCE_SUFFIXES,
     Book,
     Series,
@@ -312,6 +313,8 @@ class _Tools:
             current = read_text(path) if path.exists() else None
             if current != expected:
                 raise StudioError(f"{rel(self.series, path)} changed while I was working. Read it again before editing.")
+            if path.name in BIBLES:
+                self.series.untie_titles()
             save_text(path, text)
             self.seen[path] = text
 
@@ -338,6 +341,7 @@ class _Tools:
         if not target.is_file():
             raise StudioError(f"{path} doesn't exist yet; use write_file.")
         text = read_text(target)
+        old_text = _as_written(text, old_text)
         count = text.count(old_text) if old_text else 0
         if count != 1:
             raise StudioError(
@@ -359,6 +363,7 @@ class _Tools:
             before = read_text(target)
             if version(before) != self.selection["version"]:
                 raise StudioError("The selected document changed. Ask the writer to select the passage again.")
+            old_text = _as_written(before, old_text)
             if not old_text or before.count(old_text) != 1:
                 raise StudioError("Read the document and copy one exact, unique passage, including its Markdown.")
             after = before.replace(old_text, new_text, 1)
@@ -558,6 +563,21 @@ _UNSAVED = (
 
 def version(text: str) -> str:
     return hashlib.sha256(text.encode("utf-8")).hexdigest()
+
+
+_STRAIGHT_QUOTES = str.maketrans("‘’“”", "''\"\"")
+
+
+def _as_written(text: str, passage: str) -> str:
+    """The passage as the file has it. Models often send straight quotes for
+    curly ones or the reverse, which would fail an exact match and cost a call."""
+    if not passage or passage in text:
+        return passage
+    flat, wanted = text.translate(_STRAIGHT_QUOTES), passage.translate(_STRAIGHT_QUOTES)
+    if flat.count(wanted) != 1:
+        return passage
+    at = flat.index(wanted)
+    return text[at:at + len(wanted)]
 
 
 def save_text(path: Path, text: str) -> None:

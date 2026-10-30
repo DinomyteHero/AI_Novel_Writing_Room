@@ -112,18 +112,25 @@ class BuildJob:
             self.state = "stopped" if len(self.results) < len(self.numbers) else "finished"
         except StudioError as exc:
             self.state, self.error = "failed", str(exc)
+            self._keep_report(exc)
         except Exception as exc:  # shown to the writer rather than lost on a thread
             explained = provider_error(exc)
             if explained is None:
                 logger.exception("Build failed")
             self.state = "failed"
             self.error = (
-                f"{explained} Chapters finished before this were saved; nothing half-done was."
+                f"{explained} Chapters finished before this were saved; nothing half-done was. "
+                "Building again uses any draft already paid for."
                 if explained else f"The build stopped unexpectedly: {exc}"
             )
+            self._keep_report(exc)
         finally:
             self.current = self.step = None
             await router.close()
+
+    def _keep_report(self, exc: Exception) -> None:
+        path = getattr(exc, "report_path", None)
+        self.report = str(path) if path else None
 
     def snapshot(self) -> dict:
         return {

@@ -109,8 +109,8 @@ agent_routing:
 press:
   revision_rounds: 1            # critique-and-revise rounds per chapter; 0 = draft only
   default_chapter_words: 3000   # used when an outline section has no "Words: N" line
-  length_calibration: 1.0       # multiplies the length asked for; raise it if chapters come in short
-  min_revision_ratio: 0.6       # discard a revision shorter than this share of what it revised
+  length_calibration: 1.0       # multiplies the length asked for; raise it if chapters come in short, lower it if long
+  min_revision_ratio: 0.6       # discard a revision shorter than this share of what it revised or the plan, whichever is smaller
 
 pipeline:
   max_http_retries: 2

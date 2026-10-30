@@ -3,7 +3,9 @@
 import base64
 import io
 import json
+import socket
 import threading
+import time
 import urllib.error
 import urllib.request
 import zipfile
@@ -15,6 +17,7 @@ import pytest
 import yaml
 
 from src import model_catalog
+from src.model_router import ModelServiceError
 from src.app import api as app_api
 from src.app.server import make_handler
 from src.studio import jobs, press
@@ -824,3 +827,110 @@ def test_a_build_that_cannot_start_does_not_stay_running(book):
     job = jobs.BuildJob(book, broken, [1], app_api.press.PressSettings())
     job.start().join(10)
     assert job.state == "failed" and "no client" in job.error
+
+
+def test_a_later_finished_build_clears_the_interrupted_warning(tmp_path, config, book):
+    app, _ = make_app(tmp_path, config)
+    app.library = Library(book.series.root.parent)
+    (book.runs_dir / "20260101-000000" / "plan").mkdir(parents=True)
+    assert app.project(book.series.root.name)["interrupted"]
+    (book.runs_dir / "20260102-000000" / "plan").mkdir(parents=True)
+    (book.runs_dir / "20260102-000000" / "report.md").write_text("done\n", encoding="utf-8")
+    assert app.project(book.series.root.name)["interrupted"] == ""
+
+
+def test_closing_the_page_leaves_the_turn_running(tmp_path, config):
+    def thinks(messages):
+        time.sleep(0.8)
+        return {"tool_calls": [("read_file", {"path": "books/01-untitled-book/outline.md"})]}
+
+    router = FakeRouter({"studio_chat": [thinks, thinks, "All done."]})
+    app, _ = make_app(tmp_path, config, router)
+    pid = app.create_project("An idea", defer=True)["project"]
+    server = ThreadingHTTPServer(("127.0.0.1", 0), make_handler(app, "secret"))
+    threading.Thread(target=server.serve_forever, daemon=True).start()
+    body = json.dumps({"project": pid, "chat": "project", "text": "Let's plan"}).encode()
+    page = socket.create_connection(("127.0.0.1", server.server_address[1]))
+    try:
+        page.sendall(b"POST /api/send/stream HTTP/1.1\r\nHost: localhost\r\nX-Writers-Room-Token: secret\r\n"
+                     b"Content-Length: " + str(len(body)).encode() + b"\r\n\r\n" + body)
+        page.recv(4096)
+        time.sleep(0.2)
+        page.close()
+        deadline = time.time() + 15
+        while time.time() < deadline:
+            record = app.load_chat(pid, "project")
+            if record["items"] and record["items"][-1]["kind"] == "assistant" and (record.get("turn") or {}).get("state") != "running":
+                break
+            time.sleep(0.1)
+    finally:
+        server.shutdown()
+        server.server_close()
+    assert record["items"][-1]["text"] == "All done." and len(router.calls) == 3
+
+
+@pytest.mark.parametrize("error, shown", [
+    (ModelServiceError("The model service interrupted its reply (overloaded). Try again."), "interrupted its reply (overloaded)"),
+    (RuntimeError("boom"), "Something went wrong during this turn (boom)"),
+])
+def test_a_failed_turn_says_why(tmp_path, config, error, shown):
+    class Fails(FakeRouter):
+        async def chat(self, *args, **kwargs):
+            raise error
+
+    app, _ = make_app(tmp_path, config, Fails())
+    pid = app.create_project("An idea", defer=True)["project"]
+    assert shown in app.send(pid, "project", "Hello")["items"][-1]["text"]
+
+
+def test_build_notes_reach_the_chat_and_a_failed_build_keeps_its_report(tmp_path, config, book):
+    draft = "# Chapter 1\n\n" + "word " * 2000
+    router = FakeRouter({"studio_writer": [draft, "# Chapter 1\n\nshort"], "studio_critic": ["1. Cut."]})
+    app, _ = make_app(tmp_path, config, router)
+    app.library = Library(book.series.root.parent)
+    pid = book.series.root.name
+    app.build(pid, None, "1", "project")
+    jobs.job_for(book).join(10)
+    assert "discarded" in app.load_chat(pid, "project")["items"][-1]["text"]
+
+    async def drops(role, messages):
+        raise httpx.ReadError("connection reset")
+
+    router.complete = drops
+    app.build(pid, None, "2", "project")
+    jobs.job_for(book).join(10)
+    snap = app.build_status(pid)
+    assert snap["state"] == "failed" and snap["report"].endswith("report.md")
+    item = app.load_chat(pid, "project")["items"][-1]
+    assert "dropped before it finished" in item["text"] and item["report"] == snap["report"]
+    assert app.project(pid)["interrupted"] == ""
+
+
+def test_renaming_leaves_chapters_current_and_the_old_name_working(tmp_path, config):
+    app, _ = make_app(tmp_path, config)
+    pid = app.create_project("An idea", defer=True)["project"]
+    book = app.series(pid).books()[0]
+    book.outline_path.write_text("## Chapter 1\n- A beat.\n", encoding="utf-8")
+    plan = book.read_plan()
+    book.write_chapter(1, "# Chapter 1\n\nText.", plan, "build")
+    # A chapter saved before titles stopped counting.
+    saved = json.loads(book.provenance_path.read_text(encoding="utf-8"))
+    saved["1"]["background"] = plan.titled_fingerprint()
+    book.provenance_path.write_text(json.dumps(saved), encoding="utf-8")
+    assert app.project(pid)["chapters"][0]["state"] == "current"
+
+    moved = app.set_title(pid, "The Dark Lighthouse")
+    assert moved == {"project": "the-dark-lighthouse", "book": "01-the-dark-lighthouse"}
+    assert app.project(moved["project"])["chapters"][0]["state"] == "current"
+    # A second rename, now that the folders have settled, is just as harmless.
+    assert app.set_title(moved["project"], "The Lighthouse")["project"] == moved["project"]
+    assert app.project(moved["project"])["chapters"][0]["state"] == "current"
+    # A page still polling by the old name finds the book, until that name is taken again.
+    assert app.load_chat(pid, "project")["project"] == moved["project"]
+    assert app.create_project("Another", defer=True)["project"] == pid
+    assert app.series(pid).root.name == pid
+
+    # A real change to the bible still counts.
+    bible = app.series(moved["project"]).books()[0].bible_path
+    bible.write_text(bible.read_text(encoding="utf-8") + "\nA new rule.\n", encoding="utf-8")
+    assert app.project(moved["project"])["chapters"][0]["state"] == "plan changed"
