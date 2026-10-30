@@ -123,8 +123,8 @@ favour of this design and is in git history if something specific is needed.
   `effort` in the chat JSON; the selector under the composer writes them. The
   configured `studio_chat` routing is only the default for a chat with no
   choice. Press and background roles stay in Settings; do not move them into
-  the chat selector. The selector lists models marked `suggested: true` in
-  `config/settings.yaml` first, then every model A to Z. Models marked `hidden: true` stay for chats that already
+  the chat selector. The selector lists a backend's `suggested` models from
+  `config/settings.yaml` first, in that order, then every model A to Z. Models marked `hidden: true` stay for chats that already
   chose them but are not offered in either list.
 - **No output caps by default.** Roles in `config/settings.yaml` set no
   `max_tokens`; `tests/test_library.py::test_default_settings_have_no_output_caps`

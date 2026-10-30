@@ -142,6 +142,8 @@ def apply(config: dict, records: list[dict]) -> dict:
                 entry.setdefault("price", found["price"])
             if found["context"]:
                 entry.setdefault("context", found["context"])
+            if found["efforts"]:
+                entry.setdefault("efforts", found["efforts"])
     for model_id, entry in discovered(records).items():
         if model_id not in configured and model_id not in models:
             models[model_id] = entry

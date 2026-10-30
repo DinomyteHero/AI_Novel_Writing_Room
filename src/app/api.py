@@ -1132,6 +1132,7 @@ class App:
             routing = (config.get("agent_routing") or {}).get(role, {})
             options = []
             for b in connected:
+                suggested = config["models"][b].get("suggested") or []
                 for alias, model in (config["models"][b].get("models") or {}).items():
                     if isinstance(model, dict) and model.get("hidden"):
                         continue
@@ -1142,7 +1143,8 @@ class App:
                         "label": entry.get("label") or (model if isinstance(model, str) else "") or alias,
                         "provider": config["models"][b].get("label", b),
                         "efforts": entry.get("efforts") or [],
-                        "suggested": bool(entry.get("suggested")),
+                        # Its place in the picker's suggested list, if it has one.
+                        "suggested": suggested.index(alias) if alias in suggested else None,
                         # Dollars per million tokens read and written, from OpenRouter's catalog.
                         "price": entry.get("price"),
                         "context": context,
