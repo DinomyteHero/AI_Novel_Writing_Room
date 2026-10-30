@@ -837,10 +837,6 @@ function homeView() {
       <button type="button" role="menuitem" ${attr({ act: "pickMode", mode: "series" })}><b style="font-size:14px">New series</b><span class="muted" style="font-size:12px">Several books sharing a world. Each book keeps its own characters and outline.</span></button>
     </div>` : "";
   const chip = h.mode ? `<span class="mode-chip">${h.mode === "series" ? "New series" : "New book"}<button type="button" aria-label="Remove" ${attr({ act: "clearMode" })}>${ic("x", 10, "currentColor", 2.8)}</button></span>` : "";
-  const latest = S.projects[0];
-  const chips = latest
-    ? `<button type="button" class="chip" ${attr({ act: "openProject", project: latest.id })}>Continue ${esc(latest.title)}</button>`
-    : "";
   const placeholder = h.mode === "series" ? "Describe your series: the world, the people, where it goes across books…" : "Describe an idea, paste your notes, or anything you have…";
   return `<div class="home"><div class="home-inner">
     <span class="home-mark">${logo(40, 1.3, true)}</span>
@@ -855,7 +851,7 @@ function homeView() {
       </div>
     </div>
     ${h.note ? `<p class="home-note">${esc(h.note)}</p>` : ""}
-    ${chips ? `<div class="chips">${chips}</div>` : `<p class="home-hint">A single line is enough to start: a character, a place, a scene you can picture. The Room asks the rest.</p>`}
+    ${S.projects.length ? "" : `<p class="home-hint">A single line is enough to start: a character, a place, a scene you can picture. The Room asks the rest.</p>`}
   </div></div>`;
 }
 

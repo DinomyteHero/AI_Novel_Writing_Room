@@ -174,9 +174,8 @@ h2.sub { margin: 0; font-size: 15px; font-weight: 700; }
 .btn.ghost:hover { background: var(--soft); }
 .btn.small { font-size: 13px; padding: 7px 12px; min-height: 34px; }
 .link { font-size: 13px; font-weight: 600; padding: 6px 8px; border: 0; border-radius: 7px; background: transparent; color: var(--accent); cursor: pointer; display: inline-flex; align-items: center; gap: 4px; }
-.link:hover, .chip:hover { background: var(--soft); }
+.link:hover { background: var(--soft); }
 .link.muted { color: var(--muted); }
-.chip { font-size: 13px; font-weight: 600; padding: 8px 12px; border: 1px solid var(--line-strong); border-radius: 999px; background: var(--paper); cursor: pointer; min-height: 36px; }
 .pill { font-size: 12px; font-weight: 600; padding: 6px 10px; border-radius: 999px; cursor: pointer; min-height: 30px; border: 1px solid var(--line-strong); background: var(--paper); }
 .pill.on { background: var(--accent); border-color: var(--accent); color: var(--paper); }
 .card { border: 1px solid var(--line); border-radius: 14px; background: var(--paper); }
@@ -200,7 +199,6 @@ h2.sub { margin: 0; font-size: 15px; font-weight: 700; }
 .home-note { margin: 0; text-align: center; font-size: 14px; color: var(--warn); }
 .home-mark { display: flex; justify-content: center; margin-bottom: -10px; }
 .home-hint { margin: 0 auto; max-width: 440px; text-align: center; font-size: 14px; line-height: 1.55; color: var(--muted); text-wrap: balance; }
-.chips { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
 
 /* lists and grids */
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
