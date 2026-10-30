@@ -1,5 +1,7 @@
 """Tests for ModelRouter."""
 
+import json
+from pathlib import Path
 from unittest.mock import AsyncMock, MagicMock
 
 import pytest
@@ -620,3 +622,132 @@ def test_retry_after_can_be_seconds_or_a_date():
     assert _retry_delay("999") == 30
     assert _retry_delay(None) == 5
     assert _retry_delay("Wed, 21 Oct 2026 07:28:00 GMT") == 5
+
+
+def _direct_router(tmp_path, backend, respond):
+    """The shipped settings, with one provider's API replaced by ``respond``."""
+    import httpx
+
+    config = tmp_path / "settings.yaml"
+    config.write_text((Path(__file__).parents[1] / "config" / "settings.yaml").read_text(encoding="utf-8"), encoding="utf-8")
+    router = ModelRouter(str(config))
+    router._clients[backend] = httpx.AsyncClient(base_url="https://test.invalid", transport=httpx.MockTransport(respond))
+    return router
+
+
+def _sse(*chunks):
+    import httpx
+
+    return httpx.Response(200, text="".join(f"data: {json.dumps(c)}\n\n" for c in chunks) + "data: [DONE]\n")
+
+
+def _chat_reply(requests, *replies):
+    """Record each request's JSON and answer with the next scripted stream."""
+    queue = list(replies)
+
+    def respond(request):
+        requests.append(json.loads(request.content))
+        return _sse(*queue.pop(0))
+
+    return respond
+
+
+TOOL = {"name": "read_file", "description": "Read", "parameters": {"type": "object", "properties": {}}}
+DONE = [{"choices": [{"index": 0, "delta": {"content": "Done."}, "finish_reason": "stop"}]}]
+
+
+async def test_deepseek_gets_its_reasoning_back_on_every_assistant_message(tmp_path):
+    requests = []
+    first = [
+        {"choices": [{"index": 0, "delta": {"reasoning_content": "Let me "}}]},
+        {"choices": [{"index": 0, "delta": {"reasoning_content": "look."}}]},
+        {"choices": [{"index": 0, "delta": {"tool_calls": [{"index": 0, "id": "c1", "type": "function", "function": {"name": "read_file", "arguments": "{}"}}]}, "finish_reason": "tool_calls"}]},
+        {"choices": [], "usage": {"prompt_tokens": 100, "completion_tokens": 5, "prompt_cache_hit_tokens": 80}},
+    ]
+    router = _direct_router(tmp_path, "deepseek", _chat_reply(requests, first, DONE))
+    routing = {"backend": "deepseek", "model": "flash", "params": {}}
+    history = [
+        {"role": "user", "content": "Earlier"},
+        {"role": "assistant", "content": "Thought about", "reasoning_content": "An old thought."},
+        {"role": "user", "content": "A note from the app"},
+        {"role": "assistant", "content": "Noted."},
+        {"role": "user", "content": "Now"},
+    ]
+    try:
+        answer = await router.chat("studio_chat", "System", history, [TOOL], on_text=lambda text: None, routing=routing)
+        following = history + [{"role": "assistant", **answer}, {"role": "tool", "tool_call_id": "c1", "content": "text"}]
+        await router.chat("studio_chat", "System", following, [TOOL], on_text=lambda text: None, routing=routing)
+    finally:
+        await router.close()
+    assert router.usage_log[0]["cached_tokens"] == 80
+    assert requests[0]["model"] == "deepseek-flash" and "session_id" not in requests[0]
+    assistants = [m for m in requests[1]["messages"] if m["role"] == "assistant"]
+    assert [m["reasoning_content"] for m in assistants] == ["An old thought.", "", "Let me look."]
+    assert assistants[-1]["tool_calls"][0]["id"] == "c1"
+
+
+async def test_gemini_gets_its_thought_signature_back_and_nothing_extra(tmp_path):
+    requests = []
+    signature = {"google": {"thought_signature": "opaque"}}
+    first = [{"choices": [{"index": 0, "delta": {"tool_calls": [
+        {"index": 0, "id": "c1", "type": "function", "function": {"name": "read_file", "arguments": "{}"}, "extra_content": signature},
+    ]}, "finish_reason": "tool_calls"}]}]
+    router = _direct_router(tmp_path, "google", _chat_reply(requests, first, DONE))
+    routing = {"backend": "google", "model": "flash", "params": {"reasoning": {"effort": "low"}}}
+    history = [{"role": "assistant", "content": "Before", "reasoning_content": "From another provider."}, {"role": "user", "content": "Now"}]
+    try:
+        answer = await router.chat("studio_chat", "System", history, [TOOL], on_text=lambda text: None, routing=routing)
+        following = history + [{"role": "assistant", **answer}, {"role": "tool", "tool_call_id": "c1", "content": "text"}]
+        await router.chat("studio_chat", "System", following, [TOOL], on_text=lambda text: None, routing=routing)
+    finally:
+        await router.close()
+    assert requests[0]["model"] == "gemini-3.8-flash" and requests[0]["reasoning_effort"] == "low" and "reasoning" not in requests[0]
+    assert "reasoning_content" not in requests[0]["messages"][1]
+    assert requests[1]["messages"][3]["tool_calls"][0]["extra_content"] == signature
+
+
+async def test_parallel_tool_calls_stay_apart_without_their_own_numbers(tmp_path):
+    requests = []
+    unnumbered = [{"choices": [{"index": 0, "delta": {"tool_calls": [
+        {"id": "a", "function": {"name": "read_file", "arguments": "{}"}},
+        {"id": "b", "function": {"name": "status", "arguments": "{}"}},
+    ]}, "finish_reason": "tool_calls"}]}]
+    same_number = [{"choices": [{"index": 0, "delta": {"tool_calls": [
+        {"index": 0, "id": "a", "function": {"name": "read_file", "arguments": "{}"}},
+        {"index": 0, "id": "b", "function": {"name": "status", "arguments": "{}"}},
+    ]}, "finish_reason": "tool_calls"}]}]
+    router = _direct_router(tmp_path, "google", _chat_reply(requests, unnumbered, same_number))
+    routing = {"backend": "google", "model": "flash", "params": {}}
+    try:
+        for _ in range(2):
+            answer = await router.chat("studio_chat", "System", [{"role": "user", "content": "Go"}], [TOOL], on_text=lambda text: None, routing=routing)
+            assert [(c["id"], c["name"]) for c in answer["tool_calls"]] == [("a", "read_file"), ("b", "status")]
+    finally:
+        await router.close()
+
+
+def test_reasoning_effort_is_sent_the_way_each_provider_takes_it(tmp_path):
+    router = _direct_router(tmp_path, "deepseek", lambda request: None)
+    high = {"reasoning": {"effort": "high"}, "provider": {"only": ["deepseek"]}}
+    assert router._request_params("deepseek", high) == {"reasoning_effort": "high"}
+    assert router._request_params("deepseek", {"reasoning": {"effort": "none"}}) == {"thinking": {"type": "disabled"}}
+    assert router._request_params("openai", {"reasoning": {"effort": "none"}}) == {"reasoning_effort": "none"}
+    assert router._request_params("cloud", high) == high
+
+
+async def test_a_provider_with_no_model_list_still_connects_but_a_bad_key_does_not(tmp_path):
+    import httpx
+
+    router = _direct_router(tmp_path, "qwen", lambda request: httpx.Response(404))
+    try:
+        reachable, message = await router.check_backend("qwen")
+    finally:
+        await router.close()
+    assert reachable and "first message" in message
+
+    router = _direct_router(tmp_path, "qwen", lambda request: httpx.Response(401))
+    try:
+        reachable, _ = await router.check_backend("qwen")
+    finally:
+        await router.close()
+    assert not reachable

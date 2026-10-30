@@ -84,7 +84,7 @@ class FakeRouter:
             {"id": f"call{i}", "name": name, "arguments": args}
             for i, (name, args) in enumerate(reply.get("tool_calls", []))
         ]
-        return {"content": reply.get("content", ""), "tool_calls": calls, "native": None,
+        return {"content": reply.get("content", ""), "tool_calls": calls, "native": reply.get("native"),
                 "sources": reply.get("sources", [])}
 
     async def health_check(self) -> tuple[bool, str]:

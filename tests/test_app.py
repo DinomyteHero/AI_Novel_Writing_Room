@@ -938,3 +938,44 @@ def test_renaming_leaves_chapters_current_and_the_old_name_working(tmp_path, con
     bible = app.series(moved["project"]).books()[0].bible_path
     bible.write_text(bible.read_text(encoding="utf-8") + "\nA new rule.\n", encoding="utf-8")
     assert app.project(moved["project"])["chapters"][0]["state"] == "plan changed"
+
+
+def test_a_saved_key_is_what_selects_a_provider(tmp_path, config):
+    app, _ = make_app(tmp_path, config)
+
+    def chat_role():
+        return next(r for r in app.settings()["roles"] if r["key"] == "studio_chat")
+
+    assert chat_role()["options"] == []
+    app.set_key("deepseek", "test-key")
+    role = chat_role()
+    assert [(o["backend"], o["model"], o["suggested"]) for o in role["options"]] == [("deepseek", "flash", 0), ("deepseek", "pro", 1)]
+    assert role["current"] == {"backend": "deepseek", "model": "flash"} and not role["web"]
+    routing = app.config()["agent_routing"]
+    assert routing["studio_writer"] == {"backend": "deepseek", "model": "flash", "params": {}}
+    assert routing["studio_critic"] == {"backend": "deepseek", "model": "pro", "params": {}}
+    assert routing["studio_notes"]["params"] == {}  # OpenRouter's routing preferences are gone
+
+    app.set_key("qwen", "test-key")
+    assert {o["backend"] for o in chat_role()["options"]} == {"deepseek", "qwen"}
+    app.set_key("deepseek", "")
+    assert {o["backend"] for o in chat_role()["options"]} == {"qwen"}
+    assert app.config()["agent_routing"]["studio_writer"]["backend"] == "qwen"
+
+
+def test_every_suggested_model_is_a_model_that_is_offered(config):
+    for backend in yaml.safe_load(config.read_text(encoding="utf-8"))["models"].values():
+        for alias in backend.get("suggested") or []:
+            assert not backend["models"][alias].get("hidden"), alias
+
+
+def test_a_replys_reasoning_is_kept_for_later_turns(tmp_path, config):
+    native = {"role": "assistant", "content": "Hi.", "reasoning_content": "Greet them."}
+    router = FakeRouter({"studio_chat": [{"content": "Hi.", "tool_calls": [], "native": native}, "Again."]})
+    app, _ = make_app(tmp_path, config, router)
+    pid = app.create_project("An idea", defer=True)["project"]
+    record = app.send(pid, "project", "Hello")
+    assert record["history"][1] == {"role": "assistant", "content": "Hi.", "reasoning_content": "Greet them."}
+    app.send(pid, "project", "Hello again")
+    sent = router.calls[-1][1]
+    assert sent[2]["reasoning_content"] == "Greet them."

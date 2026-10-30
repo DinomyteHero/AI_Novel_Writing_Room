@@ -366,13 +366,26 @@ in `config/settings.local.yaml`, and the cached catalog in
 `config/openrouter_models.json`, all private to your computer. The plugin asks
 for your key when you install it.
 
+You choose providers by connecting them. Save a key in Settings and that
+provider's models appear in the lists; remove it and they go. To use only
+DeepSeek, Gemini or Qwen directly, connect it and remove your OpenRouter key:
+the Press roles follow by themselves unless you chose models yourself, and a
+chat set to a model that's no longer offered asks you to pick another. Going
+direct has limits. The chat's web search only works through OpenRouter for
+now, the lists don't update themselves, the prices shown for direct models are
+typed into `config/settings.yaml` (none yet for Qwen), and reports show tokens
+rather than cost. Your book still goes to whichever provider you use, on every
+call, under that provider's own terms.
+
 Underneath, `config/settings.yaml` holds:
 
 - **Providers.** OpenRouter (recommended: one key, every model), Anthropic,
-  OpenAI, Google, and a model running on your own computer (Ollama or
-  llama.cpp). Each needs only its key, named by `api_key_env`.
-- **Roles.** `studio_chat` is the default for the app's chat, which can also
-  search the web and read pages; each chat can pick a different model and
+  OpenAI, Google, DeepSeek, Qwen (Alibaba Cloud's international endpoint, with
+  a key made for the Singapore region), and a model running on your own
+  computer (Ollama or llama.cpp). Each needs only its key, named by
+  `api_key_env`.
+- **Roles.** `studio_chat` is the default for the app's chat, which through
+  OpenRouter can also search the web and read pages; each chat can pick a different model and
   reasoning effort. `studio_writer` drafts and revises at high reasoning
   effort (both Gemini 4 Argon); `studio_critic` critiques press drafts (Claude
   Sonnet 5.5, a different model from the writer); `studio_reader` writes

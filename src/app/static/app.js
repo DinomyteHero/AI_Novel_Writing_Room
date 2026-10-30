@@ -1070,7 +1070,9 @@ function pickerHtml(role, sel) {
       <span class="name">${esc(o.label)}</span>${several ? `<span class="from">${esc(o.provider)}</span>` : ""}${note ? `<small>${esc(note)}</small>` : ""}${on ? ic("check", 14, "currentColor", 2.4) : ""}</button>`;
   };
   const az = [...shown].sort((a, b) => a.label.localeCompare(b.label, undefined, { sensitivity: "base", numeric: true })).map(row).join("");
-  const suggested = q ? [] : role.options.filter((o) => o.suggested != null).sort((a, b) => a.suggested - b.suggested);
+  const backends = [...new Set(role.options.map((o) => o.backend))];
+  const suggested = q ? [] : role.options.filter((o) => o.suggested != null)
+    .sort((a, b) => backends.indexOf(a.backend) - backends.indexOf(b.backend) || a.suggested - b.suggested);
   const models = suggested.length
     ? `<div class="picker-group"><span class="label">Suggested</span>${suggested.map(row).join("")}</div>
        <div class="picker-group"><span class="label">All models</span>${az}</div>`

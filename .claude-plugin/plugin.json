@@ -42,6 +42,20 @@
       "description": "Optional: Gemini models directly from Google. With no OpenRouter key, the roles use it by themselves.",
       "sensitive": true,
       "required": false
+    },
+    "deepseek_api_key": {
+      "type": "string",
+      "title": "DeepSeek API key (optional)",
+      "description": "Optional: DeepSeek models directly from DeepSeek. With no OpenRouter key, the roles use it by themselves.",
+      "sensitive": true,
+      "required": false
+    },
+    "dashscope_api_key": {
+      "type": "string",
+      "title": "Alibaba Cloud Qwen API key (optional)",
+      "description": "Optional: Qwen models directly from Alibaba Cloud, with a key made for the Singapore region. With no OpenRouter key, the roles use it by themselves.",
+      "sensitive": true,
+      "required": false
     }
   },
   "mcpServers": {
@@ -55,7 +69,9 @@
         "OPENROUTER_API_KEY": "${user_config.openrouter_api_key}",
         "ANTHROPIC_API_KEY": "${user_config.anthropic_api_key}",
         "OPENAI_API_KEY": "${user_config.openai_api_key}",
-        "GEMINI_API_KEY": "${user_config.gemini_api_key}"
+        "GEMINI_API_KEY": "${user_config.gemini_api_key}",
+        "DEEPSEEK_API_KEY": "${user_config.deepseek_api_key}",
+        "DASHSCOPE_API_KEY": "${user_config.dashscope_api_key}"
       }
     }
   }
