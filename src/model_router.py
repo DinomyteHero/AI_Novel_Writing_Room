@@ -54,7 +54,7 @@ _FALLBACK_BETA = "server-side-fallback-2026-07-01"
 # Request settings that only make sense for OpenAI-compatible providers.
 _OPENAI_ONLY_PARAMS = {"temperature", "top_p", "top_k", "min_p", "reasoning", "provider"}
 # The order providers are listed in, and tried in when a role picks its own model.
-PROVIDER_ORDER = ["cloud", "anthropic", "openai", "google", "local"]
+PROVIDER_ORDER = ["cloud", "anthropic", "openai", "google", "deepseek", "qwen", "local"]
 # Every call sends the whole book; automatic choices skip smaller windows.
 _AUTO_MIN_CONTEXT = 1_000_000
 # Roles that read the writer's work are better as a different model from it.
@@ -317,7 +317,8 @@ class ModelRouter:
                 agent_role, backend, model, system, _to_anthropic(messages, self._cache_control("5m")),
                 tools, params, on_text,
             )
-        payload_messages = [{"role": "system", "content": system}] + _to_openai(messages)
+        replay = bool(self.backend_config(backend).get("replay_reasoning"))
+        payload_messages = [{"role": "system", "content": system}] + _to_openai(messages, replay)
         openai_tools = [
             {"type": "function", "function": {
                 "name": t["name"], "description": t["description"], "parameters": t["parameters"],
@@ -338,6 +339,20 @@ class ModelRouter:
             calls.append({"id": call.get("id"), "name": call["function"]["name"], "arguments": arguments})
         return {"content": message.get("content") or "", "tool_calls": calls, "native": message,
                 "sources": _citations(message.get("annotations"))}
+
+    def _request_params(self, backend: str, params: dict) -> dict:
+        """Roles and chats store OpenRouter's request fields; a provider's own
+        API takes reasoning effort its own way and has no routing preferences."""
+        cfg = self.backend_config(backend)
+        if "openrouter.ai" in str(cfg.get("base_url", "")):
+            return params
+        params = {k: v for k, v in params.items() if k != "provider"}
+        effort = (params.pop("reasoning", None) or {}).get("effort")
+        if effort == "none" and cfg.get("thinking_off"):
+            params.update(cfg["thinking_off"])
+        elif effort:
+            params["reasoning_effort"] = effort
+        return params
 
     async def _openai_call(
         self,
@@ -360,7 +375,7 @@ class ModelRouter:
         payload = {
             "model": model,
             "messages": _with_parts(messages, cache_control and self._cache_control(cache_ttl)),
-            **params,
+            **self._request_params(backend, params),
         }
         if tools:
             payload["tools"] = tools
@@ -415,7 +430,7 @@ class ModelRouter:
                     "model": model,
                     "prompt_tokens": usage.get("prompt_tokens", 0),
                     "completion_tokens": usage.get("completion_tokens", 0),
-                    "cached_tokens": details.get("cached_tokens") or 0,
+                    "cached_tokens": details.get("cached_tokens") or usage.get("prompt_cache_hit_tokens") or 0,
                     "cache_write_tokens": details.get("cache_write_tokens") or 0,
                     "cost": usage.get("cost"),
                     "web_searches": (usage.get("server_tool_use") or {}).get("web_search_requests") or 0,
@@ -453,7 +468,7 @@ class ModelRouter:
     @staticmethod
     async def _openai_stream(client, payload: dict, on_text: Callable[[str], None]) -> dict:
         message = {"role": "assistant", "content": ""}
-        calls, reasoning = {}, {}
+        calls, reasoning, moved = {}, {}, {}
         usage, finish = {}, None
         async with client.stream("POST", "/chat/completions", json={
             **payload, "stream": True, "stream_options": {"include_usage": True},
@@ -480,7 +495,7 @@ class ModelRouter:
                         continue
                     finish = choice.get("finish_reason") or finish
                     delta = choice.get("delta") or {}
-                    for key in ("content", "reasoning", "refusal"):
+                    for key in ("content", "reasoning", "reasoning_content", "refusal"):
                         if delta.get(key):
                             message[key] = message.get(key, "") + delta[key]
                             if key == "content":
@@ -492,11 +507,19 @@ class ModelRouter:
                         for key, value in part.items():
                             entry[key] = entry.get(key, "") + value if key in ("text", "signature", "data") and isinstance(value, str) else value
                     for part in delta.get("tool_calls") or []:
-                        entry = calls.setdefault(part["index"], {"id": "", "type": "function", "function": {"name": "", "arguments": ""}})
+                        # Not every provider numbers parallel calls apart, or at all.
+                        given = part.get("index", len(calls))
+                        slot = moved.get(given, given)
+                        if part.get("id") and calls.get(slot, {}).get("id") not in (None, "", part["id"]):
+                            slot = moved[given] = max(calls) + 1
+                        entry = calls.setdefault(slot, {"id": "", "type": "function", "function": {"name": "", "arguments": ""}})
                         if part.get("id"):
                             entry["id"] = part["id"]
                         for key in ("name", "arguments"):
                             entry["function"][key] += (part.get("function") or {}).get(key) or ""
+                        # Anything else on the call, such as Gemini's thought
+                        # signature, has to go back with it unchanged.
+                        entry.update({k: v for k, v in part.items() if k not in ("index", "id", "type", "function")})
         if finish is None or finish == "length":
             raise ModelServiceError("The model's reply ended before it was complete. Try again; no unfinished tool call was applied.")
         if calls:
@@ -636,6 +659,8 @@ class ModelRouter:
                 return False, "Invalid API key (401 Unauthorized)"
             if response.status_code == 403:
                 return False, "API key lacks permissions (403 Forbidden)"
+            if response.status_code == 404:  # no model list to test the key against
+                return True, f"{name} reachable; your first message will confirm the key"
             response.raise_for_status()
             message = "Cloud API reachable, key valid"
             if openrouter:
@@ -803,7 +828,9 @@ def _sources_note(annotations: list[dict]) -> str:
     return "\n\n[Web results you saw while writing this, kept so you can use them:]\n" + "\n".join(lines)
 
 
-def _to_openai(messages: list[dict]) -> list[dict]:
+def _to_openai(messages: list[dict], replay_reasoning: bool = False) -> list[dict]:
+    """``replay_reasoning``: DeepSeek refuses a request with tools unless every
+    earlier assistant message carries its reasoning, so one with none sends it empty."""
     out = []
     for m in messages:
         if m["role"] == "assistant":
@@ -812,9 +839,13 @@ def _to_openai(messages: list[dict]) -> list[dict]:
                 found = native.pop("annotations", None)
                 if found:
                     native["content"] = (native.get("content") or "") + _sources_note(found)
+                if replay_reasoning:
+                    native.setdefault("reasoning_content", "")
                 out.append(native)
                 continue
             entry = {"role": "assistant", "content": m.get("content") or ""}
+            if replay_reasoning:
+                entry["reasoning_content"] = m.get("reasoning_content") or ""
             if m.get("tool_calls"):
                 entry["tool_calls"] = [
                     {"id": c["id"], "type": "function",

@@ -58,7 +58,9 @@ PROVIDER_BLURBS = {
     "cloud": "One key for every model here: DeepSeek, Gemini, Claude, GPT and more. Pay as you go.",
     "anthropic": "Claude models, directly from Anthropic.",
     "openai": "GPT models, directly from OpenAI.",
-    "google": "Gemini models, directly from Google AI Studio.",
+    "google": "Gemini models, directly from Google AI Studio. No web search in chats yet.",
+    "deepseek": "DeepSeek models, directly from DeepSeek. No web search in chats yet.",
+    "qwen": "Qwen models, directly from Alibaba Cloud (international). Use a key made for the Singapore region. No web search in chats yet.",
     "local": "A model running on this computer with Ollama or llama.cpp. Free and private, but slower and less capable.",
 }
 
@@ -94,7 +96,7 @@ def _role_price(config: dict, role: str) -> dict | None:
 
 def build_cost(config: dict, guess: press.Estimate) -> float | None:
     """Dollars for a build at the writer's and critic's list prices, or None
-    when a price isn't known (only OpenRouter's catalog gives them)."""
+    when a price isn't known (from OpenRouter's catalog or config/settings.yaml)."""
     writer, critic = _role_price(config, "studio_writer"), _role_price(config, "studio_critic")
     if not writer or (guess.critic_input_tokens and not critic):
         return None
@@ -787,7 +789,7 @@ class App:
             ))
             record["book"] = result.book.root.name if result.book else record["book"]
             record["turn"]["usage"] = result.usage.describe()
-            self._finish_turn(pid, record, "finished", result.reply)
+            self._finish_turn(pid, record, "finished", result.reply, result.reasoning)
         except chat.TurnStopped:
             self._finish_turn(pid, record, "stopped", "Stopped. Completed changes have been kept. Send your next instruction whenever you're ready.")
         except Exception as exc:
@@ -804,7 +806,7 @@ class App:
         notify({"kind": "done", "record": record})
         return record
 
-    def _finish_turn(self, pid: str, record: dict, state: str, reply: str) -> None:
+    def _finish_turn(self, pid: str, record: dict, state: str, reply: str, reasoning: str = "") -> None:
         with self._lock:
             turn = record["turn"]
             for tool in turn.get("tools", []):
@@ -813,7 +815,9 @@ class App:
             if state != "finished" and turn.get("text", "").strip():
                 record["items"].append({"kind": "assistant", "id": chat.new_id("m"), "text": turn["text"], "incomplete": True})
             items = record["items"][turn["start"]:]
-            record["history"] += chat.history_entries(turn["prompt"], [(n, "") for n in turn["files"]], chat.TurnResult(reply, items))
+            record["history"] += chat.history_entries(
+                turn["prompt"], [(n, "") for n in turn["files"]], chat.TurnResult(reply, items, reasoning=reasoning)
+            )
             record["items"].append({"kind": "assistant", "id": chat.new_id("m"), "text": reply})
             turn.pop("fresh", None)
             turn.update(state=state, text="", phase="")
@@ -1145,7 +1149,7 @@ class App:
                         "efforts": entry.get("efforts") or [],
                         # Its place in the picker's suggested list, if it has one.
                         "suggested": suggested.index(alias) if alias in suggested else None,
-                        # Dollars per million tokens read and written, from OpenRouter's catalog.
+                        # Dollars per million tokens read and written, where known.
                         "price": entry.get("price"),
                         "context": context,
                         "small": 0 < context < MAX_PROMPT_TOKENS,

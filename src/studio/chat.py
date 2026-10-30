@@ -270,6 +270,7 @@ class TurnResult:
     items: list[dict] = field(default_factory=list)
     book: Book | None = None
     usage: Usage = field(default_factory=Usage)
+    reasoning: str = ""
 
 
 class _Tools:
@@ -677,6 +678,8 @@ async def run_turn(
                 raise StudioError(TOO_LONG + " Or start a new chat.") from exc
             raise
         messages.append({"role": "assistant", **answer})
+        native = answer.get("native")
+        reasoning = (native.get("reasoning_content") or "") if isinstance(native, dict) else ""
         # Web searches run at the provider, out of sight: show what was found
         # so "I checked" can be checked, and keep it for later turns to cite.
         searched = sum(e.get("web_searches") or 0 for e in router.usage_log[step_start:])
@@ -751,7 +754,7 @@ async def run_turn(
             reply = "I staged the suggestions; choose Use suggestion or Keep original."
         else:
             reply = "Done." if tools.items else "Sorry, I didn't get an answer back. Try again?"
-    return TurnResult(reply, tools.items, tools.book, Usage.since(router, usage_start))
+    return TurnResult(reply, tools.items, tools.book, Usage.since(router, usage_start), reasoning)
 
 
 def history_entries(text: str, attachments: list[tuple[str, str]], result: TurnResult) -> list[dict]:
@@ -762,7 +765,8 @@ def history_entries(text: str, attachments: list[tuple[str, str]], result: TurnR
     said = [i["text"] for i in result.items if i["kind"] == "assistant"]
     entries = [
         {"role": "user", "content": user or "(attachment)"},
-        {"role": "assistant", "content": "\n".join(said + [result.reply])},
+        {"role": "assistant", "content": "\n".join(said + [result.reply]),
+         **({"reasoning_content": result.reasoning} if result.reasoning else {})},
     ]
     # The app's record of what changed, kept out of the model's own replies so
     # it never learns that writing "[Edited ...]" is how a file gets changed.

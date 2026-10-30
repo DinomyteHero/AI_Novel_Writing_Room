@@ -138,7 +138,9 @@ favour of this design and is in git history if something specific is needed.
   plugin's tools map its commands; don't fork the guide per front end.
 - **Append-only chat turns.** The app sends earlier turns as plain text and
   the current files only with the newest message, never editing what was sent
-  (prompt caching, and Claude's thinking-block binding, depend on it).
+  (prompt caching, and Claude's thinking-block binding, depend on it). A reply's
+  `reasoning_content`, where a provider returns one, stays on its history entry
+  and goes back only to a backend marked `replay_reasoning` (DeepSeek).
 - **Planning progress is recoverable.** `/api/send/stream` emits text and tool
   activity as newline-delimited JSON. The existing chat JSON saves completed
   actions during the turn and marks interrupted turns on reopening. A closed or
@@ -152,7 +154,11 @@ favour of this design and is in git history if something specific is needed.
   replacing it.
 - **Providers are backends.** Each entry under `models` in
   `config/settings.yaml` is a backend; `api: anthropic` uses the Anthropic SDK,
-  the rest the OpenAI-compatible API. The app writes the writer's choices to
+  the rest the OpenAI-compatible API. A saved key is what selects a provider;
+  there is no other switch. Roles and chats store OpenRouter's request fields,
+  and `_request_params` in `src/model_router.py` translates them for a provider's
+  own API. Web search needs OpenRouter's server tools, so direct providers don't
+  have it yet. The app writes the writer's choices to
   the gitignored `config/settings.local.yaml` and keys to `.env`. When
   Settings or the chat's model picker opens and OpenRouter is connected, the
   app refreshes OpenRouter's public catalog if the cache
