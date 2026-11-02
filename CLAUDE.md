@@ -22,7 +22,10 @@ Writers reach both halves three ways, all over the same files and code:
 - **The app** (`scripts/app.py`): a local web app in the browser, laid out
   like Claude (books, chats, a Book panel, Settings for providers). A
   chat model from the writer's own provider (`studio_chat`) follows the same
-  `story-session` skill through tools (`src/studio/chat.py`).
+  `story-session` skill through tools (`src/studio/chat.py`). The double-click
+  launchers (`Start Writers Room.bat`, `.command`) set up `.venv` from
+  `requirements.txt` on first run and start it; test and lint tools live in
+  `requirements-dev.txt`.
 - **The Claude plugin** (`.claude-plugin/`): for Cowork and Claude Code.
   Claude follows the skill and edits files itself; a stdio MCP server
   (`scripts/mcp_server.py` → `src/studio/mcp.py`) adds books, reviews,
@@ -191,13 +194,14 @@ favour of this design and is in git history if something specific is needed.
 | The app's room chat (tools, undo, review calls) | `src/studio/chat.py`, `prompts/studio/room_chat.md` |
 | Background builds (app and plugin) | `src/studio/jobs.py` |
 | The app: backend, local server, page | `src/app/api.py`, `src/app/server.py`, `src/app/static/`, `scripts/app.py` |
+| Double-click launchers (checked by `.github/workflows/launchers.yml`) | `Start Writers Room.bat`, `Start Writers Room.command` |
 | The Claude plugin: manifest, marketplace, commands, MCP tools | `.claude-plugin/`, `commands/`, `src/studio/mcp.py`, `scripts/mcp_server.py` |
 | Model prompts + craft guide | `prompts/studio/` |
 | Starter files | `templates/story/` |
 | The Room's conversation | `.claude/skills/story-session/SKILL.md` |
 | Model routing (providers, overlay, tool calls), usage log, key check | `src/model_router.py`, `config/settings.yaml` |
 | OpenRouter's catalog (daily cache, newer models, prices) | `src/model_catalog.py` |
-| Writer-facing guide | `docs/guide.md` |
+| Writer-facing guide, README screenshots, design notes | `docs/guide.md`, `docs/images/`, `docs/design/` |
 
 Routing roles: `studio_chat` (the app's default chat model; a chat can
 override it), `studio_writer` (draft, revise, polish), `studio_critic` (press
