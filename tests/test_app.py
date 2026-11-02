@@ -525,7 +525,7 @@ def test_streaming_http_sends_events_and_requires_token(tmp_path, config):
 
 
 def test_ideas_open_as_points_with_their_own_choices(tmp_path, config, book):
-    # Ideas files come from room.py ideas or the plugin; the app opens them.
+    # Ideas files come from room.py ideas or the chat's tool; the app opens them.
     app, _ = make_app(tmp_path, config)
     app.library = Library(book.series.root.parent)
     pid = book.series.root.name

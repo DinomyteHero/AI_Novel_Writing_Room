@@ -1,8 +1,6 @@
 """The room's conversation, for the app: a chat model that edits the plan files.
 
-The Claude plugin doesn't need this: there Claude itself follows the
-story-session skill and edits the files. In the app, a model from the
-writer's own provider plays the same part, following the same skill, with a
+A model from the writer's own provider follows the story-session skill with a
 small set of tools.
 
 Each turn sends the conversation so far (plain text only) and, with the

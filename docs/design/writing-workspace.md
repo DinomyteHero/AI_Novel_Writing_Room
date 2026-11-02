@@ -45,15 +45,12 @@ The working system is smaller and more complete than the phrase "Cowork clone" s
 | Press: estimate, draft → critique → revise, run folder, report | `src/studio/press.py` | Working | A writer-facing brief before the build; currency estimates |
 | Background builds, stop after chapter, progress snapshot | `src/studio/jobs.py` | Working | Durable jobs; recovery after the process dies |
 | Providers, roles, reasoning effort, prompt caching, usage log | `src/model_router.py`, `config/settings.yaml` | Working | A budget profile and per-project overrides |
-| MCP server and Claude plugin | `src/studio/mcp.py`, `scripts/mcp_server.py`, `.claude-plugin/` | Working | Resources, progress notifications, cancellation, parity tests |
 | CLI | `scripts/room.py`, `scripts/press.py`, `src/studio/cli.py` | Working | Nothing urgent |
 | Craft guide and conversation skill | `prompts/studio/craft_guide.md`, `.claude/skills/story-session/SKILL.md` | Working, thin | Sourced craft notes and flexible, manuscript-specific advice |
 | Markdown export | `src/studio/press.py` | Working | DOCX, then EPUB |
-| Tests and CI | `tests/`, `.github/workflows/ci.yml` | Working | Editorial evaluation; MCP contract tests |
+| Tests and CI | `tests/`, `.github/workflows/ci.yml` | Working | Editorial evaluation |
 
-**The MCP server is real.** `src/studio/mcp.py` exposes fifteen tools over stdio: `list_books`, `new_book`, `status`, `review`, `ideas`, `rename`, `estimate_build`, `start_build`, `build_status`, `stop_build`, `revise_chapter`, `story_so_far`, `export`, `check`, and `craft_guide`. `.claude-plugin/plugin.json` starts `scripts/mcp_server.py` and passes the library folder and provider keys. Claude in Cowork or Claude Code follows the same story-session skill and edits the plan files directly; the server supplies the operations Claude cannot do with files alone.
-
-That means much of the "Cowork for writing" architecture is already built. The remaining work is not a new platform; it is the writing-specific surface, the craft depth, and the trust features.
+Much of the "Cowork for writing" architecture is already built. The remaining work is not a new platform; it is the writing-specific surface, the craft depth, and the trust features.
 
 ---
 
@@ -132,7 +129,7 @@ top-level destinations.
 
 ## 5. The Room: how a turn actually works
 
-The app's Room is a model from the writer's own provider following the story-session skill through tools. The plugin's Room is Claude itself following the same skill and editing the files directly. The behaviour should stay the same; only the host changes.
+The app's Room is a model from the writer's own provider following the story-session skill through tools.
 
 ```text
 writer message
@@ -237,21 +234,11 @@ The writer should see, before pressing Build: which chapters, the brief, target 
               OpenRouter · Anthropic · OpenAI · Google · local
 ```
 
-The plugin path is parallel, not a second implementation:
-
-```text
-Cowork / Claude Code / another MCP host
-        │ stdio JSON-RPC
-        ▼
-scripts/mcp_server.py → src/studio/mcp.py → same studio operations → library/
-```
-
 | Process | Responsibility | Lifetime |
 |---|---|---|
 | Browser SPA | Rendering, selection, streaming display, local preferences | A tab |
 | Python app server | HTTP API, Room turns, Press jobs, settings, static files | `python scripts/app.py` |
 | Build thread | One chapter loop at a time, one per book | Inside the app process |
-| MCP server | Tools for an external host | The host's session |
 | CLI | Scripted room and press operations | One command |
 
 There is no cloud service, no database, and no queue. That is a feature at this stage: the whole system is a folder, a Python process, and the writer's provider.
@@ -266,7 +253,6 @@ There is no cloud service, no database, and no queue. That is a feature at this 
 | Room chat (tools, undo, review calls) | `src/studio/chat.py` |
 | Background builds | `src/studio/jobs.py` |
 | App backend, HTTP server, page | `src/app/api.py`, `src/app/server.py`, `src/app/static/` |
-| MCP tools and stdio server | `src/studio/mcp.py`, `scripts/mcp_server.py` |
 | Model routing, providers, caching | `src/model_router.py`, `config/settings.yaml` |
 | Conversation skill and prompts | `.claude/skills/story-session/SKILL.md`, `prompts/studio/` |
 
@@ -413,36 +399,13 @@ The priority order is: current explicit task and agreed intent, current book/ser
 
 ---
 
-## 11. MCP and integrations
+## 11. Integrations
 
-MCP standardises connections between a host and capabilities such as tools, resources, and prompts. It does not itself provide editorial expertise. [MCP architecture overview](https://modelcontextprotocol.io/docs/2026-07-28/learn/architecture)
+The browser app calls the studio operations directly, and they work on the book files. The Claude plugin and its MCP server were removed; they are in git history if something specific is needed.
 
-Keep two directions distinct:
+An outbound MCP client, connecting the app to a chosen research or document service, would be new work. The app's configured provider-side web tools cover initial research; do not build an outbound client just to reproduce that capability.
 
-```text
-Our browser app ──direct calls──► studio operations ──► book files
-Other MCP host  ──our MCP server─► studio operations ──► book files
-
-Later, if needed:
-Our app ──outbound MCP client──► chosen research/document service
-```
-
-The first two paths exist. A general outbound MCP connection manager would be new work. The app's configured provider-side web tools cover initial research; do not build an outbound client just to reproduce that capability.
-
-### What the server should add
-
-| Gap | Why it matters | Proposal |
-|---|---|---|
-| No resources | A host cannot browse the plan or chapters natively | Expose `library://books`, `book://<id>/outline`, `chapter://<id>/<n>` as read-only resources |
-| No prompts | Each host must know the skill by convention | Expose the story-session skill and a few starter prompts |
-| No progress | Long builds look frozen | Send MCP progress notifications per stage |
-| No cancellation | Hosts cannot stop a build cleanly | Map cancellation to the existing stop-after-chapter behaviour |
-| No library selection per call | One library per server process | Keep the environment default; add an optional `library` argument only if real hosts need it |
-| Parity by hand | App and MCP tools drift | A contract test that every studio operation used by one surface exists in the other |
-
-Keep the server stdio-only and local. It is a bridge to the writer's own files, not a hosted service. If an outbound connection is added later, order it: a source-fetch/research tool, then a reader's reference library, then document import/export. Start with bounded reads, visible selected sources, explicit file destinations for writes, and failure isolation. A connector failing must not prevent writing or local file access.
-
-Public comparison points, documentation-level only: [novel-writer-mcp](https://github.com/novacastriancyber/novel-writer-mcp) overlaps heavily with this repository; [mcp-writing](https://github.com/hannasdev/mcp-writing) uses a scene index and SQLite-canonical metadata, which conflicts with this project's whole-book, plain-file design. Retain our server; use external MCP only for a specific missing capability.
+If an outbound connection is added later, order it: a source-fetch/research tool, then a reader's reference library, then document import/export. Start with bounded reads, visible selected sources, explicit file destinations for writes, and failure isolation. A connector failing must not prevent writing or local file access.
 
 ---
 
@@ -525,7 +488,6 @@ Rules: persist before showing; apply once; re-read and compare `expected_version
 | Empty or unsuitable generated result | Save no empty response; report a discarded short revision |
 | Writer rejects feedback | Keep the decision visible; do not quietly apply the suggestion elsewhere |
 | App process stops during a build | Say the build stopped; saved chapters and reports remain; continuing is a fresh build |
-| MCP host exits | The server process ends; no durable job survives. Document this in the plugin's help. |
 | Corrupted chat JSON | Skip it in summaries, keep the file, and offer to open the raw file rather than deleting it |
 | Rename collision | Show the count and examples before applying; never rename history, runs, or reviews |
 
@@ -571,7 +533,7 @@ The product is judged in the awkward moments, not the demo.
 
 Functional checks are necessary but not sufficient. The product's claim is editorial quality, and that needs humans.
 
-**Functional.** `pytest -q` and `ruff check .` in CI. Tests never call real models; `tests/fakes.py::FakeRouter` returns scripted replies and records calls. Cover version conflicts, selection boundaries, history/undo, cancelled turns, reference scope, frozen build context, restart messaging, and MCP tool parity.
+**Functional.** `pytest -q` and `ruff check .` in CI. Tests never call real models; `tests/fakes.py::FakeRouter` returns scripted replies and records calls. Cover version conflicts, selection boundaries, history/undo, cancelled turns, reference scope, frozen build context, and restart messaging.
 
 **Editorial.** Compare original and suggested passages blind with writers or editors across genres. Ask:
 
@@ -631,12 +593,6 @@ Opt-in git snapshots and restore, DOCX export with chapter headings and page bre
 
 **Acceptance:** a writer can restore a previous state without the app; DOCX opens with headings and page breaks; import never silently overwrites an existing file.
 
-### Slice 6 — MCP native (1–2 weeks)
-
-Resources for plans and chapters, prompts for the skill, progress notifications, cancellation, and a parity contract test.
-
-**Acceptance:** a host can list a book's plan and chapters without shell access; a long build reports progress; cancellation stops after the chapter in progress; the app and MCP surfaces expose the same operations.
-
 **Later:** EPUB, outbound research MCP, a desktop wrapper, collaboration, screenplay and nonfiction workflows. No model swarm, vector database, mandatory beat sheet, numeric quality score, automatic endless polish, or new story-state database is needed for these slices.
 
 ---
@@ -651,17 +607,15 @@ Resources for plans and chapters, prompts for the skill, progress notifications,
 | **Craft IP and quality** | Summarising and citing professionals badly damages trust | Original summaries, specific citations, human editor review, no impersonation, licence care |
 | **Provider and model churn** | A stale model ID is the most common first-run failure; prices and availability move | Verify shipped IDs at release; per-role overrides; a clear "model unavailable" message |
 | **Single-user local architecture** | No sync, backup, or collaboration; one process owns jobs | Be explicit; add git snapshots and export; revisit only if writers ask |
-| **MCP host fragmentation** | Cowork, Claude Code, and other hosts differ in resources, progress, and auth | Keep the server small and standards-based; test against real hosts; do not depend on one host |
 | **Evaluation cost** | Blind human comparison is slow and expensive | Start with 20–30 passages across 4–5 genres; reuse fixtures; measure a few clear dimensions |
 
 **Open questions for the writer building this.**
 
-1. **Which host is primary?** The local app, or Cowork/Claude Code with the plugin? That decides whether the next investment is the document surface or the MCP surface.
-2. **Who is the first writer?** A beginner who needs confidence, or an experienced writer who needs leverage? The craft guide's tone and the review's directness should differ.
-3. **Which genre first?** Romance, mystery, SFF, and literary fiction have different conventions and different readers for evaluation. A focused first lens library beats a shallow universal one.
-4. **What is the budget per book?** If it is a few dollars, the whole-book strategy needs a cheaper tier. If it is tens of dollars, the current design is viable.
-5. **Is local-only a requirement?** If yes, the local model profile and the no-web mode become first-class, not an afterthought.
-6. **Is collaboration needed?** If two writers share a book, the plain-file contract still works, but chat and job ownership need a story.
+1. **Who is the first writer?** A beginner who needs confidence, or an experienced writer who needs leverage? The craft guide's tone and the review's directness should differ.
+2. **Which genre first?** Romance, mystery, SFF, and literary fiction have different conventions and different readers for evaluation. A focused first lens library beats a shallow universal one.
+3. **What is the budget per book?** If it is a few dollars, the whole-book strategy needs a cheaper tier. If it is tens of dollars, the current design is viable.
+4. **Is local-only a requirement?** If yes, the local model profile and the no-web mode become first-class, not an afterthought.
+5. **Is collaboration needed?** If two writers share a book, the plain-file contract still works, but chat and job ownership need a story.
 
 ---
 

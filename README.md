@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src=".claude-plugin/icon.png" width="96" height="96" alt="">
+<img src="docs/images/icon.png" width="96" height="96" alt="">
 
 <h1>AI Writers' Room</h1>
 
@@ -168,33 +168,7 @@ supported. With OpenRouter, the model lists keep up with new releases and show p
 
 ## Other ways to use it
 
-The app, the plugin and the command line all work on the same files, so you can
-switch between them.
-
-<details>
-<summary><strong>The Claude plugin (Cowork and Claude Code)</strong></summary>
-
-<br>
-
-Claude itself becomes the Room: it plans with you and edits the files, and the
-plugin's tools add second opinions, renames and the Press. It needs Python 3.10+ on
-your computer and installs what else it needs on first run.
-
-**In Cowork:** go to **Customize > Plugins > Add > Add marketplace**, choose **Add from
-a repository**, enter `DinomyteHero/AI_Novel_Writing_Room`, then install **Writers
-Room** and add your OpenRouter key in its settings.
-
-**In Claude Code:**
-
-```bash
-claude plugin marketplace add DinomyteHero/AI_Novel_Writing_Room
-claude plugin install writers-room@writers-room
-```
-
-Then say what you're writing, or use `/writers-room:start`, `/writers-room:ideas`,
-`/writers-room:review` and `/writers-room:build`.
-
-</details>
+The app and the command line work on the same files, so you can switch between them.
 
 <details>
 <summary><strong>The command line</strong></summary>

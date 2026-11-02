@@ -1,4 +1,4 @@
-"""Press builds running in the background, for the app and the plugin's tools.
+"""Press builds running in the background, for the app.
 
 A build can take a long while, so it runs on its own thread with its own
 event loop, and anyone can read its progress or ask it to stop after the

@@ -1,6 +1,6 @@
 ---
 name: Something went wrong
-about: The app, plugin or command line didn't do what you expected
+about: The app or command line didn't do what you expected
 labels: bug
 ---
 
@@ -11,7 +11,7 @@ labels: bug
 **How can we see it happen?**
 
 **Your setup**
-- How you run it (double-click, plugin or command line):
+- How you run it (double-click or command line):
 - Operating system:
 - Model provider and model, if it involves one:
 
