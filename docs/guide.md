@@ -5,10 +5,9 @@ lives in a few Markdown files you can edit any time. **The Press** turns that
 plan into chapters on its own: draft, critique, revise, save. Every model call
 reads your whole plan and every chapter before the one it's working on.
 
-You can work in three ways, all on the same files: **the app** in your browser,
-**the Claude plugin** in Cowork or Claude Code, or **the command line**. The
-[README](../README.md) shows how to start each one; this guide covers what they
-do.
+You can work in two ways, both on the same files: **the app** in your browser, or
+**the command line**. The [README](../README.md) shows how to start each one; this
+guide covers what they do.
 
 **Contents**
 
@@ -24,7 +23,7 @@ do.
 Books live in a `library/` folder inside the app's folder, which git ignores, so
 your work stays on your machine. To keep them somewhere else (a synced folder,
 your own git repository), choose the folder in the app under **Settings > Library
-folder**; the command line and the plugin use it too. For one run,
+folder**; the command line uses it too. For one run,
 `--library <folder>` or `WRITERS_ROOM_LIBRARY` takes precedence.
 
 A standalone book is a series of one:
@@ -102,9 +101,6 @@ few chapters are plenty.
 
 - **In the app,** type your idea on the home page (the **+** starts a book or a
   series).
-- **With the Claude plugin,** just say what you're writing, or use
-  `/writers-room:start`. Claude follows the same conversation guide and edits the
-  files itself.
 - **In Claude Code in this repository,** use the **story-session** skill. In
   Codex, point it at `.claude/skills/story-session/SKILL.md` (see `AGENTS.md`).
 - **By hand,** with the command line:
@@ -286,8 +282,8 @@ earlier chapters.
 
 Tell the chat you're stuck and it picks the gap that matters most and offers three
 directions. In the app, the selected chat model can do this itself, or call its
-ideas tool for a different model's options. From the command line or the Claude
-plugin, for a second mind:
+ideas tool for a different model's options. From the command line, for a second
+mind:
 
 ```bash
 python scripts/room.py ideas
@@ -399,8 +395,7 @@ under its message box. Build options are on the Build card.
 
 Settings saves your keys in `.env` and your choices (roles, library folder, build
 options) in `config/settings.local.yaml`, and the cached model catalog in
-`config/openrouter_models.json`, all private to your computer. The plugin asks for
-your key when you install it.
+`config/openrouter_models.json`, all private to your computer.
 
 Run `python scripts/room.py check` to confirm your API key works and see the credits
 used so far.

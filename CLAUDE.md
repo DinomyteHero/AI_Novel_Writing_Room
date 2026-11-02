@@ -17,7 +17,7 @@ A tool that helps writers, often new ones, plan and write novels and series
   → revise → save. Press commands (`scripts/press.py`): `build next|all|N`,
   `story-so-far`, `export`.
 
-Writers reach both halves three ways, all over the same files and code:
+Writers reach both halves two ways, both over the same files and code:
 
 - **The app** (`scripts/app.py`): a local web app in the browser, laid out
   like Claude (books, chats, a Book panel, Settings for providers). A
@@ -26,10 +26,6 @@ Writers reach both halves three ways, all over the same files and code:
   launchers (`Start Writers Room.bat`, `.command`) set up `.venv` from
   `requirements.txt` on first run and start it; test and lint tools live in
   `requirements-dev.txt`.
-- **The Claude plugin** (`.claude-plugin/`): for Cowork and Claude Code.
-  Claude follows the skill and edits files itself; a stdio MCP server
-  (`scripts/mcp_server.py` → `src/studio/mcp.py`) adds books, reviews,
-  renames and background builds.
 - **The command line** (`scripts/room.py`, `scripts/press.py`).
 
 The files are the only contract between the halves. This repository used to
@@ -41,7 +37,7 @@ favour of this design and is in git history if something specific is needed.
 
 - **Files are the book.** Books live in `library/` (gitignored: private by
   default). `locate_library` in `src/studio/project.py` is the one resolver
-  for the app, CLI and plugin: `--library`, then `WRITERS_ROOM_LIBRARY`, then
+  for the app and CLI: `--library`, then `WRITERS_ROOM_LIBRARY`, then
   `library:` in `config/settings.local.yaml` (Settings > Library folder), then
   `./library`. A
   standalone book is a series of one; `series_bible.md` appears when a
@@ -134,11 +130,11 @@ favour of this design and is in git history if something specific is needed.
   guards this.
 - **Errors are for writers.** `StudioError` messages are shown as-is, in
   plain language with the fix included. Missing API keys and network
-  failures are caught in `src/studio/cli.py`, `src/app/server.py` and
-  `src/studio/mcp.py` and explained, never shown as tracebacks.
-- **One skill, three front ends.** `.claude/skills/story-session/SKILL.md` is
-  the only conversation guide. The app's `prompts/studio/room_chat.md` and the
-  plugin's tools map its commands; don't fork the guide per front end.
+  failures are caught in `src/studio/cli.py` and `src/app/server.py` and
+  explained, never shown as tracebacks.
+- **One skill.** `.claude/skills/story-session/SKILL.md` is the only
+  conversation guide. The app's `prompts/studio/room_chat.md` maps its commands;
+  don't fork the guide per front end.
 - **Append-only chat turns.** The app sends earlier turns as plain text and
   the current files only with the newest message, never editing what was sent
   (prompt caching, and Claude's thinking-block binding, depend on it). A reply's
@@ -192,10 +188,9 @@ favour of this design and is in git history if something specific is needed.
 | Press: build loop, estimate, story-so-far, export | `src/studio/press.py` |
 | Command-line front ends | `src/studio/cli.py`, `scripts/room.py`, `scripts/press.py` |
 | The app's room chat (tools, undo, review calls) | `src/studio/chat.py`, `prompts/studio/room_chat.md` |
-| Background builds (app and plugin) | `src/studio/jobs.py` |
+| Background builds (app) | `src/studio/jobs.py` |
 | The app: backend, local server, page | `src/app/api.py`, `src/app/server.py`, `src/app/static/`, `scripts/app.py` |
 | Double-click launchers (checked by `.github/workflows/launchers.yml`) | `Start Writers Room.bat`, `Start Writers Room.command` |
-| The Claude plugin: manifest, marketplace, commands, MCP tools | `.claude-plugin/`, `commands/`, `src/studio/mcp.py`, `scripts/mcp_server.py` |
 | Model prompts + craft guide | `prompts/studio/` |
 | Starter files | `templates/story/` |
 | The Room's conversation | `.claude/skills/story-session/SKILL.md` |
@@ -214,8 +209,8 @@ critique), `studio_reader` (review), `studio_notes` (story-so-far). All need
 - `pytest -q` and `ruff check .`. CI runs both.
 - Tests never call real models: `tests/fakes.py::FakeRouter` returns scripted
   replies per role (including `chat()` tool calls) and records every call and
-  its usage. CLI tests swap it in for `cli._router`; app and MCP tests pass it
-  as the router factory.
+  its usage. CLI tests swap it in for `cli._router`; app tests pass it as the
+  router factory.
 
 ## Conventions
 
