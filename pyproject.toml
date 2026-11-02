@@ -2,7 +2,13 @@
 name = "ai-writers-room"
 version = "0.1.0"
 description = "Plan and draft novels with an AI co-writer, using whole-book context"
+readme = "README.md"
+license = { text = "Apache-2.0" }
 requires-python = ">=3.10"
+
+[project.urls]
+Homepage = "https://github.com/DinomyteHero/AI_Novel_Writing_Room"
+Issues = "https://github.com/DinomyteHero/AI_Novel_Writing_Room/issues"
 
 [tool.pytest.ini_options]
 asyncio_mode = "auto"

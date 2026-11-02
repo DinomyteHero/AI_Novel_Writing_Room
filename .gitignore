@@ -23,6 +23,8 @@ Thumbs.db
 # Claude Code / Codex local files
 .claude/settings.local.json
 .claude/worktrees/
+.claude/launch.json
+.claude/bugs.md
 .codex/
 
 # Your books stay private to this machine by default. To version a book,

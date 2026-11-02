@@ -1,0 +1,45 @@
+name: Launchers
+
+on:
+  push:
+    branches: [main]
+    paths: ["Start Writers Room.*", "requirements.txt", "scripts/app.py", ".github/workflows/launchers.yml"]
+  pull_request:
+    paths: ["Start Writers Room.*", "requirements.txt", "scripts/app.py", ".github/workflows/launchers.yml"]
+
+jobs:
+  start:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, macos-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Start the app (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: Start-Process -FilePath ".\Start Writers Room.bat" -ArgumentList "--no-browser", "--port", "8799"
+
+      - name: Start the app (Mac, Linux)
+        if: runner.os != 'Windows'
+        run: nohup ./"Start Writers Room.command" --no-browser --port 8799 > launcher.log 2>&1 &
+
+      - name: Check the app answers
+        shell: python
+        run: |
+          import time, urllib.request
+          for _ in range(150):
+              try:
+                  print(urllib.request.urlopen("http://127.0.0.1:8799/").status)
+                  break
+              except OSError:
+                  time.sleep(2)
+          else:
+              raise SystemExit("The app never answered.")

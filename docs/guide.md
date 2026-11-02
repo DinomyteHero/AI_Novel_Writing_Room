@@ -1,22 +1,31 @@
 # The Writers' Room Guide
 
-The tool has two halves. In **the Room** you plan in conversation and the plan
+The tool has two halves. In **the Room** you plan in conversation, and the plan
 lives in a few Markdown files you can edit any time. **The Press** turns that
 plan into chapters on its own: draft, critique, revise, save. Every model call
 reads your whole plan and every chapter before the one it's working on.
 
-You can work in three ways, all on the same files: **the app**
-(`python scripts/app.py`, in your browser), **the Claude plugin** (in Cowork
-or Claude Code), or **the command line**. The README shows how to install
-each; this guide covers what they do.
+You can work in three ways, all on the same files: **the app** in your browser,
+**the Claude plugin** in Cowork or Claude Code, or **the command line**. The
+[README](../README.md) shows how to start each one; this guide covers what they
+do.
+
+**Contents**
+
+- [Your library](#your-library): where your books live, backing up and updating
+- [The Room](#the-room-plan-in-conversation): planning, the app, the plan files
+- [Second opinions](#second-opinions): reviews and fresh ideas
+- [The Press](#the-press-build-chapters): building, revising, series, export
+- [Settings](#settings): providers, models and options
+- [Things to know](#things-to-know)
 
 ## Your library
 
-Books live in `library/`, which git ignores, so your work stays on your
-machine. To keep them somewhere else (a synced folder, your own git
-repository), choose the folder in the app under **Settings > Library folder**;
-the command line and the plugin use it too. For one run, `--library <folder>`
-or `WRITERS_ROOM_LIBRARY` takes precedence.
+Books live in a `library/` folder inside the app's folder, which git ignores, so
+your work stays on your machine. To keep them somewhere else (a synced folder,
+your own git repository), choose the folder in the app under **Settings > Library
+folder**; the command line and the plugin use it too. For one run,
+`--library <folder>` or `WRITERS_ROOM_LIBRARY` takes precedence.
 
 A standalone book is a series of one:
 
@@ -41,153 +50,195 @@ library/my-series/
   books/02-book-two/ ...
 ```
 
-Characters and outlines always belong to a book. A new book starts with a
-copy of the previous book's `characters.md`, so the whole cast comes along and
-you can update who they've become without touching the earlier book.
+Characters and outlines always belong to a book. A new book starts with a copy
+of the previous book's `characters.md`, so the whole cast comes along and you
+can update who they've become without touching the earlier book.
+
+When the library holds more than one book, name the one you mean on the command
+line with `--title` (and `--series` if two series share a title).
 
 ### Reference files
 
 Canon notes, research, a fuller setting (`setting.md`, for a world that has
-outgrown the bible) or a sample of the voice you want can go in a
-`reference/` folder: a book's own (`books/01-my-novel/reference/`) or, in a
-series, the series' (`library/my-series/reference/`), which every book reads.
-Every model call reads these in full, so keep them to what matters; a large
-file adds its size to every call. Only `.md` and `.txt` files are read (the
-app converts `.docx`, `.html` and `.epub` for you, such as a story downloaded
-from AO3). Images can't be read by the writing models; describe what matters
-in the bible instead.
+outgrown the bible) or a sample of the voice you want can go in a `reference/`
+folder: a book's own (`books/01-my-novel/reference/`) or, in a series, the
+series' (`library/my-series/reference/`), which every book reads.
 
-When the library holds more than one book, name the one you mean with
-`--title` (and `--series` if two series share a title).
+Every model call reads these in full, so keep them to what matters; a large file
+adds its size to every call. Only `.md` and `.txt` files are read (the app
+converts `.docx`, `.html` and `.epub` for you, such as a story downloaded from
+AO3). Images can't be read by the writing models; describe what matters in the
+bible instead.
+
+### Backing up and updating
+
+Your books are ordinary files, so backing up means copying the folder. The
+versions kept in `.history/` protect you from a bad edit, not from losing your
+computer, so keep a copy somewhere else too. Choosing a library folder in a
+synced location does this for you.
+
+To update the app:
+
+- **If you downloaded the ZIP,** unzip the new version next to the old one and
+  move these across from the old folder: `library/` (if your books are there),
+  `.env` (your keys) and `config/settings.local.yaml` (your choices). The starter
+  sets itself up again.
+- **If you cloned with git,** run `git pull`. The starter notices when the
+  app's requirements have changed and installs them. If you start the app with
+  `python scripts/app.py`, run `pip install -r requirements.txt` as well.
+
+Don't delete the old folder until your books are safely across.
 
 ## The Room: plan in conversation
 
-Tell the chat what you have: a one-line idea, a few characters, a rough
-outline, or a document to paste in. It files what you bring in your own
-words, then helps you flesh it out with options and questions.
+Tell the chat what you have: a one-line idea, a few characters, a rough outline,
+or a document to paste in. It files what you bring in your own words, then helps
+you flesh it out with options and questions.
 
-- **In the app**, type your idea on the home page (the **+** starts a book or
-  a series). Each project page starts a new chat about the whole book; start
-  another for a single question or a separate piece of work. Every file change
-  shows as a card with **Undo**; **Book** opens the plan, your reference
-  files, the manuscript and the build status, and you can edit any plan file
-  there. **Build** at the top of a chat runs the Press.
-- **With the Claude plugin**, just say what you're writing, or use
-  `/writers-room:start`. Claude follows the same conversation guide and edits
-  the files itself.
-- **In Claude Code in this repository**, use the **story-session** skill. In
-  Codex, point it at `.claude/skills/story-session/SKILL.md` (see
-  `AGENTS.md`).
+The files keep up with the conversation, and you can edit them yourself at any
+point. The chat re-reads them before every change, so your edits win. You don't
+need a finished plan to start building; a premise, a main character and the first
+few chapters are plenty.
 
-The files keep up with the conversation, and you can edit them yourself at
-any point. The chat re-reads them before every change, so your edits win.
-You don't need a finished plan to start building; a premise, a main character
-and the first few chapters are plenty.
+- **In the app,** type your idea on the home page (the **+** starts a book or a
+  series).
+- **With the Claude plugin,** just say what you're writing, or use
+  `/writers-room:start`. Claude follows the same conversation guide and edits the
+  files itself.
+- **In Claude Code in this repository,** use the **story-session** skill. In
+  Codex, point it at `.claude/skills/story-session/SKILL.md` (see `AGENTS.md`).
+- **By hand,** with the command line:
 
-### Working together in the app
+  ```bash
+  python scripts/room.py new "My Novel"
+  python scripts/room.py new "Book One" --series "My Series"   # start a series
+  python scripts/room.py new "Book Two" --series "My Series"   # add the next book
+  python scripts/room.py books                                 # everything in the library
+  python scripts/room.py status                                # chapters, words, what's out of date
+  ```
 
-A project's page is kept simple, like a project in Claude: a box that starts
-a new chat, your recent chats, and a **Book** button that opens the plan,
-reference, manuscript and notes. The same **Book** button in a chat opens it
-beside the conversation. Start a new chat for each piece of work: a scene, a
-review, a brainstorm. **Build** at the top of a chat opens the estimate card,
-where you choose the next chapter or all remaining, how many revision rounds
-to run, and a chapter length for chapters the outline doesn't size. Under the
-message box you can see and change the chat model and its reasoning effort;
-each chat keeps its own choice. The box that starts a chat, on the home page
-or a project's page, has the same picker, so the first message already goes
-to the model you chose. The picker has a search bar, then a short suggested list,
-then all current models from A to Z; older models are hidden. Open a chapter and
-press **Read** for a wide, book-like reading view; highlight a passage and
-press **Ask about this**, then type what you want. **Writing help** in the
-sidebar collects the craft notes. The theme is in **Settings > Preferences**. On a phone, the menu button opens the sidebar.
+### Finding your way around the app
+
+- **A project's page** is kept simple, like a project in Claude: a box that
+  starts a new chat, your recent chats, and a **Book** button. Start a new chat
+  for each piece of work: a scene, a review, a brainstorm, a single question.
+- **Book** opens the plan, reference, manuscript, notes and build status, and you
+  can edit any plan file there. The same button in a chat opens it beside the
+  conversation. **What the book sends** in the panel shows the token cost of each
+  part.
+- **Build** at the top of a chat opens the estimate card, where you choose the
+  next chapter or all remaining, how many revision rounds to run, and a chapter
+  length for chapters the outline doesn't size.
+- **The model picker** under the message box shows and changes the chat model and
+  its reasoning effort, and each chat keeps its own choice. The box that starts a
+  chat has the same picker, so the first message already goes to the model you
+  chose. It has a search bar, then a short suggested list, then all current models
+  from A to Z; older models are hidden.
+- **Reading.** Open a chapter and press **Read** for a wide, book-like view.
+- **Writing help** in the sidebar collects the craft notes.
+- **The theme** is in **Settings > Preferences**.
+- **On a phone,** the menu button opens the sidebar.
+
+### Following a turn
 
 The reply appears as it is written, with activity such as reading a file or
-updating the outline. A small line under the reply shows what that turn cost:
-the number of model calls and the tokens in and out. While the turn runs, a
-work log shows what the Room is reading, checking, searching or changing; it
-stays under the reply as a record. Open the Book panel's **What the book
-sends** to see the token cost of each part. **Stop** cancels the current turn;
-edits already made are kept and still have their change cards. You can then
-send a different instruction. One planning turn runs per project at a time.
-Closing or reloading the page doesn't stop a turn: it carries on, and opening
-the chat again shows it, with **Stop** still there.
+updating the outline. While the turn runs, a work log shows what the Room is
+reading, checking, searching or changing; it stays under the reply as a record. A
+small line under the reply shows what that turn cost: the number of model calls
+and the tokens in and out.
 
-Selecting a passage puts its document and text into the message box, so you
-can ask for a discussion, alternatives or a change in your own words. An
-agreed passage edit preserves the rest of the document and the previous
-version. If you say you are just exploring, the Room discusses without
+**Stop** cancels the current turn. Edits already made are kept and still have
+their change cards, and you can then send a different instruction. One planning
+turn runs per project at a time. Closing or reloading the page doesn't stop a
+turn: it carries on, and opening the chat again shows it, with **Stop** still
+there.
+
+### Working on a passage
+
+Highlight a passage and press **Ask about this**. Its document and text go into
+the message box, so you can ask for a discussion, alternatives or a change in
+your own words. An agreed passage edit preserves the rest of the document and the
+previous version. If you say you are just exploring, the Room discusses without
 changing files.
 
-**Settings > Preferences > Edits from the chat > Show me first** stages planning edits,
-passage edits and chapter revisions instead of saving them. Each one appears
-as a card with **Use suggestion** and **Keep original**. If the file changed
-after the suggestion was staged, it is marked stale and both versions are
-kept. Once accepted, it becomes a normal change card with **Undo**.
+### Seeing and undoing changes
 
-Expand **Compare changes** on a change card to see the before and after text
-with nearby context. **Undo** refuses to overwrite a newer edit. Manual
-editing also checks whether the file changed after you opened it, keeping
-your unsaved draft in the editor if it did.
+Every file change shows as a card with **Undo**. Expand **Compare changes** on a
+card to see the before and after text with nearby context. **Undo** refuses to
+overwrite a newer edit. Manual editing also checks whether the file changed after
+you opened it, keeping your unsaved draft in the editor if it did.
+
+To see changes before they land, set **Settings > Preferences > Edits from the
+chat** to **Show me first**. Planning edits, passage edits and chapter revisions
+are then staged instead of saved, each as a card with **Use suggestion** and
+**Keep original**. If the file changed after the suggestion was staged, it is
+marked stale and both versions are kept. Once accepted, it becomes a normal
+change card with **Undo**.
+
+### Attaching files
 
 When attaching a file, choose where it belongs:
 
-- **This chat (planning only)** is the default. Its text remains available
-  when you return to this conversation, including after restarting the app.
-- **This message only** supplies it for one turn.
-- **Book reference** makes it available to this book's chats and the Press.
-- **Series reference** makes it available across the series.
+| Choice | What it does |
+|---|---|
+| **This chat (planning only)** | The default. Its text remains available when you return to this conversation, including after restarting the app |
+| **This message only** | Supplies it for one turn |
+| **Book reference** | Makes it available to this book's chats and the Press |
+| **Series reference** | Makes it available across the series |
 
 **References in this chat** lists retained attachments. You can open them or
-remove them from future context. Removal leaves the saved copy on disk.
-Uploads with the same name get separate filenames instead of replacing one
-another.
+remove them from future context. Removal leaves the saved copy on disk. Uploads
+with the same name get separate filenames instead of replacing one another.
 
-Completed planning actions are saved during the turn. If a connection or
-model fails, the chat keeps those actions and any partial reply. After an
-app restart, an unfinished turn is marked interrupted; send a follow-up to
-continue without automatically repeating its edits. Builds still require
-the local app process to stay running. If it stops before a run writes its
-report, the Book panel says the build was interrupted; finished chapters are
-saved and starting a new build is safe. If a model call fails during a build,
-the report says what happened, and building again uses the draft it already
-paid for unless the plan or an earlier chapter has changed since.
+### If something stops
 
-Or plan by hand:
+- **A connection or model fails.** Completed planning actions are saved during
+  the turn, so the chat keeps those actions and any partial reply.
+- **The app restarts during a turn.** The unfinished turn is marked interrupted.
+  Send a follow-up to continue without automatically repeating its edits.
+- **The app stops during a build.** Builds need the app's window to stay open. If
+  it stops before a run writes its report, the Book panel says the build was
+  interrupted. Finished chapters are saved, and starting a new build is safe.
+- **A model call fails during a build.** The report says what happened, and
+  building again uses the draft it already paid for unless the plan or an earlier
+  chapter has changed since.
 
-```bash
-python scripts/room.py new "My Novel"
-python scripts/room.py new "Book One" --series "My Series"   # start a series
-python scripts/room.py new "Book Two" --series "My Series"   # add the next book
-python scripts/room.py books                                 # everything in the library
-python scripts/room.py status                                # chapters, words, what's out of date
-```
+### The outline
 
-The only format rule: each chapter in the outline starts with a
-`## Chapter N` heading (a title after it is optional). Add a line such as
-`- Words: 3500` to set a chapter's length, and a line such as
-`- Ends at: Kael says his brother's name` to say where it stops, so it
-doesn't run ahead of your plan. Optional `POV`, `Threads moved` and
-`Emotional turn` lines help when a chapter needs them. For a chapter that
-matters, the chat can help you break it into scenes: who wants what, what's in
-the way, how it turns. Above the chapters, an optional
-`## The threads` section lists the promises the book makes and the characters
-who change, one line each, so every chapter is written with them in view.
+The only format rule: each chapter in the outline starts with a `## Chapter N`
+heading (a title after it is optional). Everything else is optional:
 
-In the story bible, **The reader's promise** names the experience the book
-owes a reader (its genre or tradition, books it should sit beside, what would
-feel like a betrayal). **What this book is doing on purpose** records the
-choices a general craft rule would call mistakes: a slow opening, a static
-character, an unreliable narrator, a stylised voice. The co-writer and critic
-read both before the craft guide; they outrank it. A deliberate choice is
-judged by whether its effect lands, not by whether it follows the rule.
+| Line | What it does |
+|---|---|
+| `- Words: 3500` | Sets the chapter's length |
+| `- Ends at: Kael says his brother's name` | Says where it stops, so it doesn't run ahead of your plan |
+| `POV`, `Threads moved`, `Emotional turn` | Help when a chapter needs them |
 
-In `characters.md`, each character gets a `## Name` section. The suggested
-lines are prompts, not required fields. The most useful one is **How they
-talk**: two or three sample lines help every model keep each character
-sounding like themselves. Optional lines for what they want and need, what
-they believe that isn't true, and what they're afraid of give the story
-something to test.
+For a chapter that matters, the chat can help you break it into scenes: who wants
+what, what's in the way, how it turns. Above the chapters, an optional
+`## The threads` section lists the promises the book makes and the characters who
+change, one line each, so every chapter is written with them in view.
+
+### The story bible
+
+**The reader's promise** names the experience the book owes a reader (its genre
+or tradition, books it should sit beside, what would feel like a betrayal).
+
+**What this book is doing on purpose** records the choices a general craft rule
+would call mistakes: a slow opening, a static character, an unreliable narrator,
+a stylised voice.
+
+The co-writer and critic read both before the craft guide, and they outrank it. A
+deliberate choice is judged by whether its effect lands, not by whether it follows
+the rule.
+
+### Character sheets
+
+In `characters.md`, each character gets a `## Name` section. The suggested lines
+are prompts, not required fields. The most useful one is **How they talk**: two or
+three sample lines help every model keep each character sounding like themselves.
+Optional lines for what they want and need, what they believe that isn't true, and
+what they're afraid of give the story something to test.
 
 ### Renaming
 
@@ -198,15 +249,17 @@ python scripts/room.py rename "Mara" "Maren" --apply    # makes the change
 
 A rename covers the whole series: plans, reference notes, chapters and
 story-so-far notes. It matches whole words only ("Mara's" changes, "Marathon"
-doesn't) and leaves build runs and reviews as a record of what was. Every
-changed file keeps its previous version in `.history/`, and the change card in
-the app can undo the whole rename.
+doesn't) and leaves build runs and reviews as a record of what was. Every changed
+file keeps its previous version in `.history/`, and the change card in the app can
+undo the whole rename.
 
-To name the book itself (a new one starts as "Untitled book"), click its
-title on the project page in the app, tell the chat the title, or change the
-`# ` heading at the top of `story_bible.md` yourself. A series takes its name
-from the heading of `series_bible.md`. The app renames an untitled project's
-folders to match; elsewhere they keep their first name, which doesn't matter.
+To name the book itself (a new one starts as "Untitled book"), click its title on
+the project page in the app, tell the chat the title, or change the `# ` heading
+at the top of `story_bible.md` yourself. A series takes its name from the heading
+of `series_bible.md`. The app renames an untitled project's folders to match;
+elsewhere they keep their first name, which doesn't matter.
+
+## Second opinions
 
 ### The review gate (optional)
 
@@ -214,37 +267,41 @@ folders to match; elsewhere they keep their first name, which doesn't matter.
 python scripts/room.py review
 ```
 
-A different model reads everything (the plan and any chapters) and writes
-numbered points to `notes/`, each with the passage it noticed, what it does to
-a reader, why it matters for the book's promise, a suggested change, another
-option and what to protect, plus a blank **Your call** line. In the
-story-session chat, you go through the points one at a time; the chat records
-your decision under each one and makes only the changes you agree to. The chat
-offers a review once when you're ready to build; skipping it is fine. In the
-app, just ask in a chat. The chat can give its own view, or call the review
-tool to bring in a different model and save numbered points to `notes/`, then
-walk you through them. For a reader's reaction rather than a plan check, ask
-for a fresh-eyes read of one chapter: that model sees only the chapter, not
-the plan or earlier chapters.
+A different model reads everything (the plan and any chapters) and writes numbered
+points to `notes/`, each with the passage it noticed, what it does to a reader, why
+it matters for the book's promise, a suggested change, another option and what to
+protect, plus a blank **Your call** line.
+
+In the story-session chat, you go through the points one at a time; the chat records
+your decision under each one and makes only the changes you agree to. The chat offers
+a review once when you're ready to build; skipping it is fine.
+
+In the app, just ask in a chat. The chat can give its own view, or call the review
+tool to bring in a different model and save numbered points to `notes/`, then walk
+you through them. For a reader's reaction rather than a plan check, ask for a
+fresh-eyes read of one chapter: that model sees only the chapter, not the plan or
+earlier chapters.
 
 ### Stuck? Fresh ideas
 
-Tell the chat you're stuck and it picks the gap that matters most and offers
-three directions. In the app, the selected chat model can do this itself, or
-call its ideas tool for a different model's options. From the command line or
-the Claude plugin, for a second mind:
+Tell the chat you're stuck and it picks the gap that matters most and offers three
+directions. In the app, the selected chat model can do this itself, or call its
+ideas tool for a different model's options. From the command line or the Claude
+plugin, for a second mind:
 
 ```bash
 python scripts/room.py ideas
 ```
 
-A different model reads everything and writes two or three options for each
-of the thinnest parts of your plan to `notes/`, with its pick and a blank
-**Your call** line. The app opens these files on a point-by-point screen. Go
-through them like a review: use the pick, skip it, or choose something else.
-Nothing goes into your plan until you choose.
+A different model reads everything and writes two or three options for each of the
+thinnest parts of your plan to `notes/`, with its pick and a blank **Your call**
+line. The app opens these files on a point-by-point screen. Go through them like a
+review: use the pick, skip it, or choose something else. Nothing goes into your plan
+until you choose.
 
 ## The Press: build chapters
+
+In the app, press **Build** at the top of a chat. From the command line:
 
 ```bash
 python scripts/press.py build next      # the next unwritten chapter
@@ -255,42 +312,44 @@ python scripts/press.py build 4 --rounds 2
 
 For each chapter:
 
-1. **Draft.** The writer model drafts it from the plan and every earlier
-   chapter.
-2. **Critique.** A different model checks the draft against your outline
-   notes, the bible, the character sheets, continuity and the craft guide,
-   and lists what to fix, or says no changes are needed.
-3. **Revise.** The writer model revises using the critique. If a revision
-   comes back much shorter than both what it revised and your planned length,
-   it's discarded and the earlier text is kept; the chat and the report tell
-   you, and the critic's notes stay in the run folder. Cutting an overlong
-   draft back towards your plan is fine.
+1. **Draft.** The writer model drafts it from the plan and every earlier chapter.
+2. **Critique.** A different model checks the draft against your outline notes, the
+   bible, the character sheets, continuity and the craft guide, and lists what to
+   fix, or says no changes are needed.
+3. **Revise.** The writer model revises using the critique. If a revision comes back
+   much shorter than both what it revised and your planned length, it's discarded
+   and the earlier text is kept; the chat and the report tell you, and the critic's
+   notes stay in the run folder. Cutting an overlong draft back towards your plan is
+   fine.
 4. **Save.** The result goes into `manuscript/`.
 
-Chapters build in order, so each one reads the finished chapters before it.
-Before building, the Press prints a rough token estimate; `build all` and
-rebuilding an existing chapter ask before going ahead (`--yes` skips the
-question). Each build reads your plan once at the start, so editing in the
-Room during a long build can't leave a book half on one plan and half on
-another.
+Chapters build in order, so each one reads the finished chapters before it. Each
+build reads your plan once at the start, so editing in the Room during a long build
+can't leave a book half on one plan and half on another.
+
+**Suggested rhythm:** build the first two or three chapters one at a time, read
+them, adjust the plan, then build the rest.
+
+### Estimates and reports
+
+Before building, the Press gives a rough token estimate; `build all` and rebuilding
+an existing chapter ask before going ahead (`--yes` skips the question). The estimate
+allows for drafts running up to twice their planned length and for a reasoning
+model's thinking, so a well-behaved model often costs less than it says.
 
 Every build makes `runs/<time>/` containing a copy of the plan it used, each
-chapter's draft, critique and revision, and `report.md` with words, revisions
-kept, token usage and cost. If chapters keep coming in short, raise
-`press.length_calibration` in `config/settings.yaml`; if they keep running
-long, lower it. The estimate allows for drafts running up to twice their
-planned length and for a reasoning model's thinking, so a well-behaved model
-often costs less than it says.
+chapter's draft, critique and revision, and `report.md` with words, revisions kept,
+token usage and cost.
 
-Suggested rhythm: build the first two or three chapters one at a time, read
-them, adjust the plan, then `build all`.
+If chapters keep coming in short, raise `press.length_calibration` in
+`config/settings.yaml`; if they keep running long, lower it.
 
 ### Out-of-date chapters
 
-The Press records which plan each chapter was built from. If you later change
-a chapter's own outline section, `status` marks it **out of date**: rebuild
-it, revise it with a note, or keep it. Changes to the bible or character
-sheets are noted more quietly, since they usually don't need a rebuild.
+The Press records which plan each chapter was built from. If you later change a
+chapter's own outline section, `status` marks it **out of date**: rebuild it, revise
+it with a note, or keep it. Changes to the bible or character sheets are noted more
+quietly, since they usually don't need a rebuild.
 
 ### Smaller changes
 
@@ -299,20 +358,19 @@ python scripts/room.py revise 4 --note "more banter, less brooding"
 python scripts/room.py polish 4                                    # light line edit
 ```
 
-You can also edit chapter files by hand; later chapters will read your
-version. Every rebuild, revision and polish keeps the previous version in
+You can also edit chapter files by hand; later chapters will read your version.
+Every rebuild, revision and polish keeps the previous version in
 `manuscript/.history/`.
 
 ### Series
 
-To turn a standalone into a series, ask the Room to add the next book (or
-run `python scripts/room.py new "Book Two" --series "Book One's Title"`). The
-project becomes a series: a `series_bible.md` appears, the books are
-numbered, and the new book starts with a copy of the first book's
-characters. Decide what the series is called (edit the heading in
-`series_bible.md` if it differs from book one), then move the world, rules
-and arc that both books share out of book one's story bible and into the
-series bible. The Room can do that with you.
+To turn a standalone into a series, ask the Room to add the next book (or run
+`python scripts/room.py new "Book Two" --series "Book One's Title"`). The project
+becomes a series: a `series_bible.md` appears, the books are numbered, and the new
+book starts with a copy of the first book's characters. Decide what the series is
+called (edit the heading in `series_bible.md` if it differs from book one), then
+move the world, rules and arc that both books share out of book one's story bible
+and into the series bible. The Room can do that with you.
 
 When a book is finished, write notes for the books after it:
 
@@ -320,11 +378,11 @@ When a book is finished, write notes for the books after it:
 python scripts/press.py story-so-far --title "Book One"
 ```
 
-Later books read each earlier book in full until it has `story_so_far.md`,
-then read the notes instead. The build estimate warns once a single call
-passes about 500K tokens, where models start to read less reliably, and a
-call is refused above 900K tokens (or when the model says it's too long); the
-message says to write story-so-far notes when a series gets that long.
+Later books read each earlier book in full until it has `story_so_far.md`, then read
+the notes instead. The build estimate warns once a single call passes about 500K
+tokens, where models start to read less reliably, and a call is refused above 900K
+tokens (or when the model says it's too long); the message says to write story-so-far
+notes when a series gets that long.
 
 ### Export
 
@@ -334,79 +392,93 @@ python scripts/press.py export          # export/manuscript.md
 
 ## Settings
 
-In the app, **Settings** (bottom left) connects providers, shows the models
-for the Press and background reads, chooses the library folder, and holds
-the theme and review preferences. Connected providers show as one line each;
-to add another, pick it from the **Add a provider** list and paste its key. The chat model and reasoning effort
-are chosen in each chat, under its message box, and each chat keeps its own.
-Build options are on the Build card.
+In the app, **Settings** (bottom left) connects providers, shows the models for the
+Press and background reads, chooses the library folder, and holds the theme and
+review preferences. The chat model and reasoning effort are chosen in each chat,
+under its message box. Build options are on the Build card.
+
+Settings saves your keys in `.env` and your choices (roles, library folder, build
+options) in `config/settings.local.yaml`, and the cached model catalog in
+`config/openrouter_models.json`, all private to your computer. The plugin asks for
+your key when you install it.
+
+Run `python scripts/room.py check` to confirm your API key works and see the credits
+used so far.
+
+### Connecting providers
+
+You choose providers by connecting them. To add one, pick it from the **Add a
+provider** list and paste its key; connected providers show as one line each. Its
+models then appear in the lists; remove the key and they go.
+
+Your book goes to whichever provider you use, on every call, under that provider's
+own terms.
+
+### Which models do what
 
 Models start as **Automatic**: each role uses the model shipped in
-`config/settings.yaml`, and if that provider has no key, the first suitable
-model (about 1M tokens of context) on a provider you have connected, with the
-critic and reviewer on a different model from the writer where possible.
-**Choose models myself** opens a dropdown per role; **Use automatic choices
-instead** goes back. Older models are hidden from every list.
+`config/settings.yaml`, and if that provider has no key, the first suitable model
+(about 1M tokens of context) on a provider you have connected, with the critic and
+reviewer on a different model from the writer where possible. **Choose models
+myself** opens a dropdown per role; **Use automatic choices instead** goes back. Older
+models are hidden from every list.
 
-With OpenRouter connected, the lists stay current by themselves. When you
-open Settings or a chat's model picker and the list is more than a day old,
-the app fetches OpenRouter's public model catalog in the background. It adds
-the newest model of each family from Anthropic, Google, OpenAI, DeepSeek, xAI,
-Moonshot, Z.ai, Qwen and Mistral, after the models shipped in
-`config/settings.yaml`. Each OpenRouter model shows its price in dollars per
-million tokens read / written. A model that shows its context size (for
-example "400K context") can't hold a long book. New models are only offered:
-no role or chat switches to one by itself. When a newer version replaces a
-model in the lists, chats and roles that chose it keep using it. If the
-catalog can't be reached, the lists stay as they were. The Build card adds a
-rough dollar figure from the writer's and critic's list prices; prompt caching
-usually makes the real cost lower. Settings saves
-your keys in `.env` and your choices (roles, library folder, build options)
-in `config/settings.local.yaml`, and the cached catalog in
-`config/openrouter_models.json`, all private to your computer. The plugin asks
-for your key when you install it.
+### Keeping up with new models
 
-You choose providers by connecting them. Save a key in Settings and that
-provider's models appear in the lists; remove it and they go. To use only
-DeepSeek, Gemini or Qwen directly, connect it and remove your OpenRouter key:
-the Press roles follow by themselves unless you chose models yourself, and a
-chat set to a model that's no longer offered asks you to pick another. Going
-direct has limits. The chat's web search only works through OpenRouter for
-now, the lists don't update themselves, the prices shown for direct models are
-typed into `config/settings.yaml` (none yet for Qwen), and reports show tokens
-rather than cost. Your book still goes to whichever provider you use, on every
-call, under that provider's own terms.
+With OpenRouter connected, the lists stay current by themselves. When you open
+Settings or a chat's model picker and the list is more than a day old, the app fetches
+OpenRouter's public model catalog in the background. It adds the newest model of each
+family from Anthropic, Google, OpenAI, DeepSeek, xAI, Moonshot, Z.ai, Qwen and Mistral,
+after the models shipped in `config/settings.yaml`.
 
-Underneath, `config/settings.yaml` holds:
+- Each OpenRouter model shows its price in dollars per million tokens read / written.
+- A model that shows its context size (for example "400K context") can't hold a long
+  book.
+- New models are only offered: no role or chat switches to one by itself. When a newer
+  version replaces a model in the lists, chats and roles that chose it keep using it.
+- If the catalog can't be reached, the lists stay as they were.
+- The Build card adds a rough dollar figure from the writer's and critic's list
+  prices; prompt caching usually makes the real cost lower.
 
-- **Providers.** OpenRouter (recommended: one key, every model), Anthropic,
-  OpenAI, Google, DeepSeek, Qwen (Alibaba Cloud's international endpoint, with
-  a key made for the Singapore region), and a model running on your own
-  computer (Ollama or llama.cpp). Each needs only its key, named by
-  `api_key_env`.
-- **Roles.** `studio_chat` is the default for the app's chat, which through
-  OpenRouter can also search the web and read pages; each chat can pick a different model and
-  reasoning effort. `studio_writer` drafts and revises at high reasoning
-  effort (both Gemini 4 Argon); `studio_critic` critiques press drafts (Claude
-  Sonnet 5.5, a different model from the writer); `studio_reader` writes
-  reviews and ideas (also Sonnet 5.5, so a different family from the writer
-  reads the book); `studio_notes` writes
-  story-so-far notes (DeepSeek V4.1 Flash 1017). Every call sends the whole
-  book, so pick models with ~1M-token context windows. No role caps its output
-  length. Web searches cost a little extra through OpenRouter (under a cent
-  each).
+### Going direct
+
+To use only DeepSeek, Gemini or Qwen directly, connect it and remove your OpenRouter
+key. The Press roles follow by themselves unless you chose models yourself, and a chat
+set to a model that's no longer offered asks you to pick another. Going direct has
+limits:
+
+- The chat's web search only works through OpenRouter for now.
+- The lists don't update themselves.
+- The prices shown for direct models are typed into `config/settings.yaml` (none yet
+  for Qwen), and reports show tokens rather than cost.
+
+### `config/settings.yaml`
+
+Underneath, this file holds:
+
+- **Providers.** OpenRouter (recommended: one key, every model), Anthropic, OpenAI,
+  Google, DeepSeek, Qwen (Alibaba Cloud's international endpoint, with a key made for
+  the Singapore region), and a model running on your own computer (Ollama or
+  llama.cpp). Each needs only its key, named by `api_key_env`.
+- **Roles.** Every call sends the whole book, so pick models with ~1M-token context
+  windows. No role caps its output length.
+
+  | Role | What it does | Shipped model |
+  |---|---|---|
+  | `studio_chat` | The default for the app's chat, which through OpenRouter can also search the web and read pages (under a cent per search). Each chat can pick a different model and reasoning effort | Gemini 4 Argon |
+  | `studio_writer` | Drafts and revises at high reasoning effort | Gemini 4 Argon |
+  | `studio_critic` | Critiques press drafts, as a different model from the writer | Claude Sonnet 5.5 |
+  | `studio_reader` | Writes reviews and ideas, so a different family from the writer reads the book | Claude Sonnet 5.5 |
+  | `studio_notes` | Writes story-so-far notes | DeepSeek V4.1 Flash 1017 |
+
 - **Press options.** `revision_rounds` (1), `default_chapter_words` (3000),
   `length_calibration` (1.0) and `min_revision_ratio` (0.6).
 
-Run `python scripts/room.py check` to confirm your API key works and see the
-credits used so far.
-
 ## Things to know
 
-- **Models attend less to the middle of very long prompts.** The current task
-  always comes last, and the critique checks each chapter against its
-  outline notes.
-- **Models copy their own habits.** With the whole book in view, a phrase a
-  model likes can spread. The critic and the review both look for repeats.
-- **Cost grows as the book grows**, because every call sends more of it. The
-  Press estimates tokens before a build and reports real usage after.
+- **Models attend less to the middle of very long prompts.** The current task always
+  comes last, and the critique checks each chapter against its outline notes.
+- **Models copy their own habits.** With the whole book in view, a phrase a model
+  likes can spread. The critic and the review both look for repeats.
+- **Cost grows as the book grows,** because every call sends more of it. The Press
+  estimates tokens before a build and reports real usage after.
