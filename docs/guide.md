@@ -456,14 +456,15 @@ Underneath, this file holds:
   the Singapore region), and a model running on your own computer (Ollama or
   llama.cpp). Each needs only its key, named by `api_key_env`.
 - **Roles.** Every call sends the whole book, so pick models with ~1M-token context
-  windows. No role caps its output length.
+  windows; the input price is most of the cost, so the shipped models are chosen
+  for price. No role caps its output length.
 
   | Role | What it does | Shipped model |
   |---|---|---|
-  | `studio_chat` | The default for the app's chat, which through OpenRouter can also search the web and read pages (under a cent per search). Each chat can pick a different model and reasoning effort | Gemini 4 Argon |
-  | `studio_writer` | Drafts and revises at high reasoning effort | Gemini 4 Argon |
-  | `studio_critic` | Critiques press drafts, as a different model from the writer | Claude Sonnet 5.5 |
-  | `studio_reader` | Writes reviews and ideas, so a different family from the writer reads the book | Claude Sonnet 5.5 |
+  | `studio_chat` | The default for the app's chat, which through OpenRouter can also search the web and read pages (under a cent per search). Each chat can pick a different model and reasoning effort | DeepSeek V4.1 Flash 1017 |
+  | `studio_writer` | Drafts and revises at high reasoning effort | GLM 5.3 Flash |
+  | `studio_critic` | Critiques press drafts, as a different model from the writer | GPT-6.1 Terra |
+  | `studio_reader` | Writes reviews and ideas, so a different family from the writer reads the book | GPT-6.1 Terra |
   | `studio_notes` | Writes story-so-far notes | DeepSeek V4.1 Flash 1017 |
 
 - **Press options.** `revision_rounds` (1), `default_chapter_words` (3000),

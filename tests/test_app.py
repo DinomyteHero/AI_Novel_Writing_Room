@@ -301,7 +301,7 @@ def test_settings_write_keys_and_choices_outside_settings_yaml(tmp_path, config,
     # Moving the writer drops the old model's own settings (its reasoning effort).
     assert overlay["agent_routing"]["studio_writer"] == {"backend": "cloud", "model": "claude", "params": {}}
     assert app.press_settings().revision_rounds == 2
-    assert app.config()["agent_routing"]["studio_critic"]["model"] == "claudesonnet"
+    assert app.config()["agent_routing"]["studio_critic"]["model"] == "terra"
     assert config.read_text(encoding="utf-8") == before
 
     with pytest.raises(StudioError, match="one line"):
@@ -601,17 +601,17 @@ def test_chat_model_effort_and_web_search_follow_the_settings(tmp_path, config, 
     app, _ = make_app(tmp_path, config)
     chat_role = lambda s: next(r for r in s["roles"] if r["key"] == "studio_chat")  # noqa: E731
     role = chat_role(app.settings())
-    assert role["web"] and role["effort"] == "" and role["efforts"] == ["low", "medium", "high"]
+    assert role["web"] and role["effort"] == "" and role["efforts"] == ["none", "low", "high", "max"]
 
     role = chat_role(app.set_effort("studio_chat", "low"))
     assert role["effort"] == "low" and role["web"]  # the web tools stay
     role = chat_role(app.set_effort("studio_chat", ""))
     assert role["effort"] == ""
 
-    role = chat_role(app.set_role("studio_chat", "cloud", "deepseekflash"))
-    assert role["web"] and "max" in role["efforts"]
+    role = chat_role(app.set_role("studio_chat", "cloud", "geminiargon"))
+    assert role["web"] and role["efforts"] == ["low", "medium", "high"]
     routing = app.config()["agent_routing"]["studio_chat"]
-    assert "provider" not in routing["params"]  # no other role's provider pin comes along
+    assert "provider" not in routing["params"]  # the old model's provider pin doesn't come along
     # Off OpenRouter the server tools would be refused, so they're dropped.
     app.set_role("studio_chat", "openai", "terra")
     assert "tools" not in app.config()["agent_routing"]["studio_chat"]["params"]
@@ -718,14 +718,14 @@ def test_the_build_card_gives_a_rough_cost_from_catalog_prices(tmp_path, config,
     app.refresh_models()
     assert "At list prices that's roughly $" in app.estimate(pid, None, "all")["detail"]
 
-    # The writer (Gemini 4 Argon, $2/$10) drafts and revises; the critic
-    # (Claude Sonnet 5.5, $3/$15) critiques.
+    # The writer (GLM 5.3 Flash, $0.02/$0.13) drafts and revises; the critic
+    # (GPT-6.1 Terra, $1/$5) critiques.
     guess = press.Estimate(3, 3_000_000, 20_000, critic_input_tokens=1_000_000, critic_output_tokens=10_000)
-    assert app_api.build_cost(app.config(), guess) == pytest.approx(2 * 2 + 0.01 * 10 + 1 * 3 + 0.01 * 15)
+    assert app_api.build_cost(app.config(), guess) == pytest.approx(2 * 0.02 + 0.01 * 0.13 + 1 * 1 + 0.01 * 5)
     # No price for the critic's model: no figure, unless the build has no critique.
     app.set_role("studio_critic", "cloud", "minimax")
     assert app_api.build_cost(app.config(), guess) is None
-    assert app_api.build_cost(app.config(), press.Estimate(1, 1_000_000, 0)) == pytest.approx(2)
+    assert app_api.build_cost(app.config(), press.Estimate(1, 1_000_000, 0)) == pytest.approx(0.02)
 
 
 def test_the_library_folder_is_chosen_in_settings_and_remembered(tmp_path, config):
@@ -774,7 +774,7 @@ def test_roles_nobody_chose_move_to_a_connected_provider(tmp_path, config, monke
 
     # With OpenRouter connected, the shipped choices are used as they are.
     monkeypatch.setenv("OPENROUTER_API_KEY", "sk-or-test")
-    assert routing()["studio_writer"]["model"] == "geminiargon"
+    assert routing()["studio_writer"]["model"] == "z-ai/glm-5.3-flash"
 
 
 def test_the_build_card_carries_the_build_options(tmp_path, config, book, monkeypatch):

@@ -128,31 +128,34 @@ models:
     default_params: {}
 
 # Every call sends the whole book, so these models need ~1M-token context
-# windows. studio_chat is the room's conversation in the app (it edits the
+# windows, and the input price is most of the cost. The defaults are chosen
+# for price: studio_chat is the room's conversation in the app (it edits the
 # plan files, and can search the web and read pages through OpenRouter's
 # server tools); studio_writer drafts and revises at high reasoning effort;
-# studio_critic critiques each press draft (Claude Sonnet 5.5: a different
-# model from the Gemini writer, and strong enough to read every chapter);
-# studio_reader writes room reviews and ideas (also Sonnet 5.5, so a
-# different family from the writer reads the book); studio_notes writes
-# story-so-far notes. To try another model, change `model`
-# to another key under models.cloud.models (or add one there). All request
-# settings live here in `params`, so they follow the role, not the model. No
-# role caps its output length (max_tokens), so each model can answer at full
-# length; add one to `params` only if you need it. The DeepSeek role pins
-# OpenRouter to DeepSeek's own servers (`provider`) rather than reduced-precision
-# hosts; remove that pin if you point a role at a different model. The Gemini
-# roles set no temperature: the model reasons by default and is tuned at its
-# own settings. The app's Settings page writes your choices to
+# studio_critic critiques each press draft and studio_reader writes room
+# reviews and ideas, both on GPT-6.1 Terra so a different family from the GLM
+# writer reads the book; studio_notes writes story-so-far notes. To try another
+# model, change `model` to another key under models.cloud.models (or add one
+# there). All request settings live here in `params`, so they follow the role,
+# not the model. No role caps its output length (max_tokens), so each model can
+# answer at full length; add one to `params` only if you need it. The GLM and
+# DeepSeek roles pin OpenRouter to the model maker's own servers (`provider`)
+# rather than reduced-precision hosts; remove that pin if you point a role at a
+# different model. The app's Settings page writes your choices to
 # config/settings.local.yaml, which overrides these.
 agent_routing:
-  studio_chat:            { backend: cloud, model: geminiargon, params: { tools: [{ type: "openrouter:web_search" }, { type: "openrouter:web_fetch", parameters: { max_content_tokens: 50000 } }] } }
-  # Gemini is the value default for drafting; for the strongest prose on a
-  # standalone book, switch studio_writer to cloud/claude (Opus 5.5) with
-  # reasoning effort high. It costs more per call but reads the same 1M window.
-  studio_writer:          { backend: cloud, model: geminiargon, params: { reasoning: { effort: "high" } } }
-  studio_critic:          { backend: cloud, model: claudesonnet, params: {} }
-  studio_reader:          { backend: cloud, model: claudesonnet, params: {} }
+  studio_chat:            { backend: cloud, model: deepseekflash, params: { provider: { order: [deepseek], only: [deepseek], allow_fallbacks: false }, tools: [{ type: "openrouter:web_search" }, { type: "openrouter:web_fetch", parameters: { max_content_tokens: 50000 } }] } }
+  # GLM 5.3 Flash wrote the liveliest chapters in a five-model test at a tiny
+  # price. For steadier continuity try cloud/deepseekflash; for stronger prose
+  # at a higher price, cloud/geminiargon or cloud/claude (Opus 5.5) at
+  # reasoning effort high, without the provider pin. MiMo V2.6 Pro's provider
+  # refused fanfiction in that test, so it can't be trusted to build unattended.
+  studio_writer:          { backend: cloud, model: z-ai/glm-5.3-flash, params: { reasoning: { effort: "high" }, provider: { order: [z-ai], only: [z-ai], allow_fallbacks: false } } }
+  # The critic and reader read every chapter, so they cost the most. For a
+  # cheaper read try cloud/deepseekflash (with its provider pin, as on
+  # studio_notes); for a stronger one, cloud/geminiargon at twice the price.
+  studio_critic:          { backend: cloud, model: terra, params: { reasoning: { effort: "high" } } }
+  studio_reader:          { backend: cloud, model: terra, params: { reasoning: { effort: "high" } } }
   studio_notes:           { backend: cloud, model: deepseekflash, params: { provider: { order: [deepseek], only: [deepseek], allow_fallbacks: false } } }
 
 # The press (scripts/press.py build).

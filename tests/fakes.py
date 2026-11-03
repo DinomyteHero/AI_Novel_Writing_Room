@@ -25,6 +25,10 @@ CATALOG = [
     catalog_model("google/gemini-4-argon", "Google: Gemini 4 Argon", 15),
     catalog_model("anthropic/claude-sonnet-5.5", "Anthropic: Claude Sonnet 5.5", 30, price=(3, 15)),
     catalog_model("anthropic/claude-opus-5.5", "Anthropic: Claude Opus 5.5", 36, price=(4, 20)),
+    catalog_model("deepseek/deepseek-v4.1-flash-1017", "DeepSeek: DeepSeek V4.1 Flash 1017", 17, price=(0.15, 0.6)),
+    catalog_model("z-ai/glm-5.3", "Z.ai: GLM 5.3", 20, price=(0.08, 3.6)),
+    catalog_model("z-ai/glm-5.3-flash", "Z.ai: GLM 5.3 Flash", 18, price=(0.02, 0.13)),
+    catalog_model("openai/gpt-6.1-terra", "OpenAI: GPT-6.1 Terra", 40, price=(1, 5)),
     # New: offered beside them.
     catalog_model("anthropic/claude-opus-5.6", "Anthropic: Claude Opus 5.6", 2, price=(4, 20)),
     catalog_model("openai/gpt-6.2-terra", "OpenAI: GPT-6.2 Terra", 1, price=(1, 5)),
