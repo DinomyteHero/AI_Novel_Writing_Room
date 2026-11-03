@@ -301,7 +301,7 @@ def test_settings_write_keys_and_choices_outside_settings_yaml(tmp_path, config,
     # Moving the writer drops the old model's own settings (its reasoning effort).
     assert overlay["agent_routing"]["studio_writer"] == {"backend": "cloud", "model": "claude", "params": {}}
     assert app.press_settings().revision_rounds == 2
-    assert app.config()["agent_routing"]["studio_critic"]["model"] == "deepseekflash"
+    assert app.config()["agent_routing"]["studio_critic"]["model"] == "terra"
     assert config.read_text(encoding="utf-8") == before
 
     with pytest.raises(StudioError, match="one line"):
@@ -719,9 +719,9 @@ def test_the_build_card_gives_a_rough_cost_from_catalog_prices(tmp_path, config,
     assert "At list prices that's roughly $" in app.estimate(pid, None, "all")["detail"]
 
     # The writer (GLM 5.3 Flash, $0.02/$0.13) drafts and revises; the critic
-    # (DeepSeek V4.1 Flash, $0.15/$0.60) critiques.
+    # (GPT-6.1 Terra, $1/$5) critiques.
     guess = press.Estimate(3, 3_000_000, 20_000, critic_input_tokens=1_000_000, critic_output_tokens=10_000)
-    assert app_api.build_cost(app.config(), guess) == pytest.approx(2 * 0.02 + 0.01 * 0.13 + 1 * 0.15 + 0.01 * 0.6)
+    assert app_api.build_cost(app.config(), guess) == pytest.approx(2 * 0.02 + 0.01 * 0.13 + 1 * 1 + 0.01 * 5)
     # No price for the critic's model: no figure, unless the build has no critique.
     app.set_role("studio_critic", "cloud", "minimax")
     assert app_api.build_cost(app.config(), guess) is None

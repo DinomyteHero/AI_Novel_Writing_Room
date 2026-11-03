@@ -212,13 +212,12 @@ def test_default_settings_have_no_output_caps():
         assert "max_tokens" not in config["agent_routing"][role].get("params", {}), role
 
 
-def test_default_critic_is_deepseek_on_its_own_servers():
+def test_default_critic_is_terra():
     import yaml
 
     config = yaml.safe_load((Path(__file__).parents[1] / "config" / "settings.yaml").read_text())
     critic = config["agent_routing"]["studio_critic"]
-    assert critic["backend"] == "cloud" and critic["model"] == "deepseekflash"
-    assert critic["params"]["provider"]["only"] == ["deepseek"]
+    assert critic["backend"] == "cloud" and critic["model"] == "terra"
     # A different family from the writer reads the drafts.
     assert config["agent_routing"]["studio_writer"]["model"] != critic["model"]
 

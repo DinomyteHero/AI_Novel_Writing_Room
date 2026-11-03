@@ -463,8 +463,8 @@ Underneath, this file holds:
   |---|---|---|
   | `studio_chat` | The default for the app's chat, which through OpenRouter can also search the web and read pages (under a cent per search). Each chat can pick a different model and reasoning effort | DeepSeek V4.1 Flash 1017 |
   | `studio_writer` | Drafts and revises at high reasoning effort | GLM 5.3 Flash |
-  | `studio_critic` | Critiques press drafts, as a different model from the writer | DeepSeek V4.1 Flash 1017 |
-  | `studio_reader` | Writes reviews and ideas, so a different family from the writer reads the book | DeepSeek V4.1 Flash 1017 |
+  | `studio_critic` | Critiques press drafts, as a different model from the writer | GPT-6.1 Terra |
+  | `studio_reader` | Writes reviews and ideas, so a different family from the writer reads the book | GPT-6.1 Terra |
   | `studio_notes` | Writes story-so-far notes | DeepSeek V4.1 Flash 1017 |
 
 - **Press options.** `revision_rounds` (1), `default_chapter_words` (3000),

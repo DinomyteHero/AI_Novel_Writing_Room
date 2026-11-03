@@ -154,14 +154,14 @@ files there, and git ignores them. Three things do go over the network:
 
 Each chat picks its own model and reasoning effort under the message box. Connect a
 provider and the jobs below move to its models by themselves, or choose them by hand
-in Settings. These are the defaults, chosen for price, all through OpenRouter on the
-model maker's own servers, each with a roughly 1M-token context window:
+in Settings. These are the defaults, chosen mostly for price, all through OpenRouter,
+each with a roughly 1M-token context window:
 
 | Job | Default model |
 |---|---|
 | Planning chat (with web search) | DeepSeek V4.1 Flash 1017 |
 | Drafting and revising | GLM 5.3 Flash |
-| Critiques, reviews and ideas | DeepSeek V4.1 Flash 1017 |
+| Critiques, reviews and ideas | GPT-6.1 Terra |
 | Story-so-far notes for later books | DeepSeek V4.1 Flash 1017 |
 
 OpenRouter, Anthropic, OpenAI, Google, DeepSeek, Qwen and local models are all

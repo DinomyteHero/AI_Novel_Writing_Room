@@ -133,15 +133,15 @@ models:
 # plan files, and can search the web and read pages through OpenRouter's
 # server tools); studio_writer drafts and revises at high reasoning effort;
 # studio_critic critiques each press draft and studio_reader writes room
-# reviews and ideas, both on DeepSeek so a different family from the GLM
+# reviews and ideas, both on GPT-6.1 Terra so a different family from the GLM
 # writer reads the book; studio_notes writes story-so-far notes. To try another
 # model, change `model` to another key under models.cloud.models (or add one
 # there). All request settings live here in `params`, so they follow the role,
 # not the model. No role caps its output length (max_tokens), so each model can
-# answer at full length; add one to `params` only if you need it. Each role pins
-# OpenRouter to the model maker's own servers (`provider`) rather than
-# reduced-precision hosts; remove that pin if you point a role at a different
-# model. The app's Settings page writes your choices to
+# answer at full length; add one to `params` only if you need it. The GLM and
+# DeepSeek roles pin OpenRouter to the model maker's own servers (`provider`)
+# rather than reduced-precision hosts; remove that pin if you point a role at a
+# different model. The app's Settings page writes your choices to
 # config/settings.local.yaml, which overrides these.
 agent_routing:
   studio_chat:            { backend: cloud, model: deepseekflash, params: { provider: { order: [deepseek], only: [deepseek], allow_fallbacks: false }, tools: [{ type: "openrouter:web_search" }, { type: "openrouter:web_fetch", parameters: { max_content_tokens: 50000 } }] } }
@@ -151,10 +151,11 @@ agent_routing:
   # reasoning effort high, without the provider pin. MiMo V2.6 Pro's provider
   # refused fanfiction in that test, so it can't be trusted to build unattended.
   studio_writer:          { backend: cloud, model: z-ai/glm-5.3-flash, params: { reasoning: { effort: "high" }, provider: { order: [z-ai], only: [z-ai], allow_fallbacks: false } } }
-  # The critic catches continuity slips as much as it judges prose. For a
-  # stronger read at about thirteen times the input price, try cloud/geminiargon.
-  studio_critic:          { backend: cloud, model: deepseekflash, params: { reasoning: { effort: "high" }, provider: { order: [deepseek], only: [deepseek], allow_fallbacks: false } } }
-  studio_reader:          { backend: cloud, model: deepseekflash, params: { reasoning: { effort: "high" }, provider: { order: [deepseek], only: [deepseek], allow_fallbacks: false } } }
+  # The critic and reader read every chapter, so they cost the most. For a
+  # cheaper read try cloud/deepseekflash (with its provider pin, as on
+  # studio_notes); for a stronger one, cloud/geminiargon at twice the price.
+  studio_critic:          { backend: cloud, model: terra, params: { reasoning: { effort: "high" } } }
+  studio_reader:          { backend: cloud, model: terra, params: { reasoning: { effort: "high" } } }
   studio_notes:           { backend: cloud, model: deepseekflash, params: { provider: { order: [deepseek], only: [deepseek], allow_fallbacks: false } } }
 
 # The press (scripts/press.py build).
