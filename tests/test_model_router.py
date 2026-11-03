@@ -514,6 +514,7 @@ def test_the_catalog_offers_the_newest_of_each_recent_family():
     assert offered == {
         "google/gemini-4-argon", "anthropic/claude-sonnet-5.5", "anthropic/claude-opus-5.6",
         "openai/gpt-6.2-terra", "openai/gpt-6.2-mini", "x-ai/grok-5",
+        "deepseek/deepseek-v4.1-flash-1017", "z-ai/glm-5.3", "z-ai/glm-5.3-flash",
     }
     # Superseded in its family, or a family with nothing recent: kept, hidden.
     assert found["x-ai/grok-4.7"]["hidden"] and found["mistralai/mistral-large-2407"]["hidden"]
